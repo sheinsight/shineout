@@ -1,0 +1,40 @@
+{
+    "extends": ["airbnb"],
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "settings": {
+        "import/parser": "babel-eslint",
+        "import/resolver": {
+            "webpack": {
+                "config": "webpack/config.dev.js"
+            }
+        }
+    },
+    "rules": {
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "react/forbid-prop-types": 0,
+        "react/no-danger": 0,
+        "react/jsx-no-bind": 0,
+        "semi": [2, "never"],
+        "import/prefer-default-export": 0,
+        "import/no-extraneous-dependencies": 0,
+        "no-script-url": 0,
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+        "no-underscore-dangle": 0,
+        "no-console": 0,
+        "no-static-element-interactions": 0,
+        "jsx-a11y/no-static-element-interactions": 0,
+        "jsx-a11y/label-has-for": 0,
+        "jsx-a11y/anchor-has-content": 0
+    }
+}
