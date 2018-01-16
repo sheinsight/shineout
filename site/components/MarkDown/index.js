@@ -1,7 +1,10 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkDown from 'react-markdown'
-import CodeBlock from './CodeBlock'
+import classGenerate from '../../utils/classname'
+import CodeBlock from '../CodeBlock'
+
+const cls = classGenerate(require('./markdown.less'), 'markdown')
 
 class MarkDown extends PureComponent {
   constructor(props) {
@@ -15,6 +18,7 @@ class MarkDown extends PureComponent {
 
     return (
       <ReactMarkDown
+        className={cls('section')}
         source={source}
         renderers={{
           code: CodeBlock,
