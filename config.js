@@ -26,8 +26,12 @@ module.exports = {
     externals: { react: 'React', 'react-dom': 'ReactDOM', 'prop-types': 'PropTypes' },
     // less modifyVars
     modifyVars: {
-      prefix: 'shineout',
-      theme: 'default',
+      'doc-prefix': 'doc',
+      'so-prefix': 'shineout',
+      'so-theme': 'default',
+    },
+    cssModule: {
+      // less: '[local]--[hash:base64:5]',
     },
     extractTextPluginPath: '',
     imagePath: './images/[name].[ext]',

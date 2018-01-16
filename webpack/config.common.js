@@ -61,6 +61,7 @@ module.exports = {
 
   resolve: {
     alias: config.webpack.alias,
+    extensions: ['.js', '.json', '.jsx'],
   },
 
   module: {
@@ -98,6 +99,11 @@ module.exports = {
             },
           },
         ],
+      },
+
+      {
+        test: /\.md$/,
+        use: 'raw-loader',
       },
     ],
   },
