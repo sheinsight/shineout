@@ -15,7 +15,7 @@ class App extends PureComponent {
         setTimeout(() => {
           const element = document.getElementById(id)
           if (element) element.scrollIntoView()
-        }, 0)
+        })
       }
     })
   }

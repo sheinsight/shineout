@@ -1,11 +1,17 @@
-.doc-markdown {
+@import '../../styles/variables.less';
+
+@doc-markdown-prefix: doc-markdown;
+
+.@{doc-markdown-prefix} {
   &-section {
-    h2 {
-      margin-top: 1.75em;
+    flex: 1;
+
+    & > h2 {
+      padding-top: 12px;
     }
 
-    h3 {
-      margin-top: 2em;
+    & > h3 {
+      padding-top: 16px;
     }
 
     pre {

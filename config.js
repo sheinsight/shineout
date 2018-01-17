@@ -28,7 +28,7 @@ module.exports = {
     modifyVars: {
       'doc-prefix': 'doc',
       'so-prefix': 'shineout',
-      'so-theme': 'default',
+      'so-theme': 'antd',
     },
     cssModule: {
       // less: '[local]--[hash:base64:5]',

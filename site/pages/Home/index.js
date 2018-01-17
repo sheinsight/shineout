@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import MarkDown from '../../components/MarkDown'
+import navable from '../../components/Navable'
 
 import cntext from './cn.md'
 
-function Home() {
-  return (
-    <MarkDown source={cntext} />
-  )
+class Home extends PureComponent {
+  render() {
+    return (
+      <MarkDown {...this.props} source={cntext} />
+    )
+  }
 }
 
-export default Home
+export default navable(Home)

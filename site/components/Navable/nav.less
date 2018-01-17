@@ -1,0 +1,38 @@
+@import '../../styles/variables.less';
+
+@doc-nav-profix:  doc-nav;
+
+.@{doc-nav-profix} {
+  &-container {
+    display: flex;
+    position: relative;
+  }
+
+  &-sticky {
+    width: 200px;
+    padding-top: 40px;
+  }
+
+  &-nav {
+    width: 160px;
+    border-left: solid 1px #ddd;
+    padding-left: 20px;
+    box-sizing: border-box;
+    margin-left: 40px;
+
+    a {
+      color: #999;
+      display: block;
+      font-size: 12px;
+      margin-bottom: 4px;
+
+      &:hover {
+        color: @link-color;
+      }
+    }
+  }
+
+  &-level-3 {
+    padding-left: 12px;
+  }
+}
