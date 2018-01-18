@@ -25,7 +25,7 @@ export default function (Component) {
       const { headings } = this.state
 
       return (
-        <Sticky className={cls('sticky')} offset={40}>
+        <Sticky className={cls('sticky')} top={40}>
           <div className={cls('nav')}>
             {
               headings.map((h) => {
