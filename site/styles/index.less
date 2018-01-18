@@ -1,12 +1,16 @@
 @import './variables.less';
 
+html {
+  overflow-y: scroll;
+}
+
 a:active, a:focus {
   text-decoration: none;
 }
 
 .doc-main {
   &-header {
-    height: 45px;
+    height: 50px;
     background: @brand-primary;
   }
 
@@ -15,11 +19,15 @@ a:active, a:focus {
   }
 
   &-menu {
-    width: 240px;
+    width: 24%;
+    max-width: 360px;
+    min-width: 240px;
+    margin: 50px 0;
+    border-right: solid 1px #e5e5e5;
   }
 
   &-page {
     flex: 1;
-    padding: 0 50px 50px;
+    padding: 0 60px 50px;
   }
 }

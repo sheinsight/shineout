@@ -1,9 +1,13 @@
 import React, { PureComponent, Fragment } from 'react'
 import { HashRouter as Router, Route, Switch, Link } from 'react-router-dom'
 import classGenerate from './utils/classname'
-import { Home } from './pages'
+import Pages from './pages'
 
 const clsMain = classGenerate(require('./styles/index.less'), 'main')
+
+const componentPages = [
+  ['Sticky', '附着', 'sticky'],
+]
 
 class App extends PureComponent {
   componentDidMount() {
@@ -29,11 +33,22 @@ class App extends PureComponent {
         <Router>
           <div className={clsMain('body')}>
             <div className={clsMain('menu')}>
-              menu
+              <Link to="/">Home</Link>
+              {
+                componentPages.map(p => (
+                  <Link key={p[2]} to={`/components/${p[2]}`}>{p[0]}</Link>
+                ))
+              }
             </div>
             <div className={clsMain('page')}>
               <Switch>
-                <Route exact path="/" component={Home} />
+                <Route exact path="/" component={Pages.Home} />
+                {
+
+                componentPages.map(p => (
+                  <Route key={p[2]} path={`/components/${p[2]}`} component={Pages.Components[p[0]]} />
+                ))
+                }
               </Switch>
             </div>
           </div>

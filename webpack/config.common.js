@@ -1,5 +1,6 @@
 const autoprefixer = require('autoprefixer')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const webpack = require('webpack')
 const config = require('../config')
 
 function getCssOption(name) {
@@ -56,6 +57,19 @@ function getLoaderOption(name) {
   })
 }
 
+function getPlugins() {
+  const plugins = []
+
+  if (config.webpack.chunkOptions) {
+    plugins.push(new webpack.optimize.CommonsChunkPlugin(config.webpack.chunkOptions))
+  }
+  if (config.webpack.extractTextPluginPath.length > 0) {
+    plugins.push(new ExtractTextPlugin(config.webpack.extractTextPluginPath))
+  }
+
+  return plugins
+}
+
 module.exports = {
   externals: config.webpack.externals,
 
@@ -108,7 +122,5 @@ module.exports = {
     ],
   },
 
-  plugins: config.webpack.extractTextPluginPath.length > 0
-    ? [new ExtractTextPlugin(config.webpack.extractTextPluginPath)]
-    : [],
+  plugins: getPlugins(),
 }

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
-import MarkDown from '../../components/MarkDown'
-import navable from '../../components/Navable'
+import MarkDown from 'docs/MarkDown'
+import navable from 'docs/Navable'
 
 import cntext from './cn.md'
 

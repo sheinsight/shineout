@@ -1,10 +1,16 @@
+import React from 'react'
 import Loadable from 'react-loadable'
 
 function create(loader) {
   return Loadable({
-    loader,
-    loading: () => <div />
+    loader: () => loader,
+    loading: () => <div />,
   })
 }
 
-export const Home = create(() => import('./Home'))
+export default {
+  Components: {
+    Sticky: create(import('./components/Sticky')),
+  },
+  Home: create(import('./Home')),
+}

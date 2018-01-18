@@ -18,10 +18,15 @@ module.exports = {
     },
     output: {
       path: path.join(__dirname, '/dist'),
+      chunkFilename: '[name].[chunkhash:5].chunk.js',
       filename: '[name].js',
     },
     // for site/
-    alias: { shineout: path.resolve(__dirname, 'src') },
+    alias: {
+      doc: path.resolve(__dirname, 'site'),
+      docs: path.resolve(__dirname, 'site/components'),
+      shineout: path.resolve(__dirname, 'src'),
+    },
     devtool: 'cheap-module-source-map',
     externals: { react: 'React', 'react-dom': 'ReactDOM', 'prop-types': 'PropTypes' },
     // less modifyVars

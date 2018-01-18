@@ -32,7 +32,7 @@ class MarkDown extends PureComponent {
 
     return (
       <ReactMarkDown
-        className={cls('section')}
+        className={cls('_')}
         source={source}
         renderers={{
           code: CodeBlock,
@@ -44,7 +44,7 @@ class MarkDown extends PureComponent {
             const Tag = `h${level}`
             return <Tag id={id}>{children}</Tag>
           },
-          html: (value) => {
+          html: ({ value }) => {
             if (value === '<example />') return exampleRender(this.appendHeading)
             return null
           },

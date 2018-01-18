@@ -11,8 +11,8 @@ export default (style, namespace, prefix = config.prefix) => (...args) => {
   const className = classnames(...args)
   if (!className) return ''
 
-  const ns = `${prefix}-${namespace ? `${namespace}-` : ''}`
-  let list = className.split(' ').map(c => ns + c)
+  const ns = `${prefix}${namespace ? `-${namespace}` : '-'}`
+  let list = className.split(' ').map(c => (c === '_' ? ns : `${ns}-${c}`))
   if (config.cssModule) {
     list = list.map(c => style[c])
   }

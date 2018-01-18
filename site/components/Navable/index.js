@@ -25,7 +25,7 @@ export default function (Component) {
       const { headings } = this.state
 
       return (
-        <Sticky className={cls('sticky')} top={40}>
+        <Sticky className={cls('sticky')} top={50}>
           <div className={cls('nav')}>
             {
               headings.map((h) => {
@@ -48,7 +48,7 @@ export default function (Component) {
 
     render() {
       return (
-        <div className={cls('container')}>
+        <div className={cls('_')}>
           <Component onHeadingSetted={this.setHeading} />
           { this.renderNav() }
         </div>

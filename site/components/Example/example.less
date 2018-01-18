@@ -1,0 +1,42 @@
+@import '../../styles/variables.less';
+
+@doc-example-prefix: doc-example;
+
+.@{doc-example-prefix} {
+  position: relative;
+  border: solid 1px @doc-border-color;
+  padding: 40px 15px 15px;
+  border-radius: 4px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+
+  &-title {
+    position: absolute;
+    left: 15px;
+    top: 10px;
+    font-size: 12px;
+    color: #aaa;
+  }
+
+  &-showcode {
+    border-radius: 4px 4px 0 0;
+    margin-bottom: 0;
+  }
+
+  &-toggle {
+    position: absolute;
+    padding: 4px 8px;
+    top: 0;
+    right: 0;
+    font-size: 12px;
+    margin-right: -1px;
+    display: block;
+    color: #999;
+  }
+
+  & + pre {
+    margin-top: 0;
+    margin-bottom: 40px;
+    border-top-width: 0;
+  }
+}

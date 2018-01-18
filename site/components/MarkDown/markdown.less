@@ -3,19 +3,55 @@
 @doc-markdown-prefix: doc-markdown;
 
 .@{doc-markdown-prefix} {
-  &-section {
-    flex: 1;
+  padding: 30px 50px 0 0;
+  flex: 1;
 
-    & > h2 {
-      padding-top: 12px;
+  & > h1 {
+    margin-bottom: 30px;
+
+    em {
+      font-weight: normal;
+      font-size: 18px;
+      font-style: normal;
+      padding-left: 12px;
+      color: #888;
+    }
+  }
+
+  & > h2 {
+    padding-top: 12px;
+  }
+
+  & > h3 {
+    padding-top: 16px;
+  }
+
+  pre {
+    padding: 4px 8px;
+    border: solid 1px @doc-border-color;
+    border-radius: 2px;
+    background: #f8f8f8;
+  }
+
+  & > table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    empty-cells: show;
+    border: 1px solid @doc-border-color;
+
+    th {
+      text-align: left;
+      background: #f5f5f5;
     }
 
-    & > h3 {
-      padding-top: 16px;
-    }
-
-    pre {
-      border: solid 1px #ddd;
+    td, th {
+      font-size: inherit;
+      margin: 0;
+      overflow: visible;
+      padding: 12px 20px;
+      border: 1px solid @doc-border-color;
+      border-width: 0 0 1px 1px;
     }
   }
 }
