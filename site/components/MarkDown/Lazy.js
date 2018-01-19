@@ -1,0 +1,41 @@
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
+import MarkDown from './MarkDown'
+
+export default function () {
+  class Lazy extends PureComponent {
+    constructor(props) {
+      super(props)
+      this.state = {
+        source: this.props.source,
+      }
+    }
+
+    componentWillMount() {
+      if (this.props.loader) {
+        this.props.loader().then((source) => {
+          this.setState({ source })
+        })
+      }
+    }
+
+    render() {
+      const { source } = this.state
+      if (!source) return <div>loading</div>
+
+      return <MarkDown {...this.props} source={source} />
+    }
+  }
+
+  Lazy.propTypes = {
+    loader: PropTypes.func,
+    source: PropTypes.string,
+  }
+
+  Lazy.defaultProps = {
+    loader: undefined,
+    source: undefined,
+  }
+
+  return Lazy
+}

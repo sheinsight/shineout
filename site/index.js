@@ -5,7 +5,6 @@ import 'shineout/styles/normalize.less'
 import './verdor'
 import './utils/polyfill'
 import './styles/index.less'
-
 import App from './App'
 
 ReactDOM.render(

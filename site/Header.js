@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
+import locate, { setLanguage } from './locate'
 import classGenerate from './utils/classname'
 
 const clsHeader = classGenerate(require('./styles/header.less'), 'header')
@@ -10,6 +11,11 @@ function getPath(pathname) {
   let path = pathname
   if (index > 0) path = pathname.substr(0, index)
   return path
+}
+
+function handleLangClick() {
+  const lang = locate('en', 'zh-cn')
+  setLanguage(lang)
 }
 
 function Header(props, context) {
@@ -32,10 +38,11 @@ function Header(props, context) {
               to={nav.path}
               className={clsHeader(path === nav.path && 'active')}
             >
-              {nav.en}
+              {locate(nav.cn, nav.en)}
             </NavLink>
           ))
         }
+        <a href="javascript:;" onClick={handleLangClick}>{locate('English', '中文')}</a>
       </div>
     </div>
   )

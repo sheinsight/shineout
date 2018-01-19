@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Route, Redirect, Switch, NavLink } from 'react-router-dom'
+import locate from 'doc/locate'
 import classGenerate from '../utils/classname'
 
 const clsMain = classGenerate(require('../styles/index.less'), 'main')
@@ -23,7 +24,7 @@ export default function (pages) {
                 key={p.name}
                 to={getUrl(base, p)}
               >
-                {p.name} <span>{p.cn}</span>
+                {p.name} <span>{locate(p.cn)}</span>
               </NavLink>
             ))
           }

@@ -4,12 +4,12 @@ import Page from '../Page'
 const pages = [
   {
     name: 'Get Start',
-    component: loadable(import('./GetStart')),
+    component: loadable(() => import('./GetStart')),
   },
   {
     name: 'Sticky',
     cn: '附着',
-    component: loadable(import('./Sticky')),
+    component: loadable(() => import('./Sticky')),
   },
 ]
 
