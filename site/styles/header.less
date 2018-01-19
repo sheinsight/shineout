@@ -1,0 +1,32 @@
+@import './variables.less';
+
+@doc-header-prefix: doc-header;
+
+.@{doc-header-prefix} {
+  @header-height:    50px;
+
+  height: @header-height;
+  background: @gray-800;
+
+  &-logo {
+    width: 120px;
+    padding: 0 20px;
+    color: #fff;
+    display: inline-block;
+  }
+
+  &-nav {
+    display: inline-block;
+    a {
+      display: inline-block;
+      padding: 0 12px;
+      font-weight: bold;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: @header-height;
+    }
+
+    a.@{doc-header-prefix}-active, a:hover {
+      color: rgba(255, 255, 255, 1);
+    }
+  }
+}

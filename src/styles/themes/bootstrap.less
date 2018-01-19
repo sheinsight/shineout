@@ -9,17 +9,29 @@
 //## Gray and brand colors for use across Bootstrap.
 
 @gray-base:              #000;
-@gray-darker:            lighten(@gray-base, 13.5%); // #222
-@gray-dark:              lighten(@gray-base, 20%);   // #333
-@gray:                   lighten(@gray-base, 33.5%); // #555
-@gray-light:             lighten(@gray-base, 46.7%); // #777
-@gray-lighter:           lighten(@gray-base, 93.5%); // #eee
 
-@brand-primary:         darken(#428bca, 6.5%); // #337ab7
-@brand-success:         #5cb85c;
-@brand-info:            #5bc0de;
-@brand-warning:         #f0ad4e;
-@brand-danger:          #d9534f;
+@gray-100:               #f8f9fa;
+@gray-200:               #e9ecef;
+@gray-300:               #dee2e6;
+@gray-400:               #ced4da;
+@gray-500:               #adb5bd;
+@gray-600:               #6c757d;
+@gray-700:               #495057;
+@gray-800:               #343a40;
+@gray-900:               #212529;
+
+@colors-blue:            #007bff;
+@colors-green:           #28a745;
+@colors-cyan:            #17a2b8;
+@colors-yellow:          #ffc107;
+@colors-red:             #dc3545;
+
+@colors-primary:         @colors-blue;
+@colors-secondary:       @gray-600;
+@colors-success:         @colors-green;
+@colors-info:            @colors-cyan;
+@colors-warning:         @colors-yellow;
+@colors-danger:          @colors-red;
 
 
 //== Scaffolding
@@ -29,10 +41,10 @@
 //** Background color for `<body>`.
 @body-bg:               #fff;
 //** Global text color on `<body>`.
-@text-color:            @gray-dark;
+@text-color:            @gray-900;
 
 //** Global textual link color.
-@link-color:            @brand-primary;
+@link-color:            @colors-primary;
 //** Link hover color set via `darken()` function.
 @link-hover-color:      darken(@link-color, 15%);
 //** Link hover decoration.
@@ -110,7 +122,7 @@
 //** Global color for active items (e.g., navs or dropdowns).
 @component-active-color:    #fff;
 //** Global background color for active items (e.g., navs or dropdowns).
-@component-active-bg:       @brand-primary;
+@component-active-bg:       @colors-primary;
 
 //** Width of the `border` for generating carets that indicate dropdowns.
 @caret-width-base:          4px;
@@ -150,26 +162,26 @@
 @btn-default-border:             #ccc;
 
 @btn-primary-color:              #fff;
-@btn-primary-bg:                 @brand-primary;
+@btn-primary-bg:                 @colors-primary;
 @btn-primary-border:             darken(@btn-primary-bg, 5%);
 
 @btn-success-color:              #fff;
-@btn-success-bg:                 @brand-success;
+@btn-success-bg:                 @colors-success;
 @btn-success-border:             darken(@btn-success-bg, 5%);
 
 @btn-info-color:                 #fff;
-@btn-info-bg:                    @brand-info;
+@btn-info-bg:                    @colors-info;
 @btn-info-border:                darken(@btn-info-bg, 5%);
 
 @btn-warning-color:              #fff;
-@btn-warning-bg:                 @brand-warning;
+@btn-warning-bg:                 @colors-warning;
 @btn-warning-border:             darken(@btn-warning-bg, 5%);
 
 @btn-danger-color:               #fff;
-@btn-danger-bg:                  @brand-danger;
+@btn-danger-bg:                  @colors-danger;
 @btn-danger-border:              darken(@btn-danger-bg, 5%);
 
-@btn-link-disabled-color:        @gray-light;
+@btn-link-disabled-color:        @gray-500;
 
 // Allows for customizing button radius independently from global border radius
 @btn-border-radius-base:         @border-radius-base;
@@ -184,10 +196,10 @@
 //** `<input>` background color
 @input-bg:                       #fff;
 //** `<input disabled>` background color
-@input-bg-disabled:              @gray-lighter;
+@input-bg-disabled:              @gray-200;
 
 //** Text color for `<input>`s
-@input-color:                    @gray;
+@input-color:                    @gray-600;
 //** `<input>` border color
 @input-border:                   #ccc;
 
@@ -216,11 +228,11 @@
 //** `.form-group` margin
 @form-group-margin-bottom:       15px;
 
-@legend-color:                   @gray-dark;
+@legend-color:                   @gray-800;
 @legend-border-color:            #e5e5e5;
 
 //** Background color for textual input addons
-@input-group-addon-bg:           @gray-lighter;
+@input-group-addon-bg:           @gray-200;
 //** Border color for textual input addons
 @input-group-addon-border-color: @input-border;
 
@@ -242,9 +254,9 @@
 @dropdown-divider-bg:            #e5e5e5;
 
 //** Dropdown link text color.
-@dropdown-link-color:            @gray-dark;
+@dropdown-link-color:            @gray-800;
 //** Hover color for dropdown links.
-@dropdown-link-hover-color:      darken(@gray-dark, 5%);
+@dropdown-link-hover-color:      darken(@gray-800, 5%);
 //** Hover background for dropdown links.
 @dropdown-link-hover-bg:         #f5f5f5;
 
@@ -254,10 +266,10 @@
 @dropdown-link-active-bg:        @component-active-bg;
 
 //** Disabled dropdown menu item background color.
-@dropdown-link-disabled-color:   @gray-light;
+@dropdown-link-disabled-color:   @gray-500;
 
 //** Text color for headers within dropdown menus.
-@dropdown-header-color:          @gray-light;
+@dropdown-header-color:          @gray-500;
 
 //** Deprecated `@dropdown-caret-color` as of v3.1.0
 @dropdown-caret-color:           #000;
@@ -379,9 +391,9 @@
 @navbar-default-link-disabled-bg:          transparent;
 
 // Navbar brand label
-@navbar-default-brand-color:               @navbar-default-link-color;
-@navbar-default-brand-hover-color:         darken(@navbar-default-brand-color, 10%);
-@navbar-default-brand-hover-bg:            transparent;
+@navbar-default-colors-color:               @navbar-default-link-color;
+@navbar-default-colors-hover-color:         darken(@navbar-default-colors-color, 10%);
+@navbar-default-colors-hover-bg:            transparent;
 
 // Navbar toggle
 @navbar-default-toggle-hover-bg:           #ddd;
@@ -391,12 +403,12 @@
 
 //=== Inverted navbar
 // Reset inverted navbar basics
-@navbar-inverse-color:                      lighten(@gray-light, 15%);
+@navbar-inverse-color:                      lighten(@gray-600, 15%);
 @navbar-inverse-bg:                         #222;
 @navbar-inverse-border:                     darken(@navbar-inverse-bg, 10%);
 
 // Inverted navbar links
-@navbar-inverse-link-color:                 lighten(@gray-light, 15%);
+@navbar-inverse-link-color:                 lighten(@gray-600, 15%);
 @navbar-inverse-link-hover-color:           #fff;
 @navbar-inverse-link-hover-bg:              transparent;
 @navbar-inverse-link-active-color:          @navbar-inverse-link-hover-color;
@@ -405,9 +417,9 @@
 @navbar-inverse-link-disabled-bg:           transparent;
 
 // Inverted navbar brand label
-@navbar-inverse-brand-color:                @navbar-inverse-link-color;
-@navbar-inverse-brand-hover-color:          #fff;
-@navbar-inverse-brand-hover-bg:             transparent;
+@navbar-inverse-colors-color:                @navbar-inverse-link-color;
+@navbar-inverse-colors-hover-color:          #fff;
+@navbar-inverse-colors-hover-bg:             transparent;
 
 // Inverted navbar toggle
 @navbar-inverse-toggle-hover-bg:            #333;
@@ -421,18 +433,18 @@
 
 //=== Shared nav styles
 @nav-link-padding:                          10px 15px;
-@nav-link-hover-bg:                         @gray-lighter;
+@nav-link-hover-bg:                         @gray-200;
 
-@nav-disabled-link-color:                   @gray-light;
-@nav-disabled-link-hover-color:             @gray-light;
+@nav-disabled-link-color:                   @gray-500;
+@nav-disabled-link-hover-color:             @gray-500;
 
 //== Tabs
 @nav-tabs-border-color:                     #ddd;
 
-@nav-tabs-link-hover-border-color:          @gray-lighter;
+@nav-tabs-link-hover-border-color:          @gray-200;
 
 @nav-tabs-active-link-hover-bg:             @body-bg;
-@nav-tabs-active-link-hover-color:          @gray;
+@nav-tabs-active-link-hover-color:          @gray-600;
 @nav-tabs-active-link-hover-border-color:   #ddd;
 
 @nav-tabs-justified-link-border-color:            #ddd;
@@ -453,14 +465,14 @@
 @pagination-border:                    #ddd;
 
 @pagination-hover-color:               @link-hover-color;
-@pagination-hover-bg:                  @gray-lighter;
+@pagination-hover-bg:                  @gray-200;
 @pagination-hover-border:              #ddd;
 
 @pagination-active-color:              #fff;
-@pagination-active-bg:                 @brand-primary;
-@pagination-active-border:             @brand-primary;
+@pagination-active-bg:                 @colors-primary;
+@pagination-active-border:             @colors-primary;
 
-@pagination-disabled-color:            @gray-light;
+@pagination-disabled-color:            @gray-500;
 @pagination-disabled-bg:               #fff;
 @pagination-disabled-border:           #ddd;
 
@@ -487,7 +499,7 @@
 
 @jumbotron-padding:              30px;
 @jumbotron-color:                inherit;
-@jumbotron-bg:                   @gray-lighter;
+@jumbotron-bg:                   @gray-200;
 @jumbotron-heading-color:        inherit;
 @jumbotron-font-size:            ceil((@font-size-base * 1.5));
 @jumbotron-heading-font-size:    ceil((@font-size-base * 4.5));
@@ -566,17 +578,17 @@
 //##
 
 //** Default label background color
-@label-default-bg:            @gray-light;
+@label-default-bg:            @gray-500;
 //** Primary label background color
-@label-primary-bg:            @brand-primary;
+@label-primary-bg:            @colors-primary;
 //** Success label background color
-@label-success-bg:            @brand-success;
+@label-success-bg:            @colors-success;
 //** Info label background color
-@label-info-bg:               @brand-info;
+@label-info-bg:               @colors-info;
 //** Warning label background color
-@label-warning-bg:            @brand-warning;
+@label-warning-bg:            @colors-warning;
 //** Danger label background color
-@label-danger-bg:             @brand-danger;
+@label-danger-bg:             @colors-danger;
 
 //** Default label text color
 @label-color:                 #fff;
@@ -654,15 +666,15 @@
 @progress-border-radius:      @border-radius-base;
 
 //** Default progress bar color
-@progress-bar-bg:             @brand-primary;
+@progress-bar-bg:             @colors-primary;
 //** Success progress bar color
-@progress-bar-success-bg:     @brand-success;
+@progress-bar-success-bg:     @colors-success;
 //** Warning progress bar color
-@progress-bar-warning-bg:     @brand-warning;
+@progress-bar-warning-bg:     @colors-warning;
 //** Danger progress bar color
-@progress-bar-danger-bg:      @brand-danger;
+@progress-bar-danger-bg:      @colors-danger;
 //** Info progress bar color
-@progress-bar-info-bg:        @brand-info;
+@progress-bar-info-bg:        @colors-info;
 
 
 //== List group
@@ -688,9 +700,9 @@
 @list-group-active-text-color:  lighten(@list-group-active-bg, 40%);
 
 //** Text color of disabled list items
-@list-group-disabled-color:      @gray-light;
+@list-group-disabled-color:      @gray-500;
 //** Background color of disabled list items
-@list-group-disabled-bg:         @gray-lighter;
+@list-group-disabled-bg:         @gray-200;
 //** Text color for content within disabled list items
 @list-group-disabled-text-color: @list-group-disabled-color;
 
@@ -713,13 +725,13 @@
 @panel-inner-border:          #ddd;
 @panel-footer-bg:             #f5f5f5;
 
-@panel-default-text:          @gray-dark;
+@panel-default-text:          @gray-800;
 @panel-default-border:        #ddd;
 @panel-default-heading-bg:    #f5f5f5;
 
 @panel-primary-text:          #fff;
-@panel-primary-border:        @brand-primary;
-@panel-primary-heading-bg:    @brand-primary;
+@panel-primary-border:        @colors-primary;
+@panel-primary-heading-bg:    @colors-primary;
 
 @panel-success-text:          @state-success-text;
 @panel-success-border:        @state-success-border;
@@ -772,7 +784,7 @@
 @badge-color:                 #fff;
 //** Linked badge text color on hover
 @badge-link-hover-color:      #fff;
-@badge-bg:                    @gray-light;
+@badge-bg:                    @gray-500;
 
 //** Badge text color in active nav link
 @badge-active-color:          @link-color;
@@ -795,7 +807,7 @@
 //** Breadcrumb text color
 @breadcrumb-color:              #ccc;
 //** Text color of current page in the breadcrumb
-@breadcrumb-active-color:       @gray-light;
+@breadcrumb-active-color:       @gray-500;
 //** Textual separator for between breadcrumb elements
 @breadcrumb-separator:          "/";
 
@@ -837,7 +849,7 @@
 @kbd-bg:                      #333;
 
 @pre-bg:                      #f5f5f5;
-@pre-color:                   @gray-dark;
+@pre-color:                   @gray-800;
 @pre-border-color:            #ccc;
 @pre-scrollable-max-height:   340px;
 
@@ -849,22 +861,22 @@
 //** Horizontal offset for forms and lists.
 @component-offset-horizontal: 180px;
 //** Text muted color
-@text-muted:                  @gray-light;
+@text-muted:                  @gray-500;
 //** Abbreviations and acronyms border color
-@abbr-border-color:           @gray-light;
+@abbr-border-color:           @gray-500;
 //** Headings small color
-@headings-small-color:        @gray-light;
+@headings-small-color:        @gray-500;
 //** Blockquote small color
-@blockquote-small-color:      @gray-light;
+@blockquote-small-color:      @gray-500;
 //** Blockquote font size
 @blockquote-font-size:        (@font-size-base * 1.25);
 //** Blockquote border color
-@blockquote-border-color:     @gray-lighter;
+@blockquote-border-color:     @gray-200;
 //** Page header border color
-@page-header-border-color:    @gray-lighter;
+@page-header-border-color:    @gray-200;
 //** Width of horizontal description list titles
 @dl-horizontal-offset:        @component-offset-horizontal;
 //** Point at which .dl-horizontal becomes horizontal
 @dl-horizontal-breakpoint:    @grid-float-breakpoint;
 //** Horizontal line color.
-@hr-border:                   @gray-lighter;
+@hr-border:                   @gray-200;

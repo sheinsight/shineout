@@ -62,7 +62,7 @@ class Sticky extends PureComponent {
         placeholder = null
       } else if (scrollWidth && placeholderRect && scrollWidth !== scrollRect.width) {
         this.setState({ scrollWidth: scrollRect.width, mode: 'top' })
-        style = getStyle('top', top, selfRect.left + (scrollRect.width - scrollWidth), selfRect.width)
+        style = getStyle('top', top, placeholderRect.left, placeholderRect.width)
         placeholder = placeholderStyle
       }
     }
@@ -78,7 +78,7 @@ class Sticky extends PureComponent {
         placeholder = null
       } else if (scrollWidth && placeholderRect && scrollWidth !== scrollRect.width) {
         this.setState({ scrollWidth: scrollRect.width, mode: 'bottom' })
-        style = getStyle('bottom', bottom, selfRect.left + (scrollRect.width - scrollWidth), selfRect.width)
+        style = getStyle('bottom', bottom, placeholderRect.left, placeholderRect.width)
         placeholder = placeholderStyle
       }
     }
