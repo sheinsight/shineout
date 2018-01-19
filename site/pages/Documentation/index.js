@@ -16,6 +16,10 @@ const pages = [
     name: 'Api',
     component: create(import('./api.md')),
   },
+  {
+    name: 'ChangeLog',
+    component: create(import('./changelog.md')),
+  },
 ]
 
 export default Page(pages)

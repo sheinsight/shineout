@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { getUidStr } from 'shineout/utils/uid'
 import classGenerate from '../../utils/classname'
 import CodeBlock from '../CodeBlock'
-import getHeading from './heading'
 
 const cls = classGenerate(require('./example.less'), 'example')
 
@@ -59,7 +58,5 @@ Example.defaultProps = {
   appendHeading: () => {},
   rawText: '',
 }
-
-Example.getHeading = getHeading
 
 export default Example

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, Fragment, Children, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkDown from 'react-markdown'
 import { getUidStr } from 'shineout/utils/uid'
@@ -24,8 +24,32 @@ class MarkDown extends PureComponent {
     this.headings.push(heading)
   }
 
+  renderChildren() {
+    const { children } = this.props
+    if (!children) return <div />
+
+    const id = getUidStr()
+    this.appendHeading({
+      id,
+      level: 2,
+      children: ['Example'],
+    })
+
+    return (
+      <Fragment>
+        <h2 id={id}>Example</h2>
+        {
+          Children.map(
+            children,
+            child => cloneElement(child, { appendHeading: this.appendHeading }),
+          )
+        }
+      </Fragment>
+    )
+  }
+
   render() {
-    const { source, exampleRender } = this.props
+    const { source } = this.props
 
     // clear headings
     this.headings = []
@@ -45,7 +69,7 @@ class MarkDown extends PureComponent {
             return <Tag id={id}>{children}</Tag>
           },
           html: ({ value }) => {
-            if (value === '<example />') return exampleRender(this.appendHeading)
+            if (value === '<example />') return this.renderChildren()
             return null
           },
         }}
@@ -55,13 +79,16 @@ class MarkDown extends PureComponent {
 }
 
 MarkDown.propTypes = {
-  exampleRender: PropTypes.func,
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.array,
+  ]),
   onHeadingSetted: PropTypes.func,
   source: PropTypes.string.isRequired,
 }
 
 MarkDown.defaultProps = {
-  exampleRender: undefined,
+  children: null,
   onHeadingSetted: undefined,
 }
 
