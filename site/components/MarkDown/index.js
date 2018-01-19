@@ -41,7 +41,12 @@ class MarkDown extends PureComponent {
         {
           Children.map(
             children,
-            child => cloneElement(child, { appendHeading: this.appendHeading }),
+            (child) => {
+              if (typeof child === 'object' && child.type.isExample) {
+                return cloneElement(child, { appendHeading: this.appendHeading })
+              }
+              return child
+            },
           )
         }
       </Fragment>

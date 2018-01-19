@@ -59,4 +59,6 @@ Example.defaultProps = {
   rawText: '',
 }
 
+Example.isExample = true
+
 export default Example
