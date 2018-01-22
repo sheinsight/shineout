@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment, createElement } from 'react'
+import React, { PureComponent, createElement } from 'react'
 import PropTypes from 'prop-types'
 import { getUidStr } from 'shineout/utils/uid'
 import classGenerate from '../../utils/classname'
@@ -35,14 +35,16 @@ class Example extends PureComponent {
     const { showcode } = this.state
 
     return (
-      <Fragment>
-        <div id={this.id} className={cls('_', showcode && 'showcode')}>
-          <span className={cls('title')}>{title}</span>
-          <a href="javascript:;" className={cls('toggle')} onClick={this.toggleCode}>Code</a>
-          { createElement(component) }
+      <div id={this.id} className={cls('_', showcode && 'showcode')}>
+        <div className={cls('title')}>
+          {title}
+          <a href="javascript:;" className={cls('toggle')} onClick={this.toggleCode}>{'< >'}</a>
         </div>
         { showcode && <CodeBlock language="js" value={rawText} /> }
-      </Fragment>
+        <div className={cls('body')}>
+          { createElement(component) }
+        </div>
+      </div>
     )
   }
 }

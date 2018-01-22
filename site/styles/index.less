@@ -23,6 +23,12 @@ a:active, a:focus {
     border-right: solid 1px #e5e5e5;
     padding-left: 50px;
 
+    & > span {
+      display: block;
+      color: @gray-400;
+      margin-bottom: 8px;
+    }
+
     a {
       display: block;
       color: @gray-600;
@@ -38,6 +44,10 @@ a:active, a:focus {
       &, span {
         color: @link-color;
       }
+    }
+
+    .@{doc-main-prefix}-sub {
+      padding-left: 20px;
     }
   }
 

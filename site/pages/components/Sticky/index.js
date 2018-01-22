@@ -1,13 +1,20 @@
 import React, { PureComponent } from 'react'
 import MarkDown from 'docs/MarkDown'
 import navable from 'docs/Navable'
-import Example from 'docs/Example'
 import locate from 'doc/locate'
 
-import ExampleTopRaw from '!raw-loader!./example-top'
-import ExampleBottomRaw from '!raw-loader!./example-bottom'
-import ExampleTop from './example-top'
-import ExampleBottom from './example-bottom'
+const exams = [
+  {
+    title: locate('附着在顶部 200px', 'Sticky 200px to top'),
+    component: require('./example-top').default,
+    rawText: require('!raw-loader!./example-top'),
+  },
+  {
+    title: locate('附着在底部', 'Sticky to bottom'),
+    component: require('./example-bottom').default,
+    rawText: require('!raw-loader!./example-bottom'),
+  },
+]
 
 const loader = locate(
   () => import('./cn.md'),
@@ -17,19 +24,7 @@ const loader = locate(
 class Sticky extends PureComponent {
   render() {
     return (
-      <MarkDown {...this.props} loader={loader}>
-        <Example
-          title={locate('附着在顶部', 'Sticky at top')}
-          component={ExampleTop}
-          rawText={ExampleTopRaw}
-        />
-
-        <Example
-          title={locate('附着在底部', 'Sticky at bottom')}
-          component={ExampleBottom}
-          rawText={ExampleBottomRaw}
-        />
-      </MarkDown>
+      <MarkDown {...this.props} loader={loader} examples={exams} />
     )
   }
 }

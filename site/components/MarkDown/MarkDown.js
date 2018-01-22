@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import ReactMarkDown from 'react-markdown'
 import { getUidStr } from 'shineout/utils/uid'
 import classGenerate from '../../utils/classname'
+import locate from '../../locate'
 import CodeBlock from '../CodeBlock'
+import Example from '../Example'
 
 const cls = classGenerate(require('./markdown.less'), 'markdown')
 
@@ -26,30 +28,24 @@ class MarkDown extends PureComponent {
     this.headings.push(heading)
   }
 
-  renderChildren() {
-    const { children } = this.props
-    if (!children) return <div />
+  renderExamples() {
+    const { examples } = this.props
+    if (!examples) return <div />
+
+    const text = locate('示例', 'Example')
 
     const id = getUidStr()
     this.appendHeading({
       id,
       level: 2,
-      children: ['Example'],
+      children: [text],
     })
 
     return (
       <Fragment>
-        <h2 id={id}>Example</h2>
+        <h2 id={id}>{text}</h2>
         {
-          Children.map(
-            children,
-            (child) => {
-              if (typeof child === 'object' && child.type.isExample) {
-                return cloneElement(child, { appendHeading: this.appendHeading })
-              }
-              return child
-            },
-          )
+          examples.map((props, i) => <Example key={i} appendHeading={this.appendHeading} {...props} />)
         }
       </Fragment>
     )
@@ -76,7 +72,7 @@ class MarkDown extends PureComponent {
             return <Tag id={id}>{children}</Tag>
           },
           html: ({ value }) => {
-            if (value === '<example />') return this.renderChildren()
+            if (value === '<example />') return this.renderExamples()
             return null
           },
         }}
@@ -90,12 +86,14 @@ MarkDown.propTypes = {
     PropTypes.element,
     PropTypes.array,
   ]),
+  examples: PropTypes.array,
   onHeadingSetted: PropTypes.func,
   source: PropTypes.string.isRequired,
 }
 
 MarkDown.defaultProps = {
   children: null,
+  examples: null,
   onHeadingSetted: undefined,
 }
 

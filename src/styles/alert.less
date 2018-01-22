@@ -1,0 +1,112 @@
+@import './variables.less';
+@import './themes/@{so-theme}.less';
+
+@alert-prefix:        ~"@{so-prefix}-alert";
+
+//
+// Alerts
+// --------------------------------------------------
+
+
+// Base styles
+// -------------------------
+
+.@{alert-prefix} {
+  position: relative;
+  padding: @alert-padding-y @alert-padding-x;
+  margin-bottom: @line-height-computed;
+  border: 1px solid transparent;
+  border-radius: @alert-border-radius;
+  transition: opacity 0.216s ease-out;
+
+  // Headings for larger alerts
+  h2, h3, h4 {
+    margin-top: 0;
+    // Specified for the h4 to prevent conflicts of changing @headings-color
+    color: inherit;
+  }
+
+  // Provide class for links that match alerts
+  &-link {
+    font-weight: @alert-link-font-weight;
+  }
+
+  &-close {
+    position: absolute;
+    display: block;
+    line-height: 1;
+    top: @alert-padding-y;
+    right: 12px;
+
+    svg {
+      width: 10px;
+      height: 10px;
+      path {
+        fill: rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    &:hover svg path {
+      fill: rgba(0, 0, 0, 0.8);
+    }
+  }
+
+  &-dismissed {
+    opacity: 0;
+  }
+
+  &-with-icon {
+    padding-left: @alert-padding-x + 20;
+  }
+
+  &-icon {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    margin-top: 1px;
+    left: @alert-padding-x;
+    top: @alert-padding-y;
+  }
+
+  // Improve alignment and spacing of inner content
+  > p,
+  > ul {
+    margin-bottom: 0;
+  }
+
+  > p + p {
+    margin-top: 5px;
+  }
+
+  &-info {
+    .alert-variant(@alert-info-bg; @alert-info-border; @alert-info-text);
+
+    .@{alert-prefix}-icon path {
+      fill: @colors-info;
+    }
+  }
+
+  &-warning {
+    .alert-variant(@alert-warning-bg; @alert-warning-border; @alert-warning-text);
+
+    .@{alert-prefix}-icon path {
+      fill: @colors-warning;
+    }
+  }
+
+  &-success {
+    .alert-variant(@alert-success-bg; @alert-success-border; @alert-success-text);
+
+    .@{alert-prefix}-icon path {
+      fill: @colors-success;
+    }
+  }
+  
+  &-danger, &-error {
+    .alert-variant(@alert-danger-bg; @alert-danger-border; @alert-danger-text);
+
+    .@{alert-prefix}-icon path {
+      fill: @colors-danger;
+    }
+  }
+}

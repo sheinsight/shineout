@@ -3,7 +3,7 @@
 @doc-markdown-prefix: doc-markdown;
 
 .@{doc-markdown-prefix} {
-  padding: 30px 50px 0 0;
+  padding: 30px 60px 0 0;
   flex: 1;
 
   & > h1 {
@@ -28,9 +28,13 @@
 
   pre {
     padding: 4px 8px;
+    background: #f8f8f8;
+  }
+
+  & > pre {
+    padding: 4px 8px;
     border: solid 1px @doc-border-color;
     border-radius: 2px;
-    background: #f8f8f8;
   }
 
   & > table {

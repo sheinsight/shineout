@@ -32,6 +32,7 @@
 @colors-info:            @colors-cyan;
 @colors-warning:         @colors-yellow;
 @colors-danger:          @colors-red;
+@colors-error:           @colors-red;
 
 
 //== Scaffolding
@@ -526,6 +527,7 @@
 @state-danger-border:            darken(spin(@state-danger-bg, -10), 5%);
 
 
+
 //== Tooltips
 //
 //##
@@ -633,7 +635,8 @@
 //
 //## Define alert colors, border radius, and padding.
 
-@alert-padding:               15px;
+@alert-padding-y:             15px;
+@alert-padding-x:             15px;
 @alert-border-radius:         @border-radius-base;
 @alert-link-font-weight:      bold;
 

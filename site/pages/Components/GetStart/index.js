@@ -1,13 +1,17 @@
 import React, { PureComponent } from 'react'
 import MarkDown from 'docs/MarkDown'
 import navable from 'docs/Navable'
+import locate from 'doc/locate'
 
-import cntext from './cn.md'
+const loader = locate(
+  () => import('./cn.md'),
+  () => import('./en.md'),
+)
 
 class GetStart extends PureComponent {
   render() {
     return (
-      <MarkDown {...this.props} source={cntext} />
+      <MarkDown {...this.props} loader={loader} />
     )
   }
 }

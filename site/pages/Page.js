@@ -18,14 +18,19 @@ export default function (pages) {
       <Fragment>
         <div className={clsMain('menu')}>
           {
-            pages.map(p => (
-              <NavLink
-                activeClassName={clsMain('active')}
-                key={p.name}
-                to={getUrl(base, p)}
-              >
-                {p.name} <span>{locate(p.cn)}</span>
-              </NavLink>
+            pages.map((p, i) => (
+              typeof p === 'string'
+                ? <span key={i}>{p}</span>
+                : (
+                  <NavLink
+                    className={clsMain(p.level === 2 && 'sub')}
+                    activeClassName={clsMain('active')}
+                    key={p.name}
+                    to={getUrl(base, p)}
+                  >
+                    {p.name} <span>{locate(p.cn)}</span>
+                  </NavLink>
+                )
             ))
           }
         </div>
@@ -34,7 +39,7 @@ export default function (pages) {
           <Switch>
             <Redirect from={base} exact to={getUrl(base, pages[0])} />
             {
-              pages.map(p => (
+              pages.filter(p => typeof p === 'object').map(p => (
                 <Route key={p.name} path={getUrl(base, p)} component={p.component} />
               ))
             }
