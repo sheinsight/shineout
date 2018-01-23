@@ -10,6 +10,11 @@ const exams = [
     rawText: require('!raw-loader!./example-top'),
   },
   {
+    title: locate('附着在元素内', 'Sticky to element'),
+    component: require('./example-element').default,
+    rawText: require('!raw-loader!./example-element'),
+  },
+  {
     title: locate('附着在底部', 'Sticky to bottom'),
     component: require('./example-bottom').default,
     rawText: require('!raw-loader!./example-bottom'),

@@ -1,12 +1,13 @@
 import React from 'react'
 import Sticky from 'shineout/Sticky'
+import Alert from 'shineout/Alert'
 
 export default function () {
   return (
     <Sticky bottom={0}>
-      <div style={{ background: '#f2f2f2', border: 'solid 1px #ccc', padding: 20 }}>
+      <Alert style={{ marginBottom: 0 }} onClose>
         Sticky at bottom.
-      </div>
+      </Alert>
     </Sticky>
   )
 }

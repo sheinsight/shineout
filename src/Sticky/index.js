@@ -1,17 +1,9 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { getParent } from '../utils/dom'
+import { styleProps, defaultStyleProps } from '../utils/proptypes'
 
 const events = ['scroll', 'resize', 'pageshow', 'load']
-
-function getStyle(mode, offset, left, width) {
-  return {
-    position: 'fixed',
-    left,
-    width,
-    [mode]: offset,
-  }
-}
 
 class Sticky extends PureComponent {
   constructor(props) {
@@ -26,8 +18,8 @@ class Sticky extends PureComponent {
   }
 
   componentDidMount() {
-    const { scrollElement } = this.props
-    this.scrollElement = getParent(this.element, scrollElement)
+    const { target } = this.props
+    this.targetElement = getParent(this.element, target)
     this.setPosition()
     this.bindScroll()
   }
@@ -40,7 +32,7 @@ class Sticky extends PureComponent {
     const { bottom, top } = this.props
     const { mode, scrollWidth } = this.state
     const selfRect = this.element.getBoundingClientRect()
-    const scrollElement = this.scrollElement || document.body
+    const scrollElement = this.targetElement || document.body
     const scrollRect = scrollElement.getBoundingClientRect()
 
     const placeholderRect = this.placeholder ? this.placeholder.getBoundingClientRect() : null
@@ -50,35 +42,48 @@ class Sticky extends PureComponent {
 
     let style
     let placeholder
+    let limitTop = top
+    let limitBottom = viewHeight - bottom
+
+    if (this.targetElement) {
+      limitTop += scrollRect.top
+      limitBottom = scrollRect.bottom - bottom
+    }
 
     if (top !== undefined && mode !== 'bottom') {
-      if (selfRect.top - top < 0) {
+      if (selfRect.top < limitTop) {
         this.setState({ scrollWidth: scrollRect.width, mode: 'top' })
-        style = getStyle('top', top, selfRect.left, selfRect.width)
+        style = this.getStyle('top', top, selfRect.left, selfRect.width)
         placeholder = placeholderStyle
       } else if (placeholderRect && selfRect.top < placeholderRect.top) {
         this.setState({ mode: '' })
         style = {}
         placeholder = null
+      } else if (this.targetElement && placeholderRect) {
+        style = this.getStyle('top', top, selfRect.left, selfRect.width)
+        placeholder = placeholderStyle
       } else if (scrollWidth && placeholderRect && scrollWidth !== scrollRect.width) {
         this.setState({ scrollWidth: scrollRect.width, mode: 'top' })
-        style = getStyle('top', top, placeholderRect.left, placeholderRect.width)
+        style = this.getStyle('top', top, placeholderRect.left, placeholderRect.width)
         placeholder = placeholderStyle
       }
     }
 
     if (bottom !== undefined && mode !== 'top') {
-      if (selfRect.bottom + bottom > viewHeight) {
+      if (selfRect.bottom > limitBottom) {
         this.setState({ scrollWidth: scrollRect.width, mode: 'bottom' })
-        style = getStyle('bottom', bottom, selfRect.left, selfRect.width)
+        style = this.getStyle('bottom', bottom, selfRect.left, selfRect.width)
         placeholder = placeholderStyle
-      } else if (placeholderRect && selfRect.bottom > placeholderRect.bottom) {
+      } else if (placeholderRect && (this.targetElement ? scrollRect.bottom : selfRect.bottom) > placeholderRect.bottom) {
         this.setState({ mode: '' })
         style = {}
         placeholder = null
+      } else if (this.targetElement && placeholderRect) {
+        style = this.getStyle('bottom', bottom, selfRect.left, selfRect.width)
+        placeholder = placeholderStyle
       } else if (scrollWidth && placeholderRect && scrollWidth !== scrollRect.width) {
         this.setState({ scrollWidth: scrollRect.width, mode: 'bottom' })
-        style = getStyle('bottom', bottom, placeholderRect.left, placeholderRect.width)
+        style = this.getStyle('bottom', bottom, placeholderRect.left, placeholderRect.width)
         placeholder = placeholderStyle
       }
     }
@@ -91,6 +96,29 @@ class Sticky extends PureComponent {
     }
   }
 
+  getStyle(mode, offset, left, width) {
+    const { zIndex = 900 } = this.props.style
+    const style = {
+      position: 'fixed',
+      left,
+      width,
+      [mode]: offset,
+      zIndex,
+    }
+
+    if (this.targetElement) {
+      style.position = 'absolute'
+      if (mode === 'top') {
+        style.top += this.targetElement.scrollTop + 0.5
+      } else {
+        style.bottom -= this.targetElement.scrollTop
+      }
+      delete style.left
+    }
+
+    return style
+  }
+
   bindElement(el) {
     this.element = el
   }
@@ -100,20 +128,22 @@ class Sticky extends PureComponent {
   }
 
   bindScroll() {
-    events.forEach((e) => {
-      window.addEventListener(e, this.setPosition)
-    })
-    if (this.scrollElement) {
-      this.scrollElement.addEventListener('scroll', this.setPosition)
+    if (this.targetElement) {
+      this.targetElement.addEventListener('scroll', this.setPosition)
+    } else {
+      events.forEach((e) => {
+        window.addEventListener(e, this.setPosition)
+      })
     }
   }
 
   unbindScroll() {
-    events.forEach((e) => {
-      window.removeEventListener(e, this.setPosition)
-    })
-    if (this.scrollElement) {
-      this.scrollElement.removeEventListener('scroll', this.setPosition)
+    if (this.targetElement) {
+      this.targetElement.removeEventListener('scroll', this.setPosition)
+    } else {
+      events.forEach((e) => {
+        window.removeEventListener(e, this.setPosition)
+      })
     }
   }
 
@@ -135,21 +165,16 @@ class Sticky extends PureComponent {
 Sticky.propTypes = {
   bottom: PropTypes.number,
   children: PropTypes.any.isRequired,
-  className: PropTypes.string,
-  scrollElement: PropTypes.oneOfType([
+  target: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
   ]),
-  style: PropTypes.object,
   top: PropTypes.number,
+  ...styleProps,
 }
 
 Sticky.defaultProps = {
-  bottom: undefined,
-  className: '',
-  scrollElement: undefined,
-  style: {},
-  top: undefined,
+  ...defaultStyleProps,
 }
 
 export default Sticky

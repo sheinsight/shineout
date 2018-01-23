@@ -5,8 +5,8 @@ import Alert from 'shineout/Alert'
 export default function () {
   return (
     <Sticky top={200}>
-      <Alert>
-        <h4>Some content.</h4>
+      <Alert onClose>
+        <h3>Some content.</h3>
         Sticky 200px to top.
       </Alert>
     </Sticky>

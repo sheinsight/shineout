@@ -20,7 +20,7 @@ const exams = [
     rawText: require('!raw-loader!./example-close'),
   },
   {
-    title: locate('状态图标', 'with icon'),
+    title: locate('图标', 'with icon'),
     component: require('./example-icon').default,
     rawText: require('!raw-loader!./example-icon'),
   },

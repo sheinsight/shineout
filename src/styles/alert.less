@@ -17,11 +17,12 @@
   margin-bottom: @line-height-computed;
   border: 1px solid transparent;
   border-radius: @alert-border-radius;
-  transition: opacity 0.216s ease-out;
+  transform-origin: 0 0;
+  transition: transform 0.216s, opacity 0.216s ease-out;
 
   // Headings for larger alerts
   h2, h3, h4 {
-    margin-top: 0;
+    margin-top: 0.3em;
     // Specified for the h4 to prevent conflicts of changing @headings-color
     color: inherit;
   }
@@ -53,6 +54,7 @@
 
   &-dismissed {
     opacity: 0;
+    transform: scaleY(0);
   }
 
   &-with-icon {

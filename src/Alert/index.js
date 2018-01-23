@@ -46,14 +46,15 @@ class Alert extends PureComponent {
 
   renderIcon() {
     let { icon } = this.props
-    const { type } = this.props
+    const { type, iconSize } = this.props
     if (typeof icon === 'boolean') {
       icon = icons[type]
     }
 
     if (!icon) return null
+    const style = iconSize > 0 ? { width: iconSize, height: iconSize } : undefined
 
-    return <div className={clsAlert('icon')}>{icon}</div>
+    return <div className={clsAlert('icon')} style={style}>{icon}</div>
   }
 
   render() {
@@ -61,11 +62,11 @@ class Alert extends PureComponent {
     if (dismiss === 2) return null
 
     const {
-      children, className, type, style, onClose,
+      children, className, type, iconSize, onClose,
     } = this.props
-
     const icon = this.renderIcon()
 
+    let { style } = this.props
     let wrapClassName = clsAlert(
       '_',
       type,
@@ -73,6 +74,9 @@ class Alert extends PureComponent {
       icon && 'with-icon',
     )
     if (className) wrapClassName += ` ${className}`
+    if (icon && iconSize > 0) {
+      style = Object.assign({}, style, { paddingLeft: iconSize + 25 })
+    }
 
     return (
       <div ref={this.bindRef} className={wrapClassName} style={style}>
@@ -100,6 +104,7 @@ Alert.propTypes = {
     PropTypes.bool,
     PropTypes.element,
   ]),
+  iconSize: PropTypes.number,
   onClose: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.bool,
@@ -111,6 +116,7 @@ Alert.propTypes = {
 Alert.defaultProps = {
   children: undefined,
   duration: 216,
+  iconSize: 0,
   type: 'warning',
   ...defaultStyleProps,
 }

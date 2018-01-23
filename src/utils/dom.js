@@ -20,7 +20,7 @@ export function getParent(el, target) {
       return temp
     }
 
-    temp = el.parentElement
+    temp = temp.parentElement
   }
 
   return null
