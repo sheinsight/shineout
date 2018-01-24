@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment, Children, cloneElement } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkDown from 'react-markdown'
 import { getUidStr } from 'shineout/utils/uid'
@@ -45,7 +45,8 @@ class MarkDown extends PureComponent {
       <Fragment>
         <h2 id={id}>{text}</h2>
         {
-          examples.map((props, i) => <Example key={i} appendHeading={this.appendHeading} {...props} />)
+          examples.map((props, i) => (
+            <Example key={i} appendHeading={this.appendHeading} {...props} />))
         }
       </Fragment>
     )

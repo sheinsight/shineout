@@ -40,14 +40,20 @@ router.get('/', async (ctx) => {
 })
 
 // use devlopment version React
-router.get('**/react.min.js', async (ctx) => {
+router.get('**/react.production.min.js', async (ctx) => {
   await send(ctx, 'node_modules/react/umd/react.development.js')
 })
-router.get('**/react-dom.min.js', async (ctx) => {
+router.get('**/react-dom.production.min.js', async (ctx) => {
   await send(ctx, 'node_modules/react-dom/umd/react-dom.development.js')
 })
 router.get('**/prop-types.min.js', async (ctx) => {
   await send(ctx, 'node_modules/prop-types/prop-types.js')
+})
+router.get('**/highlight.min.js', async (ctx) => {
+  await send(ctx, 'libs/highlight.min.js')
+})
+router.get('**/github.min.css', async (ctx) => {
+  await send(ctx, 'libs/github.min.css')
 })
 
 // dev code proxy

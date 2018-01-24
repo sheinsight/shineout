@@ -14,7 +14,9 @@ import { Table } from 'shineout'
 
 ### theme 主题
 
-目前内置支持了两套主题，bootstrap（v3版本, 默认），和兼容 ant-design 的主题 'antd'。可以通过修改 webpack 的 less-loader 配置来切换主题
+目前内置支持了两套主题，bootstrap（v3版本, 默认），和兼容 ant-design 的主题 'antd'（方便两个组件库混用的场景，只是配色接近，交互和接口参数不同）。
+
+可以通过修改 webpack 的 less-loader 配置来切换主题。
 ```
 {
   loader: 'less-loader',

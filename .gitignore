@@ -12,4 +12,4 @@ publish
 /components
 log
 /data
-yarn.lock
+gh-pages

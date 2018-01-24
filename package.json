@@ -6,9 +6,11 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint src/ site/",
+    "lint": "eslint src/",
     "start": "cross-env NODE_ENV=development node dev-server.js",
-    "build": "cross-env NODE_ENV=production webpack --config webpack/config.prod.js"
+    "docs-build-html": "node scripts/build-html.js",
+    "docs-build-js": "cross-env NODE_ENV=production webpack --config webpack/config.doc.js",
+    "docs-build": "npm-run-all docs-build-*"
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -42,6 +44,7 @@
     "koa-send": "^4.1.2",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
+    "npm-run-all": "^4.1.2",
     "postcss-loader": "^2.0.10",
     "raw-loader": "^0.5.1",
     "react-hot-loader": "^3.1.3",

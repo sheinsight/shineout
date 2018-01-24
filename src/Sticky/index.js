@@ -74,7 +74,8 @@ class Sticky extends PureComponent {
         this.setState({ scrollWidth: scrollRect.width, mode: 'bottom' })
         style = this.getStyle('bottom', bottom, selfRect.left, selfRect.width)
         placeholder = placeholderStyle
-      } else if (placeholderRect && (this.targetElement ? scrollRect.bottom : selfRect.bottom) > placeholderRect.bottom) {
+      } else if (placeholderRect &&
+        (this.targetElement ? scrollRect.bottom : selfRect.bottom) > placeholderRect.bottom) {
         this.setState({ mode: '' })
         style = {}
         placeholder = null

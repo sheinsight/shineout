@@ -7,12 +7,13 @@ module.exports = {
     webpackPort: 3001,
     scriptPath: '/*.*',
     scripts: [
-      '/react.min.js',
-      '/react-dom.min.js',
-      '/prop-types.min.js',
+      '/react/16.2.0/umd/react.production.min.js',
+      '/react-dom/16.2.0/umd/react-dom.production.min.js',
+      '/prop-types/15.6.0/prop-types.min.js',
+      '/highlight.js/9.12.0/highlight.min.js',
     ],
     styles: [
-      '/app.css',
+      '/highlight.js/9.12.0/styles/github.min.css',
     ],
   },
   themes: ['default', 'antd'],

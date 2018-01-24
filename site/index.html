@@ -5,14 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>{{appName}}</title>
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>
-    var link = document.createElement('link');
-        link.setAttribute("rel","stylesheet");
-        link.setAttribute("type","text/css");
-        link.setAttribute("href","default.css");
-  </script>
+  {% for link in styles %}
+  <link rel="stylesheet" href="{{link}}" />
+  {% endfor %}
 </head>
 <body>
   <noscript>
