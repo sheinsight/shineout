@@ -7,6 +7,8 @@ import './utils/polyfill'
 import './styles/index.less'
 import App from './App'
 
+import './utils/theme'
+
 ReactDOM.render(
   <App />,
   document.getElementById('root'),

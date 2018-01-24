@@ -11,14 +11,19 @@ module.exports = {
       '/react-dom.min.js',
       '/prop-types.min.js',
     ],
+    styles: [
+      '/app.css',
+    ],
   },
+  themes: ['default', 'antd'],
   webpack: {
     entry: {
       app: './site/index.js',
     },
     output: {
       path: path.join(__dirname, '/dist'),
-      chunkFilename: '[name].[chunkhash:5].chunk.js',
+      // chunkFilename: '[name].[chunkhash:5].chunk.js',
+      chunkFilename: '[name].chunk.js',
       filename: '[name].js',
     },
     // for site/
@@ -33,12 +38,11 @@ module.exports = {
     modifyVars: {
       'doc-prefix': 'doc',
       'so-prefix': 'shineout',
-      'so-theme': 'antd',
     },
     cssModule: {
       // less: '[local]--[hash:base64:5]',
     },
-    extractTextPluginPath: '',
+    extractTextPluginPath: '[name].css',
     imagePath: './images/[name].[ext]',
   },
 }

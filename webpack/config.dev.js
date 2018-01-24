@@ -21,15 +21,26 @@ function getPublishPath() {
   return `http://localhost:${config.dev.publishPort}/`
 }
 
-module.exports = merge(common, {
-  devtool: config.webpack.devtool,
-  entry: getEntry(config.webpack.entry),
-  output: {
-    filename: '[name].js',
-    publicPath: getPublishPath(),
-  },
+function getCompiler(name, conf) {
+  const wf = Object.assign({}, conf, {
+    extractTextPluginPath: `${name}.css`,
+    modifyVars: Object.assign({}, conf.modifyVars, {
+      'so-theme': name,
+    }),
+  })
+  return merge(common(wf), {
+    name,
+    devtool: wf.devtool,
+    entry: getEntry(wf.entry),
+    output: {
+      filename: '[name].js',
+      publicPath: getPublishPath(),
+    },
 
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-  ],
-})
+    plugins: [
+      new webpack.HotModuleReplacementPlugin(),
+    ],
+  })
+}
+
+module.exports = config.themes.map(name => getCompiler(name, config.webpack))

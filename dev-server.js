@@ -35,11 +35,8 @@ router.get('/', async (ctx) => {
     ...(config.dev.scripts || []),
     ...Object.keys(config.webpack.entry).map(s => prepath.replace('*.*', `${s}.js`)),
   ]
-  let css
-  if (config.webpack.extractTextPluginPath) {
-    css = prepath.replace('*.*', config.webpack.extractTextPluginPath)
-  }
-  ctx.body = template({ scripts, appName: config.appName, css })
+  const styles = config.dev.styles || []
+  ctx.body = template({ scripts, appName: config.appName, styles })
 })
 
 // use devlopment version React
