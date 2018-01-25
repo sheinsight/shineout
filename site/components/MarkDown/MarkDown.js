@@ -7,7 +7,7 @@ import locate from '../../locate'
 import CodeBlock from '../CodeBlock'
 import Example from '../Example'
 
-const cls = classGenerate(require('./markdown.less'), 'markdown')
+const markdownClass = classGenerate(require('./markdown.less'), 'markdown')
 
 class MarkDown extends PureComponent {
   constructor(props) {
@@ -60,7 +60,7 @@ class MarkDown extends PureComponent {
 
     return (
       <ReactMarkDown
-        className={cls('_')}
+        className={markdownClass('_')}
         source={source}
         renderers={{
           code: CodeBlock,

@@ -27,6 +27,7 @@
         "react/no-danger": 0,
         "react/jsx-no-bind": 0,
         "semi": [2, "never"],
+        "global-require": 0,
         "import/no-duplicates": 0,
         "import/no-extraneous-dependencies": 0,
         "import/no-webpack-loader-syntax": 0,

@@ -3,23 +3,20 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const webpack = require('webpack')
 
 module.exports = function getCommon(config) {
-  function getCssOption(name) {
-    const cssModule = config.cssModule || {}
-    const options = { importLoaders: 1 }
-    if (!cssModule[name]) return options
+  function getCssOption() {
+    const { LOCAL_IDENT_NAME, NODE_ENV } = process.env
+    const options = { minimize: NODE_ENV === 'production' }
 
-    return Object.assign(options, { modules: true, localIdentName: cssModule[name] })
-  }
+    if (!LOCAL_IDENT_NAME) return options
 
-  function getPreLoader(name) {
-    return config.preloader ? config.preloader[name] || [] : []
+    return Object.assign(options, { modules: true, localIdentName: LOCAL_IDENT_NAME })
   }
 
   function getLoaderOption(name) {
     let options = [
       {
         loader: 'css-loader',
-        options: getCssOption(name),
+        options: getCssOption(),
       },
 
       {
@@ -34,52 +31,24 @@ module.exports = function getCommon(config) {
       },
     ]
 
-    if (name === 'sass') {
-      options = options.concat([
-        {
-          loader: 'sass-loader',
-        },
-        ...getPreLoader(name),
-      ])
-    }
-
     if (name === 'less') {
       options = options.concat([
         {
           loader: 'less-loader',
           options: {
-            modifyVars: config.modifyVars,
+            modifyVars: {
+              'so-prefix': process.env.SO_PREFIX || 'shineout',
+              ...config.modifyVars,
+            },
           },
         },
-        ...getPreLoader(name),
       ])
-    }
-
-    if (config.extractTextPluginPath.length === 0) {
-      options.unshift({ loader: 'style-loader' })
-      return options
     }
 
     return ExtractTextPlugin.extract({
       fallback: 'style-loader',
       use: options,
     })
-  }
-
-  function getPlugins() {
-    const plugins = []
-
-    if (config.chunkOptions) {
-      plugins.push(new webpack.optimize.CommonsChunkPlugin(config.chunkOptions))
-    }
-    if (config.extractTextPluginPath.length > 0) {
-      plugins.push(new ExtractTextPlugin({
-        filename: config.extractTextPluginPath,
-        allChunks: true,
-      }))
-    }
-
-    return plugins
   }
 
   return {
@@ -100,11 +69,6 @@ module.exports = function getCommon(config) {
         },
 
         {
-          test: /\.scss$/,
-          use: getLoaderOption('sass'),
-        },
-
-        {
           test: /\.less$/,
           use: getLoaderOption('less'),
         },
@@ -121,7 +85,7 @@ module.exports = function getCommon(config) {
               loader: 'url-loader',
               options: {
                 limit: 10000,
-                name: config.imagePath,
+                name: './images/[name].[ext]',
               },
             },
           ],
@@ -134,6 +98,17 @@ module.exports = function getCommon(config) {
       ],
     },
 
-    plugins: getPlugins(),
+    plugins: [
+      new ExtractTextPlugin({
+        filename: `${config.extractTextPluginPath}`,
+        allChunks: true,
+      }),
+      new webpack.DefinePlugin({
+        'process.env': {
+          SO_PREFIX: JSON.stringify(process.env.SO_PREFIX || ''),
+          CSS_MODULE: !!process.env.LOCAL_IDENT_NAME,
+        },
+      }),
+    ],
   }
 }

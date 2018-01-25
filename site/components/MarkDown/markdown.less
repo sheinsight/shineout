@@ -1,17 +1,21 @@
 @import '../../styles/variables.less';
 
-@doc-markdown-prefix: doc-markdown;
-
-.@{doc-markdown-prefix} {
+.doc-markdown {
   padding: 30px 60px 0 0;
   flex: 1;
+
+  & > h1, & > h2, & > h3 {
+    font-family: Raleway,Helvetica Neue,Helvetica,Arial,sans-serif;
+    em {
+      font-size: 0.75em;
+    }
+  }
 
   & > h1 {
     margin-bottom: 30px;
 
     em {
       font-weight: normal;
-      font-size: 18px;
       font-style: normal;
       padding-left: 12px;
       color: #888;
@@ -24,6 +28,11 @@
 
   & > h3 {
     padding-top: 16px;
+    margin-bottom: 20px;
+
+    em {
+      font-size: 16px;
+    }
   }
 
   pre {

@@ -22,8 +22,6 @@ module.exports = {
       app: './site/index.js',
     },
     output: {
-      path: path.join(__dirname, '/dist'),
-      // chunkFilename: '[name].[chunkhash:5].chunk.js',
       chunkFilename: '[name].chunk.js',
       filename: '[name].js',
     },
@@ -35,15 +33,5 @@ module.exports = {
     },
     devtool: 'cheap-module-source-map',
     externals: { react: 'React', 'react-dom': 'ReactDOM', 'prop-types': 'PropTypes' },
-    // less modifyVars
-    modifyVars: {
-      'doc-prefix': 'doc',
-      'so-prefix': 'shineout',
-    },
-    cssModule: {
-      // less: '[local]--[hash:base64:5]',
-    },
-    extractTextPluginPath: '[name].css',
-    imagePath: './images/[name].[ext]',
   },
 }

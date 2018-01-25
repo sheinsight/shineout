@@ -7,7 +7,9 @@ const pages = [
     component: loadable(() => import('./GetStart')),
   },
 
-  'LAYOUT',
+  'General',
+
+  'Layout',
 
   {
     name: 'Sticky',
@@ -16,7 +18,7 @@ const pages = [
     component: loadable(() => import('./Sticky')),
   },
 
-  'FEEDBACK',
+  'Feedback',
 
   {
     name: 'Alert',

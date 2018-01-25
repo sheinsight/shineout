@@ -1,3 +1,5 @@
+let theme = 'default'
+
 function getParameterByName(name) {
   const { search } = window.location
   const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`)
@@ -7,12 +9,20 @@ function getParameterByName(name) {
   return decodeURIComponent(results[2].replace(/\+/g, ' '))
 }
 
-(() => {
-  const theme = getParameterByName('theme') || 'default'
+export const THEMES = ['default', 'antd']
+
+function init() {
+  theme = getParameterByName('theme') || 'default'
   const link = document.createElement('link')
   link.setAttribute('rel', 'stylesheet')
   link.setAttribute('type', 'text/css')
   link.setAttribute('href', `${theme}.css`)
 
   document.head.appendChild(link)
-})()
+}
+
+export default {
+  init,
+
+  getTheme: () => theme,
+}

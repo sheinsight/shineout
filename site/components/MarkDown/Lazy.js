@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import MarkDown from './MarkDown'
+import Loading from '../Loading'
 
 export default function () {
   class Lazy extends PureComponent {
@@ -21,7 +22,7 @@ export default function () {
 
     render() {
       const { source } = this.state
-      if (!source) return <div>loading</div>
+      if (!source) return <Loading style={{ minHeight: 200 }} />
 
       return <MarkDown {...this.props} source={source} />
     }

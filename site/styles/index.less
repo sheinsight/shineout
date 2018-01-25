@@ -1,7 +1,5 @@
 @import './variables.less';
 
-@doc-main-prefix: doc-main;
-
 html {
   overflow-y: scroll;
   background: #f8f8f8;
@@ -11,7 +9,7 @@ a:active, a:focus {
   text-decoration: none;
 }
 
-.@{doc-main-prefix} {
+.doc-main {
   &-body {
     display: flex;
   }
@@ -41,13 +39,13 @@ a:active, a:focus {
       }
     }
 
-    a:hover, a.@{doc-main-prefix}-active {
+    a:hover, a.doc-main-active {
       &, span {
         color: @link-color;
       }
     }
 
-    .@{doc-main-prefix}-sub {
+    .doc-main-sub {
       padding-left: 20px;
     }
   }

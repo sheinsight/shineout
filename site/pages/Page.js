@@ -14,6 +14,9 @@ function getUrl(base, page) {
 export default function (pages) {
   function Page(props) {
     const base = props.match.url
+
+    const indexRoute = pages.find(p => typeof p !== 'string')
+
     return (
       <Fragment>
         <div className={clsMain('menu')}>
@@ -37,7 +40,7 @@ export default function (pages) {
 
         <div className={clsMain('page')}>
           <Switch>
-            <Redirect from={base} exact to={getUrl(base, pages[0])} />
+            <Redirect from={base} exact to={getUrl(base, indexRoute)} />
             {
               pages.filter(p => typeof p === 'object').map(p => (
                 <Route key={p.name} path={getUrl(base, p)} component={p.component} />

@@ -11,9 +11,9 @@ const dir = pkg.version.substr(0, pkg.version.lastIndexOf('.') + 1)
 function getCompiler(name, conf) {
   const wf = Object.assign({}, conf, {
     extractTextPluginPath: `${name}.css`,
-    modifyVars: Object.assign({}, conf.modifyVars, {
+    modifyVars: {
       'so-theme': name,
-    }),
+    },
     output: Object.assign({}, conf.output, {
       path: path.join(__dirname, `../gh-pages/${dir}x`),
     }),

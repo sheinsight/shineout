@@ -5,7 +5,7 @@ import locate from 'doc/locate'
 
 const exams = [
   {
-    title: locate('附着在顶部 200px', 'Sticky 200px to top'),
+    title: locate('附着在顶部 100px', 'Sticky 20px to top'),
     component: require('./example-top').default,
     rawText: require('!raw-loader!./example-top'),
   },

@@ -1,8 +1,6 @@
 @import './variables.less';
 
-@doc-header-prefix: doc-header;
-
-.@{doc-header-prefix} {
+.doc-header {
   @header-height:    50px;
 
   height: @header-height;
@@ -25,7 +23,7 @@
       line-height: @header-height;
     }
 
-    a.@{doc-header-prefix}-active, a:hover {
+    a.doc-header-active, a:hover {
       color: rgba(255, 255, 255, 1);
     }
   }

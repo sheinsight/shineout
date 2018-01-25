@@ -1,10 +1,8 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import classGenaration from '../utils/classname'
 import { styleProps, defaultStyleProps } from '../utils/proptypes'
+import { alertClass } from '../styles'
 import icons from '../icons'
-
-const clsAlert = classGenaration(require('../styles/alert.less'), 'alert')
 
 class Alert extends PureComponent {
   constructor(props) {
@@ -54,7 +52,7 @@ class Alert extends PureComponent {
     if (!icon) return null
     const style = iconSize > 0 ? { width: iconSize, height: iconSize } : undefined
 
-    return <div className={clsAlert('icon')} style={style}>{icon}</div>
+    return <div className={alertClass('icon')} style={style}>{icon}</div>
   }
 
   render() {
@@ -67,7 +65,7 @@ class Alert extends PureComponent {
     const icon = this.renderIcon()
 
     let { style } = this.props
-    let wrapClassName = clsAlert(
+    let wrapClassName = alertClass(
       '_',
       type,
       dismiss === 1 && 'dismissed',
@@ -84,7 +82,7 @@ class Alert extends PureComponent {
           onClose &&
           <a
             href="javascript:;"
-            className={clsAlert('close')}
+            className={alertClass('close')}
             onClick={this.handleClose}
           >
             {icons.close}

@@ -24,9 +24,9 @@ function getPublishPath() {
 function getCompiler(name, conf) {
   const wf = Object.assign({}, conf, {
     extractTextPluginPath: `${name}.css`,
-    modifyVars: Object.assign({}, conf.modifyVars, {
+    modifyVars: {
       'so-theme': name,
-    }),
+    },
   })
   return merge(common(wf), {
     name,
