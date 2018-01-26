@@ -6,6 +6,6 @@
 | children | string \| ReactElement | 必填 |  |
 | className | string | 无 | 扩展className |
 | style | object | 无 | 最外层扩展样式 |
-| type | string | 'default' | 可选值 \['primary', 'secondary', 'success', 'info', 'warning', 'error', 'link'] |
+| type | string | 'default' | 可选值 \['default', 'primary', 'secondary', 'success', 'info', 'warning', 'error', 'link'] |
 
 <example />

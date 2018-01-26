@@ -2,11 +2,14 @@ const fs = require('fs')
 const path = require('path')
 const swig = require('swig')
 const chokidar = require('chokidar')
+const rimraf = require('rimraf')
 
 const pagesPath = path.resolve(__dirname, '../site/pages')
+const chunkPath = path.resolve(__dirname, '../site/chunks')
 const componentPath = path.resolve(pagesPath, './Components')
 
 const componentsCache = {}
+let lastComponentText = null
 
 function getComment(text, key) {
   const index = text.indexOf(key)
@@ -17,7 +20,7 @@ function getComment(text, key) {
   return null
 }
 
-function getPage(name, file) {
+function getComponentPage(name, file) {
   const pagePath = path.resolve(componentPath, name)
 
   let page = componentsCache[name]
@@ -54,6 +57,15 @@ function getPage(name, file) {
       page.examples.push(exam)
     })
 
+  const template = swig.compileFile(path.resolve(__dirname, './component-page.tpl'))
+  const text = template({ name: page.name, examples: page.examples })
+
+  if (!componentsCache[name] || text !== componentsCache[name].text) {
+    console.log(`write file chunks/Components/${name}.js`)
+    fs.writeFileSync(path.resolve(chunkPath, './Components', `${name}.js`), text)
+    page.text = text
+  }
+
   componentsCache[name] = page
 
   return page
@@ -70,7 +82,7 @@ function generateComponents(file = '') {
   fs.readdirSync(componentPath).forEach((dirName) => {
     const state = fs.lstatSync(`${componentPath}/${dirName}`)
     if (state.isDirectory()) {
-      const page = getPage(dirName, file)
+      const page = getComponentPage(dirName, file)
       if (page) {
         const group = groups[page.group] || groups['']
         group.push(page)
@@ -80,12 +92,23 @@ function generateComponents(file = '') {
 
   const text = template({ groups })
 
-  fs.writeFile(path.resolve(componentPath, './index.js'), text, (err) => {
-    if (err) console.log(err)
-  })
+  if (lastComponentText !== text) {
+    console.log('write file chunks/Components/index.js')
+    fs.writeFile(path.resolve(chunkPath, './Components/index.js'), text, (err) => {
+      if (err) console.log(err)
+    })
+    lastComponentText = text
+  }
 }
 
 function init() {
+  const cp = path.resolve(chunkPath, './Components')
+
+  if (fs.existsSync(cp)) {
+    rimraf.sync(cp)
+  }
+  fs.mkdirSync(cp)
+
   generateComponents()
 
   console.log('watch site/pages')

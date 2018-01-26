@@ -3,19 +3,41 @@
 // Easily pump out default styles, as well as :hover, :focus, :active,
 // and disabled options for all buttons
 
-.button-variant(@color; @background; @border) {
+
+
+.button-variant(@color; @background; @border; @name) {
   color: @color;
   background-color: @background;
   border-color: @border;
 
+  @keyname: ~"btn-focus-@{name}";
+
+  @keyframes @keyname {
+    0% {
+      box-shadow: 0 0 0 0 fade(@border, 60%);
+    }
+    50% {
+      box-shadow: 0 0 0 @btn-focus-width/2 fade(@border, 0%);
+    }
+    100% {
+      box-shadow: 0 0 0 @btn-focus-width fade(@border, 0);
+    }
+  }
+
   &:focus {
     color: @color;
-    box-shadow: 0 0 0 0.2em fade(@border, 50%);
+    // box-shadow: 0 0 0 @btn-focus-width fade(@border, 50%);
   }
   &:hover {
     color: @color;
-    background-color: darken(@background, 10%);
-        border-color: darken(@border, 10%);
+    background-color: darken(@background, @btn-hover-darken);
+        border-color: darken(@border, @btn-hover-darken);
+  }
+  &:active {
+    color: @color;
+    background-color: darken(@background, @btn-hover-darken);
+        border-color: darken(@border, @btn-hover-darken);
+    animation: @keyname 0.4s ease-out;
   }
 
   &:active {

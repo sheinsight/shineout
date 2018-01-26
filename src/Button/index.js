@@ -26,7 +26,7 @@ Button.propTypes = {
 
 Button.defaultProps = {
   ...defaultProps,
-  type: 'secondary',
+  type: 'default',
 }
 
 export default Button

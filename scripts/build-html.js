@@ -1,5 +1,6 @@
 const fs = require('fs')
 const swig = require('swig')
+const rimraf = require('rimraf')
 const pkg = require('../package.json')
 const config = require('../config')
 
@@ -18,10 +19,11 @@ function buildHtml() {
 
   const html = template({ scripts, styles, appName: `Shineout api document ${version}` })
 
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir)
+  if (fs.existsSync(dir)) {
+    rimraf.sync(dir)
   }
 
+  fs.mkdirSync(dir)
   fs.writeFileSync(`${dir}/index.html`, html)
 }
 
