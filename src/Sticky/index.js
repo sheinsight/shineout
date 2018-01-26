@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { getParent } from '../utils/dom'
-import { styleProps, defaultStyleProps } from '../utils/proptypes'
+import { getProps, defaultProps } from '../utils/proptypes'
 
 const events = ['scroll', 'resize', 'pageshow', 'load']
 
@@ -164,6 +164,7 @@ class Sticky extends PureComponent {
 }
 
 Sticky.propTypes = {
+  ...getProps(),
   bottom: PropTypes.number,
   children: PropTypes.any.isRequired,
   target: PropTypes.oneOfType([
@@ -171,11 +172,10 @@ Sticky.propTypes = {
     PropTypes.object,
   ]),
   top: PropTypes.number,
-  ...styleProps,
 }
 
 Sticky.defaultProps = {
-  ...defaultStyleProps,
+  ...defaultProps,
 }
 
 export default Sticky

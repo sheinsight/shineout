@@ -44,6 +44,9 @@ input 类组件的占位项。可以是字符串，React组件或者render函数
 
 在输入型组件（如：Input）中表示类型，如：'text', 'password'。
 
+## size *- string | number*
+通常为 'small', 'default', 'large' 三选一，默认值为 'default'
+
 ## style *- object*
 除 Message 这种静态调用的组件外，全部组件需要支持以 style 设置最外层元素样式。
 

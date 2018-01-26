@@ -2,3 +2,12 @@
 @import './themes/@{so-theme}.less';
 
 @dropdown-prefix: ~"@{so-prefix}-dropdown";
+
+.@{dropdown-prefix} {
+  position: relative;
+  display: inline-block;
+
+  &-menu {
+    display: none;
+  }
+}

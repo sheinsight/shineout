@@ -1,6 +1,4 @@
-import React, { PureComponent } from 'react'
-import MarkDown from 'docs/MarkDown'
-import navable from 'docs/Navable'
+import markdown from 'docs/Navable/markdown'
 import locate from 'doc/locate'
 
 const exams = [
@@ -26,12 +24,4 @@ const loader = locate(
   () => import('./en.md'),
 )
 
-class Sticky extends PureComponent {
-  render() {
-    return (
-      <MarkDown {...this.props} loader={loader} examples={exams} />
-    )
-  }
-}
-
-export default navable(Sticky)
+export default markdown(loader, exams)

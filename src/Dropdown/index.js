@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { styleProps, placeholderProps, styleDefaultProps } from '../utils/proptypes'
+import { getProps, defaultProps } from '../utils/proptypes'
+import { dropdownClass } from '../styles'
 
 class Dropdown extends PureComponent {
   constructor(props) {
@@ -10,12 +11,15 @@ class Dropdown extends PureComponent {
   }
 
   render() {
-    const { placeholder } = this.props
+    const { className, placeholder } = this.props
+
+    let wrapClassName = dropdownClass('_')
+    if (className) wrapClassName += ` ${className}`
 
     return (
-      <div>
+      <div className={wrapClassName}>
         {placeholder}
-        <div>
+        <div className={dropdownClass('menu')}>
           some text.
         </div>
       </div>
@@ -26,13 +30,13 @@ class Dropdown extends PureComponent {
 Dropdown.displayName = 'Dropdown'
 
 Dropdown.propTypes = {
-  children: PropTypes.any,
-  ...placeholderProps,
-  ...styleProps,
+  children: PropTypes.any.isRequired,
+  ...getProps('placeholder', 'type'),
 }
 
 Dropdown.defaultProps = {
-  ...styleDefaultProps,
+  ...defaultProps,
+  type: 'link',
 }
 
 export default Dropdown

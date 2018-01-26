@@ -1,6 +1,4 @@
-import React, { PureComponent } from 'react'
-import MarkDown from 'docs/MarkDown'
-import navable from 'docs/Navable'
+import markdown from 'docs/Navable/markdown'
 import locate from 'doc/locate'
 
 const loader = locate(
@@ -8,12 +6,4 @@ const loader = locate(
   () => import('./en.md'),
 )
 
-class GetStart extends PureComponent {
-  render() {
-    return (
-      <MarkDown {...this.props} loader={loader} />
-    )
-  }
-}
-
-export default navable(GetStart)
+export default markdown(loader)

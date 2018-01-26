@@ -8,7 +8,7 @@ publish
 *.sock
 *.swp
 *.bat
-*.sh
+/*.sh
 /components
 log
 /data

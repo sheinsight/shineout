@@ -11,12 +11,13 @@ function getParameterByName(name) {
 
 export const THEMES = ['default', 'antd']
 
-function init() {
+function init(callback) {
   theme = getParameterByName('theme') || 'default'
   const link = document.createElement('link')
   link.setAttribute('rel', 'stylesheet')
   link.setAttribute('type', 'text/css')
   link.setAttribute('href', `${theme}.css`)
+  link.onload = callback
 
   document.head.appendChild(link)
 }

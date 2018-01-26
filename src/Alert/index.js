@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { styleProps, defaultStyleProps } from '../utils/proptypes'
+import { getProps, defaultProps } from '../utils/proptypes'
 import { alertClass } from '../styles'
 import icons from '../icons'
 
@@ -96,6 +96,7 @@ class Alert extends PureComponent {
 }
 
 Alert.propTypes = {
+  ...getProps('type'),
   children: PropTypes.any,
   duration: PropTypes.number,
   icon: PropTypes.oneOfType([
@@ -107,16 +108,13 @@ Alert.propTypes = {
     PropTypes.func,
     PropTypes.bool,
   ]),
-  type: PropTypes.oneOf(['success', 'info', 'warning', 'error', 'danger']),
-  ...styleProps,
 }
 
 Alert.defaultProps = {
-  children: undefined,
+  ...defaultProps,
   duration: 216,
   iconSize: 0,
   type: 'warning',
-  ...defaultStyleProps,
 }
 
 export default Alert
