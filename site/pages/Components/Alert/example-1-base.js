@@ -1,3 +1,7 @@
+/**
+ * cn - 基础
+ * en - Base
+ */
 import React from 'react'
 import Alert from 'shineout/Alert'
 

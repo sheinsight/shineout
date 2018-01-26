@@ -1,3 +1,7 @@
+/**
+ * cn - 关闭 onClose
+ * en - onClose
+ */
 import React, { Fragment, PureComponent } from 'react'
 import Alert from 'shineout/Alert'
 

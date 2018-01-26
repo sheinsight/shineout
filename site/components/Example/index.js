@@ -34,13 +34,15 @@ class Example extends PureComponent {
     const { component, rawText, title } = this.props
     const { showcode } = this.state
 
+    const text = rawText.replace(/(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/, '').trim()
+
     return (
       <div id={this.id} className={cls('_', showcode && 'showcode')}>
         <div className={cls('title')}>
           {title}
           <a href="javascript:;" className={cls('toggle')} onClick={this.toggleCode}>{'< >'}</a>
         </div>
-        { showcode && <CodeBlock language="js" value={rawText} /> }
+        { showcode && <CodeBlock language="js" value={text} /> }
         <div className={cls('body')}>
           { createElement(component) }
         </div>

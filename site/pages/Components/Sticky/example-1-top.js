@@ -1,12 +1,17 @@
+/**
+ * cn - 附着在顶部 20px
+ * en - Sticky 20px to top
+ */
 import React from 'react'
 import Sticky from 'shineout/Sticky'
 import Alert from 'shineout/Alert'
 
 export default function () {
   return (
-    <Sticky bottom={0}>
-      <Alert style={{ marginBottom: 0 }} onClose>
-        Sticky at bottom.
+    <Sticky top={20}>
+      <Alert onClose>
+        <h3>Some content.</h3>
+        Sticky 20px to top.
       </Alert>
     </Sticky>
   )

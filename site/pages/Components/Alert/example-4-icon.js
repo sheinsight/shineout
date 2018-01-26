@@ -1,3 +1,7 @@
+/**
+ * cn - 图标 icon
+ * en - with icon
+ */
 import React, { Fragment } from 'react'
 import Alert from 'shineout/Alert'
 

@@ -9,6 +9,8 @@ const webpackConfig = require('./webpack/config.dev')
 const config = require('./config')
 const { version } = require('./package.json')
 
+require('./scripts/generate-site')
+
 // webpack server ===========================================
 
 new WebpackDevServer(webpack(webpackConfig), {

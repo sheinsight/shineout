@@ -1,3 +1,7 @@
+/**
+ * cn - 类型 type
+ * en - type
+ */
 import React, { Fragment } from 'react'
 import Alert from 'shineout/Alert'
 
