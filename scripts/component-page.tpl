@@ -1,13 +1,15 @@
 /**
  * 此文件根据 scripts/components-page.tpl 生成，不要手动修改
  */
-import markdown from 'docs/Navable/markdown'
+import React from 'react'
+import navable from 'docs/Navable'
+import MarkDown from 'docs/MarkDown'
 import locate from 'doc/locate'
 
-const loader = locate(
-  () => import('doc/pages/Components/{{name}}/cn.md'),
-  () => import('doc/pages/Components/{{name}}/en.md'),
-)
+import cn from 'doc/pages/Components/{{name}}/cn.md'
+import en from 'doc/pages/Components/{{name}}/en.md'
+
+const source = locate(cn, en)
 
 const examples = [
   {%- for i, exam in examples %}
@@ -19,4 +21,4 @@ const examples = [
   {%- endfor %}
 ]
 
-export default markdown(loader, examples)
+export default navable(props => <MarkDown {...props} source={source} examples={examples} />)
