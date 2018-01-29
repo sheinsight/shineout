@@ -1,1 +1,0 @@
-webpackJsonp([10],{165:function(e,n){e.exports="# Alert\n\n<example />"}});
