@@ -35,17 +35,6 @@ function getComponentPage(name, file) {
     name,
   }
 
-  /*
-  try {
-    page = JSON.parse(fs.readFileSync(path.resolve(pagePath, './info.json')))
-  } catch (e) {
-    page = {}
-  }
-
-  page.name = name
-  page.examples = []
-  page.group = page.group || ''
-  */
   Object.keys(componentGroups).forEach((k) => {
     const g = componentGroups[k]
     if (g[name] !== undefined) {

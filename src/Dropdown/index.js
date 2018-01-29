@@ -30,8 +30,8 @@ class Dropdown extends PureComponent {
 Dropdown.displayName = 'Dropdown'
 
 Dropdown.propTypes = {
-  children: PropTypes.any.isRequired,
   ...getProps('placeholder', 'type'),
+  children: PropTypes.any.isRequired,
 }
 
 Dropdown.defaultProps = {
