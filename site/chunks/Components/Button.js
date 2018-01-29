@@ -13,9 +13,24 @@ const source = locate(cn, en)
 
 const examples = [
   {
-    title: locate('类型 type', 'Type'),
-    component: require('doc/pages/components/Button/example-1-type.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Button/example-1-type.js'),
+    title: locate('基础', 'Base'),
+    component: require('doc/pages/components/Button/example-1-base.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Button/example-1-base.js'),
+  },
+  {
+    title: locate('透明背景 outline', 'Outline'),
+    component: require('doc/pages/components/Button/example-2-outline.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Button/example-2-outline.js'),
+  },
+  {
+    title: locate('不可用 disabled', 'Disabled'),
+    component: require('doc/pages/components/Button/example-3-disabled.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Button/example-3-disabled.js'),
+  },
+  {
+    title: locate('大小 size', 'Size'),
+    component: require('doc/pages/components/Button/example-4-size.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Button/example-4-size.js'),
   },
 ]
 

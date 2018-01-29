@@ -49,26 +49,44 @@
 
   &-primary {
     .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border; 'primary');
+    &.@{button-prefix}-outline {
+      .button-outline(@btn-primary-color; @btn-primary-bg; @colors-primary;);
+    }
   }
 
   &-secondary {
     .button-variant(@btn-secondary-color; @btn-secondary-bg; @btn-secondary-border; 'secondary');
+    &.@{button-prefix}-outline {
+      .button-outline(@btn-secondary-color; @btn-secondary-bg; @colors-secondary;);
+    }
   }
 
   &-success {
     .button-variant(@btn-success-color; @btn-success-bg; @btn-success-border; 'success');
+    &.@{button-prefix}-outline {
+      .button-outline(@btn-success-color; @btn-success-bg; @colors-success;);
+    }
   }
 
   &-info {
     .button-variant(@btn-info-color; @btn-info-bg; @btn-info-border; 'info');
+    &.@{button-prefix}-outline {
+      .button-outline(@btn-info-color; @btn-info-bg; @colors-info;);
+    }
   }
 
   &-warning {
     .button-variant(@btn-warning-color; @btn-warning-bg; @btn-warning-border; 'warning');
+    &.@{button-prefix}-outline {
+      .button-outline(@btn-warning-color; @btn-warning-bg; @colors-warning;);
+    }
   }
 
   &-error, &-danger {
     .button-variant(@btn-danger-color; @btn-danger-bg; @btn-danger-border; 'danger');
+    &.@{button-prefix}-outline {
+      .button-outline(@btn-danger-color; @btn-danger-bg; @colors-danger;);
+    }
   }
 
   &-link {
@@ -103,5 +121,13 @@
         text-decoration: none;
       }
     }
+  }
+
+  &-large {
+    .button-size(@btn-padding-large-y; @btn-padding-large-x; @font-size-large; @line-height-large; @btn-border-radius-large);
+  }
+
+  &-small {
+    .button-size(@btn-padding-small-y; @btn-padding-small-x; @font-size-small; @line-height-small; @btn-border-radius-small);
   }
 }

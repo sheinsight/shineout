@@ -11,8 +11,7 @@ export default function () {
       <Alert type="success">Success Type.</Alert>
       <Alert type="info">Info Type.</Alert>
       <Alert type="warning">Warning Type.</Alert>
-      {/* type 'error' === 'danger' */}
-      <Alert type="error">Error Type.</Alert>
+      <Alert type="danger">Danger Type.</Alert>
     </Fragment>
   )
 }

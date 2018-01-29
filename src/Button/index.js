@@ -6,26 +6,33 @@ import { buttonClass } from '../styles'
 
 class Button extends PureComponent {
   render() {
-    const { children, type } = this.props
+    const {
+      children, disabled, outline, type, size,
+    } = this.props
     const className = classnames(
-      buttonClass('_', type),
+      buttonClass('_', type, outline && 'outline', {
+        large: size === 'large',
+        small: size === 'small',
+      }),
       this.props.className,
     )
 
     return (
-      <button className={className}>{children}</button>
+      <button disabled={disabled} className={className}>{children}</button>
     )
   }
 }
 
 Button.propTypes = {
-  ...getProps('size', 'type'),
+  ...getProps('disabled', 'size', 'type'),
+  outline: PropTypes.bool,
   submit: PropTypes.bool,
   children: PropTypes.any.isRequired,
 }
 
 Button.defaultProps = {
   ...defaultProps,
+  outline: false,
   type: 'default',
 }
 

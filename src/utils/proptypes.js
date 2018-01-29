@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 
 export const propSets = {
+  disabled: PropTypes.bool,
   placeholder: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element,

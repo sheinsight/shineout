@@ -9,6 +9,7 @@
   color: @color;
   background-color: @background;
   border-color: @border;
+  transition: background 0.15s ease-in-out;
 
   @keyname: ~"btn-focus-@{name}";
 
@@ -52,6 +53,23 @@
           border-color: @border;
     }
   }
+}
+
+.button-outline(@color; @background; @border;) {
+  color: @border;
+  border-color: @border;
+  background: transparent;
+
+  &:hover {
+    color: @color;
+    background-color: @background;
+  }
+  &:active {
+    color: @color;
+    background-color: @background;
+    animation: @keyname 0.4s ease-out;
+  }
+
 }
 
 // Button sizes
