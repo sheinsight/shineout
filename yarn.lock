@@ -1955,7 +1955,7 @@ doctrine@1.5.0:
     esutils "^2.0.2"
     isarray "^1.0.0"
 
-doctrine@^2.0.0, doctrine@^2.0.2:
+doctrine@^2.0.0, doctrine@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/doctrine/-/doctrine-2.1.0.tgz#5cd01fc101621b42c4cd7f5d1a66243716d3f39d"
   dependencies:
@@ -2180,13 +2180,6 @@ eslint-config-airbnb@^16.1.0:
   dependencies:
     eslint-config-airbnb-base "^12.1.0"
 
-eslint-import-resolver-babel-module@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.npmjs.org/eslint-import-resolver-babel-module/-/eslint-import-resolver-babel-module-4.0.0.tgz#1c596f7fb9815050292c8750d523b27a5444b4bf"
-  dependencies:
-    pkg-up "^2.0.0"
-    resolve "^1.4.0"
-
 eslint-import-resolver-node@^0.3.1:
   version "0.3.2"
   resolved "https://registry.npmjs.org/eslint-import-resolver-node/-/eslint-import-resolver-node-0.3.2.tgz#58f15fb839b8d0576ca980413476aab2472db66a"
@@ -2268,9 +2261,9 @@ eslint-visitor-keys@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#3f3180fb2e291017716acb4c9d6d5b5c34a6a81d"
 
-eslint@^4.15.0:
-  version "4.15.0"
-  resolved "https://registry.npmjs.org/eslint/-/eslint-4.15.0.tgz#89ab38c12713eec3d13afac14e4a89e75ef08145"
+eslint@^4.16.0:
+  version "4.16.0"
+  resolved "https://registry.npmjs.org/eslint/-/eslint-4.16.0.tgz#934ada9e98715e1d7bbfd6f6f0519ed2fab35cc1"
   dependencies:
     ajv "^5.3.0"
     babel-code-frame "^6.22.0"
@@ -2278,7 +2271,7 @@ eslint@^4.15.0:
     concat-stream "^1.6.0"
     cross-spawn "^5.1.0"
     debug "^3.1.0"
-    doctrine "^2.0.2"
+    doctrine "^2.1.0"
     eslint-scope "^3.7.1"
     eslint-visitor-keys "^1.0.0"
     espree "^3.5.2"
@@ -2831,7 +2824,11 @@ global@^4.3.0:
     min-document "^2.19.0"
     process "~0.5.1"
 
-globals@^11.0.1, globals@^11.1.0:
+globals@^11.0.1:
+  version "11.2.0"
+  resolved "https://registry.npmjs.org/globals/-/globals-11.2.0.tgz#aa2ece052a787563ba70a3dcd9dc2eb8a9a0488c"
+
+globals@^11.1.0:
   version "11.1.0"
   resolved "https://registry.npmjs.org/globals/-/globals-11.1.0.tgz#632644457f5f0e3ae711807183700ebf2e4633e4"
 
@@ -3431,8 +3428,8 @@ is-relative@^0.2.1:
     is-unc-path "^0.1.1"
 
 is-resolvable@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/is-resolvable/-/is-resolvable-1.0.1.tgz#acca1cd36dbe44b974b924321555a70ba03b1cf4"
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/is-resolvable/-/is-resolvable-1.1.0.tgz#fb18f87ce1feb925169c9a407c19318a3206ed88"
 
 is-stream@^1.0.1, is-stream@^1.1.0:
   version "1.1.0"
@@ -4610,12 +4607,6 @@ pkg-dir@^2.0.0:
   dependencies:
     find-up "^2.1.0"
 
-pkg-up@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/pkg-up/-/pkg-up-2.0.0.tgz#c819ac728059a461cab1c3889a2be3c49a004d7f"
-  dependencies:
-    find-up "^2.1.0"
-
 pluralize@^7.0.0:
   version "7.0.0"
   resolved "https://registry.npmjs.org/pluralize/-/pluralize-7.0.0.tgz#298b89df8b93b0221dbf421ad2b1b1ea23fc6777"
@@ -5443,7 +5434,7 @@ resolve-url@^0.2.1:
   version "0.2.1"
   resolved "https://registry.npmjs.org/resolve-url/-/resolve-url-0.2.1.tgz#2c637fe77c893afd2a663fe21aa9080068e2052a"
 
-resolve@^1.2.0, resolve@^1.4.0, resolve@^1.5.0:
+resolve@^1.2.0, resolve@^1.5.0:
   version "1.5.0"
   resolved "https://registry.npmjs.org/resolve/-/resolve-1.5.0.tgz#1f09acce796c9a762579f31b2c1cc4c3cddf9f36"
   dependencies:

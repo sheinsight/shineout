@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "doc/*": ["./site/*"],
+      "docs/*": ["./site/Components/*"],
+      "shineout/*": ["./src/*"]
+    }
+  }
+}

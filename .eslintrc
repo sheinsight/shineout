@@ -3,6 +3,7 @@
     "parser": "babel-eslint",
     "parserOptions": {
         "sourceType": "module",
+        "allowImportExportEverywhere": true,
         "ecmaFeatures": {
             "jsx": true
         }
@@ -16,7 +17,7 @@
         "import/parser": "babel-eslint",
         "import/resolver": {
             "webpack": {
-                "config": "webpack/config.dev.js"
+                "config": "webpack.config.eslint.js"
             }
         }
     },
