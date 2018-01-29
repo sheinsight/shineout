@@ -28,7 +28,7 @@ module.exports = {
     // for site/
     alias: {
       doc: path.resolve(__dirname, 'site'),
-      docs: path.resolve(__dirname, 'site/components'),
+      docs: path.resolve(__dirname, 'site/Components'),
       shineout: path.resolve(__dirname, 'src'),
     },
     devtool: 'cheap-module-source-map',

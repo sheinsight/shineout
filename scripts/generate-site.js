@@ -6,7 +6,7 @@ const rimraf = require('rimraf')
 
 const pagesPath = path.resolve(__dirname, '../site/pages')
 const chunkPath = path.resolve(__dirname, '../site/chunks')
-const componentPath = path.resolve(pagesPath, './Components')
+const componentPath = path.resolve(pagesPath, './components')
 
 const componentsCache = {}
 let lastComponentText = null
