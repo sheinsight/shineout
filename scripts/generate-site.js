@@ -3,6 +3,7 @@ const path = require('path')
 const swig = require('swig')
 const chokidar = require('chokidar')
 const rimraf = require('rimraf')
+const componentGroups = require('../site/pages/components/group')
 
 const pagesPath = path.resolve(__dirname, '../site/pages')
 const chunkPath = path.resolve(__dirname, '../site/chunks')
@@ -28,6 +29,13 @@ function getComponentPage(name, file) {
     return page
   }
 
+  page = {
+    examples: [],
+    group: '',
+    name,
+  }
+
+  /*
   try {
     page = JSON.parse(fs.readFileSync(path.resolve(pagePath, './info.json')))
   } catch (e) {
@@ -37,6 +45,14 @@ function getComponentPage(name, file) {
   page.name = name
   page.examples = []
   page.group = page.group || ''
+  */
+  Object.keys(componentGroups).forEach((k) => {
+    const g = componentGroups[k]
+    if (g[name] !== undefined) {
+      page.group = k
+      page.cn = g[name]
+    }
+  })
 
   fs.readdirSync(pagePath)
     .filter(n => n.indexOf('example-') === 0)
@@ -74,8 +90,8 @@ function getComponentPage(name, file) {
 function generateComponents(file = '') {
   const template = swig.compileFile(path.resolve(__dirname, './components.tpl'))
 
-  const groups = {};
-  (['', 'General', 'Form', 'Feedback', 'Layout']).forEach((key) => {
+  const groups = {}
+  Object.keys(componentGroups).forEach((key) => {
     groups[key] = []
   })
 
@@ -84,8 +100,7 @@ function generateComponents(file = '') {
     if (state.isDirectory()) {
       const page = getComponentPage(dirName, file)
       if (page) {
-        const group = groups[page.group] || groups['']
-        group.push(page)
+        groups[page.group].push(page)
       }
     }
   })
