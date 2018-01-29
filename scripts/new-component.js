@@ -1,5 +1,6 @@
 const path = require('path')
 const fs = require('fs')
+const rimraf = require('rimraf')
 
 const srcPath = path.resolve(__dirname, '../src')
 
@@ -86,14 +87,41 @@ export default function () {
   fs.writeFileSync(path.resolve(docPath, 'en.md'), md)
 }
 
+function remove(name) {
+  const className = `${name.replace(/^\S/, s => s.toLowerCase())}Class`
+  const dashName = name.replace(/^\S/, s => s.toLowerCase()).replace(/([A-Z])/g, '-$1').toLowerCase()
+
+  rimraf.sync(path.resolve(srcPath, name))
+  rimraf.sync(path.resolve(srcPath, 'styles', `${dashName}.less`))
+  rimraf.sync(path.resolve(__dirname, '../site/pages/components', name))
+  rimraf.sync(path.resolve(__dirname, '../site/chunks/Components', `${name}.js`))
+
+  const styleText = fs.readFileSync(path.resolve(srcPath, 'styles/index.js'))
+    .toString().split('\n')
+    .filter(l => l.indexOf(` ${className} `) < 0)
+    .join('\n')
+
+  fs.writeFileSync(path.resolve(srcPath, 'styles/index.js'), styleText)
+}
+
 function create() {
   let name = process.argv[2]
+  const isRemove = name === '-d'
+
+  if (isRemove) name = process.argv[3]
+
   if (!name) {
     console.log('must give a name')
     return
   }
+
   name = name.replace(/^\S/, s => s.toUpperCase()).replace(/-(\w)/g, x => x.slice(1).toUpperCase())
-  console.log(name)
+
+  if (isRemove) {
+    remove(name)
+    return
+  }
+
   const isExist = fs.existsSync(path.resolve(srcPath, name))
   if (isExist) {
     console.log(`${name} is existed.`)
