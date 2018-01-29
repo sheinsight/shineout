@@ -3,7 +3,7 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import classGenerate from './utils/classname'
 import Home from './pages/Home'
 import Components from './chunks/Components'
-import Documentation from './pages/Documentation'
+import Documentation from './pages/documentation'
 import Header from './Header'
 
 const clsMain = classGenerate(require('./styles/index.less'), 'main')
