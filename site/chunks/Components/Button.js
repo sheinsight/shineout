@@ -32,6 +32,11 @@ const examples = [
     component: require('doc/pages/components/Button/example-4-size.js').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-4-size.js'),
   },
+  {
+    title: locate('组合 Group', 'Group'),
+    component: require('doc/pages/components/Button/example-5-group.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Button/example-5-group.js'),
+  },
 ]
 
 export default navable(props => <MarkDown {...props} source={source} examples={examples} />)
