@@ -6,16 +6,16 @@ import navable from 'docs/Navable'
 import MarkDown from 'docs/MarkDown'
 import locate from 'doc/locate'
 
-import cn from 'doc/pages/Components/Button/cn.md'
-import en from 'doc/pages/Components/Button/en.md'
+import cn from 'doc/pages/components/Button/cn.md'
+import en from 'doc/pages/components/Button/en.md'
 
 const source = locate(cn, en)
 
 const examples = [
   {
     title: locate('类型 type', 'Type'),
-    component: require('doc/pages/Components/Button/example-1-type.js').default,
-    rawText: require('!raw-loader!doc/pages/Components/Button/example-1-type.js'),
+    component: require('doc/pages/components/Button/example-1-type.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Button/example-1-type.js'),
   },
 ]
 

@@ -6,31 +6,31 @@ import navable from 'docs/Navable'
 import MarkDown from 'docs/MarkDown'
 import locate from 'doc/locate'
 
-import cn from 'doc/pages/Components/Alert/cn.md'
-import en from 'doc/pages/Components/Alert/en.md'
+import cn from 'doc/pages/components/Alert/cn.md'
+import en from 'doc/pages/components/Alert/en.md'
 
 const source = locate(cn, en)
 
 const examples = [
   {
     title: locate('基础', 'Base'),
-    component: require('doc/pages/Components/Alert/example-1-base.js').default,
-    rawText: require('!raw-loader!doc/pages/Components/Alert/example-1-base.js'),
+    component: require('doc/pages/components/Alert/example-1-base.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Alert/example-1-base.js'),
   },
   {
     title: locate('类型 type', 'type'),
-    component: require('doc/pages/Components/Alert/example-2-type.js').default,
-    rawText: require('!raw-loader!doc/pages/Components/Alert/example-2-type.js'),
+    component: require('doc/pages/components/Alert/example-2-type.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Alert/example-2-type.js'),
   },
   {
     title: locate('关闭 onClose', 'onClose'),
-    component: require('doc/pages/Components/Alert/example-3-close.js').default,
-    rawText: require('!raw-loader!doc/pages/Components/Alert/example-3-close.js'),
+    component: require('doc/pages/components/Alert/example-3-close.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Alert/example-3-close.js'),
   },
   {
     title: locate('图标 icon', 'with icon'),
-    component: require('doc/pages/Components/Alert/example-4-icon.js').default,
-    rawText: require('!raw-loader!doc/pages/Components/Alert/example-4-icon.js'),
+    component: require('doc/pages/components/Alert/example-4-icon.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Alert/example-4-icon.js'),
   },
 ]
 

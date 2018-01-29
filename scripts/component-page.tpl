@@ -6,8 +6,8 @@ import navable from 'docs/Navable'
 import MarkDown from 'docs/MarkDown'
 import locate from 'doc/locate'
 
-import cn from 'doc/pages/Components/{{name}}/cn.md'
-import en from 'doc/pages/Components/{{name}}/en.md'
+import cn from 'doc/pages/components/{{name}}/cn.md'
+import en from 'doc/pages/components/{{name}}/en.md'
 
 const source = locate(cn, en)
 
@@ -15,8 +15,8 @@ const examples = [
   {%- for i, exam in examples %}
   {
     title: locate('{{exam.cn}}', '{{exam.en}}'),
-    component: require('doc/pages/Components/{{name}}/{{exam.path}}').default,
-    rawText: require('!raw-loader!doc/pages/Components/{{name}}/{{exam.path}}'),
+    component: require('doc/pages/components/{{name}}/{{exam.path}}').default,
+    rawText: require('!raw-loader!doc/pages/components/{{name}}/{{exam.path}}'),
   },
   {%- endfor %}
 ]

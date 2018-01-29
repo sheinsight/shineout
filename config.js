@@ -27,9 +27,9 @@ module.exports = {
     },
     // for site/
     alias: {
-      doc: path.resolve(__dirname, 'site'),
-      docs: path.resolve(__dirname, 'site/Components'),
       shineout: path.resolve(__dirname, 'src'),
+      docs: path.resolve(__dirname, 'site/Components'),
+      doc: path.resolve(__dirname, 'site'),
     },
     devtool: 'cheap-module-source-map',
     externals: { react: 'React', 'react-dom': 'ReactDOM', 'prop-types': 'PropTypes' },
