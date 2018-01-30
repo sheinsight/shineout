@@ -20,7 +20,8 @@
 
   &:hover,
   &:focus {
-    color: @btn-default-color;
+    // color: @btn-default-color;
+    color: @link-hover-color;
     text-decoration: none;
   }
 
@@ -45,6 +46,17 @@
 
   &-default {
     .button-variant(@btn-default-color; @btn-default-bg; @btn-default-border; 'default');
+
+    &.@{button-prefix}-outline {
+      .button-outline(@btn-default-color; @btn-default-bg; @btn-default-bg;);
+    }
+
+    & when (@so-theme = antd) {
+      &:hover, &:focus {
+        color: @link-color;
+        border-color: @link-color;
+      }
+    }
   }
 
   &-primary {

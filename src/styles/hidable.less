@@ -1,0 +1,26 @@
+@import './variables.less';
+
+@hidable-prefix: ~"@{so-prefix}-hidable";
+
+.@{hidable-prefix} {
+  &-collapse, &-fade {
+    transition: 0.216s ease-out;
+  }
+
+  &-collapse, &-collapse-fade {
+    transform: scaleY(0);
+    transform-origin: 0 0;
+
+    &.@{hidable-prefix}-show {
+      transform: scaleY(1);
+    }
+  }
+
+  &-fade, &-collapse-fade {
+    opacity: 0;
+
+    &.@{hidable-prefix}-show {
+      opacity: 1;
+    }
+  }
+}

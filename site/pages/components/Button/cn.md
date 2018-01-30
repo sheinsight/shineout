@@ -8,6 +8,7 @@
 | --- | --- | --- | --- |
 | children | string \| ReactElement | 必填 |  |
 | className | string | 无 | 扩展className |
+| href | string | 无 | 如果设置了 href 属性，将会用 &lt;a> 代替 &lt;button> |
 | outline | boolean | false | outline 为 true 时，背景透明 |
 | size | string | 'default' | 可选值 \['large', 'default', 'small'] |
 | style | object | 无 | 最外层扩展样式 |

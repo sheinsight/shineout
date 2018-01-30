@@ -7,31 +7,27 @@ import { Dropdown } from 'shineout'
 
 export default function () {
   const menu = [
-    <a href="#/" key={1}>Home</a>,
-    <a href="http://google.com" target="_blank" key={2}>Google</a>,
+    <a key={1}>Link 1</a>,
+    <a key={2}>Link 2</a>,
     <hr key={3} />,
     <a key={4}>Link 3</a>,
   ]
 
   return (
     <Fragment>
-      <Dropdown placeholder="Default">
+      <Dropdown placeholder="Bottom Left" width={160} position="bottom-left">
         {menu}
       </Dropdown>
 
-      <Dropdown placeholder="Link" type="link">
+      <Dropdown placeholder="Bottom Right" width={160} position="bottom-right">
         {menu}
       </Dropdown>
 
-      <Dropdown placeholder="Primary" type="primary">
+      <Dropdown placeholder="Top Left" width={160} position="top-left">
         {menu}
       </Dropdown>
 
-      <Dropdown placeholder="Outline" outline type="primary">
-        {menu}
-      </Dropdown>
-
-      <Dropdown placeholder="Small" size="small">
+      <Dropdown placeholder="Top Right" width={160} position="top-right">
         {menu}
       </Dropdown>
     </Fragment>

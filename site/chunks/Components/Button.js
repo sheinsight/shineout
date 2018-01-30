@@ -37,6 +37,11 @@ const examples = [
     component: require('doc/pages/components/Button/example-5-group.js').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-5-group.js'),
   },
+  {
+    title: locate('链接 href', 'Link href'),
+    component: require('doc/pages/components/Button/example-6-href.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Button/example-6-href.js'),
+  },
 ]
 
 export default navable(props => <MarkDown {...props} source={source} examples={examples} />)

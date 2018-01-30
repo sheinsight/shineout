@@ -7,7 +7,7 @@ import { buttonClass } from '../styles'
 class Button extends PureComponent {
   render() {
     const {
-      children, disabled, outline, type, size,
+      children, outline, type, size, href, ...others
     } = this.props
     const className = classnames(
       buttonClass('_', type, outline && 'outline', {
@@ -17,14 +17,20 @@ class Button extends PureComponent {
       this.props.className,
     )
 
+    if (href) {
+      return (
+        <a href={href} {...others} className={className}>{children}</a>
+      )
+    }
     return (
-      <button disabled={disabled} className={className}>{children}</button>
+      <button {...others} className={className}>{children}</button>
     )
   }
 }
 
 Button.propTypes = {
   ...getProps('disabled', 'size', 'type'),
+  href: PropTypes.string,
   outline: PropTypes.bool,
   submit: PropTypes.bool,
   children: PropTypes.any.isRequired,

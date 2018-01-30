@@ -3,10 +3,13 @@
 ## API
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| children | array | 必填 | 一组 ReactElement |
+| children | array | 必填 | 一组 ReactElement； |
 | className | string | 无 | 扩展className |
-| placeholder | string \| ReactElement | 必填 | 按钮内容 |
-| style | object | 无 | 最外层扩展样式 |
-| type | string | 'link' | 可选值 \['link', 'primary', 'success', 'info', 'warning', 'error'] |
+| href | string | 无 | 同 [Button](#/components/Button) |
+| outline | boolean | false | 同 [Button](#/components/Button) |
+| placeholder | string \| ReactElement | 必填 | 按钮显示内容 |
+| size | string | 'default' | 同 [Button](#/components/Button) |
+| type | string | 'default' | 可选值 \['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'link'] |
+| width | number | 无 | 弹出选项层的宽度 |
 
 <example />

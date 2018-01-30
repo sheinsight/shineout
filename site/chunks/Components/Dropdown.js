@@ -17,6 +17,11 @@ const examples = [
     component: require('doc/pages/components/Dropdown/example-1-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-1-base.js'),
   },
+  {
+    title: locate('基础', 'Base'),
+    component: require('doc/pages/components/Dropdown/example-2-position.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-2-position.js'),
+  },
 ]
 
 export default navable(props => <MarkDown {...props} source={source} examples={examples} />)
