@@ -3,8 +3,7 @@
  * en - Sticky to bottom
  */
 import React from 'react'
-import Sticky from 'shineout/Sticky'
-import Alert from 'shineout/Alert'
+import { Alert, Sticky } from 'shineout'
 
 export default function () {
   return (

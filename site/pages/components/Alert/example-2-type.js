@@ -3,7 +3,7 @@
  * en - type
  */
 import React, { Fragment } from 'react'
-import Alert from 'shineout/Alert'
+import { Alert } from 'shineout'
 
 export default function () {
   return (

@@ -3,8 +3,7 @@
  * en - Sticky 20px to top
  */
 import React from 'react'
-import Sticky from 'shineout/Sticky'
-import Alert from 'shineout/Alert'
+import { Alert, Sticky } from 'shineout'
 
 export default function () {
   return (

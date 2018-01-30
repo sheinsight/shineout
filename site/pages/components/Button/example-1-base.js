@@ -3,7 +3,7 @@
  * en - Base
  */
 import React, { Fragment } from 'react'
-import Button from 'shineout/Button'
+import { Button } from 'shineout'
 
 export default function () {
   return (

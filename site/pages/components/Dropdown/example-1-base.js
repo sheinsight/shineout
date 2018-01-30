@@ -3,7 +3,7 @@
  * en - Base
  */
 import React from 'react'
-import Dropdown from 'shineout/Dropdown'
+import { Dropdown } from 'shineout'
 
 export default function () {
   return (

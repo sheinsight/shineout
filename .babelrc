@@ -4,5 +4,14 @@
       "plugins": ["transform-react-remove-prop-types"]
     }
   },
+  "plugins": [
+    [
+      "import", {
+        "libraryName": "shineout",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false
+      }
+    ]
+  ],
   "presets": ["react-app"]
 }

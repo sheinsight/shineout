@@ -3,7 +3,7 @@
  * en - onClose
  */
 import React, { Fragment, PureComponent } from 'react'
-import Alert from 'shineout/Alert'
+import { Alert } from 'shineout'
 
 export default class extends PureComponent {
   constructor(props) {
