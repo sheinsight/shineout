@@ -1,0 +1,99 @@
+.caret-solid(@direction, @width) {
+  & when not (@direction = left) {
+    &:after {
+      display: inline-block;
+      content: "";
+      width: 0;
+      height: 0;
+      margin-left: @width;
+
+      & when (@direction = down) {
+        vertical-align: @width * 0.85;
+        border-top: @width solid;
+        border-right: @width solid transparent;
+        border-bottom: 0;
+        border-left: @width solid transparent;
+      }
+
+      & when (@direction = up) {
+        vertical-align: @width * 0.85;
+        border-top: 0;
+        border-right: @width solid transparent;
+        border-bottom: @width solid;
+        border-left: @width solid transparent;
+      }
+
+      & when (@direction = right) {
+        border-top: @width solid transparent;
+        border-bottom: @width solid transparent;
+        border-left: @width solid;
+      }
+    }
+  }
+
+  & when (@direction = left) {
+    &:before {
+      display: inline-block;
+      content: "";
+      width: 0;
+      height: 0;
+      margin-right: @width;
+      border-top: @width solid transparent;
+      border-right: @width solid;
+      border-bottom: @width solid transparent;
+    }
+  }
+}
+
+.caret-outline(@direction, @width) {
+  & when not (@direction = left) {
+    &:after {
+      display: inline-block;
+      content: "";
+      position: relative;
+      margin-left: @width;
+      width: @width;
+      height: @width;
+      border-style: solid;
+      border-width: 0 1px 1px 0;
+
+      & when (@direction = down) {
+        vertical-align: 3px;
+        transform: rotate(45deg);
+      }
+
+      & when (@direction = up) {
+        transform: rotate(225deg);
+      }
+
+      & when (@direction = right) {
+        vertical-align: 2px;
+        transform: rotate(315deg);
+      }
+    }
+  }
+
+  & when (@direction = left) {
+    &:before {
+      display: inline-block;
+      content: "";
+      position: relative;
+      margin-right: @width;
+      width: @width;
+      height: @width;
+      border-style: solid;
+      border-width: 0 1px 1px 0;
+      vertical-align: 2px;
+      transform: rotate(135deg);
+    }
+  }
+}
+
+.caret(@direction, @width: @caret-width) {
+  & when (@so-theme = antd) {
+    .caret-outline(@direction; @width);
+  }
+  & when not (@so-theme = antd) {
+    .caret-solid(@direction; @width);
+  }
+}

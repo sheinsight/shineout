@@ -18,9 +18,24 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-1-base.js'),
   },
   {
-    title: locate('基础', 'Base'),
-    component: require('doc/pages/components/Dropdown/example-2-position.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-2-position.js'),
+    title: locate('hover 触发', 'hover'),
+    component: require('doc/pages/components/Dropdown/example-2-hover.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-2-hover.js'),
+  },
+  {
+    title: locate('弹出位置 position', 'position'),
+    component: require('doc/pages/components/Dropdown/example-3-position.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-3-position.js'),
+  },
+  {
+    title: locate('平铺选项', 'items'),
+    component: require('doc/pages/components/Dropdown/example-4-items.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-4-items.js'),
+  },
+  {
+    title: locate('Button事件', 'Split Button'),
+    component: require('doc/pages/components/Dropdown/example-5-split.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-5-split.js'),
   },
 ]
 

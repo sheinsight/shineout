@@ -5,7 +5,9 @@
 | --- | --- | --- | --- |
 | children | array | 必填 | 一组 ReactElement； |
 | className | string | 无 | 扩展className |
-| href | string | 无 | 同 [Button](#/components/Button) |
+| href | string | 无 | 如果 href 不为空，使用一个 Button 单独处理下拉事件 |
+| hover | boolean | false | 为 true 时，通过 mouseenter 触发选项弹出  |
+| onClick | func | 无 | 如果 onClick 事件不为空，使用一个 Button 单独处理下拉事件 |
 | outline | boolean | false | 同 [Button](#/components/Button) |
 | placeholder | string \| ReactElement | 必填 | 按钮显示内容 |
 | size | string | 'default' | 同 [Button](#/components/Button) |

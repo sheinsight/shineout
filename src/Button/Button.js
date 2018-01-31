@@ -33,7 +33,7 @@ Button.propTypes = {
   href: PropTypes.string,
   outline: PropTypes.bool,
   submit: PropTypes.bool,
-  children: PropTypes.any.isRequired,
+  children: PropTypes.any,
 }
 
 Button.defaultProps = {

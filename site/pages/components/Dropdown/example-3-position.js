@@ -1,6 +1,6 @@
 /**
- * cn - 基础
- * en - Base
+ * cn - 弹出位置 position
+ * en - position
  */
 import React, { Fragment } from 'react'
 import { Dropdown } from 'shineout'
@@ -15,6 +15,10 @@ export default function () {
 
   return (
     <Fragment>
+      <Dropdown placeholder="Left Top" width={160} position="left-top">
+        {menu}
+      </Dropdown>
+
       <Dropdown placeholder="Bottom Left" width={160} position="bottom-left">
         {menu}
       </Dropdown>
@@ -23,11 +27,25 @@ export default function () {
         {menu}
       </Dropdown>
 
+      <Dropdown placeholder="Right Top" width={160} position="right-top">
+        {menu}
+      </Dropdown>
+
+      <br />
+
+      <Dropdown placeholder="Left Bottom" width={160} position="left-bottom">
+        {menu}
+      </Dropdown>
+
       <Dropdown placeholder="Top Left" width={160} position="top-left">
         {menu}
       </Dropdown>
 
       <Dropdown placeholder="Top Right" width={160} position="top-right">
+        {menu}
+      </Dropdown>
+
+      <Dropdown placeholder="Right Bottom" width={160} position="right-bottom">
         {menu}
       </Dropdown>
     </Fragment>

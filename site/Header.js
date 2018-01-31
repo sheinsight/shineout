@@ -52,7 +52,12 @@ function Header(props, context) {
         <a href="javascript:;" onClick={handleLangClick}>{locate('English', '中文')}</a>
       </div>
       <div className={headerClass('right')}>
-        <Dropdown className={headerClass('light')} placeholder={`theme: ${theme.getTheme()}`} type="link">
+        <Dropdown
+          className={headerClass('light')}
+          hover
+          placeholder={`theme: ${theme.getTheme()}`}
+          type="link"
+        >
           {(['default', 'antd']).map(t => (
             <a
               key={t}
