@@ -18,22 +18,22 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-1-base.js'),
   },
   {
-    title: locate('hover 触发', 'hover'),
+    title: locate('hover 触发', 'Hover'),
     component: require('doc/pages/components/Dropdown/example-2-hover.js').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-2-hover.js'),
   },
   {
-    title: locate('弹出位置 position', 'position'),
+    title: locate('弹出位置 position', 'Position'),
     component: require('doc/pages/components/Dropdown/example-3-position.js').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-3-position.js'),
   },
   {
-    title: locate('平铺选项', 'items'),
+    title: locate('选项多列平铺', 'Multiple columns'),
     component: require('doc/pages/components/Dropdown/example-4-items.js').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-4-items.js'),
   },
   {
-    title: locate('Button事件', 'Split Button'),
+    title: locate('Button事件', 'Button event'),
     component: require('doc/pages/components/Dropdown/example-5-split.js').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-5-split.js'),
   },

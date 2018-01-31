@@ -1,6 +1,6 @@
 /**
  * cn - 弹出位置 position
- * en - position
+ * en - Position
  */
 import React, { Fragment } from 'react'
 import { Dropdown } from 'shineout'

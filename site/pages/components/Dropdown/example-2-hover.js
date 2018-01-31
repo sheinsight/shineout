@@ -1,6 +1,6 @@
 /**
  * cn - hover 触发
- * en - hover
+ * en - Hover
  */
 import React, { Fragment } from 'react'
 import { Dropdown } from 'shineout'

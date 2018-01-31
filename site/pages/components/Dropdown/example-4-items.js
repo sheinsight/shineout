@@ -1,6 +1,6 @@
 /**
- * cn - 平铺选项
- * en - items
+ * cn - 选项多列平铺
+ * en - Multiple columns
  */
 import React, { Fragment } from 'react'
 import { Dropdown } from 'shineout'

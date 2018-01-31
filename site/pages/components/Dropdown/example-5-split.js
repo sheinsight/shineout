@@ -1,6 +1,6 @@
 /**
  * cn - Button事件
- * en - Split Button
+ * en - Button event
  */
 import React, { Fragment } from 'react'
 import { Dropdown } from 'shineout'
