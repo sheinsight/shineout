@@ -17,6 +17,12 @@ class Alert extends PureComponent {
     this.handleClose = this.handleClose.bind(this)
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.dismiss !== nextProps.dismiss && nextProps.dismiss) {
+      this.handleClose()
+    }
+  }
+
   bindRef(el) {
     this.element = el
   }
@@ -69,6 +75,7 @@ class Alert extends PureComponent {
       '_',
       type,
       dismiss === 1 && 'dismissed',
+      onClose && 'with-close',
       icon && 'with-icon',
     )
     if (className) wrapClassName += ` ${className}`
@@ -98,6 +105,7 @@ class Alert extends PureComponent {
 Alert.propTypes = {
   ...getProps('type'),
   children: PropTypes.any,
+  dismiss: PropTypes.bool,
   duration: PropTypes.number,
   icon: PropTypes.oneOfType([
     PropTypes.bool,

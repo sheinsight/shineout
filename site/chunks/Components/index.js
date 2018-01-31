@@ -39,6 +39,13 @@ const pages = [
     component: loadable(() => import('./Alert')),
   },
   
+  {
+    name: 'Message',
+    cn: '消息提示',
+    level: 2,
+    component: loadable(() => import('./Message')),
+  },
+  
   'Layout',
   
   {

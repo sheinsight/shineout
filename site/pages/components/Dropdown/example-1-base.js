@@ -1,16 +1,22 @@
 /**
- * cn - 基础
+ * cn - 基本用法
  * en - Base
  */
 import React, { Fragment } from 'react'
-import { Dropdown } from 'shineout'
+import { Dropdown, Message } from 'shineout'
 
 export default function () {
   const menu = [
     <a href="#/" key={1}>Home</a>,
     <a href="http://google.com" target="_blank" key={2}>Google</a>,
     <hr key={3} />,
-    <a key={4}>Link 3</a>,
+    <a
+      key={4}
+      href="javascript:;"
+      onClick={() => { Message.info('Clicked the dropdown button.') }}
+    >
+      Message
+    </a>,
   ]
 
   return (

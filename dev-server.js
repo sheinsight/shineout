@@ -19,6 +19,7 @@ new WebpackDevServer(webpack(webpackConfig), {
   // noInfo: true,
   stats: {
     colors: true,
+    children: false,
   },
 }).listen(config.dev.webpackPort, 'localhost', (err) => {
   if (err) {

@@ -6,7 +6,8 @@
   },
   "Form": {},
   "Feedback": {
-    "Alert": "提示框"
+    "Alert": "提示框",
+    "Message": "消息提示"
   },
   "Layout": {
     "Sticky": "附着"

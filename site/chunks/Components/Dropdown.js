@@ -13,7 +13,7 @@ const source = locate(cn, en)
 
 const examples = [
   {
-    title: locate('基础', 'Base'),
+    title: locate('基本用法', 'Base'),
     component: require('doc/pages/components/Dropdown/example-1-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-1-base.js'),
   },

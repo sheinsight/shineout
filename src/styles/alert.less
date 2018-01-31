@@ -27,6 +27,10 @@
     color: inherit;
   }
 
+  &-with-close {
+    padding-right: @alert-padding-x + 20;
+  }
+
   // Provide class for links that match alerts
   &-link {
     font-weight: @alert-link-font-weight;
@@ -35,7 +39,7 @@
   &-close {
     position: absolute;
     display: block;
-    line-height: 1;
+    // line-height: 1;
     top: @alert-padding-y;
     right: 12px;
 
@@ -78,6 +82,10 @@
 
   > p + p {
     margin-top: 5px;
+  }
+
+  &-default {
+    .alert-variant(@alert-default-bg; @alert-default-border; @alert-default-text);
   }
 
   &-info {

@@ -63,11 +63,11 @@ function createDoc(name) {
   const docPath = path.resolve(__dirname, '../site/pages/components', name)
 
   const exampleText = `/**
- * cn - 基础
+ * cn - 基本用法
  * en - Base
  */
 import React, { Fragment } from 'react'
-import ${name} from 'shineout/${name}'
+import { ${name} } from 'shineout'
 
 export default function () {
   return (
@@ -77,7 +77,7 @@ export default function () {
   )
 }
 `
-  const md = `# ${name}\n ## API \n\n<example />`
+  const md = `# ${name}\n\n## API \n\n<example />`
 
   fs.mkdirSync(docPath)
   console.log(`create example file site/pages/components/${name}/example-1-base.js`)

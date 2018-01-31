@@ -3,7 +3,7 @@
  * en - Button event
  */
 import React, { Fragment } from 'react'
-import { Dropdown } from 'shineout'
+import { Dropdown, Message } from 'shineout'
 
 export default function () {
   const menu = [
@@ -21,7 +21,7 @@ export default function () {
 
       <Dropdown
         outline
-        onClick={() => alert('clicked')}
+        onClick={() => Message.info('The button clicked.')}
         position="top-left"
         type="primary"
         placeholder="Click me"

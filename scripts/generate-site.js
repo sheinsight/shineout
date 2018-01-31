@@ -3,7 +3,6 @@ const path = require('path')
 const swig = require('swig')
 const chokidar = require('chokidar')
 const rimraf = require('rimraf')
-const componentGroups = require('../site/pages/components/group')
 
 const pagesPath = path.resolve(__dirname, '../site/pages')
 const chunkPath = path.resolve(__dirname, '../site/chunks')
@@ -11,6 +10,10 @@ const componentPath = path.resolve(pagesPath, './components')
 
 const componentsCache = {}
 let lastComponentText = null
+
+function getGroups() {
+  return JSON.parse(fs.readFileSync(path.resolve(componentPath, 'group.json')))
+}
 
 function getComment(text, key) {
   const index = text.indexOf(key)
@@ -34,6 +37,8 @@ function getComponentPage(name, file) {
     group: '',
     name,
   }
+
+  const componentGroups = getGroups()
 
   Object.keys(componentGroups).forEach((k) => {
     const g = componentGroups[k]
@@ -78,6 +83,7 @@ function getComponentPage(name, file) {
 
 function generateComponents(file = '') {
   const template = swig.compileFile(path.resolve(__dirname, './components.tpl'))
+  const componentGroups = getGroups()
 
   const groups = {}
   Object.keys(componentGroups).forEach((key) => {
