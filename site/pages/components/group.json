@@ -5,6 +5,9 @@
     "Dropdown": "下拉"
   },
   "Form": {},
+  "Data": {
+    "Table": "表格"
+  },
   "Feedback": {
     "Alert": "提示框",
     "Message": "消息提示"

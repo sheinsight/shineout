@@ -30,6 +30,15 @@ const pages = [
   
   'Form',
   
+  'Data',
+  
+  {
+    name: 'Table',
+    cn: '表格',
+    level: 2,
+    component: loadable(() => import('./Table')),
+  },
+  
   'Feedback',
   
   {

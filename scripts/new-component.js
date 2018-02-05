@@ -19,7 +19,7 @@ class ${componentName} extends PureComponent {
   render() {
     const { style } = this.props
     const className = classnames(
-      '_',
+      ${className}('_'),
       this.props.className,
     )
 
