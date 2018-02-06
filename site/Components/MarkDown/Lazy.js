@@ -12,7 +12,7 @@ export default function () {
       }
     }
 
-    componentWillMount() {
+    componentDidMount() {
       if (this.props.loader) {
         this.props.loader().then((source) => {
           this.setState({ source })

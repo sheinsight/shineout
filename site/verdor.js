@@ -1,1 +1,6 @@
-import 'react-markdown'
+import './utils/faker'
+import './utils/faker/country'
+import './utils/faker/firstName'
+import './utils/faker/lastName'
+import './utils/faker/position'
+import './utils/faker/city'

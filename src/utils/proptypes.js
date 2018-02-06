@@ -2,6 +2,10 @@ import PropTypes from 'prop-types'
 
 export const propSets = {
   disabled: PropTypes.bool,
+  keygen: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func,
+  ]),
   placeholder: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element,
