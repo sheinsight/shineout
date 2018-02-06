@@ -1,6 +1,6 @@
 /**
- * cn - 基本用法
- * en - Overview
+ * cn - 紧凑表格 small
+ * en - Small table
  */
 import React from 'react'
 import { Table } from 'shineout'
@@ -24,16 +24,11 @@ export default function () {
       title: 'Office',
       render: 'office',
     },
-    {
-      title: 'Salary',
-      style: { textAlign: 'right' },
-      render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
-    },
   ]
 
   const data = getData(4)
 
   return (
-    <Table keygen="id" columns={columns} data={data} />
+    <Table keygen="id" size="small" columns={columns} data={data} />
   )
 }

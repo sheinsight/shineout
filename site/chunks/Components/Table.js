@@ -18,7 +18,17 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-01-base.js'),
   },
   {
-    title: locate('只使用样式 (tr, td)', 'Style only'),
+    title: locate('边框和底纹', 'Style (bordered, striped)'),
+    component: require('doc/pages/components/Table/example-02-style.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-02-style.js'),
+  },
+  {
+    title: locate('紧凑表格 small', 'Small table'),
+    component: require('doc/pages/components/Table/example-03-small.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-03-small.js'),
+  },
+  {
+    title: locate('只使用样式 - tr, td', 'Style only'),
     component: require('doc/pages/components/Table/example-99-raw.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-99-raw.js'),
   },

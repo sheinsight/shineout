@@ -15,7 +15,12 @@ export default function () {
 
   return (
     <Fragment>
-      <Dropdown href="#/" position="top-left" hover placeholder="Link Home">
+      <Dropdown
+        href="#/"
+        position="top-left"
+        hover
+        placeholder="Link Home"
+      >
         {menu}
       </Dropdown>
 

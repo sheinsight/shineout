@@ -52,14 +52,71 @@
     table {
       background-color: @body-bg;
     }
+
+    > tbody > tr {
+      transition: all 0.216s;
+    }
   }
+
   caption {
     padding-top: @table-cell-padding;
     padding-bottom: @table-cell-padding;
     color: @text-muted;
     text-align: left;
   }
+
   th {
     text-align: left;
+  }
+
+  &-hover {
+    table > tbody > tr:hover {
+      background-color: @table-bg-hover;
+    }
+  }
+
+  &-small {
+    table {
+      > thead,
+      > tbody,
+      > tfoot {
+        > tr {
+          > th,
+          > td {
+            padding: @table-condensed-cell-padding;
+          }
+        }
+      }
+    }
+  }
+
+  &-bordered {
+    table {
+      border: 1px solid @table-border-color;
+      > thead,
+      > tbody,
+      > tfoot {
+        > tr {
+          > th,
+          > td {
+            border: 1px solid @table-border-color;
+          }
+        }
+      }
+      > thead > tr {
+        > th,
+        > td {
+          border-bottom-width: @table-head-border;
+        }
+      }
+    }
+  }
+
+  & when not (@so-theme = antd) {
+    &-striped {
+      table > tbody > tr:nth-of-type(odd) {
+        background-color: @table-bg-accent;
+      }
+    }
   }
 }

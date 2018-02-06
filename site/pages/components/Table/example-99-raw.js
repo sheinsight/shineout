@@ -1,5 +1,5 @@
 /**
- * cn - 只使用样式 (tr, td)
+ * cn - 只使用样式 - tr, td
  * en - Style only
  */
 import React from 'react'

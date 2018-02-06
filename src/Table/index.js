@@ -30,9 +30,17 @@ class Table extends PureComponent {
   }
 
   render() {
-    const { style } = this.props
+    const {
+      style, striped, bordered, size, hover,
+    } = this.props
     const className = classnames(
-      tableClass('_'),
+      tableClass(
+        '_',
+        size,
+        hover && !striped && 'hover',
+        striped && 'striped',
+        bordered && 'bordered',
+      ),
       this.props.className,
     )
 
@@ -46,14 +54,18 @@ class Table extends PureComponent {
 
 Table.propTypes = {
   ...getProps('size', 'type', 'keygen'),
+  bordered: PropTypes.bool,
   children: PropTypes.any,
   columns: PropTypes.array,
   data: PropTypes.array,
+  hover: PropTypes.bool,
   loading: PropTypes.bool,
+  striped: PropTypes.bool,
 }
 
 Table.defaultProps = {
   ...defaultProps,
+  hover: true,
 }
 
 const handleColumns = T => ({ columns, ...props }) => {
