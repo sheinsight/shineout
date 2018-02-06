@@ -4,7 +4,7 @@ import { getUidStr } from 'shineout/utils/uid'
 import classGenerate from '../../utils/classname'
 import CodeBlock from '../CodeBlock'
 
-const cls = classGenerate(require('./example.less'), 'example')
+const exampleClass = classGenerate(require('./example.less'), 'example')
 
 class Example extends PureComponent {
   constructor(props) {
@@ -19,10 +19,11 @@ class Example extends PureComponent {
   }
 
   componentDidMount() {
+    const [title] = this.props.title.split('\n')
     this.props.appendHeading({
       id: this.id,
       level: 3,
-      children: [this.props.title],
+      children: [title],
     })
   }
 
@@ -31,19 +32,22 @@ class Example extends PureComponent {
   }
 
   render() {
-    const { component, rawText, title } = this.props
+    const { component, rawText } = this.props
     const { showcode } = this.state
 
     const text = rawText.replace(/(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/, '').trim()
 
+    const [title, sub] = this.props.title.split('\n')
+
     return (
-      <div id={this.id} className={cls('_', showcode && 'showcode')}>
-        <div className={cls('title')}>
+      <div id={this.id} className={exampleClass('_', showcode && 'showcode')}>
+        <div className={exampleClass('title')}>
           {title}
-          <a href="javascript:;" className={cls('toggle')} onClick={this.toggleCode}>{'< >'}</a>
+          { sub && <div className={exampleClass('sub-title')}>{sub}</div> }
+          <a href="javascript:;" className={exampleClass('toggle')} onClick={this.toggleCode}>{'< >'}</a>
         </div>
         { showcode && <CodeBlock language="js" value={text} /> }
-        <div className={cls('body')}>
+        <div className={exampleClass('body')}>
           { createElement(component) }
         </div>
       </div>

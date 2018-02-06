@@ -1,8 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
-import { tableClass } from '../styles'
 import Colgroup from './Colgroup'
 import Thead from './Thead'
 import Tbody from './Tbody'

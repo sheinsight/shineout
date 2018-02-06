@@ -22,7 +22,7 @@
           padding: @table-cell-padding;
           line-height: @line-height-base;
           vertical-align: top;
-          border-top: 1px solid @table-border-color;
+          border-bottom: 1px solid @table-border-color;
         }
       }
     }
@@ -33,17 +33,7 @@
       background: @table-head-bg;
       color: @table-head-color;
     }
-    // Remove top border from thead by default
-    > caption + thead,
-    > colgroup + thead,
-    > thead:first-child {
-      > tr:first-child {
-        > th,
-        > td {
-          border-top: 0;
-        }
-      }
-    }
+
     // Account for multiple tbody instances
     > tbody + tbody {
       border-top: @table-head-border solid @table-border-color;
@@ -118,5 +108,38 @@
         background-color: @table-bg-accent;
       }
     }
+  }
+
+  &-head {
+    table {
+      width: auto;
+      margin-bottom: 0;
+    }
+  }
+
+  &-body {
+    margin-top: -1px;
+    overflow: auto;
+    table {
+      margin-bottom: 0;
+    }
+  }
+
+  &-head-fixed {
+    margin-bottom: @line-height-computed;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-body {
+    flex: 1;
+  }
+
+  &-head {
+    background: @table-head-bg;
+  }
+
+  &-bordered &-body {
+    border-bottom: 1px solid @table-border-color;
   }
 }

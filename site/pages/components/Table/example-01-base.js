@@ -10,6 +10,7 @@ export default function () {
   const columns = [
     {
       title: 'Name',
+      width: 150,
       render: d => `${d.firstName} ${d.lastName}`,
     },
     {

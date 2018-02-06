@@ -1,6 +1,6 @@
 /**
- * cn - 边框和底纹
- * en - Style (bordered, striped)
+ * cn - 固定表头 \n 固定表头需要设置整个表格的高度
+ * en - Fixed head
  */
 import React from 'react'
 import { Table } from 'shineout'
@@ -24,11 +24,21 @@ export default function () {
       title: 'Office',
       render: 'office',
     },
+    {
+      title: 'Salary',
+      render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
+    },
   ]
 
-  const data = getData(4)
+  const data = getData(20)
 
   return (
-    <Table keygen="id" striped bordered columns={columns} data={data} />
+    <Table
+      headFixed
+      keygen="id"
+      style={{ height: 400 }}
+      columns={columns}
+      data={data}
+    />
   )
 }

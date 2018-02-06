@@ -23,12 +23,17 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-02-style.js'),
   },
   {
-    title: locate('紧凑表格 small', 'Small table'),
+    title: locate('紧凑表格 \n 设置 size=small', 'Small table'),
     component: require('doc/pages/components/Table/example-03-small.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-03-small.js'),
   },
   {
-    title: locate('只使用样式 - tr, td', 'Style only'),
+    title: locate('固定表头 \n 固定表头需要设置整个表格的高度', 'Fixed head'),
+    component: require('doc/pages/components/Table/example-04-headfixed.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-04-headfixed.js'),
+  },
+  {
+    title: locate('只使用样式 \n 使用原生的tr, td来显示表格', 'Style only'),
     component: require('doc/pages/components/Table/example-99-raw.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-99-raw.js'),
   },

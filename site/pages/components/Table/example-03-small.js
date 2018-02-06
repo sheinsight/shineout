@@ -1,5 +1,5 @@
 /**
- * cn - 紧凑表格 small
+ * cn - 紧凑表格 \n 设置 size=small
  * en - Small table
  */
 import React from 'react'

@@ -1,5 +1,5 @@
 /**
- * cn - 只使用样式 - tr, td
+ * cn - 只使用样式 \n 使用原生的tr, td来显示表格
  * en - Style only
  */
 import React from 'react'
@@ -7,7 +7,7 @@ import { Table } from 'shineout'
 
 export default function () {
   return (
-    <Table>
+    <Table striped>
       <thead>
         <tr>
           <th>Name</th>
