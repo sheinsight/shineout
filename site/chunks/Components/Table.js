@@ -39,8 +39,13 @@ const examples = [
   },
   {
     title: locate('固定表头 \n *固定表头需要设置整个表格的高度', 'Fixed head'),
-    component: require('doc/pages/components/Table/example-06-header-fixed.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Table/example-06-header-fixed.js'),
+    component: require('doc/pages/components/Table/example-06-fixed-header.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-06-fixed-header.js'),
+  },
+  {
+    title: locate('固定列', 'Fixed column'),
+    component: require('doc/pages/components/Table/example-07-fixed-column.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-07-fixed-column.js'),
   },
   {
     title: locate('只使用样式 \n 使用原生的tr, td来显示表格', 'Style only'),

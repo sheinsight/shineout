@@ -97,10 +97,12 @@ Table.defaultProps = {
 
 const handleColumns = T => ({ columns, ...props }) => {
   if (!columns) return <T {...props} />
+
   const cols = columns.map((c) => {
     if (c.key) return c
     return Object.assign({}, c, { key: hash(c) })
   })
+
   return <T columns={cols} {...props} />
 }
 

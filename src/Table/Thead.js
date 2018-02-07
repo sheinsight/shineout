@@ -20,7 +20,11 @@ function formatColumns(columns) {
       }
       g2.push({ col })
     } else {
-      g1.push({ col, title: col.group, count: 1 })
+      g1.push({
+        col,
+        title: col.group,
+        count: 1,
+      })
     }
   })
 
@@ -29,8 +33,18 @@ function formatColumns(columns) {
 
 class Thead extends PureComponent {
   renderTh(col, index, rowSpan, condensed) {
+    const { scrollX } = this.props
+    const style = {}
+    if (col.fixed === 'left') {
+      style.transform = `translateX(${scrollX}px)`
+    }
     return (
-      <th key={index} className={tableClass(condensed && 'condensed')} rowSpan={rowSpan}>
+      <th
+        key={index}
+        className={tableClass(condensed && 'condensed')}
+        style={style}
+        rowSpan={rowSpan}
+      >
         {col.title}
       </th>
     )
@@ -74,6 +88,11 @@ class Thead extends PureComponent {
 
 Thead.propTypes = {
   columns: PropTypes.array.isRequired,
+  scrollX: PropTypes.number,
+}
+
+Thead.defaultProps = {
+  scrollX: undefined,
 }
 
 export default Thead

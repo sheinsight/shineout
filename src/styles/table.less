@@ -9,7 +9,6 @@
   margin-bottom: @line-height-computed;
 
   table {
-    background-color: @table-bg;
     width: 100%;
     max-width: 100%;
     border-collapse: collapse;
@@ -27,6 +26,7 @@
           line-height: @line-height-base;
           vertical-align: top;
           border-bottom: 1px solid @table-border-color;
+          background-color: @table-bg;
         }
       }
     }
@@ -111,11 +111,9 @@
     }
   }
 
-  & when not (@so-theme = antd) {
-    &-striped {
-      table > tbody > tr:nth-of-type(even) {
-        background-color: @table-bg-accent;
-      }
+  &-striped {
+    table > tbody > tr:nth-of-type(even) {
+      background-color: @table-bg-accent;
     }
   }
 

@@ -47,7 +47,9 @@ class SeperateTable extends PureComponent {
   }
 
   renderBody() {
-    const { columns, data, width } = this.props
+    const {
+      columns, data, width, scrollX,
+    } = this.props
     const { colgroup } = this.state
     if (typeof data === 'string') return <div>{data}</div>
 
@@ -58,7 +60,12 @@ class SeperateTable extends PureComponent {
     return (
       <table style={{ width }}>
         <Colgroup colgroup={colgroup} columns={columns} />
-        <Tbody onBodyRender={this.handleColgroup} columns={columns} data={data} />
+        <Tbody
+          onBodyRender={this.handleColgroup}
+          scrollX={scrollX}
+          columns={columns}
+          data={data}
+        />
       </table>
     )
   }
@@ -71,7 +78,7 @@ class SeperateTable extends PureComponent {
       <div key="head" style={{ paddingRight: scrollWidth }} className={tableClass('head')}>
         <table style={{ marginLeft: 0 - scrollX }}>
           <Colgroup colgroup={colgroup} columns={columns} />
-          <Thead columns={columns} />
+          <Thead scrollX={scrollX} columns={columns} />
         </table>
       </div>,
       <div key="body" onScroll={this.handleScroll} ref={this.bindTbody} className={tableClass('body')}>
@@ -94,6 +101,7 @@ SeperateTable.propTypes = {
 SeperateTable.defaultProps = {
   data: undefined,
   width: undefined,
+  scrollX: undefined,
 }
 
 export default SeperateTable

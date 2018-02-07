@@ -1,6 +1,6 @@
 /**
- * cn - 表头分组
- * en - Column group
+ * cn - 固定列
+ * en - Fixed column
  */
 import React from 'react'
 import { Table } from 'shineout'
@@ -11,17 +11,13 @@ export default function () {
     {
       title: 'id',
       render: 'id',
-      width: 50,
+      width: 36,
+      fixed: 'left',
     },
     {
-      title: 'First Name',
-      render: 'firstName',
-      group: 'Name',
-    },
-    {
-      title: 'Last Name',
-      render: 'lastName',
-      group: 'Name',
+      title: 'Name',
+      render: d => `${d.firstName} ${d.lastName}`,
+      fixed: 'left',
     },
     {
       title: 'Country',
@@ -35,14 +31,25 @@ export default function () {
       title: 'Office',
       render: 'office',
     },
+    {
+      title: 'Start Date',
+      render: 'start',
+    },
+    {
+      title: 'Salary',
+      fixed: 'right',
+      render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
+    },
   ]
 
-  const data = getData(4)
+  const data = getData(100)
 
   return (
     <Table
-      bordered
+      headerFixed
       keygen="id"
+      width={1500}
+      style={{ height: 400 }}
       columns={columns}
       data={data}
     />

@@ -4,10 +4,12 @@ import Td from './Td'
 
 class Tr extends PureComponent {
   render() {
-    const { columns, data, index } = this.props
+    const {
+      columns, data, index, scrollX,
+    } = this.props
     return (
       <tr>
-        {columns.map(col => <Td {...col} data={data} index={index} />)}
+        {columns.map(col => <Td {...col} scrollX={scrollX} data={data} index={index} />)}
       </tr>
     )
   }
