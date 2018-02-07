@@ -43,7 +43,7 @@ export default function () {
 
   return (
     <Table
-      headerFixed
+      fixed
       keygen="id"
       width={1500}
       style={{ height: 400 }}

@@ -14,27 +14,41 @@ class SeperateTable extends PureComponent {
     }
 
     this.bindTbody = this.bindTbody.bind(this)
-    this.bindInnerBody = this.bindInnerBody.bind(this)
     this.handleColgroup = this.handleColgroup.bind(this)
     this.handleScroll = this.handleScroll.bind(this)
   }
 
   componentDidMount() {
-    const tbody = this.tbody.getBoundingClientRect()
-    const inner = this.innerBody.getBoundingClientRect()
-    this.setState({ scrollWidth: tbody.width - inner.width })
+    const body = this.tbody
+    this.setState({ scrollWidth: body.offsetWidth - body.clientWidth })
+
+    this.handleScroll()
+
+    /*
+    const right = 0 - (body.scrollWidth - body.scrollLeft - body.clientWidth)
+    body.querySelectorAll(`.${CLASS_FIXED_RIGHT}`)
+      .forEach((td) => { td.style.transform = `translateX(${right}px)` })
+
+    this.props.onScrollLeft(0, right)
+    */
   }
 
   bindTbody(el) {
     this.tbody = el
   }
 
-  bindInnerBody(el) {
-    this.innerBody = el
-  }
+  handleScroll() {
+    const body = this.tbody
 
-  handleScroll(e) {
-    this.props.onScrollX(e.target.scrollLeft)
+    const left = body.scrollLeft
+    if (left === this.scrollLeft) return
+
+    this.scrollLeft = left
+
+    const right = 0 - (body.scrollWidth - body.scrollLeft - body.clientWidth)
+    window.requestAnimationFrame(() => {
+      this.props.onScrollLeft(left, right)
+    })
   }
 
   handleColgroup(tds) {
@@ -48,7 +62,7 @@ class SeperateTable extends PureComponent {
 
   renderBody() {
     const {
-      columns, data, width, scrollX,
+      columns, data, width,
     } = this.props
     const { colgroup } = this.state
     if (typeof data === 'string') return <div>{data}</div>
@@ -62,7 +76,6 @@ class SeperateTable extends PureComponent {
         <Colgroup colgroup={colgroup} columns={columns} />
         <Tbody
           onBodyRender={this.handleColgroup}
-          scrollX={scrollX}
           columns={columns}
           data={data}
         />
@@ -71,19 +84,24 @@ class SeperateTable extends PureComponent {
   }
 
   render() {
-    const { columns, scrollX } = this.props
+    const { columns, scrollLeft } = this.props
     const { colgroup, scrollWidth } = this.state
 
     return [
       <div key="head" style={{ paddingRight: scrollWidth }} className={tableClass('head')}>
-        <table style={{ marginLeft: 0 - scrollX }}>
+        <table style={{ marginLeft: 0 - scrollLeft }}>
           <Colgroup colgroup={colgroup} columns={columns} />
-          <Thead scrollX={scrollX} columns={columns} />
+          <Thead scrollLeft={scrollLeft} columns={columns} />
         </table>
       </div>,
-      <div key="body" onScroll={this.handleScroll} ref={this.bindTbody} className={tableClass('body')}>
+      <div
+        key="body"
+        onScroll={this.handleScroll}
+        ref={this.bindTbody}
+        style={{ overflowY: scrollWidth > 0 ? 'auto' : 'scroll' }}
+        className={tableClass('body')}
+      >
         {this.renderBody()}
-        <div ref={this.bindInnerBody} />
       </div>,
     ]
   }
@@ -93,15 +111,15 @@ SeperateTable.propTypes = {
   ...getProps('size', 'type', 'kengen'),
   columns: PropTypes.array.isRequired,
   data: PropTypes.array,
-  onScrollX: PropTypes.func.isRequired,
-  scrollX: PropTypes.number,
+  onScrollLeft: PropTypes.func.isRequired,
+  scrollLeft: PropTypes.number,
   width: PropTypes.number,
 }
 
 SeperateTable.defaultProps = {
   data: undefined,
   width: undefined,
-  scrollX: undefined,
+  scrollLeft: undefined,
 }
 
 export default SeperateTable

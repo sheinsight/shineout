@@ -1,5 +1,10 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
+import { tableClass } from '../styles'
+
+export const CLASS_FIXED_LEFT = 'fixed-left'
+export const CLASS_FIXED_RIGHT = 'fixed-right'
 
 class Td extends PureComponent {
   constructor(props) {
@@ -10,13 +15,15 @@ class Td extends PureComponent {
 
   render() {
     const {
-      data, rowSpan, colSpan, render, index, className, fixed, scrollX,
+      data, rowSpan, colSpan, render, index, fixed, style, lastFixed, firstFixed,
     } = this.props
 
-    const style = Object.assign({}, this.props.style)
-    if (fixed === 'left' && scrollX) {
-      style.transform = `translateX(${scrollX}px)`
-    }
+    const className = classnames(
+      tableClass(lastFixed && 'last-fixed', firstFixed && 'first-fixed'),
+      this.props.className,
+      fixed === 'left' && CLASS_FIXED_LEFT,
+      fixed === 'right' && CLASS_FIXED_RIGHT,
+    )
 
     return (
       <td style={style} className={className} rowSpan={rowSpan} colSpan={colSpan}>
@@ -34,14 +41,15 @@ Td.propTypes = {
   colSpan: PropTypes.number,
   className: PropTypes.string,
   data: PropTypes.object.isRequired,
+  firstFixed: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,
   fixed: PropTypes.string,
+  lastFixed: PropTypes.bool.isRequired,
   rowSpan: PropTypes.number,
   render: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.func,
   ]),
-  scrollX: PropTypes.number,
   style: PropTypes.object,
 }
 
@@ -51,7 +59,6 @@ Td.defaultProps = {
   fixed: '',
   rowSpan: undefined,
   render: undefined,
-  scrollX: undefined,
   style: {},
 }
 

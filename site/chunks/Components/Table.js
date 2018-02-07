@@ -43,7 +43,7 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-06-fixed-header.js'),
   },
   {
-    title: locate('固定列', 'Fixed column'),
+    title: locate('固定列 \n * 需要设置 fixed 属性为 true', 'Fixed column'),
     component: require('doc/pages/components/Table/example-07-fixed-column.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-07-fixed-column.js'),
   },

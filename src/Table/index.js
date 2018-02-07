@@ -6,19 +6,41 @@ import hash from '../utils/hash'
 import { tableClass } from '../styles'
 import SimpleTable from './SimpleTable'
 import SeperateTable from './SeperateTable'
+import { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
 
 class Table extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      scrollX: 0,
+      scrollLeft: 0,
+      scrollRight: 0,
     }
 
-    this.handleScrollX = this.handleScrollX.bind(this)
+    this.bindTable = this.bindTable.bind(this)
+    this.handleScrollLeft = this.handleScrollLeft.bind(this)
   }
 
-  handleScrollX(scrollX) {
-    this.setState({ scrollX })
+  componentDidMount() {
+    this.setFixed()
+  }
+
+  setFixed() {
+    const { scrollLeft, scrollRight } = this.state
+
+    this.table.querySelectorAll(`.${CLASS_FIXED_LEFT}`)
+      .forEach((td) => { td.style.transform = `translateX(${scrollLeft}px)` })
+    this.table.querySelectorAll(`.${CLASS_FIXED_RIGHT}`)
+      .forEach((td) => { td.style.transform = `translateX(${scrollRight}px)` })
+  }
+
+  handleScrollLeft(scrollLeft, scrollRight) {
+    this.setState({ scrollLeft, scrollRight }, () => {
+      this.setFixed()
+    })
+  }
+
+  bindTable(el) {
+    this.table = el
   }
 
   renderSimple() {
@@ -37,10 +59,10 @@ class Table extends PureComponent {
   render() {
     const {
       striped, bordered, size, hover, height, columns, children,
-      data, style, headerFixed, width,
+      data, style, fixed, width,
     } = this.props
 
-    const { scrollX } = this.state
+    const { scrollLeft, scrollRight } = this.state
 
     const className = classnames(
       tableClass(
@@ -49,7 +71,9 @@ class Table extends PureComponent {
         hover && !striped && 'hover',
         striped && 'striped',
         bordered && 'bordered',
-        headerFixed && 'header-fixed',
+        fixed && 'fixed',
+        scrollLeft && scrollLeft > 0 && 'left-float',
+        scrollRight < 0 && 'right-float',
       ),
       this.props.className,
     )
@@ -59,14 +83,14 @@ class Table extends PureComponent {
       width,
       data,
       columns,
-      scrollX,
-      onScrollX: this.handleScrollX,
+      scrollLeft,
+      onScrollLeft: this.handleScrollLeft,
     }
 
     return (
-      <div className={className} style={style}>
+      <div className={className} ref={this.bindTable} style={style}>
         {
-          headerFixed
+          fixed
           ? <SeperateTable {...props} />
           : <SimpleTable {...props}>{children}</SimpleTable>
         }
@@ -81,7 +105,7 @@ Table.propTypes = {
   children: PropTypes.any,
   columns: PropTypes.array,
   data: PropTypes.array,
-  headerFixed: PropTypes.bool,
+  fixed: PropTypes.bool,
   height: PropTypes.number,
   hover: PropTypes.bool,
   loading: PropTypes.bool,
@@ -91,16 +115,29 @@ Table.propTypes = {
 
 Table.defaultProps = {
   ...defaultProps,
-  headerFixed: false,
+  fixed: false,
   hover: true,
 }
 
 const handleColumns = T => ({ columns, ...props }) => {
   if (!columns) return <T {...props} />
 
-  const cols = columns.map((c) => {
-    if (c.key) return c
-    return Object.assign({}, c, { key: hash(c) })
+  let left = -1
+  let right = -1
+  columns.forEach((c, i) => {
+    if (c.fixed === 'left') left = i
+    if (c.fixed === 'right' && right < 0) right = i
+  })
+
+  const cols = columns.map((c, i) => {
+    const nc = Object.assign({
+      lastFixed: i === left,
+      firstFixed: i === right,
+    }, c)
+    if (!nc.key) nc.key = hash(c)
+    if (i <= left) nc.fixed = 'left'
+    if (i >= right && right > 0) nc.fixed = 'right'
+    return nc
   })
 
   return <T columns={cols} {...props} />

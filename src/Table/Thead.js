@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import { tableClass } from '../styles'
+import { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
 
 function formatColumns(columns) {
   const g1 = []
@@ -33,16 +35,27 @@ function formatColumns(columns) {
 
 class Thead extends PureComponent {
   renderTh(col, index, rowSpan, condensed) {
-    const { scrollX } = this.props
+    /*
     const style = {}
     if (col.fixed === 'left') {
-      style.transform = `translateX(${scrollX}px)`
+      style.transform = `translateX(${scrollLeft}px)`
     }
+    */
+
+    const className = classnames(
+      tableClass(
+        condensed && 'condensed',
+        col.lastFixed && 'last-fixed',
+        col.firstFixed && 'first-fixed',
+      ),
+      col.fixed === 'left' && CLASS_FIXED_LEFT,
+      col.fixed === 'right' && CLASS_FIXED_RIGHT,
+    )
+
     return (
       <th
         key={index}
-        className={tableClass(condensed && 'condensed')}
-        style={style}
+        className={className}
         rowSpan={rowSpan}
       >
         {col.title}
@@ -88,11 +101,6 @@ class Thead extends PureComponent {
 
 Thead.propTypes = {
   columns: PropTypes.array.isRequired,
-  scrollX: PropTypes.number,
-}
-
-Thead.defaultProps = {
-  scrollX: undefined,
 }
 
 export default Thead

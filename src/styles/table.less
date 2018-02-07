@@ -32,6 +32,7 @@
     }
     // Bottom align for column headings
     > thead > tr > th {
+      border-bottom-width: 0;
       vertical-align: middle;
       background: @table-head-bg;
       color: @table-head-color;
@@ -122,17 +123,13 @@
   }
 
   &-body {
-    margin-top: -1px;
-    overflow: auto;
+    flex: 1;
+    overflow-y: scroll;
   }
 
-  &-header-fixed {
+  &-fixed {
     display: flex;
     flex-direction: column;
-  }
-
-  &-body {
-    flex: 1;
   }
 
   &-head {
@@ -141,5 +138,46 @@
 
   &-bordered &-body {
     border-bottom: 1px solid @table-border-color;
+  }
+
+  &-left-float &-last-fixed {
+    position: relative;
+
+    &:after {
+      content: ' ';
+      position: absolute;
+      left: 100%;
+      width: 6px;
+      top: 0;
+      bottom: -1px;
+      background: linear-gradient(to right, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+    }
+  }
+
+  &-right-float &-head th:last-child {
+    position: relative;
+    &:after {
+      content: ' ';
+      width: 20px;
+      position: absolute;
+      left: 100%;
+      top: 0;
+      bottom: 0;
+      background: @table-head-bg;
+    }
+  }
+
+  &-right-float &-first-fixed {
+    position: relative;
+
+    &:before {
+      content: ' ';
+      position: absolute;
+      right: 100%;
+      width: 6px;
+      top: 0;
+      bottom: -1px;
+      background: linear-gradient(to left, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+    }
   }
 }
