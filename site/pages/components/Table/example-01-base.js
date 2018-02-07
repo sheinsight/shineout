@@ -10,7 +10,6 @@ export default function () {
   const columns = [
     {
       title: 'Name',
-      width: 150,
       render: d => `${d.firstName} ${d.lastName}`,
     },
     {
@@ -27,6 +26,7 @@ export default function () {
     },
     {
       title: 'Salary',
+      width: 100,
       style: { textAlign: 'right' },
       render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
     },

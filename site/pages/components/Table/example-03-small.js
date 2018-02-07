@@ -9,6 +9,11 @@ import { getData } from 'doc/data/table'
 export default function () {
   const columns = [
     {
+      title: 'id',
+      render: 'id',
+      width: 36,
+    },
+    {
       title: 'Name',
       render: d => `${d.firstName} ${d.lastName}`,
     },

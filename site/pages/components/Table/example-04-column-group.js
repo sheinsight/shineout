@@ -1,6 +1,6 @@
 /**
- * cn - 固定表头 \n *固定表头需要设置整个表格的高度
- * en - Fixed head
+ * cn - 表头分组
+ * en - Column group
  */
 import React from 'react'
 import { Table } from 'shineout'
@@ -11,11 +11,17 @@ export default function () {
     {
       title: 'id',
       render: 'id',
-      width: 36,
+      width: 50,
     },
     {
-      title: 'Name',
-      render: d => `${d.firstName} ${d.lastName}`,
+      title: 'First Name',
+      render: 'firstName',
+      group: 'Name',
+    },
+    {
+      title: 'Last Name',
+      render: 'lastName',
+      group: 'Name',
     },
     {
       title: 'Country',
@@ -29,20 +35,14 @@ export default function () {
       title: 'Office',
       render: 'office',
     },
-    {
-      title: 'Salary',
-      render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
-    },
   ]
 
-  const data = getData(20)
+  const data = getData(6)
 
   return (
     <Table
-      headerFixed
+      bordered
       keygen="id"
-      width={1200}
-      style={{ height: 400 }}
       columns={columns}
       data={data}
     />

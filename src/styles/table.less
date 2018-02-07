@@ -5,12 +5,13 @@
 
 .@{table-prefix} {
   max-width: 100%;
+  overflow: auto;
+  margin-bottom: @line-height-computed;
 
   table {
     background-color: @table-bg;
     width: 100%;
     max-width: 100%;
-    margin-bottom: @line-height-computed;
     border-collapse: collapse;
     border-spacing: 0;
     color: @table-color;
@@ -31,10 +32,13 @@
     }
     // Bottom align for column headings
     > thead > tr > th {
-      vertical-align: bottom;
-      border-bottom: @table-head-border solid @table-border-color;
+      vertical-align: middle;
       background: @table-head-bg;
       color: @table-head-color;
+    }
+
+    > thead {
+      border-bottom: @table-head-border solid @table-border-color;
     }
 
     // Account for multiple tbody instances
@@ -60,6 +64,14 @@
 
   th {
     text-align: left;
+  }
+
+  th&-center {
+    text-align: center;
+  }
+
+  table > thead > tr > th&-condensed {
+    padding: @table-condensed-cell-padding;
   }
 
   &-hover {
@@ -96,18 +108,12 @@
           }
         }
       }
-      > thead > tr {
-        > th,
-        > td {
-          border-bottom-width: @table-head-border;
-        }
-      }
     }
   }
 
   & when not (@so-theme = antd) {
     &-striped {
-      table > tbody > tr:nth-of-type(odd) {
+      table > tbody > tr:nth-of-type(even) {
         background-color: @table-bg-accent;
       }
     }
@@ -115,21 +121,14 @@
 
   &-head {
     overflow: hidden;
-    table {
-      margin-bottom: 0;
-    }
   }
 
   &-body {
     margin-top: -1px;
     overflow: auto;
-    table {
-      margin-bottom: 0;
-    }
   }
 
   &-header-fixed {
-    margin-bottom: @line-height-computed;
     display: flex;
     flex-direction: column;
   }

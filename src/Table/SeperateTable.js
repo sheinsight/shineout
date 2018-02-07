@@ -12,9 +12,11 @@ class SeperateTable extends PureComponent {
     this.state = {
       scrollWidth: 0,
     }
-    this.handleColgroup = this.handleColgroup.bind(this)
+
     this.bindTbody = this.bindTbody.bind(this)
     this.bindInnerBody = this.bindInnerBody.bind(this)
+    this.handleColgroup = this.handleColgroup.bind(this)
+    this.handleScroll = this.handleScroll.bind(this)
   }
 
   componentDidMount() {
@@ -31,8 +33,11 @@ class SeperateTable extends PureComponent {
     this.innerBody = el
   }
 
-  handleColgroup(tds, bodyWidth) {
-    console.log(bodyWidth)
+  handleScroll(e) {
+    this.props.onScrollX(e.target.scrollLeft)
+  }
+
+  handleColgroup(tds) {
     const colgroup = []
     for (let i = 0, count = tds.length; i < count; i++) {
       const width = tds[i].offsetWidth
@@ -59,17 +64,17 @@ class SeperateTable extends PureComponent {
   }
 
   render() {
-    const { columns } = this.props
+    const { columns, scrollX } = this.props
     const { colgroup, scrollWidth } = this.state
 
     return [
       <div key="head" style={{ paddingRight: scrollWidth }} className={tableClass('head')}>
-        <table>
+        <table style={{ marginLeft: 0 - scrollX }}>
           <Colgroup colgroup={colgroup} columns={columns} />
           <Thead columns={columns} />
         </table>
       </div>,
-      <div key="body" ref={this.bindTbody} className={tableClass('body')}>
+      <div key="body" onScroll={this.handleScroll} ref={this.bindTbody} className={tableClass('body')}>
         {this.renderBody()}
         <div ref={this.bindInnerBody} />
       </div>,
@@ -81,6 +86,8 @@ SeperateTable.propTypes = {
   ...getProps('size', 'type', 'kengen'),
   columns: PropTypes.array.isRequired,
   data: PropTypes.array,
+  onScrollX: PropTypes.func.isRequired,
+  scrollX: PropTypes.number,
   width: PropTypes.number,
 }
 

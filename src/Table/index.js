@@ -11,7 +11,14 @@ class Table extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
+      scrollX: 0,
     }
+
+    this.handleScrollX = this.handleScrollX.bind(this)
+  }
+
+  handleScrollX(scrollX) {
+    this.setState({ scrollX })
   }
 
   renderSimple() {
@@ -32,6 +39,9 @@ class Table extends PureComponent {
       striped, bordered, size, hover, height, columns, children,
       data, style, headerFixed, width,
     } = this.props
+
+    const { scrollX } = this.state
+
     const className = classnames(
       tableClass(
         '_',
@@ -44,12 +54,21 @@ class Table extends PureComponent {
       this.props.className,
     )
 
+    const props = {
+      height,
+      width,
+      data,
+      columns,
+      scrollX,
+      onScrollX: this.handleScrollX,
+    }
+
     return (
       <div className={className} style={style}>
         {
           headerFixed
-          ? <SeperateTable height={height} width={width} columns={columns} data={data} />
-          : <SimpleTable columns={columns} width={width} data={data}>{children}</SimpleTable>
+          ? <SeperateTable {...props} />
+          : <SimpleTable {...props}>{children}</SimpleTable>
         }
       </div>
     )

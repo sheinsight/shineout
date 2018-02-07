@@ -28,9 +28,19 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-03-small.js'),
   },
   {
+    title: locate('表头分组', 'Column group'),
+    component: require('doc/pages/components/Table/example-04-column-group.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-04-column-group.js'),
+  },
+  {
+    title: locate('横向滚动', 'horizontal scroll'),
+    component: require('doc/pages/components/Table/example-05-width.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-05-width.js'),
+  },
+  {
     title: locate('固定表头 \n *固定表头需要设置整个表格的高度', 'Fixed head'),
-    component: require('doc/pages/components/Table/example-04-header-fixed.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Table/example-04-header-fixed.js'),
+    component: require('doc/pages/components/Table/example-06-header-fixed.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-06-header-fixed.js'),
   },
   {
     title: locate('只使用样式 \n 使用原生的tr, td来显示表格', 'Style only'),
