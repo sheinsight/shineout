@@ -4,6 +4,8 @@
 @table-prefix: ~"@{so-prefix}-table";
 
 .@{table-prefix} {
+  max-width: 100%;
+
   table {
     background-color: @table-bg;
     width: 100%;
@@ -12,6 +14,7 @@
     border-collapse: collapse;
     border-spacing: 0;
     color: @table-color;
+    table-layout: fixed;
     // Cells
     > thead,
     > tbody,
@@ -111,8 +114,8 @@
   }
 
   &-head {
+    overflow: hidden;
     table {
-      width: auto;
       margin-bottom: 0;
     }
   }
@@ -125,7 +128,7 @@
     }
   }
 
-  &-head-fixed {
+  &-header-fixed {
     margin-bottom: @line-height-computed;
     display: flex;
     flex-direction: column;

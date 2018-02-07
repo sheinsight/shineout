@@ -29,7 +29,8 @@ class Table extends PureComponent {
 
   render() {
     const {
-      striped, bordered, size, hover, height, columns, children, data, style, headFixed,
+      striped, bordered, size, hover, height, columns, children,
+      data, style, headerFixed, width,
     } = this.props
     const className = classnames(
       tableClass(
@@ -38,7 +39,7 @@ class Table extends PureComponent {
         hover && !striped && 'hover',
         striped && 'striped',
         bordered && 'bordered',
-        headFixed && 'head-fixed',
+        headerFixed && 'header-fixed',
       ),
       this.props.className,
     )
@@ -46,9 +47,9 @@ class Table extends PureComponent {
     return (
       <div className={className} style={style}>
         {
-          headFixed
-          ? <SeperateTable height={height} columns={columns} data={data} />
-          : <SimpleTable columns={columns} data={data}>{children}</SimpleTable>
+          headerFixed
+          ? <SeperateTable height={height} width={width} columns={columns} data={data} />
+          : <SimpleTable columns={columns} width={width} data={data}>{children}</SimpleTable>
         }
       </div>
     )
@@ -61,16 +62,17 @@ Table.propTypes = {
   children: PropTypes.any,
   columns: PropTypes.array,
   data: PropTypes.array,
-  headFixed: PropTypes.bool,
+  headerFixed: PropTypes.bool,
   height: PropTypes.number,
   hover: PropTypes.bool,
   loading: PropTypes.bool,
   striped: PropTypes.bool,
+  width: PropTypes.number,
 }
 
 Table.defaultProps = {
   ...defaultProps,
-  headFixed: false,
+  headerFixed: false,
   hover: true,
 }
 

@@ -1,5 +1,5 @@
 /**
- * cn - 固定表头 \n 固定表头需要设置整个表格的高度
+ * cn - 固定表头 \n *固定表头需要设置整个表格的高度
  * en - Fixed head
  */
 import React from 'react'
@@ -8,6 +8,11 @@ import { getData } from 'doc/data/table'
 
 export default function () {
   const columns = [
+    {
+      title: 'id',
+      render: 'id',
+      width: 36,
+    },
     {
       title: 'Name',
       render: d => `${d.firstName} ${d.lastName}`,
@@ -34,8 +39,9 @@ export default function () {
 
   return (
     <Table
-      headFixed
+      headerFixed
       keygen="id"
+      width={1200}
       style={{ height: 400 }}
       columns={columns}
       data={data}

@@ -9,11 +9,30 @@ import Tbody from './Tbody'
 class SeperateTable extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      scrollWidth: 0,
+    }
     this.handleColgroup = this.handleColgroup.bind(this)
+    this.bindTbody = this.bindTbody.bind(this)
+    this.bindInnerBody = this.bindInnerBody.bind(this)
   }
 
-  handleColgroup(tds) {
+  componentDidMount() {
+    const tbody = this.tbody.getBoundingClientRect()
+    const inner = this.innerBody.getBoundingClientRect()
+    this.setState({ scrollWidth: tbody.width - inner.width })
+  }
+
+  bindTbody(el) {
+    this.tbody = el
+  }
+
+  bindInnerBody(el) {
+    this.innerBody = el
+  }
+
+  handleColgroup(tds, bodyWidth) {
+    console.log(bodyWidth)
     const colgroup = []
     for (let i = 0, count = tds.length; i < count; i++) {
       const width = tds[i].offsetWidth
@@ -23,7 +42,7 @@ class SeperateTable extends PureComponent {
   }
 
   renderBody() {
-    const { columns, data } = this.props
+    const { columns, data, width } = this.props
     const { colgroup } = this.state
     if (typeof data === 'string') return <div>{data}</div>
 
@@ -32,7 +51,7 @@ class SeperateTable extends PureComponent {
     if (data.length === 0) return <div>no data</div>
 
     return (
-      <table>
+      <table style={{ width }}>
         <Colgroup colgroup={colgroup} columns={columns} />
         <Tbody onBodyRender={this.handleColgroup} columns={columns} data={data} />
       </table>
@@ -41,17 +60,18 @@ class SeperateTable extends PureComponent {
 
   render() {
     const { columns } = this.props
-    const { colgroup } = this.state
+    const { colgroup, scrollWidth } = this.state
 
     return [
-      <div key="head" className={tableClass('head')}>
+      <div key="head" style={{ paddingRight: scrollWidth }} className={tableClass('head')}>
         <table>
           <Colgroup colgroup={colgroup} columns={columns} />
           <Thead columns={columns} />
         </table>
       </div>,
-      <div key="body" className={tableClass('body')}>
+      <div key="body" ref={this.bindTbody} className={tableClass('body')}>
         {this.renderBody()}
+        <div ref={this.bindInnerBody} />
       </div>,
     ]
   }
