@@ -15,26 +15,32 @@ export default function () {
     },
     {
       title: 'Name',
+      width: 200,
       render: d => `${d.firstName} ${d.lastName}`,
     },
     {
       title: 'Country',
+      width: 300,
       render: 'country',
     },
     {
       title: 'Position',
+      width: 200,
       render: 'position',
     },
     {
       title: 'Office',
+      width: 200,
       render: 'office',
     },
     {
       title: 'Start Date',
+      width: 200,
       render: 'start',
     },
     {
       title: 'Salary',
+      width: 200,
       render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
     },
   ]
@@ -45,7 +51,6 @@ export default function () {
     <Table
       fixed
       keygen="id"
-      width={1500}
       style={{ height: 400 }}
       columns={columns}
       data={data}

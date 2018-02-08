@@ -38,7 +38,7 @@
       color: @table-head-color;
     }
 
-    > thead {
+    > thead > tr:last-child {
       border-bottom: @table-head-border solid @table-border-color;
     }
 
@@ -154,7 +154,7 @@
     }
   }
 
-  &-right-float &-head th:last-child {
+  &-head th:last-child {
     position: relative;
     &:after {
       content: ' ';

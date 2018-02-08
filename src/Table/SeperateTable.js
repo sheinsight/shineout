@@ -14,6 +14,7 @@ class SeperateTable extends PureComponent {
     }
 
     this.bindTbody = this.bindTbody.bind(this)
+    this.bindThead = this.bindThead.bind(this)
     this.handleColgroup = this.handleColgroup.bind(this)
     this.handleScroll = this.handleScroll.bind(this)
   }
@@ -37,6 +38,10 @@ class SeperateTable extends PureComponent {
     this.tbody = el
   }
 
+  bindThead(el) {
+    this.thead = el
+  }
+
   handleScroll() {
     const body = this.tbody
 
@@ -44,6 +49,7 @@ class SeperateTable extends PureComponent {
     if (left === this.scrollLeft) return
 
     this.scrollLeft = left
+    this.thead.scrollLeft = left
 
     const right = 0 - (body.scrollWidth - body.scrollLeft - body.clientWidth)
     window.requestAnimationFrame(() => {
@@ -54,6 +60,7 @@ class SeperateTable extends PureComponent {
   handleColgroup(tds) {
     const colgroup = []
     for (let i = 0, count = tds.length; i < count; i++) {
+      console.log(tds[i].offsetWidth, tds[i].clientWidth, tds[i].getBoundingClientRect().width)
       const width = tds[i].offsetWidth
       colgroup.push(width)
     }
@@ -84,14 +91,19 @@ class SeperateTable extends PureComponent {
   }
 
   render() {
-    const { columns, scrollLeft } = this.props
+    const { columns } = this.props
     const { colgroup, scrollWidth } = this.state
 
     return [
-      <div key="head" style={{ paddingRight: scrollWidth }} className={tableClass('head')}>
-        <table style={{ marginLeft: 0 - scrollLeft }}>
+      <div
+        key="head"
+        ref={this.bindThead}
+        style={{ paddingRight: scrollWidth }}
+        className={tableClass('head')}
+      >
+        <table>
           <Colgroup colgroup={colgroup} columns={columns} />
-          <Thead scrollLeft={scrollLeft} columns={columns} />
+          <Thead columns={columns} />
         </table>
       </div>,
       <div
