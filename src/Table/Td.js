@@ -19,7 +19,11 @@ class Td extends PureComponent {
     } = this.props
 
     const className = classnames(
-      tableClass(lastFixed && 'last-fixed', firstFixed && 'first-fixed'),
+      tableClass(
+        lastFixed && 'fixed-last',
+        firstFixed && 'fixed-first',
+        fixed === 'left' && 'fixed-left',
+      ),
       this.props.className,
       fixed === 'left' && CLASS_FIXED_LEFT,
       fixed === 'right' && CLASS_FIXED_RIGHT,

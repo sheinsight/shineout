@@ -1,16 +1,20 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { getProps } from '../utils/proptypes'
+import { setTranslate } from '../utils/dom/translate'
 import { tableClass } from '../styles'
+import Scroll from '../Scroll'
 import Colgroup from './Colgroup'
 import Thead from './Thead'
 import Tbody from './Tbody'
+import { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
 
 class SeperateTable extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      scrollWidth: 0,
+      offsetLeft: 0,
+      offsetMax: 0,
     }
 
     this.bindTbody = this.bindTbody.bind(this)
@@ -20,18 +24,17 @@ class SeperateTable extends PureComponent {
   }
 
   componentDidMount() {
+    /*
     const body = this.tbody
     this.setState({ scrollWidth: body.offsetWidth - body.clientWidth })
 
     this.handleScroll()
-
-    /*
-    const right = 0 - (body.scrollWidth - body.scrollLeft - body.clientWidth)
-    body.querySelectorAll(`.${CLASS_FIXED_RIGHT}`)
-      .forEach((td) => { td.style.transform = `translateX(${right}px)` })
-
-    this.props.onScrollLeft(0, right)
     */
+    const body = this.tbody
+    this.setState({
+      contentWidth: body.offsetWidth,
+      contentHeight: body.offsetHeight + 12,
+    })
   }
 
   bindTbody(el) {
@@ -42,7 +45,8 @@ class SeperateTable extends PureComponent {
     this.thead = el
   }
 
-  handleScroll() {
+  /*
+  handleScroll(e) {
     const body = this.tbody
 
     const left = body.scrollLeft
@@ -52,15 +56,33 @@ class SeperateTable extends PureComponent {
     this.thead.scrollLeft = left
 
     const right = 0 - (body.scrollWidth - body.scrollLeft - body.clientWidth)
-    window.requestAnimationFrame(() => {
-      this.props.onScrollLeft(left, right)
+    this.props.onScrollLeft(left, right)
+  }
+  */
+  handleScroll(x, y, max) {
+    const { contentHeight, contentWidth } = this.state
+    const left = Math.round(contentWidth * x)
+    const top = Math.round(contentHeight * y)
+    setTranslate(this.tbody, `-${left}px`, `-${top}px`)
+    setTranslate(this.thead, `-${left}px`, '0');
+
+    [this.thead, this.tbody].forEach((el) => {
+      el.parentNode.querySelectorAll(`.${CLASS_FIXED_LEFT}`)
+        .forEach((td) => { setTranslate(td, `${left}px`, '0') })
     })
+
+    const right = Math.round(contentWidth * (max - x));
+    [this.thead, this.tbody].forEach((el) => {
+      el.parentNode.querySelectorAll(`.${CLASS_FIXED_RIGHT}`)
+        .forEach((td) => { setTranslate(td, `-${right}px`, '0') })
+    })
+
+    this.setState({ offsetLeft: x, offsetMax: max })
   }
 
   handleColgroup(tds) {
     const colgroup = []
     for (let i = 0, count = tds.length; i < count; i++) {
-      console.log(tds[i].offsetWidth, tds[i].clientWidth, tds[i].getBoundingClientRect().width)
       const width = tds[i].offsetWidth
       colgroup.push(width)
     }
@@ -79,7 +101,7 @@ class SeperateTable extends PureComponent {
     if (data.length === 0) return <div>no data</div>
 
     return (
-      <table style={{ width }}>
+      <table ref={this.bindTbody} style={{ width }}>
         <Colgroup colgroup={colgroup} columns={columns} />
         <Tbody
           onBodyRender={this.handleColgroup}
@@ -92,29 +114,37 @@ class SeperateTable extends PureComponent {
 
   render() {
     const { columns } = this.props
-    const { colgroup, scrollWidth } = this.state
+    const {
+      colgroup, offsetLeft, offsetMax, contentHeight, contentWidth,
+    } = this.state
+
+    const floatClass = []
+    if (offsetLeft > 0) {
+      floatClass.push('float-left')
+    }
+    if (offsetMax !== offsetLeft) {
+      floatClass.push('float-right')
+    }
 
     return [
       <div
         key="head"
-        ref={this.bindThead}
-        style={{ paddingRight: scrollWidth }}
-        className={tableClass('head')}
+        className={tableClass('head', ...floatClass)}
       >
-        <table>
+        <table ref={this.bindThead}>
           <Colgroup colgroup={colgroup} columns={columns} />
           <Thead columns={columns} />
         </table>
       </div>,
-      <div
+      <Scroll
         key="body"
+        scrollHeight={contentHeight}
+        scrollWidth={contentWidth}
         onScroll={this.handleScroll}
-        ref={this.bindTbody}
-        style={{ overflowY: scrollWidth > 0 ? 'auto' : 'scroll' }}
-        className={tableClass('body')}
+        className={tableClass('body', ...floatClass)}
       >
         {this.renderBody()}
-      </div>,
+      </Scroll>,
     ]
   }
 }
@@ -124,14 +154,12 @@ SeperateTable.propTypes = {
   columns: PropTypes.array.isRequired,
   data: PropTypes.array,
   onScrollLeft: PropTypes.func.isRequired,
-  scrollLeft: PropTypes.number,
   width: PropTypes.number,
 }
 
 SeperateTable.defaultProps = {
   data: undefined,
   width: undefined,
-  scrollLeft: undefined,
 }
 
 export default SeperateTable

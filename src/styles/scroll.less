@@ -1,0 +1,65 @@
+@import './variables.less';
+@import './themes/@{so-theme}.less';
+
+@scroll-prefix: ~"@{so-prefix}-scroll";
+
+.@{scroll-prefix} {
+  position: relative;
+  overflow: hidden;
+
+  &-bar {
+    position: absolute;
+    background: @scrollbar-bg;
+    display: none;
+    border: 1px solid transparent;
+
+    &:hover {
+      border-color: @scrollbar-hover-border;
+
+      > a {
+        background: @scrollbar-hover-color;
+      }
+    }
+
+    > a {
+      display: block;
+      background: @scrollbar-color;
+      position: absolute;
+      border-radius: (@scrollbar-width - 4) / 2;
+
+      &:focus {
+        background: @scrollbar-hover-color;
+      }
+    }
+
+    &.@{scroll-prefix}-y {
+      width: @scrollbar-width;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      border-width: 0 1px;
+
+      > a {
+        width: @scrollbar-width - 4;
+        left: 1px;
+      }
+    }
+    
+    &.@{scroll-prefix}-x {
+      height: @scrollbar-width;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-width: 1px 0;
+
+      > a {
+        height: @scrollbar-width - 4;
+        top: 1px;
+      }
+    }
+
+    &.@{scroll-prefix}-show {
+      display: block;
+    }
+  }
+}

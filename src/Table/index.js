@@ -21,16 +21,16 @@ class Table extends PureComponent {
   }
 
   componentDidMount() {
-    this.setFixed()
+    // this.setFixed()
   }
 
   setFixed() {
     const { scrollLeft, scrollRight } = this.state
 
-    this.table.querySelectorAll(`.${CLASS_FIXED_LEFT}`)
-      .forEach((td) => { td.style.transform = `translateX(${scrollLeft}px)` })
     this.table.querySelectorAll(`.${CLASS_FIXED_RIGHT}`)
       .forEach((td) => { td.style.transform = `translateX(${scrollRight}px)` })
+    this.table.querySelectorAll(`.${CLASS_FIXED_LEFT}`)
+      .forEach((td) => { td.style.transform = `translateX(${scrollLeft}px)` })
   }
 
   handleScrollLeft(scrollLeft, scrollRight) {
@@ -72,7 +72,7 @@ class Table extends PureComponent {
         striped && 'striped',
         bordered && 'bordered',
         fixed && 'fixed',
-        scrollLeft && scrollLeft > 0 && 'left-float',
+        scrollLeft > 0 && 'left-float',
         scrollRight < 0 && 'right-float',
       ),
       this.props.className,

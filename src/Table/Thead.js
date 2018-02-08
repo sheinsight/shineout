@@ -45,8 +45,8 @@ class Thead extends PureComponent {
     const className = classnames(
       tableClass(
         condensed && 'condensed',
-        col.lastFixed && 'last-fixed',
-        col.firstFixed && 'first-fixed',
+        col.lastFixed && 'fixed-last',
+        col.firstFixed && 'fixed-first',
       ),
       col.fixed === 'left' && CLASS_FIXED_LEFT,
       col.fixed === 'right' && CLASS_FIXED_RIGHT,
