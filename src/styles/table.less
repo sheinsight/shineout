@@ -165,12 +165,13 @@
     position: relative;
     &:after {
       content: ' ';
-      width: 20px;
+      width: 12px;
       position: absolute;
       left: 100%;
       top: 0;
-      bottom: 0;
+      bottom: -@table-head-border;
       background-color: @table-head-bg;
+      border-bottom: @table-head-border solid @table-border-color;
     }
   }
 

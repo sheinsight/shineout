@@ -62,6 +62,13 @@ export default function () {
         columns={columns}
         data={data.slice(0, 4)}
       />
+      <Table
+        fixed
+        keygen="id"
+        style={{ height: 300 }}
+        columns={columns.slice(0, 4)}
+        data={data}
+      />
     </Fragment>
   )
 }
