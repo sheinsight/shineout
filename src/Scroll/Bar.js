@@ -1,12 +1,17 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { scrollClass } from '../styles'
+import fixedLength from './fixedLength'
 
 class ScrollBar extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.bindBar = this.bindBar.bind(this)
+    this.state = {
+      dragging: false,
+    }
+
+    this.bindHandle = this.bindHandle.bind(this)
     this.handleBarClick = this.handleBarClick.bind(this)
     this.handleBgClick = this.handleBgClick.bind(this)
     this.handleMouseMove = this.handleMouseMove.bind(this)
@@ -17,8 +22,8 @@ class ScrollBar extends PureComponent {
     this.unbindEvent()
   }
 
-  bindBar(el) {
-    this.bar = el
+  bindHandle(el) {
+    this.handle = el
   }
 
   bindEvent() {
@@ -27,11 +32,13 @@ class ScrollBar extends PureComponent {
   }
 
   unbindEvent() {
+    this.setState({ dragging: true })
     document.removeEventListener('mousemove', this.handleMouseMove)
     document.removeEventListener('mouseup', this.unbindEvent)
   }
 
   handleBarClick(event) {
+    this.setState({ dragging: true })
     this.mouseX = event.clientX
     this.mouseY = event.clientY
     this.bindEvent()
@@ -45,67 +52,79 @@ class ScrollBar extends PureComponent {
     this.mouseY = event.clientY
 
     const {
-      direction, offset, length, onScroll, scrollLength,
+      direction, offset, length, onScroll, barLength,
     } = this.props
     const value = direction === 'x' ? x : y
-    const max = 1 - (length / scrollLength)
+    // const max = 1 - (length / scrollLength)
 
-    let newOffset = offset + (value / length)
+    let newOffset = offset + (value / (length - barLength))
     if (newOffset < 0) newOffset = 0
-    if (newOffset > max) newOffset = max
+    if (newOffset > 1) newOffset = 1
 
     onScroll(newOffset)
   }
 
   handleBgClick(event) {
-    if (event.target === this.bar) return
+    if (event.target === this.handle) return
 
     const {
       direction, length, scrollLength, offset, onScroll,
     } = this.props
-    const rect = this.bar.getBoundingClientRect()
+    const rect = this.handle.getBoundingClientRect()
 
     let newOffset = offset
-    const per = length / scrollLength
+    const page = length / (scrollLength - length)
 
     if ((direction === 'x' && event.clientX < rect.left) ||
         (direction === 'y' && event.clientY < rect.top)) {
-      newOffset = offset - per
+      newOffset = offset - page
       if (newOffset < 0) newOffset = 0
-    } else {
-      newOffset = offset + per
-      if (newOffset > 1 - per) newOffset = 1 - per
+    } else if ((direction === 'x' && event.clientX > rect.right) ||
+        (direction === 'y' && event.clientY > rect.top)) {
+      newOffset = offset + page
+      if (newOffset > 1) newOffset = 1
     }
 
-    onScroll(newOffset, newOffset / (1 - per))
+    console.log(page, newOffset, length, scrollLength)
+    onScroll(newOffset)
   }
 
   render() {
     const {
-      direction, length, scrollLength, offset,
+      direction, length, scrollLength, offset, barLength,
     } = this.props
+    const { dragging } = this.state
+
     const className = scrollClass(
       'bar',
       direction,
       scrollLength > length && 'show',
+      dragging && 'dragging',
     )
+
+    const value = (length - barLength) * offset
 
     const style = {}
     if (scrollLength > 0) {
       if (direction === 'x') {
         style.width = `${(length / scrollLength) * 100}%`
-        style.left = `${offset * 100}%`
+        style.left = value
       } else {
         style.height = `${(length / scrollLength) * 100}%`
-        style.top = `${offset * 100}%`
+        style.top = value
       }
     }
 
     return (
-      <div className={className} onClick={this.handleBgClick}>
-        <a
+      <div
+        ref={this.props.bindBar}
+        className={className}
+        onMouseDown={this.handleBgClick}
+      >
+        <div
+          className={scrollClass('handle')}
           onMouseDown={this.handleBarClick}
-          ref={this.bindBar}
+          ref={this.bindHandle}
           style={style}
         />
       </div>
@@ -114,15 +133,17 @@ class ScrollBar extends PureComponent {
 }
 
 ScrollBar.propTypes = {
-  scrollLength: PropTypes.number.isRequired,
+  barLength: PropTypes.number.isRequired,
+  bindBar: PropTypes.func.isRequired,
   direction: PropTypes.oneOf(['x', 'y']),
   length: PropTypes.number.isRequired,
   offset: PropTypes.number.isRequired,
   onScroll: PropTypes.func.isRequired,
+  scrollLength: PropTypes.number.isRequired,
 }
 
 ScrollBar.defaultProps = {
   direction: 'y',
 }
 
-export default ScrollBar
+export default fixedLength(ScrollBar)

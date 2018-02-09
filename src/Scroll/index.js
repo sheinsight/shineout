@@ -17,15 +17,17 @@ class Scroll extends PureComponent {
     }
 
     this.bindContainer = this.bindContainer.bind(this)
+    this.setRect = this.setRect.bind(this)
     this.handleScrollX = this.handleScrollX.bind(this)
     this.handleScrollY = this.handleScrollY.bind(this)
     this.handleWheel = this.handleWheel.bind(this)
   }
 
-  componentDidMount() {
-    this.setState({
-      width: this.element.offsetWidth,
-      height: this.element.offsetHeight,
+  setRect(key, value) {
+    this.setState({ [key]: value }, () => {
+      if (this.state.width > 0 && this.state.height > 0) {
+        this.handleScroll(0, 0)
+      }
     })
   }
 
@@ -33,13 +35,14 @@ class Scroll extends PureComponent {
     event.preventDefault()
   }
 
-  handleScroll(left, top) {
-    const { width, height } = this.state
+  handleScroll(x, y) {
     const { scrollWidth, scrollHeight } = this.props
-    const right = 1 - (width / scrollWidth)
-    const bottom = 1 - (height / scrollHeight)
+    const { width, height } = this.state
+    const left = Math.round(x * (scrollWidth - width))
+    const top = Math.round(y * (scrollHeight - height))
+    const max = Math.round((1 - (width / scrollWidth)) * scrollWidth)
     if (this.props.onScroll) {
-      this.props.onScroll(left, top, right, bottom)
+      this.props.onScroll(left, top, max)
     }
   }
 
@@ -59,9 +62,7 @@ class Scroll extends PureComponent {
 
   render() {
     const { children, scrollWidth, scrollHeight } = this.props
-    const {
-      width, height, left, top,
-    } = this.state
+    const { left, top } = this.state
 
     const className = classnames(
       scrollClass('_'),
@@ -72,15 +73,15 @@ class Scroll extends PureComponent {
       <div ref={this.bindContainer} onWheel={this.handleWheel} className={className}>
         { children }
         <Bar
+          setRect={this.setRect}
           scrollLength={scrollHeight}
-          length={height}
           offset={top}
           onScroll={this.handleScrollY}
         />
         <Bar
           direction="x"
+          setRect={this.setRect}
           scrollLength={scrollWidth}
-          length={width}
           offset={left}
           onScroll={this.handleScrollX}
         />

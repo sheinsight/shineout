@@ -7,6 +7,19 @@
   position: relative;
   overflow: hidden;
 
+  &-inner {
+    position: absolute;
+    left: 0;
+    right: 12px;
+    top: 0;
+    bottom: 12px;
+    overflow: hidden;
+  }
+
+  &-dragging {
+    user-select: none;
+  }
+
   &-bar {
     position: absolute;
     background: @scrollbar-bg;
@@ -16,12 +29,12 @@
     &:hover {
       border-color: @scrollbar-hover-border;
 
-      > a {
+      .@{scroll-prefix}-handle {
         background: @scrollbar-hover-color;
       }
     }
 
-    > a {
+    .@{scroll-prefix}-handle {
       display: block;
       background: @scrollbar-color;
       position: absolute;
@@ -35,26 +48,38 @@
     &.@{scroll-prefix}-y {
       width: @scrollbar-width;
       top: 0;
-      bottom: 0;
+      bottom: 12px;
       right: 0;
       border-width: 0 1px;
 
-      > a {
+      .@{scroll-prefix}-handle {
         width: @scrollbar-width - 4;
         left: 1px;
+        min-height: 20px;
+      }
+
+      &:after {
+        content: ' ';
+        position: absolute;
+        top: 100%;
+        left: -1px;
+        width: @scrollbar-width;
+        height: 12px;
+        background: @scrollbar-bg;
       }
     }
     
     &.@{scroll-prefix}-x {
       height: @scrollbar-width;
-      bottom: 0;
       left: 0;
-      right: 0;
+      right: 12px;
+      bottom: 0;
       border-width: 1px 0;
 
-      > a {
+      .@{scroll-prefix}-handle {
         height: @scrollbar-width - 4;
         top: 1px;
+        min-width: 20px;
       }
     }
 

@@ -33,7 +33,7 @@ class SeperateTable extends PureComponent {
     const body = this.tbody
     this.setState({
       contentWidth: body.offsetWidth,
-      contentHeight: body.offsetHeight + 12,
+      contentHeight: body.offsetHeight,
     })
   }
 
@@ -45,24 +45,7 @@ class SeperateTable extends PureComponent {
     this.thead = el
   }
 
-  /*
-  handleScroll(e) {
-    const body = this.tbody
-
-    const left = body.scrollLeft
-    if (left === this.scrollLeft) return
-
-    this.scrollLeft = left
-    this.thead.scrollLeft = left
-
-    const right = 0 - (body.scrollWidth - body.scrollLeft - body.clientWidth)
-    this.props.onScrollLeft(left, right)
-  }
-  */
-  handleScroll(x, y, max) {
-    const { contentHeight, contentWidth } = this.state
-    const left = Math.round(contentWidth * x)
-    const top = Math.round(contentHeight * y)
+  handleScroll(left, top, max) {
     setTranslate(this.tbody, `-${left}px`, `-${top}px`)
     setTranslate(this.thead, `-${left}px`, '0');
 
@@ -71,13 +54,13 @@ class SeperateTable extends PureComponent {
         .forEach((td) => { setTranslate(td, `${left}px`, '0') })
     })
 
-    const right = Math.round(contentWidth * (max - x));
+    const right = max - left;
     [this.thead, this.tbody].forEach((el) => {
       el.parentNode.querySelectorAll(`.${CLASS_FIXED_RIGHT}`)
         .forEach((td) => { setTranslate(td, `-${right}px`, '0') })
     })
 
-    this.setState({ offsetLeft: x, offsetMax: max })
+    this.setState({ offsetLeft: left, offsetMax: max })
   }
 
   handleColgroup(tds) {
