@@ -2,7 +2,7 @@
  * cn - 固定列 \n * 需要设置 fixed 属性为 true
  * en - Fixed column
  */
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Table } from 'shineout'
 import { getData } from 'doc/data/table'
 
@@ -46,13 +46,22 @@ export default function () {
   const data = getData(100)
 
   return (
-    <Table
-      fixed
-      keygen="id"
-      width={1500}
-      style={{ height: 300 }}
-      columns={columns}
-      data={data}
-    />
+    <Fragment>
+      <Table
+        fixed
+        keygen="id"
+        width={1500}
+        style={{ height: 300 }}
+        columns={columns}
+        data={data}
+      />
+      <Table
+        fixed
+        keygen="id"
+        width={1500}
+        columns={columns}
+        data={data.slice(0, 4)}
+      />
+    </Fragment>
   )
 }

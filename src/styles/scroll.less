@@ -6,9 +6,10 @@
 .@{scroll-prefix} {
   position: relative;
   overflow: hidden;
+  padding: 0 12px 12px 0;
 
   &-inner {
-    position: absolute;
+    position: relative;
     left: 0;
     right: 12px;
     top: 0;
@@ -23,10 +24,9 @@
   &-bar {
     position: absolute;
     background: @scrollbar-bg;
-    display: none;
     border: 1px solid transparent;
 
-    &:hover {
+    &:hover, &.@{scroll-prefix}-dragging {
       border-color: @scrollbar-hover-border;
 
       .@{scroll-prefix}-handle {
@@ -35,7 +35,7 @@
     }
 
     .@{scroll-prefix}-handle {
-      display: block;
+      display: none;
       background: @scrollbar-color;
       position: absolute;
       border-radius: (@scrollbar-width - 4) / 2;
@@ -83,7 +83,7 @@
       }
     }
 
-    &.@{scroll-prefix}-show {
+    &.@{scroll-prefix}-show .@{scroll-prefix}-handle {
       display: block;
     }
   }

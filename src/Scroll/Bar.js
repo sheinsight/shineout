@@ -32,7 +32,7 @@ class ScrollBar extends PureComponent {
   }
 
   unbindEvent() {
-    this.setState({ dragging: true })
+    this.setState({ dragging: false })
     document.removeEventListener('mousemove', this.handleMouseMove)
     document.removeEventListener('mouseup', this.unbindEvent)
   }

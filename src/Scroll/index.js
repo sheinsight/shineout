@@ -20,19 +20,30 @@ class Scroll extends PureComponent {
     this.pixelX = 0
     this.pixelY = 0
 
-    this.bindContainer = this.bindContainer.bind(this)
+    this.bindInner = this.bindInner.bind(this)
+    this.bindHorizontalBar = this.bindHorizontalBar.bind(this)
+    this.bindVerticalBar = this.bindVerticalBar.bind(this)
     this.setRect = this.setRect.bind(this)
     this.handleScrollX = this.handleScrollX.bind(this)
     this.handleScrollY = this.handleScrollY.bind(this)
     this.handleWheel = this.handleWheel.bind(this)
   }
 
-  setRect(key, value) {
-    this.setState({ [key]: value }, () => {
-      if (this.state.width > 0 && this.state.height > 0) {
-        this.handleScroll(0, 0)
-      }
+  componentDidMount() {
+    setTimeout(this.setRect)
+    window.addEventListener('resize', this.setRect)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.setRect)
+  }
+
+  setRect() {
+    this.setState({
+      width: this.horizontalBar.offsetWidth,
+      height: this.verticalBar.offsetHeight,
     })
+    this.handleScroll(this.state.left, this.state.top)
   }
 
   boundleScroll() {
@@ -94,13 +105,23 @@ class Scroll extends PureComponent {
     this.handleScroll(this.state.left, top)
   }
 
-  bindContainer(el) {
-    this.element = el
+  bindInner(el) {
+    this.inner = el
+  }
+
+  bindHorizontalBar(bar) {
+    this.horizontalBar = bar
+  }
+
+  bindVerticalBar(bar) {
+    this.verticalBar = bar
   }
 
   render() {
     const { children, scrollWidth, scrollHeight } = this.props
-    const { left, top } = this.state
+    const {
+      left, top, width, height,
+    } = this.state
 
     const className = classnames(
       scrollClass('_'),
@@ -108,17 +129,22 @@ class Scroll extends PureComponent {
     )
 
     return (
-      <div ref={this.bindContainer} onWheel={this.handleWheel} className={className}>
-        { children }
+      <div onWheel={this.handleWheel} className={className}>
+        <div ref={this.bindInner} className={scrollClass('inner')}>
+          { children }
+        </div>
         <Bar
-          setRect={this.setRect}
+          bindBar={this.bindVerticalBar}
+          direction="y"
+          length={height}
           scrollLength={scrollHeight}
           offset={top}
           onScroll={this.handleScrollY}
         />
         <Bar
+          bindBar={this.bindHorizontalBar}
           direction="x"
-          setRect={this.setRect}
+          length={width}
           scrollLength={scrollWidth}
           offset={left}
           onScroll={this.handleScrollX}
