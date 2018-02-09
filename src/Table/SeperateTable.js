@@ -24,12 +24,6 @@ class SeperateTable extends PureComponent {
   }
 
   componentDidMount() {
-    /*
-    const body = this.tbody
-    this.setState({ scrollWidth: body.offsetWidth - body.clientWidth })
-
-    this.handleScroll()
-    */
     const body = this.tbody
     this.setState({
       contentWidth: body.offsetWidth,
@@ -136,7 +130,6 @@ SeperateTable.propTypes = {
   ...getProps('size', 'type', 'kengen'),
   columns: PropTypes.array.isRequired,
   data: PropTypes.array,
-  onScrollLeft: PropTypes.func.isRequired,
   width: PropTypes.number,
 }
 

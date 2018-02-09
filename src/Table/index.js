@@ -6,7 +6,6 @@ import hash from '../utils/hash'
 import { tableClass } from '../styles'
 import SimpleTable from './SimpleTable'
 import SeperateTable from './SeperateTable'
-import { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
 
 class Table extends PureComponent {
   constructor(props) {
@@ -17,26 +16,6 @@ class Table extends PureComponent {
     }
 
     this.bindTable = this.bindTable.bind(this)
-    this.handleScrollLeft = this.handleScrollLeft.bind(this)
-  }
-
-  componentDidMount() {
-    // this.setFixed()
-  }
-
-  setFixed() {
-    const { scrollLeft, scrollRight } = this.state
-
-    this.table.querySelectorAll(`.${CLASS_FIXED_RIGHT}`)
-      .forEach((td) => { td.style.transform = `translateX(${scrollRight}px)` })
-    this.table.querySelectorAll(`.${CLASS_FIXED_LEFT}`)
-      .forEach((td) => { td.style.transform = `translateX(${scrollLeft}px)` })
-  }
-
-  handleScrollLeft(scrollLeft, scrollRight) {
-    this.setState({ scrollLeft, scrollRight }, () => {
-      this.setFixed()
-    })
   }
 
   bindTable(el) {
@@ -84,7 +63,6 @@ class Table extends PureComponent {
       data,
       columns,
       scrollLeft,
-      onScrollLeft: this.handleScrollLeft,
     }
 
     return (

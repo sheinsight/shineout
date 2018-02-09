@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
+import normalizeWheel from '../utils/dom/normalizeWheel'
 import { scrollClass } from '../styles'
 import Bar from './Bar'
 
@@ -15,6 +16,9 @@ class Scroll extends PureComponent {
       width: 0,
       height: 0,
     }
+
+    this.pixelX = 0
+    this.pixelY = 0
 
     this.bindContainer = this.bindContainer.bind(this)
     this.setRect = this.setRect.bind(this)
@@ -31,8 +35,42 @@ class Scroll extends PureComponent {
     })
   }
 
+  boundleScroll() {
+    this.locked = true
+    this.scrollTimer = setTimeout(() => {
+      this.locked = false
+      if (this.pixelX !== 0 || this.pixelY !== 0) {
+        this.boundleScroll()
+      }
+    }, 100)
+
+    const { left, top } = this.state
+    const { scrollWidth, scrollHeight } = this.props
+    let x = left + (this.pixelX / scrollWidth)
+    if (x < 0) x = 0
+    if (x > 1) x = 1
+    let y = top + (this.pixelY / scrollHeight)
+    if (y < 0) y = 0
+    if (y > 1) y = 1
+
+    this.pixelX = 0
+    this.pixelY = 0
+
+    if (x !== this.state.left || y !== this.state.y) {
+      this.setState({ left: x, top: y })
+      this.handleScroll(x, y)
+    }
+  }
+
   handleWheel(event) {
     event.preventDefault()
+    const wheel = normalizeWheel(event)
+    this.pixelX += wheel.pixelX
+    this.pixelY += wheel.pixelY
+
+    if (!this.locked) {
+      this.boundleScroll()
+    }
   }
 
   handleScroll(x, y) {

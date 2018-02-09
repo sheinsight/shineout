@@ -55,7 +55,6 @@ class ScrollBar extends PureComponent {
       direction, offset, length, onScroll, barLength,
     } = this.props
     const value = direction === 'x' ? x : y
-    // const max = 1 - (length / scrollLength)
 
     let newOffset = offset + (value / (length - barLength))
     if (newOffset < 0) newOffset = 0
@@ -85,7 +84,6 @@ class ScrollBar extends PureComponent {
       if (newOffset > 1) newOffset = 1
     }
 
-    console.log(page, newOffset, length, scrollLength)
     onScroll(newOffset)
   }
 
