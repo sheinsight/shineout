@@ -2,7 +2,7 @@
  * cn - 固定表头 \n *固定表头需要设置整个表格的高度
  * en - Fixed head
  */
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Table } from 'shineout'
 import { getData } from 'doc/data/table'
 
@@ -42,13 +42,23 @@ export default function () {
   const data = getData(20)
 
   return (
-    <Table
-      fixed
-      keygen="id"
-      width={1500}
-      style={{ height: 400 }}
-      columns={columns}
-      data={data}
-    />
+    <Fragment>
+      <Table
+        fixed
+        keygen="id"
+        width={1500}
+        style={{ height: 400 }}
+        columns={columns}
+        data={data}
+      />
+      <Table
+        fixed
+        data={data}
+        keygen="id"
+        style={{ height: 300 }}
+        columns={columns.slice(0, 4)}
+        scrollX={false}
+      />
+    </Fragment>
   )
 }

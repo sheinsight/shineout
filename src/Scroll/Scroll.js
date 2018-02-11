@@ -6,23 +6,17 @@ import normalizeWheel from '../utils/dom/normalizeWheel'
 import { scrollClass } from '../styles'
 import Bar from './Bar'
 
+const BAR_WIDTH = 12
+
 class Scroll extends PureComponent {
   constructor(props) {
     super(props)
-
-    this.state = {
-      left: props.left || 0,
-      top: props.top || 0,
-      width: 0,
-      height: 0,
-    }
 
     this.pixelX = 0
     this.pixelY = 0
 
     this.bindInner = this.bindInner.bind(this)
-    this.bindHorizontalBar = this.bindHorizontalBar.bind(this)
-    this.bindVerticalBar = this.bindVerticalBar.bind(this)
+    this.bindWheel = this.bindWheel.bind(this)
     this.setRect = this.setRect.bind(this)
     this.handleScrollX = this.handleScrollX.bind(this)
     this.handleScrollY = this.handleScrollY.bind(this)
@@ -38,12 +32,25 @@ class Scroll extends PureComponent {
     window.removeEventListener('resize', this.setRect)
   }
 
+  getWheelRect() {
+    if (!this.wheelElement) return { width: 0, height: 0 }
+    const rect = this.wheelElement.getBoundingClientRect()
+    const { scrollX, scrollY } = this.props
+    const width = rect.width - (scrollY ? BAR_WIDTH : 0)
+    const height = rect.height - (scrollX ? BAR_WIDTH : 0)
+    return { width, height }
+  }
+
   setRect() {
-    this.setState({
-      width: this.horizontalBar.offsetWidth,
-      height: this.verticalBar.offsetHeight,
-    })
-    this.handleScroll(this.state.left, this.state.top)
+    this.handleScroll(this.props.left, this.props.top)
+  }
+
+  bindInner(el) {
+    this.inner = el
+  }
+
+  bindWheel(el) {
+    this.wheelElement = el
   }
 
   boundleScroll() {
@@ -55,7 +62,7 @@ class Scroll extends PureComponent {
       }
     }, 100)
 
-    const { left, top } = this.state
+    const { left, top } = this.props
     const { scrollWidth, scrollHeight } = this.props
     let x = left + (this.pixelX / scrollWidth)
     if (x < 0) x = 0
@@ -67,8 +74,7 @@ class Scroll extends PureComponent {
     this.pixelX = 0
     this.pixelY = 0
 
-    if (x !== this.state.left || y !== this.state.y) {
-      this.setState({ left: x, top: y })
+    if (x !== left || y !== top) {
       this.handleScroll(x, y)
     }
   }
@@ -86,70 +92,61 @@ class Scroll extends PureComponent {
 
   handleScroll(x, y) {
     const { scrollWidth } = this.props
-    const { width } = this.state
+    const { width, height } = this.getWheelRect()
     const max = Math.round((1 - (width / scrollWidth)) * scrollWidth)
     if (this.props.onScroll) {
-      this.props.onScroll(
-        x, y, max, this.inner,
-        this.verticalBar.offsetHeight, this.horizontalBar.offsetWidth,
-      )
+      this.props.onScroll(x, y, max, this.inner, width, height)
     }
   }
 
   handleScrollX(left) {
-    this.setState({ left })
-    this.handleScroll(left, this.state.top)
+    this.handleScroll(left, this.props.top)
   }
 
   handleScrollY(top) {
-    this.setState({ top })
-    this.handleScroll(this.state.left, top)
-  }
-
-  bindInner(el) {
-    this.inner = el
-  }
-
-  bindHorizontalBar(bar) {
-    this.horizontalBar = bar
-  }
-
-  bindVerticalBar(bar) {
-    this.verticalBar = bar
+    this.handleScroll(this.props.left, top)
   }
 
   render() {
-    const { children, scrollWidth, scrollHeight } = this.props
     const {
-      left, top, width, height,
-    } = this.state
+      children, scrollWidth, scrollHeight, left, top, scrollX, scrollY,
+    } = this.props
+    const { width, height } = this.getWheelRect()
 
     const className = classnames(
-      scrollClass('_'),
+      scrollClass(
+        '_',
+        scrollX && 'show-x',
+        scrollY && 'show-y',
+      ),
       this.props.className,
     )
 
     return (
-      <div onWheel={this.handleWheel} className={className}>
+      <div onWheel={this.handleWheel} ref={this.bindWheel} className={className}>
         <div ref={this.bindInner} className={scrollClass('inner')}>
           { children }
         </div>
-        <Bar
-          bindBar={this.bindVerticalBar}
-          direction="y"
-          length={height}
-          scrollLength={scrollHeight}
-          offset={top}
-          onScroll={this.handleScrollY}
-        />
-        <Bar
-          bindBar={this.bindHorizontalBar}
-          direction="x"
-          length={width}
-          scrollLength={scrollWidth}
-          offset={left}
-          onScroll={this.handleScrollX}
-        />
+        {
+          scrollY &&
+          <Bar
+            direction="y"
+            length={height}
+            scrollLength={scrollHeight}
+            offset={top}
+            onScroll={this.handleScrollY}
+          />
+        }
+        {
+          scrollX &&
+          <Bar
+            direction="x"
+            length={width}
+            scrollLength={scrollWidth}
+            offset={left}
+            onScroll={this.handleScrollX}
+          />
+        }
       </div>
     )
   }
@@ -157,11 +154,13 @@ class Scroll extends PureComponent {
 
 Scroll.propTypes = {
   ...getProps(),
-  left: PropTypes.number,
-  top: PropTypes.number,
-  onScroll: PropTypes.func,
+  left: PropTypes.number.isRequired,
+  top: PropTypes.number.isRequired,
+  onScroll: PropTypes.func.isRequired,
   scrollHeight: PropTypes.number,
   scrollWidth: PropTypes.number,
+  scrollX: PropTypes.bool.isRequired,
+  scrollY: PropTypes.bool.isRequired,
 }
 
 Scroll.defaultProps = {

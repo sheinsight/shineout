@@ -22,6 +22,13 @@ class ScrollBar extends PureComponent {
     this.unbindEvent()
   }
 
+  toggleClassList(method) {
+    const { classList } = this.handle.parentNode.parentNode
+    if (classList) {
+      classList[method](scrollClass('dragging'))
+    }
+  }
+
   bindHandle(el) {
     this.handle = el
   }
@@ -33,6 +40,7 @@ class ScrollBar extends PureComponent {
 
   unbindEvent() {
     this.setState({ dragging: false })
+    this.toggleClassList('remove')
     document.removeEventListener('mousemove', this.handleMouseMove)
     document.removeEventListener('mouseup', this.unbindEvent)
   }
@@ -41,11 +49,11 @@ class ScrollBar extends PureComponent {
     this.setState({ dragging: true })
     this.mouseX = event.clientX
     this.mouseY = event.clientY
+    this.toggleClassList('add')
     this.bindEvent()
   }
 
   handleMouseMove(event) {
-    // event.preventDefault()
     const x = event.clientX - this.mouseX
     const y = event.clientY - this.mouseY
     this.mouseX = event.clientX
@@ -117,7 +125,6 @@ class ScrollBar extends PureComponent {
 
     return (
       <div
-        ref={this.props.bindBar}
         className={className}
         onMouseDown={show ? this.handleBgClick : undefined}
       >
@@ -134,7 +141,6 @@ class ScrollBar extends PureComponent {
 
 ScrollBar.propTypes = {
   barLength: PropTypes.number.isRequired,
-  bindBar: PropTypes.func.isRequired,
   direction: PropTypes.oneOf(['x', 'y']),
   length: PropTypes.number.isRequired,
   offset: PropTypes.number.isRequired,

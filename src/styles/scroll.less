@@ -6,14 +6,13 @@
 .@{scroll-prefix} {
   position: relative;
   overflow: hidden;
-  padding: 0 12px 12px 0;
 
   &-inner {
     position: relative;
     left: 0;
-    right: 12px;
+    right: 0;
     top: 0;
-    bottom: 12px;
+    bottom: 0;
     overflow: hidden;
   }
 
@@ -49,7 +48,7 @@
     &.@{scroll-prefix}-y {
       width: @scrollbar-width;
       top: 0;
-      bottom: 12px;
+      bottom: 0;
       right: 0;
       border-width: 0 1px;
 
@@ -73,7 +72,7 @@
     &.@{scroll-prefix}-x {
       height: @scrollbar-width;
       left: 0;
-      right: 12px;
+      right: 0;
       bottom: 0;
       border-width: 1px 0;
 
@@ -88,4 +87,27 @@
       display: block;
     }
   }
+
+  &-show-x {
+    padding-bottom: @scrollbar-width;
+    .@{scroll-prefix}-y {
+      bottom: @scrollbar-width;
+    }
+  }
+
+  &-show-y {
+    padding-right: @scrollbar-width;
+    .@{scroll-prefix}-x {
+      right: @scrollbar-width;
+    }
+  }
+
+  &-show-x &-inner {
+    right: @scrollbar-width;
+  }
+
+  &-show-y &-inner {
+    bottom: @scrollbar-width;
+  }
+
 }

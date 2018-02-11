@@ -13,9 +13,9 @@ class SeperateTable extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      offsetLeft: 0,
-      offsetMax: 0,
-      topRatio: 0,
+      scrollLeft: 0,
+      scrollLeftMax: 0,
+      scrollTop: 0,
     }
 
     this.bindTbody = this.bindTbody.bind(this)
@@ -28,20 +28,23 @@ class SeperateTable extends PureComponent {
     const body = this.tbody
     this.setState({
       contentWidth: body.offsetWidth,
-      // contentHeight: body.offsetHeight,
-      contentHeight: this.props.data.length * 40,
     })
   }
 
   getData() {
     const { data, rowsInView } = this.props
-    const { topRatio } = this.state
+    const { scrollTop } = this.state
     const max = data.length
-    let index = Math.ceil((topRatio * max) - (rowsInView * topRatio))
+    let index = Math.ceil((scrollTop * max) - (rowsInView * scrollTop))
     if (index > max - rowsInView) index = max - rowsInView
     if (index < 0) index = 0
     return data.slice(index, index + rowsInView)
   }
+
+  getContentHeight() {
+    return this.props.data.length * 40
+  }
+
   bindTbody(el) {
     this.tbody = el
   }
@@ -51,14 +54,15 @@ class SeperateTable extends PureComponent {
   }
 
   handleScroll(x, y, max, bar, v, h) {
-    const { contentWidth, contentHeight } = this.state
-    const left = x * (contentWidth - h)
+    const { contentWidth } = this.state
+    const contentHeight = this.getContentHeight()
+    const left = x * (contentWidth - v)
     const right = max - left
-    const topRatio = h > contentHeight ? 0 : y
+    const scrollTop = h > contentHeight ? 0 : y
 
-    bar.style.paddingTop = `${topRatio * v}px`
+    bar.style.paddingTop = `${scrollTop * h}px`
 
-    setTranslate(this.tbody, `-${left}px`, `-${topRatio * 100}%`)
+    setTranslate(this.tbody, `-${left}px`, `-${scrollTop * 100}%`)
     setTranslate(this.thead, `-${left}px`, '0');
 
     [this.thead, this.tbody].forEach((el) => {
@@ -71,7 +75,7 @@ class SeperateTable extends PureComponent {
         .forEach((td) => { setTranslate(td, `-${right}px`, '0') })
     })
 
-    this.setState({ offsetLeft: left, offsetMax: max, topRatio })
+    this.setState({ scrollLeft: left, scrollLeftMax: max, scrollTop })
   }
 
   handleColgroup(tds) {
@@ -105,16 +109,16 @@ class SeperateTable extends PureComponent {
   }
 
   render() {
-    const { columns } = this.props
+    const { columns, scrollX, scrollY } = this.props
     const {
-      colgroup, offsetLeft, offsetMax, contentHeight, contentWidth,
+      colgroup, scrollLeft, scrollLeftMax, contentWidth, scrollTop,
     } = this.state
 
     const floatClass = []
-    if (offsetLeft > 0) {
+    if (scrollLeft > 0) {
       floatClass.push('float-left')
     }
-    if (offsetMax !== offsetLeft) {
+    if (scrollLeftMax !== scrollLeft) {
       floatClass.push('float-right')
     }
 
@@ -130,7 +134,10 @@ class SeperateTable extends PureComponent {
       </div>,
       <Scroll
         key="body"
-        scrollHeight={contentHeight}
+        scrollTop={scrollTop}
+        scrollX={scrollX}
+        scrollY={scrollY}
+        scrollHeight={this.getContentHeight()}
         scrollWidth={contentWidth}
         onScroll={this.handleScroll}
         className={tableClass('body', ...floatClass)}
@@ -146,12 +153,16 @@ SeperateTable.propTypes = {
   columns: PropTypes.array.isRequired,
   data: PropTypes.array,
   rowsInView: PropTypes.number.isRequired,
+  scrollX: PropTypes.bool,
+  scrollY: PropTypes.bool,
   width: PropTypes.number,
 }
 
 SeperateTable.defaultProps = {
   data: undefined,
   width: undefined,
+  scrollX: true,
+  scrollY: true,
 }
 
 export default SeperateTable
