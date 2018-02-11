@@ -43,7 +43,7 @@ export default function () {
     },
   ]
 
-  const data = getData(100)
+  const data = getData(20)
 
   return (
     <Fragment>

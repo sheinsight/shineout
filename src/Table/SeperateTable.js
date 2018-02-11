@@ -15,6 +15,7 @@ class SeperateTable extends PureComponent {
     this.state = {
       offsetLeft: 0,
       offsetMax: 0,
+      topRatio: 0,
     }
 
     this.bindTbody = this.bindTbody.bind(this)
@@ -27,10 +28,20 @@ class SeperateTable extends PureComponent {
     const body = this.tbody
     this.setState({
       contentWidth: body.offsetWidth,
-      contentHeight: body.offsetHeight,
+      // contentHeight: body.offsetHeight,
+      contentHeight: this.props.data.length * 40,
     })
   }
 
+  getData() {
+    const { data, rowsInView } = this.props
+    const { topRatio } = this.state
+    const max = data.length
+    let index = Math.ceil((topRatio * max) - (rowsInView * topRatio))
+    if (index > max - rowsInView) index = max - rowsInView
+    if (index < 0) index = 0
+    return data.slice(index, index + rowsInView)
+  }
   bindTbody(el) {
     this.tbody = el
   }
@@ -39,22 +50,28 @@ class SeperateTable extends PureComponent {
     this.thead = el
   }
 
-  handleScroll(left, top, max) {
-    setTranslate(this.tbody, `-${left}px`, `-${top}px`)
+  handleScroll(x, y, max, bar, v, h) {
+    const { contentWidth, contentHeight } = this.state
+    const left = x * (contentWidth - h)
+    const right = max - left
+    const topRatio = h > contentHeight ? 0 : y
+
+    bar.style.paddingTop = `${topRatio * v}px`
+
+    setTranslate(this.tbody, `-${left}px`, `-${topRatio * 100}%`)
     setTranslate(this.thead, `-${left}px`, '0');
 
     [this.thead, this.tbody].forEach((el) => {
       el.parentNode.querySelectorAll(`.${CLASS_FIXED_LEFT}`)
         .forEach((td) => { setTranslate(td, `${left}px`, '0') })
-    })
+    });
 
-    const right = max - left;
     [this.thead, this.tbody].forEach((el) => {
       el.parentNode.querySelectorAll(`.${CLASS_FIXED_RIGHT}`)
         .forEach((td) => { setTranslate(td, `-${right}px`, '0') })
     })
 
-    this.setState({ offsetLeft: left, offsetMax: max })
+    this.setState({ offsetLeft: left, offsetMax: max, topRatio })
   }
 
   handleColgroup(tds) {
@@ -67,9 +84,7 @@ class SeperateTable extends PureComponent {
   }
 
   renderBody() {
-    const {
-      columns, data, width,
-    } = this.props
+    const { data, columns, width } = this.props
     const { colgroup } = this.state
     if (typeof data === 'string') return <div>{data}</div>
 
@@ -83,7 +98,7 @@ class SeperateTable extends PureComponent {
         <Tbody
           onBodyRender={this.handleColgroup}
           columns={columns}
-          data={data}
+          data={this.getData()}
         />
       </table>
     )
@@ -130,6 +145,7 @@ SeperateTable.propTypes = {
   ...getProps('size', 'type', 'kengen'),
   columns: PropTypes.array.isRequired,
   data: PropTypes.array,
+  rowsInView: PropTypes.number.isRequired,
   width: PropTypes.number,
 }
 

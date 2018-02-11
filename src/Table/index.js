@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
-import hash from '../utils/hash'
+import handleColumn from './handleColumn'
 import { tableClass } from '../styles'
 import SimpleTable from './SimpleTable'
 import SeperateTable from './SeperateTable'
@@ -38,7 +38,7 @@ class Table extends PureComponent {
   render() {
     const {
       striped, bordered, size, hover, height, columns, children,
-      data, style, fixed, width,
+      data, style, fixed, width, ...others
     } = this.props
 
     const { scrollLeft, scrollRight } = this.state
@@ -58,6 +58,7 @@ class Table extends PureComponent {
     )
 
     const props = {
+      ...others,
       height,
       width,
       data,
@@ -87,6 +88,7 @@ Table.propTypes = {
   height: PropTypes.number,
   hover: PropTypes.bool,
   loading: PropTypes.bool,
+  rowsInView: PropTypes.number,
   striped: PropTypes.bool,
   width: PropTypes.number,
 }
@@ -95,30 +97,7 @@ Table.defaultProps = {
   ...defaultProps,
   fixed: false,
   hover: true,
+  rowsInView: 20,
 }
 
-const handleColumns = T => ({ columns, ...props }) => {
-  if (!columns) return <T {...props} />
-
-  let left = -1
-  let right = -1
-  columns.forEach((c, i) => {
-    if (c.fixed === 'left') left = i
-    if (c.fixed === 'right' && right < 0) right = i
-  })
-
-  const cols = columns.map((c, i) => {
-    const nc = Object.assign({
-      lastFixed: i === left,
-      firstFixed: i === right,
-    }, c)
-    if (!nc.key) nc.key = hash(c)
-    if (i <= left) nc.fixed = 'left'
-    if (i >= right && right > 0) nc.fixed = 'right'
-    return nc
-  })
-
-  return <T columns={cols} {...props} />
-}
-
-export default handleColumns(Table)
+export default handleColumn(Table)

@@ -48,6 +48,11 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-07-fixed-column.js'),
   },
   {
+    title: locate('超大数据 \n * 这个例子加载了10000条数据。可以通过设置rowsInView调整单次最多render的行数，默认为20', 'Big data'),
+    component: require('doc/pages/components/Table/example-08-bigdata.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-08-bigdata.js'),
+  },
+  {
     title: locate('只使用样式 \n 使用原生的tr, td来显示表格', 'Style only'),
     component: require('doc/pages/components/Table/example-99-raw.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-99-raw.js'),

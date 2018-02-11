@@ -10,7 +10,7 @@ function init() {
   const offset = 1000 * 3600 * 24 * 1000
   const c20 = pick(country, 20)
   const c30 = pick(city, 30)
-  for (let i = 1; i <= 1000; i++) {
+  for (let i = 1; i <= 10000; i++) {
     allData.push({
       id: i,
       firstName: one(firstNames),
@@ -38,12 +38,7 @@ export const all = (delay = 500) => new Promise((resolve) => {
 })
 
 export function getData(count = 100, start = 0) {
-  const data = []
-  for (let i = 0; i < count; i++) {
-    data.push(allData[i + start])
-  }
-
-  return data
+  return allData.slice(start, start + count)
 }
 
 export default (src, { type }) => {

@@ -93,10 +93,12 @@ class ScrollBar extends PureComponent {
     } = this.props
     const { dragging } = this.state
 
+    const show = scrollLength > length
+
     const className = scrollClass(
       'bar',
       direction,
-      scrollLength > length && 'show',
+      show && 'show',
       dragging && 'dragging',
     )
 
@@ -117,7 +119,7 @@ class ScrollBar extends PureComponent {
       <div
         ref={this.props.bindBar}
         className={className}
-        onMouseDown={this.handleBgClick}
+        onMouseDown={show ? this.handleBgClick : undefined}
       >
         <div
           className={scrollClass('handle')}

@@ -85,13 +85,14 @@ class Scroll extends PureComponent {
   }
 
   handleScroll(x, y) {
-    const { scrollWidth, scrollHeight } = this.props
-    const { width, height } = this.state
-    const left = Math.round(x * (scrollWidth - width))
-    const top = Math.round(y * (scrollHeight - height))
+    const { scrollWidth } = this.props
+    const { width } = this.state
     const max = Math.round((1 - (width / scrollWidth)) * scrollWidth)
     if (this.props.onScroll) {
-      this.props.onScroll(left, top, max)
+      this.props.onScroll(
+        x, y, max, this.inner,
+        this.verticalBar.offsetHeight, this.horizontalBar.offsetWidth,
+      )
     }
   }
 
