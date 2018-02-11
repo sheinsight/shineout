@@ -50,7 +50,6 @@ export default function () {
       width={1500}
       columns={columns}
       data={data}
-      scrollY={false}
     />
   )
 }

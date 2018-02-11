@@ -4,6 +4,9 @@
  */
 import React from 'react'
 import { Table } from 'shineout'
+import { getData } from 'doc/data/table'
+
+const data = getData(6)
 
 export default function () {
   return (
@@ -17,30 +20,16 @@ export default function () {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Ashton Cox</td>
-          <td>San Francisco</td>
-          <td>2009/01/12</td>
-          <td>$86,000</td>
-        </tr>
-        <tr>
-          <td>Ashton Cox</td>
-          <td>San Francisco</td>
-          <td>2009/01/12</td>
-          <td>$86,000</td>
-        </tr>
-        <tr>
-          <td>Ashton Cox</td>
-          <td>San Francisco</td>
-          <td>2009/01/12</td>
-          <td>$86,000</td>
-        </tr>
-        <tr>
-          <td>Ashton Cox</td>
-          <td>San Francisco</td>
-          <td>2009/01/12</td>
-          <td>$86,000</td>
-        </tr>
+        {
+          data.map(d => (
+            <tr key={d.id}>
+              <td>{d.firstName} {d.lastName}</td>
+              <td>{d.office}</td>
+              <td>{d.start}</td>
+              <td>${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}</td>
+            </tr>
+          ))
+        }
       </tbody>
     </Table>
   )
