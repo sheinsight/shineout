@@ -15,8 +15,9 @@ export default function () {
     },
     {
       title: 'Name',
-      render: d => `${d.firstName} ${d.lastName}`,
       fixed: 'left',
+      render: d => `${d.firstName} ${d.lastName}`,
+      width: 160,
     },
     {
       title: 'Country',
@@ -30,6 +31,15 @@ export default function () {
       title: 'Office',
       render: 'office',
     },
+    {
+      title: 'Start Date',
+      render: 'start',
+    },
+    {
+      title: 'Salary',
+      width: 100,
+      render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
+    },
   ]
 
   const data = getData(10000)
@@ -39,9 +49,11 @@ export default function () {
       <Table
         fixed
         keygen="id"
-        style={{ height: 500 }}
+        width={1200}
+        style={{ height: 400 }}
         columns={columns}
         data={data}
+        rowsInView={10}
       />
     </Fragment>
   )
