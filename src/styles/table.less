@@ -38,7 +38,7 @@
       color: @table-head-color;
     }
 
-    > thead > tr:last-child {
+    > thead {
       border-bottom: @table-head-border solid @table-border-color;
     }
 
@@ -148,7 +148,7 @@
       left: 100%;
       width: 6px;
       top: 0;
-      bottom: -1px;
+      bottom: 0;
       background: linear-gradient(to right, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
     }
   }
@@ -161,15 +161,17 @@
   }
   */
 
-  &-head th:last-child {
+  &-head {
     position: relative;
+
     &:after {
       content: ' ';
       width: 12px;
       position: absolute;
-      left: 100%;
+      right: 0;
       top: 0;
-      bottom: -@table-head-border;
+      bottom: 0;
+      z-index: 100;
       background-color: @table-head-bg;
       border-bottom: @table-head-border solid @table-border-color;
     }
@@ -184,7 +186,7 @@
       right: 100%;
       width: 6px;
       top: 0;
-      bottom: -1px;
+      bottom: 0;
       background: linear-gradient(to left, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
     }
   }

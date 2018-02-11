@@ -6,7 +6,8 @@
   },
   "Form": {},
   "Data": {
-    "Table": "表格"
+    "Table": "表格",
+    "Pagination": "分页"
   },
   "Feedback": {
     "Alert": "提示框",

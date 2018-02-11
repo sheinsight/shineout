@@ -1,7 +1,3 @@
-/**
- * cn - 固定列 \n * 需要设置 fixed 属性为 true
- * en - Fixed column
- */
 import React from 'react'
 import { Table } from 'shineout'
 import { getData } from 'doc/data/table'
@@ -11,20 +7,12 @@ export default function () {
     {
       title: 'id',
       render: 'id',
+      fixed: 'left',
       width: 36,
     },
     {
-      title: 'First Name',
-      group: 'Name',
-      render: 'firstName',
-      width: 100,
-    },
-    {
-      title: 'Last Name',
-      fixed: 'left',
-      group: 'Name',
-      render: 'lastName',
-      width: 100,
+      title: 'Name',
+      render: d => `${d.firstName} ${d.lastName}`,
     },
     {
       title: 'Country',
@@ -39,27 +27,30 @@ export default function () {
       render: 'office',
     },
     {
-      title: 'Start Date',
+      title: 'Date',
       render: 'start',
+      fixed: 'right',
+      group: 'Start Time',
+      width: 120,
     },
     {
-      title: 'Salary',
-      fixed: 'right',
-      width: 100,
-      render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
+      title: 'Time',
+      render: 'time',
+      group: 'Start Time',
+      width: 80,
     },
   ]
 
-  const data = getData(20)
+  const data = getData(6)
 
   return (
     <Table
       fixed
       keygen="id"
       width={1500}
-      style={{ height: 300 }}
       columns={columns}
       data={data}
+      scrollY={false}
     />
   )
 }

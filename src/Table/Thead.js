@@ -18,6 +18,8 @@ function formatColumns(columns) {
       last.count += 1
       if (last.col) {
         g2.push({ col: last.col })
+        last.fixed = col.fixed
+        last.lastFixed = col.lastFixed
         delete last.col
       }
       g2.push({ col })
@@ -25,12 +27,26 @@ function formatColumns(columns) {
       g1.push({
         col,
         title: col.group,
+        fixed: col.fixed,
+        firstFixed: col.firstFixed,
         count: 1,
       })
     }
   })
 
   return [g1, g2]
+}
+
+function getGroupClassName(group) {
+  return classnames(
+    tableClass(
+      'center', 'condensed',
+      group.lastFixed && 'fixed-last',
+      group.firstFixed && 'fixed-first',
+    ),
+    group.fixed === 'left' && CLASS_FIXED_LEFT,
+    group.fixed === 'right' && CLASS_FIXED_RIGHT,
+  )
 }
 
 class Thead extends PureComponent {
@@ -77,7 +93,7 @@ class Thead extends PureComponent {
                   <th
                     key={i}
                     colSpan={g.count}
-                    className={tableClass('center', 'condensed')}
+                    className={getGroupClassName(g)}
                   >
                     {g.title}
                   </th>

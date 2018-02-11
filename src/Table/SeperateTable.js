@@ -31,18 +31,18 @@ class SeperateTable extends PureComponent {
     })
   }
 
-  getData() {
+  getIndex() {
     const { data, rowsInView } = this.props
     const { scrollTop } = this.state
     const max = data.length
     let index = Math.ceil((scrollTop * max) - (rowsInView * scrollTop))
     if (index > max - rowsInView) index = max - rowsInView
     if (index < 0) index = 0
-    return data.slice(index, index + rowsInView)
+    return index
   }
 
   getContentHeight() {
-    return this.props.data.length * 40
+    return this.props.data.length * this.props.rowHeight
   }
 
   bindTbody(el) {
@@ -88,13 +88,17 @@ class SeperateTable extends PureComponent {
   }
 
   renderBody() {
-    const { data, columns, width } = this.props
+    const {
+      data, rowsInView, columns, width,
+    } = this.props
     const { colgroup } = this.state
+
+    // loading text
     if (typeof data === 'string') return <div>{data}</div>
-
     if (!Array.isArray(data)) return <div>error</div>
-
     if (data.length === 0) return <div>no data</div>
+
+    const index = this.getIndex()
 
     return (
       <table ref={this.bindTbody} style={{ width }}>
@@ -102,7 +106,8 @@ class SeperateTable extends PureComponent {
         <Tbody
           onBodyRender={this.handleColgroup}
           columns={columns}
-          data={this.getData()}
+          index={index}
+          data={data.slice(index, index + rowsInView)}
         />
       </table>
     )
@@ -152,6 +157,7 @@ SeperateTable.propTypes = {
   ...getProps('size', 'type', 'kengen'),
   columns: PropTypes.array.isRequired,
   data: PropTypes.array,
+  rowHeight: PropTypes.number,
   rowsInView: PropTypes.number.isRequired,
   scrollX: PropTypes.bool,
   scrollY: PropTypes.bool,
@@ -160,9 +166,10 @@ SeperateTable.propTypes = {
 
 SeperateTable.defaultProps = {
   data: undefined,
-  width: undefined,
+  rowHeight: 40,
   scrollX: true,
   scrollY: true,
+  width: undefined,
 }
 
 export default SeperateTable

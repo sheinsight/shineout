@@ -7,7 +7,7 @@ import city from '../utils/faker/city'
 
 const allData = []
 function init() {
-  const offset = 1000 * 3600 * 24 * 1000
+  const offset = 5000 * 3600 * 24 * 1000
   const c20 = pick(country, 20)
   const c30 = pick(city, 30)
   for (let i = 1; i <= 10000; i++) {
@@ -17,6 +17,7 @@ function init() {
       lastName: one(lastNames),
       position: one(position),
       start: pickDate('yyyy-MM-dd', offset),
+      time: pickDate('hh:mm'),
       salary: pickInteger(500000, 50000),
       country: one(c20),
       office: one(c30),

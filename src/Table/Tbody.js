@@ -33,7 +33,7 @@ class Tbody extends PureComponent {
       key = typeof keygen === 'string' ? data[keygen] : keygen(data, index)
     }
 
-    return <Tr key={key} columns={columns} data={data} index={index} />
+    return <Tr key={key} columns={columns} data={data} index={index + this.props.index} />
   }
 
   render() {
@@ -51,6 +51,7 @@ Tbody.propTypes = {
   ...getProps('keygen'),
   columns: PropTypes.array.isRequired,
   data: PropTypes.array.isRequired,
+  index: PropTypes.number.isRequired,
   onBodyRender: PropTypes.func,
 }
 

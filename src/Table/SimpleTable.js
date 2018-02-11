@@ -19,7 +19,7 @@ class Table extends PureComponent {
       <table style={{ width }}>
         <Colgroup columns={columns} colgroup={colgroup} />
         <Thead columns={columns} />
-        { data && <Tbody columns={columns} data={data} /> }
+        { data && <Tbody index={0} columns={columns} data={data} /> }
         {children}
       </table>
     )

@@ -33,6 +33,13 @@ const pages = [
   'Data',
   
   {
+    name: 'Pagination',
+    cn: '分页',
+    level: 2,
+    component: loadable(() => import('./Pagination')),
+  },
+  
+  {
     name: 'Table',
     cn: '表格',
     level: 2,
