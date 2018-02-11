@@ -33,24 +33,19 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-04-column-group.js'),
   },
   {
-    title: locate('横向滚动', 'horizontal scroll'),
-    component: require('doc/pages/components/Table/example-05-width.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Table/example-05-width.js'),
-  },
-  {
     title: locate('固定表头 \n *固定表头需要设置整个表格的高度', 'Fixed head'),
     component: require('doc/pages/components/Table/example-06-fixed-header.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-06-fixed-header.js'),
   },
   {
     title: locate('固定列 \n * 需要设置 fixed 属性为 true', 'Fixed column'),
-    component: require('doc/pages/components/Table/example-07-fixed-column.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Table/example-07-fixed-column.js'),
+    component: require('doc/pages/components/Table/example-07-fixed-column-1.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-07-fixed-column-1.js'),
   },
   {
     title: locate('', ''),
-    component: require('doc/pages/components/Table/example-07-fixed-column2.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Table/example-07-fixed-column2.js'),
+    component: require('doc/pages/components/Table/example-07-fixed-column-2.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-07-fixed-column-2.js'),
   },
   {
     title: locate('超大数据 \n * 这个例子加载了10000条数据。可以通过设置rowsInView调整单次最多render的行数，默认为20', 'Big data'),

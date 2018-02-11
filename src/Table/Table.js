@@ -58,6 +58,7 @@ class Table extends PureComponent {
 
     const props = {
       ...others,
+      fixed,
       height,
       width,
       data,
@@ -83,7 +84,7 @@ Table.propTypes = {
   children: PropTypes.any,
   columns: PropTypes.array,
   data: PropTypes.array,
-  fixed: PropTypes.bool,
+  fixed: PropTypes.oneOf(['x', 'y', 'both']),
   height: PropTypes.number,
   hover: PropTypes.bool,
   loading: PropTypes.bool,
@@ -94,7 +95,6 @@ Table.propTypes = {
 
 Table.defaultProps = {
   ...defaultProps,
-  fixed: false,
   hover: true,
   rowsInView: 20,
 }

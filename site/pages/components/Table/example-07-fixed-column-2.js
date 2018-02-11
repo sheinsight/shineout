@@ -2,6 +2,8 @@ import React from 'react'
 import { Table } from 'shineout'
 import { getData } from 'doc/data/table'
 
+const data = getData(6)
+
 export default function () {
   const columns = [
     {
@@ -41,11 +43,9 @@ export default function () {
     },
   ]
 
-  const data = getData(6)
-
   return (
     <Table
-      fixed
+      fixed="x"
       keygen="id"
       width={1500}
       columns={columns}

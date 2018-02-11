@@ -6,8 +6,15 @@ import React from 'react'
 import { Table } from 'shineout'
 import { getData } from 'doc/data/table'
 
+const data = getData(4)
+
 export default function () {
   const columns = [
+    {
+      title: 'id',
+      render: 'id',
+      width: 36,
+    },
     {
       title: 'Name',
       render: d => `${d.firstName} ${d.lastName}`,
@@ -25,16 +32,21 @@ export default function () {
       render: 'office',
     },
     {
+      title: 'Start Date',
+      render: 'start',
+    },
+    {
       title: 'Salary',
-      width: 100,
-      style: { textAlign: 'right' },
       render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
     },
   ]
 
-  const data = getData(4)
-
   return (
-    <Table keygen="id" columns={columns} data={data} />
+    <Table
+      keygen="id"
+      width={1500}
+      columns={columns}
+      data={data}
+    />
   )
 }

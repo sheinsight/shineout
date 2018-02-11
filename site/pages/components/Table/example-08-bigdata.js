@@ -6,6 +6,8 @@ import React, { Fragment } from 'react'
 import { Table } from 'shineout'
 import { getData } from 'doc/data/table'
 
+const data = getData(10000)
+
 export default function () {
   const columns = [
     {
@@ -42,12 +44,10 @@ export default function () {
     },
   ]
 
-  const data = getData(10000)
-
   return (
     <Fragment>
       <Table
-        fixed
+        fixed="both"
         keygen="id"
         width={1200}
         style={{ height: 400 }}

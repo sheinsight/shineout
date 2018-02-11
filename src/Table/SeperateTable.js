@@ -114,7 +114,7 @@ class SeperateTable extends PureComponent {
   }
 
   render() {
-    const { columns, scrollX, scrollY } = this.props
+    const { columns, fixed } = this.props
     const {
       colgroup, scrollLeft, scrollLeftMax, contentWidth, scrollTop,
     } = this.state
@@ -140,8 +140,7 @@ class SeperateTable extends PureComponent {
       <Scroll
         key="body"
         scrollTop={scrollTop}
-        scrollX={scrollX}
-        scrollY={scrollY}
+        scroll={fixed}
         scrollHeight={this.getContentHeight()}
         scrollWidth={contentWidth}
         onScroll={this.handleScroll}
@@ -157,18 +156,15 @@ SeperateTable.propTypes = {
   ...getProps('size', 'type', 'kengen'),
   columns: PropTypes.array.isRequired,
   data: PropTypes.array,
+  fixed: PropTypes.string.isRequired,
   rowHeight: PropTypes.number,
   rowsInView: PropTypes.number.isRequired,
-  scrollX: PropTypes.bool,
-  scrollY: PropTypes.bool,
   width: PropTypes.number,
 }
 
 SeperateTable.defaultProps = {
   data: undefined,
   rowHeight: 40,
-  scrollX: true,
-  scrollY: true,
   width: undefined,
 }
 

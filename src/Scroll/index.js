@@ -13,6 +13,16 @@ class Scroll extends PureComponent {
     this.handleScroll = this.handleScroll.bind(this)
   }
 
+  get scrollX() {
+    const { scroll } = this.props
+    return scroll === 'x' || scroll === 'both'
+  }
+
+  get scrollY() {
+    const { scroll } = this.props
+    return scroll === 'y' || scroll === 'both'
+  }
+
   getRect() {
     const left = this.props.scrollLeft || this.state.left
     const top = this.props.scrollTop || this.state.top
@@ -20,8 +30,8 @@ class Scroll extends PureComponent {
   }
 
   handleScroll(x, y, ...others) {
-    const left = this.props.scrollX ? x : 0
-    const top = this.props.scrollY ? y : 0
+    const left = this.scrollX ? x : 0
+    const top = this.scrollY ? y : 0
     this.setState({ left, top })
     if (this.props.onScroll) {
       this.props.onScroll(left, top, ...others)
@@ -35,6 +45,8 @@ class Scroll extends PureComponent {
         {...this.props}
         left={left}
         top={top}
+        scrollX={this.scrollX}
+        scrollY={this.scrollY}
         onScroll={this.handleScroll}
       />
     )
@@ -43,18 +55,16 @@ class Scroll extends PureComponent {
 
 Scroll.propTypes = {
   onScroll: PropTypes.func,
+  scroll: PropTypes.oneOf(['x', 'y', 'both']),
   scrollLeft: PropTypes.number,
   scrollTop: PropTypes.number,
-  scrollX: PropTypes.bool,
-  scrollY: PropTypes.bool,
 }
 
 Scroll.defaultProps = {
   onScroll: undefined,
+  scroll: 'both',
   scrollLeft: undefined,
   scrollTop: undefined,
-  scrollX: false,
-  scrollY: false,
 }
 
 export default Scroll

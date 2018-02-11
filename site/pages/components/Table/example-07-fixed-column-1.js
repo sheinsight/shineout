@@ -1,10 +1,12 @@
 /**
- * cn - 横向滚动
- * en - horizontal scroll
+ * cn - 固定列 \n * 需要设置 fixed 属性为 true
+ * en - Fixed column
  */
 import React from 'react'
 import { Table } from 'shineout'
 import { getData } from 'doc/data/table'
+
+const data = getData(20)
 
 export default function () {
   const columns = [
@@ -14,8 +16,17 @@ export default function () {
       width: 36,
     },
     {
-      title: 'Name',
-      render: d => `${d.firstName} ${d.lastName}`,
+      title: 'First Name',
+      group: 'Name',
+      render: 'firstName',
+      width: 100,
+    },
+    {
+      title: 'Last Name',
+      fixed: 'left',
+      group: 'Name',
+      render: 'lastName',
+      width: 100,
     },
     {
       title: 'Country',
@@ -35,16 +46,18 @@ export default function () {
     },
     {
       title: 'Salary',
+      fixed: 'right',
+      width: 100,
       render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
     },
   ]
 
-  const data = getData(6)
-
   return (
     <Table
+      fixed="both"
       keygen="id"
       width={1500}
+      style={{ height: 300 }}
       columns={columns}
       data={data}
     />
