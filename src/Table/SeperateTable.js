@@ -14,7 +14,6 @@ class SeperateTable extends PureComponent {
     super(props)
     this.state = {
       scrollLeft: 0,
-      scrollLeftMax: 0,
       scrollTop: 0,
     }
 
@@ -57,8 +56,9 @@ class SeperateTable extends PureComponent {
     const { contentWidth } = this.state
     const contentHeight = this.getContentHeight()
     const left = x * (contentWidth - v)
-    const right = max - left
     const scrollTop = h > contentHeight ? 0 : y
+    let right = max - left
+    if (right < 0) right = 0
 
     bar.style.paddingTop = `${scrollTop * h}px`
 
@@ -75,7 +75,7 @@ class SeperateTable extends PureComponent {
         .forEach((td) => { setTranslate(td, `-${right}px`, '0') })
     })
 
-    this.setState({ scrollLeft: left, scrollLeftMax: max, scrollTop })
+    this.setState({ scrollLeft: x, scrollTop })
   }
 
   handleColgroup(tds) {
@@ -116,14 +116,14 @@ class SeperateTable extends PureComponent {
   render() {
     const { columns, fixed } = this.props
     const {
-      colgroup, scrollLeft, scrollLeftMax, contentWidth, scrollTop,
+      colgroup, scrollLeft, contentWidth, scrollTop,
     } = this.state
 
     const floatClass = []
     if (scrollLeft > 0) {
       floatClass.push('float-left')
     }
-    if (scrollLeftMax !== scrollLeft) {
+    if (scrollLeft !== 1) {
       floatClass.push('float-right')
     }
 

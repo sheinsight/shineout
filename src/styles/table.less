@@ -10,10 +10,10 @@
 
   table {
     width: 100%;
-    border-collapse: collapse;
     border-spacing: 0;
     color: @table-color;
     table-layout: fixed;
+    border-collapse: separate;
     // Cells
     > thead,
     > tbody,
@@ -38,8 +38,8 @@
       color: @table-head-color;
     }
 
-    > thead {
-      border-bottom: @table-head-border solid @table-border-color;
+    > thead + tbody > tr:first-child > td {
+      border-top: @table-head-border solid @table-border-color;
     }
 
     // Account for multiple tbody instances
@@ -97,17 +97,28 @@
   }
 
   &-bordered {
+    border-left: 1px solid @table-border-color;
+
+    .@{table-prefix}-head {
+      border-bottom-width: 0;
+    }
+
     table {
-      border: 1px solid @table-border-color;
+      border-top: 1px solid @table-border-color;
       > thead,
       > tbody,
       > tfoot {
         > tr {
           > th,
           > td {
-            border: 1px solid @table-border-color;
+            border-right: 1px solid @table-border-color;
+            border-bottom-width: 1px;
           }
         }
+      }
+
+      > thead + tbody > tr:first-child > td {
+        border-top-width: @table-head-border - 1;
       }
     }
   }
@@ -119,7 +130,21 @@
   }
 
   &-head {
+    position: relative;
     overflow: hidden;
+    background: @table-head-bg;
+    border-bottom: @table-head-border solid @table-border-color;
+
+    &:after {
+      content: ' ';
+      width: 12px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 100;
+      background-color: @table-head-bg;
+    }
   }
 
   &-body {
@@ -131,16 +156,9 @@
     flex-direction: column;
   }
 
-  &-head {
-    background: @table-head-bg;
-  }
-
-  &-bordered &-body {
-    border-bottom: 1px solid @table-border-color;
-  }
-
   &-float-left &-fixed-last {
     position: relative;
+    border-right-color: transparent;
 
     &:after {
       content: ' ';
@@ -148,32 +166,8 @@
       left: 100%;
       width: 6px;
       top: 0;
-      bottom: 0;
+      bottom: -1px;
       background: linear-gradient(to right, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
-    }
-  }
-
-  /*
-  &-fixed-left {
-    position: relative;
-    left: 0;
-    top: auto;
-  }
-  */
-
-  &-head {
-    position: relative;
-
-    &:after {
-      content: ' ';
-      width: 12px;
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      z-index: 100;
-      background-color: @table-head-bg;
-      border-bottom: @table-head-border solid @table-border-color;
     }
   }
 
@@ -186,7 +180,7 @@
       right: 100%;
       width: 6px;
       top: 0;
-      bottom: 0;
+      bottom: -1px;
       background: linear-gradient(to left, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
     }
   }

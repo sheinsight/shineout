@@ -54,6 +54,7 @@ export default function () {
 
   return (
     <Table
+      bordered
       fixed="both"
       keygen="id"
       width={1500}
