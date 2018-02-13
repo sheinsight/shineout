@@ -20,10 +20,17 @@ class Pagination extends PureComponent {
 
 Pagination.propTypes = {
   ...getProps('size', 'type'),
+  current: PropTypes.number,
+  onChange: PropTypes.func,
+  pageSize: PropTypes.number,
+  total: PropTypes.number,
 }
 
 Pagination.defaultProps = {
   ...defaultProps,
+  current: 1,
+  pageSize: 10,
+  total: 0,
 }
 
 export default Pagination
