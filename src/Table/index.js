@@ -14,10 +14,7 @@ function Table({ columns, ...props }) {
   })
 
   const cols = columns.map((c, i) => {
-    const nc = Object.assign({
-      lastFixed: i === left,
-      firstFixed: i === right,
-    }, c)
+    const nc = Object.assign({}, c)
     if (!nc.key) nc.key = hash(c)
     if (i <= left) nc.fixed = 'left'
     if (i >= right && right > 0) nc.fixed = 'right'

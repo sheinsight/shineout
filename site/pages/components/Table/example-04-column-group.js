@@ -18,12 +18,17 @@ export default function () {
     {
       title: 'First Name',
       render: 'firstName',
-      group: 'Name',
+      group: ['Name', 'True Name'],
     },
     {
       title: 'Last Name',
       render: 'lastName',
-      group: 'Name',
+      group: ['Name', 'True Name'],
+    },
+    {
+      title: 'Nick Name',
+      render: () => 'nickname',
+      group: ['Name'],
     },
     {
       title: 'Country',

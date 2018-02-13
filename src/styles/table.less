@@ -4,6 +4,7 @@
 @table-prefix: ~"@{so-prefix}-table";
 
 .@{table-prefix} {
+  background-color: @table-head-bg;
   max-width: 100%;
   overflow: auto;
   margin-bottom: @line-height-computed;
@@ -100,7 +101,9 @@
     border-left: 1px solid @table-border-color;
 
     .@{table-prefix}-head {
-      border-bottom-width: 0;
+      table {
+        border-bottom-width: @table-head-border - 1;
+      }
     }
 
     table {
@@ -121,6 +124,10 @@
         border-top-width: @table-head-border - 1;
       }
     }
+
+    .@{table-prefix}-body table {
+      border-top-width: 0;
+    }
   }
 
   &-striped {
@@ -133,8 +140,15 @@
     position: relative;
     overflow: hidden;
     background: @table-head-bg;
-    border-bottom: @table-head-border solid @table-border-color;
+    > table {
+      border-bottom: @table-head-border solid @table-border-color;
+    }
 
+  }
+
+  &-scroll-y.@{table-prefix}-head {
+    margin-right: @scrollbar-width;
+    /*
     &:after {
       content: ' ';
       width: 12px;
@@ -145,6 +159,7 @@
       z-index: 100;
       background-color: @table-head-bg;
     }
+    */
   }
 
   &-body {
@@ -156,13 +171,13 @@
     flex-direction: column;
   }
 
-  &-float-left &-fixed-last {
+  &-float-left &-fixed-left {
     position: relative;
-    border-right-color: transparent;
 
     &:after {
       content: ' ';
       position: absolute;
+      margin-left: 1px;
       left: 100%;
       width: 6px;
       top: 0;
@@ -171,17 +186,22 @@
     }
   }
 
-  &-float-right &-fixed-first {
+  &-float-right &-fixed-right {
     position: relative;
 
     &:before {
       content: ' ';
       position: absolute;
+      margin-right: 1px;
       right: 100%;
       width: 6px;
       top: 0;
       bottom: -1px;
       background: linear-gradient(to left, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
     }
+  }
+    
+  &-fixed-right + &-fixed-right:before {
+    width: 0;
   }
 }

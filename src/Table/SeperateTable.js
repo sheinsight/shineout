@@ -66,12 +66,12 @@ class SeperateTable extends PureComponent {
     setTranslate(this.thead, `-${left}px`, '0');
 
     [this.thead, this.tbody].forEach((el) => {
-      el.parentNode.querySelectorAll(`.${CLASS_FIXED_LEFT}`)
+      el.parentNode.querySelectorAll(`.${tableClass(CLASS_FIXED_LEFT)}`)
         .forEach((td) => { setTranslate(td, `${left}px`, '0') })
     });
 
     [this.thead, this.tbody].forEach((el) => {
-      el.parentNode.querySelectorAll(`.${CLASS_FIXED_RIGHT}`)
+      el.parentNode.querySelectorAll(`.${tableClass(CLASS_FIXED_RIGHT)}`)
         .forEach((td) => { setTranslate(td, `-${right}px`, '0') })
     })
 
@@ -125,6 +125,9 @@ class SeperateTable extends PureComponent {
     }
     if (scrollLeft !== 1) {
       floatClass.push('float-right')
+    }
+    if (fixed === 'y' || fixed === 'both') {
+      floatClass.push('scroll-y')
     }
 
     return [
