@@ -2,7 +2,7 @@
  * cn - 超大数据 \n * 这个例子加载了10000条数据。可以通过设置rowsInView调整单次最多render的行数，默认为20
  * en - Big data
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Table } from 'shineout'
 import { getData } from 'doc/data/table'
 
@@ -45,16 +45,14 @@ export default function () {
   ]
 
   return (
-    <Fragment>
-      <Table
-        fixed="both"
-        keygen="id"
-        width={1200}
-        style={{ height: 400 }}
-        columns={columns}
-        data={data}
-        rowsInView={10}
-      />
-    </Fragment>
+    <Table
+      fixed="both"
+      keygen="id"
+      width={1200}
+      style={{ height: 400 }}
+      columns={columns}
+      data={data}
+      rowsInView={10}
+    />
   )
 }

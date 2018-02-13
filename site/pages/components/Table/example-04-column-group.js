@@ -35,12 +35,14 @@ export default function () {
       render: 'country',
     },
     {
-      title: 'Position',
-      render: 'position',
-    },
-    {
       title: 'Office',
       render: 'office',
+      group: 'Other',
+    },
+    {
+      title: 'Position',
+      render: 'position',
+      group: 'Other',
     },
   ]
 
