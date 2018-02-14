@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { capitalize } from '../utils/strings'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { alertClass } from '../styles'
 import icons from '../icons'
@@ -52,7 +53,7 @@ class Alert extends PureComponent {
     let { icon } = this.props
     const { type, iconSize } = this.props
     if (typeof icon === 'boolean') {
-      icon = icons[type]
+      icon = icons[capitalize(type)]
     }
 
     if (!icon) return null

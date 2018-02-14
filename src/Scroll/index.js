@@ -1,8 +1,19 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import ScrollView from './Scroll'
+import Scroll from './Scroll'
 
-class Scroll extends PureComponent {
+export default class extends PureComponent {
+  static propTypes = {
+    onScroll: PropTypes.func,
+    scroll: PropTypes.oneOf(['x', 'y', 'both']),
+    scrollLeft: PropTypes.number,
+    scrollTop: PropTypes.number,
+  }
+
+  static defaultProps = {
+    scroll: 'both',
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -41,7 +52,7 @@ class Scroll extends PureComponent {
   render() {
     const { left, top } = this.getRect()
     return (
-      <ScrollView
+      <Scroll
         {...this.props}
         left={left}
         top={top}
@@ -53,18 +64,3 @@ class Scroll extends PureComponent {
   }
 }
 
-Scroll.propTypes = {
-  onScroll: PropTypes.func,
-  scroll: PropTypes.oneOf(['x', 'y', 'both']),
-  scrollLeft: PropTypes.number,
-  scrollTop: PropTypes.number,
-}
-
-Scroll.defaultProps = {
-  onScroll: undefined,
-  scroll: 'both',
-  scrollLeft: undefined,
-  scrollTop: undefined,
-}
-
-export default Scroll

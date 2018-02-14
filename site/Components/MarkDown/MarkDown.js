@@ -9,7 +9,23 @@ import Example from '../Example'
 
 const markdownClass = classGenerate(require('./markdown.less'), 'markdown')
 
-class MarkDown extends PureComponent {
+export default class MarkDown extends PureComponent {
+  static propTypes = {
+    children: PropTypes.oneOfType([
+      PropTypes.element,
+      PropTypes.array,
+    ]),
+    examples: PropTypes.array,
+    onHeadingSetted: PropTypes.func,
+    source: PropTypes.string.isRequired,
+  }
+
+  static defaultProps = {
+    children: null,
+    examples: null,
+    onHeadingSetted: undefined,
+  }
+
   constructor(props) {
     super(props)
 
@@ -81,21 +97,3 @@ class MarkDown extends PureComponent {
     )
   }
 }
-
-MarkDown.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.array,
-  ]),
-  examples: PropTypes.array,
-  onHeadingSetted: PropTypes.func,
-  source: PropTypes.string.isRequired,
-}
-
-MarkDown.defaultProps = {
-  children: null,
-  examples: null,
-  onHeadingSetted: undefined,
-}
-
-export default MarkDown

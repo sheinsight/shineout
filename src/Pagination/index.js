@@ -1,36 +1,49 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
-import { getProps, defaultProps } from '../utils/proptypes'
-import { paginationClass } from '../styles'
+import Pagination from './Pagination'
 
-class Pagination extends PureComponent {
+export default class extends PureComponent {
+  static propTypes = {
+    current: PropTypes.number,
+    defaultCurrent: PropTypes.number,
+    onChange: PropTypes.func,
+    pageSize: PropTypes.number,
+    total: PropTypes.number,
+  }
+
+  static defaultProps = {
+    defaultCurrent: 1,
+    pageSize: 10,
+    total: 0,
+  }
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      current: props.current || props.defaultCurrent,
+      pageSize: props.pageSize,
+    }
+
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange(current, pageSize = this.state.pageSize) {
+    this.setState({ current, pageSize })
+    if (this.props.onChange) {
+      this.props.onChange(current, pageSize)
+    }
+  }
+
   render() {
-    const { style } = this.props
-    const className = classnames(
-      paginationClass('_'),
-      this.props.className,
-    )
+    const current = this.props.current || this.state.current
 
     return (
-      <div className={className} style={style}>Pagination</div>
+      <Pagination
+        {...this.props}
+        current={current}
+        pageSize={this.state.pageSize}
+        onChange={this.handleChange}
+      />
     )
   }
 }
-
-Pagination.propTypes = {
-  ...getProps('size', 'type'),
-  current: PropTypes.number,
-  onChange: PropTypes.func,
-  pageSize: PropTypes.number,
-  total: PropTypes.number,
-}
-
-Pagination.defaultProps = {
-  ...defaultProps,
-  current: 1,
-  pageSize: 10,
-  total: 0,
-}
-
-export default Pagination

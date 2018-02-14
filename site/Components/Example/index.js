@@ -6,7 +6,19 @@ import CodeBlock from '../CodeBlock'
 
 const exampleClass = classGenerate(require('./example.less'), 'example')
 
-class Example extends PureComponent {
+export default class Example extends PureComponent {
+  static propTypes = {
+    appendHeading: PropTypes.func,
+    component: PropTypes.func.isRequired,
+    rawText: PropTypes.string,
+    title: PropTypes.string.isRequired,
+  }
+
+  static defaultProps = {
+    appendHeading: () => {},
+    rawText: '',
+  }
+
   constructor(props) {
     super(props)
 
@@ -15,7 +27,6 @@ class Example extends PureComponent {
     }
 
     this.id = getUidStr()
-    this.toggleCode = this.toggleCode.bind(this)
   }
 
   componentDidMount() {
@@ -27,7 +38,7 @@ class Example extends PureComponent {
     })
   }
 
-  toggleCode() {
+  toggleCode = () => {
     this.setState({ showcode: !this.state.showcode })
   }
 
@@ -54,19 +65,3 @@ class Example extends PureComponent {
     )
   }
 }
-
-Example.propTypes = {
-  appendHeading: PropTypes.func,
-  component: PropTypes.func.isRequired,
-  rawText: PropTypes.string,
-  title: PropTypes.string.isRequired,
-}
-
-Example.defaultProps = {
-  appendHeading: () => {},
-  rawText: '',
-}
-
-Example.isExample = true
-
-export default Example

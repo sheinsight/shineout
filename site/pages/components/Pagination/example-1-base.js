@@ -7,6 +7,6 @@ import { Pagination } from 'shineout'
 
 export default function () {
   return (
-    <Pagination total={500} />
+    <Pagination defaultCurrent={10} total={1000} />
   )
 }

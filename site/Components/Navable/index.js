@@ -6,7 +6,7 @@ import classGenerate from '../../utils/classname'
 const cls = classGenerate(require('./nav.less'), 'nav')
 
 export default function (Component) {
-  class Nav extends PureComponent {
+  return class Nav extends PureComponent {
     constructor(props) {
       super(props)
 
@@ -55,6 +55,4 @@ export default function (Component) {
       )
     }
   }
-
-  return Nav
 }

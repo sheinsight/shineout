@@ -1,10 +1,14 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-class CodeBlock extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.setRef = this.setRef.bind(this)
+export default class CodeBlock extends PureComponent {
+  static propTypes = {
+    value: PropTypes.string.isRequired,
+    language: PropTypes.string,
+  }
+
+  static defaultProps = {
+    language: '',
   }
 
   componentDidMount() {
@@ -15,32 +19,21 @@ class CodeBlock extends PureComponent {
     this.highlightCode()
   }
 
-  setRef(el) {
-    this.codeEl = el
+  bindElement = (el) => {
+    this.element = el
   }
 
   highlightCode() {
-    window.hljs.highlightBlock(this.codeEl)
+    window.hljs.highlightBlock(this.element)
   }
 
   render() {
     return (
       <pre>
-        <code ref={this.setRef} className={this.props.language}>
+        <code ref={this.bindElement} className={this.props.language}>
           {this.props.value}
         </code>
       </pre>
     )
   }
 }
-
-CodeBlock.propTypes = {
-  value: PropTypes.string.isRequired,
-  language: PropTypes.string,
-}
-
-CodeBlock.defaultProps = {
-  language: '',
-}
-
-export default CodeBlock
