@@ -1,5 +1,7 @@
 # Message 消息
 
+<example />
+
 ## API 
 Message 提供了一组方法供全局调用
 
@@ -27,5 +29,3 @@ Message.close() // 关闭所有消息
 | --- | --- | --- | --- |
 | onClose | function | 无 | 关闭后回调事件 |
 | position | string | 'top' | 消息显示的位置，可选值 \['top', 'middle'] |
-
-<example />

@@ -1,5 +1,7 @@
 # Dropdown *下拉*
 
+<example />
+
 ## API
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
@@ -13,5 +15,3 @@
 | size | string | 'default' | 同 [Button](#/components/Button) |
 | type | string | 'default' | 可选值 \['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'link'] |
 | width | number | 无 | 弹出选项层的宽度 |
-
-<example />

@@ -27,11 +27,8 @@ export default class Example extends PureComponent {
     }
 
     this.id = getUidStr()
-  }
-
-  componentDidMount() {
-    const [title] = this.props.title.split('\n')
-    this.props.appendHeading({
+    const [title] = props.title.split('\n')
+    props.appendHeading({
       id: this.id,
       level: 3,
       children: [title],

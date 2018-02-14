@@ -1,5 +1,5 @@
 # Pagination
 
-## API 
-
 <example />
+
+## API 

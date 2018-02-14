@@ -15,7 +15,7 @@ export default function () {
 
   return (
     <Fragment>
-      <Dropdown placeholder="Left Top" width={160} position="left-top">
+      <Dropdown placeholder="Right Top" width={160} position="right-top">
         {menu}
       </Dropdown>
 
@@ -27,13 +27,13 @@ export default function () {
         {menu}
       </Dropdown>
 
-      <Dropdown placeholder="Right Top" width={160} position="right-top">
+      <Dropdown placeholder="Left Top" width={160} position="left-top">
         {menu}
       </Dropdown>
 
       <br />
 
-      <Dropdown placeholder="Left Bottom" width={160} position="left-bottom">
+      <Dropdown placeholder="Right Bottom" width={160} position="right-bottom">
         {menu}
       </Dropdown>
 
@@ -45,7 +45,7 @@ export default function () {
         {menu}
       </Dropdown>
 
-      <Dropdown placeholder="Right Bottom" width={160} position="right-bottom">
+      <Dropdown placeholder="Left Bottom" width={160} position="left-bottom">
         {menu}
       </Dropdown>
     </Fragment>

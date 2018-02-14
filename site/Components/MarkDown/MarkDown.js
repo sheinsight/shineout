@@ -90,6 +90,7 @@ export default class MarkDown extends PureComponent {
           },
           html: ({ value }) => {
             if (value === '<example />') return this.renderExamples()
+            if (value === '<br>' || value === '<br />') return <br />
             return null
           },
         }}

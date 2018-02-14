@@ -17,6 +17,11 @@ const examples = [
     component: require('doc/pages/components/Pagination/example-1-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Pagination/example-1-base.js'),
   },
+  {
+    title: locate('文字 \n 通过 text 替换文字', 'Base'),
+    component: require('doc/pages/components/Pagination/example-4-text.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Pagination/example-4-text.js'),
+  },
 ]
 
 export default navable(props => <MarkDown {...props} source={source} examples={examples} />)
