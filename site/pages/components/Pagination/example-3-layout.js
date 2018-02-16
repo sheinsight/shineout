@@ -5,9 +5,7 @@
 import React from 'react'
 import { Pagination } from 'shineout'
 
-function info({ total }) {
-  return `total ${total}`
-}
+const info = ({ total }) => `total ${total}`
 
 export default function () {
   return (

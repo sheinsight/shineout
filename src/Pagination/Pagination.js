@@ -4,13 +4,17 @@ import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { paginationClass } from '../styles'
 import Links from './Links'
+import Jumper from './Jumper'
 import PageSizeList from './PageSizeList'
 
 class Pagination extends PureComponent {
   render() {
-    const { layout, size, style } = this.props
+    const {
+      align, layout, size, style,
+    } = this.props
+
     const className = classnames(
-      paginationClass('_', size),
+      paginationClass('_', size, align),
       this.props.className,
     )
 
@@ -26,7 +30,7 @@ class Pagination extends PureComponent {
               case 'list':
                 return <PageSizeList key={section} {...this.props} />
               case 'jumper':
-                return <div key={section} className={sectionClassName}>缺Input</div>
+                return <Jumper key={section} {...this.props} />
               default:
                 if (typeof section === 'function') {
                   return (
@@ -46,6 +50,7 @@ class Pagination extends PureComponent {
 
 Pagination.propTypes = {
   ...getProps('size', 'type'),
+  align: PropTypes.string,
   current: PropTypes.number.isRequired,
   layout: PropTypes.array,
   onChange: PropTypes.func.isRequired,

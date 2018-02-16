@@ -4,6 +4,8 @@
 @pagination-prefix: ~"@{so-prefix}-pagination";
 
 .@{pagination-prefix} {
+  display: flex;
+
   &-section {
     display: inline-block;
     vertical-align: middle;
@@ -19,11 +21,26 @@
     }
   }
 
+  &-center {
+    justify-content: center !important;
+  }
+
+  &-right {
+    justify-content: flex-end !important;
+  }
+
   &-small &-item {
-    font-size: @pagination-small-font-size;
+    font-size: @font-size-small;
     line-height: @pagination-small-width;
     height: @pagination-small-width;
     min-width: @pagination-small-width;
+  }
+
+  &-large &-item {
+    font-size: @font-size-large;
+    line-height: @pagination-large-width;
+    height: @pagination-large-width;
+    min-width: @pagination-large-width;
   }
 
   &-item {
