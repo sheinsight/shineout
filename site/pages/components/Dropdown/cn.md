@@ -5,7 +5,7 @@
 ## API
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| children | array | 必填 | 一组 ReactElement； |
+| children | ReactElement[] | 必填 | 一组 ReactElement； |
 | className | string | 无 | 扩展className |
 | href | string | 无 | 如果 href 不为空，使用一个 Button 单独处理下拉事件 |
 | hover | boolean | false | 为 true 时，通过 mouseenter 触发选项弹出  |

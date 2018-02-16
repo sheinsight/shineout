@@ -18,7 +18,17 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Pagination/example-1-base.js'),
   },
   {
-    title: locate('文字 \n 通过 text 替换文字', 'Base'),
+    title: locate('小型分页', 'Small Size'),
+    component: require('doc/pages/components/Pagination/example-2-size.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Pagination/example-2-size.js'),
+  },
+  {
+    title: locate('布局 \n 通过 layout 来控制组件是否显示以及显示的位置', 'Layout'),
+    component: require('doc/pages/components/Pagination/example-3-layout.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Pagination/example-3-layout.js'),
+  },
+  {
+    title: locate('文字 \n 通过 text 替换文字', 'Text'),
     component: require('doc/pages/components/Pagination/example-4-text.js').default,
     rawText: require('!raw-loader!doc/pages/components/Pagination/example-4-text.js'),
   },

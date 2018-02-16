@@ -60,7 +60,7 @@ class Links extends PureComponent {
     const { links, max } = this.getLinks()
 
     return (
-      <div className={paginationClass('pager')}>
+      <div className={paginationClass('links', 'section')}>
         <Prev {...this.props} />
         {
           links.map((p) => {

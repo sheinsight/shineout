@@ -4,6 +4,28 @@
 @pagination-prefix: ~"@{so-prefix}-pagination";
 
 .@{pagination-prefix} {
+  &-section {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: @pagination-margin;
+
+    > span {
+      color: @pagination-color;
+      line-height: @pagination-width;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &-small &-item {
+    font-size: @pagination-small-font-size;
+    line-height: @pagination-small-width;
+    height: @pagination-small-width;
+    min-width: @pagination-small-width;
+  }
+
   &-item {
     display: inline-block;
     position: relative;
