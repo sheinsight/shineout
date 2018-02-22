@@ -62,6 +62,13 @@ const pages = [
     component: loadable(() => import('./Message')),
   },
   
+  {
+    name: 'Spin',
+    cn: '加载中',
+    level: 2,
+    component: loadable(() => import('./Spin')),
+  },
+  
   'Layout',
   
   {

@@ -1,0 +1,44 @@
+@import '../../styles/variables.less';
+
+@chasing-dots-prefix: ~"@{so-prefix}-chasing-dots";
+
+.@{chasing-dots-prefix} {
+  @duration: 2.0s;
+  @keyframesRotate: ~"@{chasing-dots-prefix}-rotate";
+  @keyframesBounce: ~"@{chasing-dots-prefix}-bounce";
+
+  margin: auto;
+  position: relative;
+  text-align: center;
+  animation: @keyframesRotate @duration infinite linear;
+
+  @keyframes @keyframesRotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes @keyframesBounce {
+    0%, 100% {
+      transform: scale(0);
+    } 50% {
+      transform: scale(1.0);
+    }
+  }
+
+  &-item {
+    width: 60%;
+    height: 60%;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    border-radius: 100%;
+    animation: @keyframesBounce @duration infinite ease-in-out;
+
+    &:last-child {
+      top: auto;
+      bottom: 0;
+      animation-delay: -@duration/2;
+    }
+  }
+}

@@ -11,7 +11,8 @@
   },
   "Feedback": {
     "Alert": "提示框",
-    "Message": "消息提示"
+    "Message": "消息提示",
+    "Spin": "加载中"
   },
   "Layout": {
     "Sticky": "附着"

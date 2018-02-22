@@ -1,0 +1,20 @@
+@import '../../styles/variables.less';
+
+@spin-pulse-prefix: ~"@{so-prefix}-spin-pulse";
+
+.@{spin-pulse-prefix} {
+  @keyframesName: ~"@{spin-pulse-prefix}-scale";
+
+  margin: auto;
+  border-radius: 100%;
+  animation: @keyframesName 1s infinite ease-in-out;
+
+  @keyframes @keyframesName {
+    0% {
+      transform: scale(0);
+    } 100% {
+      transform: scale(1.0);
+      opacity: 0;
+    }
+  }
+}
