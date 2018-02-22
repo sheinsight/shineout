@@ -6,12 +6,22 @@
   position: relative;
   margin: auto;
   border-radius: 50%;
-  animation: loading 2.3s linear infinite;
+  animation: @loading 2.3s linear infinite;
 
+  @loading: ~"@{chasing-ring-prefix}-loading";
   @loading1: ~"@{chasing-ring-prefix}-loading1";
   @loading2: ~"@{chasing-ring-prefix}-loading2";
   @loading3: ~"@{chasing-ring-prefix}-loading3";
   @loading4: ~"@{chasing-ring-prefix}-loading4";
+
+  @keyframes @loading {
+    0% {
+      transform: rotateZ(0deg);
+    }
+    100% {
+      transform: rotateZ(360deg);
+    }
+  }
 
   @keyframes @loading1 {
     0% {
