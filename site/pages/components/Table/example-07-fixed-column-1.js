@@ -1,5 +1,5 @@
 /**
- * cn - 固定列 \n * 需要设置 fixed 属性为 true
+ * cn - 固定列
  * en - Fixed column
  */
 import React from 'react'

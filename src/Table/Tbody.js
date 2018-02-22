@@ -26,14 +26,25 @@ class Tbody extends PureComponent {
   }
 
   renderTr(data, index) {
-    const { columns, keygen } = this.props
+    const {
+      columns, keygen, offsetLeft, offsetRight,
+    } = this.props
 
     let key = index
     if (keygen) {
       key = typeof keygen === 'string' ? data[keygen] : keygen(data, index)
     }
 
-    return <Tr key={key} columns={columns} data={data} index={index + this.props.index} />
+    return (
+      <Tr
+        key={key}
+        columns={columns}
+        data={data}
+        offsetLeft={offsetLeft}
+        offsetRight={offsetRight}
+        index={index + this.props.index}
+      />
+    )
   }
 
   render() {
@@ -52,6 +63,8 @@ Tbody.propTypes = {
   columns: PropTypes.array.isRequired,
   data: PropTypes.array.isRequired,
   index: PropTypes.number.isRequired,
+  offsetLeft: PropTypes.number,
+  offsetRight: PropTypes.number,
   onBodyRender: PropTypes.func,
 }
 

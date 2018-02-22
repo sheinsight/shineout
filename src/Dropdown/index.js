@@ -11,10 +11,12 @@ class Dropdown extends PureComponent {
     super(props)
 
     this.state = {
+      position: 'bottom-left',
       show: false,
     }
 
     this.bindButton = this.bindButton.bind(this)
+    this.bindElement = this.bindElement.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
     this.handleFocus = this.handleFocus.bind(this)
     this.handleHover = this.handleHover.bind(this)
@@ -24,15 +26,32 @@ class Dropdown extends PureComponent {
     this.isUnmounted = true
   }
 
+  getPosition() {
+    return this.props.position || this.state.position
+  }
+
   bindButton(el) {
     this.button = el
   }
 
+  bindElement(el) {
+    this.element = el
+  }
+
   handleFocus() {
-    this.setState({ show: true })
+    let f = 'bottom'
+    const s = 'left'
+    const height = window.innerHeight || document.documentElement.clientHeight
+    const rect = this.element.getBoundingClientRect()
+    if (height - rect.bottom < 200) {
+      f = 'top'
+    }
+
+    this.setState({ show: true, position: `${f}-${s}` })
   }
 
   handleBlur() {
+    // wait item event execute
     setTimeout(() => {
       if (!this.isUnmounted) this.setState({ show: false })
     }, 200)
@@ -88,9 +107,10 @@ class Dropdown extends PureComponent {
 
   render() {
     const {
-      className, style, children, width, position,
+      className, style, children, width,
     } = this.props
     const { show } = this.state
+    const position = this.getPosition()
 
     let wrapClassName = dropdownClass('_', position, show && 'show')
     if (className) wrapClassName += ` ${className}`
@@ -98,7 +118,7 @@ class Dropdown extends PureComponent {
     const itemClassName = dropdownClass('item', !width && 'no-width')
 
     return (
-      <div className={wrapClassName} style={style}>
+      <div ref={this.bindElement} className={wrapClassName} style={style}>
         {this.renderButton()}
         <FadeList className={dropdownClass('menu')} style={{ width }} show={show}>
           {
@@ -132,7 +152,6 @@ Dropdown.propTypes = {
 
 Dropdown.defaultProps = {
   ...defaultProps,
-  position: 'bottom-left',
 }
 
 export default Dropdown

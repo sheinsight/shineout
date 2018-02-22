@@ -2,7 +2,7 @@
  * cn - 选项多列平铺
  * en - Multiple columns
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Dropdown } from 'shineout'
 
 export default function () {
@@ -16,11 +16,9 @@ export default function () {
   }
 
   return (
-    <Fragment>
-      <Dropdown placeholder="Dropdown" position="top-left" width={500}>
-        {menu}
-      </Dropdown>
-    </Fragment>
+    <Dropdown placeholder="Dropdown" width={500}>
+      {menu}
+    </Dropdown>
   )
 }
 

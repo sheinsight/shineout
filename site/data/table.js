@@ -42,9 +42,19 @@ export function getData(count = 100, start = 0) {
   return allData.slice(start, start + count)
 }
 
-export default (src, { type }) => {
-  switch (type) {
-    default:
-      return all()
-  }
+export const fetch = {
+  get(src, { current, pageSize }) {
+    const start = (current - 1) * pageSize
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          status: 1,
+          data: getData(pageSize, start),
+          current,
+          pageSize,
+          total: allData.length,
+        })
+      }, pickInteger(500, 300))
+    })
+  },
 }

@@ -23,13 +23,6 @@ class SeperateTable extends PureComponent {
     this.handleScroll = this.handleScroll.bind(this)
   }
 
-  componentDidMount() {
-    const body = this.tbody
-    this.setState({
-      contentWidth: body.offsetWidth,
-    })
-  }
-
   getIndex() {
     const { data, rowsInView } = this.props
     const { scrollTop } = this.state
@@ -41,11 +34,15 @@ class SeperateTable extends PureComponent {
   }
 
   getContentHeight() {
+    if (!this.props.data) return 0
     return this.props.data.length * this.props.rowHeight
   }
 
   bindTbody(el) {
     this.tbody = el
+    if (el) {
+      this.setState({ contentWidth: el.offsetWidth })
+    }
   }
 
   bindThead(el) {
@@ -53,6 +50,8 @@ class SeperateTable extends PureComponent {
   }
 
   handleScroll(x, y, max, bar, v, h) {
+    if (!this.tbody) return
+
     const { contentWidth } = this.state
     const contentHeight = this.getContentHeight()
     const left = x * (contentWidth - v)
@@ -75,7 +74,12 @@ class SeperateTable extends PureComponent {
         .forEach((td) => { setTranslate(td, `-${right}px`, '0') })
     })
 
-    this.setState({ scrollLeft: x, scrollTop })
+    this.setState({
+      scrollLeft: x,
+      scrollTop,
+      offsetLeft: left,
+      offsetRight: right,
+    })
   }
 
   handleColgroup(tds) {
@@ -87,37 +91,49 @@ class SeperateTable extends PureComponent {
     this.setState({ colgroup })
   }
 
-  renderBody() {
+  renderBody(floatClass) {
     const {
-      data, rowsInView, columns, width,
+      data, rowsInView, columns, width, fixed,
     } = this.props
-    const { colgroup } = this.state
+    const {
+      colgroup, contentWidth, scrollTop, offsetLeft, offsetRight,
+    } = this.state
 
     // loading text
-    if (typeof data === 'string') return <div>{data}</div>
-    if (!Array.isArray(data)) return <div>error</div>
-    if (data.length === 0) return <div>no data</div>
+    if (typeof data === 'string') return <div key="body">{data}</div>
+    if (!Array.isArray(data)) return <div key="body">error</div>
+    if (data.length === 0) return <div key="body">no data</div>
 
     const index = this.getIndex()
 
     return (
-      <table ref={this.bindTbody} style={{ width }}>
-        <Colgroup colgroup={colgroup} columns={columns} />
-        <Tbody
-          onBodyRender={this.handleColgroup}
-          columns={columns}
-          index={index}
-          data={data.slice(index, index + rowsInView)}
-        />
-      </table>
+      <Scroll
+        key="body"
+        scrollTop={scrollTop}
+        scroll={fixed}
+        scrollHeight={this.getContentHeight()}
+        scrollWidth={contentWidth}
+        onScroll={this.handleScroll}
+        className={tableClass('body', ...floatClass)}
+      >
+        <table ref={this.bindTbody} style={{ width }}>
+          <Colgroup colgroup={colgroup} columns={columns} />
+          <Tbody
+            onBodyRender={this.handleColgroup}
+            columns={columns}
+            index={index}
+            offsetLeft={offsetLeft}
+            offsetRight={offsetRight}
+            data={data.slice(index, index + rowsInView)}
+          />
+        </table>
+      </Scroll>
     )
   }
 
   render() {
     const { columns, fixed } = this.props
-    const {
-      colgroup, scrollLeft, contentWidth, scrollTop,
-    } = this.state
+    const { colgroup, scrollLeft } = this.state
 
     const floatClass = []
     if (scrollLeft > 0) {
@@ -140,17 +156,7 @@ class SeperateTable extends PureComponent {
           <Thead columns={columns} />
         </table>
       </div>,
-      <Scroll
-        key="body"
-        scrollTop={scrollTop}
-        scroll={fixed}
-        scrollHeight={this.getContentHeight()}
-        scrollWidth={contentWidth}
-        onScroll={this.handleScroll}
-        className={tableClass('body', ...floatClass)}
-      >
-        {this.renderBody()}
-      </Scroll>,
+      this.renderBody(floatClass),
     ]
   }
 }
