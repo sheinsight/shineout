@@ -6,17 +6,17 @@
   @keyframesName: ~"@{spin-ring-prefix}-spin";
 
   margin: auto;
-  border-color: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.05);
   border-style: solid;
   border-radius: 50%;
   animation: @keyframesName 1s infinite linear;
 
   @keyframes @keyframesName {
     0% {
-      transform: rotate(0deg);
+      transform: rotateZ(0deg);
     }
     100% {
-      transform: rotate(359deg);
+      transform: rotateZ(359deg);
     }
   }
 }
