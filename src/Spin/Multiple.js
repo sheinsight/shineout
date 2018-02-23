@@ -1,6 +1,7 @@
 import React from 'react'
 import Spin from './Spin'
-import genaration from '../../utils/classname'
+import { chasingDotsClass, doubleBounceClass, waveClass, cubeGridClass,
+  chasingRingClass, scaleCircleClass, threeBounceClass } from './styles'
 
 function formatSize(size) {
   const ss = /^(\d+)([%|\w]*)$/.exec(size)
@@ -21,19 +22,13 @@ function simpleRender(classname, i, { color, itemStyle }) {
   )
 }
 
-const chasingDotsClass = genaration(require('./chasing-dots.less'), 'chasing-dots')
-
 export function ChasingDots(props) {
   return <Spin {...props} count={2} spinClass={chasingDotsClass} render={simpleRender} />
 }
 
-const doubleBounceClass = genaration(require('./double-bounce.less'), 'double-bounce')
-
 export function DoubleBounce(props) {
   return <Spin {...props} count={2} spinClass={doubleBounceClass} render={simpleRender} />
 }
-
-const waveClass = genaration(require('./wave.less'), 'spin-wave')
 
 export function Wave(prop) {
   const { value, unit } = formatSize(prop.size)
@@ -58,15 +53,11 @@ export function Wave(prop) {
   )
 }
 
-const cubeGridClass = genaration(require('./cube-grid.less'), 'cube-grid')
-
 export function CubeGrid(props) {
   return <Spin {...props} count={9} spinClass={cubeGridClass} render={simpleRender} />
 }
 
 // =============================================================================
-
-const chasingRingClass = genaration(require('./chasing-ring.less'), 'chasing-ring')
 
 function ccRender(className, i, { itemStyle }) {
   return <div key={i} className={className('item')} style={itemStyle} />
@@ -109,8 +100,6 @@ function circleRender(className, i, { color, itemSize, itemClass }) {
   )
 }
 
-const scaleCircleClass = genaration(require('./twelve-circle.less'), 'twelve-circle')
-
 function twelveCircle(opt, type) {
   const { value, unit } = formatSize(opt.size)
   const itemSize = (value / 7) + unit
@@ -129,8 +118,6 @@ function twelveCircle(opt, type) {
 
 export const ScaleCircle = opt => twelveCircle(opt, 'scale')
 export const FadingCircle = opt => twelveCircle(opt, 'fade')
-
-const threeBounceClass = genaration(require('./three-bounce.less'), 'three-bounce')
 
 export function ThreeBounce(prop) {
   const { value, unit } = formatSize(prop.size)

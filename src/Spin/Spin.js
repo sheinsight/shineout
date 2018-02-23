@@ -1,7 +1,7 @@
 import React from 'react'
 import classnames from 'classnames'
-import { range } from '../../utils/numbers'
-import propTypes from '../proptypes'
+import { range } from '../utils/numbers'
+import propTypes from './proptypes'
 
 export default function Spin(props) {
   const {
@@ -22,6 +22,10 @@ export default function Spin(props) {
     props.style,
   )
 
+  if (count < 1) {
+    return <div style={style} className={className} />
+  }
+
   return (
     <div style={style} className={className}>
       { range(count + 1, 1).map(i => render(spinClass, i, props)) }
@@ -30,3 +34,7 @@ export default function Spin(props) {
 }
 
 Spin.propTypes = propTypes
+
+Spin.defaultProps = {
+  count: 0,
+}
