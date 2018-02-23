@@ -3,10 +3,12 @@
 @chasing-ring-prefix: ~"@{so-prefix}-chasing-ring";
 
 .@{chasing-ring-prefix} {
+  @animationDuration: 2s;
+
   position: relative;
   margin: auto;
   border-radius: 50%;
-  animation: @loading 2.3s linear infinite;
+  // animation: @loading 2.3s linear infinite;
 
   @loading: ~"@{chasing-ring-prefix}-loading";
   @loading1: ~"@{chasing-ring-prefix}-loading1";
@@ -79,27 +81,22 @@
     left:0;
     border-radius: 100% 0 0 0;
     box-sizing: border-box;
-    border-top: 6px solid #333;
-    border-left: 6px solid #333;
     transform-origin: bottom right;
   }
 
   &-item:nth-child(1) {
-    animation: @loading1 2s infinite;
+    animation: @loading1 @animationDuration infinite;
   }
 
   &-item:nth-child(2) {
-    transform: rotateZ(75deg);
-    animation: @loading2 2s infinite;
+    animation: @loading2 @animationDuration infinite;
   }
 
   &-item:nth-child(3) {
-    transform: rotateZ(150deg);
-    animation: @loading3 2s infinite;
+    animation: @loading3 @animationDuration infinite;
   }
 
   &-item:nth-child(4) {
-    transform: rotateZ(225deg);
-    animation: @loading4 2s infinite;
+    animation: @loading4 @animationDuration infinite;
   }
 }

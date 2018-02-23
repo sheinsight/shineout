@@ -3,7 +3,7 @@
  * en - Fixed column
  */
 import React, { PureComponent } from 'react'
-import { Table, Pagination, Spin } from 'shineout'
+import { Table, Pagination } from 'shineout'
 import { fetch } from 'doc/data/table'
 
 const columns = [
@@ -73,11 +73,6 @@ export default class extends PureComponent {
     })
   }
 
-  renderLoading() {
-    const { loading } = this.state
-    return loading ? <Spin /> : undefined
-  }
-
   render() {
     const {
       data, current, pageSize, total, loading,
@@ -87,7 +82,7 @@ export default class extends PureComponent {
       <div>
         <Table
           bordered
-          loading={this.renderLoading()}
+          loading={loading}
           fixed="x"
           keygen="id"
           width={1500}

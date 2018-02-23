@@ -22,6 +22,10 @@ const spins = {
 export default function Spin(props) {
   const { type } = props
   const Component = spins[type]
+  if (!Component) {
+    console.warn(`Spin type '${type}' not existed.`)
+    return null
+  }
   return <Component {...props} />
 }
 

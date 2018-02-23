@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { tableClass } from '../styles'
+import Spin from '../Spin'
 import SimpleTable from './SimpleTable'
 import SeperateTable from './SeperateTable'
 
@@ -75,7 +76,9 @@ class Table extends PureComponent {
         }
         {
           loading &&
-          <div className={tableClass('loading')}>{loading}</div>
+          <div className={tableClass('loading')}>
+            {typeof loading === 'boolean' ? <Spin size={30} /> : loading}
+          </div>
         }
       </div>
     )
@@ -91,7 +94,10 @@ Table.propTypes = {
   fixed: PropTypes.oneOf(['x', 'y', 'both']),
   height: PropTypes.number,
   hover: PropTypes.bool,
-  loading: PropTypes.element,
+  loading: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.bool,
+  ]),
   rowsInView: PropTypes.number,
   striped: PropTypes.bool,
   width: PropTypes.number,

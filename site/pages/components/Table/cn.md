@@ -12,12 +12,13 @@
 | columns | Column\[] | 无 | 数组，见Column |
 | data | object\[] | 无 | 数据 |
 | fixed | string | 无 | 可填值 \['both', 'x', 'y'] |
+| loading | bool \| element | false | 数据加载中，为true时会展示一个默认的[Spin](#/components/Spin)组件，可以传入一个自定义的Spin代替 |
 | onScroll | function(x, y) | 无 | 滚动条滚动后回调函数；<br />x: 横向滚动比(0 <= x <= 1)<br />y: 纵向滚动比(0 <= y <= 1) |
 | rowsInView | number | 20 | 单次render的最大行数 |
 | striped | bool | false | 是否显示交错斑马底纹 |
 | style | object | 无 | 扩展样式 |
 
-- 采用了lazy render的方式来优化在大量数据下的性能，如果你的表格显示的高度很大，一次超出了20条，可以调整rowsInView的值 
+- 采用了lazy render的方式来优化在大量数据下的性能，如果你的表格显示的高度超出了20条，可以调整rowsInView的值 
 
 ### Column
 | 属性 | 类型 | 默认值 | 说明 |
