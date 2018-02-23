@@ -31,7 +31,7 @@ class Dropdown extends PureComponent {
   }
 
   bindButton(el) {
-    this.button = el
+    this.button = findDOMNode(el)
   }
 
   bindElement(el) {
@@ -47,12 +47,17 @@ class Dropdown extends PureComponent {
       f = 'top'
     }
 
+    if (this.closeTimer) {
+      clearTimeout(this.closeTimer)
+    }
+
+    this.button.focus()
     this.setState({ show: true, position: `${f}-${s}` })
   }
 
   handleBlur() {
     // wait item event execute
-    setTimeout(() => {
+    this.closeTimer = setTimeout(() => {
       if (!this.isUnmounted) this.setState({ show: false })
     }, 200)
   }
@@ -62,7 +67,7 @@ class Dropdown extends PureComponent {
     const { show } = this.state
     if (show || !hover) return
 
-    findDOMNode(this.button).focus()
+    this.handleFocus()
   }
 
   renderButton() {
@@ -82,7 +87,7 @@ class Dropdown extends PureComponent {
           <Button
             ref={this.bindButton}
             disabled={disabled}
-            onFocus={this.handleFocus}
+            onClick={this.handleFocus}
             onMouseEnter={this.handleHover}
             onBlur={this.handleBlur}
             className={dropdownClass('button', 'split')}
@@ -95,7 +100,7 @@ class Dropdown extends PureComponent {
       <Button
         disabled={disabled}
         ref={this.bindButton}
-        onFocus={this.handleFocus}
+        onClick={this.handleFocus}
         onMouseEnter={this.handleHover}
         onBlur={this.handleBlur}
         outline={outline}

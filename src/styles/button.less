@@ -21,9 +21,14 @@
   &:hover,
   &:focus {
     // color: @btn-default-color;
+    outline: none;
     color: @link-hover-color;
     text-decoration: none;
     z-index: 10;
+  }
+
+  &::-moz-focus-inner {
+    border: 0;
   }
 
   &.active {

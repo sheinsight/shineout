@@ -57,23 +57,17 @@ export function CubeGrid(props) {
   return <Spin {...props} count={9} spinClass={cubeGridClass} render={simpleRender} />
 }
 
-// =============================================================================
-
-function ccRender(className, i, { itemStyle }) {
-  return <div key={i} className={className('item')} style={itemStyle} />
-}
-
 export function ChasingRing(opt) {
   const { value, unit } = formatSize(opt.size)
   const border = `solid ${value / 10}${unit} ${opt.color}`
-  const style = { borderTop: border, borderLeft: border }
+  const style = { borderTop: border, borderLeft: border, backgroundColor: 'transparent' }
   return (
     <Spin
       {...opt}
       count={4}
       itemStyle={style}
       spinClass={chasingRingClass}
-      render={ccRender}
+      render={simpleRender}
     />
   )
 }
