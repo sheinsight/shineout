@@ -59,7 +59,8 @@ class SeperateTable extends PureComponent {
     let right = max - left
     if (right < 0) right = 0
 
-    bar.style.paddingTop = `${scrollTop * h}px`
+    const barStyle = bar.style
+    barStyle.paddingTop = `${scrollTop * h}px`
 
     setTranslate(this.tbody, `-${left}px`, `-${scrollTop * 100}%`)
     setTranslate(this.thead, `-${left}px`, '0');

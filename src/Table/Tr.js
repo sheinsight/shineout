@@ -13,7 +13,6 @@ class Tr extends PureComponent {
 
   componentDidMount() {
     const { offsetLeft, offsetRight } = this.props
-    console.log(offsetLeft, offsetRight)
     if (offsetLeft) {
       this.element.querySelectorAll(`.${tableClass(CLASS_FIXED_LEFT)}`)
         .forEach((td) => { setTranslate(td, `${offsetLeft}px`, '0') })

@@ -37,6 +37,11 @@ const examples = [
     component: require('doc/pages/components/Dropdown/example-5-split.js').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-5-split.js'),
   },
+  {
+    title: locate('禁用', 'Disabled'),
+    component: require('doc/pages/components/Dropdown/example-6-disabled.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-6-disabled.js'),
+  },
 ]
 
 export default navable(props => <MarkDown {...props} source={source} examples={examples} />)

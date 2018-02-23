@@ -22,6 +22,10 @@
   &-item {
     display: inline-block;
     animation: @keyframesBounce @animationDuration ease-in-out 0s infinite both;
+
+    div {
+      border-radius: 100%;
+    }
   }
 
   &-item:nth-child(1) { animation-delay: -@delayRange; }

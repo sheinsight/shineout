@@ -92,9 +92,19 @@ export function ChasingRing(opt) {
 function circleRender(className, i, { color, itemSize, itemClass }) {
   return (
     <div key={i} className={className('item', itemClass)}>
+      <div
+        style={{
+          backgroundColor: color,
+          lineHeight: itemSize,
+          height: itemSize,
+          width: itemSize,
+        }}
+      />
+      {/*
       <svg width={itemSize} height={itemSize} viewBox="0 0 100 100">
         <circle fill={color} cx={50} cy={50} r={50} />
       </svg>
+      */}
     </div>
   )
 }

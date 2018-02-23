@@ -27,13 +27,17 @@
     position: absolute;
     left: 10%;
     top: 10%;
+
+    div {
+      border-radius: 100%;
+    }
   }
 
-  &-scale svg {
+  &-scale svg, &-scale div {
     animation: @keyframesScale @animationDuration infinite ease-in-out both;
   }
 
-  &-fade svg {
+  &-fade svg, &-fade div {
     animation: @keyframesFade @animationDuration infinite ease-in-out both;
   }
 
@@ -41,7 +45,7 @@
     .loop(@i - 1);
     .@{twelve-circle-prefix}-item:nth-child(@{i}) {
       transform: rotateZ(360deg / @circleCount * (@i - 1));
-      svg {
+      svg, div {
         animation-delay: -@animationDuration + @animationDuration / @circleCount * (@i - 1);
       }
     }

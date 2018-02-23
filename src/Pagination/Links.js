@@ -56,7 +56,9 @@ class Links extends PureComponent {
   }
 
   render() {
-    const { current, onChange, span } = this.props
+    const {
+      current, onChange, span, disabled,
+    } = this.props
     const { links, max } = this.getLinks()
 
     return (
@@ -68,6 +70,7 @@ class Links extends PureComponent {
               return (
                 <Item
                   key={p}
+                  disabled={disabled}
                   isCurrent={current === p}
                   page={p}
                   onClick={onChange}
@@ -83,6 +86,7 @@ class Links extends PureComponent {
             return (
               <Item
                 key={p}
+                disabled={disabled}
                 page={page}
                 className={`no-border ${isPrev ? 'more-left' : 'more-right'}`}
                 onClick={onChange}
@@ -100,6 +104,7 @@ class Links extends PureComponent {
 
 Links.propTypes = {
   current: PropTypes.number.isRequired,
+  disabled: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   pageSize: PropTypes.number.isRequired,
   span: PropTypes.number,

@@ -1,6 +1,6 @@
 /**
- * cn - hover 触发
- * en - Hover
+ * cn - 禁用
+ * en - Disabled
  */
 import React from 'react'
 import { Dropdown } from 'shineout'
@@ -14,7 +14,7 @@ export default function () {
   ]
 
   return (
-    <Dropdown hover placeholder="Hover">
+    <Dropdown disabled placeholder="Disabled">
       {menu}
     </Dropdown>
   )

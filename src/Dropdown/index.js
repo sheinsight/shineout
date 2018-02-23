@@ -67,7 +67,7 @@ class Dropdown extends PureComponent {
 
   renderButton() {
     const {
-      placeholder, type, outline, size, href, onClick,
+      placeholder, type, outline, size, href, onClick, disabled,
     } = this.props
 
     if (onClick || href) {
@@ -75,11 +75,13 @@ class Dropdown extends PureComponent {
         <Button.Group outline={outline} size={size} type={type}>
           <Button
             href={href}
+            disabled={disabled}
             onClick={onClick}
           >{placeholder}
           </Button>
           <Button
             ref={this.bindButton}
+            disabled={disabled}
             onFocus={this.handleFocus}
             onMouseEnter={this.handleHover}
             onBlur={this.handleBlur}
@@ -91,6 +93,7 @@ class Dropdown extends PureComponent {
 
     return (
       <Button
+        disabled={disabled}
         ref={this.bindButton}
         onFocus={this.handleFocus}
         onMouseEnter={this.handleHover}
@@ -141,6 +144,7 @@ class Dropdown extends PureComponent {
 Dropdown.propTypes = {
   ...getProps('placeholder', 'type'),
   children: PropTypes.any.isRequired,
+  disabled: PropTypes.bool,
   href: PropTypes.string,
   hover: PropTypes.bool,
   position: PropTypes.string,
@@ -152,6 +156,7 @@ Dropdown.propTypes = {
 
 Dropdown.defaultProps = {
   ...defaultProps,
+  disabled: false,
 }
 
 export default Dropdown

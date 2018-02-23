@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Spin } from 'shineout'
 
 function Loading({ style }) {
   return (
@@ -10,9 +11,7 @@ function Loading({ style }) {
         height: '100%',
       }, style)}
     >
-      <div style={{ display: 'inline-block', margin: 'auto' }}>
-        先占位，等 Spin 组件
-      </div>
+      <Spin type="fading-circle" color="rgba(0,0,0,0.5)" />
     </div>
   )
 }

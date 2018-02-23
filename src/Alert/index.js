@@ -93,7 +93,7 @@ class Alert extends PureComponent {
             className={alertClass('close')}
             onClick={this.handleClose}
           >
-            {icons.close}
+            {icons.Close}
           </a>
         }
         { icon }

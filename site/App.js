@@ -11,17 +11,18 @@ const clsMain = classGenerate(require('./styles/index.less'), 'main')
 class App extends PureComponent {
   componentDidMount() {
     window.addEventListener('hashchange', () => {
-      const { hash } = window.location
-      const index = hash.lastIndexOf('#')
+      const [, path, id] = window.location.hash.split('#')
 
-      if (index > 0) {
-        const id = hash.substr(index + 1)
-        if (id) {
-          setTimeout(() => {
-            const element = document.getElementById(id)
-            if (element) element.scrollIntoView()
-          })
-        }
+      if (this.lastPath !== path) {
+        document.body.scrollIntoView()
+        this.lastPath = path
+      }
+
+      if (id) {
+        setTimeout(() => {
+          const element = document.getElementById(id)
+          if (element) element.scrollIntoView()
+        })
       }
     })
   }

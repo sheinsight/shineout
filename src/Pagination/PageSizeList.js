@@ -11,10 +11,13 @@ class PageSizeList extends PureComponent {
   }
 
   render() {
-    const { pageSize, pageSizeList, text } = this.props
+    const {
+      pageSize, pageSizeList, text, disabled,
+    } = this.props
 
     return (
       <Dropdown
+        disabled={disabled}
         placeholder={`${pageSize} ${text.page || ''}`}
         className={paginationClass('section')}
       >
@@ -36,6 +39,7 @@ class PageSizeList extends PureComponent {
 
 PageSizeList.propTypes = {
   current: PropTypes.number.isRequired,
+  disabled: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   pageSize: PropTypes.number.isRequired,
   pageSizeList: PropTypes.array,

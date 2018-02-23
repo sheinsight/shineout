@@ -7,6 +7,7 @@
 | --- | --- | --- | --- |
 | children | ReactElement[] | 必填 | 一组 ReactElement； |
 | className | string | 无 | 扩展className |
+| disabled | bool | false | 禁用 |
 | href | string | 无 | 如果 href 不为空，使用一个 Button 单独处理下拉事件 |
 | hover | boolean | false | 为 true 时，通过 mouseenter 触发选项弹出  |
 | onClick | func | 无 | 如果 onClick 事件不为空，使用一个 Button 单独处理下拉事件 |

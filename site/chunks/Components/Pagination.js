@@ -47,6 +47,11 @@ const examples = [
     component: require('doc/pages/components/Pagination/example-7-controlled.js').default,
     rawText: require('!raw-loader!doc/pages/components/Pagination/example-7-controlled.js'),
   },
+  {
+    title: locate('禁用', 'Disabled'),
+    component: require('doc/pages/components/Pagination/example-8-disabled.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Pagination/example-8-disabled.js'),
+  },
 ]
 
 export default navable(props => <MarkDown {...props} source={source} examples={examples} />)
