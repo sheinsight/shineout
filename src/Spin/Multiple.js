@@ -1,7 +1,7 @@
 import React from 'react'
 import Spin from './Spin'
 import { chasingDotsClass, doubleBounceClass, waveClass, cubeGridClass,
-  chasingRingClass, scaleCircleClass, threeBounceClass } from './styles'
+  chasingRingClass, scaleCircleClass, threeBounceClass, fourDotsClass } from './styles'
 
 function formatSize(size) {
   const ss = /^(\d+)([%|\w]*)$/.exec(size)
@@ -20,10 +20,6 @@ function simpleRender(classname, i, { color, itemStyle }) {
       className={classname('item')}
     />
   )
-}
-
-export function ChasingDots(props) {
-  return <Spin {...props} count={2} spinClass={chasingDotsClass} render={simpleRender} />
 }
 
 export function DoubleBounce(props) {
@@ -59,8 +55,9 @@ export function CubeGrid(props) {
 
 export function ChasingRing(opt) {
   const { value, unit } = formatSize(opt.size)
-  const border = `solid ${value / 10}${unit} ${opt.color}`
-  const style = { borderTop: border, borderLeft: border, backgroundColor: 'transparent' }
+  // const border = `solid ${value / 10}${unit} ${opt.color}`
+  const borderWidth = `${value / 10}${unit}`
+  const style = { borderWidth, borderTopColor: opt.color, backgroundColor: 'transparent' }
   return (
     <Spin
       {...opt}
@@ -77,6 +74,7 @@ export function ChasingRing(opt) {
 function circleRender(className, i, { color, itemSize, itemClass }) {
   return (
     <div key={i} className={className('item', itemClass)}>
+      {/*
       <div
         style={{
           backgroundColor: color,
@@ -85,18 +83,17 @@ function circleRender(className, i, { color, itemSize, itemClass }) {
           width: itemSize,
         }}
       />
-      {/*
+      */}
       <svg width={itemSize} height={itemSize} viewBox="0 0 100 100">
         <circle fill={color} cx={50} cy={50} r={50} />
       </svg>
-      */}
     </div>
   )
 }
 
 function twelveCircle(opt, type) {
   const { value, unit } = formatSize(opt.size)
-  const itemSize = (value / 7) + unit
+  const itemSize = (value / 7).toFixed(3) + unit
 
   return (
     <Spin
@@ -122,6 +119,28 @@ export function ThreeBounce(prop) {
       style={{ width: (value * 2) + unit, height: 'auto' }}
       itemSize={(value / 2) + unit}
       spinClass={threeBounceClass}
+      render={circleRender}
+    />
+  )
+}
+
+export function ChasingDots(props) {
+  return (
+    <Spin
+      {...props}
+      count={2}
+      spinClass={chasingDotsClass}
+      render={circleRender}
+    />
+  )
+}
+
+export function FourDots(props) {
+  return (
+    <Spin
+      {...props}
+      count={4}
+      spinClass={fourDotsClass}
       render={circleRender}
     />
   )

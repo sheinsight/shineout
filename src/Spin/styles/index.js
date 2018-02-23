@@ -11,3 +11,4 @@ export const cubeGridClass = genaration(require('./cube-grid.less'), 'cube-grid'
 export const chasingRingClass = genaration(require('./chasing-ring.less'), 'chasing-ring')
 export const scaleCircleClass = genaration(require('./twelve-circle.less'), 'twelve-circle')
 export const threeBounceClass = genaration(require('./three-bounce.less'), 'three-bounce')
+export const fourDotsClass = genaration(require('./four-dots.less'), 'four-dots')

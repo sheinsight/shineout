@@ -1,16 +1,17 @@
 /**
- * cn - cube-grid
- * en - cube-grid
- */
+* cn - cube-grid
+* en - cube-grid
+*/
 import React from 'react'
 import { Spin } from 'shineout'
 
 export default function () {
+  const style = { display: 'flex' }
   return (
-    <div style={{ display: 'flex' }}>
-      <Spin size={20} type="cube-grid" color="green" />
+    <div style={style}>
+      <Spin size={16} type="cube-grid" color="green" />
       <Spin type="cube-grid" />
-      <Spin size="5rem" type="cube-grid" color="#dc3545" />
+      <Spin size="48px" type="cube-grid" color="#dc3545" />
     </div>
   )
 }

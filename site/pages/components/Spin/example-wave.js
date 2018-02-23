@@ -1,16 +1,17 @@
 /**
- * cn - wave
- * en - wave
- */
+* cn - wave
+* en - wave
+*/
 import React from 'react'
 import { Spin } from 'shineout'
 
 export default function () {
+  const style = { display: 'flex' }
   return (
-    <div style={{ display: 'flex' }}>
-      <Spin size={20} type="wave" color="green" />
+    <div style={style}>
+      <Spin size={16} type="wave" color="green" />
       <Spin type="wave" />
-      <Spin size="4rem" type="wave" color="#dc3545" />
+      <Spin size="48px" type="wave" color="#dc3545" />
     </div>
   )
 }

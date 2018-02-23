@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { ChasingDots, DoubleBounce, ThreeBounce, ScaleCircle, FadingCircle,
-  CubeGrid, ChasingRing, Wave } from './Multiple'
+  CubeGrid, ChasingRing, Wave, FourDots } from './Multiple'
 import { Ring, Plane, Pulse } from './Simple'
 
 const spins = {
@@ -15,6 +15,7 @@ const spins = {
   'cube-grid': CubeGrid,
   'double-bounce': DoubleBounce,
   'fading-circle': FadingCircle,
+  'four-dots': FourDots,
   'scale-circle': ScaleCircle,
   'three-bounce': ThreeBounce,
 }
@@ -38,6 +39,7 @@ Spin.propTypes = {
     'cube-grid',
     'double-bounce',
     'fading-circle',
+    'four-dots',
     'plane',
     'pulse',
     'ring',
@@ -49,6 +51,6 @@ Spin.propTypes = {
 
 Spin.defaultProps = {
   color: '#6c757d',
-  size: 40,
+  size: 32,
   type: 'fading-circle',
 }

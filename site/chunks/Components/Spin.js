@@ -18,11 +18,6 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Spin/example-chasing-dots.js'),
   },
   {
-    title: locate('chasing-ring \n 因为是用叠加元素实现的，所以type=chasing-ring的时候不要使用rgba半透明色', 'chasing-ring'),
-    component: require('doc/pages/components/Spin/example-chasing-ring.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Spin/example-chasing-ring.js'),
-  },
-  {
     title: locate('cube-grid', 'cube-grid'),
     component: require('doc/pages/components/Spin/example-cube-grid.js').default,
     rawText: require('!raw-loader!doc/pages/components/Spin/example-cube-grid.js'),
@@ -36,6 +31,11 @@ const examples = [
     title: locate('fading-circle', 'fading-circle'),
     component: require('doc/pages/components/Spin/example-fading-circle.js').default,
     rawText: require('!raw-loader!doc/pages/components/Spin/example-fading-circle.js'),
+  },
+  {
+    title: locate('four-dots', 'four-dots'),
+    component: require('doc/pages/components/Spin/example-four-dots.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Spin/example-four-dots.js'),
   },
   {
     title: locate('plane', 'plane'),

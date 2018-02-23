@@ -1,16 +1,17 @@
 /**
- * cn - chasing-dots
- * en - chasing-dots
- */
+* cn - chasing-dots
+* en - chasing-dots
+*/
 import React from 'react'
 import { Spin } from 'shineout'
 
 export default function () {
+  const style = { display: 'flex' }
   return (
-    <div style={{ display: 'flex' }}>
-      <Spin size={20} type="chasing-dots" color="green" />
+    <div style={style}>
+      <Spin size={16} type="chasing-dots" color="green" />
       <Spin type="chasing-dots" />
-      <Spin size="5rem" type="chasing-dots" color="#dc3545" />
+      <Spin size="48px" type="chasing-dots" color="#dc3545" />
     </div>
   )
 }
