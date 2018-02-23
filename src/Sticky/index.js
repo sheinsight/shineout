@@ -14,18 +14,41 @@ class Sticky extends PureComponent {
 
     this.bindElement = this.bindElement.bind(this)
     this.bindPlaceholder = this.bindPlaceholder.bind(this)
-    this.setPosition = this.setPosition.bind(this)
+    this.handlePosition = this.handlePosition.bind(this)
   }
 
   componentDidMount() {
     const { target } = this.props
     this.targetElement = getParent(this.element, target)
-    this.setPosition()
+    this.handlePosition()
     this.bindScroll()
   }
 
   componentWillUnmount() {
     this.unbindScroll()
+  }
+
+  getStyle(mode, offset, left, width) {
+    const { zIndex = 900 } = this.props.style
+    const style = {
+      position: 'fixed',
+      left,
+      width,
+      [mode]: offset,
+      zIndex,
+    }
+
+    if (this.targetElement) {
+      style.position = 'absolute'
+      if (mode === 'top') {
+        style.top += this.targetElement.scrollTop + 0.5
+      } else {
+        style.bottom -= this.targetElement.scrollTop
+      }
+      delete style.left
+    }
+
+    return style
   }
 
   setPosition() {
@@ -97,27 +120,22 @@ class Sticky extends PureComponent {
     }
   }
 
-  getStyle(mode, offset, left, width) {
-    const { zIndex = 900 } = this.props.style
-    const style = {
-      position: 'fixed',
-      left,
-      width,
-      [mode]: offset,
-      zIndex,
+  handlePosition() {
+    if (this.locked) {
+      this.scrollCount += 1
+      return
     }
 
-    if (this.targetElement) {
-      style.position = 'absolute'
-      if (mode === 'top') {
-        style.top += this.targetElement.scrollTop + 0.5
-      } else {
-        style.bottom -= this.targetElement.scrollTop
+    this.locked = true
+    this.scrollCount = 0
+
+    this.setPosition()
+    setTimeout(() => {
+      this.locked = false
+      if (this.scrollCount > 0) {
+        this.handlePosition()
       }
-      delete style.left
-    }
-
-    return style
+    }, 64)
   }
 
   bindElement(el) {
@@ -130,20 +148,20 @@ class Sticky extends PureComponent {
 
   bindScroll() {
     if (this.targetElement) {
-      this.targetElement.addEventListener('scroll', this.setPosition)
+      this.targetElement.addEventListener('scroll', this.handlePosition)
     } else {
       events.forEach((e) => {
-        window.addEventListener(e, this.setPosition)
+        window.addEventListener(e, this.handlePosition)
       })
     }
   }
 
   unbindScroll() {
     if (this.targetElement) {
-      this.targetElement.removeEventListener('scroll', this.setPosition)
+      this.targetElement.removeEventListener('scroll', this.handlePosition)
     } else {
       events.forEach((e) => {
-        window.removeEventListener(e, this.setPosition)
+        window.removeEventListener(e, this.handlePosition)
       })
     }
   }
