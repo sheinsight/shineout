@@ -11,7 +11,7 @@ function Loading({ style }) {
         height: '100%',
       }, style)}
     >
-      <Spin type="fading-circle" color="rgba(0,0,0,0.5)" />
+      <Spin type="fading-circle" size={50} color="rgba(0,0,0,0.5)" />
     </div>
   )
 }

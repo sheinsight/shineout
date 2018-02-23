@@ -77,7 +77,7 @@ class Table extends PureComponent {
         {
           loading &&
           <div className={tableClass('loading')}>
-            {typeof loading === 'boolean' ? <Spin size={30} /> : loading}
+            {typeof loading === 'boolean' ? <Spin size={40} /> : loading}
           </div>
         }
       </div>

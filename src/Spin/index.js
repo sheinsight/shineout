@@ -51,6 +51,6 @@ Spin.propTypes = {
 
 Spin.defaultProps = {
   color: '#6c757d',
-  size: 32,
+  size: 40,
   type: 'fading-circle',
 }

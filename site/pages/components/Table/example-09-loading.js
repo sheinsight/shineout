@@ -33,7 +33,7 @@ export default function () {
     },
   ]
 
-  const loading = <Spin type="scale-circle" />
+  const loading = <Spin type="ring" />
 
   return (
     <Table keygen="id" loading={loading} columns={columns} data={data} />

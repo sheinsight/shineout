@@ -9,9 +9,9 @@ export default function () {
   const style = { display: 'flex' }
   return (
     <div style={style}>
-      <Spin size={16} type="double-bounce" color="green" />
+      <Spin size={18} type="double-bounce" color="green" />
       <Spin type="double-bounce" />
-      <Spin size="48px" type="double-bounce" color="#dc3545" />
+      <Spin size="54px" type="double-bounce" color="#dc3545" />
     </div>
   )
 }
