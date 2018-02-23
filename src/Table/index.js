@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import immer from 'immer'
 import hash from '../utils/hash'
 import Table from './Table'
 
@@ -19,13 +20,20 @@ export default class extends PureComponent {
       if (c.fixed === 'right' && right < 0) right = i
     })
 
-    const cols = columns.map((c, i) => {
+    const cols = columns.map((c, i) =>
+      /*
       const nc = Object.assign({}, c)
       if (!nc.key) nc.key = hash(c)
       if (i <= left) nc.fixed = 'left'
       if (i >= right && right > 0) nc.fixed = 'right'
       return nc
-    })
+      */
+
+      immer(c, (nc) => {
+        if (!nc.key) nc.key = hash(c)
+        if (i <= left) nc.fixed = 'left'
+        if (i >= right && right > 0) nc.fixed = 'right'
+      }))
 
     return <Table {...props} columns={cols} />
   }

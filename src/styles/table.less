@@ -4,6 +4,7 @@
 @table-prefix: ~"@{so-prefix}-table";
 
 .@{table-prefix} {
+  position: relative;
   background-color: @table-head-bg;
   max-width: 100%;
   overflow: auto;
@@ -158,18 +159,6 @@
 
   &-scroll-y.@{table-prefix}-head {
     margin-right: @scrollbar-width;
-    /*
-    &:after {
-      content: ' ';
-      width: 12px;
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      z-index: 100;
-      background-color: @table-head-bg;
-    }
-    */
   }
 
   &-body {
@@ -213,5 +202,16 @@
     
   &-fixed-right + &-fixed-right:before {
     width: 0;
+  }
+
+  &-loading {
+    position: absolute;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.02);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 100;
   }
 }

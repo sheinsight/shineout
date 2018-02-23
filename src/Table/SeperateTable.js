@@ -100,7 +100,7 @@ class SeperateTable extends PureComponent {
       colgroup, contentWidth, scrollTop, offsetLeft, offsetRight,
     } = this.state
 
-    // loading text
+    // error text
     if (typeof data === 'string') return <div key="body">{data}</div>
     if (!Array.isArray(data)) return <div key="body">error</div>
     if (data.length === 0) return <div key="body">no data</div>

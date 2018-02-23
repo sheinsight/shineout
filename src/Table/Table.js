@@ -37,7 +37,7 @@ class Table extends PureComponent {
   render() {
     const {
       striped, bordered, size, hover, height, columns, children,
-      data, style, fixed, width, ...others
+      data, style, fixed, width, loading, ...others
     } = this.props
 
     const { scrollLeft, scrollRight } = this.state
@@ -73,6 +73,10 @@ class Table extends PureComponent {
           ? <SeperateTable {...props} />
           : <SimpleTable {...props}>{children}</SimpleTable>
         }
+        {
+          loading &&
+          <div className={tableClass('loading')}>{loading}</div>
+        }
       </div>
     )
   }
@@ -87,7 +91,7 @@ Table.propTypes = {
   fixed: PropTypes.oneOf(['x', 'y', 'both']),
   height: PropTypes.number,
   hover: PropTypes.bool,
-  loading: PropTypes.bool,
+  loading: PropTypes.element,
   rowsInView: PropTypes.number,
   striped: PropTypes.bool,
   width: PropTypes.number,

@@ -44,7 +44,7 @@ Spin.propTypes = {
 }
 
 Spin.defaultProps = {
-  color: '#ccc',
+  color: '#6c757d',
   size: 40,
-  type: 'ring',
+  type: 'fading-circle',
 }

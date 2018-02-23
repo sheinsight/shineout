@@ -8,6 +8,6 @@
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| color | string | #ccc | 颜色 |
+| color | string | #6c757d | 颜色 |
 | size | number \| string | 40 | 尺寸 |
-| type | string | 'ring' | 类型，可选值见示例 |
+| type | string | 'fading-circle' | 类型，可选值见示例 |

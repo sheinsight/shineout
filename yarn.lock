@@ -3121,6 +3121,10 @@ image-size@~0.5.0:
   version "0.5.5"
   resolved "https://registry.npmjs.org/image-size/-/image-size-0.5.5.tgz#09dfd4ab9d20e29eb1c3e80b8990378df9e3cb9c"
 
+immer@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/immer/-/immer-1.1.1.tgz#4ab9a89b68f8c48e73f382ffb8b224c73e0c6890"
+
 import-local@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/import-local/-/import-local-1.0.0.tgz#5e4ffdc03f4fe6c009c6729beb29631c2f8227bc"

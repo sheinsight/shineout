@@ -18,7 +18,7 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Spin/example-chasing-dots.js'),
   },
   {
-    title: locate('chasing-ring', 'chasing-ring'),
+    title: locate('chasing-ring \n 因为是用叠加元素实现的，所以type=chasing-ring的时候不要使用rgba半透明色', 'chasing-ring'),
     component: require('doc/pages/components/Spin/example-chasing-ring.js').default,
     rawText: require('!raw-loader!doc/pages/components/Spin/example-chasing-ring.js'),
   },

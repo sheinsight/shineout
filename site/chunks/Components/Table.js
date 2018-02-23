@@ -53,9 +53,14 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-08-bigdata.js'),
   },
   {
+    title: locate('加载中', 'Loading'),
+    component: require('doc/pages/components/Table/example-09-loading.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-09-loading.js'),
+  },
+  {
     title: locate('分页', 'Fixed column'),
-    component: require('doc/pages/components/Table/example-09-pagination.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Table/example-09-pagination.js'),
+    component: require('doc/pages/components/Table/example-10-pagination.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-10-pagination.js'),
   },
   {
     title: locate('只使用样式 \n 使用原生的tr, td来显示表格', 'Style only'),

@@ -37,6 +37,7 @@
         "import/no-webpack-loader-syntax": 0,
         "import/prefer-default-export": 0,
         "no-script-url": 0,
+        "no-param-reassign": 0,
         "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
         "no-console": 0,
         "no-static-element-interactions": 0,
