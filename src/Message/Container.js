@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import immer from 'immer'
 import Alert from '../Alert'
 import { messageClass } from '../styles'
 import { getUidStr } from '../utils/uid'
@@ -15,18 +16,19 @@ class Container extends PureComponent {
 
   addMessage(msg) {
     const id = getUidStr()
-    this.setState({
-      messages: [...this.state.messages, Object.assign({ id }, msg)],
-    })
+    this.setState(immer((state) => {
+      state.messages.push(Object.assign({ id }, msg))
+    }))
 
     if (msg.duration > 0) {
       setTimeout(() => {
-        this.setState({
-          messages: this.state.messages.map((m) => {
-            if (m.id !== id) return m
-            return Object.assign({}, m, { dismiss: true })
-          }),
-        })
+        this.setState(immer((state) => {
+          state.messages.forEach((m) => {
+            if (m.id === id) {
+              m.dismiss = true
+            }
+          })
+        }))
       }, msg.duration * 1000)
     }
   }

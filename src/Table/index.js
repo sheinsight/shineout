@@ -20,20 +20,11 @@ export default class extends PureComponent {
       if (c.fixed === 'right' && right < 0) right = i
     })
 
-    const cols = columns.map((c, i) =>
-      /*
-      const nc = Object.assign({}, c)
+    const cols = columns.map((c, i) => immer(c, (nc) => {
       if (!nc.key) nc.key = hash(c)
       if (i <= left) nc.fixed = 'left'
       if (i >= right && right > 0) nc.fixed = 'right'
-      return nc
-      */
-
-      immer(c, (nc) => {
-        if (!nc.key) nc.key = hash(c)
-        if (i <= left) nc.fixed = 'left'
-        if (i >= right && right > 0) nc.fixed = 'right'
-      }))
+    }))
 
     return <Table {...props} columns={cols} />
   }

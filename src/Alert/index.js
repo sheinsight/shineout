@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import immer from 'immer'
 import { capitalize } from '../utils/strings'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { alertClass } from '../styles'
@@ -81,7 +82,7 @@ class Alert extends PureComponent {
     )
     if (className) wrapClassName += ` ${className}`
     if (icon && iconSize > 0) {
-      style = Object.assign({}, style, { paddingLeft: iconSize + 25 })
+      style = immer(style, (draft) => { draft.paddingLeft = iconSize + 25 })
     }
 
     return (
