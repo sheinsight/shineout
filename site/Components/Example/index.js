@@ -1,6 +1,5 @@
 import React, { PureComponent, createElement } from 'react'
 import PropTypes from 'prop-types'
-import immer from 'immer'
 import { getUidStr } from 'shineout/utils/uid'
 import classGenerate from '../../utils/classname'
 import CodeBlock from '../CodeBlock'
@@ -24,7 +23,6 @@ export default class Example extends PureComponent {
     super(props)
 
     this.state = {
-      codeHeight: 0,
       showcode: false,
     }
 
@@ -38,24 +36,34 @@ export default class Example extends PureComponent {
   }
 
   setCodeBlockHeight = (height) => {
-    this.setState({ codeHeight: height })
+    this.codeHeight = height
   }
 
-  collapse(height, remain) {
-    document.documentElement.scrollTop -= height
+  bindCodeBlock = (el) => {
+    this.codeblock = el
+  }
+
+  collapse(height, remain, isBottom) {
+    this.codeblock.style.height = `${height * (remain - 1)}px`
     if (remain > 1) {
       setTimeout(() => {
-        this.collapse(height, remain - 1)
+        this.collapse(height, remain - 1, isBottom)
       }, 16)
+    }
+    if (isBottom) {
+      document.documentElement.scrollTop -= height
     }
   }
 
   toggleCode(isBottom) {
-    this.setState(immer((state) => {
-      state.showcode = !state.showcode
-    }), () => {
-      if (isBottom && !this.state.showcode) {
-        this.collapse(this.state.codeHeight / 15, 15)
+    const showcode = !this.state.showcode
+    this.setState({ showcode }, () => {
+      if (showcode) {
+        this.codeblock.style.height = `${this.codeHeight}px`
+      } else {
+        const y = this.codeHeight % 20
+        if (y > 0) this.collapse(y, 1, isBottom)
+        this.collapse((this.codeHeight - y) / 20, 20, isBottom)
       }
     })
   }
@@ -75,7 +83,7 @@ export default class Example extends PureComponent {
 
   render() {
     const { component, rawText } = this.props
-    const { showcode, codeHeight } = this.state
+    const { showcode } = this.state
 
     const text = rawText.replace(/(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/, '').trim()
 
@@ -88,7 +96,7 @@ export default class Example extends PureComponent {
           { sub && <div className={exampleClass('sub-title')}>{sub}</div> }
           { this.renderCodeHandle(false) }
         </div>
-        <div style={{ height: showcode ? codeHeight : 0 }} className={exampleClass('code')}>
+        <div ref={this.bindCodeBlock} className={exampleClass('code')}>
           { this.renderCodeHandle(true) }
           <CodeBlock
             onHighLight={this.setCodeBlockHeight}

@@ -45,7 +45,6 @@
     border-radius: 0;
     height: 0;
     overflow: hidden;
-    transition: height 0.24s ease-in;
 
     & > pre {
       word-break: break-all;
@@ -63,6 +62,7 @@
   &-showcode &-code {
     border-top: dashed 1px #e5e5e5;
     border-bottom: dashed 1px #e5e5e5;
+    transition: height 0.24s linear;
   }
 
   button + button {
