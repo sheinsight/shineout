@@ -2,7 +2,10 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
 import hash from '../utils/hash'
+import pagable from '../hoc/pagable'
 import Table from './Table'
+
+const TableWithPagination = pagable(Table)
 
 export default class extends PureComponent {
   static propTypes = {
@@ -26,7 +29,8 @@ export default class extends PureComponent {
       if (i >= right && right > 0) nc.fixed = 'right'
     }))
 
-    return <Table {...props} columns={cols} />
+    const Component = props.pagination ? TableWithPagination : Table
+    return <Component {...props} columns={cols} />
   }
 }
 

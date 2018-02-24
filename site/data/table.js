@@ -10,7 +10,7 @@ function init() {
   const offset = 5000 * 3600 * 24 * 1000
   const c20 = pick(country, 20)
   const c30 = pick(city, 30)
-  for (let i = 1; i <= 100; i++) {
+  for (let i = 1; i <= 1000; i++) {
     allData.push({
       id: i,
       firstName: one(firstNames),

@@ -58,9 +58,14 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-09-loading.js'),
   },
   {
-    title: locate('分页 \n 这个示例展示了如何封装一个带分页的Table', 'Fixed column'),
+    title: locate('静态数据分页', 'Pagination'),
     component: require('doc/pages/components/Table/example-10-pagination.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-10-pagination.js'),
+  },
+  {
+    title: locate('服务端分页', 'Pagination'),
+    component: require('doc/pages/components/Table/example-11-pagination.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-11-pagination.js'),
   },
   {
     title: locate('只使用样式 \n 使用原生的tr, td来显示表格', 'Style only'),

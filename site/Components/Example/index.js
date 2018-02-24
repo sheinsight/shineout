@@ -61,9 +61,9 @@ export default class Example extends PureComponent {
       if (showcode) {
         this.codeblock.style.height = `${this.codeHeight}px`
       } else {
-        const y = this.codeHeight % 20
+        const y = this.codeHeight % 15
         if (y > 0) this.collapse(y, 1, isBottom)
-        this.collapse((this.codeHeight - y) / 20, 20, isBottom)
+        this.collapse((this.codeHeight - y) / 15, 15, isBottom)
       }
     })
   }
