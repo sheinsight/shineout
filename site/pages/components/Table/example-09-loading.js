@@ -33,7 +33,7 @@ export default function () {
     },
   ]
 
-  const loading = <Spin type="ring" />
+  const loading = <Spin color="#1890ff" type="ring" />
 
   return (
     <Table keygen="id" loading={loading} columns={columns} data={data} />

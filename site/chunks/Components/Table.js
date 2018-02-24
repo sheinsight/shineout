@@ -58,7 +58,7 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-09-loading.js'),
   },
   {
-    title: locate('分页', 'Fixed column'),
+    title: locate('分页 \n 这个示例展示了如何封装一个带分页的Table', 'Fixed column'),
     component: require('doc/pages/components/Table/example-10-pagination.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-10-pagination.js'),
   },
