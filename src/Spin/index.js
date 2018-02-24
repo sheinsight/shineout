@@ -21,10 +21,10 @@ const spins = {
 }
 
 export default function Spin(props) {
-  const { type } = props
-  const Component = spins[type]
+  const { name } = props
+  const Component = spins[name]
   if (!Component) {
-    console.warn(`Spin type '${type}' not existed.`)
+    console.warn(`Spin type '${name}' not existed.`)
     return null
   }
   return <Component {...props} />
@@ -33,7 +33,7 @@ export default function Spin(props) {
 Spin.propTypes = {
   color: PropTypes.string,
   size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  type: PropTypes.oneOf([
+  name: PropTypes.oneOf([
     'chasing-ring',
     'chasing-dots',
     'cube-grid',
@@ -52,5 +52,5 @@ Spin.propTypes = {
 Spin.defaultProps = {
   color: '#6c757d',
   size: 40,
-  type: 'fading-circle',
+  name: 'fading-circle',
 }

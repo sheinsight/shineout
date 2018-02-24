@@ -29,9 +29,9 @@ export default function () {
   const style = { display: 'flex' }
   return (
     <div style={style}>
-      <Spin size={18} type="${spin}" color="green" />
-      <Spin type="${spin}" />
-      <Spin size="54px" type="${spin}" color="#dc3545" />
+      <Spin size={18} name="${spin}" color="green" />
+      <Spin name="${spin}" />
+      <Spin size="54px" name="${spin}" color="#dc3545" />
     </div>
   )
 }

@@ -27,31 +27,42 @@
 
   &-toggle {
     position: absolute;
-    top: 12px;
+    top: 0;
     right: 0;
-    padding: 0 12px;
+    padding: 8px;
     font-size: 12px;
     display: block;
-    color: #999;
+    color: @gray-500;
+    font-style: normal;
   }
 
   &-body {
     padding: 16px;
   }
 
-  & > pre {
+  &-code {
+    position: relative;
+    border-radius: 0;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.24s ease-in;
+
+    & > pre {
+      word-break: break-all;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+      margin: 0 0 10px;
+    }
+
+    & > a {
+      top: auto;
+      bottom: 0;
+    }
+  }
+
+  &-showcode &-code {
     border-top: dashed 1px #e5e5e5;
     border-bottom: dashed 1px #e5e5e5;
-    border-radius: 0;
-    margin: 0 0 10px;
-    word-break: break-all;
-    word-wrap: break-word;
-    white-space: pre-wrap;
-    // background: #fff;
-
-    code {
-      // background: #fff;
-    }
   }
 
   button + button {

@@ -1,5 +1,6 @@
 import React, { PureComponent, createElement } from 'react'
 import PropTypes from 'prop-types'
+import immer from 'immer'
 import { getUidStr } from 'shineout/utils/uid'
 import classGenerate from '../../utils/classname'
 import CodeBlock from '../CodeBlock'
@@ -23,6 +24,7 @@ export default class Example extends PureComponent {
     super(props)
 
     this.state = {
+      codeHeight: 0,
       showcode: false,
     }
 
@@ -35,13 +37,45 @@ export default class Example extends PureComponent {
     })
   }
 
-  toggleCode = () => {
-    this.setState({ showcode: !this.state.showcode })
+  setCodeBlockHeight = (height) => {
+    this.setState({ codeHeight: height })
+  }
+
+  collapse(height, remain) {
+    document.documentElement.scrollTop -= height
+    if (remain > 1) {
+      setTimeout(() => {
+        this.collapse(height, remain - 1)
+      }, 16)
+    }
+  }
+
+  toggleCode(isBottom) {
+    this.setState(immer((state) => {
+      state.showcode = !state.showcode
+    }), () => {
+      if (isBottom && !this.state.showcode) {
+        this.collapse(this.state.codeHeight / 15, 15)
+      }
+    })
+  }
+
+  renderCodeHandle(isBottom) {
+    const { showcode } = this.state
+    return (
+      <a
+        href="javascript:;"
+        className={exampleClass('toggle')}
+        onClick={this.toggleCode.bind(this, isBottom)}
+      >
+        {'<'}{showcode ? '/' : ' '}{'>'}
+      </a>
+    )
   }
 
   render() {
     const { component, rawText } = this.props
-    const { showcode } = this.state
+    const { showcode, codeHeight } = this.state
 
     const text = rawText.replace(/(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/, '').trim()
 
@@ -50,11 +84,19 @@ export default class Example extends PureComponent {
     return (
       <div id={this.id} className={exampleClass('_', showcode && 'showcode')}>
         <div className={exampleClass('title')}>
-          {title}
+          { title }
           { sub && <div className={exampleClass('sub-title')}>{sub}</div> }
-          <a href="javascript:;" className={exampleClass('toggle')} onClick={this.toggleCode}>{'< >'}</a>
+          { this.renderCodeHandle(false) }
         </div>
-        { showcode && <CodeBlock language="js" value={text} /> }
+        <div style={{ height: showcode ? codeHeight : 0 }} className={exampleClass('code')}>
+          { this.renderCodeHandle(true) }
+          <CodeBlock
+            onHighLight={this.setCodeBlockHeight}
+            onClose={this.toggleCode}
+            language="jsx"
+            value={text}
+          />
+        </div>
         <div className={exampleClass('body')}>
           { createElement(component) }
         </div>

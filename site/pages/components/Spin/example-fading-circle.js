@@ -9,9 +9,9 @@ export default function () {
   const style = { display: 'flex' }
   return (
     <div style={style}>
-      <Spin size={18} type="fading-circle" color="green" />
-      <Spin type="fading-circle" />
-      <Spin size="54px" type="fading-circle" color="#dc3545" />
+      <Spin size={18} name="fading-circle" color="green" />
+      <Spin name="fading-circle" />
+      <Spin size="54px" name="fading-circle" color="#dc3545" />
     </div>
   )
 }
