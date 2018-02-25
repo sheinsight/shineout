@@ -4,6 +4,7 @@ const path = require('path')
 const rootPath = path.resolve(__dirname, '../site/pages/components/Spin')
 const spins = [
   // 'chasing-ring',
+  'default',
   'chasing-dots',
   'cube-grid',
   'double-bounce',

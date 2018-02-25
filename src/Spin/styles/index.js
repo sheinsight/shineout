@@ -1,5 +1,6 @@
 import genaration from '../../utils/classname'
 
+export const defaultClass = genaration(require('./default.less'), 'spin-default')
 export const ringClass = genaration(require('./ring.less'), 'spin-ring')
 export const planeClass = genaration(require('./plane.less'), 'spin-plane')
 export const pulseClass = genaration(require('./pulse.less'), 'spin-pulse')

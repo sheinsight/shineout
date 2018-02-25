@@ -23,6 +23,11 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Spin/example-cube-grid.js'),
   },
   {
+    title: locate('default', 'default'),
+    component: require('doc/pages/components/Spin/example-default.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Spin/example-default.js'),
+  },
+  {
     title: locate('double-bounce', 'double-bounce'),
     component: require('doc/pages/components/Spin/example-double-bounce.js').default,
     rawText: require('!raw-loader!doc/pages/components/Spin/example-double-bounce.js'),

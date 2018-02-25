@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { ChasingDots, DoubleBounce, ThreeBounce, ScaleCircle, FadingCircle,
-  CubeGrid, ChasingRing, Wave, FourDots } from './Multiple'
+  CubeGrid, ChasingRing, Wave, FourDots, Default } from './Multiple'
 import { Ring, Plane, Pulse } from './Simple'
 
 const spins = {
@@ -10,6 +10,7 @@ const spins = {
   pulse: Pulse,
   ring: Ring,
   wave: Wave,
+  default: Default,
   'chasing-ring': ChasingRing,
   'chasing-dots': ChasingDots,
   'cube-grid': CubeGrid,
@@ -34,6 +35,7 @@ Spin.propTypes = {
   color: PropTypes.string,
   size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   name: PropTypes.oneOf([
+    'default',
     'chasing-ring',
     'chasing-dots',
     'cube-grid',
@@ -52,5 +54,5 @@ Spin.propTypes = {
 Spin.defaultProps = {
   color: '#6c757d',
   size: 40,
-  name: 'fading-circle',
+  name: 'default',
 }

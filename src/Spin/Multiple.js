@@ -1,6 +1,6 @@
 import React from 'react'
 import Spin from './Spin'
-import { chasingDotsClass, doubleBounceClass, waveClass, cubeGridClass,
+import { defaultClass, chasingDotsClass, doubleBounceClass, waveClass, cubeGridClass,
   chasingRingClass, scaleCircleClass, threeBounceClass, fourDotsClass } from './styles'
 
 function formatSize(size) {
@@ -53,14 +53,13 @@ export function CubeGrid(props) {
   return <Spin {...props} count={9} spinClass={cubeGridClass} render={simpleRender} />
 }
 
-export function ChasingRing(opt) {
-  const { value, unit } = formatSize(opt.size)
-  // const border = `solid ${value / 10}${unit} ${opt.color}`
+export function ChasingRing(prop) {
+  const { value, unit } = formatSize(prop.size)
   const borderWidth = `${value / 10}${unit}`
-  const style = { borderWidth, borderTopColor: opt.color, backgroundColor: 'transparent' }
+  const style = { borderWidth, borderTopColor: prop.color, backgroundColor: 'transparent' }
   return (
     <Spin
-      {...opt}
+      {...prop}
       count={4}
       itemStyle={style}
       spinClass={chasingRingClass}
@@ -71,19 +70,34 @@ export function ChasingRing(opt) {
 
 // =============================================================================
 
-function circleRender(className, i, { color, itemSize, itemClass }) {
+function multRenderDiv(className, i, { color, itemStyle, itemClass }) {
+  const style = Object.assign({ backgroundColor: color }, itemStyle)
   return (
     <div key={i} className={className('item', itemClass)}>
-      {/*
-      <div
-        style={{
-          backgroundColor: color,
-          lineHeight: itemSize,
-          height: itemSize,
-          width: itemSize,
-        }}
-      />
-      */}
+      <div style={style} />
+    </div>
+  )
+}
+
+export function Default(prop) {
+  const { value, unit } = formatSize(prop.size)
+  const size = Math.ceil(value / 12.5) + unit
+  return (
+    <Spin
+      {...prop}
+      count={12}
+      itemStyle={{ width: size, borderRadius: size }}
+      spinClass={defaultClass}
+      render={multRenderDiv}
+    />
+  )
+}
+
+// =============================================================================
+
+function multRenderSvg(className, i, { color, itemSize, itemClass }) {
+  return (
+    <div key={i} className={className('item', itemClass)}>
       <svg width={itemSize} height={itemSize} viewBox="0 0 100 100">
         <circle fill={color} cx={50} cy={50} r={50} />
       </svg>
@@ -91,18 +105,18 @@ function circleRender(className, i, { color, itemSize, itemClass }) {
   )
 }
 
-function twelveCircle(opt, type) {
-  const { value, unit } = formatSize(opt.size)
+function twelveCircle(prop, type) {
+  const { value, unit } = formatSize(prop.size)
   const itemSize = (value / 7).toFixed(3) + unit
 
   return (
     <Spin
-      {...opt}
+      {...prop}
       count={12}
       itemSize={itemSize}
       itemClass={type}
       spinClass={scaleCircleClass}
-      render={circleRender}
+      render={multRenderSvg}
     />
   )
 }
@@ -119,7 +133,7 @@ export function ThreeBounce(prop) {
       style={{ width: (value * 2) + unit, height: 'auto' }}
       itemSize={(value / 2) + unit}
       spinClass={threeBounceClass}
-      render={circleRender}
+      render={multRenderSvg}
     />
   )
 }
@@ -130,7 +144,7 @@ export function ChasingDots(props) {
       {...props}
       count={2}
       spinClass={chasingDotsClass}
-      render={circleRender}
+      render={multRenderSvg}
     />
   )
 }
@@ -141,7 +155,7 @@ export function FourDots(props) {
       {...props}
       count={4}
       spinClass={fourDotsClass}
-      render={circleRender}
+      render={multRenderSvg}
     />
   )
 }
