@@ -5,10 +5,10 @@ import Colgroup from './Colgroup'
 import Thead from './Thead'
 import Tbody from './Tbody'
 
-class Table extends PureComponent {
+class SimpleTable extends PureComponent {
   render() {
     const {
-      children, columns, colgroup, data, width,
+      children, columns, colgroup, data, width, ...other
     } = this.props
 
     if (!columns) {
@@ -18,7 +18,7 @@ class Table extends PureComponent {
     return (
       <table style={{ width }}>
         <Colgroup columns={columns} colgroup={colgroup} />
-        <Thead columns={columns} />
+        <Thead columns={columns} {...other} />
         { data && <Tbody index={0} columns={columns} data={data} /> }
         {children}
       </table>
@@ -26,7 +26,7 @@ class Table extends PureComponent {
   }
 }
 
-Table.propTypes = {
+SimpleTable.propTypes = {
   ...getProps('size', 'type', 'kengen'),
   children: PropTypes.any,
   colgroup: PropTypes.array,
@@ -35,9 +35,9 @@ Table.propTypes = {
   width: PropTypes.number,
 }
 
-Table.defaultProps = {
+SimpleTable.defaultProps = {
   ...defaultProps,
 }
 
-export default Table
+export default SimpleTable
 

@@ -1,10 +1,12 @@
 /**
- * cn - 服务端分页
+ * cn - 静态数据分页
  * en - Pagination
  */
-import React, { PureComponent } from 'react'
+import React from 'react'
 import { Table } from 'shineout'
-import { fetch } from 'doc/data/table'
+import { getData } from 'doc/data/table'
+
+const data = getData(10000)
 
 const columns = [
   { title: 'id', render: 'id', width: 70 },
@@ -26,49 +28,23 @@ const columns = [
   },
 ]
 
-export default class extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = {
-      total: 0,
-    }
-  }
-
-  componentDidMount() {
-    this.fetchData(1, 10)
-  }
-
-  handlePageChange = (current, pageSize) => {
-    this.fetchData(current, pageSize)
-  }
-
-  fetchData = (current, pageSize) => {
-    this.setState({ loading: true })
-    fetch.get('table', { current, pageSize }).then((res) => {
-      this.setState({ data: res.data, loading: false, total: res.total })
-    })
-  }
-
-  render() {
-    const { data, total, loading } = this.state
-
-    return (
-      <Table
-        bordered
-        loading={loading}
-        data={data}
-        fixed="x"
-        keygen="id"
-        width={1500}
-        columns={columns}
-        pagination={{
-          align: 'center',
-          layout: ['links', 'list'],
-          onChange: this.handlePageChange,
-          pageSizeList: [10, 15, 20],
-          total,
-        }}
-      />
-    )
-  }
+export default function () {
+  return (
+    <Table
+      data={data}
+      fixed="x"
+      keygen="id"
+      width={1500}
+      columns={columns}
+      pagination={{
+        align: 'center',
+        layout: ['links', 'list'],
+        pageSizeList: [10, 15, 20],
+        text: {
+          page: '/ page',
+        },
+      }}
+    />
+  )
 }
+

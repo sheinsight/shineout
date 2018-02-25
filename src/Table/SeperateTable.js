@@ -100,10 +100,9 @@ class SeperateTable extends PureComponent {
       colgroup, contentWidth, scrollTop, offsetLeft, offsetRight,
     } = this.state
 
-    // error text
-    if (typeof data === 'string') return <div key="body">{data}</div>
-    if (!Array.isArray(data)) return <div key="body">error</div>
-    if (data.length === 0) return <div key="body">no data</div>
+    if (!data || data.length === 0) {
+      return <div key="body" />
+    }
 
     const index = this.getIndex()
 
@@ -154,7 +153,7 @@ class SeperateTable extends PureComponent {
       >
         <table ref={this.bindThead}>
           <Colgroup colgroup={colgroup} columns={columns} />
-          <Thead columns={columns} />
+          <Thead {...this.props} />
         </table>
       </div>,
       this.renderBody(floatClass),

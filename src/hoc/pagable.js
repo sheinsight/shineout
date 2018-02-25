@@ -30,12 +30,8 @@ export default function (Component) {
       this.handleChange = this.handleChange.bind(this)
     }
 
-    getCurrent() {
-      return this.props.pagination.current || this.state.current
-    }
-
-    getPageSize() {
-      return this.props.pagination.pageSize || this.state.pageSize
+    getProp(key) {
+      return this.props.pagination[key] || this.state[key]
     }
 
     getPager(data, pagination) {
@@ -43,8 +39,8 @@ export default function (Component) {
       const total = Array.isArray(data) ? data.length : 0
       return Object.assign(
         {
-          current: this.getCurrent(),
-          pageSize: this.getPageSize(),
+          current: this.getProp('current'),
+          pageSize: this.getProp('pageSize'),
           total,
           disabled: loading,
         },

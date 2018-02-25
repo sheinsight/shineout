@@ -22,19 +22,6 @@ class Table extends PureComponent {
     this.table = el
   }
 
-  renderSimple() {
-    const { columns, children, data } = this.props
-
-    return (
-      <SimpleTable
-        columns={columns}
-        data={data}
-      >
-        {children}
-      </SimpleTable>
-    )
-  }
-
   render() {
     const {
       striped, bordered, size, hover, height, columns, children,

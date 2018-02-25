@@ -56,6 +56,7 @@
     & > a {
       top: auto;
       bottom: 0;
+      display: none;
     }
   }
 
@@ -63,6 +64,10 @@
     border-top: dashed 1px #e5e5e5;
     border-bottom: dashed 1px #e5e5e5;
     transition: height 0.24s linear;
+
+    & > a {
+      display: inline;
+    }
   }
 
   button + button {

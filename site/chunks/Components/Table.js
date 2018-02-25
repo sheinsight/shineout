@@ -58,14 +58,19 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-09-loading.js'),
   },
   {
-    title: locate('静态数据分页', 'Pagination'),
-    component: require('doc/pages/components/Table/example-10-pagination.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Table/example-10-pagination.js'),
+    title: locate('排序', 'Sort'),
+    component: require('doc/pages/components/Table/example-10-sort.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-10-sort.js'),
   },
   {
-    title: locate('服务端分页', 'Pagination'),
+    title: locate('静态数据分页', 'Pagination'),
     component: require('doc/pages/components/Table/example-11-pagination.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-11-pagination.js'),
+  },
+  {
+    title: locate('服务端分页 \n 通过 pagination 的 onChange 事件来处理', 'Pagination'),
+    component: require('doc/pages/components/Table/example-12-pagination.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-12-pagination.js'),
   },
   {
     title: locate('只使用样式 \n 使用原生的tr, td来显示表格', 'Style only'),
