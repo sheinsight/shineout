@@ -77,6 +77,15 @@ const pages = [
     level: 2,
     component: loadable(() => import('./Sticky')),
   },
+  
+  'navigation',
+  
+  {
+    name: 'Breadcrumb',
+    cn: '面包屑',
+    level: 2,
+    component: loadable(() => import('./Breadcrumb')),
+  },
     
 ]
 

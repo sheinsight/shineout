@@ -1,0 +1,30 @@
+@import './variables.less';
+@import './themes/@{so-theme}.less';
+
+@breadcrumb-prefix:  ~"@{so-prefix}-breadcrumb";
+
+//
+// Breadcrumbs
+// --------------------------------------------------
+
+
+.@{breadcrumb-prefix} {
+  padding: @breadcrumb-padding-vertical @breadcrumb-padding-horizontal;
+  margin-bottom: @line-height-computed;
+  list-style: none;
+  background-color: @breadcrumb-bg;
+  border-radius: @border-radius-base;
+  font-size: @font-size-base;
+  > span {
+    display: inline-block;
+    > span {
+      margin-right: @breadcrumb-padding-vertical
+    }
+    a {
+      color: @breadcrumb-a-color;
+    }
+  }
+  > span:last-child a{
+    color: @breadcrumb-active-color;
+  }
+}
