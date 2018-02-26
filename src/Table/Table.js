@@ -47,6 +47,7 @@ class Table extends PureComponent {
     const props = {
       ...others,
       fixed,
+      loading,
       height,
       width,
       data,

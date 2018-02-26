@@ -73,6 +73,11 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-12-pagination.js'),
   },
   {
+    title: locate('合并单元格', 'rowSpan &amp; colSpan'),
+    component: require('doc/pages/components/Table/example-13-mergedata.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-13-mergedata.js'),
+  },
+  {
     title: locate('只使用样式 \n 使用原生的tr, td来显示表格', 'Style only'),
     component: require('doc/pages/components/Table/example-99-raw.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-99-raw.js'),

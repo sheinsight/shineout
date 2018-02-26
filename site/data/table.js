@@ -6,12 +6,14 @@ import position from '../utils/faker/position'
 import country from '../utils/faker/country'
 import city from '../utils/faker/city'
 
+const totalCount = 10000
+
 const allData = []
 function init() {
   const offset = 5000 * 3600 * 24 * 1000
   const c20 = pick(country, 20)
   const c30 = pick(city, 30)
-  for (let i = 1; i <= 1000; i++) {
+  for (let i = 1; i <= totalCount; i++) {
     allData.push({
       id: i,
       firstName: one(firstNames),
@@ -44,14 +46,16 @@ export function fetchSync(count = 100, start = 0, sorter = {}) {
   let sort
   switch (name) {
     case 'id':
-      if (order === 'asc') sort = (a, b) => a.id - b.id
-      else sort = (a, b) => b.id - a.id
-      break
-    case 'lastName':
-      if (order === 'asc') sort = (a, b) => a.lastName.localeCompare(b.lastName)
-      else sort = (a, b) => b.lastName.localeCompare(a.lastName)
+    case 'salary':
+      if (order === 'asc') sort = (a, b) => a[name] - b[name]
+      else sort = (a, b) => b[name] - a[name]
       break
     default:
+      if (name) {
+        if (order === 'asc') sort = (a, b) => a[name].localeCompare(b[name])
+        else sort = (a, b) => b[name].localeCompare(a[name])
+      }
+      break
   }
 
   const data = sort ? immer(allData, draft => draft.sort(sort)) : allData
@@ -61,7 +65,6 @@ export function fetchSync(count = 100, start = 0, sorter = {}) {
 export const fetch = {
   get(src, { current, pageSize, sorter = {} }) {
     const start = (current - 1) * pageSize
-    console.log(sorter)
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({

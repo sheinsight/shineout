@@ -1,13 +1,12 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { getProps } from '../utils/proptypes'
+import formatRows from './formatRows'
 import Tr from './Tr'
 
-class Tbody extends PureComponent {
+class Tbody extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {}
 
     this.bindBody = this.bindBody.bind(this)
     this.renderTr = this.renderTr.bind(this)
@@ -21,38 +20,48 @@ class Tbody extends PureComponent {
     }
   }
 
+  shouldComponentUpdate(nextProps) {
+    const { loading } = nextProps
+    return !loading
+  }
+
   bindBody(el) {
     this.body = el
   }
 
-  renderTr(data, index) {
+  renderTr(row, index) {
     const {
-      columns, keygen, offsetLeft, offsetRight,
+      columns, keygen, offsetLeft, offsetRight, data, sorter,
     } = this.props
 
     let key = index
     if (keygen) {
-      key = typeof keygen === 'string' ? data[keygen] : keygen(data, index)
+      key = typeof keygen === 'string'
+        ? data[index][keygen]
+        : keygen(data[index], row.index)
+    }
+    if (sorter && sorter.order) {
+      key = `${key}-${sorter.index}-${sorter.order}`
     }
 
     return (
       <Tr
         key={key}
+        data={row}
         columns={columns}
-        data={data}
         offsetLeft={offsetLeft}
         offsetRight={offsetRight}
-        index={index + this.props.index}
       />
     )
   }
 
   render() {
-    const { data } = this.props
+    const { index, data, columns } = this.props
+    const rows = formatRows(index, data, columns)
 
     return (
       <tbody ref={this.bindBody}>
-        {data.map(this.renderTr)}
+        {rows.map(this.renderTr)}
       </tbody>
     )
   }

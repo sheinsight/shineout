@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
+import deepEqual from 'fast-deep-equal'
 import hash from '../utils/hash'
 import pagable from '../hoc/pagable'
 import Table from './Table'
@@ -26,6 +27,32 @@ export default class extends PureComponent {
     this.handleSortChange = this.handleSortChange.bind(this)
   }
 
+  getColumns(columns) {
+    if (deepEqual(columns, this.oldColumns)) {
+      return this.cachedColumns
+    }
+
+    let left = -1
+    let right = -1
+    columns.forEach((c, i) => {
+      if (c.fixed === 'left') left = i
+      if (c.fixed === 'right' && right < 0) right = i
+    })
+
+    this.cachedColumns = columns.map((c, i) => immer(c, (draft) => {
+      draft.index = i
+      if (!draft.key) draft.key = hash(c)
+      if (i <= left) draft.fixed = 'left'
+      if (i === left) draft.lastFixed = true
+      if (i >= right && right > 0) draft.fixed = 'right'
+      if (i === right) draft.firstFixed = true
+    }))
+
+    this.oldColumns = columns
+
+    return this.cachedColumns
+  }
+
   handleSortChange(order, sorter, index) {
     this.setState(immer((state) => {
       state.sorter.order = order
@@ -39,20 +66,6 @@ export default class extends PureComponent {
     const { sorter } = this.state
     if (!columns) return <Table {...props} />
 
-    let left = -1
-    let right = -1
-    columns.forEach((c, i) => {
-      if (c.fixed === 'left') left = i
-      if (c.fixed === 'right' && right < 0) right = i
-    })
-
-    const cols = columns.map((c, i) => immer(c, (draft) => {
-      draft.index = i
-      if (!draft.key) draft.key = hash(c)
-      if (i <= left) draft.fixed = 'left'
-      if (i >= right && right > 0) draft.fixed = 'right'
-    }))
-
     let { data } = this.props
     if (sorter.sort) {
       data = immer(data, draft => draft.sort(sorter.sort))
@@ -62,7 +75,7 @@ export default class extends PureComponent {
     return (
       <Component
         {...props}
-        columns={cols}
+        columns={this.getColumns(columns)}
         data={data}
         sorter={sorter}
         onSortChange={this.handleSortChange}

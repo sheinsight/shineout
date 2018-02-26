@@ -23,6 +23,7 @@
       > tr {
         > th,
         > td {
+          position: relative;
           padding: @table-cell-padding;
           line-height: @line-height-base;
           vertical-align: top;
@@ -222,9 +223,13 @@
     flex-direction: column;
   }
 
-  &-float-left &-fixed-left {
+  &-float-left &-fixed-left,
+  &-float-right &-fixed-right {
     position: relative;
+    z-index: 100;
+  }
 
+  &-float-left &-fixed-last {
     &:after {
       content: ' ';
       position: absolute;
@@ -237,9 +242,7 @@
     }
   }
 
-  &-float-right &-fixed-right {
-    position: relative;
-
+  &-float-right &-fixed-first {
     &:before {
       content: ' ';
       position: absolute;

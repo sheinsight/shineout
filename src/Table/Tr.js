@@ -1,10 +1,11 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import deepEqual from 'fast-deep-equal'
 import { setTranslate } from '../utils/dom/translate'
 import { tableClass } from '../styles'
 import Td, { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
 
-class Tr extends PureComponent {
+class Tr extends Component {
   constructor(props) {
     super(props)
 
@@ -23,26 +24,46 @@ class Tr extends PureComponent {
     }
   }
 
+  shouldComponentUpdate(nextProps) {
+    const isEqual = deepEqual(this.props.columns, nextProps.columns)
+      && deepEqual(this.props.data, nextProps.data)
+    return !isEqual
+  }
+
   bindElement(el) {
     this.element = el
   }
 
   render() {
-    const {
-      columns, data, index,
-    } = this.props
-    return (
-      <tr ref={this.bindElement}>
-        {columns.map(col => <Td {...col} data={data} index={index} />)}
-      </tr>
-    )
+    const { columns, data } = this.props
+    const tds = []
+    for (let i = 0, c = columns.length; i < c; i++) {
+      if (data[i]) {
+        const {
+          className, style, fixed, key, lastFixed, firstFixed,
+        } = columns[i]
+        const td = (
+          <Td
+            key={key}
+            className={className}
+            style={style}
+            fixed={fixed}
+            firstFixed={firstFixed}
+            lastFixed={lastFixed}
+            {...data[i]}
+          />
+        )
+        tds.push(td)
+      }
+    }
+
+    return <tr ref={this.bindElement}>{tds}</tr>
   }
 }
 
 Tr.propTypes = {
   columns: PropTypes.array.isRequired,
-  data: PropTypes.object.isRequired,
-  index: PropTypes.number.isRequired,
+  data: PropTypes.array.isRequired,
   offsetLeft: PropTypes.number,
   offsetRight: PropTypes.number,
 }

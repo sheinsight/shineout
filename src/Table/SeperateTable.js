@@ -94,7 +94,7 @@ class SeperateTable extends PureComponent {
 
   renderBody(floatClass) {
     const {
-      data, rowsInView, columns, width, fixed,
+      data, rowsInView, columns, width, fixed, ...others
     } = this.props
     const {
       colgroup, contentWidth, scrollTop, offsetLeft, offsetRight,
@@ -119,8 +119,9 @@ class SeperateTable extends PureComponent {
         <table ref={this.bindTbody} style={{ width }}>
           <Colgroup colgroup={colgroup} columns={columns} />
           <Tbody
-            onBodyRender={this.handleColgroup}
+            {...others}
             columns={columns}
+            onBodyRender={this.handleColgroup}
             index={index}
             offsetLeft={offsetLeft}
             offsetRight={offsetRight}

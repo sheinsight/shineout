@@ -19,7 +19,7 @@ class SimpleTable extends PureComponent {
       <table style={{ width }}>
         <Colgroup columns={columns} colgroup={colgroup} />
         <Thead columns={columns} {...other} />
-        { data && <Tbody index={0} columns={columns} data={data} /> }
+        { data && <Tbody {...other} index={0} columns={columns} data={data} /> }
         {children}
       </table>
     )

@@ -30,6 +30,7 @@ class Thead extends PureComponent {
       colSpan = this.setColumns(last.columns, col, level + 1)
       last.colSpan += colSpan
       if (col.fixed) last.fixed = col.fixed
+      if (col.lastFixed) last.lastFixed = true
     } else {
       const sub = []
       colSpan = this.setColumns(sub, col, level + 1)
@@ -38,6 +39,7 @@ class Thead extends PureComponent {
         colSpan,
         level,
         fixed: col.fixed,
+        firstFixed: col.firstFixed,
         columns: sub,
       })
     }
@@ -46,13 +48,17 @@ class Thead extends PureComponent {
   }
 
   createTh(trs, col, level) {
-    const fixed = col.fixed ? `fixed-${col.fixed}` : false
+    const fixed = []
+    if (col.fixed) fixed.push(`fixed-${col.fixed}`)
+    if (col.firstFixed) fixed.push('fixed-first')
+    if (col.lastFixed) fixed.push('fixed-last')
+
     const { sorter, onSortChange } = this.props
 
     if (col.title) {
       trs[level].push((
         <th
-          className={tableClass(level > 0 && 'condensed', fixed)}
+          className={tableClass(level > 0 && 'condensed', ...fixed)}
           rowSpan={(this.columnLevel - level) + 1}
           key={col.key}
         >
@@ -69,7 +75,7 @@ class Thead extends PureComponent {
 
     trs[level].push((
       <th
-        className={tableClass('center', 'condensed', fixed)}
+        className={tableClass('center', 'condensed', ...fixed)}
         colSpan={col.colSpan}
         key={col.name}
       >

@@ -1,6 +1,6 @@
 /**
- * cn - 服务端分页 \n 通过 pagination 的 onChange 事件来处理
- * en - Pagination
+ * cn - 合并单元格
+ * en - rowSpan & colSpan
  */
 import React, { PureComponent } from 'react'
 import { Table } from 'shineout'
@@ -13,6 +13,7 @@ export default class extends PureComponent {
       current: 1,
       pageSize: 10,
       total: 0,
+      sorter: { name: 'start', order: 'asc' },
     }
   }
 
@@ -36,18 +37,6 @@ export default class extends PureComponent {
     })
   }
 
-  handleIdSort = (order) => {
-    this.handleSorter('id', order)
-  }
-
-  handleStartSort = (order) => {
-    this.handleSorter('start', order)
-  }
-
-  handleLastNameSort = (order) => {
-    this.handleSorter('lastName', order)
-  }
-
   render() {
     const {
       data, current, pageSize, total, loading,
@@ -58,7 +47,7 @@ export default class extends PureComponent {
         title: 'id',
         render: 'id',
         width: 70,
-        sorter: this.handleIdSort,
+        sorter: this.handleSorter.bind(this, 'id'),
       },
       {
         title: 'First Name', group: 'Name', render: 'firstName', width: 100,
@@ -69,11 +58,23 @@ export default class extends PureComponent {
         group: 'Name',
         render: 'lastName',
         width: 120,
-        sorter: this.handleLastNameSort,
+      },
+      {
+        title: 'Start Date',
+        rowSpan: true,
+        render: 'start',
+        width: 120,
+        sorter: this.handleSorter.bind(this, 'start'),
       },
       { title: 'Country', render: 'country' },
+      { title: 'Position', render: 'position' },
       { title: 'Office', render: 'office' },
-      { title: 'Start Date', render: 'start', sorter: this.handleStartSort },
+      {
+        title: 'Salary',
+        fixed: 'right',
+        width: 100,
+        render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
+      },
     ]
 
     return (
@@ -81,7 +82,9 @@ export default class extends PureComponent {
         bordered
         loading={loading}
         data={data}
+        fixed="x"
         keygen="id"
+        width={1500}
         columns={columns}
         pagination={{
           align: 'center',

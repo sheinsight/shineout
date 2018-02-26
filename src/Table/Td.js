@@ -15,7 +15,7 @@ class Td extends PureComponent {
 
   render() {
     const {
-      data, rowSpan, colSpan, render, index, fixed, style,
+      rowSpan, colSpan, content, fixed, style, firstFixed, lastFixed,
     } = this.props
 
     const className = classnames(
@@ -23,16 +23,14 @@ class Td extends PureComponent {
       tableClass(
         fixed === 'left' && CLASS_FIXED_LEFT,
         fixed === 'right' && CLASS_FIXED_RIGHT,
+        firstFixed && 'fixed-first',
+        lastFixed && 'fixed-last',
       ),
     )
 
     return (
       <td style={style} className={className} rowSpan={rowSpan} colSpan={colSpan}>
-        {
-        render && typeof render === 'string'
-          ? data[render]
-          : render(data, index)
-      }
+        {content}
       </td>
     )
   }
@@ -41,23 +39,16 @@ class Td extends PureComponent {
 Td.propTypes = {
   colSpan: PropTypes.number,
   className: PropTypes.string,
-  data: PropTypes.object.isRequired,
-  index: PropTypes.number.isRequired,
+  content: PropTypes.any,
+  firstFixed: PropTypes.bool,
   fixed: PropTypes.string,
+  lastFixed: PropTypes.bool,
   rowSpan: PropTypes.number,
-  render: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-  ]),
   style: PropTypes.object,
 }
 
 Td.defaultProps = {
-  className: undefined,
-  colSpan: undefined,
   fixed: '',
-  rowSpan: undefined,
-  render: undefined,
   style: {},
 }
 
