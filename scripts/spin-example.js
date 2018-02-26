@@ -18,7 +18,7 @@ const spins = [
   'wave',
 ]
 
-spins.forEach((spin) => {
+spins.forEach((spin, i) => {
   const text = `/**
 * cn - ${spin}
 * en - ${spin}
@@ -38,6 +38,6 @@ export default function () {
 }
 `
 
-  const fn = path.resolve(rootPath, `example-${spin}.js`)
+  const fn = path.resolve(rootPath, `example-${(`0${i + 1}`).slice(-2)}-${spin}.js`)
   fs.writeFileSync(fn, text)
 })

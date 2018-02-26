@@ -6,51 +6,70 @@ import React, { PureComponent } from 'react'
 import { Table } from 'shineout'
 import { fetch } from 'doc/data/table'
 
-const columns = [
-  { title: 'id', render: 'id', width: 70 },
-  {
-    title: 'First Name', group: 'Name', render: 'firstName', width: 100,
-  },
-  {
-    title: 'Last Name', fixed: 'left', group: 'Name', render: 'lastName', width: 100,
-  },
-  { title: 'Country', render: 'country' },
-  { title: 'Position', render: 'position' },
-  { title: 'Office', render: 'office' },
-  { title: 'Start Date', render: 'start' },
-  {
-    title: 'Salary',
-    fixed: 'right',
-    width: 100,
-    render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
-  },
-]
-
 export default class extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
+      current: 1,
+      pageSize: 10,
       total: 0,
     }
   }
 
   componentDidMount() {
-    this.fetchData(1, 10)
+    this.fetchData()
+  }
+
+  handleSorter = (name, order) => {
+    this.setState({ sorter: { name, order }, current: 1 }, this.fetchData)
   }
 
   handlePageChange = (current, pageSize) => {
-    this.fetchData(current, pageSize)
+    this.setState({ current, pageSize }, this.fetchData)
   }
 
-  fetchData = (current, pageSize) => {
+  fetchData = () => {
+    const { sorter, current, pageSize } = this.state
     this.setState({ loading: true })
-    fetch.get('table', { current, pageSize }).then((res) => {
+    fetch.get('table', { sorter, current, pageSize }).then((res) => {
       this.setState({ data: res.data, loading: false, total: res.total })
     })
   }
 
   render() {
-    const { data, total, loading } = this.state
+    const {
+      data, current, pageSize, total, loading,
+    } = this.state
+
+    const columns = [
+      {
+        title: 'id',
+        render: 'id',
+        width: 70,
+        sorter: this.handleSorter.bind(this, 'id'),
+      },
+      {
+        title: 'First Name', group: 'Name', render: 'firstName', width: 100,
+      },
+      {
+        title: 'Last Name',
+        fixed: 'left',
+        group: 'Name',
+        render: 'lastName',
+        width: 120,
+        sorter: this.handleSorter.bind(this, 'lastName'),
+      },
+      { title: 'Country', render: 'country' },
+      { title: 'Position', render: 'position' },
+      { title: 'Office', render: 'office' },
+      { title: 'Start Date', render: 'start' },
+      {
+        title: 'Salary',
+        fixed: 'right',
+        width: 100,
+        render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
+      },
+    ]
 
     return (
       <Table
@@ -63,6 +82,8 @@ export default class extends PureComponent {
         columns={columns}
         pagination={{
           align: 'center',
+          current,
+          pageSize,
           layout: ['links', 'list'],
           onChange: this.handlePageChange,
           pageSizeList: [10, 15, 20],

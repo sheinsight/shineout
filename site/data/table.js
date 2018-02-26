@@ -1,3 +1,4 @@
+import immer from 'immer'
 import { one, pick, pickDate, pickInteger } from '../utils/faker'
 import firstNames from '../utils/faker/firstName'
 import lastNames from '../utils/faker/lastName'
@@ -38,18 +39,34 @@ export const all = (delay = 500) => new Promise((resolve) => {
   }, delay)
 })
 
-export function getData(count = 100, start = 0) {
-  return allData.slice(start, start + count)
+export function fetchSync(count = 100, start = 0, sorter = {}) {
+  const { name, order } = sorter
+  let sort
+  switch (name) {
+    case 'id':
+      if (order === 'asc') sort = (a, b) => a.id - b.id
+      else sort = (a, b) => b.id - a.id
+      break
+    case 'lastName':
+      if (order === 'asc') sort = (a, b) => a.lastName.localeCompare(b.lastName)
+      else sort = (a, b) => b.lastName.localeCompare(a.lastName)
+      break
+    default:
+  }
+
+  const data = sort ? immer(allData, draft => draft.sort(sort)) : allData
+  return data.slice(start, start + count)
 }
 
 export const fetch = {
-  get(src, { current, pageSize }) {
+  get(src, { current, pageSize, sorter = {} }) {
     const start = (current - 1) * pageSize
+    console.log(sorter)
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({
           status: 1,
-          data: getData(pageSize, start),
+          data: fetchSync(pageSize, start, sorter),
           current,
           pageSize,
           total: allData.length,

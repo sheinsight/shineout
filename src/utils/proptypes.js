@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-export const propSets = {
+const propSets = {
   disabled: PropTypes.bool,
   keygen: PropTypes.oneOfType([
     PropTypes.string,
@@ -12,7 +12,10 @@ export const propSets = {
     PropTypes.func,
   ]),
   size: PropTypes.oneOf(['small', 'default', 'large']),
-  type: PropTypes.oneOf(['primary', 'secondary', 'success', 'info', 'warning', 'error', 'danger', 'link']),
+  type: PropTypes.oneOf([
+    'primary', 'default', 'secondary', 'success', 'info',
+    'warning', 'error', 'danger', 'link',
+  ]),
 }
 
 export function getProps(...args) {
@@ -21,8 +24,8 @@ export function getProps(...args) {
     style: PropTypes.object,
   }
   args.forEach((name) => {
-    const prop = args[name]
-    if (prop) props[name] = args[name]
+    const prop = propSets[name]
+    if (prop) props[name] = prop
   })
 
   return props

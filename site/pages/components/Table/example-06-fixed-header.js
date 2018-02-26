@@ -4,9 +4,9 @@
  */
 import React, { Fragment } from 'react'
 import { Table } from 'shineout'
-import { getData } from 'doc/data/table'
+import { fetchSync } from 'doc/data/table'
 
-const data = getData(20)
+const data = fetchSync(20)
 
 export default function () {
   const columns = [

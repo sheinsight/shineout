@@ -1,8 +1,8 @@
 import React from 'react'
 import { Table } from 'shineout'
-import { getData } from 'doc/data/table'
+import { fetchSync } from 'doc/data/table'
 
-const data = getData(6)
+const data = fetchSync(6)
 
 export default function () {
   const columns = [

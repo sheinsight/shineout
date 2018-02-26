@@ -4,9 +4,9 @@
  */
 import React from 'react'
 import { Table, Spin } from 'shineout'
-import { getData } from 'doc/data/table'
+import { fetchSync } from 'doc/data/table'
 
-const data = getData(8)
+const data = fetchSync(8)
 
 export default function () {
   const columns = [

@@ -4,9 +4,9 @@
  */
 import React, { PureComponent } from 'react'
 import { Table } from 'shineout'
-import { getData } from 'doc/data/table'
+import { fetchSync } from 'doc/data/table'
 
-const data = getData(10000)
+const data = fetchSync(10000)
 
 export default class extends PureComponent {
   state = {
@@ -14,7 +14,6 @@ export default class extends PureComponent {
   }
 
   handlePageChange = (current) => {
-    console.log(1111111111)
     this.setState({ current })
   }
 
@@ -40,7 +39,7 @@ export default class extends PureComponent {
         fixed: 'left',
         group: 'Name',
         render: 'lastName',
-        width: 100,
+        width: 120,
         sorter: (order) => {
           this.handlePageChange(1)
           return (a, b) => {

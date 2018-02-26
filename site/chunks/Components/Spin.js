@@ -13,64 +13,64 @@ const source = locate(cn, en)
 
 const examples = [
   {
+    title: locate('default', 'default'),
+    component: require('doc/pages/components/Spin/example-01-default.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Spin/example-01-default.js'),
+  },
+  {
     title: locate('chasing-dots', 'chasing-dots'),
-    component: require('doc/pages/components/Spin/example-chasing-dots.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Spin/example-chasing-dots.js'),
+    component: require('doc/pages/components/Spin/example-02-chasing-dots.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Spin/example-02-chasing-dots.js'),
   },
   {
     title: locate('cube-grid', 'cube-grid'),
-    component: require('doc/pages/components/Spin/example-cube-grid.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Spin/example-cube-grid.js'),
-  },
-  {
-    title: locate('default', 'default'),
-    component: require('doc/pages/components/Spin/example-default.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Spin/example-default.js'),
+    component: require('doc/pages/components/Spin/example-03-cube-grid.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Spin/example-03-cube-grid.js'),
   },
   {
     title: locate('double-bounce', 'double-bounce'),
-    component: require('doc/pages/components/Spin/example-double-bounce.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Spin/example-double-bounce.js'),
+    component: require('doc/pages/components/Spin/example-04-double-bounce.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Spin/example-04-double-bounce.js'),
   },
   {
     title: locate('fading-circle', 'fading-circle'),
-    component: require('doc/pages/components/Spin/example-fading-circle.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Spin/example-fading-circle.js'),
+    component: require('doc/pages/components/Spin/example-05-fading-circle.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Spin/example-05-fading-circle.js'),
   },
   {
     title: locate('four-dots', 'four-dots'),
-    component: require('doc/pages/components/Spin/example-four-dots.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Spin/example-four-dots.js'),
+    component: require('doc/pages/components/Spin/example-06-four-dots.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Spin/example-06-four-dots.js'),
   },
   {
     title: locate('plane', 'plane'),
-    component: require('doc/pages/components/Spin/example-plane.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Spin/example-plane.js'),
+    component: require('doc/pages/components/Spin/example-07-plane.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Spin/example-07-plane.js'),
   },
   {
     title: locate('pulse', 'pulse'),
-    component: require('doc/pages/components/Spin/example-pulse.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Spin/example-pulse.js'),
+    component: require('doc/pages/components/Spin/example-08-pulse.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Spin/example-08-pulse.js'),
   },
   {
     title: locate('ring', 'ring'),
-    component: require('doc/pages/components/Spin/example-ring.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Spin/example-ring.js'),
+    component: require('doc/pages/components/Spin/example-09-ring.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Spin/example-09-ring.js'),
   },
   {
     title: locate('scale-circle', 'scale-circle'),
-    component: require('doc/pages/components/Spin/example-scale-circle.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Spin/example-scale-circle.js'),
+    component: require('doc/pages/components/Spin/example-10-scale-circle.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Spin/example-10-scale-circle.js'),
   },
   {
     title: locate('three-bounce', 'three-bounce'),
-    component: require('doc/pages/components/Spin/example-three-bounce.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Spin/example-three-bounce.js'),
+    component: require('doc/pages/components/Spin/example-11-three-bounce.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Spin/example-11-three-bounce.js'),
   },
   {
     title: locate('wave', 'wave'),
-    component: require('doc/pages/components/Spin/example-wave.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Spin/example-wave.js'),
+    component: require('doc/pages/components/Spin/example-12-wave.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Spin/example-12-wave.js'),
   },
 ]
 
