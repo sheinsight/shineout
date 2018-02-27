@@ -16,5 +16,8 @@
   },
   "Layout": {
     "Sticky": "附着"
+  },
+  "navigation": {
+    "Breadcrumb": "面包屑"
   }
 }

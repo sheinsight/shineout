@@ -5,6 +5,7 @@ coverage.html
 .DS_Store
 node_modules
 publish
+.idea
 *.sock
 *.swp
 *.bat
