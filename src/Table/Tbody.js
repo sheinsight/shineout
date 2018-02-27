@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import deepEqual from 'fast-deep-equal'
 import { getProps } from '../utils/proptypes'
 import formatRows from './formatRows'
 import Tr from './Tr'
@@ -22,7 +23,12 @@ class Tbody extends Component {
 
   shouldComponentUpdate(nextProps) {
     const { loading } = nextProps
-    return !loading
+    if (loading) return false
+
+    return !(
+      deepEqual(this.props.data, nextProps.data)
+      && deepEqual(this.props.columns, nextProps.columns)
+    )
   }
 
   bindBody(el) {

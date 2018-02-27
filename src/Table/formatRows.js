@@ -3,21 +3,20 @@ function format(columns, data, nextRow, index) {
     const content = typeof col.render === 'string'
       ? data[col.render]
       : col.render(data, index)
-    const cell = { content, index }
-    let { rowSpan } = col
-    if (typeof rowSpan === 'boolean') {
-      rowSpan = (a, b) => ((a === b) ? a : false)
-    }
-
-    cell.colSpan = col.colSpan ? col.colSpan(data) : 1
+    const cell = { content, index, data }
+    cell.colSpan = typeof col.colSpan === 'function' ? col.colSpan(data, index) : 1
     if (cell.colSpan < 1) cell.colSpan = 1
 
+    const { rowSpan } = col
     if (rowSpan && nextRow) {
-      const isEqual = rowSpan(content, nextRow[i].content)
+      const isEqual = rowSpan === true
+        ? content === nextRow[i].content
+        : typeof rowSpan === 'function' && rowSpan(data, nextRow[i].data)
+
       const nextTd = nextRow[i]
       if (isEqual && nextTd.colSpan === cell.colSpan) {
         cell.rowSpan = (nextTd.rowSpan || 1) + 1
-        let j = cell.colSpan
+        let j = cell.colSpan || 1
         while (j) {
           j -= 1
           nextRow[i + j] = null
