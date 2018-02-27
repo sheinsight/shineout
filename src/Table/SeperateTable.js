@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { getProps } from '../utils/proptypes'
 import { setTranslate } from '../utils/dom/translate'
+import { range, split } from '../utils/numbers'
 import { tableClass } from '../styles'
 import Scroll from '../Scroll'
 import Colgroup from './Colgroup'
@@ -84,10 +85,18 @@ class SeperateTable extends PureComponent {
   }
 
   handleColgroup(tds) {
+    const { columns } = this.props
     const colgroup = []
     for (let i = 0, count = tds.length; i < count; i++) {
       const width = tds[i].offsetWidth
-      colgroup.push(width)
+      // if (tds[i].)
+      const colSpan = parseInt(tds[i].getAttribute('colspan'), 10)
+      if (colSpan > 1) {
+        split(width, range(colSpan).map(j => columns[i + j].width))
+          .forEach(w => colgroup.push(w))
+      } else {
+        colgroup.push(width)
+      }
     }
     this.setState({ colgroup })
   }

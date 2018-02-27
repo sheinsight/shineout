@@ -24,7 +24,7 @@ class Table extends PureComponent {
 
   render() {
     const {
-      striped, bordered, size, hover, height, columns, children,
+      striped, bordered, size, hover, height, columns,
       data, style, fixed, width, loading, ...others
     } = this.props
 
@@ -55,13 +55,11 @@ class Table extends PureComponent {
       scrollLeft,
     }
 
+    const RenderTable = fixed ? SeperateTable : SimpleTable
+
     return (
       <div className={className} ref={this.bindTable} style={style}>
-        {
-          fixed
-          ? <SeperateTable {...props} />
-          : <SimpleTable {...props}>{children}</SimpleTable>
-        }
+        <RenderTable {...props} />
         {
           loading &&
           <div className={tableClass('loading')}>

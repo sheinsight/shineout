@@ -13,6 +13,7 @@ function init() {
   const offset = 5000 * 3600 * 24 * 1000
   const c20 = pick(country, 20)
   const c30 = pick(city, 30)
+  const c5 = pick(city, 5)
   for (let i = 1; i <= totalCount; i++) {
     allData.push({
       id: i,
@@ -24,6 +25,7 @@ function init() {
       salary: pickInteger(500000, 50000),
       country: one(c20),
       office: one(c30),
+      office5: one(c5),
     })
   }
 

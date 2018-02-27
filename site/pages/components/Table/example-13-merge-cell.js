@@ -1,5 +1,5 @@
 /**
- * cn - 合并单元格
+ * cn - 合并行/列 \n *一个单元格同时指定了rowSpan和colSpan时，如果两行的rolSpan计算结果不同，这两行不会合并
  * en - rowSpan & colSpan
  */
 import React, { PureComponent } from 'react'
@@ -50,31 +50,28 @@ export default class extends PureComponent {
         sorter: this.handleSorter.bind(this, 'id'),
       },
       {
-        title: 'First Name', group: 'Name', render: 'firstName', width: 100,
+        title: 'First Name',
+        group: 'Name',
+        render: 'firstName',
       },
       {
         title: 'Last Name',
-        fixed: 'left',
         group: 'Name',
         render: 'lastName',
-        width: 120,
       },
       {
         title: 'Start Date',
-        rowSpan: true,
         render: 'start',
-        width: 120,
         sorter: this.handleSorter.bind(this, 'start'),
+        rowSpan: (a, b) => a === b,
+        colSpan: (d) => {
+          const hour = parseInt(d.time.slice(0, 2), 10)
+          if (hour > 21 || hour < 9) return 2
+          return 1
+        },
       },
-      { title: 'Country', render: 'country' },
-      { title: 'Position', render: 'position' },
-      { title: 'Office', render: 'office' },
-      {
-        title: 'Salary',
-        fixed: 'right',
-        width: 100,
-        render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
-      },
+      { title: 'Time', render: 'time' },
+      { title: 'Office', render: 'office5', rowSpan: true },
     ]
 
     return (
@@ -82,9 +79,7 @@ export default class extends PureComponent {
         bordered
         loading={loading}
         data={data}
-        fixed="x"
         keygen="id"
-        width={1500}
         columns={columns}
         pagination={{
           align: 'center',

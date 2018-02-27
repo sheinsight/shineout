@@ -9,12 +9,19 @@ function format(columns, data, nextRow, index) {
       rowSpan = (a, b) => ((a === b) ? a : false)
     }
 
+    cell.colSpan = col.colSpan ? col.colSpan(data) : 1
+    if (cell.colSpan < 1) cell.colSpan = 1
+
     if (rowSpan && nextRow) {
-      const mc = rowSpan(content, nextRow[i].content)
-      if (mc) {
-        cell.content = mc
-        cell.rowSpan = (nextRow[i].rowSpan || 1) + 1
-        nextRow[i] = null
+      const isEqual = rowSpan(content, nextRow[i].content)
+      const nextTd = nextRow[i]
+      if (isEqual && nextTd.colSpan === cell.colSpan) {
+        cell.rowSpan = (nextTd.rowSpan || 1) + 1
+        let j = cell.colSpan
+        while (j) {
+          j -= 1
+          nextRow[i + j] = null
+        }
       }
     }
 
