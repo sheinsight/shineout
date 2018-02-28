@@ -33,7 +33,7 @@ const columns = [
     title: 'Start Date',
     width: 120,
     render: 'start',
-    rowSpan: (a, b) => a === b,
+    rowSpan: (a, b) => a.start === b.start,
     colSpan: (d) => {
       const hour = parseInt(d.time.slice(0, 2), 10)
       if (hour > 21 || hour < 9) return 2

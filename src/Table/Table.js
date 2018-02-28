@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { tableClass } from '../styles'
+import Datum from '../Datum'
 import Spin from '../Spin'
 import SimpleTable from './SimpleTable'
 import SeperateTable from './SeperateTable'
@@ -95,4 +96,4 @@ Table.defaultProps = {
   rowsInView: 20,
 }
 
-export default Table
+export default Datum.hoc(Table)

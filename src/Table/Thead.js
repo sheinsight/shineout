@@ -36,6 +36,7 @@ class Thead extends PureComponent {
       colSpan = this.setColumns(sub, col, level + 1)
       columns.push({
         name: g[level],
+        key: g[level],
         colSpan,
         level,
         fixed: col.fixed,
@@ -77,7 +78,7 @@ class Thead extends PureComponent {
       <th
         className={tableClass('center', 'condensed', ...fixed)}
         colSpan={col.colSpan}
-        key={col.name}
+        key={col.key}
       >
         {col.name}
       </th>

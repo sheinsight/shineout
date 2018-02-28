@@ -68,6 +68,7 @@ class ScrollBar extends PureComponent {
     if (newOffset < 0) newOffset = 0
     if (newOffset > 1) newOffset = 1
 
+    console.log(newOffset)
     onScroll(newOffset)
   }
 

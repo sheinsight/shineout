@@ -83,6 +83,16 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-14-merge-cell.js'),
   },
   {
+    title: locate('选择行 \n onRowChange 事件，会自动添加选择列', 'Select'),
+    component: require('doc/pages/components/Table/example-15-select.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-15-select.js'),
+  },
+  {
+    title: locate('选择行', 'Select'),
+    component: require('doc/pages/components/Table/example-16-select.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-16-select.js'),
+  },
+  {
     title: locate('只使用样式 \n 使用原生的tr, td来显示表格', 'Style only'),
     component: require('doc/pages/components/Table/example-99-raw.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-99-raw.js'),
