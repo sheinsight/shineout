@@ -1,7 +1,7 @@
 import React from 'react'
 import Icon from './Icon'
 
-export default function (fontName = '', url) {
+export default function (url, fontFamily = 'iconfont', prefix = 'icon') {
   if (!url) {
     console.warning('you may add a "url" to create a icon ')
   }
@@ -10,6 +10,6 @@ export default function (fontName = '', url) {
   link.setAttribute('type', 'text/css')
   link.setAttribute('href', url)
   document.head.appendChild(link)
-  return props => (<Icon fontName={fontName} {...props} />)
+  return props => (<Icon fontFamily={fontFamily} prefix={prefix} {...props} />)
 }
 

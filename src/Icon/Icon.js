@@ -1,37 +1,41 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
+import { iconClass } from '../styles'
 
 function Icon(props) {
   const {
-    fontName,
-    iconSize,
+    prefix,
+    type,
+    size,
     iconType,
-    iconColor,
-    className,
     style,
+    fontFamily,
     ...otherProps
   } = props
-  const useStyle = { ...style, fontSize: iconSize, color: iconColor }
-  return (<i {...otherProps} style={useStyle} className={`${className} ${iconType}`} />)
+  const className = classnames(iconClass('_', type, {
+    small: size === 'small',
+    large: size === 'large',
+  }), this.props.className)
+  const iconClassString = ` ${prefix}-${iconType} `
+  return (<i {...otherProps} className={`${className} ${iconClassString}`} style={{ ...style, fontFamily }} />)
 }
 
 Icon.propTypes = {
-  ...getProps(),
-  fontName: PropTypes.string,
-  iconSize: PropTypes.number,
-  className: PropTypes.string,
-  iconColor: PropTypes.string,
-  style: PropTypes.object,
+  ...getProps('size', 'type'),
+  prefix: PropTypes.string,
+  iconType: PropTypes.string,
+  fontFamily: PropTypes.string,
 }
 
 Icon.defaultProps = {
   ...defaultProps,
-  fontName: '',
-  iconSize: 16,
-  className: '',
-  iconColor: '#000000',
-  style: {},
+  prefix: 'icon',
+  fontFamily: 'iconfont',
+  iconType: '',
+  size: 'default',
+  type: 'default',
 }
 
 export default Icon

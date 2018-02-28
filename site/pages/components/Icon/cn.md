@@ -6,10 +6,11 @@
 
 ### Icon(此为函数,用于生成真实的图标组件)
 
-| 属性 | 类型 | 默认值 | 说明 |
+| 参数 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| prefix | string | '' | 类名前缀,和font-family一致 |
-| url | string | '' | 图标css文件地址,使用远程地址,无需下载 |
+| url | string | '' | 图标css文件地址,使用远程地址,无需手动下载 |
+| fontFamily | string | 'iconfont' | font-family 需要和引入的css文件内的font-family一致 |
+| prefix | string | 'icon' | 类名前缀 |
 
 
 
@@ -18,5 +19,5 @@
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | iconType | string | '' | 图标类名,值参照具体使用的图标库 |
-| iconSize | number | 16 | 图标大小 |
-| iconColor | string | '#000' | 图标颜色 |
+| size | string| 'default' | 图标大小,有"small","default","large |
+| type | string | 'default' | 图标颜色,有"primary","success","default","warning"等 |

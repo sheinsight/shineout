@@ -1,25 +1,26 @@
 import React from 'react'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { breadcrumbClass } from '../styles'
 
 class Breadcrumb extends React.PureComponent {
   render() {
     const {
-      dataSource, type, separator, className,
+      data, separator,
     } = this.props
-    let warpClassName = breadcrumbClass('_', type)
-    if (className) {
-      warpClassName += ` ${className}`
-    }
+    const className = classnames(
+      breadcrumbClass('_'),
+      this.props.className,
+    )
     return (
-      <div className={warpClassName} >
+      <div className={className} >
         {
-          dataSource.map((data, index) => (
+          data.map((da, index) => (
             <span key={index}>
-              <span><a href={data.url ? data.url : 'javascript:;'}>{data.icon}{data.title}</a></span>
+              <span><a href={da.url ? da.url : 'javascript:;'}>{da.icon}{da.title}</a></span>
               {
-                index !== dataSource.length - 1 ?
+                index !== data.length - 1 ?
                   <span>{separator}</span> : null
               }
             </span>

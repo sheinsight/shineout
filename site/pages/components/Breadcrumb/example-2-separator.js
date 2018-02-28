@@ -10,19 +10,19 @@ function Separator() {
   return <span>~</span>
 }
 
-const dataSource = [{
-  title: 'HOME',
+const data = [{
+  title: 'Home',
   url: '#',
 }, {
-  title: 'SELF',
+  title: 'Self',
   url: 'https://www.baidu.com',
 }]
 
 export default function () {
   return (
     <Fragment>
-      <Breadcrumb dataSource={dataSource} separator="|" />
-      <Breadcrumb dataSource={dataSource} separator={<Separator />} />
+      <Breadcrumb data={data} separator="|" />
+      <Breadcrumb data={data} separator={<Separator />} />
     </Fragment>
   )
 }

@@ -6,17 +6,17 @@
 import React from 'react';
 import { Breadcrumb } from 'shineout';
 
-const dataSource = [{
-  title: 'HOME',
+const data = [{
+  title: 'Home',
   url: '#',
 }, {
-  title: 'MENU',
+  title: 'Menu',
 }, {
-  title: 'SELF',
+  title: 'Self',
 }]
 
 export default function () {
   return (
-    <Breadcrumb dataSource={dataSource} />
+    <Breadcrumb data={data} />
   )
 }

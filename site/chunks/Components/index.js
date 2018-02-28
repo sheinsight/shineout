@@ -93,6 +93,13 @@ const pages = [
     level: 2,
     component: loadable(() => import('./Breadcrumb')),
   },
+  
+  {
+    name: 'Menu',
+    cn: '菜单',
+    level: 2,
+    component: loadable(() => import('./Menu')),
+  },
     
 ]
 
