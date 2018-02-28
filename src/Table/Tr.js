@@ -35,7 +35,7 @@ class Tr extends Component {
   }
 
   render() {
-    const { columns, data } = this.props
+    const { columns, data, ...other } = this.props
     const tds = []
     let skip = 0
     for (let i = 0, c = columns.length; i < c; i++) {
@@ -43,11 +43,13 @@ class Tr extends Component {
         skip -= 1
       } else if (data[i]) {
         const {
-          className, style, fixed, key, lastFixed, firstFixed,
+          className, style, key, fixed, lastFixed, firstFixed, type,
         } = columns[i]
         const td = (
           <Td
+            {...other}
             key={key}
+            type={type}
             className={className}
             style={style}
             fixed={fixed}

@@ -2,9 +2,21 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { tableClass } from '../styles'
+import Checkbox from './Checkbox'
 
 export const CLASS_FIXED_LEFT = 'fixed-left'
 export const CLASS_FIXED_RIGHT = 'fixed-right'
+
+/*
+    <Checkbox
+            onChange={this.handleRowSelect}
+            checked={checkValue(data)}
+            data={data}
+            index={index}
+            addValue={addValue}
+            removeValue={removeValue}
+          />
+*/
 
 class Td extends PureComponent {
   constructor(props) {
@@ -13,9 +25,24 @@ class Td extends PureComponent {
     this.state = {}
   }
 
+  renderCheckbox() {
+    const {
+      index, data, addValue, removeValue, checkValue,
+    } = this.props
+    return (
+      <Checkbox
+        data={data}
+        index={index}
+        addValue={addValue}
+        checkValue={checkValue}
+        removeValue={removeValue}
+      />
+    )
+  }
+
   render() {
     const {
-      rowSpan, colSpan, content, fixed, style, firstFixed, lastFixed,
+      rowSpan, colSpan, content, fixed, style, firstFixed, lastFixed, type,
     } = this.props
 
     const className = classnames(
@@ -30,21 +57,27 @@ class Td extends PureComponent {
 
     return (
       <td style={style} className={className} rowSpan={rowSpan} colSpan={colSpan}>
-        {content}
+        { type === 'checkbox' ? this.renderCheckbox() : content }
       </td>
     )
   }
 }
 
 Td.propTypes = {
+  addValue: PropTypes.func,
+  checkValue: PropTypes.func,
+  data: PropTypes.object,
+  removeValue: PropTypes.func,
   colSpan: PropTypes.number,
   className: PropTypes.string,
   content: PropTypes.any,
   firstFixed: PropTypes.bool,
   fixed: PropTypes.string,
+  index: PropTypes.number,
   lastFixed: PropTypes.bool,
   rowSpan: PropTypes.number,
   style: PropTypes.object,
+  type: PropTypes.string,
 }
 
 Td.defaultProps = {

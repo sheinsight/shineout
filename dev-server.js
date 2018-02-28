@@ -23,7 +23,7 @@ new WebpackDevServer(webpack(webpackConfig), {
   },
 }).listen(config.dev.webpackPort, 'localhost', (err) => {
   if (err) {
-    return console.log(err)
+    console.log(err)
   }
 })
 
