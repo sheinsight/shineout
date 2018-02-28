@@ -56,6 +56,13 @@ const pages = [
   },
   
   {
+    name: 'Icon',
+    cn: '图标',
+    level: 2,
+    component: loadable(() => import('./Icon')),
+  },
+  
+  {
     name: 'Message',
     cn: '消息提示',
     level: 2,
