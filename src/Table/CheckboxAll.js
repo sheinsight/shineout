@@ -4,7 +4,7 @@ import Checkbox from '../Checkbox'
 
 export default class extends PureComponent {
   static propTypes = {
-    data: PropTypes.object.isRequired,
+    data: PropTypes.array,
     value: PropTypes.object.isRequired,
   }
 
@@ -22,6 +22,23 @@ export default class extends PureComponent {
     this.props.value.unlisten('change', this.handleUpdate)
   }
 
+  getChecked() {
+    const { data, value } = this.props
+    if (value.length === 0) return false
+
+    let checked
+    for (const d of data) {
+      const p = value.check(d)
+      if (checked === undefined) {
+        checked = p
+      } else if (checked !== p) {
+        return 'indeterminate'
+      }
+    }
+
+    return checked
+  }
+
   handleUpdate() {
     this.forceUpdate()
   }
@@ -36,10 +53,12 @@ export default class extends PureComponent {
   }
 
   render() {
-    const { data, value } = this.props
-    const checked = value.check(data)
     return (
-      <Checkbox {...this.props} checked={checked} onChange={this.handleChange} />
+      <Checkbox
+        {...this.props}
+        checked={this.getChecked()}
+        onChange={this.handleChange}
+      />
     )
   }
 }

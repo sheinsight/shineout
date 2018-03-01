@@ -7,17 +7,6 @@ import Checkbox from './Checkbox'
 export const CLASS_FIXED_LEFT = 'fixed-left'
 export const CLASS_FIXED_RIGHT = 'fixed-right'
 
-/*
-    <Checkbox
-            onChange={this.handleRowSelect}
-            checked={checkValue(data)}
-            data={data}
-            index={index}
-            addValue={addValue}
-            removeValue={removeValue}
-          />
-*/
-
 class Td extends PureComponent {
   constructor(props) {
     super(props)
@@ -26,16 +15,12 @@ class Td extends PureComponent {
   }
 
   renderCheckbox() {
-    const {
-      index, data, addValue, removeValue, checkValue,
-    } = this.props
+    const { index, data, value } = this.props
     return (
       <Checkbox
         data={data}
         index={index}
-        addValue={addValue}
-        checkValue={checkValue}
-        removeValue={removeValue}
+        value={value}
       />
     )
   }
@@ -52,6 +37,7 @@ class Td extends PureComponent {
         fixed === 'right' && CLASS_FIXED_RIGHT,
         firstFixed && 'fixed-first',
         lastFixed && 'fixed-last',
+        type === 'checkbox' && 'checkbox',
       ),
     )
 
@@ -64,10 +50,7 @@ class Td extends PureComponent {
 }
 
 Td.propTypes = {
-  addValue: PropTypes.func,
-  checkValue: PropTypes.func,
   data: PropTypes.object,
-  removeValue: PropTypes.func,
   colSpan: PropTypes.number,
   className: PropTypes.string,
   content: PropTypes.any,
@@ -78,6 +61,7 @@ Td.propTypes = {
   rowSpan: PropTypes.number,
   style: PropTypes.object,
   type: PropTypes.string,
+  value: PropTypes.object,
 }
 
 Td.defaultProps = {

@@ -1,5 +1,5 @@
 /**
- * cn - 静态数据分页
+ * cn - 前端数据分页
  * en - Pagination
  */
 import React, { PureComponent } from 'react'

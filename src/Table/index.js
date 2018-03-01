@@ -57,7 +57,6 @@ export default class extends PureComponent {
         key: 'checkbox',
         type: 'checkbox',
         width: 40,
-        style: { textAlign: 'center', paddingLeft: 0, paddingRight: 0 },
         fixed: left >= 0 ? 'left' : undefined,
       })
     }

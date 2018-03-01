@@ -13,46 +13,26 @@ export default function (Component, type = 'list') {
 
     constructor(props) {
       super(props)
-      const { value } = props
+      const { value, onChange } = props
 
       if (value instanceof Datum) {
-        this.value = value
+        this.datum = value
+      } else if (Array.isArray(value)) {
+        this.datum = new Datum({ value })
       } else {
-        this.value = new Datum()
+        this.datum = new Datum(value)
       }
 
-      this.addValue = this.addValue.bind(this)
-      this.checkValue = this.checkValue.bind(this)
-      this.removeValue = this.removeValue.bind(this)
-    }
-
-    handleChange(...args) {
-      if (this.props.onChange) {
-        this.props.onChange(this.value.getValue(), ...args)
+      if (!this.datum.onChange) {
+        this.datum.onChange = onChange
       }
-    }
-
-    addValue(value, index) {
-      this.value.addValue(value)
-      this.handleChange(value, index)
-    }
-
-    removeValue(value, index) {
-      this.value.removeValue(value)
-      this.handleChange(value, index)
-    }
-
-    checkValue(value) {
-      return this.value.check(value)
     }
 
     render() {
       return (
         <Component
           {...this.props}
-          addValue={this.addValue}
-          checkValue={this.checkValue}
-          removeValue={this.removeValue}
+          value={this.datum}
         />
       )
     }
