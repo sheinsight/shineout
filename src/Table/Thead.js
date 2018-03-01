@@ -2,12 +2,15 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { tableClass } from '../styles'
 import Sorter from './Sorter'
+import CheckboxAll from './CheckboxAll'
 
 class Thead extends PureComponent {
   static propTypes = {
     columns: PropTypes.array.isRequired,
+    data: PropTypes.array,
     onSortChange: PropTypes.func,
     sorter: PropTypes.object,
+    value: PropTypes.object,
   }
 
   setColumns(columns, col, level) {
@@ -54,7 +57,9 @@ class Thead extends PureComponent {
     if (col.firstFixed) fixed.push('fixed-first')
     if (col.lastFixed) fixed.push('fixed-last')
 
-    const { sorter, onSortChange } = this.props
+    const {
+      sorter, onSortChange, data, value,
+    } = this.props
 
     if (col.title) {
       trs[level].push((
@@ -68,6 +73,16 @@ class Thead extends PureComponent {
             col.sorter &&
             <Sorter {...col} current={sorter} onChange={onSortChange} />
           }
+        </th>
+      ))
+
+      return
+    }
+
+    if (col.type === 'checkbox') {
+      trs[level].push((
+        <th key="checkbox" rowSpan={trs.length} className={tableClass('checkbox', ...fixed)}>
+          <CheckboxAll data={data} value={value} />
         </th>
       ))
 

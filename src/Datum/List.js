@@ -1,22 +1,29 @@
-import deepEqual from 'fast-deep-equal'
-
 export default class {
   constructor(args = {}) {
     const {
-      format, initValue, onChange, separator, values, prediction,
+      format, initValue, onChange, separator, values, prediction, distinct,
     } = args
 
+    this.distinct = distinct
     this.separator = separator
-    this.initValue = initValue || (a => a)
     this.onChange = onChange
+
     this.initFormat(format)
-    this.prediction = prediction || ((a, b) => a === b)
+
+    if (initValue) {
+      this.initValue = initValue
+    }
+
+    if (prediction) {
+      this.prediction = prediction
+    }
 
     if (separator && !format) {
       console.error('The separator parameter is not null, the format parameter can not be empty.')
     }
 
-    this.setValue(values)
+    this.events = {}
+    this.initValue(values)
   }
 
   initFormat(f) {
@@ -33,45 +40,88 @@ export default class {
     }
   }
 
-  handleChange() {
-    if (this.onChange) this.onChange(this.getValue())
+  prediction(value, data) {
+    return value === this.format(data)
   }
 
-  addValue(value) {
-    this.values = [...this.values, value]
-    this.handleChange()
+  handleChange(...args) {
+    this.dispatch('change', ...args)
+    if (this.onChange) {
+      this.onChange(this.getValue(), ...args)
+    }
   }
 
-  removeValue(value) {
-    this.values = this.values.filter(d => !deepEqual(d, value))
-    this.handleChange()
+  addValue(value, ...args) {
+    if (!value) return
+
+    let raws = Array.isArray(value) ? [...value] : [value]
+    if (this.distinct) {
+      raws = raws.filter(v => !this.check(v))
+    }
+
+    this.values = this.values.concat(raws)
+    this.handleChange(value, ...args)
   }
 
-  check(value) {
-    for (let i = 0, count = this.values.length; i <= count; i++) {
-      if (this.prediction(value, this.values[i])) return true
+  removeValue(value, ...args) {
+    if (!value) return
+
+    const raws = Array.isArray(value) ? [...value] : [value]
+    const values = []
+
+    outer:
+    for (const val of this.values) {
+      for (let j = 0; j < raws.length; j++) {
+        if (this.prediction(val, raws[j])) {
+          raws.splice(j, 1)
+          continue outer
+        }
+      }
+      values.push(val)
+    }
+
+    this.values = values
+    this.handleChange(value, ...args)
+  }
+
+  check(raw) {
+    for (let i = 0, count = this.values.length; i < count; i++) {
+      if (this.prediction(this.values[i], raw)) return true
     }
     return false
   }
 
+  listen(name, fn) {
+    if (!this.events[name]) this.events[name] = []
+    const events = this.events[name]
+    if (fn in events) return
+    events.push(fn)
+  }
+
+  unlisten(name, fn) {
+    if (!this.events[name]) return
+    this.events[name] = this.events[name].filter(e => e !== fn)
+  }
+
+  dispatch(name, ...args) {
+    const event = this.events[name]
+    if (!event) return
+    event.forEach(fn => fn(...args))
+  }
+
   clear() {
     this.values = []
+    this.dispatch('clear')
   }
 
-  /*
-  removeIndex(index) {
-    this.values = this.values.filter((d, i) => !(index === i))
-    this.handleChange()
-  }
-  */
-
-  length() {
+  get length() {
     return this.values.length
   }
 
-  setValue(values = []) {
+  initValue(values = []) {
     if (Array.isArray(values)) {
       this.values = values
+      this.dispatch('init')
       return
     }
 
@@ -82,6 +132,7 @@ export default class {
         console.error('The separator parameter is empty.')
       }
       this.values = []
+      this.dispatch('init')
       return
     }
 

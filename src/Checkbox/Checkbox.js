@@ -50,7 +50,7 @@ class Checkbox extends PureComponent {
 }
 
 Checkbox.propTypes = {
-  checked: PropTypes.bool,
+  checked: PropTypes.oneOf([true, false, 'indeterminate']),
   htmlValue: PropTypes.any,
   index: PropTypes.number,
   onChange: PropTypes.func,
@@ -58,6 +58,7 @@ Checkbox.propTypes = {
 }
 
 Checkbox.defaultProps = {
+  checked: false,
   htmlValue: true,
 }
 

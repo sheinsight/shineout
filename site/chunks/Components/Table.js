@@ -63,7 +63,7 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-10-sort.js'),
   },
   {
-    title: locate('静态数据分页', 'Pagination'),
+    title: locate('前端数据分页', 'Pagination'),
     component: require('doc/pages/components/Table/example-11-pagination.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-11-pagination.js'),
   },
@@ -88,9 +88,19 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-15-select.js'),
   },
   {
-    title: locate('选择行', 'Select'),
+    title: locate('选择行 (使用Datum)', 'Select (use Datum)'),
     component: require('doc/pages/components/Table/example-16-select.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-16-select.js'),
+  },
+  {
+    title: locate('\n 上面例子可以把Datum简化为json配置', '\n'),
+    component: require('doc/pages/components/Table/example-17-select.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-17-select.js'),
+  },
+  {
+    title: locate('选择行', 'Select'),
+    component: require('doc/pages/components/Table/example-20-select.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-20-select.js'),
   },
   {
     title: locate('只使用样式 \n 使用原生的tr, td来显示表格', 'Style only'),

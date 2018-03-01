@@ -1,9 +1,9 @@
 /**
- * cn - 选择行 (使用Datum)
- * en - Select (use Datum)
+ * cn - \n 上面例子可以把Datum简化为json配置
+ * en - \n
  */
 import React, { PureComponent } from 'react'
-import { Table, Datum } from 'shineout'
+import { Table } from 'shineout'
 import { fetchSync } from 'doc/data/table'
 
 const data = fetchSync(100)
@@ -27,38 +27,35 @@ export default class extends PureComponent {
   constructor(props) {
     super(props)
 
-    const selectedValue = new Datum.List({
-      format: 'id',
-      separator: ' | ',
-      prediction: (a, b) => a.id === b.id,
-      onChange: this.handelRowSelect.bind(this),
-    })
-
     this.state = {
       selectedText: '',
-      selectedValue,
     }
+
+    this.handelRowSelect = this.handelRowSelect.bind(this)
   }
 
-  handelRowSelect() {
-    const values = this.state.selectedValue.getValue()
+  handelRowSelect(values) {
     this.setState({ selectedText: values })
   }
 
   render() {
     return (
       <div>
-        <div>
-          selected rows: { this.state.selectedText }
+        <div style={{ marginBottom: 20 }}>
+          selected rows: [{ this.state.selectedText }]
         </div>
-        <br />
         <Table
           fixed="both"
           keygen="id"
           columns={columns}
           data={data}
           style={{ height: 300 }}
-          value={this.state.selectedValue}
+          value={{
+            format: 'id',
+            separator: ', ',
+            prediction: (a, b) => a.id === b.id,
+            onChange: this.handelRowSelect,
+          }}
         />
       </div>
     )
