@@ -4,21 +4,23 @@
  */
 
 import React from 'react'
-import { Breadcrumb } from 'shineout'
+import { Breadcrumb, Icon } from 'shineout'
 
-const dataSource = [{
-  icon: (<span className="glyphicon glyphicon-heart" />),
+
+const MyIcon = Icon('//at.alicdn.com/t/font_550076_aqfu50lfa47bke29.css')
+
+const data = [{
+  icon: <MyIcon iconType="info" />,
   url: '#',
 }, {
-  icon: (<span className="glyphicon glyphicon-th" />),
-  title: 'MENU',
+  title: 'Menu',
 }, {
-  title: 'SELF',
+  title: 'Self',
   url: 'https://www.baidu.com',
 }]
 
 export default function () {
   return (
-    <Breadcrumb dataSource={dataSource} />
+    <Breadcrumb data={data} />
   )
 }

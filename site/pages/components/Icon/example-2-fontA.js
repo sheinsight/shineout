@@ -7,15 +7,15 @@ import React, { Fragment } from 'react'
 import { Icon } from 'shineout'
 
 
-const MyIcon = Icon('she', 'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css')
+const MyIcon = Icon('https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css', 'FontAwesome', 'fa')
 
 export default function () {
   return (
     <Fragment>
-      <MyIcon style={{ marginRight: '20px' }} iconType="fa fa-home" iconSize={16} iconColor="#1890ff" />
-      <MyIcon style={{ marginRight: '20px' }} iconType="fa fa-tag" iconSize={20} iconColor="#52c41a" />
-      <MyIcon style={{ marginRight: '20px' }} iconType="fa fa-refresh" iconSize={24} iconColor="#1890ff" />
-      <MyIcon style={{ marginRight: '20px' }} iconType="fa fa-lock" iconSize={28} iconColor="#f5222d" />
+      <MyIcon style={{ marginRight: '20px' }} iconType="lock" size="small" />
+      <MyIcon style={{ marginRight: '20px' }} iconType="flag" size="small" type="primary" />
+      <MyIcon style={{ marginRight: '20px' }} iconType="pencil" type="success" />
+      <MyIcon style={{ marginRight: '20px' }} iconType="play" size="large" type="danger" />
     </Fragment>
   )
 }
