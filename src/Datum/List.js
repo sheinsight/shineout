@@ -1,7 +1,7 @@
 export default class {
   constructor(args = {}) {
     const {
-      format, initValue, onChange, separator, values, prediction, distinct,
+      format, initValue, onChange, separator, value, prediction, distinct,
     } = args
 
     this.distinct = distinct
@@ -23,7 +23,7 @@ export default class {
     }
 
     this.events = {}
-    this.initValue(values)
+    this.initValue(value)
   }
 
   initFormat(f) {
@@ -59,7 +59,13 @@ export default class {
       raws = raws.filter(v => !this.check(v))
     }
 
-    this.values = this.values.concat(raws)
+    const values = []
+    for (const r of raws) {
+      const v = this.format(r)
+      if (v) values.push(v)
+    }
+
+    this.values = this.values.concat(values)
     this.handleChange(value, ...args)
   }
 
@@ -127,11 +133,11 @@ export default class {
 
     if (typeof values === 'string') {
       if (this.separator) {
-        this.values = values.split(this.separator)
+        this.values = values.split(this.separator).map(s => s.trim())
       } else {
+        this.values = []
         console.error('The separator parameter is empty.')
       }
-      this.values = []
       this.dispatch('init')
       return
     }
@@ -140,8 +146,7 @@ export default class {
   }
 
   getValue() {
-    const values = this.values.map(v => this.format(v))
-    if (this.separator) return values.join(this.separator)
-    return values
+    if (this.separator) return this.values.join(this.separator)
+    return this.values
   }
 }

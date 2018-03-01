@@ -1,5 +1,5 @@
 /**
- * cn - \n 上面例子可以把Datum简化为json配置
+ * cn - \n 上面例子可以简化，传入一个 option 作为 datum
  * en - \n
  */
 import React, { PureComponent } from 'react'
@@ -28,35 +28,35 @@ export default class extends PureComponent {
     super(props)
 
     this.state = {
-      selectedText: '',
+      selectedText: '2, 3, 5',
     }
 
     this.handelRowSelect = this.handelRowSelect.bind(this)
   }
 
   handelRowSelect(values) {
-    this.setState({ selectedText: values })
+    this.setState({ selectedText: values.join(', ') })
   }
 
   render() {
+    const initValue = this.state.selectedText.split(',').map(v => parseInt(v, 10))
     return (
       <div>
-        <div style={{ marginBottom: 20 }}>
-          selected rows: [{ this.state.selectedText }]
-        </div>
         <Table
           fixed="both"
           keygen="id"
           columns={columns}
           data={data}
           style={{ height: 300 }}
-          value={{
+          datum={{
             format: 'id',
-            separator: ', ',
-            prediction: (a, b) => a.id === b.id,
+            value: initValue,
             onChange: this.handelRowSelect,
           }}
         />
+        <div>
+          selected rows: [{ this.state.selectedText }]
+        </div>
       </div>
     )
   }

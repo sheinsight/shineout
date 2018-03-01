@@ -1,5 +1,5 @@
 /**
- * cn - 选择行 (Datum) \n 使用 Datum，可以简化一些数据处理的工作
+ * cn - 选择行 (使用Datum)
  * en - Select (use Datum)
  */
 import React, { PureComponent } from 'react'
@@ -28,7 +28,7 @@ export default class extends PureComponent {
     super(props)
 
     const value = '2,3,5'
-    const datum = new Datum.List({
+    const selectedValue = new Datum.List({
       format: d => d.id.toString(),
       separator: ',',
       prediction: (val, d) => val === d.id.toString(),
@@ -37,14 +37,14 @@ export default class extends PureComponent {
     })
 
     this.state = {
-      selectedValue: value,
-      datum,
+      selectedText: value,
+      selectedValue,
     }
   }
 
   handelRowSelect() {
-    const values = this.state.datum.getValue()
-    this.setState({ selectedValue: values })
+    const values = this.state.selectedValue.getValue()
+    this.setState({ selectedText: values })
   }
 
   render() {
@@ -56,10 +56,10 @@ export default class extends PureComponent {
           columns={columns}
           data={data}
           style={{ height: 300 }}
-          datum={this.state.datum}
+          value={this.state.selectedValue}
         />
         <div style={{ wordBreak: 'break-all' }}>
-          selected rows: [{ this.state.selectedValue }]
+          selected rows: [{ this.state.selectedText }]
         </div>
       </div>
     )

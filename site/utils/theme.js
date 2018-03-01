@@ -1,4 +1,7 @@
 let theme = 'default'
+let link
+
+export const THEMES = ['default', 'antd']
 
 function getParameterByName(name) {
   const { search } = window.location
@@ -9,11 +12,9 @@ function getParameterByName(name) {
   return decodeURIComponent(results[2].replace(/\+/g, ' '))
 }
 
-export const THEMES = ['default', 'antd']
-
 function init(callback) {
   theme = getParameterByName('theme') || 'default'
-  const link = document.createElement('link')
+  link = document.createElement('link')
   link.setAttribute('rel', 'stylesheet')
   link.setAttribute('type', 'text/css')
   link.setAttribute('href', `${theme}.css`)
@@ -22,8 +23,13 @@ function init(callback) {
   document.head.appendChild(link)
 }
 
+function change(next) {
+  theme = next
+  link.setAttribute('href', `${theme}.css`)
+}
+
 export default {
   init,
-
+  change,
   getTheme: () => theme,
 }

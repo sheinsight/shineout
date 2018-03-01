@@ -88,12 +88,12 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-15-select.js'),
   },
   {
-    title: locate('选择行 (使用Datum)', 'Select (use Datum)'),
+    title: locate('选择行 (Datum) \n 使用 Datum，可以简化一些数据处理的工作', 'Select (use Datum)'),
     component: require('doc/pages/components/Table/example-16-select.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-16-select.js'),
   },
   {
-    title: locate('\n 上面例子可以把Datum简化为json配置', '\n'),
+    title: locate('\n 上面例子可以简化，传入一个 option 作为 datum', '\n'),
     component: require('doc/pages/components/Table/example-17-select.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-17-select.js'),
   },

@@ -24,7 +24,7 @@ export default class extends PureComponent {
 
   getChecked() {
     const { data, value } = this.props
-    if (value.length === 0) return false
+    if (value.length === 0 || !data) return false
 
     let checked
     for (const d of data) {

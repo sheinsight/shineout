@@ -13,7 +13,7 @@ export default class extends PureComponent {
     columns: PropTypes.array,
     data: PropTypes.array,
     onRowSelect: PropTypes.func,
-    value: PropTypes.object,
+    datum: PropTypes.object,
   }
 
   static defaultProps = {
@@ -34,7 +34,7 @@ export default class extends PureComponent {
       return this.cachedColumns
     }
 
-    const { onRowSelect, value } = this.props
+    const { onRowSelect, datum } = this.props
 
     let left = -1
     let right = -1
@@ -52,7 +52,7 @@ export default class extends PureComponent {
       if (i === right) draft.firstFixed = true
     }))
 
-    if (onRowSelect || value) {
+    if (onRowSelect || datum) {
       this.cachedColumns.unshift({
         key: 'checkbox',
         type: 'checkbox',
