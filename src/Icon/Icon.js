@@ -17,7 +17,7 @@ function Icon(props) {
   const className = classnames(iconClass('_', type, {
     small: size === 'small',
     large: size === 'large',
-  }), this.props.className)
+  }), props.className)
   const iconClassString = ` ${prefix}-${iconType} `
   return (<i {...otherProps} className={`${className} ${iconClassString}`} style={{ ...style, fontFamily }} />)
 }
