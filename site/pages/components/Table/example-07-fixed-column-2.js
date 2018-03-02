@@ -4,45 +4,28 @@ import { fetchSync } from 'doc/data/table'
 
 const data = fetchSync(6)
 
-export default function () {
-  const columns = [
-    {
-      title: 'id',
-      render: 'id',
-      fixed: 'left',
-      width: 36,
-    },
-    {
-      title: 'Name',
-      render: d => `${d.firstName} ${d.lastName}`,
-    },
-    {
-      title: 'Country',
-      render: 'country',
-    },
-    {
-      title: 'Position',
-      render: 'position',
-    },
-    {
-      title: 'Office',
-      render: 'office',
-    },
-    {
-      title: 'Date',
-      render: 'start',
-      fixed: 'right',
-      group: 'Start Time',
-      width: 120,
-    },
-    {
-      title: 'Time',
-      render: 'time',
-      group: 'Start Time',
-      width: 80,
-    },
-  ]
+const columns = [
+  { title: 'id', render: 'id', width: 36 },
+  { title: 'Name', render: d => `${d.firstName} ${d.lastName}` },
+  { title: 'Country', render: 'country' },
+  { title: 'Position', render: 'position' },
+  { title: 'Office', render: 'office' },
+  {
+    title: 'Date',
+    render: 'start',
+    fixed: 'right',
+    group: 'Start Time',
+    width: 120,
+  },
+  {
+    title: 'Time',
+    render: 'time',
+    group: 'Start Time',
+    width: 80,
+  },
+]
 
+export default function () {
   return (
     <Table
       fixed="x"

@@ -15,6 +15,30 @@ export default class extends PureComponent {
       total: 0,
       sorter: { name: 'start', order: 'asc' },
     }
+
+    this.columns = [
+      {
+        title: 'id',
+        render: 'id',
+        width: 70,
+        sorter: this.handleSorter.bind(this, 'id'),
+      },
+      { title: 'First Name', group: 'Name', render: 'firstName' },
+      { title: 'Last Name', group: 'Name', render: 'lastName' },
+      {
+        title: 'Start Date',
+        render: 'start',
+        sorter: this.handleSorter.bind(this, 'start'),
+        rowSpan: (a, b) => a === b,
+        colSpan: (d) => {
+          const hour = parseInt(d.time.slice(0, 2), 10)
+          if (hour > 21 || hour < 9) return 2
+          return 1
+        },
+      },
+      { title: 'Time', render: 'time' },
+      { title: 'Office', render: 'office5', rowSpan: true },
+    ]
   }
 
   componentDidMount() {
@@ -42,45 +66,13 @@ export default class extends PureComponent {
       data, current, pageSize, total, loading,
     } = this.state
 
-    const columns = [
-      {
-        title: 'id',
-        render: 'id',
-        width: 70,
-        sorter: this.handleSorter.bind(this, 'id'),
-      },
-      {
-        title: 'First Name',
-        group: 'Name',
-        render: 'firstName',
-      },
-      {
-        title: 'Last Name',
-        group: 'Name',
-        render: 'lastName',
-      },
-      {
-        title: 'Start Date',
-        render: 'start',
-        sorter: this.handleSorter.bind(this, 'start'),
-        rowSpan: (a, b) => a === b,
-        colSpan: (d) => {
-          const hour = parseInt(d.time.slice(0, 2), 10)
-          if (hour > 21 || hour < 9) return 2
-          return 1
-        },
-      },
-      { title: 'Time', render: 'time' },
-      { title: 'Office', render: 'office5', rowSpan: true },
-    ]
-
     return (
       <Table
         bordered
         loading={loading}
         data={data}
         keygen="id"
-        columns={columns}
+        columns={this.columns}
         pagination={{
           align: 'center',
           current,

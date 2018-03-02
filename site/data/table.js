@@ -88,9 +88,9 @@ export const fetch = {
           break
         case 'on':
         case 'off':
-          allData.forEach((d) => {
+          allData.forEach((d, i) => {
             if (ids.indexOf(d.id) >= 0) {
-              d.status = op === 'on'
+              allData[i] = { ...d, status: op === 'on' }
             }
           })
           break

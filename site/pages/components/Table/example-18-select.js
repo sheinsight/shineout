@@ -22,6 +22,16 @@ export default class extends PureComponent {
         this.setState({ selectedValue })
       },
     })
+
+    this.columns = [
+      {
+        title: 'Id', render: 'id', width: 70, sorter: this.handleIdSort,
+      },
+      { title: 'First Name', render: 'firstName' },
+      { title: 'Last Name', render: 'lastName', sorter: this.handleLastNameSort },
+      { title: 'Office', render: 'office' },
+      { title: 'Start Date', render: 'start', sorter: this.handleStartSort },
+    ]
   }
 
   componentDidMount() {
@@ -61,26 +71,13 @@ export default class extends PureComponent {
       data, current, pageSize, total, loading, selectedValue,
     } = this.state
 
-    const columns = [
-      {
-        title: 'Id',
-        render: 'id',
-        width: 70,
-        sorter: this.handleIdSort,
-      },
-      { title: 'First Name', render: 'firstName' },
-      { title: 'Last Name', render: 'lastName', sorter: this.handleLastNameSort },
-      { title: 'Office', render: 'office' },
-      { title: 'Start Date', render: 'start', sorter: this.handleStartSort },
-    ]
-
     return (
       <div>
         <Table
           loading={loading}
           data={data}
           keygen="id"
-          columns={columns}
+          columns={this.columns}
           datum={this.datum}
           pagination={{
             align: 'center',
