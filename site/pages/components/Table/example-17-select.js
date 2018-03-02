@@ -51,6 +51,7 @@ export default class extends PureComponent {
           datum={{
             format: 'id',
             value: initValue,
+            disabled: d => d.id % 3 === 0,
             onChange: this.handelRowSelect,
           }}
         />

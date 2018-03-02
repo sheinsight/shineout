@@ -22,7 +22,7 @@ export default function (Component, type = 'list') {
         this.datum = new Datum(datum)
       }
 
-      if (value) this.datum.initValue(value)
+      if (value) this.datum.setValue(value)
 
       if (!this.datum.onChange) {
         this.datum.onChange = onChange

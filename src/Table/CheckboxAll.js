@@ -28,6 +28,7 @@ export default class extends PureComponent {
 
     let checked
     for (const d of data) {
+      if (value.disabled(d)) continue
       const p = value.check(d)
       if (checked === undefined) {
         checked = p

@@ -36,6 +36,7 @@
   
   i&-indicator {
     position: relative;
+    cursor: pointer;
     display: block;
     box-sizing: content-box;
     width: @checkbox-size;
@@ -58,10 +59,10 @@
       border-width: 0 0 2px 2px;
       transition: transform 0.1s ease-in-out;
     }
-  }
 
-  &:hover i&-indicator {
-    border-color: @checkbox-hover-color;
+    &:hover {
+      border-color: @checkbox-hover-color;
+    }
   }
 
   &-checked i&-indicator {
@@ -79,6 +80,23 @@
     &:after {
       border-left-width: 0;
       border-color: #fff;
+    }
+  }
+
+  &-disabled {
+    opacity: 0.7;
+  }
+
+  &-disabled i&-indicator {
+    border-color: @gray-500;
+    background-color: @gray-200;
+    cursor: @cursor-disabled;
+  }
+
+  &-disabled&-checked i&-indicator,
+  &-disabled&-indeterminate i&-indicator {
+    &:after {
+      border-color: @gray-500;
     }
   }
 }

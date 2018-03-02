@@ -1,5 +1,5 @@
 /**
- * cn - 选择行 (示例)
+ * cn - \n 如果需要翻页时清除选中数据，可以在翻页时调用 Datum.clear() 方法
  * en - Select
  */
 import React, { PureComponent } from 'react'
@@ -13,19 +13,19 @@ export default class extends PureComponent {
       current: 1,
       pageSize: 5,
       total: 0,
+      selectedValue: '',
     }
 
     this.datum = new Datum.List({
       format: 'id',
+      onChange: (selectedValue) => {
+        this.setState({ selectedValue })
+      },
     })
   }
 
   componentDidMount() {
     this.fetchData()
-  }
-
-  handleSorter = (name, order) => {
-    this.setState({ sorter: { name, order }, current: 1 }, this.fetchData)
   }
 
   handlePageChange = (current, pageSize) => {
@@ -40,6 +40,7 @@ export default class extends PureComponent {
 
       this.setState({
         data: res.data,
+        selectedValue: [],
         loading: false,
         total: res.total,
       })
@@ -54,9 +55,13 @@ export default class extends PureComponent {
     this.handleSorter('start', order)
   }
 
+  handleLastNameSort = (order) => {
+    this.handleSorter('lastName', order)
+  }
+
   render() {
     const {
-      data, current, pageSize, total, loading,
+      data, current, pageSize, total, loading, selectedValue,
     } = this.state
 
     const columns = [
@@ -88,6 +93,10 @@ export default class extends PureComponent {
             total,
           }}
         />
+        <br />
+        <div>
+          selected rows: {JSON.stringify(selectedValue)}
+        </div>
       </div>
     )
   }

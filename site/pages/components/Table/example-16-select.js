@@ -6,7 +6,7 @@ import React, { PureComponent } from 'react'
 import { Table, Datum } from 'shineout'
 import { fetchSync } from 'doc/data/table'
 
-const data = fetchSync(100)
+const data = fetchSync(20)
 
 const columns = [
   {
@@ -27,11 +27,9 @@ export default class extends PureComponent {
   constructor(props) {
     super(props)
 
-    const value = '2,3,5'
+    const value = [2, 3, 5].map(i => `${data[i].firstName} ${data[i].lastName}`)
     const datum = new Datum.List({
-      format: d => d.id.toString(),
-      separator: ',',
-      prediction: (val, d) => val === d.id.toString(),
+      format: d => `${d.firstName} ${d.lastName}`,
       value,
       onChange: this.handelRowSelect.bind(this),
     })
@@ -59,7 +57,7 @@ export default class extends PureComponent {
           datum={this.state.datum}
         />
         <div style={{ wordBreak: 'break-all' }}>
-          selected rows: [{ this.state.selectedValue }]
+          selected rows: { JSON.stringify(this.state.selectedValue) }
         </div>
       </div>
     )

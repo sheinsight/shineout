@@ -1,5 +1,5 @@
 /**
- * cn - 选择行 (示例)
+ * cn - 选择行 (分页) \n 默认情况下，翻页时 Datum 对象会保留当前选中的数据
  * en - Select
  */
 import React, { PureComponent } from 'react'
@@ -13,10 +13,14 @@ export default class extends PureComponent {
       current: 1,
       pageSize: 5,
       total: 0,
+      selectedValue: '',
     }
 
     this.datum = new Datum.List({
       format: 'id',
+      onChange: (selectedValue) => {
+        this.setState({ selectedValue })
+      },
     })
   }
 
@@ -36,13 +40,7 @@ export default class extends PureComponent {
     const { sorter, current, pageSize } = this.state
     this.setState({ loading: true })
     fetch.get('table', { sorter, current, pageSize }).then((res) => {
-      this.datum.clear()
-
-      this.setState({
-        data: res.data,
-        loading: false,
-        total: res.total,
-      })
+      this.setState({ data: res.data, loading: false, total: res.total })
     })
   }
 
@@ -54,9 +52,13 @@ export default class extends PureComponent {
     this.handleSorter('start', order)
   }
 
+  handleLastNameSort = (order) => {
+    this.handleSorter('lastName', order)
+  }
+
   render() {
     const {
-      data, current, pageSize, total, loading,
+      data, current, pageSize, total, loading, selectedValue,
     } = this.state
 
     const columns = [
@@ -67,7 +69,7 @@ export default class extends PureComponent {
         sorter: this.handleIdSort,
       },
       { title: 'First Name', render: 'firstName' },
-      { title: 'Last Name', render: 'lastName' },
+      { title: 'Last Name', render: 'lastName', sorter: this.handleLastNameSort },
       { title: 'Office', render: 'office' },
       { title: 'Start Date', render: 'start', sorter: this.handleStartSort },
     ]
@@ -88,6 +90,10 @@ export default class extends PureComponent {
             total,
           }}
         />
+        <br />
+        <div>
+          selected rows: {JSON.stringify(selectedValue)}
+        </div>
       </div>
     )
   }

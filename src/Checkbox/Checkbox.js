@@ -43,6 +43,7 @@ class Checkbox extends PureComponent {
     const className = classnames(
       checkboxClass(
         '_',
+        disabled && 'disabled',
         checked === true && 'checked',
         checked === 'indeterminate' && 'indeterminate',
       ),

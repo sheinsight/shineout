@@ -98,7 +98,17 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-17-select.js'),
   },
   {
-    title: locate('选择行', 'Select'),
+    title: locate('选择行 (分页) \n 默认情况下，翻页时 Datum 对象会保留当前选中的数据', 'Select'),
+    component: require('doc/pages/components/Table/example-18-select.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-18-select.js'),
+  },
+  {
+    title: locate('\n 如果需要翻页时清除选中数据，可以在翻页时调用 Datum.clear() 方法', 'Select'),
+    component: require('doc/pages/components/Table/example-19-select.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-19-select.js'),
+  },
+  {
+    title: locate('选择行 (示例)', 'Select'),
     component: require('doc/pages/components/Table/example-20-select.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-20-select.js'),
   },

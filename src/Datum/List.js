@@ -1,18 +1,15 @@
 export default class {
   constructor(args = {}) {
     const {
-      format, initValue, onChange, separator, value, prediction, distinct,
+      format, onChange, separator, value, prediction, distinct, disabled,
     } = args
 
     this.distinct = distinct
     this.separator = separator
     this.onChange = onChange
+    this.disabled = disabled || (() => false)
 
     this.initFormat(format)
-
-    if (initValue) {
-      this.initValue = initValue
-    }
 
     if (prediction) {
       this.prediction = prediction
@@ -23,7 +20,7 @@ export default class {
     }
 
     this.events = {}
-    this.initValue(value)
+    this.setValue(value)
   }
 
   initFormat(f) {
@@ -54,10 +51,13 @@ export default class {
   addValue(value, ...args) {
     if (!value) return
 
-    let raws = Array.isArray(value) ? [...value] : [value]
-    if (this.distinct) {
-      raws = raws.filter(v => !this.check(v))
-    }
+    let raws = Array.isArray(value) ? value : [value]
+    raws = raws.filter((v) => {
+      const disabled = this.disabled(v)
+      if (disabled) return false
+      if (this.distinct) return !this.check(v)
+      return true
+    })
 
     const values = []
     for (const r of raws) {
@@ -72,7 +72,8 @@ export default class {
   removeValue(value, ...args) {
     if (!value) return
 
-    const raws = Array.isArray(value) ? [...value] : [value]
+    let raws = Array.isArray(value) ? value : [value]
+    raws = raws.filter(r => !this.disabled(r))
     const values = []
 
     outer:
@@ -117,17 +118,17 @@ export default class {
 
   clear() {
     this.values = []
-    this.dispatch('clear')
+    this.dispatch('change')
   }
 
   get length() {
     return this.values.length
   }
 
-  initValue(values = []) {
+  setValue(values = []) {
     if (Array.isArray(values)) {
       this.values = values
-      this.dispatch('init')
+      this.dispatch('change')
       return
     }
 
@@ -138,7 +139,7 @@ export default class {
         this.values = []
         console.error('The separator parameter is empty.')
       }
-      this.dispatch('init')
+      this.dispatch('change')
       return
     }
 
