@@ -21,8 +21,8 @@ const data = [{
 export default function () {
   return (
     <Fragment>
-      <Breadcrumb data={data} separator="|" />
-      <Breadcrumb data={data} separator={<Separator />} />
+      <Breadcrumb keygen="title" data={data} separator="|" />
+      <Breadcrumb keygen={d => (`${d.title}2`)} data={data} separator={<Separator />} />
     </Fragment>
   )
 }

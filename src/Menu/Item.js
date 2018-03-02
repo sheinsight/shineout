@@ -6,8 +6,11 @@ import { menuClass } from '../styles'
 
 class Item extends React.Component {
   render() {
+    console.log(this.props.selectKeys, this.props.menuKey)
     const className = classnames(
-      menuClass('item'),
+      menuClass('item', {
+        'item-selected': this.props.selectKeys.find(key => key === this.props.menuKey),
+      }),
       this.props.className,
     )
     return (<li className={className}>{this.props.data.content}</li>)
@@ -17,11 +20,13 @@ class Item extends React.Component {
 Item.propTypes = {
   ...getProps(),
   data: PropTypes.object,
+  menuKey: PropTypes.string,
 }
 
 Item.defaultProps = {
   ...defaultProps,
   data: {},
+  menuKey: '',
 }
 
 export default Item

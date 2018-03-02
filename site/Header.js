@@ -8,6 +8,14 @@ import theme from './utils/theme'
 
 const headerClass = classGenerate(require('./styles/header.less'), 'header')
 
+const themes = [{
+  content: 'antd',
+  id: '1',
+}, {
+  content: 'default',
+  id: '2',
+}]
+
 function getPath(pathname) {
   const index = pathname.indexOf('/', 2)
   let path = pathname
@@ -20,8 +28,8 @@ function handleLangClick() {
   setLanguage(lang)
 }
 
-function handleThemeClick(theme) {
-  const url = `?theme=${theme}${window.location.hash}`
+function handleThemeClick(content) {
+  const url = `?theme=${content}${window.location.hash}`
   window.location.href = url
 }
 
@@ -54,19 +62,12 @@ function Header(props, context) {
       <div className={headerClass('right')}>
         <Dropdown
           className={headerClass('light')}
+          data={themes}
+          onClick={handleThemeClick}
           hover
           placeholder={`theme: ${theme.getTheme()}`}
           type="link"
-        >
-          {(['default', 'antd']).map(t => (
-            <a
-              key={t}
-              href="javascript:;"
-              onClick={handleThemeClick.bind(null, t)}
-            >{t}
-            </a>
-          ))}
-        </Dropdown>
+        />
       </div>
     </div>
   )

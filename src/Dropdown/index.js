@@ -61,20 +61,20 @@ class Dropdown extends PureComponent {
       f = 'top'
     }
 
+    if (this.props.hover) this.element.focus()
+
     if (this.closeTimer) {
       clearTimeout(this.closeTimer)
     }
-
-    this.button.focus()
     this.setState(immer((state) => {
       state.show = true
       state.position = `${f}-${s}`
     }))
   }
 
-  handleBlur() {
+  handleBlur(e) {
     // wait item event execute
-    console.log('blur')
+    if (e.relatedTarget && e.relatedTarget.nodeName !== 'A' && e.currentTarget.contains(e.relatedTarget)) return
     this.closeTimer = setTimeout(() => {
       if (!this.isUnmounted) this.setState({ show: false, position: 'bottom-left' })
     }, 200)
@@ -88,44 +88,49 @@ class Dropdown extends PureComponent {
     this.handleFocus()
   }
 
-
   renderList(data, placeholder) {
     const {
-      keygen, width, type, outline, size, disabled, btnColor, style,
+      keygen, width, type, outline, size, disabled, btnColor, style, onClick,
     } = this.props
     if (!Array.isArray(data) || data.length === 0) return null
     const itemClassName = dropdownClass('item', !width && 'no-width')
-    return (
-      <Fragment>
-        <Button
-          disabled={disabled}
-          ref={this.bindButton}
-          onClick={this.handleFocus}
-          onMouseEnter={this.handleHover}
-          outline={outline}
-          className={dropdownClass('button')}
-          type={type}
-          size={size}
-          style={btnColor ? { ...style, color: '#000' } : style}
-        >
-          {placeholder}
-        </Button>
-        <FadeList
-          className={dropdownClass('menu')}
-          style={{ width }}
-          show={this.state.show}
-        >
-          {
-            data.map((d) => {
-              const liKey = Dropdown.getKey(d, keygen)
-              return d.children ?
-                <Dropdown data={d.children} placeholder={d.content} type="link" key={liKey} position="right-top" btnColor /> :
-                (<a key={liKey} className={itemClassName} href={d.url ? d.url : 'javascript:;'}>{d.content}</a>)
-            })
-          }
-        </FadeList>
-      </Fragment>
-    )
+    return [
+      <Button
+        disabled={disabled}
+        ref={this.bindButton}
+        onClick={this.handleFocus}
+        outline={outline}
+        className={dropdownClass('button')}
+        type={type}
+        size={size}
+        style={btnColor ? { ...style, color: '#000' } : style}
+        key="1"
+      >
+        {placeholder}
+      </Button>,
+      <FadeList
+        className={dropdownClass('menu')}
+        style={{ width }}
+        key="2"
+        show={this.state.show}
+      >
+        {
+          data.map((d) => {
+            const liKey = Dropdown.getKey(d, keygen)
+            return d.children ?
+              <Dropdown hover={this.props.hover} style={{ width: '100%' }} data={d.children} placeholder={d.content} type="link" key={liKey} position="right-top" btnColor /> :
+              (
+                <a
+                  key={liKey}
+                  onClick={() => onClick && onClick(d.content, d)}
+                  className={itemClassName}
+                  href={d.url ? d.url : 'javascript:;'}
+                >
+                  {d.content}
+                </a>)
+          })
+        }
+      </FadeList>]
   }
   render() {
     const {
@@ -138,7 +143,14 @@ class Dropdown extends PureComponent {
     if (className) wrapClassName += ` ${className}`
 
     return (
-      <div ref={this.bindElement} className={wrapClassName} style={style} >
+      <div
+        onMouseEnter={this.handleHover}
+        ref={this.bindElement}
+        onBlur={this.handleBlur}
+        className={wrapClassName}
+        style={style}
+        tabIndex={1}
+      >
         {this.renderList(data, placeholder, -1)}
       </div>
     )

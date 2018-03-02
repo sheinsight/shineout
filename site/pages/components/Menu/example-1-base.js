@@ -8,7 +8,7 @@ import { Menu } from 'shineout'
 const data = [{
   id: '1',
   content: 'Home',
-  children: [{
+  children1: [{
     id: '3',
     content: 'Product',
   }, {
@@ -22,6 +22,6 @@ const data = [{
 
 export default function () {
   return (
-    <Menu data={data} />
+    <Menu keygen={d => `${d.id}my`} data={data} defaultSelectKeys={['2my']} style={{ width: 156 }} />
   )
 }

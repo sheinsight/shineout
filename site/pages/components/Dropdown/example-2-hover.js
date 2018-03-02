@@ -6,17 +6,25 @@ import React from 'react'
 import { Dropdown } from 'shineout'
 
 export default function () {
-  const menu = [
-    <a key={1}>Link 1</a>,
-    <a key={2}>Link 2</a>,
-    <hr key={3} />,
-    <a key={4}>Link 3</a>,
-  ]
+  const menu = [{
+    content: 'First',
+    id: '1',
+    children: [{
+      id: '3',
+      content: 'optic 1',
+    }],
+  }, {
+    content: 'Second',
+    url: 'www.baidu.com',
+    id: '2',
+    children: [{
+      content: 'topic 2',
+      id: 4,
+    }],
+  }]
 
   return (
-    <Dropdown hover placeholder="Hover">
-      {menu}
-    </Dropdown>
+    <Dropdown hover placeholder="Hover" data={menu} />
   )
 }
 
