@@ -25,12 +25,12 @@ export default class extends PureComponent {
 
     this.columns = [
       {
-        title: 'Id', render: 'id', width: 70, sorter: this.handleIdSort,
+        title: 'Id', render: 'id', width: 70, sorter: this.handleSorter.bind(this, 'id'),
       },
       { title: 'First Name', render: 'firstName' },
-      { title: 'Last Name', render: 'lastName', sorter: this.handleLastNameSort },
+      { title: 'Last Name', render: 'lastName', sorter: this.handleSorter.bind(this, 'lastName') },
       { title: 'Office', render: 'office' },
-      { title: 'Start Date', render: 'start', sorter: this.handleStartSort },
+      { title: 'Start Date', render: 'start', sorter: this.handleSorter.bind(this, 'start') },
     ]
   }
 
@@ -52,18 +52,6 @@ export default class extends PureComponent {
     fetch.get('table', { sorter, current, pageSize }).then((res) => {
       this.setState({ data: res.data, loading: false, total: res.total })
     })
-  }
-
-  handleIdSort = (order) => {
-    this.handleSorter('id', order)
-  }
-
-  handleStartSort = (order) => {
-    this.handleSorter('start', order)
-  }
-
-  handleLastNameSort = (order) => {
-    this.handleSorter('lastName', order)
   }
 
   render() {

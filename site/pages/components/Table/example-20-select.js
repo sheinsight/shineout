@@ -21,12 +21,12 @@ export default class extends PureComponent {
 
     this.columns = [
       {
-        title: 'Id', render: 'id', width: 70, sorter: this.handleIdSort,
+        title: 'Id', render: 'id', width: 70, sorter: this.handleSorter.bind(this, 'id'),
       },
       { title: 'First Name', render: 'firstName' },
       { title: 'Last Name', render: 'lastName' },
       { title: 'Office', render: 'office' },
-      { title: 'Start Date', render: 'start', sorter: this.handleStartSort },
+      { title: 'Start Date', render: 'start', sorter: this.handleSorter.bind(this, 'start') },
       { title: 'Status', width: 100, render: d => d.status && 'on' },
     ]
   }
@@ -55,14 +55,6 @@ export default class extends PureComponent {
         total: res.total,
       })
     })
-  }
-
-  handleIdSort = (order) => {
-    this.handleSorter('id', order)
-  }
-
-  handleStartSort = (order) => {
-    this.handleSorter('start', order)
   }
 
   handleOpClick(op) {
