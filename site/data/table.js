@@ -8,7 +8,7 @@ import city from '../utils/faker/city'
 
 const totalCount = 10000
 
-const allData = []
+let allData = []
 function init() {
   const offset = 5000 * 3600 * 24 * 1000
   const c20 = pick(country, 20)
@@ -77,6 +77,28 @@ export const fetch = {
           total: allData.length,
         })
       }, pickInteger(500, 300))
+    })
+  },
+
+  post(src, { op, ids }) {
+    return new Promise((resolve) => {
+      switch (op) {
+        case 'delete':
+          allData = allData.filter(d => ids.indexOf(d.id) < 0)
+          break
+        case 'on':
+        case 'off':
+          allData.forEach((d) => {
+            if (ids.indexOf(d.id) >= 0) {
+              d.status = op === 'on'
+            }
+          })
+          break
+        default:
+      }
+      setTimeout(() => {
+        resolve(true)
+      }, pickInteger(200))
     })
   },
 }

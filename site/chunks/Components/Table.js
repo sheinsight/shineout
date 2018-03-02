@@ -108,7 +108,7 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-19-select.js'),
   },
   {
-    title: locate('选择行 (示例)', 'Select'),
+    title: locate('选择行 (示例) \n 通常情况下，不需要使用 onChange 事件，使用 Datum.getValue 即可', 'Select'),
     component: require('doc/pages/components/Table/example-20-select.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-20-select.js'),
   },
