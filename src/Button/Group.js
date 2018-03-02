@@ -32,7 +32,7 @@ class ButtonGroup extends PureComponent {
 
 ButtonGroup.propTypes = {
   ...getProps('size', 'type'),
-  children: PropTypes.array.isRequired,
+  children: PropTypes.any.isRequired,
   outline: PropTypes.bool,
 }
 
