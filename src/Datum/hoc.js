@@ -8,20 +8,21 @@ export default function (Component, type = 'list') {
   return class extends PureComponent {
     static propTypes = {
       onChange: PropTypes.func,
-      value: PropTypes.object,
+      datum: PropTypes.object,
+      value: PropTypes.array,
     }
 
     constructor(props) {
       super(props)
-      const { value, onChange } = props
+      const { datum, onChange, value } = props
 
-      if (value instanceof Datum) {
-        this.datum = value
-      } else if (Array.isArray(value)) {
-        this.datum = new Datum({ value })
+      if (datum instanceof Datum) {
+        this.datum = datum
       } else {
-        this.datum = new Datum(value)
+        this.datum = new Datum(datum)
       }
+
+      if (value) this.datum.setValue(value)
 
       if (!this.datum.onChange) {
         this.datum.onChange = onChange

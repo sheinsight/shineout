@@ -1,6 +1,9 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
+import { getProps, defaultProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
+import { checkboxClass } from '../styles'
 
 class Checkbox extends PureComponent {
   constructor(props) {
@@ -36,10 +39,23 @@ class Checkbox extends PureComponent {
   }
 
   render() {
+    const { checked, disabled, style } = this.props
+    const className = classnames(
+      checkboxClass(
+        '_',
+        disabled && 'disabled',
+        checked === true && 'checked',
+        checked === 'indeterminate' && 'indeterminate',
+      ),
+      this.props.className,
+    )
+
     return (
-      <label htmlFor={this.id}>
+      <label className={className} style={style} htmlFor={this.id}>
+        <i className={checkboxClass('indicator')} />
         <input
           id={this.id}
+          disabled={disabled}
           type="checkbox"
           onChange={this.handleChange}
           checked={this.checked}
@@ -50,6 +66,7 @@ class Checkbox extends PureComponent {
 }
 
 Checkbox.propTypes = {
+  ...getProps('disabled'),
   checked: PropTypes.oneOf([true, false, 'indeterminate']),
   htmlValue: PropTypes.any,
   index: PropTypes.number,
@@ -58,6 +75,7 @@ Checkbox.propTypes = {
 }
 
 Checkbox.defaultProps = {
+  ...defaultProps,
   checked: false,
   htmlValue: true,
 }

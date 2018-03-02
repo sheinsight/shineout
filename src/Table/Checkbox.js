@@ -38,8 +38,14 @@ export default class extends PureComponent {
   render() {
     const { data, value } = this.props
     const checked = value.check(data)
+    const disabled = value.disabled(data)
     return (
-      <Checkbox {...this.props} checked={checked} onChange={this.handleChange} />
+      <Checkbox
+        {...this.props}
+        checked={checked}
+        disabled={disabled}
+        onChange={this.handleChange}
+      />
     )
   }
 }

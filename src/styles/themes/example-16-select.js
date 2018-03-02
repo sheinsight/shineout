@@ -1,12 +1,12 @@
 /**
- * cn - 选择行 (Datum) \n 使用 Datum，可以简化一些数据处理的工作
+ * cn - 选择行 (使用Datum)
  * en - Select (use Datum)
  */
 import React, { PureComponent } from 'react'
 import { Table, Datum } from 'shineout'
 import { fetchSync } from 'doc/data/table'
 
-const data = fetchSync(20)
+const data = fetchSync(100)
 
 const columns = [
   {
@@ -27,22 +27,24 @@ export default class extends PureComponent {
   constructor(props) {
     super(props)
 
-    const value = [2, 3, 5].map(i => `${data[i].firstName} ${data[i].lastName}`)
-    const datum = new Datum.List({
-      format: d => `${d.firstName} ${d.lastName}`,
+    const value = '2,3,5'
+    const selectedValue = new Datum.List({
+      format: d => d.id.toString(),
+      separator: ',',
+      prediction: (val, d) => val === d.id.toString(),
       value,
       onChange: this.handelRowSelect.bind(this),
     })
 
     this.state = {
-      selectedValue: value,
-      datum,
+      selectedText: value,
+      selectedValue,
     }
   }
 
   handelRowSelect() {
-    const values = this.state.datum.getValue()
-    this.setState({ selectedValue: values })
+    const values = this.state.selectedValue.getValue()
+    this.setState({ selectedText: values })
   }
 
   render() {
@@ -54,10 +56,10 @@ export default class extends PureComponent {
           columns={columns}
           data={data}
           style={{ height: 300 }}
-          datum={this.state.datum}
+          value={this.state.selectedValue}
         />
         <div style={{ wordBreak: 'break-all' }}>
-          selected rows: { JSON.stringify(this.state.selectedValue) }
+          selected rows: [{ this.state.selectedText }]
         </div>
       </div>
     )

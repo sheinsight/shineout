@@ -1,0 +1,102 @@
+@import './variables.less';
+@import './themes/@{so-theme}.less';
+
+@checkbox-prefix: ~"@{so-prefix}-checkbox";
+
+.@{checkbox-prefix} {
+  @keyname: ~"@{checkbox-prefix}-focus";
+
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin-bottom: 0;
+
+  input[type=checkbox], input[type=radio] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    clip: rect(0,0,0,0);
+  }
+
+  @keyframes @keyname {
+    0% {
+      box-shadow: 0 0 0 0 fade(@checkbox-active-color, 50%);
+    }
+    50% {
+      box-shadow: 0 0 0 4px fade(@checkbox-active-color, 0%);
+    }
+    100% {
+      box-shadow: 0 0 0 8px fade(@checkbox-active-color, 0);
+    }
+  }
+
+  &-checked i&-indicator, &-indeterminate i&-indicator {
+    animation: @keyname 0.6s ease-out;
+  }
+  
+  i&-indicator {
+    position: relative;
+    cursor: pointer;
+    display: block;
+    box-sizing: content-box;
+    width: @checkbox-size;
+    height: @checkbox-size;
+    overflow: hidden;
+    border: solid 1px @gray-500;
+    border-radius: @checkbox-border-radius;
+    transition: 0.2s ease-in-out;
+
+    &:after {
+      content: ' ';
+      display: block;
+      position: absolute;
+      top: 20%;
+      left: 15%;
+      z-index: 10;
+      width: 70%;
+      height: 35%;
+      border: solid 2px transparent;
+      border-width: 0 0 2px 2px;
+      transition: transform 0.1s ease-in-out;
+    }
+
+    &:hover {
+      border-color: @checkbox-hover-color;
+    }
+  }
+
+  &-checked i&-indicator {
+    border-color: @checkbox-active-color;
+    background: @checkbox-active-color;
+    &:after {
+      transform: rotate(-45deg);
+      border-color: #fff;
+    }
+  }
+
+  &-indeterminate i&-indicator {
+    border-color: @checkbox-active-color;
+    background: @checkbox-active-color;
+    &:after {
+      border-left-width: 0;
+      border-color: #fff;
+    }
+  }
+
+  &-disabled {
+    opacity: 0.7;
+  }
+
+  &-disabled i&-indicator {
+    border-color: @gray-500;
+    background-color: @gray-200;
+    cursor: @cursor-disabled;
+  }
+
+  &-disabled&-checked i&-indicator,
+  &-disabled&-indeterminate i&-indicator {
+    &:after {
+      border-color: @gray-500;
+    }
+  }
+}
