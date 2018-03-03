@@ -9,8 +9,7 @@ class Sticky extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.state = {
-    }
+    this.state = {}
 
     this.bindElement = this.bindElement.bind(this)
     this.bindPlaceholder = this.bindPlaceholder.bind(this)
@@ -135,7 +134,7 @@ class Sticky extends PureComponent {
       if (this.scrollCount > 0) {
         this.handlePosition()
       }
-    }, 64)
+    }, 48)
   }
 
   bindElement(el) {

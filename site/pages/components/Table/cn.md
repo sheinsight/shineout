@@ -11,7 +11,8 @@
 | className | string | 无 | 扩展className |
 | columns | Column\[] | 无 | 数组，见Column |
 | data | object\[] | 无 | 数据 |
-| fixed | string | 无 | 可填值 \['both', 'x', 'y'] |
+| datum | object | 无 | 数据处理，可以传入一个 [Datum.List](#/components/Datum.List) 对象，或者 Datum.List 配置 |
+| fixed | string | 无 | 可填值 \['both', 'x', 'y'] 
 | loading | bool \| element | false | 数据加载中，为true时会展示一个默认的[Spin](#/components/Spin)组件，可以传入一个自定义的Spin代替 |
 | onScroll | function(x, y) | 无 | 滚动条滚动后回调函数；<br />x: 横向滚动比(0 <= x <= 1)<br />y: 纵向滚动比(0 <= y <= 1) |
 | rowsInView | number | 20 | 单次render的最大行数 |

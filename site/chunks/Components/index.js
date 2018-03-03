@@ -33,6 +33,13 @@ const pages = [
   'Data',
   
   {
+    name: 'Datum.List',
+    cn: '数据处理',
+    level: 2,
+    component: loadable(() => import('./Datum.List')),
+  },
+  
+  {
     name: 'Pagination',
     cn: '分页',
     level: 2,
@@ -85,7 +92,7 @@ const pages = [
     component: loadable(() => import('./Sticky')),
   },
   
-  'navigation',
+  'Navigation',
   
   {
     name: 'Breadcrumb',

@@ -33,6 +33,7 @@ function getComponentPage(name, file) {
   }
 
   page = {
+    codes: [],
     examples: [],
     group: '',
     name,
@@ -49,7 +50,7 @@ function getComponentPage(name, file) {
   })
 
   fs.readdirSync(pagePath)
-    .filter(n => n.indexOf('example-') === 0)
+    .filter(n => n.indexOf('example-') === 0 || n.indexOf('code-') === 0)
     .forEach((e) => {
       const text = fs.readFileSync(path.resolve(pagePath, e))
       const comment = /(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/.exec(text)
@@ -64,11 +65,15 @@ function getComponentPage(name, file) {
         })
       }
 
-      page.examples.push(exam)
+      if (e.indexOf('example-') === 0) {
+        page.examples.push(exam)
+      } else {
+        page.codes.push(exam.path.replace('code-', '').replace('.js', ''))
+      }
     })
 
   const template = swig.compileFile(path.resolve(__dirname, './component-page.tpl'))
-  const text = template({ name: page.name, examples: page.examples })
+  const text = template({ ...page })
 
   if (!componentsCache[name] || text !== componentsCache[name].text) {
     console.log(`write file chunks/Components/${name}.js`)

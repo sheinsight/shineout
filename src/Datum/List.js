@@ -6,21 +6,17 @@ export default class {
 
     this.distinct = distinct
     this.separator = separator
-    this.onChange = onChange
     this.disabled = disabled || (() => false)
-
     this.initFormat(format)
+    this.events = {}
 
-    if (prediction) {
-      this.prediction = prediction
-    }
-
+    if (prediction) this.prediction = prediction
     if (separator && !format) {
       console.error('The separator parameter is not null, the format parameter can not be empty.')
     }
 
-    this.events = {}
     this.setValue(value)
+    this.onChange = onChange
   }
 
   initFormat(f) {
@@ -118,7 +114,7 @@ export default class {
 
   clear() {
     this.values = []
-    this.dispatch('change')
+    this.handleChange()
   }
 
   get length() {
@@ -128,7 +124,7 @@ export default class {
   setValue(values = []) {
     if (Array.isArray(values)) {
       this.values = values
-      this.dispatch('change')
+      this.handleChange()
       return
     }
 
@@ -139,7 +135,7 @@ export default class {
         this.values = []
         console.error('The separator parameter is empty.')
       }
-      this.dispatch('change')
+      this.handleChange()
       return
     }
 

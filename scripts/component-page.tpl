@@ -4,6 +4,7 @@
 import React from 'react'
 import navable from 'docs/Navable'
 import MarkDown from 'docs/MarkDown'
+import log from 'doc/utils/log'
 import locate from 'doc/locate'
 
 import cn from 'doc/pages/components/{{name}}/cn.md'
@@ -21,4 +22,23 @@ const examples = [
   {%- endfor %}
 ]
 
-export default navable(props => <MarkDown {...props} source={source} examples={examples} />)
+log.start()
+{% for i, code in codes -%}
+log.setType('{{code}}')
+require('doc/pages/components/{{name}}/code-{{code}}.js')
+{% endfor %}
+
+const logs = log.end()
+
+const codes = {
+  {%- for i, code in codes %}
+  '{{code}}': {
+    text: require('!raw-loader!doc/pages/components/{{name}}/code-{{code}}.js'),
+    log: logs['{{code}}'],
+  },
+  {%- endfor %}
+}
+
+export default navable(props => (
+  <MarkDown {...props} codes={codes} source={source} examples={examples} />
+))
