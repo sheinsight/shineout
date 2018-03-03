@@ -6,40 +6,40 @@ import React, { Fragment } from 'react'
 import { Dropdown, Message } from 'shineout'
 
 export default function () {
-  const menu = [
-    <a href="#/" key={1}>Home</a>,
-    <a href="http://google.com" target="_blank" key={2}>Google</a>,
-    <hr key={3} />,
-    <a
-      key={4}
-      href="javascript:;"
-      onClick={() => { Message.info('Clicked the dropdown button.') }}
-    >
-      Message
-    </a>,
-  ]
+  const menu = [{
+    content: 'First',
+    id: '1',
+    children: [{
+      content: 'link1',
+      id: '4',
+    }, {
+      content: 'link2',
+      id: '5',
+    }],
+  }, {
+    content: 'Second',
+    url: 'www.baidu.com',
+    id: '2',
+    children: [{
+      content: 'link3',
+      id: 6,
+    }, {
+      content: 'link4',
+      id: 7,
+    }],
+  }]
 
   return (
     <Fragment>
-      <Dropdown placeholder="Default">
-        {menu}
-      </Dropdown>
+      <Dropdown placeholder="Default" data={menu} />
 
-      <Dropdown placeholder="Link" type="link">
-        {menu}
-      </Dropdown>
+      <Dropdown placeholder="Link" data={menu} type="link" />
 
-      <Dropdown placeholder="Primary" type="primary">
-        {menu}
-      </Dropdown>
+      <Dropdown placeholder="Primary" type="primary" data={menu} />
 
-      <Dropdown placeholder="Outline" outline type="primary">
-        {menu}
-      </Dropdown>
+      <Dropdown placeholder="Outline" outline type="primary" data={menu} />
 
-      <Dropdown placeholder="Small" size="small">
-        {menu}
-      </Dropdown>
+      <Dropdown placeholder="Small" size="small" data={menu} />
     </Fragment>
   )
 }

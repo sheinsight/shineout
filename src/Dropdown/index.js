@@ -1,5 +1,6 @@
-import React, { PureComponent, Children, cloneElement } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import { findDOMNode } from 'react-dom'
+import immer from 'immer'
 import PropTypes from 'prop-types'
 import { getProps, defaultProps } from '../utils/proptypes'
 import Button from '../Button'
@@ -7,6 +8,18 @@ import { dropdownClass } from '../styles'
 import { FadeList } from '../List'
 
 class Dropdown extends PureComponent {
+
+  static getKey(data, keygen) {
+    switch (typeof keygen) {
+      case 'string':
+        return data[keygen]
+      case 'function':
+        return keygen(data)
+      default:
+        return data.id
+    }
+  }
+
   constructor(props) {
     super(props)
 
@@ -20,6 +33,7 @@ class Dropdown extends PureComponent {
     this.handleBlur = this.handleBlur.bind(this)
     this.handleFocus = this.handleFocus.bind(this)
     this.handleHover = this.handleHover.bind(this)
+    this.renderList = this.renderList.bind(this)
   }
 
   componentWillUnmount() {
@@ -47,18 +61,22 @@ class Dropdown extends PureComponent {
       f = 'top'
     }
 
+    if (this.props.hover) this.element.focus()
+
     if (this.closeTimer) {
       clearTimeout(this.closeTimer)
     }
-
-    this.button.focus()
-    this.setState({ show: true, position: `${f}-${s}` })
+    this.setState(immer((state) => {
+      state.show = true
+      state.position = `${f}-${s}`
+    }))
   }
 
-  handleBlur() {
+  handleBlur(e) {
     // wait item event execute
+    if (e.relatedTarget && e.relatedTarget.nodeName !== 'A' && e.currentTarget.contains(e.relatedTarget)) return
     this.closeTimer = setTimeout(() => {
-      if (!this.isUnmounted) this.setState({ show: false })
+      if (!this.isUnmounted) this.setState({ show: false, position: 'bottom-left' })
     }, 200)
   }
 
@@ -70,52 +88,53 @@ class Dropdown extends PureComponent {
     this.handleFocus()
   }
 
-  renderButton() {
+  renderList(data, placeholder) {
     const {
-      placeholder, type, outline, size, href, onClick, disabled,
+      keygen, width, type, outline, size, disabled, btnColor, style, onClick,
     } = this.props
-
-    if (onClick || href) {
-      return (
-        <Button.Group outline={outline} size={size} type={type}>
-          <Button
-            href={href}
-            disabled={disabled}
-            onClick={onClick}
-          >{placeholder}
-          </Button>
-          <Button
-            ref={this.bindButton}
-            disabled={disabled}
-            onClick={this.handleFocus}
-            onMouseEnter={this.handleHover}
-            onBlur={this.handleBlur}
-            className={dropdownClass('button', 'split')}
-          />
-        </Button.Group>
-      )
-    }
-
-    return (
+    if (!Array.isArray(data) || data.length === 0) return null
+    const itemClassName = dropdownClass('item', !width && 'no-width')
+    return [
       <Button
         disabled={disabled}
         ref={this.bindButton}
         onClick={this.handleFocus}
-        onMouseEnter={this.handleHover}
-        onBlur={this.handleBlur}
         outline={outline}
         className={dropdownClass('button')}
         type={type}
         size={size}
+        style={btnColor ? { ...style, color: '#000' } : style}
+        key="1"
       >
         {placeholder}
-      </Button>
-    )
+      </Button>,
+      <FadeList
+        className={dropdownClass('menu')}
+        style={{ width }}
+        key="2"
+        show={this.state.show}
+      >
+        {
+          data.map((d) => {
+            const liKey = Dropdown.getKey(d, keygen)
+            return d.children ?
+              <Dropdown hover={this.props.hover} style={{ width: '100%' }} data={d.children} placeholder={d.content} type="link" key={liKey} position="right-top" btnColor /> :
+              (
+                <a
+                  key={liKey}
+                  onClick={() => onClick && onClick(d.content, d)}
+                  className={itemClassName}
+                  href={d.url ? d.url : 'javascript:;'}
+                >
+                  {d.content}
+                </a>)
+          })
+        }
+      </FadeList>]
   }
-
   render() {
     const {
-      className, style, children, width,
+      data, className, style, placeholder,
     } = this.props
     const { show } = this.state
     const position = this.getPosition()
@@ -123,32 +142,24 @@ class Dropdown extends PureComponent {
     let wrapClassName = dropdownClass('_', position, show && 'show')
     if (className) wrapClassName += ` ${className}`
 
-    const itemClassName = dropdownClass('item', !width && 'no-width')
-
     return (
-      <div ref={this.bindElement} className={wrapClassName} style={style}>
-        {this.renderButton()}
-        <FadeList className={dropdownClass('menu')} style={{ width }} show={show}>
-          {
-            Children.toArray(children).map((child, i) => {
-              if (typeof child === 'string') {
-                return <a key={i} className={itemClassName}>{child}</a>
-              }
-
-              if (child.type === 'hr') return child
-
-              return cloneElement(child, { className: itemClassName })
-            })
-          }
-        </FadeList>
+      <div
+        onMouseEnter={this.handleHover}
+        ref={this.bindElement}
+        onBlur={this.handleBlur}
+        className={wrapClassName}
+        style={style}
+        tabIndex={1}
+      >
+        {this.renderList(data, placeholder, -1)}
       </div>
     )
   }
 }
 
 Dropdown.propTypes = {
-  ...getProps('placeholder', 'type'),
-  children: PropTypes.any.isRequired,
+  ...getProps('placeholder', 'type', 'keygen'),
+  data: PropTypes.array.isRequired,
   disabled: PropTypes.bool,
   href: PropTypes.string,
   hover: PropTypes.bool,
@@ -162,6 +173,8 @@ Dropdown.propTypes = {
 Dropdown.defaultProps = {
   ...defaultProps,
   disabled: false,
+  data: [],
+  keygen: 'id',
 }
 
 export default Dropdown

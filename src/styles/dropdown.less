@@ -6,16 +6,18 @@
 .@{dropdown-prefix} {
   position: relative;
   display: inline-block;
+  &:focus {
+    outline: none;
+  }
 
   &-menu {
     position: absolute;
-    padding: @dropdown-padding-y 0;
+    padding:  0;
     min-width: 100%;
     background: @dropdown-bg;
     border: 1px solid @dropdown-border;
     border-radius: @border-radius-base;
     max-height: 300px;
-    overflow: auto;
     box-shadow: @dropdown-box-shadow;
     background-clip: padding-box;
     z-index: @zindex-dropdown;
@@ -29,69 +31,69 @@
   }
 
   &-bottom-left, &-bottom-right {
-    .@{dropdown-prefix}-menu {
+    >.@{dropdown-prefix}-menu {
       top: 100%;
       margin-top: 2px;
     }
     
-    .@{dropdown-prefix}-button {
+    >.@{dropdown-prefix}-button {
       .caret(down);
     }
   }
 
   &-bottom-left, &-top-left {
-    .@{dropdown-prefix}-menu {
+    >.@{dropdown-prefix}-menu {
       left: 0;
     }
   }
 
   &-bottom-right, &-top-right {
-    .@{dropdown-prefix}-menu {
+    >.@{dropdown-prefix}-menu {
       right: 0;
     }
   }
 
   &-top-left, &-top-right {
-    .@{dropdown-prefix}-menu {
+    >.@{dropdown-prefix}-menu {
       bottom: 100%;
       margin-bottom: 2px;
     }
     
-    .@{dropdown-prefix}-button {
+    >.@{dropdown-prefix}-button {
       .caret(up);
     }
   }
 
   &-left-bottom, &-right-bottom {
-    .@{dropdown-prefix}-menu {
+    >.@{dropdown-prefix}-menu {
       bottom: 0;
     }
   }
 
   &-left-bottom, &-left-top {
-    .@{dropdown-prefix}-menu {
+    >.@{dropdown-prefix}-menu {
       right: 100%;
       margin-right: 2px;
     }
     
-    .@{dropdown-prefix}-button {
+    >.@{dropdown-prefix}-button {
       .caret(left);
     }
   }
 
   &-left-top, &-right-top {
-    .@{dropdown-prefix}-menu {
+    >.@{dropdown-prefix}-menu {
       top: 0;
     }
   }
 
   &-right-bottom, &-right-top {
-    .@{dropdown-prefix}-menu {
+    >.@{dropdown-prefix}-menu {
       left: 100%;
       margin-left: 2px;
     }
     
-    .@{dropdown-prefix}-button {
+    >.@{dropdown-prefix}-button {
       .caret(right);
     }
   }

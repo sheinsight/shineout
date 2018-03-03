@@ -5,12 +5,11 @@
 ## API
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| children | ReactElement[] | 必填 | 一组 ReactElement； |
+| data | [] | 必填 | 下拉数据:<br />content: 显示的内容<br />url: 需要跳转的url,可以不填 <br />|
 | className | string | 无 | 扩展className |
 | disabled | bool | false | 禁用 |
-| href | string | 无 | 如果 href 不为空，使用一个 Button 单独处理下拉事件 |
 | hover | boolean | false | 为 true 时，通过 mouseenter 触发选项弹出  |
-| onClick | func | 无 | 如果 onClick 事件不为空，使用一个 Button 单独处理下拉事件 |
+| onClick | func | (content, data) => {} | 点击事件,第一个参数为显示内容,第二个参数为渲染的数据 |
 | outline | boolean | false | 同 [Button](#/components/Button) |
 | placeholder | string \| ReactElement | 必填 | 按钮显示内容 |
 | size | string | 'default' | 同 [Button](#/components/Button) |

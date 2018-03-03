@@ -7,11 +7,14 @@ import React from 'react';
 import { Breadcrumb } from 'shineout';
 
 const data = [{
+  id: '1',
   title: 'Home',
   url: '#',
 }, {
+  id: '2',
   title: 'Menu',
 }, {
+  id: '3',
   title: 'Self',
 }]
 

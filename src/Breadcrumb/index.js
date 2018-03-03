@@ -7,7 +7,7 @@ import { breadcrumbClass } from '../styles'
 class Breadcrumb extends React.PureComponent {
   render() {
     const {
-      data, separator,
+      data, separator, keygen,
     } = this.props
     const className = classnames(
       breadcrumbClass('_'),
@@ -17,7 +17,7 @@ class Breadcrumb extends React.PureComponent {
       <div className={className} >
         {
           data.map((da, index) => (
-            <span key={index}>
+            <span key={typeof keygen === 'string' ? da[keygen] : keygen(da)}>
               <span><a href={da.url ? da.url : 'javascript:;'}>{da.icon}{da.title}</a></span>
               {
                 index !== data.length - 1 ?
@@ -31,7 +31,7 @@ class Breadcrumb extends React.PureComponent {
 }
 
 Breadcrumb.propTypes = {
-  ...getProps(),
+  ...getProps('keygen'),
   dataSource: PropTypes.array,
   separator: PropTypes.oneOfType([
     PropTypes.string,
@@ -44,6 +44,7 @@ Breadcrumb.defaultProps = {
   ...defaultProps,
   dataSource: [],
   separator: '/',
+  keygen: 'id',
 }
 
 export default Breadcrumb

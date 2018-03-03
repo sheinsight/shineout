@@ -6,28 +6,52 @@ import Item from './Item'
 import SubItem from './SubItem'
 import { menuClass } from '../styles'
 
-class Menu extends React.PureComponent {
-  static renderMenu(data, key = 'id') {
+class Menu extends React.Component {
+  static getKey(data, keygen) {
+    switch (typeof keygen) {
+      case 'string':
+        return data[keygen]
+      case 'function':
+        return keygen(data)
+      default:
+        return data.id
+    }
+  }
+  constructor(props) {
+    super(props)
+    this.state = {
+      selectKeys: this.props.selectKeys || this.props.defaultSelectKeys,
+    }
+  }
+  renderMenu(data, keygen) {
     if (!Array.isArray(data) || data.length === 0) return null
-    return data.map(da => (
-      da.children && da.children.length > 0 ?
-        <SubItem key={key ? da[key] : da.id} data={da}>
+    return data.map((da) => {
+      const menuKey = Menu.getKey(da, keygen)
+      return da.children && da.children.length > 0 ?
+        <SubItem key={menuKey} data={da}>
           {
-            Menu.renderMenu(da.children, key)
+            this.renderMenu(da.children, keygen)
           }
         </SubItem> :
-        <Item data={da} key={key ? da[key] : da.id} />
-    ))
+        <Item
+          data={da}
+          key={menuKey}
+          menuKey={menuKey}
+          selectKeys={this.state.selectKeys}
+        />
+    })
   }
   render() {
-    const { key, data } = this.props
+    const {
+      keygen, data, mode, style,
+    } = this.props
     const className = classnames(
-      menuClass('_'),
+      menuClass('_', 'root', mode),
       this.props.className,
     )
     return (
-      <ul className={className}>{
-        Menu.renderMenu(data, key)
+      <ul className={className} style={style}>{
+        this.renderMenu(data, keygen)
       }
       </ul>
     )
@@ -35,15 +59,26 @@ class Menu extends React.PureComponent {
 }
 
 Menu.propTypes = {
-  ...getProps(),
+  ...getProps('style', 'keygen'),
   data: PropTypes.array,
-  key: PropTypes.string,
+  mode: PropTypes.string,
+  selectKeys: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array,
+  ]),
+  defaultSelectKeys: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array,
+  ]),
 }
 
 Menu.defaultProps = {
   ...defaultProps,
   data: [],
-  key: 'id',
+  keygen: 'id',
+  mode: 'vertical',
+  selectKeys: null,
+  defaultSelectKeys: [],
 }
 
 export default Menu
