@@ -2,17 +2,10 @@
  * cn - Button事件
  * en - Button event
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Dropdown, Message, Button } from 'shineout'
-import ButtonGroup from '../../../../src/Button/Group'
 
 export default function () {
-  // const menu = [
-  //   <a key={1}>Link 1</a>,
-  //   <a key={2}>Link 2</a>,
-  //   <hr key={3} />,
-  //   <a key={4}>Link 3</a>,
-  // ]
   const menu = [{
     content: 'First',
     id: '1',
@@ -22,19 +15,19 @@ export default function () {
     id: '2',
   }]
   return (
-    <Fragment>
-      <Button.Group size="small">
-        <Button type="primary" onClick={() => Message.info('The button clicked.')}>Click me</Button>
-        <Dropdown
-          onClick={() => Message.info('The Dropdown clicked.')}
-          style={{ borderRadius: 'none' }}
-          position="top-left"
-          type="primary"
-          placeholder=""
-          data={menu}
-        />
-      </Button.Group>
-    </Fragment>
+    <Button.Group size="small">
+      <Button type="primary" onClick={() => Message.info('The button clicked.')}>Click me</Button>
+      <Dropdown
+        onClick={content => Message.info(`The Dropdown clicked ${content}.`)}
+        //  if you choose the substantive button to handle the event,
+        //  you may add this props or add "style" to cover
+        buttonSplit
+        position="top-left"
+        type="primary"
+        placeholder=""
+        data={menu}
+      />
+    </Button.Group>
   )
 }
 

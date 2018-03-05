@@ -31,7 +31,7 @@ export default function () {
 
   return (
     <Fragment>
-      <Dropdown placeholder="Default" data={menu} />
+      <Dropdown placeholder="Default" data={menu} onClick={(content, data) => { console.log(content, data) }} />
 
       <Dropdown placeholder="Link" data={menu} type="link" />
 
