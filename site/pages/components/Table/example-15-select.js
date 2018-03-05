@@ -42,10 +42,6 @@ export default class extends PureComponent {
   render() {
     return (
       <div>
-        <div>
-          selected rows: [{ this.state.selectedValue }]
-        </div>
-        <br />
         <Table
           fixed="both"
           keygen="id"
@@ -54,6 +50,9 @@ export default class extends PureComponent {
           style={{ height: 450 }}
           onRowSelect={this.handelRowSelect}
         />
+        <div>
+          selected rows: [{ this.state.selectedValue }]
+        </div>
       </div>
     )
   }

@@ -18,6 +18,17 @@ export default class extends PureComponent {
     this.datum = new Datum.List({
       format: 'id',
     })
+
+    this.columns = [
+      {
+        title: 'Id', render: 'id', width: 70, sorter: this.handleSorter.bind(this, 'id'),
+      },
+      { title: 'First Name', render: 'firstName' },
+      { title: 'Last Name', render: 'lastName' },
+      { title: 'Office', render: 'office' },
+      { title: 'Start Date', render: 'start', sorter: this.handleSorter.bind(this, 'start') },
+      { title: 'Status', width: 100, render: d => d.status && 'on' },
+    ]
   }
 
   componentDidMount() {
@@ -46,14 +57,6 @@ export default class extends PureComponent {
     })
   }
 
-  handleIdSort = (order) => {
-    this.handleSorter('id', order)
-  }
-
-  handleStartSort = (order) => {
-    this.handleSorter('start', order)
-  }
-
   handleOpClick(op) {
     const ids = this.datum.getValue()
     if (ids.length > 0) {
@@ -69,24 +72,10 @@ export default class extends PureComponent {
       data, current, pageSize, total, loading,
     } = this.state
 
-    const columns = [
-      {
-        title: 'Id',
-        render: 'id',
-        width: 70,
-        sorter: this.handleIdSort,
-      },
-      { title: 'First Name', render: 'firstName' },
-      { title: 'Last Name', render: 'lastName' },
-      { title: 'Office', render: 'office' },
-      { title: 'Start Date', render: 'start', sorter: this.handleStartSort },
-      { title: 'Status', width: 100, render: d => d.status && 'on' },
-    ]
-
     return (
       <div>
         <div style={{ marginBottom: 20 }}>
-          <Button.Group outline type="primary">
+          <Button.Group outline type="secondary">
             <Button onClick={this.handleOpClick.bind(this, 'on')}>On</Button>
             <Button onClick={this.handleOpClick.bind(this, 'off')}>Off</Button>
             <Button onClick={this.handleOpClick.bind(this, 'delete')}>Delete</Button>
@@ -96,7 +85,7 @@ export default class extends PureComponent {
           loading={loading}
           data={data}
           keygen="id"
-          columns={columns}
+          columns={this.columns}
           datum={this.datum}
           pagination={{
             align: 'center',

@@ -24,11 +24,7 @@ const columns = [
       return b.firstName.localeCompare(a.firstName)
     },
   },
-  {
-    title: 'Last Name',
-    group: 'Name',
-    render: 'lastName',
-  },
+  { title: 'Last Name', group: 'Name', render: 'lastName' },
   {
     title: 'Start Date',
     width: 120,
@@ -45,9 +41,7 @@ const columns = [
     },
   },
   { title: 'Time', render: 'time' },
-  {
-    title: 'Office', render: 'office5', rowSpan: true,
-  },
+  { title: 'Office', render: 'office5', rowSpan: true },
 ]
 
 export default function () {

@@ -14,6 +14,29 @@ export default class extends PureComponent {
       pageSize: 10,
       total: 0,
     }
+
+    this.columns = [
+      {
+        title: 'id',
+        render: 'id',
+        width: 70,
+        sorter: this.handleIdSort,
+      },
+      {
+        title: 'First Name', group: 'Name', render: 'firstName', width: 100,
+      },
+      {
+        title: 'Last Name',
+        fixed: 'left',
+        group: 'Name',
+        render: 'lastName',
+        width: 120,
+        sorter: this.handleLastNameSort,
+      },
+      { title: 'Country', render: 'country' },
+      { title: 'Office', render: 'office' },
+      { title: 'Start Date', render: 'start', sorter: this.handleStartSort },
+    ]
   }
 
   componentDidMount() {
@@ -53,36 +76,13 @@ export default class extends PureComponent {
       data, current, pageSize, total, loading,
     } = this.state
 
-    const columns = [
-      {
-        title: 'id',
-        render: 'id',
-        width: 70,
-        sorter: this.handleIdSort,
-      },
-      {
-        title: 'First Name', group: 'Name', render: 'firstName', width: 100,
-      },
-      {
-        title: 'Last Name',
-        fixed: 'left',
-        group: 'Name',
-        render: 'lastName',
-        width: 120,
-        sorter: this.handleLastNameSort,
-      },
-      { title: 'Country', render: 'country' },
-      { title: 'Office', render: 'office' },
-      { title: 'Start Date', render: 'start', sorter: this.handleStartSort },
-    ]
-
     return (
       <Table
         bordered
         loading={loading}
         data={data}
         keygen="id"
-        columns={columns}
+        columns={this.columns}
         pagination={{
           align: 'center',
           current,

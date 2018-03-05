@@ -6,8 +6,9 @@
   },
   "Form": {},
   "Data": {
-    "Table": "表格",
-    "Pagination": "分页"
+    "Datum.List": "数据处理",
+    "Pagination": "分页",
+    "Table": "表格"
   },
   "Feedback": {
     "Alert": "提示框",
@@ -18,8 +19,8 @@
   "Layout": {
     "Sticky": "附着"
   },
-  "navigation": {
+  "Navigation": {
     "Breadcrumb": "面包屑",
-    "menu": "菜单"
+    "Menu": "菜单"
   }
 }

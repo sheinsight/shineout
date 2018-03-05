@@ -22,6 +22,16 @@ export default class extends PureComponent {
         this.setState({ selectedValue })
       },
     })
+
+    this.columns = [
+      {
+        title: 'Id', render: 'id', width: 70, sorter: this.handleSorter.bind(this, 'id'),
+      },
+      { title: 'First Name', render: 'firstName' },
+      { title: 'Last Name', render: 'lastName' },
+      { title: 'Office', render: 'office' },
+      { title: 'Start Date', render: 'start', sorter: this.handleSorter.bind(this, 'start') },
+    ]
   }
 
   componentDidMount() {
@@ -47,16 +57,8 @@ export default class extends PureComponent {
     })
   }
 
-  handleIdSort = (order) => {
-    this.handleSorter('id', order)
-  }
-
-  handleStartSort = (order) => {
-    this.handleSorter('start', order)
-  }
-
-  handleLastNameSort = (order) => {
-    this.handleSorter('lastName', order)
+  handleSorter = (name, order) => {
+    this.setState({ sorter: { name, order }, current: 1 }, this.fetchData)
   }
 
   render() {
@@ -64,26 +66,13 @@ export default class extends PureComponent {
       data, current, pageSize, total, loading, selectedValue,
     } = this.state
 
-    const columns = [
-      {
-        title: 'Id',
-        render: 'id',
-        width: 70,
-        sorter: this.handleIdSort,
-      },
-      { title: 'First Name', render: 'firstName' },
-      { title: 'Last Name', render: 'lastName' },
-      { title: 'Office', render: 'office' },
-      { title: 'Start Date', render: 'start', sorter: this.handleStartSort },
-    ]
-
     return (
       <div>
         <Table
           loading={loading}
           data={data}
           keygen="id"
-          columns={columns}
+          columns={this.columns}
           datum={this.datum}
           pagination={{
             align: 'center',

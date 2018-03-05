@@ -6,19 +6,16 @@ import React, { PureComponent } from 'react'
 import { Table } from 'shineout'
 import { fetchSync } from 'doc/data/table'
 
-const data = fetchSync(10000)
+const data = fetchSync(1000)
 
 export default class extends PureComponent {
-  state = {
-    current: 1,
-  }
+  constructor(props) {
+    super(props)
 
-  handlePageChange = (current) => {
-    this.setState({ current })
-  }
-
-  render() {
-    const columns = [
+    this.state = {
+      current: 1,
+    }
+    this.columns = [
       {
         title: 'id',
         render: 'id',
@@ -59,14 +56,20 @@ export default class extends PureComponent {
         render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
       },
     ]
+  }
 
+  handlePageChange = (current) => {
+    this.setState({ current })
+  }
+
+  render() {
     return (
       <Table
         data={data}
         fixed="x"
         keygen="id"
         width={1500}
-        columns={columns}
+        columns={this.columns}
         pagination={{
           current: this.state.current,
           align: 'center',

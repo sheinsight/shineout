@@ -9,12 +9,15 @@ import Example from '../Example'
 
 const markdownClass = classGenerate(require('./markdown.less'), 'markdown')
 
+const codeReg = /^<code name="([\w|-]+)" /
+
 export default class MarkDown extends PureComponent {
   static propTypes = {
     children: PropTypes.oneOfType([
       PropTypes.element,
       PropTypes.array,
     ]),
+    codes: PropTypes.object,
     examples: PropTypes.array,
     onHeadingSetted: PropTypes.func,
     source: PropTypes.string.isRequired,
@@ -42,6 +45,25 @@ export default class MarkDown extends PureComponent {
 
   appendHeading(heading) {
     this.headings.push(heading)
+  }
+
+  renderCode(name) {
+    const { codes } = this.props
+    const code = codes[name]
+    if (code) {
+      return (
+        <Fragment>
+          <CodeBlock language="jsx" value={code.text} />
+          {
+            code.log.map((txt, i) => (
+              <div key={i} className={markdownClass('console')}>{txt}</div>
+            ))
+          }
+        </Fragment>
+      )
+    }
+    console.error(`Code ${name} not existed`)
+    return null
   }
 
   renderExamples() {
@@ -91,6 +113,8 @@ export default class MarkDown extends PureComponent {
           html: ({ value }) => {
             if (value === '<example />') return this.renderExamples()
             if (value === '<br>' || value === '<br />') return <br />
+            const code = value.match(codeReg)
+            if (code) return this.renderCode(code[1])
             return null
           },
         }}

@@ -4,6 +4,7 @@
 import React from 'react'
 import navable from 'docs/Navable'
 import MarkDown from 'docs/MarkDown'
+import log from 'doc/utils/log'
 import locate from 'doc/locate'
 
 import cn from 'doc/pages/components/Table/cn.md'
@@ -48,7 +49,7 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-07-fixed-column-2.js'),
   },
   {
-    title: locate('超大数据 \n * 这个例子加载了10000条数据。可以通过设置rowsInView调整单次最多render的行数，默认为20', 'Big data'),
+    title: locate('超大数据 \n * Table内部对大量数据的渲染做了lazy render的优化。这个例子加载了10000条数据。可以通过设置rowsInView调整单次最多render的行数，默认为20', 'rowsInView'),
     component: require('doc/pages/components/Table/example-08-bigdata.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-08-bigdata.js'),
   },
@@ -119,4 +120,14 @@ const examples = [
   },
 ]
 
-export default navable(props => <MarkDown {...props} source={source} examples={examples} />)
+log.start()
+
+
+const logs = log.end()
+
+const codes = {
+}
+
+export default navable(props => (
+  <MarkDown {...props} codes={codes} source={source} examples={examples} />
+))
