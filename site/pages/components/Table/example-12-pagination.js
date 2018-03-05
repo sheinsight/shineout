@@ -20,7 +20,7 @@ export default class extends PureComponent {
         title: 'id',
         render: 'id',
         width: 70,
-        sorter: this.handleIdSort,
+        sorter: this.handleSorter.bind(this, 'id'),
       },
       {
         title: 'First Name', group: 'Name', render: 'firstName', width: 100,
@@ -31,11 +31,11 @@ export default class extends PureComponent {
         group: 'Name',
         render: 'lastName',
         width: 120,
-        sorter: this.handleLastNameSort,
+        sorter: this.handleSorter.bind(this, 'lastName'),
       },
       { title: 'Country', render: 'country' },
       { title: 'Office', render: 'office' },
-      { title: 'Start Date', render: 'start', sorter: this.handleStartSort },
+      { title: 'Start Date', render: 'start', sorter: this.handleSorter.bind(this, 'start') },
     ]
   }
 
@@ -57,18 +57,6 @@ export default class extends PureComponent {
     fetch.get('table', { sorter, current, pageSize }).then((res) => {
       this.setState({ data: res.data, loading: false, total: res.total })
     })
-  }
-
-  handleIdSort = (order) => {
-    this.handleSorter('id', order)
-  }
-
-  handleStartSort = (order) => {
-    this.handleSorter('start', order)
-  }
-
-  handleLastNameSort = (order) => {
-    this.handleSorter('lastName', order)
   }
 
   render() {

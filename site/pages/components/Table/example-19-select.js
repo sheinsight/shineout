@@ -42,6 +42,10 @@ export default class extends PureComponent {
     this.setState({ current, pageSize }, this.fetchData)
   }
 
+  handleSorter = (name, order) => {
+    this.setState({ sorter: { name, order }, current: 1 }, this.fetchData)
+  }
+
   fetchData = () => {
     const { sorter, current, pageSize } = this.state
     this.setState({ loading: true })
@@ -55,10 +59,6 @@ export default class extends PureComponent {
         total: res.total,
       })
     })
-  }
-
-  handleSorter = (name, order) => {
-    this.setState({ sorter: { name, order }, current: 1 }, this.fetchData)
   }
 
   render() {
