@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import { findDOMNode } from 'react-dom'
 import immer from 'immer'
 import PropTypes from 'prop-types'
@@ -90,17 +90,18 @@ class Dropdown extends PureComponent {
 
   renderList(data, placeholder) {
     const {
-      keygen, width, type, outline, size, disabled, btnColor, style, onClick,
+      keygen, width, type, outline, size, disabled, btnColor, style, onClick, buttonSplit,
     } = this.props
     if (!Array.isArray(data) || data.length === 0) return null
     const itemClassName = dropdownClass('item', !width && 'no-width')
+    const buttonClassName = dropdownClass('button', buttonSplit && 'split-button')
     return [
       <Button
         disabled={disabled}
         ref={this.bindButton}
         onClick={this.handleFocus}
         outline={outline}
-        className={dropdownClass('button')}
+        className={buttonClassName}
         type={type}
         size={size}
         style={btnColor ? { ...style, color: '#000' } : style}
@@ -118,7 +119,17 @@ class Dropdown extends PureComponent {
           data.map((d) => {
             const liKey = Dropdown.getKey(d, keygen)
             return d.children ?
-              <Dropdown hover={this.props.hover} style={{ width: '100%' }} data={d.children} placeholder={d.content} type="link" key={liKey} position="right-top" btnColor /> :
+              <Dropdown
+                hover={this.props.hover}
+                style={{ width: '100%' }}
+                data={d.children}
+                placeholder={d.content}
+                type="link"
+                key={liKey}
+                position="right-top"
+                btnColor
+                onClick={onClick}
+              /> :
               (
                 <a
                   key={liKey}
@@ -134,12 +145,12 @@ class Dropdown extends PureComponent {
   }
   render() {
     const {
-      data, className, style, placeholder,
+      data, className, style, placeholder, buttonSplit
     } = this.props
     const { show } = this.state
     const position = this.getPosition()
 
-    let wrapClassName = dropdownClass('_', position, show && 'show')
+    let wrapClassName = dropdownClass('_', position, show && 'show', buttonSplit && 'split-dropdown')
     if (className) wrapClassName += ` ${className}`
 
     return (
