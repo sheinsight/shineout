@@ -17,6 +17,7 @@ export default class extends PureComponent {
 
     this.datum = new Datum.List({
       format: 'id',
+      disabled: d => d.status === true,
     })
 
     this.columns = [
@@ -27,7 +28,13 @@ export default class extends PureComponent {
       { title: 'Last Name', render: 'lastName' },
       { title: 'Office', render: 'office' },
       { title: 'Start Date', render: 'start', sorter: this.handleSorter.bind(this, 'start') },
-      { title: 'Status', width: 100, render: d => d.status && 'on' },
+      {
+        width: 100,
+        render: (d) => {
+          if (!d.status) return ''
+          return <a onClick={this.handleTurnOff.bind(this, d)}>turn off</a>
+        },
+      },
     ]
   }
 
@@ -57,6 +64,11 @@ export default class extends PureComponent {
     })
   }
 
+  handleTurnOff(d) {
+    this.setState({ loading: true })
+    fetch.post('table', { op: 'off', ids: [d.id] }).then(this.fetchData)
+  }
+
   handleOpClick(op) {
     const ids = this.datum.getValue()
     if (ids.length > 0) {
@@ -77,7 +89,6 @@ export default class extends PureComponent {
         <div style={{ marginBottom: 20 }}>
           <Button.Group outline type="secondary">
             <Button onClick={this.handleOpClick.bind(this, 'on')}>On</Button>
-            <Button onClick={this.handleOpClick.bind(this, 'off')}>Off</Button>
             <Button onClick={this.handleOpClick.bind(this, 'delete')}>Delete</Button>
           </Button.Group>
         </div>

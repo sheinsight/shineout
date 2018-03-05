@@ -7,7 +7,7 @@ const datum = new Datum.List({
   prediction: (val, d) => parseInt(val, 10) === d.id,
   value: '2,3',
 })
-datum.addValue(data[5])
+datum.add(data.red)
 console.log(datum.getValue())
-datum.removeValue(data[2])
+datum.remove(data.orange)
 console.log(datum.getValue())

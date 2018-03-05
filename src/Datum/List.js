@@ -19,6 +19,66 @@ export default class {
     this.onChange = onChange
   }
 
+  get length() {
+    return this.values.length
+  }
+
+  get values() {
+    return this.$values
+  }
+
+  set values(values) {
+    this.$values = values
+    this.dispatch('change')
+    if (this.onChange) {
+      this.onChange(this.getValue())
+    }
+  }
+
+  add(data) {
+    if (!data) return
+
+    let raws = Array.isArray(data) ? data : [data]
+    raws = raws.filter((v) => {
+      const disabled = this.disabled(v)
+      if (disabled) return false
+      if (this.distinct) return !this.check(v)
+      return true
+    })
+
+    const values = []
+    for (const r of raws) {
+      const v = this.format(r)
+      if (v) values.push(v)
+    }
+
+    this.values = this.values.concat(values)
+  }
+
+  check(raw) {
+    for (let i = 0, count = this.values.length; i < count; i++) {
+      if (this.prediction(this.values[i], raw)) return true
+    }
+    return false
+  }
+
+  clear() {
+    this.values = []
+  }
+
+  dispatch(name, ...args) {
+    const event = this.events[name]
+    if (!event) return
+    event.forEach(fn => fn(...args))
+  }
+
+  handleChange(...args) {
+    this.dispatch('change', ...args)
+    if (this.onChange) {
+      this.onChange(this.getValue(), ...args)
+    }
+  }
+
   initFormat(f) {
     switch (typeof f) {
       case 'string':
@@ -37,35 +97,7 @@ export default class {
     return value === this.format(data)
   }
 
-  handleChange(...args) {
-    this.dispatch('change', ...args)
-    if (this.onChange) {
-      this.onChange(this.getValue(), ...args)
-    }
-  }
-
-  addValue(value, ...args) {
-    if (!value) return
-
-    let raws = Array.isArray(value) ? value : [value]
-    raws = raws.filter((v) => {
-      const disabled = this.disabled(v)
-      if (disabled) return false
-      if (this.distinct) return !this.check(v)
-      return true
-    })
-
-    const values = []
-    for (const r of raws) {
-      const v = this.format(r)
-      if (v) values.push(v)
-    }
-
-    this.values = this.values.concat(values)
-    this.handleChange(value, ...args)
-  }
-
-  removeValue(value, ...args) {
+  remove(value) {
     if (!value) return
 
     let raws = Array.isArray(value) ? value : [value]
@@ -84,14 +116,6 @@ export default class {
     }
 
     this.values = values
-    this.handleChange(value, ...args)
-  }
-
-  check(raw) {
-    for (let i = 0, count = this.values.length; i < count; i++) {
-      if (this.prediction(this.values[i], raw)) return true
-    }
-    return false
   }
 
   listen(name, fn) {
@@ -106,25 +130,14 @@ export default class {
     this.events[name] = this.events[name].filter(e => e !== fn)
   }
 
-  dispatch(name, ...args) {
-    const event = this.events[name]
-    if (!event) return
-    event.forEach(fn => fn(...args))
-  }
-
-  clear() {
-    this.values = []
-    this.handleChange()
-  }
-
-  get length() {
-    return this.values.length
+  getValue() {
+    if (this.separator) return this.values.join(this.separator)
+    return this.values
   }
 
   setValue(values = []) {
     if (Array.isArray(values)) {
       this.values = values
-      this.handleChange()
       return
     }
 
@@ -135,15 +148,9 @@ export default class {
         this.values = []
         console.error('The separator parameter is empty.')
       }
-      this.handleChange()
       return
     }
 
     console.error('Invalid values, expect Array of String.')
-  }
-
-  getValue() {
-    if (this.separator) return this.values.join(this.separator)
-    return this.values
   }
 }

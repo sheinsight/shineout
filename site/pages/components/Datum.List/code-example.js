@@ -10,9 +10,9 @@ const datum = new Datum.List({
     console.log(values)
   },
 })
-datum.addValue(data[1])
-datum.addValue(data[2])
-datum.removeValue(data[2])
+datum.add(data.orange)
+datum.add(data.green)
+datum.remove(data.green)
 datum.clear()
 datum.setValue('red,violet')
-datum.addValue(data[2])
+datum.add(data.cyan)
