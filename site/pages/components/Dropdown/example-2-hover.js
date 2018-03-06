@@ -20,6 +20,10 @@ export default function () {
     children: [{
       content: 'topic 2',
       id: 4,
+      children: [{
+        id: '6',
+        content: 'topic 3',
+      }],
     }],
   }]
 
