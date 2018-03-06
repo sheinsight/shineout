@@ -34,8 +34,8 @@ export default class extends PureComponent {
     this.handelRowSelect = this.handelRowSelect.bind(this)
   }
 
-  handelRowSelect(selectedValue, row, index) {
-    console.log(selectedValue, row, index)
+  handelRowSelect(selectedValue) {
+    console.log(selectedValue)
     this.setState({ selectedValue: selectedValue.map(v => v.id).join(', ') })
   }
 

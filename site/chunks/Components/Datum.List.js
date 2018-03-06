@@ -16,10 +16,14 @@ const examples = [
 ]
 
 log.start()
+log.setType('disabled')
+require('doc/pages/components/Datum.List/code-disabled.js')
 log.setType('example')
 require('doc/pages/components/Datum.List/code-example.js')
 log.setType('format')
 require('doc/pages/components/Datum.List/code-format.js')
+log.setType('onchange')
+require('doc/pages/components/Datum.List/code-onchange.js')
 log.setType('prediction')
 require('doc/pages/components/Datum.List/code-prediction.js')
 log.setType('separator')
@@ -29,6 +33,10 @@ require('doc/pages/components/Datum.List/code-separator.js')
 const logs = log.end()
 
 const codes = {
+  'disabled': {
+    text: require('!raw-loader!doc/pages/components/Datum.List/code-disabled.js'),
+    log: logs['disabled'],
+  },
   'example': {
     text: require('!raw-loader!doc/pages/components/Datum.List/code-example.js'),
     log: logs['example'],
@@ -36,6 +44,10 @@ const codes = {
   'format': {
     text: require('!raw-loader!doc/pages/components/Datum.List/code-format.js'),
     log: logs['format'],
+  },
+  'onchange': {
+    text: require('!raw-loader!doc/pages/components/Datum.List/code-onchange.js'),
+    log: logs['onchange'],
   },
   'prediction': {
     text: require('!raw-loader!doc/pages/components/Datum.List/code-prediction.js'),

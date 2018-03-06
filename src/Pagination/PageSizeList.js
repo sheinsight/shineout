@@ -4,6 +4,14 @@ import Dropdown from '../Dropdown'
 import { paginationClass } from '../styles'
 
 class PageSizeList extends PureComponent {
+  getMenu() {
+    const { text, pageSizeList } = this.props
+    return pageSizeList.map(p => ({
+      content: `${p} ${text.page || ''}`,
+      pageSize: p,
+    }))
+  }
+
   handleChange(ps) {
     const { current, pageSize, onChange } = this.props
     const start = ((current - 1) * pageSize) + 1
@@ -11,28 +19,15 @@ class PageSizeList extends PureComponent {
   }
 
   render() {
-    const {
-      pageSize, pageSizeList, text, disabled,
-    } = this.props
+    const { pageSize, text, disabled } = this.props
 
     return (
       <Dropdown
         disabled={disabled}
         placeholder={`${pageSize} ${text.page || ''}`}
         className={paginationClass('section')}
-      >
-        {
-          pageSizeList.map(ps => (
-            <a
-              key={ps}
-              href="javascript:;"
-              onClick={this.handleChange.bind(this, ps)}
-            >
-              {ps} {text.page}
-            </a>
-          ))
-        }
-      </Dropdown>
+        data={this.getMenu()}
+      />
     )
   }
 }

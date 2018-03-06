@@ -47,9 +47,9 @@ export default class extends PureComponent {
   handleChange(_, checked, index) {
     const { data, value } = this.props
     if (checked) {
-      value.addValue(data, index)
+      value.add(data, index)
     } else {
-      value.removeValue(data, index)
+      value.remove(data, index)
     }
   }
 
