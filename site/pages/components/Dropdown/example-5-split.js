@@ -11,15 +11,15 @@ export default function () {
     id: '1',
   }, {
     content: 'Second',
-    url: 'www.baidu.com',
+    url: 'http://www.google.com',
     id: '2',
   }]
   return (
     <Button.Group>
       <Button onClick={() => Message.info('The button clicked.')}>Click me</Button>
       <Dropdown
-        onClick={content => Message.info(`The Dropdown clicked ${content}.`)}
-        position="top-left"
+        onClick={data => Message.info(`The Dropdown clicked ${data.content}.`)}
+        position="bottom-right"
         data={menu}
       />
     </Button.Group>

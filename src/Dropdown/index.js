@@ -34,6 +34,7 @@ class Dropdown extends PureComponent {
     this.handleFocus = this.handleFocus.bind(this)
     this.handleHover = this.handleHover.bind(this)
     this.renderList = this.renderList.bind(this)
+    this.handleHide = this.handleHide.bind(this)
   }
 
   componentWillUnmount() {
@@ -53,7 +54,6 @@ class Dropdown extends PureComponent {
   }
 
   handleFocus() {
-    console.log(this.element, 'focus')
     let f = 'bottom'
     const s = 'left'
     const height = window.innerHeight || document.documentElement.clientHeight
@@ -61,7 +61,7 @@ class Dropdown extends PureComponent {
     if (height - rect.bottom < 200) {
       f = 'top'
     }
-    if (this.props.hover) this.element.focus()
+    if (this.props.hover) this.button.focus()
 
     if (this.closeTimer) {
       clearTimeout(this.closeTimer)
@@ -74,12 +74,14 @@ class Dropdown extends PureComponent {
 
   handleBlur(e) {
     // wait item event execute
-    console.log('进入函数')
-    if (e.relatedTarget && e.relatedTarget.nodeName !== 'A' && e.currentTarget.contains(e.relatedTarget)) return
-    console.log('blur')
+    this.handleHide(e.relatedTarget)
+  }
+  handleHide(relatedTarget) {
+    if (relatedTarget && relatedTarget.nodeName !== 'A' && this.element.contains(relatedTarget)) return
     this.closeTimer = setTimeout(() => {
       if (!this.isUnmounted) this.setState({ show: false })
     }, 200)
+    if (this.props.handleHide) this.props.handleHide(relatedTarget)
   }
 
   handleHover() {
@@ -111,6 +113,8 @@ class Dropdown extends PureComponent {
       <Button
         disabled={disabled}
         ref={this.bindButton}
+        onMouseEnter={this.handleHover}
+        onBlur={this.handleBlur}
         onClick={this.handleFocus}
         outline={outline}
         className={buttonClassName}
@@ -137,6 +141,7 @@ class Dropdown extends PureComponent {
                 hover={this.props.hover}
                 style={{ width: '100%' }}
                 data={d.children}
+                disabled={d.disabled}
                 placeholder={d.content}
                 type="link"
                 key={liKey}
@@ -144,6 +149,7 @@ class Dropdown extends PureComponent {
                 btnColor
                 onClick={onClick}
                 itemRender={itemRender}
+                handleHide={this.handleHide}
               /> :
               (
                 <Item
@@ -171,12 +177,9 @@ class Dropdown extends PureComponent {
 
     return (
       <div
-        onMouseEnter={this.handleHover}
         ref={this.bindElement}
-        onBlur={this.handleBlur}
         className={wrapClassName}
         style={style}
-        tabIndex={1}
       >
         {this.renderList(data, placeholder, -1)}
       </div>
