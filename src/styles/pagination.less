@@ -4,8 +4,6 @@
 @pagination-prefix: ~"@{so-prefix}-pagination";
 
 .@{pagination-prefix} {
-  display: flex;
-
   &-section {
     display: inline-block;
     vertical-align: middle;
@@ -22,11 +20,11 @@
   }
 
   &-center {
-    justify-content: center !important;
+    text-align: center;
   }
 
   &-right {
-    justify-content: flex-end !important;
+    text-align: right;
   }
 
   &-small &-item {
