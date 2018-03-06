@@ -1,0 +1,48 @@
+/**
+ * 此文件根据 scripts/components-page.ejs 生成，不要手动修改
+ */
+import React from 'react'
+import navable from 'docs/Navable'
+import MarkDown from 'docs/MarkDown'
+import log from 'doc/utils/log'
+import locate from 'doc/locate'
+
+import cn from 'doc/pages/components/<%= name %>/cn.md'
+import en from 'doc/pages/components/<%= name %>/en.md'
+
+const source = locate(cn, en)
+
+const examples = [
+<% examples.forEach(function (exam, i) { -%>
+  {
+    title: locate('<%= exam.cn %>', '<%= exam.en %>'),
+    component: require('doc/pages/components/<%= name %>/<%= exam.path %>').default,
+    rawText: require('!raw-loader!doc/pages/components/<%= name %>/<%= exam.path %>'),
+  },
+<% }) -%>
+]
+
+<% if (codes.length > 0) { -%>
+log.start()
+<% codes.forEach(function (code, i) { -%>
+log.setType('<%= code %>')
+require('doc/pages/components/<%= name %>/code-<%= code %>.js')
+<% }) -%>
+
+const logs = log.end()
+
+const codes = {
+<% codes.forEach(function (code, i) { -%>
+  '<%= code %>': {
+    text: require('!raw-loader!doc/pages/components/<%= name %>/code-<%= code %>.js'),
+    log: logs['<%= code %>'],
+  },
+<% }) -%>
+}
+<% } else { -%>
+const codes = []
+<% } -%>
+
+export default navable(props => (
+  <MarkDown {...props} codes={codes} source={source} examples={examples} />
+))

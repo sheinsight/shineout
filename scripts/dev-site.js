@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const swig = require('swig')
+const ejs = require('./ejs')
 const chokidar = require('chokidar')
 const rimraf = require('rimraf')
 
@@ -72,7 +72,7 @@ function getComponentPage(name, file) {
       }
     })
 
-  const template = swig.compileFile(path.resolve(__dirname, './component-page.tpl'))
+  const template = ejs.compile(fs.readFileSync(path.resolve(__dirname, './component-page.ejs'), 'utf-8'))
   const text = template({ ...page })
 
   if (!componentsCache[name] || text !== componentsCache[name].text) {
@@ -87,7 +87,7 @@ function getComponentPage(name, file) {
 }
 
 function generateComponents(file = '') {
-  const template = swig.compileFile(path.resolve(__dirname, './components.tpl'))
+  const template = ejs.compile(fs.readFileSync(path.resolve(__dirname, './component-index.ejs'), 'utf-8'))
   const componentGroups = getGroups()
 
   const groups = {}

@@ -2,14 +2,14 @@ const request = require('request')
 const Koa = require('koa')
 const send = require('koa-send')
 const Router = require('koa-router')
-const swig = require('swig')
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 const webpackConfig = require('./webpack/config.dev')
 const config = require('./config')
 const { version } = require('./package.json')
+const ejs = require('./scripts/ejs')
 
-require('./scripts/generate-site')
+require('./scripts/dev-site')
 
 // webpack server ===========================================
 
@@ -32,14 +32,13 @@ const app = new Koa()
 const router = new Router()
 
 router.get('/', async (ctx) => {
-  const template = swig.compileFile('./site/index.html')
   const prepath = config.dev.scriptPath.replace('**', version)
   const scripts = [
     ...(config.dev.scripts || []),
     ...Object.keys(config.webpack.entry).map(s => prepath.replace('*.*', `${s}.js`)),
   ]
   const styles = config.dev.styles || []
-  ctx.body = template({ scripts, appName: config.appName, styles })
+  ctx.body = await ejs.renderFile('./site/index.html', { scripts, appName: config.appName, styles })
 })
 
 // use devlopment version React

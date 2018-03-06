@@ -4,18 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>{{appName}}</title>
-  {% for link in styles %}
-  <link rel="stylesheet" href="{{link}}" />
-  {% endfor %}
+  <title><%= appName %></title>
+<% styles.forEach(function(link) { -%>
+  <link rel="stylesheet" href="<%= link %>" />
+<% }) -%>
 </head>
 <body>
   <noscript>
-    You need to enable JavaScript to run this app.
+    You need to enable JavaScript to run this app. 
   </noscript>
   <div id="root"></div>
-  {% for script in scripts %}
-  <script src="{{script}}"></script>
-  {% endfor %}
+<% scripts.forEach(function(script) { -%>
+  <script src="<%= script %>"></script>
+<% }) -%>
 </body>
 </html>

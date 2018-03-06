@@ -1,5 +1,5 @@
 /**
- * 此文件根据 scripts/components-page.tpl 生成，不要手动修改
+ * 此文件根据 scripts/components-page.ejs 生成，不要手动修改
  */
 import React from 'react'
 import navable from 'docs/Navable'
@@ -28,7 +28,6 @@ log.setType('prediction')
 require('doc/pages/components/Datum.List/code-prediction.js')
 log.setType('separator')
 require('doc/pages/components/Datum.List/code-separator.js')
-
 
 const logs = log.end()
 
