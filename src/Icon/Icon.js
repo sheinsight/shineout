@@ -9,7 +9,7 @@ function Icon(props) {
     prefix,
     type,
     size,
-    iconType,
+    name,
     style,
     fontFamily,
     ...otherProps
@@ -18,14 +18,14 @@ function Icon(props) {
     small: size === 'small',
     large: size === 'large',
   }), props.className)
-  const iconClassString = ` ${prefix}-${iconType} `
+  const iconClassString = ` ${prefix}-${name} `
   return (<i {...otherProps} className={`${className} ${iconClassString}`} style={{ ...style, fontFamily }} />)
 }
 
 Icon.propTypes = {
   ...getProps('size', 'type'),
   prefix: PropTypes.string,
-  iconType: PropTypes.string,
+  name: PropTypes.string,
   fontFamily: PropTypes.string,
 }
 
@@ -33,7 +33,7 @@ Icon.defaultProps = {
   ...defaultProps,
   prefix: 'icon',
   fontFamily: 'iconfont',
-  iconType: '',
+  name: '',
   size: 'default',
   type: 'default',
 }

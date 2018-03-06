@@ -29,6 +29,10 @@
       border-top: solid 1px @dropdown-divider-bg;
     }
   }
+  .@{dropdown-prefix}-button-content {
+    display: inline-block;
+    width: 85%
+  }
 
   &-bottom-left, &-bottom-right {
     >.@{dropdown-prefix}-menu {
@@ -127,7 +131,16 @@
   }
 }
 .@{dropdown-prefix}-split-dropdown {
+  margin-left: -1px;
   .@{dropdown-prefix}-split-button {
     border-radius: 0 4px 4px 0 !important;
+    padding-left: 8px;
+    padding-right: 8px;
+    .@{dropdown-prefix}-button-content {
+      width: 0
+    }
+    &:after {
+      margin-left: 0;
+    }
   }
 }
