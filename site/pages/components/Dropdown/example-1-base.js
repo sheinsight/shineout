@@ -23,6 +23,7 @@ export default function () {
     children: [{
       content: 'link3',
       id: 6,
+      onClick: () => { console.log('this is special') },
     }, {
       content: 'link4',
       id: 7,
@@ -31,13 +32,13 @@ export default function () {
 
   return (
     <Fragment>
-      <Dropdown placeholder="Default" data={menu} onClick={(content, data) => { console.log(content, data) }} />
+      <Dropdown placeholder="Default" data={menu} onClick={(data) => { console.log(data) }} />
 
-      <Dropdown placeholder="Link" data={menu} type="link" />
+      <Dropdown placeholder="Link" data={menu} itemRender={data => (`data${data.content}`)} type="link" />
 
-      <Dropdown placeholder="Primary" type="primary" data={menu} />
+      <Dropdown placeholder="Primary" size="small" type="primary" data={menu} />
 
-      <Dropdown placeholder="Outline" outline type="primary" data={menu} />
+      <Dropdown placeholder="Outline" outline size="large" type="primary" data={menu} />
 
       <Dropdown placeholder="Small" size="small" data={menu} />
     </Fragment>

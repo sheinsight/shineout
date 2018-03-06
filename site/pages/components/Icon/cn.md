@@ -18,6 +18,6 @@
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| iconType | string | '' | 图标类名,值参照具体使用的图标库 |
+| name | string | '' | 图标类名,值参照具体使用的图标库 |
 | size | string| 'default' | 图标大小,有"small","default","large |
 | type | string | 'default' | 图标颜色,有"primary","success","default","warning"等 |

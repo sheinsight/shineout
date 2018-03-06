@@ -110,9 +110,10 @@
 //
   &-item-selected {
     color: @menu-highlight-color;
-    > a,
-    > a:hover {
-      color: @menu-highlight-color;
+    &:after {
+      transform: scaleY(1);
+      opacity: 1;
+      transition: transform .15s ease-out, opacity .15s ease-out;
     }
   }
 //

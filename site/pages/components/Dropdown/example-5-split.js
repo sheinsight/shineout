@@ -15,16 +15,11 @@ export default function () {
     id: '2',
   }]
   return (
-    <Button.Group size="small">
-      <Button type="primary" onClick={() => Message.info('The button clicked.')}>Click me</Button>
+    <Button.Group>
+      <Button onClick={() => Message.info('The button clicked.')}>Click me</Button>
       <Dropdown
         onClick={content => Message.info(`The Dropdown clicked ${content}.`)}
-        //  if you choose the substantive button to handle the event,
-        //  you may add this props or add "style" to cover
-        buttonSplit
         position="top-left"
-        type="primary"
-        placeholder=""
         data={menu}
       />
     </Button.Group>

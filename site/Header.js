@@ -28,8 +28,8 @@ function handleLangClick() {
   setLanguage(lang)
 }
 
-function handleThemeClick(content) {
-  const url = `?theme=${content}${window.location.hash}`
+function handleThemeClick(data) {
+  const url = `?theme=${data.content}${window.location.hash}`
   window.location.href = url
 }
 
