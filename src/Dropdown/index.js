@@ -204,7 +204,6 @@ Dropdown.defaultProps = {
   ...defaultProps,
   disabled: false,
   data: [],
-  keygen: 'id',
 }
 
 export default Dropdown
