@@ -1,7 +1,7 @@
 import List from './List'
-import hoc from './hoc'
+import listWrap from './listWrap'
 
 export default {
-  hoc,
+  listWrap,
   List,
 }

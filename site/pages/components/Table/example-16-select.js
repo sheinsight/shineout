@@ -28,7 +28,8 @@ export default class extends PureComponent {
     super(props)
 
     const value = [2, 3, 5].map(i => `${data[i].firstName} ${data[i].lastName}`)
-    const datum = new Datum.List({
+
+    this.datum = new Datum.List({
       format: d => `${d.firstName} ${d.lastName}`,
       value,
       onChange: this.handelRowSelect.bind(this),
@@ -36,12 +37,10 @@ export default class extends PureComponent {
 
     this.state = {
       selectedValue: value,
-      datum,
     }
   }
 
-  handelRowSelect() {
-    const values = this.state.datum.getValue()
+  handelRowSelect(values) {
     this.setState({ selectedValue: values })
   }
 
@@ -54,7 +53,7 @@ export default class extends PureComponent {
           columns={columns}
           data={data}
           style={{ height: 300 }}
-          datum={this.state.datum}
+          datum={this.datum}
         />
         <div style={{ wordBreak: 'break-all' }}>
           selected rows: { JSON.stringify(this.state.selectedValue) }
