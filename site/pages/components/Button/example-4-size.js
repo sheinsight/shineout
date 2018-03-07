@@ -1,5 +1,5 @@
 /**
- * cn - 大小 size
+ * cn - 大小
  * en - Size
  */
 import React, { Fragment } from 'react'

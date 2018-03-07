@@ -1,5 +1,5 @@
 /**
- * cn - 组合 Group
+ * cn - 组合
  * en - Group
  */
 import React, { Fragment } from 'react'

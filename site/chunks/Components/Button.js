@@ -19,33 +19,38 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Button/example-1-base.js'),
   },
   {
-    title: locate('透明背景 outline', 'Outline'),
+    title: locate('透明背景', 'Outline'),
     component: require('doc/pages/components/Button/example-2-outline.js').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-2-outline.js'),
   },
   {
-    title: locate('不可用 disabled', 'Disabled'),
+    title: locate('不可用', 'Disabled'),
     component: require('doc/pages/components/Button/example-3-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-3-disabled.js'),
   },
   {
-    title: locate('大小 size', 'Size'),
+    title: locate('大小', 'Size'),
     component: require('doc/pages/components/Button/example-4-size.js').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-4-size.js'),
   },
   {
-    title: locate('组合 Group', 'Group'),
+    title: locate('组合', 'Group'),
     component: require('doc/pages/components/Button/example-5-group.js').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-5-group.js'),
   },
   {
-    title: locate('链接 href', 'Link href'),
+    title: locate('链接', 'Link'),
     component: require('doc/pages/components/Button/example-6-href.js').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-6-href.js'),
   },
+  {
+    title: locate('图标', 'Icon'),
+    component: require('doc/pages/components/Button/example-7-icon.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Button/example-7-icon.js'),
+  },
 ]
 
-const codes = []
+const codes = undefined
 
 export default navable(props => (
   <MarkDown {...props} codes={codes} source={source} examples={examples} />

@@ -1,5 +1,5 @@
 /**
- * cn - 透明背景 outline
+ * cn - 透明背景
  * en - Outline
  */
 import React, { Fragment } from 'react'

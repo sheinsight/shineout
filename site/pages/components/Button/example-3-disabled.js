@@ -1,5 +1,5 @@
 /**
- * cn - 不可用 disabled
+ * cn - 不可用
  * en - Disabled
  */
 import React, { Fragment } from 'react'

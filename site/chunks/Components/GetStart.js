@@ -15,7 +15,7 @@ const source = locate(cn, en)
 const examples = [
 ]
 
-const codes = []
+const codes = undefined
 
 export default navable(props => (
   <MarkDown {...props} codes={codes} source={source} examples={examples} />

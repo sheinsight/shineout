@@ -6,27 +6,38 @@ import { iconClass } from '../styles'
 
 function Icon(props) {
   const {
+    children,
     prefix,
     type,
-    size,
     name,
-    style,
     fontFamily,
+    fontSize,
     ...otherProps
   } = props
-  const className = classnames(iconClass('_', type, {
-    small: size === 'small',
-    large: size === 'large',
-  }), props.className)
-  const iconClassString = ` ${prefix}-${name} `
-  return (<i {...otherProps} className={`${className} ${iconClassString}`} style={{ ...style, fontFamily }} />)
+
+  const className = classnames(iconClass('_', type), props.className, `${prefix}-${name}`)
+
+  const style = Object.assign({}, {
+    fontFamily,
+    fontSize,
+  }, props.style)
+
+  return (
+    <i {...otherProps} className={className} style={style}>
+      {children}
+    </i>
+  )
 }
 
 Icon.propTypes = {
-  ...getProps('size', 'type'),
+  ...getProps('children', 'size', 'type'),
   prefix: PropTypes.string,
   name: PropTypes.string,
   fontFamily: PropTypes.string,
+  fontSize: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
 }
 
 Icon.defaultProps = {
@@ -34,7 +45,6 @@ Icon.defaultProps = {
   prefix: 'icon',
   fontFamily: 'iconfont',
   name: '',
-  size: 'default',
   type: 'default',
 }
 

@@ -1,6 +1,6 @@
 /**
- * cn - 链接 href
- * en - Link href
+ * cn - 链接
+ * en - Link
  */
 import React from 'react'
 import { Button } from 'shineout'
