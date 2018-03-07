@@ -5,23 +5,48 @@
 import React from 'react'
 import { Menu } from 'shineout'
 
-const data = [{
-  id: '1',
-  content: 'Home',
-  children1: [{
+const data = [
+  {
+    id: '1',
+    title: 'Home',
+  }, {
     id: '3',
-    content: 'Product',
+    title: 'Product',
   }, {
     id: '6',
-    content: 'Buyer',
-  }],
-}, {
-  id: '2',
-  content: 'Index',
-}]
+    title: 'Buyer',
+  }, {
+    id: '2',
+    title: 'Index',
+  },
+]
 
-export default function () {
-  return (
-    <Menu keygen={d => `${d.id}my`} data={data} defaultSelectKeys={['2my']} style={{ width: 156 }} />
-  )
+
+export default class extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      active: ['1'],
+    }
+    this.handleClick = this.handleClick.bind(this)
+  }
+  handleClick(da) {
+    this.setState({
+      active: [da.id],
+    })
+  }
+  render() {
+    return (
+      <Menu
+        // multiple
+        keygen={d => `${d.id}my`}
+        data={data}
+        itemRender={d => d.title}
+        active={da => this.state.active.includes(da.id)}
+        style={{ width: 256 }}
+        inlineIndent={14}
+        onClick={this.handleClick}
+      />
+    )
+  }
 }

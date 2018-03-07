@@ -6,14 +6,17 @@ import { menuClass } from '../styles'
 
 class Item extends React.Component {
   render() {
-    console.log(this.props.selectKeys, this.props.menuKey)
+    const {
+      data, itemRender, isActive, handleClick,
+    } = this.props
+    const itemData = typeof itemRender === 'string' ? data[itemRender] : itemRender(data)
     const className = classnames(
       menuClass('item', {
-        'item-selected': this.props.selectKeys.find(key => key === this.props.menuKey),
+        'item-selected': isActive,
       }),
       this.props.className,
     )
-    return (<li className={className}>{this.props.data.content}</li>)
+    return (<li className={className}><a onClick={handleClick}>{itemData}</a></li>)
   }
 }
 
@@ -21,12 +24,20 @@ Item.propTypes = {
   ...getProps(),
   data: PropTypes.object,
   menuKey: PropTypes.string,
+  itemRender: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func,
+  ]),
+  isActive: PropTypes.bool,
+  handleClick: PropTypes.func,
 }
 
 Item.defaultProps = {
   ...defaultProps,
   data: {},
   menuKey: '',
+  itemRender: 'title',
+  isActive: false,
 }
 
 export default Item
