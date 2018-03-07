@@ -1,3 +1,5 @@
+// Created by scripts/src-index.js.
+
 export { default as Alert } from './Alert'
 export { default as Breadcrumb } from './Breadcrumb'
 export { default as Button } from './Button'

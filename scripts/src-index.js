@@ -5,7 +5,9 @@ const ejs = require('ejs')
 const rootPath = path.resolve(__dirname, '../src')
 const files = fs.readdirSync(rootPath).filter(n => /^[A-Z]/.test(n))
 
-const line = `<% files.forEach(function (name) { -%>
+const line = `// Created by scripts/src-index.js.
+
+<% files.forEach(function (name) { -%>
 export { default as <%= name %> } from './<%= name %>'
 <% }) -%>`
 
