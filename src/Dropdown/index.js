@@ -104,6 +104,7 @@ class Dropdown extends PureComponent {
       onClick,
       columns,
       itemRender,
+      _first,
     } = this.props
     if (!Array.isArray(data) || data.length === 0) return null
     const itemClassName = dropdownClass('item', !width && 'no-width')
@@ -123,7 +124,7 @@ class Dropdown extends PureComponent {
         style={btnColor ? { ...style, color: '#000', textAlign: 'left' } : style}
         key="1"
       >
-        <span className={spanClassName}>{placeholder}</span>
+        <span className={spanClassName} style={!_first ? { width: 'auto' } : {}}>{placeholder}</span>
       </Button>,
       <FadeList
         className={dropdownClass('menu')}
@@ -150,6 +151,7 @@ class Dropdown extends PureComponent {
                 onClick={onClick}
                 itemRender={itemRender}
                 handleHide={this.handleHide}
+                _first
               /> :
               (
                 <Item
@@ -181,7 +183,7 @@ class Dropdown extends PureComponent {
         className={wrapClassName}
         style={style}
       >
-        {this.renderList(data, placeholder, -1)}
+        {this.renderList(data, placeholder)}
       </div>
     )
   }

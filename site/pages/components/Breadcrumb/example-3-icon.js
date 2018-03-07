@@ -11,7 +11,7 @@ const MyIcon = Icon('//at.alicdn.com/t/font_550076_aqfu50lfa47bke29.css')
 
 const data = [{
   id: '1',
-  icon: <MyIcon iconType="info" />,
+  icon: <MyIcon name="info" />,
   url: '#',
 }, {
   id: '2',

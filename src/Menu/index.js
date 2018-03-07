@@ -1,32 +1,48 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import immer from 'immer'
 import { defaultProps, getProps } from '../utils/proptypes'
 import Item from './Item'
 import SubItem from './SubItem'
 import { menuClass } from '../styles'
 
 class Menu extends React.Component {
-  static getKey(data, keygen) {
+  static getKey(data, keygen, index) {
     switch (typeof keygen) {
       case 'string':
         return data[keygen]
       case 'function':
         return keygen(data)
       default:
-        return data.id
+        return index
     }
   }
   constructor(props) {
     super(props)
     this.state = {
-      selectKeys: this.props.selectKeys || this.props.defaultSelectKeys,
+      activeKey: [],
+      firstRender: true,
     }
+    this.activeKey = []
+    this.checkActive = this.checkActive.bind(this)
+  }
+  componentDidMount() {
+    this.setState({ activeKey: this.activeKey, firstRender: false })
+    this.activeKey = []
+  }
+  checkActive(data) {
+    const [isActive] = [this.props.active(data)]
+    if (isActive && (this.activeKey.length === 0 || this.props.multiple)) {
+      this.activeKey.push(data)
+      return true
+    }
+    return false
   }
   renderMenu(data, keygen) {
     if (!Array.isArray(data) || data.length === 0) return null
-    return data.map((da) => {
-      const menuKey = Menu.getKey(da, keygen)
+    return data.map((da, index) => {
+      const menuKey = Menu.getKey(da, keygen, index)
       return da.children && da.children.length > 0 ?
         <SubItem key={menuKey} data={da}>
           {
@@ -36,8 +52,8 @@ class Menu extends React.Component {
         <Item
           data={da}
           key={menuKey}
-          menuKey={menuKey}
-          selectKeys={this.state.selectKeys}
+          isActive={this.props.active(da)}
+          handleClick={() => this.props.onClick(da)}
         />
     })
   }
@@ -49,6 +65,7 @@ class Menu extends React.Component {
       menuClass('_', 'root', mode),
       this.props.className,
     )
+    console.log(this.state.activeKey)
     return (
       <ul className={className} style={style}>{
         this.renderMenu(data, keygen)
@@ -62,14 +79,7 @@ Menu.propTypes = {
   ...getProps('style', 'keygen'),
   data: PropTypes.array,
   mode: PropTypes.string,
-  selectKeys: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array,
-  ]),
-  defaultSelectKeys: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array,
-  ]),
+  active: PropTypes.func,
 }
 
 Menu.defaultProps = {
@@ -77,8 +87,7 @@ Menu.defaultProps = {
   data: [],
   keygen: 'id',
   mode: 'vertical',
-  selectKeys: null,
-  defaultSelectKeys: [],
+  active: () => false,
 }
 
 export default Menu
