@@ -23,6 +23,7 @@ export default function (Component, duration = 400, type = ['fade']) {
 
     componentDidMount() {
       if (!this.props.show) {
+        this.height = this.element.offsetHeight
         this.element.style.display = 'none'
       }
     }

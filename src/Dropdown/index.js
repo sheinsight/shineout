@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { getProps, defaultProps } from '../utils/proptypes'
 import Button from '../Button'
 import { dropdownClass } from '../styles'
-import { FadeList } from '../List'
+import List from '../List'
 import Item from './item'
 
 const positionMap = {
@@ -147,7 +147,7 @@ class Dropdown extends PureComponent {
       >
         <span className={spanClassName} style={this.getSpanStyle()}>{placeholder}</span>
       </Button>,
-      <FadeList
+      <List.Fade
         className={dropdownClass('menu')}
         style={{ width }}
         key="2"
@@ -185,7 +185,7 @@ class Dropdown extends PureComponent {
                 />)
           })
         }
-      </FadeList>]
+      </List.Fade>]
   }
   render() {
     const {

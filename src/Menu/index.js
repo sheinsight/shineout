@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import immer from 'immer'
 import { defaultProps, getProps } from '../utils/proptypes'
 import Item from './Item'
 import SubItem from './SubItem'
@@ -22,13 +21,13 @@ class Menu extends React.Component {
     super(props)
     this.state = {
       activeKey: [],
-      firstRender: true,
     }
     this.activeKey = []
+    this.inlineIndent = 0
     this.checkActive = this.checkActive.bind(this)
   }
   componentDidMount() {
-    this.setState({ activeKey: this.activeKey, firstRender: false })
+    this.setState({ activeKey: this.activeKey })
     this.activeKey = []
   }
   checkActive(data) {
@@ -39,21 +38,29 @@ class Menu extends React.Component {
     }
     return false
   }
-  renderMenu(data, keygen) {
+  renderMenu(data, keygen, i) {
     if (!Array.isArray(data) || data.length === 0) return null
+    const times = i + 1
     return data.map((da, index) => {
       const menuKey = Menu.getKey(da, keygen, index)
       return da.children && da.children.length > 0 ?
-        <SubItem key={menuKey} data={da}>
+        <SubItem
+          key={menuKey}
+          data={da}
+          inlineIndent={this.props.inlineIndent * times}
+          itemRender={this.props.itemRender}
+        >
           {
-            this.renderMenu(da.children, keygen)
+            this.renderMenu(da.children, keygen, times)
           }
         </SubItem> :
         <Item
           data={da}
           key={menuKey}
+          itemRender={this.props.itemRender}
           isActive={this.props.active(da)}
           handleClick={() => this.props.onClick(da)}
+          inlineIndent={this.props.inlineIndent * times}
         />
     })
   }
@@ -65,10 +72,9 @@ class Menu extends React.Component {
       menuClass('_', 'root', mode),
       this.props.className,
     )
-    console.log(this.state.activeKey)
     return (
       <ul className={className} style={style}>{
-        this.renderMenu(data, keygen)
+        this.renderMenu(data, keygen, 0)
       }
       </ul>
     )
@@ -80,6 +86,11 @@ Menu.propTypes = {
   data: PropTypes.array,
   mode: PropTypes.string,
   active: PropTypes.func,
+  inlineIndent: PropTypes.number,
+  itemRender: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func,
+  ]),
 }
 
 Menu.defaultProps = {
@@ -88,6 +99,8 @@ Menu.defaultProps = {
   keygen: 'id',
   mode: 'vertical',
   active: () => false,
+  inlineIndent: 24,
+  itemRender: 'title',
 }
 
 export default Menu

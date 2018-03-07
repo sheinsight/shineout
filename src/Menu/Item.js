@@ -7,7 +7,7 @@ import { menuClass } from '../styles'
 class Item extends React.Component {
   render() {
     const {
-      data, itemRender, isActive, handleClick,
+      data, itemRender, isActive, handleClick, inlineIndent,
     } = this.props
     const itemData = typeof itemRender === 'string' ? data[itemRender] : itemRender(data)
     const className = classnames(
@@ -16,7 +16,13 @@ class Item extends React.Component {
       }),
       this.props.className,
     )
-    return (<li className={className}><a onClick={handleClick}>{itemData}</a></li>)
+    return (
+      <li
+        className={className}
+        style={{ paddingLeft: inlineIndent }}
+      >
+        <a onClick={handleClick}>{itemData}</a>
+      </li>)
   }
 }
 
@@ -30,6 +36,7 @@ Item.propTypes = {
   ]),
   isActive: PropTypes.bool,
   handleClick: PropTypes.func,
+  inlineIndent: PropTypes.number,
 }
 
 Item.defaultProps = {
