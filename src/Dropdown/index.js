@@ -8,6 +8,17 @@ import { dropdownClass } from '../styles'
 import { FadeList } from '../List'
 import Item from './item'
 
+const positionMap = {
+  'left-top': 'left-top',
+  'left-bottom': 'left-bottom',
+  'right-top': 'right-top',
+  'right-bottom': 'right-bottom',
+  'top-right': 'left-bottom',
+  'top-left': 'right-bottom',
+  'bottom-right': 'left-top',
+  'bottom-left': 'right-top',
+}
+
 class Dropdown extends PureComponent {
   static getKey(data, keygen, index) {
     switch (typeof keygen) {
@@ -35,6 +46,7 @@ class Dropdown extends PureComponent {
     this.handleHover = this.handleHover.bind(this)
     this.renderList = this.renderList.bind(this)
     this.handleHide = this.handleHide.bind(this)
+    this.getSpanStyle = this.getSpanStyle.bind(this)
   }
 
   componentWillUnmount() {
@@ -43,6 +55,16 @@ class Dropdown extends PureComponent {
 
   getPosition() {
     return this.props.position || this.state.position
+  }
+  getSpanStyle() {
+    const { _first, position } = this.props
+    const style = {}
+    if (!_first) {
+      style.width = 'auto'
+    } else if (!position.startsWith('left')) {
+      style.marginLeft = -5
+    }
+    return style
   }
 
   bindButton(el) {
@@ -104,7 +126,6 @@ class Dropdown extends PureComponent {
       onClick,
       columns,
       itemRender,
-      _first,
     } = this.props
     if (!Array.isArray(data) || data.length === 0) return null
     const itemClassName = dropdownClass('item', !width && 'no-width')
@@ -124,7 +145,7 @@ class Dropdown extends PureComponent {
         style={btnColor ? { ...style, color: '#000', textAlign: 'left' } : style}
         key="1"
       >
-        <span className={spanClassName} style={!_first ? { width: 'auto' } : {}}>{placeholder}</span>
+        <span className={spanClassName} style={this.getSpanStyle()}>{placeholder}</span>
       </Button>,
       <FadeList
         className={dropdownClass('menu')}
@@ -135,8 +156,7 @@ class Dropdown extends PureComponent {
         {
           data.map((d, index) => {
             const liKey = Dropdown.getKey(d, keygen, index)
-            const position = this.getPosition().split('-')
-            const childPosition = position[0] === 'left' ? 'left-top' : 'right-top'
+            const childPosition = positionMap[this.props.position]
             return d.children ?
               <Dropdown
                 hover={this.props.hover}
@@ -206,6 +226,7 @@ Dropdown.defaultProps = {
   ...defaultProps,
   disabled: false,
   data: [],
+  position: 'bottom-left',
 }
 
 export default Dropdown

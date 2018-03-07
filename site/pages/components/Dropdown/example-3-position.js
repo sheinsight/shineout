@@ -29,26 +29,27 @@ export default function () {
       id: 7,
     }],
   }]
+  const width = 100
 
   return (
     <Fragment>
-      <Dropdown placeholder="Right Top" width={160} position="right-top" data={menu} />
+      <Dropdown placeholder="Right Top" width={width} position="right-top" data={menu} />
 
-      <Dropdown placeholder="Bottom Left" width={160} position="bottom-left" data={menu} />
+      <Dropdown placeholder="Bottom Left" width={width} position="bottom-left" data={menu} />
 
-      <Dropdown placeholder="Bottom Right" width={160} position="bottom-right" data={menu} />
+      <Dropdown placeholder="Bottom Right" width={width} position="bottom-right" data={menu} />
 
-      <Dropdown placeholder="Left Top" width={160} position="left-top" data={menu} />
+      <Dropdown placeholder="Left Top" width={width} position="left-top" data={menu} />
 
       <br />
 
-      <Dropdown placeholder="Right Bottom" width={160} position="right-bottom" data={menu} />
+      <Dropdown placeholder="Right Bottom" width={width} position="right-bottom" data={menu} />
 
-      <Dropdown placeholder="Top Left" width={160} position="top-left" data={menu} />
+      <Dropdown placeholder="Top Left" width={width} position="top-left" data={menu} />
 
-      <Dropdown placeholder="Top Right" width={160} position="top-right" data={menu} />
+      <Dropdown placeholder="Top Right" width={width} position="top-right" data={menu} />
 
-      <Dropdown placeholder="Left Bottom" width={160} position="left-bottom" data={menu} />
+      <Dropdown placeholder="Left Bottom" width={width} position="left-bottom" data={menu} />
     </Fragment>
   )
 }
