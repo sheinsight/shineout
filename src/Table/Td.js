@@ -15,12 +15,12 @@ class Td extends PureComponent {
   }
 
   renderCheckbox() {
-    const { index, data, value } = this.props
+    const { index, data, datum } = this.props
     return (
       <Checkbox
         data={data}
         index={index}
-        value={value}
+        datum={datum}
       />
     )
   }
@@ -61,7 +61,7 @@ Td.propTypes = {
   rowSpan: PropTypes.number,
   style: PropTypes.object,
   type: PropTypes.string,
-  value: PropTypes.object,
+  datum: PropTypes.object,
 }
 
 Td.defaultProps = {

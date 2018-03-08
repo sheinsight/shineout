@@ -1,20 +1,25 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import List from './List'
+import Form from './Form'
 
-export default function (Component, type = 'list') {
-  const Datum = type === 'list' ? List : undefined
+const types = {
+  form: Form,
+  list: List,
+}
+
+export default function (Component, type = 'list', key = 'value') {
+  const Datum = types[type]
 
   return class extends PureComponent {
     static propTypes = {
       onChange: PropTypes.func,
       datum: PropTypes.object,
-      value: PropTypes.array,
     }
 
     constructor(props) {
       super(props)
-      const { datum, onChange, value } = props
+      const { datum, onChange } = props
 
       if (datum instanceof Datum) {
         this.datum = datum
@@ -22,7 +27,7 @@ export default function (Component, type = 'list') {
         this.datum = new Datum(datum)
       }
 
-      if (value) this.datum.setValue(value)
+      if (props[key]) this.datum.setValue(props[key])
 
       if (!this.datum.onChange) {
         this.datum.onChange = onChange
@@ -33,7 +38,7 @@ export default function (Component, type = 'list') {
       return (
         <Component
           {...this.props}
-          value={this.datum}
+          datum={this.datum}
         />
       )
     }

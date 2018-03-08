@@ -96,4 +96,4 @@ Table.defaultProps = {
   rowsInView: 20,
 }
 
-export default Datum.listWrap(Table)
+export default Datum.hoc(Table)

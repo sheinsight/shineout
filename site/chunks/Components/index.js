@@ -25,6 +25,12 @@ const pages = [
     component: loadable(() => import('./Dropdown')),
   },
   'Form',
+  {
+    name: 'Input',
+    cn: '输入框',
+    level: 2,
+    component: loadable(() => import('./Input')),
+  },
   'Data',
   {
     name: 'Datum.List',
