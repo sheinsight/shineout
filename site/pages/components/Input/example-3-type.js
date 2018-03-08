@@ -9,7 +9,7 @@ const style = { marginBottom: 12 }
 
 export default function () {
   return (
-    <div style={{ width: 200 }}>
+    <div style={{ width: 300 }}>
       <Input style={style} type="number" placeholder="digits undefined" />
       <Input style={style} digits={0} type="number" placeholder="digits 0" />
       <Input style={style} digits={1} type="number" placeholder="digits 1" />

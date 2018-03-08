@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { curry } from '../utils/func'
-import { inputClass } from '../styles'
+import { buttonClass, inputClass } from '../styles'
 
-export default curry((Tag, Origin) => class extends Component {
+export default curry((Tag, isGroup, Origin) => class extends Component {
   static propTypes = {
     autoFocus: PropTypes.bool,
     className: PropTypes.string,
@@ -49,10 +49,12 @@ export default curry((Tag, Origin) => class extends Component {
       inputClass(
         '_',
         focus && 'focus',
+        isGroup && 'group',
         size,
         !border && 'no-border',
         hasError && 'has-error',
       ),
+      buttonClass(isGroup && 'group'),
       this.props.className,
     )
 

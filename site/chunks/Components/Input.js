@@ -14,7 +14,7 @@ const source = locate(cn, en)
 
 const examples = [
   {
-    title: locate('基本用法', 'Base'),
+    title: locate('基本用法 \n *Input 通常需要和其他的组件配合使用，所以默认的宽度是 100%', 'Base'),
     component: require('doc/pages/components/Input/example-1-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-1-base.js'),
   },
@@ -27,6 +27,11 @@ const examples = [
     title: locate('数字 \n type=number 时，会做一次校验，禁止输入非数字类型字符，并且根据 digits 属性限制小数位数', 'number type'),
     component: require('doc/pages/components/Input/example-3-type.js').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-3-type.js'),
+  },
+  {
+    title: locate('组合 Input.Group \n Icon, span, string, Button 类型可以直接放入 Input.Group 中。Icon 和 string 可以放入 Input.Addon 中添加背景色隔离。', 'Group'),
+    component: require('doc/pages/components/Input/example-4-group.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Input/example-4-group.js'),
   },
 ]
 

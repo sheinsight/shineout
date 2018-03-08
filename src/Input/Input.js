@@ -18,7 +18,6 @@ class Input extends PureComponent {
       reg += `\\.?\\d{0,${digits}}`
     }
     reg += '$'
-    console.log(reg)
     reg = new RegExp(reg)
     return !reg.test(value)
   }
