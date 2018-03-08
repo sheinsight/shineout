@@ -18,7 +18,7 @@ export default function () {
     }],
   }, {
     content: 'Second',
-    url: 'www.baidu.com',
+    url: 'http://www.google.com',
     id: '2',
     children: [{
       content: 'link3',
@@ -27,6 +27,13 @@ export default function () {
     }, {
       content: 'link4',
       id: 7,
+      children: [{
+        id: '8',
+        content: 'link5',
+      }, {
+        id: '9',
+        content: 'link6',
+      }],
     }],
   }]
   const width = 100

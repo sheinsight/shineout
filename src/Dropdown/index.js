@@ -128,7 +128,6 @@ class Dropdown extends PureComponent {
       itemRender,
     } = this.props
     if (!Array.isArray(data) || data.length === 0) return null
-    const itemClassName = dropdownClass('item', !width && 'no-width')
     const buttonClassName = dropdownClass('button', { 'split-button': !placeholder })
     const spanClassName = dropdownClass('button-content')
     return [
@@ -157,6 +156,7 @@ class Dropdown extends PureComponent {
           data.map((d, index) => {
             const liKey = Dropdown.getKey(d, keygen, index)
             const childPosition = positionMap[this.props.position]
+            const itemClassName = dropdownClass('item', !width && 'no-width', childPosition.startsWith('left') && 'item-left')
             return d.children ?
               <Dropdown
                 hover={this.props.hover}
