@@ -15,7 +15,7 @@ export default function () {
     }],
   }, {
     content: 'Second',
-    url: 'www.baidu.com',
+    url: 'http://www.google.com',
     id: '2',
     children: [{
       content: 'topic 2',

@@ -8,11 +8,10 @@
   }
 
   &-collapse, &-collapse-fade {
-    transform: scaleY(0);
-    transform-origin: 0 0;
+    height: 0;
 
     &.@{hidable-prefix}-show {
-      transform: scaleY(1);
+      height: 80px;
     }
   }
 

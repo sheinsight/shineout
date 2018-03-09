@@ -15,13 +15,7 @@ export default function () {
     }],
   }, {
     content: 'Second',
-    url: 'www.baidu.com',
-    children: [{
-      content: 'link3',
-      onClick: () => { console.log('this is special') },
-    }, {
-      content: 'link4',
-    }],
+    url: 'http://www.google.com',
   }]
 
   return (
@@ -32,7 +26,7 @@ export default function () {
 
       <Dropdown placeholder="Primary" size="small" type="primary" data={menu} />
 
-      <Dropdown placeholder="Outline" outline size="large" type="primary" data={menu} />
+      <Dropdown placeholder="Outline" position="left-top" outline size="large" type="primary" data={menu} />
 
       <Dropdown placeholder="Small" size="small" data={menu} />
     </Fragment>

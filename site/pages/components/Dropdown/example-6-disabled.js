@@ -18,7 +18,7 @@ export default function () {
     id: '1',
   }, {
     content: 'Second',
-    url: 'www.baidu.com',
+    url: 'http://www.google.com',
     id: '2',
   }]
 

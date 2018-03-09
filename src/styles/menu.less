@@ -21,8 +21,8 @@
     padding: 0;
   }
   .@{menu-prefix}-item {
-    height: 40px;
-    line-height: 40px;
+    height: @menu-item-height;
+    line-height: @menu-item-height;
   }
 
   &-hidden {
@@ -45,21 +45,35 @@
 //    transition: all .3s;
 //  }
 //
-//  &-submenu,
-//  &-submenu-inline {
-//    transition: border-color .3s @ease-in-out, background .3s @ease-in-out, padding .15s @ease-in-out;
-//  }
-//
+  &-submenu {
+    a {
+      color: @menu-item-color;
+    }
+    &-ul {
+
+    }
+  }
+  &-submenu,
+  &-submenu-inline {
+    transition: border-color .3s @ease-in-out, background .3s @ease-in-out, padding .15s @ease-in-out;
+  }
   &-item:active,
   &-submenu-title:active {
     background: @menu-item-active-bg;
   }
-//
-//  &-submenu &-sub {
-//    cursor: initial;
-//    transition: background .3s @ease-in-out, padding .3s @ease-in-out;
-//  }
-//
+
+  &-submenu-title{
+    height: @menu-item-height;
+    line-height: @menu-item-height;
+    .caret(down);
+    &:after {
+      position: absolute;
+      right: 20px;
+      top: @menu-item-height / 2;
+      transform: translateY(-75%) rotate(45deg);
+    }
+  }
+
   &-item > a {
     display: block;
     color: @menu-item-color;
@@ -314,8 +328,10 @@
   &-vertical-right,
   &-inline {
     .@{menu-prefix}-selected,
-    .@{menu-prefix}-item-selected {
-      color: @colors-blue;
+    .@{menu-prefix}-item-selected{
+      > a {
+        color: @colors-blue;
+      }
       &:after {
         transition: transform .15s ease-in, opacity .15s ease-in;
         opacity: 1;

@@ -18,7 +18,7 @@ export default function () {
     }],
   }, {
     content: 'Second',
-    url: 'www.baidu.com',
+    url: 'http://www.google.com',
     id: '2',
     children: [{
       content: 'link3',
@@ -27,28 +27,36 @@ export default function () {
     }, {
       content: 'link4',
       id: 7,
+      children: [{
+        id: '8',
+        content: 'link5',
+      }, {
+        id: '9',
+        content: 'link6',
+      }],
     }],
   }]
+  const width = 100
 
   return (
     <Fragment>
-      <Dropdown placeholder="Right Top" width={160} position="right-top" data={menu} />
+      <Dropdown placeholder="Right Top" width={width} position="right-top" data={menu} />
 
-      <Dropdown placeholder="Bottom Left" width={160} position="bottom-left" data={menu} />
+      <Dropdown placeholder="Bottom Left" width={width} position="bottom-left" data={menu} />
 
-      <Dropdown placeholder="Bottom Right" width={160} position="bottom-right" data={menu} />
+      <Dropdown placeholder="Bottom Right" width={width} position="bottom-right" data={menu} />
 
-      <Dropdown placeholder="Left Top" width={160} position="left-top" data={menu} />
+      <Dropdown placeholder="Left Top" width={width} position="left-top" data={menu} />
 
       <br />
 
-      <Dropdown placeholder="Right Bottom" width={160} position="right-bottom" data={menu} />
+      <Dropdown placeholder="Right Bottom" width={width} position="right-bottom" data={menu} />
 
-      <Dropdown placeholder="Top Left" width={160} position="top-left" data={menu} />
+      <Dropdown placeholder="Top Left" width={width} position="top-left" data={menu} />
 
-      <Dropdown placeholder="Top Right" width={160} position="top-right" data={menu} />
+      <Dropdown placeholder="Top Right" width={width} position="top-right" data={menu} />
 
-      <Dropdown placeholder="Left Bottom" width={160} position="left-bottom" data={menu} />
+      <Dropdown placeholder="Left Bottom" width={width} position="left-bottom" data={menu} />
     </Fragment>
   )
 }

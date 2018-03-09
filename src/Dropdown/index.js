@@ -5,8 +5,19 @@ import PropTypes from 'prop-types'
 import { getProps, defaultProps } from '../utils/proptypes'
 import Button from '../Button'
 import { dropdownClass } from '../styles'
-import { FadeList } from '../List'
+import List from '../List'
 import Item from './item'
+
+const positionMap = {
+  'left-top': 'left-top',
+  'left-bottom': 'left-bottom',
+  'right-top': 'right-top',
+  'right-bottom': 'right-bottom',
+  'top-right': 'left-bottom',
+  'top-left': 'right-bottom',
+  'bottom-right': 'left-top',
+  'bottom-left': 'right-top',
+}
 
 class Dropdown extends PureComponent {
   static getKey(data, keygen, index) {
@@ -35,6 +46,7 @@ class Dropdown extends PureComponent {
     this.handleHover = this.handleHover.bind(this)
     this.renderList = this.renderList.bind(this)
     this.handleHide = this.handleHide.bind(this)
+    this.getSpanStyle = this.getSpanStyle.bind(this)
   }
 
   componentWillUnmount() {
@@ -43,6 +55,16 @@ class Dropdown extends PureComponent {
 
   getPosition() {
     return this.props.position || this.state.position
+  }
+  getSpanStyle() {
+    const { _first, position } = this.props
+    const style = {}
+    if (!_first) {
+      style.width = 'auto'
+    } else if (!position.startsWith('left')) {
+      style.marginLeft = -5
+    }
+    return style
   }
 
   bindButton(el) {
@@ -104,10 +126,8 @@ class Dropdown extends PureComponent {
       onClick,
       columns,
       itemRender,
-      _first,
     } = this.props
     if (!Array.isArray(data) || data.length === 0) return null
-    const itemClassName = dropdownClass('item', !width && 'no-width')
     const buttonClassName = dropdownClass('button', { 'split-button': !placeholder })
     const spanClassName = dropdownClass('button-content')
     return [
@@ -124,9 +144,9 @@ class Dropdown extends PureComponent {
         style={btnColor ? { ...style, color: '#000', textAlign: 'left' } : style}
         key="1"
       >
-        <span className={spanClassName} style={!_first ? { width: 'auto' } : {}}>{placeholder}</span>
+        <span className={spanClassName} style={this.getSpanStyle()}>{placeholder}</span>
       </Button>,
-      <FadeList
+      <List.Fade
         className={dropdownClass('menu')}
         style={{ width }}
         key="2"
@@ -135,8 +155,8 @@ class Dropdown extends PureComponent {
         {
           data.map((d, index) => {
             const liKey = Dropdown.getKey(d, keygen, index)
-            const position = this.getPosition().split('-')
-            const childPosition = position[0] === 'left' ? 'left-top' : 'right-top'
+            const childPosition = positionMap[this.props.position]
+            const itemClassName = dropdownClass('item', !width && 'no-width', childPosition.startsWith('left') && 'item-left')
             return d.children ?
               <Dropdown
                 hover={this.props.hover}
@@ -165,7 +185,7 @@ class Dropdown extends PureComponent {
                 />)
           })
         }
-      </FadeList>]
+      </List.Fade>]
   }
   render() {
     const {
@@ -206,6 +226,7 @@ Dropdown.defaultProps = {
   ...defaultProps,
   disabled: false,
   data: [],
+  position: 'bottom-left',
 }
 
 export default Dropdown
