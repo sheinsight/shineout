@@ -29,7 +29,7 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Input/example-3-type.js'),
   },
   {
-    title: locate('组合 Input.Group \n Icon, span, string, Button 类型可以直接放入 Input.Group 中。Icon 和 string 可以放入 Input.Addon 中添加背景色隔离。', 'Group'),
+    title: locate('组合 Input.Group \n Icon, span, string, Button 类型可以直接放入 Input.Group 中。需要背景色可以放在 b 标签中。', 'Group'),
     component: require('doc/pages/components/Input/example-4-group.js').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-4-group.js'),
   },

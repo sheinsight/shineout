@@ -39,6 +39,7 @@
     & > span, & > i {
       display: block;
       margin: auto 0;
+      background: transparent;
 
       &:first-child {
         padding-left: @padding-base-horizontal;
@@ -49,7 +50,7 @@
       }
     }
 
-    .@{input-prefix}-addon {
+    & > b {
       margin: 0;
       border: 1px solid @input-border;
       border-width: 0 1px;
@@ -58,12 +59,16 @@
       align-items: center;
       background: @input-group-addon-bg;
       padding: 0 @padding-base-horizontal;
+      font-weight: normal;
 
       &:first-child {
+        border-left-width: 0;
+        margin-left: 0;
         border-top-left-radius: @input-border-radius;
         border-bottom-left-radius: @input-border-radius;
       }
       &:last-child {
+        border-right-width: 0;
         border-top-right-radius: @input-border-radius;
         border-bottom-right-radius: @input-border-radius;
       }

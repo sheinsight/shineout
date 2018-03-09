@@ -1,5 +1,5 @@
 /**
- * cn - 组合 Input.Group \n Icon, span, string, Button 类型可以直接放入 Input.Group 中。Icon 和 string 可以放入 Input.Addon 中添加背景色隔离。
+ * cn - 组合 Input.Group \n Icon, span, string, Button 类型可以直接放入 Input.Group 中。需要背景色可以放在 b 标签中。
  * en - Group
  */
 import React from 'react'
@@ -17,6 +17,11 @@ export default function () {
       </Input.Group>
       <br />
       <Input.Group>
+        <Input placeholder="search text" />
+        <FontAwesome name="search" />
+      </Input.Group>
+      <br />
+      <Input.Group>
         <Input style={{ flex: 1 }} placeholder="flex 1" />
         <Input style={{ flex: 3 }} placeholder="flex 3" />
       </Input.Group>
@@ -27,9 +32,9 @@ export default function () {
       </Input.Group>
       <br />
       <Input.Group>
-        <Input.Addon><FontAwesome name="envelope" /></Input.Addon>
+        <b><FontAwesome name="envelope" /></b>
         <Input placeholder="email" />
-        <Input.Addon>.com</Input.Addon>
+        <b>.com</b>
       </Input.Group>
     </div>
   )

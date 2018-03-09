@@ -12,6 +12,7 @@
     "docs-build-html": "node scripts/build-html.js",
     "docs-build-js": "cross-env NODE_ENV=production webpack --config webpack/config.doc.js",
     "docs-build": "npm-run-all docs-build-*",
+    "build-dist": "cross-env NODE_ENV=production webpack --config webpack/config.dist.js",
     "build-clean": "rm -r publish/*",
     "build-es5": "NODE_ENV=production babel src --out-dir publish/es5",
     "build-css": "node scripts/build-css.js",
