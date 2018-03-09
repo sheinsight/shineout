@@ -29,9 +29,15 @@
       border-top: solid 1px @dropdown-divider-bg;
     }
   }
+
+  &-menu .@{dropdown-prefix}-button {
+    display: flex;
+    align-items: center;
+  }
+
   .@{dropdown-prefix}-button-content {
+    flex: 1;
     display: inline-block;
-    width: 100%
   }
 
   &-bottom-left, &-bottom-right {

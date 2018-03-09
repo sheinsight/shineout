@@ -46,7 +46,6 @@ class Dropdown extends PureComponent {
     this.handleHover = this.handleHover.bind(this)
     this.renderList = this.renderList.bind(this)
     this.handleHide = this.handleHide.bind(this)
-    this.getSpanStyle = this.getSpanStyle.bind(this)
   }
 
   componentWillUnmount() {
@@ -55,16 +54,6 @@ class Dropdown extends PureComponent {
 
   getPosition() {
     return this.props.position || this.state.position
-  }
-  getSpanStyle() {
-    const { _first, position } = this.props
-    const style = {}
-    if (!_first) {
-      style.width = 'auto'
-    } else if (!position.startsWith('left')) {
-      style.marginLeft = -5
-    }
-    return style
   }
 
   bindButton(el) {
@@ -98,8 +87,12 @@ class Dropdown extends PureComponent {
     // wait item event execute
     this.handleHide(e.relatedTarget)
   }
+
   handleHide(relatedTarget) {
-    if (relatedTarget && relatedTarget.nodeName !== 'A' && this.element.contains(relatedTarget)) return
+    if (relatedTarget &&
+      relatedTarget.getAttribute('dropdown-item') !== '1'
+      && this.element.contains(relatedTarget)) return
+
     this.closeTimer = setTimeout(() => {
       if (!this.isUnmounted) this.setState({ show: false })
     }, 200)
@@ -144,7 +137,7 @@ class Dropdown extends PureComponent {
         style={btnColor ? { ...style, color: '#000', textAlign: 'left' } : style}
         key="1"
       >
-        <span className={spanClassName} style={this.getSpanStyle()}>{placeholder}</span>
+        <span className={spanClassName}>{placeholder}</span>
       </Button>,
       <List.Fade
         className={dropdownClass('menu')}

@@ -1,19 +1,22 @@
 /**
- * cn - Button事件
- * en - Button event
+ * cn - 组合 \n 可以放在 Button.Group 中使用
+ * en - Group
  */
 import React from 'react'
 import { Dropdown, Message, Button } from 'shineout'
 
-export default function () {
-  const menu = [{
+const menu = [
+  {
     content: 'First',
-    id: '1',
-  }, {
+  },
+  {
     content: 'Second',
+    target: '_blank',
     url: 'http://www.google.com',
-    id: '2',
-  }]
+  },
+]
+
+export default function () {
   return (
     <Button.Group>
       <Button onClick={() => Message.info('The button clicked.')}>Click me</Button>

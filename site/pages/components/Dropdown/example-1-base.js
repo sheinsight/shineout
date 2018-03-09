@@ -2,33 +2,33 @@
  * cn - 基本用法
  * en - Base
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Dropdown, Message } from 'shineout'
 
+const menu = [
+  {
+    content: 'Submenu',
+    children: [
+      {
+        content: 'Link to Google',
+        target: '_blank',
+        url: 'https://google.com',
+      },
+      {
+        content: 'Disabled',
+        disabled: true,
+      },
+    ],
+  },
+  <a href="#/">Home</a>,
+  {
+    content: 'Message',
+    onClick: () => { Message.info('Some message.') },
+  },
+]
+
 export default function () {
-  const menu = [{
-    content: 'First',
-    children: [{
-      content: 'link1',
-    }, {
-      content: 'link2',
-    }],
-  }, {
-    content: 'Second',
-    url: 'http://www.google.com',
-  }]
-
   return (
-    <Fragment>
-      <Dropdown placeholder="10" data={menu} onClick={(data) => { console.log(data) }} />
-
-      <Dropdown placeholder="Link" data={menu} itemRender={data => (`data${data.content}`)} type="link" />
-
-      <Dropdown placeholder="Primary" size="small" type="primary" data={menu} />
-
-      <Dropdown placeholder="Outline" position="left-top" outline size="large" type="primary" data={menu} />
-
-      <Dropdown placeholder="Small" size="small" data={menu} />
-    </Fragment>
+    <Dropdown placeholder="Dropdown" data={menu} />
   )
 }

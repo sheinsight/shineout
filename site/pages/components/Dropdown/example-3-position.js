@@ -1,5 +1,5 @@
 /**
- * cn - 弹出位置 position
+ * cn - 弹出位置
  * en - Position
  */
 import React, { Fragment } from 'react'
