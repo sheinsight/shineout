@@ -4,14 +4,12 @@
 
 .@{hidable-prefix} {
   &-collapse, &-fade {
-    transition: 0.216s ease-out;
+    transition: 0.216s ease-in-out;
   }
 
   &-collapse, &-collapse-fade {
-    height: 0;
-
+    overflow: hidden;
     &.@{hidable-prefix}-show {
-      height: 80px;
     }
   }
 

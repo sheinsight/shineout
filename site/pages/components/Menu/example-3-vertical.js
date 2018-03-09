@@ -1,6 +1,6 @@
 /**
- * cn - 基本用法
- * en - Base
+ * cn - 垂直样式
+ * en - vertical
  */
 import React from 'react'
 import { Menu } from 'shineout'
@@ -12,7 +12,6 @@ const data = [
   }, {
     id: '3',
     title: 'Navigation Two',
-    disabled: true,
     children: [{
       id: '4',
       title: 'Option 1',
@@ -40,7 +39,6 @@ const data = [
   }, {
     id: '2',
     title: 'Navigation Four',
-    disabled: true,
   },
 ]
 
@@ -62,14 +60,13 @@ export default class extends React.Component {
     return (
       <Menu
         // multiple
-        mode="inline"
+        mode="vertical"
         keygen="id"
         data={data}
         itemRender={d => d.title}
         active={da => this.state.active.includes(da.id)}
         style={{ width: 256 }}
         inlineIndent={24}
-        defaultOpenKeys={['3', '6']}
         onClick={this.handleClick}
       />
     )

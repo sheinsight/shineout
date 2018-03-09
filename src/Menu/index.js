@@ -49,6 +49,9 @@ class Menu extends React.Component {
           data={da}
           inlineIndent={this.props.inlineIndent * times}
           itemRender={this.props.itemRender}
+          nums={da.children.length}
+          isOpen={!!this.props.defaultOpenKeys.find(key => key === menuKey)}
+          mode={this.props.mode}
         >
           {
             this.renderMenu(da.children, keygen, times)
@@ -57,9 +60,10 @@ class Menu extends React.Component {
         <Item
           data={da}
           key={menuKey}
+          mode={this.props.mode}
           itemRender={this.props.itemRender}
           isActive={this.props.active(da)}
-          handleClick={() => this.props.onClick(da)}
+          handleClick={da.onClick ? da.onClick : this.props.onClick}
           inlineIndent={this.props.inlineIndent * times}
         />
     })
@@ -91,6 +95,7 @@ Menu.propTypes = {
     PropTypes.string,
     PropTypes.func,
   ]),
+  defaultOpenKeys: PropTypes.array,
 }
 
 Menu.defaultProps = {
@@ -101,6 +106,7 @@ Menu.defaultProps = {
   active: () => false,
   inlineIndent: 24,
   itemRender: 'title',
+  defaultOpenKeys: [],
 }
 
 export default Menu

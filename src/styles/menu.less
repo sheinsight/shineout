@@ -20,16 +20,27 @@
     margin: 0;
     padding: 0;
   }
-  .@{menu-prefix}-item {
-    height: @menu-item-height;
-    line-height: @menu-item-height;
+  &-inline, &-vertical{
+    .@{menu-prefix}-item {
+      height: @menu-item-height;
+      line-height: @menu-item-height;
+    }
+    &-submenu-title:hover {
+      >a {
+        color: @menu-highlight-color;
+      }
+    }
   }
 
-  &-hidden {
-    display: none;
+  &-disabled {
+    color: @menu-disabled-color;
+    a {
+      cursor: not-allowed !important;
+      color: @menu-disabled-color !important;
+    }
   }
 
-  &-line,&-vertical {
+  &-inline,&-vertical {
     border-right: 1px solid @menu-border-color;
   }
 
@@ -66,9 +77,30 @@
     height: @menu-item-height;
     line-height: @menu-item-height;
     .caret(down);
+    &-open{
+      overflow: auto;
+      &:after {
+        transform: translateY(-75%) rotate(225deg);
+      }
+    }
+  }
+  &-inline-submenu-title, &-vertical-submenu-title {
     &:after {
       position: absolute;
       right: 20px;
+      top: @menu-item-height / 2;
+      transform: translateY(-75%) rotate(45deg);
+    }
+  }
+  &-vertical-submenu-title {
+    &:after {
+      transform: translateY(-75%) rotate(-45deg);
+    }
+  }
+  &-horizontal-submenu-title {
+    &:after {
+      position: absolute;
+      right: 5px;
       top: @menu-item-height / 2;
       transform: translateY(-75%) rotate(45deg);
     }
@@ -106,23 +138,23 @@
   &-item:hover,
   &-item-active,
   &:not(&-inline) &-submenu-open,
-  &-submenu-active,
-  &-submenu-title:hover {
-    color: @menu-highlight-color;
+  &-submenu-active {
+    > a {
+      color: @menu-highlight-color;
+    }
   }
-//
-//  &-horizontal &-item,
-//  &-horizontal &-submenu {
-//    margin-top: -1px;
-//  }
-//
-//  &-horizontal > &-item:hover,
-//  &-horizontal > &-item-active,
-//  &-horizontal > &-submenu &-submenu-title:hover {
-//    background-color: transparent;
-//  }
-//
-//
+
+  &-horizontal &-item,
+  &-horizontal &-submenu {
+    margin-top: -1px;
+  }
+
+  &-horizontal > &-item:hover,
+  &-horizontal > &-item-active,
+  &-horizontal > &-submenu &-submenu-title:hover {
+    background-color: transparent;
+  }
+
   &:not(&-horizontal) &-item-selected {
     background-color: @menu-item-active-bg;
   }
@@ -135,7 +167,7 @@
   //&-vertical-right {
   //  border-left: @border-width-base @border-style-base @border-color-split;
   //}
-//
+
 //  &-vertical&-sub,
 //  &-vertical-left&-sub,
 //  &-vertical-right&-sub {
@@ -156,13 +188,11 @@
 //    //}
 //  }
 //
-//  &-horizontal&-sub,
-//  &-vertical&-sub,
-//  &-vertical-left&-sub,
-//  &-vertical-right&-sub {
-//    min-width: 160px;
-//  }
-//
+  &-horizontal &-item,
+  &-vertical &-item{
+    min-width: 160px;
+  }
+
   &-item,
   &-submenu-title {
     cursor: pointer;
@@ -266,28 +296,83 @@
 //    //  }
 //    //}
 //    //
-//    //&-horizontal {
-//    //  border: 0;
-//    //  border-bottom: @border-width-base @border-style-base @border-color-split;
-//    //  box-shadow: none;
-//    //  line-height: 46px;
-//    //
-//    //  > .@{menu-prefix-cls}-item,
-//    //  > .@{menu-prefix-cls}-submenu {
-//    //    position: relative;
-//    //    top: 1px;
-//    //    float: left;
-//    //    border-bottom: 2px solid transparent;
-//    //
-//    //    &:hover,
-//    //    &-active,
-//    //    &-open,
-//    //    &-selected {
-//    //      border-bottom: 2px solid @menu-highlight-color;
-//    //      color: @menu-highlight-color;
-//    //    }
-//    //
-//    //    > a {
+    &-horizontal {
+      border: 0;
+      border-bottom: @menu-border-width-base solid @menu-border-color;
+      box-shadow: none;
+      line-height: @menu-item-height;
+      height: @menu-item-height + 2px;
+
+      > .@{menu-prefix}-item,
+      > .@{menu-prefix}-submenu {
+        position: relative;
+        float: left;
+        border-bottom: 2px solid transparent;
+        &:hover,
+        &-active,
+        &-open,
+        &-selected {
+          border-bottom: 2px solid @menu-highlight-color;
+          > a {
+            color: @menu-highlight-color;
+          }
+        }
+        &:hover {
+          .@{menu-prefix}-submenu-title {
+            > a {
+              color: @menu-highlight-color;
+            }
+          }
+        }
+      }
+      .@{menu-prefix}-submenu {
+        &-ul {
+          position: absolute;
+          box-shadow: @menu-box-shadow-base;
+          background-color: @menu-bg;
+          top:45px;
+          width: 100%;
+          z-index: 9999;
+        }
+      }
+    }
+
+  &-vertical {
+    box-shadow: none;
+
+    > .@{menu-prefix}-item,
+    > .@{menu-prefix}-submenu {
+      position: relative;
+      &:hover,
+      &-active,
+      &-open,
+      &-selected {
+        > a {
+          color: @menu-highlight-color;
+        }
+      }
+      &:hover {
+        .@{menu-prefix}-submenu-title {
+          > a {
+            //color: @menu-highlight-color;
+          }
+        }
+      }
+    }
+    .@{menu-prefix}-submenu {
+      &-ul {
+        position: absolute;
+        box-shadow: @menu-box-shadow-base;
+        background-color: @menu-bg;
+        top:0;
+        left: 100% + 1px;
+        z-index: 9999;
+      }
+    }
+  }
+
+
+  //    //    > a {
 //    //      display: block;
 //    //      color: @menu-item-color;
 //    //      &:hover {
@@ -324,8 +409,6 @@
   }
 
   &-vertical,
-  &-vertical-left,
-  &-vertical-right,
   &-inline {
     .@{menu-prefix}-selected,
     .@{menu-prefix}-item-selected{
@@ -336,6 +419,14 @@
         transition: transform .15s ease-in, opacity .15s ease-in;
         opacity: 1;
         transform: scaleY(1);
+      }
+    }
+  }
+  &-vertical {
+    .@{menu-prefix}-selected,
+    .@{menu-prefix}-item-selected {
+      &:after {
+        opacity: 0;
       }
     }
   }
