@@ -4,7 +4,9 @@
     "Button": "按钮",
     "Dropdown": "下拉"
   },
-  "Form": {},
+  "Form": {
+    "Input": "输入框"
+  },
   "Data": {
     "Datum.List": "数据处理",
     "Pagination": "分页",

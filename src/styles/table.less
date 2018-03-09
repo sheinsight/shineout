@@ -5,7 +5,6 @@
 
 .@{table-prefix} {
   position: relative;
-  background-color: @table-head-bg;
   max-width: 100%;
   overflow: auto;
   margin-bottom: @line-height-computed;
@@ -221,7 +220,16 @@
   }
 
   &-scroll-y.@{table-prefix}-head {
-    margin-right: @scrollbar-width;
+    padding-right: @scrollbar-width;
+    &:after {
+      content: ' ';
+      position: absolute;
+      background-color: @table-head-bg;
+      right: 0;
+      width: @scrollbar-width;
+      top: 0;
+      bottom: 0;
+    }
   }
 
   &-body {

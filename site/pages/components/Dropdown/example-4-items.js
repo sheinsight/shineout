@@ -1,5 +1,5 @@
 /**
- * cn - 选项多列平铺
+ * cn - 平铺选项
  * en - Multiple columns
  */
 import React from 'react'

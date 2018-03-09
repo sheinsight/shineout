@@ -1,0 +1,121 @@
+@import './variables.less';
+@import './themes/@{so-theme}.less';
+
+@input-prefix: ~"@{so-prefix}-input";
+
+.@{input-prefix} {
+  .input-focus(@color: @input-border-focus) {
+    @color-rgba: rgba(red(@color), green(@color), blue(@color), .25);
+
+    border-color: @color;
+    box-shadow: 0 0 0 @input-focus-width @color-rgba;
+  }
+
+  display: block;
+  width: 100%;
+  padding: @padding-base-vertical @padding-base-horizontal;
+  font-size: @font-size-base;
+  line-height: @line-height-base;
+  color: @input-color;
+  background-color: @input-bg;
+  background-image: none;
+  border: 1px solid @input-border;
+  border-radius: @input-border-radius;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+
+  &-group {
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    .@{input-prefix} + .@{input-prefix} {
+      border-left-width: 1px;
+    }
+
+    button {
+      border-width: 0;
+    }
+
+    & > span, & > i {
+      display: block;
+      margin: auto 0;
+      background: transparent;
+
+      &:first-child {
+        padding-left: @padding-base-horizontal;
+      }
+
+      &:last-child {
+        padding-right: @padding-base-horizontal;
+      }
+    }
+
+    & > b {
+      margin: 0;
+      border: 1px solid @input-border;
+      border-width: 0 1px;
+      margin-left: -1px;
+      display: flex;
+      align-items: center;
+      background: @input-group-addon-bg;
+      padding: 0 @padding-base-horizontal;
+      font-weight: normal;
+
+      &:first-child {
+        border-left-width: 0;
+        margin-left: 0;
+        border-top-left-radius: @input-border-radius;
+        border-bottom-left-radius: @input-border-radius;
+      }
+      &:last-child {
+        border-right-width: 0;
+        border-top-right-radius: @input-border-radius;
+        border-bottom-right-radius: @input-border-radius;
+      }
+    }
+  }
+
+  .@{input-prefix} {
+    width: auto;
+    flex: 1;
+    background: transparent;
+    border-width: 0;
+    border-radius: 0;
+    box-shadow: none;
+    border-color: @input-border;
+  }
+
+  &-focus {
+    .input-focus();
+  }
+
+  &-small {
+    padding: @padding-small-vertical @padding-small-horizontal;
+    font-size: @font-size-small;
+  }
+
+  &-large {
+    padding: @padding-large-vertical @padding-large-horizontal;
+    font-size: @font-size-large;
+  }
+
+  &-no-border {
+    border-width: 0;
+
+    &.@{input-prefix}-focus {
+      box-shadow: none;
+    }
+  }
+
+  input {
+    width: 100%;
+    border: 0;
+    outline: none;
+    padding: 0;
+    line-height: 1;
+
+    &::placeholder {
+      color: @input-color-placeholder;
+    }
+  }
+}

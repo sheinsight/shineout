@@ -5,7 +5,7 @@ import Checkbox from '../Checkbox'
 export default class extends PureComponent {
   static propTypes = {
     data: PropTypes.array,
-    value: PropTypes.object.isRequired,
+    datum: PropTypes.object.isRequired,
   }
 
   constructor(props) {
@@ -15,21 +15,21 @@ export default class extends PureComponent {
   }
 
   componentDidMount() {
-    this.props.value.listen('change', this.handleUpdate)
+    this.props.datum.listen('change', this.handleUpdate)
   }
 
   componentWillUnmount() {
-    this.props.value.unlisten('change', this.handleUpdate)
+    this.props.datum.unlisten('change', this.handleUpdate)
   }
 
   getChecked() {
-    const { data, value } = this.props
-    if (value.length === 0 || !data) return false
+    const { data, datum } = this.props
+    if (datum.length === 0 || !data) return false
 
     let checked
     for (const d of data) {
-      if (value.disabled(d)) continue
-      const p = value.check(d)
+      if (datum.disabled(d)) continue
+      const p = datum.check(d)
       if (checked === undefined) {
         checked = p
       } else if (checked !== p) {
@@ -45,11 +45,11 @@ export default class extends PureComponent {
   }
 
   handleChange(_, checked, index) {
-    const { data, value } = this.props
+    const { data, datum } = this.props
     if (checked) {
-      value.add(data, index)
+      datum.add(data, index)
     } else {
-      value.remove(data, index)
+      datum.remove(data, index)
     }
   }
 

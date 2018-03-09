@@ -87,13 +87,18 @@ export default class Example extends PureComponent {
 
     const text = rawText.replace(/(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/, '').trim()
 
-    const [title, sub] = this.props.title.split('\n')
+    const [title, ...sub] = this.props.title.split('\n')
 
     return (
       <div id={this.id} className={exampleClass('_', showcode && 'showcode')}>
         <div className={exampleClass('title')}>
           { title }
-          { sub && <div className={exampleClass('sub-title')}>{sub}</div> }
+          {
+            sub.length > 0 &&
+            <div className={exampleClass('sub-title')}>
+              {sub.map((s, i) => <div key={i}>{s}</div>)}
+            </div>
+          }
           { this.renderCodeHandle(false) }
         </div>
         <div ref={this.bindCodeBlock} className={exampleClass('code')}>

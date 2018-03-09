@@ -13,3 +13,4 @@ export const breadcrumbClass = genaration(require('./breadcrumb.less'), 'breadcr
 export const iconClass = genaration(require('./icon.less'), 'icon')
 export const menuClass = genaration(require('./menu.less'), 'menu')
 export const checkboxClass = genaration(require('./checkbox.less'), 'checkbox')
+export const inputClass = genaration(require('./input.less'), 'input')

@@ -3,9 +3,8 @@
  * en - Icon
  */
 import React, { Fragment } from 'react'
-import { Button, Icon } from 'shineout'
-
-const FontAwesome = Icon('https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css', 'FontAwesome', 'fa')
+import { Button } from 'shineout'
+import FontAwesome from '../Icon/FontAwesome'
 
 export default function () {
   return (
