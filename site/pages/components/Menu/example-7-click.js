@@ -1,9 +1,9 @@
 /**
- * cn - 垂直样式
- * en - vertical
+ * cn - 自定义选中事件
+ * en - customize click event
  */
 import React from 'react'
-import { Menu } from 'shineout'
+import { Menu, Message } from 'shineout'
 
 const data = [
   {
@@ -52,6 +52,7 @@ export default class extends React.Component {
     this.handleClick = this.handleClick.bind(this)
   }
   handleClick(da) {
+    Message.info(`now select is ${da.title}`)
     this.setState({
       active: [da.id],
     })
@@ -59,13 +60,14 @@ export default class extends React.Component {
   render() {
     return (
       <Menu
-        mode="vertical"
+        mode="inline"
         keygen="id"
         data={data}
         itemRender={d => d.title}
         active={da => this.state.active.includes(da.id)}
         style={{ width: 256 }}
         inlineIndent={24}
+        defaultOpenKeys={['3']}
         onClick={this.handleClick}
       />
     )

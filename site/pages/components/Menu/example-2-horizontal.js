@@ -52,7 +52,6 @@ export default class extends React.Component {
   render() {
     return (
       <Menu
-        // multiple
         mode="horizontal"
         keygen="id"
         data={data}

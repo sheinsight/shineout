@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
@@ -29,11 +29,11 @@ class Item extends React.Component {
         className={className}
         style={mode === 'inline' ? { paddingLeft: inlineIndent } : {}}
       >
-        <a
-          onClick={() => this.handleClick(data)}
-          ref={this.bindElement}
-        >{itemData}
-        </a>
+        {
+          isValidElement(itemData) ?
+            cloneElement(itemData, { onClick: () => this.handleClick(data) }) :
+            <a onClick={() => this.handleClick(data)}>{itemData}</a>
+        }
       </li>)
   }
 }

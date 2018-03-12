@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Children, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import classname from 'classnames'
 import { findDOMNode } from 'react-dom'
@@ -20,6 +20,7 @@ class SubMenu extends React.Component {
     this.handleLeave = this.handleLeave.bind(this)
     this.bindRef = this.bindRef.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
+    this.handleHide = this.handleHide.bind(this)
   }
   getTitleHeight(ref) {
     this.titleHeight = ref && ref.offsetHeight
@@ -28,11 +29,16 @@ class SubMenu extends React.Component {
     this.ref = findDOMNode(ev)
   }
   handleBlur(e) {
+    if (this.props.mode !== 'vertical') return
+    this.handleHide(e)
+  }
+  handleHide(e) {
     const { parentNode } = e.currentTarget
     if (parentNode.parentNode.contains(e.relatedTarget)) return
-    this.setState({
-      show: false,
-    })
+    this.closeTimer = setTimeout(() => {
+      if (!this.isUnmounted) this.setState({ show: false })
+    }, 200)
+    if (this.props.handleHide) this.props.handleHide(e)
   }
   handleClick() {
     if (this.props.data.disabled) return
@@ -45,13 +51,13 @@ class SubMenu extends React.Component {
     })
   }
   handleEnter() {
-    if (this.props.mode !== 'horizontal') return
+    if (this.props.mode !== 'horizontal' && !this.props.isHover) return
     this.setState({
       show: true,
     })
   }
   handleLeave() {
-    if (this.props.mode !== 'horizontal') return
+    if (this.props.mode !== 'horizontal'&& !this.props.isHover) return
     this.setState({
       show: false,
     })
@@ -62,8 +68,8 @@ class SubMenu extends React.Component {
     } = this.props
     const itemData = typeof itemRender === 'string' ? data[itemRender] : itemRender(data)
     const className = classname(menuClass('submenu'))
-    const titleClassName = classname(menuClass('submenu-title', `${mode}-submenu-title`, this.state.show && 'submenu-title-open', this.props.data.disabled && 'disabled'))
-    const ulClassName = classname(menuClass('submenu-ul'))
+    const titleClassName = classname(menuClass('submenu-title', `${mode}-submenu-title`, this.state.show && `${mode}-submenu-title-open`, this.props.data.disabled && 'disabled'))
+    const ulClassName = classname(menuClass('submenu-ul', `${mode}-submenu-ul`))
     const ListStyle = mode === 'inline' ? List.Collapse : List.Fade
     return (
       <li className={className} onMouseEnter={this.handleEnter} onMouseLeave={this.handleLeave}>
@@ -88,7 +94,9 @@ class SubMenu extends React.Component {
         >
           <ul>
             {
-              this.props.children
+              Children.toArray(this.props.children).map(child => (
+                cloneElement(child, { handleHide: this.handleHide })
+              ))
             }
           </ul>
         </ListStyle>
@@ -102,6 +110,7 @@ SubMenu.propTypes = {
   data: PropTypes.object,
   nums: PropTypes.number,
   isOpen: PropTypes.bool,
+  isHover: PropTypes.bool,
 }
 
 SubMenu.defaultProps = {

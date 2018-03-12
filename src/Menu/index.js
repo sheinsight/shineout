@@ -51,7 +51,8 @@ class Menu extends React.Component {
           itemRender={this.props.itemRender}
           nums={da.children.length}
           isOpen={!!this.props.defaultOpenKeys.find(key => key === menuKey)}
-          mode={this.props.mode}
+          isHover={times > 1 && this.props.mode === 'horizontal'}
+          mode={times > 1 && this.props.mode === 'horizontal' ? 'vertical' : this.props.mode}
         >
           {
             this.renderMenu(da.children, keygen, times)
@@ -102,7 +103,7 @@ Menu.defaultProps = {
   ...defaultProps,
   data: [],
   keygen: 'id',
-  mode: 'vertical',
+  mode: 'inline',
   active: () => false,
   inlineIndent: 24,
   itemRender: 'title',
