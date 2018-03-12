@@ -1,6 +1,6 @@
 /**
- * cn - 基本用法
- * en - Base
+ * cn - 禁用菜单
+ * en - Disabled
  */
 import React from 'react'
 import { Menu } from 'shineout'
@@ -12,6 +12,7 @@ const data = [
   }, {
     id: '3',
     title: 'Navigation Two',
+    disabled: true,
     children: [{
       id: '4',
       title: 'Option 1',
@@ -39,6 +40,7 @@ const data = [
   }, {
     id: '2',
     title: 'Navigation Four',
+    disabled: true,
   },
 ]
 
@@ -59,6 +61,7 @@ export default class extends React.Component {
   render() {
     return (
       <Menu
+        mode="inline"
         keygen="id"
         data={data}
         itemRender={d => d.title}

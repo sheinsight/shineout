@@ -1,6 +1,6 @@
 /**
- * cn - 基本用法
- * en - Base
+ * cn - 默认展开,默认选中
+ * en - default opened or selected
  */
 import React from 'react'
 import { Menu } from 'shineout'
@@ -59,12 +59,14 @@ export default class extends React.Component {
   render() {
     return (
       <Menu
+        mode="inline"
         keygen="id"
         data={data}
         itemRender={d => d.title}
         active={da => this.state.active.includes(da.id)}
         style={{ width: 256 }}
         inlineIndent={24}
+        defaultOpenKeys={['3']}
         onClick={this.handleClick}
       />
     )

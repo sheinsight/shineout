@@ -1,6 +1,6 @@
 /**
- * cn - 基本用法
- * en - Base
+ * cn - 垂直样式
+ * en - vertical
  */
 import React from 'react'
 import { Menu } from 'shineout'
@@ -59,6 +59,7 @@ export default class extends React.Component {
   render() {
     return (
       <Menu
+        mode="vertical"
         keygen="id"
         data={data}
         itemRender={d => d.title}

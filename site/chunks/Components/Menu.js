@@ -18,6 +18,36 @@ const examples = [
     component: require('doc/pages/components/Menu/example-1-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Menu/example-1-base.js'),
   },
+  {
+    title: locate('水平布局', 'Base'),
+    component: require('doc/pages/components/Menu/example-2-horizontal.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Menu/example-2-horizontal.js'),
+  },
+  {
+    title: locate('垂直样式', 'vertical'),
+    component: require('doc/pages/components/Menu/example-3-vertical.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Menu/example-3-vertical.js'),
+  },
+  {
+    title: locate('禁用菜单', 'Disabled'),
+    component: require('doc/pages/components/Menu/example-4-disabled.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Menu/example-4-disabled.js'),
+  },
+  {
+    title: locate('默认展开,默认选中', 'default opened or selected'),
+    component: require('doc/pages/components/Menu/example-5-selected.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Menu/example-5-selected.js'),
+  },
+  {
+    title: locate('自定义渲染', 'customize render'),
+    component: require('doc/pages/components/Menu/example-6-itemRender.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Menu/example-6-itemRender.js'),
+  },
+  {
+    title: locate('自定义选中事件', 'customize click event'),
+    component: require('doc/pages/components/Menu/example-7-click.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Menu/example-7-click.js'),
+  },
 ]
 
 const codes = undefined

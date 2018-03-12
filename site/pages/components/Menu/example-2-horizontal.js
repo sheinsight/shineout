@@ -1,5 +1,5 @@
 /**
- * cn - 基本用法
+ * cn - 水平布局
  * en - Base
  */
 import React from 'react'
@@ -28,13 +28,6 @@ const data = [
     }, {
       id: '8',
       title: 'Option 4',
-      children: [{
-        id: '9',
-        title: 'Optic 1',
-      }, {
-        id: '10',
-        title: 'Optic 2',
-      }],
     }],
   }, {
     id: '2',
@@ -59,11 +52,11 @@ export default class extends React.Component {
   render() {
     return (
       <Menu
+        mode="horizontal"
         keygen="id"
         data={data}
         itemRender={d => d.title}
         active={da => this.state.active.includes(da.id)}
-        style={{ width: 256 }}
         inlineIndent={24}
         onClick={this.handleClick}
       />

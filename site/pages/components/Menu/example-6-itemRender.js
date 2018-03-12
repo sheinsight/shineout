@@ -1,10 +1,17 @@
 /**
- * cn - 基本用法
- * en - Base
+ * cn - 自定义渲染
+ * en - customize render
  */
 import React from 'react'
 import { Menu } from 'shineout'
+import Icon from '../Icon/FontAwesome'
 
+const Icons = {
+  1: <Icon name="home" />,
+  3: <Icon name="flag" />,
+  6: <Icon name="tag" />,
+  2: <Icon name="github" />,
+}
 const data = [
   {
     id: '1',
@@ -42,6 +49,12 @@ const data = [
   },
 ]
 
+function itemRender(da) {
+  if (da.title.startsWith('Navigation')) {
+    return (<span>{Icons[da.id]}  {da.title}</span>)
+  }
+  return da.title
+}
 
 export default class extends React.Component {
   constructor(props) {
@@ -59,12 +72,14 @@ export default class extends React.Component {
   render() {
     return (
       <Menu
+        mode="inline"
         keygen="id"
         data={data}
-        itemRender={d => d.title}
+        itemRender={itemRender}
         active={da => this.state.active.includes(da.id)}
         style={{ width: 256 }}
         inlineIndent={24}
+        defaultOpenKeys={['3']}
         onClick={this.handleClick}
       />
     )

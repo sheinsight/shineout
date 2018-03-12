@@ -1,17 +1,25 @@
-import React from 'react'
+import React, { isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { menuClass } from '../styles'
 
 class Item extends React.Component {
+  constructor(props) {
+    super(props)
+    this.handleClick = this.handleClick.bind(this)
+  }
+  handleClick(data) {
+    if (this.props.data.disabled) return
+    this.props.handleClick(data)
+  }
   render() {
     const {
-      data, itemRender, isActive, handleClick, inlineIndent,
+      data, itemRender, isActive, inlineIndent, mode,
     } = this.props
     const itemData = typeof itemRender === 'string' ? data[itemRender] : itemRender(data)
     const className = classnames(
-      menuClass('item', {
+      menuClass('item', this.props.data.disabled && 'disabled', {
         'item-selected': isActive,
       }),
       this.props.className,
@@ -19,9 +27,13 @@ class Item extends React.Component {
     return (
       <li
         className={className}
-        style={{ paddingLeft: inlineIndent }}
+        style={mode === 'inline' ? { paddingLeft: inlineIndent } : {}}
       >
-        <a onClick={handleClick}>{itemData}</a>
+        {
+          isValidElement(itemData) ?
+            cloneElement(itemData, { onClick: () => this.handleClick(data) }) :
+            <a onClick={() => this.handleClick(data)}>{itemData}</a>
+        }
       </li>)
   }
 }

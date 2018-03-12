@@ -9,7 +9,7 @@ import { hidableClass } from '../styles'
  * @param {*} duration
  * @param {*} type - fade, collapse
  */
-export default function (Component, duration = 400, type = ['fade']) {
+export default function (Component, duration = 480, type = ['fade']) {
   class Hidable extends PureComponent {
     constructor(props) {
       super(props)
@@ -22,26 +22,49 @@ export default function (Component, duration = 400, type = ['fade']) {
     }
 
     componentDidMount() {
+      this.height = this.element.offsetHeight
       if (!this.props.show) {
-        this.height = this.element.offsetHeight
-        this.element.style.display = 'none'
+        if (type[0] === 'fade') {
+          this.element.style.display = 'none'
+        } else if (type[0] === 'collapse') {
+          this.element.style.height = 0
+        }
       }
     }
 
     componentWillReceiveProps(nextProps) {
       if (this.props.show !== nextProps.show) {
         if (nextProps.show) {
-          this.element.style.display = 'block'
-          setTimeout(() => {
-            if (!this.isUnmounted) {
-              this.setState({ show: true })
-            }
-          }, 10)
+          if (type[0] === 'fade') {
+            this.element.style.display = 'block'
+            setTimeout(() => {
+              if (!this.isUnmounted) {
+                this.setState({ show: true })
+              }
+            }, 10)
+          } else if (type[0] === 'collapse') {
+            this.element.style.height = `${this.height}px`
+            setTimeout(() => {
+              if (!this.isUnmounted) {
+                this.setState({ show: true })
+                this.element.style.height = 'auto'
+              }
+            }, duration)
+          }
         } else {
+          if (type[0] === 'collapse') {
+            this.height = this.element.offsetHeight
+            this.element.style.height = `${this.height}px`
+            setTimeout(() => {
+              this.element.style.height = 0
+            }, 10)
+          }
           this.setState({ show: false })
           setTimeout(() => {
             if (this.state.show === false && !this.isUnmounted) {
-              this.element.style.display = 'none'
+              if (type[0] === 'fade') {
+                this.element.style.display = 'none'
+              }
             }
           }, duration)
         }
@@ -51,7 +74,6 @@ export default function (Component, duration = 400, type = ['fade']) {
     componentWillUnmount() {
       this.isUnmounted = true
     }
-
     bindElement(el) {
       this.element = findDOMNode(el)
     }
@@ -62,7 +84,11 @@ export default function (Component, duration = 400, type = ['fade']) {
         this.props.className,
       )
       return (
-        <Component ref={this.bindElement} {...this.props} className={className} />
+        <Component
+          ref={this.bindElement}
+          {...this.props}
+          className={className}
+        />
       )
     }
   }
@@ -70,6 +96,7 @@ export default function (Component, duration = 400, type = ['fade']) {
   Hidable.propTypes = {
     className: PropTypes.string,
     show: PropTypes.bool,
+    height: PropTypes.number,
   }
 
   Hidable.defaultProps = {
