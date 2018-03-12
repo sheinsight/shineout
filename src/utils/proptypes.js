@@ -6,6 +6,10 @@ const propSets = {
     PropTypes.string,
     PropTypes.func,
   ]),
+  grid: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.object,
+  ]),
   placeholder: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element,

@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import { curry } from '../utils/func'
 import { buttonClass, inputClass } from '../styles'
 
-export default curry((Tag, isGroup, Origin) => class extends Component {
+export default curry((options, Origin) => class extends Component {
   static propTypes = {
     autoFocus: PropTypes.bool,
     className: PropTypes.string,
@@ -44,17 +44,18 @@ export default curry((Tag, isGroup, Origin) => class extends Component {
       className, hasError, border, style, size, ...other
     } = this.props
     const { focus } = this.state
+    const Tag = options.tag || 'label'
 
     const newClassName = classnames(
       inputClass(
         '_',
         focus && 'focus',
-        isGroup && 'group',
+        options.isGroup && 'group',
         size,
         !border && 'no-border',
         hasError && 'has-error',
       ),
-      buttonClass(isGroup && 'group'),
+      buttonClass(options.isGroup && 'group'),
       this.props.className,
     )
 

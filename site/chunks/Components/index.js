@@ -26,6 +26,12 @@ const pages = [
   },
   'Form',
   {
+    name: 'Form',
+    cn: '表单',
+    level: 2,
+    component: loadable(() => import('./Form')),
+  },
+  {
     name: 'Input',
     cn: '输入框',
     level: 2,

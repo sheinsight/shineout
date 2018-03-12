@@ -1,7 +1,30 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
 
+@form-prefix: ~"@{so-prefix}-form";
 @input-prefix: ~"@{so-prefix}-input";
+
+.@{form-prefix} {
+  position: relative;
+
+  &-item {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: @form-group-margin-bottom;
+
+    .@{form-prefix}-label {
+      width: 140px;
+      word-break: break-all;
+      padding-top: @padding-base-vertical;
+      padding: 0 @form-item-padding-x;
+    }
+
+    .@{form-prefix}-control {
+      flex: 1;
+      padding: 0 @form-item-padding-x;
+    }
+  }
+}
 
 .@{input-prefix} {
   .input-focus(@color: @input-border-focus) {

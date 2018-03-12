@@ -1,13 +1,16 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import contextTypes from './contextTypes'
 
-export default Origin => class extends PureComponent {
-  static contextTypes = {
-    formDatum: PropTypes.object,
-  }
+export default (keys, Origin) => class extends PureComponent {
+  static contextTypes = contextTypes
 
   render() {
-    return <Origin {...this.props} formDatum={this.context.formDatum} />
+    const props = {}
+    keys.forEach((k) => {
+      const val = this.context[k]
+      if (val !== undefined) props[k] = val
+    })
+    return <Origin {...this.props} {...props} />
   }
 }
 

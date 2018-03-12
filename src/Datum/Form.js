@@ -4,17 +4,26 @@ export default class {
     this.validate = options.validate
     this.data = {}
     this.onChange = onChange
+
+    this.events = {}
   }
 
   handleChange() {
     if (this.onChange) this.onChange(this.data)
   }
 
-  getValue(name) {
+  clear() {
+    this.data = {}
+    Object.keys(this.events).forEach((name) => {
+      this.dispatch(name)
+    })
+  }
+
+  get(name) {
     return this.data[name]
   }
 
-  setValue(name, value) {
+  set(name, value) {
     switch (arguments.length) {
       case 1:
         this.data = name
@@ -27,5 +36,28 @@ export default class {
     }
 
     this.handleChange()
+  }
+
+  dispatch(name, ...args) {
+    const event = this.events[name]
+    if (!event) return
+    event.forEach(fn => fn(...args))
+  }
+
+  listen(name, fn) {
+    if (!this.events[name]) this.events[name] = []
+    const events = this.events[name]
+    if (fn in events) return
+    events.push(fn)
+  }
+
+  unlisten(name, fn) {
+    if (!fn) {
+      delete this.events[name]
+      return
+    }
+
+    if (!this.events[name]) return
+    this.events[name] = this.events[name].filter(e => e !== fn)
   }
 }

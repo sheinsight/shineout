@@ -25,3 +25,16 @@ export function getParent(el, target) {
 
   return null
 }
+
+export function dispatchEvent(form, name) {
+  if (!form) return
+  let event
+  if (CustomEvent) {
+    event = new CustomEvent(name, { bubbles: true, cancelable: true })
+  } else {
+    event = document.createEvent('HTMLEvents')
+    event.initEvent(name, true, true)
+  }
+  form.dispatchEvent(event)
+}
+

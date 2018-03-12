@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { getParent } from '../utils/dom'
+import { getParent } from '../utils/dom/element'
 import { getProps, defaultProps } from '../utils/proptypes'
 
 const events = ['scroll', 'resize', 'pageshow', 'load']
