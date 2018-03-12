@@ -7,7 +7,7 @@ import { Form, Input } from 'shineout'
 
 export default function () {
   return (
-    <Form disabled onSubmit={(data) => { console.log(data) }}>
+    <Form onSubmit={(data) => { console.log(data) }}>
       <Form.Item label="Email">
         <Input name="email" />
       </Form.Item>

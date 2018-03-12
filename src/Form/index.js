@@ -10,8 +10,8 @@ import consumer from './consumer'
 const exports = Datum.hoc(provider(Form), 'form', 'data')
 exports.Item = consumer(['labelWidth'], Item)
 
-exports.Submit = prop => <Button htmlType="submit" type="primary">{prop.children}</Button>
-exports.Reset = prop => <Button htmlType="reset">{prop.children}</Button>
-exports.Button = PrimaryButton
+exports.Submit = consumer(['disabled'], props => <Button htmlType="submit" type="primary" {...props} />)
+exports.Reset = consumer(['disabled'], props => <Button htmlType="reset" {...props} />)
+exports.Button = consumer(['disabled'], PrimaryButton)
 
 export default exports
