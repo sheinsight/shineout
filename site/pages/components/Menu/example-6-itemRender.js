@@ -51,7 +51,7 @@ const data = [
 
 function itemRender(da) {
   if (da.title.startsWith('Navigation')) {
-    return (<a href="javascript:;">{Icons[da.id]}  {da.title}</a>)
+    return (<span>{Icons[da.id]}  {da.title}</span>)
   }
   return da.title
 }
