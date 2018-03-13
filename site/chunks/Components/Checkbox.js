@@ -19,7 +19,7 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-1-base.js'),
   },
   {
-    title: locate('状态 \n checked 有三个值，选中、未选中、半选', 'Checked'),
+    title: locate('状态 \n checked 有三个值，选中、未选中、半选。checked 设置时为受控组件。', 'Checked'),
     component: require('doc/pages/components/Checkbox/example-2-checked.js').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-2-checked.js'),
   },

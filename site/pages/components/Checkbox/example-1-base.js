@@ -7,6 +7,6 @@ import { Checkbox } from 'shineout'
 
 export default function () {
   return (
-    <Checkbox>Click me.</Checkbox>
+    <Checkbox>Checkbox</Checkbox>
   )
 }

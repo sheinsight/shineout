@@ -15,6 +15,11 @@ const data = [
   { id: 7, name: 'violet' },
 ]
 
+function getContent(color) {
+  const style = { borderBottom: `solid 1px ${color}`, paddingBottom: 2 }
+  return <span style={style}>{color}</span>
+}
+
 export default function () {
   return (
     <Checkbox.Group
@@ -23,7 +28,7 @@ export default function () {
       datum={{ format: 'name' }}
       onChange={d => console.log(d)}
       value={['blue', 'cyan']}
-      renderItem="name"
+      renderItem={d => getContent(d.name)}
     />
   )
 }

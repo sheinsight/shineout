@@ -23,7 +23,6 @@ export default function () {
         disabled
         data={data}
         datum={{ format: 'name' }}
-        onChange={d => console.log(d)}
         value={['blue', 'cyan']}
         renderItem="name"
       />

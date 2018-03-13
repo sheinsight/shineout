@@ -14,7 +14,6 @@ class Checkbox extends PureComponent {
     }
 
     this.id = `cb_${getUidStr()}`
-
     this.handleChange = this.handleChange.bind(this)
   }
 
