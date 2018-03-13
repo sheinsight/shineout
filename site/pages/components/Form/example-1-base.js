@@ -9,7 +9,7 @@ export default function () {
   return (
     <Form onSubmit={(data) => { console.log(data) }}>
       <Form.Item label="Email">
-        <Input name="email" />
+        <Input name="email" defaultValue="1234" />
       </Form.Item>
 
       <Form.Item label="Password">

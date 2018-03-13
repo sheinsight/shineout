@@ -3,19 +3,20 @@ export default class {
     const { onChange } = options
     this.validate = options.validate
     this.data = {}
+    this.$data = {}
+    this.$defaultValue = {}
     this.onChange = onChange
 
     this.events = {}
   }
 
   handleChange() {
-    if (this.onChange) this.onChange(this.data)
+    if (this.onChange) this.onChange(this.$data)
   }
 
   clear() {
-    this.data = {}
-    Object.keys(this.events).forEach((name) => {
-      this.dispatch(name)
+    Object.keys(this.data).forEach((k) => {
+      this.data[k] = this.$defaultValue[k]
     })
   }
 
@@ -32,32 +33,35 @@ export default class {
         this.data[name] = value
         break
       default:
-        return
     }
 
     this.handleChange()
   }
 
-  dispatch(name, ...args) {
-    const event = this.events[name]
-    if (!event) return
-    event.forEach(fn => fn(...args))
+  getValue() {
+    return this.$data
   }
 
-  listen(name, fn) {
-    if (!this.events[name]) this.events[name] = []
-    const events = this.events[name]
-    if (fn in events) return
-    events.push(fn)
+  listen(name, fn, value) {
+    const { $data, $defaultValue } = this
+    $defaultValue[name] = value
+
+    Object.defineProperty(this.data, name, {
+      configurable: true,
+      enumerable: true,
+      set(val) {
+        $data[name] = val
+        if (typeof fn === 'function') fn(val)
+      },
+      get() {
+        return $data[name]
+      },
+    })
+
+    this.data[name] = value
   }
 
-  unlisten(name, fn) {
-    if (!fn) {
-      delete this.events[name]
-      return
-    }
-
-    if (!this.events[name]) return
-    this.events[name] = this.events[name].filter(e => e !== fn)
+  unlisten(name) {
+    delete this.data[name]
   }
 }
