@@ -26,6 +26,12 @@ const pages = [
   },
   'Form',
   {
+    name: 'Checkbox',
+    cn: '复选框',
+    level: 2,
+    component: loadable(() => import('./Checkbox')),
+  },
+  {
     name: 'Form',
     cn: '表单',
     level: 2,

@@ -41,6 +41,11 @@ export default class {
   }
 
   listen(name, fn, value) {
+    if (Object.prototype.hasOwnProperty.call(this.data, name)) {
+      console.error(`There is already an item with "${name}" exists. The name props must be unique.`)
+      return
+    }
+
     this.$defaultValue[name] = value
 
     Object.defineProperty(this.data, name, {

@@ -8,3 +8,9 @@ export function getUid() {
 export function getUidStr() {
   return getUid().toString(36)
 }
+
+export function getKey(d, gen, index) {
+  if (typeof gen === 'string') return d[gen]
+  if (typeof gen === 'function') return gen(d)
+  return index
+}

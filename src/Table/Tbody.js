@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import deepEqual from 'fast-deep-equal'
 import { getProps } from '../utils/proptypes'
+import { getKey } from '../utils/uid'
 import Tr from './Tr'
 
 function format(columns, data, nextRow, index) {
@@ -76,12 +77,7 @@ class Tbody extends Component {
       columns, keygen, data, sorter, ...other
     } = this.props
 
-    let key = index
-    if (keygen) {
-      key = typeof keygen === 'string'
-        ? data[index][keygen]
-        : keygen(data[index], row.index)
-    }
+    let key = getKey(data[index], keygen, row.index)
     if (sorter && sorter.order) {
       key = `${key}-${sorter.index}-${sorter.order}`
     }

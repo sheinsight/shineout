@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
-import { checkboxClass } from '../styles'
+import { checkinputClass } from '../styles'
 
 class Checkbox extends PureComponent {
   constructor(props) {
@@ -44,7 +44,7 @@ class Checkbox extends PureComponent {
     const checked = this.getChecked()
 
     const className = classnames(
-      checkboxClass(
+      checkinputClass(
         '_',
         disabled && 'disabled',
         checked === true && 'checked',
@@ -62,7 +62,7 @@ class Checkbox extends PureComponent {
           onChange={this.handleChange}
           checked={checked}
         />
-        <i className={checkboxClass('indicator')} />
+        <i className={checkinputClass('indicator', 'checkbox')} />
         {children && <span>{children}</span>}
       </label>
     )

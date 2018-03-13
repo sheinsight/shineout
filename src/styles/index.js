@@ -12,6 +12,6 @@ export const paginationClass = genaration(require('./pagination.less'), 'paginat
 export const breadcrumbClass = genaration(require('./breadcrumb.less'), 'breadcrumb')
 export const iconClass = genaration(require('./icon.less'), 'icon')
 export const menuClass = genaration(require('./menu.less'), 'menu')
-export const checkboxClass = genaration(require('./checkbox.less'), 'checkbox')
+export const checkinputClass = genaration(require('./checkinput.less'), 'check-input')
 export const formClass = genaration(require('./form.less'), 'form')
 export const inputClass = genaration(require('./form.less'), 'input')
