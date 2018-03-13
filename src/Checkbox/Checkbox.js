@@ -18,7 +18,7 @@ class Checkbox extends PureComponent {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  get checked() {
+  getChecked() {
     const { checked, value, htmlValue } = this.props
     if (checked !== undefined) return checked
     if (this.state.checked === undefined) return value === htmlValue
@@ -39,7 +39,10 @@ class Checkbox extends PureComponent {
   }
 
   render() {
-    const { checked, disabled, style } = this.props
+    const { disabled, style, children } = this.props
+
+    const checked = this.getChecked()
+
     const className = classnames(
       checkboxClass(
         '_',
@@ -52,14 +55,15 @@ class Checkbox extends PureComponent {
 
     return (
       <label className={className} style={style} htmlFor={this.id}>
-        <i className={checkboxClass('indicator')} />
         <input
           id={this.id}
           disabled={disabled}
           type="checkbox"
           onChange={this.handleChange}
-          checked={this.checked}
+          checked={checked}
         />
+        <i className={checkboxClass('indicator')} />
+        {children && <span>{children}</span>}
       </label>
     )
   }
@@ -76,7 +80,6 @@ Checkbox.propTypes = {
 
 Checkbox.defaultProps = {
   ...defaultProps,
-  checked: false,
   htmlValue: true,
 }
 

@@ -14,12 +14,12 @@ class Item extends PureComponent {
 
   render() {
     const {
-      children, grid, label, labelWidth,
+      children, grid, label, labelWidth, required,
     } = this.props
 
     const className = classnames(
       getGrid(grid),
-      formClass('item'),
+      formClass('item', required && 'required'),
       this.props.className,
     )
 
@@ -46,6 +46,7 @@ Item.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
+  required: PropTypes.bool,
 }
 
 Item.defaultProps = {

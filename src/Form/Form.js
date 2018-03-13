@@ -25,14 +25,27 @@ class Form extends PureComponent {
   }
 
   render() {
-    const { layout } = this.props
+    const {
+      layout, style, inline, labelAlign,
+    } = this.props
+
     const className = classnames(
-      formClass('_', layout),
+      formClass(
+        '_',
+        layout,
+        inline && 'inline',
+        ['top', 'right'].indexOf(labelAlign) >= 0 && `label-align-${labelAlign}`,
+      ),
       this.props.className,
     )
 
     return (
-      <form className={className} onReset={this.handleReset} onSubmit={this.handleSubmit}>
+      <form
+        className={className}
+        style={style}
+        onReset={this.handleReset}
+        onSubmit={this.handleSubmit}
+      >
         {this.props.children}
       </form>
     )
@@ -42,6 +55,8 @@ class Form extends PureComponent {
 Form.propTypes = {
   ...getProps('disabled'),
   datum: PropTypes.object,
+  inline: PropTypes.bool,
+  labelAlign: PropTypes.string,
   layout: PropTypes.string,
   onReset: PropTypes.func,
   onSubmit: PropTypes.func,

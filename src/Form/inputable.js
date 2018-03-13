@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { curry } from '../utils/func'
 import consumer from './consumer'
 
 const types = ['formDatum', 'disabled']
 
-export default Origin => consumer(types, class extends PureComponent {
+export default curry((delay, Origin) => consumer(types, class extends PureComponent {
   static propTypes = {
     formDatum: PropTypes.object,
     defaultValue: PropTypes.any,
@@ -14,9 +15,7 @@ export default Origin => consumer(types, class extends PureComponent {
     value: PropTypes.any,
   }
 
-  static defaultProps = {
-    delay: 300,
-  }
+  static defaultProps = { delay }
 
   constructor(props) {
     super(props)
@@ -40,8 +39,8 @@ export default Origin => consumer(types, class extends PureComponent {
   }
 
   getValue() {
-    // if inputing, use state value
-    if (this.changeTimer) return this.state.value
+    // if changeLocked, use state value
+    if (this.changeLocked) return this.state.value
 
     const { formDatum, name, value } = this.props
     if (formDatum && name) return formDatum.get(name)
@@ -50,7 +49,6 @@ export default Origin => consumer(types, class extends PureComponent {
 
   handleUpdate(value) {
     if (value !== this.state.value) {
-      console.log('force update', value, this.state.value)
       this.setState({ value })
     }
   }
@@ -58,10 +56,12 @@ export default Origin => consumer(types, class extends PureComponent {
   handleChange(value, ...args) {
     // use state as cache
     this.setState({ value })
+    this.changeLocked = true
 
     if (this.changeTimer) clearTimeout(this.changeTimer)
     // delay validate
     this.changeTimer = setTimeout(() => {
+      this.changeLocked = false
       console.log('change timer')
       const { formDatum, name } = this.props
       if (formDatum && name) formDatum.set(name, value)
@@ -85,4 +85,4 @@ export default Origin => consumer(types, class extends PureComponent {
       />
     )
   }
-})
+}))

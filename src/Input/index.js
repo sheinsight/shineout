@@ -5,7 +5,7 @@ import Number from './Number'
 import wrapper from './wrapper'
 import Group from './Group'
 
-const wrap = component => compose(inputable, wrapper({}))(component)
+const wrap = component => compose(inputable(400), wrapper({}))(component)
 
 const exports = wrap(Input)
 exports.Group = wrapper({ tag: 'div', isGroup: true })(Group)

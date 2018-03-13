@@ -27,11 +27,14 @@ export default function (Component, type = 'list', key = 'value') {
         this.datum = new Datum(datum)
       }
 
-      if (props[key]) this.datum.setValue(props[key])
-
       if (!this.datum.onChange) {
         this.datum.onChange = onChange
       }
+    }
+
+    componentDidMount() {
+      const values = this.props[key]
+      if (values) this.datum.setValue(values)
     }
 
     render() {

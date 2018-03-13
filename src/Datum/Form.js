@@ -25,16 +25,7 @@ export default class {
   }
 
   set(name, value) {
-    switch (arguments.length) {
-      case 1:
-        this.data = name
-        break
-      case 2:
-        this.data[name] = value
-        break
-      default:
-    }
-
+    this.data[name] = value
     this.handleChange()
   }
 
@@ -42,20 +33,24 @@ export default class {
     return this.$data
   }
 
+  setValue(data) {
+    this.$data = data
+    Object.keys(this.data).forEach((name) => {
+      this.data[name] = data[name]
+    })
+  }
+
   listen(name, fn, value) {
-    const { $data, $defaultValue } = this
-    $defaultValue[name] = value
+    this.$defaultValue[name] = value
 
     Object.defineProperty(this.data, name, {
       configurable: true,
       enumerable: true,
-      set(val) {
-        $data[name] = val
+      set: (val) => {
+        this.$data[name] = val
         if (typeof fn === 'function') fn(val)
       },
-      get() {
-        return $data[name]
-      },
+      get: () => this.$data[name],
     })
 
     this.data[name] = value

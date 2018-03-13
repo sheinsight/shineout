@@ -37,7 +37,7 @@
   
   i&-indicator {
     position: relative;
-    display: block;
+    display: inline-block;
     box-sizing: content-box;
     width: @checkbox-size;
     height: @checkbox-size;
@@ -45,6 +45,13 @@
     border: solid 1px @gray-500;
     border-radius: @checkbox-border-radius;
     transition: 0.2s ease-in-out;
+    vertical-align: middle;
+
+    & + span {
+      vertical-align: middle;
+      padding-left: @form-item-padding-x;
+      padding-right: @form-item-padding-x * 2;
+    }
 
     &:after {
       content: ' ';

@@ -19,9 +19,63 @@
       padding: 0 @form-item-padding-x;
     }
 
+    &.@{form-prefix}-required .@{form-prefix}-label {
+      &:before {
+        content: '*';
+        font-family: SimSun;
+        margin-right: 4px;
+        color: @colors-danger;
+      }
+    }
+
     .@{form-prefix}-control {
       flex: 1;
       padding: 0 @form-item-padding-x;
+    }
+  }
+
+  &-label-align-right &-item &-label {
+    text-align: right;
+  }
+
+  &-label-align-top &-item {
+    display: block;
+    width: 100%;
+
+    .@{form-prefix}-label {
+      padding: 0;
+      width: 100%;
+      margin-bottom: 4px;
+    }
+
+    .@{form-prefix}-control {
+      padding: 0;
+    }
+  }
+
+  &-inline {
+    .@{input-prefix} {
+      display: inline-block;
+      vertical-align: middle;
+      width: auto;
+      margin-right: @form-item-padding-x * 2;
+    }
+
+    .@{form-prefix}-item {
+      display: inline-block;
+      vertical-align: middle;
+      margin-bottom: 0;
+
+      .@{form-prefix}-label {
+        padding: 0;
+        margin-right: @form-item-padding-x;
+        width: auto;
+      }
+
+      .@{form-prefix}-control {
+        padding: 0;
+        display: inline-block;
+      }
     }
   }
 }
@@ -45,6 +99,10 @@
   border: 1px solid @input-border;
   border-radius: @input-border-radius;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+
+  &:hover {
+    border-color: @input-border-focus;
+  }
 
   &-group {
     padding: 0;
