@@ -30,6 +30,11 @@ const examples = [
   },
   {
     title: locate('一组多选框', 'Group'),
+    component: require('doc/pages/components/Checkbox/example-4-array.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Checkbox/example-4-array.js'),
+  },
+  {
+    title: locate('\n 复杂的数据可以使用 datum 进行处理', ''),
     component: require('doc/pages/components/Checkbox/example-4-group.js').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-4-group.js'),
   },
@@ -42,6 +47,11 @@ const examples = [
     title: locate('禁用', 'Disabled'),
     component: require('doc/pages/components/Checkbox/example-6-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-6-disabled.js'),
+  },
+  {
+    title: locate('带输入', 'Base'),
+    component: require('doc/pages/components/Checkbox/example-7-input.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Checkbox/example-7-input.js'),
   },
 ]
 

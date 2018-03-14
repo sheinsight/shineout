@@ -1,23 +1,22 @@
 /**
- * cn - 一组多选框
- * en - Group
+ * cn -  \n 复杂的数据可以使用 datum 进行处理
  */
 import React from 'react'
 import { Checkbox } from 'shineout'
 
 const data = [
-  { id: 1, name: 'red' },
-  { id: 2, name: 'orange' },
-  { id: 3, name: 'yellow' },
-  { id: 4, name: 'green' },
-  { id: 5, name: 'cyan' },
-  { id: 6, name: 'blue' },
-  { id: 7, name: 'violet' },
+  { id: 1, color: 'red' },
+  { id: 2, color: 'orange' },
+  { id: 3, color: 'yellow' },
+  { id: 4, color: 'green' },
+  { id: 5, color: 'cyan' },
+  { id: 6, color: 'blue' },
+  { id: 7, color: 'violet' },
 ]
 
-function getContent(color) {
-  const style = { borderBottom: `solid 1px ${color}`, paddingBottom: 2 }
-  return <span style={style}>{color}</span>
+function renderItem(d) {
+  const style = { borderBottom: `solid 1px ${d.color}`, paddingBottom: 2 }
+  return <span style={style}>{d.color}</span>
 }
 
 export default function () {
@@ -25,10 +24,10 @@ export default function () {
     <Checkbox.Group
       keygen="id"
       data={data}
-      datum={{ format: 'name' }}
+      datum={{ format: 'color' }}
       onChange={d => console.log(d)}
       value={['blue', 'cyan']}
-      renderItem={d => getContent(d.name)}
+      renderItem={renderItem}
     />
   )
 }

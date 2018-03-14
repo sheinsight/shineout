@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
+import Input from '../Input'
 import { checkinputClass } from '../styles'
 
 class Checkbox extends PureComponent {
@@ -15,6 +16,7 @@ class Checkbox extends PureComponent {
 
     this.id = `cb_${getUidStr()}`
     this.handleChange = this.handleChange.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
   }
 
   getChecked() {
@@ -30,15 +32,24 @@ class Checkbox extends PureComponent {
   }
 
   handleChange(e) {
-    const { htmlValue, onChange, index } = this.props
+    const { onChange, index, inputable } = this.props
     const { checked } = e.target
     this.setState({ checked })
-    const value = checked ? htmlValue : undefined
+    let value = inputable ? this.props.value : this.props.htmlValue
+    value = checked ? value : undefined
     if (onChange) onChange(value, checked, index)
   }
 
+  handleInputChange(val) {
+    const { onChange, index } = this.props
+    const checked = val.length > 0
+    if (onChange) onChange(val, checked, index)
+  }
+
   render() {
-    const { disabled, style, children } = this.props
+    const {
+      disabled, style, children, inputable,
+    } = this.props
 
     const checked = this.getChecked()
 
@@ -52,6 +63,8 @@ class Checkbox extends PureComponent {
       this.props.className,
     )
 
+    const value = typeof this.props.value === 'string' ? this.props.value : ''
+
     return (
       <label className={className} style={style} htmlFor={this.id}>
         <input
@@ -63,6 +76,14 @@ class Checkbox extends PureComponent {
         />
         <i className={checkinputClass('indicator', 'checkbox')} />
         {children && <span>{children}</span>}
+        {
+          inputable && checked &&
+          <Input
+            className={checkinputClass('text')}
+            onChange={this.handleInputChange}
+            value={value}
+          />
+        }
       </label>
     )
   }
@@ -71,6 +92,7 @@ class Checkbox extends PureComponent {
 Checkbox.propTypes = {
   ...getProps('disabled'),
   checked: PropTypes.oneOf([true, false, 'indeterminate']),
+  inputable: PropTypes.bool,
   htmlValue: PropTypes.any,
   index: PropTypes.number,
   onChange: PropTypes.func,

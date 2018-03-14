@@ -6,19 +6,14 @@ import React from 'react'
 import { Checkbox } from 'shineout'
 
 const data = [
-  { id: 1, name: 'red' },
-  { id: 2, name: 'orange' },
-  { id: 3, name: 'yellow' },
-  { id: 4, name: 'green' },
-  { id: 5, name: 'cyan' },
-  { id: 6, name: 'blue' },
-  { id: 7, name: 'violet' },
+  { id: 1, color: 'red' },
+  { id: 2, color: 'orange' },
+  { id: 3, color: 'yellow' },
+  { id: 4, color: 'green' },
+  { id: 5, color: 'cyan' },
+  { id: 6, color: 'blue' },
+  { id: 7, color: 'violet' },
 ]
-
-function getContent(color) {
-  const style = { borderBottom: `solid 1px ${color}`, paddingBottom: 2 }
-  return <span style={style}>{color}</span>
-}
 
 export default function () {
   return (
@@ -26,10 +21,10 @@ export default function () {
       keygen="id"
       block
       data={data}
-      datum={{ format: 'name' }}
+      datum={{ format: 'color' }}
       onChange={d => console.log(d)}
       value={['blue', 'cyan']}
-      renderItem={d => getContent(d.name)}
+      renderItem="color"
     />
   )
 }

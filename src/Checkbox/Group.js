@@ -49,7 +49,7 @@ class CheckboxGroup extends PureComponent {
 
   render() {
     const {
-      block, data, datum, disabled, keygen,
+      block, data, datum, disabled, keygen, children,
     } = this.props
 
     const className = classnames(
@@ -73,13 +73,14 @@ class CheckboxGroup extends PureComponent {
             </Checkbox>
           ))
         }
+        {children}
       </div>
     )
   }
 }
 
 CheckboxGroup.propTypes = {
-  ...getProps('disabled', 'keygen'),
+  ...getProps('children', 'disabled', 'keygen'),
   block: PropTypes.bool,
   data: PropTypes.array.isRequired,
   datum: PropTypes.object.isRequired,
