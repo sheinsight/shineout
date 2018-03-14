@@ -7,7 +7,8 @@
   "Form": {
     "Checkbox": "复选框",
     "Form": "表单",
-    "Input": "输入框"
+    "Input": "输入框",
+    "Radio": "单选框"
   },
   "Data": {
     "Datum.List": "数据处理",

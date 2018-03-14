@@ -8,7 +8,7 @@ const types = {
   list: List,
 }
 
-export default function (Component, type = 'list', key = 'value') {
+export default function (Component, type = 'list', key = 'value', limit) {
   const Datum = types[type]
 
   return class extends PureComponent {
@@ -26,6 +26,8 @@ export default function (Component, type = 'list', key = 'value') {
       } else {
         this.datum = new Datum(datum)
       }
+
+      if (!this.datum.limit && limit) this.datum.limit = limit
 
       if (!this.datum.onChange) {
         this.datum.onChange = onChange

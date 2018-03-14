@@ -1,5 +1,5 @@
 /**
- * cn - 状态 \n checked 有三个值，选中、未选中、半选。checked 设置时为受控组件。
+ * cn - 状态 \n checked 有三个值，选中、未选中、半选。checked 设置时为受控组件（此示例没有处理）。
  * en - Checked
  */
 import React from 'react'

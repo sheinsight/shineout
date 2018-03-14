@@ -43,6 +43,12 @@ const pages = [
     level: 2,
     component: loadable(() => import('./Input')),
   },
+  {
+    name: 'Radio',
+    cn: '单选框',
+    level: 2,
+    component: loadable(() => import('./Radio')),
+  },
   'Data',
   {
     name: 'Datum.List',

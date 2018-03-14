@@ -1,10 +1,11 @@
 export default class {
   constructor(args = {}) {
     const {
-      format, onChange, separator, value, prediction, distinct, disabled,
+      format, onChange, separator, value, prediction, distinct, disabled, limit,
     } = args
 
     this.distinct = distinct
+    this.limit = limit
     this.separator = separator
     this.disabled = disabled || (() => false)
     this.initFormat(format)
@@ -53,6 +54,11 @@ export default class {
     }
 
     this.values = this.values.concat(values)
+  }
+
+  set(value) {
+    this.$values = []
+    this.add(value)
   }
 
   check(raw) {
@@ -131,11 +137,18 @@ export default class {
   }
 
   getValue() {
+    if (this.limit === 1) return this.values[0]
+
     if (this.separator) return this.values.join(this.separator)
     return this.values
   }
 
   setValue(values = []) {
+    if (this.limit === 1 && !Array.isArray(values)) {
+      this.values = [values]
+      return
+    }
+
     if (Array.isArray(values)) {
       this.values = values
       return
