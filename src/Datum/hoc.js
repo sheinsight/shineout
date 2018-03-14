@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import shallowEqual from '../utils/shallowEqual'
 import List from './List'
 import Form from './Form'
 
@@ -34,12 +35,18 @@ export default function (Component, type = 'list', key = 'value', limit) {
       }
     }
 
-    componentDidMount() {
+    trySetValue() {
       const values = this.props[key]
-      if (values) this.datum.setValue(values)
+      if (values && !shallowEqual(values, this.prevValues)) {
+        console.log('set value')
+        this.datum.setValue(values)
+        this.prevValues = values
+      }
     }
 
     render() {
+      this.trySetValue()
+
       return (
         <Component
           {...this.props}

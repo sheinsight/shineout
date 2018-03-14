@@ -3,12 +3,14 @@
  * en - Base
  */
 import React from 'react'
-import { Form, Input } from 'shineout'
+import { Form, Input, Checkbox } from 'shineout'
 
 const initData = {
   email: 'test@example.com',
   age: 18,
 }
+
+const colors = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
 export default function () {
   return (
@@ -31,6 +33,10 @@ export default function () {
 
       <Form.Item label="Age">
         <Input style={{ width: 100 }} name="age" type="number" digits={0} defaultValue={0} />
+      </Form.Item>
+
+      <Form.Item label="Favorite Color">
+        <Checkbox.Group name="favoriteColor" data={colors} />
       </Form.Item>
 
       <Form.Item>

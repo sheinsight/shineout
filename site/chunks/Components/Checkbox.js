@@ -49,9 +49,14 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-6-disabled.js'),
   },
   {
+    title: locate('\n 使用 datum disabled 实现有条件禁用', 'Disabled'),
+    component: require('doc/pages/components/Checkbox/example-7-disabled.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Checkbox/example-7-disabled.js'),
+  },
+  {
     title: locate('带输入', 'Base'),
-    component: require('doc/pages/components/Checkbox/example-7-input.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Checkbox/example-7-input.js'),
+    component: require('doc/pages/components/Checkbox/example-8-input.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Checkbox/example-8-input.js'),
   },
 ]
 

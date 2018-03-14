@@ -1,3 +1,4 @@
+import { range } from 'shineout/utils/numbers'
 import { format } from '../date'
 
 export function pickNumber(max = 65555, min = 0, fixed = 2) {
@@ -32,9 +33,38 @@ export function pick(items, max = 1, min) {
   }
 
   const buffer = []
-  while (length--) {
+  while (length > 0) {
     buffer.push(one(items))
+    length -= 1
   }
 
   return buffer
+}
+
+export function pickUnique(items, max = 1, min) {
+  let length = max
+  // eslint-disable-next-line
+  if (max > items.length) max = items.length
+  if (min) length = pickInteger(max, min)
+  const nums = range(items.length)
+  const buffer = []
+
+  for (let i = 0; i < length; i++) {
+    const r = pickInteger(nums.length)
+    const j = nums.splice(r, 1)[0]
+    buffer.push(items[j])
+  }
+
+  return buffer
+}
+
+export function shuffle(deck) {
+  const randomizedDeck = []
+  const array = deck.slice()
+  while (array.length !== 0) {
+    const rIndex = Math.floor(array.length * Math.random())
+    randomizedDeck.push(array[rIndex])
+    array.splice(rIndex, 1)
+  }
+  return randomizedDeck
 }

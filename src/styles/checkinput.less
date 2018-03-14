@@ -91,7 +91,7 @@
   }
 
   &-group {
-    padding: @padding-base-vertical @padding-base-horizontal;
+    padding: @padding-base-vertical 0;
   }
 
   &-block & {
@@ -113,6 +113,7 @@
   }
 
   &-checked i&-radio&-indicator {
+    border-color: @checkbox-active-color;
     &:after {
       background: @checkbox-active-color;
     }
@@ -128,6 +129,7 @@
   }
 
   &-disabled {
+    cursor: @cursor-disabled;
     opacity: 0.7;
   }
 
@@ -136,7 +138,6 @@
     i.@{checkinput-prefix}-indicator {
       border-color: @gray-500;
       background-color: @input-bg-disabled;
-      cursor: @cursor-disabled;
     }
   }
 

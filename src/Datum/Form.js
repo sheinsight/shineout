@@ -58,7 +58,7 @@ export default class {
       get: () => this.$data[name],
     })
 
-    this.data[name] = value
+    if (this.$data[name] === undefined) this.$data[name] = value
   }
 
   unlisten(name) {

@@ -21,9 +21,9 @@ export default function () {
       keygen="id"
       block
       data={data}
-      datum={{ format: 'color' }}
+      datum={{ format: 'id' }}
       onChange={d => console.log(d)}
-      value="blue"
+      value={3}
       renderItem="color"
     />
   )

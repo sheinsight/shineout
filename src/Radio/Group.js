@@ -59,7 +59,7 @@ class RadioGroup extends PureComponent {
           data.map((d, i) => (
             <Radio
               checked={datum.check(d)}
-              disabled={disabled}
+              disabled={disabled || datum.disabled(d)}
               key={getKey(d, keygen, i)}
               htmlValue={i}
               index={i}
@@ -83,7 +83,11 @@ RadioGroup.propTypes = {
   renderItem: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.func,
-  ]).isRequired,
+  ]),
+}
+
+RadioGroup.defaultProps = {
+  renderItem: d => d,
 }
 
 export default RadioGroup

@@ -62,10 +62,13 @@ export default class {
   }
 
   check(raw) {
-    for (let i = 0, count = this.values.length; i < count; i++) {
-      if (this.prediction(this.values[i], raw)) return true
+    if (this.prediction) {
+      for (let i = 0, count = this.values.length; i < count; i++) {
+        if (this.prediction(this.values[i], raw)) return true
+      }
+      return false
     }
-    return false
+    return this.values.indexOf(this.format(raw)) >= 0
   }
 
   clear() {
@@ -99,7 +102,7 @@ export default class {
     }
   }
 
-  prediction(value, data) {
+  defaultPrediction(value, data) {
     return value === this.format(data)
   }
 
@@ -110,10 +113,12 @@ export default class {
     raws = raws.filter(r => !this.disabled(r))
     const values = []
 
+    const prediction = this.prediction || this.defaultPrediction.bind(this)
+
     outer:
     for (const val of this.values) {
       for (let j = 0; j < raws.length; j++) {
-        if (this.prediction(val, raws[j])) {
+        if (prediction(val, raws[j])) {
           raws.splice(j, 1)
           continue outer
         }
@@ -145,20 +150,20 @@ export default class {
 
   setValue(values = []) {
     if (this.limit === 1 && !Array.isArray(values)) {
-      this.values = [values]
+      this.$values = [values]
       return
     }
 
     if (Array.isArray(values)) {
-      this.values = values
+      this.$values = values
       return
     }
 
     if (typeof values === 'string') {
       if (this.separator) {
-        this.values = values.split(this.separator).map(s => s.trim())
+        this.$values = values.split(this.separator).map(s => s.trim())
       } else {
-        this.values = []
+        this.$values = []
         console.error('The separator parameter is empty.')
       }
       return

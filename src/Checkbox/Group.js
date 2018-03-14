@@ -63,7 +63,7 @@ class CheckboxGroup extends PureComponent {
           data.map((d, i) => (
             <Checkbox
               checked={datum.check(d)}
-              disabled={disabled}
+              disabled={disabled || datum.disabled(d)}
               key={getKey(d, keygen, i)}
               htmlValue={i}
               index={i}
@@ -88,7 +88,11 @@ CheckboxGroup.propTypes = {
   renderItem: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.func,
-  ]).isRequired,
+  ]),
+}
+
+CheckboxGroup.defaultProps = {
+  renderItem: d => d,
 }
 
 export default CheckboxGroup

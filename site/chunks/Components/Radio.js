@@ -28,6 +28,11 @@ const examples = [
     component: require('doc/pages/components/Radio/example-3-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/Radio/example-3-disabled.js'),
   },
+  {
+    title: locate('\n 使用 datum disabled 实现有条件禁用', 'Disabled'),
+    component: require('doc/pages/components/Radio/example-4-disabled.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Radio/example-4-disabled.js'),
+  },
 ]
 
 const codes = undefined
