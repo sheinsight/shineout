@@ -53,7 +53,7 @@ class CheckboxGroup extends PureComponent {
     } = this.props
 
     const className = classnames(
-      checkinputClass('gropu', block && 'block'),
+      checkinputClass('group', block && 'block'),
       this.props.className,
     )
 
