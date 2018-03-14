@@ -22,4 +22,4 @@
 | datum | object | 无 | 数据处理，可以传入一个 [Datum.List](#/components/Datum.List) 对象，或者 Datum.List 配置 |
 | disabled | bool | false | 禁用 |
 | onChange | function(value) | 无 | value 为 datum.getValue() |
-| renderItem | string \| function(d) | 必填 | 为 string 时，返回 d[string]<br />为 function 时，返回函数结果 |
+| renderItem | string \| function(d) | 必填 | 为 string 时，返回 d\[string]<br />为 function 时，返回函数结果 |

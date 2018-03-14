@@ -5,5 +5,6 @@ import Group from './Group'
 
 const exports = inputable(0, Checkbox)
 exports.Group = Datum.hoc(Group, 'list', 'value')
+exports.Checkbox = Checkbox
 
 export default exports

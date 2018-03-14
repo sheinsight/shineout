@@ -64,7 +64,6 @@
     .@{form-prefix}-item {
       display: inline-block;
       vertical-align: middle;
-      margin-bottom: 0;
 
       .@{form-prefix}-label {
         padding: 0;
@@ -76,6 +75,10 @@
         padding: 0;
         display: inline-block;
       }
+    }
+
+    & > * {
+      margin-bottom: @form-inline-margin-bottom;
     }
   }
 }

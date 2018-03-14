@@ -34,9 +34,14 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-4-group.js'),
   },
   {
+    title: locate('垂直布局', 'Block'),
+    component: require('doc/pages/components/Checkbox/example-5-block.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Checkbox/example-5-block.js'),
+  },
+  {
     title: locate('禁用', 'Disabled'),
-    component: require('doc/pages/components/Checkbox/example-5-disabled.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Checkbox/example-5-disabled.js'),
+    component: require('doc/pages/components/Checkbox/example-6-disabled.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Checkbox/example-6-disabled.js'),
   },
 ]
 

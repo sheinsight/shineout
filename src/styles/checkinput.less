@@ -66,10 +66,15 @@
       border-width: 0 0 2px 2px;
       transition: transform 0.1s ease-in-out;
     }
+  }
 
-    &:hover {
-      border-color: @checkbox-hover-color;
-    }
+  &-block & {
+    display: block;
+    margin-bottom: @padding-large-vertical;
+  }
+
+  &:hover i&-indicator {
+    border-color: @checkbox-hover-color;
   }
 
   &-checked i&-indicator {
