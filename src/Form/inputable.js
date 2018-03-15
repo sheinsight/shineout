@@ -28,6 +28,7 @@ export default curry((delay, Origin) => consumer(types, class extends PureCompon
 
     if (formDatum && name) {
       formDatum.listen(name, this.handleUpdate, defaultValue)
+      this.state.value = formDatum.get(name)
     }
   }
 
@@ -48,9 +49,7 @@ export default curry((delay, Origin) => consumer(types, class extends PureCompon
   }
 
   handleUpdate(value) {
-    if (value !== this.state.value) {
-      this.setState({ value })
-    }
+    this.setState({ value })
   }
 
   handleChange(value, ...args) {

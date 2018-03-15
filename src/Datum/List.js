@@ -156,7 +156,6 @@ export default class {
     // value not change
     if (shallowEqual(this.$cachedValue, values)) return
 
-    console.log('set value')
     if (this.limit === 1 && !Array.isArray(values)) {
       this.$values = [values]
       return

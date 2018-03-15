@@ -37,7 +37,7 @@ export default function (Component, type = 'list', key = 'value', limit) {
 
     trySetValue() {
       const values = this.props[key]
-      if (values && !shallowEqual(values, this.prevValues)) {
+      if (!shallowEqual(values, this.prevValues)) {
         this.datum.setValue(values)
         this.prevValues = values
       }

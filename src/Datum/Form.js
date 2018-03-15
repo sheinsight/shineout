@@ -5,9 +5,12 @@ export default class {
     const { onChange } = options
     this.validate = options.validate
     this.data = {}
-    this.$data = {}
-    this.$defaultValue = {}
     this.onChange = onChange
+
+    // store raw formdata
+    this.$data = {}
+    // store default value, for reset
+    this.$defaultValue = {}
 
     this.events = {}
   }
@@ -16,7 +19,7 @@ export default class {
     if (this.onChange) this.onChange(this.$data)
   }
 
-  clear() {
+  reset() {
     Object.keys(this.data).forEach((k) => {
       this.data[k] = this.$defaultValue[k]
     })
@@ -39,8 +42,10 @@ export default class {
     // data not change
     if (shallowEqual(data, this.$data)) return
 
-    console.log('set value')
+    // shallow copy data ??
+    // this.$data = {...data}
     this.$data = data
+
     Object.keys(this.data).forEach((name) => {
       this.data[name] = data[name]
     })

@@ -20,7 +20,7 @@ class Form extends PureComponent {
 
   handleReset() {
     const { datum, onReset } = this.props
-    datum.clear()
+    datum.reset()
     if (onReset) onReset()
   }
 
