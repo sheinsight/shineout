@@ -2,10 +2,11 @@ import shallowEqual from '../utils/shallowEqual'
 
 export default class {
   constructor(options = {}) {
-    const { onChange } = options
+    const { removeUndefined = true, onChange } = options
     this.validate = options.validate
     this.data = {}
     this.onChange = onChange
+    this.removeUndefined = removeUndefined
 
     // store raw formdata
     this.$data = {}
@@ -16,7 +17,7 @@ export default class {
   }
 
   handleChange() {
-    if (this.onChange) this.onChange(this.$data)
+    if (this.onChange) this.onChange(this.getValue())
   }
 
   reset() {
@@ -35,6 +36,11 @@ export default class {
   }
 
   getValue() {
+    if (this.removeUndefined) {
+      Object.keys(this.$data).forEach((k) => {
+        if (this.$data[k] === undefined) delete this.$data[k]
+      })
+    }
     return this.$data
   }
 

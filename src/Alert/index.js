@@ -19,8 +19,8 @@ class Alert extends PureComponent {
     this.handleClose = this.handleClose.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.dismiss !== nextProps.dismiss && nextProps.dismiss) {
+  componentDidUpdate(prevProps) {
+    if (this.props.dismiss !== prevProps.dismiss && this.props.dismiss) {
       this.handleClose()
     }
   }

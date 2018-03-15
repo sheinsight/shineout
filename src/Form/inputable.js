@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { curry } from '../utils/func'
+import validate from '../utils/validate'
 import consumer from './consumer'
 
 const types = ['formDatum', 'disabled']
@@ -12,6 +13,7 @@ export default curry((delay, Origin) => consumer(types, class extends PureCompon
     delay: PropTypes.number,
     name: PropTypes.string,
     onChange: PropTypes.func,
+    required: PropTypes.bool,
     value: PropTypes.any,
   }
 
@@ -48,6 +50,11 @@ export default curry((delay, Origin) => consumer(types, class extends PureCompon
     return value === undefined ? this.state.value : value
   }
 
+  validate(value) {
+    const { required } = this.props
+    return validate(value, { required })
+  }
+
   handleUpdate(value) {
     this.setState({ value })
   }
@@ -61,9 +68,16 @@ export default curry((delay, Origin) => consumer(types, class extends PureCompon
     // delay validate
     this.changeTimer = setTimeout(() => {
       this.changeLocked = false
-      console.log('change timer')
       const { formDatum, name } = this.props
       if (formDatum && name) formDatum.set(name, value)
+
+      this.validate(value).then(() => {
+        this.setState({ status: true })
+        console.log(1111)
+      }).catch((e) => {
+        console.log(e.message)
+        this.setState({ status: e })
+      })
 
       if (this.props.onChange) this.props.onChange(value, ...args)
     }, this.props.delay)
@@ -71,7 +85,7 @@ export default curry((delay, Origin) => consumer(types, class extends PureCompon
 
   render() {
     const {
-      formDatum, value, ...other
+      formDatum, value, required, ...other
     } = this.props
 
     console.log('render input')

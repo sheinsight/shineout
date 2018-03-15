@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import shallowEqual from '../utils/shallowEqual'
 import List from './List'
 import Form from './Form'
 
@@ -28,24 +27,25 @@ export default function (Component, type = 'list', key = 'value', limit) {
         this.datum = new Datum(datum)
       }
 
+      // for radio, select
       if (!this.datum.limit && limit) this.datum.limit = limit
+
+      const values = this.props[key]
+      if (values) {
+        this.datum.setValue(values)
+      }
 
       if (!this.datum.onChange) {
         this.datum.onChange = onChange
       }
     }
 
-    trySetValue() {
+    componentDidUpdate() {
       const values = this.props[key]
-      if (!shallowEqual(values, this.prevValues)) {
-        this.datum.setValue(values)
-        this.prevValues = values
-      }
+      this.datum.setValue(values)
     }
 
     render() {
-      this.trySetValue()
-
       return (
         <Component
           {...this.props}

@@ -15,7 +15,7 @@ export default class {
 
     if (prediction) this.prediction = prediction
     if (separator && !format) {
-      console.error('The separator parameter is not null, the format parameter can not be empty.')
+      console.error('The "separator" property depends on the "format" property.')
     }
 
     this.setValue(value)

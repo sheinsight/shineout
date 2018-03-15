@@ -32,9 +32,9 @@ export default function (Component, duration = 480, type = ['fade']) {
       }
     }
 
-    componentWillReceiveProps(nextProps) {
-      if (this.props.show !== nextProps.show) {
-        if (nextProps.show) {
+    componentDidUpdate(prevProps) {
+      if (this.props.show !== prevProps.show) {
+        if (this.props.show) {
           if (type[0] === 'fade') {
             this.element.style.display = 'block'
             setTimeout(() => {
@@ -59,6 +59,7 @@ export default function (Component, duration = 480, type = ['fade']) {
               this.element.style.height = 0
             }, 10)
           }
+          // eslint-disable-next-line
           this.setState({ show: false })
           setTimeout(() => {
             if (this.state.show === false && !this.isUnmounted) {
@@ -74,6 +75,7 @@ export default function (Component, duration = 480, type = ['fade']) {
     componentWillUnmount() {
       this.isUnmounted = true
     }
+
     bindElement(el) {
       this.element = findDOMNode(el)
     }

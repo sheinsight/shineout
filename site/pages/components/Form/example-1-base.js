@@ -17,11 +17,11 @@ export default class extends PureComponent {
     return (
       <Form data={this.initData} onSubmit={(data) => { console.log(data) }}>
         <Form.Item required label="Email">
-          <Input name="email" />
+          <Input required name="email" />
         </Form.Item>
 
         <Form.Item required label="Password">
-          <Input name="password" type="password" />
+          <Input required name="password" type="password" />
         </Form.Item>
 
         <Form.Item label="Name">
