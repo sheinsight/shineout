@@ -1,3 +1,5 @@
+import shallowEqual from '../utils/shallowEqual'
+
 export default class {
   constructor(options = {}) {
     const { onChange } = options
@@ -34,6 +36,10 @@ export default class {
   }
 
   setValue(data) {
+    // data not change
+    if (shallowEqual(data, this.$data)) return
+
+    console.log('set value')
     this.$data = data
     Object.keys(this.data).forEach((name) => {
       this.data[name] = data[name]

@@ -1,3 +1,5 @@
+import shallowEqual from '../utils/shallowEqual'
+
 export default class {
   constructor(args = {}) {
     const {
@@ -142,13 +144,19 @@ export default class {
   }
 
   getValue() {
-    if (this.limit === 1) return this.values[0]
-
-    if (this.separator) return this.values.join(this.separator)
-    return this.values
+    let value = this.values
+    // eslint-disable-next-line
+    if (this.limit === 1) value = this.values[0]
+    else if (this.separator) value = this.values.join(this.separator)
+    this.$cachedValue = value
+    return value
   }
 
   setValue(values = []) {
+    // value not change
+    if (shallowEqual(this.$cachedValue, values)) return
+
+    console.log('set value')
     if (this.limit === 1 && !Array.isArray(values)) {
       this.$values = [values]
       return
