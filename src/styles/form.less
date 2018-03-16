@@ -98,13 +98,6 @@
 }
 
 .@{input-prefix} {
-  @tip-fade: ~"@{input-prefix}-fade";
-
-  @keyframes @tip-fade {
-    0% { transform: scale(0.6); }
-    100% { transform: scale(1); }
-  }
-
   .input-focus(@color: @input-border-focus) {
     @color-rgba: rgba(red(@color), green(@color), blue(@color), .25);
 
@@ -191,17 +184,28 @@
     border-color: @input-border;
   }
 
+  @tip-fade: ~"@{input-prefix}-fade";
+  @tip-fade-center: ~"@{input-prefix}-fade-center";
+
+  @keyframes @tip-fade-center {
+    0% { transform: scale(0.6) translateX(-50%); }
+    100% { transform: scale(1) translateX(-50%); }
+  }
+
+  @keyframes @tip-fade {
+    0% { transform: scale(0.6); }
+    100% { transform: scale(1); }
+  }
+
   &-tip, &-error {
     position: absolute;
+    z-index: 1000;
     font-size: 12px;
     color: lighten(@text-color, 40%);
     background: @gray-100;
-    padding: @padding-small-vertical @padding-small-horizontal;
-    // border: solid 1px @input-border;
+    padding: @padding-base-vertical @padding-base-horizontal;
     min-width: 200px;
     max-width: 400px;
-    left: 0;
-    animation: @tip-fade 0.216s ease-in;
     border-radius: @input-border-radius;
     box-shadow: 0 0 0 1px @input-border, 0 2px 8px rgba(0, 0, 0, 0.15);
 
@@ -211,12 +215,13 @@
       position: absolute;
       width: 6px;
       height: 6px;
-      left: 12px;
       border: solid 1px @input-border;
       border-width: 1px 0 0 1px;
     }
 
-    &.@{input-prefix}-tip-bottom {
+    &.@{input-prefix}-bottom-left,
+    &.@{input-prefix}-bottom,
+    &.@{input-prefix}-bottom-right {
       top: 100%;
       margin-top: 8px;
       transform-origin: 0 0;
@@ -226,14 +231,46 @@
       }
     }
 
-    &.@{input-prefix}-tip-top {
+    &.@{input-prefix}-top-left,
+    &.@{input-prefix}-top,
+    &.@{input-prefix}-top-right {
       bottom: 100%;
       margin-bottom: 8px;
       transform-origin: 0 100%;
       &:before {
         top: 100%;
-        transform: rotate(225deg) translateY(3px);
+        transform: rotate(225deg) translate(3px);
       }
+    }
+
+    &.@{input-prefix}-bottom, &.@{input-prefix}-top {
+      left: 50%;
+      transform: translateX(-50%);
+      animation: @tip-fade-center 0.216s ease-in;
+      &:before {
+        left: 50%;
+      }
+    }
+
+    &.@{input-prefix}-bottom-left, &.@{input-prefix}-top-left {
+      left: 0;
+      animation: @tip-fade 0.216s ease-in;
+    }
+
+    &.@{input-prefix}-bottom-right, &.@{input-prefix}-top-right {
+      right: 0;
+      animation: @tip-fade 0.216s ease-in;
+      &:before {
+        right: @padding-base-horizontal - 3;
+      }
+    }
+
+    &.@{input-prefix}-bottom-right {
+      transform-origin: 100% 0;
+    }
+
+    &.@{input-prefix}-top-right {
+      transform-origin: 100% 100%;
     }
   }
 

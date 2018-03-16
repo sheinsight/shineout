@@ -15,12 +15,12 @@ export default curry((options, Origin) => class extends Component {
     size: PropTypes.string,
     style: PropTypes.object,
     tip: PropTypes.any,
-    tipPosition: PropTypes.string,
+    tipPosition: PropTypes.oneOf(['top-left', 'top', 'top-right', 'bottom-left', 'bottom', 'bottom-right']),
   }
 
   static defaultProps = {
     border: true,
-    tipPosition: 'bottom',
+    tipPosition: 'bottom-left',
   }
 
   constructor(props) {
@@ -45,7 +45,9 @@ export default curry((options, Origin) => class extends Component {
   renderHelp(focus) {
     const { tip, tipPosition } = this.props
     if (!tip || !focus) return null
-    return <div className={inputClass('tip', `tip-${tipPosition}`)}>{tip}</div>
+
+    const className = inputClass('tip', tipPosition)
+    return <div className={className}>{tip}</div>
   }
 
   render() {
