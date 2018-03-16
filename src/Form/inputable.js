@@ -4,7 +4,7 @@ import { curry } from '../utils/func'
 import validate from '../utils/validate'
 import consumer from './consumer'
 
-const types = ['formDatum', 'disabled']
+const types = ['formDatum', 'disabled', 'onError']
 
 export default curry((delay, Origin) => consumer(types, class extends PureComponent {
   static propTypes = {
@@ -13,11 +13,15 @@ export default curry((delay, Origin) => consumer(types, class extends PureCompon
     delay: PropTypes.number,
     name: PropTypes.string,
     onChange: PropTypes.func,
+    onError: PropTypes.func,
     required: PropTypes.bool,
     value: PropTypes.any,
   }
 
-  static defaultProps = { delay }
+  static defaultProps = {
+    delay,
+    onError: () => {},
+  }
 
   constructor(props) {
     super(props)
@@ -25,7 +29,6 @@ export default curry((delay, Origin) => consumer(types, class extends PureCompon
     const { formDatum, name, defaultValue } = props
 
     this.state = {
-      validationState: null,
       value: props.value || defaultValue,
     }
 
@@ -55,11 +58,13 @@ export default curry((delay, Origin) => consumer(types, class extends PureCompon
   }
 
   validate(value) {
-    const { required } = this.props
+    const { onError, name, required } = this.props
     return validate(value, { required }).then(() => {
-      this.setState({ validationState: null })
+      // this.setState({ validationState: null })
+      onError(name, null)
     }, (e) => {
-      this.setState({ validationState: e })
+      // this.setState({ validationState: e })
+      onError(name, e)
       return e
     })
   }
@@ -67,14 +72,14 @@ export default curry((delay, Origin) => consumer(types, class extends PureCompon
   change(value, ...args) {
     const { formDatum, name } = this.props
     if (formDatum && name) formDatum.set(name, value)
-
-    this.validate(value)
+    else this.validate(value)
 
     if (this.props.onChange) this.props.onChange(value, ...args)
   }
 
   handleUpdate(value) {
     this.setState({ value })
+    this.validate(value)
   }
 
   handleChange(value, ...args) {

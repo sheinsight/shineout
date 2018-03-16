@@ -24,7 +24,7 @@ export default class extends PureComponent {
 
         <Form.Item label="Name">
           <Input.Group style={{ width: 300 }}>
-            <Input name="firstName" placeholder="First Name" />
+            <Input required name="firstName" placeholder="First Name" />
             -
             <Input name="lastName" placeholder="Last Name" />
           </Input.Group>
@@ -38,7 +38,7 @@ export default class extends PureComponent {
           <Checkbox.Group name="favoriteColor" data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']} />
         </Form.Item>
 
-        <Form.Item>
+        <Form.Item label="">
           <Form.Submit>Submit</Form.Submit>
           <Form.Reset>Reset</Form.Reset>
         </Form.Item>

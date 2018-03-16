@@ -34,10 +34,14 @@
       padding: 0 @form-item-padding-x;
     }
 
-    .@{form-prefix}-tip {
+    .@{form-prefix}-tip, .@{form-prefix}-error {
       font-size: @form-help-font-size;
       margin-top: 5px;
       color: lighten(@text-color, 40%);
+    }
+
+    .@{form-prefix}-error {
+      color: @form-feedback-invalid-color;
     }
   }
 
@@ -172,6 +176,10 @@
         border-bottom-right-radius: @input-border-radius;
       }
     }
+
+    .@{input-prefix}-invalid.@{input-prefix}-focus {
+      box-shadow: none;
+    }
   }
 
   .@{input-prefix} {
@@ -186,6 +194,7 @@
 
   @tip-fade: ~"@{input-prefix}-fade";
   @tip-fade-center: ~"@{input-prefix}-fade-center";
+  @duration: 0.16s;
 
   @keyframes @tip-fade-center {
     0% { transform: scale(0.6) translateX(-50%); }
@@ -246,7 +255,7 @@
     &.@{input-prefix}-bottom, &.@{input-prefix}-top {
       left: 50%;
       transform: translateX(-50%);
-      animation: @tip-fade-center 0.216s ease-in;
+      animation: @tip-fade-center @duration ease-in;
       &:before {
         left: 50%;
       }
@@ -254,12 +263,12 @@
 
     &.@{input-prefix}-bottom-left, &.@{input-prefix}-top-left {
       left: 0;
-      animation: @tip-fade 0.216s ease-in;
+      animation: @tip-fade @duration ease-in;
     }
 
     &.@{input-prefix}-bottom-right, &.@{input-prefix}-top-right {
       right: 0;
-      animation: @tip-fade 0.216s ease-in;
+      animation: @tip-fade @duration ease-in;
       &:before {
         right: @padding-base-horizontal - 3;
       }
@@ -276,6 +285,14 @@
 
   &-focus {
     .input-focus();
+  }
+
+  &-invalid {
+    border-color: @form-feedback-invalid-color;
+  }
+
+  &-invalid&-focus {
+    .input-focus(@form-feedback-invalid-color);
   }
 
   &-small {

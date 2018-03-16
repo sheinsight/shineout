@@ -13,7 +13,7 @@ export function isEmpty(obj) {
 export default (value, options = {}) => new Promise((resolve, reject) => {
   const { required } = options
   if (required && (value === undefined || value === null || value.length === 0)) {
-    return reject(new Error(''))
+    return reject(new Error('不能为空'))
   }
 
   return resolve(true)

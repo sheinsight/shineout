@@ -16,7 +16,7 @@ export default function () {
         <Input name="password" type="password" />
       </Form.Item>
 
-      <Form.Item>
+      <Form.Item label="">
         <Form.Submit>Submit</Form.Submit>
       </Form.Item>
     </Form>
