@@ -12,6 +12,12 @@ class Item extends PureComponent {
     this.state = {}
   }
 
+  renderHelp() {
+    const { tip } = this.props
+    if (!tip) return null
+    return <div className={formClass('tip')}>{tip}</div>
+  }
+
   render() {
     const {
       children, grid, label, labelWidth, required,
@@ -23,18 +29,17 @@ class Item extends PureComponent {
       this.props.className,
     )
 
-    /* eslint-disable */
     return (
       <div className={className}>
-        <label style={{width: labelWidth}} className={formClass('label')}>
+        <div style={{ width: labelWidth }} className={formClass('label')}>
           {label}
-        </label>
+        </div>
         <div className={formClass('control')}>
           {children}
+          {this.renderHelp()}
         </div>
       </div>
     )
-    /* eslint-enable */
   }
 }
 
@@ -47,6 +52,7 @@ Item.propTypes = {
     PropTypes.number,
   ]),
   required: PropTypes.bool,
+  tip: PropTypes.any,
 }
 
 Item.defaultProps = {

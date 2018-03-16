@@ -14,9 +14,11 @@ export default class {
     this.events = {}
 
     if (prediction) this.prediction = prediction
+    /*
     if (separator && !format) {
       console.error('The "separator" property depends on the "format" property.')
     }
+    */
 
     this.setValue(value)
     this.onChange = onChange
@@ -157,20 +159,20 @@ export default class {
     if (shallowEqual(this.$cachedValue, values)) return
 
     if (this.limit === 1 && !Array.isArray(values)) {
-      this.$values = [values]
+      this.values = [values]
       return
     }
 
     if (Array.isArray(values)) {
-      this.$values = values
+      this.values = values
       return
     }
 
     if (typeof values === 'string') {
       if (this.separator) {
-        this.$values = values.split(this.separator).map(s => s.trim())
+        this.values = values.split(this.separator).map(s => s.trim())
       } else {
-        this.$values = []
+        this.values = []
         console.error('The separator parameter is empty.')
       }
       return

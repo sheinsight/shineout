@@ -33,6 +33,16 @@ const examples = [
     component: require('doc/pages/components/Form/example-4-inline.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-4-inline.js'),
   },
+  {
+    title: locate('提示 \n 在 Form.Item 上设置提示文案时，提示文案始终显示在组件下方', 'Label'),
+    component: require('doc/pages/components/Form/example-5-tip.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-5-tip.js'),
+  },
+  {
+    title: locate('\n 在 Input 或 Input.Group 上设置的 tip，会在组件 focus 时弹出显示', ''),
+    component: require('doc/pages/components/Form/example-6-tip.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-6-tip.js'),
+  },
 ]
 
 const codes = undefined

@@ -14,10 +14,13 @@ export default curry((options, Origin) => class extends Component {
     onFocus: PropTypes.func,
     size: PropTypes.string,
     style: PropTypes.object,
+    tip: PropTypes.any,
+    tipPosition: PropTypes.string,
   }
 
   static defaultProps = {
     border: true,
+    tipPosition: 'bottom',
   }
 
   constructor(props) {
@@ -39,9 +42,15 @@ export default curry((options, Origin) => class extends Component {
     if (onFocus) onFocus()
   }
 
+  renderHelp(focus) {
+    const { tip, tipPosition } = this.props
+    if (!tip || !focus) return null
+    return <div className={inputClass('tip', `tip-${tipPosition}`)}>{tip}</div>
+  }
+
   render() {
     const {
-      className, hasError, border, style, size, ...other
+      className, hasError, border, style, size, tip, tipPosition, ...other
     } = this.props
     const { focus } = this.state
     const Tag = options.tag || 'label'
@@ -62,6 +71,7 @@ export default curry((options, Origin) => class extends Component {
     return (
       <Tag className={newClassName} style={style}>
         <Origin {...other} onFocus={this.handleFocus} onBlur={this.handleBlur} />
+        {this.renderHelp(focus)}
       </Tag>
     )
   }

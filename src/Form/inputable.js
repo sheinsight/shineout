@@ -24,7 +24,11 @@ export default curry((delay, Origin) => consumer(types, class extends PureCompon
 
     const { formDatum, name, defaultValue } = props
 
-    this.state = { value: props.value || defaultValue }
+    this.state = {
+      validationState: null,
+      value: props.value || defaultValue,
+    }
+
     this.handleChange = this.handleChange.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
 
@@ -52,7 +56,21 @@ export default curry((delay, Origin) => consumer(types, class extends PureCompon
 
   validate(value) {
     const { required } = this.props
-    return validate(value, { required })
+    return validate(value, { required }).then(() => {
+      this.setState({ validationState: null })
+    }, (e) => {
+      this.setState({ validationState: e })
+      return e
+    })
+  }
+
+  change(value, ...args) {
+    const { formDatum, name } = this.props
+    if (formDatum && name) formDatum.set(name, value)
+
+    this.validate(value)
+
+    if (this.props.onChange) this.props.onChange(value, ...args)
   }
 
   handleUpdate(value) {
@@ -62,24 +80,19 @@ export default curry((delay, Origin) => consumer(types, class extends PureCompon
   handleChange(value, ...args) {
     // use state as cache
     this.setState({ value })
-    this.changeLocked = true
 
+    // handle change immediately
+    if (this.props.delay === 0) {
+      this.change(value, ...args)
+      return
+    }
+
+    this.changeLocked = true
     if (this.changeTimer) clearTimeout(this.changeTimer)
     // delay validate
     this.changeTimer = setTimeout(() => {
       this.changeLocked = false
-      const { formDatum, name } = this.props
-      if (formDatum && name) formDatum.set(name, value)
-
-      this.validate(value).then(() => {
-        this.setState({ status: true })
-        console.log(1111)
-      }).catch((e) => {
-        console.log(e.message)
-        this.setState({ status: e })
-      })
-
-      if (this.props.onChange) this.props.onChange(value, ...args)
+      this.change(value, ...args)
     }, this.props.delay)
   }
 
@@ -88,7 +101,7 @@ export default curry((delay, Origin) => consumer(types, class extends PureCompon
       formDatum, value, required, ...other
     } = this.props
 
-    console.log('render input')
+    console.log('render input', this.props.name, this.getValue())
 
     return (
       <Origin

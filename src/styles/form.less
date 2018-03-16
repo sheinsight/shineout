@@ -13,6 +13,7 @@
     margin-bottom: @form-group-margin-bottom;
 
     .@{form-prefix}-label {
+      display: inline-block;
       width: 140px;
       word-break: break-all;
       padding-top: @padding-base-vertical;
@@ -31,6 +32,12 @@
     .@{form-prefix}-control {
       flex: 1;
       padding: 0 @form-item-padding-x;
+    }
+
+    .@{form-prefix}-tip {
+      font-size: @form-help-font-size;
+      margin-top: 5px;
+      color: lighten(@text-color, 40%);
     }
   }
 
@@ -56,13 +63,20 @@
   &-inline {
     .@{input-prefix} {
       display: inline-block;
+      display: inline-flex;
       vertical-align: middle;
       width: auto;
       margin-right: @form-item-padding-x * 2;
     }
 
+    .@{input-prefix}-group {
+      display: inline-block;
+      display: inline-flex;
+    }
+
     .@{form-prefix}-item {
       display: inline-block;
+      display: inline-flex;
       vertical-align: middle;
 
       .@{form-prefix}-label {
@@ -84,6 +98,13 @@
 }
 
 .@{input-prefix} {
+  @tip-fade: ~"@{input-prefix}-fade";
+
+  @keyframes @tip-fade {
+    0% { transform: scale(0.6); }
+    100% { transform: scale(1); }
+  }
+
   .input-focus(@color: @input-border-focus) {
     @color-rgba: rgba(red(@color), green(@color), blue(@color), .25);
 
@@ -92,6 +113,7 @@
   }
 
   display: block;
+  position: relative;
   width: 100%;
   padding: @padding-base-vertical @padding-base-horizontal;
   font-size: @font-size-base;
@@ -167,6 +189,52 @@
     border-radius: 0;
     box-shadow: none;
     border-color: @input-border;
+  }
+
+  &-tip, &-error {
+    position: absolute;
+    font-size: 12px;
+    color: lighten(@text-color, 40%);
+    background: @gray-100;
+    padding: @padding-small-vertical @padding-small-horizontal;
+    // border: solid 1px @input-border;
+    min-width: 200px;
+    max-width: 400px;
+    left: 0;
+    animation: @tip-fade 0.216s ease-in;
+    border-radius: @input-border-radius;
+    box-shadow: 0 0 0 1px @input-border, 0 2px 8px rgba(0, 0, 0, 0.15);
+
+    &:before {
+      content: ' ';
+      background: inherit;
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      left: 12px;
+      border: solid 1px @input-border;
+      border-width: 1px 0 0 1px;
+    }
+
+    &.@{input-prefix}-tip-bottom {
+      top: 100%;
+      margin-top: 8px;
+      transform-origin: 0 0;
+      &:before {
+        bottom: 100%;
+        transform: rotate(45deg) translateY(3px);
+      }
+    }
+
+    &.@{input-prefix}-tip-top {
+      bottom: 100%;
+      margin-bottom: 8px;
+      transform-origin: 0 100%;
+      &:before {
+        top: 100%;
+        transform: rotate(225deg) translateY(3px);
+      }
+    }
   }
 
   &-focus {

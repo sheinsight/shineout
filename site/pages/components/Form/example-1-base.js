@@ -11,8 +11,6 @@ export default class extends PureComponent {
     age: 18,
   }
 
-  colors = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
-
   render() {
     return (
       <Form data={this.initData} onSubmit={(data) => { console.log(data) }}>
@@ -37,7 +35,7 @@ export default class extends PureComponent {
         </Form.Item>
 
         <Form.Item label="Favorite Color">
-          <Checkbox.Group name="favoriteColor" data={this.colors} />
+          <Checkbox.Group name="favoriteColor" data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']} />
         </Form.Item>
 
         <Form.Item>
