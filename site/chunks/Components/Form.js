@@ -24,17 +24,17 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-02-label.js'),
   },
   {
-    title: locate('', ''),
+    title: locate(' \n labelAlign=&#34;top&#34;', ' \n labelAlign=&#34;top&#34;'),
     component: require('doc/pages/components/Form/example-03-label.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-03-label.js'),
   },
   {
-    title: locate('水平布局', 'Inline'),
+    title: locate('水平布局 \n 设置 inline 属性使 Form 变为水平布局', 'Inline'),
     component: require('doc/pages/components/Form/example-04-inline.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-04-inline.js'),
   },
   {
-    title: locate('提示 \n 在 Form.Item 上设置提示文案时，提示文案始终显示在组件下方', 'Label'),
+    title: locate('提示信息 \n 在 Form.Item 上设置提示文案时，提示文案始终显示在组件下方', 'Label'),
     component: require('doc/pages/components/Form/example-05-tip.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-05-tip.js'),
   },

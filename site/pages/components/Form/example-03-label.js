@@ -1,3 +1,9 @@
+/**
+ * cn -
+ *    -- labelAlign="top"
+ * en -
+ *    -- labelAlign="top"
+ */
 import React from 'react'
 import { Form, Input } from 'shineout'
 

@@ -3,19 +3,21 @@
 .doc-example {
   position: relative;
   border: solid 1px @doc-border-color;
-  border-radius: 4px;
-  margin-top: 20px;
+  border-radius: 2px;
   margin-bottom: 40px;
   background: #fff;
   overflow: visible;
   // box-shadow: 0 3px 10px 0px rgba(0, 0, 0, 0.1);
 
   &-title {
-    color: @gray-500;
-    font-style: italic;
-    font-size: 16px;
-    padding: 16px;
-    font-weight: 300;
+    position: relative;
+    color: @gray-600;
+    // font-style: italic;
+    font-size: 18px;
+    margin-top: 24px;
+    margin-bottom: 12px;
+    // padding: 16px;
+    // font-weight: 300;
   }
 
   &-sub-title {
@@ -27,9 +29,9 @@
 
   &-toggle {
     position: absolute;
-    top: 0;
     right: 0;
-    padding: 8px;
+    bottom: 0;
+    padding: 4px 8px;
     font-size: 12px;
     display: block;
     color: @gray-500;
@@ -37,7 +39,8 @@
   }
 
   &-body {
-    padding: 16px 32px;
+    position: relative;
+    padding: 40px 32px;
   }
 
   &-code {
@@ -62,7 +65,6 @@
 
   &-showcode &-code {
     border-top: dashed 1px #e5e5e5;
-    border-bottom: dashed 1px #e5e5e5;
     transition: height 0.24s linear;
 
     & > a {

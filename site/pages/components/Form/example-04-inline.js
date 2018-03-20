@@ -1,5 +1,6 @@
 /**
  * cn - 水平布局
+ *    -- 设置 inline 属性使 Form 变为水平布局
  * en - Inline
  */
 import React from 'react'

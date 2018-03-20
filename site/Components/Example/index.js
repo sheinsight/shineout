@@ -1,4 +1,4 @@
-import React, { PureComponent, createElement } from 'react'
+import React, { PureComponent, createElement, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { getUidStr } from 'shineout/utils/uid'
 import classGenerate from '../../utils/classname'
@@ -90,30 +90,35 @@ export default class Example extends PureComponent {
     const [title, ...sub] = this.props.title.split('\n')
 
     return (
-      <div id={this.id} className={exampleClass('_', showcode && 'showcode')}>
-        <div className={exampleClass('title')}>
-          { title }
+      <Fragment>
+        <div id={this.id} className={exampleClass('title')}>
+          {title}
           {
             sub.length > 0 &&
             <div className={exampleClass('sub-title')}>
-              {sub.map((s, i) => <div key={i}>{s}</div>)}
+              {
+                // eslint-disable-next-line
+                sub.map((s, i) => <div key={i} dangerouslySetInnerHTML={{ __html: s }} />)
+              }
             </div>
           }
-          { this.renderCodeHandle(false) }
         </div>
-        <div ref={this.bindCodeBlock} className={exampleClass('code')}>
-          { this.renderCodeHandle(true) }
-          <CodeBlock
-            onHighLight={this.setCodeBlockHeight}
-            onClose={this.toggleCode}
-            language="jsx"
-            value={text}
-          />
+        <div className={exampleClass('_', showcode && 'showcode')}>
+          <div className={exampleClass('body')}>
+            {createElement(component)}
+            {this.renderCodeHandle(false)}
+          </div>
+          <div ref={this.bindCodeBlock} className={exampleClass('code')}>
+            {this.renderCodeHandle(true)}
+            <CodeBlock
+              onHighLight={this.setCodeBlockHeight}
+              onClose={this.toggleCode}
+              language="jsx"
+              value={text}
+            />
+          </div>
         </div>
-        <div className={exampleClass('body')}>
-          { createElement(component) }
-        </div>
-      </div>
+      </Fragment>
     )
   }
 }

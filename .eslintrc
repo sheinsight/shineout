@@ -24,7 +24,6 @@
     "rules": {
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "react/forbid-prop-types": 0,
-        "react/no-danger": 0,
         "react/jsx-no-bind": 0,
         "react/no-did-mount-set-state": 0,
         "react/no-array-index-key": 0,
