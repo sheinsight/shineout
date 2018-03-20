@@ -1,5 +1,6 @@
 /**
- * cn - 标签 \n 通过 labelWidth 和 labelAlign 改变标签宽度和对齐方式
+ * cn - 标签
+ *    -- 通过 labelWidth 和 labelAlign 改变标签宽度和对齐方式
  * en - Label
  */
 import React from 'react'

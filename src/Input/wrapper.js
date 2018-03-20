@@ -8,8 +8,9 @@ import { buttonClass, inputClass } from '../styles'
 export default curry((options, Origin) => class extends Component {
   static propTypes = {
     autoFocus: PropTypes.bool,
-    className: PropTypes.string,
     border: PropTypes.bool,
+    className: PropTypes.string,
+    disabled: PropTypes.bool,
     onBlur: PropTypes.func,
     onError: PropTypes.func,
     onFocus: PropTypes.func,
@@ -80,6 +81,7 @@ export default curry((options, Origin) => class extends Component {
       inputClass(
         '_',
         focus && 'focus',
+        other.disabled && 'disabled',
         options.isGroup && 'group',
         size,
         !border && 'no-border',

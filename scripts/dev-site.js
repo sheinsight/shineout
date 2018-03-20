@@ -54,14 +54,28 @@ function getComponentPage(name, file) {
     .forEach((e) => {
       const text = fs.readFileSync(path.resolve(pagePath, e))
       const comment = /(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/.exec(text)
-      const exam = { path: e }
+      const exam = { path: e, cn: '', en: '' }
 
       if (comment) {
+        let langlabel = ''
         comment[0].split('\n').forEach((t) => {
-          const cn = getComment(t, '* cn -')
-          const en = getComment(t, '* en -')
-          if (cn) exam.cn = cn
-          if (en) exam.en = en
+          if (t.trim().indexOf('* cn -') >= 0) {
+            langlabel = 'cn'
+            exam.cn = getComment(t, '* cn -')
+            return
+          } else if (t.trim().indexOf('* en -') >= 0) {
+            langlabel = 'en'
+            exam.en = getComment(t, '* en -')
+            return
+          }
+
+          if (t.indexOf('--') >= 0) {
+            if (langlabel === 'cn') {
+              exam.cn += ` \\n ${getComment(t, '--')}`
+            } else if (langlabel === 'en') {
+              exam.en += ` \\n ${getComment(t, '--')}`
+            }
+          }
         })
       }
 

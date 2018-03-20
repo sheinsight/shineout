@@ -13,7 +13,7 @@ function getRule(rules, inputType) {
   } = rules
   other.message = substitute(message, other)
 
-  if (type === 'required') return required(other)
+  if (other.required) return required(other)
 
   if (regExp) return regTest(regExp, other)
 

@@ -4,7 +4,7 @@
 import React from 'react'
 import navable from 'docs/Navable'
 import MarkDown from 'docs/MarkDown'
-import log from 'doc/utils/log'
+
 import locate from 'doc/locate'
 
 import cn from 'doc/pages/components/Input/cn.md'
@@ -32,6 +32,11 @@ const examples = [
     title: locate('组合 Input.Group \n Icon, span, string, Button 类型可以直接放入 Input.Group 中。需要背景色可以放在 b 标签中。', 'Group'),
     component: require('doc/pages/components/Input/example-4-group.js').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-4-group.js'),
+  },
+  {
+    title: locate('禁用', 'Disabled'),
+    component: require('doc/pages/components/Input/example-5-disabled.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Input/example-5-disabled.js'),
   },
 ]
 

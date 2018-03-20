@@ -55,11 +55,13 @@ export default class {
     if (shallowEqual(data, this.$data)) return
 
     // shallow copy data ??
-    // this.$data = {...data}
+    // this.$data = { ...data }
     this.$data = data
 
     Object.keys(this.data).forEach((name) => {
-      this.data[name] = data[name]
+      if (!shallowEqual(this.data[name], data[name])) {
+        this.data[name] = data[name]
+      }
     })
   }
 
@@ -83,20 +85,26 @@ export default class {
     })
 
     if (this.$data[name] === undefined) this.$data[name] = value
+
+    this.handleChange()
   }
 
   unlisten(name) {
     delete this.$data[name]
     delete this.data[name]
     delete this.$validator[name]
+
+    this.handleChange()
   }
 
   validate() {
     return new Promise((resolve, reject) => {
       const keys = Object.keys(this.$validator)
+      const data = { ...this.$data }
+
       let index = 0
       keys.forEach((k) => {
-        this.$validator[k](this.data[k]).then((res) => {
+        this.$validator[k](this.data[k], data).then((res) => {
           index += 1
           if (res === true) {
             if (index === keys.length) {

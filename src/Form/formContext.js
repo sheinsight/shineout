@@ -34,6 +34,8 @@ export const formConsumer = curry((keys, Origin) => class extends PureComponent 
   render() {
     const filterProps = (value) => {
       const cps = {}
+      if (!value) return cps
+
       keys.forEach((k) => {
         const val = value[k]
         if (val !== undefined) cps[k] = val

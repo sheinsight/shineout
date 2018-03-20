@@ -1,5 +1,5 @@
 /**
- * cn -  \n 在 Input 或 Input.Group 上设置的 tip，会在组件 focus 时弹出显示
+ * cn - \n 在 Input 或 Input.Group 上设置的 tip，会在组件 focus 时弹出显示
  * en
  */
 import React from 'react'

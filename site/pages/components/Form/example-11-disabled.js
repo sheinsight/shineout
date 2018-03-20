@@ -1,5 +1,6 @@
 /**
- * cn - 禁用 \n 使用 disabled 属性使表单内支持 disabled 属性的组件禁用，通常用在表单数据加载或提交时
+ * cn - 禁用
+ *    -- 使用 disabled 属性使表单内支持 disabled 属性的组件禁用，通常用在表单数据加载或提交时
  * en - disabled
  */
 import React from 'react'

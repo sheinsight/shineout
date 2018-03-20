@@ -28,13 +28,18 @@ class Form extends PureComponent {
 
   render() {
     const {
-      layout, style, inline, labelAlign,
+      layout, style, inline, labelAlign, disabled, datum, rules,
     } = this.props
+
+    if (datum && rules && datum.rules !== rules) {
+      datum.rules = rules
+    }
 
     const className = classnames(
       formClass(
         '_',
         layout,
+        disabled && 'disabled',
         inline && 'inline',
         ['top', 'right'].indexOf(labelAlign) >= 0 && `label-align-${labelAlign}`,
       ),
@@ -57,11 +62,13 @@ class Form extends PureComponent {
 Form.propTypes = {
   ...getProps('disabled'),
   datum: PropTypes.object,
+  disabled: PropTypes.bool,
   inline: PropTypes.bool,
   labelAlign: PropTypes.string,
   layout: PropTypes.string,
   onReset: PropTypes.func,
   onSubmit: PropTypes.func,
+  rules: PropTypes.object,
 }
 
 Form.defaultProps = {

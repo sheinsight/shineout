@@ -1,5 +1,5 @@
 /**
- * cn - 校验
+ * cn - \n 可以单个元素上设置 rules
  * en - Validate
  */
 import React from 'react'
@@ -7,11 +7,11 @@ import { Form, Input, Checkbox } from 'shineout'
 
 const rules = {
   email: [
-    { type: 'required', message: 'Please enter your email.' },
+    { required: true, message: 'Please enter your email.' },
     { type: 'email', message: 'Please enter a valid email.' },
   ],
   password: [
-    { type: 'required', message: 'Please enter password.' },
+    { required: true, message: 'Please enter password.' },
     { min: 7, message: 'Password must be at least {min} characters.' },
     { regExp: /[a-z]+/i, message: 'Password at least has one letter.' },
     (value, formdata, callback) => {
@@ -20,11 +20,11 @@ const rules = {
     },
   ],
   age: [
-    { type: 'required', message: 'Please enter age.' },
+    { required: true, message: 'Please enter age.' },
     { min: 18, max: 60, message: 'Age must between {min} and {max}.' },
   ],
   colors: [
-    { type: 'required', message: 'Please select your favorite colors.' },
+    { required: true, message: 'Please select your favorite colors.' },
     { min: 2, message: 'At least select 2 colors.' },
   ],
 }

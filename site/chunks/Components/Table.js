@@ -4,7 +4,7 @@
 import React from 'react'
 import navable from 'docs/Navable'
 import MarkDown from 'docs/MarkDown'
-import log from 'doc/utils/log'
+
 import locate from 'doc/locate'
 
 import cn from 'doc/pages/components/Table/cn.md'

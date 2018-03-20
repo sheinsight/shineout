@@ -64,16 +64,15 @@ export default curry((delay, Origin) =>
       return value === undefined ? this.state.value : value
     }
 
-    validate(value) {
+    validate(value, data) {
       const {
         onError, name, formDatum, type, datum,
       } = this.props
 
       let rules = [...this.props.rules]
-      let data = {}
       if (formDatum && name) {
         rules = rules.concat(formDatum.getRule(name))
-        data = formDatum.getValue()
+        if (!data) data = formDatum.getValue()
       }
 
       if (datum) value = datum
