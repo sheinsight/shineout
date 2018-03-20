@@ -14,17 +14,17 @@ export default class extends PureComponent {
   render() {
     return (
       <Form data={this.initData} onSubmit={(data) => { console.log(data) }}>
-        <Form.Item required label="Email">
-          <Input required name="email" />
+        <Form.Item label="Email">
+          <Input name="email" />
         </Form.Item>
 
-        <Form.Item required label="Password">
-          <Input required name="password" type="password" />
+        <Form.Item label="Password">
+          <Input name="password" type="password" />
         </Form.Item>
 
         <Form.Item label="Name">
           <Input.Group style={{ width: 300 }}>
-            <Input required name="firstName" placeholder="First Name" />
+            <Input name="firstName" placeholder="First Name" />
             -
             <Input name="lastName" placeholder="Last Name" />
           </Input.Group>

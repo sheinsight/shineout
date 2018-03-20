@@ -8,7 +8,7 @@ import { Form, Input, Checkbox } from 'shineout'
 export default function () {
   return (
     <Form inline>
-      <Form.Item required label="Email">
+      <Form.Item label="Email">
         <Input name="email" />
       </Form.Item>
 

@@ -2,9 +2,9 @@ import shallowEqual from '../utils/shallowEqual'
 
 export default class {
   constructor(options = {}) {
-    const { removeUndefined = true, onChange } = options
-    this.validate = options.validate
+    const { removeUndefined = true, rules, onChange } = options
     this.data = {}
+    this.rules = rules
     this.onChange = onChange
     this.removeUndefined = removeUndefined
 
@@ -12,6 +12,7 @@ export default class {
     this.$data = {}
     // store default value, for reset
     this.$defaultValue = {}
+    this.$validator = {}
 
     this.events = {}
   }
@@ -33,6 +34,11 @@ export default class {
   set(name, value) {
     this.data[name] = value
     this.handleChange()
+  }
+
+  getRule(name) {
+    if (!this.rules) return []
+    return this.rules[name] || []
   }
 
   getValue() {
@@ -57,13 +63,14 @@ export default class {
     })
   }
 
-  listen(name, fn, value) {
+  listen(name, fn, value, validate) {
     if (Object.prototype.hasOwnProperty.call(this.data, name)) {
       console.error(`There is already an item with "${name}" exists. The name props must be unique.`)
       return
     }
 
     this.$defaultValue[name] = value
+    this.$validator[name] = validate
 
     Object.defineProperty(this.data, name, {
       configurable: true,
@@ -79,6 +86,27 @@ export default class {
   }
 
   unlisten(name) {
+    delete this.$data[name]
     delete this.data[name]
+    delete this.$validator[name]
+  }
+
+  validate() {
+    return new Promise((resolve, reject) => {
+      const keys = Object.keys(this.$validator)
+      let index = 0
+      keys.forEach((k) => {
+        this.$validator[k](this.data[k]).then((res) => {
+          index += 1
+          if (res === true) {
+            if (index === keys.length) {
+              resolve(true)
+            }
+          } else {
+            reject(res)
+          }
+        })
+      })
+    })
   }
 }

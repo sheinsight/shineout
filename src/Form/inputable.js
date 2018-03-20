@@ -10,19 +10,23 @@ const types = ['formDatum', 'disabled', 'onError']
 export default curry((delay, Origin) =>
   formConsumer(types, itemConsumer(class extends PureComponent {
     static propTypes = {
-      formDatum: PropTypes.object,
+      datum: PropTypes.object,
       defaultValue: PropTypes.any,
       delay: PropTypes.number,
+      formDatum: PropTypes.object,
       name: PropTypes.string,
       onChange: PropTypes.func,
       onError: PropTypes.func,
       required: PropTypes.bool,
+      rules: PropTypes.array,
+      type: PropTypes.string,
       value: PropTypes.any,
     }
 
     static defaultProps = {
       delay,
       onError: () => {},
+      rules: [],
     }
 
     constructor(props) {
@@ -36,9 +40,10 @@ export default curry((delay, Origin) =>
 
       this.handleChange = this.handleChange.bind(this)
       this.handleUpdate = this.handleUpdate.bind(this)
+      this.validate = this.validate.bind(this)
 
       if (formDatum && name) {
-        formDatum.listen(name, this.handleUpdate, defaultValue)
+        formDatum.listen(name, this.handleUpdate, defaultValue, this.validate)
         this.state.value = formDatum.get(name)
       }
     }
@@ -60,12 +65,22 @@ export default curry((delay, Origin) =>
     }
 
     validate(value) {
-      const { onError, name, required } = this.props
-      return validate(value, { required }).then(() => {
-        // this.setState({ validationState: null })
+      const {
+        onError, name, formDatum, type, datum,
+      } = this.props
+
+      let rules = [...this.props.rules]
+      let data = {}
+      if (formDatum && name) {
+        rules = rules.concat(formDatum.getRule(name))
+        data = formDatum.getValue()
+      }
+
+      if (datum) value = datum
+      return validate(value, data, rules, type).then(() => {
         onError(name, null)
+        return true
       }, (e) => {
-        // this.setState({ validationState: e })
         onError(name, e)
         return e
       })

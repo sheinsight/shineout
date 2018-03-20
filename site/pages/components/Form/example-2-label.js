@@ -8,11 +8,11 @@ import { Form, Input } from 'shineout'
 export default function () {
   return (
     <Form labelWidth={200} labelAlign="right" style={{ maxWidth: 500 }}>
-      <Form.Item required label="Email">
+      <Form.Item label="Email">
         <Input name="email" />
       </Form.Item>
 
-      <Form.Item required label="Password">
+      <Form.Item label="Password">
         <Input name="password" type="password" />
       </Form.Item>
 

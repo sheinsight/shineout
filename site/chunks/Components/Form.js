@@ -43,6 +43,16 @@ const examples = [
     component: require('doc/pages/components/Form/example-6-tip.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-6-tip.js'),
   },
+  {
+    title: locate('校验', 'Validate'),
+    component: require('doc/pages/components/Form/example-7-validate.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-7-validate.js'),
+  },
+  {
+    title: locate('禁用 \n 使用 disabled 属性使表单内支持 disabled 属性的组件禁用，通常用在表单数据加载或提交时', 'disabled'),
+    component: require('doc/pages/components/Form/example-9-disabled.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-9-disabled.js'),
+  },
 ]
 
 const codes = undefined

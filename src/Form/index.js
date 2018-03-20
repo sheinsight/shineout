@@ -10,8 +10,16 @@ import { formProvider, formConsumer } from './formContext'
 const exports = Datum.hoc(formProvider(Form), 'form', 'data')
 exports.Item = itemProvider(formConsumer(['labelWidth'], Item))
 
-exports.Submit = formConsumer(['disabled'], props => <Button htmlType="submit" type="primary" {...props} />)
-exports.Reset = formConsumer(['disabled'], props => <Button htmlType="reset" {...props} />)
+exports.Submit = formConsumer(
+  ['disabled'],
+  props => <Button htmlType="submit" type="primary" {...props} />,
+)
+
+exports.Reset = formConsumer(
+  ['disabled'],
+  props => <Button htmlType="reset" {...props} />,
+)
+
 exports.Button = formConsumer(['disabled'], PrimaryButton)
 
 export default exports

@@ -15,7 +15,9 @@ class Form extends PureComponent {
   handleSubmit(e) {
     e.preventDefault()
     const { datum, onSubmit } = this.props
-    if (onSubmit) onSubmit(datum.getValue())
+    datum.validate().then(() => {
+      if (onSubmit) onSubmit(datum.getValue())
+    }).catch(() => {})
   }
 
   handleReset() {
