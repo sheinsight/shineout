@@ -1,6 +1,6 @@
 /**
  * cn - 校验
- *    -- 通过 rules 校验
+ *    -- 通过 rules 校验，每个字段的 rules 是一个数组，可以使用多条规则。
  * en - Validate
  */
 import React from 'react'

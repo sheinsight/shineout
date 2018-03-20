@@ -4,6 +4,6 @@ import Group from './Group'
 import Radio from './Radio'
 
 const exports = Radio
-exports.Group = inputable(0, Datum.hoc(Group, 'list', 'value', 1))
+exports.Group = inputable({}, Datum.hoc(Group, 'list', 'value', 1))
 
 export default exports

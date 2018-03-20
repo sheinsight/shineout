@@ -44,7 +44,7 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-06-tip.js'),
   },
   {
-    title: locate('校验 \n 通过 rules 校验', 'Validate'),
+    title: locate('校验 \n 通过 rules 校验，每个字段的 rules 是一个数组，可以使用多条规则。', 'Validate'),
     component: require('doc/pages/components/Form/example-07-validate.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-07-validate.js'),
   },
@@ -54,7 +54,7 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-08-validate.js'),
   },
   {
-    title: locate('数据处理 \n 不设置 datum 属性时，Form 内部会自动创建一个 Datum.Form 对象，可以自定义一个 Datum.Form 对象来控制数据。', 'Validate'),
+    title: locate('数据处理 \n 不设置 datum 属性时，Form 内部会自动创建一个 Datum.Form 对象，可以自定义一个 Datum.Form 对象来处理数据。', 'Validate'),
     component: require('doc/pages/components/Form/example-09-datum.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-09-datum.js'),
   },

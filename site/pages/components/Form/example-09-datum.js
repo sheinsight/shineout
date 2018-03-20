@@ -1,6 +1,6 @@
 /**
  * cn - 数据处理
- *    -- 不设置 datum 属性时，Form 内部会自动创建一个 Datum.Form 对象，可以自定义一个 Datum.Form 对象来控制数据。
+ *    -- 不设置 datum 属性时，Form 内部会自动创建一个 Datum.Form 对象，可以自定义一个 Datum.Form 对象来处理数据。
  * en - Validate
  */
 import React, { PureComponent } from 'react'

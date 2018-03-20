@@ -24,7 +24,11 @@ function getRule(rules, inputType) {
     return rangeLength(other)
   }
 
-  return typeOf(type, other.message)
+  if (type) return typeOf(type, other.message)
+
+  const err = new Error(`Rule ${JSON.stringify(rules)} is not valid.`)
+  console.error(err)
+  throw err
 }
 
 const validate = (value, formdata, rules, type) => new Promise((resolve, reject) => {

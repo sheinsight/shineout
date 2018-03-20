@@ -9,7 +9,7 @@ export default class extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      data: {
+      value: {
         email: 'test@example.com',
       },
     }
@@ -30,17 +30,17 @@ export default class extends PureComponent {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  handleChange(data) {
-    this.setState({ data: { ...data } })
+  handleChange(value) {
+    this.setState({ value: { ...value } })
   }
 
   render() {
-    const { data } = this.state
+    const { value } = this.state
 
     return (
       <div>
         <Form
-          data={data}
+          value={value}
           rules={this.rules}
           onChange={this.handleChange}
           onSubmit={d => console.log(d)}
@@ -59,14 +59,14 @@ export default class extends PureComponent {
           </Form.Item>
 
           {
-            data.showAge &&
+            value.showAge &&
             <Form.Item required label="Age" tip="between 18 and 60">
               <Input name="age" digits={0} defaultValue={18} style={{ width: 100 }} type="number" />
             </Form.Item>
           }
 
           {
-            data.showColors &&
+            value.showColors &&
             <Form.Item required label="Favorite Colors">
               <Checkbox.Group name="colors" data={this.colors} />
             </Form.Item>

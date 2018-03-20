@@ -6,14 +6,14 @@ import React, { PureComponent } from 'react'
 import { Form, Input, Checkbox } from 'shineout'
 
 export default class extends PureComponent {
-  initData = {
+  initValue = {
     email: 'test@example.com',
     age: 18,
   }
 
   render() {
     return (
-      <Form data={this.initData} onSubmit={(data) => { console.log(data) }}>
+      <Form value={this.initValue} onSubmit={(data) => { console.log(data) }}>
         <Form.Item label="Email">
           <Input name="email" />
         </Form.Item>

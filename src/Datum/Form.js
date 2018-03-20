@@ -3,15 +3,15 @@ import shallowEqual from '../utils/shallowEqual'
 export default class {
   constructor(options = {}) {
     const { removeUndefined = true, rules, onChange } = options
-    this.data = {}
+    this.values = {}
     this.rules = rules
     this.onChange = onChange
     this.removeUndefined = removeUndefined
 
-    // store raw formdata
-    this.$data = {}
+    // store raw form values
+    this.$values = {}
     // store default value, for reset
-    this.$defaultValue = {}
+    this.$defaultValues = {}
     this.$validator = {}
 
     this.events = {}
@@ -22,17 +22,17 @@ export default class {
   }
 
   reset() {
-    Object.keys(this.data).forEach((k) => {
-      this.data[k] = this.$defaultValue[k]
+    Object.keys(this.values).forEach((k) => {
+      this.values[k] = this.$defaultValues[k]
     })
   }
 
   get(name) {
-    return this.data[name]
+    return this.values[name]
   }
 
   set(name, value) {
-    this.data[name] = value
+    this.values[name] = value
     this.handleChange()
   }
 
@@ -43,55 +43,58 @@ export default class {
 
   getValue() {
     if (this.removeUndefined) {
-      Object.keys(this.$data).forEach((k) => {
-        if (this.$data[k] === undefined) delete this.$data[k]
+      Object.keys(this.$values).forEach((k) => {
+        if (this.$values[k] === undefined) delete this.$values[k]
       })
     }
-    return this.$data
+    return this.$values
   }
 
-  setValue(data) {
-    // data not change
-    if (shallowEqual(data, this.$data)) return
+  setValue(values) {
+    // values not change
+    if (shallowEqual(values, this.$values)) return
 
-    // shallow copy data ??
-    // this.$data = { ...data }
-    this.$data = data
+    // clear old values
+    this.$values = {}
 
-    Object.keys(this.data).forEach((name) => {
-      if (!shallowEqual(this.data[name], data[name])) {
-        this.data[name] = data[name]
+    Object.keys(values).forEach((name) => {
+      if (Object.prototype.hasOwnProperty.call(this.values, name)) {
+        if (!shallowEqual(this.values[name], values[name])) {
+          this.values[name] = values[name]
+        }
+      } else {
+        this.$values[name] = values[name]
       }
     })
   }
 
   listen(name, fn, value, validate) {
-    if (Object.prototype.hasOwnProperty.call(this.data, name)) {
-      console.error(`There is already an item with "${name}" exists. The name props must be unique.`)
+    if (Object.prototype.hasOwnProperty.call(this.values, name)) {
+      console.error(`There is already an item with name "${name}" exists. The name props must be unique.`)
       return
     }
 
-    this.$defaultValue[name] = value
+    this.$defaultValues[name] = value
     this.$validator[name] = validate
 
-    Object.defineProperty(this.data, name, {
+    Object.defineProperty(this.values, name, {
       configurable: true,
       enumerable: true,
       set: (val) => {
-        this.$data[name] = val
+        this.$values[name] = val
         if (typeof fn === 'function') fn(val)
       },
-      get: () => this.$data[name],
+      get: () => this.$values[name],
     })
 
-    if (this.$data[name] === undefined) this.$data[name] = value
+    if (this.$values[name] === undefined) this.$values[name] = value
 
     this.handleChange()
   }
 
   unlisten(name) {
-    delete this.$data[name]
-    delete this.data[name]
+    delete this.$values[name]
+    delete this.values[name]
     delete this.$validator[name]
 
     this.handleChange()
@@ -100,11 +103,11 @@ export default class {
   validate() {
     return new Promise((resolve, reject) => {
       const keys = Object.keys(this.$validator)
-      const data = { ...this.$data }
+      const values = { ...this.$values }
 
       let index = 0
       keys.forEach((k) => {
-        this.$validator[k](this.data[k], data).then((res) => {
+        this.$validator[k](this.values[k], values).then((res) => {
           index += 1
           if (res === true) {
             if (index === keys.length) {

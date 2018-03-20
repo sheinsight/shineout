@@ -7,7 +7,7 @@ import PrimaryButton from './PrimaryButton'
 import { itemProvider } from './itemContext'
 import { formProvider, formConsumer } from './formContext'
 
-const exports = Datum.hoc(formProvider(Form), 'form', 'data')
+const exports = Datum.hoc(formProvider(Form), 'form', 'value')
 exports.Item = itemProvider(formConsumer(['labelWidth'], Item))
 
 exports.Submit = formConsumer(

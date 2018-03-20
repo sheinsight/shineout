@@ -7,7 +7,7 @@ import { itemConsumer } from './itemContext'
 
 const types = ['formDatum', 'disabled', 'onError']
 
-export default curry((delay, Origin) =>
+export default curry(({ delay = 0 }, Origin) =>
   formConsumer(types, itemConsumer(class extends PureComponent {
     static propTypes = {
       datum: PropTypes.object,
