@@ -1,4 +1,4 @@
-import isEmpty from '../../utils/isEmpty'
+import isEmpty from './isEmpty'
 
 export default fn => (value, formdata, callback) => {
   if (isEmpty(value)) {

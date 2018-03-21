@@ -34,12 +34,12 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-04-inline.js'),
   },
   {
-    title: locate('提示信息 \n 在 Form.Item 上设置提示文案时，提示文案始终显示在组件下方', 'Label'),
+    title: locate('提示信息 \n 在 Form.Item 上设置提示文案时，提示文案始终显示在组件下方。', 'Label'),
     component: require('doc/pages/components/Form/example-05-tip.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-05-tip.js'),
   },
   {
-    title: locate('\n 在 Input 或 Input.Group 上设置的 tip，会在组件 focus 时弹出显示', ''),
+    title: locate('\n 在 Input 或 Input.Group 上设置的 tip，会在组件 focus 时弹出显示。tipPosition 可以控制弹出位置。', ''),
     component: require('doc/pages/components/Form/example-06-tip.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-06-tip.js'),
   },
@@ -49,7 +49,7 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-07-validate.js'),
   },
   {
-    title: locate('\n 可以单个元素上设置 rules', 'Validate'),
+    title: locate('\n 可以在单个元素上设置 rules', 'Validate'),
     component: require('doc/pages/components/Form/example-08-validate.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-08-validate.js'),
   },

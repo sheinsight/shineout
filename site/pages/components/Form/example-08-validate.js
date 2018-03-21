@@ -1,5 +1,5 @@
 /**
- * cn - \n 可以单个元素上设置 rules
+ * cn - \n 可以在单个元素上设置 rules
  * en - Validate
  */
 import React from 'react'

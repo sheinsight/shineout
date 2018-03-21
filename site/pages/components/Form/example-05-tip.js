@@ -1,6 +1,6 @@
 /**
  * cn - 提示信息
- *    -- 在 Form.Item 上设置提示文案时，提示文案始终显示在组件下方
+ *    -- 在 Form.Item 上设置提示文案时，提示文案始终显示在组件下方。
  * en - Label
  */
 import React from 'react'

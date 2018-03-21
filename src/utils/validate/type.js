@@ -1,4 +1,5 @@
 import nullable from './nullable'
+import isJson from './isJson'
 
 /* eslint-disable */
 const regs = {
@@ -46,6 +47,14 @@ const regs = {
 /* eslint-enable */
 
 export default (type, message) => nullable((value, formdata, callback) => {
+  const error = new Error(message)
+  if (type === 'json') {
+    if (isJson(value)) callback(true)
+    else callback(error)
+
+    return
+  }
+
   const reg = regs[type]
   if (!reg) {
     console.error(`Type '${type}' not existed.`)
@@ -55,7 +64,7 @@ export default (type, message) => nullable((value, formdata, callback) => {
   if (reg.test(value)) {
     callback(true)
   } else {
-    callback(new Error(message))
+    callback(error)
   }
 })
 
