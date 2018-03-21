@@ -11,6 +11,7 @@
     "Radio": "单选框"
   },
   "Data": {
+    "Datum.Form": "表单处理",
     "Datum.List": "数据处理",
     "Pagination": "分页",
     "Table": "表格"

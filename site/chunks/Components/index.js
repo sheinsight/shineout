@@ -51,6 +51,12 @@ const pages = [
   },
   'Data',
   {
+    name: 'Datum.Form',
+    cn: '表单处理',
+    level: 2,
+    component: loadable(() => import('./Datum.Form')),
+  },
+  {
     name: 'Datum.List',
     cn: '数据处理',
     level: 2,

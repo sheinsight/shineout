@@ -1,5 +1,7 @@
 import shallowEqual from '../utils/shallowEqual'
 
+const { hasOwnProperty } = Object.prototype
+
 export default class {
   constructor(options = {}) {
     const { removeUndefined = true, rules, onChange } = options
@@ -13,8 +15,6 @@ export default class {
     // store default value, for reset
     this.$defaultValues = {}
     this.$validator = {}
-
-    this.events = {}
   }
 
   handleChange() {
@@ -28,11 +28,15 @@ export default class {
   }
 
   get(name) {
-    return this.values[name]
+    return this.$values[name]
   }
 
   set(name, value) {
-    this.values[name] = value
+    if (hasOwnProperty.call(this.values, name)) {
+      this.values[name] = value
+    } else {
+      this.$values[name] = value
+    }
     this.handleChange()
   }
 
@@ -58,7 +62,7 @@ export default class {
     this.$values = {}
 
     Object.keys(values).forEach((name) => {
-      if (Object.prototype.hasOwnProperty.call(this.values, name)) {
+      if (hasOwnProperty.call(this.values, name)) {
         if (!shallowEqual(this.values[name], values[name])) {
           this.values[name] = values[name]
         }
@@ -69,7 +73,7 @@ export default class {
   }
 
   listen(name, fn, value, validate) {
-    if (Object.prototype.hasOwnProperty.call(this.values, name)) {
+    if (hasOwnProperty.call(this.values, name)) {
       console.error(`There is already an item with name "${name}" exists. The name props must be unique.`)
       return
     }
