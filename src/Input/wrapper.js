@@ -5,6 +5,12 @@ import immer from 'immer'
 import { curry } from '../utils/func'
 import { buttonClass, inputClass } from '../styles'
 
+function firstError(errors) {
+  const keys = Object.keys(errors)
+  if (keys.length === 0) return false
+  return errors[keys[0]]
+}
+
 export default curry((options, Origin) => class extends Component {
   static propTypes = {
     autoFocus: PropTypes.bool,
@@ -17,12 +23,11 @@ export default curry((options, Origin) => class extends Component {
     size: PropTypes.string,
     style: PropTypes.object,
     tip: PropTypes.any,
-    tipPosition: PropTypes.oneOf(['top-left', 'top', 'top-right', 'bottom-left', 'bottom', 'bottom-right']),
+    popover: PropTypes.oneOf(['top-left', 'top', 'top-right', 'bottom-left', 'bottom', 'bottom-right']),
   }
 
   static defaultProps = {
     border: true,
-    tipPosition: 'bottom-left',
   }
 
   constructor(props) {
@@ -63,16 +68,23 @@ export default curry((options, Origin) => class extends Component {
   }
 
   renderHelp(focus) {
-    const { tip, tipPosition } = this.props
-    if (!tip || !focus) return null
+    const { errors } = this.state
+    const { tip, popover } = this.props
+    const classList = ['tip', popover || 'bottom-left']
 
-    const className = inputClass('tip', tipPosition)
-    return <div className={className}>{tip}</div>
+    const error = firstError(errors)
+    if (error && popover) {
+      classList.push('error')
+      return <div className={inputClass(...classList)}>{error.message}</div>
+    }
+
+    if (!tip || !focus) return null
+    return <div className={inputClass([...classList])}>{tip}</div>
   }
 
   render() {
     const {
-      className, border, style, size, tip, tipPosition, ...other
+      className, border, style, size, tip, popover, ...other
     } = this.props
     const { errors, focus } = this.state
     const Tag = options.tag || 'label'
@@ -95,6 +107,7 @@ export default curry((options, Origin) => class extends Component {
       <Tag className={newClassName} style={style}>
         <Origin
           {...other}
+          size={size}
           onError={this.handleError}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}

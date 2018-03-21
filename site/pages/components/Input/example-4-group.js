@@ -33,7 +33,7 @@ export default function () {
         <Button type="primary">Search</Button>
       </Input.Group>
 
-      <Input.Group style={style}>
+      <Input.Group size="small" style={style}>
         <b><FontAwesome name="envelope" /></b>
         <Input placeholder="email" />
         <b>.com</b>

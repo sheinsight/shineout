@@ -39,7 +39,7 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-05-tip.js'),
   },
   {
-    title: locate('\n 在 Input 或 Input.Group 上设置的 tip，会在组件 focus 时弹出显示。tipPosition 可以控制弹出位置。', ''),
+    title: locate('\n 在 Input 或 Input.Group 上设置的 tip，会在组件 focus 时弹出显示。popover 可以控制弹出位置。', ''),
     component: require('doc/pages/components/Form/example-06-tip.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-06-tip.js'),
   },

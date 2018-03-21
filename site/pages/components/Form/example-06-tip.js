@@ -1,5 +1,5 @@
 /**
- * cn - \n 在 Input 或 Input.Group 上设置的 tip，会在组件 focus 时弹出显示。tipPosition 可以控制弹出位置。
+ * cn - \n 在 Input 或 Input.Group 上设置的 tip，会在组件 focus 时弹出显示。popover 可以控制弹出位置。
  * en
  */
 import React from 'react'
@@ -17,7 +17,7 @@ export default function () {
       <Input
         name="password"
         tip="Use at least one letter, one numeral, and seven characters."
-        tipPosition="top"
+        popover="top"
         placeholder="Password"
         type="password"
       />

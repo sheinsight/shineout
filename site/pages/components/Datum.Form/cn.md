@@ -6,6 +6,8 @@ Form 表单数据处理辅助类。
 
 <code name="example" />
 
+实际使用见 [Form](#/components/Form)
+
 ## 初始化参数
 
 ### removeUndefined *boolean*

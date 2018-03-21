@@ -38,6 +38,16 @@ const examples = [
     component: require('doc/pages/components/Input/example-5-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-5-disabled.js'),
   },
+  {
+    title: locate('提示文字 \n 在 input 上设置的 tip 在 focus 时弹出', 'tip'),
+    component: require('doc/pages/components/Input/example-6-tip.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Input/example-6-tip.js'),
+  },
+  {
+    title: locate('校验 \n 设置了 rules，会自动校验输入数据，设置了 popover 会在指定位置弹出 \n 如果没有设置 popover，不会弹出错误提示。 \n 有错误时，提示框不会隐藏。', 'validate'),
+    component: require('doc/pages/components/Input/example-7-validate.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Input/example-7-validate.js'),
+  },
 ]
 
 const codes = undefined
