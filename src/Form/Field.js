@@ -17,7 +17,7 @@ class Field extends PureComponent {
   }
 
   render() {
-    const { children } = this.props
+    const { children, error } = this.props
     let { value } = this.props
 
     if (value === undefined && children &&
@@ -33,12 +33,13 @@ class Field extends PureComponent {
       value = children.props.value
     }
 
-    return cloneElement(children, { onChange: this.handleChange, value })
+    return cloneElement(children, { onChange: this.handleChange, value, error })
   }
 }
 
 Field.propTypes = {
   children: PropTypes.element.isRequired,
+  error: PropTypes.object,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.any,
 }

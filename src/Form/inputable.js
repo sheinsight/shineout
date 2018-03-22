@@ -35,6 +35,7 @@ export default curry(({ delay = 0 }, Origin) =>
       const { formDatum, name, defaultValue } = props
 
       this.state = {
+        error: undefined,
         value: props.value || defaultValue,
       }
 
@@ -78,9 +79,11 @@ export default curry(({ delay = 0 }, Origin) =>
       if (datum) value = datum
       return validate(value, data, rules, type).then(() => {
         onError(name, null)
+        this.setState({ error: undefined })
         return true
       }, (e) => {
         onError(name, e)
+        this.setState({ error: e })
         return e
       })
     }
@@ -127,6 +130,7 @@ export default curry(({ delay = 0 }, Origin) =>
       return (
         <Origin
           {...other}
+          error={this.state.error}
           value={this.getValue()}
           onChange={this.handleChange}
         />

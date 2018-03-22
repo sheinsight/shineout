@@ -3,6 +3,7 @@
 Form 是一个比较复杂的组件，由下列组件组成
 
 - **Form：** 表单外层
+- **Form.Field：** 用于处理自定义表单组件，使自定义表单组件实现通过rules校验，存储数据功能。
 - **Form.Item：** 表单项，主要用来布局，显示标签，提示文案信息等
 - **Form.Submit：** submit 按钮的快捷方式。使用 Submit 时，enter 键会触发表单提交。
 - **Form.Reset：** reset 按钮的快捷方式。
@@ -59,6 +60,16 @@ Form 是一个比较复杂的组件，由下列组件组成
 | label | string \| ReactElement | undefined | 未定义时，标签不会render，也不会占位。如果无内容需要占位，使用空字符串 ''。 |
 | required | boolean | false | 必填标记，纯展示用，不会触发校验 |
 | tip | string | | 提示文案 |
+
+### Form.Field
+用于处理自定义表单组件，使自定义表单组件实现通过rules校验，存储数据功能
+
+| 属性 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| children | ReactElement | 必填 | 必须且只能传入一个 React 组件 |
+| defaultValue | string \| number | | 默认值 |
+| name | string | 无 | Form 存取数据的名称 |
+| value | string \| number | | defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖<br />在Form中，value会被表单接管，value无效 |
 
 ### Submit, Reset, Button
 同 [Button](#/components/Button)

@@ -3,7 +3,12 @@ import PropTypes from 'prop-types'
 import createReactContext from 'create-react-context'
 import { curry } from '../utils/func'
 
-const { Provider, Consumer } = createReactContext()
+const context = createReactContext()
+
+// eslint-disable-next-line
+export const Provider = context.Provider
+// eslint-disable-next-line
+export const Consumer = context.Consumer
 
 export const formProvider = (Origin) => {
   function FormProvider(props) {
@@ -35,6 +40,7 @@ export const formConsumer = curry((keys, Origin) => class extends PureComponent 
     const filterProps = (value) => {
       const cps = {}
       if (!value) return cps
+      if (!keys) return value
 
       keys.forEach((k) => {
         const val = value[k]

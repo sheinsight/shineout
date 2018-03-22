@@ -68,6 +68,16 @@ const examples = [
     component: require('doc/pages/components/Form/example-11-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-11-disabled.js'),
   },
+  {
+    title: locate('自定义组件 \n 支持 value 和 onChange 的自定义组件可以放在 Form.Field 中。', 'Field'),
+    component: require('doc/pages/components/Form/example-12-field.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-12-field.js'),
+  },
+  {
+    title: locate('嵌套数据', 'Block'),
+    component: require('doc/pages/components/Form/example-13.block.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-13.block.js'),
+  },
 ]
 
 const codes = undefined
