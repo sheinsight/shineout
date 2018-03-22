@@ -75,8 +75,13 @@ const examples = [
   },
   {
     title: locate('嵌套数据 \n 多层嵌套的数据可以在 name 中用 . 分隔处理', 'Nested data'),
-    component: require('doc/pages/components/Form/example-13.nested.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-13.nested.js'),
+    component: require('doc/pages/components/Form/example-13-nested.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-13-nested.js'),
+  },
+  {
+    title: locate('遍历', 'Loop'),
+    component: require('doc/pages/components/Form/example-14-loop.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-14-loop.js'),
   },
 ]
 

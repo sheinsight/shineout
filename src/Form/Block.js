@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import DatumForm from '../Datum/Form'
-import { Provider, formConsumer } from './formContext'
+import { Provider } from './formContext'
 
 class Block extends PureComponent {
   constructor(props) {
@@ -12,29 +12,17 @@ class Block extends PureComponent {
   }
 
   handleChange(value) {
-    const { formDatum, name } = this.props
-    formDatum.set(name, value)
+    this.props.onChange(value)
   }
 
   render() {
-    const {
-      children, name, formDatum, ...props
-    } = this.props
+    const { children, value } = this.props
 
-    let value = formDatum.get(name)
-    if (value === undefined) value = {}
-
+    console.log('block', value)
     this.datum.setValue(value)
 
-    console.log('render block', name)
-
-    const pv = {
-      ...props,
-      formDatum: this.datum,
-    }
-
     return (
-      <Provider value={pv}>
+      <Provider value={{ formDatum: this.datum }}>
         {children}
       </Provider>
     )
@@ -43,8 +31,8 @@ class Block extends PureComponent {
 
 Block.propTypes = {
   children: PropTypes.any,
-  formDatum: PropTypes.object.isRequired,
-  name: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.any,
 }
 
-export default formConsumer(null, Block)
+export default Block

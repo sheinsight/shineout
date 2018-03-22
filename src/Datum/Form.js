@@ -1,21 +1,23 @@
 import shallowEqual from '../utils/shallowEqual'
+import isEmpty from '../utils/validate/isEmpty'
 
 const { hasOwnProperty } = Object.prototype
 
 // https://stackoverflow.com/questions/19098797/fastest-way-to-flatten-un-flatten-nested-json-objects
 function flatten(data) {
+  if (isEmpty(data)) return {}
   const result = {}
   function recurse(cur, prop) {
     if (Object(cur) !== cur || Array.isArray(cur)) {
       result[prop] = cur
     } else {
-      let isEmpty = true
+      let empty = true
       // eslint-disable-next-line
       for (const p in cur) {
-        isEmpty = false
+        empty = false
         recurse(cur[p], prop ? `${prop}.${p}` : p)
       }
-      if (isEmpty) { result[prop] = {} }
+      if (empty) { result[prop] = {} }
     }
   }
   recurse(data, '')
@@ -23,7 +25,10 @@ function flatten(data) {
 }
 
 function unflatten(data) {
-  if (Object(data) !== data || Array.isArray(data)) { return data }
+  if (Object(data) !== data || isEmpty(data) || Array.isArray(data)) {
+    return data
+  }
+
   const result = {}
   let {
     cur, prop, idx, last, temp,
@@ -101,10 +106,9 @@ export default class {
   setValue(rawValue) {
     const values = flatten(rawValue)
 
-    console.log(values)
-
     // values not change
     if (shallowEqual(values, this.$values)) return
+    console.log(values)
 
     // clear old values
     this.$values = {}
@@ -140,8 +144,7 @@ export default class {
     })
 
     if (this.$values[name] === undefined) this.$values[name] = value
-
-    this.handleChange()
+    if (value) this.handleChange()
   }
 
   unlisten(name) {
