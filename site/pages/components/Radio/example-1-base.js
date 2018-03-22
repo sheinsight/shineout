@@ -18,7 +18,7 @@ export default function () {
       keygen={c => c}
       data={data}
       onChange={c => console.log(c)}
-      value="blue"
+      defaultValue="blue"
       renderItem={renderItem}
     />
   )

@@ -54,7 +54,7 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-08-validate.js'),
   },
   {
-    title: locate('数据处理 \n 不设置 datum 属性时，Form 内部会自动创建一个 Datum.Form 对象，可以自定义一个 Datum.Form 对象来处理数据。', 'Validate'),
+    title: locate('数据处理 \n Form 内部通过 Datum.Form 对象来处理数据，通常情况下，用户只需要 onSumbit 中的 formdata 提交即可。 \n 如果有额外的需求，可以自定义一个 Datum.Form 对象来处理数据。', 'Datum.Form'),
     component: require('doc/pages/components/Form/example-09-datum.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-09-datum.js'),
   },

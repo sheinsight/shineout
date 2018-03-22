@@ -1,7 +1,8 @@
 /**
  * cn - 数据处理
- *    -- 不设置 datum 属性时，Form 内部会自动创建一个 Datum.Form 对象，可以自定义一个 Datum.Form 对象来处理数据。
- * en - Validate
+ *    -- Form 内部通过 Datum.Form 对象来处理数据，通常情况下，用户只需要 onSumbit 中的 formdata 提交即可。
+ *    -- 如果有额外的需求，可以自定义一个 Datum.Form 对象来处理数据。
+ * en - Datum.Form
  */
 import React, { PureComponent } from 'react'
 import { Form, Input, Checkbox, Datum, Button } from 'shineout'

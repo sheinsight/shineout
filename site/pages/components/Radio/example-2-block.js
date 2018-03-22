@@ -23,7 +23,7 @@ export default function () {
       data={data}
       datum={{ format: 'id' }}
       onChange={d => console.log(d)}
-      value={3}
+      defaultValue={3}
       renderItem="color"
     />
   )

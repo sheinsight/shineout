@@ -60,6 +60,5 @@ Form 是一个比较复杂的组件，由下列组件组成
 | required | boolean | false | 必填标记，纯展示用，不会触发校验 |
 | tip | string | | 提示文案 |
 
-### Form.Submit, Form.Reset, Form.Button
-
+### Submit, Reset, Button
 同 [Button](#/components/Button)
