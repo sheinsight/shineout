@@ -74,9 +74,9 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-12-field.js'),
   },
   {
-    title: locate('嵌套数据', 'Block'),
-    component: require('doc/pages/components/Form/example-13.block.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-13.block.js'),
+    title: locate('嵌套数据 \n 多层嵌套的数据可以在 name 中用 . 分隔处理', 'Nested data'),
+    component: require('doc/pages/components/Form/example-13.nested.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-13.nested.js'),
   },
 ]
 

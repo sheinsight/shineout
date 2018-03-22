@@ -2,6 +2,50 @@ import shallowEqual from '../utils/shallowEqual'
 
 const { hasOwnProperty } = Object.prototype
 
+// https://stackoverflow.com/questions/19098797/fastest-way-to-flatten-un-flatten-nested-json-objects
+function flatten(data) {
+  const result = {}
+  function recurse(cur, prop) {
+    if (Object(cur) !== cur || Array.isArray(cur)) {
+      result[prop] = cur
+    } else {
+      let isEmpty = true
+      // eslint-disable-next-line
+      for (const p in cur) {
+        isEmpty = false
+        recurse(cur[p], prop ? `${prop}.${p}` : p)
+      }
+      if (isEmpty) { result[prop] = {} }
+    }
+  }
+  recurse(data, '')
+  return result
+}
+
+function unflatten(data) {
+  if (Object(data) !== data || Array.isArray(data)) { return data }
+  const result = {}
+  let {
+    cur, prop, idx, last, temp,
+  } = {}
+
+  // eslint-disable-next-line
+  for (const p in data) {
+    cur = result
+    prop = ''
+    last = 0
+    do {
+      idx = p.indexOf('.', last)
+      temp = p.substring(last, idx !== -1 ? idx : undefined)
+      cur = cur[prop] || (cur[prop] = (!Number.isNaN(parseInt(temp, 10)) ? [] : {}))
+      prop = temp
+      last = idx + 1
+    } while (idx >= 0)
+    cur[prop] = data[p]
+  }
+  return result['']
+}
+
 export default class {
   constructor(options = {}) {
     const { removeUndefined = true, rules, onChange } = options
@@ -51,10 +95,14 @@ export default class {
         if (this.$values[k] === undefined) delete this.$values[k]
       })
     }
-    return this.$values
+    return unflatten(this.$values)
   }
 
-  setValue(values) {
+  setValue(rawValue) {
+    const values = flatten(rawValue)
+
+    console.log(values)
+
     // values not change
     if (shallowEqual(values, this.$values)) return
 
