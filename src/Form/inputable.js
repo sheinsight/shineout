@@ -1,139 +1,152 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { curry } from '../utils/func'
+import { curry, compose } from '../utils/func'
+import { getUidStr } from '../utils/uid'
 import validate from '../utils/validate'
 import { formConsumer } from './formContext'
 import { itemConsumer } from './itemContext'
+import { loopConsumer } from './loopContext'
 
 const types = ['formDatum', 'disabled', 'onError']
 
-export default curry(({ delay = 0 }, Origin) =>
-  formConsumer(types, itemConsumer(class extends PureComponent {
-    static propTypes = {
-      datum: PropTypes.object,
-      defaultValue: PropTypes.any,
-      delay: PropTypes.number,
-      formDatum: PropTypes.object,
-      name: PropTypes.string,
-      onChange: PropTypes.func,
-      onError: PropTypes.func,
-      required: PropTypes.bool,
-      rules: PropTypes.array,
-      type: PropTypes.string,
-      value: PropTypes.any,
+const consumer = compose(formConsumer(types), itemConsumer, loopConsumer)
+
+export default curry(({ delay = 0 }, Origin) => consumer(class extends PureComponent {
+  static propTypes = {
+    datum: PropTypes.object,
+    defaultValue: PropTypes.any,
+    delay: PropTypes.number,
+    formDatum: PropTypes.object,
+    loopContext: PropTypes.object,
+    name: PropTypes.string,
+    onChange: PropTypes.func,
+    onError: PropTypes.func,
+    required: PropTypes.bool,
+    rules: PropTypes.array,
+    type: PropTypes.string,
+    value: PropTypes.any,
+  }
+
+  static defaultProps = {
+    delay,
+    onError: () => {},
+    rules: [],
+  }
+
+  constructor(props) {
+    super(props)
+
+    const {
+      formDatum, loopContext, name, defaultValue,
+    } = props
+
+    this.state = {
+      error: undefined,
+      value: props.value || defaultValue,
     }
 
-    static defaultProps = {
-      delay,
-      onError: () => {},
-      rules: [],
+    this.itemName = getUidStr()
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleUpdate = this.handleUpdate.bind(this)
+    this.validate = this.validate.bind(this)
+
+    if (formDatum && name) {
+      formDatum.listen(name, this.handleUpdate, defaultValue, this.validate)
+      this.state.value = formDatum.get(name)
     }
 
-    constructor(props) {
-      super(props)
+    if (loopContext) loopContext.listen(this.validate)
+  }
 
-      const { formDatum, name, defaultValue } = props
+  componentWillUnmount() {
+    const { formDatum, name, loopContext } = this.props
+    if (formDatum && name) {
+      formDatum.unlisten(name, this.handleUpdate)
+    }
+    if (loopContext) loopContext.unlisten(this.validate)
+  }
 
-      this.state = {
-        error: undefined,
-        value: props.value || defaultValue,
-      }
+  getValue() {
+    // if changeLocked, use state value
+    if (this.changeLocked) return this.state.value
 
-      this.handleChange = this.handleChange.bind(this)
-      this.handleUpdate = this.handleUpdate.bind(this)
-      this.validate = this.validate.bind(this)
+    const { formDatum, name, value } = this.props
+    if (formDatum && name) return formDatum.get(name)
+    return value === undefined ? this.state.value : value
+  }
 
-      if (formDatum && name) {
-        formDatum.listen(name, this.handleUpdate, defaultValue, this.validate)
-        this.state.value = formDatum.get(name)
-      }
+  validate(value, data) {
+    const {
+      onError, name, formDatum, type, datum,
+    } = this.props
+
+    if (value === undefined) value = this.getValue()
+
+    let rules = [...this.props.rules]
+    if (formDatum && name) {
+      rules = rules.concat(formDatum.getRule(name))
+      if (!data) data = formDatum.getValue()
     }
 
-    componentWillUnmount() {
-      const { formDatum, name } = this.props
-      if (formDatum && name) {
-        formDatum.unlisten(name, this.handleUpdate)
-      }
+    if (datum) value = datum
+    return validate(value, data, rules, type).then(() => {
+      onError(this.itemName, null)
+      this.setState({ error: undefined })
+      return true
+    }, (e) => {
+      onError(this.itemName, e)
+      this.setState({ error: e })
+      return e
+    })
+  }
+
+  change(value, ...args) {
+    const { formDatum, name } = this.props
+    if (formDatum && name) formDatum.set(name, value)
+    else this.validate(value)
+
+    if (this.props.onChange) this.props.onChange(value, ...args)
+  }
+
+  handleUpdate(value) {
+    this.setState({ value })
+    this.validate(value)
+  }
+
+  handleChange(value, ...args) {
+    // use state as cache
+    this.setState({ value })
+
+    // handle change immediately
+    if (this.props.delay === 0) {
+      this.change(value, ...args)
+      return
     }
 
-    getValue() {
-      // if changeLocked, use state value
-      if (this.changeLocked) return this.state.value
+    this.changeLocked = true
+    if (this.changeTimer) clearTimeout(this.changeTimer)
+    // delay validate
+    this.changeTimer = setTimeout(() => {
+      this.changeLocked = false
+      this.change(value, ...args)
+    }, this.props.delay)
+  }
 
-      const { formDatum, name, value } = this.props
-      if (formDatum && name) return formDatum.get(name)
-      return value === undefined ? this.state.value : value
-    }
+  render() {
+    const {
+      formDatum, value, required, loopContext, ...other
+    } = this.props
 
-    validate(value, data) {
-      const {
-        onError, name, formDatum, type, datum,
-      } = this.props
+    console.log('render input', this.props.name, this.getValue())
 
-      let rules = [...this.props.rules]
-      if (formDatum && name) {
-        rules = rules.concat(formDatum.getRule(name))
-        if (!data) data = formDatum.getValue()
-      }
-
-      if (datum) value = datum
-      return validate(value, data, rules, type).then(() => {
-        onError(name, null)
-        this.setState({ error: undefined })
-        return true
-      }, (e) => {
-        onError(name, e)
-        this.setState({ error: e })
-        return e
-      })
-    }
-
-    change(value, ...args) {
-      const { formDatum, name } = this.props
-      if (formDatum && name) formDatum.set(name, value)
-      else this.validate(value)
-
-      if (this.props.onChange) this.props.onChange(value, ...args)
-    }
-
-    handleUpdate(value) {
-      this.setState({ value })
-      this.validate(value)
-    }
-
-    handleChange(value, ...args) {
-      // use state as cache
-      this.setState({ value })
-
-      // handle change immediately
-      if (this.props.delay === 0) {
-        this.change(value, ...args)
-        return
-      }
-
-      this.changeLocked = true
-      if (this.changeTimer) clearTimeout(this.changeTimer)
-      // delay validate
-      this.changeTimer = setTimeout(() => {
-        this.changeLocked = false
-        this.change(value, ...args)
-      }, this.props.delay)
-    }
-
-    render() {
-      const {
-        formDatum, value, required, ...other
-      } = this.props
-
-      console.log('render input', this.props.name, this.getValue())
-
-      return (
-        <Origin
-          {...other}
-          error={this.state.error}
-          value={this.getValue()}
-          onChange={this.handleChange}
-        />
-      )
-    }
-  })))
+    return (
+      <Origin
+        {...other}
+        error={this.state.error}
+        value={this.getValue()}
+        onChange={this.handleChange}
+      />
+    )
+  }
+}))

@@ -1,5 +1,6 @@
 /**
  * cn - 排序
+ *    -- 此示例演示了前端排序，sorter 返回一个 sort 函数。后端排序在 sorter 中处理，不要返回。
  * en - Sort
  */
 import React from 'react'

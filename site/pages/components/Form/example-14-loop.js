@@ -71,6 +71,7 @@ export default class extends PureComponent {
       friends: [{ name: 'Hermione Granger', age: '16' }],
     }
 
+    this.rules = [{ min: 2, message: 'At least add 2 friends.' }]
     this.handleAddFriend = this.handleAddFriend.bind(this)
   }
 
@@ -87,7 +88,7 @@ export default class extends PureComponent {
         </Form.Item>
 
         <Form.Item label="Friends">
-          <Form.Loop name="friends">
+          <Form.Loop rules={this.rules} name="friends">
             {({ value, onChange, onRemove }) => (
               <Friend value={value} onChange={onChange} onRemove={onRemove} />
             )}

@@ -19,7 +19,6 @@ class Block extends PureComponent {
   render() {
     const { children, value } = this.props
 
-    console.log('block', value)
     this.datum.setValue(value)
 
     return (

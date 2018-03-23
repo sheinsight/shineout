@@ -16,6 +16,10 @@ export default class extends PureComponent {
       friends: [{ name: 'Hermione Granger', age: '16' }],
     }
 
+    this.rules = {
+      name: [{ required: true, message: 'Please input friend\'s name or remove this field.' }],
+      friends: [{ min: 2, message: 'At least add 2 friends.' }],
+    }
     this.handleAddFriend = this.handleAddFriend.bind(this)
   }
 
@@ -32,14 +36,14 @@ export default class extends PureComponent {
         </Form.Item>
 
         <Form.Item label="Friends">
-          <Form.Loop name="friends">
+          <Form.Loop rules={this.rules.friends} name="friends">
             {({ value, onChange, onRemove }) => (
               <Form.Block value={value} onChange={onChange}>
                 <Form.Item style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
                   <Input
                     style={{ width: 180, marginRight: 8, display: 'inline-block' }}
                     name="name"
-                    rules={this.rules}
+                    rules={this.rules.name}
                     placeholder="Name"
                   />
                   <Input

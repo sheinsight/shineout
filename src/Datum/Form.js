@@ -108,7 +108,6 @@ export default class {
 
     // values not change
     if (shallowEqual(values, this.$values)) return
-    console.log(values)
 
     // clear old values
     this.$values = {}

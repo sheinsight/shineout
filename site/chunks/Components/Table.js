@@ -59,7 +59,7 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-09-loading.js'),
   },
   {
-    title: locate('排序', 'Sort'),
+    title: locate('排序 \n 此示例演示了前端排序，sorter 返回一个 sort 函数。后端排序在 sorter 中处理，不要返回。', 'Sort'),
     component: require('doc/pages/components/Table/example-10-sort.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-10-sort.js'),
   },
