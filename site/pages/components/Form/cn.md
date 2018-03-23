@@ -35,8 +35,14 @@ Form 是一个比较复杂的组件，由下列组件组成
 
 - name 对应表单内组件的 name 属性
 - 每一个 rule 只处理一个属性，例如同时设置了 required, regExp 和 min，只会处理 required。多个判断需要设置多个 rule。
-- 判断的优先级为 function > required > min|max > regExp > type
-- rule 可以为 function 或者 object
+
+rule 共有 5 种规则，按优先级分别为：
+
+- 函数：完全由调用者控制，理论上可以做所有校验。
+- 必填：根据 required 属性是否为 true 判断，非必填时不需填 false。
+- 长度：根据 min 或者 max 属性判断。
+- 正则表达式：根据 regExp 来判断，可以是 RegExp 对象或 字符串。
+- 类型：就是内置的几种常用 正则判断，不满足需求时，可以自定义正则表达式或使用 函数校验。
 
 #### function(value, formdata, callback) : undefined
 

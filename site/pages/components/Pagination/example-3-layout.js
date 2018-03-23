@@ -12,6 +12,9 @@ export default function () {
     <Pagination
       total={128}
       pageSize={50}
+      text={{
+        jumper: 'Go to {input}',
+      }}
       layout={['links', 'list', info, 'jumper']}
     />
   )
