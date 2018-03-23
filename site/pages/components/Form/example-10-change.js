@@ -3,16 +3,11 @@
  * en - onChange
  */
 import React, { PureComponent } from 'react'
-import { Form, Input, Checkbox } from 'shineout'
+import { Form, Input, Checkbox, Datum } from 'shineout'
 
 export default class extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = {
-      value: {
-        email: 'test@example.com',
-      },
-    }
 
     this.rules = {
       age: [
@@ -25,22 +20,20 @@ export default class extends PureComponent {
       ],
     }
 
-    this.colors = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
-
     this.handleChange = this.handleChange.bind(this)
+    this.colors = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
+    this.datum = new Datum.Form()
   }
 
-  handleChange(value) {
-    this.setState({ value: { ...value } })
+  handleChange() {
+    this.forceUpdate()
   }
 
   render() {
-    const { value } = this.state
-
     return (
       <div>
         <Form
-          value={value}
+          datum={this.datum}
           rules={this.rules}
           onChange={this.handleChange}
           onSubmit={d => console.log(d)}
@@ -59,14 +52,14 @@ export default class extends PureComponent {
           </Form.Item>
 
           {
-            value.showAge &&
+            this.datum.get('showAge') &&
             <Form.Item required label="Age" tip="between 18 and 60">
               <Input name="age" digits={0} defaultValue={18} style={{ width: 100 }} type="number" />
             </Form.Item>
           }
 
           {
-            value.showColors &&
+            this.datum.get('showColors') &&
             <Form.Item required label="Favorite Colors">
               <Checkbox.Group name="colors" data={this.colors} />
             </Form.Item>

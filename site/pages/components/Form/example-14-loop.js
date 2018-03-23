@@ -1,5 +1,6 @@
 /**
- * cn - 遍历
+ * cn - 遍历 Form.Loop
+ *    -- Form.Loop 通过 name 属性从 Form 中获取一个类型为 array 的 value，遍历这个 value 生成一组子组件。
  * en - Loop
  */
 import React, { PureComponent } from 'react'

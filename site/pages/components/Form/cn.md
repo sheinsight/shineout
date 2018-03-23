@@ -4,7 +4,10 @@ Form 是一个比较复杂的组件，由下列组件组成
 
 - **Form：** 表单外层
 - **Form.Field：** 用于处理自定义表单组件，使自定义表单组件实现通过rules校验，存储数据功能。
-- **Form.Item：** 表单项，主要用来布局，显示标签，提示文案信息等
+- **Form.Item：** 表单项，主要用来布局，显示标签，提示文案信息等。
+- **Form.Block：** 表单块，可以用来存取多级嵌套的数据。
+- **Form.Loop：** 遍历表单中一个 array 类型的值，生成对应的子组件。
+
 - **Form.Submit：** submit 按钮的快捷方式。使用 Submit 时，enter 键会触发表单提交。
 - **Form.Reset：** reset 按钮的快捷方式。
 - **Form.Button：** 同 submit 按钮。使用 Button 时，enter 键不会触发表单提交。
@@ -70,6 +73,20 @@ Form 是一个比较复杂的组件，由下列组件组成
 | defaultValue | string \| number | | 默认值 |
 | name | string | 无 | Form 存取数据的名称 |
 | value | string \| number | | defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖<br />在Form中，value会被表单接管，value无效 |
+
+### Form.Block
+
+| 属性 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| onChange | function(value) | 必填 | 值改变回调函数 | 
+| value | any | 必填 | 值 |
+
+### Form.Loop
+
+| 属性 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| children | function(options) :ReactElement | 必填 | options 属性为<br />value：根据name获取的值的单条数据<br />onChange：子组件数据改变回调<br />onRemove：子组件删除回调<br />index：当前项索引 |
+| name | string | 必填 | 从上层表单中获取值的key，获取的数据必须为 array 类型 |
 
 ### Submit, Reset, Button
 同 [Button](#/components/Button)

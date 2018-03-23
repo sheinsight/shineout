@@ -143,16 +143,17 @@ export default class {
       get: () => this.$values[name],
     })
 
-    if (this.$values[name] === undefined) this.$values[name] = value
-    if (value) this.handleChange()
+    if (this.$values[name] === undefined && value !== undefined) {
+      this.$values[name] = value
+      this.handleChange()
+    }
   }
 
   unlisten(name) {
     delete this.$values[name]
     delete this.values[name]
     delete this.$validator[name]
-
-    this.handleChange()
+    // this.handleChange()
   }
 
   validate() {

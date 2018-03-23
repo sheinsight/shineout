@@ -12,6 +12,7 @@ class Block extends PureComponent {
   }
 
   handleChange(value) {
+    console.log('block change.', value)
     this.props.onChange(value)
   }
 

@@ -1,5 +1,5 @@
 /**
- * cn - 自定义组件
+ * cn - 自定义组件 Form.Field
  *    -- 支持 value 和 onChange 的自定义组件可以放在 Form.Field 中。
  * en - Field
  */

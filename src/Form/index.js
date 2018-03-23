@@ -19,4 +19,6 @@ exports.Submit = formButton('submit')
 exports.Reset = formButton('reset')
 exports.Button = formButton('button')
 
+exports.formConsumer = formConsumer
+
 export default exports
