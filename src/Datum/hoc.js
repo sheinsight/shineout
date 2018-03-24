@@ -34,6 +34,7 @@ export default function (Component, type = 'list', key = 'value', limit) {
       const values = this.props[key]
       if (values) {
         this.datum.setValue(values)
+        this.prevValues = values
       }
 
       if (onChange) {

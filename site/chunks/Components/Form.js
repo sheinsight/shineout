@@ -89,9 +89,9 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-16-block.js'),
   },
   {
-    title: locate('嵌套数据 \n Form.Block 配合 Form.Field 使用，可以处理多层数据', 'Nested data'),
-    component: require('doc/pages/components/Form/example-17-block.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-17-block.js'),
+    title: locate('嵌套数据 \n Form.Block 配合 Form.Field 使用，可以处理多层嵌套数据', 'Nested data'),
+    component: require('doc/pages/components/Form/example-17-nested.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-17-nested.js'),
   },
   {
     title: locate(' \n 更简单的处理多级嵌套数据的方法，在 name 中用 . 分隔字段名称。', 'Datum.Form.flatten'),

@@ -14,7 +14,7 @@ const source = locate(cn, en)
 
 const examples = [
   {
-    title: locate('基本用法 \n *Input 通常需要和其他的组件配合使用，所以默认的宽度是 100%', 'Base'),
+    title: locate('基本用法 \n Input 通常需要和其他的组件配合使用，所以默认的宽度是 100%，默认 display 为 block \n 如果设置了 style.width，默认 display 为 inline-flex', 'Base'),
     component: require('doc/pages/components/Input/example-1-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-1-base.js'),
   },

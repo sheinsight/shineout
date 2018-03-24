@@ -52,19 +52,19 @@ export default curry(({ delay = 0 }, Origin) => consumer(class extends PureCompo
     this.validate = this.validate.bind(this)
 
     if (formDatum && name) {
-      formDatum.listen(name, this.handleUpdate, defaultValue, this.validate)
+      formDatum.bind(name, this.handleUpdate, defaultValue, this.validate)
       this.state.value = formDatum.get(name)
     }
 
-    if (loopContext) loopContext.listen(this.validate)
+    if (loopContext) loopContext.bind(this.validate)
   }
 
   componentWillUnmount() {
     const { formDatum, name, loopContext } = this.props
     if (formDatum && name) {
-      formDatum.unlisten(name, this.handleUpdate)
+      formDatum.unbind(name, this.handleUpdate)
     }
-    if (loopContext) loopContext.unlisten(this.validate)
+    if (loopContext) loopContext.unbind(this.validate)
   }
 
   getValue() {

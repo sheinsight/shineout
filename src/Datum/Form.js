@@ -64,6 +64,7 @@ export default class {
     // store default value, for reset
     this.$defaultValues = {}
     this.$validator = {}
+    this.$events = {}
   }
 
   handleChange() {
@@ -71,9 +72,13 @@ export default class {
   }
 
   reset() {
+    this.$values = {}
     Object.keys(this.values).forEach((k) => {
       this.values[k] = this.$defaultValues[k]
     })
+
+    // reset block
+    this.dispatch('reset')
   }
 
   get(name) {
@@ -132,7 +137,7 @@ export default class {
     })
   }
 
-  listen(name, fn, value, validate) {
+  bind(name, fn, value, validate) {
     if (hasOwnProperty.call(this.values, name)) {
       console.error(`There is already an item with name "${name}" exists. The name props must be unique.`)
       return
@@ -157,11 +162,29 @@ export default class {
     }
   }
 
-  unlisten(name) {
+  unbind(name) {
     delete this.$values[name]
     delete this.values[name]
     delete this.$validator[name]
     // this.handleChange()
+  }
+
+  dispatch(name, ...args) {
+    const event = this.$events[name]
+    if (!event) return
+    event.forEach(fn => fn(...args))
+  }
+
+  listen(name, fn) {
+    if (!this.$events[name]) this.$events[name] = []
+    const events = this.$events[name]
+    if (fn in events) return
+    events.push(fn)
+  }
+
+  unlisten(name, fn) {
+    if (!this.$events[name]) return
+    this.$events[name] = this.$events[name].filter(e => e !== fn)
   }
 
   validate() {

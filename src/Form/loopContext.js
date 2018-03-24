@@ -9,20 +9,20 @@ export const loopProvider = Origin => class extends PureComponent {
     this.validations = []
 
     this.contextValue = {
-      listen: this.listen.bind(this),
-      unlisten: this.unlisten.bind(this),
+      bind: this.bind.bind(this),
+      unbind: this.unbind.bind(this),
     }
 
     this.validate = this.validate.bind(this)
   }
 
-  listen(validate) {
+  bind(validate) {
     if (this.validations.indexOf(validate) < 0) {
       this.validations.push(validate)
     }
   }
 
-  unlisten(validate) {
+  unbind(validate) {
     this.validations = this.validations.filter(v => v !== validate)
   }
 

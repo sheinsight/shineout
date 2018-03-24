@@ -1,6 +1,6 @@
 /**
  * cn - 嵌套数据
- *    -- Form.Block 配合 Form.Field 使用，可以处理多层数据
+ *    -- Form.Block 配合 Form.Field 使用，可以处理多层嵌套数据
  * en - Nested data
  */
 import React, { PureComponent } from 'react'
@@ -41,9 +41,7 @@ export default class extends PureComponent {
       },
       age: 18,
     },
-    extra: {
-      favoriteColor: ['cyan', 'yellow'],
-    },
+    favoriteColor: ['cyan', 'yellow'],
   }
 
   render() {
@@ -65,7 +63,7 @@ export default class extends PureComponent {
 
         <Form.Item label="Favorite Color">
           <Checkbox.Group
-            name="extra.favoriteColor"
+            name="favoriteColor"
             data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
           />
         </Form.Item>

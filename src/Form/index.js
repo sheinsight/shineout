@@ -12,7 +12,7 @@ import { formProvider, formConsumer } from './formContext'
 const exports = Datum.hoc(formProvider(Form), 'form', 'value')
 exports.Item = itemProvider(formConsumer(['labelWidth'], Item))
 exports.Field = inputable({}, Field)
-exports.Block = Block
+exports.Block = formConsumer(['formDatum'])(Block)
 exports.Loop = Loop
 
 exports.Submit = formButton('submit')

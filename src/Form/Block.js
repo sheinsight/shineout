@@ -9,10 +9,21 @@ class Block extends PureComponent {
     this.datum = new DatumForm({
       onChange: this.handleChange.bind(this),
     })
+
+    this.reset = this.reset.bind(this)
+    if (props.formDatum) props.formDatum.listen('reset', this.reset)
+  }
+
+  componentWillUnmount() {
+    const { formDatum } = this.props
+    if (formDatum) formDatum.unlisten('reset', this.reset)
+  }
+
+  reset() {
+    this.datum.reset()
   }
 
   handleChange(value) {
-    console.log('block change.', value)
     this.props.onChange(value)
   }
 
@@ -31,6 +42,7 @@ class Block extends PureComponent {
 
 Block.propTypes = {
   children: PropTypes.any,
+  formDatum: PropTypes.object,
   labelWidth: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,

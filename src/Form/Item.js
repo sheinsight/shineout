@@ -33,8 +33,6 @@ class Item extends PureComponent {
       this.props.className,
     )
 
-    console.log('item render')
-
     return (
       <div className={className}>
         {
