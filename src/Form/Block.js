@@ -17,12 +17,12 @@ class Block extends PureComponent {
   }
 
   render() {
-    const { children, value } = this.props
+    const { children, value, labelWidth } = this.props
 
     this.datum.setValue(value)
 
     return (
-      <Provider value={{ formDatum: this.datum }}>
+      <Provider value={{ formDatum: this.datum, labelWidth }}>
         {children}
       </Provider>
     )
@@ -31,6 +31,10 @@ class Block extends PureComponent {
 
 Block.propTypes = {
   children: PropTypes.any,
+  labelWidth: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   onChange: PropTypes.func.isRequired,
   value: PropTypes.any,
 }

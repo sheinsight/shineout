@@ -40,14 +40,14 @@ class Friend extends PureComponent {
     return (
       <Form.Item style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
         <Input
-          style={{ width: 180, marginRight: 8, display: 'inline-block' }}
+          style={{ width: 180, marginRight: 8 }}
           onChange={this.handleNameChange}
           value={value.name}
           rules={this.rules}
           placeholder="Name"
         />
         <Input
-          style={{ width: 60, display: 'inline-block' }}
+          style={{ width: 60 }}
           onChange={this.handleAgeChange}
           type="number"
           value={value.age}

@@ -18,6 +18,8 @@ const examples = [
 log.start()
 log.setType('example')
 require('doc/pages/components/Datum.Form/code-example.js')
+log.setType('nested')
+require('doc/pages/components/Datum.Form/code-nested.js')
 
 const logs = log.end()
 
@@ -25,6 +27,10 @@ const codes = {
   'example': {
     text: require('!raw-loader!doc/pages/components/Datum.Form/code-example.js'),
     log: logs['example'],
+  },
+  'nested': {
+    text: require('!raw-loader!doc/pages/components/Datum.Form/code-nested.js'),
+    log: logs['nested'],
   },
 }
 

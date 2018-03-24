@@ -2,11 +2,11 @@
 
 Form 是一个比较复杂的组件，由下列组件组成
 
-- **Form：** 表单外层
-- **Form.Field：** 用于处理自定义表单组件，使自定义表单组件实现通过rules校验，存储数据功能。
-- **Form.Item：** 表单项，主要用来布局，显示标签，提示文案信息等。
-- **Form.Block：** 表单块，可以用来存取多级嵌套的数据。
-- **Form.Loop：** 遍历表单中一个 array 类型的值，生成对应的子组件。
+- **Form：** 表单
+- **Form.Field：** 用于处理自定义组件，实现rules校验，存储数据功能。
+- **Form.Item：** 表单项，用来布局，显示标签，提示文案信息等。
+- **Form.Block：** 表单块，用来存取多级嵌套的数据。
+- **Form.Loop：** 用于遍历 array 类型的值，生成子组件。
 
 - **Form.Submit：** submit 按钮的快捷方式。使用 Submit 时，enter 键会触发表单提交。
 - **Form.Reset：** reset 按钮的快捷方式。
@@ -75,7 +75,7 @@ rule 共有 5 种规则，按优先级分别为：
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| children | ReactElement | 必填 | 必须且只能传入一个 React 组件 |
+| children | function(object) | 必填 | object 参数为<br />value: 根据 name 从上级 Form 或 Form.Block 获取的值<br />error：数据校验错误信息，类型为 Error<br />onChange: 值改变回调函数 |
 | defaultValue | string \| number | | 默认值 |
 | name | string | 无 | Form 存取数据的名称 |
 | value | string \| number | | defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖<br />在Form中，value会被表单接管，value无效 |

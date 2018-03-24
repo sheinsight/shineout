@@ -4,7 +4,7 @@ import isEmpty from '../utils/validate/isEmpty'
 const { hasOwnProperty } = Object.prototype
 
 // https://stackoverflow.com/questions/19098797/fastest-way-to-flatten-un-flatten-nested-json-objects
-function flatten(data) {
+function flattenValue(data) {
   if (isEmpty(data)) return {}
   const result = {}
   function recurse(cur, prop) {
@@ -24,7 +24,7 @@ function flatten(data) {
   return result
 }
 
-function unflatten(data) {
+function unflattenValue(data) {
   if (Object(data) !== data || isEmpty(data) || Array.isArray(data)) {
     return data
   }
@@ -53,8 +53,11 @@ function unflatten(data) {
 
 export default class {
   constructor(options = {}) {
-    const { removeUndefined = true, rules, onChange } = options
+    const {
+      removeUndefined = true, flatten, rules, onChange,
+    } = options
     this.values = {}
+    this.flatten = flatten
     this.rules = rules
     this.onChange = onChange
     this.removeUndefined = removeUndefined
@@ -100,11 +103,11 @@ export default class {
         if (this.$values[k] === undefined) delete this.$values[k]
       })
     }
-    return unflatten(this.$values)
+    return this.flatten ? unflattenValue(this.$values) : this.$values
   }
 
   setValue(rawValue) {
-    const values = flatten(rawValue)
+    const values = this.flatten ? flattenValue(rawValue) : rawValue
 
     // values not change
     if (shallowEqual(values, this.$values)) return

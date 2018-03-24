@@ -69,14 +69,9 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-11-disabled.js'),
   },
   {
-    title: locate('自定义组件 Form.Field \n 支持 value 和 onChange 的自定义组件可以放在 Form.Field 中。', 'Field'),
+    title: locate('字段 Form.Field \n 支持 value 和 onChange 的组件可以放在 Form.Field 中。', 'Field'),
     component: require('doc/pages/components/Form/example-12-field.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-12-field.js'),
-  },
-  {
-    title: locate('嵌套数据 \n 多层嵌套的数据可以在 name 中用 . 分隔处理', 'Nested data'),
-    component: require('doc/pages/components/Form/example-13-nested.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-13-nested.js'),
   },
   {
     title: locate('遍历 Form.Loop \n Form.Loop 通过 name 属性从 Form 中获取一个类型为 array 的 value，遍历这个 value 生成一组子组件。', 'Loop'),
@@ -92,6 +87,16 @@ const examples = [
     title: locate(' \n 上例可以使用 Form.Block 改写', ''),
     component: require('doc/pages/components/Form/example-16-block.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-16-block.js'),
+  },
+  {
+    title: locate('嵌套数据 \n Form.Block 配合 Form.Field 使用，可以处理多层数据', 'Nested data'),
+    component: require('doc/pages/components/Form/example-17-block.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-17-block.js'),
+  },
+  {
+    title: locate(' \n 更简单的处理多级嵌套数据的方法，设置 datum.flatten 为 true，在 name 中用 . 分隔字段名称。', 'Datum.Form.flatten'),
+    component: require('doc/pages/components/Form/example-18-nested.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-18-nested.js'),
   },
 ]
 

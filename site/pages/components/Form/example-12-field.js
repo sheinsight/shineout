@@ -1,6 +1,6 @@
 /**
- * cn - 自定义组件 Form.Field
- *    -- 支持 value 和 onChange 的自定义组件可以放在 Form.Field 中。
+ * cn - 字段 Form.Field
+ *    -- 支持 value 和 onChange 的组件可以放在 Form.Field 中。
  * en - Field
  */
 import React, { PureComponent } from 'react'
@@ -65,16 +65,16 @@ class ColorPicker extends PureComponent {
   handleClick = () => { this.setState({ showColor: true }) }
 
   render() {
-    const { value } = this.props
+    const { color } = this.props
     return (
       <div style={colorStyle.outer}>
-        <a style={{ ...colorStyle.handle, background: value }}
+        <a style={{ ...colorStyle.handle, background: color }}
           onClick={this.handleClick}
           href="javascript:;" />
         {
           this.state.showColor &&
           <div style={colorStyle.picker}>
-            <SketchPicker color={value} onChange={this.handleChange} />
+            <SketchPicker color={color} onChange={this.handleChange} />
           </div>
         }
       </div>
@@ -88,19 +88,19 @@ export default function () {
     <Form rules={rules} style={{ maxWidth: 500 }} onSubmit={d => console.log(d)}>
       <Form.Item required label="Email">
         <Form.Field defaultValue="test@email.com" name="email">
-          <Input type="text" />
+          { ({ value, onChange }) => <Input value={value} onChange={onChange} type="text" />}
         </Form.Field>
       </Form.Item>
 
       <Form.Item required label="Password" tip="Use at least one letter, one numeral, and seven characters.">
         <Form.Field name="password">
-          <Input type="password" />
+          { props => <Input {...props} type="password" /> }
         </Form.Field>
       </Form.Item>
 
       <Form.Item label="Favorite color" tip="Choose your favorite color.">
         <Form.Field name="color" defaultValue="#7ED321">
-          <ColorPicker />
+          {({ value, onChange }) => <ColorPicker color={value} onChange={onChange} />}
         </Form.Field>
       </Form.Item>
 

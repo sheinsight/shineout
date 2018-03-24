@@ -1,4 +1,4 @@
-import { PureComponent, cloneElement } from 'react'
+import { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 class Field extends PureComponent {
@@ -17,28 +17,13 @@ class Field extends PureComponent {
   }
 
   render() {
-    const { children, error } = this.props
-    let { value } = this.props
-
-    if (value === undefined && children &&
-      typeof children.type === 'object' &&
-      children.type.defaultProps
-    ) {
-      // eslint-disable-next-line
-      value = children.type.defaultProps.value
-    }
-
-    if (value === undefined && children.props) {
-      // eslint-disable-next-line
-      value = children.props.value
-    }
-
-    return cloneElement(children, { onChange: this.handleChange, value, error })
+    const { children, value, error } = this.props
+    return children({ value, error, onChange: this.handleChange })
   }
 }
 
 Field.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.func.isRequired,
   error: PropTypes.object,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.any,
