@@ -166,7 +166,6 @@ export default class {
     delete this.$values[name]
     delete this.values[name]
     delete this.$validator[name]
-    // this.handleChange()
   }
 
   dispatch(name, ...args) {
@@ -192,18 +191,11 @@ export default class {
       const keys = Object.keys(this.$validator)
       const values = { ...this.$values }
 
-      let index = 0
-      keys.forEach((k) => {
-        this.$validator[k](this.values[k], values).then((res) => {
-          index += 1
-          if (res === true) {
-            if (index === keys.length) {
-              resolve(true)
-            }
-          } else {
-            reject(res)
-          }
-        })
+      const validates = keys.map(k => this.$validator[k](this.values[k], values))
+      Promise.all(validates).then((res) => {
+        const error = res.find(r => r !== true)
+        if (error) reject(error)
+        else resolve(true)
       })
     })
   }
