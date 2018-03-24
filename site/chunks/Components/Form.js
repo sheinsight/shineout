@@ -94,7 +94,7 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-17-block.js'),
   },
   {
-    title: locate(' \n 更简单的处理多级嵌套数据的方法，设置 datum.flatten 为 true，在 name 中用 . 分隔字段名称。', 'Datum.Form.flatten'),
+    title: locate(' \n 更简单的处理多级嵌套数据的方法，在 name 中用 . 分隔字段名称。', 'Datum.Form.flatten'),
     component: require('doc/pages/components/Form/example-18-nested.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-18-nested.js'),
   },

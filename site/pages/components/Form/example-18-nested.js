@@ -1,6 +1,6 @@
 /**
  * cn -
- *    -- 更简单的处理多级嵌套数据的方法，设置 datum.flatten 为 true，在 name 中用 . 分隔字段名称。
+ *    -- 更简单的处理多级嵌套数据的方法，在 name 中用 . 分隔字段名称。
  * en - Datum.Form.flatten
  */
 import React, { PureComponent } from 'react'
@@ -21,11 +21,9 @@ export default class extends PureComponent {
     },
   }
 
-  datum = { flatten: true }
-
   render() {
     return (
-      <Form value={this.initValue} datum={this.datum} onSubmit={(data) => { console.log(data) }}>
+      <Form value={this.initValue} onSubmit={(data) => { console.log(data) }}>
         <Form.Item label="Email">
           <Input name="email" />
         </Form.Item>

@@ -4,7 +4,7 @@ import isEmpty from '../utils/validate/isEmpty'
 const { hasOwnProperty } = Object.prototype
 
 // https://stackoverflow.com/questions/19098797/fastest-way-to-flatten-un-flatten-nested-json-objects
-function flattenValue(data) {
+function flatten(data) {
   if (isEmpty(data)) return {}
   const result = {}
   function recurse(cur, prop) {
@@ -24,7 +24,7 @@ function flattenValue(data) {
   return result
 }
 
-function unflattenValue(data) {
+function unflatten(data) {
   if (Object(data) !== data || isEmpty(data) || Array.isArray(data)) {
     return data
   }
@@ -53,11 +53,8 @@ function unflattenValue(data) {
 
 export default class {
   constructor(options = {}) {
-    const {
-      removeUndefined = true, flatten, rules, onChange,
-    } = options
+    const { removeUndefined = true, rules, onChange } = options
     this.values = {}
-    this.flatten = flatten
     this.rules = rules
     this.onChange = onChange
     this.removeUndefined = removeUndefined
@@ -80,7 +77,16 @@ export default class {
   }
 
   get(name) {
-    return this.$values[name]
+    let value = this.$values[name]
+    if (value) return value
+
+    value = unflatten(this.$values)
+    name.split('.').forEach((n) => {
+      if (value) value = value[n]
+      else value = undefined
+    })
+
+    return value
   }
 
   set(name, value) {
@@ -103,11 +109,11 @@ export default class {
         if (this.$values[k] === undefined) delete this.$values[k]
       })
     }
-    return this.flatten ? unflattenValue(this.$values) : this.$values
+    return unflatten(this.$values)
   }
 
   setValue(rawValue) {
-    const values = this.flatten ? flattenValue(rawValue) : rawValue
+    const values = flatten(rawValue)
 
     // values not change
     if (shallowEqual(values, this.$values)) return

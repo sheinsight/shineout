@@ -14,12 +14,6 @@ Form 表单数据处理辅助类。
 
 是否移除值为 undefined 的数据，默认值为 true。
 
-### flatten *boolean*
-
-是否扁平化处理嵌套数据，默认值为 false。
-
-<code name="nested" />
-
 ### onChange *function(data)*
 
 值变化时回调函数。
