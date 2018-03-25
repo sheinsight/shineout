@@ -121,6 +121,10 @@ export default class {
         this.$values[name] = values[name]
       }
     })
+    // remove empty value
+    Object.keys(this.values).forEach((name) => {
+      if (!hasOwnProperty.call(values, name)) this.values[name] = undefined
+    })
   }
 
   listen(name, fn, value, validate) {
