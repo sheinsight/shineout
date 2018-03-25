@@ -28,6 +28,7 @@ export default curry((options, Origin) => class extends Component {
 
   static defaultProps = {
     border: true,
+    style: {},
   }
 
   constructor(props) {
@@ -96,6 +97,7 @@ export default curry((options, Origin) => class extends Component {
         other.disabled && 'disabled',
         options.isGroup && 'group',
         size,
+        style.width && 'inline',
         !border && 'no-border',
         Object.keys(errors).length > 0 && 'invalid',
       ),

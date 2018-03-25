@@ -9,15 +9,14 @@
 
   &-item {
     display: flex;
-    align-items: baseline;
+    align-items: flex-start;
     margin-bottom: @form-group-margin-bottom;
 
     .@{form-prefix}-label {
       display: inline-block;
       width: 140px;
       word-break: break-all;
-      padding-top: @padding-base-vertical;
-      padding: 0 @form-item-padding-x;
+      padding: @padding-base-vertical @form-item-padding-x;
     }
 
     &.@{form-prefix}-required .@{form-prefix}-label {
@@ -131,6 +130,11 @@
   border: 1px solid @input-border;
   border-radius: @input-border-radius;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+
+  &-inline {
+    display: inline-block;
+    display: inline-flex;
+  }
 
   &:hover {
     border-color: @input-border-focus;

@@ -21,13 +21,13 @@ class Loop extends PureComponent {
     this.state = { error: null }
 
     const { formDatum, name } = props
-    formDatum.listen(name, this.handleUpdate.bind(this), [], this.validate)
+    formDatum.bind(name, this.handleUpdate.bind(this), [], this.validate)
   }
 
   componentWillUnmount() {
     const { formDatum, name } = this.props
     if (formDatum && name) {
-      formDatum.unlisten(name, this.handleUpdate)
+      formDatum.unbind(name, this.handleUpdate)
     }
   }
 

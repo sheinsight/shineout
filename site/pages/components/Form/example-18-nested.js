@@ -1,7 +1,7 @@
 /**
- * cn - 嵌套数据
- *    -- 多层嵌套的数据可以在 name 中用 . 分隔处理
- * en - Nested data
+ * cn -
+ *    -- 更简单的处理多级嵌套数据的方法，在 name 中用 . 分隔字段名称。
+ * en - Datum.Form.flatten
  */
 import React, { PureComponent } from 'react'
 import { Form, Input, Checkbox } from 'shineout'
@@ -9,7 +9,7 @@ import { Form, Input, Checkbox } from 'shineout'
 export default class extends PureComponent {
   initValue = {
     email: 'test@example.com',
-    user: {
+    account: {
       name: {
         firstName: 'Harry',
         lastName: 'Potter',
@@ -32,16 +32,16 @@ export default class extends PureComponent {
           <Input name="password" type="password" />
         </Form.Item>
 
-        <Form.Item label="Name">
+        <Form.Item label="Account Name">
           <Input.Group style={{ width: 300 }}>
-            <Input name="user.name.firstName" placeholder="First Name" />
+            <Input name="account.name.firstName" placeholder="First Name" />
             -
-            <Input name="user.name.lastName" placeholder="Last Name" />
+            <Input name="account.name.lastName" placeholder="Last Name" />
           </Input.Group>
         </Form.Item>
 
-        <Form.Item label="Age">
-          <Input style={{ width: 100 }} name="user.age" type="number" digits={0} defaultValue={0} />
+        <Form.Item label="Account Age">
+          <Input style={{ width: 100 }} name="account.age" type="number" digits={0} defaultValue={0} />
         </Form.Item>
 
         <Form.Item label="Favorite Color">

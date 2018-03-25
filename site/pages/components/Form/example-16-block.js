@@ -41,13 +41,13 @@ export default class extends PureComponent {
               <Form.Block value={value} onChange={onChange}>
                 <Form.Item style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
                   <Input
-                    style={{ width: 180, marginRight: 8, display: 'inline-block' }}
+                    style={{ width: 180, marginRight: 8 }}
                     name="name"
                     rules={this.rules.name}
                     placeholder="Name"
                   />
                   <Input
-                    style={{ width: 60, display: 'inline-block' }}
+                    style={{ width: 60 }}
                     name="age"
                     type="number"
                     placeholder="Age"
