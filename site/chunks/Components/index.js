@@ -49,6 +49,12 @@ const pages = [
     level: 2,
     component: loadable(() => import('./Radio')),
   },
+  {
+    name: 'Textarea',
+    cn: '多行文本框',
+    level: 2,
+    component: loadable(() => import('./Textarea')),
+  },
   'Data',
   {
     name: 'Datum.Form',

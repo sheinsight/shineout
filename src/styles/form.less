@@ -339,13 +339,26 @@
     }
   }
 
+  &-no-padding {
+    padding: 0;
+  }
+
+  &-overflow-auto {
+    overflow: auto;
+  }
+
+  &-overflow-hidden {
+    overflow: hidden;
+  }
+
   &-disabled {
     &, &:hover, input {
       .input-disabled();
     }
   }
 
-  input {
+  input, textarea {
+    display: block;
     width: 100%;
     border: 0;
     outline: none;
@@ -356,5 +369,25 @@
     &::placeholder {
       color: @input-color-placeholder;
     }
+  }
+
+  textarea {
+    position: relative;
+    line-height: 1.4;
+    z-index: 2;
+    resize: none;
+    padding: @padding-base-vertical @padding-base-horizontal;
+  }
+
+  textarea&-shadow {
+    position: absolute;
+    visibility: hidden;
+    top: 0;
+    left: 0;
+    z-index: 0;
+  }
+
+  textarea&-auto-size {
+    overflow: hidden;
   }
 }

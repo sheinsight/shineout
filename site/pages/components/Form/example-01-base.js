@@ -3,7 +3,7 @@
  * en - Base
  */
 import React, { PureComponent } from 'react'
-import { Form, Input, Checkbox } from 'shineout'
+import { Form, Input, Checkbox, Textarea } from 'shineout'
 
 export default class extends PureComponent {
   initValue = {
@@ -39,6 +39,10 @@ export default class extends PureComponent {
             name="favoriteColor"
             data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
           />
+        </Form.Item>
+
+        <Form.Item label="Description">
+          <Textarea name="desc" autosize />
         </Form.Item>
 
         <Form.Item label="">
