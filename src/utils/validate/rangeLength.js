@@ -1,13 +1,20 @@
-import nullable from './nullable'
+import isEmpty from './isEmpty'
 
-export default options => nullable((value, formdata, callback) => {
+export default options => (value, formdata, callback) => {
   const { min, max, message } = options
-  const len = value.length
+  const error = new Error(message)
 
+  if (isEmpty(value)) {
+    if (min) callback(error)
+    else callback(true)
+    return
+  }
+
+  const len = value.length
   if ((typeof min === 'number' && len < min) || (typeof max === 'number' && len > max)) {
-    callback(new Error(message))
+    callback(error)
   } else {
     callback(true)
   }
-})
+}
 

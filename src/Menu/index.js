@@ -17,19 +17,18 @@ class Menu extends React.Component {
         return index
     }
   }
+
   constructor(props) {
     super(props)
-    this.state = {
-      activeKey: [],
-    }
     this.activeKey = []
     this.inlineIndent = 0
     this.checkActive = this.checkActive.bind(this)
   }
+
   componentDidMount() {
-    this.setState({ activeKey: this.activeKey })
     this.activeKey = []
   }
+
   checkActive(data) {
     const [isActive] = [this.props.active(data)]
     if (isActive && (this.activeKey.length === 0 || this.props.multiple)) {
@@ -38,6 +37,7 @@ class Menu extends React.Component {
     }
     return false
   }
+
   renderMenu(data, keygen, i) {
     if (!Array.isArray(data) || data.length === 0) return null
     const times = i + 1
@@ -69,6 +69,7 @@ class Menu extends React.Component {
         />
     })
   }
+
   render() {
     const {
       keygen, data, mode, style,

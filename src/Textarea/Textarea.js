@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { inputClass } from '../styles'
+import cleanProps from '../utils/cleanProps'
 
 class Textarea extends PureComponent {
   constructor(props) {
@@ -36,7 +37,7 @@ class Textarea extends PureComponent {
 
     const ts = [
       <textarea
-        {...props}
+        {...cleanProps(props)}
         key="t"
         className={className}
         style={{ height }}

@@ -13,7 +13,6 @@ const consumer = compose(formConsumer(types), itemConsumer, loopConsumer)
 
 export default curry(({ delay = 0 }, Origin) => consumer(class extends PureComponent {
   static propTypes = {
-    datum: PropTypes.object,
     defaultValue: PropTypes.any,
     delay: PropTypes.number,
     formDatum: PropTypes.object,
@@ -49,6 +48,7 @@ export default curry(({ delay = 0 }, Origin) => consumer(class extends PureCompo
 
     this.handleChange = this.handleChange.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
+    this.handleDatumBind = this.handleDatumBind.bind(this)
     this.validate = this.validate.bind(this)
 
     if (formDatum && name) {
@@ -76,9 +76,13 @@ export default curry(({ delay = 0 }, Origin) => consumer(class extends PureCompo
     return value === undefined ? this.state.value : value
   }
 
+  handleDatumBind(datum) {
+    this.datum = datum
+  }
+
   validate(value, data) {
     const {
-      onError, name, formDatum, type, datum,
+      onError, name, formDatum, type,
     } = this.props
 
     if (value === undefined) value = this.getValue()
@@ -89,7 +93,7 @@ export default curry(({ delay = 0 }, Origin) => consumer(class extends PureCompo
       if (!data) data = formDatum.getValue()
     }
 
-    if (datum) value = datum
+    if (this.datum) value = this.datum
     return validate(value, data, rules, type).then(() => {
       onError(this.itemName, null)
       this.setState({ error: undefined })
@@ -146,6 +150,7 @@ export default curry(({ delay = 0 }, Origin) => consumer(class extends PureCompo
         error={this.state.error}
         value={this.getValue()}
         onChange={this.handleChange}
+        onDatumBind={this.handleDatumBind}
       />
     )
   }

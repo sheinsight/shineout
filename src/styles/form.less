@@ -85,6 +85,7 @@
       display: inline-block;
       display: inline-flex;
       vertical-align: middle;
+      align-items: center;
 
       .@{form-prefix}-label {
         padding: 0;
@@ -323,6 +324,7 @@
 
   &-small {
     padding: @padding-small-vertical @padding-small-horizontal;
+    line-height: @line-height-small;
     font-size: @font-size-small;
   }
 
@@ -363,7 +365,7 @@
     border: 0;
     outline: none;
     padding: 0;
-    line-height: 1;
+    line-height: inherit;
     background: transparent;
 
     &::placeholder {

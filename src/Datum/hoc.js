@@ -15,6 +15,7 @@ export default function (Component, type = 'list', key = 'value', limit) {
   return class extends PureComponent {
     static propTypes = {
       onChange: PropTypes.func,
+      onDatumBind: PropTypes.func,
       datum: PropTypes.object,
     }
 
@@ -51,9 +52,12 @@ export default function (Component, type = 'list', key = 'value', limit) {
     }
 
     render() {
+      const { onDatumBind, ...props } = this.props
+      if (onDatumBind) onDatumBind(this.datum)
+
       return (
         <Component
-          {...this.props}
+          {...props}
           datum={this.datum}
         />
       )

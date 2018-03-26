@@ -25,7 +25,6 @@ const rules = {
     { min: 18, max: 60, message: 'Age must between {min} and {max}.' },
   ],
   colors: [
-    { required: true, message: 'Please select your favorite colors.' },
     { min: 2, message: 'At least select 2 colors.' },
   ],
 }
@@ -46,7 +45,11 @@ export default function () {
       </Form.Item>
 
       <Form.Item required label="Favorite Colors" tip="select your favorite colors">
-        <Checkbox.Group name="colors" data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']} />
+        <Checkbox.Group
+          datum={{ separator: ',' }}
+          name="colors"
+          data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
+        />
       </Form.Item>
 
       <Form.Item label="">

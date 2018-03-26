@@ -57,7 +57,7 @@ class SubMenu extends React.Component {
     })
   }
   handleLeave() {
-    if (this.props.mode !== 'horizontal'&& !this.props.isHover) return
+    if (this.props.mode !== 'horizontal' && !this.props.isHover) return
     this.setState({
       show: false,
     })
@@ -79,12 +79,14 @@ class SubMenu extends React.Component {
           style={mode === 'inline' ? { paddingLeft: inlineIndent } : {}}
         >
           <a
-            tabIndex={1}
+            tabIndex={0}
+            href="javascript:;"
             ref={this.bindRef}
             style={aStyle}
             onClick={this.handleClick}
             onBlur={this.handleBlur}
-          >{itemData}
+          >
+            {itemData}
           </a>
         </div>
         <ListStyle

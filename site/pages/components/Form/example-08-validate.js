@@ -24,7 +24,6 @@ const rules = {
     { min: 18, max: 60, message: 'Age must between {min} and {max}.' },
   ],
   colors: [
-    { required: true, message: 'Please select your favorite colors.' },
     { min: 2, message: 'At least select 2 colors.' },
   ],
 }

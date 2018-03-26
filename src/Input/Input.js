@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import cleanProps from '../utils/cleanProps'
 
 class Input extends PureComponent {
   constructor(props) {
@@ -35,7 +36,7 @@ class Input extends PureComponent {
 
     return (
       <input
-        {...other}
+        {...cleanProps(other)}
         type={type === 'password' ? type : 'text'}
         value={value}
         onChange={this.handleChange}
