@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Shein 前端组件库",
   "main": "./src/index.js",
-  "author": "",
+  "author": "lobos841@gmail.com",
   "license": "MIT",
   "scripts": {
     "lint": "eslint src/",

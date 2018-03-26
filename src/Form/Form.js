@@ -13,11 +13,17 @@ class Form extends PureComponent {
   }
 
   handleSubmit(e) {
+    if (this.validating) return
+    this.validating = true
+
     e.preventDefault()
     const { datum, onSubmit } = this.props
     datum.validate().then(() => {
+      this.validating = false
       if (onSubmit) onSubmit(datum.getValue())
-    }).catch(() => {})
+    }).catch(() => {
+      this.validating = false
+    })
   }
 
   handleReset() {
