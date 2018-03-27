@@ -49,7 +49,11 @@ export default class extends PureComponent {
                       type="number"
                       placeholder="Age"
                     />
-                    <a href="javascript:;" style={{ padding: '0 12px' }} onClick={() => onAppend({ age: 16 })}>
+                    <a
+                      href="javascript:;"
+                      style={{ padding: '0 12px' }}
+                      onClick={() => onAppend({ age: 16 })}
+                    >
                       <FontAwesome name="plus" />
                     </a>
                     {

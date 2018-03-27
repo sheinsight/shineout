@@ -20,6 +20,7 @@ function getCompiler(name, conf) {
   })
   return merge(common(wf), {
     name,
+    stats: { children: false },
     entry: wf.entry,
     output: wf.output,
     plugins: [
