@@ -195,7 +195,11 @@ export default class {
       const keys = Object.keys(this.$validator)
       const values = { ...this.$values }
 
-      const validates = keys.map(k => this.$validator[k](this.values[k], values))
+      const validates = [
+        ...keys.map(k => this.$validator[k](this.values[k], values)),
+        ...(this.$events.validate || []).map(fn => fn()),
+      ]
+
       Promise.all(validates).then((res) => {
         const error = res.find(r => r !== true)
         if (error) reject(error)

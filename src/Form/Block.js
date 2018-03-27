@@ -10,13 +10,21 @@ class Block extends PureComponent {
       onChange: this.handleChange.bind(this),
     })
 
+    this.validate = this.validate.bind(this)
     this.reset = this.reset.bind(this)
-    if (props.formDatum) props.formDatum.listen('reset', this.reset)
+
+    if (props.formDatum) {
+      props.formDatum.listen('reset', this.reset)
+      props.formDatum.listen('validate', this.validate)
+    }
   }
 
   componentWillUnmount() {
     const { formDatum } = this.props
-    if (formDatum) formDatum.unlisten('reset', this.reset)
+    if (formDatum) {
+      formDatum.unlisten('reset', this.reset)
+      formDatum.unlisten('validate', this.validate)
+    }
   }
 
   reset() {
@@ -27,9 +35,18 @@ class Block extends PureComponent {
     this.props.onChange(value)
   }
 
-  render() {
-    const { children, value, labelWidth } = this.props
+  validate() {
+    return this.datum.validate().then(e => e, e => e)
+  }
 
+  render() {
+    const {
+      children, value, rules, labelWidth,
+    } = this.props
+
+    if (rules && this.datum.rules !== rules) {
+      this.datum.rules = rules
+    }
     this.datum.setValue(value)
 
     return (
@@ -48,6 +65,7 @@ Block.propTypes = {
     PropTypes.number,
   ]),
   onChange: PropTypes.func.isRequired,
+  rules: PropTypes.array,
   value: PropTypes.any,
 }
 

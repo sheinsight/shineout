@@ -96,4 +96,4 @@ Table.defaultProps = {
   rowsInView: 20,
 }
 
-export default Datum.hoc(Table)
+export default Datum.hoc({}, Table)

@@ -2,11 +2,8 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
 import validate from '../utils/validate'
-import { compose } from '../utils/func'
 import { getUidStr } from '../utils/uid'
 import { range } from '../utils/numbers'
-import { formConsumer } from './formContext'
-import { loopProvider } from './loopContext'
 import Item from './Item'
 
 const Tag = React.Fragment ? React.Fragment : 'span'
@@ -139,4 +136,4 @@ Loop.defaultProps = {
   rules: [],
 }
 
-export default compose(formConsumer(null), loopProvider)(Loop)
+export default Loop

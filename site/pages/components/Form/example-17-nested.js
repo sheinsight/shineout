@@ -6,6 +6,14 @@
 import React, { PureComponent } from 'react'
 import { Form, Input, Checkbox } from 'shineout'
 
+const rules = {
+  account: {
+    age: [
+      { min: 18, max: 60, message: 'Age must between {min} and {max}.' },
+    ],
+  },
+}
+
 // eslint-disable-next-line
 const Account = ({ value, onChange }) => (
   <Form.Block labelWidth={50} value={value} onChange={onChange}>
@@ -26,7 +34,7 @@ const Account = ({ value, onChange }) => (
     </Form.Item>
 
     <Form.Item label="Age">
-      <Input style={{ width: 100 }} name="age" type="number" digits={0} defaultValue={0} />
+      <Input rules={rules.account.age} style={{ width: 100 }} name="age" type="number" digits={0} defaultValue={0} />
     </Form.Item>
   </Form.Block>
 )
@@ -46,7 +54,7 @@ export default class extends PureComponent {
 
   render() {
     return (
-      <Form value={this.initValue} onSubmit={(data) => { console.log(data) }}>
+      <Form value={this.initValue} rules={this.rules} onSubmit={(data) => { console.log(data) }}>
         <Form.Item label="Email">
           <Input name="email" />
         </Form.Item>

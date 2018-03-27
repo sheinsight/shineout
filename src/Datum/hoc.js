@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { curry } from '../utils/func'
 import shallowEqual from '../utils/shallowEqual'
 import List from './List'
 import Form from './Form'
@@ -9,7 +10,8 @@ const types = {
   list: List,
 }
 
-export default function (Component, type = 'list', key = 'value', limit) {
+export default curry((options, Origin) => {
+  const { type = 'list', key = 'value', limit = 0 } = options || {}
   const Datum = types[type]
 
   return class extends PureComponent {
@@ -56,11 +58,11 @@ export default function (Component, type = 'list', key = 'value', limit) {
       if (onDatumBind) onDatumBind(this.datum)
 
       return (
-        <Component
+        <Origin
           {...props}
           datum={this.datum}
         />
       )
     }
   }
-}
+})

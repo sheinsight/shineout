@@ -21,9 +21,16 @@ export default class extends PureComponent {
     },
   }
 
+  rules = {
+    'account.age': [
+      { required: true, message: 'Please enter age.' },
+      { min: 18, max: 60, message: 'Age must between {min} and {max}.' },
+    ],
+  }
+
   render() {
     return (
-      <Form value={this.initValue} onSubmit={(data) => { console.log(data) }}>
+      <Form value={this.initValue} rules={this.rules} onSubmit={(data) => { console.log(data) }}>
         <Form.Item label="Email">
           <Input name="email" />
         </Form.Item>

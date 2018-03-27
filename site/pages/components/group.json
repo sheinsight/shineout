@@ -2,13 +2,14 @@
   "": {},
   "General": {
     "Button": "按钮",
-    "Dropdown": "下拉"
+    "Dropdown": "下拉菜单"
   },
   "Form": {
     "Checkbox": "复选框",
     "Form": "表单",
     "Input": "输入框",
     "Radio": "单选框",
+    "Select": "选择框",
     "Textarea": "多行文本框"
   },
   "Data": {

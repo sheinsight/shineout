@@ -119,14 +119,14 @@ export default curry(({ delay = 0 }, Origin) => consumer(class extends PureCompo
   }
 
   handleChange(value, ...args) {
-    // use state as cache
-    this.setState({ value })
-
     // handle change immediately
     if (this.props.delay === 0) {
       this.change(value, ...args)
       return
     }
+
+    // use state as cache
+    this.setState({ value })
 
     this.changeLocked = true
     if (this.changeTimer) clearTimeout(this.changeTimer)
