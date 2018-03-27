@@ -74,6 +74,16 @@ class Loop extends PureComponent {
     formDatum.set(name, values)
   }
 
+  handleInsert(index, value) {
+    this.keys.splice(index, 0, getUidStr())
+    const { formDatum, name } = this.props
+    const values = immer(formDatum.get(name), (draft) => {
+      draft.splice(index, 0, value)
+    })
+
+    formDatum.set(name, values)
+  }
+
   handleRemove(index) {
     this.keys.splice(index, 1)
     const { formDatum, name } = this.props
@@ -101,6 +111,8 @@ class Loop extends PureComponent {
             value,
             index,
             onChange: this.handleChange.bind(this, index),
+            onInsert: this.handleInsert.bind(this, index),
+            onAppend: this.handleInsert.bind(this, index + 1),
             onRemove: this.handleRemove.bind(this, index),
           })
         }
