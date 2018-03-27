@@ -14,9 +14,10 @@ function getCompiler(name, conf) {
   })
   return merge(common(wf), {
     name,
+    stats: { children: false },
     entry: './src/index.js',
     output: {
-      path: path.join(__dirname, '../dist'),
+      path: path.join(__dirname, '../publish/dist'),
       libraryTarget: 'umd',
       library: 'Shineout',
       filename: 'Shineout.js',
