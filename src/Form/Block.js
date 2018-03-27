@@ -7,14 +7,17 @@ import { Provider } from './formContext'
 class Block extends PureComponent {
   constructor(props) {
     super(props)
+    const { value, formDatum } = props
+
     this.datum = new DatumForm({
       onChange: this.handleChange.bind(this),
     })
 
+    if (value) this.datum.setValue(value)
+
     this.reset = this.reset.bind(this)
     this.validate = this.validate.bind(this)
 
-    const { formDatum } = props
     if (formDatum) {
       formDatum.listen('reset', this.reset)
       formDatum.listen('validate', this.validate)
