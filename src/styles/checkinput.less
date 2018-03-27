@@ -10,6 +10,7 @@
   display: inline-block;
   vertical-align: middle;
   margin-bottom: 0;
+  margin-right: 10px;
   cursor: pointer;
 
   input[type=checkbox], input[type=radio] {
@@ -42,15 +43,14 @@
     width: @checkbox-size;
     height: @checkbox-size;
     overflow: hidden;
-    border: solid 1px @gray-500;
+    border: solid 1px @input-border;
     border-radius: @checkbox-border-radius;
     transition: 0.2s ease-in-out;
     vertical-align: middle;
 
     & + span {
       vertical-align: middle;
-      padding-left: @form-item-padding-x;
-      padding-right: @form-item-padding-x * 2;
+      padding: 0 @form-item-padding-x;
     }
 
     &:after {
@@ -58,7 +58,6 @@
       display: block;
       position: absolute;
       z-index: 10;
-      transition: transform 0.1s ease-in-out;
     }
   }
 
@@ -70,6 +69,7 @@
       width: @checkbox-size - 4;
       border: solid 2px transparent;
       border-width: 0 0 2px 2px;
+      transition: transform 0.1s ease-in-out;
     }
   }
 
