@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import shallowEqual from '../utils/shallowEqual'
 import DatumForm from '../Datum/Form'
 import { Provider } from './formContext'
 
@@ -10,12 +11,21 @@ class Block extends PureComponent {
       onChange: this.handleChange.bind(this),
     })
 
-    this.validate = this.validate.bind(this)
     this.reset = this.reset.bind(this)
+    this.validate = this.validate.bind(this)
 
-    if (props.formDatum) {
-      props.formDatum.listen('reset', this.reset)
-      props.formDatum.listen('validate', this.validate)
+    const { formDatum } = props
+    if (formDatum) {
+      formDatum.listen('reset', this.reset)
+      formDatum.listen('validate', this.validate)
+    }
+  }
+
+  componentDidUpdate() {
+    const { value } = this.props
+    if (!shallowEqual(value, this.prevValue)) {
+      this.datum.setValue(value)
+      this.prevValues = value
     }
   }
 
@@ -27,12 +37,12 @@ class Block extends PureComponent {
     }
   }
 
-  reset() {
-    this.datum.reset()
-  }
-
   handleChange(value) {
     this.props.onChange(value)
+  }
+
+  reset() {
+    this.datum.reset()
   }
 
   validate() {
@@ -40,14 +50,12 @@ class Block extends PureComponent {
   }
 
   render() {
-    const {
-      children, value, rules, labelWidth,
-    } = this.props
+    const { children, labelWidth, rules } = this.props
 
     if (rules && this.datum.rules !== rules) {
       this.datum.rules = rules
     }
-    this.datum.setValue(value)
+    // this.datum.setValue(value)
 
     return (
       <Provider value={{ formDatum: this.datum, labelWidth }}>

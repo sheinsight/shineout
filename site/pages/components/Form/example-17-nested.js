@@ -4,7 +4,7 @@
  * en - Nested data
  */
 import React, { PureComponent } from 'react'
-import { Form, Input, Checkbox } from 'shineout'
+import { Datum, Form, Input, Checkbox } from 'shineout'
 
 const rules = {
   account: {
@@ -34,27 +34,38 @@ const Account = ({ value, onChange }) => (
     </Form.Item>
 
     <Form.Item label="Age">
-      <Input rules={rules.account.age} style={{ width: 100 }} name="age" type="number" digits={0} defaultValue={0} />
+      <Input
+        rules={rules.account.age}
+        style={{ width: 100 }}
+        name="age"
+        type="number"
+        digits={0}
+        defaultValue={0}
+      />
     </Form.Item>
   </Form.Block>
 )
 
 export default class extends PureComponent {
-  initValue = {
-    email: 'test@example.com',
-    account: {
-      name: {
-        firstName: 'Harry',
-        lastName: 'Potter',
+  componentDidMount() {
+    this.datum.setValue({
+      email: 'test@example.com',
+      account: {
+        name: {
+          firstName: 'Harry',
+          lastName: 'Potter',
+        },
+        age: 18,
       },
-      age: 18,
-    },
-    favoriteColor: ['cyan', 'yellow'],
+      favoriteColor: ['cyan', 'yellow'],
+    })
   }
+
+  datum = new Datum.Form()
 
   render() {
     return (
-      <Form value={this.initValue} rules={this.rules} onSubmit={(data) => { console.log(data) }}>
+      <Form datum={this.datum} rules={this.rules} onSubmit={(data) => { console.log(data) }}>
         <Form.Item label="Email">
           <Input name="email" />
         </Form.Item>

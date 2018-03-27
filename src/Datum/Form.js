@@ -73,12 +73,13 @@ export default class {
 
   reset() {
     this.$values = {}
-    Object.keys(this.values).forEach((k) => {
-      this.values[k] = this.$defaultValues[k]
-    })
 
     // reset block
     this.dispatch('reset')
+
+    Object.keys(this.values).forEach((k) => {
+      this.values[k] = this.$defaultValues[k]
+    })
   }
 
   get(name) {
@@ -137,7 +138,9 @@ export default class {
     })
     // remove empty value
     Object.keys(this.values).forEach((name) => {
-      if (!hasOwnProperty.call(values, name)) this.values[name] = undefined
+      if (!hasOwnProperty.call(values, name)) {
+        this.values[name] = this.get(name)
+      }
     })
   }
 
