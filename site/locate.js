@@ -8,7 +8,8 @@ if (storage) {
 }
 
 if (!language) {
-  language = (window.navigator.language || window.navigator.userLanguage || '').toLowerCase()
+  // language = (window.navigator.language || window.navigator.userLanguage || '').toLowerCase()
+  language = 'zh-cn'
 }
 
 export function setLanguage(lang) {

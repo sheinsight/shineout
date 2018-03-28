@@ -1,6 +1,8 @@
 import { createMarkDown } from 'docs/MarkDown'
 import Page from '../Page'
 
+const versions = ['0.1.x']
+
 const pages = [
   'API',
 
@@ -17,11 +19,13 @@ const pages = [
     component: createMarkDown(() => import('./api-classname.md')),
   },
 
-  {
-    name: 'ChangeLog',
-    cn: '日志',
-    component: createMarkDown(() => import('./changelog.md')),
-  },
+  'CHANGELOG',
+
+  ...versions.map(v => ({
+    name: v,
+    level: 2,
+    component: createMarkDown(() => import(`./changelog/${v}.md`)),
+  })),
 ]
 
 export default Page(pages)
