@@ -3,13 +3,19 @@
 @hidable-prefix: ~"@{so-prefix}-hidable";
 
 .@{hidable-prefix} {
-  &-collapse, &-fade {
-    transition: 0.216s ease-in-out;
+  &-collapse, &-fade, &-translate {
+    transition: 0.400s ease-in-out;
   }
 
   &-collapse, &-collapse-fade {
     overflow: hidden;
+  }
+
+  &-translate {
+    transform: translateY(0);
+
     &.@{hidable-prefix}-show {
+      transform: translateY(100%);
     }
   }
 

@@ -6,9 +6,9 @@ import { selectClass } from '../styles'
 import Select from './Select'
 
 const input = compose(
-  wrapper({}),
+  wrapper({ className: selectClass('_') }),
   inputable({}),
-  Datum.hoc({ className: selectClass('_') }),
+  Datum.hoc({}),
 )
 
 export default input(Select)

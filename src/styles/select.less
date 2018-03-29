@@ -5,4 +5,39 @@
 
 .@{select-prefix} {
   position: relative;
+  padding: 0;
+
+  &-inner {
+    width: 100%;
+    outline: none;
+    padding: @padding-base-vertical @padding-base-horizontal;
+  }
+
+  &-options {
+    min-width: 100%;
+    position: absolute;
+    top: 100%;
+    margin-top: 4px;
+    left: 0;
+    background: @dropdown-bg;
+    border-radius: @border-radius-base;
+    max-height: 300px;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.02), @dropdown-box-shadow;
+    background-clip: padding-box;
+    z-index: @zindex-dropdown;
+  }
+
+  &-option {
+    display: block;
+    padding: @dropdown-item-padding-y @dropdown-padding-x;
+    line-height: @line-height-base;
+    color: @dropdown-link-color;
+
+    &:hover,
+    .@{select-prefix}-active {
+      text-decoration: none;
+      color: @dropdown-link-hover-color;
+      background-color: @dropdown-link-hover-bg;
+    }
+  }
 }

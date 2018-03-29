@@ -50,6 +50,12 @@ const pages = [
     component: loadable(() => import('./Radio')),
   },
   {
+    name: 'Select',
+    cn: '选择框',
+    level: 2,
+    component: loadable(() => import('./Select')),
+  },
+  {
     name: 'Textarea',
     cn: '多行文本框',
     level: 2,
