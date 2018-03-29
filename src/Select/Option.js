@@ -9,7 +9,12 @@ class Option extends PureComponent {
   }
 
   handleClick() {
-    const { data, onClick, isActive } = this.props
+    const {
+      data, onClick, isActive, multiple,
+    } = this.props
+
+    if (isActive && !multiple) return
+
     onClick(data, !isActive)
   }
 
@@ -31,6 +36,7 @@ Option.propTypes = {
     PropTypes.string,
   ]).isRequired,
   isActive: PropTypes.bool,
+  multiple: PropTypes.bool,
   onClick: PropTypes.func,
   renderItem: PropTypes.func.isRequired,
 }

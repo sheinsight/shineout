@@ -1,0 +1,27 @@
+.close(@size, @color, @width: 1px) {
+  background: @color;
+  border-radius: @size / 2;
+
+  &:hover {
+    background: darken(@color, 5%);
+  }
+
+  &:after, &:before {
+    content: ' ';
+    position: absolute;
+    display: block;
+    left: 3px;
+    top: @size / 2 - @width;
+    width: @size - 6;
+    height: @width;
+    background: #fff;
+  }
+
+  &:after {
+    transform: rotate(45deg);
+  }
+
+  &:before {
+    transform: rotate(315deg);
+  }
+}

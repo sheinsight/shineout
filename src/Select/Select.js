@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { getProps } from '../utils/proptypes'
 import { getKey } from '../utils/uid'
 import List from '../List'
-import { inputClass, selectClass } from '../styles'
+import { selectClass } from '../styles'
 import Option from './Option'
 import Result from './Result'
 
@@ -20,6 +20,7 @@ class Select extends PureComponent {
     this.handleFocus = this.handleState.bind(this, true)
     this.handleBlur = this.handleState.bind(this, false)
     this.handleChange = this.handleChange.bind(this)
+    this.handleClear = this.handleClear.bind(this)
     this.resetResult = this.resetResult.bind(this)
     this.renderItem = this.renderItem.bind(this)
 
@@ -37,7 +38,11 @@ class Select extends PureComponent {
     this.element = el
   }
 
-  handleState(focus) {
+  handleState(focus, event) {
+    if (event && event.target.getAttribute('data-role') === 'close') {
+      return
+    }
+
     this.setState({ focus })
 
     const { onBlur, onFocus } = this.props
@@ -46,7 +51,7 @@ class Select extends PureComponent {
   }
 
   handleChange(data, checked) {
-    const { datum, onChange, multiple } = this.props
+    const { datum, multiple } = this.props
 
     if (multiple) {
       if (checked) {
@@ -61,8 +66,17 @@ class Select extends PureComponent {
       this.result = [data]
       this.element.blur()
     }
+  }
 
-    onChange(datum.getValue())
+  handleClear() {
+    this.result = []
+    this.props.datum.setValue([])
+
+    if (this.state.focus === false) {
+      this.forceUpdate()
+    } else {
+      this.handleState(false)
+    }
   }
 
   resetResult() {
@@ -73,15 +87,6 @@ class Select extends PureComponent {
     })
   }
 
-  renderResult() {
-    const { placeholder } = this.props
-    if (this.result.length === 0) {
-      return <span className={inputClass('placeholder')}>{placeholder}</span>
-    }
-
-    return this.result.map()
-  }
-
   renderItem(data) {
     const { renderItem } = this.props
     return typeof renderItem === 'function'
@@ -90,7 +95,9 @@ class Select extends PureComponent {
   }
 
   renderOptions() {
-    const { data, datum, keygen } = this.props
+    const {
+      data, datum, keygen, multiple,
+    } = this.props
 
     return (
       <ScaleList
@@ -107,6 +114,7 @@ class Select extends PureComponent {
               isActive={datum.check(d)}
               key={getKey(d, keygen, i)}
               data={d}
+              multiple={multiple}
               onClick={this.handleChange}
               renderItem={this.renderItem}
             />
@@ -117,7 +125,7 @@ class Select extends PureComponent {
   }
 
   render() {
-    const { placeholder, multiple } = this.props
+    const { placeholder, multiple, clearable } = this.props
     const className = selectClass('inner')
     const renderResult = this.props.renderResult || this.props.renderItem
 
@@ -130,6 +138,7 @@ class Select extends PureComponent {
         onBlur={this.handleBlur}
       >
         <Result
+          onClear={clearable ? this.handleClear : undefined}
           focus={this.state.focus}
           result={this.result}
           multiple={multiple}
@@ -145,6 +154,7 @@ class Select extends PureComponent {
 Select.propTypes = {
   // datum: PropTypes.object,
   ...getProps(['placehodler', 'keygen']),
+  clearable: PropTypes.bool,
   data: PropTypes.array,
   datum: PropTypes.object.isRequired,
   multiple: PropTypes.bool,
@@ -157,6 +167,7 @@ Select.propTypes = {
 }
 
 Select.defaultProps = {
+  clearable: false,
   data: [],
   multiple: false,
   renderItem: e => e,

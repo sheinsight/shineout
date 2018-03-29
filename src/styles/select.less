@@ -10,11 +10,38 @@
   &-inner {
     width: 100%;
     outline: none;
-    padding: @padding-base-vertical @padding-base-horizontal;
+  }
+
+  &-result {
+    padding: @padding-base-vertical @padding-base-horizontal+12 @padding-base-vertical @padding-base-horizontal;
+  }
+
+  &-indicator {
+    position: absolute;
+    color: @gray-500;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    display: block;
+    top: 50%;
+    transform: translate(-7px, -50%);
+
+    &.@{select-prefix}-close {
+      .close(12px, @gray-500);
+    }
+
+    &.@{select-prefix}-caret {
+      margin-top: -4px;
+      .caret(down);
+      &:after {
+        margin-left: .2em;
+      }
+    }
   }
 
   &-options {
     min-width: 100%;
+    display: none;
     overflow: hidden;
     position: absolute;
     top: 100%;
