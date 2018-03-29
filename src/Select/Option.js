@@ -14,8 +14,8 @@ class Option extends PureComponent {
   }
 
   render() {
-    const { data, renderItem } = this.props
-    const className = selectClass('option')
+    const { data, isActive, renderItem } = this.props
+    const className = selectClass('option', isActive && 'active')
 
     return (
       <a onClick={this.handleClick} className={className}>

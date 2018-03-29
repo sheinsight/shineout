@@ -15,6 +15,7 @@
 
   &-options {
     min-width: 100%;
+    overflow: hidden;
     position: absolute;
     top: 100%;
     margin-top: 4px;
@@ -25,6 +26,7 @@
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.02), @dropdown-box-shadow;
     background-clip: padding-box;
     z-index: @zindex-dropdown;
+    transform-origin: 0 0;
   }
 
   &-option {
@@ -32,12 +34,18 @@
     padding: @dropdown-item-padding-y @dropdown-padding-x;
     line-height: @line-height-base;
     color: @dropdown-link-color;
+    transition: none;
 
-    &:hover,
-    .@{select-prefix}-active {
+    &:hover {
       text-decoration: none;
       color: @dropdown-link-hover-color;
       background-color: @dropdown-link-hover-bg;
+    }
+
+    &.@{select-prefix}-active {
+      text-decoration: none;
+      color: @dropdown-link-active-color;
+      background-color: @dropdown-link-active-bg;
     }
   }
 }

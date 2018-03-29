@@ -1,16 +1,12 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { listClass } from '../styles'
 
-class List extends PureComponent {
-  constructor(props) {
-    super(props)
-
-    this.state = {}
-  }
-
+// Use Component cause stateless Element can't use ref
+// eslint-disable-next-line
+class List extends Component {
   render() {
     const className = classnames(
       listClass('_'),

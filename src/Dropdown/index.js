@@ -8,6 +8,8 @@ import { dropdownClass } from '../styles'
 import List from '../List'
 import Item from './Item'
 
+const FadeList = List('fade')
+
 const positionMap = {
   'left-top': 'left-top',
   'left-bottom': 'left-bottom',
@@ -139,7 +141,7 @@ class Dropdown extends PureComponent {
       >
         <span className={spanClassName}>{placeholder}</span>
       </Button>,
-      <List.Fade
+      <FadeList
         className={dropdownClass('menu')}
         style={{ width }}
         key="2"
@@ -178,7 +180,7 @@ class Dropdown extends PureComponent {
                 />)
           })
         }
-      </List.Fade>]
+      </FadeList>]
   }
   render() {
     const {

@@ -9,7 +9,7 @@ import { hidableClass } from '../styles'
  * @param {*} duration
  * @param {*} type - fade, collapse, tranlate
  */
-export default function (Component, type = ['fade'], duration = 400) {
+export default function (Component, type = ['fade'], duration = 360) {
   const hasCollapse = type.indexOf('collapse') >= 0
 
   class Hidable extends PureComponent {
@@ -91,9 +91,10 @@ export default function (Component, type = ['fade'], duration = 400) {
 
     render() {
       const className = classnames(
-        hidableClass('_', ...type, this.state.show && 'show'),
+        hidableClass('_', ...type, `animation-${duration}`, this.state.show && 'show'),
         this.props.className,
       )
+
       return (
         <Component
           ref={this.bindElement}

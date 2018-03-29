@@ -3,19 +3,27 @@
 @hidable-prefix: ~"@{so-prefix}-hidable";
 
 .@{hidable-prefix} {
-  &-collapse, &-fade, &-translate {
-    transition: 0.400s ease-in-out;
+  &-animation-240 {
+    transition: 0.240s ease-in-out;
+  }
+
+  &-animation-360 {
+    transition: 0.360s ease-in-out;
+  }
+
+  &-animation-480 {
+    transition: 0.480s ease-in-out;
   }
 
   &-collapse, &-collapse-fade {
     overflow: hidden;
   }
 
-  &-translate {
-    transform: translateY(0);
+  &-scale-y {
+    transform: scaleY(0);
 
     &.@{hidable-prefix}-show {
-      transform: translateY(100%);
+      transform: scaleY(1);
     }
   }
 
