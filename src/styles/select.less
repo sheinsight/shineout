@@ -27,6 +27,7 @@
     transform: translate(-7px, -50%);
 
     &.@{select-prefix}-close {
+      display: none;
       .close(12px, @gray-500);
     }
 
@@ -37,6 +38,11 @@
         margin-left: .2em;
       }
     }
+  }
+
+  &-focus &-close,
+  &-result:hover &-close {
+    display: block;
   }
 
   &-options {

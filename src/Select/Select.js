@@ -126,7 +126,7 @@ class Select extends PureComponent {
 
   render() {
     const { placeholder, multiple, clearable } = this.props
-    const className = selectClass('inner')
+    const className = selectClass('inner', this.state.focus && 'focus')
     const renderResult = this.props.renderResult || this.props.renderItem
 
     return (
