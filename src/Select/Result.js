@@ -2,6 +2,16 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { inputClass, selectClass } from '../styles'
 
+// eslint-disable-next-line
+function Item({ renderResult, data, onClick }) {
+  return (
+    <a className={selectClass('item')} onClick={() => onClick(data)}>
+      {renderResult(data)}
+      <span className={selectClass('indicator', 'close')} />
+    </a>
+  )
+}
+
 class Result extends PureComponent {
   renderClear() {
     const { onClear, result } = this.props
@@ -25,16 +35,21 @@ class Result extends PureComponent {
   renderPlaceholder() {
     return (
       <span className={inputClass('placeholder')}>
-        {this.props.placeholder}
+        {this.props.placeholder}&nbsp;
       </span>
     )
   }
 
   renderResult() {
-    const { multiple, result, renderResult } = this.props
+    const {
+      multiple, result, renderResult, onRemove,
+    } = this.props
+
     if (!multiple) return <span>{renderResult(result[0])}</span>
 
-    return null
+    return result.map((d, i) => (
+      <Item key={i} data={d} onClick={onRemove} renderResult={renderResult} />
+    ))
   }
 
   render() {
@@ -58,6 +73,7 @@ class Result extends PureComponent {
 
 Result.propTypes = {
   multiple: PropTypes.bool.isRequired,
+  onRemove: PropTypes.func,
   onClear: PropTypes.func,
   result: PropTypes.array.isRequired,
   renderResult: PropTypes.func.isRequired,

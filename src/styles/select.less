@@ -13,22 +13,47 @@
   }
 
   &-result {
-    padding: @padding-base-vertical @padding-base-horizontal+12 @padding-base-vertical @padding-base-horizontal;
+    padding: @padding-base-vertical @padding-base-horizontal+12 0 @padding-base-horizontal;
+
+    span {
+      display: inline-block;
+      margin-bottom: @padding-base-vertical;
+    }
+
+    .@{select-prefix}-item {
+      position: relative;
+      display: inline-block;
+      background: @select-result-bg;
+      margin-right: @select-result-space;
+      margin-bottom: @padding-base-vertical;
+      padding: 0 @select-result-space+16 0 @select-result-space;
+      color: inherit;
+      border-radius: @select-result-border-radius;
+
+      .@{select-prefix}-close {
+        display: block;
+        right: @select-result-space;
+      }
+
+      &:hover .@{select-prefix}-close {
+        background-color: @gray-600;
+      }
+    }
   }
 
   &-indicator {
     position: absolute;
     color: @gray-500;
-    right: 0;
+    right: 7px;
     width: 12px;
     height: 12px;
     display: block;
     top: 50%;
-    transform: translate(-7px, -50%);
+    transform: translate(0, -50%);
 
     &.@{select-prefix}-close {
       display: none;
-      .close(12px, @gray-500);
+      .close(12px, @gray-400);
     }
 
     &.@{select-prefix}-caret {

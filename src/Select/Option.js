@@ -15,7 +15,7 @@ class Option extends PureComponent {
 
     if (isActive && !multiple) return
 
-    onClick(data, !isActive)
+    onClick(!isActive, data)
   }
 
   render() {

@@ -15,8 +15,13 @@ const source = locate(cn, en)
 const examples = [
   {
     title: locate('基本用法', 'Base'),
-    component: require('doc/pages/components/Select/example-1-base.1.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Select/example-1-base.1.js'),
+    component: require('doc/pages/components/Select/example-1-base.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-1-base.js'),
+  },
+  {
+    title: locate('多选', 'Multiple'),
+    component: require('doc/pages/components/Select/example-2-multiple.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-2-multiple.js'),
   },
   {
     title: locate('可清空', 'Clearable'),

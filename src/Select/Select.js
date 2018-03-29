@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import immer from 'immer'
 import { getProps } from '../utils/proptypes'
 import { getKey } from '../utils/uid'
 import List from '../List'
@@ -13,14 +14,15 @@ class Select extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.state = { focus: false }
-    this.result = []
+    this.state = { focus: false, result: [] }
 
     this.bindElement = this.bindElement.bind(this)
     this.handleFocus = this.handleState.bind(this, true)
     this.handleBlur = this.handleState.bind(this, false)
-    this.handleChange = this.handleChange.bind(this)
     this.handleClear = this.handleClear.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleRemove = this.handleChange.bind(this, false)
+
     this.resetResult = this.resetResult.bind(this)
     this.renderItem = this.renderItem.bind(this)
 
@@ -50,26 +52,30 @@ class Select extends PureComponent {
     else onBlur()
   }
 
-  handleChange(data, checked) {
+  handleChange(checked, data) {
     const { datum, multiple } = this.props
 
     if (multiple) {
       if (checked) {
         datum.add(data)
-        this.result.push(data)
+        this.setState(immer((state) => {
+          state.result.push(data)
+        }))
       } else {
         datum.remove(data)
-        this.result = this.result.filter(r => r !== data)
+        this.setState({ result: this.state.result.filter(r => r !== data) })
       }
     } else {
       datum.set(data)
-      this.result = [data]
+      this.setState({ result: [data] })
       this.element.blur()
     }
+
+    this.forceUpdate()
   }
 
   handleClear() {
-    this.result = []
+    this.setState({ result: [] })
     this.props.datum.setValue([])
 
     if (this.state.focus === false) {
@@ -79,6 +85,7 @@ class Select extends PureComponent {
     }
   }
 
+  // result performance
   resetResult() {
     const { data, datum } = this.props
     this.result = []
@@ -129,6 +136,8 @@ class Select extends PureComponent {
     const className = selectClass('inner', this.state.focus && 'focus')
     const renderResult = this.props.renderResult || this.props.renderItem
 
+    console.log(11111)
+
     return (
       <div
         tabIndex={-1}
@@ -139,8 +148,9 @@ class Select extends PureComponent {
       >
         <Result
           onClear={clearable ? this.handleClear : undefined}
+          onRemove={this.handleRemove}
           focus={this.state.focus}
-          result={this.result}
+          result={this.state.result}
           multiple={multiple}
           placeholder={placeholder}
           renderResult={renderResult}
