@@ -6,7 +6,7 @@ import { getProps, defaultProps } from '../utils/proptypes'
 import Button from '../Button'
 import { dropdownClass } from '../styles'
 import List from '../List'
-import Item from './item'
+import Item from './Item'
 
 const positionMap = {
   'left-top': 'left-top',
