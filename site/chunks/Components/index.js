@@ -20,7 +20,7 @@ const pages = [
   },
   {
     name: 'Dropdown',
-    cn: '下拉',
+    cn: '下拉菜单',
     level: 2,
     component: loadable(() => import('./Dropdown')),
   },

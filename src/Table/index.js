@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
-import deepEqual from 'fast-deep-equal'
+import deepEqual from 'deep-eql'
 import hash from '../utils/hash'
 import pagable from '../hoc/pagable'
 import Table from './Table'

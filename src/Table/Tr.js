@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import deepEqual from 'fast-deep-equal'
+import deepEqual from 'deep-eql'
 import { setTranslate } from '../utils/dom/translate'
 import { tableClass } from '../styles'
 import Td, { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
