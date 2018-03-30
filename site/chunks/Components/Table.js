@@ -24,7 +24,7 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-02-style.js'),
   },
   {
-    title: locate('紧凑表格 \n 设置 size=small', 'Small table'),
+    title: locate('紧凑表格 \n 设置 size=small', 'Small user'),
     component: require('doc/pages/components/Table/example-03-small.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-03-small.js'),
   },

@@ -4,7 +4,7 @@
  */
 import React, { PureComponent } from 'react'
 import { Table } from 'shineout'
-import { fetch } from 'doc/data/table'
+import { fetch } from 'doc/data/user'
 
 export default class extends PureComponent {
   constructor(props) {
@@ -54,7 +54,7 @@ export default class extends PureComponent {
   fetchData = () => {
     const { sorter, current, pageSize } = this.state
     this.setState({ loading: true })
-    fetch.get('table', { sorter, current, pageSize }).then((res) => {
+    fetch.get('user', { sorter, current, pageSize }).then((res) => {
       this.setState({ data: res.data, loading: false, total: res.total })
     })
   }

@@ -4,7 +4,7 @@
  */
 import React, { PureComponent } from 'react'
 import { Table } from 'shineout'
-import { fetchSync } from 'doc/data/table'
+import { fetchSync } from 'doc/data/user'
 
 const data = fetchSync(100)
 

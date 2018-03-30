@@ -3,7 +3,7 @@
  * en - Base
  */
 import React, { PureComponent } from 'react'
-import { Form, Input, Checkbox, Textarea } from 'shineout'
+import { Form, Input, Checkbox, Textarea, Select } from 'shineout'
 
 export default class extends PureComponent {
   initValue = {
@@ -37,6 +37,14 @@ export default class extends PureComponent {
         <Form.Item label="Favorite Color">
           <Checkbox.Group
             name="favoriteColor"
+            data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
+          />
+        </Form.Item>
+
+        <Form.Item label="Hate Color">
+          <Select
+            name="hateColor"
+            style={{ width: 100 }}
             data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
           />
         </Form.Item>

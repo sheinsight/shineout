@@ -4,7 +4,7 @@
  */
 import React, { PureComponent } from 'react'
 import { Table, Datum, Button, Message } from 'shineout'
-import { fetch } from 'doc/data/table'
+import { fetch } from 'doc/data/user'
 
 export default class extends PureComponent {
   constructor(props) {
@@ -53,7 +53,7 @@ export default class extends PureComponent {
   fetchData = () => {
     const { sorter, current, pageSize } = this.state
     this.setState({ loading: true })
-    fetch.get('table', { sorter, current, pageSize }).then((res) => {
+    fetch.get('user', { sorter, current, pageSize }).then((res) => {
       this.datum.clear()
 
       this.setState({
@@ -66,14 +66,14 @@ export default class extends PureComponent {
 
   handleTurnOff(d) {
     this.setState({ loading: true })
-    fetch.post('table', { op: 'off', ids: [d.id] }).then(this.fetchData)
+    fetch.post('user', { op: 'off', ids: [d.id] }).then(this.fetchData)
   }
 
   handleOpClick(op) {
     const ids = this.datum.getValue()
     if (ids.length > 0) {
       this.setState({ loading: true })
-      fetch.post('table', { op, ids }).then(this.fetchData)
+      fetch.post('user', { op, ids }).then(this.fetchData)
     } else {
       Message.warn('No item selected.')
     }

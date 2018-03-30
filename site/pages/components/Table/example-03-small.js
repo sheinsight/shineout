@@ -1,10 +1,10 @@
 /**
  * cn - 紧凑表格 \n 设置 size=small
- * en - Small table
+ * en - Small user
  */
 import React from 'react'
 import { Table } from 'shineout'
-import { fetchSync } from 'doc/data/table'
+import { fetchSync } from 'doc/data/user'
 
 const data = fetchSync(4)
 
