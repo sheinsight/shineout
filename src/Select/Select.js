@@ -133,7 +133,11 @@ class Select extends PureComponent {
 
   render() {
     const { placeholder, multiple, clearable } = this.props
-    const className = selectClass('inner', this.state.focus && 'focus')
+    const className = selectClass(
+      'inner',
+      this.state.focus && 'focus',
+      this.props.size,
+    )
     const renderResult = this.props.renderResult || this.props.renderItem
 
     return (
@@ -172,6 +176,7 @@ Select.propTypes = {
     PropTypes.string,
     PropTypes.func,
   ]),
+  size: PropTypes.string,
 }
 
 Select.defaultProps = {

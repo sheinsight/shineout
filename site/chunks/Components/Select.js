@@ -28,6 +28,11 @@ const examples = [
     component: require('doc/pages/components/Select/example-3-clearable.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-3-clearable.js'),
   },
+  {
+    title: locate('大小', 'Size'),
+    component: require('doc/pages/components/Select/example-4-size.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-4-size.js'),
+  },
 ]
 
 const codes = undefined
