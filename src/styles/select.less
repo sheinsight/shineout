@@ -5,7 +5,6 @@
 
 .@{select-prefix} {
   position: relative;
-  padding: 0;
 
   &-inner {
     width: 100%;
@@ -32,11 +31,20 @@
 
       .@{select-prefix}-close {
         display: block;
+        background-color: transparent;
         right: @select-result-space;
+
+        &:before, &:after {
+          background-color: @gray-500;
+        }
       }
 
       &:hover .@{select-prefix}-close {
-        background-color: @gray-600;
+        background-color: transparent;
+
+        &:before, &:after {
+          background-color: @gray-600;
+        }
       }
     }
   }

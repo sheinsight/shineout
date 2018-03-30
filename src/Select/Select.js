@@ -136,8 +136,6 @@ class Select extends PureComponent {
     const className = selectClass('inner', this.state.focus && 'focus')
     const renderResult = this.props.renderResult || this.props.renderItem
 
-    console.log(11111)
-
     return (
       <div
         tabIndex={-1}

@@ -6,7 +6,7 @@ import { selectClass } from '../styles'
 import Select from './Select'
 
 const input = compose(
-  wrapper({ className: selectClass('_') }),
+  wrapper({ className: selectClass('_'), noPadding: true }),
   inputable({}),
   Datum.hoc({}),
 )
