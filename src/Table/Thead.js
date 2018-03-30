@@ -89,11 +89,13 @@ class Thead extends PureComponent {
       return
     }
 
+    const style = typeof col.name === 'string' ? undefined : { padding: 0 }
     trs[level].push((
       <th
         className={tableClass('center', 'condensed', ...fixed)}
         colSpan={col.colSpan}
         key={col.key}
+        style={style}
       >
         {col.name}
       </th>
