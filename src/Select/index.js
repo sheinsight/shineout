@@ -8,7 +8,7 @@ import Select from './Select'
 const input = compose(
   wrapper({ className: selectClass('_'), noPadding: true }),
   inputable({}),
-  Datum.hoc({}),
+  Datum.hoc({ limit: 1 }),
 )
 
 export default input(Select)

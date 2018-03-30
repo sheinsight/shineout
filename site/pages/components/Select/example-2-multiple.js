@@ -1,5 +1,6 @@
 /**
  * cn - 多选
+ *    -- multiple 属性为true时，为多选状态，默认为单选
  * en - Multiple
  */
 import React from 'react'

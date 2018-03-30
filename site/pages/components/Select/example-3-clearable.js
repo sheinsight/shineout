@@ -1,5 +1,6 @@
 /**
  * cn - 可清空
+ *    -- clearable 属性为 true 时，hover 后会显示清空图标，点击后清除所选数据
  * en - Clearable
  */
 import React from 'react'

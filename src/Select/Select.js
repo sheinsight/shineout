@@ -26,8 +26,8 @@ class Select extends PureComponent {
     this.resetResult = this.resetResult.bind(this)
     this.renderItem = this.renderItem.bind(this)
 
-    if (!props.multiple) {
-      props.datum.limit = 1
+    if (props.multiple) {
+      props.datum.limit = undefined
     }
     props.datum.listen('set-value', this.resetResult)
   }
@@ -88,10 +88,11 @@ class Select extends PureComponent {
   // result performance
   resetResult() {
     const { data, datum } = this.props
-    this.result = []
+    const result = []
     data.forEach((d) => {
-      if (datum.check(d)) this.result.push(d)
+      if (datum.check(d)) result.push(d)
     })
+    this.setState({ result })
   }
 
   renderItem(data) {
@@ -138,7 +139,7 @@ class Select extends PureComponent {
       this.state.focus && 'focus',
       this.props.size,
     )
-    const renderResult = this.props.renderResult || this.props.renderItem
+    const renderResult = this.props.renderResult || this.renderItem
 
     return (
       <div

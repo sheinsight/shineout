@@ -11,7 +11,7 @@ export default class {
     this.separator = separator
     this.disabled = disabled || (() => false)
     this.initFormat(format)
-    this.events = {}
+    this.$events = {}
 
     if (prediction) this.prediction = prediction
     /*
@@ -80,7 +80,7 @@ export default class {
   }
 
   dispatch(name, ...args) {
-    const event = this.events[name]
+    const event = this.$events[name]
     if (!event) return
     event.forEach(fn => fn(...args))
   }
@@ -134,15 +134,15 @@ export default class {
   }
 
   listen(name, fn) {
-    if (!this.events[name]) this.events[name] = []
-    const events = this.events[name]
+    if (!this.$events[name]) this.$events[name] = []
+    const events = this.$events[name]
     if (fn in events) return
     events.push(fn)
   }
 
   unlisten(name, fn) {
-    if (!this.events[name]) return
-    this.events[name] = this.events[name].filter(e => e !== fn)
+    if (!this.$events[name]) return
+    this.$events[name] = this.$events[name].filter(e => e !== fn)
   }
 
   getValue() {
@@ -162,7 +162,6 @@ export default class {
   setValue(values = []) {
     // value not change
     if (shallowEqual(this.$cachedValue, values)) return
-
 
     if (this.limit === 1 && !Array.isArray(values)) {
       this.resetValue([values])

@@ -1,5 +1,6 @@
 /**
  * cn - 大小
+ *    -- 有三种 size，['small', default, 'large']，默认为 default(不要填写)
  * en - Size
  */
 import React from 'react'
