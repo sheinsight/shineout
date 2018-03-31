@@ -45,11 +45,16 @@ class Result extends PureComponent {
       multiple, result, renderResult, onRemove,
     } = this.props
 
-    if (!multiple) return <span>{renderResult(result[0])}</span>
-
-    return result.map((d, i) => (
-      <Item key={i} data={d} onClick={onRemove} renderResult={renderResult} />
-    ))
+    if (multiple) {
+      return result.map((d, i) => (
+        <Item key={i} data={d} onClick={onRemove} renderResult={renderResult} />
+      ))
+    }
+    return (
+      <span className={selectClass('ellipsis')}>
+        {renderResult(result[0])}
+      </span>
+    )
   }
 
   render() {

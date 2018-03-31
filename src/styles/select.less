@@ -17,6 +17,13 @@
     span {
       display: inline-block;
       margin-bottom: @padding-base-vertical;
+
+      &.@{select-prefix}-ellipsis {
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
 
     .@{select-prefix}-item {
@@ -67,8 +74,10 @@
     &.@{select-prefix}-caret {
       .caret(down);
       &:after {
-        vertical-align: 0;
-        margin-left: .2em;
+        position: absolute;
+        margin: 0;
+        top: (12 - @caret-width * 1.4) / 2;
+        left: 2px;
       }
     }
   }
@@ -102,6 +111,7 @@
     line-height: @line-height-base;
     color: @dropdown-link-color;
     transition: none;
+    white-space: nowrap;
 
     &:hover {
       text-decoration: none;
