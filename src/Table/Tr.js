@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import deepEqual from 'deep-eql'
+import shallowEqual from '../utils/shallowEqual'
 import { setTranslate } from '../utils/dom/translate'
 import { tableClass } from '../styles'
 import Td, { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
@@ -26,7 +27,7 @@ class Tr extends Component {
 
   shouldComponentUpdate(nextProps) {
     const isEqual = deepEqual(this.props.columns, nextProps.columns)
-      && deepEqual(this.props.data, nextProps.data)
+      && shallowEqual(this.props.data, nextProps.data)
     return !isEqual
   }
 
