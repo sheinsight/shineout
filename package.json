@@ -21,7 +21,6 @@
     "build": "npm-run-all build-*"
   },
   "dependencies": {
-    "babel-preset-es2015": "^6.24.1",
     "classnames": "^2.2.5",
     "create-react-context": "^0.2.1",
     "deep-eql": "^3.0.1",
