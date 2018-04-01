@@ -23,6 +23,7 @@ export default curry((options, Origin) => class extends Component {
     size: PropTypes.string,
     style: PropTypes.object,
     tip: PropTypes.any,
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     popover: PropTypes.oneOf(['top-left', 'top', 'top-right', 'bottom-left', 'bottom', 'bottom-right']),
   }
 
@@ -85,10 +86,12 @@ export default curry((options, Origin) => class extends Component {
 
   render() {
     const {
-      className, border, style, size, tip, popover, ...other
+      className, border, size, tip, popover, width, style, ...other
     } = this.props
     const { errors, focus } = this.state
     const Tag = options.tag || 'label'
+
+    const newStyle = Object.assign({ width }, style)
 
     const newClassName = classnames(
       inputClass(
@@ -97,7 +100,7 @@ export default curry((options, Origin) => class extends Component {
         other.disabled && 'disabled',
         options.isGroup && 'group',
         size,
-        style.width && 'inline',
+        newStyle.width && 'inline',
         !border && 'no-border',
         options.noPadding && 'no-padding',
         options.overflow && `overflow-${options.overflow}`,
@@ -109,7 +112,7 @@ export default curry((options, Origin) => class extends Component {
     )
 
     return (
-      <Tag className={newClassName} style={style}>
+      <Tag className={newClassName} style={newStyle}>
         <Origin
           {...other}
           size={size}

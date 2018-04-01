@@ -8,7 +8,6 @@ import { Select } from 'shineout'
 import { fetchSync as fetchCity } from 'doc/data/city'
 import { fetchSync as fetchUser } from 'doc/data/user'
 
-// data = [{id:1, city: 'name'}]
 const citys = fetchCity(100)
 const users = fetchUser(100)
 const onChange = d => console.log(d)

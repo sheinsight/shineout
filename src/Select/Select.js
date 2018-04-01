@@ -4,6 +4,7 @@ import immer from 'immer'
 import { getProps } from '../utils/proptypes'
 import { getKey } from '../utils/uid'
 import List from '../List'
+import Scroll from '../Scroll'
 import { selectClass } from '../styles'
 import Option from './Option'
 import Result from './Result'
@@ -113,20 +114,22 @@ class Select extends PureComponent {
         className={selectClass('options')}
       >
         {
-          data.length === 0 &&
-          <span className={selectClass('option')}>No Data</span>
-        }
-        {
-          data.map((d, i) => (
-            <Option
-              isActive={datum.check(d)}
-              key={getKey(d, keygen, i)}
-              data={d}
-              multiple={multiple}
-              onClick={this.handleChange}
-              renderItem={this.renderItem}
-            />
-          ))
+          data.length === 0
+          ? <span className={selectClass('option')}>No Data</span>
+          : (
+            <Scroll scroll="y">
+              {data.map((d, i) => (
+                <Option
+                  isActive={datum.check(d)}
+                  key={getKey(d, keygen, i)}
+                  data={d}
+                  multiple={multiple}
+                  onClick={this.handleChange}
+                  renderItem={this.renderItem}
+                />
+                ))}
+            </Scroll>
+          )
         }
       </ScaleList>
     )

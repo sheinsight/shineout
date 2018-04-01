@@ -8,7 +8,6 @@
 import React from 'react'
 import { Input } from 'shineout'
 
-const style = { marginBottom: 12 }
 const rules = [
   { required: true, message: 'Please enter your email.' },
   { type: 'email', message: 'Please enter a valid email.' },
@@ -16,14 +15,12 @@ const rules = [
 
 export default function () {
   return (
-    <div style={{ width: 300 }}>
-      <Input
-        style={style}
-        placeholder="email"
-        rules={rules}
-        tip="Email, required"
-        popover="top-left"
-      />
-    </div>
+    <Input
+      placeholder="email"
+      rules={rules}
+      tip="Email, required"
+      popover="top-left"
+      width={300}
+    />
   )
 }
