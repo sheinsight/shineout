@@ -11,6 +11,6 @@ publish
 *.bat
 /*.sh
 /components
-log
+*.log
 /data
 gh-pages

@@ -58,7 +58,6 @@ class Block extends PureComponent {
     if (rules && this.datum.rules !== rules) {
       this.datum.rules = rules
     }
-    // this.datum.setValue(value)
 
     return (
       <Provider value={{ formDatum: this.datum, labelWidth }}>

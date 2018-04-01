@@ -205,8 +205,8 @@ export default class {
 
       Promise.all(validates).then((res) => {
         const error = res.find(r => r !== true)
-        if (error) reject(error)
-        else resolve(true)
+        if (error === undefined) resolve(true)
+        else reject(error)
       })
     })
   }
