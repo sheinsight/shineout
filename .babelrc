@@ -1,7 +1,37 @@
 {
   "env": {
+    "development": {
+      "presets": ["react-app"]
+    },
     "production": {
-      "plugins": ["transform-react-remove-prop-types"]
+      "plugins": ["transform-react-remove-prop-types"],
+      "presets": ["react-app"]
+    },
+    "publish": {
+      "plugins": [
+        "transform-class-properties",
+        [
+          "transform-object-rest-spread",
+          {
+            "useBuiltIns": true
+          }
+        ]
+      ],
+      "presets": [
+        ["env",
+          {
+            "targets": {
+              "browsers": [
+                "last 2 versions",
+                "ie >= 9"
+              ]
+            },
+            "loose": true,
+            "useBuiltIns": "entry"
+          }
+        ],
+        "react"
+      ]
     }
   },
   "plugins": [
@@ -12,6 +42,5 @@
         "camel2DashComponentName": false
       }
     ]
-  ],
-  "presets": ["react-app"]
+  ]
 }

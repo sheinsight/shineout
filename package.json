@@ -1,6 +1,6 @@
 {
   "name": "shineout",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Shein 前端组件库",
   "main": "./lib/index.js",
   "module": "./es/index.js",
@@ -16,7 +16,7 @@
     "build-clean": "rm -rf publish/es publish/dist",
     "build-dist": "cross-env NODE_ENV=production webpack --config webpack/config.dist.js",
     "build-es6": "cp -R src publish/es",
-    "bak-build-es5": "NODE_ENV=production babel src --out-dir publish/lib",
+    "bak-build-es5": "cross-env NODE_ENV=publish babel src --out-dir publish/lib",
     "bak-build-css": "node scripts/build-css.js",
     "build": "npm-run-all build-*"
   },
@@ -36,6 +36,7 @@
     "babel-eslint": "^8.2.1",
     "babel-loader": "^7.1.2",
     "babel-plugin-import": "^1.6.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.12",
     "babel-preset-react-app": "^3.1.0",
