@@ -1,5 +1,5 @@
 /**
- * cn - 表单块 Form.Block
+ * cn - 表单块
  *    -- Block 类似 Form，可以存取数据，只是没有 Submit 能力。一般用在 Form 中处理复杂数据。
  *    -- Block 内组件设置的 name 只在这个 Block 内有效，只能存取 Block 的 value 中的数据，不能存取 Form 的数据。
  * en - Block

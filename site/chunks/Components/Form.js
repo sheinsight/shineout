@@ -69,17 +69,22 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-11-disabled.js'),
   },
   {
-    title: locate('字段 Form.Field \n 支持 value 和 onChange 的组件可以放在 Form.Field 中。', 'Field'),
+    title: locate('字段 \n 支持 value 和 onChange 的组件可以放在 Form.Field 和 Form.FuncField 中。 \n Form.Field children 必须为一个 ReactElement，必须支持 value 和 onChange 属性 \n Form.FuncField children 必须为一个 Function，返回一个或一组 ReactElement', 'Field'),
     component: require('doc/pages/components/Form/example-12-field.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-12-field.js'),
   },
   {
-    title: locate('遍历 Form.Loop \n Form.Loop 通过 name 属性从 Form 中获取一个类型为 array 的 value，遍历这个 value 生成一组子组件。', 'Loop'),
+    title: locate(' \n 示例：使用 Form.Field 引入 react-color', ''),
+    component: require('doc/pages/components/Form/example-13-func-field.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-13-func-field.js'),
+  },
+  {
+    title: locate('遍历 \n Form.Loop 通过 name 属性从 Form 中获取一个类型为 array 的 value，遍历这个 value 生成一组子组件。', 'Loop'),
     component: require('doc/pages/components/Form/example-14-loop.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-14-loop.js'),
   },
   {
-    title: locate('表单块 Form.Block \n Block 类似 Form，可以存取数据，只是没有 Submit 能力。一般用在 Form 中处理复杂数据。 \n Block 内组件设置的 name 只在这个 Block 内有效，只能存取 Block 的 value 中的数据，不能存取 Form 的数据。', 'Block'),
+    title: locate('表单块 \n Block 类似 Form，可以存取数据，只是没有 Submit 能力。一般用在 Form 中处理复杂数据。 \n Block 内组件设置的 name 只在这个 Block 内有效，只能存取 Block 的 value 中的数据，不能存取 Form 的数据。', 'Block'),
     component: require('doc/pages/components/Form/example-15-block.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-15-block.js'),
   },
@@ -94,9 +99,14 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-17-nested.js'),
   },
   {
+    title: locate(' \n Form.BlockField 合并了 Form.Field 和 Form.Block，可以简化如下', 'Nested data'),
+    component: require('doc/pages/components/Form/example-18-block-field.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-18-block-field.js'),
+  },
+  {
     title: locate(' \n 更简单的处理多级嵌套数据的方法，在 name 中用 . 分隔字段名称。', 'Datum.Form.flatten'),
-    component: require('doc/pages/components/Form/example-18-nested.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-18-nested.js'),
+    component: require('doc/pages/components/Form/example-19-nested.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-19-nested.js'),
   },
 ]
 
