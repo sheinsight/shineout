@@ -20,7 +20,7 @@ class Thead extends PureComponent {
     }
 
     if (level > this.columnLevel) this.columnLevel = level
-    const g = typeof col.group === 'string' ? [col.group] : col.group
+    const g = Array.isArray(col.group) ? col.group : [col.group]
     const last = columns[columns.length - 1]
 
     if (!g[level]) {
