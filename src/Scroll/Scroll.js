@@ -113,6 +113,8 @@ class Scroll extends PureComponent {
     } = this.props
     const { width, height } = this.getWheelRect()
 
+    console.log(top, scrollHeight, height)
+
     const className = classnames(
       scrollClass(
         '_',
