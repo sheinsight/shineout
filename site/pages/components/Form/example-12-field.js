@@ -1,11 +1,12 @@
 /**
- * cn - 字段 Form.Field
- *    -- 支持 value 和 onChange 的组件可以放在 Form.Field 中。
+ * cn - 字段
+ *    -- 支持 value 和 onChange 的组件可以放在 Form.Field 和 Form.FuncField 中。
+ *    -- Form.Field children 必须为一个 ReactElement，必须支持 value 和 onChange 属性
+ *    -- Form.FuncField children 必须为一个 Function，返回一个或一组 ReactElement
  * en - Field
  */
-import React, { PureComponent } from 'react'
+import React from 'react'
 import { Form } from 'shineout'
-import { SketchPicker } from 'react-color'
 
 const rules = {
   email: [
@@ -29,78 +30,18 @@ function Input({ value = '', error, ...props }) {
   return <input style={style} value={value} {...props} />
 }
 
-const colorStyle = {
-  outer: {
-    position: 'relative',
-  },
-  handle: {
-    width: 16,
-    height: 16,
-    border: '4px solid #fff',
-    display: 'block',
-    boxSizing: 'content-box',
-    boxShadow: '0 0 1px 0 rgba(0, 0, 0, 0.4)',
-  },
-  picker: {
-    position: 'absolute',
-    left: 0,
-    top: '100%',
-    marginTop: 4,
-    zIndex: 1000,
-  },
-}
-
-/* eslint-disable */
-class ColorPicker extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = { showColor: false }
-  }
-
-  handleChange = (color) => {
-    this.props.onChange(color.hex)
-    this.setState({ showColor: false })
-  }
-
-  handleClick = () => { this.setState({ showColor: true }) }
-
-  render() {
-    const { color } = this.props
-    return (
-      <div style={colorStyle.outer}>
-        <a style={{ ...colorStyle.handle, background: color }}
-          onClick={this.handleClick}
-          href="javascript:;" />
-        {
-          this.state.showColor &&
-          <div style={colorStyle.picker}>
-            <SketchPicker color={color} onChange={this.handleChange} />
-          </div>
-        }
-      </div>
-    )
-  }
-}
-/* eslint-enable */
-
 export default function () {
   return (
     <Form rules={rules} style={{ maxWidth: 500 }} onSubmit={d => console.log(d)}>
       <Form.Item required label="Email">
-        <Form.Field defaultValue="test@email.com" name="email">
+        <Form.FuncField defaultValue="test@email.com" name="email">
           { ({ value, onChange }) => <Input value={value} onChange={onChange} type="text" />}
-        </Form.Field>
+        </Form.FuncField>
       </Form.Item>
 
       <Form.Item required label="Password" tip="Use at least one letter, one numeral, and seven characters.">
         <Form.Field name="password">
-          { props => <Input {...props} type="password" /> }
-        </Form.Field>
-      </Form.Item>
-
-      <Form.Item label="Favorite color" tip="Choose your favorite color.">
-        <Form.Field name="color" defaultValue="#7ED321">
-          {({ value, onChange }) => <ColorPicker color={value} onChange={onChange} />}
+          <Input type="password" />
         </Form.Field>
       </Form.Item>
 

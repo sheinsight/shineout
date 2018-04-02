@@ -1,6 +1,6 @@
 /**
- * cn - 嵌套数据
- *    -- Form.Block 配合 Form.Field 使用，可以处理多层嵌套数据
+ * cn -
+ *    -- Form.BlockField 合并了 Form.Field 和 Form.Block，可以简化如下
  * en - Nested data
  */
 import React, { PureComponent } from 'react'
@@ -13,34 +13,6 @@ const rules = {
     ],
   },
 }
-
-// eslint-disable-next-line
-const Account = ({ value, onChange }) => (
-  <Form.Block labelWidth={50} value={value} onChange={onChange}>
-    <Form.Item label="Name">
-      <Form.Field name="name">
-        <Form.Block>
-          <Input.Group style={{ width: 300 }}>
-            <Input name="firstName" placeholder="First Name" />
-            -
-            <Input name="lastName" placeholder="Last Name" />
-          </Input.Group>
-        </Form.Block>
-      </Form.Field>
-    </Form.Item>
-
-    <Form.Item label="Age">
-      <Input
-        rules={rules.account.age}
-        style={{ width: 100 }}
-        name="age"
-        type="number"
-        digits={0}
-        defaultValue={0}
-      />
-    </Form.Item>
-  </Form.Block>
-)
 
 export default class extends PureComponent {
   componentDidMount() {
@@ -71,9 +43,28 @@ export default class extends PureComponent {
         </Form.Item>
 
         <Form.Item label="Account">
-          <Form.Field name="account">
-            <Account />
-          </Form.Field>
+          <Form.BlockField name="account" labelWidth={60}>
+            <Form.Item label="Name">
+              <Form.BlockField name="name">
+                <Input.Group style={{ width: 300 }}>
+                  <Input name="firstName" placeholder="First Name" />
+                  -
+                  <Input name="lastName" placeholder="Last Name" />
+                </Input.Group>
+              </Form.BlockField>
+            </Form.Item>
+
+            <Form.Item label="Age">
+              <Input
+                rules={rules.account.age}
+                style={{ width: 100 }}
+                name="age"
+                type="number"
+                digits={0}
+                defaultValue={0}
+              />
+            </Form.Item>
+          </Form.BlockField>
         </Form.Item>
 
         <Form.Item label="Favorite Color">

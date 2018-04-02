@@ -24,7 +24,7 @@ const columns = [
   { title: 'id', render: 'id', width: 50 },
   { title: 'First Name', render: 'firstName', group: [name, 'True Name'] },
   { title: 'Last Name', render: 'lastName', group: [name, 'True Name'] },
-  { title: 'Nick Name', render: () => 'nickname', group: [name] },
+  { title: 'Nick Name', render: () => 'nickname', group: name },
   { title: 'Country', render: 'country' },
   { title: 'Office', render: 'office', group: 'Other' },
   { title: 'Position', render: 'position', group: 'Other' },

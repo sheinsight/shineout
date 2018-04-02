@@ -1,6 +1,6 @@
 import React from 'react'
 import Spin from './Spin'
-import { ringClass, planeClass, pulseClass } from './styles'
+import { ringClass, planeClass, pulseClass } from '../styles/spin'
 
 function formatSize(size) {
   const ss = /^(\d+)([%|\w]*)$/.exec(size)

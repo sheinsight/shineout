@@ -1,7 +1,7 @@
 import React from 'react'
 import Spin from './Spin'
 import { defaultClass, chasingDotsClass, doubleBounceClass, waveClass, cubeGridClass,
-  chasingRingClass, scaleCircleClass, threeBounceClass, fourDotsClass } from './styles'
+  chasingRingClass, scaleCircleClass, threeBounceClass, fourDotsClass } from '../styles/spin'
 
 function formatSize(size) {
   const ss = /^(\d+)([%|\w]*)$/.exec(size)

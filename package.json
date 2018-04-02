@@ -13,11 +13,12 @@
     "docs-build-html": "node scripts/build-html.js",
     "docs-build-js": "cross-env NODE_ENV=production webpack --config webpack/config.doc.js",
     "docs-build": "npm-run-all docs-build-*",
-    "build-clean": "rm -rf publish/es publish/dist",
+    "build-clean": "rm -rf publish/es publish/dist publish/lib publish/css",
     "build-dist": "cross-env NODE_ENV=production webpack --config webpack/config.dist.js",
     "build-es6": "cp -R src publish/es",
-    "bak-build-es5": "cross-env NODE_ENV=publish babel src --out-dir publish/lib",
-    "bak-build-css": "node scripts/build-css.js",
+    "build-less": "mkdir publish/lib && cp -R src/styles publish/lib/styles",
+    "build-es5": "cross-env NODE_ENV=publish babel src --out-dir publish/css && cp -R publish/css/* publish/lib",
+    "build-css": "node scripts/build-css.js",
     "build": "npm-run-all build-*"
   },
   "dependencies": {
@@ -58,7 +59,6 @@
     "koa-router": "^7.3.0",
     "koa-send": "^4.1.2",
     "less": "^2.7.3",
-    "less-compile-file": "^1.0.1",
     "less-loader": "^4.0.5",
     "npm-run-all": "^4.1.2",
     "postcss-loader": "^2.0.10",
