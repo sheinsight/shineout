@@ -35,7 +35,8 @@ class Scroll extends PureComponent {
   getWheelRect() {
     if (!this.wheelElement) return { width: 0, height: 0 }
     const rect = this.wheelElement.getBoundingClientRect()
-    const { scrollX, scrollY } = this.props
+    const { scrollX, scrollY, style } = this.props
+    console.log(style)
     const width = rect.width - (scrollY ? BAR_WIDTH : 0)
     const height = rect.height - (scrollX ? BAR_WIDTH : 0)
     return { width, height }
@@ -109,11 +110,10 @@ class Scroll extends PureComponent {
 
   render() {
     const {
-      children, scrollWidth, scrollHeight, left, top, scrollX, scrollY,
+      children, scrollWidth, scrollHeight, left, top, scrollX, scrollY, style,
     } = this.props
     const { width, height } = this.getWheelRect()
-
-    console.log(top, scrollHeight, height)
+    console.log(height)
 
     const className = classnames(
       scrollClass(
@@ -125,7 +125,7 @@ class Scroll extends PureComponent {
     )
 
     return (
-      <div onWheel={this.handleWheel} ref={this.bindWheel} className={className}>
+      <div onWheel={this.handleWheel} style={style} ref={this.bindWheel} className={className}>
         <div ref={this.bindInner} className={scrollClass('inner')}>
           { children }
         </div>

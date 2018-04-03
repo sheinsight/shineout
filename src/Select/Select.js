@@ -141,6 +141,7 @@ class Select extends PureComponent {
           : (
             <Scroll
               scroll="y"
+              style={{ height: 300 }}
               onScroll={this.handleScroll}
               scrollHeight={data.length * lineHeight}
               scrollTop={this.state.scrollTop}
