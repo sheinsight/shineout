@@ -26,10 +26,12 @@ class Scroll extends PureComponent {
   componentDidMount() {
     setTimeout(this.setRect)
     window.addEventListener('resize', this.setRect)
+    if (this.props.onScrollReset) this.props.onScrollReset(this.setRect)
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.setRect)
+    if (this.props.onScrollReset) this.props.onScrollReset(null)
   }
 
   getWheelRect() {
@@ -43,6 +45,7 @@ class Scroll extends PureComponent {
 
   setRect() {
     this.handleScroll(this.props.left, this.props.top)
+    this.forceUpdate()
   }
 
   bindInner(el) {
@@ -157,6 +160,7 @@ Scroll.propTypes = {
   left: PropTypes.number.isRequired,
   top: PropTypes.number.isRequired,
   onScroll: PropTypes.func.isRequired,
+  onScrollReset: PropTypes.func,
   scrollHeight: PropTypes.number,
   scrollWidth: PropTypes.number,
   scrollX: PropTypes.bool.isRequired,

@@ -102,7 +102,7 @@ class SeperateTable extends PureComponent {
 
   renderBody(floatClass) {
     const {
-      data, rowsInView, columns, width, fixed, ...others
+      data, rowsInView, columns, width, fixed, onScrollReset, ...others
     } = this.props
     const {
       colgroup, contentWidth, scrollTop, offsetLeft, offsetRight,
@@ -122,6 +122,7 @@ class SeperateTable extends PureComponent {
         scrollHeight={this.getContentHeight()}
         scrollWidth={contentWidth}
         onScroll={this.handleScroll}
+        onScrollReset={onScrollReset}
         className={tableClass('body', ...floatClass)}
       >
         <table ref={this.bindTbody} style={{ width }}>
@@ -175,6 +176,7 @@ SeperateTable.propTypes = {
   columns: PropTypes.array.isRequired,
   data: PropTypes.array,
   fixed: PropTypes.string.isRequired,
+  onScrollReset: PropTypes.func,
   rowHeight: PropTypes.number,
   rowsInView: PropTypes.number.isRequired,
   width: PropTypes.number,
