@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import shallowEqual from '../utils/shallowEqual'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { tableClass } from '../styles'
 import Datum from '../Datum'
@@ -18,21 +17,10 @@ class Table extends PureComponent {
     }
 
     this.bindTable = this.bindTable.bind(this)
-    this.handleScrollReset = this.handleScrollReset.bind(this)
-  }
-
-  componentDidUpdate(prevProps) {
-    if (!shallowEqual(prevProps.style, this.props.style) && this.onScrollReset) {
-      this.onScrollReset()
-    }
   }
 
   bindTable(el) {
     this.table = el
-  }
-
-  handleScrollReset(fn) {
-    this.onScrollReset = fn
   }
 
   render() {
@@ -66,7 +54,6 @@ class Table extends PureComponent {
       data,
       columns,
       scrollLeft,
-      onScrollReset: this.handleScrollReset,
     }
 
     const RenderTable = fixed ? SeperateTable : SimpleTable

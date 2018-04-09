@@ -29,6 +29,7 @@ export default class extends PureComponent {
 
     this.state = {
       selectedText: '2, 3, 5',
+      height: 300,
     }
 
     this.handelRowSelect = this.handelRowSelect.bind(this)
@@ -36,6 +37,7 @@ export default class extends PureComponent {
 
   handelRowSelect(values) {
     this.setState({ selectedText: values.join(', ') })
+    this.setState({ height: this.state.height === 300 ? 500 : 300 })
   }
 
   render() {
@@ -47,7 +49,7 @@ export default class extends PureComponent {
           keygen="id"
           columns={columns}
           data={data}
-          style={{ height: 300 }}
+          style={{ height: this.state.height }}
           datum={{
             format: 'id',
             value: initValue,

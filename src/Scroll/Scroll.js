@@ -21,17 +21,11 @@ class Scroll extends PureComponent {
     this.handleScrollX = this.handleScrollX.bind(this)
     this.handleScrollY = this.handleScrollY.bind(this)
     this.handleWheel = this.handleWheel.bind(this)
+    this.bindIframe = this.bindIframe.bind(this)
   }
 
   componentDidMount() {
     setTimeout(this.setRect)
-    window.addEventListener('resize', this.setRect)
-    if (this.props.onScrollReset) this.props.onScrollReset(this.setRect)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.setRect)
-    if (this.props.onScrollReset) this.props.onScrollReset(null)
   }
 
   getWheelRect() {
@@ -50,6 +44,12 @@ class Scroll extends PureComponent {
 
   bindInner(el) {
     this.inner = el
+  }
+
+  bindIframe(el) {
+    if (el && el.contentWindow) {
+      el.contentWindow.onresize = this.setRect
+    }
   }
 
   bindWheel(el) {
@@ -127,6 +127,7 @@ class Scroll extends PureComponent {
 
     return (
       <div onWheel={this.handleWheel} ref={this.bindWheel} className={className}>
+        <iframe title="scroll" ref={this.bindIframe} className={scrollClass('iframe')} />
         <div ref={this.bindInner} className={scrollClass('inner')}>
           { children }
         </div>
@@ -160,7 +161,6 @@ Scroll.propTypes = {
   left: PropTypes.number.isRequired,
   top: PropTypes.number.isRequired,
   onScroll: PropTypes.func.isRequired,
-  onScrollReset: PropTypes.func,
   scrollHeight: PropTypes.number,
   scrollWidth: PropTypes.number,
   scrollX: PropTypes.bool.isRequired,
