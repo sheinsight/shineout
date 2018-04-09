@@ -52,7 +52,7 @@ export default class extends PureComponent {
       if (i === right) draft.firstFixed = true
     }))
 
-    if (onRowSelect || datum) {
+    if ((onRowSelect || datum) && this.cachedColumns[0].type !== 'checkbox') {
       this.cachedColumns.unshift({
         key: 'checkbox',
         type: 'checkbox',
