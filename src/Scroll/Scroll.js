@@ -28,6 +28,12 @@ class Scroll extends PureComponent {
     setTimeout(this.setRect)
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.scrollWidth !== prevProps.scrollWidth) {
+      this.setRect()
+    }
+  }
+
   getWheelRect() {
     if (!this.wheelElement) return { width: 0, height: 0 }
     const rect = this.wheelElement.getBoundingClientRect()
@@ -85,8 +91,8 @@ class Scroll extends PureComponent {
   handleWheel(event) {
     event.preventDefault()
     const wheel = normalizeWheel(event)
-    this.pixelX += wheel.pixelX
-    this.pixelY += wheel.pixelY
+    this.pixelX += wheel.pixelX * 3
+    this.pixelY += wheel.pixelY * 3
 
     if (!this.locked) {
       this.boundleScroll()
