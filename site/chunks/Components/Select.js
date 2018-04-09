@@ -38,6 +38,16 @@ const examples = [
     component: require('doc/pages/components/Select/example-5-datum.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-5-datum.js'),
   },
+  {
+    title: locate('性能 \n Select 内部实现了懒加载机制优化性能，本例加载了10000条数据。', 'Datum'),
+    component: require('doc/pages/components/Select/example-6-bigdata.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-6-bigdata.js'),
+  },
+  {
+    title: locate('禁用', 'Disabled'),
+    component: require('doc/pages/components/Select/example-7-disabled.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-7-disabled.js'),
+  },
 ]
 
 const codes = undefined

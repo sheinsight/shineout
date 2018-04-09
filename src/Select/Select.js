@@ -54,6 +54,8 @@ class Select extends PureComponent {
   }
 
   handleState(focus, event) {
+    if (this.props.disabled) return
+
     if (event && event.target.getAttribute('data-role') === 'close') {
       return
     }
@@ -116,19 +118,23 @@ class Select extends PureComponent {
     this.setState({ result })
   }
 
-  renderItem(data) {
+  renderItem(data, index) {
     const { renderItem } = this.props
     return typeof renderItem === 'function'
-      ? renderItem(data)
+      ? renderItem(data, index)
       : data[renderItem]
   }
 
   renderOptions() {
     const {
-      data, datum, keygen, multiple, itemsInView, lineHeight,
+      data, datum, keygen, multiple, itemsInView, lineHeight, height,
     } = this.props
 
     const index = this.getIndex()
+    let scroll = ''
+    if (height < lineHeight * data.length) {
+      scroll = 'y'
+    }
 
     return (
       <ScaleList
@@ -140,8 +146,8 @@ class Select extends PureComponent {
           ? <span className={selectClass('option')}>No Data</span>
           : (
             <Scroll
-              scroll="y"
-              style={{ height: 300 }}
+              scroll={scroll}
+              style={{ height: scroll ? height : 'auto' }}
               onScroll={this.handleScroll}
               scrollHeight={data.length * lineHeight}
               scrollTop={this.state.scrollTop}
@@ -152,6 +158,7 @@ class Select extends PureComponent {
                     <Option
                       isActive={datum.check(d)}
                       key={getKey(d, keygen, i)}
+                      index={index + i}
                       data={d}
                       multiple={multiple}
                       onClick={this.handleChange}
@@ -168,11 +175,14 @@ class Select extends PureComponent {
   }
 
   render() {
-    const { placeholder, multiple, clearable } = this.props
+    const {
+      placeholder, multiple, clearable, disabled,
+    } = this.props
     const className = selectClass(
       'inner',
       this.state.focus && 'focus',
       this.props.size,
+      disabled && 'disabled',
     )
     const renderResult = this.props.renderResult || this.renderItem
 
@@ -193,7 +203,7 @@ class Select extends PureComponent {
           placeholder={placeholder}
           renderResult={renderResult}
         />
-        {this.renderOptions()}
+        { !disabled && this.renderOptions() }
       </div>
     )
   }
@@ -205,6 +215,8 @@ Select.propTypes = {
   clearable: PropTypes.bool,
   data: PropTypes.array,
   datum: PropTypes.object.isRequired,
+  disabled: PropTypes.bool,
+  height: PropTypes.number,
   itemsInView: PropTypes.number,
   lineHeight: PropTypes.number,
   multiple: PropTypes.bool,
@@ -220,6 +232,7 @@ Select.propTypes = {
 Select.defaultProps = {
   clearable: false,
   data: [],
+  height: 300,
   itemsInView: 10,
   lineHeight: 32,
   multiple: false,

@@ -1,5 +1,5 @@
 /**
- * cn - 超大数据
+ * cn - 性能
  *    -- Table内部对大量数据的渲染做了lazy render的优化。这个例子加载了10000条数据。可以通过设置rowsInView调整单次最多render的行数，默认为20
  * en - rowsInView
  */

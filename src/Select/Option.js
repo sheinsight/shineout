@@ -19,12 +19,14 @@ class Option extends PureComponent {
   }
 
   render() {
-    const { data, isActive, renderItem } = this.props
+    const {
+      data, isActive, index, renderItem,
+    } = this.props
     const className = selectClass('option', isActive && 'active')
 
     return (
       <a onClick={this.handleClick} className={className}>
-        { renderItem(data) }
+        { renderItem(data, index) }
       </a>
     )
   }
@@ -35,6 +37,7 @@ Option.propTypes = {
     PropTypes.object,
     PropTypes.string,
   ]).isRequired,
+  index: PropTypes.number,
   isActive: PropTypes.bool,
   multiple: PropTypes.bool,
   onClick: PropTypes.func,

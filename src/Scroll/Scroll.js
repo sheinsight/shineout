@@ -63,7 +63,7 @@ class Scroll extends PureComponent {
       if (this.pixelX !== 0 || this.pixelY !== 0) {
         this.boundleScroll()
       }
-    }, 48)
+    }, 16)
 
     const { left, top } = this.props
     const { scrollWidth, scrollHeight } = this.props
