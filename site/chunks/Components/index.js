@@ -106,6 +106,12 @@ const pages = [
     component: loadable(() => import('./Message')),
   },
   {
+    name: 'Modal',
+    cn: '弹出框',
+    level: 2,
+    component: loadable(() => import('./Modal')),
+  },
+  {
     name: 'Spin',
     cn: '加载中',
     level: 2,

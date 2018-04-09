@@ -22,7 +22,8 @@
     "Alert": "提示框",
     "Message": "消息提示",
     "Icon": "图标",
-    "Spin": "加载中"
+    "Spin": "加载中",
+    "Modal": "弹出框"
   },
   "Layout": {
     "Sticky": "附着"
