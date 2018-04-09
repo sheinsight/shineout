@@ -68,6 +68,13 @@ class Tbody extends Component {
     )
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.columns.length !== prevProps.columns.length) {
+      const tds = this.body.querySelector('tr').querySelectorAll('td')
+      this.props.onBodyRender(tds)
+    }
+  }
+
   bindBody(el) {
     this.body = el
   }

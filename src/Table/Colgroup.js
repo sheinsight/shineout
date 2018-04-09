@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 function Colgroup({ columns, colgroup }) {
-  if (colgroup) {
+  if (colgroup && colgroup.length === columns.length) {
     return (
       <colgroup>
         { colgroup.map((c, i) => <col key={columns[i].key} style={{ width: c }} />) }
