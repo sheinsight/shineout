@@ -19,20 +19,22 @@ const columns = [
   { title: 'Country', render: 'country' },
   { title: 'Position', render: 'position' },
   { title: 'Office', render: 'office' },
-  { title: 'Start Date', render: 'start' },
-  {
-    title: 'Salary',
-    width: 100,
-    render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
-  },
+  { title: 'Start Date', render: 'start', width: 140 },
 ]
+
+for (let i = 0; i < 100; i++) {
+  columns.push({
+    title: `${i + 1}`,
+    render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
+  })
+}
 
 export default function () {
   return (
     <Table
       fixed="both"
       keygen="id"
-      width={1200}
+      width={11000}
       style={{ height: 400 }}
       columns={columns}
       data={data}

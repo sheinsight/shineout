@@ -16,7 +16,12 @@ class Select extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.state = { focus: false, result: [], scrollTop: 0 }
+    this.state = {
+      focus: false,
+      result: [],
+      scrollTop: 0,
+      hoverIndex: undefined,
+    }
 
     this.bindElement = this.bindElement.bind(this)
     this.handleFocus = this.handleState.bind(this, true)
@@ -25,6 +30,7 @@ class Select extends PureComponent {
     this.handleChange = this.handleChange.bind(this)
     this.handleRemove = this.handleChange.bind(this, false)
     this.handleScroll = this.handleScroll.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
 
     this.resetResult = this.resetResult.bind(this)
     this.renderItem = this.renderItem.bind(this)
@@ -51,6 +57,19 @@ class Select extends PureComponent {
 
   bindElement(el) {
     this.element = el
+  }
+
+  hoverMove(step) {
+    const max = this.props.data.length
+    let { hoverIndex } = this.state
+    if (hoverIndex === undefined) hoverIndex = step === 1 ? 0 : (max - 1)
+    else hoverIndex += step
+
+    if (hoverIndex >= max) hoverIndex = 0
+    if (hoverIndex < 0) hoverIndex = max - 1
+
+    this.setState({ hoverIndex })
+    console.log(hoverIndex)
   }
 
   handleState(focus, event) {
@@ -109,6 +128,22 @@ class Select extends PureComponent {
     this.setState({ scrollTop })
   }
 
+  handleKeyDown(e) {
+    e.preventDefault()
+    switch (e.keyCode) {
+      case 38:
+        this.hoverMove(-1)
+        break
+      case 40:
+        this.hoverMove(1)
+        break
+      case 13:
+        console.log('enter')
+        break
+      default:
+    }
+  }
+
   // result performance
   resetResult() {
     const { data, datum } = this.props
@@ -130,6 +165,7 @@ class Select extends PureComponent {
     const {
       data, datum, keygen, multiple, itemsInView, lineHeight, height,
     } = this.props
+    const { hoverIndex } = this.state
 
     const index = this.getIndex()
     let scroll = ''
@@ -158,6 +194,7 @@ class Select extends PureComponent {
                   data.slice(index, index + itemsInView).map((d, i) => (
                     <Option
                       isActive={datum.check(d)}
+                      isHover={hoverIndex === index + i}
                       key={getKey(d, keygen, i)}
                       index={index + i}
                       data={d}
@@ -195,6 +232,7 @@ class Select extends PureComponent {
         className={className}
         onFocus={this.handleFocus}
         onBlur={this.handleBlur}
+        onKeyDown={this.handleKeyDown}
       >
         <Result
           onClear={clearable ? this.handleClear : undefined}
@@ -213,7 +251,6 @@ class Select extends PureComponent {
 }
 
 Select.propTypes = {
-  // datum: PropTypes.object,
   ...getProps(['placehodler', 'keygen']),
   clearable: PropTypes.bool,
   data: PropTypes.array,
@@ -235,7 +272,7 @@ Select.propTypes = {
 Select.defaultProps = {
   clearable: false,
   data: [],
-  height: 300,
+  height: 250,
   itemsInView: 10,
   lineHeight: 32,
   multiple: false,
