@@ -14,6 +14,18 @@
     top: 0;
     bottom: 0;
     overflow: hidden;
+    z-index: 10;
+  }
+
+  &-iframe {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
   }
 
   &-dragging {
@@ -24,6 +36,7 @@
     position: absolute;
     background: @scrollbar-bg;
     border: 1px solid transparent;
+    z-index: 90;
 
     &:hover, &.@{scroll-prefix}-dragging {
       // border-color: @scrollbar-hover-border;

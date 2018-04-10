@@ -39,11 +39,14 @@ class SeperateTable extends PureComponent {
     return this.props.data.length * this.props.rowHeight
   }
 
+  getContentWidth() {
+    if (this.props.width) return this.props.width
+    if (this.tbody) return this.tbody.offsetWidth
+    return 0
+  }
+
   bindTbody(el) {
     this.tbody = el
-    if (el) {
-      this.setState({ contentWidth: el.offsetWidth })
-    }
   }
 
   bindThead(el) {
@@ -53,7 +56,7 @@ class SeperateTable extends PureComponent {
   handleScroll(x, y, max, bar, v, h) {
     if (!this.tbody) return
 
-    const { contentWidth } = this.state
+    const contentWidth = this.getContentWidth()
     const contentHeight = this.getContentHeight()
     const left = x * (contentWidth - v)
     const scrollTop = h > contentHeight ? 0 : y
@@ -105,8 +108,9 @@ class SeperateTable extends PureComponent {
       data, rowsInView, columns, width, fixed, ...others
     } = this.props
     const {
-      colgroup, contentWidth, scrollTop, offsetLeft, offsetRight,
+      colgroup, scrollTop, offsetLeft, offsetRight,
     } = this.state
+    const contentWidth = this.getContentWidth()
 
     if (!data || data.length === 0) {
       return <div key="body" />

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import immer from 'immer'
 import { getProps } from '../utils/proptypes'
 import { getKey } from '../utils/uid'
+import { setTranslate } from '../utils/dom/translate'
 import List from '../List'
 import Scroll from '../Scroll'
 import { selectClass } from '../styles'
@@ -15,7 +16,7 @@ class Select extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.state = { focus: false, result: [] }
+    this.state = { focus: false, result: [], scrollTop: 0 }
 
     this.bindElement = this.bindElement.bind(this)
     this.handleFocus = this.handleState.bind(this, true)
@@ -23,6 +24,7 @@ class Select extends PureComponent {
     this.handleClear = this.handleClear.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleRemove = this.handleChange.bind(this, false)
+    this.handleScroll = this.handleScroll.bind(this)
 
     this.resetResult = this.resetResult.bind(this)
     this.renderItem = this.renderItem.bind(this)
@@ -37,11 +39,23 @@ class Select extends PureComponent {
     this.resetResult()
   }
 
+  getIndex() {
+    const { data, itemsInView } = this.props
+    const { scrollTop } = this.state
+    const max = data.length
+    let index = Math.ceil((scrollTop * max) - (itemsInView * scrollTop))
+    if (index > max - itemsInView) index = max - itemsInView
+    if (index < 0) index = 0
+    return index
+  }
+
   bindElement(el) {
     this.element = el
   }
 
   handleState(focus, event) {
+    if (this.props.disabled) return
+
     if (event && event.target.getAttribute('data-role') === 'close') {
       return
     }
@@ -54,7 +68,8 @@ class Select extends PureComponent {
   }
 
   handleChange(checked, data) {
-    const { datum, multiple } = this.props
+    const { datum, multiple, disabled } = this.props
+    if (disabled) return
 
     if (multiple) {
       if (checked) {
@@ -86,6 +101,14 @@ class Select extends PureComponent {
     }
   }
 
+  handleScroll(x, y, max, bar, v, h) {
+    const fullHeight = this.props.itemsInView * this.props.lineHeight
+    const scrollTop = h > fullHeight ? 0 : y
+    bar.style.paddingTop = `${scrollTop * h}px`
+    setTranslate(this.optionInner, '0', `-${scrollTop * 100}%`)
+    this.setState({ scrollTop })
+  }
+
   // result performance
   resetResult() {
     const { data, datum } = this.props
@@ -96,17 +119,23 @@ class Select extends PureComponent {
     this.setState({ result })
   }
 
-  renderItem(data) {
+  renderItem(data, index) {
     const { renderItem } = this.props
     return typeof renderItem === 'function'
-      ? renderItem(data)
+      ? renderItem(data, index)
       : data[renderItem]
   }
 
   renderOptions() {
     const {
-      data, datum, keygen, multiple,
+      data, datum, keygen, multiple, itemsInView, lineHeight, height,
     } = this.props
+
+    const index = this.getIndex()
+    let scroll = ''
+    if (height < lineHeight * data.length) {
+      scroll = 'y'
+    }
 
     return (
       <ScaleList
@@ -117,17 +146,28 @@ class Select extends PureComponent {
           data.length === 0
           ? <span className={selectClass('option')}>No Data</span>
           : (
-            <Scroll scroll="y">
-              {data.map((d, i) => (
-                <Option
-                  isActive={datum.check(d)}
-                  key={getKey(d, keygen, i)}
-                  data={d}
-                  multiple={multiple}
-                  onClick={this.handleChange}
-                  renderItem={this.renderItem}
-                />
-                ))}
+            <Scroll
+              scroll={scroll}
+              style={{ height: scroll ? height : 'auto' }}
+              onScroll={this.handleScroll}
+              scrollHeight={data.length * lineHeight}
+              scrollTop={this.state.scrollTop}
+            >
+              <div ref={(el) => { this.optionInner = el }}>
+                {
+                  data.slice(index, index + itemsInView).map((d, i) => (
+                    <Option
+                      isActive={datum.check(d)}
+                      key={getKey(d, keygen, i)}
+                      index={index + i}
+                      data={d}
+                      multiple={multiple}
+                      onClick={this.handleChange}
+                      renderItem={this.renderItem}
+                    />
+                  ))
+                }
+              </div>
             </Scroll>
           )
         }
@@ -136,11 +176,15 @@ class Select extends PureComponent {
   }
 
   render() {
-    const { placeholder, multiple, clearable } = this.props
+    const {
+      placeholder, multiple, clearable, disabled, size,
+    } = this.props
     const className = selectClass(
       'inner',
       this.state.focus && 'focus',
-      this.props.size,
+      size,
+      multiple && 'multiple',
+      disabled && 'disabled',
     )
     const renderResult = this.props.renderResult || this.renderItem
 
@@ -155,13 +199,14 @@ class Select extends PureComponent {
         <Result
           onClear={clearable ? this.handleClear : undefined}
           onRemove={this.handleRemove}
+          disabled={disabled}
           focus={this.state.focus}
           result={this.state.result}
           multiple={multiple}
           placeholder={placeholder}
           renderResult={renderResult}
         />
-        {this.renderOptions()}
+        { !disabled && this.renderOptions() }
       </div>
     )
   }
@@ -173,6 +218,10 @@ Select.propTypes = {
   clearable: PropTypes.bool,
   data: PropTypes.array,
   datum: PropTypes.object.isRequired,
+  disabled: PropTypes.bool,
+  height: PropTypes.number,
+  itemsInView: PropTypes.number,
+  lineHeight: PropTypes.number,
   multiple: PropTypes.bool,
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
@@ -186,6 +235,9 @@ Select.propTypes = {
 Select.defaultProps = {
   clearable: false,
   data: [],
+  height: 300,
+  itemsInView: 10,
+  lineHeight: 32,
   multiple: false,
   renderItem: e => e,
 }
