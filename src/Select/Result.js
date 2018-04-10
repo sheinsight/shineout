@@ -14,9 +14,9 @@ function Item({ renderResult, data, onClick }) {
 
 class Result extends PureComponent {
   renderClear() {
-    const { onClear, result } = this.props
+    const { onClear, result, disabled } = this.props
 
-    if (onClear && result.length > 0) {
+    if (onClear && result.length > 0 && !disabled) {
       /* eslint-disable */
       return (
         <a
@@ -77,6 +77,7 @@ class Result extends PureComponent {
 }
 
 Result.propTypes = {
+  disabled: PropTypes.bool,
   multiple: PropTypes.bool.isRequired,
   onRemove: PropTypes.func,
   onClear: PropTypes.func,

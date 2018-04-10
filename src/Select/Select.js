@@ -68,7 +68,8 @@ class Select extends PureComponent {
   }
 
   handleChange(checked, data) {
-    const { datum, multiple } = this.props
+    const { datum, multiple, disabled } = this.props
+    if (disabled) return
 
     if (multiple) {
       if (checked) {
@@ -176,12 +177,13 @@ class Select extends PureComponent {
 
   render() {
     const {
-      placeholder, multiple, clearable, disabled,
+      placeholder, multiple, clearable, disabled, size,
     } = this.props
     const className = selectClass(
       'inner',
       this.state.focus && 'focus',
-      this.props.size,
+      size,
+      multiple && 'multiple',
       disabled && 'disabled',
     )
     const renderResult = this.props.renderResult || this.renderItem
@@ -197,6 +199,7 @@ class Select extends PureComponent {
         <Result
           onClear={clearable ? this.handleClear : undefined}
           onRemove={this.handleRemove}
+          disabled={disabled}
           focus={this.state.focus}
           result={this.state.result}
           multiple={multiple}
