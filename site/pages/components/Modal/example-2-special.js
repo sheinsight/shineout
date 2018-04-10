@@ -1,21 +1,19 @@
 /**
- * cn - 基本用法
- * en - Base
+ * cn - 使用api
+ * en - use api
  */
 import React from 'react'
-import { Modal } from 'shineout'
+import { Modal, Button } from 'shineout'
 
-const content = (
-  <div>
-    <p>some content1</p>
-    <p>some content2</p>
-    <p>some content3</p>
-  </div>
-)
 export default function () {
   return (
-    Modal.success({
-      content: '123',
-    })
-  )
+    <Button
+      onClick={() => Modal.success({
+        okText: 'i know',
+        title: 'This is a success message',
+        content: 'some messages...some messages...',
+        onOk: () => console.log('yes i know'),
+  })}
+    >success
+    </Button>)
 }

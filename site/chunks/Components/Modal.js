@@ -19,7 +19,7 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Modal/example-1-base.js'),
   },
   {
-    title: locate('基本用法', 'Base'),
+    title: locate('使用api', 'use api'),
     component: require('doc/pages/components/Modal/example-2-special.js').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-2-special.js'),
   },

@@ -18,14 +18,23 @@ export default class Panel extends PureComponent {
     }
     this.handleCancel = this.handleCancel.bind(this)
     this.handleOk = this.handleOk.bind(this)
-    this.specialContent = this.specialContent(this)
+    this.specialContent = this.specialContent.bind(this)
   }
   specialContent() {
-    const { title, content, okText } = this.props
+    const {
+      title, okText, iconType,
+    } = this.props
+    const iconClass = classnames(modalClass('content-special-icon', `content-special-icon-${iconType.toLowerCase()}`))
+    const specialClass = classnames(modalClass('content-special'))
+    const specialContent = classnames(modalClass('content-special-body'))
+    const specialTitle = classnames(modalClass('content-special-title'))
+    const specialButton = classnames(modalClass('content-special-button'))
     return (
-      <div>
-        <div>{title}</div>
-        <Button type="primary">{okText}</Button>
+      <div className={specialClass}>
+        <div className={iconClass}>{Icons[iconType]}</div>
+        <span className={specialTitle}>{title}</span>
+        <div className={specialContent}>{this.props.children}</div>
+        <Button type="primary" className={specialButton} onClick={this.handleOk}>{okText}</Button>
       </div>)
   }
   handleCancel() {
@@ -58,7 +67,7 @@ export default class Panel extends PureComponent {
         }
         <div className={contentClass}>
           {
-            special ? <p>special</p> : this.props.children
+            special ? this.specialContent() : this.props.children
           }
         </div>
         {
@@ -96,7 +105,7 @@ Panel.propTypes = {
 
 Panel.defaultProps = {
   ...defaultProps,
-  width: 256,
+  width: 426,
   cancelText: 'cancel',
   okText: 'ok',
 }
