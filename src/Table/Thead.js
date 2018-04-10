@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { getUidStr } from '../utils/uid'
 import { tableClass } from '../styles'
 import Sorter from './Sorter'
 import CheckboxAll from './CheckboxAll'
@@ -39,7 +40,7 @@ class Thead extends PureComponent {
       colSpan = this.setColumns(sub, col, level + 1)
       columns.push({
         name: g[level],
-        key: g[level],
+        key: typeof g[level] === 'string' ? g[level] : getUidStr(),
         colSpan,
         level,
         fixed: col.fixed,
