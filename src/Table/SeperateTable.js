@@ -186,7 +186,7 @@ SeperateTable.propTypes = {
 
 SeperateTable.defaultProps = {
   data: undefined,
-  rowHeight: 40,
+  rowHeight: 60,
   width: undefined,
 }
 

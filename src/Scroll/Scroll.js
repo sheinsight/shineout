@@ -69,7 +69,7 @@ class Scroll extends PureComponent {
       if (this.pixelX !== 0 || this.pixelY !== 0) {
         this.boundleScroll()
       }
-    }, 16)
+    }, 48)
 
     const { left, top } = this.props
     const { scrollWidth, scrollHeight } = this.props
@@ -91,8 +91,8 @@ class Scroll extends PureComponent {
   handleWheel(event) {
     event.preventDefault()
     const wheel = normalizeWheel(event)
-    this.pixelX += wheel.pixelX * 3
-    this.pixelY += wheel.pixelY * 3
+    this.pixelX += wheel.pixelX
+    this.pixelY += wheel.pixelY
 
     if (!this.locked) {
       this.boundleScroll()
