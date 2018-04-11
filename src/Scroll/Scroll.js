@@ -69,7 +69,7 @@ class Scroll extends PureComponent {
       if (this.pixelX !== 0 || this.pixelY !== 0) {
         this.boundleScroll()
       }
-    }, 48)
+    }, 32)
 
     const { left, top } = this.props
     const { scrollWidth, scrollHeight } = this.props
@@ -80,12 +80,12 @@ class Scroll extends PureComponent {
     if (y < 0) y = 0
     if (y > 1) y = 1
 
+    if (x !== left || y !== top) {
+      this.handleScroll(x, y, this.pixelX, this.pixelY)
+    }
+
     this.pixelX = 0
     this.pixelY = 0
-
-    if (x !== left || y !== top) {
-      this.handleScroll(x, y)
-    }
   }
 
   handleWheel(event) {
@@ -99,12 +99,12 @@ class Scroll extends PureComponent {
     }
   }
 
-  handleScroll(x, y) {
+  handleScroll(x, y, pixelX, pixelY) {
     const { scrollWidth } = this.props
     const { width, height } = this.getWheelRect()
     const max = Math.round((1 - (width / scrollWidth)) * scrollWidth)
     if (this.props.onScroll) {
-      this.props.onScroll(x, y, max, this.inner, width, height)
+      this.props.onScroll(x, y, max, this.inner, width, height, pixelX, pixelY)
     }
   }
 
@@ -113,6 +113,7 @@ class Scroll extends PureComponent {
   }
 
   handleScrollY(top) {
+    // const m = (top - this.props.top) * this.props.scrollHeight
     this.handleScroll(this.props.left, top)
   }
 

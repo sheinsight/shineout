@@ -12,7 +12,7 @@ const columns = [
   {
     title: 'Name',
     fixed: 'left',
-    render: d => `${d.firstName} ${d.lastName}`,
+    render: d => <div style={{ height: d.height }}>{d.firstName} {d.lastName}</div>,
     width: 160,
   },
   { title: 'Country', render: 'country' },
@@ -35,7 +35,8 @@ export default function () {
       style={{ height: 400 }}
       columns={columns}
       data={data}
-      rowsInView={10}
+      rowsInView={20}
+      rowHeight={100}
     />
   )
 }
