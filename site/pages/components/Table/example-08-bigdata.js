@@ -22,7 +22,7 @@ const columns = [
   { title: 'Start Date', render: 'start', width: 140 },
 ]
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 100; i++) {
   columns.push({
     title: `${i + 1}`,
     render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
