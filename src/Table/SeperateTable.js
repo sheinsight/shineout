@@ -136,18 +136,24 @@ class SeperateTable extends PureComponent {
     /* set y */
     this.tbody.style.marginTop = `${scrollTop * h}px`
 
-    if (pixelY === undefined) {
+    if (pixelY === undefined || pixelY === 0) {
+      // drag scroll bar
+
       const index = this.getIndex(scrollTop)
       const lastRowHeight = this.getLastRowHeight(index)
       const offsetScrollTop = this.getSumHeight(0, index)
-       + (scrollTop * this.realTbody.clientHeight)
+      + (scrollTop * this.realTbody.clientHeight)
 
       this.setState({ currentIndex: index })
       this.lastScrollTop = offsetScrollTop
       setTranslate(this.tbody, `-${left}px`, `-${offsetScrollTop + lastRowHeight}px`)
     } else {
+      // wheel scroll
+
       this.lastScrollTop += pixelY
       if (this.lastScrollTop < 0) this.lastScrollTop = 0
+
+      // scroll over bottom
       if (this.lastScrollTop > contentHeight) this.lastScrollTop = contentHeight
 
       let temp = this.lastScrollTop - (scrollTop * h)
@@ -156,7 +162,10 @@ class SeperateTable extends PureComponent {
         temp -= this.cachedRowHeight[index] || rowHeight
         index += 1
       }
+
+      // offset last row
       index -= 1
+
       if (data.length - rowsInView < index) index = data.length - rowsInView
       if (index < 0) index = 0
 

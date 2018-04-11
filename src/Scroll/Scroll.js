@@ -71,6 +71,13 @@ class Scroll extends PureComponent {
       }
     }, 32)
 
+    // lock direction
+    if (Math.abs(this.pixelX) > Math.abs(this.pixelY)) {
+      this.pixelY = 0
+    } else {
+      this.pixelX = 0
+    }
+
     const { left, top } = this.props
     const { scrollWidth, scrollHeight } = this.props
     let x = left + (this.pixelX / scrollWidth)
@@ -91,8 +98,10 @@ class Scroll extends PureComponent {
   handleWheel(event) {
     event.preventDefault()
     const wheel = normalizeWheel(event)
-    this.pixelX += wheel.pixelX
-    this.pixelY += wheel.pixelY
+    const { scrollX, scrollY } = this.props
+
+    if (scrollX) this.pixelX += wheel.pixelX
+    if (scrollY) this.pixelY += wheel.pixelY
 
     if (!this.locked) {
       this.boundleScroll()
@@ -113,7 +122,6 @@ class Scroll extends PureComponent {
   }
 
   handleScrollY(top) {
-    // const m = (top - this.props.top) * this.props.scrollHeight
     this.handleScroll(this.props.left, top)
   }
 
