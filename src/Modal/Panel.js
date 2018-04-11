@@ -22,7 +22,7 @@ export default class Panel extends PureComponent {
   }
   specialContent() {
     const {
-      title, okText, iconType,
+      title, okText, iconType, cancelText,
     } = this.props
     const iconClass = classnames(modalClass('content-special-icon', `content-special-icon-${iconType.toLowerCase()}`))
     const specialClass = classnames(modalClass('content-special'))
@@ -35,6 +35,9 @@ export default class Panel extends PureComponent {
         <span className={specialTitle}>{title}</span>
         <div className={specialContent}>{this.props.children}</div>
         <Button type="primary" className={specialButton} onClick={this.handleOk}>{okText}</Button>
+        {
+          iconType === 'Confirm' ? <Button className={specialButton} onClick={this.handleCancel}>{cancelText}</Button> : null
+        }
       </div>)
   }
   handleCancel() {
@@ -101,6 +104,7 @@ Panel.propTypes = {
   okText: PropTypes.string,
   onCancel: PropTypes.func,
   onOk: PropTypes.func,
+  iconType: PropTypes.string,
 }
 
 Panel.defaultProps = {

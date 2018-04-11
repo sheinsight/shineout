@@ -23,6 +23,21 @@ const examples = [
     component: require('doc/pages/components/Modal/example-2-special.js').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-2-special.js'),
   },
+  {
+    title: locate('确认框', 'Confirm Modal'),
+    component: require('doc/pages/components/Modal/example-3-confirm.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Modal/example-3-confirm.js'),
+  },
+  {
+    title: locate('内嵌form', 'use form'),
+    component: require('doc/pages/components/Modal/example-4-form.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Modal/example-4-form.js'),
+  },
+  {
+    title: locate('多级modal', 'Multistage Modal'),
+    component: require('doc/pages/components/Modal/example-5-multistage.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Modal/example-5-multistage.js'),
+  },
 ]
 
 const codes = undefined

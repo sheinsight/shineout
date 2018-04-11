@@ -29,7 +29,7 @@
     line-height: 1.5;
     &-special {
       margin: 0 auto;
-      padding: 24px 10px 0 16px;
+      padding: 24px 16px 13px 16px;
       overflow: hidden;
       &-icon {
         width: 20px;
@@ -40,6 +40,15 @@
         line-height: 1;
         &-success path{
           fill: @colors-success
+        }
+        &-info path {
+          fill: @colors-primary;
+        }
+        &-confirm path {
+          fill: @colors-warning;
+        }
+        &-error path {
+          fill: @colors-error;
         }
       }
       &-title {
@@ -58,7 +67,7 @@
       &-button {
         display: block;
         float: right;
-        margin-top: 10px;
+        margin: 26px 0 0 15px;
       }
     }
   }
