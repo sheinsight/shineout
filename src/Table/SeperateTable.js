@@ -30,29 +30,6 @@ class SeperateTable extends PureComponent {
     this.lastScrollTop = 0
   }
 
-  /*
-  componentDidUpdate() {
-    if (!this.tbody) return
-
-    const { data } = this.props
-    const { scrollTop, offsetLeft, currentIndex } = this.state
-    let index = this.getIndex()
-    const mindex = index - currentIndex
-
-    console.log('index', index, mindex)
-    if (scrollTop >= 1 || Math.abs(mindex) >= 2) {
-      if (index <= data.length / 2 && index > 0) index -= 1
-      console.log(index, this.getSumHeight(0, index))
-      const offsetScrollTop = this.getSumHeight(0, index)
-        + (scrollTop * this.realTbody.clientHeight)
-      // eslint-disable-next-line
-      this.setState({ currentIndex: index })
-      this.lastScrollTop = offsetScrollTop
-      setTranslate(this.tbody, `-${offsetLeft}px`, `-${offsetScrollTop}px`)
-    }
-  }
-  */
-
   getIndex(scrollTop = this.state.scrollTop) {
     const { data, rowsInView } = this.props
     const max = data.length
@@ -93,6 +70,15 @@ class SeperateTable extends PureComponent {
   }
 
   setRowHeight(height, index) {
+    const oldHeight = this.cachedRowHeight[index]
+    const { offsetLeft, currentIndex } = this.state
+    if (currentIndex === index && !oldHeight) {
+      // console.log(height - this.props.rowHeight)
+      this.lastScrollTop += height - this.props.rowHeight
+      setTimeout(() => {
+        setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
+      })
+    }
     this.cachedRowHeight[index] = height
   }
 
