@@ -14,21 +14,27 @@ class SeperateTable extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
+      currentIndex: 0,
       scrollLeft: 0,
       scrollTop: 0,
     }
 
     this.bindTbody = this.bindTbody.bind(this)
+    this.bindRealTbody = this.bindRealTbody.bind(this)
     this.bindThead = this.bindThead.bind(this)
     this.handleColgroup = this.handleColgroup.bind(this)
     this.handleScroll = this.handleScroll.bind(this)
+    this.setRowHeight = this.setRowHeight.bind(this)
+
+    this.cachedRowHeight = []
+    this.lastScrollTop = 0
   }
 
-  getIndex() {
+  getIndex(scrollTop = this.state.scrollTop) {
     const { data, rowsInView } = this.props
-    const { scrollTop } = this.state
     const max = data.length
-    let index = Math.ceil((scrollTop * max) - (rowsInView * scrollTop))
+    const mcf = scrollTop > 0.5 ? Math.ceil : Math.floor
+    let index = mcf((scrollTop * max) - (rowsInView * scrollTop))
     if (index > max - rowsInView) index = max - rowsInView
     if (index < 0) index = 0
     return index
@@ -36,7 +42,7 @@ class SeperateTable extends PureComponent {
 
   getContentHeight() {
     if (!this.props.data) return 0
-    return this.props.data.length * this.props.rowHeight
+    return this.getSumHeight(0, this.props.data.length)
   }
 
   getContentWidth() {
@@ -45,28 +51,61 @@ class SeperateTable extends PureComponent {
     return 0
   }
 
+  getSumHeight(start, end) {
+    const { rowHeight } = this.props
+    let height = 0
+    for (let i = start; i < end; i++) {
+      height += this.cachedRowHeight[i] || rowHeight
+    }
+    return height
+  }
+
+  getLastRowHeight(index) {
+    const { rowHeight, data } = this.props
+    let lastRowHeight = 0
+    if (index >= 1 && index < data.length / 2) {
+      lastRowHeight = this.cachedRowHeight[index - 1] || rowHeight
+    }
+    return lastRowHeight
+  }
+
+  setRowHeight(height, index) {
+    const oldHeight = this.cachedRowHeight[index]
+    const { offsetLeft, currentIndex } = this.state
+    if (currentIndex === index && !oldHeight) {
+      // console.log(height - this.props.rowHeight)
+      this.lastScrollTop += height - this.props.rowHeight
+      setTimeout(() => {
+        setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
+      })
+    }
+    this.cachedRowHeight[index] = height
+  }
+
   bindTbody(el) {
     this.tbody = el
+  }
+
+  bindRealTbody(el) {
+    this.realTbody = el
   }
 
   bindThead(el) {
     this.thead = el
   }
 
-  handleScroll(x, y, max, bar, v, h) {
+  handleScroll(x, y, max, bar, v, h, pixelX, pixelY) {
     if (!this.tbody) return
 
+    const { data, rowHeight, rowsInView } = this.props
     const contentWidth = this.getContentWidth()
     const contentHeight = this.getContentHeight()
     const left = x * (contentWidth - v)
-    const scrollTop = h > contentHeight ? 0 : y
+    let scrollTop = h > contentHeight ? 0 : y
     let right = max - left
     if (right < 0) right = 0
 
-    const barStyle = bar.style
-    barStyle.paddingTop = `${scrollTop * h}px`
-
-    setTranslate(this.tbody, `-${left}px`, `-${scrollTop * 100}%`)
+    /* set x */
     setTranslate(this.thead, `-${left}px`, '0');
 
     [this.thead, this.tbody].forEach((el) => {
@@ -78,6 +117,50 @@ class SeperateTable extends PureComponent {
       el.parentNode.querySelectorAll(`.${tableClass(CLASS_FIXED_RIGHT)}`)
         .forEach((td) => { setTranslate(td, `-${right}px`, '0') })
     })
+    /* set x end */
+
+    /* set y */
+    this.tbody.style.marginTop = `${scrollTop * h}px`
+
+    if (pixelY === undefined || pixelY === 0) {
+      // drag scroll bar
+
+      const index = this.getIndex(scrollTop)
+      const lastRowHeight = this.getLastRowHeight(index)
+      const offsetScrollTop = this.getSumHeight(0, index)
+      + (scrollTop * this.realTbody.clientHeight)
+
+      this.setState({ currentIndex: index })
+      this.lastScrollTop = offsetScrollTop
+      setTranslate(this.tbody, `-${left}px`, `-${offsetScrollTop + lastRowHeight}px`)
+    } else {
+      // wheel scroll
+
+      this.lastScrollTop += pixelY
+      if (this.lastScrollTop < 0) this.lastScrollTop = 0
+
+      // scroll over bottom
+      if (this.lastScrollTop > contentHeight) this.lastScrollTop = contentHeight
+
+      let temp = this.lastScrollTop - (scrollTop * h)
+      let index = 0
+      while (temp > 0) {
+        temp -= this.cachedRowHeight[index] || rowHeight
+        index += 1
+      }
+
+      // offset last row
+      index -= 1
+
+      if (data.length - rowsInView < index) index = data.length - rowsInView
+      if (index < 0) index = 0
+
+      this.setState({ currentIndex: index })
+
+      scrollTop = this.lastScrollTop / contentHeight
+      setTranslate(this.tbody, `-${left}px`, `-${this.lastScrollTop}px`)
+    }
+    /* set y end */
 
     this.setState({
       scrollLeft: x,
@@ -105,10 +188,10 @@ class SeperateTable extends PureComponent {
 
   renderBody(floatClass) {
     const {
-      data, rowsInView, columns, width, fixed, ...others
+      data, rowsInView, columns, width, fixed, rowHeight, ...others
     } = this.props
     const {
-      colgroup, scrollTop, offsetLeft, offsetRight,
+      colgroup, scrollTop, offsetLeft, offsetRight, currentIndex,
     } = this.state
     const contentWidth = this.getContentWidth()
 
@@ -116,7 +199,7 @@ class SeperateTable extends PureComponent {
       return <div key="body" />
     }
 
-    const index = this.getIndex()
+    const prevHeight = this.getSumHeight(0, currentIndex)
 
     return (
       <Scroll
@@ -128,18 +211,22 @@ class SeperateTable extends PureComponent {
         onScroll={this.handleScroll}
         className={tableClass('body', ...floatClass)}
       >
-        <table ref={this.bindTbody} style={{ width }}>
-          <Colgroup colgroup={colgroup} columns={columns} />
-          <Tbody
-            {...others}
-            columns={columns}
-            onBodyRender={this.handleColgroup}
-            index={index}
-            offsetLeft={offsetLeft}
-            offsetRight={offsetRight}
-            data={data.slice(index, index + rowsInView)}
-          />
-        </table>
+        <div ref={this.bindTbody} className={tableClass('scroll-inner')} style={{ width }}>
+          <div style={{ height: prevHeight }} />
+          <table ref={this.bindRealTbody}>
+            <Colgroup colgroup={colgroup} columns={columns} />
+            <Tbody
+              {...others}
+              columns={columns}
+              onBodyRender={this.handleColgroup}
+              index={currentIndex}
+              offsetLeft={offsetLeft}
+              offsetRight={offsetRight}
+              data={data.slice(currentIndex, currentIndex + rowsInView)}
+              setRowHeight={this.setRowHeight}
+            />
+          </table>
+        </div>
       </Scroll>
     )
   }

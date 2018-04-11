@@ -1,5 +1,5 @@
 import immer from 'immer'
-import { one, pick, pickDate, pickInteger } from '../utils/faker'
+import { one, pick, pickDate, pickInteger, pickNumber } from '../utils/faker'
 import firstNames from '../utils/faker/firstName'
 import lastNames from '../utils/faker/lastName'
 import position from '../utils/faker/position'
@@ -26,6 +26,7 @@ function init() {
       country: one(c20),
       office: one(c30),
       office5: one(c5),
+      height: pickNumber(14, 100),
     })
   }
 

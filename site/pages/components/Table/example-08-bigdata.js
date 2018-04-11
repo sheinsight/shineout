@@ -13,7 +13,7 @@ const columns = [
   {
     title: 'Name',
     fixed: 'left',
-    render: d => `${d.firstName} ${d.lastName}`,
+    render: d => <div style={{ height: d.height }}>{d.firstName} {d.lastName}</div>,
     width: 160,
   },
   { title: 'Country', render: 'country' },
@@ -22,7 +22,7 @@ const columns = [
   { title: 'Start Date', render: 'start', width: 140 },
 ]
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 10; i++) {
   columns.push({
     title: `${i + 1}`,
     render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
@@ -35,10 +35,11 @@ export default function () {
       fixed="both"
       keygen="id"
       width={11000}
-      style={{ height: 400 }}
+      style={{ height: 600 }}
       columns={columns}
       data={data}
       rowsInView={10}
+      rowHeight={100}
     />
   )
 }

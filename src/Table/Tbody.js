@@ -79,12 +79,12 @@ class Tbody extends Component {
     this.body = el
   }
 
-  renderTr(row, index) {
+  renderTr(row, i) {
     const {
-      columns, keygen, data, sorter, ...other
+      columns, keygen, data, sorter, index, ...other
     } = this.props
 
-    let key = getKey(data[index], keygen, row.index)
+    let key = getKey(data[i], keygen, row.index)
     if (sorter && sorter.order) {
       key = `${key}-${sorter.index}-${sorter.order}`
     }
@@ -92,6 +92,7 @@ class Tbody extends Component {
     return (
       <Tr
         {...other}
+        index={i + index}
         key={key}
         data={row}
         columns={columns}
