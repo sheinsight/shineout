@@ -70,14 +70,14 @@ class SeperateTable extends PureComponent {
   }
 
   setRowHeight(height, index) {
+    if (!this.tbody) return
+
     const oldHeight = this.cachedRowHeight[index]
     const { offsetLeft, currentIndex } = this.state
     if (currentIndex === index && !oldHeight) {
       // console.log(height - this.props.rowHeight)
       this.lastScrollTop += height - this.props.rowHeight
-      setTimeout(() => {
-        setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
-      })
+      setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
     }
     this.cachedRowHeight[index] = height
   }
