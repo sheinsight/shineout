@@ -32,7 +32,7 @@ export default function () {
       fixed="both"
       keygen="id"
       width={1200}
-      style={{ height: 400 }}
+      style={{ height: 600 }}
       columns={columns}
       data={data}
       rowsInView={20}
