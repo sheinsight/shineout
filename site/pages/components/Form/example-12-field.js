@@ -1,8 +1,8 @@
 /**
  * cn - 字段
- *    -- 支持 value 和 onChange 的组件可以放在 Form.Field 和 Form.FuncField 中。
- *    -- Form.Field children 必须为一个 ReactElement，必须支持 value 和 onChange 属性
- *    -- Form.FuncField children 必须为一个 Function，返回一个或一组 ReactElement
+ *    -- 支持 value 和 onChange 的组件可以放在 Form.Field 中。
+ *    -- children 为 ReactElement时，必须支持 value 和 onChange 属性
+ *    -- children 为 Function 时，返回一个或一组 ReactElement
  * en - Field
  */
 import React from 'react'
@@ -34,9 +34,9 @@ export default function () {
   return (
     <Form rules={rules} style={{ maxWidth: 500 }} onSubmit={d => console.log(d)}>
       <Form.Item required label="Email">
-        <Form.FuncField defaultValue="test@email.com" name="email">
-          { ({ value, onChange }) => <Input value={value} onChange={onChange} type="text" />}
-        </Form.FuncField>
+        <Form.Field defaultValue="test@email.com" name="email">
+          { ({ value, onChange, error }) => <Input value={value} error={error} onChange={onChange} type="text" />}
+        </Form.Field>
       </Form.Item>
 
       <Form.Item required label="Password" tip="Use at least one letter, one numeral, and seven characters.">

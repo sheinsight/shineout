@@ -69,7 +69,7 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-11-disabled.js'),
   },
   {
-    title: locate('字段 \n 支持 value 和 onChange 的组件可以放在 Form.Field 和 Form.FuncField 中。 \n Form.Field children 必须为一个 ReactElement，必须支持 value 和 onChange 属性 \n Form.FuncField children 必须为一个 Function，返回一个或一组 ReactElement', 'Field'),
+    title: locate('字段 \n 支持 value 和 onChange 的组件可以放在 Form.Field 中。 \n children 为 ReactElement时，必须支持 value 和 onChange 属性 \n children 为 Function 时，返回一个或一组 ReactElement', 'Field'),
     component: require('doc/pages/components/Form/example-12-field.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-12-field.js'),
   },
