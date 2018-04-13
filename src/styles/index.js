@@ -16,3 +16,4 @@ export const checkinputClass = genaration(require('./checkinput.less'), 'check-i
 export const formClass = genaration(require('./form.less'), 'form')
 export const inputClass = genaration(require('./form.less'), 'input')
 export const selectClass = genaration(require('./select.less'), 'select')
+export const modalClass = genaration(require('./modal.less'), 'modal')

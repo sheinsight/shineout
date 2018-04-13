@@ -1,0 +1,101 @@
+@import './variables.less';
+@import './themes/@{so-theme}.less';
+
+@modal-prefix: ~"@{so-prefix}-modal";
+
+.@{modal-prefix} {
+  position: relative;
+  background-color: #fff;
+  border: 0;
+  border-radius: 4px;
+  background-clip: padding-box;
+  box-shadow: 0 2px 8px rgba(0,0,0,.2);
+  margin: 0 auto;
+  top: 100px;
+  &-title {
+    padding: 14px 16px;
+    border-radius: 4px 4px 0 0;
+    background: #fff;
+    border-bottom: 1px solid #e9e9e9;
+    margin: 0;
+    font-size: 14px;
+    line-height: 21px;
+    font-weight: 500;
+    color: rgba(0,0,0,.85);
+  }
+  &-content{
+    padding: 16px;
+    font-size: 12px;
+    line-height: 1.5;
+    &-special {
+      margin: 0 auto;
+      padding: 24px 16px 13px 16px;
+      overflow: hidden;
+      &-icon {
+        width: 20px;
+        height: 20px;
+        float: left;
+        margin-top:1px;
+        margin-right: 10px;
+        line-height: 1;
+        &-success path{
+          fill: @colors-success
+        }
+        &-info path {
+          fill: @colors-primary;
+        }
+        &-confirm path {
+          fill: @colors-warning;
+        }
+        &-error path {
+          fill: @colors-error;
+        }
+      }
+      &-title {
+        color: rgba(0,0,0,.85);
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 22px;
+        display: block;
+        overflow: auto;
+      }
+      &-body {
+        margin-left: 30px;
+        font-size: 14px;
+        margin-top: 8px;
+      }
+      &-button {
+        display: block;
+        float: right;
+        margin: 26px 0 0 15px;
+      }
+    }
+  }
+  &-footer{
+    border-top: 1px solid #e9e9e9;
+    padding: 10px 16px 10px 10px;
+    text-align: right;
+    border-radius: 0 0 4px 4px;
+    button:last-child {
+      margin-left: 10px;
+    }
+  }
+  &-close {
+    padding: 0;
+    display: block;
+    top: 13px;
+    right: 20px;
+    position: absolute;
+    height: 10px;
+    width: 10px;
+  }
+  &-mask {
+    top:0;
+    left:0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.75);
+    z-index: 1000;
+  }
+}
