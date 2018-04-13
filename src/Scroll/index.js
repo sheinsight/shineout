@@ -5,7 +5,7 @@ import Scroll from './Scroll'
 export default class extends PureComponent {
   static propTypes = {
     onScroll: PropTypes.func,
-    scroll: PropTypes.oneOf(['x', 'y', 'both']),
+    scroll: PropTypes.oneOf(['x', 'y', 'both', '']),
     scrollLeft: PropTypes.number,
     scrollTop: PropTypes.number,
   }

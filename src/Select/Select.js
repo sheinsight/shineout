@@ -21,6 +21,7 @@ class Select extends PureComponent {
       result: [],
       scrollTop: 0,
       hoverIndex: undefined,
+      currentIndex: 0,
     }
 
     this.bindElement = this.bindElement.bind(this)
@@ -39,6 +40,8 @@ class Select extends PureComponent {
       props.datum.limit = undefined
     }
     props.datum.listen('set-value', this.resetResult)
+
+    this.lastScrollTop = 0
   }
 
   componentDidMount() {
@@ -120,12 +123,32 @@ class Select extends PureComponent {
     }
   }
 
-  handleScroll(x, y, max, bar, v, h) {
-    const fullHeight = this.props.itemsInView * this.props.lineHeight
-    const scrollTop = h > fullHeight ? 0 : y
-    bar.style.paddingTop = `${scrollTop * h}px`
-    setTranslate(this.optionInner, '0', `-${scrollTop * 100}%`)
-    this.setState({ scrollTop })
+  handleScroll(x, y, max, bar, v, h, pixelX, pixelY) {
+    const { data, itemsInView, lineHeight } = this.props
+    const fullHeight = itemsInView * this.props.lineHeight
+    const contentHeight = (data.length * lineHeight) - h
+    let scrollTop = h > fullHeight ? 0 : y
+
+    this.optionInner.style.marginTop = `${scrollTop * h}px`
+
+    if (pixelY === undefined || pixelY === 0) {
+      this.lastScrollTop = scrollTop * contentHeight
+    } else {
+      this.lastScrollTop += pixelY
+      if (this.lastScrollTop < 0) this.lastScrollTop = 0
+
+      // scroll over bottom
+      if (this.lastScrollTop > contentHeight) this.lastScrollTop = contentHeight
+      scrollTop = this.lastScrollTop / contentHeight
+    }
+
+    let index = Math.floor(this.lastScrollTop / lineHeight) - 1
+    if (index < 0) index = 0
+    if (data.length - itemsInView < index) index = data.length - itemsInView
+
+    setTranslate(this.optionInner, '0px', `-${this.lastScrollTop + (scrollTop * h)}px`)
+
+    this.setState({ scrollTop, currentIndex: index })
   }
 
   handleKeyDown(e) {
@@ -165,9 +188,8 @@ class Select extends PureComponent {
     const {
       data, datum, keygen, multiple, itemsInView, lineHeight, height,
     } = this.props
-    const { hoverIndex } = this.state
+    const { hoverIndex, currentIndex } = this.state
 
-    const index = this.getIndex()
     let scroll = ''
     if (height < lineHeight * data.length) {
       scroll = 'y'
@@ -184,19 +206,20 @@ class Select extends PureComponent {
           : (
             <Scroll
               scroll={scroll}
-              style={{ height: scroll ? height : 'auto' }}
+              style={{ height: scroll ? height : undefined }}
               onScroll={this.handleScroll}
               scrollHeight={data.length * lineHeight}
               scrollTop={this.state.scrollTop}
             >
               <div ref={(el) => { this.optionInner = el }}>
+                <div style={{ height: currentIndex * lineHeight }} />
                 {
-                  data.slice(index, index + itemsInView).map((d, i) => (
+                  data.slice(currentIndex, currentIndex + itemsInView).map((d, i) => (
                     <Option
                       isActive={datum.check(d)}
-                      isHover={hoverIndex === index + i}
+                      isHover={hoverIndex === currentIndex + i}
                       key={getKey(d, keygen, i)}
-                      index={index + i}
+                      index={currentIndex + i}
                       data={d}
                       multiple={multiple}
                       onClick={this.handleChange}

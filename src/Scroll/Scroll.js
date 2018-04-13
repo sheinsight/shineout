@@ -37,9 +37,9 @@ class Scroll extends PureComponent {
   getWheelRect() {
     if (!this.wheelElement) return { width: 0, height: 0 }
     const rect = this.wheelElement.getBoundingClientRect()
-    const { scrollX, scrollY } = this.props
-    const width = rect.width - (scrollY ? BAR_WIDTH : 0)
-    const height = rect.height - (scrollX ? BAR_WIDTH : 0)
+    const { scrollX, scrollY, style } = this.props
+    const width = (style.width || rect.width) - (scrollY ? BAR_WIDTH : 0)
+    const height = (style.height || rect.height) - (scrollX ? BAR_WIDTH : 0)
     return { width, height }
   }
 
@@ -96,9 +96,11 @@ class Scroll extends PureComponent {
   }
 
   handleWheel(event) {
+    const { scrollX, scrollY } = this.props
+    if (!scrollX && !scrollY) return
+
     event.preventDefault()
     const wheel = normalizeWheel(event)
-    const { scrollX, scrollY } = this.props
 
     if (scrollX) this.pixelX += wheel.pixelX
     if (scrollY) this.pixelY += wheel.pixelY
@@ -127,7 +129,7 @@ class Scroll extends PureComponent {
 
   render() {
     const {
-      children, scrollWidth, scrollHeight, left, top, scrollX, scrollY,
+      children, scrollWidth, scrollHeight, left, top, scrollX, scrollY, style,
     } = this.props
     const { width, height } = this.getWheelRect()
 
@@ -141,7 +143,7 @@ class Scroll extends PureComponent {
     )
 
     return (
-      <div onWheel={this.handleWheel} ref={this.bindWheel} className={className}>
+      <div onWheel={this.handleWheel} style={style} ref={this.bindWheel} className={className}>
         <iframe title="scroll" ref={this.bindIframe} className={scrollClass('iframe')} />
         <div ref={this.bindInner} className={scrollClass('inner')}>
           { children }

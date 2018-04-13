@@ -20,7 +20,7 @@ export default function () {
       onChange={onChange}
       style={style}
       placeholder="Select a user"
-      renderItem={(user, i) => `${user.firstName} ${user.lastName} (${i})`}
+      renderItem={(user, i) => `${user.firstName} ${user.lastName} (${i + 1})`}
       renderResult={user => `${user.firstName} ${user.lastName}`}
     />
   )

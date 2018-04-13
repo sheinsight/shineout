@@ -39,7 +39,6 @@ export default function () {
       columns={columns}
       data={data}
       rowsInView={10}
-      rowHeight={100}
     />
   )
 }

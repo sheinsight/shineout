@@ -100,9 +100,7 @@ class ScrollBar extends PureComponent {
       direction, length, scrollLength, offset, barLength,
     } = this.props
     const { dragging } = this.state
-
     const show = scrollLength > length
-
     const className = scrollClass(
       'bar',
       direction,
