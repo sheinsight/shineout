@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import { selectClass } from '../styles'
 
 class Option extends PureComponent {
@@ -29,7 +30,14 @@ class Option extends PureComponent {
     const {
       data, isActive, index, renderItem, isHover,
     } = this.props
-    const className = selectClass('option', isActive && 'active', isHover && 'hover')
+    const className = classnames(
+      selectClass(
+        'option',
+        isActive && 'active',
+        isHover && 'hover',
+      ),
+      `option-${index}`,
+    )
 
     console.log('render option', index)
 

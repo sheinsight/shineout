@@ -65,16 +65,53 @@ class Select extends PureComponent {
 
   hoverMove(step) {
     const max = this.props.data.length
+    const { lineHeight, height } = this.props
     // eslint-disable-next-line
     let { hoverIndex, currentIndex } = this.state
     if (hoverIndex === undefined) hoverIndex = currentIndex
     else hoverIndex += step
 
-    if (hoverIndex >= max) hoverIndex = 0
+    console.log(hoverIndex)
+
+    if (hoverIndex >= max) {
+      hoverIndex = 0
+      this.lastScrollTop = 0
+    }
     if (hoverIndex < 0) hoverIndex = max - 1
 
+    const scrollTop = hoverIndex / max
+    const offset = scrollTop * height
+    const emptyHeight = (hoverIndex * lineHeight) + offset
+
+    if (emptyHeight < this.lastScrollTop + offset) {
+      // fixed at top
+
+      this.optionInner.style.marginTop = `${offset}px`
+      setTranslate(this.optionInner, '0px', `-${emptyHeight}px`)
+      this.lastScrollTop = emptyHeight - offset
+
+      currentIndex = hoverIndex - 1
+      if (currentIndex < 0) currentIndex = max
+      this.setState({ currentIndex, scrollTop: emptyHeight / (lineHeight * max) })
+    } else if (emptyHeight + lineHeight > this.lastScrollTop + offset + height) {
+      // fixed at bottom
+
+      this.optionInner.style.marginTop = `${offset}px`
+      const scrollHeight = (emptyHeight + lineHeight) - height
+      setTranslate(this.optionInner, '0px', `-${scrollHeight}px`)
+      this.lastScrollTop = scrollHeight - offset
+
+      currentIndex = hoverIndex - Math.ceil(height / lineHeight)
+      if (currentIndex < 0) currentIndex = 0
+      this.setState({ currentIndex, scrollTop: scrollHeight / (lineHeight * max) })
+    } else if (hoverIndex === 0 && emptyHeight === 0) {
+      // reset to top
+
+      this.optionInner.style.marginTop = '0px'
+      setTranslate(this.optionInner, '0px', '0px')
+      this.setState({ currentIndex: 0, scrollTop: 0 })
+    }
     this.setState({ hoverIndex })
-    console.log(hoverIndex)
   }
 
   handleState(focus, event) {

@@ -35,8 +35,8 @@ export default class extends PureComponent {
   }
 
   getRect() {
-    const left = this.props.scrollLeft || this.state.left
-    const top = this.props.scrollTop || this.state.top
+    const left = this.props.scrollLeft === undefined ? this.state.left : this.props.scrollLeft
+    const top = this.props.scrollTop === undefined ? this.state.top : this.props.scrollTop
     return { left, top }
   }
 
