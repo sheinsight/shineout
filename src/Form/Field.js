@@ -18,12 +18,20 @@ class Field extends PureComponent {
 
   render() {
     const { children, value, error } = this.props
+
+    if (typeof children === 'function') {
+      return children({ value, error, onChange: this.handleChange })
+    }
+
     return cloneElement(children, { value, error, onChange: this.handleChange })
   }
 }
 
 Field.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.element,
+  ]).isRequired,
   error: PropTypes.object,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.any,

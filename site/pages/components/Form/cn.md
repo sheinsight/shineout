@@ -5,7 +5,6 @@ Form 是一个比较复杂的组件，由下列组件组成
 - **Form：** 表单
 - **Form.Item：** 表单项，用来布局，显示标签，提示文案信息等。
 - **Form.Field：** 用于处理自定义组件，实现rules校验，存储数据功能。
-- **Form.FuncField：** 同 Form.Field，用来处理更复杂的场景。
 - **Form.Block：** 表单块，用来存取多级嵌套的数据。
 - **Form.BlockField：** 合并了 Field 和 Block 的一个快捷组件。
 - **Form.Loop：** 用于遍历 array 类型的值，生成子组件。
@@ -77,13 +76,11 @@ rule 共有 5 种规则，按优先级分别为：
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| children | ReactElement | 必填 | 支持 value 和 onChange 的 React 组件 |
+| children | ReactElement\|Function | 必填 | 支持 value 和 onChange 的 React 组件，或者函数 |
 | defaultValue | string \| number | | 默认值 |
 | name | string | 无 | Form 存取数据的名称 |
 | value | string \| number | | defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖<br />在Form中，value会被表单接管，value无效 |
 
-### Form.FuncField
-同 Form.Field，适用于更为复杂的场景
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
