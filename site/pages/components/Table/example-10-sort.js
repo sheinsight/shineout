@@ -39,6 +39,7 @@ export default function () {
     <Table
       fixed="both"
       keygen="id"
+      striped
       width={1200}
       style={{ height: 400 }}
       columns={columns}
