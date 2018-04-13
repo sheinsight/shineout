@@ -113,17 +113,26 @@
     transition: none;
     white-space: nowrap;
 
+    /*
     &:hover {
       text-decoration: none;
       color: @dropdown-link-hover-color;
       background-color: @dropdown-link-hover-bg;
     }
+    */
 
     &.@{select-prefix}-active {
       text-decoration: none;
       color: @dropdown-link-active-color;
       background-color: @dropdown-link-active-bg;
     }
+
+    &.@{select-prefix}-hover {
+      text-decoration: none;
+      color: @dropdown-link-hover-color;
+      background-color: @dropdown-link-hover-bg;
+    }
+
   }
 
   &-small &-result {

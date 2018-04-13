@@ -19,6 +19,7 @@ export default function () {
       <Select
         data={citys}
         datum={{ format: 'id' }}
+        keygen="id"
         defaultValue={3}
         onChange={onChange}
         style={style}
@@ -29,6 +30,7 @@ export default function () {
       <Select
         data={users}
         datum={{ format: 'id' }}
+        keygen="id"
         defaultValue={3}
         onChange={onChange}
         style={style}
@@ -39,6 +41,7 @@ export default function () {
       <Select
         data={citys}
         multiple
+        keygen="id"
         defaultValue={[3, 4]}
         datum={{ format: 'id' }}
         onChange={onChange}

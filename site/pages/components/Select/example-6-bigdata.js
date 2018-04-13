@@ -16,6 +16,7 @@ export default function () {
     <Select
       data={users}
       datum={{ format: 'id' }}
+      keygen="id"
       defaultValue={3}
       onChange={onChange}
       style={style}

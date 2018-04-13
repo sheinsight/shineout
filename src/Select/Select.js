@@ -32,6 +32,7 @@ class Select extends PureComponent {
     this.handleRemove = this.handleChange.bind(this, false)
     this.handleScroll = this.handleScroll.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.handleHover = this.handleHover.bind(this)
 
     this.resetResult = this.resetResult.bind(this)
     this.renderItem = this.renderItem.bind(this)
@@ -64,8 +65,9 @@ class Select extends PureComponent {
 
   hoverMove(step) {
     const max = this.props.data.length
-    let { hoverIndex } = this.state
-    if (hoverIndex === undefined) hoverIndex = step === 1 ? 0 : (max - 1)
+    // eslint-disable-next-line
+    let { hoverIndex, currentIndex } = this.state
+    if (hoverIndex === undefined) hoverIndex = currentIndex
     else hoverIndex += step
 
     if (hoverIndex >= max) hoverIndex = 0
@@ -82,7 +84,7 @@ class Select extends PureComponent {
       return
     }
 
-    this.setState({ focus })
+    this.setState({ focus, hoverIndex: undefined })
 
     const { onBlur, onFocus } = this.props
     if (focus) onFocus()
@@ -143,12 +145,19 @@ class Select extends PureComponent {
     }
 
     let index = Math.floor(this.lastScrollTop / lineHeight) - 1
-    if (index < 0) index = 0
     if (data.length - itemsInView < index) index = data.length - itemsInView
+    if (index < 0) index = 0
 
     setTranslate(this.optionInner, '0px', `-${this.lastScrollTop + (scrollTop * h)}px`)
 
     this.setState({ scrollTop, currentIndex: index })
+  }
+
+  handleEnter() {
+    const { hoverIndex } = this.state
+    const data = this.props.data[hoverIndex]
+    const checked = !this.props.datum.check(data)
+    this.handleChange(checked, data)
   }
 
   handleKeyDown(e) {
@@ -161,10 +170,14 @@ class Select extends PureComponent {
         this.hoverMove(1)
         break
       case 13:
-        console.log('enter')
+        this.handleEnter()
         break
       default:
     }
+  }
+
+  handleHover(index) {
+    this.setState({ hoverIndex: index })
   }
 
   // result performance
@@ -224,6 +237,7 @@ class Select extends PureComponent {
                       multiple={multiple}
                       onClick={this.handleChange}
                       renderItem={this.renderItem}
+                      onHover={this.handleHover}
                     />
                   ))
                 }

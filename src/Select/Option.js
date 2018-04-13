@@ -6,26 +6,40 @@ class Option extends PureComponent {
   constructor(props) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
+    this.handleEnter = this.handleHover.bind(this, props.index)
+    this.handleLeave = this.handleHover.bind(this, undefined)
   }
 
   handleClick() {
     const {
-      data, onClick, isActive, multiple,
+      data, onClick, isActive, multiple, index,
     } = this.props
 
     if (isActive && !multiple) return
 
-    onClick(!isActive, data)
+    onClick(!isActive, data, index)
+  }
+
+  handleHover(index) {
+    console.log(index)
+    this.props.onHover(index)
   }
 
   render() {
     const {
-      data, isActive, index, renderItem,
+      data, isActive, index, renderItem, isHover,
     } = this.props
-    const className = selectClass('option', isActive && 'active')
+    const className = selectClass('option', isActive && 'active', isHover && 'hover')
+
+    console.log('render option', index)
 
     return (
-      <a onClick={this.handleClick} className={className}>
+      <a
+        onClick={this.handleClick}
+        onMouseEnter={this.handleEnter}
+        onMouseLeave={this.handleLeave}
+        className={className}
+      >
         { renderItem(data, index) }
       </a>
     )
@@ -39,8 +53,10 @@ Option.propTypes = {
   ]).isRequired,
   index: PropTypes.number,
   isActive: PropTypes.bool,
+  isHover: PropTypes.bool,
   multiple: PropTypes.bool,
   onClick: PropTypes.func,
+  onHover: PropTypes.func.isRequired,
   renderItem: PropTypes.func.isRequired,
 }
 
