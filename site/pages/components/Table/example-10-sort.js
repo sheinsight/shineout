@@ -41,7 +41,7 @@ export default function () {
       keygen="id"
       striped
       width={1200}
-      style={{ height: 400 }}
+      style={{ maxHeight: 400 }}
       columns={columns}
       data={data}
       rowsInView={10}
