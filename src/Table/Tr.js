@@ -38,7 +38,9 @@ class Tr extends Component {
   }
 
   render() {
-    const { columns, data, ...other } = this.props
+    const {
+      columns, data, striped, index, ...other
+    } = this.props
     const tds = []
     let skip = 0
     for (let i = 0, c = columns.length; i < c; i++) {
@@ -67,7 +69,9 @@ class Tr extends Component {
       }
     }
 
-    return <tr ref={this.bindElement}>{tds}</tr>
+    const className = striped && index % 2 === 1 ? tableClass('even') : ''
+
+    return <tr className={className} ref={this.bindElement}>{tds}</tr>
   }
 }
 
@@ -77,6 +81,7 @@ Tr.propTypes = {
   index: PropTypes.number,
   offsetLeft: PropTypes.number,
   offsetRight: PropTypes.number,
+  striped: PropTypes.bool,
   setRowHeight: PropTypes.func,
 }
 

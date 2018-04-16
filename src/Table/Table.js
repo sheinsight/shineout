@@ -36,7 +36,6 @@ class Table extends PureComponent {
         '_',
         size,
         hover && !striped && 'hover',
-        striped && 'striped',
         bordered && 'bordered',
         fixed && 'fixed',
         scrollLeft > 0 && 'left-float',
@@ -54,6 +53,7 @@ class Table extends PureComponent {
       data,
       columns,
       scrollLeft,
+      striped,
     }
 
     const RenderTable = fixed ? SeperateTable : SimpleTable

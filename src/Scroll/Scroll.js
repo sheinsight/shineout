@@ -145,6 +145,7 @@ class Scroll extends PureComponent {
     return (
       <div onWheel={this.handleWheel} style={style} ref={this.bindWheel} className={className}>
         <iframe title="scroll" ref={this.bindIframe} className={scrollClass('iframe')} />
+        <div className={scrollClass('iframe')} />
         <div ref={this.bindInner} className={scrollClass('inner')}>
           { children }
         </div>

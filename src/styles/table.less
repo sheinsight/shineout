@@ -203,10 +203,8 @@
     }
   }
 
-  &-striped {
-    table > tbody > tr:nth-of-type(even) > td {
-      background-color: @table-bg-accent;
-    }
+  table > tbody > tr&-even > td {
+    background-color: @table-bg-accent;
   }
 
   &-head {
