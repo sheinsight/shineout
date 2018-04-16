@@ -32,6 +32,7 @@ class Select extends PureComponent {
     this.handleRemove = this.handleChange.bind(this, false)
     this.handleScroll = this.handleScroll.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.handleKeyUp = this.handleKeyUp.bind(this)
     this.handleHover = this.handleHover.bind(this)
 
     this.resetResult = this.resetResult.bind(this)
@@ -70,8 +71,6 @@ class Select extends PureComponent {
     let { hoverIndex, currentIndex } = this.state
     if (hoverIndex === undefined) hoverIndex = currentIndex
     else hoverIndex += step
-
-    console.log(hoverIndex)
 
     if (hoverIndex >= max) {
       hoverIndex = 0
@@ -193,27 +192,38 @@ class Select extends PureComponent {
   handleEnter() {
     const { hoverIndex } = this.state
     const data = this.props.data[hoverIndex]
-    const checked = !this.props.datum.check(data)
-    this.handleChange(checked, data)
+    if (data) {
+      const checked = !this.props.datum.check(data)
+      this.handleChange(checked, data)
+    }
   }
 
   handleKeyDown(e) {
-    e.preventDefault()
+    this.keyLocked = true
+    // e.preventDefault()
     switch (e.keyCode) {
       case 38:
         this.hoverMove(-1)
+        e.preventDefault()
         break
       case 40:
         this.hoverMove(1)
+        e.preventDefault()
         break
       case 13:
         this.handleEnter()
+        e.preventDefault()
         break
       default:
     }
   }
 
+  handleKeyUp() {
+    this.keyLocked = false
+  }
+
   handleHover(index) {
+    if (this.keyLocked) return
     this.setState({ hoverIndex: index })
   }
 
@@ -288,7 +298,7 @@ class Select extends PureComponent {
 
   render() {
     const {
-      placeholder, multiple, clearable, disabled, size,
+      placeholder, multiple, clearable, disabled, size, onFilter,
     } = this.props
     const className = selectClass(
       'inner',
@@ -307,10 +317,12 @@ class Select extends PureComponent {
         onFocus={this.handleFocus}
         onBlur={this.handleBlur}
         onKeyDown={this.handleKeyDown}
+        onKeyUp={this.handleKeyUp}
       >
         <Result
           onClear={clearable ? this.handleClear : undefined}
           onRemove={this.handleRemove}
+          onFilter={onFilter}
           disabled={disabled}
           focus={this.state.focus}
           result={this.state.result}
@@ -335,6 +347,7 @@ Select.propTypes = {
   lineHeight: PropTypes.number,
   multiple: PropTypes.bool,
   onBlur: PropTypes.func,
+  onFilter: PropTypes.func,
   onFocus: PropTypes.func,
   renderItem: PropTypes.oneOfType([
     PropTypes.string,

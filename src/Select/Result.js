@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { inputClass, selectClass } from '../styles'
+import Input from './Input'
 
 // eslint-disable-next-line
 function Item({ renderResult, data, onClick }) {
@@ -32,7 +33,18 @@ class Result extends PureComponent {
     return null
   }
 
+  renderInput(text) {
+    const { onFilter } = this.props
+    return <Input placeholder={text} onFilter={onFilter} />
+  }
+
   renderPlaceholder() {
+    const { focus, onFilter } = this.props
+
+    if (focus && onFilter) {
+      return this.renderInput(' ')
+    }
+
     return (
       <span className={inputClass('placeholder')}>
         {this.props.placeholder}&nbsp;
@@ -42,14 +54,21 @@ class Result extends PureComponent {
 
   renderResult() {
     const {
-      multiple, result, renderResult, onRemove,
+      multiple, result, renderResult, onRemove, focus, onFilter,
     } = this.props
 
     if (multiple) {
-      return result.map((d, i) => (
+      const items = result.map((d, i) => (
         <Item key={i} data={d} onClick={onRemove} renderResult={renderResult} />
       ))
+
+      return items
     }
+
+    if (focus && onFilter) {
+      return this.renderInput(result[0])
+    }
+
     return (
       <span className={selectClass('ellipsis')}>
         {renderResult(result[0])}
@@ -78,9 +97,11 @@ class Result extends PureComponent {
 
 Result.propTypes = {
   disabled: PropTypes.bool,
+  focus: PropTypes.bool,
   multiple: PropTypes.bool.isRequired,
   onRemove: PropTypes.func,
   onClear: PropTypes.func,
+  onFilter: PropTypes.func,
   result: PropTypes.array.isRequired,
   renderResult: PropTypes.func.isRequired,
   placeholder: PropTypes.string,

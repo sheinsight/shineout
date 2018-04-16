@@ -48,6 +48,11 @@ const examples = [
     component: require('doc/pages/components/Select/example-7-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-7-disabled.js'),
   },
+  {
+    title: locate('筛选数据', 'filter'),
+    component: require('doc/pages/components/Select/example-8-filter.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-8-filter.js'),
+  },
 ]
 
 const codes = undefined

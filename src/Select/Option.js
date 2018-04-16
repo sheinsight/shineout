@@ -22,7 +22,6 @@ class Option extends PureComponent {
   }
 
   handleHover(index) {
-    console.log(index)
     this.props.onHover(index)
   }
 
