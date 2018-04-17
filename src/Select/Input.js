@@ -1,41 +1,88 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { selectClass } from '../styles'
 
 class FilterInput extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.state = { value: '' }
-    this.handleChange = this.handleChange.bind(this)
+    this.bindElement = this.bindElement.bind(this)
+    this.handleInput = this.handleInput.bind(this)
+    this.handleBlur = this.handleBlur.bind(this)
   }
 
-  handleChange(e) {
-    console.log(e.target.value)
-    this.setState({ value: e.target.value })
+  componentDidMount() {
+    if (this.props.focus) {
+      this.props.onInputFocus()
+      this.focus()
+    }
   }
 
-  handleBlur() {
-    this.props.onFilter(this.state.value)
+  componentDidUpdate(prevProps) {
+    this.editElement.innerText = this.props.text
+    if (this.props.focus === prevProps.focus || !this.props.focus) return
+    this.props.onInputFocus()
+
+    this.focus()
+  }
+
+  focus() {
+    if (window.getSelection) {
+      this.editElement.focus()
+      const range = window.getSelection()
+      range.selectAllChildren(this.editElement)
+      range.collapseToEnd()
+    } else if (document.selection) {
+      const range = document.selection.createRange()
+      range.moveToElementText(this.editElement)
+      range.collapse(false)
+      range.select()
+    }
+  }
+
+  bindElement(el) {
+    this.editElement = el
+  }
+
+  handleInput(e) {
+    this.props.onFilter(e.target.innerText.replace('\feff ', '').trim())
+  }
+
+  handleBlur(e) {
+    // this.props.onFilter(this.editElement.innerText)
+    const evt = { target: e.target }
+    setTimeout(() => {
+      this.props.onInputBlur(evt, true)
+    }, 200)
   }
 
   render() {
-    const { placeholder } = this.props
-    const { value } = this.state
-    console.log(111111111)
+    const { text, focus } = this.props
+    const value = text.replace(/<\/?[^>]*>/g, '')
     return (
-      <input
-        placeholder={placeholder}
-        autoFocus
-        value={value}
-        onChange={this.handleChange}
+      <span
+        key="input"
+        className={selectClass('input')}
+        ref={this.bindElement}
+        contentEditable={focus}
+        onInput={this.handleInput}
+        onBlur={this.handleBlur}
+        dangerouslySetInnerHTML={{ __html: value }}
       />
     )
   }
 }
 
 FilterInput.propTypes = {
+  focus: PropTypes.bool,
   onFilter: PropTypes.func.isRequired,
-  placeholder: PropTypes.string,
+  onInputFocus: PropTypes.func,
+  onInputBlur: PropTypes.func,
+  text: PropTypes.string,
+}
+
+FilterInput.defaultProps = {
+  text: '',
 }
 
 export default FilterInput

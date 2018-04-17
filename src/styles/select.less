@@ -26,6 +26,16 @@
       }
     }
 
+    .@{select-prefix}-input {
+      outline: none;
+      min-width: 12px;
+      display: inline-block;
+
+      &:after {
+        content: '\feff ';
+      }
+    }
+
     .@{select-prefix}-item {
       position: relative;
       display: inline-block;

@@ -21,6 +21,7 @@ export default Origin => class extends PureComponent {
 
   handleFilter(text) {
     const { filter } = this.props
+    // console.log('text', text, !text, JSON.stringify(text), text.length)
     if (!text || !filter) {
       this.setState({ innerFilter: undefined })
       return

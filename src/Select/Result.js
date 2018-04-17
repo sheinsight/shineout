@@ -34,8 +34,20 @@ class Result extends PureComponent {
   }
 
   renderInput(text) {
-    const { onFilter } = this.props
-    return <Input placeholder={text} onFilter={onFilter} />
+    const {
+      multiple, onFilter, focus, onInputFocus, onInputBlur,
+    } = this.props
+    return (
+      <Input
+        key="input"
+        onInputFocus={onInputFocus}
+        onInputBlur={onInputBlur}
+        multiple={multiple}
+        focus={focus}
+        text={text}
+        onFilter={onFilter}
+      />
+    )
   }
 
   renderPlaceholder() {
@@ -54,7 +66,7 @@ class Result extends PureComponent {
 
   renderResult() {
     const {
-      multiple, result, renderResult, onRemove, focus, onFilter,
+      multiple, result, renderResult, onRemove, onFilter,
     } = this.props
 
     if (multiple) {
@@ -65,7 +77,7 @@ class Result extends PureComponent {
       return items
     }
 
-    if (focus && onFilter) {
+    if (onFilter) {
       return this.renderInput(result[0])
     }
 
@@ -102,6 +114,8 @@ Result.propTypes = {
   onRemove: PropTypes.func,
   onClear: PropTypes.func,
   onFilter: PropTypes.func,
+  onInputFocus: PropTypes.func,
+  onInputBlur: PropTypes.func,
   result: PropTypes.array.isRequired,
   renderResult: PropTypes.func.isRequired,
   placeholder: PropTypes.string,

@@ -34,6 +34,7 @@ class Select extends PureComponent {
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleKeyUp = this.handleKeyUp.bind(this)
     this.handleHover = this.handleHover.bind(this)
+    this.handleInputFocus = this.handleInputFocus.bind(this)
 
     this.resetResult = this.resetResult.bind(this)
     this.renderItem = this.renderItem.bind(this)
@@ -48,6 +49,16 @@ class Select extends PureComponent {
 
   componentDidMount() {
     this.resetResult()
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { onFilter } = this.props
+    // clear filter
+    if (prevState.focus !== this.state.focus && !this.state.focus && onFilter) {
+      setTimeout(() => {
+        onFilter()
+      }, 400)
+    }
   }
 
   getIndex() {
@@ -113,12 +124,22 @@ class Select extends PureComponent {
     this.setState({ hoverIndex })
   }
 
-  handleState(focus, event) {
+  handleState(focus, event, force) {
     if (this.props.disabled) return
 
-    if (event && event.target.getAttribute('data-role') === 'close') {
+    // if (event.target.getAttribute('data-role') === 'input') return
+    if (focus === this.state.focus) return
+
+    const classList = (event.target.className || '').split(' ')
+    if (classList.indexOf(selectClass('option')) >= 0) return
+
+    if (!focus && this.inputLocked) {
+      this.inputLocked = false
       return
     }
+
+    // prevent input blur
+    if (classList.indexOf(selectClass('input')) >= 0 && !force) return
 
     this.setState({ focus, hoverIndex: undefined })
 
@@ -144,10 +165,14 @@ class Select extends PureComponent {
     } else {
       datum.set(data)
       this.setState({ result: [data] })
-      this.element.blur()
+      this.handleState(false, { target: {} }, true)
     }
 
     this.forceUpdate()
+  }
+
+  handleInputFocus() {
+    this.inputLocked = true
   }
 
   handleClear() {
@@ -314,7 +339,7 @@ class Select extends PureComponent {
         tabIndex={-1}
         ref={this.bindElement}
         className={className}
-        onFocus={this.handleFocus}
+        onClick={this.handleFocus}
         onBlur={this.handleBlur}
         onKeyDown={this.handleKeyDown}
         onKeyUp={this.handleKeyUp}
@@ -329,6 +354,8 @@ class Select extends PureComponent {
           multiple={multiple}
           placeholder={placeholder}
           renderResult={renderResult}
+          onInputFocus={this.handleInputFocus}
+          onInputBlur={this.handleBlur}
         />
         { !disabled && this.renderOptions() }
       </div>

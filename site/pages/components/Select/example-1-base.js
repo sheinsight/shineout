@@ -12,7 +12,6 @@ export default function () {
     <Select
       style={{ width: 240 }}
       data={data}
-      placeholder="Select color"
       onChange={d => console.log(d)}
     />
   )

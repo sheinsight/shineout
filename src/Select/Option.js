@@ -13,10 +13,8 @@ class Option extends PureComponent {
 
   handleClick() {
     const {
-      data, onClick, isActive, multiple, index,
+      data, onClick, isActive, index,
     } = this.props
-
-    if (isActive && !multiple) return
 
     onClick(!isActive, data, index)
   }
@@ -38,7 +36,7 @@ class Option extends PureComponent {
       `option-${index}`,
     )
 
-    console.log('render option', index)
+    // console.log('render option', index)
 
     return (
       <a
@@ -61,7 +59,6 @@ Option.propTypes = {
   index: PropTypes.number,
   isActive: PropTypes.bool,
   isHover: PropTypes.bool,
-  multiple: PropTypes.bool,
   onClick: PropTypes.func,
   onHover: PropTypes.func.isRequired,
   renderItem: PropTypes.func.isRequired,
