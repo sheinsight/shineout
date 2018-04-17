@@ -9,6 +9,9 @@ class FilterInput extends PureComponent {
     this.bindElement = this.bindElement.bind(this)
     this.handleInput = this.handleInput.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
+
+    // for mutiple select
+    this.props.setInputReset(this.reset.bind(this))
   }
 
   componentDidMount() {
@@ -24,6 +27,11 @@ class FilterInput extends PureComponent {
     this.props.onInputFocus()
 
     this.focus()
+  }
+
+  reset() {
+    if (this.editElement) this.editElement.innerText = ''
+    if (this.blurTimer) clearTimeout(this.blurTimer)
   }
 
   focus() {
@@ -49,9 +57,9 @@ class FilterInput extends PureComponent {
   }
 
   handleBlur(e) {
-    // this.props.onFilter(this.editElement.innerText)
     const evt = { target: e.target }
-    setTimeout(() => {
+
+    this.blurTimer = setTimeout(() => {
       this.props.onInputBlur(evt, true)
     }, 200)
   }
@@ -59,6 +67,7 @@ class FilterInput extends PureComponent {
   render() {
     const { text, focus } = this.props
     const value = text.replace(/<\/?[^>]*>/g, '')
+
     return (
       <span
         key="input"
@@ -74,10 +83,11 @@ class FilterInput extends PureComponent {
 }
 
 FilterInput.propTypes = {
-  focus: PropTypes.bool,
+  focus: PropTypes.bool.isRequired,
   onFilter: PropTypes.func.isRequired,
-  onInputFocus: PropTypes.func,
-  onInputBlur: PropTypes.func,
+  onInputFocus: PropTypes.func.isRequired,
+  onInputBlur: PropTypes.func.isRequired,
+  setInputReset: PropTypes.func.isRequired,
   text: PropTypes.string,
 }
 

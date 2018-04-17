@@ -24,6 +24,7 @@ class Select extends PureComponent {
       currentIndex: 0,
     }
 
+    this.setInputReset = this.setInputReset.bind(this)
     this.bindElement = this.bindElement.bind(this)
     this.handleFocus = this.handleState.bind(this, true)
     this.handleBlur = this.handleState.bind(this, false)
@@ -69,6 +70,10 @@ class Select extends PureComponent {
     if (index > max - itemsInView) index = max - itemsInView
     if (index < 0) index = 0
     return index
+  }
+
+  setInputReset(fn) {
+    this.inputReset = fn
   }
 
   bindElement(el) {
@@ -127,7 +132,6 @@ class Select extends PureComponent {
   handleState(focus, event, force) {
     if (this.props.disabled) return
 
-    // if (event.target.getAttribute('data-role') === 'input') return
     if (focus === this.state.focus) return
 
     const classList = (event.target.className || '').split(' ')
@@ -149,7 +153,9 @@ class Select extends PureComponent {
   }
 
   handleChange(checked, data) {
-    const { datum, multiple, disabled } = this.props
+    const {
+      datum, multiple, disabled, onFilter,
+    } = this.props
     if (disabled) return
 
     if (multiple) {
@@ -162,6 +168,8 @@ class Select extends PureComponent {
         datum.remove(data)
         this.setState({ result: this.state.result.filter(r => r !== data) })
       }
+      if (onFilter) onFilter()
+      if (this.inputReset) this.inputReset()
     } else {
       datum.set(data)
       this.setState({ result: [data] })
@@ -356,6 +364,7 @@ class Select extends PureComponent {
           renderResult={renderResult}
           onInputFocus={this.handleInputFocus}
           onInputBlur={this.handleBlur}
+          setInputReset={this.setInputReset}
         />
         { !disabled && this.renderOptions() }
       </div>
