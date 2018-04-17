@@ -66,7 +66,7 @@ class FilterInput extends PureComponent {
 
   render() {
     const { text, focus } = this.props
-    const value = text.replace(/<\/?[^>]*>/g, '')
+    const value = typeof text === 'string' ? text.replace(/<\/?[^>]*>/g, '') : text
 
     return (
       <span

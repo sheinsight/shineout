@@ -83,7 +83,7 @@ class Result extends PureComponent {
     }
 
     if (onFilter) {
-      return this.renderInput(result[0])
+      return this.renderInput(renderResult(result[0]))
     }
 
     return (

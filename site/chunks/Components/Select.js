@@ -49,9 +49,14 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Select/example-7-disabled.js'),
   },
   {
-    title: locate('筛选数据', 'filter'),
+    title: locate('筛选数据 - 前端 \n filter 返回函数时，使用这个函数做前端过滤', 'filter'),
     component: require('doc/pages/components/Select/example-8-filter.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-8-filter.js'),
+  },
+  {
+    title: locate('筛选数据 - 服务端 \n 服务端筛选数据时，filter 函数不要返回', 'filter'),
+    component: require('doc/pages/components/Select/example-9-filter.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-9-filter.js'),
   },
 ]
 

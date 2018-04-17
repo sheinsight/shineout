@@ -6,9 +6,11 @@ import { getKey } from '../utils/uid'
 import { setTranslate } from '../utils/dom/translate'
 import List from '../List'
 import Scroll from '../Scroll'
+import Spin from '../Spin'
 import { selectClass } from '../styles'
 import Option from './Option'
 import Result from './Result'
+import defaultText from './text'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
 
@@ -74,6 +76,10 @@ class Select extends PureComponent {
 
   setInputReset(fn) {
     this.inputReset = fn
+  }
+
+  getText(key) {
+    return this.props.text[key] || defaultText[key]
   }
 
   bindElement(el) {
@@ -279,7 +285,7 @@ class Select extends PureComponent {
 
   renderOptions() {
     const {
-      data, datum, keygen, multiple, itemsInView, lineHeight, height,
+      data, datum, keygen, multiple, itemsInView, lineHeight, height, loading,
     } = this.props
     const { hoverIndex, currentIndex } = this.state
 
@@ -294,36 +300,42 @@ class Select extends PureComponent {
         className={selectClass('options')}
       >
         {
-          data.length === 0
-          ? <span className={selectClass('option')}>No Data</span>
-          : (
-            <Scroll
-              scroll={scroll}
-              style={{ height: scroll ? height : undefined }}
-              onScroll={this.handleScroll}
-              scrollHeight={data.length * lineHeight}
-              scrollTop={this.state.scrollTop}
-            >
-              <div ref={(el) => { this.optionInner = el }}>
-                <div style={{ height: currentIndex * lineHeight }} />
-                {
-                  data.slice(currentIndex, currentIndex + itemsInView).map((d, i) => (
-                    <Option
-                      isActive={datum.check(d)}
-                      isHover={hoverIndex === currentIndex + i}
-                      key={getKey(d, keygen, i)}
-                      index={currentIndex + i}
-                      data={d}
-                      multiple={multiple}
-                      onClick={this.handleChange}
-                      renderItem={this.renderItem}
-                      onHover={this.handleHover}
-                    />
-                  ))
-                }
-              </div>
-            </Scroll>
-          )
+          // eslint-disable-next-line
+          loading ?
+            <span className={selectClass('option')}>
+              {typeof loading === 'boolean' ? <Spin size={20} /> : loading}
+            </span>
+            : (data.length === 0
+              ? <span className={selectClass('option')}>{this.getText('noData')}</span>
+              : (
+                <Scroll
+                  scroll={scroll}
+                  style={{ height: scroll ? height : undefined }}
+                  onScroll={this.handleScroll}
+                  scrollHeight={data.length * lineHeight}
+                  scrollTop={this.state.scrollTop}
+                >
+                  <div ref={(el) => { this.optionInner = el }}>
+                    <div style={{ height: currentIndex * lineHeight }} />
+                    {
+                      data.slice(currentIndex, currentIndex + itemsInView).map((d, i) => (
+                        <Option
+                          isActive={datum.check(d)}
+                          isHover={hoverIndex === currentIndex + i}
+                          key={getKey(d, keygen, i)}
+                          index={currentIndex + i}
+                          data={d}
+                          multiple={multiple}
+                          onClick={this.handleChange}
+                          renderItem={this.renderItem}
+                          onHover={this.handleHover}
+                        />
+                      ))
+                    }
+                  </div>
+                </Scroll>
+              )
+        )
         }
       </ScaleList>
     )
@@ -381,6 +393,10 @@ Select.propTypes = {
   height: PropTypes.number,
   itemsInView: PropTypes.number,
   lineHeight: PropTypes.number,
+  loading: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.bool,
+  ]),
   multiple: PropTypes.bool,
   onBlur: PropTypes.func,
   onFilter: PropTypes.func,
@@ -390,6 +406,7 @@ Select.propTypes = {
     PropTypes.func,
   ]),
   size: PropTypes.string,
+  text: PropTypes.object,
 }
 
 Select.defaultProps = {
@@ -398,8 +415,10 @@ Select.defaultProps = {
   height: 250,
   itemsInView: 10,
   lineHeight: 32,
+  loading: false,
   multiple: false,
   renderItem: e => e,
+  text: {},
 }
 
 export default Select

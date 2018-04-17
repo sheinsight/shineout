@@ -4,11 +4,13 @@ import PropTypes from 'prop-types'
 export default Origin => class extends PureComponent {
   static propTypes = {
     data: PropTypes.array,
+    filterDelay: PropTypes.number,
     filter: PropTypes.func,
   }
 
   static defaultProps = {
     data: [],
+    filterDelay: 400,
   }
 
   constructor(props) {
@@ -20,17 +22,21 @@ export default Origin => class extends PureComponent {
   }
 
   handleFilter(text) {
-    const { filter } = this.props
-    // console.log('text', text, !text, JSON.stringify(text), text.length)
+    const { filterDelay, filter } = this.props
+
+    // not filter
     if (!text || !filter) {
       this.setState({ innerFilter: undefined })
       return
     }
 
-    const fn = filter(text)
-    if (typeof fn === 'function') {
-      this.setState({ innerFilter: fn })
-    }
+    if (this.timer) clearTimeout(this.timer)
+    this.timer = setTimeout(() => {
+      const fn = filter(text)
+      if (typeof fn === 'function') {
+        this.setState({ innerFilter: fn })
+      }
+    }, filterDelay)
   }
 
   render() {

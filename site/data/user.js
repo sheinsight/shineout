@@ -44,7 +44,8 @@ export const all = (delay = 500) => new Promise((resolve) => {
   }, delay)
 })
 
-export function fetchSync(count = 100, start = 0, sorter = {}) {
+// eslint-disable-next-line
+export function fetchSync(count = 100, start = 0, sorter = {}, username) {
   const { name, order } = sorter
   let sort
   switch (name) {
@@ -61,18 +62,25 @@ export function fetchSync(count = 100, start = 0, sorter = {}) {
       break
   }
 
-  const data = sort ? immer(allData, draft => draft.sort(sort)) : allData
+  let data = sort ? immer(allData, draft => draft.sort(sort)) : allData
+
+  if (username) {
+    username = username.toLocaleLowerCase()
+    data = data.filter(d => (`${d.firstName} ${d.lastName}`).toLocaleLowerCase().indexOf(username) >= 0)
+  }
+
   return data.slice(start, start + count)
 }
 
 export const fetch = {
-  get(src, { current, pageSize, sorter = {} }) {
+  // eslint-disable-next-line
+  get(src, { current = 1, pageSize = 100, sorter, username }) {
     const start = (current - 1) * pageSize
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({
           status: 1,
-          data: fetchSync(pageSize, start, sorter),
+          data: fetchSync(pageSize, start, sorter, username),
           current,
           pageSize,
           total: allData.length,

@@ -1,5 +1,6 @@
 /**
- * cn - 筛选数据
+ * cn - 筛选数据 - 前端
+ *    -- filter 返回函数时，使用这个函数做前端过滤
  * en - filter
  */
 import React from 'react'
