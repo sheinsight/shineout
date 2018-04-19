@@ -41,11 +41,8 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.12",
-<<<<<<< HEAD
     "babel-plugin-transform-remove-console": "^6.9.0",
-=======
     "babel-polyfill": "^6.26.0",
->>>>>>> master
     "babel-preset-react-app": "^3.1.0",
     "chokidar": "^2.0.0",
     "cross-env": "^5.1.3",
