@@ -54,7 +54,7 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Select/example-8-filter.js'),
   },
   {
-    title: locate('筛选数据 - 服务端 \n 服务端筛选数据时，filter 函数不要返回', 'filter'),
+    title: locate('筛选数据 - 服务端 \n filter 函数不返回结果时，可以自行去服务端筛选数据', 'filter'),
     component: require('doc/pages/components/Select/example-9-filter.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-9-filter.js'),
   },

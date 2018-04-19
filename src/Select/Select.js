@@ -48,6 +48,8 @@ class Select extends PureComponent {
     props.datum.listen('set-value', this.resetResult)
 
     this.lastScrollTop = 0
+    // option list not render till first focused
+    this.firstFocused = false
   }
 
   componentDidMount() {
@@ -151,6 +153,7 @@ class Select extends PureComponent {
     // prevent input blur
     if (classList.indexOf(selectClass('input')) >= 0 && !force) return
 
+    if (focus) this.firstFocused = true
     this.setState({ focus, hoverIndex: undefined })
 
     const { onBlur, onFocus } = this.props
@@ -294,6 +297,8 @@ class Select extends PureComponent {
       scroll = 'y'
     }
 
+    console.log('render options')
+
     return (
       <ScaleList
         show={this.state.focus}
@@ -305,7 +310,7 @@ class Select extends PureComponent {
             <span className={selectClass('option')}>
               {typeof loading === 'boolean' ? <Spin size={20} /> : loading}
             </span>
-            : (data.length === 0
+            : (data.length === 0 || !this.firstFocused
               ? <span className={selectClass('option')}>{this.getText('noData')}</span>
               : (
                 <Scroll

@@ -1,6 +1,6 @@
 /**
  * cn - 筛选数据 - 服务端
- *    -- 服务端筛选数据时，filter 函数不要返回
+ *    -- filter 函数不返回结果时，可以自行去服务端筛选数据
  * en - filter
  */
 import React, { Component } from 'react'
