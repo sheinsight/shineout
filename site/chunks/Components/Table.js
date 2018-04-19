@@ -74,6 +74,11 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-12-pagination.js'),
   },
   {
+    title: locate('滚动加载 \n 通过 onScroll 事件，实现滚动到底部加载下一页数据', 'onScroll'),
+    component: require('doc/pages/components/Table/example-12-scroll.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-12-scroll.js'),
+  },
+  {
     title: locate('合并行/列 \n *一个单元格同时指定了rowSpan和colSpan时，如果两行的rolSpan计算结果不同，这两行不会合并', 'rowSpan &amp; colSpan'),
     component: require('doc/pages/components/Table/example-13-merge-cell.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-13-merge-cell.js'),

@@ -113,10 +113,6 @@ class Scroll extends PureComponent {
     if (scrollX) this.pixelX += wheel.pixelX
     if (scrollY) this.pixelY += wheel.pixelY * this.baseScrollRatio
 
-    const time = this.lastWheelTime ? Date.now() - this.lastWheelTime : 0
-    console.log(wheel.pixelY, time)
-    this.lastWheelTime = Date.now()
-
     if (!this.locked) {
       this.boundleScroll()
     }

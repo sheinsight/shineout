@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import deepEqual from 'deep-eql'
 import { getProps } from '../utils/proptypes'
 import { getKey } from '../utils/uid'
 import Tr from './Tr'
@@ -42,7 +41,7 @@ function format(columns, data, nextRow, index) {
 }
 
 
-class Tbody extends Component {
+class Tbody extends PureComponent {
   constructor(props) {
     super(props)
 
@@ -58,6 +57,7 @@ class Tbody extends Component {
     }
   }
 
+  /*
   shouldComponentUpdate(nextProps) {
     const { loading } = nextProps
     if (loading) return false
@@ -67,6 +67,7 @@ class Tbody extends Component {
       && deepEqual(this.props.columns, nextProps.columns)
     )
   }
+  */
 
   componentDidUpdate(prevProps) {
     if (this.props.columns.length !== prevProps.columns.length) {

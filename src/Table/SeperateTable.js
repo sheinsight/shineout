@@ -30,6 +30,28 @@ class SeperateTable extends PureComponent {
     this.lastScrollTop = 0
   }
 
+  componentDidUpdate(prevProps) {
+    if (!this.tbody) return
+    const { scrollTop, offsetLeft } = this.state
+    const fullHeight = this.getContentHeight()
+    const height = fullHeight * scrollTop
+
+    if (this.props.data === prevProps.data) return
+
+    if (this.lastScrollTop - height >= 1) {
+      this.lastScrollTop = height
+      const index = this.getIndex(scrollTop)
+      setTimeout(() => {
+        this.setState({ currentIndex: index })
+      })
+      setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
+    } else if (this.lastScrollTop - height < 1) {
+      setTimeout(() => {
+        this.setState({ scrollTop: this.lastScrollTop / fullHeight })
+      })
+    }
+  }
+
   getIndex(scrollTop = this.state.scrollTop) {
     const { data, rowsInView } = this.props
     const max = data.length
@@ -173,6 +195,8 @@ class SeperateTable extends PureComponent {
       offsetLeft: left,
       offsetRight: right,
     })
+
+    if (this.props.onScroll) this.props.onScroll(x, y)
   }
 
   handleColgroup(tds) {
@@ -271,6 +295,7 @@ SeperateTable.propTypes = {
   columns: PropTypes.array.isRequired,
   data: PropTypes.array,
   fixed: PropTypes.string.isRequired,
+  onScroll: PropTypes.func,
   rowHeight: PropTypes.number,
   rowsInView: PropTypes.number.isRequired,
   width: PropTypes.number,
