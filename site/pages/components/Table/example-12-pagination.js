@@ -71,13 +71,15 @@ export default class extends PureComponent {
         data={data}
         keygen="id"
         columns={this.columns}
+        style={{ height: 450 }}
+        fixed="y"
         pagination={{
           align: 'center',
           current,
           pageSize,
           layout: ['links', 'list'],
           onChange: this.handlePageChange,
-          pageSizeList: [10, 15, 20],
+          pageSizeList: [10, 15, 20, 100],
           total,
         }}
       />
