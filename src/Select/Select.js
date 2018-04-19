@@ -58,6 +58,13 @@ class Select extends PureComponent {
 
   componentDidUpdate(prevProps, prevState) {
     const { onFilter } = this.props
+
+    if (this.props.loading) {
+      this.lastScrollTop = 0
+      setTimeout(() => {
+        this.setState({ scrollTop: 0, hoverIndex: undefined })
+      })
+    }
     // clear filter
     if (prevState.focus !== this.state.focus && !this.state.focus && onFilter) {
       setTimeout(() => {
@@ -296,8 +303,6 @@ class Select extends PureComponent {
     if (height < lineHeight * data.length) {
       scroll = 'y'
     }
-
-    console.log('render options')
 
     return (
       <ScaleList
