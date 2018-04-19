@@ -50,12 +50,12 @@ router.get('**/react-dom.production.min.js', async (ctx) => {
 })
 router.get('**/prop-types.min.js', async (ctx) => {
   await send(ctx, 'node_modules/prop-types/prop-types.js')
-})
-router.get('**/highlight.min.js', async (ctx) => {
-  await send(ctx, 'libs/highlight.min.js')
-})
-router.get('**/github.min.css', async (ctx) => {
-  await send(ctx, 'libs/github.min.css')
+});
+
+['highlight.min.js', 'github.min.css'].forEach((p) => {
+  router.get(`**/${p}`, async (ctx) => {
+    await send(ctx, `libs/${p}`)
+  })
 })
 
 // dev code proxy

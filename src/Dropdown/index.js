@@ -149,7 +149,7 @@ class Dropdown extends PureComponent {
           data.map((d, index) => {
             const liKey = Dropdown.getKey(d, keygen, index)
             const childPosition = positionMap[this.props.position]
-            const itemClassName = dropdownClass('item', !width && 'no-width', childPosition.startsWith('left') && 'item-left')
+            const itemClassName = dropdownClass('item', !width && 'no-width', childPosition.indexOf('left') === 0 && 'item-left')
             return d.children ?
               <Dropdown
                 hover={this.props.hover}

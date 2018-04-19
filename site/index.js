@@ -1,9 +1,10 @@
+import 'babel-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
 import 'shineout/styles/normalize.less'
 import './verdor'
-import './utils/polyfill'
+// import './utils/polyfill'
 import './styles/index.less'
 import App from './App'
 

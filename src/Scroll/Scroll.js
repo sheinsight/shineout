@@ -48,6 +48,14 @@ class Scroll extends PureComponent {
     this.forceUpdate()
   }
 
+  setBaseScrollHeightRatio(height) {
+    if (this.baseScrollRatio) return
+    this.baseScrollRatio = 1
+    if (Math.abs(height) > 10) {
+      this.baseScrollRatio = 10 / Math.abs(height)
+    }
+  }
+
   bindInner(el) {
     this.inner = el
   }
@@ -100,8 +108,14 @@ class Scroll extends PureComponent {
     const wheel = normalizeWheel(event)
     const { scrollX, scrollY } = this.props
 
+    this.setBaseScrollHeightRatio(wheel.pixelY)
+
     if (scrollX) this.pixelX += wheel.pixelX
-    if (scrollY) this.pixelY += wheel.pixelY
+    if (scrollY) this.pixelY += wheel.pixelY * this.baseScrollRatio
+
+    const time = this.lastWheelTime ? Date.now() - this.lastWheelTime : 0
+    console.log(wheel.pixelY, time)
+    this.lastWheelTime = Date.now()
 
     if (!this.locked) {
       this.boundleScroll()

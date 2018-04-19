@@ -1,6 +1,6 @@
 {
   "name": "shineout",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "Shein 前端组件库",
   "main": "./lib/index.js",
   "module": "./es/index.js",
@@ -41,6 +41,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.12",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-react-app": "^3.1.0",
     "chokidar": "^2.0.0",
     "cross-env": "^5.1.3",
