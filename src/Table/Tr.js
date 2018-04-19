@@ -16,12 +16,16 @@ class Tr extends Component {
   componentDidMount() {
     const { offsetLeft, offsetRight, setRowHeight } = this.props
     if (offsetLeft) {
-      this.element.querySelectorAll(`.${tableClass(CLASS_FIXED_LEFT)}`)
-        .forEach((td) => { setTranslate(td, `${offsetLeft}px`, '0') })
+      [].forEach.call(
+        this.element.querySelectorAll(`.${tableClass(CLASS_FIXED_LEFT)}`),
+        (td) => { setTranslate(td, `${offsetLeft}px`, '0') },
+      )
     }
     if (offsetRight) {
-      this.element.querySelectorAll(`.${tableClass(CLASS_FIXED_RIGHT)}`)
-        .forEach((td) => { setTranslate(td, `-${offsetRight}px`, '0') })
+      [].forEach.call(
+        this.element.querySelectorAll(`.${tableClass(CLASS_FIXED_RIGHT)}`),
+        (td) => { setTranslate(td, `-${offsetRight}px`, '0') },
+      )
     }
 
     if (setRowHeight) setRowHeight(this.element.clientHeight, this.props.index)
