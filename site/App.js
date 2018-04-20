@@ -9,6 +9,14 @@ import Header from './Header'
 const clsMain = classGenerate(require('./styles/index.less'), 'main')
 
 class App extends PureComponent {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      versions: [],
+    }
+  }
+
   componentDidMount() {
     window.addEventListener('hashchange', () => {
       const [, path, id] = window.location.hash.split('#')
@@ -25,13 +33,18 @@ class App extends PureComponent {
         })
       }
     })
+
+    fetch('../versions.json').then(res => res.json()).then((json) => {
+      const versions = json.map(v => ({ content: v, url: `../${v}` }))
+      this.setState({ versions })
+    })
   }
 
   render() {
     return (
       <Router>
         <Fragment>
-          <Header />
+          <Header versions={this.state.versions} />
 
           <div className={clsMain('body')}>
             <Switch>
