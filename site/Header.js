@@ -42,6 +42,10 @@ function Header(props, context) {
     { path: '/documentation', en: 'Documentation', cn: '文档' },
   ]
 
+  const { pathname } = window.location
+  let version = props.versions.find(v => pathname.indexOf(v.content) >= 0)
+  if (version) version = version.content
+
   return (
     <div className={headerClass('_')}>
       <div className={headerClass('logo')}>Logo</div>
@@ -60,6 +64,17 @@ function Header(props, context) {
         <a href="javascript:;" onClick={handleLangClick}>{locate('English', '中文')}</a>
       </div>
       <div className={headerClass('right')}>
+        {
+          version &&
+          <Dropdown
+            className={headerClass('light')}
+            data={props.versions}
+            hover
+            placeholder={version}
+            type="link"
+          />
+        }
+
         <Dropdown
           className={headerClass('light')}
           data={themes}
@@ -75,6 +90,10 @@ function Header(props, context) {
 
 Header.contextTypes = {
   router: PropTypes.object.isRequired,
+}
+
+Header.propTypes = {
+  versions: PropTypes.array,
 }
 
 export default Header
