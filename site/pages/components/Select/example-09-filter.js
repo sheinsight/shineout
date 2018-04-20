@@ -1,7 +1,7 @@
 /**
  * cn - 筛选数据 - 服务端
- *    -- filter 函数不返回结果时，可以自行去服务端筛选数据
- * en - filter
+ *    -- onFilter 函数不返回结果时，可以自行去服务端筛选数据
+ * en - onFilter
  */
 import React, { Component } from 'react'
 import { Select } from 'shineout'
@@ -35,7 +35,7 @@ export default class extends Component {
         data={this.state.data}
         placeholder="Select user"
         onChange={d => console.log(d)}
-        filter={this.handleFilter}
+        onFilter={this.handleFilter}
         datum={{ format: 'id' }}
         renderItem={user => `${user.firstName} ${user.lastName}`}
       />

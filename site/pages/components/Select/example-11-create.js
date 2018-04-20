@@ -1,7 +1,6 @@
 /**
- * cn - 筛选数据 - 前端
- *    -- onFilter 返回函数时，使用这个函数做前端过滤
- * en - onFilter
+ * cn - 创建条目
+ * en - onCreate
  */
 import React from 'react'
 import { Select } from 'shineout'
@@ -14,20 +13,18 @@ export default function () {
       <Select
         style={{ width: 240, marginBottom: 12 }}
         data={data}
-        placeholder="Select color"
+        placeholder="input color"
+        onCreate
         onChange={d => console.log(d)}
-        onFilter={text => d => d.indexOf(text) >= 0}
       />
-
       <br />
-
       <Select
-        style={{ width: 300 }}
-        multiple
+        style={{ width: 400 }}
         data={data}
-        placeholder="Select color"
+        multiple
+        placeholder="input color"
+        onCreate
         onChange={d => console.log(d)}
-        onFilter={text => d => d.indexOf(text) >= 0}
       />
     </div>
   )

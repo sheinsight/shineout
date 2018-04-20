@@ -49,12 +49,12 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Select/example-07-disabled.js'),
   },
   {
-    title: locate('筛选数据 - 前端 \n filter 返回函数时，使用这个函数做前端过滤', 'filter'),
+    title: locate('筛选数据 - 前端 \n onFilter 返回函数时，使用这个函数做前端过滤', 'onFilter'),
     component: require('doc/pages/components/Select/example-08-filter.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-08-filter.js'),
   },
   {
-    title: locate('筛选数据 - 服务端 \n filter 函数不返回结果时，可以自行去服务端筛选数据', 'filter'),
+    title: locate('筛选数据 - 服务端 \n onFilter 函数不返回结果时，可以自行去服务端筛选数据', 'onFilter'),
     component: require('doc/pages/components/Select/example-09-filter.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-09-filter.js'),
   },
@@ -62,6 +62,16 @@ const examples = [
     title: locate('', ''),
     component: require('doc/pages/components/Select/example-10-filter.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-10-filter.js'),
+  },
+  {
+    title: locate('创建条目', 'onCreate'),
+    component: require('doc/pages/components/Select/example-11-create.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-11-create.js'),
+  },
+  {
+    title: locate(' \n 和 filter 配合使用', ''),
+    component: require('doc/pages/components/Select/example-12-create.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-12-create.js'),
   },
 ]
 

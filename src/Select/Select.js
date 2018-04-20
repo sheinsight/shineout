@@ -57,12 +57,12 @@ class Select extends PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { onFilter } = this.props
+    const { data, onFilter } = this.props
 
-    if (this.props.loading) {
+    if (data !== prevProps.data) {
       this.lastScrollTop = 0
       setTimeout(() => {
-        this.setState({ scrollTop: 0, hoverIndex: undefined })
+        this.setState({ scrollTop: 0, hoverIndex: 0 })
       })
     }
     // clear filter
@@ -83,12 +83,12 @@ class Select extends PureComponent {
     return index
   }
 
-  setInputReset(fn) {
-    this.inputReset = fn
-  }
-
   getText(key) {
     return this.props.text[key] || defaultText[key]
+  }
+
+  setInputReset(fn) {
+    this.inputReset = fn
   }
 
   bindElement(el) {
@@ -345,7 +345,7 @@ class Select extends PureComponent {
                   </div>
                 </Scroll>
               )
-        )
+            )
         }
       </ScaleList>
     )

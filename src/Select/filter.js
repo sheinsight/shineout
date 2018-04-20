@@ -5,7 +5,11 @@ export default Origin => class extends PureComponent {
   static propTypes = {
     data: PropTypes.array,
     filterDelay: PropTypes.number,
-    filter: PropTypes.func,
+    onFilter: PropTypes.func,
+    onCreate: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.bool,
+    ]),
   }
 
   static defaultProps = {
@@ -17,22 +21,31 @@ export default Origin => class extends PureComponent {
     super(props)
     this.state = {
       innerFilter: undefined,
+      innerData: undefined,
     }
     this.handleFilter = this.handleFilter.bind(this)
   }
 
   handleFilter(text) {
-    const { filterDelay, filter } = this.props
+    const { filterDelay, onFilter, onCreate } = this.props
 
     // not filter
-    if (!text || !filter) {
-      this.setState({ innerFilter: undefined })
+    if (!text) {
+      this.setState({ innerFilter: undefined, innerData: undefined })
       return
     }
 
+    if (onCreate) {
+      const createFn = typeof onCreate === 'boolean' ? (t => t) : onCreate
+      const innerData = createFn(text)
+      this.setState({ innerData })
+    }
+
+    if (!onFilter) return
+
     if (this.timer) clearTimeout(this.timer)
     this.timer = setTimeout(() => {
-      const fn = filter(text)
+      const fn = onFilter(text)
       if (typeof fn === 'function') {
         this.setState({ innerFilter: fn })
       }
@@ -40,19 +53,16 @@ export default Origin => class extends PureComponent {
   }
 
   render() {
-    const { data, filter, ...other } = this.props
-    const { innerFilter } = this.state
-    let newData = data
-    if (innerFilter) {
-      newData = data.filter(d => innerFilter(d))
-    }
+    const {
+      data, onFilter, onCreate, ...other
+    } = this.props
+    const { innerFilter, innerData } = this.state
+    const filterFn = onFilter || onCreate ? this.handleFilter : undefined
 
-    return (
-      <Origin
-        {...other}
-        data={newData}
-        onFilter={filter ? this.handleFilter : undefined}
-      />
-    )
+    let newData = data
+    if (innerFilter) newData = data.filter(d => innerFilter(d))
+    if (innerData) newData = [innerData, ...newData]
+
+    return <Origin {...other} data={newData} onFilter={filterFn} />
   }
 }

@@ -5,7 +5,7 @@
  */
 import React, { PureComponent } from 'react'
 import { Table } from 'shineout'
-import { fetch } from 'doc/data/table'
+import { fetch } from 'doc/data/user'
 
 export default class extends PureComponent {
   constructor(props) {
