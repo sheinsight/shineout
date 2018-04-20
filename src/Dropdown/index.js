@@ -120,7 +120,7 @@ class Dropdown extends PureComponent {
       style,
       onClick,
       columns,
-      itemRender,
+      renderItem,
     } = this.props
     if (!Array.isArray(data) || data.length === 0) return null
     const buttonClassName = dropdownClass('button', { 'split-button': !placeholder })
@@ -164,7 +164,7 @@ class Dropdown extends PureComponent {
                 position={childPosition}
                 btnColor
                 onClick={onClick}
-                itemRender={itemRender}
+                renderItem={renderItem}
                 handleHide={this.handleHide}
                 _first
               /> :
@@ -174,7 +174,7 @@ class Dropdown extends PureComponent {
                   key={liKey}
                   onClick={d.onClick ? d.onClick : onClick}
                   itemClassName={itemClassName}
-                  itemRender={itemRender}
+                  renderItem={renderItem}
                   columns={columns}
                   width={width}
                 />)

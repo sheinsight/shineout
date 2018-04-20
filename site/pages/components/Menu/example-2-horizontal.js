@@ -55,7 +55,7 @@ export default class extends React.Component {
         mode="horizontal"
         keygen="id"
         data={data}
-        itemRender={d => d.title}
+        renderItem={d => d.title}
         active={da => this.state.active.includes(da.id)}
         inlineIndent={24}
         onClick={this.handleClick}

@@ -7,7 +7,7 @@
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | data | \[] | 必填 | 下拉数据，详见data |
-| itemRender | func \| string | 'content' | 设置显示的内容,如果是字符串,则为对应的值<br />如果是函数,则返回值为显示的内容,参数为当条数据
+| renderItem | func \| string | 'content' | 设置显示的内容,如果是字符串,则为对应的值<br />如果是函数,则返回值为显示的内容,参数为当条数据
 | className | string | 无 | 扩展className |
 | disabled | bool | false | 禁用 |
 | hover | boolean | false | 为 true 时，通过 mouseenter 触发选项弹出  |

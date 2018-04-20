@@ -62,7 +62,7 @@ export default class extends React.Component {
         mode="inline"
         keygen="id"
         data={data}
-        itemRender={d => d.title}
+        renderItem={d => d.title}
         active={da => this.state.active.includes(da.id)}
         style={{ width: 256 }}
         inlineIndent={24}

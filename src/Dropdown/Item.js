@@ -15,7 +15,7 @@ class Item extends React.PureComponent {
 
   render() {
     const {
-      data, itemClassName, itemRender, width, columns,
+      data, itemClassName, renderItem, width, columns,
     } = this.props
     const aWidth = (width && columns) ? (width - 2) / columns : undefined
 
@@ -33,7 +33,7 @@ class Item extends React.PureComponent {
     if (isValidElement(data)) {
       content = data
     } else {
-      content = typeof itemRender === 'string' ? data[itemRender] : itemRender(data)
+      content = typeof renderItem === 'string' ? data[renderItem] : renderItem(data)
     }
 
     if (isValidElement(content)) {
@@ -47,7 +47,7 @@ Item.propTypes = {
   ...getProps(),
   data: PropTypes.object,
   onClick: PropTypes.func,
-  itemRender: PropTypes.oneOfType([
+  renderItem: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.func,
   ]),
@@ -57,7 +57,7 @@ Item.propTypes = {
 Item.defaultProps = {
   ...defaultProps,
   data: {},
-  itemRender: 'content',
+  renderItem: 'content',
 }
 
 export default Item

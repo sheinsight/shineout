@@ -15,9 +15,9 @@ class Item extends React.Component {
   }
   render() {
     const {
-      data, itemRender, isActive, inlineIndent, mode,
+      data, renderItem, isActive, inlineIndent, mode,
     } = this.props
-    const itemData = typeof itemRender === 'string' ? data[itemRender] : itemRender(data)
+    const itemData = typeof renderItem === 'string' ? data[renderItem] : renderItem(data)
     const className = classnames(
       menuClass('item', this.props.data.disabled && 'disabled', {
         'item-selected': isActive,
@@ -42,7 +42,7 @@ Item.propTypes = {
   ...getProps(),
   data: PropTypes.object,
   menuKey: PropTypes.string,
-  itemRender: PropTypes.oneOfType([
+  renderItem: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.func,
   ]),
@@ -55,7 +55,7 @@ Item.defaultProps = {
   ...defaultProps,
   data: {},
   menuKey: '',
-  itemRender: 'title',
+  renderItem: 'title',
   isActive: false,
 }
 

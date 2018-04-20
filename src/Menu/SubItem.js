@@ -75,10 +75,10 @@ class SubMenu extends React.Component {
 
   render() {
     const {
-      data, itemRender, inlineIndent, mode,
+      data, renderItem, inlineIndent, mode,
     } = this.props
 
-    const itemData = typeof itemRender === 'string' ? data[itemRender] : itemRender(data)
+    const itemData = typeof renderItem === 'string' ? data[renderItem] : renderItem(data)
     const className = classname(menuClass('submenu'))
     const titleClassName = classname(menuClass('submenu-title', `${mode}-submenu-title`, this.state.show && `${mode}-submenu-title-open`, this.props.data.disabled && 'disabled'))
     const ulClassName = classname(menuClass('submenu-ul', `${mode}-submenu-ul`))

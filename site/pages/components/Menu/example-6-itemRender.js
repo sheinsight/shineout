@@ -49,7 +49,7 @@ const data = [
   },
 ]
 
-function itemRender(da) {
+function renderItem(da) {
   if (da.title.startsWith('Navigation')) {
     return (<span>{Icons[da.id]}  {da.title}</span>)
   }
@@ -75,7 +75,7 @@ export default class extends React.Component {
         mode="inline"
         keygen="id"
         data={data}
-        itemRender={itemRender}
+        renderItem={renderItem}
         active={da => this.state.active.includes(da.id)}
         style={{ width: 256 }}
         inlineIndent={24}
