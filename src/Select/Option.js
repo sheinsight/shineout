@@ -36,8 +36,6 @@ class Option extends PureComponent {
       `option-${index}`,
     )
 
-    // console.log('render option', index)
-
     return (
       <a
         onClick={this.handleClick}
