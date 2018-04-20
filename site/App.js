@@ -37,7 +37,7 @@ class App extends PureComponent {
     fetch('../versions.json').then(res => res.json()).then((json) => {
       const versions = json.map(v => ({ content: v, url: `../${v}` }))
       this.setState({ versions })
-    })
+    }).catch(() => {})
   }
 
   render() {
