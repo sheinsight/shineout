@@ -1,0 +1,55 @@
+@import './variables.less';
+@import './themes/@{so-theme}.less';
+
+@card-prefix: ~"@{so-prefix}-card";
+
+.@{card-prefix} {
+  @card-inner-border-radius: @panel-border-radius;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: @panel-bg;
+  background-clip: border-box;
+  border: 1px solid @panel-default-border;
+  border-radius: @panel-border-radius;
+
+  &-hover:hover, &-shadow {
+    box-shadow: @panel-box-shadow;
+  }
+
+  &-header {
+    padding: @panel-heading-padding;
+    background-color: @panel-header-bg;
+    border-bottom: 1px solid @panel-inner-border;
+  }
+
+  &-body {
+    flex: 1 1 auto;
+    padding: @panel-body-padding;
+  }
+
+  &-footer {
+    padding: @panel-footer-padding;
+    background-color: @panel-footer-bg;
+    border-top: 1px solid @panel-inner-border;
+  }
+
+  &-center {
+    text-align: center;
+  }
+
+  &-right {
+    text-align: right;
+  }
+
+  div:first-child {
+    border-radius: @card-inner-border-radius @card-inner-border-radius 0 0; 
+  }
+
+  div:last-child {
+    border-radius: 0 0 @card-inner-border-radius @card-inner-border-radius; 
+  }
+}

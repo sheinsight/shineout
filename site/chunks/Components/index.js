@@ -119,6 +119,12 @@ const pages = [
   },
   'Layout',
   {
+    name: 'Card',
+    cn: '卡片',
+    level: 2,
+    component: loadable(() => import('./Card')),
+  },
+  {
     name: 'Sticky',
     cn: '附着',
     level: 2,

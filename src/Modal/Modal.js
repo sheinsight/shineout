@@ -35,7 +35,7 @@ class Modal extends PureComponent {
  * 成功弹窗
  * @param options
  */
-const success = function (options) {
+function success(options) {
   const id = getUidStr()
   const option = {
     ...options,
@@ -58,7 +58,7 @@ const success = function (options) {
 /**
  * 信息弹窗
  */
-const info = function (options) {
+function info(options) {
   const id = getUidStr()
   const option = {
     ...options,
@@ -82,7 +82,7 @@ const info = function (options) {
  * 错误信息弹窗
  * @param options
  */
-const error = function (options) {
+function error(options) {
   const id = getUidStr()
   const option = {
     ...options,
@@ -105,7 +105,7 @@ const error = function (options) {
  * 确认弹窗
  * @param options
  */
-const confirm = function (options) {
+function confirm(options) {
   const id = getUidStr()
   const option = {
     ...options,
