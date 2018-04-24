@@ -2,21 +2,24 @@
  * cn - 确认框
  * en - Confirm Modal
  */
-import React from 'react'
+import React, { Component } from 'react'
 import { Modal, Button } from 'shineout'
 
-export default function () {
-  function confirm() {
+export default class extends Component {
+  confirm = () => {
     Modal.confirm({
-      okText: 'ok',
       title: 'This is a confirm message',
       content: 'this is some information that user confirm',
       onOk: () => console.log('yes i know'),
+      text: { ok: 'Yes', cancel: 'No' },
     })
   }
-  return (
-    <div>
-      <Button onClick={confirm}>confirm</Button>
-    </div>
-  )
+
+  render() {
+    return (
+      <div>
+        <Button onClick={this.confirm}>confirm</Button>
+      </div>
+    )
+  }
 }

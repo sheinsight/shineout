@@ -2,133 +2,50 @@ import { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { defaultProps, getProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
-import { triggerModal } from './triggerModal'
+import { open, close, destroy } from './events'
 
 class Modal extends PureComponent {
   constructor(props) {
     super(props)
     this.id = getUidStr()
+    this.handleClose = this.handleClose.bind(this)
   }
+
   componentDidMount() {
     // 首次渲染时如果modal设置的不显示,不执行其他操作
     if (this.props.visible) {
-      triggerModal({
+      open({
         ...this.props,
         content: this.props.children,
         id: this.id,
+        onClose: this.handleClose,
       })
     }
   }
-  componentDidUpdate() {
-    triggerModal({
+
+  componentDidUpdate(prevProps) {
+    const option = {
       ...this.props,
       content: this.props.children,
       id: this.id,
-    })
+      onClose: this.handleClose,
+    }
+
+    if (this.props.visible) open(option)
+    else if (this.props.visible !== prevProps.visible) close(option)
   }
+
+  componentWillUnmount() {
+    destroy(this.id)
+  }
+
+  handleClose() {
+    if (this.props.onClose) this.props.onClose()
+  }
+
   render() {
     return null
   }
-}
-
-/**
- * 成功弹窗
- * @param options
- */
-function success(options) {
-  const id = getUidStr()
-  const option = {
-    ...options,
-    footer: null,
-    special: true,
-    iconType: 'Success',
-    title: options.title || 'Success',
-    visible: true,
-    id,
-    onOk() {
-      if (options.onOk) {
-        options.onOk()
-      }
-      triggerModal({ ...this, visible: false })
-    },
-  }
-  return triggerModal(option)
-}
-
-/**
- * 信息弹窗
- */
-function info(options) {
-  const id = getUidStr()
-  const option = {
-    ...options,
-    footer: null,
-    special: true,
-    iconType: 'Info',
-    title: options.title || 'Info',
-    visible: true,
-    id,
-    onOk() {
-      if (options.onOk) {
-        options.onOk()
-      }
-      triggerModal({ ...this, visible: false })
-    },
-  }
-  return triggerModal(option)
-}
-
-/**
- * 错误信息弹窗
- * @param options
- */
-function error(options) {
-  const id = getUidStr()
-  const option = {
-    ...options,
-    footer: null,
-    special: true,
-    iconType: 'Error',
-    title: options.title || 'Error',
-    visible: true,
-    id,
-    onOk() {
-      if (options.onOk) {
-        options.onOk()
-      }
-      triggerModal({ ...this, visible: false })
-    },
-  }
-  return triggerModal(option)
-}
-/**
- * 确认弹窗
- * @param options
- */
-function confirm(options) {
-  const id = getUidStr()
-  const option = {
-    ...options,
-    footer: null,
-    special: true,
-    iconType: 'Confirm',
-    title: options.title || 'Confirm',
-    visible: true,
-    id,
-    onOk() {
-      if (options.onOk) {
-        options.onOk()
-      }
-      triggerModal({ ...this, visible: false })
-    },
-    onCancel() {
-      if (options.onCancel) {
-        options.onCancel()
-      }
-      triggerModal({ ...this, visible: false })
-    },
-  }
-  return triggerModal(option)
 }
 
 Modal.propTypes = {
@@ -143,4 +60,4 @@ Modal.defaultProps = {
   ...defaultProps,
 }
 
-export { Modal, success, info, error, confirm }
+export default Modal

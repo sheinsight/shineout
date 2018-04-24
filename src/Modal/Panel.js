@@ -1,25 +1,28 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { getUidStr } from '../utils/uid'
 import Icons from '../icons'
-import { defaultProps, getProps } from '../utils/proptypes'
+import Card from '../Card'
 import Button from '../Button'
+import { defaultProps, getProps } from '../utils/proptypes'
 import { modalClass } from '../styles'
-
 
 export default class Panel extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = {
-      dialogStyle: {
-        width: props.width,
-      },
-    }
-    this.handleCancel = this.handleCancel.bind(this)
-    this.handleOk = this.handleOk.bind(this)
     this.specialContent = this.specialContent.bind(this)
   }
+
+  getStyle() {
+    const { width, top } = this.props
+    return { width, top }
+  }
+
+  // eslint-disable-next-line
+  lockWheel(event) {
+    event.preventDefault()
+  }
+
   specialContent() {
     const {
       title, okText, iconType, cancelText,
@@ -40,76 +43,73 @@ export default class Panel extends PureComponent {
         }
       </div>)
   }
-  handleCancel() {
-    if (this.props.onCancel) this.props.onCancel()
+
+  renderContent() {
+    const { children, title, type } = this.props
+
+    if (type === 'default') return <Card.Body>{children}</Card.Body>
+
+    const iconType = type.charAt(0).toUpperCase() + type.slice(1)
+    const icon = Icons[iconType]
+
+    return (
+      <Card.Body className={modalClass('body')}>
+        { icon && <div className={modalClass('icon')}>{icon}</div> }
+        { title && <div className={modalClass('title')}>{title}</div> }
+        <div>{children}</div>
+      </Card.Body>
+    )
   }
-  handleOk() {
-    if (this.props.onOk) this.props.onOk()
-  }
+
   render() {
-    const {
-      title, footer, okText, cancelText, special,
-    } = this.props
+    const { footer, title, type } = this.props
+
     const className = classnames(
-      modalClass('_'),
+      modalClass('panel', type),
       this.props.className,
     )
-    const titleClass = classnames(modalClass('title'))
-    const contentClass = classnames(modalClass('content'))
-    const footerClass = classnames(modalClass('footer'))
-    const closeClass = classnames(modalClass('close'))
-    return (
-      <div style={this.state.dialogStyle} className={className}>
+
+    return [
+      <div key="mask" onWheel={this.lockWheel} className={modalClass('mask')} />,
+      <Card key="card" className={className} style={this.getStyle()}>
+        <a className={modalClass('close')} onClick={this.props.onClose} href="javascript:;">
+          {Icons.Close}
+        </a>
         {
-          !special ? (
-            <div className={titleClass}>
-              {title}
-              <a className={closeClass} href="javascript:;" onClick={this.handleCancel}>{Icons.Close}</a>
-            </div>
-          ) : null
+          title && type === 'default' &&
+          <Card.Header className={(modalClass('title'))}>{title}</Card.Header>
         }
-        <div className={contentClass}>
-          {
-            special ? this.specialContent() : this.props.children
-          }
-        </div>
+        { this.renderContent() }
         {
-          footer !== null ? (
-            <div className={footerClass}>
-              {
-                !footer ? [
-                  <Button key={getUidStr()} onClick={this.handleCancel}>{cancelText}</Button>,
-                  <Button type="primary" key={getUidStr()} onClick={this.handleOk}>{okText}</Button>,
-                ] : footer
-              }
-            </div>
-          ) : null
+          footer &&
+          <Card.Footer className={(modalClass('footer'))} align="right">
+            { footer }
+          </Card.Footer>
         }
-      </div>)
+      </Card>,
+    ]
   }
 }
 
 Panel.propTypes = {
   ...getProps(),
-  width: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
+  footer: PropTypes.any,
+  id: PropTypes.string.isRequired,
+  maskCloseAble: PropTypes.bool,
+  onClose: PropTypes.func,
   title: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element,
   ]),
-  footer: PropTypes.object,
-  cancelText: PropTypes.string,
-  okText: PropTypes.string,
-  onCancel: PropTypes.func,
-  onOk: PropTypes.func,
-  iconType: PropTypes.string,
+  type: PropTypes.string,
+  width: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
 }
 
 Panel.defaultProps = {
   ...defaultProps,
-  width: 426,
-  cancelText: 'cancel',
-  okText: 'ok',
+  top: '10vh',
+  width: 500,
 }
