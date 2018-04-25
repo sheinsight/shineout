@@ -3,16 +3,10 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import Icons from '../icons'
 import Card from '../Card'
-import Button from '../Button'
 import { defaultProps, getProps } from '../utils/proptypes'
 import { modalClass } from '../styles'
 
 export default class Panel extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.specialContent = this.specialContent.bind(this)
-  }
-
   getStyle() {
     const { width, top } = this.props
     return { width, top }
@@ -21,27 +15,6 @@ export default class Panel extends PureComponent {
   // eslint-disable-next-line
   lockWheel(event) {
     event.preventDefault()
-  }
-
-  specialContent() {
-    const {
-      title, okText, iconType, cancelText,
-    } = this.props
-    const iconClass = classnames(modalClass('content-special-icon', `content-special-icon-${iconType.toLowerCase()}`))
-    const specialClass = classnames(modalClass('content-special'))
-    const specialContent = classnames(modalClass('content-special-body'))
-    const specialTitle = classnames(modalClass('content-special-title'))
-    const specialButton = classnames(modalClass('content-special-button'))
-    return (
-      <div className={specialClass}>
-        <div className={iconClass}>{Icons[iconType]}</div>
-        <span className={specialTitle}>{title}</span>
-        <div className={specialContent}>{this.props.children}</div>
-        <Button type="primary" className={specialButton} onClick={this.handleOk}>{okText}</Button>
-        {
-          iconType === 'Confirm' ? <Button className={specialButton} onClick={this.handleCancel}>{cancelText}</Button> : null
-        }
-      </div>)
   }
 
   renderContent() {
@@ -62,7 +35,9 @@ export default class Panel extends PureComponent {
   }
 
   render() {
-    const { footer, title, type } = this.props
+    const {
+      footer, title, type, maskOpacity, onClose, maskCloseAble,
+    } = this.props
 
     const className = classnames(
       modalClass('panel', type),
@@ -70,9 +45,15 @@ export default class Panel extends PureComponent {
     )
 
     return [
-      <div key="mask" onWheel={this.lockWheel} className={modalClass('mask')} />,
+      <div
+        key="mask"
+        style={{ background: `rgba(0, 0, 0, ${maskOpacity})` }}
+        className={modalClass('mask')}
+        onClick={maskCloseAble ? onClose : undefined}
+      />,
+
       <Card key="card" className={className} style={this.getStyle()}>
-        <a className={modalClass('close')} onClick={this.props.onClose} href="javascript:;">
+        <a className={modalClass('close')} onClick={onClose} href="javascript:;">
           {Icons.Close}
         </a>
         {
@@ -95,6 +76,7 @@ Panel.propTypes = {
   ...getProps(),
   footer: PropTypes.any,
   id: PropTypes.string.isRequired,
+  maskOpacity: PropTypes.number,
   maskCloseAble: PropTypes.bool,
   onClose: PropTypes.func,
   title: PropTypes.oneOfType([
@@ -111,5 +93,7 @@ Panel.propTypes = {
 Panel.defaultProps = {
   ...defaultProps,
   top: '10vh',
+  maskOpacity: 0.25,
+  maskCloseAble: true,
   width: 500,
 }

@@ -47,7 +47,7 @@ export default class extends React.Component {
     this.setState({
       visible: false,
     })
-    console.log('you are click cancel')
+    console.log('click cancel')
   }
 
   renderFooter() {

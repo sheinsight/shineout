@@ -4,23 +4,26 @@
  */
 import React from 'react'
 import { Modal, Button } from 'shineout'
+import { pickNumber } from 'doc/utils/faker'
+import { range } from 'shineout/utils/numbers'
 
 export default class extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      visible: false,
+      visible: 0,
       content: 1,
     }
     this.show = this.show.bind(this)
     this.ok = this.ok.bind(this)
     this.cancel = this.cancel.bind(this)
   }
-  show() {
-    this.setState({
-      visible: true,
-    })
+
+  show(index) {
+    console.log(index)
+    this.setState({ visible: index })
   }
+
   ok() {
     this.setState({
       visible: false,
@@ -28,6 +31,7 @@ export default class extends React.Component {
     })
     console.log('you are click ok!')
   }
+
   cancel() {
     this.setState({
       visible: false,
@@ -35,15 +39,27 @@ export default class extends React.Component {
     })
     console.log('you are click cancel')
   }
+
   render() {
     return (
       <div>
-        <Button onClick={this.show}>click me</Button>
-        <Modal visible={this.state.visible} width={456} title="Modal Title" onOk={this.ok} onCancel={this.cancel}>
-          {
-            <Button onClick={() => Modal.error({ content: '你进入了错误的页面!' })}>确认</Button>
-          }
-        </Modal>
+        <Button onClick={this.show.bind(this, 1)}>click me</Button>
+
+        {
+          range(10, 1).map(i => (
+            <Modal
+              key={i}
+              visible={this.state.visible >= i}
+              width={pickNumber(600, 450)}
+              style={{ height: pickNumber(450, 320) }}
+              title={`Modal Title ${i}`}
+            >
+              Level {i}.
+              <br />
+              <a href="javascript:;" onClick={this.show.bind(this, i + 1)}>Next level</a>
+            </Modal>
+          ))
+        }
       </div>
     )
   }

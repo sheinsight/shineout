@@ -9,6 +9,7 @@ import { getText } from './text'
 
 const containers = {}
 const DURATION = 300
+let currentLevel = 0
 
 export function destroy(id) {
   const div = containers[id]
@@ -23,13 +24,17 @@ export function close(props) {
   const div = containers[id]
   div.classList.remove(modalClass('show'))
 
+  currentLevel -= 1
+
   setTimeout(() => {
     div.style.display = 'none'
     if (props.destroy) destroy(id)
 
-    const doc = document.body.parentNode
-    doc.style.overflow = ''
-    doc.style.paddingRight = ''
+    if (currentLevel === 0) {
+      const doc = document.body.parentNode
+      doc.style.overflow = ''
+      doc.style.paddingRight = ''
+    }
   }, DURATION)
 }
 
@@ -61,6 +66,9 @@ export function open(props) {
   const div = createDiv(props)
   div.style.display = 'block'
 
+  currentLevel += 1
+  console.log(currentLevel)
+
   const scrollWidth = window.innerWidth - document.body.clientWidth
   const doc = document.body.parentNode
   doc.style.overflow = 'hidden'
@@ -70,7 +78,13 @@ export function open(props) {
     if (onClose) onClose()
     close(props)
   }
-  ReactDOM.render(<Panel {...otherProps} onClose={handleClose}>{content}</Panel>, div)
+  const maskOpacity = currentLevel > 1 ? 0.01 : props.maskOpacity
+  ReactDOM.render(
+    <Panel {...otherProps} maskOpacity={maskOpacity} onClose={handleClose}>
+      {content}
+    </Panel>,
+    div,
+  )
 
   setTimeout(() => {
     div.classList.add(modalClass('show'))

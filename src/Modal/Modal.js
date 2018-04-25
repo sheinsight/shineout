@@ -31,7 +31,7 @@ class Modal extends PureComponent {
       onClose: this.handleClose,
     }
 
-    if (this.props.visible) open(option)
+    if (this.props.visible && this.props.visible !== prevProps.visible) open(option)
     else if (this.props.visible !== prevProps.visible) close(option)
   }
 
@@ -50,10 +50,7 @@ class Modal extends PureComponent {
 
 Modal.propTypes = {
   ...getProps(),
-  width: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
+  onClose: PropTypes.func,
 }
 
 Modal.defaultProps = {
