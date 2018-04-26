@@ -37,7 +37,7 @@ module.exports = function getCommon(config) {
           loader: 'less-loader',
           options: {
             modifyVars: {
-              'so-prefix': process.env.SO_PREFIX || 'shineout',
+              'so-prefix': process.env.SO_PREFIX || 'so',
               ...config.modifyVars,
             },
           },

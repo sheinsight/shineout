@@ -30,7 +30,7 @@ import { Table } from 'shineout'
 
 ### CSS 前缀
 
-默认通过前缀来隔离 css 代码，默认的前缀是 'shineout'。通常情况下，不需要修改。如果想修改这个值，修改 webpack 的 less-loader 配置
+默认通过前缀来隔离 css 代码，默认的前缀是 'so'。通常情况下，不需要修改。如果想修改这个值，修改 webpack 的 less-loader 配置
 ```
 {
   loader: 'less-loader',

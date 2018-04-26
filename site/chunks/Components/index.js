@@ -32,6 +32,12 @@ const pages = [
     component: loadable(() => import('./Checkbox')),
   },
   {
+    name: 'DatePicker',
+    cn: '日期选择',
+    level: 2,
+    component: loadable(() => import('./DatePicker')),
+  },
+  {
     name: 'Form',
     cn: '表单',
     level: 2,
