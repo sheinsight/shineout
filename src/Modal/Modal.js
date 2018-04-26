@@ -8,7 +8,7 @@ class Modal extends PureComponent {
   constructor(props) {
     super(props)
     this.id = getUidStr()
-    this.handleClose = this.handleClose.bind(this)
+    this.visible = props.visible
   }
 
   componentDidMount() {
@@ -18,29 +18,23 @@ class Modal extends PureComponent {
         ...this.props,
         content: this.props.children,
         id: this.id,
-        onClose: this.handleClose,
       })
     }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     const option = {
       ...this.props,
       content: this.props.children,
       id: this.id,
-      onClose: this.handleClose,
     }
 
-    if (this.props.visible && this.props.visible !== prevProps.visible) open(option)
-    else if (this.props.visible !== prevProps.visible) close(option)
+    if (this.props.visible) open(option)
+    else close(option)
   }
 
   componentWillUnmount() {
     destroy(this.id)
-  }
-
-  handleClose() {
-    if (this.props.onClose) this.props.onClose()
   }
 
   render() {

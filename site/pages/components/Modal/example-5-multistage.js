@@ -11,33 +11,13 @@ export default class extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      visible: 0,
-      content: 1,
+      current: 0,
     }
     this.show = this.show.bind(this)
-    this.ok = this.ok.bind(this)
-    this.cancel = this.cancel.bind(this)
   }
 
-  show(index) {
-    console.log(index)
-    this.setState({ visible: index })
-  }
-
-  ok() {
-    this.setState({
-      visible: false,
-      content: this.state.content += 1,
-    })
-    console.log('you are click ok!')
-  }
-
-  cancel() {
-    this.setState({
-      visible: false,
-      content: this.state.content += 1,
-    })
-    console.log('you are click cancel')
+  show(current) {
+    this.setState({ current })
   }
 
   render() {
@@ -46,17 +26,22 @@ export default class extends React.Component {
         <Button onClick={this.show.bind(this, 1)}>click me</Button>
 
         {
-          range(10, 1).map(i => (
+          range(11, 1).map(i => (
             <Modal
               key={i}
-              visible={this.state.visible >= i}
+              visible={this.state.current >= i}
               width={pickNumber(600, 450)}
-              style={{ height: pickNumber(450, 320) }}
+              height={pickNumber(450, 320)}
               title={`Modal Title ${i}`}
+              onClose={this.show.bind(this, i - 1)}
+              footer={<Button onClick={this.show.bind(this, i - 1)}>Close</Button>}
             >
               Level {i}.
               <br />
-              <a href="javascript:;" onClick={this.show.bind(this, i + 1)}>Next level</a>
+              {
+                i < 10 &&
+                <a href="javascript:;" onClick={this.show.bind(this, i + 1)}>Next level</a>
+              }
             </Modal>
           ))
         }

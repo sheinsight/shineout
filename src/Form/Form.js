@@ -10,11 +10,19 @@ class Form extends PureComponent {
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleReset = this.handleReset.bind(this)
+
+    this.locked = false
   }
 
   handleSubmit(e) {
-    if (this.validating) return
+    if (this.validating || this.locked) return
     this.validating = true
+
+    // prevent duplicate submit
+    this.locked = true
+    setTimeout(() => {
+      this.locked = false
+    }, 800)
 
     e.preventDefault()
     const { datum, onSubmit } = this.props

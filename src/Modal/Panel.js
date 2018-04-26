@@ -8,8 +8,8 @@ import { modalClass } from '../styles'
 
 export default class Panel extends PureComponent {
   getStyle() {
-    const { width, top } = this.props
-    return { width, top }
+    const { width, height, top } = this.props
+    return { width, height, top }
   }
 
   // eslint-disable-next-line
@@ -44,6 +44,8 @@ export default class Panel extends PureComponent {
       this.props.className,
     )
 
+    console.log(maskOpacity)
+
     return [
       <div
         key="mask"
@@ -52,10 +54,13 @@ export default class Panel extends PureComponent {
         onClick={maskCloseAble ? onClose : undefined}
       />,
 
-      <Card key="card" className={className} style={this.getStyle()}>
-        <a className={modalClass('close')} onClick={onClose} href="javascript:;">
-          {Icons.Close}
-        </a>
+      <Card key="card" shadow className={className} style={this.getStyle()}>
+        {
+          maskCloseAble &&
+          <a className={modalClass('close')} onClick={onClose} href="javascript:;">
+            {Icons.Close}
+          </a>
+        }
         {
           title && type === 'default' &&
           <Card.Header className={(modalClass('title'))}>{title}</Card.Header>

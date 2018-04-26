@@ -9,10 +9,18 @@ import { getText } from './text'
 
 const containers = {}
 const DURATION = 300
-let currentLevel = 0
+
+function getDiv(id) {
+  const mod = containers[id]
+  return mod ? mod.div : null
+}
+
+function hasVisible() {
+  return Object.keys(containers).some(k => containers[k].visible)
+}
 
 export function destroy(id) {
-  const div = containers[id]
+  const div = getDiv(id)
   if (!div) return
   delete containers[id]
   ReactDOM.unmountComponentAtNode(div)
@@ -21,16 +29,19 @@ export function destroy(id) {
 
 export function close(props) {
   const { id } = props
-  const div = containers[id]
-  div.classList.remove(modalClass('show'))
+  const modal = containers[props.id]
 
-  currentLevel -= 1
+  if (!modal || modal.visible === false) return
+  modal.visible = false
+
+  const { div } = modal
+  div.classList.remove(modalClass('show'))
 
   setTimeout(() => {
     div.style.display = 'none'
     if (props.destroy) destroy(id)
 
-    if (currentLevel === 0) {
+    if (!hasVisible()) {
       const doc = document.body.parentNode
       doc.style.overflow = ''
       doc.style.paddingRight = ''
@@ -40,23 +51,14 @@ export function close(props) {
 
 export function createDiv(props) {
   const { id } = props
-  let div = containers[id]
+  let div = getDiv(props.id)
   if (div) return div
 
-  const divClass = classnames(modalClass('_'))
   div = document.createElement('div')
   document.body.appendChild(div)
+  div.className = classnames(modalClass('_'))
 
-  /*
-  const divMasks = document.querySelectorAll(`.${divClass}`)
-  divMasks.forEach((item) => {
-    if (item.style.display === 'block') div.style.backgroundColor = 'rgba(0, 0, 0, 0.1)'
-  })
-  */
-
-  div.className = divClass
-
-  containers[id] = div
+  containers[id] = { div }
 
   return div
 }
@@ -64,10 +66,9 @@ export function createDiv(props) {
 export function open(props) {
   const { content, onClose, ...otherProps } = props
   const div = createDiv(props)
-  div.style.display = 'block'
 
-  currentLevel += 1
-  console.log(currentLevel)
+  if (div.style.display === 'block') return
+  div.style.display = 'block'
 
   const scrollWidth = window.innerWidth - document.body.clientWidth
   const doc = document.body.parentNode
@@ -78,7 +79,10 @@ export function open(props) {
     if (onClose) onClose()
     close(props)
   }
-  const maskOpacity = currentLevel > 1 ? 0.01 : props.maskOpacity
+
+  const maskOpacity = hasVisible() ? 0.01 : props.maskOpacity
+  containers[props.id].visible = true
+
   ReactDOM.render(
     <Panel {...otherProps} maskOpacity={maskOpacity} onClose={handleClose}>
       {content}
