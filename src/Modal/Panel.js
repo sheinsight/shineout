@@ -44,8 +44,6 @@ export default class Panel extends PureComponent {
       this.props.className,
     )
 
-    console.log(maskOpacity)
-
     return [
       <div
         key="mask"
