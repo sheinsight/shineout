@@ -27,6 +27,7 @@
     "create-react-context": "^0.2.1",
     "deep-eql": "^3.0.1",
     "immer": "^1.1.1",
+    "npm": "^6.0.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
