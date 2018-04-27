@@ -21,6 +21,7 @@ class Select extends PureComponent {
     this.state = {
       focus: false,
       result: [],
+      position: 'drop-down',
       scrollTop: 0,
       hoverIndex: undefined,
       currentIndex: 0,
@@ -161,9 +162,15 @@ class Select extends PureComponent {
     if (classList.indexOf(selectClass('input')) >= 0 && !force) return
 
     if (focus) this.firstFocused = true
-    this.setState({ focus, hoverIndex: undefined })
 
-    const { onBlur, onFocus } = this.props
+    const { onBlur, onFocus, height } = this.props
+    let { position } = this.props
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight
+    const bottom = height + this.element.getBoundingClientRect().bottom
+    if (bottom > windowHeight && !position) position = 'drop-up'
+
+    this.setState({ focus, hoverIndex: undefined, position: position || 'drop-down' })
+
     if (focus) onFocus()
     else onBlur()
   }
@@ -212,7 +219,7 @@ class Select extends PureComponent {
 
   handleScroll(x, y, max, bar, v, h, pixelX, pixelY) {
     const { data, itemsInView, lineHeight } = this.props
-    const fullHeight = itemsInView * this.props.lineHeight
+    const fullHeight = itemsInView * lineHeight
     const contentHeight = (data.length * lineHeight) - h
     let scrollTop = h > fullHeight ? 0 : y
 
@@ -359,6 +366,7 @@ class Select extends PureComponent {
       'inner',
       this.state.focus && 'focus',
       size,
+      this.state.position,
       multiple && 'multiple',
       disabled && 'disabled',
     )
@@ -411,6 +419,7 @@ Select.propTypes = {
   onBlur: PropTypes.func,
   onFilter: PropTypes.func,
   onFocus: PropTypes.func,
+  position: PropTypes.string,
   renderItem: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.func,
