@@ -364,8 +364,8 @@ class Select extends PureComponent {
     } = this.props
     const className = selectClass(
       'inner',
-      this.state.focus && 'focus',
       size,
+      this.state.focus && 'focus',
       this.state.position,
       multiple && 'multiple',
       disabled && 'disabled',

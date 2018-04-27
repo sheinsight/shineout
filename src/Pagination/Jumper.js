@@ -21,9 +21,7 @@ class Jumper extends PureComponent {
     if (e.keyCode === 13) {
       let current = parseInt(e.target.value, 10)
 
-      // isNaN
-      // eslint-disable-next-line
-      if (current !== current) return
+      if (!Number.isFinite(current)) return
       if (current < 1) current = 1
 
       const max = this.getMax()

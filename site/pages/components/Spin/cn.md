@@ -10,4 +10,4 @@
 | --- | --- | --- | --- |
 | color | string | #6c757d | 颜色 |
 | size | number \| string | 40 | 尺寸 |
-| type | string | 'fading-circle' | 类型，可选值见示例 |
+| name | string | 'fading-circle' | 类型，可选值见示例 |

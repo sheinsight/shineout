@@ -7,6 +7,6 @@ import { DatePicker } from 'shineout'
 
 export default function () {
   return (
-    <DatePicker format="YYYY/MM/DD" value="2011-12-12" />
+    <DatePicker format="YYYY/MM/DD" value="2018-4-27" />
   )
 }
