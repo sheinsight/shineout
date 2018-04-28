@@ -1,8 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import List from '../List'
 import utils from './utils'
 import Picker from './Picker'
 import { datepickerClass } from '../styles'
+
+const FadeList = List('fade', 'fast')
 
 class DatePicker extends PureComponent {
   constructor(props) {
@@ -31,14 +34,13 @@ class DatePicker extends PureComponent {
     const {
       value, format, disabled, size, placeholder,
     } = this.props
+    const { focus } = this.state
     const date = utils.toDate(value)
-
-    console.log(value, date)
 
     const className = datepickerClass(
       'inner',
       size,
-      this.state.focus && 'focus',
+      focus && 'focus',
       this.state.position,
       disabled && 'disabled',
     )
@@ -56,7 +58,9 @@ class DatePicker extends PureComponent {
             isNaN(date) ? placeholder : utils.format(date, format)
           }
         </div>
-        <Picker value={date} onChange={this.handleChange} />
+        <FadeList show={focus}>
+          <Picker value={date} onChange={this.handleChange} />
+        </FadeList>
       </div>
     )
   }

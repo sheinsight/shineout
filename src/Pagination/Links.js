@@ -11,6 +11,9 @@ class Links extends PureComponent {
     const {
       current, total, pageSize, span,
     } = this.props
+
+    if (total === 0) return { links: [], max: 0 }
+
     const max = Math.ceil(total / pageSize)
     const links = []
     let right
