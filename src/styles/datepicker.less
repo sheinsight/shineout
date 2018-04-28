@@ -12,6 +12,7 @@
 
   &-picker {
     position: absolute;
+    width: 280px;
     top: 100%;
     left: 0;
     margin-top: 4px;
@@ -22,7 +23,7 @@
     z-index: @zindex-dropdown;
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.02), @datepicker-box-shadow;
 
-    a {
+    span {
       color: @gray-600;
     }
 
@@ -30,8 +31,9 @@
       display: flex;
       padding: 4px 8px;
 
-      a {
+      span {
         line-height: 1;
+        cursor: pointer;
         &:hover {
           color: @colors-primary;
         }
@@ -40,7 +42,7 @@
       .@{datepicker-prefix}-icon {
         width: 18px;
         height: 16px;
-        padding: 3px 4px;
+        padding: 0 4px;
         path {
           fill: @gray-600;
         }
@@ -54,7 +56,7 @@
         flex: 1;
         text-align: center;
 
-        a {
+        span {
           padding: 0 6px;
         }
       }
@@ -63,15 +65,30 @@
         text-align: left;
       }
     }
+
+    .@{datepicker-prefix}-active, .@{datepicker-prefix}-active:hover {
+      color: #fff;
+      background: @colors-primary;
+    }
   }
 
   &-day-picker {
-    width: 280px;
+    .@{datepicker-prefix}-week {
+      text-align: center;
+      border-bottom: solid 1px #f2f2f2;
+      margin-bottom: 4px;
+
+      span {
+        display: inline-block;
+        width: 28px;
+        margin: 8px 4px;
+      }
+    }
 
     .@{datepicker-prefix}-list {
       text-align: center;
 
-      a {
+      span {
         display: inline-block;
         width: 28px;
         height: 28px;
@@ -79,20 +96,58 @@
         margin: 4px;
         text-align: center;
         border-radius: 2px;
-        cursor: default;
+        cursor: pointer;
 
         &:hover {
           background: @datepicker-day-hover-bg;
+          color: #000;
         }
       }
 
       .@{datepicker-prefix}-other-month {
         color: @gray-400;
       }
+    }
+  }
 
-      .@{datepicker-prefix}-active, .@{datepicker-prefix}-active:hover {
-        color: #fff;
-        background: @colors-primary;
+  &-month-picker {
+    .@{datepicker-prefix}-list {
+      text-align: center;
+      padding-top: 12px;
+
+      span {
+        display: inline-block;
+        width: 70px;
+        padding: 4px 6px;
+        margin: 6px 5px;
+        border-radius: 2px;
+        cursor: pointer;
+
+        &:hover {
+          color: #000;
+          background: @datepicker-day-hover-bg;
+        }
+      }
+    }
+  }
+
+  &-year-picker {
+    .@{datepicker-prefix}-list {
+      text-align: center;
+      padding-top: 12px;
+
+      span {
+        display: inline-block;
+        width: 50px;
+        padding: 4px 6px;
+        margin: 4px 15px;
+        border-radius: 2px;
+        cursor: pointer;
+
+        &:hover {
+          color: #000;
+          background: @datepicker-day-hover-bg;
+        }
       }
     }
   }

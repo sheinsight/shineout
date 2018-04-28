@@ -142,6 +142,8 @@ export default curry(({ delay = 0 }, Origin) => consumer(class extends PureCompo
       formDatum, value, required, loopContext, ...other
     } = this.props
 
+    console.log(value)
+
     return (
       <Origin
         {...other}

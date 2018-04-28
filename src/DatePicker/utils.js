@@ -1,5 +1,6 @@
-import addMonths from 'date-fns/addMonths'
 import addDays from 'date-fns/addDays'
+import addMonths from 'date-fns/addMonths'
+import addYears from 'date-fns/addYears'
 import endOfMonth from 'date-fns/endOfMonth'
 import endOfWeek from 'date-fns/endOfWeek'
 import format from 'date-fns/format'
@@ -26,6 +27,7 @@ function getDaysOfMonth(dirtyDate) {
 export default {
   addDays,
   addMonths,
+  addYears,
   getDaysOfMonth,
   format,
   toDate,

@@ -1,10 +1,9 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import utils from './utils'
-import icons from '../icons'
 import { datepickerClass } from '../styles'
-
-const Icon = (icon, onClick) => <a href="javascript:;" className={datepickerClass('icon')} onClick={onClick}>{icon}</a>
+import Icon from './Icon'
+import { getLocate } from './locate'
 
 class Day extends PureComponent {
   constructor(props) {
@@ -14,23 +13,25 @@ class Day extends PureComponent {
     this.handlePrevMonth = this.handleMonth.bind(this, -1)
     this.handleNextYear = this.handleMonth.bind(this, 12)
     this.handlePrevYear = this.handleMonth.bind(this, -12)
+    this.handleMonthModel = this.handleModelChange.bind(this, 'month')
+    this.handleYearModel = this.handleModelChange.bind(this, 'year')
   }
 
   getDays() {
-    const { value } = this.props
-    if (utils.isSameMonth(this.cachedDate, value) && this.cachedDays) {
+    const { current } = this.props
+    if (utils.isSameMonth(this.cachedDate, current) && this.cachedDays) {
       return this.cachedDays
     }
-    this.cachedDays = utils.getDaysOfMonth(value)
-    this.cachedDate = value
+    this.cachedDays = utils.getDaysOfMonth(current)
+    this.cachedDate = current
 
     return this.cachedDays
   }
 
   getClassName(d) {
-    const { value } = this.props
+    const { current, value } = this.props
     return datepickerClass(
-      value.getMonth() !== d.getMonth() && 'other-month',
+      current.getMonth() !== d.getMonth() && 'other-month',
       utils.isSameDay(d, value) && 'active',
     )
   }
@@ -40,42 +41,47 @@ class Day extends PureComponent {
   }
 
   handleMonth(month) {
-    const { value, onChange } = this.props
-    onChange(utils.addMonths(value, month))
+    const { current, onChange } = this.props
+    onChange(utils.addMonths(current, month))
+  }
+
+  handleModelChange(model) {
+    this.props.onModelChange(model)
   }
 
   render() {
-    const { value } = this.props
+    const { current } = this.props
     const days = this.getDays()
 
     return (
       <div className={datepickerClass('picker', 'day-picker')}>
         <div className={datepickerClass('header')}>
-          { Icon(icons.AngleDoubleLeft, this.handlePrevYear) }
-          { Icon(icons.AngleLeft, this.handlePrevMonth) }
+          <Icon onClick={this.handlePrevYear} name="AngleDoubleLeft" />
+          <Icon onClick={this.handlePrevMonth} name="AngleLeft" />
 
           <span className={datepickerClass('ym')}>
-            <a href="javascript:;">{value.getFullYear()}</a>
-            <a href="javascript:;">{value.getMonth() + 1}</a>
+            <span onClick={this.handleYearModel}>{current.getFullYear()}</span>
+            <span onClick={this.handleMonthModel}>{getLocate('monthValues.short')[current.getMonth()]}</span>
           </span>
 
-          { Icon(icons.AngleRight, this.handleNextMonth) }
-          { Icon(icons.AngleDoubleRight, this.handleNextYear) }
+          <Icon onClick={this.handleNextMonth} name="AngleRight" />
+          <Icon onClick={this.handleNextYear} name="AngleDoubleRight" />
         </div>
 
-        <div className={datepickerClass('week')} />
+        <div className={datepickerClass('week')}>
+          { getLocate('weekdayValues.narrow').map(w => <span key={w}>{w}</span>) }
+        </div>
 
         <div className={datepickerClass('list')}>
           {
             days.map(d => (
-              <a
+              <span
                 className={this.getClassName(d)}
                 key={d.getTime()}
                 onClick={this.handleDayClick.bind(this, d)}
-                href="javascript:;"
               >
                 {d.getDate()}
-              </a>
+              </span>
             ))
           }
         </div>
@@ -85,7 +91,9 @@ class Day extends PureComponent {
 }
 
 Day.propTypes = {
+  current: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
+  onModelChange: PropTypes.func.isRequired,
   value: PropTypes.object.isRequired,
 }
 

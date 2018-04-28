@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import Year from './Year'
+import Month from './Month'
 import Day from './Day'
 
 class Picker extends PureComponent {
@@ -7,11 +9,12 @@ class Picker extends PureComponent {
     super(props)
 
     this.state = {
-      stage: 'day',
+      model: 'day',
       current: props.value,
     }
 
     this.handleChange = this.handleChange.bind(this)
+    this.handleModelChange = this.handleModelChange.bind(this)
   }
 
   handleChange(current, end) {
@@ -19,13 +22,34 @@ class Picker extends PureComponent {
     if (end) this.props.onChange(current)
   }
 
-  render() {
-    const { current, stage } = this.state
+  handleModelChange(model) {
+    this.setState({ model })
+  }
 
-    switch (stage) {
+  render() {
+    const { current, model } = this.state
+    const { value } = this.props
+
+    let Render
+    switch (model) {
+      case 'year':
+        Render = Year
+        break
+      case 'month':
+        Render = Month
+        break
       default:
-        return <Day value={current} onChange={this.handleChange} />
+        Render = Day
     }
+
+    return (
+      <Render
+        value={value}
+        current={current}
+        onChange={this.handleChange}
+        onModelChange={this.handleModelChange}
+      />
+    )
   }
 }
 

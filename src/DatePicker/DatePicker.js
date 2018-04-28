@@ -15,6 +15,8 @@ class DatePicker extends PureComponent {
   }
 
   handleToggle(focus) {
+    if (focus === this.state.focus) return
+
     this.setState({ focus })
 
     if (focus) this.props.onFocus()
@@ -30,6 +32,8 @@ class DatePicker extends PureComponent {
       value, format, disabled, size, placeholder,
     } = this.props
     const date = utils.toDate(value)
+
+    console.log(value, date)
 
     const className = datepickerClass(
       'inner',
