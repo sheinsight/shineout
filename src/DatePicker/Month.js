@@ -35,7 +35,7 @@ class Month extends PureComponent {
     const { current, value } = this.props
 
     return (
-      <div className={datepickerClass('picker', 'month-picker')}>
+      <div className={datepickerClass('month-picker')}>
         <div className={datepickerClass('header')}>
           <Icon name="AngleLeft" onClick={this.handlePrevYear} />
 

@@ -1,20 +1,27 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import List from '../List'
+import Icon from './Icon'
 import utils from './utils'
 import Picker from './Picker'
-import { datepickerClass } from '../styles'
+import { datepickerClass, inputClass } from '../styles'
 
-const FadeList = List('fade', 'fast')
+const FadeList = List(['fade'], 'fast')
 
 class DatePicker extends PureComponent {
   constructor(props) {
     super(props)
 
     this.state = { focus: false }
+
+    this.bindElement = this.bindElement.bind(this)
     this.handleFocus = this.handleToggle.bind(this, true)
     this.handleBlur = this.handleToggle.bind(this, false)
     this.handleChange = this.handleChange.bind(this)
+  }
+
+  bindElement(el) {
+    this.element = el
   }
 
   handleToggle(focus) {
@@ -28,6 +35,7 @@ class DatePicker extends PureComponent {
 
   handleChange(value) {
     this.props.onChange(utils.format(value, this.props.format))
+    this.element.blur()
   }
 
   render() {
@@ -36,6 +44,8 @@ class DatePicker extends PureComponent {
     } = this.props
     const { focus } = this.state
     const date = utils.toDate(value)
+    // eslint-disable-next-line
+    const current = isNaN(date) ? new Date() : date
 
     const className = datepickerClass(
       'inner',
@@ -49,17 +59,21 @@ class DatePicker extends PureComponent {
       <div
         className={className}
         tabIndex={-1}
+        ref={this.bindElement}
         onFocus={this.handleFocus}
         onBlur={this.handleBlur}
       >
         <div className={datepickerClass('result')}>
           {
             // eslint-disable-next-line
-            isNaN(date) ? placeholder : utils.format(date, format)
+            isNaN(date)
+              ? <span className={inputClass('placeholder')}>{placeholder}</span>
+              : utils.format(date, format)
           }
+          <Icon name="Calendar" />
         </div>
-        <FadeList show={focus}>
-          <Picker value={date} onChange={this.handleChange} />
+        <FadeList show={focus} className={datepickerClass('picker')}>
+          <Picker value={current} onChange={this.handleChange} />
         </FadeList>
       </div>
     )
@@ -69,7 +83,7 @@ class DatePicker extends PureComponent {
 DatePicker.propTypes = {
   disabled: PropTypes.bool,
   format: PropTypes.string,
-  placeholder: PropTypes.string,
+  placeholder: PropTypes.any,
   onBlur: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   onFocus: PropTypes.func.isRequired,
@@ -83,7 +97,7 @@ DatePicker.propTypes = {
 
 DatePicker.defaultProps = {
   format: 'YYYY-MM-DD HH:mm:ss',
-  placeholder: ' ',
+  placeholder: <span>&nbsp;</span>,
 }
 
 export default DatePicker

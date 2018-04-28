@@ -11,7 +11,7 @@ function Icon({ name, onClick }) {
 
 Icon.propTypes = {
   name: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
 }
 
 export default Icon

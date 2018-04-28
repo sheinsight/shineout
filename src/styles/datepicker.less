@@ -4,10 +4,28 @@
 @datepicker-prefix: ~"@{so-prefix}-datepicker";
 
 .@{datepicker-prefix} {
+  display: inline-block;
   width: 240px;
 
   &-inner {
     outline: none;
+  }
+
+  &-result {
+    position: relative;
+
+    .@{datepicker-prefix}-icon {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      top: 50%;
+      right: 0;
+      margin: -8px -4px 0 0;
+
+      path {
+        fill: @gray-500;
+      }
+    } 
   }
 
   &-picker {

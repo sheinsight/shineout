@@ -54,7 +54,7 @@ class Day extends PureComponent {
     const days = this.getDays()
 
     return (
-      <div className={datepickerClass('picker', 'day-picker')}>
+      <div className={datepickerClass('day-picker')}>
         <div className={datepickerClass('header')}>
           <Icon onClick={this.handlePrevYear} name="AngleDoubleLeft" />
           <Icon onClick={this.handlePrevMonth} name="AngleLeft" />

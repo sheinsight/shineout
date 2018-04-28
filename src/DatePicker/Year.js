@@ -32,7 +32,7 @@ class Year extends PureComponent {
     const years = range(15, 0).map(i => cy + i)
 
     return (
-      <div className={datepickerClass('picker', 'year-picker')}>
+      <div className={datepickerClass('year-picker')}>
         <div className={datepickerClass('header')}>
           <Icon name="AngleLeft" onClick={this.handlePrevRange} />
 

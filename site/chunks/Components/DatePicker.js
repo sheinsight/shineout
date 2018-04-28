@@ -18,6 +18,11 @@ const examples = [
     component: require('doc/pages/components/DatePicker/example-1-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-1-base.js'),
   },
+  {
+    title: locate('格式化', 'Format'),
+    component: require('doc/pages/components/DatePicker/example-2-format.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-2-format.js'),
+  },
 ]
 
 const codes = undefined
