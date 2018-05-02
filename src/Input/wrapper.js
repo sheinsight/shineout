@@ -16,7 +16,10 @@ export default curry((options, Origin) => class extends Component {
     autoFocus: PropTypes.bool,
     border: PropTypes.bool,
     className: PropTypes.string,
-    disabled: PropTypes.bool,
+    disabled: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.func,
+    ]),
     onBlur: PropTypes.func,
     onError: PropTypes.func,
     onFocus: PropTypes.func,
@@ -97,7 +100,7 @@ export default curry((options, Origin) => class extends Component {
       inputClass(
         '_',
         focus && 'focus',
-        other.disabled && 'disabled',
+        other.disabled === true && 'disabled',
         options.isGroup && 'group',
         size,
         newStyle.width && 'inline',

@@ -8,7 +8,7 @@ import { DatePicker, Input } from 'shineout'
 export default class extends Component {
   constructor(props) {
     super(props)
-    this.state = { format: 'YYYY-M-D HH:mm:ss' }
+    this.state = { format: 'YYYY-M-D H:m:s' }
     this.handleChange = this.handleChange.bind(this)
   }
 

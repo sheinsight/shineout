@@ -1,12 +1,12 @@
 /**
- * cn - 基本用法
- * en - Base
+ * cn - 星期选择
+ * en - Week Type
  */
 import React from 'react'
 import { DatePicker } from 'shineout'
 
 export default function () {
   return (
-    <DatePicker format="YYYY/MM/DD" defaultValue={Date.now()} />
+    <DatePicker type="week" format="YYYY wWW" defaultValue={Date.now()} />
   )
 }

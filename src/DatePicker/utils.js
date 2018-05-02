@@ -6,6 +6,8 @@ import endOfWeek from 'date-fns/endOfWeek'
 import format from 'date-fns/format'
 import isSameDay from 'date-fns/isSameDay'
 import isSameMonth from 'date-fns/isSameMonth'
+import isSameWeek from 'date-fns/isSameWeek'
+import parse from 'date-fns/parse'
 import startOfMonth from 'date-fns/startOfMonth'
 import startOfWeek from 'date-fns/startOfWeek'
 import toDate from 'date-fns/toDate'
@@ -30,7 +32,9 @@ export default {
   addYears,
   getDaysOfMonth,
   format,
+  parse,
   toDate,
   isSameDay,
   isSameMonth,
+  isSameWeek,
 }

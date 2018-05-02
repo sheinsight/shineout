@@ -9,6 +9,7 @@
 
   &-inner {
     outline: none;
+    padding: @padding-base-vertical @padding-base-horizontal;
   }
 
   &-result {
@@ -84,7 +85,14 @@
       }
     }
 
-    .@{datepicker-prefix}-active, .@{datepicker-prefix}-active:hover {
+    .@{datepicker-prefix}-list span {
+      &:hover {
+        color: #000;
+        background: @datepicker-day-hover-bg;
+      }
+    }
+
+    span.@{datepicker-prefix}-active, span.@{datepicker-prefix}-active:hover {
       color: #fff;
       background: @colors-primary;
     }
@@ -106,20 +114,50 @@
     .@{datepicker-prefix}-list {
       text-align: center;
 
-      span {
+      div {
         display: inline-block;
+        width: 36px;
+        height: 36px;
+        padding: 4px 0;
+      }
+
+      div.@{datepicker-prefix}-hover, div.@{datepicker-prefix}-active {
+        background: @datepicker-day-hover-bg;
+      }
+
+      div.@{datepicker-prefix}-hover-start {
+        border-top-left-radius: 16px;
+        border-bottom-left-radius: 16px;
+      }
+
+      div.@{datepicker-prefix}-hover-end {
+        border-top-right-radius: 16px;
+        border-bottom-right-radius: 16px;
+      }
+
+      div.@{datepicker-prefix}-active {
+        &.@{datepicker-prefix}-hover-start,
+        &.@{datepicker-prefix}-hover-end, {
+          span {
+            box-shadow: 0 0 0 1px @colors-primary inset;
+          }
+        }
+      }
+
+      span {
+        display: block;
+        margin: 0 auto;
         width: 28px;
         height: 28px;
         line-height: 28px;
-        margin: 4px;
         text-align: center;
-        border-radius: 2px;
+        border-radius: 14px;
         cursor: pointer;
+      }
 
-        &:hover {
-          background: @datepicker-day-hover-bg;
-          color: #000;
-        }
+      .@{datepicker-prefix}-disabled {
+        color: @gray-400;
+        cursor: not-allowed;
       }
 
       .@{datepicker-prefix}-other-month {
@@ -140,11 +178,6 @@
         margin: 6px 5px;
         border-radius: 2px;
         cursor: pointer;
-
-        &:hover {
-          color: #000;
-          background: @datepicker-day-hover-bg;
-        }
       }
     }
   }
@@ -161,11 +194,6 @@
         margin: 4px 15px;
         border-radius: 2px;
         cursor: pointer;
-
-        &:hover {
-          color: #000;
-          background: @datepicker-day-hover-bg;
-        }
       }
     }
   }

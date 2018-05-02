@@ -6,7 +6,7 @@ import DatePicker from './DatePicker'
 import { setLocate } from './locate'
 
 const exp = compose(
-  wrapper({ className: datepickerClass('_') }),
+  wrapper({ className: datepickerClass('_'), noPadding: true }),
   inputable({ delay: 1 }),
 )(DatePicker)
 

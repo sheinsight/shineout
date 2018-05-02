@@ -28,7 +28,7 @@ class Picker extends PureComponent {
 
   render() {
     const { current, model } = this.state
-    const { value } = this.props
+    const { disabled, type, value } = this.props
 
     let Render
     switch (model) {
@@ -46,16 +46,20 @@ class Picker extends PureComponent {
       <Render
         value={value}
         current={current}
+        disabled={disabled}
         onChange={this.handleChange}
         onModelChange={this.handleModelChange}
+        type={type}
       />
     )
   }
 }
 
 Picker.propTypes = {
+  disabled: PropTypes.func,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.object.isRequired,
+  type: PropTypes.string.isRequired,
 }
 
 export default Picker

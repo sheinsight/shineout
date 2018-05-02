@@ -23,6 +23,21 @@ const examples = [
     component: require('doc/pages/components/DatePicker/example-2-format.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-2-format.js'),
   },
+  {
+    title: locate('禁用', 'Disabled'),
+    component: require('doc/pages/components/DatePicker/example-3-disabled.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-3-disabled.js'),
+  },
+  {
+    title: locate(' \n disabled 为函数时，禁用返回为true的选项', ''),
+    component: require('doc/pages/components/DatePicker/example-4-disabled.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-4-disabled.js'),
+  },
+  {
+    title: locate('星期选择', 'Week Type'),
+    component: require('doc/pages/components/DatePicker/example-5-week.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-5-week.js'),
+  },
 ]
 
 const codes = undefined

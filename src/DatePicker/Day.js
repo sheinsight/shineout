@@ -9,12 +9,17 @@ class Day extends PureComponent {
   constructor(props) {
     super(props)
 
+    this.state = {
+      hover: null,
+    }
+
     this.handleNextMonth = this.handleMonth.bind(this, 1)
     this.handlePrevMonth = this.handleMonth.bind(this, -1)
     this.handleNextYear = this.handleMonth.bind(this, 12)
     this.handlePrevYear = this.handleMonth.bind(this, -12)
     this.handleMonthModel = this.handleModelChange.bind(this, 'month')
     this.handleYearModel = this.handleModelChange.bind(this, 'year')
+    this.handleWeekLeave = this.handleWeek.bind(this, null)
   }
 
   getDays() {
@@ -28,16 +33,15 @@ class Day extends PureComponent {
     return this.cachedDays
   }
 
-  getClassName(d) {
-    const { current, value } = this.props
-    return datepickerClass(
-      current.getMonth() !== d.getMonth() && 'other-month',
-      utils.isSameDay(d, value) && 'active',
-    )
+  handleDayClick(date) {
+    if (this.props.type === 'week' && date.getDay() === 0) {
+      date = utils.addDays(date, 1)
+    }
+    this.props.onChange(date, true)
   }
 
-  handleDayClick(date) {
-    this.props.onChange(date, true)
+  handleWeek(hover) {
+    this.setState({ hover })
   }
 
   handleMonth(month) {
@@ -47,6 +51,52 @@ class Day extends PureComponent {
 
   handleModelChange(model) {
     this.props.onModelChange(model)
+  }
+
+  renderDay(date) {
+    const {
+      current, disabled, value, type,
+    } = this.props
+    const { hover } = this.state
+    const isDisabled = disabled ? disabled(date) : false
+
+    const classList = [
+      current.getMonth() !== date.getMonth() && 'other-month',
+      isDisabled && 'disabled',
+    ]
+
+    let hoverClass
+    const hoverProps = {}
+    if (type === 'week') {
+      hoverProps.onMouseEnter = this.handleWeek.bind(this, date)
+      hoverProps.onMouseLeave = this.handleWeekLeave
+      if (utils.isSameWeek(date, value)) {
+        hoverClass = datepickerClass(
+          'active',
+          date.getDay() === 0 && 'hover-start',
+          date.getDay() === 6 && 'hover-end',
+        )
+      } else if (hover && utils.isSameWeek(date, hover)) {
+        hoverClass = datepickerClass(
+          'hover',
+          date.getDay() === 0 && 'hover-start',
+          date.getDay() === 6 && 'hover-end',
+        )
+      }
+    } else {
+      classList.push(utils.isSameDay(date, value) && 'active')
+    }
+
+    return (
+      <div
+        key={date.getTime()}
+        className={hoverClass}
+        onClick={isDisabled ? undefined : this.handleDayClick.bind(this, date)}
+        {...hoverProps}
+      >
+        <span className={datepickerClass(...classList)}>{date.getDate()}</span>
+      </div>
+    )
   }
 
   render() {
@@ -61,7 +111,9 @@ class Day extends PureComponent {
 
           <span className={datepickerClass('ym')}>
             <span onClick={this.handleYearModel}>{current.getFullYear()}</span>
-            <span onClick={this.handleMonthModel}>{getLocate('monthValues.short')[current.getMonth()]}</span>
+            <span onClick={this.handleMonthModel}>
+              {getLocate('monthValues.short')[current.getMonth()]}
+            </span>
           </span>
 
           <Icon onClick={this.handleNextMonth} name="AngleRight" />
@@ -74,15 +126,7 @@ class Day extends PureComponent {
 
         <div className={datepickerClass('list')}>
           {
-            days.map(d => (
-              <span
-                className={this.getClassName(d)}
-                key={d.getTime()}
-                onClick={this.handleDayClick.bind(this, d)}
-              >
-                {d.getDate()}
-              </span>
-            ))
+            days.map(d => this.renderDay(d))
           }
         </div>
       </div>
@@ -92,8 +136,10 @@ class Day extends PureComponent {
 
 Day.propTypes = {
   current: PropTypes.object.isRequired,
+  disabled: PropTypes.func,
   onChange: PropTypes.func.isRequired,
   onModelChange: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired,
   value: PropTypes.object.isRequired,
 }
 

@@ -18,6 +18,23 @@ class DatePicker extends PureComponent {
     this.handleFocus = this.handleToggle.bind(this, true)
     this.handleBlur = this.handleToggle.bind(this, false)
     this.handleChange = this.handleChange.bind(this)
+
+    this.firstRender = false
+  }
+
+  getFormat() {
+    const { format, type } = this.props
+    if (format) return format
+    switch (type) {
+      case 'date':
+        return 'YYYY-MM-DD'
+      case 'month':
+        return 'YYYY-MM'
+      case 'time':
+        return 'HH:mm:ss'
+      default:
+        return 'YYYY-MM-DD HH:mm:ss'
+    }
   }
 
   bindElement(el) {
@@ -25,8 +42,10 @@ class DatePicker extends PureComponent {
   }
 
   handleToggle(focus) {
+    if (this.props.disabled === true) return
     if (focus === this.state.focus) return
 
+    if (focus === true) this.firstRender = true
     this.setState({ focus })
 
     if (focus) this.props.onFocus()
@@ -34,16 +53,19 @@ class DatePicker extends PureComponent {
   }
 
   handleChange(value) {
-    this.props.onChange(utils.format(value, this.props.format))
+    this.props.onChange(utils.format(value, this.getFormat()))
     this.element.blur()
   }
 
   render() {
     const {
-      value, format, disabled, size, placeholder,
+      value, disabled, size, placeholder, type,
     } = this.props
     const { focus } = this.state
-    const date = utils.toDate(value)
+    const date = typeof value === 'string'
+      ? utils.parse(value, this.getFormat(), new Date())
+      : utils.toDate(value)
+
     // eslint-disable-next-line
     const current = isNaN(date) ? new Date() : date
 
@@ -52,7 +74,6 @@ class DatePicker extends PureComponent {
       size,
       focus && 'focus',
       this.state.position,
-      disabled && 'disabled',
     )
 
     return (
@@ -68,12 +89,20 @@ class DatePicker extends PureComponent {
             // eslint-disable-next-line
             isNaN(date)
               ? <span className={inputClass('placeholder')}>{placeholder}</span>
-              : utils.format(date, format)
+              : utils.format(date, this.getFormat())
           }
           <Icon name="Calendar" />
         </div>
         <FadeList show={focus} className={datepickerClass('picker')}>
-          <Picker value={current} onChange={this.handleChange} />
+          {
+            this.firstRender &&
+            <Picker
+              disabled={typeof disabled === 'function' ? disabled : undefined}
+              onChange={this.handleChange}
+              type={type}
+              value={current}
+            />
+          }
         </FadeList>
       </div>
     )
@@ -81,13 +110,17 @@ class DatePicker extends PureComponent {
 }
 
 DatePicker.propTypes = {
-  disabled: PropTypes.bool,
+  disabled: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.func,
+  ]),
   format: PropTypes.string,
   placeholder: PropTypes.any,
   onBlur: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   onFocus: PropTypes.func.isRequired,
   size: PropTypes.string,
+  type: PropTypes.string,
   value: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
@@ -96,8 +129,8 @@ DatePicker.propTypes = {
 }
 
 DatePicker.defaultProps = {
-  format: 'YYYY-MM-DD HH:mm:ss',
   placeholder: <span>&nbsp;</span>,
+  type: 'date',
 }
 
 export default DatePicker
