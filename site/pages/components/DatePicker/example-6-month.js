@@ -1,12 +1,12 @@
 /**
- * cn - 选择星期
- * en - Week Type
+ * cn - 选择月
+ * en - Month Type
  */
 import React from 'react'
 import { DatePicker } from 'shineout'
 
 export default function () {
   return (
-    <DatePicker type="week" format="YYYY wWW" defaultValue={Date.now()} />
+    <DatePicker type="month" defaultValue={Date.now()} />
   )
 }

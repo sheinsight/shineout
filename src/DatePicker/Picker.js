@@ -9,7 +9,7 @@ class Picker extends PureComponent {
     super(props)
 
     this.state = {
-      model: 'day',
+      model: props.type === 'month' ? 'month' : 'day',
       current: props.value,
     }
 

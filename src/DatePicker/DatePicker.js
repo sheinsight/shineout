@@ -32,6 +32,8 @@ class DatePicker extends PureComponent {
         return 'YYYY-MM'
       case 'time':
         return 'HH:mm:ss'
+      case 'week':
+        return 'YYYY WW'
       default:
         return 'YYYY-MM-DD HH:mm:ss'
     }

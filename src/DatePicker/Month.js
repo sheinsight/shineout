@@ -26,9 +26,11 @@ class Month extends PureComponent {
   handleMonthClick(month) {
     const { current, onChange, onModelChange } = this.props
     const date = new Date(current.getTime())
+    const isMonthType = this.props.type === 'month'
+
     date.setMonth(month)
-    onChange(date)
-    onModelChange('day')
+    onChange(date, isMonthType)
+    if (!isMonthType) onModelChange('day')
   }
 
   render() {
@@ -68,6 +70,7 @@ Month.propTypes = {
   current: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   onModelChange: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired,
   value: PropTypes.object.isRequired,
 }
 
