@@ -3,13 +3,26 @@ import PropTypes from 'prop-types'
 import Year from './Year'
 import Month from './Month'
 import Day from './Day'
+import Time from './Time'
 
 class Picker extends PureComponent {
   constructor(props) {
     super(props)
 
+    let model
+    switch (props.type) {
+      case 'month':
+        model = 'month'
+        break
+      case 'time':
+        model = 'time'
+        break
+      default:
+        model = 'day'
+    }
+
     this.state = {
-      model: props.type === 'month' ? 'month' : 'day',
+      model,
       current: props.value,
     }
 
@@ -18,8 +31,10 @@ class Picker extends PureComponent {
   }
 
   handleChange(current, end) {
+    const { type } = this.props
     this.setState({ current })
-    if (end) this.props.onChange(current)
+    if (end) this.props.onChange(current, true)
+    else if (type === 'time') this.props.onChange(current)
   }
 
   handleModelChange(model) {
@@ -28,7 +43,9 @@ class Picker extends PureComponent {
 
   render() {
     const { current, model } = this.state
-    const { disabled, type, value } = this.props
+    const {
+      disabled, type, value, format,
+    } = this.props
 
     let Render
     switch (model) {
@@ -38,18 +55,22 @@ class Picker extends PureComponent {
       case 'month':
         Render = Month
         break
+      case 'time':
+        Render = Time
+        break
       default:
         Render = Day
     }
 
     return (
       <Render
-        value={value}
         current={current}
         disabled={disabled}
+        format={format}
         onChange={this.handleChange}
         onModelChange={this.handleModelChange}
         type={type}
+        value={value}
       />
     )
   }
@@ -57,6 +78,7 @@ class Picker extends PureComponent {
 
 Picker.propTypes = {
   disabled: PropTypes.func,
+  format: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.object.isRequired,
   type: PropTypes.string.isRequired,

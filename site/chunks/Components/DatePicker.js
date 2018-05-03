@@ -43,6 +43,11 @@ const examples = [
     component: require('doc/pages/components/DatePicker/example-6-month.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-6-month.js'),
   },
+  {
+    title: locate('选择时间', 'Time Type'),
+    component: require('doc/pages/components/DatePicker/example-7-time.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-7-time.js'),
+  },
 ]
 
 const codes = undefined

@@ -31,7 +31,6 @@
 
   &-picker {
     position: absolute;
-    width: 280px;
     top: 100%;
     left: 0;
     margin-top: 4px;
@@ -96,6 +95,10 @@
       color: #fff;
       background: @colors-primary;
     }
+  }
+
+  &-day-picker, &-month-picker, &-year-picker {
+    width: 252px;
   }
 
   &-day-picker {
@@ -194,6 +197,43 @@
         margin: 4px 15px;
         border-radius: 2px;
         cursor: pointer;
+      }
+    }
+  }
+
+  &-time-picker {
+    width: auto;
+    white-space: nowrap;
+
+    .@{datepicker-prefix}-time-list {
+      position: relative;
+      width: 65px;
+      height: 150px;
+      display: inline-block;
+      flex-direction: column;
+      overflow: hidden;
+      box-sizing: border-box;
+      border-right: solid 1px @gray-200;
+      background: linear-gradient(to bottom, @gray-100, @gray-100, 30px, transparent 30px, transparent) 0 60px;
+
+      &:last-child {
+        border-right: 0;
+      }
+
+      span, a {
+        display: block;
+        line-height: 30px;
+        padding-left: 18px;
+        color: @gray-600;
+      }
+
+      .@{datepicker-prefix}-time-active {
+        color: #000;
+        font-weight: bold;
+      }
+
+      &:hover {
+        overflow: auto;
       }
     }
   }

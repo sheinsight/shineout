@@ -54,9 +54,9 @@ class DatePicker extends PureComponent {
     else this.props.onBlur()
   }
 
-  handleChange(value) {
+  handleChange(value, blur) {
     this.props.onChange(utils.format(value, this.getFormat()))
-    this.element.blur()
+    if (blur) this.element.blur()
   }
 
   render() {
@@ -64,6 +64,7 @@ class DatePicker extends PureComponent {
       value, disabled, size, placeholder, type,
     } = this.props
     const { focus } = this.state
+    const format = this.getFormat()
     const date = typeof value === 'string'
       ? utils.parse(value, this.getFormat(), new Date())
       : utils.toDate(value)
@@ -91,14 +92,15 @@ class DatePicker extends PureComponent {
             // eslint-disable-next-line
             isNaN(date)
               ? <span className={inputClass('placeholder')}>{placeholder}</span>
-              : utils.format(date, this.getFormat())
+              : utils.format(date, format)
           }
-          <Icon name="Calendar" />
+          <Icon name={type === 'time' ? 'Clock' : 'Calendar'} />
         </div>
         <FadeList show={focus} className={datepickerClass('picker')}>
           {
             this.firstRender &&
             <Picker
+              format={format}
               disabled={typeof disabled === 'function' ? disabled : undefined}
               onChange={this.handleChange}
               type={type}
