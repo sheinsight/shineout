@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import utils from './utils'
 import { datepickerClass } from '../styles'
+import utils from './utils'
 import Icon from './Icon'
 import { getLocate } from './locate'
+import Time from './Time'
 
 class Day extends PureComponent {
   constructor(props) {
@@ -17,9 +18,10 @@ class Day extends PureComponent {
     this.handlePrevMonth = this.handleMonth.bind(this, -1)
     this.handleNextYear = this.handleMonth.bind(this, 12)
     this.handlePrevYear = this.handleMonth.bind(this, -12)
-    this.handleMonthModel = this.handleModelChange.bind(this, 'month')
-    this.handleYearModel = this.handleModelChange.bind(this, 'year')
+    this.handleMonthMode = this.handleModeChange.bind(this, 'month')
+    this.handleYearMode = this.handleModeChange.bind(this, 'year')
     this.handleWeekLeave = this.handleWeek.bind(this, null)
+    this.handleTimeChange = this.handleTimeChange.bind(this)
   }
 
   getDays() {
@@ -34,10 +36,27 @@ class Day extends PureComponent {
   }
 
   handleDayClick(date) {
-    if (this.props.type === 'week' && date.getDay() === 0) {
-      date = utils.addDays(date, 1)
+    const { current, type } = this.props
+    if (type === 'week') {
+      if (date.getDay() === 0) {
+        date = utils.addDays(date, 1)
+      }
+      this.props.onChange(date, true, true)
+    } else {
+      const newDate = new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+        current.getHours(),
+        current.getMinutes(),
+        current.getSeconds(),
+      )
+      this.props.onChange(newDate, true, type !== 'datetime')
     }
-    this.props.onChange(date, true)
+  }
+
+  handleTimeChange(time) {
+    this.props.onChange(time, true)
   }
 
   handleWeek(hover) {
@@ -49,8 +68,8 @@ class Day extends PureComponent {
     onChange(utils.addMonths(current, month))
   }
 
-  handleModelChange(model) {
-    this.props.onModelChange(model)
+  handleModeChange(mode) {
+    this.props.onModeChange(mode)
   }
 
   renderDay(date) {
@@ -99,6 +118,22 @@ class Day extends PureComponent {
     )
   }
 
+  renderTimepicker() {
+    if (this.props.type !== 'datetime') return undefined
+
+    let { format } = this.props
+    const match = format.match(/[H|h].*/)
+    // eslint-disable-next-line
+    if (match) format = match[0]
+
+    return (
+      <div className={datepickerClass('datetime')}>
+        <Time {...this.props} onChange={this.handleTimeChange} />
+        <span>{utils.format(this.props.current, format)}</span>
+      </div>
+    )
+  }
+
   render() {
     const { current } = this.props
     const days = this.getDays()
@@ -110,8 +145,8 @@ class Day extends PureComponent {
           <Icon onClick={this.handlePrevMonth} name="AngleLeft" />
 
           <span className={datepickerClass('ym')}>
-            <span onClick={this.handleYearModel}>{current.getFullYear()}</span>
-            <span onClick={this.handleMonthModel}>
+            <span onClick={this.handleYearMode}>{current.getFullYear()}</span>
+            <span onClick={this.handleMonthMode}>
               {getLocate('monthValues.short')[current.getMonth()]}
             </span>
           </span>
@@ -129,6 +164,8 @@ class Day extends PureComponent {
             days.map(d => this.renderDay(d))
           }
         </div>
+
+        { this.renderTimepicker() }
       </div>
     )
   }
@@ -137,8 +174,9 @@ class Day extends PureComponent {
 Day.propTypes = {
   current: PropTypes.object.isRequired,
   disabled: PropTypes.func,
+  format: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  onModelChange: PropTypes.func.isRequired,
+  onModeChange: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
   value: PropTypes.object.isRequired,
 }

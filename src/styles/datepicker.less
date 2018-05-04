@@ -115,7 +115,10 @@
     }
 
     .@{datepicker-prefix}-list {
+      position: relative;
+      z-index: 10;
       text-align: center;
+      background: #fff;
 
       div {
         display: inline-block;
@@ -167,6 +170,29 @@
         color: @gray-400;
       }
     }
+
+    .@{datepicker-prefix}-datetime {
+      position: relative;
+      text-align: center;
+      border-top: solid 1px #f2f2f2;
+      padding-top: 12px;
+
+      .@{datepicker-prefix}-time-picker {
+        position: absolute;
+        visibility: hidden;
+        left: 50%;
+        bottom: 100%;
+        transform: translate(-50%);
+        background: #fff;
+        z-index: 0;
+        box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.02), @datepicker-box-shadow-up;
+      }
+
+      &:hover .@{datepicker-prefix}-time-picker {
+        visibility: visible;
+        z-index: 100;
+      }
+    }
   }
 
   &-month-picker {
@@ -204,6 +230,7 @@
   &-time-picker {
     width: auto;
     white-space: nowrap;
+    font-size: 0;
 
     .@{datepicker-prefix}-time-list {
       position: relative;
@@ -214,15 +241,21 @@
       overflow: hidden;
       box-sizing: border-box;
       border-right: solid 1px @gray-200;
-      background: linear-gradient(to bottom, @gray-100, @gray-100, 30px, transparent 30px, transparent) 0 60px;
+      background: linear-gradient(to bottom, @gray-100, @gray-100, @datepicker-time-height, transparent @datepicker-time-height, transparent) 0 @datepicker-time-height*2;
+      text-align: left;
+      font-size: @font-size-base;
 
       &:last-child {
         border-right: 0;
       }
 
+      .@{datepicker-prefix}-pad {
+        height: @datepicker-time-height * 2;
+      }
+
       span, a {
         display: block;
-        line-height: 30px;
+        line-height: @datepicker-time-height;
         padding-left: 18px;
         color: @gray-600;
       }

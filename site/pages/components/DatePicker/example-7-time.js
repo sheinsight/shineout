@@ -1,5 +1,6 @@
 /**
  * cn - 选择时间
+ *    -- 会根据 format 自动加载相应的选择列
  * en - Time Type
  */
 import React from 'react'

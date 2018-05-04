@@ -4,7 +4,6 @@ import { range } from '../utils/numbers'
 import { datepickerClass } from '../styles'
 
 const lineHeight = 30
-const scrollStyle = { padding: `${lineHeight * 2}px 0` }
 const grayStyle = {
   1: { color: '#888' },
   2: { color: '#ccc' },
@@ -75,12 +74,13 @@ class TimeScroll extends PureComponent {
     return (
       <div
         ref={this.bindElement}
-        style={scrollStyle}
         className={datepickerClass('time-list')}
         onMouseLeave={this.handleMouseLeave}
         onScroll={this.handleScroll}
       >
+        <div className={datepickerClass('pad')} />
         { range(total, 0).map(v => this.renderItem(v)) }
+        <div className={datepickerClass('pad')} />
       </div>
     )
   }

@@ -19,7 +19,7 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-1-base.js'),
   },
   {
-    title: locate('格式化', 'Format'),
+    title: locate('格式化 \n 可以修改 format 来定义返回值和传入值的格式', 'Format'),
     component: require('doc/pages/components/DatePicker/example-2-format.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-2-format.js'),
   },
@@ -44,9 +44,14 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-6-month.js'),
   },
   {
-    title: locate('选择时间', 'Time Type'),
+    title: locate('选择时间 \n 会根据 format 自动加载相应的选择列', 'Time Type'),
     component: require('doc/pages/components/DatePicker/example-7-time.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-7-time.js'),
+  },
+  {
+    title: locate('选择日期时间', 'Datetime Type'),
+    component: require('doc/pages/components/DatePicker/example-8-datetime.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-8-datetime.js'),
   },
 ]
 

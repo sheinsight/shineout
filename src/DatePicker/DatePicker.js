@@ -54,8 +54,8 @@ class DatePicker extends PureComponent {
     else this.props.onBlur()
   }
 
-  handleChange(value, blur) {
-    this.props.onChange(utils.format(value, this.getFormat()))
+  handleChange(value, change, blur) {
+    if (change) this.props.onChange(utils.format(value, this.getFormat()))
     if (blur) this.element.blur()
   }
 
@@ -65,12 +65,15 @@ class DatePicker extends PureComponent {
     } = this.props
     const { focus } = this.state
     const format = this.getFormat()
-    const date = typeof value === 'string'
+
+    let date = typeof value === 'string'
       ? utils.parse(value, this.getFormat(), new Date())
       : utils.toDate(value)
 
-    // eslint-disable-next-line
+    /* eslint-disable */
+    if (isNaN(date)) date = utils.toDate(value)
     const current = isNaN(date) ? new Date() : date
+    /* eslint-enable */
 
     const className = datepickerClass(
       'inner',

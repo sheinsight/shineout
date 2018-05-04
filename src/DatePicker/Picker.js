@@ -9,46 +9,44 @@ class Picker extends PureComponent {
   constructor(props) {
     super(props)
 
-    let model
+    let mode
     switch (props.type) {
       case 'month':
-        model = 'month'
+        mode = 'month'
         break
       case 'time':
-        model = 'time'
+        mode = 'time'
         break
       default:
-        model = 'day'
+        mode = 'day'
     }
 
     this.state = {
-      model,
+      mode,
       current: props.value,
     }
 
     this.handleChange = this.handleChange.bind(this)
-    this.handleModelChange = this.handleModelChange.bind(this)
+    this.handleModeChange = this.handleModeChange.bind(this)
   }
 
-  handleChange(current, end) {
-    const { type } = this.props
+  handleChange(current, change, end) {
     this.setState({ current })
-    if (end) this.props.onChange(current, true)
-    else if (type === 'time') this.props.onChange(current)
+    this.props.onChange(current, change, end)
   }
 
-  handleModelChange(model) {
-    this.setState({ model })
+  handleModeChange(mode) {
+    this.setState({ mode })
   }
 
   render() {
-    const { current, model } = this.state
+    const { current, mode } = this.state
     const {
       disabled, type, value, format,
     } = this.props
 
     let Render
-    switch (model) {
+    switch (mode) {
       case 'year':
         Render = Year
         break
@@ -68,7 +66,7 @@ class Picker extends PureComponent {
         disabled={disabled}
         format={format}
         onChange={this.handleChange}
-        onModelChange={this.handleModelChange}
+        onModeChange={this.handleModeChange}
         type={type}
         value={value}
       />

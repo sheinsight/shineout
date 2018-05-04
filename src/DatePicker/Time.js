@@ -40,7 +40,7 @@ class Time extends PureComponent {
         break
       default:
     }
-    this.props.onChange(date)
+    this.props.onChange(date, true)
   }
 
   render() {

@@ -14,11 +14,11 @@ class Year extends PureComponent {
   }
 
   handleChange(year) {
-    const { current, onChange, onModelChange } = this.props
+    const { current, onChange, onModeChange } = this.props
     const date = new Date(current.getTime())
     date.setFullYear(year)
     onChange(date)
-    onModelChange('month')
+    onModeChange('month')
   }
 
   handleRangeChange(year) {
@@ -64,7 +64,7 @@ class Year extends PureComponent {
 Year.propTypes = {
   current: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
-  onModelChange: PropTypes.func.isRequired,
+  onModeChange: PropTypes.func.isRequired,
   value: PropTypes.object.isRequired,
 }
 
