@@ -27,6 +27,20 @@
         fill: @gray-500;
       }
     } 
+
+    .@{datepicker-prefix}-close {
+      display: none;
+    }
+  }
+
+  &:hover &-result {
+    .@{datepicker-prefix}-indecator {
+      display: none;
+    }
+
+    .@{datepicker-prefix}-close {
+      display: block;
+    }
   }
 
   &-picker {
@@ -123,8 +137,9 @@
       div {
         display: inline-block;
         width: 36px;
-        height: 36px;
-        padding: 4px 0;
+        height: 34px;
+        padding: 3px 0;
+        margin-bottom: 2px;
       }
 
       div.@{datepicker-prefix}-hover, div.@{datepicker-prefix}-active {

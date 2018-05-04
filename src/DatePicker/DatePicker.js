@@ -18,6 +18,7 @@ class DatePicker extends PureComponent {
     this.handleFocus = this.handleToggle.bind(this, true)
     this.handleBlur = this.handleToggle.bind(this, false)
     this.handleChange = this.handleChange.bind(this)
+    this.handleClear = this.handleClear.bind(this)
 
     this.firstRender = false
   }
@@ -43,9 +44,10 @@ class DatePicker extends PureComponent {
     this.element = el
   }
 
-  handleToggle(focus) {
+  handleToggle(focus, event) {
     if (this.props.disabled === true) return
     if (focus === this.state.focus) return
+    if (focus === true && event && event.target.className.indexOf(datepickerClass('close')) >= 0) return
 
     if (focus === true) this.firstRender = true
     this.setState({ focus })
@@ -57,6 +59,11 @@ class DatePicker extends PureComponent {
   handleChange(value, change, blur) {
     if (change) this.props.onChange(utils.format(value, this.getFormat()))
     if (blur) this.element.blur()
+  }
+
+  handleClear() {
+    this.props.onChange(undefined)
+    this.element.blur()
   }
 
   render() {
@@ -72,7 +79,8 @@ class DatePicker extends PureComponent {
 
     /* eslint-disable */
     if (isNaN(date)) date = utils.toDate(value)
-    const current = isNaN(date) ? new Date() : date
+    const isInvalidValue = isNaN(date)
+    const current = isInvalidValue ? new Date() : date
     /* eslint-enable */
 
     const className = datepickerClass(
@@ -92,12 +100,23 @@ class DatePicker extends PureComponent {
       >
         <div className={datepickerClass('result')}>
           {
-            // eslint-disable-next-line
-            isNaN(date)
+            isInvalidValue
               ? <span className={inputClass('placeholder')}>{placeholder}</span>
               : utils.format(date, format)
           }
-          <Icon name={type === 'time' ? 'Clock' : 'Calendar'} />
+          <Icon
+            className={isInvalidValue ? '' : 'indecator'}
+            name={type === 'time' ? 'Clock' : 'Calendar'}
+          />
+          {
+            !isInvalidValue &&
+            <Icon
+              name="CloseCircle"
+              className="close"
+              tag="a"
+              onClick={this.handleClear}
+            />
+          }
         </div>
         <FadeList show={focus} className={datepickerClass('picker')}>
           {

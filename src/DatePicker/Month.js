@@ -29,7 +29,7 @@ class Month extends PureComponent {
     const isMonthType = this.props.type === 'month'
 
     date.setMonth(month)
-    onChange(date, isMonthType)
+    onChange(date, isMonthType, isMonthType)
     if (!isMonthType) onModeChange('day')
   }
 
