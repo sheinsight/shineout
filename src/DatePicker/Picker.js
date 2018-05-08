@@ -21,17 +21,13 @@ class Picker extends PureComponent {
         mode = 'day'
     }
 
-    this.state = {
-      mode,
-      current: props.value,
-    }
+    this.state = { mode }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleModeChange = this.handleModeChange.bind(this)
   }
 
   handleChange(current, change, end) {
-    this.setState({ current })
     this.props.onChange(current, change, end)
   }
 
@@ -39,11 +35,14 @@ class Picker extends PureComponent {
     this.setState({ mode })
   }
 
+  /*
+  resetCurrent() {
+    this.setState({ current: this.props.value || new Date() })
+  }
+  */
+
   render() {
-    const { current, mode } = this.state
-    const {
-      disabled, type, value, format,
-    } = this.props
+    const { mode } = this.state
 
     let Render
     switch (mode) {
@@ -62,24 +61,27 @@ class Picker extends PureComponent {
 
     return (
       <Render
-        current={current}
-        disabled={disabled}
-        format={format}
+        {...this.props}
         onChange={this.handleChange}
         onModeChange={this.handleModeChange}
-        type={type}
-        value={value}
       />
     )
   }
 }
 
 Picker.propTypes = {
+  current: PropTypes.object,
   disabled: PropTypes.func,
   format: PropTypes.string,
+  max: PropTypes.object,
+  min: PropTypes.object,
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.object.isRequired,
+  value: PropTypes.object,
   type: PropTypes.string.isRequired,
+}
+
+Picker.defaultProps = {
+  current: new Date(),
 }
 
 export default Picker

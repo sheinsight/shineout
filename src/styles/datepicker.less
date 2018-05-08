@@ -5,15 +5,36 @@
 
 .@{datepicker-prefix} {
   display: inline-block;
-  width: 240px;
+  width: 140px;
+
+  &-c-datetime {
+    width: 240px;
+  }
+
+  &-c-time {
+    width: 120px;
+  }
+
+  &-r-date {
+    width: 300px;
+  }
+
+  &-r-datetime {
+    width: 500px;
+  }
+
+  &-r-time {
+    width: 250px;
+  }
 
   &-inner {
     outline: none;
-    padding: @padding-base-vertical @padding-base-horizontal;
+    padding: @padding-base-vertical @padding-base-horizontal+12 @padding-base-vertical @padding-base-horizontal;
   }
 
   &-result {
     position: relative;
+    display: flex;
 
     .@{datepicker-prefix}-icon {
       position: absolute;
@@ -21,7 +42,7 @@
       height: 14px;
       top: 50%;
       right: 0;
-      margin: -8px -4px 0 0;
+      margin: -8px -16px 0 0;
 
       path {
         fill: @gray-500;
@@ -31,6 +52,11 @@
     .@{datepicker-prefix}-close {
       display: none;
     }
+  }
+
+  &-range &-result &-txt {
+    flex: 1;
+    text-align: center;
   }
 
   &:hover &-result {
@@ -82,6 +108,13 @@
         &:hover path {
           fill: @colors-primary;
         }
+
+        &.@{datepicker-prefix}-disabled {
+          cursor: not-allowed;
+          path {
+            fill: @gray-400;
+          }
+        }
       }
 
       .@{datepicker-prefix}-ym {
@@ -113,6 +146,18 @@
 
   &-day-picker, &-month-picker, &-year-picker {
     width: 252px;
+
+    span {
+      user-select: none;
+    }
+  }
+
+  &-range-picker {
+    display: flex;
+
+    & > div:first-child {
+      margin-right: 12px;
+    }
   }
 
   &-day-picker {
@@ -168,6 +213,7 @@
       span {
         display: block;
         margin: 0 auto;
+        font-size: 13px;
         width: 28px;
         height: 28px;
         line-height: 28px;

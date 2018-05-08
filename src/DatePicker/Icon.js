@@ -5,12 +5,12 @@ import { datepickerClass } from '../styles'
 
 function Icon(props) {
   const {
-    className, name, onClick, tag,
+    className, name, onClick, tag, disabled,
   } = props
 
   const newProps = {
-    className: datepickerClass(className, 'icon'),
-    onClick,
+    className: datepickerClass(className, 'icon', disabled && 'disabled'),
+    onClick: disabled ? undefined : onClick,
   }
 
   if (tag === 'a') newProps.href = 'javascript:;'
@@ -20,6 +20,7 @@ function Icon(props) {
 
 Icon.propTypes = {
   className: PropTypes.string,
+  disabled: PropTypes.bool,
   name: PropTypes.string.isRequired,
   onClick: PropTypes.func,
   tag: PropTypes.string,

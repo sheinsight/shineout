@@ -110,7 +110,7 @@ export default curry((options, Origin) => class extends Component {
         Object.keys(errors).length > 0 && 'invalid',
       ),
       buttonClass(options.isGroup && 'group'),
-      options.className,
+      typeof options.className === 'function' ? options.className(this.props) : options.className,
       this.props.className,
     )
 

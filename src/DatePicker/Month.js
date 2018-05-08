@@ -53,7 +53,7 @@ class Month extends PureComponent {
             getLocate('monthValues.short').map((m, i) => (
               <span
                 key={i}
-                className={datepickerClass(value.getFullYear() === current.getFullYear() && value.getMonth() === i && 'active')}
+                className={datepickerClass(value && value.getFullYear() === current.getFullYear() && value.getMonth() === i && 'active')}
                 onClick={this.handleMonthClick.bind(this, i)}
               >
                 {m}
@@ -71,7 +71,7 @@ Month.propTypes = {
   onChange: PropTypes.func.isRequired,
   onModeChange: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
-  value: PropTypes.object.isRequired,
+  value: PropTypes.object,
 }
 
 export default Month

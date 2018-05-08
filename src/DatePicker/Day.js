@@ -72,9 +72,13 @@ class Day extends PureComponent {
     this.props.onModeChange(mode)
   }
 
+  handleDayHover(date) {
+    this.props.onDayHover(date)
+  }
+
   renderDay(date) {
     const {
-      current, disabled, value, type,
+      current, disabled, value, type, range,
     } = this.props
     const { hover } = this.state
     const isDisabled = disabled ? disabled(date) : false
@@ -102,7 +106,15 @@ class Day extends PureComponent {
           date.getDay() === 6 && 'hover-end',
         )
       }
-    } else {
+    } else if (range && current.getMonth() === date.getMonth()) {
+      hoverProps.onMouseEnter = this.handleDayHover.bind(this, date)
+
+      hoverClass = datepickerClass(
+        utils.compareAsc(range[0], date) <= 0 && utils.compareAsc(range[1], date) >= 0 && 'hover',
+        utils.isSameDay(range[0], date) && 'hover-start active',
+        utils.isSameDay(range[1], date) && 'hover-end active',
+      )
+    } else if (value) {
       classList.push(utils.isSameDay(date, value) && 'active')
     }
 
@@ -135,14 +147,22 @@ class Day extends PureComponent {
   }
 
   render() {
-    const { current } = this.props
+    const { current, min, max } = this.props
     const days = this.getDays()
 
     return (
       <div className={datepickerClass('day-picker')}>
         <div className={datepickerClass('header')}>
-          <Icon onClick={this.handlePrevYear} name="AngleDoubleLeft" />
-          <Icon onClick={this.handlePrevMonth} name="AngleLeft" />
+          <Icon
+            name="AngleDoubleLeft"
+            disabled={min && current.getFullYear() <= min.getFullYear()}
+            onClick={this.handlePrevYear}
+          />
+          <Icon
+            name="AngleLeft"
+            disabled={min && utils.compareMonth(current, min, 1) <= 0}
+            onClick={this.handlePrevMonth}
+          />
 
           <span className={datepickerClass('ym')}>
             <span onClick={this.handleYearMode}>{current.getFullYear()}</span>
@@ -151,8 +171,16 @@ class Day extends PureComponent {
             </span>
           </span>
 
-          <Icon onClick={this.handleNextMonth} name="AngleRight" />
-          <Icon onClick={this.handleNextYear} name="AngleDoubleRight" />
+          <Icon
+            name="AngleRight"
+            disabled={max && utils.compareMonth(current, max, -1) >= 0}
+            onClick={this.handleNextMonth}
+          />
+          <Icon
+            onClick={this.handleNextYear}
+            disabled={max && current.getFullYear() >= max.getFullYear()}
+            name="AngleDoubleRight"
+          />
         </div>
 
         <div className={datepickerClass('week')}>
@@ -175,10 +203,14 @@ Day.propTypes = {
   current: PropTypes.object.isRequired,
   disabled: PropTypes.func,
   format: PropTypes.string,
+  max: PropTypes.object,
+  min: PropTypes.object,
   onChange: PropTypes.func.isRequired,
+  onDayHover: PropTypes.func,
   onModeChange: PropTypes.func.isRequired,
+  range: PropTypes.array,
   type: PropTypes.string.isRequired,
-  value: PropTypes.object.isRequired,
+  value: PropTypes.object,
 }
 
 export default Day

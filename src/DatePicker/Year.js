@@ -48,7 +48,7 @@ class Year extends PureComponent {
             years.map(y => (
               <span
                 key={y}
-                className={datepickerClass(value.getFullYear() === y && 'active')}
+                className={datepickerClass(value && value.getFullYear() === y && 'active')}
                 onClick={this.handleChange.bind(this, y)}
               >
                 {y}
@@ -65,7 +65,7 @@ Year.propTypes = {
   current: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   onModeChange: PropTypes.func.isRequired,
-  value: PropTypes.object.isRequired,
+  value: PropTypes.object,
 }
 
 export default Year

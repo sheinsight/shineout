@@ -7,6 +7,6 @@ import { DatePicker } from 'shineout'
 
 export default function () {
   return (
-    <DatePicker placeholder="Select date" defaultValue={Date.now()} />
+    <DatePicker placeholder="Select date" />
   )
 }

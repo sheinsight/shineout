@@ -2,14 +2,17 @@ import wrapper from '../Input/wrapper'
 import inputable from '../Form/inputable'
 import { compose } from '../utils/func'
 import { datepickerClass } from '../styles'
-import DatePicker from './DatePicker'
+import Container from './Container'
 import { setLocate } from './locate'
 
-const exp = compose(
-  wrapper({ className: datepickerClass('_'), noPadding: true }),
+const getClassName = opt =>
+  datepickerClass('_', `${opt.range ? 'r' : 'c'}-${opt.type || 'date'}`)
+
+const Datepicker = compose(
+  wrapper({ className: getClassName, noPadding: true }),
   inputable({ delay: 1 }),
-)(DatePicker)
+)(Container)
 
-exp.setLocate = setLocate
+Datepicker.setLocate = setLocate
 
-export default exp
+export default Datepicker
