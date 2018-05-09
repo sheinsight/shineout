@@ -1,4 +1,4 @@
-import { setConfig } from 'shineout/config'
+import { setLocale } from 'shineout/locale'
 
 const STORAGE_KEY = '17tee190yt8gs'
 const storage = window.localStorage || null
@@ -13,7 +13,7 @@ if (!language) {
   language = 'zh-CN'
 }
 
-setConfig({ locate: language })
+setLocale(language)
 
 export function setLanguage(lang) {
   language = lang

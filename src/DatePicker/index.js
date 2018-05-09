@@ -3,7 +3,6 @@ import inputable from '../Form/inputable'
 import { compose } from '../utils/func'
 import { datepickerClass } from '../styles'
 import Container from './Container'
-import { setLocate } from './locate'
 
 const getClassName = opt =>
   datepickerClass('_', `${opt.range ? 'r' : 'c'}-${opt.type || 'date'}`)
@@ -12,7 +11,5 @@ const Datepicker = compose(
   wrapper({ className: getClassName, noPadding: true }),
   inputable({ delay: 1 }),
 )(Container)
-
-Datepicker.setLocate = setLocate
 
 export default Datepicker

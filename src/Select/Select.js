@@ -10,7 +10,7 @@ import Spin from '../Spin'
 import { selectClass } from '../styles'
 import Option from './Option'
 import Result from './Result'
-import defaultText from './text'
+import { getLocale } from '../locale'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
 
@@ -85,7 +85,7 @@ class Select extends PureComponent {
   }
 
   getText(key) {
-    return this.props.text[key] || defaultText[key]
+    return this.props.text[key] || getLocale(key)
   }
 
   setInputReset(fn) {

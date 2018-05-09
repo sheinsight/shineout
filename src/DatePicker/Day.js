@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { datepickerClass } from '../styles'
 import utils from './utils'
 import Icon from './Icon'
-import { getLocate } from './locate'
+import { getLocale } from '../locale'
 import Time from './Time'
 
 class Day extends PureComponent {
@@ -170,7 +170,7 @@ class Day extends PureComponent {
           <span className={datepickerClass('ym')}>
             <span onClick={this.handleYearMode}>{current.getFullYear()}</span>
             <span onClick={this.handleMonthMode}>
-              {getLocate('monthValues.short')[current.getMonth()]}
+              {getLocale('monthValues.short')[current.getMonth()]}
             </span>
           </span>
 
@@ -187,7 +187,7 @@ class Day extends PureComponent {
         </div>
 
         <div className={datepickerClass('week')}>
-          { getLocate('weekdayValues.narrow').map(w => <span key={w}>{w}</span>) }
+          { getLocale('weekdayValues.narrow').map(w => <span key={w}>{w}</span>) }
         </div>
 
         <div className={datepickerClass('list')}>

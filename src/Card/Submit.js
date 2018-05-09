@@ -17,7 +17,9 @@ class Submit extends PureComponent {
   }
 
   render() {
-    const { onClick, loading, ...other } = this.props
+    const {
+      onClick, loading, children, ...other
+    } = this.props
     return (
       <Button type="primary" {...other} onClick={this.handleClick}>
         {
@@ -26,12 +28,14 @@ class Submit extends PureComponent {
             <Spin size={12} name="ring" color="#fff" />
           </span>
         }
+        { children }
       </Button>
     )
   }
 }
 
 Submit.propTypes = {
+  children: PropTypes.any,
   loading: PropTypes.bool,
   onClick: PropTypes.func,
 }

@@ -5,7 +5,7 @@ import Button from '../Button'
 import { getUidStr } from '../utils/uid'
 import { modalClass } from '../styles'
 import Panel from './Panel'
-import { getText } from './text'
+import { getLocale } from '../locale'
 
 const containers = {}
 const DURATION = 300
@@ -101,7 +101,7 @@ const btnOk = (option) => {
     if (option.onOk) option.onOk()
   }
 
-  return <Button key="ok" onClick={onClick} type="primary">{getText('ok', option.text)}</Button>
+  return <Button key="ok" onClick={onClick} type="primary">{getLocale('ok', option.text)}</Button>
 }
 
 const btnCancel = (option) => {
@@ -110,7 +110,7 @@ const btnCancel = (option) => {
     if (option.onCancel) option.onCancel()
   }
 
-  return <Button key="cancel" onClick={onClick}>{getText('cancel', option.text)}</Button>
+  return <Button key="cancel" onClick={onClick}>{getLocale('cancel', option.text)}</Button>
 }
 
 export const method = type => (option) => {

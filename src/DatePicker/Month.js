@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { datepickerClass } from '../styles'
 import Icon from './Icon'
 import utils from './utils'
-import { getLocate } from './locate'
+import { getLocale } from '../locale'
 
 class Month extends PureComponent {
   constructor(props) {
@@ -74,7 +74,7 @@ class Month extends PureComponent {
         </div>
 
         <div className={datepickerClass('list')}>
-          { getLocate('monthValues.short').map(this.renderMonth.bind(this)) }
+          { getLocale('monthValues.short').map(this.renderMonth.bind(this)) }
         </div>
       </div>
     )

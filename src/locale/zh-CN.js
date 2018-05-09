@@ -13,4 +13,8 @@ export default {
   timeOfDayValues: {
     long: ['上午', '下午'],
   },
+
+  ok: '确定',
+  cancel: '取消',
+  noData: '无数据',
 }

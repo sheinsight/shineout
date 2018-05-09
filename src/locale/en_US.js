@@ -15,5 +15,9 @@ export default {
     lowercase: ['am', 'pm'],
     long: ['a.m.', 'p.m.'],
   },
+
+  ok: 'Ok',
+  cancel: 'Cancel',
+  noData: 'Data not found',
 }
 
