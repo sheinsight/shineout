@@ -24,7 +24,7 @@ function getPath(pathname) {
 }
 
 function handleLangClick() {
-  const lang = locate('en', 'zh-cn')
+  const lang = locate('en-US', 'zh-CN')
   setLanguage(lang)
 }
 

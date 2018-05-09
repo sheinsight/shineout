@@ -1,3 +1,5 @@
+import { setConfig } from 'shineout/config'
+
 const STORAGE_KEY = '17tee190yt8gs'
 const storage = window.localStorage || null
 
@@ -8,9 +10,10 @@ if (storage) {
 }
 
 if (!language) {
-  // language = (window.navigator.language || window.navigator.userLanguage || '').toLowerCase()
-  language = 'zh-cn'
+  language = 'zh-CN'
 }
+
+setConfig({ locate: language })
 
 export function setLanguage(lang) {
   language = lang
@@ -26,5 +29,5 @@ export function getLanguage() {
 }
 
 export default function (cn, en = null) {
-  return language === 'zh-cn' ? cn : en
+  return language === 'zh-CN' ? cn : en
 }
