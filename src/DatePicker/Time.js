@@ -16,7 +16,7 @@ class Time extends PureComponent {
   }
 
   handleChange(type, val) {
-    const { value, format } = this.props
+    const { disabled, value, format } = this.props
     const date = new Date(value.getTime())
     let hours
 
@@ -41,6 +41,8 @@ class Time extends PureComponent {
         break
       default:
     }
+
+    if (disabled && disabled(date)) return
     this.props.onChange(date, true, false, 'time')
   }
 
@@ -86,6 +88,7 @@ class Time extends PureComponent {
 }
 
 Time.propTypes = {
+  disabled: PropTypes.func,
   format: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.object,

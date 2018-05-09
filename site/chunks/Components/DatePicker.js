@@ -24,16 +24,6 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-02-format.js'),
   },
   {
-    title: locate('禁用', 'Disabled'),
-    component: require('doc/pages/components/DatePicker/example-03-disabled.js').default,
-    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-03-disabled.js'),
-  },
-  {
-    title: locate(' \n disabled 为函数时，禁用返回为true的选项', ''),
-    component: require('doc/pages/components/DatePicker/example-04-disabled.js').default,
-    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-04-disabled.js'),
-  },
-  {
     title: locate('选择星期', 'Week Type'),
     component: require('doc/pages/components/DatePicker/example-05-week.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-05-week.js'),
@@ -57,6 +47,16 @@ const examples = [
     title: locate('选择范围 \n 设置 range 属性可以选择范围，输入和返回的 value 为长度为 2 的数组', 'Range'),
     component: require('doc/pages/components/DatePicker/example-09-range-date.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-09-range-date.js'),
+  },
+  {
+    title: locate('禁用', 'Disabled'),
+    component: require('doc/pages/components/DatePicker/example-10-disabled.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-10-disabled.js'),
+  },
+  {
+    title: locate(' \n disabled 为函数时，禁用返回为true的选项', ''),
+    component: require('doc/pages/components/DatePicker/example-11-disabled.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-11-disabled.js'),
   },
 ]
 
