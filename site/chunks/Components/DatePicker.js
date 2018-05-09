@@ -54,7 +54,7 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-08-datetime.js'),
   },
   {
-    title: locate('选择范围', 'Range'),
+    title: locate('选择范围 \n 设置 range 属性可以选择范围，输入和返回的 value 为长度为 2 的数组', 'Range'),
     component: require('doc/pages/components/DatePicker/example-09-range-date.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-09-range-date.js'),
   },

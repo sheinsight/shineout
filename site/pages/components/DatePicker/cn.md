@@ -7,12 +7,14 @@
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | className | string | 无 | 扩展className |
+| defaultValue | string \| number \| Date \| array | 无 | 默认值 |
 | format | string | 不同type对应的默认值<br />'date': 'YYYY-MM-DD'<br />'time': 'HH:mm:ss'<br />'week': 'YYYY WW'<br />'month': 'YYYY-MM'<br />'datetime': 'YYYY-MM-DD HH:mm:ss'  | 格式化，见下表 |
 | onChange | function(d) | | 值改变回调函数 |
-| placeholder | string | 无 | 占位文字 |
+| placeholder | string \| array | 无 | 占位文字<br />range 属性为 true 时，为长度为2的数组 |
+| range | bool | false | 是否为范围选择 |
 | style | object | 无 | 最外层扩展样式 |
 | type | string | 'date' | 可选值为 \['date', 'time', 'datetime', 'month', 'week'] |
-| value | string \| number \| Date | 无 | 值。为 string 时，需要和 format 属性匹配 |
+| value | string \| number \| Date \| array | 无 | 值。为 string 时，需要和 format 属性匹配。<br />range 属性为 true 时，值为长度为2的数组 |
 
 
 ### Format

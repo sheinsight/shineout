@@ -1,5 +1,6 @@
 /**
  * cn - 选择范围
+ *    -- 设置 range 属性可以选择范围，输入和返回的 value 为长度为 2 的数组
  * en - Range
  */
 import React from 'react'
