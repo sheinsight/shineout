@@ -26,6 +26,7 @@ class Container extends PureComponent {
     this.handleBlur = this.handleToggle.bind(this, false)
     this.handleChange = this.handleChange.bind(this)
     this.handleClear = this.handleClear.bind(this)
+    this.parseDate = this.parseDate.bind(this)
 
     this.firstRender = false
   }
@@ -34,7 +35,11 @@ class Container extends PureComponent {
     let current
     if (this.props.range) {
       current = (this.props.value || []).map(v => this.parseDate(v))
-      if (current.length === 0) current = [new Date(), utils.addMonths(new Date(), 1)]
+      if (current.length === 0) current = [utils.newDate(), utils.newDate()]
+
+      if (utils.compareMonth(current[0], current[1], -1) >= 0) {
+        current[1] = utils.addMonths(current[0], 1)
+      }
     } else {
       current = this.parseDate(this.props.value)
     }
@@ -80,8 +85,14 @@ class Container extends PureComponent {
 
     this.setState(immer((state) => {
       state.focus = focus
-      if (focus === true) state.current = this.getCurrent()
+      if (focus === true) {
+        state.current = this.getCurrent()
+      }
     }))
+
+    if (focus && this.picker && this.picker.resetRange) {
+      this.picker.resetRange((this.props.value || []).map(this.parseDate))
+    }
 
     if (focus) this.props.onFocus()
     else this.props.onBlur()
@@ -134,9 +145,9 @@ class Container extends PureComponent {
         {
           range
             ? [
-              this.renderText(value[0], placeholder, 0),
-              <span key="-">-</span>,
-              this.renderText(value[1], placeholder, 1),
+              this.renderText(value[0], placeholder[0], 0),
+              <span key="-">~</span>,
+              this.renderText(value[1], placeholder[1], 1),
             ]
             : this.renderText(value, placeholder)
         }
@@ -174,7 +185,7 @@ class Container extends PureComponent {
         disabled={typeof disabled === 'function' ? disabled : undefined}
         onChange={this.handleChange}
         type={type}
-        value={range ? value : this.parseDate(value)}
+        value={range ? (value || []).map(v => this.parseDate(v)) : this.parseDate(value)}
       />
     )
   }

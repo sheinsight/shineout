@@ -54,7 +54,7 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-08-datetime.js'),
   },
   {
-    title: locate('范围 \n 会根据 format 自动加载相应的选择列', 'Range'),
+    title: locate('选择范围', 'Range'),
     component: require('doc/pages/components/DatePicker/example-09-range-date.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-09-range-date.js'),
   },

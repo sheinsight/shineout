@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { datepickerClass } from '../styles'
 import TimeScroll from './TimeScroll'
+import utils from './utils'
 
 class Time extends PureComponent {
   constructor(props) {
@@ -15,8 +16,8 @@ class Time extends PureComponent {
   }
 
   handleChange(type, val) {
-    const { current, format } = this.props
-    const date = new Date(current.getTime())
+    const { value, format } = this.props
+    const date = new Date(value.getTime())
     let hours
 
     switch (type) {
@@ -40,14 +41,14 @@ class Time extends PureComponent {
         break
       default:
     }
-    this.props.onChange(date, true)
+    this.props.onChange(date, true, false, 'time')
   }
 
   render() {
-    const { format, current } = this.props
+    const { format, value } = this.props
     const className = datepickerClass('time-picker')
 
-    let hours = current.getHours()
+    let hours = value.getHours()
     if (format.indexOf('h') >= 0 && hours >= 12) {
       hours -= 12
     }
@@ -56,7 +57,7 @@ class Time extends PureComponent {
       <div className={className}>
         {
           format.indexOf('H') >= 0 &&
-          <TimeScroll value={current.getHours()} total={24} onChange={this.handleHourChange} />
+          <TimeScroll value={value.getHours()} total={24} onChange={this.handleHourChange} />
         }
         {
           format.indexOf('h') >= 0 &&
@@ -64,16 +65,16 @@ class Time extends PureComponent {
         }
         {
           format.indexOf('m') >= 0 &&
-          <TimeScroll value={current.getMinutes()} onChange={this.handleMinuteChange} />
+          <TimeScroll value={value.getMinutes()} onChange={this.handleMinuteChange} />
         }
         {
           format.indexOf('s') >= 0 &&
-          <TimeScroll value={current.getSeconds()} onChange={this.handleSecondChange} />
+          <TimeScroll value={value.getSeconds()} onChange={this.handleSecondChange} />
         }
         {
           (/a|A/.test(format)) &&
           <TimeScroll
-            value={current.getHours() >= 12 ? 1 : 0}
+            value={value.getHours() >= 12 ? 1 : 0}
             total={2}
             ampm
             onChange={this.handleAMPMChange}
@@ -85,9 +86,13 @@ class Time extends PureComponent {
 }
 
 Time.propTypes = {
-  current: PropTypes.object,
   format: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  value: PropTypes.object,
+}
+
+Time.defaultProps = {
+  value: utils.newDate(),
 }
 
 export default Time

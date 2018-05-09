@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import utils from './utils'
 import Year from './Year'
 import Month from './Month'
 import Day from './Day'
@@ -23,23 +24,12 @@ class Picker extends PureComponent {
 
     this.state = { mode }
 
-    this.handleChange = this.handleChange.bind(this)
     this.handleModeChange = this.handleModeChange.bind(this)
-  }
-
-  handleChange(current, change, end) {
-    this.props.onChange(current, change, end)
   }
 
   handleModeChange(mode) {
     this.setState({ mode })
   }
-
-  /*
-  resetCurrent() {
-    this.setState({ current: this.props.value || new Date() })
-  }
-  */
 
   render() {
     const { mode } = this.state
@@ -59,13 +49,7 @@ class Picker extends PureComponent {
         Render = Day
     }
 
-    return (
-      <Render
-        {...this.props}
-        onChange={this.handleChange}
-        onModeChange={this.handleModeChange}
-      />
-    )
+    return <Render {...this.props} onModeChange={this.handleModeChange} />
   }
 }
 
@@ -81,7 +65,7 @@ Picker.propTypes = {
 }
 
 Picker.defaultProps = {
-  current: new Date(),
+  current: utils.newDate(),
 }
 
 export default Picker

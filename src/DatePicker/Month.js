@@ -33,8 +33,33 @@ class Month extends PureComponent {
     if (!isMonthType) onModeChange('day')
   }
 
+  renderMonth(m, i) {
+    const {
+      current, value, min, max,
+    } = this.props
+    const date = new Date(current.getFullYear(), i, 1)
+
+    const disabled = (min && utils.compareMonth(min, date) >= 0) ||
+      (max && utils.compareMonth(max, date) <= 0)
+
+    const className = datepickerClass(
+      utils.isSameMonth(value, date) && 'active',
+      disabled && 'disabled',
+    )
+
+    return (
+      <span
+        key={i}
+        className={className}
+        onClick={disabled ? undefined : this.handleMonthClick.bind(this, i)}
+      >
+        {m}
+      </span>
+    )
+  }
+
   render() {
-    const { current, value } = this.props
+    const { current } = this.props
 
     return (
       <div className={datepickerClass('month-picker')}>
@@ -49,17 +74,7 @@ class Month extends PureComponent {
         </div>
 
         <div className={datepickerClass('list')}>
-          {
-            getLocate('monthValues.short').map((m, i) => (
-              <span
-                key={i}
-                className={datepickerClass(value && value.getFullYear() === current.getFullYear() && value.getMonth() === i && 'active')}
-                onClick={this.handleMonthClick.bind(this, i)}
-              >
-                {m}
-              </span>
-            ))
-          }
+          { getLocate('monthValues.short').map(this.renderMonth.bind(this)) }
         </div>
       </div>
     )
@@ -68,6 +83,8 @@ class Month extends PureComponent {
 
 Month.propTypes = {
   current: PropTypes.object.isRequired,
+  max: PropTypes.object,
+  min: PropTypes.object,
   onChange: PropTypes.func.isRequired,
   onModeChange: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,

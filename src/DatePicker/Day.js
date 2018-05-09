@@ -55,8 +55,8 @@ class Day extends PureComponent {
     }
   }
 
-  handleTimeChange(time) {
-    this.props.onChange(time, true)
+  handleTimeChange(time, change, end, mode) {
+    this.props.onChange(time, true, false, mode)
   }
 
   handleWeek(hover) {
@@ -131,17 +131,20 @@ class Day extends PureComponent {
   }
 
   renderTimepicker() {
+    const { range, index } = this.props
     if (this.props.type !== 'datetime') return undefined
+    if (range && (range.length < 2 || range.some(v => !utils.isValid(v)))) return undefined
 
     let { format } = this.props
     const match = format.match(/[H|h].*/)
     // eslint-disable-next-line
     if (match) format = match[0]
+    const value = range ? utils.toDateWithFormat(range[index], format) : this.props.value
 
     return (
       <div className={datepickerClass('datetime')}>
-        <Time {...this.props} onChange={this.handleTimeChange} />
-        <span>{utils.format(this.props.current, format)}</span>
+        <Time {...this.props} value={value} onChange={this.handleTimeChange} />
+        <span>{utils.format(value, format)}</span>
       </div>
     )
   }
@@ -203,6 +206,7 @@ Day.propTypes = {
   current: PropTypes.object.isRequired,
   disabled: PropTypes.func,
   format: PropTypes.string,
+  index: PropTypes.number,
   max: PropTypes.object,
   min: PropTypes.object,
   onChange: PropTypes.func.isRequired,

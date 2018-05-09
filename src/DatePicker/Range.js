@@ -27,11 +27,18 @@ class Range extends PureComponent {
     this.pickers[index] = el
   }
 
-  handleDayHover(date) {
-    if (this.state.range.length === 1) this.setState({ hover: date })
+  resetRange(range) {
+    this.setState({ range, hover: undefined })
   }
 
-  handleChange(index, date, change) {
+  handleDayHover(date) {
+    if (this.state.range.length === 1) {
+      utils.cloneTime(date, this.props.value[1], this.props.format)
+      this.setState({ hover: date })
+    }
+  }
+
+  handleChange(index, date, change, end, mode) {
     if (!change) {
       const current = immer(this.props.current, (draft) => {
         draft[index] = date
@@ -40,15 +47,41 @@ class Range extends PureComponent {
       return
     }
 
+    if (mode === 'time') {
+      this.setState(immer((draft) => {
+        draft.range[index] = date
+      }), () => {
+        const current = immer(this.props.value, (draft) => {
+          draft[index] = date
+        })
+        this.props.onChange(current, true)
+      })
+      return
+    }
+
+    if (this.props.type === 'month') {
+      const range = [...this.state.range]
+      range[index] = date
+      if (range.some(v => !utils.isInvalid(v))) {
+        range.sort((a, b) => a.getTime() - b.getTime())
+      }
+      this.setState({ range })
+      this.props.onChange(range, true)
+
+      return
+    }
+
+    utils.cloneTime(date, this.props.value[index])
+
     if (this.state.range.length !== 1) {
       this.setState({ range: [date], hover: undefined })
       return
     }
 
-    this.setState(immer((state) => {
-      const method = utils.compareAsc(state.range[0], date) > 0 ? 'unshift' : 'push'
-      state.range[method](date)
-      state.hover = undefined
+    this.setState(immer((draft) => {
+      const method = utils.compareAsc(draft.range[0], date) > 0 ? 'unshift' : 'push'
+      draft.range[method](date)
+      draft.hover = undefined
     }), () => {
       this.props.onChange(this.state.range, true)
     })
@@ -66,21 +99,25 @@ class Range extends PureComponent {
       <div className={datepickerClass('range-picker')}>
         <Picker
           {...props}
-          max={current[1]}
+          index={0}
+          max={range[1]}
           current={current[0]}
           range={range}
           onChange={this.handleFirstChange}
           onDayHover={this.handleDayHover}
           ref={this.bindFirstPicker}
+          value={utils.toDateWithFormat(value[0], props.format)}
         />
         <Picker
           {...props}
-          min={current[0]}
+          index={1}
+          min={range[0]}
           current={current[1]}
           range={range}
           onChange={this.handleSecondChange}
           onDayHover={this.handleDayHover}
           ref={this.bindSecondPicker}
+          value={utils.toDateWithFormat(value[1], props.format)}
         />
       </div>
     )

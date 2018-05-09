@@ -15,12 +15,12 @@
     width: 120px;
   }
 
-  &-r-date {
+  &-r-date, &-r-month {
     width: 300px;
   }
 
   &-r-datetime {
-    width: 500px;
+    width: 420px;
   }
 
   &-r-time {
@@ -182,9 +182,9 @@
       div {
         display: inline-block;
         width: 36px;
-        height: 34px;
-        padding: 3px 0;
-        margin-bottom: 2px;
+        height: 32px;
+        padding: 2px 0;
+        margin-bottom: 4px;
       }
 
       div.@{datepicker-prefix}-hover, div.@{datepicker-prefix}-active {
@@ -268,6 +268,11 @@
         margin: 6px 5px;
         border-radius: 2px;
         cursor: pointer;
+      }
+
+      .@{datepicker-prefix}-disabled {
+        color: @gray-400;
+        cursor: not-allowed;
       }
     }
   }

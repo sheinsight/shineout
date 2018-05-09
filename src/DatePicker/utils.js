@@ -8,6 +8,7 @@ import format from 'date-fns/format'
 import isSameDay from 'date-fns/isSameDay'
 import isSameMonth from 'date-fns/isSameMonth'
 import isSameWeek from 'date-fns/isSameWeek'
+import isValid from 'date-fns/isValid'
 import parse from 'date-fns/parse'
 import startOfMonth from 'date-fns/startOfMonth'
 import startOfWeek from 'date-fns/startOfWeek'
@@ -44,24 +45,44 @@ function toDateWithFormat(dirtyDate, fmt, def) {
 }
 
 function compareMonth(dateLeft, dateRight, pad = 0) {
+  if (!dateLeft || !dateRight) return 0
   const left = new Date(dateLeft.getFullYear(), dateLeft.getMonth(), 1)
   const right = new Date(dateRight.getFullYear(), dateRight.getMonth() + pad, 1)
   return compareAsc(left, right)
+}
+
+function newDate() {
+  const date = new Date()
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate())
+}
+
+function cloneTime(date, old, fmt) {
+  old = toDateWithFormat(old, fmt)
+  if (isInvalid(old)) return date
+
+  date.setHours(old.getHours())
+  date.setMinutes(old.getMinutes())
+  date.setSeconds(old.getSeconds())
+
+  return date
 }
 
 export default {
   addDays,
   addMonths,
   addYears,
+  cloneTime,
   compareAsc,
   compareMonth,
   getDaysOfMonth,
   format,
-  parse,
-  toDate,
-  toDateWithFormat,
   isInvalid,
   isSameDay,
   isSameMonth,
   isSameWeek,
+  isValid,
+  newDate,
+  parse,
+  toDate,
+  toDateWithFormat,
 }
