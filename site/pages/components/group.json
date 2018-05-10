@@ -10,6 +10,7 @@
     "Form": "表单",
     "Input": "输入框",
     "Radio": "单选框",
+    "Rate": "评分",
     "Select": "选择框",
     "Textarea": "多行文本框"
   },

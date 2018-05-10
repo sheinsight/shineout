@@ -56,6 +56,12 @@ const pages = [
     component: loadable(() => import('./Radio')),
   },
   {
+    name: 'Rate',
+    cn: '评分',
+    level: 2,
+    component: loadable(() => import('./Rate')),
+  },
+  {
     name: 'Select',
     cn: '选择框',
     level: 2,
