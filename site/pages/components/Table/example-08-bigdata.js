@@ -22,7 +22,7 @@ const columns = [
   { title: 'Start Date', render: 'start', width: 140 },
 ]
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 10; i++) {
   columns.push({
     title: `${i + 1}`,
     render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
@@ -34,7 +34,7 @@ export default function () {
     <Table
       fixed="both"
       keygen="id"
-      width={11000}
+      width={1400}
       style={{ height: 600 }}
       columns={columns}
       data={data}

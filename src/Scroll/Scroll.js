@@ -77,7 +77,7 @@ class Scroll extends PureComponent {
       if (this.pixelX !== 0 || this.pixelY !== 0) {
         this.boundleScroll()
       }
-    }, 32)
+    }, 48)
 
     // lock direction
     if (Math.abs(this.pixelX) > Math.abs(this.pixelY)) {
