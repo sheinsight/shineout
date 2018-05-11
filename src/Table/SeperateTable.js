@@ -155,9 +155,13 @@ class SeperateTable extends PureComponent {
       // drag scroll bar
 
       const index = this.getIndex(scrollTop)
-      this.setState({ currentIndex: index })
+      const lastRowHeight = this.getLastRowHeight(index)
+      const offsetScrollTop = this.getSumHeight(0, index)
+      + (scrollTop * this.realTbody.clientHeight)
 
-      setTranslate(this.tbody, `-${left}px`, `-${this.lastScrollTop}px`)
+      this.setState({ currentIndex: index })
+      this.lastScrollTop = offsetScrollTop
+      setTranslate(this.tbody, `-${left}px`, `-${offsetScrollTop + lastRowHeight}px`)
     } else {
       // wheel scroll
 
