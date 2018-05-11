@@ -34,3 +34,16 @@ export function has3d() {
 
   return (result !== undefined && result.length > 0 && result !== 'none')
 }
+
+/* eslint-disable */
+// check support passive
+let supportsPassive = false
+try {
+  const opts = Object.defineProperty({}, 'passive', {
+    get() { supportsPassive = true },
+  })
+  window.addEventListener('test', null, opts)
+} catch (e) {}
+/* eslint-enable */
+
+export const eventPassive = supportsPassive ? { passive: true } : false

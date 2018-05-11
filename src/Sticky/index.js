@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { getParent } from '../utils/dom/element'
+import { eventPassive } from '../utils/dom/detect'
 import { getProps, defaultProps } from '../utils/proptypes'
 
 const events = ['scroll', 'resize', 'pageshow', 'load']
@@ -147,7 +148,7 @@ class Sticky extends PureComponent {
 
   bindScroll() {
     if (this.targetElement) {
-      this.targetElement.addEventListener('scroll', this.handlePosition)
+      this.targetElement.addEventListener('scroll', this.handlePosition, eventPassive)
     } else {
       events.forEach((e) => {
         window.addEventListener(e, this.handlePosition)
