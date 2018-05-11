@@ -10,9 +10,7 @@ export default {
     long: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
   },
 
-  timeOfDayValues: {
-    long: ['上午', '下午'],
-  },
+  timeOfDayValues: ['上午', '下午'],
 
   ok: '确定',
   cancel: '取消',

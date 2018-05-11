@@ -92,3 +92,34 @@ plugins: [
   }),
 ],
 ```
+
+
+## I18N
+
+组件库中部分组件（Datepicker，Select，Modal等）内置了部分文字，暂时为简体中文（zh-CN）和英文（en-US）两组。默认为英文（en-US），可以通过 webpack 的 process.env 切换
+```
+plugins: [
+  new webpack.DefinePlugin({
+    'process.env': {
+      LOCALE: 'zh-CN'
+    },
+  }),
+],
+```
+
+或者调用 locale 的 setLocale 方法
+
+```
+import { setLocale } from 'shineout/locale'
+setLocale('zh-CN')
+```
+
+setLocale 也可以传入一个 Json 数据设置部分值
+
+```
+setLocale({ ok: 'yes' })
+```
+
+当前 locale 内容如下:
+
+<example name="locale" />

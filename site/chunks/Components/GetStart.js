@@ -13,6 +13,12 @@ import en from 'doc/pages/components/GetStart/en.md'
 const source = locate(cn, en)
 
 const examples = [
+  {
+    name: 'locale',
+    title: locate('', ''),
+    component: require('doc/pages/components/GetStart/example-locale.js').default,
+    rawText: require('!raw-loader!doc/pages/components/GetStart/example-locale.js'),
+  },
 ]
 
 const codes = undefined

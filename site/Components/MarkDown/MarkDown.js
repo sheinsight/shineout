@@ -10,6 +10,7 @@ import Example from '../Example'
 const markdownClass = classGenerate(require('./markdown.less'), 'markdown')
 
 const codeReg = /^<code name="([\w|-]+)" /
+const exampleReg = /^<example name="([\w|-]+)" /
 
 export default class MarkDown extends PureComponent {
   static propTypes = {
@@ -90,6 +91,15 @@ export default class MarkDown extends PureComponent {
     )
   }
 
+  renderExample(name) {
+    const { examples } = this.props
+    const example = (examples || []).find(e => e.name === name)
+
+    if (!example) return null
+
+    return <Example {...example} />
+  }
+
   render() {
     const { source } = this.props
 
@@ -112,9 +122,15 @@ export default class MarkDown extends PureComponent {
           },
           html: ({ value }) => {
             if (value === '<example />') return this.renderExamples()
+
+            const example = value.match(exampleReg)
+            if (example) return this.renderExample(example[1])
+
             if (value === '<br>' || value === '<br />') return <br />
+
             const code = value.match(codeReg)
             if (code) return this.renderCode(code[1])
+
             return null
           },
         }}

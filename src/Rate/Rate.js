@@ -117,8 +117,6 @@ class Rate extends PureComponent {
       this.props.className,
     )
 
-    console.log(this.props.disabled)
-
     return (
       <div className={className}>
         { this.renderBackground() }

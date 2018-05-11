@@ -13,7 +13,7 @@ export function setLocale(arg) {
 }
 
 export function getLocale(name, def) {
-  if (!name) return undefined
+  if (!name) return locale
 
   if (def && def[name]) return def[name]
 

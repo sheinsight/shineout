@@ -10,11 +10,7 @@ export default {
     long: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   },
 
-  timeOfDayValues: {
-    uppercase: ['AM', 'PM'],
-    lowercase: ['am', 'pm'],
-    long: ['a.m.', 'p.m.'],
-  },
+  timeOfDayValues: ['a.m.', 'p.m.'],
 
   ok: 'Ok',
   cancel: 'Cancel',

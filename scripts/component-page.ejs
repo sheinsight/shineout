@@ -15,6 +15,7 @@ const source = locate(cn, en)
 const examples = [
 <% examples.forEach(function (exam, i) { -%>
   {
+    name: '<%= exam.path.replace("example-", "").replace(".js", "") %>',
     title: locate('<%= exam.cn %>', '<%= exam.en %>'),
     component: require('doc/pages/components/<%= name %>/<%= exam.path %>').default,
     rawText: require('!raw-loader!doc/pages/components/<%= name %>/<%= exam.path %>'),

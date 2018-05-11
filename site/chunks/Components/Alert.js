@@ -14,21 +14,25 @@ const source = locate(cn, en)
 
 const examples = [
   {
+    name: '1-base',
     title: locate('基本用法', 'Base'),
     component: require('doc/pages/components/Alert/example-1-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Alert/example-1-base.js'),
   },
   {
+    name: '2-type',
     title: locate('类型 type', 'type'),
     component: require('doc/pages/components/Alert/example-2-type.js').default,
     rawText: require('!raw-loader!doc/pages/components/Alert/example-2-type.js'),
   },
   {
+    name: '3-close',
     title: locate('关闭 onClose', 'onClose'),
     component: require('doc/pages/components/Alert/example-3-close.js').default,
     rawText: require('!raw-loader!doc/pages/components/Alert/example-3-close.js'),
   },
   {
+    name: '4-icon',
     title: locate('图标 icon', 'with icon'),
     component: require('doc/pages/components/Alert/example-4-icon.js').default,
     rawText: require('!raw-loader!doc/pages/components/Alert/example-4-icon.js'),
