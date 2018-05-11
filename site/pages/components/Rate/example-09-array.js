@@ -1,7 +1,7 @@
 /**
- * cn - 数组
- *    -- 创建组件时可以使用数组来显示不同的选项
- * en - Array
+ * cn - 不重复选项
+ *    -- 选项为数组时，设置 repeat 属性为 false 可以平铺选项
+ * en - No Repeat
  */
 import React from 'react'
 import { Rate } from 'shineout'
@@ -12,6 +12,6 @@ const TextRate = Rate(text, front)
 
 export default function () {
   return (
-    <TextRate />
+    <TextRate repeat={false} value={2} />
   )
 }

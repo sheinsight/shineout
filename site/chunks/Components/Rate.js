@@ -26,12 +26,6 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Rate/example-02-color.js'),
   },
   {
-    name: '03-array',
-    title: locate('数组 \n 创建组件时可以使用数组来显示不同的选项', 'Array'),
-    component: require('doc/pages/components/Rate/example-03-array.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Rate/example-03-array.js'),
-  },
-  {
     name: '04-max',
     title: locate('最大值 \n 通过max设置选项最大值', 'Array'),
     component: require('doc/pages/components/Rate/example-04-max.js').default,
@@ -54,6 +48,18 @@ const examples = [
     title: locate('只读 \n 只读状态下，value可以传入小数', 'Readonly'),
     component: require('doc/pages/components/Rate/example-07-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/Rate/example-07-disabled.js'),
+  },
+  {
+    name: '08-face',
+    title: locate('分级显示 \n 创建组件时可以使用数组显示不同分数下的选项，这种情况下，不支持带小数的value', 'Array'),
+    component: require('doc/pages/components/Rate/example-08-face.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Rate/example-08-face.js'),
+  },
+  {
+    name: '09-array',
+    title: locate('不重复选项 \n 选项为数组时，设置 repeat 属性为 false 可以平铺选项', 'No Repeat'),
+    component: require('doc/pages/components/Rate/example-09-array.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Rate/example-09-array.js'),
   },
 ]
 

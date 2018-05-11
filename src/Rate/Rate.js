@@ -5,21 +5,6 @@ import { range } from '../utils/numbers'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { rateClass } from '../styles'
 
-function getIcon(icons, i, value) {
-  const remain = value - i
-
-  let icon
-  if (!Array.isArray(icons)) {
-    icon = icons
-  } else {
-    icon = icons[i]
-    if (!icon) icon = icons[icons.length - 1]
-  }
-
-  if (remain <= 0 || remain >= 1) return icon
-  return <span style={{ width: `${remain * 100}%`, display: 'block', overflow: 'hidden' }}>{icon}</span>
-}
-
 class Rate extends PureComponent {
   constructor(props) {
     super(props)
@@ -41,6 +26,25 @@ class Rate extends PureComponent {
     return { width: size, fontSize: size }
   }
 
+  getIcon(icons, i) {
+    const { repeat } = this.props
+    const value = this.getValue()
+    const remain = value - i
+
+    let icon
+    if (!Array.isArray(icons)) {
+      icon = icons
+    } else {
+      icon = icons[repeat ? (value - 1) : i]
+      if (!icon) icon = icons[icons.length - 1]
+    }
+
+    if (remain <= 0 || remain >= 1) return icon
+
+    const style = { width: `${remain * 100}%`, display: 'block', overflow: 'hidden' }
+    return <span style={style}>{icon}</span>
+  }
+
   handleClick(value) {
     this.props.onChange(value)
   }
@@ -50,15 +54,16 @@ class Rate extends PureComponent {
   }
 
   renderBackground() {
-    const { background, max } = this.props
+    const { background, max, disabled } = this.props
     const style = this.getStyle()
+    const value = this.getValue()
 
     return (
       <div className={rateClass('background')}>
         {
           range(max).map(v => (
-            <span key={v} style={style}>
-              {getIcon(background, v)}
+            <span key={v} style={Object.assign({ visibility: (!disabled && value > v) ? 'hidden' : 'visible' }, style)}>
+              {this.getIcon(background, v)}
             </span>
           ))
         }
@@ -82,7 +87,7 @@ class Rate extends PureComponent {
               onMouseLeave={this.handleHover.bind(this, 0)}
               style={style}
             >
-              { value > v ? getIcon(front, v) : <span>&nbsp;</span> }
+              { value > v ? this.getIcon(front, v) : <span>&nbsp;</span> }
             </span>
           ))
         }
@@ -102,7 +107,7 @@ class Rate extends PureComponent {
         {
           range(max).map(v => (
             <span key={v} style={style}>
-              { value > v && getIcon(front, v, value) }
+              { value > v && this.getIcon(front, v) }
             </span>
           ))
         }
@@ -132,12 +137,13 @@ Rate.propTypes = {
     PropTypes.element,
     PropTypes.array,
   ]),
-  onChange: PropTypes.func.isRequired,
+  repeat: PropTypes.bool,
   front: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.array,
   ]),
   max: PropTypes.number,
+  onChange: PropTypes.func.isRequired,
   size: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -148,6 +154,7 @@ Rate.propTypes = {
 
 Rate.defaultProps = {
   ...defaultProps,
+  repeat: true,
   max: 5,
   size: 20,
   text: [],
