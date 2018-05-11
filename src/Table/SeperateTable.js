@@ -83,7 +83,10 @@ class SeperateTable extends PureComponent {
   }
 
   getLastRowHeight(index) {
-    const { rowHeight, data } = this.props
+    const { rowHeight, data, rowsInView } = this.props
+
+    if (index + rowsInView >= data.length) return 0
+
     let lastRowHeight = 0
     if (index >= 1 && index < data.length / 2) {
       lastRowHeight = this.cachedRowHeight[index - 1] || rowHeight
@@ -152,13 +155,9 @@ class SeperateTable extends PureComponent {
       // drag scroll bar
 
       const index = this.getIndex(scrollTop)
-      const lastRowHeight = this.getLastRowHeight(index)
-      const offsetScrollTop = this.getSumHeight(0, index)
-      + (scrollTop * this.realTbody.clientHeight)
-
       this.setState({ currentIndex: index })
-      this.lastScrollTop = offsetScrollTop
-      setTranslate(this.tbody, `-${left}px`, `-${offsetScrollTop + lastRowHeight}px`)
+
+      setTranslate(this.tbody, `-${left}px`, `-${this.lastScrollTop}px`)
     } else {
       // wheel scroll
 
