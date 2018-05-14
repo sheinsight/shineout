@@ -158,7 +158,7 @@ export default class {
       enumerable: true,
       set: (val) => {
         this.$values[name] = val
-        if (typeof fn === 'function') fn(val)
+        if (typeof fn === 'function') fn(val, name)
       },
       get: () => this.$values[name],
     })
