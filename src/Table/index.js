@@ -50,6 +50,7 @@ export default class extends PureComponent {
       if (i === left) draft.lastFixed = true
       if (i >= right && right > 0) draft.fixed = 'right'
       if (i === right) draft.firstFixed = true
+      if (draft.type === 'expand' && !draft.width) draft.width = 30
     }))
 
     if ((onRowSelect || datum) && this.cachedColumns[0].type !== 'checkbox') {

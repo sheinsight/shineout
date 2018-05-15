@@ -6,7 +6,7 @@ import position from '../utils/faker/position'
 import country from '../utils/faker/country'
 import city from '../utils/faker/city'
 
-const totalCount = 10000
+const totalCount = 100
 
 let allData = []
 function init() {

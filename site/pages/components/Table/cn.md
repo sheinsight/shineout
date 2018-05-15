@@ -31,4 +31,5 @@
 | rowSpan | function(a, b) \| boolean | 无 | 值为函数时，根据函数返回的结果（bool）判断是否合并行，a、b为相邻的两行数据。<br />值为true时，根据render的结果自动判断是否合并行 |
 | sorter | function(order) | 无 | sorter 不为空时，这一列会出现排序 icon。order的值为\['asc', 'desc']<br />前端排序，返回一个排序函数，参考 Array.sort。<br />服务端排序，不要返回值，自行处理即可。
 | title | string \| ReactElement | 无 | 表头显示内容 |
+| type | string | 无 | 特殊用途列，可选值为 \['expand', 'checkbox']<br />expand: 行展开列，render 函数返回函数时，表示此行可以展开，内容为此函数返回结果<br />checkbox: 选择列，用于仅固定选择列的场景 |
 | width | number | 无 | 列宽 |

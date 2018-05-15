@@ -140,6 +140,12 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-20-select.js'),
   },
   {
+    name: '21-expand',
+    title: locate('可展开 \n 需要展开行时，可以增加一个 type 为 &#39;expand&#39; 的 column，render 函数返回函数时，表示此行可以展开，内容为此函数返回结果', 'Expand'),
+    component: require('doc/pages/components/Table/example-21-expand.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-21-expand.js'),
+  },
+  {
     name: '99-raw',
     title: locate('只使用样式 \n 使用原生的tr, td来显示表格', 'Style only'),
     component: require('doc/pages/components/Table/example-99-raw.js').default,

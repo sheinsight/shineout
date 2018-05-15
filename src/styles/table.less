@@ -215,8 +215,41 @@
     > table {
       border-bottom: @table-head-border solid @table-border-color;
     }
-
   }
+
+  &-icon-expand-plus, &-icon-expand-sub {
+    display: block;
+    position: relative;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border: solid 1px @gray-400;
+    border-radius: 2px;
+    cursor: pointer;
+
+    &:before, &:after {
+      content: ' ';
+      width: 8px;
+      height: 1px;
+      background: @gray-500;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &:hover {
+      border-color: @colors-primary;
+      &:before, &:after {
+        background: @colors-primary;
+      }
+    }
+  }
+
+  &-icon-expand-plus:after {
+    width: 1px;
+    height: 8px;
+  } 
 
   &-scroll-y.@{table-prefix}-head {
     padding-right: @scrollbar-width;

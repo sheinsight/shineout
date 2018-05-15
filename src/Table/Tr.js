@@ -5,16 +5,21 @@ import shallowEqual from '../utils/shallowEqual'
 import { setTranslate } from '../utils/dom/translate'
 import { tableClass } from '../styles'
 import Td, { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
+import Expand from './Expand'
 
 class Tr extends Component {
   constructor(props) {
     super(props)
 
     this.bindElement = this.bindElement.bind(this)
+    this.setRowHeight = this.setRowHeight.bind(this)
+    this.setExpandHeight = this.setExpandHeight.bind(this)
+
+    this.expandHeight = 0
   }
 
   componentDidMount() {
-    const { offsetLeft, offsetRight, setRowHeight } = this.props
+    const { offsetLeft, offsetRight } = this.props
     if (offsetLeft) {
       [].forEach.call(
         this.element.querySelectorAll(`.${tableClass(CLASS_FIXED_LEFT)}`),
@@ -28,7 +33,7 @@ class Tr extends Component {
       )
     }
 
-    if (setRowHeight) setRowHeight(this.element.clientHeight, this.props.index)
+    this.setRowHeight()
   }
 
   shouldComponentUpdate(nextProps) {
@@ -37,13 +42,24 @@ class Tr extends Component {
     return !isEqual
   }
 
+  setRowHeight() {
+    const { setRowHeight } = this.props
+    if (!setRowHeight || !this.element) return
+    setRowHeight(this.element.clientHeight + this.expandHeight, this.props.index)
+  }
+
+  setExpandHeight(height) {
+    this.expandHeight = height
+    this.setRowHeight()
+  }
+
   bindElement(el) {
     this.element = el
   }
 
   render() {
     const {
-      columns, data, striped, index, ...other
+      columns, data, striped, index, expandRender, ...other
     } = this.props
     const tds = []
     let skip = 0
@@ -57,6 +73,7 @@ class Tr extends Component {
         const td = (
           <Td
             {...other}
+            expanded={typeof expandRender === 'function'}
             key={key}
             type={type}
             className={className}
@@ -74,8 +91,16 @@ class Tr extends Component {
     }
 
     const className = striped && index % 2 === 1 ? tableClass('even') : ''
+    const result = [<tr key="0" className={className} ref={this.bindElement}>{tds}</tr>]
+    if (expandRender) {
+      result.push((
+        <Expand key="1" setExpandHeight={this.setExpandHeight} colSpan={columns.length}>
+          {expandRender()}
+        </Expand>
+      ))
+    }
 
-    return <tr className={className} ref={this.bindElement}>{tds}</tr>
+    return result
   }
 }
 
@@ -85,6 +110,7 @@ Tr.propTypes = {
   index: PropTypes.number,
   offsetLeft: PropTypes.number,
   offsetRight: PropTypes.number,
+  expandRender: PropTypes.func,
   striped: PropTypes.bool,
   setRowHeight: PropTypes.func,
 }
