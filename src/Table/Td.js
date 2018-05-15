@@ -10,8 +10,12 @@ export const CLASS_FIXED_RIGHT = 'fixed-right'
 class Td extends PureComponent {
   constructor(props) {
     super(props)
+    this.handleExpandClick = this.handleExpandClick.bind(this)
+  }
 
-    this.state = {}
+  handleExpandClick() {
+    const { rowKey, expanded, content } = this.props
+    this.props.onExpand(rowKey, expanded ? undefined : content)
   }
 
   renderCheckbox() {
@@ -25,9 +29,27 @@ class Td extends PureComponent {
     )
   }
 
+  renderContent() {
+    const { content, expanded, type } = this.props
+    switch (type) {
+      case 'checkbox':
+        return this.renderCheckbox()
+      case 'expand':
+        if (!content) return undefined
+        return (
+          <span
+            className={tableClass(`icon-expand-${expanded ? 'sub' : 'plus'}`)}
+            onClick={this.handleExpandClick}
+          />
+        )
+      default:
+        return content
+    }
+  }
+
   render() {
     const {
-      rowSpan, colSpan, content, fixed, style, firstFixed, lastFixed, type,
+      rowSpan, colSpan, fixed, style, firstFixed, lastFixed, type,
     } = this.props
 
     const className = classnames(
@@ -43,7 +65,7 @@ class Td extends PureComponent {
 
     return (
       <td style={style} className={className} rowSpan={rowSpan} colSpan={colSpan}>
-        { type === 'checkbox' ? this.renderCheckbox() : content }
+        { this.renderContent() }
       </td>
     )
   }
@@ -54,10 +76,13 @@ Td.propTypes = {
   colSpan: PropTypes.number,
   className: PropTypes.string,
   content: PropTypes.any,
+  expanded: PropTypes.bool,
   firstFixed: PropTypes.bool,
   fixed: PropTypes.string,
   index: PropTypes.number,
   lastFixed: PropTypes.bool,
+  onExpand: PropTypes.func,
+  rowKey: PropTypes.any,
   rowSpan: PropTypes.number,
   style: PropTypes.object,
   type: PropTypes.string,

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import immer from 'immer'
 import { getProps } from '../utils/proptypes'
 import { getKey } from '../utils/uid'
 import Tr from './Tr'
@@ -45,8 +46,13 @@ class Tbody extends PureComponent {
   constructor(props) {
     super(props)
 
+    this.state = {
+      expand: {},
+    }
+
     this.bindBody = this.bindBody.bind(this)
     this.renderTr = this.renderTr.bind(this)
+    this.handleExpand = this.handleExpand.bind(this)
   }
 
   componentDidMount() {
@@ -57,18 +63,6 @@ class Tbody extends PureComponent {
     }
   }
 
-  /*
-  shouldComponentUpdate(nextProps) {
-    const { loading } = nextProps
-    if (loading) return false
-
-    return !(
-      deepEqual(this.props.data, nextProps.data)
-      && deepEqual(this.props.columns, nextProps.columns)
-    )
-  }
-  */
-
   componentDidUpdate(prevProps) {
     if (this.props.columns.length !== prevProps.columns.length) {
       const tds = this.body.querySelector('tr').querySelectorAll('td')
@@ -78,6 +72,13 @@ class Tbody extends PureComponent {
 
   bindBody(el) {
     this.body = el
+  }
+
+  handleExpand(key, render) {
+    this.setState(immer((draft) => {
+      if (render) draft.expand[key] = render
+      else delete draft.expand[key]
+    }))
   }
 
   renderTr(row, i) {
@@ -97,13 +98,15 @@ class Tbody extends PureComponent {
         key={key}
         data={row}
         columns={columns}
+        rowKey={key}
+        onExpand={this.handleExpand}
+        expandRender={this.state.expand[key]}
       />
     )
   }
 
   render() {
     const { index, data, columns } = this.props
-    // const rows = formatRows(index, data, columns)
     const rows = []
     for (let i = data.length - 1; i >= 0; i--) {
       const d = data[i]

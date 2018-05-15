@@ -30,6 +30,7 @@ class SeperateTable extends PureComponent {
     this.lastScrollTop = 0
   }
 
+  // reset scrollTop when data changed
   componentDidUpdate(prevProps) {
     if (!this.tbody) return
     const { scrollTop, offsetLeft } = this.state
@@ -95,15 +96,19 @@ class SeperateTable extends PureComponent {
   }
 
   setRowHeight(height, index) {
+    const oldHeight = this.cachedRowHeight[index]
     this.cachedRowHeight[index] = height
 
     if (!this.tbody) return
 
-    const oldHeight = this.cachedRowHeight[index]
     const { offsetLeft, currentIndex } = this.state
     if (currentIndex === index && !oldHeight) {
       this.lastScrollTop += height - this.props.rowHeight
       setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
+    }
+
+    if (oldHeight && height !== oldHeight) {
+      this.setState({ scrollTop: this.lastScrollTop / this.getContentHeight() })
     }
   }
 
