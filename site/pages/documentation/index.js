@@ -1,7 +1,7 @@
 import { createMarkDown } from 'docs/MarkDown'
 import Page from '../Page'
 
-const versions = ['0.1.x', '0.2.x']
+const versions = ['0.x.x']
 
 const pages = [
   'API',
