@@ -2,7 +2,8 @@
   "": {},
   "General": {
     "Button": "按钮",
-    "Dropdown": "下拉菜单"
+    "Dropdown": "下拉菜单",
+    "Image": "图片"
   },
   "Form": {
     "Checkbox": "复选框",

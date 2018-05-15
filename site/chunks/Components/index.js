@@ -24,6 +24,12 @@ const pages = [
     level: 2,
     component: loadable(() => import('./Dropdown')),
   },
+  {
+    name: 'Image',
+    cn: '图片',
+    level: 2,
+    component: loadable(() => import('./Image')),
+  },
   'Form',
   {
     name: 'Checkbox',

@@ -16,6 +16,10 @@ class Image extends PureComponent {
     this.state = {
       status: PLACEHOLDER,
     }
+
+    this.bindElement = this.bindElement.bind(this)
+    this.handleAlt = this.handleAlt.bind(this)
+    this.markToRender = this.markToRender.bind(this)
   }
 
   componentDidMount() {
@@ -26,6 +30,10 @@ class Image extends PureComponent {
   componentWillUnmount() {
     removeStack(this.lazyId)
     delete this.image
+  }
+
+  bindElement(el) {
+    this.element = el
   }
 
   markToRender() {
@@ -51,9 +59,9 @@ class Image extends PureComponent {
   }
 
   renderType(src) {
-    const { title, type } = this.props
+    const { title, fit } = this.props
 
-    return type === 'fill' || type === 'fit'
+    return fit === 'fill' || fit === 'fit'
       ? <div className={imageClass('inner')} title={title} style={{ backgroundImage: `url("${src}")` }} />
       : <div className={imageClass('inner')} title={title}><img alt="" src={src} /></div>
   }
@@ -70,7 +78,8 @@ class Image extends PureComponent {
           ? <div className={imageClass('inner')}>{placeholder}</div>
           : (
             <div className={imageClass('inner', 'mask')}>
-              <div style={{ padding: '0 10px', textAlign: 'center' }}>{title || 'Loading'}{' '}
+              <div>
+                {title || 'Loading'}{' '}
                 <span className={imageClass('ellipsis')} />
               </div>
             </div>
@@ -82,7 +91,7 @@ class Image extends PureComponent {
       case ERROR:
         return (
           <div className={imageClass('inner', 'mask')}>
-            <div style={{ padding: '0 10px', textAlign: 'center' }}>{title || 'no found'}</div>
+            <div>{title || 'no found'}</div>
           </div>
         )
       default:
@@ -92,11 +101,11 @@ class Image extends PureComponent {
 
   render() {
     const {
-      href, height, style, shape, type, width, target,
+      href, height, style, shape, fit, width, target,
     } = this.props
 
     const className = classnames(
-      imageClass('_', shape, type),
+      imageClass('_', shape, fit),
       this.props.className,
     )
 
@@ -104,6 +113,7 @@ class Image extends PureComponent {
 
     return (
       <Tag
+        ref={this.bindElement}
         href={href}
         onClick={(href && target === '_modal') ? this.handleClick : undefined}
         target={target}
@@ -139,7 +149,7 @@ Image.propTypes = {
     '_modal',
   ]),
   title: PropTypes.string,
-  type: PropTypes.oneOf([
+  fit: PropTypes.oneOf([
     'fill',
     'fit',
     'stretch',
