@@ -49,12 +49,14 @@ const rules = {
   lastName: [
     { required: true, message: 'Please enter your lastname.' },
   ],
-  startDate: [
-    { required: true, message: 'Please select start date.' },
-  ],
-  endDate: [
-    { required: true, message: 'Please select end date.' },
-  ],
+  date: {
+    startDate: [
+      { required: true, message: 'Please select start date.' },
+    ],
+    endDate: [
+      { required: true, message: 'Please select end date.' },
+    ],
+  },
 }
 
 // eslint-disable-next-line
@@ -62,8 +64,10 @@ export default class extends PureComponent {
   initValue = {
     firstName: 'Harry',
     lastName: 'Potter',
-    startDate: Date.now(),
-    endDate: Date.now() + (86400 * 5000),
+    date: {
+      startDate: Date.now(),
+      endDate: Date.now() + (86400 * 5000),
+    },
   }
 
   render() {
@@ -80,7 +84,7 @@ export default class extends PureComponent {
         </Form.Item>
 
         <Form.Item label="Date">
-          <DatePicker range name={['startDate', 'endDate']} />
+          <DatePicker range name={['date.startDate', 'date.endDate']} />
         </Form.Item>
 
         <Form.Item label="">
