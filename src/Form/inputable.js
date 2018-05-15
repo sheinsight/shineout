@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import immer from 'immer'
 import { curry, compose } from '../utils/func'
 import { getUidStr } from '../utils/uid'
 import validate from '../utils/validate'
@@ -17,7 +18,10 @@ export default curry(({ delay = 0 }, Origin) => consumer(class extends PureCompo
     delay: PropTypes.number,
     formDatum: PropTypes.object,
     loopContext: PropTypes.object,
-    name: PropTypes.string,
+    name: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.array,
+    ]),
     onChange: PropTypes.func,
     onError: PropTypes.func,
     required: PropTypes.bool,
@@ -52,8 +56,14 @@ export default curry(({ delay = 0 }, Origin) => consumer(class extends PureCompo
     this.validate = this.validate.bind(this)
 
     if (formDatum && name) {
-      formDatum.bind(name, this.handleUpdate, defaultValue, this.validate)
-      this.state.value = formDatum.get(name)
+      if (Array.isArray(name)) {
+        const dv = defaultValue || []
+        name.forEach((n, i) => formDatum.bind(n, this.handleUpdate, dv[i], this.validate))
+        this.state.value = name.map(n => formDatum.get(n))
+      } else {
+        formDatum.bind(name, this.handleUpdate, defaultValue, this.validate)
+        this.state.value = formDatum.get(name)
+      }
     }
 
     if (loopContext) loopContext.bind(this.validate)
@@ -72,7 +82,12 @@ export default curry(({ delay = 0 }, Origin) => consumer(class extends PureCompo
     if (this.changeLocked) return this.state.value
 
     const { formDatum, name, value } = this.props
-    if (formDatum && name) return formDatum.get(name)
+    if (formDatum && name) {
+      if (Array.isArray(name)) {
+        return name.map(n => formDatum.get(n))
+      }
+      return formDatum.get(name)
+    }
     return value === undefined ? this.state.value : value
   }
 
@@ -85,16 +100,38 @@ export default curry(({ delay = 0 }, Origin) => consumer(class extends PureCompo
       onError, name, formDatum, type,
     } = this.props
 
-    if (value === undefined) value = this.getValue()
+    if (value === undefined || Array.isArray(name)) value = this.getValue()
 
-    let rules = [...this.props.rules]
-    if (formDatum && name) {
-      rules = rules.concat(formDatum.getRule(name))
-      if (!data) data = formDatum.getValue()
+    if (typeof name === 'string') {
+      let rules = [...this.props.rules]
+      if (formDatum && name) {
+        rules = rules.concat(formDatum.getRule(name))
+        if (!data) data = formDatum.getValue()
+      }
+
+      if (this.datum) value = this.datum
+      return validate(value, data, rules, type).then(() => {
+        onError(this.itemName, null)
+        this.setState({ error: undefined })
+        return true
+      }, (e) => {
+        onError(this.itemName, e)
+        this.setState({ error: e })
+        return e
+      })
     }
 
-    if (this.datum) value = this.datum
-    return validate(value, data, rules, type).then(() => {
+    if (!formDatum || !name) return Promise.resolve(true)
+
+    if (!data) data = formDatum.getValue()
+    const validates = name.map((n, i) => {
+      let rules = (this.props.rules || [])[n] || []
+      rules = rules.concat(formDatum.getRule(n))
+
+      return validate(value[i], data, rules, type)
+    })
+
+    return Promise.all(validates).then(() => {
       onError(this.itemName, null)
       this.setState({ error: undefined })
       return true
@@ -107,15 +144,39 @@ export default curry(({ delay = 0 }, Origin) => consumer(class extends PureCompo
 
   change(value, ...args) {
     const { formDatum, name } = this.props
-    if (formDatum && name) formDatum.set(name, value)
-    else this.validate(value)
+    if (formDatum && name) {
+      if (Array.isArray(name)) {
+        name.forEach((n, i) => {
+          const v = (value || [])[i]
+          if (v !== formDatum.get(n)) formDatum.set(n, v)
+        })
+      } else {
+        formDatum.set(name, value)
+      }
+    } else {
+      this.validate(value)
+    }
 
     if (this.props.onChange) this.props.onChange(value, ...args)
   }
 
-  handleUpdate(value) {
-    this.setState({ value })
-    this.validate(value)
+  handleUpdate(value, sn) {
+    const { name } = this.props
+    if (typeof name === 'string') {
+      this.setState({ value })
+      this.validate(value)
+      return
+    }
+
+    let newValue = this.getValue()
+    newValue = immer(newValue, (draft) => {
+      name.forEach((n, i) => {
+        if (n === sn) draft[i] = value
+      })
+    })
+
+    this.setState({ value: newValue })
+    this.validate(newValue)
   }
 
   handleChange(value, ...args) {

@@ -39,6 +39,8 @@ class Range extends PureComponent {
   }
 
   handleChange(index, date, change, end, mode) {
+    const { type } = this.props
+
     if (!change) {
       const current = immer(this.props.current, (draft) => {
         draft[index] = date
@@ -59,7 +61,7 @@ class Range extends PureComponent {
       return
     }
 
-    if (this.props.type === 'month') {
+    if (type === 'month') {
       const range = [...this.state.range]
       range[index] = date
       if (range.some(v => !utils.isInvalid(v))) {
@@ -83,7 +85,7 @@ class Range extends PureComponent {
       draft.range[method](date)
       draft.hover = undefined
     }), () => {
-      this.props.onChange(this.state.range, true)
+      this.props.onChange(this.state.range, true, type === 'date')
     })
   }
 

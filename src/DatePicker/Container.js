@@ -31,10 +31,30 @@ class Container extends PureComponent {
     this.firstRender = false
   }
 
+  componentDidMount() {
+    const { range, value } = this.props
+    if (!value) return
+    const format = this.getFormat()
+    if (range) {
+      const newValue = value.map((v) => {
+        if (!value) return undefined
+        return utils.format(this.parseDate(v), format)
+      })
+      this.props.onChange(newValue)
+    } else {
+      const newValue = utils.format(this.parseDate(value), format)
+      if (newValue !== value) this.props.onChange(newValue)
+    }
+  }
+
   getCurrent() {
     let current
     if (this.props.range) {
-      current = (this.props.value || []).map(v => this.parseDate(v))
+      current = (this.props.value || []).map((v) => {
+        v = this.parseDate(v)
+        if (utils.isInvalid(v)) v = utils.newDate()
+        return v
+      })
       if (current.length === 0) current = [utils.newDate(), utils.newDate()]
 
       if (utils.compareMonth(current[0], current[1], -1) >= 0) {

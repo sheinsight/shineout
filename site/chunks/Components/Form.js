@@ -127,6 +127,12 @@ const examples = [
     component: require('doc/pages/components/Form/example-19-nested.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-19-nested.js'),
   },
+  {
+    name: '20.array',
+    title: locate('数组 name \n 数据为数组类型的组件，name 可以传入一个相应的数组，来分别处理数组内的单个数据', 'Array name'),
+    component: require('doc/pages/components/Form/example-20.array.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-20.array.js'),
+  },
 ]
 
 const codes = undefined
