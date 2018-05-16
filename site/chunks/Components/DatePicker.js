@@ -26,6 +26,12 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-02-format.js'),
   },
   {
+    name: '03-size',
+    title: locate('尺寸', 'Size'),
+    component: require('doc/pages/components/DatePicker/example-03-size.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-03-size.js'),
+  },
+  {
     name: '05-week',
     title: locate('选择星期', 'Week Type'),
     component: require('doc/pages/components/DatePicker/example-05-week.js').default,
