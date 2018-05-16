@@ -43,6 +43,7 @@ class Menu extends React.Component {
           isOpen={!!this.props.defaultOpenKeys.find(key => key === menuKey)}
           isHover={times > 1 && this.props.mode === 'horizontal'}
           mode={times > 1 && this.props.mode === 'horizontal' ? 'vertical' : this.props.mode}
+          onClick={this.props.onClick}
         >
           {
             this.renderMenu(da.children, keygen, times)
@@ -99,6 +100,7 @@ Menu.defaultProps = {
   inlineIndent: 24,
   renderItem: 'title',
   defaultOpenKeys: [],
+  onClick: () => true,
 }
 
 export default Menu

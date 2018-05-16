@@ -50,6 +50,10 @@ class SubMenu extends React.Component {
 
   handleClick() {
     if (this.props.data.disabled) return
+    if (this.props.data.onClick) {
+      if (typeof this.props.data.onClick === 'function') this.props.data.onClick(this.props.data)
+      else this.props.onClick(this.props.data)
+    }
     if (this.props.mode === 'horizontal') return
     if (this.props.mode === 'vertical') {
       this.ref.focus()
