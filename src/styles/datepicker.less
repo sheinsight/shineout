@@ -5,7 +5,7 @@
 
 .@{datepicker-prefix} {
   display: inline-block;
-  width: 140px;
+  width: 150px;
 
   &-c-datetime {
     width: 240px;
@@ -32,6 +32,14 @@
     padding: @padding-base-vertical @padding-base-horizontal+12 @padding-base-vertical @padding-base-horizontal;
   }
 
+  &-size-small &-inner {
+    padding: @padding-small-vertical @padding-small-horizontal+12 @padding-small-vertical @padding-small-horizontal;
+  }
+
+  &-size-large &-inner {
+    padding: @padding-large-vertical @padding-large-horizontal+12 @padding-large-vertical @padding-large-horizontal;
+  }
+
   &-result {
     position: relative;
     display: flex;
@@ -40,6 +48,7 @@
       position: absolute;
       width: 14px;
       height: 14px;
+      font-size: 14px;
       top: 50%;
       right: 0;
       margin: -8px -16px 0 0;
@@ -71,9 +80,6 @@
 
   &-picker {
     position: absolute;
-    top: 100%;
-    left: 0;
-    margin-top: 4px;
     padding: 12px;
     background: #fff;
     background-clip: padding-box;
@@ -142,6 +148,32 @@
       color: #fff;
       background: @colors-primary;
     }
+  }
+
+  &-left-bottom &-picker {
+    top: 100%;
+    left: 0;
+    margin-top: 4px;
+  }
+
+  &-left-top &-picker {
+    bottom: 100%;
+    left: 0;
+    margin-bottom: 4px;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.02), @datepicker-box-shadow-up;
+  }
+
+  &-right-top &-picker {
+    bottom: 100%;
+    right: 0;
+    margin-bottom: 4px;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.02), @datepicker-box-shadow-up;
+  }
+
+  &-right-bottom &-picker {
+    top: 100%;
+    right: 0;
+    margin-top: 4px;
   }
 
   &-day-picker, &-month-picker, &-year-picker {

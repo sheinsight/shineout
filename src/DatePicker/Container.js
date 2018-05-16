@@ -18,6 +18,7 @@ class Container extends PureComponent {
     this.state = {
       focus: false,
       current: this.getCurrent(),
+      position: props.position,
     }
 
     this.bindElement = this.bindElement.bind(this)
@@ -106,6 +107,17 @@ class Container extends PureComponent {
     this.setState(immer((state) => {
       state.focus = focus
       if (focus === true) {
+        const rect = this.element.getBoundingClientRect()
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight
+        const windowWidth = window.innerWidth || document.documentElement.clientWidth
+        const pickerWidth = this.props.range ? 540 : 270
+        if (this.props.position) {
+          if (rect.bottom + 300 > windowHeight) {
+            if (rect.left + pickerWidth > windowWidth) state.position = 'right-top'
+            else state.position = 'left-top'
+          } else if (rect.left + pickerWidth > windowWidth) state.position = 'right-bottom'
+          else state.position = 'left-bottom'
+        }
         state.current = this.getCurrent()
       }
     }))
@@ -217,7 +229,7 @@ class Container extends PureComponent {
     const className = datepickerClass(
       'inner',
       range && 'range',
-      size,
+      size && `size-${size}`,
       focus && 'focus',
       this.state.position,
     )
@@ -249,6 +261,7 @@ Container.propTypes = {
   onBlur: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   onFocus: PropTypes.func.isRequired,
+  position: PropTypes.string,
   range: PropTypes.bool,
   size: PropTypes.string,
   type: PropTypes.string,
@@ -262,6 +275,7 @@ Container.propTypes = {
 
 Container.defaultProps = {
   placeholder: <span>&nbsp;</span>,
+  position: 'left-bottom',
   type: 'date',
 }
 
