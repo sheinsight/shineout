@@ -5,19 +5,9 @@ import { defaultProps, getProps } from '../utils/proptypes'
 import Item from './Item'
 import SubItem from './SubItem'
 import { menuClass } from '../styles'
+import { getKey } from '../utils/uid'
 
 class Menu extends React.Component {
-  static getKey(data, keygen, index) {
-    switch (typeof keygen) {
-      case 'string':
-        return data[keygen]
-      case 'function':
-        return keygen(data)
-      default:
-        return index
-    }
-  }
-
   constructor(props) {
     super(props)
     this.activeKey = []
@@ -42,7 +32,7 @@ class Menu extends React.Component {
     if (!Array.isArray(data) || data.length === 0) return null
     const times = i + 1
     return data.map((da, index) => {
-      const menuKey = Menu.getKey(da, keygen, index)
+      const menuKey = getKey(da, keygen, index)
       return da.children && da.children.length > 0 ?
         <SubItem
           key={menuKey}
