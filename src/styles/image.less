@@ -21,6 +21,19 @@
   }
 }
 
+@keyframes @keyframe-c2b {
+  0% {
+    right: 50%;
+    margin-right: 0;
+    transform: translate(50%, -50%);
+  }
+  100% {
+    right: 100%;
+    margin-right: -80px;
+    transform: translate(0, -50%);
+  }
+}
+
 @keyframes @keyframe-c2f {
   0% {
     left: 50%;
@@ -34,16 +47,16 @@
   }
 }
 
-@keyframes @keyframe-c2b {
+@keyframes @keyframe-b2c {
   0% {
-    right: 50%;
-    margin-right: 0;
-    transform: translate(50%, -50%);
-  }
-  100% {
     right: 100%;
     margin-right: -80px;
     transform: translate(0, -50%);
+  }
+  100% {
+    right: 50%;
+    margin-left: 0;
+    transform: translate(50%, -50%);
   }
 }
 
@@ -171,6 +184,14 @@
 
     .@{image-prefix}-left.@{image-prefix}-forward {
       animation: @keyframe-c2b 0.4s linear;
+    }
+
+    .@{image-prefix}-center.@{image-prefix}-backward {
+      animation: @keyframe-b2c 0.4s linear;
+    }
+
+    .@{image-prefix}-right.@{image-prefix}-backward {
+      animation: @keyframe-c2f 0.4s linear;
     }
 
     .@{image-prefix}-overlay {
