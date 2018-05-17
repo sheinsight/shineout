@@ -15,6 +15,7 @@ class Form extends PureComponent {
   }
 
   handleSubmit(e) {
+    e.preventDefault()
     if (this.validating || this.locked) return
     this.validating = true
 
@@ -24,7 +25,6 @@ class Form extends PureComponent {
       this.locked = false
     }, 800)
 
-    e.preventDefault()
     const { datum, onSubmit } = this.props
     datum.validate().then(() => {
       this.validating = false
