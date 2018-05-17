@@ -15,6 +15,7 @@ class Form extends PureComponent {
   }
 
   handleSubmit(e) {
+    e.preventDefault()
     if (this.validating || this.locked) return
     this.validating = true
 
@@ -22,9 +23,8 @@ class Form extends PureComponent {
     this.locked = true
     setTimeout(() => {
       this.locked = false
-    }, 800)
+    }, this.props.throttle)
 
-    e.preventDefault()
     const { datum, onSubmit } = this.props
     datum.validate().then(() => {
       this.validating = false
@@ -83,10 +83,12 @@ Form.propTypes = {
   onReset: PropTypes.func,
   onSubmit: PropTypes.func,
   rules: PropTypes.object,
+  throttle: PropTypes.number,
 }
 
 Form.defaultProps = {
   ...defaultProps,
+  throttle: 1000,
 }
 
 export default Form

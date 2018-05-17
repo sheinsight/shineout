@@ -27,9 +27,33 @@ const examples = [
   },
   {
     name: '03-fit',
-    title: locate('适配', 'fit'),
+    title: locate('适应', 'fit'),
     component: require('doc/pages/components/Image/example-03-fit.js').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-03-fit.js'),
+  },
+  {
+    name: '04-alt',
+    title: locate('备用地址 \n 在 src 获取失败的情况下，自动使用 alt 属性设置的地址', 'alt'),
+    component: require('doc/pages/components/Image/example-04-alt.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Image/example-04-alt.js'),
+  },
+  {
+    name: '05-error',
+    title: locate('错误处理 \n alt 属性失效或没有 alt 属性时，会显示 title 属性', 'alt'),
+    component: require('doc/pages/components/Image/example-05-error.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Image/example-05-error.js'),
+  },
+  {
+    name: '06-target',
+    title: locate('跳转', 'Target'),
+    component: require('doc/pages/components/Image/example-06-target.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Image/example-06-target.js'),
+  },
+  {
+    name: '07-group',
+    title: locate('跳转', 'Target'),
+    component: require('doc/pages/components/Image/example-07-group.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Image/example-07-group.js'),
   },
 ]
 

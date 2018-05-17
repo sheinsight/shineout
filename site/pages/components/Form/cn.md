@@ -30,6 +30,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 | onSubmit | function(data) | | 表单提交函数。表单内部校验失败时不会触发。 |
 | rules | object | | 校验规则，详见 Rules |
 | style | object | | 扩展样式 |
+| throttle | number | 1000 | ms, 两次提交间隔时长（防止重复提交）|
 
 ### Rules
 校验规则，格式为 { name: \[ rule ] }

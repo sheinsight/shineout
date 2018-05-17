@@ -1,5 +1,5 @@
 /**
- * cn - 适配
+ * cn - 适应
  * en - fit
  */
 import React from 'react'

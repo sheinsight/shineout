@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { addStack, removeStack } from '../utils/lazyload'
 import { imageClass } from '../styles'
+import showGellery from './events'
 
 const PLACEHOLDER = 0
 const SRC = 1
@@ -18,8 +19,9 @@ class Image extends PureComponent {
     }
 
     this.bindElement = this.bindElement.bind(this)
-    this.handleAlt = this.handleAlt.bind(this)
     this.markToRender = this.markToRender.bind(this)
+    this.handleAlt = this.handleAlt.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
@@ -37,6 +39,12 @@ class Image extends PureComponent {
   }
 
   markToRender() {
+    const { src } = this.props
+    if (!src) {
+      this.handleAlt()
+      return
+    }
+
     delete this.image
     const image = new window.Image()
     image.onload = () => this.setState({ status: SRC })
@@ -56,6 +64,13 @@ class Image extends PureComponent {
     image.onload = () => this.setState({ status: ALT })
     image.onerror = () => this.setState({ status: ERROR })
     image.src = alt
+  }
+
+  handleClick(e) {
+    e.preventDefault()
+    const { onClick, src, href } = this.props
+    if (onClick) onClick()
+    else showGellery({ thumb: src, src: href || src })
   }
 
   renderType(src) {
@@ -114,7 +129,7 @@ class Image extends PureComponent {
     return (
       <Tag
         ref={this.bindElement}
-        href={href}
+        href={target === '_modal' ? 'javascript:;' : href}
         onClick={(href && target === '_modal') ? this.handleClick : undefined}
         target={target}
         className={className}
@@ -135,6 +150,7 @@ Image.propTypes = {
   ]),
   href: PropTypes.string,
   lazy: PropTypes.bool,
+  onClick: PropTypes.func,
   placeholder: PropTypes.element,
   shape: PropTypes.oneOf([
     'rounded',
@@ -165,6 +181,7 @@ Image.defaultProps = {
   lazy: false,
   target: '_modal',
   width: '100%',
+  height: '100%',
 }
 
 export default Image
