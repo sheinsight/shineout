@@ -96,6 +96,8 @@ export default curry((options, Origin) => class extends Component {
 
     const newStyle = Object.assign({ width }, style)
 
+    console.log(options.innerWidth)
+
     const newClassName = classnames(
       inputClass(
         '_',
@@ -103,7 +105,7 @@ export default curry((options, Origin) => class extends Component {
         other.disabled === true && 'disabled',
         options.isGroup && 'group',
         size,
-        newStyle.width && 'inline',
+        !options.innerWidth && newStyle.width && 'inline',
         !border && 'no-border',
         options.noPadding && 'no-padding',
         options.overflow && `overflow-${options.overflow}`,

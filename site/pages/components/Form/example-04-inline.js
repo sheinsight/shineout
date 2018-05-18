@@ -13,7 +13,7 @@ export default function () {
         <Input name="email" />
       </Form.Item>
 
-      <Input name="password" placeholder="Password" type="password" />
+      <Input width={140} name="password" placeholder="Password" type="password" />
 
       <Checkbox name="remember">Remember</Checkbox>
 
