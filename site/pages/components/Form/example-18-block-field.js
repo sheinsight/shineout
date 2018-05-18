@@ -4,12 +4,18 @@
  * en - Nested data
  */
 import React, { PureComponent } from 'react'
-import { Datum, Form, Input, Checkbox } from 'shineout'
+import { Datum, Form, Input, Checkbox, Select } from 'shineout'
+import { fetchSync as fetchCity } from 'doc/data/city'
+
+const citys = fetchCity(20)
 
 const rules = {
   account: {
     age: [
       { min: 18, max: 60, message: 'Age must between {min} and {max}.' },
+    ],
+    city: [
+      { required: true, message: 'Please select your city.' },
     ],
   },
 }
@@ -24,6 +30,7 @@ export default class extends PureComponent {
           lastName: 'Potter',
         },
         age: 18,
+        city: 3,
       },
       favoriteColor: ['cyan', 'yellow'],
     })
@@ -64,6 +71,19 @@ export default class extends PureComponent {
                 defaultValue={0}
               />
             </Form.Item>
+
+            <Form.Item label="City">
+              <Select
+                name="city"
+                data={citys}
+                datum={{ format: 'id' }}
+                keygen="id"
+                renderItem="city"
+                rules={rules.account.city}
+                style={{ width: 200 }}
+              />
+            </Form.Item>
+
           </Form.BlockField>
         </Form.Item>
 
