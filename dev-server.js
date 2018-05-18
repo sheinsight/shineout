@@ -62,6 +62,10 @@ router.get('**/versions.json', async (ctx) => {
   await send(ctx, 'site/versions.json')
 })
 
+router.get('/images/*', async (ctx) => {
+  await send(ctx, `site/${ctx.path}`)
+})
+
 // dev code proxy
 router.get(config.dev.scriptPath, async (ctx) => {
   // console.log(ctx.url)

@@ -1,13 +1,13 @@
 /**
- * cn - 跳转
- * en - Target
+ * cn - 图片组
+ * en - Group
  */
 import React from 'react'
 import { Image } from 'shineout'
 
 export default function () {
   return (
-    <Image.Group>
+    <Image.Group pile>
       {
         ([1, 2, 3, 4]).map(i => (
           <Image

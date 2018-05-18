@@ -45,15 +45,27 @@ const examples = [
   },
   {
     name: '06-target',
-    title: locate('跳转', 'Target'),
+    title: locate('原始图片', 'Target'),
     component: require('doc/pages/components/Image/example-06-target.js').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-06-target.js'),
   },
   {
     name: '07-group',
-    title: locate('跳转', 'Target'),
+    title: locate('图片组', 'Group'),
     component: require('doc/pages/components/Image/example-07-group.js').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-07-group.js'),
+  },
+  {
+    name: '08-group',
+    title: locate('图片组', 'Group'),
+    component: require('doc/pages/components/Image/example-08-group.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Image/example-08-group.js'),
+  },
+  {
+    name: '09-lazy',
+    title: locate('延迟加载 \n lazy 属性为 true 时，图片会在进入屏幕可视区域后加载', 'Lazy load'),
+    component: require('doc/pages/components/Image/example-09-lazy.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Image/example-09-lazy.js'),
   },
 ]
 

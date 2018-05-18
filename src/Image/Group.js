@@ -1,7 +1,8 @@
-import { PureComponent, Children, cloneElement } from 'react'
+import React, { PureComponent, Children, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import showGallery from './events'
 import Image from './Image'
+import { imageClass } from '../styles'
 
 class Group extends PureComponent {
   handleClick(index) {
@@ -20,9 +21,20 @@ class Group extends PureComponent {
   }
 
   render() {
-    const { children, ...props } = this.props
-    return Children.toArray(this.props.children)
-      .map((child, i) => cloneElement(child, { ...props, onClick: this.handleClick.bind(this, i) }))
+    const {
+      children, pile, style, ...props
+    } = this.props
+    return (
+      <div className={imageClass('group', pile && 'pile')} style={style}>
+        {
+          Children.toArray(this.props.children)
+            .map((child, i) => cloneElement(child, {
+              ...props,
+              onClick: this.handleClick.bind(this, i),
+            }))
+        }
+      </div>
+    )
   }
 }
 
@@ -31,6 +43,8 @@ Group.propTypes = {
     PropTypes.element,
     PropTypes.array,
   ]),
+  pile: PropTypes.bool,
+  style: PropTypes.object,
 }
 
 export default Group

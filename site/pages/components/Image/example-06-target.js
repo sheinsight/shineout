@@ -17,8 +17,8 @@ export default function () {
             target={target}
             style={{ marginRight: 12 }}
             shape="thumbnail"
-            src="https://farm1.staticflickr.com/490/20349556755_e181f04e6b_s.jpg"
-            href="https://c1.staticflickr.com/1/490/20349556755_a4e3a5e461_k.jpg"
+            src="/images/1_s.jpg"
+            href="/images/1_b.jpg"
           />
         ))
       }
