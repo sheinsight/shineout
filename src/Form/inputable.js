@@ -206,6 +206,7 @@ export default curry(({ delay = 0 }, Origin) => consumer(class extends PureCompo
     return (
       <Origin
         {...other}
+        formDatum={formDatum}
         error={this.state.error}
         value={this.getValue()}
         onChange={this.handleChange}
