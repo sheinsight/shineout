@@ -1,10 +1,9 @@
 /**
- * cn - 表单
- *    -- Card.Submit 可以用来触发 Card 内部表单提交
- * en - Form
+ * cn - 折叠
+ * en - Collapse
  */
 import React from 'react'
-import { Card } from 'shineout'
+import { Card, DatePicker } from 'shineout'
 
 export default function () {
   return (
@@ -12,7 +11,7 @@ export default function () {
       <Card.Header>Header</Card.Header>
 
       <Card.Body>
-        <div style={{ height: 100 }}>Body</div>
+        <div style={{ height: 100 }}><DatePicker /></div>
       </Card.Body>
     </Card>
   )

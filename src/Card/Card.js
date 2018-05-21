@@ -48,6 +48,7 @@ class Card extends PureComponent {
 
     const provierValue = {
       onCollapse: this.handleCollapse,
+      collapsible: this.props.collapsible,
       collapsed: this.getCollapsed(),
       onSubmit: this.handleSubmit,
     }

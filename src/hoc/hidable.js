@@ -60,6 +60,7 @@ export default function (Component, type = ['fade'], duration = 360) {
 
             setTimeout(() => {
               es.height = 'auto'
+              es.overflow = ''
             }, duration)
           }
         }
@@ -72,6 +73,7 @@ export default function (Component, type = ['fade'], duration = 360) {
       if (hasCollapse) {
         this.height = this.element.offsetHeight
         this.element.style.height = `${this.height}px`
+        this.element.style.overflow = 'hidden'
 
         setTimeout(() => {
           this.element.style.height = 0

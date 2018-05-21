@@ -33,7 +33,7 @@ const examples = [
   },
   {
     name: '4-collapse',
-    title: locate('表单 \n Card.Submit 可以用来触发 Card 内部表单提交', 'Form'),
+    title: locate('折叠', 'Collapse'),
     component: require('doc/pages/components/Card/example-4-collapse.js').default,
     rawText: require('!raw-loader!doc/pages/components/Card/example-4-collapse.js'),
   },

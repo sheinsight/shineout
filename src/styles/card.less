@@ -24,12 +24,22 @@
     padding: @panel-heading-padding;
     background-color: @panel-header-bg;
     border-bottom: 1px solid @panel-inner-border;
+    margin-bottom: -1px;
 
     .@{card-prefix}-indicator {
       display: inline-block;
-      width: 12px;
-      height: 12px;
-      margin-right: 8px;
+      width: @panel-indicator-size;
+      height: @panel-indicator-size;
+      margin-right: @panel-indicator-size;
+
+      svg {
+        transform: rotate(90deg);
+        transition: transform 0.2s linear;
+      }
+
+      &.@{card-prefix}-collapsed svg {
+        transform: rotate(0deg);
+      }
     }
   }
 
