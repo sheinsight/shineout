@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Button from '../Button'
 import Spin from '../Spin'
-import { consumer } from './context'
 
 const spinStyle = { display: 'inline-block', marginRight: 8 }
 
@@ -13,12 +12,12 @@ class Submit extends PureComponent {
   }
 
   handleClick() {
-    this.props.onClick()
+    this.props.onSubmit()
   }
 
   render() {
     const {
-      onClick, loading, children, ...other
+      onSubmit, loading, children, ...other
     } = this.props
     return (
       <Button type="primary" {...other} onClick={this.handleClick}>
@@ -37,7 +36,8 @@ class Submit extends PureComponent {
 Submit.propTypes = {
   children: PropTypes.any,
   loading: PropTypes.bool,
-  onClick: PropTypes.func,
+  onCollapse: PropTypes.func,
+  onSubmit: PropTypes.func,
 }
 
-export default consumer(Submit)
+export default Submit

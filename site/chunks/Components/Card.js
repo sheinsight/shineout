@@ -31,6 +31,12 @@ const examples = [
     component: require('doc/pages/components/Card/example-3-form.js').default,
     rawText: require('!raw-loader!doc/pages/components/Card/example-3-form.js'),
   },
+  {
+    name: '4-collapse',
+    title: locate('表单 \n Card.Submit 可以用来触发 Card 内部表单提交', 'Form'),
+    component: require('doc/pages/components/Card/example-4-collapse.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Card/example-4-collapse.js'),
+  },
 ]
 
 const codes = undefined

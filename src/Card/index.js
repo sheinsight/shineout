@@ -1,20 +1,12 @@
-import React from 'react'
-import classnames from 'classnames'
 import Card from './Card'
 import Submit from './Submit'
-import { cardClass } from '../styles'
+import panel from './Panel'
+import { consumer } from './context'
+import Header from './Header'
 
-function panel(cn) {
-  // eslint-disable-next-line
-  return ({ align, className, ...props }) => {
-    const newClassName = classnames(cardClass(cn, align), className)
-    return <div {...props} className={newClassName} />
-  }
-}
-
-Card.Header = panel('header')
+Card.Header = consumer(Header, ['collapsed', 'onCollapse'])
 Card.Body = panel('body')
 Card.Footer = panel('footer')
-Card.Submit = Submit
+Card.Submit = consumer(Submit, ['onSubmit'])
 
 export default Card
