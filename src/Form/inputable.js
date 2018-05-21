@@ -102,7 +102,7 @@ export default curry(({ delay = 0 }, Origin) => consumer(class extends PureCompo
 
     if (value === undefined || Array.isArray(name)) value = this.getValue()
 
-    if (typeof name === 'string') {
+    if (typeof name === 'string' || !name) {
       let rules = [...this.props.rules]
       if (formDatum && name) {
         rules = rules.concat(formDatum.getRule(name))
