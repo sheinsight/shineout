@@ -26,7 +26,8 @@
     "Message": "消息提示",
     "Icon": "图标",
     "Spin": "加载中",
-    "Modal": "弹出框"
+    "Modal": "弹出框",
+    "Tooltip": "提示"
   },
   "Layout": {
     "Card": "卡片",

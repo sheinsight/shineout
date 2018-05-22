@@ -135,6 +135,12 @@ const pages = [
     level: 2,
     component: loadable(() => import('./Spin')),
   },
+  {
+    name: 'Tooltip',
+    cn: '提示',
+    level: 2,
+    component: loadable(() => import('./Tooltip')),
+  },
   'Layout',
   {
     name: 'Card',
