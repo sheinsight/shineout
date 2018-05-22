@@ -21,6 +21,16 @@
 
 <br />
 
+### Card.Accordion
+
+| 属性 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| active | number | 无 | 打开的索引，全关闭时为 -1，用于受控状态 |
+| defaultActive | number | 0 | 默认打开的索引，用于非受控状态 |
+| onChange | function | 无 | 面板打开回调 |
+
+<br />
+
 #### Card.Submit
 
 同 [Button](#/components/Button)

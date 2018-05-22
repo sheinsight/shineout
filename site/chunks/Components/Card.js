@@ -37,6 +37,12 @@ const examples = [
     component: require('doc/pages/components/Card/example-4-collapse.js').default,
     rawText: require('!raw-loader!doc/pages/components/Card/example-4-collapse.js'),
   },
+  {
+    name: '5-accordion',
+    title: locate('手风琴 \n 使用 Card.Accordion 可以使一组 Card 实现手风琴效果（每次打开一个 Card）', 'Accordion'),
+    component: require('doc/pages/components/Card/example-5-accordion.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Card/example-5-accordion.js'),
+  },
 ]
 
 const codes = undefined
