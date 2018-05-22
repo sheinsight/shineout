@@ -153,6 +153,7 @@ class Select extends PureComponent {
 
     const classList = (event.target.className || '').split(' ')
     if (classList.indexOf(selectClass('option')) >= 0) return
+    if (classList.indexOf(selectClass('close')) >= 0) return
 
     if (!focus && this.inputLocked) {
       this.inputLocked = false
