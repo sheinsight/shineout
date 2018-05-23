@@ -38,13 +38,29 @@ export default function (show, hide) {
           left = scrollLeft + rect.left + rect.width
           top = scrollTop + rect.top
           break
+        case 'left-top':
+          left = scrollLeft + rect.left
+          top = scrollTop + rect.top
+          break
         case 'left':
           left = scrollLeft + rect.left
           top = scrollTop + rect.top + (rect.height / 2)
           break
+        case 'left-bottom':
+          left = scrollLeft + rect.left
+          top = scrollTop + rect.bottom
+          break
+        case 'right-top':
+          left = scrollLeft + rect.left + rect.width
+          top = scrollTop + rect.top
+          break
         case 'right':
           left = scrollLeft + rect.left + rect.width
           top = scrollTop + rect.top + (rect.height / 2)
+          break
+        case 'right-bottom':
+          left = scrollLeft + rect.left + rect.width
+          top = scrollTop + rect.bottom
           break
         case 'bottom-left':
           left = scrollLeft + rect.left
@@ -70,7 +86,7 @@ export default function (show, hide) {
     }
 
     render() {
-      const { children, trigger, style } = this.props
+      const { children, trigger } = this.props
       const events = {}
 
       if (trigger === 'hover') {
@@ -82,18 +98,25 @@ export default function (show, hide) {
         }
       }
 
-      const newStyle = Object.assign({ display: 'inline-block' }, style)
+      const style = Object.assign({ display: 'inline-block' }, this.props.style)
 
-      return <span {...events} style={newStyle}>{children}</span>
+      return (
+        <span {...events} style={style}>
+          { typeof children === 'function' ? children(this.handleHide) : children }
+        </span>
+      )
     }
   }
 
   Container.propTypes = {
-    children: PropTypes.element,
+    children: PropTypes.oneOfType([
+      PropTypes.element,
+      PropTypes.func,
+    ]).isRequired,
     className: PropTypes.string,
-    content: PropTypes.element,
+    content: PropTypes.any,
     delay: PropTypes.number,
-    position: PropTypes.oneOf(['top-left', 'top', 'top-right', 'left', 'right', 'bottom-left', 'bottom', 'bottom-right']),
+    position: PropTypes.oneOf(['top-left', 'top', 'top-right', 'left-top', 'left', 'left-bottom', 'right-top', 'right', 'right-bottom', 'bottom-left', 'bottom', 'bottom-right']),
     style: PropTypes.object,
     tip: PropTypes.string,
     trigger: PropTypes.oneOf(['click', 'hover']),

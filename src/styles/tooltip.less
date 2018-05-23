@@ -4,11 +4,11 @@
 @tooltip-prefix: ~"@{so-prefix}-tooltip";
 
 .@{tooltip-prefix} {
-  @keyframe-opacity: ~"@{so-prefix}-kf-opacity";
-  @keyframe-top: ~"@{so-prefix}-kf-top";
-  @keyframe-right: ~"@{so-prefix}-kf-right";
-  @keyframe-bottom: ~"@{so-prefix}-kf-bottom";
-  @keyframe-left: ~"@{so-prefix}-kf-left";
+  @keyframe-opacity: ~"@{tooltip-prefix}-kf-opacity";
+  @keyframe-top: ~"@{tooltip-prefix}-kf-top";
+  @keyframe-right: ~"@{tooltip-prefix}-kf-right";
+  @keyframe-bottom: ~"@{tooltip-prefix}-kf-bottom";
+  @keyframe-left: ~"@{tooltip-prefix}-kf-left";
 
   @keyframes @keyframe-opacity {
     0% {
@@ -20,33 +20,33 @@
   
   @keyframes @keyframe-top {
     0% {
-      transform: translate(-50%, -90%);
+      margin-top: 0;
     } 100% {
-      transform: translate(-50%, -100%);
+      margin-top: -@tooltip-margin - @tooltip-arrow-width;
     }
   }
   
   @keyframes @keyframe-bottom {
     0% {
-      transform: translate(-50%, -10%);
+      margin-top: 0;
     } 100% {
-      transform: translate(-50%, 0);
+      margin-top: @tooltip-margin + @tooltip-arrow-width;
     }
   }
   
   @keyframes @keyframe-left {
     0% {
-      transform: translate(-95%, -50%);
+      margin-left: 0;
     } 100% {
-      transform: translate(-100%, -50%);
+      margin-left: -@tooltip-margin - @tooltip-arrow-width;
     }
   }
   
   @keyframes @keyframe-right {
     0% {
-      transform: translate(-5%, -50%);
+      margin-left: 0;
     } 100% {
-      transform: translate(0, -50%);
+      margin-left: @tooltip-margin + @tooltip-arrow-width;
     }
   }
 

@@ -130,6 +130,12 @@ const pages = [
     component: loadable(() => import('./Modal')),
   },
   {
+    name: 'Popover',
+    cn: '气泡',
+    level: 2,
+    component: loadable(() => import('./Popover')),
+  },
+  {
     name: 'Spin',
     cn: '加载中',
     level: 2,
