@@ -32,6 +32,7 @@
   },
   "Layout": {
     "Card": "卡片",
+    "Grid": "栅格",
     "Sticky": "附着"
   },
   "Navigation": {

@@ -155,6 +155,12 @@ const pages = [
     component: loadable(() => import('./Card')),
   },
   {
+    name: 'Grid',
+    cn: '栅格',
+    level: 2,
+    component: loadable(() => import('./Grid')),
+  },
+  {
     name: 'Sticky',
     cn: '附着',
     level: 2,
