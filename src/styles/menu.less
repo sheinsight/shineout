@@ -10,7 +10,6 @@
   padding-left: 0; // Override default ul/ol
   list-style: none;
   height: 100%;
-  overflow-y: scroll;
   box-shadow: @menu-box-shadow-base;
   color: @menu-item-color;
   background: @menu-bg;
@@ -58,8 +57,14 @@
     a {
       color: @menu-item-color;
     }
-    &-ul {
-
+    &-active {
+      color: @colors-blue;
+      .@{menu-prefix}-item > a {
+        color: @colors-blue;
+      }
+      a {
+        color: @colors-blue;
+      }
     }
   }
   &-submenu,
