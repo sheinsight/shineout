@@ -14,6 +14,17 @@
     }
   }
 
+  .popover-variant(@background; @border; @text-color) {
+    border-color: @border;
+    .@{popover-prefix}-content {
+      background: @background;
+    }
+    .@{popover-prefix}-arrow {
+      border-color: @border;
+      background: @background;
+    }
+  }
+
   position: absolute;
   z-index: @zindex-popover;
   display: block;
@@ -157,5 +168,37 @@
     position: relative;
     background-color: @popover-bg;
     z-index: 2;
+  }
+
+  &-info {
+    .popover-variant(@alert-info-bg; @alert-info-border; @alert-info-text);
+
+    .@{popover-prefix}-icon path {
+      fill: @colors-info;
+    }
+  }
+
+  &-warning {
+    .popover-variant(@alert-warning-bg; @alert-warning-border; @alert-warning-text);
+
+    .@{popover-prefix}-icon path {
+      fill: @colors-warning;
+    }
+  }
+
+  &-success {
+    .popover-variant(@alert-success-bg; @alert-success-border; @alert-success-text);
+
+    .@{popover-prefix}-icon path {
+      fill: @colors-success;
+    }
+  }
+  
+  &-danger, &-error {
+    .popover-variant(@alert-danger-bg; @alert-danger-border; @alert-danger-text);
+
+    .@{popover-prefix}-icon path {
+      fill: @colors-danger;
+    }
   }
 }

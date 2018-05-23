@@ -33,9 +33,21 @@ const examples = [
   },
   {
     name: '4-func',
-    title: locate('关闭事件', 'onClose'),
+    title: locate('关闭事件 \n content 属性可以为一个函数，会传递 close 函数，用来在弹出面板内部处理关闭事件', 'onClose'),
     component: require('doc/pages/components/Popover/example-4-func.js').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-4-func.js'),
+  },
+  {
+    name: '5-type',
+    title: locate('样式', 'type'),
+    component: require('doc/pages/components/Popover/example-5-type.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Popover/example-5-type.js'),
+  },
+  {
+    name: '6-type',
+    title: locate(' \n 可以通过 background 和 color 自定义样式', ''),
+    component: require('doc/pages/components/Popover/example-6-type.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Popover/example-6-type.js'),
   },
 ]
 

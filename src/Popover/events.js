@@ -38,7 +38,7 @@ div.addEventListener('mouseenter', () => {
 
 export function show(props) {
   const {
-    position, style, content, background, border, noArrow,
+    position, style, content, background, border, noArrow, type,
   } = props
 
   if (timer) clearTimeout(timer)
@@ -55,7 +55,7 @@ export function show(props) {
   div.style.borderColor = border || ''
   arrow.style.borderColor = border || ''
 
-  const className = popoverClass('_', position)
+  const className = popoverClass('_', position, type)
 
   arrow.style.display = noArrow ? 'none' : 'block'
 
