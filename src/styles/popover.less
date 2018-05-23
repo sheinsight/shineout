@@ -23,13 +23,14 @@
   background-clip: padding-box;
   border-radius: @border-radius-base;
   animation: @keyframe-opacity .5s ease;
+  border: 1px solid @popover-arrow-outer-color;
   box-shadow: @popover-box-shadow;
 
   &-arrow {
     padding: @popover-arrow-width * 0.7;
     display: inline-block;
     position: absolute;
-    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1); 
+    border: 1px solid @popover-arrow-outer-color;
     background-color: @popover-bg;
     z-index: 1;
   }

@@ -22,6 +22,8 @@ export function hide(delay = 500) {
   }, delay)
 }
 
+const hide0 = hide.bind(null, 0)
+
 function clickaway(e) {
   if (div.contains(e.target)) return
   hide(0)
@@ -63,7 +65,8 @@ export function show(props) {
     div.className = className
   }, 0)
 
-  ReactDOM.render(content, inner)
+  const newContent = typeof content === 'function' ? content(hide0) : content
+  ReactDOM.render(newContent, inner)
 
   document.addEventListener('click', clickaway)
 }

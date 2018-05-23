@@ -25,6 +25,18 @@ const examples = [
     component: require('doc/pages/components/Popover/example-2-position.js').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-2-position.js'),
   },
+  {
+    name: '3-click',
+    title: locate('点击触发', 'Click'),
+    component: require('doc/pages/components/Popover/example-3-click.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Popover/example-3-click.js'),
+  },
+  {
+    name: '4-func',
+    title: locate('关闭事件', 'onClose'),
+    component: require('doc/pages/components/Popover/example-4-func.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Popover/example-4-func.js'),
+  },
 ]
 
 const codes = undefined

@@ -6,7 +6,7 @@ import React from 'react'
 import { Tooltip } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
-const fontStyle = { fontSize: 20, lineHeight: 1 }
+const fontStyle = { fontSize: 20, lineHeight: 1, margin: 4 }
 
 export default function () {
   return (

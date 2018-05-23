@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import { PureComponent, cloneElement } from 'react'
 import { findDOMNode } from 'react-dom'
 import PropTypes from 'prop-types'
 
@@ -98,26 +98,20 @@ export default function (show, hide) {
         }
       }
 
-      const style = Object.assign({ display: 'inline-block' }, this.props.style)
-
-      return (
-        <span {...events} style={style}>
-          { typeof children === 'function' ? children(this.handleHide) : children }
-        </span>
-      )
+      return cloneElement(children, events)
     }
   }
 
   Container.propTypes = {
-    children: PropTypes.oneOfType([
+    children: PropTypes.element.isRequired,
+    // eslint-disable-next-line
+    content: PropTypes.oneOfType([
       PropTypes.element,
       PropTypes.func,
-    ]).isRequired,
-    className: PropTypes.string,
-    content: PropTypes.any,
+    ]),
     delay: PropTypes.number,
     position: PropTypes.oneOf(['top-left', 'top', 'top-right', 'left-top', 'left', 'left-bottom', 'right-top', 'right', 'right-bottom', 'bottom-left', 'bottom', 'bottom-right']),
-    style: PropTypes.object,
+    // eslint-disable-next-line
     tip: PropTypes.string,
     trigger: PropTypes.oneOf(['click', 'hover']),
   }

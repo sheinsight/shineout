@@ -21,7 +21,7 @@ const examples = [
   },
   {
     name: '2-click',
-    title: locate('点击事件 \n 默认触发事件为 hover，如果需要点击触发，可以设置 trigger 为 click', 'Click'),
+    title: locate('点击触发 \n 默认触发事件为 hover，如果需要点击触发，可以设置 trigger 为 click', 'Click'),
     component: require('doc/pages/components/Tooltip/example-2-click.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tooltip/example-2-click.js'),
   },

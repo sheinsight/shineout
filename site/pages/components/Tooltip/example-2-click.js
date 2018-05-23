@@ -1,5 +1,5 @@
 /**
- * cn - 点击事件
+ * cn - 点击触发
  *    -- 默认触发事件为 hover，如果需要点击触发，可以设置 trigger 为 click
  * en - Click
  */
@@ -7,7 +7,7 @@ import React from 'react'
 import { Tooltip } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
-const fontStyle = { fontSize: 20, lineHeight: 1 }
+const fontStyle = { fontSize: 20, lineHeight: 1, margin: 4 }
 
 export default function () {
   return (
