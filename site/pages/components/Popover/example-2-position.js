@@ -6,11 +6,11 @@ import React from 'react'
 import { Popover } from 'shineout'
 
 const positions = [
-  [null, 'top-left', 'top', 'top-right', null],
-  ['left-top', null, null, null, 'right-top'],
-  ['left', null, null, null, 'right'],
-  ['left-bottom', null, null, null, 'right-bottom'],
   [null, 'bottom-left', 'bottom', 'bottom-right', null],
+  ['right-top', null, null, null, 'left-top'],
+  ['right', null, null, null, 'left'],
+  ['right-bottom', null, null, null, 'left-bottom'],
+  [null, 'top-left', 'top', 'top-right', null],
 ]
 
 const style = {
@@ -18,7 +18,7 @@ const style = {
 }
 
 export default function () {
-  const content = <div style={{ width: 200, padding: 20 }}>Some text</div>
+  const content = <div style={{ width: 240, padding: 30 }}>Some text</div>
   return positions.map((row, i) => (
     <div key={i}>
       {

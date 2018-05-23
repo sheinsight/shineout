@@ -125,7 +125,7 @@ const pages = [
   },
   {
     name: 'Modal',
-    cn: '弹出框',
+    cn: '对话框',
     level: 2,
     component: loadable(() => import('./Modal')),
   },
