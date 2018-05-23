@@ -1,5 +1,6 @@
 /**
- * cn - 组合 Input.Group \n Icon, span, string, Button 类型可以直接放入 Input.Group 中。需要背景色可以放在 b 标签中。
+ * cn - 组合
+ *  . -- Icon, span, string, Button 类型可以直接放入 Input.Group 中。需要背景色可以放在 b 标签中。
  * en - Group
  */
 import React from 'react'

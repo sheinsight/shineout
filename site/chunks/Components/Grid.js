@@ -19,6 +19,12 @@ const examples = [
     component: require('doc/pages/components/Grid/example-01-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Grid/example-01-base.js'),
   },
+  {
+    name: '02-offset',
+    title: locate('Offset', 'Offset'),
+    component: require('doc/pages/components/Grid/example-02-offset.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Grid/example-02-offset.js'),
+  },
 ]
 
 const codes = undefined

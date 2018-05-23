@@ -53,6 +53,7 @@ Option.propTypes = {
   data: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string,
+    PropTypes.number,
   ]).isRequired,
   index: PropTypes.number,
   isActive: PropTypes.bool,

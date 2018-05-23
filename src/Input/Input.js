@@ -31,12 +31,13 @@ class Input extends PureComponent {
 
   render() {
     const {
-      type, value, defaultValue, digits, ...other
+      type, value, defaultValue, digits, className, ...other
     } = this.props
 
     return (
       <input
         {...cleanProps(other)}
+        className={className}
         type={type === 'password' ? type : 'text'}
         value={value}
         onChange={this.handleChange}
@@ -46,6 +47,7 @@ class Input extends PureComponent {
 }
 
 Input.propTypes = {
+  className: PropTypes.string,
   defaultValue: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,

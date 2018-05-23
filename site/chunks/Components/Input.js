@@ -26,22 +26,22 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Input/example-2-size.js'),
   },
   {
-    name: '3-type',
+    name: '3-number',
     title: locate('数字 \n type=number 时，会做一次校验，禁止输入非数字类型字符，并且根据 digits 属性限制小数位数', 'number type'),
-    component: require('doc/pages/components/Input/example-3-type.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Input/example-3-type.js'),
+    component: require('doc/pages/components/Input/example-3-number.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Input/example-3-number.js'),
   },
   {
-    name: '4-group',
-    title: locate('组合 Input.Group \n Icon, span, string, Button 类型可以直接放入 Input.Group 中。需要背景色可以放在 b 标签中。', 'Group'),
-    component: require('doc/pages/components/Input/example-4-group.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Input/example-4-group.js'),
+    name: '4-number',
+    title: locate(' \n Input.Number 组件，可以通过鼠标和上下箭头辅助输入', 'number type'),
+    component: require('doc/pages/components/Input/example-4-number.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Input/example-4-number.js'),
   },
   {
-    name: '5-disabled',
-    title: locate('禁用', 'Disabled'),
-    component: require('doc/pages/components/Input/example-5-disabled.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Input/example-5-disabled.js'),
+    name: '5-group',
+    title: locate('组合 \n Icon, span, string, Button 类型可以直接放入 Input.Group 中。需要背景色可以放在 b 标签中。', 'Group'),
+    component: require('doc/pages/components/Input/example-5-group.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Input/example-5-group.js'),
   },
   {
     name: '6-tip',
@@ -54,6 +54,12 @@ const examples = [
     title: locate('校验 \n 设置了 rules，会自动校验输入数据，设置了 popover 会在指定位置弹出 \n 如果没有设置 popover，不会弹出错误提示。 \n 有错误时，提示框不会隐藏。', 'validate'),
     component: require('doc/pages/components/Input/example-7-validate.js').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-7-validate.js'),
+  },
+  {
+    name: '8-disabled',
+    title: locate('禁用', 'Disabled'),
+    component: require('doc/pages/components/Input/example-8-disabled.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Input/example-8-disabled.js'),
   },
 ]
 

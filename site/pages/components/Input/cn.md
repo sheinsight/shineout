@@ -17,3 +17,13 @@
 | tip | string \| ReactElement | | 提示信息 |
 | type | string | | 同原生 input 标签的 type |
 | value | string \| number | | defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖<br />在Form中，value会被表单接管，value无效 |
+
+### Input.Number
+
+基本 API 和上表相同，特定的 API 如下：
+
+| 属性 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| max | number | 无 | 最大值 |
+| min | number | 无 | 最小值 |
+| step | number | 1 | 改变数字跨度，可为小数 |

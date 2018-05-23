@@ -198,6 +198,39 @@
     }
   }
 
+  &-number-up, &-number-down {
+    position: absolute;
+    line-height: 1;
+    width: 18px;
+    padding: 0 4px;
+    right: 0;
+    border-left: solid 1px @gray-200;
+    svg path {
+      fill: @gray-500;
+    }
+
+    &:hover svg path {
+      fill: @colors-primary;
+    }
+  }
+
+  &-number-up {
+    top: 0;
+    bottom: 50%;
+    border-bottom: solid 1px @gray-200;
+    svg {
+      transform: rotate(-90deg);
+    }
+  }
+
+  &-number-down {
+    top: 50%;
+    bottom: 0;
+    svg {
+      transform: rotate(90deg);
+    }
+  }
+
   &-group&-small, &-group&-large {
     padding: 0;
   }
@@ -380,6 +413,10 @@
     z-index: 2;
     resize: none;
     padding: @padding-base-vertical @padding-base-horizontal;
+  }
+
+  & input&-number {
+    padding-right: 12px;
   }
 
   textarea&-shadow {
