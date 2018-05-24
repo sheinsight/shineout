@@ -7,6 +7,7 @@ export default class Grid extends PureComponent {
   static propTypes = {
     children: PropTypes.any,
     className: PropTypes.string,
+    gutter: PropTypes.number,
     offset: PropTypes.number,
     responsive: PropTypes.string,
     stretch: PropTypes.bool,
@@ -18,7 +19,7 @@ export default class Grid extends PureComponent {
 
   render() {
     const {
-      width = 1, offset, responsive, style, stretch, children, ...other
+      width = 1, offset, responsive, stretch, children, gutter, ...other
     } = this.props
 
     let autoCount = 0
@@ -37,16 +38,25 @@ export default class Grid extends PureComponent {
       getGrid({ width, offset, responsive }),
     )
 
+    const style = Object.assign({}, this.props.style)
+    if (gutter && gutter > 0) {
+      style.width = 'auto'
+      style.display = 'block'
+      style.marginLeft = `${0 - (gutter / 2)}px`
+      style.marginRight = `${0 - (gutter / 2)}px`
+    }
+
     return (
-      <div style={style} className={className} {...other}>
+      <div {...other} style={style} className={className}>
         {
           Children.toArray(children).map((child) => {
             if (child.type && child.type.isGrid) {
-              if (child.props.width && !stretch) return child
-
-              const pps = {}
+              const pps = { style: Object.assign({}, child.props.style) }
               if (!child.props.width) pps.width = autoWidth
-              if (stretch) pps.style = { ...child.props.style, minHeight: '100%', height: '100%' }
+              if (stretch) pps.style = { ...pps.style, minHeight: '100%', height: '100%' }
+              if (gutter && gutter > 0) {
+                pps.style = { ...pps.style, paddingLeft: gutter / 2, paddingRight: gutter / 2 }
+              }
 
               return cloneElement(child, pps)
             }

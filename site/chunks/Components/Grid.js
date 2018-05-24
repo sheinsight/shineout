@@ -25,6 +25,18 @@ const examples = [
     component: require('doc/pages/components/Grid/example-02-offset.js').default,
     rawText: require('!raw-loader!doc/pages/components/Grid/example-02-offset.js'),
   },
+  {
+    name: '03-nested',
+    title: locate('嵌套', 'Nested'),
+    component: require('doc/pages/components/Grid/example-03-nested.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Grid/example-03-nested.js'),
+  },
+  {
+    name: '04-gutter',
+    title: locate('间距 \n * 注意：设置 gutter 的栅格不能直接嵌套在另一个栅格中', 'Gutter'),
+    component: require('doc/pages/components/Grid/example-04-gutter.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Grid/example-04-gutter.js'),
+  },
 ]
 
 const codes = undefined
