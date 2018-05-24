@@ -41,7 +41,7 @@ export default class {
   }
 
   add(data) {
-    if (!data) return
+    if (data === undefined || data === null) return
 
     let raws = Array.isArray(data) ? data : [data]
     raws = raws.filter((v) => {
@@ -54,7 +54,7 @@ export default class {
     const values = []
     for (const r of raws) {
       const v = this.format(r)
-      if (v) values.push(v)
+      if (v !== undefined) values.push(v)
     }
 
     this.values = this.values.concat(values)

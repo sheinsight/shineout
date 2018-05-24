@@ -4,6 +4,7 @@ import classnames from 'classnames'
 import { getProps } from '../utils/proptypes'
 import { getKey } from '../utils/uid'
 import Checkbox from './Checkbox'
+import { Provider } from './context'
 import { checkinputClass } from '../styles'
 
 class CheckboxGroup extends PureComponent {
@@ -12,6 +13,7 @@ class CheckboxGroup extends PureComponent {
 
     this.handleClick = this.handleClick.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
+    this.handleRawChange = this.handleRawChange.bind(this)
   }
 
   componentDidMount() {
@@ -47,6 +49,15 @@ class CheckboxGroup extends PureComponent {
     }
   }
 
+  handleRawChange(value, checked) {
+    const { datum } = this.props
+    if (checked) {
+      datum.add(value)
+    } else {
+      datum.remove(value)
+    }
+  }
+
   render() {
     const {
       block, data, datum, disabled, keygen, children,
@@ -56,6 +67,16 @@ class CheckboxGroup extends PureComponent {
       checkinputClass('group', block && 'block'),
       this.props.className,
     )
+
+    if (data === undefined) {
+      return (
+        <div className={className}>
+          <Provider value={{ onRawChange: this.handleRawChange, checked: datum.check.bind(datum) }}>
+            {children}
+          </Provider>
+        </div>
+      )
+    }
 
     return (
       <div className={className}>
@@ -82,7 +103,7 @@ class CheckboxGroup extends PureComponent {
 CheckboxGroup.propTypes = {
   ...getProps('children', 'disabled', 'keygen'),
   block: PropTypes.bool,
-  data: PropTypes.array.isRequired,
+  data: PropTypes.array,
   datum: PropTypes.object.isRequired,
 
   renderItem: PropTypes.oneOfType([

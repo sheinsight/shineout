@@ -22,6 +22,7 @@ export default function (type) {
 
     getChecked() {
       const { checked, value, htmlValue } = this.props
+      if (typeof checked === 'function') return checked(htmlValue)
       if (checked !== undefined) return checked
       if (this.state.checked === undefined) return value === htmlValue
       return this.state.checked
@@ -33,10 +34,15 @@ export default function (type) {
     }
 
     handleChange(e) {
-      const { onChange, index, inputable } = this.props
+      const {
+        onChange, onRawChange, index, inputable,
+      } = this.props
       const { checked } = e.target
       this.setState({ checked })
       let value = inputable ? this.props.value : this.props.htmlValue
+
+      if (onRawChange) onRawChange(value, checked)
+
       value = checked ? value : undefined
       if (onChange) onChange(value, checked, index)
     }
@@ -92,11 +98,15 @@ export default function (type) {
 
   CheckItem.propTypes = {
     ...getProps('disabled'),
-    checked: PropTypes.oneOf([true, false, 'indeterminate']),
+    checked: PropTypes.oneOfType([
+      PropTypes.oneOf([true, false, 'indeterminate']),
+      PropTypes.func,
+    ]),
     inputable: PropTypes.bool,
     htmlValue: PropTypes.any,
     index: PropTypes.number,
     onChange: PropTypes.func,
+    onRawChange: PropTypes.func,
     value: PropTypes.any,
   }
 

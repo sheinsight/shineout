@@ -44,6 +44,12 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-4-group.js'),
   },
   {
+    name: '4-rawgroup',
+    title: locate(' \n React 组件方式', ''),
+    component: require('doc/pages/components/Checkbox/example-4-rawgroup.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Checkbox/example-4-rawgroup.js'),
+  },
+  {
     name: '5-block',
     title: locate('垂直布局', 'Block'),
     component: require('doc/pages/components/Checkbox/example-5-block.js').default,

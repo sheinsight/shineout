@@ -20,6 +20,12 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Radio/example-1-base.js'),
   },
   {
+    name: '1-raw',
+    title: locate(' \n React 组件方式调用', ''),
+    component: require('doc/pages/components/Radio/example-1-raw.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Radio/example-1-raw.js'),
+  },
+  {
     name: '2-block',
     title: locate('垂直布局', 'Block'),
     component: require('doc/pages/components/Radio/example-2-block.js').default,
