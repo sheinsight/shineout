@@ -13,7 +13,8 @@
     "Radio": "单选框",
     "Rate": "评分",
     "Select": "选择框",
-    "Textarea": "多行文本框"
+    "Textarea": "多行文本框",
+    "Tree": "树形选择"
   },
   "Data": {
     "Datum.Form": "表单处理",

@@ -1,0 +1,5 @@
+# Tooltip
+
+<example />
+
+## API

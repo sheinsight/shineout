@@ -7,8 +7,8 @@ module.exports = {
     webpackPort: 3001,
     scriptPath: '/*.*',
     scripts: [
-      '/react/16.2.0/umd/react.production.min.js',
-      '/react-dom/16.2.0/umd/react-dom.production.min.js',
+      '/react/16.4.0/umd/react.production.min.js',
+      '/react-dom/16.4.0/umd/react-dom.production.min.js',
       '/prop-types/15.6.0/prop-types.min.js',
       '/highlight.js/9.12.0/highlight.min.js',
     ],

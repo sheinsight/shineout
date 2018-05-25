@@ -79,6 +79,12 @@ const pages = [
     level: 2,
     component: loadable(() => import('./Textarea')),
   },
+  {
+    name: 'Tree',
+    cn: '树形选择',
+    level: 2,
+    component: loadable(() => import('./Tree')),
+  },
   'Data',
   {
     name: 'Datum.Form',
