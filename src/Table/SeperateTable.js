@@ -268,7 +268,7 @@ class SeperateTable extends PureComponent {
   }
 
   render() {
-    const { columns, fixed } = this.props
+    const { columns, fixed, width } = this.props
     const { colgroup, scrollLeft } = this.state
 
     const floatClass = []
@@ -283,11 +283,8 @@ class SeperateTable extends PureComponent {
     }
 
     return [
-      <div
-        key="head"
-        className={tableClass('head', ...floatClass)}
-      >
-        <table ref={this.bindThead}>
+      <div key="head" className={tableClass('head', ...floatClass)}>
+        <table style={{ width }} ref={this.bindThead}>
           <Colgroup colgroup={colgroup} columns={columns} />
           <Thead {...this.props} />
         </table>
