@@ -38,7 +38,7 @@ class Container extends PureComponent {
     const format = this.getFormat()
     if (range) {
       const newValue = value.map((v) => {
-        if (!value) return undefined
+        if (!v) return undefined
         return utils.format(this.parseDate(v), format)
       })
       this.props.onChange(newValue)
