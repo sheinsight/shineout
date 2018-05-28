@@ -101,7 +101,7 @@ plugins: [
 plugins: [
   new webpack.DefinePlugin({
     'process.env': {
-      LOCALE: 'zh-CN'
+      LOCALE: JSON.stringify('zh-CN')
     },
   }),
 ],

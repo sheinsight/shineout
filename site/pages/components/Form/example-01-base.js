@@ -3,12 +3,13 @@
  * en - Base
  */
 import React, { PureComponent } from 'react'
-import { Form, Input, Checkbox, Textarea, Select } from 'shineout'
+import { Form, Input, Checkbox, Textarea, Select, DatePicker } from 'shineout'
 
 export default class extends PureComponent {
   initValue = {
     email: 'test@example.com',
     age: 18,
+    range: [],
   }
 
   render() {
@@ -47,6 +48,10 @@ export default class extends PureComponent {
             style={{ width: 100 }}
             data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
           />
+        </Form.Item>
+
+        <Form.Item label="Date">
+          <DatePicker range name={['startDate', 'endDate']} />
         </Form.Item>
 
         <Form.Item label="Description">
