@@ -37,6 +37,7 @@ class Menu extends React.Component {
         <SubItem
           key={menuKey}
           data={da}
+          active={this.props.active(da)}
           inlineIndent={this.props.inlineIndent * times}
           renderItem={this.props.renderItem}
           nums={da.children.length}
