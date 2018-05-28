@@ -6,10 +6,8 @@ import React from 'react'
 import { Tree } from 'shineout'
 import data from 'doc/data/tree'
 
-console.log(JSON.stringify(data, null, 2))
-
 export default function () {
   return (
-    <Tree />
+    <Tree data={data} keygen="id" renderItem={n => `node ${n.id}`} />
   )
 }

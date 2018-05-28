@@ -1,7 +1,7 @@
 import { range } from 'shineout/utils/numbers'
 import { pickNumber } from '../utils/faker'
 
-const maxDeepLength = 3
+const maxDeepLength = 5
 
 const createNode = (deep, index, path) => {
   const id = path.join('-')
@@ -14,6 +14,6 @@ const createNode = (deep, index, path) => {
   return node
 }
 
-const tree = range(6).map(i => createNode(0, i, [i]))
+const tree = range(4).map(i => createNode(0, i, [i]))
 
 export default tree
