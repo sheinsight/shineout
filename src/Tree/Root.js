@@ -2,9 +2,8 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps } from '../utils/proptypes'
-import { getKey } from '../utils/uid'
 import { treeClass } from '../styles'
-import Node from './Node'
+import List from './List'
 
 class Root extends PureComponent {
   constructor(props) {
@@ -32,21 +31,16 @@ class Root extends PureComponent {
     )
 
     return (
-      <div className={className}>
-        {
-          data.map((d, i) => (
-            <Node
-              data={d}
-              keygen={keygen}
-              line={line}
-              onToggle={onToggle}
-              key={getKey(d, keygen, i)}
-              id={getKey(d, keygen, i)}
-              renderNode={this.renderNode()}
-            />
-          ))
-        }
-      </div>
+      <List
+        className={className}
+        expanded
+        isRoot
+        data={data}
+        keygen={keygen}
+        line={line}
+        onToggle={onToggle}
+        renderNode={this.renderNode()}
+      />
     )
   }
 }

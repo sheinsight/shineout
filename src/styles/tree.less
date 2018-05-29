@@ -4,25 +4,24 @@
 @tree-prefix: ~"@{so-prefix}-tree";
 
 .@{tree-prefix} {
+  position: relative;
+
   &-node {
     position: relative;
     line-height: @line-height-base;
+    padding-left: @tree-indicator-size;
 
     & > div {
       margin-bottom: 4px;
     }
   }
 
-  &-children {
-    padding-left: @tree-indicator-size;
-  }
-
   &-line {
     position: absolute;
-    left: 0;
+    left: @tree-indicator-size;
     top: 0;
     bottom: 4px;
-    width: 14px;
+    width: 16px;
     z-index: 0;
 
     svg {
@@ -32,10 +31,15 @@
     }
   }
 
+  & > &-line {
+    left: 0;
+  }
+
   &-icon-plus, &-icon-sub {
-    position: relative;
+    position: absolute;
     z-index: 10;
-    margin-right: 8px;
+    top: 0px;
+    left: 0px;
 
     &:hover span {
       border-color: @colors-primary;
@@ -46,6 +50,7 @@
       width: 11px;
       height: 11px;
       display: inline-block;
+      background: #fff;
       border-radius: 2px;
       border: solid 1px @tree-indicator-color;
 

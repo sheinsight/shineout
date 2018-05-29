@@ -3,6 +3,7 @@
   "General": {
     "Button": "按钮",
     "Dropdown": "下拉菜单",
+    "Icon": "图标",
     "Image": "图片"
   },
   "Form": {
@@ -25,7 +26,6 @@
   "Feedback": {
     "Alert": "提示框",
     "Message": "消息提示",
-    "Icon": "图标",
     "Spin": "加载中",
     "Modal": "对话框",
     "Popover": "气泡",
