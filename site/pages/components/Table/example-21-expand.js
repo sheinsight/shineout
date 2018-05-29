@@ -17,7 +17,7 @@ const columns = [
       return () => <div style={{ padding: '0 30px', wordBreak: 'break-all' }}>{JSON.stringify(d)}</div>
     },
   },
-  { title: 'id', render: 'id', width: 36 },
+  { title: 'id', render: 'id', width: 50 },
   { title: 'Name', render: d => `${d.firstName} ${d.lastName}` },
   { title: 'Office', render: 'office' },
   { title: 'Start Date', render: 'start' },

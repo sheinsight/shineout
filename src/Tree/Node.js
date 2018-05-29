@@ -15,7 +15,6 @@ const Node = consumer(class extends PureComponent {
       PropTypes.string,
       PropTypes.func,
     ]).isRequired,
-    line: PropTypes.string,
     onToggle: PropTypes.func.isRequired,
     renderNode: PropTypes.func.isRequired,
   }

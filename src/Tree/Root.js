@@ -21,10 +21,6 @@ class Root extends PureComponent {
   }
 
   render() {
-    const {
-      data, keygen, onToggle, line,
-    } = this.props
-
     const className = classnames(
       treeClass('_'),
       this.props.className,
@@ -32,13 +28,10 @@ class Root extends PureComponent {
 
     return (
       <List
+        {...this.props}
         className={className}
         expanded
         isRoot
-        data={data}
-        keygen={keygen}
-        line={line}
-        onToggle={onToggle}
         renderNode={this.renderNode()}
       />
     )
@@ -52,7 +45,6 @@ Root.propTypes = {
     PropTypes.func,
   ]).isRequired,
   data: PropTypes.array,
-  line: PropTypes.string,
   onToggle: PropTypes.func.isRequired,
   renderItem: PropTypes.oneOfType([
     PropTypes.func,

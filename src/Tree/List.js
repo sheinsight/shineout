@@ -24,14 +24,16 @@ class List extends PureComponent {
   }
 
   setPath() {
-    if (!this.element) return
+    if (!this.lines) return
 
     const lines = Array.from(this.lines.querySelectorAll('path'))
 
     let index = 0
     let maxHeight = 0
+    let first = 0
     Array.from(this.element.children).forEach((el) => {
       if (el.className.indexOf(treeClass('node')) >= 0) {
+        if (index === 0) first = el.offsetTop - 4
         index += 1
         const top = el.offsetTop + 10
         lines[index].setAttribute('d', `M7 ${top} L16 ${top}`)
@@ -39,7 +41,9 @@ class List extends PureComponent {
       }
     })
 
-    lines[0].setAttribute('d', `M6 20 L6 ${maxHeight}`)
+    // root first===0
+    if (first < 10) first = 10
+    lines[0].setAttribute('d', `M6 ${first} L6 ${maxHeight}`)
 
     if (this.props.setPath) this.props.setPath()
   }
@@ -53,8 +57,8 @@ class List extends PureComponent {
       data, expanded, keygen, line, className, ...other
     } = this.props
     const lineProps = {
-      strokeDasharray: line === 'dashed' ? '1' : undefined,
-      stroke: '#aaa',
+      strokeDasharray: line ? '1' : undefined,
+      stroke: '#999',
       strokeWidth: 1,
     }
 
@@ -105,13 +109,13 @@ List.propTypes = {
     PropTypes.string,
     PropTypes.func,
   ]).isRequired,
-  line: PropTypes.string,
+  line: PropTypes.bool,
   renderNode: PropTypes.func.isRequired,
   setPath: PropTypes.func,
 }
 
 List.defaultProps = {
-  line: 'dashed',
+  line: true,
   className: treeClass('children'),
 }
 

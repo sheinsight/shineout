@@ -17,6 +17,7 @@
 | keygen | string \| function(obj):string | index | 生成每一行key的辅助方法<br />不填的情况下，会使用index(不推荐，在某些情况下可能会有问题)<br />为函数时，使用此函数返回值<br />为string时，使用这个string对应的数据值。如 'id'，相当于 (d) => d.id |
 | onScroll | function(x, y) | 无 | 滚动条滚动后回调函数；<br />x: 横向滚动比(0 <= x <= 1)<br />y: 纵向滚动比(0 <= y <= 1) |
 | onRowSelect | function(rows) | 无 | 选择行。rows为选中的数据。如果需要数据需要格式化的处理，建议使用 datum |
+| rowHeight | number | 40 | 单行表格的预期高度，只是一个大概的估值，用来展示滚动条 |
 | rowsInView | number | 20 | 单次render的最大行数。Table 采用了lazy render的方式来优化在大量数据下的性能，如果你的表格显示的高度超出了20条，可以调整rowsInView的值 |
 | striped | bool | false | 是否显示交错斑马底纹 |
 | style | object | 无 | 扩展样式 |
