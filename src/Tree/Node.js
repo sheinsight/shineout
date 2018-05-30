@@ -5,18 +5,6 @@ import { treeClass } from '../styles'
 import Content from './Content'
 
 class Node extends PureComponent {
-  static propTypes = {
-    ...getProps(),
-    bindNode: PropTypes.func.isRequired,
-    unbindNode: PropTypes.func.isRequired,
-    listComponent: PropTypes.func,
-    data: PropTypes.object,
-    keygen: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.func,
-    ]).isRequired,
-  }
-
   constructor(props) {
     super(props)
 
@@ -25,6 +13,14 @@ class Node extends PureComponent {
     this.state = { expanded }
     this.handleToggle = this.handleToggle.bind(this)
   }
+
+  /*
+  componentWillUpdate(nextProps, nextState) {
+    Object.keys(nextProps).forEach((k) => {
+      if (this.props[k] !== nextProps[k]) console.log(k)
+    })
+  }
+  */
 
   componentWillUnmount() {
     this.props.unbindNode(this.props.id)
@@ -60,15 +56,30 @@ class Node extends PureComponent {
     return (
       <div className={treeClass('node')}>
         <Content
+          active={other.active}
           data={data}
+          id={id}
           onClick={this.handleToggle}
           expanded={expanded}
           renderItem={renderItem}
+          onNodeClick={other.onNodeClick}
         />
         { hasChildren && createElement(listComponent, listProps) }
       </div>
     )
   }
+}
+
+Node.propTypes = {
+  ...getProps(),
+  bindNode: PropTypes.func.isRequired,
+  unbindNode: PropTypes.func.isRequired,
+  listComponent: PropTypes.func,
+  data: PropTypes.object,
+  keygen: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func,
+  ]).isRequired,
 }
 
 export default Node

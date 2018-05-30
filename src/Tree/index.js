@@ -1,3 +1,3 @@
-import Root from './Root'
+import Tree from './Tree'
 
-export default Root
+export default Tree

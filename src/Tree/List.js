@@ -1,16 +1,17 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { getKey } from '../utils/uid'
 import { treeClass } from '../styles'
 import Node from './Node'
 
-class List extends Component {
+class List extends PureComponent {
   constructor(props) {
     super(props)
 
     this.setPath = this.setPath.bind(this)
     this.bindLines = this.bindElement.bind(this, 'lines')
     this.bindElement = this.bindElement.bind(this, 'element')
+    this.renderNode = this.renderNode.bind(this)
   }
 
   componentDidMount() {
@@ -52,9 +53,28 @@ class List extends Component {
     this[name] = el
   }
 
-  render() {
+  renderNode(child, index) {
     const {
       data, isRoot, expanded, keygen, line, className, ...other
+    } = this.props
+    const id = getKey(child, keygen, index)
+    return (
+      <Node
+        {...other}
+        data={child}
+        id={id}
+        key={id}
+        line={line}
+        keygen={keygen}
+        setPath={this.setPath}
+        listComponent={List}
+      />
+    )
+  }
+
+  render() {
+    const {
+      data, expanded, line, className,
     } = this.props
     const lineProps = {
       strokeDasharray: line ? '1' : undefined,
@@ -72,20 +92,7 @@ class List extends Component {
         ref={this.bindElement}
         style={{ display: expanded ? 'block' : 'none' }}
       >
-        {
-          data.map((child, i) => (
-            <Node
-              {...other}
-              data={child}
-              id={getKey(child, keygen, i)}
-              key={getKey(child, keygen, i)}
-              line={line}
-              keygen={keygen}
-              setPath={this.setPath}
-              listComponent={List}
-            />
-          ))
-        }
+        { data.map(this.renderNode) }
         {
           line &&
           <div className={treeClass('line')}>
