@@ -35,50 +35,83 @@
     left: 0;
   }
 
-  &-icon-plus, &-icon-sub {
-    position: absolute;
-    z-index: 10;
-    top: 0px;
-    left: 0px;
+  &-with-line {
+    .@{tree-prefix}-icon-plus, .@{tree-prefix}-icon-sub {
+      position: absolute;
+      z-index: 10;
+      top: 0px;
+      left: 0px;
 
-    &:hover span {
-      border-color: @colors-primary;
+      &:hover span {
+        border-color: @colors-primary;
+      }
+
+      span {
+        position: relative;
+        width: 11px;
+        height: 11px;
+        display: inline-block;
+        background: #fff;
+        border-radius: 2px;
+        border: solid 1px @tree-indicator-color;
+
+        &:before {
+          position: absolute;
+          content: ' ';
+          display: block;
+          width: 7px;
+          height: 0;
+          border-bottom: solid 1px transparent;
+          border-color: inherit;
+          top: 4px;
+          left: 1px;
+        }
+      }
     }
 
-    span {
-      position: relative;
-      width: 11px;
-      height: 11px;
-      display: inline-block;
-      background: #fff;
-      border-radius: 2px;
-      border: solid 1px @tree-indicator-color;
-
-      &:before {
+    .@{tree-prefix}-icon-plus span {
+      &:after {
         position: absolute;
         content: ' ';
         display: block;
-        width: 7px;
-        height: 0;
-        border-bottom: solid 1px transparent;
+        height: 7px;
+        width: 0;
+        border-right: solid 1px transparent;
         border-color: inherit;
-        top: 4px;
-        left: 1px;
+        left: 4px;
+        top: 1px;
       }
     }
   }
 
-  &-icon-plus span {
-    &:after {
+  &-no-line {
+    .@{tree-prefix}-icon-plus, .@{tree-prefix}-icon-sub {
       position: absolute;
-      content: ' ';
-      display: block;
-      height: 7px;
-      width: 0;
-      border-right: solid 1px transparent;
-      border-color: inherit;
-      left: 4px;
-      top: 1px;
+      z-index: 10;
+      top: 0px;
+      left: 0px;
+      width: 16px;
+
+      &:hover span {
+        border-left-color: @colors-primary;
+      }
+
+      span {
+        position: relative;
+        left: 6px;
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 4px 5px;
+        border-color: transparent transparent transparent @tree-indicator-color;
+        transform-origin: 2px 4px;
+        transition: transform 0.2s linear;
+      }
+    }
+
+    .@{tree-prefix}-icon-sub span {
+      transform: rotate(90deg);
     }
   }
 

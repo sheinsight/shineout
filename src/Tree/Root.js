@@ -7,7 +7,7 @@ import List from './List'
 
 function Root(props) {
   const className = classnames(
-    treeClass('_'),
+    treeClass('_', props.line ? 'with-line' : 'no-line'),
     props.className,
   )
 
@@ -29,10 +29,12 @@ Root.propTypes = {
     PropTypes.func,
   ]).isRequired,
   data: PropTypes.array,
+  line: PropTypes.bool,
 }
 
 Root.defaultProps = {
   data: [],
+  line: true,
 }
 
 export default Root

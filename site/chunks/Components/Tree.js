@@ -32,6 +32,12 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Tree/example-03-expanded.js'),
   },
   {
+    name: '04-noline',
+    title: locate('无连接线', 'Line'),
+    component: require('doc/pages/components/Tree/example-04-noline.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tree/example-04-noline.js'),
+  },
+  {
     name: 'data',
     title: locate(' \n 本页中用到的测试数据格式如下', 'Data'),
     component: require('doc/pages/components/Tree/example-data.js').default,
