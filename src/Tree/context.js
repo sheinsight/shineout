@@ -8,7 +8,12 @@ export const Provider = context.Provider
 
 export const consumer = Origin => prop => (
   <context.Consumer>
-    {value => <Origin {...prop} expanded={value.indexOf(prop.id) >= 0} />}
+    {
+      (value) => {
+        console.log(value.has(prop.id))
+        return <Origin {...prop} expanded={value.has(prop.id)} />
+}
+    }
   </context.Consumer>
 )
 

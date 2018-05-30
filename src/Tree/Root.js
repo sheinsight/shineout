@@ -1,41 +1,25 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps } from '../utils/proptypes'
 import { treeClass } from '../styles'
 import List from './List'
 
-class Root extends PureComponent {
-  constructor(props) {
-    super(props)
+function Root(props) {
+  const className = classnames(
+    treeClass('_'),
+    props.className,
+  )
 
-    this.renderNode = this.renderNode.bind(this)
-  }
-
-  renderNode() {
-    const { renderItem } = this.props
-    if (typeof renderItem === 'function') {
-      return renderItem
-    }
-    return d => d[renderItem]
-  }
-
-  render() {
-    const className = classnames(
-      treeClass('_'),
-      this.props.className,
-    )
-
-    return (
-      <List
-        {...this.props}
-        className={className}
-        expanded
-        isRoot
-        renderNode={this.renderNode()}
-      />
-    )
-  }
+  return (
+    <List
+      {...props}
+      className={className}
+      expanded
+      isRoot
+      deepIndex={0}
+    />
+  )
 }
 
 Root.propTypes = {
@@ -45,11 +29,6 @@ Root.propTypes = {
     PropTypes.func,
   ]).isRequired,
   data: PropTypes.array,
-  onToggle: PropTypes.func.isRequired,
-  renderItem: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.string,
-  ]),
 }
 
 Root.defaultProps = {

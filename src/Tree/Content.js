@@ -3,10 +3,14 @@ import PropTypes from 'prop-types'
 import { treeClass } from '../styles'
 
 class Content extends PureComponent {
+  renderNode() {
+    const { data, renderItem, expanded } = this.props
+    const render = typeof renderItem === 'function' ? renderItem : d => d[renderItem]
+    return render(data, expanded)
+  }
+
   render() {
-    const {
-      data, onClick, expanded, renderNode,
-    } = this.props
+    const { data, onClick, expanded } = this.props
     const hasChildren = data.children && data.children.length > 0
 
     return (
@@ -21,7 +25,9 @@ class Content extends PureComponent {
             <span />
           </a>
         }
-        <div className={treeClass('text')}>{renderNode(data)}</div>
+        <div className={treeClass('content')}>
+          {this.renderNode()}
+        </div>
       </div>
     )
   }
@@ -31,7 +37,10 @@ Content.propTypes = {
   data: PropTypes.object,
   expanded: PropTypes.bool,
   onClick: PropTypes.func,
-  renderNode: PropTypes.func.isRequired,
+  renderItem: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.string,
+  ]).isRequired,
 }
 
 export default Content

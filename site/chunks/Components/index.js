@@ -25,6 +25,12 @@ const pages = [
     component: loadable(() => import('./Dropdown')),
   },
   {
+    name: 'Icon',
+    cn: '图标',
+    level: 2,
+    component: loadable(() => import('./Icon')),
+  },
+  {
     name: 'Image',
     cn: '图片',
     level: 2,
@@ -116,12 +122,6 @@ const pages = [
     cn: '提示框',
     level: 2,
     component: loadable(() => import('./Alert')),
-  },
-  {
-    name: 'Icon',
-    cn: '图标',
-    level: 2,
-    component: loadable(() => import('./Icon')),
   },
   {
     name: 'Message',

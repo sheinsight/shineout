@@ -8,6 +8,11 @@ import data from 'doc/data/tree'
 
 export default function () {
   return (
-    <Tree data={data} keygen="id" renderItem={n => `node ${n.id}`} />
+    <Tree
+      data={data}
+      keygen="id"
+      defaultExpanded={['2']}
+      renderItem={n => `node ${n.id}`}
+    />
   )
 }

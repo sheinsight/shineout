@@ -2,45 +2,59 @@ import React, { PureComponent, createElement } from 'react'
 import PropTypes from 'prop-types'
 import { getProps } from '../utils/proptypes'
 import { treeClass } from '../styles'
-import { consumer } from './context'
 import Content from './Content'
 
-const Node = consumer(class extends PureComponent {
+class Node extends PureComponent {
   static propTypes = {
     ...getProps(),
+    bindNode: PropTypes.func.isRequired,
+    unbindNode: PropTypes.func.isRequired,
     listComponent: PropTypes.func,
     data: PropTypes.object,
-    expanded: PropTypes.bool,
     keygen: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.func,
     ]).isRequired,
-    onToggle: PropTypes.func.isRequired,
-    renderNode: PropTypes.func.isRequired,
   }
 
   constructor(props) {
     super(props)
 
+    const expanded = props.bindNode(props.id, this.update.bind(this))
+
+    this.state = { expanded }
     this.handleToggle = this.handleToggle.bind(this)
+  }
+
+  componentWillUnmount() {
+    this.props.unbindNode(this.props.id)
+  }
+
+  update(expanded) {
+    if (this.state.expanded !== expanded) this.setState({ expanded })
   }
 
   handleToggle() {
     const { id, onToggle } = this.props
-    onToggle(id)
+    const expanded = !this.state.expanded
+    this.setState({ expanded })
+    if (onToggle) onToggle(id, expanded)
   }
 
   render() {
     const {
-      data, renderNode, expanded, listComponent, ...other
+      id, data, renderItem, expandedMap, listComponent, ...other
     } = this.props
+
     const hasChildren = data.children && data.children.length > 0
+    const { expanded } = this.state
 
     const listProps = {
       ...other,
       data: data.children,
       expanded,
-      renderNode,
+      renderItem,
+      expandedMap,
     }
 
     return (
@@ -49,12 +63,12 @@ const Node = consumer(class extends PureComponent {
           data={data}
           onClick={this.handleToggle}
           expanded={expanded}
-          renderNode={renderNode}
+          renderItem={renderItem}
         />
         { hasChildren && createElement(listComponent, listProps) }
       </div>
     )
   }
-})
+}
 
 export default Node

@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { getKey } from '../utils/uid'
 import { treeClass } from '../styles'
 import Node from './Node'
 
-class List extends PureComponent {
+class List extends Component {
   constructor(props) {
     super(props)
 
@@ -14,7 +14,7 @@ class List extends PureComponent {
   }
 
   componentDidMount() {
-    if (this.props.isRoot) this.setPath()
+    if (this.props.expanded) this.setPath()
   }
 
   componentDidUpdate(prevProps) {
@@ -24,7 +24,7 @@ class List extends PureComponent {
   }
 
   setPath() {
-    if (!this.lines) return
+    if (!this.props.line || !this.lines) return
 
     const lines = Array.from(this.lines.querySelectorAll('path'))
 
@@ -54,7 +54,7 @@ class List extends PureComponent {
 
   render() {
     const {
-      data, expanded, keygen, line, className, ...other
+      data, isRoot, expanded, keygen, line, className, ...other
     } = this.props
     const lineProps = {
       strokeDasharray: line ? '1' : undefined,
@@ -110,7 +110,6 @@ List.propTypes = {
     PropTypes.func,
   ]).isRequired,
   line: PropTypes.bool,
-  renderNode: PropTypes.func.isRequired,
   setPath: PropTypes.func,
 }
 

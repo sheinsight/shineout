@@ -19,6 +19,24 @@ const examples = [
     component: require('doc/pages/components/Tree/example-01-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-01-base.js'),
   },
+  {
+    name: '02-icon',
+    title: locate('图标 \n 在 renderItem 中根据状态展示不同的图标', 'Icons'),
+    component: require('doc/pages/components/Tree/example-02-icon.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tree/example-02-icon.js'),
+  },
+  {
+    name: '03-expanded',
+    title: locate('控制展开', 'Expanded'),
+    component: require('doc/pages/components/Tree/example-03-expanded.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tree/example-03-expanded.js'),
+  },
+  {
+    name: 'data',
+    title: locate(' \n 本页中用到的测试数据格式如下', 'Data'),
+    component: require('doc/pages/components/Tree/example-data.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tree/example-data.js'),
+  },
 ]
 
 const codes = undefined
