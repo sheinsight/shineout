@@ -11,15 +11,28 @@
   list-style: none;
   height: 100%;
   box-shadow: @menu-box-shadow-base;
-  color: @menu-item-color;
+  //color: @menu-item-color;
   background: @menu-bg;
   line-height: 0; // Fix display inline-block gap
   transition: background .3s, width .2s;
+  a {
+    color: @menu-item-color;
+  }
   ul,
   ol {
     list-style: none;
     margin: 0;
     padding: 0;
+  }
+  &-dark {
+    background-color: @menu-dark-bg;
+    color: @menu-dark-item;
+    .@{menu-prefix}-submenu-ul {
+      background-color: #323232;
+    }
+    a {
+      color: @menu-dark-item
+    }
   }
   &-inline, &-vertical {
     .@{menu-prefix}-item {
@@ -32,15 +45,28 @@
       }
     }
   }
+  &-dark {
+    .@{menu-prefix}-submenu-title:hover {
+      color: @menu-bg;
+      > a {
+        color: @menu-bg;
+      }
+    }
+  }
 
   &-disabled {
     color: @menu-disabled-color;
     a {
-      cursor: not-allowed !important;
+      cursor: not-allowed;
+      color: @menu-disabled-color;
+    }
+  }
+  &-disabled:hover {
+    color: @menu-disabled-color;
+    a {
       color: @menu-disabled-color !important;
     }
   }
-
   &-inline, &-vertical {
     border-right: 1px solid @menu-border-color;
   }
@@ -54,9 +80,6 @@
   }
 
   &-submenu {
-    a {
-      color: @menu-item-color;
-    }
     &-active {
       color: @colors-blue;
       .@{menu-prefix}-item > a {
@@ -110,10 +133,6 @@
 
   &-item > a {
     display: block;
-    color: @menu-item-color;
-    &:hover {
-      color: @menu-highlight-color;
-    }
     &:focus {
       text-decoration: none;
     }
@@ -138,6 +157,13 @@
       color: @menu-highlight-color;
     }
   }
+  &-dark {
+    .@{menu-prefix}-item:hover {
+      a {
+        color: @menu-bg;
+      }
+    }
+  }
 
   &-horizontal &-item,
   &-horizontal &-submenu {
@@ -153,6 +179,14 @@
   &-inline {
     .@{menu-prefix}-item-selected {
       .menu-select(inline)
+    }
+  }
+  &-dark {
+    .@{menu-prefix}-item-selected {
+      background-color: #1890ff;
+      a {
+        color: #fff;
+      }
     }
   }
 
@@ -191,11 +225,6 @@
       &-selected {
         .menu-select(horizontal)
       }
-      &:hover {
-        > div > a {
-          color: @menu-highlight-color
-        }
-      }
     }
     > .@{menu-prefix}-item,
     > .@{menu-prefix}-submenu {
@@ -208,7 +237,7 @@
         border-bottom: 2px solid @menu-bottom-color;
         > .@{menu-prefix}-submenu-title {
           > a {
-            color: @menu-highlight-color;
+            //color: @menu-highlight-color;
           }
         }
       }
@@ -241,7 +270,7 @@
       &:hover,
       &-active {
         > div > a {
-          color: @menu-highlight-color;
+          //color: @menu-highlight-color;
         }
       }
     }
