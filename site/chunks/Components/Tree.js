@@ -32,16 +32,22 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Tree/example-03-click.js'),
   },
   {
+    name: '04-noline',
+    title: locate('无连接线', 'Line'),
+    component: require('doc/pages/components/Tree/example-04-noline.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tree/example-04-noline.js'),
+  },
+  {
     name: '05-expanded',
     title: locate('控制展开', 'Expanded'),
     component: require('doc/pages/components/Tree/example-05-expanded.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-05-expanded.js'),
   },
   {
-    name: '06-noline',
-    title: locate('无连接线', 'Line'),
-    component: require('doc/pages/components/Tree/example-06-noline.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Tree/example-06-noline.js'),
+    name: '06-change',
+    title: locate('可选择', 'onChange'),
+    component: require('doc/pages/components/Tree/example-06-change.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tree/example-06-change.js'),
   },
   {
     name: 'data',

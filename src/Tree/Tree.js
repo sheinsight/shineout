@@ -69,7 +69,9 @@ class Tree extends PureComponent {
   }
 
   render() {
-    const { expanded, onExpand, ...props } = this.props
+    const {
+      expanded, onExpand, defaultExpanded, ...props
+    } = this.props
     const onToggle = onExpand ? this.handleToggle : undefined
 
     console.log(this.getActive())

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import Checkbox from '../Checkbox/Checkbox'
 import { treeClass } from '../styles'
 
 class Content extends PureComponent {
@@ -21,6 +22,13 @@ class Content extends PureComponent {
     return render(data, expanded, active === id)
   }
 
+  renderCheck() {
+    const { onChange } = this.props
+    if (!onChange) return null
+
+    return <Checkbox className={treeClass('checkbox')} />
+  }
+
   render() {
     const { data, onClick, expanded } = this.props
     const hasChildren = data.children && data.children.length > 0
@@ -38,8 +46,9 @@ class Content extends PureComponent {
             <span />
           </a>
         }
-        <div onClick={this.handleNodeClick} className={treeClass('content')}>
-          {this.renderNode()}
+        <div className={treeClass('content')}>
+          { this.renderCheck() }
+          <span onClick={this.handleNodeClick}>{this.renderNode()}</span>
         </div>
       </div>
     )
@@ -51,6 +60,7 @@ Content.propTypes = {
   data: PropTypes.object,
   expanded: PropTypes.bool,
   id: PropTypes.string,
+  onChange: PropTypes.func,
   onClick: PropTypes.func,
   onNodeClick: PropTypes.func,
   renderItem: PropTypes.oneOfType([
