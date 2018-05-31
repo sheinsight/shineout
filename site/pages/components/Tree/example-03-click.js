@@ -3,36 +3,70 @@
  * en - Click
  */
 import React, { Component } from 'react'
+import immer from 'immer'
 import { Tree } from 'shineout'
-import data from 'doc/data/tree'
+import tree from 'doc/data/tree'
 
 export default class extends Component {
   constructor(props) {
     super(props)
-    this.state = { active: '1' }
+    this.state = { active: undefined, data: tree }
     this.defaultExpanded = ['1']
   }
 
-  handleClick = (active) => {
-    this.setState({ active })
+  handleClick = (node, id) => {
+    console.log('click', id)
+    this.setState({ active: id })
   }
 
-  renderItem = node => (
-    <div
-      onClick={this.handleClick.bind(this, node.id)}
-      style={{ color: this.state.active === node.id ? 'red' : undefined }}
-    >
-      node {node.id}
+  handleEdit = (event) => {
+    const newText = event.target.value
+    const path = this.state.active.split(',')
+    this.setState(immer((draft) => {
+      let { data } = draft
+      path.forEach((id, index) => {
+        data = data.find(d => d.id === id)
+        if (index < path.length - 1) data = data.children
+      })
+      data.text = newText
+    }))
+    this.setState({ active: undefined })
+  }
+
+  handleKeyDown = (event) => {
+    if (event.keyCode === 13) event.target.blur()
+  }
+
+  keyGenerator = (node, parentKey) => `${parentKey},${node.id}`.replace(/^,/, '')
+
+  renderItem = (node, isExpanded, isActive) => (
+    <div style={{ color: isActive ? 'red' : undefined, cursor: 'pointer' }}>
+      {
+        isActive
+          ? (
+            <div>
+              <input
+                size="small"
+                onBlur={this.handleEdit}
+                onKeyDown={this.handleKeyDown}
+                defaultValue={node.text}
+                type="text"
+              />
+            </div>
+          )
+          : `node ${node.text}`
+      }
     </div>
   )
 
   render() {
     return (
       <Tree
-        data={data}
-        keygen="id"
+        active={this.state.active}
+        data={this.state.data}
+        keygen={this.keyGenerator}
         defaultExpanded={this.defaultExpanded}
-        // onClick={this.handleClick}
+        onClick={this.handleClick}
         onExpand={this.handleExpand}
         renderItem={this.renderItem}
       />

@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { getKey } from '../utils/uid'
 import { treeClass } from '../styles'
 import Node from './Node'
 
@@ -8,24 +7,23 @@ class List extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.setPath = this.setPath.bind(this)
+    this.setLine = this.setLine.bind(this)
     this.bindLines = this.bindElement.bind(this, 'lines')
     this.bindElement = this.bindElement.bind(this, 'element')
     this.renderNode = this.renderNode.bind(this)
   }
 
   componentDidMount() {
-    if (this.props.expanded) this.setPath()
+    if (this.props.expanded) this.setLine()
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.expanded !== prevProps.expanded) {
-      this.setPath()
-    }
-  }
+  setLine() {
+    if (!this.props.line || !this.lines || this.lineLocked) return
+    this.lineLocked = true
 
-  setPath() {
-    if (!this.props.line || !this.lines) return
+    setTimeout(() => {
+      this.lineLocked = false
+    }, 500)
 
     const lines = Array.from(this.lines.querySelectorAll('path'))
 
@@ -46,7 +44,14 @@ class List extends PureComponent {
     if (first < 10) first = 10
     lines[0].setAttribute('d', `M6 ${first} L6 ${maxHeight}`)
 
-    if (this.props.setPath) this.props.setPath()
+    if (this.props.setLine) this.props.setLine()
+  }
+
+  getKey(data, index) {
+    const { id, keygen } = this.props
+    if (typeof keygen === 'function') return keygen(data, id)
+    else if (keygen) return data[keygen]
+    return id + (id ? ',' : '') + index
   }
 
   bindElement(name, el) {
@@ -57,7 +62,7 @@ class List extends PureComponent {
     const {
       data, isRoot, expanded, keygen, line, className, ...other
     } = this.props
-    const id = getKey(child, keygen, index)
+    const id = this.getKey(child, index)
     return (
       <Node
         {...other}
@@ -66,7 +71,7 @@ class List extends PureComponent {
         key={id}
         line={line}
         keygen={keygen}
-        setPath={this.setPath}
+        setLine={this.setLine}
         listComponent={List}
       />
     )
@@ -111,16 +116,18 @@ List.propTypes = {
   className: PropTypes.string,
   data: PropTypes.array,
   expanded: PropTypes.bool,
+  id: PropTypes.string,
   isRoot: PropTypes.bool,
   keygen: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.func,
   ]).isRequired,
   line: PropTypes.bool,
-  setPath: PropTypes.func,
+  setLine: PropTypes.func,
 }
 
 List.defaultProps = {
+  id: '',
   line: true,
   className: treeClass('children'),
 }
