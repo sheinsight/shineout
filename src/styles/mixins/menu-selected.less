@@ -11,7 +11,7 @@
     & when (@mode = inline) {
       border-bottom: none;
       &:after {
-        transition: transform .15s ease-in, opacity .15s ease-in;
+        transition: transform .1s ease-in, opacity .1s ease-in;
         opacity: 1 !important;
         transform: @menu-select-transform !important;
       }
@@ -27,9 +27,9 @@
     border-bottom: transparent;
     background-color: @colors-blue !important;
     border-radius: 4px;
-    // color: #fff;
+    color: #fff;
     > a {
-      // color: #fff;
+      color: #fff;
     }
     & when not (@mode = horizontal) {
       border-radius: 0;
