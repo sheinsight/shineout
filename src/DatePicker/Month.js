@@ -28,7 +28,7 @@ class Month extends PureComponent {
     const date = new Date(current.getTime())
     const isMonthType = this.props.type === 'month'
 
-    date.setMonth(month)
+    date.setMonth(month, 1)
     onChange(date, isMonthType, isMonthType)
     if (!isMonthType) onModeChange('day')
   }
@@ -39,8 +39,8 @@ class Month extends PureComponent {
     } = this.props
     const date = new Date(current.getFullYear(), i, 1)
 
-    const disabled = (min && utils.compareMonth(min, date) >= 0) ||
-      (max && utils.compareMonth(max, date) <= 0)
+    const disabled = (min && utils.compareMonth(min, date, 1) >= 0) ||
+      (max && utils.compareMonth(max, date, -1) <= 0)
 
     const className = datepickerClass(
       utils.isSameMonth(value, date) && 'active',
