@@ -64,10 +64,10 @@ class Menu extends React.Component {
 
   render() {
     const {
-      keygen, data, mode, style,
+      keygen, data, mode, style, theme,
     } = this.props
     const className = classnames(
-      menuClass('_', 'root', mode),
+      menuClass('_', 'root', mode, theme === 'dark' && 'dark'),
       this.props.className,
     )
     return (
