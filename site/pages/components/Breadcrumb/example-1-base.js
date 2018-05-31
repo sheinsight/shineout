@@ -7,19 +7,19 @@ import React from 'react';
 import { Breadcrumb } from 'shineout';
 
 const data = [{
-  id: '1',
-  title: 'Home',
-  url: '#',
+  code: '1',
+  ti: 'Home',
+  ur: '#',
 }, {
-  id: '2',
-  title: 'Menu',
+  code: '2',
+  ti: 'Menu',
 }, {
-  id: '3',
-  title: 'Self',
+  code: '3',
+  ti: 'Self',
 }]
 
 export default function () {
   return (
-    <Breadcrumb data={data} />
+    <Breadcrumb keygen="code" data={data} title="ti" />
   )
 }

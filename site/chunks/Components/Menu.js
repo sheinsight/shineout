@@ -55,6 +55,12 @@ const examples = [
     component: require('doc/pages/components/Menu/example-7-click.js').default,
     rawText: require('!raw-loader!doc/pages/components/Menu/example-7-click.js'),
   },
+  {
+    name: '8-dark',
+    title: locate('暗系主题', 'Dark'),
+    component: require('doc/pages/components/Menu/example-8-dark.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Menu/example-8-dark.js'),
+  },
 ]
 
 const codes = undefined
