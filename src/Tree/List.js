@@ -7,44 +7,9 @@ class List extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.setLine = this.setLine.bind(this)
     this.bindLines = this.bindElement.bind(this, 'lines')
     this.bindElement = this.bindElement.bind(this, 'element')
     this.renderNode = this.renderNode.bind(this)
-  }
-
-  componentDidMount() {
-    if (this.props.expanded) this.setLine()
-  }
-
-  setLine() {
-    if (!this.props.line || !this.lines || this.lineLocked) return
-    this.lineLocked = true
-
-    setTimeout(() => {
-      this.lineLocked = false
-    }, 500)
-
-    const lines = Array.from(this.lines.querySelectorAll('path'))
-
-    let index = 0
-    let maxHeight = 0
-    let first = 0
-    Array.from(this.element.children).forEach((el) => {
-      if (el.className.indexOf(treeClass('node')) >= 0) {
-        if (index === 0) first = el.offsetTop - 4
-        index += 1
-        const top = el.offsetTop + 10
-        lines[index].setAttribute('d', `M7 ${top} L16 ${top}`)
-        maxHeight = top
-      }
-    })
-
-    // root first===0
-    if (first < 10) first = 10
-    lines[0].setAttribute('d', `M6 ${first} L6 ${maxHeight}`)
-
-    if (this.props.setLine) this.props.setLine()
   }
 
   getKey(data, index) {
@@ -71,21 +36,13 @@ class List extends PureComponent {
         key={id}
         line={line}
         keygen={keygen}
-        setLine={this.setLine}
         listComponent={List}
       />
     )
   }
 
   render() {
-    const {
-      data, expanded, line, className,
-    } = this.props
-    const lineProps = {
-      strokeDasharray: line ? '1' : undefined,
-      stroke: '#999',
-      strokeWidth: 1,
-    }
+    const { data, expanded, className } = this.props
 
     if (!expanded && !this.hasExpanded) return null
 
@@ -98,15 +55,6 @@ class List extends PureComponent {
         style={{ display: expanded ? 'block' : 'none' }}
       >
         { data.map(this.renderNode) }
-        {
-          line &&
-          <div className={treeClass('line')}>
-            <svg ref={this.bindLines}>
-              <path {...lineProps} />
-              {data.map((c, i) => <path {...lineProps} key={i} />)}
-            </svg>
-          </div>
-        }
       </div>
     )
   }

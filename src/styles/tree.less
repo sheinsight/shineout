@@ -12,7 +12,12 @@
     padding-left: @tree-indicator-size;
 
     & > div {
-      margin-bottom: 4px;
+      padding-bottom: 4px;
+
+    }
+
+    &:last-child > div {
+      padding-bottom: 0;
     }
   }
 
@@ -36,6 +41,44 @@
   }
 
   &-with-line {
+    .@{tree-prefix}-node {
+      &:before {
+        position: absolute;
+        content: ' ';
+        left: 5px;
+        top: 0;
+        width: 1px;
+        bottom: 0;
+        background: linear-gradient(to bottom, @tree-line-color, @tree-line-color 1px, transparent 1px, transparent);
+        background-size: 100% 2px;
+      }
+
+      &:after {
+        position: absolute;
+        content: ' ';
+        left: 6px;
+        top: 9px;
+        width: 11px;
+        height: 1px;
+        background: linear-gradient(to right, @tree-line-color, @tree-line-color 1px, transparent 1px, transparent);
+        background-size: 2px 100%;
+      }
+
+      &:last-child:before {
+        bottom: auto;
+        top: -4px;
+        height: 14px;
+      }
+
+      &:first-child:before {
+        top: -4px;
+      }
+    }
+
+    &.@{tree-prefix} > .@{tree-prefix}-node:first-child:before {
+      top: 9px;
+    }
+
     .@{tree-prefix}-icon-plus, .@{tree-prefix}-icon-sub {
       position: absolute;
       z-index: 10;

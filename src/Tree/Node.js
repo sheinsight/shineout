@@ -8,26 +8,18 @@ class Node extends PureComponent {
   constructor(props) {
     super(props)
 
-    const expanded = props.bindNode(props.id, this.update.bind(this))
+    const { active, expanded } = props.bindNode(props.id, this.update.bind(this))
+    this.state = { active, expanded }
 
-    this.state = { expanded }
     this.handleToggle = this.handleToggle.bind(this)
   }
-
-  /*
-  componentWillUpdate(nextProps, nextState) {
-    Object.keys(nextProps).forEach((k) => {
-      if (this.props[k] !== nextProps[k]) console.log(k)
-    })
-  }
-  */
 
   componentWillUnmount() {
     this.props.unbindNode(this.props.id)
   }
 
-  update(expanded) {
-    if (this.state.expanded !== expanded) this.setState({ expanded })
+  update(key, value) {
+    if (this.state[key] !== value) this.setState({ [key]: value })
   }
 
   handleToggle() {
@@ -39,7 +31,7 @@ class Node extends PureComponent {
 
   render() {
     const {
-      id, data, renderItem, expandedMap, listComponent, ...other
+      data, expandedMap, listComponent, ...other
     } = this.props
 
     const hasChildren = data.children && data.children.length > 0
@@ -49,20 +41,17 @@ class Node extends PureComponent {
       ...other,
       data: data.children,
       expanded,
-      renderItem,
       expandedMap,
     }
 
     return (
       <div className={treeClass('node')}>
         <Content
-          active={other.active}
+          {...other}
+          active={this.state.active}
           data={data}
-          id={id}
           onClick={this.handleToggle}
           expanded={expanded}
-          renderItem={renderItem}
-          onNodeClick={other.onNodeClick}
         />
         { hasChildren && createElement(listComponent, listProps) }
       </div>
@@ -74,8 +63,8 @@ Node.propTypes = {
   ...getProps(),
   bindNode: PropTypes.func.isRequired,
   unbindNode: PropTypes.func.isRequired,
-  listComponent: PropTypes.func,
   data: PropTypes.object,
+  listComponent: PropTypes.func,
   keygen: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.func,

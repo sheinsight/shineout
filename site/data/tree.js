@@ -1,7 +1,7 @@
 import { range } from 'shineout/utils/numbers'
 import { pickNumber } from '../utils/faker'
 
-const maxDeepLength = 8
+const maxDeepLength = 3
 
 export const allIds = []
 
