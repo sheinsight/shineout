@@ -51,7 +51,7 @@ const examples = [
   },
   {
     name: 'data',
-    title: locate(' \n 本页中用到的测试数据格式如下', 'Data'),
+    title: locate(' \n 本页中用到的测试数据是随机生成，格式如下', 'Data'),
     component: require('doc/pages/components/Tree/example-data.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-data.js'),
   },

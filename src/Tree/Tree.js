@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { getProps } from '../utils/proptypes'
+import DatumTree from '../Datum/Tree'
 import Root from './Root'
 
 class Tree extends PureComponent {
@@ -9,6 +11,13 @@ class Tree extends PureComponent {
     this.state = { active: null }
 
     this.nodes = new Map()
+    this.datum = new DatumTree({
+      data: props.data,
+      keygen: props.keygen,
+      mode: props.mode,
+      onChange: props.onChange,
+      value: props.value || props.defaultValue,
+    })
 
     this.handleToggle = this.handleToggle.bind(this)
     this.handleNodeClick = this.handleNodeClick.bind(this)
@@ -20,6 +29,13 @@ class Tree extends PureComponent {
     if (prevProps.expanded !== this.props.expanded) {
       this.handleExpanded(this.props.expanded)
     }
+    if (prevProps.active !== this.props.active) {
+      this.handleActive(this.props.active)
+    }
+
+    this.datum.mode = this.props.mode
+    if (prevProps.value !== this.props.value) this.datum.setValue(this.props.value)
+    if (prevProps.data !== this.props.data) this.datum.data(this.props.data)
   }
 
   getActive() {
@@ -34,10 +50,10 @@ class Tree extends PureComponent {
     }
     this.nodes.set(id, update)
 
+    const active = this.props.active === id
     const expanded = this.props.expanded || this.props.defaultExpanded
-    if (!expanded) return false
 
-    return expanded.indexOf(id) >= 0
+    return { active, expanded: expanded && expanded.indexOf(id) >= 0 }
   }
 
   unbindNode(id) {
@@ -47,14 +63,26 @@ class Tree extends PureComponent {
   handleExpanded(expanded) {
     const temp = new Set(expanded)
     for (const [id, update] of this.nodes) {
-      update(temp.has(id))
+      update('expanded', temp.has(id))
+    }
+  }
+
+  handleActive(active) {
+    for (const [id, update] of this.nodes) {
+      update('active', id === active)
     }
   }
 
   handleNodeClick(node, id) {
-    const { onClick } = this.props
-    if (onClick) onClick(node)
-    else this.setState({ active: id })
+    const { active, onClick } = this.props
+    if (active === undefined) {
+      this.setState({ active: id }, () => {
+        this.handleActive(id)
+      })
+    }
+    if (onClick) {
+      onClick(node, id)
+    }
   }
 
   handleToggle(id) {
@@ -70,16 +98,14 @@ class Tree extends PureComponent {
 
   render() {
     const {
-      expanded, onExpand, defaultExpanded, ...props
+      expanded, onExpand, value, defaultExpanded, ...props
     } = this.props
     const onToggle = onExpand ? this.handleToggle : undefined
-
-    console.log(this.getActive())
 
     return (
       <Root
         {...props}
-        active={this.getActive()}
+        datum={this.datum}
         bindNode={this.bindNode}
         unbindNode={this.unbindNode}
         onToggle={onToggle}
@@ -90,15 +116,20 @@ class Tree extends PureComponent {
 }
 
 Tree.propTypes = {
+  ...getProps(),
   active: PropTypes.string,
-  defaultExpanded: PropTypes.array,
-  expanded: PropTypes.array,
+  defaultExpanded: PropTypes.arrayOf(PropTypes.string),
+  defaultValue: PropTypes.arrayOf(PropTypes.string),
+  expanded: PropTypes.arrayOf(PropTypes.string),
+  mode: PropTypes.oneOf([0, 1, 2, 3]),
   onClick: PropTypes.func,
   onExpand: PropTypes.func,
 }
 
 Tree.defaultProps = {
   defaultExpanded: [],
+  defaultValue: [],
+  mode: 0,
 }
 
 export default Tree
