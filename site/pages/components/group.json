@@ -14,14 +14,14 @@
     "Radio": "单选框",
     "Rate": "评分",
     "Select": "选择框",
-    "Textarea": "多行文本框",
-    "Tree": "树形选择"
+    "Textarea": "多行文本框"
   },
   "Data": {
     "Datum.Form": "表单处理",
     "Datum.List": "数据处理",
     "Pagination": "分页",
-    "Table": "表格"
+    "Table": "表格",
+    "Tree": "树形选择"
   },
   "Feedback": {
     "Alert": "提示框",

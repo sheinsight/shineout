@@ -141,13 +141,17 @@
   }
 
   &-content {
-    display: block;
+    display: flex;
     z-index: 10;
+
+    .@{tree-prefix}-text {
+      flex: 1;
+    }
   }
 
   &-checkbox {
     font-size: 0;
-    margin: -2px 6px 0 -2px;
+    margin: 2px 6px 0 -2px;
     z-index: 10;
   }
 }

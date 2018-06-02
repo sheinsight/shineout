@@ -1,5 +1,6 @@
 /**
  * cn - 可选择
+ *    -- * Tree 放在 Form 组件内使用时，需要放在 Form.Field 组件内
  * en - onChange
  */
 import React, { Component } from 'react'

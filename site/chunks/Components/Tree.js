@@ -45,7 +45,7 @@ const examples = [
   },
   {
     name: '06-change',
-    title: locate('可选择', 'onChange'),
+    title: locate('可选择 \n * Tree 放在 Form 组件内使用时，需要放在 Form.Field 组件内', 'onChange'),
     component: require('doc/pages/components/Tree/example-06-change.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-06-change.js'),
   },

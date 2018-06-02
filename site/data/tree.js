@@ -20,6 +20,4 @@ const createNode = (deep, index, path) => {
 
 const tree = range(4).map(i => createNode(0, i, [i]))
 
-console.log(allIds.length)
-
 export default tree

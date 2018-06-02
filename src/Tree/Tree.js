@@ -136,7 +136,6 @@ Tree.propTypes = {
   onChange: PropTypes.func,
   onClick: PropTypes.func,
   onExpand: PropTypes.func,
-  renderItem: PropTypes.func.isRequired,
   value: PropTypes.array,
 }
 

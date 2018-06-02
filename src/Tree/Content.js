@@ -47,7 +47,9 @@ class Content extends PureComponent {
             onChange &&
             <Checkbox {...other} onChange={onChange} />
           }
-          <span onClick={this.handleNodeClick}>{this.renderNode()}</span>
+          <div className={treeClass('text')} onClick={this.handleNodeClick}>
+            {this.renderNode()}
+          </div>
         </div>
       </div>
     )
