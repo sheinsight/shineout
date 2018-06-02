@@ -1,3 +1,4 @@
 import Tree from './Tree'
+import inputable from '../Form/inputable'
 
-export default Tree
+export default inputable({})(Tree)

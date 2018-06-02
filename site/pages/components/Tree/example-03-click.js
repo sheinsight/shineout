@@ -29,8 +29,8 @@ export default class extends Component {
         if (index < path.length - 1) data = data.children
       })
       data.text = newText
+      draft.active = undefined
     }))
-    this.setState({ active: undefined })
   }
 
   handleKeyDown = (event) => {
@@ -40,23 +40,18 @@ export default class extends Component {
   keyGenerator = (node, parentKey) => `${parentKey},${node.id}`.replace(/^,/, '')
 
   renderItem = (node, isExpanded, isActive) => (
-    <div style={{ color: isActive ? 'red' : undefined, cursor: 'pointer' }}>
-      {
-        isActive
-          ? (
-            <div>
-              <input
-                size="small"
-                onBlur={this.handleEdit}
-                onKeyDown={this.handleKeyDown}
-                defaultValue={node.text}
-                type="text"
-              />
-            </div>
-          )
-          : `node ${node.text}`
-      }
-    </div>
+    isActive
+      ? (
+        <input
+          autoFocus
+          size="small"
+          onBlur={this.handleEdit}
+          onKeyDown={this.handleKeyDown}
+          defaultValue={node.text}
+          type="text"
+        />
+      )
+      : `node ${node.text}`
   )
 
   render() {
