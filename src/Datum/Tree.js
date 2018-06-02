@@ -52,10 +52,10 @@ export default class {
         case CheckedMode.Half:
           if (checked >= 1) value.push(id)
           break
-        case CheckedMode.ChildOnly:
+        case CheckedMode.Child:
           if (checked === 1 && this.pathMap.get(id).children.length === 0) value.push(id)
           break
-        case CheckedMode.Lazy:
+        case CheckedMode.Shallow:
           if (checked === 1) {
             const parentChecked = (() => {
               const { path } = this.pathMap.get(id)

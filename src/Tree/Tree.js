@@ -100,18 +100,23 @@ class Tree extends PureComponent {
 
   render() {
     const {
-      expanded, onExpand, value, defaultExpanded, ...props
+      data, line, keygen, onExpand, onChange, renderItem, mode,
     } = this.props
     const onToggle = onExpand ? this.handleToggle : undefined
 
     return (
       <Root
-        {...props}
+        data={data}
         datum={this.datum}
         bindNode={this.bindNode}
+        keygen={keygen}
+        line={line}
+        mode={mode}
         unbindNode={this.unbindNode}
+        onChange={onChange}
         onToggle={onToggle}
         onNodeClick={this.handleNodeClick}
+        renderItem={renderItem}
       />
     )
   }
@@ -124,6 +129,7 @@ Tree.propTypes = {
   defaultValue: PropTypes.arrayOf(PropTypes.string),
   expanded: PropTypes.arrayOf(PropTypes.string),
   mode: PropTypes.oneOf([0, 1, 2, 3]),
+  onChange: PropTypes.func,
   onClick: PropTypes.func,
   onExpand: PropTypes.func,
 }

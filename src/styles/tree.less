@@ -21,25 +21,6 @@
     }
   }
 
-  &-line {
-    position: absolute;
-    left: @tree-indicator-size;
-    top: 0;
-    bottom: 4px;
-    width: 16px;
-    z-index: 0;
-
-    svg {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  & > &-line {
-    left: 0;
-  }
-
   &-with-line {
     .@{tree-prefix}-node {
       &:before {
