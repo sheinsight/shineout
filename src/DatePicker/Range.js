@@ -11,7 +11,7 @@ class Range extends PureComponent {
 
     this.state = {
       hover: undefined,
-      range: props.value,
+      rangeDate: props.value,
     }
 
     this.pickers = []
@@ -27,12 +27,12 @@ class Range extends PureComponent {
     this.pickers[index] = el
   }
 
-  resetRange(range) {
-    this.setState({ range, hover: undefined })
+  resetRange(rangeDate) {
+    this.setState({ rangeDate, hover: undefined })
   }
 
   handleDayHover(date) {
-    if (this.state.range.length === 1) {
+    if (this.state.rangeDate.length === 1) {
       utils.cloneTime(date, this.props.value[1], this.props.format)
       this.setState({ hover: date })
     }
@@ -51,7 +51,7 @@ class Range extends PureComponent {
 
     if (mode === 'time') {
       this.setState(immer((draft) => {
-        draft.range[index] = date
+        draft.rangeDate[index] = date
       }), () => {
         const current = immer(this.props.value, (draft) => {
           draft[index] = date
@@ -62,39 +62,45 @@ class Range extends PureComponent {
     }
 
     if (type === 'month') {
-      const range = [...this.state.range]
-      range[index] = date
-      if (range.some(v => !utils.isInvalid(v))) {
-        range.sort((a, b) => a.getTime() - b.getTime())
+      const rangeDate = [...this.state.rangeDate]
+      rangeDate[index] = date
+      if (rangeDate.some(v => !utils.isInvalid(v))) {
+        rangeDate.sort((a, b) => a.getTime() - b.getTime())
       }
-      this.setState({ range })
-      this.props.onChange(range, true)
+      this.setState({ rangeDate })
+      this.props.onChange(rangeDate, true)
 
       return
     }
 
     utils.cloneTime(date, this.props.value[index])
 
-    if (this.state.range.length !== 1) {
-      this.setState({ range: [date], hover: undefined })
+    if (this.state.rangeDate.length !== 1) {
+      this.setState({ rangeDate: [date], hover: undefined })
       return
     }
 
     this.setState(immer((draft) => {
-      const method = utils.compareAsc(draft.range[0], date) > 0 ? 'unshift' : 'push'
-      draft.range[method](date)
+      const method = utils.compareAsc(draft.rangeDate[0], date) > 0 ? 'unshift' : 'push'
+      draft.rangeDate[method](date)
       draft.hover = undefined
     }), () => {
-      this.props.onChange(this.state.range, true, type === 'date')
+      this.props.onChange(this.state.rangeDate, true, type === 'date')
     })
   }
 
   render() {
-    const { current, value, ...props } = this.props
-    const range = [...this.state.range]
-    if (range.length === 1) {
-      const method = utils.compareAsc(range[0], this.state.hover) > 0 ? 'unshift' : 'push'
-      range[method](this.state.hover)
+    const {
+      current, value, range, ...props
+    } = this.props
+    const rangeDate = [...this.state.rangeDate]
+
+    let rangeTemp
+    if (rangeDate.length === 1) {
+      // eslint-disable-next-line
+      rangeTemp = rangeDate[0]
+      const method = utils.compareAsc(rangeDate[0], this.state.hover) > 0 ? 'unshift' : 'push'
+      rangeDate[method](this.state.hover)
     }
 
     return (
@@ -102,9 +108,11 @@ class Range extends PureComponent {
         <Picker
           {...props}
           index={0}
-          max={range[1]}
+          max={rangeDate[1]}
           current={current[0]}
-          range={range}
+          range={typeof range === 'number' ? range : undefined}
+          rangeDate={rangeDate}
+          rangeTemp={rangeTemp}
           onChange={this.handleFirstChange}
           onDayHover={this.handleDayHover}
           ref={this.bindFirstPicker}
@@ -113,9 +121,11 @@ class Range extends PureComponent {
         <Picker
           {...props}
           index={1}
-          min={range[0]}
+          min={rangeDate[0]}
           current={current[1]}
-          range={range}
+          range={typeof range === 'number' ? range : undefined}
+          rangeDate={rangeDate}
+          rangeTemp={rangeTemp}
           onChange={this.handleSecondChange}
           onDayHover={this.handleDayHover}
           ref={this.bindSecondPicker}
@@ -131,6 +141,10 @@ Range.propTypes = {
   disabled: PropTypes.func,
   format: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  range: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.number,
+  ]),
   value: PropTypes.array,
   type: PropTypes.string.isRequired,
 }

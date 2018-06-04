@@ -1,5 +1,6 @@
 import addDays from 'date-fns/addDays'
 import addMonths from 'date-fns/addMonths'
+import addSeconds from 'date-fns/addSeconds'
 import addYears from 'date-fns/addYears'
 import compareAsc from 'date-fns/compareAsc'
 import endOfMonth from 'date-fns/endOfMonth'
@@ -71,6 +72,7 @@ export default {
   addDays,
   addMonths,
   addYears,
+  addSeconds,
   cloneTime,
   compareAsc,
   compareMonth,
