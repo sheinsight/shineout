@@ -50,6 +50,12 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Tree/example-06-change.js'),
   },
   {
+    name: '07-disabled',
+    title: locate('禁用', 'disabled'),
+    component: require('doc/pages/components/Tree/example-07-disabled.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tree/example-07-disabled.js'),
+  },
+  {
     name: 'data',
     title: locate(' \n 本页中用到的测试数据是随机生成，格式如下', 'Data'),
     component: require('doc/pages/components/Tree/example-data.js').default,

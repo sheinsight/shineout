@@ -17,6 +17,7 @@ class Tree extends PureComponent {
       mode: props.mode,
       onChange: props.onChange,
       value: props.value || props.defaultValue,
+      disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
     })
 
     this.handleToggle = this.handleToggle.bind(this)
@@ -100,7 +101,7 @@ class Tree extends PureComponent {
 
   render() {
     const {
-      className, style, data, line, keygen, onExpand, onChange, renderItem, mode,
+      className, style, data, disabled, line, keygen, onExpand, onChange, renderItem, mode,
     } = this.props
     const onToggle = onExpand ? this.handleToggle : undefined
 
@@ -109,6 +110,7 @@ class Tree extends PureComponent {
         className={className}
         data={data}
         datum={this.datum}
+        disabled={typeof disabled !== 'function' && disabled}
         bindNode={this.bindNode}
         keygen={keygen}
         line={line}
@@ -130,6 +132,10 @@ Tree.propTypes = {
   data: PropTypes.array,
   defaultExpanded: PropTypes.arrayOf(PropTypes.string),
   defaultValue: PropTypes.arrayOf(PropTypes.string),
+  disabled: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.func,
+  ]),
   expanded: PropTypes.arrayOf(PropTypes.string),
   line: PropTypes.bool,
   mode: PropTypes.oneOf([0, 1, 2, 3]),

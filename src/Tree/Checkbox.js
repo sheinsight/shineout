@@ -6,6 +6,7 @@ import { treeClass } from '../styles'
 export default class extends PureComponent {
   static propTypes = {
     datum: PropTypes.object.isRequired,
+    disabled: PropTypes.bool,
     id: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
   }
@@ -18,6 +19,13 @@ export default class extends PureComponent {
 
   componentWillUnmount() {
     this.props.datum.unbind(this.props.id)
+  }
+
+  checkDisabled() {
+    const { datum, id, disabled } = this.props
+    if (disabled) return true
+
+    return datum.isDisabled(id)
   }
 
   update() {
@@ -37,6 +45,7 @@ export default class extends PureComponent {
     return (
       <Checkbox
         checked={checked}
+        disabled={this.checkDisabled()}
         onChange={this.handleChange}
         className={treeClass('checkbox')}
       />
