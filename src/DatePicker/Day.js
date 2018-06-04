@@ -78,10 +78,17 @@ class Day extends PureComponent {
 
   renderDay(date) {
     const {
-      current, disabled, value, type, range,
+      current, disabled, value, type, rangeDate, range, rangeTemp,
     } = this.props
     const { hover } = this.state
-    const isDisabled = disabled ? disabled(date) : false
+    let isDisabled = disabled ? disabled(date) : false
+
+    if (!isDisabled && typeof range === 'number' && rangeTemp) {
+      if (utils.compareAsc(date, utils.addSeconds(rangeTemp, range)) > 0 ||
+        utils.compareAsc(date, utils.addSeconds(rangeTemp, -range)) < 0) {
+        isDisabled = true
+      }
+    }
 
     const classList = [
       current.getMonth() !== date.getMonth() && 'other-month',
@@ -106,13 +113,13 @@ class Day extends PureComponent {
           date.getDay() === 6 && 'hover-end',
         )
       }
-    } else if (range && current.getMonth() === date.getMonth()) {
+    } else if (rangeDate && current.getMonth() === date.getMonth()) {
       hoverProps.onMouseEnter = this.handleDayHover.bind(this, date)
 
       hoverClass = datepickerClass(
-        utils.compareAsc(range[0], date) <= 0 && utils.compareAsc(range[1], date) >= 0 && 'hover',
-        utils.isSameDay(range[0], date) && 'hover-start active',
-        utils.isSameDay(range[1], date) && 'hover-end active',
+        utils.compareAsc(rangeDate[0], date) <= 0 && utils.compareAsc(rangeDate[1], date) >= 0 && 'hover',
+        utils.isSameDay(rangeDate[0], date) && 'hover-start active',
+        utils.isSameDay(rangeDate[1], date) && 'hover-end active',
       )
     } else if (value) {
       classList.push(utils.isSameDay(date, value) && 'active')
@@ -131,15 +138,17 @@ class Day extends PureComponent {
   }
 
   renderTimepicker() {
-    const { range, index } = this.props
+    const { rangeDate, index } = this.props
     if (this.props.type !== 'datetime') return undefined
-    if (range && (range.length < 2 || range.some(v => !utils.isValid(v)))) return undefined
+    if (rangeDate && (rangeDate.length < 2 || rangeDate.some(v => !utils.isValid(v)))) {
+      return undefined
+    }
 
     let { format } = this.props
     const match = format.match(/[H|h].*/)
     // eslint-disable-next-line
     if (match) format = match[0]
-    const value = range ? utils.toDateWithFormat(range[index], format) : this.props.value
+    const value = rangeDate ? utils.toDateWithFormat(rangeDate[index], format) : this.props.value
 
     return (
       <div className={datepickerClass('datetime')}>
@@ -212,7 +221,9 @@ Day.propTypes = {
   onChange: PropTypes.func.isRequired,
   onDayHover: PropTypes.func,
   onModeChange: PropTypes.func.isRequired,
-  range: PropTypes.array,
+  range: PropTypes.number,
+  rangeDate: PropTypes.array,
+  rangeTemp: PropTypes.object,
   type: PropTypes.string.isRequired,
   value: PropTypes.object,
 }

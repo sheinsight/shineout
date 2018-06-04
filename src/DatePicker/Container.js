@@ -217,6 +217,7 @@ class Container extends PureComponent {
         disabled={typeof disabled === 'function' ? disabled : undefined}
         onChange={this.handleChange}
         type={type}
+        range={range}
         value={range ? (value || []).map(v => this.parseDate(v)) : this.parseDate(value)}
       />
     )
@@ -262,7 +263,10 @@ Container.propTypes = {
   onChange: PropTypes.func.isRequired,
   onFocus: PropTypes.func.isRequired,
   position: PropTypes.string,
-  range: PropTypes.bool,
+  range: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.number,
+  ]),
   size: PropTypes.string,
   type: PropTypes.string,
   value: PropTypes.oneOfType([
