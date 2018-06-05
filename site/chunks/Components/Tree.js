@@ -56,6 +56,12 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Tree/example-07-disabled.js'),
   },
   {
+    name: '08-drag',
+    title: locate('拖动', 'Drag'),
+    component: require('doc/pages/components/Tree/example-08-drag.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tree/example-08-drag.js'),
+  },
+  {
     name: 'data',
     title: locate(' \n 本页中用到的测试数据是随机生成，格式如下', 'Data'),
     component: require('doc/pages/components/Tree/example-data.js').default,

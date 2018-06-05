@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { treeClass } from '../styles'
+import { empty } from '../utils/func'
 import Node from './Node'
 
 class List extends PureComponent {
@@ -33,6 +34,7 @@ class List extends PureComponent {
         {...other}
         data={child}
         id={id}
+        index={index}
         key={id}
         line={line}
         keygen={keygen}
@@ -52,6 +54,8 @@ class List extends PureComponent {
       <div
         className={className}
         ref={this.bindElement}
+        onDrop={empty}
+        onDragOver={empty}
         style={{ display: expanded ? 'block' : 'none' }}
       >
         { data.map(this.renderNode) }

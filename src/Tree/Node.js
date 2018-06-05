@@ -4,6 +4,14 @@ import { getProps } from '../utils/proptypes'
 import { treeClass } from '../styles'
 import Content from './Content'
 
+const placeElement = document.createElement('div')
+placeElement.style.width = '100%'
+placeElement.style.height = 0
+placeElement.style.border = 'dashed 1px #ddd'
+placeElement.style.background = '#eee'
+
+let isDragging = false
+
 class Node extends PureComponent {
   constructor(props) {
     super(props)
@@ -11,7 +19,11 @@ class Node extends PureComponent {
     const { active, expanded } = props.bindNode(props.id, this.update.bind(this))
     this.state = { active, expanded }
 
+    this.bindElement = this.bindElement.bind(this)
     this.handleToggle = this.handleToggle.bind(this)
+    this.handleDragStart = this.handleDragStart.bind(this)
+    this.handleDragOver = this.handleDragOver.bind(this)
+    this.handleDragEnd = this.handleDragEnd.bind(this)
   }
 
   componentWillUnmount() {
@@ -22,6 +34,10 @@ class Node extends PureComponent {
     if (this.state[key] !== value) this.setState({ [key]: value })
   }
 
+  bindElement(el) {
+    this.element = el
+  }
+
   handleToggle() {
     const { id, onToggle } = this.props
     const expanded = !this.state.expanded
@@ -29,9 +45,82 @@ class Node extends PureComponent {
     if (onToggle) onToggle(id, expanded)
   }
 
+  handleDragStart(event) {
+    if (isDragging) return
+    isDragging = true
+
+    // this.setState({ expanded: false }, () => {
+    // placeElement.style.width = `${this.element.clientWidth}px`
+    // placeElement.style.height = `${this.element.clientHeight}px`
+    // })
+
+    event.dataTransfer.effectAllowed = 'copyMove'
+    event.dataTransfer.setData('text/plain', this.props.id)
+
+    const dragImage = this.element.querySelector(`.${treeClass('content')}`)
+    const rect = dragImage.getBoundingClientRect()
+    this.dragImage = dragImage.cloneNode(true)
+    document.body.appendChild(this.dragImage)
+    this.dragImage.style.position = 'absolute'
+    this.dragImage.style.top = '-1000px'
+    this.dragImage.style.left = '-1000px'
+    this.dragImage.style.width = `${rect.width}px`
+    this.dragImage.style.background = '#fff'
+    this.dragImage.style.boxShadow = '0 0 5px 0 rgba(0, 0, 0, 0.1)'
+
+    event.dataTransfer.setDragImage(
+      this.dragImage,
+      event.clientX - rect.left,
+      event.clientY - rect.top,
+    )
+
+    setTimeout(() => {
+      this.element.style.display = 'none'
+    }, 0)
+  }
+
+  handleDragOver(e) {
+    if (!isDragging) return
+
+    const hover = this.element
+    const hoverBoundingRect = hover.getBoundingClientRect()
+
+    const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
+    const hoverClientY = e.clientY - hoverBoundingRect.top
+
+    let position = this.props.index
+    if (hoverClientY < hoverMiddleY) {
+      hover.parentNode.insertBefore(placeElement, hover)
+    } else {
+      position += 1
+      hover.parentNode.insertBefore(placeElement, hover.nextElementSibling)
+    }
+
+    placeElement.setAttribute('data-target', this.props.id)
+    placeElement.setAttribute('data-position', position)
+  }
+
+  handleDragEnd() {
+    if (!isDragging || !placeElement.parentNode) return
+    isDragging = false
+
+    document.body.removeChild(this.dragImage)
+
+    const { id, index, onDrag } = this.props
+    const position = parseInt(placeElement.getAttribute('data-position'), 10)
+    const target = placeElement.getAttribute('data-target')
+
+    placeElement.parentNode.removeChild(placeElement)
+
+    this.element.style.display = ''
+    if (target !== id || index !== position) {
+      onDrag(id, target, position)
+    }
+  }
+
   render() {
     const {
-      data, expandedMap, listComponent, ...other
+      data, expandedMap, listComponent, onDrag, ...other
     } = this.props
 
     const hasChildren = data.children && data.children.length > 0
@@ -42,16 +131,27 @@ class Node extends PureComponent {
       data: data.children,
       expanded,
       expandedMap,
+      onDrag,
+    }
+
+    const wrapProps = {}
+    if (onDrag) {
+      Object.assign(wrapProps, {
+        draggable: true,
+        onDragStart: this.handleDragStart,
+        onDragEnd: this.handleDragEnd,
+      })
     }
 
     return (
-      <div className={treeClass('node')}>
+      <div {...wrapProps} ref={this.bindElement} className={treeClass('node')}>
         <Content
           {...other}
           active={this.state.active}
           data={data}
-          onClick={this.handleToggle}
           expanded={expanded}
+          onClick={this.handleToggle}
+          onDragOver={this.handleDragOver}
         />
         { hasChildren && createElement(listComponent, listProps) }
       </div>
@@ -64,11 +164,13 @@ Node.propTypes = {
   bindNode: PropTypes.func.isRequired,
   unbindNode: PropTypes.func.isRequired,
   data: PropTypes.object,
+  index: PropTypes.number,
   listComponent: PropTypes.func,
   keygen: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.func,
   ]).isRequired,
+  onDrag: PropTypes.func,
 }
 
 export default Node

@@ -7,7 +7,7 @@ import Select from './Select'
 import filter from './filter'
 
 const exportSelect = compose(
-  wrapper({ className: selectClass('_'), noPadding: true }),
+  wrapper({ className: selectClass('_') }),
   inputable({}),
   Datum.hoc({ limit: 1 }),
   filter,

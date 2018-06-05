@@ -25,13 +25,13 @@ class Content extends PureComponent {
 
   render() {
     const {
-      data, onClick, onChange, expanded, ...other
+      data, onClick, onChange, expanded, draggable, onDragOver, ...other
     } = this.props
     const hasChildren = data.children && data.children.length > 0
 
     console.log(data.id)
     return (
-      <div>
+      <div onDragOver={onDragOver}>
         {
           hasChildren &&
           <a
@@ -59,10 +59,12 @@ class Content extends PureComponent {
 Content.propTypes = {
   active: PropTypes.any,
   data: PropTypes.object,
+  draggable: PropTypes.bool,
   expanded: PropTypes.bool,
   id: PropTypes.string,
   onChange: PropTypes.func,
   onClick: PropTypes.func,
+  onDragOver: PropTypes.func,
   onNodeClick: PropTypes.func,
   renderItem: PropTypes.oneOfType([
     PropTypes.func,

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import immer from 'immer'
 import { getProps } from '../utils/proptypes'
 import DatumTree from '../Datum/Tree'
 import Root from './Root'
@@ -20,6 +21,7 @@ class Tree extends PureComponent {
       disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
     })
 
+    this.handleDrag = this.handleDrag.bind(this)
     this.handleToggle = this.handleToggle.bind(this)
     this.handleNodeClick = this.handleNodeClick.bind(this)
     this.bindNode = this.bindNode.bind(this)
@@ -34,7 +36,7 @@ class Tree extends PureComponent {
       this.handleActive(this.props.active)
     }
 
-    if (this.props.onChange) {
+    if (this.props.onChange || this.props.onDrag) {
       this.datum.mode = this.props.mode
       if (prevProps.value !== this.props.value) this.datum.setValue(this.props.value)
       if (prevProps.data !== this.props.data) this.datum.setData(this.props.data)
@@ -47,10 +49,12 @@ class Tree extends PureComponent {
   }
 
   bindNode(id, update) {
+    /*
     if (this.nodes.has(id)) {
       console.error(`Node with '${id}' key has already been added. Tree node's key must be unique.`)
       return {}
     }
+    */
     this.nodes.set(id, update)
 
     const active = this.props.active === id
@@ -99,9 +103,46 @@ class Tree extends PureComponent {
     if (onExpand) onExpand(newExpanded)
   }
 
+  handleDrag(id, target, position) {
+    const path = this.datum.getIndexPath(id)
+    const targetPath = this.datum.getIndexPath(target)
+    const data = immer(this.props.data, (draft) => {
+      let node = draft
+      let temp
+      let removeNode
+      path.forEach((p, i) => {
+        if (i < path.length - 1) {
+          node = node[p].children
+        } else {
+          // eslint-disable-next-line
+          // node = 
+          temp = node
+          removeNode = () => temp.splice(p, 1)[0]
+          node = node[p]
+        }
+      })
+
+      let tnode = draft
+      targetPath.forEach((p, i) => {
+        if (i < targetPath.length - 1) {
+          tnode = tnode[p].children
+        } else {
+          if (tnode === temp) {
+            removeNode()
+            removeNode = () => {}
+          }
+          tnode.splice(position, 0, node)
+        }
+      })
+
+      removeNode()
+    })
+    this.props.onDrag(data, id, target, position)
+  }
+
   render() {
     const {
-      className, style, data, disabled, line, keygen, onExpand, onChange, renderItem, mode,
+      className, style, data, disabled, line, keygen, onExpand, onChange, renderItem, mode, onDrag,
     } = this.props
     const onToggle = onExpand ? this.handleToggle : undefined
 
@@ -117,6 +158,7 @@ class Tree extends PureComponent {
         mode={mode}
         unbindNode={this.unbindNode}
         onChange={onChange}
+        onDrag={onDrag && this.handleDrag}
         onToggle={onToggle}
         onNodeClick={this.handleNodeClick}
         renderItem={renderItem}
@@ -142,6 +184,7 @@ Tree.propTypes = {
   onChange: PropTypes.func,
   onClick: PropTypes.func,
   onExpand: PropTypes.func,
+  onDrag: PropTypes.func,
   value: PropTypes.array,
 }
 

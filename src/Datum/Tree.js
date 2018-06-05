@@ -114,6 +114,14 @@ export default class {
     return this.valueMap.get(id)
   }
 
+  getPath(id) {
+    return this.pathMap.get(id).path
+  }
+
+  getIndexPath(id) {
+    return this.pathMap.get(id).indexPath
+  }
+
   getChecked(id) {
     const value = this.get(id)
     let checked = value === 1
@@ -166,7 +174,7 @@ export default class {
     return checked
   }
 
-  initData(data, path, disabled) {
+  initData(data, path, disabled, index = []) {
     const ids = []
     data.forEach((d, i) => {
       const id = this.getKey(d, path[path.length - 1], i)
@@ -176,12 +184,15 @@ export default class {
         isDisabled = this.disabled(d, i)
       }
 
+      const indexPath = [...index, i]
       ids.push(id)
       let children = []
       if (Array.isArray(d.children)) {
-        children = this.initData(d.children, [...path, id], isDisabled)
+        children = this.initData(d.children, [...path, id], isDisabled, indexPath)
       }
-      this.pathMap.set(id, { children, path, isDisabled })
+      this.pathMap.set(id, {
+        children, path, isDisabled, indexPath,
+      })
     })
     return ids
   }

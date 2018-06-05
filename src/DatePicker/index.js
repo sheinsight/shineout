@@ -8,7 +8,7 @@ const getClassName = opt =>
   datepickerClass('_', `${opt.range ? 'r' : 'c'}-${opt.type || 'date'}`)
 
 const Datepicker = compose(
-  wrapper({ className: getClassName, noPadding: true, innerWidth: true }),
+  wrapper({ className: getClassName, innerWidth: true }),
   inputable({ delay: 1 }),
 )(Container)
 
