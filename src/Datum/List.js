@@ -40,6 +40,14 @@ export default class {
     }
   }
 
+  handleChange(values, ...args) {
+    this.$values = values
+    this.dispatch('change')
+    if (this.onChange) {
+      this.onChange(this.getValue(), ...args)
+    }
+  }
+
   add(data) {
     if (data === undefined || data === null) return
 
@@ -57,7 +65,8 @@ export default class {
       if (v !== undefined) values.push(v)
     }
 
-    this.values = this.values.concat(values)
+    this.handleChange(this.values.concat(values), data, true)
+    // this.values = this.values.concat(values)
   }
 
   set(value) {
@@ -83,13 +92,6 @@ export default class {
     const event = this.$events[name]
     if (!event) return
     event.forEach(fn => fn(...args))
-  }
-
-  handleChange(...args) {
-    this.dispatch('change', ...args)
-    if (this.onChange) {
-      this.onChange(this.getValue(), ...args)
-    }
   }
 
   initFormat(f) {
@@ -130,7 +132,8 @@ export default class {
       values.push(val)
     }
 
-    this.values = values
+    // this.values = values
+    this.handleChange(values, value, false)
   }
 
   listen(name, fn) {
