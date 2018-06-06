@@ -1,11 +1,16 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { treeClass } from '../styles'
+import Spin from '../Spin'
 import Checkbox from './Checkbox'
 
 class Content extends PureComponent {
   constructor(props) {
     super(props)
+
+    this.state = {
+      fetching: false,
+    }
 
     this.handleNodeClick = this.handleNodeClick.bind(this)
   }
@@ -15,12 +20,40 @@ class Content extends PureComponent {
     this.props.onNodeClick(data, id)
   }
 
+  /*
+  handleIndicatorClick() {
+    const {  }
+  }
+  */
+
   renderNode() {
     const {
       id, active, data, renderItem, expanded,
     } = this.props
     const render = typeof renderItem === 'function' ? renderItem : d => d[renderItem]
     return render(data, expanded, active === id)
+  }
+
+  renderIndicator() {
+    const { data, onClick, expanded } = this.props
+
+    if (data.children && data.children.length > 0) {
+      return (
+        <a
+          href="javascript:;"
+          onClick={onClick}
+          className={treeClass(`icon-${expanded ? 'sub' : 'plus'}`)}
+        >
+          <span />
+        </a>
+      )
+    }
+
+    if (this.state.fetching) {
+      return <Spin name="ring" size={14} />
+    }
+
+    return null
   }
 
   render() {
@@ -61,6 +94,7 @@ Content.propTypes = {
   data: PropTypes.object,
   draggable: PropTypes.bool,
   expanded: PropTypes.bool,
+  fetchData: PropTypes.func,
   id: PropTypes.string,
   onChange: PropTypes.func,
   onClick: PropTypes.func,
