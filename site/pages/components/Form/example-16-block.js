@@ -4,7 +4,7 @@
  * en -
  */
 import React, { PureComponent } from 'react'
-import { Form, Input } from 'shineout'
+import { Form, Input, Button } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
 export default class extends PureComponent {
@@ -22,6 +22,8 @@ export default class extends PureComponent {
     }
   }
 
+  renderEmpty = onAppend => <Button onClick={() => onAppend({})}>Add new friend</Button>
+
   render() {
     return (
       <Form value={this.initValue} onSubmit={(data) => { console.log(data) }}>
@@ -30,10 +32,10 @@ export default class extends PureComponent {
         </Form.Item>
 
         <Form.Item label="Friends">
-          <Form.Loop rules={this.rules.friends} name="friends">
+          <Form.Loop rules={this.rules.friends} name="friends" empty={this.renderEmpty}>
             {
               ({
-                index, value, onChange, onAppend, onRemove,
+                value, onChange, onAppend, onRemove,
               }) => (
                 <Form.Block value={value} onChange={onChange}>
                   <Form.Item style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
@@ -57,7 +59,6 @@ export default class extends PureComponent {
                       <FontAwesome name="plus" />
                     </a>
                     {
-                      index !== 0 &&
                       <a href="javascript:;" onClick={onRemove}>
                         <FontAwesome name="close" />
                       </a>

@@ -15,7 +15,7 @@ export default function () {
       data={data}
       multiple
       placeholder="Multiple select"
-      onChange={d => console.log(d)}
+      onChange={(vs, d, c) => console.log(vs, d, c)}
     />
   )
 }

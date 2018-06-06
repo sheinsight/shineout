@@ -6,6 +6,7 @@
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
+| clearable | bool | false | 是否可清除值 |
 | data | array | 必填 | 数据项，单条数据作为 value 的数据必须是唯一的 |
 | datum | object | 无 | 数据处理，可以传入一个 [Datum.List](#/components/Datum.List) 对象，或者 Datum.List 配置 |
 | defaultValue | array | | 初始值 |
