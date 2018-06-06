@@ -20,7 +20,7 @@ class Item extends PureComponent {
 
   render() {
     const {
-      children, grid, label, labelWidth, required, formItemErrors,
+      children, grid, label, labelWidth, required, formItemErrors, style,
     } = this.props
 
     const className = classnames(
@@ -34,7 +34,7 @@ class Item extends PureComponent {
     )
 
     return (
-      <div className={className}>
+      <div className={className} style={style}>
         {
           label !== undefined &&
           <div style={{ width: labelWidth }} className={formClass('label')}>
