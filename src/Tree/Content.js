@@ -13,6 +13,7 @@ class Content extends PureComponent {
     }
 
     this.handleNodeClick = this.handleNodeClick.bind(this)
+    this.handleIndicatorClick = this.handleIndicatorClick.bind(this)
   }
 
   handleNodeClick() {
@@ -20,11 +21,16 @@ class Content extends PureComponent {
     this.props.onNodeClick(data, id)
   }
 
-  /*
   handleIndicatorClick() {
-    const {  }
+    const { data, onToggle, fetchData } = this.props
+    if (data.children) {
+      onToggle()
+      return
+    }
+
+    this.setState({ fetching: true })
+    fetchData()
   }
-  */
 
   renderNode() {
     const {
@@ -35,13 +41,13 @@ class Content extends PureComponent {
   }
 
   renderIndicator() {
-    const { data, onClick, expanded } = this.props
+    const { data, expanded } = this.props
 
     if (data.children && data.children.length > 0) {
       return (
         <a
           href="javascript:;"
-          onClick={onClick}
+          onClick={this.handleIndicatorClick}
           className={treeClass(`icon-${expanded ? 'sub' : 'plus'}`)}
         >
           <span />
@@ -58,23 +64,13 @@ class Content extends PureComponent {
 
   render() {
     const {
-      data, onClick, onChange, expanded, draggable, onDragOver, onDrop, ...other
+      data, onToggle, onChange, expanded, draggable, onDragOver, onDrop, ...other
     } = this.props
-    const hasChildren = data.children && data.children.length > 0
 
     console.log(data.id)
     return (
       <div onDragOver={onDragOver}>
-        {
-          hasChildren &&
-          <a
-            href="javascript:;"
-            onClick={onClick}
-            className={treeClass(`icon-${expanded ? 'sub' : 'plus'}`)}
-          >
-            <span />
-          </a>
-        }
+        { this.renderIndicator() }
         <div className={treeClass('content')}>
           {
             onChange &&
@@ -97,7 +93,7 @@ Content.propTypes = {
   fetchData: PropTypes.func,
   id: PropTypes.string,
   onChange: PropTypes.func,
-  onClick: PropTypes.func,
+  onToggle: PropTypes.func,
   onDragOver: PropTypes.func,
   onDrop: PropTypes.func,
   onNodeClick: PropTypes.func,

@@ -149,7 +149,7 @@ class Node extends PureComponent {
           active={this.state.active}
           data={data}
           expanded={expanded}
-          onClick={this.handleToggle}
+          onToggle={this.handleToggle}
           onDragOver={this.handleDragOver}
         />
         { hasChildren && createElement(listComponent, listProps) }
