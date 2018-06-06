@@ -56,8 +56,14 @@ class Loop extends PureComponent {
     this.forceUpdate()
   }
 
-  handleChange(index, value) {
+  handleChange(index, value, fullSet) {
     const { formDatum, name } = this.props
+
+    if (fullSet) {
+      this.selfValidate(value)
+      formDatum.set(name, value)
+      return
+    }
 
     let values = formDatum.get(name)
     if (!values) return
