@@ -25,7 +25,7 @@ class Content extends PureComponent {
 
   render() {
     const {
-      data, onClick, onChange, expanded, draggable, onDragOver, ...other
+      data, onClick, onChange, expanded, draggable, onDragOver, onDrop, ...other
     } = this.props
     const hasChildren = data.children && data.children.length > 0
 
@@ -65,6 +65,7 @@ Content.propTypes = {
   onChange: PropTypes.func,
   onClick: PropTypes.func,
   onDragOver: PropTypes.func,
+  onDrop: PropTypes.func,
   onNodeClick: PropTypes.func,
   renderItem: PropTypes.oneOfType([
     PropTypes.func,

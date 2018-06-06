@@ -115,11 +115,7 @@ export default class {
   }
 
   getPath(id) {
-    return this.pathMap.get(id).path
-  }
-
-  getIndexPath(id) {
-    return this.pathMap.get(id).indexPath
+    return this.pathMap.get(id)
   }
 
   getChecked(id) {
@@ -191,7 +187,7 @@ export default class {
         children = this.initData(d.children, [...path, id], isDisabled, indexPath)
       }
       this.pathMap.set(id, {
-        children, path, isDisabled, indexPath,
+        children, path, isDisabled, indexPath, index: i,
       })
     })
     return ids

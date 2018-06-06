@@ -103,15 +103,15 @@ class Tree extends PureComponent {
     if (onExpand) onExpand(newExpanded)
   }
 
-  handleDrop(id, target, position) {
-    const path = this.datum.getIndexPath(id)
-    const targetPath = this.datum.getIndexPath(target)
+  handleDrop(id, targetId, position) {
+    const current = this.datum.getPath(id)
+    const target = this.datum.getPath(targetId)
     const data = immer(this.props.data, (draft) => {
       let node = draft
       let temp
       let removeNode
-      path.forEach((p, i) => {
-        if (i < path.length - 1) {
+      current.indexPath.forEach((p, i) => {
+        if (i < current.indexPath.length - 1) {
           node = node[p].children
         } else {
           temp = node
@@ -121,21 +121,29 @@ class Tree extends PureComponent {
       })
 
       let tnode = draft
-      targetPath.forEach((p, i) => {
-        if (i < targetPath.length - 1) {
+      target.indexPath.forEach((p, i) => {
+        if (i < target.indexPath.length - 1) {
           tnode = tnode[p].children
-        } else {
-          if (tnode === temp) {
-            removeNode()
-            removeNode = () => {}
-          }
-          tnode.splice(position, 0, node)
+        } else if (tnode === temp) {
+          // same parent
+          removeNode()
+          removeNode = () => {}
         }
       })
 
+      if (position === -1) {
+        tnode = tnode[target.index]
+        if (!Array.isArray(tnode.children)) tnode.children = []
+        tnode.children.push(node)
+        const update = this.nodes.get(targetId)
+        if (update) update('expanded', true)
+      } else {
+        tnode.splice(position, 0, node)
+      }
+
       removeNode()
     })
-    this.props.onDrop(data, id, target, position)
+    this.props.onDrop(data, id, targetId, position)
   }
 
   render() {

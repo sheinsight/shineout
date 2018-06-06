@@ -5,10 +5,9 @@ import { treeClass } from '../styles'
 import Content from './Content'
 
 const placeElement = document.createElement('div')
-placeElement.style.width = '100%'
-placeElement.style.height = 0
-placeElement.style.border = 'dashed 1px #ddd'
-placeElement.style.background = '#eee'
+placeElement.className = treeClass('drag-place')
+const innerPlaceElement = document.createElement('div')
+placeElement.appendChild(innerPlaceElement)
 
 let isDragging = false
 
@@ -78,14 +77,19 @@ class Node extends PureComponent {
     if (!isDragging) return
 
     const hover = this.element
-    const hoverBoundingRect = hover.getBoundingClientRect()
+    const rect = hover.getBoundingClientRect()
 
-    const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-    const hoverClientY = e.clientY - hoverBoundingRect.top
+    const hoverMiddleY = (rect.bottom - rect.top) / 2
+    const hoverClientY = e.clientY - rect.top
 
     let position = this.props.index
-    if (hoverClientY < hoverMiddleY) {
+    innerPlaceElement.style.height = '0px'
+    if (hoverClientY < hoverMiddleY + 4) {
       hover.parentNode.insertBefore(placeElement, hover)
+      if (hoverClientY > 6) {
+        position = -1
+        innerPlaceElement.style.height = `${rect.height}px`
+      }
     } else {
       position += 1
       hover.parentNode.insertBefore(placeElement, hover.nextElementSibling)
