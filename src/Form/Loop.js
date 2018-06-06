@@ -92,10 +92,16 @@ class Loop extends PureComponent {
   }
 
   render() {
-    const { children, formDatum, name } = this.props
+    const {
+      children, empty, formDatum, name,
+    } = this.props
     const values = formDatum.get(name) || []
 
     const { error } = this.state
+
+    if (values.length === 0 && empty) {
+      return empty(this.handleInsert.bind(this, 0))
+    }
 
     range(values.length, 0).forEach((i) => {
       if (!this.keys[i]) this.keys[i] = getUidStr()
@@ -126,6 +132,7 @@ class Loop extends PureComponent {
 
 Loop.propTypes = {
   children: PropTypes.func.isRequired,
+  empty: PropTypes.func,
   formDatum: PropTypes.object.isRequired,
   name: PropTypes.string,
   rules: PropTypes.array,
