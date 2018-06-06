@@ -49,11 +49,6 @@ class Node extends PureComponent {
     if (isDragging) return
     isDragging = true
 
-    // this.setState({ expanded: false }, () => {
-    // placeElement.style.width = `${this.element.clientWidth}px`
-    // placeElement.style.height = `${this.element.clientHeight}px`
-    // })
-
     event.dataTransfer.effectAllowed = 'copyMove'
     event.dataTransfer.setData('text/plain', this.props.id)
 
@@ -106,7 +101,7 @@ class Node extends PureComponent {
 
     document.body.removeChild(this.dragImage)
 
-    const { id, index, onDrag } = this.props
+    const { id, index, onDrop } = this.props
     const position = parseInt(placeElement.getAttribute('data-position'), 10)
     const target = placeElement.getAttribute('data-target')
 
@@ -114,13 +109,13 @@ class Node extends PureComponent {
 
     this.element.style.display = ''
     if (target !== id || index !== position) {
-      onDrag(id, target, position)
+      onDrop(id, target, position)
     }
   }
 
   render() {
     const {
-      data, expandedMap, listComponent, onDrag, ...other
+      data, expandedMap, listComponent, onDrop, ...other
     } = this.props
 
     const hasChildren = data.children && data.children.length > 0
@@ -131,11 +126,11 @@ class Node extends PureComponent {
       data: data.children,
       expanded,
       expandedMap,
-      onDrag,
+      onDrop,
     }
 
     const wrapProps = {}
-    if (onDrag) {
+    if (onDrop) {
       Object.assign(wrapProps, {
         draggable: true,
         onDragStart: this.handleDragStart,
@@ -170,7 +165,7 @@ Node.propTypes = {
     PropTypes.string,
     PropTypes.func,
   ]).isRequired,
-  onDrag: PropTypes.func,
+  onDrop: PropTypes.func,
 }
 
 export default Node

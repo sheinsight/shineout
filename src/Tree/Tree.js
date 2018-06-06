@@ -21,7 +21,7 @@ class Tree extends PureComponent {
       disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
     })
 
-    this.handleDrag = this.handleDrag.bind(this)
+    this.handleDrop = this.handleDrop.bind(this)
     this.handleToggle = this.handleToggle.bind(this)
     this.handleNodeClick = this.handleNodeClick.bind(this)
     this.bindNode = this.bindNode.bind(this)
@@ -36,7 +36,7 @@ class Tree extends PureComponent {
       this.handleActive(this.props.active)
     }
 
-    if (this.props.onChange || this.props.onDrag) {
+    if (this.props.onChange || this.props.onDrop) {
       this.datum.mode = this.props.mode
       if (prevProps.value !== this.props.value) this.datum.setValue(this.props.value)
       if (prevProps.data !== this.props.data) this.datum.setData(this.props.data)
@@ -103,7 +103,7 @@ class Tree extends PureComponent {
     if (onExpand) onExpand(newExpanded)
   }
 
-  handleDrag(id, target, position) {
+  handleDrop(id, target, position) {
     const path = this.datum.getIndexPath(id)
     const targetPath = this.datum.getIndexPath(target)
     const data = immer(this.props.data, (draft) => {
@@ -114,8 +114,6 @@ class Tree extends PureComponent {
         if (i < path.length - 1) {
           node = node[p].children
         } else {
-          // eslint-disable-next-line
-          // node = 
           temp = node
           removeNode = () => temp.splice(p, 1)[0]
           node = node[p]
@@ -137,12 +135,12 @@ class Tree extends PureComponent {
 
       removeNode()
     })
-    this.props.onDrag(data, id, target, position)
+    this.props.onDrop(data, id, target, position)
   }
 
   render() {
     const {
-      className, style, data, disabled, line, keygen, onExpand, onChange, renderItem, mode, onDrag,
+      className, style, data, disabled, line, keygen, onExpand, onChange, renderItem, mode, onDrop,
     } = this.props
     const onToggle = onExpand ? this.handleToggle : undefined
 
@@ -158,7 +156,7 @@ class Tree extends PureComponent {
         mode={mode}
         unbindNode={this.unbindNode}
         onChange={onChange}
-        onDrag={onDrag && this.handleDrag}
+        onDrop={onDrop && this.handleDrop}
         onToggle={onToggle}
         onNodeClick={this.handleNodeClick}
         renderItem={renderItem}
@@ -184,7 +182,7 @@ Tree.propTypes = {
   onChange: PropTypes.func,
   onClick: PropTypes.func,
   onExpand: PropTypes.func,
-  onDrag: PropTypes.func,
+  onDrop: PropTypes.func,
   value: PropTypes.array,
 }
 
