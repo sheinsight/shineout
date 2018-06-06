@@ -111,6 +111,7 @@ class Loop extends PureComponent {
       <Tag key={this.keys[index]}>
         {
           children({
+            list: values,
             value,
             index,
             onChange: this.handleChange.bind(this, index),
