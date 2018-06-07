@@ -34,7 +34,7 @@ export default class Grid extends PureComponent {
     const autoWidth = autoCount > 0 ? (1 - settleWidth) / autoCount : 0
 
     const className = classnames(
-      this.className,
+      this.props.className,
       getGrid({ width, offset, responsive }),
     )
 

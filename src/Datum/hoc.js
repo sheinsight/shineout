@@ -35,7 +35,7 @@ export default curry((options, Origin) => {
       if (!this.datum.limit && limit) this.datum.limit = limit
 
       const values = this.props[key]
-      if (values) {
+      if (values !== undefined) {
         this.datum.setValue(values)
         this.prevValues = values
       }

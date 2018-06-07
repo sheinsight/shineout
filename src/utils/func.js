@@ -26,3 +26,7 @@ export function curry(f, ...args) {
 
   return (...next) => curry(f.bind(f, ...args), ...next)
 }
+
+export function empty(e) {
+  e.preventDefault()
+}

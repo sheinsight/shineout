@@ -105,7 +105,6 @@ export default curry((options, Origin) => class extends Component {
         size,
         newStyle.width && 'inline',
         !border && 'no-border',
-        options.noPadding && 'no-padding',
         options.overflow && `overflow-${options.overflow}`,
         Object.keys(errors).length > 0 && 'invalid',
       ),

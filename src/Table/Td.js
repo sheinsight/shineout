@@ -59,7 +59,7 @@ class Td extends PureComponent {
         fixed === 'right' && CLASS_FIXED_RIGHT,
         firstFixed && 'fixed-first',
         lastFixed && 'fixed-last',
-        type === 'checkbox' && 'checkbox',
+        (type === 'checkbox' || type === 'expand') && 'checkbox',
       ),
     )
 

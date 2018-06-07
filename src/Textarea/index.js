@@ -5,7 +5,7 @@ import Textarea from './Textarea'
 
 const input = compose(
   inputable({ delay: 400 }),
-  wrapper({ noPadding: true, overflow: 'auto' }),
+  wrapper({ overflow: 'auto' }),
 )
 
 export default input(Textarea)

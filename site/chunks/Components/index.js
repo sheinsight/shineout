@@ -25,6 +25,12 @@ const pages = [
     component: loadable(() => import('./Dropdown')),
   },
   {
+    name: 'Icon',
+    cn: '图标',
+    level: 2,
+    component: loadable(() => import('./Icon')),
+  },
+  {
     name: 'Image',
     cn: '图片',
     level: 2,
@@ -104,18 +110,18 @@ const pages = [
     level: 2,
     component: loadable(() => import('./Table')),
   },
+  {
+    name: 'Tree',
+    cn: '树形选择',
+    level: 2,
+    component: loadable(() => import('./Tree')),
+  },
   'Feedback',
   {
     name: 'Alert',
     cn: '提示框',
     level: 2,
     component: loadable(() => import('./Alert')),
-  },
-  {
-    name: 'Icon',
-    cn: '图标',
-    level: 2,
-    component: loadable(() => import('./Icon')),
   },
   {
     name: 'Message',

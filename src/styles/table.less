@@ -60,12 +60,13 @@
   }
 
   table tr &-checkbox {
+    width: 48px;
     padding-left: 0;
     padding-right: 0;
     text-align: center;
 
-    label {
-      padding: 2px 6px;
+    i {
+      vertical-align: top;
     }
   }
 
@@ -221,22 +222,23 @@
   &-icon-expand-plus, &-icon-expand-sub {
     display: block;
     position: relative;
-    width: 16px;
-    height: 16px;
+    width: 15px;
+    height: 15px;
     background: #fff;
-    border: solid 1px @gray-400;
+    border: solid 1px @gray-600;
     border-radius: 2px;
     cursor: pointer;
 
     &:before, &:after {
       content: ' ';
-      width: 8px;
-      height: 1px;
-      background: @gray-500;
+      width: 9px;
+      height: 0px;
+      border-style: solid;
+      border-color: inherit;
+      border-width: 0 0 1px 0;
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      top: 6px;
+      left: 2px;
     }
 
     &:hover {
@@ -248,8 +250,11 @@
   }
 
   &-icon-expand-plus:after {
-    width: 1px;
-    height: 8px;
+    width: 0;
+    height: 9px;
+    top: 2px;
+    left: 6px;
+    border-width: 0 1px 0 0;
   } 
 
   &-scroll-y.@{table-prefix}-head {

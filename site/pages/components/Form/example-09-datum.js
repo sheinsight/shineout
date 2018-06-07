@@ -30,6 +30,12 @@ export default class extends PureComponent {
     console.log(this.datum.getValue())
   }
 
+  handleSubmit = () => {
+    this.datum.validate().then(() => {
+      console.log(this.datum.getValue())
+    }).catch(() => {})
+  }
+
   render() {
     return (
       <div>
@@ -38,8 +44,8 @@ export default class extends PureComponent {
         <Button onClick={this.getValue}>get values</Button>
 
         <Form style={{ maxWidth: 500, marginTop: 20 }} datum={this.datum}>
-          <Form.Item label="Email">
-            <Input name="email" />
+          <Form.Item label="Email" required>
+            <Input name="email" rules={[{ required: true, message: 'Please input your email.' }]} />
           </Form.Item>
 
           <Form.Item label="Password">
@@ -52,6 +58,10 @@ export default class extends PureComponent {
 
           <Form.Item label="Favorite Colors">
             <Checkbox.Group name="colors" data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']} />
+          </Form.Item>
+
+          <Form.Item label="">
+            <Button type="primary" onClick={this.handleSubmit}>Submit</Button>
           </Form.Item>
         </Form>
       </div>

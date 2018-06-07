@@ -9,19 +9,19 @@ import { fetchSync } from 'doc/data/user'
 const data = fetchSync(20)
 
 const columns = [
-  { title: 'id', render: 'id', width: 36 },
+  { title: 'id', render: 'id', width: 50 },
   {
     title: 'First Name',
     group: 'Name',
     render: 'firstName',
-    width: 100,
+    width: 120,
   },
   {
     title: 'Last Name',
     fixed: 'left',
     group: 'Name',
     render: 'lastName',
-    width: 100,
+    width: 120,
   },
   { title: 'Country', render: 'country' },
   { title: 'Position', render: 'position' },

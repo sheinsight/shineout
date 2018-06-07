@@ -123,7 +123,6 @@
   display: block;
   position: relative;
   width: 100%;
-  padding: @padding-base-vertical @padding-base-horizontal;
   font-size: @font-size-base;
   line-height: @line-height-base;
   color: @input-color;
@@ -357,13 +356,17 @@
   }
 
   &-small {
-    padding: @padding-small-vertical @padding-small-horizontal;
+    input {
+      padding: @padding-small-vertical @padding-small-horizontal;
+    }
     line-height: @line-height-small;
     font-size: @font-size-small;
   }
 
   &-large {
-    padding: @padding-large-vertical @padding-large-horizontal;
+    input {
+      padding: @padding-large-vertical @padding-large-horizontal;
+    }
     font-size: @font-size-large;
   }
 
@@ -373,10 +376,6 @@
     &.@{input-prefix}-focus {
       box-shadow: none;
     }
-  }
-
-  &-no-padding {
-    padding: 0;
   }
 
   &-overflow-auto {
@@ -401,6 +400,7 @@
     padding: 0;
     line-height: inherit;
     background: transparent;
+    padding: @padding-base-vertical @padding-base-horizontal;
   }
 
   ::placeholder, &-placeholder {
@@ -412,7 +412,6 @@
     line-height: 1.4;
     z-index: 2;
     resize: none;
-    padding: @padding-base-vertical @padding-base-horizontal;
   }
 
   & input&-number {

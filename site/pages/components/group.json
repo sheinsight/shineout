@@ -3,6 +3,7 @@
   "General": {
     "Button": "按钮",
     "Dropdown": "下拉菜单",
+    "Icon": "图标",
     "Image": "图片"
   },
   "Form": {
@@ -19,12 +20,12 @@
     "Datum.Form": "表单处理",
     "Datum.List": "数据处理",
     "Pagination": "分页",
-    "Table": "表格"
+    "Table": "表格",
+    "Tree": "树形选择"
   },
   "Feedback": {
     "Alert": "提示框",
     "Message": "消息提示",
-    "Icon": "图标",
     "Spin": "加载中",
     "Modal": "对话框",
     "Popover": "气泡",

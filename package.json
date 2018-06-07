@@ -1,6 +1,6 @@
 {
   "name": "shineout",
-  "version": "0.4.15",
+  "version": "0.5.0",
   "description": "Shein 前端组件库",
   "main": "./lib/index.js",
   "module": "./es/index.js",
@@ -30,8 +30,8 @@
     "deep-eql": "^3.0.1",
     "immer": "^1.1.1",
     "prop-types": "^15.6.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.2.4",

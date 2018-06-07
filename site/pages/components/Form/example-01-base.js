@@ -3,7 +3,26 @@
  * en - Base
  */
 import React, { PureComponent } from 'react'
-import { Form, Input, Checkbox, Textarea, Select, DatePicker } from 'shineout'
+import { Form, Input, Checkbox, Textarea, Select, DatePicker, Tree } from 'shineout'
+
+const citys = [
+  {
+    name: 'JiangSu',
+    children: [
+      { name: 'NanJing' },
+      { name: 'SuZhou' },
+      { name: 'YangZhou' },
+    ],
+  },
+  {
+    name: 'ZheJiang',
+    children: [
+      { name: 'HangZhou' },
+      { name: 'JiaQing' },
+      { name: 'WenZhou' },
+    ],
+  },
+]
 
 export default class extends PureComponent {
   initValue = {
@@ -56,6 +75,12 @@ export default class extends PureComponent {
 
         <Form.Item label="Description">
           <Textarea name="desc" autosize />
+        </Form.Item>
+
+        <Form.Item label="From">
+          <Form.Field name="from">
+            <Tree data={citys} mode={2} keygen="name" renderItem="name" />
+          </Form.Field>
         </Form.Item>
 
         <Form.Item label="">
