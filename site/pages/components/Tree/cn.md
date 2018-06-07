@@ -10,6 +10,7 @@
 | onChange | function(array) | 无 | 设置 onChange 属性时，显示 选择框。参数为当前选中值，和 mode 属性相关 |
 | data | array[{children:[]}] | [] | 数据，子节点为children，如果 children 值为 null 或 长度为 0 时，视为叶子节点 |
 | defaultExpanded | array\[key] | 无 | 默认展开的节点 key（非受控） |
+| disabled | boolean \| function(d) | false | 显示选择框时有效，为 true 时，所有节点禁用选择，为函数时，根据函数返回结果确定是否禁用 |
 | expanded | array\[key] | 无 | 展开的节点 key （受控） |
 | keygen | string \| function(obj, parentKey):string | 必填 | 生成key的辅助方法<br />为函数时，使用此函数返回值<br />为string时，使用这个string对应的数据值。如 'id'，相当于 (d) => d.id |
 | line | boolean | true | 是否显示连接线 |
