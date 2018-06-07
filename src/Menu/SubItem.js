@@ -6,8 +6,8 @@ import { menuClass } from '../styles'
 import { getProps, defaultProps } from '../utils/proptypes'
 import List from '../List'
 
-const CollapseList = List('collapse')
-const FadeList = List('fade')
+const CollapseList = List('collapse', 'fast')
+const FadeList = List('fade', 'fast')
 
 const aStyle = { display: 'block', width: '100%' }
 

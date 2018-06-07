@@ -32,7 +32,7 @@ class Item extends React.Component {
         {
           isValidElement(itemData) ?
             cloneElement(itemData, { onClick: () => this.handleClick(data) }) :
-            <a onClick={() => this.handleClick(data)}>{itemData}</a>
+            <button onClick={() => this.handleClick(data)}>{itemData}</button>
         }
       </li>)
   }
