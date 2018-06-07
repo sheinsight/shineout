@@ -13,8 +13,8 @@ export default class extends Component {
     this.defaultExpanded = ['1']
   }
 
-  handleDrop = (data, id, targetId, position) => {
-    console.log(data, id, targetId, position)
+  handleDrop = (data, key, targetKey, position) => {
+    console.log(data, key, targetKey, position)
     this.setState({ data })
   }
 
@@ -27,7 +27,6 @@ export default class extends Component {
         keygen="id"
         defaultExpanded={this.defaultExpanded}
         onDrop={this.handleDrop}
-        onExpand={this.handleExpand}
         renderItem={this.renderItem}
       />
     )

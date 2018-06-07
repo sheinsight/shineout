@@ -135,10 +135,12 @@ class Tree extends PureComponent {
         tnode = tnode[target.index]
         if (!Array.isArray(tnode.children)) tnode.children = []
         tnode.children.push(node)
+        position = tnode.children.length - 1
         const update = this.nodes.get(targetId)
         if (update) update('expanded', true)
       } else {
         tnode.splice(position, 0, node)
+        targetId = target.path[target.path.length - 1]
       }
 
       removeNode()
@@ -148,7 +150,8 @@ class Tree extends PureComponent {
 
   render() {
     const {
-      className, style, data, disabled, line, keygen, onExpand, onChange, renderItem, mode, onDrop,
+      className, style, data, disabled, line, keygen, onExpand,
+      onChange, renderItem, mode, onDrop, loader,
     } = this.props
     const onToggle = onExpand ? this.handleToggle : undefined
 
@@ -161,6 +164,7 @@ class Tree extends PureComponent {
         bindNode={this.bindNode}
         keygen={keygen}
         line={line}
+        loader={loader}
         mode={mode}
         unbindNode={this.unbindNode}
         onChange={onChange}
@@ -186,6 +190,7 @@ Tree.propTypes = {
   ]),
   expanded: PropTypes.arrayOf(PropTypes.string),
   line: PropTypes.bool,
+  loader: PropTypes.func,
   mode: PropTypes.oneOf([0, 1, 2, 3]),
   onChange: PropTypes.func,
   onClick: PropTypes.func,

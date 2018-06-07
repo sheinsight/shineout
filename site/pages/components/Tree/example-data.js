@@ -1,6 +1,6 @@
 /**
  * cn -
- *    -- 本页中用到的测试数据是随机生成，格式如下
+ *    -- 本页中用到的测试数据为随机生成，格式如下
  * en - Data
  */
 import React, { Component } from 'react'

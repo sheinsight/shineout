@@ -62,8 +62,14 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Tree/example-08-drag.js'),
   },
   {
+    name: '09-lazyload',
+    title: locate('动态加载 \n 数据过大，需要动态加载时，可以设置 loader 函数，当展开未定义 children（undefined）的节点时，触发此函数', 'Lazy load'),
+    component: require('doc/pages/components/Tree/example-09-lazyload.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tree/example-09-lazyload.js'),
+  },
+  {
     name: 'data',
-    title: locate(' \n 本页中用到的测试数据是随机生成，格式如下', 'Data'),
+    title: locate(' \n 本页中用到的测试数据为随机生成，格式如下', 'Data'),
     component: require('doc/pages/components/Tree/example-data.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-data.js'),
   },

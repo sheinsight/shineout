@@ -4,6 +4,8 @@ import { treeClass } from '../styles'
 import Spin from '../Spin'
 import Checkbox from './Checkbox'
 
+const loading = <span className={treeClass('icon-loading')}><Spin name="ring" size={12} /></span>
+
 class Content extends PureComponent {
   constructor(props) {
     super(props)
@@ -22,14 +24,16 @@ class Content extends PureComponent {
   }
 
   handleIndicatorClick() {
-    const { data, onToggle, fetchData } = this.props
-    if (data.children) {
-      onToggle()
-      return
-    }
+    const {
+      id, data, onToggle, loader,
+    } = this.props
+
+    onToggle()
+
+    if (data.children !== undefined) return
 
     this.setState({ fetching: true })
-    fetchData()
+    loader(id)
   }
 
   renderNode() {
@@ -41,23 +45,22 @@ class Content extends PureComponent {
   }
 
   renderIndicator() {
-    const { data, expanded } = this.props
+    const { data, expanded, loader } = this.props
 
-    if (data.children && data.children.length > 0) {
-      return (
-        <a
-          href="javascript:;"
-          onClick={this.handleIndicatorClick}
-          className={treeClass(`icon-${expanded ? 'sub' : 'plus'}`)}
-        >
-          <span />
-        </a>
-      )
-    }
+    const indicator = (
+      <a
+        href="javascript:;"
+        onClick={this.handleIndicatorClick}
+        className={treeClass(`icon-${expanded ? 'sub' : 'plus'}`)}
+      >
+        <span />
+      </a>
+    )
 
-    if (this.state.fetching) {
-      return <Spin name="ring" size={14} />
-    }
+    if (data.children && data.children.length > 0) return indicator
+
+    if (this.state.fetching && !data.children) return loading
+    else if (loader && !this.state.fetching) return indicator
 
     return null
   }
@@ -90,7 +93,7 @@ Content.propTypes = {
   data: PropTypes.object,
   draggable: PropTypes.bool,
   expanded: PropTypes.bool,
-  fetchData: PropTypes.func,
+  loader: PropTypes.func,
   id: PropTypes.string,
   onChange: PropTypes.func,
   onToggle: PropTypes.func,
