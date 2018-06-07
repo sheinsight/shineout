@@ -1,4 +1,5 @@
 // Created by scripts/src-index.js.
+import './styles/normalize.less'
 
 export { default as Alert } from './Alert'
 export { default as Breadcrumb } from './Breadcrumb'

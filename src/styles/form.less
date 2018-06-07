@@ -355,21 +355,6 @@
     .input-focus(@form-feedback-invalid-color);
   }
 
-  &-small {
-    input {
-      padding: @padding-small-vertical @padding-small-horizontal;
-    }
-    line-height: @line-height-small;
-    font-size: @font-size-small;
-  }
-
-  &-large {
-    input {
-      padding: @padding-large-vertical @padding-large-horizontal;
-    }
-    font-size: @font-size-large;
-  }
-
   &-no-border {
     border-width: 0;
 
@@ -428,5 +413,20 @@
 
   textarea&-auto-size {
     overflow: hidden;
+  }
+
+  &-small {
+    input {
+      padding: @padding-small-vertical @padding-small-horizontal;
+    }
+    line-height: @line-height-small;
+    font-size: @font-size-small;
+  }
+
+  &-large {
+    input {
+      padding: @padding-large-vertical @padding-large-horizontal;
+    }
+    font-size: @font-size-large;
   }
 }
