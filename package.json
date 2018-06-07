@@ -1,9 +1,8 @@
 {
   "name": "shineout",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Shein 前端组件库",
   "main": "./lib/index.js",
-  "module": "./es/index.js",
   "author": "lobos841@gmail.com",
   "license": "MIT",
   "scripts": {
