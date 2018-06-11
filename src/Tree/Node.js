@@ -159,7 +159,7 @@ class Node extends PureComponent {
 }
 
 Node.propTypes = {
-  ...getProps(),
+  ...getProps(PropTypes),
   bindNode: PropTypes.func.isRequired,
   unbindNode: PropTypes.func.isRequired,
   data: PropTypes.object,

@@ -29,7 +29,7 @@ class Button extends PureComponent {
 }
 
 Button.propTypes = {
-  ...getProps('disabled', 'size', 'type'),
+  ...getProps(PropTypes, 'disabled', 'size', 'type'),
   href: PropTypes.string,
   htmlType: PropTypes.string,
   outline: PropTypes.bool,

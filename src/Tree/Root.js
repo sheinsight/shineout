@@ -23,7 +23,7 @@ function Root(props) {
 }
 
 Root.propTypes = {
-  ...getProps(),
+  ...getProps(PropTypes),
   keygen: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.func,

@@ -34,7 +34,7 @@ class Breadcrumb extends React.PureComponent {
 }
 
 Breadcrumb.propTypes = {
-  ...getProps('keygen'),
+  ...getProps(PropTypes, 'keygen'),
   dataSource: PropTypes.array,
   separator: PropTypes.oneOfType([
     PropTypes.string,

@@ -205,7 +205,7 @@ class Dropdown extends PureComponent {
 }
 
 Dropdown.propTypes = {
-  ...getProps('placeholder', 'type', 'keygen'),
+  ...getProps(PropTypes, 'placeholder', 'type', 'keygen'),
   data: PropTypes.array.isRequired,
   disabled: PropTypes.bool,
   href: PropTypes.string,

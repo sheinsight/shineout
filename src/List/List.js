@@ -22,7 +22,7 @@ class List extends Component {
 }
 
 List.propTypes = {
-  ...getProps(),
+  ...getProps(PropTypes),
   children: PropTypes.any,
   show: PropTypes.bool,
 }

@@ -1,7 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { range } from '../utils/numbers'
-import propTypes from './proptypes'
 
 export default function Spin(props) {
   const {
@@ -33,7 +33,15 @@ export default function Spin(props) {
   )
 }
 
-Spin.propTypes = propTypes
+Spin.propTypes = {
+  className: PropTypes.string,
+  count: PropTypes.number,
+  margin: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  render: PropTypes.func.isRequired,
+  size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  spinClass: PropTypes.func,
+  style: PropTypes.object,
+}
 
 Spin.defaultProps = {
   count: 0,

@@ -295,7 +295,7 @@ class SeperateTable extends PureComponent {
 }
 
 SeperateTable.propTypes = {
-  ...getProps('size', 'type', 'kengen'),
+  ...getProps(PropTypes, 'size', 'type', 'kengen'),
   columns: PropTypes.array.isRequired,
   data: PropTypes.array,
   fixed: PropTypes.string.isRequired,

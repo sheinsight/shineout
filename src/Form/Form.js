@@ -74,7 +74,7 @@ class Form extends PureComponent {
 }
 
 Form.propTypes = {
-  ...getProps('disabled'),
+  ...getProps(PropTypes, 'disabled'),
   datum: PropTypes.object,
   disabled: PropTypes.bool,
   inline: PropTypes.bool,

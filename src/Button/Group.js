@@ -31,7 +31,7 @@ class ButtonGroup extends PureComponent {
 }
 
 ButtonGroup.propTypes = {
-  ...getProps('size', 'type'),
+  ...getProps(PropTypes, 'size', 'type'),
   children: PropTypes.any.isRequired,
   outline: PropTypes.bool,
 }

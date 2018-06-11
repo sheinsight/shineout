@@ -30,7 +30,7 @@ function Icon(props) {
 }
 
 Icon.propTypes = {
-  ...getProps('children', 'size', 'type'),
+  ...getProps(PropTypes, 'children', 'size', 'type'),
   prefix: PropTypes.string,
   name: PropTypes.string,
   fontFamily: PropTypes.string,

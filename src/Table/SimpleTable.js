@@ -27,7 +27,7 @@ class SimpleTable extends PureComponent {
 }
 
 SimpleTable.propTypes = {
-  ...getProps('size', 'type', 'kengen'),
+  ...getProps(PropTypes, 'size', 'type', 'kengen'),
   children: PropTypes.any,
   colgroup: PropTypes.array,
   columns: PropTypes.array,

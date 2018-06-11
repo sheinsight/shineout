@@ -405,7 +405,7 @@ class Select extends PureComponent {
 }
 
 Select.propTypes = {
-  ...getProps(['placehodler', 'keygen']),
+  ...getProps(PropTypes, 'placehodler', 'keygen'),
   clearable: PropTypes.bool,
   data: PropTypes.array,
   datum: PropTypes.object.isRequired,

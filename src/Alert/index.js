@@ -105,7 +105,7 @@ class Alert extends PureComponent {
 }
 
 Alert.propTypes = {
-  ...getProps('type'),
+  ...getProps(PropTypes, 'type'),
   children: PropTypes.any,
   dismiss: PropTypes.bool,
   duration: PropTypes.number,

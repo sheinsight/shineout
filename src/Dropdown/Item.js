@@ -44,7 +44,7 @@ class Item extends React.PureComponent {
 }
 
 Item.propTypes = {
-  ...getProps(),
+  ...getProps(PropTypes),
   data: PropTypes.object,
   onClick: PropTypes.func,
   renderItem: PropTypes.oneOfType([

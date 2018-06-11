@@ -101,7 +101,7 @@ class CheckboxGroup extends PureComponent {
 }
 
 CheckboxGroup.propTypes = {
-  ...getProps('children', 'disabled', 'keygen'),
+  ...getProps(PropTypes, 'children', 'disabled', 'keygen'),
   block: PropTypes.bool,
   data: PropTypes.array,
   datum: PropTypes.object.isRequired,

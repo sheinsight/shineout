@@ -185,7 +185,7 @@ class Scroll extends PureComponent {
 }
 
 Scroll.propTypes = {
-  ...getProps(),
+  ...getProps(PropTypes),
   left: PropTypes.number.isRequired,
   top: PropTypes.number.isRequired,
   onScroll: PropTypes.func.isRequired,

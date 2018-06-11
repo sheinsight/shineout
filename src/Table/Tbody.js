@@ -122,7 +122,7 @@ class Tbody extends PureComponent {
 }
 
 Tbody.propTypes = {
-  ...getProps('keygen'),
+  ...getProps(PropTypes, 'keygen'),
   columns: PropTypes.array.isRequired,
   data: PropTypes.array.isRequired,
   index: PropTypes.number.isRequired,
