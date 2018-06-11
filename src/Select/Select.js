@@ -236,6 +236,7 @@ class Select extends PureComponent {
       // scroll over bottom
       if (this.lastScrollTop > contentHeight) this.lastScrollTop = contentHeight
       scrollTop = this.lastScrollTop / contentHeight
+      this.optionInner.style.marginTop = `${scrollTop * h}px`
     }
 
     let index = Math.floor(this.lastScrollTop / lineHeight) - 1
