@@ -80,6 +80,12 @@ const pages = [
     component: loadable(() => import('./Select')),
   },
   {
+    name: 'Slider',
+    cn: '滑块',
+    level: 2,
+    component: loadable(() => import('./Slider')),
+  },
+  {
     name: 'Textarea',
     cn: '多行文本框',
     level: 2,

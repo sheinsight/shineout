@@ -29,8 +29,9 @@ class Form extends PureComponent {
     datum.validate().then(() => {
       this.validating = false
       if (onSubmit) onSubmit(datum.getValue())
-    }).catch(() => {
+    }).catch((err) => {
       this.validating = false
+      throw err
     })
   }
 
