@@ -125,7 +125,7 @@ class SubMenu extends React.Component {
 }
 
 SubMenu.propTypes = {
-  ...getProps(),
+  ...getProps(PropTypes),
   data: PropTypes.object,
   nums: PropTypes.number,
   isOpen: PropTypes.bool,

@@ -43,7 +43,7 @@ class Modal extends PureComponent {
 }
 
 Modal.propTypes = {
-  ...getProps(),
+  ...getProps(PropTypes),
   onClose: PropTypes.func,
 }
 

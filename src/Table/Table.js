@@ -73,7 +73,7 @@ class Table extends PureComponent {
 }
 
 Table.propTypes = {
-  ...getProps('size', 'type', 'keygen'),
+  ...getProps(PropTypes, 'size', 'type', 'keygen'),
   bordered: PropTypes.bool,
   children: PropTypes.any,
   columns: PropTypes.array,

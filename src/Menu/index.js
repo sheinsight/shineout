@@ -80,7 +80,7 @@ class Menu extends React.Component {
 }
 
 Menu.propTypes = {
-  ...getProps('style', 'keygen'),
+  ...getProps(PropTypes, 'style', 'keygen'),
   data: PropTypes.array,
   mode: PropTypes.string,
   active: PropTypes.func,

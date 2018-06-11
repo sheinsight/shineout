@@ -7,7 +7,6 @@ const context = createReactContext()
 export const Provider = context.Provider
 
 function filterProps(props, keys) {
-  console.log(keys)
   const value = {}
   keys.forEach((k) => { value[k] = props[k] })
   return value

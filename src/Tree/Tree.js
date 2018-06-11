@@ -179,7 +179,7 @@ class Tree extends PureComponent {
 }
 
 Tree.propTypes = {
-  ...getProps(),
+  ...getProps(PropTypes),
   active: PropTypes.string,
   data: PropTypes.array,
   defaultExpanded: PropTypes.arrayOf(PropTypes.string),

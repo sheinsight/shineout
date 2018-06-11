@@ -39,7 +39,7 @@ class Item extends React.Component {
 }
 
 Item.propTypes = {
-  ...getProps(),
+  ...getProps(PropTypes),
   data: PropTypes.object,
   menuKey: PropTypes.string,
   renderItem: PropTypes.oneOfType([

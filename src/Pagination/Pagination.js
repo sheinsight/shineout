@@ -49,7 +49,7 @@ class Pagination extends PureComponent {
 }
 
 Pagination.propTypes = {
-  ...getProps('size', 'type'),
+  ...getProps(PropTypes, 'size', 'type'),
   align: PropTypes.string,
   current: PropTypes.number.isRequired,
   layout: PropTypes.array,

@@ -132,7 +132,7 @@ class Rate extends PureComponent {
 }
 
 Rate.propTypes = {
-  ...getProps('disabled', 'type'),
+  ...getProps(PropTypes, 'disabled', 'type'),
   background: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.array,

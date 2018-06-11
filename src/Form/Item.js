@@ -51,7 +51,7 @@ class Item extends PureComponent {
 }
 
 Item.propTypes = {
-  ...getProps('children', 'grid'),
+  ...getProps(PropTypes, 'children', 'grid'),
   className: PropTypes.string,
   formItemErrors: PropTypes.object,
   label: PropTypes.string,

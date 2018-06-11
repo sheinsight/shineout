@@ -97,7 +97,7 @@ export default function (type) {
   }
 
   CheckItem.propTypes = {
-    ...getProps('disabled'),
+    ...getProps(PropTypes, 'disabled'),
     checked: PropTypes.oneOfType([
       PropTypes.oneOf([true, false, 'indeterminate']),
       PropTypes.func,

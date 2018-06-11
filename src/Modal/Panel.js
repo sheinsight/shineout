@@ -76,7 +76,7 @@ export default class Panel extends PureComponent {
 }
 
 Panel.propTypes = {
-  ...getProps(),
+  ...getProps(PropTypes),
   footer: PropTypes.any,
   id: PropTypes.string.isRequired,
   maskOpacity: PropTypes.number,

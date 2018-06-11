@@ -64,7 +64,7 @@ class Card extends PureComponent {
 }
 
 Card.propTypes = {
-  ...getProps(),
+  ...getProps(PropTypes),
   shadow: PropTypes.oneOf([true, false, 'hover']),
 }
 

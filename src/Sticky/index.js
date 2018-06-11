@@ -182,7 +182,7 @@ class Sticky extends PureComponent {
 }
 
 Sticky.propTypes = {
-  ...getProps(),
+  ...getProps(PropTypes),
   bottom: PropTypes.number,
   children: PropTypes.any.isRequired,
   target: PropTypes.oneOfType([
