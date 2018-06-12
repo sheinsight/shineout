@@ -5,8 +5,8 @@
 
 .@{slider-prefix} {
   position: relative;
-  padding: 0 10px;
-  margin: 20px 0;
+  padding: 20px 10px;
+  user-select: none;
 
   &-background {
     height: @slider-height;
@@ -16,21 +16,62 @@
 
   &-inner {
     position: absolute;
-    top: 0;
+    top: 20px;
     left: 10px;
     right: 10px;
+    height: @slider-height;
+    cursor: pointer;
   }
 
   &-bar {
-    position: relative;
+    position: absolute;
     height: @slider-height;
+    top: 0;
     width: 100%;
+    z-index: 2;
+
+    .@{slider-prefix}-bar-bg {
+      height: 100%;
+      border-radius: @slider-height / 2;
+      background: @slider-bar-color;
+    }
+
+    .@{slider-prefix}-indicator {
+      z-index: 100;
+    }
+
+    .@{slider-prefix}-result {
+      position: absolute;
+      display: none;
+      right: 0;
+      bottom: 14px;
+      font-size: 12px;
+      padding: 0 4px;
+      background: #fff;
+      transform: translate(50%, 0);
+      border-radius: 2px;
+
+      &:after {
+        content: ' ';
+        position: absolute;
+        left: 50%;
+        top: 100%;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 3px 3px 0 3px;
+        border-color: #fff transparent transparent transparent;
+        transform: translate(-50%, 0);
+      }
+
+      &.@{slider-prefix}-show {
+        display: block;
+      }
+    }
   }
 
-  &-active {
-    height: 100%;
-    border-radius: @slider-height / 2;
-    background: @slider-active-color;
+  &:hover .@{slider-prefix}-result {
+    display: block;
   }
 
   &-indicator {
@@ -43,5 +84,53 @@
     border: solid 2px @slider-active-color;
     transform: translate(50%, -50%);
     background: #fff;
+    cursor: pointer;
+  }
+
+  &-right {
+    z-index: 10;
+    right: 0;
+
+    .@{slider-prefix}-indicator {
+      right: auto;
+      left: 0;
+      transform: translate(-50%, -50%);
+    }
+
+    .@{slider-prefix}-result {
+      left: 0;
+      right: auto;
+      transform: translate(-50%, 0);
+    }
+  }
+
+  &-scale {
+    display: flex;
+
+    div {
+      position: relative;
+      display: block;
+      flex: 1;
+      padding-top: 12px;
+
+      &:last-child {
+        flex: 0;
+      }
+
+      &:before {
+        content: ' ';
+        position: absolute;
+        height: 6px;
+        top: 5px;
+        left: -1px;
+        border-left: solid 1px #ccc;
+      }
+
+      span {
+        position: absolute;
+        font-size: 12px;
+        transform: translate(-50%, 0) scale(0.9);
+      }
+    }
   }
 }

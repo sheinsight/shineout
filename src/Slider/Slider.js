@@ -2,13 +2,15 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Indicator from './Indicator'
 import { sliderClass } from '../styles'
+import { per2value, value2per } from './utils'
 
 class Slider extends PureComponent {
   constructor(props) {
     super(props)
 
     this.state = {
-      length: props.value / (props.to - props.from),
+      dragging: false,
+      length: value2per(props.value, props.scale),
     }
 
     this.bindElement = this.bindElement.bind(this)
@@ -17,10 +19,10 @@ class Slider extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const { value, from, to } = this.props
+    const { value, scale } = this.props
     if (prevProps.value !== value) {
       // eslint-disable-next-line
-      this.setState({ length: value / (to - from) })
+      this.setState({ length: value2per(value, scale) })
     }
   }
 
@@ -29,23 +31,25 @@ class Slider extends PureComponent {
   }
 
   formatValue(length) {
-    const { from, to, step } = this.props
-    const count = (to - from) / step
-    const value = from + (Math.round(length * count) * step)
-
-    return value
+    const { scale, step } = this.props
+    return per2value(length, scale, step)
   }
 
   handleDrag(mx, my) {
-    const { onDrag, value, vertical } = this.props
+    const {
+      scale, onDrag, value, vertical,
+    } = this.props
     const m = vertical ? my / this.parentElement.clientHeight : mx / this.parentElement.clientWidth
     const { length } = this.state
 
-    let newLength = m + length
-    if (newLength < 0) newLength = 0
-    if (newLength > 1) newLength = 1
+    const min = this.props.min ? value2per(this.props.min, scale) : 0
+    const max = this.props.max ? value2per(this.props.max, scale) : 1
 
-    this.setState({ length: newLength })
+    let newLength = length + m
+    if (newLength < min) newLength = min
+    if (newLength > max) newLength = max
+
+    this.setState({ length: newLength, dragging: true })
 
     if (onDrag) {
       const newValue = this.formatValue(newLength)
@@ -55,21 +59,42 @@ class Slider extends PureComponent {
 
   handleDragEnd() {
     const { length } = this.state
-    const { from, to, onChange } = this.props
+    const { scale } = this.props
     const value = this.formatValue(length)
 
-    this.setState({ length: value / (to - from) })
-    onChange(value)
+    this.setState({ length: value2per(value, scale), dragging: false })
+    this.props.onChange(this.props.index, value)
+  }
+
+  renderResult() {
+    const { hideResult, formatValue } = this.props
+    const { dragging } = this.state
+    const className = sliderClass(
+      'result',
+      (!hideResult || dragging) && 'show',
+    )
+    return (
+      <div className={className}>
+        {formatValue(this.formatValue(this.state.length))}
+      </div>
+    )
   }
 
   render() {
-    const { vertical } = this.props
-    const { length } = this.state
+    const { index, vertical } = this.props
+    let { length } = this.state
+
+    if (index === 1) length = 1 - length
     const style = { [vertical ? 'height' : 'width']: `${length * 100}%` }
 
     return (
-      <div ref={this.bindElement} style={style} className={sliderClass('bar')}>
-        <div className={sliderClass('active')} />
+      <div
+        ref={this.bindElement}
+        style={style}
+        className={sliderClass('bar', index === 1 && 'right')}
+      >
+        {this.renderResult()}
+        <div className={sliderClass('bar-bg')} />
         <Indicator onDrag={this.handleDrag} onDragEnd={this.handleDragEnd} />
       </div>
     )
@@ -77,11 +102,15 @@ class Slider extends PureComponent {
 }
 
 Slider.propTypes = {
-  from: PropTypes.number.isRequired,
+  formatValue: PropTypes.func,
+  hideResult: PropTypes.bool,
+  index: PropTypes.number.isRequired,
+  min: PropTypes.number,
+  max: PropTypes.number,
   onChange: PropTypes.func.isRequired,
   onDrag: PropTypes.func,
+  scale: PropTypes.array.isRequired,
   step: PropTypes.number,
-  to: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
   vertical: PropTypes.bool.isRequired,
 }

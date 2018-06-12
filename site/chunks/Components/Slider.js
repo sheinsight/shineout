@@ -19,6 +19,24 @@ const examples = [
     component: require('doc/pages/components/Slider/example-01-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-01-base.js'),
   },
+  {
+    name: '02-range',
+    title: locate('范围选择', 'Range'),
+    component: require('doc/pages/components/Slider/example-02-range.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Slider/example-02-range.js'),
+  },
+  {
+    name: '03-scale',
+    title: locate('自定义区间', 'Scale'),
+    component: require('doc/pages/components/Slider/example-03-scale.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Slider/example-03-scale.js'),
+  },
+  {
+    name: '04-step',
+    title: locate('自定义步长', 'Step'),
+    component: require('doc/pages/components/Slider/example-04-step.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Slider/example-04-step.js'),
+  },
 ]
 
 const codes = undefined
