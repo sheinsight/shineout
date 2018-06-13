@@ -32,10 +32,22 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Slider/example-03-scale.js'),
   },
   {
-    name: '04-step',
+    name: '04-scale',
+    title: locate(' \n step 设定为 0 时，只能从 scale 内的值', 'Step'),
+    component: require('doc/pages/components/Slider/example-04-scale.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Slider/example-04-scale.js'),
+  },
+  {
+    name: '05-step',
     title: locate('自定义步长', 'Step'),
-    component: require('doc/pages/components/Slider/example-04-step.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Slider/example-04-step.js'),
+    component: require('doc/pages/components/Slider/example-05-step.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Slider/example-05-step.js'),
+  },
+  {
+    name: '06-step',
+    title: locate(' \n step 设定为 0 时，只能从 scale 内的值', 'Step'),
+    component: require('doc/pages/components/Slider/example-06-step.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Slider/example-06-step.js'),
   },
 ]
 

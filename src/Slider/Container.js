@@ -77,12 +77,20 @@ class Container extends PureComponent {
   }
 
   renderScale() {
-    const { formatValue, scale } = this.props
-    if (scale.length <= 2) return null
+    const { formatValue, renderScale, scale } = this.props
+    if (renderScale === false || scale.length <= 2) return null
+
+    const fn = renderScale || formatValue
 
     return (
       <div className={sliderClass('scale')}>
-        { scale.map(s => <div key={s}><span>{formatValue(s)}</span></div>) }
+        {
+          scale.map((s, i) => (
+            <div key={s}>
+              <span>{fn(s, i)}</span>
+            </div>
+          ))
+        }
       </div>
     )
   }
@@ -135,6 +143,7 @@ Container.propTypes = {
   onChange: PropTypes.func,
   onDrag: PropTypes.func,
   formatValue: PropTypes.func,
+  renderScale: PropTypes.func,
   scale: PropTypes.arrayOf(PropTypes.number),
   step: PropTypes.number,
   value: PropTypes.oneOfType([

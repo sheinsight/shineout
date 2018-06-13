@@ -17,6 +17,8 @@ export function value2per(value, scale) {
 export function per2value(per, scale, step = 1) {
   const range = scale.length - 1
 
+  if (step === 0) return scale[Math.round(per * range)]
+
   if (per >= 1) return scale[range]
   const ps = Math.floor(per * range)
   const min = scale[ps]

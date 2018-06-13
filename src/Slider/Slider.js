@@ -67,11 +67,11 @@ class Slider extends PureComponent {
   }
 
   renderResult() {
-    const { hideResult, formatValue } = this.props
+    const { showResult, formatValue } = this.props
     const { dragging } = this.state
     const className = sliderClass(
       'result',
-      (!hideResult || dragging) && 'show',
+      (showResult || dragging) && 'show',
     )
     return (
       <div className={className}>
@@ -103,7 +103,7 @@ class Slider extends PureComponent {
 
 Slider.propTypes = {
   formatValue: PropTypes.func,
-  hideResult: PropTypes.bool,
+  showResult: PropTypes.bool,
   index: PropTypes.number.isRequired,
   min: PropTypes.number,
   max: PropTypes.number,
@@ -113,6 +113,10 @@ Slider.propTypes = {
   step: PropTypes.number,
   value: PropTypes.number.isRequired,
   vertical: PropTypes.bool.isRequired,
+}
+
+Slider.defaultProps = {
+  showResult: true,
 }
 
 export default Slider
