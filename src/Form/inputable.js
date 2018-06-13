@@ -58,10 +58,13 @@ export default curry(({ delay = 0 }, Origin) => consumer(class extends PureCompo
     if (formDatum && name) {
       if (Array.isArray(name)) {
         const dv = defaultValue || []
-        name.forEach((n, i) => formDatum.bind(n, this.handleUpdate, dv[i], this.validate))
+
+        name.forEach((n, i) =>
+          formDatum.bind(n, this.handleUpdate, dv[i], this.validate, !!defaultValue))
+
         this.state.value = name.map(n => formDatum.get(n))
       } else {
-        formDatum.bind(name, this.handleUpdate, defaultValue, this.validate)
+        formDatum.bind(name, this.handleUpdate, defaultValue, this.validate, !!defaultValue)
         this.state.value = formDatum.get(name)
       }
     }

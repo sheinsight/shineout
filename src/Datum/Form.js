@@ -144,7 +144,7 @@ export default class {
     })
   }
 
-  bind(name, fn, value, validate) {
+  bind(name, fn, value, validate, initChange) {
     if (hasOwnProperty.call(this.values, name)) {
       console.error(`There is already an item with name "${name}" exists. The name props must be unique.`)
       return
@@ -165,7 +165,7 @@ export default class {
 
     if (this.$values[name] === undefined && value !== undefined) {
       this.$values[name] = value
-      this.handleChange()
+      if (initChange) this.handleChange()
     }
   }
 
