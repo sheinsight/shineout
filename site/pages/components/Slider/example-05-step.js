@@ -1,5 +1,5 @@
 /**
- * cn - 自定义步长
+ * cn - 步长
  * en - Step
  */
 import React from 'react'
@@ -9,8 +9,9 @@ export default function () {
   return (
     <Slider
       range
-      defaultValue={[5, 60]}
-      step={5}
+      defaultValue={[0.05, 0.25]}
+      scale={[0, 1]}
+      step={0.05}
       onChange={d => console.log(d)}
     />
   )

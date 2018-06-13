@@ -1,7 +1,7 @@
 /**
  * cn -
- *    -- step 设定为 0 时，只能从 scale 内的值
- * en - Step
+ *    -- 如果要彻底不显示刻度和当前值，设置 formatValue 和 fotmatScale 为 false
+ * en - autoHide
  */
 import React from 'react'
 import { Slider } from 'shineout'
@@ -9,9 +9,10 @@ import { Slider } from 'shineout'
 export default function () {
   return (
     <Slider
+      defaultValue={4}
+      step={1}
       formatValue={false}
-      scale={[1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144]}
-      step={0}
+      formatScale={false}
       onChange={d => console.log(d)}
     />
   )

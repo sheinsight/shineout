@@ -77,17 +77,15 @@ class Container extends PureComponent {
   }
 
   renderScale() {
-    const { formatValue, renderScale, scale } = this.props
-    if (renderScale === false || scale.length <= 2) return null
-
-    const fn = renderScale || formatValue
+    const { autoHide, formatScale, scale } = this.props
+    if (!formatScale) return null
 
     return (
-      <div className={sliderClass('scale')}>
+      <div className={sliderClass('scale', !autoHide && 'show')}>
         {
           scale.map((s, i) => (
             <div key={s}>
-              <span>{fn(s, i)}</span>
+              <span>{formatScale(s, i)}</span>
             </div>
           ))
         }
@@ -97,7 +95,7 @@ class Container extends PureComponent {
 
   render() {
     const {
-      range, style, vertical, ...other
+      range, height, style, vertical, ...other
     } = this.props
     const className = classnames(
       sliderClass('_', vertical && 'vertical'),
@@ -107,8 +105,11 @@ class Container extends PureComponent {
     let value = this.getValue()
     if (!Array.isArray(value)) value = [0, value]
 
+    let newStyle = style
+    if (vertical) newStyle = Object.assign({ height }, style)
+
     return (
-      <div style={style} className={className}>
+      <div style={newStyle} className={className}>
         <div className={sliderClass('background')} />
         <div ref={this.bindElement} onClick={this.handleClick} className={sliderClass('inner')}>
           {
@@ -140,10 +141,17 @@ class Container extends PureComponent {
 
 Container.propTypes = {
   ...getProps(PropTypes, 'disabled', 'type'),
+  autoHide: PropTypes.bool,
+  formatScale: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.bool,
+  ]),
+  height: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
   onChange: PropTypes.func,
   onDrag: PropTypes.func,
-  formatValue: PropTypes.func,
-  renderScale: PropTypes.func,
   scale: PropTypes.arrayOf(PropTypes.number),
   step: PropTypes.number,
   value: PropTypes.oneOfType([
@@ -154,10 +162,11 @@ Container.propTypes = {
 }
 
 Container.defaultProps = {
+  height: 200,
   scale: [0, 100],
   step: 1,
   vertical: false,
-  formatValue: v => v,
+  formatScale: v => v,
 }
 
 export default Container

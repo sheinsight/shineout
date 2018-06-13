@@ -27,19 +27,19 @@ const examples = [
   },
   {
     name: '03-scale',
-    title: locate('自定义区间', 'Scale'),
+    title: locate('区间', 'Scale'),
     component: require('doc/pages/components/Slider/example-03-scale.js').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-03-scale.js'),
   },
   {
-    name: '04-scale',
-    title: locate(' \n step 设定为 0 时，只能从 scale 内的值', 'Step'),
-    component: require('doc/pages/components/Slider/example-04-scale.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Slider/example-04-scale.js'),
+    name: '04-format',
+    title: locate('格式化', 'format'),
+    component: require('doc/pages/components/Slider/example-04-format.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Slider/example-04-format.js'),
   },
   {
     name: '05-step',
-    title: locate('自定义步长', 'Step'),
+    title: locate('步长', 'Step'),
     component: require('doc/pages/components/Slider/example-05-step.js').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-05-step.js'),
   },
@@ -48,6 +48,24 @@ const examples = [
     title: locate(' \n step 设定为 0 时，只能从 scale 内的值', 'Step'),
     component: require('doc/pages/components/Slider/example-06-step.js').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-06-step.js'),
+  },
+  {
+    name: '07-hide',
+    title: locate('隐藏 \n autoHide 选项为 true 时，自动隐藏当前值和刻度', 'autoHide'),
+    component: require('doc/pages/components/Slider/example-07-hide.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Slider/example-07-hide.js'),
+  },
+  {
+    name: '08-hide',
+    title: locate(' \n 如果要彻底不显示刻度和当前值，设置 formatValue 和 fotmatScale 为 false', 'autoHide'),
+    component: require('doc/pages/components/Slider/example-08-hide.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Slider/example-08-hide.js'),
+  },
+  {
+    name: '09-vertical',
+    title: locate('垂直', 'Vertical'),
+    component: require('doc/pages/components/Slider/example-09-vertical.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Slider/example-09-vertical.js'),
   },
 ]
 

@@ -1,3 +1,5 @@
+import { toPrecision } from '../utils/numbers'
+
 export function value2per(value, scale) {
   const range = scale.length - 1
   let ps = 0
@@ -26,5 +28,5 @@ export function per2value(per, scale, step = 1) {
   const count = (max - min) / step
   const sper = (per - (ps / range)) * range
 
-  return min + (Math.round(sper * count) * step)
+  return toPrecision(min + (Math.round(sper * count) * step))
 }

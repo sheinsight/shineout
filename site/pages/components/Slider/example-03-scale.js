@@ -1,5 +1,5 @@
 /**
- * cn - 自定义区间
+ * cn - 区间
  * en - Scale
  */
 import React from 'react'

@@ -20,3 +20,7 @@ export function split(total, nums) {
     return total * r
   })
 }
+
+export function toPrecision(num, precision = 12) {
+  return +parseFloat(num.toPrecision(precision))
+}
