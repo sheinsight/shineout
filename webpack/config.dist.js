@@ -1,7 +1,5 @@
 const path = require('path')
-const webpack = require('webpack')
 const merge = require('webpack-merge')
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const config = require('../config')
 const common = require('./config.common')
 
@@ -22,10 +20,7 @@ function getCompiler(name, conf) {
       library: 'Shineout',
       filename: 'Shineout.js',
     },
-    plugins: [
-      new UglifyJSPlugin(),
-      new webpack.optimize.ModuleConcatenationPlugin(),
-    ],
+    mode: 'production',
   })
 }
 
