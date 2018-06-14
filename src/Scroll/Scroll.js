@@ -77,7 +77,7 @@ class Scroll extends PureComponent {
       if (this.pixelX !== 0 || this.pixelY !== 0) {
         this.boundleScroll()
       }
-    }, 96)
+    }, 32)
 
     // lock direction
     if (Math.abs(this.pixelX) > Math.abs(this.pixelY)) {
@@ -107,13 +107,15 @@ class Scroll extends PureComponent {
     const { scrollX, scrollY } = this.props
     if (!scrollX && !scrollY) return
 
-    event.preventDefault()
     const wheel = normalizeWheel(event)
-
     this.setBaseScrollHeightRatio(wheel.pixelY)
 
     if (scrollX) this.pixelX += wheel.pixelX
     if (scrollY) this.pixelY += wheel.pixelY * this.baseScrollRatio
+
+    if (Math.abs(wheel.pixelX) > Math.abs(wheel.pixelY)) {
+      if (scrollX) event.preventDefault()
+    } else if (scrollY) event.preventDefault()
 
     if (!this.locked) {
       this.boundleScroll()
@@ -187,6 +189,7 @@ class Scroll extends PureComponent {
 Scroll.propTypes = {
   ...getProps(PropTypes),
   left: PropTypes.number.isRequired,
+  // overLock: PropTypes.bool,
   top: PropTypes.number.isRequired,
   onScroll: PropTypes.func.isRequired,
   scrollHeight: PropTypes.number,
@@ -197,6 +200,7 @@ Scroll.propTypes = {
 
 Scroll.defaultProps = {
   ...defaultProps,
+  // overLock: true,
   scrollHeight: 0,
   scrollWidth: 0,
 }
