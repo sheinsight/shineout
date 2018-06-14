@@ -3,14 +3,12 @@
  * en - Arbitrary
  */
 import React, { Component } from 'react'
-import { Grid, Select } from 'shineout'
-
-const range = Array.from({ length: 100 }).map((n, i) => i + 1)
+import { Grid, Slider } from 'shineout'
 
 export default class extends Component {
   constructor(props) {
     super(props)
-    this.state = { count: 7 }
+    this.state = { count: 5 }
   }
 
   handleCountChange = (count) => {
@@ -22,12 +20,12 @@ export default class extends Component {
 
     return (
       <div>
-        <Select
-          keygen={d => d}
-          width={100}
+        <Slider
+          formatValue={false}
+          scale={[1, 2, 3, 5, 8, 13, 21, 34, 55]}
+          step={0}
           value={count}
           onChange={this.handleCountChange}
-          data={range}
         />
 
         <div style={{ height: 20 }} />
