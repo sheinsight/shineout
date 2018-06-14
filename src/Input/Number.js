@@ -7,6 +7,8 @@ import { inputClass } from '../styles'
 class Number extends PureComponent {
   constructor(props) {
     super(props)
+
+    this.handleBlur = this.handleBlur.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleAddClick = this.handleCalc.bind(this, props.step)
     this.handleSubClick = this.handleCalc.bind(this, -props.step)
@@ -15,10 +17,11 @@ class Number extends PureComponent {
     this.handleKeyUp = this.handleKeyUp.bind(this)
   }
 
-  handleChange(value) {
-    value = parseFloat(value)
-    // eslint-disable-next-line
-    if (isNaN(value)) value = 0
+  handleChange(value, check) {
+    if (!check) {
+      this.props.onChange(value)
+      return
+    }
 
     const stepStr = this.props.step.toString()
     const dot = stepStr.lastIndexOf('.')
@@ -34,11 +37,18 @@ class Number extends PureComponent {
     }
   }
 
+  handleBlur(e) {
+    let value = parseFloat(e.target.value)
+    // eslint-disable-next-line
+    if (isNaN(value)) value = 0
+    this.handleChange(value, true)
+  }
+
   changeValue(mod) {
     let value = parseFloat(this.props.value)
     // eslint-disable-next-line
     if (isNaN(value)) value = 0
-    this.handleChange(value + mod)
+    this.handleChange(value + mod, true)
   }
 
   longPress(mod) {
@@ -89,6 +99,7 @@ class Number extends PureComponent {
         onChange={this.handleChange}
         onKeyDown={this.handleKeyDown}
         onKeyUp={this.handleKeyUp}
+        onBlur={this.handleBlur}
       />,
 
       <a
