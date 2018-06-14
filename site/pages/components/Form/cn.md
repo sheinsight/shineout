@@ -80,6 +80,7 @@ rule 共有 5 种规则，按优先级分别为：
 | children | ReactElement\|function(object) | 必填 | 支持 value 和 onChange 的 React 组件，或者函数，函数object属性如下<br />value: 根据 name 从上级 Form 或 Form.Block 获取的值<br />error：数据校验错误信息，类型为 Error<br />onChange: 值改变回调函数  |
 | defaultValue | string \| number | | 默认值 |
 | name | string | 无 | Form 存取数据的名称 |
+| rules | array | 无 | 校验规则 | 
 | value | string \| number | | defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖<br />在Form中，value会被表单接管，value无效 |
 
 

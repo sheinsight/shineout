@@ -1,6 +1,6 @@
 /**
  * cn - 格式化
- * en - format
+ * en - Format
  */
 import React from 'react'
 import { Slider } from 'shineout'

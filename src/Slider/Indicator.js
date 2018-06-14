@@ -5,16 +5,13 @@ import { sliderClass } from '../styles'
 
 class Indicator extends PureComponent {
   render() {
-    return (
-      <div
-        onMouseDown={this.props.onDragStart}
-        className={sliderClass('indicator')}
-      />
-    )
+    const event = this.props.disabled ? undefined : this.props.onDragStart
+    return <div onMouseDown={event} className={sliderClass('indicator')} />
   }
 }
 
 Indicator.propTypes = {
+  disabled: PropTypes.bool,
   onDragStart: PropTypes.func.isRequired,
 }
 

@@ -36,13 +36,14 @@ class Container extends PureComponent {
 
   handleClick(e) {
     if (e.target.className.indexOf(sliderClass('indicator')) >= 0) return
+    if (this.props.disabled) return
 
     const {
       scale, step, vertical, range,
     } = this.props
     const rect = this.innerElement.getBoundingClientRect()
     const per = vertical
-      ? (e.clientY - rect.top) / rect.height
+      ? 1 - ((e.clientY - rect.top) / rect.height)
       : (e.clientX - rect.left) / rect.width
 
     const val = per2value(per, scale, step)
@@ -98,7 +99,7 @@ class Container extends PureComponent {
       range, height, style, vertical, ...other
     } = this.props
     const className = classnames(
-      sliderClass('_', vertical && 'vertical'),
+      sliderClass('_', vertical && 'vertical', this.props.disabled && 'disabled'),
       this.props.className,
     )
 

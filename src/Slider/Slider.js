@@ -80,7 +80,7 @@ class Slider extends PureComponent {
   }
 
   render() {
-    const { index, vertical } = this.props
+    const { index, disabled, vertical } = this.props
     let { length } = this.state
 
     if (index === 1) length = 1 - length
@@ -95,7 +95,7 @@ class Slider extends PureComponent {
       <div ref={this.bindElement} style={style} className={className}>
         {this.renderResult()}
         <div className={sliderClass('bar-bg')} />
-        <Indicator onDrag={this.handleDrag} onDragEnd={this.handleDragEnd} />
+        <Indicator disabled={disabled} onDrag={this.handleDrag} onDragEnd={this.handleDragEnd} />
       </div>
     )
   }
@@ -103,6 +103,7 @@ class Slider extends PureComponent {
 
 Slider.propTypes = {
   autoHide: PropTypes.bool,
+  disabled: PropTypes.bool,
   formatValue: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.bool,

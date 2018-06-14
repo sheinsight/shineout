@@ -33,7 +33,7 @@ const examples = [
   },
   {
     name: '04-format',
-    title: locate('格式化', 'format'),
+    title: locate('格式化', 'Format'),
     component: require('doc/pages/components/Slider/example-04-format.js').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-04-format.js'),
   },
@@ -62,10 +62,16 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Slider/example-08-hide.js'),
   },
   {
-    name: '09-vertical',
+    name: '09-disabled',
+    title: locate('禁用', 'Disabled'),
+    component: require('doc/pages/components/Slider/example-09-disabled.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Slider/example-09-disabled.js'),
+  },
+  {
+    name: '10-vertical',
     title: locate('垂直', 'Vertical'),
-    component: require('doc/pages/components/Slider/example-09-vertical.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Slider/example-09-vertical.js'),
+    component: require('doc/pages/components/Slider/example-10-vertical.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Slider/example-10-vertical.js'),
   },
 ]
 
