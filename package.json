@@ -25,7 +25,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "create-react-context": "^0.2.1",
-    "date-fns": "2.0.0-alpha.7",
+    "date-fns": "2.0.0-alpha.10",
     "deep-eql": "^3.0.1",
     "immer": "^1.1.1",
     "prop-types": "^15.6.0",
