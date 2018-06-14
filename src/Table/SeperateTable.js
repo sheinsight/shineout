@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { getProps } from '../utils/proptypes'
 import { setTranslate } from '../utils/dom/translate'
 import { range, split } from '../utils/numbers'
+import { getParent } from '../utils/dom/element'
 import { tableClass } from '../styles'
 import Scroll from '../Scroll'
 import Colgroup from './Colgroup'
@@ -19,15 +20,22 @@ class SeperateTable extends PureComponent {
       scrollTop: 0,
     }
 
+    /*
     this.bindTbody = this.bindTbody.bind(this)
     this.bindRealTbody = this.bindRealTbody.bind(this)
     this.bindThead = this.bindThead.bind(this)
+    */
+    this.bindTbody = this.bindElement.bind(this, 'tbody')
+    this.bindRealTbody = this.bindElement.bind(this, 'realTbody')
+    this.bindThead = this.bindElement.bind(this, 'thead')
     this.handleColgroup = this.handleColgroup.bind(this)
     this.handleScroll = this.handleScroll.bind(this)
     this.setRowHeight = this.setRowHeight.bind(this)
 
     this.cachedRowHeight = []
     this.lastScrollTop = 0
+
+    if (props.tableRef) props.tableRef(this)
   }
 
   // reset scrollTop when data changed
@@ -112,16 +120,32 @@ class SeperateTable extends PureComponent {
     }
   }
 
-  bindTbody(el) {
-    this.tbody = el
+  bindElement(key, el) {
+    this[key] = el
   }
 
-  bindRealTbody(el) {
-    this.realTbody = el
-  }
+  scrollToIndex(index, callback) {
+    if (index > 1) index -= 1
+    const contentHeight = this.getContentHeight()
+    const outerHeight = getParent(this.realTbody, `.${tableClass('body')}`).clientHeight - 12
+    const sumHeight = this.getSumHeight(0, index)
+    let scrollTop = sumHeight / contentHeight
+    let marginTop = scrollTop * outerHeight
+    let offsetScrollTop = sumHeight + marginTop
 
-  bindThead(el) {
-    this.thead = el
+    if (offsetScrollTop > contentHeight) {
+      offsetScrollTop = contentHeight
+      index = this.props.data.length - this.props.rowsInView
+      scrollTop = 1
+      marginTop = outerHeight
+    }
+
+    this.setState({ currentIndex: index, scrollTop }, callback)
+    this.lastScrollTop = offsetScrollTop
+
+    this.tbody.style.marginTop = `${marginTop}px`
+
+    setTranslate(this.tbody, `-${this.state.offsetLeft}px`, `-${offsetScrollTop}px`)
   }
 
   handleScroll(x, y, max, bar, v, h, pixelX, pixelY) {
@@ -302,6 +326,7 @@ SeperateTable.propTypes = {
   onScroll: PropTypes.func,
   rowHeight: PropTypes.number,
   rowsInView: PropTypes.number.isRequired,
+  tableRef: PropTypes.func,
   width: PropTypes.number,
 }
 
