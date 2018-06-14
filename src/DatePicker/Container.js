@@ -73,15 +73,15 @@ class Container extends PureComponent {
     if (format) return format
     switch (type) {
       case 'date':
-        return 'YYYY-MM-dd'
+        return 'yyyy-MM-dd'
       case 'month':
-        return 'YYYY-MM'
+        return 'yyyy-MM'
       case 'time':
         return 'HH:mm:ss'
       case 'week':
-        return 'YYYY WW'
+        return 'yyyy WW'
       default:
-        return 'YYYY-MM-dd HH:mm:ss'
+        return 'yyyy-MM-dd HH:mm:ss'
     }
   }
 
