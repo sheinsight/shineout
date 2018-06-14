@@ -38,7 +38,7 @@ class Tree extends PureComponent {
 
     if (this.props.onChange || this.props.onDrop) {
       this.datum.mode = this.props.mode
-      if (prevProps.value !== this.props.value) this.datum.setValue(this.props.value)
+      if (prevProps.value !== this.props.value) this.datum.setValue(this.props.value || [])
       if (prevProps.data !== this.props.data) this.datum.setData(this.props.data)
     }
   }
