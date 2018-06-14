@@ -37,7 +37,7 @@ Spin.propTypes = {
   className: PropTypes.string,
   count: PropTypes.number,
   margin: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  render: PropTypes.func.isRequired,
+  render: PropTypes.func,
   size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   spinClass: PropTypes.func,
   style: PropTypes.object,
