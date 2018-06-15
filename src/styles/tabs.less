@@ -5,4 +5,20 @@
 
 .@{tabs-prefix} {
   position: relative;
+
+  &-header {
+    border-bottom: solid 1px @tabs-border-color;
+    div {
+      display: inline-block;
+      padding: @tabs-link-padding;
+    }
+  }
+
+  &-panel {
+    display: none;
+
+    &.@{tabs-prefix}-show {
+      display: block;
+    }
+  }
 }

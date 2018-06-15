@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Tab from './Tab'
+import { tabsClass } from '../styles'
 
 class Header extends PureComponent {
   constructor(props) {
@@ -21,7 +22,7 @@ class Header extends PureComponent {
   render() {
     const { tabs } = this.props
     return (
-      <div>
+      <div className={tabsClass('header')}>
         { tabs.map(this.renderTab) }
       </div>
     )

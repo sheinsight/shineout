@@ -13,6 +13,7 @@ class Tabs extends PureComponent {
       active: props.defaultActive || 0,
     }
 
+    this.handleChange = this.handleChange.bind(this)
     this.renderContent = this.renderContent.bind(this)
   }
 

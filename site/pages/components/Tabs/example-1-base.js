@@ -12,7 +12,7 @@ export default function () {
         Content 1
       </Tabs.Panel>
       <Tabs.Panel tab="javascript">
-        Content 1
+        Content 2
       </Tabs.Panel>
     </Tabs>
   )
