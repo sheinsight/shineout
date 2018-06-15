@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import Dropdown from '../Dropdown'
+import Select from '../Select'
 import { paginationClass } from '../styles'
 
 class PageSizeList extends PureComponent {
@@ -28,12 +28,13 @@ class PageSizeList extends PureComponent {
     const { pageSize, text, disabled } = this.props
 
     return (
-      <Dropdown
-        onClick={this.handleChange}
+      <Select
+        onChange={this.handleChange}
         disabled={disabled}
         placeholder={`${pageSize} ${text.page || ''}`}
-        className={paginationClass('section')}
+        className={paginationClass('section', 'pagesize')}
         data={this.getMenu()}
+        renderItem={d => d.content}
       />
     )
   }
