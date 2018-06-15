@@ -35,7 +35,8 @@
   "Layout": {
     "Card": "卡片",
     "Grid": "栅格",
-    "Sticky": "附着"
+    "Sticky": "附着",
+    "Tabs": "标签页"
   },
   "Navigation": {
     "Breadcrumb": "面包屑",
