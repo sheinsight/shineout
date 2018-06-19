@@ -29,15 +29,14 @@ class Tabs extends PureComponent {
   }
 
   renderHeader() {
-    const { children } = this.props
+    const { children, color } = this.props
     const active = this.getActive()
     const tabs = []
 
-    let { border, color } = this.props
+    let { border } = this.props
     Children.toArray(children).forEach((child, i) => {
       if (child && child.type && child.type.isTabPanel) {
         const { id = i, tab, background } = child.props
-        color = child.props.color || (active === id ? color : undefined)
 
         let childBorder = child.props.border
         // eslint-disable-next-line
@@ -52,7 +51,7 @@ class Tabs extends PureComponent {
           tab,
           background: active === id ? (background || '#fff') : background,
           border: childBorder,
-          color,
+          color: child.props.color || (active === id ? color : undefined),
         })
       }
     })
