@@ -160,21 +160,23 @@ class SeperateTable extends PureComponent {
     if (right < 0) right = 0
 
     /* set x */
-    setTranslate(this.thead, `-${left}px`, '0');
+    if (contentWidth > v) {
+      setTranslate(this.thead, `-${left}px`, '0');
 
-    [this.thead, this.tbody].forEach((el) => {
-      [].forEach.call(
-        el.parentNode.querySelectorAll(`.${tableClass(CLASS_FIXED_LEFT)}`),
-        (td) => { setTranslate(td, `${left}px`, '0') },
-      )
-    });
+      [this.thead, this.tbody].forEach((el) => {
+        [].forEach.call(
+          el.parentNode.querySelectorAll(`.${tableClass(CLASS_FIXED_LEFT)}`),
+          (td) => { setTranslate(td, `${left}px`, '0') },
+        )
+      });
 
-    [this.thead, this.tbody].forEach((el) => {
-      [].forEach.call(
-        el.parentNode.querySelectorAll(`.${tableClass(CLASS_FIXED_RIGHT)}`),
-        (td) => { setTranslate(td, `-${right}px`, '0') },
-      )
-    })
+      [this.thead, this.tbody].forEach((el) => {
+        [].forEach.call(
+          el.parentNode.querySelectorAll(`.${tableClass(CLASS_FIXED_RIGHT)}`),
+          (td) => { setTranslate(td, `-${right}px`, '0') },
+        )
+      })
+    }
     /* set x end */
 
     /* set y */

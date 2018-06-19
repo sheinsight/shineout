@@ -15,8 +15,8 @@ class Header extends PureComponent {
     if (this.props.onChange) this.props.onChange(id)
   }
 
-  renderTab({ tab, id }) {
-    return <Tab key={id} id={id} onClick={this.handleClick}>{tab}</Tab>
+  renderTab({ tab, id, ...other }) {
+    return <Tab {...other} key={id} id={id} onClick={this.handleClick}>{tab}</Tab>
   }
 
   render() {

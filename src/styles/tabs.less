@@ -8,7 +8,11 @@
 
   &-header {
     border-bottom: solid 1px @tabs-border-color;
+
     .@{tabs-prefix}-tab {
+      position: relative;
+      bottom: -1px;
+      background: @tabs-link-background;
       display: inline-block;
       padding: @tabs-link-padding;
       margin-right: @tabs-link-spacing;

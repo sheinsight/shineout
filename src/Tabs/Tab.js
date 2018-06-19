@@ -13,19 +13,32 @@ class Tab extends PureComponent {
   }
 
   render() {
-    const { children } = this.props
+    const { background, border, isActive } = this.props
+    const style = {
+      background: isActive ? background : undefined,
+      borderColor: `${border} ${border} ${isActive ? background : border} ${border}`,
+    }
+
     return (
-      <div className={tabsClass('tab')} onClick={this.handleClick}>
-        {children}
+      <div className={tabsClass('tab')} style={style} onClick={this.handleClick}>
+        {this.props.children}
       </div>
     )
   }
 }
 
 Tab.propTypes = {
+  background: PropTypes.string,
+  border: PropTypes.string,
   children: PropTypes.any,
   id: PropTypes.any.isRequired,
+  isActive: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
+}
+
+Tab.defaultProps = {
+  background: '#fff',
+  border: '#ddd',
 }
 
 export default Tab

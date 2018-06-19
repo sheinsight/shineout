@@ -10,7 +10,7 @@
   margin-bottom: @line-height-computed;
 
   table {
-    width: 100%;
+    min-width: 100%;
     border-spacing: 0;
     color: @table-color;
     table-layout: fixed;
@@ -271,7 +271,12 @@
   }
 
   &-body {
+    min-width: 100%;
     flex: 1;
+  }
+
+  &-scroll-inner {
+    min-width: 100%;
   }
 
   &-fixed {

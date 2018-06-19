@@ -30,12 +30,17 @@ class Tabs extends PureComponent {
 
   renderHeader() {
     const { children } = this.props
+    const active = this.getActive()
 
     const tabs = []
     Children.toArray(children).forEach((child, i) => {
       if (child && child.type && child.type.isTabPanel) {
-        const { tab, id = i } = child.props
-        tabs.push({ tab, id })
+        const {
+          id = i, tab, background, border,
+        } = child.props
+        tabs.push({
+          id, isActive: active === id, tab, background, border,
+        })
       }
     })
 
