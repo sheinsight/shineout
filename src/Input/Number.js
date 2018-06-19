@@ -42,6 +42,7 @@ class Number extends PureComponent {
     // eslint-disable-next-line
     if (isNaN(value)) value = 0
     this.handleChange(value, true)
+    this.props.onBlur(e)
   }
 
   changeValue(mod) {
@@ -130,6 +131,7 @@ class Number extends PureComponent {
 Number.propTypes = {
   min: PropTypes.number,
   max: PropTypes.number,
+  onBlur: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   step: PropTypes.number,
   value: PropTypes.oneOfType([

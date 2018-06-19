@@ -31,28 +31,41 @@ class Tabs extends PureComponent {
   renderHeader() {
     const { children } = this.props
     const active = this.getActive()
-
     const tabs = []
+
+    let { border, color } = this.props
     Children.toArray(children).forEach((child, i) => {
       if (child && child.type && child.type.isTabPanel) {
-        const {
-          id = i, tab, background, border,
-        } = child.props
+        const { id = i, tab, background } = child.props
+        color = child.props.color || (active === id ? color : undefined)
+
+        let childBorder = child.props.border
+        // eslint-disable-next-line
+        if (active === id) {
+          if (childBorder) border = childBorder
+          else childBorder = border
+        }
+
         tabs.push({
-          id, isActive: active === id, tab, background, border,
+          id,
+          isActive: active === id,
+          tab,
+          background: active === id ? (background || '#fff') : background,
+          border: childBorder,
+          color,
         })
       }
     })
 
-    return <Header onChange={this.handleChange} tabs={tabs} />
+    return <Header border={border} onChange={this.handleChange} tabs={tabs} />
   }
 
   renderContent(child, i) {
     if (!(child && child.type && child.type.isTabPanel)) return null
-    const { id = i, children } = child.props
+    const { id = i, ...other } = child.props
 
     return (
-      <Wrapper id={id} key={id} active={this.getActive()}>{children}</Wrapper>
+      <Wrapper {...other} id={id} key={id} active={this.getActive()} />
     )
   }
 
@@ -71,14 +84,21 @@ class Tabs extends PureComponent {
 
 Tabs.propTypes = {
   active: PropTypes.any,
+  border: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.array,
   ]),
   className: PropTypes.string,
+  color: PropTypes.string,
   defaultActive: PropTypes.any,
   onChange: PropTypes.func,
   style: PropTypes.object,
+}
+
+Tabs.defaultProps = {
+  border: '#ddd',
+  color: '#333',
 }
 
 export default Tabs

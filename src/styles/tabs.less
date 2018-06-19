@@ -7,16 +7,14 @@
   position: relative;
 
   &-header {
-    border-bottom: solid 1px @tabs-border-color;
+    border-bottom: solid 1px transparent;
 
     .@{tabs-prefix}-tab {
       position: relative;
-      bottom: -1px;
-      background: @tabs-link-background;
       display: inline-block;
       padding: @tabs-link-padding;
-      margin-right: @tabs-link-spacing;
-      border: solid 1px @tabs-border-color;
+      margin: 0 @tabs-link-spacing -1px 0;
+      border: solid 1px transparent;
       border-radius: @tabs-link-border-radius @tabs-link-border-radius 0 0;
     }
   }

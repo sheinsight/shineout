@@ -9,12 +9,16 @@ class Panel extends PureComponent {
   }
 
   render() {
-    const { children, isActive } = this.props
+    const {
+      children, background, color, isActive,
+    } = this.props
     if (!isActive && this.isPristine) return null
     this.isPristine = false
 
+    const style = Object.assign({ background: background || '#fff', color }, this.props.style)
+
     return (
-      <div className={tabsClass('panel', isActive && 'show')}>
+      <div style={style} className={tabsClass('panel', isActive && 'show')}>
         {children}
       </div>
     )
@@ -24,8 +28,11 @@ class Panel extends PureComponent {
 Panel.isTabPanel = true
 
 Panel.propTypes = {
-  isActive: PropTypes.bool,
+  background: PropTypes.string,
+  color: PropTypes.string,
   children: PropTypes.any,
+  isActive: PropTypes.bool,
+  style: PropTypes.object,
 }
 
 export default Panel

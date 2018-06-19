@@ -13,9 +13,12 @@ class Tab extends PureComponent {
   }
 
   render() {
-    const { background, border, isActive } = this.props
+    const {
+      background, border, color, isActive,
+    } = this.props
     const style = {
-      background: isActive ? background : undefined,
+      background,
+      color,
       borderColor: `${border} ${border} ${isActive ? background : border} ${border}`,
     }
 
@@ -31,14 +34,14 @@ Tab.propTypes = {
   background: PropTypes.string,
   border: PropTypes.string,
   children: PropTypes.any,
+  color: PropTypes.string,
   id: PropTypes.any.isRequired,
   isActive: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
 }
 
 Tab.defaultProps = {
-  background: '#fff',
-  border: '#ddd',
+  border: 'transparent',
 }
 
 export default Tab

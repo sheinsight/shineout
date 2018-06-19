@@ -20,9 +20,10 @@ class Header extends PureComponent {
   }
 
   render() {
-    const { tabs } = this.props
+    const { border, tabs } = this.props
+
     return (
-      <div className={tabsClass('header')}>
+      <div style={{ borderBottom: `solid 1px ${border}` }} className={tabsClass('header')}>
         { tabs.map(this.renderTab) }
       </div>
     )
@@ -30,6 +31,7 @@ class Header extends PureComponent {
 }
 
 Header.propTypes = {
+  border: PropTypes.string,
   onChange: PropTypes.func,
   tabs: PropTypes.array,
 }
