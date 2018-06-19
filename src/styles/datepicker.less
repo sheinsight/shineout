@@ -4,26 +4,28 @@
 @datepicker-prefix: ~"@{so-prefix}-datepicker";
 
 .@{datepicker-prefix} {
-  display: inline-block;
-  width: 150px;
+  label&{
+    display: inline-block;
+    width: 150px;
+  }
 
-  &-c-datetime {
+  label&-c-datetime {
     width: 240px;
   }
 
-  &-c-time {
+  label&-c-time {
     width: 120px;
   }
 
-  &-r-date, &-r-month {
+  label&-r-date, label&-r-month {
     width: 300px;
   }
 
-  &-r-datetime {
+  label&-r-datetime {
     width: 420px;
   }
 
-  &-r-time {
+  label&-r-time {
     width: 250px;
   }
 

@@ -8,9 +8,12 @@
 
   &-header {
     border-bottom: solid 1px @tabs-border-color;
-    div {
+    .@{tabs-prefix}-tab {
       display: inline-block;
       padding: @tabs-link-padding;
+      margin-right: @tabs-link-spacing;
+      border: solid 1px @tabs-border-color;
+      border-radius: @tabs-link-border-radius @tabs-link-border-radius 0 0;
     }
   }
 
