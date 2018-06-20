@@ -21,7 +21,7 @@ const examples = [
   },
   {
     name: '2-card',
-    title: locate('颜色', 'Color'),
+    title: locate('自定义颜色', 'Color'),
     component: require('doc/pages/components/Tabs/example-2-card.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-2-card.js'),
   },

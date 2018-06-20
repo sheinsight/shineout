@@ -7,20 +7,37 @@
   position: relative;
 
   &-header {
-    border-bottom: solid 1px transparent;
+    position: relative;
+    z-index: 1;
 
     .@{tabs-prefix}-tab {
       position: relative;
+      z-index: 1;
       display: inline-block;
       padding: @tabs-link-padding;
       margin: 0 @tabs-link-spacing -1px 0;
       border: solid 1px transparent;
       border-radius: @tabs-link-border-radius @tabs-link-border-radius 0 0;
+      cursor: pointer;
+    }
+
+    .@{tabs-prefix}-active {
+      z-index: 100;
+      cursor: default;
+    }
+
+    .@{tabs-prefix}-hr {
+      position: absolute;
+      z-index: 10;
+      bottom: 0;
+      width: 100%;
+      border-bottom: solid 1px transparent;
     }
   }
 
   &-panel {
     position: relative;
+    z-index: 10;
     display: none;
 
     &.@{tabs-prefix}-show {

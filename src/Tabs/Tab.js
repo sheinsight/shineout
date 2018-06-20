@@ -23,7 +23,11 @@ class Tab extends PureComponent {
     }
 
     return (
-      <div className={tabsClass('tab')} style={style} onClick={this.handleClick}>
+      <div
+        className={tabsClass('tab', isActive && 'active')}
+        style={style}
+        onClick={this.handleClick}
+      >
         {this.props.children}
       </div>
     )

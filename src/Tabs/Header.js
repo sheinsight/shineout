@@ -23,8 +23,9 @@ class Header extends PureComponent {
     const { border, tabs } = this.props
 
     return (
-      <div style={{ borderBottom: `solid 1px ${border}` }} className={tabsClass('header')}>
+      <div className={tabsClass('header')}>
         { tabs.map(this.renderTab) }
+        <div style={{ borderColor: border }} className={tabsClass('hr')} />
       </div>
     )
   }
