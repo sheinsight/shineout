@@ -25,6 +25,12 @@ const examples = [
     component: require('doc/pages/components/Tabs/example-2-card.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-2-card.js'),
   },
+  {
+    name: '3-scroll',
+    title: locate('滚动', 'Scroll'),
+    component: require('doc/pages/components/Tabs/example-3-scroll.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tabs/example-3-scroll.js'),
+  },
 ]
 
 const codes = undefined

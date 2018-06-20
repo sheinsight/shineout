@@ -8,6 +8,7 @@
 
   &-header {
     position: relative;
+    overflow: hidden;
     z-index: 1;
 
     .@{tabs-prefix}-tab {
@@ -33,6 +34,10 @@
       width: 100%;
       border-bottom: solid 1px transparent;
     }
+  }
+
+  &-inner {
+    white-space: nowrap;
   }
 
   &-panel {
