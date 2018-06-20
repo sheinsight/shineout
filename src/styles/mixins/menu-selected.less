@@ -4,10 +4,7 @@
   & when (@so-theme = antd) {
     background-color: @menu-item-active-bg;
     border-bottom-color: @menu-highlight-border-color;
-    //color: @menu-highlight-color;
-    > a {
-      color: @menu-highlight-color;
-    }
+    color: @menu-highlight-color;
     & when (@mode = inline) {
       border-bottom: none;
       &:after {
@@ -28,7 +25,7 @@
     background-color: @colors-blue !important;
     border-radius: 4px;
     color: #fff;
-    > a {
+    > div {
       color: #fff;
     }
     & when not (@mode = horizontal) {

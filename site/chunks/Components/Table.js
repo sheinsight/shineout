@@ -147,7 +147,7 @@ const examples = [
   },
   {
     name: '22-scroll-to-index',
-    title: locate('滚动 （试验） \n 固定表头的表格提供了一个 scrollToIndex 方法滚动到指定行，因为非固定行高的原因，滚动到未渲染过的行有一定偏差，请谨慎使用。', 'scrollToIndex'),
+    title: locate('滚动（试验） \n 固定表头的表格提供了一个 scrollToIndex 方法滚动到指定行，因为非固定行高的原因，滚动到未渲染过的行有一定偏差，请谨慎使用。', 'scrollToIndex'),
     component: require('doc/pages/components/Table/example-22-scroll-to-index.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-22-scroll-to-index.js'),
   },

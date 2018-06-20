@@ -24,6 +24,7 @@
     background-color: transparent;
     color: inherit;
     cursor: pointer;
+    vertical-align: middle;
     width: 100%;
     text-align: left;
     &:focus {
@@ -100,6 +101,9 @@
       a {
         color: @colors-blue;
       }
+    }
+    &-text:focus {
+      outline: none;
     }
   }
   &-submenu,
@@ -192,7 +196,7 @@
   &-dark {
     .@{menu-prefix}-item-selected {
       background-color: #1890ff;
-      button {
+      div {
         color: #fff;
       }
     }
