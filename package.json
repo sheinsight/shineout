@@ -1,6 +1,6 @@
 {
   "name": "shineout",
-  "version": "0.5.12",
+  "version": "0.5.13",
   "description": "Shein 前端组件库",
   "main": "./lib/index.js",
   "author": "lobos841@gmail.com",
