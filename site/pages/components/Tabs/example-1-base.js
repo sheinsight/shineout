@@ -9,7 +9,7 @@ const panelStyle = { padding: '12px 0' }
 
 export default function () {
   return (
-    <Tabs>
+    <Tabs defaultActive={1}>
       <Tabs.Panel style={panelStyle} tab="Home">
         Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
       </Tabs.Panel>
