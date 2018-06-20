@@ -20,11 +20,6 @@ class SeperateTable extends PureComponent {
       scrollTop: 0,
     }
 
-    /*
-    this.bindTbody = this.bindTbody.bind(this)
-    this.bindRealTbody = this.bindRealTbody.bind(this)
-    this.bindThead = this.bindThead.bind(this)
-    */
     this.bindTbody = this.bindElement.bind(this, 'tbody')
     this.bindRealTbody = this.bindElement.bind(this, 'realTbody')
     this.bindThead = this.bindElement.bind(this, 'thead')

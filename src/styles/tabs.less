@@ -7,8 +7,8 @@
   position: relative;
 
   &-header {
+    display: flex;
     position: relative;
-    overflow: hidden;
     z-index: 1;
 
     .@{tabs-prefix}-tab {
@@ -37,7 +37,30 @@
   }
 
   &-inner {
+    flex: 1;
+    overflow: hidden;
+  }
+
+  &-scroll {
+    display: inline-block;
     white-space: nowrap;
+    transition: margin 0.4s linear;
+  }
+
+  &-scroll-prev, &-scroll-next {
+    position: relative;
+    width: 30px;
+    text-align: center;
+    background: #fff;
+    cursor: pointer;
+
+    svg {
+      position: absolute;
+      width: 10px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 
   &-panel {

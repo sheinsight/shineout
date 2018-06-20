@@ -49,7 +49,7 @@ class Tabs extends PureComponent {
           id,
           isActive: active === id,
           tab,
-          background: active === id ? (background || '#fff') : background,
+          background: active === id ? (background || this.props.background) : (background || '#f2f2f2'),
           border: childBorder,
           color: child.props.color || (active === id ? color : undefined),
         })
@@ -83,6 +83,7 @@ class Tabs extends PureComponent {
 
 Tabs.propTypes = {
   active: PropTypes.any,
+  background: PropTypes.string,
   border: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.element,
@@ -96,6 +97,7 @@ Tabs.propTypes = {
 }
 
 Tabs.defaultProps = {
+  background: '#fff',
   border: '#ddd',
   color: '#333',
 }

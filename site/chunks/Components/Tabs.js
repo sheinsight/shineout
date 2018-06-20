@@ -27,7 +27,7 @@ const examples = [
   },
   {
     name: '3-scroll',
-    title: locate('滚动', 'Scroll'),
+    title: locate('滚动 \n 超出长度时，会自动出现滚动按钮', 'Scroll'),
     component: require('doc/pages/components/Tabs/example-3-scroll.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-3-scroll.js'),
   },

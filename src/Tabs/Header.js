@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+// import { setTranslate } from '../utils/dom/translate'
+import icons from '../icons'
 import Tab from './Tab'
 import { tabsClass } from '../styles'
 
@@ -7,28 +9,48 @@ class Header extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.state = { overflow: false }
+    this.state = {
+      left: 0,
+      overflow: false,
+    }
 
     this.bindInner = this.bindElement.bind(this, 'innerElement')
     this.bindWrapper = this.bindElement.bind(this, 'wrapperElement')
+    this.bindScroll = this.bindElement.bind(this, 'scrollElement')
     this.renderTab = this.renderTab.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.handlePrevClick = this.handleMove.bind(this, true)
+    this.handleNextClick = this.handleMove.bind(this, false)
+
+    this.scrollLeft = 0
   }
 
   componentDidMount() {
     this.setWidth()
   }
 
+  componentDidUpdate() {
+    this.setWidth()
+  }
+
   setWidth() {
-    if (!this.innerElement || !this.wrapperElement) return
     const innerWidth = this.innerElement.clientWidth
-    const wrapperWidth = this.wrapperElement.clientWidth
-    console.log(innerWidth, wrapperWidth)
-    this.setState({ overflow: innerWidth > wrapperWidth })
+    const scrollWidth = this.scrollElement.clientWidth
+    const { left } = this.state
+    this.setState({ overflow: scrollWidth > left + innerWidth })
   }
 
   bindElement(name, el) {
     this[name] = el
+  }
+
+  handleMove(lt) {
+    const innerWidth = this.innerElement.clientWidth
+    const scrollWidth = this.scrollElement.clientWidth
+    let left = this.state.left + (lt ? -innerWidth : innerWidth)
+    if (left < 0) left = 0
+    if (left + innerWidth > scrollWidth) left = scrollWidth - innerWidth
+    this.setState({ left })
   }
 
   handleClick(id) {
@@ -41,14 +63,27 @@ class Header extends PureComponent {
 
   render() {
     const { border, tabs } = this.props
-    const { overflow } = this.state
-    console.log(overflow)
+    const { left, overflow } = this.state
 
     return (
       <div ref={this.bindWrapper} className={tabsClass('header')}>
+        {
+          left > 0 &&
+          <div onClick={this.handlePrevClick} className={tabsClass('scroll-prev')}>
+            {icons.AngleLeft}
+          </div>
+        }
         <div ref={this.bindInner} className={tabsClass('inner')}>
-          { tabs.map(this.renderTab) }
+          <div ref={this.bindScroll} style={{ marginLeft: -left }} className={tabsClass('scroll')}>
+            { tabs.map(this.renderTab) }
+          </div>
         </div>
+        {
+          overflow &&
+          <div onClick={this.handleNextClick} className={tabsClass('scroll-next')}>
+            {icons.AngleRight}
+          </div>
+        }
         <div style={{ borderColor: border }} className={tabsClass('hr')} />
       </div>
     )
