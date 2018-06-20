@@ -41,7 +41,7 @@ export default function () {
       bordered
       fixed="both"
       keygen="id"
-      width={600}
+      width={1500}
       style={{ height: 300 }}
       columns={columns}
       data={data}

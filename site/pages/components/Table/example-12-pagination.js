@@ -19,7 +19,7 @@ export default class extends PureComponent {
       {
         title: 'id',
         render: 'id',
-        width: 70,
+        width: 80,
         sorter: this.handleSorter.bind(this, 'id'),
       },
       {
