@@ -9,8 +9,6 @@ import List from '../List'
 const CollapseList = List('collapse', 'fast')
 const FadeList = List('fade', 'fast')
 
-const aStyle = { display: 'block', width: '100%' }
-
 class SubMenu extends React.Component {
   constructor(props) {
     super(props)
@@ -86,6 +84,7 @@ class SubMenu extends React.Component {
     const className = classname(menuClass('submenu', (this.state.show && active && this.props.data.onClick) && 'submenu-active'))
     const titleClassName = classname(menuClass('submenu-title', `${mode}-submenu-title`, this.state.show && `${mode}-submenu-title-open`, this.props.data.disabled && 'disabled'))
     const ulClassName = classname(menuClass('submenu-ul', `${mode}-submenu-ul`))
+    const textClassName = classname(menuClass('submenu-text'))
     const ListStyle = mode === 'inline' ? CollapseList : FadeList
 
     return (
@@ -95,16 +94,15 @@ class SubMenu extends React.Component {
           className={titleClassName}
           style={mode === 'inline' ? { paddingLeft: inlineIndent } : {}}
         >
-          <a
-            tabIndex={0}
-            href="javascript:;"
+          <div
+            tabIndex={-1}
+            className={textClassName}
             ref={this.bindRef}
-            style={aStyle}
             onClick={this.handleClick}
             onBlur={this.handleBlur}
           >
             {itemData}
-          </a>
+          </div>
         </div>
         <ListStyle
           show={this.state.show}
