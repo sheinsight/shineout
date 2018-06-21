@@ -6,11 +6,23 @@
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| className | string | 无 | 扩展className |
-| collapsible | bool | false | 是否可折叠 |
-| collapsed | bool | 无 | 是否折叠，用于受控状态 |
-| defaultCollapsed | bool | true | 初始折叠状态（仅在 collapsible 为 true 时有效） |
-| shadow | \[true, false, 'hover'] | false | 是否显示阴影<br />'hover' - 鼠标移到元素上显示<br />true - 总是显示<br />false - 从不显示 |
-| style | object | 无 | 最外层扩展样式 |
+| active | string \| int | 0 | 当前选中标签页（受控） |
+| background | string | '#fff' | 选中标签背景色 |
+| border | string | '#ddd' | 边框颜色 |
+| className | string | - | 扩展className |
+| defaultActive | string \| int | 0 | 默认选中标签页（非受控） |
+| inactiveBackground | string | 'transparent' | 未选中标签背景色 |
+| onChange | function(key) | - | 标签选中时触发回调事件 |
+| style | object | - | 最外层扩展样式 |
 
 <br />
+
+### Panel
+
+| 属性 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| className | string | - | 扩展className |
+| background | string | - | 背景色，会覆盖 Tabs 的background |
+| border | string | - | 边框颜色，会覆盖 Tabs 的border |
+| style | object | - | 最外层扩展样式 |
+| tab | string \| ReactElement | 必填 | 标签标题内容 |

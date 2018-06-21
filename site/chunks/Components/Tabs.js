@@ -31,6 +31,12 @@ const examples = [
     component: require('doc/pages/components/Tabs/example-3-scroll.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-3-scroll.js'),
   },
+  {
+    name: '4-active',
+    title: locate('受控', 'Active'),
+    component: require('doc/pages/components/Tabs/example-4-active.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tabs/example-4-active.js'),
+  },
 ]
 
 const codes = undefined

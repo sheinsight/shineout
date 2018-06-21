@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-// import { setTranslate } from '../utils/dom/translate'
+import immer from 'immer'
 import icons from '../icons'
 import Tab from './Tab'
 import { tabsClass } from '../styles'
@@ -21,6 +21,7 @@ class Header extends PureComponent {
     this.handleClick = this.handleClick.bind(this)
     this.handlePrevClick = this.handleMove.bind(this, true)
     this.handleNextClick = this.handleMove.bind(this, false)
+    this.moveToLeft = this.moveToLeft.bind(this)
 
     this.scrollLeft = 0
   }
@@ -53,12 +54,35 @@ class Header extends PureComponent {
     this.setState({ left })
   }
 
+  moveToLeft({ left, right }) {
+    const rect = this.innerElement.getBoundingClientRect()
+    if (left < rect.left) {
+      this.setState(immer((draft) => {
+        draft.left -= rect.left - left
+      }))
+    } else if (right > rect.right) {
+      this.setState(immer((draft) => {
+        draft.left += right - rect.right - (draft.left === 0 ? -30 : 0)
+      }))
+    }
+  }
+
   handleClick(id) {
     if (this.props.onChange) this.props.onChange(id)
   }
 
   renderTab({ tab, id, ...other }) {
-    return <Tab {...other} key={id} id={id} onClick={this.handleClick}>{tab}</Tab>
+    return (
+      <Tab
+        {...other}
+        key={id}
+        id={id}
+        moveToLeft={this.moveToLeft}
+        onClick={this.handleClick}
+      >
+        {tab}
+      </Tab>
+    )
   }
 
   render() {

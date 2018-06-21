@@ -5,11 +5,17 @@ import { tabsClass } from '../styles'
 class Tab extends PureComponent {
   constructor(props) {
     super(props)
+    this.bindElement = this.bindElement.bind(this)
     this.handleClick = this.handleClick.bind(this)
+  }
+
+  bindElement(el) {
+    this.element = el
   }
 
   handleClick() {
     this.props.onClick(this.props.id)
+    this.props.moveToLeft(this.element.getBoundingClientRect())
   }
 
   render() {
@@ -24,6 +30,7 @@ class Tab extends PureComponent {
 
     return (
       <div
+        ref={this.bindElement}
         className={tabsClass('tab', isActive && 'active')}
         style={style}
         onClick={this.handleClick}
@@ -41,6 +48,7 @@ Tab.propTypes = {
   color: PropTypes.string,
   id: PropTypes.any.isRequired,
   isActive: PropTypes.bool.isRequired,
+  moveToLeft: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
 }
 

@@ -29,7 +29,7 @@ class Tabs extends PureComponent {
   }
 
   renderHeader() {
-    const { children, color } = this.props
+    const { children, color, inactiveBackground } = this.props
     const active = this.getActive()
     const tabs = []
 
@@ -49,7 +49,7 @@ class Tabs extends PureComponent {
           id,
           isActive: active === id,
           tab,
-          background: active === id ? (background || this.props.background) : (background || '#f2f2f2'),
+          background: background || (active === id ? this.props.background : inactiveBackground),
           border: childBorder,
           color: child.props.color || (active === id ? color : undefined),
         })
@@ -92,6 +92,7 @@ Tabs.propTypes = {
   className: PropTypes.string,
   color: PropTypes.string,
   defaultActive: PropTypes.any,
+  inactiveBackground: PropTypes.string,
   onChange: PropTypes.func,
   style: PropTypes.object,
 }
@@ -100,6 +101,7 @@ Tabs.defaultProps = {
   background: '#fff',
   border: '#ddd',
   color: '#333',
+  inactiveBackground: 'transparent',
 }
 
 export default Tabs
