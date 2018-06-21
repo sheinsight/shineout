@@ -48,7 +48,13 @@ class SeperateTable extends PureComponent {
       setTimeout(() => {
         this.setState({ currentIndex: index })
       })
-      setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
+
+      if (index === 0) {
+        this.tbody.style.marginTop = '0px'
+        setTranslate(this.tbody, `-${offsetLeft}px`, '0px')
+      } else {
+        setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
+      }
     } else if (this.lastScrollTop - height < 1) {
       setTimeout(() => {
         this.setState({ scrollTop: this.lastScrollTop / fullHeight })
