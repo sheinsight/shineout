@@ -30,7 +30,7 @@ class ${componentName} extends PureComponent {
 }
 
 ${componentName}.propTypes = {
-  ...getProps('size', 'type'),
+  ...getProps(PropTypes, 'size', 'type'),
 }
 
 ${componentName}.defaultProps = {
@@ -77,7 +77,7 @@ export default function () {
   )
 }
 `
-  const md = `# ${name}\n\n## API \n\n<example />`
+  const md = `# ${name}\n\n<example />\n\n## API`
 
   fs.mkdirSync(docPath)
   console.log(`create example file site/pages/components/${name}/example-1-base.js`)
@@ -108,6 +108,7 @@ function create() {
   let name = process.argv[2]
   const isRemove = name === '-d'
 
+  // eslint-disable-next-line
   if (isRemove) name = process.argv[3]
 
   if (!name) {

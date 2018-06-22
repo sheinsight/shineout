@@ -148,6 +148,12 @@ const pages = [
     component: loadable(() => import('./Popover')),
   },
   {
+    name: 'Progress',
+    cn: '进度条',
+    level: 2,
+    component: loadable(() => import('./Progress')),
+  },
+  {
     name: 'Spin',
     cn: '加载中',
     level: 2,

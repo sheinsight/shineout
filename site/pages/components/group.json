@@ -30,6 +30,7 @@
     "Spin": "加载中",
     "Modal": "对话框",
     "Popover": "气泡",
+    "Progress": "进度条",
     "Tooltip": "提示"
   },
   "Layout": {
