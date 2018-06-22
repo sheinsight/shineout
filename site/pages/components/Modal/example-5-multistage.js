@@ -7,6 +7,8 @@ import { Modal, Button } from 'shineout'
 import { pickNumber } from 'doc/utils/faker'
 import { range } from 'shineout/utils/numbers'
 
+const size = range(11, 0).map(() => [pickNumber(600, 450), pickNumber(450, 320)])
+
 export default class extends React.Component {
   constructor(props) {
     super(props)
@@ -30,8 +32,8 @@ export default class extends React.Component {
             <Modal
               key={i}
               visible={this.state.current >= i}
-              width={pickNumber(600, 450)}
-              height={pickNumber(450, 320)}
+              width={size[i][0]}
+              height={size[i][1]}
               title={`Modal Title ${i}`}
               onClose={this.show.bind(this, i - 1)}
               footer={<Button onClick={this.show.bind(this, i - 1)}>Close</Button>}

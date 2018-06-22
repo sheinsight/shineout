@@ -34,6 +34,7 @@ Modal.confirm(options) // 确认提示框
 | --- | --- | --- | --- |
 | content | string \| ReactElement | 无 | 提示内容主体 |
 | title | string | 无 | 标题 |
-| onOk | function | 无 | 点击确定按钮时触发事件 |
 | onCancel | function | 无 | 点击取消按钮时触发事件，仅在 confirm 方法中有效 |
+| onClose | function | 无 | 关闭Modal时触发 |
+| onOk | function | 无 | 点击确定按钮时触发事件 |
 | text | object | { ok: 'Ok', cancel: 'Cancel' } | 按钮文字 |

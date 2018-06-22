@@ -19,6 +19,12 @@ function hasVisible() {
   return Object.keys(containers).some(k => containers[k].visible)
 }
 
+function isMask(id) {
+  const ids = Object.keys(containers).filter(k => containers[k].visible)
+  if (ids.length === 0) return true
+  return ids[0] === id
+}
+
 export function destroy(id) {
   const div = getDiv(id)
   if (!div) return
@@ -63,11 +69,12 @@ export function createDiv(props) {
   return div
 }
 
-export function open(props) {
+// eslint-disable-next-line
+export function open(props, isPortal) {
   const { content, onClose, ...otherProps } = props
   const div = createDiv(props)
 
-  if (div.style.display === 'block') return
+  // if (div.style.display === 'block') return
   div.style.display = 'block'
 
   const scrollWidth = window.innerWidth - document.body.clientWidth
@@ -80,19 +87,22 @@ export function open(props) {
     close(props)
   }
 
-  const maskOpacity = hasVisible() ? 0.01 : props.maskOpacity
+  const maskOpacity = isMask(props.id) ? props.maskOpacity : 0.01
   containers[props.id].visible = true
-
-  ReactDOM.render(
-    <Panel {...otherProps} maskOpacity={maskOpacity} onClose={handleClose}>
-      {content}
-    </Panel>,
-    div,
-  )
 
   setTimeout(() => {
     div.classList.add(modalClass('show'))
   }, 10)
+
+  const panel = (
+    <Panel {...otherProps} maskOpacity={maskOpacity} onClose={handleClose}>
+      {content}
+    </Panel>
+  )
+
+  if (isPortal) return ReactDOM.createPortal(panel, div)
+
+  ReactDOM.render(panel, div)
 }
 
 const btnOk = (option) => {

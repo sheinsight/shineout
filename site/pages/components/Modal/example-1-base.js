@@ -45,7 +45,7 @@ export default class extends React.Component {
           visible={this.state.visible}
           width={500}
           title="Modal Title"
-          onClose={this.cancel}
+          onClose={this.handleCancel}
           footer={[
             <Button key="cancel" onClick={this.handleCancel}>Cancel</Button>,
             <Button key="ok" type="primary" onClick={this.handleOk}>Ok</Button>,
