@@ -1,29 +1,23 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
-import { getProps, defaultProps } from '../utils/proptypes'
-import { progressClass } from '../styles'
+import Line from './Line'
+import Circle from './Circle'
 
-class Progress extends PureComponent {
-  render() {
-    const { style } = this.props
-    const className = classnames(
-      progressClass('_'),
-      this.props.className,
-    )
-
-    return (
-      <div className={className} style={style}>Progress</div>
-    )
+function Progress(props) {
+  switch (props.shape) {
+    case 'circle':
+      return <Circle {...props} />
+    default:
+      return <Line {...props} />
   }
 }
 
 Progress.propTypes = {
-  ...getProps(PropTypes, 'size', 'type'),
+  shape: PropTypes.oneOf(['line', 'circle']),
 }
 
 Progress.defaultProps = {
-  ...defaultProps,
+  shape: 'line',
 }
 
 export default Progress
