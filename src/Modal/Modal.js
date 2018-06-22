@@ -42,6 +42,7 @@ Modal.propTypes = {
 
 Modal.defaultProps = {
   ...defaultProps,
+  visible: false,
 }
 
 export default Modal

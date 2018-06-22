@@ -25,11 +25,11 @@ function isMask(id) {
   return ids[0] === id
 }
 
-export function destroy(id) {
+export function destroy(id, unmount) {
   const div = getDiv(id)
   if (!div) return
   delete containers[id]
-  ReactDOM.unmountComponentAtNode(div)
+  if (unmount) ReactDOM.unmountComponentAtNode(div)
   document.body.removeChild(div)
 }
 
@@ -74,7 +74,6 @@ export function open(props, isPortal) {
   const { content, onClose, ...otherProps } = props
   const div = createDiv(props)
 
-  // if (div.style.display === 'block') return
   div.style.display = 'block'
 
   const scrollWidth = window.innerWidth - document.body.clientWidth
