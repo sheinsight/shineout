@@ -1,36 +1,22 @@
-import { PureComponent } from 'react'
+import { Component } from 'react'
 import PropTypes from 'prop-types'
 import { defaultProps, getProps } from '../utils/proptypes'
+import shallowEqual from '../utils/shallowEqual'
 import { getUidStr } from '../utils/uid'
 import { open, close, destroy } from './events'
 
-class Modal extends PureComponent {
+class Modal extends Component {
   constructor(props) {
     super(props)
     this.id = getUidStr()
     this.visible = props.visible
   }
 
-  componentDidMount() {
-    // 首次渲染时如果modal设置的不显示,不执行其他操作
-    if (this.props.visible) {
-      open({
-        ...this.props,
-        content: this.props.children,
-        id: this.id,
-      })
-    }
-  }
-
-  componentDidUpdate() {
-    const option = {
-      ...this.props,
-      content: this.props.children,
-      id: this.id,
-    }
-
-    if (this.props.visible) open(option)
-    else close(option)
+  shouldComponentUpdate(nextProps) {
+    if (shallowEqual(this.props, nextProps)) return false
+    if (nextProps.visible) return true
+    close({ id: this.id })
+    return !shallowEqual(this.props, nextProps) && nextProps.visible
   }
 
   componentWillUnmount() {
@@ -38,6 +24,13 @@ class Modal extends PureComponent {
   }
 
   render() {
+    const option = {
+      ...this.props,
+      content: this.props.children,
+      id: this.id,
+    }
+
+    if (this.props.visible) return open(option, true)
     return null
   }
 }
@@ -49,6 +42,7 @@ Modal.propTypes = {
 
 Modal.defaultProps = {
   ...defaultProps,
+  visible: false,
 }
 
 export default Modal
