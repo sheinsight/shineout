@@ -11,6 +11,12 @@ const pages = [
     level: 1,
     component: loadable(() => import('./GetStart')),
   },
+  {
+    name: 'Upload',
+    cn: '',
+    level: 1,
+    component: loadable(() => import('./Upload')),
+  },
   'General',
   {
     name: 'Button',

@@ -15,7 +15,8 @@
     "Rate": "评分",
     "Select": "选择框",
     "Slider": "滑块",
-    "Textarea": "多行文本框"
+    "Textarea": "多行文本框",
+    "Upload": "上传"
   },
   "Data": {
     "Datum.Form": "表单处理",
