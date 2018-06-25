@@ -25,13 +25,13 @@ class Form extends PureComponent {
       this.locked = false
     }, this.props.throttle)
 
-    const { datum, onSubmit } = this.props
+    const { datum, onError, onSubmit } = this.props
     datum.validate().then(() => {
       this.validating = false
       if (onSubmit) onSubmit(datum.getValue())
     }).catch((err) => {
       this.validating = false
-      throw err
+      if (onError) onError(err)
     })
   }
 
@@ -81,6 +81,7 @@ Form.propTypes = {
   inline: PropTypes.bool,
   labelAlign: PropTypes.string,
   layout: PropTypes.string,
+  onError: PropTypes.func,
   onReset: PropTypes.func,
   onSubmit: PropTypes.func,
   rules: PropTypes.object,

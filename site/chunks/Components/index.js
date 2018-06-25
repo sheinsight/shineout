@@ -11,12 +11,6 @@ const pages = [
     level: 1,
     component: loadable(() => import('./GetStart')),
   },
-  {
-    name: 'Upload',
-    cn: '',
-    level: 1,
-    component: loadable(() => import('./Upload')),
-  },
   'General',
   {
     name: 'Button',
@@ -96,6 +90,12 @@ const pages = [
     cn: '多行文本框',
     level: 2,
     component: loadable(() => import('./Textarea')),
+  },
+  {
+    name: 'Upload',
+    cn: '上传',
+    level: 2,
+    component: loadable(() => import('./Upload')),
   },
   'Data',
   {

@@ -3,12 +3,14 @@
  * en - Base
  */
 import React, { Fragment } from 'react'
-import { Upload } from 'shineout'
+import { Upload, Button } from 'shineout'
 
 export default function () {
   return (
     <Fragment>
-      <Upload />
+      <Upload>
+        <Button>Upload file</Button>
+      </Upload>
     </Fragment>
   )
 }

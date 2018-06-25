@@ -1,3 +1,7 @@
+export const UPLOADING = 1
+export const SUCCESS = 2
+export const ERROR = 3
+
 function createCORSRequest(method, url) {
   let xhr = new XMLHttpRequest()
   if ('withCredentials' in xhr) {
