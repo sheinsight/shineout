@@ -10,31 +10,25 @@ class PageSizeList extends PureComponent {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  getMenu() {
-    const { text, pageSizeList } = this.props
-    return pageSizeList.map(p => ({
-      content: `${p} ${text.page || ''}`,
-      pageSize: p,
-    }))
-  }
-
-  handleChange(item) {
-    const { current, pageSize, onChange } = this.props
-    const start = ((current - 1) * pageSize) + 1
-    onChange(Math.ceil(start / item.pageSize), item.pageSize)
+  handleChange(pageSize) {
+    const { current, onChange } = this.props
+    const start = ((current - 1) * this.props.pageSize) + 1
+    onChange(Math.ceil(start / pageSize), pageSize)
   }
 
   render() {
-    const { pageSize, text, disabled } = this.props
+    const {
+      pageSize, pageSizeList, text, disabled,
+    } = this.props
 
     return (
       <Select
         onChange={this.handleChange}
         disabled={disabled}
-        placeholder={`${pageSize} ${text.page || ''}`}
+        value={pageSize}
         className={paginationClass('section', 'pagesize')}
-        data={this.getMenu()}
-        renderItem={d => d.content}
+        data={pageSizeList}
+        renderItem={d => `${d} ${text.page || ''}`}
       />
     )
   }
