@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
+import PureComponent from '../PureComponent'
 import Alert from '../Alert'
 import { messageClass } from '../styles'
 import { getUidStr } from '../utils/uid'

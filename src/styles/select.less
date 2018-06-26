@@ -16,7 +16,6 @@
 
     span {
       display: inline-block;
-      margin-bottom: @padding-base-vertical;
 
       &.@{select-prefix}-ellipsis {
         display: block;
@@ -176,6 +175,9 @@
 
   &-multiple &-result {
     padding-left: @padding-base-horizontal / 2;
+    span {
+      margin-bottom: @padding-base-vertical;
+    }
   }
 
   &-large&-multiple &-result {

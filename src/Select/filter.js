@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+import PureComponent from '../PureComponent'
 
 export default Origin => class extends PureComponent {
   static propTypes = {

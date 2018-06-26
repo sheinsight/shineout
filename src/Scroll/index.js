@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+import PureComponent from '../PureComponent'
 import Scroll from './Scroll'
 
 export default class extends PureComponent {

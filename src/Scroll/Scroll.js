@@ -34,6 +34,10 @@ class Scroll extends PureComponent {
     }
   }
 
+  componentWillUnmount() {
+    this.$willUnmount = true
+  }
+
   getWheelRect() {
     if (!this.wheelElement) return { width: 0, height: 0 }
     const rect = this.wheelElement.getBoundingClientRect()
@@ -44,6 +48,7 @@ class Scroll extends PureComponent {
   }
 
   setRect() {
+    if (this.$willUnmount) return
     this.handleScroll(this.props.left, this.props.top)
     this.forceUpdate()
   }
