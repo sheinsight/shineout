@@ -2,6 +2,7 @@ import React, { Children, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import classname from 'classnames'
 import { findDOMNode } from 'react-dom'
+import PureComponent from '../PureComponent'
 import { menuClass } from '../styles'
 import { getProps, defaultProps } from '../utils/proptypes'
 import List from '../List'
@@ -9,7 +10,7 @@ import List from '../List'
 const CollapseList = List('collapse', 'fast')
 const FadeList = List('fade', 'fast')
 
-class SubMenu extends React.Component {
+class SubMenu extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -41,7 +42,7 @@ class SubMenu extends React.Component {
     const { parentNode } = e.currentTarget
     if (parentNode.parentNode.contains(e.relatedTarget)) return
     this.closeTimer = setTimeout(() => {
-      if (!this.isUnmounted) this.setState({ show: false })
+      this.setState({ show: false })
     }, 200)
     if (this.props.handleHide) this.props.handleHide(e)
   }

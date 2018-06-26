@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
+import PureComponent from '../PureComponent'
 import { curry, compose } from '../utils/func'
 import { getUidStr } from '../utils/uid'
 import validate from '../utils/validate'

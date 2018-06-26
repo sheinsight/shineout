@@ -18,15 +18,25 @@ export default curry((OriginComponent) => {
         this.clientX = client.x
         this.clientY = client.y
         this.dragging = true
-        document.addEventListener('mousemove', this.handleDrag)
-        document.addEventListener('mouseup', this.handleDragEnd)
+        this.addEvents()
         this.props.onDragStart(true)
       }
     }
 
     componentWillUnmount() {
+      this.removeEvents()
+    }
+
+    addEvents() {
+      document.addEventListener('mousemove', this.handleDrag)
+      document.addEventListener('mouseup', this.handleDragEnd)
+      document.addEventListener('mouseleave', this.handleDragEnd)
+    }
+
+    removeEvents() {
       document.removeEventListener('mousemove', this.handleDrag)
       document.removeEventListener('mouseup', this.handleDragEnd)
+      document.removeEventListener('mouseleave', this.handleDragEnd)
     }
 
     handleDragStart(e) {
@@ -34,8 +44,7 @@ export default curry((OriginComponent) => {
       this.clientX = e.clientX
       this.clientY = e.clientY
       this.dragging = true
-      document.addEventListener('mousemove', this.handleDrag)
-      document.addEventListener('mouseup', this.handleDragEnd)
+      this.addEvents()
       this.props.onDragStart(true)
     }
 
@@ -56,8 +65,7 @@ export default curry((OriginComponent) => {
     handleDragEnd() {
       if (!this.dragging) return
       this.dragging = false
-      document.removeEventListener('mousemove', this.handleDrag)
-      document.removeEventListener('mouseup', this.handleDragEnd)
+      this.removeEvents()
       this.props.onDragEnd(false)
     }
 

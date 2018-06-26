@@ -30,7 +30,7 @@ export function dispatchEvent(form, name) {
   if (!form) return
   let event
   if (CustomEvent) {
-    event = new CustomEvent(name, { bubbles: true, cancelable: true })
+    event = new CustomEvent(name, { bubbles: false, cancelable: true })
   } else {
     event = document.createEvent('HTMLEvents')
     event.initEvent(name, true, true)

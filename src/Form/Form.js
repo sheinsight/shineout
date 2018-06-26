@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { getUidStr } from '../utils/uid'
 import { formClass } from '../styles'
 import { getProps, defaultProps } from '../utils/proptypes'
 
@@ -12,10 +13,12 @@ class Form extends PureComponent {
     this.handleReset = this.handleReset.bind(this)
 
     this.locked = false
+    this.id = `form_${getUidStr()}`
   }
 
   handleSubmit(e) {
     e.preventDefault()
+    if (e.target.id !== this.id) return
     if (this.validating || this.locked) return
     this.validating = true
 
@@ -25,13 +28,13 @@ class Form extends PureComponent {
       this.locked = false
     }, this.props.throttle)
 
-    const { datum, onSubmit } = this.props
+    const { datum, onError, onSubmit } = this.props
     datum.validate().then(() => {
       this.validating = false
       if (onSubmit) onSubmit(datum.getValue())
     }).catch((err) => {
       this.validating = false
-      throw err
+      if (onError) onError(err)
     })
   }
 
@@ -64,6 +67,7 @@ class Form extends PureComponent {
     return (
       <form
         className={className}
+        id={this.id}
         style={style}
         onReset={this.handleReset}
         onSubmit={this.handleSubmit}
@@ -81,6 +85,7 @@ Form.propTypes = {
   inline: PropTypes.bool,
   labelAlign: PropTypes.string,
   layout: PropTypes.string,
+  onError: PropTypes.func,
   onReset: PropTypes.func,
   onSubmit: PropTypes.func,
   rules: PropTypes.object,

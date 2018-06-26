@@ -1,6 +1,8 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
+import PureComponent from '../PureComponent'
+import normalizeWheel from '../utils/dom/normalizeWheel'
 import { imageClass } from '../styles'
 
 class Gallery extends PureComponent {
@@ -9,15 +11,47 @@ class Gallery extends PureComponent {
 
     this.state = {
       current: props.current,
-      direction: '',
+      direction: 'init',
     }
+
+    this.handleScroll = this.handleScroll.bind(this)
+    this.scrollX = 0
+  }
+
+  componentDidMount() {
+    document.addEventListener('wheel', this.handleScroll)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('wheel', this.handleScroll)
   }
 
   handleClick(direction) {
+    const { length } = this.props.images
     this.setState(immer((draft) => {
       draft.current += direction
-      draft.direction = direction === 1 ? 'forward' : 'backward'
-    }))
+      if (draft.current < 0) draft.current = 0
+      else if (draft.current >= length) draft.current = length - 1
+      else draft.direction = direction === 1 ? 'forward' : 'backward'
+    }), () => {
+      setTimeout(() => {
+        this.setState({ direction: 'init' })
+      }, 400)
+    })
+  }
+
+  handleScroll(e) {
+    e.preventDefault()
+    if (this.scrollX !== 0) return
+    const wheel = normalizeWheel(e)
+    this.scrollX += wheel.spinX
+
+    if (this.scrollX < 0) this.handleClick(-1)
+    if (this.scrollX > 0) this.handleClick(1)
+
+    this.scrollTimer = setTimeout(() => {
+      this.scrollX = 0
+    }, 1000)
   }
 
   // eslint-disable-next-line
@@ -32,7 +66,7 @@ class Gallery extends PureComponent {
 
     return (
       <div key={pos} className={imageClass(pos, this.state.direction)} onClick={onClick}>
-        <img src={image.src} alt="" style={{ maxWidth: windowWidth - 400, maxHeight: windowHeight - 200 }} />
+        <img src={image.src} alt="" style={{ maxWidth: windowWidth - 400, maxHeight: windowHeight - 160 }} />
       </div>
     )
   }

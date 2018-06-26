@@ -1,7 +1,8 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import { findDOMNode } from 'react-dom'
 import immer from 'immer'
 import PropTypes from 'prop-types'
+import PureComponent from '../PureComponent'
 import { getProps, defaultProps } from '../utils/proptypes'
 import Button from '../Button'
 import { dropdownClass } from '../styles'
@@ -50,10 +51,6 @@ class Dropdown extends PureComponent {
     this.handleHide = this.handleHide.bind(this)
   }
 
-  componentWillUnmount() {
-    this.isUnmounted = true
-  }
-
   getPosition() {
     return this.props.position || this.state.position
   }
@@ -96,7 +93,7 @@ class Dropdown extends PureComponent {
       && this.element.contains(relatedTarget)) return
 
     this.closeTimer = setTimeout(() => {
-      if (!this.isUnmounted) this.setState({ show: false })
+      this.setState({ show: false })
     }, 200)
     if (this.props.handleHide) this.props.handleHide(relatedTarget)
   }
