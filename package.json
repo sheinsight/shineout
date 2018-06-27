@@ -60,6 +60,7 @@
     "file-loader": "^1.1.11",
     "http-proxy": "^1.16.2",
     "koa": "^2.4.1",
+    "koa-multer": "^1.0.2",
     "koa-router": "^7.3.0",
     "koa-send": "^4.1.2",
     "less": "^2.7.3",

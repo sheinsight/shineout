@@ -4,4 +4,21 @@
 @upload-prefix: ~"@{so-prefix}-upload";
 
 .@{upload-prefix} {
+  &-view-value {
+    padding: 2px 8px;
+    margin-top: 4px;
+
+    &:hover {
+      background: #f2f2f2;
+    }
+
+    .@{upload-prefix}-close {
+      color: @gray-500;
+      float: right;
+
+      &:hover {
+        color: @colors-primary;
+      }
+    }
+  }
 }

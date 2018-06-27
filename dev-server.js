@@ -2,6 +2,7 @@ const request = require('request')
 const Koa = require('koa')
 const send = require('koa-send')
 const Router = require('koa-router')
+const multer = require('koa-multer')
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 const webpackConfig = require('./webpack/config.dev')
@@ -64,6 +65,18 @@ router.get('**/versions.json', async (ctx) => {
 
 router.get('/images/*', async (ctx) => {
   await send(ctx, `site/${ctx.path}`)
+})
+
+const upload = multer({})
+router.post('/upload/', upload.single('file'), async (ctx) => {
+  ctx.body = {
+    success: true,
+    model: {
+      id: Date.now().toString(),
+      name: ctx.req.file.originalname,
+      content: `data:${ctx.req.file.mimetype};base64,${ctx.req.file.buffer.toString('base64')}`,
+    },
+  }
 })
 
 // dev code proxy

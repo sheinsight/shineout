@@ -1,6 +1,7 @@
-import upload from './upload'
-import FileUpload from './FileUpload'
+import inputable from '../Form/inputable'
+import Upload from './Upload'
 
-const Upload = upload(FileUpload)
+const exports = inputable({ delay: 1 })(Upload)
 
-export default Upload
+export default exports
+
