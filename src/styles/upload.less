@@ -8,16 +8,21 @@
     padding: 2px 8px;
     margin-top: 4px;
 
-    &:hover {
-      background: #f2f2f2;
-    }
-
     .@{upload-prefix}-close {
       color: @gray-500;
+      display: none;
       float: right;
 
       &:hover {
         color: @colors-primary;
+      }
+    }
+
+    &:hover {
+      background: #f2f2f2;
+
+      .@{upload-prefix}-close {
+        display: block;
       }
     }
   }
