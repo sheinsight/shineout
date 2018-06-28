@@ -40,16 +40,18 @@ class Card extends PureComponent {
   }
 
   render() {
+    const { collapsible } = this.props
+    const collapsed = this.getCollapsed()
     const shadow = this.props.shadow === true ? 'shadow' : this.props.shadow
     const className = classnames(
-      cardClass('_', shadow),
+      cardClass('_', shadow, collapsible && 'collapsible', collapsed && 'collapsed'),
       this.props.className,
     )
 
     const provierValue = {
       onCollapse: this.handleCollapse,
-      collapsible: this.props.collapsible,
-      collapsed: this.getCollapsed(),
+      collapsible,
+      collapsed,
       onSubmit: this.handleSubmit,
     }
 

@@ -1,22 +1,19 @@
 /**
- * cn - 基本用法
- * en - Base
+ * cn - 图片
+ * en - Image
  */
 import React from 'react'
-import { Upload, Button } from 'shineout'
-import FontAwesome from '../Icon/FontAwesome'
+import { Upload } from 'shineout'
 
 export default function () {
   return (
-    <Upload
+    <Upload.Image
       action="http://jsonplaceholder.typicode.com/posts"
       accept="image/*"
       name="file"
       onUpload={(res, file) => file.name}
       withCredentials
       limit={3}
-    >
-      <Button><FontAwesome name="upload" /> Upload file</Button>
-    </Upload>
+    />
   )
 }

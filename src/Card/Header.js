@@ -17,7 +17,7 @@ export default class extends PureComponent {
   renderIndicator() {
     const { collapsed } = this.props
     if (collapsed === undefined) return undefined
-    const className = cardClass('indicator', collapsed && 'collapsed')
+    const className = cardClass('indicator')
     return <span className={className}>{icons.AngleRight}</span>
   }
 

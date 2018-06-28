@@ -4,26 +4,99 @@
 @upload-prefix: ~"@{so-prefix}-upload";
 
 .@{upload-prefix} {
-  &-view-value {
-    padding: 2px 8px;
-    margin-top: 4px;
+  &-handle {
+    cursor: pointer;
+  }
+
+  &-view-value, &-view-file {
+    margin-top: 8px;
 
     .@{upload-prefix}-close {
-      color: @gray-500;
-      display: none;
-      float: right;
+      color: @colors-danger;
+      width: 12px;
+      height: 12px;
+      margin-left: 15px;
+      font-size: 16px;
+      vertical-align: bottom;
 
-      &:hover {
-        color: @colors-primary;
+      svg {
+        width: 12px;
+        height: 12px;
+        fill: @colors-primary;
+      }
+
+      &:active {
+        text-decoration: none;
       }
     }
 
     &:hover {
-      background: #f2f2f2;
-
       .@{upload-prefix}-close {
+        visibility: visible;
+      }
+    }
+
+    &.@{upload-prefix}-to-be-delete {
+      color: @gray-400;
+      text-decoration: line-through;
+    }
+
+    &.@{upload-prefix}-error {
+      color: @colors-danger;
+    }
+  }
+
+  &-view-value {
+    .@{upload-prefix}-close {
+      visibility: hidden;
+    }
+  }
+
+  &-view-file {
+    .@{upload-prefix}-progress {
+      margin-top: 4px;
+    }
+  }
+
+  &-image-item {
+    display: inline-block;
+  }
+
+  &-image-item + &-image-item {
+    margin-left: 8px;
+  }
+
+  &-image-plus {
+    position: relative;
+    display: inline-flex;
+    border: @upload-image-border;
+    background: @upload-image-bg;
+
+    .@{upload-prefix}-indicator {
+      position: relative;
+      width: 30px;
+      height: 30px;
+      margin: auto;
+
+      &:before, &:after {
+        position: absolute;
+        content: ' ';
         display: block;
+        background: #999;
+      }
+
+      &:before {
+        left: 14px;
+        width: 2px;
+        height: 30px;
+      }
+
+      &:after {
+        top: 14px;
+        width: 30px;
+        height: 2px;
       }
     }
   }
+
 }

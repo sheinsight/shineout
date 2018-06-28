@@ -19,6 +19,12 @@ const examples = [
     component: require('doc/pages/components/Upload/example-1-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-1-base.js'),
   },
+  {
+    name: '2-image',
+    title: locate('图片', 'Image'),
+    component: require('doc/pages/components/Upload/example-2-image.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Upload/example-2-image.js'),
+  },
 ]
 
 const codes = undefined

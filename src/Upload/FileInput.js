@@ -2,8 +2,6 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 const inputStyle = { display: 'none' }
-//  position: 'absolute', left: 0, top: 0, width: 0, height: 0, visibility: 'hidden',
-// }
 
 class FileInput extends PureComponent {
   constructor(props) {

@@ -36,18 +36,28 @@
         transform: rotate(90deg);
         transition: transform 0.2s linear;
       }
+    }
+  }
 
-      &.@{card-prefix}-collapsed svg {
-        transform: rotate(0deg);
-      }
+  &-collapsible {
+    .@{card-prefix}-header {
+      cursor: pointer;
+    }
+  }
+
+  &-collapsed {
+    overflow: hidden;
+
+    .@{card-prefix}-indicator svg {
+      transform: rotate(0deg);
     }
   }
 
   &-accordion {
     margin-bottom: -1px;
+
     .@{card-prefix}-header {
       background: @gray-100;
-      cursor: pointer;
     }
   }
 

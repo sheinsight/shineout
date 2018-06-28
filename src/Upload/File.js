@@ -22,9 +22,14 @@ class File extends PureComponent {
 
     return (
       <div className={className}>
-        {status === ERROR ? (message || name) : name}
-        <a href="javascript:;" onClick={this.handleRemove}>&times;</a>
-        <Progress value={process} strokeWidth={2} />
+        {name} {message && <span>({message})</span>}
+        <a href="javascript:;" className={uploadClass('close')} onClick={this.handleRemove}>
+          &times;
+        </a>
+        {
+          status !== ERROR &&
+          <Progress className={uploadClass('progress')} value={process} strokeWidth={2} />
+        }
       </div>
     )
   }
