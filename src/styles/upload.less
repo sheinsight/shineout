@@ -101,6 +101,8 @@
       bottom: @upload-image-space;
       color: #fff;
       background: rgba(0, 0, 0, 0.5);
+      font-size: 12px;
+      cursor: pointer;
 
       .@{upload-prefix}-delete, .@{upload-prefix}-recover {
         width: 16px;
@@ -110,6 +112,11 @@
         svg {
           fill: #fff;
         }
+      }
+
+      span {
+        margin: auto;
+        text-align: center;
       }
 
       span + .@{upload-prefix}-delete {

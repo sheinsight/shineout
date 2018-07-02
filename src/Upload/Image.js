@@ -12,21 +12,21 @@ class Image extends PureComponent {
 
   beforeUpload(blob, callback) {
     const reader = new FileReader()
-    const { imageSzie } = this.props.validator
+    const { imageSize } = this.props.validator
     const file = {}
 
     reader.onload = (e) => {
       const data = e.target.result
       file.data = data
-      if (!imageSzie) {
+      if (!imageSize) {
         callback(file)
         return
       }
 
-      const image = new Image()
+      const image = new window.Image()
       image.onload = () => {
-        const res = imageSzie(image)
-        if (res !== true) {
+        const res = imageSize(image)
+        if (res instanceof Error) {
           file.status = ERROR
           file.message = res.message
         }
@@ -62,7 +62,10 @@ Image.propTypes = {
   children: PropTypes.any,
   height: PropTypes.number,
   recoverAble: PropTypes.bool,
-  validator: PropTypes.object,
+  validator: PropTypes.shape({
+    imageSize: PropTypes.func,
+    size: PropTypes.func,
+  }),
   width: PropTypes.number,
 }
 

@@ -25,6 +25,24 @@ const examples = [
     component: require('doc/pages/components/Upload/example-2-image.js').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-2-image.js'),
   },
+  {
+    name: '3-error',
+    title: locate('异常', 'Error'),
+    component: require('doc/pages/components/Upload/example-3-error.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Upload/example-3-error.js'),
+  },
+  {
+    name: '4-error',
+    title: locate(' \n 文件大小校验，本例为 10KB', ''),
+    component: require('doc/pages/components/Upload/example-4-error.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Upload/example-4-error.js'),
+  },
+  {
+    name: '5-error',
+    title: locate(' \n 图片尺寸校验，本例为 100px * 100px', ''),
+    component: require('doc/pages/components/Upload/example-5-error.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Upload/example-5-error.js'),
+  },
 ]
 
 const codes = undefined

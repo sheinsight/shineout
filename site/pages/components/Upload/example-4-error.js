@@ -1,6 +1,7 @@
 /**
- * cn - 基本用法
- * en - Base
+ * cn -
+ *    -- 文件大小校验，本例为 10KB
+ * en -
  */
 import React from 'react'
 import { Upload, Button } from 'shineout'
@@ -13,7 +14,9 @@ export default function () {
       accept="image/*"
       name="file"
       onUpload={(res, file) => file.name}
-      limit={3}
+      validator={{
+        size: s => (s > 10240 ? new Error('max size is 10KB') : undefined),
+      }}
     >
       <Button><FontAwesome name="upload" /> Upload file</Button>
     </Upload>

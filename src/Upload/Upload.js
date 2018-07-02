@@ -46,7 +46,7 @@ class Upload extends PureComponent {
   removeFile(id) {
     const file = this.state.files[id]
     if (file) {
-      file.xhr.abort()
+      if (file.xhr) file.xhr.abort()
       this.setState(immer((draft) => {
         delete draft.files[id]
       }))
@@ -92,7 +92,6 @@ class Upload extends PureComponent {
         const res = validator.size(blob.size)
         if (res instanceof Error) {
           file.message = res.message
-          file.name = res.message
           file.status = ERROR
           return
         }
@@ -168,10 +167,10 @@ class Upload extends PureComponent {
   }
 
   handleError(id, xhr) {
-    const { onError } = this.props
+    const { onUploadError } = this.props
 
     let message = xhr.statusText
-    if (onError) message = onError(xhr)
+    if (onUploadError) message = onUploadError(xhr)
 
     this.setState(immer((draft) => {
       draft.files[id].status = ERROR
@@ -267,8 +266,8 @@ Upload.propTypes = {
   limit: PropTypes.number,
   name: PropTypes.string,
   onChange: PropTypes.func,
-  onError: PropTypes.func,
   onUpload: PropTypes.func,
+  onUploadError: PropTypes.func,
   params: PropTypes.object,
   recoverAble: PropTypes.bool,
   renderResult: PropTypes.func,

@@ -28,11 +28,11 @@ export default function (Component) {
         <Sticky className={cls('sticky')} top={50}>
           <div className={cls('nav')}>
             {
-              headings.map((h) => {
+              headings.map((h, i) => {
                 const children = h.children.filter(c => typeof c === 'string')
                 return (
                   <Link
-                    key={h.id}
+                    key={i}
                     className={cls(`level-${h.level}`)}
                     to={`#${h.id}`}
                   >

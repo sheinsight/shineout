@@ -28,11 +28,13 @@ class ImageFile extends PureComponent {
           <div className={uploadClass('image-bg')} style={{ backgroundImage: `url(${data})` }} />
         }
 
-        <div className={uploadClass('message')}>
-          { message && <span>{message}</span> }
-          <a className={uploadClass('delete')} onClick={this.handleRemove} href="javascript:;">
-            {icons.Delete}
-          </a>
+        <div className={uploadClass('message')} onClick={this.handleRemove}>
+          {
+            message ? <span>{message}</span> :
+            <a className={uploadClass('delete')} href="javascript:;">
+              {icons.Delete}
+            </a>
+          }
         </div>
 
         <div className={uploadClass('progress')}>

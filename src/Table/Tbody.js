@@ -64,9 +64,11 @@ class Tbody extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
+    const { onBodyRender } = this.props
+    if (!onBodyRender) return
     if (this.props.columns.length !== prevProps.columns.length) {
       const tds = this.body.querySelector('tr').querySelectorAll('td')
-      this.props.onBodyRender(tds)
+      onBodyRender(tds)
     }
   }
 

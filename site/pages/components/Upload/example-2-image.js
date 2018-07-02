@@ -13,7 +13,6 @@ export default function () {
       name="file"
       onUpload={(res, file, data) => ({ data })}
       renderResult={f => f.data}
-      withCredentials
       limit={3}
     />
   )
