@@ -1,4 +1,4 @@
-import { setLocale } from 'shineout/locale'
+import { setLocale } from 'shineout'
 
 const STORAGE_KEY = '17tee190yt8gs'
 const storage = window.localStorage || null

@@ -17,7 +17,7 @@ class Image extends PureComponent {
 
     reader.onload = (e) => {
       const data = e.target.result
-      file.url = data
+      file.data = data
       if (!imageSzie) {
         callback(file)
         return
@@ -43,11 +43,12 @@ class Image extends PureComponent {
     const {
       children, width, height, ...others
     } = this.props
+
     const style = { width, height }
     const content = children || <div className={uploadClass('indicator')} />
 
     return (
-      <Upload {...others} isImage beforeUpload={this.beforeUpload}>
+      <Upload {...others} imageStyle={style} beforeUpload={this.beforeUpload}>
         <div style={style} className={uploadClass('image-plus', 'image-item')}>
           {content}
         </div>

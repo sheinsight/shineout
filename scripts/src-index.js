@@ -8,6 +8,8 @@ const files = fs.readdirSync(rootPath).filter(n => fs.lstatSync(path.resolve(roo
 const line = `// Created by scripts/src-index.js.
 import './styles/normalize.less'
 
+export { setLocale } from './locale'
+
 <% files.forEach(function (name) { -%>
 export { default as <%= name %> } from './<%= name %>'
 <% }) -%>`

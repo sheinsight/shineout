@@ -11,18 +11,17 @@
   &-view-value, &-view-file {
     margin-top: 8px;
 
-    .@{upload-prefix}-close {
+    .@{upload-prefix}-delete, .@{upload-prefix}-recover {
       color: @colors-danger;
       width: 12px;
       height: 12px;
       margin-left: 15px;
       font-size: 16px;
-      vertical-align: bottom;
+      vertical-align: middle;
 
       svg {
         width: 12px;
         height: 12px;
-        fill: @colors-primary;
       }
 
       &:active {
@@ -30,8 +29,16 @@
       }
     }
 
+    .@{upload-prefix}-delete svg {
+      fill: @colors-danger;
+    }
+
+    .@{upload-prefix}-recover svg {
+      fill: @colors-primary;
+    }
+
     &:hover {
-      .@{upload-prefix}-close {
+      .@{upload-prefix}-delete, .@{upload-prefix}-recover {
         visibility: visible;
       }
     }
@@ -47,7 +54,7 @@
   }
 
   &-view-value {
-    .@{upload-prefix}-close {
+    .@{upload-prefix}-delete, .@{upload-prefix}-recover {
       visibility: hidden;
     }
   }
@@ -59,24 +66,80 @@
   }
 
   &-image-item {
+    position: relative;
     display: inline-block;
-  }
+    vertical-align: top;
+    margin-right: 8px;
+    background: #fff;
+    border: solid 1px @upload-image-border;
 
-  &-image-item + &-image-item {
-    margin-left: 8px;
+    .@{upload-prefix}-image-bg {
+      position: absolute;
+      left: @upload-image-space;
+      top: @upload-image-space;
+      right: @upload-image-space;
+      bottom: @upload-image-space;
+      z-index: 0;
+      background-size: cover;
+    }
+
+    .@{upload-prefix}-progress {
+      position: absolute;
+      z-index: 10;
+      bottom: 6px;
+      left: 6px;
+      right: 6px;
+    }
+
+    .@{upload-prefix}-message {
+      position: absolute;
+      display: flex;
+      z-index: 2;
+      left: @upload-image-space;
+      top: @upload-image-space;
+      right: @upload-image-space;
+      bottom: @upload-image-space;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .@{upload-prefix}-delete, .@{upload-prefix}-recover {
+      width: 16px;
+      height: 16px;
+      display: block;
+      margin: auto;
+      svg {
+        fill: #fff;
+      }
+    }
+
+    &.@{upload-prefix}-error {
+      border-color: @colors-danger;
+
+      .@{upload-prefix}-message {
+        background: rgba(220, 53, 70, 0.6);
+      }
+
+      .@{upload-prefix}-progress {
+        display: none;
+      }
+    }
   }
 
   &-image-plus {
     position: relative;
-    display: inline-flex;
-    border: @upload-image-border;
+    display: inline-block;
+    vertical-align: top;
+    border: dashed 1px @upload-image-border;
     background: @upload-image-bg;
 
     .@{upload-prefix}-indicator {
-      position: relative;
+      position: absolute;
       width: 30px;
       height: 30px;
-      margin: auto;
+      left: 50%;
+      top: 50%;
+      margin: -15px -15px;
 
       &:before, &:after {
         position: absolute;
@@ -97,6 +160,27 @@
         height: 2px;
       }
     }
+
+    &:hover {
+      border-color: @colors-primary;
+      .@{upload-prefix}-indicator {
+        &:before, &:after {
+          background: @colors-primary;
+        }
+      }
+    }
   }
 
+  &-image-result {
+    border: solid 1px @upload-image-border;
+    .@{upload-prefix}-message {
+      display: none;
+    }
+
+    &:hover {
+      .@{upload-prefix}-message {
+        display: flex;
+      }
+    }
+  }
 }

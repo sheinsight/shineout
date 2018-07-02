@@ -11,7 +11,8 @@ export default function () {
       action="http://jsonplaceholder.typicode.com/posts"
       accept="image/*"
       name="file"
-      onUpload={(res, file) => file.name}
+      onUpload={(res, file, data) => ({ data })}
+      renderResult={f => f.data}
       withCredentials
       limit={3}
     />

@@ -110,7 +110,7 @@ plugins: [
 或者调用 locale 的 setLocale 方法
 
 ```
-import { setLocale } from 'shineout/locale'
+import { setLocale } from 'shineout'
 setLocale('zh-CN')
 ```
 

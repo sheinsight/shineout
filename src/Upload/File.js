@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { uploadClass } from '../styles'
 import Progress from '../Progress'
+import icons from '../icons'
 import { ERROR } from './ajax'
 
 class File extends PureComponent {
@@ -23,8 +24,8 @@ class File extends PureComponent {
     return (
       <div className={className}>
         {name} {message && <span>({message})</span>}
-        <a href="javascript:;" className={uploadClass('close')} onClick={this.handleRemove}>
-          &times;
+        <a href="javascript:;" className={uploadClass('delete')} onClick={this.handleRemove}>
+          {icons.Delete}
         </a>
         {
           status !== ERROR &&

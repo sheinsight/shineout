@@ -7,22 +7,21 @@ class Result extends PureComponent {
   constructor(props) {
     super(props)
     this.handleRemove = this.handleRemove.bind(this)
-    this.handleResume = this.handleResume.bind(this)
+    this.handleRecover = this.handleRecover.bind(this)
   }
 
   handleRemove() {
     this.props.onRemove(this.props.index)
   }
 
-  handleResume() {
-    const { onResume, value, index } = this.props
-    onResume(index, value)
+  handleRecover() {
+    const { onRecover, value, index } = this.props
+    onRecover(index, value)
   }
 
   render() {
-    const { renderResult, value, resumeAble } = this.props
-    const isResume = !!this.props.onResume
-    const className = uploadClass('view-value', isResume && 'to-be-delete')
+    const { renderResult, value, recoverAble } = this.props
+    const className = uploadClass('view-value', recoverAble && 'to-be-delete')
 
     return (
       <div className={className}>
@@ -30,14 +29,14 @@ class Result extends PureComponent {
 
         {
           this.props.onRemove &&
-          <a href="javascript:;" className={uploadClass('close')} onClick={this.handleRemove}>
-            &times;
+          <a href="javascript:;" className={uploadClass('delete')} onClick={this.handleRemove}>
+            {icons.Delete}
           </a>
         }
 
         {
-          resumeAble &&
-          <a href="javascript:;" className={uploadClass('close')} onClick={this.handleResume}>
+          recoverAble &&
+          <a href="javascript:;" className={uploadClass('recover')} onClick={this.handleRecover}>
             {icons.Recovery}
           </a>
         }
@@ -49,15 +48,15 @@ class Result extends PureComponent {
 Result.propTypes = {
   index: PropTypes.number,
   onRemove: PropTypes.func,
-  onResume: PropTypes.func,
+  onRecover: PropTypes.func,
+  recoverAble: PropTypes.bool,
   renderResult: PropTypes.func,
-  resumeAble: PropTypes.bool,
   value: PropTypes.any,
 }
 
 Result.defaultProps = {
   renderResult: a => a,
-  resumeAble: false,
+  recoverAble: false,
 }
 
 export default Result

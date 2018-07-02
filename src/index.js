@@ -1,6 +1,8 @@
 // Created by scripts/src-index.js.
 import './styles/normalize.less'
 
+export { setLocale } from './locale'
+
 export { default as Alert } from './Alert'
 export { default as Breadcrumb } from './Breadcrumb'
 export { default as Button } from './Button'

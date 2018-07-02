@@ -7,7 +7,9 @@ import { uploadClass } from '../styles'
 import ajax, { ERROR, UPLOADING } from './ajax'
 import FileInput from './FileInput'
 import File from './File'
+import ImageFile from './ImageFile'
 import Result from './Result'
+import ImageResult from './ImageResult'
 
 class Upload extends PureComponent {
   constructor(props) {
@@ -23,7 +25,7 @@ class Upload extends PureComponent {
     this.handleAddClick = this.handleAddClick.bind(this)
     this.removeFile = this.removeFile.bind(this)
     this.removeValue = this.removeValue.bind(this)
-    this.resumeValue = this.resumeValue.bind(this)
+    this.recoverValue = this.recoverValue.bind(this)
   }
 
   getAction(file) {
@@ -61,7 +63,7 @@ class Upload extends PureComponent {
     this.props.onChange(value)
   }
 
-  resumeValue(index, value) {
+  recoverValue(index, value) {
     this.props.onChange(immer(this.props.value, (draft) => {
       draft.push(value)
     }))
@@ -98,7 +100,7 @@ class Upload extends PureComponent {
 
       if (beforeUpload) {
         beforeUpload(blob, (args) => {
-          if (args.status !== ERROR) files[id].xhr = this.uploadFile(id, blob)
+          if (args.status !== ERROR) files[id].xhr = this.uploadFile(id, blob, args.data)
           this.setState(immer((draft) => {
             draft.files[id] = Object.assign({}, draft.files[id], args)
           }))
@@ -111,7 +113,7 @@ class Upload extends PureComponent {
     this.setState({ files })
   }
 
-  uploadFile(id, file) {
+  uploadFile(id, file, data) {
     const {
       onUpload, name, htmlName, cors, params, withCredentials,
     } = this.props
@@ -132,7 +134,6 @@ class Upload extends PureComponent {
       },
 
       onLoad: (e) => {
-        console.log(e)
         const xhr = e.currentTarget
         if (!/^2|1223/.test(xhr.status)) {
           this.handleError(id, xhr)
@@ -141,7 +142,7 @@ class Upload extends PureComponent {
 
         let value = xhr.responseText
         if (onUpload) {
-          value = onUpload(value, file)
+          value = onUpload(value, file, data)
         }
 
         if (value instanceof Error) {
@@ -178,29 +179,41 @@ class Upload extends PureComponent {
     }))
   }
 
+  renderHandle() {
+    const {
+      limit, value, children, accept,
+    } = this.props
+    const count = value.length + Object.keys(this.state.files).length
+    if (limit > 0 && limit <= count) return null
+
+    return (
+      <span className={uploadClass('handle')} onClick={this.handleAddClick}>
+        {children}
+        <FileInput accept={accept} ref={this.bindElement} onChange={this.addFile} />
+      </span>
+    )
+  }
+
   render() {
     const {
-      children, limit, value, renderResult, accept, style,
+      limit, value, renderResult, style, imageStyle, recoverAble,
     } = this.props
     const { files, recycle } = this.state
     const className = classnames(uploadClass('_'), this.props.className)
+    const FileComponent = imageStyle ? ImageFile : File
+    const ResultComponent = imageStyle ? ImageResult : Result
 
     return (
       <div className={className} style={style}>
-        {
-          (limit === 0 || limit > value.length) &&
-          <span className={uploadClass('handle')} onClick={this.handleAddClick}>
-            {children}
-            <FileInput accept={accept} ref={this.bindElement} onChange={this.addFile} />
-          </span>
-        }
+        { !imageStyle && this.renderHandle() }
 
         {
           value.map((v, i) => (
-            <Result
+            <ResultComponent
               key={i}
               value={v}
               index={i}
+              style={imageStyle}
               renderResult={renderResult}
               onRemove={this.removeValue}
             />
@@ -209,22 +222,31 @@ class Upload extends PureComponent {
 
         {
           Object.keys(files).map(id => (
-            <File {...files[id]} key={id} id={id} onRemove={this.removeFile} />
+            <FileComponent
+              {...files[id]}
+              key={id}
+              id={id}
+              style={imageStyle}
+              onRemove={this.removeFile}
+            />
           ))
         }
 
         {
-          recycle.map((v, i) => (
-            <Result
+          recoverAble && recycle.map((v, i) => (
+            <ResultComponent
               key={i}
               value={v}
               index={i}
               renderResult={renderResult}
-              resumeAble={limit > value.length}
-              onResume={this.resumeValue}
+              recoverAble={limit > value.length}
+              onRecover={this.recoverValue}
+              style={imageStyle}
             />
           ))
         }
+
+        { imageStyle && this.renderHandle() }
       </div>
     )
   }
@@ -240,7 +262,7 @@ Upload.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
   cors: PropTypes.bool,
-  image: PropTypes.bool,
+  imageStyle: PropTypes.object,
   htmlName: PropTypes.string,
   limit: PropTypes.number,
   name: PropTypes.string,
@@ -248,6 +270,7 @@ Upload.propTypes = {
   onError: PropTypes.func,
   onUpload: PropTypes.func,
   params: PropTypes.object,
+  recoverAble: PropTypes.bool,
   renderResult: PropTypes.func,
   validator: PropTypes.object,
   value: PropTypes.array,
@@ -258,6 +281,7 @@ Upload.propTypes = {
 Upload.defaultProps = {
   cors: false,
   limit: 0,
+  recoverAble: true,
   validator: {},
   value: [],
   withCredentials: false,
