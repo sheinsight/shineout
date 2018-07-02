@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import { inputClass, selectClass } from '../styles'
 import Input from './Input'
 
@@ -59,7 +60,7 @@ class Result extends PureComponent {
     }
 
     return (
-      <span className={inputClass('placeholder')}>
+      <span className={classnames(inputClass('placeholder'), selectClass('ellipsis'))}>
         {this.props.placeholder}&nbsp;
       </span>
     )

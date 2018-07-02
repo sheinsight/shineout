@@ -32,6 +32,7 @@
     .@{select-prefix}-input {
       outline: none;
       min-width: 12px;
+      margin-bottom: @padding-base-vertical;
       display: inline-block;
 
       &:after {
@@ -165,14 +166,14 @@
 
   &-small &-result {
     padding: @padding-small-vertical @padding-small-horizontal+12 0 @padding-small-horizontal;
-    .@{select-prefix}-item, .@{select-prefix}-ellipsis {
+    .@{select-prefix}-item, .@{select-prefix}-ellipsis, .@{select-prefix}-input {
       margin-bottom: @padding-small-vertical;
     }
   }
 
   &-large &-result {
     padding: @padding-large-vertical @padding-large-horizontal+12 0 @padding-large-horizontal;
-    .@{select-prefix}-item, .@{select-prefix}-ellipsis {
+    .@{select-prefix}-item, .@{select-prefix}-ellipsis, .@{select-prefix}-input {
       margin-bottom: @padding-large-vertical;
     }
   }
