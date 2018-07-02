@@ -232,6 +232,8 @@ class Upload extends PureComponent {
           ))
         }
 
+        { imageStyle && this.renderHandle() }
+
         {
           recoverAble && recycle.map((v, i) => (
             <ResultComponent
@@ -245,8 +247,6 @@ class Upload extends PureComponent {
             />
           ))
         }
-
-        { imageStyle && this.renderHandle() }
       </div>
     )
   }

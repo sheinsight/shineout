@@ -101,15 +101,22 @@
       bottom: @upload-image-space;
       color: #fff;
       background: rgba(0, 0, 0, 0.5);
-    }
 
-    .@{upload-prefix}-delete, .@{upload-prefix}-recover {
-      width: 16px;
-      height: 16px;
-      display: block;
-      margin: auto;
-      svg {
-        fill: #fff;
+      .@{upload-prefix}-delete, .@{upload-prefix}-recover {
+        width: 16px;
+        height: 16px;
+        display: block;
+        margin: auto;
+        svg {
+          fill: #fff;
+        }
+      }
+
+      span + .@{upload-prefix}-delete {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        margin: 0 12px 0 0;
       }
     }
 
@@ -181,6 +188,15 @@
       .@{upload-prefix}-message {
         display: flex;
       }
+    }
+
+    &.@{upload-prefix}-to-be-delete {
+      .@{upload-prefix}-message {
+        display: flex;
+        background: rgba(0, 0, 0, 0.2);
+      }
+
+      filter: grayscale(100%);
     }
   }
 }

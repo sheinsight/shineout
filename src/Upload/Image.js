@@ -61,6 +61,7 @@ Image.propTypes = {
   accept: PropTypes.string,
   children: PropTypes.any,
   height: PropTypes.number,
+  recoverAble: PropTypes.bool,
   validator: PropTypes.object,
   width: PropTypes.number,
 }
@@ -68,6 +69,7 @@ Image.propTypes = {
 Image.defaultProps = {
   accept: 'image/*',
   height: 80,
+  recoverAble: false,
   validator: {},
   width: 80,
 }
