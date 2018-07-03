@@ -72,4 +72,19 @@
       display: block;
     }
   }
+
+  &-line {
+    .@{tabs-prefix}-active {
+      color: @tabs-line-active-color;
+      &:after {
+        position: absolute;
+        content: ' ';
+        height: 2px;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        background: @tabs-line-active-color;
+      }
+    }
+  }
 }

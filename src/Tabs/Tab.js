@@ -20,18 +20,22 @@ class Tab extends PureComponent {
 
   render() {
     const {
-      background, border, color, isActive,
+      background, border, color, isActive, shape,
     } = this.props
-    const style = {
-      background,
-      color,
-      borderColor: `${border} ${border} ${isActive ? background : border} ${border}`,
+
+    let style = {}
+    if (shape !== 'line') {
+      style = {
+        background,
+        color,
+        borderColor: `${border} ${border} ${isActive ? background : border} ${border}`,
+      }
     }
 
     return (
       <div
         ref={this.bindElement}
-        className={tabsClass('tab', isActive && 'active')}
+        className={tabsClass('tab', shape, isActive && 'active')}
         style={style}
         onClick={this.handleClick}
       >
@@ -50,6 +54,7 @@ Tab.propTypes = {
   isActive: PropTypes.bool.isRequired,
   moveToLeft: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
+  shape: PropTypes.string,
 }
 
 Tab.defaultProps = {

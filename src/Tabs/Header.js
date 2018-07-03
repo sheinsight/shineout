@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
+import Button from '../Button'
 import icons from '../icons'
 import Tab from './Tab'
 import { tabsClass } from '../styles'
@@ -35,6 +36,7 @@ class Header extends PureComponent {
   }
 
   setWidth() {
+    if (!this.innerElement) return
     const innerWidth = this.innerElement.clientWidth
     const scrollWidth = this.scrollElement.clientWidth
     const { left } = this.state
@@ -85,7 +87,26 @@ class Header extends PureComponent {
     )
   }
 
-  render() {
+  renderButtons() {
+    const { onChange, tabs } = this.props
+    return (
+      <Button.Group>
+        {
+          tabs.map(tab => (
+            <Button
+              type={tab.isActive ? 'primary' : undefined}
+              key={tab.id}
+              onClick={tab.isActive ? undefined : onChange.bind(this, tab.id)}
+            >
+              {tab.tab}
+            </Button>
+          ))
+        }
+      </Button.Group>
+    )
+  }
+
+  renderTabs() {
     const { border, tabs } = this.props
     const { left, overflow } = this.state
 
@@ -112,11 +133,16 @@ class Header extends PureComponent {
       </div>
     )
   }
+
+  render() {
+    return this.props.shape === 'button' ? this.renderButtons() : this.renderTabs()
+  }
 }
 
 Header.propTypes = {
   border: PropTypes.string,
   onChange: PropTypes.func,
+  shape: PropTypes.string,
   tabs: PropTypes.array,
 }
 

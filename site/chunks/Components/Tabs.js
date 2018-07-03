@@ -37,6 +37,18 @@ const examples = [
     component: require('doc/pages/components/Tabs/example-4-active.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-4-active.js'),
   },
+  {
+    name: '5-shape-line',
+    title: locate('样式 \n shpae = &#39;line&#39;', 'Shape'),
+    component: require('doc/pages/components/Tabs/example-5-shape-line.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tabs/example-5-shape-line.js'),
+  },
+  {
+    name: '6-shape-button',
+    title: locate(' \n type = &#39;button&#39;', 'Shape'),
+    component: require('doc/pages/components/Tabs/example-6-shape-button.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tabs/example-6-shape-button.js'),
+  },
 ]
 
 const codes = undefined

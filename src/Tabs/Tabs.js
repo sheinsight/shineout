@@ -29,7 +29,9 @@ class Tabs extends PureComponent {
   }
 
   renderHeader() {
-    const { children, color, inactiveBackground } = this.props
+    const {
+      children, color, shape, inactiveBackground,
+    } = this.props
     const active = this.getActive()
     const tabs = []
 
@@ -52,11 +54,12 @@ class Tabs extends PureComponent {
           background: background || (active === id ? this.props.background : inactiveBackground),
           border: childBorder,
           color: child.props.color || (active === id ? color : undefined),
+          shape,
         })
       }
     })
 
-    return <Header border={border} onChange={this.handleChange} tabs={tabs} />
+    return <Header border={border} shape={shape} onChange={this.handleChange} tabs={tabs} />
   }
 
   renderContent(child, i) {
@@ -69,8 +72,8 @@ class Tabs extends PureComponent {
   }
 
   render() {
-    const { children, style } = this.props
-    const className = classnames(tabsClass('_'), this.props.className)
+    const { children, shape, style } = this.props
+    const className = classnames(tabsClass('_', shape), this.props.className)
 
     return (
       <div className={className} style={style}>
@@ -94,6 +97,7 @@ Tabs.propTypes = {
   defaultActive: PropTypes.any,
   inactiveBackground: PropTypes.string,
   onChange: PropTypes.func,
+  shape: PropTypes.oneOf(['card', 'line', 'button']),
   style: PropTypes.object,
 }
 
