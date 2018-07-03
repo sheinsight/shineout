@@ -48,7 +48,6 @@ export default Origin => class extends PureComponent {
     this.timer = setTimeout(() => {
       const fn = onFilter(text)
       if (typeof fn === 'function') {
-        console.log(this.$willUnmount)
         this.setState({ innerFilter: fn })
       }
     }, filterDelay)
