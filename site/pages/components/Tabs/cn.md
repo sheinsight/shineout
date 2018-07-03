@@ -13,6 +13,7 @@
 | defaultActive | string \| int | 0 | 默认选中标签页（非受控） |
 | inactiveBackground | string | 'transparent' | 未选中标签背景色 |
 | onChange | function(key) | - | 标签选中时触发回调事件 |
+| shape | string | - | 可选值为 \['line', 'button']，shape 不为空时，background 等颜色参数将会无效 |
 | style | object | - | 最外层扩展样式 |
 
 <br />
