@@ -39,8 +39,8 @@ class Scroll extends PureComponent {
   }
 
   getWheelRect() {
-    if (!this.wheelElement) return { width: 0, height: 0 }
-    const rect = this.wheelElement.getBoundingClientRect()
+    if (!this.iframeElement) return { width: 0, height: 0 }
+    const rect = this.iframeElement.getBoundingClientRect()
     const { scrollX, scrollY, style } = this.props
     const width = (style.width || rect.width) - (scrollY ? BAR_WIDTH : 0)
     const height = (style.height || rect.height) - (scrollX ? BAR_WIDTH : 0)
@@ -66,6 +66,7 @@ class Scroll extends PureComponent {
   }
 
   bindIframe(el) {
+    this.iframeElement = el
     if (el && el.contentWindow) {
       el.contentWindow.onresize = this.setRect
     }

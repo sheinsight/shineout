@@ -19,7 +19,9 @@ class Number extends PureComponent {
 
   handleChange(value, check) {
     if (!check) {
-      this.props.onChange(value)
+      if (new RegExp('^-?\\d*\\.?\\d*$').test(value)) {
+        this.props.onChange(value)
+      }
       return
     }
 
@@ -31,6 +33,7 @@ class Number extends PureComponent {
 
     if (max !== undefined && value > max) value = max
     if (min !== undefined && value < min) value = min
+
 
     if (value !== this.props.value) {
       this.props.onChange(value)

@@ -185,7 +185,7 @@ export default curry(({ delay = 0 }, Origin) => consumer(class extends PureCompo
 
   handleChange(value, ...args) {
     // handle change immediately
-    if (this.props.delay === 0) {
+    if (this.props.delay === 0 && this.props.formDatum) {
       this.change(value, ...args)
       return
     }

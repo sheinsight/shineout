@@ -20,6 +20,7 @@ class Form extends PureComponent {
     e.preventDefault()
     if (e.target.id !== this.id) return
     if (this.validating || this.locked) return
+
     this.validating = true
 
     // prevent duplicate submit

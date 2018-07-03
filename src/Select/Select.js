@@ -65,7 +65,7 @@ class Select extends PureComponent {
       setTimeout(() => {
         this.setState({ scrollTop: 0, hoverIndex: 0 })
       })
-      this.resetResult()
+      // this.resetResult()
     }
     // clear filter
     if (prevState.focus !== this.state.focus && !this.state.focus && onFilter) {
