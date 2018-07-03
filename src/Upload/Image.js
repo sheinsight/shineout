@@ -30,7 +30,6 @@ class Image extends PureComponent {
           file.status = ERROR
           file.message = res.message
         }
-
         callback(file)
       }
       image.src = data

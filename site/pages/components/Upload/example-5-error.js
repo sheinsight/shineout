@@ -12,9 +12,10 @@ export default function () {
       action="http://jsonplaceholder.typicode.com/posts"
       accept="image/*"
       name="file"
-      onUpload={(res, file) => file.name}
+      onUpload={(res, file, data) => ({ data })}
+      renderResult={f => f.data}
       validator={{
-        imageSize: img => ((img.width !== 100 || img.height !== 100) ? new Error('only allow 100px * 100px') : undefined),
+        imageSize: img => ((img.width !== 75 || img.height !== 75) ? new Error('only allow 100px * 100px') : undefined),
       }}
     />
   )

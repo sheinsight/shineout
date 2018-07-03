@@ -8,7 +8,7 @@
 | --- | --- | --- | --- |
 | accept | string | 无 | 上传文件类型 |
 | action | string | 必填 | 上传地址 |
-| children | any | 无 | 上传按钮内容，Image 可为空 |
+| children | any | 必填 | 上传占位内容 |
 | className | string | 无 | 扩展className |
 | htmlName | string | 无 | 服务端接收的 filename，不填使用 name |
 | limit | number | 0 | 最大上传文件数，0 为不限 |
@@ -23,9 +23,18 @@
 | value | array | \[] | 值 |
 | withCredentials | bool | false | 是否携带 cookie |
 
-<br />
+
+### Image
+
+| 属性 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| children | any | 无 | 上传按钮内容，可为空 |
+| renderResult | func | a => a | 返回图片 url 链接地址 |
+
+
 ### validator 属性
 
+| 属性 | 类型 | 说明 |
 | --- | --- | --- | --- |
 | size | func(number):Error | 判断文件大小，校验失败返回 Error |
 | imageSize | func(Image):Error | 只对 Image 有效，判断图片尺寸，校验失败返回 Error |
