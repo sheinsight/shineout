@@ -36,29 +36,9 @@ class SeperateTable extends PureComponent {
   // reset scrollTop when data changed
   componentDidUpdate(prevProps) {
     if (!this.tbody) return
-    const { scrollTop, offsetLeft } = this.state
-    const fullHeight = this.getContentHeight()
-    const height = fullHeight * scrollTop
-
-    if (this.props.data === prevProps.data) return
-
-    if (this.lastScrollTop - height >= 1) {
-      this.lastScrollTop = height
-      const index = this.getIndex(scrollTop)
-      setTimeout(() => {
-        this.setState({ currentIndex: index })
-      })
-
-      if (index === 0) {
-        this.tbody.style.marginTop = '0px'
-        setTranslate(this.tbody, `-${offsetLeft}px`, '0px')
-      } else {
-        setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
-      }
-    } else if (this.lastScrollTop - height < 1) {
-      setTimeout(() => {
-        this.setState({ scrollTop: this.lastScrollTop / fullHeight })
-      })
+    if (this.props.data !== prevProps.data) this.resetHeight()
+    if (this.props.columns !== prevProps.columns) {
+      this.resetWidth(this.state.offsetLeft, this.state.offsetRight)
     }
   }
 
@@ -121,6 +101,49 @@ class SeperateTable extends PureComponent {
     }
   }
 
+  resetHeight() {
+    const { scrollTop, offsetLeft } = this.state
+    const fullHeight = this.getContentHeight()
+    const height = fullHeight * scrollTop
+
+    if (this.lastScrollTop - height >= 1) {
+      this.lastScrollTop = height
+      const index = this.getIndex(scrollTop)
+      setTimeout(() => {
+        this.setState({ currentIndex: index })
+      })
+
+      if (index === 0) {
+        this.tbody.style.marginTop = '0px'
+        setTranslate(this.tbody, `-${offsetLeft}px`, '0px')
+      } else {
+        setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
+      }
+    } else if (this.lastScrollTop - height < 1) {
+      setTimeout(() => {
+        this.setState({ scrollTop: this.lastScrollTop / fullHeight })
+      })
+    }
+  }
+
+  resetWidth(left, right) {
+    setTranslate(this.thead, `-${left}px`, '0');
+
+    [this.thead, this.tbody].forEach((el) => {
+      [].forEach.call(
+        el.parentNode.querySelectorAll(`.${tableClass(CLASS_FIXED_LEFT)}`),
+        (td) => { setTranslate(td, `${left}px`, '0') },
+      )
+    });
+
+    [this.thead, this.tbody].forEach((el) => {
+      [].forEach.call(
+        el.parentNode.querySelectorAll(`.${tableClass(CLASS_FIXED_RIGHT)}`),
+        (td) => { setTranslate(td, `-${right}px`, '0') },
+      )
+    })
+  }
+
   bindElement(key, el) {
     this[key] = el
   }
@@ -161,23 +184,7 @@ class SeperateTable extends PureComponent {
     if (right < 0) right = 0
 
     /* set x */
-    if (contentWidth > v) {
-      setTranslate(this.thead, `-${left}px`, '0');
-
-      [this.thead, this.tbody].forEach((el) => {
-        [].forEach.call(
-          el.parentNode.querySelectorAll(`.${tableClass(CLASS_FIXED_LEFT)}`),
-          (td) => { setTranslate(td, `${left}px`, '0') },
-        )
-      });
-
-      [this.thead, this.tbody].forEach((el) => {
-        [].forEach.call(
-          el.parentNode.querySelectorAll(`.${tableClass(CLASS_FIXED_RIGHT)}`),
-          (td) => { setTranslate(td, `-${right}px`, '0') },
-        )
-      })
-    }
+    if (contentWidth > v) this.resetWidth(left, right)
     /* set x end */
 
     /* set y */

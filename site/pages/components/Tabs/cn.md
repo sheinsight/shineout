@@ -24,6 +24,6 @@
 | className | string | - | 扩展className |
 | background | string | - | 背景色，会覆盖 Tabs 的background |
 | border | string | - | 边框颜色，会覆盖 Tabs 的border |
-| id | string |\ number | - | 选填，默认为 index |
+| id | string \| number | - | 选填，默认为 index |
 | style | object | - | 最外层扩展样式 |
 | tab | string \| ReactElement | 必填 | 标签标题内容 |

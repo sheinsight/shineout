@@ -35,6 +35,7 @@ export default class extends PureComponent {
     }
 
     const { onRowSelect, datum } = this.props
+    columns = columns.filter(c => typeof c === 'object')
 
     let left = -1
     let right = -1
