@@ -9,6 +9,6 @@ const wrap = compose(wrapper({}), inputable({ delay: 400, imeEvent: true }))
 
 const exports = wrap(Input)
 exports.Group = wrapper({ tag: 'div', isGroup: true })(Group)
-exports.Number = wrap(Number)
+exports.Number = compose(wrapper({}), inputable({ delay: 0, imeEvent: true }))(Number)
 
 export default exports

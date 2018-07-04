@@ -15,6 +15,9 @@ class Scroll extends PureComponent {
     this.pixelX = 0
     this.pixelY = 0
 
+    this.cacheWidth = 0
+    this.cacheHeight = 0
+
     this.bindInner = this.bindInner.bind(this)
     this.bindWheel = this.bindWheel.bind(this)
     this.setRect = this.setRect.bind(this)
@@ -40,10 +43,20 @@ class Scroll extends PureComponent {
 
   getWheelRect() {
     if (!this.wheelElement) return { width: 0, height: 0 }
-    const rect = this.wheelElement.getBoundingClientRect()
+    let { width, height } = this.wheelElement.getBoundingClientRect()
+
+    // display none
+    if (width === 0 && height === 0) {
+      width = this.cacheWidth
+      height = this.cacheHeight
+    } else {
+      this.cacheWidth = width
+      this.cacheHeight = height
+    }
+
     const { scrollX, scrollY, style } = this.props
-    const width = (style.width || rect.width) - (scrollY ? BAR_WIDTH : 0)
-    const height = (style.height || rect.height) - (scrollX ? BAR_WIDTH : 0)
+    width = (style.width || width) - (scrollY ? BAR_WIDTH : 0)
+    height = (style.height || height) - (scrollX ? BAR_WIDTH : 0)
     return { width, height }
   }
 

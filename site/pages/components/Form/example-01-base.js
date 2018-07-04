@@ -42,6 +42,10 @@ export default class extends PureComponent {
           <Input name="password" type="password" />
         </Form.Item>
 
+        <Form.Item label="Number">
+          <Input.Number width={120} max={100} min={10} name="number" />
+        </Form.Item>
+
         <Form.Item label="Name">
           <Input.Group style={{ width: 300 }}>
             <Input name="firstName" placeholder="First Name" />

@@ -26,7 +26,7 @@ class Rate extends PureComponent {
     return { width: size, fontSize: size }
   }
 
-  getIcon(icons, i) {
+  getIcon(icons, i, isBg) {
     const { repeat } = this.props
     const value = this.getValue()
     const remain = value - i
@@ -39,7 +39,7 @@ class Rate extends PureComponent {
       if (!icon) icon = icons[icons.length - 1]
     }
 
-    if (remain <= 0 || remain >= 1) return icon
+    if (remain <= 0 || remain >= 1 || isBg) return icon
 
     const style = { width: `${remain * 100}%`, display: 'block', overflow: 'hidden' }
     return <span style={style}>{icon}</span>
@@ -63,7 +63,7 @@ class Rate extends PureComponent {
         {
           range(max).map(v => (
             <span key={v} style={Object.assign({ visibility: (!disabled && value > v) ? 'hidden' : 'visible' }, style)}>
-              {this.getIcon(background, v)}
+              {this.getIcon(background, v, true)}
             </span>
           ))
         }
