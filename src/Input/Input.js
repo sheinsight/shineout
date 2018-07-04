@@ -6,6 +6,7 @@ class Input extends PureComponent {
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
   }
 
   invalidNumber(value) {
@@ -27,6 +28,14 @@ class Input extends PureComponent {
     const { value } = e.target
     if (this.invalidNumber(value)) return
     this.props.onChange(value)
+  }
+
+  handleKeyDown(e) {
+    const { onKeyDown, onEnterPress } = this.props
+    if (e.keyCode === 13 && onEnterPress) {
+      onEnterPress(e.target.value)
+    }
+    if (onKeyDown) onKeyDown(e)
   }
 
   render() {
@@ -56,6 +65,8 @@ Input.propTypes = {
   digits: PropTypes.number,
   htmlName: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  onEnterPress: PropTypes.func,
+  onKeyDown: PropTypes.func,
   type: PropTypes.string,
   value: PropTypes.oneOfType([
     PropTypes.string,
