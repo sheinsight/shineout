@@ -99,6 +99,12 @@ const pages = [
   },
   'Data',
   {
+    name: 'Carousel',
+    cn: '轮播',
+    level: 2,
+    component: loadable(() => import('./Carousel')),
+  },
+  {
     name: 'Datum.Form',
     cn: '表单处理',
     level: 2,

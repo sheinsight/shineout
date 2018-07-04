@@ -46,16 +46,25 @@ export default curry((options, Origin) => class extends Component {
     this.handleError = this.handleError.bind(this)
   }
 
-  handleBlur() {
-    this.setState({ focus: false })
-    const { onBlur } = this.props
-    if (onBlur) onBlur()
+  componentWillUnmount() {
+    this.$willUnmount = true
   }
 
-  handleFocus() {
+  setState(...args) {
+    if (this.$willUnmount) return
+    super.setState(...args)
+  }
+
+  handleBlur(event) {
+    this.setState({ focus: false })
+    const { onBlur } = this.props
+    if (onBlur) onBlur(event)
+  }
+
+  handleFocus(event) {
     this.setState({ focus: true })
     const { onFocus } = this.props
-    if (onFocus) onFocus()
+    if (onFocus) onFocus(event)
   }
 
   handleError(name, error) {

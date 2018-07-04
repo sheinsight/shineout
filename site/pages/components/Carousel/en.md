@@ -1,0 +1,5 @@
+# Carousel
+
+<example />
+
+## API
