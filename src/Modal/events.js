@@ -86,7 +86,9 @@ export function open(props, isPortal) {
     close(props)
   }
 
-  const maskOpacity = isMask(props.id) ? props.maskOpacity : 0.01
+  const maskOpacity = isMask(props.id) ? (props.maskOpacity || 0.25) : 0.01
+  div.style.background = `rgba(0,0,0,${maskOpacity})`
+
   containers[props.id].visible = true
 
   setTimeout(() => {
@@ -94,7 +96,7 @@ export function open(props, isPortal) {
   }, 10)
 
   const panel = (
-    <Panel {...otherProps} maskOpacity={maskOpacity} onClose={handleClose}>
+    <Panel {...otherProps} onClose={handleClose}>
       {content}
     </Panel>
   )

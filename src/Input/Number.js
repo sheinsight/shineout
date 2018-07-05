@@ -18,6 +18,7 @@ class Number extends PureComponent {
   }
 
   componentWillUnmount() {
+    this.hold = false
     if (this.keyPressTimeOut) clearTimeout(this.keyPressTimeOut)
   }
 
