@@ -17,6 +17,10 @@ class Number extends PureComponent {
     this.handleKeyUp = this.handleKeyUp.bind(this)
   }
 
+  componentWillUnmount() {
+    if (this.keyPressTimeOut) clearTimeout(this.keyPressTimeOut)
+  }
+
   handleChange(value, check) {
     if (!check) {
       if (new RegExp('^-?\\d*\\.?\\d*$').test(value)) {
