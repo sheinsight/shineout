@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
-import PureComponent from '../PureComponent'
 import { curry, compose } from '../utils/func'
 import { getUidStr } from '../utils/uid'
 import validate from '../utils/validate'
@@ -13,10 +12,9 @@ const types = ['formDatum', 'disabled', 'onError']
 
 const consumer = compose(formConsumer(types), itemConsumer, loopConsumer)
 
-export default curry(({ delay = 0 }, Origin) => consumer(class extends PureComponent {
+export default curry(Origin => consumer(class extends PureComponent {
   static propTypes = {
     defaultValue: PropTypes.any,
-    delay: PropTypes.number,
     formDatum: PropTypes.object,
     loopContext: PropTypes.object,
     name: PropTypes.oneOfType([
@@ -32,7 +30,6 @@ export default curry(({ delay = 0 }, Origin) => consumer(class extends PureCompo
   }
 
   static defaultProps = {
-    delay,
     onError: () => {},
     rules: [],
   }
@@ -79,6 +76,12 @@ export default curry(({ delay = 0 }, Origin) => consumer(class extends PureCompo
       formDatum.unbind(name, this.handleUpdate)
     }
     if (loopContext) loopContext.unbind(this.validate)
+    this.$willUnmount = true
+  }
+
+  setState(...args) {
+    if (this.$willUnmount) return
+    super.setState(...args)
   }
 
   getValue() {
@@ -146,7 +149,7 @@ export default curry(({ delay = 0 }, Origin) => consumer(class extends PureCompo
     })
   }
 
-  change(value, ...args) {
+  handleChange(value, ...args) {
     const { formDatum, name } = this.props
     if (formDatum && name) {
       if (Array.isArray(name)) {
@@ -158,6 +161,7 @@ export default curry(({ delay = 0 }, Origin) => consumer(class extends PureCompo
         formDatum.set(name, value)
       }
     } else {
+      this.setState({ value })
       this.validate(value)
     }
 
@@ -183,6 +187,7 @@ export default curry(({ delay = 0 }, Origin) => consumer(class extends PureCompo
     this.validate(newValue)
   }
 
+  /*
   handleChange(value, ...args) {
     // handle change immediately
     if (this.props.delay === 0 && this.props.formDatum) {
@@ -201,6 +206,7 @@ export default curry(({ delay = 0 }, Origin) => consumer(class extends PureCompo
       this.change(value, ...args)
     }, this.props.delay)
   }
+  */
 
   render() {
     const {

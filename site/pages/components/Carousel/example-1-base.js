@@ -37,6 +37,7 @@ export default class extends Component {
             data={['slide', 'slide-y', 'fade']}
             style={{ width: 100 }}
             value={animation}
+            size="small"
             onChange={this.propChange.bind(this, 'animation')}
           />
           {'　indicatorPosition: '}
@@ -44,6 +45,7 @@ export default class extends Component {
             data={['left', 'center', 'right']}
             style={{ width: 90 }}
             value={indicatorPosition}
+            size="small"
             onChange={this.propChange.bind(this, 'indicatorPosition')}
           />
           {'　indicatorType: '}
@@ -51,6 +53,7 @@ export default class extends Component {
             data={['circle', 'number', 'line']}
             style={{ width: 90 }}
             value={indicatorType}
+            size="small"
             onChange={this.propChange.bind(this, 'indicatorType')}
           />
 

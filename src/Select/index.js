@@ -8,7 +8,7 @@ import filter from './filter'
 
 const exportSelect = compose(
   wrapper({ className: selectClass('_') }),
-  inputable({}),
+  inputable,
   Datum.hoc({ limit: 1 }),
   filter,
 )(Select)

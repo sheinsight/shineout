@@ -74,7 +74,7 @@ export default class MarkDown extends PureComponent {
     const text = locate('示例', 'Example')
 
     // const id = getUidStr()
-    const id = `h_${hash('Example')}`
+    const id = `h-${hash('Example')}`
     this.appendHeading({
       id,
       level: 2,
@@ -114,7 +114,7 @@ export default class MarkDown extends PureComponent {
         renderers={{
           code: CodeBlock,
           heading: ({ level, children }) => {
-            const id = `h_${hash(children[0])}`
+            const id = `h-${hash(children[0])}`
             if (level === 2 || level === 3) {
               this.appendHeading({ id, level, children })
             }

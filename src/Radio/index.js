@@ -6,6 +6,6 @@ import Group from './Group'
 import Radio from './Radio'
 
 const exports = consumer(Radio)
-exports.Group = compose(inputable({}), Datum.hoc({ limit: 1 }))(Group)
+exports.Group = compose(inputable, Datum.hoc({ limit: 1 }))(Group)
 
 export default exports

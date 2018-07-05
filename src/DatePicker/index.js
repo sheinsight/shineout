@@ -9,7 +9,7 @@ const getClassName = opt =>
 
 const Datepicker = compose(
   wrapper({ className: getClassName, innerWidth: true }),
-  inputable({}),
+  inputable,
 )(Container)
 
 export default Datepicker

@@ -14,9 +14,9 @@ import { formProvider, formConsumer } from './formContext'
 
 const exportForm = Datum.hoc({ type: 'form' }, formProvider(Form))
 exportForm.Item = itemProvider(formConsumer(['labelWidth'], Item))
-exportForm.Field = inputable({}, Field)
+exportForm.Field = inputable(Field)
 exportForm.Block = formConsumer(['formDatum'])(Block)
-exportForm.BlockField = inputable({}, BlockField)
+exportForm.BlockField = inputable(BlockField)
 exportForm.Loop = compose(formConsumer(null), loopProvider)(Loop)
 
 exportForm.Submit = formButton('submit')
