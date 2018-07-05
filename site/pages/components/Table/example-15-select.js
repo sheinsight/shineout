@@ -28,7 +28,7 @@ export default class extends PureComponent {
     super(props)
 
     this.state = {
-      selectedValue: '',
+      selectedValue: [data[2]],
     }
 
     this.handelRowSelect = this.handelRowSelect.bind(this)
@@ -36,7 +36,7 @@ export default class extends PureComponent {
 
   handelRowSelect(selectedValue) {
     console.log(selectedValue)
-    this.setState({ selectedValue: selectedValue.map(v => v.id).join(', ') })
+    this.setState({ selectedValue })
   }
 
   render() {
@@ -49,9 +49,10 @@ export default class extends PureComponent {
           data={data}
           style={{ height: 450 }}
           onRowSelect={this.handelRowSelect}
+          value={this.state.selectedValue}
         />
         <div>
-          selected rows: [{ this.state.selectedValue }]
+          selected rows: [{ this.state.selectedValue.map(v => v.id).join(', ') }]
         </div>
       </div>
     )
