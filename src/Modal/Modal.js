@@ -20,6 +20,7 @@ class Modal extends Component {
   }
 
   componentWillUnmount() {
+    close({ id: this.id })
     destroy(this.id)
   }
 
