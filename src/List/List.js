@@ -13,17 +13,16 @@ class List extends Component {
       this.props.className,
     )
 
+    const { show, ...props } = this.props
+
     return (
-      <div className={className} style={this.props.style}>
-        {this.props.children}
-      </div>
+      <div {...props} className={className} style={this.props.style} />
     )
   }
 }
 
 List.propTypes = {
   ...getProps(PropTypes),
-  children: PropTypes.any,
   show: PropTypes.bool,
 }
 
