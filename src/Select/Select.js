@@ -307,7 +307,7 @@ class Select extends PureComponent {
     const {
       data, datum, keygen, multiple, itemsInView, lineHeight, height, loading,
     } = this.props
-    const { hoverIndex, currentIndex } = this.state
+    const { focus, hoverIndex, currentIndex } = this.state
 
     let scroll = ''
     if (height < lineHeight * data.length) {
@@ -315,10 +315,7 @@ class Select extends PureComponent {
     }
 
     return (
-      <ScaleList
-        show={this.state.focus}
-        className={selectClass('options')}
-      >
+      <ScaleList show={focus} className={selectClass('options')}>
         {
           // eslint-disable-next-line
           loading ?
