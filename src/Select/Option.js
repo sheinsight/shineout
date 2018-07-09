@@ -7,8 +7,7 @@ class Option extends PureComponent {
   constructor(props) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
-    this.handleEnter = this.handleHover.bind(this, props.index)
-    this.handleLeave = this.handleHover.bind(this, undefined)
+    this.handleEnter = this.handleHover.bind(this)
   }
 
   handleClick() {
@@ -19,8 +18,8 @@ class Option extends PureComponent {
     onClick(!isActive, data, index)
   }
 
-  handleHover(index) {
-    this.props.onHover(index)
+  handleHover() {
+    this.props.onHover(this.props.index)
   }
 
   render() {
@@ -40,7 +39,6 @@ class Option extends PureComponent {
       <a
         onClick={this.handleClick}
         onMouseEnter={this.handleEnter}
-        onMouseLeave={this.handleLeave}
         className={className}
       >
         { renderItem(data, index) }

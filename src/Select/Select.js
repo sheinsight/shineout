@@ -3,43 +3,37 @@ import PropTypes from 'prop-types'
 import immer from 'immer'
 import PureComponent from '../PureComponent'
 import { getProps } from '../utils/proptypes'
-import { getKey } from '../utils/uid'
-import { setTranslate } from '../utils/dom/translate'
-import List from '../List'
-import Scroll from '../Scroll'
-import Spin from '../Spin'
 import { selectClass } from '../styles'
-import Option from './Option'
 import Result from './Result'
 import { getLocale } from '../locale'
-
-const ScaleList = List(['fade', 'scale-y'], 'fast')
+import OptionList from './OptionList'
 
 class Select extends PureComponent {
   constructor(props) {
     super(props)
 
     this.state = {
+      control: 'mouse',
       focus: false,
       result: [],
       position: 'drop-down',
       scrollTop: 0,
-      hoverIndex: undefined,
       currentIndex: 0,
     }
 
-    this.setInputReset = this.setInputReset.bind(this)
     this.bindElement = this.bindElement.bind(this)
+    this.bindOptionList = this.bindOptionList.bind(this)
+
+    this.setInputReset = this.setInputReset.bind(this)
     this.handleFocus = this.handleState.bind(this, true)
     this.handleBlur = this.handleState.bind(this, false)
     this.handleClear = this.handleClear.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleRemove = this.handleChange.bind(this, false)
-    this.handleScroll = this.handleScroll.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleKeyUp = this.handleKeyUp.bind(this)
-    this.handleHover = this.handleHover.bind(this)
     this.handleInputFocus = this.handleInputFocus.bind(this)
+    this.handleControlChange = this.handleControlChange.bind(this)
 
     this.resetResult = this.resetResult.bind(this)
     this.renderItem = this.renderItem.bind(this)
@@ -64,7 +58,7 @@ class Select extends PureComponent {
     if (data !== prevProps.data) {
       this.lastScrollTop = 0
       setTimeout(() => {
-        this.setState({ scrollTop: 0, hoverIndex: 0 })
+        this.setState({ scrollTop: 0 })
       })
     }
     // clear filter
@@ -97,53 +91,8 @@ class Select extends PureComponent {
     this.element = el
   }
 
-  hoverMove(step) {
-    const max = this.props.data.length
-    const { lineHeight, height } = this.props
-    // eslint-disable-next-line
-    let { hoverIndex, currentIndex } = this.state
-    if (hoverIndex === undefined) hoverIndex = currentIndex
-    else hoverIndex += step
-
-    if (hoverIndex >= max) {
-      hoverIndex = 0
-      this.lastScrollTop = 0
-    }
-    if (hoverIndex < 0) hoverIndex = max - 1
-
-    const scrollTop = hoverIndex / max
-    const offset = scrollTop * height
-    const emptyHeight = (hoverIndex * lineHeight) + offset
-
-    if (emptyHeight < this.lastScrollTop + offset) {
-      // fixed at top
-
-      this.optionInner.style.marginTop = `${offset}px`
-      setTranslate(this.optionInner, '0px', `-${emptyHeight}px`)
-      this.lastScrollTop = emptyHeight - offset
-
-      currentIndex = hoverIndex - 1
-      if (currentIndex < 0) currentIndex = max
-      this.setState({ currentIndex, scrollTop: emptyHeight / (lineHeight * max) })
-    } else if (emptyHeight + lineHeight > this.lastScrollTop + offset + height) {
-      // fixed at bottom
-
-      this.optionInner.style.marginTop = `${offset}px`
-      const scrollHeight = (emptyHeight + lineHeight) - height
-      setTranslate(this.optionInner, '0px', `-${scrollHeight}px`)
-      this.lastScrollTop = scrollHeight - offset
-
-      currentIndex = hoverIndex - Math.ceil(height / lineHeight)
-      if (currentIndex < 0) currentIndex = 0
-      this.setState({ currentIndex, scrollTop: scrollHeight / (lineHeight * max) })
-    } else if (hoverIndex === 0 && emptyHeight === 0) {
-      // reset to top
-
-      this.optionInner.style.marginTop = '0px'
-      setTranslate(this.optionInner, '0px', '0px')
-      this.setState({ currentIndex: 0, scrollTop: 0 })
-    }
-    this.setState({ hoverIndex })
+  bindOptionList(el) {
+    this.optionList = el
   }
 
   handleState(focus, event, force) {
@@ -171,10 +120,18 @@ class Select extends PureComponent {
     const bottom = height + this.element.getBoundingClientRect().bottom
     if (bottom > windowHeight && !position) position = 'drop-up'
 
-    this.setState({ focus, hoverIndex: undefined, position: position || 'drop-down' })
+    this.setState({ focus, position: position || 'drop-down' })
 
-    if (focus) onFocus()
-    else onBlur()
+    if (focus) {
+      onFocus()
+    } else {
+      onBlur()
+      this.optionList.handleHover(undefined)
+    }
+  }
+
+  handleControlChange(control) {
+    if (control !== this.state.control) this.setState({ control })
   }
 
   handleChange(checked, data) {
@@ -219,37 +176,8 @@ class Select extends PureComponent {
     }
   }
 
-  handleScroll(x, y, max, bar, v, h, pixelX, pixelY) {
-    const { data, itemsInView, lineHeight } = this.props
-    const fullHeight = itemsInView * lineHeight
-    const contentHeight = (data.length * lineHeight) - h
-    let scrollTop = h > fullHeight ? 0 : y
-
-    this.optionInner.style.marginTop = `${scrollTop * h}px`
-
-    if (pixelY === undefined || pixelY === 0) {
-      this.lastScrollTop = scrollTop * contentHeight
-    } else {
-      this.lastScrollTop += pixelY
-      if (this.lastScrollTop < 0) this.lastScrollTop = 0
-
-      // scroll over bottom
-      if (this.lastScrollTop > contentHeight) this.lastScrollTop = contentHeight
-      scrollTop = this.lastScrollTop / contentHeight
-      this.optionInner.style.marginTop = `${scrollTop * h}px`
-    }
-
-    let index = Math.floor(this.lastScrollTop / lineHeight) - 1
-    if (data.length - itemsInView < index) index = data.length - itemsInView
-    if (index < 0) index = 0
-
-    setTranslate(this.optionInner, '0px', `-${this.lastScrollTop + (scrollTop * h)}px`)
-
-    this.setState({ scrollTop, currentIndex: index })
-  }
-
   handleEnter() {
-    const { hoverIndex } = this.state
+    const { hoverIndex } = this.optionList.state
     const data = this.props.data[hoverIndex]
     if (data) {
       const checked = !this.props.datum.check(data)
@@ -259,14 +187,17 @@ class Select extends PureComponent {
 
   handleKeyDown(e) {
     this.keyLocked = true
-    // e.preventDefault()
+    this.handleControlChange('keyboard')
+
     switch (e.keyCode) {
       case 38:
-        this.hoverMove(-1)
+        // this.hoverMove(-1)
+        this.optionList.hoverMove(-1)
         e.preventDefault()
         break
       case 40:
-        this.hoverMove(1)
+        // this.hoverMove(1)
+        this.optionList.hoverMove(1)
         e.preventDefault()
         break
       case 13:
@@ -279,11 +210,6 @@ class Select extends PureComponent {
 
   handleKeyUp() {
     this.keyLocked = false
-  }
-
-  handleHover(index) {
-    if (this.keyLocked) return
-    this.setState({ hoverIndex: index })
   }
 
   // result performance
@@ -304,57 +230,23 @@ class Select extends PureComponent {
   }
 
   renderOptions() {
-    const {
-      data, datum, keygen, multiple, itemsInView, lineHeight, height, loading,
-    } = this.props
-    const { focus, hoverIndex, currentIndex } = this.state
-
-    let scroll = ''
-    if (height < lineHeight * data.length) {
-      scroll = 'y'
-    }
+    const { focus, control, currentIndex } = this.state
+    const props = {};
+    (['data', 'datum', 'keygen', 'multiple', 'text', 'itemsInView', 'lineHeight', 'height', 'loading'])
+      .forEach((k) => { props[k] = this.props[k] })
 
     return (
-      <ScaleList show={focus} className={selectClass('options')}>
-        {
-          // eslint-disable-next-line
-          loading ?
-            <span className={selectClass('option')}>
-              {typeof loading === 'boolean' ? <Spin size={20} /> : loading}
-            </span>
-            : (data.length === 0 || !this.firstFocused
-              ? <span className={selectClass('option')}>{this.getText('noData')}</span>
-              : (
-                <Scroll
-                  scroll={scroll}
-                  style={{ height: scroll ? height : undefined }}
-                  onScroll={this.handleScroll}
-                  scrollHeight={data.length * lineHeight}
-                  scrollTop={this.state.scrollTop}
-                >
-                  <div ref={(el) => { this.optionInner = el }}>
-                    <div style={{ height: currentIndex * lineHeight }} />
-                    {
-                      data.slice(currentIndex, currentIndex + itemsInView).map((d, i) => (
-                        <Option
-                          isActive={datum.check(d)}
-                          isHover={hoverIndex === currentIndex + i}
-                          key={getKey(d, keygen, i)}
-                          index={currentIndex + i}
-                          data={d}
-                          multiple={multiple}
-                          onClick={this.handleChange}
-                          renderItem={this.renderItem}
-                          onHover={this.handleHover}
-                        />
-                      ))
-                    }
-                  </div>
-                </Scroll>
-              )
-            )
-        }
-      </ScaleList>
+      <OptionList
+        {...props}
+        ref={this.bindOptionList}
+        disabled={!this.firstFocused}
+        focus={focus}
+        control={control}
+        onControlChange={this.handleControlChange}
+        currentIndex={currentIndex}
+        onChange={this.handleChange}
+        renderItem={this.renderItem}
+      />
     )
   }
 

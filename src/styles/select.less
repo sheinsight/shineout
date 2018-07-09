@@ -144,13 +144,25 @@
       background-color: @dropdown-link-active-bg;
     }
 
-    // &:hover, &.@{select-prefix}-hover {
-    &.@{select-prefix}-hover {
-      text-decoration: none;
-      color: @dropdown-link-hover-color;
-      background-color: @dropdown-link-hover-bg;
+    &:hover {
+      color: @dropdown-link-color;
     }
+  }
 
+  &-control-mouse &-option:hover {
+    text-decoration: none;
+    color: @dropdown-link-hover-color;
+    background-color: @dropdown-link-hover-bg;
+  }
+
+  &-control-keyboard &-option.@{select-prefix}-hover {
+    text-decoration: none;
+    color: @dropdown-link-hover-color;
+    background-color: @dropdown-link-hover-bg;
+  }
+
+  &-control-keyboard &-option {
+    cursor: none;
   }
   
   span&-option {
