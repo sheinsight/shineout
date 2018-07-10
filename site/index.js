@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-
 import './verdor'
 import './styles/index.less'
 import App from './App'
