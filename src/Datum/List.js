@@ -9,9 +9,20 @@ export default class {
     this.distinct = distinct
     this.limit = limit
     this.separator = separator
-    this.disabled = disabled || (() => false)
     this.initFormat(format)
     this.$events = {}
+
+    this.trueDisabled = disabled
+    this.disabled = (...obj) => {
+      switch (typeof disabled) {
+        case 'boolean':
+          return disabled
+        case 'function':
+          return disabled(...obj)
+        default:
+          return false
+      }
+    }
 
     if (prediction) this.prediction = prediction
     /*

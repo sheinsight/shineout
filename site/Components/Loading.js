@@ -8,7 +8,7 @@ function Loading({ style }) {
       style={Object.assign({
         display: 'flex',
         width: '100%',
-        height: '100%',
+        height: 300,
       }, style)}
     >
       <Spin type="fading-circle" size={50} color="rgba(0,0,0,0.5)" />

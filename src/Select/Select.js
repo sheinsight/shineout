@@ -140,6 +140,8 @@ class Select extends PureComponent {
     } = this.props
     if (disabled) return
 
+    console.log(checked, data)
+
     if (multiple) {
       if (checked) {
         datum.add(data)
@@ -163,6 +165,10 @@ class Select extends PureComponent {
 
   handleInputFocus() {
     this.inputLocked = true
+    if (this.props.inputable) {
+      this.optionList.handleHover(0, true)
+      this.handleControlChange('keyboard')
+    }
   }
 
   handleClear() {
@@ -191,12 +197,10 @@ class Select extends PureComponent {
 
     switch (e.keyCode) {
       case 38:
-        // this.hoverMove(-1)
         this.optionList.hoverMove(-1)
         e.preventDefault()
         break
       case 40:
-        // this.hoverMove(1)
         this.optionList.hoverMove(1)
         e.preventDefault()
         break
@@ -230,10 +234,16 @@ class Select extends PureComponent {
   }
 
   renderOptions() {
-    const { focus, control, currentIndex } = this.state
+    const {
+      focus, control, currentIndex, position,
+    } = this.state
+
     const props = {};
-    (['data', 'datum', 'keygen', 'multiple', 'text', 'itemsInView', 'lineHeight', 'height', 'loading'])
+    (['data', 'datum', 'keygen', 'multiple', 'text', 'itemsInView', 'fixed', 'lineHeight', 'height', 'loading'])
       .forEach((k) => { props[k] = this.props[k] })
+
+    let rect
+    if (this.props.fixed && this.element) rect = this.element.getBoundingClientRect()
 
     return (
       <OptionList
@@ -246,6 +256,8 @@ class Select extends PureComponent {
         currentIndex={currentIndex}
         onChange={this.handleChange}
         renderItem={this.renderItem}
+        rect={rect}
+        position={position}
       />
     )
   }

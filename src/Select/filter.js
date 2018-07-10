@@ -64,6 +64,6 @@ export default Origin => class extends PureComponent {
     if (innerFilter) newData = data.filter(d => innerFilter(d))
     if (innerData) newData = [innerData, ...newData]
 
-    return <Origin {...other} data={newData} onFilter={filterFn} />
+    return <Origin {...other} inputable={!!onCreate} data={newData} onFilter={filterFn} />
   }
 }

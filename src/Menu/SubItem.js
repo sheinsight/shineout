@@ -23,6 +23,8 @@ class SubMenu extends PureComponent {
     this.bindRef = this.bindRef.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
     this.handleHide = this.handleHide.bind(this)
+
+    this.titleHeight = 0
   }
 
   getTitleHeight(ref) {

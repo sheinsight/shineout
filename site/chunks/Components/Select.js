@@ -85,6 +85,12 @@ const examples = [
     component: require('doc/pages/components/Select/example-12-create.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-12-create.js'),
   },
+  {
+    name: '13-fixed',
+    title: locate('浮动', 'Fixed'),
+    component: require('doc/pages/components/Select/example-13-fixed.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-13-fixed.js'),
+  },
 ]
 
 const codes = undefined

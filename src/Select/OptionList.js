@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import { getKey } from '../utils/uid'
 import { setTranslate } from '../utils/dom/translate'
@@ -10,6 +11,10 @@ import { selectClass } from '../styles'
 import Option from './Option'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
+
+const root = document.createElement('div')
+root.className = selectClass('root')
+document.body.appendChild(root)
 
 class OptionList extends Component {
   constructor(props) {
@@ -26,6 +31,18 @@ class OptionList extends Component {
     this.handleHover = this.handleHover.bind(this)
     this.handleScroll = this.handleScroll.bind(this)
     this.handleMouseMove = this.handleMouseMove.bind(this)
+
+    this.isFixed = props.fixed
+    this.element = document.createElement('div')
+    this.element.className = selectClass('fixed-wrapper')
+  }
+
+  componentDidMount() {
+    if (this.isFixed) root.appendChild(this.element)
+  }
+
+  componentWillUnmount() {
+    if (this.isFixed) root.removeChild(this.element)
   }
 
   getText(key) {
@@ -110,8 +127,8 @@ class OptionList extends Component {
     this.setState({ scrollTop, currentIndex: index })
   }
 
-  handleHover(index) {
-    if (this.props.control === 'mouse') {
+  handleHover(index, force) {
+    if ((this.props.control === 'mouse' || force) && this.state.hoverIndex !== index) {
       this.setState({ hoverIndex: index })
     }
   }
@@ -120,10 +137,10 @@ class OptionList extends Component {
     this.props.onControlChange('mouse')
   }
 
-  render() {
+  renderList() {
     const {
       data, datum, keygen, multiple, itemsInView, lineHeight, height, control,
-      loading, renderItem, focus, disabled, onChange,
+      loading, renderItem, focus, disabled, onChange, rect,
     } = this.props
     const { hoverIndex, currentIndex } = this.state
 
@@ -132,10 +149,19 @@ class OptionList extends Component {
       scroll = 'y'
     }
 
+    const style = {}
+    if (this.isFixed && rect) {
+      style.position = 'absolute'
+      style.width = rect.width
+      style.left = rect.left
+      style.top = rect.top
+    }
+
     return (
       <ScaleList
         show={focus}
         onMouseMove={this.handleMouseMove}
+        style={style}
         className={selectClass('options', `control-${control}`)}
       >
         {
@@ -179,6 +205,14 @@ class OptionList extends Component {
       </ScaleList>
     )
   }
+
+  render() {
+    const list = this.renderList()
+
+    if (this.isFixed) return ReactDOM.createPortal(list, this.element)
+
+    return list
+  }
 }
 
 OptionList.propTypes = {
@@ -186,6 +220,7 @@ OptionList.propTypes = {
   data: PropTypes.array,
   datum: PropTypes.object.isRequired,
   disabled: PropTypes.bool,
+  fixed: PropTypes.bool,
   focus: PropTypes.bool,
   height: PropTypes.number,
   itemsInView: PropTypes.number,
@@ -201,6 +236,7 @@ OptionList.propTypes = {
   multiple: PropTypes.bool,
   onControlChange: PropTypes.func,
   onChange: PropTypes.func,
+  rect: PropTypes.object,
   renderItem: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.func,
