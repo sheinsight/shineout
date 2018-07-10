@@ -3,10 +3,18 @@ import PropTypes from 'prop-types'
 import immer from 'immer'
 import PureComponent from '../PureComponent'
 import { getProps } from '../utils/proptypes'
+import { getUidStr } from '../utils/uid'
 import { selectClass } from '../styles'
 import Result from './Result'
 import { getLocale } from '../locale'
 import OptionList from './OptionList'
+
+const isDescendent = (el, id) => {
+  if (el.getAttribute('data-id') === id) return true
+  if (!el.parentElement) console.log(id, el)
+  if (!el.parentElement) return false
+  return isDescendent(el.parentElement, id)
+}
 
 class Select extends PureComponent {
   constructor(props) {
@@ -17,8 +25,6 @@ class Select extends PureComponent {
       focus: false,
       result: [],
       position: 'drop-down',
-      scrollTop: 0,
-      currentIndex: 0,
     }
 
     this.bindElement = this.bindElement.bind(this)
@@ -34,6 +40,7 @@ class Select extends PureComponent {
     this.handleKeyUp = this.handleKeyUp.bind(this)
     this.handleInputFocus = this.handleInputFocus.bind(this)
     this.handleControlChange = this.handleControlChange.bind(this)
+    this.handleClickAway = this.handleClickAway.bind(this)
 
     this.resetResult = this.resetResult.bind(this)
     this.renderItem = this.renderItem.bind(this)
@@ -43,9 +50,10 @@ class Select extends PureComponent {
     }
     props.datum.listen('set-value', this.resetResult)
 
-    this.lastScrollTop = 0
     // option list not render till first focused
-    this.firstFocused = false
+    this.renderPending = true
+
+    this.selectId = `select_${getUidStr()}`
   }
 
   componentDidMount() {
@@ -55,14 +63,8 @@ class Select extends PureComponent {
   componentDidUpdate(prevProps, prevState) {
     const { data, onFilter } = this.props
 
-    if (data !== prevProps.data) {
-      this.lastScrollTop = 0
-      setTimeout(() => {
-        this.setState({ scrollTop: 0 })
-      })
-      if (this.state.result.length === 0) {
-        this.resetResult()
-      }
+    if (data !== prevProps.data && this.state.result.length === 0) {
+      this.resetResult()
     }
     // clear filter
     if (prevState.focus !== this.state.focus && !this.state.focus && onFilter) {
@@ -72,14 +74,8 @@ class Select extends PureComponent {
     }
   }
 
-  getIndex() {
-    const { data, itemsInView } = this.props
-    const { scrollTop } = this.state
-    const max = data.length
-    let index = Math.ceil((scrollTop * max) - (itemsInView * scrollTop))
-    if (index > max - itemsInView) index = max - itemsInView
-    if (index < 0) index = 0
-    return index
+  componentWillUnmount() {
+    this.clearClickAway()
   }
 
   getText(key) {
@@ -98,24 +94,25 @@ class Select extends PureComponent {
     this.optionList = el
   }
 
-  handleState(focus, event, force) {
-    if (this.props.disabled) return
+  bindClickAway() {
+    document.addEventListener('click', this.handleClickAway)
+  }
 
-    if (focus === this.state.focus) return
+  clearClickAway() {
+    document.removeEventListener('click', this.handleClickAway)
+  }
 
-    const classList = (event.target.className || '').split(' ')
-    if (classList.indexOf(selectClass('option')) >= 0) return
-    if (classList.indexOf(selectClass('close')) >= 0) return
-
-    if (!focus && this.inputLocked) {
-      this.inputLocked = false
-      return
+  handleClickAway(e) {
+    const desc = isDescendent(e.target, this.selectId)
+    if (!desc) {
+      console.log(desc, e.target, this.selectId)
     }
+    if (!desc) this.handleState(false)
+  }
 
-    // prevent input blur
-    if (classList.indexOf(selectClass('input')) >= 0 && !force) return
-
-    if (focus) this.firstFocused = true
+  handleState(focus) {
+    if (this.props.disabled) return
+    if (focus === this.state.focus) return
 
     const { onBlur, onFocus, height } = this.props
     let { position } = this.props
@@ -126,10 +123,13 @@ class Select extends PureComponent {
     this.setState({ focus, position: position || 'drop-down' })
 
     if (focus) {
+      this.bindClickAway()
+      this.renderPending = false
       onFocus()
     } else {
-      onBlur()
       this.optionList.handleHover(undefined)
+      this.clearClickAway()
+      onBlur()
     }
   }
 
@@ -142,8 +142,6 @@ class Select extends PureComponent {
       datum, multiple, disabled, onFilter,
     } = this.props
     if (disabled) return
-
-    console.log(checked, data)
 
     if (multiple) {
       if (checked) {
@@ -160,17 +158,14 @@ class Select extends PureComponent {
     } else {
       datum.set(data)
       this.setState({ result: [data] })
-      this.handleState(false, { target: {} }, true)
+      this.handleState(false)
     }
-
-    this.forceUpdate()
   }
 
   handleInputFocus() {
     this.inputLocked = true
-    if (this.props.inputable) {
+    if (this.props.inputable && this.state.control === 'keyboard') {
       this.optionList.handleHover(0, true)
-      this.handleControlChange('keyboard')
     }
   }
 
@@ -237,29 +232,24 @@ class Select extends PureComponent {
   }
 
   renderOptions() {
-    const {
-      focus, control, currentIndex, position,
-    } = this.state
+    const { focus, control, position } = this.state
 
     const props = {};
-    (['data', 'datum', 'keygen', 'multiple', 'text', 'itemsInView', 'fixed', 'lineHeight', 'height', 'loading'])
+    (['data', 'datum', 'keygen', 'multiple', 'text', 'itemsInView', 'absolute', 'lineHeight', 'height', 'loading'])
       .forEach((k) => { props[k] = this.props[k] })
-
-    let rect
-    if (this.props.fixed && this.element) rect = this.element.getBoundingClientRect()
 
     return (
       <OptionList
         {...props}
         ref={this.bindOptionList}
-        disabled={!this.firstFocused}
+        renderPending={this.renderPending}
         focus={focus}
         control={control}
+        selectId={this.selectId}
         onControlChange={this.handleControlChange}
-        currentIndex={currentIndex}
         onChange={this.handleChange}
         renderItem={this.renderItem}
-        rect={rect}
+        parentElement={this.element}
         position={position}
       />
     )
@@ -284,8 +274,8 @@ class Select extends PureComponent {
         tabIndex={-1}
         ref={this.bindElement}
         className={className}
+        data-id={this.selectId}
         onClick={this.handleFocus}
-        onBlur={this.handleBlur}
         onKeyDown={this.handleKeyDown}
         onKeyUp={this.handleKeyUp}
       >
@@ -300,7 +290,7 @@ class Select extends PureComponent {
           placeholder={placeholder}
           renderResult={renderResult}
           onInputFocus={this.handleInputFocus}
-          onInputBlur={this.handleBlur}
+          // onInputBlur={this.handleBlur}
           setInputReset={this.setInputReset}
         />
         { !disabled && this.renderOptions() }

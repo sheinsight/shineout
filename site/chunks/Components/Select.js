@@ -86,10 +86,10 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Select/example-12-create.js'),
   },
   {
-    name: '13-fixed',
-    title: locate('浮动', 'Fixed'),
-    component: require('doc/pages/components/Select/example-13-fixed.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Select/example-13-fixed.js'),
+    name: '13-absolute',
+    title: locate('绝对定位 \n 如果选项弹出层的父容器被遮挡，可以设置 absolute 属性使弹出选项在单独层中渲染。（非必要情况下不建议）', 'Absolute'),
+    component: require('doc/pages/components/Select/example-13-absolute.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-13-absolute.js'),
   },
 ]
 

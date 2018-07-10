@@ -8,7 +8,6 @@ class FilterInput extends PureComponent {
 
     this.bindElement = this.bindElement.bind(this)
     this.handleInput = this.handleInput.bind(this)
-    this.handleBlur = this.handleBlur.bind(this)
 
     // for mutiple select
     this.props.setInputReset(this.reset.bind(this))
@@ -56,14 +55,6 @@ class FilterInput extends PureComponent {
     this.props.onFilter(e.target.innerText.replace('\feff ', '').trim())
   }
 
-  handleBlur(e) {
-    const evt = { target: e.target }
-
-    this.blurTimer = setTimeout(() => {
-      this.props.onInputBlur(evt, true)
-    }, 200)
-  }
-
   render() {
     const { text, focus } = this.props
     const value = typeof text === 'string' ? text.replace(/<\/?[^>]*>/g, '') : text
@@ -75,7 +66,6 @@ class FilterInput extends PureComponent {
         ref={this.bindElement}
         contentEditable={focus}
         onInput={this.handleInput}
-        onBlur={this.handleBlur}
         dangerouslySetInnerHTML={{ __html: value }}
       />
     )
@@ -86,7 +76,6 @@ FilterInput.propTypes = {
   focus: PropTypes.bool.isRequired,
   onFilter: PropTypes.func.isRequired,
   onInputFocus: PropTypes.func.isRequired,
-  onInputBlur: PropTypes.func.isRequired,
   setInputReset: PropTypes.func.isRequired,
   text: PropTypes.string,
 }

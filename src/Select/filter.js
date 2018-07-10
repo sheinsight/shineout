@@ -15,7 +15,7 @@ export default Origin => class extends PureComponent {
 
   static defaultProps = {
     data: [],
-    filterDelay: 400,
+    filterDelay: 300,
   }
 
   constructor(props) {
@@ -33,6 +33,7 @@ export default Origin => class extends PureComponent {
     // not filter
     if (!text) {
       this.setState({ innerFilter: undefined, innerData: undefined })
+      if (this.timer) clearTimeout(this.timer)
       return
     }
 

@@ -24,7 +24,7 @@ class App extends PureComponent {
 
       if (this.lastPath !== path) {
         // document.body.scrollIntoView()
-        document.body.parentElement.scrollTop = 0
+        document.documentElement.scrollTop = 0
         this.lastPath = path
       }
 

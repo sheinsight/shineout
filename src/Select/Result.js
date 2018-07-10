@@ -15,6 +15,18 @@ function Item({ renderResult, data, onClick }) {
 }
 
 class Result extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.handleRemove = this.handleRemove.bind(this)
+  }
+
+  handleRemove(...args) {
+    const { onRemove } = this.props
+    setTimeout(() => {
+      onRemove(...args)
+    }, 10)
+  }
+
   renderClear() {
     const { onClear, result, disabled } = this.props
 
@@ -36,13 +48,12 @@ class Result extends PureComponent {
 
   renderInput(text, key = 'input') {
     const {
-      multiple, onFilter, focus, onInputFocus, onInputBlur, setInputReset,
+      multiple, onFilter, focus, onInputFocus, setInputReset,
     } = this.props
     return (
       <Input
         key={key}
         onInputFocus={onInputFocus}
-        onInputBlur={onInputBlur}
         multiple={multiple}
         focus={focus}
         text={text}
@@ -68,12 +79,12 @@ class Result extends PureComponent {
 
   renderResult() {
     const {
-      multiple, result, renderResult, onRemove, onFilter, focus,
+      multiple, result, renderResult, onFilter, focus,
     } = this.props
 
     if (multiple) {
       const items = result.map((d, i) => (
-        <Item key={i} data={d} onClick={onRemove} renderResult={renderResult} />
+        <Item key={i} data={d} onClick={this.handleRemove} renderResult={renderResult} />
       ))
 
       if (focus && onFilter) {
@@ -121,7 +132,6 @@ Result.propTypes = {
   onClear: PropTypes.func,
   onFilter: PropTypes.func,
   onInputFocus: PropTypes.func,
-  onInputBlur: PropTypes.func,
   result: PropTypes.array.isRequired,
   renderResult: PropTypes.func.isRequired,
   placeholder: PropTypes.string,

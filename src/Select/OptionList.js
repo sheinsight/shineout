@@ -32,17 +32,29 @@ class OptionList extends Component {
     this.handleScroll = this.handleScroll.bind(this)
     this.handleMouseMove = this.handleMouseMove.bind(this)
 
-    this.isFixed = props.fixed
-    this.element = document.createElement('div')
-    this.element.className = selectClass('fixed-wrapper')
+    this.isAbsolute = props.absolute
+    this.lastScrollTop = 0
+
+    if (this.isAbsolute) {
+      this.element = document.createElement('div')
+      this.element.className = selectClass('absolute-wrapper')
+    }
   }
 
   componentDidMount() {
-    if (this.isFixed) root.appendChild(this.element)
+    if (this.isAbsolute) root.appendChild(this.element)
+  }
+
+  componentDidUpdate(prevProps) {
+    const { data } = this.props
+    if (data !== prevProps.data) {
+      this.lastScrollTop = 0
+      setTimeout(() => { this.setState({ hoverIndex: 0, scrollTop: 0 }) })
+    }
   }
 
   componentWillUnmount() {
-    if (this.isFixed) root.removeChild(this.element)
+    if (this.isAbsolute) root.removeChild(this.element)
   }
 
   getText(key) {
@@ -52,7 +64,6 @@ class OptionList extends Component {
   hoverMove(step) {
     const max = this.props.data.length
     const { lineHeight, height } = this.props
-    // eslint-disable-next-line
     let { hoverIndex, currentIndex } = this.state
     if (hoverIndex === undefined) hoverIndex = currentIndex
     else hoverIndex += step
@@ -68,7 +79,7 @@ class OptionList extends Component {
     const emptyHeight = (hoverIndex * lineHeight) + offset
 
     if (emptyHeight < this.lastScrollTop + offset) {
-      // fixed at top
+      // absolute at top
 
       this.optionInner.style.marginTop = `${offset}px`
       setTranslate(this.optionInner, '0px', `-${emptyHeight}px`)
@@ -78,7 +89,7 @@ class OptionList extends Component {
       if (currentIndex < 0) currentIndex = max
       this.setState({ currentIndex, scrollTop: emptyHeight / (lineHeight * max) })
     } else if (emptyHeight + lineHeight > this.lastScrollTop + offset + height) {
-      // fixed at bottom
+      // absolute at bottom
 
       this.optionInner.style.marginTop = `${offset}px`
       const scrollHeight = (emptyHeight + lineHeight) - height
@@ -140,21 +151,29 @@ class OptionList extends Component {
   renderList() {
     const {
       data, datum, keygen, multiple, itemsInView, lineHeight, height, control,
-      loading, renderItem, focus, disabled, onChange, rect,
+      loading, renderItem, focus, onChange, parentElement, position, renderPending, selectId,
     } = this.props
     const { hoverIndex, currentIndex } = this.state
 
     let scroll = ''
-    if (height < lineHeight * data.length) {
+    let scrollHeight = lineHeight * data.length
+    if (height < scrollHeight) {
       scroll = 'y'
+      scrollHeight = height
     }
 
     const style = {}
-    if (this.isFixed && rect) {
+    if (this.isAbsolute && parentElement) {
+      const rect = parentElement.getBoundingClientRect()
       style.position = 'absolute'
       style.width = rect.width
-      style.left = rect.left
-      style.top = rect.top
+      style.left = rect.left + document.documentElement.scrollLeft
+      if (position === 'drop-down') {
+        style.top = rect.top + rect.height + document.documentElement.scrollTop
+      } else {
+        style.bottom = -(rect.top + document.documentElement.scrollTop)
+      }
+      this.element.className = selectClass('absolute-wrapper', this.props.position)
     }
 
     return (
@@ -162,6 +181,7 @@ class OptionList extends Component {
         show={focus}
         onMouseMove={this.handleMouseMove}
         style={style}
+        data-id={selectId}
         className={selectClass('options', `control-${control}`)}
       >
         {
@@ -170,7 +190,7 @@ class OptionList extends Component {
             <span className={selectClass('option')}>
               {typeof loading === 'boolean' ? <Spin size={20} /> : loading}
             </span>
-            : (data.length === 0 || disabled
+            : (data.length === 0 || renderPending
               ? <span className={selectClass('option')}>{this.getText('noData')}</span>
               : (
                 <Scroll
@@ -209,7 +229,7 @@ class OptionList extends Component {
   render() {
     const list = this.renderList()
 
-    if (this.isFixed) return ReactDOM.createPortal(list, this.element)
+    if (this.isAbsolute) return ReactDOM.createPortal(list, this.element)
 
     return list
   }
@@ -219,8 +239,7 @@ OptionList.propTypes = {
   control: PropTypes.oneOf(['mouse', 'keyboard']),
   data: PropTypes.array,
   datum: PropTypes.object.isRequired,
-  disabled: PropTypes.bool,
-  fixed: PropTypes.bool,
+  absolute: PropTypes.bool,
   focus: PropTypes.bool,
   height: PropTypes.number,
   itemsInView: PropTypes.number,
@@ -236,11 +255,14 @@ OptionList.propTypes = {
   multiple: PropTypes.bool,
   onControlChange: PropTypes.func,
   onChange: PropTypes.func,
-  rect: PropTypes.object,
+  position: PropTypes.string,
+  parentElement: PropTypes.object,
   renderItem: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.func,
   ]),
+  renderPending: PropTypes.bool,
+  selectId: PropTypes.string,
   text: PropTypes.object,
 }
 
