@@ -7,6 +7,7 @@ class Input extends PureComponent {
     super(props)
     this.handleChange = this.handleChange.bind(this)
     this.handleKeyUp = this.handleKeyUp.bind(this)
+    this.handleBlur = this.handleBlur.bind(this)
   }
 
   invalidNumber(value) {
@@ -38,9 +39,18 @@ class Input extends PureComponent {
     if (onKeyUp) onKeyUp(e)
   }
 
+  handleBlur(e) {
+    const { value } = e.target
+    const { forceChange, onBlur } = this.props
+    if (onBlur) onBlur(e)
+    if (this.invalidNumber(value)) return
+    if (forceChange) forceChange(value)
+  }
+
   render() {
     const {
-      type, value, defaultValue, digits, className, htmlName, onEnterPress, ...other
+      type, value, defaultValue, digits, className, htmlName,
+      forceChange, onEnterPress, ...other
     } = this.props
 
     return (
@@ -52,6 +62,7 @@ class Input extends PureComponent {
         value={value}
         onChange={this.handleChange}
         onKeyUp={this.handleKeyUp}
+        onBlur={this.handleBlur}
       />
     )
   }
@@ -64,7 +75,9 @@ Input.propTypes = {
     PropTypes.number,
   ]),
   digits: PropTypes.number,
+  forceChange: PropTypes.func,
   htmlName: PropTypes.string,
+  onBlur: PropTypes.func,
   onChange: PropTypes.func.isRequired,
   onEnterPress: PropTypes.func,
   onKeyUp: PropTypes.func,

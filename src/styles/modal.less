@@ -12,9 +12,10 @@
   z-index: @zindex-modal;
   opacity: 0;
   transition: opacity 0.2s linear;
+  overflow: auto;
 
   &-panel {
-    margin: 0 auto;
+    margin: 0 auto 10vh;
     transition: transform 0.2s linear;
     transform: translateY(-100px);
   }
@@ -83,7 +84,7 @@
   &-mask {
     top:0;
     left:0;
-    position: fixed;
+    position: absolute;
     width: 100%;
     height: 100%;
   }

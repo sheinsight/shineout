@@ -36,7 +36,7 @@ export default class Panel extends PureComponent {
 
   render() {
     const {
-      footer, title, type, maskOpacity, onClose, maskCloseAble,
+      footer, title, type, onClose, maskCloseAble,
     } = this.props
 
     const className = classnames(
@@ -47,7 +47,7 @@ export default class Panel extends PureComponent {
     return [
       <div
         key="mask"
-        style={{ background: `rgba(0, 0, 0, ${maskOpacity})` }}
+        // style={{ background: `rgba(0, 0, 0, ${maskOpacity})` }}
         className={modalClass('mask')}
         onClick={maskCloseAble ? onClose : undefined}
       />,
@@ -79,7 +79,6 @@ Panel.propTypes = {
   ...getProps(PropTypes),
   footer: PropTypes.any,
   id: PropTypes.string.isRequired,
-  maskOpacity: PropTypes.number,
   maskCloseAble: PropTypes.bool,
   onClose: PropTypes.func,
   title: PropTypes.oneOfType([
@@ -96,7 +95,6 @@ Panel.propTypes = {
 Panel.defaultProps = {
   ...defaultProps,
   top: '10vh',
-  maskOpacity: 0.25,
   maskCloseAble: true,
   width: 500,
 }

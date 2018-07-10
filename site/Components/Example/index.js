@@ -27,7 +27,7 @@ export default class Example extends PureComponent {
     }
 
     const [title] = props.title.split('\n')
-    this.id = `h_${hash(title)}`
+    this.id = `h-${hash(title)}`
     props.appendHeading({
       id: this.id,
       level: 3,

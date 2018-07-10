@@ -25,7 +25,7 @@ class Table extends PureComponent {
 
   render() {
     const {
-      striped, bordered, size, hover, height, columns,
+      striped, bordered, size, hover, height, columns, value,
       data, style, fixed, width, loading, ...others
     } = this.props
 

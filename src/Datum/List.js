@@ -62,6 +62,9 @@ export default class {
   add(data) {
     if (data === undefined || data === null) return
 
+    // clear value
+    if (this.limit === 1) this.$values = []
+
     let raws = Array.isArray(data) ? data : [data]
     raws = raws.filter((v) => {
       const disabled = this.disabled(v)

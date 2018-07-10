@@ -12,6 +12,7 @@ class Textarea extends PureComponent {
     }
 
     this.bindShadow = this.bindShadow.bind(this)
+    this.handleBlur = this.handleBlur.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
@@ -27,6 +28,13 @@ class Textarea extends PureComponent {
       const height = this.shadow.scrollHeight
       this.setState({ height })
     }
+  }
+
+  handleBlur(e) {
+    const { value } = e.target
+    const { forceChange, onBlur } = this.props
+    if (onBlur) onBlur(e)
+    forceChange(value)
   }
 
   render() {
@@ -63,8 +71,10 @@ class Textarea extends PureComponent {
 
 Textarea.propTypes = {
   autosize: PropTypes.bool,
-  rows: PropTypes.number,
+  forceChange: PropTypes.func,
+  onBlur: PropTypes.func,
   onChange: PropTypes.func.isRequired,
+  rows: PropTypes.number,
   value: PropTypes.string,
 }
 
