@@ -12,7 +12,6 @@ export default class {
     this.initFormat(format)
     this.$events = {}
 
-    this.trueDisabled = disabled
     this.disabled = (...obj) => {
       switch (typeof disabled) {
         case 'boolean':

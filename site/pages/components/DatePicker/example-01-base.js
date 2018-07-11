@@ -7,6 +7,9 @@ import { DatePicker } from 'shineout'
 
 export default function () {
   return (
-    <DatePicker placeholder="Select date" />
+    <DatePicker
+      placeholder="Select date"
+      onChange={v => console.log(v)}
+    />
   )
 }

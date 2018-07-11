@@ -6,14 +6,6 @@ import Sorter from './Sorter'
 import CheckboxAll from './CheckboxAll'
 
 class Thead extends PureComponent {
-  static propTypes = {
-    columns: PropTypes.array.isRequired,
-    data: PropTypes.array,
-    onSortChange: PropTypes.func,
-    sorter: PropTypes.object,
-    datum: PropTypes.object,
-  }
-
   setColumns(columns, col, level) {
     if (!col.group) {
       columns.push(col)
@@ -59,7 +51,7 @@ class Thead extends PureComponent {
     if (col.lastFixed) fixed.push('fixed-last')
 
     const {
-      sorter, onSortChange, data, datum,
+      sorter, onSortChange, data, datum, showSelectAll,
     } = this.props
 
     if (col.title) {
@@ -83,7 +75,7 @@ class Thead extends PureComponent {
     if (col.type === 'checkbox') {
       trs[level].push((
         <th key="checkbox" rowSpan={trs.length} className={tableClass('checkbox', ...fixed)}>
-          <CheckboxAll data={data} datum={datum} />
+          {showSelectAll && <CheckboxAll data={data} datum={datum} />}
         </th>
       ))
 
@@ -142,6 +134,19 @@ class Thead extends PureComponent {
       </thead>
     )
   }
+}
+
+Thead.propTypes = {
+  columns: PropTypes.array.isRequired,
+  data: PropTypes.array,
+  datum: PropTypes.object,
+  onSortChange: PropTypes.func,
+  sorter: PropTypes.object,
+  showSelectAll: PropTypes.bool,
+}
+
+Thead.defaultProps = {
+  showSelectAll: true,
 }
 
 export default Thead

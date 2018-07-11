@@ -42,6 +42,10 @@ router.get('/', async (ctx) => {
   ctx.body = await ejs.renderFile('./site/index.html', { scripts, appName: config.appName, styles })
 })
 
+router.get('/old', async (ctx) => {
+  await send(ctx, './site/16.2.html')
+})
+
 // use devlopment version React
 router.get('**/react.production.min.js', async (ctx) => {
   await send(ctx, 'node_modules/react/umd/react.development.js')

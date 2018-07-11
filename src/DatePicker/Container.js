@@ -138,10 +138,10 @@ class Container extends PureComponent {
     if (this.props.range) value = date.map(v => utils.format(v, format))
     else value = utils.format(date, format)
 
-    if (change) this.props.onChange(value)
-    else this.setState({ current: date })
+    const callback = blur ? () => { this.element.blur() } : undefined
 
-    if (blur) this.element.blur()
+    if (change) this.props.onChange(value, callback)
+    else this.setState({ current: date }, callback)
   }
 
   handleClear() {
