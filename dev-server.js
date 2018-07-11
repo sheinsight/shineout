@@ -33,6 +33,11 @@ const app = new Koa()
 const router = new Router()
 
 router.get('/', async (ctx) => {
+  const reactVersion = ctx.query.v
+  if (reactVersion) {
+    ctx.body = await ejs.renderFile('./site/index-v.html', { version: reactVersion })
+    return
+  }
   const prepath = config.dev.scriptPath.replace('**', version)
   const scripts = [
     ...(config.dev.scripts || []),
@@ -40,10 +45,6 @@ router.get('/', async (ctx) => {
   ]
   const styles = config.dev.styles || []
   ctx.body = await ejs.renderFile('./site/index.html', { scripts, appName: config.appName, styles })
-})
-
-router.get('/old', async (ctx) => {
-  await send(ctx, './site/16.2.html')
 })
 
 // use devlopment version React
