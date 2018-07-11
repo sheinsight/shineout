@@ -293,7 +293,7 @@ class Select extends PureComponent {
           // onInputBlur={this.handleBlur}
           setInputReset={this.setInputReset}
         />
-        { !disabled && this.renderOptions() }
+        { this.renderOptions() }
       </div>
     )
   }

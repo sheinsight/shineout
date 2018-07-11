@@ -24,9 +24,10 @@ class SeperateTable extends PureComponent {
     this.bindTbody = this.bindElement.bind(this, 'tbody')
     this.bindRealTbody = this.bindElement.bind(this, 'realTbody')
     this.bindThead = this.bindElement.bind(this, 'thead')
+    this.setRowHeight = this.setRowHeight.bind(this)
     this.handleColgroup = this.handleColgroup.bind(this)
     this.handleScroll = this.handleScroll.bind(this)
-    this.setRowHeight = this.setRowHeight.bind(this)
+    this.handleSortChange = this.handleSortChange.bind(this)
 
     this.cachedRowHeight = []
     this.lastScrollTop = 0
@@ -246,6 +247,11 @@ class SeperateTable extends PureComponent {
     if (this.props.onScroll) this.props.onScroll(x, y)
   }
 
+  handleSortChange(...args) {
+    this.scrollToIndex(0)
+    this.props.onSortChange(...args)
+  }
+
   handleColgroup(tds) {
     const { columns } = this.props
     const colgroup = []
@@ -326,7 +332,7 @@ class SeperateTable extends PureComponent {
       <div key="head" className={tableClass('head', ...floatClass)}>
         <table style={{ width }} ref={this.bindThead}>
           <Colgroup colgroup={colgroup} columns={columns} />
-          <Thead {...this.props} />
+          <Thead {...this.props} onSortChange={this.handleSortChange} />
         </table>
       </div>,
       this.renderBody(floatClass),
