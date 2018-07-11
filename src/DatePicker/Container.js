@@ -174,6 +174,8 @@ class Container extends PureComponent {
     if (!value && range) value = []
 
     const isEmpty = !value || value.length === 0
+    let { clearable } = this.props
+    if (disabled === true) clearable = false
 
     return (
       <div className={datepickerClass('result')}>
@@ -187,11 +189,11 @@ class Container extends PureComponent {
             : this.renderText(value, placeholder)
         }
         <Icon
-          className={(isEmpty || disabled === true) ? '' : 'indecator'}
+          className={(isEmpty || !clearable) ? '' : 'indecator'}
           name={type === 'time' ? 'Clock' : 'Calendar'}
         />
         {
-          !isEmpty && disabled !== true &&
+          !isEmpty && clearable &&
           <Icon
             name="CloseCircle"
             className="close"
@@ -256,6 +258,7 @@ class Container extends PureComponent {
 }
 
 Container.propTypes = {
+  clearable: PropTypes.bool,
   disabled: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.func,
@@ -281,6 +284,7 @@ Container.propTypes = {
 }
 
 Container.defaultProps = {
+  clearable: true,
   placeholder: <span>&nbsp;</span>,
   position: 'left-bottom',
   type: 'date',

@@ -7,8 +7,9 @@
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | className | string | 无 | 扩展className |
+| clearable | bool | true | 是否可清空 |
 | defaultValue | string \| number \| Date \| array | 无 | 默认值 |
-| format | string | 不同type对应的默认值<br />'date': 'YYYY-MM-DD'<br />'time': 'HH:mm:ss'<br />'week': 'YYYY WW'<br />'month': 'YYYY-MM'<br />'datetime': 'YYYY-MM-DD HH:mm:ss'  | 格式化，见下表 |
+| format | string | 不同type对应的默认值<br />'date': 'YYYY-MM-dd'<br />'time': 'HH:mm:ss'<br />'week': 'YYYY WW'<br />'month': 'YYYY-MM'<br />'datetime': 'YYYY-MM-dd HH:mm:ss'  | 格式化，见下表 |
 | onChange | function(d) | | 值改变回调函数 |
 | placeholder | string \| array | 无 | 占位文字<br />range 属性不为空时，为长度为2的数组 |
 | range | bool \| number | 无 | 范围跨度，单位 **秒**，<br />为 true 时表示不限制选择范围。 |
@@ -19,7 +20,7 @@
 
 ### Format
 
-常用的 format 格式如下，完整的格式参考 [date-fns 文档](https://date-fns.org/v1.29.0/docs/format)
+常用的 format 格式如下
 
 | 格式 | 说明 | 示例 |
 | --- | --- | --- |
