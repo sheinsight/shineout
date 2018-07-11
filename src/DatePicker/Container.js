@@ -166,7 +166,9 @@ class Container extends PureComponent {
   }
 
   renderResult() {
-    const { range, placeholder, type } = this.props
+    const {
+      disabled, range, placeholder, type,
+    } = this.props
 
     let { value } = this.props
     if (!value && range) value = []
@@ -185,11 +187,11 @@ class Container extends PureComponent {
             : this.renderText(value, placeholder)
         }
         <Icon
-          className={isEmpty ? '' : 'indecator'}
+          className={(isEmpty || disabled === true) ? '' : 'indecator'}
           name={type === 'time' ? 'Clock' : 'Calendar'}
         />
         {
-          !isEmpty &&
+          !isEmpty && disabled !== true &&
           <Icon
             name="CloseCircle"
             className="close"

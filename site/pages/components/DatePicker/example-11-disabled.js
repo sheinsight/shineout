@@ -13,7 +13,7 @@ export default function () {
     <div>
       <DatePicker
         disabled={(d) => {
-          const ts = 86400000 * 10
+          const ts = 86400000 * 5
           if (d.getTime() > today + ts) return true
           if (d.getTime() < today - ts) return true
           return false
