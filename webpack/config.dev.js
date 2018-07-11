@@ -36,7 +36,7 @@ function getCompiler(name, conf) {
       filename: '[name].js',
       publicPath: getPublishPath(),
     },
-    mode: 'development',
+
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
     ],

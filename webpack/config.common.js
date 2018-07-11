@@ -1,5 +1,5 @@
 const autoprefixer = require('autoprefixer')
-const ExtractTextPlugin = require('mini-css-extract-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const webpack = require('webpack')
 
 module.exports = function getCommon(config) {
@@ -14,8 +14,6 @@ module.exports = function getCommon(config) {
 
   function getLoaderOption(name) {
     let options = [
-      ExtractTextPlugin.loader,
-
       {
         loader: 'css-loader',
         options: getCssOption(),
@@ -47,7 +45,10 @@ module.exports = function getCommon(config) {
       ])
     }
 
-    return options
+    return ExtractTextPlugin.extract({
+      fallback: 'style-loader',
+      use: options,
+    })
   }
 
   return {
@@ -56,20 +57,6 @@ module.exports = function getCommon(config) {
     resolve: {
       alias: config.alias,
       extensions: ['.js', '.json', '.jsx'],
-    },
-
-    optimization: {
-      splitChunks: {
-        cacheGroups: {
-          default: false,
-          styles: {
-            name: 'styles',
-            test: /\.(less|css)$/,
-            chunks: 'all',
-            enforce: true,
-          },
-        },
-      },
     },
 
     module: {
@@ -86,12 +73,10 @@ module.exports = function getCommon(config) {
           use: getLoaderOption('less'),
         },
 
-        /*
         {
           test: /\.css/,
           use: getLoaderOption('css'),
         },
-        */
 
         {
           test: /\.(png|jpg|jpeg|gif)$/,
@@ -128,7 +113,7 @@ module.exports = function getCommon(config) {
     plugins: [
       new ExtractTextPlugin({
         filename: `${config.extractTextPluginPath}`,
-        chunkFilename: `${config.extractTextPluginPath}`,
+        allChunks: true,
       }),
       new webpack.DefinePlugin({
         'process.env': {

@@ -7,8 +7,6 @@ module.exports = {
     webpackPort: 3001,
     scriptPath: '/*.*',
     scripts: [
-      '/babel-polyfill/7.0.0-beta.49/polyfill.min.js',
-      '/fetch/2.0.4/fetch.min.js',
       '/react/16.4.1/umd/react.production.min.js',
       '/react-dom/16.4.1/umd/react-dom.production.min.js',
       '/prop-types/15.6.0/prop-types.min.js',

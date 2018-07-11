@@ -1,5 +1,7 @@
 const path = require('path')
+const webpack = require('webpack')
 const merge = require('webpack-merge')
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const config = require('../config')
 const common = require('./config.common')
 const pkg = require('../package.json')
@@ -21,7 +23,10 @@ function getCompiler(name, conf) {
     stats: { children: false },
     entry: wf.entry,
     output: wf.output,
-    mode: 'production',
+    plugins: [
+      new UglifyJSPlugin(),
+      new webpack.optimize.ModuleConcatenationPlugin(),
+    ],
   })
 }
 

@@ -20,7 +20,6 @@ function getCompiler(name, conf) {
       library: 'Shineout',
       filename: 'Shineout.dev.js',
     },
-    mode: 'development',
   })
 }
 

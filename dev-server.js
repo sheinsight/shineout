@@ -36,7 +36,6 @@ router.get('/', async (ctx) => {
   const prepath = config.dev.scriptPath.replace('**', version)
   const scripts = [
     ...(config.dev.scripts || []),
-    '/styles.js',
     ...Object.keys(config.webpack.entry).map(s => prepath.replace('*.*', `${s}.js`)),
   ]
   const styles = config.dev.styles || []

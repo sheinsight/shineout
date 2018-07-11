@@ -12,7 +12,6 @@ async function buildHtml() {
   const styles = config.dev.styles.map(p => cdn + p)
   const dir = `gh-pages/${version}`
 
-  scripts.push('./styles.chunk.js')
   Object.keys(config.webpack.entry).forEach((s) => {
     scripts.push(`./${s}.js`)
   })
