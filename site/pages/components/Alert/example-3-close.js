@@ -2,7 +2,7 @@
  * cn - 关闭 onClose
  * en - onClose
  */
-import React, { Fragment, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
 import { Alert } from 'shineout'
 
 export default class extends PureComponent {
@@ -25,7 +25,7 @@ export default class extends PureComponent {
   render() {
     const { placeholder } = this.state
     return (
-      <Fragment>
+      <div>
         <Alert onClose>
           Alert onClose=true
         </Alert>
@@ -37,7 +37,7 @@ export default class extends PureComponent {
         {
           placeholder && <Alert type="info">{placeholder}</Alert>
         }
-      </Fragment>
+      </div>
     )
   }
 }

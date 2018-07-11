@@ -2,7 +2,7 @@
  * cn - 弹出位置
  * en - Position
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Dropdown } from 'shineout'
 
 export default function () {
@@ -39,7 +39,7 @@ export default function () {
   const width = 100
 
   return (
-    <Fragment>
+    <div>
       <Dropdown placeholder="Right Top" width={width} position="right-top" data={menu} />
 
       <Dropdown placeholder="Bottom Left" width={width} position="bottom-left" data={menu} />
@@ -57,6 +57,6 @@ export default function () {
       <Dropdown placeholder="Top Right" width={width} position="top-right" data={menu} />
 
       <Dropdown placeholder="Left Bottom" width={width} position="left-bottom" data={menu} />
-    </Fragment>
+    </div>
   )
 }

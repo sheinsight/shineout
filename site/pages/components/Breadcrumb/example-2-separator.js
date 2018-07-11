@@ -3,7 +3,7 @@
  * en - separator(string and reactNode)
  */
 
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Breadcrumb } from 'shineout'
 
 function Separator() {
@@ -20,10 +20,10 @@ const data = [{
 
 export default function () {
   return (
-    <Fragment>
+    <div>
       <Breadcrumb keygen="title" data={data} separator="|" />
       <Breadcrumb keygen={d => (`${d.title}2`)} data={data} separator={<Separator />} />
-    </Fragment>
+    </div>
   )
 }
 

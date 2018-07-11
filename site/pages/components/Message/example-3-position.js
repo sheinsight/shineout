@@ -2,7 +2,7 @@
  * cn - 位置 position
  * en - Position Center
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Button, Message } from 'shineout'
 
 export default function () {
@@ -11,9 +11,7 @@ export default function () {
   }
 
   return (
-    <Fragment>
-      <Button onClick={middle}>Show in the middle.</Button>
-    </Fragment>
+    <Button onClick={middle}>Show in the middle.</Button>
   )
 }
 

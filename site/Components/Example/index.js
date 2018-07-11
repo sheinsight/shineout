@@ -1,4 +1,4 @@
-import React, { PureComponent, createElement, Fragment } from 'react'
+import React, { PureComponent, createElement } from 'react'
 import PropTypes from 'prop-types'
 import hash from 'shineout/utils/hash'
 import classGenerate from '../../utils/classname'
@@ -89,36 +89,34 @@ export default class Example extends PureComponent {
 
     const [title, ...sub] = this.props.title.split('\n')
 
-    return (
-      <Fragment>
-        <div id={this.id} className={exampleClass('title')}>
-          {title}
-          {
-            sub.length > 0 &&
-            <div className={exampleClass('sub-title')}>
-              {
-                // eslint-disable-next-line
-                sub.map((s, i) => <div key={i} dangerouslySetInnerHTML={{ __html: s }} />)
-              }
-            </div>
-          }
-        </div>
-        <div className={exampleClass('_', showcode && 'showcode')}>
-          <div className={exampleClass('body')}>
-            {createElement(component)}
-            {this.renderCodeHandle(false)}
+    return [
+      <div key="0" id={this.id} className={exampleClass('title')}>
+        {title}
+        {
+          sub.length > 0 &&
+          <div className={exampleClass('sub-title')}>
+            {
+              // eslint-disable-next-line
+              sub.map((s, i) => <div key={i} dangerouslySetInnerHTML={{ __html: s }} />)
+            }
           </div>
-          <div ref={this.bindCodeBlock} className={exampleClass('code')}>
-            {this.renderCodeHandle(true)}
-            <CodeBlock
-              onHighLight={this.setCodeBlockHeight}
-              onClose={this.toggleCode}
-              language="jsx"
-              value={text}
-            />
-          </div>
+        }
+      </div>,
+      <div key="1" className={exampleClass('_', showcode && 'showcode')}>
+        <div className={exampleClass('body')}>
+          {createElement(component)}
+          {this.renderCodeHandle(false)}
         </div>
-      </Fragment>
-    )
+        <div ref={this.bindCodeBlock} className={exampleClass('code')}>
+          {this.renderCodeHandle(true)}
+          <CodeBlock
+            onHighLight={this.setCodeBlockHeight}
+            onClose={this.toggleCode}
+            language="jsx"
+            value={text}
+          />
+        </div>
+      </div>,
+    ]
   }
 }

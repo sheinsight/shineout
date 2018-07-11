@@ -2,12 +2,12 @@
  * cn - 大小
  * en - Size
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Button } from 'shineout'
 
 export default function () {
   return (
-    <Fragment>
+    <div>
       <div>
         <Button size="small">Default</Button>
         <Button size="small" type="primary">Primary</Button>
@@ -40,6 +40,6 @@ export default function () {
         <Button size="large" type="danger">Danger</Button>
         <Button size="large" type="link">Link</Button>
       </div>
-    </Fragment>
+    </div>
   )
 }

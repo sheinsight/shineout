@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import classGenerate from './utils/classname'
 import loadable from './Components/Loadable'
@@ -45,7 +45,7 @@ class App extends PureComponent {
   render() {
     return (
       <Router>
-        <Fragment>
+        <div>
           <Header versions={this.state.versions} />
 
           <div className={clsMain('body')}>
@@ -55,7 +55,7 @@ class App extends PureComponent {
               <Route path="/documentation" component={Documentation} />
             </Switch>
           </div>
-        </Fragment>
+        </div>
       </Router>
     )
   }

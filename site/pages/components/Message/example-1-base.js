@@ -2,12 +2,12 @@
  * cn - 基本用法
  * en - Base
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Button, Message } from 'shineout'
 
 export default function () {
   return (
-    <Fragment>
+    <div>
       <Button onClick={() => {
         Message.show('Some message.')
       }}
@@ -35,6 +35,6 @@ export default function () {
       </Button>
 
       <Button onClick={() => { Message.close() }}>Close All</Button>
-    </Fragment>
+    </div>
   )
 }

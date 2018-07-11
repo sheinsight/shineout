@@ -2,12 +2,12 @@
  * cn - 组合
  * en - Group
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Button } from 'shineout'
 
 export default function () {
   return (
-    <Fragment>
+    <div>
       <Button.Group>
         <Button>Left</Button>
         <Button>Center</Button>
@@ -38,7 +38,7 @@ export default function () {
         <Button>Center</Button>
         <Button>Right</Button>
       </Button.Group>
-    </Fragment>
+    </div>
   )
 }
 

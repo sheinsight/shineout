@@ -2,7 +2,7 @@
  * cn - 固定表头 \n *固定表头需要设置整个表格的高度
  * en - Fixed head
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Table } from 'shineout'
 import { fetchSync } from 'doc/data/user'
 
@@ -23,7 +23,7 @@ const columns = [
 
 export default function () {
   return (
-    <Fragment>
+    <div>
       <Table
         fixed="both"
         keygen="id"
@@ -39,6 +39,6 @@ export default function () {
         style={{ height: 300 }}
         columns={columns.slice(0, 4)}
       />
-    </Fragment>
+    </div>
   )
 }

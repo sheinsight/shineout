@@ -2,12 +2,12 @@
  * cn - 基本用法
  * en - Base
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Button } from 'shineout'
 
 export default function () {
   return (
-    <Fragment>
+    <div>
       <Button>Default</Button>
       <Button type="primary">Primary</Button>
       <Button type="secondary">Secondary</Button>
@@ -16,6 +16,6 @@ export default function () {
       <Button type="warning">Warning</Button>
       <Button type="danger">Danger</Button>
       <Button type="link">Link</Button>
-    </Fragment>
+    </div>
   )
 }

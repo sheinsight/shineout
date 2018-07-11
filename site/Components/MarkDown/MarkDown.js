@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkDown from 'react-markdown'
 import hash from 'shineout/utils/hash'
@@ -10,7 +10,7 @@ import Example from '../Example'
 const markdownClass = classGenerate(require('./markdown.less'), 'markdown')
 
 const codeReg = /^<code name="([\w|-]+)" /
-const exampleReg = /^<example name="([\w|-]+)" /
+const exampleReg = /^<example name="([\w|-]+)"/
 
 export default class MarkDown extends PureComponent {
   static propTypes = {
@@ -52,16 +52,12 @@ export default class MarkDown extends PureComponent {
     const { codes } = this.props
     const code = codes[name]
     if (code) {
-      return (
-        <Fragment>
-          <CodeBlock language="jsx" value={code.text} />
-          {
-            code.log.map((txt, i) => (
-              <div key={i} className={markdownClass('console')}>{txt}</div>
-            ))
-          }
-        </Fragment>
-      )
+      return [
+        <CodeBlock key="cb" language="jsx" value={code.text} />,
+        ...code.log.map((txt, i) => (
+          <div key={i} className={markdownClass('console')}>{txt}</div>
+        )),
+      ]
     }
     console.error(`Code ${name} not existed`)
     return null
@@ -81,15 +77,15 @@ export default class MarkDown extends PureComponent {
       children: [text],
     })
 
-    return (
-      <Fragment>
-        <h2 id={id}>{text}</h2>
-        {
-          examples.map((props, i) => (
-            <Example key={i} appendHeading={this.appendHeading} {...props} />))
+    return [
+      <h2 key="h" id={id}>{text}</h2>,
+      ...examples.map((props, i) => {
+        if (/\d+-/.test(props.name)) {
+          return <Example key={i} appendHeading={this.appendHeading} {...props} />
         }
-      </Fragment>
-    )
+        return undefined
+      }),
+    ]
   }
 
   renderExample(name) {
@@ -125,7 +121,7 @@ export default class MarkDown extends PureComponent {
             if (value === '<example />') return this.renderExamples()
 
             const example = value.match(exampleReg)
-            if (example) return this.renderExample(example[1])
+            if (example) return this.renderExample(example[1], value.indexOf('noExpand') >= 0)
 
             if (value === '<br>' || value === '<br />') return <br />
 

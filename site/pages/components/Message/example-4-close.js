@@ -2,7 +2,7 @@
  * cn - 回调 onClose
  * en - Event onClose
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Button, Message } from 'shineout'
 
 export default function () {
@@ -15,9 +15,7 @@ export default function () {
   }
 
   return (
-    <Fragment>
-      <Button onClick={close}>Close</Button>
-    </Fragment>
+    <Button onClick={close}>Close</Button>
   )
 }
 
