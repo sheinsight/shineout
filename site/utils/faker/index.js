@@ -1,5 +1,5 @@
 import { range } from 'shineout/utils/numbers'
-import { format } from '../date'
+import format from 'date-fns/format'
 
 export function pickNumber(max = 65555, min = 0, fixed = 2) {
   if (typeof max === 'string') max = parseInt(max, 10)

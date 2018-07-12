@@ -1,4 +1,4 @@
-# Table
+# Table *表格*
 
 <example />
 
@@ -19,6 +19,7 @@
 | onRowSelect | function(rows) | 无 | 选择行。rows为选中的数据。如果需要数据需要格式化的处理，建议使用 datum |
 | rowHeight | number | 40 | 单行表格的预期高度，只是一个大概的估值，用来展示滚动条 |
 | rowsInView | number | 20 | 单次render的最大行数。Table 采用了lazy render的方式来优化在大量数据下的性能，如果你的表格显示的高度超出了20条，可以调整rowsInView的值 |
+| showSelectAll | bool | true | 是否显示全选 |
 | striped | bool | false | 是否显示交错斑马底纹 |
 | style | object | 无 | 扩展样式 |
 | value | array | 无 | 当前选中值，格式和 onRowSelect 返回值一致 |

@@ -37,8 +37,8 @@ export default class extends Component {
   }
 
   handleScroll = () => {
-    this.table.scrollToIndex(this.state.index, () => {
-      document.querySelector(`#name_${this.state.index + 1}`).style.color = 'red'
+    this.table.scrollToIndex(this.state.index - 1, () => {
+      document.querySelector(`#name_${this.state.index}`).style.color = 'red'
     })
   }
 
