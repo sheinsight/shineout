@@ -43,17 +43,16 @@ export default class extends React.Component {
     Message.success(JSON.stringify(data))
   }
 
-  handleCancel = () => {
+  handleClose = () => {
     this.setState({
       visible: false,
     })
-    console.log('click cancel')
   }
 
   renderFooter() {
     return (
       <div>
-        <Button onClick={this.handleCancel}>Cancel</Button>
+        <Button onClick={this.handleClose}>Cancel</Button>
         <Modal.Submit>Submit</Modal.Submit>
       </div>
     )
@@ -67,6 +66,7 @@ export default class extends React.Component {
           visible={this.state.visible}
           width={456}
           title="Form"
+          onClose={this.handleClose}
           footer={this.renderFooter()}
         >
           <Form

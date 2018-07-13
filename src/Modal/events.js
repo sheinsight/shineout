@@ -83,7 +83,7 @@ export function open(props, isPortal) {
 
   const handleClose = () => {
     if (onClose) onClose()
-    close(props)
+    if (!isPortal) close(props)
   }
 
   const maskOpacity = isMask(props.id) ? (props.maskOpacity || 0.25) : 0.01

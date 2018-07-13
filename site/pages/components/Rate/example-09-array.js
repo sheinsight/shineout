@@ -12,6 +12,6 @@ const TextRate = Rate(text, front)
 
 export default function () {
   return (
-    <TextRate repeat={false} value={2} />
+    <TextRate repeat={false} defaultValue={2} />
   )
 }

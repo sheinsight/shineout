@@ -19,6 +19,6 @@ const TextRate = Rate(background, front)
 
 export default function () {
   return (
-    <TextRate equal={false} size={40} value={3} />
+    <TextRate equal={false} size={40} defaultValue={3} />
   )
 }

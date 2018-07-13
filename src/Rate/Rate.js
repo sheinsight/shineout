@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import PureComponent from '../PureComponent'
 import { range } from '../utils/numbers'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { rateClass } from '../styles'
@@ -11,6 +12,7 @@ class Rate extends PureComponent {
 
     this.state = {
       hover: 0,
+      highlight: -1,
     }
   }
 
@@ -47,6 +49,14 @@ class Rate extends PureComponent {
 
   handleClick(value) {
     this.props.onChange(value)
+    this.setState({ highlight: value })
+
+    /*
+    if (this.highlightTimer) clearTimeout(this.highlightTimer)
+    this.highlightTimer = setTimeout(() => {
+      this.setState({ highlight: -1 })
+    }, 300)
+    */
   }
 
   handleHover(hover) {
@@ -73,6 +83,7 @@ class Rate extends PureComponent {
 
   renderRate() {
     const { front, max, text } = this.props
+    const { highlight } = this.state
     const value = this.getValue()
     const style = this.getStyle()
 
@@ -88,6 +99,7 @@ class Rate extends PureComponent {
               style={style}
             >
               { value > v ? this.getIcon(front, v) : <span>&nbsp;</span> }
+              { highlight === v + 1 && <i className={rateClass('highlight')}>{this.getIcon(front, v)}</i> }
             </span>
           ))
         }

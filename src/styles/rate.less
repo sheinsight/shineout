@@ -4,6 +4,19 @@
 @rate-prefix: ~"@{so-prefix}-rate";
 
 .@{rate-prefix} {
+  @kf-highlight: ~"@{rate-prefix}-highlight";
+
+  @keyframes @kf-highlight {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.6);
+    }
+  }
+
   position: relative;
   white-space: nowrap;
 
@@ -21,6 +34,7 @@
     z-index: 1;
 
     & > span {
+      position: relative;
       color: @rate-active-color;
     }
   }
@@ -44,6 +58,14 @@
         margin-right: 0;
       }
     }
+  }
+
+  &-highlight {
+    font-style: normal;
+    position: absolute;
+    left: 0;
+    top: 0;
+    animation: @kf-highlight 0.3s ease-out;
   }
 
   span&-text {

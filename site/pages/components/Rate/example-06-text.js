@@ -11,6 +11,6 @@ const StarRate = Rate(star, star)
 
 export default function () {
   return (
-    <StarRate value={4} text={['poor', 'fair', 'good', 'very good', 'excellent']} />
+    <StarRate defaultValue={4} text={['poor', 'fair', 'good', 'very good', 'excellent']} />
   )
 }
