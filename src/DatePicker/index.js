@@ -1,4 +1,4 @@
-import wrapper from '../Input/wrapper'
+import inputBorder from '../hoc/inputBorder'
 import inputable from '../Form/inputable'
 import { compose } from '../utils/func'
 import { datepickerClass } from '../styles'
@@ -9,7 +9,7 @@ const getClassName = opt =>
   datepickerClass('_', `${opt.range ? 'r' : 'c'}-${opt.type || 'date'}`)
 
 const Datepicker = compose(
-  wrapper({ className: getClassName, innerWidth: true }),
+  inputBorder({ className: getClassName, innerWidth: true }),
   inputable,
   value,
 )(Container)

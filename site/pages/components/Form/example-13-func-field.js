@@ -26,21 +26,27 @@ const colorStyle = {
     marginTop: 4,
     zIndex: 1000,
   },
+  cover: {
+    position: 'fixed',
+    top: '0px',
+    right: '0px',
+    bottom: '0px',
+    left: '0px',
+  },
 }
 
 /* eslint-disable */
 class ColorPicker extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = { showColor: false }
+    this.state = { showPicker: false }
   }
 
-  handleChange = (color) => {
-    this.props.onChange(color.hex)
-    this.setState({ showColor: false })
-  }
+  handleChange = (color) => { this.props.onChange(color.hex) }
 
-  handleClick = () => { this.setState({ showColor: true }) }
+  handleClose = () => { this.setState({ showPicker: false }) }
+
+  handleClick = () => { this.setState({ showPicker: true }) }
 
   render() {
     const { value } = this.props
@@ -50,8 +56,9 @@ class ColorPicker extends PureComponent {
           onClick={this.handleClick}
           href="javascript:;" />
         {
-          this.state.showColor &&
+          this.state.showPicker &&
           <div style={colorStyle.picker}>
+            <div style={colorStyle.cover} onClick={this.handleClose}/>
             <SketchPicker color={value} onChange={this.handleChange} />
           </div>
         }
