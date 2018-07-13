@@ -51,12 +51,10 @@ class Rate extends PureComponent {
     this.props.onChange(value)
     this.setState({ highlight: value })
 
-    /*
     if (this.highlightTimer) clearTimeout(this.highlightTimer)
     this.highlightTimer = setTimeout(() => {
       this.setState({ highlight: -1 })
     }, 300)
-    */
   }
 
   handleHover(hover) {
