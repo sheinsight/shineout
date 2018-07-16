@@ -14,7 +14,6 @@ function init() {
   const c20 = pick(country, 20)
   const c30 = pick(city, 30)
   const c5 = pick(city, 5)
-  const t = Date.now()
   for (let i = 1; i <= totalCount; i++) {
     allData.push({
       id: i,
@@ -30,7 +29,6 @@ function init() {
       height: pickNumber(14, 100),
     })
   }
-  console.log(Date.now() - t)
 
   const newFN = []
   for (let i = 0; i <= firstNames.length; i += 3) {

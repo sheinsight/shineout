@@ -39,7 +39,7 @@ const examples = [
   },
   {
     name: '5-shape-line',
-    title: locate('样式 \n shpae = &#39;line&#39;', 'Shape'),
+    title: locate('样式 \n shape = &#39;line&#39;', 'Shape'),
     component: require('doc/pages/components/Tabs/example-5-shape-line.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-5-shape-line.js'),
   },

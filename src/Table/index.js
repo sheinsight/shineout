@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
 import deepEqual from 'deep-eql'
-import hash from '../utils/hash'
 import pagable from '../hoc/pagable'
 import Table from './Table'
 
@@ -46,7 +45,7 @@ export default class extends PureComponent {
 
     this.cachedColumns = columns.map((c, i) => immer(c, (draft) => {
       draft.index = i
-      if (!draft.key) draft.key = hash(c)
+      if (draft.key === undefined) draft.key = i
       if (i <= left) draft.fixed = 'left'
       if (i === left) draft.lastFixed = true
       if (i >= right && right > 0) draft.fixed = 'right'

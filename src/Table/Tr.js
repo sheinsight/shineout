@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import deepEqual from 'deep-eql'
-import shallowEqual from '../utils/shallowEqual'
 import { setTranslate } from '../utils/dom/translate'
 import { tableClass } from '../styles'
 import Td, { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
@@ -36,12 +34,6 @@ class Tr extends Component {
     this.setRowHeight()
   }
 
-  shouldComponentUpdate(nextProps) {
-    const isEqual = deepEqual(this.props.columns, nextProps.columns)
-      && shallowEqual(this.props.data, nextProps.data)
-    return !isEqual
-  }
-
   setRowHeight() {
     const { setRowHeight } = this.props
     if (!setRowHeight || !this.element) return
@@ -68,7 +60,7 @@ class Tr extends Component {
         skip -= 1
       } else if (data[i]) {
         const {
-          className, style, key, fixed, lastFixed, firstFixed, type,
+          className, style, key, fixed, lastFixed, firstFixed, type, render,
         } = columns[i]
         const td = (
           <Td
@@ -81,6 +73,7 @@ class Tr extends Component {
             fixed={fixed}
             firstFixed={firstFixed}
             lastFixed={lastFixed}
+            render={render}
             {...data[i]}
           />
         )

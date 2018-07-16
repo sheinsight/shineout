@@ -14,8 +14,10 @@ class Td extends PureComponent {
   }
 
   handleExpandClick() {
-    const { rowKey, expanded, content } = this.props
-    this.props.onExpand(rowKey, expanded ? undefined : content)
+    const {
+      rowKey, expanded, render, data,
+    } = this.props
+    this.props.onExpand(rowKey, expanded ? undefined : render(data))
   }
 
   renderCheckbox() {
@@ -30,12 +32,14 @@ class Td extends PureComponent {
   }
 
   renderContent() {
-    const { content, expanded, type } = this.props
+    const {
+      expanded, type, render, data,
+    } = this.props
     switch (type) {
       case 'checkbox':
         return this.renderCheckbox()
       case 'expand':
-        if (!content) return undefined
+        if (!render) return undefined
         return (
           <span
             className={tableClass(`icon-expand-${expanded ? 'sub' : 'plus'}`)}
@@ -43,7 +47,7 @@ class Td extends PureComponent {
           />
         )
       default:
-        return content
+        return typeof render === 'function' ? render(data) : data[render]
     }
   }
 
@@ -75,7 +79,6 @@ Td.propTypes = {
   data: PropTypes.object,
   colSpan: PropTypes.number,
   className: PropTypes.string,
-  content: PropTypes.any,
   expanded: PropTypes.bool,
   firstFixed: PropTypes.bool,
   fixed: PropTypes.string,
@@ -87,6 +90,10 @@ Td.propTypes = {
   style: PropTypes.object,
   type: PropTypes.string,
   datum: PropTypes.object,
+  render: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.string,
+  ]),
 }
 
 Td.defaultProps = {

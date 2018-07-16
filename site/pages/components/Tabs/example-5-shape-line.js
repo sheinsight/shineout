@@ -1,6 +1,6 @@
 /**
  * cn - 样式
- *    -- shpae = 'line'
+ *    -- shape = 'line'
  * en - Shape
  */
 import React from 'react'

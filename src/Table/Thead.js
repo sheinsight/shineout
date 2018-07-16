@@ -61,7 +61,7 @@ class Thead extends PureComponent {
           rowSpan={(this.columnLevel - level) + 1}
           key={col.key}
         >
-          {col.title}
+          {typeof col.title === 'function' ? col.title(data) : col.title}
           {
             col.sorter &&
             <Sorter {...col} current={sorter} onChange={onSortChange} />
