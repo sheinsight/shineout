@@ -5,7 +5,7 @@ import React from 'react'
 import { Checkbox } from 'shineout'
 import { fetchSync } from 'doc/data//name'
 
-const data = fetchSync(1000)
+const data = fetchSync(10000)
 
 export default function () {
   return (
