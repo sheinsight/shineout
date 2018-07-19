@@ -1,16 +1,18 @@
 /**
- * cn - 固定表头 \n *固定表头需要设置整个表格的高度
- * en - Fixed head
+ * cn - Select
  */
 import React from 'react'
-import { Table } from 'shineout'
+import { Table, Select, Popover } from 'shineout'
 import { fetchSync } from 'doc/data/user'
 
 const data = fetchSync(20)
+const selectData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 
 const columns = [
   { title: 'id', render: 'id', width: 50 },
   { title: 'Name', render: d => `${d.firstName} ${d.lastName}` },
+  { title: 'test', render: () => <Select absolute width={70} data={selectData} /> },
+  { title: 'test2', render: d => <Popover trigger="click" content={<div style={{ padding: 50 }}>{d.country}</div>}><span>xxx</span></Popover> },
   { title: 'Country', render: 'country' },
   { title: 'Position', render: 'position' },
   { title: 'Office', render: 'office' },
@@ -23,22 +25,13 @@ const columns = [
 
 export default function () {
   return (
-    <div>
-      <Table
-        fixed="both"
-        keygen="id"
-        width={1500}
-        style={{ height: 400 }}
-        columns={columns}
-        data={data}
-      />
-      <Table
-        fixed="y"
-        data={data}
-        keygen="id"
-        style={{ height: 300 }}
-        columns={columns.slice(0, 4)}
-      />
-    </div>
+    <Table
+      fixed="both"
+      keygen="id"
+      width={1500}
+      style={{ height: 400 }}
+      columns={columns}
+      data={data}
+    />
   )
 }
