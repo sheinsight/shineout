@@ -51,7 +51,7 @@ class Tr extends Component {
 
   render() {
     const {
-      columns, data, striped, index, expandRender, ...other
+      columns, data, striped, index, expandRender, offsetLeft, offsetRight, ...other
     } = this.props
     const tds = []
     let skip = 0

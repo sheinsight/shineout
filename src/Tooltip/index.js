@@ -1,4 +1,4 @@
 import create from './Container'
-import { show, hide } from './events'
+import * as events from './events'
 
-export default create(show, hide)
+export default create(events)

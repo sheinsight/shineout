@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import { getKey } from '../utils/uid'
@@ -16,7 +16,7 @@ const root = document.createElement('div')
 root.className = selectClass('root')
 document.body.appendChild(root)
 
-class OptionList extends Component {
+class OptionList extends PureComponent {
   constructor(props) {
     super(props)
 
@@ -35,6 +35,10 @@ class OptionList extends Component {
     this.isAbsolute = props.absolute
     this.lastScrollTop = 0
 
+    props.bindOptionFunc('handleHover', this.handleHover)
+    props.bindOptionFunc('hoverMove', this.hoverMove)
+    props.bindOptionFunc('getIndex', () => this.state.hoverIndex)
+
     if (this.isAbsolute) {
       this.element = document.createElement('div')
       this.element.className = selectClass('absolute-wrapper')
@@ -46,7 +50,10 @@ class OptionList extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { data } = this.props
+    const { data, focus } = this.props
+
+    if (!focus) return
+
     if (data !== prevProps.data) {
       this.lastScrollTop = 0
       setTimeout(() => { this.setState({ hoverIndex: 0, scrollTop: 0 }) })
@@ -151,7 +158,7 @@ class OptionList extends Component {
   renderList() {
     const {
       data, datum, keygen, multiple, itemsInView, lineHeight, height, control,
-      loading, renderItem, focus, onChange, parentElement, position, renderPending, selectId,
+      loading, renderItem, focus, onChange, style, renderPending, selectId,
     } = this.props
     const { hoverIndex, currentIndex } = this.state
 
@@ -162,6 +169,7 @@ class OptionList extends Component {
       scrollHeight = height
     }
 
+    /*
     const style = {}
     if (this.isAbsolute && parentElement) {
       const rect = parentElement.getBoundingClientRect()
@@ -175,6 +183,7 @@ class OptionList extends Component {
       }
       this.element.className = selectClass('absolute-wrapper', this.props.position)
     }
+    */
 
     return (
       <ScaleList
@@ -229,13 +238,17 @@ class OptionList extends Component {
   render() {
     const list = this.renderList()
 
-    if (this.isAbsolute) return ReactDOM.createPortal(list, this.element)
+    if (this.isAbsolute) {
+      this.element.className = this.props.className
+      return ReactDOM.createPortal(list, this.element)
+    }
 
     return list
   }
 }
 
 OptionList.propTypes = {
+  className: PropTypes.string,
   control: PropTypes.oneOf(['mouse', 'keyboard']),
   data: PropTypes.array,
   datum: PropTypes.object.isRequired,
@@ -255,14 +268,14 @@ OptionList.propTypes = {
   multiple: PropTypes.bool,
   onControlChange: PropTypes.func,
   onChange: PropTypes.func,
-  position: PropTypes.string,
-  parentElement: PropTypes.object,
   renderItem: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.func,
   ]),
   renderPending: PropTypes.bool,
   selectId: PropTypes.string,
+  bindOptionFunc: PropTypes.func.isRequired,
+  style: PropTypes.object,
   text: PropTypes.object,
 }
 

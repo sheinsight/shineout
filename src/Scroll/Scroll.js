@@ -2,9 +2,11 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
+import { getParent } from '../utils/dom/element'
 import normalizeWheel from '../utils/dom/normalizeWheel'
 import { scrollClass } from '../styles'
 import Bar from './Bar'
+import { Provider } from './context'
 
 const BAR_WIDTH = 12
 
@@ -125,6 +127,9 @@ class Scroll extends PureComponent {
     const { scrollX, scrollY } = this.props
     if (!scrollX && !scrollY) return
 
+    const target = getParent(event.target, `.${scrollClass('_')}`)
+    if (target !== this.wheelElement) return
+
     const wheel = normalizeWheel(event)
     this.setBaseScrollHeightRatio(wheel.pixelY)
 
@@ -177,7 +182,9 @@ class Scroll extends PureComponent {
         <iframe title="scroll" ref={this.bindIframe} className={scrollClass('iframe')} />
         <div className={scrollClass('iframe')} />
         <div ref={this.bindInner} className={scrollClass('inner')}>
-          { children }
+          <Provider value={{ left: left * width, top: top * height, element: this.wheelElement }}>
+            { children }
+          </Provider>
         </div>
         {
           scrollY &&

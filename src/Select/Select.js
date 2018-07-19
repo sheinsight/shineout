@@ -8,10 +8,10 @@ import { selectClass } from '../styles'
 import Result from './Result'
 import { getLocale } from '../locale'
 import OptionList from './OptionList'
+import AbsoluteList from './AbsoluteList'
 
 const isDescendent = (el, id) => {
   if (el.getAttribute('data-id') === id) return true
-  if (!el.parentElement) console.log(id, el)
   if (!el.parentElement) return false
   return isDescendent(el.parentElement, id)
 }
@@ -28,9 +28,9 @@ class Select extends PureComponent {
     }
 
     this.bindElement = this.bindElement.bind(this)
-    this.bindOptionList = this.bindOptionList.bind(this)
-
+    this.bindOptionFunc = this.bindOptionFunc.bind(this)
     this.setInputReset = this.setInputReset.bind(this)
+
     this.handleFocus = this.handleState.bind(this, true)
     this.handleBlur = this.handleState.bind(this, false)
     this.handleClear = this.handleClear.bind(this)
@@ -53,6 +53,7 @@ class Select extends PureComponent {
     // option list not render till first focused
     this.renderPending = true
 
+    this.optionList = {}
     this.selectId = `select_${getUidStr()}`
   }
 
@@ -86,12 +87,12 @@ class Select extends PureComponent {
     this.inputReset = fn
   }
 
-  bindElement(el) {
-    this.element = el
+  bindOptionFunc(name, fn) {
+    this.optionList[name] = fn
   }
 
-  bindOptionList(el) {
-    this.optionList = el
+  bindElement(el) {
+    this.element = el
   }
 
   bindClickAway() {
@@ -104,9 +105,6 @@ class Select extends PureComponent {
 
   handleClickAway(e) {
     const desc = isDescendent(e.target, this.selectId)
-    if (!desc) {
-      console.log(desc, e.target, this.selectId)
-    }
     if (!desc) this.handleState(false)
   }
 
@@ -181,7 +179,7 @@ class Select extends PureComponent {
   }
 
   handleEnter() {
-    const { hoverIndex } = this.optionList.state
+    const hoverIndex = this.optionList.getIndex()
     const data = this.props.data[hoverIndex]
     if (data) {
       const checked = !this.props.datum.check(data)
@@ -238,10 +236,12 @@ class Select extends PureComponent {
     (['data', 'datum', 'keygen', 'multiple', 'text', 'itemsInView', 'absolute', 'lineHeight', 'height', 'loading'])
       .forEach((k) => { props[k] = this.props[k] })
 
+    const List = props.absolute ? AbsoluteList : OptionList
+
     return (
-      <OptionList
+      <List
         {...props}
-        ref={this.bindOptionList}
+        bindOptionFunc={this.bindOptionFunc}
         renderPending={this.renderPending}
         focus={focus}
         control={control}
@@ -251,6 +251,7 @@ class Select extends PureComponent {
         renderItem={this.renderItem}
         parentElement={this.element}
         position={position}
+        onBlur={this.handleBlur}
       />
     )
   }
@@ -290,7 +291,6 @@ class Select extends PureComponent {
           placeholder={placeholder}
           renderResult={renderResult}
           onInputFocus={this.handleInputFocus}
-          // onInputBlur={this.handleBlur}
           setInputReset={this.setInputReset}
         />
         { this.renderOptions() }
@@ -301,6 +301,7 @@ class Select extends PureComponent {
 
 Select.propTypes = {
   ...getProps(PropTypes, 'placehodler', 'keygen'),
+  absolute: PropTypes.bool,
   clearable: PropTypes.bool,
   data: PropTypes.array,
   datum: PropTypes.object.isRequired,

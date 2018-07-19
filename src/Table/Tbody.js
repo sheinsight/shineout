@@ -73,7 +73,6 @@ class Tbody extends PureComponent {
   }
 
   handleExpand(key, render) {
-    console.log(key, render)
     this.setState(immer((draft) => {
       if (render) draft.expand[key] = render
       else delete draft.expand[key]

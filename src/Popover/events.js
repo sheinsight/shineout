@@ -14,11 +14,13 @@ inner.className = popoverClass('content')
 div.appendChild(inner)
 
 let timer = null
+let currentId
 
 export function hide(delay = 500) {
   timer = setTimeout(() => {
     div.style.display = 'none'
     div.className = ''
+    currentId = undefined
   }, delay)
 }
 
@@ -36,10 +38,13 @@ div.addEventListener('mouseenter', () => {
   document.addEventListener('click', clickaway)
 })
 
-export function show(props) {
+export function show(props, id) {
   const {
     position, style, content, background, border, noArrow, type,
   } = props
+
+  // set current id
+  currentId = id
 
   if (timer) clearTimeout(timer)
 
@@ -48,6 +53,8 @@ export function show(props) {
     div.style[k] = style[k]
   })
 
+  div.setAttribute('raw-left', style.left)
+  div.setAttribute('raw-top', style.top)
   div.style.background = background || ''
   inner.style.background = background || ''
   arrow.style.background = background || ''
@@ -69,4 +76,15 @@ export function show(props) {
   ReactDOM.render(newContent, inner)
 
   document.addEventListener('click', clickaway)
+}
+
+export function move(id, left, top) {
+  if (id === currentId) {
+    div.style.left = `${left}px`
+    div.style.top = `${top}px`
+  }
+}
+
+export function isCurrent(id) {
+  return id === currentId
 }

@@ -1,20 +1,40 @@
 import { PureComponent, cloneElement } from 'react'
 import { findDOMNode } from 'react-dom'
 import PropTypes from 'prop-types'
+import { scrollConsumer } from '../Scroll/context'
+import { getUidStr } from '../utils/uid'
 
-export default function (show, hide) {
+export default function (options) {
+  const {
+    show, hide, move, isCurrent,
+  } = options
+
   class Container extends PureComponent {
     constructor(props) {
       super(props)
       this.handleHide = this.handleHide.bind(this)
       this.handleShow = this.handleShow.bind(this)
+      this.tryHide = this.tryHide.bind(this)
+
+      this.id = getUidStr()
+    }
+
+    componentWillUpdate(prevProps) {
+      if (!move || !isCurrent(this.id)) return
+
+      const { scrollLeft, scrollTop } = this.props
+      if (prevProps.scrollLeft !== scrollLeft || prevProps.scrollTop !== scrollTop) {
+        const { left, top } = this.getPosition()
+        move(this.id, left, top)
+        this.tryHide()
+      }
     }
 
     componentWillUnmount() {
       hide(this.props.delay)
     }
 
-    handleShow() {
+    getPosition() {
       const { position } = this.props
 
       const el = findDOMNode(this)
@@ -77,8 +97,24 @@ export default function (show, hide) {
         default:
       }
 
+      return { left, top }
+    }
+
+    tryHide() {
+      const { scrollElement } = this.props
+      const rect = findDOMNode(this).getBoundingClientRect()
+      const scrollRect = scrollElement ? scrollElement.getBoundingClientRect() : {}
+
+      if (rect.bottom < scrollRect.top || rect.top > scrollRect.bottom ||
+        rect.right < scrollRect.left || rect.left > scrollRect.right) {
+        hide(0)
+      }
+    }
+
+    handleShow() {
+      const { left, top } = this.getPosition()
       const props = Object.assign({}, this.props, { style: { left: `${left}px`, top: `${top}px` } })
-      show(props)
+      show(props, this.id)
     }
 
     handleHide() {
@@ -111,8 +147,9 @@ export default function (show, hide) {
     ]),
     delay: PropTypes.number,
     position: PropTypes.oneOf(['top-left', 'top', 'top-right', 'left-top', 'left', 'left-bottom', 'right-top', 'right', 'right-bottom', 'bottom-left', 'bottom', 'bottom-right']),
-    // eslint-disable-next-line
-    tip: PropTypes.string,
+    scrollElement: PropTypes.object,
+    scrollLeft: PropTypes.number,
+    scrollTop: PropTypes.number,
     trigger: PropTypes.oneOf(['click', 'hover']),
   }
 
@@ -121,5 +158,5 @@ export default function (show, hide) {
     trigger: 'hover',
   }
 
-  return Container
+  return scrollConsumer(Container)
 }

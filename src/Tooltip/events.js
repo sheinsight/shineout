@@ -12,9 +12,12 @@ const inner = document.createElement('div')
 inner.className = tooltipClass('inner')
 div.appendChild(inner)
 
+let currentId
+
 export function hide() {
   div.style.display = 'none'
   div.className = ''
+  currentId = undefined
 }
 
 function clickaway() {
@@ -22,10 +25,12 @@ function clickaway() {
   document.removeEventListener('click', clickaway)
 }
 
-export function show(props) {
+export function show(props, id) {
   const {
     position, style, tip, trigger,
   } = props
+
+  currentId = id
 
   div.style.cssText = 'display: none'
   Object.keys(style).forEach((k) => {
@@ -46,3 +51,15 @@ export function show(props) {
     document.addEventListener('click', clickaway)
   }
 }
+
+export function move(id, left, top) {
+  if (id === currentId) {
+    div.style.left = `${left}px`
+    div.style.top = `${top}px`
+  }
+}
+
+export function isCurrent(id) {
+  return id === currentId
+}
+

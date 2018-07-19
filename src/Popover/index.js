@@ -1,4 +1,4 @@
 import Container from '../Tooltip/Container'
-import { show, hide } from './events'
+import * as events from './events'
 
-export default Container(show, hide)
+export default Container(events)
