@@ -12,7 +12,6 @@ export default function () {
       <Button disabled type="primary">Primary</Button>
       <Button disabled type="secondary">Secondary</Button>
       <Button disabled type="success">Success</Button>
-      <Button disabled type="info">Info</Button>
       <Button disabled type="warning">Warning</Button>
       <Button disabled type="danger">Danger</Button>
       <Button disabled type="link">Link</Button>

@@ -22,7 +22,8 @@ export default function (pages) {
         {
           pages.map((p, i) => (
             typeof p === 'string'
-              ? <span key={i}>{p}</span>
+              // eslint-disable-next-line
+              ? <label key={i}>{p}</label>
               : (
                 <NavLink
                   className={clsMain(p.level === 2 && 'sub')}
@@ -30,7 +31,7 @@ export default function (pages) {
                   key={p.name}
                   to={getUrl(base, p)}
                 >
-                  {p.name} <span>{locate(p.cn)}</span>
+                  <p>{p.name} <span>{locate(p.cn)}</span></p>
                 </NavLink>
               )
           ))

@@ -15,7 +15,7 @@
 | outline | boolean | false | outline 为 true 时，背景透明 |
 | size | string | 'default' | 可选值 \['large', 'default', 'small'] |
 | style | object | 无 | 最外层扩展样式 |
-| type | string | 'default' | 可选值 \['default', 'primary', 'secondary', 'success', 'info', 'warning', 'danger', 'link'] |
+| type | string | 'default' | 可选值 \['default', 'primary', 'secondary', 'success', 'warning', 'danger', 'link'] |
 
 ### Button.Group
 
