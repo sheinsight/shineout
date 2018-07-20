@@ -1,0 +1,57 @@
+@import './variables.less';
+
+.doc-home {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  padding-top: 60px;
+  margin-top: -60px;
+
+  &-left {
+    position: relative;
+    flex: 1;
+  }
+
+  &-content {
+    position: relative;
+    width: 60%;
+    margin: 15% 15% 0 25%;
+    z-index: 100;
+    font-size: 18px;
+
+    h2 {
+      font-size: 48px;
+      margin-bottom: 30px;
+      font-family: 'Futura';
+    }
+  }
+
+  &-buttons {
+    padding-top: 40px;
+  }
+
+  &-bottom-left {
+    position: absolute;
+    font-size: 0;
+    bottom: 0;
+    left: 0;
+    width: 90%;
+    z-index: 0;
+  }
+
+  &-right {
+    position: relative;
+    width: 45vw;
+    overflow: hidden;
+
+    .doc-home-img {
+      position: absolute;
+      top: 50%;
+      margin-top: -22vw;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+}

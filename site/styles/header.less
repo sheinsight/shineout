@@ -1,42 +1,49 @@
 @import './variables.less';
 
 .doc-header {
-  @header-height:    50px;
+  @header-height:    60px;
 
   height: @header-height;
-  background: @gray-800;
+  border-bottom: solid 1px rgb(232, 242, 255);
+  display: flex;
+  align-items: center;
 
   &-logo {
-    width: 120px;
-    padding: 0 20px;
-    color: #fff;
-    display: inline-block;
+    padding: 18px 50px;
+    font-size: 0;
+
+    svg {
+      width: 120px;
+      height: 24px;
+    }
   }
 
   &-nav {
     display: inline-block;
+    flex: 1;
+
     a {
+      color: #333;
       display: inline-block;
-      padding: 0 12px;
-      font-weight: bold;
-      color: rgba(255, 255, 255, 0.6);
+      padding: 0 10px;
+      margin: 0 20px;
       line-height: @header-height;
+      text-decoration: none;
     }
 
     a.doc-header-active, a:hover {
-      color: rgba(255, 255, 255, 1);
+      color: #333;
     }
   }
 
   &-right {
-    display: inline-block;
-    padding: 8px 20px 0 0;
-    float: right;
+    padding-right: 20px;
   }
 
   &-light {
+    vertical-align: middle;
     button, button:hover, button:focus, button:active {
-      color: #fff;
+      color: #333;
     }
   }
 }

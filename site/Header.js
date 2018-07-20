@@ -5,6 +5,7 @@ import { Dropdown } from 'shineout'
 import locate, { setLanguage } from './locate'
 import classGenerate from './utils/classname'
 import theme from './utils/theme'
+import logo from './icons/logo'
 
 const headerClass = classGenerate(require('./styles/header.less'), 'header')
 
@@ -48,7 +49,7 @@ function Header(props, context) {
 
   return (
     <div className={headerClass('_')}>
-      <div className={headerClass('logo')}>Logo</div>
+      <div className={headerClass('logo')}>{logo}</div>
       <div className={headerClass('nav')}>
         {
           navs.map(nav => (
@@ -61,9 +62,10 @@ function Header(props, context) {
             </NavLink>
           ))
         }
-        <a href="javascript:;" onClick={handleLangClick}>{locate('English', '中文')}</a>
+        <a href="javascript:;" style={{ display: 'none' }} onClick={handleLangClick}>{locate('English', '中文')}</a>
       </div>
       <div className={headerClass('right')}>
+        <span style={{ clear: 'both' }} />
         {
           version &&
           <Dropdown
