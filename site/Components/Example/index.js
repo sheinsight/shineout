@@ -1,6 +1,6 @@
 import React, { PureComponent, createElement } from 'react'
 import PropTypes from 'prop-types'
-import hash from 'shineout/utils/hash'
+import { getUidStr } from 'shineout/utils/uid'
 import classGenerate from '../../utils/classname'
 import CodeBlock from '../CodeBlock'
 
@@ -27,7 +27,7 @@ export default class Example extends PureComponent {
     }
 
     const [title] = props.title.split('\n')
-    this.id = `h-${hash(title)}`
+    this.id = `heading-${getUidStr()}`
     props.appendHeading({
       id: this.id,
       level: 3,

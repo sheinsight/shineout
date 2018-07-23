@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkDown from 'react-markdown'
-import hash from 'shineout/utils/hash'
+import { getUidStr } from 'shineout/utils/uid'
 import classGenerate from '../../utils/classname'
 import locate from '../../locate'
 import CodeBlock from '../CodeBlock'
@@ -69,8 +69,7 @@ export default class MarkDown extends PureComponent {
 
     const text = locate('示例', 'Example')
 
-    // const id = getUidStr()
-    const id = `h-${hash('Example')}`
+    const id = `heading-${  getUidStr()}`
     this.appendHeading({
       id,
       level: 2,
@@ -110,7 +109,7 @@ export default class MarkDown extends PureComponent {
         renderers={{
           code: CodeBlock,
           heading: ({ level, children }) => {
-            const id = `h-${hash(children[0])}`
+            const id = `heading-${getUidStr()}`
             if (level === 2 || level === 3) {
               this.appendHeading({ id, level, children })
             }

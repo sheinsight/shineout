@@ -45,23 +45,20 @@ export default function (Component) {
     }
 
     handleScroll() {
-      if (this.throttleTimer) clearTimeout(this.throttleTimer)
-      this.throttleTimer = setTimeout(() => {
-        const top = document.documentElement.scrollTop
-        const heads = this.state.headings.filter(h => h.level === 3)
-        if (heads.length === 0) return
+      const top = document.documentElement.scrollTop
+      const headings = this.state.headings.filter(h => h.level === 3 && h.children[0])
+      if (headings.length === 0) return
 
-        let active = heads[0].id
-        heads.forEach((head) => {
-          const el = document.querySelector(`#${head.id}`)
-          if (!el) return
-          if (el.offsetTop <= top) active = head.id
-        })
+      let active = headings[0].id
+      headings.forEach((h) => {
+        const el = document.querySelector(`#${h.id}`)
+        if (!el) return
+        if (el.offsetTop <= top) active = h.id
+      })
 
-        if (!this.$willUnmount) {
-          this.setState({ active })
-        }
-      }, 30)
+      if (!this.$willUnmount) {
+        this.setState({ active })
+      }
     }
 
     renderNav() {

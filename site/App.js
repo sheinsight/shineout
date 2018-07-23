@@ -19,24 +19,14 @@ class App extends PureComponent {
   }
 
   componentDidMount() {
-    /*
     window.addEventListener('hashchange', () => {
-      const [, path, id] = window.location.hash.split('#')
+      const [, path] = window.location.hash.split('#')
 
       if (this.lastPath !== path) {
-        // document.body.scrollIntoView()
         document.documentElement.scrollTop = 0
         this.lastPath = path
       }
-
-      if (id) {
-        setTimeout(() => {
-          const element = document.getElementById(id)
-          if (element) element.scrollIntoView()
-        })
-      }
     })
-    */
 
     fetch('../versions.json').then(res => res.json()).then((json) => {
       const versions = json.map(v => ({ content: v, url: `../${v}` }))
