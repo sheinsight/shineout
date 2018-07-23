@@ -13,19 +13,46 @@
 
   &-nav {
     width: 100%;
-    border-left: solid 1px #e5e5e5;
     padding-left: 20px;
     box-sizing: border-box;
 
     a {
-      color: #999;
+      position: relative;
+      color: #333;
       display: block;
       font-size: 12px;
-      margin-bottom: 4px;
+      line-height: 1;
+      margin-bottom: 10px;
+      text-decoration: none;
 
       &:hover {
         color: @link-color;
       }
+
+      &.doc-nav-active {
+        color: @colors-primary;
+
+        &:before {
+          content: ' ';
+          position: absolute;
+          left: 6px;
+          top: 0;
+          width: 2px;
+          height: 100%;
+          background: @colors-primary;
+        }
+      }
+    }
+  }
+
+  a&-level-2 {
+    font-size: 16px;
+    font-weight: 300;
+    color: #666;
+    margin: 30px 0 12px;
+
+    &:first-child {
+      margin-top: 0;
     }
   }
 

@@ -17,8 +17,8 @@ function Home() {
             支持 React &gt; 16; 支持 10000+ 数据;
           </div>
           <div className={homeClass('buttons')}>
-            <Button type="primary" href="./compoonents">{locate('开始使用', 'Start')}</Button>
-            <Button style={{ marginLeft: 20 }} href="./compoonents">Github</Button>
+            <Button type="primary" href="#/components">{locate('开始使用', 'Start')}</Button>
+            <Button style={{ marginLeft: 20 }} href="#/components">Github</Button>
           </div>
         </div>
 

@@ -12,12 +12,20 @@
   &-title {
     position: relative;
     color: @gray-600;
-    // font-style: italic;
     font-size: 18px;
-    margin-top: 24px;
-    margin-bottom: 12px;
-    // padding: 16px;
-    // font-weight: 300;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    line-height: 1;
+
+    &:before {
+      content: ' ';
+      position: absolute;
+      width: 3px;
+      height: 100%;
+      left: 0;
+      top: 0;
+      background: linear-gradient(to bottom, #3023AE, #53A0FD 40%, #51ECBF);
+    }
   }
 
   &-sub-title {
