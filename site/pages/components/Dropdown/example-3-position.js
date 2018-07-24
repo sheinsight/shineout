@@ -5,6 +5,8 @@
 import React from 'react'
 import { Dropdown } from 'shineout'
 
+const style = { marginRight: 12, marginBottom: 12 }
+
 export default function () {
   const menu = [{
     content: 'First',
@@ -36,27 +38,26 @@ export default function () {
       }],
     }],
   }]
-  const width = 100
 
   return (
     <div>
-      <Dropdown placeholder="Right Top" width={width} position="right-top" data={menu} />
+      <Dropdown placeholder="Right Top" style={style} position="right-top" data={menu} />
 
-      <Dropdown placeholder="Bottom Left" width={width} position="bottom-left" data={menu} />
+      <Dropdown placeholder="Bottom Left" style={style} position="bottom-left" data={menu} />
 
-      <Dropdown placeholder="Bottom Right" width={width} position="bottom-right" data={menu} />
+      <Dropdown placeholder="Bottom Right" style={style} position="bottom-right" data={menu} />
 
-      <Dropdown placeholder="Left Top" width={width} position="left-top" data={menu} />
+      <Dropdown placeholder="Left Top" style={style} position="left-top" data={menu} />
 
       <br />
 
-      <Dropdown placeholder="Right Bottom" width={width} position="right-bottom" data={menu} />
+      <Dropdown placeholder="Right Bottom" style={style} position="right-bottom" data={menu} />
 
-      <Dropdown placeholder="Top Left" width={width} position="top-left" data={menu} />
+      <Dropdown placeholder="Top Left" style={style} position="top-left" data={menu} />
 
-      <Dropdown placeholder="Top Right" width={width} position="top-right" data={menu} />
+      <Dropdown placeholder="Top Right" style={style} position="top-right" data={menu} />
 
-      <Dropdown placeholder="Left Bottom" width={width} position="left-bottom" data={menu} />
+      <Dropdown placeholder="Left Bottom" style={style} position="left-bottom" data={menu} />
     </div>
   )
 }

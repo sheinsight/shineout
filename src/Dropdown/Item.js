@@ -25,7 +25,6 @@ class Item extends React.PureComponent {
       className: itemClassName,
       href: data.url ? data.url : 'javascript:;',
       target: data.target,
-      'dropdown-item': 1,
       style: aWidth ? { display: 'inline-block', width: aWidth } : null,
     }
 
