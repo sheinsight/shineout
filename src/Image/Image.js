@@ -184,4 +184,8 @@ Image.defaultProps = {
   height: '100%',
 }
 
+export const IMAGE = {}
+
+Image.symbolType = IMAGE
+
 export default Image
