@@ -73,12 +73,6 @@ const examples = [
     component: require('doc/pages/components/Checkbox/example-8-input.js').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-8-input.js'),
   },
-  {
-    name: '9-10000',
-    title: locate('性能测试', ''),
-    component: require('doc/pages/components/Checkbox/example-9-10000.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Checkbox/example-9-10000.js'),
-  },
 ]
 
 const codes = undefined
