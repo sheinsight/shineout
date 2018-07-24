@@ -1,5 +1,6 @@
 /**
  * cn - 组合
+ *    -- 一组 Button 可以用 Button.Group 包裹起来
  * en - Group
  */
 import React from 'react'

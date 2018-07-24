@@ -1,5 +1,6 @@
 /**
  * cn - 透明背景
+ *    -- 添加 outline 属性可以设置为透明背景，type 不能为 default 和 link。
  * en - Outline
  */
 import React from 'react'

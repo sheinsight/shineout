@@ -2,6 +2,7 @@ import React, { PureComponent, createElement } from 'react'
 import PropTypes from 'prop-types'
 import { getUidStr } from 'shineout/utils/uid'
 import classGenerate from '../../utils/classname'
+import Icon from '../../icons/Icon'
 import CodeBlock from '../CodeBlock'
 
 const exampleClass = classGenerate(require('./example.less'), 'example')
@@ -76,7 +77,7 @@ export default class Example extends PureComponent {
         className={exampleClass('toggle')}
         onClick={this.toggleCode.bind(this, isBottom)}
       >
-        {'<'}{showcode ? '/' : ' '}{'>'}
+        <Icon name={showcode ? 'code-close' : 'code'} />
       </a>
     )
   }
@@ -90,31 +91,29 @@ export default class Example extends PureComponent {
     const [title, ...sub] = this.props.title.split('\n')
 
     return [
-      <div key="0" id={this.id} className={exampleClass('title')}>
-        {title}
-        {
-          sub.length > 0 &&
-          <div className={exampleClass('sub-title')}>
-            {
-              // eslint-disable-next-line
-              sub.map((s, i) => <div key={i} dangerouslySetInnerHTML={{ __html: s }} />)
-            }
-          </div>
-        }
-      </div>,
+      title ? <h3 key="0" id={this.id}>{title}</h3> : null,
+
       <div key="1" className={exampleClass('_', showcode && 'showcode')}>
         <div className={exampleClass('body')}>
           {createElement(component)}
+        </div>
+
+        <div className={exampleClass('desc')}>
+          {
+            // eslint-disable-next-line
+            sub.map((s, i) => <div key={i} dangerouslySetInnerHTML={{ __html: s }} />)
+          }
           {this.renderCodeHandle(false)}
         </div>
+
         <div ref={this.bindCodeBlock} className={exampleClass('code')}>
-          {this.renderCodeHandle(true)}
           <CodeBlock
             onHighLight={this.setCodeBlockHeight}
             onClose={this.toggleCode}
             language="jsx"
             value={text}
           />
+          {this.renderCodeHandle(true)}
         </div>
       </div>,
     ]

@@ -107,14 +107,14 @@ plugins: [
 ],
 ```
 
-或者调用 locale 的 setLocale 方法
+使用build后的版本可以调用 locale 的 setLocale 方法
 
 ```
 import { setLocale } from 'shineout'
 setLocale('zh-CN')
 ```
 
-setLocale 也可以传入一个 Json 数据设置部分值
+其他语言或者部分设置，可以传入一个 Json 数据
 
 ```
 setLocale({ ok: 'yes' })

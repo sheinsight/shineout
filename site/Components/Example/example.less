@@ -2,53 +2,39 @@
 
 .doc-example {
   position: relative;
-  border: solid 1px @doc-border-color;
+  border-top: solid 1px #f0f0f0;
   border-radius: 2px;
-  margin-bottom: 40px;
   background: #fff;
   overflow: visible;
-  // box-shadow: 0 3px 10px 0px rgba(0, 0, 0, 0.1);
-
-  &-title {
-    position: relative;
-    color: @gray-600;
-    font-size: 18px;
-    margin-bottom: 20px;
-    padding-left: 20px;
-    line-height: 1;
-
-    &:before {
-      content: ' ';
-      position: absolute;
-      width: 3px;
-      height: 100%;
-      left: 0;
-      top: 0;
-      background: linear-gradient(to bottom, #3023AE, #53A0FD 40%, #51ECBF);
-    }
-  }
-
-  &-sub-title {
-    font-size: 14px;
-    font-style: normal;
-    margin-top: 8px;
-    color: @gray-600;
-  }
+  margin-bottom: 40px;
 
   &-toggle {
     position: absolute;
-    right: 0;
-    bottom: 0;
+    right: 6px;
+    bottom: 2px;
     padding: 4px 8px;
-    font-size: 12px;
+    font-size: 16px;
     display: block;
     color: @gray-500;
     font-style: normal;
   }
 
+  &-desc {
+    position: relative;
+    background: #f7f7f7;
+    font-size: 12px;
+    min-height: 50px;
+    padding: 15px 60px 15px 20px;
+  }
+
+  &-desc &-toggle {
+    top: 10px;
+    bottom: auto;
+  }
+
   &-body {
     position: relative;
-    padding: 40px 32px;
+    padding: 30px 20px;
   }
 
   &-code {
@@ -57,7 +43,7 @@
     height: 0;
     overflow: hidden;
 
-    & > pre {
+    pre {
       word-break: break-all;
       word-wrap: break-word;
       white-space: pre-wrap;
@@ -78,9 +64,5 @@
     & > a {
       display: inline;
     }
-  }
-
-  button + button {
-    margin-left: 8px;
   }
 }

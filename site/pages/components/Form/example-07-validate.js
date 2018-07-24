@@ -20,6 +20,15 @@ const rules = {
       else callback(new Error('Password at least has one numeral.'))
     },
   ],
+  repeatPassword: [
+    (value, formData, callback) => {
+      if (value !== formData.password) {
+        callback(new Error('repeat password must equal password'))
+      } else {
+        callback(true)
+      }
+    },
+  ],
   age: [
     { required: true, message: 'Please enter age.' },
     { min: 18, max: 60, message: 'Age must between {min} and {max}.' },
@@ -38,6 +47,10 @@ export default function () {
 
       <Form.Item required label="Password" tip="Use at least one letter, one numeral, and seven characters.">
         <Input name="password" type="password" />
+      </Form.Item>
+
+      <Form.Item label="Repeat Password">
+        <Input name="repeatPassword" type="password" />
       </Form.Item>
 
       <Form.Item required label="Age" tip="between 18 and 60">

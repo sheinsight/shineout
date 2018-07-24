@@ -1,7 +1,7 @@
 import React, { PureComponent, Children, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import showGallery from './events'
-import Image from './Image'
+import { IMAGE } from './Image'
 import { imageClass } from '../styles'
 
 class Group extends PureComponent {
@@ -10,7 +10,7 @@ class Group extends PureComponent {
     const images = []
     let current = 0
     Children.toArray(children).forEach((child, i) => {
-      if (child && child.type === Image) {
+      if (child && child.type && child.type.symbolType === IMAGE) {
         if (index === i) current = images.length
         const { src, href } = child.props
         images.push({ thumb: src, src: href || src })

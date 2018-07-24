@@ -25,6 +25,7 @@ export default function (Component) {
 
     componentDidMount() {
       this.bindScroll()
+      this.handleScroll()
     }
 
     componentWillUnmount() {

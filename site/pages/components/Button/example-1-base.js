@@ -1,5 +1,6 @@
 /**
  * cn - 基本用法
+ *    -- Button 内置了几种常用的样式，通过 type 来使用
  * en - Base
  */
 import React from 'react'

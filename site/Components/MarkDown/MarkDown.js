@@ -69,7 +69,7 @@ export default class MarkDown extends PureComponent {
 
     const text = locate('示例', 'Example')
 
-    const id = `heading-${  getUidStr()}`
+    const id = `heading-${getUidStr()}`
     this.appendHeading({
       id,
       level: 2,

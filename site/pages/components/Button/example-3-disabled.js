@@ -1,5 +1,6 @@
 /**
  * cn - 不可用
+ *    -- 添加 disabled 属性可以禁用按钮。
  * en - Disabled
  */
 import React from 'react'

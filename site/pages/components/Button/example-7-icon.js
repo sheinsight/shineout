@@ -1,5 +1,6 @@
 /**
  * cn - 图标
+ *    -- 需要图标可以在内容中自行加入
  * en - Icon
  */
 import React from 'react'
