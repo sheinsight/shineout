@@ -7,6 +7,7 @@ import Field from './Field'
 import BlockField from './BlockField'
 import Block from './Block'
 import Loop from './Loop'
+import Flow from './Flow'
 import formButton from './formButton'
 import { loopProvider } from './loopContext'
 import { itemProvider } from './itemContext'
@@ -18,6 +19,7 @@ exportForm.Field = inputable(Field)
 exportForm.Block = formConsumer(['formDatum'])(Block)
 exportForm.BlockField = inputable(BlockField)
 exportForm.Loop = compose(formConsumer(null), loopProvider)(Loop)
+exportForm.Flow = formConsumer(['formDatum'])(Flow)
 
 exportForm.Submit = formButton('submit')
 exportForm.Reset = formButton('reset')
