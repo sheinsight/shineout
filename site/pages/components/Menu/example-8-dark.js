@@ -51,11 +51,13 @@ export default class extends React.Component {
     }
     this.handleClick = this.handleClick.bind(this)
   }
+
   handleClick(da) {
     this.setState({
       active: [da.id],
     })
   }
+
   render() {
     return (
       <Menu
@@ -64,7 +66,6 @@ export default class extends React.Component {
         renderItem={d => d.title}
         active={da => this.state.active.includes(da.id)}
         style={{ width: 256 }}
-        inlineIndent={24}
         onClick={this.handleClick}
         theme="dark"
       />

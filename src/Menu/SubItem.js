@@ -1,6 +1,5 @@
 import React, { Children, cloneElement } from 'react'
 import PropTypes from 'prop-types'
-import classname from 'classnames'
 import { findDOMNode } from 'react-dom'
 import PureComponent from '../PureComponent'
 import { menuClass } from '../styles'
@@ -80,26 +79,29 @@ class SubMenu extends PureComponent {
 
   render() {
     const {
-      data, renderItem, inlineIndent, mode, active,
+      data, renderItem, mode, active,
     } = this.props
 
+    const children = Children.toArray(this.props.children)
+
     const itemData = typeof renderItem === 'string' ? data[renderItem] : renderItem(data)
-    const className = classname(menuClass('submenu', (this.state.show && active && this.props.data.onClick) && 'submenu-active'))
-    const titleClassName = classname(menuClass('submenu-title', `${mode}-submenu-title`, this.state.show && `${mode}-submenu-title-open`, this.props.data.disabled && 'disabled'))
-    const ulClassName = classname(menuClass('submenu-ul', `${mode}-submenu-ul`))
-    const textClassName = classname(menuClass('submenu-text'))
+    const className = menuClass(
+      'submenu',
+      data.disabled && 'disabled',
+      children.length > 0 && 'has-children',
+      this.state.show && active && data.onClick && 'submenu-active',
+    )
     const ListStyle = mode === 'inline' ? CollapseList : FadeList
 
     return (
       <li className={className} onMouseEnter={this.handleEnter} onMouseLeave={this.handleLeave}>
         <div
           ref={this.getTitleHeight}
-          className={titleClassName}
-          style={mode === 'inline' ? { paddingLeft: inlineIndent } : {}}
+          className={menuClass('submenu-title')}
         >
           <div
             tabIndex={-1}
-            className={textClassName}
+            className={menuClass('submenu-text')}
             ref={this.bindRef}
             onClick={this.handleClick}
             onBlur={this.handleBlur}
@@ -107,19 +109,22 @@ class SubMenu extends PureComponent {
             {itemData}
           </div>
         </div>
-        <ListStyle
-          show={this.state.show}
-          className={ulClassName}
-          height={this.titleHeight * this.props.nums}
-        >
-          <ul>
-            {
-              Children.toArray(this.props.children).map(child => (
-                cloneElement(child, { handleHide: this.handleHide })
-              ))
-            }
-          </ul>
-        </ListStyle>
+        {
+          children.length > 0 &&
+          <ListStyle
+            show={this.state.show}
+            className={menuClass('submenu-ul')}
+            height={this.titleHeight * this.props.nums}
+          >
+            <ul>
+              {
+                children.map(child => (
+                  cloneElement(child, { handleHide: this.handleHide })
+                ))
+              }
+            </ul>
+          </ListStyle>
+        }
       </li>
     )
   }
@@ -128,9 +133,10 @@ class SubMenu extends PureComponent {
 SubMenu.propTypes = {
   ...getProps(PropTypes),
   data: PropTypes.object,
-  nums: PropTypes.number,
-  isOpen: PropTypes.bool,
+  level: PropTypes.number,
   isHover: PropTypes.bool,
+  isOpen: PropTypes.bool,
+  nums: PropTypes.number,
 }
 
 SubMenu.defaultProps = {

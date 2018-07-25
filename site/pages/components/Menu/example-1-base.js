@@ -49,22 +49,26 @@ export default class extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      active: ['1'],
+      active: '1',
     }
     this.handleClick = this.handleClick.bind(this)
   }
-  handleClick(da) {
+
+  handleClick(d) {
     this.setState({
-      active: [da.id],
+      active: d.id,
     })
   }
+
+  checkActive = d => this.state.active === d.id
+
   render() {
     return (
       <Menu
         keygen="id"
         data={data}
         renderItem={d => d.title}
-        active={da => this.state.active.includes(da.id)}
+        active={this.checkActive}
         style={{ width: 256 }}
         inlineIndent={24}
         onClick={this.handleClick}
