@@ -15,7 +15,6 @@ const rules = {
     { min: 7, message: 'Password must be at least {min} characters.' },
     { regExp: /[a-z]+/i, message: 'Password at least has one letter.' },
     value => new Promise((resolve, reject) => {
-      console.log(value)
       if (/\d+/.test(value)) resolve()
       else reject(new Error('Password at least has one numeral.'))
     }),

@@ -163,6 +163,7 @@ export default class {
       set: (val) => {
         this.$values[name] = val
         if (typeof fn === 'function') fn(val, name)
+        // this.dispatch(`${name}-change`)
       },
       get: () => this.$values[name],
     })
