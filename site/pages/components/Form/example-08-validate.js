@@ -14,10 +14,11 @@ const rules = {
     { required: true, message: 'Please enter password.' },
     { min: 7, message: 'Password must be at least {min} characters.' },
     { regExp: /[a-z]+/i, message: 'Password at least has one letter.' },
-    (value, formdata, callback) => {
-      if (/\d+/.test(value)) callback(true)
-      else callback(new Error('Password at least has one numeral.'))
-    },
+    value => new Promise((resolve, reject) => {
+      console.log(value)
+      if (/\d+/.test(value)) resolve()
+      else reject(new Error('Password at least has one numeral.'))
+    }),
   ],
   age: [
     { required: true, message: 'Please enter age.' },

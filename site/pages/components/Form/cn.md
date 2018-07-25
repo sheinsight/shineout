@@ -47,11 +47,12 @@ rule 共有 5 种规则，按优先级分别为：
 - 正则表达式：根据 regExp 来判断，可以是 RegExp 对象或 字符串。
 - 类型：内置的常用 正则判断，不满足需求时，可以自定义正则表达式或使用 函数校验。
 
-#### function(value, formdata, callback) : undefined
+#### function(value, formdata, callback) : Promise
 
 - value: 当前组件值
 - formdata: 表单内所有组件值
-- callback(true|Error): 校验结果，通过为 true，失败为 Error 对象
+- callback(true|Error): 校验结果，通过为 true，失败为 Error 对象。如果函数返回一个Promise，不要调用 callback。
+
 
 #### object
 
