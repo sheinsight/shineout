@@ -3,10 +3,8 @@
  * en - Font Size
  */
 import React from 'react'
-import { Icon } from 'shineout'
+import FontAwesome from './FontAwesome'
 
-const url = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
-const FontAwesome = Icon(url, 'FontAwesome', 'fa')
 const margin = { marginRight: 20 }
 
 export default function () {

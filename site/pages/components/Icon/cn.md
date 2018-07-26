@@ -1,5 +1,6 @@
 # Icon *图标*
-组件库没有内置图标集，而是提供了一个函数生成一个新的图标组件。可以在一个项目内创建多个不同名称的图标组件。
+组件库没有内置图标集，而是提供了一个函数生成一个新的图标组件。<br />
+一个项目内可以创建多个不同名称的图标组件。
 
 <example />
 
@@ -10,11 +11,11 @@
 
 | 参数 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| url | string | 必填 | 图标css文件地址，使用远程地址，不需要引入到项目中 |
+| url | string |  | 图标css文件地址，使用在线地址，不需要引入到项目中。如果在 link 中已经引用过，可以为空(null) |
 | fontFamily | string | 'iconfont' | font-family 需要和引入的css文件内的font-family一致 |
 | prefix | string | 'icon' | 类名前缀 |
 
-### CreatedIcon *Icon函数创建的图标组件*
+### MyIcon *Icon函数创建的图标组件*
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | children | string | 无 | 图标 unicode 编码，和 name 二选一 |

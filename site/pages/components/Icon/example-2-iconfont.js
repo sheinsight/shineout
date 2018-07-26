@@ -1,5 +1,5 @@
 /**
- * cn - 使用 Iconfont \n 可以在 iconfont.cn 定制一个图标
+ * cn - 使用 Iconfont \n 可以在 iconfont.cn 定制一个图标，在项目中引入
  * en - Use Iconfont
  */
 import React from 'react'

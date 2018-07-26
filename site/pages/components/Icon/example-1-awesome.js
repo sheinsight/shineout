@@ -1,5 +1,6 @@
 /**
  * cn - 使用 FontAwesome
+ *    -- 引入font-awesome 地址即可使用
  * en - Use FontAwesome
  */
 import React from 'react'

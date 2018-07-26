@@ -15,13 +15,13 @@ const source = locate(cn, en)
 const examples = [
   {
     name: '1-awesome',
-    title: locate('使用 FontAwesome', 'Use FontAwesome'),
+    title: locate('使用 FontAwesome \n 引入font-awesome 地址即可使用', 'Use FontAwesome'),
     component: require('doc/pages/components/Icon/example-1-awesome.js').default,
     rawText: require('!raw-loader!doc/pages/components/Icon/example-1-awesome.js'),
   },
   {
     name: '2-iconfont',
-    title: locate('使用 Iconfont \n 可以在 iconfont.cn 定制一个图标', 'Use Iconfont'),
+    title: locate('使用 Iconfont \n 可以在 iconfont.cn 定制一个图标，在项目中引入', 'Use Iconfont'),
     component: require('doc/pages/components/Icon/example-2-iconfont.js').default,
     rawText: require('!raw-loader!doc/pages/components/Icon/example-2-iconfont.js'),
   },
