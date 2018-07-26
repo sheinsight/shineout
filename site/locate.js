@@ -6,7 +6,7 @@ const storage = window.localStorage || null
 let language
 
 if (storage) {
-  // language = storage.getItem(STORAGE_KEY)
+  language = storage.getItem(STORAGE_KEY)
 }
 
 if (!language) {

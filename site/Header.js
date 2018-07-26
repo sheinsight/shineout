@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
-import { Dropdown } from 'shineout'
+import { Button, Dropdown } from 'shineout'
 import locate, { setLanguage } from './locate'
 import classGenerate from './utils/classname'
 import theme from './utils/theme'
@@ -62,10 +62,12 @@ function Header(props, context) {
             </NavLink>
           ))
         }
-        <a href="javascript:;" style={{ display: 'none' }} onClick={handleLangClick}>{locate('English', '中文')}</a>
       </div>
       <div className={headerClass('right')}>
-        <span style={{ clear: 'both' }} />
+        <Button size="small" onClick={handleLangClick} style={{ marginRight: 12 }}>
+          {locate('English', '中文')}
+        </Button>
+
         {
           version &&
           <Dropdown
@@ -73,7 +75,7 @@ function Header(props, context) {
             data={props.versions}
             hover
             placeholder={version}
-            type="link"
+            size="small"
           />
         }
 
@@ -83,7 +85,7 @@ function Header(props, context) {
           onClick={handleThemeClick}
           hover
           placeholder={`theme: ${theme.getTheme()}`}
-          type="link"
+          size="small"
         />
       </div>
     </div>
