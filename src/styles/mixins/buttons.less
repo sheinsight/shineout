@@ -52,6 +52,10 @@
       background-color: @background;
           border-color: @border;
     }
+
+    &:active {
+      animation: none;
+    }
   }
 }
 
@@ -70,6 +74,19 @@
     animation: @keyname 0.4s ease-out;
   }
 
+  &[disabled],
+  fieldset[disabled] & {
+    &:hover,
+    &:focus {
+      color: @border;
+      border-color: @border;
+      background: transparent;
+    }
+
+    &:active {
+      animation: none;
+    }
+  }
 }
 
 // Button sizes

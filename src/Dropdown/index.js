@@ -133,8 +133,6 @@ class Dropdown extends PureComponent {
     if (!Array.isArray(data) || data.length === 0) return null
 
     return [
-      this.renderButton(placeholder),
-
       <FadeList
         className={dropdownClass('menu')}
         style={{ width }}
@@ -173,6 +171,8 @@ class Dropdown extends PureComponent {
           })
         }
       </FadeList>,
+
+      this.renderButton(placeholder),
     ]
   }
 

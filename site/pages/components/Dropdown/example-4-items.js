@@ -1,5 +1,6 @@
 /**
- * cn - 平铺选项
+ * cn - 多列平铺
+ *    -- 设置 columns 属性可以让选项多列平铺
  * en - Multiple columns
  */
 import React from 'react'

@@ -1,5 +1,6 @@
 /**
- * cn - 组合 \n 可以放在 Button.Group 中使用
+ * cn - 组合
+ *    -- 在 Button.Group 中组合使用，通常用于隐藏一组按钮中不太常用的选项
  * en - Group
  */
 import React from 'react'
@@ -19,7 +20,8 @@ const menu = [
 export default function () {
   return (
     <Button.Group>
-      <Button onClick={() => Message.info('The button clicked.')}>Click me</Button>
+      <Button onClick={() => Message.info('The left button clicked.')}>Left</Button>
+      <Button>Center</Button>
       <Dropdown
         onClick={data => Message.info(`The Dropdown clicked ${data.content}.`)}
         position="bottom-right"

@@ -1,5 +1,6 @@
 /**
- * cn - hover 触发
+ * cn - 触发
+ *    -- Dropdown 默认通过点击触发下拉行为，设置 hover 属性可以改为移入触发
  * en - Hover
  */
 import React from 'react'

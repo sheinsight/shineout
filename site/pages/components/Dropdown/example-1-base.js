@@ -1,11 +1,12 @@
 /**
  * cn - 基本用法
+ *    -- Dropdown 通过数据来渲染，支持 json 格式数据、React 组件
  * en - Base
  */
 import React from 'react'
 import { Dropdown, Message } from 'shineout'
 
-const menu = [
+const data = [
   {
     content: 'Submenu',
     children: [
@@ -29,6 +30,6 @@ const menu = [
 
 export default function () {
   return (
-    <Dropdown placeholder="Dropdown" data={menu} />
+    <Dropdown placeholder="Dropdown" data={data} />
   )
 }

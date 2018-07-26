@@ -1,4 +1,4 @@
-# Dropdown *下拉*
+# Dropdown *下拉菜单*
 
 <example />
 
@@ -28,4 +28,4 @@ data 项为 ReactElement 时，不做处理，为object时，参数如下
 | content | string \| element | | 默认从content获取内容 |
 | url | string | 无 | url属性不为空时，render为一个链接 |
 | target | string | 无 | url 不为空时有效 |
-| onClick | string | 
+| onClick | function | 无 | 点击事件 |

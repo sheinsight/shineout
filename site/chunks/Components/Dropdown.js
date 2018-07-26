@@ -15,31 +15,31 @@ const source = locate(cn, en)
 const examples = [
   {
     name: '1-base',
-    title: locate('基本用法', 'Base'),
+    title: locate('基本用法 \n Dropdown 通过数据来渲染，支持 json 格式数据、React 组件', 'Base'),
     component: require('doc/pages/components/Dropdown/example-1-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-1-base.js'),
   },
   {
     name: '2-hover',
-    title: locate('hover 触发', 'Hover'),
+    title: locate('触发 \n Dropdown 默认通过点击触发下拉行为，设置 hover 属性可以改为移入触发', 'Hover'),
     component: require('doc/pages/components/Dropdown/example-2-hover.js').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-2-hover.js'),
   },
   {
     name: '3-position',
-    title: locate('弹出位置', 'Position'),
+    title: locate('弹出位置 \n 设置 position 属性可以控制下拉菜单弹出的方向和位置', 'Position'),
     component: require('doc/pages/components/Dropdown/example-3-position.js').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-3-position.js'),
   },
   {
     name: '4-items',
-    title: locate('平铺选项', 'Multiple columns'),
+    title: locate('多列平铺 \n 设置 columns 属性可以让选项多列平铺', 'Multiple columns'),
     component: require('doc/pages/components/Dropdown/example-4-items.js').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-4-items.js'),
   },
   {
     name: '5-split',
-    title: locate('组合 \n 可以放在 Button.Group 中使用', 'Group'),
+    title: locate('组合 \n 在 Button.Group 中组合使用，通常用于隐藏一组按钮中不太常用的选项', 'Group'),
     component: require('doc/pages/components/Dropdown/example-5-split.js').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-5-split.js'),
   },
@@ -48,12 +48,6 @@ const examples = [
     title: locate('样式 \n 使用了和Button相同的 type 和 size 设置样式', 'type'),
     component: require('doc/pages/components/Dropdown/example-6-type.js').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-6-type.js'),
-  },
-  {
-    name: '7-disabled',
-    title: locate('禁用', 'Disabled'),
-    component: require('doc/pages/components/Dropdown/example-7-disabled.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-7-disabled.js'),
   },
 ]
 
