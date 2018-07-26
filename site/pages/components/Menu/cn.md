@@ -13,5 +13,4 @@
 | active | function | null | 验证是否激活,参数为对应的数据对象,返回true则代表该菜单激活 <br /> 参数为data,即该条数据 <br /> 注: 是否是多选由函数内部筛选规则来确定 |
 | defaultOpenKeys | array | [] | 初始展开的菜单;如果需要设置此值,则需要设置keygen,此值为一个包含key的数组|
 | onClick | function | null | 子菜单点击事件,参数为当条数据|
-| inlineIndent | number | 14 | 缩进,每一层子菜单的缩进会依次递增|
 | style | object | 无 | 最外层扩展样式 |

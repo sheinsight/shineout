@@ -1,9 +1,10 @@
 import React from 'react'
-import { findDOMNode } from 'react-dom'
 import immer from 'immer'
 import PropTypes from 'prop-types'
 import PureComponent from '../PureComponent'
 import { getProps, defaultProps } from '../utils/proptypes'
+import { getKey } from '../utils/uid'
+import { getParent } from '../utils/dom/element'
 import Button from '../Button'
 import { dropdownClass } from '../styles'
 import List from '../List'
@@ -23,135 +24,131 @@ const positionMap = {
 }
 
 class Dropdown extends PureComponent {
-  static getKey(data, keygen, index) {
-    switch (typeof keygen) {
-      case 'string':
-        return data[keygen]
-      case 'function':
-        return keygen(data)
-      default:
-        return index
-    }
-  }
-
   constructor(props) {
     super(props)
 
     this.state = {
-      position: 'bottom-left',
       show: false,
     }
 
-    this.bindButton = this.bindButton.bind(this)
     this.bindElement = this.bindElement.bind(this)
-    this.handleBlur = this.handleBlur.bind(this)
+
+    this.clickAway = this.clickAway.bind(this)
+
     this.handleFocus = this.handleFocus.bind(this)
-    this.handleHover = this.handleHover.bind(this)
-    this.renderList = this.renderList.bind(this)
     this.handleHide = this.handleHide.bind(this)
+    this.handleMouseEnter = this.handleToggle.bind(this, true)
+    this.handleMouseLeave = this.handleToggle.bind(this, false)
+
+    this.clickAway = this.clickAway.bind(this)
+    this.renderList = this.renderList.bind(this)
   }
 
-  getPosition() {
-    return this.props.position || this.state.position
-  }
-
-  bindButton(el) {
-    this.button = findDOMNode(el)
+  componentWillUnmount() {
+    this.toggleDocumentEvent(false)
   }
 
   bindElement(el) {
     this.element = el
   }
 
-  handleFocus() {
-    let f = 'bottom'
-    const s = 'left'
-    const height = window.innerHeight || document.documentElement.clientHeight
-    const rect = this.element.getBoundingClientRect()
-    if (height - rect.bottom < 200) {
-      f = 'top'
-    }
-    if (this.props.hover) this.button.focus()
+  toggleDocumentEvent(bind) {
+    const method = bind ? 'addEventListener' : 'removeEventListener'
+    document[method]('click', this.clickAway)
+  }
 
+  clickAway(e) {
+    const el = getParent(e.target, 'a')
+    if (el && (el === this.element || this.element.contains(el))
+      && el.getAttribute('data-role') === 'item') return
+    this.handleHide(0)
+  }
+
+  handleFocus() {
     if (this.closeTimer) {
       clearTimeout(this.closeTimer)
     }
+
+    if (this.state.show) return
     this.setState(immer((state) => {
       state.show = true
-      state.position = `${f}-${s}`
     }))
+
+    this.toggleDocumentEvent(true)
   }
 
-  handleBlur(e) {
-    // wait item event execute
-    this.handleHide(e.relatedTarget)
-  }
-
-  handleHide(relatedTarget) {
-    if (relatedTarget &&
-      relatedTarget.getAttribute('dropdown-item') !== '1'
-      && this.element.contains(relatedTarget)) return
-
+  handleHide(delay = 200) {
     this.closeTimer = setTimeout(() => {
       this.setState({ show: false })
-    }, 200)
-    if (this.props.handleHide) this.props.handleHide(relatedTarget)
+      this.toggleDocumentEvent(false)
+    }, delay)
   }
 
-  handleHover() {
-    const { hover } = this.props
-    const { show } = this.state
-    if (show || !hover) return
-    this.handleFocus()
+  handleToggle(show) {
+    if (!this.props.hover) return
+    if (show) this.handleFocus()
+    else this.handleHide()
   }
 
-  renderList(data, placeholder) {
+  renderButton(placeholder) {
     const {
-      keygen,
-      width,
-      type,
-      outline,
-      size,
-      disabled,
-      btnColor,
-      style,
-      onClick,
-      columns,
-      renderItem,
+      type, outline, size, disabled, isSub,
     } = this.props
-    if (!Array.isArray(data) || data.length === 0) return null
-    const buttonClassName = dropdownClass('button', { 'split-button': !placeholder })
+    const buttonClassName = dropdownClass('button', !placeholder && 'split-button')
     const spanClassName = dropdownClass('button-content')
-    return [
+
+    if (isSub) {
+      return (
+        <a
+          key="button"
+          className={dropdownClass('button', 'item', this.state.show && 'active')}
+          data-role="item"
+          href="javascript:;"
+          onClick={this.handleFocus}
+        >
+          <span className={spanClassName}>{placeholder}</span>
+        </a>
+      )
+    }
+
+    return (
       <Button
         disabled={disabled}
-        ref={this.bindButton}
-        onMouseEnter={this.handleHover}
-        onBlur={this.handleBlur}
         onClick={this.handleFocus}
         outline={outline}
         className={buttonClassName}
         type={type}
         size={size}
-        style={btnColor ? { ...style, color: '#000', textAlign: 'left' } : style}
-        key="1"
+        key="button"
       >
         <span className={spanClassName}>{placeholder}</span>
-      </Button>,
+      </Button>
+    )
+  }
+
+  renderList(data, placeholder) {
+    const {
+      keygen, width, onClick, columns, renderItem, hover, position,
+    } = this.props
+    if (!Array.isArray(data) || data.length === 0) return null
+
+    return [
+      this.renderButton(placeholder),
+
       <FadeList
         className={dropdownClass('menu')}
         style={{ width }}
-        key="2"
+        key="list"
         show={this.state.show}
       >
         {
           data.map((d, index) => {
-            const liKey = Dropdown.getKey(d, keygen, index)
-            const childPosition = positionMap[this.props.position]
+            const liKey = getKey(d, keygen, index)
+            const childPosition = positionMap[position]
             const itemClassName = dropdownClass('item', !width && 'no-width', childPosition.indexOf('left') === 0 && 'item-left')
             return d.children ?
               <Dropdown
-                hover={this.props.hover}
+                hover={hover}
                 style={{ width: '100%' }}
                 data={d.children}
                 disabled={d.disabled}
@@ -162,29 +159,28 @@ class Dropdown extends PureComponent {
                 btnColor
                 onClick={onClick}
                 renderItem={renderItem}
-                handleHide={this.handleHide}
-                _first
+                isSub
               /> :
-              (
-                <Item
-                  data={d}
-                  key={liKey}
-                  onClick={d.onClick ? d.onClick : onClick}
-                  itemClassName={itemClassName}
-                  renderItem={renderItem}
-                  columns={columns}
-                  width={width}
-                />)
+              <Item
+                data={d}
+                key={liKey}
+                onClick={d.onClick || onClick}
+                itemClassName={itemClassName}
+                renderItem={renderItem}
+                columns={columns}
+                width={width}
+              />
           })
         }
-      </FadeList>]
+      </FadeList>,
+    ]
   }
+
   render() {
     const {
-      data, className, style, placeholder,
+      data, className, style, placeholder, position,
     } = this.props
     const { show } = this.state
-    const position = this.getPosition()
 
     let wrapClassName = dropdownClass('_', position, show && 'show', { 'split-dropdown': !placeholder })
     if (className) wrapClassName += ` ${className}`
@@ -194,6 +190,8 @@ class Dropdown extends PureComponent {
         ref={this.bindElement}
         className={wrapClassName}
         style={style}
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
       >
         {this.renderList(data, placeholder)}
       </div>
@@ -207,6 +205,7 @@ Dropdown.propTypes = {
   disabled: PropTypes.bool,
   href: PropTypes.string,
   hover: PropTypes.bool,
+  isSub: PropTypes.bool,
   position: PropTypes.string,
   width: PropTypes.oneOfType([
     PropTypes.number,

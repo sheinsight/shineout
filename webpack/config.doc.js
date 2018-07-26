@@ -24,7 +24,16 @@ function getCompiler(name, conf) {
     entry: wf.entry,
     output: wf.output,
     plugins: [
-      new UglifyJSPlugin(),
+      new UglifyJSPlugin({
+        uglifyOptions: {
+          compress: {
+            drop_console: true,
+          },
+          output: {
+            comments: false,
+          },
+        },
+      }),
       new webpack.optimize.ModuleConcatenationPlugin(),
     ],
   })

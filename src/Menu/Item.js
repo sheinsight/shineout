@@ -1,62 +1,144 @@
-import React, { isValidElement, cloneElement } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
-import { getProps, defaultProps } from '../utils/proptypes'
+import immer from 'immer'
+import { getKey, getUidStr } from '../utils/uid'
 import { menuClass } from '../styles'
+import List from './List'
+import { consumer } from './context'
 
-class Item extends React.Component {
+class Item extends PureComponent {
   constructor(props) {
     super(props)
+
+    this.id = `${props.path},${getUidStr()}`
+
+    const key = getKey(props.data, props.keygen, props.index)
+
+    this.state = {
+      open: props.defaultOpenKeys.indexOf(key) > -1,
+      isActive: props.bindItem(this.id, this.update.bind(this))(this.id, props.data),
+      isHighLight: false,
+    }
+
     this.handleClick = this.handleClick.bind(this)
+    this.handleMouseEnter = this.handleToggle.bind(this, true)
+    this.handleMouseLeave = this.handleToggle.bind(this, false)
   }
-  handleClick(data) {
-    if (this.props.data.disabled) return
-    this.props.handleClick(data)
+
+  componentWillUnmount() {
+    this.props.unbindItem(this.id)
+    this.unbindDocumentEvent()
   }
+
+  unbindDocumentEvent() {
+    document.removeEventListener('click', this.handleMouseLeave)
+  }
+
+  update(check, activePath) {
+    const isActive = check(this.id, this.props.data)
+    const isHighLight = activePath ? activePath.indexOf(this.id) > -1 : false
+
+    this.setState({ isActive, isHighLight })
+  }
+
+  handleToggle(open) {
+    if (this.toggleTimer) clearTimeout(this.toggleTimer)
+    if (open) {
+      this.setState({ open })
+      document.addEventListener('click', this.handleMouseLeave)
+    } else {
+      this.toggleTimer = setTimeout(() => {
+        this.setState({ open: false })
+      }, 200)
+      this.unbindDocumentEvent()
+    }
+  }
+
+  handleClick() {
+    const { data, onClick, mode } = this.props
+    if (data.disabled) return
+
+    if (mode === 'inline') {
+      this.setState(immer((state) => {
+        state.open = !state.open
+      }))
+    }
+
+    if (typeof data.onClick === 'function') {
+      data.onClick(this.id, data)
+    } else if ((!data.children || data.onClick === true) && typeof onClick === 'function') {
+      onClick(this.id, data)
+    }
+  }
+
   render() {
     const {
-      data, renderItem, isActive, inlineIndent, mode,
+      data, renderItem, mode, keygen, level, onClick, inlineIndent, defaultOpenKeys,
     } = this.props
-    const itemData = typeof renderItem === 'string' ? data[renderItem] : renderItem(data)
-    const className = classnames(
-      menuClass('item', this.props.data.disabled && 'disabled', {
-        'item-selected': isActive,
-      }),
-      this.props.className,
+    const { open, isActive, isHighLight } = this.state
+    const { children = [] } = data
+
+    const className = menuClass(
+      'item',
+      data.disabled && 'disabled',
+      children.length > 0 ? 'has-children' : 'no-children',
+      isActive && 'active',
+      open && 'open',
+      isHighLight && 'highlight',
     )
+
+    const style = {}
+    const events = {}
+    if (mode === 'inline') {
+      style.paddingLeft = 20 + (level * inlineIndent)
+    } else {
+      events.onMouseEnter = this.handleMouseEnter
+      events.onMouseLeave = this.handleMouseLeave
+    }
+
     return (
-      <li
-        className={className}
-        style={mode === 'inline' ? { paddingLeft: inlineIndent } : {}}
-      >
+      <li className={className} {...events}>
+        <a
+          href="javascript:;"
+          className={menuClass('title')}
+          style={style}
+          onClick={this.handleClick}
+        >
+          {renderItem(data)}
+        </a>
         {
-          isValidElement(itemData) ?
-            cloneElement(itemData, { onClick: () => this.handleClick(data) }) :
-            <div onClick={() => this.handleClick(data)}>{itemData}</div>
+          children.length > 0 &&
+          <List
+            data={children}
+            defaultOpenKeys={defaultOpenKeys}
+            renderItem={renderItem}
+            keygen={keygen}
+            inlineIndent={mode === 'horizontal' ? 0 : inlineIndent}
+            mode={mode === 'horizontal' ? 'inline' : mode}
+            onClick={onClick}
+            path={this.id}
+            level={level + 1}
+            open={open}
+          />
         }
-      </li>)
+      </li>
+    )
   }
 }
 
 Item.propTypes = {
-  ...getProps(PropTypes),
+  bindItem: PropTypes.func,
   data: PropTypes.object,
-  menuKey: PropTypes.string,
-  renderItem: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-  ]),
-  isActive: PropTypes.bool,
-  handleClick: PropTypes.func,
+  defaultOpenKeys: PropTypes.array,
+  index: PropTypes.number,
   inlineIndent: PropTypes.number,
+  level: PropTypes.number,
+  keygen: PropTypes.any,
+  mode: PropTypes.string,
+  onClick: PropTypes.func,
+  path: PropTypes.string,
+  renderItem: PropTypes.func,
+  unbindItem: PropTypes.func,
 }
 
-Item.defaultProps = {
-  ...defaultProps,
-  data: {},
-  menuKey: '',
-  renderItem: 'title',
-  isActive: false,
-}
-
-export default Item
+export default consumer(Item)

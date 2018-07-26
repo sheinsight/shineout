@@ -53,7 +53,9 @@ function unflatten(data) {
 
 export default class {
   constructor(options = {}) {
-    const { removeUndefined = true, rules, onChange } = options
+    const {
+      removeUndefined = true, rules, onChange, value,
+    } = options
     this.values = {}
     this.rules = rules
     this.onChange = onChange
@@ -65,6 +67,8 @@ export default class {
     this.$defaultValues = {}
     this.$validator = {}
     this.$events = {}
+
+    if (value) this.setValue(value)
   }
 
   handleChange() {
@@ -159,6 +163,8 @@ export default class {
       set: (val) => {
         this.$values[name] = val
         if (typeof fn === 'function') fn(val, name)
+        this.dispatch(`${name}-change`)
+        this.dispatch('change')
       },
       get: () => this.$values[name],
     })

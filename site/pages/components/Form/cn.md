@@ -8,6 +8,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 - **Form.Block：** 表单块，用来存取多级嵌套的数据。
 - **Form.BlockField：** 合并了 Field 和 Block 的一个快捷组件。
 - **Form.Loop：** 用于遍历 array 类型的值，生成子组件。
+- **Form.Flow：** 数据流，用来处理数据联动。
 
 - **Form.Submit：** submit 按钮的快捷方式。使用 Submit 时，enter 键会触发表单提交。
 - **Form.Reset：** reset 按钮的快捷方式。
@@ -47,11 +48,12 @@ rule 共有 5 种规则，按优先级分别为：
 - 正则表达式：根据 regExp 来判断，可以是 RegExp 对象或 字符串。
 - 类型：内置的常用 正则判断，不满足需求时，可以自定义正则表达式或使用 函数校验。
 
-#### function(value, formdata, callback) : undefined
+#### function(value, formdata, callback) : Promise
 
 - value: 当前组件值
 - formdata: 表单内所有组件值
-- callback(true|Error): 校验结果，通过为 true，失败为 Error 对象
+- callback(true|Error): 校验结果，通过为 true，失败为 Error 对象。如果函数返回一个Promise，不要调用 callback。
+
 
 #### object
 
@@ -103,6 +105,13 @@ rule 共有 5 种规则，按优先级分别为：
 | --- | --- | --- | --- |
 | children | function(options) :ReactElement | 必填 | options 属性为<br />list: name 下的全部数据<br />value：根据name获取的值的单条数据<br />onChange：子组件数据改变回调<br />onRemove：子组件删除回调<br />index：当前项索引<br />onInsert: 在当前项之前插入一条数据<br />onAppend: 在当前项之后附加一条数据|
 | name | string | 必填 | 从上层表单中获取值的key，获取的数据必须为 array 类型 |
+
+### Form.Flow
+
+| 属性 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| children | function(datum) :ReactElement | 必填 | datum 为 Datum.Form 对象 |
+| names | array | 无 | names 为空时，Form 内任意值变化会触发 Flow 更新；不为空是，只监听指定字段变化 |
 
 ### Submit, Reset, Button
 同 [Button](#/components/Button)

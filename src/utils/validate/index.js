@@ -34,14 +34,19 @@ function getRule(rules, inputType) {
 const validate = (value, formdata, rules, type) => new Promise((resolve, reject) => {
   const rule = rules.shift()
   if (rule) {
-    getRule(rule, type)(value, formdata, (result) => {
+    const callback = (result) => {
       if (result !== true) {
         reject(result)
         return
       }
 
       validate(value, formdata, rules, type).then(resolve, reject)
-    })
+    }
+
+    const cb = getRule(rule, type)(value, formdata, callback)
+    if (cb && cb.then) {
+      cb.then(callback.bind(null, true)).catch(e => reject(e))
+    }
   } else {
     resolve(true)
   }

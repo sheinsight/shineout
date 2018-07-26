@@ -34,7 +34,7 @@ class Container extends PureComponent {
   }
 
   componentDidMount() {
-    const { range, value } = this.props
+    const { range, value, onBlur } = this.props
     if (!value) return
     const format = this.getFormat()
     if (range) {
@@ -42,7 +42,9 @@ class Container extends PureComponent {
         if (!v) return undefined
         return utils.format(this.parseDate(v), format)
       })
-      if (!shallowEqual(newValue, value)) this.props.onChange(newValue)
+      if (!shallowEqual(newValue, value)) {
+        this.props.onChange(newValue, onBlur)
+      }
     } else {
       const newValue = utils.format(this.parseDate(value), format)
       if (newValue !== value) this.props.onChange(newValue)

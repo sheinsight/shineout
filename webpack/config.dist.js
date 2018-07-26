@@ -23,7 +23,16 @@ function getCompiler(name, conf) {
       filename: 'Shineout.js',
     },
     plugins: [
-      new UglifyJSPlugin(),
+      new UglifyJSPlugin({
+        uglifyOptions: {
+          compress: {
+            drop_console: true,
+          },
+          output: {
+            comments: false,
+          },
+        },
+      }),
       new webpack.optimize.ModuleConcatenationPlugin(),
     ],
   })

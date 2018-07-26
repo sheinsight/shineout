@@ -137,7 +137,7 @@ class Scroll extends PureComponent {
     if (scrollY) this.pixelY += wheel.pixelY * this.baseScrollRatio
 
     if (Math.abs(wheel.pixelX) > Math.abs(wheel.pixelY)) {
-      if (scrollX) event.preventDefault()
+      event.preventDefault()
     } else if (scrollY) event.preventDefault()
 
     if (!this.locked) {
