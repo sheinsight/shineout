@@ -69,6 +69,7 @@ export default class extends PureComponent {
     return (
       <div>
         <Table
+          bordered
           loading={loading}
           data={data}
           keygen="id"
