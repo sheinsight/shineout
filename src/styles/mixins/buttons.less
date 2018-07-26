@@ -5,7 +5,7 @@
 
 
 
-.button-variant(@color; @background; @border; @name) {
+.button-variant(@color; @background; @outline; @name; @border:transparent) {
   color: @color;
   background-color: @background;
   border-color: @border;
@@ -15,13 +15,13 @@
 
   @keyframes @keyname {
     0% {
-      box-shadow: 0 0 0 0 fade(@border, 60%);
+      box-shadow: 0 0 0 0 fade(@outline, 60%);
     }
     50% {
-      box-shadow: 0 0 0 @btn-focus-width/2 fade(@border, 0%);
+      box-shadow: 0 0 0 @btn-focus-width/2 fade(@outline, 0%);
     }
     100% {
-      box-shadow: 0 0 0 @btn-focus-width fade(@border, 0);
+      box-shadow: 0 0 0 @btn-focus-width fade(@outline, 0);
     }
   }
 
@@ -32,12 +32,12 @@
   &:hover {
     color: @color;
     background-color: darken(@background, @btn-hover-darken);
-        border-color: darken(@border, @btn-hover-darken);
+        border-color: darken(@outline, @btn-hover-darken);
   }
   &:active {
     color: @color;
     background-color: darken(@background, @btn-hover-darken);
-        border-color: darken(@border, @btn-hover-darken);
+        border-color: darken(@outline, @btn-hover-darken);
     animation: @keyname 0.4s ease-out;
   }
 

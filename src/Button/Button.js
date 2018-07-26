@@ -10,7 +10,7 @@ const spinStyle = { display: 'inline-block', marginRight: 8 }
 class Button extends PureComponent {
   render() {
     const {
-      children, outline, type, size, href, htmlType, loading, ...others
+      children, outline, type, size, href, htmlType, loading, disabled, ...others
     } = this.props
     const className = classnames(
       buttonClass('_', type, outline && 'outline', {
@@ -26,7 +26,7 @@ class Button extends PureComponent {
       )
     }
     return (
-      <button {...others} type={htmlType} className={className}>
+      <button {...others} disabled={disabled || loading} type={htmlType} className={className}>
         {
           loading &&
           <span style={spinStyle}>

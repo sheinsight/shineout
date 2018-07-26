@@ -20,7 +20,6 @@
 
   &:hover,
   &:focus {
-    // color: @btn-default-color;
     outline: none;
     color: @link-hover-color;
     text-decoration: none;
@@ -43,9 +42,19 @@
 
   &[disabled],
   fieldset[disabled] & {
+    position: relative;
     cursor: @cursor-disabled;
-    opacity: 0.65;
     box-shadow: none;
+
+    &:after {
+      content: ' ';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.35);
+    }
   }
 
   a& {
@@ -55,7 +64,7 @@
   }
 
   &-default {
-    .button-variant(@btn-default-color; @btn-default-bg; @btn-default-border; 'default');
+    .button-variant(@btn-default-color; @btn-default-bg; @btn-default-border; 'default'; @btn-default-border);
 
     &.@{button-prefix}-outline {
       .button-outline(@btn-default-color; @btn-default-bg; @btn-default-bg;);
@@ -66,6 +75,10 @@
         color: @link-color;
         border-color: @link-color;
       }
+    }
+
+    &[disabled]:hover {
+      color: @btn-default-color;
     }
   }
 
@@ -156,10 +169,38 @@
   &-group {
     .@{button-prefix} {
       position: relative;
-      margin-left: -1px;
+      margin-left: 0px;
+      border-left-width: 0;
+      border-right-width: 0;
+
+      &:before {
+        content: ' ';
+        position: absolute;
+        left: 0;
+        height: 50%;
+        top: 50%;
+        transform: translateY(-50%);
+        border-left-style: solid;
+        border-left-width: 1px;
+        border-left-color: rgba(255, 255, 255, 0.4);
+      }
+
+      &.@{button-prefix}-default {
+        &:hover, &:focus {
+          border-color: @btn-default-border;
+        }
+      }
 
       &:first-child {
+        border-left-width: 1px;
         margin-left: 0;
+
+        &:before {
+          display: none;
+        }
+      }
+      &:last-child {
+        border-right-width: 1px;
       }
       &:not(:first-child):not(:last-child) {
         border-radius: 0;
@@ -169,6 +210,12 @@
       }
       &:last-child:not(:first-child) {
         .border-left-radius(0);
+      }
+    }
+
+    &.@{button-prefix}-outline .@{button-prefix} {
+      &:before {
+        border-left-color: inherit;
       }
     }
   }

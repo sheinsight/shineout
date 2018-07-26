@@ -10,8 +10,9 @@ class ButtonGroup extends PureComponent {
     const {
       children, outline, size, type,
     } = this.props
+
     const className = classnames(
-      buttonClass('group'),
+      buttonClass('group', (outline || type === 'default') && 'outline'),
       this.props.className,
     )
 
@@ -19,11 +20,7 @@ class ButtonGroup extends PureComponent {
       <div className={className}>
         {
           Children.toArray(children)
-            .map(child => cloneElement(child, {
-              size,
-              outline: child.props.outline || outline,
-              type: type || child.props.type,
-            }))
+            .map(child => cloneElement(child, { size, outline, type }))
         }
       </div>
     )
@@ -31,13 +28,15 @@ class ButtonGroup extends PureComponent {
 }
 
 ButtonGroup.propTypes = {
-  ...getProps(PropTypes, 'size', 'type'),
+  ...getProps(PropTypes, 'size'),
   children: PropTypes.any.isRequired,
   outline: PropTypes.bool,
+  type: PropTypes.string,
 }
 
 ButtonGroup.defaultProps = {
-  outline: undefined,
+  outline: false,
+  type: 'default',
 }
 
 export default ButtonGroup

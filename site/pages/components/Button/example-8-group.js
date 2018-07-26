@@ -1,10 +1,11 @@
 /**
  * cn - 组合
- *    -- 一组 Button 可以用 Button.Group 包裹起来
+ *    -- 一组 Button 可以用 Button.Group 容器中，按钮样式通过 Button.Gorup 的 size, type, outline 属性设置
  * en - Group
  */
 import React from 'react'
 import { Button } from 'shineout'
+import FontAwesome from '../Icon/FontAwesome'
 
 export default function () {
   return (
@@ -18,7 +19,7 @@ export default function () {
 
       <br />
 
-      <Button.Group type="secondary">
+      <Button.Group type="primary">
         <Button>Left</Button>
         <Button>Center</Button>
         <Button>Right</Button>
@@ -26,15 +27,15 @@ export default function () {
 
       <br />
 
-      <Button.Group outline>
-        <Button type="primary">Left</Button>
-        <Button type="secondary">Center</Button>
-        <Button type="danger">Right</Button>
+      <Button.Group outline type="primary">
+        <Button><FontAwesome name="angle-left" />&nbsp; Left</Button>
+        <Button>Center</Button>
+        <Button>Right &nbsp;<FontAwesome name="angle-right" /></Button>
       </Button.Group>
 
       <br />
 
-      <Button.Group type="primary" outline size="large">
+      <Button.Group type="warning" size="large">
         <Button>Left</Button>
         <Button>Center</Button>
         <Button>Right</Button>
