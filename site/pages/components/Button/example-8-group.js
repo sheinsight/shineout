@@ -13,13 +13,12 @@ export default function () {
       <Button.Group>
         <Button>Left</Button>
         <Button>Center</Button>
-        <Button disabled>disabled</Button>
         <Button>Right</Button>
       </Button.Group>
 
       <br />
 
-      <Button.Group type="primary">
+      <Button.Group outline type="primary">
         <Button>Left</Button>
         <Button>Center</Button>
         <Button>Right</Button>
@@ -27,7 +26,7 @@ export default function () {
 
       <br />
 
-      <Button.Group outline type="primary">
+      <Button.Group type="primary">
         <Button><FontAwesome name="angle-left" />&nbsp; Left</Button>
         <Button>Center</Button>
         <Button>Right &nbsp;<FontAwesome name="angle-right" /></Button>
@@ -35,7 +34,7 @@ export default function () {
 
       <br />
 
-      <Button.Group type="warning" size="large">
+      <Button.Group size="large">
         <Button>Left</Button>
         <Button>Center</Button>
         <Button>Right</Button>
