@@ -1,5 +1,6 @@
 /**
  * cn - 选择月
+ *    -- 设置 type 为 month，选择月
  * en - Month Type
  */
 import React from 'react'

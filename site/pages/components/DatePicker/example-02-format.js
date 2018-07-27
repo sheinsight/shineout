@@ -1,6 +1,6 @@
 /**
  * cn - 格式化
- *    -- 可以修改 format 来定义返回值和传入值的格式
+ *    -- 传入值可为 日期对象，时间戳，字符串，通过format 属性可以定义返回值的格式
  * en - Format
  */
 import React, { Component } from 'react'

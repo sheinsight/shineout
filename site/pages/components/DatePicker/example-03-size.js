@@ -1,5 +1,6 @@
 /**
  * cn - 尺寸
+ *    -- 内置了三种尺寸，small、default、large
  * en - Size
  */
 import React from 'react'
