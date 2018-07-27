@@ -2,6 +2,7 @@ import React from 'react'
 import { Button } from 'shineout'
 import classGenerate from '../../utils/classname'
 import locate from '../../locate'
+import Icon from '../../icons/Icon'
 
 const homeClass = classGenerate(require('../../styles/home.less'), 'home')
 
@@ -18,7 +19,7 @@ function Home() {
           </div>
           <div className={homeClass('buttons')}>
             <Button type="primary" href="#/components">{locate('开始使用', 'Start')}</Button>
-            <Button style={{ marginLeft: 20 }} href="#/components">Github</Button>
+            <Button style={{ marginLeft: 20 }} href="https://github.com/UncaughtError/Shineout"><Icon name="github" /> Github</Button>
           </div>
         </div>
 

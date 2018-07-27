@@ -57,7 +57,7 @@ const examples = [
   },
   {
     name: '8-disabled',
-    title: locate('禁用', 'Disabled'),
+    title: locate('禁用 \n 设置 disabled 属性禁用组件', 'Disabled'),
     component: require('doc/pages/components/Input/example-8-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-8-disabled.js'),
   },
