@@ -1,6 +1,6 @@
 /**
  * cn -
- *    -- Form.BlockField 合并了 Form.Field 和 Form.Block，可以简化如下
+ *    -- Form.BlockField 合并了 Form.Field 和 Form.Block，可以简化如上
  * en - Nested data
  */
 import React, { PureComponent } from 'react'

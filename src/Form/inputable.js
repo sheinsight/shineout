@@ -187,27 +187,6 @@ export default curry(Origin => consumer(class extends PureComponent {
     this.validate(newValue)
   }
 
-  /*
-  handleChange(value, ...args) {
-    // handle change immediately
-    if (this.props.delay === 0 && this.props.formDatum) {
-      this.change(value, ...args)
-      return
-    }
-
-    // use state as cache
-    this.setState({ value })
-
-    this.changeLocked = true
-    if (this.changeTimer) clearTimeout(this.changeTimer)
-    // delay validate
-    this.changeTimer = setTimeout(() => {
-      this.changeLocked = false
-      this.change(value, ...args)
-    }, this.props.delay)
-  }
-  */
-
   render() {
     const {
       formDatum, value, required, loopContext, ...other

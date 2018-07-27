@@ -37,7 +37,7 @@ export default function () {
       </Form.Item>
 
       <Form.Item label="">
-        <Form.Submit>Submit</Form.Submit>
+        <Form.Submit loading>Submit</Form.Submit>
         <Form.Reset>Reset</Form.Reset>
       </Form.Item>
     </Form>

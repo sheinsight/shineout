@@ -8,7 +8,7 @@ function flatten(data) {
   if (isEmpty(data)) return {}
   const result = {}
   function recurse(cur, prop) {
-    if (Object(cur) !== cur || Array.isArray(cur)) {
+    if (Object(cur) !== cur || Array.isArray(cur) || cur instanceof Date) {
       result[prop] = cur
     } else {
       let empty = true

@@ -1,5 +1,6 @@
 /**
- * cn - \n 可以在单个元素上设置 rules
+ * cn -
+ *    -- 某些复杂的数据，如多层嵌套的数据，可以在单个元素上设置 rules
  * en - Validate
  */
 import React from 'react'

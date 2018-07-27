@@ -1,5 +1,6 @@
 /**
- * cn - \n 在 Input 或 Input.Group 上设置的 tip，会在组件 focus 时弹出显示。popover 可以控制弹出位置。
+ * cn -
+ *    -- 在 Input 或 Input.Group 上设置的 tip，会在组件 focus 时弹出显示。通过 popover 可以控制弹出位置。
  * en
  */
 import React from 'react'

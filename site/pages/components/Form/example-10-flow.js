@@ -1,5 +1,7 @@
 /**
  * cn - 联动
+ *    -- 出于性能的考虑，Form 内部数据是隔离的，一个组件改变，不会触发另一个组件变化。
+ *    -- 需要联动的场景，可以使用 Flow 组件来实现。如果设置了 names 属性，只监听 names 包含的字段变化，如果没有设置，会监听 Form 内所有数据的变化。
  * en - onChange
  */
 import React, { Component } from 'react'
@@ -31,11 +33,11 @@ export default class extends Component {
         onSubmit={d => console.log(d)}
       >
         <Form.Item label="First Name">
-          <Input name="firstName" defaultValue="Harry" />
+          <Input name="firstName" delay={0} defaultValue="Harry" />
         </Form.Item>
 
         <Form.Item label="Last Name">
-          <Input name="lastName" defaultValue="Potter" />
+          <Input name="lastName" delay={0} defaultValue="Potter" />
         </Form.Item>
 
         <Form.Item label="Full Name">

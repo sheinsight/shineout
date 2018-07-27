@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import immer from 'immer'
-import shallowEqual from '../utils/shallowEqual'
 import List from '../List'
 import Icon from './Icon'
 import utils from './utils'
@@ -31,24 +30,6 @@ class Container extends PureComponent {
     this.parseDate = this.parseDate.bind(this)
 
     this.firstRender = false
-  }
-
-  componentDidMount() {
-    const { range, value, onBlur } = this.props
-    if (!value) return
-    const format = this.getFormat()
-    if (range) {
-      const newValue = value.map((v) => {
-        if (!v) return undefined
-        return utils.format(this.parseDate(v), format)
-      })
-      if (!shallowEqual(newValue, value)) {
-        this.props.onChange(newValue, onBlur)
-      }
-    } else {
-      const newValue = utils.format(this.parseDate(value), format)
-      if (newValue !== value) this.props.onChange(newValue)
-    }
   }
 
   getCurrent() {

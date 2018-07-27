@@ -23,7 +23,7 @@ const rules = {
   repeatPassword: [
     (value, formData, callback) => {
       if (value !== formData.password) {
-        callback(new Error('repeat password must equal password'))
+        callback(new Error('Must same as the Password'))
       } else {
         callback(true)
       }

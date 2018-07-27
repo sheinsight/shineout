@@ -15,7 +15,7 @@ const source = locate(cn, en)
 const examples = [
   {
     name: '01-base',
-    title: locate('基本用法', 'Base'),
+    title: locate('基本用法 \n 表单内置了类似双向绑定的机制，根据表单元素的 name 属性自动下发、收集数据', 'Base'),
     component: require('doc/pages/components/Form/example-01-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-01-base.js'),
   },
@@ -45,7 +45,7 @@ const examples = [
   },
   {
     name: '06-tip',
-    title: locate('\n 在 Input 或 Input.Group 上设置的 tip，会在组件 focus 时弹出显示。popover 可以控制弹出位置。', ''),
+    title: locate(' \n 在 Input 或 Input.Group 上设置的 tip，会在组件 focus 时弹出显示。通过 popover 可以控制弹出位置。', ''),
     component: require('doc/pages/components/Form/example-06-tip.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-06-tip.js'),
   },
@@ -57,7 +57,7 @@ const examples = [
   },
   {
     name: '08-validate',
-    title: locate('\n 可以在单个元素上设置 rules', 'Validate'),
+    title: locate(' \n 某些复杂的数据，如多层嵌套的数据，可以在单个元素上设置 rules', 'Validate'),
     component: require('doc/pages/components/Form/example-08-validate.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-08-validate.js'),
   },
@@ -68,10 +68,10 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-09-datum.js'),
   },
   {
-    name: '10-change',
-    title: locate('联动', 'onChange'),
-    component: require('doc/pages/components/Form/example-10-change.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-10-change.js'),
+    name: '10-flow',
+    title: locate('联动 \n 出于性能的考虑，Form 内部数据是隔离的，一个组件改变，不会触发另一个组件变化。 \n 需要联动的场景，可以使用 Flow 组件来实现。如果设置了 names 属性，只监听 names 包含的字段变化，如果没有设置，会监听 Form 内所有数据的变化。', 'onChange'),
+    component: require('doc/pages/components/Form/example-10-flow.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-10-flow.js'),
   },
   {
     name: '11-disabled',
@@ -117,7 +117,7 @@ const examples = [
   },
   {
     name: '18-block-field',
-    title: locate(' \n Form.BlockField 合并了 Form.Field 和 Form.Block，可以简化如下', 'Nested data'),
+    title: locate(' \n Form.BlockField 合并了 Form.Field 和 Form.Block，可以简化如上', 'Nested data'),
     component: require('doc/pages/components/Form/example-18-block-field.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-18-block-field.js'),
   },
