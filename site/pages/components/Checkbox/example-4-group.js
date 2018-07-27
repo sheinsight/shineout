@@ -1,5 +1,6 @@
 /**
- * cn -  \n 复杂的数据可以使用 datum 进行处理
+ * cn -
+ *    -- 复杂的数据可以使用 datum 进行处理
  */
 import React from 'react'
 import { Checkbox } from 'shineout'

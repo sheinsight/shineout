@@ -88,7 +88,9 @@ export default class Example extends PureComponent {
 
     const text = rawText.replace(/(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/, '').trim()
 
-    const [title, ...sub] = this.props.title.split('\n')
+    // eslint-disable-next-line
+    let [title, ...sub] = this.props.title.split('\n')
+    if (title) title = title.trim()
 
     return [
       title ? <h3 key="0" id={this.id}>{title}</h3> : null,

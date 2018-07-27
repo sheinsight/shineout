@@ -1,6 +1,6 @@
 /**
  * cn -
- *    -- React 组件方式
+ *    -- 可以按 React 组件方式使用
  * en -
  */
 import React from 'react'

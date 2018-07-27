@@ -1,5 +1,6 @@
 /**
  * cn - 基本用法
+ *    -- 基本的 Checkbox
  * en - Base
  */
 import React from 'react'

@@ -1,5 +1,6 @@
 /**
  * cn - 一组多选框
+ *    -- Checkbox.Group 可以渲染一组 Checkbox
  * en - Group
  */
 import React from 'react'

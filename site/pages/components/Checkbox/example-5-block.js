@@ -1,5 +1,6 @@
 /**
  * cn - 垂直布局
+ *    -- 默认是水平布局，设置 block 属性可以改为垂直布局
  * en - Block
  */
 import React from 'react'
