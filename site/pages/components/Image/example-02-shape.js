@@ -1,5 +1,6 @@
 /**
  * cn - 形状
+ *    -- 内置了三种图片样式，rounded, cricle, thumbnail
  * en - Shape
  */
 import React from 'react'

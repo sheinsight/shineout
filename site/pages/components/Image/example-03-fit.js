@@ -1,11 +1,12 @@
 /**
  * cn - 适应
+ *    -- 内置了 4 种适应容器的方式，填充、居中、原图、拉伸
  * en - fit
  */
 import React from 'react'
 import { Image } from 'shineout'
 
-const src = 'http://lobos.github.io/react-ui/0.7/images/image1.jpg'
+const src = '/images/1_b.jpg'
 
 export default function () {
   return (

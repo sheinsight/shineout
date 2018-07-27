@@ -15,19 +15,19 @@ const source = locate(cn, en)
 const examples = [
   {
     name: '01-base',
-    title: locate('基本用法', 'Base'),
+    title: locate('基本用法 \n 图片设置宽高后及时图片未加载，仍然会先占位', 'Base'),
     component: require('doc/pages/components/Image/example-01-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-01-base.js'),
   },
   {
     name: '02-shape',
-    title: locate('形状', 'Shape'),
+    title: locate('形状 \n 内置了三种图片样式，rounded, cricle, thumbnail', 'Shape'),
     component: require('doc/pages/components/Image/example-02-shape.js').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-02-shape.js'),
   },
   {
     name: '03-fit',
-    title: locate('适应', 'fit'),
+    title: locate('适应 \n 内置了 4 种适应容器的方式，填充、居中、原图、拉伸', 'fit'),
     component: require('doc/pages/components/Image/example-03-fit.js').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-03-fit.js'),
   },
@@ -45,19 +45,19 @@ const examples = [
   },
   {
     name: '06-target',
-    title: locate('原始图片', 'Target'),
+    title: locate('原始图片 \n 提供了 4 种方式展示原始图片，弹出层、新窗口打开、当前窗口打开、下载', 'Target'),
     component: require('doc/pages/components/Image/example-06-target.js').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-06-target.js'),
   },
   {
     name: '07-group',
-    title: locate('图片组', 'Group'),
+    title: locate('图片组 \n 一组图片可以放在 Image.Group 中', 'Group'),
     component: require('doc/pages/components/Image/example-07-group.js').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-07-group.js'),
   },
   {
     name: '08-group',
-    title: locate('图片组', 'Group'),
+    title: locate(' \n 设置 pile 属性可以把缩略图堆叠展示', ''),
     component: require('doc/pages/components/Image/example-08-group.js').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-08-group.js'),
   },

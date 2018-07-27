@@ -131,7 +131,8 @@ class Image extends PureComponent {
         ref={this.bindElement}
         href={target === '_modal' ? 'javascript:;' : href}
         onClick={(href && target === '_modal') ? this.handleClick : undefined}
-        target={target}
+        target={target === '_download' ? '_self' : target}
+        download={target === '_download'}
         className={className}
         style={Object.assign({}, style, { width, paddingBottom: height })}
       >
@@ -163,6 +164,7 @@ Image.propTypes = {
     '_blank',
     '_self',
     '_modal',
+    '_download',
   ]),
   title: PropTypes.string,
   fit: PropTypes.oneOf([

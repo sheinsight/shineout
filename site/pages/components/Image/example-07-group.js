@@ -1,6 +1,7 @@
 /**
- * cn - 跳转
- * en - Target
+ * cn - 图片组
+ *    -- 一组图片可以放在 Image.Group 中
+ * en - Group
  */
 import React from 'react'
 import { Image } from 'shineout'
@@ -11,6 +12,7 @@ export default function () {
       {
         ([1, 2, 3, 4]).map(i => (
           <Image
+            key={i}
             width={80}
             height={80}
             shape="thumbnail"

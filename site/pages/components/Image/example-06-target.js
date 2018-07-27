@@ -1,5 +1,6 @@
 /**
- * cn - 跳转
+ * cn - 原始图片
+ *    -- 提供了 4 种方式展示原始图片，弹出层、新窗口打开、当前窗口打开、下载
  * en - Target
  */
 import React from 'react'
@@ -9,17 +10,19 @@ export default function () {
   return (
     <div>
       {
-        (['_modal', '_blank', '_self']).map(target => (
-          <Image
-            width={80}
-            height={80}
-            key={target}
-            target={target}
-            style={{ marginRight: 12 }}
-            shape="thumbnail"
-            src="/images/1_s.jpg"
-            href="/images/1_b.jpg"
-          />
+        (['_modal', '_blank', '_self', '_download']).map(target => (
+          <div key={target} style={{ display: 'inline-block', marginRight: 12, textAlign: 'center' }}>
+            <Image
+              width={80}
+              height={80}
+              target={target}
+              shape="thumbnail"
+              src="/images/1_s.jpg"
+              href="/images/1_b.jpg"
+            />
+            <br />
+            {target}
+          </div>
         ))
       }
     </div>

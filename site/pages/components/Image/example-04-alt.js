@@ -8,6 +8,6 @@ import { Image } from 'shineout'
 
 export default function () {
   return (
-    <Image width={200} height={125} src="notfound" alt="http://lobos.github.io/react-ui/0.7/images/image1.jpg" />
+    <Image width={200} height={125} src="notfound" alt="/images/1_b.jpg" />
   )
 }
