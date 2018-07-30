@@ -1,5 +1,6 @@
 /**
  * cn - 步长
+ *    -- 设置 step 属性，定义拖动的步长，默认为 1
  * en - Step
  */
 import React from 'react'

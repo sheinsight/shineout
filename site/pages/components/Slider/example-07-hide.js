@@ -1,5 +1,5 @@
 /**
- * cn - 隐藏
+ * cn - 隐藏信息
  *    -- autoHide 选项为 true 时，自动隐藏当前值和刻度
  * en - autoHide
  */

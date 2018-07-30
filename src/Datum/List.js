@@ -24,11 +24,6 @@ export default class {
     }
 
     if (prediction) this.prediction = prediction
-    /*
-    if (separator && !format) {
-      console.error('The "separator" property depends on the "format" property.')
-    }
-    */
 
     this.setValue(value)
     this.onChange = onChange
@@ -79,7 +74,6 @@ export default class {
     }
 
     this.handleChange(this.values.concat(values), data, true)
-    // this.values = this.values.concat(values)
   }
 
   set(value) {

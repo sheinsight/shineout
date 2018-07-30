@@ -1,5 +1,6 @@
 /**
  * cn - 基本用法
+ *    -- 最基本的用法
  * en - Base
  */
 import React from 'react'

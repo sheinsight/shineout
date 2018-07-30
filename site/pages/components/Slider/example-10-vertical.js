@@ -1,5 +1,6 @@
 /**
  * cn - 垂直
+ *    -- 设置 vertical 属性，修改组件为垂直方向
  * en - Vertical
  */
 import React from 'react'

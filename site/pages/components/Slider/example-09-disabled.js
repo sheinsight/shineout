@@ -1,5 +1,6 @@
 /**
  * cn - 禁用
+ *    -- 设置 disabled 属性，禁用组件
  * en - Disabled
  */
 import React from 'react'

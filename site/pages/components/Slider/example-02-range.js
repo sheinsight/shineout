@@ -1,5 +1,6 @@
 /**
  * cn - 范围选择
+ *    -- 设置 range 属性显示为双滑块，输入(返回)值为长度为 2 的数组
  * en - Range
  */
 import React from 'react'

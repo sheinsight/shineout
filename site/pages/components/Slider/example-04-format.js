@@ -1,5 +1,7 @@
 /**
  * cn - 格式化
+ *    -- 通过 formatScale 属性自定义刻度显示信息
+ *    -- 通过 formatValue 属性自定义值显示信息
  * en - Format
  */
 import React from 'react'

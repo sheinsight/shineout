@@ -1,7 +1,7 @@
 /**
  * cn -
- *    -- step 设定为 0 时，只能从 scale 内的值
- * en - Step
+ *    -- step 设定为 0 时，只能取 scale 内定义的值
+ * en -
  */
 import React from 'react'
 import { Slider } from 'shineout'
