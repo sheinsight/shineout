@@ -1,5 +1,6 @@
 /**
- * cn - 数字 \n type=number 时，会做一次校验，禁止输入非数字类型字符，并且根据 digits 属性限制小数位数
+ * cn - 数字
+ *    -- type=number 时，输入时会做一次校验，禁止输入非数字类型字符，并且根据 digits 属性限制小数位数
  * en - number type
  */
 import React from 'react'

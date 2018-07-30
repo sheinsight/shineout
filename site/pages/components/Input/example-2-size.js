@@ -1,5 +1,6 @@
 /**
- * cn - 大小 \n 提供了三种尺寸的输入框
+ * cn - 大小
+ *    -- 提供了三种尺寸的输入框，small、default、large
  * en - Size
  */
 import React from 'react'
