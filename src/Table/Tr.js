@@ -34,6 +34,12 @@ class Tr extends Component {
     this.setRowHeight()
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.index !== prevProps.index) {
+      this.setRowHeight()
+    }
+  }
+
   setRowHeight() {
     const { setRowHeight } = this.props
     if (!setRowHeight || !this.element) return
