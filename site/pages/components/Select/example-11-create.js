@@ -1,5 +1,6 @@
 /**
- * cn - 创建条目
+ * cn - 创建选项
+ *    -- 设置 onCreate 属性可以通过输入创建选项
  * en - onCreate
  */
 import React from 'react'
@@ -23,7 +24,7 @@ export default function () {
         data={data}
         multiple
         placeholder="input color"
-        onCreate
+        onCreate={t => t}
         onChange={d => console.log(d)}
       />
     </div>

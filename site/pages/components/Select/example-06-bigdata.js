@@ -1,6 +1,6 @@
 /**
  * cn - 性能
- *    -- Select 内部实现了懒加载机制优化性能，本例加载了10000条数据。
+ *    -- Select 内部用懒加载机制来优化性能，本例加载了10000条数据。
  * en - Datum
  */
 import React from 'react'

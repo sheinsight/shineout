@@ -169,22 +169,6 @@ class OptionList extends PureComponent {
       scrollHeight = height
     }
 
-    /*
-    const style = {}
-    if (this.isAbsolute && parentElement) {
-      const rect = parentElement.getBoundingClientRect()
-      style.position = 'absolute'
-      style.width = rect.width
-      style.left = rect.left + document.documentElement.scrollLeft
-      if (position === 'drop-down') {
-        style.top = rect.top + rect.height + document.documentElement.scrollTop
-      } else {
-        style.bottom = -(rect.top + document.documentElement.scrollTop)
-      }
-      this.element.className = selectClass('absolute-wrapper', this.props.position)
-    }
-    */
-
     return (
       <ScaleList
         show={focus}

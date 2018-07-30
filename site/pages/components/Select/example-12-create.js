@@ -1,6 +1,6 @@
 /**
  * cn -
- *    -- 和 filter 配合使用
+ *    -- 示例：创建选项和 filter 配合使用
  */
 import React from 'react'
 import { Select } from 'shineout'

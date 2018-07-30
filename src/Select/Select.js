@@ -45,9 +45,6 @@ class Select extends PureComponent {
     this.resetResult = this.resetResult.bind(this)
     this.renderItem = this.renderItem.bind(this)
 
-    if (props.multiple) {
-      props.datum.limit = undefined
-    }
     props.datum.listen('set-value', this.resetResult)
 
     // option list not render till first focused
