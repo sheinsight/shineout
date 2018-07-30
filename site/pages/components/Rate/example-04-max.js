@@ -1,6 +1,6 @@
 /**
  * cn - 最大值
- *    -- 通过max设置选项最大值
+ *    -- 通过 max 属性设置选项最大值，默认为 5
  * en - Array
  */
 import React from 'react'

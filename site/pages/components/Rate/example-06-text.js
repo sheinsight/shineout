@@ -1,5 +1,6 @@
 /**
- * cn - 文字
+ * cn - 附加文字
+ *    -- text 属性可以为每个选项附加文字
  * en - Text
  */
 import React from 'react'

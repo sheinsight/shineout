@@ -1,6 +1,6 @@
 /**
  * cn - 颜色
- *    -- 创建函数时设置颜色
+ *    -- 默认的颜色为金色，可以在创建函数时设置颜色
  * en - Icon color
  */
 import React from 'react'
@@ -13,6 +13,6 @@ const HeartRate = Rate(heartBg, heart)
 
 export default function () {
   return (
-    <HeartRate />
+    <HeartRate defaultValue={2} />
   )
 }

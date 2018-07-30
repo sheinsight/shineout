@@ -1,5 +1,6 @@
 /**
  * cn - 大小
+ *    -- 通过 size 属性可以设置大小
  * en - Array
  */
 import React from 'react'
