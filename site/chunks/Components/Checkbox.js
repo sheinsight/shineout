@@ -39,7 +39,7 @@ const examples = [
   },
   {
     name: '4-group',
-    title: locate(' \n 复杂的数据可以使用 datum 进行处理', ''),
+    title: locate(' \n 复杂的数据可以使用 Datum.List 进行处理', ''),
     component: require('doc/pages/components/Checkbox/example-4-group.js').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-4-group.js'),
   },
@@ -63,7 +63,7 @@ const examples = [
   },
   {
     name: '7-disabled',
-    title: locate('\n 使用 datum disabled 实现有条件禁用', 'Disabled'),
+    title: locate(' \n disabled 为函数时，根据函数结果实现有条件禁用', 'Disabled'),
     component: require('doc/pages/components/Checkbox/example-7-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-7-disabled.js'),
   },

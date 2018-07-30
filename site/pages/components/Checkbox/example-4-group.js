@@ -1,9 +1,9 @@
 /**
  * cn -
- *    -- 复杂的数据可以使用 datum 进行处理
+ *    -- 复杂的数据可以使用 Datum.List 进行处理
  */
-import React from 'react'
-import { Checkbox } from 'shineout'
+import React, { Component } from 'react'
+import { Checkbox, Datum } from 'shineout'
 
 const data = [
   { id: 1, color: 'red' },
@@ -15,20 +15,30 @@ const data = [
   { id: 7, color: 'violet' },
 ]
 
-function renderItem(d) {
-  const style = { borderBottom: `solid 1px ${d.color}`, paddingBottom: 2 }
-  return <span style={style}>{d.color}</span>
-}
+export default class extends Component {
+  constructor(props) {
+    super(props)
+    this.datum = new Datum.List({
+      // format: d => d.color,
+      format: 'color',
+    })
+  }
 
-export default function () {
-  return (
-    <Checkbox.Group
-      keygen="id"
-      data={data}
-      datum={{ format: 'color' }}
-      onChange={d => console.log(d)}
-      value={['blue', 'cyan']}
-      renderItem={renderItem}
-    />
-  )
+  renderItem = (d) => {
+    const style = { borderBottom: `solid 1px ${d.color}`, paddingBottom: 2 }
+    return <span style={style}>{d.color}</span>
+  }
+
+  render() {
+    return (
+      <Checkbox.Group
+        keygen="id"
+        data={data}
+        datum={this.datum}
+        onChange={d => console.log(d)}
+        value={['blue', 'cyan']}
+        renderItem={this.renderItem}
+      />
+    )
+  }
 }

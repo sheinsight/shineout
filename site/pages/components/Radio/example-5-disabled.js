@@ -1,6 +1,6 @@
 /**
  * cn -
- *    -- 使用 datum disabled 实现有条件禁用
+ *    -- disabled 为函数时，根据函数返回结果实现有条件禁用
  * en - Disabled
  */
 import React from 'react'
@@ -13,7 +13,7 @@ export default function () {
     <div>
       <Radio.Group
         data={data}
-        datum={{ disabled: d => d === 'yellow' }}
+        disabled={d => d === 'yellow'}
         value="blue"
         renderItem={d => d}
       />

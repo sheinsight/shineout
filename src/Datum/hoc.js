@@ -11,7 +11,9 @@ const types = {
 }
 
 export default curry((options, Origin) => {
-  const { type = 'list', key = 'value', limit = 0 } = options || {}
+  const {
+    type = 'list', key = 'value', limit = 0, bindProps = [],
+  } = options || {}
   const Datum = types[type]
 
   return class extends PureComponent {
@@ -28,7 +30,11 @@ export default curry((options, Origin) => {
       if (datum instanceof Datum) {
         this.datum = datum
       } else {
-        this.datum = new Datum(datum)
+        const ops = bindProps.reduce((o, k) => {
+          o[k] = props[k]
+          return o
+        }, {})
+        this.datum = new Datum(Object.assign(ops, datum))
       }
 
       // for radio, select

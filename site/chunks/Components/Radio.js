@@ -39,7 +39,7 @@ const examples = [
   },
   {
     name: '5-disabled',
-    title: locate(' \n 使用 datum disabled 实现有条件禁用', 'Disabled'),
+    title: locate(' \n disabled 为函数时，根据函数返回结果实现有条件禁用', 'Disabled'),
     component: require('doc/pages/components/Radio/example-5-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/Radio/example-5-disabled.js'),
   },

@@ -51,7 +51,7 @@ class RadioGroup extends PureComponent {
 
   render() {
     const {
-      block, data, datum, disabled, keygen, children,
+      block, data, datum, keygen, children,
     } = this.props
 
     const className = classnames(
@@ -75,7 +75,7 @@ class RadioGroup extends PureComponent {
           data.map((d, i) => (
             <Radio
               checked={datum.check(d)}
-              disabled={disabled || datum.disabled(d)}
+              disabled={datum.disabled(d)}
               key={getKey(d, keygen, i)}
               htmlValue={i}
               index={i}
@@ -92,7 +92,7 @@ class RadioGroup extends PureComponent {
 }
 
 RadioGroup.propTypes = {
-  ...getProps(PropTypes, 'children', 'disabled', 'keygen'),
+  ...getProps(PropTypes, 'children', 'keygen'),
   block: PropTypes.bool,
   data: PropTypes.array,
   datum: PropTypes.object.isRequired,

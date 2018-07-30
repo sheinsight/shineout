@@ -6,7 +6,7 @@ import Group from './Group'
 import { consumer } from './context'
 
 const exports = compose(inputable, consumer)(Checkbox)
-exports.Group = compose(inputable, Datum.hoc({}))(Group)
+exports.Group = compose(inputable, Datum.hoc({ bindProps: ['disabled', 'format', 'prediction'] }))(Group)
 exports.Checkbox = Checkbox
 
 export default exports
