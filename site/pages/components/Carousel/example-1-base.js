@@ -1,5 +1,6 @@
 /**
  * cn - 基本用法
+ *    -- 轮播组件提供了三种动画过度方式，可以切换选项查看效果
  * en - Base
  */
 import React, { Component } from 'react'
