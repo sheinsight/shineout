@@ -12,7 +12,7 @@ export default function () {
     <Form inline>
       <Input.Group tip="Email or nickname or phonenumber">
         <FontAwesome name="user" />
-        <Input name="user" />
+        <Input name="user" placeholder="Email or nickname" />
       </Input.Group>
 
       <Input
