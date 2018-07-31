@@ -1,5 +1,6 @@
 /**
- * cn - 对齐方式
+ * cn - 位置
+ *    -- 内置了 3 种位置，left, center, right，默认为 left
  * en - Alignment
  */
 import React from 'react'

@@ -1,5 +1,6 @@
 /**
  * cn - 受控组件
+ *    -- 同时设置 current 和 onChange 属性，可以作为受控组件使用
  * en - Controlled
  */
 import React, { PureComponent } from 'react'

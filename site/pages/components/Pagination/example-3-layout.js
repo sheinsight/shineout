@@ -1,5 +1,6 @@
 /**
- * cn - 布局 \n 通过 layout 来控制组件是否显示以及显示的位置
+ * cn - 布局
+ *    -- 通过 layout 属性来控制组件是否显示以及显示的位置
  * en - Layout
  */
 import React from 'react'
