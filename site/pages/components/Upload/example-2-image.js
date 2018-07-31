@@ -1,5 +1,6 @@
 /**
- * cn - 图片
+ * cn - 上传图片
+ *    -- 使用 Upload.Image 处理带预览的图片上传
  * en - Image
  */
 import React from 'react'

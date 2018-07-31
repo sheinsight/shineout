@@ -129,7 +129,7 @@ class Image extends PureComponent {
     return (
       <Tag
         ref={this.bindElement}
-        href={target === '_modal' ? 'javascript:;' : href}
+        href={href && target === '_modal' ? 'javascript:;' : href}
         onClick={(href && target === '_modal') ? this.handleClick : undefined}
         target={target === '_download' ? '_self' : target}
         download={target === '_download'}

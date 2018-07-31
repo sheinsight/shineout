@@ -23,9 +23,9 @@ class File extends PureComponent {
 
     return (
       <div className={className}>
-        {name} {message && <span>({message})</span>}
+        <div className={uploadClass('text')}>{name} {message && <span>({message})</span>}</div>
         <a href="javascript:;" className={uploadClass('delete')} onClick={this.handleRemove}>
-          {icons.Delete}
+          {icons.Close}
         </a>
         {
           status !== ERROR &&

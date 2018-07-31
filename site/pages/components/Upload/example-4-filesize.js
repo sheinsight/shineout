@@ -1,7 +1,7 @@
 /**
- * cn - 异常处理
- *    -- onUploadError 用来处理上传到服务器返回的异常
- * en - Error
+ * cn - 文件大小
+ *    -- 文件大小校验，本例为 10KB
+ * en -
  */
 import React from 'react'
 import { Upload, Button } from 'shineout'
@@ -11,30 +11,28 @@ export default function () {
   return (
     <div>
       <Upload
-        action="/path-no-exist"
+        action="http://jsonplaceholder.typicode.com/posts"
         accept="image/*"
+        multiple
         name="file"
         onUpload={(res, file) => file.name}
-        onUploadError={(xhr) => {
-          console.log(xhr)
-          if (xhr.status === 404) return 'Url not found.'
-          return 'Upload Fail.'
-        }}
-        limit={3}
         style={{ width: 300, marginBottom: 30 }}
+        recoverAble={false}
+        validator={{
+          size: s => (s > 10240 ? new Error('max file size is 10KB') : undefined),
+        }}
       >
         <Button><FontAwesome name="upload" /> Upload file</Button>
       </Upload>
 
       <Upload.Image
-        action="/path-no-exist"
+        action="http://jsonplaceholder.typicode.com/posts"
         accept="image/*"
+        multiple
         name="file"
         onUpload={(res, file, data) => ({ data })}
-        onUploadError={(xhr) => {
-          console.log(xhr)
-          if (xhr.status === 404) return 'Url not found.'
-          return 'Upload Fail.'
+        validator={{
+          size: s => (s > 10240 ? new Error('max file size is 10KB') : undefined),
         }}
         renderResult={f => f.data}
       />

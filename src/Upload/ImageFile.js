@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Progress from '../Progress'
 import { uploadClass } from '../styles'
 import icons from '../icons'
+import Image from '../Image'
 import { ERROR } from './ajax'
 
 class ImageFile extends PureComponent {
@@ -25,20 +26,23 @@ class ImageFile extends PureComponent {
       <div style={style} className={className}>
         {
           data &&
-          <div className={uploadClass('image-bg')} style={{ backgroundImage: `url(${data})` }} />
+          <Image src={data} fit="center" width="auto" height={0} className={uploadClass('image-bg')} />
         }
 
-        <div className={uploadClass('message')} onClick={this.handleRemove}>
-          {
-            message ? <span>{message}</span> :
-            <a className={uploadClass('delete')} href="javascript:;">
-              {icons.Delete}
-            </a>
-          }
-        </div>
+        { message && <div className={uploadClass('message')}>{message}</div> }
 
-        <div className={uploadClass('progress')}>
-          <Progress color="#f2f2f2" background="rgba(0,0,0,0.5)" value={process} strokeWidth={2} />
+        <a className={uploadClass('delete')} onClick={this.handleRemove} href="javascript:;">
+          {icons.Close}
+        </a>
+
+        <div className={uploadClass('progress-bg')}>
+          <Progress
+            className={uploadClass('progress')}
+            color="#f2f2f2"
+            background="rgba(0,0,0,0.5)"
+            value={process}
+            strokeWidth={2}
+          />
         </div>
       </div>
     )

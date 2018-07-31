@@ -25,12 +25,12 @@ class Result extends PureComponent {
 
     return (
       <div className={className}>
-        { renderResult(value) }
+        <div className={uploadClass('text')}>{ renderResult(value) }</div>
 
         {
           this.props.onRemove &&
           <a href="javascript:;" className={uploadClass('delete')} onClick={this.handleRemove}>
-            {icons.Delete}
+            {icons.Close}
           </a>
         }
 

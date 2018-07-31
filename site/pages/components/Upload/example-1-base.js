@@ -1,5 +1,6 @@
 /**
  * cn - 基本用法
+ *    -- 基础的文件上传
  * en - Base
  */
 import React from 'react'
@@ -14,6 +15,7 @@ export default function () {
       name="file"
       onUpload={(res, file) => file.name}
       limit={3}
+      style={{ width: 300 }}
     >
       <Button><FontAwesome name="upload" /> Upload file</Button>
     </Upload>

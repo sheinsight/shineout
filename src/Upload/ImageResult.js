@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import icons from '../icons'
+import Image from '../Image'
 import { uploadClass } from '../styles'
 
 class ImageResult extends PureComponent {
@@ -30,32 +31,30 @@ class ImageResult extends PureComponent {
       <div style={style} className={className}>
         {
           url &&
-          <div className={uploadClass('image-bg')} style={{ backgroundImage: `url(${url})` }} />
+          <Image src={url} href={url} fit="center" width="auto" height={0} className={uploadClass('image-bg')} />
         }
 
-        <div className={uploadClass('message')}>
-          {
-            this.props.onRemove &&
-            <a
-              href="javascript:;"
-              className={uploadClass('delete')}
-              onClick={this.handleRemove}
-            >
-              {icons.Delete}
-            </a>
-          }
+        {
+          this.props.recoverAble &&
+          <a
+            href="javascript:;"
+            className={uploadClass('recover')}
+            onClick={this.handleRecover}
+          >
+            {icons.Recovery}
+          </a>
+        }
 
-          {
-            this.props.recoverAble &&
-            <a
-              href="javascript:;"
-              className={uploadClass('recover')}
-              onClick={this.handleRecover}
-            >
-              {icons.Recovery}
-            </a>
-          }
-        </div>
+        {
+          this.props.onRemove &&
+          <a
+            href="javascript:;"
+            className={uploadClass('delete')}
+            onClick={this.handleRemove}
+          >
+            {icons.Close}
+          </a>
+        }
       </div>
     )
   }
