@@ -291,7 +291,7 @@
         transform: rotate(45deg) translateY(3px);
       }
     }
-
+  
     &.@{input-prefix}-top-left,
     &.@{input-prefix}-top,
     &.@{input-prefix}-top-right {
@@ -335,6 +335,10 @@
     }
   }
 
+  &-tip {
+    visibility: hidden;
+  }
+
   &-error {
     color: @form-feedback-invalid-color;
     box-shadow: 0 0 0 1px @state-danger-border, 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -345,6 +349,10 @@
 
   &-focus {
     .input-focus();
+
+    .@{input-prefix}-tip {
+      visibility: visible;
+    }
   }
 
   &-invalid, &-invalid:hover {

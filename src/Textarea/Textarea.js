@@ -37,8 +37,23 @@ class Textarea extends PureComponent {
     forceChange(value)
   }
 
+  renderInfo() {
+    const { info } = this.props
+    if (typeof info !== 'function') return null
+    const res = info(this.props.value)
+
+    // empty
+    if (!res) return null
+
+    const isError = res instanceof Error
+    const text = isError ? res.message : res
+    return <div key="info" className={inputClass('bottom-right', isError ? 'error' : 'tip')}>{text}</div>
+  }
+
   render() {
-    const { autosize, onChange, ...props } = this.props
+    const {
+      autosize, onChange, maxHeight, info, ...props
+    } = this.props
     const height = this.state.height || 'auto'
 
     const className = autosize ? inputClass('auto-size') : ''
@@ -48,9 +63,12 @@ class Textarea extends PureComponent {
         {...cleanProps(props)}
         key="t"
         className={className}
-        style={{ height }}
+        style={{ height, maxHeight, overflow: 'auto' }}
         onChange={this.handleChange}
+        onBlur={this.handleBlur}
       />,
+
+      this.renderInfo(),
     ]
 
     if (autosize) {
@@ -72,6 +90,8 @@ class Textarea extends PureComponent {
 Textarea.propTypes = {
   autosize: PropTypes.bool,
   forceChange: PropTypes.func,
+  info: PropTypes.func,
+  maxHeight: PropTypes.number,
   onBlur: PropTypes.func,
   onChange: PropTypes.func.isRequired,
   rows: PropTypes.number,

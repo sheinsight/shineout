@@ -5,7 +5,7 @@ import inputBorder from '../hoc/inputBorder'
 import Textarea from './Textarea'
 
 const input = compose(
-  inputBorder({ overflow: 'auto' }),
+  inputBorder({}),
   inputable,
   delay(400),
 )
