@@ -9,7 +9,8 @@ export function getProps(PropTypes, ...args) {
     keygen: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.func,
-    ]),
+      PropTypes.bool,
+    ]).isRequired,
     grid: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.object,

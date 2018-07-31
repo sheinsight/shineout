@@ -90,6 +90,7 @@ export default class extends PureComponent {
         <Form.Item label="Favorite Color">
           <Checkbox.Group
             name="favoriteColor"
+            keygen
             data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
           />
         </Form.Item>

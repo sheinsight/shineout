@@ -14,6 +14,7 @@ export default function () {
       <Checkbox.Group
         data={data}
         disabled={d => d === 'yellow'}
+        keygen
         value={['blue']}
         renderItem={d => d}
       />

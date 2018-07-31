@@ -13,6 +13,7 @@ export default function () {
     <Select
       style={{ width: 300 }}
       data={data}
+      keygen
       multiple
       placeholder="Multiple select"
       onChange={(vs, d, c) => console.log(vs, d, c)}

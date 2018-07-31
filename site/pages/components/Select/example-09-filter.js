@@ -31,6 +31,7 @@ export default class extends Component {
     return (
       <Select
         loading={this.state.loading}
+        keygen="id"
         style={{ width: 240 }}
         data={this.state.data}
         placeholder="Select user"

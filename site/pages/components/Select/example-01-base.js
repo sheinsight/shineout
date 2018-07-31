@@ -11,6 +11,7 @@ const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 export default function () {
   return (
     <Select
+      keygen
       style={{ width: 240 }}
       data={data}
       onChange={d => console.log(d)}

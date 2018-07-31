@@ -51,6 +51,7 @@ export default class extends Component {
           <span>type: </span>
           <Select
             width={140}
+            keygen={d => d}
             data={['primary', 'success', 'warning', 'danger']}
             value={type}
             onChange={this.changeSetting.bind(this, 'type')}
@@ -60,6 +61,7 @@ export default class extends Component {
           <span>size: </span>
           <Select
             width={100}
+            keygen={d => d}
             data={['small', 'default', 'large']}
             value={size}
             onChange={this.changeSetting.bind(this, 'size')}

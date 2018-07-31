@@ -240,10 +240,7 @@ OptionList.propTypes = {
   focus: PropTypes.bool,
   height: PropTypes.number,
   itemsInView: PropTypes.number,
-  keygen: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-  ]),
+  keygen: PropTypes.any,
   lineHeight: PropTypes.number,
   loading: PropTypes.oneOfType([
     PropTypes.element,

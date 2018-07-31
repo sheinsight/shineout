@@ -11,7 +11,7 @@
 ## fetch *- Promise*
 需要传入data的组件，可以传入一个 fetch 作为数据项，如果同时传入 data 和 fetch，fetch 无效。
 
-## keygen *- string | function*
+## keygen *- string | function | true*
 *Select*, *Table* 等根据数据渲染的组件，生成 key 的规则。
 
 #### 当 keygen 为 string 时，获取数据项的对应属性作为key
@@ -34,6 +34,13 @@ const data = [
 ]
 
 <Select keygen={(d) => d.uid + name} /> // key='1123', key='2456'
+```
+
+#### 当 keygen 为 true 时，以数据项本身作为 key
+```
+const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
+
+<Select keygen /> // key='red', key='orange'
 ```
 
 ## placeholder *- string | ReactElement | function*

@@ -10,7 +10,7 @@ const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
 export default function () {
   return (
-    <Radio.Group value="yellow" onChange={v => console.log(v)}>
+    <Radio.Group keygen value="yellow" onChange={v => console.log(v)}>
       {
         data.map(d => <Radio key={d} htmlValue={d}>{d}</Radio>)
       }

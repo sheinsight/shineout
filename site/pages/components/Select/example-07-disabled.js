@@ -14,6 +14,7 @@ export default function () {
       <Select
         style={{ width: 240, marginBottom: 12 }}
         disabled
+        keygen
         data={data}
         placeholder="Select color"
       />
@@ -22,6 +23,7 @@ export default function () {
         style={{ width: 300 }}
         data={data}
         disabled
+        keygen
         multiple
         value={['orange', 'green']}
         placeholder="Multiple select"

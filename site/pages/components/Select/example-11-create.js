@@ -14,6 +14,7 @@ export default function () {
       <Select
         style={{ width: 240, marginBottom: 12 }}
         data={data}
+        keygen
         placeholder="input color"
         onCreate
         onChange={d => console.log(d)}
@@ -22,6 +23,7 @@ export default function () {
       <Select
         style={{ width: 400 }}
         data={data}
+        keygen
         multiple
         placeholder="input color"
         onCreate={t => t}

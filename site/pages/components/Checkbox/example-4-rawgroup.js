@@ -18,7 +18,7 @@ const data = [
 
 export default function () {
   return (
-    <Checkbox.Group value={[3, 5]} onChange={(value) => { console.log(value) }}>
+    <Checkbox.Group keygen="id" value={[3, 5]} onChange={(value) => { console.log(value) }}>
       {
         data.map(d => (
           <Checkbox key={d.id} htmlValue={d.id}>{d.color}</Checkbox>

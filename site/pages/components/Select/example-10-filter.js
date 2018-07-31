@@ -32,6 +32,7 @@ export default class extends Component {
       <Select
         loading={this.state.loading}
         multiple
+        keygen="id"
         data={this.state.data}
         placeholder="Select user"
         onChange={d => console.log(d)}

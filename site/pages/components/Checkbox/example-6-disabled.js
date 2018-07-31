@@ -13,6 +13,7 @@ export default function () {
     <div>
       <Checkbox.Group
         disabled
+        keygen
         data={data}
         value={['blue', 'cyan']}
         renderItem={d => d}

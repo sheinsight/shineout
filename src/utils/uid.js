@@ -10,6 +10,7 @@ export function getUidStr() {
 }
 
 export function getKey(d, gen, index) {
+  if (gen === true) return d
   if (typeof gen === 'string') return d[gen]
   if (typeof gen === 'function') return gen(d)
   return index

@@ -14,6 +14,7 @@ export default function () {
       <Select
         style={{ width: 240, marginBottom: 12 }}
         clearable
+        keygen
         data={data}
         placeholder="Select color"
         onChange={d => console.log(d)}
@@ -23,6 +24,7 @@ export default function () {
         style={{ width: 300 }}
         data={data}
         clearable
+        keygen
         multiple
         placeholder="Multiple select"
         onChange={d => console.log(d)}

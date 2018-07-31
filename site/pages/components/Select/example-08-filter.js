@@ -14,6 +14,7 @@ export default function () {
       <Select
         style={{ width: 240, marginBottom: 12 }}
         data={data}
+        keygen
         placeholder="Select color"
         onChange={d => console.log(d)}
         onFilter={text => d => d.indexOf(text) >= 0}
@@ -24,6 +25,7 @@ export default function () {
       <Select
         style={{ width: 300 }}
         multiple
+        keygen
         data={data}
         placeholder="Select color"
         onChange={d => console.log(d)}

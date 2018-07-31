@@ -26,7 +26,7 @@ Checkbox 可以单独使用。一组Checkbox使用时，使用一个Array类型�
 | defaultValue | array | | 初始值 |
 | disabled | bool | false | 是否禁用 |
 | name | string | 无 | Form 存取数据的名称 |
-| keygen | string \| function(obj):string | index | 生成每一项key的辅助方法<br />不填的情况下，会使用index(不推荐，在某些情况下可能会有问题)<br />为函数时，使用此函数返回值<br />为string时，使用这个string对应的数据值。如 'id'，相当于 (d) => d.id |
+| keygen | string \| function(obj):string \| true | 必填 | 生成每一项key的辅助方法<br />为 true 时，以数据项本身作为key，相当于 (d => d)<br />为函数时，使用此函数返回值<br />为string时，使用这个string对应的数据值。如 'id'，相当于 (d => d.id) |
 | onChange | function(value) | 无 | value 为 datum.getValue() |
 | renderItem | string \| function(d) | 必填 | 为 string 时，返回 d\[string]<br />为 function 时，返回函数结果 |
 | value | array | | 在Form中，value会被表单接管，value无效 |

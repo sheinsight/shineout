@@ -60,6 +60,7 @@ export default function () {
       <Form.Item required label="Favorite Colors" tip="select your favorite colors">
         <Checkbox.Group
           datum={{ separator: ',' }}
+          keygen={d => d}
           name="colors"
           data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
         />

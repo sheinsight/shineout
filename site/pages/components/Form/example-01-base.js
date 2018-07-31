@@ -62,6 +62,7 @@ export default class extends PureComponent {
         <Form.Item label="Favorite Color">
           <Checkbox.Group
             name="favoriteColor"
+            keygen={d => d}
             data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
           />
         </Form.Item>
@@ -69,6 +70,7 @@ export default class extends PureComponent {
         <Form.Item label="Hate Color">
           <Select
             name="hateColor"
+            keygen={d => d}
             style={{ width: 100 }}
             data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
           />

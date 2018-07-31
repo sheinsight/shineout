@@ -12,6 +12,7 @@ export default function () {
   return (
     <div>
       <Radio.Group
+        keygen
         disabled
         data={data}
         value="blue"

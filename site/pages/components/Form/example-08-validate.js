@@ -45,7 +45,12 @@ export default function () {
       </Form.Item>
 
       <Form.Item required label="Favorite Colors" tip="select your favorite colors">
-        <Checkbox.Group name="colors" rules={rules.colors} data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']} />
+        <Checkbox.Group
+          name="colors"
+          keygen={d => d}
+          rules={rules.colors}
+          data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
+        />
       </Form.Item>
 
       <Form.Item label="">

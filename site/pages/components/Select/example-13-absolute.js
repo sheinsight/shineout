@@ -16,6 +16,7 @@ export default function () {
       <Select
         absolute
         data={data}
+        keygen
         style={{ width: 100, marginRight: 12 }}
         onFilter={text => d => d.indexOf(text) > -1}
         placeholder="default"
@@ -24,6 +25,7 @@ export default function () {
       <Select
         multiple
         data={users}
+        keygen
         absolute
         style={{ width: 300 }}
         placeholder="Select user"

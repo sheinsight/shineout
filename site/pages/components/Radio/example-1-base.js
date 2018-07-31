@@ -16,7 +16,7 @@ function renderItem(color) {
 export default function () {
   return (
     <Radio.Group
-      keygen={c => c}
+      keygen
       data={data}
       onChange={c => console.log(c)}
       defaultValue="blue"
