@@ -25,13 +25,13 @@ export default function () {
       <Select
         multiple
         data={users}
-        keygen
+        keygen="id"
         absolute
         style={{ width: 300 }}
         placeholder="Select user"
         onChange={d => console.log(d)}
         onFilter={text => d => d.firstName.indexOf(text) > -1}
-        datum={{ format: 'id' }}
+        format="id"
         renderItem={user => `${user.firstName} ${user.lastName}`}
       />
     </div>

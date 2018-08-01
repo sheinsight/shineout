@@ -12,6 +12,8 @@
   }
 
   &-result {
+    display: flex;
+    flex-flow: wrap;
     padding: @padding-base-vertical @padding-base-horizontal+12 0 @padding-base-horizontal;
 
     span {
@@ -33,10 +35,15 @@
       outline: none;
       min-width: 12px;
       margin-bottom: @padding-base-vertical;
-      display: inline-block;
+      flex: 1;
+      display: inline-flex;
 
       &:after {
         content: '\feff ';
+      }
+
+      &.@{select-prefix}-full {
+        display: block;
       }
     }
 
@@ -49,6 +56,9 @@
       padding: 0 @select-result-space+16 0 @select-result-space;
       color: inherit;
       border-radius: @select-result-border-radius;
+      max-width: 80%;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
       .@{select-prefix}-close {
         display: block;

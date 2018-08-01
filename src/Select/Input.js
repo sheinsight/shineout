@@ -56,13 +56,13 @@ class FilterInput extends PureComponent {
   }
 
   render() {
-    const { text, focus } = this.props
+    const { text, focus, multiple } = this.props
     const value = typeof text === 'string' ? text.replace(/<\/?[^>]*>/g, '') : text
 
     return (
       <span
         key="input"
-        className={selectClass('input')}
+        className={selectClass('input', !multiple && 'full')}
         ref={this.bindElement}
         contentEditable={focus}
         onInput={this.handleInput}
@@ -74,6 +74,7 @@ class FilterInput extends PureComponent {
 
 FilterInput.propTypes = {
   focus: PropTypes.bool.isRequired,
+  multiple: PropTypes.bool,
   onFilter: PropTypes.func.isRequired,
   onInputFocus: PropTypes.func.isRequired,
   setInputReset: PropTypes.func.isRequired,
