@@ -1,5 +1,6 @@
 /**
  * cn - 控制展开
+ *    -- 受控的展开（此示例数据量太大，第一次全部展开会比较慢）
  * en - Expanded
  */
 import React, { Component } from 'react'

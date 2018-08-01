@@ -15,7 +15,7 @@ const source = locate(cn, en)
 const examples = [
   {
     name: '01-base',
-    title: locate('基本用法', 'Base'),
+    title: locate('基本用法 \n 基础的 Tree 用法', 'Base'),
     component: require('doc/pages/components/Tree/example-01-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-01-base.js'),
   },
@@ -27,37 +27,37 @@ const examples = [
   },
   {
     name: '03-click',
-    title: locate('点击事件', 'Click'),
+    title: locate('点击事件 \n 设置 onClick 属性监听节点点击', 'Click'),
     component: require('doc/pages/components/Tree/example-03-click.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-03-click.js'),
   },
   {
     name: '04-noline',
-    title: locate('无连接线', 'Line'),
+    title: locate('无连接线 \n 设置 line 为 false，隐藏连接线', 'Line'),
     component: require('doc/pages/components/Tree/example-04-noline.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-04-noline.js'),
   },
   {
     name: '05-expanded',
-    title: locate('控制展开', 'Expanded'),
+    title: locate('控制展开 \n 受控的展开（此示例数据量太大，第一次全部展开会比较慢）', 'Expanded'),
     component: require('doc/pages/components/Tree/example-05-expanded.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-05-expanded.js'),
   },
   {
     name: '06-change',
-    title: locate('可选择 \n * Tree 放在 Form 组件内使用时，需要放在 Form.Field 组件内', 'onChange'),
+    title: locate('可选择 \n 选中值取值提供了 4 种模式 \n 1: 只返回完全选中的节点，包含父节点 \n 2: 返回全部选中的节点和半选中的父节点 \n 3: 只返回选中的子节点 \n 4: 如果父节点选中，只返回父节点', 'onChange'),
     component: require('doc/pages/components/Tree/example-06-change.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-06-change.js'),
   },
   {
     name: '07-disabled',
-    title: locate('禁用', 'disabled'),
+    title: locate('禁用 \n disabled 为函数时，根据返回结果禁用节点，同时禁用子节点 \n disabled 为 true 时，禁用全部节点', 'disabled'),
     component: require('doc/pages/components/Tree/example-07-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-07-disabled.js'),
   },
   {
     name: '08-drag',
-    title: locate('拖动', 'Drag'),
+    title: locate('拖动 \n 设置 onDrop 属性可以拖动节点', 'Drag'),
     component: require('doc/pages/components/Tree/example-08-drag.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-08-drag.js'),
   },
@@ -69,7 +69,7 @@ const examples = [
   },
   {
     name: 'data',
-    title: locate(' \n 本页中用到的测试数据为随机生成，格式如下', 'Data'),
+    title: locate('', ''),
     component: require('doc/pages/components/Tree/example-data.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-data.js'),
   },

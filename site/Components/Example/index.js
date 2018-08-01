@@ -100,13 +100,16 @@ export default class Example extends PureComponent {
           {createElement(component)}
         </div>
 
-        <div className={exampleClass('desc')}>
-          {
-            // eslint-disable-next-line
-            sub.map((s, i) => <div key={i} dangerouslySetInnerHTML={{ __html: s }} />)
-          }
-          {this.renderCodeHandle(false)}
-        </div>
+        {
+          this.props.title.length > 0 &&
+          <div className={exampleClass('desc')}>
+            {
+              // eslint-disable-next-line
+              sub.map((s, i) => <div key={i} dangerouslySetInnerHTML={{ __html: s }} />)
+            }
+            {this.renderCodeHandle(false)}
+          </div>
+        }
 
         <div ref={this.bindCodeBlock} className={exampleClass('code')}>
           <CodeBlock

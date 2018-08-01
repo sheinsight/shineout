@@ -45,7 +45,7 @@ const examples = [
   },
   {
     name: '6-close',
-    title: locate('点击空白关闭 \n 默认点击对话框外部空白页面会关闭对话框。需要禁止时设置 maskCloseAble 属性为 false，同时右上角的关闭图标也会隐藏。', 'MaskCloseAble'),
+    title: locate('点击空白关闭 \n 默认点击对话框外部空白页面会关闭对话框。 \n 设置 maskCloseAble 属性为 false，禁用点击空白关闭，同时右上角的关闭图标也会隐藏。 \n 设置 maskCloseAble 属性为 null，禁用点击空白关闭，右上角的关闭图标会保留。', 'MaskCloseAble'),
     component: require('doc/pages/components/Modal/example-6-close.js').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-6-close.js'),
   },

@@ -1,6 +1,8 @@
 /**
  * cn - 点击空白关闭
- *    -- 默认点击对话框外部空白页面会关闭对话框。需要禁止时设置 maskCloseAble 属性为 false，同时右上角的关闭图标也会隐藏。
+ *    -- 默认点击对话框外部空白页面会关闭对话框。
+ *    -- 设置 maskCloseAble 属性为 false，禁用点击空白关闭，同时右上角的关闭图标也会隐藏。
+ *    -- 设置 maskCloseAble 属性为 null，禁用点击空白关闭，右上角的关闭图标会保留。
  * en - MaskCloseAble
  */
 import React from 'react'
@@ -40,7 +42,7 @@ export default class extends React.Component {
         <Button onClick={this.show}>click me</Button>
         <Modal
           visible={this.state.visible}
-          maskCloseAble={false}
+          maskCloseAble={null}
           width={500}
           height={300}
           title="Modal Title"

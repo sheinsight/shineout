@@ -1,5 +1,6 @@
 /**
  * cn - 拖动
+ *    -- 设置 onDrop 属性可以拖动节点
  * en - Drag
  */
 import React, { Component } from 'react'

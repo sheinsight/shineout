@@ -1,5 +1,6 @@
 /**
  * cn - 点击事件
+ *    -- 设置 onClick 属性监听节点点击
  * en - Click
  */
 import React, { Component } from 'react'

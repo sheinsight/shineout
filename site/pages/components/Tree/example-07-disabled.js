@@ -1,5 +1,7 @@
 /**
  * cn - 禁用
+ *    -- disabled 为函数时，根据返回结果禁用节点，同时禁用子节点
+ *    -- disabled 为 true 时，禁用全部节点
  * en - disabled
  */
 import React, { Component } from 'react'

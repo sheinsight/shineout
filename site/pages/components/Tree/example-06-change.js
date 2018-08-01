@@ -1,6 +1,10 @@
 /**
  * cn - 可选择
- *    -- * Tree 放在 Form 组件内使用时，需要放在 Form.Field 组件内
+ *    -- 选中值取值提供了 4 种模式
+ *    -- 1: 只返回完全选中的节点，包含父节点
+ *    -- 2: 返回全部选中的节点和半选中的父节点
+ *    -- 3: 只返回选中的子节点
+ *    -- 4: 如果父节点选中，只返回父节点
  * en - onChange
  */
 import React, { Component } from 'react'
@@ -48,8 +52,9 @@ export default class extends Component {
     return (
       <div>
         <Radio.Group
+          keygen="value"
           value={mode}
-          datum={{ format: 'value' }}
+          format="value"
           onChange={this.handleModeChange}
           data={modeList}
           renderItem="text"

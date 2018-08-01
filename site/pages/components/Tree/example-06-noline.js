@@ -1,5 +1,6 @@
 /**
  * cn - 无连接线
+ *    -- 设置 line 为 false，隐藏连接线
  * en - Line
  */
 import React from 'react'

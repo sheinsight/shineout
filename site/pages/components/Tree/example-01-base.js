@@ -1,5 +1,6 @@
 /**
  * cn - 基本用法
+ *    -- 基础的 Tree 用法
  * en - Base
  */
 import React from 'react'
