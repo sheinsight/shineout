@@ -1,5 +1,6 @@
 /**
  * cn - 边框和底纹
+ *    -- 通过 striped 显示交错底纹；通过 bordered 显示边框。
  * en - Style (bordered, striped)
  */
 import React from 'react'

@@ -1,5 +1,6 @@
 /**
- * cn - 只使用样式 \n 使用原生的tr, td来显示表格
+ * cn - 只使用样式
+ *    -- 使用原生的tr, td来显示表格
  * en - Style only
  */
 import React from 'react'
@@ -10,7 +11,7 @@ const data = fetchSync(6)
 
 export default function () {
   return (
-    <Table striped>
+    <Table striped keygen>
       <thead>
         <tr>
           <th>Name</th>

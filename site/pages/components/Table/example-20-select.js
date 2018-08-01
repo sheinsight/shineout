@@ -1,5 +1,6 @@
 /**
- * cn - 选择行 (示例) \n 通常情况下，不需要使用 onChange 事件，使用 Datum.getValue 即可
+ * cn - 选择行 (示例)
+ *    -- 可以不处理 onChange 事件，在调用时使用 Datum.getValue 即可
  * en - Select
  */
 import React, { PureComponent } from 'react'

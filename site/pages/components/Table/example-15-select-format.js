@@ -1,10 +1,10 @@
 /**
- * cn - 选择行 (Datum)
- *    -- 使用 Datum，可以做更复杂的数据处理的工作
- * en - Select (Datum)
+ * cn - 选择行 (format)
+ *    -- 使用 format，可以格式化返回的数据
+ * en - Select (format)
  */
 import React, { PureComponent } from 'react'
-import { Table, Datum } from 'shineout'
+import { Table } from 'shineout'
 import { fetchSync } from 'doc/data/user'
 
 const data = fetchSync(20)
@@ -30,19 +30,12 @@ export default class extends PureComponent {
 
     const value = [2, 3, 5].map(i => `${data[i].firstName} ${data[i].lastName}`)
 
-    this.datum = new Datum.List({
-      format: d => `${d.firstName} ${d.lastName}`,
-      value,
-      prediction: (v, d) => v === `${d.firstName} ${d.lastName}`,
-      onChange: this.handelRowSelect.bind(this),
-    })
-
     this.state = {
       selectedValue: value,
     }
   }
 
-  handelRowSelect(values) {
+  handelRowSelect = (values) => {
     this.setState({ selectedValue: values })
   }
 
@@ -54,8 +47,10 @@ export default class extends PureComponent {
           keygen="id"
           columns={columns}
           data={data}
+          format={d => `${d.firstName} ${d.lastName}`}
           style={{ height: 300 }}
-          datum={this.datum}
+          onRowSelect={this.handelRowSelect}
+          value={this.state.selectedValue}
         />
         <div style={{ wordBreak: 'break-all' }}>
           selected rows: { JSON.stringify(this.state.selectedValue) }

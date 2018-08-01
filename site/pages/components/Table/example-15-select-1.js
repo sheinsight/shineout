@@ -1,5 +1,6 @@
 /**
- * cn - 选择行 \n onRowChange 事件，会自动添加选择列
+ * cn - 选择行
+ *    -- 设置 onRowChange 属性，会自动添加选择列
  * en - Select
  */
 import React, { PureComponent } from 'react'

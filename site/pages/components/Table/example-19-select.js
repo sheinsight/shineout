@@ -1,6 +1,7 @@
 /**
- * cn - \n 如果需要翻页时清除选中数据，可以在翻页时调用 Datum.clear() 方法
- * en - Select
+ * cn -
+ *    -- 如果需要翻页时清除选中数据，可以在翻页时调用 Datum.clear() 方法
+ * en -
  */
 import React, { PureComponent } from 'react'
 import { Table, Datum } from 'shineout'

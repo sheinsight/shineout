@@ -1,5 +1,6 @@
 /**
- * cn - 固定表头 \n *固定表头需要设置整个表格的高度
+ * cn - 固定表头
+ *    -- 设置 fixed 属性为 'both' 或 'y'，可以固定表头，需要设置整个表格的高度
  * en - Fixed head
  */
 import React from 'react'
@@ -28,7 +29,7 @@ export default function () {
         fixed="both"
         keygen="id"
         width={1500}
-        style={{ height: 400 }}
+        height={300}
         columns={columns}
         data={data}
       />

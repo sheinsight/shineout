@@ -1,5 +1,6 @@
 /**
- * cn - 选择行 (分页) \n 默认情况下，翻页时 Datum 对象会保留当前选中的数据
+ * cn - 选择行 (分页)
+ *    -- 默认情况下，翻页时 Datum 对象会保留当前选中的数据
  * en - Select
  */
 import React, { PureComponent } from 'react'

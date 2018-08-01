@@ -1,5 +1,6 @@
 /**
- * cn - 服务端分页 \n 通过 pagination 的 onChange 事件来处理
+ * cn - 服务端分页
+ *    -- 在 pagination 的 onChange 中处理（获取）数据，可以实现服务端分页
  * en - Pagination
  */
 import React, { PureComponent } from 'react'

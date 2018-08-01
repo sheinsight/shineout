@@ -14,10 +14,8 @@ class Td extends PureComponent {
   }
 
   handleExpandClick() {
-    const {
-      rowKey, expanded, render, data,
-    } = this.props
-    this.props.onExpand(rowKey, expanded ? undefined : render(data))
+    const { rowKey, expanded } = this.props
+    this.props.onExpand(rowKey, expanded ? undefined : this.cachedRender)
   }
 
   renderCheckbox() {
@@ -31,21 +29,33 @@ class Td extends PureComponent {
     )
   }
 
+  renderExpand() {
+    const { expanded, render, data } = this.props
+    if (typeof render !== 'function') return null
+
+    let cachedRender = render(data)
+
+    if (!cachedRender) return null
+
+    if (typeof cachedRender !== 'function') {
+      cachedRender = () => cachedRender
+    }
+    this.cachedRender = cachedRender
+    return (
+      <span
+        className={tableClass(`icon-expand-${expanded ? 'sub' : 'plus'}`)}
+        onClick={this.handleExpandClick}
+      />
+    )
+  }
+
   renderContent() {
-    const {
-      expanded, type, render, data,
-    } = this.props
+    const { type, render, data } = this.props
     switch (type) {
       case 'checkbox':
         return this.renderCheckbox()
       case 'expand':
-        if (!render) return undefined
-        return (
-          <span
-            className={tableClass(`icon-expand-${expanded ? 'sub' : 'plus'}`)}
-            onClick={this.handleExpandClick}
-          />
-        )
+        return this.renderExpand()
       default:
         return typeof render === 'function' ? render(data) : data[render]
     }

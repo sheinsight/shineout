@@ -1,5 +1,6 @@
 /**
  * cn - 固定列
+ *    -- 设置 column 的 fixed 属性，可以固定列。只在设置了表格的 width 属性，并且 width 大于外部容器情况下才会生效
  * en - Fixed column
  */
 import React from 'react'

@@ -1,6 +1,6 @@
 /**
  * cn - 滚动加载
- *    -- 通过 onScroll 事件，实现滚动到底部加载下一页数据
+ *    -- onScroll 事件会返回当前滚动条位置 (float 类型，[0,1])，可以据此实现滚动加载数据
  * en - onScroll
  */
 import React, { PureComponent } from 'react'

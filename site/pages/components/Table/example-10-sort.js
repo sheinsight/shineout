@@ -1,7 +1,9 @@
 /**
  * cn - 排序
- *    -- 此示例演示了前端排序，sorter 返回一个 sort 函数。后端排序在 sorter 中处理，不要返回。
- * en - Sort
+ *    -- 设置 column 的 sorter 属性标示此列需要排序
+ *    -- sorter 返回一个 sort 函数时，使用这个函数对数据进行内部排序
+ *    -- 后端或自行排序在 sorter 中自行处理，不要返回结果
+ * en - Sorter
  */
 import React from 'react'
 import { Table } from 'shineout'

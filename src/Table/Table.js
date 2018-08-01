@@ -57,9 +57,11 @@ class Table extends PureComponent {
     }
 
     const RenderTable = fixed ? SeperateTable : SimpleTable
+    let newStyle = style
+    if (height) newStyle = Object.assign({}, style, { height })
 
     return (
-      <div className={className} ref={this.bindTable} style={style}>
+      <div className={className} ref={this.bindTable} style={newStyle}>
         <RenderTable {...props} />
         {
           loading &&
@@ -96,4 +98,4 @@ Table.defaultProps = {
   rowsInView: 20,
 }
 
-export default Datum.hoc({}, Table)
+export default Datum.hoc({ bindProps: ['disabled', 'format', 'prediction'] }, Table)

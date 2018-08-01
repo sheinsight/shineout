@@ -1,3 +1,8 @@
+/**
+ * cn -
+ *    -- 示例：不带分页的合并行/列
+ * en -
+ */
 import React from 'react'
 import { Table } from 'shineout'
 import { fetchSync } from 'doc/data/user'
@@ -18,7 +23,7 @@ const columns = [
     title: 'First Name',
     group: 'Name',
     render: 'firstName',
-    rowSpan: true,
+    rowSpan: (a, b) => a.firstName === b.firstName,
     sorter: order => (a, b) => {
       if (order === 'asc') return a.firstName.localeCompare(b.firstName)
       return b.firstName.localeCompare(a.firstName)

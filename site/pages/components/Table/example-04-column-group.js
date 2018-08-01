@@ -1,5 +1,6 @@
 /**
  * cn - 表头分组
+ *    -- Table 会自动合并相邻相同 group 的表头
  * en - Column group
  */
 import React from 'react'
@@ -10,7 +11,7 @@ const data = fetchSync(4)
 const name = (
   <span
     style={{
-      background: 'red',
+      background: '#ccc',
       display: 'block',
       lineHeight: '40px',
       color: '#fff',

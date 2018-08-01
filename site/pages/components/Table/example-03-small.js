@@ -1,5 +1,6 @@
 /**
- * cn - 紧凑表格 \n 设置 size=small
+ * cn - 紧凑表格
+ *    -- 设置 size 为 small 显示紧凑表格
  * en - Small user
  */
 import React from 'react'

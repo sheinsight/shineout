@@ -1,6 +1,6 @@
 /**
  * cn - 性能
- *    -- Table内部对大量数据的渲染做了lazy render的优化。这个例子加载了10000条数据。可以通过设置rowsInView调整单次最多render的行数，默认为20
+ *    -- Table内部对大量数据的渲染做了lazy render的优化。这个例子加载了10000条，55列数据。可以通过设置rowsInView调整单次最多render的行数，默认为20
  * en - rowsInView
  */
 import React from 'react'
@@ -16,13 +16,13 @@ const columns = [
     render: d => <div style={{ height: d.height }}>{d.firstName} {d.lastName}</div>,
     width: 160,
   },
-  { title: 'Country', render: 'country' },
+  { title: 'Country', render: 'country', width: 200 },
   { title: 'Position', render: 'position' },
   { title: 'Office', render: 'office' },
   { title: 'Start Date', render: 'start', width: 140 },
 ]
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 50; i++) {
   columns.push({
     title: `${i + 1}`,
     render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
@@ -34,7 +34,7 @@ export default function () {
     <Table
       fixed="both"
       keygen="id"
-      width={1400}
+      width={6400}
       style={{ height: 600 }}
       columns={columns}
       data={data}

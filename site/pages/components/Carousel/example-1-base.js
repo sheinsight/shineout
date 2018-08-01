@@ -36,6 +36,7 @@ export default class extends Component {
           animation:{' '}
           <Select
             data={['slide', 'slide-y', 'fade']}
+            keygen
             style={{ width: 100 }}
             value={animation}
             size="small"
@@ -44,6 +45,7 @@ export default class extends Component {
           {'　indicatorPosition: '}
           <Select
             data={['left', 'center', 'right']}
+            keygen
             style={{ width: 90 }}
             value={indicatorPosition}
             size="small"
@@ -52,6 +54,7 @@ export default class extends Component {
           {'　indicatorType: '}
           <Select
             data={['circle', 'number', 'line']}
+            keygen
             style={{ width: 90 }}
             value={indicatorType}
             size="small"

@@ -1,6 +1,7 @@
 /**
- * cn - \n 上面例子可以简化，传入一个 option 作为 datum
- * en - \n
+ * cn -
+ *    -- 上面例子可以简化，传入一个 option 作为 datum
+ * en -
  */
 import React, { PureComponent } from 'react'
 import { Table } from 'shineout'

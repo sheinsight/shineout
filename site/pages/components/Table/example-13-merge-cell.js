@@ -1,5 +1,8 @@
 /**
- * cn - 合并行/列 \n *一个单元格同时指定了rowSpan和colSpan时，如果两行的rolSpan计算结果不同，这两行不会合并
+ * cn - 合并行/列
+ *    -- 设置 column 的 rowSpan 可以合并行，rowSpan 为函数，会传入相邻的两行数据，根据此函数返回结果(bool)判断是否合并行
+ *    -- 设置 column 的 colSpan 可以合并列，colSpan 为函数，传入参数为当前行数据，函数返回结果为需要向后合并的列数，不合并返回 1
+ *    -- 一个单元格同时指定了rowSpan和colSpan时，如果两行的rolSpan计算结果不同，这两行不会合并
  * en - rowSpan & colSpan
  */
 import React, { PureComponent } from 'react'
@@ -29,7 +32,7 @@ export default class extends PureComponent {
         title: 'Start Date',
         render: 'start',
         sorter: this.handleSorter.bind(this, 'start'),
-        rowSpan: (a, b) => a === b,
+        rowSpan: (a, b) => a.start === b.start,
         colSpan: (d) => {
           const hour = parseInt(d.time.slice(0, 2), 10)
           if (hour > 21 || hour < 9) return 2

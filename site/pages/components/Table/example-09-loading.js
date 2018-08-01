@@ -1,5 +1,6 @@
 /**
  * cn - 加载中
+ *    -- 设置 loading 属性可以将表格状态设置为加载中
  * en - Loading
  */
 import React from 'react'

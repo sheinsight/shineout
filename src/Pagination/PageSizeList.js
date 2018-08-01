@@ -25,6 +25,7 @@ class PageSizeList extends PureComponent {
       <Select
         onChange={this.handleChange}
         disabled={disabled}
+        keygen
         value={pageSize}
         className={paginationClass('section', 'pagesize')}
         data={pageSizeList}

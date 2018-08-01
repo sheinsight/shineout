@@ -1,3 +1,8 @@
+/**
+ * cn -
+ *    -- 示例：只固定右侧列
+ * en -
+ */
 import React from 'react'
 import { Table } from 'shineout'
 import { fetchSync } from 'doc/data/user'
