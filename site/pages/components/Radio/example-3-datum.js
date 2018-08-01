@@ -1,9 +1,9 @@
 /**
- * cn - 复杂数据
- *    -- 复杂的数据可以使用 format 处理 value
+ * cn -
+ *    -- 当 format 不能满足需求时，可以使用 Datum.List 进行处理
  */
 import React, { Component } from 'react'
-import { Checkbox } from 'shineout'
+import { Radio, Datum } from 'shineout'
 
 const data = [
   { id: 1, color: 'red' },
@@ -16,20 +16,23 @@ const data = [
 ]
 
 export default class extends Component {
-  renderItem = (d) => {
-    const style = { borderBottom: `solid 1px ${d.color}`, paddingBottom: 2 }
-    return <span style={style}>{d.color}</span>
+  constructor(props) {
+    super(props)
+    this.datum = new Datum.List({
+      format: 'color',
+      prdiction: (v, d) => v === d.color,
+    })
   }
 
   render() {
     return (
-      <Checkbox.Group
+      <Radio.Group
         keygen="id"
         data={data}
-        format="color"
+        datum={this.datum}
         onChange={d => console.log(d)}
-        value={['blue', 'cyan']}
-        renderItem={this.renderItem}
+        value="cyan"
+        renderItem="color"
       />
     )
   }
