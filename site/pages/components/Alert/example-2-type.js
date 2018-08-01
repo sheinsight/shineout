@@ -1,5 +1,6 @@
 /**
- * cn - 类型 type
+ * cn - 类型
+ *    -- 内置了 4 种类型（样式），[success, info, warning, danger]，默认为 warning
  * en - type
  */
 import React from 'react'

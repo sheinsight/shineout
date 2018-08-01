@@ -15,25 +15,25 @@ const source = locate(cn, en)
 const examples = [
   {
     name: '1-base',
-    title: locate('基本用法', 'Base'),
+    title: locate('基本用法 \n 基本的使用', 'Base'),
     component: require('doc/pages/components/Alert/example-1-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Alert/example-1-base.js'),
   },
   {
     name: '2-type',
-    title: locate('类型 type', 'type'),
+    title: locate('类型 \n 内置了 4 种类型（样式），[success, info, warning, danger]，默认为 warning', 'type'),
     component: require('doc/pages/components/Alert/example-2-type.js').default,
     rawText: require('!raw-loader!doc/pages/components/Alert/example-2-type.js'),
   },
   {
     name: '3-close',
-    title: locate('关闭 onClose', 'onClose'),
+    title: locate('关闭 \n 设置 onClose 属性时，显示关闭按钮 \n onClose 为 true 时，只关闭提示，不处理 \n onClose 为函数时，关闭后调用此函数', 'onClose'),
     component: require('doc/pages/components/Alert/example-3-close.js').default,
     rawText: require('!raw-loader!doc/pages/components/Alert/example-3-close.js'),
   },
   {
     name: '4-icon',
-    title: locate('图标 icon', 'with icon'),
+    title: locate('内置图标 \n 设置 icon 属性可以显示内置的图标，不同类型的图标见示例', 'Icon'),
     component: require('doc/pages/components/Alert/example-4-icon.js').default,
     rawText: require('!raw-loader!doc/pages/components/Alert/example-4-icon.js'),
   },

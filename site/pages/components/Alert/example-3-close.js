@@ -1,5 +1,8 @@
 /**
- * cn - 关闭 onClose
+ * cn - 关闭
+ *    -- 设置 onClose 属性时，显示关闭按钮
+ *    -- onClose 为 true 时，只关闭提示，不处理
+ *    -- onClose 为函数时，关闭后调用此函数
  * en - onClose
  */
 import React, { PureComponent } from 'react'
