@@ -1,6 +1,7 @@
 /**
- * cn - 位置 position
- * en - Position Center
+ * cn - 显示位置
+ *    -- 默认情况下，消息显示在页面顶部，通过 position 可以修改为页面中间
+ * en - Position
  */
 import React from 'react'
 import { Button, Message } from 'shineout'
