@@ -1,5 +1,7 @@
 /**
  * cn - 基本用法
+ *    -- 最基本的组件用法。
+ *    -- Modal 会在 document.body 中创建一个新的层显示弹出内容。
  * en - Base
  */
 import React from 'react'

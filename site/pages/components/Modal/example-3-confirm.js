@@ -1,5 +1,6 @@
 /**
  * cn - 确认框
+ *    -- Confirm 功能的快捷调用方式
  * en - Confirm Modal
  */
 import React, { Component } from 'react'

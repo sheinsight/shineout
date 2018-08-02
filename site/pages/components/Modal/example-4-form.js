@@ -1,5 +1,6 @@
 /**
- * cn - 内嵌form
+ * cn - 表单
+ *    -- Modal 内部的表单，可以用 Modal.Submit 来代替 Button
  * en - use form
  */
 import React from 'react'

@@ -1,5 +1,6 @@
 /**
- * cn - 多级modal
+ * cn - 多层 Modal
+ *    -- 支持多层 Modal
  * en - Multistage Modal
  */
 import React from 'react'

@@ -57,7 +57,7 @@
     fill: @colors-primary;
   }
 
-  &-confirm &-icon path {
+  &-warning &-icon path, &-confirm &-icon path {
     fill: @colors-warning;
   }
 
@@ -65,7 +65,7 @@
     fill: @colors-error;
   }
 
-  &-info, &-success, &-error, &-confirm {
+  &-info, &-success, &-warning, &-error, &-confirm {
     .@{modal-prefix}-footer{
       border-top: 0;
     }
