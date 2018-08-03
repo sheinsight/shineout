@@ -1,6 +1,8 @@
 /**
 * cn - double-bounce
+     -- name="double-bounce"
 * en - double-bounce
+     -- name="double-bounce"
 */
 import React from 'react'
 import { Spin } from 'shineout'

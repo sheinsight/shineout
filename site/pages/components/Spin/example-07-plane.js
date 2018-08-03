@@ -1,6 +1,8 @@
 /**
 * cn - plane
+     -- name="plane"
 * en - plane
+     -- name="plane"
 */
 import React from 'react'
 import { Spin } from 'shineout'

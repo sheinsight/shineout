@@ -1,6 +1,8 @@
 /**
 * cn - pulse
+     -- name="pulse"
 * en - pulse
+     -- name="pulse"
 */
 import React from 'react'
 import { Spin } from 'shineout'

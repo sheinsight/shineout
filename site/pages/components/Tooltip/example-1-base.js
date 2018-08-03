@@ -1,5 +1,6 @@
 /**
  * cn - 基本用法
+ *    -- 内置了四个弹出方向
  * en - Base
  */
 import React from 'react'

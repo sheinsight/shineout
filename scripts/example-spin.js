@@ -21,7 +21,9 @@ const spins = [
 spins.forEach((spin, i) => {
   const text = `/**
 * cn - ${spin}
+     -- name="${spin}"
 * en - ${spin}
+     -- name="${spin}"
 */
 import React from 'react'
 import { Spin } from 'shineout'

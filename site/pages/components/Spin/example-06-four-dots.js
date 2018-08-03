@@ -1,6 +1,8 @@
 /**
 * cn - four-dots
+     -- name="four-dots"
 * en - four-dots
+     -- name="four-dots"
 */
 import React from 'react'
 import { Spin } from 'shineout'

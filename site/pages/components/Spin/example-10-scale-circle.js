@@ -1,6 +1,8 @@
 /**
 * cn - scale-circle
+     -- name="scale-circle"
 * en - scale-circle
+     -- name="scale-circle"
 */
 import React from 'react'
 import { Spin } from 'shineout'

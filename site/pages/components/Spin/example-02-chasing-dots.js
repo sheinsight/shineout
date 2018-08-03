@@ -1,6 +1,8 @@
 /**
 * cn - chasing-dots
+     -- name="chasing-dots"
 * en - chasing-dots
+     -- name="chasing-dots"
 */
 import React from 'react'
 import { Spin } from 'shineout'

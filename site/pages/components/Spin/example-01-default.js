@@ -1,6 +1,8 @@
 /**
 * cn - default
+     -- name="default"
 * en - default
+     -- name="default"
 */
 import React from 'react'
 import { Spin } from 'shineout'

@@ -15,7 +15,7 @@ const source = locate(cn, en)
 const examples = [
   {
     name: '1-base',
-    title: locate('基本用法', 'Base'),
+    title: locate('基本用法 \n 内置了四个弹出方向', 'Base'),
     component: require('doc/pages/components/Tooltip/example-1-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tooltip/example-1-base.js'),
   },

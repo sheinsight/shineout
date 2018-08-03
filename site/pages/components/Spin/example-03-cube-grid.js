@@ -1,6 +1,8 @@
 /**
 * cn - cube-grid
+     -- name="cube-grid"
 * en - cube-grid
+     -- name="cube-grid"
 */
 import React from 'react'
 import { Spin } from 'shineout'

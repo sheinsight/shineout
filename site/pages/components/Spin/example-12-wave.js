@@ -1,6 +1,8 @@
 /**
 * cn - wave
+     -- name="wave"
 * en - wave
+     -- name="wave"
 */
 import React from 'react'
 import { Spin } from 'shineout'

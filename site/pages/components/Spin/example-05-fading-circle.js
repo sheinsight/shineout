@@ -1,6 +1,8 @@
 /**
 * cn - fading-circle
+     -- name="fading-circle"
 * en - fading-circle
+     -- name="fading-circle"
 */
 import React from 'react'
 import { Spin } from 'shineout'
