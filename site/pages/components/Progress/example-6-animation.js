@@ -1,5 +1,6 @@
 /**
  * cn - 动态示例
+ *    -- value 变更时动画效果演示
  * en - Animation
  */
 import React, { Component } from 'react'

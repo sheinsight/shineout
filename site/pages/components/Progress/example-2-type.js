@@ -1,7 +1,7 @@
 /**
- * cn - 颜色
- *    -- 通过 type 使用内置的颜色，或者使用 color 指定颜色
- * en - Color
+ * cn - 样式
+ *    -- 内置了四种样式，通过 type 来调用
+ * en - Type
  */
 import React from 'react'
 import { Progress } from 'shineout'
@@ -16,10 +16,6 @@ export default function () {
       <Progress value={80} type="warning" />
       <br />
       <Progress value={70} type="danger" />
-      <br />
-      <Progress value={60} color="#531dab" />
-      <br />
-      <Progress value={50} color="linear-gradient(45deg, #ffadd2 25%, #eb2f96 25%, #eb2f96 50%, #ffadd2 50%, #ffadd2 75%, #eb2f96 75%, #eb2f96)" />
     </div>
   )
 }

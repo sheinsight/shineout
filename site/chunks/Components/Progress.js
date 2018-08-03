@@ -15,33 +15,39 @@ const source = locate(cn, en)
 const examples = [
   {
     name: '1-base',
-    title: locate('基本用法', 'Base'),
+    title: locate('基本用法 \n 基础的进度条', 'Base'),
     component: require('doc/pages/components/Progress/example-1-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Progress/example-1-base.js'),
   },
   {
     name: '2-type',
-    title: locate('颜色 \n 通过 type 使用内置的颜色，或者使用 color 指定颜色', 'Color'),
+    title: locate('样式 \n 内置了四种样式，通过 type 来调用', 'Type'),
     component: require('doc/pages/components/Progress/example-2-type.js').default,
     rawText: require('!raw-loader!doc/pages/components/Progress/example-2-type.js'),
   },
   {
-    name: '3-circle',
-    title: locate('圆形', 'Circle'),
-    component: require('doc/pages/components/Progress/example-3-circle.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Progress/example-3-circle.js'),
+    name: '3-color',
+    title: locate(' \n 通过 color 使用自定义颜色', 'Color'),
+    component: require('doc/pages/components/Progress/example-3-color.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Progress/example-3-color.js'),
   },
   {
-    name: '4-size',
-    title: locate('大小', 'Size'),
-    component: require('doc/pages/components/Progress/example-4-size.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Progress/example-4-size.js'),
+    name: '4-circle',
+    title: locate('圆形 \n 设置 shape 为 &#39;circle&#39;，显示为环形进度条', 'Circle'),
+    component: require('doc/pages/components/Progress/example-4-circle.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Progress/example-4-circle.js'),
   },
   {
-    name: '5-animation',
-    title: locate('动态示例', 'Animation'),
-    component: require('doc/pages/components/Progress/example-5-animation.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Progress/example-5-animation.js'),
+    name: '5-size',
+    title: locate('大小 \n 通过 size 或 style 来控制大小 \n 通过 strokeWidth 属性来控制线框宽度', 'Size'),
+    component: require('doc/pages/components/Progress/example-5-size.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Progress/example-5-size.js'),
+  },
+  {
+    name: '6-animation',
+    title: locate('动态示例 \n value 变更时动画效果演示', 'Animation'),
+    component: require('doc/pages/components/Progress/example-6-animation.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Progress/example-6-animation.js'),
   },
 ]
 

@@ -1,5 +1,6 @@
 /**
  * cn - 圆形
+ *    -- 设置 shape 为 'circle'，显示为环形进度条
  * en - Circle
  */
 import React from 'react'

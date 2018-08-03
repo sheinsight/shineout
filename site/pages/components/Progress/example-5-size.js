@@ -1,5 +1,7 @@
 /**
  * cn - 大小
+ *    -- 通过 size 或 style 来控制大小
+ *    -- 通过 strokeWidth 属性来控制线框宽度
  * en - Size
  */
 import React from 'react'
