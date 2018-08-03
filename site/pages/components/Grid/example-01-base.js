@@ -1,5 +1,6 @@
 /**
  * cn - 任意等分
+ *    -- Grid 的栅格体系是动态生成，可以实现任意等分
  * en - Arbitrary
  */
 import React, { Component } from 'react'
@@ -32,8 +33,8 @@ export default class extends Component {
 
         {
           Array.from({ length: count }).map((n, i) => (
-            <div key={i} style={{ background: '#f2f2f2', marginBottom: 4 }}>
-              <Grid width={(i + 1) / count} style={{ background: '#ccc' }}>
+            <div key={i} style={{ background: '#f2f2f2', marginBottom: 4, lineHeight: '30px' }}>
+              <Grid width={(i + 1) / count} style={{ color: '#fff', paddingLeft: 8, background: '#3399ff' }}>
                 {i + 1}/{count}
               </Grid>
             </div>

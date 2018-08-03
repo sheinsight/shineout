@@ -15,25 +15,25 @@ const source = locate(cn, en)
 const examples = [
   {
     name: '01-base',
-    title: locate('任意等分', 'Arbitrary'),
+    title: locate('任意等分 \n Grid 的栅格体系是动态生成，可以实现任意等分', 'Arbitrary'),
     component: require('doc/pages/components/Grid/example-01-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Grid/example-01-base.js'),
   },
   {
     name: '02-offset',
-    title: locate('Offset', 'Offset'),
+    title: locate('偏移 \n offset 属性可以设置偏移，取值方式和宽度相同', 'Offset'),
     component: require('doc/pages/components/Grid/example-02-offset.js').default,
     rawText: require('!raw-loader!doc/pages/components/Grid/example-02-offset.js'),
   },
   {
     name: '03-nested',
-    title: locate('嵌套', 'Nested'),
+    title: locate('嵌套 \n 嵌套的栅格', 'Nested'),
     component: require('doc/pages/components/Grid/example-03-nested.js').default,
     rawText: require('!raw-loader!doc/pages/components/Grid/example-03-nested.js'),
   },
   {
     name: '04-gutter',
-    title: locate('间距 \n * 注意：设置 gutter 的栅格不能直接嵌套在另一个栅格中', 'Gutter'),
+    title: locate('间距 \n 通过 gutter 属性设置栅格间距', 'Gutter'),
     component: require('doc/pages/components/Grid/example-04-gutter.js').default,
     rawText: require('!raw-loader!doc/pages/components/Grid/example-04-gutter.js'),
   },
