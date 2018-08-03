@@ -1,26 +1,18 @@
 /**
  * cn - 图标
+ *    -- 带图标的面包屑
  * en - icon
  */
 
 import React from 'react'
-import { Breadcrumb, Icon } from 'shineout'
+import { Breadcrumb } from 'shineout'
+import FontAwesome from '../Icon/FontAwesome'
 
-
-const MyIcon = Icon('//at.alicdn.com/t/font_550076_aqfu50lfa47bke29.css')
-
-const data = [{
-  id: '1',
-  icon: <MyIcon name="info" />,
-  url: '#',
-}, {
-  id: '2',
-  title: 'Menu',
-}, {
-  id: '3',
-  title: 'Self',
-  url: 'https://www.baidu.com',
-}]
+const data = [
+  { icon: <FontAwesome name="home" />, title: 'Home', url: '#/' },
+  { title: 'Menu' },
+  { title: 'Self', url: '#/components/Breadcrumb' },
+]
 
 export default function () {
   return (

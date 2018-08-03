@@ -6,10 +6,14 @@
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | ---|
-| data | Array | [] | 面包屑对象数组,对象属性可选值为: <br />面包屑显示文字<br />地址<br />图标,可以使用Icon组件生成或者自定义图标组件|
-| title | String | 'title' | 面包屑标题键值, 默认是title |
-| url | String | 'url' |面包屑链接键值, 默认是url |
-| icon | String | 'icon' |面包屑图标键值, 默认是icon |
-| renderItem | Function | null | 自定义渲染,可以自行选择渲染结果, 参数为data |
+| data | Array | [] | 面包屑对象数组，见 data |
 | separator | String\|ReactNode | "/" | 面包屑分隔符,可以是字符串或自定义的元素|
-| keygen | String \| Function | "id" | key生成规则,如果为function,参数为单条数据, 并以返回值作为key
+| keygen | String \| Function | 无 | key生成规则，如果为function，参数为单条数据, 并以返回值作为key，不填使用 index
+
+### data
+
+| 属性 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | ---|
+| title | string\|ReactElement | 无 | 显示内容 |
+| url | string | 无 | 链接地址，onClick 属性二选一 |
+| onClick | function | 无 | 点击事件 |

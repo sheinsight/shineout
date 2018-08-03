@@ -1,6 +1,7 @@
 /**
- * cn - 自定义分隔符(字符串和reactNode)
- * en - separator(string and reactNode)
+ * cn - 分隔符
+ *    -- 默认的分隔符为 '/'，可以通过 separator 属性自定义
+ * en - separator
  */
 
 import React from 'react'
@@ -10,19 +11,16 @@ function Separator() {
   return <span>~</span>
 }
 
-const data = [{
-  title: 'Home',
-  url: '#',
-}, {
-  title: 'Self',
-  url: 'https://www.baidu.com',
-}]
+const data = [
+  { title: 'Home', url: '#/' },
+  { title: 'Self' },
+]
 
 export default function () {
   return (
     <div>
-      <Breadcrumb keygen="title" data={data} separator="|" />
-      <Breadcrumb keygen={d => (`${d.title}2`)} data={data} separator={<Separator />} />
+      <Breadcrumb data={data} separator="|" />
+      <Breadcrumb data={data} separator={<Separator />} />
     </div>
   )
 }

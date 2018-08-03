@@ -9,25 +9,21 @@
 
 
 .@{breadcrumb-prefix} {
-  //padding: @breadcrumb-padding-vertical @breadcrumb-padding-horizontal;
-  //margin-bottom: @line-height-computed;
   list-style: none;
   background-color: @breadcrumb-bg;
   border-radius: @border-radius-base;
   font-size: @font-size-base;
-  > span {
+  a {
     display: inline-block;
-    > span {
-      margin-right: @breadcrumb-padding-vertical
-    }
-    a {
-      color: @breadcrumb-a-color;
-    }
-    a:hover {
-      color: @colors-blue
+    color: @breadcrumb-a-color;
+    margin: 0 @breadcrumb-padding-vertical;
+
+    &:last-child {
+      color: @breadcrumb-active-color;
     }
   }
-  > span:last-child a{
-    color: @breadcrumb-active-color;
+
+  a:hover {
+    color: @colors-primary;
   }
 }
