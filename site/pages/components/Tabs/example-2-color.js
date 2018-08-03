@@ -1,5 +1,6 @@
 /**
  * cn - 自定义颜色
+ *    -- 可以自定义每个标签的字体颜色、边框颜色和背景色
  * en - Color
  */
 import React from 'react'

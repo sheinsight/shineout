@@ -15,15 +15,15 @@ const source = locate(cn, en)
 const examples = [
   {
     name: '1-base',
-    title: locate('基本用法', 'Base'),
+    title: locate('基本用法 \n 默认为标签样式', 'Base'),
     component: require('doc/pages/components/Tabs/example-1-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-1-base.js'),
   },
   {
-    name: '2-card',
-    title: locate('自定义颜色', 'Color'),
-    component: require('doc/pages/components/Tabs/example-2-card.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Tabs/example-2-card.js'),
+    name: '2-color',
+    title: locate('自定义颜色 \n 可以自定义每个标签的字体颜色、边框颜色和背景色', 'Color'),
+    component: require('doc/pages/components/Tabs/example-2-color.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tabs/example-2-color.js'),
   },
   {
     name: '3-scroll',
@@ -33,19 +33,19 @@ const examples = [
   },
   {
     name: '4-active',
-    title: locate('受控', 'Active'),
+    title: locate('受控 \n 通过 active 和 onChange 可以控制标签状态', 'Active'),
     component: require('doc/pages/components/Tabs/example-4-active.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-4-active.js'),
   },
   {
     name: '5-shape-line',
-    title: locate('样式 \n shape = &#39;line&#39;', 'Shape'),
+    title: locate('样式 \n 设置 shape 为 &#39;line&#39;，标签显示为线条', 'Shape'),
     component: require('doc/pages/components/Tabs/example-5-shape-line.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-5-shape-line.js'),
   },
   {
     name: '6-shape-button',
-    title: locate(' \n type = &#39;button&#39;', 'Shape'),
+    title: locate(' \n 设置 shape 为 &#39;button&#39;，标签显示为按钮', 'Shape'),
     component: require('doc/pages/components/Tabs/example-6-shape-button.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-6-shape-button.js'),
   },

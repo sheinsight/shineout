@@ -1,6 +1,6 @@
 /**
  * cn -
- *    -- type = 'button'
+ *    -- 设置 shape 为 'button'，标签显示为按钮
  * en - Shape
  */
 import React from 'react'

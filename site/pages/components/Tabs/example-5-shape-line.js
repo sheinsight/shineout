@@ -1,6 +1,6 @@
 /**
  * cn - 样式
- *    -- shape = 'line'
+ *    -- 设置 shape 为 'line'，标签显示为线条
  * en - Shape
  */
 import React from 'react'

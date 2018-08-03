@@ -1,5 +1,6 @@
 /**
  * cn - 基本用法
+ *    -- 默认为标签样式
  * en - Base
  */
 import React from 'react'

@@ -94,9 +94,9 @@ class Header extends PureComponent {
         {
           tabs.map(tab => (
             <Button
-              type={tab.isActive ? 'primary' : undefined}
               key={tab.id}
               onClick={tab.isActive ? undefined : onChange.bind(this, tab.id)}
+              className={tabsClass(tab.isActive && 'button-active')}
             >
               {tab.tab}
             </Button>

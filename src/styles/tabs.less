@@ -36,6 +36,26 @@
     }
   }
 
+  .@{tabs-prefix}-button-active {
+    position: relative;
+    color: #fff;
+    background: @colors-primary;
+    z-index: 100;
+    &:before {
+      display: none;
+    }
+
+    &:not(:last-child):after {
+      content: ' ';
+      border-right: solid 1px @colors-primary;
+      position: absolute;
+      right: -1px;
+      width: 0;
+      top: 0;
+      bottom: 0;
+    }
+  }
+
   &-inner {
     flex: 1;
     overflow: hidden;
