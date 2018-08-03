@@ -1,5 +1,6 @@
 /**
  * cn - 基本用法
+ *    -- Menu 通过数据来生成菜单项
  * en - Base
  */
 import React from 'react'
@@ -9,36 +10,45 @@ const data = [
   {
     id: '1',
     title: 'Navigation One',
-  }, {
+  },
+  {
     id: '3',
     title: 'Navigation Two',
     onClick: true,
-    children: [{
-      id: '4',
-      title: 'Option 1',
-    }, {
-      id: '5',
-      title: 'Option 2',
-    }],
-  }, {
+    children: [
+      {
+        id: '4',
+        title: 'Option 1',
+      }, {
+        id: '5',
+        title: 'Option 2',
+      },
+    ],
+  },
+  {
     id: '6',
     title: 'Navigation Three',
     onClick: () => console.log('only click'),
-    children: [{
-      id: '7',
-      title: 'Option 3',
-    }, {
-      id: '8',
-      title: 'Option 4',
-      children: [{
-        id: '9',
-        title: 'Optic 1',
-      }, {
-        id: '10',
-        title: 'Optic 2',
-      }],
-    }],
-  }, {
+    children: [
+      {
+        id: '7',
+        title: 'Option 3',
+      },
+      {
+        id: '8',
+        title: 'Option 4',
+        children: [{
+          id: '9',
+          title: 'Optic 1',
+        }, {
+          id: '10',
+          title: 'Optic 2',
+        },
+        ],
+      },
+    ],
+  },
+  {
     id: '2',
     title: 'Navigation Four',
   },

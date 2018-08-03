@@ -1,5 +1,6 @@
 /**
  * cn - 垂直样式
+ *    -- 设置 mode 为 "vertical"，显示为垂直布局
  * en - vertical
  */
 import React from 'react'

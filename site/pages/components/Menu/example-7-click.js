@@ -1,5 +1,6 @@
 /**
- * cn - 自定义选中事件
+ * cn - 点击事件
+ *    -- 如果选项未设置单独的 onClick 事件，点击后会调用 Menu 定义的 onClick 事件
  * en - customize click event
  */
 import React from 'react'
@@ -51,12 +52,14 @@ export default class extends React.Component {
     }
     this.handleClick = this.handleClick.bind(this)
   }
+
   handleClick(da) {
     Message.info(`now select is ${da.title}`)
     this.setState({
       active: [da.id],
     })
   }
+
   render() {
     return (
       <Menu

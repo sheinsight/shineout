@@ -1,5 +1,6 @@
 /**
  * cn - 自定义渲染
+ *    -- 设置 renderItem 属性展现稍微复杂的内容
  * en - customize render
  */
 import React from 'react'
@@ -64,11 +65,13 @@ export default class extends React.Component {
     }
     this.handleClick = this.handleClick.bind(this)
   }
+
   handleClick(da) {
     this.setState({
       active: [da.id],
     })
   }
+
   render() {
     return (
       <Menu

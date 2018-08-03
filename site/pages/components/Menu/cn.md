@@ -7,6 +7,7 @@
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | data | array | [] | 需要渲染成菜单的数据 |
+| disabled | function | d => d.disabled | 是否禁用选项 |
 | mode | string | 'inline'| 菜单样式,提供 'inline', 'vertical', 'horizontal'三种|
 | renderItem | string \| function | 'title' | 元素渲染方式,如果为字符串,则会以对应的值作为显示内容;如果为函数,则以函数返回的结果作为显示内容,函数参数为对应的数据对象 |
 | keygen | string \| function | 无 | key的生成规则,如果为字符串,则会以对应的值作为key值;如果为函数,则以函数返回的结果作为key值,参数为对应的数据对象|

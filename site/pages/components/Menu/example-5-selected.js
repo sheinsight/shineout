@@ -1,6 +1,7 @@
 /**
- * cn - 默认展开,默认选中
- * en - default opened or selected
+ * cn - 受控
+ *    -- active 参数控制选中选项
+ * en - controlled
  */
 import React from 'react'
 import { Menu } from 'shineout'
@@ -51,11 +52,13 @@ export default class extends React.Component {
     }
     this.handleClick = this.handleClick.bind(this)
   }
+
   handleClick(da) {
     this.setState({
       active: [da.id],
     })
   }
+
   render() {
     return (
       <Menu

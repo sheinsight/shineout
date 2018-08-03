@@ -9,7 +9,7 @@ class List extends PureComponent {
   render() {
     const {
       data, level, keygen, mode, renderItem, style, active,
-      onClick, path, inlineIndent, defaultOpenKeys,
+      onClick, path, inlineIndent, defaultOpenKeys, disabled,
     } = this.props
 
     const className = classnames(
@@ -24,6 +24,7 @@ class List extends PureComponent {
             <Item
               active={active}
               defaultOpenKeys={defaultOpenKeys}
+              disabled={disabled}
               key={getKey(d, keygen, i)}
               index={i}
               keygen={keygen}
@@ -46,6 +47,7 @@ List.propTypes = {
   active: PropTypes.func,
   className: PropTypes.string,
   defaultOpenKeys: PropTypes.array,
+  disabled: PropTypes.func,
   inlineIndent: PropTypes.number,
   keygen: PropTypes.any,
   level: PropTypes.number,

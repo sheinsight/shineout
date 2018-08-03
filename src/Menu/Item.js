@@ -73,14 +73,16 @@ class Item extends PureComponent {
 
   render() {
     const {
-      data, renderItem, mode, keygen, level, onClick, inlineIndent, defaultOpenKeys,
+      data, renderItem, mode, keygen, level, onClick, inlineIndent, defaultOpenKeys, disabled,
     } = this.props
     const { open, isActive, isHighLight } = this.state
     const { children = [] } = data
 
+    const isDisabled = typeof disabled === 'function' ? disabled(data) : disabled
+
     const className = menuClass(
       'item',
-      data.disabled && 'disabled',
+      isDisabled === true && 'disabled',
       children.length > 0 ? 'has-children' : 'no-children',
       isActive && 'active',
       open && 'open',
@@ -111,6 +113,7 @@ class Item extends PureComponent {
           <List
             data={children}
             defaultOpenKeys={defaultOpenKeys}
+            disabled={disabled}
             renderItem={renderItem}
             keygen={keygen}
             inlineIndent={mode === 'horizontal' ? 0 : inlineIndent}
@@ -130,6 +133,10 @@ Item.propTypes = {
   bindItem: PropTypes.func,
   data: PropTypes.object,
   defaultOpenKeys: PropTypes.array,
+  disabled: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.bool,
+  ]),
   index: PropTypes.number,
   inlineIndent: PropTypes.number,
   level: PropTypes.number,

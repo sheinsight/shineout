@@ -1,5 +1,6 @@
 /**
  * cn - 禁用菜单
+ *    -- 通过 disabled 属性可以禁用选项
  * en - Disabled
  */
 import React from 'react'
@@ -53,19 +54,22 @@ export default class extends React.Component {
     }
     this.handleClick = this.handleClick.bind(this)
   }
+
   handleClick(da) {
     this.setState({
       active: [da.id],
     })
   }
+
   render() {
     return (
       <Menu
         mode="inline"
         keygen="id"
         data={data}
+        disabled={d => d.disabled}
         renderItem={d => d.title}
-        active={da => this.state.active.includes(da.id)}
+        active={d => this.state.active.includes(d.id)}
         style={{ width: 256 }}
         inlineIndent={24}
         onClick={this.handleClick}

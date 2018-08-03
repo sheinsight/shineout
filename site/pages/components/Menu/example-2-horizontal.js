@@ -1,6 +1,7 @@
 /**
  * cn - 水平布局
- * en - Base
+ *    -- 设置 mode 为 "horizontal"，显示为水平布局（子菜单在右侧弹出）
+ * en - horizontal
  */
 import React from 'react'
 import { Menu } from 'shineout'

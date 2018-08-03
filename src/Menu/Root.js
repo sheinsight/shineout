@@ -72,7 +72,7 @@ class Root extends React.Component {
 
   render() {
     const {
-      keygen, data, mode, style, theme, defaultOpenKeys, inlineIndent,
+      keygen, data, mode, style, theme, defaultOpenKeys, inlineIndent, disabled,
     } = this.props
 
     const className = classnames(
@@ -86,6 +86,7 @@ class Root extends React.Component {
           className={className}
           data={data}
           defaultOpenKeys={defaultOpenKeys}
+          disabled={disabled}
           inlineIndent={inlineIndent}
           keygen={keygen}
           level={0}
@@ -106,6 +107,7 @@ Root.propTypes = {
   active: PropTypes.func,
   data: PropTypes.array,
   defaultOpenKeys: PropTypes.array,
+  disabled: PropTypes.func,
   inlineIndent: PropTypes.number,
   mode: PropTypes.oneOf(['inline', 'vertical', 'horizontal']),
   onClick: PropTypes.func,
@@ -118,6 +120,7 @@ Root.propTypes = {
 Root.defaultProps = {
   ...defaultProps,
   data: [],
+  disabled: d => d.disabled,
   level: 0,
   keygen: 'id',
   mode: 'inline',
