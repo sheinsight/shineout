@@ -1,5 +1,6 @@
 /**
  * cn - 弹出位置
+ *    -- 内置了十二个弹出的位置
  * en - Position
  */
 import React from 'react'

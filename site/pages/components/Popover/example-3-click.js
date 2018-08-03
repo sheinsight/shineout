@@ -1,5 +1,6 @@
 /**
  * cn - 点击触发
+ *    -- 默认是移入组件触发，设置 trigger 为 'click'，可以改为点击触发
  * en - Click
  */
 import React from 'react'

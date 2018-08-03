@@ -1,6 +1,6 @@
 /**
  * cn -
- *    -- 可以通过 background 和 color 自定义样式
+ *    -- 如果内置样式不满足需求，可以通过 background 和 border 自定义样式
  */
 import React from 'react'
 import { Button, Popover } from 'shineout'

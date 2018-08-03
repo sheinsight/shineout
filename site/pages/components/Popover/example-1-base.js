@@ -1,5 +1,6 @@
 /**
  * cn - 基本用法
+ *    -- 与 Tooltip 相比，Popover 可以控制样式，大小由内容决定
  * en - Base
  */
 import React from 'react'

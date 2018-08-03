@@ -1,5 +1,6 @@
 /**
  * cn - 样式
+ *    -- 内置四种样式
  * en - type
  */
 import React from 'react'

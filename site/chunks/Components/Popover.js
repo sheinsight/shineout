@@ -15,19 +15,19 @@ const source = locate(cn, en)
 const examples = [
   {
     name: '1-base',
-    title: locate('基本用法', 'Base'),
+    title: locate('基本用法 \n 与 Tooltip 相比，Popover 可以控制样式，大小由内容决定', 'Base'),
     component: require('doc/pages/components/Popover/example-1-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-1-base.js'),
   },
   {
     name: '2-position',
-    title: locate('弹出位置', 'Position'),
+    title: locate('弹出位置 \n 内置了十二个弹出的位置', 'Position'),
     component: require('doc/pages/components/Popover/example-2-position.js').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-2-position.js'),
   },
   {
     name: '3-click',
-    title: locate('点击触发', 'Click'),
+    title: locate('点击触发 \n 默认是移入组件触发，设置 trigger 为 &#39;click&#39;，可以改为点击触发', 'Click'),
     component: require('doc/pages/components/Popover/example-3-click.js').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-3-click.js'),
   },
@@ -39,13 +39,13 @@ const examples = [
   },
   {
     name: '5-type',
-    title: locate('样式', 'type'),
+    title: locate('样式 \n 内置四种样式', 'type'),
     component: require('doc/pages/components/Popover/example-5-type.js').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-5-type.js'),
   },
   {
     name: '6-type',
-    title: locate(' \n 可以通过 background 和 color 自定义样式', ''),
+    title: locate(' \n 如果内置样式不满足需求，可以通过 background 和 border 自定义样式', ''),
     component: require('doc/pages/components/Popover/example-6-type.js').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-6-type.js'),
   },
