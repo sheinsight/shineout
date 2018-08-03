@@ -1,5 +1,6 @@
 /**
  * cn - 基本用法
+ *    -- Card 内部由 Header, Body, Footer 三个自组件组成，可以组合或单独使用
  * en - Base
  */
 import React from 'react'

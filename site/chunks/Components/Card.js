@@ -15,7 +15,7 @@ const source = locate(cn, en)
 const examples = [
   {
     name: '1-base',
-    title: locate('基本用法', 'Base'),
+    title: locate('基本用法 \n Card 内部由 Header, Body, Footer 三个自组件组成，可以组合或单独使用', 'Base'),
     component: require('doc/pages/components/Card/example-1-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Card/example-1-base.js'),
   },
@@ -33,7 +33,7 @@ const examples = [
   },
   {
     name: '4-collapse',
-    title: locate('折叠', 'Collapse'),
+    title: locate('折叠 \n 设置 collapsible 可以折叠 Card，通过 collapsed 或 defaultCollapsed 属性控制状态', 'Collapse'),
     component: require('doc/pages/components/Card/example-4-collapse.js').default,
     rawText: require('!raw-loader!doc/pages/components/Card/example-4-collapse.js'),
   },
