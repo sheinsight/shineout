@@ -8,6 +8,6 @@ import { Image } from 'shineout'
 
 export default function () {
   return (
-    <Image width={200} height={125} src="notfound" title="Image not exist." />
+    <Image width={200} height={125} src="notfound" title="Image not exist" />
   )
 }

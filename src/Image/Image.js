@@ -25,7 +25,7 @@ class Image extends PureComponent {
   }
 
   componentDidMount() {
-    if (this.props.lazy) this.markToRender()
+    if (!this.props.lazy) this.markToRender()
     else this.lazyId = addStack({ element: this.element, render: this.markToRender })
   }
 
@@ -94,7 +94,7 @@ class Image extends PureComponent {
           : (
             <div className={imageClass('inner', 'mask')}>
               <div>
-                {title || 'Loading'}{' '}
+                {title}{' '}
                 <span className={imageClass('ellipsis')} />
               </div>
             </div>

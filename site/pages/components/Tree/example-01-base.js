@@ -13,7 +13,7 @@ export default function () {
       data={data}
       keygen="id"
       defaultExpanded={['2']}
-      renderItem={n => `node ${n.id}`}
+      renderItem={n => `node ${n.text}`}
     />
   )
 }

@@ -9,7 +9,7 @@ import { fetchSync as fetchCity } from 'doc/data/city'
 
 const citys = fetchCity(100)
 const onChange = d => console.log(d)
-const style = { width: 200, marginBottom: 12, display: 'block' }
+const style = { width: 240, marginBottom: 12, display: 'block' }
 
 export default function () {
   return (

@@ -4,7 +4,7 @@
 @link-hover-decoration: none;
 @link-disabled-color:   @gray-600;
 
-@font-family-sans-serif:                  "Chinese Quote", "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;;
+@font-family-sans-serif:                  "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;;
 @font-family-serif:                       Georgia, "Times New Roman", Times, serif;
 @font-size-base:                          14px;
 
@@ -36,8 +36,6 @@
 @dropdown-item-padding-y:                 @dropdown-padding-y;
 @dropdown-box-shadow:                     0 6px 12px rgba(0,0,0,.175);
 @dropup-box-shadow:                       0 -2px 12px rgba(0,0,0,.175);
-@dropdown-link-hover-color:               @component-active-color;
-@dropdown-link-hover-bg:                  @component-active-bg;
 @dropdown-link-active-color:              darken(@gray-800, 5%);
 @dropdown-link-active-bg:                 #f5f5f5;
 
@@ -91,26 +89,30 @@
 
 //menu
 @menu-box-shadow-base:                    0 2px 8px rgba(0, 0, 0, 0.15);
-@menu-item-color:                         @gray-900;
-@menu-dark-bg:                            #3F3F3F;
-@menu-dark-item:                          #bfbfbf;
 @menu-inline-toplevel-item-height:        40px;
-@menu-item-height:                        40px;
 @menu-collapsed-width:                    80px;
 @menu-border-color:                       #e8e8e8;
+@menu-border-width-base:                  0px;
 @menu-bottom-color:                       transparent;
 @menu-bg:                                 #fff;
-@menu-highlight-color:                    @colors-primary;
-@menu-item-active-bg:                     #fff;
-@menu-border-width-base:                  0px;
+@menu-item-color:                         @gray-900;
+@menu-item-height:                        40px;
 @menu-item-group-title-color:             @colors-secondary;
+@menu-item-active-color:                  #fff;
+@menu-item-active-bg:                     @colors-primary;
+@menu-item-active-indicator:              @colors-primary;
 @menu-disabled-color:                     rgba(0, 0, 0, 0.25);
+@menu-highlight-color:                    @colors-primary;
 @menu-highlight-border-color:             none;
 @menu-select-transform:                   scaleY(0);
 @menu-title-transform:                    translateY(-65%) rotate(0deg);
 @menu-title-open-transform:               translateY(-65%) rotate(180deg);
 @menu-title-vertical-transform:           translateY(-65%) rotate(270deg);
-@menu-border-radius:                      4px;
+
+@menu-dark-bg:                            #001529;
+@menu-dark-item:                          #bfbfbf;
+@menu-dark-active-color:                  #fff;
+@menu-dark-active-bg:                     @colors-primary;
 
 
 // checkbox

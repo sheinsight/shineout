@@ -16,6 +16,7 @@ function Root(props) {
       {...props}
       className={className}
       expanded
+      path=""
       isRoot
       deepIndex={0}
     />

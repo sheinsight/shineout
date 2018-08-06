@@ -8,7 +8,7 @@ export const allIds = []
 const createNode = (deep, index, path) => {
   const id = path.join('-')
   const childLength = pickNumber(5, deep === 0 ? 1 : 0)
-  const node = { id }
+  const node = { id, text: id }
   if (childLength > 0 && deep < maxDeepLength) {
     node.children = range(childLength).map(i => createNode(deep + 1, i, [...path, i]))
   }

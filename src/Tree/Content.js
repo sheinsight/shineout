@@ -41,7 +41,7 @@ class Content extends PureComponent {
       id, active, data, renderItem, expanded,
     } = this.props
     const render = typeof renderItem === 'function' ? renderItem : d => d[renderItem]
-    return render(data, expanded, active === id)
+    return render(data, expanded, active, id)
   }
 
   renderIndicator() {
@@ -70,7 +70,6 @@ class Content extends PureComponent {
       data, onToggle, onChange, expanded, draggable, onDragOver, onDrop, ...other
     } = this.props
 
-    console.log(data.id)
     return (
       <div onDragOver={onDragOver}>
         { this.renderIndicator() }
@@ -89,7 +88,7 @@ class Content extends PureComponent {
 }
 
 Content.propTypes = {
-  active: PropTypes.any,
+  active: PropTypes.bool,
   data: PropTypes.object,
   draggable: PropTypes.bool,
   expanded: PropTypes.bool,

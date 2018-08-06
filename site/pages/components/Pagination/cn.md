@@ -5,6 +5,7 @@
 ## API 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
+| align | string | 'left' | 可选值为 \['left', 'center', 'right'] |
 | className | string | 无 | 扩展className |
 | current | number | 无 | 当前页，如果传入值，组件为受控组件，必须通过onChange来处理回调 |
 | defaultCurrent | number | 1 | 初始页码 |

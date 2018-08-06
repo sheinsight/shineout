@@ -32,6 +32,7 @@ export default class extends Component {
         <Tree
           data={data}
           keygen="id"
+          line={false}
           expanded={this.state.expanded}
           onExpand={this.handleExpand}
           renderItem={this.renderItem}

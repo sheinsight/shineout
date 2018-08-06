@@ -12,6 +12,7 @@ export default function () {
       {
         ([1, 2, 3, 4]).map(i => (
           <Image
+            key={i}
             width={80}
             height={80}
             shape="thumbnail"

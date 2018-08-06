@@ -17,7 +17,7 @@ export default function () {
         keygen
         onCreate
         onChange={d => console.log(d)}
-        filter={text => d => d.indexOf(text) >= 0}
+        onFilter={text => d => d.indexOf(text) >= 0}
         filterDelay={0}
       />
     </div>

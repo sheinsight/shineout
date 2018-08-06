@@ -1,6 +1,7 @@
 const PIXEL_STEP = 10
 const LINE_HEIGHT = 40
 const PAGE_HEIGHT = 800
+const DELTA_LENGTH = 120
 
 export default function (event) {
   let sX = 0
@@ -12,13 +13,13 @@ export default function (event) {
     sY = event.detail
   }
   if ('wheelDelta' in event) {
-    sY = -event.wheelDelta / 120
+    sY = -event.wheelDelta / DELTA_LENGTH
   }
   if ('wheelDeltaY' in event) {
-    sY = -event.wheelDeltaY / 120
+    sY = -event.wheelDeltaY / DELTA_LENGTH
   }
   if ('wheelDeltaX' in event) {
-    sX = -event.wheelDeltaX / 120
+    sX = -event.wheelDeltaX / DELTA_LENGTH
   }
 
   if ('axis' in event && event.axis === event.HORIZONTAL_AXIS) {
