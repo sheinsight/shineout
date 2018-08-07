@@ -26,7 +26,7 @@ class Table extends PureComponent {
   render() {
     const {
       striped, bordered, size, hover, height, columns, value,
-      data, style, fixed, width, loading, ...others
+      data, style, fixed, width, loading, verticalAlign, ...others
     } = this.props
 
     const { scrollLeft, scrollRight } = this.state
@@ -40,6 +40,7 @@ class Table extends PureComponent {
         fixed && 'fixed',
         scrollLeft > 0 && 'left-float',
         scrollRight < 0 && 'right-float',
+        `vertical-${verticalAlign}`,
       ),
       this.props.className,
     )
@@ -89,6 +90,7 @@ Table.propTypes = {
   ]),
   rowsInView: PropTypes.number,
   striped: PropTypes.bool,
+  verticalAlign: PropTypes.oneOf(['top', 'middle']),
   width: PropTypes.number,
 }
 
@@ -96,6 +98,7 @@ Table.defaultProps = {
   ...defaultProps,
   hover: true,
   rowsInView: 20,
+  verticalAlign: 'top',
 }
 
 export default Datum.hoc({ bindProps: ['disabled', 'format', 'prediction'] }, Table)

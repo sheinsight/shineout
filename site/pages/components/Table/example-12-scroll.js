@@ -65,6 +65,7 @@ export default class extends PureComponent {
         style={{ height: 450 }}
         fixed="y"
         onScroll={this.handleScroll}
+        verticalAlign="middle"
       />
     )
   }

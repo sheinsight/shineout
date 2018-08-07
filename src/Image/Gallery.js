@@ -4,6 +4,7 @@ import immer from 'immer'
 import PureComponent from '../PureComponent'
 import normalizeWheel from '../utils/dom/normalizeWheel'
 import { imageClass } from '../styles'
+import Magnify from './Magnify'
 
 class Gallery extends PureComponent {
   constructor(props) {
@@ -15,7 +16,10 @@ class Gallery extends PureComponent {
     }
 
     this.handleScroll = this.handleScroll.bind(this)
+    this.lockScroll = this.lockScroll.bind(this)
+
     this.scrollX = 0
+    this.rawScroll = false
   }
 
   componentDidMount() {
@@ -24,6 +28,10 @@ class Gallery extends PureComponent {
 
   componentWillUnmount() {
     document.removeEventListener('wheel', this.handleScroll)
+  }
+
+  lockScroll(status) {
+    this.rawScroll = status
   }
 
   handleClick(direction) {
@@ -41,6 +49,7 @@ class Gallery extends PureComponent {
   }
 
   handleScroll(e) {
+    if (this.rawScroll) return
     e.preventDefault()
     if (this.scrollX !== 0) return
     const wheel = normalizeWheel(e)
@@ -54,7 +63,6 @@ class Gallery extends PureComponent {
     }, 1000)
   }
 
-  // eslint-disable-next-line
   renderImage(image, pos) {
     const windowHeight = window.innerHeight || document.documentElement.clientHeight
     const windowWidth = window.innerWidth || document.documentElement.clientWidth
@@ -65,8 +73,17 @@ class Gallery extends PureComponent {
     }
 
     return (
-      <div key={pos} className={imageClass(pos, this.state.direction)} onClick={onClick}>
-        <img src={image.src} alt="" style={{ maxWidth: windowWidth - 400, maxHeight: windowHeight - 160 }} />
+      <div
+        key={pos}
+        className={imageClass(pos, this.state.direction)}
+        onClick={onClick}
+      >
+        <Magnify
+          maxWidth={windowWidth - 400}
+          maxHeight={windowHeight - 160}
+          src={image.src}
+          lockScroll={this.lockScroll}
+        />
       </div>
     )
   }
