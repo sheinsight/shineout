@@ -25,7 +25,6 @@
           position: relative;
           padding: @table-cell-padding;
           line-height: @line-height-base;
-          vertical-align: top;
           border-bottom: 1px solid @table-border-color;
           background-color: @table-bg;
           background-clip: padding-box;
@@ -83,6 +82,14 @@
 
   th {
     text-align: left;
+  }
+
+  &-vertical-top td {
+    vertical-align: top;
+  }
+
+  &-vertical-middle td {
+    vertical-align: middle;
   }
 
   &-sorter-asc, &-sorter-desc {
