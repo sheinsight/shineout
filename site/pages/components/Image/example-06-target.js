@@ -17,8 +17,8 @@ export default function () {
               height={80}
               target={target}
               shape="thumbnail"
-              src="/images/1_s.jpg"
-              href="/images/1_b.jpg"
+              src="../images/1_s.jpg"
+              href="../images/1_b.jpg"
             />
             <br />
             {target}

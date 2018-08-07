@@ -86,7 +86,7 @@ export default class extends Component {
             </div>
           </div>
           <a href="javascript:;">
-            <img alt="" style={{ width: '100%', height: '100%' }} src="/images/1_b.jpg" />
+            <img alt="" style={{ width: '100%', height: '100%' }} src="../images/1_b.jpg" />
           </a>
         </Carousel>
       </div>
