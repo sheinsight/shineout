@@ -19,7 +19,7 @@ export default function (options) {
       this.id = getUidStr()
     }
 
-    componentWillUpdate(prevProps) {
+    componentDidUpdate(prevProps) {
       if (!move || !isCurrent(this.id)) return
 
       const { scrollLeft, scrollTop } = this.props

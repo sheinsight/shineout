@@ -9,11 +9,16 @@ class Form extends PureComponent {
   constructor(props) {
     super(props)
 
+    this.bindElement = this.bindElement.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleReset = this.handleReset.bind(this)
 
     this.locked = false
     this.id = `form_${getUidStr()}`
+  }
+
+  bindElement(el) {
+    this.element = el
   }
 
   handleSubmit(e) {
@@ -29,13 +34,19 @@ class Form extends PureComponent {
       this.locked = false
     }, this.props.throttle)
 
-    const { datum, onError, onSubmit } = this.props
+    const {
+      datum, onError, onSubmit, scrollToError,
+    } = this.props
     datum.validate().then(() => {
       this.validating = false
       if (onSubmit) onSubmit(datum.getValue())
     }).catch((err) => {
       this.validating = false
       if (onError) onError(err)
+      if (scrollToError) {
+        const el = this.element.querySelector(`.${formClass('invalid')}`)
+        if (el) el.scrollIntoView()
+      }
     })
   }
 
@@ -67,6 +78,7 @@ class Form extends PureComponent {
 
     return (
       <form
+        ref={this.bindElement}
         className={className}
         id={this.id}
         style={style}
@@ -90,6 +102,7 @@ Form.propTypes = {
   onReset: PropTypes.func,
   onSubmit: PropTypes.func,
   rules: PropTypes.object,
+  scrollToError: PropTypes.bool,
   throttle: PropTypes.number,
 }
 
