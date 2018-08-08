@@ -4,6 +4,7 @@ import immer from 'immer'
 import PureComponent from '../PureComponent'
 import normalizeWheel from '../utils/dom/normalizeWheel'
 import { imageClass } from '../styles'
+import icons from '../icons'
 import Magnify from './Magnify'
 
 class Gallery extends PureComponent {
@@ -78,9 +79,13 @@ class Gallery extends PureComponent {
         className={imageClass(pos, this.state.direction)}
         onClick={onClick}
       >
+        <a href="javascript:;" onClick={this.props.onClose} className={imageClass('close')}>
+          {icons.Close}
+        </a>
         <Magnify
           maxWidth={windowWidth - 400}
           maxHeight={windowHeight - 160}
+          position={pos}
           src={image.src}
           lockScroll={this.lockScroll}
         />

@@ -17,6 +17,7 @@ export default function () {
               height={80}
               target={target}
               shape="thumbnail"
+              fit="fill"
               src="../images/1_s.jpg"
               href="../images/1_b.jpg"
             />

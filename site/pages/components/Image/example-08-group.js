@@ -15,6 +15,7 @@ export default function () {
             key={i}
             width={80}
             height={80}
+            fit="fill"
             shape="thumbnail"
             src={`../images/${i}_s.jpg`}
             href={`../images/${i}_b.jpg`}

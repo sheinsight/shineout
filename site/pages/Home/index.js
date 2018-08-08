@@ -24,7 +24,7 @@ function Home() {
         </div>
 
         <div className={homeClass('bottom-left')}>
-          <svg viewBox="0 0 974 491">
+          <svg viewBox="0 0 975 493">
             <defs>
               <linearGradient x1="100%" y1="55.2864611%" x2="0.25781251%" y2="55.2864583%" id="shineout-html-left-bottom">
                 <stop stopColor="#31309F" offset="0%" />
@@ -32,8 +32,8 @@ function Home() {
               </linearGradient>
             </defs>
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-              <g transform="translate(0.000000, -589.000000)" fill="url(#shineout-html-left-bottom)">
-                <path d="M0.0743965568,589 C-0.0247988523,590.216158 -0.0247988523,753.697905 0.0743965568,1079.44524 C649.705124,1081.51825 974.346899,1081.51825 973.999722,1079.44524 C525.471293,767.7831 190.802369,989.036958 0.0743965568,589 Z" />
+              <g transform="translate(0.000000, -587.000000)" fill="url(#shineout-html-left-bottom)">
+                <path d="M0.0743965568,587 C-0.0247988523,588.217347 -0.0247988523,752.550681 0.0743965568,1080 C650.004337,1082.07504 974.795719,1082.07504 974.448542,1080 C525.920113,768.033011 190.802369,987.428247 0.0743965568,587 Z" />
               </g>
             </g>
           </svg>

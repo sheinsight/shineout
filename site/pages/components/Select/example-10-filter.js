@@ -21,6 +21,7 @@ export default class extends Component {
   }
 
   handleFilter = (text) => {
+    if (!text) return
     this.setState({ loading: true })
     fetch.get('user', { username: text }).then((res) => {
       this.setState({ loading: false, data: res.data })
