@@ -20,7 +20,7 @@ function createCORSRequest(method, url) {
 
 export default function (args) {
   const {
-    url, name, cors, file, onProgress, onLoad, onError, withCredentials, params = {},
+    url, name, cors, file, onProgress, onLoad, onError, withCredentials, params = {}, headers = {},
   } = args
 
   const data = new FormData()
@@ -35,6 +35,11 @@ export default function (args) {
   xhr.upload.addEventListener('progress', onProgress, false)
   xhr.onload = onLoad
   xhr.onerror = onError
+
+  Object.keys(headers).forEach((k) => {
+    xhr.setRequestHeader(k, headers[k])
+  })
+
   xhr.send(data)
 
   return xhr

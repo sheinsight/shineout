@@ -4,7 +4,7 @@ import Progress from '../Progress'
 import { uploadClass } from '../styles'
 import icons from '../icons'
 import Image from '../Image'
-import { ERROR } from './ajax'
+import { ERROR } from './request'
 
 class ImageFile extends PureComponent {
   constructor(props) {

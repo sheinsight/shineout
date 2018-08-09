@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { uploadClass } from '../styles'
 import Progress from '../Progress'
 import icons from '../icons'
-import { ERROR } from './ajax'
+import { ERROR } from './request'
 
 class File extends PureComponent {
   constructor(props) {
@@ -28,8 +28,9 @@ class File extends PureComponent {
           {icons.Close}
         </a>
         {
-          status !== ERROR &&
-          <Progress className={uploadClass('progress')} value={process} strokeWidth={2} />
+          (status !== ERROR && process >= 0)
+            ? <Progress className={uploadClass('progress')} value={process} strokeWidth={2} />
+            : null
         }
       </div>
     )

@@ -8,7 +8,7 @@
 | --- | --- | --- | --- |
 | className | string | 无 | 扩展className |
 | clearable | bool | true | 是否可清空 |
-| defaultValue | string \| number \| Date \| array | 无 | 默认值 |
+| defaultValue | string \| number \| Date \| array | 无 | 默认值。如果 defaultValue 和 format 类型不一致，会执行一次 format，并触发 onChange 事件返回 format 后的值 |
 | format | string | 不同type对应的默认值<br />'date': 'yyyy-MM-dd'<br />'time': 'HH:mm:ss'<br />'week': 'yyyy WW'<br />'month': 'yyyy-MM'<br />'datetime': 'yyyy-MM-dd HH:mm:ss'  | 格式化，见下表 |
 | onChange | function(d) | | 值改变回调函数 |
 | placeholder | string \| array | 无 | 占位文字<br />range 属性不为空时，为长度为2的数组 |

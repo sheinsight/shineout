@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import immer from 'immer'
 import { getUidStr } from '../utils/uid'
 import { uploadClass } from '../styles'
-import ajax, { ERROR, UPLOADING } from './ajax'
+import request, { ERROR, UPLOADING } from './request'
 import FileInput from './FileInput'
 import File from './File'
 import ImageFile from './ImageFile'
@@ -46,7 +46,7 @@ class Upload extends PureComponent {
   removeFile(id) {
     const file = this.state.files[id]
     if (file) {
-      if (file.xhr) file.xhr.abort()
+      if (file.xhr && file.xhr.abort) file.xhr.abort()
       this.setState(immer((draft) => {
         delete draft.files[id]
       }))
@@ -82,7 +82,7 @@ class Upload extends PureComponent {
       const id = getUidStr()
       const file = {
         name: blob.name,
-        process: 0,
+        process: -1,
         status: UPLOADING,
       }
 
@@ -93,12 +93,21 @@ class Upload extends PureComponent {
         if (res instanceof Error) {
           file.message = res.message
           file.status = ERROR
+
+          if (beforeUpload) {
+            beforeUpload(blob).then((args) => {
+              this.setState(immer((draft) => {
+                draft.files[id] = Object.assign({}, draft.files[id], args)
+              }))
+            })
+          }
+
           return
         }
       }
 
       if (beforeUpload) {
-        beforeUpload(blob, (args) => {
+        beforeUpload(blob).then((args) => {
           if (args.status !== ERROR) files[id].xhr = this.uploadFile(id, blob, args.data)
           this.setState(immer((draft) => {
             draft.files[id] = Object.assign({}, draft.files[id], args)
@@ -114,15 +123,16 @@ class Upload extends PureComponent {
 
   uploadFile(id, file, data) {
     const {
-      onUpload, name, htmlName, cors, params, withCredentials,
+      onUpload, name, htmlName, cors, params, withCredentials, headers,
     } = this.props
-    return ajax({
+    return request({
       url: this.getAction(file),
       name: htmlName || name,
       cors,
       params,
       withCredentials,
       file,
+      headers,
 
       onProgress: (e) => {
         const percentage = (e.loaded / e.total) * 100
@@ -267,6 +277,7 @@ Upload.propTypes = {
   className: PropTypes.string,
   cors: PropTypes.bool,
   imageStyle: PropTypes.object,
+  headers: PropTypes.object,
   htmlName: PropTypes.string,
   limit: PropTypes.number,
   multiple: PropTypes.bool,
