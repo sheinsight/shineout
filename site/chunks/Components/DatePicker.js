@@ -73,6 +73,12 @@ const examples = [
     component: require('doc/pages/components/DatePicker/example-11-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-11-disabled.js'),
   },
+  {
+    name: '12-inputable',
+    title: locate('可输入 \n 设置 inputable 使日期可输入', 'inputable'),
+    component: require('doc/pages/components/DatePicker/example-12-inputable.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-12-inputable.js'),
+  },
 ]
 
 const codes = undefined

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { focusElement } from '../utils/dom/element'
 import { selectClass } from '../styles'
 
 class FilterInput extends PureComponent {
@@ -34,17 +35,7 @@ class FilterInput extends PureComponent {
   }
 
   focus() {
-    if (window.getSelection) {
-      this.editElement.focus()
-      const range = window.getSelection()
-      range.selectAllChildren(this.editElement)
-      range.collapseToEnd()
-    } else if (document.selection) {
-      const range = document.selection.createRange()
-      range.moveToElementText(this.editElement)
-      range.collapse(false)
-      range.select()
-    }
+    focusElement(this.editElement)
   }
 
   bindElement(el) {

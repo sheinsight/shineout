@@ -38,3 +38,16 @@ export function dispatchEvent(form, name) {
   form.dispatchEvent(event)
 }
 
+export function focusElement(element) {
+  if (window.getSelection) {
+    element.focus()
+    const range = window.getSelection()
+    range.selectAllChildren(element)
+    range.collapseToEnd()
+  } else if (document.selection) {
+    const range = document.selection.createRange()
+    range.moveToElementText(element)
+    range.collapse(false)
+    range.select()
+  }
+}

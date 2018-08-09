@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import immer from 'immer'
 import List from '../List'
+import { datepickerClass, inputClass } from '../styles'
 import Icon from './Icon'
 import utils from './utils'
 import Picker from './Picker'
 import Range from './Range'
-import { datepickerClass, inputClass } from '../styles'
+import Text from './Text'
 
 const FadeList = List(['fade'], 'fast')
 
@@ -27,9 +28,18 @@ class Container extends PureComponent {
     this.handleBlur = this.handleToggle.bind(this, false)
     this.handleChange = this.handleChange.bind(this)
     this.handleClear = this.handleClear.bind(this)
+    this.handleTextChange = this.handleTextChange.bind(this)
     this.parseDate = this.parseDate.bind(this)
 
+    this.bindClickAway = this.bindClickAway.bind(this)
+    this.clearClickAway = this.clearClickAway.bind(this)
+    this.handleClickAway = this.handleClickAway.bind(this)
+
     this.firstRender = false
+  }
+
+  componentWillUnmount() {
+    this.clearClickAway()
   }
 
   getCurrent() {
@@ -81,12 +91,23 @@ class Container extends PureComponent {
     return utils.toDateWithFormat(value, this.getFormat(), undefined)
   }
 
-  handleToggle(focus, event) {
+  bindClickAway() {
+    document.addEventListener('click', this.handleClickAway)
+  }
+
+  clearClickAway() {
+    document.removeEventListener('click', this.handleClickAway)
+  }
+
+  handleClickAway(e) {
+    if (!(e.target === this.element || this.element.contains(e.target))) {
+      this.handleToggle(false)
+    }
+  }
+
+  handleToggle(focus) {
     if (this.props.disabled === true) return
     if (focus === this.state.focus) return
-    if (focus === true && event && event.target.className.indexOf(datepickerClass('close')) >= 0) return
-
-    if (focus === true) this.firstRender = true
 
     this.setState(immer((state) => {
       state.focus = focus
@@ -95,7 +116,7 @@ class Container extends PureComponent {
         const windowHeight = window.innerHeight || document.documentElement.clientHeight
         const windowWidth = window.innerWidth || document.documentElement.clientWidth
         const pickerWidth = this.props.range ? 540 : 270
-        if (this.props.position) {
+        if (!this.props.position) {
           if (rect.bottom + 300 > windowHeight) {
             if (rect.left + pickerWidth > windowWidth) state.position = 'right-top'
             else state.position = 'left-top'
@@ -110,8 +131,31 @@ class Container extends PureComponent {
       this.picker.resetRange((this.props.value || []).map(this.parseDate))
     }
 
-    if (focus) this.props.onFocus()
-    else this.props.onBlur()
+    if (focus === true) {
+      this.firstRender = true
+      this.props.onFocus()
+      this.bindClickAway()
+    } else {
+      this.props.onBlur()
+      this.clearClickAway()
+    }
+  }
+
+  handleTextChange(date, index) {
+    const format = this.getFormat()
+    const val = utils.format(date, format)
+    if (!this.props.range) {
+      this.props.onChange(val, this.handleBlur)
+      return
+    }
+
+    const value = [...immer(this.props.value, (draft) => {
+      draft[index] = val
+    })]
+    if (utils.compareAsc(value[0], value[1]) > 0) value.push(value.shift())
+    this.props.onChange(value, () => {
+      this.setState({ current: this.getCurrent() })
+    })
   }
 
   handleChange(date, change, blur) {
@@ -121,30 +165,38 @@ class Container extends PureComponent {
     if (this.props.range) value = date.map(v => utils.format(v, format))
     else value = utils.format(date, format)
 
-    const callback = blur ? () => { this.element.blur() } : undefined
+    const callback = blur ? this.handleBlur : undefined
 
     if (change) this.props.onChange(value, callback)
     else this.setState({ current: date }, callback)
   }
 
-  handleClear() {
+  handleClear(e) {
+    e.stopPropagation()
     this.props.onChange(undefined)
-    this.element.blur()
+    this.handleToggle(false)
   }
 
   renderText(value, placeholder, key) {
+    const { inputable } = this.props
     const date = this.parseDate(value)
-    if (utils.isInvalid(date)) {
-      return (
-        <span key={key} className={classnames(inputClass('placeholder'), datepickerClass('txt'))}>
-          {placeholder}
-        </span>
-      )
-    }
+    const className = classnames(
+      datepickerClass('txt'),
+      utils.isInvalid(date) && inputClass('placeholder'),
+    )
+
     return (
-      <span key={key} className={datepickerClass('txt')}>
-        {utils.format(date, this.getFormat())}
-      </span>
+      <Text
+        key={key}
+        className={className}
+        focus={this.state.focus}
+        format={this.getFormat()}
+        index={key}
+        inputable={inputable}
+        placeholder={placeholder}
+        onChange={this.handleTextChange}
+        value={utils.isInvalid(date) ? undefined : utils.format(date, this.getFormat())}
+      />
     )
   }
 
@@ -228,8 +280,7 @@ class Container extends PureComponent {
         className={className}
         tabIndex={-1}
         ref={this.bindElement}
-        onFocus={this.handleFocus}
-        onBlur={this.handleBlur}
+        onClick={this.handleFocus}
       >
         { this.renderResult() }
         <FadeList show={focus} className={datepickerClass('picker')}>
@@ -247,6 +298,7 @@ Container.propTypes = {
     PropTypes.func,
   ]),
   format: PropTypes.string,
+  inputable: PropTypes.bool,
   placeholder: PropTypes.any,
   onBlur: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -269,7 +321,6 @@ Container.propTypes = {
 Container.defaultProps = {
   clearable: true,
   placeholder: <span>&nbsp;</span>,
-  position: 'left-bottom',
   type: 'date',
 }
 

@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
+import shallowEqual from '../utils/shallowEqual'
 import utils from './utils'
 import Picker from './Picker'
 import { datepickerClass } from '../styles'
@@ -21,6 +22,14 @@ class Range extends PureComponent {
     this.handleDayHover = this.handleDayHover.bind(this)
     this.bindFirstPicker = this.bindPicker.bind(this, 0)
     this.bindSecondPicker = this.bindPicker.bind(this, 1)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!shallowEqual(prevProps.value, this.props.value)
+      && !shallowEqual(this.state.rangeDate, this.props.value)) {
+      // eslint-disable-next-line
+      this.setState({ rangeDate: this.props.value })
+    }
   }
 
   bindPicker(index, el) {
