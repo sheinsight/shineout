@@ -8,6 +8,6 @@ import { DatePicker } from 'shineout'
 
 export default function () {
   return (
-    <DatePicker type="week" format="YYYY wWW" defaultValue={Date.now()} />
+    <DatePicker type="week" format="yyyy wWW" defaultValue={Date.now()} />
   )
 }

@@ -9,7 +9,7 @@
 | className | string | 无 | 扩展className |
 | clearable | bool | true | 是否可清空 |
 | defaultValue | string \| number \| Date \| array | 无 | 默认值 |
-| format | string | 不同type对应的默认值<br />'date': 'YYYY-MM-dd'<br />'time': 'HH:mm:ss'<br />'week': 'YYYY WW'<br />'month': 'YYYY-MM'<br />'datetime': 'YYYY-MM-dd HH:mm:ss'  | 格式化，见下表 |
+| format | string | 不同type对应的默认值<br />'date': 'yyyy-MM-dd'<br />'time': 'HH:mm:ss'<br />'week': 'yyyy WW'<br />'month': 'yyyy-MM'<br />'datetime': 'yyyy-MM-dd HH:mm:ss'  | 格式化，见下表 |
 | onChange | function(d) | | 值改变回调函数 |
 | placeholder | string \| array | 无 | 占位文字<br />range 属性不为空时，为长度为2的数组 |
 | range | bool \| number | 无 | 范围跨度，单位 **秒**，<br />为 true 时表示不限制选择范围。 |
