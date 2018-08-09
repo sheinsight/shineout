@@ -43,9 +43,12 @@ class Form extends PureComponent {
     }).catch((err) => {
       this.validating = false
       if (onError) onError(err)
-      if (scrollToError) {
+      if (scrollToError !== false) {
         const el = this.element.querySelector(`.${formClass('invalid')}`)
         if (el) el.scrollIntoView()
+        if (typeof scrollToError === 'number' && scrollToError !== 0) {
+          document.documentElement.scrollTop -= scrollToError
+        }
       }
     })
   }
@@ -102,7 +105,10 @@ Form.propTypes = {
   onReset: PropTypes.func,
   onSubmit: PropTypes.func,
   rules: PropTypes.object,
-  scrollToError: PropTypes.bool,
+  scrollToError: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.number,
+  ]),
   throttle: PropTypes.number,
 }
 

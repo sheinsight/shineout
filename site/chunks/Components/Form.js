@@ -57,7 +57,7 @@ const examples = [
   },
   {
     name: '08-validate',
-    title: locate(' \n 某些复杂的数据，如多层嵌套的数据，可以在单个元素上设置 rules \n 设置 scrollToError 属性，在 form 提交校验失败时自动定位到第一个错误的组件', 'Validate'),
+    title: locate(' \n 某些复杂的数据，如多层嵌套的数据，可以在单个元素上设置 rules \n 设置 scrollToError 属性，在 form 提交校验失败时自动滚动到第一个错误的组件', 'Validate'),
     component: require('doc/pages/components/Form/example-08-validate.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-08-validate.js'),
   },

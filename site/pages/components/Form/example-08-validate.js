@@ -1,7 +1,7 @@
 /**
  * cn -
  *    -- 某些复杂的数据，如多层嵌套的数据，可以在单个元素上设置 rules
- *    -- 设置 scrollToError 属性，在 form 提交校验失败时自动定位到第一个错误的组件
+ *    -- 设置 scrollToError 属性，在 form 提交校验失败时自动滚动到第一个错误的组件
  * en - Validate
  */
 import React from 'react'
@@ -32,7 +32,7 @@ const rules = {
 
 export default function () {
   return (
-    <Form style={{ maxWidth: 500 }} scrollToError onSubmit={d => console.log(d)}>
+    <Form style={{ maxWidth: 500 }} scrollToError={30} onSubmit={d => console.log(d)}>
       <Form.Item required label="Email">
         <Input name="email" rules={rules.email} />
       </Form.Item>
