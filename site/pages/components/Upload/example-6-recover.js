@@ -18,9 +18,6 @@ export default function () {
         onSuccess={(res, file) => file.name}
         style={{ width: 300, marginBottom: 30 }}
         recoverAble
-        validator={{
-          size: s => (s > 10240 ? new Error('max file size is 10KB') : undefined),
-        }}
       >
         <Button><FontAwesome name="upload" /> Upload file</Button>
       </Upload>
@@ -32,9 +29,6 @@ export default function () {
         name="file"
         recoverAble
         onSuccess={(res, file, data) => ({ data })}
-        validator={{
-          size: s => (s > 10240 ? new Error('max file size is 10KB') : undefined),
-        }}
         renderResult={f => f.data}
       />
     </div>

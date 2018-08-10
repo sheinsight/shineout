@@ -123,12 +123,13 @@ class Upload extends PureComponent {
 
   uploadFile(id, file, data) {
     const {
-      onSuccess, name, htmlName, cors, params, withCredentials, headers, request,
+      onSuccess, name, htmlName, cors, params, withCredentials, headers, request, onProgress,
     } = this.props
 
     const req = request || defaultRequest
+    let throttle = false
 
-    return req({
+    const options = {
       url: this.getAction(file),
       name: htmlName || name,
       cors,
@@ -138,12 +139,17 @@ class Upload extends PureComponent {
       headers,
 
       onProgress: (e, msg) => {
-        const percent = e.percent || (e.loaded / e.total) * 100
+        const percent = typeof e.percent === 'number' ? e.percent : (e.loaded / e.total) * 100
+        if (throttle) return
+        throttle = true
+        setTimeout(() => { throttle = false }, 16)
 
-        this.setState(immer((draft) => {
-          draft.files[id].process = percent
-          if (msg) draft.files[id].message = msg
-        }))
+        if (this.state.files[id]) {
+          this.setState(immer((draft) => {
+            draft.files[id].process = percent
+            if (msg) draft.files[id].message = msg
+          }))
+        }
       },
 
       onLoad: (xhr) => {
@@ -176,7 +182,13 @@ class Upload extends PureComponent {
       },
 
       onError: xhr => this.handleError(id, xhr),
-    })
+    }
+
+    if (onProgress === false || onProgress === null) {
+      delete options.onProgress
+    }
+
+    return req(options)
   }
 
   handleError(id, xhr) {
@@ -286,6 +298,7 @@ Upload.propTypes = {
   multiple: PropTypes.bool,
   name: PropTypes.string,
   onChange: PropTypes.func,
+  onProgress: PropTypes.bool,
   onSuccess: PropTypes.func,
   onError: PropTypes.func,
   params: PropTypes.object,

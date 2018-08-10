@@ -3,6 +3,7 @@ const Koa = require('koa')
 const send = require('koa-send')
 const Router = require('koa-router')
 const multer = require('koa-multer')
+const fs = require('fs')
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 const webpackConfig = require('./webpack/config.dev')
@@ -74,12 +75,12 @@ router.get('/images/*', async (ctx) => {
 
 const upload = multer({})
 router.post('/upload/', upload.single('file'), async (ctx) => {
+  fs.writeFileSync(ctx.req.file.originalname, ctx.req.file.buffer)
   ctx.body = {
     success: true,
     model: {
       id: Date.now().toString(),
       name: ctx.req.file.originalname,
-      content: `data:${ctx.req.file.mimetype};base64,${ctx.req.file.buffer.toString('base64')}`,
     },
   }
 })

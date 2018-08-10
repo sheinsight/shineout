@@ -55,6 +55,12 @@ const examples = [
     component: require('doc/pages/components/Upload/example-7-request.js').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-7-request.js'),
   },
+  {
+    name: '8-zip',
+    title: locate(' \n 此事例演示通过自定义函数压缩文件后上传', ''),
+    component: require('doc/pages/components/Upload/example-8-zip.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Upload/example-8-zip.js'),
+  },
 ]
 
 const codes = undefined
