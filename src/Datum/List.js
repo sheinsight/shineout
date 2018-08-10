@@ -39,7 +39,7 @@ export default class {
 
   setDisabled(disabled) {
     if (this.$cachedDisabled === disabled) return
-    this.$cachedValue = disabled
+    this.$cachedDisabled = disabled
 
     this.disabled = (...obj) => {
       switch (typeof disabled) {

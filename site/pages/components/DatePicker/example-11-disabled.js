@@ -6,18 +6,15 @@
 import React from 'react'
 import { DatePicker } from 'shineout'
 
-const today = Date.now()
+// minisecond
+const today = Date.now() - 1000
 
 export default function () {
   return (
     <div>
       <DatePicker
-        disabled={(d) => {
-          const ts = 86400000 * 5
-          if (d.getTime() > today + ts) return true
-          if (d.getTime() < today - ts) return true
-          return false
-        }}
+        disabled={d => d.getTime() <= today}
+        type="datetime"
         style={{ marginRight: 12 }}
         defaultValue={Date.now()}
       />

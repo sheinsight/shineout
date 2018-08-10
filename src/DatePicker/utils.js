@@ -19,11 +19,16 @@ function getDaysOfMonth(dirtyDate) {
   const date = toDate(dirtyDate)
   const end = endOfWeek(endOfMonth(date))
   let current = startOfWeek(startOfMonth(date))
+  current.setHours(dirtyDate.getHours())
+  current.setMinutes(dirtyDate.getMinutes())
+  current.setSeconds(dirtyDate.getSeconds())
+
   const days = []
 
   while (current.getTime() < end.getTime()) {
     days.push(current)
     current = addDays(current, 1)
+    // console.log(current)
   }
 
   return days
