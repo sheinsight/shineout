@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import immer from 'immer'
 import { getUidStr } from '../utils/uid'
 import { uploadClass } from '../styles'
-import request, { ERROR, UPLOADING } from './request'
+import defaultRequest, { ERROR, UPLOADING } from './request'
 import FileInput from './FileInput'
 import File from './File'
 import ImageFile from './ImageFile'
@@ -123,9 +123,12 @@ class Upload extends PureComponent {
 
   uploadFile(id, file, data) {
     const {
-      onUpload, name, htmlName, cors, params, withCredentials, headers,
+      onUpload, name, htmlName, cors, params, withCredentials, headers, request,
     } = this.props
-    return request({
+
+    const req = request || defaultRequest
+
+    return req({
       url: this.getAction(file),
       name: htmlName || name,
       cors,
@@ -134,22 +137,22 @@ class Upload extends PureComponent {
       file,
       headers,
 
-      onProgress: (e) => {
-        const percentage = (e.loaded / e.total) * 100
+      onProgress: (e, msg) => {
+        const percent = e.percent || (e.loaded / e.total) * 100
 
         this.setState(immer((draft) => {
-          draft.files[id].process = percentage
+          draft.files[id].process = percent
+          if (msg) draft.files[id].message = msg
         }))
       },
 
-      onLoad: (e) => {
-        const xhr = e.currentTarget
+      onLoad: (xhr) => {
         if (!/^2|1223/.test(xhr.status)) {
           this.handleError(id, xhr)
           return
         }
 
-        let value = xhr.responseText
+        let value = xhr.responseText || xhr.response
         if (onUpload) {
           value = onUpload(value, file, data)
         }
@@ -288,6 +291,7 @@ Upload.propTypes = {
   params: PropTypes.object,
   recoverAble: PropTypes.bool,
   renderResult: PropTypes.func,
+  request: PropTypes.func,
   validator: PropTypes.object,
   value: PropTypes.array,
   style: PropTypes.object,

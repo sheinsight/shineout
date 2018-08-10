@@ -2,8 +2,11 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { uploadClass } from '../styles'
 import Progress from '../Progress'
+import Spin from '../Spin'
 import icons from '../icons'
-import { ERROR } from './request'
+import { ERROR, UPLOADING } from './request'
+
+const SPIN = <span style={{ display: 'inline-block', marginRight: 8 }}><Spin size={10} name="ring" /></span>
 
 class File extends PureComponent {
   constructor(props) {
@@ -23,14 +26,20 @@ class File extends PureComponent {
 
     return (
       <div className={className}>
-        <div className={uploadClass('text')}>{name} {message && <span>({message})</span>}</div>
+        <div className={uploadClass('text')}>
+          {status === UPLOADING && SPIN} {name} {message && <span>({message})</span>}
+        </div>
         <a href="javascript:;" className={uploadClass('delete')} onClick={this.handleRemove}>
           {icons.Close}
         </a>
         {
-          (status !== ERROR && process >= 0)
-            ? <Progress className={uploadClass('progress')} value={process} strokeWidth={2} />
-            : null
+          status !== ERROR &&
+          <Progress
+            className={uploadClass('progress')}
+            background={process >= 0 ? '#e9ecef' : 'transparent'}
+            value={process}
+            strokeWidth={2}
+          />
         }
       </div>
     )

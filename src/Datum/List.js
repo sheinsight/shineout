@@ -12,16 +12,8 @@ export default class {
     this.initFormat(format)
     this.$events = {}
 
-    this.disabled = (...obj) => {
-      switch (typeof disabled) {
-        case 'boolean':
-          return disabled
-        case 'function':
-          return disabled(...obj)
-        default:
-          return false
-      }
-    }
+    this.$cachedDisabled = {}
+    this.setDisabled(disabled)
 
     if (prediction) this.prediction = prediction
 
@@ -42,6 +34,22 @@ export default class {
     this.dispatch('change')
     if (this.onChange) {
       this.onChange(this.getValue())
+    }
+  }
+
+  setDisabled(disabled) {
+    if (this.$cachedDisabled === disabled) return
+    this.$cachedValue = disabled
+
+    this.disabled = (...obj) => {
+      switch (typeof disabled) {
+        case 'boolean':
+          return disabled
+        case 'function':
+          return disabled(...obj)
+        default:
+          return false
+      }
     }
   }
 

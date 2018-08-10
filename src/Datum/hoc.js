@@ -62,6 +62,9 @@ export default curry((options, Origin) => {
     render() {
       const { onDatumBind, ...props } = this.props
       if (onDatumBind) onDatumBind(this.datum)
+      if (options.bindProps && options.bindProps.includes('disabled')) {
+        this.datum.setDisabled(props.disabled)
+      }
 
       return (
         <Origin
