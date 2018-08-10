@@ -1,6 +1,6 @@
 /**
  * cn - 尺寸 \n 提供了一个fontSize属性设置图标大小，效果和 style.fontSize 相同
- * en - Font Size
+ * en - Font Size \n A fontSize property is provided to set the icon size to the same effect as the style.fontSize.
  */
 import React from 'react'
 import FontAwesome from './FontAwesome'

@@ -2,6 +2,7 @@
  * cn - 基本用法
  *    -- Menu 通过数据来生成菜单项
  * en - Base
+ *    -- Menu generates menu items through data.
  */
 import React from 'react'
 import { Menu } from 'shineout'

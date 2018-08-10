@@ -2,6 +2,7 @@
  * cn - 点击触发
  *    -- 默认触发事件为 hover，如果需要点击触发，可以设置 trigger 为 click
  * en - Click
+ *    -- The default trigger event is hover, and if you need to click to trigger, you can set the trigger to click.
  */
 import React from 'react'
 import { Tooltip } from 'shineout'

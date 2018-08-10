@@ -2,6 +2,7 @@
  * cn - 偏移
  *    -- offset 属性可以设置偏移，取值方式和宽度相同
  * en - Offset
+ *    -- The offset property can set the offset in the same way as the width.
  */
 import React from 'react'
 import { Grid } from 'shineout'

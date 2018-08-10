@@ -2,6 +2,7 @@
  * cn - 基本用法
  *    -- 基础的进度条
  * en - Base
+ *    -- Basic progress bar
  */
 import React from 'react'
 import { Progress } from 'shineout'

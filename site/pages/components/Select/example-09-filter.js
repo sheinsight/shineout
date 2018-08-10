@@ -2,6 +2,7 @@
  * cn - 筛选数据 - 服务端
  *    -- onFilter 函数不返回结果时，可以自行去服务端筛选数据
  * en - onFilter
+ *    -- When the onFilter property don't return a function, you can go to the server to filter data by yourself.
  */
 import React, { Component } from 'react'
 import { Select } from 'shineout'

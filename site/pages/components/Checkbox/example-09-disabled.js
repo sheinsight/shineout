@@ -2,6 +2,7 @@
  * cn - 禁用
  *    -- 设置 Checkbox.Group 的 disabled 属性，禁用全部选项
  * en - Disabled
+ *    -- Setting the disabled property of Checkbox.Group disable all the options.
  */
 import React from 'react'
 import { Checkbox } from 'shineout'

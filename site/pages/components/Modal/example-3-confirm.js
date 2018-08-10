@@ -2,6 +2,7 @@
  * cn - 确认框
  *    -- Confirm 功能的快捷调用方式
  * en - Confirm Modal
+ *    -- A quick way to call the Confirm function
  */
 import React, { Component } from 'react'
 import { Modal, Button } from 'shineout'

@@ -2,6 +2,7 @@
  * cn -
  *    -- disabled 为函数时，禁用返回为true的选项
  * en -
+ *    -- When the disabled is a function, disbale the option that return true.
  */
 import React from 'react'
 import { DatePicker } from 'shineout'

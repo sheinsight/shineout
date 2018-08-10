@@ -2,6 +2,7 @@
  * cn -
  *    -- step 设定为 0 时，只能取 scale 内定义的值
  * en -
+ *    -- When the step is set to 0, only the value defined in scale can be taken.
  */
 import React from 'react'
 import { Slider } from 'shineout'

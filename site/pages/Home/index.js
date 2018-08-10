@@ -41,7 +41,7 @@ function Home() {
       </div>
       <div className={homeClass('right')}>
         <div className={homeClass('img')}>
-          <img src="../images/components.jpg" alt="" />
+          <img src="./images/components.jpg" alt="" />
         </div>
       </div>
     </div>

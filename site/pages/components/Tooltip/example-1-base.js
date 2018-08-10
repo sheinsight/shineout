@@ -2,6 +2,7 @@
  * cn - 基本用法
  *    -- 内置了四个弹出方向
  * en - Base
+ *    -- There are four pop-up directions built in.
  */
 import React from 'react'
 import { Tooltip } from 'shineout'

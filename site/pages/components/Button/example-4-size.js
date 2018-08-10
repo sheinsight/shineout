@@ -2,6 +2,7 @@
  * cn - 大小
  *    -- 一共有三种尺寸，['small', 'default', 'large']，默认为 'default'
  * en - Size
+ *    -- There are three sizes, ['small', 'default', 'large'], and the default is 'default'.
  */
 import React from 'react'
 import { Button } from 'shineout'

@@ -6,7 +6,7 @@
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| className | string | 无 | extend className |
+| className | string | none | extend className |
 | clearable | bool | true | whether it can be cleared |
 | defaultValue | string \| number \| Date \| array | none | default |
 | format | string | default values for different types: <br />'date': 'YYYY-MM-dd'<br />'time': 'HH:mm:ss'<br />'week': 'YYYY WW'<br />'month': 'YYYY-MM'<br />'datetime': 'YYYY-MM-dd HH:mm:ss'  | Formatted, see the table below. |
@@ -15,7 +15,7 @@
 | range | bool \| number | none | range span，unit: **second**，<br />When it is true, it means that the selection range is not restricted. |
 | style | object | none | the outermost extension style |
 | type | string | 'date' | options:  \['date', 'time', 'datetime', 'month', 'week'] |
-| value | string \| number \| Date \| array | none | 值。为 string 时，需要和 format 属性匹配。<br />range 属性为 true 时，值为长度为2的数组 |
+| value | string \| number \| Date \| array | none | When the value is string, it needs to match the format attribute. <br /> When the range property is true, the value is an array of length 2. |
 
 
 ### Format

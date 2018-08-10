@@ -2,6 +2,7 @@
  * cn - 垂直样式
  *    -- 设置 mode 为 "vertical"，显示为垂直布局
  * en - vertical
+ *    -- Set mode to "vertical" to display it as vertical layout.
  */
 import React from 'react'
 import { Menu } from 'shineout'

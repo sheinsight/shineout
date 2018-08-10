@@ -2,6 +2,7 @@
  * cn - 间距
  *    -- 通过 gutter 属性设置栅格间距
  * en - Gutter
+ *    -- Set grid spacing through the gutter property.
  */
 import React from 'react'
 import { Grid } from 'shineout'

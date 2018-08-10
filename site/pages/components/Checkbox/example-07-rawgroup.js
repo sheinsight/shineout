@@ -2,6 +2,7 @@
  * cn -
  *    -- 可以按 React 组件方式使用
  * en -
+ *    -- It can be used like the React component.
  */
 import React from 'react'
 import { Checkbox } from 'shineout'

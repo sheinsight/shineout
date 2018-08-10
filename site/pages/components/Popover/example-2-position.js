@@ -2,6 +2,7 @@
  * cn - 弹出位置
  *    -- 内置了十二个弹出的位置
  * en - Position
+ *    -- Twelve pop-up positions are built in.
  */
 import React from 'react'
 import { Popover } from 'shineout'

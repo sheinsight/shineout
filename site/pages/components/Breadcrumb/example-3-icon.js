@@ -2,6 +2,7 @@
  * cn - 图标
  *    -- 带图标的面包屑
  * en - icon
+ *    -- Breadcrumbs with icons
  */
 
 import React from 'react'

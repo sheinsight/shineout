@@ -2,6 +2,7 @@
  * cn - 基本用法
  *    -- 表单内置了类似双向绑定的机制，根据表单元素的 name 属性自动下发、收集数据
  * en - Base
+ *    -- The form has a bidirectional binding mechanism built in, automatically sending and collecting data based on the name property of the form element.
  */
 import React, { PureComponent } from 'react'
 import { Form, Input, Checkbox, Textarea, Select, DatePicker, Tree } from 'shineout'

@@ -2,6 +2,7 @@
  * cn - 基本用法
  *    -- 与 Tooltip 相比，Popover 可以控制样式，大小由内容决定
  * en - Base
+ *    -- Popover can control styles compared to Tooltip, and size is determined by content.
  */
 import React from 'react'
 import { Button, Popover } from 'shineout'

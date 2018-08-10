@@ -2,6 +2,7 @@
  * cn - 选择行 (Datum)
  *    -- 使用 Datum，可以做更复杂的数据处理的工作
  * en - Select (Datum)
+ *    -- Using Datum can process more complex data.
  */
 import React, { PureComponent } from 'react'
 import { Table, Datum } from 'shineout'

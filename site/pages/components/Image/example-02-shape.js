@@ -2,6 +2,7 @@
  * cn - 形状
  *    -- 内置了三种图片样式，rounded, cricle, thumbnail
  * en - Shape
+ *    -- There are three built-in styles, rounded, cricle, thumbnail.
  */
 import React from 'react'
 import { Image } from 'shineout'

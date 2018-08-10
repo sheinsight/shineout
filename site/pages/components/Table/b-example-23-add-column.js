@@ -1,6 +1,6 @@
 /**
  * cn - 动态增加列
- * en - \n
+ * en - \n Dynamically increase columns.
  */
 import React, { Component } from 'react'
 import immer from 'immer'

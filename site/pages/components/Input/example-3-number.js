@@ -2,6 +2,7 @@
  * cn - 数字
  *    -- type=number 时，输入时会做一次校验，禁止输入非数字类型字符，并且根据 digits 属性限制小数位数
  * en - number type
+ *    -- When type=number, a check is made when inputting, it is forbidden to input non-numeric characters, and the number of decimal places is limited according to the digits property
  */
 import React from 'react'
 import { Input } from 'shineout'

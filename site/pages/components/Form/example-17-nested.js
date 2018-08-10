@@ -2,6 +2,7 @@
  * cn - 嵌套数据
  *    -- Form.Block 配合 Form.Field 使用，可以处理多层嵌套数据
  * en - Nested data
+ *    -- Form.Block can handle multiple levels of nested data by working with Form.Field.
  */
 import React, { PureComponent } from 'react'
 import { Datum, Form, Input, Checkbox } from 'shineout'

@@ -2,6 +2,7 @@
  * cn -
  *    -- 上面例子可以简化，传入一个 option 作为 datum
  * en -
+ *    --- The above example can be simplified by passing in an option as datum.
  */
 import React, { PureComponent } from 'react'
 import { Table } from 'shineout'

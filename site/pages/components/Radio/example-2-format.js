@@ -1,6 +1,8 @@
 /**
  * cn - 复杂数据
  *    -- 复杂的数据可以使用 format 处理 value
+ * en - Complex data
+ *    -- Complex data can be processed using format.
  */
 import React from 'react'
 import { Radio } from 'shineout'

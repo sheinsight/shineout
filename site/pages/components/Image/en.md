@@ -1,6 +1,6 @@
 # Image
 
-The image component is used to process images of a specified size, to realize the functions of occupation, exception handling, stretching, filling, and delay loading.
+The image component is used to process images of a specified size, to realize the functions of occupation, exception handling, stretching, filling, and lazy loading.
 
 <example />
 

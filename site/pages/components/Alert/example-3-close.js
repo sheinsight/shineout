@@ -4,6 +4,9 @@
  *    -- onClose 为 true 时，只关闭提示，不处理
  *    -- onClose 为函数时，关闭后调用此函数
  * en - onClose
+ *    -- When the onClose property is set, the close button is displayed.
+ *    -- When the onClose property is true, only turn off the prompt and do not process it.
+ *    -- When the onClose is a function, call this function after closing it.
  */
 import React, { PureComponent } from 'react'
 import { Alert } from 'shineout'

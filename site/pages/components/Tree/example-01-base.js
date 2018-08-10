@@ -2,6 +2,7 @@
  * cn - 基本用法
  *    -- 基础的 Tree 用法
  * en - Base
+ *   -- Basic usage of Tree
  */
 import React from 'react'
 import { Tree } from 'shineout'

@@ -2,6 +2,7 @@
  * cn - 一组多选框
  *    -- Checkbox.Group 可以渲染一组 Checkbox
  * en - Group
+ *    -- Checkbox.Group can render a group of checkbox.
  */
 import React from 'react'
 import { Checkbox } from 'shineout'

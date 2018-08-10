@@ -2,6 +2,7 @@
  * cn - 错误处理
  *    -- alt 属性失效或没有 alt 属性时，会显示 title 属性
  * en - alt
+ *    -- The title property is displayed when the alt property is invalid or there is no alt property.
  */
 import React from 'react'
 import { Image } from 'shineout'

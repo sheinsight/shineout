@@ -1,6 +1,6 @@
 /**
  * cn - Example
- * en - \n
+ * en - \n Example
  */
 import React, { PureComponent } from 'react'
 import { Table, Button } from 'shineout'

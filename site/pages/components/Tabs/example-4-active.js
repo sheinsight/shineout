@@ -2,6 +2,7 @@
  * cn - 受控
  *    -- 通过 active 和 onChange 可以控制标签状态
  * en - Active
+ *    -- Control the status of tags with the active and onChange property.
  */
 import React, { Component } from 'react'
 import { Radio, Tabs } from 'shineout'

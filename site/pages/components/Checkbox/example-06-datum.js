@@ -1,6 +1,8 @@
 /**
  * cn -
  *    -- 当 format 不能满足需求时，可以使用 Datum.List 进行处理
+ * en -
+ *    -- When the format fails to meet the requirements, the Datum.List can be used to process value.
  */
 import React, { Component } from 'react'
 import { Checkbox, Datum } from 'shineout'

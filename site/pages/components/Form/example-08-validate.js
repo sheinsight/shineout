@@ -2,6 +2,7 @@
  * cn -
  *    -- 某些复杂的数据，如多层嵌套的数据，可以在单个元素上设置 rules
  * en - Validate
+ *    -- Some complex data, such as multi-level nested data, can set rules on a single element.
  */
 import React from 'react'
 import { Form, Input, Checkbox } from 'shineout'

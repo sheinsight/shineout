@@ -2,6 +2,7 @@
  * cn - 信息
  *    -- 多行文本输入框
  * en - Info
+ *    -- Multi-line text input box
  */
 import React from 'react'
 import { Textarea } from 'shineout'

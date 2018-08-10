@@ -2,6 +2,7 @@
  * cn -
  *    -- 设置 pile 属性可以把缩略图堆叠展示
  * en -
+ *    -- Setting the pile property can show the thumbnail image stack.
  */
 import React from 'react'
 import { Image } from 'shineout'
@@ -16,8 +17,8 @@ export default function () {
             width={80}
             height={80}
             shape="thumbnail"
-            src={`../images/${i}_s.jpg`}
-            href={`../images/${i}_b.jpg`}
+            src={`/images/${i}_s.jpg`}
+            href={`/images/${i}_b.jpg`}
           />
         ))
       }

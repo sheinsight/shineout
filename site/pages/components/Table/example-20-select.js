@@ -2,6 +2,7 @@
  * cn - 选择行 (示例)
  *    -- 可以不处理 onChange 事件，在调用时使用 Datum.getValue 即可
  * en - Select
+ *    -- You can not handle the onChange event and just use Datum.getValue when calling.
  */
 import React, { PureComponent } from 'react'
 import { Table, Datum, Button, Message } from 'shineout'
