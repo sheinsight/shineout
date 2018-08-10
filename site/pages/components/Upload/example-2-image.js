@@ -12,7 +12,7 @@ export default function () {
       action="http://jsonplaceholder.typicode.com/posts"
       accept="image/*"
       name="file"
-      onUpload={(res, file, data) => ({ data })}
+      onSuccess={(res, file, data) => ({ data })}
       renderResult={f => f.data}
       limit={3}
     />

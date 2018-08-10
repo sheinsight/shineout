@@ -24,6 +24,11 @@ export default function (args) {
     withCredentials, params = {}, headers = {},
   } = args
 
+  if (!url) {
+    console.error(`action is required, but its value is ${url}`)
+    return undefined
+  }
+
   const data = new FormData()
   Object.keys(params).forEach((k) => {
     data.append(k, params[k])
@@ -33,7 +38,7 @@ export default function (args) {
 
   const xhr = createCORSRequest('post', url, cors)
   xhr.withCredentials = withCredentials
-  xhr.upload.addEventListener('progress', onProgress, false)
+  if (onProgress) xhr.upload.addEventListener('progress', onProgress, false)
   xhr.onload = e => onLoad(e.currentTarget)
   xhr.onerror = onError
 

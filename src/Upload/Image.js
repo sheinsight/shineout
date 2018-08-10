@@ -73,7 +73,6 @@ Image.propTypes = {
 Image.defaultProps = {
   accept: 'image/*',
   height: 80,
-  recoverAble: false,
   validator: {},
   width: 80,
 }

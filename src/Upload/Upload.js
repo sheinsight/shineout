@@ -123,7 +123,7 @@ class Upload extends PureComponent {
 
   uploadFile(id, file, data) {
     const {
-      onUpload, name, htmlName, cors, params, withCredentials, headers, request,
+      onSuccess, name, htmlName, cors, params, withCredentials, headers, request,
     } = this.props
 
     const req = request || defaultRequest
@@ -153,8 +153,8 @@ class Upload extends PureComponent {
         }
 
         let value = xhr.responseText || xhr.response
-        if (onUpload) {
-          value = onUpload(value, file, data)
+        if (onSuccess) {
+          value = onSuccess(value, file, data)
         }
 
         if (value instanceof Error) {
@@ -180,10 +180,10 @@ class Upload extends PureComponent {
   }
 
   handleError(id, xhr) {
-    const { onUploadError } = this.props
+    const { onError } = this.props
 
     let message = xhr.statusText
-    if (onUploadError) message = onUploadError(xhr)
+    if (onError) message = onError(xhr)
 
     this.setState(immer((draft) => {
       draft.files[id].status = ERROR
@@ -274,7 +274,7 @@ Upload.propTypes = {
   action: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.func,
-  ]).isRequired,
+  ]),
   beforeUpload: PropTypes.func,
   children: PropTypes.any,
   className: PropTypes.string,
@@ -286,8 +286,8 @@ Upload.propTypes = {
   multiple: PropTypes.bool,
   name: PropTypes.string,
   onChange: PropTypes.func,
-  onUpload: PropTypes.func,
-  onUploadError: PropTypes.func,
+  onSuccess: PropTypes.func,
+  onError: PropTypes.func,
   params: PropTypes.object,
   recoverAble: PropTypes.bool,
   renderResult: PropTypes.func,
@@ -301,7 +301,7 @@ Upload.propTypes = {
 Upload.defaultProps = {
   cors: false,
   limit: 100,
-  recoverAble: true,
+  recoverAble: false,
   validator: {},
   value: [],
   withCredentials: false,

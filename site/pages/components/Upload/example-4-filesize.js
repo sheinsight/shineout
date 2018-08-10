@@ -15,9 +15,8 @@ export default function () {
         accept="image/*"
         multiple
         name="file"
-        onUpload={(res, file) => file.name}
+        onSuccess={(res, file) => file.name}
         style={{ width: 300, marginBottom: 30 }}
-        recoverAble={false}
         validator={{
           size: s => (s > 10240 ? new Error('max file size is 10KB') : undefined),
         }}
@@ -30,7 +29,7 @@ export default function () {
         accept="image/*"
         multiple
         name="file"
-        onUpload={(res, file, data) => ({ data })}
+        onSuccess={(res, file, data) => ({ data })}
         validator={{
           size: s => (s > 10240 ? new Error('max file size is 10KB') : undefined),
         }}

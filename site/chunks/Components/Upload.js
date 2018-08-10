@@ -43,6 +43,18 @@ const examples = [
     component: require('doc/pages/components/Upload/example-5-error.js').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-5-error.js'),
   },
+  {
+    name: '6-recover',
+    title: locate('恢复删除 \n 设置 recoverAble 为 true，点击删除后，文件会标记为已删除，并提供恢复功能', 'recover'),
+    component: require('doc/pages/components/Upload/example-6-recover.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Upload/example-6-recover.js'),
+  },
+  {
+    name: '7-request',
+    title: locate('自定义上传 \n 通过 request 函数，替代默认上传方法', 'Custom Request'),
+    component: require('doc/pages/components/Upload/example-7-request.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Upload/example-7-request.js'),
+  },
 ]
 
 const codes = undefined

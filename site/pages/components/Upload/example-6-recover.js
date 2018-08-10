@@ -1,7 +1,7 @@
 /**
- * cn - 异常处理
- *    -- onUploadError 用来处理上传到服务器返回的异常
- * en - Error
+ * cn - 恢复删除
+ *    -- 设置 recoverAble 为 true，点击删除后，文件会标记为已删除，并提供恢复功能
+ * en - recover
  */
 import React from 'react'
 import { Upload, Button } from 'shineout'
@@ -11,30 +11,29 @@ export default function () {
   return (
     <div>
       <Upload
-        action="/path-no-exist"
+        action="http://jsonplaceholder.typicode.com/posts"
         accept="image/*"
+        multiple
         name="file"
         onSuccess={(res, file) => file.name}
-        onError={(xhr) => {
-          console.log(xhr)
-          if (xhr.status === 404) return 'Url not found.'
-          return 'Upload Fail.'
-        }}
-        limit={3}
         style={{ width: 300, marginBottom: 30 }}
+        recoverAble
+        validator={{
+          size: s => (s > 10240 ? new Error('max file size is 10KB') : undefined),
+        }}
       >
         <Button><FontAwesome name="upload" /> Upload file</Button>
       </Upload>
 
       <Upload.Image
-        action="/path-no-exist"
+        action="http://jsonplaceholder.typicode.com/posts"
         accept="image/*"
+        multiple
         name="file"
+        recoverAble
         onSuccess={(res, file, data) => ({ data })}
-        onError={(xhr) => {
-          console.log(xhr)
-          if (xhr.status === 404) return 'Url not found.'
-          return 'Upload Fail.'
+        validator={{
+          size: s => (s > 10240 ? new Error('max file size is 10KB') : undefined),
         }}
         renderResult={f => f.data}
       />

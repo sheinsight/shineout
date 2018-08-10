@@ -17,7 +17,7 @@
 | onUpload | func(res, file):value | 无 | 上传成功回调，返回结果作为新的 value<br />res: 上传接口返回结果<br />file: 选择的文件 |
 | onUploadError | func(xhr):string | 无 | 上传失败时回调，返回结果作为错误内容提示 |
 | params | object | 无 | 提交到服务端的额外参数 |
-| recoverAble | bool | true | 是否可以恢复已删除的value |
+| recoverAble | bool | false | 是否可以恢复已删除的value |
 | renderResult | func | a => a | 结果展示 |
 | validator | object | 无 | 上传前文件校验 |
 | value | array | \[] | 值 |
