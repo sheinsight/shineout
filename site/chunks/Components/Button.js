@@ -15,13 +15,13 @@ const source = locate(cn, en)
 const examples = [
   {
     name: '1-base',
-    title: locate('基本用法 \n Button 内置了几种常用的样式，通过 type 来使用', 'Base \n Button has several built-in styles, which are used by type.'),
+    title: locate('基本用法 \n Button 内置了几种常用的样式，通过 type 来使用', 'Base \n Button has several built-in styles, used by type.'),
     component: require('doc/pages/components/Button/example-1-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-1-base.js'),
   },
   {
     name: '2-outline',
-    title: locate('透明背景 \n 添加 outline 属性可以设置为透明背景，type 不能为 default 和 link。', 'Outline \n Adding outline property can used to  set it to be a transparent background, and type cannot be default and link.'),
+    title: locate('透明背景 \n 添加 outline 属性可以设置为透明背景，type 不能为 default 和 link。', 'Outline \n Adding outline property can set background to transparent. Outline type can not be default and link.'),
     component: require('doc/pages/components/Button/example-2-outline.js').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-2-outline.js'),
   },
@@ -33,19 +33,19 @@ const examples = [
   },
   {
     name: '4-size',
-    title: locate('大小 \n 一共有三种尺寸，[&#39;small&#39;, &#39;default&#39;, &#39;large&#39;]，默认为 &#39;default&#39;', 'Size \n There are three sizes, [&#39;small&#39;, &#39;default&#39;, &#39;large&#39;], and the default is &#39;default&#39;.'),
+    title: locate('大小 \n 一共有三种尺寸，[&#39;small&#39;, &#39;default&#39;, &#39;large&#39;]，默认为 &#39;default&#39;', 'Size \n There are three sizes, [&#39;small&#39;, &#39;default&#39;, &#39;large&#39;], default value is &#39;default&#39;.'),
     component: require('doc/pages/components/Button/example-4-size.js').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-4-size.js'),
   },
   {
     name: '5-loading',
-    title: locate('加载中 \n 设定 loading 属性，可以让按钮变成加载中状态', 'Loading \n Setting loading property can make the button become loading.'),
+    title: locate('加载中 \n 设定 loading 属性，可以让按钮变成加载中状态', 'Loading \n Setting loading property can add a loading indicator to button.'),
     component: require('doc/pages/components/Button/example-5-loading.js').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-5-loading.js'),
   },
   {
     name: '6-href',
-    title: locate('链接 \n 设置 href 属性，按钮会渲染为 a 标签，同时可以设置 target 属性', 'Link \n Setting the href attribute can make the button be rendered as a &lt;a&gt; tag and you can also set the target property.'),
+    title: locate('链接 \n 设置 href 属性，按钮会渲染为 a 标签，同时可以设置 target 属性', 'Link \n Setting the href attribute, the button will be rendered as &lt;a&gt; tag and you can also set the target property.'),
     component: require('doc/pages/components/Button/example-6-href.js').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-6-href.js'),
   },
@@ -57,7 +57,7 @@ const examples = [
   },
   {
     name: '8-group',
-    title: locate('组合 \n 一组 Button 可以用 Button.Group 容器中，按钮样式通过 Button.Gorup 的 size, type, outline 属性设置', 'Group \n A set of buttons can be used in the Button.Group and their styles can be set through the Button.Group&#39;s size, type and outline property.'),
+    title: locate('组合 \n 一组 Button 可以用 Button.Group 容器中，按钮样式通过 Button.Gorup 的 size, type, outline 属性设置', 'Group \n A series of buttons can group by Button.Group, set styles by Button.Group&#39;s size, type, and outline property.'),
     component: require('doc/pages/components/Button/example-8-group.js').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-8-group.js'),
   },

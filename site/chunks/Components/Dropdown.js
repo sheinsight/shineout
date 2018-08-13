@@ -21,7 +21,7 @@ const examples = [
   },
   {
     name: '2-hover',
-    title: locate('触发 \n Dropdown 默认通过点击触发下拉行为，设置 hover 属性可以改为移入触发', 'Hover \n By default, Dropdown triggers a drop-down behavior by clicking, and setting the hover property can change to trigger it by moving in.'),
+    title: locate('触发 \n Dropdown 默认通过点击触发下拉行为，设置 trigger=&#34;hover&#34; 属性可以改为移入触发', 'Trigger \n By default, Dropdown toggled clicking, setting trigger=&#34;hover&#34; can toggled by mouse move in.'),
     component: require('doc/pages/components/Dropdown/example-2-hover.js').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-2-hover.js'),
   },
@@ -39,7 +39,7 @@ const examples = [
   },
   {
     name: '5-split',
-    title: locate('组合 \n 在 Button.Group 中组合使用，通常用于隐藏一组按钮中不太常用的选项', 'Group \n It is used in combination in Button.Group, and usually used to hide less common options in a group of buttons.'),
+    title: locate('组合 \n 在 Button.Group 中组合使用，通常用于隐藏一组按钮中不太常用的选项', 'Group \n Dropdown can be combined with Button used in Button.Group.'),
     component: require('doc/pages/components/Dropdown/example-5-split.js').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-5-split.js'),
   },

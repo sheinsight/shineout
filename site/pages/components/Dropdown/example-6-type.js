@@ -1,6 +1,8 @@
 /**
- * cn - 样式 \n 使用了和Button相同的 type 和 size 设置样式
- * en - type \n Style is set using the same type and size as Button.
+ * cn - 样式
+ *    -- 使用了和Button相同的 type 和 size 设置样式
+ * en - type
+ *    -- Style is set using the same type and size as Button.
  */
 import React, { Component } from 'react'
 import { Dropdown, Message, Select, Checkbox } from 'shineout'

@@ -31,6 +31,10 @@ class Dropdown extends PureComponent {
       show: false,
     }
 
+    if (props.hover !== undefined) {
+      console.warn('The "hover" property is not recommend, use trigger="hover" instead.')
+    }
+
     this.bindElement = this.bindElement.bind(this)
 
     this.clickAway = this.clickAway.bind(this)
@@ -40,12 +44,17 @@ class Dropdown extends PureComponent {
     this.handleMouseEnter = this.handleToggle.bind(this, true)
     this.handleMouseLeave = this.handleToggle.bind(this, false)
 
-    this.clickAway = this.clickAway.bind(this)
     this.renderList = this.renderList.bind(this)
   }
 
   componentWillUnmount() {
+    this.$willUnmount = true
     this.toggleDocumentEvent(false)
+  }
+
+  getTrigger() {
+    if (this.props.hover === true) return 'hover'
+    return this.props.trigger
   }
 
   bindElement(el) {
@@ -79,13 +88,13 @@ class Dropdown extends PureComponent {
 
   handleHide(delay = 200) {
     this.closeTimer = setTimeout(() => {
-      this.setState({ show: false })
+      if (!this.$willUnmount) this.setState({ show: false })
       this.toggleDocumentEvent(false)
     }, delay)
   }
 
   handleToggle(show) {
-    if (!this.props.hover) return
+    if (this.getTrigger() === 'click') return
     if (show) this.handleFocus()
     else this.handleHide()
   }
@@ -128,7 +137,7 @@ class Dropdown extends PureComponent {
 
   renderList(data, placeholder) {
     const {
-      keygen, width, onClick, columns, renderItem, hover, position,
+      keygen, width, onClick, columns, renderItem, position,
     } = this.props
     if (!Array.isArray(data) || data.length === 0) return null
 
@@ -146,7 +155,6 @@ class Dropdown extends PureComponent {
             const itemClassName = dropdownClass('item', !width && 'no-width', childPosition.indexOf('left') === 0 && 'item-left')
             return d.children ?
               <Dropdown
-                hover={hover}
                 style={{ width: '100%' }}
                 data={d.children}
                 disabled={d.disabled}
@@ -157,6 +165,7 @@ class Dropdown extends PureComponent {
                 btnColor
                 onClick={onClick}
                 renderItem={renderItem}
+                trigger={this.getTrigger()}
                 isSub
               /> :
               <Item
@@ -211,6 +220,7 @@ Dropdown.propTypes = {
     PropTypes.func,
   ]),
   position: PropTypes.string,
+  trigger: PropTypes.oneOf(['click', 'hover']),
   width: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
@@ -222,6 +232,7 @@ Dropdown.defaultProps = {
   disabled: false,
   data: [],
   position: 'bottom-left',
+  trigger: 'click',
 }
 
 export default Dropdown

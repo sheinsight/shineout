@@ -2,7 +2,7 @@
  * cn - 加载中
  *    -- 设定 loading 属性，可以让按钮变成加载中状态
  * en - Loading
- *    -- Setting loading property can make the button become loading.
+ *    -- Setting loading property can add a loading indicator to button.
  */
 import React from 'react'
 import { Button } from 'shineout'

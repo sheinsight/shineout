@@ -1,7 +1,16 @@
 ## Install
+
+install from npm
 ```
 $ npm install shineout
 ```
+
+use tag from a CDN
+```
+<script crossorigin src="https://unpkg.com/shineout/dist/Shineout.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/shineout/dist/theme.default.css" />
+```
+
 
 ## Usage
 ``` js
@@ -14,7 +23,7 @@ import { Table } from 'shineout'
 
 ### theme
 
-Currently,there are two sets of theme built in, bootstrap(v3 version, default) and the theme antd that is compatible with ant-design(Convenient for the mixing of two component libraries and just the color matching is close, the interaction and interface parameters are different.)
+Currently,there are two sets of theme built in, default and the theme 'antd' that is compatible with ant-design(Convenient for the mixing of two component libraries and just the color matching is close, the interaction and interface parameters are different.)
 
 You can switch topics by modifying the webpack's less-loader configuration.
 ```
@@ -96,7 +105,7 @@ plugins: [
 
 ## I18N
 
-组件库中部分组件（Datepicker，Select，Modal等）内置了部分文字，暂时为简体中文（zh-CN）和英文（en-US）两组。默认为英文（en-US），可以通过 webpack 的 process.env 切换
+Some components (Datepicker, Select, Model, etc..) has build in text, default pack is 'es-US', set the webpack process.env to 'zh-CN' changes the language pack to Chinese.
 ```
 plugins: [
   new webpack.DefinePlugin({
@@ -107,7 +116,7 @@ plugins: [
 ],
 ```
 
-Using the build version, you can call the setLocale method of locale.
+If you use Shineout form a CDN, you can call the setLocale method of locale.
 
 ```
 import { setLocale } from 'shineout'
