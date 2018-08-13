@@ -3,6 +3,8 @@
  *    -- 出于性能的考虑，Form 内部数据是隔离的，一个组件改变，不会触发另一个组件变化。
  *    -- 需要联动的场景，可以使用 Flow 组件来实现。如果设置了 names 属性，只监听 names 包含的字段变化，如果没有设置，会监听 Form 内所有数据的变化。
  * en - onChange
+ *    -- For performance reasons, internal data of the Form is isolated and changing one component does not trigger another component to change.
+ *    -- Scenes that need to be linked can be implemented using the Flow component. If the names property is set, only the changes of field  contained in names are listened to and if not, changes of all data will be listened to.
  */
 import React, { Component } from 'react'
 import { Form, Input, Checkbox } from 'shineout'

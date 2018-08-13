@@ -2,6 +2,7 @@
  * cn -
  *    -- 可以使用 React 组件方式调用
  * en -
+ *    -- Can be called using the way of the React component
  */
 import React from 'react'
 import { Radio } from 'shineout'

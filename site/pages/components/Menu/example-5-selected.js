@@ -2,6 +2,7 @@
  * cn - 受控
  *    -- active 参数控制选中选项
  * en - controlled
+ *    -- The parameter active controls the selected option.
  */
 import React from 'react'
 import { Menu } from 'shineout'

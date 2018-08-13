@@ -24,4 +24,4 @@
 | children | \[Button] | 必填 | 由 Button 组成的 array |
 | size | string | 无 | 同 Button；如果 Button 和 Group 同时设置 size，以 Group 为准 |
 | outline | boolean | 无 | 同 Button；如果 Button 未设置，使用此值 |
-| type | string | 无 | 同 BUtton；如果 Button 和 Group 同时设置 type，以 Group 为准 |
+| type | string | 无 | 同 Button；如果 Button 和 Group 同时设置 type，以 Group 为准 |

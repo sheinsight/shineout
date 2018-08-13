@@ -2,6 +2,7 @@
  * cn - 布局
  *    -- 通过 layout 属性来控制组件是否显示以及显示的位置
  * en - Layout
+ *    -- Use the layout property to control whether the component is displayed and where is displayed.
  */
 import React from 'react'
 import { Pagination } from 'shineout'

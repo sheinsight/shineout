@@ -2,6 +2,7 @@
  * cn - 颜色
  *    -- 默认的颜色为金色，可以在创建函数时设置颜色
  * en - Icon color
+ *    -- The default color is golden. You can set the color when the component is created.
  */
 import React from 'react'
 import { Rate } from 'shineout'

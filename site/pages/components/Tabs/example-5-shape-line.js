@@ -2,6 +2,7 @@
  * cn - 样式
  *    -- 设置 shape 为 'line'，标签显示为线条
  * en - Shape
+ *    -- Set the shape property to line make tags display as a line.
  */
 import React from 'react'
 import { Tabs } from 'shineout'

@@ -2,6 +2,7 @@
  * cn - 组合
  *  . -- Icon, span, string, Button 类型可以直接放入 Input.Group 中。需要背景色可以放在 b 标签中。
  * en - Group
+ *  . -- The Icon, span, string and Button types can be placed directly into the Input.Group. The background color is required can be placed in the b tag.
  */
 import React from 'react'
 import { Button, Input } from 'shineout'

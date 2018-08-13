@@ -2,6 +2,7 @@
  * cn - 数据处理
  *    -- format 选项可以把数据对象格式化为指定的 value
  * en - Datum
+ *    -- The format property can format the data object to the specified value.
  */
 import React from 'react'
 import { Select } from 'shineout'

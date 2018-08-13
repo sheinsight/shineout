@@ -2,6 +2,7 @@
  * cn - 紧凑表格
  *    -- 设置 size 为 small 显示紧凑表格
  * en - Small user
+ *    -- Set size to small to display the compact form.
  */
 import React from 'react'
 import { Table } from 'shineout'

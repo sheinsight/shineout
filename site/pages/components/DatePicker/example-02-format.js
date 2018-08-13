@@ -2,6 +2,7 @@
  * cn - 格式化
  *    -- 传入值可为 日期对象，时间戳，字符串，通过format 属性可以定义返回值的格式
  * en - Format
+ *    --The incoming value can be a date object, a timestamp, a string, and the format of the return value can be defined by the format property.
  */
 import React, { Component } from 'react'
 import { DatePicker, Input } from 'shineout'

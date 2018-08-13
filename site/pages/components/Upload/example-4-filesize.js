@@ -2,6 +2,7 @@
  * cn - 文件大小
  *    -- 文件大小校验，本例为 10KB
  * en -
+ *    -- Check the size of the file. This example is 10KB.
  */
 import React from 'react'
 import { Upload, Button } from 'shineout'

@@ -2,6 +2,7 @@
  * cn - 表单
  *    -- Modal 内部的表单，可以用 Modal.Submit 来代替 Button
  * en - use form
+ *    --The internal form of Modal can use Modal.Submit to replace the Button.
  */
 import React from 'react'
 import { Modal, Button, Form, Input, Message } from 'shineout'

@@ -1,6 +1,6 @@
 /**
  * cn - 文字 \n 通过 text 替换文字
- * en - Text
+ * en - Text \n Replace text through text property.
  */
 import React from 'react'
 import { Pagination } from 'shineout'

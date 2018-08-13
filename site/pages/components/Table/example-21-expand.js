@@ -2,6 +2,7 @@
  * cn - 可展开
  *    -- 需要展开行时，可以增加一个 type 为 'expand' 的 column，render 函数返回函数时，表示此行可以展开，内容为此函数返回结果
  * en - Expand
+ *    -- When you need to expand the row, you can add a column that its type is 'expand'. When the render function returns a function, it means that the row can be expanded. The content is the result returned by this function.
  */
 import React from 'react'
 import { Table } from 'shineout'

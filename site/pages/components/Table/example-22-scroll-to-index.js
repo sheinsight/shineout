@@ -2,6 +2,7 @@
  * cn - 滚动
  *    -- 固定表头的表格提供了一个 scrollToIndex 方法滚动到指定行，因为非固定行高的原因，滚动到未渲染过的行有一定偏差，请谨慎使用。
  * en - scrollToIndex
+ *    -- The table of the fixed header provides a scrollToIndex method to scroll to the specified line. Because of the non-fixed line height, scrolling to the unrendered line has a certain deviation. Please use it with caution.
  */
 import React, { Component } from 'react'
 import { Input, Table, Form } from 'shineout'

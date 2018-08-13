@@ -2,6 +2,7 @@
  * cn - 服务端分页
  *    -- 在 pagination 的 onChange 中处理（获取）数据，可以实现服务端分页
  * en - Pagination
+ *    -- Processing (acquiring) data in pagination's onChange realizes the pagination of server-side.
  */
 import React, { PureComponent } from 'react'
 import { Table } from 'shineout'

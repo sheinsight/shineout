@@ -2,6 +2,7 @@
  * cn - 不可用
  *    -- 添加 disabled 属性可以禁用按钮。
  * en - Disabled
+ *    -- Adding disabled property can disable the button.
  */
 import React from 'react'
 import { Button } from 'shineout'

@@ -2,6 +2,7 @@
  * cn -
  *    -- 如果 format 属性不能满足需求，可以借助 Datum.List 来处理
  * en -
+ *    -- If the format attribute does not meet the requirements, it can be handled with Datum.List.
  */
 import React from 'react'
 import { Select } from 'shineout'

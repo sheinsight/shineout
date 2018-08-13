@@ -4,6 +4,9 @@
  *    -- children 为 ReactElement时，必须支持 value 和 onChange 属性
  *    -- children 为 Function 时，返回一个或一组 ReactElement
  * en - Field
+ *    -- Components that support value property and onChange property can be placed in a Form.Field .
+ *    -- When the children property is a ReactElement, the value property and onChange property must be supported.
+ *    -- When the children property is a function, return one or one group of ReactElement.
  */
 import React from 'react'
 import { Form } from 'shineout'

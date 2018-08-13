@@ -2,6 +2,7 @@
  * cn - 筛选数据 - 前端
  *    -- onFilter 返回函数时，使用这个函数做前端过滤
  * en - onFilter
+ *    -- When the onFilter property returns a function, use this function to do front-end filtering.
  */
 import React from 'react'
 import { Select } from 'shineout'

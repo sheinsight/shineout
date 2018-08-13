@@ -66,10 +66,10 @@ Datum内部存储的是format之后的值，所以需要prediction函数来比�
 ### setValue *function(array|string)*
 设置值。新的值会替代当前值。
 
-### add *fuction(array|object)*
+### add *function(array|object)*
 添加数据。值为 format 前的原始数据，单条或者一组数据。
 
-### remove *fuction(array|object)*
+### remove *function(array|object)*
 移除数据。值为 format 前的原始数据，单条或者一组数据。
 
 ### clear *function*

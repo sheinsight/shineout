@@ -1,5 +1,6 @@
 /**
  * cn - 性能测试
+ * en - The performance test
  */
 import React from 'react'
 import { Radio } from 'shineout'

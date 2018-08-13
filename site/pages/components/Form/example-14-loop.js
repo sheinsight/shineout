@@ -2,6 +2,7 @@
  * cn - 遍历
  *    -- Form.Loop 通过 name 属性从 Form 中获取一个类型为 array 的 value，遍历这个 value 生成一组子组件。
  * en - Loop
+ *    -- Form.Loop takes a value whose type is the array from the form via the name property, and iterates over this value to generate a set of subcomponents.
  */
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'

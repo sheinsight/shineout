@@ -2,6 +2,7 @@
  * cn - 嵌套
  *    -- 嵌套的栅格
  * en - Nested
+ *    -- Nested grids
  */
 import React from 'react'
 import { Grid } from 'shineout'

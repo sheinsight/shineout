@@ -3,6 +3,7 @@
  *    -- 某些复杂的数据，如多层嵌套的数据，可以在单个元素上设置 rules
  *    -- 设置 scrollToError 属性，在 form 提交校验失败时自动滚动到第一个错误的组件
  * en - Validate
+ *    -- Some complex data, such as multi-level nested data, can set rules on a single element.
  */
 import React from 'react'
 import { Form, Input, Checkbox } from 'shineout'

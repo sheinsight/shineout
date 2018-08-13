@@ -2,6 +2,7 @@
  * cn - 表头分组
  *    -- Table 会自动合并相邻相同 group 的表头
  * en - Column group
+ *    -- Table automatically merges headers with adjacent and identical groups.
  */
 import React from 'react'
 import { Table } from 'shineout'

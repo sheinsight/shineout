@@ -8,7 +8,7 @@
 | --- | --- | --- | ---|
 | data | Array | [] | 面包屑对象数组，见 data |
 | separator | String\|ReactNode | "/" | 面包屑分隔符,可以是字符串或自定义的元素|
-| keygen | String \| Function | 无 | key生成规则，如果为function，参数为单条数据, 并以返回值作为key，不填使用 index
+| keygen | String \| Function | 无 | key生成规则，如果为function，参数为单条数据, 并以返回值作为key，不填使用 index |
 
 ### data
 

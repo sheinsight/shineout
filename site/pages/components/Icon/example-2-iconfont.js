@@ -1,6 +1,6 @@
 /**
  * cn - 使用 Iconfont \n 可以在 iconfont.cn 定制一个图标，在项目中引入
- * en - Use Iconfont
+ * en - Use Iconfont \n You can customize an icon in iconfont.cn to be introduced in the project.
  */
 import React from 'react'
 import { Icon } from 'shineout'

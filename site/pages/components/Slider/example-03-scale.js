@@ -2,6 +2,7 @@
  * cn - 区间
  *    -- 设置 scale 属性可以自定义区间，可以为非连续数值
  * en - Scale
+ *    -- Set the scale property to customize the interval, which can be a non-continuous value.
  */
 import React from 'react'
 import { Slider } from 'shineout'

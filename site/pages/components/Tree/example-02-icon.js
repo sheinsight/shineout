@@ -2,6 +2,7 @@
  * cn - 图标
  *    -- 在 renderItem 中根据状态展示不同的图标
  * en - Icons
+ *    -- Display different icon in the renderItem according to the state.
  */
 import React from 'react'
 import { Tree } from 'shineout'

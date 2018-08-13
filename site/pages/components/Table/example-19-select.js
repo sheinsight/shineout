@@ -2,6 +2,7 @@
  * cn -
  *    -- 如果需要翻页时清除选中数据，可以在翻页时调用 Datum.clear() 方法
  * en -
+ *    -- If you need to clear the selected data when turning pages, you can call the Datum.clear() method when turning pages.
  */
 import React, { PureComponent } from 'react'
 import { Table, Datum } from 'shineout'

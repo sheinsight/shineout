@@ -2,8 +2,11 @@
  * cn - 合并行/列
  *    -- 设置 column 的 rowSpan 可以合并行，rowSpan 为函数，会传入相邻的两行数据，根据此函数返回结果(bool)判断是否合并行
  *    -- 设置 column 的 colSpan 可以合并列，colSpan 为函数，传入参数为当前行数据，函数返回结果为需要向后合并的列数，不合并返回 1
- *    -- 一个单元格同时指定了rowSpan和colSpan时，如果两行的rolSpan计算结果不同，这两行不会合并
+ *    -- 一个单元格同时指定了rowSpan和colSpan时，如果两行的colSpan计算结果不同，这两行不会合并
  * en - rowSpan & colSpan
+ *    -- Setting column's rowSpan property can merge rows. The rowSpan property is a function that passed in two adjacent rows of data and determine whether to merge rows according to the result returned by this function.
+ *    -- Setting column's colSpan property can merge columns. The colSpan property is a function that passed in current row of data and the result returned by this function is as the number of columns that need to be merged. If not need to be merged, this function return 1.
+ *    -- When a cell specifies both rowSpan and colSpan, if the colSpan's calculation results of the two rows are different, the two rows will not be merged.
  */
 import React, { PureComponent } from 'react'
 import { Table } from 'shineout'

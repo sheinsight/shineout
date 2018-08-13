@@ -2,6 +2,7 @@
  * cn -
  *    -- Form.BlockField 合并了 Form.Field 和 Form.Block，可以简化如上
  * en - Nested data
+ *    -- Form.BlockField combines Form.Field and Form.Block and can be simplified as above.
  */
 import React, { PureComponent } from 'react'
 import { Datum, Form, Input, Checkbox, Select } from 'shineout'

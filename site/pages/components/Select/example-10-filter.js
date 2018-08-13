@@ -2,6 +2,7 @@
  * cn -
  *    -- 示例：服务端过滤多选
  * en -
+ *    -- Example: Server-side filters multiple selection.
  */
 import React, { Component } from 'react'
 import { Select } from 'shineout'

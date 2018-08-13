@@ -2,6 +2,8 @@
  * cn - 基本用法
  *    -- 基础的文件上传
  * en - Base
+ *    -- Basic usage for uploading file
+
  */
 import React from 'react'
 import { Upload, Button } from 'shineout'

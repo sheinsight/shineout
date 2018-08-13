@@ -2,6 +2,7 @@
  * cn - 滚动
  *    -- 超出长度时，会自动出现滚动按钮
  * en - Scroll
+ *    -- When the length is exceeded, the scroll button will automatically appear.
  */
 import React from 'react'
 import { Tabs } from 'shineout'

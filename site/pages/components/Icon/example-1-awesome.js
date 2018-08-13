@@ -2,6 +2,7 @@
  * cn - 使用 FontAwesome
  *    -- 引入font-awesome 地址即可使用
  * en - Use FontAwesome
+ *    -- It can be used after introducing the address of the font-awesome.
  */
 import React from 'react'
 import { Icon } from 'shineout'

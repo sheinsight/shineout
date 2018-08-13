@@ -4,5 +4,4 @@ const pkg = require('../package.json')
 
 delete pkg.devDependencies
 
-const pkgPath = path.resolve(__dirname, '../publish/package.json')
-fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2))
+fs.writeFileSync(path.resolve(__dirname, '../publish/package.json'), JSON.stringify(pkg, null, 2))

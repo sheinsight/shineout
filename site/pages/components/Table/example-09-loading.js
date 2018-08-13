@@ -2,6 +2,7 @@
  * cn - 加载中
  *    -- 设置 loading 属性可以将表格状态设置为加载中
  * en - Loading
+ *    -- Setting the loading property can set the table state to loading.
  */
 import React from 'react'
 import { Table, Spin } from 'shineout'

@@ -2,6 +2,7 @@
  * cn - 基本用法
  *    -- 默认为标签样式
  * en - Base
+ *    -- The default style of the tag
  */
 import React from 'react'
 import { Tabs } from 'shineout'

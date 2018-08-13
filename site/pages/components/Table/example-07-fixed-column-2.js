@@ -2,6 +2,7 @@
  * cn -
  *    -- 示例：只固定右侧列
  * en -
+ *    -- Example: Only fix the right column.
  */
 import React from 'react'
 import { Table } from 'shineout'

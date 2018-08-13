@@ -2,6 +2,7 @@
  * cn - 基本用法
  *    -- Select 没有单独的 Option 选项，通过数据 (data) 来渲染
  * en - Base
+ *    -- Select does not have a separate Option option and is rendered through data.
  */
 import React from 'react'
 import { Select } from 'shineout'

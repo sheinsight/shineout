@@ -2,6 +2,7 @@
  * cn - 基本用法
  *    -- 基础的表格用法。推荐 columns 写为常量，以提升性能。
  * en - Overview
+ *    -- Basic table usage. Recommended columns are written as constant to improve performance.
  */
 import React from 'react'
 import { Table } from 'shineout'
