@@ -26,7 +26,7 @@ class Day extends PureComponent {
 
   getDays() {
     const { current } = this.props
-    if (utils.isSameMonth(this.cachedDate, current) && this.cachedDays) {
+    if (this.cachedDate && this.cachedDate.getTime() === current.getTime() && this.cachedDays) {
       return this.cachedDays
     }
     this.cachedDays = utils.getDaysOfMonth(current)

@@ -167,8 +167,12 @@ class Container extends PureComponent {
 
     const callback = blur ? this.handleBlur : undefined
 
-    if (change) this.props.onChange(value, callback)
-    else this.setState({ current: date }, callback)
+    if (change) {
+      this.setState({ current: date })
+      this.props.onChange(value, callback)
+    } else {
+      this.setState({ current: date }, callback)
+    }
   }
 
   handleClear(e) {
