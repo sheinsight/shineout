@@ -28,7 +28,9 @@ class Picker extends PureComponent {
   }
 
   handleModeChange(mode) {
-    this.setState({ mode })
+    setTimeout(() => {
+      this.setState({ mode })
+    }, 10)
   }
 
   render() {
