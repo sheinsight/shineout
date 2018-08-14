@@ -21,7 +21,7 @@ const examples = [
   },
   {
     name: '2-separator',
-    title: locate('分隔符 \n 默认的分隔符为 &#39;/&#39;，可以通过 separator 属性自定义', 'separator \n The default separator is &#39;/&#39; and it can be customized with the separator property.'),
+    title: locate('分隔符 \n 默认的分隔符为 \'/\'，可以通过 separator 属性自定义', 'separator \n The default separator is \'/\' and it can be customized with the separator property.'),
     component: require('doc/pages/components/Breadcrumb/example-2-separator.js').default,
     rawText: require('!raw-loader!doc/pages/components/Breadcrumb/example-2-separator.js'),
   },

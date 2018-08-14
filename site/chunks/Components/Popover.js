@@ -27,7 +27,7 @@ const examples = [
   },
   {
     name: '3-click',
-    title: locate('点击触发 \n 默认是移入组件触发，设置 trigger 为 &#39;click&#39;，可以改为点击触发', 'Click \n The default is to move to  the component to trigger. Setting the trigger property to click can change to click to trigger.'),
+    title: locate('点击触发 \n 默认是移入组件触发，设置 trigger 为 \'click\'，可以改为点击触发', 'Click \n The default is to move to  the component to trigger. Setting the trigger property to click can change to click to trigger.'),
     component: require('doc/pages/components/Popover/example-3-click.js').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-3-click.js'),
   },
@@ -45,7 +45,7 @@ const examples = [
   },
   {
     name: '6-type',
-    title: locate(' \n 如果内置样式不满足需求，可以通过 background 和 border 自定义样式', ' \n If the built-in style doesn&#39;t meet your needs, you can customize the style with background and border.'),
+    title: locate(' \n 如果内置样式不满足需求，可以通过 background 和 border 自定义样式', ' \n If the built-in style doesn\'t meet your needs, you can customize the style with background and border.'),
     component: require('doc/pages/components/Popover/example-6-type.js').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-6-type.js'),
   },

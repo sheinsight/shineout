@@ -14,7 +14,7 @@
 | lazy | bool | false | 是否延迟加载 |
 | src | string | 必填 | 图片地址 |
 | style | object | 无 | 最外层扩展样式 |
-| target | string | '_modal' | 可选值为 \['_modal', '_blank', '_self'] |
+| target | string | '_modal' | 可选值为 \['_modal', '_blank', '_self', '_download'] |
 | width | string \| number | '100%' | 图片宽度 |
 
 ### Image.Group

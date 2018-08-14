@@ -33,7 +33,7 @@ const examples = [
   },
   {
     name: '4-circle',
-    title: locate('圆形 \n 设置 shape 为 &#39;circle&#39;，显示为环形进度条', 'Circle \n Set the shape property to circle to display circular progress bar.'),
+    title: locate('圆形 \n 设置 shape 为 \'circle\'，显示为环形进度条', 'Circle \n Set the shape property to circle to display circular progress bar.'),
     component: require('doc/pages/components/Progress/example-4-circle.js').default,
     rawText: require('!raw-loader!doc/pages/components/Progress/example-4-circle.js'),
   },

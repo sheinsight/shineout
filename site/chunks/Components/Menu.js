@@ -21,13 +21,13 @@ const examples = [
   },
   {
     name: '2-horizontal',
-    title: locate('水平布局 \n 设置 mode 为 &#34;horizontal&#34;，显示为水平布局（子菜单在右侧弹出）', 'horizontal \n Set mode to &#34;horizontal&#34; to display it as horizontal layout (submenu pops up on the right).'),
+    title: locate('水平布局 \n 设置 mode 为 "horizontal"，显示为水平布局（子菜单在右侧弹出）', 'horizontal \n Set mode to "horizontal" to display it as horizontal layout (submenu pops up on the right).'),
     component: require('doc/pages/components/Menu/example-2-horizontal.js').default,
     rawText: require('!raw-loader!doc/pages/components/Menu/example-2-horizontal.js'),
   },
   {
     name: '3-vertical',
-    title: locate('垂直样式 \n 设置 mode 为 &#34;vertical&#34;，显示为垂直布局', 'vertical \n Set mode to &#34;vertical&#34; to display it as vertical layout.'),
+    title: locate('垂直样式 \n 设置 mode 为 "vertical"，显示为垂直布局', 'vertical \n Set mode to "vertical" to display it as vertical layout.'),
     component: require('doc/pages/components/Menu/example-3-vertical.js').default,
     rawText: require('!raw-loader!doc/pages/components/Menu/example-3-vertical.js'),
   },

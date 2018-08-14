@@ -33,7 +33,7 @@ const examples = [
   },
   {
     name: '4-size',
-    title: locate('大小 \n 一共有三种尺寸，[&#39;small&#39;, &#39;default&#39;, &#39;large&#39;]，默认为 &#39;default&#39;', 'Size \n There are three sizes, [&#39;small&#39;, &#39;default&#39;, &#39;large&#39;], default value is &#39;default&#39;.'),
+    title: locate('大小 \n 一共有三种尺寸，[\'small\', \'default\', \'large\']，默认为 \'default\'', 'Size \n There are three sizes, [\'small\', \'default\', \'large\'], default value is \'default\'.'),
     component: require('doc/pages/components/Button/example-4-size.js').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-4-size.js'),
   },
@@ -45,7 +45,7 @@ const examples = [
   },
   {
     name: '6-href',
-    title: locate('链接 \n 设置 href 属性，按钮会渲染为 a 标签，同时可以设置 target 属性', 'Link \n Setting the href attribute, the button will be rendered as &lt;a&gt; tag and you can also set the target property.'),
+    title: locate('链接 \n 设置 href 属性，按钮会渲染为 a 标签，同时可以设置 target 属性', 'Link \n Setting the href attribute, the button will be rendered as <a> tag and you can also set the target property.'),
     component: require('doc/pages/components/Button/example-6-href.js').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-6-href.js'),
   },
@@ -57,7 +57,7 @@ const examples = [
   },
   {
     name: '8-group',
-    title: locate('组合 \n 一组 Button 可以用 Button.Group 容器中，按钮样式通过 Button.Gorup 的 size, type, outline 属性设置', 'Group \n A series of buttons can group by Button.Group, set styles by Button.Group&#39;s size, type, and outline property.'),
+    title: locate('组合 \n 一组 Button 可以用 Button.Group 容器中，按钮样式通过 Button.Gorup 的 size, type, outline 属性设置', 'Group \n A series of buttons can group by Button.Group, set styles by Button.Group\'s size, type, and outline property.'),
     component: require('doc/pages/components/Button/example-8-group.js').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-8-group.js'),
   },

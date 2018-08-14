@@ -57,7 +57,7 @@ const examples = [
   },
   {
     name: '08-hide',
-    title: locate(' \n 如果要彻底不显示刻度和当前值，设置 formatValue 和 fotmatScale 为 false', 'autoHide \n Set formatValue and fotmatScale to false if you don&#39;t want to display the scale and current values completely.'),
+    title: locate(' \n 如果要彻底不显示刻度和当前值，设置 formatValue 和 fotmatScale 为 false', 'autoHide \n Set formatValue and fotmatScale to false if you don\'t want to display the scale and current values completely.'),
     component: require('doc/pages/components/Slider/example-08-hide.js').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-08-hide.js'),
   },

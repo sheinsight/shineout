@@ -1,8 +1,8 @@
 /**
  * cn - 备用地址
  *    -- 在 src 获取失败的情况下，自动使用 alt 属性设置的地址
- * en - alt
- *    -- Automatically use the address set by the alt property if the src gets failed.
+ * en - Alt
+ *    -- If the src address fails to load, use the alt property instead.
  */
 import React from 'react'
 import { Image } from 'shineout'

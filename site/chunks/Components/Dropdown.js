@@ -21,7 +21,7 @@ const examples = [
   },
   {
     name: '2-hover',
-    title: locate('触发 \n Dropdown 默认通过点击触发下拉行为，设置 trigger=&#34;hover&#34; 属性可以改为移入触发', 'Trigger \n By default, Dropdown toggled clicking, setting trigger=&#34;hover&#34; can toggled by mouse move in.'),
+    title: locate('触发 \n Dropdown 默认通过点击触发下拉行为，设置 trigger="hover" 属性可以改为移入触发', 'Trigger \n By default, Dropdown toggled clicking, setting trigger="hover" can toggled by mouse move in.'),
     component: require('doc/pages/components/Dropdown/example-2-hover.js').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-2-hover.js'),
   },

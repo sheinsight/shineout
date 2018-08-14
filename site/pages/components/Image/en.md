@@ -1,7 +1,5 @@
 # Image
 
-The image component is used to process images of a specified size, to realize the functions of occupation, exception handling, stretching, filling, and lazy loading.
-
 <example />
 
 ## API
@@ -13,8 +11,8 @@ The image component is used to process images of a specified size, to realize th
 | href | string | none | original picture address |
 | lazy | bool | false | whether to delay loading |
 | src | string | required | the picture address |
-| style | object | none | the outermost extension style |
-| target | string | '_modal' | options: \['_modal', '_blank', '_self'] |
+| style | object | none | extend style |
+| target | string | '_modal' | options: \['_modal', '_blank', '_self', '_download'] |
 | width | string \| number | '100%' | the width of the image |
 
 ### Image.Group

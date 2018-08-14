@@ -69,7 +69,7 @@ const examples = [
   },
   {
     name: '10-disabled',
-    title: locate(' \n disabled 为函数时，根据函数结果实现有条件禁用', 'Disabled \n When the disabled property is a function, realize conditional disabling according to the result of thc function.'),
+    title: locate(' \n disabled 为函数时，根据函数结果实现有条件禁用', ' \n When the disabled property is a function, realize conditional disabling according to the result of thc function.'),
     component: require('doc/pages/components/Checkbox/example-10-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-10-disabled.js'),
   },

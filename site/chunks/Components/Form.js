@@ -27,7 +27,7 @@ const examples = [
   },
   {
     name: '03-label',
-    title: locate(' \n labelAlign=&#34;top&#34;', ' \n labelAlign=&#34;top&#34;'),
+    title: locate(' \n labelAlign="top"', ' \n labelAlign="top"'),
     component: require('doc/pages/components/Form/example-03-label.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-03-label.js'),
   },
@@ -123,7 +123,7 @@ const examples = [
   },
   {
     name: '19-nested',
-    title: locate(' \n 更简单的处理多级嵌套数据的方法，在 name 中用 . 分隔字段名称。', 'Datum.Form.flatten \n A simpler way to handle multi-level nested data is to separate the field names in name with &#39;.&#39; .'),
+    title: locate(' \n 更简单的处理多级嵌套数据的方法，在 name 中用 . 分隔字段名称。', 'Datum.Form.flatten \n A simpler way to handle multi-level nested data is to separate the field names in name with \'.\' .'),
     component: require('doc/pages/components/Form/example-19-nested.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-19-nested.js'),
   },

@@ -30,7 +30,7 @@ export default class extends React.Component {
       visible: false,
       content: this.state.content += 1,
     })
-    console.log('you are click ok!')
+    console.log('clicked ok!')
   }
 
   handleCancel = () => {
@@ -38,7 +38,7 @@ export default class extends React.Component {
       visible: false,
       content: this.state.content += 1,
     })
-    console.log('you are click cancel')
+    console.log('clicked cancel')
   }
 
   render() {

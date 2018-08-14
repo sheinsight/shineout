@@ -15,7 +15,7 @@ const source = locate(cn, en)
 const examples = [
   {
     name: '01-base',
-    title: locate('基本用法 \n 图片设置宽高后即使图片未加载，仍然会先占位', 'Base \n After the width and height of the image is set, it will be occupied firstly even if the image is not loaded。'),
+    title: locate('基本用法 \n 图片设置宽高后即使图片未加载，仍然会先占位', 'Base \n The most basic image.'),
     component: require('doc/pages/components/Image/example-01-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-01-base.js'),
   },
@@ -27,19 +27,19 @@ const examples = [
   },
   {
     name: '03-fit',
-    title: locate('适应 \n 内置了 4 种适应容器的方式，填充、居中、原图、拉伸', 'fit \n There are four built ways that fit the container, fill, center, original, stretch.'),
+    title: locate('适应 \n 内置了 4 种适应容器的方式，填充、居中、原图、拉伸', 'Fit \n There are four built ways that fit the container, fill, center, original, stretch.'),
     component: require('doc/pages/components/Image/example-03-fit.js').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-03-fit.js'),
   },
   {
     name: '04-alt',
-    title: locate('备用地址 \n 在 src 获取失败的情况下，自动使用 alt 属性设置的地址', 'alt \n Automatically use the address set by the alt property if the src gets failed.'),
+    title: locate('备用地址 \n 在 src 获取失败的情况下，自动使用 alt 属性设置的地址', 'Alt \n If the src address fails to load, use the alt property instead.'),
     component: require('doc/pages/components/Image/example-04-alt.js').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-04-alt.js'),
   },
   {
     name: '05-error',
-    title: locate('错误处理 \n alt 属性失效或没有 alt 属性时，会显示 title 属性', 'alt \n The title property is displayed when the alt property is invalid or there is no alt property.'),
+    title: locate('错误处理 \n alt 属性失效或没有 alt 属性时，会显示 title 属性', 'Title \n The title property is displayed when the alt property is invalid or there is no alt property.'),
     component: require('doc/pages/components/Image/example-05-error.js').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-05-error.js'),
   },
@@ -57,7 +57,7 @@ const examples = [
   },
   {
     name: '08-group',
-    title: locate(' \n 设置 pile 属性可以把缩略图堆叠展示', ' \n Setting the pile property can show the thumbnail image stack.'),
+    title: locate(' \n 设置 pile 属性可以把缩略图堆叠展示', ' \n Setting the pile property to show the image stack.'),
     component: require('doc/pages/components/Image/example-08-group.js').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-08-group.js'),
   },

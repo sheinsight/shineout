@@ -39,7 +39,7 @@ const examples = [
   },
   {
     name: '04-size',
-    title: locate('大小 \n 有三种 size，[&#39;small&#39;, default, &#39;large&#39;]，默认为 default(不要填写)', 'Size \n There are three sizes, [&#39;small&#39;, default, &#39;large&#39;], and the default value is default(do not fill in).'),
+    title: locate('大小 \n 有三种 size，[\'small\', default, \'large\']，默认为 default(不要填写)', 'Size \n There are three sizes, [\'small\', default, \'large\'], and the default value is default(do not fill in).'),
     component: require('doc/pages/components/Select/example-04-size.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-04-size.js'),
   },
@@ -69,7 +69,7 @@ const examples = [
   },
   {
     name: '09-filter',
-    title: locate('筛选数据 - 服务端 \n onFilter 函数不返回结果时，可以自行去服务端筛选数据', 'onFilter \n When the onFilter property don&#39;t return a function, you can go to the server to filter data by yourself.'),
+    title: locate('筛选数据 - 服务端 \n onFilter 函数不返回结果时，可以自行去服务端筛选数据', 'onFilter \n When the onFilter property don\'t return a function, you can go to the server to filter data by yourself.'),
     component: require('doc/pages/components/Select/example-09-filter.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-09-filter.js'),
   },

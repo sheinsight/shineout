@@ -39,13 +39,13 @@ const examples = [
   },
   {
     name: '5-shape-line',
-    title: locate('样式 \n 设置 shape 为 &#39;line&#39;，标签显示为线条', 'Shape \n Set the shape property to line make tags display as a line.'),
+    title: locate('样式 \n 设置 shape 为 \'line\'，标签显示为线条', 'Shape \n Set the shape property to line make tags display as a line.'),
     component: require('doc/pages/components/Tabs/example-5-shape-line.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-5-shape-line.js'),
   },
   {
     name: '6-shape-button',
-    title: locate(' \n 设置 shape 为 &#39;button&#39;，标签显示为按钮', 'Shape \n Set  the shape property to button to make the tag display as a button.'),
+    title: locate(' \n 设置 shape 为 \'button\'，标签显示为按钮', 'Shape \n Set  the shape property to button to make the tag display as a button.'),
     component: require('doc/pages/components/Tabs/example-6-shape-button.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-6-shape-button.js'),
   },
