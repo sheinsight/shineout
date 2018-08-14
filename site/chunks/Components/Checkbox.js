@@ -21,13 +21,13 @@ const examples = [
   },
   {
     name: '02-checked',
-    title: locate('状态 \n checked 有三个值，选中、未选中、半选。checked 设置时为受控组件（此示例没有处理 onChange 事件）。', 'Checked \n The checked has three values:checked, unchecked, and semi-selected. When the checked is set, it is a controlled component(this example does not handle onChange events).'),
+    title: locate('状态 \n checked 有三个值，选中(true)、未选中(false)、半选中(\'indeterminate\')。checked 设置时为受控组件（此示例没有处理 onChange 事件）。', 'Checked \n The checked has three values: true(checked), false(not checked), \'indeterminate\'(half-checked).'),
     component: require('doc/pages/components/Checkbox/example-02-checked.js').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-02-checked.js'),
   },
   {
     name: '03-value',
-    title: locate('选中值 \n 未设置htmlValue的状态下，checkbox选中时返回true，如果设置 htmlValue，返回 htmlValue。未选中状态都是返回 undefined。', 'Value \n If the htmlValue is not set,the checkbox that is selected return true and if the htmlValue is set, return the htmlValue. When the checkbox is not selected, always return undefined.'),
+    title: locate('选中值 \n 未设置htmlValue的状态下，checkbox选中时返回true，如果设置 htmlValue，返回 htmlValue。未选中状态都是返回 undefined。', 'Value \n If the htmlValue is not set, the checkbox selected return true; if the htmlValue is set, return the htmlValue. When the checkbox is not selected, always return undefined.'),
     component: require('doc/pages/components/Checkbox/example-03-value.js').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-03-value.js'),
   },
@@ -45,13 +45,13 @@ const examples = [
   },
   {
     name: '06-datum',
-    title: locate(' \n 当 format 不能满足需求时，可以使用 Datum.List 进行处理', ' \n When the format fails to meet the requirements, the Datum.List can be used to process value.'),
+    title: locate(' \n 当 format 不能满足需求时，可以使用 Datum.List 进行处理', ' \n When the format is not enough to process data, you can use <a href="#/components/Datum.List">Data.List</a> istead.'),
     component: require('doc/pages/components/Checkbox/example-06-datum.js').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-06-datum.js'),
   },
   {
     name: '07-rawgroup',
-    title: locate(' \n 可以按 React 组件方式使用', ' \n It can be used like the React component.'),
+    title: locate(' \n 可以按 React 组件方式使用', ' \n It can be used like the React Component.'),
     component: require('doc/pages/components/Checkbox/example-07-rawgroup.js').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-07-rawgroup.js'),
   },
@@ -63,7 +63,7 @@ const examples = [
   },
   {
     name: '09-disabled',
-    title: locate('禁用 \n 设置 Checkbox.Group 的 disabled 属性，禁用全部选项', 'Disabled \n Setting the disabled property of Checkbox.Group disable all the options.'),
+    title: locate('禁用 \n 设置 Checkbox.Group 的 disabled 为 true，禁用全部选项', 'Disabled \n Setting the disabled property of Checkbox.Group to true, disable all the options.'),
     component: require('doc/pages/components/Checkbox/example-09-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-09-disabled.js'),
   },
