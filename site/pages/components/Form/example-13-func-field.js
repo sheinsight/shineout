@@ -2,7 +2,7 @@
  * cn -
  *    -- 示例：使用 Form.Field 引入 react-color
  * en -
- *    -- Example: use form.field to introduce react-color.
+ *    -- Example: use Form.Field to introduce react-color.
  */
 import React, { PureComponent } from 'react'
 import { Form } from 'shineout'

@@ -2,7 +2,7 @@
  * cn - 校验
  *    -- 通过 rules 校验，每个字段的 rules 是一个数组，可以使用多条规则。
  * en - Validate
- *    -- Valid by rules, and the rules for each field is an array which can contain multiple rules.
+ *    -- Validate by rules.
  */
 import React from 'react'
 import { Form, Input, Checkbox } from 'shineout'

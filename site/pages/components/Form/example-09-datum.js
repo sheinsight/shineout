@@ -3,8 +3,8 @@
  *    -- Form 内部通过 Datum.Form 对象来处理数据，通常情况下，用户只需要 onSumbit 中的 formdata 提交即可。
  *    -- 如果有额外的需求，可以自定义一个 Datum.Form 对象来处理数据。
  * en - Datum.Form
- *    -- Forms internally process data through the Datum.Form object. Typically, users only need to submit formdata of onSumbit.
- *    -- If you have additional requirements, you can customize a Datum.Form object to process the data.
+ *    -- Forms internally process data through the Datum.Form object. Typically, users only need to get formdata on onSumbit.
+ *    -- You can customize a Datum.Form object to process the data.
  */
 import React, { PureComponent } from 'react'
 import { Form, Input, Checkbox, Datum, Button } from 'shineout'

@@ -1,8 +1,8 @@
 /**
  * cn - 禁用
  *    -- 使用 disabled 属性使表单内支持 disabled 属性的组件禁用，通常用在表单数据加载或提交时
- * en - disabled
- *    -- Use the disabled property to make the Form support to disable component and typically used when the form data is loaded or submitted.
+ * en - Disabled
+ *    -- Use the disabled property to make the Form support to disable component.
  */
 import React from 'react'
 import { Form, Input, Checkbox } from 'shineout'

@@ -114,6 +114,7 @@ Form.propTypes = {
 
 Form.defaultProps = {
   ...defaultProps,
+  scrollToError: false,
   throttle: 1000,
 }
 

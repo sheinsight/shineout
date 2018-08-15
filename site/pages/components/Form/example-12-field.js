@@ -2,7 +2,7 @@
  * cn - 字段
  *    -- 支持 value 和 onChange 的组件可以放在 Form.Field 中。
  *    -- children 为 ReactElement时，必须支持 value 和 onChange 属性
- *    -- children 为 Function 时，返回一个或一组 ReactElement
+ *    -- children 为 Function 时，返回一个或一组 ReactElement，在函数内部自行处理 value 和 onChange
  * en - Field
  *    -- Components that support value property and onChange property can be placed in a Form.Field .
  *    -- When the children property is a ReactElement, the value property and onChange property must be supported.
