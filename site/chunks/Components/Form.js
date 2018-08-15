@@ -21,7 +21,7 @@ const examples = [
   },
   {
     name: '02-label',
-    title: locate('标签 \n 通过 labelWidth 和 labelAlign 改变标签宽度和对齐方式', 'Label \n Change the width of the label and alignment by labelWidth and labelAlign.'),
+    title: locate('标签 \n 通过 labelWidth 和 labelAlign 改变标签宽度和对齐方式', 'Label \n Setting labelWidth and labelAlign to change label with and alignment.'),
     component: require('doc/pages/components/Form/example-02-label.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-02-label.js'),
   },
@@ -33,7 +33,7 @@ const examples = [
   },
   {
     name: '04-inline',
-    title: locate('水平布局 \n 设置 inline 属性使 Form 变为水平布局', 'Inline \n Setting the inline property make the Form horizontal.'),
+    title: locate('水平布局 \n 设置 inline 属性使 Form 变为水平布局', 'Inline \n Setting the inline to true make the Form horizontal.'),
     component: require('doc/pages/components/Form/example-04-inline.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-04-inline.js'),
   },
@@ -123,15 +123,15 @@ const examples = [
   },
   {
     name: '19-nested',
-    title: locate(' \n 更简单的处理多级嵌套数据的方法，在 name 中用 . 分隔字段名称。', 'Datum.Form.flatten \n A simpler way to handle multi-level nested data is to separate the field names in name with \'.\' .'),
+    title: locate(' \n 更简单的处理多级嵌套数据的方法，在 name 中用 . 分隔字段名称。', ' \n A simpler way to handle multi-level nested data is to separate the field names in name with \'.\' .'),
     component: require('doc/pages/components/Form/example-19-nested.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-19-nested.js'),
   },
   {
-    name: '20.array',
+    name: '20-array',
     title: locate('数组 name \n 数据为数组类型的组件，name 可以传入一个相应的数组，来分别处理数组内的单个数据', 'Array name \n The name of component whose data is an array can be passed in a corresponding array to process individual data in the array.'),
-    component: require('doc/pages/components/Form/example-20.array.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-20.array.js'),
+    component: require('doc/pages/components/Form/example-20-array.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-20-array.js'),
   },
 ]
 

@@ -25,7 +25,7 @@ class Tabs extends PureComponent {
   handleChange(active) {
     const { onChange } = this.props
     if (onChange) onChange(active)
-    else this.setState({ active })
+    this.setState({ active })
   }
 
   renderHeader() {

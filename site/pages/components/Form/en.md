@@ -1,19 +1,5 @@
 # Form
 
-The Form is a complex component that consists of the following components:
-
-- **Form：** From
-- **Form.Item：** Form items for layout, display labels, prompt copy information, etc.
-- **Form.Field：** Used to handle custom components, implement rules validation, and store data functions.
-- **Form.Block：** A form block for accessing multilevel nested data.
-- **Form.BlockField：** A shortcut component incorporating Field and Block.
-- **Form.Loop：** Used to iterate through the values of the array type to generate subcomponents.
-- **Form.Flow：** Data flow for handling data linkage.
-
-- **Form.Submit：** The shortcut of Submit button. When you use Submit, the enter key triggers the form submission.
-- **Form.Reset：** The shortcut of Reset button.
-- **Form.Button：** Same as the submit button. When you use the Button, the enter key does not trigger a form submission.
-
 <example />
 
 ## API
@@ -23,51 +9,75 @@ The Form is a complex component that consists of the following components:
 | --- | --- | --- | --- |
 | className | string | | extend className |
 | datum | object \| Datum.Form | | The formdata helper class, which is created automatically inside a Form without setting it, usually does not need to be set. |
-| disabled | bool | false | determine whether the Form is disabled. When it is true, all the elements in the form are disabled. |
-| inline | bool | false | determine whether to be horizontal layout |
+| disabled | bool | false | When disabled is true, all the elements in the form are disabled. |
+| inline | bool | false | When inline is true, the form is horizontal layout |
 | labelAlign | string | | options:  \['top', 'right'], the default value is left. |
-| labelWidth | string \| number | 140px | the width of label. It is invalid when labelAlign is 'top'. |
-| onChange | function(data) | | a callback function, can be executed when the value is changing |
-| onError | function(err) | | a callback when the error happens |
-| onSubmit | function(data) | | the function for Form Submission.  When the internal validation fails ,it will not be triggered. |
+| labelWidth | string \| number | 140px | The width of label. It is invalid when labelAlign is 'top'. |
+| onChange | function(data) | | callback function, executed when the value is changing |
+| onError | function(err) | | callback when the error happens |
+| onSubmit | function(data) | | the function for Form Submission.  When the internal validation fails, it will not be triggered. |
 | rules | object | | validation rules, see details in the Rules |
-| style | object | | extended style |
-| throttle | number | 1000 | ms, the interval between two submissions(Prevent repeat submission)|
+| style | object | | extend style |
+| throttle | number | 1000 | ms, the interval between two submissions(Prevent repeat submission) |
 
 ### Rules
 Validation rules, format: { name: \[ rule ] }
 
-- The name corresponds to the name attribute of the component in the form.
-- Each rule handles only one attribute. For example, required, regExp, and min are set at the same time, but only required is handled. Multiple judgments require multiple rules to be set.
+The name corresponds to the name attribute of the component in the form.
 
-There are 5 rules, which are as follows according to priority:
+There are 5 rules, priority is as follow:
 
 - Function:Completely controlled by the caller. you can theoretically do all the checking.
+  ```
+  /**
+   value - Current component value
+   formdata - All values in the form 
+   callback - The result of verification
+   */ 
+  (value, formdata, callback) => {
+    if (/\d+/.test(value)) callback(true)
+    else callback(new Error('Password at least has one numeral.'))
+  }
+  // return a Promise，do not call callback
+  (value) => new Promise((resolve, reject) => {
+    if (/\d+/.test(value)) resolve(true)
+    else reject(new Error('Password at least has one numeral.'))
+  }
+  ```
+
 - Required:Determine whether the required attribute is true or not. false is not required when it is not required.
+  ```
+  { required: true, message: 'Please enter password.' }
+  ```
+
 - Length:Judge by the min or max property.
-- RegExp:Judge by the RegExp. It can be a RegExp object or a string.
-- Type:Built-in types are commonly judged by regular expression. When requirements are not met, you can customize regular expressions or use functional validation.
+  ```
+  { min: 7, message: 'Password must be at least 7 characters.' }
+  ```
 
-#### function(value, formdata, callback) : Promise
+- RegExp: Judge by the RegExp. It can be a RegExp object or a string.
+  ```
+  { regExp: /[a-z]+/i, message: 'Password at least has one letter.' }
+  ```
 
-- value: Current component value
-- formdata: All component values in the form
-- callback(true|Error): The result of verification.The success is true and the failure is an Error object. If the function returns a Promise, do not call callback.
+- Type: Some common type validation are built in. 
+  ```
+  { type: 'email', message: 'Please enter a valid email.' }
+  ```
 
-
-#### object
+#### Rule
 
 | Property | Type | Description |
 | --- | --- | --- | --- |
 | required | bool | whether to be required |
-| min | number | The minimum value. When type is 'number', the value is judged and the length of other types is judged. |
-| max | number | The maximum value. When type is 'number', the value is judged and the length of other types is judged. |
+| min | number | The minimum value. When type is 'number', validate the value. Otherwise, validate the value.length.  |
+| max | number | The maximum value. When type is 'number', validate the value. Otherwise, validate the value.length. |
 | regExp | string \| RegExp | regular expression |
-| type | string | Type checking.options: \[ 'email', 'json', 'url', 'hex', 'number' ]. You can customize the regExp validation if it does not support it. |
+| type | string | options: \[ 'email', 'json', 'url', 'hex', 'number' ]. You can customize the regExp validation if it does not support it. |
 | message | string | The error message. You can use the '{key}' symbol to format. Key is a property of the current rule, such as {min: 20, message: 'minimum value is {min}'}, which is formatted as 'minimum value is 20'. |
 
 ### Form.Item
-Form items, are mainly used to layout, display labels, prompt copy information, etc
+Used to layout, display labels, tips, errors, etc
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -76,7 +86,7 @@ Form items, are mainly used to layout, display labels, prompt copy information, 
 | tip | string | | Prompting information |
 
 ### Form.Field
-Used to handle custom form components, enabling custom form components to implement data storage capabilities through rules validation.
+Used to handle custom form components, enabling custom form components to get/store/validate value from formdata by name.
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -84,10 +94,11 @@ Used to handle custom form components, enabling custom form components to implem
 | defaultValue | string \| number | | defaul value |
 | name | string | none | The name of a Form that accesses data |
 | rules | array | none | Validation rules | 
-| value | string \| number | | The defaultValue and the value can be set at the same time and the defaultValue will be overridden by the value in the Form. The value will be taken over by the Form and the value will be invalid. |
 
 
 ### Form.Block
+
+Use to resolve nested data
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -97,9 +108,11 @@ Used to handle custom form components, enabling custom form components to implem
 
 ### Form.BlockField
 
-同 Form.Field
+Merge Form.Field and Form.Block
 
 ### Form.Loop
+
+Used to iterate through the values of the array type and generate the child components.
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -108,10 +121,12 @@ Used to handle custom form components, enabling custom form components to implem
 
 ### Form.Flow
 
+Used to process interactive data.
+
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | children | function(datum) :ReactElement | required | datum is the object of Datum.Form. |
-| names | array | none | When names are empty, any changes in values within the Form will trigger Flow updates. Instead of null, only the changes of the specified field  are monitored |
+| names | array | none | Specifying which fields to change trigger the Flow update. |
 
 ### Submit, Reset, Button
 Same as [Button](#/components/Button)

@@ -6,16 +6,17 @@
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| className | string | none | extend className |
+| className | string | - | extend className |
 | clearable | bool | true | whether it can be cleared |
-| defaultValue | string \| number \| Date \| array | none | default |
-| format | string | default values for different types: <br />'date': 'YYYY-MM-dd'<br />'time': 'HH:mm:ss'<br />'week': 'YYYY WW'<br />'month': 'YYYY-MM'<br />'datetime': 'YYYY-MM-dd HH:mm:ss'  | Formatted, see the table below. |
+| defaultValue | string \| number \| Date \| array | - | default |
+| disabled | bool \| function | false | When the value is true, disabled all options; When the value is function, disable the options that this function returns true. |
+| format | string | | default values for different types: <br />'date': 'yyyy-MM-dd'<br />'time': 'HH:mm:ss'<br />'week': 'yyyy WW'<br />'month': 'yyyy-MM'<br />'datetime': 'yyyy-MM-dd HH:mm:ss' |
 | onChange | function(d) | | a callback when the value is changing |
-| placeholder | string \| array | none | placeholder text<br />When the range property is not empty, it is an array of length 2. |
-| range | bool \| number | none | range span，unit: **second**，<br />When it is true, it means that the selection range is not restricted. |
-| style | object | none | the outermost extension style |
+| placeholder | string \| array | - | placeholder text<br />When the range property is not empty, it is an array of length 2. |
+| range | bool \| number | - | range span，unit: **second**，<br />When it is true, selection scope is not limited. |
+| style | object | - | extend style |
 | type | string | 'date' | options:  \['date', 'time', 'datetime', 'month', 'week'] |
-| value | string \| number \| Date \| array | none | When the value is string, it needs to match the format attribute. <br /> When the range property is true, the value is an array of length 2. |
+| value | string \| number \| Date \| array | - | When the value is string, it needs to match the format attribute. <br /> When the range property is true, the value is an array of length 2. |
 
 
 ### Format

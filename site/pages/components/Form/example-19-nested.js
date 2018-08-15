@@ -1,7 +1,7 @@
 /**
  * cn -
  *    -- 更简单的处理多级嵌套数据的方法，在 name 中用 . 分隔字段名称。
- * en - Datum.Form.flatten
+ * en -
  *    -- A simpler way to handle multi-level nested data is to separate the field names in name with '.' .
  */
 import React, { PureComponent } from 'react'

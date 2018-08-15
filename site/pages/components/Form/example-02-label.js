@@ -2,7 +2,7 @@
  * cn - 标签
  *    -- 通过 labelWidth 和 labelAlign 改变标签宽度和对齐方式
  * en - Label
- *    -- Change the width of the label and alignment by labelWidth and labelAlign.
+ *    -- Setting labelWidth and labelAlign to change label with and alignment.
  */
 import React from 'react'
 import { Form, Input } from 'shineout'
