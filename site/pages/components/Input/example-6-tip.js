@@ -1,7 +1,7 @@
 /**
  * cn - 提示文字
  *    -- 在 input 上设置的 tip 在 focus 时弹出
- * en - tip
+ * en - Tip
  *    -- The tip set on input pops up when it is focused.
  */
 import React from 'react'

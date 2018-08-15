@@ -14,7 +14,7 @@
 | placeholder | string | | Same as the native input tag |
 | popover | string | | The position where the text pop up, options: \['top-left', 'top', 'top-right', 'bottom-left', 'bottom', 'bottom-right'] |
 | size | string | 'default' | options: \['large', 'default', 'small'] |
-| style | object | none | The outermost extension style |
+| style | object | none | extend style |
 | tip | string \| ReactElement | | Prompt information |
 | type | string | | Same as the type of the native input tag |
 | value | string \| number | | The defaultValue and value can be set at the same time and defaultValue will be overridden by value<br />In the Form, the value will be taken over by the form and the value will be invalid. |
@@ -25,6 +25,6 @@ The basic API is the same as the above table, and the specific API is as follows
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| max | number | none | The maximum value |
-| min | number | none | The minimum value|
+| max | number | - | The maximum value |
+| min | number | - | The minimum value|
 | step | number | 1 | Change the digital span. It can be decimal. |
