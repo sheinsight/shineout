@@ -51,7 +51,7 @@ const examples = [
   },
   {
     name: '8-disabled',
-    title: locate('禁用 \n 设置 disabled 属性，可以禁用组件', 'Disabled \n Setting the disabled property can disable the component.'),
+    title: locate('禁用 \n 设置 disabled 属性，可以禁用组件', 'Disabled \n Set the disabled property can disable the component.'),
     component: require('doc/pages/components/Pagination/example-8-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/Pagination/example-8-disabled.js'),
   },

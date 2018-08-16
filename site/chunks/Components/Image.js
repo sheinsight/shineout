@@ -57,7 +57,7 @@ const examples = [
   },
   {
     name: '08-group',
-    title: locate(' \n 设置 pile 属性可以把缩略图堆叠展示', ' \n Setting the pile property to show the image stack.'),
+    title: locate(' \n 设置 pile 属性可以把缩略图堆叠展示', ' \n Set the pile property to show the image stack.'),
     component: require('doc/pages/components/Image/example-08-group.js').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-08-group.js'),
   },

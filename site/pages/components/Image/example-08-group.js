@@ -2,7 +2,7 @@
  * cn -
  *    -- 设置 pile 属性可以把缩略图堆叠展示
  * en -
- *    -- Setting the pile property to show the image stack.
+ *    -- Set the pile property to show the image stack.
  */
 import React from 'react'
 import { Image } from 'shineout'

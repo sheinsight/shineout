@@ -21,7 +21,7 @@ const examples = [
   },
   {
     name: '02-label',
-    title: locate('标签 \n 通过 labelWidth 和 labelAlign 改变标签宽度和对齐方式', 'Label \n Setting labelWidth and labelAlign to change label with and alignment.'),
+    title: locate('标签 \n 通过 labelWidth 和 labelAlign 改变标签宽度和对齐方式', 'Label \n Set labelWidth and labelAlign to change label with and alignment.'),
     component: require('doc/pages/components/Form/example-02-label.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-02-label.js'),
   },
@@ -33,19 +33,19 @@ const examples = [
   },
   {
     name: '04-inline',
-    title: locate('水平布局 \n 设置 inline 属性使 Form 变为水平布局', 'Inline \n Setting the inline to true make the Form horizontal.'),
+    title: locate('水平布局 \n 设置 inline 属性使 Form 变为水平布局', 'Inline \n Set the inline to true make the Form horizontal.'),
     component: require('doc/pages/components/Form/example-04-inline.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-04-inline.js'),
   },
   {
     name: '05-tip',
-    title: locate('提示信息 \n 在 Form.Item 上设置提示文案时，提示文案始终显示在组件下方。', 'Tips \n Setting the tip property on Form.Item, the prompt text is displayed below the component.'),
+    title: locate('提示信息 \n 在 Form.Item 上设置提示文案时，提示文案始终显示在组件下方。', 'Tips \n Set the tip property on Form.Item, the prompt text is displayed below the component.'),
     component: require('doc/pages/components/Form/example-05-tip.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-05-tip.js'),
   },
   {
     name: '06-tip',
-    title: locate(' \n 在 Input 或 Input.Group 上设置的 tip，会在组件 focus 时弹出显示。通过 popover 可以控制弹出位置。', ' \n Setting the tip property on the Input or Input.Group will pop up when the component is focused. The position where it pop up can be controlled via popover property.'),
+    title: locate(' \n 在 Input 或 Input.Group 上设置的 tip，会在组件 focus 时弹出显示。通过 popover 可以控制弹出位置。', ' \n Set the tip property on the Input or Input.Group will pop up when the component is focused. The position where it pop up can be controlled via popover property.'),
     component: require('doc/pages/components/Form/example-06-tip.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-06-tip.js'),
   },
@@ -57,7 +57,7 @@ const examples = [
   },
   {
     name: '08-validate',
-    title: locate(' \n 某些复杂的数据，如多层嵌套的数据，可以在单个元素上设置 rules \n 设置 scrollToError 属性，在 form 提交校验失败时自动滚动到第一个错误的组件', ' \n Some complex data, such as multi-level nested data, can set rules on a single element. \n Setting the scrollToError property, scroll to the first invalid element when the form submission validation fails.'),
+    title: locate(' \n 某些复杂的数据，如多层嵌套的数据，可以在单个元素上设置 rules \n 设置 scrollToError 属性，在 form 提交校验失败时自动滚动到第一个错误的组件', ' \n Some complex data, such as multi-level nested data, can set rules on a single element. \n Set the scrollToError property, scroll to the first invalid element when the form submission validation fails.'),
     component: require('doc/pages/components/Form/example-08-validate.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-08-validate.js'),
   },

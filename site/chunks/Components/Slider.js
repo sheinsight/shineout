@@ -21,19 +21,19 @@ const examples = [
   },
   {
     name: '02-range',
-    title: locate('范围选择 \n 设置 range 属性显示为双滑块，输入(返回)值为长度为 2 的数组', 'Range \n Set the range property to display it as a double slider, and enter (return) value is an array of length 2.'),
+    title: locate('范围选择 \n 设置 range 属性显示为双滑块，输入(返回)值为长度为 2 的数组', 'Range \n Set the range property to display double sliders, and value is an array of length 2.'),
     component: require('doc/pages/components/Slider/example-02-range.js').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-02-range.js'),
   },
   {
     name: '03-scale',
-    title: locate('区间 \n 设置 scale 属性可以自定义区间，可以为非连续数值', 'Scale \n Set the scale property to customize the interval, which can be a non-continuous value.'),
+    title: locate('区间 \n 设置 scale 属性可以自定义区间。', 'Scale \n Set the scale property to customize the interval.'),
     component: require('doc/pages/components/Slider/example-03-scale.js').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-03-scale.js'),
   },
   {
     name: '04-format',
-    title: locate('格式化 \n 通过 formatScale 属性自定义刻度显示信息 \n 通过 formatValue 属性自定义值显示信息', 'Format \n Customize the information of the displayed scale through the formatScale property. \n Customize the information of the displayed value through the formatValue.'),
+    title: locate('格式化 \n 通过 formatScale 属性自定义刻度显示信息 \n 通过 formatValue 属性自定义值显示信息', 'Format \n Set the formatScale property to customize the display scale. \n Set the formatValue property to customize the display value.'),
     component: require('doc/pages/components/Slider/example-04-format.js').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-04-format.js'),
   },
@@ -51,13 +51,13 @@ const examples = [
   },
   {
     name: '07-hide',
-    title: locate('隐藏信息 \n autoHide 选项为 true 时，自动隐藏当前值和刻度', 'autoHide \n When then autoHide property is true, automatically hide current values and scales.'),
+    title: locate('隐藏信息 \n autoHide 选项为 true 时，自动隐藏当前值和刻度', 'Hide value \n When then autoHide property is true, automatically hide current values and scales.'),
     component: require('doc/pages/components/Slider/example-07-hide.js').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-07-hide.js'),
   },
   {
     name: '08-hide',
-    title: locate(' \n 如果要彻底不显示刻度和当前值，设置 formatValue 和 fotmatScale 为 false', 'autoHide \n Set formatValue and fotmatScale to false if you don\'t want to display the scale and current values completely.'),
+    title: locate(' \n 如果要彻底不显示刻度和当前值，设置 formatValue 和 fotmatScale 为 false', ' \n Set formatValue and fotmatScale to false to hide the scale and current values completely.'),
     component: require('doc/pages/components/Slider/example-08-hide.js').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-08-hide.js'),
   },
@@ -69,7 +69,7 @@ const examples = [
   },
   {
     name: '10-vertical',
-    title: locate('垂直 \n 设置 vertical 属性，修改组件为垂直方向', 'Vertical \n Set the vertical property to modify the component to be vertical.'),
+    title: locate('垂直 \n 设置 vertical 属性，修改组件为垂直方向', 'Vertical \n Set the vertical property to change the component vertical.'),
     component: require('doc/pages/components/Slider/example-10-vertical.js').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-10-vertical.js'),
   },

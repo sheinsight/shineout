@@ -27,13 +27,13 @@ const examples = [
   },
   {
     name: '3-position',
-    title: locate('弹出位置 \n 设置 position 属性可以控制下拉菜单弹出的方向和位置', 'Position \n Setting position property can control the direction and position of the drop-down menu.'),
+    title: locate('弹出位置 \n 设置 position 属性可以控制下拉菜单弹出的方向和位置', 'Position \n Set position property can control the direction and position of the drop-down menu.'),
     component: require('doc/pages/components/Dropdown/example-3-position.js').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-3-position.js'),
   },
   {
     name: '4-items',
-    title: locate('多列平铺 \n 设置 columns 属性可以让选项多列平铺', 'Multiple columns \n Setting columns property can make the option multi-column tiled.'),
+    title: locate('多列平铺 \n 设置 columns 属性可以让选项多列平铺', 'Multiple columns \n Set columns property can make the option multi-column tiled.'),
     component: require('doc/pages/components/Dropdown/example-4-items.js').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-4-items.js'),
   },

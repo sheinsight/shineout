@@ -2,7 +2,7 @@
  * cn - 垂直
  *    -- 设置 vertical 属性，修改组件为垂直方向
  * en - Vertical
- *    -- Set the vertical property to modify the component to be vertical.
+ *    -- Set the vertical property to change the component vertical.
  */
 import React from 'react'
 import { Slider } from 'shineout'

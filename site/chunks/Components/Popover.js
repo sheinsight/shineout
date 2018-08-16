@@ -27,7 +27,7 @@ const examples = [
   },
   {
     name: '3-click',
-    title: locate('点击触发 \n 默认是移入组件触发，设置 trigger 为 \'click\'，可以改为点击触发', 'Click \n The default is to move to  the component to trigger. Setting the trigger property to click can change to click to trigger.'),
+    title: locate('点击触发 \n 默认是移入组件触发，设置 trigger 为 \'click\'，可以改为点击触发', 'Click \n The default is to move to  the component to trigger. Set the trigger property to click can change to click to trigger.'),
     component: require('doc/pages/components/Popover/example-3-click.js').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-3-click.js'),
   },

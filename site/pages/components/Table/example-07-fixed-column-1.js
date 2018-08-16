@@ -2,7 +2,7 @@
  * cn - 固定列
  *    -- 设置 column 的 fixed 属性，可以固定列。只在设置了表格的 width 属性，并且 width 大于外部容器情况下才会生效
  * en - Fixed column
- *    -- Setting the fixed property of the column can fix the column and this will only take effect if the table's width property is set and width is greater than the external container.
+ *    -- Set the fixed property of the column can fix the column and this will only take effect if the table's width property is set and width is greater than the external container.
  */
 import React from 'react'
 import { Table } from 'shineout'

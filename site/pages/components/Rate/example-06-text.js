@@ -2,7 +2,7 @@
  * cn - 附加文字
  *    -- text 属性可以为每个选项附加文字
  * en - Text
- *    -- Setting text property to append text to each item.
+ *    -- Set text property to append text to each item.
  */
 import React from 'react'
 import { Rate } from 'shineout'

@@ -2,7 +2,7 @@
  * cn - 可清空
  *    -- clearable 属性为 true 时，hover 后会显示清空图标。
  * en - Clearable
- *    -- Setting the clearable property to true, the clear icon will be displayed on hover.
+ *    -- Set the clearable property to true, the clear icon will be displayed on hover.
  */
 import React from 'react'
 import { Select } from 'shineout'

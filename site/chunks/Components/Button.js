@@ -39,13 +39,13 @@ const examples = [
   },
   {
     name: '5-loading',
-    title: locate('加载中 \n 设定 loading 属性，可以让按钮变成加载中状态', 'Loading \n Setting loading property can add a loading indicator to button.'),
+    title: locate('加载中 \n 设定 loading 属性，可以让按钮变成加载中状态', 'Loading \n Set loading property can add a loading indicator to button.'),
     component: require('doc/pages/components/Button/example-5-loading.js').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-5-loading.js'),
   },
   {
     name: '6-href',
-    title: locate('链接 \n 设置 href 属性，按钮会渲染为 a 标签，同时可以设置 target 属性', 'Link \n Setting the href attribute, the button will be rendered as <a> tag and you can also set the target property.'),
+    title: locate('链接 \n 设置 href 属性，按钮会渲染为 a 标签，同时可以设置 target 属性', 'Link \n Set the href attribute, the button will be rendered as <a> tag and you can also set the target property.'),
     component: require('doc/pages/components/Button/example-6-href.js').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-6-href.js'),
   },

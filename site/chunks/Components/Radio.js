@@ -45,7 +45,7 @@ const examples = [
   },
   {
     name: '6-disabled',
-    title: locate('禁用 \n 设置 disabled 为 true 时，禁用所有选项', 'Disabled \n Setting disabled property is set to true, all the options is disabled.'),
+    title: locate('禁用 \n 设置 disabled 为 true 时，禁用所有选项', 'Disabled \n Set disabled property is set to true, all the options is disabled.'),
     component: require('doc/pages/components/Radio/example-6-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/Radio/example-6-disabled.js'),
   },

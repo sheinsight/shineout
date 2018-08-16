@@ -39,7 +39,7 @@ const examples = [
   },
   {
     name: '06-text',
-    title: locate('附加文字 \n text 属性可以为每个选项附加文字', 'Text \n Setting text property to append text to each item.'),
+    title: locate('附加文字 \n text 属性可以为每个选项附加文字', 'Text \n Set text property to append text to each item.'),
     component: require('doc/pages/components/Rate/example-06-text.js').default,
     rawText: require('!raw-loader!doc/pages/components/Rate/example-06-text.js'),
   },
@@ -57,7 +57,7 @@ const examples = [
   },
   {
     name: '09-array',
-    title: locate('不重复选项 \n 默认情况下，会重复显示当前分值对应的选项，设置 repeat 属性为 false 可以按分值显示不同选项。', 'No Repeat \n By default, the item corresponding to the current value is displayed repeatedly. Setting repeat property to false to display different item by value.'),
+    title: locate('不重复选项 \n 默认情况下，会重复显示当前分值对应的选项，设置 repeat 属性为 false 可以按分值显示不同选项。', 'No Repeat \n By default, the item corresponding to the current value is displayed repeatedly. Set repeat property to false to display different item by value.'),
     component: require('doc/pages/components/Rate/example-09-array.js').default,
     rawText: require('!raw-loader!doc/pages/components/Rate/example-09-array.js'),
   },

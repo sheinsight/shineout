@@ -39,13 +39,13 @@ const examples = [
   },
   {
     name: '06-fixed-header',
-    title: locate('固定表头 \n 设置 fixed 属性为 \'both\' 或 \'y\'，可以固定表头，需要设置整个表格的高度', 'Fixed head \n Setting the fixed property to both or y can fix the table header. You need to set the height of the entire table.'),
+    title: locate('固定表头 \n 设置 fixed 属性为 \'both\' 或 \'y\'，可以固定表头，需要设置整个表格的高度', 'Fixed head \n Set the fixed property to both or y can fix the table header. You need to set the height of the entire table.'),
     component: require('doc/pages/components/Table/example-06-fixed-header.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-06-fixed-header.js'),
   },
   {
     name: '07-fixed-column-1',
-    title: locate('固定列 \n 设置 column 的 fixed 属性，可以固定列。只在设置了表格的 width 属性，并且 width 大于外部容器情况下才会生效', 'Fixed column \n Setting the fixed property of the column can fix the column and this will only take effect if the table\'s width property is set and width is greater than the external container.'),
+    title: locate('固定列 \n 设置 column 的 fixed 属性，可以固定列。只在设置了表格的 width 属性，并且 width 大于外部容器情况下才会生效', 'Fixed column \n Set the fixed property of the column can fix the column and this will only take effect if the table\'s width property is set and width is greater than the external container.'),
     component: require('doc/pages/components/Table/example-07-fixed-column-1.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-07-fixed-column-1.js'),
   },
@@ -63,7 +63,7 @@ const examples = [
   },
   {
     name: '09-loading',
-    title: locate('加载中 \n 设置 loading 属性可以将表格状态设置为加载中', 'Loading \n Setting the loading property can set the table state to loading.'),
+    title: locate('加载中 \n 设置 loading 属性可以将表格状态设置为加载中', 'Loading \n Set the loading property can set the table state to loading.'),
     component: require('doc/pages/components/Table/example-09-loading.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-09-loading.js'),
   },
@@ -93,7 +93,7 @@ const examples = [
   },
   {
     name: '13-merge-cell',
-    title: locate('合并行/列 \n 设置 column 的 rowSpan 可以合并行，rowSpan 为函数，会传入相邻的两行数据，根据此函数返回结果(bool)判断是否合并行 \n 设置 column 的 colSpan 可以合并列，colSpan 为函数，传入参数为当前行数据，函数返回结果为需要向后合并的列数，不合并返回 1 \n 一个单元格同时指定了rowSpan和colSpan时，如果两行的colSpan计算结果不同，这两行不会合并', 'rowSpan & colSpan \n Setting column\'s rowSpan property can merge rows. The rowSpan property is a function that passed in two adjacent rows of data and determine whether to merge rows according to the result returned by this function. \n Setting column\'s colSpan property can merge columns. The colSpan property is a function that passed in current row of data and the result returned by this function is as the number of columns that need to be merged. If not need to be merged, this function return 1. \n When a cell specifies both rowSpan and colSpan, if the colSpan\'s calculation results of the two rows are different, the two rows will not be merged.'),
+    title: locate('合并行/列 \n 设置 column 的 rowSpan 可以合并行，rowSpan 为函数，会传入相邻的两行数据，根据此函数返回结果(bool)判断是否合并行 \n 设置 column 的 colSpan 可以合并列，colSpan 为函数，传入参数为当前行数据，函数返回结果为需要向后合并的列数，不合并返回 1 \n 一个单元格同时指定了rowSpan和colSpan时，如果两行的colSpan计算结果不同，这两行不会合并', 'rowSpan & colSpan \n Set column\'s rowSpan property can merge rows. The rowSpan property is a function that passed in two adjacent rows of data and determine whether to merge rows according to the result returned by this function. \n Set column\'s colSpan property can merge columns. The colSpan property is a function that passed in current row of data and the result returned by this function is as the number of columns that need to be merged. If not need to be merged, this function return 1. \n When a cell specifies both rowSpan and colSpan, if the colSpan\'s calculation results of the two rows are different, the two rows will not be merged.'),
     component: require('doc/pages/components/Table/example-13-merge-cell.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-13-merge-cell.js'),
   },
@@ -105,7 +105,7 @@ const examples = [
   },
   {
     name: '15-select-1',
-    title: locate('选择行 \n 设置 onRowChange 属性，会自动添加选择列', 'Select \n Setting the onRowChange property will automatically add a selection column.'),
+    title: locate('选择行 \n 设置 onRowChange 属性，会自动添加选择列', 'Select \n Set the onRowChange property will automatically add a selection column.'),
     component: require('doc/pages/components/Table/example-15-select-1.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-15-select-1.js'),
   },

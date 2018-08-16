@@ -63,7 +63,7 @@ const examples = [
   },
   {
     name: '09-disabled',
-    title: locate('禁用 \n 设置 Checkbox.Group 的 disabled 为 true，禁用全部选项', 'Disabled \n Setting the disabled property of Checkbox.Group to true, disable all the checkboxes.'),
+    title: locate('禁用 \n 设置 Checkbox.Group 的 disabled 为 true，禁用全部选项', 'Disabled \n Set the disabled property of Checkbox.Group to true, disable all the checkboxes.'),
     component: require('doc/pages/components/Checkbox/example-09-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-09-disabled.js'),
   },
@@ -75,7 +75,7 @@ const examples = [
   },
   {
     name: '11-input',
-    title: locate('带输入 \n 设置 inputable 属性可以显示输入框，返回值为输入框内容', 'Inputable \n Setting the inputable property to true can show the input box and the return value is the value of the input box.'),
+    title: locate('带输入 \n 设置 inputable 属性可以显示输入框，返回值为输入框内容', 'Inputable \n Set the inputable property to true can show the input box and the return value is the value of the input box.'),
     component: require('doc/pages/components/Checkbox/example-11-input.js').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-11-input.js'),
   },

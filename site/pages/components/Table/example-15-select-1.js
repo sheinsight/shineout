@@ -2,7 +2,7 @@
  * cn - 选择行
  *    -- 设置 onRowChange 属性，会自动添加选择列
  * en - Select
- *    -- Setting the onRowChange property will automatically add a selection column.
+ *    -- Set the onRowChange property will automatically add a selection column.
  */
 import React, { PureComponent } from 'react'
 import { Table } from 'shineout'

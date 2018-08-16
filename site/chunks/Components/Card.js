@@ -33,7 +33,7 @@ const examples = [
   },
   {
     name: '4-collapse',
-    title: locate('折叠 \n 设置 collapsible 可以折叠 Card，通过 collapsed 或 defaultCollapsed 属性控制状态', 'Collapse \n Setting collapsible can collapse the Card and control state through collapsed or defaultCollapsed property.'),
+    title: locate('折叠 \n 设置 collapsible 可以折叠 Card，通过 collapsed 或 defaultCollapsed 属性控制状态', 'Collapse \n Set collapsible can collapse the Card and control state through collapsed or defaultCollapsed property.'),
     component: require('doc/pages/components/Card/example-4-collapse.js').default,
     rawText: require('!raw-loader!doc/pages/components/Card/example-4-collapse.js'),
   },

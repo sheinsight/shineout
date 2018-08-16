@@ -1,8 +1,8 @@
 /**
  * cn -
  *    -- 如果要彻底不显示刻度和当前值，设置 formatValue 和 fotmatScale 为 false
- * en - autoHide
- *    -- Set formatValue and fotmatScale to false if you don't want to display the scale and current values completely.
+ * en -
+ *    -- Set formatValue and fotmatScale to false to hide the scale and current values completely.
  */
 import React from 'react'
 import { Slider } from 'shineout'

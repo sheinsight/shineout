@@ -2,7 +2,7 @@
  * cn - 点击触发
  *    -- 默认是移入组件触发，设置 trigger 为 'click'，可以改为点击触发
  * en - Click
- *    -- The default is to move to  the component to trigger. Setting the trigger property to click can change to click to trigger.
+ *    -- The default is to move to  the component to trigger. Set the trigger property to click can change to click to trigger.
  */
 import React from 'react'
 import { Button, Popover, Card } from 'shineout'

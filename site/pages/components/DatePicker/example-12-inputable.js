@@ -2,7 +2,7 @@
  * cn - 可输入
  *    -- 设置 inputable 使日期可输入
  * en - Inputable
- *    -- Setting inputable to true, you can change the value by input
+ *    -- Set inputable to true, you can change the value by input
  */
 import React from 'react'
 import { DatePicker } from 'shineout'

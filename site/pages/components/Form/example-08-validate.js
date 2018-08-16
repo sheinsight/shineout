@@ -4,7 +4,7 @@
  *    -- 设置 scrollToError 属性，在 form 提交校验失败时自动滚动到第一个错误的组件
  * en -
  *    -- Some complex data, such as multi-level nested data, can set rules on a single element.
- *    -- Setting the scrollToError property, scroll to the first invalid element when the form submission validation fails.
+ *    -- Set the scrollToError property, scroll to the first invalid element when the form submission validation fails.
  */
 import React from 'react'
 import { Form, Input, Checkbox } from 'shineout'

@@ -45,7 +45,7 @@ const examples = [
   },
   {
     name: '6-close',
-    title: locate('点击空白关闭 \n 默认点击对话框外部空白页面会关闭对话框。 \n 设置 maskCloseAble 属性为 false，禁用点击空白关闭，同时右上角的关闭图标也会隐藏。 \n 设置 maskCloseAble 属性为 null，禁用点击空白关闭，右上角的关闭图标会保留。', 'MaskCloseAble \n By default, clicking on the blank page outside the Modal box closes the Modal box. \n Setting maskCloseAble to false can disable the function that click blank to close and the close icon in the upper right corner will also be hidden at the same time. \n Setting maskCloseAbel to null can disable the function that click blank to close and the close icon in the upper right corner will be preserved.'),
+    title: locate('点击空白关闭 \n 默认点击对话框外部空白页面会关闭对话框。 \n 设置 maskCloseAble 属性为 false，禁用点击空白关闭，同时右上角的关闭图标也会隐藏。 \n 设置 maskCloseAble 属性为 null，禁用点击空白关闭，右上角的关闭图标会保留。', 'MaskCloseAble \n By default, clicking on the blank page outside the Modal box closes the Modal box. \n Set maskCloseAble to false can disable the function that click blank to close and the close icon in the upper right corner will also be hidden at the same time. \n Set maskCloseAbel to null can disable the function that click blank to close and the close icon in the upper right corner will be preserved.'),
     component: require('doc/pages/components/Modal/example-6-close.js').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-6-close.js'),
   },

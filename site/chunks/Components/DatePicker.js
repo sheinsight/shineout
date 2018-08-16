@@ -75,7 +75,7 @@ const examples = [
   },
   {
     name: '12-inputable',
-    title: locate('可输入 \n 设置 inputable 使日期可输入', 'Inputable \n Setting inputable to true, you can change the value by input'),
+    title: locate('可输入 \n 设置 inputable 使日期可输入', 'Inputable \n Set inputable to true, you can change the value by input'),
     component: require('doc/pages/components/DatePicker/example-12-inputable.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-12-inputable.js'),
   },

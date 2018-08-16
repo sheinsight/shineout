@@ -21,7 +21,7 @@ const examples = [
   },
   {
     name: '02-format',
-    title: locate('数据处理 \n 设置 format 选项把数据对象格式化为指定的 value', 'Datum \n Setting format property to format the data object to the specified value.'),
+    title: locate('数据处理 \n 设置 format 选项把数据对象格式化为指定的 value', 'Datum \n Set format property to format the data object to the specified value.'),
     component: require('doc/pages/components/Select/example-02-format.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-02-format.js'),
   },
@@ -33,7 +33,7 @@ const examples = [
   },
   {
     name: '04-clearable',
-    title: locate('可清空 \n clearable 属性为 true 时，hover 后会显示清空图标。', 'Clearable \n Setting the clearable property to true, the clear icon will be displayed on hover.'),
+    title: locate('可清空 \n clearable 属性为 true 时，hover 后会显示清空图标。', 'Clearable \n Set the clearable property to true, the clear icon will be displayed on hover.'),
     component: require('doc/pages/components/Select/example-04-clearable.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-04-clearable.js'),
   },
@@ -45,7 +45,7 @@ const examples = [
   },
   {
     name: '05-multiple',
-    title: locate('多选 \n multiple 属性为true时，为多选状态，默认为单选', 'Multiple \n Setting the multiple property to true, it is multi-selection.'),
+    title: locate('多选 \n multiple 属性为true时，为多选状态，默认为单选', 'Multiple \n Set the multiple property to true, it is multi-selection.'),
     component: require('doc/pages/components/Select/example-05-multiple.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-05-multiple.js'),
   },
@@ -81,7 +81,7 @@ const examples = [
   },
   {
     name: '11-create',
-    title: locate('创建选项 \n 设置 onCreate 属性可以通过输入创建选项', 'Create by input \n Setting the onCreate property can create options by inputting.'),
+    title: locate('创建选项 \n 设置 onCreate 属性可以通过输入创建选项', 'Create by input \n Set the onCreate property can create options by inputting.'),
     component: require('doc/pages/components/Select/example-11-create.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-11-create.js'),
   },
