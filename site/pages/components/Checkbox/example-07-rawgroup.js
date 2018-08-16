@@ -2,7 +2,7 @@
  * cn -
  *    -- 可以按 React 组件方式使用
  * en -
- *    -- It can be used like the React Component.
+ *    -- A series of checkboxes can group by Checkbox.Group.
  */
 import React from 'react'
 import { Checkbox } from 'shineout'

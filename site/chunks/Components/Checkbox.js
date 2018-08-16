@@ -51,7 +51,7 @@ const examples = [
   },
   {
     name: '07-rawgroup',
-    title: locate(' \n 可以按 React 组件方式使用', ' \n It can be used like the React Component.'),
+    title: locate(' \n 可以按 React 组件方式使用', ' \n A series of checkboxes can group by Checkbox.Group.'),
     component: require('doc/pages/components/Checkbox/example-07-rawgroup.js').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-07-rawgroup.js'),
   },

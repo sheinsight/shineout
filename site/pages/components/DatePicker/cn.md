@@ -21,7 +21,7 @@
 
 ### Format
 
-常用的 format 格式如下
+常用的 format 格式如下，更多见 [UTS #35](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table)
 
 | 格式 | 说明 | 示例 |
 | --- | --- | --- |

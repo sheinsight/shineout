@@ -21,13 +21,13 @@ const examples = [
   },
   {
     name: '2-format',
-    title: locate('复杂数据 \n 复杂的数据可以使用 format 处理 value', 'Complex data \n Complex data can be processed using format.'),
+    title: locate('复杂数据 \n 复杂的数据可以使用 format 处理 value', 'Complex data \n Complex data can use format to process value.'),
     component: require('doc/pages/components/Radio/example-2-format.js').default,
     rawText: require('!raw-loader!doc/pages/components/Radio/example-2-format.js'),
   },
   {
     name: '3-datum',
-    title: locate(' \n 当 format 不能满足需求时，可以使用 Datum.List 进行处理', ' \n When format does not meet the requirements, it can be processed using Datum.List .'),
+    title: locate(' \n 当 format 不能满足需求时，可以使用 Datum.List 进行处理', ' \n When the format does not satisfied your requirements, you can use <a href="#/components/Datum.List">Data.List</a> istead.'),
     component: require('doc/pages/components/Radio/example-3-datum.js').default,
     rawText: require('!raw-loader!doc/pages/components/Radio/example-3-datum.js'),
   },
