@@ -15,7 +15,14 @@ class Option extends PureComponent {
       data, onClick, isActive, index,
     } = this.props
 
+    if (this.locked) return
+    this.locked = true
+
     onClick(!isActive, data, index)
+
+    setTimeout(() => {
+      this.locked = false
+    }, 200)
   }
 
   handleHover() {
