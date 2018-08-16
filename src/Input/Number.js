@@ -54,6 +54,7 @@ class Number extends PureComponent {
   }
 
   changeValue(mod) {
+    if (this.props.disabled) return
     let value = parseFloat(this.props.value)
     // eslint-disable-next-line
     if (isNaN(value)) value = 0
@@ -137,6 +138,7 @@ class Number extends PureComponent {
 }
 
 Number.propTypes = {
+  disabled: PropTypes.bool,
   min: PropTypes.number,
   max: PropTypes.number,
   onBlur: PropTypes.func.isRequired,
