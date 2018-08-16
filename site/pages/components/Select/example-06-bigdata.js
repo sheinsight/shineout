@@ -1,8 +1,8 @@
 /**
  * cn - 性能
  *    -- Select 内部用懒加载机制来优化性能，本例加载了10000条数据。
- * en - Datum
- *    -- Select uses a lazy loading mechanism to optimize performance. This example loads 10,000 pieces of data.
+ * en - Performance
+ *    -- Select uses a lazy loading to optimize performance. This example loads 10,000 pieces of data.
  */
 import React from 'react'
 import { Select } from 'shineout'

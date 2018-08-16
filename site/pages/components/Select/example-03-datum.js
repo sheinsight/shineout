@@ -2,7 +2,7 @@
  * cn -
  *    -- 如果 format 属性不能满足需求，可以借助 Datum.List 来处理
  * en -
- *    -- If the format attribute does not meet the requirements, it can be handled with Datum.List.
+ *    -- When the format does not satisfied your requirements, you can use <a href="#/components/Datum.List">Data.List</a> istead.
  */
 import React from 'react'
 import { Select } from 'shineout'

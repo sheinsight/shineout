@@ -1,8 +1,8 @@
 /**
  * cn - 大小
- *    -- 有三种 size，['small', default, 'large']，默认为 default(不要填写)
+ *    -- 有三种 size，['small', default, 'large']
  * en - Size
- *    -- There are three sizes, ['small', default, 'large'], and the default value is default(do not fill in).
+ *    -- There are three sizes, ['small', default, 'large']
  */
 import React from 'react'
 import { Select } from 'shineout'

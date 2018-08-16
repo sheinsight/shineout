@@ -2,7 +2,7 @@
  * cn - 多选
  *    -- multiple 属性为true时，为多选状态，默认为单选
  * en - Multiple
- *    -- When the multiple property is true, it is multi-selection. The default is single-selection.
+ *    -- Setting the multiple property to true, it is multi-selection.
  */
 import React from 'react'
 import { Select } from 'shineout'
