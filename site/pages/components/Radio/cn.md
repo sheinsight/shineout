@@ -1,5 +1,4 @@
 # Radio *单选框*
-单选框通常需要一组 (Radio.Group) 使用。
 
 <example />
 
