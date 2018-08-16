@@ -132,13 +132,14 @@ class Select extends PureComponent {
     if (control !== this.state.control) this.setState({ control })
   }
 
-  handleChange(checked, data) {
+  handleChange(_, data) {
     const {
       datum, multiple, disabled, onFilter,
     } = this.props
-    if (disabled) return
+    if (disabled === true) return
 
     if (multiple) {
+      const checked = !datum.check(data)
       if (checked) {
         datum.add(data)
         this.setState(immer((state) => {
