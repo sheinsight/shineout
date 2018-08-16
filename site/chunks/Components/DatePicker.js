@@ -69,7 +69,7 @@ const examples = [
   },
   {
     name: '11-disabled',
-    title: locate(' \n disabled 为函数时，禁用返回为true的选项', ' \n When the disabled is a function, disbale the option that return true.'),
+    title: locate(' \n disabled 为函数时，禁用返回为true的选项', ' \n When the disabled is a function, disbale the option that the function to return true.'),
     component: require('doc/pages/components/DatePicker/example-11-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-11-disabled.js'),
   },

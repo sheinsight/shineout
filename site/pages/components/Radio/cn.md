@@ -6,6 +6,14 @@
 
 Radio 不能单独使用
 
+### Radio
+
+| 属性 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| checked | bool \| 'indeterminate' | 无 | checked 传入时为受控组件 |
+| disabled | bool | false | 是否禁用 |
+| htmlValue | any | true | 选中时返回值 |
+
 ### Radio.Group
 
 | 属性 | 类型 | 默认值 | 说明 |

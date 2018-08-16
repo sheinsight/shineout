@@ -1,8 +1,8 @@
 /**
- * cn - 一组多选框
- *    -- Checkbox.Group 可以渲染一组 Checkbox
- * en - Group
- *    -- Checkbox.Group can render a group of checkbox.
+ * cn -
+ *    -- 可以直接通过数据来渲染一组 Checkbox
+ * en -
+ *    -- Render a group of checkboxes from data.
  */
 import React from 'react'
 import { Checkbox } from 'shineout'

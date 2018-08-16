@@ -6,6 +6,14 @@
 
 Radio cannot be used alone.
 
+### Radio
+
+| Property | Type | Default | Description |
+| --- | --- | --- | --- |
+| checked | bool \| 'indeterminate' | - | if not set, use (value === htmlValue). |
+| disabled | bool | false | disable checkbox |
+| htmlValue | any | true | Specifies the result |
+
 ### Radio.Group
 
 | Property | Type | Default | Description |

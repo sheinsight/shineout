@@ -2,7 +2,7 @@
  * cn -
  *    -- disabled 为函数时，根据函数结果实现有条件禁用
  * en -
- *    -- When the disabled property is a function, realize conditional disabling according to the result of the function.
+ *    -- When the disabled is a function, disbale the option that the function to return true.
  */
 import React from 'react'
 import { Checkbox } from 'shineout'

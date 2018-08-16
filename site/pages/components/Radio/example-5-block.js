@@ -1,7 +1,7 @@
 /**
  * cn - 垂直布局
  *    -- 默认为水平布局，设置 block 属性可以改为垂直布局
- * en - Block
+ * en - Vertical layout
  *    -- The default is horizontal layout and setting the block property can changed it to be vertical layout.
  */
 import React from 'react'
