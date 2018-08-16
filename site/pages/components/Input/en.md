@@ -17,7 +17,7 @@
 | style | object | none | extend style |
 | tip | string \| ReactElement | | Prompt information |
 | type | string | | Same as the type of the native input tag |
-| value | string \| number | | The defaultValue and value can be set at the same time and defaultValue will be overridden by value<br />In the Form, the value will be taken over by the form and the value will be invalid. |
+| value | string \| number | | The defaultValue and value can be set at the same time and defaultValue will be overridden by value<br />In the Form, the value will be taken over by the form and the value will lose efficacy. |
 
 ### Input.Number
 
