@@ -138,8 +138,8 @@ class Select extends PureComponent {
     } = this.props
     if (disabled === true) return
 
+    const checked = !datum.check(data)
     if (multiple) {
-      const checked = !datum.check(data)
       if (checked) {
         datum.add(data)
         this.setState(immer((state) => {
@@ -152,8 +152,10 @@ class Select extends PureComponent {
       if (onFilter) onFilter()
       if (this.inputReset) this.inputReset()
     } else {
-      datum.set(data)
-      this.setState({ result: [data] })
+      if (checked) {
+        datum.set(data)
+        this.setState({ result: [data] })
+      }
       this.handleState(false)
     }
   }
