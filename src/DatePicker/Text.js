@@ -23,8 +23,12 @@ class Text extends PureComponent {
     } = this.props
     const txt = e.target.innerText
     if (txt === value) return
-    const newValue = utils.toDateWithFormat(txt, format, undefined)
-    onChange(newValue, index)
+    if (txt.trim().length === 0) {
+      onChange(undefined, index)
+    } else {
+      const newValue = utils.toDateWithFormat(txt, format, undefined)
+      onChange(newValue, index)
+    }
   }
 
   handleInput(e) {
