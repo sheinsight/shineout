@@ -15,7 +15,7 @@ export default function () {
 
       <Progress shape="circle" type="success" style={{ marginRight: 20 }} value={100}>Success</Progress>
 
-      <Progress shape="circle" color="#531dab" value={70} />
+      <Progress shape="circle" strokeLinecap="butt" color="#531dab" value={70} />
     </div>
   )
 }
