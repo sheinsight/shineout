@@ -143,7 +143,9 @@ class Container extends PureComponent {
 
   handleTextChange(date, index) {
     const format = this.getFormat()
-    const val = utils.format(date, format)
+    const val = date ? utils.format(date, format) : undefined
+    console.log(val)
+
     if (!this.props.range) {
       this.props.onChange(val, this.handleBlur)
       return
