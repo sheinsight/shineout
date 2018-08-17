@@ -19,6 +19,7 @@
 | params | object | none | Additional parameters submitted to the server |
 | recoverAble | bool | true | Whether to recover deleted values. |
 | renderResult | func | a => a | Display results |
+| request | func | - | Custom request method |
 | validator | object | none | Check file before uploading |
 | value | array | \[] | value |
 | withCredentials | bool | false | Whether to take the cookie |
@@ -32,7 +33,7 @@
 | renderResult | func | a => a | Return the link address of the url of the image.|
 
 
-### validator property
+### Validator
 
 | Property | Type | Description |
 | --- | --- | --- | --- |

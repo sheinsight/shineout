@@ -2,7 +2,7 @@
  * cn - 异常处理
  *    -- onUploadError 用来处理上传到服务器返回的异常
  * en - Error
- *    -- The onUploadError is used to handle exceptions returned by uploading to the server.
+ *    -- Set onUploadError to handle exceptions returned by uploading to the server.
  */
 import React from 'react'
 import { Upload, Button } from 'shineout'
