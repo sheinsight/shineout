@@ -53,14 +53,16 @@ class Block extends PureComponent {
   }
 
   render() {
-    const { children, labelWidth, rules } = this.props
+    const {
+      children, labelAlign, labelWidth, rules,
+    } = this.props
 
     if (rules && this.datum.rules !== rules) {
       this.datum.rules = rules
     }
 
     return (
-      <Provider value={{ formDatum: this.datum, labelWidth }}>
+      <Provider value={{ formDatum: this.datum, labelWidth, labelAlign }}>
         {children}
       </Provider>
     )
@@ -70,6 +72,7 @@ class Block extends PureComponent {
 Block.propTypes = {
   children: PropTypes.any,
   formDatum: PropTypes.object,
+  labelAlign: PropTypes.string,
   labelWidth: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,

@@ -20,7 +20,7 @@ class Item extends PureComponent {
 
   render() {
     const {
-      children, grid, label, labelWidth, required, formItemErrors, style,
+      children, grid, label, labelAlign, labelWidth, required, formItemErrors, style,
     } = this.props
 
     const className = classnames(
@@ -29,6 +29,7 @@ class Item extends PureComponent {
         'item',
         required && 'required',
         Object.keys(formItemErrors).length > 0 && 'invalid',
+        ['top', 'right'].indexOf(labelAlign) >= 0 && `label-align-${labelAlign}`,
       ),
       this.props.className,
     )
@@ -55,6 +56,7 @@ Item.propTypes = {
   className: PropTypes.string,
   formItemErrors: PropTypes.object,
   label: PropTypes.string,
+  labelAlign: PropTypes.string,
   labelWidth: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,

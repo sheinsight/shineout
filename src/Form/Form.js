@@ -61,7 +61,7 @@ class Form extends PureComponent {
 
   render() {
     const {
-      layout, style, inline, labelAlign, disabled, datum, rules,
+      layout, style, inline, disabled, datum, rules,
     } = this.props
 
     if (datum && rules && datum.rules !== rules) {
@@ -74,7 +74,6 @@ class Form extends PureComponent {
         layout,
         disabled && 'disabled',
         inline && 'inline',
-        ['top', 'right'].indexOf(labelAlign) >= 0 && `label-align-${labelAlign}`,
       ),
       this.props.className,
     )

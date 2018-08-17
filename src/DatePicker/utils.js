@@ -28,7 +28,6 @@ function getDaysOfMonth(dirtyDate) {
   while (current.getTime() < end.getTime()) {
     days.push(current)
     current = addDays(current, 1)
-    // console.log(current)
   }
 
   return days
