@@ -11,13 +11,32 @@ const style = { marginBottom: 12 }
 export default function () {
   return (
     <div>
-      <DatePicker range={86400 * 10} style={style} defaultValue={['2018-05-25', '2018-06-05']} />
+      <DatePicker
+        range={86400 * 10}
+        style={style}
+        defaultValue={['2018-05-25', '2018-06-05']}
+      />
       <br />
-      <DatePicker range={86400 * 100} type="month" style={style} placeholder={['first month', 'last-month']} />
+      <DatePicker
+        range={86400 * 100}
+        onChange={v => console.log(v)}
+        type="month"
+        style={style}
+        placeholder={['first month', 'last-month']}
+      />
       <br />
-      <DatePicker range={3600 * 6} type="time" format="HH:mm" style={style} />
+      <DatePicker
+        range={3600 * 6}
+        type="time"
+        format="HH:mm"
+        style={style}
+      />
       <br />
-      <DatePicker range type="datetime" onChange={d => console.log(d)} />
+      <DatePicker
+        range
+        type="datetime"
+        onChange={d => console.log(d)}
+      />
     </div>
   )
 }
