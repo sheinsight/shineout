@@ -2,7 +2,7 @@
  * cn - 基本用法
  *    -- 轮播组件提供了三种动画过渡方式，可以切换选项查看效果
  * en - Base
- *    -- The carousel component provides three modes of animation transition that can be switched to view the result.
+ *    -- The carousel component provides three modes of animation transition. Change the option to view the result.
  */
 import React, { Component } from 'react'
 import { Carousel, Select } from 'shineout'

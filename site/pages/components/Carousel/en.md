@@ -10,5 +10,4 @@
 | className | string | none | extend className |
 | indicatorPosition | string | 'center' | the position of indicator, options: \['left', 'center', 'right'] |
 | indicatorType | string | 'circle' | the style of indicator, options: \['circle', 'number', 'line'] |
-| interval | number | 0 | the interval of animation, When it is 0, do not play automatically |
-| style | object | none | the outermost extension style |
+| interval | number | 0 | the interval of animation, When it is not 0, play automatically |
