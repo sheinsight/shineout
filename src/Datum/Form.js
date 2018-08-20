@@ -54,12 +54,13 @@ function unflatten(data) {
 export default class {
   constructor(options = {}) {
     const {
-      removeUndefined = true, rules, onChange, value,
+      removeUndefined = true, rules, onChange, value, trim,
     } = options
     this.values = {}
     this.rules = rules
     this.onChange = onChange
     this.removeUndefined = removeUndefined
+    this.trimValue = trim
 
     // store raw form values
     this.$values = {}
@@ -114,9 +115,15 @@ export default class {
   }
 
   getValue() {
-    if (this.removeUndefined) {
+    if (this.removeUndefined || this.trimValue) {
       Object.keys(this.$values).forEach((k) => {
-        if (this.$values[k] === undefined) delete this.$values[k]
+        if (this.removeUndefined && this.$values[k] === undefined) {
+          delete this.$values[k]
+        }
+
+        if (this.trimValue && typeof this.$values[k] === 'string') {
+          this.$values[k] = this.$values[k].trim()
+        }
       })
     }
     return unflatten(this.$values)

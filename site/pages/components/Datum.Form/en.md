@@ -6,9 +6,9 @@ The auxiliary class of Form that process data for collecting and distributing da
 
 <code name="example" />
 
-See the actual use in [Form](#/components/Form)
+See the example use in [Form](#/components/Form)
 
-## Init parameters
+## Arguments
 
 ### removeUndefined *boolean*
 
@@ -18,7 +18,7 @@ Whether to remove the data whose value is undefined. Its default value is true.
 
 The callback function when the value is changing
 
-## function
+## Methods
 
 ### getValue *function():object*
 Get all object values of the current form.

@@ -18,6 +18,10 @@ Form 表单数据处理辅助类，用来收集和分发数据到输入组件。
 
 值变化时回调函数。
 
+### value *object*
+
+初始值
+
 ## 函数
 
 ### getValue *function():object*

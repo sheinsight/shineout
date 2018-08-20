@@ -43,11 +43,11 @@ export default function () {
   return (
     <Form style={{ maxWidth: 500 }} rules={rules} onSubmit={d => console.log(d)}>
       <Form.Item required label="Email">
-        <Input name="email" />
+        <Input name="email" trim />
       </Form.Item>
 
       <Form.Item required label="Password" tip="Use at least one letter, one numeral, and seven characters.">
-        <Input name="password" type="password" />
+        <Input name="password" trim type="password" />
       </Form.Item>
 
       <Form.Item label="Repeat Password">

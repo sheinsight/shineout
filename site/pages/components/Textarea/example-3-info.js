@@ -17,6 +17,6 @@ const renderInfo = (value) => {
 
 export default function () {
   return (
-    <Textarea rows={4} placeholder="input something" info={renderInfo} />
+    <Textarea rows={4} trim placeholder="input something" info={renderInfo} />
   )
 }
