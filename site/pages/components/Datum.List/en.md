@@ -1,12 +1,8 @@
 # Data.List data processing
 
-This is not a component, but a class that assists the component in data processing.
-
-There are many components in the project (such as Select, Table) that need to pass in complex data,
- and some interactive data that needs to be recorded and returned for submission. This class can assist such components in doing some data formatting.
+ The auxiliary class that process the array values.
  
- 
-## Sample
+## Example
 
 The data used in the example on this page is as follows:
 ```
@@ -20,12 +16,15 @@ const data = {
   violet: { id: 7, name: 'violet' },
 }
 ```
+
+<br />
+
 <code name="example" />
 
-## Initialize parameter
+## Arguments
 
 ### format  *null | string | function(d)*
-The format is used within the Datum to format complex data into required values, which can be null, string, and function.
+The format is used to convert the original data object to the specified value.
 
 - **null** - When it is null, the return value is the original data.
 - **string** - When it is a string, it will get the value from the original data as the key, which is equivalent to (d) => d\[format].
@@ -34,22 +33,22 @@ The format is used within the Datum to format complex data into required values,
 <code name="format" />
 
 ### onChange *function(value)*
-A callback function triggered when a value changes. Value is the formatted data for the format function.
+A callback function triggered when a value changes. Value is an array of the formatted data for the format function or string(separator is a string).
 
 <code name="onchange" />
 
 ### separator *null | string*
-The separator. When it is null, value retains the Array format. When it is not null, value is processed as a separator delimited string.
+When it is null, value is the Array format.
+
+When it is a string, value is a string delimited by the separator.
 
 <code name="separator" />
 
 ### prediction *function(val, d):bool*
-The value after being formatted is stored in the Datum, so the prediction function is required to determine whether the stored value is consistent with the original data. If it is noe set, this default value will be used:
+The value after being formatted is stored in the Datum, so the prediction function is required to determine whether the stored value is consistent with the original data. If it is noe set, this default prediction will be used:
 ```
 (val, d) => val === format(d)
 ```
-
-Usually used when value is a string type and the data format is inconsistent.
 
 <code name="prediction" />
 
@@ -61,7 +60,7 @@ Determines whether data items are disabled. If true is returned, the add and rem
 ### value *array | string*
 The initial value can be Array or String.
 
-## Function
+## Methods
 
 ### getValue *function():array|string*
 Get the current value. Return array or string depending on the separator setting.

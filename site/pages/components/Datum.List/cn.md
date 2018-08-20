@@ -46,7 +46,7 @@ Datum内部存储的是format之后的值，所以需要prediction函数来比�
 (val, d) => val === format(d)
 ```
 
-通常用在 value 为字符串类型时，数据格式不一致的情况。
+通常用在 value 为对象时，值相同却不是同一个对象等情况。
 
 <code name="prediction" />
 
