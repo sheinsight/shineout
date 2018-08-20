@@ -17,7 +17,7 @@ const rules = {
 
 // eslint-disable-next-line
 const Account = ({ value, onChange }) => (
-  <Form.Block labelWidth={50} value={value} onChange={onChange}>
+  <Form.Block labelWidth={50} labelAlign="top" value={value} onChange={onChange}>
     <Form.Item label="Name">
       <Form.Field name="name">
         <Form.Block>

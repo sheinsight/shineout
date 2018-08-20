@@ -143,8 +143,7 @@ class Container extends PureComponent {
 
   handleTextChange(date, index) {
     const format = this.getFormat()
-    const val = date ? utils.format(date, format) : undefined
-    console.log(val)
+    const val = date ? utils.format(date, format) : ''
 
     if (!this.props.range) {
       this.props.onChange(val, this.handleBlur)
@@ -179,7 +178,7 @@ class Container extends PureComponent {
 
   handleClear(e) {
     e.stopPropagation()
-    this.props.onChange(undefined)
+    this.props.onChange(undefined, this.props.onBlur)
     this.handleToggle(false)
   }
 

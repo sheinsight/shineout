@@ -9,6 +9,6 @@ import { Input } from 'shineout'
 
 export default function () {
   return (
-    <Input.Number width={120} min={23} max={100} type="number" />
+    <Input.Number width={120} min={23} max={100} digits={0} />
   )
 }

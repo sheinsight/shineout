@@ -5,7 +5,7 @@ import { progressClass } from '../styles'
 
 function Circle(props) {
   const {
-    children, strokeWidth, type, color, size, value, background,
+    children, strokeWidth, type, color, size, value, background, strokeLinecap,
   } = props
   const className = classnames(progressClass('circle', type), props.className)
 
@@ -37,7 +37,7 @@ function Circle(props) {
             fill="transparent"
             style={{ stroke: color }}
             strokeDasharray={dasharray}
-            strokeLinecap="round"
+            strokeLinecap={strokeLinecap}
             strokeWidth={strokeWidth * 2}
           />
         }
@@ -52,6 +52,7 @@ Circle.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
   color: PropTypes.string,
+  strokeLinecap: PropTypes.string,
   strokeWidth: PropTypes.number,
   size: PropTypes.number,
   style: PropTypes.object,
@@ -60,6 +61,7 @@ Circle.propTypes = {
 }
 
 Circle.defaultProps = {
+  strokeLinecap: 'round',
   strokeWidth: 8,
   size: 100,
 }

@@ -111,6 +111,7 @@ class Number extends PureComponent {
         onKeyDown={this.handleKeyDown}
         onKeyUp={this.handleKeyUp}
         onBlur={this.handleBlur}
+        type="number"
       />,
 
       <a

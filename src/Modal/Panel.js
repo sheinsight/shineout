@@ -6,6 +6,8 @@ import Card from '../Card'
 import { defaultProps, getProps } from '../utils/proptypes'
 import { modalClass } from '../styles'
 
+const noPaddingStyle = { padding: 0 }
+
 export default class Panel extends PureComponent {
   getStyle() {
     const { width, height, top } = this.props
@@ -18,15 +20,20 @@ export default class Panel extends PureComponent {
   }
 
   renderContent() {
-    const { children, title, type } = this.props
+    const {
+      children, noPadding, title, type,
+    } = this.props
 
-    if (type === 'default') return <Card.Body>{children}</Card.Body>
+    const style = noPadding ? noPaddingStyle : {}
+    style.overflow = 'auto'
+
+    if (type === 'default') return <Card.Body style={style}>{children}</Card.Body>
 
     const iconType = type.charAt(0).toUpperCase() + type.slice(1)
     const icon = Icons[iconType]
 
     return (
-      <Card.Body className={modalClass('body')}>
+      <Card.Body className={modalClass('body')} style={style}>
         { icon && <div className={modalClass('icon')}>{icon}</div> }
         { title && <div className={modalClass('title')}>{title}</div> }
         <div>{children}</div>
@@ -47,7 +54,6 @@ export default class Panel extends PureComponent {
     return [
       <div
         key="mask"
-        // style={{ background: `rgba(0, 0, 0, ${maskOpacity})` }}
         className={modalClass('mask')}
         onClick={maskCloseAble ? onClose : undefined}
       />,
@@ -80,6 +86,7 @@ Panel.propTypes = {
   footer: PropTypes.any,
   id: PropTypes.string.isRequired,
   maskCloseAble: PropTypes.bool,
+  noPadding: PropTypes.bool,
   onClose: PropTypes.func,
   title: PropTypes.oneOfType([
     PropTypes.string,

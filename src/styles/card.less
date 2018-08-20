@@ -21,10 +21,12 @@
   }
 
   &-header {
+    position: relative;
     padding: @panel-heading-padding;
     background-color: @panel-header-bg;
     border-bottom: 1px solid @panel-inner-border;
     margin-bottom: -1px;
+    z-index: 10;
 
     .@{card-prefix}-indicator {
       display: inline-block;
