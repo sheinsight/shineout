@@ -21,11 +21,11 @@ export default class Panel extends PureComponent {
 
   renderContent() {
     const {
-      children, noPadding, title, type,
+      children, noPadding, title, type, height,
     } = this.props
 
     const style = noPadding ? noPaddingStyle : {}
-    style.overflow = 'auto'
+    if (height) style.overflow = 'auto'
 
     if (type === 'default') return <Card.Body style={style}>{children}</Card.Body>
 
