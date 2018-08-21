@@ -2,7 +2,7 @@
  * cn - 控制展开
  *    -- 受控的展开（此示例数据量太大，第一次全部展开会比较慢）
  * en - Expanded
- *    -- Controlled expansion (Because the amount of data in this example is too large, it will be slower for the first time.)
+ *    -- Controlled expansion (Because the data in this example is too large, it will be slower for the first time.)
  */
 import React, { Component } from 'react'
 import { Button, Tree } from 'shineout'

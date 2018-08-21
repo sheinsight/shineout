@@ -21,13 +21,13 @@ const examples = [
   },
   {
     name: '02-icon',
-    title: locate('图标 \n 在 renderItem 中根据状态展示不同的图标', 'Icons \n Display different icon in the renderItem according to the state.'),
+    title: locate('图标 \n 在 renderItem 中根据状态展示不同的图标', 'Icons \n Display different icon in the renderItem.'),
     component: require('doc/pages/components/Tree/example-02-icon.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-02-icon.js'),
   },
   {
     name: '03-click',
-    title: locate('点击事件 \n 设置 onClick 属性监听节点点击', 'Click \n Set the onClick property to listen for clicks of the node.'),
+    title: locate('点击事件 \n 设置 onClick 属性监听节点点击', 'Click \n Set the onClick property to listen the node click.'),
     component: require('doc/pages/components/Tree/example-03-click.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-03-click.js'),
   },
@@ -39,7 +39,7 @@ const examples = [
   },
   {
     name: '05-expanded',
-    title: locate('控制展开 \n 受控的展开（此示例数据量太大，第一次全部展开会比较慢）', 'Expanded \n Controlled expansion (Because the amount of data in this example is too large, it will be slower for the first time.)'),
+    title: locate('控制展开 \n 受控的展开（此示例数据量太大，第一次全部展开会比较慢）', 'Expanded \n Controlled expansion (Because the data in this example is too large, it will be slower for the first time.)'),
     component: require('doc/pages/components/Tree/example-05-expanded.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-05-expanded.js'),
   },
@@ -63,7 +63,7 @@ const examples = [
   },
   {
     name: '09-lazyload',
-    title: locate('动态加载 \n 数据过大，需要动态加载时，可以设置 loader 函数，当展开未定义 children（undefined）的节点时，触发此函数', 'Lazy load \n When the data is so large that Dynamic loading is required, you can set the loader function. This function is triggered when the undefined child (undefined) node is expanded.'),
+    title: locate('动态加载 \n 数据过大，需要动态加载时，可以设置 loader 函数，当展开未定义 children（undefined）的节点时，触发此函数', 'Lazy load \n Set the loader function to dynamic fetch data. This function is triggered when the undefined child node is expanded.'),
     component: require('doc/pages/components/Tree/example-09-lazyload.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-09-lazyload.js'),
   },
