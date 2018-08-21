@@ -3,8 +3,7 @@
  *    -- 最基本的组件用法。
  *    -- Modal 会在 document.body 中创建一个新的层显示弹出内容。
  * en - Base
- *    -- The most basic usage for component.
- *    -- Modal will create a new layer in document.body to display the popup.
+ *    -- The basic usage for component.
  */
 import React from 'react'
 import { Modal, Button } from 'shineout'

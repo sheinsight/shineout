@@ -22,9 +22,7 @@ export default class Panel extends PureComponent {
       children, noPadding, title, type, padding,
     } = this.props
 
-    const style = {
-      overflow: 'auto',
-    }
+    const style = { padding: noPadding === true ? 0 : padding }
 
     if (type === 'default') return <Card.Body style={style}>{children}</Card.Body>
 
@@ -87,7 +85,10 @@ Panel.propTypes = {
   maskCloseAble: PropTypes.bool,
   noPadding: PropTypes.bool,
   onClose: PropTypes.func,
-  padding: PropTypes.number,
+  padding: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
   title: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element,
@@ -103,6 +104,5 @@ Panel.defaultProps = {
   ...defaultProps,
   top: '10vh',
   maskCloseAble: true,
-  padding: 16,
   width: 500,
 }
