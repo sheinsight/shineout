@@ -1,8 +1,8 @@
 /**
  * cn - 选择行 (分页)
  *    -- 默认情况下，翻页时 Datum 对象会保留当前选中的数据
- * en - Select
- *    -- By default, the Datum object retains the currently selected data when the page is turning.
+ * en - Select (paging)
+ *    -- By default, the Datum object retains the currently selected data when the page is changed.
  */
 import React, { PureComponent } from 'react'
 import { Table, Datum } from 'shineout'

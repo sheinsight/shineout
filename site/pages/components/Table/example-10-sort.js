@@ -2,11 +2,11 @@
  * cn - 排序
  *    -- 设置 column 的 sorter 属性标示此列需要排序
  *    -- sorter 返回一个 sort 函数时，使用这个函数对数据进行内部排序
- *    -- 后端或自行排序在 sorter 中自行处理，不要返回结果
+ *    -- 后端或自行排序用户自行处理，sroter 函数不要返回结果
  * en - Sorter
- *    -- Set the sorter property of column to indicate that this column needs to be sorted.
+ *    -- Set the sorter property of column to indicate that this column can be sorted.
  *    -- When the sorter returns a function, use this function to sort data internally.
- *    -- Server-side or self-sorting is processed in the sorter and do not return results.
+ *    -- Server-side or self-sorting is is handled by the user, do not return results.
  */
 import React from 'react'
 import { Table } from 'shineout'

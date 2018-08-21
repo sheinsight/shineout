@@ -51,7 +51,7 @@ class Thead extends PureComponent {
     if (col.lastFixed) fixed.push('fixed-last')
 
     const {
-      sorter, onSortChange, data, datum, showSelectAll,
+      sorter, onSortChange, data, datum, showSelectAll, disabled,
     } = this.props
 
     if (col.title) {
@@ -75,7 +75,7 @@ class Thead extends PureComponent {
     if (col.type === 'checkbox') {
       trs[level].push((
         <th key="checkbox" rowSpan={trs.length} className={tableClass('checkbox', ...fixed)}>
-          {showSelectAll && <CheckboxAll data={data} datum={datum} />}
+          {showSelectAll && <CheckboxAll disabled={disabled === true} data={data} datum={datum} />}
         </th>
       ))
 
@@ -140,6 +140,10 @@ Thead.propTypes = {
   columns: PropTypes.array.isRequired,
   data: PropTypes.array,
   datum: PropTypes.object,
+  disabled: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.func,
+  ]),
   onSortChange: PropTypes.func,
   sorter: PropTypes.object,
   showSelectAll: PropTypes.bool,

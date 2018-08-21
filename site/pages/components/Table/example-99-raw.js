@@ -12,7 +12,7 @@ const data = fetchSync(6)
 
 export default function () {
   return (
-    <Table striped keygen>
+    <Table striped keygen="id">
       <thead>
         <tr>
           <th>Name</th>
