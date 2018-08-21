@@ -2,7 +2,7 @@
  * cn -
  *    -- 如果内置样式不满足需求，可以通过 background 和 border 自定义样式
  * en -
- *    -- If the built-in style doesn't meet your needs, you can customize the style with background and border.
+ *    -- Customize the style with background and border.
  */
 import React from 'react'
 import { Button, Popover } from 'shineout'

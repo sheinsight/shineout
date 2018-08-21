@@ -1,7 +1,7 @@
 /**
  * cn - 样式
  *    -- 内置四种样式
- * en - type
+ * en - Type
  *    -- Four styles are built in.
  */
 import React from 'react'
