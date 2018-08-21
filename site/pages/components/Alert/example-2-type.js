@@ -2,7 +2,7 @@
  * cn - 类型
  *    -- 内置了 4 种类型（样式），[success, info, warning, danger]，默认为 warning
  * en - type
- *    -- There are four built-in types (styles), [success, info, warning, danger], and the default is warning.
+ *    -- There are four built-in types (styles), [success, info, warning, danger], the default value is warning.
  */
 import React from 'react'
 import { Alert } from 'shineout'

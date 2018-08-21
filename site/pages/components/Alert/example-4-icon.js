@@ -2,7 +2,7 @@
  * cn - 内置图标
  *    -- 设置 icon 属性可以显示内置的图标，不同类型的图标见示例
  * en - Icon
- *    -- Set the icon property to display the built-in icon. See the example for different types of ICONS.
+ *    -- Set the icon property to display the built-in icon.
  */
 import React from 'react'
 import { Alert } from 'shineout'

@@ -1,8 +1,9 @@
 /**
  * cn - 显示时长
  *    -- 通过 duration 属性可以控制消息显示的时长，默认为3秒，设为 0 时，需要用户手动关闭
- * en - duration
- *    -- The duration attribute can be used to control the duration of the message display. The default value is 3 seconds. When it is set to 0, the user needs to manually close it.
+ * en - Duration
+ *    -- Set duration property to control the duration of the message display. The default value is 3 seconds.
+ *    -- When duration is set to 0, the message will not hide automatically.
  */
 import React from 'react'
 import { Button, Message } from 'shineout'
