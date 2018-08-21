@@ -1,4 +1,4 @@
-# Data.List data processing
+# Data.List
 
  The auxiliary class that process the array values.
  
@@ -45,7 +45,7 @@ When it is a string, value is a string delimited by the separator.
 <code name="separator" />
 
 ### prediction *function(val, d):bool*
-The value after being formatted is stored in the Datum, so the prediction function is required to determine whether the stored value is consistent with the original data. If it is noe set, this default prediction will be used:
+Determine whether the value is consistent with the original data. If it is not set, this default prediction will be used:
 ```
 (val, d) => val === format(d)
 ```
@@ -53,26 +53,26 @@ The value after being formatted is stored in the Datum, so the prediction functi
 <code name="prediction" />
 
 ### disabled *function(d):bool*
-Determines whether data items are disabled. If true is returned, the add and remove functions will ignore this data.
+Determines whether data items are disabled. If true, the add and remove functions will ignore this item.
 
 <code name="disabled" />
 
 ### value *array | string*
-The initial value can be Array or String.
+The initial value.
 
 ## Methods
 
 ### getValue *function():array|string*
-Get the current value. Return array or string depending on the separator setting.
+Get the current values. Return array or string depending on the separator setting.
 
 ### setValue *function(array|string)*
 Set the value. The new value will replace the current value.
 
 ### add *function(array|object)*
-Add data. The value is the original data before being formatted, a single line, or a set of data.
+Add data. The value is the original data before being formatted.
 
 ### remove *function(array|object)*
-Remove data. The value is the original data before being formatted, a single line, or a set of data.
+Remove data. The value is the original data before being formatted.
 
 ### clear *function*
-Clear data.
+Clear all data.

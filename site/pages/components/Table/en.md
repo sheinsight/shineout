@@ -36,6 +36,6 @@
 | render | string \| function(d,i) | required | The generation function for Table content.<br />d: the data of the current row<br />i: the index of the current row <br />For ease of use, you can pass in the key of a data, such as 'id', which is equivalent to (d) => { return d.id } |
 | rowSpan | function(a, b) | none | When it is a function, it is judged whether the rows are merged according to the result (bool) returned by the function, and a and b are two adjacent rows of data. |
 | sorter | function(order) | none | When the sorter is not empty, the sort icon appears in this column. the value of order: \['asc', 'desc']<br />Front-end sorting returns a sort function, refer to Array.sort.<br />Server-side sorting, do not return values and handle it itself. |
-| title | string \| ReactElement | none | The content of the header |
+| title | string \| ReactElement \| function | none | The content of the header |
 | type | string | none | Special column, options: \['expand', 'checkbox']<br />expand: Expand the column. When the render function returns a function, it means that the row can be expanded and the content  is the result returned by this function. <br />checkbox: Select column for scenes with only fixed selection columns |
 | width | number | none | the width of the column |
