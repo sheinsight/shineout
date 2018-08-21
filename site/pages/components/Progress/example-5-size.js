@@ -3,8 +3,7 @@
  *    -- 通过 size 或 style 来控制大小
  *    -- 通过 strokeWidth 属性来控制线框宽度
  * en - Size
- *    -- Control the size through setting the size or style.
- *    -- Control the width of wireframe through setting the strokewidth.
+ *    -- Set size(circle) or style(line) property to change the size.
  */
 import React from 'react'
 import { Progress } from 'shineout'

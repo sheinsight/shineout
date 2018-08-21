@@ -2,7 +2,7 @@
  * cn - 样式
  *    -- 内置了四种样式，通过 type 来调用
  * en - Type
- *    -- Four styles, called by type, are built in.
+ *    -- There are 4 built-in style.
  */
 import React from 'react'
 import { Progress } from 'shineout'

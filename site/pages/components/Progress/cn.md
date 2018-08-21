@@ -8,7 +8,7 @@
 | --- | --- | --- | --- |
 | background | string | '#e9ecef' | 背景色 |
 | className | string | - | 扩展className |
-| children | ReactElement | - | 附加内容 |
+| children | string \| ReactElement | - | 附加内容 |
 | color | string | primary | 前景色 |
 | shape | string | 'line' | 样式，可选值为 \['line', 'circle'] |
 | size | number | 100 | 进度条大小，仅对 circle 有效 |

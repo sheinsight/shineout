@@ -2,7 +2,7 @@
  * cn -
  *    -- 通过 color 使用自定义颜色
  * en - Color
- *    -- Use custom colors through the color property.
+ *    -- Use custom colors.
  */
 import React from 'react'
 import { Progress } from 'shineout'

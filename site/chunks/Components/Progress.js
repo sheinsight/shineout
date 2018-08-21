@@ -21,13 +21,13 @@ const examples = [
   },
   {
     name: '2-type',
-    title: locate('样式 \n 内置了四种样式，通过 type 来调用', 'Type \n Four styles, called by type, are built in.'),
+    title: locate('样式 \n 内置了四种样式，通过 type 来调用', 'Type \n There are 4 built-in style.'),
     component: require('doc/pages/components/Progress/example-2-type.js').default,
     rawText: require('!raw-loader!doc/pages/components/Progress/example-2-type.js'),
   },
   {
     name: '3-color',
-    title: locate(' \n 通过 color 使用自定义颜色', 'Color \n Use custom colors through the color property.'),
+    title: locate(' \n 通过 color 使用自定义颜色', 'Color \n Use custom colors.'),
     component: require('doc/pages/components/Progress/example-3-color.js').default,
     rawText: require('!raw-loader!doc/pages/components/Progress/example-3-color.js'),
   },
@@ -39,7 +39,7 @@ const examples = [
   },
   {
     name: '5-size',
-    title: locate('大小 \n 通过 size 或 style 来控制大小 \n 通过 strokeWidth 属性来控制线框宽度', 'Size \n Control the size through setting the size or style. \n Control the width of wireframe through setting the strokewidth.'),
+    title: locate('大小 \n 通过 size 或 style 来控制大小 \n 通过 strokeWidth 属性来控制线框宽度', 'Size \n Set size(circle) or style(line) property to change the size.'),
     component: require('doc/pages/components/Progress/example-5-size.js').default,
     rawText: require('!raw-loader!doc/pages/components/Progress/example-5-size.js'),
   },
