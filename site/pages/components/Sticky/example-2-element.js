@@ -1,6 +1,8 @@
 /**
- * cn - 附着在元素内
- * en - Sticky to element
+ * cn - 指定元素
+ *    -- 附着在元素内
+ * en - Element
+ *    -- Sticky to element
  */
 import React, { PureComponent } from 'react'
 import { Alert, Sticky } from 'shineout'

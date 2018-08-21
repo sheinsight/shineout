@@ -15,13 +15,13 @@ const source = locate(cn, en)
 const examples = [
   {
     name: '01-base',
-    title: locate('任意等分 \n Grid 的栅格体系是动态生成，可以实现任意等分', 'Arbitrary \n Grid system is dynamic generated and can achieve arbitrary bisection'),
+    title: locate('任意等分 \n Grid 的栅格体系是动态生成，可以实现任意等份', 'Arbitrary \n Grid system is dynamic generated and can be any number.'),
     component: require('doc/pages/components/Grid/example-01-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Grid/example-01-base.js'),
   },
   {
     name: '02-offset',
-    title: locate('偏移 \n offset 属性可以设置偏移，取值方式和宽度相同', 'Offset \n The offset property can set the offset in the same way as the width.'),
+    title: locate('偏移 \n offset 属性可以设置偏移，取值方式和宽度相同', 'Offset \n The offset property set the offset in the same way as the width.'),
     component: require('doc/pages/components/Grid/example-02-offset.js').default,
     rawText: require('!raw-loader!doc/pages/components/Grid/example-02-offset.js'),
   },
