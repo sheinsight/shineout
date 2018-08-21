@@ -21,7 +21,7 @@ const examples = [
   },
   {
     name: '2-click',
-    title: locate('点击触发 \n 默认触发事件为 hover，如果需要点击触发，可以设置 trigger 为 click', 'Click \n The default trigger event is hover, and if you need to click to trigger, you can set the trigger to click.'),
+    title: locate('点击触发 \n 默认触发事件为 hover，如果需要点击触发，可以设置 trigger 为 click', 'Click \n Set the trigger property to change the trigger event to \'click\'.'),
     component: require('doc/pages/components/Tooltip/example-2-click.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tooltip/example-2-click.js'),
   },

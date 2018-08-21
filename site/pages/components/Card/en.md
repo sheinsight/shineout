@@ -8,10 +8,11 @@
 | --- | --- | --- | --- |
 | className | string | none | Extend className |
 | collapsible | bool | false | Whether can be collapsed |
-| collapsed | bool | none | Whether to be collapsed. Be used in controlled state. |
-| defaultCollapsed | bool | true | Initial collapsed state (only valid when the collapsible is true) |
+| collapsed | bool | - | Whether to be collapsed. |
+| defaultCollapsed | bool | true | Initial collapsed state |
+| onCollapse | function | - | Callback when collapsed state changed |
 | shadow | \[true, false, 'hover'] | false | Whether to show the shadow.<br />'hover' - Display it when the mouse is over the element.<br />true - Always show<br />false - Never show |
-| style | object | none | The outermost extension style |
+| style | object | none | Style of the container |
 
 <br />
 

@@ -2,7 +2,7 @@
  * cn - 表单
  *    -- Card.Submit 可以用来触发 Card 内部表单提交
  * en - Form
- *    -- Card.submit can be used to trigger the submimt of the form in the card.
+ *    -- Use Card.submit to trigger the submimt event of the form in the card.
  */
 import React from 'react'
 import { Card, Form, Input } from 'shineout'
