@@ -5,8 +5,8 @@
  *    -- 设置 maskCloseAble 属性为 null，禁用点击空白关闭，右上角的关闭图标会保留。
  * en - Close
  *    -- By default, clicking on the blank page outside the Modal box will closes the Modal box.
- *    -- Set maskCloseAble to false can disable the function that click blank to close and the close icon in the upper right corner will also be hidden at the same time.
- *    -- Set maskCloseAbel to null can disable the function that click blank to close and the close icon in the upper right corner will be preserved.
+ *    -- Set maskCloseAble to false to disable the function that click mask to close and the close icon in the upper right corner will be hidden at the same time.
+ *    -- Set maskCloseAbel to null to disable the function that click mask to close and the close icon in the upper right corner will be preserved.
  */
 import React from 'react'
 import { Modal, Button } from 'shineout'
@@ -45,11 +45,11 @@ export default class extends React.Component {
         <Button onClick={this.show}>click me</Button>
         <Modal
           visible={this.state.visible}
-          maskCloseAble={null}
+          maskClosable={null}
           width={500}
           height={300}
           title="Modal Title"
-          onClose={this.cancel}
+          onClose={this.handleCancel}
           footer={[
             <Button key="cancel" onClick={this.handleCancel}>Cancel</Button>,
             <Button key="ok" type="primary" onClick={this.handleOk}>Ok</Button>,

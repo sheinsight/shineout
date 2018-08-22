@@ -1,8 +1,8 @@
 /**
  * cn - 自定义渲染
  *    -- 设置 renderItem 属性展现稍微复杂的内容
- * en - customize render
- *    -- Set the renderItem property to show slightly more complex content.
+ * en - RenderItem
+ *    -- Set the renderItem property to show format content.
  */
 import React from 'react'
 import { Menu } from 'shineout'

@@ -8,12 +8,12 @@
 | --- | --- | --- | ---|
 | data | Array | [] | The array of breadcrumb objects, see data |
 | separator | String\|ReactNode | "/" | A breadcrumb separator which can be strings or custom elements |
-| keygen | String \| Function | none | The rule for generating keys. If it is a function whose parameter is single data, its return value will be  the key and  if it is not be set, the index will be the key |
+| keygen | string \| function(obj):string \| true | required | Key generator<br />When it is true, the data itself is used as the key equivalent to (d => d)<br />When it is a function, use its return value.<br />When it is a string，ues the value of the string.For example, 'id' is the same thing as (d) => d.id. |
 
 ### data
 
 | Property | Type | Default | Description |
 | --- | --- | --- | ---|
-| title | string\|ReactElement | none | Displayed content |
-| url | string | none | Select one of the url and onClick property |
-| onClick | function | none | The click event |
+| title | string\|ReactElement | - | Displayed content |
+| url | string | - | Link address |
+| onClick | function | - | The click event |

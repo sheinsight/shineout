@@ -2,7 +2,7 @@
  * cn - 分隔符
  *    -- 默认的分隔符为 '/'，可以通过 separator 属性自定义
  * en - separator
- *    -- The default separator is '/' and it can be customized with the separator property.
+ *    -- The default separator is '/'.
  */
 
 import React from 'react'

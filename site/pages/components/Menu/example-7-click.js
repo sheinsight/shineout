@@ -1,8 +1,8 @@
 /**
  * cn - 点击事件
  *    -- 如果选项未设置单独的 onClick 事件，点击后会调用 Menu 定义的 onClick 事件
- * en - customize click event
- *    -- If the option does not set a separate onClick event, the onClick event defined by the meun will be called after clicking.
+ * en - Click
+ *    -- If the data item set the onClick event, this event is called. Otherwise, the onClick event defined by Menu is called.
  */
 import React from 'react'
 import { Menu, Message } from 'shineout'

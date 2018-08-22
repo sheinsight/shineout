@@ -1,7 +1,7 @@
 /**
  * cn - 水平布局
  *    -- 设置 mode 为 "horizontal"，显示为水平布局（子菜单在右侧弹出）
- * en - horizontal
+ * en - Horizontal
  *    -- Set mode to "horizontal" to display it as horizontal layout (submenu pops up on the right).
  */
 import React from 'react'

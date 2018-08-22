@@ -6,12 +6,12 @@
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| data | array | [] | Data that needs to be rendered into a menu |
+| data | array | [] | Menu items data |
 | disabled | function | d => d.disabled | Whether to be disabled |
-| mode | string | 'inline'| the style of the menu, options: 'inline', 'vertical', 'horizontal' |
-| renderItem | string \| function | 'title' | Element render mode. If it is a string, the corresponding value is taken as the display content; If it is a function, the result returned by the function is taken as the display content, and the parameter of the function is the corresponding data object. |
-| keygen | string \| function | none | The generation rule of the key. If it's a string, the corresponding value is taken as the key value. If it is a function, the result returned by the function is taken as the key value and the parameter of the function is the corresponding data object. |
-| active | function | null | Verify whether it is activated. The parameter is the corresponding data object and returning true means that the menu is active.<br />The parameter is data,and that is the data.<br /> note: whether it is multiple is determined by the filtering rules of the function. |
-| defaultOpenKeys | array | [] | Initial expanded menu;If you need to set this value, you need to set keygen, which is an array of keys. |
-| onClick | function | null | the click event of Submenu. Its parameter is the current data.|
+| mode | string | 'inline' | Options: 'inline', 'vertical', 'horizontal' |
+| renderItem | string \| function | 'title' | Element render mode. <br />If it is a string, the corresponding value is taken as the display content; <br />If it is a function, the result returned by the function is taken as the display content. |
+| keygen | string \| function(obj):string \| true | required | Key generator<br />When it is true, the data itself is used as the key equivalent to (d => d)<br />When it is a function, use its return value.<br />When it is a string，ues the value of the string.For example, 'id' is the same thing as (d) => d.id. |
+| active | function | null | The item is actived when the active function return true. |
+| defaultOpenKeys | array | [] | Initial expanded menu |
+| onClick | function | null | The function will be called when the user clicks the menu item. |
 | style | object | - | Container element style |

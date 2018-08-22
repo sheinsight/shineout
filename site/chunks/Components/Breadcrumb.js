@@ -15,13 +15,13 @@ const source = locate(cn, en)
 const examples = [
   {
     name: '1-base',
-    title: locate('基本用法 \n 组件调用通过 json 数据配置', 'base \n Calling component is configured through json data.'),
+    title: locate('基本用法 \n 组件调用通过 json 数据配置', 'Base \n The basic usage.'),
     component: require('doc/pages/components/Breadcrumb/example-1-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Breadcrumb/example-1-base.js'),
   },
   {
     name: '2-separator',
-    title: locate('分隔符 \n 默认的分隔符为 \'/\'，可以通过 separator 属性自定义', 'separator \n The default separator is \'/\' and it can be customized with the separator property.'),
+    title: locate('分隔符 \n 默认的分隔符为 \'/\'，可以通过 separator 属性自定义', 'separator \n The default separator is \'/\'.'),
     component: require('doc/pages/components/Breadcrumb/example-2-separator.js').default,
     rawText: require('!raw-loader!doc/pages/components/Breadcrumb/example-2-separator.js'),
   },
