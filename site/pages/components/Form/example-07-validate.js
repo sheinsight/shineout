@@ -2,6 +2,7 @@
  * cn - 校验
  *    -- 通过 rules 校验，每个字段的 rules 是一个数组，可以使用多条规则。
  * en - Validate
+ *    -- Validate by rules.
  */
 import React from 'react'
 import { Form, Input, Checkbox } from 'shineout'
@@ -42,11 +43,11 @@ export default function () {
   return (
     <Form style={{ maxWidth: 500 }} rules={rules} onSubmit={d => console.log(d)}>
       <Form.Item required label="Email">
-        <Input name="email" />
+        <Input name="email" trim />
       </Form.Item>
 
       <Form.Item required label="Password" tip="Use at least one letter, one numeral, and seven characters.">
-        <Input name="password" type="password" />
+        <Input name="password" trim type="password" />
       </Form.Item>
 
       <Form.Item label="Repeat Password">

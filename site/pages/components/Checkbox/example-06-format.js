@@ -1,9 +1,11 @@
 /**
- * cn -
- *    -- 当 format 不能满足需求时，可以使用 Datum.List 进行处理
+ * cn - 复杂数据
+ *    -- 复杂的数据可以使用 format 处理 value
+ * en - Complex data
+ *    -- Complex data can use format to process value.
  */
 import React, { Component } from 'react'
-import { Checkbox, Datum } from 'shineout'
+import { Checkbox } from 'shineout'
 
 const data = [
   { id: 1, color: 'red' },
@@ -16,14 +18,6 @@ const data = [
 ]
 
 export default class extends Component {
-  constructor(props) {
-    super(props)
-    this.datum = new Datum.List({
-      format: 'color',
-      prdiction: (v, d) => v === d.color,
-    })
-  }
-
   renderItem = (d) => {
     const style = { borderBottom: `solid 1px ${d.color}`, paddingBottom: 2 }
     return <span style={style}>{d.color}</span>
@@ -34,7 +28,7 @@ export default class extends Component {
       <Checkbox.Group
         keygen="id"
         data={data}
-        datum={this.datum}
+        format="color"
         onChange={d => console.log(d)}
         value={['blue', 'cyan']}
         renderItem={this.renderItem}

@@ -1,6 +1,8 @@
 /**
- * cn - 附着在底部
- * en - Sticky to bottom
+ * cn - 位置
+ *    -- 附着在底部
+ * en - Position
+ *    -- Sticky to bottom
  */
 import React from 'react'
 import { Alert, Sticky } from 'shineout'

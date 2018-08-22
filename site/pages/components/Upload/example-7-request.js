@@ -2,6 +2,7 @@
  * cn - 自定义上传
  *    -- 通过 request 函数，替代默认上传方法
  * en - Custom Request
+ *    -- Set request property to use your own XMLHttpRequest.
  */
 import React from 'react'
 import { Upload, Button } from 'shineout'

@@ -36,6 +36,7 @@ export default class extends PureComponent {
 
   render() {
     const current = this.props.current || this.state.current
+    if (this.props.total < 0) return null
 
     return (
       <Pagination

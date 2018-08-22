@@ -2,6 +2,7 @@
  * cn - 尺寸
  *    -- 内置了三种尺寸，small、default、large
  * en - Size
+ *    -- There are three built-in size: small、default、large.
  */
 import React from 'react'
 import { DatePicker } from 'shineout'

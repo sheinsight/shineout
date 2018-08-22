@@ -2,6 +2,7 @@
  * cn - 动态加载
  *    -- 数据过大，需要动态加载时，可以设置 loader 函数，当展开未定义 children（undefined）的节点时，触发此函数
  * en - Lazy load
+ *    -- Set the loader function to dynamic fetch data. This function is triggered when the undefined child node is expanded.
  */
 import React, { Component } from 'react'
 import immer from 'immer'

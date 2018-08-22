@@ -1,7 +1,8 @@
 /**
  * cn - 创建选项
  *    -- 设置 onCreate 属性可以通过输入创建选项
- * en - onCreate
+ * en - Create by input
+ *    -- Set the onCreate property can create options by inputting.
  */
 import React from 'react'
 import { Select } from 'shineout'

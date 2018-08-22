@@ -129,6 +129,10 @@ export default class MarkDown extends PureComponent {
 
             return null
           },
+          link: ({ href, children }) => {
+            const target = href.indexOf('http' === 0) ? '_blank' : undefined
+            return <a href={href} target={target}>{children}</a>
+          },
         }}
       />
     )

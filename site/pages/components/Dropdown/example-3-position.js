@@ -2,6 +2,7 @@
  * cn - 弹出位置
  *    -- 设置 position 属性可以控制下拉菜单弹出的方向和位置
  * en - Position
+ *    -- Set position property can control the direction and position of the drop-down menu.
  */
 import React from 'react'
 import { Dropdown } from 'shineout'

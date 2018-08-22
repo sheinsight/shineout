@@ -2,6 +2,7 @@
  * cn - 基本用法
  *    -- Button 内置了几种常用的样式，通过 type 来使用
  * en - Base
+ *    -- Button has several built-in styles, used by type.
  */
 import React from 'react'
 import { Button } from 'shineout'

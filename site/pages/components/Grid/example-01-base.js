@@ -1,7 +1,8 @@
 /**
  * cn - 任意等分
- *    -- Grid 的栅格体系是动态生成，可以实现任意等分
+ *    -- Grid 的栅格体系是动态生成，可以实现任意等份
  * en - Arbitrary
+ *    -- Grid system is dynamic generated and can be any number.
  */
 import React, { Component } from 'react'
 import { Grid, Slider } from 'shineout'

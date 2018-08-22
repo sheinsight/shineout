@@ -47,7 +47,7 @@ class Textarea extends PureComponent {
 
     const isError = res instanceof Error
     const text = isError ? res.message : res
-    return <div key="info" className={inputClass('bottom-right', isError ? 'error' : 'tip')}>{text}</div>
+    return <div key="info" style={{ minWidth: 'auto' }} className={inputClass('bottom-right', isError ? 'error' : 'tip')}>{text}</div>
   }
 
   render() {

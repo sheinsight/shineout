@@ -2,6 +2,7 @@
  * cn -
  *    -- 上例可以使用 Form.Block 改写
  * en -
+ *    -- The above example can be overwritten with Form.Block.
  */
 import React, { PureComponent } from 'react'
 import { Form, Input, Button } from 'shineout'

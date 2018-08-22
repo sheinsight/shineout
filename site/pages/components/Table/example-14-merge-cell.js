@@ -2,6 +2,7 @@
  * cn -
  *    -- 示例：不带分页的合并行/列
  * en -
+ *    -- Example: Merged rows/columns without pagination.
  */
 import React from 'react'
 import { Table } from 'shineout'

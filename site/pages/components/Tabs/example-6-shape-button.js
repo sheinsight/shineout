@@ -1,7 +1,8 @@
 /**
  * cn -
  *    -- 设置 shape 为 'button'，标签显示为按钮
- * en - Shape
+ * en - Shape (button)
+ *    -- The button type tabs.
  */
 import React from 'react'
 import { Tabs } from 'shineout'

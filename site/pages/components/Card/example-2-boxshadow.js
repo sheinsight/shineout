@@ -2,6 +2,7 @@
  * cn - 阴影
  *    -- 可以通过 shadow 属性控制阴影
  * en - BoxShadow
+ *    -- Set the shadow property to determined how to display the shadow.
  */
 import React from 'react'
 import { Card } from 'shineout'

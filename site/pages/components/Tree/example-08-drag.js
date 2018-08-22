@@ -2,6 +2,7 @@
  * cn - 拖动
  *    -- 设置 onDrop 属性可以拖动节点
  * en - Drag
+ *    -- Set the onDrop property to drag nodes.
  */
 import React, { Component } from 'react'
 import { Tree } from 'shineout'

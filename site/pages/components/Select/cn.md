@@ -22,4 +22,4 @@
 | prediction | function | (val, d) => val===format(d) | 默认使用 format 函数执行的结果来比较是否匹配，在某些情况下（例如返回原始数据的对象，更新数据时，生成了一个值相同，非同一个对象的选项），需要借助 prediction 函数来判断是否匹配 |
 | renderItem | string \| function(d) | 必填 | 为 string 时，返回 d\[string]<br />为 function 时，返回函数结果 |
 | renderResult | string \| function(d) | renderItem | 选中后在结果中显示的内容，默认和 renderItem 相同 |
-| value | array | | 在Form中，value会被表单接管，value无效 |
+| value | array \| string \| object | | 在Form中，value会被表单接管，value无效 |

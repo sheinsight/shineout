@@ -1,7 +1,8 @@
 /**
  * cn - 大小
  *    -- 通过 size 属性可以设置大小
- * en - Array
+ * en - Size
+ *    -- Set the size through the size property.
  */
 import React from 'react'
 import { Rate } from 'shineout'

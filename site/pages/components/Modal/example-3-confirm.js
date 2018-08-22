@@ -1,7 +1,8 @@
 /**
  * cn - 确认框
- *    -- Confirm 功能的快捷调用方式
- * en - Confirm Modal
+ *    -- 调用 confirm 函数显示确认框。
+ * en - Confirm
+ *    -- The confirmation modal dialog.
  */
 import React, { Component } from 'react'
 import { Modal, Button } from 'shineout'

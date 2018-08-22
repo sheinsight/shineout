@@ -1,7 +1,8 @@
 /**
  * cn - 多层 Modal
  *    -- 支持多层 Modal
- * en - Multistage Modal
+ * en - Multistage
+ *    -- Multi-layer Modal
  */
 import React from 'react'
 import { Modal, Button } from 'shineout'

@@ -1,7 +1,8 @@
 /**
  * cn - 选择时间
  *    -- 设置 type 为 time，选择时间，根据 format 自动加载相应的选择列
- * en - Time Type
+ * en - Time Mode
+ *    -- Set type to be time to select time and automatically load the corresponding selection column according to the format property.
  */
 import React from 'react'
 import { DatePicker } from 'shineout'

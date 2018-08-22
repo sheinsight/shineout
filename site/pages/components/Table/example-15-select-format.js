@@ -2,6 +2,7 @@
  * cn - 选择行 (format)
  *    -- 使用 format，可以格式化返回的数据
  * en - Select (format)
+ *    -- Set format property to format the returned value.
  */
 import React, { PureComponent } from 'react'
 import { Table } from 'shineout'

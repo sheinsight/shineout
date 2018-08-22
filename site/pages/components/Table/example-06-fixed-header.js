@@ -2,6 +2,7 @@
  * cn - 固定表头
  *    -- 设置 fixed 属性为 'both' 或 'y'，可以固定表头，需要设置整个表格的高度
  * en - Fixed head
+ *    -- Set the fixed property to 'both' or 'y' can fix the table header. You need to set the height of the entire table.
  */
 import React from 'react'
 import { Table } from 'shineout'

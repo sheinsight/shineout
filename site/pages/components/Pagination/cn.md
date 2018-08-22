@@ -16,4 +16,4 @@
 | pageSizeList | number\[] | \[10, 20, 30, 50, 100] | 每页数量可选列表 |
 | size | string | 'default' | 可选值 \['large', 'default', 'small'] |
 | text | object | 无 | 替换文案<br />prev: 上一页<br />next: 下一页<br />page: pageSizeList文字<br />jumper: 跳转输入框文字, '{input}' 为输入框占位 |
-| total | number | 0 | 总条目数 |
+| total | number | 0 | 总条目数。如果 total 小于 0，隐藏分页。 |

@@ -1,7 +1,8 @@
 /**
- * cn - 使用 FontAwesome
- *    -- 引入font-awesome 地址即可使用
- * en - Use FontAwesome
+ * cn - 基本用法
+ *    -- 引入一个在线地址（本示例为 font-awesome）创建一个新的 Icon 组件，在需要使用的地方引入。
+ * en - Base
+ *    -- Create a new compoennt with url, then use it anywhere.
  */
 import React from 'react'
 import { Icon } from 'shineout'

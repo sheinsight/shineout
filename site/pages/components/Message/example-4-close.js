@@ -1,7 +1,8 @@
 /**
  * cn - 关闭回调
- *    -- onClose 属性可以处理消息关闭事件
- * en - onClose
+ *    -- onClose 属性处理消息关闭事件
+ * en - Close
+ *    -- Set onClose to handle close event.
  */
 import React from 'react'
 import { Button, Message } from 'shineout'

@@ -1,7 +1,8 @@
 /**
  * cn - 类型
  *    -- Modal 内置了 4 个类型的样式，为了方便调用，设计为静态函数
- * en - type
+ * en - Type
+ *    -- Modal has 4 built in style.
  */
 import React from 'react'
 import { Modal, Button } from 'shineout'

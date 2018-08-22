@@ -2,6 +2,7 @@
  * cn - 基本用法
  *    -- Message 封装了一组全局函数，方便在任意地方调用
  * en - Base
+ *    -- Message has 6 static functions that are convenient to call anywhere。
  */
 import React from 'react'
 import { Button, Message } from 'shineout'

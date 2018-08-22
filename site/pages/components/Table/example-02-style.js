@@ -1,7 +1,8 @@
 /**
  * cn - 边框和底纹
  *    -- 通过 striped 显示交错底纹；通过 bordered 显示边框。
- * en - Style (bordered, striped)
+ * en - Style
+ *    -- Set striped to add zebra-striping; Set bordered to add borders.
  */
 import React from 'react'
 import { Table } from 'shineout'

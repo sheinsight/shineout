@@ -1,7 +1,8 @@
 /**
  * cn - 图片尺寸
- *    -- 通过 validator.imageSize 校验图片尺寸，本例为 200px * 100px
- * en -
+ *    -- 通过 validator.imageSize 校验图片长宽，本例为 200px * 100px
+ * en - Size
+ *    -- Set validator.imageSize to validate the width and height of the image.
  */
 import React from 'react'
 import { Upload } from 'shineout'

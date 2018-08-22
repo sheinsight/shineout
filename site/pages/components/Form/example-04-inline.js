@@ -2,6 +2,7 @@
  * cn - 水平布局
  *    -- 设置 inline 属性使 Form 变为水平布局
  * en - Inline
+ *    -- Set the inline to true make the Form horizontal.
  */
 import React from 'react'
 import { Form, Input, Checkbox } from 'shineout'

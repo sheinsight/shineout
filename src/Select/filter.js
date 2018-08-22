@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import PureComponent from '../PureComponent'
+import { getKey } from '../utils/uid'
 
 export default Origin => class extends PureComponent {
   static propTypes = {
     data: PropTypes.array,
     filterDelay: PropTypes.number,
+    keygen: PropTypes.any,
     onFilter: PropTypes.func,
     onCreate: PropTypes.oneOfType([
       PropTypes.func,
@@ -64,7 +66,10 @@ export default Origin => class extends PureComponent {
 
     let newData = data
     if (innerFilter) newData = data.filter(d => innerFilter(d))
-    if (innerData) newData = [innerData, ...newData]
+    if (innerData) {
+      const newKey = getKey(innerData, other.keygen, innerData)
+      newData = [innerData, ...newData.filter(d => getKey(d, other.keygen, d) !== newKey)]
+    }
 
     return <Origin {...other} inputable={!!onCreate} data={newData} onFilter={filterFn} />
   }

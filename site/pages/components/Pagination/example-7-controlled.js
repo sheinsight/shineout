@@ -2,6 +2,7 @@
  * cn - 受控组件
  *    -- 同时设置 current 和 onChange 属性，可以作为受控组件使用
  * en - Controlled
+ *    -- Set both the current and onChange properties for being used as a controlled component.
  */
 import React, { PureComponent } from 'react'
 import { Pagination } from 'shineout'

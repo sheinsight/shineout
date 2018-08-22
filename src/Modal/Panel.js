@@ -6,8 +6,6 @@ import Card from '../Card'
 import { defaultProps, getProps } from '../utils/proptypes'
 import { modalClass } from '../styles'
 
-const noPaddingStyle = { padding: 0 }
-
 export default class Panel extends PureComponent {
   getStyle() {
     const { width, height, top } = this.props
@@ -21,11 +19,10 @@ export default class Panel extends PureComponent {
 
   renderContent() {
     const {
-      children, noPadding, title, type, height,
+      children, noPadding, title, type, padding,
     } = this.props
 
-    const style = noPadding ? noPaddingStyle : {}
-    if (height) style.overflow = 'auto'
+    const style = { padding: noPadding === true ? 0 : padding }
 
     if (type === 'default') return <Card.Body style={style}>{children}</Card.Body>
 
@@ -88,6 +85,10 @@ Panel.propTypes = {
   maskCloseAble: PropTypes.bool,
   noPadding: PropTypes.bool,
   onClose: PropTypes.func,
+  padding: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
   title: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element,

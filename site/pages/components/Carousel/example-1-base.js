@@ -1,7 +1,8 @@
 /**
  * cn - 基本用法
- *    -- 轮播组件提供了三种动画过度方式，可以切换选项查看效果
+ *    -- 轮播组件提供了三种动画过渡方式，可以切换选项查看效果
  * en - Base
+ *    -- The carousel component provides three modes of animation transition. Change the option to view the result.
  */
 import React, { Component } from 'react'
 import { Carousel, Select } from 'shineout'
@@ -86,7 +87,7 @@ export default class extends Component {
             </div>
           </div>
           <a href="javascript:;">
-            <img alt="" style={{ width: '100%', height: '100%' }} src="../images/1_b.jpg" />
+            <img alt="" style={{ width: '100%', height: '100%' }} src="/images/1_b.jpg" />
           </a>
         </Carousel>
       </div>

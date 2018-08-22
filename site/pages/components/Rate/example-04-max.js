@@ -1,7 +1,8 @@
 /**
  * cn - 最大值
  *    -- 通过 max 属性设置选项最大值，默认为 5
- * en - Array
+ * en - Max
+ *    -- Set the maximum value of the option through the max attribute. The default value is 5.
  */
 import React from 'react'
 import { Rate } from 'shineout'

@@ -2,6 +2,7 @@
  * cn - 动态示例
  *    -- value 变更时动画效果演示
  * en - Animation
+ *    -- The animation for changing value.
  */
 import React, { Component } from 'react'
 import { Button, Progress } from 'shineout'

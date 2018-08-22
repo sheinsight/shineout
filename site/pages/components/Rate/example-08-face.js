@@ -2,6 +2,7 @@
  * cn - 分级显示
  *    -- 创建组件时可以使用数组显示不同分数下的选项，这种情况下，不支持带小数的value
  * en - Array
+ *    -- You can use arrays to display items with different scores when creating components. In this case, values with decimals are not supported.
  */
 import React from 'react'
 import { Rate, Icon } from 'shineout'

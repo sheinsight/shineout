@@ -2,6 +2,7 @@
  * cn - 可展开
  *    -- 需要展开行时，可以增加一个 type 为 'expand' 的 column，render 函数返回函数时，表示此行可以展开，内容为此函数返回结果
  * en - Expand
+ *    -- Add a column with type 'expand' and the render function returns a function, that means the row can be expanded. The content is the result returned by this function.
  */
 import React from 'react'
 import { Table } from 'shineout'
@@ -14,7 +15,7 @@ const columns = [
   {
     type: 'expand',
     render: (d) => {
-      if (d.salary < 200000) return undefined
+      if (d.salary < 300000) return undefined
       return () => <div style={{ padding: '0 30px', wordBreak: 'break-all' }}>{JSON.stringify(d)}</div>
     },
   },

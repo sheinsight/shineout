@@ -1,7 +1,8 @@
 /**
  * cn - 样式
  *    -- 设置 shape 为 'line'，标签显示为线条
- * en - Shape
+ * en - Shape (line)
+ *    -- The line type tabs.
  */
 import React from 'react'
 import { Tabs } from 'shineout'

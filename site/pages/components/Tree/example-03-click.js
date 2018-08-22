@@ -2,6 +2,7 @@
  * cn - 点击事件
  *    -- 设置 onClick 属性监听节点点击
  * en - Click
+ *    -- Set the onClick property to listen the node click.
  */
 import React, { Component } from 'react'
 import immer from 'immer'

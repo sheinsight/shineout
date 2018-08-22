@@ -85,7 +85,7 @@ class Number extends PureComponent {
   handleCalc(mod) {
     this.hold = true
     this.changeValue(mod)
-    setTimeout(() => {
+    this.keyPressTimeOut = setTimeout(() => {
       this.longPress(mod)
     }, 1000)
   }
@@ -97,6 +97,7 @@ class Number extends PureComponent {
 
   handleMouseUp() {
     this.hold = false
+    if (this.keyPressTimeOut) clearTimeout(this.keyPressTimeOut)
   }
 
   render() {

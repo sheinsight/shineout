@@ -3,6 +3,8 @@
  *    -- 通过 formatScale 属性自定义刻度显示信息
  *    -- 通过 formatValue 属性自定义值显示信息
  * en - Format
+ *    -- Set the formatScale property to customize the display scale.
+ *    -- Set the formatValue property to customize the display value.
  */
 import React from 'react'
 import { Slider } from 'shineout'

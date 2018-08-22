@@ -2,6 +2,7 @@
  * cn - 垂直布局
  *    -- 默认是水平布局，设置 block 属性可以改为垂直布局
  * en - Block
+ *    -- The default is horizontal layout, and setting the block property can change it to be vertical layout.
  */
 import React from 'react'
 import { Checkbox } from 'shineout'

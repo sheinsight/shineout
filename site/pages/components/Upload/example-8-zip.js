@@ -2,6 +2,7 @@
  * cn -
  *    -- 此事例演示通过自定义函数压缩文件后上传
  * en -
+ *    -- Zip file and upload.
  */
 import React from 'react'
 import { Upload, Button } from 'shineout'

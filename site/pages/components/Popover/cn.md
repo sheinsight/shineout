@@ -13,4 +13,5 @@
 | content | ReactElement \| function | 必填 | 弹出内容 | 
 | position | string | 'top' | 弹出层位置，可选值为 \['top-left', 'top', 'top-right', 'left-top', 'left', 'left-bottom', 'right-top', 'right', 'right-bottom', 'bottom-left', 'bottom', 'bottom-right'] |
 | style | object | 无 | 最外层扩展样式 |
+| trigger | string | 'hover' | 触发方式，可选值为 \['click', 'hover'] |
 | type | string | 无 | 可选值为，\['success', 'info', 'warning', 'danger'] |

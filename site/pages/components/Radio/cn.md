@@ -1,11 +1,18 @@
 # Radio *单选框*
-单选框通常需要一组 (Radio.Group) 使用。
 
 <example />
 
 ## API
 
 Radio 不能单独使用
+
+### Radio
+
+| 属性 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| checked | bool \| 'indeterminate' | 无 | checked 传入时为受控组件 |
+| disabled | bool | false | 是否禁用 |
+| htmlValue | any | true | 选中时返回值 |
 
 ### Radio.Group
 

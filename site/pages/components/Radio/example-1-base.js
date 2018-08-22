@@ -1,7 +1,8 @@
 /**
  * cn - 基本用法
- *    -- Radio 必须以组的方式来使用
+ *    -- Radio.Group 通过数据来生成一组单选框。
  * en - Base
+ *    -- Radio.Group generate a group of radios from an array.
  */
 import React from 'react'
 import { Radio } from 'shineout'

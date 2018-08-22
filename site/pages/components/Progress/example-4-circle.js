@@ -2,6 +2,7 @@
  * cn - 圆形
  *    -- 设置 shape 为 'circle'，显示为环形进度条
  * en - Circle
+ *    -- Set the shape property to circle to display circular progress bar.
  */
 import React from 'react'
 import { Progress } from 'shineout'

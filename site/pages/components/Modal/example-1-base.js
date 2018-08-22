@@ -3,6 +3,7 @@
  *    -- 最基本的组件用法。
  *    -- Modal 会在 document.body 中创建一个新的层显示弹出内容。
  * en - Base
+ *    -- The basic usage for component.
  */
 import React from 'react'
 import { Modal, Button } from 'shineout'
@@ -28,7 +29,7 @@ export default class extends React.Component {
       visible: false,
       content: this.state.content += 1,
     })
-    console.log('you are click ok!')
+    console.log('clicked ok!')
   }
 
   handleCancel = () => {
@@ -36,7 +37,7 @@ export default class extends React.Component {
       visible: false,
       content: this.state.content += 1,
     })
-    console.log('you are click cancel')
+    console.log('clicked cancel')
   }
 
   render() {

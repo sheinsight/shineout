@@ -1,6 +1,8 @@
 /**
- * cn - 尺寸 \n 提供了一个fontSize属性设置图标大小，效果和 style.fontSize 相同
- * en - Font Size
+ * cn - 样式
+ *    -- 通过 fontSize 和 type 属性可以便捷的设置大小和颜色，更多样式可以通过 style 属性设置。
+ * en - Style
+ *    -- Set fontSize and type to change icon size and color.
  */
 import React from 'react'
 import FontAwesome from './FontAwesome'

@@ -77,10 +77,9 @@ function Header(props, context) {
           <Dropdown
             className={headerClass('light')}
             data={props.versions}
-            hover
+            trigger="hover"
             placeholder={version}
             size="small"
-            style={{ marginRight: 12 }}
           />
         }
 
@@ -88,7 +87,7 @@ function Header(props, context) {
           className={headerClass('light')}
           data={themes}
           onClick={handleThemeClick}
-          hover
+          trigger="hover"
           placeholder={`theme: ${theme.getTheme()}`}
           size="small"
         />

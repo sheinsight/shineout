@@ -11,10 +11,10 @@
 | footer | ReactElement \| null | 无 | 底部内容 |
 | maskCloseAble | bool | true | 点击遮罩层是否关闭对话框 |
 | maskOpacity | number | 0.25 | 遮罩层透明度 |
+| padding | number\|string | 16 | 内容内边距 |
 | style | object | 无 | 最外层扩展样式 |
 | title | string \| ReactElement | 无 | 弹出层的标题 |
-| height | number \| string | 无 | 模态框高度 |
-| width | number \| string | 500 | 模态框宽度 |
+| width | number \| string | 500 | 对话框宽度 |
 
 ### Methods
 

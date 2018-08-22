@@ -1,6 +1,8 @@
 /**
- * cn - 附着在顶部 20px
- * en - Sticky 20px to top
+ * cn - 基本
+ *    -- 附着在顶部 20px
+ * en - Basic
+ *    -- Sticky 20px to top
  */
 import React from 'react'
 import { Alert, Sticky } from 'shineout'

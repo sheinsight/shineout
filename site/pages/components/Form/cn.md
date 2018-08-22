@@ -44,19 +44,43 @@ Form 是一个比较复杂的组件，由下列组件组成
 rule 共有 5 种规则，按优先级分别为：
 
 - 函数：完全由调用者控制，理论上可以做所有校验。
+  ```
+  /**
+   value - 当前组件值
+   formdata - 表单内所有组件值 
+   callback - 结果回调
+   */ 
+  (value, formdata, callback) => {
+    if (/\d+/.test(value)) callback(true)
+    else callback(new Error('Password at least has one numeral.'))
+  }
+  // 或者返回 Promise，不需要处理 callback
+  (value) => new Promise((resolve, reject) => {
+    if (/\d+/.test(value)) resolve(true)
+    else reject(new Error('Password at least has one numeral.'))
+  }
+  ```
 - 必填：根据 required 属性是否为 true 判断，非必填时不需填 false。
+  ```
+  { required: true, message: 'Please enter password.' }
+  ```
+
 - 长度：根据 min 或者 max 属性判断。
+  ```
+  { min: 7, message: 'Password must be at least 7 characters.' }
+  ```
+
 - 正则表达式：根据 regExp 来判断，可以是 RegExp 对象或 字符串。
-- 类型：内置的常用 正则判断，不满足需求时，可以自定义正则表达式或使用 函数校验。
+  ```
+  { regExp: /[a-z]+/i, message: 'Password at least has one letter.' }
+  ```
 
-#### function(value, formdata, callback) : Promise
+- 类型：内置了一些常用的正则判断，不满足需求时，可以自定义正则表达式或使用 函数校验。
+  ```
+  { type: 'email', message: 'Please enter a valid email.' }
+  ```
 
-- value: 当前组件值
-- formdata: 表单内所有组件值
-- callback(true|Error): 校验结果，通过为 true，失败为 Error 对象。如果函数返回一个Promise，不要调用 callback。
-
-
-#### object
+#### Rule
 
 | 属性 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -85,8 +109,6 @@ rule 共有 5 种规则，按优先级分别为：
 | defaultValue | string \| number | | 默认值 |
 | name | string | 无 | Form 存取数据的名称 |
 | rules | array | 无 | 校验规则 | 
-| value | string \| number | | defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖<br />在Form中，value会被表单接管，value无效 |
-
 
 ### Form.Block
 
@@ -113,7 +135,7 @@ rule 共有 5 种规则，按优先级分别为：
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | children | function(datum) :ReactElement | 必填 | datum 为 Datum.Form 对象 |
-| names | array | 无 | names 为空时，Form 内任意值变化会触发 Flow 更新；不为空是，只监听指定字段变化 |
+| names | array | 无 | names 为空时，Form 内任意值变化会触发 Flow 更新；不为空时，只监听指定字段变化 |
 
 ### Submit, Reset, Button
 同 [Button](#/components/Button)

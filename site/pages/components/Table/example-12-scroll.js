@@ -2,6 +2,7 @@
  * cn - 滚动加载
  *    -- onScroll 事件会返回当前滚动条位置 (float 类型，[0,1])，可以据此实现滚动加载数据
  * en - onScroll
+ *    -- The onScroll event returns the current position(float,[0,1]) of the scroll bar.
  */
 import React, { PureComponent } from 'react'
 import { Table } from 'shineout'
