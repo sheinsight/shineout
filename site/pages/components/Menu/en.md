@@ -14,4 +14,4 @@
 | active | function | null | Verify whether it is activated. The parameter is the corresponding data object and returning true means that the menu is active.<br />The parameter is data,and that is the data.<br /> note: whether it is multiple is determined by the filtering rules of the function. |
 | defaultOpenKeys | array | [] | Initial expanded menu;If you need to set this value, you need to set keygen, which is an array of keys. |
 | onClick | function | null | the click event of Submenu. Its parameter is the current data.|
-| style | object | none | the outermost extension style |
+| style | object | - | Container element style |

@@ -1,6 +1,4 @@
-# Sticky
-
-Similar to position: sticky. Holding the element in the visible area of the screen while the screen is scrolling.
+# Tabs
 
 <example />
 
@@ -8,8 +6,25 @@ Similar to position: sticky. Holding the element in the visible area of the scre
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| bottom | number | none | How much offset is triggered from the bottom. |
-| className | string | none | Extend className |
-| style | object | none | Extend style. The default z-Index after the float is triggered is 900, and you can change the z-Index to changed its style. |
-| target | string \| HTMLElement | none | The attached target, by default, is document.body. You can pass in a HTMLELement or css selector, and the target must be the ancestor node of the Sticky component. |
-| top | number | none | How much offset is triggered from the top. |
+| active | string \| int | 0 | Current active tab id or index |
+| background | string | '#fff' | Active background color |
+| border | string | '#ddd' | Border color |
+| className | string | - | Extend className |
+| defaultActive | string \| int | 0 | Default active tab id or index |
+| inactiveBackground | string | 'transparent' | Inactive background color |
+| onChange | function(key) | - | Change callback |
+| shape | string | - | Options: \['line', 'button']. If shape is not null, the style properties such as background, border will lose effect |
+| style | object | - | Container element style |
+
+<br />
+
+### Panel
+
+| Property | Type | Default | Description |
+| --- | --- | --- | --- |
+| className | string | - | Extend className |
+| background | string | - | Background color, override the Tab's background |
+| border | string | - | Border color, override the Tab's border |
+| id | string \| number | - | The default is index |
+| style | object | - | Content style |
+| tab | string \| ReactElement | required | Tab content |

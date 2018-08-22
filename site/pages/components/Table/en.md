@@ -24,7 +24,7 @@
 | rowsInView | number | 20 | The maximum number of rows for a single render. Table uses lazy render to optimize performance under large amounts of data. If your table displays more than 20 rows, you can change the value of rowsInView. |
 | showSelectAll | bool | true | Whether to show being fully selected. |
 | striped | bool | false | Whether to display zebra shading. |
-| style | object | none | extend style |
+| style | object | - | Container element style |
 | value | array | none | The current selected value. |
 
 ### Column

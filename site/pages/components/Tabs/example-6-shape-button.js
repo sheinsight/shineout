@@ -1,8 +1,8 @@
 /**
  * cn -
  *    -- 设置 shape 为 'button'，标签显示为按钮
- * en - Shape
- *    -- Set  the shape property to button to make the tag display as a button.
+ * en - Shape (button)
+ *    -- The button type tabs.
  */
 import React from 'react'
 import { Tabs } from 'shineout'

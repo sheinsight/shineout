@@ -11,7 +11,7 @@
 | href | string | none | original picture address |
 | lazy | bool | false | whether to delay loading |
 | src | string | required | the picture address |
-| style | object | none | extend style |
+| style | object | - | Container element style |
 | target | string | '_modal' | options: \['_modal', '_blank', '_self', '_download'] |
 | width | string \| number | '100%' | the width of the image |
 

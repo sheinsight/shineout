@@ -1,8 +1,8 @@
 /**
  * cn - 基本用法
- *    -- 默认为标签样式
+ *    -- 默认标签样式
  * en - Base
- *    -- The default style of the tag
+ *    -- Basic usage.
  */
 import React from 'react'
 import { Tabs } from 'shineout'

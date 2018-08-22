@@ -12,6 +12,6 @@
 | children | ReactElement | required | The child element can only be one ReactElement. |
 | content | ReactElement \| function | required | Pop-up content | 
 | position | string | 'top' | The position of pop-up layer, options:  \['top-left', 'top', 'top-right', 'left-top', 'left', 'left-bottom', 'right-top', 'right', 'right-bottom', 'bottom-left', 'bottom', 'bottom-right'] |
-| style | object | - | Style of the pop-up layout |
+| style | object | - | The pop-up container style |
 | trigger | string | 'hover' | options: \['click', 'hover'] |
 | type | string | none | Options: \['success', 'info', 'warning', 'danger'] |

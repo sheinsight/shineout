@@ -12,7 +12,7 @@
 | defaultCollapsed | bool | true | Initial collapsed state |
 | onCollapse | function | - | Callback when collapsed state changed |
 | shadow | \[true, false, 'hover'] | false | Whether to show the shadow.<br />'hover' - Display it when the mouse is over the element.<br />true - Always show<br />false - Never show |
-| style | object | none | Style of the container |
+| style | object | - | Container element style |
 
 <br />
 
@@ -20,8 +20,8 @@
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| className | string | none | Extend className |
-| style | object | none | The outermost extension style |
+| className | string | - | Extend className |
+| style | object | - | Element style |
 
 <br />
 

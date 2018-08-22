@@ -22,5 +22,5 @@ Function, returns a new component. A project can create more than one, but fontF
 | children | string | - | The unicode code of the icon. |
 | name | string | '' | The name of the icon class (without prefix). |
 | fontSize | string | - | The size of the icon, same as the style.fontSize. |
-| style | object | - | Extend style, can be used to set specific size and color, etc. |
+| style | object | - | Extend style. |
 | type | string | 'default' | Built-in color, options: \['default', 'primary', 'secondary', 'success', 'info', 'warning', 'danger'] |

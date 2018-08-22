@@ -2,7 +2,7 @@
  * cn - 滚动
  *    -- 超出长度时，会自动出现滚动按钮
  * en - Scroll
- *    -- When the length is exceeded, the scroll button will automatically appear.
+ *    -- The slide button is displayed when the Tabs length exceeds the parent container
  */
 import React from 'react'
 import { Tabs } from 'shineout'

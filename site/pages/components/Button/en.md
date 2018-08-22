@@ -14,7 +14,7 @@
 | href | string | - | If the href attribute is set, &lt;a> will be used instead of &lt;button>. |
 | outline | boolean | false | When outline is true, the background is transparent. |
 | size | string | 'default' | optional value \['large', 'default', 'small'] |
-| style | object | - | extend style |
+| style | object | - | Container element style |
 | type | string | 'default' | optional value \['default', 'primary', 'secondary', 'success', 'warning', 'danger', 'link'] |
 
 ### Button.Group

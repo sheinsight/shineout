@@ -14,7 +14,7 @@
 | placeholder | string | | Same as the native input tag |
 | popover | string | | The position where the text pop up, options: \['top-left', 'top', 'top-right', 'bottom-left', 'bottom', 'bottom-right'] |
 | size | string | 'default' | options: \['large', 'default', 'small'] |
-| style | object | none | extend style |
+| style | object | - | Container element style |
 | tip | string \| ReactElement | | Prompt information |
 | trim | bool | false | When trim is true, blank characters are automatically deleted when lose focus。 |
 | type | string | | Same as the type of the native input tag |

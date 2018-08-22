@@ -14,7 +14,7 @@
 | onChange | function(d) | | a callback when the value is changing |
 | placeholder | string \| array | - | placeholder text<br />When the range property is not empty, it is an array of length 2. |
 | range | bool \| number | - | range span，unit: **second**，<br />When it is true, selection scope is not limited. |
-| style | object | - | extend style |
+| style | object | - | Container element style |
 | type | string | 'date' | options:  \['date', 'time', 'datetime', 'month', 'week'] |
 | value | string \| number \| Date \| array | - | When the value is string, it needs to match the format attribute. <br /> When the range property is true, the value is an array of length 2. |
 
