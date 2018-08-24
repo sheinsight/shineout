@@ -1,5 +1,6 @@
 import { compose } from '../utils/func'
 import Datum from '../Datum'
+import { consumer as cardConsumer } from '../Card/context'
 import inputable from './inputable'
 import Form from './Form'
 import Item from './Item'
@@ -13,7 +14,7 @@ import { loopProvider } from './loopContext'
 import { itemProvider } from './itemContext'
 import { formProvider, formConsumer } from './formContext'
 
-const exportForm = Datum.hoc({ type: 'form' }, formProvider(Form))
+const exportForm = compose(Datum.hoc({ type: 'form' }), formProvider)(cardConsumer(Form, ['setFormStatus']))
 exportForm.Item = itemProvider(formConsumer(['labelWidth', 'labelAlign'], Item))
 exportForm.Field = inputable(Field)
 exportForm.Block = formConsumer(['formDatum'])(Block)

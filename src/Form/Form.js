@@ -17,6 +17,22 @@ class Form extends PureComponent {
     this.id = `form_${getUidStr()}`
   }
 
+  componentDidMount() {
+    this.setStatus()
+  }
+
+  componentDidUpdate() {
+    this.setStatus()
+  }
+
+  setStatus() {
+    const { disabled, pending, setFormStatus } = this.props
+    if (!setFormStatus) return
+    let status = disabled === true ? 'disabled' : ''
+    if (pending === true) status = 'pending'
+    setFormStatus(status)
+  }
+
   bindElement(el) {
     this.element = el
   }
@@ -61,7 +77,7 @@ class Form extends PureComponent {
 
   render() {
     const {
-      layout, style, inline, disabled, datum, rules,
+      layout, style, inline, disabled, datum, rules, pending,
     } = this.props
 
     if (datum && rules && datum.rules !== rules) {
@@ -72,7 +88,7 @@ class Form extends PureComponent {
       formClass(
         '_',
         layout,
-        disabled && 'disabled',
+        (disabled || pending) && 'disabled',
         inline && 'inline',
       ),
       this.props.className,
@@ -100,6 +116,7 @@ Form.propTypes = {
   inline: PropTypes.bool,
   labelAlign: PropTypes.string,
   layout: PropTypes.string,
+  pending: PropTypes.bool,
   onError: PropTypes.func,
   onReset: PropTypes.func,
   onSubmit: PropTypes.func,
@@ -108,6 +125,7 @@ Form.propTypes = {
     PropTypes.bool,
     PropTypes.number,
   ]),
+  setFormStatus: PropTypes.func,
   throttle: PropTypes.number,
 }
 

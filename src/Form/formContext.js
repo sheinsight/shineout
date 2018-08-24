@@ -13,11 +13,11 @@ export const Consumer = context.Consumer
 export const formProvider = (Origin) => {
   function FormProvider(props) {
     const {
-      datum, labelAlign, labelWidth, disabled,
+      datum, labelAlign, labelWidth, disabled, pending,
     } = props
     const value = {
       formDatum: datum,
-      disabled,
+      disabled: disabled || pending,
       labelAlign,
       labelWidth,
     }
@@ -34,6 +34,7 @@ export const formProvider = (Origin) => {
     disabled: PropTypes.bool,
     labelAlign: PropTypes.string,
     labelWidth: PropTypes.any,
+    pending: PropTypes.bool,
   }
 
   return FormProvider

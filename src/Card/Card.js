@@ -10,17 +10,27 @@ class Card extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.state = { collapsed: props.defaultCollapsed }
+    this.state = {
+      collapsed: props.defaultCollapsed,
+      formStatus: '',
+    }
 
     this.bindElement = this.bindElement.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleCollapse = this.handleCollapse.bind(this)
+    this.setFormStatus = this.setFormStatus.bind(this)
   }
 
   getCollapsed() {
     const { collapsible, collapsed } = this.props
     if (!collapsible) return undefined
     return collapsed !== undefined ? collapsed : this.state.collapsed
+  }
+
+  setFormStatus(status) {
+    if (status !== this.state.formStatus) {
+      this.setState({ formStatus: status })
+    }
   }
 
   bindElement(el) {
@@ -52,7 +62,9 @@ class Card extends PureComponent {
       onCollapse: this.handleCollapse,
       collapsible,
       collapsed,
+      formStatus: this.state.formStatus,
       onSubmit: this.handleSubmit,
+      setFormStatus: this.setFormStatus,
     }
 
     return (

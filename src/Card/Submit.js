@@ -1,9 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Button from '../Button'
-import Spin from '../Spin'
-
-const spinStyle = { display: 'inline-block', marginRight: 8 }
 
 class Submit extends PureComponent {
   constructor(props) {
@@ -17,16 +14,16 @@ class Submit extends PureComponent {
 
   render() {
     const {
-      onSubmit, loading, children, ...other
+      onSubmit, loading, children, formStatus, ...other
     } = this.props
     return (
-      <Button type="primary" {...other} onClick={this.handleClick}>
-        {
-          loading &&
-          <span style={spinStyle}>
-            <Spin size={12} name="ring" color="#fff" />
-          </span>
-        }
+      <Button
+        type="primary"
+        {...other}
+        disabled={formStatus === 'disabled'}
+        loading={formStatus === 'pending' || loading}
+        onClick={this.handleClick}
+      >
         { children }
       </Button>
     )
@@ -35,6 +32,7 @@ class Submit extends PureComponent {
 
 Submit.propTypes = {
   children: PropTypes.any,
+  formStatus: PropTypes.string,
   loading: PropTypes.bool,
   onCollapse: PropTypes.func,
   onSubmit: PropTypes.func,
