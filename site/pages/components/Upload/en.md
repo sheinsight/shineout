@@ -10,6 +10,7 @@
 | action | string | required | The address for uploading |
 | children | any | required | Upload placeholder |
 | className | string | none | Extend className |
+| headers | object | none | Request headers |
 | htmlName | string | none | The filename received by the server. If it is not filled in, use the name. |
 | limit | number | 100 | Maximum number of uploaded files |
 | name | string | none | The key access data in the Form  |

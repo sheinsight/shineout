@@ -14,6 +14,7 @@
 | action | string | 必填 | 上传地址 |
 | children | any | 必填 | 上传占位内容 |
 | className | string | 无 | 扩展className |
+| headers | object | 无 | 请求头部信息 |
 | htmlName | string | 无 | 服务端接收的 filename，不填使用 name |
 | limit | number | 100 | 最大上传文件数 |
 | name | string | 无 | Form 内存取数据的 key |
