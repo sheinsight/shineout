@@ -214,11 +214,18 @@ class Select extends PureComponent {
 
   // result performance
   resetResult() {
-    const { data, datum } = this.props
+    const {
+      data, datum, onCreate, value,
+    } = this.props
     const result = []
     data.forEach((d) => {
       if (datum.check(d)) result.push(d)
     })
+    if (value !== undefined && onCreate && result.length === 0) {
+      (Array.isArray(value) ? value : [value]).forEach((v) => {
+        result.push(onCreate(v))
+      })
+    }
     this.setState({ result })
   }
 

@@ -26,6 +26,7 @@ export default Origin => class extends PureComponent {
       innerFilter: undefined,
       innerData: undefined,
     }
+    this.handleCreate = this.handleCreate.bind(this)
     this.handleFilter = this.handleFilter.bind(this)
   }
 
@@ -41,8 +42,7 @@ export default Origin => class extends PureComponent {
     }
 
     if (onCreate) {
-      const createFn = typeof onCreate === 'boolean' ? (t => t) : onCreate
-      const innerData = createFn(text)
+      const innerData = this.handleCreate(text)
       this.setState({ innerData })
     }
 
@@ -55,6 +55,12 @@ export default Origin => class extends PureComponent {
         this.setState({ innerFilter: fn })
       }
     }, filterDelay)
+  }
+
+  handleCreate(text) {
+    const { onCreate } = this.props
+    const createFn = typeof onCreate === 'boolean' ? (t => t) : onCreate
+    return createFn(text)
   }
 
   render() {
@@ -71,6 +77,14 @@ export default Origin => class extends PureComponent {
       newData = [innerData, ...newData.filter(d => getKey(d, other.keygen, d) !== newKey)]
     }
 
-    return <Origin {...other} inputable={!!onCreate} data={newData} onFilter={filterFn} />
+    return (
+      <Origin
+        {...other}
+        inputable={!!onCreate}
+        onCreate={onCreate ? this.handleCreate : undefined}
+        data={newData}
+        onFilter={filterFn}
+      />
+    )
   }
 }
