@@ -34,8 +34,7 @@ The commonly used format is as follows
 | WW | week(fill up 0) | 01, 02, ..., 53 |
 | yy | year | 00, 01, ..., 99 |
 | yyyy | full year | 1900, 1901, ..., 2099 |
-| A | AM/PM | AM, PM |
-| a | am/pm |	am, pm |
+| a | AM/PM | AM, PM |
 | H | hour | 0, 1, ... 23 |
 | HH | hour(fill up 0) | 00, 01, ... 23 |
 | h | hour（12 hours system） | 1, 2, ..., 12 |
@@ -46,5 +45,5 @@ The commonly used format is as follows
 | ss | second(fill up 0) | 00, 01, ..., 59 |
 | SSS | ms | 000, 001, ..., 999 |
 | Z | Time Zone | -01:00, +00:00, ... +12:00 |
-| X | Time stamp(s) |	512969520 |
-| x | Time stamp(ms) | 512969520900 |
+| t | Time stamp(s) |	512969520 |
+| T | Time stamp(ms) | 512969520900 |
