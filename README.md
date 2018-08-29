@@ -14,7 +14,7 @@
 
 ## Docs
 
-[View docs here](https://sheinsight.github.com/shineout/)
+[View docs here](https://sheinsight.github.io/shineout/)
 
 ## Requirements
 
@@ -40,7 +40,7 @@ npm install shineout
 
 ```
 <link rel="stylesheet" href="https://unpkg.com/shineout/dist/theme.default.css" />
-<script crossorigin src="https://unpkg.com/shineout/dist/Shineout.js"></script>
+<script crossorigin src="https://unpkg.com/shineout/dist/shineout.min.js"></script>
 ```
 
 ## Usage
