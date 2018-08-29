@@ -18,7 +18,7 @@ function getCompiler(name, conf) {
       path: path.join(__dirname, '../publish/dist'),
       libraryTarget: 'umd',
       library: 'Shineout',
-      filename: 'Shineout.dev.js',
+      filename: 'shineout.js',
     },
   })
 }
