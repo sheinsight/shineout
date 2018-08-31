@@ -50,14 +50,16 @@ class Td extends PureComponent {
   }
 
   renderContent() {
-    const { type, render, data } = this.props
+    const {
+      type, render, data, index,
+    } = this.props
     switch (type) {
       case 'checkbox':
         return this.renderCheckbox()
       case 'expand':
         return this.renderExpand()
       default:
-        return typeof render === 'function' ? render(data) : data[render]
+        return typeof render === 'function' ? render(data, index) : data[render]
     }
   }
 

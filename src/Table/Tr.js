@@ -80,6 +80,7 @@ class Tr extends Component {
             firstFixed={firstFixed}
             lastFixed={lastFixed}
             render={render}
+            index={index}
             {...data[i]}
           />
         )
