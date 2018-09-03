@@ -97,12 +97,6 @@ const examples = [
     component: require('doc/pages/components/Select/example-13-absolute.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-13-absolute.js'),
   },
-  {
-    name: '14-combine',
-    title: locate('联动 \n 联动示例', ''),
-    component: require('doc/pages/components/Select/example-14-combine.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Select/example-14-combine.js'),
-  },
 ]
 
 const codes = undefined
