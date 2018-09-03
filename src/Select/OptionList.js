@@ -54,7 +54,11 @@ class OptionList extends PureComponent {
 
     if (data !== prevProps.data) {
       this.lastScrollTop = 0
-      setTimeout(() => { this.setState({ hoverIndex: 0, scrollTop: 0 }) })
+      setTimeout(() => { this.setState({ currentIndex: 0, scrollTop: 0 }) })
+      if (this.optionInner) {
+        setTranslate(this.optionInner, '0px', '0px')
+        this.optionInner.style.marginTop = '0px'
+      }
     }
   }
 

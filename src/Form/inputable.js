@@ -37,9 +37,7 @@ export default curry(Origin => consumer(class extends PureComponent {
   constructor(props) {
     super(props)
 
-    const {
-      formDatum, loopContext, name, defaultValue,
-    } = props
+    const { defaultValue } = props
 
     this.state = {
       error: undefined,
@@ -52,6 +50,12 @@ export default curry(Origin => consumer(class extends PureComponent {
     this.handleUpdate = this.handleUpdate.bind(this)
     this.handleDatumBind = this.handleDatumBind.bind(this)
     this.validate = this.validate.bind(this)
+  }
+
+  componentDidMount() {
+    const {
+      formDatum, loopContext, name, defaultValue,
+    } = this.props
 
     if (formDatum && name) {
       if (Array.isArray(name)) {
