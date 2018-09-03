@@ -50,9 +50,7 @@ class OptionList extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const { data, focus } = this.props
-
-    if (!focus) return
+    const { data } = this.props
 
     if (data !== prevProps.data) {
       this.lastScrollTop = 0

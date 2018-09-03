@@ -13,9 +13,9 @@ function Home() {
         <div className={homeClass('content')}>
           <h2>SHINEOUT</h2>
           <div>
-            一个更加『轻量』和『快速』的基于React的桌面端组件库
-            <br />
-            支持 React &gt; 16; 支持 10000+ 数据;
+            {
+              locate('一个更加『轻量』和『快速』的基于React的桌面端组件库', 'A components library for React')
+            }
           </div>
           <div className={homeClass('buttons')}>
             <Button type="primary" href="#/components">{locate('开始使用', 'Start')}</Button>

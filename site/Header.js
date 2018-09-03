@@ -40,7 +40,7 @@ function Header(props, context) {
   const navs = [
     { path: '/', en: 'Home', cn: '首页' },
     { path: '/components', en: 'Components', cn: '组件' },
-    { path: '/documentation', en: 'Documentation', cn: '文档' },
+    { path: '/documentation', en: '', cn: '文档' },
   ]
 
   const { pathname } = window.location
