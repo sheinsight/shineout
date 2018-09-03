@@ -24,6 +24,10 @@
     "build-css": "node scripts/build-css.js",
     "build": "npm-run-all build-*"
   },
+  "peerDependencies": {
+    "react": ">=16.0.0",
+    "react-dom": ">=16.0.0"
+  },
   "dependencies": {
     "classnames": "^2.2.5",
     "create-react-context": "^0.2.1",

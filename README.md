@@ -10,6 +10,7 @@
   <a href="https://www.npmjs.com/package/shineout"><img src="https://img.shields.io/npm/v/shineout.svg?style=flat-square"></a>
   <a href="https://www.npmjs.com/package/shineout"><img src="https://img.shields.io/npm/dm/shineout.svg?style=flat-square"></a>
   <a href="https://david-dm.org/sheinsight/shineout"><img src="https://img.shields.io/david/sheinsight/shineout.svg?style=flat-square"></a>
+  <img src="https://img.shields.io/badge/React-%3E%3D16.0.0-green.svg?style=flat-square">
 </p>
 
 ## Docs
