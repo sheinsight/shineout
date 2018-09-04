@@ -7,7 +7,8 @@ $ npm install shineout
 
 通过 CDN 引用
 ```
-<script crossorigin src="https://unpkg.com/shineout/dist/Shineout.js"></script>
+<script crossorigin src="https://unpkg.com/shineout/dist/shineout.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/shineout/dist/theme.default.css" />
 ```
 
 ## 使用

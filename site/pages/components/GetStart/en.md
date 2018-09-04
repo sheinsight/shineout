@@ -7,7 +7,7 @@ $ npm install shineout
 
 use tag from a CDN
 ```
-<script crossorigin src="https://unpkg.com/shineout/dist/Shineout.js"></script>
+<script crossorigin src="https://unpkg.com/shineout/dist/shineout.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/shineout/dist/theme.default.css" />
 ```
 

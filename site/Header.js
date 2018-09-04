@@ -6,6 +6,7 @@ import locate, { setLanguage } from './locate'
 import classGenerate from './utils/classname'
 import theme from './utils/theme'
 import logo from './icons/logo'
+import Icon from './icons/Icon'
 
 const headerClass = classGenerate(require('./styles/header.less'), 'header')
 
@@ -92,6 +93,10 @@ function Header(props, context) {
           placeholder={`theme: ${theme.getTheme()}`}
           size="small"
         />
+
+        <Button type="link" style={{ color: '#666' }} href="https://github.com/sheinsight/shineout">
+          <Icon name="github" /> github
+        </Button>
       </div>
     </div>
   )
