@@ -30,7 +30,6 @@ export default class extends PureComponent {
   initValue = {
     email: 'test@example.com',
     age: 18,
-    range: [],
   }
 
   render() {
