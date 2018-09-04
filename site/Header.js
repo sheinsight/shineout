@@ -80,6 +80,7 @@ function Header(props, context) {
             trigger="hover"
             placeholder={version}
             size="small"
+            style={{ marginRight: 12 }}
           />
         }
 
