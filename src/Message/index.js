@@ -20,8 +20,12 @@ export default {
   warning: create('warning'),
   danger: create('danger'),
   error: create('danger'),
-  close: () => {
-    destroy('top')
-    destroy('middle')
+  close: (key) => {
+    if (key) destroy(key)
+    else {
+      ['top', 'middle', 'top-left', 'top-right', 'bottom-left', 'bottom-right'].forEach((k) => {
+        destroy(k)
+      })
+    }
   },
 }
