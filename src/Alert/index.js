@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import immer from 'immer'
 import PureComponent from '../PureComponent'
 import { capitalize } from '../utils/strings'
 import { getProps, defaultProps } from '../utils/proptypes'
@@ -59,7 +58,7 @@ class Alert extends PureComponent {
     }
 
     if (!icon) return null
-    const style = iconSize > 0 ? { width: iconSize, height: iconSize } : undefined
+    const style = { width: iconSize, height: iconSize, marginRight: iconSize / 2 }
 
     return <div className={alertClass('icon')} style={style}>{icon}</div>
   }
@@ -69,11 +68,11 @@ class Alert extends PureComponent {
     if (dismiss === 2) return null
 
     const {
-      children, className, type, iconSize, onClose,
+      children, className, type, onClose,
     } = this.props
     const icon = this.renderIcon()
 
-    let { style } = this.props
+    const { style } = this.props
     let wrapClassName = alertClass(
       '_',
       type,
@@ -82,9 +81,6 @@ class Alert extends PureComponent {
       icon && 'with-icon',
     )
     if (className) wrapClassName += ` ${className}`
-    if (icon && iconSize > 0) {
-      style = immer(style, (draft) => { draft.paddingLeft = iconSize + 25 })
-    }
 
     return (
       <div ref={this.bindRef} className={wrapClassName} style={style}>
@@ -99,7 +95,9 @@ class Alert extends PureComponent {
           </a>
         }
         { icon }
-        {children}
+        <div className={alertClass('content')}>
+          {children}
+        </div>
       </div>
     )
   }
@@ -124,7 +122,7 @@ Alert.propTypes = {
 Alert.defaultProps = {
   ...defaultProps,
   duration: 216,
-  iconSize: 0,
+  iconSize: 14,
   type: 'warning',
 }
 

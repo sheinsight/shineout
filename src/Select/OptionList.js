@@ -12,13 +12,18 @@ import Option from './Option'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
 
-const root = document.createElement('div')
-root.className = selectClass('root')
-document.body.appendChild(root)
+let root
+function initRoot() {
+  root = document.createElement('div')
+  root.className = selectClass('root')
+  document.body.appendChild(root)
+}
 
 class OptionList extends PureComponent {
   constructor(props) {
     super(props)
+
+    if (!root) initRoot()
 
     this.state = {
       currentIndex: 0,

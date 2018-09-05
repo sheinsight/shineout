@@ -207,11 +207,17 @@ class SeperateTable extends PureComponent {
       this.setState({ currentIndex: index })
       this.lastScrollTop = offsetScrollTop
       setTranslate(this.tbody, `-${left}px`, `-${offsetScrollTop + lastRowHeight}px`)
+    } else if (contentHeight < h) {
+      this.lastScrollTop = 0
+      scrollTop = 0
+      setTranslate(this.tbody, `-${left}px`, '0px')
+      this.setState({ currentIndex: 0 })
     } else {
       // wheel scroll
 
       this.lastScrollTop += pixelY
       if (this.lastScrollTop < 0) this.lastScrollTop = 0
+
 
       // scroll over bottom
       if (this.lastScrollTop > contentHeight) this.lastScrollTop = contentHeight

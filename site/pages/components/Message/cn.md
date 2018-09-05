@@ -28,4 +28,5 @@ Message.close() // 关闭所有消息
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | onClose | function | 无 | 关闭后回调事件 |
-| position | string | 'top' | 消息显示的位置，可选值 \['top', 'middle'] |
+| position | string | 'top' | 消息显示的位置，可选值 \['top', 'middle', 'top-left', 'top-right', 'bottom-left', 'bottom-right'] |
+| title | string | - | 标题文字 |

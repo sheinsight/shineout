@@ -15,7 +15,7 @@ export default function () {
       <Alert type="warning" icon>Warning Type.</Alert>
       <Alert type="danger" icon>Danger Type.</Alert>
 
-      <Alert icon iconSize={24}>
+      <Alert icon iconSize={24} style={{ padding: 20 }}>
         <h3>Set iconSize</h3>
         iconSize=24
       </Alert>

@@ -27,7 +27,7 @@ const examples = [
   },
   {
     name: '3-position',
-    title: locate('显示位置 \n 默认情况下，消息显示在页面顶部，通过 position 可以修改为页面中间', 'Position \n By default, the message is displayed at the top of the page, set position to \'middle\' to display the message at the middle of the page.'),
+    title: locate('通知提醒 \n 设置 positoin 参数，修改显示位置。借此可以实现 Notification 的功能。', 'Notification \n Set position property to specify the pop-up layer location.'),
     component: require('doc/pages/components/Message/example-3-position.js').default,
     rawText: require('!raw-loader!doc/pages/components/Message/example-3-position.js'),
   },
