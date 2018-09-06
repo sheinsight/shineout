@@ -74,7 +74,7 @@ class Scroll extends PureComponent {
 
     // windows scroll
     if (Math.abs(height) > 10) {
-      this.baseScrollRatio = 20 / Math.abs(height)
+      this.baseScrollRatio = 60 / Math.abs(height)
     }
   }
 

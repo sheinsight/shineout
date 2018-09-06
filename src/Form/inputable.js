@@ -110,7 +110,7 @@ export default curry(Origin => consumer(class extends PureComponent {
     this.datum = datum
   }
 
-  validate(value, data) {
+  validate(value, data, validateOnly) {
     const {
       onError, name, formDatum, type,
     } = this.props
@@ -124,10 +124,16 @@ export default curry(Origin => consumer(class extends PureComponent {
         if (!data) data = formDatum.getValue()
       }
 
+      if (rules.length === 0) {
+        return Promise.resolve(true)
+      }
+
       if (this.datum) value = this.datum
       return validate(value, data, rules, type).then(() => {
-        onError(this.itemName, null)
-        this.setState({ error: undefined })
+        if (validateOnly !== true) {
+          onError(this.itemName, null)
+          this.setState({ error: undefined })
+        }
         return true
       }, (e) => {
         onError(this.itemName, e)

@@ -6,5 +6,8 @@
       "docs/*": ["./site/Components/*"],
       "shineout/*": ["./src/*"]
     }
-  }
+  },
+  "exclude": [
+    "**/node_modules/*"
+  ]
 }

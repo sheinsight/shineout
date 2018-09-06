@@ -212,7 +212,7 @@ export default class {
       const values = { ...this.$values }
 
       const validates = [
-        ...keys.map(k => this.$validator[k](this.values[k], values)),
+        ...keys.map(k => this.$validator[k](this.values[k], values, true)),
         ...(this.$events.validate || []).map(fn => fn()),
       ]
 
