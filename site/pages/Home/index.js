@@ -19,7 +19,7 @@ function Home() {
           </div>
           <div className={homeClass('buttons')}>
             <Button type="primary" href="#/components">{locate('开始使用', 'Start')}</Button>
-            <Button style={{ marginLeft: 20 }} href="https://github.com/sheinsight/shineout"><Icon name="github" /> Github</Button>
+            <Button style={{ marginLeft: 20 }} href="https://github.com/sheinsight/shineout"><Icon name="github" /> GitHub</Button>
           </div>
         </div>
 

@@ -95,7 +95,7 @@ function Header(props, context) {
         />
 
         <Button type="link" style={{ color: '#666' }} href="https://github.com/sheinsight/shineout">
-          <Icon name="github" /> github
+          <Icon name="github" /> GitHub
         </Button>
       </div>
     </div>

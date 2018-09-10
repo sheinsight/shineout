@@ -9,7 +9,9 @@ class Submit extends PureComponent {
   }
 
   handleClick() {
-    this.props.onSubmit()
+    setTimeout(() => {
+      this.props.onSubmit()
+    }, 50)
   }
 
   render() {
