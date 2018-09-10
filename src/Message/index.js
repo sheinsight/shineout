@@ -2,13 +2,14 @@ import { destroy, getComponent } from './messager'
 
 const create = type => (content, duration = 3, options = {}) => {
   const { onClose, position = 'top', title } = options
-  const messager = getComponent(position)
-  messager.addMessage({
-    content,
-    duration,
-    type,
-    onClose,
-    title,
+  getComponent(position).then((messager) => {
+    messager.addMessage({
+      content,
+      duration,
+      type,
+      onClose,
+      title,
+    })
   })
 }
 

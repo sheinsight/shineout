@@ -26,14 +26,21 @@ export function destroy(type) {
 }
 
 export function getComponent(type) {
-  let component = components[type]
-  if (!component) {
-    component = ReactDOM.render(
-      <Container onDestory={destroy.bind(null, type)} />,
-      getElement(type),
-    )
-    components[type] = component
-  }
-
-  return component
+  return new Promise((resolve) => {
+    const component = components[type]
+    if (component) {
+      resolve(component)
+    } else {
+      ReactDOM.render(
+        <Container
+          ref={(comp) => {
+            components[type] = comp
+            resolve(comp)
+          }}
+          onDestory={destroy.bind(null, type)}
+        />,
+        getElement(type),
+      )
+    }
+  })
 }

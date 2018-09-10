@@ -28,6 +28,7 @@ export default class extends React.Component {
       <div>
         position:
         <Select
+          keygen
           data={['top-left', 'top-right', 'bottom-left', 'bottom-right']}
           onChange={this.setPosition}
           value={this.state.position}
