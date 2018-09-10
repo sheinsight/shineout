@@ -47,13 +47,6 @@ class App extends PureComponent {
               <Route path="/documentation" component={Documentation} />
             </Switch>
           </div>
-
-          <div className={clsMain('foot')}>
-            <a href="https://shein.com" target="_blank">
-              <img src="/images/shein-logo.png" alt="shein" />
-            </a>
-            Shein corp.
-          </div>
         </div>
       </Router>
     )
