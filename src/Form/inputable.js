@@ -15,6 +15,7 @@ const tryValue = (val, def) => (val === undefined ? def : val)
 
 export default curry(Origin => consumer(class extends PureComponent {
   static propTypes = {
+    beforeChange: PropTypes.func,
     defaultValue: PropTypes.any,
     formDatum: PropTypes.object,
     loopContext: PropTypes.object,
@@ -164,17 +165,20 @@ export default curry(Origin => consumer(class extends PureComponent {
   }
 
   handleChange(value, ...args) {
-    const { formDatum, name } = this.props
+    const { formDatum, name, beforeChange } = this.props
     if (formDatum && name) {
       if (Array.isArray(name)) {
         name.forEach((n, i) => {
-          const v = (value || [])[i]
+          let v = (value || [])[i]
+          if (beforeChange) v = beforeChange(v)
           if (v !== formDatum.get(n)) formDatum.set(n, v)
         })
       } else {
+        if (beforeChange) value = beforeChange(value)
         formDatum.set(name, value)
       }
     } else {
+      if (beforeChange) value = beforeChange(value)
       this.setState({ value })
       this.validate(value)
     }

@@ -1,6 +1,6 @@
 import immer from 'immer'
 
-const names = ['delay', 'onDatumBind', 'rules', 'formDatum', 'forceChange', 'trim']
+const names = ['delay', 'onDatumBind', 'rules', 'formDatum', 'forceChange', 'trim', 'beforeChange']
 
 export default function (props) {
   return immer(props, (draft) => {
