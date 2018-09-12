@@ -14,6 +14,7 @@
 | action | string | 必填 | 上传地址 |
 | children | any | 必填 | 上传占位内容 |
 | className | string | 无 | 扩展className |
+| defaultValue | array | 无 | 默认值 |
 | headers | object | 无 | 请求头部信息 |
 | htmlName | string | 无 | 服务端接收的 filename，不填使用 name |
 | limit | number | 100 | 最大上传文件数 |
@@ -25,7 +26,7 @@
 | recoverAble | bool | false | 是否可以恢复已删除的value |
 | renderResult | func | a => a | 结果展示 |
 | validator | object | 无 | 上传前文件校验 |
-| value | array | \[] | 值 |
+| value | array | \[] | defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖<br />在Form中，value会被表单接管，value无效 |
 | withCredentials | bool | false | 是否携带 cookie |
 
 
