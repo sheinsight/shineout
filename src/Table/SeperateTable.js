@@ -300,7 +300,7 @@ class SeperateTable extends PureComponent {
       >
         <div ref={this.bindTbody} className={tableClass('scroll-inner')} style={{ width }}>
           <div style={{ height: prevHeight }} />
-          <table ref={this.bindRealTbody}>
+          <table style={{ width }} ref={this.bindRealTbody}>
             <Colgroup colgroup={colgroup} columns={columns} />
             <Tbody
               {...others}
