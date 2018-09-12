@@ -16,12 +16,13 @@ function getElement(type) {
 }
 
 export function destroy(type) {
-  if (components[type]) {
-    delete components[type]
-  }
   if (elements[type]) {
+    ReactDOM.unmountComponentAtNode(elements[type])
     document.body.removeChild(elements[type])
     delete elements[type]
+  }
+  if (components[type]) {
+    delete components[type]
   }
 }
 
