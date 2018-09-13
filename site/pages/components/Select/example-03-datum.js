@@ -31,7 +31,11 @@ export default function () {
         multiple
         keygen="id"
         defaultValue="3,4"
-        datum={{ format: 'id', separator: ',', prediction: (v, d) => v === d.id.toString() }}
+        datum={{
+          format: d => d.id.toString(),
+          separator: ',',
+          prediction: (v, d) => v === d.id.toString(),
+        }}
         onChange={onChange}
         placeholder="Select citys"
         renderItem="city"
