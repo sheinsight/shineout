@@ -147,7 +147,8 @@ class Select extends PureComponent {
         }))
       } else {
         datum.remove(data)
-        this.setState({ result: this.state.result.filter(r => r !== data) })
+        const prediction = datum.prediction || ((a, b) => (a === b))
+        this.setState({ result: this.state.result.filter(r => !prediction(r, data)) })
       }
       if (onFilter) onFilter()
       if (this.inputReset) this.inputReset()
