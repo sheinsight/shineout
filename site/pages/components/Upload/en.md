@@ -37,6 +37,7 @@
 ### Validator
 
 | Property | Type | Description |
-| --- | --- | --- | --- |
-| size | func(number):Error | Judge the size of the file and return the error when the verification fails. |
-| imageSize | func(Image):Error | It is only valid for Image to determine the size of images and return the error when the verification fails. |
+| --- | --- | --- |
+| ext | func(string):Error | Judge the file extension, return the Error when the verification fails. |
+| size | func(number):Error | Judge the size of the file and return the Error when the verification fails. |
+| imageSize | func(Image):Error | It is only valid for Image to determine the size of images and return the Error when the verification fails. |

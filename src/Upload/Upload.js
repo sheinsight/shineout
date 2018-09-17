@@ -87,23 +87,31 @@ class Upload extends PureComponent {
       }
 
       files[id] = file
+      let error = null
 
       if (typeof validator.size === 'function') {
-        const res = validator.size(blob.size)
-        if (res instanceof Error) {
-          file.message = res.message
-          file.status = ERROR
+        error = validator.size(blob.size)
+      }
 
-          if (beforeUpload) {
-            beforeUpload(blob).then((args) => {
-              this.setState(immer((draft) => {
-                draft.files[id] = Object.assign({}, draft.files[id], args)
-              }))
-            })
-          }
+      if (typeof validator.ext === 'function') {
+        const exts = blob.name.split('.')
+        console.log(exts[exts.length - 1], ['jpg', 'png'].includes(exts[exts.length - 1]))
+        error = validator.ext(exts[exts.length - 1])
+      }
 
-          return
+      if (error instanceof Error) {
+        file.message = error.message
+        file.status = ERROR
+
+        if (beforeUpload) {
+          beforeUpload(blob).then((args) => {
+            this.setState(immer((draft) => {
+              draft.files[id] = Object.assign({}, draft.files[id], args)
+            }))
+          })
         }
+
+        return
       }
 
       if (beforeUpload) {

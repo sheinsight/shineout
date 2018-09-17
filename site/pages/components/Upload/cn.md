@@ -41,6 +41,7 @@
 ### validator 属性
 
 | 属性 | 类型 | 说明 |
-| --- | --- | --- | --- |
+| --- | --- | --- |
+| ext | func(string):Error | 判断后缀名，传入参数为文件后缀，校验失败返回 Error |
 | size | func(number):Error | 判断文件大小，校验失败返回 Error |
 | imageSize | func(Image):Error | 只对 Image 有效，判断图片尺寸，校验失败返回 Error |

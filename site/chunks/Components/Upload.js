@@ -27,7 +27,7 @@ const examples = [
   },
   {
     name: '3-validator',
-    title: locate('图片尺寸 \n 通过 validator.imageSize 校验图片长宽，本例为 200px * 100px', 'Size \n Set validator.imageSize to validate the width and height of the image.'),
+    title: locate('校验 \n 通过 validator.imageSize 校验图片长宽，本例为 200px * 100px', 'Validator \n Set validator.imageSize to validate the width and height of the image.'),
     component: require('doc/pages/components/Upload/example-3-validator.js').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-3-validator.js'),
   },
