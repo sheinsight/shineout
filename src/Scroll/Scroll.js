@@ -157,7 +157,7 @@ class Scroll extends PureComponent {
   }
 
   handleScrollX(left) {
-    this.handleScroll(left, this.props.top)
+    this.handleScroll(left, this.props.top, undefined, 0)
   }
 
   handleScrollY(top) {
