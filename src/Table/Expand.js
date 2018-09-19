@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 const iframeStyle = {
-  position: 'absolute', top: 0, bottom: 0, left: 0, width: 0, border: 0,
+  position: 'absolute', left: 0, width: 0, height: '100%', border: 0,
 }
 
 class Expand extends PureComponent {
@@ -23,7 +23,9 @@ class Expand extends PureComponent {
   }
 
   setHeight() {
-    this.props.setExpandHeight(this.element.clientHeight)
+    if (this.element) {
+      this.props.setExpandHeight(this.element.clientHeight)
+    }
   }
 
   bindElement(el) {
@@ -37,10 +39,10 @@ class Expand extends PureComponent {
   }
 
   render() {
-    const { colSpan, children, padding } = this.props
+    const { colSpan, children } = this.props
     return (
       <tr ref={this.bindElement}>
-        <td style={{ padding }} colSpan={colSpan}>
+        <td style={{ padding: 0 }} colSpan={colSpan}>
           <iframe title="scroll" ref={this.bindIframe} style={iframeStyle} />
           {children}
         </td>
@@ -52,10 +54,6 @@ class Expand extends PureComponent {
 Expand.propTypes = {
   children: PropTypes.any,
   colSpan: PropTypes.number,
-  padding: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
   setExpandHeight: PropTypes.func,
 }
 

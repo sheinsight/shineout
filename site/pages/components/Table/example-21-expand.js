@@ -16,7 +16,7 @@ const columns = [
     type: 'expand',
     render: (d) => {
       if (d.salary < 300000) return undefined
-      return () => <div style={{ padding: '0 30px', wordBreak: 'break-all' }}>{JSON.stringify(d)}</div>
+      return () => <div style={{ padding: '10px 30px', wordBreak: 'break-all' }}>{JSON.stringify(d)}</div>
     },
   },
   { title: 'Name', render: d => `${d.firstName} ${d.lastName}` },
