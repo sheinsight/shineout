@@ -196,7 +196,7 @@ class SeperateTable extends PureComponent {
     /* set y */
     this.tbody.style.marginTop = `${scrollTop * h}px`
 
-    if (pixelY === undefined || pixelY === 0) {
+    if (pixelY === undefined) {
       // drag scroll bar
 
       const index = this.getIndex(scrollTop)
@@ -207,6 +207,9 @@ class SeperateTable extends PureComponent {
       this.setState({ currentIndex: index })
       this.lastScrollTop = offsetScrollTop
       setTranslate(this.tbody, `-${left}px`, `-${offsetScrollTop + lastRowHeight}px`)
+    } else if (pixelY === 0) {
+      // whell x
+      setTranslate(this.tbody, `-${left}px`, `-${this.lastScrollTop}px`)
     } else if (contentHeight < h) {
       this.lastScrollTop = 0
       scrollTop = 0
