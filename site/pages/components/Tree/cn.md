@@ -21,7 +21,7 @@
 | line | boolean | true | 是否显示连接线 |
 | loader | function(key) | 无 | 设置loader属性后，未定义children的节点视为动态加载节点，点击展开触发 loader事件，children 为 null 或者长度为 0 视为叶子节点 |
 | mode | \[1\|2\|3\|4] | 1 | 选中值模式<br />1: 只返回完全选中的节点，包含父节点<br />2: 返回全部选中的节点和半选中的父节点<br />3: 只返回选中的子节点<br />4: 如果父节点选中，只返回父节点 |
-| onExpanded | function(array) | 无 | 节点展开回调，参数为当前展开节点 key 数组 |
+| onExpand | function(array) | 无 | 节点展开回调，参数为当前展开节点 key 数组 |
 | renderItem | string \| function(d) | 必填 | 为 string 时，返回 d\[string]<br />为 function 时，返回函数结果 |
 | defaultValue | array\[key] | 无 | 默认选中的 key （非受控） | 
 | value | array\[key] | 无 | 选中的 key （受控） | 

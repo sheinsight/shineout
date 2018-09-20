@@ -21,7 +21,7 @@
 | loader | function(key) | - | If the loader attribute is a function, the node with no children is regarded as dynamically loaded node. Click expanded button to trigger the loader event. The children property is null or its length is 0 will be regarded as a leaf node. |
 | mode | \[1\|2\|3\|4] | 1 | mode <br />1: Returns only the fully selected node including the parent node. <br />2: Returns all selected nodes and semi-selected nodes. <br />3: Return only the selected child nodes. <br />4: If the parent node is full selected, only return the parent node. |
 | onChange | function(array) | - | When the onChange property is set, the selection box is displayed. The parameter is the current selected value, which is related to the mode property. |
-| onExpanded | function(array) | - | The callback function for expanding the node. The parameter is the key array of the currently expanded nodes. |
+| onExpand | function(array) | - | The callback function for expanding the node. The parameter is the key array of the currently expanded nodes. |
 | renderItem | string \| function(d) | required | When it is a string, return d\[string].<br /> When it is a function, return the result of this function. |
 | defaultValue | array\[key] | - | Default selected key (not controlled) | 
 | value | array\[key] | - | Selected key (controlled) |
