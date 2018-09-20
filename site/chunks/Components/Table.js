@@ -158,6 +158,12 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-22-scroll-to-index.js'),
   },
   {
+    name: '23-row-classname',
+    title: locate('行样式 \n 通过 rowClassName 设置单行样式（使用了 rowClassName 必须给 td 指定背景色）', 'Row ClassName \n Set the rowClassName property to set row style. (You must specify td background-color when the rowClassName is set)'),
+    component: require('doc/pages/components/Table/example-23-row-classname.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-23-row-classname.js'),
+  },
+  {
     name: '99-raw',
     title: locate('只使用样式 \n 使用原生的tr, td来显示表格', 'Style only \n Use the native tr and td to display the table.'),
     component: require('doc/pages/components/Table/example-99-raw.js').default,

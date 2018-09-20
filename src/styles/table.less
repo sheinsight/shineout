@@ -26,7 +26,6 @@
           padding: @table-cell-padding;
           line-height: @line-height-base;
           border-bottom: 1px solid @table-border-color;
-          background-color: @table-bg;
           background-clip: padding-box;
           word-break: break-all;
         }
@@ -163,6 +162,10 @@
     }
   }
 
+  &-normal td {
+    background-color: @table-bg;
+  }
+
   &-small {
     table {
       > thead,
@@ -283,7 +286,12 @@
       width: @scrollbar-width;
       top: 0;
       bottom: 0;
+      border-bottom: @table-head-border solid @table-border-color;
     }
+  }
+
+  &-bordered &-scroll-y.@{table-prefix}-head:after {
+    border-top: 1px solid @table-border-color;
   }
 
   &-body {

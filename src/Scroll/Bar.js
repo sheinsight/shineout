@@ -97,7 +97,7 @@ class ScrollBar extends PureComponent {
 
   render() {
     const {
-      direction, length, scrollLength, offset, barLength,
+      direction, length, scrollLength, offset, barLength, forceHeight,
     } = this.props
     const { dragging } = this.state
     const show = scrollLength > length
@@ -106,6 +106,7 @@ class ScrollBar extends PureComponent {
       direction,
       show && 'show',
       dragging && 'dragging',
+      !forceHeight && 'padding-y',
     )
 
     const value = (length - barLength) * offset
@@ -124,6 +125,7 @@ class ScrollBar extends PureComponent {
     return (
       <div
         className={className}
+        style={{ height: forceHeight }}
         onMouseDown={show ? this.handleBgClick : undefined}
       >
         <div
@@ -140,6 +142,7 @@ class ScrollBar extends PureComponent {
 ScrollBar.propTypes = {
   barLength: PropTypes.number.isRequired,
   direction: PropTypes.oneOf(['x', 'y']),
+  forceHeight: PropTypes.number,
   length: PropTypes.number.isRequired,
   offset: PropTypes.number.isRequired,
   onScroll: PropTypes.func.isRequired,

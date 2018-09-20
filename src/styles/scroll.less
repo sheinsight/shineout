@@ -52,6 +52,7 @@
       background: @scrollbar-color;
       position: absolute;
       border-radius: (@scrollbar-width - 4) / 2;
+      z-index: 2;
 
       &:focus {
         background: @scrollbar-hover-color;
@@ -66,22 +67,23 @@
       border-width: 0 1px;
 
       .@{scroll-prefix}-handle {
-        width: @scrollbar-width - 4;
-        left: 1px;
+        width: @scrollbar-width - 6;
+        left: 2px;
         min-height: 20px;
       }
 
-      &:after {
+      &.@{scroll-prefix}-padding-y:after {
         content: ' ';
         position: absolute;
         top: 100%;
         left: -1px;
         width: @scrollbar-width;
-        height: 12px;
+        height: @scrollbar-width;
         background: @scrollbar-bg;
+        z-index: 1;
       }
     }
-    
+
     &.@{scroll-prefix}-x {
       height: @scrollbar-width;
       left: 0;
@@ -90,8 +92,8 @@
       border-width: 1px 0;
 
       .@{scroll-prefix}-handle {
-        height: @scrollbar-width - 4;
-        top: 1px;
+        height: @scrollbar-width - 6;
+        top: 2px;
         min-width: 20px;
       }
     }

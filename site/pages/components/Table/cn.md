@@ -20,6 +20,7 @@
 | onScroll | function(x, y) | 无 | 滚动条滚动后回调函数；<br />x: 横向滚动比(0 <= x <= 1)<br />y: 纵向滚动比(0 <= y <= 1) |
 | onRowSelect | function(rows) | 无 | 选择行。rows为选中的数据。如果需要数据需要格式化的处理，建议使用 datum |
 | prediction | function | (val, d) => val===format(d) | 默认使用 format 函数执行的结果来比较是否匹配，在某些情况下（例如返回原始数据的对象，更新数据时，生成了一个值相同，非同一个对象的选项），需要借助 prediction 函数来判断是否匹配 |
+| rowClassName | function(record, index) | 无 | 指定单行className |
 | rowHeight | number | 40 | 单行表格的预期高度，只是一个大概的估值，用来展示滚动条 |
 | rowsInView | number | 20 | 单次render的最大行数。Table 采用了lazy render的方式来优化在大量数据下的性能，如果你的表格显示的高度超出了20条，可以调整rowsInView的值 |
 | showSelectAll | bool | true | 是否显示全选 |

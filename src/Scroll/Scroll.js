@@ -192,7 +192,8 @@ class Scroll extends PureComponent {
           scrollY &&
           <Bar
             direction="y"
-            length={height}
+            length={scrollHeight < height ? scrollHeight : height}
+            forceHeight={scrollHeight < height ? scrollHeight : undefined}
             scrollLength={scrollHeight}
             offset={top}
             onScroll={this.handleScrollY}
