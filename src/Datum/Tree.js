@@ -107,7 +107,9 @@ export default class {
   }
 
   isDisabled(id) {
-    return this.pathMap.get(id).isDisabled
+    const node = this.pathMap.get(id)
+    if (node) return node.isDisabled
+    return false
   }
 
   get(id) {
