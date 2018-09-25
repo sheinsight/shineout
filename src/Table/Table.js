@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { getLocale } from '../locale'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { tableClass } from '../styles'
 import Datum from '../Datum'
@@ -25,7 +26,7 @@ class Table extends PureComponent {
 
   render() {
     const {
-      striped, bordered, size, hover, height, columns, value,
+      striped, bordered, size, hover, height, columns, value, children, empty,
       data, style, fixed, width, loading, verticalAlign, ...others
     } = this.props
 
@@ -47,6 +48,7 @@ class Table extends PureComponent {
 
     const props = {
       ...others,
+      children,
       fixed,
       loading,
       height,
@@ -70,6 +72,10 @@ class Table extends PureComponent {
             {typeof loading === 'boolean' ? <Spin size={40} /> : loading}
           </div>
         }
+        {
+          (!data || data.length === 0) && !children &&
+          <div className={tableClass('empty')}>{empty || getLocale('noData')}</div>
+        }
       </div>
     )
   }
@@ -81,6 +87,7 @@ Table.propTypes = {
   children: PropTypes.any,
   columns: PropTypes.array,
   data: PropTypes.array,
+  empty: PropTypes.any,
   fixed: PropTypes.oneOf(['x', 'y', 'both']),
   height: PropTypes.number,
   hover: PropTypes.bool,
