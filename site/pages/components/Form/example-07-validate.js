@@ -47,7 +47,7 @@ export default function () {
       </Form.Item>
 
       <Form.Item required label="Password" tip="Use at least one letter, one numeral, and seven characters.">
-        <Input name="password" trim type="password" />
+        <Input name="password" trim type="password" bind={['repeatPassword']} />
       </Form.Item>
 
       <Form.Item label="Repeat Password">

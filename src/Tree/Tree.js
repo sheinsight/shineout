@@ -14,6 +14,7 @@ class Tree extends PureComponent {
     this.nodes = new Map()
     this.datum = new DatumTree({
       data: props.data,
+      loader: props.loader,
       keygen: props.keygen,
       mode: props.mode,
       onChange: props.onChange,

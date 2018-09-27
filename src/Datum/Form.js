@@ -223,4 +223,17 @@ export default class {
       })
     })
   }
+
+  validateFields(names) {
+    if (!Array.isArray(names)) names = [names]
+    const values = { ...this.$values }
+    const validates = []
+    names.forEach((k) => {
+      if (this.$validator[k]) {
+        validates.push(this.$validator[k](this.values[k], values, true))
+      }
+    })
+    console.log(validates)
+    Promise.all(validates)
+  }
 }
