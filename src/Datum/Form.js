@@ -230,10 +230,9 @@ export default class {
     const validates = []
     names.forEach((k) => {
       if (this.$validator[k]) {
-        validates.push(this.$validator[k](this.values[k], values, true))
+        validates.push(this.$validator[k](this.values[k], values))
       }
     })
-    console.log(validates)
     Promise.all(validates)
   }
 }

@@ -15,6 +15,7 @@
 | style | object | 无 | 最外层扩展样式 |
 | title | string \| ReactElement | 无 | 弹出层的标题 |
 | width | number \| string | 500 | 对话框宽度 |
+| position | string | 无 | 弹出位置，可选值为 \['top', 'right', 'bottom', 'left'] |
 
 ### Methods
 
