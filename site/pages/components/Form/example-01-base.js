@@ -40,7 +40,7 @@ export default class extends PureComponent {
         </Form.Item>
 
         <Form.Item label="Password">
-          <Input name="password" type="password" />
+          <Input.Password name="password" type="password" />
         </Form.Item>
 
         <Form.Item label="Number">
