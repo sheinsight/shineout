@@ -61,6 +61,12 @@ const examples = [
     component: require('doc/pages/components/Input/example-8-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-8-disabled.js'),
   },
+  {
+    name: '9-password',
+    title: locate('密码 \n Input.Password 模拟密码输入框，用来阻止 Chrome 提示记住密码功能。', 'Password \n Input.Password is a mock input of type \'password\', used for disable Chrome autofill.'),
+    component: require('doc/pages/components/Input/example-9-password.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Input/example-9-password.js'),
+  },
 ]
 
 const codes = undefined
