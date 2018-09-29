@@ -53,6 +53,7 @@ export default curry(Origin => consumer(class extends PureComponent {
     this.handleUpdate = this.handleUpdate.bind(this)
     this.handleDatumBind = this.handleDatumBind.bind(this)
     this.validate = this.validate.bind(this)
+    this.validateHook = this.validateHook.bind(this)
   }
 
   componentDidMount() {
@@ -112,7 +113,16 @@ export default curry(Origin => consumer(class extends PureComponent {
     this.datum = datum
   }
 
+  validateHook(customValidate) {
+    this.customValidate = customValidate
+  }
+
   validate(value, data, validateOnly) {
+    if (this.customValidate) {
+      const error = this.customValidate()
+      if (error) return Promise.resolve(error)
+    }
+
     const {
       onError, name, formDatum, type, bind,
     } = this.props
@@ -221,6 +231,7 @@ export default curry(Origin => consumer(class extends PureComponent {
         value={this.getValue()}
         onChange={this.handleChange}
         onDatumBind={this.handleDatumBind}
+        validateHook={this.validateHook}
       />
     )
   }
