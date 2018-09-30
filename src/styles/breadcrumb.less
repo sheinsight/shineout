@@ -13,14 +13,17 @@
   background-color: @breadcrumb-bg;
   border-radius: @border-radius-base;
   font-size: @font-size-base;
-  a {
+  a, b {
     display: inline-block;
-    color: @breadcrumb-a-color;
     margin: 0 @breadcrumb-padding-vertical;
+  }
 
-    &:last-child {
-      color: @breadcrumb-active-color;
-    }
+  a {
+    color: @breadcrumb-a-color;
+  }
+
+  b {
+    font-weight: normal;
   }
 
   a:hover {

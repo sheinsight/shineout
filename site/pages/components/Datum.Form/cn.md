@@ -35,3 +35,6 @@ Form 表单数据处理辅助类，用来收集和分发数据到输入组件。
 
 ### get *fuction(name)*
 获取单个字段值。
+
+### validateFields *function(names)*
+校验指定字段。names为字段名称数组。

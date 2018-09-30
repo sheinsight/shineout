@@ -26,7 +26,7 @@ class List extends PureComponent {
 
   renderNode(child, index) {
     const {
-      data, isRoot, expanded, keygen, line, className, ...other
+      data, isRoot, expanded, keygen, line, className, style, ...other
     } = this.props
     const id = this.getKey(child, index)
     return (
@@ -44,11 +44,14 @@ class List extends PureComponent {
   }
 
   render() {
-    const { data, expanded, className } = this.props
+    const {
+      data, expanded, className, style,
+    } = this.props
 
     if (!expanded && !this.hasExpanded) return null
-
     this.hasExpanded = true
+
+    const newStyle = Object.assign({}, style, { display: expanded ? 'block' : 'none' })
 
     return (
       <div
@@ -56,7 +59,7 @@ class List extends PureComponent {
         ref={this.bindElement}
         onDrop={empty}
         onDragOver={empty}
-        style={{ display: expanded ? 'block' : 'none' }}
+        style={newStyle}
       >
         { data.map(this.renderNode) }
       </div>
@@ -76,6 +79,7 @@ List.propTypes = {
   ]).isRequired,
   line: PropTypes.bool,
   setLine: PropTypes.func,
+  style: PropTypes.object,
 }
 
 List.defaultProps = {

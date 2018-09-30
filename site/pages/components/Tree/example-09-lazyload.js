@@ -14,7 +14,7 @@ const createRange = () => Array.from({ length: Math.round(Math.random() * 4) }, 
 export default class extends Component {
   constructor(props) {
     super(props)
-    this.state = { data: initData }
+    this.state = { data: initData, value: [] }
   }
 
   loader = (key) => {
@@ -34,6 +34,8 @@ export default class extends Component {
 
   keyGenerator = (node, parentKey) => `${parentKey},${node.id}`.replace(/^,/, '')
 
+  handleChange = value => this.setState({ value })
+
   renderItem = node => `node ${node.id}`
 
   render() {
@@ -43,6 +45,8 @@ export default class extends Component {
         keygen={this.keyGenerator}
         loader={this.loader}
         renderItem={this.renderItem}
+        onChange={this.handleChange}
+        value={this.state.value}
       />
     )
   }

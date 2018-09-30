@@ -5,7 +5,7 @@
  *    -- The form has a two-way binding mechanism built in, automatically sending and collecting data based on the name property of the form element.
  */
 import React, { PureComponent } from 'react'
-import { Form, Input, Checkbox, Textarea, Select, DatePicker, Tree } from 'shineout'
+import { Form, Input, Checkbox, Textarea, Select, DatePicker, Tree, Upload } from 'shineout'
 
 const citys = [
   {
@@ -40,7 +40,7 @@ export default class extends PureComponent {
         </Form.Item>
 
         <Form.Item label="Password">
-          <Input name="password" type="password" />
+          <Input.Password name="password" type="password" />
         </Form.Item>
 
         <Form.Item label="Number">
@@ -53,6 +53,17 @@ export default class extends PureComponent {
             -
             <Input name="lastName" placeholder="Last Name" />
           </Input.Group>
+        </Form.Item>
+
+        <Form.Item label="">
+          <Upload.Image
+            action="http://jsonplaceholder.typicode.com/posts"
+            accept="image/*"
+            name="file"
+            onSuccess={(res, file, data) => ({ data })}
+            renderResult={f => f.data}
+            limit={3}
+          />
         </Form.Item>
 
         <Form.Item label="Age">

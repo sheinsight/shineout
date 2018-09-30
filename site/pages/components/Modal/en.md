@@ -12,6 +12,7 @@
 | maskCloseAble | bool | true | Whether to close the mask when the mask is clicked |
 | maskOpacity | number | 0.25 | The opacity of the mask |
 | padding | number\|string | 16 | Padding style of the content |
+| position | string | - | Pop-up position, one of \['top', 'right', 'bottom', 'left'] |
 | title | string \| ReactElement | - | the title of the pop-up layer |
 | width | number \| string | 500 | the width of the Modal |
 

@@ -26,6 +26,8 @@ class Upload extends PureComponent {
     this.removeFile = this.removeFile.bind(this)
     this.removeValue = this.removeValue.bind(this)
     this.recoverValue = this.recoverValue.bind(this)
+
+    props.validateHook(this.validate.bind(this))
   }
 
   getAction(file) {
@@ -41,6 +43,11 @@ class Upload extends PureComponent {
 
   handleAddClick() {
     this.input.click()
+  }
+
+  validate() {
+    const { files } = this.state
+    return Object.keys(files).length === 0 ? true : new Error('')
   }
 
   removeFile(id) {
@@ -313,6 +320,7 @@ Upload.propTypes = {
   recoverAble: PropTypes.bool,
   renderResult: PropTypes.func,
   request: PropTypes.func,
+  validateHook: PropTypes.func,
   validator: PropTypes.object,
   value: PropTypes.array,
   style: PropTypes.object,

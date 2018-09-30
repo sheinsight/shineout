@@ -16,6 +16,7 @@ const tryValue = (val, def) => (val === undefined ? def : val)
 export default curry(Origin => consumer(class extends PureComponent {
   static propTypes = {
     beforeChange: PropTypes.func,
+    bind: PropTypes.array,
     defaultValue: PropTypes.any,
     formDatum: PropTypes.object,
     loopContext: PropTypes.object,
@@ -52,6 +53,7 @@ export default curry(Origin => consumer(class extends PureComponent {
     this.handleUpdate = this.handleUpdate.bind(this)
     this.handleDatumBind = this.handleDatumBind.bind(this)
     this.validate = this.validate.bind(this)
+    this.validateHook = this.validateHook.bind(this)
   }
 
   componentDidMount() {
@@ -111,12 +113,23 @@ export default curry(Origin => consumer(class extends PureComponent {
     this.datum = datum
   }
 
+  validateHook(customValidate) {
+    this.customValidate = customValidate
+  }
+
   validate(value, data, validateOnly) {
+    if (this.customValidate) {
+      const error = this.customValidate()
+      if (error) return Promise.resolve(error)
+    }
+
     const {
-      onError, name, formDatum, type,
+      onError, name, formDatum, type, bind,
     } = this.props
 
     if (value === undefined || Array.isArray(name)) value = this.getValue()
+
+    if (formDatum && bind) formDatum.validateFields(bind)
 
     if (typeof name === 'string' || !name) {
       let rules = [...this.props.rules]
@@ -207,7 +220,7 @@ export default curry(Origin => consumer(class extends PureComponent {
 
   render() {
     const {
-      formDatum, value, required, loopContext, ...other
+      formDatum, value, required, loopContext, bind, ...other
     } = this.props
 
     return (
@@ -218,6 +231,7 @@ export default curry(Origin => consumer(class extends PureComponent {
         value={this.getValue()}
         onChange={this.handleChange}
         onDatumBind={this.handleDatumBind}
+        validateHook={this.validateHook}
       />
     )
   }

@@ -22,7 +22,11 @@ class Breadcrumb extends React.PureComponent {
           data.map((d, index) => {
             let item = d.title
             if (!React.isValidElement(item)) {
-              item = <a onClick={d.onClick} href={d.url ? d.url : 'javascript:;'}>{d.icon} {d.title}</a>
+              if (d.onClick || d.url) {
+                item = <a onClick={d.onClick} href={d.url ? d.url : 'javascript:;'}>{d.icon} {d.title}</a>
+              } else {
+                item = <b>{d.title}</b>
+              }
             }
             return (
               <span key={getKey(d, keygen, index)}>

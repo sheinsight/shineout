@@ -49,6 +49,12 @@ const examples = [
     component: require('doc/pages/components/Modal/example-6-close.js').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-6-close.js'),
   },
+  {
+    name: '7-position',
+    title: locate('位置 \n 通过position设置弹出位置。', 'Position \n Set position property to specify the pop-up position.'),
+    component: require('doc/pages/components/Modal/example-7-position.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Modal/example-7-position.js'),
+  },
 ]
 
 const codes = undefined

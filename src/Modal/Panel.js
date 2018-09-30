@@ -8,8 +8,15 @@ import { modalClass } from '../styles'
 
 export default class Panel extends PureComponent {
   getStyle() {
-    const { width, height, top } = this.props
-    return { width, height, top }
+    const {
+      width, height, top, position,
+    } = this.props
+
+    return Object.assign({
+      position: 'absolute',
+    }, position ? {} : {
+      width, height, top, position: 'relative',
+    })
   }
 
   // eslint-disable-next-line
@@ -19,10 +26,11 @@ export default class Panel extends PureComponent {
 
   renderContent() {
     const {
-      children, noPadding, title, type, padding,
+      children, noPadding, title, type, padding, position,
     } = this.props
 
     const style = { padding: noPadding === true ? 0 : padding }
+    if (position) style.overflow = 'auto'
 
     if (type === 'default') return <Card.Body style={style}>{children}</Card.Body>
 
@@ -40,11 +48,11 @@ export default class Panel extends PureComponent {
 
   render() {
     const {
-      footer, title, type, onClose, maskCloseAble,
+      footer, title, type, onClose, maskCloseAble, position,
     } = this.props
 
     const className = classnames(
-      modalClass('panel', type),
+      modalClass('panel', type, position),
       this.props.className,
     )
 
@@ -89,6 +97,7 @@ Panel.propTypes = {
     PropTypes.number,
     PropTypes.string,
   ]),
+  position: PropTypes.oneOf(['left', 'top', 'right', 'bottom']),
   title: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element,

@@ -17,7 +17,7 @@
   &-panel {
     margin: 0 auto 10vh;
     transition: transform 0.2s linear;
-    transform: translateY(-100px);
+    transform: translate(0, -100px);
   }
 
   &-title {
@@ -45,8 +45,40 @@
   &-show {
     opacity: 1;
     .@{modal-prefix}-panel {
-      transform: translateY(0);
+      transform: translate(0, 0);
     }
+  }
+
+  &-right {
+    margin: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    transform: translate(100%, 0);
+  }
+
+  &-left {
+    margin: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    transform: translate(-100%, 0);
+  }
+
+  &-top {
+    margin: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    transform: translate(0, -100%);
+  }
+
+  &-bottom {
+    margin: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translate(0, 100%);
   }
 
   &-success &-icon path {
