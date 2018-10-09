@@ -22,7 +22,7 @@ class ImageResult extends PureComponent {
 
   render() {
     const {
-      value, renderResult, recoverAble, style,
+      value, renderResult, recoverAble, style, showRecover,
     } = this.props
     const className = uploadClass('image-item', 'image-result', recoverAble && 'to-be-delete')
     const url = renderResult(value)
@@ -35,7 +35,7 @@ class ImageResult extends PureComponent {
         }
 
         {
-          this.props.recoverAble &&
+          showRecover &&
           <a
             href="javascript:;"
             className={uploadClass('recover')}
@@ -66,6 +66,7 @@ ImageResult.propTypes = {
   onRecover: PropTypes.func,
   recoverAble: PropTypes.bool,
   renderResult: PropTypes.func,
+  showRecover: PropTypes.bool,
   style: PropTypes.object,
   value: PropTypes.any,
 }
