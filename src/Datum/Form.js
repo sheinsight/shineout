@@ -51,6 +51,8 @@ function unflatten(data) {
   return result['']
 }
 
+export const FORCE_PASS = {}
+
 export default class {
   constructor(options = {}) {
     const {
@@ -233,6 +235,12 @@ export default class {
         validates.push(this.$validator[k](this.values[k], values))
       }
     })
+    Promise.all(validates)
+  }
+
+  validateClear() {
+    const keys = Object.keys(this.$validator)
+    const validates = keys.map(k => this.$validator[k](FORCE_PASS))
     Promise.all(validates)
   }
 }
