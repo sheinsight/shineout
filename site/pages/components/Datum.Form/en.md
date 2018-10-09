@@ -37,3 +37,9 @@ Set the value specified by name.
 
 ### get *fuction(name)*
 Get a single field value.
+
+### validateFields *function(names)*
+Verify specified fields.
+
+### validateClear *function()*
+Clear the validate result.

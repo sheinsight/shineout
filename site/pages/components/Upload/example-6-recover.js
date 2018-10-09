@@ -15,11 +15,10 @@ export default function () {
         action="http://jsonplaceholder.typicode.com/posts"
         accept="image/*"
         multiple
-        limit={1}
+        limit={2}
         name="file"
         onSuccess={(res, file) => file.name}
         style={{ width: 300, marginBottom: 30 }}
-        recoverAble={1}
       >
         <Button><FontAwesome name="upload" /> Upload file</Button>
       </Upload>
