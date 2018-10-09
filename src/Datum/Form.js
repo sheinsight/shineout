@@ -206,13 +206,13 @@ export default class {
     this.$events[name] = this.$events[name].filter(e => e !== fn)
   }
 
-  validate() {
+  validate(validateOnly = true) {
     return new Promise((resolve, reject) => {
       const keys = Object.keys(this.$validator)
       const values = { ...this.$values }
 
       const validates = [
-        ...keys.map(k => this.$validator[k](this.values[k], values, true)),
+        ...keys.map(k => this.$validator[k](this.values[k], values, validateOnly)),
         ...(this.$events.validate || []).map(fn => fn()),
       ]
 
