@@ -125,10 +125,11 @@ const btnCancel = (option) => {
 }
 
 export const method = type => (option) => {
-  const props = Object.assign({}, option, {
+  const props = Object.assign({
+    width: 420,
+  }, option, {
     id: getUidStr(),
     destroy: true,
-    width: 420,
     type,
   })
 
