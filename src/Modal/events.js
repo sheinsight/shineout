@@ -106,21 +106,25 @@ export function open(props, isPortal) {
   ReactDOM.render(panel, div)
 }
 
-const btnOk = (option) => {
-  const onClick = () => {
+const closeCallback = (fn, option) => () => {
+  let callback
+  if (fn) callback = fn()
+  if (callback && typeof callback.then === 'function') {
+    callback.then(() => {
+      close(option)
+    })
+  } else {
     close(option)
-    if (option.onOk) option.onOk()
   }
+}
 
+const btnOk = (option) => {
+  const onClick = closeCallback(option.onOk, option)
   return <Button key="ok" onClick={onClick} type="primary">{getLocale('ok', option.text)}</Button>
 }
 
 const btnCancel = (option) => {
-  const onClick = () => {
-    close(option)
-    if (option.onCancel) option.onCancel()
-  }
-
+  const onClick = closeCallback(option.onCancel, option)
   return <Button key="cancel" onClick={onClick}>{getLocale('cancel', option.text)}</Button>
 }
 
