@@ -35,10 +35,21 @@ const modeList = [
   { value: 3, text: 'mode=3 (shallow)' },
 ]
 
+function getValue(list, value) {
+  const [node] = list
+  if (!node) return
+  value.push(node.id)
+  if (node.children) getValue(node.children, value)
+}
+
 export default class extends Component {
   constructor(props) {
     super(props)
-    this.state = { mode: 0, value: [] }
+
+    const value = []
+    // getValue(data, value)
+
+    this.state = { mode: 1, value }
   }
 
   handleChange = (value) => {

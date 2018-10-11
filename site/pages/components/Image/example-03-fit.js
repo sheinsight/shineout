@@ -7,7 +7,7 @@
 import React from 'react'
 import { Image } from 'shineout'
 
-const src = '/images/1_b.jpg'
+const src = '../images/1_b.jpg'
 
 export default function () {
   return (
