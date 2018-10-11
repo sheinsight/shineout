@@ -102,6 +102,7 @@ export function open(props, isPortal) {
   )
 
   if (isPortal) return ReactDOM.createPortal(panel, div)
+  if (document.activeElement) document.activeElement.blur()
 
   ReactDOM.render(panel, div)
 }
