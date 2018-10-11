@@ -47,7 +47,7 @@ export default class extends Component {
     super(props)
 
     const value = []
-    // getValue(data, value)
+    getValue(data, value)
 
     this.state = { mode: 1, value }
   }
@@ -80,7 +80,7 @@ export default class extends Component {
 
         <Tree
           data={data}
-          defaultExpanded={['1', '2']}
+          defaultExpanded={['0', '2']}
           keygen="id"
           mode={mode}
           onChange={this.handleChange}
