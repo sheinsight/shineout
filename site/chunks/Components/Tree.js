@@ -45,7 +45,7 @@ const examples = [
   },
   {
     name: '06-change',
-    title: locate('可选择 \n 选中值取值提供了 4 种模式 \n 1: 只返回完全选中的节点，包含父节点 \n 2: 返回全部选中的节点和半选中的父节点 \n 3: 只返回选中的子节点 \n 4: 如果父节点选中，只返回父节点', 'onChange \n Selected values provide 4 modes \n 1: Return only the fully selected node, including the parent node. \n 2: Return the fully selected nodes and semi-selected parent nodes. \n 3: Return only the selected child node. \n 4: Return only the parent node, if the parent node is selected.'),
+    title: locate('可选择 \n 选中值取值提供了 4 种模式 \n 0: 只返回完全选中的节点，包含父节点 \n 1: 返回全部选中的节点和半选中的父节点 \n 2: 只返回选中的子节点 \n 3: 如果父节点选中，只返回父节点', 'onChange \n Selected values provide 4 modes \n 0: Return only the fully selected node, including the parent node. \n 1: Return the fully selected nodes and semi-selected parent nodes. \n 2: Return only the selected child node. \n 3: Return only the parent node, if the parent node is selected.'),
     component: require('doc/pages/components/Tree/example-06-change.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-06-change.js'),
   },
