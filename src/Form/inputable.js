@@ -4,6 +4,7 @@ import immer from 'immer'
 import { curry, compose } from '../utils/func'
 import { getUidStr } from '../utils/uid'
 import validate from '../utils/validate'
+import { FORCE_PASS } from '../Datum/Form'
 import { formConsumer } from './formContext'
 import { itemConsumer } from './itemContext'
 import { loopConsumer } from './loopContext'
@@ -127,6 +128,11 @@ export default curry(Origin => consumer(class extends PureComponent {
       onError, name, formDatum, type, bind,
     } = this.props
 
+    if (value === FORCE_PASS) {
+      onError(this.itemName, null)
+      this.setState({ error: undefined })
+      return Promise.resolve(true)
+    }
     if (value === undefined || Array.isArray(name)) value = this.getValue()
 
     if (formDatum && bind) formDatum.validateFields(bind)

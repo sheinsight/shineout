@@ -102,33 +102,39 @@ export function open(props, isPortal) {
   )
 
   if (isPortal) return ReactDOM.createPortal(panel, div)
+  if (document.activeElement) document.activeElement.blur()
 
   ReactDOM.render(panel, div)
 }
 
-const btnOk = (option) => {
-  const onClick = () => {
+const closeCallback = (fn, option) => () => {
+  let callback
+  if (fn) callback = fn()
+  if (callback && typeof callback.then === 'function') {
+    callback.then(() => {
+      close(option)
+    })
+  } else {
     close(option)
-    if (option.onOk) option.onOk()
   }
+}
 
-  return <Button key="ok" onClick={onClick} type="primary">{getLocale('ok', option.text)}</Button>
+const btnOk = (option) => {
+  const onClick = closeCallback(option.onOk, option)
+  return <Button.Once key="ok" onClick={onClick} type="primary">{getLocale('ok', option.text)}</Button.Once>
 }
 
 const btnCancel = (option) => {
-  const onClick = () => {
-    close(option)
-    if (option.onCancel) option.onCancel()
-  }
-
-  return <Button key="cancel" onClick={onClick}>{getLocale('cancel', option.text)}</Button>
+  const onClick = closeCallback(option.onCancel, option)
+  return <Button.Once key="cancel" onClick={onClick}>{getLocale('cancel', option.text)}</Button.Once>
 }
 
 export const method = type => (option) => {
-  const props = Object.assign({}, option, {
+  const props = Object.assign({
+    width: 420,
+  }, option, {
     id: getUidStr(),
     destroy: true,
-    width: 420,
     type,
   })
 

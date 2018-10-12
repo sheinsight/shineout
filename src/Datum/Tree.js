@@ -155,7 +155,7 @@ export default class {
 
       let childChecked = this.value.indexOf(id) >= 0 ? 1 : 0
 
-      if (childChecked === 1) {
+      if (childChecked === 1 && this.mode !== CheckedMode.Half) {
         this.initValue(children, 1)
       } else if (children.length > 0) {
         childChecked = this.initValue(children)

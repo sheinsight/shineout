@@ -93,6 +93,7 @@ class Scroll extends PureComponent {
   }
 
   boundleScroll() {
+    /*
     this.locked = true
     this.scrollTimer = setTimeout(() => {
       this.locked = false
@@ -100,6 +101,7 @@ class Scroll extends PureComponent {
         this.boundleScroll()
       }
     }, 32)
+    */
 
     // lock direction
     if (Math.abs(this.pixelX) > Math.abs(this.pixelY)) {
@@ -142,9 +144,9 @@ class Scroll extends PureComponent {
       event.preventDefault()
     } else if (scrollY) event.preventDefault()
 
-    if (!this.locked) {
-      this.boundleScroll()
-    }
+    // if (!this.locked) {
+    this.boundleScroll()
+    // }
   }
 
   handleScroll(x, y, pixelX, pixelY) {

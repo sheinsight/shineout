@@ -61,8 +61,12 @@ class Upload extends PureComponent {
   }
 
   removeValue(index) {
+    const { recoverAble } = this.props
     this.setState(immer((draft) => {
       draft.recycle.push(this.props.value[index])
+      if (typeof recoverAble === 'number' && draft.recycle.length > recoverAble) {
+        draft.recycle.shift()
+      }
     }))
     const value = immer(this.props.value, (draft) => {
       draft.splice(index, 1)
@@ -285,7 +289,8 @@ class Upload extends PureComponent {
               value={v}
               index={i}
               renderResult={renderResult}
-              recoverAble={limit > value.length}
+              recoverAble={!!recoverAble}
+              showRecover={recoverAble && limit > value.length}
               onRecover={this.recoverValue}
               style={imageStyle}
             />
@@ -317,7 +322,10 @@ Upload.propTypes = {
   onSuccess: PropTypes.func,
   onError: PropTypes.func,
   params: PropTypes.object,
-  recoverAble: PropTypes.bool,
+  recoverAble: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.number,
+  ]),
   renderResult: PropTypes.func,
   request: PropTypes.func,
   validateHook: PropTypes.func,

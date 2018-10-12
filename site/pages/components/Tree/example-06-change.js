@@ -1,16 +1,16 @@
 /**
  * cn - 可选择
  *    -- 选中值取值提供了 4 种模式
- *    -- 1: 只返回完全选中的节点，包含父节点
- *    -- 2: 返回全部选中的节点和半选中的父节点
- *    -- 3: 只返回选中的子节点
- *    -- 4: 如果父节点选中，只返回父节点
+ *    -- 0: 只返回完全选中的节点，包含父节点
+ *    -- 1: 返回全部选中的节点和半选中的父节点
+ *    -- 2: 只返回选中的子节点
+ *    -- 3: 如果父节点选中，只返回父节点
  * en - onChange
  *    -- Selected values provide 4 modes
- *    -- 1: Return only the fully selected node, including the parent node.
- *    -- 2: Return the fully selected nodes and semi-selected parent nodes.
- *    -- 3: Return only the selected child node.
- *    -- 4: Return only the parent node, if the parent node is selected.
+ *    -- 0: Return only the fully selected node, including the parent node.
+ *    -- 1: Return the fully selected nodes and semi-selected parent nodes.
+ *    -- 2: Return only the selected child node.
+ *    -- 3: Return only the parent node, if the parent node is selected.
  */
 import React, { Component } from 'react'
 import { Tree, Radio } from 'shineout'
@@ -35,10 +35,21 @@ const modeList = [
   { value: 3, text: 'mode=3 (shallow)' },
 ]
 
+function getValue(list, value) {
+  const [node] = list
+  if (!node) return
+  value.push(node.id)
+  if (node.children) getValue(node.children, value)
+}
+
 export default class extends Component {
   constructor(props) {
     super(props)
-    this.state = { mode: 0, value: [] }
+
+    const value = []
+    getValue(data, value)
+
+    this.state = { mode: 1, value }
   }
 
   handleChange = (value) => {
@@ -69,7 +80,7 @@ export default class extends Component {
 
         <Tree
           data={data}
-          defaultExpanded={['1', '2']}
+          defaultExpanded={['0', '2']}
           keygen="id"
           mode={mode}
           onChange={this.handleChange}

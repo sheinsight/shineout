@@ -20,7 +20,9 @@ class Result extends PureComponent {
   }
 
   render() {
-    const { renderResult, value, recoverAble } = this.props
+    const {
+      renderResult, value, recoverAble, showRecover,
+    } = this.props
     const className = uploadClass('view-value', recoverAble && 'to-be-delete')
 
     return (
@@ -35,7 +37,7 @@ class Result extends PureComponent {
         }
 
         {
-          recoverAble &&
+          showRecover &&
           <a href="javascript:;" className={uploadClass('recover')} onClick={this.handleRecover}>
             {icons.Recovery}
           </a>
@@ -51,6 +53,7 @@ Result.propTypes = {
   onRecover: PropTypes.func,
   recoverAble: PropTypes.bool,
   renderResult: PropTypes.func,
+  showRecover: PropTypes.bool,
   value: PropTypes.any,
 }
 

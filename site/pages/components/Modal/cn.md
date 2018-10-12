@@ -37,5 +37,5 @@ Modal.confirm(options) // 确认提示框
 | title | string | 无 | 标题 |
 | onCancel | function | 无 | 点击取消按钮时触发事件，仅在 confirm 方法中有效 |
 | onClose | function | 无 | 关闭Modal时触发 |
-| onOk | function | 无 | 点击确定按钮时触发事件 |
+| onOk | function | 无 | 点击确定按钮时触发事件，返回 Promise 时，会在 Promise resolve 后关闭Modal |
 | text | object | { ok: 'Ok', cancel: 'Cancel' } | 按钮文字 |
