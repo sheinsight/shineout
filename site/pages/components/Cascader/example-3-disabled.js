@@ -19,7 +19,7 @@ export default function () {
       data={data}
       keygen="id"
       disabled={isDisabled}
-      // mode={3}
+      mode={2}
       renderItem={n => `node ${n.text}`}
     />
   )
