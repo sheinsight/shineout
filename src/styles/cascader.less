@@ -1,0 +1,98 @@
+@import './variables.less';
+@import './themes/@{so-theme}.less';
+
+@cascader-prefix: ~"@{so-prefix}-cascader";
+
+.@{cascader-prefix} {
+  position: relative;
+
+  &-result {
+    position: relative;
+    display: flex;
+    flex-flow: wrap;
+    padding: @padding-base-vertical @padding-base-horizontal+12 0 @padding-base-horizontal;
+    max-height: 105px;
+    overflow-y: auto;
+
+    span, .@{cascader-prefix}-item {
+      display: inline-block;
+      margin-right: @select-result-space;
+      margin-bottom: @padding-base-vertical;
+      padding: 0 @select-result-space;
+      color: inherit;
+      border-radius: @select-result-border-radius;
+      max-width: 80%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &:after {
+        content: '\feff ';
+      }
+    }
+
+    .@{cascader-prefix}-item {
+      background: @select-result-bg;
+    }
+  }
+
+  &-focus &-close,
+  &-result:hover &-close {
+    display: block;
+  }
+
+  &-options {
+    align-items: stretch;
+    width: auto;
+  }
+
+  &-focus &-options {
+    display: inline-flex;
+  }
+
+  &-list {
+    display: inline-block;
+    min-width: 120px;
+    vertical-align: top;
+    border-right: solid 1px @gray-200;
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  &-node {
+    position: relative;
+    padding: @dropdown-item-padding-y @dropdown-padding-x+14 @dropdown-item-padding-y @dropdown-padding-x;
+    color: @dropdown-link-color;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: @dropdown-link-hover-bg;
+    }
+    
+    &.@{cascader-prefix}-disabled {
+      cursor: not-allowed;
+      color: @gray-400;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }   
+  }
+
+  &-has-children {
+    .caret(down);
+
+    &:after {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: @menu-title-vertical-transform;
+    }
+  }
+
+  &-active {
+    text-decoration: none;
+    color: @dropdown-link-active-color;
+    font-weight: bold;
+    background-color: @dropdown-link-active-bg;
+  }
+}

@@ -116,6 +116,10 @@ export default class {
     return this.valueMap.get(id)
   }
 
+  getDataById(id) {
+    return this.dataMap.get(id)
+  }
+
   getPath(id) {
     return this.pathMap.get(id)
   }
@@ -176,6 +180,7 @@ export default class {
     const ids = []
     data.forEach((d, i) => {
       const id = this.getKey(d, path[path.length - 1], i)
+      this.dataMap.set(id, d)
 
       let isDisabled = disabled
       if (!isDisabled && typeof this.disabled === 'function') {
@@ -197,6 +202,7 @@ export default class {
 
   setData(data) {
     this.pathMap = new Map()
+    this.dataMap = new Map()
     this.data = data
 
     if (!data) return
