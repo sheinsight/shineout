@@ -60,7 +60,7 @@
 
   &-node {
     position: relative;
-    padding: @dropdown-item-padding-y @dropdown-padding-x+14 @dropdown-item-padding-y @dropdown-padding-x;
+    padding: @dropdown-item-padding-y @dropdown-padding-x+16 @dropdown-item-padding-y @dropdown-padding-x;
     color: @dropdown-link-color;
     white-space: nowrap;
 
@@ -78,7 +78,13 @@
     }   
   }
 
-  &-has-children {
+  &-loading {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+  }
+
+  &-has-children, &-may-be-children {
     .caret(down);
 
     &:after {
@@ -87,6 +93,10 @@
       right: 12px;
       transform: @menu-title-vertical-transform;
     }
+  }
+
+  &-may-be-children:after {
+    color: @gray-300;
   }
 
   &-active {

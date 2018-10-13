@@ -11,10 +11,10 @@ class List extends Component {
   }
 
   getKey(data, index) {
-    const { id, keygen } = this.props
-    if (typeof keygen === 'function') return keygen(data, id)
+    const { keygen, parentId } = this.props
+    if (typeof keygen === 'function') return keygen(data, parentId)
     else if (keygen) return data[keygen]
-    return id + (id ? ',' : '') + index
+    return parentId + (parentId ? ',' : '') + index
   }
 
   render() {
@@ -45,6 +45,12 @@ List.propTypes = {
   id: PropTypes.string,
   keygen: PropTypes.any,
   onNodeClick: PropTypes.func,
+  parentId: PropTypes.string,
+}
+
+List.defaultProps = {
+  id: '',
+  parentId: '',
 }
 
 export default List

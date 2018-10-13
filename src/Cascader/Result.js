@@ -12,7 +12,7 @@ class Result extends PureComponent {
 
   handleNodeClick(id) {
     const { path } = this.props.datum.getPath(id)
-    this.props.onNodeClick(id, null, path)
+    this.props.onPathChange(id, null, path)
   }
 
   renderClear() {
@@ -60,7 +60,7 @@ class Result extends PureComponent {
         onClick={this.handleNodeClick.bind(this, value[i])}
         key={i}
       >
-        {render(n)}
+        {n && render(n)}
       </a>
     ))
   }
@@ -90,7 +90,7 @@ Result.propTypes = {
   disabled: PropTypes.bool,
   multiple: PropTypes.bool,
   onClear: PropTypes.func,
-  onNodeClick: PropTypes.func,
+  onPathChange: PropTypes.func,
   placeholder: PropTypes.any,
   renderItem: PropTypes.func,
   renderResult: PropTypes.func,

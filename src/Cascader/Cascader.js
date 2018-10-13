@@ -39,7 +39,7 @@ class Cascader extends PureComponent {
     this.handleFocus = this.handleState.bind(this, true)
     this.handleBlur = this.handleState.bind(this, false)
     this.handleClickAway = this.handleClickAway.bind(this)
-    this.handleNodeClick = this.handleNodeClick.bind(this)
+    this.handlePathChange = this.handlePathChange.bind(this)
     this.handleClear = this.handleClear.bind(this)
   }
 
@@ -66,14 +66,10 @@ class Cascader extends PureComponent {
     if (!desc) this.handleState(false)
   }
 
-  handleNodeClick(id, data, path) {
+  handlePathChange(id, data, path) {
     setTimeout(() => {
       this.setState({ path: [...path, id] })
     }, 50)
-
-    const { mode, onChange, onItemClick } = this.props
-    if (data && onItemClick) onItemClick(id, data)
-    if (mode === undefined) onChange([...path, id])
   }
 
   handleClear() {
@@ -112,7 +108,7 @@ class Cascader extends PureComponent {
 
   renderList() {
     const {
-      data, keygen, renderItem, height, mode, onChange,
+      data, keygen, renderItem, height, mode, onChange, loader, onItemClick, expandTrigger,
     } = this.props
     const { focus, path } = this.state
 
@@ -123,22 +119,28 @@ class Cascader extends PureComponent {
       datum: this.datum,
       renderItem,
       keygen,
-      onNodeClick: this.handleNodeClick,
+      loader,
+      onPathChange: this.handlePathChange,
       onChange,
+      onItemClick,
       multiple: mode !== undefined,
+      expandTrigger,
     }
     const className = classnames(selectClass('options'), cascaderClass('options'))
 
     let tempData = data
     return (
       <div className={className} style={{ height }}>
-        <List {...props} key="root" data={tempData} id={path[0]} path={[]} />
+        <List {...props} key="root" data={tempData} id={path[0]} parentId="" path={[]} />
         {
           path.map((p, i) => {
-            tempData = tempData.find(d => this.datum.getKey(d, path.slice(0, i)) === p)
+            tempData = tempData.find((d) => {
+              const nid = this.datum.getKey(d, path[i - 1])
+              return nid === p
+            })
             if (tempData && tempData.children && tempData.children.length > 0) {
               tempData = tempData.children
-              return <List {...props} key={p} data={tempData} id={path[i + 1]} path={path.slice(0, i + 1)} />
+              return <List {...props} key={p} data={tempData} id={path[i + 1]} parentId={path[i]} path={path.slice(0, i + 1)} />
             }
             return null
           })
@@ -175,7 +177,7 @@ class Cascader extends PureComponent {
           datum={this.datum}
           placeholder={placeholder}
           onClear={this.handleClear}
-          onNodeClick={this.handleNodeClick}
+          onPathChange={this.handlePathChange}
         />
 
         {
@@ -194,6 +196,7 @@ Cascader.propTypes = {
     PropTypes.bool,
     PropTypes.func,
   ]),
+  expandTrigger: PropTypes.oneOf(['click', 'hover']),
   height: PropTypes.number,
   keygen: PropTypes.any,
   loader: PropTypes.func,
@@ -211,6 +214,7 @@ Cascader.propTypes = {
 
 Cascader.defaultProps = {
   clearable: true,
+  expandTrigger: 'click',
   height: 300,
 }
 

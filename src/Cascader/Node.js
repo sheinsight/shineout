@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Checkbox from '../Checkbox'
+import Spin from '../Spin'
 import { cascaderClass } from '../styles'
 
 const checkBoxStyle = { marginRight: 8, marginTop: -1, verticalAlign: 'top' }
@@ -8,8 +9,14 @@ const checkBoxStyle = { marginRight: 8, marginTop: -1, verticalAlign: 'top' }
 class Node extends PureComponent {
   constructor(props) {
     super(props)
+
+    this.state = {
+      loading: false,
+    }
+
     this.handleClick = this.handleClick.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handlePathChange = this.handlePathChange.bind(this)
   }
 
   checkDisabled() {
@@ -21,9 +28,27 @@ class Node extends PureComponent {
 
   handleClick() {
     const {
-      id, data, path, onNodeClick,
+      id, data, path, onChange, onPathChange, loader, multiple,
     } = this.props
-    onNodeClick(id, data, path)
+    onPathChange(id, data, path)
+
+    if (!multiple) {
+      onChange([...path, id])
+    }
+
+    if (loader && !this.state.loading) {
+      this.setState({ loading: true })
+      loader(id, data)
+    }
+  }
+
+  handlePathChange() {
+    const {
+      id, data, path, onPathChange, active,
+    } = this.props
+    console.log(id, path, active)
+    // if (active) return
+    onPathChange(id, data, path)
   }
 
   handleChange(_, checked) {
@@ -42,18 +67,24 @@ class Node extends PureComponent {
 
   render() {
     const {
-      active, data, multiple, datum, id,
+      active, data, multiple, datum, id, loader, expandTrigger,
     } = this.props
+    const { loading } = this.state
     const disabled = this.checkDisabled()
     const className = cascaderClass(
       'node',
       active && 'active',
       disabled && 'disabled',
       data.children && data.children.length > 0 && 'has-children',
+      loader && !loading && data.children === undefined && 'may-be-children',
     )
 
+    const events = {}
+    if (!disabled) events.onClick = this.handleClick
+    if (expandTrigger === 'hover') events.onMouseEnter = this.handlePathChange
+
     return (
-      <div className={className} onClick={disabled ? undefined : this.handleClick}>
+      <div className={className} {...events}>
         {
           multiple &&
           <Checkbox
@@ -61,9 +92,14 @@ class Node extends PureComponent {
             disabled={disabled}
             onChange={this.handleChange}
             style={checkBoxStyle}
-          /> }
+          />
+        }
 
         { this.renderContent() }
+        {
+          loading && data.children === undefined &&
+          <Spin className={cascaderClass('loading')} size={10} name="ring" />
+        }
       </div>
     )
   }
@@ -74,10 +110,12 @@ Node.propTypes = {
   data: PropTypes.object,
   datum: PropTypes.object,
   disabled: PropTypes.bool,
+  expandTrigger: PropTypes.string,
   id: PropTypes.string,
+  loader: PropTypes.func,
   multiple: PropTypes.bool,
   onChange: PropTypes.func,
-  onNodeClick: PropTypes.func,
+  onPathChange: PropTypes.func,
   path: PropTypes.array,
   renderItem: PropTypes.oneOfType([
     PropTypes.func,
