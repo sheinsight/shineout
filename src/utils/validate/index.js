@@ -1,4 +1,5 @@
 import { substitute } from '../strings'
+import Datum from '../../Datum'
 import range from './range'
 import rangeLength from './rangeLength'
 import required from './required'
@@ -43,7 +44,12 @@ const validate = (value, formdata, rules, type) => new Promise((resolve, reject)
       validate(value, formdata, rules, type).then(resolve, reject)
     }
 
-    const cb = getRule(rule, type)(value, formdata, callback)
+    const fn = getRule(rule, type)
+    let val = value
+    if (fn === rule && (value instanceof Datum.List || value instanceof Datum.Form)) {
+      val = value.getValue()
+    }
+    const cb = fn(val, formdata, callback)
     if (cb && cb.then) {
       cb.then(callback.bind(null, true)).catch(e => reject(e))
     }
