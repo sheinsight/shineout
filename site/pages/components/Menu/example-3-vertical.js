@@ -22,8 +22,35 @@ const data = [
       title: 'Option 2',
     }],
   }, {
-    id: '6',
-    title: 'Navigation Three',
+    id: '21',
+    title: 'Navigation 21',
+  }, {
+    id: '22',
+    title: 'Navigation 22',
+  }, {
+    id: '23',
+    title: 'Navigation 23',
+  }, {
+    id: '24',
+    title: 'Navigation 24',
+  }, {
+    id: '25',
+    title: 'Navigation 25',
+  }, {
+    id: '26',
+    title: 'Navigation 26',
+  }, {
+    id: '27',
+    title: 'Navigation 27',
+  }, {
+    id: '28',
+    title: 'Navigation 28',
+  }, {
+    id: '29',
+    title: 'Navigation 29',
+  }, {
+    id: '30',
+    title: 'Navigation 30',
     children: [{
       id: '7',
       title: 'Option 3',
@@ -39,8 +66,14 @@ const data = [
       }],
     }],
   }, {
-    id: '2',
-    title: 'Navigation Four',
+    id: '31',
+    title: 'Navigation 31',
+  }, {
+    id: '32',
+    title: 'Navigation 32',
+  }, {
+    id: '33',
+    title: 'Navigation 33',
   },
 ]
 
@@ -53,11 +86,13 @@ export default class extends React.Component {
     }
     this.handleClick = this.handleClick.bind(this)
   }
+
   handleClick(da) {
     this.setState({
       active: [da.id],
     })
   }
+
   render() {
     return (
       <Menu
@@ -66,7 +101,7 @@ export default class extends React.Component {
         data={data}
         renderItem={d => d.title}
         active={da => this.state.active.includes(da.id)}
-        style={{ width: 256 }}
+        style={{ width: 256, height: 300 }}
         inlineIndent={24}
         onClick={this.handleClick}
       />

@@ -8,8 +8,8 @@ import Item from './Item'
 class List extends PureComponent {
   render() {
     const {
-      data, level, keygen, mode, renderItem, style, active,
-      onClick, path, inlineIndent, defaultOpenKeys, disabled,
+      data, level, keygen, mode, renderItem, style, active, bottomLine,
+      onClick, path, inlineIndent, defaultOpenKeys, disabled, toggleOpenKeys,
     } = this.props
 
     const className = classnames(
@@ -23,6 +23,7 @@ class List extends PureComponent {
           data.map((d, i) => (
             <Item
               active={active}
+              bottomLine={bottomLine}
               defaultOpenKeys={defaultOpenKeys}
               disabled={disabled}
               key={getKey(d, keygen, i)}
@@ -35,6 +36,7 @@ class List extends PureComponent {
               mode={mode}
               onClick={onClick}
               path={path}
+              toggleOpenKeys={toggleOpenKeys}
             />
           ))
         }
@@ -45,6 +47,7 @@ class List extends PureComponent {
 
 List.propTypes = {
   active: PropTypes.func,
+  bottomLine: PropTypes.number,
   className: PropTypes.string,
   defaultOpenKeys: PropTypes.array,
   disabled: PropTypes.func,
@@ -57,6 +60,7 @@ List.propTypes = {
   path: PropTypes.string,
   renderItem: PropTypes.func,
   style: PropTypes.object,
+  toggleOpenKeys: PropTypes.func,
 }
 
 export default List
