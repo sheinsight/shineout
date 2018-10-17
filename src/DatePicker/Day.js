@@ -138,11 +138,9 @@ class Day extends PureComponent {
   }
 
   renderTimepicker() {
-    const { rangeDate, index } = this.props
+    const { rangeDate, index, showTimePicker } = this.props
     if (this.props.type !== 'datetime') return undefined
-    if (rangeDate && (rangeDate.length < 2 || rangeDate.some(v => !utils.isValid(v)))) {
-      return undefined
-    }
+    if (!showTimePicker) return undefined
 
     let { format } = this.props
     const match = format.match(/[H|h].*/)
@@ -224,6 +222,7 @@ Day.propTypes = {
   range: PropTypes.number,
   rangeDate: PropTypes.array,
   rangeTemp: PropTypes.object,
+  showTimePicker: PropTypes.bool,
   type: PropTypes.string.isRequired,
   value: PropTypes.object,
 }

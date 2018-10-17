@@ -264,6 +264,7 @@ class Container extends PureComponent {
         type={type}
         range={range}
         value={range ? (value || []).map(v => this.parseDate(v)) : this.parseDate(value)}
+        showTimePicker={!!value}
       />
     )
   }
