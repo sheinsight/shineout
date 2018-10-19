@@ -20,12 +20,10 @@ export default function (Component, type = ['fade'], duration = 360) {
       this.state = {
         show: props.show,
       }
-
-      this.bindElement = this.bindElement.bind(this)
     }
 
     componentDidMount() {
-      const el = this.element
+      const el = this.getElement()
 
       this.height = el.offsetHeight
       if (this.props.show) return
@@ -48,8 +46,12 @@ export default function (Component, type = ['fade'], duration = 360) {
       this.isUnmounted = true
     }
 
+    getElement() {
+      return findDOMNode(this)
+    }
+
     show() {
-      const es = this.element.style
+      const es = this.getElement().style
       es.display = 'block'
 
       setTimeout(() => {
@@ -70,26 +72,23 @@ export default function (Component, type = ['fade'], duration = 360) {
 
     hide() {
       this.setState({ show: false })
+      const element = this.getElement()
 
       if (hasCollapse) {
-        this.height = this.element.offsetHeight
-        this.element.style.height = `${this.height}px`
-        this.element.style.overflow = 'hidden'
+        this.height = element.offsetHeight
+        element.style.height = `${this.height}px`
+        element.style.overflow = 'hidden'
 
         setTimeout(() => {
-          this.element.style.height = 0
+          element.style.height = 0
         }, 10)
       }
 
       setTimeout(() => {
-        if (this.state.show === false && this.element) {
-          this.element.style.display = 'none'
+        if (this.state.show === false && element) {
+          element.style.display = 'none'
         }
       }, duration)
-    }
-
-    bindElement(el) {
-      this.element = findDOMNode(el)
     }
 
     render() {
@@ -100,7 +99,6 @@ export default function (Component, type = ['fade'], duration = 360) {
 
       return (
         <Component
-          ref={this.bindElement}
           {...this.props}
           className={className}
         />
