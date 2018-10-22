@@ -16,8 +16,6 @@ export default function () {
       style={{ width: 240 }}
       data={data}
       onChange={d => console.log(d)}
-      onCreate
-      renderResult={d => <span style={{ color: 'red' }}>{d}</span>}
     />
   )
 }
