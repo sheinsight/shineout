@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import { scrollClass } from '../styles'
 import fixedLength from './fixedLength'
 
@@ -101,12 +102,15 @@ class ScrollBar extends PureComponent {
     } = this.props
     const { dragging } = this.state
     const show = scrollLength > length
-    const className = scrollClass(
-      'bar',
-      direction,
-      show && 'show',
-      dragging && 'dragging',
-      !forceHeight && 'padding-y',
+    const className = classnames(
+      scrollClass(
+        'bar',
+        direction,
+        show && 'show',
+        dragging && 'dragging',
+        !forceHeight && 'padding-y',
+      ),
+      this.props.className,
     )
 
     const value = (length - barLength) * offset
@@ -141,6 +145,7 @@ class ScrollBar extends PureComponent {
 
 ScrollBar.propTypes = {
   barLength: PropTypes.number.isRequired,
+  className: PropTypes.string,
   direction: PropTypes.oneOf(['x', 'y']),
   forceHeight: PropTypes.number,
   length: PropTypes.number.isRequired,

@@ -126,6 +126,7 @@ class Range extends PureComponent {
           onDayHover={this.handleDayHover}
           ref={this.bindFirstPicker}
           value={utils.toDateWithFormat(value[0], props.format)}
+          showTimePicker={value.length === 2}
         />
         <Picker
           {...props}
@@ -139,6 +140,7 @@ class Range extends PureComponent {
           onDayHover={this.handleDayHover}
           ref={this.bindSecondPicker}
           value={utils.toDateWithFormat(value[1], props.format)}
+          showTimePicker={value.length === 2}
         />
       </div>
     )

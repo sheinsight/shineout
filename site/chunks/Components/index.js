@@ -38,6 +38,12 @@ const pages = [
   },
   'Form',
   {
+    name: 'Cascader',
+    cn: '级联选择',
+    level: 2,
+    component: loadable(() => import('./Cascader')),
+  },
+  {
     name: 'Checkbox',
     cn: '复选框',
     level: 2,

@@ -284,6 +284,7 @@ class Select extends PureComponent {
         ref={this.bindElement}
         className={className}
         data-id={this.selectId}
+        // onFocus={this.handleFocus}
         onClick={this.handleFocus}
         onKeyDown={this.handleKeyDown}
         onKeyUp={this.handleKeyUp}

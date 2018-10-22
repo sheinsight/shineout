@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import { findDOMNode } from 'react-dom'
 import PropTypes from 'prop-types'
 import Button from '../Button'
 import { getParent, dispatchEvent } from '../utils/dom/element'
@@ -21,8 +20,8 @@ export default htmlType => formConsumer(['disabled'], class FormButton extends P
     this.handleClick = this.handleClick.bind(this)
   }
 
-  bindElement(e) {
-    this.button = findDOMNode(e)
+  bindElement(el) {
+    this.button = el
   }
 
   handleClick() {
@@ -45,7 +44,7 @@ export default htmlType => formConsumer(['disabled'], class FormButton extends P
         {...other}
         type={type}
         htmlType={htmlType}
-        ref={this.bindElement}
+        onRef={this.bindElement}
         onClick={this.handleClick}
       >
         {children}

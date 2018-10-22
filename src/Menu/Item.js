@@ -12,7 +12,7 @@ class Item extends PureComponent {
 
     this.id = `${props.path},${getUidStr()}`
 
-    const key = getKey(props.data, props.keygen, props.index)
+    const key = this.getKey(props)
 
     this.state = {
       open: props.defaultOpenKeys.indexOf(key) > -1,
@@ -20,6 +20,7 @@ class Item extends PureComponent {
       isHighLight: false,
     }
 
+    this.bindElement = this.bindElement.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleMouseEnter = this.handleToggle.bind(this, true)
     this.handleMouseLeave = this.handleToggle.bind(this, false)
@@ -28,6 +29,14 @@ class Item extends PureComponent {
   componentWillUnmount() {
     this.props.unbindItem(this.id)
     this.unbindDocumentEvent()
+  }
+
+  getKey(props = this.props) {
+    return getKey(props.data, props.keygen, props.index)
+  }
+
+  bindElement(el) {
+    this.element = el
   }
 
   unbindDocumentEvent() {
@@ -42,13 +51,18 @@ class Item extends PureComponent {
   }
 
   handleToggle(open) {
+    const { toggleOpenKeys } = this.props
+    const key = this.getKey()
+
     if (this.toggleTimer) clearTimeout(this.toggleTimer)
     if (open) {
       this.setState({ open })
+      toggleOpenKeys(key, true)
       document.addEventListener('click', this.handleMouseLeave)
     } else {
       this.toggleTimer = setTimeout(() => {
         this.setState({ open: false })
+        toggleOpenKeys(key, false)
       }, 200)
       this.unbindDocumentEvent()
     }
@@ -73,12 +87,18 @@ class Item extends PureComponent {
 
   render() {
     const {
-      data, renderItem, mode, keygen, level, onClick, inlineIndent, defaultOpenKeys, disabled,
+      data, renderItem, mode, keygen, level, onClick, inlineIndent,
+      defaultOpenKeys, disabled, toggleOpenKeys, bottomLine,
     } = this.props
     const { open, isActive, isHighLight } = this.state
     const { children = [] } = data
 
     const isDisabled = typeof disabled === 'function' ? disabled(data) : disabled
+
+    let isUp = false
+    if (mode === 'vertical' && this.element) {
+      isUp = (this.element.getBoundingClientRect().bottom + 60) > bottomLine
+    }
 
     const className = menuClass(
       'item',
@@ -86,6 +106,7 @@ class Item extends PureComponent {
       children.length > 0 ? 'has-children' : 'no-children',
       isActive && 'active',
       open && 'open',
+      isUp && 'open-up',
       isHighLight && 'highlight',
     )
 
@@ -99,7 +120,7 @@ class Item extends PureComponent {
     }
 
     return (
-      <li className={className} {...events}>
+      <li className={className} {...events} ref={this.bindElement}>
         <a
           href="javascript:;"
           className={menuClass('title')}
@@ -122,6 +143,7 @@ class Item extends PureComponent {
             path={this.id}
             level={level + 1}
             open={open}
+            toggleOpenKeys={toggleOpenKeys}
           />
         }
       </li>
@@ -131,6 +153,7 @@ class Item extends PureComponent {
 
 Item.propTypes = {
   bindItem: PropTypes.func,
+  bottomLine: PropTypes.number,
   data: PropTypes.object,
   defaultOpenKeys: PropTypes.array,
   disabled: PropTypes.oneOfType([
@@ -145,6 +168,7 @@ Item.propTypes = {
   onClick: PropTypes.func,
   path: PropTypes.string,
   renderItem: PropTypes.func,
+  toggleOpenKeys: PropTypes.func,
   unbindItem: PropTypes.func,
 }
 
