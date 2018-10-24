@@ -26,6 +26,7 @@ class Sticky extends PureComponent {
 
   componentWillUnmount() {
     this.unbindScroll()
+    if (this.scrollTimer) clearTimeout(this.scrollTimer)
   }
 
   getStyle(mode, offset, left, width) {
@@ -130,7 +131,7 @@ class Sticky extends PureComponent {
     this.scrollCount = 0
 
     this.setPosition()
-    setTimeout(() => {
+    this.scrollTimer = setTimeout(() => {
       this.locked = false
       if (this.scrollCount > 0) {
         this.handlePosition()
