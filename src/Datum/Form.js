@@ -1,5 +1,6 @@
 import shallowEqual from '../utils/shallowEqual'
 import isEmpty from '../utils/validate/isEmpty'
+import isObject from '../utils/validate/isObject'
 
 const { hasOwnProperty } = Object.prototype
 
@@ -103,11 +104,14 @@ export default class {
   }
 
   set(name, value) {
-    if (hasOwnProperty.call(this.values, name)) {
-      this.values[name] = value
-    } else {
-      this.$values[name] = value
-    }
+    const obj = isObject(name) ? name : { [name]: value }
+    Object.keys(obj).forEach((n) => {
+      if (hasOwnProperty.call(this.values, n)) {
+        this.values[n] = obj[n]
+      } else {
+        this.$values[n] = obj[n]
+      }
+    })
     this.handleChange()
   }
 
