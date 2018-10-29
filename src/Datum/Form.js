@@ -188,6 +188,10 @@ export default class {
     delete this.$values[name]
     delete this.values[name]
     delete this.$validator[name]
+    name += '.'
+    Object.keys(this.$values).forEach((key) => {
+      if (key.indexOf(name) === 0) delete this.$values[key]
+    })
   }
 
   dispatch(name, ...args) {

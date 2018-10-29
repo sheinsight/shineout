@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
 import { getKey, getUidStr } from '../utils/uid'
@@ -119,16 +119,25 @@ class Item extends PureComponent {
       events.onMouseLeave = this.handleMouseLeave
     }
 
-    return (
-      <li className={className} {...events} ref={this.bindElement}>
+    let item = renderItem(data)
+    if (isValidElement(item) && item.type === 'a') {
+      item = cloneElement(item, { className: menuClass('title') })
+    } else {
+      item = (
         <a
           href="javascript:;"
           className={menuClass('title')}
           style={style}
           onClick={this.handleClick}
         >
-          {renderItem(data)}
+          {item}
         </a>
+      )
+    }
+
+    return (
+      <li className={className} {...events} ref={this.bindElement}>
+        {item}
         {
           children.length > 0 &&
           <List
