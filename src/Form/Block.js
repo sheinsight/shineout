@@ -58,7 +58,7 @@ class Block extends PureComponent {
     } = this.props
 
     if (rules && this.datum.rules !== rules) {
-      this.datum.rules = rules
+      this.datum.rules = Array.isArray(rules) ? {} : rules
     }
 
     return (
