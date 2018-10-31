@@ -107,7 +107,9 @@ export default class {
     const obj = isObject(name) ? name : { [name]: value }
     Object.keys(obj).forEach((n) => {
       if (hasOwnProperty.call(this.values, n)) {
-        this.values[n] = obj[n]
+        if (!shallowEqual(this.values[n], obj[n])) {
+          this.values[n] = obj[n]
+        }
       } else {
         this.$values[n] = obj[n]
       }
