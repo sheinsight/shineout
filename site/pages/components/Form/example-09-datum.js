@@ -43,6 +43,7 @@ export default class extends PureComponent {
       <div>
         <Button onClick={this.setValue.bind(this)}>set values</Button>
         <Button onClick={this.setValue.bind(this, 'colors', ['violet'])}>set color</Button>
+        <Button onClick={this.setValue.bind(this, { colors: ['yellow'], age: 20 })}>set color and age</Button>
         <Button onClick={this.getValue}>get values</Button>
 
         <Form style={{ maxWidth: 500, marginTop: 20 }} datum={this.datum}>
