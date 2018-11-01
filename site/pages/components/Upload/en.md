@@ -15,8 +15,8 @@
 | limit | number | 100 | Maximum number of uploaded files |
 | name | string | none | The key access data in the Form  |
 | onChange | func(values) | none | The callback function when the value is changing(Upload successfully, delete)<br />values: Array |
-| onUpload | func(res, file):value | none | The callback function when to upload successfully. The returned result is as the new value. <br />res: the result that the upload interface returns<br />file: selected file |
-| onUploadError | func(xhr):string | none | The callback function when to upload unsuccessfully. The returned result is as the error message. |
+| onSuccess | func(res, file):value | none | The callback function when to upload successfully. The returned result is as the new value. <br />res: the result that the upload interface returns<br />file: selected file |
+| onError | func(xhr):string | none | The callback function when to upload unsuccessfully. The returned result is as the error message. |
 | params | object | none | Additional parameters submitted to the server |
 | recoverAble | bool | true | Whether to recover deleted values. |
 | renderResult | func | a => a | Display results |

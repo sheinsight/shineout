@@ -185,7 +185,7 @@ class Upload extends PureComponent {
         if (value instanceof Error) {
           this.setState(immer((draft) => {
             draft.files[id].status = ERROR
-            draft.files[id].name = value.message
+            draft.files[id].name = file.name
             draft.files[id].message = value.message
           }))
         } else {
