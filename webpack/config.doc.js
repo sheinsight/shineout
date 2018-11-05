@@ -26,9 +26,7 @@ function getCompiler(name, conf) {
     plugins: [
       new UglifyJSPlugin({
         uglifyOptions: {
-          compress: {
-            drop_console: true,
-          },
+          compress: {},
           output: {
             comments: false,
           },
