@@ -14,7 +14,7 @@ const pages = [
     name: '<%= page.name %>',
     cn: '<%= page.cn %>',
     level: <%= key ? 2 : 1 %>,
-    component: loadable(() => import('./<%= page.name %>')),
+    component: loadable(() => import(/* webpackChunkName: "<%= page.name %>" */ './<%= page.name %>')),
   },
 <% }) -%>
 <% }) -%>

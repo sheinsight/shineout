@@ -24,6 +24,7 @@ export default function () {
         style={style}
         placeholder="Select a city"
         renderItem="city"
+        renderResult={d => d.city}
       />
 
       <Select

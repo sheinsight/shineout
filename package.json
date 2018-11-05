@@ -1,6 +1,6 @@
 {
   "name": "shineout",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Shein 前端组件库",
   "main": "./lib/index.js",
   "author": "lobos841@gmail.com",
@@ -84,7 +84,7 @@
     "style-loader": "^0.21.0",
     "uglifyjs-webpack-plugin": "^1.1.6",
     "url-loader": "^0.6.2",
-    "webpack": "3.12.0",
+    "webpack": "^3.12.0",
     "webpack-dev-server": "2.11.2",
     "webpack-merge": "^4.1.2",
     "whatwg-fetch": "^2.0.4"

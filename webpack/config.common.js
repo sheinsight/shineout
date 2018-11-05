@@ -65,6 +65,9 @@ module.exports = function getCommon(config) {
           test: /\.jsx?$/,
           use: {
             loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+            },
           },
         },
 

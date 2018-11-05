@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import { focusElement } from '../utils/dom/element'
 import { selectClass } from '../styles'
@@ -22,7 +22,6 @@ class FilterInput extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    this.editElement.innerText = this.props.text
     if (this.props.focus === prevProps.focus || !this.props.focus) return
     this.props.onInputFocus()
 
@@ -50,6 +49,16 @@ class FilterInput extends PureComponent {
     const { text, focus, multiple } = this.props
     const value = typeof text === 'string' ? text.replace(/<\/?[^>]*>/g, '') : text
 
+    if (isValidElement(value)) {
+      return cloneElement(value, {
+        className: selectClass('input', !multiple && 'full'),
+        ref: this.bindElement,
+        key: 'input',
+        onInput: this.handleInput,
+        contentEditable: focus,
+      })
+    }
+
     return (
       <span
         key="input"
@@ -69,7 +78,10 @@ FilterInput.propTypes = {
   onFilter: PropTypes.func.isRequired,
   onInputFocus: PropTypes.func.isRequired,
   setInputReset: PropTypes.func.isRequired,
-  text: PropTypes.string,
+  text: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+  ]),
 }
 
 FilterInput.defaultProps = {
