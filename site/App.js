@@ -4,9 +4,9 @@ import classGenerate from './utils/classname'
 import loadable from './Components/Loadable'
 import Header from './Header'
 
-const Home = loadable(() => import('./pages/Home'))
-const Components = loadable(() => import('./chunks/Components'))
-const Documentation = loadable(() => import('./pages/documentation'))
+const Home = loadable(() => import(/* webpackChunkName: "Home" */ './pages/Home'))
+const Components = loadable(() => import(/* webpackChunkName: "Components" */ './chunks/Components'))
+const Documentation = loadable(() => import(/* webpackChunkName: "Documentation" */ './pages/documentation'))
 const clsMain = classGenerate(require('./styles/index.less'), 'main')
 
 class App extends PureComponent {

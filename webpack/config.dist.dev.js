@@ -14,6 +14,7 @@ function getCompiler(name, conf) {
     name,
     stats: { children: false },
     entry: './src/index.js',
+    devtool: 'source-map',
     output: {
       path: path.join(__dirname, '../publish/dist'),
       libraryTarget: 'umd',

@@ -10,13 +10,13 @@ const pages = [
     name: 'Props',
     cn: '约定',
     level: 2,
-    component: createMarkDown(() => import('./api-props.md')),
+    component: createMarkDown(() => import(/* webpackChunkName: 'api.props' */ './api-props.md')),
   },
 
   {
     name: 'Classname',
     level: 2,
-    component: createMarkDown(() => import('./api-classname.md')),
+    component: createMarkDown(() => import(/* webpackChunkName: 'api.classname' */ './api-classname.md')),
   },
 
   'CHANGELOG',
@@ -24,7 +24,7 @@ const pages = [
   ...versions.map(v => ({
     name: v,
     level: 2,
-    component: createMarkDown(() => import(`./changelog/${v}.md`)),
+    component: createMarkDown(() => import(/* webpackChunkName: 'changelog' */ `./changelog/${v}.md`)),
   })),
 ]
 

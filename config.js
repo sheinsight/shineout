@@ -22,7 +22,7 @@ module.exports = {
       app: './site/index.js',
     },
     output: {
-      chunkFilename: '[name].chunk.js',
+      chunkFilename: '[name].[chunkhash].js',
       filename: '[name].js',
     },
     // for site/
