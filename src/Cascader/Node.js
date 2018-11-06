@@ -79,12 +79,17 @@ class Node extends PureComponent {
       loader && !loading && data.children === undefined && 'may-be-children',
     )
 
+    const style = {}
+
     const events = {}
-    if (!disabled) events.onClick = this.handleClick
-    if (expandTrigger === 'hover') events.onMouseEnter = this.handlePathChange
+    if (!disabled && (expandTrigger !== 'hover-only' || !data.children || data.children.length === 0)) {
+      events.onClick = this.handleClick
+      style.cursor = 'pointer'
+    }
+    if (expandTrigger === 'hover' || expandTrigger === 'hover-only') events.onMouseEnter = this.handlePathChange
 
     return (
-      <div className={className} {...events}>
+      <div className={className} style={style} {...events}>
         {
           multiple &&
           <Checkbox
