@@ -48,9 +48,9 @@ class Sticky extends PureComponent {
       } else {
         style.position = 'absolute'
         if (mode === 'top') {
-          style.top += this.targetElement.scrollTop + 0.5
+          style.transform = `translateY(${offset}${this.targetElement.scrollTop}px)`
         } else {
-          style.bottom -= this.targetElement.scrollTop
+          style.transform = `translateY(${offset}${this.targetElement.scrollTop}px)`
         }
         delete style.left
       }
