@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const HappyPack = require('happypack')
 const config = require('../config')
 const common = require('./config.common')
 const pkg = require('../package.json')
@@ -17,6 +18,7 @@ function getCompiler(name, conf) {
     output: Object.assign({}, conf.output, {
       path: path.join(__dirname, `../gh-pages/${dir}x`),
     }),
+    useHappyPack: true,
   })
   return merge(common(wf), {
     name,
@@ -33,6 +35,14 @@ function getCompiler(name, conf) {
         },
       }),
       new webpack.optimize.ModuleConcatenationPlugin(),
+      new HappyPack({
+        id: 'js',
+        loaders: ['babel-loader?cacheDirectory'],
+      }),
+      new HappyPack({
+        id: 'less',
+        loaders: ['css-loader?minimize=true', 'postcss-loader', 'less-loader'],
+      }),
     ],
   })
 }
