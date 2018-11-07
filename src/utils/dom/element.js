@@ -51,3 +51,12 @@ export function focusElement(element) {
     range.select()
   }
 }
+
+export function cssSupport(attr, value) {
+  const element = document.createElement('div')
+  if (attr in element.style) {
+    element.style[attr] = value
+    return element.style[attr] === value
+  }
+  return false
+}

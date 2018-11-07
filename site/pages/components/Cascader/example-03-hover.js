@@ -17,6 +17,8 @@ export default function () {
       keygen="id"
       expandTrigger="hover-only"
       renderItem={n => `node ${n.text}`}
+      renderResult={n => ((n.children && n.children.length > 0) ? '' : n.text)}
+      style={{ width: 300 }}
     />
   )
 }
