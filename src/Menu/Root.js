@@ -153,8 +153,6 @@ class Root extends React.Component {
       bottomLine = this.container.getBoundingClientRect().bottom
     }
 
-    console.log(bottomLine)
-
     return (
       <div
         className={className}

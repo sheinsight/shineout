@@ -86,7 +86,6 @@ class Sticky extends PureComponent {
     }
 
     if (top !== undefined && mode !== 'bottom') {
-      console.log(selfRect.top, limitTop)
       if (selfRect.top < limitTop) {
         this.setState({ scrollWidth: scrollRect.width, mode: 'top' })
         style = this.getStyle('top', top, selfRect.left, selfRect.width)

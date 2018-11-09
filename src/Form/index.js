@@ -13,6 +13,7 @@ import formButton from './formButton'
 import { loopProvider } from './loopContext'
 import { itemProvider } from './itemContext'
 import { formProvider, formConsumer } from './formContext'
+import useMode from './mode'
 
 const exportForm = compose(Datum.hoc({ type: 'form' }), formProvider)(cardConsumer(Form, ['setFormStatus']))
 exportForm.Item = itemProvider(formConsumer(['labelWidth', 'labelAlign'], Item))
@@ -27,5 +28,6 @@ exportForm.Reset = formButton('reset')
 exportForm.Button = formButton('button')
 
 exportForm.formConsumer = formConsumer
+exportForm.useMode = useMode
 
 export default exportForm

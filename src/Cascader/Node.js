@@ -44,9 +44,8 @@ class Node extends PureComponent {
 
   handlePathChange() {
     const {
-      id, data, path, onPathChange, active,
+      id, data, path, onPathChange,
     } = this.props
-    console.log(id, path, active)
     // if (active) return
     onPathChange(id, data, path)
   }
