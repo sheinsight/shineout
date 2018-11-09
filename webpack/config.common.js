@@ -61,7 +61,7 @@ module.exports = function getCommon(config) {
           test: /\.less$/,
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
-            use: config.useHappyPack ? 'happypack/loader?id=less' : lessLoader,
+            use: lessLoader,
           }),
         },
 

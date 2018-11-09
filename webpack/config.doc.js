@@ -39,10 +39,6 @@ function getCompiler(name, conf) {
         id: 'js',
         loaders: ['babel-loader?cacheDirectory'],
       }),
-      new HappyPack({
-        id: 'less',
-        loaders: ['css-loader?minimize=true', 'postcss-loader', 'less-loader'],
-      }),
     ],
   })
 }

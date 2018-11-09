@@ -55,7 +55,7 @@ export const formConsumer = curry((keys, Origin) => class extends PureComponent 
     }
     return (
       <Consumer>
-        {value => <Origin {...this.props} {...filterProps(value)} />}
+        {value => <Origin {...filterProps(value)} {...this.props} />}
       </Consumer>
     )
   }
