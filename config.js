@@ -11,6 +11,7 @@ module.exports = {
       '/react-dom/16.4.1/umd/react-dom.production.min.js',
       '/prop-types/15.6.0/prop-types.min.js',
       '/highlight.js/9.12.0/highlight.min.js',
+      '/jszip/3.1.5/jszip.min.js',
     ],
     styles: [
       '/highlight.js/9.12.0/styles/github.min.css',

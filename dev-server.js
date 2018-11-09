@@ -57,6 +57,9 @@ router.get('**/react-dom.production.min.js', async (ctx) => {
 })
 router.get('**/prop-types.min.js', async (ctx) => {
   await send(ctx, 'node_modules/prop-types/prop-types.js')
+})
+router.get('**/jszip.min.js', async (ctx) => {
+  await send(ctx, 'node_modules/jszip/dist/jszip.min.js')
 });
 
 ['highlight.min.js', 'github.min.css'].forEach((p) => {
