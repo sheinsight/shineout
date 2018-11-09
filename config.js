@@ -33,6 +33,25 @@ module.exports = {
       doc: path.resolve(__dirname, 'site'),
     },
     devtool: 'cheap-module-source-map',
-    externals: { react: 'React', 'react-dom': 'ReactDOM', 'prop-types': 'PropTypes' },
+    externals: {
+      react: {
+        root: 'React',
+        commonjs2: 'react',
+        commonjs: 'react',
+        amd: 'react',
+      },
+      'react-dom': {
+        root: 'ReactDOM',
+        commonjs2: 'react-dom',
+        commonjs: 'react-dom',
+        amd: 'react-dom',
+      },
+      'prop-types': {
+        root: 'PropTypes',
+        commonjs2: 'prop-types',
+        commonjs: 'prop-types',
+        amd: 'prop-types',
+      },
+    },
   },
 }
