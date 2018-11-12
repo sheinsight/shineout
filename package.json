@@ -25,19 +25,19 @@
     "build": "npm-run-all build-*"
   },
   "peerDependencies": {
+    "prop-types": "^15.6.0",
     "react": ">=16.0.0",
-    "react-dom": ">=16.0.0",
-    "prop-types": "^15.6.0"
+    "react-dom": ">=16.0.0"
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "create-react-context": "^0.2.1",
+    "create-react-context": "^0.2.3",
     "date-fns": "2.0.0-alpha.10",
     "deep-eql": "^3.0.1",
     "immer": "^1.1.1",
     "prop-types": "^15.6.0",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2"
+    "react": "^16.6.1",
+    "react-dom": "^16.6.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.2.4",

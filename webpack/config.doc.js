@@ -17,6 +17,8 @@ function getCompiler(name, conf) {
     },
     output: Object.assign({}, conf.output, {
       path: path.join(__dirname, `../gh-pages/${dir}x`),
+      libraryTarget: 'umd',
+      library: 'ShineoutDoc',
     }),
     useHappyPack: true,
   })

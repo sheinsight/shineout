@@ -35,6 +35,7 @@ function getCompiler(name, conf) {
     output: {
       filename: '[name].js',
       publicPath: getPublishPath(),
+      libraryTarget: 'umd',
     },
 
     plugins: [
