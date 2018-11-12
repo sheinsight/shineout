@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { ChasingDots, DoubleBounce, ThreeBounce, ScaleCircle, FadingCircle,
-  CubeGrid, ChasingRing, Wave, FourDots, Default } from './Multiple'
+import {
+  ChasingDots, DoubleBounce, ThreeBounce, ScaleCircle, FadingCircle,
+  CubeGrid, ChasingRing, Wave, FourDots, Default,
+} from './Multiple'
 import { Ring, Plane, Pulse } from './Simple'
 
 const spins = {

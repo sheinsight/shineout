@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Route, Redirect, Switch, NavLink } from 'react-router-dom'
+import { Sticky } from 'shineout'
 import locate from 'doc/locate'
 import classGenerate from '../utils/classname'
 
@@ -18,25 +19,27 @@ export default function (pages) {
     const indexRoute = pages.find(p => typeof p !== 'string')
 
     return [
-      <div key="menu" className={clsMain('menu')}>
-        {
-          pages.map((p, i) => (
-            typeof p === 'string'
-              // eslint-disable-next-line
-              ? <label key={i}>{p}</label>
-              : (
-                <NavLink
-                  className={clsMain(p.level === 2 && 'sub')}
-                  activeClassName={clsMain('active')}
-                  key={p.name}
-                  to={getUrl(base, p)}
-                >
-                  <p>{p.name} <span>{locate(p.cn)}</span></p>
-                </NavLink>
-              )
-          ))
-        }
-      </div>,
+      <Sticky key="menu" top={0}>
+        <div className={clsMain('menu')}>
+          {
+            pages.map((p, i) => (
+              typeof p === 'string'
+                // eslint-disable-next-line
+                ? <label key={i}>{p}</label>
+                : (
+                  <NavLink
+                    className={clsMain(p.level === 2 && 'sub')}
+                    activeClassName={clsMain('active')}
+                    key={p.name}
+                    to={getUrl(base, p)}
+                  >
+                    <p>{p.name} <span>{locate(p.cn)}</span></p>
+                  </NavLink>
+                )
+            ))
+          }
+        </div>
+      </Sticky>,
 
       <div key="page" className={clsMain('page')}>
         <Switch>

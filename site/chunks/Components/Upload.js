@@ -39,7 +39,7 @@ const examples = [
   },
   {
     name: '5-error',
-    title: locate('异常处理 \n onUploadError 用来处理上传到服务器返回的异常', 'Error \n Set onUploadError to handle exceptions returned by uploading to the server.'),
+    title: locate('异常处理 \n onError 用来处理上传到服务器返回的异常', 'Error \n Set onError to handle exceptions returned by uploading to the server.'),
     component: require('doc/pages/components/Upload/example-5-error.js').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-5-error.js'),
   },

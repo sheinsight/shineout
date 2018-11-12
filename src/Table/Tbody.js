@@ -52,20 +52,22 @@ class Tbody extends PureComponent {
   }
 
   componentDidMount() {
-    const { onBodyRender } = this.props
-    if (onBodyRender) {
-      const tds = this.body.querySelector('tr').querySelectorAll('td')
-      onBodyRender(tds)
-    }
+    this.bodyRender()
   }
 
   componentDidUpdate(prevProps) {
-    const { onBodyRender } = this.props
-    if (!onBodyRender) return
-    if (this.props.columns.length !== prevProps.columns.length) {
-      const tds = this.body.querySelector('tr').querySelectorAll('td')
-      onBodyRender(tds)
+    if (!this.colgroupSetted || this.props.columns.length !== prevProps.columns.length) {
+      this.bodyRender()
     }
+  }
+
+  bodyRender() {
+    const { onBodyRender } = this.props
+    if (!onBodyRender || !this.body) return
+    const tr = this.body.querySelector('tr')
+    if (!tr) return
+    this.colgroupSetted = true
+    onBodyRender(tr.querySelectorAll('td'))
   }
 
   bindBody(el) {

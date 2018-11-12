@@ -11,6 +11,7 @@ module.exports = {
       '/react-dom/16.4.1/umd/react-dom.production.min.js',
       '/prop-types/15.6.0/prop-types.min.js',
       '/highlight.js/9.12.0/highlight.min.js',
+      '/jszip/3.1.5/jszip.min.js',
     ],
     styles: [
       '/highlight.js/9.12.0/styles/github.min.css',
@@ -32,6 +33,25 @@ module.exports = {
       doc: path.resolve(__dirname, 'site'),
     },
     devtool: 'cheap-module-source-map',
-    externals: { react: 'React', 'react-dom': 'ReactDOM', 'prop-types': 'PropTypes' },
+    externals: {
+      react: {
+        root: 'React',
+        commonjs2: 'react',
+        commonjs: 'react',
+        amd: 'react',
+      },
+      'react-dom': {
+        root: 'ReactDOM',
+        commonjs2: 'react-dom',
+        commonjs: 'react-dom',
+        amd: 'react-dom',
+      },
+      'prop-types': {
+        root: 'PropTypes',
+        commonjs2: 'prop-types',
+        commonjs: 'prop-types',
+        amd: 'prop-types',
+      },
+    },
   },
 }

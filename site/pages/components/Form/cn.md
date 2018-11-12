@@ -27,6 +27,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 | inline | bool | false | 是否水平布局 |
 | labelAlign | string | | 可选值为 \['top', 'right']，默认为左边对齐。 |
 | labelWidth | string \| number | 140px | 标签宽度，labelAlign 为 'top' 时无效。 |
+| mode | string | | 模式，和 useMode 配合使用 |
 | onChange | function(data) | | 表单内组件值变化函数 |
 | onError | function(err) | | 异常回调处理 |
 | onSubmit | function(data) | | 表单提交函数。表单内部校验失败时不会触发。 |

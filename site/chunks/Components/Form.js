@@ -133,6 +133,12 @@ const examples = [
     component: require('doc/pages/components/Form/example-20-array.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-20-array.js'),
   },
+  {
+    name: '21-mode',
+    title: locate('模式 \n 使用 Form.useMode 可以创建一组指定 key 的组件，配合 Form 设置的 mode 属性过滤显示指定的元素', 'Mode \n Form.useMode create a set of components, filters the specified element with the mode attribute of the Form.'),
+    component: require('doc/pages/components/Form/example-21-mode.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-21-mode.js'),
+  },
 ]
 
 const codes = undefined

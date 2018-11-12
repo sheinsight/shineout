@@ -54,24 +54,29 @@ class Result extends PureComponent {
     const nodes = value.map(v => datum.getDataById(v))
     const render = renderResult || renderItem
 
-    return nodes.map((n, i) => (
-      <a
-        className={cascaderClass('item')}
-        onClick={this.handleNodeClick.bind(this, value[i])}
-        key={i}
-      >
-        {n && render(n)}
-      </a>
-    ))
+    return nodes.map((n, i) => {
+      const res = n && render(n)
+      if (!res) return null
+      return (
+        <a
+          className={cascaderClass('item')}
+          onClick={this.handleNodeClick.bind(this, value[i])}
+          key={i}
+        >
+          {res}
+        </a>
+      )
+    })
   }
 
   render() {
-    const result = this.props.value.length === 0
+    const { style, value } = this.props
+    const result = value.length === 0
       ? this.renderPlaceholder()
       : this.renderResult()
 
     return (
-      <div className={cascaderClass('result')}>
+      <div className={cascaderClass('result')} style={style}>
         { result }
         {
           !this.props.multiple &&
@@ -94,6 +99,7 @@ Result.propTypes = {
   placeholder: PropTypes.any,
   renderItem: PropTypes.func,
   renderResult: PropTypes.func,
+  style: PropTypes.object,
   value: PropTypes.array,
 }
 

@@ -1,32 +1,64 @@
+// Created by scripts/create-style.js.
 import genaration from '../utils/classname'
 
-export const alertClass = genaration(require('./alert.less'), 'alert')
-export const buttonClass = genaration(require('./button.less'), 'button')
-export const dropdownClass = genaration(require('./dropdown.less'), 'dropdown')
-export const hidableClass = genaration(require('./hidable.less'), 'hidable')
-export const listClass = genaration(require('./list.less'), 'list')
-export const messageClass = genaration(require('./message.less'), 'message')
-export const tableClass = genaration(require('./table.less'), 'table')
-export const scrollClass = genaration(require('./scroll.less'), 'scroll')
-export const paginationClass = genaration(require('./pagination.less'), 'pagination')
-export const breadcrumbClass = genaration(require('./breadcrumb.less'), 'breadcrumb')
-export const iconClass = genaration(require('./icon.less'), 'icon')
-export const menuClass = genaration(require('./menu.less'), 'menu')
-export const checkinputClass = genaration(require('./checkinput.less'), 'check-input')
-export const formClass = genaration(require('./form.less'), 'form')
-export const inputClass = genaration(require('./form.less'), 'input')
-export const selectClass = genaration(require('./select.less'), 'select')
-export const modalClass = genaration(require('./modal.less'), 'modal')
-export const cardClass = genaration(require('./card.less'), 'card')
-export const datepickerClass = genaration(require('./datepicker.less'), 'datepicker')
-export const rateClass = genaration(require('./rate.less'), 'rate')
-export const imageClass = genaration(require('./image.less'), 'image')
-export const tooltipClass = genaration(require('./tooltip.less'), 'tooltip')
-export const popoverClass = genaration(require('./popover.less'), 'popover')
-export const treeClass = genaration(require('./tree.less'), 'tree')
-export const sliderClass = genaration(require('./slider.less'), 'slider')
-export const tabsClass = genaration(require('./tabs.less'), 'tabs')
-export const progressClass = genaration(require('./progress.less'), 'progress')
-export const uploadClass = genaration(require('./upload.less'), 'upload')
-export const carouselClass = genaration(require('./carousel.less'), 'carousel')
-export const cascaderClass = genaration(require('./cascader.less'), 'cascader')
+import alertLess from './alert.less'
+import buttonLess from './button.less'
+import dropdownLess from './dropdown.less'
+import hidableLess from './hidable.less'
+import listLess from './list.less'
+import messageLess from './message.less'
+import tableLess from './table.less'
+import scrollLess from './scroll.less'
+import paginationLess from './pagination.less'
+import breadcrumbLess from './breadcrumb.less'
+import iconLess from './icon.less'
+import menuLess from './menu.less'
+import checkinputLess from './checkinput.less'
+import formLess from './form.less'
+import inputLess from './form.less'
+import selectLess from './select.less'
+import modalLess from './modal.less'
+import cardLess from './card.less'
+import datepickerLess from './datepicker.less'
+import rateLess from './rate.less'
+import imageLess from './image.less'
+import tooltipLess from './tooltip.less'
+import popoverLess from './popover.less'
+import treeLess from './tree.less'
+import sliderLess from './slider.less'
+import tabsLess from './tabs.less'
+import progressLess from './progress.less'
+import uploadLess from './upload.less'
+import carouselLess from './carousel.less'
+import cascaderLess from './cascader.less'
+
+export const alertClass = genaration(alertLess, 'alert')
+export const buttonClass = genaration(buttonLess, 'button')
+export const dropdownClass = genaration(dropdownLess, 'dropdown')
+export const hidableClass = genaration(hidableLess, 'hidable')
+export const listClass = genaration(listLess, 'list')
+export const messageClass = genaration(messageLess, 'message')
+export const tableClass = genaration(tableLess, 'table')
+export const scrollClass = genaration(scrollLess, 'scroll')
+export const paginationClass = genaration(paginationLess, 'pagination')
+export const breadcrumbClass = genaration(breadcrumbLess, 'breadcrumb')
+export const iconClass = genaration(iconLess, 'icon')
+export const menuClass = genaration(menuLess, 'menu')
+export const checkinputClass = genaration(checkinputLess, 'checkinput')
+export const formClass = genaration(formLess, 'form')
+export const inputClass = genaration(inputLess, 'input')
+export const selectClass = genaration(selectLess, 'select')
+export const modalClass = genaration(modalLess, 'modal')
+export const cardClass = genaration(cardLess, 'card')
+export const datepickerClass = genaration(datepickerLess, 'datepicker')
+export const rateClass = genaration(rateLess, 'rate')
+export const imageClass = genaration(imageLess, 'image')
+export const tooltipClass = genaration(tooltipLess, 'tooltip')
+export const popoverClass = genaration(popoverLess, 'popover')
+export const treeClass = genaration(treeLess, 'tree')
+export const sliderClass = genaration(sliderLess, 'slider')
+export const tabsClass = genaration(tabsLess, 'tabs')
+export const progressClass = genaration(progressLess, 'progress')
+export const uploadClass = genaration(uploadLess, 'upload')
+export const carouselClass = genaration(carouselLess, 'carousel')
+export const cascaderClass = genaration(cascaderLess, 'cascader')

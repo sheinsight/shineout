@@ -27,7 +27,7 @@ const examples = [
   },
   {
     name: '03-hover',
-    title: locate('移入展开 \n 设置 expandTrigger 为 \'hover\', 可以在鼠标移入节点时展开，默认为 \'click\'', 'Hover \n Set expandTrigger to \'hover\', expand the node when mouse hover, default value is \'click\'.'),
+    title: locate('移入展开 \n 设置 expandTrigger 为 \'hover\' 或 \'hover-only\', 可以在鼠标移入节点时展开，默认为 \'click\' \n 如果值为 \'hover-only\'，父节点只能 hover 触发展开, 只有子节点可以点击选择值', 'Hover \n Set expandTrigger to \'hover\' or \'hover-only\', expand the node when mouse hover, default value is \'click\'.'),
     component: require('doc/pages/components/Cascader/example-03-hover.js').default,
     rawText: require('!raw-loader!doc/pages/components/Cascader/example-03-hover.js'),
   },

@@ -106,7 +106,6 @@ class Upload extends PureComponent {
 
       if (typeof validator.ext === 'function') {
         const exts = blob.name.split('.')
-        console.log(exts[exts.length - 1], ['jpg', 'png'].includes(exts[exts.length - 1]))
         error = validator.ext(exts[exts.length - 1])
       }
 

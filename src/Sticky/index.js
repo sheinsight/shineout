@@ -3,8 +3,10 @@ import PropTypes from 'prop-types'
 import { getParent } from '../utils/dom/element'
 import { eventPassive } from '../utils/dom/detect'
 import { getProps, defaultProps } from '../utils/proptypes'
+import { cssSupport } from '../utils/dom/element'
 
 const events = ['scroll', 'resize', 'pageshow', 'load']
+const supportSticky = cssSupport('position', 'sticky')
 
 class Sticky extends PureComponent {
   constructor(props) {
@@ -31,6 +33,7 @@ class Sticky extends PureComponent {
 
   getStyle(mode, offset, left, width) {
     const { zIndex = 900 } = this.props.style
+
     const style = {
       position: 'fixed',
       left,
@@ -40,20 +43,24 @@ class Sticky extends PureComponent {
     }
 
     if (this.targetElement) {
-      style.position = 'absolute'
-      if (mode === 'top') {
-        style.top += this.targetElement.scrollTop + 0.5
+      if (supportSticky) {
+        style.position = 'sticky'
       } else {
-        style.bottom -= this.targetElement.scrollTop
+        style.position = 'absolute'
+        if (mode === 'top') {
+          style.transform = `translateY(${offset}${this.targetElement.scrollTop}px)`
+        } else {
+          style.transform = `translateY(${offset}${this.targetElement.scrollTop}px)`
+        }
+        delete style.left
       }
-      delete style.left
     }
 
     return style
   }
 
   setPosition() {
-    const { bottom, top } = this.props
+    const { bottom, top, target } = this.props
     const { mode, scrollWidth } = this.state
     const selfRect = this.element.getBoundingClientRect()
     const scrollElement = this.targetElement || document.body
@@ -62,7 +69,11 @@ class Sticky extends PureComponent {
     const placeholderRect = this.placeholder ? this.placeholder.getBoundingClientRect() : null
     const viewHeight = window.innerHeight || document.documentElement.clientHeight
 
-    const placeholderStyle = { width: selfRect.width, height: selfRect.height }
+    const placeholderStyle = {
+      width: selfRect.width,
+      // if target element is not null, set height to 0
+      height: target && supportSticky ? 0 : selfRect.height,
+    }
 
     let style
     let placeholder
@@ -80,9 +91,11 @@ class Sticky extends PureComponent {
         style = this.getStyle('top', top, selfRect.left, selfRect.width)
         placeholder = placeholderStyle
       } else if (placeholderRect && selfRect.top < placeholderRect.top) {
-        this.setState({ mode: '' })
-        style = {}
-        placeholder = null
+        if (!(target && selfRect.top === limitTop)) {
+          this.setState({ mode: '' })
+          style = {}
+          placeholder = null
+        }
       } else if (this.targetElement && placeholderRect) {
         style = this.getStyle('top', top, selfRect.left, selfRect.width)
         placeholder = placeholderStyle
@@ -168,12 +181,19 @@ class Sticky extends PureComponent {
   }
 
   render() {
-    const { children, className } = this.props
+    const { children, className, target } = this.props
     const { placeholder } = this.state
 
+    let outerStyle = this.props.style
+    let innerStyle = this.state.style
+    if (target && supportSticky) {
+      outerStyle = Object.assign({}, outerStyle, innerStyle)
+      innerStyle = {}
+    }
+
     return (
-      <div style={this.props.style} className={className}>
-        <div ref={this.bindElement} style={this.state.style}>
+      <div style={outerStyle} className={className}>
+        <div ref={this.bindElement} style={innerStyle}>
           {children}
         </div>
         { placeholder && <div ref={this.bindPlaceholder} style={placeholder} /> }

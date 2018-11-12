@@ -30,3 +30,15 @@ export function curry(f, ...args) {
 export function empty(e) {
   e.preventDefault()
 }
+
+export function memoize(fn) {
+  return (key) => {
+    fn.cache = fn.cache || {}
+
+    if (!(key in fn.cache)) {
+      fn.cache[key] = fn(key)
+    }
+
+    return fn.cache[key]
+  }
+}

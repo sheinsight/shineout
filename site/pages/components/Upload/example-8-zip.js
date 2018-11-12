@@ -6,7 +6,6 @@
  */
 import React from 'react'
 import { Upload, Button } from 'shineout'
-import JSZip from 'jszip'
 import FontAwesome from '../Icon/FontAwesome'
 
 const request = (options) => {
@@ -17,7 +16,7 @@ const request = (options) => {
   const xhr = new XMLHttpRequest()
   xhr.open('post', 'http://jsonplaceholder.typicode.com/posts')
 
-  const zip = new JSZip()
+  const zip = new window.JSZip()
   zip.file(file.name, file)
   zip.generateInternalStream({ type: 'blob' })
     .accumulate((e) => {

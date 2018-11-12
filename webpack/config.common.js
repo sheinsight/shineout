@@ -1,8 +1,8 @@
-const autoprefixer = require('autoprefixer')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const webpack = require('webpack')
 
 module.exports = function getCommon(config) {
+  /*
   function getCssOption() {
     const { LOCAL_IDENT_NAME, NODE_ENV } = process.env
     const options = { minimize: NODE_ENV === 'production' }
@@ -11,45 +11,27 @@ module.exports = function getCommon(config) {
 
     return Object.assign(options, { modules: true, localIdentName: LOCAL_IDENT_NAME })
   }
+  */
 
-  function getLoaderOption(name) {
-    let options = [
-      {
-        loader: 'css-loader',
-        options: getCssOption(),
-      },
-
-      {
-        loader: 'postcss-loader',
-        options: {
-          plugins() {
-            return [
-              autoprefixer,
-            ]
-          },
+  const lessLoader = [
+    {
+      loader: 'css-loader',
+      // options: getCssOption(),
+      options: { minimize: process.env.NODE_ENV === 'production' },
+    },
+    {
+      loader: 'postcss-loader',
+    },
+    {
+      loader: 'less-loader',
+      options: {
+        modifyVars: {
+          'so-prefix': process.env.SO_PREFIX || 'so',
+          ...config.modifyVars,
         },
       },
-    ]
-
-    if (name === 'less') {
-      options = options.concat([
-        {
-          loader: 'less-loader',
-          options: {
-            modifyVars: {
-              'so-prefix': process.env.SO_PREFIX || 'so',
-              ...config.modifyVars,
-            },
-          },
-        },
-      ])
-    }
-
-    return ExtractTextPlugin.extract({
-      fallback: 'style-loader',
-      use: options,
-    })
-  }
+    },
+  ]
 
   return {
     externals: config.externals,
@@ -63,22 +45,25 @@ module.exports = function getCommon(config) {
       rules: [
         {
           test: /\.jsx?$/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              cacheDirectory: true,
+          exclude: [/node_modules/],
+          use: config.useHappyPack ?
+            {
+              loader: 'happypack/loader?id=js',
+            } :
+            {
+              loader: 'babel-loader',
+              options: {
+                cacheDirectory: true,
+              },
             },
-          },
         },
 
         {
           test: /\.less$/,
-          use: getLoaderOption('less'),
-        },
-
-        {
-          test: /\.css/,
-          use: getLoaderOption('css'),
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: lessLoader,
+          }),
         },
 
         {

@@ -209,6 +209,7 @@ Cascader.propTypes = {
   position: PropTypes.string,
   renderItem: PropTypes.any,
   size: PropTypes.string,
+  style: PropTypes.object,
   value: PropTypes.array,
 }
 
