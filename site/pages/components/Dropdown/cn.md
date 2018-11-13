@@ -25,7 +25,7 @@ data 选项有三种情况：
 
 - 为 ReactElement 时，直接显示此元素。
 
-- 为 object 且设置了 renderItem，显示 renderItem 反回的内容。
+- 为 object 且设置了 renderItem，显示 renderItem 返回的内容。
 
 - 为 object 且未设置 renderItem，按以下数据结构处理。
 
