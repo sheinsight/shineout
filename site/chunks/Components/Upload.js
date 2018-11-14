@@ -61,6 +61,12 @@ const examples = [
     component: require('doc/pages/components/Upload/example-8-zip.js').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-8-zip.js'),
   },
+  {
+    name: '9-defaultValue',
+    title: locate('默认值 \n 默认值示例', 'defaultValue \n defaultValue example'),
+    component: require('doc/pages/components/Upload/example-9-defaultValue.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Upload/example-9-defaultValue.js'),
+  },
 ]
 
 const codes = undefined

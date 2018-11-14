@@ -95,7 +95,7 @@ router.get(config.dev.scriptPath, async (ctx) => {
   url = url[url.length - 1]
   const options = {
     uri: `http://localhost:${config.dev.webpackPort}/${url}`,
-    mothed: 'GET',
+    method: 'GET',
   }
   ctx.body = request(options)
 })
@@ -104,7 +104,7 @@ router.get(config.dev.scriptPath, async (ctx) => {
 router.get('/*.hot-update.js(on)?', async (ctx) => {
   const options = {
     uri: `http://localhost:${config.dev.webpackPort}/${ctx.url}`,
-    mothed: 'GET',
+    method: 'GET',
   }
   ctx.set('Access-Control-Allow-Origin', '*')
   ctx.body = request(options)
