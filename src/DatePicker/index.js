@@ -14,4 +14,6 @@ const Datepicker = compose(
   value,
 )(Container)
 
+Datepicker.displayName = 'ShineoutDatepicker'
+
 export default Datepicker

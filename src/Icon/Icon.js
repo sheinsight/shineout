@@ -48,4 +48,6 @@ Icon.defaultProps = {
   type: 'default',
 }
 
+Icon.displayName = 'ShineoutIcon'
+
 export default Icon

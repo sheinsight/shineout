@@ -20,4 +20,6 @@ Progress.defaultProps = {
   shape: 'line',
 }
 
+Progress.displayName = 'ShineoutProgress'
+
 export default Progress

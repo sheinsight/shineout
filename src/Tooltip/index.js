@@ -1,4 +1,8 @@
 import create from './Container'
 import * as events from './events'
 
-export default create(events)
+const Tooltip = create(events)
+
+Tooltip.displayName = 'ShineoutTooltip'
+
+export default Tooltip

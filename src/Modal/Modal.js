@@ -46,4 +46,6 @@ Modal.defaultProps = {
   visible: false,
 }
 
+Modal.displayName = 'ShineoutModal'
+
 export default Modal

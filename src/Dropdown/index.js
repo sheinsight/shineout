@@ -235,4 +235,6 @@ Dropdown.defaultProps = {
   trigger: 'click',
 }
 
+Dropdown.displayName = 'ShineoutDropdown'
+
 export default Dropdown

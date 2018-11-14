@@ -13,4 +13,7 @@ exports.Group = inputBorder({ tag: 'div', isGroup: true })(Group)
 exports.Number = compose(inputBorder({}), inputable)(Number)
 exports.Password = compose(inputBorder({}), inputable)(Password)
 
+exports.displayName = 'ShineoutInput'
+exports.Group.displayName = 'ShineoutInputGroup'
+
 export default exports

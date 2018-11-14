@@ -5,4 +5,6 @@ import Group from './Group'
 Button.Group = Group
 Button.Once = Once
 
+Button.displayName = 'ShineoutButton'
+
 export default Button

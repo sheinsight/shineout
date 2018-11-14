@@ -1,10 +1,14 @@
-import Cascader from './Cascader'
+import Component from './Cascader'
 import inputable from '../Form/inputable'
 import inputBorder from '../hoc/inputBorder'
 import { selectClass } from '../styles'
 import { compose } from '../utils/func'
 
-export default compose(
+const Cascader = compose(
   inputBorder({ className: selectClass('_'), tag: 'span' }),
   inputable,
-)(Cascader)
+)(Component)
+
+Cascader.displayName = 'ShineoutCascader'
+
+export default Cascader

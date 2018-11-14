@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import Pagination from './Pagination'
 
 export default class extends PureComponent {
+  static displayName = 'ShineoutPagination'
+
   static propTypes = {
     current: PropTypes.number,
     defaultCurrent: PropTypes.number,
