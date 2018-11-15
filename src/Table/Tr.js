@@ -124,4 +124,6 @@ Tr.propTypes = {
   setRowHeight: PropTypes.func,
 }
 
+Tr.displayName = 'ShineoutTr'
+
 export default Tr
