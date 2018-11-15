@@ -155,6 +155,7 @@ class SeperateTable extends PureComponent {
   scrollToIndex(index, callback) {
     if (this.$willUnmount) return
     if (index > 1) index -= 1
+    if (index < 0) index = 0
     const contentHeight = this.getContentHeight()
     const outerHeight = getParent(this.realTbody, `.${tableClass('body')}`).clientHeight - 12
     const sumHeight = this.getSumHeight(0, index)
