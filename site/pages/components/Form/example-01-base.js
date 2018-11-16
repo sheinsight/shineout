@@ -34,7 +34,7 @@ export default class extends PureComponent {
 
   render() {
     return (
-      <Form value={this.initValue} onSubmit={(data) => { console.log(data) }}>
+      <Form value={this.initValue} scrollToError onSubmit={(data) => { console.log(data) }}>
         <Form.Item label="Email">
           <Input name="email" />
         </Form.Item>
