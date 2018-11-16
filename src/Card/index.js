@@ -12,6 +12,8 @@ Card.Footer = Footer
 Card.Submit = consumer(Submit, ['onSubmit', 'formStatus'])
 Card.Accordion = Accordion
 
+Card.Body.displayName = 'ShineoutCardBody'
+Card.Header.displayName = 'ShineoutCardHeader'
 Card.displayName = 'ShineoutCard'
 
 export default Card
