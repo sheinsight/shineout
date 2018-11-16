@@ -53,20 +53,30 @@ class Form extends PureComponent {
     const {
       datum, onError, onSubmit, scrollToError,
     } = this.props
-    datum.validate().then(() => {
-      this.validating = false
-      if (onSubmit) onSubmit(datum.getValue())
-    }).catch((err) => {
-      this.validating = false
-      if (onError) onError(err)
-      if (scrollToError !== false) {
-        const el = this.element.querySelector(`.${formClass('invalid')}`)
-        if (el) el.scrollIntoView()
-        if (typeof scrollToError === 'number' && scrollToError !== 0) {
-          document.documentElement.scrollTop -= scrollToError
+
+    const { activeElement } = document
+    if (activeElement) activeElement.blur()
+
+    setTimeout(() => {
+      datum.validate().then(() => {
+        this.validating = false
+        if (onSubmit) onSubmit(datum.getValue())
+        if (activeElement) activeElement.focus()
+      }).catch((err) => {
+        this.validating = false
+        if (onError) onError(err)
+        if (scrollToError !== false) {
+          const el = this.element.querySelector(`.${formClass('invalid')}`)
+          if (el) {
+            el.scrollIntoView()
+            if (el.focus) el.focus()
+          }
+          if (typeof scrollToError === 'number' && scrollToError !== 0) {
+            document.documentElement.scrollTop -= scrollToError
+          }
         }
-      }
-    })
+      })
+    }, 10)
   }
 
   handleReset() {
