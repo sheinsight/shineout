@@ -30,4 +30,12 @@ exportForm.Button = formButton('button')
 exportForm.formConsumer = formConsumer
 exportForm.useMode = useMode
 
+exportForm.displayName = 'ShineoutForm'
+exportForm.Item.displayName = 'ShineoutFormItem'
+exportForm.Field.displayName = 'ShineoutFormField'
+exportForm.Block.displayName = 'ShineoutFormBlock'
+exportForm.BlockField.displayName = 'ShineoutFormBlockField'
+exportForm.Loop.displayName = 'ShineoutFormLoop'
+exportForm.Flow.displayName = 'ShineoutFormFlow'
+
 export default exportForm

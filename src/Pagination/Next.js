@@ -26,4 +26,6 @@ Next.propTypes = {
   total: PropTypes.number.isRequired,
 }
 
+Next.displayName = 'ShineoutPaginationNext'
+
 export default Next

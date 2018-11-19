@@ -217,4 +217,6 @@ Sticky.defaultProps = {
   ...defaultProps,
 }
 
+Sticky.displayName = 'ShineoutSticky'
+
 export default Sticky

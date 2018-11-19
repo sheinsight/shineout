@@ -9,4 +9,7 @@ const exports = compose(inputable, consumer)(Checkbox)
 exports.Group = compose(inputable, Datum.hoc({ bindProps: ['disabled', 'format', 'prediction'] }))(Group)
 exports.Checkbox = Checkbox
 
+exports.displayName = 'ShineoutCheckbox'
+exports.Group.displayName = 'ShineoutCheckboxGroup'
+
 export default exports

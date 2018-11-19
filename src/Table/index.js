@@ -8,6 +8,8 @@ import Table from './Table'
 const TableWithPagination = pagable(Table)
 
 export default class extends PureComponent {
+  static displayName = 'ShineoutTable'
+
   static propTypes = {
     columns: PropTypes.array,
     data: PropTypes.array,

@@ -23,4 +23,6 @@ Prev.propTypes = {
   text: PropTypes.object,
 }
 
+Prev.displayName = 'ShineoutPaginationPrev'
+
 export default Prev

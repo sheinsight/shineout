@@ -87,4 +87,6 @@ Container.propTypes = {
   onDestory: PropTypes.func.isRequired,
 }
 
+Container.displayName = 'ShineoutMessage'
+
 export default Container

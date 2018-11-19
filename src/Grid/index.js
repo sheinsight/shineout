@@ -4,6 +4,10 @@ import classnames from 'classnames'
 import { getGrid } from './utils'
 
 export default class Grid extends PureComponent {
+  static isGrid = true
+
+  static displayName = 'ShineoutGrid'
+
   static propTypes = {
     children: PropTypes.any,
     className: PropTypes.string,
@@ -14,8 +18,6 @@ export default class Grid extends PureComponent {
     style: PropTypes.object,
     width: PropTypes.number,
   }
-
-  static isGrid = true
 
   render() {
     const {

@@ -31,4 +31,6 @@ List.defaultProps = {
   show: false,
 }
 
+List.displayName = 'ShineoutList'
+
 export default List

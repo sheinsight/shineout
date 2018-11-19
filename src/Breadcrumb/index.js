@@ -56,4 +56,6 @@ Breadcrumb.defaultProps = {
   separator: '/',
 }
 
+Breadcrumb.displayName = 'ShineoutBreadcrumb'
+
 export default Breadcrumb

@@ -1,4 +1,8 @@
 import inputable from '../Form/inputable'
 import Container from './Container'
 
-export default inputable(Container)
+const Slider = inputable(Container)
+
+Slider.displayName = 'ShineoutSlider'
+
+export default Slider

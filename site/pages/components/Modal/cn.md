@@ -12,10 +12,11 @@
 | maskCloseAble | bool | true | 点击遮罩层是否关闭对话框 |
 | maskOpacity | number | 0.25 | 遮罩层透明度 |
 | padding | number\|string | 16 | 内容内边距 |
+| position | string | 无 | 弹出位置，可选值为 \['top', 'right', 'bottom', 'left'] |
 | style | object | 无 | 最外层扩展样式 |
 | title | string \| ReactElement | 无 | 弹出层的标题 |
+| visible | bool | false | 是否显示 |
 | width | number \| string | 500 | 对话框宽度 |
-| position | string | 无 | 弹出位置，可选值为 \['top', 'right', 'bottom', 'left'] |
 
 ### Methods
 

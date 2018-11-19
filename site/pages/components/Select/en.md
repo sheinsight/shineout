@@ -21,5 +21,5 @@
 | onFitler | function | - | When the onFilter is not empty, you can filter data by input.<br />If the onFilter returns a function, use this function as a front-end filter.<br />If return undefined, you can do your own backend filtering. |
 | prediction | function | (val, d) => val===format(d) | By default, the result of the format function is used to compare whether it matches. In some cases (for example, whe an object that returns the original data is updated, an different option with the same value  is generated), the prediction function needs to be used to determine whether match |
 | renderItem | string \| function(d) | required | When it is a string, return d\[string]<br />When it is a function, return the result of the function. |
-| renderResult | string \| function(d) | renderItem | The content displayed in the result after selecting, if not set, use renderItem |
+| renderResult | function(d) | renderItem | The content displayed in the result after selecting, if not set, use renderItem |
 | value | array \| string \| object | | In the Form, the value will be taken over by the form and the value will be invalid. |

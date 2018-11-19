@@ -33,6 +33,8 @@ export default function Spin(props) {
   return <Component {...props} />
 }
 
+Spin.displayName = 'ShineoutSpin'
+
 Spin.propTypes = {
   color: PropTypes.string,
   size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

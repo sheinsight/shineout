@@ -1,7 +1,12 @@
 import React from 'react'
-import Rate from './Rate'
+import Component from './Rate'
 import inputable from '../Form/inputable'
 
-export default (background, front, opts = {}) => inputable(props => (
-  <Rate {...opts} {...props} background={background} front={front || background} />
-))
+export default (background, front, opts = {}) => {
+  const Rate = inputable(props => (
+    <Component {...opts} {...props} background={background} front={front || background} />
+  ))
+  Rate.displayName = 'ShineoutRate'
+  return Rate
+}
+

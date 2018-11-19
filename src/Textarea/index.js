@@ -3,7 +3,7 @@ import delay from '../hoc/delay'
 import trim from '../hoc/trim'
 import inputable from '../Form/inputable'
 import inputBorder from '../hoc/inputBorder'
-import Textarea from './Textarea'
+import Component from './Textarea'
 
 const input = compose(
   inputBorder({}),
@@ -12,4 +12,8 @@ const input = compose(
   trim,
 )
 
-export default input(Textarea)
+const Textarea = input(Component)
+
+Textarea.displayName = 'ShineoutTextarea'
+
+export default Textarea

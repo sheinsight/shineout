@@ -126,4 +126,6 @@ Alert.defaultProps = {
   type: 'warning',
 }
 
+Alert.displayName = 'ShineoutAlert'
+
 export default Alert

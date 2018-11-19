@@ -34,7 +34,7 @@ export default class extends PureComponent {
 
   render() {
     return (
-      <Form value={this.initValue} onSubmit={(data) => { console.log(data) }}>
+      <Form value={this.initValue} scrollToError onSubmit={(data) => { console.log(data) }}>
         <Form.Item label="Email">
           <Input name="email" />
         </Form.Item>
@@ -88,7 +88,7 @@ export default class extends PureComponent {
         </Form.Item>
 
         <Form.Item label="Date">
-          <DatePicker type="datetime" range defaultValue={[Date.now() - 86400000, new Date()]} name={['startDate', 'endDate']} />
+          <DatePicker type="datetime" range name={['startDate', 'endDate']} />
         </Form.Item>
 
         <Form.Item label="Description">

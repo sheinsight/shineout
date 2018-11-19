@@ -128,4 +128,6 @@ Carousel.defaultProps = {
   interval: 0,
 }
 
+Carousel.displayName = 'ShineoutCarousel'
+
 export default Carousel

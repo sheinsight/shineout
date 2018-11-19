@@ -21,4 +21,6 @@ const exportSelect = compose(
   filter,
 )(Select)
 
+exportSelect.displayName = 'ShineoutSelect'
+
 export default exportSelect
