@@ -21,8 +21,7 @@ export default class extends Component {
   constructor(props) {
     super(props)
     this.datum = new Datum.List({
-      format: 'color',
-      prdiction: (v, d) => v === d.color,
+      prediction: (v, d) => v === d.color,
     })
   }
 
