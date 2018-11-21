@@ -12,10 +12,10 @@ class Option extends PureComponent {
 
   handleClick() {
     const {
-      data, onClick, isActive, index,
+      data, onClick, isActive, index, disabled,
     } = this.props
 
-    if (this.locked) return
+    if (this.locked || disabled) return
     this.locked = true
 
     onClick(!isActive, data, index)
@@ -31,13 +31,14 @@ class Option extends PureComponent {
 
   render() {
     const {
-      data, isActive, index, renderItem, isHover,
+      data, isActive, index, renderItem, isHover, disabled,
     } = this.props
     const className = classnames(
       selectClass(
         'option',
         isActive && 'active',
         isHover && 'hover',
+        disabled && 'disabled',
       ),
       `option-${index}`,
     )
@@ -60,6 +61,7 @@ Option.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]).isRequired,
+  disabled: PropTypes.bool,
   index: PropTypes.number,
   isActive: PropTypes.bool,
   isHover: PropTypes.bool,

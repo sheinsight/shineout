@@ -11,7 +11,7 @@
 | data | array | required | Options data |
 | defaultValue | array | | Initial value |
 | datum | object | - | If the format and prediction does not satisfied your requirements, you can pass in a [Datum.List](#/components/Datum.List) object or the Datum.List configuration to process data. |
-| disabled | bool | false | Whether disabled select. |
+| disabled | bool \| function | false | When the value is true, disabled all checkboxes; When the value is function, disable the checkbox that this function returns true. |
 | filterDelay | number | 400 | ms. The delay of user input triggering filter events |
 | format | string \| function | d => d | Format value<br />The defaule value is return the original data.<br />When it is a string, the value is fetched from the original data as a key equivalent to (d) => d[format]<br />When it is a function, use its return value. |
 | name | string | - | The name of a Form that accesses data |

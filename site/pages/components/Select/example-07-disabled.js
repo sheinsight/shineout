@@ -23,7 +23,7 @@ export default function () {
       <Select
         style={{ width: 300 }}
         data={data}
-        disabled
+        disabled={d => d === 'green'}
         keygen
         multiple
         value={['orange', 'green']}

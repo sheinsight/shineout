@@ -11,7 +11,7 @@
 | data | array | 必填 | 数据项，单条数据作为 value 的数据必须是唯一的 |
 | datum | object | 无 | 如果 format 和 prediction 属性无法满足需求，可以传入一个 [Datum.List](#/components/Datum.List) 对象，或者 Datum.List 配置来处理数据。 |
 | defaultValue | array | | 初始值 |
-| disabled | bool | false | 是否禁用 |
+| disabled | bool \| function | false | 如果 disabled 为 true，禁用全部选项，如果 disabled 为函数，根据函数反回结果禁用选项 |
 | filterDelay | number | 400 | 毫秒。用户输入触发 fitler 事件的延时 |
 | format | string \| function | d => d | 格式化 value<br />默认值，返回原始数据<br />为string时，会作为key从原始数据中获取值，相当于 (d) => d[format]<br /> 为函数时，以函数返回结果作为 value |
 | name | string | 无 | Form 存取数据的名称 |

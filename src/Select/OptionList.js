@@ -206,6 +206,7 @@ class OptionList extends PureComponent {
                       data.slice(currentIndex, currentIndex + itemsInView).map((d, i) => (
                         <Option
                           isActive={datum.check(d)}
+                          disabled={datum.disabled(d)}
                           isHover={hoverIndex === currentIndex + i}
                           key={getKey(d, keygen, i)}
                           index={currentIndex + i}
