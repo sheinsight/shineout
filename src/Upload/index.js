@@ -7,5 +7,7 @@ exports.Image = inputable(Image)
 
 exports.displayName = 'ShineoutUpload'
 
+exports.Image.displayName = 'ShineoutImageUpload'
+
 export default exports
 
