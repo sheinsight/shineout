@@ -106,7 +106,7 @@ class Select extends PureComponent {
   }
 
   handleState(focus) {
-    if (this.props.disabled) return
+    if (this.props.disabled === true) return
     if (focus === this.state.focus) return
 
     const { onBlur, onFocus, height } = this.props
@@ -266,7 +266,7 @@ class Select extends PureComponent {
 
   render() {
     const {
-      placeholder, multiple, clearable, disabled, size, onFilter,
+      placeholder, multiple, clearable, disabled, size, onFilter, datum,
     } = this.props
     const className = selectClass(
       'inner',
@@ -274,7 +274,7 @@ class Select extends PureComponent {
       this.state.focus && 'focus',
       this.state.position,
       multiple && 'multiple',
-      disabled && 'disabled',
+      disabled === true && 'disabled',
     )
     const renderResult = this.props.renderResult || this.renderItem
 
@@ -293,6 +293,7 @@ class Select extends PureComponent {
           onClear={clearable ? this.handleClear : undefined}
           onRemove={this.handleRemove}
           onFilter={onFilter}
+          datum={datum}
           disabled={disabled}
           focus={this.state.focus}
           result={this.state.result}
@@ -314,7 +315,10 @@ Select.propTypes = {
   clearable: PropTypes.bool,
   data: PropTypes.array,
   datum: PropTypes.object.isRequired,
-  disabled: PropTypes.bool,
+  disabled: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.func,
+  ]),
   height: PropTypes.number,
   itemsInView: PropTypes.number,
   lineHeight: PropTypes.number,

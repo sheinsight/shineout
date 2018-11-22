@@ -1,56 +1,8 @@
 import shallowEqual from '../utils/shallowEqual'
-import isEmpty from '../utils/validate/isEmpty'
 import isObject from '../utils/validate/isObject'
+import { flatten, unflatten } from '../utils/objects'
 
 const { hasOwnProperty } = Object.prototype
-
-// https://stackoverflow.com/questions/19098797/fastest-way-to-flatten-un-flatten-nested-json-objects
-function flatten(data) {
-  if (isEmpty(data)) return {}
-  const result = {}
-  function recurse(cur, prop) {
-    if (Object(cur) !== cur || Array.isArray(cur) || cur instanceof Date) {
-      result[prop] = cur
-    } else {
-      let empty = true
-      // eslint-disable-next-line
-      for (const p in cur) {
-        empty = false
-        recurse(cur[p], prop ? `${prop}.${p}` : p)
-      }
-      if (empty) { result[prop] = {} }
-    }
-  }
-  recurse(data, '')
-  return result
-}
-
-function unflatten(data) {
-  if (Object(data) !== data || isEmpty(data) || Array.isArray(data)) {
-    return data
-  }
-
-  const result = {}
-  let {
-    cur, prop, idx, last, temp,
-  } = {}
-
-  // eslint-disable-next-line
-  for (const p in data) {
-    cur = result
-    prop = ''
-    last = 0
-    do {
-      idx = p.indexOf('.', last)
-      temp = p.substring(last, idx !== -1 ? idx : undefined)
-      cur = cur[prop] || (cur[prop] = (!Number.isNaN(parseInt(temp, 10)) ? [] : {}))
-      prop = temp
-      last = idx + 1
-    } while (idx >= 0)
-    cur[prop] = data[p]
-  }
-  return result['']
-}
 
 export const FORCE_PASS = {}
 

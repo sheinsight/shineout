@@ -60,6 +60,11 @@
       overflow: hidden;
       text-overflow: ellipsis;
 
+      &.@{select-prefix}-disabled {
+        padding-right: @select-result-space;
+        cursor: not-allowed;
+      }
+
       .@{select-prefix}-close {
         display: block;
         background-color: transparent;
@@ -157,6 +162,13 @@
     &:hover {
       color: @dropdown-link-color;
     }
+
+    &.@{select-prefix}-disabled {
+      &, &:hover, &.@{select-prefix}-active {
+        background: @input-bg-disabled;
+        cursor: not-allowed;
+      }
+    }
   }
 
   &-control-mouse &-option:hover {
@@ -164,6 +176,11 @@
     color: @dropdown-link-hover-color;
     background-color: @dropdown-link-hover-bg;
   }
+
+  &-control-mouse &-option&-disabled:hover {
+    background: @input-bg-disabled;
+  }
+
 
   &-control-keyboard &-option.@{select-prefix}-hover {
     text-decoration: none;

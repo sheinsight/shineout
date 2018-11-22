@@ -147,6 +147,7 @@ class Day extends PureComponent {
     // eslint-disable-next-line
     if (match) format = match[0]
     const value = rangeDate ? utils.toDateWithFormat(rangeDate[index], format) : this.props.value
+    if (!value) return undefined
 
     return (
       <div className={datepickerClass('datetime')}>

@@ -5,11 +5,12 @@ import { inputClass, selectClass } from '../styles'
 import Input from './Input'
 
 // eslint-disable-next-line
-function Item({ renderResult, data, onClick }) {
+function Item({ renderResult, data, disabled, onClick }) {
+  const click = disabled ? undefined : () => onClick(data)
   return (
-    <a className={selectClass('item')} onClick={() => onClick(data)}>
+    <a className={selectClass('item', disabled && 'disabled')} onClick={click}>
       {renderResult(data)}
-      <span className={selectClass('indicator', 'close')} />
+      {!disabled && <span className={selectClass('indicator', 'close')} />}
     </a>
   )
 }
@@ -79,12 +80,18 @@ class Result extends PureComponent {
 
   renderResult() {
     const {
-      multiple, result, renderResult, onFilter, focus,
+      multiple, result, renderResult, onFilter, focus, datum,
     } = this.props
 
     if (multiple) {
       const items = result.map((d, i) => (
-        <Item key={i} data={d} onClick={this.handleRemove} renderResult={renderResult} />
+        <Item
+          key={i}
+          data={d}
+          disabled={datum.disabled(d)}
+          onClick={this.handleRemove}
+          renderResult={renderResult}
+        />
       ))
 
       if (focus && onFilter) {
@@ -125,7 +132,11 @@ class Result extends PureComponent {
 }
 
 Result.propTypes = {
-  disabled: PropTypes.bool,
+  datum: PropTypes.object,
+  disabled: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.func,
+  ]),
   focus: PropTypes.bool,
   multiple: PropTypes.bool.isRequired,
   onRemove: PropTypes.func,
