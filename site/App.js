@@ -2,6 +2,7 @@ import React, { PureComponent, lazy, Suspense } from 'react'
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import classGenerate from './utils/classname'
 import Header from './Header'
+import Loading from './Components/Loading'
 
 const Home = lazy(() => import(/* webpackChunkName: "Home" */ './pages/Home'))
 const Components = lazy(() => import(/* webpackChunkName: "Components" */ './chunks/Components'))
@@ -40,7 +41,7 @@ class App extends PureComponent {
           <Header versions={this.state.versions} />
 
           <div className={clsMain('body')}>
-            <Suspense fallback={<div />}>
+            <Suspense fallback={<Loading />}>
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route path="/components" component={Components} />

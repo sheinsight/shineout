@@ -1,6 +1,5 @@
 import React, { PureComponent, createElement } from 'react'
 import PropTypes from 'prop-types'
-import { getUidStr } from 'shineout/utils/uid'
 import classGenerate from '../../utils/classname'
 import Icon from '../../icons/Icon'
 import CodeBlock from '../CodeBlock'
@@ -9,14 +8,13 @@ const exampleClass = classGenerate(require('./example.less'), 'example')
 
 export default class Example extends PureComponent {
   static propTypes = {
-    appendHeading: PropTypes.func,
     component: PropTypes.func.isRequired,
+    id: PropTypes.string,
     rawText: PropTypes.string,
     title: PropTypes.string.isRequired,
   }
 
   static defaultProps = {
-    appendHeading: () => {},
     rawText: '',
   }
 
@@ -26,14 +24,6 @@ export default class Example extends PureComponent {
     this.state = {
       showcode: false,
     }
-
-    const [title] = props.title.split('\n')
-    this.id = `heading-${getUidStr()}`
-    props.appendHeading({
-      id: this.id,
-      level: 3,
-      children: [title],
-    })
   }
 
   setCodeBlockHeight = (height) => {
@@ -83,7 +73,7 @@ export default class Example extends PureComponent {
   }
 
   render() {
-    const { component, rawText } = this.props
+    const { component, id, rawText } = this.props
     const { showcode } = this.state
 
     const text = rawText.replace(/(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/, '').trim()
@@ -93,7 +83,7 @@ export default class Example extends PureComponent {
     if (title) title = title.trim()
 
     return [
-      title ? <h3 key="0" id={this.id}>{title}</h3> : null,
+      title ? <h3 key="0" id={id}>{title}</h3> : null,
 
       <div key="1" className={exampleClass('_', showcode && 'showcode')}>
         <div className={exampleClass('body')}>

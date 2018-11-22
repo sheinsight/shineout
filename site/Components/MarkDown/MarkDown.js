@@ -64,6 +64,8 @@ export default class MarkDown extends PureComponent {
   }
 
   renderExamples() {
+    if (this.cache.examples) return this.cache.examples
+
     const { examples } = this.props
     if (!examples) return <div />
 
@@ -76,24 +78,36 @@ export default class MarkDown extends PureComponent {
       children: [text],
     })
 
-    return [
+    this.cache.examples = [
       <h2 key="h" id={id}>{text}</h2>,
       ...examples.map((props, i) => {
         if (/\d+-/.test(props.name)) {
-          return <Example key={i} appendHeading={this.appendHeading} {...props} />
+          const sid = `heading-${props.name}`
+          const [title] = props.title.split('\n')
+          this.appendHeading({
+            id: sid,
+            level: 3,
+            children: [title],
+          })
+          return <Example key={i} id={sid} {...props} />
         }
         return undefined
       }),
     ]
+
+    return this.cache.examples
   }
 
   renderExample(name) {
-    const { examples } = this.props
-    const example = (examples || []).find(e => e.name === name)
+    const key = `example-${name}`
+    if (!this.cache[key]) {
+      const { examples } = this.props
+      const example = (examples || []).find(e => e.name === name)
 
-    if (!example) return null
-
-    return <Example {...example} />
+      if (!example) this.cache[key] = null
+      else this.cache[key] = <Example {...example} />
+    }
+    return this.cache[key]
   }
 
   renderHeading = ({ level, children }) => {
