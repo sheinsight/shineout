@@ -1,6 +1,6 @@
 import { PureComponent, cloneElement } from 'react'
-import { findDOMNode } from 'react-dom'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import { scrollConsumer } from '../Scroll/context'
 import { getUidStr } from '../utils/uid'
 
@@ -34,10 +34,18 @@ export default function (options) {
       hide(this.props.delay)
     }
 
+    getElement() {
+      return document.querySelector(`.${this.getElementId()}`)
+    }
+
+    getElementId() {
+      return `__tooltip_${this.id}__`
+    }
+
     getPosition() {
       const { position } = this.props
 
-      const el = findDOMNode(this)
+      const el = this.getElement()
       const rect = el.getBoundingClientRect()
       const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
       const scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft
@@ -102,7 +110,7 @@ export default function (options) {
 
     tryHide() {
       const { scrollElement } = this.props
-      const rect = findDOMNode(this).getBoundingClientRect()
+      const rect = this.getElement().getBoundingClientRect()
       const scrollRect = scrollElement ? scrollElement.getBoundingClientRect() : {}
 
       if (rect.bottom < scrollRect.top || rect.top > scrollRect.bottom ||
@@ -123,18 +131,19 @@ export default function (options) {
 
     render() {
       const { children, trigger } = this.props
-      const events = {}
+      const className = classnames(children.props.className, this.getElementId())
+      const props = { className }
 
       if (trigger === 'hover') {
-        events.onMouseEnter = this.handleShow
-        events.onMouseLeave = this.handleHide
+        props.onMouseEnter = this.handleShow
+        props.onMouseLeave = this.handleHide
       } else {
-        events.onClick = () => {
+        props.onClick = () => {
           setTimeout(this.handleShow, 10)
         }
       }
 
-      return cloneElement(children, events)
+      return cloneElement(children, props)
     }
   }
 

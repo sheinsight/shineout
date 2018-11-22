@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { findDOMNode } from 'react-dom'
+import { getUidStr } from '../utils/uid'
 import PureComponent from '../PureComponent'
 import { hidableClass } from '../styles'
 
@@ -20,10 +20,13 @@ export default function (Component, type = ['fade'], duration = 360) {
       this.state = {
         show: props.show,
       }
+
+      this.id = `__hidable_${getUidStr()}__`
     }
 
     componentDidMount() {
       const el = this.getElement()
+      if (!el) return
 
       this.height = el.offsetHeight
       if (this.props.show) return
@@ -47,7 +50,7 @@ export default function (Component, type = ['fade'], duration = 360) {
     }
 
     getElement() {
-      return findDOMNode(this)
+      return document.querySelector(`.${this.id}`)
     }
 
     show() {
@@ -95,6 +98,7 @@ export default function (Component, type = ['fade'], duration = 360) {
       const className = classnames(
         hidableClass('_', ...type, `animation-${duration}`, this.state.show && 'show'),
         this.props.className,
+        this.id,
       )
 
       return (
