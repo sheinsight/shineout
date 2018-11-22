@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import Sticky from 'shineout/Sticky'
 import classGenerate from '../../utils/classname'
 
@@ -10,7 +10,7 @@ const scrollTo = (id) => {
 }
 
 export default function (Component) {
-  return class Nav extends PureComponent {
+  return class Nav extends React.Component {
     constructor(props) {
       super(props)
 

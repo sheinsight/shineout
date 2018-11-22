@@ -1,7 +1,7 @@
 /**
  * 此文件根据 scripts/component-index.ejs 生成，不要手动修改
  */
-import loadable from 'docs/Loadable'
+import { lazy } from 'react'
 import Page from 'doc/pages/Page'
 
 const pages = [
@@ -14,7 +14,7 @@ const pages = [
     name: '<%= page.name %>',
     cn: '<%= page.cn %>',
     level: <%= key ? 2 : 1 %>,
-    component: loadable(() => import(/* webpackChunkName: "<%= page.name %>" */ './<%= page.name %>')),
+    component: lazy(() => import(/* webpackChunkName: "<%= page.name %>" */ './<%= page.name %>')),
   },
 <% }) -%>
 <% }) -%>

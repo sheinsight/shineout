@@ -1,12 +1,11 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, lazy, Suspense } from 'react'
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import classGenerate from './utils/classname'
-import loadable from './Components/Loadable'
 import Header from './Header'
 
-const Home = loadable(() => import(/* webpackChunkName: "Home" */ './pages/Home'))
-const Components = loadable(() => import(/* webpackChunkName: "Components" */ './chunks/Components'))
-const Documentation = loadable(() => import(/* webpackChunkName: "Documentation" */ './pages/documentation'))
+const Home = lazy(() => import(/* webpackChunkName: "Home" */ './pages/Home'))
+const Components = lazy(() => import(/* webpackChunkName: "Components" */ './chunks/Components'))
+const Documentation = lazy(() => import(/* webpackChunkName: "Documentation" */ './pages/documentation'))
 const clsMain = classGenerate(require('./styles/index.less'), 'main')
 
 class App extends PureComponent {
@@ -41,13 +40,16 @@ class App extends PureComponent {
           <Header versions={this.state.versions} />
 
           <div className={clsMain('body')}>
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/components" component={Components} />
-              <Route path="/documentation" component={Documentation} />
-            </Switch>
+            <Suspense fallback={<div />}>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/components" component={Components} />
+                <Route path="/documentation" component={Documentation} />
+              </Switch>
+            </Suspense>
           </div>
         </div>
+
       </Router>
     )
   }
