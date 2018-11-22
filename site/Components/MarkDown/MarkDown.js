@@ -34,8 +34,8 @@ export default class MarkDown extends PureComponent {
     super(props)
 
     this.headings = []
-
     this.appendHeading = this.appendHeading.bind(this)
+    this.cache = {}
   }
 
   componentDidMount() {
@@ -96,6 +96,20 @@ export default class MarkDown extends PureComponent {
     return <Example {...example} />
   }
 
+  renderHeading = ({ level, children }) => {
+    const key = `${level}-${children[0]}`
+    if (!this.cache[key]) {
+      const id = `heading-${getUidStr()}`
+      if (level === 2 || level === 3) {
+        this.appendHeading({ id, level, children })
+      }
+      const Tag = `h${level}`
+      this.cache[key] = <Tag id={id}>{children}</Tag>
+    }
+
+    return this.cache[key]
+  }
+
   render() {
     const { source } = this.props
 
@@ -108,14 +122,7 @@ export default class MarkDown extends PureComponent {
         source={source}
         renderers={{
           code: CodeBlock,
-          heading: ({ level, children }) => {
-            const id = `heading-${getUidStr()}`
-            if (level === 2 || level === 3) {
-              this.appendHeading({ id, level, children })
-            }
-            const Tag = `h${level}`
-            return <Tag id={id}>{children}</Tag>
-          },
+          heading: this.renderHeading,
           html: ({ value }) => {
             if (value === '<example />') return this.renderExamples()
 

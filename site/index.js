@@ -8,7 +8,9 @@ import theme from './utils/theme'
 
 theme.init(() => {
   ReactDOM.render(
-    <App />,
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
     document.getElementById('root'),
   )
 })
