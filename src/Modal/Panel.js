@@ -86,6 +86,8 @@ export default class Panel extends PureComponent {
   }
 }
 
+Panel.displayName = 'ShineoutModalPanel'
+
 Panel.propTypes = {
   ...getProps(PropTypes),
   footer: PropTypes.any,
