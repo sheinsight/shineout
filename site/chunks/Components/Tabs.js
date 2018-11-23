@@ -49,6 +49,12 @@ const examples = [
     component: require('doc/pages/components/Tabs/example-6-shape-button.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-6-shape-button.js'),
   },
+  {
+    name: '7-align',
+    title: locate('右对齐 \n 设置 align="right" 使标签右对齐', 'Align \n set align to \'right\' to align labels to the right'),
+    component: require('doc/pages/components/Tabs/example-7-align.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tabs/example-7-align.js'),
+  },
 ]
 
 const codes = undefined

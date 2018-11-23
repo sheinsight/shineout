@@ -72,8 +72,13 @@ class Tabs extends PureComponent {
   }
 
   render() {
-    const { children, shape, style } = this.props
-    const className = classnames(tabsClass('_', shape), this.props.className)
+    const {
+      children, shape, align, style,
+    } = this.props
+    const className = classnames(
+      tabsClass('_', align && `align-${align}`, shape),
+      this.props.className,
+    )
 
     return (
       <div className={className} style={style}>
@@ -86,6 +91,7 @@ class Tabs extends PureComponent {
 
 Tabs.propTypes = {
   active: PropTypes.any,
+  align: PropTypes.oneOf(['left', 'right']),
   background: PropTypes.string,
   border: PropTypes.string,
   children: PropTypes.oneOfType([
