@@ -1,11 +1,20 @@
 {
   "name": "shineout",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "description": "Shein 前端组件库",
   "main": "./lib/index.js",
   "author": "lobos841@gmail.com",
   "license": "MIT",
+  "ava": {
+    "files": [
+      "./test/**/*.js"
+    ],
+    "require": [
+      "esm"
+    ]
+  },
   "scripts": {
+    "test": "ava",
     "lint": "eslint src/",
     "start": "cross-env NODE_ENV=development node dev-server.js",
     "css-module": "cross-env NODE_ENV=development LOCAL_IDENT_NAME=[local]-[hash:base64:5] node dev-server.js",
@@ -39,6 +48,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^7.2.4",
+    "ava": "^1.0.0-rc.2",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
@@ -60,6 +70,7 @@
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.5.1",
+    "esm": "^3.0.84",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.11",
     "happypack": "^5.0.0",
