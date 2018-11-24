@@ -1,7 +1,8 @@
-import isEmpty from './isEmpty'
+import required from './required'
 
 export default fn => (value, formdata, callback) => {
-  if (isEmpty(value)) {
+  if (!required(value)) {
+    console.log('null', value)
     callback(true)
     return
   }

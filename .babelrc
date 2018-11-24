@@ -9,9 +9,9 @@
     },
     "publish": {
       "plugins": [
-        "transform-class-properties",
+        "@babel/plugin-proposal-class-properties",
         [
-          "transform-object-rest-spread",
+          "@babel/plugin-proposal-object-rest-spread",
           {
             "useBuiltIns": true
           }
@@ -32,6 +32,10 @@
         ],
         "react"
       ]
+    },
+    "test": {
+      "plugins": ["transform-react-remove-prop-types"],
+      "presets": ["react-app"]
     }
   }
 }
