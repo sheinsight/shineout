@@ -9,16 +9,16 @@
     },
     "publish": {
       "plugins": [
-        "transform-class-properties",
+        "@babel/plugin-proposal-class-properties",
         [
-          "transform-object-rest-spread",
+          "@babel/plugin-proposal-object-rest-spread",
           {
             "useBuiltIns": true
           }
         ]
       ],
       "presets": [
-        ["env",
+        ["@babel/preset-env",
           {
             "targets": {
               "browsers": [
@@ -30,8 +30,12 @@
             "useBuiltIns": "entry"
           }
         ],
-        "react"
+        "@babel/preset-react"
       ]
+    },
+    "test": {
+      "plugins": ["transform-react-remove-prop-types"],
+      "presets": ["react-app"]
     }
   }
 }

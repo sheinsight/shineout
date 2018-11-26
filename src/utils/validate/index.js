@@ -33,7 +33,8 @@ function getRule(rules, inputType) {
 }
 
 const validate = (value, formdata, rules, type) => new Promise((resolve, reject) => {
-  const rule = rules.shift()
+  const $rules = [...rules]
+  const rule = $rules.shift()
   if (rule) {
     const callback = (result) => {
       if (result !== true) {
@@ -41,7 +42,7 @@ const validate = (value, formdata, rules, type) => new Promise((resolve, reject)
         return
       }
 
-      validate(value, formdata, rules, type).then(resolve, reject)
+      validate(value, formdata, $rules, type).then(resolve, reject)
     }
 
     const fn = getRule(rule, type)
