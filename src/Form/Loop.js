@@ -95,19 +95,14 @@ class Loop extends PureComponent {
       draft.splice(index, 1)
     })
 
-    console.log(formDatum.get(name), values)
-
     formDatum.set(name, values)
   }
 
   render() {
     const {
-      children, empty, formDatum, name,
+      children, empty, formDatum, name, defaultValue,
     } = this.props
-    const values = formDatum.get(name)
-
-    console.log(values)
-
+    const values = formDatum.get(name) || defaultValue
     const { error } = this.state
 
     if (values.length === 0 && empty) {
