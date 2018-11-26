@@ -17,8 +17,9 @@ class Loop extends PureComponent {
 
     this.state = { error: null }
 
-    const { formDatum, name } = props
-    formDatum.bind(name, this.handleUpdate.bind(this), [], this.validate)
+    const { formDatum, name, defaultValue } = props
+    const value = formDatum.get(name) || defaultValue
+    formDatum.bind(name, this.handleUpdate.bind(this), value, this.validate)
   }
 
   componentWillUnmount() {
@@ -94,6 +95,8 @@ class Loop extends PureComponent {
       draft.splice(index, 1)
     })
 
+    console.log(formDatum.get(name), values)
+
     formDatum.set(name, values)
   }
 
@@ -101,7 +104,9 @@ class Loop extends PureComponent {
     const {
       children, empty, formDatum, name,
     } = this.props
-    const values = formDatum.get(name) || []
+    const values = formDatum.get(name)
+
+    console.log(values)
 
     const { error } = this.state
 
@@ -139,6 +144,7 @@ class Loop extends PureComponent {
 
 Loop.propTypes = {
   children: PropTypes.func.isRequired,
+  defaultValue: PropTypes.array,
   empty: PropTypes.func,
   formDatum: PropTypes.object.isRequired,
   name: PropTypes.string,
@@ -147,6 +153,7 @@ Loop.propTypes = {
 }
 
 Loop.defaultProps = {
+  defaultValue: [],
   rules: [],
 }
 

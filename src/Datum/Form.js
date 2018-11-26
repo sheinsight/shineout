@@ -118,7 +118,6 @@ export default class {
   bind(name, fn, value, validate, initChange) {
     if (hasOwnProperty.call(this.values, name)) {
       console.error(`There is already an item with name "${name}" exists. The name props must be unique.`)
-      return
     }
 
     this.$defaultValues[name] = value
