@@ -26,7 +26,7 @@ class Block extends PureComponent {
 
   componentDidUpdate() {
     const { value } = this.props
-    if (!shallowEqual(value, this.prevValue)) {
+    if (!shallowEqual(value, this.prevValues)) {
       this.datum.setValue(value)
       this.prevValues = value
     }

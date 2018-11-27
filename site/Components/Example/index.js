@@ -1,5 +1,6 @@
-import React, { PureComponent, createElement } from 'react'
+import React, { PureComponent, Fragment, createElement } from 'react'
 import PropTypes from 'prop-types'
+import { addStack, removeStack } from 'shineout/utils/lazyload'
 import classGenerate from '../../utils/classname'
 import Icon from '../../icons/Icon'
 import CodeBlock from '../CodeBlock'
@@ -10,6 +11,7 @@ export default class Example extends PureComponent {
   static propTypes = {
     component: PropTypes.func.isRequired,
     id: PropTypes.string,
+    lazy: PropTypes.bool,
     rawText: PropTypes.string,
     title: PropTypes.string.isRequired,
   }
@@ -22,8 +24,22 @@ export default class Example extends PureComponent {
     super(props)
 
     this.state = {
+      ready: !props.lazy,
       showcode: false,
     }
+  }
+
+  componentDidMount() {
+    if (this.props.lazy) {
+      this.lazyId = addStack({
+        element: this.placeholder,
+        render: () => this.setState({ ready: true }),
+      })
+    }
+  }
+
+  componentWillUnmount() {
+    removeStack(this.lazyId)
   }
 
   setCodeBlockHeight = (height) => {
@@ -74,7 +90,7 @@ export default class Example extends PureComponent {
 
   render() {
     const { component, id, rawText } = this.props
-    const { showcode } = this.state
+    const { ready, showcode } = this.state
 
     const text = rawText.replace(/(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/, '').trim()
 
@@ -82,35 +98,49 @@ export default class Example extends PureComponent {
     let [title, ...sub] = this.props.title.split('\n')
     if (title) title = title.trim()
 
-    return [
-      title ? <h3 key="0" id={id}>{title}</h3> : null,
-
-      <div key="1" className={exampleClass('_', showcode && 'showcode')}>
-        <div className={exampleClass('body')}>
-          {createElement(component)}
-        </div>
+    return (
+      <Fragment>
+        { title && <h3 key="0" id={id}>{title}</h3> }
 
         {
-          this.props.title.length > 0 &&
-          <div className={exampleClass('desc')}>
-            {
-              // eslint-disable-next-line
-              sub.map((s, i) => <div key={i} dangerouslySetInnerHTML={{ __html: s }} />)
-            }
-            {this.renderCodeHandle(false)}
-          </div>
+          !ready && (
+            <div className={exampleClass('placeholder')} ref={(el) => { this.placeholder = el }}>
+              loading example...
+            </div>
+          )
         }
 
-        <div ref={this.bindCodeBlock} className={exampleClass('code')}>
-          <CodeBlock
-            onHighLight={this.setCodeBlockHeight}
-            onClose={this.toggleCode}
-            language="jsx"
-            value={text}
-          />
-          {this.renderCodeHandle(true)}
-        </div>
-      </div>,
-    ]
+        {
+          ready && (
+            <div className={exampleClass('_', showcode && 'showcode')}>
+              <div className={exampleClass('body')}>
+                {createElement(component)}
+              </div>
+
+              {
+                this.props.title.length > 0 &&
+                <div className={exampleClass('desc')}>
+                  {
+                    // eslint-disable-next-line
+                    sub.map((s, i) => <div key={i} dangerouslySetInnerHTML={{ __html: s }} />)
+                  }
+                  {this.renderCodeHandle(false)}
+                </div>
+              }
+
+              <div ref={this.bindCodeBlock} className={exampleClass('code')}>
+                <CodeBlock
+                  onHighLight={this.setCodeBlockHeight}
+                  onClose={this.toggleCode}
+                  language="jsx"
+                  value={text}
+                />
+                {this.renderCodeHandle(true)}
+              </div>
+            </div>
+          )
+        }
+      </Fragment>
+    )
   }
 }

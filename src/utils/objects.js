@@ -3,10 +3,10 @@
 import isEmpty from './validate/isEmpty'
 
 export function flatten(data) {
-  if (isEmpty(data)) return {}
+  if (isEmpty(data)) return data
   const result = {}
   function recurse(cur, prop) {
-    if (Object(cur) !== cur || cur instanceof Date) {
+    if (Object(cur) !== cur || cur instanceof Date || cur instanceof Error) {
       result[prop] = cur
     } else if (Array.isArray(cur)) {
       if (cur.length === 0) {

@@ -89,7 +89,7 @@ export default class MarkDown extends PureComponent {
             level: 3,
             children: [title],
           })
-          return <Example key={i} id={sid} {...props} />
+          return <Example key={i} id={sid} {...props} lazy={i > 2} />
         }
         return undefined
       }),

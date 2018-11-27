@@ -53,6 +53,7 @@ export default curry(Origin => consumer(class extends PureComponent {
     this.handleChange = this.handleChange.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
     this.handleDatumBind = this.handleDatumBind.bind(this)
+    this.handleError = this.handleError.bind(this)
     this.validate = this.validate.bind(this)
     this.validateHook = this.validateHook.bind(this)
   }
@@ -114,6 +115,11 @@ export default curry(Origin => consumer(class extends PureComponent {
     this.datum = datum
   }
 
+  handleError(error) {
+    this.setState({ error })
+    this.props.onError(this.itemName, error)
+  }
+
   validateHook(customValidate) {
     this.customValidate = customValidate
   }
@@ -125,12 +131,11 @@ export default curry(Origin => consumer(class extends PureComponent {
     }
 
     const {
-      onError, name, formDatum, type, bind,
+      name, formDatum, type, bind,
     } = this.props
 
     if (value === FORCE_PASS) {
-      onError(this.itemName, null)
-      this.setState({ error: undefined })
+      this.handleError(null)
       return Promise.resolve(true)
     }
     if (value === undefined || Array.isArray(name)) value = this.getValue()
@@ -151,13 +156,11 @@ export default curry(Origin => consumer(class extends PureComponent {
       if (this.datum) value = this.datum
       return validate(value, data, rules, type).then(() => {
         if (validateOnly !== true) {
-          onError(this.itemName, null)
-          this.setState({ error: undefined })
+          this.handleError(null)
         }
         return true
       }, (e) => {
-        onError(this.itemName, e)
-        this.setState({ error: e })
+        this.handleError(e)
         return e
       })
     }
@@ -173,12 +176,10 @@ export default curry(Origin => consumer(class extends PureComponent {
     })
 
     return Promise.all(validates).then(() => {
-      onError(this.itemName, null)
-      this.setState({ error: undefined })
+      this.handleError(null)
       return true
     }, (e) => {
-      onError(this.itemName, e)
-      this.setState({ error: e })
+      this.handleError(e)
       return e
     })
   }
@@ -206,6 +207,11 @@ export default curry(Origin => consumer(class extends PureComponent {
   }
 
   handleUpdate(value, sn) {
+    if (value instanceof Error) {
+      this.handleError(value)
+      return
+    }
+
     const { name } = this.props
     if (typeof name === 'string') {
       this.setState({ value })

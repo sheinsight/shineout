@@ -35,6 +35,10 @@ export default class extends PureComponent {
       },
       favoriteColor: ['cyan', 'yellow'],
     })
+
+    setTimeout(() => {
+      this.datum.set('account.name.firstName', new Error('Something wrong.'))
+    }, 1000)
   }
 
   datum = new Datum.Form()

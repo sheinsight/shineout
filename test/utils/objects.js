@@ -1,6 +1,8 @@
 import test from 'ava'
 import { flatten, unflatten } from '../../src/utils/objects'
 
+const error = new Error('something wrong.')
+
 const testObject = {
   a: {
     b: {
@@ -15,6 +17,9 @@ const testObject = {
     g: 'some string',
   },
   h: 123,
+  j: {},
+  k: [],
+  l: error,
 }
 
 const testResult = {
@@ -25,6 +30,9 @@ const testResult = {
   'a.e.3': 1,
   'a.g': 'some string',
   h: 123,
+  j: {},
+  k: [],
+  l: error,
 }
 
 test('flatten object', (t) => {

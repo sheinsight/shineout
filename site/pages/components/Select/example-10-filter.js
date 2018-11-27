@@ -22,7 +22,7 @@ export default class extends Component {
   }
 
   handleFilter = (text) => {
-    if (!text) return
+    if (text === undefined) return
     this.setState({ loading: true })
     fetch.get('user', { username: text }).then((res) => {
       this.setState({ loading: false, data: res.data })
@@ -37,7 +37,7 @@ export default class extends Component {
         keygen="id"
         data={this.state.data}
         placeholder="Select user"
-        onChange={d => console.log(d)}
+        // onChange={d => console.log(d)}
         onFilter={this.handleFilter}
         datum={{ format: 'id' }}
         renderItem={user => `${user.firstName} ${user.lastName}`}

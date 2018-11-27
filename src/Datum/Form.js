@@ -6,6 +6,8 @@ const { hasOwnProperty } = Object.prototype
 
 export const FORCE_PASS = {}
 
+const getUpdateEventName = name => `${name}-update`
+
 export default class {
   constructor(options = {}) {
     const {
@@ -23,6 +25,8 @@ export default class {
     this.$defaultValues = {}
     this.$validator = {}
     this.$events = {}
+    // handle global errors
+    this.$errors = {}
 
     if (value) this.setValue(value)
   }
@@ -56,17 +60,42 @@ export default class {
   }
 
   set(name, value) {
-    const obj = isObject(name) ? name : { [name]: value }
-    Object.keys(obj).forEach((n) => {
-      if (hasOwnProperty.call(this.values, n)) {
-        if (!shallowEqual(this.values[n], obj[n])) {
-          this.values[n] = obj[n]
-        }
-      } else {
-        this.$values[n] = obj[n]
+    const flatValue = flatten(isObject(name) ? name : { [name]: value })
+    Object.keys(flatValue).forEach((n) => {
+      this.$values[n] = flatValue[n]
+    })
+
+    this.throughValue('', unflatten(flatValue))
+    this.handleChange()
+  }
+
+  getError(name) {
+    let value = this.$values[name]
+    if (value) return value
+
+    value = unflatten(this.$values)
+    name.split('.').forEach((n) => {
+      if (value) value = value[n]
+      else value = undefined
+    })
+
+    return value
+  }
+
+  setError(name, errors) {
+    const flatErrors = flatten(isObject(name) ? name : { [name]: errors })
+    Object.keys(flatErrors).forEach((n) => {
+      this.$errors[n] = flatErrors[n]
+    })
+  }
+
+  forceSet(name, value) {
+    Object.keys(this.$values).forEach((n) => {
+      if (n.indexOf(`${name}.`) === 0) {
+        delete this.$values[n]
       }
     })
-    this.handleChange()
+    this.set(name, value)
   }
 
   getRule(name) {
@@ -99,20 +128,40 @@ export default class {
     this.$values = {}
 
     Object.keys(values).forEach((name) => {
-      if (hasOwnProperty.call(this.values, name)) {
-        if (!shallowEqual(this.values[name], values[name])) {
-          this.values[name] = values[name]
-        }
-      } else {
-        this.$values[name] = values[name]
-      }
+      this.$values[name] = values[name]
     })
-    // remove empty value
+
     Object.keys(this.values).forEach((name) => {
-      if (!hasOwnProperty.call(values, name)) {
-        this.values[name] = this.get(name)
-      }
+      this.dispatch(getUpdateEventName(name), this.get(name), name)
     })
+  }
+
+  throughValue(path, value) {
+    if (isObject(value)) {
+      Object.keys(value).forEach((name) => {
+        const newName = `${path}${path ? '.' : ''}${name}`
+        if (hasOwnProperty.call(this.values, newName)) {
+          this.dispatch(getUpdateEventName(newName), this.get(newName), newName)
+        } else {
+          this.throughValue(newName, value[name])
+        }
+      })
+    }
+  }
+
+  valueSetter(name, fn, val) {
+    if (isObject(val) || Array.isArray(val)) {
+      const values = flatten(val)
+      Object.keys(values).forEach((key) => {
+        this.$values[`${name}.${key}`] = values[key]
+      })
+    } else {
+      this.$values[name] = val
+    }
+
+    if (typeof fn === 'function') fn(val, name)
+    this.dispatch(`${name}-change`)
+    this.dispatch('change')
   }
 
   bind(name, fn, value, validate, initChange) {
@@ -126,25 +175,24 @@ export default class {
     Object.defineProperty(this.values, name, {
       configurable: true,
       enumerable: true,
-      set: (val) => {
-        this.$values[name] = val
-        if (typeof fn === 'function') fn(val, name)
-        this.dispatch(`${name}-change`)
-        this.dispatch('change')
-      },
-      get: () => this.$values[name],
+      set: val => this.valueSetter(name, fn, val),
+      get: () => this.get(name),
     })
 
-    if (this.$values[name] === undefined && value !== undefined) {
-      this.$values[name] = value
+    if (value !== undefined) {
+      const flatValue = flatten({ [name]: value })
+      Object.keys(flatValue).forEach((n) => { this.$values[n] = flatValue[n] })
       if (initChange) this.handleChange()
     }
+
+    this.listen(getUpdateEventName(name), fn)
   }
 
   unbind(name) {
     delete this.$values[name]
     delete this.values[name]
     delete this.$validator[name]
+    this.unlisten(getUpdateEventName(name))
     name += '.'
     Object.keys(this.$values).forEach((key) => {
       if (key.indexOf(name) === 0) delete this.$values[key]

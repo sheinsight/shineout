@@ -6,6 +6,7 @@ import { getKey } from '../utils/uid'
 export default Origin => class extends PureComponent {
   static propTypes = {
     data: PropTypes.array,
+    datum: PropTypes.object,
     filterDelay: PropTypes.number,
     keygen: PropTypes.any,
     onFilter: PropTypes.func,
@@ -13,6 +14,7 @@ export default Origin => class extends PureComponent {
       PropTypes.func,
       PropTypes.bool,
     ]),
+    value: PropTypes.any,
   }
 
   static defaultProps = {
@@ -25,9 +27,44 @@ export default Origin => class extends PureComponent {
     this.state = {
       innerFilter: undefined,
       innerData: undefined,
+      filterText: '',
     }
     this.handleCreate = this.handleCreate.bind(this)
     this.handleFilter = this.handleFilter.bind(this)
+    this.getResultByValues = this.getResultByValues.bind(this)
+
+    this.resultCache = new Map()
+  }
+
+  getResult(value) {
+    const { data, datum, onCreate } = this.props
+    if (onCreate) return this.handleCreate(value)
+
+    const prediction = datum.prediction || ((v, d) => v === datum.format(d))
+    for (let i = 0, count = data.length; i < count; i++) {
+      const d = data[i]
+      if (prediction(value, d)) return d
+    }
+
+    return undefined
+  }
+
+  getResultByValues() {
+    const { value } = this.props
+    if (!value) return []
+    const values = Array.isArray(value) ? value : [value]
+
+    const result = []
+    values.forEach((v) => {
+      let res = this.resultCache.get(v)
+      if (!res) {
+        res = this.getResult(v)
+        this.resultCache.set(v, res)
+      }
+      if (res) { result.push(res) }
+    })
+
+    return result
   }
 
   handleFilter(text) {
@@ -48,6 +85,8 @@ export default Origin => class extends PureComponent {
 
     if (!onFilter) return
 
+    this.setState({ filterText: text })
+
     if (this.timer) clearTimeout(this.timer)
     this.timer = setTimeout(() => {
       const fn = onFilter(text)
@@ -67,7 +106,7 @@ export default Origin => class extends PureComponent {
     const {
       data, onFilter, onCreate, ...other
     } = this.props
-    const { innerFilter, innerData } = this.state
+    const { innerFilter, innerData, filterText } = this.state
     const filterFn = onFilter || onCreate ? this.handleFilter : undefined
 
     let newData = data
@@ -80,6 +119,8 @@ export default Origin => class extends PureComponent {
     return (
       <Origin
         {...other}
+        filterText={filterText}
+        result={this.getResultByValues()}
         inputable={!!onCreate}
         onCreate={onCreate ? this.handleCreate : undefined}
         data={newData}

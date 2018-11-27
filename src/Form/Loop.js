@@ -54,6 +54,8 @@ class Loop extends PureComponent {
   }
 
   handleUpdate() {
+    const { formDatum, name } = this.props
+    this.selfValidate(formDatum.get(name), formDatum.getValue())
     this.forceUpdate()
   }
 
@@ -61,8 +63,7 @@ class Loop extends PureComponent {
     const { formDatum, name } = this.props
 
     if (fullSet) {
-      this.selfValidate(value)
-      formDatum.set(name, value)
+      formDatum.forceSet(name, value)
       return
     }
 
@@ -72,10 +73,7 @@ class Loop extends PureComponent {
     values = immer(values, (draft) => {
       draft[index] = value
     })
-
-    this.selfValidate(values)
-
-    formDatum.set(name, values)
+    formDatum.forceSet(name, values)
   }
 
   handleInsert(index, value) {
@@ -84,8 +82,7 @@ class Loop extends PureComponent {
     const values = immer(formDatum.get(name), (draft) => {
       draft.splice(index, 0, value)
     })
-
-    formDatum.set(name, values)
+    formDatum.forceSet(name, values)
   }
 
   handleRemove(index) {
@@ -94,8 +91,7 @@ class Loop extends PureComponent {
     const values = immer(formDatum.get(name), (draft) => {
       draft.splice(index, 1)
     })
-
-    formDatum.set(name, values)
+    formDatum.forceSet(name, values)
   }
 
   render() {

@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import immer from 'immer'
 import PureComponent from '../PureComponent'
 import { getProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
@@ -23,7 +22,6 @@ class Select extends PureComponent {
     this.state = {
       control: 'mouse',
       focus: false,
-      result: [],
       position: 'drop-down',
     }
 
@@ -41,8 +39,8 @@ class Select extends PureComponent {
     this.handleInputFocus = this.handleInputFocus.bind(this)
     this.handleControlChange = this.handleControlChange.bind(this)
     this.handleClickAway = this.handleClickAway.bind(this)
+    this.handleInputBlur = this.handleInputBlur.bind(this)
 
-    this.resetResult = this.resetResult.bind(this)
     this.renderItem = this.renderItem.bind(this)
 
     props.datum.listen('set-value', this.resetResult)
@@ -52,22 +50,17 @@ class Select extends PureComponent {
 
     this.optionList = {}
     this.selectId = `select_${getUidStr()}`
-  }
 
-  componentDidMount() {
-    this.resetResult()
+    this.lastResult = undefined
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { data, onFilter } = this.props
+    const { onFilter } = this.props
 
-    if (data !== prevProps.data && this.state.result.length === 0) {
-      this.resetResult()
-    }
     // clear filter
     if (prevState.focus !== this.state.focus && !this.state.focus && onFilter) {
       setTimeout(() => {
-        onFilter()
+        onFilter('')
       }, 400)
     }
   }
@@ -134,28 +127,24 @@ class Select extends PureComponent {
 
   handleChange(_, data) {
     const {
-      datum, multiple, disabled, onFilter,
+      datum, multiple, disabled,
     } = this.props
     if (disabled === true) return
+
+    // if click option, ignore blur event
+    if (this.inputBlurTimer) clearTimeout(this.inputBlurTimer)
 
     const checked = !datum.check(data)
     if (multiple) {
       if (checked) {
         datum.add(data)
-        this.setState(immer((state) => {
-          state.result.push(data)
-        }))
       } else {
         datum.remove(data)
-        const prediction = datum.prediction || ((a, b) => (a === b))
-        this.setState({ result: this.state.result.filter(r => !prediction(r, data)) })
       }
-      if (onFilter) onFilter()
       if (this.inputReset) this.inputReset()
     } else {
       if (checked) {
         datum.set(data)
-        this.setState({ result: [data] })
       }
       this.handleState(false)
     }
@@ -168,8 +157,18 @@ class Select extends PureComponent {
     }
   }
 
+  handleInputBlur(text) {
+    const { onCreate } = this.props
+    if (!onCreate || !text) return
+
+    // if click option, ignore input blur
+    this.inputBlurTimer = setTimeout(() => {
+      const data = onCreate(text)
+      this.handleChange(null, data)
+    }, 200)
+  }
+
   handleClear() {
-    this.setState({ result: [] })
     this.props.datum.setValue([])
 
     if (this.state.focus === false) {
@@ -213,23 +212,6 @@ class Select extends PureComponent {
     this.keyLocked = false
   }
 
-  // result performance
-  resetResult() {
-    const {
-      data, datum, onCreate, value,
-    } = this.props
-    const result = []
-    data.forEach((d) => {
-      if (datum.check(d)) result.push(d)
-    })
-    if (value !== undefined && onCreate && result.length === 0) {
-      (Array.isArray(value) ? value : [value]).forEach((v) => {
-        result.push(onCreate(v))
-      })
-    }
-    this.setState({ result })
-  }
-
   renderItem(data, index) {
     const { renderItem } = this.props
     return typeof renderItem === 'function'
@@ -266,7 +248,7 @@ class Select extends PureComponent {
 
   render() {
     const {
-      placeholder, multiple, clearable, disabled, size, onFilter, datum,
+      placeholder, multiple, clearable, disabled, size, onFilter, datum, filterText, onCreate, result,
     } = this.props
     const className = selectClass(
       'inner',
@@ -290,16 +272,19 @@ class Select extends PureComponent {
         onKeyUp={this.handleKeyUp}
       >
         <Result
+          filterText={filterText}
           onClear={clearable ? this.handleClear : undefined}
+          onCreate={onCreate}
           onRemove={this.handleRemove}
           onFilter={onFilter}
           datum={datum}
           disabled={disabled}
           focus={this.state.focus}
-          result={this.state.result}
+          result={result}
           multiple={multiple}
           placeholder={placeholder}
           renderResult={renderResult}
+          onInputBlur={this.handleInputBlur}
           onInputFocus={this.handleInputFocus}
           setInputReset={this.setInputReset}
         />
@@ -319,6 +304,7 @@ Select.propTypes = {
     PropTypes.bool,
     PropTypes.func,
   ]),
+  filterText: PropTypes.string,
   height: PropTypes.number,
   itemsInView: PropTypes.number,
   lineHeight: PropTypes.number,
@@ -328,6 +314,7 @@ Select.propTypes = {
   ]),
   multiple: PropTypes.bool,
   onBlur: PropTypes.func,
+  onCreate: PropTypes.func,
   onFilter: PropTypes.func,
   onFocus: PropTypes.func,
   position: PropTypes.string,
@@ -335,6 +322,7 @@ Select.propTypes = {
     PropTypes.string,
     PropTypes.func,
   ]),
+  result: PropTypes.array,
   size: PropTypes.string,
   text: PropTypes.object,
 }

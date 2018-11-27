@@ -1,14 +1,15 @@
-import React, { PureComponent, isValidElement, cloneElement } from 'react'
+import React, { Component, isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import { focusElement } from '../utils/dom/element'
 import { selectClass } from '../styles'
 
-class FilterInput extends PureComponent {
+class FilterInput extends Component {
   constructor(props) {
     super(props)
 
     this.bindElement = this.bindElement.bind(this)
     this.handleInput = this.handleInput.bind(this)
+    this.handleBlur = this.handleBlur.bind(this)
 
     // for mutiple select
     this.props.setInputReset(this.reset.bind(this))
@@ -19,6 +20,10 @@ class FilterInput extends PureComponent {
       this.props.onInputFocus()
       this.focus()
     }
+  }
+
+  shouldComponentUpdate() {
+    return this.props.updatAble
   }
 
   componentDidUpdate(prevProps) {
@@ -45,6 +50,10 @@ class FilterInput extends PureComponent {
     this.props.onFilter(e.target.innerText.replace('\feff ', '').trim())
   }
 
+  handleBlur(e) {
+    this.props.onInputBlur(e.target.innerText.replace('\feff ', '').trim())
+  }
+
   render() {
     const { text, focus, multiple } = this.props
     const value = typeof text === 'string' ? text.replace(/<\/?[^>]*>/g, '') : text
@@ -66,6 +75,7 @@ class FilterInput extends PureComponent {
         ref={this.bindElement}
         contentEditable={focus}
         onInput={this.handleInput}
+        onBlur={this.handleBlur}
         dangerouslySetInnerHTML={{ __html: value }}
       />
     )
@@ -76,7 +86,9 @@ FilterInput.propTypes = {
   focus: PropTypes.bool.isRequired,
   multiple: PropTypes.bool,
   onFilter: PropTypes.func.isRequired,
+  onInputBlur: PropTypes.func.isRequired,
   onInputFocus: PropTypes.func.isRequired,
+  updatAble: PropTypes.bool,
   setInputReset: PropTypes.func.isRequired,
   text: PropTypes.oneOfType([
     PropTypes.string,

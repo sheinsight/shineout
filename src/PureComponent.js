@@ -6,7 +6,7 @@ export default class extends PureComponent {
   }
 
   setState(...args) {
-    if (this.$willUnmount || !this.$didMounted) return
+    if (this.$willUnmount) return
     super.setState(...args)
   }
 }
