@@ -50,9 +50,10 @@ export default Origin => class extends PureComponent {
   }
 
   getResultByValues() {
-    const { value } = this.props
-    if (!value) return []
-    const values = Array.isArray(value) ? value : [value]
+    const { datum, value } = this.props
+    if (value === undefined) return []
+
+    const values = [...datum.values]
 
     const result = []
     values.forEach((v) => {

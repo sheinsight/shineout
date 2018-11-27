@@ -26,8 +26,9 @@ export default function () {
         disabled={d => d === 'green'}
         keygen
         multiple
-        value={['orange', 'green']}
+        defaultValue={['orange', 'green']}
         placeholder="Multiple select"
+        onChange={v => console.log(v)}
       />
     </div>
   )

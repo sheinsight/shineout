@@ -19,7 +19,7 @@ export default function () {
         placeholder="input color"
         onCreate
         onChange={d => console.log(d)}
-        value="brown"
+        defaultValue="brown"
       />
       <br />
       <Select

@@ -43,8 +43,6 @@ class Select extends PureComponent {
 
     this.renderItem = this.renderItem.bind(this)
 
-    props.datum.listen('set-value', this.resetResult)
-
     // option list not render till first focused
     this.renderPending = true
 
@@ -134,8 +132,8 @@ class Select extends PureComponent {
     // if click option, ignore blur event
     if (this.inputBlurTimer) clearTimeout(this.inputBlurTimer)
 
-    const checked = !datum.check(data)
     if (multiple) {
+      const checked = !datum.check(data)
       if (checked) {
         datum.add(data)
       } else {
@@ -143,9 +141,7 @@ class Select extends PureComponent {
       }
       if (this.inputReset) this.inputReset()
     } else {
-      if (checked) {
-        datum.set(data)
-      }
+      datum.set(data)
       this.handleState(false)
     }
   }
