@@ -53,7 +53,7 @@ export default class extends Component {
         </Form.Item>
 
         <Form.Item label="">
-          <Checkbox name="showAge">Show age</Checkbox>
+          <Checkbox defaultValue name="showAge">Show age</Checkbox>
           <Checkbox name="showColors">Show colors</Checkbox>
         </Form.Item>
 

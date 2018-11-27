@@ -5,7 +5,7 @@
  *    -- The form has a two-way binding mechanism built in, automatically sending and collecting data based on the name property of the form element.
  */
 import React, { PureComponent } from 'react'
-import { Form, Input, Checkbox, Textarea, Select, DatePicker, Tree, Upload } from 'shineout'
+import { Form, Input, Checkbox, Radio, Textarea, Select, DatePicker, Tree, Upload } from 'shineout'
 
 const citys = [
   {
@@ -73,6 +73,14 @@ export default class extends PureComponent {
         <Form.Item label="Favorite Color">
           <Checkbox.Group
             name="favoriteColor"
+            keygen={d => d}
+            data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
+          />
+        </Form.Item>
+
+        <Form.Item label="Other Color">
+          <Radio.Group
+            name="otherColor"
             keygen={d => d}
             data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
           />

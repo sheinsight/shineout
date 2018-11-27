@@ -21,12 +21,10 @@ class Flow extends Component {
     }
   }
 
-
   componentWillUnmount() {
     const { formDatum } = this.props
     this.listeners.forEach(n => formDatum.unlisten(n))
   }
-
 
   update() {
     this.forceUpdate()
@@ -34,6 +32,7 @@ class Flow extends Component {
 
   render() {
     const { children, formDatum } = this.props
+    console.log('render flow', formDatum.getValue())
     return children(formDatum) || null
   }
 }

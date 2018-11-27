@@ -27,7 +27,7 @@ export default class extends PureComponent {
       email: 'test@example.com',
       account: {
         name: {
-          firstName: 'Harry',
+          firstName: 'James',
           lastName: 'Potter',
         },
         age: 18,
@@ -37,7 +37,7 @@ export default class extends PureComponent {
     })
 
     setTimeout(() => {
-      this.datum.set('account.name.firstName', new Error('Something wrong.'))
+      this.datum.set('account.name.firstName', 'Harry')
     }, 1000)
   }
 

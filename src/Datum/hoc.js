@@ -40,14 +40,16 @@ export default curry((options, Origin) => {
       // for radio, select
       if (!this.datum.limit && limit) this.datum.limit = limit
 
+      if (onChange) {
+        this.datum.onChange = onChange
+      }
+    }
+
+    componentDidMount() {
       const values = this.props[key]
       if (values !== undefined) {
         this.datum.setValue(values)
         this.prevValues = values
-      }
-
-      if (onChange) {
-        this.datum.onChange = onChange
       }
     }
 

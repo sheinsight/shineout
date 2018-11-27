@@ -8,6 +8,19 @@ export const FORCE_PASS = {}
 
 const getUpdateEventName = name => `${name}-update`
 
+const getSthByName = (name, source) => {
+  let result = source[name]
+  if (result) return result
+
+  result = unflatten(source)
+  name.split('.').forEach((n) => {
+    if (result) result = result[n]
+    else result = undefined
+  })
+
+  return result
+}
+
 export default class {
   constructor(options = {}) {
     const {
@@ -47,46 +60,26 @@ export default class {
   }
 
   get(name) {
-    let value = this.$values[name]
-    if (value) return value
-
-    value = unflatten(this.$values)
-    name.split('.').forEach((n) => {
-      if (value) value = value[n]
-      else value = undefined
-    })
-
+    const value = getSthByName(name, this.$values)
     return value
   }
 
   set(name, value) {
     const flatValue = flatten(isObject(name) ? name : { [name]: value })
-    Object.keys(flatValue).forEach((n) => {
-      this.$values[n] = flatValue[n]
-    })
+    Object.keys(flatValue).forEach((n) => { this.$values[n] = flatValue[n] })
 
     this.throughValue('', unflatten(flatValue))
+    this.dispatch('change')
     this.handleChange()
   }
 
   getError(name) {
-    let value = this.$values[name]
-    if (value) return value
-
-    value = unflatten(this.$values)
-    name.split('.').forEach((n) => {
-      if (value) value = value[n]
-      else value = undefined
-    })
-
-    return value
+    return getSthByName(name, this.$errors)
   }
 
   setError(name, errors) {
     const flatErrors = flatten(isObject(name) ? name : { [name]: errors })
-    Object.keys(flatErrors).forEach((n) => {
-      this.$errors[n] = flatErrors[n]
-    })
+    Object.keys(flatErrors).forEach((n) => { this.$errors[n] = flatErrors[n] })
   }
 
   forceSet(name, value) {
@@ -133,7 +126,10 @@ export default class {
 
     Object.keys(this.values).forEach((name) => {
       this.dispatch(getUpdateEventName(name), this.get(name), name)
+      this.dispatch(`${name}-change`)
     })
+
+    this.dispatch('change')
   }
 
   throughValue(path, value) {
@@ -142,6 +138,7 @@ export default class {
         const newName = `${path}${path ? '.' : ''}${name}`
         if (hasOwnProperty.call(this.values, newName)) {
           this.dispatch(getUpdateEventName(newName), this.get(newName), newName)
+          this.dispatch(`${newName}-change`)
         } else {
           this.throughValue(newName, value[name])
         }
@@ -158,6 +155,8 @@ export default class {
     } else {
       this.$values[name] = val
     }
+
+    console.log('setter', name)
 
     if (typeof fn === 'function') fn(val, name)
     this.dispatch(`${name}-change`)
@@ -183,6 +182,9 @@ export default class {
       const flatValue = flatten({ [name]: value })
       Object.keys(flatValue).forEach((n) => { this.$values[n] = flatValue[n] })
       if (initChange) this.handleChange()
+
+      this.dispatch(`${name}-change`)
+      this.dispatch('change')
     }
 
     this.listen(getUpdateEventName(name), fn)
