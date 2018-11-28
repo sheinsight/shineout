@@ -16,13 +16,16 @@ class Loop extends PureComponent {
     this.keys = []
 
     this.state = { error: null }
+  }
 
-    const { formDatum, name, defaultValue } = props
+  componentDidMount() {
+    const { formDatum, name, defaultValue } = this.props
     const value = formDatum.get(name) || defaultValue
     formDatum.bind(name, this.handleUpdate.bind(this), value, this.validate)
   }
 
   componentWillUnmount() {
+    this.$willUnmount = true
     const { formDatum, name } = this.props
     if (formDatum && name) {
       formDatum.unbind(name, this.handleUpdate)
@@ -38,7 +41,7 @@ class Loop extends PureComponent {
       this.setState({ error: null })
       return true
     }, (e) => {
-      this.setState({ error: e })
+      if (!this.$willUnmount) this.setState({ error: e })
       return e
     })
   }

@@ -73,7 +73,7 @@ export default Origin => class extends PureComponent {
 
     // not filter
     if (!text) {
-      this.setState({ innerFilter: undefined, innerData: undefined })
+      this.setState({ filterText: '', innerFilter: undefined, innerData: undefined })
       if (this.timer) clearTimeout(this.timer)
       if (onFilter) onFilter(text)
       return

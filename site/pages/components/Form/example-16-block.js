@@ -14,7 +14,7 @@ export default class extends PureComponent {
 
     this.initValue = {
       name: 'Harry Potter',
-      friends: [{ name: 'Hermione Granger', age: '16' }],
+      friends: [{ name: 'Hermione Granger', age: '16' }, {}],
     }
 
     this.rules = {

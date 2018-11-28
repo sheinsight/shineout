@@ -156,8 +156,6 @@ export default class {
       this.$values[name] = val
     }
 
-    console.log('setter', name)
-
     if (typeof fn === 'function') fn(val, name)
     this.dispatch(`${name}-change`)
     this.dispatch('change')

@@ -69,7 +69,7 @@ export default class extends PureComponent {
     this.datum = new Datum.Form()
     this.initValue = {
       name: 'Harry Potter',
-      friends: [{ name: 'Hermione Granger', age: '16' }],
+      friends: [{ name: 'Hermione Granger', age: '16' }, {}],
     }
 
     this.rules = [{ min: 2, message: 'At least add 2 friends.' }]
@@ -77,8 +77,8 @@ export default class extends PureComponent {
   }
 
   handleAddFriend() {
-    const friends = [...this.datum.get('friends'), {}]
-    this.datum.set('friends', friends)
+    const friends = this.datum.get('friends') || []
+    this.datum.set('friends', [...friends, {}])
   }
 
   render() {
