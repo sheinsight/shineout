@@ -55,10 +55,9 @@ class Loop extends PureComponent {
     })
   }
 
-  handleUpdate(value, sn) {
-    const { formDatum, name } = this.props
-    console.log(formDatum.get(name), value, sn)
-    this.selfValidate(formDatum.get(name), formDatum.getValue())
+  handleUpdate(value) {
+    const { formDatum } = this.props
+    this.selfValidate(value, formDatum.getValue())
     this.forceUpdate()
   }
 
@@ -111,8 +110,6 @@ class Loop extends PureComponent {
     range(values.length, 0).forEach((i) => {
       if (!this.keys[i]) this.keys[i] = getUidStr()
     })
-
-    console.log('render loop', values)
 
     const results = values.map((value, index) => (
       <Tag key={this.keys[index]}>

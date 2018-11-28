@@ -53,14 +53,14 @@ export default Origin => class extends PureComponent {
     const { datum, value } = this.props
     if (value === undefined) return []
 
-    const values = [...datum.values]
+    const values = datum.formatValue(value)
 
     const result = []
     values.forEach((v) => {
       let res = this.resultCache.get(v)
       if (!res) {
         res = this.getResult(v)
-        this.resultCache.set(v, res)
+        if (res) this.resultCache.set(v, res)
       }
       if (res) { result.push(res) }
     })

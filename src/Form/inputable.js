@@ -105,7 +105,7 @@ export default curry(Origin => consumer(class extends PureComponent {
     if (this.changeLocked) return this.state.value
 
     const {
-      formDatum, name, value, defaultValue, onChange,
+      formDatum, name, value, defaultValue,
     } = this.props
     if (formDatum && name) {
       if (Array.isArray(name)) {
@@ -114,7 +114,7 @@ export default curry(Origin => consumer(class extends PureComponent {
       }
       return tryValue(formDatum.get(name), defaultValue)
     }
-    return value === undefined && !onChange ? this.state.value : value
+    return value === undefined && !formDatum ? this.state.value : value
   }
 
   getError() {

@@ -177,30 +177,29 @@ export default class {
     this.dispatch('set-value')
   }
 
-  setValue(values = []) {
-    // value not change
-    if (shallowEqual(this.$cachedValue, values)) return
-
+  formatValue(values) {
     if (this.limit === 1 && !Array.isArray(values)) {
-      this.resetValue([values])
-      return
+      return [values]
     }
 
     if (Array.isArray(values)) {
-      this.resetValue(values)
-      return
+      return values
     }
 
     if (typeof values === 'string') {
       if (this.separator) {
-        this.resetValue(values.split(this.separator).map(s => s.trim()))
-      } else {
-        this.resetValue([])
-        console.error('The separator parameter is empty.')
+        return values.split(this.separator).map(s => s.trim())
       }
-      return
-    }
 
-    console.error('Invalid values, expect Array of String.')
+      console.error('Select separator parameter is empty.')
+    }
+    return []
+  }
+
+  setValue(values = []) {
+    // value not change
+    if (shallowEqual(this.$cachedValue, values)) return
+
+    this.resetValue(this.formatValue(values))
   }
 }

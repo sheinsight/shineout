@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import { getKey } from '../utils/uid'
@@ -19,7 +19,7 @@ function initRoot() {
   document.body.appendChild(root)
 }
 
-class OptionList extends PureComponent {
+class OptionList extends Component {
   constructor(props) {
     super(props)
 
