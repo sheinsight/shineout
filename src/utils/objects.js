@@ -57,3 +57,8 @@ export function unflatten(data) {
   }
   return result['']
 }
+
+export const objectValues = (obj) => {
+  if (!obj) return []
+  return Object.keys(obj).map(k => obj[k])
+}

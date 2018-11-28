@@ -105,7 +105,7 @@ export default curry(Origin => consumer(class extends PureComponent {
     if (this.changeLocked) return this.state.value
 
     const {
-      formDatum, name, value, defaultValue,
+      formDatum, name, value, defaultValue, onChange,
     } = this.props
     if (formDatum && name) {
       if (Array.isArray(name)) {
@@ -114,7 +114,7 @@ export default curry(Origin => consumer(class extends PureComponent {
       }
       return tryValue(formDatum.get(name), defaultValue)
     }
-    return value === undefined ? this.state.value : value
+    return value === undefined && !onChange ? this.state.value : value
   }
 
   getError() {
@@ -123,7 +123,6 @@ export default curry(Origin => consumer(class extends PureComponent {
       const names = Array.isArray(name) ? name : [name]
       for (let i = 0, count = names.length; i < count; i++) {
         const error = formDatum.getError(names[i])
-        console.log(names[i], error)
         if (error) return error
       }
       return undefined
@@ -137,9 +136,11 @@ export default curry(Origin => consumer(class extends PureComponent {
   }
 
   handleError(error) {
-    const { formDatum, name } = this.props
+    const { formDatum, name, onError } = this.props
     if (formDatum && name) formDatum.setError(name, error)
     else this.setState({ error })
+
+    if (!name && onError) onError(this.itemName, error)
   }
 
   validateHook(customValidate) {
@@ -212,11 +213,11 @@ export default curry(Origin => consumer(class extends PureComponent {
       if (Array.isArray(name)) {
         name.forEach((n, i) => {
           let v = (value || [])[i]
-          if (beforeChange) v = beforeChange(v)
+          if (beforeChange) v = beforeChange(v, formDatum)
           if (v !== formDatum.get(n)) formDatum.set(n, v)
         })
       } else {
-        if (beforeChange) value = beforeChange(value)
+        if (beforeChange) value = beforeChange(value, formDatum)
         formDatum.set(name, value)
       }
     } else {
@@ -254,7 +255,8 @@ export default curry(Origin => consumer(class extends PureComponent {
 
   render() {
     const {
-      formDatum, value, required, loopContext, bind, bindInputToItem, unbindInputFromItem, ...other
+      formDatum, value, required, loopContext, bind,
+      bindInputToItem, unbindInputFromItem, ...other
     } = this.props
 
     return (

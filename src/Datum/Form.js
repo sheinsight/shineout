@@ -46,14 +46,8 @@ export default class {
   }
 
   reset() {
-    this.$values = {}
-
-    // reset block
     this.dispatch('reset')
-
-    Object.keys(this.values).forEach((k) => {
-      this.values[k] = this.$defaultValues[k]
-    })
+    this.setValue(this.$defaultValues)
   }
 
   get(name) {
@@ -91,7 +85,6 @@ export default class {
         delete this.$values[n]
       }
     })
-    console.log(name, this.$values)
     this.set(name, value, skipArray)
   }
 
@@ -165,7 +158,7 @@ export default class {
     this.dispatch('change')
   }
 
-  bind(name, fn, value, validate, initChange) {
+  bind(name, fn, value, validate) {
     if (hasOwnProperty.call(this.values, name)) {
       console.error(`There is already an item with name "${name}" exists. The name props must be unique.`)
     }
@@ -180,10 +173,10 @@ export default class {
       get: () => this.get(name),
     })
 
-    if (value !== undefined) {
+    if (value !== undefined && !this.get(name)) {
       const flatValue = flatten({ [name]: value })
       Object.keys(flatValue).forEach((n) => { this.$values[n] = flatValue[n] })
-      if (initChange) this.handleChange()
+      // if (initChange) this.handleChange()
 
       this.dispatch(changeSubscribe(name))
       this.dispatch('change')

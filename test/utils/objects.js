@@ -1,5 +1,5 @@
 import test from 'ava'
-import { flatten, unflatten } from '../../src/utils/objects'
+import { flatten, unflatten, objectValues } from '../../src/utils/objects'
 
 const error = new Error('something wrong.')
 
@@ -76,4 +76,26 @@ test('flatten & unflatten', (t) => {
   t.deepEqual(flatObj['obj.date'], raw.obj.date)
   t.deepEqual(flatObj['3.[2]'], raw['3'][2])
   t.deepEqual(raw, obj)
+})
+
+test('object values', (t) => {
+  const values = objectValues(testObject)
+  t.deepEqual(values, [
+    {
+      b: {
+        c: [
+          { a: 1, b: 2 },
+          { c: 3, d: 4 },
+        ],
+      },
+      e: {
+        3: 1,
+      },
+      g: 'some string',
+    },
+    123,
+    {},
+    [],
+    error,
+  ])
 })

@@ -100,7 +100,6 @@ export default class extends PureComponent {
 
         <Form.Item label="">
           <Form.Submit>Submit</Form.Submit>
-          <Form.Reset>Reset</Form.Reset>
         </Form.Item>
       </Form>
     )

@@ -12,11 +12,6 @@ export default class extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.initValue = {
-      name: 'Harry Potter',
-      friends: [{ name: 'Hermione Granger', age: '16' }, {}],
-    }
-
     this.rules = {
       name: [{ required: true, message: 'Please input friend\'s name or remove this field.' }],
       friends: [{ min: 2, message: 'At least add 2 friends.' }],
@@ -27,13 +22,18 @@ export default class extends PureComponent {
 
   render() {
     return (
-      <Form value={this.initValue} onSubmit={(data) => { console.log(data) }}>
+      <Form onSubmit={(data) => { console.log(data) }}>
         <Form.Item label="Name">
-          <Input name="name" />
+          <Input name="name" defaultValue="Harry Potter" />
         </Form.Item>
 
         <Form.Item label="Friends">
-          <Form.Loop rules={this.rules.friends} name="friends" empty={this.renderEmpty}>
+          <Form.Loop
+            rules={this.rules.friends}
+            name="friends"
+            empty={this.renderEmpty}
+            defaultValue={[{ name: 'Hermione Granger', age: '16' }, {}]}
+          >
             {
               ({
                 value, onChange, onAppend, onRemove,
@@ -73,6 +73,7 @@ export default class extends PureComponent {
 
         <Form.Item label="">
           <Form.Submit>Submit</Form.Submit>
+          <Form.Reset>Reset</Form.Reset>
         </Form.Item>
       </Form>
     )

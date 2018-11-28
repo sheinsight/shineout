@@ -27,6 +27,7 @@ class Block extends PureComponent {
   componentDidUpdate() {
     const { value } = this.props
     if (!shallowEqual(value, this.prevValues)) {
+      console.log(value, this.prevValues)
       this.datum.setValue(value)
       this.prevValues = value
     }
@@ -45,7 +46,10 @@ class Block extends PureComponent {
   }
 
   reset() {
-    this.datum.reset()
+    console.log(22222)
+    setTimeout(() => {
+      this.datum.validateClear()
+    })
   }
 
   validate() {

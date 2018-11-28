@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import createReactContext from 'create-react-context'
 import immer from 'immer'
+import { objectValues } from '../utils/objects'
 import { errorSubscribe } from '../Datum/pubsub'
 
 const { Provider, Consumer } = createReactContext()
@@ -14,10 +15,14 @@ export const itemProvider = Origin => class extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { inputs: {} }
+    this.state = {
+      inputs: {},
+      errors: {},
+    }
     this.events = {
       bindInputToItem: this.bind.bind(this),
       unbindInputFromItem: this.unbind.bind(this),
+      onError: this.handleError.bind(this),
     }
     this.handleUpdate = this.handleUpdate.bind(this)
   }
@@ -44,11 +49,19 @@ export const itemProvider = Origin => class extends Component {
     const names = Array.isArray(name) ? name : [name]
     const { formDatum } = this.props
     if (formDatum) {
-      names.forEach((n) => { formDatum.unsubscribe(errorSubscribe(n)) })
+      names.forEach((n) => {
+        formDatum.unsubscribe(errorSubscribe(n))
+      })
     }
 
     this.setState(immer((state) => {
       names.forEach((n) => { delete state.inputs[n] })
+    }))
+  }
+
+  handleError(name, error) {
+    this.setState(immer((state) => {
+      state.errors[name] = error
     }))
   }
 
@@ -62,6 +75,10 @@ export const itemProvider = Origin => class extends Component {
         if (err) errors.push(err)
       })
     }
+
+    objectValues(this.state.errors).forEach((err) => {
+      if (err) errors.push(err)
+    })
 
     return (
       <Provider value={this.events}>
