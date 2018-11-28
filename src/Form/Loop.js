@@ -41,7 +41,7 @@ class Loop extends PureComponent {
       this.setState({ error: null })
       return true
     }, (e) => {
-      if (!this.$willUnmount) this.setState({ error: e })
+      if (!this.$willUnmount) this.setState({ error: [e] })
       return e
     })
   }
@@ -56,7 +56,8 @@ class Loop extends PureComponent {
     })
   }
 
-  handleUpdate() {
+  handleUpdate(value, sn) {
+    console.log(value, sn)
     const { formDatum, name } = this.props
     this.selfValidate(formDatum.get(name), formDatum.getValue())
     this.forceUpdate()
@@ -129,7 +130,7 @@ class Loop extends PureComponent {
     ))
 
     if (error) {
-      results.push(<Item key="error" formItemErrors={{ error }} />)
+      results.push(<Item key="error" formItemErrors={error} />)
     }
 
     return results

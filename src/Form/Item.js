@@ -8,9 +8,8 @@ import { formClass } from '../styles'
 class Item extends PureComponent {
   renderHelp() {
     const { formItemErrors } = this.props
-    const keys = Object.keys(formItemErrors)
-    if (keys.length > 0) {
-      return <div className={formClass('error')}>{formItemErrors[keys[0]].message}</div>
+    if (formItemErrors.length > 0) {
+      return <div className={formClass('error')}>{formItemErrors[0].message}</div>
     }
 
     const { tip } = this.props
@@ -28,7 +27,7 @@ class Item extends PureComponent {
       formClass(
         'item',
         required && 'required',
-        Object.keys(formItemErrors).length > 0 && 'invalid',
+        formItemErrors.length > 0 && 'invalid',
         ['top', 'right'].indexOf(labelAlign) >= 0 && `label-align-${labelAlign}`,
       ),
       this.props.className,
@@ -54,7 +53,7 @@ class Item extends PureComponent {
 Item.propTypes = {
   ...getProps(PropTypes, 'children', 'grid'),
   className: PropTypes.string,
-  formItemErrors: PropTypes.object,
+  formItemErrors: PropTypes.array,
   label: PropTypes.string,
   labelAlign: PropTypes.string,
   labelWidth: PropTypes.oneOfType([
@@ -67,7 +66,7 @@ Item.propTypes = {
 
 Item.defaultProps = {
   ...defaultProps,
-  formItemErrors: {},
+  formItemErrors: [],
 }
 
 export default Item

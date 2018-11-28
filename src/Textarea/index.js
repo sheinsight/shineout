@@ -6,8 +6,8 @@ import inputBorder from '../hoc/inputBorder'
 import Component from './Textarea'
 
 const input = compose(
-  inputBorder({}),
   inputable,
+  inputBorder({}),
   delay(400),
   trim,
 )

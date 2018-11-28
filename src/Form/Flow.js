@@ -1,29 +1,33 @@
 import { Component } from 'react'
 import PropTypes from 'prop-types'
+import { changeSubscribe } from '../Datum/pubsub'
 
 class Flow extends Component {
   constructor(props) {
     super(props)
 
     this.update = this.update.bind(this)
-    this.listeners = []
+    this.events = []
 
-    const { names, formDatum } = props
+    const { names, formDatum } = this.props
     if (names) {
       names.forEach((n) => {
-        const nc = `${n}-change`
-        formDatum.listen(nc, this.update)
-        this.listeners.push(nc)
+        const nc = changeSubscribe(n)
+        formDatum.subscribe(nc, this.update)
+        this.events.push(nc)
       })
     } else {
-      formDatum.listen('change', this.update)
-      this.listeners.push('change')
+      formDatum.subscribe('change', this.update)
+      this.events.push('change')
     }
+  }
+
+  componentDidMount() {
   }
 
   componentWillUnmount() {
     const { formDatum } = this.props
-    this.listeners.forEach(n => formDatum.unlisten(n))
+    this.events.forEach(n => formDatum.unsubscribe(n))
   }
 
   update() {

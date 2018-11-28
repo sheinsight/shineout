@@ -21,11 +21,13 @@ export default curry((options, Origin) => {
       onChange: PropTypes.func,
       onDatumBind: PropTypes.func,
       datum: PropTypes.object,
+      value: PropTypes.any,
     }
 
     constructor(props) {
       super(props)
       const { datum, onChange } = props
+      const value = props[key]
 
       if (datum instanceof Datum) {
         this.datum = datum
@@ -33,7 +35,7 @@ export default curry((options, Origin) => {
         const ops = bindProps.reduce((o, k) => {
           o[k] = props[k]
           return o
-        }, {})
+        }, { value })
         this.datum = new Datum(Object.assign(ops, datum))
       }
 
@@ -46,11 +48,7 @@ export default curry((options, Origin) => {
     }
 
     componentDidMount() {
-      const values = this.props[key]
-      if (values !== undefined) {
-        this.datum.setValue(values)
-        this.prevValues = values
-      }
+      this.prevValues = this.props[key]
     }
 
     componentDidUpdate() {

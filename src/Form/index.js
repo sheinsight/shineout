@@ -16,7 +16,7 @@ import { formProvider, formConsumer } from './formContext'
 import useMode from './mode'
 
 const exportForm = compose(Datum.hoc({ type: 'form' }), formProvider)(cardConsumer(Form, ['setFormStatus']))
-exportForm.Item = itemProvider(formConsumer(['labelWidth', 'labelAlign'], Item))
+exportForm.Item = formConsumer(['formDatum', 'labelWidth', 'labelAlign'], itemProvider(Item))
 exportForm.Field = inputable(Field)
 exportForm.Block = formConsumer(['formDatum'])(Block)
 exportForm.BlockField = inputable(BlockField)

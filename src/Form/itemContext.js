@@ -1,52 +1,81 @@
-import React, { PureComponent } from 'react'
-import immer from 'immer'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import createReactContext from 'create-react-context'
+import immer from 'immer'
+import { errorSubscribe } from '../Datum/pubsub'
 
 const { Provider, Consumer } = createReactContext()
 
-export const itemProvider = Origin => class extends PureComponent {
+export const itemProvider = Origin => class extends Component {
+  static propTypes = {
+    formDatum: PropTypes.object,
+  }
+
   constructor(props) {
     super(props)
 
-    this.state = { errors: {} }
-    this.handleError = this.handleError.bind(this)
+    this.state = { inputs: {} }
+    this.events = {
+      bindInputToItem: this.bind.bind(this),
+      unbindInputFromItem: this.unbind.bind(this),
+    }
+    this.handleUpdate = this.handleUpdate.bind(this)
   }
 
-  handleError(name, error) {
+  handleUpdate() {
+    this.forceUpdate()
+  }
+
+  bind(name) {
+    const names = Array.isArray(name) ? name : [name]
+    const { formDatum } = this.props
+    if (formDatum) {
+      names.forEach((n) => {
+        formDatum.subscribe(errorSubscribe(n), this.handleUpdate)
+      })
+    }
+
     this.setState(immer((state) => {
-      if (!error) {
-        delete state.errors[name]
-      } else {
-        state.errors[name] = error
-      }
+      names.forEach((n) => { state.inputs[n] = true })
+    }))
+  }
+
+  unbind(name) {
+    const names = Array.isArray(name) ? name : [name]
+    const { formDatum } = this.props
+    if (formDatum) {
+      names.forEach((n) => { formDatum.unsubscribe(errorSubscribe(n)) })
+    }
+
+    this.setState(immer((state) => {
+      names.forEach((n) => { delete state.inputs[n] })
     }))
   }
 
   render() {
+    const { formDatum } = this.props
+    const errors = []
+
+    if (formDatum) {
+      Object.keys(this.state.inputs).forEach((name) => {
+        const err = formDatum.getError(name)
+        if (err) errors.push(err)
+      })
+    }
+
     return (
-      <Provider value={this.handleError}>
-        <Origin {...this.props} formItemErrors={this.state.errors} />
+      <Provider value={this.events}>
+        <Origin {...this.props} formItemErrors={errors} />
       </Provider>
     )
   }
 }
 
 // eslint-disable-next-line
-export const itemConsumer = Origin => class extends PureComponent {
-  createErrorHandle(fn) {
-    // eslint-disable-next-line
-    const { onError } = this.props
-    return (name, error) => {
-      if (fn) fn(name, error)
-      if (onError) onError(name, error)
-    }
-  }
-
-  render() {
-    return (
-      <Consumer>
-        {fn => <Origin {...this.props} onError={this.createErrorHandle(fn)} />}
-      </Consumer>
-    )
-  }
+export const itemConsumer = Origin => (props) => {
+  return (
+    <Consumer>
+      {events => <Origin {...props} {...events} />}
+    </Consumer>
+  )
 }

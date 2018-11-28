@@ -1,12 +1,9 @@
 import shallowEqual from '../utils/shallowEqual'
 import isObject from '../utils/validate/isObject'
 import { flatten, unflatten } from '../utils/objects'
+import { updateSubscribe, errorSubscribe, changeSubscribe, FORCE_PASS, ERROR_TYPE } from './pubsub'
 
 const { hasOwnProperty } = Object.prototype
-
-export const FORCE_PASS = {}
-
-const getUpdateEventName = name => `${name}-update`
 
 const getSthByName = (name, source) => {
   let result = source[name]
@@ -60,13 +57,16 @@ export default class {
   }
 
   get(name) {
-    const value = getSthByName(name, this.$values)
-    return value
+    return getSthByName(name, this.$values)
   }
 
-  set(name, value) {
-    const flatValue = flatten(isObject(name) ? name : { [name]: value })
-    Object.keys(flatValue).forEach((n) => { this.$values[n] = flatValue[n] })
+  set(name, value, skipArray = true) {
+    const flatValue = flatten(isObject(name) ? name : { [name]: value }, skipArray)
+    Object.keys(flatValue).forEach((n) => {
+      const newValue = flatValue[n]
+      if (Array.isArray(newValue) && newValue.length > 0) this.forceSet(n, newValue, false)
+      else this.$values[n] = flatValue[n]
+    })
 
     this.throughValue('', unflatten(flatValue))
     this.dispatch('change')
@@ -79,16 +79,20 @@ export default class {
 
   setError(name, errors) {
     const flatErrors = flatten(isObject(name) ? name : { [name]: errors })
-    Object.keys(flatErrors).forEach((n) => { this.$errors[n] = flatErrors[n] })
+    Object.keys(flatErrors).forEach((n) => {
+      this.$errors[n] = flatErrors[n]
+      this.dispatch(errorSubscribe(n), flatErrors[n], ERROR_TYPE)
+    })
   }
 
-  forceSet(name, value) {
+  forceSet(name, value, skipArray = false) {
     Object.keys(this.$values).forEach((n) => {
-      if (n.indexOf(`${name}.`) === 0) {
+      if (n === name || n.indexOf(`${name}.`) === 0) {
         delete this.$values[n]
       }
     })
-    this.set(name, value)
+    console.log(name, this.$values)
+    this.set(name, value, skipArray)
   }
 
   getRule(name) {
@@ -125,8 +129,8 @@ export default class {
     })
 
     Object.keys(this.values).forEach((name) => {
-      this.dispatch(getUpdateEventName(name), this.get(name), name)
-      this.dispatch(`${name}-change`)
+      this.dispatch(updateSubscribe(name), this.get(name), name)
+      this.dispatch(changeSubscribe(name))
     })
 
     this.dispatch('change')
@@ -137,8 +141,8 @@ export default class {
       Object.keys(value).forEach((name) => {
         const newName = `${path}${path ? '.' : ''}${name}`
         if (hasOwnProperty.call(this.values, newName)) {
-          this.dispatch(getUpdateEventName(newName), this.get(newName), newName)
-          this.dispatch(`${newName}-change`)
+          this.dispatch(updateSubscribe(newName), this.get(newName), newName)
+          this.dispatch(changeSubscribe(newName))
         } else {
           this.throughValue(newName, value[name])
         }
@@ -157,7 +161,7 @@ export default class {
     }
 
     if (typeof fn === 'function') fn(val, name)
-    this.dispatch(`${name}-change`)
+    this.dispatch(changeSubscribe(name))
     this.dispatch('change')
   }
 
@@ -181,18 +185,19 @@ export default class {
       Object.keys(flatValue).forEach((n) => { this.$values[n] = flatValue[n] })
       if (initChange) this.handleChange()
 
-      this.dispatch(`${name}-change`)
+      this.dispatch(changeSubscribe(name))
       this.dispatch('change')
     }
 
-    this.listen(getUpdateEventName(name), fn)
+    this.subscribe(updateSubscribe(name), fn)
+    this.subscribe(errorSubscribe(name), fn)
   }
 
   unbind(name) {
     delete this.$values[name]
     delete this.values[name]
     delete this.$validator[name]
-    this.unlisten(getUpdateEventName(name))
+    this.unsubscribe(updateSubscribe(name))
     name += '.'
     Object.keys(this.$values).forEach((key) => {
       if (key.indexOf(name) === 0) delete this.$values[key]
@@ -205,14 +210,14 @@ export default class {
     event.forEach(fn => fn(...args))
   }
 
-  listen(name, fn) {
+  subscribe(name, fn) {
     if (!this.$events[name]) this.$events[name] = []
     const events = this.$events[name]
     if (fn in events) return
     events.push(fn)
   }
 
-  unlisten(name, fn) {
+  unsubscribe(name, fn) {
     if (!this.$events[name]) return
     this.$events[name] = this.$events[name].filter(e => e !== fn)
   }

@@ -151,14 +151,14 @@ export default class {
     this.handleChange(values, value, false)
   }
 
-  listen(name, fn) {
+  subscribe(name, fn) {
     if (!this.$events[name]) this.$events[name] = []
     const events = this.$events[name]
     if (fn in events) return
     events.push(fn)
   }
 
-  unlisten(name, fn) {
+  unsubscribe(name, fn) {
     if (!this.$events[name]) return
     this.$events[name] = this.$events[name].filter(e => e !== fn)
   }

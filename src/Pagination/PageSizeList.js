@@ -13,6 +13,7 @@ class PageSizeList extends PureComponent {
   handleChange(pageSize) {
     const { current, onChange } = this.props
     const start = ((current - 1) * this.props.pageSize) + 1
+
     onChange(Math.ceil(start / pageSize), pageSize)
   }
 

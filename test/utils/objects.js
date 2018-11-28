@@ -45,6 +45,22 @@ test('unflatten object', (t) => {
   t.deepEqual(object, testObject)
 })
 
+test('flatten skip array', (t) => {
+  const object = flatten(testObject, true)
+  t.deepEqual(object, {
+    'a.b.c': [
+      { a: 1, b: 2 },
+      { c: 3, d: 4 },
+    ],
+    'a.e.3': 1,
+    'a.g': 'some string',
+    h: 123,
+    j: {},
+    k: [],
+    l: error,
+  })
+})
+
 test('flatten & unflatten', (t) => {
   const raw = {
     obj: {

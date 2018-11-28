@@ -66,11 +66,12 @@ class Friend extends PureComponent {
 export default class extends PureComponent {
   constructor(props) {
     super(props)
-    this.datum = new Datum.Form()
-    this.initValue = {
-      name: 'Harry Potter',
-      friends: [{ name: 'Hermione Granger', age: '16' }, {}],
-    }
+    this.datum = new Datum.Form({
+      value: {
+        name: 'Harry Potter',
+        friends: [{ name: 'Hermione Granger', age: '16' }, {}],
+      },
+    })
 
     this.rules = [{ min: 2, message: 'At least add 2 friends.' }]
     this.handleAddFriend = this.handleAddFriend.bind(this)
@@ -83,7 +84,7 @@ export default class extends PureComponent {
 
   render() {
     return (
-      <Form value={this.initValue} datum={this.datum} onSubmit={(data) => { console.log(data) }}>
+      <Form datum={this.datum} onSubmit={(data) => { console.log(data) }}>
         <Form.Item label="Name">
           <Input name="name" />
         </Form.Item>

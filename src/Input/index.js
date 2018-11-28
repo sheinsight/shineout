@@ -8,10 +8,10 @@ import Number from './Number'
 import Group from './Group'
 import Password from './Password'
 
-const exports = compose(inputBorder({}), inputable, delay(400), trim)(Input)
+const exports = compose(inputable, inputBorder({}), delay(400), trim)(Input)
 exports.Group = inputBorder({ tag: 'div', isGroup: true })(Group)
-exports.Number = compose(inputBorder({}), inputable)(Number)
-exports.Password = compose(inputBorder({}), inputable)(Password)
+exports.Number = compose(inputable, inputBorder({}))(Number)
+exports.Password = compose(inputable, inputBorder({}))(Password)
 
 exports.displayName = 'ShineoutInput'
 exports.Group.displayName = 'ShineoutInputGroup'

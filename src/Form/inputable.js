@@ -4,12 +4,12 @@ import immer from 'immer'
 import { curry, compose } from '../utils/func'
 import { getUidStr } from '../utils/uid'
 import validate from '../utils/validate'
-import { FORCE_PASS } from '../Datum/Form'
+import { FORCE_PASS, ERROR_TYPE } from '../Datum/pubsub'
 import { formConsumer } from './formContext'
 import { itemConsumer } from './itemContext'
 import { loopConsumer } from './loopContext'
 
-const types = ['formDatum', 'disabled', 'onError']
+const types = ['formDatum', 'disabled']
 const consumer = compose(formConsumer(types), itemConsumer, loopConsumer)
 
 const tryValue = (val, def) => (val === undefined ? def : val)
@@ -18,6 +18,7 @@ export default curry(Origin => consumer(class extends PureComponent {
   static propTypes = {
     beforeChange: PropTypes.func,
     bind: PropTypes.array,
+    bindInputToItem: PropTypes.func,
     defaultValue: PropTypes.any,
     formDatum: PropTypes.object,
     loopContext: PropTypes.object,
@@ -30,6 +31,7 @@ export default curry(Origin => consumer(class extends PureComponent {
     required: PropTypes.bool,
     rules: PropTypes.array,
     type: PropTypes.string,
+    unbindInputFromItem: PropTypes.func,
     value: PropTypes.any,
   }
 
@@ -60,7 +62,7 @@ export default curry(Origin => consumer(class extends PureComponent {
 
   componentDidMount() {
     const {
-      formDatum, loopContext, name, defaultValue,
+      formDatum, loopContext, name, defaultValue, bindInputToItem,
     } = this.props
 
     if (formDatum && name) {
@@ -77,14 +79,18 @@ export default curry(Origin => consumer(class extends PureComponent {
       }
     }
 
+    if (bindInputToItem && name) bindInputToItem(name)
+
     if (loopContext) loopContext.bind(this.validate)
   }
 
   componentWillUnmount() {
-    const { formDatum, name, loopContext } = this.props
-    if (formDatum && name) {
-      formDatum.unbind(name, this.handleUpdate)
-    }
+    const {
+      formDatum, name, loopContext, unbindInputFromItem,
+    } = this.props
+
+    if (formDatum && name) formDatum.unbind(name, this.handleUpdate)
+    if (unbindInputFromItem && name) unbindInputFromItem(name)
     if (loopContext) loopContext.unbind(this.validate)
     this.$willUnmount = true
   }
@@ -111,13 +117,29 @@ export default curry(Origin => consumer(class extends PureComponent {
     return value === undefined ? this.state.value : value
   }
 
+  getError() {
+    const { formDatum, name } = this.props
+    if (formDatum && name) {
+      const names = Array.isArray(name) ? name : [name]
+      for (let i = 0, count = names.length; i < count; i++) {
+        const error = formDatum.getError(names[i])
+        console.log(names[i], error)
+        if (error) return error
+      }
+      return undefined
+    }
+
+    return this.state.error
+  }
+
   handleDatumBind(datum) {
     this.datum = datum
   }
 
   handleError(error) {
-    this.setState({ error })
-    this.props.onError(this.itemName, error)
+    const { formDatum, name } = this.props
+    if (formDatum && name) formDatum.setError(name, error)
+    else this.setState({ error })
   }
 
   validateHook(customValidate) {
@@ -207,8 +229,8 @@ export default curry(Origin => consumer(class extends PureComponent {
   }
 
   handleUpdate(value, sn) {
-    if (value instanceof Error) {
-      this.handleError(value)
+    if (sn === ERROR_TYPE) {
+      this.setState({ error: value })
       return
     }
 
@@ -232,7 +254,7 @@ export default curry(Origin => consumer(class extends PureComponent {
 
   render() {
     const {
-      formDatum, value, required, loopContext, bind, ...other
+      formDatum, value, required, loopContext, bind, bindInputToItem, unbindInputFromItem, ...other
     } = this.props
 
     return (

@@ -19,8 +19,8 @@ class Block extends PureComponent {
     this.validate = this.validate.bind(this)
 
     if (formDatum) {
-      formDatum.listen('reset', this.reset)
-      formDatum.listen('validate', this.validate)
+      formDatum.subscribe('reset', this.reset)
+      formDatum.subscribe('validate', this.validate)
     }
   }
 
@@ -35,8 +35,8 @@ class Block extends PureComponent {
   componentWillUnmount() {
     const { formDatum } = this.props
     if (formDatum) {
-      formDatum.unlisten('reset', this.reset)
-      formDatum.unlisten('validate', this.validate)
+      formDatum.unsubscribe('reset', this.reset)
+      formDatum.unsubscribe('validate', this.validate)
     }
   }
 

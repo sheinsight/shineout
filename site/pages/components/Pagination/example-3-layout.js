@@ -17,6 +17,7 @@ export default function () {
       text={{
         jumper: 'Go to {input}',
       }}
+      onChange={(...args) => console.log(args)}
       layout={['links', 'list', info, 'jumper']}
     />
   )

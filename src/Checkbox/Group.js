@@ -17,11 +17,11 @@ class CheckboxGroup extends PureComponent {
   }
 
   componentDidMount() {
-    this.props.datum.listen('change', this.handleUpdate)
+    this.props.datum.subscribe('change', this.handleUpdate)
   }
 
   componentWillUnmount() {
-    this.props.datum.unlisten('change', this.handleUpdate)
+    this.props.datum.unsubscribe('change', this.handleUpdate)
   }
 
   getContent(d) {
