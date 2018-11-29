@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
+import { ERROR_TYPE } from '../Datum/pubsub'
 import validate from '../utils/validate'
 import { getUidStr } from '../utils/uid'
 import { range } from '../utils/numbers'
+import { FormError } from '../utils/errors'
 import Item from './Item'
 
 const Tag = React.Fragment ? React.Fragment : 'span'
@@ -42,7 +44,7 @@ class Loop extends PureComponent {
     }, (e) => {
       formDatum.removeError(name)
       formDatum.setError(name, e)
-      return e
+      return new FormError(e)
     })
   }
 
@@ -56,9 +58,15 @@ class Loop extends PureComponent {
     })
   }
 
-  handleUpdate() {
-    this.selfValidate()
-    this.forceUpdate()
+  handleUpdate(_, sn) {
+    if (sn === ERROR_TYPE) {
+      this.forceUpdate()
+    } else {
+      console.log('something wrong')
+      this.selfValidate().then(() => {
+        this.forceUpdate()
+      })
+    }
   }
 
   handleChange(index, value, fullSet) {
@@ -111,6 +119,7 @@ class Loop extends PureComponent {
       if (!this.keys[i]) this.keys[i] = getUidStr()
     })
 
+    const errorList = Array.isArray(error) ? error : []
     const results = values.map((value, index) => (
       <Tag key={this.keys[index]}>
         {
@@ -118,6 +127,7 @@ class Loop extends PureComponent {
             list: values,
             value,
             index,
+            error: errorList[index],
             onChange: this.handleChange.bind(this, index),
             onInsert: this.handleInsert.bind(this, index),
             onAppend: this.handleInsert.bind(this, index + 1),
@@ -127,9 +137,7 @@ class Loop extends PureComponent {
       </Tag>
     ))
 
-    if (Array.isArray(error)) {
-      console.log('array error', error)
-    } else if (error instanceof Error) {
+    if (error instanceof Error) {
       results.push(<Item key="error" formItemErrors={[error]} />)
     }
 

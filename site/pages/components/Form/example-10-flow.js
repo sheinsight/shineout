@@ -7,7 +7,7 @@
  *    -- If one component depends on another component's value, place it in the Flow component.
  */
 import React, { Component } from 'react'
-import { Form, Input, Checkbox } from 'shineout'
+import { Form, Input, Checkbox, DatePicker } from 'shineout'
 
 export default class extends Component {
   constructor(props) {
@@ -55,6 +55,15 @@ export default class extends Component {
         <Form.Item label="">
           <Checkbox defaultValue name="showAge">Show age</Checkbox>
           <Checkbox name="showColors">Show colors</Checkbox>
+          <Checkbox
+            name="dateRange"
+            beforeChange={
+              // demo: clear date when dateRange value change.
+              (v, datum) => datum.set({ startDate: undefined, endDate: undefined })
+            }
+          >
+            Date range
+          </Checkbox>
         </Form.Item>
 
         <Form.Flow names={['showAge']}>
@@ -78,6 +87,18 @@ export default class extends Component {
             )
           }
         </Form.Flow>
+
+        <Form.Item label="Date" tip="">
+          <Form.Flow names={['dateRange']}>
+            {
+              datum => (
+                datum.get('dateRange') === true
+                ? <DatePicker key="r" range name={['startDate', 'endDate']} type="date" />
+                : <DatePicker key="s" name="startDate" type="date" />
+              )
+            }
+          </Form.Flow>
+        </Form.Item>
 
         <Form.Item label="">
           <Form.Button>Sumbit</Form.Button>

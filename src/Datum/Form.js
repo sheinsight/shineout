@@ -93,8 +93,9 @@ export default class {
     const flatErrors = flatten(isObject(name) ? name : { [name]: errors })
     Object.keys(flatErrors).forEach((n) => {
       this.$errors[n] = flatErrors[n]
-      this.dispatch(errorSubscribe(n), flatErrors[n], ERROR_TYPE)
+      // this.dispatch(errorSubscribe(n), flatErrors[n], ERROR_TYPE)
     })
+    this.throughError('', unflatten(flatErrors))
   }
 
   removeError(name) {
@@ -156,22 +157,19 @@ export default class {
     }
   }
 
-  /*
-  valueSetter(name, fn, val) {
-    if (isObject(val) || Array.isArray(val)) {
-      const values = flatten(val)
-      Object.keys(values).forEach((key) => {
-        this.$values[`${name}.${key}`] = values[key]
+  throughError(path, error) {
+    if (isObject(error)) {
+      Object.keys(error).forEach((name) => {
+        const newName = `${path}${path ? '.' : ''}${name}`
+        if (hasOwnProperty.call(this.values, newName)) {
+          this.dispatch(errorSubscribe(newName), this.getError(newName), ERROR_TYPE)
+        } else {
+          this.throughValue(newName, error[name])
+        }
       })
-    } else {
-      this.$values[name] = val
     }
-
-    if (typeof fn === 'function') fn(val, name)
-    this.dispatch(changeSubscribe(name))
-    this.dispatch('change')
   }
-  */
+
 
   bind(name, fn, value, validate) {
     if (hasOwnProperty.call(this.values, name)) {
@@ -181,14 +179,6 @@ export default class {
     this.$defaultValues[name] = value
     this.$validator[name] = validate
 
-    /*
-    Object.defineProperty(this.values, name, {
-      configurable: true,
-      enumerable: true,
-      set: val => this.valueSetter(name, fn, val),
-      get: () => this.get(name),
-    })
-    */
     this.values[name] = true
 
     if (value !== undefined && !this.get(name)) {
@@ -205,6 +195,11 @@ export default class {
   }
 
   unbind(name) {
+    if (Array.isArray(name)) {
+      name.forEach(n => this.unbind(n))
+      return
+    }
+
     delete this.$values[name]
     delete this.values[name]
     delete this.$validator[name]

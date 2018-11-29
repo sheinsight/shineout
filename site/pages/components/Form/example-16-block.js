@@ -24,7 +24,9 @@ export default class extends PureComponent {
           })
           const result = []
           names.forEach((v, k) => {
-            if (v.length > 1) v.forEach((i) => { result[i] = new Error(`Name ${k} is existed.`) })
+            if (k && v.length > 1) {
+              v.forEach((i) => { result[i] = ({ name: new Error(`Name ${k} is existed.`) }) })
+            }
           })
 
           callback(result.length > 0 ? result : true)
@@ -51,9 +53,9 @@ export default class extends PureComponent {
           >
             {
               ({
-                value, onChange, onAppend, onRemove,
+                value, onChange, onAppend, onRemove, error,
               }) => (
-                <Form.Block value={value} onChange={onChange}>
+                <Form.Block value={value} onChange={onChange} error={error}>
                   <Form.Item style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
                     <Input
                       style={{ width: 180, marginRight: 8 }}

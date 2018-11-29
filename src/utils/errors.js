@@ -14,5 +14,5 @@ export const wrapFormError = (error) => {
   if (Array.isArray(error)) {
     return error.map(wrapFormError)
   }
-  return new FormError(error)
+  return error
 }

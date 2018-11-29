@@ -25,11 +25,14 @@ class Block extends PureComponent {
     }
   }
 
-  componentDidUpdate() {
-    const { value } = this.props
+  componentDidUpdate(prevProps) {
+    const { value, error } = this.props
     if (!shallowEqual(value, this.prevValues)) {
       this.datum.setValue(value)
       this.prevValues = value
+    }
+    if (error !== prevProps.error) {
+      this.datum.setError(error)
     }
   }
 
