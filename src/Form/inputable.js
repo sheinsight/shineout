@@ -237,7 +237,6 @@ export default curry(Origin => consumer(class extends PureComponent {
   }
 
   handleUpdate(value, sn) {
-    console.log(this.props.name, value, sn)
     if (sn === ERROR_TYPE) {
       this.setState({ error: value })
       return

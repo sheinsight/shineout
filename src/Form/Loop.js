@@ -62,7 +62,6 @@ class Loop extends PureComponent {
     if (sn === ERROR_TYPE) {
       this.forceUpdate()
     } else {
-      console.log('something wrong')
       this.selfValidate().then(() => {
         this.forceUpdate()
       })
