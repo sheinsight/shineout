@@ -7,10 +7,11 @@ import { Provider } from './formContext'
 class Block extends PureComponent {
   constructor(props) {
     super(props)
-    const { value, formDatum } = props
+    const { value, error, formDatum } = props
 
     this.datum = new DatumForm({
       onChange: this.handleChange.bind(this),
+      error,
     })
 
     if (value) this.datum.setValue(value)
@@ -52,7 +53,8 @@ class Block extends PureComponent {
   }
 
   validate() {
-    return this.datum.validate().then(e => e, e => e)
+    // return this.datum.validate().then(e => e, e => e)
+    return this.datum.validate()
   }
 
   render() {
@@ -74,6 +76,7 @@ class Block extends PureComponent {
 
 Block.propTypes = {
   children: PropTypes.any,
+  error: PropTypes.object,
   formDatum: PropTypes.object,
   labelAlign: PropTypes.string,
   labelWidth: PropTypes.oneOfType([

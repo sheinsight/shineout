@@ -150,7 +150,7 @@ export default curry(Origin => consumer(class extends PureComponent {
   validate(value, data, validateOnly) {
     if (this.customValidate) {
       const error = this.customValidate()
-      if (error) return Promise.resolve(error)
+      if (error) return Promise.reject(error)
     }
 
     const {
@@ -182,7 +182,7 @@ export default curry(Origin => consumer(class extends PureComponent {
           this.handleError(null)
         }
         return true
-      }, (e) => {
+      }).catch((e) => {
         this.handleError(e)
         return e
       })

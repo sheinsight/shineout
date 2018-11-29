@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getUidStr } from '../utils/uid'
 import { formClass } from '../styles'
+import { FormError } from '../utils/errors'
 import { getProps, defaultProps } from '../utils/proptypes'
 
 class Form extends PureComponent {
@@ -64,7 +65,6 @@ class Form extends PureComponent {
         if (activeElement) activeElement.focus()
       }).catch((err) => {
         this.validating = false
-        if (onError) onError(err)
         if (scrollToError !== false) {
           const el = this.element.querySelector(`.${formClass('invalid')}`)
           if (el) {
@@ -75,6 +75,9 @@ class Form extends PureComponent {
             document.documentElement.scrollTop -= scrollToError
           }
         }
+
+        if (onError) onError(err)
+        if (!(err instanceof FormError)) throw err
       })
     }, 10)
   }

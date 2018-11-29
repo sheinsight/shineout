@@ -14,7 +14,22 @@ export default class extends PureComponent {
 
     this.rules = {
       name: [{ required: true, message: 'Please input friend\'s name or remove this field.' }],
-      friends: [{ min: 2, message: 'At least add 2 friends.' }],
+      friends: [
+        { min: 2, message: 'At least add 2 friends.' },
+        (values, _, callback) => {
+          const names = new Map()
+          values.forEach((v, i) => {
+            if (names.has(v.name)) names.set(v.name, [...names.get(v.name), i])
+            else names.set(v.name, [i])
+          })
+          const result = []
+          names.forEach((v, k) => {
+            if (v.length > 1) v.forEach((i) => { result[i] = new Error(`Name ${k} is existed.`) })
+          })
+
+          callback(result.length > 0 ? result : true)
+        },
+      ],
     }
   }
 

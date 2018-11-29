@@ -1,5 +1,6 @@
 import { substitute } from '../strings'
 import Datum from '../../Datum'
+import { wrapFormError } from '../../utils/errors'
 import range from './range'
 import rangeLength from './rangeLength'
 import required from './required'
@@ -38,7 +39,7 @@ const validate = (value, formdata, rules, type) => new Promise((resolve, reject)
   if (rule) {
     const callback = (result) => {
       if (result !== true) {
-        reject(result)
+        reject(wrapFormError(result))
         return
       }
 
@@ -52,7 +53,9 @@ const validate = (value, formdata, rules, type) => new Promise((resolve, reject)
     }
     const cb = fn(val, formdata, callback)
     if (cb && cb.then) {
-      cb.then(callback.bind(null, true)).catch(e => reject(e))
+      cb.then(callback.bind(null, true)).catch((e) => {
+        reject(wrapFormError(e))
+      })
     }
   } else {
     resolve(true)

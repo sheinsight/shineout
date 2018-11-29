@@ -5,7 +5,7 @@ import { updateSubscribe, errorSubscribe, changeSubscribe, FORCE_PASS, ERROR_TYP
 
 const { hasOwnProperty } = Object.prototype
 
-const getSthByName = (name, source) => {
+const getSthByName = (name, source = {}) => {
   let result = source[name]
   if (result) return result
 
@@ -18,10 +18,18 @@ const getSthByName = (name, source) => {
   return result
 }
 
+const removeSthByName = (name, source) => {
+  Object.keys(source).forEach((n) => {
+    if (n === name || n.indexOf(`${name}.`) === 0) {
+      delete source[n]
+    }
+  })
+}
+
 export default class {
   constructor(options = {}) {
     const {
-      removeUndefined = true, rules, onChange, value, trim,
+      removeUndefined = true, rules, onChange, value, trim, error,
     } = options
     this.values = {}
     this.rules = rules
@@ -39,6 +47,7 @@ export default class {
     this.$errors = {}
 
     if (value) this.setValue(value)
+    if (error) this.setError(error)
   }
 
   handleChange() {
@@ -67,6 +76,15 @@ export default class {
     this.handleChange()
   }
 
+  remove(name) {
+    removeSthByName(name, this.$values)
+  }
+
+  forceSet(name, value, skipArray = false) {
+    this.remove(name)
+    this.set(name, value, skipArray)
+  }
+
   getError(name) {
     return getSthByName(name, this.$errors)
   }
@@ -79,13 +97,8 @@ export default class {
     })
   }
 
-  forceSet(name, value, skipArray = false) {
-    Object.keys(this.$values).forEach((n) => {
-      if (n === name || n.indexOf(`${name}.`) === 0) {
-        delete this.$values[n]
-      }
-    })
-    this.set(name, value, skipArray)
+  removeError(name) {
+    removeSthByName(name, this.$errors)
   }
 
   getRule(name) {
@@ -143,6 +156,7 @@ export default class {
     }
   }
 
+  /*
   valueSetter(name, fn, val) {
     if (isObject(val) || Array.isArray(val)) {
       const values = flatten(val)
@@ -157,6 +171,7 @@ export default class {
     this.dispatch(changeSubscribe(name))
     this.dispatch('change')
   }
+  */
 
   bind(name, fn, value, validate) {
     if (hasOwnProperty.call(this.values, name)) {
@@ -166,12 +181,15 @@ export default class {
     this.$defaultValues[name] = value
     this.$validator[name] = validate
 
+    /*
     Object.defineProperty(this.values, name, {
       configurable: true,
       enumerable: true,
       set: val => this.valueSetter(name, fn, val),
       get: () => this.get(name),
     })
+    */
+    this.values[name] = true
 
     if (value !== undefined && !this.get(name)) {
       const flatValue = flatten({ [name]: value })
@@ -221,7 +239,7 @@ export default class {
       const values = { ...this.$values }
 
       const validates = [
-        ...keys.map(k => this.$validator[k](this.values[k], values, !changeState)),
+        ...keys.map(k => this.$validator[k](this.get(k), values, !changeState)),
         ...(this.$events.validate || []).map(fn => fn()),
       ]
 
@@ -229,6 +247,8 @@ export default class {
         const error = res.find(r => r !== true)
         if (error === undefined) resolve(true)
         else reject(error)
+      }).catch((e) => {
+        reject(e)
       })
     })
   }
@@ -239,7 +259,7 @@ export default class {
     const validates = []
     names.forEach((k) => {
       if (this.$validator[k]) {
-        validates.push(this.$validator[k](this.values[k], values))
+        validates.push(this.$validator[k](this.get(k), values))
       }
     })
     Promise.all(validates)

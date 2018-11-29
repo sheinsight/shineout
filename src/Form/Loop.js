@@ -14,8 +14,6 @@ class Loop extends PureComponent {
 
     this.validate = this.validate.bind(this)
     this.keys = []
-
-    this.state = { error: null }
   }
 
   componentDidMount() {
@@ -31,33 +29,35 @@ class Loop extends PureComponent {
     }
   }
 
-  selfValidate(value, data) {
+  selfValidate() {
     const { formDatum, name } = this.props
+    const value = formDatum.get(name)
+    const data = formDatum.getValue()
     let rules = [...this.props.rules]
     rules = rules.concat(formDatum.getRule(name))
 
     return validate(value, data, rules, 'array').then(() => {
-      this.setState({ error: null })
+      formDatum.removeError(name)
       return true
     }, (e) => {
-      if (!this.$willUnmount) this.setState({ error: [e] })
+      formDatum.removeError(name)
+      formDatum.setError(name, e)
       return e
     })
   }
 
-  validate(value, data) {
+  validate() {
     return this.props.validate().then((results) => {
       if (results.length === 0) return true
       return !results.some(r => r !== true)
     }).then((result) => {
       if (!result) return result
-      return this.selfValidate(value, data)
+      return this.selfValidate()
     })
   }
 
-  handleUpdate(value) {
-    const { formDatum } = this.props
-    this.selfValidate(value, formDatum.getValue())
+  handleUpdate() {
+    this.selfValidate()
     this.forceUpdate()
   }
 
@@ -101,7 +101,7 @@ class Loop extends PureComponent {
       children, empty, formDatum, name, defaultValue,
     } = this.props
     const values = formDatum.get(name) || defaultValue
-    const { error } = this.state
+    const error = formDatum.getError(name)
 
     if (values.length === 0 && empty) {
       return empty(this.handleInsert.bind(this, 0))
@@ -127,8 +127,10 @@ class Loop extends PureComponent {
       </Tag>
     ))
 
-    if (error) {
-      results.push(<Item key="error" formItemErrors={error} />)
+    if (Array.isArray(error)) {
+      console.log('array error', error)
+    } else if (error instanceof Error) {
+      results.push(<Item key="error" formItemErrors={[error]} />)
     }
 
     return results
