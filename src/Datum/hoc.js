@@ -35,12 +35,9 @@ export default curry((options, Origin) => {
         const ops = bindProps.reduce((o, k) => {
           o[k] = props[k]
           return o
-        }, { value })
+        }, { value, limit })
         this.datum = new Datum(Object.assign(ops, datum))
       }
-
-      // for radio, select
-      if (!this.datum.limit && limit) this.datum.limit = limit
 
       if (onChange) {
         this.datum.onChange = onChange

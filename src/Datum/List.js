@@ -191,8 +191,11 @@ export default class {
         return values.split(this.separator).map(s => s.trim())
       }
 
-      console.error('Select separator parameter is empty.')
+      console.warn('Select separator parameter is empty.')
+      return [values]
     }
+
+    console.error('Select values is not valid.')
     return []
   }
 

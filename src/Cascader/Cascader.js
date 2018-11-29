@@ -196,7 +196,7 @@ Cascader.propTypes = {
     PropTypes.bool,
     PropTypes.func,
   ]),
-  expandTrigger: PropTypes.oneOf(['click', 'hover']),
+  expandTrigger: PropTypes.oneOf(['click', 'hover', 'hover-only']),
   height: PropTypes.number,
   keygen: PropTypes.any,
   loader: PropTypes.func,
