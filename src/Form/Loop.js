@@ -14,13 +14,18 @@ class Loop extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.validate = this.validate.bind(this)
+    this.selfValidate = this.selfValidate.bind(this)
     this.keys = []
+
+    props.addValidate(this.selfValidate)
   }
 
   componentDidMount() {
     const { formDatum, name, defaultValue } = this.props
-    formDatum.bind(name, this.handleUpdate.bind(this), defaultValue, this.validate, defaultValue.length > 0)
+    formDatum.bind(
+      name, this.handleUpdate.bind(this), defaultValue,
+      this.props.validate, defaultValue.length > 0,
+    )
   }
 
   componentWillUnmount() {
@@ -45,16 +50,6 @@ class Loop extends PureComponent {
       formDatum.removeError(name)
       formDatum.setError(name, e)
       return new FormError(e)
-    })
-  }
-
-  validate() {
-    return this.props.validate().then((results) => {
-      if (results.length === 0) return true
-      return !results.some(r => r !== true)
-    }).then((result) => {
-      if (!result) return result
-      return this.selfValidate()
     })
   }
 
@@ -145,6 +140,7 @@ class Loop extends PureComponent {
 }
 
 Loop.propTypes = {
+  addValidate: PropTypes.func,
   children: PropTypes.func.isRequired,
   defaultValue: PropTypes.array,
   empty: PropTypes.func,

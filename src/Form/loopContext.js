@@ -27,13 +27,13 @@ export const loopProvider = Origin => class extends PureComponent {
   }
 
   validate() {
-    return Promise.all(this.validations.map(v => v()))
+    Promise.all(this.validations.map(v => v()))
   }
 
   render() {
     return (
       <Provider value={this.contextValue}>
-        <Origin {...this.props} validate={this.validate} />
+        <Origin {...this.props} addValidate={this.contextValue.bind} validate={this.validate} />
       </Provider>
     )
   }
