@@ -1,4 +1,5 @@
 import shallowEqual from '../utils/shallowEqual'
+import { CHANGE_TOPIC } from '../Datum/types'
 
 export default class {
   constructor(args = {}) {
@@ -31,7 +32,7 @@ export default class {
 
   set values(values) {
     this.$values = values
-    this.dispatch('change')
+    this.dispatch(CHANGE_TOPIC)
     if (this.onChange) {
       this.onChange(this.getValue())
     }
@@ -55,7 +56,7 @@ export default class {
 
   handleChange(values, ...args) {
     this.$values = values
-    this.dispatch('change')
+    this.dispatch(CHANGE_TOPIC)
     if (this.onChange) {
       this.onChange(this.getValue(), ...args)
     }

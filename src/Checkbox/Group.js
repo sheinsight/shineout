@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps } from '../utils/proptypes'
 import { getKey } from '../utils/uid'
+import { CHANGE_TOPIC } from '../Datum/types'
 import Checkbox from './Checkbox'
 import { Provider } from './context'
 import { checkinputClass } from '../styles'
@@ -17,11 +18,11 @@ class CheckboxGroup extends PureComponent {
   }
 
   componentDidMount() {
-    this.props.datum.subscribe('change', this.handleUpdate)
+    this.props.datum.subscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
   componentWillUnmount() {
-    this.props.datum.unsubscribe('change', this.handleUpdate)
+    this.props.datum.unsubscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
   getContent(d) {

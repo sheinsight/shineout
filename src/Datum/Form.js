@@ -1,7 +1,11 @@
 import shallowEqual from '../utils/shallowEqual'
 import isObject from '../utils/validate/isObject'
 import { flatten, unflatten } from '../utils/objects'
-import { updateSubscribe, errorSubscribe, changeSubscribe, FORCE_PASS, ERROR_TYPE } from './pubsub'
+import { promiseAll, FormError } from '../utils/errors'
+import {
+  updateSubscribe, errorSubscribe, changeSubscribe,
+  VALIDATE_TOPIC, RESET_TOPIC, CHANGE_TOPIC, FORCE_PASS, ERROR_TYPE,
+} from './types'
 
 const { hasOwnProperty } = Object.prototype
 
@@ -55,8 +59,8 @@ export default class {
   }
 
   reset() {
-    this.dispatch('reset')
-    this.setValue(this.$defaultValues)
+    this.dispatch(RESET_TOPIC)
+    this.setValue(this.$defaultValues, FORCE_PASS)
   }
 
   get(name) {
@@ -72,7 +76,7 @@ export default class {
     })
 
     this.throughValue('', unflatten(flatValue))
-    this.dispatch('change')
+    this.dispatch(CHANGE_TOPIC)
     this.handleChange()
   }
 
@@ -93,8 +97,8 @@ export default class {
     const flatErrors = flatten(isObject(name) ? name : { [name]: errors })
     Object.keys(flatErrors).forEach((n) => {
       this.$errors[n] = flatErrors[n]
-      // this.dispatch(errorSubscribe(n), flatErrors[n], ERROR_TYPE)
     })
+
     this.throughError('', unflatten(flatErrors))
   }
 
@@ -122,7 +126,7 @@ export default class {
     return unflatten(this.$values)
   }
 
-  setValue(rawValue) {
+  setValue(rawValue = {}, forcePass) {
     const values = flatten(rawValue)
 
     // values not change
@@ -136,11 +140,11 @@ export default class {
     })
 
     Object.keys(this.values).forEach((name) => {
-      this.dispatch(updateSubscribe(name), this.get(name), name)
+      this.dispatch(updateSubscribe(name), this.get(name), forcePass || name)
       this.dispatch(changeSubscribe(name))
     })
 
-    this.dispatch('change')
+    this.dispatch(CHANGE_TOPIC)
   }
 
   throughValue(path, value) {
@@ -164,7 +168,7 @@ export default class {
         if (hasOwnProperty.call(this.values, newName)) {
           this.dispatch(errorSubscribe(newName), this.getError(newName), ERROR_TYPE)
         } else {
-          this.throughValue(newName, error[name])
+          this.throughError(newName, error[name])
         }
       })
     }
@@ -184,10 +188,9 @@ export default class {
     if (value !== undefined && !this.get(name)) {
       const flatValue = flatten({ [name]: value })
       Object.keys(flatValue).forEach((n) => { this.$values[n] = flatValue[n] })
-      // if (initChange) this.handleChange()
 
       this.dispatch(changeSubscribe(name))
-      this.dispatch('change')
+      this.dispatch(CHANGE_TOPIC)
     }
 
     this.subscribe(updateSubscribe(name), fn)
@@ -235,7 +238,7 @@ export default class {
 
       const validates = [
         ...keys.map(k => this.$validator[k](this.get(k), values, !changeState)),
-        ...(this.$events.validate || []).map(fn => fn()),
+        ...(this.$events[VALIDATE_TOPIC] || []).map(fn => fn()),
       ]
 
       Promise.all(validates).then((res) => {
@@ -243,7 +246,7 @@ export default class {
         if (error === undefined) resolve(true)
         else reject(error)
       }).catch((e) => {
-        reject(e)
+        reject(new FormError(e))
       })
     })
   }
@@ -257,11 +260,12 @@ export default class {
         validates.push(this.$validator[k](this.get(k), values))
       }
     })
-    Promise.all(validates)
+    return promiseAll(validates)
   }
 
   validateClear() {
     const keys = Object.keys(this.$validator)
+    this.$errors = {}
     const validates = keys.map(k => this.$validator[k](FORCE_PASS))
     Promise.all(validates)
   }

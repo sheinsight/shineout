@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import immer from 'immer'
 import { getUidStr } from '../utils/uid'
+import { FormError } from '../utils/errors'
 import { uploadClass } from '../styles'
 import defaultRequest, { ERROR, UPLOADING } from './request'
 import FileInput from './FileInput'
@@ -47,7 +48,10 @@ class Upload extends PureComponent {
 
   validate() {
     const { files } = this.state
-    return Object.keys(files).length === 0 ? true : new Error('')
+    return new Promise((resolve, reject) => {
+      if (Object.keys(files).length > 0) reject(new FormError(''))
+      resolve(true)
+    })
   }
 
   removeFile(id) {
