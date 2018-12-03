@@ -5,9 +5,10 @@ Form 是一个比较复杂的组件，由下列组件组成
 - **Form：** 表单
 - **Form.Item：** 表单项，用来布局，显示标签，提示文案信息等。
 - **Form.Field：** 用于处理自定义组件，实现rules校验，存储数据功能。
-- **Form.Block：** 表单块，用来存取多级嵌套的数据。
-- **Form.BlockField：** 合并了 Field 和 Block 的一个快捷组件。
-- **Form.Loop：** 用于遍历 array 类型的值，生成子组件。
+- **Form.FieldSet：** 表单块，用来处理一组字段。
+- ~~**Form.Block：** 表单块，用来存取多级嵌套的数据。~~
+- ~~**Form.BlockField：** 合并了 Field 和 Block 的一个快捷组件。~~
+- ~~**Form.Loop：** 用于遍历 array 类型的值，生成子组件。~~
 - **Form.Flow：** 数据流，用来处理数据联动。
 
 - **Form.Submit：** submit 按钮的快捷方式。使用 Submit 时，enter 键会触发表单提交。

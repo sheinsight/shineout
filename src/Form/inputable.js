@@ -63,6 +63,8 @@ export default curry(Origin => consumer(class extends PureComponent {
 
     this.itemName = getUidStr()
 
+    console.log(props.name)
+
     this.handleChange = this.handleChange.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
     this.handleDatumBind = this.handleDatumBind.bind(this)
@@ -226,7 +228,7 @@ export default curry(Origin => consumer(class extends PureComponent {
     } else {
       value = beforeChange(value, null)
       this.setState({ value })
-      this.validate(value)
+      this.validate(value).catch(() => {})
     }
 
     if (this.props.onChange) this.props.onChange(value, ...args)

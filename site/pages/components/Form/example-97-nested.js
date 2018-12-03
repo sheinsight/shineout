@@ -1,7 +1,9 @@
 /**
- * cn - 嵌套数据
+ * cn - 嵌套数据 (旧)
+ *    -- <b>Form.Block已不推荐，建议使用 FieldSet</b>
  *    -- Form.Block 配合 Form.Field 使用，可以处理多层嵌套数据
- * en - Nested data
+ * en - Nested data (Out of date)
+ *    -- <b>Form.Block is not recommend, use FieldSet instead.</b>
  *    -- Form.Block can handle multiple levels of nested data by working with Form.Field.
  */
 import React, { PureComponent } from 'react'

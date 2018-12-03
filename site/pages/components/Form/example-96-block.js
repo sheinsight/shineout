@@ -1,7 +1,9 @@
 /**
  * cn -
+ *    -- <b>Form.Block已不推荐，建议使用 FieldSet</b>
  *    -- 上例可以使用 Form.Block 改写
  * en -
+ *    -- <b>Form.Block is not recommend, use FieldSet instead.</b>
  *    -- The above example can be overwritten with Form.Block.
  */
 import React, { PureComponent } from 'react'
@@ -16,21 +18,6 @@ export default class extends PureComponent {
       name: [{ required: true, message: 'Please input friend\'s name or remove this field.' }],
       friends: [
         { min: 2, message: 'At least add 2 friends.' },
-        (values, _, callback) => {
-          const names = new Map()
-          values.forEach((v, i) => {
-            if (names.has(v.name)) names.set(v.name, [...names.get(v.name), i])
-            else names.set(v.name, [i])
-          })
-          const result = []
-          names.forEach((v, k) => {
-            if (k && v.length > 1) {
-              v.forEach((i) => { result[i] = ({ name: new Error(`Name ${k} is existed.`) }) })
-            }
-          })
-
-          callback(result.length > 0 ? result : true)
-        },
       ],
     }
   }

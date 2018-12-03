@@ -1,8 +1,10 @@
 /**
- * cn - 表单块
+ * cn - 表单块 (旧)
+ *    -- <b>Form.Block已不推荐，建议使用 FieldSet</b>
  *    -- Block 类似 Form，可以存取数据，只是没有 Submit 能力。一般用在 Form 中处理复杂数据。
  *    -- Block 内组件设置的 name 只在这个 Block 内有效，只能存取 Block 的 value 中的数据，不能存取 Form 的数据。
- * en - Block
+ * en - Block (Out of date)
+ *    -- <b>Not recommend, use FieldSet instead.</b>
  *    -- Block is similar to Form, can access data, but does not have the ability to submit.
  *    -- The name set in the Block component is valid only in this block. It can only access the data in the value of the block and cannot access the data of the Form.
  */

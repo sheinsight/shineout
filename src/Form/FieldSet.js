@@ -95,14 +95,13 @@ class FieldSet extends PureComponent {
 
   render() {
     const {
-      children, formDatum, loop, name, empty, defaultValue,
+      children, formDatum, name, empty, defaultValue,
     } = this.props
 
-    const fullName = this.getFullName()
-    const error = formDatum.getError(fullName)
+    const error = formDatum.getError(name)
 
-    if (!loop) {
-      return <Provider value={fullName}>{children}</Provider>
+    if (typeof children !== 'function') {
+      return <Provider value={{ path: name, val: this.validate }}>{children}</Provider>
     }
 
     let values = formDatum.get(name) || defaultValue
@@ -114,11 +113,11 @@ class FieldSet extends PureComponent {
     const result = values.map((v, i) => {
       if (!this.keys[i]) this.keys[i] = getUidStr()
       return (
-        <Provider key={i} value={{ path: `${fullName}.[${i}]`, val: this.validate }}>
+        <Provider key={i} value={{ path: `${name}.[${i}]`, val: this.validate }}>
           {
             children({
               list: values,
-              value: formDatum.get(`${fullName}.[${i}]`),
+              value: formDatum.get(`${name}.[${i}]`),
               index: i,
               error: errorList[i],
               onChange: this.handleChange.bind(this, i),
@@ -145,7 +144,6 @@ FieldSet.propTypes = {
   empty: PropTypes.func,
   formDatum: PropTypes.object.isRequired,
   innerFormNamePath: PropTypes.string,
-  loop: PropTypes.bool,
   name: PropTypes.string.isRequired,
   rules: PropTypes.array,
 }

@@ -1,8 +1,8 @@
 /**
  * cn -
- *    -- 上例可以使用 Form.Block 改写
+ *    -- FieldSet children 为函数时，根据 name 从 Form 中获取 value （类型为 array），遍历这个 value 生成一组子组件。
  * en -
- *    -- The above example can be overwritten with Form.Block.
+ *    -- When FieldSet's children is a function, takes the value (type is array) from the form by the name property, and generate a set of subcomponents.
  */
 import React, { PureComponent } from 'react'
 import { Form, Input, Button } from 'shineout'
@@ -15,12 +15,12 @@ export default class extends PureComponent {
     this.rules = {
       name: [
         { required: true, message: 'Please input friend\'s name or remove this field.' },
-      /*
+        /*
         (value, formData, callback) => {
           const isExist = formData.friends.filter(f => f.name === value).length > 1
           callback(isExist ? new Error(`Name ${value} is existed.`) : true)
         },
-      */
+        */
       ],
       friends: [
         { min: 2, message: 'At least add 2 friends.' },
@@ -36,6 +36,8 @@ export default class extends PureComponent {
               v.forEach((i) => { result[i] = ({ name: new Error(`Name ${k} is existed.`) }) })
             }
           })
+
+          console.log(result)
 
           callback(result.length > 0 ? result : true)
         },
@@ -54,7 +56,6 @@ export default class extends PureComponent {
 
         <Form.Item label="Friends">
           <Form.FieldSet
-            loop
             rules={this.rules.friends}
             name="friends"
             empty={this.renderEmpty}
