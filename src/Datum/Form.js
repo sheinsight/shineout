@@ -75,7 +75,13 @@ export default class {
       else this.$values[n] = flatValue[n]
     })
 
-    this.throughValue('', unflatten(flatValue))
+    console.log('set value ???', name, value)
+
+    if (this.values[name]) {
+      this.dispatch(updateSubscribe(name), value)
+    } else {
+      this.throughValue('', unflatten(flatValue))
+    }
     this.dispatch(CHANGE_TOPIC)
     this.handleChange()
   }
@@ -94,11 +100,14 @@ export default class {
   }
 
   setError(name, errors) {
+    if (typeof name === 'string') this.removeError(name)
+
     const flatErrors = flatten(isObject(name) ? name : { [name]: errors })
     Object.keys(flatErrors).forEach((n) => {
       this.$errors[n] = flatErrors[n]
     })
 
+    console.log('set error ???', name, unflatten(flatErrors))
     this.throughError('', unflatten(flatErrors))
   }
 
@@ -162,18 +171,27 @@ export default class {
   }
 
   throughError(path, error) {
+    const names = []
     if (isObject(error)) {
       Object.keys(error).forEach((name) => {
+        names.push([`${path}${path ? '.' : ''}${name}`, name])
+        /*
         const newName = `${path}${path ? '.' : ''}${name}`
         if (hasOwnProperty.call(this.values, newName)) {
           this.dispatch(errorSubscribe(newName), this.getError(newName), ERROR_TYPE)
-        } else {
-          this.throughError(newName, error[name])
         }
+        this.throughError(newName, error[name])
+        */
       })
+    } else if (Array.isArray(error)) {
+      error.forEach((n, i) => names.push([`${path}${path ? '.' : ''}[${i}]`, i]))
     }
-  }
 
+    names.forEach(([name, next]) => {
+      if (this.values[name]) this.dispatch(errorSubscribe(name), this.getError(name), ERROR_TYPE)
+      else this.throughError(name, error[next])
+    })
+  }
 
   bind(name, fn, value, validate) {
     if (hasOwnProperty.call(this.values, name)) {
@@ -187,7 +205,10 @@ export default class {
 
     if (value !== undefined && !this.get(name)) {
       const flatValue = flatten({ [name]: value })
-      Object.keys(flatValue).forEach((n) => { this.$values[n] = flatValue[n] })
+      Object.keys(flatValue).forEach((n) => {
+        this.$values[n] = flatValue[n]
+        if (this.$values[n]) this.dispatch(updateSubscribe(n), flatValue[n], FORCE_PASS)
+      })
 
       this.dispatch(changeSubscribe(name))
       this.dispatch(CHANGE_TOPIC)
@@ -234,7 +255,8 @@ export default class {
   validate(changeState = false) {
     return new Promise((resolve, reject) => {
       const keys = Object.keys(this.$validator)
-      const values = { ...this.$values }
+      // const values = { ...this.$values }
+      const values = this.getValue()
 
       const validates = [
         ...keys.map(k => this.$validator[k](this.get(k), values, !changeState)),

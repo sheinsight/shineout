@@ -14,6 +14,12 @@ const source = locate(cn, en)
 
 const examples = [
   {
+    name: '00-field-set',
+    title: locate(' \n 上例可以使用 Form.Block 改写', ' \n The above example can be overwritten with Form.Block.'),
+    component: require('doc/pages/components/Form/example-00-field-set.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-00-field-set.js'),
+  },
+  {
     name: '01-base',
     title: locate('基本用法 \n 表单内置了类似双向绑定的机制，根据表单元素的 name 属性自动下发、收集数据', 'Base \n The form has a two-way binding mechanism built in, automatically sending and collecting data based on the name property of the form element.'),
     component: require('doc/pages/components/Form/example-01-base.js').default,

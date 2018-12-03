@@ -65,11 +65,9 @@ export default class Loop extends PureComponent {
     rules = rules.concat(formDatum.getRule(name))
 
     return validate(value, data, rules, 'array').then(() => {
-      formDatum.removeError(name)
       formDatum.setError(name, [])
       return true
     }, (e) => {
-      formDatum.removeError(name)
       formDatum.setError(name, e)
       return wrapFormError(e)
     })

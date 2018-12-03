@@ -9,6 +9,7 @@ import BlockField from './BlockField'
 import Block from './Block'
 import Loop from './Loop'
 import Flow from './Flow'
+import FieldSet from './FieldSet'
 import formButton from './formButton'
 import { itemProvider } from './itemContext'
 import { formProvider, formConsumer } from './formContext'
@@ -21,6 +22,7 @@ exportForm.Block = formConsumer(['formDatum'])(Block)
 exportForm.BlockField = inputable(BlockField)
 exportForm.Loop = formConsumer(null)(Loop)
 exportForm.Flow = formConsumer(['formDatum'])(Flow)
+exportForm.FieldSet = formConsumer(['formDatum'])(FieldSet)
 
 exportForm.Submit = formButton('submit')
 exportForm.Reset = formButton('reset')
@@ -36,5 +38,6 @@ exportForm.Block.displayName = 'ShineoutFormBlock'
 exportForm.BlockField.displayName = 'ShineoutFormBlockField'
 exportForm.Loop.displayName = 'ShineoutFormLoop'
 exportForm.Flow.displayName = 'ShineoutFormFlow'
+exportForm.FieldSet.displayName = 'ShineoutFormFieldSet'
 
 export default exportForm

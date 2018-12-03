@@ -13,6 +13,6 @@ export const VALIDATE_TOPIC = '__VALIDATE_TOPIC__'
 
 export const RESET_TOPIC = '__RESET_TOPIC__'
 
-export const FORCE_PASS = '_VALIDATE_FORCE_PASS__'
+export const FORCE_PASS = '__VALIDATE_FORCE_PASS__'
 
-export const ERROR_TYPE = '_UPDATE_ERROR_TYPE__'
+export const ERROR_TYPE = '__UPDATE_ERROR_TYPE__'

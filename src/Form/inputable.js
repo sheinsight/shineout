@@ -9,9 +9,10 @@ import { FORCE_PASS, ERROR_TYPE } from '../Datum/types'
 import { formConsumer } from './formContext'
 import { itemConsumer } from './itemContext'
 import { loopConsumer } from './Loop'
+import { fieldSetConsumer } from './FieldSet'
 
 const types = ['formDatum', 'disabled']
-const consumer = compose(formConsumer(types), itemConsumer, loopConsumer)
+const consumer = compose(formConsumer(types), itemConsumer, loopConsumer, fieldSetConsumer)
 
 const tryValue = (val, def) => (val === undefined ? def : val)
 
@@ -27,7 +28,9 @@ export default curry(Origin => consumer(class extends PureComponent {
     bind: PropTypes.array,
     bindInputToItem: PropTypes.func,
     defaultValue: PropTypes.any,
+    fieldSetValidate: PropTypes.func,
     formDatum: PropTypes.object,
+    innerFormNamePath: PropTypes.string,
     loopContext: PropTypes.object,
     name: PropTypes.oneOfType([
       PropTypes.string,
@@ -204,7 +207,7 @@ export default curry(Origin => consumer(class extends PureComponent {
   }
 
   handleChange(value, ...args) {
-    const { formDatum, name } = this.props
+    const { formDatum, name, fieldSetValidate } = this.props
     const beforeChange = beforeValueChange(this.props.beforeChange)
     if (formDatum && name) {
       if (Array.isArray(name)) {
@@ -224,6 +227,8 @@ export default curry(Origin => consumer(class extends PureComponent {
     }
 
     if (this.props.onChange) this.props.onChange(value, ...args)
+    console.log(fieldSetValidate)
+    if (fieldSetValidate) fieldSetValidate()
   }
 
   handleUpdate(value, sn) {
@@ -260,7 +265,7 @@ export default curry(Origin => consumer(class extends PureComponent {
       <Origin
         {...other}
         formDatum={formDatum}
-        error={this.state.error}
+        error={this.getError()}
         value={this.getValue()}
         onChange={this.handleChange}
         onDatumBind={this.handleDatumBind}
