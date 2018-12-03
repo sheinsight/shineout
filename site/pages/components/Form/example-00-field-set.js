@@ -15,6 +15,12 @@ export default class extends PureComponent {
     this.rules = {
       name: [
         { required: true, message: 'Please input friend\'s name or remove this field.' },
+      /*
+        (value, formData, callback) => {
+          const isExist = formData.friends.filter(f => f.name === value).length > 1
+          callback(isExist ? new Error(`Name ${value} is existed.`) : true)
+        },
+      */
       ],
       friends: [
         { min: 2, message: 'At least add 2 friends.' },

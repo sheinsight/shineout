@@ -34,7 +34,7 @@ class Block extends PureComponent {
     }
     if (error !== prevProps.error) {
       this.datum.validateClear()
-      this.datum.setError(error)
+      this.datum.setError('', error)
     }
   }
 

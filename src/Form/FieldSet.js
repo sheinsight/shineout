@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import immer from 'immer'
 import createReactContext from 'create-react-context'
 import { getUidStr } from '../utils/uid'
 import validate from '../utils/validate'
 import { FormError } from '../utils/errors'
-import { ERROR_TYPE } from '../Datum/types'
+import { ERROR_TYPE, FORCE_PASS } from '../Datum/types'
+import Item from './Item'
 
 const { Provider, Consumer } = createReactContext()
 
@@ -18,6 +20,7 @@ class FieldSet extends PureComponent {
   constructor(props) {
     super(props)
     this.keys = []
+
     this.validate = this.validate.bind(this)
   }
 
@@ -40,18 +43,7 @@ class FieldSet extends PureComponent {
     return extendName(this.props.innerFormNamePath, this.props.name)
   }
 
-  handleUpdate(_, sn) {
-    console.log(_, sn)
-    if (sn === ERROR_TYPE) {
-      console.log(11111)
-      this.forceUpdate()
-    } else {
-      console.log(22222)
-      this.validate()
-    }
-  }
-
-  validate() {
+  validate(pub) {
     const { formDatum, name } = this.props
     const value = formDatum.get(name)
     const data = formDatum.getValue()
@@ -59,12 +51,46 @@ class FieldSet extends PureComponent {
     rules = rules.concat(formDatum.getRule(name))
 
     return validate(value, data, rules, 'array').then(() => {
-      formDatum.setError(name, [])
+      formDatum.setError(name, [], pub)
       return true
     }, (e) => {
-      formDatum.setError(name, e)
+      formDatum.setError(name, e, pub)
       return new FormError(e)
     })
+  }
+
+  handleUpdate(_, sn) {
+    console.log(_, sn)
+    if (sn === ERROR_TYPE || sn === FORCE_PASS) {
+      this.forceUpdate()
+    } else {
+      this.validate().then(() => {
+        this.forceUpdate()
+      })
+    }
+  }
+
+  handleInsert(index, value) {
+    this.keys.splice(index, 0, getUidStr())
+    const { formDatum, name } = this.props
+    const values = immer(formDatum.get(name), (draft) => {
+      draft.splice(index, 0, value)
+    })
+    formDatum.forceSet(name, values)
+  }
+
+  handleRemove(index) {
+    this.keys.splice(index, 1)
+    const { formDatum, name } = this.props
+    const values = immer(formDatum.get(name), (draft) => {
+      draft.splice(index, 1)
+    })
+    formDatum.forceSet(name, values)
+  }
+
+  handleChange(index, value) {
+    const fullName = this.getFullName()
+    this.props.formDatum.set(`${fullName}[${index}]`, value)
   }
 
   render() {
@@ -73,25 +99,43 @@ class FieldSet extends PureComponent {
     } = this.props
 
     const fullName = this.getFullName()
+    const error = formDatum.getError(fullName)
 
     if (!loop) {
       return <Provider value={fullName}>{children}</Provider>
     }
 
-    console.log(formDatum.$errors)
-
     let values = formDatum.get(name) || defaultValue
     if (values && !Array.isArray(values)) values = [values]
     if (values.length === 0 && empty) return empty()
 
-    return values.map((v, i) => {
+    const errorList = Array.isArray(error) ? error : []
+
+    const result = values.map((v, i) => {
       if (!this.keys[i]) this.keys[i] = getUidStr()
       return (
-        <Provider key={this.keys[i]} value={{ path: `${fullName}.[${i}]`, validate: this.validate }}>
-          {children()}
+        <Provider key={i} value={{ path: `${fullName}.[${i}]`, val: this.validate }}>
+          {
+            children({
+              list: values,
+              value: formDatum.get(`${fullName}.[${i}]`),
+              index: i,
+              error: errorList[i],
+              onChange: this.handleChange.bind(this, i),
+              onInsert: this.handleInsert.bind(this, i),
+              onAppend: this.handleInsert.bind(this, i + 1),
+              onRemove: this.handleRemove.bind(this, i),
+            })
+          }
         </Provider>
       )
     })
+
+    if (error instanceof Error) {
+      result.push(<Item key="error" formItemErrors={[error]} />)
+    }
+
+    return result
   }
 }
 

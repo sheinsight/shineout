@@ -49,7 +49,7 @@ export default class Loop extends PureComponent {
 
   bindValidate(val) {
     if (this.validations.indexOf(val) < 0) {
-      this.validations.push(val)
+      this.validations.unshift(val)
     }
   }
 

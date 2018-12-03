@@ -37,6 +37,7 @@ const testResult = {
 
 test('flatten object', (t) => {
   const flatObject = flatten(testObject)
+  console.log(JSON.stringify(flatObject, null, 2), JSON.stringify(testResult, null, 2))
   t.deepEqual(flatObject, testResult)
 })
 

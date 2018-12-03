@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
 import { promiseAll } from '../utils/errors'
+import shallowEqual from '../utils/shallowEqual'
 import { curry, compose } from '../utils/func'
 import { getUidStr } from '../utils/uid'
 import validate from '../utils/validate'
@@ -111,9 +112,6 @@ export default curry(Origin => consumer(class extends PureComponent {
   }
 
   getValue() {
-    // if changeLocked, use state value
-    if (this.changeLocked) return this.state.value
-
     const {
       formDatum, name, value, defaultValue,
     } = this.props
@@ -147,7 +145,7 @@ export default curry(Origin => consumer(class extends PureComponent {
 
   handleError(error) {
     const { formDatum, name, onError } = this.props
-    if (formDatum && name) formDatum.setError(name, error)
+    if (formDatum && name) formDatum.setError(name, error, true)
     else this.setState({ error })
 
     if (!name && onError) onError(this.itemName, error)
@@ -208,6 +206,11 @@ export default curry(Origin => consumer(class extends PureComponent {
 
   handleChange(value, ...args) {
     const { formDatum, name, fieldSetValidate } = this.props
+    const currentValue = this.getValue()
+    if (shallowEqual(value, currentValue)) {
+      return
+    }
+
     const beforeChange = beforeValueChange(this.props.beforeChange)
     if (formDatum && name) {
       if (Array.isArray(name)) {
@@ -227,8 +230,7 @@ export default curry(Origin => consumer(class extends PureComponent {
     }
 
     if (this.props.onChange) this.props.onChange(value, ...args)
-    console.log(fieldSetValidate)
-    if (fieldSetValidate) fieldSetValidate()
+    if (fieldSetValidate) fieldSetValidate(true)
   }
 
   handleUpdate(value, sn) {

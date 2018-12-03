@@ -8,13 +8,22 @@ import {
 } from './types'
 
 const { hasOwnProperty } = Object.prototype
+const isEmptyObjectOrArray = (obj) => {
+  if (Array.isArray(obj)) return obj.length === 0
+  if (isObject(obj)) return Object.keys(obj).length === 0
+  return false
+}
 
 const getSthByName = (name, source = {}) => {
   let result = source[name]
   if (result) return result
 
   result = unflatten(source)
+
   name.split('.').forEach((n) => {
+    const match = /^\[(\d+)\]$/.exec(n)
+    // eslint-disable-next-line
+    if (match) n = match[1]
     if (result) result = result[n]
     else result = undefined
   })
@@ -51,7 +60,7 @@ export default class {
     this.$errors = {}
 
     if (value) this.setValue(value)
-    if (error) this.setError(error)
+    if (error) this.setError('', error)
   }
 
   handleChange() {
@@ -60,6 +69,7 @@ export default class {
 
   reset() {
     this.dispatch(RESET_TOPIC)
+    this.$errors = {}
     this.setValue(this.$defaultValues, FORCE_PASS)
   }
 
@@ -67,15 +77,21 @@ export default class {
     return getSthByName(name, this.$values)
   }
 
+  removeEmptyValue(name = '') {
+    name.split('.').reduce((n, fn) => {
+      if (isEmptyObjectOrArray(this.$values[n])) delete this.$values[n]
+      return `${n}${n ? '.' : ''}${fn}`
+    }, '')
+  }
+
   set(name, value, skipArray = true) {
+    if (typeof name === 'string' && name) this.removeEmptyValue(name)
     const flatValue = flatten(isObject(name) ? name : { [name]: value }, skipArray)
     Object.keys(flatValue).forEach((n) => {
       const newValue = flatValue[n]
       if (Array.isArray(newValue) && newValue.length > 0) this.forceSet(n, newValue, false)
       else this.$values[n] = flatValue[n]
     })
-
-    console.log('set value ???', name, value)
 
     if (this.values[name]) {
       this.dispatch(updateSubscribe(name), value)
@@ -99,16 +115,13 @@ export default class {
     return getSthByName(name, this.$errors)
   }
 
-  setError(name, errors) {
-    if (typeof name === 'string') this.removeError(name)
-
-    const flatErrors = flatten(isObject(name) ? name : { [name]: errors })
+  setError(name, errors, pub = false) {
+    const flatErrors = flatten(isObject(name) ? name : { [name]: errors }, true)
     Object.keys(flatErrors).forEach((n) => {
       this.$errors[n] = flatErrors[n]
     })
 
-    console.log('set error ???', name, unflatten(flatErrors))
-    this.throughError('', unflatten(flatErrors))
+    if (pub) this.throughError('', unflatten(flatErrors))
   }
 
   removeError(name) {
@@ -148,7 +161,7 @@ export default class {
       this.$values[name] = values[name]
     })
 
-    Object.keys(this.values).forEach((name) => {
+    Object.keys(this.values).sort((a, b) => a.length - b.length).forEach((name) => {
       this.dispatch(updateSubscribe(name), this.get(name), forcePass || name)
       this.dispatch(changeSubscribe(name))
     })
@@ -175,13 +188,6 @@ export default class {
     if (isObject(error)) {
       Object.keys(error).forEach((name) => {
         names.push([`${path}${path ? '.' : ''}${name}`, name])
-        /*
-        const newName = `${path}${path ? '.' : ''}${name}`
-        if (hasOwnProperty.call(this.values, newName)) {
-          this.dispatch(errorSubscribe(newName), this.getError(newName), ERROR_TYPE)
-        }
-        this.throughError(newName, error[name])
-        */
       })
     } else if (Array.isArray(error)) {
       error.forEach((n, i) => names.push([`${path}${path ? '.' : ''}[${i}]`, i]))
@@ -198,7 +204,7 @@ export default class {
       console.error(`There is already an item with name "${name}" exists. The name props must be unique.`)
     }
 
-    this.$defaultValues[name] = value
+    if (value) this.$defaultValues[name] = value
     this.$validator[name] = validate
 
     this.values[name] = true
@@ -224,10 +230,13 @@ export default class {
       return
     }
 
-    delete this.$values[name]
     delete this.values[name]
+    delete this.$values[name]
+    delete this.$defaultValues[name]
     delete this.$validator[name]
+    delete this.$errors[name]
     this.unsubscribe(updateSubscribe(name))
+    this.unsubscribe(errorSubscribe(name))
     name += '.'
     Object.keys(this.$values).forEach((key) => {
       if (key.indexOf(name) === 0) delete this.$values[key]
@@ -252,14 +261,15 @@ export default class {
     this.$events[name] = this.$events[name].filter(e => e !== fn)
   }
 
-  validate(changeState = false) {
+  // validate(changeState = false) {
+  validate() {
     return new Promise((resolve, reject) => {
       const keys = Object.keys(this.$validator)
       // const values = { ...this.$values }
       const values = this.getValue()
 
       const validates = [
-        ...keys.map(k => this.$validator[k](this.get(k), values, !changeState)),
+        ...keys.map(k => this.$validator[k](this.get(k), values)),
         ...(this.$events[VALIDATE_TOPIC] || []).map(fn => fn()),
       ]
 
