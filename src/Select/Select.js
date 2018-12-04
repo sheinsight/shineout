@@ -64,6 +64,7 @@ class Select extends PureComponent {
   }
 
   componentWillUnmount() {
+    this.$willUnmount = true
     this.clearClickAway()
   }
 
@@ -167,6 +168,7 @@ class Select extends PureComponent {
   handleClear() {
     this.props.datum.setValue([])
 
+    if (this.$willUnmount) return
     if (this.state.focus === false) {
       this.forceUpdate()
     } else {

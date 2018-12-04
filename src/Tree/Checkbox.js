@@ -18,6 +18,7 @@ export default class extends PureComponent {
   }
 
   componentWillUnmount() {
+    this.$willUnmount = true
     this.props.datum.unbind(this.props.id)
   }
 
@@ -29,6 +30,7 @@ export default class extends PureComponent {
   }
 
   update() {
+    if (this.$willUnmount) return
     this.forceUpdate()
   }
 

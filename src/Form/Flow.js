@@ -22,15 +22,14 @@ class Flow extends Component {
     }
   }
 
-  componentDidMount() {
-  }
-
   componentWillUnmount() {
+    this.$willUnmount = true
     const { formDatum } = this.props
     this.events.forEach(n => formDatum.unsubscribe(n))
   }
 
   update() {
+    if (this.$willUnmount) return
     this.forceUpdate()
   }
 

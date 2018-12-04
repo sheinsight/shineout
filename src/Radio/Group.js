@@ -22,6 +22,7 @@ class RadioGroup extends PureComponent {
   }
 
   componentWillUnmount() {
+    this.$willUnmount = true
     this.props.datum.unsubscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
@@ -38,6 +39,7 @@ class RadioGroup extends PureComponent {
   }
 
   handleUpdate() {
+    if (this.$willUnmount) return
     this.forceUpdate()
   }
 
