@@ -10,11 +10,11 @@ module.exports = {
       '/react/16.6.3/umd/react.production.min.js',
       '/react-dom/16.6.3/umd/react-dom.production.min.js',
       '/prop-types/15.6.0/prop-types.min.js',
-      '/highlight.js/9.12.0/highlight.min.js',
+      // '/prism/1.15.0/prism.min.js',
       '/jszip/3.1.5/jszip.min.js',
     ],
     styles: [
-      '/highlight.js/9.12.0/styles/github.min.css',
+      // '/prism/1.15.0/themes/prism.min.css',
     ],
   },
   themes: ['default', 'antd'],

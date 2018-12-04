@@ -132,7 +132,6 @@ export default class Example extends PureComponent {
                 <CodeBlock
                   onHighLight={this.setCodeBlockHeight}
                   onClose={this.toggleCode}
-                  language="jsx"
                   value={text}
                 />
                 {this.renderCodeHandle(true)}

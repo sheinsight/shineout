@@ -1,5 +1,8 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import Prism from 'prismjs'
+import 'prismjs/components/prism-jsx'
+import 'prismjs/themes/prism.css'
 
 export default class CodeBlock extends PureComponent {
   static propTypes = {
@@ -9,7 +12,7 @@ export default class CodeBlock extends PureComponent {
   }
 
   static defaultProps = {
-    language: '',
+    language: 'lang-jsx',
   }
 
   componentDidMount() {
@@ -25,16 +28,17 @@ export default class CodeBlock extends PureComponent {
   }
 
   highlightCode() {
-    window.hljs.highlightBlock(this.element)
-    if (this.props.onHighLight) {
-      this.props.onHighLight(this.element.offsetHeight)
-    }
+    Prism.highlightElement(this.element, false, () => {
+      if (this.props.onHighLight) {
+        this.props.onHighLight(this.element.offsetHeight)
+      }
+    })
   }
 
   render() {
     return (
-      <pre>
-        <code ref={this.bindElement} className={this.props.language}>
+      <pre className={this.props.language}>
+        <code ref={this.bindElement}>
           {this.props.value}
         </code>
       </pre>

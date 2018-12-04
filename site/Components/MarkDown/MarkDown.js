@@ -53,7 +53,7 @@ export default class MarkDown extends PureComponent {
     const code = codes[name]
     if (code) {
       return [
-        <CodeBlock key="cb" language="jsx" value={code.text} />,
+        <CodeBlock key="cb" value={code.text} />,
         ...code.log.map((txt, i) => (
           <div key={i} className={markdownClass('console')}>{txt}</div>
         )),

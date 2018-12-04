@@ -62,7 +62,7 @@ router.get('**/jszip.min.js', async (ctx) => {
   await send(ctx, 'node_modules/jszip/dist/jszip.min.js')
 });
 
-['highlight.min.js', 'github.min.css'].forEach((p) => {
+['prism.min.js', 'prism.min.css'].forEach((p) => {
   router.get(`**/${p}`, async (ctx) => {
     await send(ctx, `libs/${p}`)
   })

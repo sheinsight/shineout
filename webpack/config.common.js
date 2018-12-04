@@ -67,6 +67,11 @@ module.exports = function getCommon(config) {
         },
 
         {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader'],
+        },
+
+        {
           test: /\.(png|jpg|jpeg|gif)$/,
           use: [
             {
