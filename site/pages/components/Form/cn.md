@@ -113,25 +113,6 @@ rule 共有 5 种规则，按优先级分别为：
 | name | string | 无 | Form 存取数据的名称 |
 | rules | array | 无 | 校验规则 | 
 
-### Form.Block
-
-| 属性 | 类型 | 默认值 | 说明 |
-| --- | --- | --- | --- |
-| labelWidth | string \| number | 140px | 标签宽度，labelAlign 为 'top' 时无效。 |
-| onChange | function(value) | 必填 | 值改变回调函数 | 
-| value | any | 必填 | 值 |
-
-### Form.BlockField
-
-同 Form.Field
-
-### Form.Loop
-
-| 属性 | 类型 | 默认值 | 说明 |
-| --- | --- | --- | --- |
-| children | function(options) :ReactElement | 必填 | options 属性为<br />list: name 下的全部数据<br />value：根据name获取的值的单条数据<br />onChange：子组件数据改变回调<br />onRemove：子组件删除回调<br />index：当前项索引<br />onInsert: 在当前项之前插入一条数据<br />onAppend: 在当前项之后附加一条数据|
-| empty | ReactElement | 无 | 数据为空时展示内容 |
-| name | string | 必填 | 从上层表单中获取值的key，获取的数据必须为 array 类型 |
 
 ### Form.Flow
 
@@ -142,3 +123,24 @@ rule 共有 5 种规则，按优先级分别为：
 
 ### Submit, Reset, Button
 同 [Button](#/components/Button)
+
+
+### ~~Form.Block~~ 不推荐
+
+| 属性 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| labelWidth | string \| number | 140px | 标签宽度，labelAlign 为 'top' 时无效。 |
+| onChange | function(value) | 必填 | 值改变回调函数 | 
+| value | any | 必填 | 值 |
+
+### ~~Form.BlockField~~ 不推荐
+
+同 Form.Field
+
+### ~~Form.Loop~~ 不推荐
+
+| 属性 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| children | function(options) :ReactElement | 必填 | options 属性为<br />list: name 下的全部数据<br />value：根据name获取的值的单条数据<br />onChange：子组件数据改变回调<br />onRemove：子组件删除回调<br />index：当前项索引<br />onInsert: 在当前项之前插入一条数据<br />onAppend: 在当前项之后附加一条数据|
+| empty | ReactElement | 无 | 数据为空时展示内容 |
+| name | string | 必填 | 从上层表单中获取值的key，获取的数据必须为 array 类型 |

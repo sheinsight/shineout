@@ -112,12 +112,17 @@ export default class MarkDown extends PureComponent {
 
   renderHeading = ({ level, children }) => {
     const key = `${level}-${children[0]}`
+    const Tag = `h${level}`
+
+    if (typeof children[0] === 'object') {
+      return <Tag>{children}</Tag>
+    }
+
     if (!this.cache[key]) {
       const id = `heading-${getUidStr()}`
       if (level === 2 || level === 3) {
         this.appendHeading({ id, level, children })
       }
-      const Tag = `h${level}`
       this.cache[key] = <Tag id={id}>{children}</Tag>
     }
 

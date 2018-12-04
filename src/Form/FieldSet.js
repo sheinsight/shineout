@@ -60,7 +60,6 @@ class FieldSet extends PureComponent {
   }
 
   handleUpdate(_, sn) {
-    console.log(_, sn)
     if (sn === ERROR_TYPE || sn === FORCE_PASS) {
       this.forceUpdate()
     } else {

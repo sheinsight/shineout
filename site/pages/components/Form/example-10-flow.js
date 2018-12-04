@@ -44,7 +44,11 @@ export default class extends Component {
 
         <Form.Item label="Full Name">
           <Form.Flow names={['firstName', 'lastName']}>
-            { datum => <div>{datum.get('firstName')} - {datum.get('lastName')}</div> }
+            { (datum) => {
+              console.log('change flow 11111')
+             return <div>{datum.get('firstName')} - {datum.get('lastName')}</div>
+}
+            }
           </Form.Flow>
         </Form.Item>
 

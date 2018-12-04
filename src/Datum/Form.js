@@ -95,9 +95,11 @@ export default class {
 
     if (this.values[name]) {
       this.dispatch(updateSubscribe(name), value)
+      this.dispatch(changeSubscribe(name))
     } else {
       this.throughValue('', unflatten(flatValue))
     }
+
     this.dispatch(CHANGE_TOPIC)
     this.handleChange()
   }

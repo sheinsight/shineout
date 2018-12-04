@@ -141,7 +141,7 @@ const examples = [
   },
   {
     name: '97-nested',
-    title: locate('嵌套数据 (旧) \n <b>Form.Block已不推荐，建议使用 FieldSet</b> \n Form.Block 配合 Form.Field 使用，可以处理多层嵌套数据', 'Nested data (Out of date) \n <b>Form.Block is not recommend, use FieldSet instead.</b> \n Form.Block can handle multiple levels of nested data by working with Form.Field.'),
+    title: locate('嵌套数据 (旧) \n <b>Form.Block已不推荐，建议使用 FieldSet</b> \n Form.Block 配合 Form.Field 使用，可以处理多层嵌套数据', 'BlockField (Out of date) \n <b>Form.Block is not recommend, use FieldSet instead.</b> \n Form.Block can handle multiple levels of nested data by working with Form.Field.'),
     component: require('doc/pages/components/Form/example-97-nested.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-97-nested.js'),
   },

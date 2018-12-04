@@ -63,8 +63,6 @@ export default curry(Origin => consumer(class extends PureComponent {
 
     this.itemName = getUidStr()
 
-    console.log(props.name)
-
     this.handleChange = this.handleChange.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
     this.handleDatumBind = this.handleDatumBind.bind(this)

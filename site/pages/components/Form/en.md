@@ -96,29 +96,6 @@ Used to handle custom form components, enabling custom form components to get/st
 | rules | array | none | Validation rules | 
 
 
-### Form.Block
-
-Use to resolve nested data
-
-| Property | Type | Default | Description |
-| --- | --- | --- | --- |
-| labelWidth | string \| number | 140px | the width of the label. It is invalid when labelAlign is 'top'. |
-| onChange | function(value) | required | a callback when the value is changing | 
-| value | any | required | value |
-
-### Form.BlockField
-
-Merge Form.Field and Form.Block
-
-### Form.Loop
-
-Used to iterate through the values of the array type and generate the child components.
-
-| Property | Type | Default | Description |
-| --- | --- | --- | --- |
-| children | function(options) :ReactElement | required | options property: <br />list: all data of name <br />value：a single piece of data for the value obtained by name <br />onChange：a callback when the value is changing <br />onRemove：a callback when a child component is removed <br />index：the current index <br />onInsert: Insert a piece of data before the current item <br />onAppend: Insert a piece of data after the current item |
-| name | string | required | Get the key of the value from the upper form, and the type of data must be Array. |
-
 ### Form.Flow
 
 Used to process interactive data.
@@ -130,3 +107,27 @@ Used to process interactive data.
 
 ### Submit, Reset, Button
 Same as [Button](#/components/Button)
+
+
+### ~~Form.Block~~ not recommend
+
+Use to resolve nested data
+
+| Property | Type | Default | Description |
+| --- | --- | --- | --- |
+| labelWidth | string \| number | 140px | the width of the label. It is invalid when labelAlign is 'top'. |
+| onChange | function(value) | required | a callback when the value is changing | 
+| value | any | required | value |
+
+### ~~Form.BlockField~~ not recommend
+
+Merge Form.Field and Form.Block
+
+### ~~Form.Loop~~ not recommend
+
+Used to iterate through the values of the array type and generate the child components.
+
+| Property | Type | Default | Description |
+| --- | --- | --- | --- |
+| children | function(options) :ReactElement | required | options property: <br />list: all data of name <br />value：a single piece of data for the value obtained by name <br />onChange：a callback when the value is changing <br />onRemove：a callback when a child component is removed <br />index：the current index <br />onInsert: Insert a piece of data before the current item <br />onAppend: Insert a piece of data after the current item |
+| name | string | required | Get the key of the value from the upper form, and the type of data must be Array. |
