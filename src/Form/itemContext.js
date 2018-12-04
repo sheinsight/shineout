@@ -27,7 +27,12 @@ export const itemProvider = Origin => class extends Component {
     this.handleUpdate = this.handleUpdate.bind(this)
   }
 
+  componentWillUnmount() {
+    this.$willUnmount = true
+  }
+
   handleUpdate() {
+    if (this.$willUnmount) return
     this.forceUpdate()
   }
 

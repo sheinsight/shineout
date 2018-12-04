@@ -79,9 +79,11 @@ export default class Loop extends PureComponent {
 
   handleUpdate(_, sn) {
     if (sn === ERROR_TYPE) {
+      if (this.$willUnmount) return
       this.forceUpdate()
     } else {
       this.selfValidate().then(() => {
+        if (this.$willUnmount) return
         this.forceUpdate()
       }).catch(() => {})
     }

@@ -20,6 +20,7 @@ export default class extends PureComponent {
   }
 
   componentWillUnmount() {
+    this.$willUnmount = true
     this.props.datum.unsubscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
@@ -42,6 +43,7 @@ export default class extends PureComponent {
   }
 
   handleUpdate() {
+    if (this.$willUnmount) return
     this.forceUpdate()
   }
 
