@@ -1,5 +1,5 @@
 import test from 'ava'
-import { flatten, unflatten, objectValues, insertValue, spliceValue } from '../../src/utils/objects'
+import { flatten, unflatten, objectValues, insertValue, spliceValue, getSthByName, removeSthByName } from '../../src/utils/flat'
 
 const error = new Error('something wrong.')
 
@@ -100,25 +100,23 @@ test('object values', (t) => {
   ])
 })
 
-test('inner value', (t) => {
+test('insert value', (t) => {
   const values = flatten({
     a: [{ a: 1 }, { b: 2 }],
   })
 
-  const result = flatten({
+  const result = {
     a: [{ a: 1 }, { c: 3 }, { b: 2 }],
-  })
+  }
 
   insertValue(values, 'a', 1, { c: 3 })
-  t.deepEqual(values, result)
-  insertValue(values, 'a', 1, undefined)
-  console.log(values, flatten({
-    a: [{ a: 1 }, undefined, { c: 3 }, { b: 2 }],
-  }))
+  t.deepEqual(values, flatten(result))
 
-  t.deepEqual(values, flatten({
-    a: [{ a: 1 }, undefined, { c: 3 }, { b: 2 }],
-  }))
+  insertValue(values, 'a', 1, undefined)
+  result.a.splice(1, 0, null)
+  delete result.a[1]
+
+  t.deepEqual(values, flatten(result))
 })
 
 test('splice value', (t) => {
@@ -136,4 +134,49 @@ test('splice value', (t) => {
   t.deepEqual(values, flatten({
     a: [{ a: 1 }, { d: 4 }],
   }))
+})
+
+test('get something from object', (t) => {
+  const abc0 = getSthByName('a.b.c.[0]', testResult)
+  t.deepEqual(abc0, { a: 1, b: 2 })
+  const abc = getSthByName('a.b.c', testResult)
+  t.deepEqual(abc, [{ a: 1, b: 2 }, { c: 3, d: 4 }])
+  const ae3 = getSthByName('a.e.3', testResult)
+  t.is(1, ae3)
+})
+
+test('remove something from object', (t) => {
+  const obj = flatten({
+    a: {
+      b: {
+        c: [
+          { a: 1, b: 2 },
+          { c: 3, d: 4 },
+        ],
+      },
+    },
+  })
+
+  removeSthByName('a.b.c.[0].b', obj)
+  t.deepEqual(unflatten(obj), {
+    a: {
+      b: {
+        c: [
+          { a: 1 },
+          { c: 3, d: 4 },
+        ],
+      },
+    },
+  })
+
+  removeSthByName('a.b.c.[0]', obj)
+  t.deepEqual(unflatten(obj), {
+    a: {
+      b: {
+        c: [
+          { c: 3, d: 4 },
+        ],
+      },
+    },
+  })
 })

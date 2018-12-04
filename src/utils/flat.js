@@ -8,7 +8,9 @@ export function flatten(data, skipArray) {
   const result = {}
   function recurse(cur, prop) {
     if (Object(cur) !== cur || cur instanceof Date || cur instanceof Error || (skipArray && Array.isArray(cur))) {
-      result[prop] = cur
+      if (!(cur === undefined && /\.\[\d+\]$/.test(prop))) {
+        result[prop] = cur
+      }
     } else if (Array.isArray(cur)) {
       if (cur.length === 0) {
         result[prop] = []
@@ -61,8 +63,8 @@ export function unflatten(rawdata) {
       cur[prop] = { ...dp }
     } else if (Array.isArray(dp)) {
       cur[prop] = [...dp]
-    } else {
-      cur[prop] = data[p]
+    } else if (dp !== undefined) {
+      cur[prop] = dp
     }
   }
   return result['']
@@ -86,7 +88,7 @@ export function insertValue(obj, name, index, value) {
     })
   const newValue = flatten({ [`${name}.[${index}]`]: value })
   Object.keys(newValue).forEach((k) => {
-    obj[k] = newValue[k]
+    if (newValue[k] !== undefined) obj[k] = newValue[k]
   })
 }
 
@@ -104,4 +106,33 @@ export function spliceValue(obj, name, index) {
     obj[newName] = obj[n]
     delete obj[n]
   })
+}
+
+export const getSthByName = (name, source = {}) => {
+  if (source[name]) return source[name]
+
+  let result = unflatten(source)
+
+  name.split('.').forEach((n) => {
+    const match = /^\[(\d+)\]$/.exec(n)
+    // eslint-disable-next-line
+    if (match) n = match[1]
+    if (result) result = result[n]
+    else result = undefined
+  })
+
+  return result
+}
+
+export const removeSthByName = (name, source) => {
+  const match = /(.*)\.\[(\d+)\]$/.exec(name)
+  if (match) {
+    spliceValue(source, match[1], parseInt(match[2], 10))
+  } else {
+    Object.keys(source).forEach((n) => {
+      if (n === name || n.indexOf(`${name}.`) === 0) {
+        delete source[n]
+      }
+    })
+  }
 }

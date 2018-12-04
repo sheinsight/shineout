@@ -23,7 +23,10 @@ const friendsRule = [
     const result = []
     names.forEach((v, k) => {
       if (k && v.length > 1) {
-        v.forEach((i) => { result[i] = ({ name: new Error(`Name ${k} is existed.`) }) })
+        // show error to input
+        v.forEach((i) => { result[i] = ({ name: new Error(`Name "${k}" is existed.`) }) })
+        // show error to item
+        // v.forEach((i) => { result[i] = new Error(`Name "${k}"" is existed.`) })
       }
     })
 

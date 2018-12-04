@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
 import createReactContext from 'create-react-context'
-import { getUidStr } from '../utils/uid'
 import validate from '../utils/validate'
 import { FormError } from '../utils/errors'
 import { ERROR_TYPE, FORCE_PASS } from '../Datum/types'
@@ -19,8 +18,6 @@ const extendName = (path = '', name) => {
 class FieldSet extends PureComponent {
   constructor(props) {
     super(props)
-    this.keys = []
-
     this.validate = this.validate.bind(this)
   }
 
@@ -75,7 +72,6 @@ class FieldSet extends PureComponent {
   }
 
   handleInsert(index, value) {
-    this.keys.splice(index, 0, getUidStr())
     const { formDatum, name } = this.props
     const values = immer(formDatum.get(name), (draft) => {
       draft.splice(index, 0, value)
@@ -85,7 +81,6 @@ class FieldSet extends PureComponent {
   }
 
   handleRemove(index) {
-    this.keys.splice(index, 1)
     const { formDatum, name } = this.props
     const values = immer(formDatum.get(name), (draft) => {
       draft.splice(index, 1)
@@ -104,7 +99,8 @@ class FieldSet extends PureComponent {
       children, formDatum, name, empty, defaultValue,
     } = this.props
 
-    const error = formDatum.getError(name)
+    const errors = formDatum.getError(name)
+    const result = []
 
     if (typeof children !== 'function') {
       return <Provider value={{ path: name, val: this.validate }}>{children}</Provider>
@@ -112,32 +108,37 @@ class FieldSet extends PureComponent {
 
     let values = formDatum.get(name) || defaultValue
     if (values && !Array.isArray(values)) values = [values]
-    if (values.length === 0 && empty) return empty(this.handleInsert.bind(this, 0))
+    if (values.length === 0 && empty) {
+      result.push(empty(this.handleInsert.bind(this, 0)))
+    } else {
+      const errorList = Array.isArray(errors) ? errors : []
+      values.forEach((v, i) => {
+        const error = errorList[i]
+        result.push((
+          <Provider key={i} value={{ path: `${name}.[${i}]`, val: this.validate }}>
+            {
+              children({
+                list: values,
+                value: formDatum.get(`${name}.[${i}]`),
+                index: i,
+                error,
+                onChange: this.handleChange.bind(this, i),
+                onInsert: this.handleInsert.bind(this, i),
+                onAppend: this.handleInsert.bind(this, i + 1),
+                onRemove: this.handleRemove.bind(this, i),
+              })
+            }
+          </Provider>
+        ))
 
-    const errorList = Array.isArray(error) ? error : []
+        if (error instanceof Error) {
+          result.push(<Item key={`er-${i}`} formItemErrors={[error]} />)
+        }
+      })
+    }
 
-    const result = values.map((v, i) => {
-      if (!this.keys[i]) this.keys[i] = getUidStr()
-      return (
-        <Provider key={i} value={{ path: `${name}.[${i}]`, val: this.validate }}>
-          {
-            children({
-              list: values,
-              value: formDatum.get(`${name}.[${i}]`),
-              index: i,
-              error: errorList[i],
-              onChange: this.handleChange.bind(this, i),
-              onInsert: this.handleInsert.bind(this, i),
-              onAppend: this.handleInsert.bind(this, i + 1),
-              onRemove: this.handleRemove.bind(this, i),
-            })
-          }
-        </Provider>
-      )
-    })
-
-    if (error instanceof Error) {
-      result.push(<Item key="error" formItemErrors={[error]} />)
+    if (errors instanceof Error) {
+      result.push(<Item key="error" formItemErrors={[errors]} />)
     }
 
     return result

@@ -1,6 +1,6 @@
 import shallowEqual from '../utils/shallowEqual'
 import isObject from '../utils/validate/isObject'
-import { flatten, unflatten, insertValue, spliceValue } from '../utils/objects'
+import { flatten, unflatten, insertValue, spliceValue, getSthByName, removeSthByName } from '../utils/flat'
 import { promiseAll, FormError } from '../utils/errors'
 import {
   updateSubscribe, errorSubscribe, changeSubscribe,
@@ -12,30 +12,6 @@ const isEmptyObjectOrArray = (obj) => {
   if (Array.isArray(obj)) return obj.length === 0
   if (isObject(obj)) return Object.keys(obj).length === 0
   return false
-}
-
-const getSthByName = (name, source = {}) => {
-  if (source[name]) return source[name]
-
-  let result = unflatten(source)
-
-  name.split('.').forEach((n) => {
-    const match = /^\[(\d+)\]$/.exec(n)
-    // eslint-disable-next-line
-    if (match) n = match[1]
-    if (result) result = result[n]
-    else result = undefined
-  })
-
-  return result
-}
-
-const removeSthByName = (name, source) => {
-  Object.keys(source).forEach((n) => {
-    if (n === name || n.indexOf(`${name}.`) === 0) {
-      delete source[n]
-    }
-  })
 }
 
 export default class {
@@ -116,8 +92,8 @@ export default class {
     return getSthByName(name, this.$errors)
   }
 
-  setError(name, errors, pub) {
-    const flatErrors = flatten(isObject(name) ? name : { [name]: errors }, true)
+  setError(name, error, pub) {
+    const flatErrors = flatten(isObject(name) ? name : { [name]: error }, true)
     Object.keys(flatErrors).forEach((n) => {
       this.$errors[n] = flatErrors[n]
     })
@@ -246,17 +222,23 @@ export default class {
       return
     }
 
+    this.unsubscribe(updateSubscribe(name))
+    this.unsubscribe(errorSubscribe(name))
     delete this.values[name]
-    delete this.$values[name]
     delete this.$defaultValues[name]
     delete this.$validator[name]
     delete this.$errors[name]
-    this.unsubscribe(updateSubscribe(name))
-    this.unsubscribe(errorSubscribe(name))
+
+    // console.log(name, JSON.stringify(this.$values, null, 2))
+    this.remove(name)
+    // console.log(JSON.stringify(this.$values, null, 2))
+    /*
+    delete this.$values[name]
     name += '.'
     Object.keys(this.$values).forEach((key) => {
       if (key.indexOf(name) === 0) delete this.$values[key]
     })
+    */
   }
 
   dispatch(name, ...args) {
