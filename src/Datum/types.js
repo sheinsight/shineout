@@ -16,3 +16,5 @@ export const RESET_TOPIC = '__RESET_TOPIC__'
 export const FORCE_PASS = '__VALIDATE_FORCE_PASS__'
 
 export const ERROR_TYPE = '__UPDATE_ERROR_TYPE__'
+
+export const REMOVE_ERROR = '__REMOVE_ERROR_TYPE__'

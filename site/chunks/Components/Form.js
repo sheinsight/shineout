@@ -92,10 +92,10 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-13-func-field.js'),
   },
   {
-    name: '14-nested',
+    name: '14-fieldset',
     title: locate('FieldSet \n Form.FieldSet 可以处理对象类型的字段', 'FieldSet \n Form.FieldSet handles fields of object type'),
-    component: require('doc/pages/components/Form/example-14-nested.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-14-nested.js'),
+    component: require('doc/pages/components/Form/example-14-fieldset.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-14-fieldset.js'),
   },
   {
     name: '15-fieldset',

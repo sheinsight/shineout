@@ -1,6 +1,7 @@
 // https://stackoverflow.com/questions/19098797/fastest-way-to-flatten-un-flatten-nested-json-objects
 
 import isEmpty from './validate/isEmpty'
+import isObject from './validate/isObject'
 
 export function flatten(data, skipArray) {
   if (isEmpty(data)) return data
@@ -30,10 +31,12 @@ export function flatten(data, skipArray) {
   return result
 }
 
-export function unflatten(data) {
-  if (Object(data) !== data || isEmpty(data) || Array.isArray(data)) {
-    return data
+export function unflatten(rawdata) {
+  if (Object(rawdata) !== rawdata || isEmpty(rawdata) || Array.isArray(rawdata)) {
+    return rawdata
   }
+
+  const data = { ...rawdata }
 
   const result = {}
   let {
@@ -53,7 +56,14 @@ export function unflatten(data) {
       prop = match ? match[1] : temp
       last = idx + 1
     } while (idx >= 0)
-    cur[prop] = data[p]
+    const dp = data[p]
+    if (isObject(dp) && !(dp instanceof Error || dp instanceof Date)) {
+      cur[prop] = { ...dp }
+    } else if (Array.isArray(dp)) {
+      cur[prop] = [...dp]
+    } else {
+      cur[prop] = data[p]
+    }
   }
   return result['']
 }
@@ -61,4 +71,37 @@ export function unflatten(data) {
 export const objectValues = (obj) => {
   if (!obj) return []
   return Object.keys(obj).map(k => obj[k])
+}
+
+export function insertValue(obj, name, index, value) {
+  Object.keys(obj).filter(n => n.indexOf(`${name}.[`) === 0).sort().reverse()
+    .forEach((n) => {
+      const reg = new RegExp(`${name}.\\[(\\d+)\\]`)
+      const match = reg.exec(n)
+      const i = parseInt(match[1], 10)
+      if (i < index) return
+      const newName = n.replace(reg, `${name}.[${i + 1}]`)
+      if (obj[n]) obj[newName] = obj[n]
+      delete obj[n]
+    })
+  const newValue = flatten({ [`${name}.[${index}]`]: value })
+  Object.keys(newValue).forEach((k) => {
+    obj[k] = newValue[k]
+  })
+}
+
+export function spliceValue(obj, name, index) {
+  Object.keys(obj).filter(n => n.indexOf(`${name}.[`) === 0).sort().forEach((n) => {
+    const reg = new RegExp(`${name}.\\[(\\d+)\\]`)
+    const match = reg.exec(n)
+    const i = parseInt(match[1], 10)
+    if (i < index) return
+    if (i === index) {
+      delete obj[n]
+      return
+    }
+    const newName = n.replace(reg, `${name}.[${i - 1}]`)
+    obj[newName] = obj[n]
+    delete obj[n]
+  })
 }

@@ -8,43 +8,32 @@ import React, { PureComponent } from 'react'
 import { Form, Input, Button } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
+const friendNameRule = [
+  { required: true, message: 'Please input friend\'s name or remove this field.' },
+]
+
+const friendsRule = [
+  { min: 2, message: 'At least add 2 friends.' },
+  (values, _, callback) => {
+    const names = new Map()
+    values.forEach((v, i) => {
+      if (names.has(v.name)) names.set(v.name, [...names.get(v.name), i])
+      else names.set(v.name, [i])
+    })
+    const result = []
+    names.forEach((v, k) => {
+      if (k && v.length > 1) {
+        v.forEach((i) => { result[i] = ({ name: new Error(`Name ${k} is existed.`) }) })
+      }
+    })
+
+    console.log(result)
+
+    callback(result.length > 0 ? result : true)
+  },
+]
+
 export default class extends PureComponent {
-  constructor(props) {
-    super(props)
-
-    this.rules = {
-      name: [
-        { required: true, message: 'Please input friend\'s name or remove this field.' },
-        /*
-        (value, formData, callback) => {
-          const isExist = formData.friends.filter(f => f.name === value).length > 1
-          callback(isExist ? new Error(`Name ${value} is existed.`) : true)
-        },
-        */
-      ],
-      friends: [
-        { min: 2, message: 'At least add 2 friends.' },
-        (values, _, callback) => {
-          const names = new Map()
-          values.forEach((v, i) => {
-            if (names.has(v.name)) names.set(v.name, [...names.get(v.name), i])
-            else names.set(v.name, [i])
-          })
-          const result = []
-          names.forEach((v, k) => {
-            if (k && v.length > 1) {
-              v.forEach((i) => { result[i] = ({ name: new Error(`Name ${k} is existed.`) }) })
-            }
-          })
-
-          console.log(result)
-
-          callback(result.length > 0 ? result : true)
-        },
-      ],
-    }
-  }
-
   renderEmpty = onAppend => <Button onClick={() => onAppend({})}>Add new friend</Button>
 
   render() {
@@ -56,7 +45,7 @@ export default class extends PureComponent {
 
         <Form.Item label="Friends">
           <Form.FieldSet
-            rules={this.rules.friends}
+            rules={friendsRule}
             name="friends"
             empty={this.renderEmpty}
             defaultValue={[{ name: 'Hermione Granger', age: '16' }, {}]}
@@ -64,12 +53,12 @@ export default class extends PureComponent {
             {
               ({
                 onAppend, onRemove,
-              } = {}) => (
+              }) => (
                 <Form.Item style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
                   <Input
                     style={{ width: 180, marginRight: 8 }}
                     name="name"
-                    rules={this.rules.name}
+                    rules={friendNameRule}
                     placeholder="Name"
                   />
                   <Input

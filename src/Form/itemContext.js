@@ -32,8 +32,11 @@ export const itemProvider = Origin => class extends Component {
   }
 
   handleUpdate() {
-    if (this.$willUnmount) return
-    this.forceUpdate()
+    if (this.updateTimer) clearTimeout(this.updateTimer)
+    this.updateTimer = setTimeout(() => {
+      if (this.$willUnmount) return
+      this.forceUpdate()
+    })
   }
 
   bind(name) {

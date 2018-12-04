@@ -1,6 +1,6 @@
 import shallowEqual from '../utils/shallowEqual'
 import isObject from '../utils/validate/isObject'
-import { flatten, unflatten } from '../utils/objects'
+import { flatten, unflatten, insertValue, spliceValue } from '../utils/objects'
 import { promiseAll, FormError } from '../utils/errors'
 import {
   updateSubscribe, errorSubscribe, changeSubscribe,
@@ -15,10 +15,9 @@ const isEmptyObjectOrArray = (obj) => {
 }
 
 const getSthByName = (name, source = {}) => {
-  let result = source[name]
-  if (result) return result
+  if (source[name]) return source[name]
 
-  result = unflatten(source)
+  let result = unflatten(source)
 
   name.split('.').forEach((n) => {
     const match = /^\[(\d+)\]$/.exec(n)
@@ -117,7 +116,7 @@ export default class {
     return getSthByName(name, this.$errors)
   }
 
-  setError(name, errors, pub = false) {
+  setError(name, errors, pub) {
     const flatErrors = flatten(isObject(name) ? name : { [name]: errors }, true)
     Object.keys(flatErrors).forEach((n) => {
       this.$errors[n] = flatErrors[n]
@@ -126,8 +125,23 @@ export default class {
     if (pub) this.throughError('', unflatten(flatErrors))
   }
 
-  removeError(name) {
+  removeError(name, pub) {
     removeSthByName(name, this.$errors)
+    if (pub) {
+      name.split('.').reduce((n, s) => {
+        const nn = `${n}${n ? '.' : ''}${s}`
+        this.dispatch(errorSubscribe(nn), this.getError(nn), ERROR_TYPE)
+        return nn
+      }, '')
+    }
+  }
+
+  insertError(name, index, error) {
+    insertValue(this.$errors, name, index, error)
+  }
+
+  spliceError(name, index) {
+    spliceValue(this.$errors, name, index)
   }
 
   getRule(name) {
@@ -285,9 +299,25 @@ export default class {
     })
   }
 
+  validateFieldsByName(name) {
+    if (!name || typeof name !== 'string') {
+      return Promise.reject(new Error(`Name expect a string, get "${name}"`))
+    }
+
+    const validations = []
+    const values = this.getValue()
+    Object.keys(this.$validator).forEach((n) => {
+      if (n === name || n.indexOf(name) === 0) {
+        validations.push(this.$validator[n](this.get(n), values))
+      }
+    })
+
+    return promiseAll(validations)
+  }
+
   validateFields(names) {
     if (!Array.isArray(names)) names = [names]
-    const values = { ...this.$values }
+    const values = this.getValue()
     const validates = []
     names.forEach((k) => {
       if (this.$validator[k]) {

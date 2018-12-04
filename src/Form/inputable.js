@@ -145,8 +145,12 @@ export default curry(Origin => consumer(class extends PureComponent {
 
   handleError(error) {
     const { formDatum, name, onError } = this.props
-    if (formDatum && name) formDatum.setError(name, error, true)
-    else this.setState({ error })
+    if (formDatum && name) {
+      if (error === undefined) formDatum.removeError(name, true)
+      else formDatum.setError(name, error, true)
+    } else {
+      this.setState({ error })
+    }
 
     if (!name && onError) onError(this.itemName, error)
   }
@@ -157,7 +161,7 @@ export default curry(Origin => consumer(class extends PureComponent {
 
   validate(value, data, validateOnly) {
     if (value === FORCE_PASS) {
-      this.handleError(null)
+      this.handleError()
       return Promise.resolve(true)
     }
 
@@ -184,7 +188,7 @@ export default curry(Origin => consumer(class extends PureComponent {
       if (this.datum) value = this.datum
       validates.push(validate(value, data, rules, type).then(() => {
         if (validateOnly !== true) {
-          this.handleError(null)
+          this.handleError()
         }
         return true
       }).catch((e) => {
@@ -235,7 +239,7 @@ export default curry(Origin => consumer(class extends PureComponent {
 
   handleUpdate(value, sn) {
     if (sn === ERROR_TYPE) {
-      this.setState({ error: value })
+      if (value !== this.state.error) this.setState({ error: value })
       return
     }
 

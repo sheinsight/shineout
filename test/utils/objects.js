@@ -1,5 +1,5 @@
 import test from 'ava'
-import { flatten, unflatten, objectValues } from '../../src/utils/objects'
+import { flatten, unflatten, objectValues, insertValue, spliceValue } from '../../src/utils/objects'
 
 const error = new Error('something wrong.')
 
@@ -37,7 +37,6 @@ const testResult = {
 
 test('flatten object', (t) => {
   const flatObject = flatten(testObject)
-  console.log(JSON.stringify(flatObject, null, 2), JSON.stringify(testResult, null, 2))
   t.deepEqual(flatObject, testResult)
 })
 
@@ -99,4 +98,42 @@ test('object values', (t) => {
     [],
     error,
   ])
+})
+
+test('inner value', (t) => {
+  const values = flatten({
+    a: [{ a: 1 }, { b: 2 }],
+  })
+
+  const result = flatten({
+    a: [{ a: 1 }, { c: 3 }, { b: 2 }],
+  })
+
+  insertValue(values, 'a', 1, { c: 3 })
+  t.deepEqual(values, result)
+  insertValue(values, 'a', 1, undefined)
+  console.log(values, flatten({
+    a: [{ a: 1 }, undefined, { c: 3 }, { b: 2 }],
+  }))
+
+  t.deepEqual(values, flatten({
+    a: [{ a: 1 }, undefined, { c: 3 }, { b: 2 }],
+  }))
+})
+
+test('splice value', (t) => {
+  const values = flatten({
+    a: [{ a: 1 }, { b: 2 }, { c: 3 }, { d: 4 }],
+  })
+
+  const result = flatten({
+    a: [{ a: 1 }, { b: 2 }, { d: 4 }],
+  })
+
+  spliceValue(values, 'a', 2)
+  t.deepEqual(values, result)
+  spliceValue(values, 'a', 1)
+  t.deepEqual(values, flatten({
+    a: [{ a: 1 }, { d: 4 }],
+  }))
 })

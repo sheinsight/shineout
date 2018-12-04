@@ -60,13 +60,18 @@ class FieldSet extends PureComponent {
   }
 
   handleUpdate(_, sn) {
-    if (sn === ERROR_TYPE || sn === FORCE_PASS) {
-      this.forceUpdate()
-    } else {
-      this.validate().then(() => {
+    if (this.updateTimer) clearTimeout(this.updateTimer)
+    this.updateTimer = setTimeout(() => {
+      if (sn === ERROR_TYPE || sn === FORCE_PASS) {
+        if (this.$willUnmount) return
         this.forceUpdate()
-      })
-    }
+      } else {
+        this.validate().then(() => {
+          if (this.$willUnmount) return
+          this.forceUpdate()
+        })
+      }
+    })
   }
 
   handleInsert(index, value) {
@@ -75,6 +80,7 @@ class FieldSet extends PureComponent {
     const values = immer(formDatum.get(name), (draft) => {
       draft.splice(index, 0, value)
     })
+    formDatum.insertError(name, index)
     formDatum.forceSet(name, values)
   }
 
@@ -84,6 +90,7 @@ class FieldSet extends PureComponent {
     const values = immer(formDatum.get(name), (draft) => {
       draft.splice(index, 1)
     })
+    formDatum.spliceError(name, index)
     formDatum.forceSet(name, values)
   }
 
@@ -105,7 +112,7 @@ class FieldSet extends PureComponent {
 
     let values = formDatum.get(name) || defaultValue
     if (values && !Array.isArray(values)) values = [values]
-    if (values.length === 0 && empty) return empty()
+    if (values.length === 0 && empty) return empty(this.handleInsert.bind(this, 0))
 
     const errorList = Array.isArray(error) ? error : []
 
