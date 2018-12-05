@@ -1,8 +1,16 @@
 import React, { PureComponent } from 'react'
+import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import shallowEqual from '../utils/shallowEqual'
 import { scrollConsumer } from '../Scroll/context'
 import { selectClass } from '../styles'
+
+let root
+function initRoot() {
+  root = document.createElement('div')
+  root.className = selectClass('root')
+  document.body.appendChild(root)
+}
 
 export default function (List) {
   class AbsoluteList extends PureComponent {
@@ -10,6 +18,18 @@ export default function (List) {
       super(props)
 
       this.lastStyle = {}
+
+      if (!root) initRoot()
+      this.element = document.createElement('div')
+      this.element.className = selectClass('absolute-wrapper')
+    }
+
+    componentDidMount() {
+      root.appendChild(this.element)
+    }
+
+    componentWillUnmount() {
+      root.removeChild(this.element)
     }
 
     getStyle() {
@@ -52,8 +72,10 @@ export default function (List) {
       const className = selectClass('absolute-wrapper', position)
       const { focus, style } = props.focus ? this.getStyle() : this.lastStyle
 
-      return (
-        <List {...props} focus={focus} className={className} style={style} />
+      this.element.className = className
+      return ReactDOM.createPortal(
+        <List {...props} focus={focus} style={style} />,
+        this.element,
       )
     }
   }

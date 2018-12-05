@@ -15,5 +15,6 @@ export default {
   ok: 'Ok',
   cancel: 'Cancel',
   noData: 'Data not found',
+  selectAll: 'Select All',
 }
 

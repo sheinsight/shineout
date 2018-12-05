@@ -1,7 +1,7 @@
 import List from './List'
 import hidable from '../hoc/hidable'
 
-export default function (type, duration) {
+export default function (type, duration, display) {
   switch (duration) {
     case 'fast':
       duration = 240
@@ -16,5 +16,5 @@ export default function (type, duration) {
 
   if (typeof type === 'string') type = [type]
 
-  return hidable(List, type, duration)
+  return hidable(List, { type, duration, display })
 }

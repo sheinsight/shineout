@@ -1,62 +1,133 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
+import { getLocale } from '../locale'
+import { getKey } from '../utils/uid'
+import List from '../List'
+import Spin from '../Spin'
+import Checkbox from '../Checkbox/Checkbox'
 import { selectClass } from '../styles'
+import BoxOption from './BoxOption'
 
+const ScaleList = List(['fade', 'scale-y'], 'fast', 'flex')
 const emptyFunc = () => {}
 
-class BoxList extends PureComponent {
+
+class BoxList extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {}
 
     // fake events
     props.bindOptionFunc('handleHover', emptyFunc)
     props.bindOptionFunc('hoverMove', emptyFunc)
     props.bindOptionFunc('getIndex', emptyFunc)
+
+    this.handleSelectAll = this.handleSelectAll.bind(this)
+  }
+
+  getText(key) {
+    return this.props.text[key] || getLocale(key)
+  }
+
+  handleSelectAll(_, checked) {
+    const { datum, data } = this.props
+    if (checked) datum.add(data)
+    else datum.clear()
+  }
+
+  renderHeader(count) {
+    const {
+      data, onFilter, loading, multiple,
+    } = this.props
+
+    if (loading || (!onFilter && !multiple)) return null
+
+    let checked = 'indeterminate'
+    if (count === 0) checked = false
+    else if (count === data.length) checked = true
+
+    return (
+      <div className={selectClass('header')}>
+        <Checkbox onChange={this.handleSelectAll} checked={checked}>
+          {this.getText('selectAll')}
+        </Checkbox>
+      </div>
+    )
+  }
+
+  renderOptions(options) {
+    const { loading } = this.props
+    if (loading) return null
+
+    return (
+      <div className={selectClass('box-options')}>{options}</div>
+    )
   }
 
   render() {
-    const className = classnames(
-      selectClass('box-list'),
-      this.props.className,
-    )
+    const {
+      columnWidth, columns, data, datum, keygen, multiple,
+      loading, renderItem, focus, onChange, selectId,
+    } = this.props
+
+    const options = []
+    if (data.length === 0) {
+      options.push(<div className={selectClass('no-data')}>{this.getText('noData')}</div>)
+    }
+
+    let checkedCount = 0
+    data.forEach((d, i) => {
+      const isActive = datum.check(d)
+      if (isActive) checkedCount += 1
+      options.push((
+        <BoxOption
+          key={getKey(d, keygen, i)}
+          isActive={isActive}
+          disabled={datum.disabled(d)}
+          data={d}
+          columns={columns}
+          multiple={multiple}
+          onClick={onChange}
+          renderItem={renderItem}
+        />
+      ))
+    })
+
     return (
-      <div className={className}>
-        box list
-      </div>
+      <ScaleList
+        show={focus}
+        onMouseMove={this.handleMouseMove}
+        data-id={selectId}
+        style={{ width: columnWidth * columns }}
+        className={selectClass('box-list')}
+      >
+        {loading && typeof loading === 'boolean' ? <Spin size={30} /> : loading}
+        {this.renderHeader(checkedCount)}
+        {this.renderOptions(options)}
+      </ScaleList>
     )
   }
 }
 
 BoxList.propTypes = {
-  className: PropTypes.string,
   columnWidth: PropTypes.number,
   columns: PropTypes.number,
   data: PropTypes.array,
   datum: PropTypes.object.isRequired,
-  absolute: PropTypes.bool,
   focus: PropTypes.bool,
-  height: PropTypes.number,
-  itemsInView: PropTypes.number,
   keygen: PropTypes.any,
-  lineHeight: PropTypes.number,
   loading: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.bool,
   ]),
   multiple: PropTypes.bool,
-  onControlChange: PropTypes.func,
   onChange: PropTypes.func,
+  onFilter: PropTypes.func,
   renderItem: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.func,
   ]),
-  renderPending: PropTypes.bool,
   selectId: PropTypes.string,
   bindOptionFunc: PropTypes.func.isRequired,
-  style: PropTypes.object,
   text: PropTypes.object,
 }
 

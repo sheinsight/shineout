@@ -15,7 +15,7 @@ const limitWrap = Origin => (props) => {
 
 const exportSelect = compose(
   inputable,
-  inputBorder({ className: selectClass('_') }),
+  inputBorder({ className: selectClass('_'), tag: 'div' }),
   limitWrap,
   Datum.hoc({ bindProps: ['disabled', 'limit', 'format', 'prediction'] }),
   filter,

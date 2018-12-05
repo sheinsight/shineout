@@ -10,7 +10,7 @@ import { hidableClass } from '../styles'
  * @param {*} duration
  * @param {*} type - fade, collapse, tranlate
  */
-export default function (Component, type = ['fade'], duration = 360) {
+export default function (Component, { type = ['fade'], duration = 360, display = 'block' }) {
   const hasCollapse = type.indexOf('collapse') >= 0
 
   class Hidable extends PureComponent {
@@ -55,7 +55,7 @@ export default function (Component, type = ['fade'], duration = 360) {
 
     show() {
       const es = this.getElement().style
-      es.display = 'block'
+      es.display = display
 
       setTimeout(() => {
         if (!this.isUnmounted) {

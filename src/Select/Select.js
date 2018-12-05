@@ -231,8 +231,10 @@ class Select extends PureComponent {
     const { focus, control, position } = this.state
 
     const props = {};
-    (['data', 'datum', 'keygen', 'multiple', 'columns', 'text', 'itemsInView', 'absolute', 'lineHeight', 'height', 'loading'])
-      .forEach((k) => { props[k] = this.props[k] })
+    ([
+      'data', 'datum', 'keygen', 'multiple', 'columns', 'text', 'itemsInView',
+      'absolute', 'lineHeight', 'height', 'loading', 'onFilter',
+    ]).forEach((k) => { props[k] = this.props[k] })
 
     const listType = `${props.absolute ? 'a' : 'n'}${props.columns > 1 ? 'b' : 'o'}`
     const List = ListSet[listType]

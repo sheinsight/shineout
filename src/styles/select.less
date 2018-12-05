@@ -15,6 +15,8 @@
     display: flex;
     flex-flow: wrap;
     padding: @padding-base-vertical @padding-base-horizontal+12 0 @padding-base-horizontal;
+    max-height: 80px;
+    overflow: auto;
 
     span {
       display: inline-block;
@@ -129,9 +131,34 @@
   }
 
   &-box-list {
-    min-height: 150px;
+    min-height: 200px;
     max-height: 300px;
-    overflow: auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    .@{select-prefix}-header {
+      padding: @dropdown-item-padding-y @dropdown-padding-x;
+      border-bottom: solid 1px #eee;
+    }
+
+    .@{select-prefix}-box-options {
+      flex: 1;
+      overflow: auto;
+      padding: @dropdown-item-padding-y 0;
+
+      .@{select-prefix}-no-data {
+        text-align: center;
+        padding-top: 60px;
+        color: @gray-500;
+      }
+    }
+
+    .@{select-prefix}-option {
+      display: inline-block;
+      margin-right: 0;
+      padding-right: @dropdown-padding-x;
+    }
   }
 
   &-drop-down &-options, &-drop-down &-box-list {

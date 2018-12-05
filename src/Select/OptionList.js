@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import { getKey } from '../utils/uid'
 import { setTranslate } from '../utils/dom/translate'
@@ -12,18 +11,9 @@ import Option from './Option'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
 
-let root
-function initRoot() {
-  root = document.createElement('div')
-  root.className = selectClass('root')
-  document.body.appendChild(root)
-}
-
 class OptionList extends Component {
   constructor(props) {
     super(props)
-
-    if (!root) initRoot()
 
     this.state = {
       currentIndex: 0,
@@ -37,21 +27,11 @@ class OptionList extends Component {
     this.handleScroll = this.handleScroll.bind(this)
     this.handleMouseMove = this.handleMouseMove.bind(this)
 
-    this.isAbsolute = props.absolute
     this.lastScrollTop = 0
 
     props.bindOptionFunc('handleHover', this.handleHover)
     props.bindOptionFunc('hoverMove', this.hoverMove)
     props.bindOptionFunc('getIndex', () => this.state.hoverIndex)
-
-    if (this.isAbsolute) {
-      this.element = document.createElement('div')
-      this.element.className = selectClass('absolute-wrapper')
-    }
-  }
-
-  componentDidMount() {
-    if (this.isAbsolute) root.appendChild(this.element)
   }
 
   componentDidUpdate(prevProps) {
@@ -67,10 +47,6 @@ class OptionList extends Component {
         }
       })
     }
-  }
-
-  componentWillUnmount() {
-    if (this.isAbsolute) root.removeChild(this.element)
   }
 
   getText(key) {
@@ -164,7 +140,7 @@ class OptionList extends Component {
     this.props.onControlChange('mouse')
   }
 
-  renderList() {
+  render() {
     const {
       data, datum, keygen, multiple, itemsInView, lineHeight, height, control,
       loading, renderItem, focus, onChange, style, renderPending, selectId,
@@ -228,25 +204,12 @@ class OptionList extends Component {
       </ScaleList>
     )
   }
-
-  render() {
-    const list = this.renderList()
-
-    if (this.isAbsolute) {
-      this.element.className = this.props.className
-      return ReactDOM.createPortal(list, this.element)
-    }
-
-    return list
-  }
 }
 
 OptionList.propTypes = {
-  className: PropTypes.string,
   control: PropTypes.oneOf(['mouse', 'keyboard']),
   data: PropTypes.array,
   datum: PropTypes.object.isRequired,
-  absolute: PropTypes.bool,
   focus: PropTypes.bool,
   height: PropTypes.number,
   itemsInView: PropTypes.number,
