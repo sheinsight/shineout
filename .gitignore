@@ -6,6 +6,7 @@ coverage.html
 node_modules
 publish
 .idea
+.vscode
 *.sock
 *.swp
 *.bat

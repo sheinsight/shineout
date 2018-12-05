@@ -5,10 +5,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 - **Form：** 表单
 - **Form.Item：** 表单项，用来布局，显示标签，提示文案信息等。
 - **Form.Field：** 用于处理自定义组件，实现rules校验，存储数据功能。
-- **Form.FieldSet：** 表单块，用来处理一组字段。
-- ~~**Form.Block：** 表单块，用来存取多级嵌套的数据。~~
-- ~~**Form.BlockField：** 合并了 Field 和 Block 的一个快捷组件。~~
-- ~~**Form.Loop：** 用于遍历 array 类型的值，生成子组件。~~
+- **Form.FieldSet：** 用来处理一组字段。
 - **Form.Flow：** 数据流，用来处理数据联动。
 
 - **Form.Submit：** submit 按钮的快捷方式。使用 Submit 时，enter 键会触发表单提交。
@@ -113,6 +110,17 @@ rule 共有 5 种规则，按优先级分别为：
 | name | string | 无 | Form 存取数据的名称 |
 | rules | array | 无 | 校验规则 | 
 
+### Form.FieldSet
+用来处理 object 类型 字段和数组。
+
+| 属性 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| children | !function | 必填 | children 不为 function，用来处理 object 类型数据，children 内的 name 会拼接 FieldSet name，如 FieldSet name 为 'a', children 元素name 为 b，children 实际处理的数据为 a.b |
+| children | function(options) :ReactElement | 必填 | children 为 function 时，用来处理数组数据。options 属性为<br />list: name 下的全部数据<br />value：根据name获取的值的单条数据<br />onChange：子组件数据改变回调<br />onRemove：子组件删除回调<br />index：当前项索引<br />onInsert: 在当前项之前插入一条数据<br />onAppend: 在当前项之后附加一条数据|
+| defaultValue | string \| number | | 默认值 |
+| empty | function(onInsert):ReactElement | 无 | 数据为空时展示内容。（仅在children为function时有效） |
+| name | string | 必填 | 从 Form 中存取数据的名称 |
+| rules | array | 无 | 校验规则 | 
 
 ### Form.Flow
 
@@ -142,5 +150,5 @@ rule 共有 5 种规则，按优先级分别为：
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | children | function(options) :ReactElement | 必填 | options 属性为<br />list: name 下的全部数据<br />value：根据name获取的值的单条数据<br />onChange：子组件数据改变回调<br />onRemove：子组件删除回调<br />index：当前项索引<br />onInsert: 在当前项之前插入一条数据<br />onAppend: 在当前项之后附加一条数据|
-| empty | ReactElement | 无 | 数据为空时展示内容 |
+| empty | function(onInsert):ReactElement | 无 | 数据为空时展示内容 |
 | name | string | 必填 | 从上层表单中获取值的key，获取的数据必须为 array 类型 |

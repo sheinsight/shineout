@@ -91,10 +91,21 @@ Used to handle custom form components, enabling custom form components to get/st
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | children | ReactElement\|function(object) | required | React components that support value and onChange or function. The function object attribute is as follows: <br />value: The value obtained from the parent Form or Form.Block by name.<br />error: the error information of data validation. type is Error.<br />onChange: The callback when the value is changing. |
-| defaultValue | string \| number | | defaul value |
+| defaultValue | string \| number | | default value |
 | name | string | none | The name of a Form that accesses data |
 | rules | array | none | Validation rules | 
 
+### Form.FieldSet
+Handle a set(group) data from form by name.
+
+| Property | Type | Default | Description |
+| --- | --- | --- | --- |
+| children | !function | required | When children type is not function, handle a set data type of object |
+| children | function(options) :ReactElement | required | When children type is function, handle a group of data type of array. options property: <br />list: all data of name <br />value：a single piece of data for the value obtained by name <br />onChange：a callback when the value is changing <br />onRemove：a callback when a child component is removed <br />index：the current index <br />onInsert: Insert a piece of data before the current item <br />onAppend: Insert a piece of data after the current item |
+| defaultValue | string \| array | | Default value |
+| empty | function(onInsert):ReactElement | | . |
+| name | string | required | The name that accesses data from from |
+| rules | array | none | Validation rules | 
 
 ### Form.Flow
 
@@ -109,7 +120,7 @@ Used to process interactive data.
 Same as [Button](#/components/Button)
 
 
-### ~~Form.Block~~ not recommend
+### ~~Form.Block~~ out of date
 
 Use to resolve nested data
 
@@ -119,11 +130,11 @@ Use to resolve nested data
 | onChange | function(value) | required | a callback when the value is changing | 
 | value | any | required | value |
 
-### ~~Form.BlockField~~ not recommend
+### ~~Form.BlockField~~ out of date
 
 Merge Form.Field and Form.Block
 
-### ~~Form.Loop~~ not recommend
+### ~~Form.Loop~~ out of date
 
 Used to iterate through the values of the array type and generate the child components.
 
