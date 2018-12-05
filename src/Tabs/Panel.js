@@ -1,7 +1,10 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import List from '../List'
 import { tabsClass } from '../styles'
+
+const CollapseList = List(['collapse'], 'fast')
 
 class Panel extends PureComponent {
   constructor(props) {
@@ -11,7 +14,7 @@ class Panel extends PureComponent {
 
   render() {
     const {
-      children, background, color, isActive,
+      children, background, color, isActive, collapsible, collapsed,
     } = this.props
     if (!isActive && this.isPristine) return null
     this.isPristine = false
@@ -19,7 +22,11 @@ class Panel extends PureComponent {
     const style = Object.assign({ background: background || '#fff', color }, this.props.style)
     const className = classnames(tabsClass('panel', isActive && 'show'), this.props.className)
 
-    return <div style={style} className={className}>{children}</div>
+    const result = <div style={style} className={className}>{children}</div>
+
+    if (!collapsible) return result
+
+    return <CollapseList show={!collapsed}>{result}</CollapseList>
   }
 }
 
@@ -28,6 +35,8 @@ Panel.isTabPanel = true
 Panel.propTypes = {
   background: PropTypes.string,
   className: PropTypes.string,
+  collapsed: PropTypes.bool,
+  collapsible: PropTypes.bool,
   color: PropTypes.string,
   children: PropTypes.any,
   isActive: PropTypes.bool,

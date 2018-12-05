@@ -14,7 +14,8 @@ class Tab extends PureComponent {
   }
 
   handleClick() {
-    this.props.onClick(this.props.id)
+    const { onClick, id, isActive } = this.props
+    onClick(id, isActive)
     this.props.moveToLeft(this.element.getBoundingClientRect())
   }
 

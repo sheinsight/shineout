@@ -55,6 +55,12 @@ const examples = [
     component: require('doc/pages/components/Tabs/example-7-align.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-7-align.js'),
   },
+  {
+    name: '8-collapsible',
+    title: locate('展开 \n 设置 collapsible 为 true，会出现可展开图标，点击图标或 Tabs 头部空白区域，展开/折起内容。', 'Collapsible \n Set the collapsible property to true, will show the arrow icon. User can click icon or header to expand/collapse the content.'),
+    component: require('doc/pages/components/Tabs/example-8-collapsible.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tabs/example-8-collapsible.js'),
+  },
 ]
 
 const codes = undefined

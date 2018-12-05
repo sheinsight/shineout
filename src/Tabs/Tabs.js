@@ -11,9 +11,11 @@ class Tabs extends PureComponent {
 
     this.state = {
       active: props.defaultActive || 0,
+      collapsed: props.defaultCollapsed,
     }
 
     this.handleChange = this.handleChange.bind(this)
+    this.handleCollapse = this.handleCollapse.bind(this)
     this.renderContent = this.renderContent.bind(this)
   }
 
@@ -28,9 +30,13 @@ class Tabs extends PureComponent {
     this.setState({ active })
   }
 
+  handleCollapse(collapsed) {
+    this.setState({ collapsed })
+  }
+
   renderHeader() {
     const {
-      children, color, shape, inactiveBackground,
+      children, color, shape, inactiveBackground, collapsible,
     } = this.props
     const active = this.getActive()
     const tabs = []
@@ -59,15 +65,32 @@ class Tabs extends PureComponent {
       }
     })
 
-    return <Header border={border} shape={shape} onChange={this.handleChange} tabs={tabs} />
+    return (
+      <Header
+        border={border}
+        collapsed={this.state.collapsed}
+        onCollapse={collapsible ? this.handleCollapse : undefined}
+        shape={shape}
+        onChange={this.handleChange}
+        tabs={tabs}
+      />
+    )
   }
 
   renderContent(child, i) {
     if (!(child && child.type && child.type.isTabPanel)) return null
+    const { collapsible } = this.props
     const { id = i, ...other } = child.props
 
     return (
-      <Wrapper {...other} id={id} key={id} active={this.getActive()} />
+      <Wrapper
+        {...other}
+        collapsed={this.state.collapsed}
+        collapsible={collapsible}
+        id={id}
+        key={id}
+        active={this.getActive()}
+      />
     )
   }
 
@@ -99,8 +122,10 @@ Tabs.propTypes = {
     PropTypes.array,
   ]),
   className: PropTypes.string,
+  collapsible: PropTypes.bool,
   color: PropTypes.string,
   defaultActive: PropTypes.any,
+  defaultCollapsed: PropTypes.bool,
   inactiveBackground: PropTypes.string,
   onChange: PropTypes.func,
   shape: PropTypes.oneOf(['card', 'line', 'button']),
@@ -111,6 +136,7 @@ Tabs.defaultProps = {
   background: '#fff',
   border: '#ddd',
   color: '#333',
+  defaultCollapsed: false,
   inactiveBackground: 'transparent',
 }
 

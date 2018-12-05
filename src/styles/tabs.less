@@ -40,6 +40,35 @@
     }
   }
 
+  .@{tabs-prefix}-indicator {
+    width: 40px;
+    text-align: center;
+    display: inline-block;
+    padding-top: 11px;
+    cursor: pointer;
+
+    svg {
+      width: 12px;
+      height: 12px;
+      transform: rotate(90deg);
+      transition: transform 0.2s linear;
+
+      path {
+        fill: #999;
+      }
+    }
+
+    &:hover svg path {
+      fill: @colors-primary;
+    }
+
+    &.@{tabs-prefix}-collapsed {
+      svg {
+        transform: rotate(0);
+      }
+    }
+  }
+
   .@{tabs-prefix}-button-active {
     position: relative;
     color: #fff;

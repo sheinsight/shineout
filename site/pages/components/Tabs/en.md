@@ -10,6 +10,7 @@
 | background | string | '#fff' | Active background color |
 | border | string | '#ddd' | Border color |
 | className | string | - | Extend className |
+| collapsible | bool | false | Whether can be collapsed |
 | defaultActive | string \| int | 0 | Default active tab id or index |
 | inactiveBackground | string | 'transparent' | Inactive background color |
 | onChange | function(key) | - | Change callback |

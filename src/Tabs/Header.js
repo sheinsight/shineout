@@ -23,6 +23,7 @@ class Header extends PureComponent {
     this.handlePrevClick = this.handleMove.bind(this, true)
     this.handleNextClick = this.handleMove.bind(this, false)
     this.moveToLeft = this.moveToLeft.bind(this)
+    this.handleCollapse = this.handleCollapse.bind(this)
 
     this.scrollLeft = 0
   }
@@ -69,8 +70,29 @@ class Header extends PureComponent {
     }
   }
 
-  handleClick(id) {
-    if (this.props.onChange) this.props.onChange(id)
+  handleClick(id, isActive) {
+    if (!isActive) {
+      if (this.props.onChange) this.props.onChange(id)
+      this.ignoreNextCollapse = true
+      setTimeout(() => this.handleCollapse(false), 200)
+    }
+  }
+
+  handleCollapse(e) {
+    const { onCollapse, collapsed } = this.props
+    if (!onCollapse) return
+
+    if (typeof e === 'boolean') {
+      onCollapse(e)
+      return
+    }
+
+    if (this.ignoreNextCollapse) {
+      this.ignoreNextCollapse = false
+      return
+    }
+
+    onCollapse(!collapsed)
   }
 
   renderTab({ tab, id, ...other }) {
@@ -107,11 +129,17 @@ class Header extends PureComponent {
   }
 
   renderTabs() {
-    const { border, tabs } = this.props
+    const {
+      border, onCollapse, collapsed, tabs,
+    } = this.props
     const { left, overflow } = this.state
 
     return (
-      <div ref={this.bindWrapper} className={tabsClass('header')}>
+      <div ref={this.bindWrapper} onClick={this.handleCollapse} className={tabsClass('header')}>
+        {
+          onCollapse &&
+          <span className={tabsClass('indicator', collapsed && 'collapsed')}>{icons.AngleRight}</span>
+        }
         {
           left > 0 &&
           <div onClick={this.handlePrevClick} className={tabsClass('scroll-prev')}>
@@ -141,7 +169,9 @@ class Header extends PureComponent {
 
 Header.propTypes = {
   border: PropTypes.string,
+  collapsed: PropTypes.bool,
   onChange: PropTypes.func,
+  onCollapse: PropTypes.func,
   shape: PropTypes.string,
   tabs: PropTypes.array,
 }

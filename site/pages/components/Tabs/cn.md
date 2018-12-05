@@ -11,6 +11,7 @@
 | background | string | '#fff' | 选中标签背景色 |
 | border | string | '#ddd' | 边框颜色 |
 | className | string | - | 扩展className |
+| collapsible | bool | false | 是否可折叠 |
 | defaultActive | string \| int | 0 | 默认选中标签页（非受控） |
 | inactiveBackground | string | 'transparent' | 未选中标签背景色 |
 | onChange | function(key) | - | 标签选中时触发回调事件 |
