@@ -7,7 +7,15 @@ import { selectClass } from '../styles'
 import Result from './Result'
 import { getLocale } from '../locale'
 import OptionList from './OptionList'
-import AbsoluteList from './AbsoluteList'
+import absoluteList from './AbsoluteList'
+import BoxList from './BoxList'
+
+const ListSet = {
+  ao: absoluteList(OptionList),
+  ab: absoluteList(BoxList),
+  no: OptionList,
+  nb: BoxList,
+}
 
 const isDescendent = (el, id) => {
   if (el.getAttribute('data-id') === id) return true
@@ -97,9 +105,11 @@ class Select extends PureComponent {
     if (!desc) this.handleState(false)
   }
 
-  handleState(focus) {
+  handleState(focus, e) {
     if (this.props.disabled === true) return
     if (focus === this.state.focus) return
+    // click close icon
+    if (focus && e && e.target.classList.contains(selectClass('close'))) return
 
     const { onBlur, onFocus, height } = this.props
     let { position } = this.props
@@ -221,10 +231,11 @@ class Select extends PureComponent {
     const { focus, control, position } = this.state
 
     const props = {};
-    (['data', 'datum', 'keygen', 'multiple', 'text', 'itemsInView', 'absolute', 'lineHeight', 'height', 'loading'])
+    (['data', 'datum', 'keygen', 'multiple', 'columns', 'text', 'itemsInView', 'absolute', 'lineHeight', 'height', 'loading'])
       .forEach((k) => { props[k] = this.props[k] })
 
-    const List = props.absolute ? AbsoluteList : OptionList
+    const listType = `${props.absolute ? 'a' : 'n'}${props.columns > 1 ? 'b' : 'o'}`
+    const List = ListSet[listType]
 
     return (
       <List
@@ -296,6 +307,7 @@ Select.propTypes = {
   ...getProps(PropTypes, 'placehodler', 'keygen'),
   absolute: PropTypes.bool,
   clearable: PropTypes.bool,
+  columns: PropTypes.number,
   data: PropTypes.array,
   datum: PropTypes.object.isRequired,
   disabled: PropTypes.oneOfType([
@@ -327,6 +339,7 @@ Select.propTypes = {
 
 Select.defaultProps = {
   clearable: false,
+  columns: 1,
   data: [],
   height: 250,
   itemsInView: 10,

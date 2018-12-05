@@ -14,6 +14,12 @@ const source = locate(cn, en)
 
 const examples = [
   {
+    name: '00-columns',
+    title: locate('多列选项 \n ', 'Columns \n '),
+    component: require('doc/pages/components/Select/example-00-columns.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-00-columns.js'),
+  },
+  {
     name: '01-base',
     title: locate('基本用法 \n Select 没有单独的 Option 选项，通过数据来渲染。', 'Base \n Select generate group of options from data.'),
     component: require('doc/pages/components/Select/example-01-base.js').default,
