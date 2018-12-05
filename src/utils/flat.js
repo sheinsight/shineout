@@ -2,6 +2,7 @@
 
 import isEmpty from './validate/isEmpty'
 import isObject from './validate/isObject'
+import { shallowClone } from './objects'
 
 export function flatten(data, skipArray) {
   if (isEmpty(data)) return data
@@ -60,7 +61,7 @@ export function unflatten(rawdata) {
     } while (idx >= 0)
     const dp = data[p]
     if (isObject(dp) && !(dp instanceof Error || dp instanceof Date)) {
-      cur[prop] = { ...dp }
+      cur[prop] = shallowClone(dp)
     } else if (Array.isArray(dp)) {
       cur[prop] = [...dp]
     } else if (dp !== undefined) {
@@ -68,11 +69,6 @@ export function unflatten(rawdata) {
     }
   }
   return result['']
-}
-
-export const objectValues = (obj) => {
-  if (!obj) return []
-  return Object.keys(obj).map(k => obj[k])
 }
 
 export function insertValue(obj, name, index, value) {

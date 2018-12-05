@@ -24,6 +24,8 @@ class Block extends PureComponent {
       formDatum.subscribe(RESET_TOPIC, this.reset)
       formDatum.subscribe(VALIDATE_TOPIC, this.validate)
     }
+
+    console.warn('Form.Block is not recommend. Use Form.FieldSet instead.')
   }
 
   componentDidUpdate(prevProps) {

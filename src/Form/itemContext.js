@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import createReactContext from 'create-react-context'
 import immer from 'immer'
-import { objectValues } from '../utils/flat'
+import { objectValues } from '../utils/objects'
 import { errorSubscribe } from '../Datum/types'
 
 const { Provider, Consumer } = createReactContext()

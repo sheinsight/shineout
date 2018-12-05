@@ -1,7 +1,8 @@
 import test from 'ava'
-import { flatten, unflatten, objectValues, insertValue, spliceValue, getSthByName, removeSthByName } from '../../src/utils/flat'
+import { flatten, unflatten, insertValue, spliceValue, getSthByName, removeSthByName } from '../../src/utils/flat'
 
 const error = new Error('something wrong.')
+const date = new Date()
 
 const testObject = {
   a: {
@@ -20,6 +21,7 @@ const testObject = {
   j: {},
   k: [],
   l: error,
+  m: date,
 }
 
 const testResult = {
@@ -33,6 +35,7 @@ const testResult = {
   j: {},
   k: [],
   l: error,
+  m: date,
 }
 
 test('flatten object', (t) => {
@@ -58,6 +61,7 @@ test('flatten skip array', (t) => {
     j: {},
     k: [],
     l: error,
+    m: date,
   })
 })
 
@@ -76,28 +80,6 @@ test('flatten & unflatten', (t) => {
   t.deepEqual(flatObj['obj.date'], raw.obj.date)
   t.deepEqual(flatObj['3.[2]'], raw['3'][2])
   t.deepEqual(raw, obj)
-})
-
-test('object values', (t) => {
-  const values = objectValues(testObject)
-  t.deepEqual(values, [
-    {
-      b: {
-        c: [
-          { a: 1, b: 2 },
-          { c: 3, d: 4 },
-        ],
-      },
-      e: {
-        3: 1,
-      },
-      g: 'some string',
-    },
-    123,
-    {},
-    [],
-    error,
-  ])
 })
 
 test('insert value', (t) => {

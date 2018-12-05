@@ -27,6 +27,8 @@ export default class Loop extends PureComponent {
 
     this.validations = [this.selfValidate]
     this.keys = []
+
+    console.warn('Form.Loop is not recommend. Use Form.FieldSet instead.')
   }
 
   componentDidMount() {
