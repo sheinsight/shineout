@@ -232,8 +232,8 @@ class Select extends PureComponent {
 
     const props = {};
     ([
-      'data', 'datum', 'keygen', 'multiple', 'columns', 'text', 'itemsInView',
-      'absolute', 'lineHeight', 'height', 'loading', 'onFilter',
+      'data', 'datum', 'keygen', 'multiple', 'columns', 'columnWidth', 'text', 'itemsInView',
+      'absolute', 'lineHeight', 'height', 'loading', 'onFilter', 'filterText',
     ]).forEach((k) => { props[k] = this.props[k] })
 
     const listType = `${props.absolute ? 'a' : 'n'}${props.columns > 1 ? 'b' : 'o'}`

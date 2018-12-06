@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getGrid } from '../Grid/utils'
 import Checkbox from '../Checkbox/Checkbox'
+import Radio from '../Radio/Radio'
 import { selectClass } from '../styles'
 
 class BoxOption extends PureComponent {
@@ -28,15 +29,16 @@ class BoxOption extends PureComponent {
 
   render() {
     const {
-      data, index, isActive, renderItem, columns,
+      data, index, isActive, renderItem, columns, multiple,
     } = this.props
 
     const className = classnames(selectClass('option'), getGrid(1 / columns))
+    const Input = multiple ? Checkbox : Radio
 
     return (
-      <Checkbox checked={isActive} className={className} onChange={this.handleClick}>
+      <Input checked={isActive} className={className} onChange={this.handleClick}>
         {renderItem(data, index)}
-      </Checkbox>
+      </Input>
     )
   }
 }
@@ -51,6 +53,7 @@ BoxOption.propTypes = {
   disabled: PropTypes.bool,
   index: PropTypes.number,
   isActive: PropTypes.bool,
+  multiple: PropTypes.bool,
   onClick: PropTypes.func,
   renderItem: PropTypes.func.isRequired,
 }

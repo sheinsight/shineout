@@ -159,6 +159,23 @@
       margin-right: 0;
       padding-right: @dropdown-padding-x;
     }
+
+    .@{select-prefix}-filter-input {
+      width: 180px;
+      display: inline-flex;
+      border-width: 1px;
+      float: right;
+      border-radius: 2px;
+
+      svg {
+        width: 22px;
+        height: 22px;
+        padding: 4px;
+        path {
+          fill: #999;
+        }
+      }
+    }
   }
 
   &-drop-down &-options, &-drop-down &-box-list {

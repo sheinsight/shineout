@@ -8,6 +8,8 @@
 | --- | --- | --- | --- |
 | absolute | bool | false | When it is true, the pop-up layer of option append into document.body. |
 | clearable | bool | false | If clearable is true, show clear value icon |
+| columns | number | 1 | Option columns.  |
+| columnWidth | number | 160 | Option column width, only effective when columns > 1 |
 | data | array | required | Options data |
 | defaultValue | array | | Initial value |
 | datum | object | - | If the format and prediction does not satisfied your requirements, you can pass in a [Datum.List](#/components/Datum.List) object or the Datum.List configuration to process data. |

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import shallowEqual from '../utils/shallowEqual'
@@ -13,7 +13,7 @@ function initRoot() {
 }
 
 export default function (List) {
-  class AbsoluteList extends PureComponent {
+  class AbsoluteList extends Component {
     constructor(props) {
       super(props)
 

@@ -14,12 +14,6 @@ const source = locate(cn, en)
 
 const examples = [
   {
-    name: '00-columns',
-    title: locate('多列选项 \n ', 'Columns \n '),
-    component: require('doc/pages/components/Select/example-00-columns.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Select/example-00-columns.js'),
-  },
-  {
     name: '01-base',
     title: locate('基本用法 \n Select 没有单独的 Option 选项，通过数据来渲染。', 'Base \n Select generate group of options from data.'),
     component: require('doc/pages/components/Select/example-01-base.js').default,
@@ -102,6 +96,12 @@ const examples = [
     title: locate('绝对定位 \n 如果选项弹出层的父容器被遮挡，可以设置 absolute 属性使弹出选项在单独层中渲染。（非必要情况下不建议）', 'Absolute \n If the parent container of the pop-up layer is occluded, you can set the absolute property to make the pop-up options rendered in a separate layer. (not recommended if not necessary)'),
     component: require('doc/pages/components/Select/example-13-absolute.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-13-absolute.js'),
+  },
+  {
+    name: '14-columns',
+    title: locate('多列选项 \n 设置 columns 属性，选项变为多列展示，设置 columnWidth 指定每一列宽度', 'Columns \n Set columns property over 1, options will display in multiple columns.'),
+    component: require('doc/pages/components/Select/example-14-columns.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-14-columns.js'),
   },
 ]
 

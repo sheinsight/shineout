@@ -41,6 +41,8 @@ const angleDoubleRight = [
   'M420.5 511.5L83.8 174.8c-25-25-25-65.4 0-90.4 25-24.9 65.4-24.9 90.4 0l379.3 379.3c0.9 0.8 1.8 1.7 2.7 2.5 25 25 25 65.4 0 90.4L174.9 937.9c-25 25-65.4 25-90.4 0s-25-65.4 0-90.4l336-336z',
 ]
 
+const search = ['M994.112 858.368L769.152 633.408C808.32 569.984 832 496 832 416 832 186.24 645.76 0 416 0S0 186.24 0 416 186.24 832 416 832c80 0 153.984-23.68 217.344-62.784l225.024 224.96a96.021333 96.021333 0 0 0 135.744-135.808zM416 704C256.96 704 128 575.04 128 416S256.96 128 416 128 704 256.96 704 416 575.04 704 416 704z']
+
 export default {
   AngleLeft: icon(angleLeft),
   AngleRight: icon(angleRight),
@@ -56,6 +58,7 @@ export default {
   Delete: icon(del),
   Error: icon(danger),
   Info: icon(info),
+  SEARCH: icon(search),
   Success: icon(success),
   Recovery: icon(recovery),
   Warning: icon(warning),
