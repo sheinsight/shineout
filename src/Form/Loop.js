@@ -1,26 +1,42 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import createReactContext from 'create-react-context'
 import immer from 'immer'
-import { ERROR_TYPE } from '../Datum/pubsub'
+import { ERROR_TYPE } from '../Datum/types'
 import validate from '../utils/validate'
 import { getUidStr } from '../utils/uid'
 import { range } from '../utils/numbers'
-import { FormError } from '../utils/errors'
+import { promiseAll, wrapFormError } from '../utils/errors'
 import Item from './Item'
+
+const { Provider, Consumer } = createReactContext()
 
 const Tag = React.Fragment ? React.Fragment : 'span'
 
-class Loop extends PureComponent {
+export default class Loop extends PureComponent {
   constructor(props) {
     super(props)
 
+    this.contextValue = {
+      bind: this.bindValidate.bind(this),
+      unbind: this.unbindValidate.bind(this),
+    }
+
     this.validate = this.validate.bind(this)
+    this.selfValidate = this.selfValidate.bind(this)
+
+    this.validations = [this.selfValidate]
     this.keys = []
   }
 
   componentDidMount() {
     const { formDatum, name, defaultValue } = this.props
-    formDatum.bind(name, this.handleUpdate.bind(this), defaultValue, this.validate, defaultValue.length > 0)
+    formDatum.bind(
+      name,
+      this.handleUpdate.bind(this),
+      defaultValue,
+      this.validate,
+    )
   }
 
   componentWillUnmount() {
@@ -29,6 +45,16 @@ class Loop extends PureComponent {
     if (formDatum && name) {
       formDatum.unbind(name, this.handleUpdate)
     }
+  }
+
+  bindValidate(val) {
+    if (this.validations.indexOf(val) < 0) {
+      this.validations.push(val)
+    }
+  }
+
+  unbindValidate(val) {
+    this.validations = this.validations.filter(v => v !== val)
   }
 
   selfValidate() {
@@ -40,31 +66,28 @@ class Loop extends PureComponent {
 
     return validate(value, data, rules, 'array').then(() => {
       formDatum.removeError(name)
+      formDatum.setError(name, [])
       return true
     }, (e) => {
       formDatum.removeError(name)
       formDatum.setError(name, e)
-      return new FormError(e)
+      return wrapFormError(e)
     })
   }
 
   validate() {
-    return this.props.validate().then((results) => {
-      if (results.length === 0) return true
-      return !results.some(r => r !== true)
-    }).then((result) => {
-      if (!result) return result
-      return this.selfValidate()
-    })
+    return promiseAll(this.validations.map(v => v(undefined, undefined, true)))
   }
 
   handleUpdate(_, sn) {
     if (sn === ERROR_TYPE) {
+      if (this.$willUnmount) return
       this.forceUpdate()
     } else {
       this.selfValidate().then(() => {
+        if (this.$willUnmount) return
         this.forceUpdate()
-      })
+      }).catch(() => {})
     }
   }
 
@@ -140,7 +163,7 @@ class Loop extends PureComponent {
       results.push(<Item key="error" formItemErrors={[error]} />)
     }
 
-    return results
+    return <Provider value={this.contextValue}>{results}</Provider>
   }
 }
 
@@ -151,7 +174,6 @@ Loop.propTypes = {
   formDatum: PropTypes.object.isRequired,
   name: PropTypes.string,
   rules: PropTypes.array,
-  validate: PropTypes.func.isRequired,
 }
 
 Loop.defaultProps = {
@@ -159,4 +181,14 @@ Loop.defaultProps = {
   rules: [],
 }
 
-export default Loop
+// eslint-disable-next-line
+export const loopConsumer = Origin => class extends PureComponent {
+  render() {
+    return (
+      <Consumer>
+        { value => <Origin {...this.props} loopContext={value} /> }
+      </Consumer>
+    )
+  }
+}
+

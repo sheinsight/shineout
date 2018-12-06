@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import createReactContext from 'create-react-context'
 import immer from 'immer'
 import { objectValues } from '../utils/objects'
-import { errorSubscribe } from '../Datum/pubsub'
+import { errorSubscribe } from '../Datum/types'
 
 const { Provider, Consumer } = createReactContext()
 
@@ -27,7 +27,12 @@ export const itemProvider = Origin => class extends Component {
     this.handleUpdate = this.handleUpdate.bind(this)
   }
 
+  componentWillUnmount() {
+    this.$willUnmount = true
+  }
+
   handleUpdate() {
+    if (this.$willUnmount) return
     this.forceUpdate()
   }
 

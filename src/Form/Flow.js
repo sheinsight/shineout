@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import PropTypes from 'prop-types'
-import { changeSubscribe } from '../Datum/pubsub'
+import { changeSubscribe, CHANGE_TOPIC } from '../Datum/types'
 
 class Flow extends Component {
   constructor(props) {
@@ -17,20 +17,19 @@ class Flow extends Component {
         this.events.push(nc)
       })
     } else {
-      formDatum.subscribe('change', this.update)
-      this.events.push('change')
+      formDatum.subscribe(CHANGE_TOPIC, this.update)
+      this.events.push(CHANGE_TOPIC)
     }
   }
 
-  componentDidMount() {
-  }
-
   componentWillUnmount() {
+    this.$willUnmount = true
     const { formDatum } = this.props
     this.events.forEach(n => formDatum.unsubscribe(n))
   }
 
   update() {
+    if (this.$willUnmount) return
     this.forceUpdate()
   }
 

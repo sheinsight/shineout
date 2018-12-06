@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
+import { promiseAll } from '../utils/errors'
 import { curry, compose } from '../utils/func'
 import { getUidStr } from '../utils/uid'
 import validate from '../utils/validate'
-import { FORCE_PASS, ERROR_TYPE } from '../Datum/pubsub'
+import { FORCE_PASS, ERROR_TYPE } from '../Datum/types'
 import { formConsumer } from './formContext'
 import { itemConsumer } from './itemContext'
-import { loopConsumer } from './loopContext'
+import { loopConsumer } from './Loop'
 
 const types = ['formDatum', 'disabled']
 const consumer = compose(formConsumer(types), itemConsumer, loopConsumer)
@@ -154,36 +155,33 @@ export default curry(Origin => consumer(class extends PureComponent {
   }
 
   validate(value, data, validateOnly) {
-    if (this.customValidate) {
-      const error = this.customValidate()
-      if (error) return Promise.reject(error)
+    if (value === FORCE_PASS) {
+      this.handleError(null)
+      return Promise.resolve(true)
     }
 
     const {
       name, formDatum, type, bind,
     } = this.props
+    const validates = []
 
-    if (value === FORCE_PASS) {
-      this.handleError(null)
-      return Promise.resolve(true)
-    }
     if (value === undefined || Array.isArray(name)) value = this.getValue()
-
-    if (formDatum && bind) formDatum.validateFields(bind)
+    if (this.customValidate) validates.push(this.customValidate())
+    if (formDatum && bind) validates.push(formDatum.validateFields(bind))
+    if (!data && formDatum) data = formDatum.getValue()
 
     if (typeof name === 'string' || !name) {
       let rules = [...this.props.rules]
       if (formDatum && name) {
         rules = rules.concat(formDatum.getRule(name))
-        if (!data) data = formDatum.getValue()
       }
 
       if (rules.length === 0) {
-        return Promise.resolve(true)
+        return promiseAll(validates)
       }
 
       if (this.datum) value = this.datum
-      return validate(value, data, rules, type).then(() => {
+      validates.push(validate(value, data, rules, type).then(() => {
         if (validateOnly !== true) {
           this.handleError(null)
         }
@@ -191,26 +189,18 @@ export default curry(Origin => consumer(class extends PureComponent {
       }).catch((e) => {
         this.handleError(e)
         return e
+      }))
+    } else if (!formDatum) {
+      return promiseAll(validates)
+    } else {
+      name.forEach((n, i) => {
+        let rules = (this.props.rules || [])[n] || []
+        rules = rules.concat(formDatum.getRule(n))
+        validates.push(validate(value[i], data, rules, type))
       })
     }
 
-    if (!formDatum || !name) return Promise.resolve(true)
-
-    if (!data) data = formDatum.getValue()
-    const validates = name.map((n, i) => {
-      let rules = (this.props.rules || [])[n] || []
-      rules = rules.concat(formDatum.getRule(n))
-
-      return validate(value[i], data, rules, type)
-    })
-
-    return Promise.all(validates).then(() => {
-      this.handleError(null)
-      return true
-    }, (e) => {
-      this.handleError(e)
-      return e
-    })
+    return promiseAll(validates)
   }
 
   handleChange(value, ...args) {
@@ -245,7 +235,7 @@ export default curry(Origin => consumer(class extends PureComponent {
     const { name } = this.props
     if (typeof name === 'string') {
       this.setState({ value })
-      this.validate(value)
+      this.validate(sn === FORCE_PASS ? FORCE_PASS : value).catch(() => {})
       return
     }
 
@@ -257,7 +247,7 @@ export default curry(Origin => consumer(class extends PureComponent {
     })
 
     this.setState({ value: newValue })
-    this.validate(newValue)
+    this.validate(sn === FORCE_PASS ? FORCE_PASS : newValue).catch(() => {})
   }
 
   render() {

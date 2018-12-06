@@ -10,7 +10,6 @@ import Block from './Block'
 import Loop from './Loop'
 import Flow from './Flow'
 import formButton from './formButton'
-import { loopProvider } from './loopContext'
 import { itemProvider } from './itemContext'
 import { formProvider, formConsumer } from './formContext'
 import useMode from './mode'
@@ -20,7 +19,7 @@ exportForm.Item = formConsumer(['formDatum', 'labelWidth', 'labelAlign'], itemPr
 exportForm.Field = inputable(Field)
 exportForm.Block = formConsumer(['formDatum'])(Block)
 exportForm.BlockField = inputable(BlockField)
-exportForm.Loop = compose(formConsumer(null), loopProvider)(Loop)
+exportForm.Loop = formConsumer(null)(Loop)
 exportForm.Flow = formConsumer(['formDatum'])(Flow)
 
 exportForm.Submit = formButton('submit')

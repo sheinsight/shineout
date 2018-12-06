@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import shallowEqual from '../utils/shallowEqual'
 import DatumForm from '../Datum/Form'
+import { VALIDATE_TOPIC, RESET_TOPIC } from '../Datum/types'
 import { Provider } from './formContext'
 
 class Block extends PureComponent {
@@ -20,8 +21,8 @@ class Block extends PureComponent {
     this.validate = this.validate.bind(this)
 
     if (formDatum) {
-      formDatum.subscribe('reset', this.reset)
-      formDatum.subscribe('validate', this.validate)
+      formDatum.subscribe(RESET_TOPIC, this.reset)
+      formDatum.subscribe(VALIDATE_TOPIC, this.validate)
     }
   }
 
@@ -32,6 +33,7 @@ class Block extends PureComponent {
       this.prevValues = value
     }
     if (error !== prevProps.error) {
+      this.datum.validateClear()
       this.datum.setError(error)
     }
   }
@@ -39,8 +41,8 @@ class Block extends PureComponent {
   componentWillUnmount() {
     const { formDatum } = this.props
     if (formDatum) {
-      formDatum.unsubscribe('reset', this.reset)
-      formDatum.unsubscribe('validate', this.validate)
+      formDatum.unsubscribe(RESET_TOPIC, this.reset)
+      formDatum.unsubscribe(VALIDATE_TOPIC, this.validate)
     }
   }
 
@@ -56,7 +58,6 @@ class Block extends PureComponent {
   }
 
   validate() {
-    // return this.datum.validate().then(e => e, e => e)
     return this.datum.validate()
   }
 

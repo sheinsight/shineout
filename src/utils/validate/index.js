@@ -36,29 +36,30 @@ function getRule(rules, inputType) {
 const validate = (value, formdata, rules, type) => new Promise((resolve, reject) => {
   const $rules = [...rules]
   const rule = $rules.shift()
-  if (rule) {
-    const callback = (result) => {
-      if (result !== true) {
-        reject(wrapFormError(result))
-        return
-      }
-
-      validate(value, formdata, $rules, type).then(resolve, reject)
-    }
-
-    const fn = getRule(rule, type)
-    let val = value
-    if (fn === rule && (value instanceof Datum.List || value instanceof Datum.Form)) {
-      val = value.getValue()
-    }
-    const cb = fn(val, formdata, callback)
-    if (cb && cb.then) {
-      cb.then(callback.bind(null, true)).catch((e) => {
-        reject(wrapFormError(e))
-      })
-    }
-  } else {
+  if (!rule) {
     resolve(true)
+    return
+  }
+
+  const callback = (result) => {
+    if (result !== true) {
+      reject(wrapFormError(result))
+      return
+    }
+
+    validate(value, formdata, $rules, type).then(resolve, reject)
+  }
+
+  const fn = getRule(rule, type)
+  let val = value
+  if (fn === rule && (value instanceof Datum.List || value instanceof Datum.Form)) {
+    val = value.getValue()
+  }
+  const cb = fn(val, formdata, callback)
+  if (cb && cb.then) {
+    cb.then(callback.bind(null, true)).catch((e) => {
+      reject(wrapFormError(e))
+    })
   }
 })
 

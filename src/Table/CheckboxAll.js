@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { CHANGE_TOPIC } from '../Datum/types'
 import Checkbox from '../Checkbox/Checkbox'
 
 export default class extends PureComponent {
@@ -15,11 +16,12 @@ export default class extends PureComponent {
   }
 
   componentDidMount() {
-    this.props.datum.subscribe('change', this.handleUpdate)
+    this.props.datum.subscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
   componentWillUnmount() {
-    this.props.datum.unsubscribe('change', this.handleUpdate)
+    this.$willUnmount = true
+    this.props.datum.unsubscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
   getChecked() {
@@ -41,6 +43,7 @@ export default class extends PureComponent {
   }
 
   handleUpdate() {
+    if (this.$willUnmount) return
     this.forceUpdate()
   }
 
