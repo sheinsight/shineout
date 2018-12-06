@@ -183,6 +183,7 @@
 
   &-bordered {
     border-left: 1px solid @table-border-color;
+    border-right: 1px solid @table-border-color;
 
     .@{table-prefix}-head {
       table {
@@ -200,6 +201,9 @@
           > td {
             border-right: 1px solid @table-border-color;
             border-bottom-width: 1px;
+            &:last-child {
+              border-right:0
+            }
           }
         }
       }
@@ -361,10 +365,11 @@
     font-size: 16px;
     padding: 20px;
     text-align: center;
+    position: sticky;
+    left:0;
   }
 
   &-bordered &-empty {
-    border-right: 1px solid @table-border-color;
     border-bottom: 1px solid @table-border-color;
   }
 }
