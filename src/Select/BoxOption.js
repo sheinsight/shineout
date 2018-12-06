@@ -35,9 +35,12 @@ class BoxOption extends PureComponent {
     const className = classnames(selectClass('option'), getGrid(1 / columns))
     const Input = multiple ? Checkbox : Radio
 
+    const result = renderItem(data, index)
+    const title = typeof result === 'string' ? result : undefined
+
     return (
       <Input checked={isActive} className={className} onChange={this.handleClick}>
-        {renderItem(data, index)}
+        <span title={title}>{result}</span>
       </Input>
     )
   }
