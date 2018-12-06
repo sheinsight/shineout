@@ -253,11 +253,21 @@ class Upload extends PureComponent {
   render() {
     const {
       limit, value, renderResult, style, imageStyle, recoverAble,
+      customResult: CustomResult,
     } = this.props
     const { files, recycle } = this.state
     const className = classnames(uploadClass('_'), this.props.className)
     const FileComponent = imageStyle ? ImageFile : File
     const ResultComponent = imageStyle ? ImageResult : Result
+
+    if (CustomResult) {
+      return (
+        <div className={className} style={style}>
+          { this.renderHandle() }
+          <CustomResult value={value} files={files} onValueRemove={this.removeValue} onFileRemove={this.removeFile} />
+        </div>
+      )
+    }
 
     return (
       <div className={className} style={style}>
@@ -339,6 +349,7 @@ Upload.propTypes = {
   validateHook: PropTypes.func,
   validator: PropTypes.object,
   value: PropTypes.array,
+  customResult: PropTypes.element,
   style: PropTypes.object,
   withCredentials: PropTypes.bool,
 }
