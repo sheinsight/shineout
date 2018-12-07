@@ -108,6 +108,7 @@ class Upload extends PureComponent {
         name: blob.name,
         process: -1,
         status: UPLOADING,
+        blob,
       }
 
       files[id] = file
