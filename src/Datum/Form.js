@@ -93,12 +93,17 @@ export default class {
   }
 
   setError(name, error, pub) {
-    const flatErrors = flatten(isObject(name) ? name : { [name]: error }, true)
-    Object.keys(flatErrors).forEach((n) => {
-      this.$errors[n] = flatErrors[n]
-    })
-
-    if (pub) this.throughError('', unflatten(flatErrors))
+    this.$errors[name] = error
+    // if (pub) this.throughError('', unflatten({ [name]: error }))
+    if (pub) {
+      if (pub) {
+        name.split('.').reduce((n, s) => {
+          const nn = `${n}${n ? '.' : ''}${s}`
+          this.dispatch(errorSubscribe(nn), this.getError(nn), ERROR_TYPE)
+          return nn
+        }, '')
+      }
+    }
   }
 
   removeError(name, pub) {
@@ -122,7 +127,7 @@ export default class {
 
   getRule(name) {
     if (!this.rules) return []
-    return this.rules[name] || []
+    return getSthByName(name, this.rules) || []
   }
 
   getValue() {
@@ -154,7 +159,7 @@ export default class {
     })
 
     Object.keys(this.values).sort((a, b) => a.length - b.length).forEach((name) => {
-      this.dispatch(updateSubscribe(name), this.get(name), forcePass || name)
+      this.dispatch(updateSubscribe(name), this.get(name), forcePass ? FORCE_PASS : name)
       this.dispatch(changeSubscribe(name))
     })
 
@@ -182,7 +187,7 @@ export default class {
         names.push([`${path}${path ? '.' : ''}${name}`, name])
       })
     } else if (Array.isArray(error)) {
-      error.forEach((n, i) => names.push([`${path}${path ? '.' : ''}[${i}]`, i]))
+      error.forEach((n, i) => names.push([`${path}[${i}]`, i]))
     }
 
     names.forEach(([name, next]) => {
@@ -259,11 +264,9 @@ export default class {
     this.$events[name] = this.$events[name].filter(e => e !== fn)
   }
 
-  // validate(changeState = false) {
   validate() {
     return new Promise((resolve, reject) => {
       const keys = Object.keys(this.$validator)
-      // const values = { ...this.$values }
       const values = this.getValue()
 
       const validates = [

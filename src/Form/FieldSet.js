@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
 import createReactContext from 'create-react-context'
@@ -15,7 +15,7 @@ const extendName = (path = '', name) => {
   return `${path}${path.length > 0 ? '.' : ''}${name}`
 }
 
-class FieldSet extends PureComponent {
+class FieldSet extends Component {
   constructor(props) {
     super(props)
     this.validate = this.validate.bind(this)
@@ -47,8 +47,9 @@ class FieldSet extends PureComponent {
     let rules = [...this.props.rules]
     rules = rules.concat(formDatum.getRule(name))
 
-    return validate(value, data, rules, 'array').then(() => {
-      formDatum.setError(name, [], pub)
+
+    return validate(value, data, rules).then(() => {
+      formDatum.setError(name, undefined, pub)
       return true
     }, (e) => {
       formDatum.setError(name, e, pub)
@@ -63,7 +64,7 @@ class FieldSet extends PureComponent {
         if (this.$willUnmount) return
         this.forceUpdate()
       } else {
-        this.validate().then(() => {
+        this.validate(true).then(() => {
           if (this.$willUnmount) return
           this.forceUpdate()
         })
@@ -103,7 +104,15 @@ class FieldSet extends PureComponent {
     const result = []
 
     if (typeof children !== 'function') {
-      return <Provider value={{ path: name, val: this.validate }}>{children}</Provider>
+      return (
+        <Provider value={{ path: name, val: this.validate }}>
+          {children}
+          {
+            errors instanceof Error &&
+            <Item key="error" formItemErrors={[errors]} />
+          }
+        </Provider>
+      )
     }
 
     let values = formDatum.get(name) || defaultValue
@@ -115,11 +124,11 @@ class FieldSet extends PureComponent {
       values.forEach((v, i) => {
         const error = errorList[i]
         result.push((
-          <Provider key={i} value={{ path: `${name}.[${i}]`, val: this.validate }}>
+          <Provider key={i} value={{ path: `${name}[${i}]`, val: this.validate }}>
             {
               children({
                 list: values,
-                value: formDatum.get(`${name}.[${i}]`),
+                value: formDatum.get(`${name}[${i}]`),
                 index: i,
                 error,
                 onChange: this.handleChange.bind(this, i),
@@ -162,14 +171,14 @@ FieldSet.defaultProps = {
 
 export const fieldSetConsumer = Origin => props => (
   <Consumer>
-    { ({ path, val } = {}) => (
+    {({ path, val } = {}) => (
       <Origin
         {...props}
         name={extendName(path, props.name)}
         innerFormNamePath={path}
         fieldSetValidate={val}
       />
-    ) }
+    )}
   </Consumer>
 )
 

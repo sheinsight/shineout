@@ -3,6 +3,7 @@ import { flatten, unflatten, insertValue, spliceValue, getSthByName, removeSthBy
 
 const error = new Error('something wrong.')
 const date = new Date()
+const func = () => {}
 
 const testObject = {
   a: {
@@ -22,13 +23,14 @@ const testObject = {
   k: [],
   l: error,
   m: date,
+  n: func,
 }
 
 const testResult = {
-  'a.b.c.[0].a': 1,
-  'a.b.c.[0].b': 2,
-  'a.b.c.[1].c': 3,
-  'a.b.c.[1].d': 4,
+  'a.b.c[0].a': 1,
+  'a.b.c[0].b': 2,
+  'a.b.c[1].c': 3,
+  'a.b.c[1].d': 4,
   'a.e.3': 1,
   'a.g': 'some string',
   h: 123,
@@ -36,6 +38,7 @@ const testResult = {
   k: [],
   l: error,
   m: date,
+  n: func,
 }
 
 test('flatten object', (t) => {
@@ -62,6 +65,7 @@ test('flatten skip array', (t) => {
     k: [],
     l: error,
     m: date,
+    n: func,
   })
 })
 
@@ -78,7 +82,7 @@ test('flatten & unflatten', (t) => {
   const obj = unflatten(flatObj)
 
   t.deepEqual(flatObj['obj.date'], raw.obj.date)
-  t.deepEqual(flatObj['3.[2]'], raw['3'][2])
+  t.deepEqual(flatObj['3[2]'], raw['3'][2])
   t.deepEqual(raw, obj)
 })
 
@@ -119,7 +123,7 @@ test('splice value', (t) => {
 })
 
 test('get something from object', (t) => {
-  const abc0 = getSthByName('a.b.c.[0]', testResult)
+  const abc0 = getSthByName('a.b.c[0]', testResult)
   t.deepEqual(abc0, { a: 1, b: 2 })
   const abc = getSthByName('a.b.c', testResult)
   t.deepEqual(abc, [{ a: 1, b: 2 }, { c: 3, d: 4 }])
@@ -139,7 +143,7 @@ test('remove something from object', (t) => {
     },
   })
 
-  removeSthByName('a.b.c.[0].b', obj)
+  removeSthByName('a.b.c[0].b', obj)
   t.deepEqual(unflatten(obj), {
     a: {
       b: {
@@ -151,7 +155,7 @@ test('remove something from object', (t) => {
     },
   })
 
-  removeSthByName('a.b.c.[0]', obj)
+  removeSthByName('a.b.c[0]', obj)
   t.deepEqual(unflatten(obj), {
     a: {
       b: {
@@ -161,4 +165,17 @@ test('remove something from object', (t) => {
       },
     },
   })
+})
+
+test('simple type', (t) => {
+  t.deepEqual(flatten(func), func)
+  t.deepEqual(flatten(null), null)
+  t.deepEqual(flatten(undefined), undefined)
+  t.deepEqual(flatten({}), {})
+  t.deepEqual(flatten([]), [])
+  t.deepEqual(flatten(''), '')
+  t.deepEqual(flatten(123), { '': 123 })
+  t.deepEqual(flatten('abc'), { '': 'abc' })
+  t.deepEqual(flatten(date), { '': date })
+  t.deepEqual(flatten(error), error)
 })

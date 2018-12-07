@@ -174,7 +174,11 @@ export default class {
   }
 
   resetValue(values) {
-    this.values = values
+    this.$values = values
+    this.dispatch(CHANGE_TOPIC)
+    if (this.onChange) {
+      this.onChange(values, true)
+    }
     this.dispatch('set-value')
   }
 

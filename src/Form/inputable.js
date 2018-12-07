@@ -211,7 +211,7 @@ export default curry(Origin => consumer(class extends PureComponent {
   handleChange(value, ...args) {
     const { formDatum, name, fieldSetValidate } = this.props
     const currentValue = this.getValue()
-    if (shallowEqual(value, currentValue)) {
+    if (args.length === 0 && shallowEqual(value, currentValue)) {
       return
     }
 

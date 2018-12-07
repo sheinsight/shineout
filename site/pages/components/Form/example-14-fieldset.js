@@ -11,14 +11,12 @@ import { fetchSync as fetchCity } from 'doc/data/city'
 const citys = fetchCity(20)
 
 const rules = {
-  account: {
-    age: [
-      { min: 18, max: 60, message: 'Age must between {min} and {max}.' },
-    ],
-    city: [
-      { required: true, message: 'Please select your city.' },
-    ],
-  },
+  age: [
+    { min: 18, max: 60, message: 'Age must between {min} and {max}.' },
+  ],
+  city: [
+    { required: true, message: 'Please select your city.' },
+  ],
 }
 
 export default class extends PureComponent {
@@ -68,7 +66,7 @@ export default class extends PureComponent {
 
             <Form.Item label="Age">
               <Input
-                rules={rules.account.age}
+                rules={rules.age}
                 style={{ width: 100 }}
                 name="age"
                 type="number"
@@ -84,7 +82,7 @@ export default class extends PureComponent {
                 datum={{ format: 'id' }}
                 keygen="id"
                 renderItem="city"
-                rules={rules.account.city}
+                rules={rules.city}
                 style={{ width: 200 }}
               />
             </Form.Item>
