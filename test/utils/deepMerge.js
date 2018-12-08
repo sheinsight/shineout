@@ -21,50 +21,50 @@ test('add keys in target', (t) => {
 
   const res = deepMerge(target, src)
 
-  t.deepEqual(target, {}, 'merge should be immutable')
+  t.deepEqual(target, {})
   t.deepEqual(res, src)
 })
 
 test('merge existing simple keys in target at the roots', (t) => {
-  const src = { key1: 'changed', key2: 'value2' }
-  const target = { key1: 'value1', key3: 'value3' }
+  const src = { a: 'abc', b: 123 }
+  const target = { b: 'def', c: 'ghi' }
 
   const expected = {
-    key1: 'changed',
-    key2: 'value2',
-    key3: 'value3',
+    a: 'abc',
+    b: 123,
+    c: 'ghi',
   }
 
-  t.deepEqual(target, { key1: 'value1', key3: 'value3' })
+  t.deepEqual(target, { b: 'def', c: 'ghi' })
   t.deepEqual(deepMerge(target, src), expected)
 })
 
 test('merge nested objects into target', (t) => {
   const src = {
-    key1: {
-      subkey1: 'changed',
-      subkey3: 'added',
+    a: {
+      b: 'abc',
+      d: 'something',
     },
   }
   const target = {
-    key1: {
-      subkey1: 'value1',
-      subkey2: 'value2',
+    a: {
+      b: 1234,
+      c: '1234',
     },
   }
 
   const expected = {
-    key1: {
-      subkey1: 'changed',
-      subkey2: 'value2',
-      subkey3: 'added',
+    a: {
+      b: 'abc',
+      c: '1234',
+      d: 'something',
     },
   }
 
   t.deepEqual(target, {
-    key1: {
-      subkey1: 'value1',
-      subkey2: 'value2',
+    a: {
+      b: 1234,
+      c: '1234',
     },
   })
   t.deepEqual(deepMerge(target, src), expected)
@@ -72,25 +72,25 @@ test('merge nested objects into target', (t) => {
 
 test('replace simple key with nested object in target', (t) => {
   const src = {
-    key1: {
-      subkey1: 'subvalue1',
-      subkey2: 'subvalue2',
+    a: {
+      b: 'aa',
+      c: 'bb',
     },
   }
   const target = {
-    key1: 'value1',
-    key2: 'value2',
+    a: 1234,
+    b: '1234',
   }
 
   const expected = {
-    key1: {
-      subkey1: 'subvalue1',
-      subkey2: 'subvalue2',
+    a: {
+      b: 'aa',
+      c: 'bb',
     },
-    key2: 'value2',
+    b: '1234',
   }
 
-  t.deepEqual(target, { key1: 'value1', key2: 'value2' })
+  t.deepEqual(target, { a: 1234, b: '1234' })
   t.deepEqual(deepMerge(target, src), expected)
 })
 
@@ -137,7 +137,7 @@ test('should clone source and target', (t) => {
     },
   }
 
-  const merged = deepMerge(target, src, true)
+  const merged = deepMerge(target, src, { clone: true })
 
   t.deepEqual(merged, expected)
 
@@ -146,23 +146,54 @@ test('should clone source and target', (t) => {
 })
 
 test('should replace object with simple key in target', (t) => {
-  const src = { key1: 'value1' }
+  const src = { a: 1234 }
   const target = {
-    key1: {
-      subkey1: 'subvalue1',
-      subkey2: 'subvalue2',
+    a: {
+      b: 'aa',
+      c: 'bb',
     },
-    key2: 'value2',
+    b: '1234',
   }
 
-  const expected = { key1: 'value1', key2: 'value2' }
+  const expected = { a: 1234, b: '1234' }
 
   t.deepEqual(target, {
-    key1: {
-      subkey1: 'subvalue1',
-      subkey2: 'subvalue2',
+    a: {
+      b: 'aa',
+      c: 'bb',
     },
-    key2: 'value2',
+    b: '1234',
   })
   t.deepEqual(deepMerge(target, src), expected)
+})
+
+test('should not merge array', (t) => {
+  const src = { a: [1, 2, 3] }
+  const target = {
+    a: [1, 2],
+  }
+
+  const dest = deepMerge(target, src)
+  t.deepEqual(dest, src)
+  t.is(src.a, dest.a)
+})
+
+test('should not merge function, date, error', (t) => {
+  const src = { a: 1, b: func, c: { d: date, e: error } }
+  const expected = { a: 1, b: func, c: { d: date, e: error } }
+
+  const dest = deepMerge({}, src)
+  t.deepEqual(dest, expected)
+  t.is(dest.b, src.b)
+  t.is(dest.c.d, src.c.d)
+  t.is(dest.c.e, src.c.e)
+})
+
+test('should remove undefined', (t) => {
+  const src = { a: 'abc', b: 123 }
+  const target = { a: undefined }
+
+  const res = deepMerge(src, target, { removeUndefined: true })
+
+  t.deepEqual(res, { b: 123 })
 })

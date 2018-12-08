@@ -43,13 +43,17 @@ class Option extends PureComponent {
       `option-${index}`,
     )
 
+    const result = renderItem(data, index)
+    const title = typeof result === 'string' ? result : ''
+
     return (
       <a
         onClick={this.handleClick}
         onMouseEnter={this.handleEnter}
         className={className}
+        title={title}
       >
-        { renderItem(data, index) }
+        { result }
       </a>
     )
   }

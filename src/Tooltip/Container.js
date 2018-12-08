@@ -12,7 +12,6 @@ export default function (options) {
   class Container extends PureComponent {
     constructor(props) {
       super(props)
-      this.handleHide = this.handleHide.bind(this)
       this.handleShow = this.handleShow.bind(this)
       this.tryHide = this.tryHide.bind(this)
 
@@ -31,7 +30,7 @@ export default function (options) {
     }
 
     componentWillUnmount() {
-      hide(this.props.delay)
+      hide()
     }
 
     getElement() {
@@ -120,13 +119,12 @@ export default function (options) {
     }
 
     handleShow() {
-      const { left, top } = this.getPosition()
-      const props = Object.assign({}, this.props, { style: { left: `${left}px`, top: `${top}px` } })
-      show(props, this.id)
-    }
-
-    handleHide() {
-      hide(this.props.delay)
+      if (this.showTimer) clearTimeout(this.showTimer)
+      this.showTimer = setTimeout(() => {
+        const { left, top } = this.getPosition()
+        const props = Object.assign({}, this.props, { style: { left: `${left}px`, top: `${top}px` } })
+        show(props, this.id)
+      }, this.props.delay)
     }
 
     render() {
@@ -136,7 +134,7 @@ export default function (options) {
 
       if (trigger === 'hover') {
         props.onMouseEnter = this.handleShow
-        props.onMouseLeave = this.handleHide
+        props.onMouseLeave = hide
       } else {
         props.onClick = () => {
           setTimeout(this.handleShow, 10)
@@ -163,6 +161,7 @@ export default function (options) {
   }
 
   Container.defaultProps = {
+    delay: 0,
     position: 'top',
     trigger: 'hover',
   }

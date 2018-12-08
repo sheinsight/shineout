@@ -5,8 +5,8 @@ import isObject from './validate/isObject'
 import { shallowClone } from './objects'
 
 export function insertPoint(name) {
-  const reg = /\s?(\[\d+\])/gi
-  return name.replace(reg, (m, _, i) => (i === 0 ? m : `.${m}`))
+  const reg = /(\[\d+\])/gi
+  return name.replace(reg, (s, m, i) => s.replace(m, i === 0 ? m : `.${m}`))
 }
 
 export function flatten(data, skipArray) {
