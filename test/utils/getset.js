@@ -1,5 +1,5 @@
 import test from 'ava'
-import { deepGet, deepSet, pathGenerator } from '../../src/utils/objects'
+import { deepGet, deepSet, deepRemove, pathGenerator } from '../../src/utils/objects'
 
 const func = () => {}
 const date = new Date()
@@ -102,20 +102,23 @@ test('set path should throw error if target is an array', (t) => {
 
 test('set empty path should merge target', (t) => {
   const target = { a: { b: [] } }
-  const dest = deepSet(target, '', { c: 1 })
-  t.deepEqual(dest, { a: { b: [] }, c: 1 })
+  deepSet(target, '', { c: 1 })
+  console.log(target)
+  t.deepEqual(target, { a: { b: [] }, c: 1 })
 })
 
+/*
 test('force set empty path should replace target', (t) => {
   const target = { c: 1 }
-  const dest = deepSet(target, '', { a: { b: [] } }, { forceSet: true })
-  t.deepEqual(dest, { a: { b: [] } })
+  deepSet(target, '', { a: { b: [] } }, { forceSet: true })
+  t.deepEqual(target, { a: { b: [] } })
 })
+*/
 
 test('set undefined value should not remove key', (t) => {
   const target = { a: { c: 1 } }
-  const dest = deepSet(target, 'a.c', undefined)
-  t.deepEqual(dest, { a: { c: undefined } })
+  deepSet(target, 'a.c', undefined)
+  t.deepEqual(target, { a: { c: undefined } })
 })
 
 test('set undefined value should remove key when removeUndefined is true', (t) => {
@@ -172,4 +175,42 @@ test('should get undefined if value is not existed and with path loose', (t) => 
   const target = { a: { b: [] } }
   const dest = deepGet(target, 'a.b[1]?.c', { strictMode: true })
   t.is(dest, undefined)
+})
+
+test('should remove path', (t) => {
+  const target = { a: { b: { c: 1 } } }
+  deepRemove(target, 'a.b.c')
+  t.deepEqual(target, { a: { b: {} } })
+  deepRemove(target, 'a.b')
+  t.deepEqual(target, { a: {} })
+})
+
+test('should skip if path target value is not exist', (t) => {
+  const target = { a: { b: { c: [1, 2, 3] } } }
+  deepRemove(target, 'a.b.d')
+  t.deepEqual(target, { a: { b: { c: [1, 2, 3] } } })
+  deepRemove(target, 'a.b.c[4]')
+  t.deepEqual(target, { a: { b: { c: [1, 2, 3] } } })
+  deepRemove(target, 'a.d.c[4]')
+  t.deepEqual(target, { a: { b: { c: [1, 2, 3] } } })
+})
+
+test('should splice value if path target is item of array', (t) => {
+  const target = { a: { b: { c: [1, 2, 3] } } }
+  deepRemove(target, 'a.b.c[1]')
+  t.deepEqual(target, { a: { b: { c: [1, 3] } } })
+  deepRemove(target, 'a.b.c[0]')
+  t.deepEqual(target, { a: { b: { c: [3] } } })
+  deepRemove(target, 'a.b.c[0]')
+  t.deepEqual(target, { a: { b: { c: [] } } })
+})
+
+test('should throw error if path is object and target is an array', (t) => {
+  const target = { a: { b: { 1: 1 } } }
+  try {
+    deepRemove(target, 'a.b[1]')
+    t.fail('should throw error')
+  } catch (e) {
+    t.pass()
+  }
 })

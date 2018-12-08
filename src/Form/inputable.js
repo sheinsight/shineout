@@ -81,11 +81,11 @@ export default curry(Origin => consumer(class extends PureComponent {
         const dv = defaultValue || []
 
         name.forEach((n, i) =>
-          formDatum.bind(n, this.handleUpdate, dv[i], this.validate, !!defaultValue))
+          formDatum.bind(n, this.handleUpdate, dv[i], this.validate))
 
         this.state.value = name.map(n => formDatum.get(n))
       } else {
-        formDatum.bind(name, this.handleUpdate, defaultValue, this.validate, !!defaultValue)
+        formDatum.bind(name, this.handleUpdate, defaultValue, this.validate)
         this.state.value = formDatum.get(name)
       }
     }
@@ -237,8 +237,10 @@ export default curry(Origin => consumer(class extends PureComponent {
     if (fieldSetValidate) fieldSetValidate(true)
   }
 
-  handleUpdate(value, sn) {
-    if (sn === ERROR_TYPE) {
+  handleUpdate(value, sn, type) {
+    console.log('update', type)
+    if (type === ERROR_TYPE) {
+      console.log(sn, value, this.state.error, value !== this.state.error)
       if (value !== this.state.error) this.setState({ error: value })
       return
     }
@@ -246,7 +248,7 @@ export default curry(Origin => consumer(class extends PureComponent {
     const { name } = this.props
     if (typeof name === 'string') {
       this.setState({ value })
-      this.validate(sn === FORCE_PASS ? FORCE_PASS : value).catch(() => {})
+      this.validate(type === FORCE_PASS ? FORCE_PASS : value).catch(() => {})
       return
     }
 
@@ -258,7 +260,7 @@ export default curry(Origin => consumer(class extends PureComponent {
     })
 
     this.setState({ value: newValue })
-    this.validate(sn === FORCE_PASS ? FORCE_PASS : newValue).catch(() => {})
+    this.validate(type === FORCE_PASS ? FORCE_PASS : newValue).catch(() => {})
   }
 
   render() {
@@ -266,6 +268,8 @@ export default curry(Origin => consumer(class extends PureComponent {
       formDatum, value, required, loopContext, bind,
       bindInputToItem, unbindInputFromItem, ...other
     } = this.props
+
+    console.log('render input', other.name)
 
     return (
       <Origin

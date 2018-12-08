@@ -1,5 +1,6 @@
 import React, { PureComponent, lazy, Suspense } from 'react'
-import { HashRouter as Router, Route, Switch } from 'react-router-dom'
+import { Router, Route, Switch } from 'react-router-dom'
+import history from './history'
 import classGenerate from './utils/classname'
 import Header from './Header'
 import Loading from './Components/Loading'
@@ -36,7 +37,7 @@ class App extends PureComponent {
 
   render() {
     return (
-      <Router>
+      <Router history={history}>
         <div>
           <Header versions={this.state.versions} />
 

@@ -1,8 +1,9 @@
 import React, { PureComponent, Fragment, createElement } from 'react'
 import PropTypes from 'prop-types'
 import { addStack, removeStack } from 'shineout/utils/lazyload'
-import classGenerate from '../../utils/classname'
-import Icon from '../../icons/Icon'
+import classGenerate from 'doc/utils/classname'
+import Icon from 'doc/icons/Icon'
+import history from 'doc/history'
 import CodeBlock from '../CodeBlock'
 
 const exampleClass = classGenerate(require('./example.less'), 'example')
@@ -12,6 +13,7 @@ export default class Example extends PureComponent {
     component: PropTypes.func.isRequired,
     id: PropTypes.string,
     lazy: PropTypes.bool,
+    name: PropTypes.string,
     rawText: PropTypes.string,
     title: PropTypes.string.isRequired,
   }
@@ -30,7 +32,7 @@ export default class Example extends PureComponent {
   }
 
   componentDidMount() {
-    if (this.props.lazy) {
+    if (this.props.lazy && this.placeholder) {
       this.lazyId = addStack({
         element: this.placeholder,
         render: () => this.setState({ ready: true }),
@@ -89,10 +91,19 @@ export default class Example extends PureComponent {
   }
 
   render() {
-    const { component, id, rawText } = this.props
+    const {
+      component, id, name, rawText,
+    } = this.props
     const { ready, showcode } = this.state
 
     const text = rawText.replace(/(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/, '').trim()
+
+    let { search } = history.location
+    const examplePrefix = '?example='
+    if (search.indexOf(examplePrefix) === 0) {
+      search = search.replace(examplePrefix, '')
+      if (name.indexOf(search) < 0) return null
+    }
 
     // eslint-disable-next-line
     let [title, ...sub] = this.props.title.split('\n')

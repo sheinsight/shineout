@@ -95,7 +95,7 @@ export default class Loop extends PureComponent {
     const { formDatum, name } = this.props
 
     if (fullSet) {
-      formDatum.forceSet(name, value)
+      formDatum.set(name, value)
       return
     }
 
@@ -105,7 +105,7 @@ export default class Loop extends PureComponent {
     values = immer(values, (draft) => {
       draft[index] = value
     })
-    formDatum.forceSet(name, values)
+    formDatum.set(name, values)
   }
 
   handleInsert(index, value) {
@@ -114,7 +114,7 @@ export default class Loop extends PureComponent {
     const values = immer(formDatum.get(name), (draft) => {
       draft.splice(index, 0, value)
     })
-    formDatum.forceSet(name, values)
+    formDatum.set(name, values)
   }
 
   handleRemove(index) {
@@ -123,7 +123,7 @@ export default class Loop extends PureComponent {
     const values = immer(formDatum.get(name), (draft) => {
       draft.splice(index, 1)
     })
-    formDatum.forceSet(name, values)
+    formDatum.set(name, values)
   }
 
   render() {

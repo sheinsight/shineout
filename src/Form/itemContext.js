@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import createReactContext from 'create-react-context'
 import immer from 'immer'
@@ -7,7 +7,7 @@ import { errorSubscribe } from '../Datum/types'
 
 const { Provider, Consumer } = createReactContext()
 
-export const itemProvider = Origin => class extends Component {
+export const itemProvider = Origin => class extends PureComponent {
   static propTypes = {
     formDatum: PropTypes.object,
   }

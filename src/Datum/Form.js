@@ -1,29 +1,21 @@
-import shallowEqual from '../utils/shallowEqual'
 import isObject from '../utils/validate/isObject'
 import { flatten, unflatten, insertValue, spliceValue, getSthByName, removeSthByName } from '../utils/flat'
+import { deepGet, deepSet, deepRemove, fastClone } from '../utils/objects'
 import { promiseAll, FormError } from '../utils/errors'
 import {
   updateSubscribe, errorSubscribe, changeSubscribe,
   VALIDATE_TOPIC, RESET_TOPIC, CHANGE_TOPIC, FORCE_PASS, ERROR_TYPE,
 } from './types'
 
-const { hasOwnProperty } = Object.prototype
-const isEmptyObjectOrArray = (obj) => {
-  if (Array.isArray(obj)) return obj.length === 0
-  if (isObject(obj)) return Object.keys(obj).length === 0
-  return false
-}
-
 export default class {
   constructor(options = {}) {
     const {
-      removeUndefined = true, rules, onChange, value, trim, error,
+      removeUndefined = true, rules, onChange, value, error,
     } = options
-    this.values = {}
+    this.$inputNames = {}
     this.rules = rules
     this.onChange = onChange
     this.removeUndefined = removeUndefined
-    this.trimValue = trim
 
     // store raw form values
     this.$values = {}
@@ -33,6 +25,8 @@ export default class {
     this.$events = {}
     // handle global errors
     this.$errors = {}
+
+    this.deepSetOptions = { removeUndefined }
 
     if (value) this.setValue(value)
     if (error) this.setError('', error)
@@ -45,34 +39,29 @@ export default class {
   reset() {
     this.dispatch(RESET_TOPIC)
     this.$errors = {}
-    this.setValue(this.$defaultValues, FORCE_PASS)
+    this.setValue(unflatten(fastClone(this.$defaultValues)), FORCE_PASS)
   }
 
   get(name) {
-    return getSthByName(name, this.$values)
+    return deepGet(this.$values, name)
   }
 
-  removeEmptyValue(name = '') {
-    name.split('.').reduce((n, fn) => {
-      if (isEmptyObjectOrArray(this.$values[n])) delete this.$values[n]
-      return `${n}${n ? '.' : ''}${fn}`
-    }, '')
-  }
+  set(name, value, pub = true) {
+    if (typeof name === 'object') {
+      value = name
+      name = ''
+    }
 
-  set(name, value, skipArray = true) {
-    if (typeof name === 'string' && name) this.removeEmptyValue(name)
-    const flatValue = flatten(isObject(name) ? name : { [name]: value }, skipArray)
-    Object.keys(flatValue).forEach((n) => {
-      const newValue = flatValue[n]
-      if (Array.isArray(newValue) && newValue.length > 0) this.forceSet(n, newValue, false)
-      else this.$values[n] = flatValue[n]
-    })
+    if (value === this.get(name)) return
+    deepSet(this.$values, name, value, this.deepSetOptions)
 
-    if (this.values[name]) {
-      this.dispatch(updateSubscribe(name), value)
-      this.dispatch(changeSubscribe(name))
-    } else {
-      this.throughValue('', unflatten(flatValue))
+    if (pub) {
+      if (this.$inputNames[name]) {
+        this.dispatch(updateSubscribe(name), value, name)
+        this.dispatch(changeSubscribe(name))
+      } else {
+        this.publishValue(name, value)
+      }
     }
 
     this.dispatch(CHANGE_TOPIC)
@@ -80,12 +69,29 @@ export default class {
   }
 
   remove(name) {
-    removeSthByName(name, this.$values)
+    deepRemove(this.$values, name)
   }
 
-  forceSet(name, value, skipArray = false) {
-    this.remove(name)
-    this.set(name, value, skipArray)
+  publishValue(path, value) {
+    const names = []
+    if (isObject(value)) {
+      Object.keys(value).forEach((name) => {
+        names.push([`${path}${path ? '.' : ''}${name}`, value[name]])
+      })
+    } else if (Array.isArray(value)) {
+      value.forEach((v, i) => {
+        names.push([`${path}[${i}]`, v])
+      })
+    }
+
+    names.forEach(([name, val]) => {
+      if (this.$inputNames[name]) {
+        console.log('publish', name, val)
+        this.dispatch(updateSubscribe(name), val, name)
+        this.dispatch(changeSubscribe(name))
+      }
+      this.publishValue(name, val)
+    })
   }
 
   getError(name) {
@@ -99,7 +105,7 @@ export default class {
       if (pub) {
         name.split('.').reduce((n, s) => {
           const nn = `${n}${n ? '.' : ''}${s}`
-          this.dispatch(errorSubscribe(nn), this.getError(nn), ERROR_TYPE)
+          this.dispatch(errorSubscribe(nn), this.getError(nn), nn, ERROR_TYPE)
           return nn
         }, '')
       }
@@ -111,7 +117,7 @@ export default class {
     if (pub) {
       name.split('.').reduce((n, s) => {
         const nn = `${n}${n ? '.' : ''}${s}`
-        this.dispatch(errorSubscribe(nn), this.getError(nn), ERROR_TYPE)
+        this.dispatch(errorSubscribe(nn), this.getError(nn), nn, ERROR_TYPE)
         return nn
       }, '')
     }
@@ -131,53 +137,18 @@ export default class {
   }
 
   getValue() {
-    if (this.removeUndefined || this.trimValue) {
-      Object.keys(this.$values).forEach((k) => {
-        if (this.removeUndefined && this.$values[k] === undefined) {
-          delete this.$values[k]
-        }
-
-        if (this.trimValue && typeof this.$values[k] === 'string') {
-          this.$values[k] = this.$values[k].trim()
-        }
-      })
-    }
-    return unflatten(this.$values)
+    return fastClone(this.$values)
   }
 
-  setValue(rawValue = {}, forcePass) {
-    const values = flatten(rawValue)
+  setValue(values = {}, forcePass) {
+    this.$values = values
 
-    // values not change
-    if (shallowEqual(values, this.$values)) return
-
-    // clear old values
-    this.$values = {}
-
-    Object.keys(values).forEach((name) => {
-      this.$values[name] = values[name]
-    })
-
-    Object.keys(this.values).sort((a, b) => a.length - b.length).forEach((name) => {
-      this.dispatch(updateSubscribe(name), this.get(name), forcePass ? FORCE_PASS : name)
+    Object.keys(this.$inputNames).sort((a, b) => a.length - b.length).forEach((name) => {
+      this.dispatch(updateSubscribe(name), this.get(name), name, forcePass)
       this.dispatch(changeSubscribe(name))
     })
 
     this.dispatch(CHANGE_TOPIC)
-  }
-
-  throughValue(path, value) {
-    if (isObject(value)) {
-      Object.keys(value).forEach((name) => {
-        const newName = `${path}${path ? '.' : ''}${name}`
-        if (hasOwnProperty.call(this.values, newName)) {
-          this.dispatch(updateSubscribe(newName), this.get(newName), newName)
-          this.dispatch(changeSubscribe(newName))
-        } else {
-          this.throughValue(newName, value[name])
-        }
-      })
-    }
   }
 
   throughError(path, error) {
@@ -191,32 +162,26 @@ export default class {
     }
 
     names.forEach(([name, next]) => {
-      if (this.values[name]) this.dispatch(errorSubscribe(name), this.getError(name), ERROR_TYPE)
+      if (this.$inputNames[name]) this.dispatch(errorSubscribe(name), this.getError(name), name, ERROR_TYPE)
       else this.throughError(name, error[next])
     })
   }
 
   bind(name, fn, value, validate) {
-    if (hasOwnProperty.call(this.values, name)) {
-      console.error(`There is already an item with name "${name}" exists. The name props must be unique.`)
+    if (this.$inputNames[name]) {
+      console.warn(`There is already an item with name "${name}" exists. The name props must be unique.`)
     }
 
-    if (value) this.$defaultValues[name] = value
-    this.$validator[name] = validate
-
-    this.values[name] = true
-
     if (value !== undefined && !this.get(name)) {
-      const flatValue = flatten({ [name]: value })
-      Object.keys(flatValue).forEach((n) => {
-        this.$values[n] = flatValue[n]
-        if (this.$values[n]) this.dispatch(updateSubscribe(n), flatValue[n], FORCE_PASS)
-      })
-
+      this.set(name, value)
       this.dispatch(changeSubscribe(name))
       this.dispatch(CHANGE_TOPIC)
     }
 
+    if (value) this.$defaultValues[name] = fastClone(value)
+
+    this.$validator[name] = validate
+    this.$inputNames[name] = true
     this.subscribe(updateSubscribe(name), fn)
     this.subscribe(errorSubscribe(name), fn)
   }
@@ -229,21 +194,12 @@ export default class {
 
     this.unsubscribe(updateSubscribe(name))
     this.unsubscribe(errorSubscribe(name))
-    delete this.values[name]
-    delete this.$defaultValues[name]
+    delete this.$inputNames[name]
     delete this.$validator[name]
     delete this.$errors[name]
+    delete this.$defaultValues[name]
 
-    // console.log(name, JSON.stringify(this.$values, null, 2))
-    this.remove(name)
-    // console.log(JSON.stringify(this.$values, null, 2))
-    /*
-    delete this.$values[name]
-    name += '.'
-    Object.keys(this.$values).forEach((key) => {
-      if (key.indexOf(name) === 0) delete this.$values[key]
-    })
-    */
+    deepRemove(this.$values, name)
   }
 
   dispatch(name, ...args) {

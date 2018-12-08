@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getGrid } from '../Grid/utils'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { formClass } from '../styles'
 
-class Item extends Component {
+class Item extends PureComponent {
   renderHelp() {
     const { formItemErrors } = this.props
     if (formItemErrors.length > 0) {
@@ -32,6 +32,8 @@ class Item extends Component {
       ),
       this.props.className,
     )
+
+    console.log('render item', label)
 
     return (
       <div className={className} style={style}>

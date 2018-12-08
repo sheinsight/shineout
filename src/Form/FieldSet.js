@@ -47,7 +47,6 @@ class FieldSet extends Component {
     let rules = [...this.props.rules]
     rules = rules.concat(formDatum.getRule(name))
 
-
     return validate(value, data, rules).then(() => {
       formDatum.setError(name, undefined, pub)
       return true
@@ -57,10 +56,10 @@ class FieldSet extends Component {
     })
   }
 
-  handleUpdate(_, sn) {
+  handleUpdate(v, n, type) {
     if (this.updateTimer) clearTimeout(this.updateTimer)
     this.updateTimer = setTimeout(() => {
-      if (sn === ERROR_TYPE || sn === FORCE_PASS) {
+      if (type === ERROR_TYPE || type === FORCE_PASS) {
         if (this.$willUnmount) return
         this.forceUpdate()
       } else {
@@ -78,7 +77,7 @@ class FieldSet extends Component {
       draft.splice(index, 0, value)
     })
     formDatum.insertError(name, index)
-    formDatum.forceSet(name, values)
+    formDatum.set(name, values)
   }
 
   handleRemove(index) {
@@ -87,7 +86,7 @@ class FieldSet extends Component {
       draft.splice(index, 1)
     })
     formDatum.spliceError(name, index)
-    formDatum.forceSet(name, values)
+    formDatum.set(name, values)
   }
 
   handleChange(index, value) {
@@ -115,7 +114,7 @@ class FieldSet extends Component {
       )
     }
 
-    let values = formDatum.get(name) || defaultValue
+    let values = formDatum.get(name) || defaultValue || []
     if (values && !Array.isArray(values)) values = [values]
     if (values.length === 0 && empty) {
       result.push(empty(this.handleInsert.bind(this, 0)))
@@ -165,7 +164,6 @@ FieldSet.propTypes = {
 }
 
 FieldSet.defaultProps = {
-  defaultValue: [],
   rules: [],
 }
 
