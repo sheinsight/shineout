@@ -122,6 +122,19 @@ test('splice value', (t) => {
   }))
 })
 
+test('splice value from array and path', (t) => {
+  const ab = [{ a: 1 }, { b: 1 }]
+  ab[3] = 3
+  const src = {
+    'a.b': ab,
+    'a.b[1].b': 2,
+  }
+
+  spliceValue(src, 'a.b', 1)
+  console.log(src)
+  t.deepEqual(src, { 'a.b': [{ a: 1 }, undefined, 3] })
+})
+
 test('get something from object', (t) => {
   const abc0 = getSthByName('a.b.c[0]', testResult)
   t.deepEqual(abc0, { a: 1, b: 2 })
@@ -178,4 +191,43 @@ test('simple type', (t) => {
   t.deepEqual(flatten('abc'), { '': 'abc' })
   t.deepEqual(flatten(date), { '': date })
   t.deepEqual(flatten(error), error)
+})
+
+test('should merge array', (t) => {
+  const ab = [{ a: 1 }]
+  ab[3] = 3
+  const src = {
+    'a.b': ab,
+    'a.b[1]': { b: 2 },
+  }
+  t.is(unflatten(src).a.b[0].a, 1)
+  t.is(unflatten(src).a.b[1].b, 2)
+  t.is(unflatten(src).a.b[2], undefined)
+  t.is(unflatten(src).a.b[3], 3)
+  t.deepEqual(unflatten(src), { a: { b: [{ a: 1 }, { b: 2 }, undefined, 3] } })
+  t.deepEqual(src, { 'a.b': ab, 'a.b[1]': { b: 2 } })
+})
+
+test('should skip array value if both set in array and path', (t) => {
+  const ab = [{ a: 1 }, { b: 1 }]
+  ab[3] = 3
+  const src = {
+    'a.b': ab,
+    'a.b[1].b': 2,
+  }
+  t.is(unflatten(src).a.b[0].a, 1)
+  t.is(unflatten(src).a.b[1].b, 2)
+  t.is(unflatten(src).a.b[2], undefined)
+  t.is(unflatten(src).a.b[3], 3)
+  t.deepEqual(unflatten(src), { a: { b: [{ a: 1 }, { b: 2 }, undefined, 3] } })
+  t.deepEqual(src, { 'a.b': ab, 'a.b[1].b': 2 })
+})
+
+test('should skip empty array', (t) => {
+  const src = {
+    'a.b': [],
+    'a.b[1].b': 2,
+  }
+  t.deepEqual(unflatten(src), { a: { b: [undefined, { b: 2 }] } })
+  t.deepEqual(src, { 'a.b': [], 'a.b[1].b': 2 })
 })

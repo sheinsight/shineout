@@ -37,7 +37,7 @@ export default class CodeBlock extends PureComponent {
 
   render() {
     return (
-      <pre className={this.props.language}>
+      <pre className={this.props.language || 'lang-jsx'}>
         <code ref={this.bindElement}>
           {this.props.value}
         </code>

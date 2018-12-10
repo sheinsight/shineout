@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
-import { promiseAll } from '../utils/errors'
+import { promiseAll, isSameError } from '../utils/errors'
 import shallowEqual from '../utils/shallowEqual'
 import { curry, compose } from '../utils/func'
 import { getUidStr } from '../utils/uid'
@@ -69,6 +69,8 @@ export default curry(Origin => consumer(class extends PureComponent {
     this.handleError = this.handleError.bind(this)
     this.validate = this.validate.bind(this)
     this.validateHook = this.validateHook.bind(this)
+
+    this.lastValue = undefined
   }
 
   componentDidMount() {
@@ -146,8 +148,12 @@ export default curry(Origin => consumer(class extends PureComponent {
   handleError(error) {
     const { formDatum, name, onError } = this.props
     if (formDatum && name) {
-      if (error === undefined) formDatum.removeError(name, true)
-      else formDatum.setError(name, error, true)
+      const names = Array.isArray(name) ? name : [name]
+      names.forEach((n) => {
+        if (!isSameError(error, formDatum.getError(n, true))) {
+          formDatum.setError(n, error, true)
+        }
+      })
     } else {
       this.setState({ error })
     }
@@ -159,7 +165,7 @@ export default curry(Origin => consumer(class extends PureComponent {
     this.customValidate = customValidate
   }
 
-  validate(value, data, validateOnly) {
+  validate(value, data) {
     if (value === FORCE_PASS) {
       this.handleError()
       return Promise.resolve(true)
@@ -187,9 +193,7 @@ export default curry(Origin => consumer(class extends PureComponent {
 
       if (this.datum) value = this.datum
       validates.push(validate(value, data, rules, type).then(() => {
-        if (validateOnly !== true) {
-          this.handleError()
-        }
+        this.handleError()
         return true
       }).catch((e) => {
         this.handleError(e)
@@ -242,6 +246,10 @@ export default curry(Origin => consumer(class extends PureComponent {
       if (value !== this.state.error) this.setState({ error: value })
       return
     }
+
+    // check for performance
+    if (shallowEqual(value, this.lastValue)) return
+    this.lastValue = value
 
     const { name } = this.props
     if (typeof name === 'string') {

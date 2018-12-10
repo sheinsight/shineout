@@ -26,3 +26,11 @@ export const promiseAll = (ops, isForm = true) => new Promise((resolve, reject) 
     reject(isForm ? wrapFormError(e) : e)
   })
 })
+
+export const isSameError = (a, b) => {
+  if (a === b) return true
+  if (a instanceof Error && b instanceof Error) {
+    return a.message === b.message
+  }
+  return a === b
+}

@@ -5,7 +5,7 @@
  *    -- Form.FieldSet handles fields of object type
  */
 import React, { PureComponent } from 'react'
-import { Datum, Form, Input, Checkbox, Select } from 'shineout'
+import { Form, Input, Checkbox, Select } from 'shineout'
 import { fetchSync as fetchCity } from 'doc/data/city'
 
 const citys = fetchCity(20)
@@ -17,33 +17,49 @@ const rules = {
   city: [
     { required: true, message: 'Please select your city.' },
   ],
+  name: [
+    (value, _, callback) => {
+      const isEmpty = !value || (!value.firstName && !value.lastName)
+      callback(isEmpty ? new Error('firstName and lastName cannot both be empty') : true)
+    },
+  ],
 }
 
 export default class extends PureComponent {
-  componentDidMount() {
-    this.datum.setValue({
-      email: 'test@example.com',
-      account: {
-        name: {
-          firstName: 'James',
-          lastName: 'Potter',
-        },
-        age: 18,
-        city: 3,
-      },
-      favoriteColor: ['cyan', 'yellow'],
-    })
+  constructor(props) {
+    super(props)
 
-    setTimeout(() => {
-      this.datum.set('account.name.firstName', 'Harry')
-    }, 1000)
+    this.state = { value: undefined }
   }
 
-  datum = new Datum.Form()
+  componentDidMount() {
+    this.initValue()
+  }
+
+  initValue() {
+    this.setState({
+      value: {
+        email: 'test@example.com',
+        account: {
+          name: {
+            firstName: 'James',
+            lastName: 'Potter',
+          },
+          age: 18,
+          city: 3,
+        },
+        favoriteColor: ['cyan', 'yellow'],
+      },
+    })
+  }
+
+  handleChange = (value) => {
+    this.setState({ value })
+  }
 
   render() {
     return (
-      <Form datum={this.datum} onSubmit={(data) => { console.log(data) }}>
+      <Form value={this.state.value} onChange={this.handleChange} onSubmit={(data) => { console.log(data) }}>
         <Form.Item label="Email">
           <Input name="email" />
         </Form.Item>
@@ -55,7 +71,7 @@ export default class extends PureComponent {
         <Form.Item label="Account">
           <Form.FieldSet name="account" labelWidth={60}>
             <Form.Item label="Name">
-              <Form.FieldSet name="name">
+              <Form.FieldSet rules={rules.name} name="name">
                 <Input.Group style={{ width: 300 }}>
                   <Input name="firstName" placeholder="First Name" />
                   -

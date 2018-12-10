@@ -12,7 +12,7 @@ $ npm install shineout
 ```
 
 ## 使用
-``` js
+``` lang-jsx
 import { Table } from 'shineout'
 
 <Table />

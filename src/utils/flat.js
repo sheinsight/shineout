@@ -95,7 +95,12 @@ export function insertValue(obj, name, index, value) {
 }
 
 export function spliceValue(obj, name, index) {
-  Object.keys(obj).filter(n => n.indexOf(`${name}[`) === 0).sort().forEach((n) => {
+  Object.keys(obj).filter(n => n === name || n.indexOf(`${name}[`) === 0).sort().forEach((n) => {
+    if (n === name) {
+      obj[name].splice(index, 1)
+      return
+    }
+
     const reg = new RegExp(`${name}\\[(\\d+)\\]`)
     const match = reg.exec(n)
     const i = parseInt(match[1], 10)

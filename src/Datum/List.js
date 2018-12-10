@@ -23,7 +23,7 @@ export default class {
   }
 
   get length() {
-    return this.values.length
+    return this.$values.length
   }
 
   get values() {
@@ -175,10 +175,10 @@ export default class {
 
   resetValue(values) {
     this.$values = values
-    this.dispatch(CHANGE_TOPIC)
     if (this.onChange) {
-      this.onChange(values, true)
+      this.onChange(this.getValue())
     }
+    this.dispatch(CHANGE_TOPIC)
     this.dispatch('set-value')
   }
 

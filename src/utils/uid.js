@@ -9,9 +9,20 @@ export function getUidStr() {
   return getUid().toString(36)
 }
 
-export function getKey(d, gen, index) {
+function $getKey(d, gen, index) {
   if (gen === true) return d
   if (typeof gen === 'string') return d[gen]
   if (typeof gen === 'function') return gen(d)
+
+  console.warn('Key generator not found or invalid, use index.')
   return index
+}
+
+export function getKey(...args) {
+  const key = $getKey(...args)
+  if (typeof key !== 'string' && typeof key !== 'number') {
+    console.error(`keygen result expect a string or a number, get '${typeof key}'`)
+  }
+
+  return key
 }

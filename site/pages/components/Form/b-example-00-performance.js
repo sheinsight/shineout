@@ -2,7 +2,7 @@ import React from 'react'
 import { Form, Input } from 'shineout'
 
 const items = []
-for (let i = 0; i <= 5000; i++) {
+for (let i = 0; i <= 1000; i++) {
   items.push((
     <Input key={i} width={50} name={`input_${i}`} />
   ))

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import immer from 'immer'
 import createReactContext from 'create-react-context'
 import validate from '../utils/validate'
-import { FormError } from '../utils/errors'
+import { FormError, isSameError } from '../utils/errors'
 import { ERROR_TYPE, FORCE_PASS } from '../Datum/types'
 import Item from './Item'
 
@@ -19,13 +19,14 @@ class FieldSet extends Component {
   constructor(props) {
     super(props)
     this.validate = this.validate.bind(this)
+    this.handleUpdate = this.handleUpdate.bind(this)
   }
 
   componentDidMount() {
-    const { formDatum, defaultValue } = this.props
+    const { formDatum, name, defaultValue } = this.props
     formDatum.bind(
-      this.getFullName(),
-      this.handleUpdate.bind(this),
+      name,
+      this.handleUpdate,
       defaultValue,
       this.validate,
     )
@@ -33,27 +34,32 @@ class FieldSet extends Component {
 
   componentWillUnmount() {
     this.$willUnmount = true
-    this.props.formDatum.unbind(this.getFullName(), this.handleUpdate)
+    const { formDatum, name } = this.props
+    formDatum.unbind(name, this.handleUpdate)
   }
 
-  getFullName() {
-    return extendName(this.props.innerFormNamePath, this.props.name)
-  }
-
-  validate(pub) {
+  validate() {
     const { formDatum, name } = this.props
     const value = formDatum.get(name)
     const data = formDatum.getValue()
     let rules = [...this.props.rules]
     rules = rules.concat(formDatum.getRule(name))
 
+    if (rules.length === 0) return Promise.resolve(true)
+
     return validate(value, data, rules).then(() => {
-      formDatum.setError(name, undefined, pub)
+      this.handleError()
       return true
     }, (e) => {
-      formDatum.setError(name, e, pub)
+      this.handleError(e)
       return new FormError(e)
     })
+  }
+
+  handleError(error) {
+    const { formDatum, name } = this.props
+    if (isSameError(error, formDatum.getError(name, true))) return
+    formDatum.setError(name, error, true)
   }
 
   handleUpdate(v, n, type) {
@@ -63,7 +69,7 @@ class FieldSet extends Component {
         if (this.$willUnmount) return
         this.forceUpdate()
       } else {
-        this.validate(true).then(() => {
+        this.validate().then(() => {
           if (this.$willUnmount) return
           this.forceUpdate()
         })
@@ -90,8 +96,8 @@ class FieldSet extends Component {
   }
 
   handleChange(index, value) {
-    const fullName = this.getFullName()
-    this.props.formDatum.set(`${fullName}[${index}]`, value)
+    const { formDatum, name } = this.props
+    formDatum.set(`${name}[${index}]`, value)
   }
 
   render() {
@@ -158,7 +164,6 @@ FieldSet.propTypes = {
   defaultValue: PropTypes.array,
   empty: PropTypes.func,
   formDatum: PropTypes.object.isRequired,
-  innerFormNamePath: PropTypes.string,
   name: PropTypes.string.isRequired,
   rules: PropTypes.array,
 }

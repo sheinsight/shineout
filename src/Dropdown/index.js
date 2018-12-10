@@ -3,7 +3,6 @@ import immer from 'immer'
 import PropTypes from 'prop-types'
 import PureComponent from '../PureComponent'
 import { getProps, defaultProps } from '../utils/proptypes'
-import { getKey } from '../utils/uid'
 import { getParent } from '../utils/dom/element'
 import Button from '../Button'
 import { dropdownClass } from '../styles'
@@ -137,7 +136,7 @@ class Dropdown extends PureComponent {
 
   renderList(data, placeholder) {
     const {
-      keygen, width, onClick, columns, renderItem, position,
+      width, onClick, columns, renderItem, position,
     } = this.props
     if (!Array.isArray(data) || data.length === 0) return null
 
@@ -150,7 +149,6 @@ class Dropdown extends PureComponent {
       >
         {
           data.map((d, index) => {
-            const liKey = getKey(d, keygen, index)
             const childPosition = positionMap[position]
             const itemClassName = dropdownClass('item', !width && 'no-width', childPosition.indexOf('left') === 0 && 'item-left')
             return d.children ?
@@ -160,7 +158,7 @@ class Dropdown extends PureComponent {
                 disabled={d.disabled}
                 placeholder={d.content}
                 type="link"
-                key={liKey}
+                key={index}
                 position={childPosition}
                 btnColor
                 onClick={onClick}
@@ -170,7 +168,7 @@ class Dropdown extends PureComponent {
               /> :
               <Item
                 data={d}
-                key={liKey}
+                key={index}
                 onClick={d.onClick || onClick}
                 itemClassName={itemClassName}
                 renderItem={renderItem}

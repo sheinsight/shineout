@@ -1,5 +1,6 @@
+import deepEqual from 'deep-eql'
 import isObject from '../utils/validate/isObject'
-import { flatten, unflatten, insertValue, spliceValue, getSthByName, removeSthByName } from '../utils/flat'
+import { unflatten, insertValue, spliceValue, getSthByName } from '../utils/flat'
 import { deepGet, deepSet, deepRemove, fastClone } from '../utils/objects'
 import { promiseAll, FormError } from '../utils/errors'
 import {
@@ -12,12 +13,13 @@ export default class {
     const {
       removeUndefined = true, rules, onChange, value, error,
     } = options
-    this.$inputNames = {}
     this.rules = rules
     this.onChange = onChange
     this.removeUndefined = removeUndefined
 
-    // store raw form values
+    // store names
+    this.$inputNames = {}
+    // store values
     this.$values = {}
     // store default value, for reset
     this.$defaultValues = {}
@@ -93,31 +95,15 @@ export default class {
     })
   }
 
-  getError(name) {
+  getError(name, force) {
+    if (force) return this.$errors[name]
     return getSthByName(name, this.$errors)
   }
 
   setError(name, error, pub) {
-    this.$errors[name] = error
-    // if (pub) this.throughError('', unflatten({ [name]: error }))
-    if (pub) {
-      name.split('.').reduce((n, s) => {
-        const nn = `${n}${n ? '.' : ''}${s}`
-        this.dispatch(errorSubscribe(nn), this.getError(nn), nn, ERROR_TYPE)
-        return nn
-      }, '')
-    }
-  }
-
-  removeError(name, pub) {
-    removeSthByName(name, this.$errors)
-    if (pub) {
-      name.split('.').reduce((n, s) => {
-        const nn = `${n}${n ? '.' : ''}${s}`
-        this.dispatch(errorSubscribe(nn), this.getError(nn), nn, ERROR_TYPE)
-        return nn
-      }, '')
-    }
+    if (error === undefined) delete this.$errors[name]
+    else this.$errors[name] = error
+    if (pub) this.dispatch(errorSubscribe(name), this.getError(name), name, ERROR_TYPE)
   }
 
   insertError(name, index, error) {
@@ -138,14 +124,19 @@ export default class {
   }
 
   setValue(values = {}, forcePass) {
+    if (deepEqual(values, this.$values)) return
     this.$values = values
 
-    Object.keys(this.$inputNames).sort((a, b) => a.length - b.length).forEach((name) => {
-      this.dispatch(updateSubscribe(name), this.get(name), name, forcePass)
-      this.dispatch(changeSubscribe(name))
-    })
+    // wait render end.
+    setTimeout(() => {
+      Object.keys(this.$inputNames).sort((a, b) => a.length - b.length).forEach((name) => {
+        this.dispatch(updateSubscribe(name), this.get(name), name, forcePass)
+        this.dispatch(changeSubscribe(name))
+      })
 
-    this.dispatch(CHANGE_TOPIC)
+      // for flow
+      this.dispatch(CHANGE_TOPIC)
+    })
   }
 
   throughError(path, error) {
