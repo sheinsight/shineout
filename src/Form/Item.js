@@ -54,7 +54,7 @@ Item.propTypes = {
   ...getProps(PropTypes, 'children', 'grid'),
   className: PropTypes.string,
   formItemErrors: PropTypes.array,
-  label: PropTypes.string,
+  label: PropTypes.any,
   labelAlign: PropTypes.string,
   labelWidth: PropTypes.oneOfType([
     PropTypes.string,

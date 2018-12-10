@@ -33,23 +33,17 @@ export default class extends PureComponent {
   }
 
   componentDidMount() {
-    this.initValue()
-  }
-
-  initValue() {
-    this.setState({
-      value: {
-        email: 'test@example.com',
-        account: {
-          name: {
-            firstName: 'James',
-            lastName: 'Potter',
-          },
-          age: 18,
-          city: 3,
+    this.handleChange({
+      email: 'test@example.com',
+      account: {
+        name: {
+          firstName: 'James',
+          lastName: 'Potter',
         },
-        favoriteColor: ['cyan', 'yellow'],
+        age: 18,
+        city: 3,
       },
+      favoriteColor: ['cyan', 'yellow'],
     })
   }
 
@@ -58,8 +52,9 @@ export default class extends PureComponent {
   }
 
   render() {
+    const { value } = this.state
     return (
-      <Form value={this.state.value} onChange={this.handleChange} onSubmit={(data) => { console.log(data) }}>
+      <Form value={value} onChange={this.handleChange} onSubmit={(data) => { console.log(data) }}>
         <Form.Item label="Email">
           <Input name="email" />
         </Form.Item>
@@ -80,15 +75,18 @@ export default class extends PureComponent {
               </Form.FieldSet>
             </Form.Item>
 
-            <Form.Item label="Age">
-              <Input
-                rules={rules.age}
-                style={{ width: 100 }}
-                name="age"
-                type="number"
-                digits={0}
-                defaultValue={0}
-              />
+            <Form.Item label={<Checkbox name="showAge">Age</Checkbox>}>
+              {
+                value && value.account && value.account.showAge &&
+                <Input
+                  rules={rules.age}
+                  style={{ width: 100 }}
+                  name="age"
+                  type="number"
+                  digits={0}
+                  defaultValue={0}
+                />
+              }
             </Form.Item>
 
             <Form.Item label="City">
@@ -102,7 +100,6 @@ export default class extends PureComponent {
                 style={{ width: 200 }}
               />
             </Form.Item>
-
           </Form.FieldSet>
         </Form.Item>
 

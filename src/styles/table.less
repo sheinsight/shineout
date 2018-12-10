@@ -183,7 +183,10 @@
 
   &-bordered {
     border-left: 1px solid @table-border-color;
-    border-right: 1px solid @table-border-color;
+
+    &.@{table-prefix}-fixed {
+      border-right: 1px solid @table-border-color;
+    }
 
     .@{table-prefix}-head {
       table {
@@ -193,6 +196,7 @@
 
     table {
       border-top: 1px solid @table-border-color;
+
       > thead,
       > tbody,
       > tfoot {
@@ -201,9 +205,6 @@
           > td {
             border-right: 1px solid @table-border-color;
             border-bottom-width: 1px;
-            &:last-child {
-              border-right:0
-            }
           }
         }
       }

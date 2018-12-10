@@ -89,6 +89,7 @@ export default curry((options, Origin) => class extends Component {
         !border && 'no-border',
         options.overflow && `overflow-${options.overflow}`,
         error && 'invalid',
+        popover && error && 'focus',
       ),
       buttonClass(options.isGroup && 'group'),
       typeof options.className === 'function' ? options.className(this.props) : options.className,

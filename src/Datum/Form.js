@@ -95,8 +95,8 @@ export default class {
     })
   }
 
-  getError(name, force) {
-    if (force) return this.$errors[name]
+  getError(name, firstHand) {
+    if (firstHand) return this.$errors[name]
     return getSthByName(name, this.$errors)
   }
 
