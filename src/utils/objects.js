@@ -5,6 +5,8 @@ const { hasOwnProperty } = Object.prototype
 const PATH_MODE = {
   loose: '?',
   strict: '!',
+  insert: '^',
+  append: '$',
 }
 
 export const isMergeable = (target) => {
@@ -23,7 +25,7 @@ export const objectValues = (obj) => {
 }
 
 // object only, not handle array.
-export const deepMerge = (target = {}, source, { clone, removeUndefined } = {}) => {
+export const deepMerge = (target = {}, source, { clone, removeUndefined, skipUndefined } = {}) => {
   if (!isMergeable(source)) return source
 
   const dest = {}
@@ -38,6 +40,7 @@ export const deepMerge = (target = {}, source, { clone, removeUndefined } = {}) 
     if (isMergeable(source[k]) && isMergeable(target[k])) {
       dest[k] = deepMerge(target[k], source[k], clone)
     } else {
+      if (skipUndefined && source[k] === undefined) return
       dest[k] = deepMerge({}, source[k], clone)
       if (removeUndefined && dest[k] === undefined) delete dest[k]
     }
@@ -49,6 +52,7 @@ export const deepMerge = (target = {}, source, { clone, removeUndefined } = {}) 
 export function* pathGenerator(raw) {
   const path = insertPoint(raw)
   const reg = /^\[(\d+)\]$/
+  const pathModeValues = objectValues(PATH_MODE)
   let index = 0
   let last = 0
   let prop = ''
@@ -58,15 +62,15 @@ export function* pathGenerator(raw) {
 
     let mode
     const lastChar = prop.charAt(prop.length - 1)
-    if (lastChar === '?' || lastChar === '!') {
-      mode = lastChar === '?' ? PATH_MODE.loose : PATH_MODE.strict
+    if (pathModeValues.includes(lastChar)) {
+      mode = lastChar
       prop = prop.substring(0, prop.length - 1)
     }
 
     // array index
     const match = reg.exec(prop)
     // eslint-disable-next-line
-    if (match) prop = match[1]
+    if (match) prop = parseInt(match[1], 10)
 
     last = index + 1
     yield [prop, index === -1 ? undefined : path.substring(last), mode]
@@ -77,8 +81,8 @@ export const deepSet = (target, path, value, options = {}) => {
   if (!isObject(target)) throw new Error('Target must be an object.')
   if (typeof path !== 'string') throw new Error('Path must be a string.')
 
-  const { removeUndefined } = options
-  const mergeOptions = { clone: true, removeUndefined }
+  const { removeUndefined, skipUndefined } = options
+  const mergeOptions = { clone: true, removeUndefined, skipUndefined }
 
   // empty root
   if (path === '') {
@@ -90,7 +94,7 @@ export const deepSet = (target, path, value, options = {}) => {
   }
 
   let current = target
-  for (const [prop, next] of pathGenerator(path)) {
+  for (const [prop, next, mode] of pathGenerator(path)) {
     if (next) {
       const nextIsArray = /^\[\d+\]/.test(next)
       if (!current[prop]) current[prop] = nextIsArray ? [] : {}
@@ -106,7 +110,13 @@ export const deepSet = (target, path, value, options = {}) => {
 
     if (options.forceSet) {
       current[prop] = value
+    } else if (mode === PATH_MODE.insert) {
+      current.splice(prop, 0, value)
+    } else if (mode === PATH_MODE.append) {
+      current.splice(prop + 1, 0, value)
     } else {
+      if (skipUndefined && value === undefined) break
+
       current[prop] = isMergeable(current[prop]) && isMergeable(value)
         ? deepMerge(current[prop], value, mergeOptions)
         : value

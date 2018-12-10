@@ -51,7 +51,7 @@ export default class extends PureComponent {
             rules={friendsRule}
             name="friends"
             empty={this.renderEmpty}
-            defaultValue={[{ name: 'Hermione Granger', age: '16' }, {}]}
+            defaultValue={[{ name: 'Hermione Granger', age: 16 }, {}]}
           >
             {
               ({

@@ -86,7 +86,6 @@ export default class {
 
     names.forEach(([name, val]) => {
       if (this.$inputNames[name]) {
-        console.log('publish', name, val)
         this.dispatch(updateSubscribe(name), val, name)
         this.dispatch(changeSubscribe(name))
       }
@@ -102,13 +101,11 @@ export default class {
     this.$errors[name] = error
     // if (pub) this.throughError('', unflatten({ [name]: error }))
     if (pub) {
-      if (pub) {
-        name.split('.').reduce((n, s) => {
-          const nn = `${n}${n ? '.' : ''}${s}`
-          this.dispatch(errorSubscribe(nn), this.getError(nn), nn, ERROR_TYPE)
-          return nn
-        }, '')
-      }
+      name.split('.').reduce((n, s) => {
+        const nn = `${n}${n ? '.' : ''}${s}`
+        this.dispatch(errorSubscribe(nn), this.getError(nn), nn, ERROR_TYPE)
+        return nn
+      }, '')
     }
   }
 
@@ -133,7 +130,7 @@ export default class {
 
   getRule(name) {
     if (!this.rules) return []
-    return getSthByName(name, this.rules) || []
+    return deepGet(this.rules, name) || []
   }
 
   getValue() {

@@ -238,9 +238,7 @@ export default curry(Origin => consumer(class extends PureComponent {
   }
 
   handleUpdate(value, sn, type) {
-    console.log('update', type)
     if (type === ERROR_TYPE) {
-      console.log(sn, value, this.state.error, value !== this.state.error)
       if (value !== this.state.error) this.setState({ error: value })
       return
     }
@@ -268,8 +266,6 @@ export default curry(Origin => consumer(class extends PureComponent {
       formDatum, value, required, loopContext, bind,
       bindInputToItem, unbindInputFromItem, ...other
     } = this.props
-
-    console.log('render input', other.name)
 
     return (
       <Origin

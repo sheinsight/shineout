@@ -8,7 +8,7 @@ test('get path.', (t) => {
   const gen = pathGenerator('a.b[0].c.d')
   t.deepEqual(gen.next().value, ['a', 'b.[0].c.d', undefined])
   t.deepEqual(gen.next().value, ['b', '[0].c.d', undefined])
-  t.deepEqual(gen.next().value, ['0', 'c.d', undefined])
+  t.deepEqual(gen.next().value, [0, 'c.d', undefined])
   t.deepEqual(gen.next().value, ['c', 'd', undefined])
   t.deepEqual(gen.next().value, ['d', undefined, undefined])
   t.true(gen.next().done)
@@ -18,7 +18,7 @@ test('get path with mode.', (t) => {
   const gen = pathGenerator('a.b![0]?.c!')
   t.deepEqual(gen.next().value, ['a', 'b!.[0]?.c!', undefined])
   t.deepEqual(gen.next().value, ['b', '[0]?.c!', '!'])
-  t.deepEqual(gen.next().value, ['0', 'c!', '?'])
+  t.deepEqual(gen.next().value, [0, 'c!', '?'])
   t.deepEqual(gen.next().value, ['c', undefined, '!'])
   t.true(gen.next().done)
 })
@@ -107,13 +107,17 @@ test('set empty path should merge target', (t) => {
   t.deepEqual(target, { a: { b: [] }, c: 1 })
 })
 
-/*
-test('force set empty path should replace target', (t) => {
-  const target = { c: 1 }
-  deepSet(target, '', { a: { b: [] } }, { forceSet: true })
-  t.deepEqual(target, { a: { b: [] } })
+test('insert value before index', (t) => {
+  const target = { a: { b: [1, 2, 3] } }
+  deepSet(target, 'a.b[1]^', 4)
+  t.deepEqual(target, { a: { b: [1, 4, 2, 3] } })
 })
-*/
+
+test('append value after index', (t) => {
+  const target = { a: { b: [1, 2, 3] } }
+  deepSet(target, 'a.b[1]$', 4)
+  t.deepEqual(target, { a: { b: [1, 2, 4, 3] } })
+})
 
 test('set undefined value should not remove key', (t) => {
   const target = { a: { c: 1 } }
@@ -123,8 +127,17 @@ test('set undefined value should not remove key', (t) => {
 
 test('set undefined value should remove key when removeUndefined is true', (t) => {
   const target = { a: { c: 1 } }
-  const dest = deepSet(target, 'a.c', undefined, { removeUndefined: true })
-  t.deepEqual(dest, { a: {} })
+  deepSet(target, 'a.c', undefined, { removeUndefined: true })
+  t.deepEqual(target, { a: {} })
+})
+
+test('should skip undefined value if skipUndefined is true', (t) => {
+  const target = { a: { c: 1 } }
+  deepSet(target, 'a.c', undefined, { skipUndefined: true })
+  t.deepEqual(target, { a: { c: 1 } })
+
+  deepSet(target, 'a', { c: undefined }, { skipUndefined: true })
+  t.deepEqual(target, { a: { c: 1 } })
 })
 
 test('get empty path should get target', (t) => {
