@@ -1,4 +1,4 @@
-import { cloneElement, PureComponent } from 'react'
+import { cloneElement, isValidElement, PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 class Field extends PureComponent {
@@ -23,7 +23,12 @@ class Field extends PureComponent {
       return children({ value, error, onChange: this.handleChange })
     }
 
-    return cloneElement(children, { value, error, onChange: this.handleChange })
+    if (isValidElement) {
+      return cloneElement(children, { value, error, onChange: this.handleChange })
+    }
+
+    console.error('Form.Field expect a single ReactElement or a function.')
+    return null
   }
 }
 

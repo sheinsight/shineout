@@ -1,4 +1,4 @@
-import { PureComponent, cloneElement } from 'react'
+import { PureComponent, cloneElement, isValidElement } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { scrollConsumer } from '../Scroll/context'
@@ -129,6 +129,12 @@ export default function (options) {
 
     render() {
       const { children, trigger } = this.props
+
+      if (!isValidElement(children)) {
+        console.error('Tooltip children expect a single ReactElement.')
+        return null
+      }
+
       const className = classnames(children.props.className, this.getElementId())
       const props = { className }
 
