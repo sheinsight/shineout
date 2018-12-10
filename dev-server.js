@@ -60,12 +60,6 @@ router.get('**/prop-types.min.js', async (ctx) => {
 })
 router.get('**/jszip.min.js', async (ctx) => {
   await send(ctx, 'node_modules/jszip/dist/jszip.min.js')
-});
-
-['prism.min.js', 'prism.min.css'].forEach((p) => {
-  router.get(`**/${p}`, async (ctx) => {
-    await send(ctx, `libs/${p}`)
-  })
 })
 
 router.get('**/versions.json', async (ctx) => {
