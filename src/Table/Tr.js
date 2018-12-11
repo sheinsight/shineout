@@ -1,15 +1,25 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { setTranslate } from '../utils/dom/translate'
-import { tableClass } from '../styles'
+import { tableClass, inputClass } from '../styles'
 import Td, { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
 import Expand from './Expand'
+
+const isExpandableElement = (el) => {
+  const { tagName } = el
+  if (tagName === 'TD' || tagName === 'TR') return true
+  if (tagName === 'A' || tagName === 'BUTTON' || tagName === 'INPUT') return false
+  if (el.classList.contains(inputClass('_'))) return false
+  if (!el.parentElement) return false
+  return isExpandableElement(el.parentElement)
+}
 
 class Tr extends Component {
   constructor(props) {
     super(props)
 
     this.bindElement = this.bindElement.bind(this)
+    this.handleRowClick = this.handleRowClick.bind(this)
     this.setRowHeight = this.setRowHeight.bind(this)
     this.setExpandHeight = this.setExpandHeight.bind(this)
 
@@ -53,6 +63,18 @@ class Tr extends Component {
 
   bindElement(el) {
     this.element = el
+  }
+
+  handleRowClick(e) {
+    const {
+      columns, data, index, onRowClick,
+    } = this.props
+
+    if (isExpandableElement(e.target)) {
+      const el = this.element.querySelector(`.${tableClass('expand-indicator')}`)
+      if (el && columns.some(c => c.type === 'row-expand')) el.click()
+      if (onRowClick && e.target !== el)onRowClick(data[0].data, index)
+    }
   }
 
   render() {
@@ -99,7 +121,7 @@ class Tr extends Component {
         striped && index % 2 === 1 && 'even',
       )
     }
-    const result = [<tr key="0" className={className} ref={this.bindElement}>{tds}</tr>]
+    const result = [<tr key="0" onClick={this.handleRowClick} className={className} ref={this.bindElement}>{tds}</tr>]
     if (expandRender) {
       result.push((
         <Expand key="1" setExpandHeight={this.setExpandHeight} colSpan={columns.length}>
@@ -119,6 +141,8 @@ Tr.propTypes = {
   index: PropTypes.number,
   offsetLeft: PropTypes.number,
   offsetRight: PropTypes.number,
+  onExpand: PropTypes.func,
+  onRowClick: PropTypes.func,
   rowClassName: PropTypes.func,
   striped: PropTypes.bool,
   setRowHeight: PropTypes.func,

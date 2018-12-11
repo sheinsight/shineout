@@ -18,6 +18,7 @@
 | loading | bool \| element | false | When it is true, a default \[Spin](#/components/Spin) component will be displayed, a custom loading icon can be passed in to replace. |
 | keygen | string \| function(obj):string | index | Generate a auxiliary method for each key<br />If not filled, index will be used (not recommended, in some cases there may be problems)<br />When it is a function, use its return value. <br />When it is a string，ues the value of the string.For example, 'id' is the same thing as (d) => d.id . |
 | onScroll | function(x, y) | none | The callback function after scrolling.<br />x: Horizontal rolling ratio(0 <= x <= 1)<br />y: Vertical scroll ratio(0 <= y <= 1) |
+| onRowClick | function(data, index) | none | Callback when row click.<br />data: current row data<br />index: current row index |
 | onRowSelect | function(rows) | none | Select row. Rows is the selected data. |
 | prediction | function | (val, d) => val===format(d) | By default, the result of the format function is used to compare whether it matches. In some cases (for example, whe an object that returns the original data is updated, an different option with the same value  is generated), the prediction function needs to be used to determine whether match |
 | rowClassName | function(record, index) | - | Specify row className |

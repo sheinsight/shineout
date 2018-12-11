@@ -43,7 +43,7 @@ class Td extends PureComponent {
     this.cachedRender = cachedRender
     return (
       <span
-        className={tableClass(`icon-expand-${expanded ? 'sub' : 'plus'}`)}
+        className={tableClass('expand-indicator', `icon-expand-${expanded ? 'sub' : 'plus'}`)}
         onClick={this.handleExpandClick}
       />
     )
@@ -57,6 +57,7 @@ class Td extends PureComponent {
       case 'checkbox':
         return this.renderCheckbox()
       case 'expand':
+      case 'row-expand':
         return this.renderExpand()
       default:
         return typeof render === 'function' ? render(data, index) : data[render]

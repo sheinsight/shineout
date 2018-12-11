@@ -1,12 +1,18 @@
 import React from 'react'
 import Sticky from 'shineout/Sticky'
+import history from '../../history'
 import classGenerate from '../../utils/classname'
 
 const cls = classGenerate(require('./nav.less'), 'nav')
 
 const scrollTo = (id) => {
-  const element = document.getElementById(id)
-  if (element) element.scrollIntoView()
+  const isSingleMode = history.location.search.indexOf('?example=') === 0
+  if (isSingleMode) {
+    history.push(`${history.location.pathname}?example=${id.replace('heading-', '')}`)
+  } else {
+    const element = document.getElementById(id)
+    if (element) element.scrollIntoView()
+  }
 }
 
 export default function (Component) {

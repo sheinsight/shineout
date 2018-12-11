@@ -18,6 +18,7 @@
 | loading | bool \| element | false | 数据加载中，为true时会展示一个默认的[Spin](#/components/Spin)组件，可以传入一个自定义的Spin代替 |
 | keygen | string \| function(obj):string \| true | 必填 | 生成每一项key的辅助方法<br />为 true 时，以数据项本身作为key，相当于 (d => d)<br />为函数时，使用此函数返回值<br />为string时，使用这个string对应的数据值。如 'id'，相当于 (d => d.id) |
 | onScroll | function(x, y) | 无 | 滚动条滚动后回调函数；<br />x: 横向滚动比(0 <= x <= 1)<br />y: 纵向滚动比(0 <= y <= 1) |
+| onRowClick | function(data, index) | 无 | 行点击事件; <br />data: 当前行数据<br />index: 当前行索引 |
 | onRowSelect | function(rows) | 无 | 选择行。rows为选中的数据。如果需要数据需要格式化的处理，建议使用 datum |
 | prediction | function | (val, d) => val===format(d) | 默认使用 format 函数执行的结果来比较是否匹配，在某些情况下（例如返回原始数据的对象，更新数据时，生成了一个值相同，非同一个对象的选项），需要借助 prediction 函数来判断是否匹配 |
 | rowClassName | function(record, index) | 无 | 指定单行className |

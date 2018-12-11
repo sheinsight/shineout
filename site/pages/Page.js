@@ -16,8 +16,10 @@ function getUrl(base, page) {
 export default function (pages) {
   function Page(props) {
     const base = props.match.url
-
     const indexRoute = pages.find(p => typeof p !== 'string')
+
+    const { search } = props.history.location || ''
+    if (search.indexOf('?example=') === 0) search.replace('?example=', '')
 
     return (
       <Fragment>
@@ -49,7 +51,7 @@ export default function (pages) {
               <Redirect from={base} exact to={getUrl(base, indexRoute)} />
               {
                 pages.filter(p => typeof p === 'object').map(p => (
-                  <Route key={p.name} path={getUrl(base, p)} component={p.component} />
+                  <Route key={p.name + search} path={getUrl(base, p)} component={p.component} />
                 ))
               }
             </Switch>
@@ -60,6 +62,7 @@ export default function (pages) {
   }
 
   Page.propTypes = {
+    history: PropTypes.object,
     match: PropTypes.object.isRequired,
   }
 

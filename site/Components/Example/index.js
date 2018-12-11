@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment, createElement } from 'react'
+import React, { Component, Fragment, createElement } from 'react'
 import PropTypes from 'prop-types'
 import { addStack, removeStack } from 'shineout/utils/lazyload'
 import classGenerate from 'doc/utils/classname'
@@ -8,7 +8,7 @@ import CodeBlock from '../CodeBlock'
 
 const exampleClass = classGenerate(require('./example.less'), 'example')
 
-export default class Example extends PureComponent {
+export default class Example extends Component {
   static propTypes = {
     component: PropTypes.func.isRequired,
     id: PropTypes.string,
