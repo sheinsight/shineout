@@ -59,7 +59,8 @@ class Table extends PureComponent {
       striped,
     }
 
-    const RenderTable = fixed ? SeperateTable : SimpleTable
+    const isEmpty = (!data || data.length === 0) && !children
+    const RenderTable = (fixed && !isEmpty) ? SeperateTable : SimpleTable
     let newStyle = style
     if (height) newStyle = Object.assign({}, style, { height })
 
@@ -73,8 +74,10 @@ class Table extends PureComponent {
           </div>
         }
         {
-          (!data || data.length === 0) && !children &&
-          <div className={tableClass('empty')}>{empty || getLocale('noData')}</div>
+          isEmpty &&
+          <div className={tableClass('empty')}>
+            <span>{empty || getLocale('noData')}</span>
+          </div>
         }
       </div>
     )

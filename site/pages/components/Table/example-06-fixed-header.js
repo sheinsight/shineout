@@ -32,6 +32,7 @@ export default function () {
         width={1500}
         height={300}
         columns={columns}
+        bordered
         data={data}
       />
       <Table

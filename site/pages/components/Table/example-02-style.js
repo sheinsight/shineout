@@ -20,6 +20,13 @@ const columns = [
 
 export default function () {
   return (
-    <Table keygen="id" striped bordered columns={columns} data={data} />
+    <Table
+      keygen="id"
+      striped
+      bordered
+      columns={columns}
+      data={data}
+      style={{ height: 300 }}
+    />
   )
 }

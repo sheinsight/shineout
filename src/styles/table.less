@@ -8,6 +8,8 @@
   max-width: 100%;
   overflow: auto;
   margin-bottom: @line-height-computed;
+  display: flex;
+  flex-direction: column;
 
   table {
     min-width: 100%;
@@ -308,11 +310,6 @@
     min-width: 100%;
   }
 
-  &-fixed {
-    display: flex;
-    flex-direction: column;
-  }
-
   &-float-left &-fixed-left,
   &-float-right &-fixed-right {
     position: relative;
@@ -368,9 +365,21 @@
     text-align: center;
     position: sticky;
     left:0;
+    flex: 1;
+    display: flex;
+
+    span {
+      display: block;
+      margin: auto;
+    }
   }
 
   &-bordered &-empty {
     border-bottom: 1px solid @table-border-color;
+    border-right: 1px solid @table-border-color;
+  }
+
+  &-fixed &-empty {
+    border-right-width: 0;
   }
 }
