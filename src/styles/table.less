@@ -184,8 +184,6 @@
   }
 
   &-bordered {
-    border-left: 1px solid @table-border-color;
-
     &.@{table-prefix}-fixed {
       border-right: 1px solid @table-border-color;
     }
@@ -197,6 +195,7 @@
     }
 
     table {
+      border-left: 1px solid @table-border-color;
       border-top: 1px solid @table-border-color;
 
       > thead,
@@ -375,6 +374,7 @@
   }
 
   &-bordered &-empty {
+    border-left: 1px solid @table-border-color;
     border-bottom: 1px solid @table-border-color;
     border-right: 1px solid @table-border-color;
   }
