@@ -32,7 +32,7 @@ class Jumper extends PureComponent {
   }
 
   render() {
-    const { current, text } = this.props
+    const { current, text, size } = this.props
     const txt = text.jumper ? text.jumper.split('{input}') : []
 
     return (
@@ -44,6 +44,7 @@ class Jumper extends PureComponent {
           digits={0}
           type="number"
           style={inputStyle}
+          size={size}
         />
         {txt[1]}
       </div>
@@ -57,6 +58,7 @@ Jumper.propTypes = {
   pageSize: PropTypes.number.isRequired,
   text: PropTypes.object,
   total: PropTypes.number.isRequired,
+  size: PropTypes.string,
 }
 
 export default Jumper
