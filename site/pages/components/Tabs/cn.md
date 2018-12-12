@@ -7,7 +7,7 @@
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | active | string \| int | 0 | 当前选中标签页（受控） |
-| align | string | 无 | 设置标签对齐方式，可选值 \['left', 'right'] |
+| align | string | 无 | 设置标签对齐方式，可选值 \['left', 'right', 'vertical-left', 'vertical-right'] |
 | background | string | '#fff' | 选中标签背景色 |
 | border | string | '#ddd' | 边框颜色 |
 | className | string | - | 扩展className |

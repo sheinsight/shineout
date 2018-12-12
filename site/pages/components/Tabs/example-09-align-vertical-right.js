@@ -1,18 +1,18 @@
 /**
- * cn - 右对齐
- *    -- 设置 align="right" 使标签右对齐
- * en - Align
- *    -- set align to 'right' to align labels to the right
+ * cn -
+ *    -- 设置 align="vertical-right" 使标签垂直靠右
+ * en -
+ *    -- set align to 'vertical-right' to align labels to the vertically right
  */
 import React from 'react'
 import { Tabs } from 'shineout'
 import lorem from 'doc/utils/faker/lorem'
 
-const panelStyle = { padding: '12px 0' }
+const panelStyle = { padding: '0 12px' }
 
 export default function () {
   return (
-    <Tabs defaultActive={1} align="right">
+    <Tabs defaultActive={1} align="vertical-right" >
       <Tabs.Panel style={panelStyle} tab="Home">
         {lorem(5)}
       </Tabs.Panel>

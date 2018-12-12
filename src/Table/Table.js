@@ -50,6 +50,7 @@ class Table extends PureComponent {
       ...others,
       children,
       fixed,
+      rowsInView: fixed === 'x' ? 9999 : others.rowsInView,
       loading,
       height,
       width,

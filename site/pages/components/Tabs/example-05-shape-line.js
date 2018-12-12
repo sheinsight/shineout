@@ -1,8 +1,8 @@
 /**
- * cn -
- *    -- 设置 shape 为 'button'，标签显示为按钮
- * en - Shape (button)
- *    -- The button type tabs.
+ * cn - 样式
+ *    -- 设置 shape 为 'line'，标签显示为线条
+ * en - Shape (line)
+ *    -- The line type tabs.
  */
 import React from 'react'
 import { Tabs } from 'shineout'
@@ -12,7 +12,7 @@ const panelStyle = { padding: '12px 0' }
 
 export default function () {
   return (
-    <Tabs shape="button" defaultActive={1}>
+    <Tabs shape="line" defaultActive={1} >
       <Tabs.Panel style={panelStyle} tab="Home">
         {lorem(5)}
       </Tabs.Panel>
