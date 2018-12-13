@@ -11,10 +11,11 @@ class Header extends PureComponent {
     super(props)
 
     this.state = {
-      left: 0,
+      attribute: 0,
       overflow: false,
     }
 
+    this.setPosition = this.setPosition.bind(this)
     this.bindInner = this.bindElement.bind(this, 'innerElement')
     this.bindWrapper = this.bindElement.bind(this, 'wrapperElement')
     this.bindScroll = this.bindElement.bind(this, 'scrollElement')
@@ -22,26 +23,27 @@ class Header extends PureComponent {
     this.handleClick = this.handleClick.bind(this)
     this.handlePrevClick = this.handleMove.bind(this, true)
     this.handleNextClick = this.handleMove.bind(this, false)
-    this.moveToLeft = this.moveToLeft.bind(this)
+    this.moveToCenter = this.moveToCenter.bind(this)
     this.handleCollapse = this.handleCollapse.bind(this)
-
-    this.scrollLeft = 0
   }
 
   componentDidMount() {
-    this.setWidth()
+    const { isVertical } = this.props
+    this.setPosition(isVertical)
   }
 
   componentDidUpdate() {
-    this.setWidth()
+    const { isVertical } = this.props
+    this.setPosition(isVertical)
   }
 
-  setWidth() {
+  setPosition(isVertical) {
+    const attributeString = isVertical ? 'Height' : 'Width'
     if (!this.innerElement) return
-    const innerWidth = this.innerElement.clientWidth
-    const scrollWidth = this.scrollElement.clientWidth
-    const { left } = this.state
-    this.setState({ overflow: scrollWidth > left + innerWidth })
+    const innerAttribute = this.innerElement[`client${attributeString}`]
+    const scrollAttribute = this.scrollElement[`client${attributeString}`]
+    const { attribute: domAttribute } = this.state
+    this.setState({ overflow: scrollAttribute > domAttribute + innerAttribute, attributeString })
   }
 
   bindElement(name, el) {
@@ -49,23 +51,26 @@ class Header extends PureComponent {
   }
 
   handleMove(lt) {
-    const innerWidth = this.innerElement.clientWidth
-    const scrollWidth = this.scrollElement.clientWidth
-    let left = this.state.left + (lt ? -innerWidth : innerWidth)
-    if (left < 0) left = 0
-    if (left + innerWidth > scrollWidth) left = scrollWidth - innerWidth
-    this.setState({ left })
+    const { attributeString } = this.state
+    const innerAttribute = this.innerElement[`client${attributeString}`]
+    const scrollAttribute = this.scrollElement[`client${attributeString}`]
+    let attribute = this.state.attribute + (lt ? -innerAttribute : innerAttribute)
+    if (attribute < 0) attribute = 0
+    if (attribute + innerAttribute > scrollAttribute) attribute = scrollAttribute - innerAttribute
+    this.setState({ attribute })
   }
 
-  moveToLeft({ left, right }) {
+  moveToCenter(tabRect) {
+    const { isVertical } = this.props
+    const positions = isVertical ? ['top', 'bottom'] : ['left', 'right']
     const rect = this.innerElement.getBoundingClientRect()
-    if (left < rect.left) {
+    if (tabRect[positions[0]] < rect[positions[0]]) {
       this.setState(immer((draft) => {
-        draft.left -= rect.left - left
+        draft.attribute -= rect[positions[0]] - tabRect[positions[0]]
       }))
-    } else if (right > rect.right) {
+    } else if (tabRect[positions[1]] > rect[positions[1]]) {
       this.setState(immer((draft) => {
-        draft.left += right - rect.right - (draft.left === 0 ? -30 : 0)
+        draft.attribute += tabRect[positions[1]] - rect[positions[1]] - (draft.attribute === 0 ? -30 : 0)
       }))
     }
   }
@@ -101,7 +106,7 @@ class Header extends PureComponent {
         {...other}
         key={id}
         id={id}
-        moveToLeft={this.moveToLeft}
+        moveToCenter={this.moveToCenter}
         onClick={this.handleClick}
       >
         {tab}
@@ -131,8 +136,11 @@ class Header extends PureComponent {
   renderTabs() {
     const {
       border, onCollapse, collapsed, tabs,
+      isVertical,
     } = this.props
-    const { left, overflow } = this.state
+    const { attribute, overflow } = this.state
+
+    const position = isVertical ? 'Top' : 'Left'
 
     return (
       <div ref={this.bindWrapper} onClick={this.handleCollapse} className={tabsClass('header')}>
@@ -141,20 +149,20 @@ class Header extends PureComponent {
           <span className={tabsClass('indicator', collapsed && 'collapsed')}>{icons.AngleRight}</span>
         }
         {
-          left > 0 &&
+          attribute > 0 &&
           <div onClick={this.handlePrevClick} className={tabsClass('scroll-prev')}>
             {icons.AngleLeft}
           </div>
         }
         <div ref={this.bindInner} className={tabsClass('inner')}>
-          <div ref={this.bindScroll} style={{ marginLeft: -left }} className={tabsClass('scroll')}>
+          <div ref={this.bindScroll} style={{ [`margin${position}`]: -attribute }} className={tabsClass('scroll')}>
             { tabs.map(this.renderTab) }
           </div>
         </div>
         {
           overflow &&
           <div onClick={this.handleNextClick} className={tabsClass('scroll-next')}>
-            {icons.AngleRight}
+            {isVertical ? icons.AngleRight : icons.AngleRight}
           </div>
         }
         <div style={{ borderColor: border }} className={tabsClass('hr')} />

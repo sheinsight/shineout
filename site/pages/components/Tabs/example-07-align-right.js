@@ -1,8 +1,8 @@
 /**
- * cn - 样式
- *    -- 设置 shape 为 'line'，标签显示为线条
- * en - Shape (line)
- *    -- The line type tabs.
+ * cn - 对齐
+ *    -- 设置 align="right" 使标签右对齐
+ * en - Align
+ *    -- set align to 'right' to align labels to the right
  */
 import React from 'react'
 import { Tabs } from 'shineout'
@@ -12,7 +12,7 @@ const panelStyle = { padding: '12px 0' }
 
 export default function () {
   return (
-    <Tabs shape="line" defaultActive={1}>
+    <Tabs defaultActive={1} align="right">
       <Tabs.Panel style={panelStyle} tab="Home">
         {lorem(5)}
       </Tabs.Panel>

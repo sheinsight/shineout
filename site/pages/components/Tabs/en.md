@@ -7,6 +7,7 @@
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | active | string \| int | 0 | Current active tab id or index |
+| align | string | 无 | set the label align, options: \['left', 'right', 'vertical-left', 'vertical-right'] |
 | background | string | '#fff' | Active background color |
 | border | string | '#ddd' | Border color |
 | className | string | - | Extend className |

@@ -9,14 +9,35 @@ class Tabs extends PureComponent {
   constructor(props) {
     super(props)
 
+    const align = this.getAlign()
+
     this.state = {
       active: props.defaultActive || 0,
       collapsed: props.defaultCollapsed,
+      align: align.align,
+      isVertical: align.isVertical,
     }
 
+    this.getAlign = this.getAlign.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleCollapse = this.handleCollapse.bind(this)
     this.renderContent = this.renderContent.bind(this)
+  }
+
+  getAlign() {
+    const { shape, collapsible, align } = this.props
+    const isVertical = align && (align.indexOf('vertical') > -1)
+    if (shape === 'button' && isVertical) {
+      console.warn('align vertical-* can\'t supported when shape is button')
+      return { align: 'left', isVertical: false }
+    }
+
+    if (collapsible && isVertical) {
+      console.warn('align vertical-* can\'t supported when collapsible is true')
+      return { align: 'left', isVertical: false }
+    }
+
+    return { align, isVertical }
   }
 
   getActive() {
@@ -38,6 +59,7 @@ class Tabs extends PureComponent {
     const {
       children, color, shape, inactiveBackground, collapsible,
     } = this.props
+    const { align, isVertical } = this.state
     const active = this.getActive()
     const tabs = []
 
@@ -57,6 +79,8 @@ class Tabs extends PureComponent {
           id,
           isActive: active === id,
           tab,
+          isVertical,
+          align,
           background: background || (active === id ? this.props.background : inactiveBackground),
           border: childBorder,
           color: child.props.color || (active === id ? color : undefined),
@@ -67,6 +91,7 @@ class Tabs extends PureComponent {
 
     return (
       <Header
+        isVertical={isVertical}
         border={border}
         collapsed={this.state.collapsed}
         onCollapse={collapsible ? this.handleCollapse : undefined}
@@ -96,17 +121,24 @@ class Tabs extends PureComponent {
 
   render() {
     const {
-      children, shape, align, style,
+      children, shape, style,
     } = this.props
+    const { align, isVertical } = this.state
     const className = classnames(
-      tabsClass('_', align && `align-${align}`, shape),
+      tabsClass(
+        '_',
+        align && `align-${align}`,
+        isVertical && 'vertical',
+        shape,
+      ),
       this.props.className,
     )
 
     return (
       <div className={className} style={style}>
-        {this.renderHeader()}
+        {align !== 'vertical-right' && this.renderHeader()}
         {Children.toArray(children).map(this.renderContent)}
+        {align === 'vertical-right' && this.renderHeader()}
       </div>
     )
   }
@@ -114,7 +146,7 @@ class Tabs extends PureComponent {
 
 Tabs.propTypes = {
   active: PropTypes.any,
-  align: PropTypes.oneOf(['left', 'right']),
+  align: PropTypes.oneOf(['left', 'right', 'vertical-left', 'vertical-right']),
   background: PropTypes.string,
   border: PropTypes.string,
   children: PropTypes.oneOfType([

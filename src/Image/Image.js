@@ -31,7 +31,13 @@ class Image extends PureComponent {
 
   componentWillUnmount() {
     removeStack(this.lazyId)
+    this.$willUnmount = true
     delete this.image
+  }
+
+  setState(...args) {
+    if (this.$willUnmount) return
+    super.setState(...args)
   }
 
   bindElement(el) {
