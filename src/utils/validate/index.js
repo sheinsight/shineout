@@ -7,13 +7,16 @@ import required from './required'
 import typeOf from './type'
 import regTest from './regExp'
 
-function getRule(rules, inputType) {
+function getRule(rules, props = {}) {
   if (typeof rules === 'function') return rules
+  if (typeof props === 'string') props = { type: props }
 
   const {
-    type = inputType, message, regExp, ...other
+    type = props.type, message, regExp, ...other
   } = rules
-  other.message = substitute(message, other)
+
+  props = Object.assign({}, props, other)
+  other.message = typeof message === 'function' ? message(props) : substitute(message, props)
 
   if (other.required) return required(other)
 
@@ -33,7 +36,7 @@ function getRule(rules, inputType) {
   throw err
 }
 
-const validate = (value, formdata, rules, type) => new Promise((resolve, reject) => {
+const validate = (value, formdata, rules, props) => new Promise((resolve, reject) => {
   const $rules = [...rules]
   const rule = $rules.shift()
   if (!rule) {
@@ -47,10 +50,10 @@ const validate = (value, formdata, rules, type) => new Promise((resolve, reject)
       return
     }
 
-    validate(value, formdata, $rules, type).then(resolve, reject)
+    validate(value, formdata, $rules, props).then(resolve, reject)
   }
 
-  const fn = getRule(rule, type)
+  const fn = getRule(rule, props)
   let val = value
   if (fn === rule && (value instanceof Datum.List || value instanceof Datum.Form)) {
     val = value.getValue()

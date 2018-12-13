@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import createReactContext from 'create-react-context'
 import immer from 'immer'
 import { objectValues } from '../utils/objects'
-import { errorSubscribe } from '../Datum/types'
+import { errorSubscribe, RESET_TOPIC } from '../Datum/types'
 
 const { Provider, Consumer } = createReactContext()
 
@@ -25,6 +25,8 @@ export const itemProvider = Origin => class extends PureComponent {
       onError: this.handleError.bind(this),
     }
     this.handleUpdate = this.handleUpdate.bind(this)
+
+    if (props.formDatum) props.formDatum.subscribe(RESET_TOPIC, this.handleUpdate)
   }
 
   componentWillUnmount() {

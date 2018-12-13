@@ -198,6 +198,13 @@ test('should remove path', (t) => {
   t.deepEqual(target, { a: {} })
 })
 
+test('remove only one prop', (t) => {
+  const target = { a: 'something' }
+  deepRemove(target, 'a')
+  t.deepEqual(target, { })
+})
+
+
 test('should skip if path target value is not exist', (t) => {
   const target = { a: { b: { c: [1, 2, 3] } } }
   deepRemove(target, 'a.b.d')

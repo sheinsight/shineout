@@ -4,6 +4,7 @@ import immer from 'immer'
 import { promiseAll, isSameError } from '../utils/errors'
 import shallowEqual from '../utils/shallowEqual'
 import { curry, compose } from '../utils/func'
+import { filterProps } from '../utils/objects'
 import { getUidStr } from '../utils/uid'
 import validate from '../utils/validate'
 import { FORCE_PASS, ERROR_TYPE } from '../Datum/types'
@@ -176,10 +177,9 @@ export default curry(Origin => consumer(class extends Component {
       return Promise.resolve(true)
     }
 
-    const {
-      name, formDatum, type, bind,
-    } = this.props
+    const { name, formDatum, bind } = this.props
     const validates = []
+    const validateProps = filterProps(this.props, v => typeof v === 'string' || typeof v === 'number')
 
     if (value === undefined || Array.isArray(name)) value = this.getValue()
     if (this.customValidate) validates.push(this.customValidate())
@@ -196,8 +196,11 @@ export default curry(Origin => consumer(class extends Component {
         return promiseAll(validates)
       }
 
-      if (this.datum) value = this.datum
-      validates.push(validate(value, data, rules, type).then(() => {
+      if (this.datum) {
+        value = this.datum
+        validateProps.type = 'array'
+      }
+      validates.push(validate(value, data, rules, validateProps).then(() => {
         this.handleError()
         return true
       }).catch((e) => {
@@ -210,7 +213,7 @@ export default curry(Origin => consumer(class extends Component {
       name.forEach((n, i) => {
         let rules = (this.props.rules || [])[n] || []
         rules = rules.concat(formDatum.getRule(n))
-        validates.push(validate(value[i], data, rules, type))
+        validates.push(validate(value[i], data, rules, validateProps))
       })
     }
 
@@ -280,6 +283,8 @@ export default curry(Origin => consumer(class extends Component {
       formDatum, value, required, loopContext, bind,
       bindInputToItem, unbindInputFromItem, ...other
     } = this.props
+
+    console.log('inputable', this.props.name)
 
     return (
       <Origin

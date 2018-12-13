@@ -69,6 +69,7 @@ export default function () {
 
       <Form.Item label="">
         <Form.Button>Sumbit</Form.Button>
+        <Form.Reset>Reset</Form.Reset>
       </Form.Item>
     </Form>
   )

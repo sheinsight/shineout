@@ -15,15 +15,29 @@ export default function () {
   return (
     <Form style={{ maxWidth: 500 }} scrollToError={30} onSubmit={d => console.log(d)}>
       <Form.Item required label="Email">
-        <Input name="email" title="email" rules={[rules.required()]} />
+        <Input
+          name="email"
+          title="Email"
+          rules={[rules.required(), rules.email()]}
+        />
       </Form.Item>
 
       <Form.Item required label="Password" tip="Use at least one letter, one numeral, and seven characters.">
-        <Input name="password" type="password" />
+        <Input
+          name="password"
+          title="Password"
+          type="password"
+          rules={[rules.required()]}
+        />
       </Form.Item>
 
       <Form.Item required label="Age" tip="between 18 and 60">
-        <Input name="age" digits={0} style={{ width: 100 }} type="number" />
+        <Input
+          name="age"
+          title="Age"
+          style={{ width: 100 }}
+          rules={[rules.required(), rules.integer()]}
+        />
       </Form.Item>
 
       <Form.Item required label="Favorite Colors" tip="select your favorite colors">
@@ -31,11 +45,14 @@ export default function () {
           name="colors"
           keygen={d => d}
           data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
+          title="Favorite Colors"
+          rules={[rules.required(), rules.length(null, 2)]}
         />
       </Form.Item>
 
       <Form.Item label="">
         <Form.Button>Sumbit</Form.Button>
+        <Form.Reset>Reset</Form.Reset>
       </Form.Item>
     </Form>
   )

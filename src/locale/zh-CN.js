@@ -19,13 +19,25 @@ export default {
 
   rules: {
     required: {
-      message: '请输入{title}',
-      tip: '',
+      array: '请选择 {title}',
+      string: '请输入 {title}',
     },
-    min: {
-      array: {
-        message: '',
-        tip: '',
+    type: '请输入正确的 {title}',
+    length: {
+      range: {
+        string: '{title} 必须为 {min} - {max} 个字符',
+        number: '{title} 必须在 {min} - {max} 之间',
+        array: '{title} 选项数必须在 {min} - {max} 之间',
+      },
+      max: {
+        string: '{title} 不能超过 {max} 个字符',
+        number: '{title} 不能大于 {max}',
+        array: '{title} 不能超过 {max} 个选项',
+      },
+      min: {
+        string: '{title} 不能少于 {min} 个字符',
+        number: '{title} 不能小于 {min}',
+        array: '{title} 至少选择 {min} 个选项',
       },
     },
   },

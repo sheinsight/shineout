@@ -19,8 +19,26 @@ export default {
 
   rules: {
     required: {
-      message: 'Please enter {title}',
-      tip: '',
+      array: 'Please select {title}',
+      string: 'Please enter {title}',
+    },
+    type: 'Please enter a valid {title}',
+    length: {
+      range: {
+        string: '{title} must between {min} - {max} characters',
+        number: '{title} must between {min} - {max}',
+        array: '{title} must between {min} - {max} choices',
+      },
+      max: {
+        string: '{title} must less than {max} choices',
+        number: '{title} must less than {max}',
+        array: '{title} must select less than {max} choices',
+      },
+      min: {
+        string: '{title} must be at least {min} characters',
+        number: '{title} must greater than {min}',
+        array: '{title} must select at least {min} choices',
+      },
     },
   },
 }

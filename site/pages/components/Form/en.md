@@ -120,11 +120,7 @@ Used to process interactive data.
 Same as [Button](#/components/Button)
 
 
-<<<<<<< Updated upstream
 ### ~~Form.Block~~ out of date
-=======
-### ~~Form.Block~~ not recommend
->>>>>>> Stashed changes
 
 Use to resolve nested data
 
@@ -134,19 +130,11 @@ Use to resolve nested data
 | onChange | function(value) | required | a callback when the value is changing | 
 | value | any | required | value |
 
-<<<<<<< Updated upstream
 ### ~~Form.BlockField~~ out of date
 
 Merge Form.Field and Form.Block
 
 ### ~~Form.Loop~~ out of date
-=======
-### ~~Form.BlockField~~ not recommend
-
-Merge Form.Field and Form.Block
-
-### ~~Form.Loop~~ not recommend
->>>>>>> Stashed changes
 
 Used to iterate through the values of the array type and generate the child components.
 

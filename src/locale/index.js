@@ -1,4 +1,4 @@
-import { deepMerge } from '../utils/objects'
+import { deepMerge, deepGet } from '../utils/objects'
 import config from '../config'
 import cn from './zh-CN'
 import en from './en_US'
@@ -15,15 +15,6 @@ export function setLocale(arg) {
 
 export function getLocale(name, def) {
   if (!name) return locale
-
-  if (def && def[name]) return def[name]
-
-  let value = { ...locale }
-  name.split('.').forEach((n) => {
-    if (value) value = value[n]
-    else value = undefined
-  })
-
-  return value
+  return deepGet(locale, name, { defaultValue: def })
 }
 
