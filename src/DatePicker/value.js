@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import shallowEqual from '../utils/shallowEqual'
 import utils from './utils'
 
-export default Origin => class extends PureComponent {
+export default Origin => class extends Component {
   static propTypes = {
     format: PropTypes.string,
     onBlur: PropTypes.func,
@@ -25,29 +25,19 @@ export default Origin => class extends PureComponent {
   }
 
   componentDidMount() {
-    const { range, value } = this.props
-    if (!value) return
-    const format = this.getFormat()
-    if (range) {
-      const newValue = value.map((v) => {
-        if (!v) return undefined
-        return utils.format(utils.toDateWithFormat(v, format, undefined), format)
-      })
+    this.convertValue(this.props.value)
+  }
 
-      if (!shallowEqual(newValue, value)) {
-        this.props.onChange(newValue)
-      }
-    } else {
-      const newValue = utils.format(utils.toDateWithFormat(value, format, undefined), format)
-      if (newValue !== value) this.props.onChange(newValue)
-    }
+  shouldComponentUpdate(nextProps, nextState) {
+    const options = { deep: ['value'] }
+    return !(shallowEqual(nextProps, this.props, options) && shallowEqual(nextState, this.state, options))
   }
 
   componentDidUpdate(prevProps) {
     const { value } = this.props
-    if (value !== prevProps.value && value !== this.state.value) {
-      // eslint-disable-next-line
-      this.setState({ value })
+    if (!shallowEqual(prevProps.value, value) && !shallowEqual(value, this.state.value)) {
+      const newValue = this.convertValue(value)
+      this.state.value = newValue
     }
   }
 
@@ -66,6 +56,29 @@ export default Origin => class extends PureComponent {
       default:
         return 'yyyy-MM-dd'
     }
+  }
+
+  convertValue(value) {
+    const { range } = this.props
+    if (!value) return value
+    const format = this.getFormat()
+
+    if (!range) {
+      const newValue = utils.format(utils.toDateWithFormat(value, format, undefined), format)
+      if (newValue !== value) this.props.onChange(newValue)
+      return newValue
+    }
+
+    const newValue = value.map((v) => {
+      if (!v) return undefined
+      return utils.format(utils.toDateWithFormat(v, format, undefined), format)
+    })
+
+    if (!shallowEqual(newValue, value)) {
+      this.props.onChange(newValue)
+    }
+
+    return newValue
   }
 
   handleChange(value, callback) {

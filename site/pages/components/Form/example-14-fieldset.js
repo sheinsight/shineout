@@ -40,7 +40,6 @@ export default class extends PureComponent {
           firstName: 'James',
           lastName: 'Potter',
         },
-        age: 18,
         city: 3,
       },
       favoriteColor: ['cyan', 'yellow'],
@@ -84,7 +83,7 @@ export default class extends PureComponent {
                   name="age"
                   type="number"
                   digits={0}
-                  defaultValue={0}
+                  defaultValue={18}
                 />
               }
             </Form.Item>

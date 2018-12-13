@@ -1,10 +1,19 @@
-import { cloneElement, isValidElement, PureComponent } from 'react'
+import { cloneElement, isValidElement, Component } from 'react'
 import PropTypes from 'prop-types'
+import shallowEqual from '../utils/shallowEqual'
 
-class Field extends PureComponent {
+class Field extends Component {
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
+
+    this.cacheChildren = undefined
+    this.cacheElement = null
+  }
+
+  shouldComponentUpdate(nextProps) {
+    const options = this.props.cache ? { skip: ['children'] } : {}
+    return !(shallowEqual(this.props, nextProps, options))
   }
 
   handleChange(value) {
@@ -33,6 +42,7 @@ class Field extends PureComponent {
 }
 
 Field.propTypes = {
+  cache: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.element,
@@ -40,6 +50,10 @@ Field.propTypes = {
   error: PropTypes.object,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.any,
+}
+
+Field.defaultProps = {
+  cache: true,
 }
 
 export default Field

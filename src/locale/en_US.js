@@ -16,5 +16,12 @@ export default {
   cancel: 'Cancel',
   noData: 'Data not found',
   selectAll: 'Select All',
+
+  rules: {
+    required: {
+      message: 'Please enter {title}',
+      tip: '',
+    },
+  },
 }
 

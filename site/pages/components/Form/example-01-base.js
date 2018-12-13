@@ -27,14 +27,29 @@ const citys = [
 ]
 
 export default class extends PureComponent {
-  initValue = {
-    email: 'test@example.com',
-    age: 18,
+  constructor(props) {
+    super(props)
+
+    this.state = { value: undefined }
+  }
+
+  componentDidMount() {
+    this.handleChange({
+      email: 'test@example.com',
+      age: 18,
+      favoriteColor: ['cyan', 'yellow'],
+      startDate: Date.now(),
+      endDate: Date.now() + 86400000,
+    })
+  }
+
+  handleChange = (value) => {
+    this.setState({ value })
   }
 
   render() {
     return (
-      <Form value={this.initValue} scrollToError onSubmit={(data) => { console.log(data) }}>
+      <Form value={this.state.value} onChange={this.handleChange} onSubmit={(data) => { console.log(data) }}>
         <Form.Item label="Email">
           <Input name="email" />
         </Form.Item>
@@ -73,7 +88,7 @@ export default class extends PureComponent {
         <Form.Item label="Favorite Color">
           <Checkbox.Group
             name="favoriteColor"
-            keygen={d => d}
+            keygen
             data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
           />
         </Form.Item>
@@ -81,7 +96,7 @@ export default class extends PureComponent {
         <Form.Item label="Other Color">
           <Radio.Group
             name="otherColor"
-            keygen={d => d}
+            keygen
             data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
           />
         </Form.Item>
@@ -89,7 +104,7 @@ export default class extends PureComponent {
         <Form.Item label="Hate Color">
           <Select
             name="hateColor"
-            keygen={d => d}
+            keygen
             style={{ width: 100 }}
             data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
           />

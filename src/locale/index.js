@@ -1,3 +1,4 @@
+import { deepMerge } from '../utils/objects'
 import config from '../config'
 import cn from './zh-CN'
 import en from './en_US'
@@ -8,7 +9,7 @@ export function setLocale(arg) {
   if (typeof arg === 'string') {
     locale = arg === 'zh-CN' ? cn : en
   } else if (typeof arg === 'object') {
-    locale = Object.assign({}, locale, arg)
+    locale = deepMerge(locale, arg, { clone: true })
   }
 }
 

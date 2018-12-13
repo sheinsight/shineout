@@ -62,10 +62,10 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-08-validate.js'),
   },
   {
-    name: '09-datum',
-    title: locate('数据处理 \n Form 内部通过 Datum.Form 对象来处理数据，通常情况下，用户只需要 onSumbit 中的 formdata 提交即可。 \n 如果有额外的需求，可以自定义一个 Datum.Form 对象来处理数据。', 'Datum.Form \n Forms internally process data through the Datum.Form object. Typically, users only need to get formdata on onSumbit. \n You can customize a Datum.Form object to process the data.'),
-    component: require('doc/pages/components/Form/example-09-datum.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-09-datum.js'),
+    name: '09-validate',
+    title: locate(' \n 某些复杂的数据，如多层嵌套的数据，可以在单个元素上设置 rules \n 设置 scrollToError 属性，在 form 提交校验失败时自动滚动到第一个错误的组件', ' \n Some complex data, such as multi-level nested data, can set rules on a single element. \n Set the scrollToError property, scroll to the first invalid element when the form submission validation fails.'),
+    component: require('doc/pages/components/Form/example-09-validate.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-09-validate.js'),
   },
   {
     name: '10-flow',

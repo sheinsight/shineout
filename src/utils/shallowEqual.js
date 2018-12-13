@@ -1,3 +1,5 @@
+import deepEqual from 'deep-eql'
+
 const { hasOwnProperty } = Object.prototype
 
 function is(x, y) {
@@ -8,7 +10,13 @@ function is(x, y) {
   return x !== x && y !== y
 }
 
-export default function (objA, objB) {
+function getOption(options, key) {
+  if (!options[key]) return []
+  const val = options[key]
+  return Array.isArray(val) ? val : [val]
+}
+
+export default function (objA, objB, options = {}) {
   if (is(objA, objB)) {
     return true
   }
@@ -21,17 +29,20 @@ export default function (objA, objB) {
   const keysA = Object.keys(objA)
   const keysB = Object.keys(objB)
 
+  const skip = getOption(options, 'skip')
+  const deep = getOption(options, 'deep')
+
   if (keysA.length !== keysB.length) {
     return false
   }
 
   // Test for A's keys different from B.
   for (let i = 0; i < keysA.length; i++) {
-    if (
-      !hasOwnProperty.call(objB, keysA[i])
-      || !is(objA[keysA[i]], objB[keysA[i]])
-    ) {
-      return false
+    const k = keysA[i]
+    if (!hasOwnProperty.call(objB, k) || !is(objA[k], objB[k])) {
+      if (deep.includes(k)) {
+        if (!deepEqual(objA[k], objB[k])) return false
+      } else if (!skip.includes(k)) return false
     }
   }
 

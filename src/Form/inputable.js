@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
 import { promiseAll, isSameError } from '../utils/errors'
@@ -23,7 +23,7 @@ const beforeValueChange = curry((fn, value, datum) => {
   return newValue === undefined ? value : newValue
 })
 
-export default curry(Origin => consumer(class extends PureComponent {
+export default curry(Origin => consumer(class extends Component {
   static propTypes = {
     beforeChange: PropTypes.func,
     bind: PropTypes.array,
@@ -95,6 +95,11 @@ export default curry(Origin => consumer(class extends PureComponent {
     if (bindInputToItem && name) bindInputToItem(name)
 
     if (loopContext) loopContext.bind(this.validate)
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const options = { deep: ['data', 'name', 'rules', 'rule', 'style', 'value'] }
+    return !(shallowEqual(nextProps, this.props, options) && shallowEqual(nextState, this.state, options))
   }
 
   componentWillUnmount() {
@@ -221,14 +226,15 @@ export default curry(Origin => consumer(class extends PureComponent {
 
     const beforeChange = beforeValueChange(this.props.beforeChange)
     if (formDatum && name) {
+      value = beforeChange(value, formDatum)
       if (Array.isArray(name)) {
+        const nameValues = {}
         name.forEach((n, i) => {
-          let v = (value || [])[i]
-          v = beforeChange(v, formDatum)
-          if (v !== formDatum.get(n)) formDatum.set(n, v)
+          const v = (value || [])[i]
+          if (v !== formDatum.get(n)) nameValues[n] = v
         })
+        formDatum.set(nameValues)
       } else {
-        value = beforeChange(value, formDatum)
         formDatum.set(name, value)
       }
     } else {

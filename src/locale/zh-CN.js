@@ -16,4 +16,17 @@ export default {
   cancel: '取消',
   noData: '无数据',
   selectAll: '全选',
+
+  rules: {
+    required: {
+      message: '请输入{title}',
+      tip: '',
+    },
+    min: {
+      array: {
+        message: '',
+        tip: '',
+      },
+    },
+  },
 }

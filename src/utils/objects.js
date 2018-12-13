@@ -18,6 +18,25 @@ export const fastClone = obj => JSON.parse(JSON.stringify(obj))
 
 export const shallowClone = obj => Object.assign(Object.create(Object.getPrototypeOf(obj)), obj)
 
+export function filterProps(obj, props = []) {
+  if (!isObject(obj)) return obj
+
+  if (typeof props === 'function') {
+    const prediction = props
+    props = []
+    Object.keys(obj).forEach((k) => {
+      if (prediction(obj[k])) props.push(k)
+    })
+  }
+
+  const newObj = {}
+  props.forEach((k) => {
+    newObj[k] = obj[k]
+  })
+
+  return newObj
+}
+
 // Object.values()
 export const objectValues = (obj) => {
   if (!obj) return []
