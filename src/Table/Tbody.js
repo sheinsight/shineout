@@ -5,9 +5,9 @@ import { getProps } from '../utils/proptypes'
 import { getKey } from '../utils/uid'
 import Tr from './Tr'
 
-function format(columns, data, nextRow, index) {
+function format(columns, data, nextRow, index, expandKeys) {
   const row = columns.map((col, i) => {
-    const cell = { index, data }
+    const cell = { index, data, expandKeys }
     cell.colSpan = typeof col.colSpan === 'function' ? col.colSpan(data, index) : 1
     if (cell.colSpan < 1) cell.colSpan = 1
 
@@ -49,6 +49,7 @@ class Tbody extends PureComponent {
     this.bindBody = this.bindBody.bind(this)
     this.renderTr = this.renderTr.bind(this)
     this.handleExpand = this.handleExpand.bind(this)
+    this.findExpandFunc = this.findExpandFunc.bind(this)
   }
 
   componentDidMount() {
@@ -81,16 +82,25 @@ class Tbody extends PureComponent {
     }))
   }
 
+  findExpandFunc(key, index) {
+    const { columns, expandKeys, data } = this.props
+    if (expandKeys) {
+      const expanded = expandKeys.find(k => k === key)
+      const expandObj = expanded ? columns.find(c => c.type === 'expand' || c.type === 'row-expand') : {}
+      return expandObj.render ? expandObj.render(data[index]) : undefined
+    }
+    return this.state.expand[key]
+  }
+
   renderTr(row, i) {
     const {
-      columns, keygen, data, sorter, index, ...other
+      columns, keygen, data, sorter, index, expandKeys, ...other
     } = this.props
 
     let key = getKey(data[i], keygen, row.index)
     if (sorter && sorter.order) {
       key = `${key}-${sorter.index}-${sorter.order}`
     }
-
     return (
       <Tr
         {...other}
@@ -100,17 +110,19 @@ class Tbody extends PureComponent {
         columns={columns}
         rowKey={key}
         onExpand={this.handleExpand}
-        expandRender={this.state.expand[key]}
+        expandRender={this.findExpandFunc(key, i)}
       />
     )
   }
 
   render() {
-    const { index, data, columns } = this.props
+    const {
+      index, data, columns, expandKeys,
+    } = this.props
     const rows = []
     for (let i = data.length - 1; i >= 0; i--) {
       const d = data[i]
-      rows.unshift(format(columns, d, rows[0], index + i).map((col) => {
+      rows.unshift(format(columns, d, rows[0], index + i, expandKeys).map((col) => {
         delete col.content
         return col
       }))

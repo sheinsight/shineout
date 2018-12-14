@@ -72,7 +72,7 @@ class Tr extends Component {
 
     if (isExpandableElement(e.target)) {
       const el = this.element.querySelector(`.${tableClass('expand-indicator')}`)
-      if (el && columns.some(c => c.type === 'row-expand')) el.click()
+      if (el && el !== e.target && columns.some(c => c.type === 'row-expand')) el.click()
       if (onRowClick && e.target !== el)onRowClick(data[0].data, index)
     }
   }
@@ -89,6 +89,7 @@ class Tr extends Component {
       } else if (data[i]) {
         const {
           className, style, key, fixed, lastFixed, firstFixed, type, render,
+          onClick,
         } = columns[i]
         const td = (
           <Td
@@ -96,6 +97,7 @@ class Tr extends Component {
             expanded={typeof expandRender === 'function'}
             key={key}
             type={type}
+            expandClick={onClick}
             className={className}
             style={style}
             fixed={fixed}
