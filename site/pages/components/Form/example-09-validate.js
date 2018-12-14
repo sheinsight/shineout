@@ -9,7 +9,30 @@
 import React from 'react'
 import { Form, Input, Checkbox, Rule } from 'shineout'
 
-const rules = Rule()
+const rules = Rule(
+  // validate function package
+  {
+    password: {
+      func: (value, formData, cb, props) => new Promise((resolve, reject) => {
+        if (!/\d+/.test(value) || !/[a-z]+/i.test(value)) {
+          reject(new Error(props.message.replace('{title}', props.title)))
+        } else {
+          resolve(true)
+        }
+      }),
+    },
+    isExist: (value, _, callback) => {
+      if (value.indexOf('so') >= 0) callback(new Error(`"${value}" is existed.`))
+      else callback(true)
+    },
+  },
+  // language package
+  {
+    password: {
+      message: '{title} at least has one numeral and one letter',
+    },
+  },
+)
 
 export default function () {
   return (
@@ -18,16 +41,24 @@ export default function () {
         <Input
           name="email"
           title="Email"
-          rules={[rules.required(), rules.email()]}
+          rules={[rules.required, rules.email]}
         />
       </Form.Item>
 
-      <Form.Item required label="Password" tip="Use at least one letter, one numeral, and seven characters.">
+      <Form.Item required label="Name">
+        <Input
+          name="name"
+          title="Name"
+          rules={[rules.required, rules.isExist]}
+        />
+      </Form.Item>
+
+      <Form.Item required label="Password" tip="At least one letter, one numeral, and 6 - 20 characters.">
         <Input
           name="password"
           title="Password"
           type="password"
-          rules={[rules.required()]}
+          rules={[rules.required, rules.length(6, 20), rules.password]}
         />
       </Form.Item>
 
@@ -36,7 +67,24 @@ export default function () {
           name="age"
           title="Age"
           style={{ width: 100 }}
-          rules={[rules.required(), rules.integer()]}
+          type="integer"
+          rules={[rules.required, rules.integer, rules.length(18, 60)]}
+        />
+      </Form.Item>
+
+      <Form.Item required label="Tel">
+        <Input
+          name="tel"
+          title="Tel"
+          rules={[rules.required, rules.regExp('/^[\\d\\s ().-]+$/')]}
+        />
+      </Form.Item>
+
+      <Form.Item required label="IPv4">
+        <Input
+          name="IPv4"
+          title="IP"
+          rules={[rules.required, rules.ipv4]}
         />
       </Form.Item>
 
@@ -45,8 +93,9 @@ export default function () {
           name="colors"
           keygen={d => d}
           data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
+          defaultValue={[]}
           title="Favorite Colors"
-          rules={[rules.required(), rules.length(null, 2)]}
+          rules={[rules.required, rules.min(2), rules.max(3)]}
         />
       </Form.Item>
 

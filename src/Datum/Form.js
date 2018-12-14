@@ -39,9 +39,10 @@ export default class {
   }
 
   reset() {
-    this.dispatch(RESET_TOPIC)
     this.$errors = {}
     this.setValue(unflatten(fastClone(this.$defaultValues)), FORCE_PASS, true)
+    this.handleChange()
+    this.dispatch(RESET_TOPIC)
   }
 
   get(name) {
@@ -136,22 +137,6 @@ export default class {
 
       // for flow
       this.dispatch(CHANGE_TOPIC)
-    })
-  }
-
-  throughError(path, error) {
-    const names = []
-    if (isObject(error)) {
-      Object.keys(error).forEach((name) => {
-        names.push([`${path}${path ? '.' : ''}${name}`, name])
-      })
-    } else if (Array.isArray(error)) {
-      error.forEach((n, i) => names.push([`${path}[${i}]`, i]))
-    }
-
-    names.forEach(([name, next]) => {
-      if (this.$inputNames[name]) this.dispatch(errorSubscribe(name), this.getError(name), name, ERROR_TYPE)
-      else this.throughError(name, error[next])
     })
   }
 

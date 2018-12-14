@@ -4,7 +4,7 @@ import immer from 'immer'
 import createReactContext from 'create-react-context'
 import validate from '../utils/validate'
 import { FormError, isSameError } from '../utils/errors'
-import { ERROR_TYPE, FORCE_PASS } from '../Datum/types'
+import { ERROR_TYPE, FORCE_PASS, IGNORE_VALIDATE } from '../Datum/types'
 import Item from './Item'
 
 const { Provider, Consumer } = createReactContext()
@@ -64,8 +64,9 @@ class FieldSet extends Component {
 
   handleUpdate(v, n, type) {
     if (this.updateTimer) clearTimeout(this.updateTimer)
+    console.log('update', this.props.name, type)
     this.updateTimer = setTimeout(() => {
-      if (type === ERROR_TYPE || type === FORCE_PASS) {
+      if (type === ERROR_TYPE || type === FORCE_PASS || type === IGNORE_VALIDATE) {
         if (this.$willUnmount) return
         this.forceUpdate()
       } else {
@@ -107,6 +108,8 @@ class FieldSet extends Component {
 
     const errors = formDatum.getError(name)
     const result = []
+
+    console.log('render fieldSet', name)
 
     if (typeof children !== 'function') {
       return (

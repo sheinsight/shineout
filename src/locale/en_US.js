@@ -24,11 +24,6 @@ export default {
     },
     type: 'Please enter a valid {title}',
     length: {
-      range: {
-        string: '{title} must between {min} - {max} characters',
-        number: '{title} must between {min} - {max}',
-        array: '{title} must between {min} - {max} choices',
-      },
       max: {
         string: '{title} must less than {max} choices',
         number: '{title} must less than {max}',
@@ -40,6 +35,7 @@ export default {
         array: '{title} must select at least {min} choices',
       },
     },
+    reg: '{title} is invalid.',
   },
 }
 

@@ -25,7 +25,7 @@ export default function (args) {
   } = args
 
   if (!url) {
-    console.error(`action is required, but its value is ${url}`)
+    console.error(new Error(`action is required, but its value is ${url}`))
     return undefined
   }
 

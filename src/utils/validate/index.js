@@ -1,6 +1,7 @@
-import { substitute } from '../strings'
 import Datum from '../../Datum'
 import { wrapFormError } from '../../utils/errors'
+import { substitute } from '../strings'
+import { flattenArray } from '../flat'
 import range from './range'
 import rangeLength from './rangeLength'
 import required from './required'
@@ -8,28 +9,33 @@ import typeOf from './type'
 import regTest from './regExp'
 
 function getRule(rules, props = {}) {
-  if (typeof rules === 'function') return rules
+  if (typeof rules === 'function') {
+    if (rules.isInnerValidator) rules = rules()
+    else return rules
+  }
   if (typeof props === 'string') props = { type: props }
 
   const {
-    type = props.type, message, regExp, ...other
+    type = props.type, message, regExp, func, ...other
   } = rules
 
   props = Object.assign({}, props, other)
-  other.message = typeof message === 'function' ? message(props) : substitute(message, props)
+  props.message = typeof message === 'function' ? message(props) : substitute(message, props)
 
-  if (other.required) return required(other)
+  if (func) return (...args) => func(...args, props)
 
-  if (regExp) return regTest(regExp, other)
+  if (other.required) return required(props)
+
+  if (regExp) return regTest(regExp, props)
 
   if (other.min !== undefined || other.max !== undefined) {
     if (type === 'number' || type === 'integer') {
-      return range(other)
+      return range(props)
     }
-    return rangeLength(other)
+    return rangeLength(props)
   }
 
-  if (type) return typeOf(type, other.message)
+  if (type) return typeOf(type, props.message)
 
   const err = new Error(`Rule ${JSON.stringify(rules)} is not valid.`)
   console.error(err)
@@ -37,10 +43,13 @@ function getRule(rules, props = {}) {
 }
 
 const validate = (value, formdata, rules, props) => new Promise((resolve, reject) => {
-  const $rules = [...rules]
+  const $rules = flattenArray(rules)
   const rule = $rules.shift()
-  if (!rule) {
+  if (rule === undefined) {
     resolve(true)
+    return
+  } else if (!rule) {
+    validate(value, formdata, $rules, props).then(resolve, reject)
     return
   }
 

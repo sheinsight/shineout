@@ -47,13 +47,12 @@ export default class extends PureComponent {
 
   componentDidMount() {
     this.handleChange({
-      email: 'test@example',
+      email: 'test@example.com',
       account: {
         name: {
           firstName: 'James',
           lastName: 'Potter',
         },
-        age: 10,
         city: 3,
       },
       favoriteColor: ['cyan', 'yellow'],
@@ -67,7 +66,7 @@ export default class extends PureComponent {
   render() {
     const { value } = this.state
     return (
-      <Form value={value} onChange={this.handleChange} onSubmit={(data) => { console.log(data) }}>
+      <Form value={value} initValidate={false} onChange={this.handleChange} onSubmit={(data) => { console.log(data) }}>
         <Form.Item label="Email">
           <Input name="email" rules={rules.email} />
         </Form.Item>

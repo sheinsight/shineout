@@ -24,11 +24,9 @@ const regs = {
   get rgba() {
     return new RegExp('^rgba\\(\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*((0.[1-9]*)|[01])\\s*\\)$')
   },
-  /*
-  get hsv() {
-    return  new RegExp('^hsv\\(\\s*(0|[1-9]\\d?|[12]\\d\\d|3[0-5]\\d)\\s*,\\s*((0|[1-9]\\d?|100)%)\\s*,\\s*((0|[1-9]\\d?|100)%)\\s*\\)$')
+  get ipv4() {
+    return /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
   },
-  */
   get url() {
     return new RegExp('^' +
     // protocol identifier
@@ -77,7 +75,7 @@ export default (type, message) => nullable((value, formdata, callback) => {
 
   const reg = regs[type]
   if (!reg) {
-    console.error(`Type '${type}' not existed.`)
+    console.error(new Error(`Type '${type}' not existed.`))
     callback(new Error(`Validate failured. Type '${type}' not existed.`))
   }
 

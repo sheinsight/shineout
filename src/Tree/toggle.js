@@ -20,7 +20,7 @@ export default function (Origin) {
 
     bindNode(id, update) {
       if (this.nodes.has(id)) {
-        console.error(`Node with '${id}' key has already been added. Tree node's key must be unique.`)
+        console.error(new Error(`Node with '${id}' key has already been added. Tree node's key must be unique.`))
         return false
       }
       this.nodes.set(id, update)

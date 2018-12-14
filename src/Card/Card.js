@@ -46,7 +46,7 @@ class Card extends PureComponent {
   handleSubmit() {
     const form = this.element.querySelector('form')
     if (form) dispatchEvent(form, 'submit')
-    else console.error('No form found.')
+    else console.error(new Error('No form found.'))
   }
 
   render() {

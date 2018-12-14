@@ -24,11 +24,6 @@ export default {
     },
     type: '请输入正确的 {title}',
     length: {
-      range: {
-        string: '{title} 必须为 {min} - {max} 个字符',
-        number: '{title} 必须在 {min} - {max} 之间',
-        array: '{title} 选项数必须在 {min} - {max} 之间',
-      },
       max: {
         string: '{title} 不能超过 {max} 个字符',
         number: '{title} 不能大于 {max}',
@@ -40,5 +35,6 @@ export default {
         array: '{title} 至少选择 {min} 个选项',
       },
     },
+    reg: '{title} 格式不正确',
   },
 }

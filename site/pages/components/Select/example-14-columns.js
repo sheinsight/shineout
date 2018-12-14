@@ -16,7 +16,7 @@ export default function () {
   return (
     <div>
       <Select
-        data={citys}
+        data={[]}
         format="id"
         keygen="id"
         columns={3}

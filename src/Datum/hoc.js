@@ -27,7 +27,7 @@ export default curry((options, Origin) => {
     }
 
     static defaultProps = {
-      initValidate: true,
+      initValidate: false,
     }
 
     constructor(props) {

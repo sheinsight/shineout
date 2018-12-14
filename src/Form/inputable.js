@@ -100,7 +100,7 @@ export default curry(Origin => consumer(class extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     const options = { deep: ['data', 'name', 'rules', 'rule', 'style', 'value'] }
-    return !(shallowEqual(nextProps, this.props, options) && shallowEqual(nextState, this.state, options))
+    return !(shallowEqual(nextProps, this.props, options) && shallowEqual(nextState, this.state))
   }
 
   componentWillUnmount() {
@@ -173,6 +173,7 @@ export default curry(Origin => consumer(class extends Component {
 
   validate(value, data) {
     if (value === FORCE_PASS) {
+      this.setState({ timestamp: Date.now() })
       this.handleError()
       return Promise.resolve(true)
     }
@@ -287,8 +288,6 @@ export default curry(Origin => consumer(class extends Component {
       formDatum, value, required, loopContext, bind,
       bindInputToItem, unbindInputFromItem, ...other
     } = this.props
-
-    console.log('inputable', this.props.name)
 
     return (
       <Origin

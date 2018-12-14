@@ -200,7 +200,7 @@ export default class {
       return [values]
     }
 
-    console.error('Select values is not valid.')
+    console.error(new Error('Select values is not valid.'))
     return []
   }
 

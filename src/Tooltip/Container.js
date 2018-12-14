@@ -131,7 +131,7 @@ export default function (options) {
       const { children, trigger } = this.props
 
       if (!isValidElement(children)) {
-        console.error('Tooltip children expect a single ReactElement.')
+        console.error(new Error('Tooltip children expect a single ReactElement.'))
         return null
       }
 

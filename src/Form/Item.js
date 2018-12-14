@@ -33,6 +33,8 @@ class Item extends Component {
       this.props.className,
     )
 
+    console.log('render item', label)
+
     return (
       <div className={className} style={style}>
         {

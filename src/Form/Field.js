@@ -36,7 +36,7 @@ class Field extends Component {
       return cloneElement(children, { value, error, onChange: this.handleChange })
     }
 
-    console.error('Form.Field expect a single ReactElement or a function.')
+    console.error(new Error('Form.Field expect a single ReactElement or a function.'))
     return null
   }
 }
