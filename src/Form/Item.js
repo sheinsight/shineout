@@ -1,11 +1,11 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getGrid } from '../Grid/utils'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { formClass } from '../styles'
 
-class Item extends PureComponent {
+class Item extends Component {
   renderHelp() {
     const { formItemErrors } = this.props
     if (formItemErrors.length > 0) {

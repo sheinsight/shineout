@@ -6,7 +6,7 @@ import shallowEqual from '../utils/shallowEqual'
 import { curry, compose } from '../utils/func'
 import { getUidStr } from '../utils/uid'
 import validate from '../utils/validate'
-import { FORCE_PASS, ERROR_TYPE } from '../Datum/types'
+import { FORCE_PASS, ERROR_TYPE, IGNORE_VALIDATE } from '../Datum/types'
 import { formConsumer } from './formContext'
 import { itemConsumer } from './itemContext'
 import { loopConsumer } from './Loop'
@@ -221,14 +221,15 @@ export default curry(Origin => consumer(class extends PureComponent {
 
     const beforeChange = beforeValueChange(this.props.beforeChange)
     if (formDatum && name) {
+      value = beforeChange(value, formDatum)
       if (Array.isArray(name)) {
+        const nameValues = {}
         name.forEach((n, i) => {
-          let v = (value || [])[i]
-          v = beforeChange(v, formDatum)
-          if (v !== formDatum.get(n)) formDatum.set(n, v)
+          const v = (value || [])[i]
+          if (v !== formDatum.get(n)) nameValues[n] = v
         })
+        formDatum.set(nameValues)
       } else {
-        value = beforeChange(value, formDatum)
         formDatum.set(name, value)
       }
     } else {
@@ -248,13 +249,15 @@ export default curry(Origin => consumer(class extends PureComponent {
     }
 
     // check for performance
-    if (shallowEqual(value, this.lastValue)) return
+    if (shallowEqual(value, this.lastValue) && type !== FORCE_PASS) return
     this.lastValue = value
 
     const { name } = this.props
     if (typeof name === 'string') {
       this.setState({ value })
-      this.validate(type === FORCE_PASS ? FORCE_PASS : value).catch(() => {})
+      if (type !== IGNORE_VALIDATE) {
+        this.validate(type === FORCE_PASS ? FORCE_PASS : value).catch(() => {})
+      }
       return
     }
 
@@ -266,7 +269,9 @@ export default curry(Origin => consumer(class extends PureComponent {
     })
 
     this.setState({ value: newValue })
-    this.validate(type === FORCE_PASS ? FORCE_PASS : newValue).catch(() => {})
+    if (type !== IGNORE_VALIDATE) {
+      this.validate(type === FORCE_PASS ? FORCE_PASS : newValue).catch(() => {})
+    }
   }
 
   render() {

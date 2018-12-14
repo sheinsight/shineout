@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { curry } from '../utils/func'
 import shallowEqual from '../utils/shallowEqual'
+import { IGNORE_VALIDATE } from './types'
 import List from './List'
 import Form from './Form'
 
@@ -21,7 +22,12 @@ export default curry((options, Origin) => {
       onChange: PropTypes.func,
       onDatumBind: PropTypes.func,
       datum: PropTypes.object,
+      initValidate: PropTypes.bool,
       value: PropTypes.any,
+    }
+
+    static defaultProps = {
+      initValidate: true,
     }
 
     constructor(props) {
@@ -51,7 +57,8 @@ export default curry((options, Origin) => {
     componentDidUpdate() {
       const values = this.props[key]
       if (!shallowEqual(values, this.prevValues)) {
-        this.datum.setValue(values)
+        const iv = this.props.initValidate ? undefined : IGNORE_VALIDATE
+        this.datum.setValue(values, iv)
         this.prevValues = values
       }
     }

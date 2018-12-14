@@ -20,6 +20,14 @@ export default function (type) {
       this.handleInputChange = this.handleInputChange.bind(this)
     }
 
+    componentDidUpdate(prevProps) {
+      const { checked, value, htmlValue } = this.props
+      if (prevProps.value !== value && checked === undefined) {
+        // eslint-disable-next-line
+        this.setState({ checked: value === htmlValue })
+      }
+    }
+
     getChecked() {
       const { checked, value, htmlValue } = this.props
       if (typeof checked === 'function') return checked(htmlValue)

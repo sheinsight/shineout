@@ -11,6 +11,19 @@ import { fetchSync as fetchCity } from 'doc/data/city'
 const citys = fetchCity(20)
 
 const rules = {
+  email: [
+    { required: true, message: 'Please enter your email.' },
+    { type: 'email', message: 'Please enter a valid email.' },
+  ],
+  password: [
+    { required: true, message: 'Please enter password.' },
+    { min: 7, message: 'Password must be at least {min} characters.' },
+    { regExp: /[a-z]+/i, message: 'Password at least has one letter.' },
+    (value, formdata, callback) => {
+      if (/\d+/.test(value)) callback(true)
+      else callback(new Error('Password at least has one numeral.'))
+    },
+  ],
   age: [
     { min: 18, max: 60, message: 'Age must between {min} and {max}.' },
   ],
@@ -34,13 +47,13 @@ export default class extends PureComponent {
 
   componentDidMount() {
     this.handleChange({
-      email: 'test@example.com',
+      email: 'test@example',
       account: {
         name: {
           firstName: 'James',
           lastName: 'Potter',
         },
-        age: 18,
+        age: 10,
         city: 3,
       },
       favoriteColor: ['cyan', 'yellow'],
@@ -56,7 +69,7 @@ export default class extends PureComponent {
     return (
       <Form value={value} onChange={this.handleChange} onSubmit={(data) => { console.log(data) }}>
         <Form.Item label="Email">
-          <Input name="email" />
+          <Input name="email" rules={rules.email} />
         </Form.Item>
 
         <Form.Item label="Password">

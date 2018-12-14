@@ -41,7 +41,7 @@ export default class {
   reset() {
     this.dispatch(RESET_TOPIC)
     this.$errors = {}
-    this.setValue(unflatten(fastClone(this.$defaultValues)), FORCE_PASS)
+    this.setValue(unflatten(fastClone(this.$defaultValues)), FORCE_PASS, true)
   }
 
   get(name) {
@@ -123,14 +123,14 @@ export default class {
     return fastClone(this.$values)
   }
 
-  setValue(values = {}, forcePass) {
-    if (deepEqual(values, this.$values)) return
+  setValue(values = {}, type, forceSet) {
+    if (!forceSet && deepEqual(values, this.$values)) return
     this.$values = values
 
     // wait render end.
     setTimeout(() => {
       Object.keys(this.$inputNames).sort((a, b) => a.length - b.length).forEach((name) => {
-        this.dispatch(updateSubscribe(name), this.get(name), name, forcePass)
+        this.dispatch(updateSubscribe(name), this.get(name), name, type)
         this.dispatch(changeSubscribe(name))
       })
 
