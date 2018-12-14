@@ -111,7 +111,7 @@ export default class extends PureComponent {
         </Form.Item>
 
         <Form.Item label="Date">
-          <DatePicker type="datetime" range name={['startDate', 'endDate']} />
+          <DatePicker type="datetime" range name={['startDate', 'endDate']} defaultValue={[Date.now() - 100000000, Date.now()]} />
         </Form.Item>
 
         <Form.Item label="Description">

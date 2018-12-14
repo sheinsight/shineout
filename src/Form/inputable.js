@@ -7,7 +7,7 @@ import { curry, compose } from '../utils/func'
 import { filterProps } from '../utils/objects'
 import { getUidStr } from '../utils/uid'
 import validate from '../utils/validate'
-import { FORCE_PASS, ERROR_TYPE } from '../Datum/types'
+import { FORCE_PASS, ERROR_TYPE, IGNORE_VALIDATE } from '../Datum/types'
 import { formConsumer } from './formContext'
 import { itemConsumer } from './itemContext'
 import { loopConsumer } from './Loop'
@@ -257,13 +257,15 @@ export default curry(Origin => consumer(class extends Component {
     }
 
     // check for performance
-    if (shallowEqual(value, this.lastValue)) return
+    if (shallowEqual(value, this.lastValue) && type !== FORCE_PASS) return
     this.lastValue = value
 
     const { name } = this.props
     if (typeof name === 'string') {
       this.setState({ value })
-      this.validate(type === FORCE_PASS ? FORCE_PASS : value).catch(() => {})
+      if (type !== IGNORE_VALIDATE) {
+        this.validate(type === FORCE_PASS ? FORCE_PASS : value).catch(() => {})
+      }
       return
     }
 
@@ -275,7 +277,9 @@ export default curry(Origin => consumer(class extends Component {
     })
 
     this.setState({ value: newValue })
-    this.validate(type === FORCE_PASS ? FORCE_PASS : newValue).catch(() => {})
+    if (type !== IGNORE_VALIDATE) {
+      this.validate(type === FORCE_PASS ? FORCE_PASS : newValue).catch(() => {})
+    }
   }
 
   render() {
