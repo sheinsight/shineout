@@ -91,7 +91,11 @@ class BoxList extends Component {
 
     const options = []
     if (data.length === 0) {
-      options.push(<div className={selectClass('no-data')}>{this.getText('noData')}</div>)
+      options.push((
+        <div key="empty" className={selectClass('no-data')}>
+          {this.getText('noData')}
+        </div>
+      ))
     }
 
     let checkedCount = 0

@@ -14,8 +14,15 @@ class Td extends PureComponent {
   }
 
   handleExpandClick() {
-    const { rowKey, expanded } = this.props
-    this.props.onExpand(rowKey, expanded ? undefined : this.cachedRender)
+    const {
+      rowKey, expanded, data, expandKeys,
+      expandClick,
+    } = this.props
+    if (expandKeys) {
+      if (expandClick) expandClick(data, !expanded)
+    } else {
+      this.props.onExpand(rowKey, expanded ? undefined : this.cachedRender)
+    }
   }
 
   renderCheckbox() {
@@ -76,7 +83,7 @@ class Td extends PureComponent {
         fixed === 'right' && CLASS_FIXED_RIGHT,
         firstFixed && 'fixed-first',
         lastFixed && 'fixed-last',
-        (type === 'checkbox' || type === 'expand') && 'checkbox',
+        (type === 'checkbox' || type === 'expand' || type === 'row-expand') && 'checkbox',
       ),
     )
 
@@ -102,6 +109,8 @@ Td.propTypes = {
   rowSpan: PropTypes.number,
   style: PropTypes.object,
   type: PropTypes.string,
+  expandKeys: PropTypes.array,
+  expandClick: PropTypes.func,
   datum: PropTypes.object,
   render: PropTypes.oneOfType([
     PropTypes.func,
