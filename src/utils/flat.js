@@ -96,6 +96,8 @@ export function insertValue(obj, name, index, value) {
 
 export function spliceValue(obj, name, index) {
   Object.keys(obj).filter(n => n === name || n.indexOf(`${name}[`) === 0).sort().forEach((n) => {
+    if (n === name && !Array.isArray(obj[name])) return
+
     if (n === name) {
       obj[name].splice(index, 1)
       return

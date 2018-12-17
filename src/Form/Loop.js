@@ -79,8 +79,8 @@ export default class Loop extends PureComponent {
     return promiseAll(this.validations.map(v => v(undefined, undefined, true)))
   }
 
-  handleUpdate(_, sn) {
-    if (sn === ERROR_TYPE) {
+  handleUpdate(_, sn, type) {
+    if (type === ERROR_TYPE) {
       if (this.$willUnmount) return
       this.forceUpdate()
     } else {

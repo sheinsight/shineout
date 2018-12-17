@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import createReactContext from 'create-react-context'
 import { curry } from '../utils/func'
@@ -42,23 +42,22 @@ export const formProvider = (Origin) => {
   return FormProvider
 }
 
-export const formConsumer = curry((keys, Origin) => class extends PureComponent {
-  render() {
-    const filterProps = (value) => {
-      const cps = {}
-      if (!value) return cps
-      if (!keys) return value
+export const formConsumer = curry((keys, Origin, props) => {
+  const filterProps = (value) => {
+    const cps = {}
+    if (!value) return cps
+    if (!keys) return value
 
-      keys.forEach((k) => {
-        const val = value[k]
-        if (val !== undefined) cps[k] = val
-      })
-      return cps
-    }
-    return (
-      <Consumer>
-        {value => <Origin {...filterProps(value)} {...this.props} />}
-      </Consumer>
-    )
+    keys.forEach((k) => {
+      const val = value[k]
+      if (val !== undefined) cps[k] = val
+    })
+    return cps
   }
+
+  return (
+    <Consumer>
+      {value => <Origin {...filterProps(value)} {...props} />}
+    </Consumer>
+  )
 })

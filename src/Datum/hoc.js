@@ -70,6 +70,8 @@ export default curry((options, Origin) => {
         this.datum.setDisabled(props.disabled)
       }
 
+      delete props[key]
+
       return (
         <Origin
           {...props}

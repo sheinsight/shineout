@@ -11,12 +11,11 @@ import Loop from './Loop'
 import Flow from './Flow'
 import FieldSet from './FieldSet'
 import formButton from './formButton'
-import { itemProvider } from './itemContext'
 import { formProvider, formConsumer } from './formContext'
 import useMode from './mode'
 
 const exportForm = compose(Datum.hoc({ type: 'form' }), formProvider)(cardConsumer(Form, ['setFormStatus']))
-exportForm.Item = formConsumer(['formDatum', 'labelWidth', 'labelAlign'], itemProvider(Item))
+exportForm.Item = formConsumer(['formDatum', 'labelWidth', 'labelAlign'])(Item)
 exportForm.Field = inputable(Field)
 exportForm.Block = formConsumer(['formDatum'])(Block)
 exportForm.BlockField = inputable(BlockField)

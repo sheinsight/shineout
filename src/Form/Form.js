@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getUidStr } from '../utils/uid'
@@ -6,7 +6,7 @@ import { formClass } from '../styles'
 import { FormError } from '../utils/errors'
 import { getProps, defaultProps } from '../utils/proptypes'
 
-class Form extends PureComponent {
+class Form extends Component {
   constructor(props) {
     super(props)
 

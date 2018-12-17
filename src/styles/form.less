@@ -46,6 +46,10 @@
     .@{form-prefix}-error {
       color: @form-feedback-invalid-color;
     }
+
+    .@{form-prefix}-error + .@{form-prefix}-tip {
+      display: none;
+    }
   }
 
   &-label-align-right &-label {

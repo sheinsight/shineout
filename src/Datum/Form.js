@@ -1,5 +1,4 @@
 import deepEqual from 'deep-eql'
-import isObject from '../utils/validate/isObject'
 import { unflatten, insertValue, spliceValue, getSthByName } from '../utils/flat'
 import { deepGet, deepSet, deepRemove, fastClone, deepMerge } from '../utils/objects'
 import { promiseAll, FormError } from '../utils/errors'
@@ -49,7 +48,7 @@ export default class {
     return deepGet(this.$values, name)
   }
 
-  set(name, value, pub = true) {
+  set(name, value, pub) {
     if (typeof name === 'object') {
       value = name
       name = ''
@@ -58,42 +57,41 @@ export default class {
     if (value === this.get(name)) return
     deepSet(this.$values, name, value, this.deepSetOptions)
 
-    if (pub) {
-      if (this.$inputNames[name]) {
-        this.dispatch(updateSubscribe(name), value, name)
-        this.dispatch(changeSubscribe(name))
-      } else {
-        this.publishValue(name, value)
-      }
+    if (this.$inputNames[name]) {
+      this.dispatch(updateSubscribe(name), value, name)
+      this.dispatch(changeSubscribe(name))
     }
+
+    if (pub) this.publishValue(name, FORCE_PASS)
 
     this.dispatch(CHANGE_TOPIC)
     this.handleChange()
+  }
+
+  insert(name, index, value) {
+    this.get(name).splice(index, 0, value)
+    this.setError(name)
+    this.publishValue(name, FORCE_PASS)
+  }
+
+  splice(name, index) {
+    this.get(name).splice(index, 1)
+    this.setError(name)
+    this.publishValue(name, FORCE_PASS)
   }
 
   remove(name) {
     deepRemove(this.$values, name)
   }
 
-  publishValue(path, value) {
-    const names = []
-    if (isObject(value)) {
-      Object.keys(value).forEach((name) => {
-        names.push([`${path}${path ? '.' : ''}${name}`, value[name]])
+  publishValue(name, type) {
+    const na = `${name}[`
+    const no = `${name}.`
+    Object.keys(this.$inputNames)
+      .filter(n => n.indexOf(na) === 0 || n.indexOf(no) === 0)
+      .forEach((n) => {
+        this.dispatch(updateSubscribe(n), this.get(n), n, type)
       })
-    } else if (Array.isArray(value)) {
-      value.forEach((v, i) => {
-        names.push([`${path}[${i}]`, v])
-      })
-    }
-
-    names.forEach(([name, val]) => {
-      if (this.$inputNames[name]) {
-        this.dispatch(updateSubscribe(name), val, name)
-        this.dispatch(changeSubscribe(name))
-      }
-      this.publishValue(name, val)
-    })
   }
 
   getError(name, firstHand) {
@@ -104,7 +102,9 @@ export default class {
   setError(name, error, pub) {
     if (error === undefined) delete this.$errors[name]
     else this.$errors[name] = error
-    if (pub) this.dispatch(errorSubscribe(name), this.getError(name), name, ERROR_TYPE)
+
+    this.dispatch(errorSubscribe(name), this.getError(name), name, ERROR_TYPE)
+    if (pub) this.publishError(name)
   }
 
   insertError(name, index, error) {
@@ -113,6 +113,16 @@ export default class {
 
   spliceError(name, index) {
     spliceValue(this.$errors, name, index)
+  }
+
+  publishError(name) {
+    const na = `${name}[`
+    const no = `${name}.`
+    Object.keys(this.$inputNames)
+      .filter(n => n.indexOf(na) === 0 || n.indexOf(no) === 0)
+      .forEach((n) => {
+        this.dispatch(errorSubscribe(n), this.getError(n), n, ERROR_TYPE)
+      })
   }
 
   getRule(name) {
@@ -146,7 +156,7 @@ export default class {
     }
 
     if (value !== undefined && !this.get(name)) {
-      this.set(name, value)
+      this.set(name, value, true)
       this.dispatch(changeSubscribe(name))
       this.dispatch(CHANGE_TOPIC)
     }

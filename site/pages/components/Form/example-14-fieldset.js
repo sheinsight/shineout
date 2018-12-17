@@ -65,6 +65,7 @@ export default class extends PureComponent {
 
   render() {
     const { value } = this.state
+    console.log(value)
     return (
       <Form value={value} initValidate={false} onChange={this.handleChange} onSubmit={(data) => { console.log(data) }}>
         <Form.Item label="Email">
@@ -89,15 +90,16 @@ export default class extends PureComponent {
 
             <Form.Item label={<Checkbox name="showAge">Age</Checkbox>}>
               {
-                value && value.account && value.account.showAge &&
-                <Input
-                  rules={rules.age}
-                  style={{ width: 100 }}
-                  name="age"
-                  type="number"
-                  digits={0}
-                  defaultValue={18}
-                />
+                (value && value.account && value.account.showAge) ?
+                  <Input
+                    rules={rules.age}
+                    style={{ width: 100 }}
+                    name="age"
+                    type="number"
+                    digits={0}
+                    defaultValue={18}
+                  />
+                : <span />
               }
             </Form.Item>
 

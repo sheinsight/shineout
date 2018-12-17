@@ -9,7 +9,7 @@ import { getUidStr } from '../utils/uid'
 import validate from '../utils/validate'
 import { FORCE_PASS, ERROR_TYPE, IGNORE_VALIDATE } from '../Datum/types'
 import { formConsumer } from './formContext'
-import { itemConsumer } from './itemContext'
+import { itemConsumer } from './Item'
 import { loopConsumer } from './Loop'
 import { fieldSetConsumer } from './FieldSet'
 
@@ -258,10 +258,11 @@ export default curry(Origin => consumer(class extends Component {
     }
 
     // check for performance
-    if (shallowEqual(value, this.lastValue) && type !== FORCE_PASS) return
+    if (type !== FORCE_PASS && shallowEqual(value, this.lastValue)) return
     this.lastValue = value
 
     const { name } = this.props
+
     if (typeof name === 'string') {
       this.setState({ value })
       if (type !== IGNORE_VALIDATE) {

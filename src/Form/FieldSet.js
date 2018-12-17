@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import immer from 'immer'
 import createReactContext from 'create-react-context'
 import validate from '../utils/validate'
 import { FormError, isSameError } from '../utils/errors'
 import { ERROR_TYPE, FORCE_PASS, IGNORE_VALIDATE } from '../Datum/types'
-import Item from './Item'
+import FieldError from './FieldError'
 
 const { Provider, Consumer } = createReactContext()
 
@@ -18,6 +17,7 @@ const extendName = (path = '', name) => {
 class FieldSet extends Component {
   constructor(props) {
     super(props)
+
     this.validate = this.validate.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
   }
@@ -64,7 +64,6 @@ class FieldSet extends Component {
 
   handleUpdate(v, n, type) {
     if (this.updateTimer) clearTimeout(this.updateTimer)
-    console.log('update', this.props.name, type)
     this.updateTimer = setTimeout(() => {
       if (type === ERROR_TYPE || type === FORCE_PASS || type === IGNORE_VALIDATE) {
         if (this.$willUnmount) return
@@ -80,20 +79,20 @@ class FieldSet extends Component {
 
   handleInsert(index, value) {
     const { formDatum, name } = this.props
-    const values = immer(formDatum.get(name), (draft) => {
-      draft.splice(index, 0, value)
+    formDatum.insert(name, index, value)
+    this.validate().then(() => {
+      if (this.$willUnmount) return
+      this.forceUpdate()
     })
-    formDatum.insertError(name, index)
-    formDatum.set(name, values)
   }
 
   handleRemove(index) {
     const { formDatum, name } = this.props
-    const values = immer(formDatum.get(name), (draft) => {
-      draft.splice(index, 1)
+    formDatum.splice(name, index)
+    this.validate().then(() => {
+      if (this.$willUnmount) return
+      this.forceUpdate()
     })
-    formDatum.spliceError(name, index)
-    formDatum.set(name, values)
   }
 
   handleChange(index, value) {
@@ -109,15 +108,13 @@ class FieldSet extends Component {
     const errors = formDatum.getError(name)
     const result = []
 
-    console.log('render fieldSet', name)
-
     if (typeof children !== 'function') {
       return (
         <Provider value={{ path: name, val: this.validate }}>
           {children}
           {
             errors instanceof Error &&
-            <Item key="error" formItemErrors={[errors]} />
+            <FieldError key="error" error={errors} />
           }
         </Provider>
       )
@@ -149,13 +146,13 @@ class FieldSet extends Component {
         ))
 
         if (error instanceof Error) {
-          result.push(<Item key={`er-${i}`} formItemErrors={[error]} />)
+          result.push(<FieldError key={`er-${i}`} error={error} />)
         }
       })
     }
 
     if (errors instanceof Error) {
-      result.push(<Item key="error" formItemErrors={[errors]} />)
+      result.push(<FieldError key="error" error={errors} />)
     }
 
     return result
