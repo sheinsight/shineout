@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { curry } from '../utils/func'
 import shallowEqual from '../utils/shallowEqual'
-import { IGNORE_VALIDATE } from './types'
+import { IGNORE_VALIDATE, WITH_OUT_DISPATCH } from './types'
 import List from './List'
 import Form from './Form'
 
@@ -54,11 +54,14 @@ export default curry((options, Origin) => {
       this.prevValues = this.props[key]
     }
 
-    setValue() {
+    componentDidUpdate() {
+      this.setValue(this.props.initValidate ? undefined : IGNORE_VALIDATE)
+    }
+
+    setValue(t) {
       const values = this.props[key]
       if (!shallowEqual(values, this.prevValues)) {
-        const iv = this.props.initValidate ? undefined : IGNORE_VALIDATE
-        this.datum.setValue(values, iv)
+        this.datum.setValue(values, t)
         this.prevValues = values
       }
     }
@@ -70,7 +73,7 @@ export default curry((options, Origin) => {
         this.datum.setDisabled(props.disabled)
       }
 
-      this.setValue()
+      if (type === 'list') this.setValue(WITH_OUT_DISPATCH)
       delete props[key]
 
       return (

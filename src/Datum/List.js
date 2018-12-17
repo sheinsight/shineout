@@ -1,5 +1,5 @@
 import shallowEqual from '../utils/shallowEqual'
-import { CHANGE_TOPIC } from '../Datum/types'
+import { CHANGE_TOPIC, WITH_OUT_DISPATCH } from '../Datum/types'
 
 export default class {
   constructor(args = {}) {
@@ -18,7 +18,7 @@ export default class {
 
     if (prediction) this.prediction = prediction
 
-    this.setValue(value)
+    this.setValue(value, WITH_OUT_DISPATCH)
     this.onChange = onChange
   }
 
@@ -204,10 +204,14 @@ export default class {
     return []
   }
 
-  setValue(values = []) {
+  setValue(values = [], type) {
     // value not change
     if (shallowEqual(this.$cachedValue, values)) return
 
-    this.resetValue(this.formatValue(values))
+    if (type === WITH_OUT_DISPATCH) {
+      this.$values = this.formatValue(values)
+    } else {
+      this.resetValue(this.formatValue(values))
+    }
   }
 }
