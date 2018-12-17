@@ -50,10 +50,8 @@ export default Origin => class extends PureComponent {
   }
 
   getResultByValues() {
-    const { datum, value } = this.props
-    if (value === undefined) return []
-
-    const values = datum.formatValue(value)
+    const { datum } = this.props
+    const { values = [] } = datum
 
     const result = []
     values.forEach((v) => {

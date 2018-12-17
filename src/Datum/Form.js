@@ -4,13 +4,13 @@ import { deepGet, deepSet, deepRemove, fastClone, deepMerge } from '../utils/obj
 import { promiseAll, FormError } from '../utils/errors'
 import {
   updateSubscribe, errorSubscribe, changeSubscribe,
-  VALIDATE_TOPIC, RESET_TOPIC, CHANGE_TOPIC, FORCE_PASS, ERROR_TYPE,
+  VALIDATE_TOPIC, RESET_TOPIC, CHANGE_TOPIC, FORCE_PASS, ERROR_TYPE, IGNORE_VALIDATE,
 } from './types'
 
 export default class {
   constructor(options = {}) {
     const {
-      removeUndefined = true, rules, onChange, value, error,
+      removeUndefined = true, rules, onChange, value, error, initValidate,
     } = options
     this.rules = rules
     this.onChange = onChange
@@ -29,7 +29,7 @@ export default class {
 
     this.deepSetOptions = { removeUndefined }
 
-    if (value) this.setValue(value)
+    if (value) this.setValue(value, initValidate ? undefined : IGNORE_VALIDATE)
     if (error) this.setError('', error)
   }
 

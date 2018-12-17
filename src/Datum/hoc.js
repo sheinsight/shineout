@@ -32,7 +32,7 @@ export default curry((options, Origin) => {
 
     constructor(props) {
       super(props)
-      const { datum, onChange } = props
+      const { datum, onChange, initValidate } = props
       const value = props[key]
 
       if (datum instanceof Datum) {
@@ -41,7 +41,7 @@ export default curry((options, Origin) => {
         const ops = bindProps.reduce((o, k) => {
           o[k] = props[k]
           return o
-        }, { value, limit })
+        }, { value, limit, initValidate })
         this.datum = new Datum(Object.assign(ops, datum))
       }
 
