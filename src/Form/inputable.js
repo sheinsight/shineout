@@ -99,7 +99,7 @@ export default curry(Origin => consumer(class extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const options = { deep: ['data', 'name', 'rules', 'rule', 'style', 'value'] }
+    const options = { deep: ['data', 'datum', 'name', 'rules', 'rule', 'style', 'value'] }
     return !(shallowEqual(nextProps, this.props, options) && shallowEqual(nextState, this.state))
   }
 

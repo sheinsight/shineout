@@ -44,16 +44,12 @@ export default class extends PureComponent {
 
     this.state = {
       value: {
-        email: 'test@example',
-        account: {
-          city: 3,
-        },
+        hateColor: 'green',
       },
     }
   }
 
   componentDidMount() {
-    /*
     this.handleChange({
       email: 'test@example.com',
       account: {
@@ -65,7 +61,6 @@ export default class extends PureComponent {
       },
       favoriteColor: ['cyan', 'yellow'],
     })
-    */
   }
 
   handleChange = (value) => {
@@ -123,6 +118,15 @@ export default class extends PureComponent {
               />
             </Form.Item>
           </Form.FieldSet>
+        </Form.Item>
+
+        <Form.Item label="Hate Color">
+          <Select
+            name="hateColor"
+            width={200}
+            keygen
+            data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
+          />
         </Form.Item>
 
         <Form.Item label="Favorite Color">

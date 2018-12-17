@@ -54,7 +54,7 @@ export default curry((options, Origin) => {
       this.prevValues = this.props[key]
     }
 
-    componentDidUpdate() {
+    setValue() {
       const values = this.props[key]
       if (!shallowEqual(values, this.prevValues)) {
         const iv = this.props.initValidate ? undefined : IGNORE_VALIDATE
@@ -70,6 +70,7 @@ export default curry((options, Origin) => {
         this.datum.setDisabled(props.disabled)
       }
 
+      this.setValue()
       delete props[key]
 
       return (

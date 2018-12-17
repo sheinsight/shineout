@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import PureComponent from '../PureComponent'
 import { getKey } from '../utils/uid'
 
-export default Origin => class extends PureComponent {
+export default Origin => class extends React.Component {
   static propTypes = {
     data: PropTypes.array,
     datum: PropTypes.object,
