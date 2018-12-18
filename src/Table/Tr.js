@@ -77,6 +77,15 @@ class Tr extends Component {
     }
   }
 
+  renderExpand() {
+    const { expandRender } = this.props
+    if (this.lastExpandRender !== expandRender) {
+      this.lastExpandRender = expandRender
+      this.cachedExpand = expandRender()
+    }
+    return this.cachedExpand
+  }
+
   render() {
     const {
       columns, data, striped, index, expandRender, offsetLeft, offsetRight, rowClassName, ...other
@@ -127,7 +136,7 @@ class Tr extends Component {
     if (expandRender) {
       result.push((
         <Expand key="1" setExpandHeight={this.setExpandHeight} colSpan={columns.length}>
-          {expandRender()}
+          {this.renderExpand()}
         </Expand>
       ))
     }
