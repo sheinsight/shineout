@@ -36,13 +36,24 @@ export default function (objA, objB, options = {}) {
     return false
   }
 
+  keysA.sort((a, b) => deep.indexOf(a) - deep.indexOf(b))
+
   // Test for A's keys different from B.
   for (let i = 0; i < keysA.length; i++) {
     const k = keysA[i]
+    if (skip.includes(k)) continue
+
     if (!hasOwnProperty.call(objB, k) || !is(objA[k], objB[k])) {
+      if (objA[k] instanceof Error && objB[k] instanceof Error) {
+        if (objA[k].message !== objB[k].message) return false
+        continue
+      }
+
       if (deep.includes(k)) {
         if (!deepEqual(objA[k], objB[k])) return false
-      } else if (!skip.includes(k)) return false
+      } else {
+        return false
+      }
     }
   }
 

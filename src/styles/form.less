@@ -36,20 +36,20 @@
         padding-left: 0;
       }
     }
+  }
 
-    .@{form-prefix}-tip, .@{form-prefix}-error {
-      font-size: @form-help-font-size;
-      margin-top: 5px;
-      color: lighten(@text-color, 40%);
-    }
+  .@{form-prefix}-tip, .@{form-prefix}-error {
+    font-size: @form-help-font-size;
+    margin-top: 5px;
+    color: lighten(@text-color, 40%);
+  }
 
-    .@{form-prefix}-error {
-      color: @form-feedback-invalid-color;
-    }
+  .@{form-prefix}-error {
+    color: @form-feedback-invalid-color;
+  }
 
-    .@{form-prefix}-error + .@{form-prefix}-tip {
-      display: none;
-    }
+  .@{form-prefix}-error + .@{form-prefix}-tip {
+    display: none;
   }
 
   &-label-align-right &-label {

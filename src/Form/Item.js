@@ -121,7 +121,12 @@ class Item extends Component {
 
   renderHelp(errors) {
     if (errors.length > 0) {
-      return <div className={formClass('error')}>{errors[0].message}</div>
+      return (
+        <div className={formClass('error')}>
+          {/* errors.map((e, i) => <div key={i}>{e.message}</div>) */}
+          {errors[0].message}
+        </div>
+      )
     }
 
     const { tip } = this.props

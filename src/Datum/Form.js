@@ -1,6 +1,7 @@
 import deepEqual from 'deep-eql'
 import { unflatten, insertValue, spliceValue, getSthByName } from '../utils/flat'
 import { deepGet, deepSet, deepRemove, fastClone, deepMerge } from '../utils/objects'
+import isObject from '../utils/validate/isObject'
 import { promiseAll, FormError } from '../utils/errors'
 import {
   updateSubscribe, errorSubscribe, changeSubscribe,
@@ -45,13 +46,16 @@ export default class {
   }
 
   get(name) {
+    if (Array.isArray(name)) return name.map(n => this.get(n))
     return deepGet(this.$values, name)
   }
 
   set(name, value, pub) {
-    if (typeof name === 'object') {
-      value = name
-      name = ''
+    if (isObject(name)) {
+      Object.keys(name).forEach((n) => {
+        this.set(n, name[n], pub)
+      })
+      return
     }
 
     if (value === this.get(name)) return

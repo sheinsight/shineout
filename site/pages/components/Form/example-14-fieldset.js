@@ -59,6 +59,7 @@ export default class extends PureComponent {
         },
         city: 3,
       },
+      hateColor: 'blue',
       favoriteColor: ['cyan', 'yellow'],
     })
   }

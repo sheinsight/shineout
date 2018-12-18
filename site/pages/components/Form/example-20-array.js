@@ -44,20 +44,9 @@ class NameInput extends PureComponent {
 }
 
 const rules = {
-  firstName: [
-    { required: true, message: 'Please enter your firstname.' },
+  date: [
+    { required: true, message: 'Please select date.' },
   ],
-  lastName: [
-    { required: true, message: 'Please enter your lastname.' },
-  ],
-  date: {
-    startDate: [
-      { required: true, message: 'Please select start date.' },
-    ],
-    endDate: [
-      { required: true, message: 'Please select end date.' },
-    ],
-  },
 }
 
 // eslint-disable-next-line
@@ -75,8 +64,7 @@ export default class extends PureComponent {
     return (
       <Form
         value={this.initValue}
-        rules={rules}
-        onSubmit={(data) => { Modal.info({ title: 'Form Data', content: JSON.stringify(data) }) }}
+        onSubmit={(data) => { Modal.info({ title: 'Form Data', content: <pre>{JSON.stringify(data, null, 2)}</pre> }) }}
       >
         <Form.Item label="Name">
           <Form.Field name={['firstName', 'lastName']}>
@@ -85,7 +73,7 @@ export default class extends PureComponent {
         </Form.Item>
 
         <Form.Item label="Date">
-          <DatePicker range name={['date.startDate', 'date.endDate']} />
+          <DatePicker range rules={rules.date} name={['date.startDate', 'date.endDate']} />
         </Form.Item>
 
         <Form.Item label="">

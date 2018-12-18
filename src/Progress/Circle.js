@@ -9,7 +9,7 @@ function Circle(props) {
   } = props
   const className = classnames(progressClass('circle', type), props.className)
 
-  const r = 100 - Math.ceil((strokeWidth / size) * 100)
+  const r = 100 - Math.ceil(((strokeWidth * 2) / size) * 100)
 
   const p = Math.PI * 2 * r
   const dasharray = [p * (value / 100), p * (1 - (value / 100))]

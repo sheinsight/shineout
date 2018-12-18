@@ -29,7 +29,7 @@ export default Origin => class extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const options = { deep: ['value'] }
+    const options = { deep: ['defaultValue', 'name', 'value'] }
     return !(shallowEqual(nextProps, this.props, options) && shallowEqual(nextState, this.state, options))
   }
 

@@ -9,7 +9,8 @@ import FieldError from './FieldError'
 const { Provider, Consumer } = createReactContext()
 
 const extendName = (path = '', name) => {
-  if (!name) return undefined
+  if (name === undefined) return undefined
+  if (name === '') return path
   if (Array.isArray(name)) return name.map(n => extendName(path, n))
   return `${path}${path.length > 0 ? '.' : ''}${name}`
 }
@@ -144,10 +145,6 @@ class FieldSet extends Component {
             }
           </Provider>
         ))
-
-        if (error instanceof Error) {
-          result.push(<FieldError key={`er-${i}`} error={error} />)
-        }
       })
     }
 

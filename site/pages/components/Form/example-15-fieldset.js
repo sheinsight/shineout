@@ -5,16 +5,11 @@
  *    -- When FieldSet's children is a function, takes the value (type is array) from the form by the name property, and generate a set of subcomponents.
  */
 import React, { PureComponent } from 'react'
-import { Form, Input, Button } from 'shineout'
+import { Form, Input, Button, Rule } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
-const friendNameRule = [
-  { required: true, message: 'Please input friend\'s name or remove this field.' },
-]
-
-const friendsRule = [
-  { min: 2, message: 'At least add 2 friends.' },
-  (values, _, callback) => {
+const rules = Rule({
+  isExist: (values, _, callback) => {
     const names = new Map()
     values.forEach((v, i) => {
       if (names.has(v.name)) names.set(v.name, [...names.get(v.name), i])
@@ -34,7 +29,7 @@ const friendsRule = [
 
     callback(result.length > 0 ? result : true)
   },
-]
+})
 
 export default class extends PureComponent {
   renderEmpty = onAppend => <Button onClick={() => onAppend({})}>Add new friend</Button>
@@ -48,8 +43,9 @@ export default class extends PureComponent {
 
         <Form.Item label="Friends">
           <Form.FieldSet
-            rules={friendsRule}
+            rules={[rules.min(2), rules.isExist]}
             name="friends"
+            title="Friends"
             empty={this.renderEmpty}
             defaultValue={[{ name: 'Hermione Granger', age: 16 }, {}]}
           >
@@ -61,13 +57,16 @@ export default class extends PureComponent {
                   <Input
                     style={{ width: 180, marginRight: 8 }}
                     name="name"
-                    rules={friendNameRule}
+                    title="Friend name"
+                    rules={[rules.required]}
                     placeholder="Name"
                   />
                   <Input
                     style={{ width: 60 }}
                     name="age"
                     type="number"
+                    title="Friend age"
+                    rules={[rules.min(18)]}
                     placeholder="Age"
                   />
                   <a
