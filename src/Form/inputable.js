@@ -115,7 +115,10 @@ export default curry(Origin => consumer(class extends Component {
 
     if (formDatum && name) {
       formDatum.unbind(name, this.handleUpdate)
-      if (Array.isArray(name)) formDatum.unsubscribe(errorSubscribe(this.errorName), this.handleUpdate)
+      if (Array.isArray(name)) {
+        formDatum.unsubscribe(errorSubscribe(this.errorName), this.handleUpdate)
+        formDatum.setError(this.errorName)
+      }
     }
     if (unbindInputFromItem && name) unbindInputFromItem(this.errorName)
     if (loopContext) loopContext.unbind(this.validate)
@@ -270,13 +273,13 @@ export default curry(Origin => consumer(class extends Component {
     }
     this.lastValue = newValue
 
-    if (value !== IGNORE_VALIDATE) {
+    if (type !== IGNORE_VALIDATE) {
       if (this.updateTimer) clearTimeout(this.updateTimer)
       this.updateTimer = setTimeout(() => {
         this.validate(type === FORCE_PASS ? FORCE_PASS : newValue).catch(() => { })
       })
     }
-    this.forceUpdate()
+    if (!this.$willUnmount) this.forceUpdate()
   }
 
   render() {
