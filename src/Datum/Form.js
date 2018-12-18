@@ -204,7 +204,9 @@ export default class {
 
   unsubscribe(name, fn) {
     if (!this.$events[name]) return
-    this.$events[name] = this.$events[name].filter(e => e !== fn)
+
+    if (fn) this.$events[name] = this.$events[name].filter(e => e !== fn)
+    else delete this.$events[name]
   }
 
   validate() {

@@ -123,8 +123,7 @@ class Item extends Component {
     if (errors.length > 0) {
       return (
         <div className={formClass('error')}>
-          {/* errors.map((e, i) => <div key={i}>{e.message}</div>) */}
-          {errors[0].message}
+          { errors.map((e, i) => <div key={i}>{e.message}</div>) }
         </div>
       )
     }

@@ -51,7 +51,7 @@ export default curry(Origin => consumer(class extends Component {
   static defaultProps = {
     onError: () => {},
     rules: [],
-    scuSkip: ['onChange'],
+    scuSkip: ['onChange', 'rules'],
   }
 
   constructor(props) {
@@ -73,7 +73,7 @@ export default curry(Origin => consumer(class extends Component {
     this.validate = this.validate.bind(this)
     this.validateHook = this.validateHook.bind(this)
 
-    this.lastValue = formDatum && name ? formDatum.get(name) : undefined
+    this.lastValue = formDatum && name ? formDatum.get(name) : Symbol('empty')
   }
 
   componentDidMount() {
@@ -102,9 +102,9 @@ export default curry(Origin => consumer(class extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const skip = [...(this.props.scuSkip || []), 'loopContext']
+    const skip = [...(this.props.scuSkip || []), 'formDatum', 'loopContext']
     if (this.props.formDatum) skip.push('value')
-    const options = { skip, deep: ['data', 'defaultValue', 'datum', 'name', 'rules', 'rule', 'style'] }
+    const options = { skip, deep: ['data', 'defaultValue', 'datum', 'name', 'rule', 'style'] }
     return !(shallowEqual(nextProps, this.props, options) && shallowEqual(nextState, this.state))
   }
 
@@ -192,14 +192,14 @@ export default curry(Origin => consumer(class extends Component {
     }
 
     if (value === FORCE_PASS) {
-      names.forEach(n => this.handleError(n))
+      this.handleError()
       return Promise.resolve(true)
     }
 
     if (value === undefined || Array.isArray(name)) value = this.getValue()
     if (!Array.isArray(name)) value = [value]
     if (this.customValidate) validates.push(this.customValidate())
-    if (formDatum && bind) validates.push(formDatum.validateFields(bind))
+    if (formDatum && bind) formDatum.validateFields(bind).catch(() => {})
     if (!data && formDatum) data = formDatum.getValue()
 
     names.forEach((n, i) => {
@@ -261,6 +261,12 @@ export default curry(Origin => consumer(class extends Component {
       return
     }
 
+    if (type === FORCE_PASS) {
+      this.handleError()
+      if (!this.$willUnmount) this.forceUpdate()
+      return
+    }
+
     const { name } = this.props
     const newValue = !Array.isArray(name) ? value : immer(this.getValue(), (draft) => {
       name.forEach((n, i) => {
@@ -268,9 +274,7 @@ export default curry(Origin => consumer(class extends Component {
       })
     })
 
-    if (shallowEqual(newValue, this.lastValue) && (type !== FORCE_PASS || !this.getError())) {
-      return
-    }
+    if (shallowEqual(newValue, this.lastValue)) return
     this.lastValue = newValue
 
     if (type !== IGNORE_VALIDATE) {
