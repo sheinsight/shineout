@@ -93,7 +93,6 @@ test('set path should throw error if target is an array', (t) => {
   const target = { a: { b: [] } }
   try {
     deepSet(target, 'a.b.c', 4)
-    console.log(target)
     t.fail('should throw error')
   } catch (e) {
     t.pass()
@@ -103,7 +102,6 @@ test('set path should throw error if target is an array', (t) => {
 test('set empty path should merge target', (t) => {
   const target = { a: { b: [] } }
   deepSet(target, '', { c: 1 })
-  console.log(target)
   t.deepEqual(target, { a: { b: [] }, c: 1 })
 })
 

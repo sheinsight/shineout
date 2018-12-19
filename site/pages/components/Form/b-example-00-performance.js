@@ -23,8 +23,6 @@ const rules = (values, _, callback) => {
     }
   })
 
-  console.log(result)
-
   callback(result.length > 0 ? result : true)
 }
 

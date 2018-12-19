@@ -1,5 +1,5 @@
 import { deepMerge, objectValues } from '../utils/objects'
-import isObject from '../utils/validate/isObject'
+import { isObject } from '../utils/is'
 import required from './required'
 import length from './length'
 import type from './type'

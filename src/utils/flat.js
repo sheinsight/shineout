@@ -1,8 +1,7 @@
 // https://stackoverflow.com/questions/19098797/fastest-way-to-flatten-un-flatten-nested-json-objects
 
-import isEmpty from './validate/isEmpty'
-import isObject from './validate/isObject'
-import { shallowClone } from './objects'
+import { isEmpty } from './is'
+import { deepClone } from './clone'
 
 export function insertPoint(name) {
   const reg = /(\[\d+\])/gi
@@ -52,7 +51,7 @@ export function unflatten(rawdata) {
   } = {}
 
   // eslint-disable-next-line
-  for (let p in data) {
+  Object.keys(data).sort().forEach((p) => {
     const pathWithPoint = insertPoint(p)
     cur = result
     prop = ''
@@ -65,15 +64,8 @@ export function unflatten(rawdata) {
       prop = match ? match[1] : temp
       last = idx + 1
     } while (idx >= 0)
-    const dp = data[p]
-    if (isObject(dp) && !(dp instanceof Error || dp instanceof Date)) {
-      cur[prop] = shallowClone(dp)
-    } else if (Array.isArray(dp)) {
-      cur[prop] = [...dp]
-    } else if (dp !== undefined) {
-      cur[prop] = dp
-    }
-  }
+    cur[prop] = deepClone(data[p])
+  })
   return result['']
 }
 
@@ -117,6 +109,12 @@ export function spliceValue(obj, name, index) {
   })
 }
 
+const isNameWithPath = (name, path) => {
+  if (name.indexOf(path) !== 0) return false
+  const remain = name.replace(path, '')[0]
+  return [undefined, '[', '.'].includes(remain)
+}
+
 export const getSthByName = (name, source = {}) => {
   if (source[name]) return source[name]
 
@@ -132,12 +130,6 @@ export const getSthByName = (name, source = {}) => {
   })
 
   return result
-}
-
-const isNameWithPath = (name, path) => {
-  if (name.indexOf(path) !== 0) return false
-  const remain = name.replace(path, '')[0]
-  return [undefined, '[', '.'].includes(remain)
 }
 
 export const removeSthByName = (name, source) => {

@@ -25,8 +25,6 @@ const rules = Rule({
       }
     })
 
-    console.log(result)
-
     callback(result.length > 0 ? result : true)
   },
 })
@@ -71,16 +69,14 @@ export default class extends PureComponent {
                   />
                   <a
                     href="javascript:;"
-                    style={{ padding: '0 12px' }}
+                    style={{ margin: '0 12px' }}
                     onClick={() => onAppend({ age: 16 })}
                   >
                     <FontAwesome name="plus" />
                   </a>
-                  {
-                    <a href="javascript:;" onClick={onRemove}>
-                      <FontAwesome name="close" />
-                    </a>
-                  }
+                  <a href="javascript:;" onClick={onRemove}>
+                    <FontAwesome name="close" />
+                  </a>
                 </Form.Item>
               )
             }

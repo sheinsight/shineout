@@ -103,7 +103,7 @@ export default curry(Origin => consumer(class extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     const skip = [...(this.props.scuSkip || []), 'formDatum', 'loopContext']
-    if (this.props.formDatum) skip.push('value')
+    if (this.props.formDatum && this.props.name) skip.push('value')
     const options = { skip, deep: ['data', 'defaultValue', 'datum', 'name', 'rule', 'style'] }
     return !(shallowEqual(nextProps, this.props, options) && shallowEqual(nextState, this.state))
   }
@@ -291,6 +291,8 @@ export default curry(Origin => consumer(class extends Component {
       formDatum, value, required, loopContext, bind,
       bindInputToItem, unbindInputFromItem, scuSkip, ...other
     } = this.props
+
+    // console.log('input', this.props.name, this.getValue(), this.getError())
 
     return (
       <Origin

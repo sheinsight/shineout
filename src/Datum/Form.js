@@ -1,7 +1,8 @@
 import deepEqual from 'deep-eql'
 import { unflatten, insertValue, spliceValue, getSthByName } from '../utils/flat'
-import { deepGet, deepSet, deepRemove, fastClone, deepMerge } from '../utils/objects'
-import isObject from '../utils/validate/isObject'
+import { fastClone } from '../utils/clone'
+import { deepGet, deepSet, deepRemove, deepMerge } from '../utils/objects'
+import { isObject } from '../utils/is'
 import { promiseAll, FormError } from '../utils/errors'
 import {
   updateSubscribe, errorSubscribe, changeSubscribe,
@@ -73,15 +74,17 @@ export default class {
   }
 
   insert(name, index, value) {
+    this.insertError(name, index, undefined)
     this.get(name).splice(index, 0, value)
-    this.setError(name)
-    this.publishValue(name, FORCE_PASS)
+    this.publishValue(name, IGNORE_VALIDATE)
+    this.publishError(name)
   }
 
   splice(name, index) {
+    this.spliceError(name, index)
     this.get(name).splice(index, 1)
-    this.setError(name)
-    this.publishValue(name, FORCE_PASS)
+    this.publishValue(name, IGNORE_VALIDATE)
+    this.publishError(name)
   }
 
   remove(name) {

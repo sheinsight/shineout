@@ -1,4 +1,4 @@
-import isEmpty from './isEmpty'
+import { isEmpty } from '../is'
 
 export default options => (value, formdata, callback) => {
   const { min, max, message } = options

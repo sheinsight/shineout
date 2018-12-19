@@ -74,7 +74,7 @@ export default curry((options, Origin) => {
       }
 
       if (type === 'list') this.setValue(WITH_OUT_DISPATCH)
-      delete props[key]
+      // delete props[key]
 
       return (
         <Origin

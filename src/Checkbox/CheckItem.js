@@ -21,10 +21,12 @@ export default function (type) {
     }
 
     componentDidUpdate(prevProps) {
-      const { checked, value, htmlValue } = this.props
+      const {
+        checked, inputable, value, htmlValue,
+      } = this.props
       if (prevProps.value !== value && checked === undefined) {
         // eslint-disable-next-line
-        this.setState({ checked: value === htmlValue })
+        this.setState({ checked: inputable ? !!value : value === htmlValue })
       }
     }
 
