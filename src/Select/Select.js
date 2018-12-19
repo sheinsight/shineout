@@ -166,7 +166,7 @@ class Select extends PureComponent {
 
   handleInputBlur(text) {
     const { onCreate } = this.props
-    if (!onCreate || !text) return
+    if (!onCreate) return
 
     // if click option, ignore input blur
     this.inputBlurTimer = setTimeout(() => {
