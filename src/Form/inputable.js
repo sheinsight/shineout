@@ -247,7 +247,7 @@ export default curry(Origin => consumer(class extends Component {
       }
     } else {
       value = beforeChange(value, null)
-      if (!onChange) this.setState({ value })
+      this.setState({ value })
       this.validate(value).catch(() => {})
     }
 
