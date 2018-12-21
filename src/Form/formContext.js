@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import createReactContext from 'create-react-context'
 import { curry } from '../utils/func'
+import { deepGet } from '../utils/objects'
+import { isObject, isArray } from '../utils/is'
+import convert from '../Rule/convert'
 
 const context = createReactContext()
 
@@ -11,23 +14,49 @@ export const Provider = context.Provider
 export const Consumer = context.Consumer
 
 export const formProvider = (Origin) => {
-  function FormProvider(props) {
-    const {
-      datum, labelAlign, labelWidth, disabled, pending, mode,
-    } = props
-    const value = {
-      formDatum: datum,
-      formMode: mode,
-      disabled: disabled || pending,
-      labelAlign,
-      labelWidth,
+  class FormProvider extends PureComponent {
+    constructor(props) {
+      super(props)
+      this.combineRules = this.combineRules.bind(this)
     }
 
-    return (
-      <Provider value={value}>
-        <Origin {...props} />
-      </Provider>
-    )
+    getRulesFromString(str) {
+      const { rule } = this.props
+      if (!str || !rule) return []
+      return convert(rule, str)
+    }
+
+    combineRules(name, propRules = [], inline) {
+      const { rules } = this.props
+      let newRules = []
+      if (isObject(rules) && name) {
+        newRules = deepGet(rules, name) || []
+      } else if (isArray(rules)) {
+        newRules = rules
+      }
+
+      return [...propRules, ...newRules, ...this.getRulesFromString(inline)]
+    }
+
+    render() {
+      const {
+        datum, labelAlign, labelWidth, disabled, pending, mode,
+      } = this.props
+      const value = {
+        formDatum: datum,
+        formMode: mode,
+        disabled: disabled || pending,
+        labelAlign,
+        labelWidth,
+        combineRules: this.combineRules,
+      }
+
+      return (
+        <Provider value={value}>
+          <Origin {...this.props} />
+        </Provider>
+      )
+    }
   }
 
   FormProvider.propTypes = {
@@ -37,6 +66,11 @@ export const formProvider = (Origin) => {
     labelWidth: PropTypes.any,
     mode: PropTypes.string,
     pending: PropTypes.bool,
+    rule: PropTypes.object,
+    rules: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object,
+    ]),
   }
 
   return FormProvider

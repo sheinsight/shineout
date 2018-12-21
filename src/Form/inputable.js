@@ -13,7 +13,7 @@ import { itemConsumer } from './Item'
 import { loopConsumer } from './Loop'
 import { fieldSetConsumer } from './FieldSet'
 
-const types = ['formDatum', 'disabled']
+const types = ['formDatum', 'disabled', 'combineRules']
 const consumer = compose(formConsumer(types), itemConsumer, loopConsumer, fieldSetConsumer)
 
 const tryValue = (val, def) => (val === undefined ? def : val)
@@ -29,6 +29,7 @@ export default curry(Origin => consumer(class extends Component {
     beforeChange: PropTypes.func,
     bind: PropTypes.array,
     bindInputToItem: PropTypes.func,
+    combineRules: PropTypes.func,
     defaultValue: PropTypes.any,
     fieldSetValidate: PropTypes.func,
     formDatum: PropTypes.object,
@@ -180,7 +181,9 @@ export default curry(Origin => consumer(class extends Component {
   }
 
   validate(value, data) {
-    const { name, formDatum, bind } = this.props
+    const {
+      name, formDatum, combineRules, bind, rule,
+    } = this.props
     const names = Array.isArray(name) ? name : [name]
 
     const validates = []
@@ -205,7 +208,7 @@ export default curry(Origin => consumer(class extends Component {
     names.forEach((n, i) => {
       let rules = [...this.props.rules]
       if (formDatum && n) {
-        rules = rules.concat(formDatum.getRule(n))
+        rules = combineRules(n, rules, rule)
       }
 
       if (rules.length === 0) {

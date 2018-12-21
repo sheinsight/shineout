@@ -36,7 +36,7 @@ const rules = Rule(
 
 export default function () {
   return (
-    <Form style={{ maxWidth: 500 }} scrollToError={30} onSubmit={d => console.log(d)}>
+    <Form style={{ maxWidth: 500 }} rule={rules} scrollToError={30} onSubmit={d => console.log(d)}>
       <Form.Item required label="Email">
         <Input
           name="email"
@@ -84,7 +84,8 @@ export default function () {
         <Input
           name="IPv4"
           title="IP"
-          rules={[rules.required, rules.ipv4]}
+          // rules={[rules.required, rules.ipv4]}
+          rule="required(); ipv4;"
         />
       </Form.Item>
 
