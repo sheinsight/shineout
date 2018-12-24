@@ -5,8 +5,14 @@ import { curry } from '../utils/func'
 import { deepGet } from '../utils/objects'
 import { isObject, isArray } from '../utils/is'
 import convert from '../Rule/convert'
+import { RULE_TYPE } from '../Rule'
 
 const context = createReactContext()
+
+const isRule = (rules) => {
+  if (!isObject(rules)) return false
+  return rules.$$type === RULE_TYPE
+}
 
 // eslint-disable-next-line
 export const Provider = context.Provider
@@ -21,21 +27,27 @@ export const formProvider = (Origin) => {
     }
 
     getRulesFromString(str) {
-      const { rule } = this.props
-      if (!str || !rule) return []
-      return convert(rule, str)
+      const { rules } = this.props
+      if (!str || !isRule(rules)) return []
+      return convert(rules, str)
     }
 
-    combineRules(name, propRules = [], inline) {
+    combineRules(name, propRules) {
       const { rules } = this.props
       let newRules = []
-      if (isObject(rules) && name) {
+      if (isObject(rules) && !isRule(rules) && name) {
         newRules = deepGet(rules, name) || []
       } else if (isArray(rules)) {
         newRules = rules
       }
 
-      return [...propRules, ...newRules, ...this.getRulesFromString(inline)]
+      if (typeof propRules === 'string') {
+        newRules = newRules.concat(this.getRulesFromString(propRules))
+      } else if (isArray(propRules)) {
+        newRules = newRules.concat(propRules)
+      }
+
+      return newRules
     }
 
     render() {
@@ -66,7 +78,6 @@ export const formProvider = (Origin) => {
     labelWidth: PropTypes.any,
     mode: PropTypes.string,
     pending: PropTypes.bool,
-    rule: PropTypes.object,
     rules: PropTypes.oneOfType([
       PropTypes.array,
       PropTypes.object,

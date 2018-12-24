@@ -7,11 +7,13 @@ export const typeMessage = (props) => {
   return substitute(getLocale(path), props)
 }
 
-export default (type, { message, tip } = {}) => () => deepMerge(
+const options = { skipUndefined: true }
+
+export default (type, { message, tip } = {}) => msg => deepMerge(
   {
     type,
     message: typeMessage,
   },
-  { message, tip },
-  { skipUndefined: true },
+  deepMerge({ message, tip }, { message: msg }, options),
+  options,
 )

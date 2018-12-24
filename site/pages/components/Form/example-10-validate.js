@@ -9,7 +9,7 @@
 import React from 'react'
 import { Form, Input, Checkbox, Rule } from 'shineout'
 
-const rules = Rule(
+const rule = Rule(
   // validate function package
   {
     password: {
@@ -36,12 +36,12 @@ const rules = Rule(
 
 export default function () {
   return (
-    <Form style={{ maxWidth: 500 }} scrollToError={30} onSubmit={d => console.log(d)}>
+    <Form style={{ maxWidth: 500 }} rules={rule} scrollToError={30} onSubmit={d => console.log(d)}>
       <Form.Item required label="Email">
         <Input
           name="email"
           title="Email"
-          rules={[rules.required, rules.email]}
+          rules="required;email;"
         />
       </Form.Item>
 
@@ -49,7 +49,7 @@ export default function () {
         <Input
           name="name"
           title="Name"
-          rules={[rules.required, rules.isExist]}
+          rules="required;isExist;"
         />
       </Form.Item>
 
@@ -58,7 +58,7 @@ export default function () {
           name="password"
           title="Password"
           type="password"
-          rules={[rules.required, rules.length(6, 20), rules.password]}
+          rules="required;length(6,20);password;"
         />
       </Form.Item>
 
@@ -68,7 +68,7 @@ export default function () {
           title="Age"
           style={{ width: 100 }}
           type="integer"
-          rules={[rules.required, rules.integer, rules.length(18, 60)]}
+          rules="required;integer;length(18,60);"
         />
       </Form.Item>
 
@@ -76,7 +76,7 @@ export default function () {
         <Input
           name="tel"
           title="Tel"
-          rules={[rules.required, rules.regExp('/^[\\d\\s ().-]+$/')]}
+          rules="required;regExp('/^[\\d\\s ().-]+$/')"
         />
       </Form.Item>
 
@@ -84,7 +84,7 @@ export default function () {
         <Input
           name="IPv4"
           title="IP"
-          rules={[rules.required, rules.ipv4]}
+          rules="required;ipv4"
         />
       </Form.Item>
 
@@ -95,7 +95,7 @@ export default function () {
           data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
           defaultValue={[]}
           title="Favorite Colors"
-          rules={[rules.required('At least select one favorite color'), rules.min(2), rules.max(3)]}
+          rules="required;min(2);max(3);"
         />
       </Form.Item>
 

@@ -6,6 +6,7 @@ import shallowEqual from '../utils/shallowEqual'
 import { curry, compose } from '../utils/func'
 import { filterProps } from '../utils/objects'
 import { getUidStr } from '../utils/uid'
+import { isArray } from '../utils/is'
 import validate from '../utils/validate'
 import { FORCE_PASS, ERROR_TYPE, IGNORE_VALIDATE, errorSubscribe } from '../Datum/types'
 import { formConsumer } from './formContext'
@@ -42,7 +43,10 @@ export default curry(Origin => consumer(class extends Component {
     onChange: PropTypes.func,
     onError: PropTypes.func,
     required: PropTypes.bool,
-    rules: PropTypes.array,
+    rules: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.string,
+    ]),
     type: PropTypes.string,
     unbindInputFromItem: PropTypes.func,
     value: PropTypes.any,
@@ -182,7 +186,7 @@ export default curry(Origin => consumer(class extends Component {
 
   validate(value, data) {
     const {
-      name, formDatum, combineRules, bind, rule,
+      name, formDatum, combineRules, bind,
     } = this.props
     const names = Array.isArray(name) ? name : [name]
 
@@ -205,17 +209,22 @@ export default curry(Origin => consumer(class extends Component {
     if (formDatum && bind) formDatum.validateFields(bind).catch(() => {})
     if (!data && formDatum) data = formDatum.getValue()
 
+
+    let { rules } = this.props
+    console.log(names, rules)
     names.forEach((n, i) => {
-      let rules = [...this.props.rules]
-      if (formDatum && n) {
-        rules = combineRules(n, rules, rule)
+      if (formDatum) {
+        rules = combineRules(n, rules)
       }
 
-      if (rules.length === 0) {
+      /*
+      if (rules.length === 0 || !isArray(rules)) {
         return
       }
-
-      validates.push(validate(value[i], data, rules, validateProps))
+      */
+      if (isArray(rules) && rules.length > 0) {
+        validates.push(validate(value[i], data, rules, validateProps))
+      }
     })
 
     return promiseAll(validates).then((res) => {

@@ -68,10 +68,10 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-09-validate.js'),
   },
   {
-    name: '10-flow',
-    title: locate('联动 \n 出于性能的考虑，通常情况下，不通过 value 和 onChange 方式处理数据。 \n 这种情况下，需要联动时，可以使用 Flow 组件来实现。如果设置了 names 属性，只监听 names 包含的字段变化，如果没有设置，会监听 Form 内所有数据的变化。', 'Flow \n For performance reasons, internal data of the Form is isolated and changing one component does not trigger another component to change. \n If one component depends on another component\'s value, place it in the Flow component.'),
-    component: require('doc/pages/components/Form/example-10-flow.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-10-flow.js'),
+    name: '10-validate',
+    title: locate(' \n 某些复杂的数据，如多层嵌套的数据，可以在单个元素上设置 rules \n 设置 scrollToError 属性，在 form 提交校验失败时自动滚动到第一个错误的组件', ' \n Some complex data, such as multi-level nested data, can set rules on a single element. \n Set the scrollToError property, scroll to the first invalid element when the form submission validation fails.'),
+    component: require('doc/pages/components/Form/example-10-validate.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-10-validate.js'),
   },
   {
     name: '11-disabled',
@@ -102,6 +102,18 @@ const examples = [
     title: locate(' \n FieldSet children 为函数时，根据 name 从 Form 中获取 value （类型为 array），遍历这个 value 生成一组子组件。', ' \n When FieldSet\'s children is a function, takes the value (type is array) from the form by the name property, and generate a set of subcomponents.'),
     component: require('doc/pages/components/Form/example-15-fieldset.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-15-fieldset.js'),
+  },
+  {
+    name: '16-fieldset',
+    title: locate(' \n FieldSet children 为函数时，根据 name 从 Form 中获取 value （类型为 array），遍历这个 value 生成一组子组件。', ' \n When FieldSet\'s children is a function, takes the value (type is array) from the form by the name property, and generate a set of subcomponents.'),
+    component: require('doc/pages/components/Form/example-16-fieldset.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-16-fieldset.js'),
+  },
+  {
+    name: '17-flow',
+    title: locate('联动 \n 出于性能的考虑，通常情况下，不通过 value 和 onChange 方式处理数据。 \n 这种情况下，需要联动时，可以使用 Flow 组件来实现。如果设置了 names 属性，只监听 names 包含的字段变化，如果没有设置，会监听 Form 内所有数据的变化。', 'Flow \n For performance reasons, internal data of the Form is isolated and changing one component does not trigger another component to change. \n If one component depends on another component\'s value, place it in the Flow component.'),
+    component: require('doc/pages/components/Form/example-17-flow.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-17-flow.js'),
   },
   {
     name: '19-nested',

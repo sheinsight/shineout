@@ -121,3 +121,23 @@ test('should throw error when convert full list of rule not exist.', async (t) =
   })
 })
 
+test('convert rule to object rule', (t) => {
+  const rule = Rule()
+  const customMessage = 'custom message'
+  t.deepEqual(rule.required(), { required: true, message: requiredMessage })
+  t.deepEqual(rule.required(customMessage), { required: true, message: customMessage })
+
+  t.deepEqual(rule.min(1), { min: 1, message: lengthMessage.min })
+  t.deepEqual(rule.min(1, customMessage), { min: 1, message: customMessage })
+
+  t.deepEqual(rule.max(10), { max: 10, message: lengthMessage.max })
+  t.deepEqual(rule.max(10, customMessage), { max: 10, message: customMessage })
+
+  t.deepEqual(rule.length(1, 10), [{ min: 1, message: lengthMessage.min }, { max: 10, message: lengthMessage.max }])
+  t.deepEqual(rule.length(1, 10, customMessage), [{ min: 1, message: customMessage }, { max: 10, message: customMessage }]);
+
+  (['email', 'integer', 'number', 'url', 'json', 'hex', 'rgb', 'ipv4']).forEach((type) => {
+    t.deepEqual(rule[type](), { type, message: typeMessage })
+    t.deepEqual(rule[type](customMessage), { type, message: customMessage })
+  })
+})

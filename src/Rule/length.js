@@ -19,19 +19,21 @@ const createMessage = key => (props) => {
   return substitute(getLocale(`rules.length.${key}.${lt}`), props)
 }
 
+const options = { skipUndefined: true }
+
 export const lengthMessage = {
   max: createMessage('max'),
   min: createMessage('min'),
 }
 
-export default (key, { message } = {}) => (len) => {
+export default (key, { message } = {}) => (len, msg) => {
   if (typeof len !== 'number') {
     console.error(new Error(`Rule "${key}" param expect a number, get ${typeof len}`))
     return null
   }
   return deepMerge(
     { message: lengthMessage[key] },
-    { message, [key]: len },
-    { skipUndefined: true },
+    deepMerge({ message, [key]: len }, { message: msg }, options),
+    options,
   )
 }
