@@ -15,6 +15,7 @@ export function setLocale(arg) {
 
 export function getLocale(name, def) {
   if (!name) return locale
-  return deepGet(locale, name, { defaultValue: def })
+  if (def && def[name]) return def[name]
+  return deepGet(locale, name)
 }
 

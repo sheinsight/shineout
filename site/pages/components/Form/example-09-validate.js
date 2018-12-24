@@ -84,8 +84,8 @@ export default function () {
         <Input
           name="IPv4"
           title="IP"
-          // rules={[rules.required, rules.ipv4]}
-          rule="required(); ipv4;"
+          rules={[rules.required]}
+          rule="ipv4;"
         />
       </Form.Item>
 
