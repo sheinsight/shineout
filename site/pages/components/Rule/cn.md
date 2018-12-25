@@ -197,14 +197,14 @@ const rule = Rule()
 
 <code name="max" />
 
-### length *function(min, max, message)*
-数值校验，会根据 Field 的 type 自动判断校验类型为字符串、数字或选项
+### range *function(min, max, message)*
+数值范围校验，会根据 Field 的 type 自动判断校验类型为字符串、数字或选项
 #### max|integer: 必填，最大值
 #### min|integer: 必填，最小值
 #### message|string: 可选
 #### 返回值：array
 
-<code name="length" />
+<code name="range" />
 
 ### type *\[type](message)*
 #### message|string: 可选

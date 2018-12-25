@@ -48,7 +48,7 @@ export default function () {
           name="password"
           title="Password"
           type="password"
-          rules={[rules.required, rules.length(6, 20), rules.password]}
+          rules={[rules.required, rules.range(6, 20), rules.password]}
         />
       </Form.Item>
 

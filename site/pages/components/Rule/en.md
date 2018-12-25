@@ -193,14 +193,14 @@ Max check, automatically determines whether the check type is a string, number, 
 
 <code name="max" />
 
-### length *function(min, max, message)*
-Length check, automatically determines whether the check type is a string, number, or option base on the field type.
+### range *function(min, max, message)*
+Range check, automatically determines whether the check type is a string, number, or option base on the field type.
 #### min|integer: required
 #### max|integer: required
 #### message|string: optional
 #### return: array
 
-<code name="length" />
+<code name="range" />
 
 ### type *\[type](message)*
 Type check, one of \['email', 'integer', 'number', 'url', 'json', 'hex', 'rgb', 'ipv4']

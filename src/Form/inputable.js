@@ -215,11 +215,6 @@ export default curry(Origin => consumer(class extends Component {
         rules = combineRules(n, rules)
       }
 
-      /*
-      if (rules.length === 0 || !isArray(rules)) {
-        return
-      }
-      */
       if (isArray(rules) && rules.length > 0) {
         validates.push(validate(value[i], data, rules, validateProps))
       }
@@ -301,8 +296,6 @@ export default curry(Origin => consumer(class extends Component {
       formDatum, value, required, loopContext, bind,
       bindInputToItem, unbindInputFromItem, scuSkip, ...other
     } = this.props
-
-    // console.log('input', this.props.name, this.getValue(), this.getError())
 
     return (
       <Origin

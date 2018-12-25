@@ -33,7 +33,7 @@ export default function () {
           name="password"
           title="Password"
           type="password"
-          rules={[rules.required, rules.length(6, 20), rules.password]}
+          rules={[rules.required, rules.range(6, 20), rules.password]}
         />
       </Form.Item>
 
@@ -43,7 +43,7 @@ export default function () {
           title="Age"
           style={{ width: 100 }}
           type="integer"
-          rules={[rules.required, rules.integer, rules.length(18, 60)]}
+          rules={[rules.required, rules.integer, rules.range(18, 60)]}
         />
       </Form.Item>
 

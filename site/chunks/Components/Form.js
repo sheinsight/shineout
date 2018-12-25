@@ -105,7 +105,7 @@ const examples = [
   },
   {
     name: '17-flow',
-    title: locate('联动 \n 出于性能的考虑，通常情况下，不通过 value 和 onChange 方式处理数据。 \n 这种情况下，需要联动时，可以使用 Flow 组件来实现。如果设置了 names 属性，只监听 names 包含的字段变化，如果没有设置，会监听 Form 内所有数据的变化。', 'Flow \n For performance reasons, internal data of the Form is isolated and changing one component does not trigger another component to change. \n If one component depends on another component\'s value, place it in the Flow component.'),
+    title: locate('联动 \n 在某些情况下，Form 不通过 value 和 onChange 方式处理数据，只是在 submit 的时候获取数据提交。 \n 这种情况下，需要联动时，可以使用 Flow 组件来实现。如果设置了 names 属性，只监听 names 包含的字段变化，如果没有设置，会监听 Form 内所有数据的变化。', 'Flow \n For performance reasons, internal data of the Form is isolated and changing one component does not trigger another component to change. \n If one component depends on another component\'s value, place it in the Flow component.'),
     component: require('doc/pages/components/Form/example-17-flow.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-17-flow.js'),
   },

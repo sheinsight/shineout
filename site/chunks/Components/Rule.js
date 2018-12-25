@@ -24,12 +24,12 @@ const examples = [
 log.start()
 log.setType('custom')
 require('doc/pages/components/Rule/code-custom.js')
-log.setType('length')
-require('doc/pages/components/Rule/code-length.js')
 log.setType('max')
 require('doc/pages/components/Rule/code-max.js')
 log.setType('min')
 require('doc/pages/components/Rule/code-min.js')
+log.setType('range')
+require('doc/pages/components/Rule/code-range.js')
 log.setType('regExp')
 require('doc/pages/components/Rule/code-regExp.js')
 log.setType('required')
@@ -44,10 +44,6 @@ const codes = {
     text: require('!raw-loader!doc/pages/components/Rule/code-custom.js'),
     log: logs['custom'],
   },
-  'length': {
-    text: require('!raw-loader!doc/pages/components/Rule/code-length.js'),
-    log: logs['length'],
-  },
   'max': {
     text: require('!raw-loader!doc/pages/components/Rule/code-max.js'),
     log: logs['max'],
@@ -55,6 +51,10 @@ const codes = {
   'min': {
     text: require('!raw-loader!doc/pages/components/Rule/code-min.js'),
     log: logs['min'],
+  },
+  'range': {
+    text: require('!raw-loader!doc/pages/components/Rule/code-range.js'),
+    log: logs['range'],
   },
   'regExp': {
     text: require('!raw-loader!doc/pages/components/Rule/code-regExp.js'),

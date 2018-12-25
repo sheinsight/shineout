@@ -33,6 +33,7 @@ export default function (...args) {
   }
 
   rules.length = (min, max, msg) => [rules.min(min, msg), rules.max(max, msg)]
+  rules.range = (min, max, msg) => [rules.min(min, msg), rules.max(max, msg)]
 
   innerType.forEach((k) => {
     rules[k] = type(k, options[k] || options.type)
