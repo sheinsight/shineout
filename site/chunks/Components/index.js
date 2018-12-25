@@ -80,6 +80,12 @@ const pages = [
     component: lazy(() => import(/* webpackChunkName: "Rate" */ './Rate')),
   },
   {
+    name: 'Rule',
+    cn: '校验规则',
+    level: 2,
+    component: lazy(() => import(/* webpackChunkName: "Rule" */ './Rule')),
+  },
+  {
     name: 'Select',
     cn: '选择框',
     level: 2,

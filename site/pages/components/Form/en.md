@@ -20,62 +20,6 @@
 | style | object | - | Container element style |
 | throttle | number | 1000 | ms, the interval between two submissions(Prevent repeat submission) |
 
-### Rules
-Validation rules, format: { name: \[ rule ] }
-
-The name corresponds to the name attribute of the component in the form.
-
-There are 5 rules, priority is as follow:
-
-- Function:Completely controlled by the caller. you can theoretically do all the checking.
-  ```
-  /**
-   value - Current component value
-   formdata - All values in the form 
-   callback - The result of verification
-   */ 
-  (value, formdata, callback) => {
-    if (/\d+/.test(value)) callback(true)
-    else callback(new Error('Password at least has one numeral.'))
-  }
-  // return a Promise，do not call callback
-  (value) => new Promise((resolve, reject) => {
-    if (/\d+/.test(value)) resolve(true)
-    else reject(new Error('Password at least has one numeral.'))
-  }
-  ```
-
-- Required:Determine whether the required attribute is true or not. false is not required when it is not required.
-  ```
-  { required: true, message: 'Please enter password.' }
-  ```
-
-- Length:Judge by the min or max property.
-  ```
-  { min: 7, message: 'Password must be at least 7 characters.' }
-  ```
-
-- RegExp: Judge by the RegExp. It can be a RegExp object or a string.
-  ```
-  { regExp: /[a-z]+/i, message: 'Password at least has one letter.' }
-  ```
-
-- Type: Some common type validation are built in. 
-  ```
-  { type: 'email', message: 'Please enter a valid email.' }
-  ```
-
-#### Rule
-
-| Property | Type | Description |
-| --- | --- | --- | --- |
-| required | bool | whether to be required |
-| min | number | The minimum value. When type is 'number', validate the value. Otherwise, validate the value.length.  |
-| max | number | The maximum value. When type is 'number', validate the value. Otherwise, validate the value.length. |
-| regExp | string \| RegExp | regular expression |
-| type | string | options: \[ 'email', 'json', 'url', 'hex', 'number' ]. You can customize the regExp validation if it does not support it. |
-| message | string | The error message. You can use the '{key}' symbol to format. Key is a property of the current rule, such as {min: 20, message: 'minimum value is {min}'}, which is formatted as 'minimum value is 20'. |
-
 ### Form.Item
 Used to layout, display labels, tips, errors, etc
 

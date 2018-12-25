@@ -36,7 +36,7 @@ const rule = Rule(
 
 export default function () {
   return (
-    <Form style={{ maxWidth: 500 }} rules={rule} scrollToError={30} onSubmit={d => console.log(d)}>
+    <Form style={{ maxWidth: 500 }} rule={rule} scrollToError={30} onSubmit={d => console.log(d)}>
       <Form.Item required label="Email">
         <Input
           name="email"
@@ -76,7 +76,8 @@ export default function () {
         <Input
           name="tel"
           title="Tel"
-          rules="required;regExp('/^[\\d\\s ().-]+$/')"
+          rules={"required;regExp('^[\\d\\s ().-]+$');"}
+          // rules="required;regExp('^[\d\s ().-]+$');"
         />
       </Form.Item>
 

@@ -209,9 +209,7 @@ export default curry(Origin => consumer(class extends Component {
     if (formDatum && bind) formDatum.validateFields(bind).catch(() => {})
     if (!data && formDatum) data = formDatum.getValue()
 
-
     let { rules } = this.props
-    console.log(names, rules)
     names.forEach((n, i) => {
       if (formDatum) {
         rules = combineRules(n, rules)

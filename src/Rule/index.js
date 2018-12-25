@@ -6,6 +6,7 @@ import type from './type'
 import regExp from './regExp'
 
 export const RULE_TYPE = 'RULE_OBJECT'
+const innerType = ['email', 'integer', 'number', 'url', 'json', 'hex', 'rgb', 'ipv4']
 
 const mergeOptions = (opts = {}, ...args) => {
   if (!isObject(opts)) {
@@ -31,9 +32,9 @@ export default function (...args) {
     type: t => type(t, options.type),
   }
 
-  rules.length = (min, max, msg) => [rules.min(min, msg), rules.max(max, msg)];
+  rules.length = (min, max, msg) => [rules.min(min, msg), rules.max(max, msg)]
 
-  ['email', 'integer', 'number', 'url', 'json', 'hex', 'rgb', 'ipv4'].forEach((k) => {
+  innerType.forEach((k) => {
     rules[k] = type(k, options[k] || options.type)
   })
 

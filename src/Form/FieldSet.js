@@ -135,7 +135,7 @@ class FieldSet extends Component {
             {
               children({
                 list: values,
-                value: formDatum.get(`${name}[${i}]`),
+                value: v,
                 index: i,
                 error,
                 onChange: this.handleChange.bind(this, i),

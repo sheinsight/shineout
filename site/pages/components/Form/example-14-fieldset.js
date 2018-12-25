@@ -1,7 +1,7 @@
 /**
- * cn - FieldSet
+ * cn - FieldSet (Object)
  *    -- Form.FieldSet 可以处理对象类型的字段
- * en - FieldSet
+ * en - FieldSet (Object)
  *    -- Form.FieldSet handles fields of object type
  */
 import React, { PureComponent } from 'react'

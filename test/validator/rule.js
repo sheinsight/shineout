@@ -53,8 +53,8 @@ test('convert single rule', (t) => {
   res = crt(splitRule('length(1, 20)')[0])
   t.deepEqual(res, [{ min: 1, message: lengthMessage.min }, { max: 20, message: lengthMessage.max }])
 
-  res = crt(splitRule('regExp("abcdefg")')[0])
-  t.deepEqual(res, { regExp: 'abcdefg', message: getLocale('rules.reg') });
+  res = crt(splitRule('regExp("^[\\d\\s ().-]+$")')[0])
+  t.deepEqual(res, { regExp: '^[\\d\\s ().-]+$', message: getLocale('rules.reg') });
 
   // type
   (['email', 'integer', 'number', 'url', 'json', 'hex', 'rgb', 'ipv4']).forEach((type) => {
@@ -99,12 +99,12 @@ test('rule invalid or not existed.', async (t) => {
 
 test('convert full list of rule.', async (t) => {
   const rule = Rule()
-  const res = convert(rule, 'required;min(2);max(4);regExp("abcdefg");')
+  const res = convert(rule, 'required;min(2);max(4);regExp("^[\\d\\s ().-]+$");')
   t.deepEqual(res, [
     { required: true, message: requiredMessage },
     { min: 2, message: lengthMessage.min },
     { max: 4, message: lengthMessage.max },
-    { regExp: 'abcdefg', message: getLocale('rules.reg') },
+    { regExp: '^[\\d\\s ().-]+$', message: getLocale('rules.reg') },
   ])
 })
 
@@ -140,4 +140,13 @@ test('convert rule to object rule', (t) => {
     t.deepEqual(rule[type](), { type, message: typeMessage })
     t.deepEqual(rule[type](customMessage), { type, message: customMessage })
   })
+})
+
+test('should equal function and string', (t) => {
+  const rule = Rule()
+  t.deepEqual(rule.required(), convert(rule, 'required')[0])
+  t.deepEqual(rule.min(1), convert(rule, 'min(1)')[0])
+  t.deepEqual(rule.max(10), convert(rule, 'max(10)')[0])
+  t.deepEqual(rule.length(1, 10), convert(rule, 'length(1, 10)')[0])
+  t.deepEqual(rule.regExp('^[\\d\\s ().-]+$'), convert(rule, 'regExp("^[\\d\\s ().-]+$")')[0])
 })

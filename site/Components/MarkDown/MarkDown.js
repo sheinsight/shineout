@@ -6,6 +6,7 @@ import classGenerate from '../../utils/classname'
 import locate from '../../locate'
 import CodeBlock from '../CodeBlock'
 import Example from '../Example'
+import Console from './Console'
 
 const markdownClass = classGenerate(require('./markdown.less'), 'markdown')
 
@@ -54,9 +55,7 @@ export default class MarkDown extends PureComponent {
     if (code) {
       return [
         <CodeBlock key="cb" value={code.text} />,
-        ...code.log.map((txt, i) => (
-          <div key={i} className={markdownClass('console')}>{txt}</div>
-        )),
+        ...code.log.map((txt, i) => <Console key={i}>{txt}</Console>),
       ]
     }
     console.error(`Code ${name} not existed`)

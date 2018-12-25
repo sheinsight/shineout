@@ -34,62 +34,6 @@ Form 是一个比较复杂的组件，由下列组件组成
 | style | object | | 扩展样式 |
 | throttle | number | 1000 | ms, 两次提交间隔时长（防止重复提交）|
 
-### Rules
-校验规则，格式为 { name: \[ rule ] }
-
-- name 对应表单内组件的 name 属性
-- 每一个 rule 只处理一个属性，例如同时设置了 required, regExp 和 min，只会处理 required。多个判断需要设置多个 rule。
-
-rule 共有 5 种规则，按优先级分别为：
-
-- 函数：完全由调用者控制，理论上可以做所有校验。
-  ```
-  /**
-   value - 当前组件值
-   formdata - 表单内所有组件值 
-   callback - 结果回调
-   */ 
-  (value, formdata, callback) => {
-    if (/\d+/.test(value)) callback(true)
-    else callback(new Error('Password at least has one numeral.'))
-  }
-  // 或者返回 Promise，不需要处理 callback
-  (value) => new Promise((resolve, reject) => {
-    if (/\d+/.test(value)) resolve(true)
-    else reject(new Error('Password at least has one numeral.'))
-  }
-  ```
-- 必填：根据 required 属性是否为 true 判断，非必填时不需填 false。
-  ```
-  { required: true, message: 'Please enter password.' }
-  ```
-
-- 长度：根据 min 或者 max 属性判断。
-  ```
-  { min: 7, message: 'Password must be at least 7 characters.' }
-  ```
-
-- 正则表达式：根据 regExp 来判断，可以是 RegExp 对象或 字符串。
-  ```
-  { regExp: /[a-z]+/i, message: 'Password at least has one letter.' }
-  ```
-
-- 类型：内置了一些常用的正则判断，不满足需求时，可以自定义正则表达式或使用 函数校验。
-  ```
-  { type: 'email', message: 'Please enter a valid email.' }
-  ```
-
-#### Rule
-
-| 属性 | 类型 | 说明 |
-| --- | --- | --- | --- |
-| required | bool | 是否必填 |
-| min | number | 最小值，type 为 'number' 时，判断数值大小，其他类型判断 length |
-| max | number | 最大值，type 为 'number' 时，判断数值大小，其他类型判断 length |
-| regExp | string \| RegExp | 正则表达式 |
-| type | string | 类型校验，可选值为 \[ 'email', 'json', 'url', 'hex', 'number' ]，不支持的可以自定义 regExp 校验 |
-| message | string | 错误消息。可以使用 '{key}' 符号进行格式化。key 为当前rule的属性。如 {min: 20, message: '最小值为 {min}'}，会格式化为 '最小值为 20'。 |
-
 ### Form.Item
 表单项，主要用来布局，显示标签，提示文案信息等
 

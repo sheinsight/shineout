@@ -1,63 +1,82 @@
 /**
  * cn -
- *    -- 某些复杂的数据，如多层嵌套的数据，可以在单个元素上设置 rules
- *    -- 设置 scrollToError 属性，在 form 提交校验失败时自动滚动到第一个错误的组件
+ *    -- 通过 Rule 对象，可以使用内置的规则。规则详见 <a href="#/components/Rule">Rule</a>
  * en -
- *    -- Some complex data, such as multi-level nested data, can set rules on a single element.
- *    -- Set the scrollToError property, scroll to the first invalid element when the form submission validation fails.
+ *    -- Create new Rule to use inner validate rule.
  */
 import React from 'react'
-import { Form, Input, Checkbox } from 'shineout'
+import { Form, Input, Checkbox, Rule } from 'shineout'
 
-const rules = {
-  email: [
-    { required: true, message: 'Please enter your email.' },
-    { type: 'email', message: 'Please enter a valid email.' },
-  ],
-  password: [
-    { required: true, message: 'Please enter password.' },
-    { min: 7, message: 'Password must be at least {min} characters.' },
-    { regExp: /[a-z]+/i, message: 'Password at least has one letter.' },
-    value => new Promise((resolve, reject) => {
-      if (/\d+/.test(value)) resolve()
-      else reject(new Error('Password at least has one numeral.'))
-    }),
-  ],
-  age: [
-    { required: true, message: 'Please enter age.' },
-    { min: 18, max: 60, message: 'Age must between {min} and {max}.' },
-  ],
-  colors: [
-    { min: 2, message: 'At least select 2 colors.' },
-  ],
-}
+const rules = Rule()
 
 export default function () {
   return (
     <Form style={{ maxWidth: 500 }} scrollToError={30} onSubmit={d => console.log(d)}>
       <Form.Item required label="Email">
-        <Input name="email" rules={rules.email} />
+        <Input
+          name="email"
+          title="Email"
+          rules={[rules.required, rules.email]}
+        />
       </Form.Item>
 
-      <Form.Item required label="Password" tip="Use at least one letter, one numeral, and seven characters.">
-        <Input name="password" type="password" rules={rules.password} />
+      <Form.Item required label="Name">
+        <Input
+          name="name"
+          title="Name"
+          rules={[rules.required, rules.isExist]}
+        />
+      </Form.Item>
+
+      <Form.Item required label="Password" tip="At least one letter, one numeral, and 6 - 20 characters.">
+        <Input
+          name="password"
+          title="Password"
+          type="password"
+          rules={[rules.required, rules.length(6, 20), rules.password]}
+        />
       </Form.Item>
 
       <Form.Item required label="Age" tip="between 18 and 60">
-        <Input name="age" rules={rules.age} digits={0} style={{ width: 100 }} type="number" />
+        <Input
+          name="age"
+          title="Age"
+          style={{ width: 100 }}
+          type="integer"
+          rules={[rules.required, rules.integer, rules.length(18, 60)]}
+        />
+      </Form.Item>
+
+      <Form.Item required label="Tel">
+        <Input
+          name="tel"
+          title="Tel"
+          rules={[rules.required, rules.regExp('^[\\d\\s ().-]+$')]}
+        />
+      </Form.Item>
+
+      <Form.Item required label="IPv4">
+        <Input
+          name="IPv4"
+          title="IP"
+          rules={[rules.required, rules.ipv4]}
+        />
       </Form.Item>
 
       <Form.Item required label="Favorite Colors" tip="select your favorite colors">
         <Checkbox.Group
           name="colors"
           keygen={d => d}
-          rules={rules.colors}
           data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
+          defaultValue={[]}
+          title="Favorite Colors"
+          rules={[rules.required('At least select one favorite color'), rules.min(2), rules.max(3)]}
         />
       </Form.Item>
 
       <Form.Item label="">
         <Form.Button>Sumbit</Form.Button>
+        <Form.Reset>Reset</Form.Reset>
       </Form.Item>
     </Form>
   )

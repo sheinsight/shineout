@@ -1,8 +1,8 @@
 /**
  * cn -
- *    -- FieldSet children 为函数时，根据 name 从 Form 中获取 value （类型为 array），遍历这个 value 生成一组子组件。
+ *    -- FieldSet 内部如果只有一个Field而非对象，设置Field 的 name 为 "" 值
  * en -
- *    -- When FieldSet's children is a function, takes the value (type is array) from the form by the name property, and generate a set of subcomponents.
+ *    -- If FieldSet's children is a single Field, set Field name to "" .
  */
 import React, { PureComponent } from 'react'
 import { Form, Input, Button, Rule } from 'shineout'
@@ -10,18 +10,10 @@ import FontAwesome from '../Icon/FontAwesome'
 
 const rules = Rule({
   isExist: (values, _, callback) => {
-    const names = new Map()
-    values.forEach((v, i) => {
-      if (names.has(v.name)) names.set(v.name, [...names.get(v.name), i])
-      else names.set(v.name, [i])
-    })
     const result = []
-    names.forEach((v, k) => {
-      if (k && v.length > 1) {
-        // show error to input
-        v.forEach((i) => { result[i] = ({ name: new Error(`Name "${k}" is existed.`) }) })
-        // show error to item
-        // v.forEach((i) => { result[i] = new Error(`Name "${k}"" is existed.`) })
+    values.forEach((val, i) => {
+      if (values.some((v, j) => i !== j && val === v)) {
+        result[i] = new Error(`Name "${val}" is existed.`)
       }
     })
 
@@ -45,34 +37,24 @@ export default class extends PureComponent {
             name="friends"
             title="Friends"
             empty={this.renderEmpty}
-            defaultValue={[{ name: 'Hermione Granger', age: 16 }, {}]}
+            defaultValue={['Hermione Granger', '']}
           >
             {
               ({
-                onAppend, onRemove, value = {}, onChange,
+                onAppend, onRemove,
               }) => (
                 <Form.Item style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
                   <Input
                     style={{ width: 180, marginRight: 8 }}
                     title="Friend name"
-                    rules={[value.age && value.age > 10 ? rules.required : () => {}]}
+                    name=""
+                    rules={[rules.required]}
                     placeholder="Name"
-                    value={value.name}
-                    onChange={v => onChange({ name: v, age: value.age })}
-                  />
-                  <Input
-                    style={{ width: 60 }}
-                    type="number"
-                    title="Friend age"
-                    rules={[rules.min(18)]}
-                    placeholder="Age"
-                    value={value.age}
-                    onChange={v => onChange({ name: value.name, age: v })}
                   />
                   <a
                     href="javascript:;"
                     style={{ margin: '0 12px' }}
-                    onClick={() => onAppend({ age: 16 })}
+                    onClick={() => onAppend('')}
                   >
                     <FontAwesome name="plus" />
                   </a>

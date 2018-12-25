@@ -14,6 +14,7 @@
     "Input": "输入框",
     "Radio": "单选框",
     "Rate": "评分",
+    "Rule": "校验规则",
     "Select": "选择框",
     "Slider": "滑块",
     "Textarea": "多行文本框",

@@ -27,15 +27,19 @@ export const formProvider = (Origin) => {
     }
 
     getRulesFromString(str) {
-      const { rules } = this.props
-      if (!str || !isRule(rules)) return []
-      return convert(rules, str)
+      const { rule } = this.props
+      if (!isRule(rule)) {
+        console.error(new Error('Form rule is missed or is not a Rule instance.'))
+        return []
+      }
+      if (!str) return []
+      return convert(rule, str)
     }
 
     combineRules(name, propRules) {
       const { rules } = this.props
       let newRules = []
-      if (isObject(rules) && !isRule(rules) && name) {
+      if (isObject(rules) && name) {
         newRules = deepGet(rules, name) || []
       } else if (isArray(rules)) {
         newRules = rules
@@ -78,6 +82,7 @@ export const formProvider = (Origin) => {
     labelWidth: PropTypes.any,
     mode: PropTypes.string,
     pending: PropTypes.bool,
+    rule: PropTypes.object,
     rules: PropTypes.oneOfType([
       PropTypes.array,
       PropTypes.object,

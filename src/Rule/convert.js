@@ -40,7 +40,7 @@ export function splitRule(str) {
   let newString = str
 
   matchs.forEach((m, i) => {
-    arr.push(m.substring(1, m.length - 1).replace(/\\/g, ''))
+    arr.push(m.substring(1, m.length - 1).replace(/\\"/g, '"').replace(/\\'/g, "'"))
     newString = newString.replace(m, `[${i}]`)
   })
 
