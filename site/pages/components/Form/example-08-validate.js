@@ -2,7 +2,7 @@
  * cn -
  *    -- 通过 Rule 对象，可以使用内置的规则。规则详见 <a href="#/components/Rule">Rule</a>
  * en -
- *    -- Create new Rule to use inner validate rule.
+ *    -- Use <a href="#/components/Rule">Rule</a> to create new rules object.
  */
 import React from 'react'
 import { Form, Input, Checkbox, Rule } from 'shineout'

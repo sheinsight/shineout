@@ -57,7 +57,7 @@ const examples = [
   },
   {
     name: '08-validate',
-    title: locate(' \n 通过 Rule 对象，可以使用内置的规则。规则详见 <a href="#/components/Rule">Rule</a>', ' \n Create new Rule to use inner validate rule.'),
+    title: locate(' \n 通过 Rule 对象，可以使用内置的规则。规则详见 <a href="#/components/Rule">Rule</a>', ' \n Use <a href="#/components/Rule">Rule</a> to create new rules object.'),
     component: require('doc/pages/components/Form/example-08-validate.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-08-validate.js'),
   },
