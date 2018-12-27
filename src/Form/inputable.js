@@ -184,7 +184,7 @@ export default curry(Origin => consumer(class extends Component {
     this.customValidate = customValidate
   }
 
-  validate(value, data) {
+  validate(value, data, type) {
     const {
       name, formDatum, combineRules, bind,
     } = this.props
@@ -198,7 +198,7 @@ export default curry(Origin => consumer(class extends Component {
       validateProps.type = 'array'
     }
 
-    if (value === FORCE_PASS) {
+    if (type === FORCE_PASS) {
       this.handleError()
       return Promise.resolve(true)
     }
@@ -206,7 +206,10 @@ export default curry(Origin => consumer(class extends Component {
     if (value === undefined || Array.isArray(name)) value = this.getValue()
     if (!Array.isArray(name)) value = [value]
     if (this.customValidate) validates.push(this.customValidate())
-    if (formDatum && bind) formDatum.validateFields(bind).catch(() => {})
+    if (formDatum && bind) {
+      // console.error(new Error('Use "bind" props to combine validate is not recommend. Use Form "groups" props instead.'))
+      formDatum.validateFields(bind).catch(() => {})
+    }
     if (!data && formDatum) data = formDatum.getValue()
 
     let { rules } = this.props
@@ -285,7 +288,7 @@ export default curry(Origin => consumer(class extends Component {
     if (type !== IGNORE_VALIDATE) {
       if (this.updateTimer) clearTimeout(this.updateTimer)
       this.updateTimer = setTimeout(() => {
-        this.validate(type === FORCE_PASS ? FORCE_PASS : newValue).catch(() => { })
+        this.validate(newValue, undefined, type).catch(() => { })
       })
     }
     if (!this.$willUnmount) this.forceUpdate()

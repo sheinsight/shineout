@@ -141,14 +141,17 @@ class Select extends PureComponent {
     if (disabled === true) return
 
     // if click option, ignore blur event
-    if (this.inputBlurTimer) clearTimeout(this.inputBlurTimer)
+    if (this.inputBlurTimer) {
+      this.lastChangeIsOptionClick = true
+      clearTimeout(this.inputBlurTimer)
+    }
 
     if (multiple) {
       const checked = !datum.check(data)
       if (checked) {
         datum.add(data)
       } else {
-        if (fromInput) return
+        if (fromInput === true) return
         datum.remove(data)
       }
       if (this.inputReset) this.inputReset()
@@ -169,6 +172,8 @@ class Select extends PureComponent {
     const { onCreate, multiple } = this.props
     if (!onCreate) return
     if (multiple && !text) return
+
+    if (this.lastChangeIsOptionClick) return
 
     // if click option, ignore input blur
     this.inputBlurTimer = setTimeout(() => {
@@ -215,6 +220,7 @@ class Select extends PureComponent {
         e.preventDefault()
         break
       default:
+        this.lastChangeIsOptionClick = false
     }
   }
 

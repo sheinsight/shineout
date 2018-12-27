@@ -232,7 +232,7 @@ export default class {
     })
   }
 
-  validateFieldsByName(name) {
+  validateFieldsByName(name, type) {
     if (!name || typeof name !== 'string') {
       return Promise.reject(new Error(`Name expect a string, get "${name}"`))
     }
@@ -241,22 +241,16 @@ export default class {
     const values = this.getValue()
     Object.keys(this.$validator).forEach((n) => {
       if (n === name || n.indexOf(name) === 0) {
-        validations.push(this.$validator[n](this.get(n), values))
+        validations.push(this.$validator[n](this.get(n), values, type))
       }
     })
 
     return promiseAll(validations)
   }
 
-  validateFields(names) {
+  validateFields(names, type) {
     if (!Array.isArray(names)) names = [names]
-    const values = this.getValue()
-    const validates = []
-    names.forEach((k) => {
-      if (this.$validator[k]) {
-        validates.push(this.$validator[k](this.get(k), values))
-      }
-    })
+    const validates = names.map(n => this.validateFieldsByName(n, type))
     return promiseAll(validates)
   }
 
