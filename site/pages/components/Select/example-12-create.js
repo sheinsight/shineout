@@ -22,6 +22,18 @@ export default function () {
         onFilter={text => d => d.indexOf(text) >= 0}
         filterDelay={0}
       />
+      <br />
+      <Select
+        style={{ width: 240, marginBottom: 12 }}
+        data={data}
+        placeholder="input label"
+        keygen
+        onCreate
+        multiple
+        onChange={d => console.log(d)}
+        onFilter={text => d => d.indexOf(text) >= 0}
+        filterDelay={0}
+      />
     </div>
   )
 }

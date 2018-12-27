@@ -134,7 +134,7 @@ class Select extends PureComponent {
     if (control !== this.state.control) this.setState({ control })
   }
 
-  handleChange(_, data) {
+  handleChange(_, data, fromInput) {
     const {
       datum, multiple, disabled,
     } = this.props
@@ -148,6 +148,7 @@ class Select extends PureComponent {
       if (checked) {
         datum.add(data)
       } else {
+        if (fromInput) return
         datum.remove(data)
       }
       if (this.inputReset) this.inputReset()
@@ -165,13 +166,14 @@ class Select extends PureComponent {
   }
 
   handleInputBlur(text) {
-    const { onCreate } = this.props
+    const { onCreate, multiple } = this.props
     if (!onCreate) return
+    if (multiple && !text) return
 
     // if click option, ignore input blur
     this.inputBlurTimer = setTimeout(() => {
       const data = onCreate(text)
-      this.handleChange(null, data)
+      this.handleChange(null, data, true)
     }, 200)
   }
 
