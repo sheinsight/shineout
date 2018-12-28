@@ -78,10 +78,10 @@ class Tr extends Component {
   }
 
   renderExpand() {
-    const { expandRender } = this.props
+    const { expandRender, data } = this.props
     if (this.lastExpandRender !== expandRender) {
       this.lastExpandRender = expandRender
-      this.cachedExpand = expandRender()
+      this.cachedExpand = expandRender(data[0].data)
     }
     return this.cachedExpand
   }

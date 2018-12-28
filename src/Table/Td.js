@@ -36,11 +36,11 @@ class Td extends PureComponent {
     )
   }
 
-  renderExpand() {
+  renderExpand(index) {
     const { expanded, render, data } = this.props
     if (typeof render !== 'function') return null
 
-    let cachedRender = render(data)
+    let cachedRender = render(data, index)
 
     if (!cachedRender) return null
 
@@ -65,7 +65,7 @@ class Td extends PureComponent {
         return this.renderCheckbox()
       case 'expand':
       case 'row-expand':
-        return this.renderExpand()
+        return this.renderExpand(index)
       default:
         return typeof render === 'function' ? render(data, index) : data[render]
     }
