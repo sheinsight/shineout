@@ -24,6 +24,7 @@ export const formProvider = (Origin) => {
     constructor(props) {
       super(props)
       this.combineRules = this.combineRules.bind(this)
+      this.groupValidate = this.groupValidate.bind(this)
     }
 
     getRulesFromString(str) {
@@ -54,6 +55,11 @@ export const formProvider = (Origin) => {
       return newRules
     }
 
+    /*
+    groupValidate(name) {
+    }
+    */
+
     render() {
       const {
         datum, labelAlign, labelWidth, disabled, pending, mode,
@@ -65,6 +71,7 @@ export const formProvider = (Origin) => {
         labelAlign,
         labelWidth,
         combineRules: this.combineRules,
+        groupValidate: this.groupValidate,
       }
 
       return (

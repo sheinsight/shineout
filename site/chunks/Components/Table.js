@@ -104,10 +104,10 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-14-merge-cell.js'),
   },
   {
-    name: '15-select-1',
+    name: '15-select-base',
     title: locate('选择行 \n 设置 onRowChange 属性，会自动添加选择列', 'Select \n Set the onRowChange property will automatically add a column with checkbox.'),
-    component: require('doc/pages/components/Table/example-15-select-1.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Table/example-15-select-1.js'),
+    component: require('doc/pages/components/Table/example-15-select-base.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-15-select-base.js'),
   },
   {
     name: '15-select-format',

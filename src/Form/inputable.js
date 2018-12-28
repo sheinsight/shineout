@@ -214,7 +214,7 @@ export default curry(Origin => consumer(class extends Component {
 
     let { rules } = this.props
     names.forEach((n, i) => {
-      if (formDatum) {
+      if (formDatum && combineRules) {
         rules = combineRules(n, rules)
       }
 

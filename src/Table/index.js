@@ -55,6 +55,7 @@ export default class extends PureComponent {
       // if (draft.type === 'expand' && !draft.width) draft.width = 48
     }))
 
+    console.log(columns)
     if ((onRowSelect || datum) && this.cachedColumns[0].type !== 'checkbox') {
       this.cachedColumns.unshift({
         key: 'checkbox',

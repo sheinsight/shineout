@@ -28,7 +28,7 @@
 | striped | bool | false | 是否显示交错斑马底纹 |
 | style | object | 无 | 扩展样式 |
 | value | array | 无 | 当前选中值，格式和 onRowSelect 返回值一致 |
-| virticalAlign | string | 'top' | 单元格内容垂直对齐方式，可选值为 ['top', 'middle'] |
+| verticalAlign | string | 'top' | 单元格内容垂直对齐方式，可选值为 ['top', 'middle'] |
 
 ### Column
 | 属性 | 类型 | 默认值 | 说明 |

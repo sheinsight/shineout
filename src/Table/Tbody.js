@@ -6,6 +6,7 @@ import { getKey } from '../utils/uid'
 import Tr from './Tr'
 
 function format(columns, data, nextRow, index, expandKeys) {
+  console.log(columns)
   const row = columns.map((col, i) => {
     const cell = { index, data, expandKeys }
     cell.colSpan = typeof col.colSpan === 'function' ? col.colSpan(data, index) : 1
@@ -13,9 +14,11 @@ function format(columns, data, nextRow, index, expandKeys) {
 
     const { rowSpan } = col
     if (rowSpan && nextRow) {
-      cell.content = typeof col.render === 'string'
-        ? data[col.render]
-        : col.render(data, index)
+      if (col.type !== 'checkbox') {
+        cell.content = typeof col.render === 'string'
+          ? data[col.render]
+          : col.render(data, index)
+      }
       const isEqual = rowSpan === true
         ? cell.content === nextRow[i].content
         : typeof rowSpan === 'function' && rowSpan(data, nextRow[i].data)
