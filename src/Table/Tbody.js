@@ -6,7 +6,6 @@ import { getKey } from '../utils/uid'
 import Tr from './Tr'
 
 function format(columns, data, nextRow, index, expandKeys) {
-  console.log(columns)
   const row = columns.map((col, i) => {
     const cell = { index, data, expandKeys }
     cell.colSpan = typeof col.colSpan === 'function' ? col.colSpan(data, index) : 1

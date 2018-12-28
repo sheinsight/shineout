@@ -21,6 +21,11 @@ export const isSymbol = nameIs('symbol')
 
 export const isPromise = nameIs('promise')
 
+export const isInPath = (val, path) => {
+  if (val === path) return true
+  return path.indexOf(`${val}[`) === 0 || path.indexOf(`${val}.`) === 0
+}
+
 export const isEmpty = (val) => {
   if (val === null || val === undefined) return true
   // NaN

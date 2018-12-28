@@ -55,10 +55,9 @@ export const formProvider = (Origin) => {
       return newRules
     }
 
-    /*
     groupValidate(name) {
+      // not implement...
     }
-    */
 
     render() {
       const {
