@@ -12,6 +12,10 @@ const data = fetchSync(100)
 
 const columns = [
   {
+    type: 'checkbox',
+    rowSpan: a => a.id % 3 === 0,
+  },
+  {
     title: 'id',
     render: 'id',
     width: 50,
@@ -44,6 +48,7 @@ export default class extends PureComponent {
   render() {
     return (
       <div>
+        <a href="javascript:;" onClick={() => this.handelRowSelect([])}>clear</a>
         <Table
           fixed="both"
           keygen="id"

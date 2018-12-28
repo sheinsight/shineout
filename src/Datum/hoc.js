@@ -55,15 +55,16 @@ export default curry((options, Origin) => {
     }
 
     componentDidUpdate() {
-      this.setValue(this.props.initValidate ? undefined : IGNORE_VALIDATE)
+      const values = this.props[key]
+      if (!shallowEqual(values, this.prevValues)) {
+        this.setValue(this.props.initValidate ? undefined : IGNORE_VALIDATE)
+        this.prevValues = values
+      }
     }
 
     setValue(t) {
       const values = this.props[key]
-      if (!shallowEqual(values, this.prevValues)) {
-        this.datum.setValue(values, t)
-        this.prevValues = values
-      }
+      this.datum.setValue(values, t)
     }
 
     render() {
