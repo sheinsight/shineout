@@ -7,8 +7,21 @@
 import React from 'react'
 import { Textarea } from 'shineout'
 
+const text = `a
+u
+t
+o
+s
+i
+z
+e`
+
 export default function () {
   return (
-    <Textarea rows={2} autosize maxHeight={200} placeholder="autosize" />
+    <div>
+      <Textarea rows={2} autosize maxHeight={200} placeholder="autosize" />
+      <br />
+      <Textarea rows={2} autosize value={text} maxHeight={200} placeholder="autosize" />
+    </div>
   )
 }

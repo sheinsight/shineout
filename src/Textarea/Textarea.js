@@ -14,19 +14,28 @@ class Textarea extends PureComponent {
     this.bindShadow = this.bindShadow.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.resize = this.resize.bind(this)
+  }
+
+  componentDidMount() {
+    if (this.props.autosize) this.resize()
   }
 
   bindShadow(el) {
     this.shadow = el
   }
 
+  resize(value) {
+    if (value) this.shadow.value = value
+    const height = this.shadow ? this.shadow.scrollHeight : 0
+    this.setState({ height })
+  }
+
   handleChange(e) {
     this.props.onChange(e.target.value)
 
     if (this.props.autosize) {
-      this.shadow.value = e.target.value
-      const height = this.shadow.scrollHeight
-      this.setState({ height })
+      this.resize(e.target.value)
     }
   }
 

@@ -184,6 +184,12 @@ const pages = [
     component: lazy(() => import(/* webpackChunkName: "Spin" */ './Spin')),
   },
   {
+    name: 'Tag',
+    cn: '标签',
+    level: 2,
+    component: lazy(() => import(/* webpackChunkName: "Tag" */ './Tag')),
+  },
+  {
     name: 'Tooltip',
     cn: '提示',
     level: 2,
