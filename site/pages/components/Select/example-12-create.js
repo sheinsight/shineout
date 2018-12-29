@@ -24,7 +24,7 @@ export default function () {
       />
       <br />
       <Select
-        style={{ width: 240, marginBottom: 12 }}
+        style={{ width: 360, marginBottom: 12 }}
         data={data}
         placeholder="input label"
         keygen
