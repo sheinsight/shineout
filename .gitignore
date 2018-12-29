@@ -15,3 +15,5 @@ publish
 *.log
 /data
 gh-pages
+.nyc_output
+coverage
