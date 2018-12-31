@@ -1,0 +1,63 @@
+@import './variables.less';
+@import './themes/@{so-theme}.less';
+
+@tag-prefix: ~"@{so-prefix}-tag";
+
+//
+// Alerts
+// --------------------------------------------------
+
+
+// Base styles
+// -------------------------
+
+.@{tag-prefix} {
+    position: relative;
+    display: inline-block;
+    background: @tag-bg-color;
+    padding: @tag-padding-y @tag-padding-x;
+    border-radius: @tag-border-radius;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all .3s;
+    color: @tag-color;
+
+    .@{tag-prefix}-inline {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    &.@{tag-prefix}-disabled {
+      cursor: not-allowed;
+    }
+
+    .@{tag-prefix}-close-icon {
+      display: inline-block;
+      vertical-align: top;
+      margin: 0 0 0 @tag-close-left;
+    }
+
+    &-default {
+        border-color: @tag-border-color;
+    }
+
+    &-success {
+        .tag-variant(@tag-success-bg; @tag-success-border; @tag-success-text);
+    }
+
+    &-info {
+        .tag-variant(@tag-info-bg; @tag-info-border; @tag-info-text);
+    }
+
+    &-warning {
+        .tag-variant(@tag-warning-bg; @tag-warning-border; @tag-warning-text);
+    }
+
+    &-danger {
+        .tag-variant(@tag-danger-bg; @tag-danger-border; @tag-danger-text);
+    }
+
+    & + & {
+        margin-left: @tag-space;
+    }
+}

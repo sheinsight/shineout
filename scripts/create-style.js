@@ -30,6 +30,7 @@ const indexFiles = ([
   'tree',
   'slider',
   'tabs',
+  'tag',
   'progress',
   'upload',
   'carousel',
