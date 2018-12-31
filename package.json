@@ -15,8 +15,16 @@
       "esm"
     ]
   },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "html",
+      "text"
+    ]
+  },
   "scripts": {
     "test": "cross-env NODE_ENV=test ava",
+    "test:cover": "nyc npm test",
     "lint": "eslint src/",
     "start": "cross-env NODE_ENV=development node dev-server.js",
     "css-module": "cross-env NODE_ENV=development LOCAL_IDENT_NAME=[local]-[hash:base64:5] node dev-server.js",
@@ -87,6 +95,7 @@
     "less": "^2.7.3",
     "less-loader": "^4.1.0",
     "npm-run-all": "^4.1.2",
+    "nyc": "^13.1.0",
     "postcss-loader": "^2.1.5",
     "prismjs": "^1.15.0",
     "prop-types": "^15.6.0",

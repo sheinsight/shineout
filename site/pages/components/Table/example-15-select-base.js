@@ -48,7 +48,6 @@ export default class extends PureComponent {
   render() {
     return (
       <div>
-        <a href="javascript:;" onClick={() => this.handelRowSelect([])}>clear</a>
         <Table
           fixed="both"
           keygen="id"
@@ -57,6 +56,7 @@ export default class extends PureComponent {
           style={{ height: 450 }}
           onRowSelect={this.handelRowSelect}
           value={this.state.selectedValue}
+          prediction={(v, d) => v.id === d.id}
         />
         <div>
           selected rows: [{ this.state.selectedValue.map(v => v.id).join(', ') }]
