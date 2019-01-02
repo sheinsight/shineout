@@ -1,5 +1,3 @@
-import { ar } from 'date-fns/esm/locale'
-
 const CSS_INTEGER = '[-\\+]?\\d+%?'
 
 // <http://www.w3.org/TR/css3-values/#number-value>

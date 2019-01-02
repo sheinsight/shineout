@@ -218,6 +218,7 @@ class Select extends PureComponent {
       case 13:
         this.handleEnter()
         e.preventDefault()
+        e.stopPropagation()
         break
       default:
         this.lastChangeIsOptionClick = false

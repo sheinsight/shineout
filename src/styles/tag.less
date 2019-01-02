@@ -12,58 +12,48 @@
 // -------------------------
 
 .@{tag-prefix} {
-    position: relative;
+  position: relative;
+  display: inline-block;
+  background: @tag-bg-color;
+  padding: @tag-padding-y @tag-padding-x;
+  border-radius: @tag-border-radius;
+  line-height: 1.4;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all .3s;
+  color: @tag-color;
+  font-size: @tag-font-size;
+  font-weight: 600;
+  margin: 0 @tag-space;
+  .@{tag-prefix}-inline {
     display: inline-block;
-    background: @tag-bg-color;
-    padding: @tag-padding-y @tag-padding-x;
-    border-radius: @tag-border-radius;
-    line-height: @line-height-base;
-    border: 1px solid transparent;
-    cursor: pointer;
-    transition: all .3s;
-    color: @tag-color;
-
-    .@{tag-prefix}-inline {
-        display: inline-block;
-        vertical-align: top;
-    }
-
-    &.@{tag-prefix}-disabled {
-      cursor: not-allowed;
-    }
-
-    &-input {
-        margin: 0 0 0 12px;
-        font-size: @font-size-base;
-        height: @tag-input-height;
-    }
-
-    .@{tag-prefix}-close-icon {
-      display: inline-block;
-      margin: 0 0 0 @tag-close-left;
-    }
-
-    &-default {
-        border-color: @tag-border-color;
-    }
-
-    &-success {
-        .tag-variant(@tag-success-bg; @tag-success-border; @tag-success-text);
-    }
-
-    &-info {
-        .tag-variant(@tag-info-bg; @tag-info-border; @tag-info-text);
-    }
-
-    &-warning {
-        .tag-variant(@tag-warning-bg; @tag-warning-border; @tag-warning-text);
-    }
-
-    &-danger {
-        .tag-variant(@tag-danger-bg; @tag-danger-border; @tag-danger-text);
-    }
-
-    & + & {
-        margin-left: @tag-space;
-    }
+    vertical-align: top;
+  }
+  &.@{tag-prefix}-disabled {
+    cursor: not-allowed;
+  }
+  &-input {
+    margin: 0 0 0 @tag-space;
+    font-size: @tag-font-size;
+    height: @tag-input-height;
+  }
+  .@{tag-prefix}-close-icon {
+    display: inline-block;
+    margin: 0 0 0 @tag-close-left;
+  }
+  &-default {
+    border-color: @tag-border-color;
+  }
+  &-success {
+    .tag-variant(@tag-success-bg; @tag-success-border; @tag-success-text);
+  }
+  &-info {
+    .tag-variant(@tag-info-bg; @tag-info-border; @tag-info-text);
+  }
+  &-warning {
+    .tag-variant(@tag-warning-bg; @tag-warning-border; @tag-warning-text);
+  }
+  &-danger {
+    .tag-variant(@tag-danger-bg; @tag-danger-border; @tag-danger-text);
+  }
 }

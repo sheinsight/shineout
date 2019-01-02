@@ -10,8 +10,8 @@ import { Tag } from 'shineout'
 export default function () {
   return (
     <div>
-      <Tag >Tag 1</Tag>
-      <Tag>Tag 2</Tag>
+      <Tag>Tag 1</Tag>
+      <Tag>Tag 2</Tag> sfweokwefk
       <Tag onClose={() => console.log('I am close')}>Tag 3</Tag>
     </div>
   )
