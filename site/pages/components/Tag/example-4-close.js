@@ -21,5 +21,16 @@ export default () => (
       onClose=function
     </Tag>
 
+    <Tag
+      onClose={() => new Promise((resolve) => {
+        setTimeout(() => {
+          console.log('promise close')
+          resolve(true)
+        }, 3000)
+      })}
+    >
+      onClose=promise
+    </Tag>
+
   </div>
 )

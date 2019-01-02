@@ -11,7 +11,7 @@ export const isError = val => val instanceof Error
 
 export const isRegexp = val => val instanceof RegExp
 
-const nameIs = curry((name, val) => val.constructor && val.constructor.name === name)
+const nameIs = curry((name, val) => val && val.constructor && val.constructor.name === name)
 
 export const isMap = nameIs('Map')
 
@@ -19,7 +19,7 @@ export const isSet = nameIs('Set')
 
 export const isSymbol = nameIs('symbol')
 
-export const isPromise = nameIs('promise')
+export const isPromise = nameIs('Promise')
 
 export const isInPath = (val, path) => {
   if (val === path) return true

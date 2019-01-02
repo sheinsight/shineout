@@ -6,7 +6,7 @@
  */
 
 import React, { Component } from 'react'
-import { Input, Tag } from 'shineout'
+import { Tag } from 'shineout'
 
 export default class extends Component {
   state = {
@@ -47,9 +47,7 @@ export default class extends Component {
         }
         {inputVisible
           ? (
-            <Input
-              size="small"
-              style={{ margin: '0 0 0 12px', width: 110 }}
+            <Tag.Input
               onBlur={this.handleInputBlur}
             />)
           : (

@@ -1,8 +1,7 @@
 import Tag from './Tag'
+import Input from './Input'
 
-import { hexToRgb } from '../utils/color'
-
-console.log(hexToRgb('#ffffffff'))
+Tag.Input = Input
 
 Tag.displayName = 'ShinoutTag'
 

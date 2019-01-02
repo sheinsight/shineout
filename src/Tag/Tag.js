@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import PureComponent from '../PureComponent'
 import { getProps, defaultProps } from '../utils/proptypes'
+import Spin from '../Spin'
+import { isPromise } from '../utils/is'
 import { tagClass } from '../styles'
 
 class Tag extends PureComponent {
@@ -16,14 +18,31 @@ class Tag extends PureComponent {
     this.handleClick = this.handleClick.bind(this)
     this.handleClose = this.handleClose.bind(this)
     this.renderClose = this.renderClose.bind(this)
+    this.closeTag = this.closeTag.bind(this)
+  }
+
+  closeTag() {
+    this.setState({ dismiss: 2 })
   }
 
   dismiss() {
     const { onClose } = this.props
-    this.setState({ dismiss: 2 })
-    if (typeof onClose === 'function') {
-      onClose()
+    let callback
+    if (onClose === true) {
+      this.closeTag()
+      return
     }
+    if (typeof onClose === 'function') {
+      callback = onClose()
+    }
+    if (isPromise(callback)) {
+      this.setState({ dismiss: 1 })
+      callback.then(() => {
+        this.closeTag()
+      })
+      return
+    }
+    this.closeTag()
   }
 
   handleClick() {
@@ -38,16 +57,25 @@ class Tag extends PureComponent {
     this.dismiss()
   }
 
-  renderClose() {
+  renderClose(dismiss) {
     const { onClose } = this.props
     if (!onClose) return null
     const closeClass = tagClass('close-icon')
+    if (dismiss === 0) {
+      return (
+        <div
+          className={closeClass}
+          onClick={this.handleClose}
+        >
+          &times;
+        </div>
+      )
+    }
     return (
       <div
         className={closeClass}
-        onClick={this.handleClose}
       >
-        &times;
+        <Spin name="ring" size={12} />
       </div>
     )
   }
@@ -87,7 +115,7 @@ class Tag extends PureComponent {
            ? <div className={inlineClassName}>{children}</div>
            : children
         }
-        {this.renderClose()}
+        {this.renderClose(dismiss)}
       </div>
     )
   }

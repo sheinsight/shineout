@@ -8,8 +8,8 @@
 | -------- | ---- | ------- | ----------- |
 | children | any  | - | Content, text or react component |
 | className | string | - | Extend className |
-| icon | ReactElement \| boolean | - | When the type is true, the status icon is displayed according to the type property. If you need to display a custom icon, pass in ReactElement. |
-| iconSize | number | 14 | The size for icon |
+| backgroundColor | string | - | background color,can set the tag's background color by it |
 | onClose | func \| boolean | - | When onClose is empty, no close is displayed. If you need to close and do not need to handle callbacks, set it true. |
 | style | object | - | Container element style |
-| type | string | *warning* | options: \[*success*, *info*, *warning*, *danger(error)*] |
+| disabled | boolean | false | is disabled | 
+| type | string | *default* | options: \[*success*, *info*, *warning*, *danger(error)*] |
