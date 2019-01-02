@@ -36,6 +36,12 @@
     margin: 0 0 0 @tag-space;
     font-size: @tag-font-size;
     height: @tag-input-height;
+    display: inline-block;
+    vertical-align: middle;
+    width: 100px;
+    input {
+      padding: @tag-input-padding-y @tag-input-padding-x;
+    }
   }
   .@{tag-prefix}-close-icon {
     display: inline-block;
@@ -45,15 +51,15 @@
     border-color: @tag-border-color;
   }
   &-success {
-    .tag-variant(@tag-success-bg; @tag-success-border; @tag-success-text);
+    .tag-variant(@colors-success);
   }
   &-info {
-    .tag-variant(@tag-info-bg; @tag-info-border; @tag-info-text);
+    .tag-variant(@colors-primary);
   }
   &-warning {
-    .tag-variant(@tag-warning-bg; @tag-warning-border; @tag-warning-text);
+    .tag-variant(@colors-warning);
   }
   &-danger {
-    .tag-variant(@tag-danger-bg; @tag-danger-border; @tag-danger-text);
+    .tag-variant(@colors-danger);
   }
 }

@@ -17,7 +17,7 @@ export const isMap = nameIs('Map')
 
 export const isSet = nameIs('Set')
 
-export const isSymbol = nameIs('symbol')
+export const isSymbol = nameIs('Symbol')
 
 export const isPromise = nameIs('Promise')
 

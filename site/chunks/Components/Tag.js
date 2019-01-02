@@ -27,7 +27,7 @@ const examples = [
   },
   {
     name: '3-bgcolor',
-    title: locate('背景色 \n 可以通过backgroundColor, 去设置背景色', 'background color \n There can change the tag\'s background color by \'broundColor\' of the props.'),
+    title: locate('背景色 \n 可以通过backgroundColor, 和style去设置自己想要的样式', 'background color \n You can set the style you want with backgroundColor, and style.'),
     component: require('doc/pages/components/Tag/example-3-bgcolor.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tag/example-3-bgcolor.js'),
   },
