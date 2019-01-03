@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import PureComponent from '../PureComponent'
+import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
 import { selectClass } from '../styles'
@@ -72,7 +72,7 @@ class Select extends PureComponent {
   }
 
   componentWillUnmount() {
-    this.$willUnmount = true
+    super.componentWillUnmount()
     this.clearClickAway()
   }
 
@@ -185,7 +185,6 @@ class Select extends PureComponent {
   handleClear() {
     this.props.datum.setValue([])
 
-    if (this.$willUnmount) return
     if (this.state.focus === false) {
       this.forceUpdate()
     } else {

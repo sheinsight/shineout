@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { PureComponent } from '../component'
 import { getUidStr } from '../utils/uid'
 import DatumTree from '../Datum/Tree'
 import { cascaderClass, selectClass } from '../styles'
@@ -50,6 +51,7 @@ class Cascader extends PureComponent {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount()
     this.clearClickAway()
   }
 

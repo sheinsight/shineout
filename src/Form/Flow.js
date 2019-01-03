@@ -1,12 +1,13 @@
-import { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Component } from '../component'
 import { changeSubscribe, CHANGE_TOPIC } from '../Datum/types'
+import { isFunc } from '../utils/is'
 
 class Flow extends Component {
   constructor(props) {
     super(props)
 
-    this.update = this.update.bind(this)
+    this.update = this.forceUpdate.bind(this)
     this.events = []
 
     const { names, formDatum } = this.props
@@ -23,24 +24,22 @@ class Flow extends Component {
   }
 
   componentWillUnmount() {
-    this.$willUnmount = true
+    super.componentWillUnmount()
     const { formDatum } = this.props
     this.events.forEach(n => formDatum.unsubscribe(n))
   }
 
-  update() {
-    if (this.$willUnmount) return
-    this.forceUpdate()
-  }
-
   render() {
     const { children, formDatum } = this.props
-    return children(formDatum) || null
+
+    if (isFunc(children)) return children(formDatum) || null
+
+    return children
   }
 }
 
 Flow.propTypes = {
-  children: PropTypes.func,
+  children: PropTypes.any,
   formDatum: PropTypes.object.isRequired,
   names: PropTypes.array,
 }

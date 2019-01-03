@@ -13,7 +13,7 @@ const rule = Rule()
 
 export default function () {
   return (
-    <Form onSubmit={d => console.log(d)} >
+    <Form onSubmit={d => console.log(d)}>
       <Form.Item label="First Name">
         <Input name="firstName" delay={0} defaultValue="Harry" />
       </Form.Item>

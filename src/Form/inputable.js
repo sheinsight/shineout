@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
+import { Component } from '../component'
 import { promiseAll, isSameError } from '../utils/errors'
 import shallowEqual from '../utils/shallowEqual'
 import { curry, compose } from '../utils/func'
@@ -54,7 +55,6 @@ export default curry(Origin => consumer(class extends Component {
   }
 
   static defaultProps = {
-    onError: () => {},
     rules: [],
     scuSkip: ['onChange', 'rules'],
   }
@@ -82,6 +82,8 @@ export default curry(Origin => consumer(class extends Component {
   }
 
   componentDidMount() {
+    super.componentDidMount()
+
     const {
       formDatum, loopContext, name, defaultValue, bindInputToItem, popover,
     } = this.props
@@ -114,6 +116,8 @@ export default curry(Origin => consumer(class extends Component {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount()
+
     const {
       formDatum, name, loopContext, unbindInputFromItem,
     } = this.props
@@ -127,12 +131,6 @@ export default curry(Origin => consumer(class extends Component {
     }
     if (unbindInputFromItem && name) unbindInputFromItem(this.errorName)
     if (loopContext) loopContext.unbind(this.validate)
-    this.$willUnmount = true
-  }
-
-  setState(...args) {
-    if (this.$willUnmount) return
-    super.setState(...args)
   }
 
   get errorName() {
@@ -274,7 +272,8 @@ export default curry(Origin => consumer(class extends Component {
 
     if (type === FORCE_PASS) {
       this.handleError()
-      if (!this.$willUnmount) this.forceUpdate()
+      this.setState({ error: undefined })
+      this.forceUpdate()
       return
     }
 
@@ -294,7 +293,7 @@ export default curry(Origin => consumer(class extends Component {
         this.validate(newValue, undefined, type).catch(() => { })
       })
     }
-    if (!this.$willUnmount) this.forceUpdate()
+    this.forceUpdate()
   }
 
   render() {

@@ -1,5 +1,6 @@
-import React, { PureComponent, createElement } from 'react'
+import React, { createElement } from 'react'
 import PropTypes from 'prop-types'
+import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
 import { treeClass } from '../styles'
 import Content from './Content'
@@ -26,6 +27,7 @@ class Node extends PureComponent {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount()
     this.props.unbindNode(this.props.id)
   }
 

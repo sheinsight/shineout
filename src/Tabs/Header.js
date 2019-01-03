@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
+import { PureComponent } from '../component'
 import Button from '../Button'
 import icons from '../icons'
 import Tab from './Tab'
@@ -28,6 +29,7 @@ class Header extends PureComponent {
   }
 
   componentDidMount() {
+    super.componentDidMount()
     const { isVertical } = this.props
     this.setPosition(isVertical)
   }

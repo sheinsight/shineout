@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import PureComponent from '../PureComponent'
+import { PureComponent } from '../component'
 import { range } from '../utils/numbers'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { rateClass } from '../styles'

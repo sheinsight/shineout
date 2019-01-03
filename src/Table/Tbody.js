@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
+import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
 import { getKey } from '../utils/uid'
 import Tr from './Tr'
@@ -55,6 +56,7 @@ class Tbody extends PureComponent {
   }
 
   componentDidMount() {
+    super.componentDidMount()
     this.bodyRender()
   }
 

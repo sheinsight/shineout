@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+import { PureComponent } from '../component'
 import Checkbox from '../Checkbox'
 import Spin from '../Spin'
 import { cascaderClass } from '../styles'

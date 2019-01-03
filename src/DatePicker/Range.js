@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
+import { PureComponent } from '../component'
 import shallowEqual from '../utils/shallowEqual'
 import utils from './utils'
 import Picker from './Picker'

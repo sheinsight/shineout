@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import createReactContext from 'create-react-context'
+import { Component } from '../component'
 import { filterProps } from '../utils/objects'
 import validate from '../utils/validate'
 import { FormError, isSameError } from '../utils/errors'
@@ -25,6 +26,7 @@ class FieldSet extends Component {
   }
 
   componentDidMount() {
+    super.componentDidMount()
     const { formDatum, name, defaultValue } = this.props
     formDatum.bind(
       name,
@@ -35,7 +37,7 @@ class FieldSet extends Component {
   }
 
   componentWillUnmount() {
-    this.$willUnmount = true
+    super.componentWillUnmount()
     const { formDatum, name } = this.props
     formDatum.unbind(name, this.handleUpdate)
   }
@@ -62,7 +64,6 @@ class FieldSet extends Component {
 
   updateWithValidate() {
     this.validate().then(() => {
-      if (this.$willUnmount) return
       this.forceUpdate()
     })
   }
@@ -77,7 +78,6 @@ class FieldSet extends Component {
     if (this.updateTimer) clearTimeout(this.updateTimer)
     this.updateTimer = setTimeout(() => {
       if (type === ERROR_TYPE || type === FORCE_PASS || type === IGNORE_VALIDATE) {
-        if (this.$willUnmount) return
         this.forceUpdate()
       } else {
         this.updateWithValidate()

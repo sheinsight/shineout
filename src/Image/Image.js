@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { PureComponent } from '../component'
 import { addStack, removeStack } from '../utils/lazyload'
 import { imageClass } from '../styles'
 import showGellery from './events'
@@ -25,19 +26,15 @@ class Image extends PureComponent {
   }
 
   componentDidMount() {
+    super.componentDidMount()
     if (!this.props.lazy) this.markToRender()
     else this.lazyId = addStack({ element: this.element, render: this.markToRender })
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount()
     removeStack(this.lazyId)
-    this.$willUnmount = true
     delete this.image
-  }
-
-  setState(...args) {
-    if (this.$willUnmount) return
-    super.setState(...args)
   }
 
   bindElement(el) {

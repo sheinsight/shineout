@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
+import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
 import DatumTree from '../Datum/Tree'
 import Root from './Root'

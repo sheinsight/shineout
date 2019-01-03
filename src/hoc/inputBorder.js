@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { Component } from '../component'
 import { curry } from '../utils/func'
 import { buttonClass, inputClass } from '../styles'
 
@@ -35,15 +36,6 @@ export default curry((options, Origin) => class extends Component {
     }
     this.handleBlur = this.handleBlur.bind(this)
     this.handleFocus = this.handleFocus.bind(this)
-  }
-
-  componentWillUnmount() {
-    this.$willUnmount = true
-  }
-
-  setState(...args) {
-    if (this.$willUnmount) return
-    super.setState(...args)
   }
 
   handleBlur(event) {

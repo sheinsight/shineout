@@ -8,7 +8,6 @@ class Time extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.state = {}
     this.handleHourChange = this.handleChange.bind(this, 'hour')
     this.handleMinuteChange = this.handleChange.bind(this, 'minute')
     this.handleSecondChange = this.handleChange.bind(this, 'second')

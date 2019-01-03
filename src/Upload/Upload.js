@@ -1,7 +1,8 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import immer from 'immer'
+import { PureComponent } from '../component'
 import { getUidStr } from '../utils/uid'
 import { FormError } from '../utils/errors'
 import { uploadClass } from '../styles'
@@ -31,20 +32,11 @@ class Upload extends PureComponent {
     props.validateHook(this.validate.bind(this))
   }
 
-  componentWillUnmount() {
-    this.$willUnmount = true
-  }
-
   getAction(file) {
     const { action } = this.props
     if (typeof action === 'string') return action
     if (typeof action === 'function') return action(file)
     return ''
-  }
-
-  setState(...args) {
-    if (this.$willUnmount) return
-    super.setState(...args)
   }
 
   bindElement(input) {
