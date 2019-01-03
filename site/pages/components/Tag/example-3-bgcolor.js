@@ -10,7 +10,8 @@ import { Tag } from 'shineout'
 export default function () {
   return (
     <div>
-      <Tag backgroundColor="#2db7f5">#2db7f5</Tag>
+      <Tag backgroundColor="#eeeeee">#eeeeee</Tag>
+      <Tag backgroundColor="#121212">#121212</Tag>
       <Tag
         style={{
           color: '#eb2f96',

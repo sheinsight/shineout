@@ -4,6 +4,7 @@ import PureComponent from '../PureComponent'
 import { getProps, defaultProps } from '../utils/proptypes'
 import Spin from '../Spin'
 import { isPromise } from '../utils/is'
+import { isDark } from '../utils/color'
 import { tagClass } from '../styles'
 
 class Tag extends PureComponent {
@@ -102,7 +103,7 @@ class Tag extends PureComponent {
     if (className) tagClassName += ` ${className}`
     if (backgroundColor) {
       tagStyle = {
-        color: '#fff',
+        color: isDark(backgroundColor) ? '#fff' : '#000',
         backgroundColor,
         borderColor: 'transparent',
         ...style,

@@ -1,3 +1,5 @@
+import { isOne, isPercent } from './is'
+
 const CSS_INTEGER = '[-\\+]?\\d+%?'
 
 // <http://www.w3.org/TR/css3-values/#number-value>
@@ -7,6 +9,8 @@ const CSS_UNIT = `(?:${CSS_NUMBER})|(?:${CSS_INTEGER})`
 
 const PERMISSIVE_MATCH3 = `[\\s|\\(]+(${CSS_UNIT})[,|\\s]+(${CSS_UNIT})[,|\\s]+(${CSS_UNIT})\\s*\\)?`
 const PERMISSIVE_MATCH4 = `[\\s|\\(]+(${CSS_UNIT})[,|\\s]+(${CSS_UNIT})[,|\\s]+(${CSS_UNIT})[,|\\s]+(${CSS_UNIT})\\s*\\)?`
+
+const { floor } = Math
 
 // all color RegExp
 const MATCH = {
@@ -23,6 +27,14 @@ const MATCH = {
   hex8: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/,
 }
 
+const isString = (string) => {
+  if (!string || typeof string !== 'string') {
+    console.error(new Error('the color is not a string'))
+    return false
+  }
+  return true
+}
+
 /**
  * parse Hex to int
  * @param {*} value Hex number
@@ -33,52 +45,244 @@ const parseHex = value => parseInt(value, 16)
  * format the hex array
  * @param {Array} array hex array
  */
-const formatHexArray = (array) => {
-  if (array.length === 4) return [`${array[1]}`, `${array[2]}`, `${array[3]}`]
-  if (array.length === 4) return [`${array[1]}${array[1]}`, `${array[2]}${array[2]}`, `${array[3]}${array[3]}`]
-  if (array.length === 9) return [`${array[1]}`, `${array[2]}`, `${array[3]}`, `${array[4]}`]
+const formatHexArray = (array, length) => {
+  if (length === 6) return [`${array[1]}`, `${array[2]}`, `${array[3]}`]
+  if (length === 3) return [`${array[1]}${array[1]}`, `${array[2]}${array[2]}`, `${array[3]}${array[3]}`]
+  if (length === 8) return [`${array[1]}`, `${array[2]}`, `${array[3]}`, `${array[4]}`]
   return [`${array[1]}${array[1]}`, `${array[2]}${array[2]}`, `${array[3]}${array[3]}`, `${array[4]}${array[4]}`]
 }
 
-/**
- * create the rgb string
- * @param {Array} arr hex array
- */
-const getRgb = (arr) => {
-  const array = formatHexArray(arr)
+
+const getRgb = (arr, length) => {
+  const array = formatHexArray(arr, length)
   return `rgb(${parseHex(array[0])}, ${parseHex(array[1])}, ${parseHex(array[2])})`
 }
 
-/**
- * create the rgba string
- * @param {Array} arr hex array
- */
-const getRgba = (arr) => {
-  const array = formatHexArray(arr)
-  return `rgba(${parseHex(array[0])}, ${parseHex(array[1])}, ${parseHex(array[2])}, ${parseHex(array[3])})`
+
+const getRgba = (arr, length) => {
+  const array = formatHexArray(arr, length)
+  return `rgba(${parseHex(array[0])}, ${parseHex(array[1])}, ${parseHex(array[2])}, ${parseHex(array[3]) / 255})`
 }
 
-/**
- * parse the hex to rgb
- * @param {String} hex hex string
- */
-export function hexToRgb(hex) {
-  if (!hex || typeof hex !== 'string') {
-    console.error(new Error('the paramter is not a string'))
-    return ''
+const toBound01 = (val, max) => {
+  if (isOne(val)) { val = '100%' }
+
+  const processPercent = isPercent(val)
+  val = Math.min(max, Math.max(0, parseInt(val, 10)))
+
+  // Automatically convert percentage into number
+  if (processPercent) {
+    val = parseInt(val * max, 10) / 100
   }
+
+  // Handle floating point rounding errors
+  if ((Math.abs(val - max) < 0.000001)) {
+    return 1
+  }
+
+  // Convert into [0, 1] range if it isn't already
+  return (val % max) / parseInt(max, 10)
+}
+
+const hueToRgb = (p, q, t) => {
+  if (t < 0) t += 1
+  if (t > 1) t -= 1
+  if (t < 1 / 6) return p + ((q - p) * 6 * t)
+  if (t < 1 / 2) return q
+  if (t < 2 / 3) return p + ((q - p) * ((2 / 3) - t) * 6)
+  return p
+}
+
+const translateHsl = (matchs, a) => {
+  let [, h, s, l] = matchs
+  let r
+  let g
+  let b
+
+  h = toBound01(h, 360)
+  s = toBound01(s, 100)
+  l = toBound01(l, 100)
+
+  if (s === 0) {
+    r = l
+    g = l
+    b = l
+  } else {
+    const q = l < 0.5 ? l * (1 + s) : (l + s) - (l * s)
+    const p = (2 * l) - q
+    r = hueToRgb(p, q, h + (1 / 3))
+    g = hueToRgb(p, q, h)
+    b = hueToRgb(p, q, h - (1 / 3))
+  }
+
+  r = floor(r * 255)
+  g = floor(g * 255)
+  b = floor(b * 255)
+
+  return a ? `rgba(${r}, ${g}, ${b}, ${a})` : `rgb(${r}, ${g}, ${b})`
+}
+
+
+const isDarkRgb = (color) => {
+  const matchs = MATCH.rgb.exec(color) || MATCH.rgba.exec(color)
+  if (matchs) {
+    const [, r, g, b] = matchs
+    return (r * 0.299) + (g * 0.578) + (b * 0.114) < 192
+  }
+
+  console.error(new Error('the color string is not a legal color'))
+  return undefined
+}
+
+const toHex = (rgb, noAlpha, a) => {
+  let [, r, g, b] = rgb
+  let o
+  const calAlhpa = !noAlpha && a
+  r = floor(r).toString(16)
+  g = floor(g).toString(16)
+  b = floor(b).toString(16)
+
+  if (r.length !== 2) r = `0${r}`
+  if (g.length !== 2) g = `0${g}`
+  if (b.length !== 2) b = `0${b}`
+
+  if (calAlhpa) o = floor(a * 255).toString(16)
+
+  return calAlhpa ? `#${r}${g}${b}${o}` : `#${r}${g}${b}`
+}
+
+// third parameter, to keep same with toHex
+const toHsl = (rgb, _, a) => {
+  let [, r, g, b] = rgb
+
+  r = toBound01(r, 255)
+  g = toBound01(g, 255)
+  b = toBound01(b, 255)
+
+  const max = Math.max(r, g, b)
+  const min = Math.min(r, g, b)
+  let h
+  let s
+  let l = (max + min) / 2
+
+  if (max === min) {
+    h = 0
+    s = 0 // achromatic
+  } else {
+    const d = max - min
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min)
+    switch (max) {
+      case r: h = ((g - b) / d) + (g < b ? 6 : 0); break
+      case g: h = ((b - r) / d) + 2; break
+      case b: h = ((r - g) / d) + 4; break
+      default: break
+    }
+
+    h /= 6
+  }
+
+  h = floor(h * 360)
+  s = floor(s * 100)
+  l = floor(l * 100)
+
+  return a ? `hsla(${h}, ${s}, ${l}, ${a})` : `hsl(${h}, ${s}, ${l})`
+}
+
+const rgbTranlate = target => (rgb, noAlpha) => {
+  if (!isString(rgb)) return ''
   let matchs
 
-  matchs = MATCH.hex3.exec(hex) || MATCH.hex6.exec(hex)
+  matchs = MATCH.rgb.exec(rgb)
   if (matchs) {
-    return getRgb(matchs)
+    return target(matchs, noAlpha)
   }
 
-  matchs = MATCH.hex4.exec(hex) || MATCH.hex8.exec(hex)
+  matchs = MATCH.rgba.exec(rgb)
   if (matchs) {
-    return getRgba(matchs)
+    return target(matchs, noAlpha, matchs[4])
+  }
+
+  console.error(new Error('the color is not a rgb color'))
+  return ''
+}
+
+export function hexToRgb(hex) {
+  if (!isString(hex)) return ''
+
+  let matchs
+
+  matchs = MATCH.hex3.exec(hex)
+  if (matchs) {
+    return getRgb(matchs, 3)
+  }
+
+  matchs = MATCH.hex6.exec(hex)
+  if (matchs) {
+    return getRgb(matchs, 6)
+  }
+
+  matchs = MATCH.hex4.exec(hex)
+  if (matchs) {
+    return getRgba(matchs, 4)
+  }
+
+  matchs = MATCH.hex8.exec(hex)
+  if (matchs) {
+    return getRgba(matchs, 8)
   }
 
   console.error(new Error('the color is not a Hexadecimal color'))
   return ''
+}
+
+export function hslToRgb(hsl) {
+  if (!isString(hsl)) return ''
+
+  let matchs
+
+  matchs = MATCH.hsl.exec(hsl)
+  if (matchs) {
+    return translateHsl(matchs)
+  }
+
+  matchs = MATCH.hsla.exec(hsl)
+  if (matchs) {
+    return translateHsl(matchs, matchs[4])
+  }
+
+  console.error(new Error('the color is not a hsl color'))
+  return ''
+}
+
+export const rgbToHex = rgbTranlate(toHex)
+export const rgbTohsl = rgbTranlate(toHsl)
+
+// dark or light
+
+export function judgeDark(color) {
+  if (!isString) return undefined
+
+  let rgbString = color
+
+  if (MATCH.hsl.test(color) || MATCH.hsla.test(color)) {
+    rgbString = hslToRgb(color)
+  }
+
+  if (MATCH.hex3.test(color) || MATCH.hex4.test(color) || MATCH.hex6.test(color) || MATCH.hex8.test(color)) {
+    rgbString = hexToRgb(color)
+  }
+
+  return isDarkRgb(rgbString)
+}
+
+export function isDark(color) {
+  const result = judgeDark(color)
+  if (result === undefined) return false
+  return result
+}
+
+export function isLight(color) {
+  const result = judgeDark(color)
+  if (result === undefined) return false
+  return !result
 }

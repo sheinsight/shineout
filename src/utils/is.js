@@ -55,3 +55,10 @@ export const isMergeable = (val) => {
 
   return true
 }
+
+export const isOne = (val) => {
+  if (val === 1) return true
+  return typeof n === 'string' && val.indexOf('.') !== -1 && parseFloat(val) === 1
+}
+
+export const isPercent = n => typeof n === 'string' && n.indexOf('%') !== -1
