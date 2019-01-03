@@ -12,7 +12,7 @@ const rules = Rule({
   isExist: (values, _, callback) => {
     const result = []
     values.forEach((val, i) => {
-      if (values.some((v, j) => i !== j && val === v)) {
+      if (values.some((v, j) => val && i !== j && val === v)) {
         result[i] = new Error(`Name "${val}" is existed.`)
       }
     })
