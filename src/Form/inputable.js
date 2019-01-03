@@ -78,7 +78,7 @@ export default curry(Origin => consumer(class extends Component {
     this.validate = this.validate.bind(this)
     this.validateHook = this.validateHook.bind(this)
 
-    this.lastValue = formDatum && name ? formDatum.get(name) : Symbol('empty')
+    this.lastValue = formDatum && name ? formDatum.get(name) : {}
   }
 
   componentDidMount() {
@@ -168,7 +168,9 @@ export default curry(Origin => consumer(class extends Component {
   }
 
   handleError(error) {
-    const { formDatum, name, onError } = this.props
+    const {
+      formDatum, name, onItemError, onError,
+    } = this.props
     if (formDatum && name) {
       if (!isSameError(error, formDatum.getError(this.errorName, true))) {
         formDatum.setError(this.errorName, error, true)
@@ -177,7 +179,8 @@ export default curry(Origin => consumer(class extends Component {
       this.setState({ error })
     }
 
-    if (!name && onError) onError(this.itemName, error)
+    if (onError) onError(error)
+    if (onItemError && !name) onItemError(this.itemName, error)
   }
 
   validateHook(customValidate) {
@@ -296,7 +299,7 @@ export default curry(Origin => consumer(class extends Component {
 
   render() {
     const {
-      formDatum, value, required, loopContext, bind,
+      formDatum, value, required, loopContext, bind, onItemError,
       bindInputToItem, unbindInputFromItem, scuSkip, ...other
     } = this.props
 

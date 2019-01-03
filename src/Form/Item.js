@@ -44,7 +44,7 @@ class Item extends Component {
     this.events = {
       bindInputToItem: this.bind.bind(this),
       unbindInputFromItem: this.unbind.bind(this),
-      onError: this.handleError.bind(this),
+      onItemError: this.handleError.bind(this),
     }
     this.handleUpdate = this.handleUpdate.bind(this)
 
