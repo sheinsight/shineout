@@ -29,7 +29,7 @@ class Breadcrumb extends React.PureComponent {
               }
             }
             return (
-              <span key={getKey(d, keygen, index)}>
+              <span key={keygen ? getKey(d, keygen, index) : index}>
                 { renderItem ? renderItem(d) : item }
                 { index !== data.length - 1 ? <span>{separator}</span> : null }
               </span>
