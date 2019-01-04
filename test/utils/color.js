@@ -6,9 +6,9 @@ test('should return a empty string', (t) => {
   t.is(color.hexToRgb(), '')
   t.is(color.hexToRgb('yarn'), '')
   t.is(color.hslToRgb(), '')
-  t.is(color.hslToRgb('hls(200, 40, 50)'), '')
+  t.is(color.hslToRgb({}), '')
   t.is(color.rgbToHex(), '')
-  t.is(color.rgbToHex('rbg(200, 40, 50)'), '')
+  t.is(color.rgbToHex(2333), '')
 })
 
 test('should transform hex to rgb', (t) => {
@@ -81,8 +81,8 @@ test('should transform rgba to hex (noAlpha)', (t) => {
 })
 
 test('should transform rgb to hsl', (t) => {
-  const rgb = ['rgb(255, 180, 0)', 'rgb(200,  200 ,  200)', 'rgb(120.8, 110.8, 50.8)']
-  const hsl = ['hsl(42, 100, 50)', 'hsl(0, 0, 78)', 'hsl(51, 41, 33)']
+  const rgb = ['rgb(255, 180, 0)', 'rgb(100,  200 ,  150)', 'rgb(20.8, 50.8, 110.8)']
+  const hsl = ['hsl(42, 100, 50)', 'hsl(150, 47, 58)', 'hsl(219, 69, 25)']
 
   rgb.forEach((r, i) => {
     t.is(color.rgbTohsl(r), hsl[i])
@@ -96,6 +96,43 @@ test('should transform rgba to hsla', (t) => {
   rgba.forEach((r, i) => {
     t.is(color.rgbTohsl(r), hsla[i])
   })
+})
+
+test('should transform hex to hsl', (t) => {
+  const hex = ['#ffddee', 'eedd337f']
+  const hsl = ['hsl(330, 100, 93)', 'hsla(54, 84, 56, 0.5)']
+
+  hex.forEach((r, i) => {
+    t.is(color.hexToHsl(r), hsl[i])
+  })
+})
+
+test('should transform hsl to hex', (t) => {
+  const hsl = ['hsl(330, 100, 93)', 'hsla(54 , 84, 56, 0.5)']
+  const hex = ['#ffdbed', '#edda307f']
+
+  hsl.forEach((r, i) => {
+    t.is(color.hslToHex(r), hex[i])
+  })
+})
+
+test('should transform hsl to hex (noAlpha)', (t) => {
+  const hsl = ['hsla(330, 100, 93, 0.5)', 'hsla(54 , 84, 56, 0.5)']
+  const hex = ['#ffdbed', '#edda30']
+
+  hsl.forEach((r, i) => {
+    t.is(color.hslToHex(r, true), hex[i])
+  })
+})
+
+test('should get true use hexToRgb and rgbToHex', (t) => {
+  t.is(color.rgbToHex(color.hexToRgb('#22eeff')), '#22eeff')
+  t.is(color.rgbToHex(color.hexToRgb('#33ee667f')), '#33ee667f')
+})
+
+test('should get true use rgbToHex and hexToRgb', (t) => {
+  t.is(color.hexToRgb(color.rgbToHex('rgb(100, 100, 100)')), 'rgb(100, 100, 100)')
+  t.is(color.hexToRgb(color.rgbToHex('rgba(200, 150, 80, 0.5)')), 'rgba(200, 150, 80, 0.5)')
 })
 
 test('should get true when color is dark', (t) => {

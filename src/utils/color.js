@@ -28,11 +28,23 @@ const MATCH = {
 }
 
 const isString = (string) => {
-  if (!string || typeof string !== 'string') {
-    console.error(new Error('the color is not a string'))
+  if (!string) {
+    console.error(new Error('the color is empty'))
+    return false
+  }
+
+  if (typeof string !== 'string') {
+    console.error(new Error(`the color is get a ${typeof string}, expect string`))
     return false
   }
   return true
+}
+
+const dealPointZero = (string) => {
+  const num = string.toFixed(1)
+  const reg = /\.0*$/
+  if (reg.test(num)) return floor(num)
+  return num
 }
 
 /**
@@ -61,7 +73,7 @@ const getRgb = (arr, length) => {
 
 const getRgba = (arr, length) => {
   const array = formatHexArray(arr, length)
-  return `rgba(${parseHex(array[0])}, ${parseHex(array[1])}, ${parseHex(array[2])}, ${parseHex(array[3]) / 255})`
+  return `rgba(${parseHex(array[0])}, ${parseHex(array[1])}, ${parseHex(array[2])}, ${dealPointZero(parseHex(array[3]) / 255)})`
 }
 
 const toBound01 = (val, max) => {
@@ -130,7 +142,7 @@ const isDarkRgb = (color) => {
     return (r * 0.299) + (g * 0.578) + (b * 0.114) < 192
   }
 
-  console.error(new Error('the color string is not a legal color'))
+  console.error(new Error(`the string '${color}' is not a legal color`))
   return undefined
 }
 
@@ -202,7 +214,7 @@ const rgbTranlate = target => (rgb, noAlpha) => {
     return target(matchs, noAlpha, matchs[4])
   }
 
-  console.error(new Error('the color is not a rgb color'))
+  console.error(new Error(`the string '${rgb}' is not a rgb color`))
   return ''
 }
 
@@ -231,7 +243,7 @@ export function hexToRgb(hex) {
     return getRgba(matchs, 8)
   }
 
-  console.error(new Error('the color is not a Hexadecimal color'))
+  console.error(new Error(`the string '${hex}' is not a hex color`))
   return ''
 }
 
@@ -250,12 +262,24 @@ export function hslToRgb(hsl) {
     return translateHsl(matchs, matchs[4])
   }
 
-  console.error(new Error('the color is not a hsl color'))
+  console.error(new Error(`the string '${hsl}' is not a hsl color`))
   return ''
 }
 
 export const rgbToHex = rgbTranlate(toHex)
 export const rgbTohsl = rgbTranlate(toHsl)
+
+export function hexToHsl(hex) {
+  const temp = hexToRgb(hex)
+  if (!temp) return ''
+  return rgbTohsl(temp)
+}
+
+export function hslToHex(hsl, noAlpha) {
+  const temp = hslToRgb(hsl)
+  if (!temp) return ''
+  return rgbToHex(temp, noAlpha)
+}
 
 // dark or light
 
