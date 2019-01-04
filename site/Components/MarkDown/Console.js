@@ -30,11 +30,11 @@ class Console extends PureComponent {
 }
 
 Console.propTypes = {
-  children: PropTypes.string,
+  children: PropTypes.array,
 }
 
 Console.defaultProps = {
-  children: '',
+  children: [],
 }
 
 export default Console

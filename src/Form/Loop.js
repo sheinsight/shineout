@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import createReactContext from 'create-react-context'
-import immer from 'immer'
+import { PureComponent } from '../component'
 import { ERROR_TYPE, FORCE_PASS, IGNORE_VALIDATE } from '../Datum/types'
 import validate from '../utils/validate'
 import { getUidStr } from '../utils/uid'
@@ -24,7 +24,7 @@ export default class Loop extends PureComponent {
 
     this.validate = this.validate.bind(this)
     this.selfValidate = this.selfValidate.bind(this)
-    this.tryUpdate = this.tryUpdate.bind(this)
+    this.update = this.forceUpdate.bind(this)
 
     this.validations = [this.selfValidate]
     this.keys = []
@@ -33,6 +33,7 @@ export default class Loop extends PureComponent {
   }
 
   componentDidMount() {
+    super.componentDidMount()
     const { formDatum, name, defaultValue } = this.props
     formDatum.bind(
       name,
@@ -43,7 +44,7 @@ export default class Loop extends PureComponent {
   }
 
   componentWillUnmount() {
-    this.$willUnmount = true
+    super.componentWillUnmount()
     const { formDatum, name } = this.props
     if (formDatum && name) {
       formDatum.unbind(name, this.handleUpdate)
@@ -77,7 +78,7 @@ export default class Loop extends PureComponent {
   }
 
   updateWithValidate() {
-    this.selfValidate().then(this.tryUpdate)
+    this.selfValidate().then(this.update)
   }
 
   validate(type) {
@@ -86,18 +87,13 @@ export default class Loop extends PureComponent {
     return promiseAll(this.validations.map(v => v(value, undefined)))
   }
 
-  tryUpdate() {
-    if (this.$willUnmount) return
-    this.forceUpdate()
-  }
-
   handleUpdate(_, sn, type) {
     if (type === ERROR_TYPE || type === IGNORE_VALIDATE) {
-      this.tryUpdate()
+      this.update()
     } else if (type === FORCE_PASS) {
       this.validate(FORCE_PASS)
     } else {
-      this.selfValidate().then(this.tryUpdate).catch(() => {})
+      this.selfValidate().then(this.update).catch(() => {})
     }
   }
 
@@ -109,13 +105,11 @@ export default class Loop extends PureComponent {
       return
     }
 
-    let values = formDatum.get(name)
+    const values = formDatum.get(name)
     if (!values) return
 
-    values = immer(values, (draft) => {
-      draft[index] = value
-    })
-    formDatum.set(name, values)
+    values[index] = value
+    formDatum.set(name, [...values])
   }
 
   handleInsert(index, value) {

@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
 import { getKey } from '../utils/uid'
 import { CHANGE_TOPIC } from '../Datum/types'
@@ -13,16 +14,17 @@ class RadioGroup extends PureComponent {
     super(props)
 
     this.handleClick = this.handleClick.bind(this)
-    this.handleUpdate = this.handleUpdate.bind(this)
+    this.handleUpdate = this.forceUpdate.bind(this)
     this.handleRawChange = this.handleRawChange.bind(this)
   }
 
   componentDidMount() {
+    super.componentDidMount()
     this.props.datum.subscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
   componentWillUnmount() {
-    this.$willUnmount = true
+    super.componentWillUnmount()
     this.props.datum.unsubscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
@@ -36,11 +38,6 @@ class RadioGroup extends PureComponent {
     }
 
     return ''
-  }
-
-  handleUpdate() {
-    if (this.$willUnmount) return
-    this.forceUpdate()
   }
 
   handleClick(val, checked, index) {

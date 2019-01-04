@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+import { PureComponent } from '../component'
 import { inputClass } from '../styles'
 import cleanProps from '../utils/cleanProps'
 
@@ -18,6 +19,7 @@ class Textarea extends PureComponent {
   }
 
   componentDidMount() {
+    super.componentDidMount()
     if (this.props.autosize) this.resize()
   }
 

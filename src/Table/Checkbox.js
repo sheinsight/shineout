@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+import { PureComponent } from '../component'
 import { CHANGE_TOPIC } from '../Datum/types'
 import Checkbox from '../Checkbox/Checkbox'
 
@@ -12,21 +13,17 @@ export default class extends PureComponent {
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
-    this.handleUpdate = this.handleUpdate.bind(this)
+    this.handleUpdate = this.forceUpdate.bind(this)
   }
 
   componentDidMount() {
+    super.componentDidMount()
     this.props.datum.subscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
   componentWillUnmount() {
-    this.$willUnmount = true
+    super.componentWillUnmount()
     this.props.datum.unsubscribe(CHANGE_TOPIC, this.handleUpdate)
-  }
-
-  handleUpdate() {
-    if (this.$willUnmount) return
-    this.forceUpdate()
   }
 
   handleChange(_, checked, index) {

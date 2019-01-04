@@ -1,25 +1,24 @@
 import { curry } from './func'
 
-// eslint-disable-next-line
-export const isArray = Array.isArray
-
-export const isObject = val => val && typeof val === 'object' && !isArray(val)
-
-export const isDate = val => val instanceof Date
-
-export const isError = val => val instanceof Error
-
-export const isRegexp = val => val instanceof RegExp
-
 const nameIs = curry((name, val) => val && val.constructor && val.constructor.name === name)
 
+// eslint-disable-next-line
+export const isArray = Array.isArray
+export const isUndef = v => v == null
+export const isNotUndef = v => v != null
+// eslint-disable-next-line
+export const isNan = a => a !== a
+export const isFunc = f => typeof f === 'function'
+export const isNumber = n => typeof n === 'number'
+export const isObject = val => val && typeof val === 'object' && !isArray(val)
+export const isString = s => typeof s === 'string'
+export const isDate = val => val instanceof Date
+export const isError = val => val instanceof Error
+export const isRegexp = val => val instanceof RegExp
 export const isMap = nameIs('Map')
-
 export const isSet = nameIs('Set')
-
 export const isSymbol = nameIs('Symbol')
-
-export const isPromise = nameIs('Promise')
+export const isPromise = p => p && (nameIs('Promise', p) || isFunc(p.then))
 
 export const isInPath = (val, path) => {
   if (val === path) return true
@@ -27,10 +26,8 @@ export const isInPath = (val, path) => {
 }
 
 export const isEmpty = (val) => {
-  if (val === null || val === undefined) return true
-  // NaN
-  // eslint-disable-next-line
-  if (val !== val) return true
+  if (val == null) return true
+  if (isNan(val)) return true
   if (val.length !== undefined) return val.length === 0
   if (val instanceof Date) return false
   if (typeof val === 'object') return Object.keys(val).length === 0
@@ -62,3 +59,5 @@ export const isOne = (val) => {
 }
 
 export const isPercent = n => typeof n === 'string' && n.indexOf('%') !== -1
+export const isInseparable = val => (Object(val) !== val ||
+  isFunc(val) || isDate(val) || isError(val) || isSet(val) || isMap(val) || isRegexp(val))

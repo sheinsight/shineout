@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
-import PureComponent from '../PureComponent'
+import { PureComponent } from '../component'
 import normalizeWheel from '../utils/dom/normalizeWheel'
 import { imageClass } from '../styles'
 import icons from '../icons'
@@ -24,10 +24,12 @@ class Gallery extends PureComponent {
   }
 
   componentDidMount() {
+    super.componentDidMount()
     document.addEventListener('wheel', this.handleScroll)
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount()
     document.removeEventListener('wheel', this.handleScroll)
   }
 

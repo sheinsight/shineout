@@ -64,7 +64,7 @@ export default curry((options, Origin) => {
 
     setValue(t) {
       const values = this.props[key]
-      this.datum.setValue(values, t)
+      if (values !== undefined) this.datum.setValue(values, t)
     }
 
     render() {

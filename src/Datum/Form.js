@@ -82,7 +82,8 @@ export default class {
 
   splice(name, index) {
     this.spliceError(name, index)
-    this.get(name).splice(index, 1)
+    const list = this.get(name)
+    list.splice(index, 1)
     this.publishValue(name, IGNORE_VALIDATE)
     this.publishError(name)
   }

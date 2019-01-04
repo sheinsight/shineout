@@ -1,7 +1,7 @@
 import React, { Children } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import PureComponent from '../PureComponent'
+import { PureComponent } from '../component'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { range } from '../utils/numbers'
 import { carouselClass } from '../styles'

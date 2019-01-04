@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { PureComponent } from '../component'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { getParent } from '../utils/dom/element'
 import normalizeWheel from '../utils/dom/normalizeWheel'
@@ -30,6 +31,7 @@ class Scroll extends PureComponent {
   }
 
   componentDidMount() {
+    super.componentDidMount()
     setTimeout(this.setRect)
   }
 
@@ -37,10 +39,6 @@ class Scroll extends PureComponent {
     if (this.props.scrollWidth !== prevProps.scrollWidth) {
       this.setRect()
     }
-  }
-
-  componentWillUnmount() {
-    this.$willUnmount = true
   }
 
   getWheelRect() {
@@ -63,7 +61,6 @@ class Scroll extends PureComponent {
   }
 
   setRect() {
-    if (this.$willUnmount) return
     this.handleScroll(this.props.left, this.props.top)
     this.forceUpdate()
   }

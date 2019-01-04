@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { PureComponent } from '../component'
 import { getUidStr } from '../utils/uid'
-import PureComponent from '../PureComponent'
 import { hidableClass } from '../styles'
 
 /**
@@ -25,6 +25,7 @@ export default function (Component, { type = ['fade'], duration = 360, display =
     }
 
     componentDidMount() {
+      super.componentDidMount()
       const el = this.getElement()
       if (!el) return
 
@@ -45,10 +46,6 @@ export default function (Component, { type = ['fade'], duration = 360, display =
       else this.hide()
     }
 
-    componentWillUnmount() {
-      this.isUnmounted = true
-    }
-
     getElement() {
       return document.querySelector(`.${this.id}`)
     }
@@ -58,7 +55,7 @@ export default function (Component, { type = ['fade'], duration = 360, display =
       es.display = display
 
       setTimeout(() => {
-        if (!this.isUnmounted) {
+        if (this.$isMounted) {
           this.setState({ show: true })
 
           if (hasCollapse) {

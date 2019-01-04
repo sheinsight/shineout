@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import PureComponent from '../PureComponent'
+import { PureComponent } from '../component'
 import inputBorder from '../hoc/inputBorder'
 import { tagClass } from '../styles'
 
@@ -15,6 +15,7 @@ class TagInput extends PureComponent {
   }
 
   componentDidMount() {
+    super.componentDidMount()
     if (this.element) this.element.focus()
   }
 

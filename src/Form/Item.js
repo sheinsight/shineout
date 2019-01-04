@@ -1,8 +1,9 @@
-import React, { Component, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import createReactContext from 'create-react-context'
 import classnames from 'classnames'
 import immer from 'immer'
+import { Component } from '../component'
 import { errorSubscribe, RESET_TOPIC } from '../Datum/types'
 import { getGrid } from '../Grid/utils'
 import { getProps, defaultProps } from '../utils/proptypes'
@@ -51,10 +52,6 @@ class Item extends Component {
     if (props.formDatum) props.formDatum.subscribe(RESET_TOPIC, this.handleUpdate)
   }
 
-  componentWillUnmount() {
-    this.$willUnmount = true
-  }
-
   getErrors() {
     const { formDatum } = this.props
     const errors = []
@@ -76,7 +73,6 @@ class Item extends Component {
   handleUpdate() {
     if (this.updateTimer) clearTimeout(this.updateTimer)
     this.updateTimer = setTimeout(() => {
-      if (this.$willUnmount) return
       this.forceUpdate()
     })
   }
@@ -89,8 +85,6 @@ class Item extends Component {
         formDatum.subscribe(errorSubscribe(n), this.handleUpdate)
       })
     }
-
-    if (this.$willUnmount) return
 
     this.setState(immer((state) => {
       names.forEach((n) => { state.inputs[n] = true })
@@ -105,8 +99,6 @@ class Item extends Component {
         formDatum.unsubscribe(errorSubscribe(n))
       })
     }
-
-    if (this.$willUnmount) return
 
     this.setState(immer((state) => {
       names.forEach((n) => { delete state.inputs[n] })

@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { PureComponent } from '../component'
 import { getLocale } from '../locale'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { tableClass } from '../styles'

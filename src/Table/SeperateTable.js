@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import PureComponent from '../PureComponent'
+import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
 import { setTranslate } from '../utils/dom/translate'
 import { range, split } from '../utils/numbers'
@@ -39,10 +39,6 @@ class SeperateTable extends PureComponent {
   componentDidUpdate(prevProps) {
     if (!this.tbody) return
     if (this.props.data !== prevProps.data) this.resetHeight()
-  }
-
-  componentWillUnmount() {
-    this.$willUnmount = true
   }
 
   getIndex(scrollTop = this.state.scrollTop) {
@@ -153,7 +149,7 @@ class SeperateTable extends PureComponent {
   }
 
   scrollToIndex(index, callback) {
-    if (this.$willUnmount) return
+    if (!this.$isMounted) return
     if (index > 1) index -= 1
     if (index < 0) index = 0
     const contentHeight = this.getContentHeight()

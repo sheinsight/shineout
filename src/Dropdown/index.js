@@ -1,7 +1,7 @@
 import React from 'react'
 import immer from 'immer'
 import PropTypes from 'prop-types'
-import PureComponent from '../PureComponent'
+import { PureComponent } from '../component'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { getParent } from '../utils/dom/element'
 import Button from '../Button'
@@ -47,7 +47,7 @@ class Dropdown extends PureComponent {
   }
 
   componentWillUnmount() {
-    this.$willUnmount = true
+    super.componentWillUnmount()
     this.toggleDocumentEvent(false)
   }
 
@@ -87,7 +87,7 @@ class Dropdown extends PureComponent {
 
   handleHide(delay = 200) {
     this.closeTimer = setTimeout(() => {
-      if (!this.$willUnmount) this.setState({ show: false })
+      this.setState({ show: false })
       this.toggleDocumentEvent(false)
     }, delay)
   }

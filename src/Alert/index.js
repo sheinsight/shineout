@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import PureComponent from '../PureComponent'
+import { PureComponent } from '../component'
 import { capitalize } from '../utils/strings'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { alertClass } from '../styles'

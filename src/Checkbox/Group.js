@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
 import { getKey } from '../utils/uid'
 import { CHANGE_TOPIC } from '../Datum/types'
@@ -18,11 +19,12 @@ class CheckboxGroup extends PureComponent {
   }
 
   componentDidMount() {
+    super.componentDidMount()
     this.props.datum.subscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
   componentWillUnmount() {
-    this.$willUnmount = true
+    super.componentWillUnmount()
     this.props.datum.unsubscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
@@ -39,7 +41,6 @@ class CheckboxGroup extends PureComponent {
   }
 
   handleUpdate() {
-    if (this.$willUnmount) return
     this.forceUpdate()
   }
 
