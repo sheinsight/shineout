@@ -38,6 +38,8 @@ function getCompiler(name, conf) {
       libraryTarget: 'umd',
     },
 
+    mode: 'development',
+
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
     ],
