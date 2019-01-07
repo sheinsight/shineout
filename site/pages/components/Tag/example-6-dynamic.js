@@ -23,8 +23,7 @@ export default class extends Component {
     this.setState({ inputVisible: true })
   }
 
-  handleInputBlur = (e) => {
-    const { value } = e.target
+  handleInputBlur = (value) => {
     const { tags } = this.state
     let newTags = tags
     if (value && tags.indexOf(value) === -1) {

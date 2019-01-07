@@ -30,16 +30,17 @@ class TagInput extends PureComponent {
   }
 
   handleKeyUp(e) {
-    const { onKeyUp, onEnterPress } = this.props
-    if (e.keyCode === 13 && onEnterPress) {
-      onEnterPress(e.target.value)
+    const { onBlur, onKeyUp, onEnterPress } = this.props
+    if (e.keyCode === 13) {
+      if (onEnterPress) onEnterPress(e.target.value, e)
+      else if (onBlur) onBlur(e.target.value, e)
     }
     if (onKeyUp) onKeyUp(e)
   }
 
   handleBlur(e) {
     const { onBlur } = this.props
-    if (onBlur) onBlur(e)
+    if (onBlur) onBlur(e.target.value, e)
   }
 
   render() {
