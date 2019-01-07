@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import shallowEqual from '../utils/shallowEqual'
 import DatumForm from '../Datum/Form'
-import { VALIDATE_TOPIC, RESET_TOPIC } from '../Datum/types'
+import { VALIDATE_TOPIC, RESET_TOPIC, FORCE_PASS } from '../Datum/types'
 import { Provider } from './formContext'
 
 class Block extends PureComponent {
@@ -31,7 +31,8 @@ class Block extends PureComponent {
   componentDidUpdate(prevProps) {
     const { value, error } = this.props
     if (!shallowEqual(value, this.prevValues)) {
-      this.datum.setValue(value)
+      this.datum.setValue(value, this.willReset ? FORCE_PASS : undefined, this.willReset)
+      this.willReset = false
       this.prevValues = value
     }
     if (error !== prevProps.error) {
@@ -53,10 +54,8 @@ class Block extends PureComponent {
   }
 
   reset() {
-    // wait cDU setValue completed
-    setTimeout(() => {
-      this.datum.validateClear()
-    })
+    this.datum.reset()
+    this.willReset = true
   }
 
   validate() {

@@ -1,6 +1,7 @@
-import React, { PureComponent, isValidElement, cloneElement } from 'react'
+import React, { isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
+import { PureComponent } from '../component'
 import { getKey, getUidStr } from '../utils/uid'
 import { menuClass } from '../styles'
 import List from './List'
@@ -27,6 +28,7 @@ class Item extends PureComponent {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount()
     this.props.unbindItem(this.id)
     this.unbindDocumentEvent()
   }

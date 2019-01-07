@@ -8,6 +8,7 @@
 | --- | --- | --- | --- |
 | absolute | bool | false | When it is true, the pop-up layer of option append into document.body. |
 | clearable | bool | false | If clearable is true, show clear value icon |
+| multiple | bool | false | if it is true, it will be multiple selection |
 | columns | number | 1 | Option columns.  |
 | columnWidth | number | 160 | Option column width, only effective when columns > 1 |
 | data | array | required | Options data |

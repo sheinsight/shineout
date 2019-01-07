@@ -1,0 +1,65 @@
+@import './variables.less';
+@import './themes/@{so-theme}.less';
+
+@tag-prefix: ~"@{so-prefix}-tag";
+
+//
+// Alerts
+// --------------------------------------------------
+
+
+// Base styles
+// -------------------------
+
+.@{tag-prefix} {
+  position: relative;
+  display: inline-block;
+  background: @tag-bg-color;
+  padding: @tag-padding-y @tag-padding-x;
+  border-radius: @tag-border-radius;
+  line-height: 1.4;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all .3s;
+  color: @tag-color;
+  font-size: @tag-font-size;
+  font-weight: 600;
+  margin: 0 @tag-space;
+  .@{tag-prefix}-inline {
+    display: inline-block;
+    vertical-align: top;
+  }
+  &.@{tag-prefix}-disabled {
+    cursor: not-allowed;
+  }
+  &-input {
+    margin: 0 0 0 @tag-space;
+    font-size: @tag-font-size;
+    height: @tag-input-height;
+    display: inline-block;
+    vertical-align: middle;
+    width: 100px;
+    input {
+      padding: @tag-input-padding-y @tag-input-padding-x;
+    }
+  }
+  .@{tag-prefix}-close-icon {
+    display: inline-block;
+    margin: 0 0 0 @tag-close-left;
+  }
+  &-default {
+    border-color: @tag-border-color;
+  }
+  &-success {
+    .tag-variant(@colors-success);
+  }
+  &-info {
+    .tag-variant(@colors-primary);
+  }
+  &-warning {
+    .tag-variant(@colors-warning);
+  }
+  &-danger {
+    .tag-variant(@colors-danger);
+  }
+}

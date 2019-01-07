@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { PureComponent } from '../component'
 import { getLocale } from '../locale'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { tableClass } from '../styles'
@@ -112,4 +113,4 @@ Table.defaultProps = {
   verticalAlign: 'top',
 }
 
-export default Datum.hoc({ bindProps: ['disabled', 'format', 'prediction'] }, Table)
+export default Datum.hoc({ bindProps: ['disabled', 'format', 'prediction'], setValueType: null }, Table)

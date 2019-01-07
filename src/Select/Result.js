@@ -56,7 +56,7 @@ class Result extends PureComponent {
         key={`${key}.${focus ? 1 : 0}`}
         onInputFocus={onInputFocus}
         onInputBlur={onInputBlur}
-        updatAble={!(!onCreate && multiple)}
+        updatAble={onCreate && !multiple}
         multiple={multiple}
         focus={focus}
         text={text}

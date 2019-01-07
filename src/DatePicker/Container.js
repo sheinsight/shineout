@@ -1,7 +1,8 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import immer from 'immer'
+import { PureComponent } from '../component'
 import List from '../List'
 import { datepickerClass, inputClass } from '../styles'
 import Icon from './Icon'
@@ -39,6 +40,7 @@ class Container extends PureComponent {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount()
     this.clearClickAway()
   }
 

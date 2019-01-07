@@ -1,11 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
+import { Component } from '../component'
 import { promiseAll, isSameError } from '../utils/errors'
 import shallowEqual from '../utils/shallowEqual'
 import { curry, compose } from '../utils/func'
 import { filterProps } from '../utils/objects'
 import { getUidStr } from '../utils/uid'
+import { isArray } from '../utils/is'
 import validate from '../utils/validate'
 import { FORCE_PASS, ERROR_TYPE, IGNORE_VALIDATE, errorSubscribe } from '../Datum/types'
 import { formConsumer } from './formContext'
@@ -13,7 +15,7 @@ import { itemConsumer } from './Item'
 import { loopConsumer } from './Loop'
 import { fieldSetConsumer } from './FieldSet'
 
-const types = ['formDatum', 'disabled']
+const types = ['formDatum', 'disabled', 'combineRules']
 const consumer = compose(formConsumer(types), itemConsumer, loopConsumer, fieldSetConsumer)
 
 const tryValue = (val, def) => (val === undefined ? def : val)
@@ -29,6 +31,7 @@ export default curry(Origin => consumer(class extends Component {
     beforeChange: PropTypes.func,
     bind: PropTypes.array,
     bindInputToItem: PropTypes.func,
+    combineRules: PropTypes.func,
     defaultValue: PropTypes.any,
     fieldSetValidate: PropTypes.func,
     formDatum: PropTypes.object,
@@ -41,7 +44,10 @@ export default curry(Origin => consumer(class extends Component {
     onChange: PropTypes.func,
     onError: PropTypes.func,
     required: PropTypes.bool,
-    rules: PropTypes.array,
+    rules: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.string,
+    ]),
     type: PropTypes.string,
     unbindInputFromItem: PropTypes.func,
     value: PropTypes.any,
@@ -49,9 +55,8 @@ export default curry(Origin => consumer(class extends Component {
   }
 
   static defaultProps = {
-    onError: () => {},
     rules: [],
-    scuSkip: ['onChange'],
+    scuSkip: ['onChange', 'rules'],
   }
 
   constructor(props) {
@@ -73,10 +78,12 @@ export default curry(Origin => consumer(class extends Component {
     this.validate = this.validate.bind(this)
     this.validateHook = this.validateHook.bind(this)
 
-    this.lastValue = formDatum && name ? formDatum.get(name) : undefined
+    this.lastValue = formDatum && name ? formDatum.get(name) : {}
   }
 
   componentDidMount() {
+    super.componentDidMount()
+
     const {
       formDatum, loopContext, name, defaultValue, bindInputToItem, popover,
     } = this.props
@@ -102,13 +109,15 @@ export default curry(Origin => consumer(class extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const skip = [...(this.props.scuSkip || []), 'loopContext']
-    if (this.props.formDatum) skip.push('value')
-    const options = { skip, deep: ['data', 'defaultValue', 'datum', 'name', 'rules', 'rule', 'style'] }
+    const skip = [...(this.props.scuSkip || []), 'formDatum', 'loopContext']
+    if (this.props.formDatum && this.props.name) skip.push('value')
+    const options = { skip, deep: ['data', 'defaultValue', 'datum', 'name', 'rule', 'style'] }
     return !(shallowEqual(nextProps, this.props, options) && shallowEqual(nextState, this.state))
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount()
+
     const {
       formDatum, name, loopContext, unbindInputFromItem,
     } = this.props
@@ -122,12 +131,6 @@ export default curry(Origin => consumer(class extends Component {
     }
     if (unbindInputFromItem && name) unbindInputFromItem(this.errorName)
     if (loopContext) loopContext.unbind(this.validate)
-    this.$willUnmount = true
-  }
-
-  setState(...args) {
-    if (this.$willUnmount) return
-    super.setState(...args)
   }
 
   get errorName() {
@@ -163,7 +166,9 @@ export default curry(Origin => consumer(class extends Component {
   }
 
   handleError(error) {
-    const { formDatum, name, onError } = this.props
+    const {
+      formDatum, name, onItemError, onError,
+    } = this.props
     if (formDatum && name) {
       if (!isSameError(error, formDatum.getError(this.errorName, true))) {
         formDatum.setError(this.errorName, error, true)
@@ -172,15 +177,18 @@ export default curry(Origin => consumer(class extends Component {
       this.setState({ error })
     }
 
-    if (!name && onError) onError(this.itemName, error)
+    if (onError) onError(error)
+    if (onItemError && !name) onItemError(this.itemName, error)
   }
 
   validateHook(customValidate) {
     this.customValidate = customValidate
   }
 
-  validate(value, data) {
-    const { name, formDatum, bind } = this.props
+  validate(value, data, type) {
+    const {
+      name, formDatum, combineRules, bind,
+    } = this.props
     const names = Array.isArray(name) ? name : [name]
 
     const validates = []
@@ -191,28 +199,29 @@ export default curry(Origin => consumer(class extends Component {
       validateProps.type = 'array'
     }
 
-    if (value === FORCE_PASS) {
-      names.forEach(n => this.handleError(n))
+    if (type === FORCE_PASS) {
+      this.handleError()
       return Promise.resolve(true)
     }
 
     if (value === undefined || Array.isArray(name)) value = this.getValue()
     if (!Array.isArray(name)) value = [value]
     if (this.customValidate) validates.push(this.customValidate())
-    if (formDatum && bind) validates.push(formDatum.validateFields(bind))
+    if (formDatum && bind) {
+      // console.error(new Error('Use "bind" props to combine validate is not recommend. Use Form "groups" props instead.'))
+      formDatum.validateFields(bind).catch(() => {})
+    }
     if (!data && formDatum) data = formDatum.getValue()
 
+    let { rules } = this.props
     names.forEach((n, i) => {
-      let rules = [...this.props.rules]
-      if (formDatum && n) {
-        rules = rules.concat(formDatum.getRule(n))
+      if (formDatum && combineRules) {
+        rules = combineRules(n, rules)
       }
 
-      if (rules.length === 0) {
-        return
+      if (isArray(rules) && rules.length > 0) {
+        validates.push(validate(value[i], data, rules, validateProps))
       }
-
-      validates.push(validate(value[i], data, rules, validateProps))
     })
 
     return promiseAll(validates).then((res) => {
@@ -261,6 +270,13 @@ export default curry(Origin => consumer(class extends Component {
       return
     }
 
+    if (type === FORCE_PASS) {
+      this.handleError()
+      this.setState({ error: undefined })
+      this.forceUpdate()
+      return
+    }
+
     const { name } = this.props
     const newValue = !Array.isArray(name) ? value : immer(this.getValue(), (draft) => {
       name.forEach((n, i) => {
@@ -268,23 +284,21 @@ export default curry(Origin => consumer(class extends Component {
       })
     })
 
-    if (shallowEqual(newValue, this.lastValue) && (type !== FORCE_PASS || !this.getError())) {
-      return
-    }
+    if (shallowEqual(newValue, this.lastValue)) return
     this.lastValue = newValue
 
     if (type !== IGNORE_VALIDATE) {
       if (this.updateTimer) clearTimeout(this.updateTimer)
       this.updateTimer = setTimeout(() => {
-        this.validate(type === FORCE_PASS ? FORCE_PASS : newValue).catch(() => { })
+        this.validate(newValue, undefined, type).catch(() => { })
       })
     }
-    if (!this.$willUnmount) this.forceUpdate()
+    this.forceUpdate()
   }
 
   render() {
     const {
-      formDatum, value, required, loopContext, bind,
+      formDatum, value, required, loopContext, bind, onItemError,
       bindInputToItem, unbindInputFromItem, scuSkip, ...other
     } = this.props
 

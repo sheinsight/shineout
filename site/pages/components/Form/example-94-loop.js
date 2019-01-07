@@ -71,7 +71,6 @@ export default class extends PureComponent {
     this.datum = new Datum.Form({
       value: {
         name: 'Harry Potter',
-        friends: [{ name: 'Hermione Granger', age: '16' }, {}],
       },
     })
 
@@ -92,7 +91,7 @@ export default class extends PureComponent {
         </Form.Item>
 
         <Form.Item label="Friends">
-          <Form.Loop rules={this.rules} name="friends">
+          <Form.Loop rules={this.rules} name="friends" defaultValue={[{ name: 'Hermione Granger', age: '16' }, {}]}>
             {({ value, onChange, onRemove }) => (
               <Friend value={value} onChange={onChange} onRemove={onRemove} />
             )}
@@ -102,6 +101,7 @@ export default class extends PureComponent {
 
         <Form.Item label="">
           <Form.Submit>Submit</Form.Submit>
+          <Form.Reset>Reset</Form.Reset>
         </Form.Item>
       </Form>
     )

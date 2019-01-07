@@ -1,7 +1,8 @@
 import deepEqual from 'deep-eql'
 import { unflatten, insertValue, spliceValue, getSthByName } from '../utils/flat'
-import { deepGet, deepSet, deepRemove, fastClone, deepMerge } from '../utils/objects'
-import isObject from '../utils/validate/isObject'
+import { fastClone } from '../utils/clone'
+import { deepGet, deepSet, deepRemove, deepMerge } from '../utils/objects'
+import { isObject } from '../utils/is'
 import { promiseAll, FormError } from '../utils/errors'
 import {
   updateSubscribe, errorSubscribe, changeSubscribe,
@@ -73,15 +74,18 @@ export default class {
   }
 
   insert(name, index, value) {
+    this.insertError(name, index, undefined)
     this.get(name).splice(index, 0, value)
-    this.setError(name)
-    this.publishValue(name, FORCE_PASS)
+    this.publishValue(name, IGNORE_VALIDATE)
+    this.publishError(name)
   }
 
   splice(name, index) {
-    this.get(name).splice(index, 1)
-    this.setError(name)
-    this.publishValue(name, FORCE_PASS)
+    this.spliceError(name, index)
+    const list = this.get(name)
+    list.splice(index, 1)
+    this.publishValue(name, IGNORE_VALIDATE)
+    this.publishError(name)
   }
 
   remove(name) {
@@ -204,7 +208,9 @@ export default class {
 
   unsubscribe(name, fn) {
     if (!this.$events[name]) return
-    this.$events[name] = this.$events[name].filter(e => e !== fn)
+
+    if (fn) this.$events[name] = this.$events[name].filter(e => e !== fn)
+    else delete this.$events[name]
   }
 
   validate() {
@@ -227,7 +233,7 @@ export default class {
     })
   }
 
-  validateFieldsByName(name) {
+  validateFieldsByName(name, type) {
     if (!name || typeof name !== 'string') {
       return Promise.reject(new Error(`Name expect a string, get "${name}"`))
     }
@@ -236,22 +242,16 @@ export default class {
     const values = this.getValue()
     Object.keys(this.$validator).forEach((n) => {
       if (n === name || n.indexOf(name) === 0) {
-        validations.push(this.$validator[n](this.get(n), values))
+        validations.push(this.$validator[n](this.get(n), values, type))
       }
     })
 
     return promiseAll(validations)
   }
 
-  validateFields(names) {
+  validateFields(names, type) {
     if (!Array.isArray(names)) names = [names]
-    const values = this.getValue()
-    const validates = []
-    names.forEach((k) => {
-      if (this.$validator[k]) {
-        validates.push(this.$validator[k](this.get(k), values))
-      }
-    })
+    const validates = names.map(n => this.validateFieldsByName(n, type))
     return promiseAll(validates)
   }
 

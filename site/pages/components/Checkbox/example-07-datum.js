@@ -22,6 +22,7 @@ export default class extends Component {
     super(props)
     this.datum = new Datum.List({
       prediction: (v, d) => v === d.color,
+      format: v => v.color,
     })
   }
 

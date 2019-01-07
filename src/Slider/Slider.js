@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+import { PureComponent } from '../component'
 import Indicator from './Indicator'
 import { sliderClass } from '../styles'
 import { per2value, value2per } from './utils'

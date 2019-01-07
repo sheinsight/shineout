@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+import { PureComponent } from '../component'
 import Checkbox from '../Checkbox/Checkbox'
 import { treeClass } from '../styles'
 
@@ -14,11 +15,11 @@ export default class extends PureComponent {
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
-    props.datum.bind(props.id, this.update.bind(this))
+    props.datum.bind(props.id, this.forceUpdate.bind(this))
   }
 
   componentWillUnmount() {
-    this.$willUnmount = true
+    super.componentWillUnmount()
     this.props.datum.unbind(this.props.id)
   }
 
@@ -27,11 +28,6 @@ export default class extends PureComponent {
     if (disabled) return true
 
     return datum.isDisabled(id)
-  }
-
-  update() {
-    if (this.$willUnmount) return
-    this.forceUpdate()
   }
 
   handleChange(v, checked) {

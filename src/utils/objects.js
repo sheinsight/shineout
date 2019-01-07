@@ -1,4 +1,4 @@
-import isObject from './validate/isObject'
+import { isObject, isMergeable } from './is'
 import { insertPoint } from './flat'
 
 const { hasOwnProperty } = Object.prototype
@@ -8,15 +8,6 @@ const PATH_MODE = {
   insert: '^',
   append: '$',
 }
-
-export const isMergeable = (target) => {
-  if (!isObject(target)) return false
-  return !(target instanceof Date || target instanceof Error || target instanceof RegExp)
-}
-
-export const fastClone = obj => JSON.parse(JSON.stringify(obj))
-
-export const shallowClone = obj => Object.assign(Object.create(Object.getPrototypeOf(obj)), obj)
 
 export function filterProps(obj, props = []) {
   if (!isObject(obj)) return obj

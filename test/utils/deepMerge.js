@@ -1,19 +1,9 @@
 import test from 'ava'
-import { isMergeable, deepMerge } from '../../src/utils/objects'
+import { deepMerge } from '../../src/utils/objects'
 
 const error = new Error('something wrong.')
 const date = new Date()
 const func = () => {}
-
-test('is merge able', (t) => {
-  t.true(isMergeable({}))
-  t.false(isMergeable([]))
-  t.false(isMergeable(''))
-  t.false(isMergeable(123))
-  t.false(isMergeable(error))
-  t.false(isMergeable(date))
-  t.false(isMergeable(func))
-})
 
 test('add keys in target', (t) => {
   const src = { a: 'abc', b: 123 }

@@ -1,6 +1,7 @@
-import { PureComponent, Children, cloneElement } from 'react'
+import { Children, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { PureComponent } from '../component'
 import { cardClass } from '../styles'
 
 class Accordion extends PureComponent {

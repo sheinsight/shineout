@@ -1,7 +1,7 @@
 /**
- * cn -
+ * cn - FieldSet (Loop)
  *    -- FieldSet children 为函数时，根据 name 从 Form 中获取 value （类型为 array），遍历这个 value 生成一组子组件。
- * en -
+ * en - FieldSet (Loop)
  *    -- When FieldSet's children is a function, takes the value (type is array) from the form by the name property, and generate a set of subcomponents.
  */
 import React, { PureComponent } from 'react'
@@ -24,9 +24,6 @@ const rules = Rule({
         // v.forEach((i) => { result[i] = new Error(`Name "${k}"" is existed.`) })
       }
     })
-
-    console.log(result)
-
     callback(result.length > 0 ? result : true)
   },
 })
@@ -71,16 +68,14 @@ export default class extends PureComponent {
                   />
                   <a
                     href="javascript:;"
-                    style={{ padding: '0 12px' }}
+                    style={{ margin: '0 12px' }}
                     onClick={() => onAppend({ age: 16 })}
                   >
                     <FontAwesome name="plus" />
                   </a>
-                  {
-                    <a href="javascript:;" onClick={onRemove}>
-                      <FontAwesome name="close" />
-                    </a>
-                  }
+                  <a href="javascript:;" onClick={onRemove}>
+                    <FontAwesome name="close" />
+                  </a>
                 </Form.Item>
               )
             }

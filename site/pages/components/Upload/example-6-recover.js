@@ -17,6 +17,7 @@ export default function () {
         multiple
         limit={2}
         name="file"
+        recoverAble
         onSuccess={(res, file) => file.name}
         style={{ width: 300, marginBottom: 30 }}
       >

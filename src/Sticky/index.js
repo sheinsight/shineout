@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+import { PureComponent } from '../component'
 import { getParent } from '../utils/dom/element'
 import { eventPassive } from '../utils/dom/detect'
 import { getProps, defaultProps } from '../utils/proptypes'
@@ -20,6 +21,7 @@ class Sticky extends PureComponent {
   }
 
   componentDidMount() {
+    super.componentDidMount()
     const { target } = this.props
     this.targetElement = getParent(this.element, target)
     this.handlePosition()
@@ -27,6 +29,7 @@ class Sticky extends PureComponent {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount()
     this.unbindScroll()
     if (this.scrollTimer) clearTimeout(this.scrollTimer)
   }

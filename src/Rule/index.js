@@ -1,9 +1,12 @@
 import { deepMerge, objectValues } from '../utils/objects'
-import isObject from '../utils/validate/isObject'
+import { isObject } from '../utils/is'
 import required from './required'
 import length from './length'
 import type from './type'
 import regExp from './regExp'
+
+export const RULE_TYPE = 'RULE_OBJECT'
+const innerType = ['email', 'integer', 'number', 'url', 'json', 'hex', 'rgb', 'ipv4']
 
 const mergeOptions = (opts = {}, ...args) => {
   if (!isObject(opts)) {
@@ -29,9 +32,10 @@ export default function (...args) {
     type: t => type(t, options.type),
   }
 
-  rules.length = (min, max) => [rules.min(min), rules.max(max)];
+  rules.length = (min, max, msg) => [rules.min(min, msg), rules.max(max, msg)]
+  rules.range = (min, max, msg) => [rules.min(min, msg), rules.max(max, msg)]
 
-  ['email', 'integer', 'number', 'url', 'json', 'hex', 'rgb', 'ipv4'].forEach((k) => {
+  innerType.forEach((k) => {
     rules[k] = type(k, options[k] || options.type)
   })
 
@@ -48,5 +52,6 @@ export default function (...args) {
 
   objectValues(rules).forEach((rule) => { rule.isInnerValidator = true })
 
+  rules.$$type = RULE_TYPE
   return rules
 }

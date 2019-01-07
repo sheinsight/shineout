@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { PureComponent } from '../component'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
 import Input from '../Input'
@@ -21,10 +22,12 @@ export default function (type) {
     }
 
     componentDidUpdate(prevProps) {
-      const { checked, value, htmlValue } = this.props
+      const {
+        checked, inputable, value, htmlValue,
+      } = this.props
       if (prevProps.value !== value && checked === undefined) {
         // eslint-disable-next-line
-        this.setState({ checked: value === htmlValue })
+        this.setState({ checked: inputable ? !!value : value === htmlValue })
       }
     }
 

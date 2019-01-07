@@ -98,6 +98,7 @@ FilterInput.propTypes = {
 
 FilterInput.defaultProps = {
   text: '',
+  updatAble: false,
 }
 
 export default FilterInput

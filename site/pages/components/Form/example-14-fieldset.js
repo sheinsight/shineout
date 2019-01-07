@@ -1,42 +1,21 @@
 /**
- * cn - FieldSet
+ * cn - FieldSet (Object)
  *    -- Form.FieldSet 可以处理对象类型的字段
- * en - FieldSet
+ * en - FieldSet (Object)
  *    -- Form.FieldSet handles fields of object type
  */
 import React, { PureComponent } from 'react'
-import { Form, Input, Checkbox, Select } from 'shineout'
+import { Form, Input, Checkbox, Select, Rule } from 'shineout'
 import { fetchSync as fetchCity } from 'doc/data/city'
 
 const citys = fetchCity(20)
 
-const rules = {
-  email: [
-    { required: true, message: 'Please enter your email.' },
-    { type: 'email', message: 'Please enter a valid email.' },
-  ],
-  password: [
-    { required: true, message: 'Please enter password.' },
-    { min: 7, message: 'Password must be at least {min} characters.' },
-    { regExp: /[a-z]+/i, message: 'Password at least has one letter.' },
-    (value, formdata, callback) => {
-      if (/\d+/.test(value)) callback(true)
-      else callback(new Error('Password at least has one numeral.'))
-    },
-  ],
-  age: [
-    { min: 18, max: 60, message: 'Age must between {min} and {max}.' },
-  ],
-  city: [
-    { required: true, message: 'Please select your city.' },
-  ],
-  name: [
-    (value, _, callback) => {
-      const isEmpty = !value || (!value.firstName && !value.lastName)
-      callback(isEmpty ? new Error('firstName and lastName cannot both be empty') : true)
-    },
-  ],
-}
+const rule = Rule({
+  name: (value, _, callback) => {
+    const isEmpty = !value || (!value.firstName && !value.lastName)
+    callback(isEmpty ? new Error('firstName and lastName cannot both be empty') : true)
+  },
+})
 
 export default class extends PureComponent {
   constructor(props) {
@@ -73,17 +52,21 @@ export default class extends PureComponent {
     return (
       <Form value={value} onChange={this.handleChange} onSubmit={(data) => { console.log(data) }}>
         <Form.Item label="Email">
-          <Input name="email" rules={rules.email} />
+          <Input name="email" title="email" rules={[rule.required, rule.email]} />
         </Form.Item>
 
         <Form.Item label="Password">
-          <Input name="password" type="password" />
+          <Input.Password
+            name="password"
+            title="password"
+            rules={[rule.required, rule.min(8), rule.regExp(/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/)]}
+          />
         </Form.Item>
 
         <Form.Item label="Account">
           <Form.FieldSet name="account" labelWidth={60}>
             <Form.Item label="Name">
-              <Form.FieldSet rules={rules.name} name="name">
+              <Form.FieldSet rules={[rule.name]} name="name">
                 <Input.Group style={{ width: 300 }}>
                   <Input name="firstName" placeholder="First Name" />
                   -
@@ -96,9 +79,10 @@ export default class extends PureComponent {
               {
                 (value && value.account && value.account.showAge) ?
                   <Input
-                    rules={rules.age}
+                    rules={[rule.min(18), rule.max(60)]}
                     style={{ width: 100 }}
                     name="age"
+                    title="age"
                     type="number"
                     digits={0}
                     defaultValue={18}
@@ -114,7 +98,8 @@ export default class extends PureComponent {
                 datum={{ format: 'id' }}
                 keygen="id"
                 renderItem="city"
-                rules={rules.city}
+                title="city"
+                rules={[rule.required]}
                 style={{ width: 200 }}
               />
             </Form.Item>

@@ -97,6 +97,21 @@
     background: #fff;
     // border: 1px solid @doc-border-color;
     border-bottom: solid 1px #f2f2f2;
+    display: flex;
+    color: #888;
+
+    div {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    pre {
+      background: #fff;
+      margin: 0;
+      flex: 1;
+    }
 
     &:before {
       content: '>';

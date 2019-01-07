@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import PureComponent from '../PureComponent'
+import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
 import { selectClass } from '../styles'
@@ -72,7 +72,7 @@ class Select extends PureComponent {
   }
 
   componentWillUnmount() {
-    this.$willUnmount = true
+    super.componentWillUnmount()
     this.clearClickAway()
   }
 
@@ -134,20 +134,24 @@ class Select extends PureComponent {
     if (control !== this.state.control) this.setState({ control })
   }
 
-  handleChange(_, data) {
+  handleChange(_, data, fromInput) {
     const {
       datum, multiple, disabled,
     } = this.props
     if (disabled === true) return
 
     // if click option, ignore blur event
-    if (this.inputBlurTimer) clearTimeout(this.inputBlurTimer)
+    if (this.inputBlurTimer) {
+      this.lastChangeIsOptionClick = true
+      clearTimeout(this.inputBlurTimer)
+    }
 
     if (multiple) {
       const checked = !datum.check(data)
       if (checked) {
         datum.add(data)
       } else {
+        if (fromInput === true) return
         datum.remove(data)
       }
       if (this.inputReset) this.inputReset()
@@ -165,20 +169,22 @@ class Select extends PureComponent {
   }
 
   handleInputBlur(text) {
-    const { onCreate } = this.props
+    const { onCreate, multiple } = this.props
     if (!onCreate) return
+    if (multiple && !text) return
+
+    if (this.lastChangeIsOptionClick) return
 
     // if click option, ignore input blur
     this.inputBlurTimer = setTimeout(() => {
       const data = onCreate(text)
-      this.handleChange(null, data)
+      this.handleChange(null, data, true)
     }, 200)
   }
 
   handleClear() {
     this.props.datum.setValue([])
 
-    if (this.$willUnmount) return
     if (this.state.focus === false) {
       this.forceUpdate()
     } else {
@@ -211,8 +217,10 @@ class Select extends PureComponent {
       case 13:
         this.handleEnter()
         e.preventDefault()
+        e.stopPropagation()
         break
       default:
+        this.lastChangeIsOptionClick = false
     }
   }
 

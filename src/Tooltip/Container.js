@@ -1,6 +1,5 @@
-import { PureComponent, cloneElement, isValidElement } from 'react'
+import React, { PureComponent, cloneElement, isValidElement } from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
 import { scrollConsumer } from '../Scroll/context'
 import { getUidStr } from '../utils/uid'
 
@@ -14,6 +13,7 @@ export default function (options) {
       super(props)
       this.handleShow = this.handleShow.bind(this)
       this.tryHide = this.tryHide.bind(this)
+      this.elementRef = this.elementRef.bind(this)
 
       this.id = getUidStr()
     }
@@ -34,11 +34,7 @@ export default function (options) {
     }
 
     getElement() {
-      return document.querySelector(`.${this.getElementId()}`)
-    }
-
-    getElementId() {
-      return `__tooltip_${this.id}__`
+      return this.placeholderElement.nextSibling
     }
 
     getPosition() {
@@ -107,6 +103,10 @@ export default function (options) {
       return { left, top }
     }
 
+    elementRef(el) {
+      this.placeholderElement = el
+    }
+
     tryHide() {
       const { scrollElement } = this.props
       const rect = this.getElement().getBoundingClientRect()
@@ -135,9 +135,7 @@ export default function (options) {
         return null
       }
 
-      const className = classnames(children.props.className, this.getElementId())
-      const props = { className }
-
+      const props = { key: 'el' }
       if (trigger === 'hover') {
         props.onMouseEnter = this.handleShow
         props.onMouseLeave = hide
@@ -147,7 +145,7 @@ export default function (options) {
         }
       }
 
-      return cloneElement(children, props)
+      return [<noscript ref={this.elementRef} key="ns" />, cloneElement(children, props)]
     }
   }
 

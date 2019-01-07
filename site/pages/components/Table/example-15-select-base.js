@@ -12,6 +12,10 @@ const data = fetchSync(100)
 
 const columns = [
   {
+    type: 'checkbox',
+    rowSpan: a => a.id % 3 === 0,
+  },
+  {
     title: 'id',
     render: 'id',
     width: 50,
@@ -52,6 +56,7 @@ export default class extends PureComponent {
           style={{ height: 450 }}
           onRowSelect={this.handelRowSelect}
           value={this.state.selectedValue}
+          prediction={(v, d) => v.id === d.id}
         />
         <div>
           selected rows: [{ this.state.selectedValue.map(v => v.id).join(', ') }]

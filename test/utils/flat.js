@@ -21,7 +21,7 @@ const testObject = {
   h: 123,
   j: {},
   k: [],
-  l: error,
+  // l: error,
   m: date,
   n: func,
 }
@@ -36,7 +36,7 @@ const testResult = {
   h: 123,
   j: {},
   k: [],
-  l: error,
+  // l: error,
   m: date,
   n: func,
 }
@@ -63,7 +63,7 @@ test('flatten skip array', (t) => {
     h: 123,
     j: {},
     k: [],
-    l: error,
+    // l: error,
     m: date,
     n: func,
   })
@@ -131,7 +131,6 @@ test('splice value from array and path', (t) => {
   }
 
   spliceValue(src, 'a.b', 1)
-  console.log(src)
   t.deepEqual(src, { 'a.b': [{ a: 1 }, undefined, 3] })
 })
 
@@ -216,7 +215,7 @@ test('should skip array value if both set in array and path', (t) => {
     'a.b[1].b': 2,
   }
   t.is(unflatten(src).a.b[0].a, 1)
-  t.is(unflatten(src).a.b[1].b, 2)
+  t.is(unflatten(src, { overrite: true }).a.b[1].b, 2)
   t.is(unflatten(src).a.b[2], undefined)
   t.is(unflatten(src).a.b[3], 3)
   t.deepEqual(unflatten(src), { a: { b: [{ a: 1 }, { b: 2 }, undefined, 3] } })
@@ -230,4 +229,13 @@ test('should skip empty array', (t) => {
   }
   t.deepEqual(unflatten(src), { a: { b: [undefined, { b: 2 }] } })
   t.deepEqual(src, { 'a.b': [], 'a.b[1].b': 2 })
+})
+
+test('should not change source', (t) => {
+  const src = {
+    'a.b': [1, {}, 3],
+    'a.b[1].b': 2,
+  }
+  t.deepEqual(unflatten(src), { a: { b: [1, { b: 2 }, 3] } })
+  t.deepEqual(src, { 'a.b': [1, {}, 3], 'a.b[1].b': 2 })
 })

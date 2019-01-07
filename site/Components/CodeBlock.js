@@ -4,6 +4,29 @@ import Prism from 'prismjs'
 import 'prismjs/components/prism-jsx'
 import 'prismjs/themes/prism.css'
 
+/*
+export default (props) => {
+  const { language = 'lang-jsx', onHighLight, value } = props
+
+  const elRef = useRef(null)
+
+  useEffect(() => {
+    const el = elRef.current
+    Prism.highlightElement(el, false, () => {
+      if (onHighLight) {
+        onHighLight(el.offsetHeight)
+      }
+    })
+  })
+
+  return (
+    <pre className={language || 'lang-jsx'}>
+      <code ref={elRef}>{value}</code>
+    </pre>
+  )
+}
+*/
+
 export default class CodeBlock extends PureComponent {
   static propTypes = {
     language: PropTypes.string,

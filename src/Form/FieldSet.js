@@ -1,6 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import createReactContext from 'create-react-context'
+import { Component } from '../component'
+import { filterProps } from '../utils/objects'
 import validate from '../utils/validate'
 import { FormError, isSameError } from '../utils/errors'
 import { ERROR_TYPE, FORCE_PASS, IGNORE_VALIDATE } from '../Datum/types'
@@ -24,6 +26,7 @@ class FieldSet extends Component {
   }
 
   componentDidMount() {
+    super.componentDidMount()
     const { formDatum, name, defaultValue } = this.props
     formDatum.bind(
       name,
@@ -34,7 +37,7 @@ class FieldSet extends Component {
   }
 
   componentWillUnmount() {
-    this.$willUnmount = true
+    super.componentWillUnmount()
     const { formDatum, name } = this.props
     formDatum.unbind(name, this.handleUpdate)
   }
@@ -43,17 +46,25 @@ class FieldSet extends Component {
     const { formDatum, name } = this.props
     const value = formDatum.get(name)
     const data = formDatum.getValue()
+    const validateProps = filterProps(this.props, v => typeof v === 'string' || typeof v === 'number')
+    validateProps.type = 'array'
     let rules = [...this.props.rules]
     rules = rules.concat(formDatum.getRule(name))
 
     if (rules.length === 0) return Promise.resolve(true)
 
-    return validate(value, data, rules).then(() => {
+    return validate(value, data, rules, validateProps).then(() => {
       this.handleError()
       return true
     }, (e) => {
       this.handleError(e)
       return new FormError(e)
+    })
+  }
+
+  updateWithValidate() {
+    this.validate().then(() => {
+      this.forceUpdate()
     })
   }
 
@@ -67,13 +78,9 @@ class FieldSet extends Component {
     if (this.updateTimer) clearTimeout(this.updateTimer)
     this.updateTimer = setTimeout(() => {
       if (type === ERROR_TYPE || type === FORCE_PASS || type === IGNORE_VALIDATE) {
-        if (this.$willUnmount) return
         this.forceUpdate()
       } else {
-        this.validate().then(() => {
-          if (this.$willUnmount) return
-          this.forceUpdate()
-        })
+        this.updateWithValidate()
       }
     })
   }
@@ -81,19 +88,13 @@ class FieldSet extends Component {
   handleInsert(index, value) {
     const { formDatum, name } = this.props
     formDatum.insert(name, index, value)
-    this.validate().then(() => {
-      if (this.$willUnmount) return
-      this.forceUpdate()
-    })
+    this.updateWithValidate()
   }
 
   handleRemove(index) {
     const { formDatum, name } = this.props
     formDatum.splice(name, index)
-    this.validate().then(() => {
-      if (this.$willUnmount) return
-      this.forceUpdate()
-    })
+    this.updateWithValidate()
   }
 
   handleChange(index, value) {
@@ -134,7 +135,7 @@ class FieldSet extends Component {
             {
               children({
                 list: values,
-                value: formDatum.get(`${name}[${i}]`),
+                value: v,
                 index: i,
                 error,
                 onChange: this.handleChange.bind(this, i),

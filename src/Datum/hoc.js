@@ -55,15 +55,16 @@ export default curry((options, Origin) => {
     }
 
     componentDidUpdate() {
-      this.setValue(this.props.initValidate ? undefined : IGNORE_VALIDATE)
+      const values = this.props[key]
+      if (!shallowEqual(values, this.prevValues)) {
+        this.setValue(this.props.initValidate ? undefined : IGNORE_VALIDATE)
+        this.prevValues = values
+      }
     }
 
     setValue(t) {
       const values = this.props[key]
-      if (!shallowEqual(values, this.prevValues)) {
-        this.datum.setValue(values, t)
-        this.prevValues = values
-      }
+      if (values !== undefined) this.datum.setValue(values, t)
     }
 
     render() {
@@ -74,7 +75,7 @@ export default curry((options, Origin) => {
       }
 
       if (type === 'list') this.setValue(WITH_OUT_DISPATCH)
-      delete props[key]
+      // delete props[key]
 
       return (
         <Origin

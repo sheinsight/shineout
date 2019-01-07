@@ -7,7 +7,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
-import { Form, DatePicker, Input, Modal } from 'shineout'
+import { Form, DatePicker, Input, Modal, Rule } from 'shineout'
 
 // eslint-disable-next-line
 class NameInput extends PureComponent {
@@ -43,11 +43,7 @@ class NameInput extends PureComponent {
   }
 }
 
-const rules = {
-  date: [
-    { required: true, message: 'Please select date.' },
-  ],
-}
+const rule = Rule()
 
 // eslint-disable-next-line
 export default class extends PureComponent {
@@ -73,7 +69,7 @@ export default class extends PureComponent {
         </Form.Item>
 
         <Form.Item label="Date">
-          <DatePicker range rules={rules.date} name={['date.startDate', 'date.endDate']} />
+          <DatePicker range rules={[rule.required]} name={['date.startDate', 'date.endDate']} />
         </Form.Item>
 
         <Form.Item label="">

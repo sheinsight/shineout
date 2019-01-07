@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import createReactContext from 'create-react-context'
 import { curry } from '../utils/func'
+import { deepGet } from '../utils/objects'
+import { isObject, isArray } from '../utils/is'
+import convert from '../Rule/convert'
+import { RULE_TYPE } from '../Rule'
 
 const context = createReactContext()
+
+const isRule = (rules) => {
+  if (!isObject(rules)) return false
+  return rules.$$type === RULE_TYPE
+}
 
 // eslint-disable-next-line
 export const Provider = context.Provider
@@ -11,23 +20,65 @@ export const Provider = context.Provider
 export const Consumer = context.Consumer
 
 export const formProvider = (Origin) => {
-  function FormProvider(props) {
-    const {
-      datum, labelAlign, labelWidth, disabled, pending, mode,
-    } = props
-    const value = {
-      formDatum: datum,
-      formMode: mode,
-      disabled: disabled || pending,
-      labelAlign,
-      labelWidth,
+  class FormProvider extends PureComponent {
+    constructor(props) {
+      super(props)
+      this.combineRules = this.combineRules.bind(this)
+      this.groupValidate = this.groupValidate.bind(this)
     }
 
-    return (
-      <Provider value={value}>
-        <Origin {...props} />
-      </Provider>
-    )
+    getRulesFromString(str) {
+      const { rule } = this.props
+      if (!isRule(rule)) {
+        console.error(new Error('Form rule is missed or is not a Rule instance.'))
+        return []
+      }
+      if (!str) return []
+      return convert(rule, str)
+    }
+
+    combineRules(name, propRules) {
+      const { rules } = this.props
+      let newRules = []
+      if (isObject(rules) && name) {
+        newRules = deepGet(rules, name) || []
+      } else if (isArray(rules)) {
+        newRules = rules
+      }
+
+      if (typeof propRules === 'string') {
+        newRules = newRules.concat(this.getRulesFromString(propRules))
+      } else if (isArray(propRules)) {
+        newRules = newRules.concat(propRules)
+      }
+
+      return newRules
+    }
+
+    groupValidate(name) {
+      // not implement...
+    }
+
+    render() {
+      const {
+        datum, labelAlign, labelWidth, disabled, pending, mode,
+      } = this.props
+      const value = {
+        formDatum: datum,
+        formMode: mode,
+        disabled: disabled || pending,
+        labelAlign,
+        labelWidth,
+        combineRules: this.combineRules,
+        groupValidate: this.groupValidate,
+      }
+
+      return (
+        <Provider value={value}>
+          <Origin {...this.props} />
+        </Provider>
+      )
+    }
   }
 
   FormProvider.propTypes = {
@@ -37,6 +88,11 @@ export const formProvider = (Origin) => {
     labelWidth: PropTypes.any,
     mode: PropTypes.string,
     pending: PropTypes.bool,
+    rule: PropTypes.object,
+    rules: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object,
+    ]),
   }
 
   return FormProvider

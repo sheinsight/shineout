@@ -1,4 +1,11 @@
 const path = require('path')
+const fs = require('fs')
+
+const versions = {};
+(['react', 'react-dom', 'prop-types', 'jszip']).forEach((lib) => {
+  const pkg = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'node_modules/', lib, 'package.json')))
+  versions[lib] = pkg.version
+})
 
 module.exports = {
   appName: 'Shineout',
@@ -7,11 +14,10 @@ module.exports = {
     webpackPort: 3001,
     scriptPath: '/*.*',
     scripts: [
-      '/react/16.6.3/umd/react.production.min.js',
-      '/react-dom/16.6.3/umd/react-dom.production.min.js',
-      '/prop-types/15.6.0/prop-types.min.js',
-      // '/prism/1.15.0/prism.min.js',
-      '/jszip/3.1.5/jszip.min.js',
+      `/react/${versions.react}/umd/react.production.min.js`,
+      `/react-dom/${versions['react-dom']}/umd/react-dom.production.min.js`,
+      `/prop-types/${versions['prop-types']}/prop-types.min.js`,
+      `/jszip/${versions.jszip}/jszip.min.js`,
     ],
     styles: [
       // '/prism/1.15.0/themes/prism.min.css',

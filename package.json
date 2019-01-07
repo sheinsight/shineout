@@ -11,11 +11,20 @@
     ],
     "require": [
       "@babel/register",
+      "@babel/polyfill",
       "esm"
+    ]
+  },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "html",
+      "text"
     ]
   },
   "scripts": {
     "test": "cross-env NODE_ENV=test ava",
+    "test:cover": "nyc npm test",
     "lint": "eslint src/",
     "start": "cross-env NODE_ENV=development node dev-server.js",
     "css-module": "cross-env NODE_ENV=development LOCAL_IDENT_NAME=[local]-[hash:base64:5] node dev-server.js",
@@ -56,7 +65,7 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
     "autoprefixer": "^7.2.4",
-    "ava": "^1.0.0-rc.2",
+    "ava": "^1.0.1",
     "babel-eslint": "^8.2.1",
     "babel-loader": "^8.0.4",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.12",
@@ -86,13 +95,14 @@
     "less": "^2.7.3",
     "less-loader": "^4.1.0",
     "npm-run-all": "^4.1.2",
+    "nyc": "^13.1.0",
     "postcss-loader": "^2.1.5",
     "prismjs": "^1.15.0",
     "prop-types": "^15.6.0",
     "raw-loader": "^0.5.1",
-    "react": "^16.6.3",
+    "react": "^16.7.0",
     "react-color": "^2.14.0",
-    "react-dom": "^16.6.3",
+    "react-dom": "^16.7.0",
     "react-hot-loader": "^4.3.2",
     "react-markdown": "^3.1.4",
     "react-router-dom": "^4.4.0-beta.6",

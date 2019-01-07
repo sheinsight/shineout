@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
+import { PureComponent } from '../component'
 
 class Magnify extends PureComponent {
   constructor(props) {

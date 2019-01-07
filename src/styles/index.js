@@ -27,6 +27,7 @@ import popoverLess from './popover.less'
 import treeLess from './tree.less'
 import sliderLess from './slider.less'
 import tabsLess from './tabs.less'
+import tagLess from './tag.less'
 import progressLess from './progress.less'
 import uploadLess from './upload.less'
 import carouselLess from './carousel.less'
@@ -58,6 +59,7 @@ export const popoverClass = genaration(popoverLess, 'popover')
 export const treeClass = genaration(treeLess, 'tree')
 export const sliderClass = genaration(sliderLess, 'slider')
 export const tabsClass = genaration(tabsLess, 'tabs')
+export const tagClass = genaration(tagLess, 'tag')
 export const progressClass = genaration(progressLess, 'progress')
 export const uploadClass = genaration(uploadLess, 'upload')
 export const carouselClass = genaration(carouselLess, 'carousel')
