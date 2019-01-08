@@ -70,8 +70,14 @@ export default curry((options, Origin) => {
     render() {
       const { onDatumBind, ...props } = this.props
       if (onDatumBind) onDatumBind(this.datum)
-      if (options.bindProps && options.bindProps.includes('disabled') && props.disabled !== undefined) {
+      if (bindProps.includes('disabled') && props.disabled !== undefined) {
         this.datum.setDisabled(props.disabled)
+      }
+      if (bindProps.includes('format') && this.datum.initFormat) {
+        this.datum.initFormat(props.format)
+      }
+      if (bindProps.includes('prediction')) {
+        this.datum.prediction = props.prediction
       }
 
       if (type === 'list') this.setValue(WITH_OUT_DISPATCH)

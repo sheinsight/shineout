@@ -9,7 +9,6 @@ import { Select } from 'shineout'
 import { fetchSync as fetchCity } from 'doc/data/city'
 
 const citys = fetchCity(200)
-const onChange = d => console.log(d)
 const style = { width: 300, marginBottom: 12, display: 'block' }
 
 export default function () {
@@ -20,7 +19,6 @@ export default function () {
         format="id"
         keygen="id"
         columns={3}
-        onChange={onChange}
         prediction={(v, d) => v === d.id}
         style={style}
         placeholder="Select a city"
@@ -34,7 +32,6 @@ export default function () {
         columns={4}
         columnWidth={180}
         multiple
-        onChange={onChange}
         prediction={(v, d) => v === d.id}
         style={style}
         placeholder="Select citys"

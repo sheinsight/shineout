@@ -80,7 +80,7 @@ export default curry(Origin => consumer(class extends Component {
     this.validate = this.validate.bind(this)
     this.validateHook = this.validateHook.bind(this)
 
-    this.lastValue = formDatum && name ? formDatum.get(name) : {}
+    this.lastValue = formDatum && name ? (formDatum.get(name) || {}) : {}
   }
 
   componentDidMount() {
@@ -142,7 +142,7 @@ export default curry(Origin => consumer(class extends Component {
 
   getValue() {
     const {
-      formDatum, name, value, defaultValue,
+      formDatum, name, value, defaultValue, onChange,
     } = this.props
     if (formDatum && name) {
       if (Array.isArray(name)) {
@@ -151,7 +151,7 @@ export default curry(Origin => consumer(class extends Component {
       }
       return tryValue(formDatum.get(name), defaultValue)
     }
-    return value === undefined && !formDatum ? this.state.value : value
+    return value === undefined && !formDatum && !onChange ? this.state.value : value
   }
 
   getError() {
@@ -247,15 +247,7 @@ export default curry(Origin => consumer(class extends Component {
     const beforeChange = beforeValueChange(this.props.beforeChange)
     if (formDatum && name) {
       value = beforeChange(value, formDatum)
-      if (Array.isArray(name)) {
-        name.forEach((n, i) => {
-          const v = (value || [])[i]
-          if (v === formDatum.get(n)) return
-          formDatum.set(n, v)
-        })
-      } else {
-        formDatum.set(name, value)
-      }
+      formDatum.set(name, value)
     } else {
       value = beforeChange(value, null)
       this.setState({ value })

@@ -18,7 +18,6 @@ export default function () {
         keygen
         placeholder="input color"
         onCreate
-        onChange={d => console.log(d)}
         defaultValue="brown"
       />
       <br />
@@ -29,7 +28,6 @@ export default function () {
         multiple
         placeholder="input color"
         onCreate={t => t}
-        onChange={d => console.log(d)}
       />
     </div>
   )

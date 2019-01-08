@@ -28,7 +28,6 @@ export default function () {
         multiple
         defaultValue={['orange', 'green']}
         placeholder="Multiple select"
-        onChange={v => console.log(v)}
       />
     </div>
   )

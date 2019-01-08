@@ -2,7 +2,7 @@ import deepEqual from 'deep-eql'
 import { unflatten, insertValue, spliceValue, getSthByName } from '../utils/flat'
 import { fastClone } from '../utils/clone'
 import { deepGet, deepSet, deepRemove, deepMerge } from '../utils/objects'
-import { isObject } from '../utils/is'
+import { isObject, isArray } from '../utils/is'
 import { promiseAll, FormError } from '../utils/errors'
 import {
   updateSubscribe, errorSubscribe, changeSubscribe,
@@ -59,6 +59,11 @@ export default class {
       return
     }
 
+    if (isArray(name)) {
+      this.setArrayValue(name, value)
+      return
+    }
+
     if (value === this.get(name)) return
     deepSet(this.$values, name, value, this.deepSetOptions)
 
@@ -68,6 +73,22 @@ export default class {
     }
 
     if (pub) this.publishValue(name, FORCE_PASS)
+
+    this.dispatch(CHANGE_TOPIC)
+    this.handleChange()
+  }
+
+  setArrayValue(names, values) {
+    names.forEach((name, index) => {
+      deepSet(this.$values, name, values[index], this.deepSetOptions)
+    })
+
+    names.forEach((name, index) => {
+      if (this.$inputNames[name]) {
+        this.dispatch(updateSubscribe(name), values[index], name)
+        this.dispatch(changeSubscribe(name))
+      }
+    })
 
     this.dispatch(CHANGE_TOPIC)
     this.handleChange()

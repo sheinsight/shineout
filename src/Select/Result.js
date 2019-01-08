@@ -60,14 +60,14 @@ class Result extends PureComponent {
 
   renderInput(text, key = 'input') {
     const {
-      multiple, onFilter, focus, onInputFocus, onInputBlur, setInputReset, onCreate,
+      multiple, onFilter, focus, onInputFocus, onInputBlur, setInputReset,
     } = this.props
     return (
       <Input
         key={`${key}.${focus ? 1 : 0}`}
         onInputFocus={onInputFocus}
         onInputBlur={onInputBlur}
-        updatAble={onCreate && !multiple}
+        updatAble={!multiple}
         multiple={multiple}
         focus={focus}
         text={text}
@@ -155,7 +155,6 @@ Result.propTypes = {
   multiple: PropTypes.bool.isRequired,
   onRemove: PropTypes.func,
   onClear: PropTypes.func,
-  onCreate: PropTypes.func,
   onFilter: PropTypes.func,
   onInputBlur: PropTypes.func,
   onInputFocus: PropTypes.func,

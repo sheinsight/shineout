@@ -30,7 +30,6 @@ export default function () {
         absolute
         style={{ width: 300 }}
         placeholder="Select user"
-        onChange={d => console.log(d)}
         onFilter={text => d => d.firstName.indexOf(text) > -1}
         format="id"
         renderItem={user => `${user.firstName} ${user.lastName}`}

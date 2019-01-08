@@ -4,21 +4,33 @@
  * en - Multiple
  *    -- Set the multiple property to true, it is multi-selection.
  */
-import React from 'react'
+import React, { Component } from 'react'
 import { Select } from 'shineout'
 
 const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
-export default function () {
-  return (
-    <Select
-      style={{ width: 300 }}
-      data={data}
-      keygen
-      multiple
-      placeholder="Multiple select"
-      onChange={(vs, d, c) => console.log(vs, d, c)}
-      defaultValue="some"
-    />
-  )
+export default class extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { value: 'pink' }
+  }
+
+  handleChange = (value, d, c) => {
+    console.log(value, d, c)
+    this.setState({ value })
+  }
+
+  render() {
+    return (
+      <Select
+        style={{ width: 300 }}
+        data={data}
+        keygen
+        multiple
+        placeholder="Multiple select"
+        onChange={this.handleChange}
+        value={this.state.value}
+      />
+    )
+  }
 }

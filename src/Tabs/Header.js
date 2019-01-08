@@ -137,8 +137,7 @@ class Header extends PureComponent {
 
   renderTabs() {
     const {
-      border, onCollapse, collapsed, tabs,
-      isVertical,
+      border, onCollapse, collapsed, tabs, isVertical,
     } = this.props
     const { attribute, overflow } = this.state
 
@@ -180,6 +179,7 @@ class Header extends PureComponent {
 Header.propTypes = {
   border: PropTypes.string,
   collapsed: PropTypes.bool,
+  isVertical: PropTypes.bool,
   onChange: PropTypes.func,
   onCollapse: PropTypes.func,
   shape: PropTypes.string,

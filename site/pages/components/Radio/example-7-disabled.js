@@ -16,7 +16,7 @@ export default function () {
         keygen
         data={data}
         disabled={d => d === 'yellow'}
-        value="blue"
+        defaultValue="blue"
         renderItem={d => d}
       />
     </div>

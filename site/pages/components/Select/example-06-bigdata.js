@@ -9,7 +9,6 @@ import { Select } from 'shineout'
 import { fetchSync as fetchUser } from 'doc/data/user'
 
 const users = fetchUser(10000)
-const onChange = d => console.log(d)
 const style = { width: 240, marginBottom: 12, display: 'block' }
 
 export default function () {
@@ -19,7 +18,6 @@ export default function () {
       datum={{ format: 'id' }}
       keygen="id"
       defaultValue={3}
-      onChange={onChange}
       style={style}
       placeholder="Select a user"
       renderItem={(user, i) => `${user.firstName} ${user.lastName} (${i + 1})`}

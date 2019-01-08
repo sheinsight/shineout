@@ -37,8 +37,7 @@ export default class extends Component {
         keygen="id"
         data={data}
         datum={this.datum}
-        onChange={d => console.log(d)}
-        value={['blue', 'cyan']}
+        defaultValue={['blue', 'cyan']}
         renderItem={this.renderItem}
       />
     )

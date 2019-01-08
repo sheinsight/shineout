@@ -5,8 +5,11 @@
  *    -- When FieldSet's children is a function, takes the value (type is array) from the form by the name property, and generate a set of subcomponents.
  */
 import React, { PureComponent } from 'react'
-import { Form, Input, Button, Rule } from 'shineout'
+import { Form, Input, Button, Rule, Select } from 'shineout'
+import { fetchSync as fetchCity } from 'doc/data/city'
 import FontAwesome from '../Icon/FontAwesome'
+
+const citys = fetchCity(100)
 
 const rules = Rule({
   isExist: (values, _, callback) => {
@@ -57,6 +60,17 @@ export default class extends PureComponent {
                     title="Friend name"
                     rules={[rules.required]}
                     placeholder="Name"
+                  />
+                  <Select
+                    name="city"
+                    data={citys}
+                    format="id"
+                    keygen="id"
+                    prediction={(v, d) => v === d.id}
+                    style={{ width: 120 }}
+                    placeholder="Select a city"
+                    renderItem="city"
+                    onFilter={t => v => v.city.indexOf(t) >= 0}
                   />
                   <Input
                     style={{ width: 60 }}
