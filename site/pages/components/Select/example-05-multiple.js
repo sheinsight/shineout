@@ -18,6 +18,7 @@ export default function () {
       multiple
       placeholder="Multiple select"
       onChange={(vs, d, c) => console.log(vs, d, c)}
+      defaultValue="some"
     />
   )
 }
