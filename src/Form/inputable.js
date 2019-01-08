@@ -43,6 +43,8 @@ export default curry(Origin => consumer(class extends Component {
     ]),
     onChange: PropTypes.func,
     onError: PropTypes.func,
+    onItemError: PropTypes.func,
+    popover: PropTypes.string,
     required: PropTypes.bool,
     rules: PropTypes.oneOfType([
       PropTypes.array,
