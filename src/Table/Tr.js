@@ -44,16 +44,19 @@ class Tr extends Component {
     this.setRowHeight()
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.index !== prevProps.index) {
-      this.setRowHeight()
-    }
+  componentDidUpdate() {
+    if (this.props.hasNotRenderRows) this.setRowHeight()
   }
 
   setRowHeight() {
     const { setRowHeight } = this.props
     if (!setRowHeight || !this.element) return
-    setRowHeight(this.element.clientHeight + this.expandHeight, this.props.index)
+    const tds = Array.prototype.slice.call(this.element.querySelectorAll('td'))
+    const td = tds.find(el => !el.getAttribute('rowspan'))
+    const height = td ? parseInt(getComputedStyle(td).height, 10) : this.element.clientHeight
+    if (height === this.lastRowHeight) return
+    this.lastRowHeight = height
+    setRowHeight(height + this.expandHeight, this.props.index)
   }
 
   setExpandHeight(height) {
@@ -88,7 +91,8 @@ class Tr extends Component {
 
   render() {
     const {
-      columns, data, striped, index, expandRender, offsetLeft, offsetRight, rowClassName, ...other
+      columns, data, striped, index, expandRender, offsetLeft, offsetRight,
+      hasNotRenderRows, rowClassName, ...other
     } = this.props
     const tds = []
     let skip = 0
@@ -149,6 +153,7 @@ Tr.propTypes = {
   columns: PropTypes.array.isRequired,
   data: PropTypes.array.isRequired,
   expandRender: PropTypes.func,
+  hasNotRenderRows: PropTypes.bool,
   index: PropTypes.number,
   offsetLeft: PropTypes.number,
   offsetRight: PropTypes.number,

@@ -287,6 +287,7 @@ class SeperateTable extends PureComponent {
     }
 
     const prevHeight = this.getSumHeight(0, currentIndex)
+    const hasNotRenderRows = data.length > rowsInView
 
     return (
       <Scroll
@@ -311,6 +312,7 @@ class SeperateTable extends PureComponent {
               offsetRight={offsetRight}
               data={data.slice(currentIndex, currentIndex + rowsInView)}
               setRowHeight={this.setRowHeight}
+              hasNotRenderRows={hasNotRenderRows}
             />
           </table>
         </div>
