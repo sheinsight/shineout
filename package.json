@@ -43,12 +43,14 @@
     "build-css": "node scripts/build-css.js",
     "build": "npm-run-all build-*"
   },
+  "sideEffects": false,
   "peerDependencies": {
     "prop-types": "^15.6.0",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0"
   },
   "dependencies": {
+    "@babel/runtime": "^7.1.5",
     "classnames": "^2.2.5",
     "create-react-context": "^0.2.3",
     "date-fns": "2.0.0-alpha.10",
@@ -60,6 +62,7 @@
     "@babel/core": "^7.1.6",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
