@@ -4,7 +4,6 @@
       "presets": ["react-app"]
     },
     "production": {
-      "plugins": ["transform-react-remove-prop-types"],
       "presets": ["react-app"]
     },
     "publish": {
@@ -15,7 +14,8 @@
           {
             "useBuiltIns": true
           }
-        ]
+        ],
+        "@babel/plugin-transform-runtime"
       ],
       "presets": [
         ["@babel/preset-env",
@@ -27,7 +27,8 @@
               ]
             },
             "loose": true,
-            "useBuiltIns": "entry"
+            "useBuiltIns": "entry",
+            "modules": false
           }
         ],
         "@babel/preset-react"
