@@ -1,6 +1,6 @@
 import React, { Component, Fragment, createElement } from 'react'
 import PropTypes from 'prop-types'
-import { addStack, removeStack } from 'shineout/utils/lazyload'
+import { Lazyload, Spin } from 'shineout'
 import classGenerate from 'doc/utils/classname'
 import Icon from 'doc/icons/Icon'
 import history from 'doc/history'
@@ -8,11 +8,16 @@ import CodeBlock from '../CodeBlock'
 
 const exampleClass = classGenerate(require('./example.less'), 'example')
 
+const placeholder = (
+  <div className={exampleClass('placeholder')}>
+    <Spin />
+  </div>
+)
+
 export default class Example extends Component {
   static propTypes = {
     component: PropTypes.func.isRequired,
     id: PropTypes.string,
-    lazy: PropTypes.bool,
     name: PropTypes.string,
     rawText: PropTypes.string,
     title: PropTypes.string.isRequired,
@@ -26,22 +31,8 @@ export default class Example extends Component {
     super(props)
 
     this.state = {
-      ready: !props.lazy,
       showcode: false,
     }
-  }
-
-  componentDidMount() {
-    if (this.props.lazy && this.placeholder) {
-      this.lazyId = addStack({
-        element: this.placeholder,
-        render: () => this.setState({ ready: true }),
-      })
-    }
-  }
-
-  componentWillUnmount() {
-    removeStack(this.lazyId)
   }
 
   setCodeBlockHeight = (height) => {
@@ -94,7 +85,7 @@ export default class Example extends Component {
     const {
       component, id, name, rawText,
     } = this.props
-    const { ready, showcode } = this.state
+    const { showcode } = this.state
 
     const text = rawText.replace(/(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/, '').trim()
 
@@ -113,43 +104,33 @@ export default class Example extends Component {
       <Fragment>
         { title && <h3 key="0" id={id}>{title}</h3> }
 
-        {
-          !ready && (
-            <div className={exampleClass('placeholder')} ref={(el) => { this.placeholder = el }}>
-              loading example...
+        <Lazyload placeholder={placeholder}>
+          <div className={exampleClass('_', showcode && 'showcode')}>
+            <div className={exampleClass('body')}>
+              {createElement(component)}
             </div>
-          )
-        }
 
-        {
-          ready && (
-            <div className={exampleClass('_', showcode && 'showcode')}>
-              <div className={exampleClass('body')}>
-                {createElement(component)}
+            {
+              this.props.title.length > 0 &&
+              <div className={exampleClass('desc')}>
+                {
+                  // eslint-disable-next-line
+                  sub.map((s, i) => <div key={i} dangerouslySetInnerHTML={{ __html: s }} />)
+                }
+                {this.renderCodeHandle(false)}
               </div>
+            }
 
-              {
-                this.props.title.length > 0 &&
-                <div className={exampleClass('desc')}>
-                  {
-                    // eslint-disable-next-line
-                    sub.map((s, i) => <div key={i} dangerouslySetInnerHTML={{ __html: s }} />)
-                  }
-                  {this.renderCodeHandle(false)}
-                </div>
-              }
-
-              <div ref={this.bindCodeBlock} className={exampleClass('code')}>
-                <CodeBlock
-                  onHighLight={this.setCodeBlockHeight}
-                  onClose={this.toggleCode}
-                  value={text}
-                />
-                {this.renderCodeHandle(true)}
-              </div>
+            <div ref={this.bindCodeBlock} className={exampleClass('code')}>
+              <CodeBlock
+                onHighLight={this.setCodeBlockHeight}
+                onClose={this.toggleCode}
+                value={text}
+              />
+              {this.renderCodeHandle(true)}
             </div>
-          )
-        }
+          </div>
+        </Lazyload>
       </Fragment>
     )
   }
