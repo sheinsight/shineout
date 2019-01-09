@@ -43,7 +43,7 @@
     "build-css": "node scripts/build-css.js",
     "build": "npm-run-all build-*"
   },
-  "sideEffects": false,
+  "sideEffects": ["*.less"],
   "peerDependencies": {
     "prop-types": "^15.6.0",
     "react": ">=16.0.0",
