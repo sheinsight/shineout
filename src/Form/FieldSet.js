@@ -138,6 +138,7 @@ class FieldSet extends Component {
                 value: v,
                 index: i,
                 error,
+                datum: formDatum,
                 onChange: this.handleChange.bind(this, i),
                 onInsert: this.handleInsert.bind(this, i),
                 onAppend: this.handleInsert.bind(this, i + 1),
@@ -175,6 +176,7 @@ export const fieldSetConsumer = Origin => props => (
     {({ path, val } = {}) => (
       <Origin
         {...props}
+        // eslint-disable-next-line
         name={extendName(path, props.name)}
         innerFormNamePath={path}
         fieldSetValidate={val}

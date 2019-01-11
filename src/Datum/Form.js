@@ -1,7 +1,7 @@
 import deepEqual from 'deep-eql'
 import { unflatten, insertValue, spliceValue, getSthByName } from '../utils/flat'
 import { fastClone } from '../utils/clone'
-import { deepGet, deepSet, deepRemove, deepMerge } from '../utils/objects'
+import { deepGet, deepSet, deepRemove, deepMerge, objectValues } from '../utils/objects'
 import { isObject, isArray } from '../utils/is'
 import { promiseAll, FormError } from '../utils/errors'
 import {
@@ -29,7 +29,7 @@ export default class {
     // handle global errors
     this.$errors = {}
 
-    this.deepSetOptions = { removeUndefined }
+    this.deepSetOptions = { removeUndefined, forceSet: true }
 
     if (value) this.setValue(value, initValidate ? undefined : IGNORE_VALIDATE)
     if (error) this.setError('', error)
@@ -53,10 +53,8 @@ export default class {
 
   set(name, value, pub) {
     if (isObject(name)) {
-      Object.keys(name).forEach((n) => {
-        this.set(n, name[n], pub)
-      })
-      return
+      value = objectValues(name)
+      name = Object.keys(name)
     }
 
     if (isArray(name)) {
