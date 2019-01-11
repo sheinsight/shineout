@@ -12,7 +12,7 @@ export default function () {
     <div>
       <Tag>Tag 1</Tag>
       <Tag>Tag 2</Tag>
-      <Tag onClose={() => console.log('I am close')}>Tag 3</Tag>
+      <Tag onClose={() => console.log('I am close')} onClick={() => console.log('I am click')}>Tag 3</Tag>
     </div>
   )
 }

@@ -63,6 +63,7 @@ class Tag extends PureComponent {
     const { onClose } = this.props
     if (!onClose) return null
     const closeClass = tagClass('close-icon')
+    const loadingClass = tagClass('close-loading')
     if (dismiss === 0) {
       return (
         <div
@@ -75,9 +76,9 @@ class Tag extends PureComponent {
     }
     return (
       <div
-        className={closeClass}
+        className={loadingClass}
       >
-        <Spin name="ring" size={12} />
+        <Spin name="ring" size={10} />
       </div>
     )
   }
