@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import { getProps, defaultProps } from '../utils/proptypes'
 import Spin from '../Spin'
+import icons from '../icons'
 import { isPromise } from '../utils/is'
 import { isDark } from '../utils/color'
 import { tagClass } from '../styles'
@@ -68,7 +69,7 @@ class Tag extends PureComponent {
           className={closeClass}
           onClick={this.handleClose}
         >
-          &times;
+          {icons.Close}
         </div>
       )
     }
@@ -98,6 +99,7 @@ class Tag extends PureComponent {
       type,
     )
     const inlineClassName = tagClass('inline')
+    const click = !onClose ? { onClick: this.handleClick } : {}
     let tagStyle = style || {}
 
     if (className) tagClassName += ` ${className}`
@@ -110,10 +112,10 @@ class Tag extends PureComponent {
       }
     }
     return (
-      <div className={tagClassName} style={tagStyle} onClick={this.handleClick}>
+      <div className={tagClassName} style={tagStyle} {...click}>
         {
            onClose
-           ? <div className={inlineClassName}>{children}</div>
+           ? <div onClick={this.handleClick} className={inlineClassName}>{children}</div>
            : children
         }
         {this.renderClose(dismiss)}
