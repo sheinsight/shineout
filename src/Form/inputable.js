@@ -179,7 +179,7 @@ export default curry(Origin => consumer(class extends Component {
       this.setState({ error })
     }
 
-    if (onError) onError(error)
+    if (onError && error && error.message) onError(error)
     if (onItemError && !name) onItemError(this.itemName, error)
   }
 
