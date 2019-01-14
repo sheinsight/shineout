@@ -187,6 +187,8 @@ export default class {
       return [values]
     }
 
+    if (!values) return []
+
     if (Array.isArray(values)) {
       return values
     }

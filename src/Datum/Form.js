@@ -1,8 +1,8 @@
 import deepEqual from 'deep-eql'
 import { unflatten, insertValue, spliceValue, getSthByName } from '../utils/flat'
 import { fastClone } from '../utils/clone'
-import { deepGet, deepSet, deepRemove, deepMerge } from '../utils/objects'
-import { isObject } from '../utils/is'
+import { deepGet, deepSet, deepRemove, deepMerge, objectValues } from '../utils/objects'
+import { isObject, isArray } from '../utils/is'
 import { promiseAll, FormError } from '../utils/errors'
 import {
   updateSubscribe, errorSubscribe, changeSubscribe,
@@ -29,7 +29,7 @@ export default class {
     // handle global errors
     this.$errors = {}
 
-    this.deepSetOptions = { removeUndefined }
+    this.deepSetOptions = { removeUndefined, forceSet: true }
 
     if (value) this.setValue(value, initValidate ? undefined : IGNORE_VALIDATE)
     if (error) this.setError('', error)
@@ -53,9 +53,12 @@ export default class {
 
   set(name, value, pub) {
     if (isObject(name)) {
-      Object.keys(name).forEach((n) => {
-        this.set(n, name[n], pub)
-      })
+      value = objectValues(name)
+      name = Object.keys(name)
+    }
+
+    if (isArray(name)) {
+      this.setArrayValue(name, value)
       return
     }
 
@@ -68,6 +71,22 @@ export default class {
     }
 
     if (pub) this.publishValue(name, FORCE_PASS)
+
+    this.dispatch(CHANGE_TOPIC)
+    this.handleChange()
+  }
+
+  setArrayValue(names, values) {
+    names.forEach((name, index) => {
+      deepSet(this.$values, name, values[index], this.deepSetOptions)
+    })
+
+    names.forEach((name, index) => {
+      if (this.$inputNames[name]) {
+        this.dispatch(updateSubscribe(name), values[index], name)
+        this.dispatch(changeSubscribe(name))
+      }
+    })
 
     this.dispatch(CHANGE_TOPIC)
     this.handleChange()

@@ -18,7 +18,6 @@ export default function () {
         placeholder="input label"
         keygen
         onCreate
-        onChange={d => console.log(d)}
         onFilter={text => d => d.indexOf(text) >= 0}
         filterDelay={0}
       />
@@ -30,7 +29,6 @@ export default function () {
         keygen
         onCreate
         multiple
-        onChange={d => console.log(d)}
         onFilter={text => d => d.indexOf(text) >= 0}
         filterDelay={0}
       />

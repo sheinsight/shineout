@@ -19,8 +19,7 @@ export default function () {
     <Checkbox.Group
       keygen={c => c}
       data={data}
-      onChange={c => console.log(c)}
-      value={['blue', 'cyan']}
+      defaultValue={['blue', 'cyan']}
       renderItem={renderItem}
     />
   )

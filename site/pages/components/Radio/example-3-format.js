@@ -23,8 +23,7 @@ export default function () {
       keygen="id"
       data={data}
       format="color"
-      onChange={d => console.log(d)}
-      value="blue"
+      defaultValue="blue"
       renderItem="color"
     />
   )

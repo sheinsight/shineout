@@ -1,23 +1,13 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
 
 module.exports = function getCommon(config) {
-  /*
-  function getCssOption() {
-    const { LOCAL_IDENT_NAME, NODE_ENV } = process.env
-    const options = { minimize: NODE_ENV === 'production' }
-
-    if (!LOCAL_IDENT_NAME) return options
-
-    return Object.assign(options, { modules: true, localIdentName: LOCAL_IDENT_NAME })
-  }
-  */
-
   const lessLoader = [
     {
+      loader: MiniCssExtractPlugin.loader,
+    },
+    {
       loader: 'css-loader',
-      // options: getCssOption(),
-      options: { minimize: process.env.NODE_ENV === 'production' },
     },
     {
       loader: 'postcss-loader',
@@ -60,10 +50,7 @@ module.exports = function getCommon(config) {
 
         {
           test: /\.less$/,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: lessLoader,
-          }),
+          use: lessLoader,
         },
 
         {
@@ -104,9 +91,8 @@ module.exports = function getCommon(config) {
     },
 
     plugins: [
-      new ExtractTextPlugin({
+      new MiniCssExtractPlugin({
         filename: `${config.extractTextPluginPath}`,
-        allChunks: true,
       }),
       new webpack.DefinePlugin({
         'process.env': {

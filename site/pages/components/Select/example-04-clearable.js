@@ -18,7 +18,6 @@ export default function () {
         keygen
         data={data}
         placeholder="Select color"
-        onChange={d => console.log(d)}
       />
       <br />
       <Select
@@ -28,7 +27,6 @@ export default function () {
         keygen
         multiple
         placeholder="Multiple select"
-        onChange={d => console.log(d)}
       />
     </div>
   )

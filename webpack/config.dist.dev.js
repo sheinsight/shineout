@@ -21,6 +21,7 @@ function getCompiler(name, conf) {
       library: 'Shineout',
       filename: 'shineout.js',
     },
+    mode: 'development',
   })
 }
 

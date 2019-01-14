@@ -24,8 +24,7 @@ export default function () {
       block
       data={data}
       datum={{ format: 'color' }}
-      onChange={d => console.log(d)}
-      value={['blue', 'cyan']}
+      defaultValue={['blue', 'cyan']}
       renderItem="color"
     />
   )

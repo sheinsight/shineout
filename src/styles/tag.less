@@ -46,6 +46,17 @@
   .@{tag-prefix}-close-icon {
     display: inline-block;
     margin: 0 0 0 @tag-close-left;
+    width: @tag-icon-width;
+    svg {
+      position: absolute;
+      width: @tag-icon-width;
+      top: 50%;
+      transform: translateY(-50%)
+    }
+  }
+  .@{tag-prefix}-close-loading {
+    display: inline-block;
+    margin: 0 0 0 @tag-close-left;
   }
   &-default {
     border-color: @tag-border-color;

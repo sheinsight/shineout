@@ -13,7 +13,7 @@ const types = {
 
 export default curry((options, Origin) => {
   const {
-    type = 'list', key = 'value', limit = 0, bindProps = [],
+    type = 'list', key = 'value', limit = 0, bindProps = [], ignoreUndefined,
   } = options || {}
   const Datum = types[type]
 
@@ -64,13 +64,14 @@ export default curry((options, Origin) => {
 
     setValue(t) {
       const values = this.props[key]
-      if (values !== undefined) this.datum.setValue(values, t)
+      if (ignoreUndefined && values === undefined) return
+      this.datum.setValue(values, t)
     }
 
     render() {
       const { onDatumBind, ...props } = this.props
       if (onDatumBind) onDatumBind(this.datum)
-      if (options.bindProps && options.bindProps.includes('disabled') && props.disabled !== undefined) {
+      if (bindProps.includes('disabled') && props.disabled !== undefined) {
         this.datum.setDisabled(props.disabled)
       }
 

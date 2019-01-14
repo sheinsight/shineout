@@ -22,8 +22,8 @@ const mergeOptions = (opts = {}, ...args) => {
   return mergeOptions(deepMerge(opts, arg), ...args)
 }
 
-export default function (...args) {
-  const options = mergeOptions({}, ...args)
+export default function (...opts) {
+  const options = mergeOptions({}, ...opts)
   const rules = {
     required: required(options.required),
     max: length('max', options.max),
@@ -43,7 +43,7 @@ export default function (...args) {
   Object.keys(options).forEach((k) => {
     if (!ruleKeys.includes(k)) {
       if (isObject(options[k])) {
-        rules[k] = () => options[k]
+        rules[k] = args => Object.assign({}, options[k], { args })
       } else {
         console.error(new Error(`Rule ${k} is invalid, expect a function or an object.`))
       }

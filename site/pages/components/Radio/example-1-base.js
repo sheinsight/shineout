@@ -19,7 +19,6 @@ export default function () {
     <Radio.Group
       keygen
       data={data}
-      onChange={c => console.log(c)}
       defaultValue="blue"
       renderItem={renderItem}
     />

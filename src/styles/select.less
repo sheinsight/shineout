@@ -31,6 +31,9 @@
 
     .@{select-prefix}-ellipsis {
       margin-bottom: @padding-base-vertical;
+      &:after {
+        content: '\feff ';
+      }
     }
 
     .@{select-prefix}-input {
@@ -210,12 +213,15 @@
       background-color: @dropdown-link-active-bg;
 
       &::after {
-        content: '✓';
+        content: ' ';
         position: absolute;
         top: 50%;
         right: 8px;
         transform: translateY(-50%);
         color: @colors-primary;
+        width: 12px;
+        height: 12px;
+        background: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='@{colors-primary}' d='M913.017 237.02c-25.311-25.312-66.349-25.312-91.66 0l-412.475 412.474-206.237-206.237c-25.312-25.312-66.35-25.312-91.661 0s-25.312 66.35 0 91.66l252.067 252.067c0.729 0.73 1.439 1.402 2.134 2.029 25.434 23.257 64.913 22.585 89.527-2.029l458.303-458.303c25.313-25.312 25.313-66.35 0.001-91.661z'%3E%3C/path%3E%3C/svg%3E");
       }
     }
 

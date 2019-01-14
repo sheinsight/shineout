@@ -113,4 +113,8 @@ Table.defaultProps = {
   verticalAlign: 'top',
 }
 
-export default Datum.hoc({ bindProps: ['disabled', 'format', 'prediction'], setValueType: null }, Table)
+export default Datum.hoc({
+  bindProps: ['disabled', 'format', 'prediction'],
+  ignoreUndefined: true,
+  setValueType: null,
+}, Table)

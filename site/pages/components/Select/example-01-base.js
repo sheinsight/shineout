@@ -15,7 +15,7 @@ export default function () {
       keygen
       style={{ width: 240 }}
       data={data}
-      onChange={d => console.log(d)}
+      defaultValue=""
     />
   )
 }

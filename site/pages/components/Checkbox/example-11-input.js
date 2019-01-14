@@ -9,6 +9,6 @@ import { Checkbox } from 'shineout'
 
 export default function () {
   return (
-    <Checkbox inputable onChange={d => console.log(d)}>more...</Checkbox>
+    <Checkbox inputable>more...</Checkbox>
   )
 }

@@ -26,7 +26,7 @@ function init() {
       country: one(c20),
       office: one(c30),
       office5: one(c5),
-      height: pickNumber(14, 100),
+      height: pickNumber(80, 200),
     })
   }
 

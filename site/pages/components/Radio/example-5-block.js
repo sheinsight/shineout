@@ -24,7 +24,6 @@ export default function () {
       block
       data={data}
       datum={{ format: 'id' }}
-      onChange={d => console.log(d)}
       defaultValue={3}
       renderItem="color"
     />

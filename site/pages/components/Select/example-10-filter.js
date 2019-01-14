@@ -37,7 +37,6 @@ export default class extends Component {
         keygen="id"
         data={this.state.data}
         placeholder="Select user"
-        // onChange={d => console.log(d)}
         onFilter={this.handleFilter}
         datum={{ format: 'id' }}
         renderItem={user => `${user.firstName} ${user.lastName}`}

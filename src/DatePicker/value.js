@@ -37,6 +37,8 @@ export default Origin => class extends Component {
     const { value } = this.props
     if (!shallowEqual(prevProps.value, value) && !shallowEqual(value, this.state.value)) {
       const newValue = this.convertValue(value)
+      // eslint-disable-next-line
+      // this.setState({ value: newValue })
       this.state.value = newValue
     }
   }

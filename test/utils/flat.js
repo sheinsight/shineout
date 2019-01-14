@@ -134,6 +134,28 @@ test('splice value from array and path', (t) => {
   t.deepEqual(src, { 'a.b': [{ a: 1 }, undefined, 3] })
 })
 
+test('insert and splice nested array', (t) => {
+  const src = {
+    'a[0].b[0].name': 0,
+    'a[0].b[1].name': 1,
+    'a[0].b[2].name': 2,
+    'a[0].b[3].name': 3,
+  }
+  spliceValue(src, 'a[0].b', 1)
+  t.deepEqual(src, {
+    'a[0].b[0].name': 0,
+    'a[0].b[1].name': 2,
+    'a[0].b[2].name': 3,
+  })
+  insertValue(src, 'a[0].b', 1, { name: 1 })
+  t.deepEqual(src, {
+    'a[0].b[0].name': 0,
+    'a[0].b[1].name': 1,
+    'a[0].b[2].name': 2,
+    'a[0].b[3].name': 3,
+  })
+})
+
 test('get something from object', (t) => {
   const abc0 = getSthByName('a.b.c[0]', testResult)
   t.deepEqual(abc0, { a: 1, b: 2 })

@@ -53,7 +53,7 @@ Field.propTypes = {
 }
 
 Field.defaultProps = {
-  cache: true,
+  cache: false,
 }
 
 export default Field

@@ -72,7 +72,8 @@ export function unflatten(rawdata) {
 export function insertValue(obj, name, index, value) {
   Object.keys(obj).filter(n => n.indexOf(`${name}[`) === 0).sort().reverse()
     .forEach((n) => {
-      const reg = new RegExp(`${name}\\[(\\d+)\\]`)
+      // const reg = new RegExp(`${name}\\[(\\d+)\\]`)
+      const reg = new RegExp(`${name.replace(/\[/g, '\\[').replace(/\]/g, '\\]')}\\[(\\d+)\\]`)
       const match = reg.exec(n)
       const i = parseInt(match[1], 10)
       if (i < index) return
@@ -87,7 +88,8 @@ export function insertValue(obj, name, index, value) {
 }
 
 export function spliceValue(obj, name, index) {
-  Object.keys(obj).filter(n => n === name || n.indexOf(`${name}[`) === 0).sort().forEach((n) => {
+  const names = Object.keys(obj).filter(n => n === name || n.indexOf(`${name}[`) === 0).sort()
+  names.forEach((n) => {
     if (n === name && !Array.isArray(obj[name])) return
 
     if (n === name) {
@@ -95,7 +97,7 @@ export function spliceValue(obj, name, index) {
       return
     }
 
-    const reg = new RegExp(`${name}\\[(\\d+)\\]`)
+    const reg = new RegExp(`${name.replace(/\[/g, '\\[').replace(/\]/g, '\\]')}\\[(\\d+)\\]`)
     const match = reg.exec(n)
     const i = parseInt(match[1], 10)
     if (i < index) return

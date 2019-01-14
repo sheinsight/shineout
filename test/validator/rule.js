@@ -77,6 +77,14 @@ test('custom rule message', (t) => {
   t.deepEqual(crt(splitRule('length(1,10)')[0]), [{ min: 1, message: message.min.message }, { max: 10, message: message.max.message }])
 })
 
+test('custom rule func and props', (t) => {
+  const func = () => {}
+  const rule = Rule({
+    isExist: { func },
+  })
+  t.deepEqual(rule.isExist({ abc: 123 }), { func, args: { abc: 123 } })
+})
+
 const invalid = (rule, t) => (str, message) => new Promise((resolve) => {
   convertRule(rule, splitRule(str)[0])
   resolve(true)

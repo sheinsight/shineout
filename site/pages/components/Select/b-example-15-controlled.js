@@ -5,7 +5,7 @@
  *    -- Select generate group of options from data.
  */
 import React from 'react'
-import { Select } from 'shineout'
+import { Button, Select } from 'shineout'
 
 const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
@@ -16,22 +16,27 @@ export default class extends React.Component {
   }
 
   handleChange = (value) => {
-    if (data.indexOf(value) < 0 && !(/\d+/.test(value))) value = ''
+    // if (data.indexOf(value) < 0 && !(/\d+/.test(value))) value = ''
     this.setState({ value })
   }
 
   render() {
     console.log(this.state.value)
+
     return (
-      <Select
-        keygen
-        onCreate
-        onFilter={text => d => d.indexOf(text) >= 0}
-        style={{ width: 240 }}
-        data={data}
-        value={this.state.value}
-        onChange={this.handleChange}
-      />
+      <div>
+        <Button onClick={() => this.setState({ value: undefined })}>Clear</Button>
+        <Select
+          keygen
+          // onFilter={text => d => d.indexOf(text) >= 0}
+          style={{ width: 240 }}
+          data={data}
+          value={this.state.value}
+          onChange={this.handleChange}
+          multiple
+          separator=","
+        />
+      </div>
     )
   }
 }

@@ -2,14 +2,25 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { inputClass, selectClass } from '../styles'
+import { isObject } from '../utils/is'
 import Input from './Input'
+
+export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
+
+const getResultContent = (data, renderResult) => {
+  if (isObject(data) && data.IS_NOT_MATCHED_VALUE) {
+    return data.value
+  }
+  return renderResult(data)
+}
 
 // eslint-disable-next-line
 function Item({ renderResult, data, disabled, onClick }) {
-  const click = disabled ? undefined : () => onClick(data)
+  const value = isObject(data) && data.IS_NOT_MATCHED_VALUE ? data.value : data
+  const click = disabled ? undefined : () => onClick(value)
   return (
     <a className={selectClass('item', disabled && 'disabled')} onClick={click}>
-      {renderResult(data)}
+      {getResultContent(data, renderResult)}
       {!disabled && <span className={selectClass('indicator', 'close')} />}
     </a>
   )
@@ -49,14 +60,14 @@ class Result extends PureComponent {
 
   renderInput(text, key = 'input') {
     const {
-      multiple, onFilter, focus, onInputFocus, onInputBlur, setInputReset, onCreate,
+      multiple, onFilter, focus, onInputFocus, onInputBlur, setInputReset,
     } = this.props
     return (
       <Input
         key={`${key}.${focus ? 1 : 0}`}
         onInputFocus={onInputFocus}
         onInputBlur={onInputBlur}
-        updatAble={onCreate && !multiple}
+        updatAble={!multiple}
         multiple={multiple}
         focus={focus}
         text={text}
@@ -104,12 +115,12 @@ class Result extends PureComponent {
     }
 
     if (onFilter) {
-      return this.renderInput(renderResult(result[0]))
+      return this.renderInput(getResultContent(result[0], renderResult))
     }
 
     return (
       <span className={selectClass('ellipsis')}>
-        {renderResult(result[0])}
+        {getResultContent(result[0], renderResult)}
       </span>
     )
   }
@@ -144,7 +155,6 @@ Result.propTypes = {
   multiple: PropTypes.bool.isRequired,
   onRemove: PropTypes.func,
   onClear: PropTypes.func,
-  onCreate: PropTypes.func,
   onFilter: PropTypes.func,
   onInputBlur: PropTypes.func,
   onInputFocus: PropTypes.func,

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { getKey } from '../utils/uid'
+import { IS_NOT_MATCHED_VALUE } from './Result'
 
 export default Origin => class extends React.Component {
   static propTypes = {
@@ -58,6 +59,7 @@ export default Origin => class extends React.Component {
       if (!res) {
         res = this.getResult(v)
         if (res) this.resultCache.set(v, res)
+        else res = { [IS_NOT_MATCHED_VALUE]: true, value: v }
       }
       if (res) { result.push(res) }
     })
