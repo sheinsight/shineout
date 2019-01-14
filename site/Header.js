@@ -3,12 +3,10 @@ import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 import { Button, Dropdown } from 'shineout'
 import locate, { setLanguage } from './locate'
-import classGenerate from './utils/classname'
 import theme from './utils/theme'
 import logo from './icons/logo'
 import Icon from './icons/Icon'
-
-const headerClass = classGenerate(require('./styles/header.less'), 'header')
+import { headerClass } from './styles'
 
 const themes = [{
   content: 'antd',

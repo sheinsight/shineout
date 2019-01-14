@@ -1,3 +1,4 @@
+import 'shineout'
 import './utils/faker'
 import './utils/faker/country'
 import './utils/faker/firstName'

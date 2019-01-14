@@ -4,9 +4,7 @@ import { Route, Redirect, Switch, NavLink } from 'react-router-dom'
 import { Sticky } from 'shineout'
 import locate from 'doc/locate'
 import Loading from 'docs/Loading'
-import classGenerate from '../utils/classname'
-
-const clsMain = classGenerate(require('../styles/index.less'), 'main')
+import { mainClass } from 'doc/styles'
 
 function getUrl(base, page) {
   if (page.path === '') return base
@@ -24,7 +22,7 @@ export default function (pages) {
     return (
       <Fragment>
         <Sticky top={0}>
-          <div className={clsMain('menu')}>
+          <div className={mainClass('menu')}>
             {
               pages.map((p, i) => (
                 typeof p === 'string'
@@ -32,8 +30,8 @@ export default function (pages) {
                   ? <label key={i}>{p}</label>
                   : (
                     <NavLink
-                      className={clsMain(p.level === 2 && 'sub')}
-                      activeClassName={clsMain('active')}
+                      className={mainClass(p.level === 2 && 'sub')}
+                      activeClassName={mainClass('active')}
                       key={p.name}
                       to={getUrl(base, p)}
                     >
@@ -45,7 +43,7 @@ export default function (pages) {
           </div>
         </Sticky>
 
-        <div className={clsMain('page')}>
+        <div className={mainClass('page')}>
           <Suspense fallback={<Loading />}>
             <Switch>
               <Redirect from={base} exact to={getUrl(base, indexRoute)} />

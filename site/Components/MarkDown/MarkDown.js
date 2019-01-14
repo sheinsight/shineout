@@ -2,13 +2,11 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkDown from 'react-markdown'
 import { getUidStr } from 'shineout/utils/uid'
-import classGenerate from '../../utils/classname'
+import { markdownClass } from 'doc/styles'
 import locate from '../../locate'
 import CodeBlock from '../CodeBlock'
 import Example from '../Example'
 import Console from './Console'
-
-const markdownClass = classGenerate(require('./markdown.less'), 'markdown')
 
 const codeReg = /^<code name="([\w|-]+)" /
 const exampleReg = /^<example name="([\w|-]+)"/

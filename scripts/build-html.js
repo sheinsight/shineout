@@ -5,7 +5,7 @@ const pkg = require('../package.json')
 const config = require('../config')
 
 const version = `${pkg.version.substr(0, pkg.version.lastIndexOf('.') + 1)}x`
-const cdn = 'https://cdnjs.cloudflare.com/ajax/libs'
+const cdn = 'https://unpkg.com'
 
 async function buildHtml() {
   const scripts = config.dev.scripts.map(p => cdn + p)

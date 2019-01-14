@@ -1,10 +1,8 @@
 import React from 'react'
 import { Button } from 'shineout'
-import classGenerate from '../../utils/classname'
 import locate from '../../locate'
 import Icon from '../../icons/Icon'
-
-const homeClass = classGenerate(require('../../styles/home.less'), 'home')
+import { homeClass } from '../../styles'
 
 function Home() {
   return (

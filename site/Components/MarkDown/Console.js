@@ -1,8 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import classGenerate from '../../utils/classname'
-
-const markdownClass = classGenerate(require('./markdown.less'), 'markdown')
+import { markdownClass } from 'doc/styles'
 
 class Console extends PureComponent {
   constructor(props) {

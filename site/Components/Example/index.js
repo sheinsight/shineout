@@ -1,12 +1,10 @@
 import React, { Component, Fragment, createElement } from 'react'
 import PropTypes from 'prop-types'
 import { Lazyload, Spin } from 'shineout'
-import classGenerate from 'doc/utils/classname'
 import Icon from 'doc/icons/Icon'
 import history from 'doc/history'
+import { exampleClass } from 'doc/styles'
 import CodeBlock from '../CodeBlock'
-
-const exampleClass = classGenerate(require('./example.less'), 'example')
 
 const placeholder = (
   <div className={exampleClass('placeholder')}>

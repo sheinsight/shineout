@@ -1,9 +1,7 @@
 import React from 'react'
 import Sticky from 'shineout/Sticky'
 import history from '../../history'
-import classGenerate from '../../utils/classname'
-
-const cls = classGenerate(require('./nav.less'), 'nav')
+import { navClass } from '../../styles'
 
 const scrollTo = (id) => {
   const isSingleMode = history.location.search.indexOf('?example=') === 0
@@ -72,15 +70,15 @@ export default function (Component) {
       const { active, headings } = this.state
 
       return (
-        <Sticky className={cls('sticky')} top={50}>
-          <div className={cls('nav')}>
+        <Sticky className={navClass('sticky')} top={50}>
+          <div className={navClass('nav')}>
             {
               headings.map((h, i) => {
                 const children = h.children.filter(c => typeof c === 'string')
                 return (
                   <a
                     key={i}
-                    className={cls(`level-${h.level}`, active === h.id && 'active')}
+                    className={navClass(`level-${h.level}`, active === h.id && 'active')}
                     onClick={scrollTo.bind(this, h.id)}
                   >
                     {children}
@@ -95,7 +93,7 @@ export default function (Component) {
 
     render() {
       return (
-        <div className={cls('_')}>
+        <div className={navClass('_')}>
           <Component onHeadingSetted={this.setHeading} />
           { this.renderNav() }
         </div>
