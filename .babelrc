@@ -27,8 +27,7 @@
               ]
             },
             "loose": true,
-            "useBuiltIns": "entry",
-            "modules": false
+            "useBuiltIns": "entry"
           }
         ],
         "@babel/preset-react"

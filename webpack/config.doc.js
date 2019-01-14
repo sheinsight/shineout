@@ -17,7 +17,6 @@ function getCompiler(name, conf) {
       libraryTarget: 'umd',
       library: 'ShineoutDoc',
     }),
-    useHappyPack: true,
   })
   return merge(common(wf), {
     name,
