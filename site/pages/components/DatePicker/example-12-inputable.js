@@ -13,7 +13,6 @@ export default function () {
       <DatePicker
         placeholder="Input date"
         inputable
-        onChange={v => console.log(v)}
         style={{ marginRight: 12 }}
       />
 
@@ -21,7 +20,6 @@ export default function () {
         type="datetime"
         inputable
         defaultValue={new Date()}
-        onChange={v => console.log(v)}
       />
 
       <br />
@@ -30,7 +28,6 @@ export default function () {
         range
         inputable
         defaultValue={[Date.now() - 864000000, new Date()]}
-        onChange={v => console.log(v)}
         style={{ marginTop: 12 }}
       />
     </div>

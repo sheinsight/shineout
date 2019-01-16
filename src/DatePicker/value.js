@@ -78,9 +78,9 @@ export default Origin => class extends Component {
     })
 
     if (!shallowEqual(newValue, value)) {
-      this.state.value = newValue
       this.props.onChange(newValue)
     }
+    this.state.value = newValue
 
     return newValue
   }
@@ -96,8 +96,6 @@ export default Origin => class extends Component {
 
   render() {
     const { value } = this.state
-
-    console.log('render', value)
 
     return (
       <Origin
