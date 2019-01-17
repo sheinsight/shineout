@@ -1,4 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const TerserWebpackPlugin = require('terser-webpack-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const webpack = require('webpack')
 
 module.exports = function getCommon(config) {
@@ -24,6 +26,16 @@ module.exports = function getCommon(config) {
   ]
 
   return {
+    optimization: {
+      minimizer: [
+        new TerserWebpackPlugin({
+          cache: true,
+          parallel: true,
+        }),
+        new OptimizeCSSAssetsPlugin({}),
+      ],
+    },
+
     externals: config.externals,
 
     resolve: {
