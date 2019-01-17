@@ -15,7 +15,7 @@ export default function () {
     componentDidMount() {
       if (this.props.loader) {
         this.props.loader().then((source) => {
-          this.setState({ source })
+          this.setState({ source: source.default })
         })
       }
     }
