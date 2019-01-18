@@ -48,16 +48,12 @@ module.exports = function getCommon(config) {
         {
           test: /\.jsx?$/,
           exclude: [/node_modules/],
-          use: config.useHappyPack ?
-            {
-              loader: 'happypack/loader?id=js',
-            } :
-            {
-              loader: 'babel-loader',
-              options: {
-                cacheDirectory: true,
-              },
+          use: {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
             },
+          },
         },
 
         {

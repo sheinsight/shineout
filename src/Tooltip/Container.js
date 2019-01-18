@@ -123,7 +123,7 @@ export default function (options) {
       this.showTimer = setTimeout(() => {
         const { left, top } = this.getPosition()
         const props = Object.assign({}, this.props, { style: { left: `${left}px`, top: `${top}px` } })
-        show(props, this.id)
+        show(props, this.id, this.props.style)
       }, this.props.delay)
     }
 
@@ -161,6 +161,7 @@ export default function (options) {
     scrollElement: PropTypes.object,
     scrollLeft: PropTypes.number,
     scrollTop: PropTypes.number,
+    style: PropTypes.object,
     trigger: PropTypes.oneOf(['click', 'hover']),
   }
 
