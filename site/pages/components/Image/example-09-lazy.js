@@ -7,12 +7,14 @@
 import React from 'react'
 import { Image } from 'shineout'
 
-const data = ([1, 2, 3, 4]).map(i => `../images/${i}_b.jpg`)
+const data = [1, 2, 3, 4].map(i => `../images/${i}_b.jpg`)
 
-export default function () {
+export default function() {
   return (
     <div>
-      { data.map((img, i) => <Image lazy key={i} fit="fill" height="66%" src={img} />) }
+      {data.map((img, i) => (
+        <Image lazy key={i} fit="fill" height="66%" src={img} />
+      ))}
     </div>
   )
 }

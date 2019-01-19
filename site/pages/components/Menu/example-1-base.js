@@ -20,7 +20,8 @@ const data = [
       {
         id: '4',
         title: 'Option 1',
-      }, {
+      },
+      {
         id: '5',
         title: 'Option 2',
       },
@@ -38,13 +39,15 @@ const data = [
       {
         id: '8',
         title: 'Option 4',
-        children: [{
-          id: '9',
-          title: 'Optic 1',
-        }, {
-          id: '10',
-          title: 'Optic 2',
-        },
+        children: [
+          {
+            id: '9',
+            title: 'Optic 1',
+          },
+          {
+            id: '10',
+            title: 'Optic 2',
+          },
         ],
       },
     ],
@@ -54,7 +57,6 @@ const data = [
     title: 'Navigation Four',
   },
 ]
-
 
 export default class extends React.Component {
   constructor(props) {

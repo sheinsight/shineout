@@ -14,12 +14,8 @@ const citys = fetchCity(20)
 
 const rules = {
   account: {
-    age: [
-      { min: 18, max: 60, message: 'Age must between {min} and {max}.' },
-    ],
-    city: [
-      { required: true, message: 'Please select your city.' },
-    ],
+    age: [{ min: 18, max: 60, message: 'Age must between {min} and {max}.' }],
+    city: [{ required: true, message: 'Please select your city.' }],
   },
 }
 
@@ -47,7 +43,12 @@ export default class extends PureComponent {
 
   render() {
     return (
-      <Form datum={this.datum} onSubmit={(data) => { console.log(data) }}>
+      <Form
+        datum={this.datum}
+        onSubmit={data => {
+          console.log(data)
+        }}
+      >
         <Form.Item label="Email">
           <Input name="email" />
         </Form.Item>
@@ -90,7 +91,6 @@ export default class extends PureComponent {
                 style={{ width: 200 }}
               />
             </Form.Item>
-
           </Form.BlockField>
         </Form.Item>
 

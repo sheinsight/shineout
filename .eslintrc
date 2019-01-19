@@ -1,5 +1,11 @@
 {
-    "extends": ["airbnb"],
+    "extends": [
+        "airbnb",
+        "prettier"
+    ],
+    "plugins": [
+        "prettier"
+    ],
     "parser": "babel-eslint",
     "parserOptions": {
         "sourceType": "module",
@@ -22,14 +28,27 @@
         }
     },
     "rules": {
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "prettier/prettier": "error",
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [
+                    ".js",
+                    ".jsx"
+                ]
+            }
+        ],
         "react/forbid-prop-types": 0,
         "react/jsx-no-bind": 0,
+        "jsx-a11y/label-has-for": 0,
         "react/no-did-mount-set-state": 0,
         "react/no-array-index-key": 0,
         "react/no-find-dom-node": 0,
         "react/require-default-props": 0,
-        "semi": [2, "never"],
+        "semi": [
+            2,
+            "never"
+        ],
         "global-require": 0,
         "import/no-duplicates": 0,
         "import/no-extraneous-dependencies": 0,
@@ -42,7 +61,12 @@
         "no-restricted-syntax": 0,
         "no-script-url": 0,
         "no-param-reassign": 0,
-        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+        "no-plusplus": [
+            "error",
+            {
+                "allowForLoopAfterthoughts": true
+            }
+        ],
         "no-static-element-interactions": 0,
         "jsx-a11y/anchor-is-valid": 0,
         "jsx-a11y/no-static-element-interactions": 0,

@@ -9,7 +9,7 @@ import { Input } from 'shineout'
 
 const style = { width: 120, marginRight: 12 }
 
-export default function () {
+export default function() {
   return (
     <div>
       <Input size="small" style={style} placeholder="small size" />

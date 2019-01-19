@@ -33,9 +33,12 @@ export default class extends PureComponent {
   }
 
   handleSubmit = () => {
-    this.datum.validate().then(() => {
-      console.log(this.datum.getValue())
-    }).catch(() => {})
+    this.datum
+      .validate()
+      .then(() => {
+        console.log(this.datum.getValue())
+      })
+      .catch(() => {})
   }
 
   render() {
@@ -60,11 +63,17 @@ export default class extends PureComponent {
           </Form.Item>
 
           <Form.Item label="Favorite Colors">
-            <Checkbox.Group name="colors" keygen data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']} />
+            <Checkbox.Group
+              name="colors"
+              keygen
+              data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
+            />
           </Form.Item>
 
           <Form.Item label="">
-            <Button type="primary" onClick={this.handleSubmit}>Submit</Button>
+            <Button type="primary" onClick={this.handleSubmit}>
+              Submit
+            </Button>
           </Form.Item>
         </Form>
       </div>

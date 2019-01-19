@@ -9,14 +9,10 @@ import { DatePicker } from 'shineout'
 
 const style = { marginBottom: 12 }
 
-export default function () {
+export default function() {
   return (
     <div>
-      <DatePicker
-        range={86400 * 10}
-        style={style}
-        defaultValue={['2018-05-25', '2018-06-05']}
-      />
+      <DatePicker range={86400 * 10} style={style} defaultValue={['2018-05-25', '2018-06-05']} />
       <br />
       <DatePicker
         range={86400 * 100}
@@ -26,18 +22,9 @@ export default function () {
         placeholder={['first month', 'last-month']}
       />
       <br />
-      <DatePicker
-        range={3600 * 6}
-        type="time"
-        format="HH:mm"
-        style={style}
-      />
+      <DatePicker range={3600 * 6} type="time" format="HH:mm" style={style} />
       <br />
-      <DatePicker
-        range
-        type="datetime"
-        onChange={d => console.log(d)}
-      />
+      <DatePicker range type="datetime" onChange={d => console.log(d)} />
     </div>
   )
 }

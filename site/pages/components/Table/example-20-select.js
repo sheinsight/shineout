@@ -24,7 +24,10 @@ export default class extends PureComponent {
 
     this.columns = [
       {
-        title: 'Id', render: 'id', width: 70, sorter: this.handleSorter.bind(this, 'id'),
+        title: 'Id',
+        render: 'id',
+        width: 70,
+        sorter: this.handleSorter.bind(this, 'id'),
       },
       { title: 'First Name', render: 'firstName' },
       { title: 'Last Name', render: 'lastName' },
@@ -32,7 +35,7 @@ export default class extends PureComponent {
       { title: 'Start Date', render: 'start', sorter: this.handleSorter.bind(this, 'start') },
       {
         width: 100,
-        render: (d) => {
+        render: d => {
           if (!d.status) return ''
           return <a onClick={this.handleTurnOff.bind(this, d)}>turn off</a>
         },
@@ -55,7 +58,7 @@ export default class extends PureComponent {
   fetchData = () => {
     const { sorter, current, pageSize } = this.state
     this.setState({ loading: true })
-    fetch.get('user', { sorter, current, pageSize }).then((res) => {
+    fetch.get('user', { sorter, current, pageSize }).then(res => {
       this.datum.clear()
 
       this.setState({
@@ -82,9 +85,7 @@ export default class extends PureComponent {
   }
 
   render() {
-    const {
-      data, current, pageSize, total, loading,
-    } = this.state
+    const { data, current, pageSize, total, loading } = this.state
 
     return (
       <div>

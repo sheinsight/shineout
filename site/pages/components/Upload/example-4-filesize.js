@@ -8,7 +8,7 @@ import React from 'react'
 import { Upload, Button } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
-export default function () {
+export default function() {
   return (
     <div>
       <Upload
@@ -22,7 +22,9 @@ export default function () {
           size: s => (s > 10240 ? new Error('max file size is 10KB') : undefined),
         }}
       >
-        <Button><FontAwesome name="upload" /> Upload file</Button>
+        <Button>
+          <FontAwesome name="upload" /> Upload file
+        </Button>
       </Upload>
 
       <Upload.Image

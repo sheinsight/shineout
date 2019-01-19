@@ -9,8 +9,6 @@
 import React from 'react'
 import { Input } from 'shineout'
 
-export default function () {
-  return (
-    <Input placeholder="input something" />
-  )
+export default function() {
+  return <Input placeholder="input something" />
 }

@@ -10,7 +10,7 @@ import { fetchSync } from 'doc/data/user'
 
 const data = fetchSync(6)
 
-export default function () {
+export default function() {
   return (
     <Table striped keygen="id">
       <thead>
@@ -22,16 +22,16 @@ export default function () {
         </tr>
       </thead>
       <tbody>
-        {
-          data.map(d => (
-            <tr key={d.id}>
-              <td>{d.firstName} {d.lastName}</td>
-              <td>{d.office}</td>
-              <td>{d.start}</td>
-              <td>${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}</td>
-            </tr>
-          ))
-        }
+        {data.map(d => (
+          <tr key={d.id}>
+            <td>
+              {d.firstName} {d.lastName}
+            </td>
+            <td>{d.office}</td>
+            <td>{d.start}</td>
+            <td>${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}</td>
+          </tr>
+        ))}
       </tbody>
     </Table>
   )

@@ -12,12 +12,9 @@ function Separator() {
   return <span>~</span>
 }
 
-const data = [
-  { title: 'Home', url: '#/' },
-  { title: 'Self' },
-]
+const data = [{ title: 'Home', url: '#/' }, { title: 'Self' }]
 
-export default function () {
+export default function() {
   return (
     <div>
       <Breadcrumb data={data} separator="|" />
@@ -25,4 +22,3 @@ export default function () {
     </div>
   )
 }
-

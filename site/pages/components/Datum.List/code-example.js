@@ -6,7 +6,7 @@ const datum = new Datum.List({
   separator: ',',
   prediction: (val, d) => val === d.name,
   value: 'blue',
-  onChange: (values) => {
+  onChange: values => {
     console.log(values)
   },
 })

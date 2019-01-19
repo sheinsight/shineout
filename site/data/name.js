@@ -6,8 +6,8 @@ const fns = pickUnique(firstNames, 100)
 const lns = pickUnique(lastNames, 100)
 
 const names = []
-fns.forEach((fn) => {
-  lns.forEach((ln) => {
+fns.forEach(fn => {
+  lns.forEach(ln => {
     names.push(`${fn} ${ln}`)
   })
 })

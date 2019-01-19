@@ -7,7 +7,7 @@
 import React from 'react'
 import { Button, Popover, Message } from 'shineout'
 
-export default function () {
+export default function() {
   const content = close => (
     <div style={{ padding: 20 }}>
       <div>Are you sure you want to close this panel?</div>

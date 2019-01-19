@@ -19,15 +19,13 @@ function renderItem(node, isExpanded) {
     icon = <FontAwesome name="folder" style={{ color: '#ffd666' }} />
   }
 
-  return <span>{icon} {node.text}</span>
+  return (
+    <span>
+      {icon} {node.text}
+    </span>
+  )
 }
 
-export default function () {
-  return (
-    <Tree
-      data={data}
-      keygen="id"
-      renderItem={renderItem}
-    />
-  )
+export default function() {
+  return <Tree data={data} keygen="id" renderItem={renderItem} />
 }

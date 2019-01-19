@@ -7,7 +7,7 @@
 import React from 'react'
 import { Tag } from 'shineout'
 
-export default function () {
+export default function() {
   return (
     <div>
       <Tag>Default</Tag>

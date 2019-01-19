@@ -44,7 +44,7 @@ export default class extends PureComponent {
 
   addColumn() {
     columns = [...columns, { title: `Office${columns.length}`, render: 'office' }]
-    this.setState({ width: 1200 + (columns.length * 100) })
+    this.setState({ width: 1200 + columns.length * 100 })
   }
 
   render() {
@@ -67,9 +67,7 @@ export default class extends PureComponent {
           }}
           width={this.state.width}
         />
-        <div>
-          selected rows: [{ this.state.selectedText }]
-        </div>
+        <div>selected rows: [{this.state.selectedText}]</div>
       </div>
     )
   }

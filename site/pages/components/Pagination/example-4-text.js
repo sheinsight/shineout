@@ -8,13 +8,13 @@ import React from 'react'
 import { Pagination } from 'shineout'
 
 function info({ current, pageSize, total }) {
-  const from = ((current - 1) * pageSize) + 1
+  const from = (current - 1) * pageSize + 1
   let to = current * pageSize
   if (to > total) to = total
   return `${from} to ${to} of ${total} items`
 }
 
-export default function () {
+export default function() {
   return (
     <Pagination
       text={{

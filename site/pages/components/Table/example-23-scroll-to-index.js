@@ -14,7 +14,11 @@ const columns = [
   {
     title: 'Name',
     fixed: 'left',
-    render: d => <div id={`name_${d.id}`} style={{ height: d.height }}>{d.firstName} {d.lastName}</div>,
+    render: d => (
+      <div id={`name_${d.id}`} style={{ height: d.height }}>
+        {d.firstName} {d.lastName}
+      </div>
+    ),
     width: 160,
   },
   { title: 'Country', render: 'country' },
@@ -47,12 +51,7 @@ export default class extends Component {
     return (
       <div>
         <Form value={this.state} inline onSubmit={this.handleIndexChange}>
-          <Input.Number
-            min={0}
-            max={9999}
-            width={100}
-            name="index"
-          />
+          <Input.Number min={0} max={9999} width={100} name="index" />
           <Form.Submit>Scroll</Form.Submit>
         </Form>
         <Table
@@ -62,7 +61,9 @@ export default class extends Component {
           style={{ height: 600 }}
           columns={columns}
           data={data}
-          tableRef={(table) => { this.table = table }}
+          tableRef={table => {
+            this.table = table
+          }}
           rowsInView={10}
           rowHeight={80}
         />

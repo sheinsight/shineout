@@ -22,7 +22,7 @@ export default class extends Component {
     })
   }
 
-  toggle = (visible) => {
+  toggle = visible => {
     this.setState({ visible })
   }
 
@@ -55,12 +55,7 @@ export default class extends Component {
           onClose={this.toggle.bind(this, false)}
           footer={this.renderFooter()}
         >
-          <Form
-            labelWidth={100}
-            labelAlign="right"
-            style={{ width: 500 }}
-            onSubmit={this.toggle.bind(this, false)}
-          >
+          <Form labelWidth={100} labelAlign="right" style={{ width: 500 }} onSubmit={this.toggle.bind(this, false)}>
             <Form.Item required label="Email">
               <Input name="email" />
             </Form.Item>

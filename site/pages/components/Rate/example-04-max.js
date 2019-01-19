@@ -11,8 +11,6 @@ import FontAwesome from '../Icon/FontAwesome'
 const star = <FontAwesome name="star" />
 const StarRate = Rate(star, star)
 
-export default function () {
-  return (
-    <StarRate max={10} defaultValue={3} />
-  )
+export default function() {
+  return <StarRate max={10} defaultValue={3} />
 }

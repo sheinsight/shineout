@@ -34,7 +34,7 @@ export default class extends PureComponent {
     }
   }
 
-  handelRowSelect = (values) => {
+  handelRowSelect = values => {
     this.setState({ selectedText: values })
   }
 
@@ -52,9 +52,7 @@ export default class extends PureComponent {
           onRowSelect={this.handelRowSelect}
           value={this.state.selectedText}
         />
-        <div>
-          selected rows: [{ this.state.selectedText.join(', ') }]
-        </div>
+        <div>selected rows: [{this.state.selectedText.join(', ')}]</div>
       </div>
     )
   }

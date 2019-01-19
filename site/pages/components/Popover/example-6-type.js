@@ -7,7 +7,7 @@
 import React from 'react'
 import { Button, Popover } from 'shineout'
 
-export default function () {
+export default function() {
   const content = <div style={{ width: 200, padding: 20, color: 'gold' }}>Some text</div>
   return (
     <Popover content={content} background="#555" border="gold" style={{ marginRight: 12 }}>

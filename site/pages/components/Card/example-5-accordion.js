@@ -7,7 +7,7 @@
 import React from 'react'
 import { Card } from 'shineout'
 
-export default function () {
+export default function() {
   return (
     <Card.Accordion defaultActive={1}>
       <Card>
@@ -25,4 +25,3 @@ export default function () {
     </Card.Accordion>
   )
 }
-

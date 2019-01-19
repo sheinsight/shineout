@@ -17,14 +17,6 @@ const data = [
   { id: 7, color: 'violet' },
 ]
 
-export default function () {
-  return (
-    <Radio.Group
-      keygen="id"
-      data={data}
-      format="color"
-      defaultValue="blue"
-      renderItem="color"
-    />
-  )
+export default function() {
+  return <Radio.Group keygen="id" data={data} format="color" defaultValue="blue" renderItem="color" />
 }

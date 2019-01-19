@@ -18,7 +18,7 @@ const data = [
 ]
 
 export default class extends Component {
-  renderItem = (d) => {
+  renderItem = d => {
     const style = { borderBottom: `solid 1px ${d.color}`, paddingBottom: 2 }
     return <span style={style}>{d.color}</span>
   }

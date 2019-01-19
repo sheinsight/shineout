@@ -7,8 +7,6 @@
 import React from 'react'
 import { DatePicker } from 'shineout'
 
-export default function () {
-  return (
-    <DatePicker type="datetime" defaultValue={Date.now()} />
-  )
+export default function() {
+  return <DatePicker type="datetime" defaultValue={Date.now()} />
 }

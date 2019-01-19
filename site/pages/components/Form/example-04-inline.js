@@ -23,7 +23,7 @@ const rules = {
   ],
 }
 
-export default function () {
+export default function() {
   return (
     <Form inline rules={rules}>
       <Form.Item label="Email">

@@ -15,8 +15,6 @@ const data = [
   { title: 'Self', url: '#/components/Breadcrumb' },
 ]
 
-export default function () {
-  return (
-    <Breadcrumb data={data} />
-  )
+export default function() {
+  return <Breadcrumb data={data} />
 }

@@ -8,13 +8,16 @@ import logo from './icons/logo'
 import Icon from './icons/Icon'
 import { headerClass } from './styles'
 
-const themes = [{
-  content: 'antd',
-  id: '1',
-}, {
-  content: 'default',
-  id: '2',
-}]
+const themes = [
+  {
+    content: 'antd',
+    id: '1',
+  },
+  {
+    content: 'default',
+    id: '2',
+  },
+]
 
 /*
 function getPath(pathname) {
@@ -53,30 +56,21 @@ class Header extends React.PureComponent {
     return (
       <div className={headerClass('_')}>
         <div className={headerClass('logo')}>
-          <a href="#/">
-            {logo}
-          </a>
+          <a href="#/">{logo}</a>
         </div>
         <div className={headerClass('nav')}>
-          {
-            navs.map(nav => (
-              <NavLink
-                key={nav.path}
-                to={nav.path}
-                className={headerClass(path === nav.path && 'active')}
-              >
-                {locate(nav.cn, nav.en)}
-              </NavLink>
-            ))
-          }
+          {navs.map(nav => (
+            <NavLink key={nav.path} to={nav.path} className={headerClass(path === nav.path && 'active')}>
+              {locate(nav.cn, nav.en)}
+            </NavLink>
+          ))}
         </div>
         <div className={headerClass('right')}>
           <Button size="small" onClick={handleLangClick} style={{ marginRight: 12 }}>
             {locate('English', '中文')}
           </Button>
 
-          {
-            version &&
+          {version && (
             <Dropdown
               className={headerClass('light')}
               data={this.props.versions}
@@ -85,7 +79,7 @@ class Header extends React.PureComponent {
               size="small"
               style={{ marginRight: 12 }}
             />
-          }
+          )}
 
           <Dropdown
             className={headerClass('light')}

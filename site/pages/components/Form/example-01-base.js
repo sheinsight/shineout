@@ -10,19 +10,11 @@ import { Form, Input, Checkbox, Radio, Textarea, Select, DatePicker, Tree, Uploa
 const citys = [
   {
     name: 'JiangSu',
-    children: [
-      { name: 'NanJing' },
-      { name: 'SuZhou' },
-      { name: 'YangZhou' },
-    ],
+    children: [{ name: 'NanJing' }, { name: 'SuZhou' }, { name: 'YangZhou' }],
   },
   {
     name: 'ZheJiang',
-    children: [
-      { name: 'HangZhou' },
-      { name: 'JiaQing' },
-      { name: 'WenZhou' },
-    ],
+    children: [{ name: 'HangZhou' }, { name: 'JiaQing' }, { name: 'WenZhou' }],
   },
 ]
 
@@ -43,13 +35,19 @@ export default class extends PureComponent {
     })
   }
 
-  handleChange = (value) => {
+  handleChange = value => {
     this.setState({ value })
   }
 
   render() {
     return (
-      <Form value={this.state.value} onChange={this.handleChange} onSubmit={(data) => { console.log(data) }}>
+      <Form
+        value={this.state.value}
+        onChange={this.handleChange}
+        onSubmit={data => {
+          console.log(data)
+        }}
+      >
         <Form.Item label="Email">
           <Input name="email" />
         </Form.Item>
@@ -94,11 +92,7 @@ export default class extends PureComponent {
         </Form.Item>
 
         <Form.Item label="Other Color">
-          <Radio.Group
-            name="otherColor"
-            keygen
-            data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
-          />
+          <Radio.Group name="otherColor" keygen data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']} />
         </Form.Item>
 
         <Form.Item label="Hate Color">
@@ -111,7 +105,12 @@ export default class extends PureComponent {
         </Form.Item>
 
         <Form.Item label="Date">
-          <DatePicker type="datetime" range name={['startDate', 'endDate']} defaultValue={[Date.now() - 100000000, Date.now()]} />
+          <DatePicker
+            type="datetime"
+            range
+            name={['startDate', 'endDate']}
+            defaultValue={[Date.now() - 100000000, Date.now()]}
+          />
         </Form.Item>
 
         <Form.Item label="Description">

@@ -7,7 +7,7 @@
 import React from 'react'
 import { Tag } from 'shineout'
 
-export default function () {
+export default function() {
   return (
     <div>
       <Tag backgroundColor="#eeeeee">#eeeeee</Tag>
@@ -21,11 +21,12 @@ export default function () {
       >
         #f50
       </Tag>
-      <Tag style={{
-        color: '#52c41a',
-        background: '#f6ffed',
-        borderColor: '#b7eb8f',
-      }}
+      <Tag
+        style={{
+          color: '#52c41a',
+          background: '#f6ffed',
+          borderColor: '#b7eb8f',
+        }}
       >
         #87d068
       </Tag>

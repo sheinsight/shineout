@@ -7,7 +7,7 @@
 import React from 'react'
 import { Button, Popover, Card } from 'shineout'
 
-export default function () {
+export default function() {
   const content = (
     <Card style={{ width: 300, border: 0, background: 'transparent' }}>
       <Card.Header>Header</Card.Header>

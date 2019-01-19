@@ -7,7 +7,7 @@
 import React from 'react'
 import { Form, Input } from 'shineout'
 
-export default function () {
+export default function() {
   return (
     <Form labelWidth={200} labelAlign="right" style={{ maxWidth: 500 }}>
       <Form.Item label="Email">

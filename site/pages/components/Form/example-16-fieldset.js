@@ -26,7 +26,11 @@ export default class extends PureComponent {
 
   render() {
     return (
-      <Form onSubmit={(data) => { console.log(data) }}>
+      <Form
+        onSubmit={data => {
+          console.log(data)
+        }}
+      >
         <Form.Item label="Name">
           <Input name="name" defaultValue="Harry Potter" />
         </Form.Item>
@@ -39,31 +43,23 @@ export default class extends PureComponent {
             empty={this.renderEmpty}
             defaultValue={['Hermione Granger', '']}
           >
-            {
-              ({
-                onAppend, onRemove,
-              }) => (
-                <Form.Item style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
-                  <Input
-                    style={{ width: 180, marginRight: 8 }}
-                    title="Friend name"
-                    name=""
-                    rules={[rules.required]}
-                    placeholder="Name"
-                  />
-                  <a
-                    href="javascript:;"
-                    style={{ margin: '0 12px' }}
-                    onClick={() => onAppend('')}
-                  >
-                    <FontAwesome name="plus" />
-                  </a>
-                  <a href="javascript:;" onClick={onRemove}>
-                    <FontAwesome name="close" />
-                  </a>
-                </Form.Item>
-              )
-            }
+            {({ onAppend, onRemove }) => (
+              <Form.Item style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
+                <Input
+                  style={{ width: 180, marginRight: 8 }}
+                  title="Friend name"
+                  name=""
+                  rules={[rules.required]}
+                  placeholder="Name"
+                />
+                <a href="javascript:;" style={{ margin: '0 12px' }} onClick={() => onAppend('')}>
+                  <FontAwesome name="plus" />
+                </a>
+                <a href="javascript:;" onClick={onRemove}>
+                  <FontAwesome name="close" />
+                </a>
+              </Form.Item>
+            )}
           </Form.FieldSet>
         </Form.Item>
 

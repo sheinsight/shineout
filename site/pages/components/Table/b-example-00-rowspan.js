@@ -32,7 +32,7 @@ const columns = [
   { title: 'Start Date', render: 'start', width: 140 },
 ]
 
-export default function () {
+export default function() {
   return (
     <Table
       fixed="both"

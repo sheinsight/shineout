@@ -33,10 +33,7 @@ export default class extends PureComponent {
   render() {
     return (
       <div>
-        <Form.Block
-          value={{ email: 'test@example.com' }}
-          onChange={d => console.log(d)}
-        >
+        <Form.Block value={{ email: 'test@example.com' }} onChange={d => console.log(d)}>
           <Form.Item label="Email">
             <Input name="email" />
           </Form.Item>

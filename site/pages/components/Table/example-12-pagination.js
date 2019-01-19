@@ -25,7 +25,10 @@ export default class extends PureComponent {
         sorter: this.handleSorter.bind(this, 'id'),
       },
       {
-        title: 'First Name', group: 'Name', render: 'firstName', width: 100,
+        title: 'First Name',
+        group: 'Name',
+        render: 'firstName',
+        width: 100,
       },
       {
         title: 'Last Name',
@@ -56,15 +59,13 @@ export default class extends PureComponent {
   fetchData = () => {
     const { sorter, current, pageSize } = this.state
     this.setState({ loading: true })
-    fetch.get('user', { sorter, current, pageSize }).then((res) => {
+    fetch.get('user', { sorter, current, pageSize }).then(res => {
       this.setState({ data: res.data, loading: false, total: res.total })
     })
   }
 
   render() {
-    const {
-      data, current, pageSize, total, loading,
-    } = this.state
+    const { data, current, pageSize, total, loading } = this.state
 
     return (
       <Table

@@ -34,13 +34,6 @@ const columns = [
   { title: 'Position', render: 'position', group: other },
 ]
 
-export default function () {
-  return (
-    <Table
-      bordered
-      keygen="id"
-      columns={columns}
-      data={data}
-    />
-  )
+export default function() {
+  return <Table bordered keygen="id" columns={columns} data={data} />
 }

@@ -31,14 +31,6 @@ const columns = [
   },
 ]
 
-export default function () {
-  return (
-    <Table
-      fixed="x"
-      keygen="id"
-      width={1500}
-      columns={columns}
-      data={data}
-    />
-  )
+export default function() {
+  return <Table fixed="x" keygen="id" width={1500} columns={columns} data={data} />
 }

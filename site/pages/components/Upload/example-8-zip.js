@@ -8,21 +8,20 @@ import React from 'react'
 import { Upload, Button } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
-const request = (options) => {
-  const {
-    file, onLoad, onError, onProgress,
-  } = options
+const request = options => {
+  const { file, onLoad, onError, onProgress } = options
 
   const xhr = new XMLHttpRequest()
   xhr.open('post', 'http://jsonplaceholder.typicode.com/posts')
 
   const zip = new window.JSZip()
   zip.file(file.name, file)
-  zip.generateInternalStream({ type: 'blob' })
-    .accumulate((e) => {
+  zip
+    .generateInternalStream({ type: 'blob' })
+    .accumulate(e => {
       onProgress(e, 'zipping...')
     })
-    .then((content) => {
+    .then(content => {
       const zipFile = new File([content], `${file.name}.zip`)
       const data = new FormData()
       data.append('file', zipFile)
@@ -35,7 +34,7 @@ const request = (options) => {
   return xhr
 }
 
-export default function () {
+export default function() {
   return (
     <Upload
       onSuccess={(res, file) => ({ name: `upload ${file.name}` })}
@@ -44,7 +43,9 @@ export default function () {
       request={request}
       renderResult={d => d.name}
     >
-      <Button><FontAwesome name="upload" /> Upload file</Button>
+      <Button>
+        <FontAwesome name="upload" /> Upload file
+      </Button>
     </Upload>
   )
 }

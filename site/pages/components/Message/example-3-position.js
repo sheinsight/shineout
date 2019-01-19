@@ -16,11 +16,10 @@ export default class extends React.Component {
   setPosition = position => this.setState({ position })
 
   show = () => {
-    Message.info(
-      <div style={{ width: 240 }}>some message.</div>,
-      3,
-      { position: this.state.position, title: 'notify title' },
-    )
+    Message.info(<div style={{ width: 240 }}>some message.</div>, 3, {
+      position: this.state.position,
+      title: 'notify title',
+    })
   }
 
   render() {
@@ -40,4 +39,3 @@ export default class extends React.Component {
     )
   }
 }
-

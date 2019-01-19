@@ -27,7 +27,9 @@ class NameInput extends PureComponent {
   }
 
   handleChange(index, val) {
-    const value = immer(this.props.value, (draft) => { draft[index] = val })
+    const value = immer(this.props.value, draft => {
+      draft[index] = val
+    })
     this.props.onChange(value)
   }
 
@@ -52,7 +54,7 @@ export default class extends PureComponent {
     lastName: 'Potter',
     date: {
       startDate: Date.now(),
-      endDate: Date.now() + (86400 * 5000),
+      endDate: Date.now() + 86400 * 5000,
     },
   }
 
@@ -60,7 +62,9 @@ export default class extends PureComponent {
     return (
       <Form
         value={this.initValue}
-        onSubmit={(data) => { Modal.info({ title: 'Form Data', content: <pre>{JSON.stringify(data, null, 2)}</pre> }) }}
+        onSubmit={data => {
+          Modal.info({ title: 'Form Data', content: <pre>{JSON.stringify(data, null, 2)}</pre> })
+        }}
       >
         <Form.Item label="Name">
           <Form.Field name={['firstName', 'lastName']}>

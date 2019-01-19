@@ -14,13 +14,6 @@ function renderItem(color) {
   return <span style={style}>{color}</span>
 }
 
-export default function () {
-  return (
-    <Checkbox.Group
-      keygen={c => c}
-      data={data}
-      defaultValue={['blue', 'cyan']}
-      renderItem={renderItem}
-    />
-  )
+export default function() {
+  return <Checkbox.Group keygen={c => c} data={data} defaultValue={['blue', 'cyan']} renderItem={renderItem} />
 }

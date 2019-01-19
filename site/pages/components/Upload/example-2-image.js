@@ -7,7 +7,7 @@
 import React from 'react'
 import { Upload } from 'shineout'
 
-export default function () {
+export default function() {
   return (
     <Upload.Image
       action="http://jsonplaceholder.typicode.com/posts"

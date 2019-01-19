@@ -7,8 +7,6 @@
 import React from 'react'
 import { Input } from 'shineout'
 
-export default function () {
-  return (
-    <Input.Password placeholder="input password" />
-  )
+export default function() {
+  return <Input.Password placeholder="input password" />
 }

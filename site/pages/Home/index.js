@@ -10,21 +10,27 @@ function Home() {
       <div className={homeClass('left')}>
         <div className={homeClass('content')}>
           <h2>SHINEOUT</h2>
-          <div>
-            {
-              locate('一个更加『轻量』和『快速』的基于React的桌面端组件库', 'A components library for React')
-            }
-          </div>
+          <div>{locate('一个更加『轻量』和『快速』的基于React的桌面端组件库', 'A components library for React')}</div>
           <div className={homeClass('buttons')}>
-            <Button type="primary" href="#/components">{locate('开始使用', 'Start')}</Button>
-            <Button style={{ marginLeft: 20 }} href="https://github.com/sheinsight/shineout"><Icon name="github" /> GitHub</Button>
+            <Button type="primary" href="#/components">
+              {locate('开始使用', 'Start')}
+            </Button>
+            <Button style={{ marginLeft: 20 }} href="https://github.com/sheinsight/shineout">
+              <Icon name="github" /> GitHub
+            </Button>
           </div>
         </div>
 
         <div className={homeClass('bottom-left')}>
           <svg viewBox="0 0 975 493">
             <defs>
-              <linearGradient x1="100%" y1="55.2864611%" x2="0.25781251%" y2="55.2864583%" id="shineout-html-left-bottom">
+              <linearGradient
+                x1="100%"
+                y1="55.2864611%"
+                x2="0.25781251%"
+                y2="55.2864583%"
+                id="shineout-html-left-bottom"
+              >
                 <stop stopColor="#31309F" offset="0%" />
                 <stop stopColor="#0B054F" offset="100%" />
               </linearGradient>

@@ -12,7 +12,14 @@ const columns = [
   { title: 'id', render: 'id', width: 50 },
   { title: 'Name', render: d => `${d.firstName} ${d.lastName}` },
   { title: 'test', render: () => <Select absolute width={70} data={selectData} /> },
-  { title: 'test2', render: d => <Popover trigger="click" content={<div style={{ padding: 50 }}>{d.country}</div>}><span>xxx</span></Popover> },
+  {
+    title: 'test2',
+    render: d => (
+      <Popover trigger="click" content={<div style={{ padding: 50 }}>{d.country}</div>}>
+        <span>xxx</span>
+      </Popover>
+    ),
+  },
   { title: 'Country', render: 'country' },
   { title: 'Position', render: 'position' },
   { title: 'Office', render: 'office' },
@@ -23,15 +30,6 @@ const columns = [
   },
 ]
 
-export default function () {
-  return (
-    <Table
-      fixed="both"
-      keygen="id"
-      width={1500}
-      style={{ height: 400 }}
-      columns={columns}
-      data={data}
-    />
-  )
+export default function() {
+  return <Table fixed="both" keygen="id" width={1500} style={{ height: 400 }} columns={columns} data={data} />
 }

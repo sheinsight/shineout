@@ -7,8 +7,6 @@
 import React from 'react'
 import { Input } from 'shineout'
 
-export default function () {
-  return (
-    <Input.Number width={120} min={23} max={100} digits={0} />
-  )
+export default function() {
+  return <Input.Number width={120} min={23} max={100} digits={0} />
 }

@@ -9,16 +9,10 @@ import { Select } from 'shineout'
 
 const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
-export default function () {
+export default function() {
   return (
     <div>
-      <Select
-        style={{ width: 240, marginBottom: 12 }}
-        disabled
-        keygen
-        data={data}
-        placeholder="Select color"
-      />
+      <Select style={{ width: 240, marginBottom: 12 }} disabled keygen data={data} placeholder="Select color" />
       <br />
       <Select
         style={{ width: 300 }}

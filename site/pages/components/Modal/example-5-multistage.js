@@ -29,26 +29,25 @@ export default class extends React.Component {
       <div>
         <Button onClick={this.show.bind(this, 1)}>click me</Button>
 
-        {
-          range(11, 1).map(i => (
-            <Modal
-              key={i}
-              visible={this.state.current >= i}
-              width={size[i][0]}
-              height={size[i][1]}
-              title={`Modal Title ${i}`}
-              onClose={this.show.bind(this, i - 1)}
-              footer={<Button onClick={this.show.bind(this, i - 1)}>Close</Button>}
-            >
-              Level {i}.
-              <br />
-              {
-                i < 10 &&
-                <a href="javascript:;" onClick={this.show.bind(this, i + 1)}>Next level</a>
-              }
-            </Modal>
-          ))
-        }
+        {range(11, 1).map(i => (
+          <Modal
+            key={i}
+            visible={this.state.current >= i}
+            width={size[i][0]}
+            height={size[i][1]}
+            title={`Modal Title ${i}`}
+            onClose={this.show.bind(this, i - 1)}
+            footer={<Button onClick={this.show.bind(this, i - 1)}>Close</Button>}
+          >
+            Level {i}.
+            <br />
+            {i < 10 && (
+              <a href="javascript:;" onClick={this.show.bind(this, i + 1)}>
+                Next level
+              </a>
+            )}
+          </Modal>
+        ))}
       </div>
     )
   }

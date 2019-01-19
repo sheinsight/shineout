@@ -27,14 +27,6 @@ export default class extends Component {
   }
 
   render() {
-    return (
-      <Radio.Group
-        keygen="id"
-        data={data}
-        datum={this.datum}
-        defaultValue="cyan"
-        renderItem="color"
-      />
-    )
+    return <Radio.Group keygen="id" data={data} datum={this.datum} defaultValue="cyan" renderItem="color" />
   }
 }

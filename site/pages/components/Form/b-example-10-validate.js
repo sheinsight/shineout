@@ -13,13 +13,14 @@ const rule = Rule(
   // validate function package
   {
     password: {
-      func: (value, formData, cb, props) => new Promise((resolve, reject) => {
-        if (!/\d+/.test(value) || !/[a-z]+/i.test(value)) {
-          reject(new Error(props.message.replace('{title}', props.title)))
-        } else {
-          resolve(true)
-        }
-      }),
+      func: (value, formData, cb, props) =>
+        new Promise((resolve, reject) => {
+          if (!/\d+/.test(value) || !/[a-z]+/i.test(value)) {
+            reject(new Error(props.message.replace('{title}', props.title)))
+          } else {
+            resolve(true)
+          }
+        }),
     },
     isExist: (value, _, callback) => {
       if (value.indexOf('so') >= 0) callback(new Error(`"${value}" is existed.`))
@@ -31,45 +32,26 @@ const rule = Rule(
     password: {
       message: '{title} at least has one numeral and one letter',
     },
-  },
+  }
 )
 
-export default function () {
+export default function() {
   return (
     <Form style={{ maxWidth: 500 }} rule={rule} scrollToError={30} onSubmit={d => console.log(d)}>
       <Form.Item required label="Email">
-        <Input
-          name="email"
-          title="Email"
-          rules="required;email;"
-        />
+        <Input name="email" title="Email" rules="required;email;" />
       </Form.Item>
 
       <Form.Item required label="Name">
-        <Input
-          name="name"
-          title="Name"
-          rules="required;isExist;"
-        />
+        <Input name="name" title="Name" rules="required;isExist;" />
       </Form.Item>
 
       <Form.Item required label="Password" tip="At least one letter, one numeral, and 6 - 20 characters.">
-        <Input
-          name="password"
-          title="Password"
-          type="password"
-          rules="required;length(6,20);password;"
-        />
+        <Input name="password" title="Password" type="password" rules="required;length(6,20);password;" />
       </Form.Item>
 
       <Form.Item required label="Age" tip="between 18 and 60">
-        <Input
-          name="age"
-          title="Age"
-          style={{ width: 100 }}
-          type="integer"
-          rules="required;integer;length(18,60);"
-        />
+        <Input name="age" title="Age" style={{ width: 100 }} type="integer" rules="required;integer;length(18,60);" />
       </Form.Item>
 
       <Form.Item required label="Tel">
@@ -82,11 +64,7 @@ export default function () {
       </Form.Item>
 
       <Form.Item required label="IPv4">
-        <Input
-          name="IPv4"
-          title="IP"
-          rules="required;ipv4"
-        />
+        <Input name="IPv4" title="IP" rules="required;ipv4" />
       </Form.Item>
 
       <Form.Item required label="Favorite Colors" tip="select your favorite colors">

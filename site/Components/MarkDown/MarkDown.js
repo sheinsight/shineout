@@ -13,10 +13,7 @@ const exampleReg = /^<example name="([\w|-]+)"/
 
 export default class MarkDown extends PureComponent {
   static propTypes = {
-    children: PropTypes.oneOfType([
-      PropTypes.element,
-      PropTypes.array,
-    ]),
+    children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
     codes: PropTypes.object,
     examples: PropTypes.array,
     onHeadingSetted: PropTypes.func,
@@ -51,10 +48,7 @@ export default class MarkDown extends PureComponent {
     const { codes } = this.props
     const code = codes[name]
     if (code) {
-      return [
-        <CodeBlock key="cb" value={code.text} />,
-        ...code.log.map((txt, i) => <Console key={i}>{txt}</Console>),
-      ]
+      return [<CodeBlock key="cb" value={code.text} />, ...code.log.map((txt, i) => <Console key={i}>{txt}</Console>)]
     }
     console.error(`Code ${name} not existed`)
     return null
@@ -76,7 +70,9 @@ export default class MarkDown extends PureComponent {
     })
 
     this.cache.examples = [
-      <h2 key="h" id={id}>{text}</h2>,
+      <h2 key="h" id={id}>
+        {text}
+      </h2>,
       ...examples.map((props, i) => {
         if (/\d+-/.test(props.name)) {
           const sid = `heading-${props.name}`
@@ -154,7 +150,11 @@ export default class MarkDown extends PureComponent {
           },
           link: ({ href, children }) => {
             const target = href.indexOf('http' === 0) ? '_blank' : undefined
-            return <a href={href} target={target}>{children}</a>
+            return (
+              <a href={href} target={target}>
+                {children}
+              </a>
+            )
           },
         }}
       />

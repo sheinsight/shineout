@@ -3,7 +3,9 @@ import data from './data'
 
 const datum = new Datum.List({
   format: d => d.name,
-  onChange(value) { console.log(value) },
+  onChange(value) {
+    console.log(value)
+  },
 })
 
 datum.setValue(['blue'])

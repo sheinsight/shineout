@@ -18,8 +18,6 @@ const front = [
 ]
 const TextRate = Rate(background, front)
 
-export default function () {
-  return (
-    <TextRate equal={false} size={40} defaultValue={3} />
-  )
+export default function() {
+  return <TextRate equal={false} size={40} defaultValue={3} />
 }

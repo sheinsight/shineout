@@ -11,7 +11,7 @@ import FontAwesome from '../Icon/FontAwesome'
 const star = <FontAwesome name="star" />
 const StarRate = Rate(star, star)
 
-export default function () {
+export default function() {
   return (
     <div>
       <StarRate size={14} />

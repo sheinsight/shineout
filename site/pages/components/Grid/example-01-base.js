@@ -13,7 +13,7 @@ export default class extends Component {
     this.state = { count: 5 }
   }
 
-  handleCountChange = (count) => {
+  handleCountChange = count => {
     this.setState({ count })
   }
 
@@ -32,15 +32,13 @@ export default class extends Component {
 
         <div style={{ height: 20 }} />
 
-        {
-          Array.from({ length: count }).map((n, i) => (
-            <div key={i} style={{ background: '#f2f2f2', marginBottom: 4, lineHeight: '30px' }}>
-              <Grid width={(i + 1) / count} style={{ color: '#fff', paddingLeft: 8, background: '#3399ff' }}>
-                {i + 1}/{count}
-              </Grid>
-            </div>
-          ))
-        }
+        {Array.from({ length: count }).map((n, i) => (
+          <div key={i} style={{ background: '#f2f2f2', marginBottom: 4, lineHeight: '30px' }}>
+            <Grid width={(i + 1) / count} style={{ color: '#fff', paddingLeft: 8, background: '#3399ff' }}>
+              {i + 1}/{count}
+            </Grid>
+          </div>
+        ))}
       </div>
     )
   }

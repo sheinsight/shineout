@@ -5,11 +5,8 @@
  *    -- When FieldSet's children is a function, takes the value (type is array) from the form by the name property, and generate a set of subcomponents.
  */
 import React, { PureComponent } from 'react'
-import { Form, Input, Button, Rule, Select } from 'shineout'
-import { fetchSync as fetchCity } from 'doc/data/city'
+import { Form, Input, Button, Rule } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
-
-const citys = fetchCity(100)
 
 const rules = Rule({
   isExist: (values, _, callback) => {
@@ -22,7 +19,9 @@ const rules = Rule({
     names.forEach((v, k) => {
       if (k && v.length > 1) {
         // show error to input
-        v.forEach((i) => { result[i] = ({ name: new Error(`Name "${k}" is existed.`) }) })
+        v.forEach(i => {
+          result[i] = { name: new Error(`Name "${k}" is existed.`) }
+        })
         // show error to item
         // v.forEach((i) => { result[i] = new Error(`Name "${k}"" is existed.`) })
       }
@@ -36,7 +35,11 @@ export default class extends PureComponent {
 
   render() {
     return (
-      <Form onSubmit={(data) => { console.log(data) }}>
+      <Form
+        onSubmit={data => {
+          console.log(data)
+        }}
+      >
         <Form.Item label="Name">
           <Input name="name" defaultValue="Harry Potter" />
         </Form.Item>
@@ -49,50 +52,31 @@ export default class extends PureComponent {
             empty={this.renderEmpty}
             defaultValue={[{ name: 'Hermione Granger', age: 16 }, {}]}
           >
-            {
-              ({
-                onAppend, onRemove,
-              }) => (
-                <Form.Item style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
-                  <Input
-                    style={{ width: 180, marginRight: 8 }}
-                    name="name"
-                    title="Friend name"
-                    rules={[rules.required]}
-                    placeholder="Name"
-                  />
-                  <Select
-                    name="city"
-                    data={citys}
-                    format="id"
-                    keygen="id"
-                    prediction={(v, d) => v === d.id}
-                    style={{ width: 120 }}
-                    placeholder="Select a city"
-                    renderItem="city"
-                    onFilter={t => v => v.city.indexOf(t) >= 0}
-                  />
-                  <Input
-                    style={{ width: 60 }}
-                    name="age"
-                    type="number"
-                    title="Friend age"
-                    rules={[rules.min(18)]}
-                    placeholder="Age"
-                  />
-                  <a
-                    href="javascript:;"
-                    style={{ margin: '0 12px' }}
-                    onClick={() => onAppend({ age: 16 })}
-                  >
-                    <FontAwesome name="plus" />
-                  </a>
-                  <a href="javascript:;" onClick={onRemove}>
-                    <FontAwesome name="close" />
-                  </a>
-                </Form.Item>
-              )
-            }
+            {({ onAppend, onRemove }) => (
+              <Form.Item style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
+                <Input
+                  style={{ width: 180, marginRight: 8 }}
+                  name="name"
+                  title="Friend name"
+                  rules={[rules.required]}
+                  placeholder="Name"
+                />
+                <Input
+                  style={{ width: 60 }}
+                  name="age"
+                  type="number"
+                  title="Friend age"
+                  rules={[rules.min(18)]}
+                  placeholder="Age"
+                />
+                <a href="javascript:;" style={{ margin: '0 12px' }} onClick={() => onAppend({ age: 16 })}>
+                  <FontAwesome name="plus" />
+                </a>
+                <a href="javascript:;" onClick={onRemove}>
+                  <FontAwesome name="close" />
+                </a>
+              </Form.Item>
+            )}
           </Form.FieldSet>
         </Form.Item>
 

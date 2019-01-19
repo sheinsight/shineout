@@ -27,7 +27,7 @@ export default class extends React.Component {
           if (isExpand) this.setState({ expandKeys: [...expandKeys, d.id] })
           else this.setState({ expandKeys: expandKeys.filter(k => k !== d.id) })
         },
-        render: (d) => {
+        render: d => {
           if (d.id > 5) return undefined
           return () => <div style={{ padding: '10px 30px', wordBreak: 'break-all' }}>{JSON.stringify(d)}</div>
         },
@@ -40,15 +40,6 @@ export default class extends React.Component {
         render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
       },
     ]
-    return (
-      <Table
-        fixed="y"
-        expandKeys={expandKeys}
-        data={data}
-        keygen="id"
-        style={{ height: 300 }}
-        columns={columns}
-      />
-    )
+    return <Table fixed="y" expandKeys={expandKeys} data={data} keygen="id" style={{ height: 300 }} columns={columns} />
   }
 }

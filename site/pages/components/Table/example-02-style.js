@@ -18,15 +18,6 @@ const columns = [
   { title: 'Office', render: 'office' },
 ]
 
-export default function () {
-  return (
-    <Table
-      keygen="id"
-      striped
-      bordered
-      columns={columns}
-      data={data}
-      style={{ height: 300 }}
-    />
-  )
+export default function() {
+  return <Table keygen="id" striped bordered columns={columns} data={data} style={{ height: 300 }} />
 }

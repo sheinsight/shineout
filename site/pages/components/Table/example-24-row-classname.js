@@ -23,13 +23,13 @@ const columns = [
   },
 ]
 
-const rowClassName = (d) => {
+const rowClassName = d => {
   if (d.id === 2) return 'table-bg-danger'
   if (d.id === 3) return 'table-bg-success'
   return undefined
 }
 
-export default function () {
+export default function() {
   return (
     <div>
       <Table

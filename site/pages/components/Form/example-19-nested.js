@@ -31,7 +31,13 @@ export default class extends PureComponent {
 
   render() {
     return (
-      <Form value={this.initValue} rules={this.rules} onSubmit={(data) => { console.log(data) }}>
+      <Form
+        value={this.initValue}
+        rules={this.rules}
+        onSubmit={data => {
+          console.log(data)
+        }}
+      >
         <Form.Item label="Email">
           <Input name="email" />
         </Form.Item>

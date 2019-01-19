@@ -7,7 +7,7 @@
 import React from 'react'
 import { Button, Message } from 'shineout'
 
-export default function () {
+export default function() {
   const close = () => {
     Message.warn('Close this message will display another message.', 0, {
       onClose: () => {
@@ -16,8 +16,5 @@ export default function () {
     })
   }
 
-  return (
-    <Button onClick={close}>Close</Button>
-  )
+  return <Button onClick={close}>Close</Button>
 }
-

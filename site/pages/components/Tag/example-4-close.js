@@ -13,24 +13,21 @@ import { Tag } from 'shineout'
 
 export default () => (
   <div>
-    <Tag onClose>
-      onClose=true
-    </Tag>
+    <Tag onClose>onClose=true</Tag>
 
-    <Tag onClose={() => console.log('close')}>
-      onClose=function
-    </Tag>
+    <Tag onClose={() => console.log('close')}>onClose=function</Tag>
 
     <Tag
-      onClose={() => new Promise((resolve) => {
-        setTimeout(() => {
-          console.log('promise close')
-          resolve(true)
-        }, 3000)
-      })}
+      onClose={() =>
+        new Promise(resolve => {
+          setTimeout(() => {
+            console.log('promise close')
+            resolve(true)
+          }, 3000)
+        })
+      }
     >
       onClose=promise
     </Tag>
-
   </div>
 )

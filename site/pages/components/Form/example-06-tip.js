@@ -8,7 +8,7 @@ import React from 'react'
 import { Form, Input, Checkbox } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
-export default function () {
+export default function() {
   return (
     <Form inline>
       <Input.Group tip="Email or nickname or phonenumber">

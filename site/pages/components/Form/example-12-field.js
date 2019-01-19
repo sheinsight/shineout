@@ -19,17 +19,21 @@ function Input({ value = '', error, ...props }) {
   return <input style={style} value={value} {...props} />
 }
 
-export default function () {
+export default function() {
   return (
     <Form style={{ maxWidth: 500 }} onSubmit={d => console.log(d)}>
       <Form.Item required label="Email">
         <Form.Field defaultValue="test@email.com" title="Email" rules={[rule.required, rule.email]} name="email">
-          { ({ value, onChange, error }) => <Input value={value} error={error} onChange={onChange} type="text" />}
+          {({ value, onChange, error }) => <Input value={value} error={error} onChange={onChange} type="text" />}
         </Form.Field>
       </Form.Item>
 
       <Form.Item required label="Password" tip="Use at least one letter, one numeral, and seven characters.">
-        <Form.Field title="Password" rules={[rule.required, rule.min(7), rule.regExp(/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/)]} name="password">
+        <Form.Field
+          title="Password"
+          rules={[rule.required, rule.min(7), rule.regExp(/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/)]}
+          name="password"
+        >
           <Input type="password" />
         </Form.Field>
       </Form.Item>

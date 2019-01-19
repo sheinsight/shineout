@@ -14,7 +14,7 @@ export default class extends Component {
   }
 
   handleClick = (value = this.state.value) => {
-    value += (Math.random() * 12)
+    value += Math.random() * 12
     if (value >= 100) {
       value = 100
       this.setState({ value })
@@ -36,9 +36,13 @@ export default class extends Component {
 
         <br />
 
-        <Progress shape="circle" type="success" value={value}>{value.toFixed(0)}%</Progress>
+        <Progress shape="circle" type="success" value={value}>
+          {value.toFixed(0)}%
+        </Progress>
 
-        <Button style={{ marginLeft: 80 }} onClick={this.handleClick.bind(this, 0)}>Start</Button>
+        <Button style={{ marginLeft: 80 }} onClick={this.handleClick.bind(this, 0)}>
+          Start
+        </Button>
       </div>
     )
   }

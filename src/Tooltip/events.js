@@ -68,4 +68,3 @@ export function move(id, left, top) {
 export function isCurrent(id) {
   return id === currentId
 }
-

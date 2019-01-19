@@ -14,7 +14,7 @@ const style = {
   background: '#3399ff',
 }
 
-export default function () {
+export default function() {
   return (
     <div style={{ background: '#f2f2f2' }}>
       <Grid width={1 / 3} offset={1 / 3} style={style}>

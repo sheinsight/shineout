@@ -11,7 +11,7 @@ import { fetchSync as fetchUser } from 'doc/data/user'
 const users = fetchUser(10000)
 const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
-export default function () {
+export default function() {
   return (
     <div style={{ padding: 10, height: 100, overflow: 'hidden' }}>
       <Select

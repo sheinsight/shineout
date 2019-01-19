@@ -20,14 +20,17 @@ export default class extends PureComponent {
 
     this.datum = new Datum.List({
       format: 'id',
-      onChange: (selectedValue) => {
+      onChange: selectedValue => {
         this.setState({ selectedValue })
       },
     })
 
     this.columns = [
       {
-        title: 'Id', render: 'id', width: 70, sorter: this.handleSorter.bind(this, 'id'),
+        title: 'Id',
+        render: 'id',
+        width: 70,
+        sorter: this.handleSorter.bind(this, 'id'),
       },
       { title: 'First Name', render: 'firstName' },
       { title: 'Last Name', render: 'lastName', sorter: this.handleSorter.bind(this, 'lastName') },
@@ -51,15 +54,13 @@ export default class extends PureComponent {
   fetchData = () => {
     const { sorter, current, pageSize } = this.state
     this.setState({ loading: true })
-    fetch.get('user', { sorter, current, pageSize }).then((res) => {
+    fetch.get('user', { sorter, current, pageSize }).then(res => {
       this.setState({ data: res.data, loading: false, total: res.total })
     })
   }
 
   render() {
-    const {
-      data, current, pageSize, total, loading, selectedValue,
-    } = this.state
+    const { data, current, pageSize, total, loading, selectedValue } = this.state
 
     return (
       <div>
@@ -78,9 +79,7 @@ export default class extends PureComponent {
           }}
         />
         <br />
-        <div>
-          selected rows: {JSON.stringify(selectedValue)}
-        </div>
+        <div>selected rows: {JSON.stringify(selectedValue)}</div>
       </div>
     )
   }

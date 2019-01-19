@@ -38,7 +38,7 @@ export default class extends React.Component {
     })
   }
 
-  handleSubmit = (data) => {
+  handleSubmit = data => {
     this.setState({
       visible: false,
     })

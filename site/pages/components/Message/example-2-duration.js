@@ -11,7 +11,7 @@ import { Button, Message } from 'shineout'
 const s10 = () => Message.info('This message will close after 10 seconds.', 10)
 const s0 = () => Message.error('This message will not close utill click the close icon.', 0)
 
-export default function () {
+export default function() {
   return (
     <div>
       <Button onClick={s10}>duration 10 s.</Button>
@@ -19,4 +19,3 @@ export default function () {
     </div>
   )
 }
-

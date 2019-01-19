@@ -7,9 +7,10 @@
 import React from 'react'
 import { Button } from 'shineout'
 
-export default function () {
+export default function() {
   return (
-    <Button href="#/" target="_blank" type="primary">Home</Button>
+    <Button href="#/" target="_blank" type="primary">
+      Home
+    </Button>
   )
 }
-

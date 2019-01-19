@@ -32,17 +32,11 @@ export default class extends PureComponent {
     const { placeholder } = this.state
     return (
       <div>
-        <Alert onClose>
-          Alert onClose=true
-        </Alert>
+        <Alert onClose>Alert onClose=true</Alert>
 
-        <Alert onClose={this.handleClose}>
-          Alert onClose=function
-        </Alert>
+        <Alert onClose={this.handleClose}>Alert onClose=function</Alert>
 
-        {
-          placeholder && <Alert type="info">{placeholder}</Alert>
-        }
+        {placeholder && <Alert type="info">{placeholder}</Alert>}
       </div>
     )
   }

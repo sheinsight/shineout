@@ -16,7 +16,10 @@ const examples = [
 <% examples.forEach(function (exam, i) { -%>
   {
     name: '<%= exam.path.replace("example-", "").replace(".js", "") %>',
-    title: locate('<%- exam.cn.replace(/'/g, '\\\'') %>', '<%- exam.en.replace(/'/g, '\\\'') %>'),
+    title: locate(
+      '<%- exam.cn.replace(/'/g, '\\\'') %>',
+      '<%- exam.en.replace(/'/g, '\\\'') %>'
+    ),
     component: require('doc/pages/components/<%= name %>/<%= exam.path %>').default,
     rawText: require('!raw-loader!doc/pages/components/<%= name %>/<%= exam.path %>'),
   },

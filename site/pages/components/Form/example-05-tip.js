@@ -7,7 +7,7 @@
 import React from 'react'
 import { Form, Input, Checkbox } from 'shineout'
 
-export default function () {
+export default function() {
   return (
     <Form style={{ maxWidth: 500 }}>
       <Form.Item label="Email" tip="Email or nickname or phonenumber">
@@ -19,7 +19,11 @@ export default function () {
       </Form.Item>
 
       <Form.Item label="Favorite Color" tip="select your favorite colors">
-        <Checkbox.Group name="favoriteColor" keygen={d => d} data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']} />
+        <Checkbox.Group
+          name="favoriteColor"
+          keygen={d => d}
+          data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
+        />
       </Form.Item>
     </Form>
   )

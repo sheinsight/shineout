@@ -41,11 +41,11 @@ export default class extends React.Component {
     this.state = { mode: 1, value }
   }
 
-  handleChange = (value) => {
+  handleChange = value => {
     this.setState({ value })
   }
 
-  handleModeChange = (mode) => {
+  handleModeChange = mode => {
     this.setState({ mode, value: [] })
   }
 
@@ -79,4 +79,3 @@ export default class extends React.Component {
     )
   }
 }
-

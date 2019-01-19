@@ -8,10 +8,8 @@ import React from 'react'
 import { Upload, Button } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
-const request = (options) => {
-  const {
-    file, onLoad, onError, onProgress,
-  } = options
+const request = options => {
+  const { file, onLoad, onError, onProgress } = options
   const xhr = new XMLHttpRequest()
   xhr.open('post', 'http://jsonplaceholder.typicode.com/posts')
 
@@ -25,7 +23,7 @@ const request = (options) => {
   return xhr
 }
 
-export default function () {
+export default function() {
   return (
     <Upload
       accept="image/*"
@@ -35,7 +33,9 @@ export default function () {
       request={request}
       renderResult={d => d.name}
     >
-      <Button><FontAwesome name="upload" /> Upload file</Button>
+      <Button>
+        <FontAwesome name="upload" /> Upload file
+      </Button>
     </Upload>
   )
 }

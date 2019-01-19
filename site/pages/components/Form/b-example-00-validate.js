@@ -18,21 +18,20 @@ const rules = {
     { required: true, message: 'Please enter password.' },
     { min: 7, message: 'Password must be at least {min} characters.' },
     { regExp: /[a-z]+/i, message: 'Password at least has one letter.' },
-    value => new Promise((resolve, reject) => {
-      if (/\d+/.test(value)) resolve()
-      else reject(new Error('Password at least has one numeral.'))
-    }),
+    value =>
+      new Promise((resolve, reject) => {
+        if (/\d+/.test(value)) resolve()
+        else reject(new Error('Password at least has one numeral.'))
+      }),
   ],
   age: [
     { required: true, message: 'Please enter age.' },
     { min: 18, max: 60, message: 'Age must between {min} and {max}.' },
   ],
-  colors: [
-    { min: 2, message: 'At least select 2 colors.' },
-  ],
+  colors: [{ min: 2, message: 'At least select 2 colors.' }],
 }
 
-export default function () {
+export default function() {
   return (
     <Form style={{ maxWidth: 500 }} scrollToError={30} onSubmit={d => console.log(d)}>
       <Form.Item required label="Email">

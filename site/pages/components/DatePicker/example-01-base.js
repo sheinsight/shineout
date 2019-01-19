@@ -7,11 +7,6 @@
 import React from 'react'
 import { DatePicker } from 'shineout'
 
-export default function () {
-  return (
-    <DatePicker
-      placeholder="Select date"
-      onChange={v => console.log(v)}
-    />
-  )
+export default function() {
+  return <DatePicker placeholder="Select date" onChange={v => console.log(v)} />
 }

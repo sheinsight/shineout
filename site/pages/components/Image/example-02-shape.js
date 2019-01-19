@@ -7,7 +7,7 @@
 import React from 'react'
 import { Image } from 'shineout'
 
-export default function () {
+export default function() {
   return (
     <div>
       <Image width={150} height={150} shape="rounded" title="rounded" />

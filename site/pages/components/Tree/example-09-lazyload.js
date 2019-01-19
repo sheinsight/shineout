@@ -17,18 +17,20 @@ export default class extends Component {
     this.state = { data: initData, value: [] }
   }
 
-  loader = (key) => {
+  loader = key => {
     const path = key.split(',')
 
     setTimeout(() => {
-      this.setState(immer((draft) => {
-        let { data } = draft
-        path.forEach((pid, i) => {
-          data = data.find(d => d.id === pid)
-          if (i < path.length - 1) data = data.children
+      this.setState(
+        immer(draft => {
+          let { data } = draft
+          path.forEach((pid, i) => {
+            data = data.find(d => d.id === pid)
+            if (i < path.length - 1) data = data.children
+          })
+          data.children = [...createRange().map(i => ({ id: `${data.id}-${i}` }))]
         })
-        data.children = [...createRange().map(i => ({ id: `${data.id}-${i}` }))]
-      }))
+      )
     }, 500)
   }
 
@@ -51,4 +53,3 @@ export default class extends Component {
     )
   }
 }
-

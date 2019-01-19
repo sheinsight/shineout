@@ -9,7 +9,7 @@ import { DatePicker } from 'shineout'
 
 const style = { marginRight: 12 }
 
-export default function () {
+export default function() {
   return (
     <div>
       <DatePicker style={style} type="time" defaultValue={Date.now()} />

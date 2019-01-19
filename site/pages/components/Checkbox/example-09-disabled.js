@@ -9,20 +9,20 @@ import { Checkbox } from 'shineout'
 
 const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
-export default function () {
+export default function() {
   return (
     <div>
-      <Checkbox.Group
-        disabled
-        keygen
-        data={data}
-        defaultValue={['blue', 'cyan']}
-        renderItem={d => d}
-      />
+      <Checkbox.Group disabled keygen data={data} defaultValue={['blue', 'cyan']} renderItem={d => d} />
       <br />
-      <Checkbox disabled checked={false}>not checked</Checkbox>
-      <Checkbox disabled checked>checked</Checkbox>
-      <Checkbox disabled checked="indeterminate">indeterminate</Checkbox>
+      <Checkbox disabled checked={false}>
+        not checked
+      </Checkbox>
+      <Checkbox disabled checked>
+        checked
+      </Checkbox>
+      <Checkbox disabled checked="indeterminate">
+        indeterminate
+      </Checkbox>
     </div>
   )
 }

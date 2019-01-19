@@ -38,11 +38,12 @@ function init() {
 
 init()
 
-export const all = (delay = 500) => new Promise((resolve) => {
-  setTimeout(() => {
-    resolve(allData)
-  }, delay)
-})
+export const all = (delay = 500) =>
+  new Promise(resolve => {
+    setTimeout(() => {
+      resolve(allData)
+    }, delay)
+  })
 
 // eslint-disable-next-line
 export function fetchSync(count = 100, start = 0, sorter = {}, username) {
@@ -66,7 +67,7 @@ export function fetchSync(count = 100, start = 0, sorter = {}, username) {
 
   if (username) {
     username = username.toLocaleLowerCase()
-    data = data.filter(d => (`${d.firstName} ${d.lastName}`).toLocaleLowerCase().indexOf(username) >= 0)
+    data = data.filter(d => `${d.firstName} ${d.lastName}`.toLocaleLowerCase().indexOf(username) >= 0)
   }
 
   return data.slice(start, start + count)
@@ -76,7 +77,7 @@ export const fetch = {
   // eslint-disable-next-line
   get(src, { current = 1, pageSize = 100, sorter, username }) {
     const start = (current - 1) * pageSize
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       setTimeout(() => {
         resolve({
           status: 1,
@@ -90,7 +91,7 @@ export const fetch = {
   },
 
   post(src, { op, ids }) {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       switch (op) {
         case 'delete':
           allData = allData.filter(d => ids.indexOf(d.id) < 0)

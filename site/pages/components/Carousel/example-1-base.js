@@ -8,7 +8,10 @@ import React, { Component } from 'react'
 import { Carousel, Select } from 'shineout'
 
 const containerStyle = {
-  fontSize: 40, color: '#fff', display: 'flex', margin: 'auto',
+  fontSize: 40,
+  color: '#fff',
+  display: 'flex',
+  margin: 'auto',
 }
 
 export default class extends Component {
@@ -27,9 +30,7 @@ export default class extends Component {
   }
 
   render() {
-    const {
-      interval, animation, indicatorPosition, indicatorType,
-    } = this.state
+    const { interval, animation, indicatorPosition, indicatorType } = this.state
 
     return (
       <div>
@@ -61,7 +62,6 @@ export default class extends Component {
             size="small"
             onChange={this.propChange.bind(this, 'indicatorType')}
           />
-
         </div>
 
         <Carousel
@@ -72,19 +72,13 @@ export default class extends Component {
           indicatorType={indicatorType}
         >
           <div style={{ background: '#666', display: 'flex' }}>
-            <div style={containerStyle}>
-              Page 1
-            </div>
+            <div style={containerStyle}>Page 1</div>
           </div>
           <div style={{ background: '#fa8c16', display: 'flex' }}>
-            <div style={containerStyle}>
-              Page 2
-            </div>
+            <div style={containerStyle}>Page 2</div>
           </div>
           <div style={{ background: '#eb2f96', display: 'flex' }}>
-            <div style={containerStyle}>
-              Page 3
-            </div>
+            <div style={containerStyle}>Page 3</div>
           </div>
           <a href="javascript:;">
             <img alt="" style={{ width: '100%', height: '100%' }} src="/images/1_b.jpg" />
