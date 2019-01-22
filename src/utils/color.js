@@ -29,13 +29,11 @@ const MATCH = {
 
 const isString = (string) => {
   if (!string) {
-    console.error(new Error('the color is empty'))
-    return false
+    throw new Error('the color is empty')
   }
 
   if (typeof string !== 'string') {
-    console.error(new Error(`the color is get a ${typeof string}, expect string`))
-    return false
+    throw new Error(`the color is get a ${typeof string}, expect string`)
   }
   return true
 }
@@ -284,7 +282,7 @@ export function hslToHex(hsl, noAlpha) {
 // dark or light
 
 export function judgeDark(color) {
-  if (!isString) return undefined
+  if (!isString(color)) return undefined
 
   let rgbString = color
 
