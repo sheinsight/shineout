@@ -123,7 +123,7 @@ Create a new React project：
 $ create-react-app first-shineout-demo
 ```
 
-During the create-react-app will automatically help you to install dependencies without npm or yarn.
+During the create-react-app will automatically help you to install dependencies without npm.
 
 Then we go inside first-shineout-demo and start it:
 
@@ -197,7 +197,7 @@ The relevant components of the shineout component library are already included i
 Import [rescripts](https://github.com/harrysolovay/rescripts) and Modify package.json.
 
 ```
-$ npm i @rescripts/cli @rescripts/rescript-env
+$ npm i @rescripts/cli
 ```
 
 Modify `package.json`:
@@ -214,10 +214,6 @@ Modify `package.json`:
 -   "eject": "react-scripts eject"
 }
 ...
-+ "rescripts": [
-+   "env"
-+  ]
-...
 ```
 
 Create a `.rescriptsrc.js` in root directory.
@@ -231,7 +227,7 @@ module.exports = [];
 [babel-plugin-import](https://github.com/ant-design/babel-plugin-import) create by antd and is a babel plugin.
 
 ```
-$ yarn add babel-plugin-import @rescripts/rescript-use-babel-config
+$ npm i babel-plugin-import @rescripts/rescript-use-babel-config
 ```
 
 Modify .rescriptsrc.js file, add Babel configuration:
@@ -310,7 +306,7 @@ module.exports = [
 ];
 ```
 
-4. Re-run `yarn start`.
+4. Re-run `npm start`.
 
 ## I18N
 

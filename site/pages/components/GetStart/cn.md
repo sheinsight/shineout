@@ -142,7 +142,7 @@ $ npm i -g create-react-app
 $ create-react-app first-shineout-demo
 ```
 
-期间 create-react-app 会自动将相关依赖帮你安装好，无需执行 npm 或 yarn。
+期间 create-react-app 会自动将相关依赖帮你安装好，无需执行 npm。
 
 进入目录，并运行：
 ```
@@ -213,7 +213,7 @@ export default App;
 引入 [rescripts](https://github.com/harrysolovay/rescripts) 并修改 package.json（ rescripts 社区提供的 create-react-app 配置解决方案之一）。
 
 ```
-$ npm i @rescripts/cli @rescripts/rescript-env
+$ npm i @rescripts/cli
 ```
 
 修改 `package.json` 文件：
@@ -230,10 +230,6 @@ $ npm i @rescripts/cli @rescripts/rescript-env
 -   "eject": "react-scripts eject"
 }
 ...
-+ "rescripts": [
-+   "env"
-+  ]
-...
 ```
 
 然后在项目根目录创建一个 `.rescriptsrc.js` 用于修改默认配置。
@@ -247,7 +243,7 @@ module.exports = [];
 [babel-plugin-import](https://github.com/ant-design/babel-plugin-import) 是由 antd 团队提供实现按需加载的 Babel 插件。
 
 ```
-$ yarn add babel-plugin-import @rescripts/rescript-use-babel-config
+$ npm i babel-plugin-import @rescripts/rescript-use-babel-config
 ```
 
 修改 .rescriptsrc.js 文件，添加 Babel 相关配置：
@@ -326,7 +322,7 @@ module.exports = [
 ];
 ```
 
-4. 重新执行 `yarn start` 即可
+4. 重新执行 `npm start` 即可
 
 
 ## I18N
