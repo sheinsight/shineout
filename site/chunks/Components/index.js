@@ -12,10 +12,10 @@ const pages = [
     component: lazy(() => import(/* webpackChunkName: "GetStart" */ './GetStart')),
   },
   {
-    name: 'InCreateReactApp',
+    name: 'UseInCreateReactApp',
     cn: '',
     level: 1,
-    component: lazy(() => import(/* webpackChunkName: "InCreateReactApp" */ './InCreateReactApp')),
+    component: lazy(() => import(/* webpackChunkName: "UseInCreateReactApp" */ './UseInCreateReactApp')),
   },
   'General',
   {
