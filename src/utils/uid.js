@@ -21,7 +21,7 @@ function $getKey(d, gen, index) {
 export function getKey(...args) {
   const key = $getKey(...args)
   if (typeof key !== 'string' && typeof key !== 'number') {
-    console.error(new Error(`keygen result expect a string or a number, get '${typeof key}'`))
+    throw new Error(`keygen result expect a string or a number, get '${typeof key}'`)
   }
 
   return key
