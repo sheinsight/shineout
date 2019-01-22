@@ -135,9 +135,7 @@ class Select extends PureComponent {
   }
 
   handleChange(_, data, fromInput) {
-    const {
-      datum, multiple, disabled,
-    } = this.props
+    const { datum, multiple, disabled } = this.props
     if (disabled === true) return
 
     // if click option, ignore blur event
@@ -230,19 +228,31 @@ class Select extends PureComponent {
 
   renderItem(data, index) {
     const { renderItem } = this.props
-    return typeof renderItem === 'function'
-      ? renderItem(data, index)
-      : data[renderItem]
+    return typeof renderItem === 'function' ? renderItem(data, index) : data[renderItem]
   }
 
   renderOptions() {
     const { focus, control, position } = this.state
 
-    const props = {};
-    ([
-      'data', 'datum', 'keygen', 'multiple', 'columns', 'columnWidth', 'text', 'itemsInView',
-      'absolute', 'lineHeight', 'height', 'loading', 'onFilter', 'filterText',
-    ]).forEach((k) => { props[k] = this.props[k] })
+    const props = {}
+    ;[
+      'data',
+      'datum',
+      'keygen',
+      'multiple',
+      'columns',
+      'columnWidth',
+      'text',
+      'itemsInView',
+      'absolute',
+      'lineHeight',
+      'height',
+      'loading',
+      'onFilter',
+      'filterText',
+    ].forEach(k => {
+      props[k] = this.props[k]
+    })
 
     const listType = `${props.absolute ? 'a' : 'n'}${props.columns > 1 ? 'b' : 'o'}`
     const List = ListSet[listType]
@@ -267,7 +277,16 @@ class Select extends PureComponent {
 
   render() {
     const {
-      placeholder, multiple, clearable, disabled, size, onFilter, datum, filterText, onCreate, result,
+      placeholder,
+      multiple,
+      clearable,
+      disabled,
+      size,
+      onFilter,
+      datum,
+      filterText,
+      onCreate,
+      result,
     } = this.props
     const className = selectClass(
       'inner',
@@ -275,7 +294,7 @@ class Select extends PureComponent {
       this.state.focus && 'focus',
       this.state.position,
       multiple && 'multiple',
-      disabled === true && 'disabled',
+      disabled === true && 'disabled'
     )
     const renderResult = this.props.renderResult || this.renderItem
 
@@ -307,7 +326,7 @@ class Select extends PureComponent {
           onInputFocus={this.handleInputFocus}
           setInputReset={this.setInputReset}
         />
-        { this.renderOptions() }
+        {this.renderOptions()}
       </div>
     )
   }
@@ -320,28 +339,19 @@ Select.propTypes = {
   columns: PropTypes.number,
   data: PropTypes.array,
   datum: PropTypes.object.isRequired,
-  disabled: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.func,
-  ]),
+  disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   filterText: PropTypes.string,
   height: PropTypes.number,
   itemsInView: PropTypes.number,
   lineHeight: PropTypes.number,
-  loading: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.bool,
-  ]),
+  loading: PropTypes.oneOfType([PropTypes.element, PropTypes.bool]),
   multiple: PropTypes.bool,
   onBlur: PropTypes.func,
   onCreate: PropTypes.func,
   onFilter: PropTypes.func,
   onFocus: PropTypes.func,
   position: PropTypes.string,
-  renderItem: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-  ]),
+  renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   result: PropTypes.array,
   size: PropTypes.string,
   text: PropTypes.object,

@@ -41,7 +41,7 @@ export default curry(Origin =>
         combineRules: PropTypes.func,
         defaultValue: PropTypes.any,
         fieldSetValidate: PropTypes.func,
-        forceChangeOnValueSet: PropTypes.func,
+        forceChangeOnValueSet: PropTypes.bool,
         formDatum: PropTypes.object,
         innerFormNamePath: PropTypes.string,
         loopContext: PropTypes.object,
@@ -192,7 +192,7 @@ export default curry(Origin =>
           validateProps.type = 'array'
         }
 
-        if (type === FORCE_PASS) {
+        if (type === FORCE_PASS || value === FORCE_PASS) {
           this.handleError()
           return Promise.resolve(true)
         }
@@ -274,7 +274,7 @@ export default curry(Origin =>
         if (shallowEqual(newValue, this.lastValue)) return
         this.lastValue = newValue
 
-        if (onChange && forceChangeOnValueSet) forceChangeOnValueSet(newValue)
+        if (onChange && forceChangeOnValueSet) onChange(newValue)
 
         if (type !== IGNORE_VALIDATE) {
           if (this.updateTimer) clearTimeout(this.updateTimer)

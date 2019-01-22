@@ -5,15 +5,20 @@ import { deepGet, deepSet, deepRemove, deepMerge, objectValues } from '../utils/
 import { isObject, isArray } from '../utils/is'
 import { promiseAll, FormError } from '../utils/errors'
 import {
-  updateSubscribe, errorSubscribe, changeSubscribe,
-  VALIDATE_TOPIC, RESET_TOPIC, CHANGE_TOPIC, FORCE_PASS, ERROR_TYPE, IGNORE_VALIDATE,
+  updateSubscribe,
+  errorSubscribe,
+  changeSubscribe,
+  VALIDATE_TOPIC,
+  RESET_TOPIC,
+  CHANGE_TOPIC,
+  FORCE_PASS,
+  ERROR_TYPE,
+  IGNORE_VALIDATE,
 } from './types'
 
 export default class {
   constructor(options = {}) {
-    const {
-      removeUndefined = true, rules, onChange, value, error, initValidate,
-    } = options
+    const { removeUndefined = true, rules, onChange, value, error, initValidate } = options
     this.rules = rules
     this.onChange = onChange
     this.removeUndefined = removeUndefined
@@ -116,7 +121,7 @@ export default class {
     const no = `${name}.`
     Object.keys(this.$inputNames)
       .filter(n => n.indexOf(na) === 0 || n.indexOf(no) === 0)
-      .forEach((n) => {
+      .forEach(n => {
         this.dispatch(updateSubscribe(n), this.get(n), n, type)
       })
   }
@@ -147,7 +152,7 @@ export default class {
     const no = `${name}.`
     Object.keys(this.$inputNames)
       .filter(n => n.indexOf(na) === 0 || n.indexOf(no) === 0)
-      .forEach((n) => {
+      .forEach(n => {
         this.dispatch(errorSubscribe(n), this.getError(n), n, ERROR_TYPE)
       })
   }
@@ -167,10 +172,12 @@ export default class {
 
     // wait render end.
     setTimeout(() => {
-      Object.keys(this.$inputNames).sort((a, b) => a.length - b.length).forEach((name) => {
-        this.dispatch(updateSubscribe(name), this.get(name), name, type)
-        this.dispatch(changeSubscribe(name))
-      })
+      Object.keys(this.$inputNames)
+        .sort((a, b) => a.length - b.length)
+        .forEach(name => {
+          this.dispatch(updateSubscribe(name), this.get(name), name, type)
+          this.dispatch(changeSubscribe(name))
+        })
 
       // for flow
       this.dispatch(CHANGE_TOPIC)
@@ -242,13 +249,15 @@ export default class {
         ...(this.$events[VALIDATE_TOPIC] || []).map(fn => fn()),
       ]
 
-      Promise.all(validates).then((res) => {
-        const error = res.find(r => r !== true)
-        if (error === undefined) resolve(true)
-        else reject(error)
-      }).catch((e) => {
-        reject(new FormError(e))
-      })
+      Promise.all(validates)
+        .then(res => {
+          const error = res.find(r => r !== true)
+          if (error === undefined) resolve(true)
+          else reject(error)
+        })
+        .catch(e => {
+          reject(new FormError(e))
+        })
     })
   }
 
@@ -259,7 +268,7 @@ export default class {
 
     const validations = []
     const values = this.getValue()
-    Object.keys(this.$validator).forEach((n) => {
+    Object.keys(this.$validator).forEach(n => {
       if (n === name || n.indexOf(name) === 0) {
         validations.push(this.$validator[n](this.get(n), values, type))
       }

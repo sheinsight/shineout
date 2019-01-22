@@ -35,12 +35,7 @@ export default class Loop extends PureComponent {
   componentDidMount() {
     super.componentDidMount()
     const { formDatum, name, defaultValue } = this.props
-    formDatum.bind(
-      name,
-      this.handleUpdate.bind(this),
-      defaultValue,
-      this.validate,
-    )
+    formDatum.bind(name, this.handleUpdate.bind(this), defaultValue, this.validate)
   }
 
   componentWillUnmount() {
@@ -68,13 +63,16 @@ export default class Loop extends PureComponent {
     let rules = [...this.props.rules]
     rules = rules.concat(formDatum.getRule(name))
 
-    return validate(value, data, rules, 'array').then(() => {
-      formDatum.setError(name, [])
-      return true
-    }, (e) => {
-      formDatum.setError(name, e)
-      return wrapFormError(e)
-    })
+    return validate(value, data, rules, 'array').then(
+      () => {
+        formDatum.setError(name, [])
+        return true
+      },
+      e => {
+        formDatum.setError(name, e)
+        return wrapFormError(e)
+      }
+    )
   }
 
   updateWithValidate() {
@@ -93,7 +91,9 @@ export default class Loop extends PureComponent {
     } else if (type === FORCE_PASS) {
       this.validate(FORCE_PASS)
     } else {
-      this.selfValidate().then(this.update).catch(() => {})
+      this.selfValidate()
+        .then(this.update)
+        .catch(() => {})
     }
   }
 
@@ -127,9 +127,7 @@ export default class Loop extends PureComponent {
   }
 
   render() {
-    const {
-      children, empty, formDatum, name, defaultValue,
-    } = this.props
+    const { children, empty, formDatum, name, defaultValue } = this.props
     const values = formDatum.get(name) || defaultValue
     const error = formDatum.getError(name)
 
@@ -137,28 +135,25 @@ export default class Loop extends PureComponent {
       return empty(this.handleInsert.bind(this, 0))
     }
 
-    range(values.length, 0).forEach((i) => {
+    range(values.length, 0).forEach(i => {
       if (!this.keys[i]) this.keys[i] = getUidStr()
     })
 
     const errorList = Array.isArray(error) ? error : []
     const results = values.map((value, index) => (
       <Tag key={this.keys[index]}>
-        {
-          children({
-            list: values,
-            value,
-            index,
-            error: errorList[index],
-            onChange: this.handleChange.bind(this, index),
-            onInsert: this.handleInsert.bind(this, index),
-            onAppend: this.handleInsert.bind(this, index + 1),
-            onRemove: this.handleRemove.bind(this, index),
-          })
-        }
+        {children({
+          list: values,
+          value,
+          index,
+          error: errorList[index],
+          onChange: this.handleChange.bind(this, index),
+          onInsert: this.handleInsert.bind(this, index),
+          onAppend: this.handleInsert.bind(this, index + 1),
+          onRemove: this.handleRemove.bind(this, index),
+        })}
       </Tag>
     ))
-
 
     if (error instanceof Error) {
       results.push(<FieldError key="error" error={error} />)
@@ -184,12 +179,7 @@ Loop.defaultProps = {
 
 // eslint-disable-next-line
 export const loopConsumer = Origin => class extends PureComponent {
-  render() {
-    return (
-      <Consumer>
-        { value => <Origin {...this.props} loopContext={value} /> }
-      </Consumer>
-    )
+    render() {
+      return <Consumer>{value => <Origin {...this.props} loopContext={value} />}</Consumer>
+    }
   }
-}
-
