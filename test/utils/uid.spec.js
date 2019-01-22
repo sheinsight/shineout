@@ -1,4 +1,4 @@
-import { getUid, getUidStr, getKey } from "../../src/utils/uid"
+import { getUid, getUidStr, getKey } from '../../src/utils/uid'
 
 describe('uid.js[getUid-getUidStr]', () => {
   let first
