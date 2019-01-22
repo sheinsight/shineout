@@ -5,7 +5,7 @@ const common = require('./config.common')
 
 function getEntry(entry) {
   const newEntry = {}
-  Object.keys(entry).forEach((key) => {
+  Object.keys(entry).forEach(key => {
     newEntry[key] = [
       'react-hot-loader/patch',
       `webpack-dev-server/client?http://localhost:${config.dev.webpackPort}`,
@@ -40,9 +40,7 @@ function getCompiler(name, conf) {
 
     mode: 'development',
 
-    plugins: [
-      new webpack.HotModuleReplacementPlugin(),
-    ],
+    plugins: [new webpack.HotModuleReplacementPlugin()],
   })
 }
 

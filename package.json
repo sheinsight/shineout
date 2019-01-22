@@ -118,7 +118,7 @@
     "react-router-dom": "^4.4.0-beta.6",
     "rimraf": "^2.6.2",
     "style-loader": "^0.21.0",
-    "terser-webpack-plugin": "^1.2.1",
+    "uglifyjs-webpack-plugin": "^2.1.1",
     "url-loader": "^0.6.2",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.2.0",
