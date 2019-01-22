@@ -135,4 +135,14 @@ describe('clone.js[deepClone]', () => {
     })
     expect(() => deepClone(source)).toThrow()
   })
+  it('should deep clone null/undefined/NaN', () => {
+    expect(deepClone(null)).toBeNull()
+    expect(deepClone(undefined)).toBeUndefined()
+    expect(deepClone(NaN)).toBeNaN()
+  })
+  it('deep clone if empty', () => {
+    const res = deepClone()
+    expect(res).toBeUndefined()
+  })
 })
+
