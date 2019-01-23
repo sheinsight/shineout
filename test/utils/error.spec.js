@@ -1,11 +1,4 @@
-import { FormError, isError, wrapFormError, isSameError, promiseAll } from '../../src/utils/errors'
-
-test('', () => {
-  console.log(isError())
-  // #todo: why false?
-  const err = new FormError('error')
-  console.log(err instanceof Error)
-})
+import { FormError, isSameError, promiseAll } from '../../src/utils/errors'
 
 describe('errors.js[FormError-wrapFormError-isSameError]', () => {
   test('should have FormError instance data', () => {
@@ -16,8 +9,6 @@ describe('errors.js[FormError-wrapFormError-isSameError]', () => {
   })
 
   test('should wrap error if Error/[Error]', () => {
-    const err = new FormError('error')
-    console.log(err instanceof FormError)
     // console.log(wrapFormError(err) instanceof FormError)
     // expect(wrapFormError(err) instanceof FormError).toBeTruthy()
     // expect(wrapFormError([err, err]) instanceof Array).toBeTruthy()

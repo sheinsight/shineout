@@ -1,7 +1,7 @@
 export function range(end, start = 0) {
   const delta = end - start
   if (typeof delta !== 'number' || Number.isNaN(delta)) {
-    throw new Error('end can not computed with start')
+    console.log(new Error('end can not computed with start'))
   }
   return Array.from({ length: end - start }, (v, k) => k + start)
 }

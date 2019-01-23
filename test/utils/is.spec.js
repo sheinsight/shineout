@@ -4,7 +4,7 @@ describe('is.js[isArray]', () => {
   test('should return true if array', () => {
     expect(is.isArray([])).toBeTruthy()
     // eslint-disable-next-line
-    expect(isArray(new Array())).toBeTruthy()
+    expect(is.isArray(new Array())).toBeTruthy()
   })
   test('should return false if not array/array like', () => {
     expect(is.isArray(new Set())).toBeFalsy()
@@ -57,7 +57,7 @@ describe('is.js[isNan]', () => {
 describe('is.js[isFunc]', () => {
   test('should return true if a func', () => {
     // eslint-disable-next-line
-    expect(isFunc(function() {})).toBeTruthy()
+    expect(is.isFunc(function() {})).toBeTruthy()
     // eslint-disable-next-line
     expect(is.isFunc(()=> {})).toBeTruthy()
     expect(is.isFunc(Date.constructor)).toBeTruthy()
