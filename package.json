@@ -24,6 +24,7 @@
   },
   "scripts": {
     "test": "cross-env NODE_ENV=test jest",
+    "test:silent": "cross-env NODE_ENV=test jest --silent",
     "test:cover": "jest --coverage",
     "lint": "eslint src/",
     "start": "cross-env NODE_ENV=development node dev-server.js",

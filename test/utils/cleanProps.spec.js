@@ -1,7 +1,7 @@
 import cleanProps from '../../src/utils/cleanProps'
 
 describe('cleanProps.js[cleanProps]', () => {
-  test('should clean if needed', () => {
+  test('should clean if needed, keep argument', () => {
     const props = {
       a: 1,
       delay: 1,

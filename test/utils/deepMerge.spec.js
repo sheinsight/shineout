@@ -188,4 +188,3 @@ describe('object.js[deepMerge]', () => {
     expect(res).toEqual({ b: 123 })
   })
 })
-
