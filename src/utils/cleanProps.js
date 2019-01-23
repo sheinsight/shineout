@@ -6,7 +6,12 @@ const names = [
   'innerFormNamePath', 'fieldSetValidate', 'combineRules',
 ]
 
-export default function (props) {
+/**
+ * delete some props if needed, will not modify the pass argument
+ * @param props
+ * @returns {Produced<*, *>}
+ */
+export default function cleanProps(props) {
   return immer(props, (draft) => {
     names.forEach(p => delete draft[p])
   })

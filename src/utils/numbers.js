@@ -8,7 +8,7 @@ export function range(end, start = 0) {
 
 export function split(total, nums) {
   if (typeof total !== 'number' || total === 0) {
-    throw new Error('total mast be a number(not equal 0)')
+    console.log(new Error('total mast be a number(not equal 0)'))
   }
   let remain = 1
   let nilCount = 0
