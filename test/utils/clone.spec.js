@@ -11,10 +11,7 @@ describe('clone.js[deepClone]', () => {
     const source = {
       a: {
         b: {
-          c: [
-            { a: 1, b: 2 },
-            { c: 3, d: 4 },
-          ],
+          c: [{ a: 1, b: 2 }, { c: 3, d: 4 }],
         },
         e: {
           3: 1,
@@ -29,7 +26,7 @@ describe('clone.js[deepClone]', () => {
       o: Object(),
       p: new Map(),
       q: new Set(),
-      r: /abcd/ig,
+      r: /abcd/gi,
     }
     const res = deepClone(source)
     expect(res).toEqual(source)
@@ -145,4 +142,3 @@ describe('clone.js[deepClone]', () => {
     expect(res).toBeUndefined()
   })
 })
-

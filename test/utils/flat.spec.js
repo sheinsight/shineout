@@ -6,10 +6,7 @@ const func = () => {}
 const testObject = {
   a: {
     b: {
-      c: [
-        { a: 1, b: 2 },
-        { c: 3, d: 4 },
-      ],
+      c: [{ a: 1, b: 2 }, { c: 3, d: 4 }],
     },
     e: {
       3: 1,
@@ -46,10 +43,7 @@ describe('flat.js', () => {
   test('flatten skip array', () => {
     const object = flatten(testObject, true)
     expect(object).toEqual({
-      'a.b.c': [
-        { a: 1, b: 2 },
-        { c: 3, d: 4 },
-      ],
+      'a.b.c': [{ a: 1, b: 2 }, { c: 3, d: 4 }],
       'a.e.3': 1,
       'a.g': 'some string',
       h: 123,
@@ -90,9 +84,11 @@ describe('flat.js', () => {
     spliceValue(values, 'a', 2)
     expect(values).toEqual(result)
     spliceValue(values, 'a', 1)
-    expect(values).toEqual(flatten({
-      a: [{ a: 1 }, { d: 4 }],
-    }))
+    expect(values).toEqual(
+      flatten({
+        a: [{ a: 1 }, { d: 4 }],
+      })
+    )
   })
   test('unflatten object', () => {
     const object = unflatten(testResult)
@@ -158,10 +154,7 @@ describe('flat.js', () => {
     const obj = flatten({
       a: {
         b: {
-          c: [
-            { a: 1, b: 2 },
-            { c: 3, d: 4 },
-          ],
+          c: [{ a: 1, b: 2 }, { c: 3, d: 4 }],
         },
       },
     })
@@ -170,10 +163,7 @@ describe('flat.js', () => {
     expect(unflatten(obj)).toEqual({
       a: {
         b: {
-          c: [
-            { a: 1 },
-            { c: 3, d: 4 },
-          ],
+          c: [{ a: 1 }, { c: 3, d: 4 }],
         },
       },
     })
@@ -182,9 +172,7 @@ describe('flat.js', () => {
     expect(unflatten(obj)).toEqual({
       a: {
         b: {
-          c: [
-            { c: 3, d: 4 },
-          ],
+          c: [{ c: 3, d: 4 }],
         },
       },
     })
