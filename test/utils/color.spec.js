@@ -5,13 +5,11 @@ describe('color.js[rgbToHex]', () => {
     const rgbs = ['rgb(255, 255, 255)', 'rgb(255, 195, 49)', 'rgb(51, 171, 98)']
     const hexs = ['#ffffff', '#ffc331', '#33ab62']
     rgbs.forEach((rgb, index) => {
-      expect(color.rgbToHex(rgb))
-        .toBe(hexs[index])
+      expect(color.rgbToHex(rgb)).toBe(hexs[index])
     })
   })
   it('input wrong rgb data', () => {
-    expect(() => color.rgbToHex('rgb(255, 255, 300)'))
-      .toThrow()
+    expect(() => color.rgbToHex('rgb(255, 255, 300)')).toThrow()
   })
 })
 describe('color.js[hexToHsl]', () => {
@@ -19,13 +17,11 @@ describe('color.js[hexToHsl]', () => {
     const hexs = ['#ffddee', 'eedd337f']
     const hsls = ['hsl(330, 100, 93)', 'hsla(54, 84, 56, 0.5)']
     hexs.forEach((hex, index) => {
-      expect(color.hexToHsl(hex))
-        .toBe(hsls[index])
+      expect(color.hexToHsl(hex)).toBe(hsls[index])
     })
   })
   it('input wrong hex data', () => {
-    expect(() => color.hexToHsl('#fgqrrq'))
-      .toThrow()
+    expect(() => color.hexToHsl('#fgqrrq')).toThrow()
   })
 })
 describe('color.js[hexToRgb]', () => {
@@ -33,13 +29,11 @@ describe('color.js[hexToRgb]', () => {
     const rgbs = ['rgb(255, 255, 255)', 'rgb(255, 195, 49)', 'rgb(51, 171, 98)']
     const hexs = ['#ffffff', '#ffc331', '#33ab62']
     hexs.forEach((hex, index) => {
-      expect(color.hexToRgb(hex))
-        .toBe(rgbs[index])
+      expect(color.hexToRgb(hex)).toBe(rgbs[index])
     })
   })
   it('input wrong hex data', () => {
-    expect(() => color.hexToRgb('#fgqrrq'))
-      .toThrow()
+    expect(() => color.hexToRgb('#fgqrrq')).toThrow()
   })
 })
 describe('color.js[hslToHex]', () => {
@@ -47,16 +41,14 @@ describe('color.js[hslToHex]', () => {
     const hsls = ['hsla(330, 100, 93, 0.5)', 'hsla(54 , 84, 56, 0.5)']
     const hexs = ['#ffdbed', '#edda30']
     hsls.forEach((hsl, index) => {
-      expect(color.hslToHex(hsl, true))
-        .toBe(hexs[index])
+      expect(color.hslToHex(hsl, true)).toBe(hexs[index])
     })
   })
   it('should transform hsl to hex', () => {
     const hsls = ['hsl(330, 100, 93)', 'hsla(54 , 84, 56, 0.5)']
     const hexs = ['#ffdbed', '#edda307f']
     hsls.forEach((hsl, index) => {
-      expect(color.hslToHex(hsl))
-        .toBe(hexs[index])
+      expect(color.hslToHex(hsl)).toBe(hexs[index])
     })
   })
 })
@@ -106,44 +98,26 @@ describe('color.js[isLight]', () => {
 })
 describe('color.js[other]', () => {
   it('wrong or empty argument', () => {
-    expect(() => color.hexToRgb())
-      .toThrow()
-    expect(() => color.hslToRgb())
-      .toThrow()
-    expect(() => color.rgbToHex())
-      .toThrow()
-    expect(() => color.rgbTohsl())
-      .toThrow()
-    expect(() => color.hexToHsl())
-      .toThrow()
-    expect(() => color.hslToHex())
-      .toThrow()
-    expect(() => color.isDark())
-      .toThrow()
-    expect(() => color.judgeDark())
-      .toThrow()
-    expect(() => color.isLight())
-      .toThrow()
+    expect(() => color.hexToRgb()).toThrow()
+    expect(() => color.hslToRgb()).toThrow()
+    expect(() => color.rgbToHex()).toThrow()
+    expect(() => color.rgbTohsl()).toThrow()
+    expect(() => color.hexToHsl()).toThrow()
+    expect(() => color.hslToHex()).toThrow()
+    expect(() => color.isDark()).toThrow()
+    expect(() => color.judgeDark()).toThrow()
+    expect(() => color.isLight()).toThrow()
 
     const c = undefined
-    expect(() => color.hexToRgb(c))
-      .toThrow()
-    expect(() => color.hslToRgb(c))
-      .toThrow()
-    expect(() => color.rgbToHex(c))
-      .toThrow()
-    expect(() => color.rgbTohsl(c))
-      .toThrow()
-    expect(() => color.hexToHsl(c))
-      .toThrow()
-    expect(() => color.hslToHex(c))
-      .toThrow()
-    expect(() => color.isDark(c))
-      .toThrow()
-    expect(() => color.judgeDark(c))
-      .toThrow()
-    expect(() => color.isLight(c))
-      .toThrow()
+    expect(() => color.hexToRgb(c)).toThrow()
+    expect(() => color.hslToRgb(c)).toThrow()
+    expect(() => color.rgbToHex(c)).toThrow()
+    expect(() => color.rgbTohsl(c)).toThrow()
+    expect(() => color.hexToHsl(c)).toThrow()
+    expect(() => color.hslToHex(c)).toThrow()
+    expect(() => color.isDark(c)).toThrow()
+    expect(() => color.judgeDark(c)).toThrow()
+    expect(() => color.isLight(c)).toThrow()
   })
   it('should get false when color is illegal', () => {
     expect(color.isDark('#ggg')).toBeFalsy()
