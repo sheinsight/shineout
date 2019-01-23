@@ -65,5 +65,32 @@ describe('numbers.js[split]', () => {
 
 
 describe('number.js[toPrecision]', () => {
-
+  test('should convert when precision 0-100', () => {
+    expect(toPrecision(12345, 2))
+      .toBe(12000)
+    expect(toPrecision(12345, 3))
+      .toBe(12300)
+  })
+  test('should throw error when precision not between 1-100', () => {
+    expect(() => toPrecision(12345, 0))
+      .toThrow()
+    expect(() => toPrecision(12345, 101))
+      .toThrow()
+    expect(() => toPrecision(12345, -1))
+      .toThrow()
+  })
+  test('should return origin when precision beyond num', () => {
+    expect(toPrecision(1234, 10))
+      .toBe(1234)
+    expect(toPrecision(3333, 5))
+      .toBe(3333)
+  })
+  test('should convert when num <= 0', () => {
+    expect(toPrecision(-123, 2))
+      .toBe(-120)
+    expect(toPrecision(0, 3))
+      .toBe(0)
+    expect(toPrecision(-0, 3))
+      .toBe(0)
+  })
 })
