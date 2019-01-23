@@ -22,8 +22,8 @@ describe('numbers.js[range]', () => {
     expect(isInstance(arr, Array)).toBeTruthy()
   })
   test('should throw error if not number', () => {
-    expect(() => range(null, 'a')).toThrow()
-    expect(() => range('a', 'b')).toThrow()
+    expect(range(null, 'a').length).toEqual(0)
+    expect(range('a', 'b').length).toEqual(0)
   })
 })
 
@@ -37,9 +37,9 @@ describe('numbers.js[split]', () => {
     expect(isInstance(arr, Array)).toBeTruthy()
   })
   test('should throw error when total < 0', () => {
-    expect(() => split(0, [])).toThrow()
-    expect(() => split(undefined, [])).toThrow()
-    expect(() => split(null, [])).toThrow()
+    expect(split(0, []).length).toEqual(0)
+    expect(split(undefined, []).length).toEqual(0)
+    expect(split(null, []).length).toEqual(0)
   })
 })
 

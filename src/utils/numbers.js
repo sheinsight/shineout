@@ -1,14 +1,14 @@
 export function range(end, start = 0) {
   const delta = end - start
   if (typeof delta !== 'number' || Number.isNaN(delta)) {
-    throw new Error('end can not computed with start')
+    console.log(new Error('end can not computed with start'))
   }
   return Array.from({ length: end - start }, (v, k) => k + start)
 }
 
 export function split(total, nums) {
   if (typeof total !== 'number' || total === 0) {
-    throw new Error('total mast be a number(not equal 0)')
+    console.log(new Error('total mast be a number(not equal 0)'))
   }
   let remain = 1
   let nilCount = 0
