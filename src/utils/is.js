@@ -55,9 +55,10 @@ export const isMergeable = (val) => {
 
 export const isOne = (val) => {
   if (val === 1) return true
-  return typeof n === 'string' && val.indexOf('.') !== -1 && parseFloat(val) === 1
+  return typeof val === 'string' && val.indexOf('.') !== -1 && parseFloat(val) === 1
 }
 
-export const isPercent = n => typeof n === 'string' && n.indexOf('%') !== -1
+// /\d{1,3}%$/
+export const isPercent = n => typeof n === 'string' && /\d{1,3}%$/.test(n)
 export const isInseparable = val => (Object(val) !== val ||
   isFunc(val) || isDate(val) || isError(val) || isSet(val) || isMap(val) || isRegexp(val))
