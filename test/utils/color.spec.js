@@ -78,53 +78,40 @@ describe('color.js[hslToRgb]', () => {
 })
 describe('color.js[isDark]', () => {
   it('should get true when color is dark', () => {
-    expect(color.isDark('#000')).toBeTruthy()
-    expect(color.isDark('111')).toBeTruthy()
-    expect(color.isDark('rgb(100, 100, 100)')).toBeTruthy()
-    expect(color.isDark('rgba(100, 100, 100, 0.5)')).toBeTruthy()
-    expect(color.isDark('hsl(300, 100, 5)')).toBeTruthy()
-    expect(color.isDark('hsla(300, 100, 5, 0.1)')).toBeTruthy()
+    const test = [
+      '#000',
+      '111',
+      'rgb(100, 100, 100)',
+      'rgba(100, 100, 100, 0.5)',
+      'hsl(300, 100, 5)',
+      'hsla(300, 100, 5, 0.1)',
+    ]
+    test.forEach(value => {
+      expect(color.isDark(value)).toBeTruthy()
+    })
   })
 })
 describe('color.js[isLight]', () => {
   it('should get true when color is light', () => {
-    expect(color.isLight('#eeeeee')).toBeTruthy()
-    expect(color.isLight('fff')).toBeTruthy()
-    expect(color.isLight('rgb(245, 245, 245)')).toBeTruthy()
-    expect(color.isLight('rgba(245, 245, 245, 0.5)')).toBeTruthy()
-    expect(color.isLight('hsl(100,   70, 80)')).toBeTruthy()
-    expect(color.isLight('hsla(100, 90, 90, 0.1)')).toBeTruthy()
+    const test = [
+      '#eeeeee',
+      'fff',
+      'rgb(245, 245, 245)',
+      'rgba(245, 245, 245, 0.5)',
+      'hsl(100,   70, 80)',
+      'hsla(100, 90, 90, 0.1)',
+    ]
+    test.forEach(value => {
+      expect(color.isLight(value)).toBeTruthy()
+    })
   })
 })
 describe('color.js[other]', () => {
-  // it('wrong or empty argument', () => {
-  //   expect(() => color.hexToRgb()).toThrow()
-  //   expect(() => color.hslToRgb()).toThrow()
-  //   expect(() => color.rgbToHex()).toThrow()
-  //   expect(() => color.rgbTohsl()).toThrow()
-  //   expect(() => color.hexToHsl()).toThrow()
-  //   expect(() => color.hslToHex()).toThrow()
-  //   expect(() => color.isDark()).toThrow()
-  //   expect(() => color.judgeDark()).toThrow()
-  //   expect(() => color.isLight()).toThrow()
-  //
-  //   const c = undefined
-  //   expect(() => color.hexToRgb(c)).toThrow()
-  //   expect(() => color.hslToRgb(c)).toThrow()
-  //   expect(() => color.rgbToHex(c)).toThrow()
-  //   expect(() => color.rgbTohsl(c)).toThrow()
-  //   expect(() => color.hexToHsl(c)).toThrow()
-  //   expect(() => color.hslToHex(c)).toThrow()
-  //   expect(() => color.isDark(c)).toThrow()
-  //   expect(() => color.judgeDark(c)).toThrow()
-  //   expect(() => color.isLight(c)).toThrow()
-  // })
   it('should get false when color is illegal', () => {
-    expect(color.isDark('#ggg')).toBeFalsy()
-    expect(color.isDark('rgb(100, 100)')).toBeFalsy()
-    expect(color.isDark('hsld(300, 5)')).toBeFalsy()
-    expect(color.isLight('#ggg')).toBeFalsy()
-    expect(color.isLight('rgb(100, 100)')).toBeFalsy()
-    expect(color.isLight('hsld(300, 5)')).toBeFalsy()
+    const test = ['#ggg', 'rgb(100, 100)', 'hsld(300, 5)']
+    test.forEach(value => {
+      expect(color.isDark(value)).toBeFalsy()
+      expect(color.isLight(value)).toBeFalsy()
+    })
   })
 })
