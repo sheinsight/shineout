@@ -6,7 +6,7 @@ export const TRANSFORMS = {
   transform: 'transform',
 }
 
-let transform = 'transfrom'
+let transform = 'transform'
 export function getTransformName() {
   return transform
 }
