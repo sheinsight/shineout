@@ -23,25 +23,11 @@ const columns = [
   },
 ]
 
-export default function () {
+export default function() {
   return (
     <div>
-      <Table
-        fixed="both"
-        keygen="id"
-        width={1500}
-        height={300}
-        columns={columns}
-        bordered
-        data={data}
-      />
-      <Table
-        fixed="y"
-        data={data}
-        keygen="id"
-        style={{ height: 300 }}
-        columns={columns.slice(0, 4)}
-      />
+      <Table fixed="both" keygen="id" width={1500} height={300} columns={columns} bordered data={data} />
+      <Table fixed="y" data={data} keygen="id" style={{ height: 300 }} columns={columns.slice(0, 4)} />
     </div>
   )
 }

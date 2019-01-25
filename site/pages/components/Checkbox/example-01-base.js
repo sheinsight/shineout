@@ -7,8 +7,6 @@
 import React from 'react'
 import { Checkbox } from 'shineout'
 
-export default function () {
-  return (
-    <Checkbox>Checkbox</Checkbox>
-  )
+export default function() {
+  return <Checkbox>Checkbox</Checkbox>
 }

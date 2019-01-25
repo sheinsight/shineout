@@ -16,22 +16,27 @@ const positions = [
 ]
 
 const style = {
-  width: 100, textAlign: 'center', lineHeight: '30px', margin: 4, display: 'inline-block', border: 'solid 1px #eee',
+  width: 100,
+  textAlign: 'center',
+  lineHeight: '30px',
+  margin: 4,
+  display: 'inline-block',
+  border: 'solid 1px #eee',
 }
 
-export default function () {
+export default function() {
   const content = <div style={{ width: 240, padding: 30 }}>Some text</div>
   return positions.map((row, i) => (
     <div key={i}>
-      {
-        row.map((p, j) =>
-        (p ? (
+      {row.map((p, j) =>
+        p ? (
           <Popover content={content} position={p} key={j}>
             <div style={style}>{p}</div>
           </Popover>
-          )
-         : <div key={j} style={{ ...style, border: 0 }} />))
-      }
+        ) : (
+          <div key={j} style={{ ...style, border: 0 }} />
+        )
+      )}
     </div>
   ))
 }

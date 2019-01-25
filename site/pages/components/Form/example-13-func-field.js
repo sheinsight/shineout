@@ -69,7 +69,7 @@ class ColorPicker extends PureComponent {
 }
 /* eslint-enable */
 
-export default function () {
+export default function() {
   return (
     <Form style={{ maxWidth: 500 }} onSubmit={d => console.log(d)}>
       <Form.Item label="Favorite color" tip="Choose your favorite color.">

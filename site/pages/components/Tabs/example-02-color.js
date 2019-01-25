@@ -10,9 +10,13 @@ import lorem from 'doc/utils/faker/lorem'
 import FontAwsome from '../Icon/FontAwesome'
 
 const panelStyle = { padding: 15 }
-const contact = <span><FontAwsome name="user" /> Contact</span>
+const contact = (
+  <span>
+    <FontAwsome name="user" /> Contact
+  </span>
+)
 
-export default function () {
+export default function() {
   return (
     <Tabs>
       <Tabs.Panel border="transparent" background="#ffe7ba" style={panelStyle} tab="Home">
@@ -33,4 +37,3 @@ export default function () {
     </Tabs>
   )
 }
-

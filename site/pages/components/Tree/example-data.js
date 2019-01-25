@@ -15,10 +15,11 @@ export default class extends Component {
     const { expand } = this.state
     return (
       <div>
-        Current node count: {allIds.length}. <a href="javascript:;" onClick={this.toggle}>{expand ? 'Collapse' : 'Expand'} Code</a>
-        <pre style={{ display: expand ? 'block' : 'none' }}>
-          { JSON.stringify(data, null, 2) }
-        </pre>
+        Current node count: {allIds.length}.{' '}
+        <a href="javascript:;" onClick={this.toggle}>
+          {expand ? 'Collapse' : 'Expand'} Code
+        </a>
+        <pre style={{ display: expand ? 'block' : 'none' }}>{JSON.stringify(data, null, 2)}</pre>
       </div>
     )
   }

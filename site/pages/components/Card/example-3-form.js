@@ -7,14 +7,18 @@
 import React from 'react'
 import { Card, Form, Input } from 'shineout'
 
-export default function () {
+export default function() {
   return (
     <Card style={{ width: 500 }}>
       <Card.Header>Header</Card.Header>
 
       <Card.Body>
         <br />
-        <Form onSubmit={(data) => { console.log(data) }}>
+        <Form
+          onSubmit={data => {
+            console.log(data)
+          }}
+        >
           <Form.Item label="User name">
             <Input name="name" defaultValue="user" />
           </Form.Item>
@@ -31,4 +35,3 @@ export default function () {
     </Card>
   )
 }
-

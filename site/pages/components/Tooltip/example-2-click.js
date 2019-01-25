@@ -10,19 +10,19 @@ import FontAwesome from '../Icon/FontAwesome'
 
 const fontStyle = { fontSize: 20, lineHeight: 1, margin: 4 }
 
-export default function () {
+export default function() {
   return (
     <div>
-      <Tooltip tip="Some text." trigger="click" position="left" style={{ marginRight: 12 }}>
+      <Tooltip tip="Some text." trigger="click" position="left">
         <FontAwesome name="arrow-circle-o-left" style={fontStyle} />
       </Tooltip>
-      <Tooltip tip="Some text." trigger="click" position="top" style={{ marginRight: 12 }}>
+      <Tooltip tip="Some text." trigger="click" position="top">
         <FontAwesome name="arrow-circle-o-up" style={fontStyle} />
       </Tooltip>
-      <Tooltip tip="Some text." trigger="click" position="bottom" style={{ marginRight: 12 }}>
+      <Tooltip tip="Some text." trigger="click" position="bottom" style={{ width: '200px' }}>
         <FontAwesome name="arrow-circle-o-down" style={fontStyle} />
       </Tooltip>
-      <Tooltip tip="Some text." trigger="click" position="right" style={{ marginRight: 12 }}>
+      <Tooltip tip="Some text." trigger="click" position="right">
         <FontAwesome name="arrow-circle-o-right" style={fontStyle} />
       </Tooltip>
     </div>

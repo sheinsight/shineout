@@ -9,17 +9,15 @@ import { Image } from 'shineout'
 
 const src = '../images/1_b.jpg'
 
-export default function () {
+export default function() {
   return (
     <div>
-      {
-        (['fill', 'center', 'fit', 'stretch']).map(fit => (
-          <div key={fit} style={{ width: '25%', padding: 4, display: 'inline-block' }}>
-            <Image width="100%" height="75%" src={src} shape="thumbnail" fit={fit} />
-            <div style={{ textAlign: 'center', paddingTop: 4 }}>{fit}</div>
-          </div>
-        ))
-      }
+      {['fill', 'center', 'fit', 'stretch'].map(fit => (
+        <div key={fit} style={{ width: '25%', padding: 4, display: 'inline-block' }}>
+          <Image width="100%" height="75%" src={src} shape="thumbnail" fit={fit} />
+          <div style={{ textAlign: 'center', paddingTop: 4 }}>{fit}</div>
+        </div>
+      ))}
     </div>
   )
 }

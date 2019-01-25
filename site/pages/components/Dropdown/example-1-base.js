@@ -25,12 +25,12 @@ const data = [
   <a href="#/">Home</a>,
   {
     content: 'Message',
-    onClick: () => { Message.info('Some message.') },
+    onClick: () => {
+      Message.info('Some message.')
+    },
   },
 ]
 
-export default function () {
-  return (
-    <Dropdown placeholder="Dropdown" data={data} />
-  )
+export default function() {
+  return <Dropdown placeholder="Dropdown" data={data} />
 }

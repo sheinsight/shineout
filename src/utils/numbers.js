@@ -1,11 +1,18 @@
 export function range(end, start = 0) {
-  return Array.from({ length: (end - start) }, (v, k) => k + start)
+  const delta = end - start
+  if (typeof delta !== 'number' || Number.isNaN(delta)) {
+    console.log(new Error('end can not computed with start'))
+  }
+  return Array.from({ length: end - start }, (v, k) => k + start)
 }
 
 export function split(total, nums) {
+  if (typeof total !== 'number' || total === 0) {
+    console.log(new Error('total mast be a number(not equal 0)'))
+  }
   let remain = 1
   let nilCount = 0
-  const ratios = nums.map((n) => {
+  const ratios = nums.map(n => {
     if (n) {
       const r = n / total
       remain -= n
@@ -15,7 +22,7 @@ export function split(total, nums) {
     return null
   })
 
-  return ratios.map((r) => {
+  return ratios.map(r => {
     if (!r) r = remain / nilCount
     return total * r
   })

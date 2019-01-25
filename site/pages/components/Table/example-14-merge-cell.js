@@ -36,7 +36,7 @@ const columns = [
     width: 120,
     render: 'start',
     rowSpan: (a, b) => a.start === b.start,
-    colSpan: (d) => {
+    colSpan: d => {
       const hour = parseInt(d.time.slice(0, 2), 10)
       if (hour > 21 || hour < 9) return 2
       return 1
@@ -50,15 +50,6 @@ const columns = [
   { title: 'Office', render: 'office5', rowSpan: true },
 ]
 
-export default function () {
-  return (
-    <Table
-      bordered
-      data={data}
-      keygen="id"
-      fixed="y"
-      columns={columns}
-      style={{ height: 650 }}
-    />
-  )
+export default function() {
+  return <Table bordered data={data} keygen="id" fixed="y" columns={columns} style={{ height: 650 }} />
 }

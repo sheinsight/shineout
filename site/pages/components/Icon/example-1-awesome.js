@@ -11,7 +11,7 @@ const url = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-
 const FontAwesome = Icon(url, 'FontAwesome', 'fa')
 const margin = { marginRight: 20 }
 
-export default function () {
+export default function() {
   return (
     <div>
       <FontAwesome style={margin} name="home" />

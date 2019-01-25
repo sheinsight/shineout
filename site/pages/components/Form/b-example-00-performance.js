@@ -17,7 +17,9 @@ const rules = (values, _, callback) => {
   names.forEach((v, k) => {
     if (k && v.length > 1) {
       // show error to input
-      v.forEach((i) => { result[i] = new Error(`Name "${k}" is existed.`) })
+      v.forEach(i => {
+        result[i] = new Error(`Name "${k}" is existed.`)
+      })
       // show error to item
       // v.forEach((i) => { result[i] = new Error(`Name "${k}"" is existed.`) })
     }
@@ -26,13 +28,15 @@ const rules = (values, _, callback) => {
   callback(result.length > 0 ? result : true)
 }
 
-export default function () {
+export default function() {
   return (
-    <Form onSubmit={(data) => { console.log(data) }}>
+    <Form
+      onSubmit={data => {
+        console.log(data)
+      }}
+    >
       <Form.FieldSet rules={[rules]} name="names" defaultValue={defaultValues}>
-        {
-          ({ value, onChange }) => <Input popover="bottom-left" name="" width={200} value={value} onChange={onChange} />
-        }
+        {({ value, onChange }) => <Input popover="bottom-left" name="" width={200} value={value} onChange={onChange} />}
       </Form.FieldSet>
 
       <Form.Item label="">

@@ -36,23 +36,27 @@ export default class extends Component {
   }
 
   addColumn = () => {
-    this.setState(immer((draft) => {
-      draft.columns.push({
-        title: `cols ${draft.columns.length}`,
-        render: 'salary',
-        width: 100,
+    this.setState(
+      immer(draft => {
+        draft.columns.push({
+          title: `cols ${draft.columns.length}`,
+          render: 'salary',
+          width: 100,
+        })
       })
-    }))
+    )
   }
 
   removeColumn = () => {
-    this.setState(immer((draft) => {
-      draft.columns.pop()
-    }))
+    this.setState(
+      immer(draft => {
+        draft.columns.pop()
+      })
+    )
   }
 
   render() {
-    const allWidth = this.state.columns.reduce((count, col) => (count + (col.width || 120)), 0)
+    const allWidth = this.state.columns.reduce((count, col) => count + (col.width || 120), 0)
     return (
       <div>
         <Button onClick={this.addColumn}>Add Column</Button>

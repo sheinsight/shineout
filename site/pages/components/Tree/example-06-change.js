@@ -52,11 +52,11 @@ export default class extends Component {
     this.state = { mode: 1, value }
   }
 
-  handleChange = (value) => {
+  handleChange = value => {
     this.setState({ value })
   }
 
-  handleModeChange = (mode) => {
+  handleModeChange = mode => {
     this.setState({ mode, value: [] })
   }
 
@@ -90,9 +90,7 @@ export default class extends Component {
 
         <div style={resultStyle}>
           Current select value:
-          <pre style={{ background: '#f2f2f2' }}>
-            {JSON.stringify(value, null, 2)}
-          </pre>
+          <pre style={{ background: '#f2f2f2' }}>{JSON.stringify(value, null, 2)}</pre>
         </div>
       </div>
     )

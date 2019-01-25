@@ -24,7 +24,7 @@ export default class extends PureComponent {
         title: 'id',
         render: 'id',
         width: 70,
-        sorter: (order) => {
+        sorter: order => {
           this.handlePageChange(1)
           return (a, b) => {
             if (order === 'asc') return a.id - b.id
@@ -33,7 +33,10 @@ export default class extends PureComponent {
         },
       },
       {
-        title: 'First Name', group: 'Name', render: 'firstName', width: 100,
+        title: 'First Name',
+        group: 'Name',
+        render: 'firstName',
+        width: 100,
       },
       {
         title: 'Last Name',
@@ -41,7 +44,7 @@ export default class extends PureComponent {
         group: 'Name',
         render: 'lastName',
         width: 120,
-        sorter: (order) => {
+        sorter: order => {
           this.handlePageChange(1)
           return (a, b) => {
             if (order === 'asc') return a.lastName.localeCompare(b.lastName)
@@ -62,7 +65,7 @@ export default class extends PureComponent {
     ]
   }
 
-  handlePageChange = (current) => {
+  handlePageChange = current => {
     this.setState({ current })
   }
 
@@ -88,4 +91,3 @@ export default class extends PureComponent {
     )
   }
 }
-

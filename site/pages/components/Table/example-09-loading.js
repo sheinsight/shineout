@@ -18,10 +18,8 @@ const columns = [
   { title: 'Office', render: 'office' },
 ]
 
-export default function () {
+export default function() {
   const loading = <Spin color="#1890ff" name="ring" />
 
-  return (
-    <Table keygen="id" loading={loading} columns={columns} data={data} />
-  )
+  return <Table keygen="id" loading={loading} columns={columns} data={data} />
 }

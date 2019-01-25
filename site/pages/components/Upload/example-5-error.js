@@ -8,7 +8,7 @@ import React from 'react'
 import { Upload, Button } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
-export default function () {
+export default function() {
   return (
     <div>
       <Upload
@@ -16,7 +16,7 @@ export default function () {
         accept="image/*"
         name="file"
         onSuccess={(res, file) => file.name}
-        onError={(xhr) => {
+        onError={xhr => {
           console.log(xhr)
           if (xhr.status === 404) return 'Url not found.'
           return 'Upload Fail.'
@@ -24,7 +24,9 @@ export default function () {
         limit={3}
         style={{ width: 300, marginBottom: 30 }}
       >
-        <Button><FontAwesome name="upload" /> Upload file</Button>
+        <Button>
+          <FontAwesome name="upload" /> Upload file
+        </Button>
       </Upload>
 
       <Upload.Image
@@ -32,7 +34,7 @@ export default function () {
         accept="image/*"
         name="file"
         onSuccess={(res, file, data) => ({ data })}
-        onError={(xhr) => {
+        onError={xhr => {
           console.log(xhr)
           if (xhr.status === 404) return 'Url not found.'
           return 'Upload Fail.'

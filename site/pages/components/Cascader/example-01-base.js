@@ -9,12 +9,6 @@ import React from 'react'
 import { Cascader } from 'shineout'
 import { cascader as data } from 'doc/data/tree'
 
-export default function () {
-  return (
-    <Cascader
-      data={data}
-      keygen="id"
-      renderItem={n => `node ${n.text}`}
-    />
-  )
+export default function() {
+  return <Cascader data={data} keygen="id" renderItem={n => `node ${n.text}`} />
 }

@@ -11,7 +11,7 @@ import { Tree } from 'shineout'
 import data from 'doc/data/tree'
 
 export default class extends Component {
-  handleChange = (value) => {
+  handleChange = value => {
     console.log(value)
   }
 

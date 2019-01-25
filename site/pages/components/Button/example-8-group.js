@@ -8,7 +8,7 @@ import React from 'react'
 import { Button } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
-export default function () {
+export default function() {
   return (
     <div>
       <Button.Group>
@@ -28,9 +28,15 @@ export default function () {
       <br />
 
       <Button.Group type="primary">
-        <Button><FontAwesome name="angle-left" />&nbsp; Left</Button>
+        <Button>
+          <FontAwesome name="angle-left" />
+          &nbsp; Left
+        </Button>
         <Button>Center</Button>
-        <Button>Right &nbsp;<FontAwesome name="angle-right" /></Button>
+        <Button>
+          Right &nbsp;
+          <FontAwesome name="angle-right" />
+        </Button>
       </Button.Group>
 
       <br />
@@ -43,4 +49,3 @@ export default function () {
     </div>
   )
 }
-

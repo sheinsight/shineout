@@ -8,11 +8,14 @@ import React from 'react'
 import { Card } from 'shineout'
 
 const cardStyle = {
-  width: 240, height: 300, display: 'inline-flex', marginRight: 20,
+  width: 240,
+  height: 300,
+  display: 'inline-flex',
+  marginRight: 20,
 }
 const gray = { background: '#f7f7f7' }
 
-export default function () {
+export default function() {
   return (
     <div>
       <Card style={cardStyle}>
@@ -29,4 +32,3 @@ export default function () {
     </div>
   )
 }
-

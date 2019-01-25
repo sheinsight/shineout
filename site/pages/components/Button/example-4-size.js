@@ -7,17 +7,29 @@
 import React from 'react'
 import { Button } from 'shineout'
 
-export default function () {
+export default function() {
   return (
     <div>
       <div>
         <Button size="small">Default</Button>
-        <Button size="small" type="primary">Primary</Button>
-        <Button size="small" type="secondary">Secondary</Button>
-        <Button size="small" type="success">Success</Button>
-        <Button size="small" type="warning">Warning</Button>
-        <Button size="small" type="danger">Danger</Button>
-        <Button size="small" type="link">Link</Button>
+        <Button size="small" type="primary">
+          Primary
+        </Button>
+        <Button size="small" type="secondary">
+          Secondary
+        </Button>
+        <Button size="small" type="success">
+          Success
+        </Button>
+        <Button size="small" type="warning">
+          Warning
+        </Button>
+        <Button size="small" type="danger">
+          Danger
+        </Button>
+        <Button size="small" type="link">
+          Link
+        </Button>
       </div>
       <br />
       <div>
@@ -32,12 +44,24 @@ export default function () {
       <br />
       <div>
         <Button size="large">Default</Button>
-        <Button size="large" type="primary">Primary</Button>
-        <Button size="large" type="secondary">Secondary</Button>
-        <Button size="large" type="success">Success</Button>
-        <Button size="large" type="warning">Warning</Button>
-        <Button size="large" type="danger">Danger</Button>
-        <Button size="large" type="link">Link</Button>
+        <Button size="large" type="primary">
+          Primary
+        </Button>
+        <Button size="large" type="secondary">
+          Secondary
+        </Button>
+        <Button size="large" type="success">
+          Success
+        </Button>
+        <Button size="large" type="warning">
+          Warning
+        </Button>
+        <Button size="large" type="danger">
+          Danger
+        </Button>
+        <Button size="large" type="link">
+          Link
+        </Button>
       </div>
     </div>
   )

@@ -14,10 +14,10 @@ module.exports = {
     webpackPort: 3001,
     scriptPath: '/*.*',
     scripts: [
-      `/react/${versions.react}/umd/react.production.min.js`,
-      `/react-dom/${versions['react-dom']}/umd/react-dom.production.min.js`,
-      `/prop-types/${versions['prop-types']}/prop-types.min.js`,
-      `/jszip/${versions.jszip}/jszip.min.js`,
+      `/react@${versions.react}/umd/react.production.min.js`,
+      `/react-dom@${versions['react-dom']}/umd/react-dom.production.min.js`,
+      `/prop-types@${versions['prop-types']}/prop-types.min.js`,
+      `/jszip@${versions.jszip}/dist/jszip.min.js`,
     ],
     styles: [
       // '/prism/1.15.0/themes/prism.min.css',

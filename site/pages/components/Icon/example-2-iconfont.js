@@ -10,7 +10,7 @@ import { Icon } from 'shineout'
 const Iconfont = Icon('//at.alicdn.com/t/font_550076_uyvw3e8ul8w4gqfr.css')
 const margin = { marginRight: 20 }
 
-export default function () {
+export default function() {
   return (
     <div>
       <Iconfont style={margin}>&#xe64e;</Iconfont>

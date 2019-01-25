@@ -12,8 +12,6 @@ const heartBg = <FontAwesome name="heart-o" />
 const heart = <FontAwesome name="heart" style={{ color: '#ff4d4f' }} />
 const HeartRate = Rate(heartBg, heart)
 
-export default function () {
-  return (
-    <HeartRate defaultValue={2} />
-  )
+export default function() {
+  return <HeartRate defaultValue={2} />
 }

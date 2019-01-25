@@ -43,14 +43,20 @@ export default class extends PureComponent {
     })
   }
 
-  handleChange = (value) => {
+  handleChange = value => {
     this.setState({ value })
   }
 
   render() {
     const { value } = this.state
     return (
-      <Form value={value} onChange={this.handleChange} onSubmit={(data) => { console.log(data) }}>
+      <Form
+        value={value}
+        onChange={this.handleChange}
+        onSubmit={data => {
+          console.log(data)
+        }}
+      >
         <Form.Item label="Email">
           <Input name="email" title="email" rules={[rule.required, rule.email]} />
         </Form.Item>
@@ -76,19 +82,19 @@ export default class extends PureComponent {
             </Form.Item>
 
             <Form.Item label={<Checkbox name="showAge">Age</Checkbox>}>
-              {
-                (value && value.account && value.account.showAge) ?
-                  <Input
-                    rules={[rule.min(18), rule.max(60)]}
-                    style={{ width: 100 }}
-                    name="age"
-                    title="age"
-                    type="number"
-                    digits={0}
-                    defaultValue={18}
-                  />
-                : <span />
-              }
+              {value && value.account && value.account.showAge ? (
+                <Input
+                  rules={[rule.min(18), rule.max(60)]}
+                  style={{ width: 100 }}
+                  name="age"
+                  title="age"
+                  type="number"
+                  digits={0}
+                  defaultValue={18}
+                />
+              ) : (
+                <span />
+              )}
             </Form.Item>
 
             <Form.Item label="City">

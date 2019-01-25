@@ -24,7 +24,9 @@ const menu = [
   },
   {
     content: 'Message',
-    onClick: () => { Message.info('Some message.') },
+    onClick: () => {
+      Message.info('Some message.')
+    },
   },
 ]
 
@@ -44,9 +46,7 @@ export default class extends Component {
   }
 
   render() {
-    const {
-      type, outline, size, disabled,
-    } = this.state
+    const { type, outline, size, disabled } = this.state
     return (
       <div>
         <div style={{ marginBottom: 20 }}>
@@ -79,14 +79,7 @@ export default class extends Component {
           </Checkbox>
         </div>
 
-        <Dropdown
-          placeholder="Dropdown"
-          data={menu}
-          disabled={disabled}
-          outline={outline}
-          size={size}
-          type={type}
-        />
+        <Dropdown placeholder="Dropdown" data={menu} disabled={disabled} outline={outline} size={size} type={type} />
       </div>
     )
   }

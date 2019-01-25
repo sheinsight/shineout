@@ -46,7 +46,7 @@ export default class CodeBlock extends PureComponent {
     this.highlightCode()
   }
 
-  bindElement = (el) => {
+  bindElement = el => {
     this.element = el
   }
 
@@ -61,9 +61,7 @@ export default class CodeBlock extends PureComponent {
   render() {
     return (
       <pre className={this.props.language || 'lang-jsx'}>
-        <code ref={this.bindElement}>
-          {this.props.value}
-        </code>
+        <code ref={this.bindElement}>{this.props.value}</code>
       </pre>
     )
   }

@@ -8,15 +8,8 @@ import { fetchSync } from 'doc/data//name'
 
 const data = fetchSync(10000)
 
-export default function () {
+export default function() {
   return (
-    <Checkbox.Group
-      keygen="id"
-      data={data}
-      datum={{ format: 'id' }}
-      onChange={d => console.log(d)}
-      renderItem="name"
-    />
+    <Checkbox.Group keygen="id" data={data} datum={{ format: 'id' }} onChange={d => console.log(d)} renderItem="name" />
   )
 }
-

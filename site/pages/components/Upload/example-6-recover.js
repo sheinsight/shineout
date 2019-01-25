@@ -8,7 +8,7 @@ import React from 'react'
 import { Upload, Button } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
-export default function () {
+export default function() {
   return (
     <div>
       <Upload
@@ -21,7 +21,9 @@ export default function () {
         onSuccess={(res, file) => file.name}
         style={{ width: 300, marginBottom: 30 }}
       >
-        <Button><FontAwesome name="upload" /> Upload file</Button>
+        <Button>
+          <FontAwesome name="upload" /> Upload file
+        </Button>
       </Upload>
 
       <Upload.Image

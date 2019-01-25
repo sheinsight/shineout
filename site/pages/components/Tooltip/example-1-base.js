@@ -10,7 +10,7 @@ import FontAwesome from '../Icon/FontAwesome'
 
 const fontStyle = { fontSize: 20, lineHeight: 1, margin: 4 }
 
-export default function () {
+export default function() {
   return (
     <div>
       <Tooltip tip="Some text." position="left" style={{ marginRight: 12 }}>

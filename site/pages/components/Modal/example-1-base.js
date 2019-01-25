@@ -27,7 +27,7 @@ export default class extends React.Component {
   handleOk = () => {
     this.setState({
       visible: false,
-      content: this.state.content += 1,
+      content: (this.state.content += 1),
     })
     console.log('clicked ok!')
   }
@@ -35,7 +35,7 @@ export default class extends React.Component {
   handleCancel = () => {
     this.setState({
       visible: false,
-      content: this.state.content += 1,
+      content: (this.state.content += 1),
     })
     console.log('clicked cancel')
   }
@@ -50,8 +50,12 @@ export default class extends React.Component {
           title="Modal Title"
           onClose={this.handleCancel}
           footer={[
-            <Button key="cancel" onClick={this.handleCancel}>Cancel</Button>,
-            <Button key="ok" type="primary" onClick={this.handleOk}>Ok</Button>,
+            <Button key="cancel" onClick={this.handleCancel}>
+              Cancel
+            </Button>,
+            <Button key="ok" type="primary" onClick={this.handleOk}>
+              Ok
+            </Button>,
           ]}
         >
           {`you are visited ${this.state.content}`}

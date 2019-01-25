@@ -14,8 +14,7 @@
           {
             "useBuiltIns": true
           }
-        ],
-        "@babel/plugin-transform-runtime"
+        ]
       ],
       "presets": [
         ["@babel/preset-env",
@@ -34,8 +33,7 @@
       ]
     },
     "test": {
-      "plugins": ["transform-react-remove-prop-types"],
-      "presets": ["react-app"]
+      "presets": ["env"]
     }
   }
 }

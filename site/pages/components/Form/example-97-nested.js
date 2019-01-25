@@ -11,9 +11,7 @@ import { Datum, Form, Input, Checkbox } from 'shineout'
 
 const rules = {
   account: {
-    age: [
-      { min: 18, max: 60, message: 'Age must between {min} and {max}.' },
-    ],
+    age: [{ min: 18, max: 60, message: 'Age must between {min} and {max}.' }],
   },
 }
 
@@ -33,14 +31,7 @@ const Account = ({ value, onChange }) => (
     </Form.Item>
 
     <Form.Item label="Age">
-      <Input
-        rules={rules.account.age}
-        style={{ width: 100 }}
-        name="age"
-        type="number"
-        digits={0}
-        defaultValue={0}
-      />
+      <Input rules={rules.account.age} style={{ width: 100 }} name="age" type="number" digits={0} defaultValue={0} />
     </Form.Item>
   </Form.Block>
 )
@@ -64,7 +55,12 @@ export default class extends PureComponent {
 
   render() {
     return (
-      <Form datum={this.datum} onSubmit={(data) => { console.log(data) }}>
+      <Form
+        datum={this.datum}
+        onSubmit={data => {
+          console.log(data)
+        }}
+      >
         <Form.Item label="Email">
           <Input name="email" />
         </Form.Item>

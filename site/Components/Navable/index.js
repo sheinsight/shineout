@@ -1,11 +1,9 @@
 import React from 'react'
 import Sticky from 'shineout/Sticky'
 import history from '../../history'
-import classGenerate from '../../utils/classname'
+import { navClass } from '../../styles'
 
-const cls = classGenerate(require('./nav.less'), 'nav')
-
-const scrollTo = (id) => {
+const scrollTo = id => {
   const isSingleMode = history.location.search.indexOf('?example=') === 0
   if (isSingleMode) {
     history.push(`${history.location.pathname}?example=${id.replace('heading-', '')}`)
@@ -15,7 +13,7 @@ const scrollTo = (id) => {
   }
 }
 
-export default function (Component) {
+export default function(Component) {
   return class Nav extends React.Component {
     constructor(props) {
       super(props)
@@ -57,7 +55,7 @@ export default function (Component) {
       if (headings.length === 0) return
 
       let active = headings[0].id
-      headings.forEach((h) => {
+      headings.forEach(h => {
         const el = document.querySelector(`#${h.id}`)
         if (!el) return
         if (el.offsetTop <= top) active = h.id
@@ -72,22 +70,20 @@ export default function (Component) {
       const { active, headings } = this.state
 
       return (
-        <Sticky className={cls('sticky')} top={50}>
-          <div className={cls('nav')}>
-            {
-              headings.map((h, i) => {
-                const children = h.children.filter(c => typeof c === 'string')
-                return (
-                  <a
-                    key={i}
-                    className={cls(`level-${h.level}`, active === h.id && 'active')}
-                    onClick={scrollTo.bind(this, h.id)}
-                  >
-                    {children}
-                  </a>
-                )
-              })
-            }
+        <Sticky className={navClass('sticky')} top={50}>
+          <div className={navClass('nav')}>
+            {headings.map((h, i) => {
+              const children = h.children.filter(c => typeof c === 'string')
+              return (
+                <a
+                  key={i}
+                  className={navClass(`level-${h.level}`, active === h.id && 'active')}
+                  onClick={scrollTo.bind(this, h.id)}
+                >
+                  {children}
+                </a>
+              )
+            })}
           </div>
         </Sticky>
       )
@@ -95,9 +91,9 @@ export default function (Component) {
 
     render() {
       return (
-        <div className={cls('_')}>
+        <div className={navClass('_')}>
           <Component onHeadingSetted={this.setHeading} />
-          { this.renderNav() }
+          {this.renderNav()}
         </div>
       )
     }

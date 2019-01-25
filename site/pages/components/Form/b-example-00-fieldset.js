@@ -5,7 +5,7 @@
  *    -- When FieldSet's children is a function, takes the value (type is array) from the form by the name property, and generate a set of subcomponents.
  */
 import React, { PureComponent } from 'react'
-import { Form, Input, Button, Rule } from 'shineout'
+import { Form, Input, Rule } from 'shineout'
 import Icon from '../Icon/FontAwesome'
 
 const iconStyle = { fontSize: 18, marginLeft: 12 }
@@ -19,7 +19,9 @@ const modeIsExist = (value, formData, callback) => {
   const result = []
   modes.forEach((v, k) => {
     if (k && v.length > 1) {
-      v.forEach((i) => { result[i] = ({ mode: new Error(`Mode "${k}" 已存在。`) }) })
+      v.forEach(i => {
+        result[i] = { mode: new Error(`Mode "${k}" 已存在。`) }
+      })
     }
   })
   callback(result.length > 0 ? result : true)
@@ -27,16 +29,15 @@ const modeIsExist = (value, formData, callback) => {
 
 const rule = Rule()
 
-const domain = ({
-  value, onAppend, onRemove, index,
-}) => (
+// eslint-disable-next-line
+const domain = ({ value, onAppend, onRemove, index }) => (
   <Form.Item>
     <Input.Group style={{ display: 'inline-flex', width: 500 }}>
-      {
-        index === 0
-          ? <b style={{ width: 120 }}>{value.mode}</b>
-          : <Input rules={[rule.required]} style={{ width: 120, flex: 'none' }} name="mode" placeholder="mode" />
-      }
+      {index === 0 ? (
+        <b style={{ width: 120 }}>{value.mode}</b>
+      ) : (
+        <Input rules={[rule.required]} style={{ width: 120, flex: 'none' }} name="mode" placeholder="mode" />
+      )}
       <Input title="Domain" rules={[rule.required, rule.url]} name="domain" placeholder="domain" />
     </Input.Group>
 
@@ -44,16 +45,15 @@ const domain = ({
       <Icon name="plus" />
     </a>
 
-    {
-      index > 0 &&
+    {index > 0 && (
       <a href="javascript:;" onClick={onRemove} style={iconStyle}>
         <Icon name="remove" />
       </a>
-    }
+    )}
   </Form.Item>
 )
 
-const group = ({ onAppend, onRemove, index }) => (
+const group = () => (
   <div>
     <Input name="name" />
     <Form.FieldSet name="domains" rules={[modeIsExist]}>
@@ -69,11 +69,7 @@ export default class extends PureComponent {
       envs: [
         {
           name: 'base',
-          domains: [
-            { mode: 'production' },
-            { mode: 'development' },
-            { mode: 'test' },
-          ],
+          domains: [{ mode: 'production' }, { mode: 'development' }, { mode: 'test' }],
         },
       ],
     }
@@ -81,7 +77,12 @@ export default class extends PureComponent {
 
   render() {
     return (
-      <Form value={this.defaultData} onSubmit={(data) => { console.log(data) }}>
+      <Form
+        value={this.defaultData}
+        onSubmit={data => {
+          console.log(data)
+        }}
+      >
         <Form.Item label="Name">
           <Input name="name" defaultValue="Harry Potter" />
         </Form.Item>

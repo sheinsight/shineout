@@ -23,9 +23,7 @@ class Friend extends PureComponent {
     this.handleNameChange = this.handleNameChange.bind(this)
     this.handleAgeChange = this.handleAgeChange.bind(this)
 
-    this.rules = [
-      { required: true, message: 'Please input friend\'s name or remove this field.' },
-    ]
+    this.rules = [{ required: true, message: "Please input friend's name or remove this field." }]
   }
 
   handleNameChange(name) {
@@ -85,16 +83,19 @@ export default class extends PureComponent {
 
   render() {
     return (
-      <Form datum={this.datum} onSubmit={(data) => { console.log(data) }}>
+      <Form
+        datum={this.datum}
+        onSubmit={data => {
+          console.log(data)
+        }}
+      >
         <Form.Item label="Name">
           <Input name="name" />
         </Form.Item>
 
         <Form.Item label="Friends">
           <Form.Loop rules={this.rules} name="friends" defaultValue={[{ name: 'Hermione Granger', age: '16' }, {}]}>
-            {({ value, onChange, onRemove }) => (
-              <Friend value={value} onChange={onChange} onRemove={onRemove} />
-            )}
+            {({ value, onChange, onRemove }) => <Friend value={value} onChange={onChange} onRemove={onRemove} />}
           </Form.Loop>
           <Button onClick={this.handleAddFriend}>Add new friend</Button>
         </Form.Item>

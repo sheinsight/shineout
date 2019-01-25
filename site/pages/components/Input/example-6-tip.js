@@ -10,7 +10,7 @@ import FontAwesome from '../Icon/FontAwesome'
 
 const style = { marginBottom: 12 }
 
-export default function () {
+export default function() {
   return (
     <div style={{ width: 300 }}>
       <Input style={style} placeholder="email" tip="enter you email." popover="top-left" />

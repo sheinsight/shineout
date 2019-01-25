@@ -12,9 +12,9 @@ export default class extends Component {
   state = {
     tags: ['Tag 1', 'Tag 2', 'Tag 3'],
     inputVisible: false,
-  };
+  }
 
-  remove = (removedTag) => {
+  remove = removedTag => {
     const tags = this.state.tags.filter(tag => tag !== removedTag)
     this.setState({ tags })
   }
@@ -23,7 +23,7 @@ export default class extends Component {
     this.setState({ inputVisible: true })
   }
 
-  handleInputBlur = (value) => {
+  handleInputBlur = value => {
     const { tags } = this.state
     let newTags = tags
     if (value && tags.indexOf(value) === -1) {
@@ -40,23 +40,18 @@ export default class extends Component {
     const { tags, inputVisible } = this.state
     return (
       <div>
-        {
-          tags.map(a => (
-            <Tag key={a} onClose={() => this.remove(a)}>{a}</Tag>))
-        }
-        {inputVisible
-          ? (
-            <Tag.Input
-              onBlur={this.handleInputBlur}
-            />)
-          : (
-            <Tag
-              onClick={this.showInput}
-              style={{ background: '#fff', borderStyle: 'dashed' }}
-            >
-              + New Tag
-            </Tag>)
-        }
+        {tags.map(a => (
+          <Tag key={a} onClose={() => this.remove(a)}>
+            {a}
+          </Tag>
+        ))}
+        {inputVisible ? (
+          <Tag.Input onBlur={this.handleInputBlur} />
+        ) : (
+          <Tag onClick={this.showInput} style={{ background: '#fff', borderStyle: 'dashed' }}>
+            + New Tag
+          </Tag>
+        )}
       </div>
     )
   }

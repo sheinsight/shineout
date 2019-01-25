@@ -9,7 +9,7 @@ import { Select } from 'shineout'
 
 const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
-export default function () {
+export default function() {
   return (
     <div>
       <Select

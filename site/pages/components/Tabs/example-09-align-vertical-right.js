@@ -10,9 +10,9 @@ import lorem from 'doc/utils/faker/lorem'
 
 const panelStyle = { padding: '0 12px' }
 
-export default function () {
+export default function() {
   return (
-    <Tabs defaultActive={1} align="vertical-right" >
+    <Tabs defaultActive={1} align="vertical-right">
       <Tabs.Panel style={panelStyle} tab="Home">
         {lorem(5)}
       </Tabs.Panel>
@@ -25,4 +25,3 @@ export default function () {
     </Tabs>
   )
 }
-

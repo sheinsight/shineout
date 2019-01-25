@@ -7,7 +7,7 @@
 import React from 'react'
 import { Alert } from 'shineout'
 
-export default function () {
+export default function() {
   return (
     <div>
       <Alert type="success">Success Type.</Alert>

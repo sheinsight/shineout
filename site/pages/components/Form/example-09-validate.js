@@ -11,13 +11,14 @@ const rules = Rule(
   // validate function package
   {
     password: {
-      func: (value, formData, cb, props) => new Promise((resolve, reject) => {
-        if (!/\d+/.test(value) || !/[a-z]+/i.test(value)) {
-          reject(new Error(props.message.replace('{title}', props.title)))
-        } else {
-          resolve(true)
-        }
-      }),
+      func: (value, formData, cb, props) =>
+        new Promise((resolve, reject) => {
+          if (!/\d+/.test(value) || !/[a-z]+/i.test(value)) {
+            reject(new Error(props.message.replace('{title}', props.title)))
+          } else {
+            resolve(true)
+          }
+        }),
     },
     isExist: (value, _, callback) => {
       if (value.indexOf('so') >= 0) callback(new Error(`"${value}" is existed.`))
@@ -29,18 +30,14 @@ const rules = Rule(
     password: {
       message: '{title} at least has one numeral and one letter',
     },
-  },
+  }
 )
 
-export default function () {
+export default function() {
   return (
     <Form style={{ maxWidth: 500 }} scrollToError={30} onSubmit={d => console.log(d)}>
       <Form.Item required label="Name">
-        <Input
-          name="name"
-          title="Name"
-          rules={[rules.required, rules.isExist]}
-        />
+        <Input name="name" title="Name" rules={[rules.required, rules.isExist]} />
       </Form.Item>
 
       <Form.Item required label="Password" tip="At least one letter, one numeral, and 6 - 20 characters.">

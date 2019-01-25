@@ -9,12 +9,14 @@ import { Radio } from 'shineout'
 
 const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
-export default function () {
+export default function() {
   return (
     <Radio.Group keygen defaultValue="yellow">
-      {
-        data.map(d => <Radio key={d} htmlValue={d}>{d}</Radio>)
-      }
+      {data.map(d => (
+        <Radio key={d} htmlValue={d}>
+          {d}
+        </Radio>
+      ))}
     </Radio.Group>
   )
 }

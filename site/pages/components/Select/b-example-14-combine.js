@@ -15,7 +15,7 @@ export default class extends React.Component {
     this.state = { type: 'color' }
   }
 
-  handleTypeChange = (type) => {
+  handleTypeChange = type => {
     this.setState({ type })
   }
 
@@ -25,19 +25,9 @@ export default class extends React.Component {
 
     return (
       <div>
-        <Select
-          data={['color', 'user']}
-          style={{ width: 140 }}
-          keygen
-          onChange={this.handleTypeChange}
-          value={type}
-        />
+        <Select data={['color', 'user']} style={{ width: 140 }} keygen onChange={this.handleTypeChange} value={type} />
 
-        <Select
-          data={data}
-          style={{ width: 300 }}
-          keygen
-        />
+        <Select data={data} style={{ width: 300 }} keygen />
       </div>
     )
   }

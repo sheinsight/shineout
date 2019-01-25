@@ -1,4 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const UglifyWebpackPlugin = require('uglifyjs-webpack-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const webpack = require('webpack')
 
 module.exports = function getCommon(config) {
@@ -24,6 +26,16 @@ module.exports = function getCommon(config) {
   ]
 
   return {
+    optimization: {
+      minimizer: [
+        new UglifyWebpackPlugin({
+          cache: true,
+          parallel: true,
+        }),
+        new OptimizeCSSAssetsPlugin({}),
+      ],
+    },
+
     externals: config.externals,
 
     resolve: {
@@ -36,16 +48,12 @@ module.exports = function getCommon(config) {
         {
           test: /\.jsx?$/,
           exclude: [/node_modules/],
-          use: config.useHappyPack ?
-            {
-              loader: 'happypack/loader?id=js',
-            } :
-            {
-              loader: 'babel-loader',
-              options: {
-                cacheDirectory: true,
-              },
+          use: {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
             },
+          },
         },
 
         {

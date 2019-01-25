@@ -1,11 +1,16 @@
 const originConsole = window.console
 
-const stringify = arg => JSON.stringify(arg, (key, value) => {
-  if (typeof value === 'function') {
-    return `fn#fn${value.toString()}fn#fn`
-  }
-  return value
-}, 2)
+const stringify = arg =>
+  JSON.stringify(
+    arg,
+    (key, value) => {
+      if (typeof value === 'function') {
+        return `fn#fn${value.toString()}fn#fn`
+      }
+      return value
+    },
+    2
+  )
 
 class Console {
   constructor() {

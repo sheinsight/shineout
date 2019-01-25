@@ -21,40 +21,42 @@ export default class extends Component {
     this.setState({ active: id })
   }
 
-  handleEdit = (event) => {
+  handleEdit = event => {
     const newText = event.target.value
     const path = this.state.active.split(',')
-    this.setState(immer((draft) => {
-      let { data } = draft
-      path.forEach((id, index) => {
-        data = data.find(d => d.id === id)
-        if (index < path.length - 1) data = data.children
+    this.setState(
+      immer(draft => {
+        let { data } = draft
+        path.forEach((id, index) => {
+          data = data.find(d => d.id === id)
+          if (index < path.length - 1) data = data.children
+        })
+        data.text = newText
+        draft.active = undefined
       })
-      data.text = newText
-      draft.active = undefined
-    }))
+    )
   }
 
-  handleKeyDown = (event) => {
+  handleKeyDown = event => {
     if (event.keyCode === 13) event.target.blur()
   }
 
   keyGenerator = (node, parentKey) => `${parentKey},${node.id}`.replace(/^,/, '')
 
-  renderItem = (node, isExpanded, isActive) => (
-    isActive
-      ? (
-        <input
-          autoFocus
-          size="small"
-          onBlur={this.handleEdit}
-          onKeyDown={this.handleKeyDown}
-          defaultValue={node.text}
-          type="text"
-        />
-      )
-      : `node ${node.text}`
-  )
+  renderItem = (node, isExpanded, isActive) =>
+    isActive ? (
+      <input
+        // eslint-disable-next-line
+        autoFocus
+        size="small"
+        onBlur={this.handleEdit}
+        onKeyDown={this.handleKeyDown}
+        defaultValue={node.text}
+        type="text"
+      />
+    ) : (
+      `node ${node.text}`
+    )
 
   render() {
     return (
@@ -70,4 +72,3 @@ export default class extends Component {
     )
   }
 }
-

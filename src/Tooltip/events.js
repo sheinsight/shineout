@@ -25,7 +25,7 @@ function clickaway() {
   document.removeEventListener('click', clickaway)
 }
 
-export function show(props, id) {
+export function show(props, id, innerStyle) {
   const {
     position, style, tip, trigger,
   } = props
@@ -46,6 +46,12 @@ export function show(props, id) {
   }, 0)
 
   inner.innerText = tip
+  inner.removeAttribute('style')
+  if (innerStyle) {
+    Object.keys(innerStyle).forEach((k) => {
+      inner.style[k] = innerStyle[k]
+    })
+  }
 
   if (trigger === 'click') {
     document.addEventListener('click', clickaway)
@@ -62,4 +68,3 @@ export function move(id, left, top) {
 export function isCurrent(id) {
   return id === currentId
 }
-

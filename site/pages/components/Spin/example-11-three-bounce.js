@@ -7,7 +7,7 @@
 import React from 'react'
 import { Spin } from 'shineout'
 
-export default function () {
+export default function() {
   const style = { display: 'flex' }
   return (
     <div style={style}>

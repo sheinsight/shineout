@@ -11,7 +11,7 @@ import { Form, Input, Checkbox, DatePicker, Rule } from 'shineout'
 
 const rule = Rule()
 
-export default function () {
+export default function() {
   return (
     <Form onSubmit={d => console.log(d)}>
       <Form.Item label="First Name">
@@ -24,7 +24,11 @@ export default function () {
 
       <Form.Item label="Full Name">
         <Form.Flow names={['firstName', 'lastName']}>
-          {datum => <div>{datum.get('firstName')} - {datum.get('lastName')}</div>}
+          {datum => (
+            <div>
+              {datum.get('firstName')} - {datum.get('lastName')}
+            </div>
+          )}
         </Form.Flow>
       </Form.Item>
 
@@ -33,7 +37,9 @@ export default function () {
       </Form.Item>
 
       <Form.Item label="">
-        <Checkbox defaultValue name="showAge">Show age</Checkbox>
+        <Checkbox defaultValue name="showAge">
+          Show age
+        </Checkbox>
         <Checkbox name="showColors">Show colors</Checkbox>
         <Checkbox
           name="dateRange"
@@ -47,9 +53,8 @@ export default function () {
       </Form.Item>
 
       <Form.Flow names={['showAge']}>
-        {
-          datum => (
-            datum.get('showAge') &&
+        {datum =>
+          datum.get('showAge') && (
             <Form.Item required label="Age" tip="between 18 and 60">
               <Input
                 name="age"
@@ -66,9 +71,8 @@ export default function () {
       </Form.Flow>
 
       <Form.Flow>
-        {
-          datum => (
-            datum.get('showColors') &&
+        {datum =>
+          datum.get('showColors') && (
             <Form.Item required label="Favorite Colors">
               <Checkbox.Group keygen={c => c} name="colors" data={['red', 'yellow', 'green', 'blue', 'pink']} />
             </Form.Item>
@@ -78,11 +82,11 @@ export default function () {
 
       <Form.Item label="Date" tip="">
         <Form.Flow names={['dateRange']}>
-          {
-            datum => (
-              datum.get('dateRange') === true
-                ? <DatePicker key="r" range name={['startDate', 'endDate']} type="date" />
-                : <DatePicker key="s" name="startDate" type="date" />
+          {datum =>
+            datum.get('dateRange') === true ? (
+              <DatePicker key="r" range name={['startDate', 'endDate']} type="date" />
+            ) : (
+              <DatePicker key="s" name="startDate" type="date" />
             )
           }
         </Form.Flow>

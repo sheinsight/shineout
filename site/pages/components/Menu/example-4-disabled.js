@@ -11,41 +11,52 @@ const data = [
   {
     id: '1',
     title: 'Navigation One',
-  }, {
+  },
+  {
     id: '3',
     title: 'Navigation Two',
     disabled: true,
-    children: [{
-      id: '4',
-      title: 'Option 1',
-    }, {
-      id: '5',
-      title: 'Option 2',
-    }],
-  }, {
+    children: [
+      {
+        id: '4',
+        title: 'Option 1',
+      },
+      {
+        id: '5',
+        title: 'Option 2',
+      },
+    ],
+  },
+  {
     id: '6',
     title: 'Navigation Three',
-    children: [{
-      id: '7',
-      title: 'Option 3',
-    }, {
-      id: '8',
-      title: 'Option 4',
-      children: [{
-        id: '9',
-        title: 'Optic 1',
-      }, {
-        id: '10',
-        title: 'Optic 2',
-      }],
-    }],
-  }, {
+    children: [
+      {
+        id: '7',
+        title: 'Option 3',
+      },
+      {
+        id: '8',
+        title: 'Option 4',
+        children: [
+          {
+            id: '9',
+            title: 'Optic 1',
+          },
+          {
+            id: '10',
+            title: 'Optic 2',
+          },
+        ],
+      },
+    ],
+  },
+  {
     id: '2',
     title: 'Navigation Four',
     disabled: true,
   },
 ]
-
 
 export default class extends React.Component {
   constructor(props) {

@@ -12,7 +12,11 @@ export default class extends Component {
     Modal.confirm({
       title: 'This is a confirm message',
       content: 'this is some information that user confirm',
-      onOk: () => new Promise((resolve) => { console.log('yes i know'); setTimeout(() => resolve(true), 2000) }),
+      onOk: () =>
+        new Promise(resolve => {
+          console.log('yes i know')
+          setTimeout(() => resolve(true), 2000)
+        }),
       text: { ok: 'Yes', cancel: 'No' },
     })
   }

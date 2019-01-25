@@ -1,14 +1,13 @@
 import React, { PureComponent, lazy, Suspense } from 'react'
 import { Router, Route, Switch } from 'react-router-dom'
 import history from './history'
-import classGenerate from './utils/classname'
 import Header from './Header'
 import Loading from './Components/Loading'
+import { mainClass } from './styles'
 
 const Home = lazy(() => import(/* webpackChunkName: "Home" */ './pages/Home'))
 const Components = lazy(() => import(/* webpackChunkName: "Components" */ './chunks/Components'))
 const Documentation = lazy(() => import(/* webpackChunkName: "Documentation" */ './pages/documentation'))
-const clsMain = classGenerate(require('./styles/index.less'), 'main')
 
 class App extends PureComponent {
   constructor(props) {
@@ -29,10 +28,13 @@ class App extends PureComponent {
       }
     })
 
-    fetch('../versions.json').then(res => res.json()).then((json) => {
-      const versions = json.map(v => ({ content: v, url: `../${v}` }))
-      this.setState({ versions })
-    }).catch(() => {})
+    fetch('../versions.json')
+      .then(res => res.json())
+      .then(json => {
+        const versions = json.map(v => ({ content: v, url: `../${v}` }))
+        this.setState({ versions })
+      })
+      .catch(() => {})
   }
 
   render() {
@@ -41,7 +43,7 @@ class App extends PureComponent {
         <div>
           <Header versions={this.state.versions} />
 
-          <div className={clsMain('body')}>
+          <div className={mainClass('body')}>
             <Suspense fallback={<Loading />}>
               <Switch>
                 <Route exact path="/" component={Home} />
@@ -51,7 +53,6 @@ class App extends PureComponent {
             </Suspense>
           </div>
         </div>
-
       </Router>
     )
   }

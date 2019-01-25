@@ -35,12 +35,10 @@ const rules = {
     { required: true, message: 'Please enter age.' },
     { min: 18, max: 60, message: 'Age must between {min} and {max}.' },
   ],
-  colors: [
-    { min: 2, message: 'At least select 2 colors.' },
-  ],
+  colors: [{ min: 2, message: 'At least select 2 colors.' }],
 }
 
-export default function () {
+export default function() {
   return (
     <Form style={{ maxWidth: 500 }} rules={rules} onSubmit={d => console.log(d)}>
       <Form.Item required label="Email">

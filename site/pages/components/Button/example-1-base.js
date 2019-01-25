@@ -7,7 +7,7 @@
 import React from 'react'
 import { Button } from 'shineout'
 
-export default function () {
+export default function() {
   return (
     <div>
       <Button>Default</Button>

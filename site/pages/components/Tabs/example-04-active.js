@@ -10,8 +10,11 @@ import lorem from 'doc/utils/faker/lorem'
 import FontAwsome from '../Icon/FontAwesome'
 
 const panelStyle = { padding: 15 }
-const contact = <span><FontAwsome name="user" /> Contact</span>
-
+const contact = (
+  <span>
+    <FontAwsome name="user" /> Contact
+  </span>
+)
 
 export default class extends Component {
   constructor(props) {
@@ -25,7 +28,7 @@ export default class extends Component {
 
   handleActiveChange = active => this.setState({ active })
 
-  hideMessage = (e) => {
+  hideMessage = e => {
     e.stopPropagation()
     this.setState({
       tabs: ['home', 'profile', 'contact', 'setting'],
@@ -40,11 +43,7 @@ export default class extends Component {
     const message = (
       <span>
         Message
-        <a
-          href="javascript:;"
-          style={{ color: '#999', marginLeft: 10 }}
-          onClick={this.hideMessage}
-        >
+        <a href="javascript:;" style={{ color: '#999', marginLeft: 10 }} onClick={this.hideMessage}>
           <FontAwsome name="close" />
         </a>
       </span>
@@ -52,12 +51,7 @@ export default class extends Component {
 
     return (
       <div>
-        <Radio.Group
-          data={this.state.tabs}
-          keygen
-          value={active}
-          onChange={this.handleActiveChange}
-        />
+        <Radio.Group data={this.state.tabs} keygen value={active} onChange={this.handleActiveChange} />
 
         <br />
 
@@ -68,21 +62,33 @@ export default class extends Component {
           <Tabs.Panel id="profile" border="transparent" background="#ffc069" style={panelStyle} tab="Profile">
             {lorem(5)}
           </Tabs.Panel>
-          <Tabs.Panel id="contact" border="transparent" color="#fff" background="#d46b08" style={panelStyle} tab={contact}>
+          <Tabs.Panel
+            id="contact"
+            border="transparent"
+            color="#fff"
+            background="#d46b08"
+            style={panelStyle}
+            tab={contact}
+          >
             {lorem(5)}
           </Tabs.Panel>
-          <Tabs.Panel id="setting" border="transparent" color="#fff" background="#873800" style={panelStyle} tab="Setting">
+          <Tabs.Panel
+            id="setting"
+            border="transparent"
+            color="#fff"
+            background="#873800"
+            style={panelStyle}
+            tab="Setting"
+          >
             {lorem(5)}
           </Tabs.Panel>
-          {
-            this.state.showMessage &&
+          {this.state.showMessage && (
             <Tabs.Panel id="message" border="#b7eb8f" background="#f6ffed" style={panelStyle} tab={message}>
               {lorem(5)}
             </Tabs.Panel>
-          }
+          )}
         </Tabs>
       </div>
     )
   }
 }
-

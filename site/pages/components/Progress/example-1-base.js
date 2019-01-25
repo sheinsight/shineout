@@ -7,7 +7,7 @@
 import React from 'react'
 import { Progress } from 'shineout'
 
-export default function () {
+export default function() {
   return (
     <div style={{ width: 400 }}>
       <Progress value={50} />

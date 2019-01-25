@@ -9,7 +9,7 @@ import { Select } from 'shineout'
 
 const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
-export default function () {
+export default function() {
   const props = { data, keygen: true, style: { width: 100, marginRight: 12 } }
 
   return (

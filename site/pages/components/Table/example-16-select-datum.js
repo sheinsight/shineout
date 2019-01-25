@@ -50,17 +50,8 @@ export default class extends PureComponent {
   render() {
     return (
       <div>
-        <Table
-          fixed="both"
-          keygen="id"
-          columns={columns}
-          data={data}
-          style={{ height: 300 }}
-          datum={this.datum}
-        />
-        <div style={{ wordBreak: 'break-all' }}>
-          selected rows: { JSON.stringify(this.state.selectedValue) }
-        </div>
+        <Table fixed="both" keygen="id" columns={columns} data={data} style={{ height: 300 }} datum={this.datum} />
+        <div style={{ wordBreak: 'break-all' }}>selected rows: {JSON.stringify(this.state.selectedValue)}</div>
       </div>
     )
   }

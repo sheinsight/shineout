@@ -7,16 +7,28 @@
 import React from 'react'
 import { Button } from 'shineout'
 
-export default function () {
+export default function() {
   return (
     <div>
       <Button disabled>Default</Button>
-      <Button disabled type="primary">Primary</Button>
-      <Button disabled type="secondary">Secondary</Button>
-      <Button disabled type="success">Success</Button>
-      <Button disabled type="warning">Warning</Button>
-      <Button disabled type="danger">Danger</Button>
-      <Button disabled type="link">Link</Button>
+      <Button disabled type="primary">
+        Primary
+      </Button>
+      <Button disabled type="secondary">
+        Secondary
+      </Button>
+      <Button disabled type="success">
+        Success
+      </Button>
+      <Button disabled type="warning">
+        Warning
+      </Button>
+      <Button disabled type="danger">
+        Danger
+      </Button>
+      <Button disabled type="link">
+        Link
+      </Button>
     </div>
   )
 }

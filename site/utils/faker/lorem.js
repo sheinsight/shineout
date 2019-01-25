@@ -28,7 +28,7 @@ function sentence() {
   return `${s[0].toUpperCase() + s.slice(1)}.`
 }
 
-export default function (length = 1) {
+export default function(length = 1) {
   const ss = []
   for (let i = 0; i < length; i++) {
     ss.push(sentence())

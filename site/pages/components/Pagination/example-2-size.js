@@ -7,7 +7,7 @@
 import React from 'react'
 import { Pagination } from 'shineout'
 
-export default function () {
+export default function() {
   return (
     <div>
       <Pagination size="small" total={1000} />

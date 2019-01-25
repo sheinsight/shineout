@@ -36,7 +36,7 @@ export default class extends PureComponent {
         render: 'start',
         sorter: this.handleSorter.bind(this, 'start'),
         rowSpan: (a, b) => a.start === b.start,
-        colSpan: (d) => {
+        colSpan: d => {
           const hour = parseInt(d.time.slice(0, 2), 10)
           if (hour > 21 || hour < 9) return 2
           return 1
@@ -62,15 +62,13 @@ export default class extends PureComponent {
   fetchData = () => {
     const { sorter, current, pageSize } = this.state
     this.setState({ loading: true })
-    fetch.get('user', { sorter, current, pageSize }).then((res) => {
+    fetch.get('user', { sorter, current, pageSize }).then(res => {
       this.setState({ data: res.data, loading: false, total: res.total })
     })
   }
 
   render() {
-    const {
-      data, current, pageSize, total, loading,
-    } = this.state
+    const { data, current, pageSize, total, loading } = this.state
 
     return (
       <Table

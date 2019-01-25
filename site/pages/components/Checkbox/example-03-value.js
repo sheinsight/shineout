@@ -8,7 +8,7 @@
 import React from 'react'
 import { Checkbox } from 'shineout'
 
-export default function () {
+export default function() {
   return (
     <Checkbox htmlValue="ok" value="ok">
       {'value is "ok"'}

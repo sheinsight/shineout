@@ -37,16 +37,6 @@ const columns = [
   },
 ]
 
-export default function () {
-  return (
-    <Table
-      bordered
-      fixed="both"
-      keygen="id"
-      width={1500}
-      style={{ height: 300 }}
-      columns={columns}
-      data={data}
-    />
-  )
+export default function() {
+  return <Table bordered fixed="both" keygen="id" width={1500} style={{ height: 300 }} columns={columns} data={data} />
 }

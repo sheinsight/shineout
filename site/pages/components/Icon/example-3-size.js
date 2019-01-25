@@ -9,7 +9,7 @@ import FontAwesome from './FontAwesome'
 
 const margin = { marginRight: 20 }
 
-export default function () {
+export default function() {
   return (
     <div>
       <FontAwesome style={margin} name="home" />

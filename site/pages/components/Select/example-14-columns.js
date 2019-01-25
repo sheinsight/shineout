@@ -11,7 +11,7 @@ import { fetchSync as fetchCity } from 'doc/data/city'
 const citys = fetchCity(200)
 const style = { width: 300, marginBottom: 12, display: 'block' }
 
-export default function () {
+export default function() {
   return (
     <div>
       <Select

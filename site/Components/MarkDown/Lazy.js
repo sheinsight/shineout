@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import MarkDown from './MarkDown'
 import Loading from '../Loading'
 
-export default function () {
+export default function() {
   class Lazy extends PureComponent {
     constructor(props) {
       super(props)
@@ -14,8 +14,8 @@ export default function () {
 
     componentDidMount() {
       if (this.props.loader) {
-        this.props.loader().then((source) => {
-          this.setState({ source })
+        this.props.loader().then(source => {
+          this.setState({ source: source.default })
         })
       }
     }

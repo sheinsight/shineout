@@ -9,16 +9,10 @@ import { Radio } from 'shineout'
 
 const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
-export default function () {
+export default function() {
   return (
     <div>
-      <Radio.Group
-        keygen
-        disabled
-        data={data}
-        defaultValue="blue"
-        renderItem={d => d}
-      />
+      <Radio.Group keygen disabled data={data} defaultValue="blue" renderItem={d => d} />
     </div>
   )
 }

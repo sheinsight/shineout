@@ -20,7 +20,10 @@ export default class extends PureComponent {
     this.columns = [
       { title: 'id', render: 'id', width: 70 },
       {
-        title: 'First Name', group: 'Name', render: 'firstName', width: 100,
+        title: 'First Name',
+        group: 'Name',
+        render: 'firstName',
+        width: 100,
       },
       {
         title: 'Last Name',
@@ -48,7 +51,7 @@ export default class extends PureComponent {
   fetchData = () => {
     const { current, pageSize } = this.state
     this.setState({ loading: true })
-    fetch.get('table', { current, pageSize }).then((res) => {
+    fetch.get('table', { current, pageSize }).then(res => {
       this.setState({ data: [...this.state.data, ...res.data], loading: false })
     })
   }

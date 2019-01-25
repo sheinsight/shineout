@@ -15,7 +15,11 @@ const columns = [
   {
     title: 'Name',
     fixed: 'left',
-    render: d => <div style={{ height: d.height }}>{d.firstName} {d.lastName}</div>,
+    render: d => (
+      <div style={{ height: d.height }}>
+        {d.firstName} {d.lastName}
+      </div>
+    ),
     width: 160,
   },
   { title: 'Country', render: 'country', width: 200 },
@@ -31,7 +35,7 @@ for (let i = 0; i < 50; i++) {
   })
 }
 
-export default function () {
+export default function() {
   return (
     <Table
       fixed="both"

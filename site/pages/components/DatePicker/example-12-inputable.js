@@ -7,32 +7,16 @@
 import React from 'react'
 import { DatePicker } from 'shineout'
 
-export default function () {
+export default function() {
   return (
     <div>
-      <DatePicker
-        placeholder="Input date"
-        inputable
-        onChange={v => console.log(v)}
-        style={{ marginRight: 12 }}
-      />
+      <DatePicker placeholder="Input date" inputable style={{ marginRight: 12 }} />
 
-      <DatePicker
-        type="datetime"
-        inputable
-        defaultValue={new Date()}
-        onChange={v => console.log(v)}
-      />
+      <DatePicker type="datetime" inputable defaultValue={new Date()} />
 
       <br />
 
-      <DatePicker
-        range
-        inputable
-        defaultValue={[Date.now() - 864000000, new Date()]}
-        onChange={v => console.log(v)}
-        style={{ marginTop: 12 }}
-      />
+      <DatePicker range inputable defaultValue={[Date.now() - 864000000, new Date()]} style={{ marginTop: 12 }} />
     </div>
   )
 }

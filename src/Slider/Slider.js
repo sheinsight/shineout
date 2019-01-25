@@ -37,9 +37,7 @@ class Slider extends PureComponent {
   }
 
   handleDrag(mx, my) {
-    const {
-      scale, onDrag, value, vertical,
-    } = this.props
+    const { scale, onDrag, value, vertical } = this.props
     const m = vertical ? my / this.parentElement.clientHeight : mx / this.parentElement.clientWidth
     const { length } = this.state
 
@@ -72,10 +70,7 @@ class Slider extends PureComponent {
     if (!formatValue) return null
 
     const { dragging } = this.state
-    const className = sliderClass(
-      'result',
-      (!autoHide || dragging) && 'show',
-    )
+    const className = sliderClass('result', (!autoHide || dragging) && 'show')
     const value = formatValue(this.length2value(this.state.length))
     return <div className={className}>{value}</div>
   }
@@ -89,8 +84,10 @@ class Slider extends PureComponent {
     const className = sliderClass(
       'bar',
       vertical && (index === 1 ? 'top' : 'bottom'),
-      !vertical && index === 1 && 'right',
+      !vertical && index === 1 && 'right'
     )
+
+    console.log(this.props.value, length, style)
 
     return (
       <div ref={this.bindElement} style={style} className={className}>
@@ -105,10 +102,7 @@ class Slider extends PureComponent {
 Slider.propTypes = {
   autoHide: PropTypes.bool,
   disabled: PropTypes.bool,
-  formatValue: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.bool,
-  ]),
+  formatValue: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   index: PropTypes.number.isRequired,
   min: PropTypes.number,
   max: PropTypes.number,

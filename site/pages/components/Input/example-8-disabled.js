@@ -9,7 +9,7 @@ import { Input } from 'shineout'
 
 const style = { width: 300, marginBottom: 12 }
 
-export default function () {
+export default function() {
   return (
     <div>
       <Input.Group disabled style={style}>

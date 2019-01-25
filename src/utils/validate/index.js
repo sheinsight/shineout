@@ -15,9 +15,7 @@ function getRule(rules, props = {}) {
   }
   if (typeof props === 'string') props = { type: props }
 
-  const {
-    type = props.type, message, regExp, func, ...other
-  } = rules
+  const { type = props.type, message, regExp, func, ...other } = rules
 
   props = Object.assign({}, props, other)
   props.message = typeof message === 'function' ? message(props) : substitute(message, props)
@@ -42,38 +40,38 @@ function getRule(rules, props = {}) {
   throw err
 }
 
-const validate = (value, formdata, rules, props) => new Promise((resolve, reject) => {
-  const $rules = flattenArray(rules)
-  const rule = $rules.shift()
-  if (rule === undefined) {
-    resolve(true)
-    return
-  } else if (!rule) {
-    validate(value, formdata, $rules, props).then(resolve, reject)
-    return
-  }
-
-  const callback = (result) => {
-    if (result !== true) {
-      reject(wrapFormError(result))
+const validate = (value, formdata, rules, props) =>
+  new Promise((resolve, reject) => {
+    const $rules = flattenArray(rules)
+    const rule = $rules.shift()
+    if (rule === undefined) {
+      resolve(true)
+      return
+    } else if (!rule) {
+      validate(value, formdata, $rules, props).then(resolve, reject)
       return
     }
 
-    validate(value, formdata, $rules, props).then(resolve, reject)
-  }
+    const callback = result => {
+      if (result !== true) {
+        reject(wrapFormError(result))
+        return
+      }
 
-  const fn = getRule(rule, props)
-  let val = value
-  if (fn === rule && (value instanceof Datum.List || value instanceof Datum.Form)) {
-    val = value.getValue()
-  }
-  const cb = fn(val, formdata, callback)
-  if (cb && cb.then) {
-    cb.then(callback.bind(null, true)).catch((e) => {
-      reject(wrapFormError(e))
-    })
-  }
-})
+      validate(value, formdata, $rules, props).then(resolve, reject)
+    }
+
+    const fn = getRule(rule, props)
+    let val = value
+    if (fn === rule && (value instanceof Datum.List || value instanceof Datum.Form)) {
+      val = value.getValue()
+    }
+    const cb = fn(val, formdata, callback)
+    if (cb && cb.then) {
+      cb.then(callback.bind(null, true)).catch(e => {
+        reject(wrapFormError(e))
+      })
+    }
+  })
 
 export default validate
-

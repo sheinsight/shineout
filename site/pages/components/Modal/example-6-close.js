@@ -51,8 +51,12 @@ export default class extends React.Component {
           title="Modal Title"
           onClose={this.handleCancel}
           footer={[
-            <Button key="cancel" onClick={this.handleCancel}>Cancel</Button>,
-            <Button key="ok" type="primary" onClick={this.handleOk}>Ok</Button>,
+            <Button key="cancel" onClick={this.handleCancel}>
+              Cancel
+            </Button>,
+            <Button key="ok" type="primary" onClick={this.handleOk}>
+              Ok
+            </Button>,
           ]}
         >
           The prop maskCloseAble is false.

@@ -8,13 +8,6 @@ import React from 'react'
 import { Tree } from 'shineout'
 import data from 'doc/data/tree'
 
-export default function () {
-  return (
-    <Tree
-      data={data}
-      keygen="id"
-      defaultExpanded={['2']}
-      renderItem={n => `node ${n.text}`}
-    />
-  )
+export default function() {
+  return <Tree data={data} keygen="id" defaultExpanded={['2']} renderItem={n => `node ${n.text}`} />
 }

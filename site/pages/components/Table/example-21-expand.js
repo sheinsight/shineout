@@ -14,7 +14,7 @@ const columns = [
   { title: 'id', render: 'id', width: 50 },
   {
     type: 'row-expand',
-    render: (d) => {
+    render: d => {
       if (d.salary < 300000) return undefined
       return () => <div style={{ padding: '10px 30px', wordBreak: 'break-all' }}>{JSON.stringify(d)}</div>
     },
@@ -28,7 +28,7 @@ const columns = [
   },
 ]
 
-export default function () {
+export default function() {
   return (
     <Table
       fixed="y"
@@ -36,7 +36,9 @@ export default function () {
       keygen="id"
       style={{ height: 300 }}
       columns={columns}
-      onRowClick={(d, i) => { console.log(d, i) }}
+      onRowClick={(d, i) => {
+        console.log(d, i)
+      }}
     />
   )
 }

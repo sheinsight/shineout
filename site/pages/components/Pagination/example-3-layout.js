@@ -9,7 +9,7 @@ import { Pagination } from 'shineout'
 
 const info = ({ total }) => `total ${total}`
 
-export default function () {
+export default function() {
   return (
     <Pagination
       total={128}

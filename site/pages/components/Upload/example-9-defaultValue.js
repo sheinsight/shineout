@@ -8,12 +8,13 @@ import React from 'react'
 import { Upload, Button } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
-
-export default function () {
-  const defaultValue = [{
-    name: 'test file.png',
-    url: '../images/1_s.jpg',
-  }]
+export default function() {
+  const defaultValue = [
+    {
+      name: 'test file.png',
+      url: '../images/1_s.jpg',
+    },
+  ]
 
   return (
     <div>
@@ -28,7 +29,9 @@ export default function () {
         defaultValue={defaultValue}
         renderResult={f => f.name}
       >
-        <Button><FontAwesome name="upload" /> Upload file</Button>
+        <Button>
+          <FontAwesome name="upload" /> Upload file
+        </Button>
       </Upload>
 
       <Upload.Image

@@ -10,7 +10,7 @@ import { DatePicker } from 'shineout'
 // minisecond
 const today = Date.now() - 1000
 
-export default function () {
+export default function() {
   return (
     <div>
       <DatePicker
@@ -21,7 +21,7 @@ export default function () {
       />
 
       <DatePicker
-        disabled={(d) => {
+        disabled={d => {
           if (d.getHours() > 15) return true
           return false
         }}

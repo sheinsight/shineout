@@ -18,7 +18,7 @@ const menu = [
   },
 ]
 
-export default function () {
+export default function() {
   return (
     <Button.Group>
       <Button onClick={() => Message.info('The left button clicked.')}>Left</Button>
@@ -31,4 +31,3 @@ export default function () {
     </Button.Group>
   )
 }
-

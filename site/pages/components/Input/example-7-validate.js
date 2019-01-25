@@ -16,14 +16,6 @@ const rules = [
   { type: 'email', message: 'Please enter a valid email.' },
 ]
 
-export default function () {
-  return (
-    <Input
-      placeholder="email"
-      rules={rules}
-      tip="Email, required"
-      popover="top-left"
-      width={300}
-    />
-  )
+export default function() {
+  return <Input placeholder="email" rules={rules} tip="Email, required" popover="top-left" width={300} />
 }

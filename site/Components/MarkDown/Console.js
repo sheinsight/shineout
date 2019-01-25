@@ -1,8 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import classGenerate from '../../utils/classname'
-
-const markdownClass = classGenerate(require('./markdown.less'), 'markdown')
+import { markdownClass } from 'doc/styles'
 
 class Console extends PureComponent {
   constructor(props) {
@@ -19,7 +17,12 @@ class Console extends PureComponent {
     const { children } = this.props
     const { expanded } = this.state
 
-    const text = children.map(t => t.replace(/"fn#fn/g, '').replace(/fn#fn"/g, '').replace(/\\n/g, '\n'))
+    const text = children.map(t =>
+      t
+        .replace(/"fn#fn/g, '')
+        .replace(/fn#fn"/g, '')
+        .replace(/\\n/g, '\n')
+    )
     const Tag = expanded ? 'pre' : 'div'
     return (
       <div onClick={this.toggle} className={markdownClass('console')}>

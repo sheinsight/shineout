@@ -7,7 +7,7 @@
 import React from 'react'
 import { Alert, Sticky } from 'shineout'
 
-export default function () {
+export default function() {
   return (
     <Sticky bottom={0}>
       <Alert style={{ marginBottom: 0 }} onClose>

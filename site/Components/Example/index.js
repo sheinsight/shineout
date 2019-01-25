@@ -1,12 +1,10 @@
 import React, { Component, Fragment, createElement } from 'react'
 import PropTypes from 'prop-types'
 import { Lazyload, Spin } from 'shineout'
-import classGenerate from 'doc/utils/classname'
 import Icon from 'doc/icons/Icon'
 import history from 'doc/history'
+import { exampleClass } from 'doc/styles'
 import CodeBlock from '../CodeBlock'
-
-const exampleClass = classGenerate(require('./example.less'), 'example')
 
 const placeholder = (
   <div className={exampleClass('placeholder')}>
@@ -35,11 +33,11 @@ export default class Example extends Component {
     }
   }
 
-  setCodeBlockHeight = (height) => {
+  setCodeBlockHeight = height => {
     this.codeHeight = height
   }
 
-  bindCodeBlock = (el) => {
+  bindCodeBlock = el => {
     this.codeblock = el
   }
 
@@ -71,20 +69,14 @@ export default class Example extends Component {
   renderCodeHandle(isBottom) {
     const { showcode } = this.state
     return (
-      <a
-        href="javascript:;"
-        className={exampleClass('toggle')}
-        onClick={this.toggleCode.bind(this, isBottom)}
-      >
+      <a href="javascript:;" className={exampleClass('toggle')} onClick={this.toggleCode.bind(this, isBottom)}>
         <Icon name={showcode ? 'code-close' : 'code'} />
       </a>
     )
   }
 
   render() {
-    const {
-      component, id, name, rawText,
-    } = this.props
+    const { component, id, name, rawText } = this.props
     const { showcode } = this.state
 
     const text = rawText.replace(/(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/, '').trim()
@@ -102,31 +94,27 @@ export default class Example extends Component {
 
     return (
       <Fragment>
-        { title && <h3 key="0" id={id}>{title}</h3> }
+        {title && (
+          <h3 key="0" id={id}>
+            {title}
+          </h3>
+        )}
 
         <Lazyload placeholder={placeholder}>
           <div className={exampleClass('_', showcode && 'showcode')}>
-            <div className={exampleClass('body')}>
-              {createElement(component)}
-            </div>
+            <div className={exampleClass('body')}>{createElement(component)}</div>
 
-            {
-              this.props.title.length > 0 &&
+            {this.props.title.length > 0 && (
               <div className={exampleClass('desc')}>
-                {
-                  // eslint-disable-next-line
-                  sub.map((s, i) => <div key={i} dangerouslySetInnerHTML={{ __html: s }} />)
-                }
+                {sub.map((s, i) => (
+                  <div key={i} dangerouslySetInnerHTML={{ __html: s }} />
+                ))}
                 {this.renderCodeHandle(false)}
               </div>
-            }
+            )}
 
             <div ref={this.bindCodeBlock} className={exampleClass('code')}>
-              <CodeBlock
-                onHighLight={this.setCodeBlockHeight}
-                onClose={this.toggleCode}
-                value={text}
-              />
+              <CodeBlock onHighLight={this.setCodeBlockHeight} onClose={this.toggleCode} value={text} />
               {this.renderCodeHandle(true)}
             </div>
           </div>

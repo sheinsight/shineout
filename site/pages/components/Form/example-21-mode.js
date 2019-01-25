@@ -26,15 +26,16 @@ export default class extends PureComponent {
     return (
       <div>
         <div style={{ marginBottom: 30 }}>
-          <Radio.Group
-            value={mode}
-            onChange={this.changeMode}
-            data={['create', 'edit', 'other']}
-            keygen
-          />
+          <Radio.Group value={mode} onChange={this.changeMode} data={['create', 'edit', 'other']} keygen />
         </div>
 
-        <Form mode={mode} value={this.initValue} onSubmit={(data) => { console.log(data) }}>
+        <Form
+          mode={mode}
+          value={this.initValue}
+          onSubmit={data => {
+            console.log(data)
+          }}
+        >
           <CreateMode>
             <Form.Item label="name">
               <Input name="name" />
@@ -47,9 +48,7 @@ export default class extends PureComponent {
             </Form.Item>
           </EditMode>
 
-          <OtherMode>
-            Ops...
-          </OtherMode>
+          <OtherMode>Ops...</OtherMode>
         </Form>
       </div>
     )

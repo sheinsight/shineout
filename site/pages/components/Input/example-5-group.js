@@ -10,7 +10,7 @@ import FontAwesome from '../Icon/FontAwesome'
 
 const style = { width: 300, marginBottom: 12 }
 
-export default function () {
+export default function() {
   return (
     <div>
       <Input.Group style={style}>
@@ -36,7 +36,9 @@ export default function () {
       </Input.Group>
 
       <Input.Group size="small" style={style}>
-        <b><FontAwesome name="envelope" /></b>
+        <b>
+          <FontAwesome name="envelope" />
+        </b>
         <Input placeholder="email" />
         <b>.com</b>
       </Input.Group>

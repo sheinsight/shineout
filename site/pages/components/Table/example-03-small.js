@@ -18,8 +18,6 @@ const columns = [
   { title: 'Office', render: 'office' },
 ]
 
-export default function () {
-  return (
-    <Table keygen="id" size="small" columns={columns} data={data} />
-  )
+export default function() {
+  return <Table keygen="id" size="small" columns={columns} data={data} />
 }

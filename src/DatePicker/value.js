@@ -36,10 +36,10 @@ export default Origin => class extends Component {
   componentDidUpdate(prevProps) {
     const { value } = this.props
     if (!shallowEqual(prevProps.value, value) && !shallowEqual(value, this.state.value)) {
-      const newValue = this.convertValue(value)
+      this.convertValue(value)
       // eslint-disable-next-line
       // this.setState({ value: newValue })
-      this.state.value = newValue
+      // this.state.value = newValue
     }
   }
 
@@ -68,6 +68,7 @@ export default Origin => class extends Component {
     if (!range) {
       const newValue = utils.format(utils.toDateWithFormat(value, format, undefined), format)
       if (newValue !== value) this.props.onChange(newValue)
+      else if (newValue !== this.state.value) this.setState({ value: newValue })
       return newValue
     }
 
@@ -79,6 +80,7 @@ export default Origin => class extends Component {
     if (!shallowEqual(newValue, value)) {
       this.props.onChange(newValue)
     }
+    this.state.value = newValue
 
     return newValue
   }

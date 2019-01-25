@@ -17,7 +17,7 @@ const data = [
   { id: 7, color: 'violet' },
 ]
 
-export default function () {
+export default function() {
   return (
     <Checkbox.Group
       keygen="id"

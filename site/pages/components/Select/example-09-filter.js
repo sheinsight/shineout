@@ -21,9 +21,9 @@ export default class extends Component {
     this.handleFilter('')
   }
 
-  handleFilter = (text) => {
+  handleFilter = text => {
     this.setState({ loading: true })
-    fetch.get('user', { username: text }).then((res) => {
+    fetch.get('user', { username: text }).then(res => {
       this.setState({ loading: false, data: res.data })
     })
   }

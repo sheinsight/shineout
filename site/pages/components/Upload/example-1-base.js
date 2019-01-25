@@ -9,7 +9,7 @@ import React from 'react'
 import { Upload, Button } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
-export default function () {
+export default function() {
   return (
     <Upload
       action="http://jsonplaceholder.typicode.com/posts"
@@ -19,7 +19,9 @@ export default function () {
       limit={3}
       style={{ width: 300 }}
     >
-      <Button><FontAwesome name="upload" /> Upload file</Button>
+      <Button>
+        <FontAwesome name="upload" /> Upload file
+      </Button>
     </Upload>
   )
 }

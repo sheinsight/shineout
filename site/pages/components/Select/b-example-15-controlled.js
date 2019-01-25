@@ -15,7 +15,7 @@ export default class extends React.Component {
     this.state = { value: '' }
   }
 
-  handleChange = (value) => {
+  handleChange = value => {
     // if (data.indexOf(value) < 0 && !(/\d+/.test(value))) value = ''
     this.setState({ value })
   }
@@ -40,4 +40,3 @@ export default class extends React.Component {
     )
   }
 }
-
