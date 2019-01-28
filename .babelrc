@@ -33,7 +33,7 @@
       ]
     },
     "test": {
-      "presets": ["@babel/preset-env"]
+      "presets": ["react-app"]
     }
   }
 }
