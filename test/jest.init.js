@@ -1,0 +1,3 @@
+// enzyme
+
+import '@babel/polyfill'

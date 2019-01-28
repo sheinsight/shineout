@@ -77,10 +77,12 @@ describe('is.js[isFunc]', () => {
 
 describe('is.js[isNumber]', () => {
   test('should be correct', () => {
-    const test = [1, Number(1), Number.MAX_VALUE, Number.MIN_VALUE, {}, null]
+    const test = [1, Number(1), Number.MAX_VALUE, Number.MIN_VALUE]
     test.forEach(value => {
       expect(is.isNumber(value)).toBeTruthy()
     })
+    expect(is.isNumber({})).toBeFalsy()
+    expect(is.isNumber(null)).toBeFalsy()
   })
 })
 
