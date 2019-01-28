@@ -27,6 +27,7 @@
 | className | string | - | Extend className |
 | background | string | - | Background color, override the Tab's background |
 | border | string | - | Border color, override the Tab's border |
+| disabled | bool | false | Specifies the Panel should be disabled |
 | id | string \| number | - | The default is index |
 | style | object | - | Content style |
 | tab | string \| ReactElement | required | Tab content |
