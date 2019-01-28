@@ -140,8 +140,10 @@ export default function (options) {
         props.onMouseEnter = this.handleShow
         props.onMouseLeave = hide
       } else {
-        props.onClick = () => {
+        props.onClick = (e) => {
+          e.stopPropagation()
           setTimeout(this.handleShow, 10)
+          if (children.props.onClick) children.props.onClick()
         }
       }
 
