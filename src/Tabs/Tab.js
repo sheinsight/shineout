@@ -11,20 +11,20 @@ class Tab extends PureComponent {
   }
 
   getActiveStyle() {
-    const {
-      shape, align, background, color, border,
-      isActive, isVertical,
-    } = this.props
+    const { shape, align, background, color, border, isActive, isVertical } = this.props
 
     if (shape === 'line') return {}
 
     const style = { background, color }
 
-    if (shape !== 'line' && !isVertical) style.borderColor = `${border} ${border} ${isActive ? background : border} ${border}`
+    if (shape !== 'line' && !isVertical)
+      style.borderColor = `${border} ${border} ${isActive ? background : border} ${border}`
 
-    if (shape !== 'line' && align === 'vertical-left') style.borderColor = `${border} ${isActive ? background : border}  ${border} ${border}`
+    if (shape !== 'line' && align === 'vertical-left')
+      style.borderColor = `${border} ${isActive ? background : border}  ${border} ${border}`
 
-    if (shape !== 'line' && align === 'vertical-right') style.borderColor = `${border} ${border} ${border} ${isActive ? background : border}`
+    if (shape !== 'line' && align === 'vertical-right')
+      style.borderColor = `${border} ${border} ${border} ${isActive ? background : border}`
 
     return style
   }
@@ -34,22 +34,21 @@ class Tab extends PureComponent {
   }
 
   handleClick() {
-    const { onClick, id, isActive } = this.props
+    const { onClick, id, isActive, disabled } = this.props
+    if (disabled) return
     onClick(id, isActive)
     this.props.moveToCenter(this.element.getBoundingClientRect())
   }
 
   render() {
-    const {
-      isActive,
-    } = this.props
+    const { isActive, disabled } = this.props
 
     const style = this.getActiveStyle()
 
     return (
       <div
         ref={this.bindElement}
-        className={tabsClass('tab', isActive && 'active')}
+        className={tabsClass('tab', isActive && 'active', disabled && 'disabled')}
         style={style}
         onClick={this.handleClick}
       >
@@ -64,6 +63,7 @@ Tab.propTypes = {
   border: PropTypes.string,
   children: PropTypes.any,
   color: PropTypes.string,
+  disabled: PropTypes.bool,
   isVertical: PropTypes.bool,
   id: PropTypes.any.isRequired,
   isActive: PropTypes.bool.isRequired,

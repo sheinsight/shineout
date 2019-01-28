@@ -1,16 +1,12 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
-
 @tabs-prefix: ~"@{so-prefix}-tabs";
-
 .@{tabs-prefix} {
   position: relative;
-
   &-header {
     display: flex;
     position: relative;
     z-index: 1;
-
     .@{tabs-prefix}-tab {
       position: relative;
       z-index: 1;
@@ -21,16 +17,16 @@
       border-radius: @tabs-link-border-radius @tabs-link-border-radius 0 0;
       cursor: pointer;
     }
-
-    .@{tabs-prefix}-tab + .@{tabs-prefix}-tab {
+    .@{tabs-prefix}-tab+.@{tabs-prefix}-tab {
       margin-left: @tabs-link-spacing;
     }
-
+    .@{tabs-prefix}-disabled {
+      cursor: not-allowed;
+    }
     .@{tabs-prefix}-active {
       z-index: 100;
       cursor: default;
     }
-
     .@{tabs-prefix}-hr {
       position: absolute;
       z-index: 10;
@@ -39,36 +35,30 @@
       border-bottom: solid 1px transparent;
     }
   }
-
   .@{tabs-prefix}-indicator {
     width: 40px;
     text-align: center;
     display: inline-block;
     padding-top: 11px;
     cursor: pointer;
-
     svg {
       width: 12px;
       height: 12px;
       transform: rotate(90deg);
       transition: transform 0.2s linear;
-
       path {
         fill: #999;
       }
     }
-
     &:hover svg path {
       fill: @colors-primary;
     }
-
     &.@{tabs-prefix}-collapsed {
       svg {
         transform: rotate(0);
       }
     }
   }
-
   .@{tabs-prefix}-button-active {
     position: relative;
     color: #fff;
@@ -77,7 +67,6 @@
     &:before {
       display: none;
     }
-
     &:not(:last-child):after {
       content: ' ';
       border-right: solid 1px @colors-primary;
@@ -88,22 +77,18 @@
       bottom: 0;
     }
   }
-
   &-inner {
     flex: 1;
     overflow: hidden;
   }
-
   &-scroll {
     display: inline-block;
     white-space: nowrap;
     transition: margin 0.2s linear;
   }
-
   &-align-right &-inner {
     text-align: right;
   }
-
   &-vertical {
     display: flex;
     justify-content: flex-start;
@@ -114,21 +99,19 @@
         .@{tabs-prefix}-tab {
           display: block;
         }
-
-        .@{tabs-prefix}-tab + .@{tabs-prefix}-tab {
+        .@{tabs-prefix}-tab+.@{tabs-prefix}-tab {
           margin-left: 0;
           margin-top: @tabs-link-spacing;
         }
       }
-
-      .@{tabs-prefix}-scroll-next, .@{tabs-prefix}-scroll-prev {
+      .@{tabs-prefix}-scroll-next,
+      .@{tabs-prefix}-scroll-prev {
         height: 30px;
         width: 100%;
         svg {
           transform: translate(-50%, -50%) rotate(90deg)
         }
       }
-
       .@{tabs-prefix}-hr {
         height: 100%;
         border-left: solid 1px transparent;
@@ -136,36 +119,29 @@
       }
     }
   }
-
   &-align-vertical-left {
-
-      .@{tabs-prefix}-tab {
-        border-radius: @tabs-link-border-radius 0 0 @tabs-link-border-radius;
-      }
-
-      .@{tabs-prefix}-hr {
-        right: 0;
-      }
-  }
-
-  &-align-vertical-right {
-
     .@{tabs-prefix}-tab {
-      border-radius:  0 @tabs-link-border-radius @tabs-link-border-radius 0 ;
+      border-radius: @tabs-link-border-radius 0 0 @tabs-link-border-radius;
     }
-
+    .@{tabs-prefix}-hr {
+      right: 0;
+    }
+  }
+  &-align-vertical-right {
+    .@{tabs-prefix}-tab {
+      border-radius: 0 @tabs-link-border-radius @tabs-link-border-radius 0;
+    }
     .@{tabs-prefix}-hr {
       left: 0;
     }
   }
-
-  &-scroll-prev, &-scroll-next {
+  &-scroll-prev,
+  &-scroll-next {
     position: relative;
     width: 30px;
     text-align: center;
     background: #fff;
     cursor: pointer;
-
     svg {
       position: absolute;
       width: 10px;
@@ -174,17 +150,14 @@
       transform: translate(-50%, -50%);
     }
   }
-
   &-panel {
     position: relative;
     z-index: 10;
     display: none;
-
     &.@{tabs-prefix}-show {
       display: block;
     }
   }
-
   &-line {
     .@{tabs-prefix}-active {
       color: @tabs-line-active-color;
@@ -197,14 +170,12 @@
       }
     }
   }
-
   &-line:not(.@{tabs-prefix}-vertical) {
     .@{tabs-prefix}-active:after {
-        left: 0;
-        bottom: 0;
+      left: 0;
+      bottom: 0;
     }
   }
-
   &-line.@{tabs-prefix}-align-vertical-left {
     .@{tabs-prefix}-active:after {
       height: 100%;
@@ -213,7 +184,6 @@
       top: 0;
     }
   }
-
   &-line.@{tabs-prefix}-align-vertical-right {
     .@{tabs-prefix}-active::after {
       height: 100%;
