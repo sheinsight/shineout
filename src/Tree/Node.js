@@ -47,7 +47,6 @@ class Node extends PureComponent {
   }
 
   handleDragStart(event) {
-    console.log(event)
     if (isDragging) return
     isDragging = true
 

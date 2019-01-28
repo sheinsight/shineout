@@ -106,7 +106,6 @@ class Tree extends PureComponent {
   }
 
   handleDrop(id, targetId, position) {
-    console.log(id, targetId, position)
     const current = this.datum.getPath(id)
     const target = this.datum.getPath(targetId)
     const data = immer(this.props.data, draft => {
