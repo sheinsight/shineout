@@ -5,7 +5,11 @@ import { treeClass } from '../styles'
 import Spin from '../Spin'
 import Checkbox from './Checkbox'
 
-const loading = <span className={treeClass('icon-loading')}><Spin name="ring" size={12} /></span>
+const loading = (
+  <span className={treeClass('icon-loading')}>
+    <Spin name="ring" size={12} />
+  </span>
+)
 
 class Content extends PureComponent {
   constructor(props) {
@@ -25,9 +29,7 @@ class Content extends PureComponent {
   }
 
   handleIndicatorClick() {
-    const {
-      id, data, onToggle, loader,
-    } = this.props
+    const { id, data, onToggle, loader } = this.props
 
     onToggle()
 
@@ -38,9 +40,7 @@ class Content extends PureComponent {
   }
 
   renderNode() {
-    const {
-      id, active, data, renderItem, expanded,
-    } = this.props
+    const { id, active, data, renderItem, expanded } = this.props
     const render = typeof renderItem === 'function' ? renderItem : d => d[renderItem]
     return render(data, expanded, active, id)
   }
@@ -68,18 +68,13 @@ class Content extends PureComponent {
   }
 
   render() {
-    const {
-      data, onToggle, onChange, expanded, draggable, onDragOver, onDrop, ...other
-    } = this.props
+    const { data, onToggle, onChange, expanded, draggable, onDragOver, onDrop, ...other } = this.props
 
     return (
       <div onDragOver={onDragOver}>
-        { this.renderIndicator() }
+        {this.renderIndicator()}
         <div className={treeClass('content')}>
-          {
-            onChange &&
-            <Checkbox {...other} onChange={onChange} />
-          }
+          {onChange && <Checkbox {...other} onChange={onChange} />}
           <div className={treeClass('text')} onClick={this.handleNodeClick}>
             {this.renderNode()}
           </div>
@@ -101,10 +96,7 @@ Content.propTypes = {
   onDragOver: PropTypes.func,
   onDrop: PropTypes.func,
   onNodeClick: PropTypes.func,
-  renderItem: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.string,
-  ]).isRequired,
+  renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]).isRequired,
 }
 
 export default Content
