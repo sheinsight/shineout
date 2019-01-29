@@ -12,6 +12,12 @@ class Modal extends Component {
     this.visible = props.visible
   }
 
+  componentDidMount() {
+    if (this.props.visible && !this.props.usePortal) {
+      open(this.getOption(), false)
+    }
+  }
+
   shouldComponentUpdate(nextProps) {
     if (shallowEqual(this.props, nextProps)) return false
     if (nextProps.visible) return true
@@ -19,30 +25,43 @@ class Modal extends Component {
     return !shallowEqual(this.props, nextProps) && nextProps.visible
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.visible !== this.props.visible && !this.props.usePortal) {
+      open(this.getOption(), false)
+    }
+  }
+
   componentWillUnmount() {
     close({ id: this.id })
     destroy(this.id)
   }
 
-  render() {
-    const option = {
-      ...this.props,
-      content: this.props.children,
+  getOption() {
+    const { children, usePortal, visible, ...props } = this.props
+    return {
+      ...props,
+      content: children,
       id: this.id,
     }
+  }
 
-    if (this.props.visible) return open(option, true)
+  render() {
+    const { usePortal, visible } = this.props
+    const option = this.getOption()
+
+    if (visible && usePortal) return open(option, true)
     return null
   }
 }
 
 Modal.propTypes = {
   ...getProps(PropTypes),
-  onClose: PropTypes.func,
+  usePortal: PropTypes.bool,
 }
 
 Modal.defaultProps = {
   ...defaultProps,
+  usePortal: true,
   visible: false,
 }
 
