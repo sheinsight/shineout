@@ -1,6 +1,6 @@
 export function capitalize(str) {
   if (typeof str !== 'string') {
-    console.log(new Error('str should be a string'))
+    console.error(new Error('str should be a string'))
   }
   return str && str[0].toUpperCase() + str.slice(1)
 }
@@ -11,11 +11,11 @@ export function substitute(str, obj) {
       return str
     }
 
-    return str.replace((/\\?\{([^{}]+)\}/g), (match, name) => {
+    return str.replace(/\\?\{([^{}]+)\}/g, (match, name) => {
       if (match.charAt(0) === '\\') {
         return match.slice(1)
       }
-      return (obj[name] === null || obj[name] === undefined) ? '' : obj[name]
+      return obj[name] === null || obj[name] === undefined ? '' : obj[name]
     })
   } else if (typeof str === 'function') {
     let val = str(obj)

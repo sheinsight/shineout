@@ -86,7 +86,7 @@ export function open(props, isPortal) {
     if (!isPortal) close(props)
   }
 
-  const maskOpacity = isMask(props.id) ? (props.maskOpacity || 0.25) : 0.01
+  const maskOpacity = isMask(props.id) ? props.maskOpacity || 0.25 : 0.01
   div.style.background = `rgba(0,0,0,${maskOpacity})`
 
   containers[props.id].visible = true
@@ -105,6 +105,7 @@ export function open(props, isPortal) {
   if (document.activeElement) document.activeElement.blur()
 
   ReactDOM.render(panel, div)
+  return null
 }
 
 const closeCallback = (fn, option) => () => {
@@ -119,24 +120,36 @@ const closeCallback = (fn, option) => () => {
   }
 }
 
-const btnOk = (option) => {
+const btnOk = option => {
   const onClick = closeCallback(option.onOk, option)
-  return <Button.Once key="ok" onClick={onClick} type="primary">{getLocale('ok', option.text)}</Button.Once>
+  return (
+    <Button.Once key="ok" onClick={onClick} type="primary">
+      {getLocale('ok', option.text)}
+    </Button.Once>
+  )
 }
 
-const btnCancel = (option) => {
+const btnCancel = option => {
   const onClick = closeCallback(option.onCancel, option)
-  return <Button.Once key="cancel" onClick={onClick}>{getLocale('cancel', option.text)}</Button.Once>
+  return (
+    <Button.Once key="cancel" onClick={onClick}>
+      {getLocale('cancel', option.text)}
+    </Button.Once>
+  )
 }
 
-export const method = type => (option) => {
-  const props = Object.assign({
-    width: 420,
-  }, option, {
-    id: getUidStr(),
-    destroy: true,
-    type,
-  })
+export const method = type => option => {
+  const props = Object.assign(
+    {
+      width: 420,
+    },
+    option,
+    {
+      id: getUidStr(),
+      destroy: true,
+      type,
+    }
+  )
 
   if (type === 'confirm') {
     props.footer = [btnCancel(props), btnOk(props)]
