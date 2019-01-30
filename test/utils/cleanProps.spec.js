@@ -8,6 +8,7 @@ describe('cleanProps.js[cleanProps]', () => {
       formDatum: 1,
     }
     expect(cleanProps(props)).toEqual({ a: 1 })
+    // origin not change
     expect(props).toEqual({ a: 1, delay: 1, formDatum: 1 })
   })
 })
