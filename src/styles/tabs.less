@@ -1,12 +1,15 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
-@tabs-prefix: ~"@{so-prefix}-tabs";
+@tabs-prefix: ~'@{so-prefix}-tabs';
+
 .@{tabs-prefix} {
   position: relative;
+
   &-header {
-    display: flex;
     position: relative;
     z-index: 1;
+    display: flex;
+
     .@{tabs-prefix}-tab {
       position: relative;
       z-index: 1;
@@ -17,16 +20,20 @@
       border-radius: @tabs-link-border-radius @tabs-link-border-radius 0 0;
       cursor: pointer;
     }
-    .@{tabs-prefix}-tab+.@{tabs-prefix}-tab {
+
+    .@{tabs-prefix}-tab + .@{tabs-prefix}-tab {
       margin-left: @tabs-link-spacing;
     }
+
     .@{tabs-prefix}-disabled {
       cursor: not-allowed;
     }
+
     .@{tabs-prefix}-active {
       z-index: 100;
       cursor: default;
     }
+
     .@{tabs-prefix}-hr {
       position: absolute;
       z-index: 10;
@@ -35,161 +42,193 @@
       border-bottom: solid 1px transparent;
     }
   }
+
   .@{tabs-prefix}-indicator {
-    width: 40px;
-    text-align: center;
     display: inline-block;
+    width: 40px;
     padding-top: 11px;
     cursor: pointer;
+    text-align: center;
+
     svg {
       width: 12px;
       height: 12px;
       transform: rotate(90deg);
       transition: transform 0.2s linear;
+
       path {
         fill: #999;
       }
     }
+
     &:hover svg path {
       fill: @colors-primary;
     }
+
     &.@{tabs-prefix}-collapsed {
       svg {
         transform: rotate(0);
       }
     }
   }
+
   .@{tabs-prefix}-button-active {
     position: relative;
-    color: #fff;
-    background: @colors-primary;
     z-index: 100;
+    background: @colors-primary;
+    color: #fff;
+
     &:before {
       display: none;
     }
+
     &:not(:last-child):after {
-      content: ' ';
-      border-right: solid 1px @colors-primary;
       position: absolute;
-      right: -1px;
-      width: 0;
       top: 0;
+      right: -1px;
       bottom: 0;
+      width: 0;
+      border-right: solid 1px @colors-primary;
+      content: ' ';
     }
   }
+
   &-inner {
-    flex: 1;
     overflow: hidden;
+    flex: 1;
   }
+
   &-scroll {
     display: inline-block;
-    white-space: nowrap;
     transition: margin 0.2s linear;
+    white-space: nowrap;
   }
+
   &-align-right &-inner {
     text-align: right;
   }
+
   &-vertical {
     display: flex;
     justify-content: flex-start;
+
     .@{tabs-prefix}-header {
       flex-direction: column;
+
       .@{tabs-prefix}-inner {
         padding: 0 0 1px 0;
+
         .@{tabs-prefix}-tab {
           display: block;
         }
-        .@{tabs-prefix}-tab+.@{tabs-prefix}-tab {
-          margin-left: 0;
+
+        .@{tabs-prefix}-tab + .@{tabs-prefix}-tab {
           margin-top: @tabs-link-spacing;
+          margin-left: 0;
         }
       }
+
       .@{tabs-prefix}-scroll-next,
       .@{tabs-prefix}-scroll-prev {
-        height: 30px;
         width: 100%;
+        height: 30px;
+
         svg {
-          transform: translate(-50%, -50%) rotate(90deg)
+          transform: translate(-50%, -50%) rotate(90deg);
         }
       }
+
       .@{tabs-prefix}-hr {
+        width: 0;
         height: 100%;
         border-left: solid 1px transparent;
-        width: 0;
       }
     }
   }
+
   &-align-vertical-left {
     .@{tabs-prefix}-tab {
       border-radius: @tabs-link-border-radius 0 0 @tabs-link-border-radius;
     }
+
     .@{tabs-prefix}-hr {
       right: 0;
     }
   }
+
   &-align-vertical-right {
     .@{tabs-prefix}-tab {
       border-radius: 0 @tabs-link-border-radius @tabs-link-border-radius 0;
     }
+
     .@{tabs-prefix}-hr {
       left: 0;
     }
   }
+
   &-scroll-prev,
   &-scroll-next {
     position: relative;
     width: 30px;
-    text-align: center;
     background: #fff;
     cursor: pointer;
+    text-align: center;
+
     svg {
       position: absolute;
-      width: 10px;
-      left: 50%;
       top: 50%;
+      left: 50%;
+      width: 10px;
       transform: translate(-50%, -50%);
     }
   }
+
   &-panel {
     position: relative;
     z-index: 10;
     display: none;
+
     &.@{tabs-prefix}-show {
       display: block;
     }
   }
+
   &-line {
     .@{tabs-prefix}-active {
       color: @tabs-line-active-color;
+
       &:after {
         position: absolute;
-        content: ' ';
-        height: 2px;
         width: 100%;
+        height: 2px;
         background: @tabs-line-active-color;
+        content: ' ';
       }
     }
   }
+
   &-line:not(.@{tabs-prefix}-vertical) {
     .@{tabs-prefix}-active:after {
-      left: 0;
       bottom: 0;
+      left: 0;
     }
   }
+
   &-line.@{tabs-prefix}-align-vertical-left {
     .@{tabs-prefix}-active:after {
-      height: 100%;
-      width: 2px;
-      right: 0;
       top: 0;
+      right: 0;
+      width: 2px;
+      height: 100%;
     }
   }
+
   &-line.@{tabs-prefix}-align-vertical-right {
     .@{tabs-prefix}-active::after {
-      height: 100%;
-      width: 2px;
-      left: 0;
       top: 0;
+      left: 0;
+      width: 2px;
+      height: 100%;
     }
   }
 }

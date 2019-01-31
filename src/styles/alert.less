@@ -1,12 +1,11 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
 
-@alert-prefix: ~"@{so-prefix}-alert";
+@alert-prefix: ~'@{so-prefix}-alert';
 
 //
 // Alerts
 // --------------------------------------------------
-
 
 // Base styles
 // -------------------------
@@ -22,7 +21,9 @@
   transition: transform 0.216s, opacity 0.216s ease-out;
 
   // Headings for larger alerts
-  h2, h3, h4 {
+  h2,
+  h3,
+  h4 {
     margin-top: 0.3em;
     // Specified for the h4 to prevent conflicts of changing @headings-color
     color: inherit;
@@ -39,14 +40,15 @@
 
   &-close {
     position: absolute;
-    display: block;
     // line-height: 1;
     top: @alert-padding-y;
     right: 12px;
+    display: block;
 
     svg {
       width: 10px;
       height: 10px;
+
       path {
         fill: rgba(0, 0, 0, 0.3);
       }
@@ -82,7 +84,9 @@
     margin-top: 5px;
   }
 
-  h2, h3, h4 {
+  h2,
+  h3,
+  h4 {
     margin-top: 0;
   }
 
@@ -113,8 +117,9 @@
       fill: @colors-success;
     }
   }
-  
-  &-danger, &-error {
+
+  &-danger,
+  &-error {
     .alert-variant(@alert-danger-bg; @alert-danger-border; @alert-danger-text);
 
     .@{alert-prefix}-icon path {

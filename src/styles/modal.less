@@ -1,30 +1,29 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
-
-@modal-prefix: ~"@{so-prefix}-modal";
+@modal-prefix: ~'@{so-prefix}-modal';
 
 .@{modal-prefix} {
-  top:0;
-  left:0;
   position: fixed;
+  z-index: @zindex-modal;
+  top: 0;
+  left: 0;
+  overflow: auto;
   width: 100%;
   height: 100%;
-  z-index: @zindex-modal;
   opacity: 0;
   transition: opacity 0.2s linear;
-  overflow: auto;
 
   &-panel {
-    margin: 0 auto 10vh;
-    transition: transform 0.2s linear;
-    transform: translate(0, -100px);
     max-width: 90%;
+    margin: 0 auto 10vh;
+    transform: translate(0, -100px);
+    transition: transform 0.2s linear;
   }
 
   &-title {
+    color: rgba(0, 0, 0, 0.85);
     font-size: ceil((@font-size-base * 1.125));
     font-weight: 500;
-    color: rgba(0, 0, 0, .85);
   }
 
   & &-body {
@@ -36,65 +35,68 @@
 
     .@{modal-prefix}-icon {
       position: absolute;
+      top: 40px;
+      left: 32px;
       width: 24px;
       height: 24px;
-      left: 32px;
-      top: 40px;
     }
   }
 
   &-show {
     opacity: 1;
+
     .@{modal-prefix}-panel {
       transform: translate(0, 0);
     }
   }
 
   &-right {
-    margin: 0;
     top: 0;
-    bottom: 0;
     right: 0;
+    bottom: 0;
+    margin: 0;
     transform: translate(100%, 0);
   }
 
   &-left {
-    margin: 0;
     top: 0;
     bottom: 0;
     left: 0;
+    margin: 0;
     transform: translate(-100%, 0);
   }
 
   &-top {
-    margin: 0;
     top: 0;
-    left: 0;
     right: 0;
+    left: 0;
+    margin: 0;
     transform: translate(0, -100%);
   }
 
   &-bottom {
-    margin: 0;
-    left: 0;
     right: 0;
     bottom: 0;
+    left: 0;
+    margin: 0;
     transform: translate(0, 100%);
   }
 
-  &-top, &-bottom {
+  &-top,
+  &-bottom {
     max-width: 100%;
   }
 
   &-success &-icon path {
-    fill: @colors-success
+    fill: @colors-success;
   }
 
   &-info &-icon path {
     fill: @colors-primary;
   }
 
-  &-warning &-icon path, &-confirm &-icon path {
+  &-warning &-icon path,
+  &-confirm &-icon path {
     fill: @colors-warning;
   }
 
@@ -102,27 +104,31 @@
     fill: @colors-error;
   }
 
-  &-info, &-success, &-warning, &-error, &-confirm {
-    .@{modal-prefix}-footer{
+  &-info,
+  &-success,
+  &-warning,
+  &-error,
+  &-confirm {
+    .@{modal-prefix}-footer {
       border-top: 0;
     }
   }
 
   &-close {
-    padding: 0;
-    display: block;
+    position: absolute;
+    z-index: 100;
     top: 13px;
     right: 16px;
-    position: absolute;
-    height: 10px;
+    display: block;
     width: 10px;
-    z-index: 100;
+    height: 10px;
+    padding: 0;
   }
 
   &-mask {
-    top:0;
-    left:0;
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
   }

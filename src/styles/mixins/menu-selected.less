@@ -2,15 +2,16 @@
 
 .menu-select(@mode : inline) {
   & when (@so-theme = antd) {
-    background-color: @menu-item-active-bg;
     border-bottom-color: @menu-highlight-border-color;
+    background-color: @menu-item-active-bg;
     color: @menu-highlight-color;
     & when (@mode = inline) {
       border-bottom: none;
+
       &:after {
-        transition: transform .1s ease-in, opacity .1s ease-in;
         opacity: 1 !important;
         transform: @menu-select-transform !important;
+        transition: transform 0.1s ease-in, opacity 0.1s ease-in;
       }
     }
     & when (@mode = horizontal) {
@@ -24,6 +25,7 @@
     border-bottom: transparent;
     background-color: @colors-blue !important;
     color: #fff;
+
     > div {
       color: #fff;
     }

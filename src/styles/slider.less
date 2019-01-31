@@ -1,7 +1,7 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
 
-@slider-prefix: ~"@{so-prefix}-slider";
+@slider-prefix: ~'@{so-prefix}-slider';
 
 .@{slider-prefix} {
   position: relative;
@@ -17,23 +17,23 @@
   &-inner {
     position: absolute;
     top: 20px;
-    left: 10px;
     right: 10px;
+    left: 10px;
     height: @slider-height;
     cursor: pointer;
   }
 
   &-bar {
     position: absolute;
-    height: @slider-height;
+    z-index: 2;
     top: 0;
     width: 100%;
-    z-index: 2;
+    height: @slider-height;
 
     .@{slider-prefix}-bar-bg {
       height: 100%;
-      border-radius: @slider-height / 2;
       background: @slider-bar-color;
+      border-radius: @slider-height / 2;
     }
 
     .@{slider-prefix}-indicator {
@@ -42,25 +42,25 @@
 
     .@{slider-prefix}-result {
       position: absolute;
-      display: none;
       right: 0;
       bottom: 14px;
-      font-size: 12px;
+      display: none;
       padding: 0 4px;
       background: #fff;
-      transform: translate(50%, 0);
       border-radius: 2px;
+      font-size: 12px;
+      transform: translate(50%, 0);
 
       &:after {
-        content: ' ';
         position: absolute;
-        left: 50%;
         top: 100%;
+        left: 50%;
         width: 0;
         height: 0;
-        border-style: solid;
         border-width: 3px 3px 0 3px;
+        border-style: solid;
         border-color: #fff transparent transparent transparent;
+        content: ' ';
         transform: translate(-50%, 0);
       }
 
@@ -76,15 +76,15 @@
 
   &-indicator {
     position: absolute;
-    right: 0;
     top: 50%;
+    right: 0;
     width: @slider-indicator-size;
     height: @slider-indicator-size;
-    border-radius: @slider-indicator-size / 2;
     border: solid 2px @slider-active-color;
-    transform: translate(50%, -50%);
     background: #fff;
+    border-radius: @slider-indicator-size / 2;
     cursor: pointer;
+    transform: translate(50%, -50%);
   }
 
   &-disabled {
@@ -97,8 +97,8 @@
     }
 
     .@{slider-prefix}-indicator {
-      cursor: not-allowed;
       border: solid 2px @slider-disabled-color;
+      cursor: not-allowed;
     }
   }
 
@@ -113,12 +113,11 @@
     }
 
     .@{slider-prefix}-result {
-      left: 0;
       right: auto;
+      left: 0;
       transform: translate(-50%, 0);
     }
   }
-
 
   &-scale {
     display: flex;
@@ -139,12 +138,12 @@
       }
 
       &:before {
-        content: ' ';
         position: absolute;
-        height: 6px;
         top: 5px;
         left: -1px;
+        height: 6px;
         border-left: solid 1px #ccc;
+        content: ' ';
       }
 
       span {
@@ -162,33 +161,34 @@
   &-vertical {
     display: inline-flex;
     padding: 10px 70px 10px 20px;
+
     .@{slider-prefix}-background {
-      height: 100%;
       width: @slider-height;
+      height: 100%;
     }
 
     .@{slider-prefix}-inner {
-      display: inline-flex;
       top: 10px;
-      left: 20px;
       right: auto;
       bottom: 10px;
+      left: 20px;
+      display: inline-flex;
       width: @slider-height;
       height: auto;
     }
 
     .@{slider-prefix}-result {
-      left: 15px;
       right: auto;
       bottom: 0;
+      left: 15px;
       padding: 1px 6px;
-      transform: translate(0, 50%);
       background: #fff;
+      transform: translate(0, 50%);
 
       &:after {
         top: 50%;
-        left: auto;
         right: 100%;
+        left: auto;
         border-width: 3px 3px 3px 0;
         border-color: transparent #fff transparent transparent;
         transform: translate(0, -50%);
@@ -196,21 +196,21 @@
     }
 
     .@{slider-prefix}-scale {
-      flex: 1;
-      margin-left: 15px;
       display: inline-flex;
+      flex: 1;
       flex-direction: column-reverse;
+      margin-left: 15px;
 
       div {
         padding-top: 0;
 
         &:before {
-          height: 0px;
-          width: 6px;
           top: 0px;
           left: -10px;
-          border-left: 0;
+          width: 6px;
+          height: 0px;
           border-top: solid 1px #ccc;
+          border-left: 0;
         }
 
         span {
@@ -231,6 +231,7 @@
   &-bottom {
     top: auto;
     bottom: 0;
+
     .@{slider-prefix}-indicator {
       top: 0;
       left: 50%;
@@ -238,8 +239,8 @@
     }
 
     .@{slider-prefix}-result {
-      bottom: auto;
       top: 0;
+      bottom: auto;
       transform: translate(0, -50%);
     }
   }

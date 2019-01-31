@@ -1,7 +1,7 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
 
-@scroll-prefix: ~"@{so-prefix}-scroll";
+@scroll-prefix: ~'@{so-prefix}-scroll';
 
 .@{scroll-prefix} {
   position: relative;
@@ -9,23 +9,23 @@
 
   &-inner {
     position: relative;
-    left: 0;
-    top: 0;
-    overflow: hidden;
     z-index: 10;
+    top: 0;
+    left: 0;
+    overflow: hidden;
   }
 
   &-iframe {
     position: absolute;
+    z-index: 0;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 0;
     width: 100%;
     height: 100%;
-    background: transparent;
     border: 0;
+    background: transparent;
   }
 
   &-dragging {
@@ -34,11 +34,12 @@
 
   &-bar {
     position: absolute;
-    background: @scrollbar-bg;
-    border: 1px solid transparent;
     z-index: 90;
+    border: 1px solid transparent;
+    background: @scrollbar-bg;
 
-    &:hover, &.@{scroll-prefix}-dragging {
+    &:hover,
+    &.@{scroll-prefix}-dragging {
       // border-color: @scrollbar-hover-border;
 
       .@{scroll-prefix}-handle {
@@ -47,12 +48,12 @@
     }
 
     .@{scroll-prefix}-handle {
-      display: none;
-      cursor: default;
-      background: @scrollbar-color;
       position: absolute;
-      border-radius: (@scrollbar-width - 4) / 2;
       z-index: 2;
+      display: none;
+      background: @scrollbar-color;
+      border-radius: (@scrollbar-width - 4) / 2;
+      cursor: default;
 
       &:focus {
         background: @scrollbar-hover-color;
@@ -60,41 +61,41 @@
     }
 
     &.@{scroll-prefix}-y {
-      width: @scrollbar-width;
       top: 0;
-      bottom: 0;
       right: 0;
+      bottom: 0;
+      width: @scrollbar-width;
       border-width: 0 1px;
 
       .@{scroll-prefix}-handle {
-        width: @scrollbar-width - 6;
         left: 2px;
+        width: @scrollbar-width - 6;
         min-height: 20px;
       }
 
       &.@{scroll-prefix}-padding-y:after {
-        content: ' ';
         position: absolute;
+        z-index: 1;
         top: 100%;
         left: -1px;
         width: @scrollbar-width;
         height: @scrollbar-width;
         background: @scrollbar-bg;
-        z-index: 1;
+        content: ' ';
       }
     }
 
     &.@{scroll-prefix}-x {
-      height: @scrollbar-width;
-      left: 0;
       right: 0;
       bottom: 0;
+      left: 0;
+      height: @scrollbar-width;
       border-width: 1px 0;
 
       .@{scroll-prefix}-handle {
-        height: @scrollbar-width - 6;
         top: 2px;
         min-width: 20px;
+        height: @scrollbar-width - 6;
       }
     }
 
@@ -105,6 +106,7 @@
 
   &-show-x {
     padding-bottom: @scrollbar-width;
+
     .@{scroll-prefix}-y {
       bottom: @scrollbar-width;
     }
@@ -112,6 +114,7 @@
 
   &-show-y {
     padding-right: @scrollbar-width;
+
     .@{scroll-prefix}-x {
       right: @scrollbar-width;
     }
@@ -124,5 +127,4 @@
   &-show-y &-inner {
     bottom: @scrollbar-width;
   }
-
 }

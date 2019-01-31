@@ -1,38 +1,45 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
 
-@icon-prefix: ~"@{so-prefix}-icon";
+@icon-prefix: ~'@{so-prefix}-icon';
 
 .@{icon-prefix} {
   display: inline-block;
   font-size: inherit;
-  font-style: normal;
-  text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  text-rendering: auto;
 
   &-small {
     font-size: @icon-small;
   }
+
   &-large {
-    font-size: @icon-large
+    font-size: @icon-large;
   }
+
   &-primary {
-    color: @icon-primary
+    color: @icon-primary;
   }
+
   &-success {
-    color: @icon-success
+    color: @icon-success;
   }
+
   &-secondary {
-    color: @icon-secondary
+    color: @icon-secondary;
   }
+
   &-info {
-    color: @icon-info
+    color: @icon-info;
   }
+
   &-warning {
-    color: @icon-warning
+    color: @icon-warning;
   }
+
   &-danger {
-    color: @icon-danger
+    color: @icon-danger;
   }
 }

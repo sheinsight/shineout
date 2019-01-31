@@ -4,18 +4,20 @@
   border-color: @border;
 
   & > .panel-heading {
-    color: @heading-text-color;
-    background-color: @heading-bg-color;
     border-color: @heading-border;
+    background-color: @heading-bg-color;
+    color: @heading-text-color;
 
     + .panel-collapse > .panel-body {
       border-top-color: @border;
     }
+
     .badge {
-      color: @heading-bg-color;
       background-color: @heading-text-color;
+      color: @heading-bg-color;
     }
   }
+
   & > .panel-footer {
     + .panel-collapse > .panel-body {
       border-bottom-color: @border;

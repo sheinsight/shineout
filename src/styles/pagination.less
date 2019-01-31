@@ -1,13 +1,13 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
 
-@pagination-prefix: ~"@{so-prefix}-pagination";
+@pagination-prefix: ~'@{so-prefix}-pagination';
 
 .@{pagination-prefix} {
   &-section {
     display: inline-block;
-    vertical-align: middle;
     margin-right: @pagination-margin;
+    vertical-align: middle;
 
     > span {
       color: @pagination-color;
@@ -28,35 +28,35 @@
   }
 
   &-small &-item {
+    min-width: @pagination-small-width;
+    height: @pagination-small-width;
     font-size: @font-size-small;
     line-height: @pagination-small-width;
-    height: @pagination-small-width;
-    min-width: @pagination-small-width;
   }
 
   &-large &-item {
+    min-width: @pagination-large-width;
+    height: @pagination-large-width;
     font-size: @font-size-large;
     line-height: @pagination-large-width;
-    height: @pagination-large-width;
-    min-width: @pagination-large-width;
   }
 
   &-item {
-    display: inline-block;
     position: relative;
-    padding: @pagination-padding;
-    line-height: @pagination-width;
-    height: @pagination-width;
+    display: inline-block;
     min-width: @pagination-width;
+    height: @pagination-width;
+    padding: @pagination-padding;
+    margin-right: @pagination-margin;
+    border: 1px solid @pagination-border;
+    background-color: @pagination-bg;
+    border-radius: @pagination-border-radius;
+    color: @pagination-color;
+    line-height: @pagination-width;
     text-align: center;
     text-decoration: none;
-    color: @pagination-color;
-    background-color: @pagination-bg;
-    border: 1px solid @pagination-border;
-    border-radius: @pagination-border-radius;
-    margin-right: @pagination-margin;
-    vertical-align: top;
     user-select: none;
+    vertical-align: top;
 
     &:last-child {
       margin-right: 0;
@@ -65,47 +65,50 @@
     svg {
       width: 12px;
       height: 12px;
-      fill: @pagination-color; 
+      fill: @pagination-color;
     }
 
     &[disabled] {
       color: @btn-link-disabled-color;
+
       svg {
         fill: @btn-link-disabled-color;
       }
     }
 
     &:hover {
-      color: @pagination-hover-color;
-      background: @pagination-hover-bg;
       border-color: @pagination-hover-border;
+      background: @pagination-hover-bg;
+      color: @pagination-hover-color;
 
       svg {
         fill: @pagination-hover-color;
       }
     }
 
-    &:active, &:focus {
+    &:active,
+    &:focus {
       text-decoration: none;
     }
   }
 
   &-current[disabled] {
-    color: @pagination-active-color;
-    background: @pagination-active-bg;
     border-color: @pagination-active-border;
+    background: @pagination-active-bg;
+    color: @pagination-active-color;
   }
 
-  &-more-right, &-more-left {
+  &-more-right,
+  &-more-left {
     svg {
       opacity: 0;
     }
 
     &:before {
-      content: "\2022\2022\2022";
       position: absolute;
       top: 50%;
       left: 50%;
+      content: '\2022\2022\2022';
       transform: translate(-50%, -50%);
     }
 
@@ -113,13 +116,15 @@
       svg {
         opacity: 1;
       }
+
       &:before {
         display: none;
       }
     }
   }
 
-  &-no-border, &-no-border:hover {
+  &-no-border,
+  &-no-border:hover {
     border-color: transparent;
     background: transparent;
   }

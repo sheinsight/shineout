@@ -3,23 +3,23 @@
 // Easily pump out default styles, as well as :hover, :focus, :active,
 // and disabled options for all buttons
 
-
-
 .button-variant(@color; @background; @outline; @name; @border:transparent) {
-  color: @color;
-  background-color: @background;
   border-color: @border;
+  background-color: @background;
+  color: @color;
   transition: background 0.15s ease-in-out;
 
-  @keyname: ~"btn-focus-@{name}";
+  @keyname: ~'btn-focus-@{name}';
 
   @keyframes @keyname {
     0% {
       box-shadow: 0 0 0 0 fade(@outline, 60%);
     }
+
     50% {
-      box-shadow: 0 0 0 @btn-focus-width/2 fade(@outline, 0%);
+      box-shadow: 0 0 0 @btn-focus-width / 2 fade(@outline, 0%);
     }
+
     100% {
       box-shadow: 0 0 0 @btn-focus-width fade(@outline, 0);
     }
@@ -29,16 +29,18 @@
     color: @color;
     // box-shadow: 0 0 0 @btn-focus-width fade(@border, 50%);
   }
+
   &:hover {
-    color: @color;
+    border-color: darken(@outline, @btn-hover-darken);
     background-color: darken(@background, @btn-hover-darken);
-        border-color: darken(@outline, @btn-hover-darken);
+    color: @color;
   }
+
   &:active {
-    color: @color;
-    background-color: darken(@background, @btn-hover-darken);
-        border-color: darken(@outline, @btn-hover-darken);
+    border-color: darken(@outline, @btn-hover-darken);
     animation: @keyname 0.4s ease-out;
+    background-color: darken(@background, @btn-hover-darken);
+    color: @color;
   }
 
   &:active {
@@ -49,8 +51,8 @@
   fieldset[disabled] & {
     &:hover,
     &:focus {
+      border-color: @border;
       background-color: @background;
-          border-color: @border;
     }
 
     &:active {
@@ -60,27 +62,28 @@
 }
 
 .button-outline(@color; @background; @border;) {
-  color: @border;
   border-color: @border;
   background: transparent;
+  color: @border;
 
   &:hover {
-    color: @color;
     background-color: @background;
+    color: @color;
   }
+
   &:active {
-    color: @color;
-    background-color: @background;
     animation: @keyname 0.4s ease-out;
+    background-color: @background;
+    color: @color;
   }
 
   &[disabled],
   fieldset[disabled] & {
     &:hover,
     &:focus {
-      color: @border;
       border-color: @border;
       background: transparent;
+      color: @border;
     }
 
     &:active {
@@ -92,7 +95,7 @@
 // Button sizes
 .button-size(@padding-vertical; @padding-horizontal; @font-size; @line-height; @border-radius) {
   padding: @padding-vertical @padding-horizontal;
+  border-radius: @border-radius;
   font-size: @font-size;
   line-height: @line-height;
-  border-radius: @border-radius;
 }
