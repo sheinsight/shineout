@@ -1,62 +1,66 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
 
-@checkinput-prefix: ~"@{so-prefix}-checkinput";
+@checkinput-prefix: ~'@{so-prefix}-checkinput';
 
 .@{checkinput-prefix} {
-  @keyname: ~"@{checkinput-prefix}-focus";
+  @keyname: ~'@{checkinput-prefix}-focus';
 
   position: relative;
   display: inline-block;
-  vertical-align: middle;
-  margin-bottom: 0;
   margin-right: @checkbox-margin-right;
+  margin-bottom: 0;
   cursor: pointer;
+  vertical-align: middle;
 
-  input[type=checkbox], input[type=radio] {
+  input[type='checkbox'],
+  input[type='radio'] {
     position: absolute;
-    left: 0;
     top: 0;
-    clip: rect(0,0,0,0);
+    left: 0;
+    clip: rect(0, 0, 0, 0);
   }
 
   @keyframes @keyname {
     0% {
       box-shadow: 0 0 0 0 fade(@checkbox-active-color, 50%);
     }
+
     50% {
       box-shadow: 0 0 0 4px fade(@checkbox-active-color, 0%);
     }
+
     100% {
       box-shadow: 0 0 0 8px fade(@checkbox-active-color, 0);
     }
   }
 
-  &-checked i&-indicator, &-indeterminate i&-indicator {
+  &-checked i&-indicator,
+  &-indeterminate i&-indicator {
     animation: @keyname 0.6s ease-out;
   }
-  
+
   i&-indicator {
     position: relative;
     display: inline-block;
-    box-sizing: content-box;
+    overflow: hidden;
     width: @checkbox-size;
     height: @checkbox-size;
-    overflow: hidden;
+    box-sizing: content-box;
     border: solid 1px @input-border;
     border-radius: @checkbox-border-radius;
     vertical-align: middle;
 
     & + span {
-      vertical-align: middle;
       padding: 0 @form-item-padding-x;
+      vertical-align: middle;
     }
 
     &:after {
-      content: ' ';
-      display: block;
       position: absolute;
       z-index: 10;
+      display: block;
+      content: ' ';
     }
   }
 
@@ -64,8 +68,8 @@
     &:after {
       top: 20%;
       left: 2px;
-      height: 35%;
       width: @checkbox-size - 4;
+      height: 35%;
       border: solid 2px transparent;
       border-width: 0 0 2px 2px;
     }
@@ -104,14 +108,16 @@
   &-checked i&-checkbox&-indicator {
     border-color: @checkbox-active-color;
     background: @checkbox-active-color;
+
     &:after {
-      transform: rotate(-45deg);
       border-color: #fff;
+      transform: rotate(-45deg);
     }
   }
 
   &-checked i&-radio&-indicator {
     border-color: @checkbox-active-color;
+
     &:after {
       background: @checkbox-active-color;
     }
@@ -120,9 +126,10 @@
   &-indeterminate i&-indicator {
     border-color: @checkbox-active-color;
     background: @checkbox-active-color;
+
     &:after {
-      border-left-width: 0;
       border-color: #fff;
+      border-left-width: 0;
     }
   }
 
@@ -130,7 +137,8 @@
     cursor: @cursor-disabled;
   }
 
-  &-disabled, &-disabled:hover,
+  &-disabled,
+  &-disabled:hover,
   &-disabled&-checked {
     i.@{checkinput-prefix}-indicator {
       border-color: @gray-500;

@@ -3,10 +3,8 @@ import PropTypes from 'prop-types'
 import { scrollConsumer } from '../Scroll/context'
 import { getUidStr } from '../utils/uid'
 
-export default function (options) {
-  const {
-    show, hide, move, isCurrent,
-  } = options
+export default function(options) {
+  const { show, hide, move, isCurrent } = options
 
   class Container extends PureComponent {
     constructor(props) {
@@ -54,7 +52,7 @@ export default function (options) {
           top = scrollTop + rect.top
           break
         case 'top':
-          left = scrollLeft + rect.left + (rect.width / 2)
+          left = scrollLeft + rect.left + rect.width / 2
           top = scrollTop + rect.top
           break
         case 'top-right':
@@ -67,7 +65,7 @@ export default function (options) {
           break
         case 'left':
           left = scrollLeft + rect.left
-          top = scrollTop + rect.top + (rect.height / 2)
+          top = scrollTop + rect.top + rect.height / 2
           break
         case 'left-bottom':
           left = scrollLeft + rect.left
@@ -79,7 +77,7 @@ export default function (options) {
           break
         case 'right':
           left = scrollLeft + rect.left + rect.width
-          top = scrollTop + rect.top + (rect.height / 2)
+          top = scrollTop + rect.top + rect.height / 2
           break
         case 'right-bottom':
           left = scrollLeft + rect.left + rect.width
@@ -90,7 +88,7 @@ export default function (options) {
           top = scrollTop + rect.top + rect.height
           break
         case 'bottom':
-          left = scrollLeft + rect.left + (rect.width / 2)
+          left = scrollLeft + rect.left + rect.width / 2
           top = scrollTop + rect.top + rect.height
           break
         case 'bottom-right':
@@ -112,8 +110,12 @@ export default function (options) {
       const rect = this.getElement().getBoundingClientRect()
       const scrollRect = scrollElement ? scrollElement.getBoundingClientRect() : {}
 
-      if (rect.bottom < scrollRect.top || rect.top > scrollRect.bottom ||
-        rect.right < scrollRect.left || rect.left > scrollRect.right) {
+      if (
+        rect.bottom < scrollRect.top ||
+        rect.top > scrollRect.bottom ||
+        rect.right < scrollRect.left ||
+        rect.left > scrollRect.right
+      ) {
         hide(0)
       }
     }
@@ -140,7 +142,7 @@ export default function (options) {
         props.onMouseEnter = this.handleShow
         props.onMouseLeave = hide
       } else {
-        props.onClick = (e) => {
+        props.onClick = e => {
           e.stopPropagation()
           setTimeout(this.handleShow, 10)
           if (children.props.onClick) children.props.onClick()
@@ -152,6 +154,8 @@ export default function (options) {
   }
 
   Container.propTypes = {
+    // eslint-disable-next-line
+    animation: PropTypes.bool,
     children: PropTypes.element.isRequired,
     // eslint-disable-next-line
     content: PropTypes.oneOfType([
@@ -159,7 +163,20 @@ export default function (options) {
       PropTypes.func,
     ]),
     delay: PropTypes.number,
-    position: PropTypes.oneOf(['top-left', 'top', 'top-right', 'left-top', 'left', 'left-bottom', 'right-top', 'right', 'right-bottom', 'bottom-left', 'bottom', 'bottom-right']),
+    position: PropTypes.oneOf([
+      'top-left',
+      'top',
+      'top-right',
+      'left-top',
+      'left',
+      'left-bottom',
+      'right-top',
+      'right',
+      'right-bottom',
+      'bottom-left',
+      'bottom',
+      'bottom-right',
+    ]),
     scrollElement: PropTypes.object,
     scrollLeft: PropTypes.number,
     scrollTop: PropTypes.number,
@@ -168,6 +185,7 @@ export default function (options) {
   }
 
   Container.defaultProps = {
+    animation: true,
     delay: 0,
     position: 'top',
     trigger: 'hover',

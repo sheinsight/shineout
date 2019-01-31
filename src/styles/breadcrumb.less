@@ -1,19 +1,20 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
 
-@breadcrumb-prefix:  ~"@{so-prefix}-breadcrumb";
+@breadcrumb-prefix: ~'@{so-prefix}-breadcrumb';
 
 //
 // Breadcrumbs
 // --------------------------------------------------
 
-
 .@{breadcrumb-prefix} {
-  list-style: none;
   background-color: @breadcrumb-bg;
   border-radius: @border-radius-base;
   font-size: @font-size-base;
-  a, b {
+  list-style: none;
+
+  a,
+  b {
     display: inline-block;
     margin: 0 @breadcrumb-padding-vertical;
   }

@@ -1,25 +1,35 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
 
-@message-prefix: ~"@{so-prefix}-message";
+@message-prefix: ~'@{so-prefix}-message';
 
 .@{message-prefix} {
   position: fixed;
   z-index: @zindex-popover;
-  max-width: 50%;
   left: 50%;
+  max-width: 50%;
 
-  @keyframes-left-in: ~"@{message-prefix}-left-in";
-  @keyframes-right-in: ~"@{message-prefix}-right-in";
+  @keyframes-left-in: ~'@{message-prefix}-left-in';
+  @keyframes-right-in: ~'@{message-prefix}-right-in';
 
   @keyframes @keyframes-left-in {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(0); }
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(0);
+    }
   }
 
   @keyframes @keyframes-right-in {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(0); }
+    0% {
+      transform: translateX(100%);
+    }
+
+    100% {
+      transform: translateX(0);
+    }
   }
 
   &-top {
@@ -39,16 +49,17 @@
   &-msg {
     display: inline-flex;
     margin: 0 auto 20px;
+    border-color: @alert-default-border;
+    background: @alert-default-bg;
     box-shadow: @message-box-shadow;
     color: @alert-default-text;
-    background: @alert-default-bg;
-    border-color: @alert-default-border;
   }
 
-  &-top-right, &-top-bottom {
-    left: auto;
+  &-top-right,
+  &-top-bottom {
     right: 20px;
-  
+    left: auto;
+
     .@{message-prefix}-msg {
       min-width: 340px;
       padding: 20px;
@@ -56,19 +67,22 @@
     }
   }
 
-  &-top-right, &-top-left {
+  &-top-right,
+  &-top-left {
     top: 20px;
   }
 
-  &-bottom-right, &-bottom-left {
+  &-bottom-right,
+  &-bottom-left {
     top: auto;
     bottom: 0px;
   }
 
-  &-top-right, &-bottom-right {
-    left: auto;
+  &-top-right,
+  &-bottom-right {
     right: 20px;
-  
+    left: auto;
+
     .@{message-prefix}-msg {
       min-width: 340px;
       padding: 20px;
@@ -76,14 +90,14 @@
     }
   }
 
-  &-top-left, &-bottom-left {
+  &-top-left,
+  &-bottom-left {
     left: 20px;
-  
+
     .@{message-prefix}-msg {
       min-width: 340px;
       padding: 20px;
       animation: @keyframes-left-in 0.216s ease-out;
     }
   }
-
 }

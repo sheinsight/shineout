@@ -1,119 +1,116 @@
 @import './bootstrap.less';
 
-@colors-blue:                             #1890ff;
-@colors-green:                            #52c41a;
-@colors-cyan:                             #1890ff;
-@colors-yellow:                           #faad14;
-@colors-red:                              #f5222d;
+@colors-blue: #1890ff;
+@colors-green: #52c41a;
+@colors-cyan: #1890ff;
+@colors-yellow: #faad14;
+@colors-red: #f5222d;
 
+@state-success-text: rgba(0, 0, 0, 0.65);
+@state-success-bg: #f6ffed;
+@state-success-border: #b7eb8f;
 
-@state-success-text:                      rgba(0, 0, 0, 0.65);
-@state-success-bg:                        #f6ffed;
-@state-success-border:                    #b7eb8f;
-                      
-@state-info-text:                         rgba(0, 0, 0, 0.65);
-@state-info-bg:                           #e6f7ff;
-@state-info-border:                       #91d5ff;
-                      
-@state-warning-text:                      rgba(0, 0, 0, 0.65);
-@state-warning-bg:                        #fffbe6;
-@state-warning-border:                    #ffe58f;
-                      
-@state-danger-text:                       rgba(0, 0, 0, 0.65);
-@state-danger-bg:                         #fff1f0;
-@state-danger-border:                     #ffa39e;
-                      
-@font-size-large:                         @font-size-base + 2;
-                      
-@caret-width:                             6px;
+@state-info-text: rgba(0, 0, 0, 0.65);
+@state-info-bg: #e6f7ff;
+@state-info-border: #91d5ff;
 
-@padding-base-horizontal:                 12px;
-@padding-base-vertical:                   5px;
-@padding-large-horizontal:                15px;
-@padding-large-vertical:                  8px;
-@padding-small-horizontal:                7px;
-@padding-small-vertical:                  2px;
+@state-warning-text: rgba(0, 0, 0, 0.65);
+@state-warning-bg: #fffbe6;
+@state-warning-border: #ffe58f;
 
-@ease-in-out:                             0.3s;
-// Alert                       
-@alert-padding-y:                         8px;
-                      
-// Button                      
-@btn-border-radius-large:                 4px;
-@btn-border-radius-small:                 4px;
-@btn-default-border:                      #d9d9d9;
-@btn-primary-border:                      @colors-primary;
-@btn-warning-border:                      @colors-warning;
-@btn-success-border:                      @colors-success;
-@btn-info-border:                         @colors-info;
-@btn-danger-border:                       @colors-danger;
-@btn-hover-darken:                        -5%;
-                      
- // card
-@panel-heading-padding:                   16px;
-@panel-body-padding:                      16px;
-@panel-footer-padding:                    16px;
+@state-danger-text: rgba(0, 0, 0, 0.65);
+@state-danger-bg: #fff1f0;
+@state-danger-border: #ffa39e;
 
-// Dropdown                    
-@dropdown-padding-x:                      12px;
-@dropdown-padding-y:                      0;
-@dropdown-item-padding-y:                 6px;
-@dropdown-box-shadow:                     0 2px 8px rgba(0, 0, 0, 0.15);
-@dropdown-border:                         transparent;
-@dropdown-link-color:                     rgba(0, 0, 0, 0.65);
-@dropdown-link-hover-color:               rgba(0, 0, 0, 0.65);
-@dropdown-link-hover-bg:                  #e6f7ff;
-@dropdown-link-active-color:              rgba(0, 0, 0, 0.65);
-@dropdown-link-active-bg:                 #f2f2f2;
-                      
-// message                     
-@message-box-shadow:                      0 4px 12px rgba(0, 0, 0, 0.15);
-                      
-// table                      
-@table-cell-padding:                      16px;
-@table-border-color:                      #e8e8e8;
-@table-head-border:                       1px;
-@table-head-color:                        rgba(0, 0, 0, 0.85);
-@table-color:                             rgba(0, 0, 0, 0.65);
-@table-bg-hover:                          #e6f7ff;
-@table-condensed-cell-padding:            10px 16px;
+@font-size-large: @font-size-base + 2;
+
+@caret-width: 6px;
+
+@padding-base-horizontal: 12px;
+@padding-base-vertical: 5px;
+@padding-large-horizontal: 15px;
+@padding-large-vertical: 8px;
+@padding-small-horizontal: 7px;
+@padding-small-vertical: 2px;
+
+@ease-in-out: 0.3s;
+// Alert
+@alert-padding-y: 8px;
+
+// Button
+@btn-border-radius-large: 4px;
+@btn-border-radius-small: 4px;
+@btn-default-border: #d9d9d9;
+@btn-primary-border: @colors-primary;
+@btn-warning-border: @colors-warning;
+@btn-success-border: @colors-success;
+@btn-info-border: @colors-info;
+@btn-danger-border: @colors-danger;
+@btn-hover-darken: -5%;
+
+// card
+@panel-heading-padding: 16px;
+@panel-body-padding: 16px;
+@panel-footer-padding: 16px;
+
+// Dropdown
+@dropdown-padding-x: 12px;
+@dropdown-padding-y: 0;
+@dropdown-item-padding-y: 6px;
+@dropdown-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+@dropdown-border: transparent;
+@dropdown-link-color: rgba(0, 0, 0, 0.65);
+@dropdown-link-hover-color: rgba(0, 0, 0, 0.65);
+@dropdown-link-hover-bg: #e6f7ff;
+@dropdown-link-active-color: rgba(0, 0, 0, 0.65);
+@dropdown-link-active-bg: #f2f2f2;
+
+// message
+@message-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+// table
+@table-cell-padding: 16px;
+@table-border-color: #e8e8e8;
+@table-head-border: 1px;
+@table-head-color: rgba(0, 0, 0, 0.85);
+@table-color: rgba(0, 0, 0, 0.65);
+@table-bg-hover: #e6f7ff;
+@table-condensed-cell-padding: 10px 16px;
 
 // pagination
-@pagination-hover-color:                  @colors-primary;
-@pagination-hover-bg:                     @pagination-bg;
-@pagination-hover-border:                 @colors-primary;
+@pagination-hover-color: @colors-primary;
+@pagination-hover-bg: @pagination-bg;
+@pagination-hover-border: @colors-primary;
 
 //breadcrumb
-@breadcrumb-bg:                           transparent;
-@breadcrumb-a-color:                      rgba(0, 0, 0, 0.45);
-@breadcrumb-active-color:                 rgba(0, 0, 0, 0.85);
+@breadcrumb-bg: transparent;
+@breadcrumb-a-color: rgba(0, 0, 0, 0.45);
+@breadcrumb-active-color: rgba(0, 0, 0, 0.85);
 
-@input-color-placeholder:                 #bfbfbf;
-@input-border-focus:                      #40a9ff;
-@input-focus-width:                       2px;
+@input-color-placeholder: #bfbfbf;
+@input-border-focus: #40a9ff;
+@input-focus-width: 2px;
 
 //menu
 
-@menu-item-active-color:                  @colors-primary;
-@menu-item-active-bg:                     #e6f7ff;
-@menu-title-transform:                    translateY(-85%) rotate(45deg);
-@menu-title-open-transform:               translateY(-65%) rotate(225deg);
-@menu-title-vertical-transform:           translateY(-60%) rotate(-45deg);
-@menu-dark-bg:                            #001529;
-
+@menu-item-active-color: @colors-primary;
+@menu-item-active-bg: #e6f7ff;
+@menu-title-transform: translateY(-85%) rotate(45deg);
+@menu-title-open-transform: translateY(-65%) rotate(225deg);
+@menu-title-vertical-transform: translateY(-60%) rotate(-45deg);
+@menu-dark-bg: #001529;
 
 // card
-@panel-border-radius:                     2px;                   
+@panel-border-radius: 2px;
 
-
-@datepicker-day-hover-bg:                 #e6f7ff;
+@datepicker-day-hover-bg: #e6f7ff;
 
 // tag
-@tag-bg-color:                             #fafafa;
-@tag-padding-x:                             8px;
-@tag-padding-y:                             2px;
-@tag-border-radius:                         3px;
-@tag-border-color:                          #d9d9d9;
-@tag-color:                                 #595959;
-@tag-font-size:                             80%;
-@tag-input-padding-y:                       2px;
+@tag-bg-color: #fafafa;
+@tag-padding-x: 8px;
+@tag-padding-y: 2px;
+@tag-border-radius: 3px;
+@tag-border-color: #d9d9d9;
+@tag-color: #595959;
+@tag-font-size: 80%;
+@tag-input-padding-y: 2px;

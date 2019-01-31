@@ -1,24 +1,28 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
 
-@popover-prefix: ~"@{so-prefix}-popover";
+@popover-prefix: ~'@{so-prefix}-popover';
 
 .@{popover-prefix} {
-  @keyframe-opacity: ~"@{popover-prefix}-kf-opacity";
+  @keyframe-opacity: ~'@{popover-prefix}-kf-opacity';
 
   @keyframes @keyframe-opacity {
     0% {
       opacity: 0;
-    } 100% {
+    }
+
+    100% {
       opacity: 1;
     }
   }
 
   .popover-variant(@background; @border; @text-color) {
     border-color: @border;
+
     .@{popover-prefix}-content {
       background: @background;
     }
+
     .@{popover-prefix}-arrow {
       border-color: @border;
       background: @background;
@@ -28,22 +32,22 @@
   position: absolute;
   z-index: @zindex-popover;
   display: block;
+  border: 1px solid @popover-arrow-outer-color;
+  animation: @keyframe-opacity 0.5s ease;
+  background-clip: padding-box;
+  background-color: @popover-bg;
+  border-radius: @border-radius-base;
+  box-shadow: @popover-box-shadow;
   font-size: @font-size-small;
   word-wrap: break-word;
-  background-color: @popover-bg;
-  background-clip: padding-box;
-  border-radius: @border-radius-base;
-  animation: @keyframe-opacity .5s ease;
-  border: 1px solid @popover-arrow-outer-color;
-  box-shadow: @popover-box-shadow;
 
   &-arrow {
-    padding: @popover-arrow-width * 0.7;
-    display: inline-block;
     position: absolute;
+    z-index: 1;
+    display: inline-block;
+    padding: @popover-arrow-width * 0.7;
     border: 1px solid @popover-arrow-outer-color;
     background-color: @popover-bg;
-    z-index: 1;
   }
 
   &-top,
@@ -53,8 +57,8 @@
     transform: translate(-50%, -100%);
 
     .@{popover-prefix}-arrow {
-      left: 50%;
       bottom: 0;
+      left: 50%;
       transform: translate(-50%, 50%) rotate(135deg);
     }
   }
@@ -71,8 +75,8 @@
     transform: translate(-100%, -100%);
 
     .@{popover-prefix}-arrow {
-      left: auto;
       right: @popover-arrow-width;
+      left: auto;
     }
   }
 
@@ -91,6 +95,7 @@
 
   &-left-top {
     transform: translateX(-100%);
+
     .@{popover-prefix}-arrow {
       top: @popover-arrow-width * 2;
     }
@@ -98,6 +103,7 @@
 
   &-left-bottom {
     transform: translate(-100%, -100%);
+
     .@{popover-prefix}-arrow {
       top: auto;
       bottom: @popover-arrow-width;
@@ -119,6 +125,7 @@
 
   &-right-top {
     transform: translateY(0);
+
     .@{popover-prefix}-arrow {
       top: @popover-arrow-width * 2;
     }
@@ -126,12 +133,12 @@
 
   &-right-bottom {
     transform: translateY(-100%);
+
     .@{popover-prefix}-arrow {
       top: auto;
       bottom: @popover-arrow-width;
     }
   }
-
 
   &-bottom-left,
   &-bottom,
@@ -140,8 +147,8 @@
     transform: translateX(-50%);
 
     .@{popover-prefix}-arrow {
-      left: 50%;
       top: 0;
+      left: 50%;
       transform: translate(-50%, -50%) rotate(315deg);
     }
   }
@@ -158,16 +165,16 @@
     transform: translateX(-100%);
 
     .@{popover-prefix}-arrow {
-      left: auto;
       right: @popover-arrow-width;
+      left: auto;
     }
   }
 
   &-content {
-    border-radius: inherit;
     position: relative;
-    background-color: @popover-bg;
     z-index: 2;
+    background-color: @popover-bg;
+    border-radius: inherit;
   }
 
   &-info {
@@ -193,8 +200,9 @@
       fill: @colors-success;
     }
   }
-  
-  &-danger, &-error {
+
+  &-danger,
+  &-error {
     .popover-variant(@alert-danger-bg; @alert-danger-border; @alert-danger-text);
 
     .@{popover-prefix}-icon path {

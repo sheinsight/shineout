@@ -26,18 +26,18 @@ function clickaway() {
 }
 
 export function show(props, id, innerStyle) {
-  const {
-    position, style, tip, trigger,
-  } = props
+  const { position, style, tip, trigger, animation } = props
 
   currentId = id
 
   div.style.cssText = 'display: none'
-  Object.keys(style).forEach((k) => {
+  Object.keys(style).forEach(k => {
     div.style[k] = style[k]
   })
 
-  const className = tooltipClass('_', 'in', position)
+  console.log(style, div.style)
+
+  const className = tooltipClass('_', 'in', position, animation && 'animation')
 
   // fix safari
   setTimeout(() => {
@@ -48,7 +48,7 @@ export function show(props, id, innerStyle) {
   inner.innerText = tip
   inner.removeAttribute('style')
   if (innerStyle) {
-    Object.keys(innerStyle).forEach((k) => {
+    Object.keys(innerStyle).forEach(k => {
       inner.style[k] = innerStyle[k]
     })
   }

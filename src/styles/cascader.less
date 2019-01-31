@@ -1,7 +1,7 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
 
-@cascader-prefix: ~"@{so-prefix}-cascader";
+@cascader-prefix: ~'@{so-prefix}-cascader';
 
 .@{cascader-prefix} {
   position: relative;
@@ -10,20 +10,21 @@
   &-result {
     position: relative;
     display: flex;
+    max-height: 105px;
     flex-flow: wrap;
     padding: @padding-base-vertical @padding-base-horizontal+12 0 @padding-base-horizontal;
-    max-height: 105px;
     overflow-y: auto;
 
-    span, .@{cascader-prefix}-item {
+    span,
+    .@{cascader-prefix}-item {
       display: inline-block;
+      overflow: hidden;
+      max-width: 80%;
+      padding: 0 @select-result-space;
       margin-right: @select-result-space;
       margin-bottom: @padding-base-vertical;
-      padding: 0 @select-result-space;
-      color: inherit;
       border-radius: @select-result-border-radius;
-      max-width: 80%;
-      overflow: hidden;
+      color: inherit;
       text-overflow: ellipsis;
 
       &:after {
@@ -42,8 +43,8 @@
   }
 
   &-options {
-    align-items: stretch;
     width: auto;
+    align-items: stretch;
   }
 
   &-focus &-options {
@@ -53,10 +54,10 @@
   &-list {
     display: inline-block;
     min-width: 120px;
-    vertical-align: top;
-    border-right: solid 1px @gray-200;
     height: 100%;
+    border-right: solid 1px @gray-200;
     overflow-y: auto;
+    vertical-align: top;
   }
 
   &-node {
@@ -68,15 +69,15 @@
     &:hover {
       background-color: @dropdown-link-hover-bg;
     }
-    
+
     &.@{cascader-prefix}-disabled {
-      cursor: not-allowed;
       color: @gray-400;
+      cursor: not-allowed;
 
       &:hover {
         background-color: transparent;
       }
-    }   
+    }
   }
 
   &-loading {
@@ -85,7 +86,8 @@
     right: 12px;
   }
 
-  &-has-children, &-may-be-children {
+  &-has-children,
+  &-may-be-children {
     .caret(down);
 
     &:after {
@@ -101,9 +103,9 @@
   }
 
   &-active {
-    text-decoration: none;
+    background-color: @dropdown-link-active-bg;
     color: @dropdown-link-active-color;
     font-weight: bold;
-    background-color: @dropdown-link-active-bg;
+    text-decoration: none;
   }
 }

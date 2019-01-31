@@ -5,37 +5,43 @@
 
 .make-grid-columns() {
   // Common styles for all sizes of grid columns, widths 1-12
-  .col(@index) { // initial
-    @item: ~".col-xs-@{index}, .col-sm-@{index}, .col-md-@{index}, .col-lg-@{index}";
+  .col(@index) {
+    // initial
+    @item: ~'.col-xs-@{index}, .col-sm-@{index}, .col-md-@{index}, .col-lg-@{index}';
     .col((@index + 1), @item);
   }
-  .col(@index, @list) when (@index =< @grid-columns) { // general; "=<" isn't a typo
-    @item: ~".col-xs-@{index}, .col-sm-@{index}, .col-md-@{index}, .col-lg-@{index}";
-    .col((@index + 1), ~"@{list}, @{item}");
+  .col(@index, @list) when (@index =< @grid-columns) {
+    // general; "=<" isn't a typo
+    @item: ~'.col-xs-@{index}, .col-sm-@{index}, .col-md-@{index}, .col-lg-@{index}';
+    .col((@index + 1), ~'@{list}, @{item}');
   }
-  .col(@index, @list) when (@index > @grid-columns) { // terminal
+  .col(@index, @list) when (@index > @grid-columns) {
+    // terminal
     @{list} {
       position: relative;
       // Prevent columns from collapsing when empty
       min-height: 1px;
-      // Inner gutter via padding
-      padding-left:  ceil((@grid-gutter-width / 2));
       padding-right: floor((@grid-gutter-width / 2));
+      // Inner gutter via padding
+      padding-left: ceil((@grid-gutter-width / 2));
     }
   }
   .col(1); // kickstart it
 }
 
 .float-grid-columns(@class) {
-  .col(@index) { // initial
-    @item: ~".col-@{class}-@{index}";
+  .col(@index) {
+    // initial
+    @item: ~'.col-@{class}-@{index}';
     .col((@index + 1), @item);
   }
-  .col(@index, @list) when (@index =< @grid-columns) { // general
-    @item: ~".col-@{class}-@{index}";
-    .col((@index + 1), ~"@{list}, @{item}");
+  .col(@index, @list) when (@index =< @grid-columns) {
+    // general
+    @item: ~'.col-@{class}-@{index}';
+    .col((@index + 1), ~'@{list}, @{item}');
   }
-  .col(@index, @list) when (@index > @grid-columns) { // terminal
+  .col(@index, @list) when (@index > @grid-columns) {
+    // terminal
     @{list} {
       float: left;
     }
