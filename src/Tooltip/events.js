@@ -35,8 +35,6 @@ export function show(props, id, innerStyle) {
     div.style[k] = style[k]
   })
 
-  console.log(style, div.style)
-
   const className = tooltipClass('_', 'in', position, animation && 'animation')
 
   // fix safari
