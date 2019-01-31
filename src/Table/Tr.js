@@ -5,7 +5,7 @@ import { tableClass, inputClass } from '../styles'
 import Td, { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
 import Expand from './Expand'
 
-const isExpandableElement = (el) => {
+const isExpandableElement = el => {
   const { tagName } = el
   if (tagName === 'TD' || tagName === 'TR') return true
   if (tagName === 'A' || tagName === 'BUTTON' || tagName === 'INPUT') return false
@@ -29,16 +29,14 @@ class Tr extends Component {
   componentDidMount() {
     const { offsetLeft, offsetRight } = this.props
     if (offsetLeft) {
-      [].forEach.call(
-        this.element.querySelectorAll(`.${tableClass(CLASS_FIXED_LEFT)}`),
-        (td) => { setTranslate(td, `${offsetLeft}px`, '0') },
-      )
+      ;[].forEach.call(this.element.querySelectorAll(`.${tableClass(CLASS_FIXED_LEFT)}`), td => {
+        setTranslate(td, `${offsetLeft}px`, '0')
+      })
     }
     if (offsetRight) {
-      [].forEach.call(
-        this.element.querySelectorAll(`.${tableClass(CLASS_FIXED_RIGHT)}`),
-        (td) => { setTranslate(td, `-${offsetRight}px`, '0') },
-      )
+      ;[].forEach.call(this.element.querySelectorAll(`.${tableClass(CLASS_FIXED_RIGHT)}`), td => {
+        setTranslate(td, `-${offsetRight}px`, '0')
+      })
     }
 
     this.setRowHeight()
@@ -69,30 +67,37 @@ class Tr extends Component {
   }
 
   handleRowClick(e) {
-    const {
-      columns, data, index, onRowClick,
-    } = this.props
+    const { columns, rowData, index, onRowClick } = this.props
 
     if (isExpandableElement(e.target)) {
       const el = this.element.querySelector(`.${tableClass('expand-indicator')}`)
       if (el && el !== e.target && columns.some(c => c.type === 'row-expand')) el.click()
-      if (onRowClick && e.target !== el)onRowClick(data[0].data, index)
+      if (onRowClick && e.target !== el) onRowClick(rowData, index)
     }
   }
 
   renderExpand() {
-    const { expandRender, data } = this.props
+    const { expandRender, rowData } = this.props
     if (this.lastExpandRender !== expandRender) {
       this.lastExpandRender = expandRender
-      this.cachedExpand = expandRender(data[0].data)
+      this.cachedExpand = expandRender(rowData)
     }
     return this.cachedExpand
   }
 
   render() {
     const {
-      columns, data, striped, index, expandRender, offsetLeft, offsetRight,
-      hasNotRenderRows, rowClassName, ...other
+      columns,
+      data,
+      rowData,
+      striped,
+      index,
+      expandRender,
+      offsetLeft,
+      offsetRight,
+      hasNotRenderRows,
+      rowClassName,
+      ...other
     } = this.props
     const tds = []
     let skip = 0
@@ -100,10 +105,7 @@ class Tr extends Component {
       if (skip > 0) {
         skip -= 1
       } else if (data[i]) {
-        const {
-          className, style, key, fixed, lastFixed, firstFixed, type, render,
-          onClick,
-        } = columns[i]
+        const { className, style, key, fixed, lastFixed, firstFixed, type, render, onClick } = columns[i]
         const td = (
           <Td
             {...other}
@@ -127,22 +129,25 @@ class Tr extends Component {
       }
     }
 
+    console.log('table rowData', rowData)
+
     let className
     if (rowClassName) {
-      className = rowClassName(data[0].data, index)
+      className = rowClassName(rowData, index)
     } else {
-      className = tableClass(
-        'normal',
-        striped && index % 2 === 1 && 'even',
-      )
+      className = tableClass('normal', striped && index % 2 === 1 && 'even')
     }
-    const result = [<tr key="0" onClick={this.handleRowClick} className={className} ref={this.bindElement}>{tds}</tr>]
+    const result = [
+      <tr key="0" onClick={this.handleRowClick} className={className} ref={this.bindElement}>
+        {tds}
+      </tr>,
+    ]
     if (expandRender) {
-      result.push((
+      result.push(
         <Expand key="1" setExpandHeight={this.setExpandHeight} colSpan={columns.length}>
           {this.renderExpand()}
         </Expand>
-      ))
+      )
     }
 
     return result
@@ -160,6 +165,7 @@ Tr.propTypes = {
   onExpand: PropTypes.func,
   onRowClick: PropTypes.func,
   rowClassName: PropTypes.func,
+  rowData: PropTypes.object,
   striped: PropTypes.bool,
   setRowHeight: PropTypes.func,
 }

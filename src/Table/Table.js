@@ -27,8 +27,22 @@ class Table extends PureComponent {
 
   render() {
     const {
-      striped, bordered, size, hover, height, columns, value, children, empty,
-      data, style, fixed, width, loading, verticalAlign, ...others
+      striped,
+      bordered,
+      size,
+      hover,
+      height,
+      columns,
+      value,
+      children,
+      empty,
+      data,
+      style,
+      fixed,
+      width,
+      loading,
+      verticalAlign,
+      ...others
     } = this.props
 
     const { scrollLeft, scrollRight } = this.state
@@ -42,9 +56,9 @@ class Table extends PureComponent {
         fixed && 'fixed',
         scrollLeft > 0 && 'left-float',
         scrollRight < 0 && 'right-float',
-        `vertical-${verticalAlign}`,
+        `vertical-${verticalAlign}`
       ),
-      this.props.className,
+      this.props.className
     )
 
     const props = {
@@ -62,25 +76,21 @@ class Table extends PureComponent {
     }
 
     const isEmpty = (!data || data.length === 0) && !children
-    const RenderTable = (fixed && !isEmpty) ? SeperateTable : SimpleTable
+    const RenderTable = fixed && !isEmpty ? SeperateTable : SimpleTable
     let newStyle = style
     if (height) newStyle = Object.assign({}, style, { height })
 
     return (
       <div className={className} ref={this.bindTable} style={newStyle}>
         <RenderTable {...props} />
-        {
-          loading &&
-          <div className={tableClass('loading')}>
-            {typeof loading === 'boolean' ? <Spin size={40} /> : loading}
-          </div>
-        }
-        {
-          isEmpty &&
+        {loading && (
+          <div className={tableClass('loading')}>{typeof loading === 'boolean' ? <Spin size={40} /> : loading}</div>
+        )}
+        {isEmpty && (
           <div className={tableClass('empty')}>
             <span>{empty || getLocale('noData')}</span>
           </div>
-        }
+        )}
       </div>
     )
   }
@@ -96,10 +106,7 @@ Table.propTypes = {
   fixed: PropTypes.oneOf(['x', 'y', 'both']),
   height: PropTypes.number,
   hover: PropTypes.bool,
-  loading: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.bool,
-  ]),
+  loading: PropTypes.oneOfType([PropTypes.element, PropTypes.bool]),
   rowsInView: PropTypes.number,
   striped: PropTypes.bool,
   verticalAlign: PropTypes.oneOf(['top', 'middle']),
@@ -113,8 +120,11 @@ Table.defaultProps = {
   verticalAlign: 'top',
 }
 
-export default Datum.hoc({
-  bindProps: ['disabled', 'format', 'prediction'],
-  ignoreUndefined: true,
-  setValueType: null,
-}, Table)
+export default Datum.hoc(
+  {
+    bindProps: ['disabled', 'format', 'prediction'],
+    ignoreUndefined: true,
+    setValueType: null,
+  },
+  Table
+)
