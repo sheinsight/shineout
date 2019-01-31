@@ -1,12 +1,11 @@
 module.exports = {
-  setupFiles: [
-    '<rootDir>/test/jest.init.js'
-  ],
+  setupFiles: ['<rootDir>/test/jest.init.js'],
   moduleNameMapper: {
     '^shineout': '<rootDir>/src',
-    "\\.(css|less)$": "identity-obj-proxy"
+    '\\.(css|less)$': 'identity-obj-proxy',
   },
   globals: {
-    'SO_PREFIX': 'so',
+    SO_PREFIX: 'so',
   },
+  modulePathIgnorePatterns: ['publish'],
 }

@@ -42,7 +42,7 @@ describe('numbers.js[split]', () => {
   test('should throw error when total < 0', () => {
     const inputs = [[0, []], [undefined, []], [null, []]]
     inputs.forEach(input => {
-      expect(split(...input)).toEqual(0)
+      expect(split(...input)).toEqual([])
     })
   })
 })
