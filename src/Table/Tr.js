@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import { setTranslate } from '../utils/dom/translate'
 import { tableClass, inputClass } from '../styles'
 import Td, { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
@@ -129,13 +130,9 @@ class Tr extends Component {
       }
     }
 
-    console.log('table rowData', rowData)
-
-    let className
+    let className = tableClass('normal', striped && index % 2 === 1 && 'even')
     if (rowClassName) {
-      className = rowClassName(rowData, index)
-    } else {
-      className = tableClass('normal', striped && index % 2 === 1 && 'even')
+      className = classnames(className, rowClassName(rowData, index))
     }
     const result = [
       <tr key="0" onClick={this.handleRowClick} className={className} ref={this.bindElement}>
