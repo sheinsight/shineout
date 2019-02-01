@@ -8,6 +8,14 @@ export function sleep(duration = 300) {
   })
 }
 
+export function simulateWheel(distance) {
+  // wheelDeltaX
+  const wheelEvent = new UIEvent('wheel')
+  wheelEvent.initUIEvent('wheel', false, true)
+  wheelEvent.wheelDeltaX = distance * 120
+  document.dispatchEvent(wheelEvent)
+}
+
 export function beTruthy(validate) {
   return (...args) => expect(validate(...args)).toBeTruthy()
 }

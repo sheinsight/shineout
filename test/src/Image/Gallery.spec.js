@@ -1,44 +1,59 @@
+import { mount } from 'enzyme'
 import React from 'react'
-import { shallow } from 'enzyme'
+import Gallery from '../../../src/Image/Gallery'
+import Magnify from '../../../src/Image/Magnify'
+import { simulateWheel } from '../../utils'
 import showGallery from '../../../src/Image/events'
 
 describe('Image[Gallery]', () => {
-  test('should render correct gallery dom structure', () => {
+  test('should rende correct gallery dom structure ', () => {
     const images = ['./images/1_b.jpg', './images/2_b.jpg', './images/3_b.jpg', './images/4_b.jpg']
-    showGallery(images.map(src => ({ src })), 1)
-    const gallery = document.querySelector(`.${SO_PREFIX}-image-gallery`)
-    // 1 layer + 3 image
-    expect(gallery.children.length).toBe(4)
-    Array.prototype.slice.apply(gallery.children).forEach(container => {
-      if (container.getAttribute('class').indexOf('overlay') > 0) return
-      expect(container.querySelector(`a.${SO_PREFIX}-image-close`)).toBeTruthy()
-      expect(container.querySelector('div img[src]')).toBeTruthy()
+    const wrapper = mount(<Gallery current={0} images={images.map(src => ({ src }))} onClose={() => {}} />)
+    const prefix = SO_PREFIX
+    const structure = ['-image-overlay', '-image-center', '-image-right'].map(v => `${prefix}${v}`)
+    const validate = () => {
+      wrapper
+        .find('Gallery')
+        .children()
+        .forEach((child, index) => {
+          expect(child.hasClass(structure[index])).toBeTruthy()
+          if (index === 0) return
+          expect(child.childAt(0).type()).toBe('a')
+          expect(child.childAt(1).type()).toBe(Magnify)
+        })
+    }
+    validate()
+    // simulate right-click
+    wrapper.find(`.${prefix}-image-right`).simulate('click')
+    structure.splice(2, 0, `${prefix}-image-left`)
+    validate()
+  })
+  test('should change structure while mouse-wheel', () => {
+    const images = ['./images/1_b.jpg', './images/2_b.jpg', './images/3_b.jpg', './images/4_b.jpg']
+    const wrapper = mount(<Gallery current={0} images={images.map(src => ({ src }))} onClose={() => {}} />)
+    const originLength = wrapper.find('Gallery').children().length
+    simulateWheel(-1)
+    // pass the css animation
+    wrapper.setState({
+      direction: 'init',
     })
+    expect(originLength).toBe(wrapper.find('Gallery').children().length - 1)
   })
-
-  test('should switch while click the image', () => {
-    const images = ['/images/1_b.jpg', '/images/2_b.jpg', '/images/3_b.jpg', '/images/4_b.jpg']
-    showGallery(images.map(src => ({ src })), 0)
-    const gallery = document.querySelector(`.${SO_PREFIX}-image-gallery`)
-    // 1 layer + 2 image
-    expect(gallery.children.length).toBe(3)
-    expect(gallery.getElementsByTagName('img')[0].src.indexOf(images[0]) > 0).toBeTruthy()
-    expect(gallery.getElementsByTagName('img')[1].src.indexOf(images[1]) > 0).toBeTruthy()
-    // simulate right-image click
-    gallery.querySelector(`.${SO_PREFIX}-image-right`).click()
-    expect(gallery.children.length).toBe(4)
-    expect(gallery.getElementsByTagName('img')[0].src.indexOf(images[1]) > 0).toBeTruthy()
-    expect(gallery.getElementsByTagName('img')[1].src.indexOf(images[0]) > 0).toBeTruthy()
-    expect(gallery.getElementsByTagName('img')[2].src.indexOf(images[2]) > 0).toBeTruthy()
-
-  })
-
-  test('should dismiss while click the background', () => {
-    const images = ['/images/1_b.jpg', '/images/2_b.jpg', '/images/3_b.jpg', '/images/4_b.jpg']
-    showGallery(images.map(src => ({ src })), 0)
-    const gallery = document.querySelector(`.${SO_PREFIX}-image-gallery`)
-    expect(gallery).toBeTruthy()
-    gallery.querySelector(`.${SO_PREFIX}-image-overlay`).click()
-    expect(document.querySelector(`.${SO_PREFIX}-image-gallery`)).toBeFalsy()
+  test('should dismiss while close', () => {
+    const modal = () => {
+      const images = ['./images/1_b.jpg', './images/2_b.jpg', './images/3_b.jpg', './images/4_b.jpg']
+      showGallery(images.map(src => ({ src })), 0)
+    }
+    const gWClass = `.${SO_PREFIX}-image-gallery`
+    modal()
+    expect(document.querySelector(gWClass)).toBeTruthy()
+    // 1、click the cover to dismiss
+    document.querySelector(`${gWClass} .${SO_PREFIX}-image-overlay`).click()
+    expect(document.querySelector(gWClass)).toBeNull()
+    modal()
+    // 2、click the image-close-btn to dismiss
+    expect(document.querySelector(gWClass)).toBeTruthy()
+    document.querySelector(`${gWClass} .${SO_PREFIX}-image-close`).click()
+    expect(document.querySelector(gWClass)).toBeNull()
   })
 })
