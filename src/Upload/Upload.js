@@ -59,33 +59,41 @@ class Upload extends PureComponent {
     const file = this.state.files[id]
     if (file) {
       if (file.xhr && file.xhr.abort) file.xhr.abort()
-      this.setState(immer((draft) => {
-        delete draft.files[id]
-      }))
+      this.setState(
+        immer(draft => {
+          delete draft.files[id]
+        })
+      )
     }
   }
 
   removeValue(index) {
     const { recoverAble } = this.props
-    this.setState(immer((draft) => {
-      draft.recycle.push(this.props.value[index])
-      if (typeof recoverAble === 'number' && draft.recycle.length > recoverAble) {
-        draft.recycle.shift()
-      }
-    }))
-    const value = immer(this.props.value, (draft) => {
+    this.setState(
+      immer(draft => {
+        draft.recycle.push(this.props.value[index])
+        if (typeof recoverAble === 'number' && draft.recycle.length > recoverAble) {
+          draft.recycle.shift()
+        }
+      })
+    )
+    const value = immer(this.props.value, draft => {
       draft.splice(index, 1)
     })
     this.props.onChange(value)
   }
 
   recoverValue(index, value) {
-    this.props.onChange(immer(this.props.value, (draft) => {
-      draft.push(value)
-    }))
-    this.setState(immer((draft) => {
-      draft.recycle.splice(index, 1)
-    }))
+    this.props.onChange(
+      immer(this.props.value, draft => {
+        draft.push(value)
+      })
+    )
+    this.setState(
+      immer(draft => {
+        draft.recycle.splice(index, 1)
+      })
+    )
   }
 
   addFile(e) {
@@ -120,10 +128,12 @@ class Upload extends PureComponent {
         file.status = ERROR
 
         if (beforeUpload) {
-          beforeUpload(blob).then((args) => {
-            this.setState(immer((draft) => {
-              draft.files[id] = Object.assign({}, draft.files[id], args)
-            }))
+          beforeUpload(blob).then(args => {
+            this.setState(
+              immer(draft => {
+                draft.files[id] = Object.assign({}, draft.files[id], args)
+              })
+            )
           })
         }
 
@@ -131,11 +141,13 @@ class Upload extends PureComponent {
       }
 
       if (beforeUpload) {
-        beforeUpload(blob).then((args) => {
+        beforeUpload(blob).then(args => {
           if (args.status !== ERROR) files[id].xhr = this.uploadFile(id, blob, args.data)
-          this.setState(immer((draft) => {
-            draft.files[id] = Object.assign({}, draft.files[id], args)
-          }))
+          this.setState(
+            immer(draft => {
+              draft.files[id] = Object.assign({}, draft.files[id], args)
+            })
+          )
         })
       } else {
         files[id].xhr = this.uploadFile(id, blob)
@@ -146,9 +158,7 @@ class Upload extends PureComponent {
   }
 
   uploadFile(id, file, data) {
-    const {
-      onSuccess, name, htmlName, cors, params, withCredentials, headers, request, onProgress,
-    } = this.props
+    const { onSuccess, name, htmlName, cors, params, withCredentials, headers, request, onProgress } = this.props
 
     const req = request || defaultRequest
     let throttle = false
@@ -166,17 +176,21 @@ class Upload extends PureComponent {
         const percent = typeof e.percent === 'number' ? e.percent : (e.loaded / e.total) * 100
         if (throttle) return
         throttle = true
-        setTimeout(() => { throttle = false }, 16)
+        setTimeout(() => {
+          throttle = false
+        }, 16)
 
         if (this.state.files[id]) {
-          this.setState(immer((draft) => {
-            draft.files[id].process = percent
-            if (msg) draft.files[id].message = msg
-          }))
+          this.setState(
+            immer(draft => {
+              draft.files[id].process = percent
+              if (msg) draft.files[id].message = msg
+            })
+          )
         }
       },
 
-      onLoad: (xhr) => {
+      onLoad: xhr => {
         if (!/^2|1223/.test(xhr.status)) {
           this.handleError(id, xhr)
           return
@@ -188,17 +202,21 @@ class Upload extends PureComponent {
         }
 
         if (value instanceof Error) {
-          this.setState(immer((draft) => {
-            draft.files[id].status = ERROR
-            draft.files[id].name = file.name
-            draft.files[id].message = value.message
-          }))
+          this.setState(
+            immer(draft => {
+              draft.files[id].status = ERROR
+              draft.files[id].name = file.name
+              draft.files[id].message = value.message
+            })
+          )
         } else {
-          this.setState(immer((draft) => {
-            delete draft.files[id]
-          }))
+          this.setState(
+            immer(draft => {
+              delete draft.files[id]
+            })
+          )
           // add value
-          const values = immer(this.props.value, (draft) => {
+          const values = immer(this.props.value, draft => {
             draft.push(value)
           })
           this.props.onChange(values)
@@ -221,37 +239,29 @@ class Upload extends PureComponent {
     let message = xhr.statusText
     if (onError) message = onError(xhr)
 
-    this.setState(immer((draft) => {
-      draft.files[id].status = ERROR
-      draft.files[id].message = message
-    }))
+    this.setState(
+      immer(draft => {
+        draft.files[id].status = ERROR
+        draft.files[id].message = message
+      })
+    )
   }
 
   renderHandle() {
-    const {
-      limit, value, children, accept, multiple,
-    } = this.props
+    const { limit, value, children, accept, multiple } = this.props
     const count = value.length + Object.keys(this.state.files).length
     if (limit > 0 && limit <= count) return null
 
     return (
       <span className={uploadClass('handle')} onClick={this.handleAddClick}>
         {children}
-        <FileInput
-          accept={accept}
-          ref={this.bindElement}
-          multiple={multiple}
-          onChange={this.addFile}
-        />
+        <FileInput accept={accept} ref={this.bindElement} multiple={multiple} onChange={this.addFile} />
       </span>
     )
   }
 
   render() {
-    const {
-      limit, value, renderResult, style, imageStyle, recoverAble,
-      customResult: CustomResult,
-    } = this.props
+    const { limit, value, renderResult, style, imageStyle, recoverAble, customResult: CustomResult } = this.props
     const { files, recycle } = this.state
     const className = classnames(uploadClass('_'), this.props.className)
     const FileComponent = imageStyle ? ImageFile : File
@@ -260,7 +270,7 @@ class Upload extends PureComponent {
     if (CustomResult) {
       return (
         <div className={className} style={style}>
-          { this.renderHandle() }
+          {this.renderHandle()}
           <CustomResult value={value} files={files} onValueRemove={this.removeValue} onFileRemove={this.removeFile} />
         </div>
       )
@@ -268,37 +278,27 @@ class Upload extends PureComponent {
 
     return (
       <div className={className} style={style}>
-        { !imageStyle && this.renderHandle() }
+        {!imageStyle && this.renderHandle()}
 
-        {
-          value.map((v, i) => (
-            <ResultComponent
-              key={i}
-              value={v}
-              index={i}
-              style={imageStyle}
-              renderResult={renderResult}
-              onRemove={this.removeValue}
-            />
-          ))
-        }
+        {value.map((v, i) => (
+          <ResultComponent
+            key={i}
+            value={v}
+            index={i}
+            style={imageStyle}
+            renderResult={renderResult}
+            onRemove={this.removeValue}
+          />
+        ))}
 
-        {
-          Object.keys(files).map(id => (
-            <FileComponent
-              {...files[id]}
-              key={id}
-              id={id}
-              style={imageStyle}
-              onRemove={this.removeFile}
-            />
-          ))
-        }
+        {Object.keys(files).map(id => (
+          <FileComponent {...files[id]} key={id} id={id} style={imageStyle} onRemove={this.removeFile} />
+        ))}
 
-        { imageStyle && this.renderHandle() }
+        {imageStyle && this.renderHandle()}
 
-        {
-          recoverAble && recycle.map((v, i) => (
+        {recoverAble &&
+          recycle.map((v, i) => (
             <ResultComponent
               key={i}
               value={v}
@@ -309,8 +309,7 @@ class Upload extends PureComponent {
               onRecover={this.recoverValue}
               style={imageStyle}
             />
-          ))
-        }
+          ))}
       </div>
     )
   }
@@ -318,10 +317,7 @@ class Upload extends PureComponent {
 
 Upload.propTypes = {
   accept: PropTypes.string,
-  action: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-  ]),
+  action: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   beforeUpload: PropTypes.func,
   children: PropTypes.any,
   className: PropTypes.string,
@@ -337,16 +333,13 @@ Upload.propTypes = {
   onSuccess: PropTypes.func,
   onError: PropTypes.func,
   params: PropTypes.object,
-  recoverAble: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.number,
-  ]),
+  recoverAble: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   renderResult: PropTypes.func,
   request: PropTypes.func,
   validateHook: PropTypes.func,
   validator: PropTypes.object,
   value: PropTypes.array,
-  customResult: PropTypes.element,
+  customResult: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
   style: PropTypes.object,
   withCredentials: PropTypes.bool,
 }

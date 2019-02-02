@@ -249,8 +249,7 @@ export function hexToRgb(hex) {
     return getRgba(matchs, 8)
   }
 
-  console.error(new Error(`the string '${hex}' is not a hex color`))
-  return ''
+  console.log(new Error(`the string '${hex}' is not a hex color`))
 }
 
 export function hslToRgb(hsl) {
