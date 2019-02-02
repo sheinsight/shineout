@@ -32,7 +32,7 @@ class Field extends Component {
       return children({ value, error, onChange: this.handleChange })
     }
 
-    if (isValidElement) {
+    if (isValidElement(children)) {
       return cloneElement(children, { value, error, onChange: this.handleChange })
     }
 

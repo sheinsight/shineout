@@ -1,12 +1,13 @@
 import { range, split, toPrecision } from '../../src/utils/numbers'
-import { isInstance } from '../utils'
+import { isInstance, beEqual } from '../utils'
 
 describe('numbers.js[range]', () => {
   test('should return a normal arr when end > start', () => {
-    expect(range(5)).toEqual([0, 1, 2, 3, 4])
-    expect(range(5, 0)).toEqual([0, 1, 2, 3, 4])
-    expect(range(5, 4)).toEqual([4])
-    expect(range(1, -1)).toEqual([-1, 0])
+    const inputs = [[5], [5, 0], [5, 4], [1, -1]]
+    const expects = [[0, 1, 2, 3, 4], [0, 1, 2, 3, 4], [4], [-1, 0]]
+    inputs.forEach((input, index) => {
+      beEqual(range)(input, expects[index])
+    })
   })
   test('should return a empty arr when end = start', () => {
     const arr = range(5, 5)
@@ -29,37 +30,49 @@ describe('numbers.js[range]', () => {
 
 describe('numbers.js[split]', () => {
   test('', () => {
-    expect(split(5, [10, 0])).toEqual([10, -45])
-    expect(split(5, [1, 0])).toEqual([1, 0])
-    expect(split(5, [2, 0])).toEqual([2, -5])
+    const inputs = [[5, [10, 0]], [5, [1, 0]], [5, [2, 0]]]
+    const expects = [[10, -45], [1, 0], [2, -5]]
+    inputs.forEach((input, index) => {
+      beEqual(split)(input, expects[index])
+    })
     const arr = split(1, [])
     expect(arr.length).toBe(0)
     expect(isInstance(arr, Array)).toBeTruthy()
   })
   test('should throw error when total < 0', () => {
-    expect(split(0, []).length).toEqual(0)
-    expect(split(undefined, []).length).toEqual(0)
-    expect(split(null, []).length).toEqual(0)
+    const inputs = [[0, []], [undefined, []], [null, []]]
+    inputs.forEach(input => {
+      expect(split(...input)).toEqual([])
+    })
   })
 })
 
 describe('number.js[toPrecision]', () => {
   test('should convert when precision 0-100', () => {
-    expect(toPrecision(12345, 2)).toBe(12000)
-    expect(toPrecision(12345, 3)).toBe(12300)
+    const inputs = [[12345, 2], [12345, 3]]
+    const expects = [12000, 12300]
+    inputs.forEach((input, index) => {
+      expect(toPrecision(...input)).toBe(expects[index])
+    })
   })
   test('should throw error when precision not between 1-100', () => {
-    expect(() => toPrecision(12345, 0)).toThrow()
-    expect(() => toPrecision(12345, 101)).toThrow()
-    expect(() => toPrecision(12345, -1)).toThrow()
+    const inputs = [[12345, 0], [12345, 101], [12345, -1]]
+    inputs.forEach(input => {
+      expect(() => toPrecision(...input)).toThrow()
+    })
   })
   test('should return origin when precision beyond num', () => {
-    expect(toPrecision(1234, 10)).toBe(1234)
-    expect(toPrecision(3333, 5)).toBe(3333)
+    const inputs = [[1234, 10], [3333, 5]]
+    const expects = [1234, 3333]
+    inputs.forEach((input, index) => {
+      expect(toPrecision(...input)).toBe(expects[index])
+    })
   })
   test('should convert when num <= 0', () => {
-    expect(toPrecision(-123, 2)).toBe(-120)
-    expect(toPrecision(0, 3)).toBe(0)
-    expect(toPrecision(-0, 3)).toBe(0)
+    const inputs = [[-123, 2], [0, 3], [-0, 3]]
+    const expects = [-120, 0, 0]
+    inputs.forEach((input, index) => {
+      expect(toPrecision(...input)).toBe(expects[index])
+    })
   })
 })
