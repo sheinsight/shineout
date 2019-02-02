@@ -40,24 +40,32 @@ describe('Datum[Form.js]', () => {
     const datum = new Datum.Form()
 
     const mockSetter = jest.fn()
-    datum.bind('age', mockSetter, -1, age => {
-      return new Promise((resolve, reject) => {
-        if(age > 0 && age < 100)resolve(true)
-        reject(new Error('age error'))
-      })
-    })
+    datum.bind(
+      'age',
+      mockSetter,
+      -1,
+      age =>
+        new Promise((resolve, reject) => {
+          if (age > 0 && age < 100) resolve(true)
+          reject(new Error('age error'))
+        })
+    )
     return expect(datum.validate()).rejects.toBeTruthy()
   })
   test('should validate success while match rule', () => {
     const datum = new Datum.Form()
 
     const mockSetter = jest.fn()
-    datum.bind('age', mockSetter, 10, age => {
-      return new Promise((resolve, reject) => {
-        if(age > 0 && age < 100)resolve(true)
-        reject(new Error('age error'))
-      })
-    })
+    datum.bind(
+      'age',
+      mockSetter,
+      10,
+      age =>
+        new Promise((resolve, reject) => {
+          if (age > 0 && age < 100) resolve(true)
+          reject(new Error('age error'))
+        })
+    )
     return expect(datum.validate()).resolves.toBeTruthy()
   })
   test('should empty while reset', () => {

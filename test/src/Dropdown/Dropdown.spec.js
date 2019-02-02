@@ -7,6 +7,8 @@ import DropdownSplit from '../../../site/pages/components/Dropdown/example-5-spl
 import DropdownType from '../../../site/pages/components/Dropdown/example-6-type'
 import { sleep } from '../../utils'
 
+/* global SO_PREFIX */
+
 const data = [
   {
     content: 'Submenu',
@@ -90,7 +92,9 @@ describe('Dropdown[Base]', () => {
 
 describe('Dropdown[Hover]', () => {
   test('should show/hide list when hover/leave', async () => {
-    let container = shallow(<Dropdown trigger="hover" data={data} placeholder="Dropdown" />).find(Dropdown).shallow()
+    let container = shallow(<Dropdown trigger="hover" data={data} placeholder="Dropdown" />)
+      .find(Dropdown)
+      .shallow()
     while (container) {
       expect(
         container

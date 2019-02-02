@@ -5,6 +5,8 @@ import Magnify from '../../../src/Image/Magnify'
 import { simulateWheel } from '../../utils'
 import showGallery from '../../../src/Image/events'
 
+/* global SO_PREFIX */
+
 describe('Image[Gallery]', () => {
   test('should rende correct gallery dom structure ', () => {
     const images = ['./images/1_b.jpg', './images/2_b.jpg', './images/3_b.jpg', './images/4_b.jpg']

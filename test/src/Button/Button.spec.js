@@ -1,16 +1,17 @@
 import enzyme from 'enzyme'
 import React from 'react'
+import { Button } from 'shineout/Button'
 import ButtonBase from '../../../site/pages/components/Button/example-1-base'
 import ButtonOutLine from '../../../site/pages/components/Button/example-2-outline'
 import ButtonDisabled from '../../../site/pages/components/Button/example-3-disabled'
 import ButtonSize from '../../../site/pages/components/Button/example-4-size'
 import ButtonLoading from '../../../site/pages/components/Button/example-5-loading'
 import ButtonHref from '../../../site/pages/components/Button/example-6-href'
-import ButtonIcon from '../../../site/pages/components/Button/example-7-icon'
 import ButtonGroup from '../../../site/pages/components/Button/example-8-group'
 
-import { Button } from 'shineout/Button'
 import { defaultProps } from '../../../src/utils/proptypes'
+
+/* global SO_PREFIX */
 
 describe('Button[Base]', () => {
   let wrapper
@@ -93,9 +94,9 @@ describe('Button[Group]', () => {
       const type = group.prop('type')
       group.find(Button).forEach(button => {
         const originBtn = button.find('button')
-        outline && (expect(originBtn.hasClass(`${SO_PREFIX}-button-outline`)).toBeTruthy())
-        size && (expect(originBtn.hasClass(`${SO_PREFIX}-button-${size}`)).toBeTruthy())
-        type && (expect(originBtn.hasClass(`${SO_PREFIX}-button-${type}`)).toBeTruthy())
+        outline && expect(originBtn.hasClass(`${SO_PREFIX}-button-outline`)).toBeTruthy()
+        size && expect(originBtn.hasClass(`${SO_PREFIX}-button-${size}`)).toBeTruthy()
+        type && expect(originBtn.hasClass(`${SO_PREFIX}-button-${type}`)).toBeTruthy()
       })
     })
   })
