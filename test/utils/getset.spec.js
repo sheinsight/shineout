@@ -162,9 +162,8 @@ describe('object.js[deepRemove]', () => {
   test('remove only one prop', () => {
     const target = { a: 'something' }
     deepRemove(target, 'a')
-    expect(target).toEqual({ })
+    expect(target).toEqual({})
   })
-
 
   test('should skip if path target value is not exist', () => {
     const target = { a: { b: { c: [1, 2, 3] } } }
@@ -191,23 +190,21 @@ describe('object.js[deepRemove]', () => {
     expect(() => deepRemove(target, 'a.b[1]')).toThrow()
   })
 })
+
 describe('object.js[pathGenerator]', () => {
   test('get path.', () => {
     const gen = pathGenerator('a.b[0].c.d')
-    expect(gen.next().value).toEqual(['a', 'b.[0].c.d', undefined])
-    expect(gen.next().value).toEqual(['b', '[0].c.d', undefined])
-    expect(gen.next().value).toEqual([0, 'c.d', undefined])
-    expect(gen.next().value).toEqual(['c', 'd', undefined])
-    expect(gen.next().value).toEqual(['d', undefined, undefined])
-    expect(gen.next().done).toBe(true)
+    expect(gen).toEqual([
+      ['a', 'b.[0].c.d', undefined],
+      ['b', '[0].c.d', undefined],
+      [0, 'c.d', undefined],
+      ['c', 'd', undefined],
+      ['d', undefined, undefined],
+    ])
   })
 
   test('get path with mode.', () => {
     const gen = pathGenerator('a.b![0]?.c!')
-    expect(gen.next().value).toEqual(['a', 'b!.[0]?.c!', undefined])
-    expect(gen.next().value).toEqual(['b', '[0]?.c!', '!'])
-    expect(gen.next().value).toEqual([0, 'c!', '?'])
-    expect(gen.next().value).toEqual(['c', undefined, '!'])
-    expect(gen.next().done).toBe(true)
+    expect(gen).toEqual([['a', 'b!.[0]?.c!', undefined], ['b', '[0]?.c!', '!'], [0, 'c!', '?'], ['c', undefined, '!']])
   })
 })
