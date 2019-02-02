@@ -250,6 +250,7 @@ export function hexToRgb(hex) {
   }
 
   console.log(new Error(`the string '${hex}' is not a hex color`))
+  return ''
 }
 
 export function hslToRgb(hsl) {
