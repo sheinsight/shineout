@@ -15,13 +15,12 @@ function format(columns, data, nextRow, index, expandKeys) {
     const { rowSpan } = col
     if (rowSpan && nextRow) {
       if (col.type !== 'checkbox') {
-        cell.content = typeof col.render === 'string'
-          ? data[col.render]
-          : col.render(data, index)
+        cell.content = typeof col.render === 'string' ? data[col.render] : col.render(data, index)
       }
-      const isEqual = rowSpan === true
-        ? cell.content === nextRow[i].content
-        : typeof rowSpan === 'function' && rowSpan(data, nextRow[i].data)
+      const isEqual =
+        rowSpan === true
+          ? cell.content === nextRow[i].content
+          : typeof rowSpan === 'function' && rowSpan(data, nextRow[i].data)
 
       const nextTd = nextRow[i]
       if (isEqual && nextTd.colSpan === cell.colSpan) {
@@ -39,7 +38,6 @@ function format(columns, data, nextRow, index, expandKeys) {
 
   return row
 }
-
 
 class Tbody extends PureComponent {
   constructor(props) {
@@ -80,10 +78,12 @@ class Tbody extends PureComponent {
   }
 
   handleExpand(key, render) {
-    this.setState(immer((draft) => {
-      if (render) draft.expand[key] = render
-      else delete draft.expand[key]
-    }))
+    this.setState(
+      immer(draft => {
+        if (render) draft.expand[key] = render
+        else delete draft.expand[key]
+      })
+    )
   }
 
   findExpandFunc(key, index) {
@@ -97,9 +97,7 @@ class Tbody extends PureComponent {
   }
 
   renderTr(row, i) {
-    const {
-      columns, keygen, data, sorter, index, expandKeys, ...other
-    } = this.props
+    const { columns, keygen, data, sorter, index, expandKeys, ...other } = this.props
 
     let key = getKey(data[i], keygen, row.index)
     if (sorter && sorter.order) {
@@ -111,6 +109,7 @@ class Tbody extends PureComponent {
         index={i + index}
         key={key}
         data={row}
+        rowData={data[i]}
         columns={columns}
         rowKey={key}
         onExpand={this.handleExpand}
@@ -120,23 +119,19 @@ class Tbody extends PureComponent {
   }
 
   render() {
-    const {
-      index, data, columns, expandKeys,
-    } = this.props
+    const { index, data, columns, expandKeys } = this.props
     const rows = []
     for (let i = data.length - 1; i >= 0; i--) {
       const d = data[i]
-      rows.unshift(format(columns, d, rows[0], index + i, expandKeys).map((col) => {
-        delete col.content
-        return col
-      }))
+      rows.unshift(
+        format(columns, d, rows[0], index + i, expandKeys).map(col => {
+          delete col.content
+          return col
+        })
+      )
     }
 
-    return (
-      <tbody ref={this.bindBody}>
-        {rows.map(this.renderTr)}
-      </tbody>
-    )
+    return <tbody ref={this.bindBody}>{rows.map(this.renderTr)}</tbody>
   }
 }
 

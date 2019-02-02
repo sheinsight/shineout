@@ -64,11 +64,7 @@ class Node extends PureComponent {
     this.dragImage.style.background = '#fff'
     this.dragImage.style.boxShadow = '0 0 5px 0 rgba(0, 0, 0, 0.1)'
 
-    event.dataTransfer.setDragImage(
-      this.dragImage,
-      event.clientX - rect.left,
-      event.clientY - rect.top,
-    )
+    event.dataTransfer.setDragImage(this.dragImage, event.clientX - rect.left, event.clientY - rect.top)
 
     setTimeout(() => {
       this.element.style.display = 'none'
@@ -102,6 +98,8 @@ class Node extends PureComponent {
   }
 
   handleDragEnd() {
+    this.element.style.display = ''
+
     if (!isDragging || !placeElement.parentNode) return
     isDragging = false
 
@@ -113,16 +111,13 @@ class Node extends PureComponent {
 
     placeElement.parentNode.removeChild(placeElement)
 
-    this.element.style.display = ''
     if (target !== id || index !== position) {
       onDrop(id, target, position)
     }
   }
 
   render() {
-    const {
-      data, expandedMap, listComponent, onDrop, ...other
-    } = this.props
+    const { data, expandedMap, listComponent, onDrop, ...other } = this.props
 
     const hasChildren = data.children && data.children.length > 0
     const { expanded } = this.state
@@ -154,7 +149,7 @@ class Node extends PureComponent {
           onToggle={this.handleToggle}
           onDragOver={this.handleDragOver}
         />
-        { hasChildren && createElement(listComponent, listProps) }
+        {hasChildren && createElement(listComponent, listProps)}
       </div>
     )
   }
@@ -167,10 +162,7 @@ Node.propTypes = {
   data: PropTypes.object,
   index: PropTypes.number,
   listComponent: PropTypes.func,
-  keygen: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-  ]).isRequired,
+  keygen: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
   onDrop: PropTypes.func,
 }
 

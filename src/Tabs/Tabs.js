@@ -85,6 +85,7 @@ class Tabs extends PureComponent {
           background: background || (active === id ? this.props.background : inactiveBackground),
           border: childBorder,
           color: child.props.color || (active === id ? color : undefined),
+          disabled: child.props.disabled,
           shape,
         })
       }

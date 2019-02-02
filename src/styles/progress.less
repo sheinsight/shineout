@@ -1,7 +1,7 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
 
-@progress-prefix: ~"@{so-prefix}-progress";
+@progress-prefix: ~'@{so-prefix}-progress';
 
 .@{progress-prefix} {
   &-line {
@@ -11,8 +11,8 @@
     .@{progress-prefix}-background {
       position: relative;
       overflow: hidden;
-      background: @progress-bg-color;
       flex: 1;
+      background: @progress-bg-color;
     }
 
     .@{progress-prefix}-content {
@@ -21,8 +21,8 @@
 
     .@{progress-prefix}-front {
       position: absolute;
-      left: 0;
       top: 0;
+      left: 0;
       height: 100%;
       background: @colors-primary;
       transition: width 0.32s linear;
@@ -43,13 +43,14 @@
 
     .@{progress-prefix}-front {
       stroke: @colors-primary;
-      transition: stroke-dashoffset 0.32s ease 0s, stroke-dasharray 0.32s ease 0s, stroke 0.32s, stroke-width 0.06s ease 0.32s;
+      transition: stroke-dashoffset 0.32s ease 0s, stroke-dasharray 0.32s ease 0s, stroke 0.32s,
+        stroke-width 0.06s ease 0.32s;
     }
 
     .@{progress-prefix}-content {
       position: absolute;
-      left: 50%;
       top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
     }
   }
@@ -69,7 +70,8 @@
     stroke: @colors-warning;
   }
 
-  &-error &-front, &-danger &-front {
+  &-error &-front,
+  &-danger &-front {
     background: @colors-danger;
     stroke: @colors-danger;
   }

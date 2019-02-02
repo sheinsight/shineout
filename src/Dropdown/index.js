@@ -20,6 +20,7 @@ const positionMap = {
   'top-left': 'right-bottom',
   'bottom-right': 'left-top',
   'bottom-left': 'right-top',
+  auto: '',
 }
 
 class Dropdown extends PureComponent {
@@ -56,6 +57,19 @@ class Dropdown extends PureComponent {
     return this.props.trigger
   }
 
+  getPosition() {
+    let { position } = this.props
+    if (position !== 'auto') return position
+    if (!this.element) return 'bottom-left'
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight
+    const windowWidth = window.innerWidth || document.documentElement.clientWidth
+    const rect = this.element.getBoundingClientRect()
+    position = rect.bottom > windowHeight / 2 ? 'top-' : 'bottom-'
+    position += rect.right > windowWidth / 2 ? 'right' : 'left'
+
+    return position
+  }
+
   bindElement(el) {
     this.element = el
   }
@@ -67,8 +81,7 @@ class Dropdown extends PureComponent {
 
   clickAway(e) {
     const el = getParent(e.target, 'a')
-    if (el && (el === this.element || this.element.contains(el))
-      && el.getAttribute('data-role') === 'item') return
+    if (el && (el === this.element || this.element.contains(el)) && el.getAttribute('data-role') === 'item') return
     this.handleHide(0)
   }
 
@@ -78,9 +91,11 @@ class Dropdown extends PureComponent {
     }
 
     if (this.state.show) return
-    this.setState(immer((state) => {
-      state.show = true
-    }))
+    this.setState(
+      immer(state => {
+        state.show = true
+      })
+    )
 
     this.toggleDocumentEvent(true)
   }
@@ -99,9 +114,7 @@ class Dropdown extends PureComponent {
   }
 
   renderButton(placeholder) {
-    const {
-      type, outline, size, disabled, isSub,
-    } = this.props
+    const { type, outline, size, disabled, isSub } = this.props
     const buttonClassName = dropdownClass('button', !placeholder && 'split-button')
     const spanClassName = dropdownClass('button-content')
 
@@ -134,49 +147,46 @@ class Dropdown extends PureComponent {
     )
   }
 
-  renderList(data, placeholder) {
-    const {
-      width, onClick, columns, renderItem, position,
-    } = this.props
+  renderList(data, placeholder, position) {
+    const { width, onClick, columns, renderItem } = this.props
     if (!Array.isArray(data) || data.length === 0) return null
 
     return [
-      <FadeList
-        className={dropdownClass('menu')}
-        style={{ width }}
-        key="list"
-        show={this.state.show}
-      >
-        {
-          data.map((d, index) => {
-            const childPosition = positionMap[position]
-            const itemClassName = dropdownClass('item', !width && 'no-width', childPosition.indexOf('left') === 0 && 'item-left')
-            return d.children ?
-              <Dropdown
-                style={{ width: '100%' }}
-                data={d.children}
-                disabled={d.disabled}
-                placeholder={d.content}
-                type="link"
-                key={index}
-                position={childPosition}
-                btnColor
-                onClick={onClick}
-                renderItem={renderItem}
-                trigger={this.getTrigger()}
-                isSub
-              /> :
-              <Item
-                data={d}
-                key={index}
-                onClick={d.onClick || onClick}
-                itemClassName={itemClassName}
-                renderItem={renderItem}
-                columns={columns}
-                width={width}
-              />
-          })
-        }
+      <FadeList className={dropdownClass('menu')} style={{ width }} key="list" show={this.state.show}>
+        {data.map((d, index) => {
+          const childPosition = positionMap[position]
+          const itemClassName = dropdownClass(
+            'item',
+            !width && 'no-width',
+            childPosition.indexOf('left') === 0 && 'item-left'
+          )
+          return d.children ? (
+            <Dropdown
+              style={{ width: '100%' }}
+              data={d.children}
+              disabled={d.disabled}
+              placeholder={d.content}
+              type="link"
+              key={index}
+              position={childPosition}
+              btnColor
+              onClick={onClick}
+              renderItem={renderItem}
+              trigger={this.getTrigger()}
+              isSub
+            />
+          ) : (
+            <Item
+              data={d}
+              key={index}
+              onClick={d.onClick || onClick}
+              itemClassName={itemClassName}
+              renderItem={renderItem}
+              columns={columns}
+              width={width}
+            />
+          )
+        })}
       </FadeList>,
 
       this.renderButton(placeholder),
@@ -184,10 +194,9 @@ class Dropdown extends PureComponent {
   }
 
   render() {
-    const {
-      data, className, style, placeholder, position,
-    } = this.props
+    const { data, className, style, placeholder } = this.props
     const { show } = this.state
+    const position = this.getPosition()
 
     let wrapClassName = dropdownClass('_', position, show && 'show', { 'split-dropdown': !placeholder })
     if (className) wrapClassName += ` ${className}`
@@ -200,7 +209,7 @@ class Dropdown extends PureComponent {
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
       >
-        {this.renderList(data, placeholder)}
+        {this.renderList(data, placeholder, position)}
       </div>
     )
   }
@@ -210,19 +219,11 @@ Dropdown.propTypes = {
   ...getProps(PropTypes, 'placeholder', 'type'),
   data: PropTypes.array.isRequired,
   disabled: PropTypes.bool,
-  href: PropTypes.string,
   hover: PropTypes.bool,
   isSub: PropTypes.bool,
-  keygen: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-  ]),
   position: PropTypes.string,
   trigger: PropTypes.oneOf(['click', 'hover']),
-  width: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 }
 
 Dropdown.defaultProps = {

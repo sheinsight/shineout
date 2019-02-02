@@ -1,24 +1,24 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
 
-@menu-prefix: ~"@{so-prefix}-menu";
+@menu-prefix: ~'@{so-prefix}-menu';
 
 .@{menu-prefix} {
   position: relative;
-  outline: none;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  z-index: @zindex-navbar;
   height: 100%;
+  padding: 0;
+  margin: 0;
   //box-shadow: @menu-box-shadow-base;
   background: @menu-bg;
   line-height: 0; // Fix display inline-block gap
-  z-index: @zindex-navbar;
+  list-style: none;
+  outline: none;
 
   ul {
-    list-style: none;
-    margin: 0;
     padding: 0;
+    margin: 0;
+    list-style: none;
     // min-width: 100%;
   }
 
@@ -42,17 +42,16 @@
     }
 
     &.@{menu-prefix}-disabled a {
-      cursor: not-allowed;
       color: @menu-disabled-color;
-
+      cursor: not-allowed;
     }
   }
 
   &-title {
     position: relative;
     height: @menu-item-height;
-    line-height: @menu-item-height;
     padding: 0 20px;
+    line-height: @menu-item-height;
   }
 
   &-has-children > &-title {
@@ -84,7 +83,7 @@
 
       & > .@{menu-prefix}-list {
         display: block;
-      } 
+      }
     }
   }
 
@@ -106,17 +105,17 @@
     }
 
     .@{menu-prefix}-active.@{menu-prefix}-no-children > a {
-      color: @menu-item-active-color;
       background: @menu-item-active-bg;
+      color: @menu-item-active-color;
 
       &:after {
-        content: ' ';
         position: absolute;
+        top: 0;
+        right: 0px;
         width: 3px;
         height: 100%;
-        right: 0px;
-        top: 0;
         background: @menu-item-active-indicator;
+        content: ' ';
       }
     }
 
@@ -135,18 +134,19 @@
       display: inline-block;
     }
 
-    & > .@{menu-prefix}-active > a, & > .@{menu-prefix}-highlight > a {
-      color: @menu-item-active-indicator;
+    & > .@{menu-prefix}-active > a,
+    & > .@{menu-prefix}-highlight > a {
       position: relative;
+      color: @menu-item-active-indicator;
 
       &:before {
-        content: ' ';
         position: absolute;
-        left: 0;
         right: 0;
-        height: 2px;
         bottom: -1px;
+        left: 0;
+        height: 2px;
         background: @menu-item-active-indicator;
+        content: ' ';
       }
     }
 
@@ -157,11 +157,11 @@
     }
 
     .@{menu-prefix}-root .@{menu-prefix}-list {
-      padding: 4px 0;
       position: absolute;
-      min-width: 100%;
       top: 100%;
       left: 0;
+      min-width: 100%;
+      padding: 4px 0;
       margin-top: 4px;
       background: @menu-bg;
       border-radius: 4px;
@@ -188,9 +188,9 @@
 
     &.@{menu-prefix}-scroll .@{menu-prefix}-wrapper {
       position: absolute;
-      height: 100%;
       overflow: hidden;
       min-width: 100%;
+      height: 100%;
     }
 
     &.@{menu-prefix}-has-open .@{menu-prefix}-wrapper {
@@ -198,19 +198,20 @@
     }
 
     .@{menu-prefix}-root .@{menu-prefix}-list {
-      padding: 4px 0;
       position: absolute;
-      width: auto;
-      min-width: auto;
       top: 0;
       left: 100%;
+      width: auto;
+      min-width: auto;
+      padding: 4px 0;
       margin-left: 3px;
       background: @menu-bg;
       border-radius: 4px;
       box-shadow: @menu-box-shadow-base;
     }
 
-    .@{menu-prefix}-has-children, .@{menu-prefix}-has-children.@{menu-prefix}-open {
+    .@{menu-prefix}-has-children,
+    .@{menu-prefix}-has-children.@{menu-prefix}-open {
       & > .@{menu-prefix}-title {
         &:after {
           transform: @menu-title-vertical-transform;
@@ -224,13 +225,14 @@
     }
 
     .@{menu-prefix}-active.@{menu-prefix}-no-children > a {
-      color: @menu-item-active-color;
       background: @menu-item-active-bg;
+      color: @menu-item-active-color;
     }
   }
 
   &-dark {
-    &, .@{menu-prefix}-list {
+    &,
+    .@{menu-prefix}-list {
       background-color: @menu-dark-bg;
       color: @menu-dark-item;
     }
@@ -249,24 +251,29 @@
       border-color: @menu-dark-bg;
     }
 
-    &.@{menu-prefix}-inline, &.@{menu-prefix}-vertical, &.@{menu-prefix}-horizontal {
+    &.@{menu-prefix}-inline,
+    &.@{menu-prefix}-vertical,
+    &.@{menu-prefix}-horizontal {
       .@{menu-prefix}-active.@{menu-prefix}-no-children a {
-        color: @menu-dark-active-color;
         background: @menu-dark-active-bg;
+        color: @menu-dark-active-color;
 
-        &:after, &after:before {
+        &:after,
+        &after:before {
           width: 0;
           height: 0;
         }
       }
 
-      .@{menu-prefix}-active > a, .@{menu-prefix}-highlight > a {
+      .@{menu-prefix}-active > a,
+      .@{menu-prefix}-highlight > a {
         color: @menu-dark-active-color;
       }
     }
 
     .@{menu-prefix}-submenu-title:hover {
       color: @menu-bg;
+
       > a {
         color: @menu-bg;
       }

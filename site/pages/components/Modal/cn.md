@@ -15,6 +15,7 @@
 | position | string | 无 | 弹出位置，可选值为 \['top', 'right', 'bottom', 'left'] |
 | style | object | 无 | 最外层扩展样式 |
 | title | string \| ReactElement | 无 | 弹出层的标题 |
+| usePortal | bool | true | 为 true 时，使用 ReactDOM.createPortal 创建弹出层，为 false 时，使用 ReactDOM.render |
 | visible | bool | false | 是否显示 |
 | width | number \| string | 500 | 对话框宽度 |
 
