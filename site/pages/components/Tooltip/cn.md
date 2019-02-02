@@ -8,6 +8,7 @@ Tooltip 主要用来显示文字提示，如果需要显示更多内容，请使
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
+| animation | boolean | true | 弹出是否使用动画，默认为 true |
 | className | string | 无 | 扩展className |
 | children | ReactElement | 必填 | 子元素只能为一个 ReactElement |
 | position | string | 'top' | 弹出层位置，可选值为 \['left', 'top', 'right', 'bottom'] |

@@ -32,7 +32,7 @@ export function empty(e) {
 }
 
 export function memoize(fn) {
-  return (key) => {
+  return key => {
     fn.cache = fn.cache || {}
 
     if (!(key in fn.cache)) {

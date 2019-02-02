@@ -108,7 +108,7 @@ class Tree extends PureComponent {
   handleDrop(id, targetId, position) {
     const current = this.datum.getPath(id)
     const target = this.datum.getPath(targetId)
-    const data = immer(this.props.data, (draft) => {
+    const data = immer(this.props.data, draft => {
       let node = draft
       let temp
       let removeNode
@@ -152,8 +152,18 @@ class Tree extends PureComponent {
 
   render() {
     const {
-      className, style, data, disabled, line, keygen, onExpand,
-      onChange, renderItem, mode, onDrop, loader,
+      className,
+      style,
+      data,
+      disabled,
+      line,
+      keygen,
+      onExpand,
+      onChange,
+      renderItem,
+      mode,
+      onDrop,
+      loader,
     } = this.props
     const onToggle = onExpand ? this.handleToggle : undefined
 
@@ -186,10 +196,7 @@ Tree.propTypes = {
   data: PropTypes.array,
   defaultExpanded: PropTypes.arrayOf(PropTypes.string),
   defaultValue: PropTypes.arrayOf(PropTypes.string),
-  disabled: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.func,
-  ]),
+  disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   expanded: PropTypes.arrayOf(PropTypes.string),
   line: PropTypes.bool,
   loader: PropTypes.func,

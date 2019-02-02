@@ -74,6 +74,9 @@ export default function() {
       <Dropdown placeholder="Top Right" style={style} position="top-right" data={menu} />
 
       <Dropdown placeholder="Left Bottom" style={style} position="left-bottom" data={menu} />
+
+      <br />
+      <Dropdown placeholder="Auto Position" style={style} position="auto" data={menu} />
     </div>
   )
 }

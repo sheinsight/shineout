@@ -120,7 +120,8 @@ describe('Dropdown[Hover]', () => {
 
 describe('Dropdown[Position]', () => {
   const dropdowns = mount(<DropdownPosition />).find(Dropdown)
-  dropdowns.forEach(dropdown => {
+  dropdowns.forEach((dropdown, index) => {
+    if (index > 7) return
     const position = dropdown.prop('position')
     expect(dropdown.childAt(0).hasClass(`${SO_PREFIX}-dropdown-${position}`)).toBeTruthy()
   })

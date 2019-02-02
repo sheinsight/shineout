@@ -1,51 +1,60 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
-
-@tooltip-prefix: ~"@{so-prefix}-tooltip";
+@tooltip-prefix: ~'@{so-prefix}-tooltip';
 
 .@{tooltip-prefix} {
-  @keyframe-opacity: ~"@{tooltip-prefix}-kf-opacity";
-  @keyframe-top: ~"@{tooltip-prefix}-kf-top";
-  @keyframe-right: ~"@{tooltip-prefix}-kf-right";
-  @keyframe-bottom: ~"@{tooltip-prefix}-kf-bottom";
-  @keyframe-left: ~"@{tooltip-prefix}-kf-left";
+  @keyframe-opacity: ~'@{tooltip-prefix}-kf-opacity';
+  @keyframe-top: ~'@{tooltip-prefix}-kf-top';
+  @keyframe-right: ~'@{tooltip-prefix}-kf-right';
+  @keyframe-bottom: ~'@{tooltip-prefix}-kf-bottom';
+  @keyframe-left: ~'@{tooltip-prefix}-kf-left';
 
   @keyframes @keyframe-opacity {
     0% {
       opacity: 0;
-    } 100% {
+    }
+
+    100% {
       opacity: 1;
     }
   }
-  
+
   @keyframes @keyframe-top {
     0% {
       margin-top: 0;
-    } 100% {
+    }
+
+    100% {
       margin-top: -@tooltip-margin - @tooltip-arrow-width;
     }
   }
-  
+
   @keyframes @keyframe-bottom {
     0% {
       margin-top: 0;
-    } 100% {
+    }
+
+    100% {
       margin-top: @tooltip-margin + @tooltip-arrow-width;
     }
   }
-  
+
   @keyframes @keyframe-left {
     0% {
       margin-left: 0;
-    } 100% {
+    }
+
+    100% {
       margin-left: -@tooltip-margin - @tooltip-arrow-width;
     }
   }
-  
+
   @keyframes @keyframe-right {
     0% {
       margin-left: 0;
-    } 100% {
+    }
+
+    100% {
       margin-left: @tooltip-margin + @tooltip-arrow-width;
     }
   }
@@ -55,14 +64,17 @@
   display: block;
   font-size: @font-size-small;
   word-wrap: break-word;
-  transition: opacity 0.3 ease, transform 0.3s cubic-bezier(.71,1.7,.77,1.24);
+
+  &-animation {
+    transition: opacity 0.3 ease, transform 0.3s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+  }
 
   &-arrow {
     position: absolute;
+    z-index: 1;
+    display: inline-block;
     width: 0;
     height: 0;
-    display: inline-block;
-    z-index: 1;
   }
 
   &-inner {
@@ -70,46 +82,51 @@
     z-index: 2;
     max-width: @tooltip-max-width;
     padding: @tooltip-padding;
-    color: @tooltip-color;
-    text-align: center;
     background-color: @tooltip-bg;
     border-radius: 4px;
+    color: @tooltip-color;
+    text-align: center;
   }
 
   &-top {
     margin-top: -@tooltip-margin - @tooltip-arrow-width;
     transform: translate(-50%, -100%);
-    animation: @keyframe-opacity .3s ease, @keyframe-top .3s cubic-bezier(.71,1.7,.77,1.24);
 
     .@{tooltip-prefix}-arrow {
       top: 100%;
       left: 50%;
-      border-left: @tooltip-arrow-width solid transparent;
-      border-right: @tooltip-arrow-width solid transparent;
       border-top: @tooltip-arrow-width solid @tooltip-bg;
+      border-right: @tooltip-arrow-width solid transparent;
+      border-left: @tooltip-arrow-width solid transparent;
       transform: translate(-50%, 0);
     }
+  }
+
+  &-top&-animation {
+    animation: @keyframe-opacity 0.3s ease, @keyframe-top 0.3s cubic-bezier(0.71, 1.7, 0.77, 1.24);
   }
 
   &-right {
     margin-left: @tooltip-margin + @tooltip-arrow-width;
     transform: translate(0, -50%);
-    animation: @keyframe-opacity .3s ease, @keyframe-right .3s cubic-bezier(.71,1.7,.77,1.24);
 
     .@{tooltip-prefix}-arrow {
       top: 50%;
       right: 100%;
       border-top: @tooltip-arrow-width solid transparent;
-      border-bottom: @tooltip-arrow-width solid transparent;
       border-right: @tooltip-arrow-width solid @tooltip-bg;
+      border-bottom: @tooltip-arrow-width solid transparent;
       transform: translateY(-50%);
     }
+  }
+
+  &-right&-animation {
+    animation: @keyframe-opacity 0.3s ease, @keyframe-right 0.3s cubic-bezier(0.71, 1.7, 0.77, 1.24);
   }
 
   &-left {
     margin-left: -@tooltip-margin - @tooltip-arrow-width;
     transform: translate(-100%, -50%);
-    animation: @keyframe-opacity .3s ease, @keyframe-left .3s cubic-bezier(.71,1.7,.77,1.24);
 
     .@{tooltip-prefix}-arrow {
       top: 50%;
@@ -121,18 +138,25 @@
     }
   }
 
+  &-left&-animation {
+    animation: @keyframe-opacity 0.3s ease, @keyframe-left 0.3s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+  }
+
   &-bottom {
     margin-top: @tooltip-margin + @tooltip-arrow-width;
     transform: translateX(-50%);
-    animation: @keyframe-opacity .3s ease, @keyframe-bottom .3s cubic-bezier(.71,1.7,.77,1.24);
 
     .@{tooltip-prefix}-arrow {
       top: 0;
       left: 50%;
-      border-left: @tooltip-arrow-width solid transparent;
       border-right: @tooltip-arrow-width solid transparent;
       border-bottom: @tooltip-arrow-width solid @tooltip-bg;
+      border-left: @tooltip-arrow-width solid transparent;
       transform: translate(-50%, -100%);
     }
+  }
+
+  &-bottom&-animation {
+    animation: @keyframe-opacity 0.3s ease, @keyframe-bottom 0.3s cubic-bezier(0.71, 1.7, 0.77, 1.24);
   }
 }

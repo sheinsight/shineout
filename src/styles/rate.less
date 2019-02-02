@@ -1,16 +1,17 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
 
-@rate-prefix: ~"@{so-prefix}-rate";
+@rate-prefix: ~'@{so-prefix}-rate';
 
 .@{rate-prefix} {
-  @kf-highlight: ~"@{rate-prefix}-highlight";
+  @kf-highlight: ~'@{rate-prefix}-highlight';
 
   @keyframes @kf-highlight {
     0% {
       opacity: 1;
       transform: scale(1);
     }
+
     100% {
       opacity: 0;
       transform: scale(1.6);
@@ -29,7 +30,8 @@
     }
   }
 
-  &-front, &-static {
+  &-front,
+  &-static {
     position: absolute;
     z-index: 1;
 
@@ -39,15 +41,18 @@
     }
   }
 
-  &-front, &-background {
+  &-front,
+  &-background {
     span {
       cursor: pointer;
     }
   }
 
-  &-front, &-background, &-static {
-    left: 0;
+  &-front,
+  &-background,
+  &-static {
     top: 0;
+    left: 0;
 
     & > span {
       display: inline-block;
@@ -61,16 +66,16 @@
   }
 
   &-highlight {
-    font-style: normal;
     position: absolute;
-    left: 0;
     top: 0;
+    left: 0;
     animation: @kf-highlight 0.3s ease-out;
+    font-style: normal;
   }
 
   span&-text {
-    font-size: 14px;
     margin-left: 4px;
     color: @gray-600;
+    font-size: 14px;
   }
 }

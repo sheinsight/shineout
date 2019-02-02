@@ -2,25 +2,25 @@
   & when not (@direction = left) {
     &:after {
       display: inline-block;
-      content: "";
       width: 0;
       height: 0;
       margin-left: @width;
+      content: '';
 
       & when (@direction = down) {
-        vertical-align: @width * 0.85;
         border-top: @width solid;
         border-right: @width solid transparent;
         border-bottom: 0;
         border-left: @width solid transparent;
+        vertical-align: @width * 0.85;
       }
 
       & when (@direction = up) {
-        vertical-align: @width * 0.85;
         border-top: 0;
         border-right: @width solid transparent;
         border-bottom: @width solid;
         border-left: @width solid transparent;
+        vertical-align: @width * 0.85;
       }
 
       & when (@direction = right) {
@@ -34,13 +34,13 @@
   & when (@direction = left) {
     &:before {
       display: inline-block;
-      content: "";
       width: 0;
       height: 0;
       margin-right: @width;
       border-top: @width solid transparent;
       border-right: @width solid;
       border-bottom: @width solid transparent;
+      content: '';
     }
   }
 }
@@ -48,18 +48,18 @@
 .caret-outline(@direction, @width) {
   & when not (@direction = left) {
     &:after {
-      display: inline-block;
-      content: "";
       position: relative;
-      margin-left: @width;
+      display: inline-block;
       width: @width;
       height: @width;
-      border-style: solid;
+      margin-left: @width;
       border-width: 0 1px 1px 0;
+      border-style: solid;
+      content: '';
 
       & when (@direction = down) {
-        vertical-align: 3px;
         transform: rotate(45deg);
+        vertical-align: 3px;
       }
 
       & when (@direction = up) {
@@ -67,24 +67,24 @@
       }
 
       & when (@direction = right) {
-        vertical-align: 2px;
         transform: rotate(315deg);
+        vertical-align: 2px;
       }
     }
   }
 
   & when (@direction = left) {
     &:before {
-      display: inline-block;
-      content: "";
       position: relative;
-      margin-right: @width;
+      display: inline-block;
       width: @width;
       height: @width;
-      border-style: solid;
+      margin-right: @width;
       border-width: 0 1px 1px 0;
-      vertical-align: 2px;
+      border-style: solid;
+      content: '';
       transform: rotate(135deg);
+      vertical-align: 2px;
     }
   }
 }

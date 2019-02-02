@@ -6,29 +6,14 @@ import { treeClass } from '../styles'
 import List from './List'
 
 function Root(props) {
-  const className = classnames(
-    treeClass('_', props.line ? 'with-line' : 'no-line'),
-    props.className,
-  )
+  const className = classnames(treeClass('_', props.line ? 'with-line' : 'no-line'), props.className)
 
-  return (
-    <List
-      {...props}
-      className={className}
-      expanded
-      path=""
-      isRoot
-      deepIndex={0}
-    />
-  )
+  return <List {...props} className={className} expanded path="" isRoot deepIndex={0} />
 }
 
 Root.propTypes = {
   ...getProps(PropTypes),
-  keygen: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-  ]).isRequired,
+  keygen: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
   data: PropTypes.array,
   line: PropTypes.bool,
 }

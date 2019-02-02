@@ -1,7 +1,7 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
 
-@select-prefix: ~"@{so-prefix}-select";
+@select-prefix: ~'@{so-prefix}-select';
 
 .@{select-prefix} {
   position: relative;
@@ -13,36 +13,37 @@
 
   &-result {
     display: flex;
+    overflow: auto;
+    max-height: 80px;
     flex-flow: wrap;
     padding: @padding-base-vertical @padding-base-horizontal+12 0 @padding-base-horizontal;
-    max-height: 80px;
-    overflow: auto;
 
     span {
       display: inline-block;
 
       &.@{select-prefix}-ellipsis {
         display: block;
-        white-space: nowrap;
         overflow: hidden;
+        flex: 1;
         text-overflow: ellipsis;
-        flex: 1,
+        white-space: nowrap;
       }
     }
 
     .@{select-prefix}-ellipsis {
       margin-bottom: @padding-base-vertical;
+
       &:after {
         content: '\feff ';
       }
     }
 
     .@{select-prefix}-input {
-      outline: none;
-      min-width: 12px;
-      margin-bottom: @padding-base-vertical;
-      flex: 1;
       display: inline-flex;
+      min-width: 12px;
+      flex: 1;
+      margin-bottom: @padding-base-vertical;
+      outline: none;
 
       &:after {
         content: '\feff ';
@@ -56,14 +57,14 @@
     .@{select-prefix}-item {
       position: relative;
       display: inline-block;
-      background: @select-result-bg;
+      overflow: hidden;
+      max-width: 80%;
+      padding: 0 @select-result-space+16 0 @select-result-space;
       margin-right: @select-result-space;
       margin-bottom: @padding-base-vertical;
-      padding: 0 @select-result-space+16 0 @select-result-space;
-      color: inherit;
+      background: @select-result-bg;
       border-radius: @select-result-border-radius;
-      max-width: 80%;
-      overflow: hidden;
+      color: inherit;
       text-overflow: ellipsis;
 
       &.@{select-prefix}-disabled {
@@ -72,11 +73,12 @@
       }
 
       .@{select-prefix}-close {
+        right: @select-result-space;
         display: block;
         background-color: transparent;
-        right: @select-result-space;
 
-        &:before, &:after {
+        &:before,
+        &:after {
           background-color: @gray-500;
         }
       }
@@ -84,7 +86,8 @@
       &:hover .@{select-prefix}-close {
         background-color: transparent;
 
-        &:before, &:after {
+        &:before,
+        &:after {
           background-color: @gray-600;
         }
       }
@@ -93,12 +96,12 @@
 
   &-indicator {
     position: absolute;
-    color: @gray-500;
+    top: 50%;
     right: 7px;
+    display: block;
     width: 12px;
     height: 12px;
-    display: block;
-    top: 50%;
+    color: @gray-500;
     transform: translate(0, -50%);
 
     &.@{select-prefix}-close {
@@ -108,11 +111,12 @@
 
     &.@{select-prefix}-caret {
       .caret(down);
+
       &:after {
         position: absolute;
-        margin: 0;
         top: (12 - @caret-width * 1.4) / 2;
         left: 2px;
+        margin: 0;
       }
     }
   }
@@ -122,23 +126,24 @@
     display: block;
   }
 
-  &-options, &-box-list {
-    width: 100%;
+  &-options,
+  &-box-list {
+    position: absolute;
+    z-index: @zindex-dropdown;
+    left: 0;
     display: none;
     overflow: hidden;
-    position: absolute;
-    left: 0;
+    width: 100%;
     background: @dropdown-bg;
-    border-radius: @border-radius-base;
     background-clip: padding-box;
-    z-index: @zindex-dropdown;
+    border-radius: @border-radius-base;
   }
 
   &-box-list {
+    display: flex;
+    overflow: hidden;
     min-height: 200px;
     max-height: 300px;
-    overflow: hidden;
-    display: flex;
     flex-direction: column;
 
     .@{select-prefix}-header {
@@ -147,34 +152,35 @@
     }
 
     .@{select-prefix}-box-options {
-      flex: 1;
       overflow: auto;
+      flex: 1;
       padding: @dropdown-item-padding-y 0;
 
       .@{select-prefix}-no-data {
-        text-align: center;
         padding-top: 60px;
         color: @gray-500;
+        text-align: center;
       }
     }
 
     .@{select-prefix}-option {
       display: inline-block;
-      margin-right: 0;
       padding-right: @dropdown-padding-x;
+      margin-right: 0;
     }
 
     .@{select-prefix}-filter-input {
-      width: 180px;
       display: inline-flex;
+      width: 180px;
       border-width: 1px;
-      float: right;
       border-radius: 2px;
+      float: right;
 
       svg {
         width: 22px;
         height: 22px;
         padding: 4px;
+
         path {
           fill: #999;
         }
@@ -182,47 +188,49 @@
     }
   }
 
-  &-drop-down &-options, &-drop-down &-box-list {
+  &-drop-down &-options,
+  &-drop-down &-box-list {
     top: 100%;
     margin-top: 4px;
-    transform-origin: 0 0;
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.02), @dropdown-box-shadow;
+    transform-origin: 0 0;
   }
 
-  &-drop-up &-options, &-drop-up &-box-list {
+  &-drop-up &-options,
+  &-drop-up &-box-list {
     bottom: 100%;
     margin-bottom: 4px;
-    transform-origin: 0 100%;
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1), @dropup-box-shadow;
+    transform-origin: 0 100%;
   }
 
   &-option {
     position: relative;
     display: block;
-    font-size: @font-size-base;
+    overflow: hidden;
     padding: @dropdown-item-padding-y @dropdown-padding-x+12 @dropdown-item-padding-y @dropdown-padding-x;
-    line-height: @line-height-base;
     color: @dropdown-link-color;
+    font-size: @font-size-base;
+    line-height: @line-height-base;
+    text-overflow: ellipsis;
     transition: none;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 
     &.@{select-prefix}-active {
-      text-decoration: none;
-      color: @dropdown-link-active-color;
       background-color: @dropdown-link-active-bg;
+      color: @dropdown-link-active-color;
+      text-decoration: none;
 
       &::after {
-        content: ' ';
         position: absolute;
         top: 50%;
         right: 8px;
-        transform: translateY(-50%);
-        color: @colors-primary;
         width: 12px;
         height: 12px;
         background: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='@{colors-primary}' d='M913.017 237.02c-25.311-25.312-66.349-25.312-91.66 0l-412.475 412.474-206.237-206.237c-25.312-25.312-66.35-25.312-91.661 0s-25.312 66.35 0 91.66l252.067 252.067c0.729 0.73 1.439 1.402 2.134 2.029 25.434 23.257 64.913 22.585 89.527-2.029l458.303-458.303c25.313-25.312 25.313-66.35 0.001-91.661z'%3E%3C/path%3E%3C/svg%3E");
+        color: @colors-primary;
+        content: ' ';
+        transform: translateY(-50%);
       }
     }
 
@@ -231,7 +239,9 @@
     }
 
     &.@{select-prefix}-disabled {
-      &, &:hover, &.@{select-prefix}-active {
+      &,
+      &:hover,
+      &.@{select-prefix}-active {
         background: @input-bg-disabled;
         cursor: not-allowed;
       }
@@ -239,40 +249,45 @@
   }
 
   &-control-mouse &-option:hover {
-    text-decoration: none;
-    color: @select-option-hover-color;
     background-color: @select-option-hover-bg;
+    color: @select-option-hover-color;
+    text-decoration: none;
   }
 
   &-control-mouse &-option&-disabled:hover {
     background: @input-bg-disabled;
   }
 
-
   &-control-keyboard &-option.@{select-prefix}-hover {
-    text-decoration: none;
-    color: @select-option-hover-color;
     background-color: @select-option-hover-bg;
+    color: @select-option-hover-color;
+    text-decoration: none;
   }
 
   &-control-keyboard &-option {
     cursor: none;
   }
-  
+
   span&-option {
     color: @gray-500;
   }
 
   &-small &-result {
     padding: @padding-small-vertical @padding-small-horizontal+12 0 @padding-small-horizontal;
-    .@{select-prefix}-item, .@{select-prefix}-ellipsis, .@{select-prefix}-input {
+
+    .@{select-prefix}-item,
+    .@{select-prefix}-ellipsis,
+    .@{select-prefix}-input {
       margin-bottom: @padding-small-vertical;
     }
   }
 
   &-large &-result {
     padding: @padding-large-vertical @padding-large-horizontal+12 0 @padding-large-horizontal;
-    .@{select-prefix}-item, .@{select-prefix}-ellipsis, .@{select-prefix}-input {
+
+    .@{select-prefix}-item,
+    .@{select-prefix}-ellipsis,
+    .@{select-prefix}-input {
       margin-bottom: @padding-large-vertical;
     }
   }
@@ -291,8 +306,9 @@
 
   &-disabled {
     .@{select-prefix}-result .@{select-prefix}-item {
-      background: @input-bg-disabled;
       padding-right: @select-result-space;
+      background: @input-bg-disabled;
+
       .@{select-prefix}-close {
         display: none;
       }
@@ -301,14 +317,13 @@
 
   &-root {
     position: absolute;
-    left: 0;
     top: 0;
-
+    left: 0;
   }
 
   &-absolute-wrapper {
     position: absolute;
-    left: 0;
     top: 0;
+    left: 0;
   }
 }

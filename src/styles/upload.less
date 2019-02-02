@@ -1,16 +1,17 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
 
-@upload-prefix: ~"@{so-prefix}-upload";
+@upload-prefix: ~'@{so-prefix}-upload';
 
 .@{upload-prefix} {
   &-handle {
     display: inline-block;
-    cursor: pointer;
     margin-bottom: 8px;
+    cursor: pointer;
   }
 
-  &-view-value, &-view-file {
+  &-view-value,
+  &-view-file {
     position: relative;
     padding: 4px 10px;
 
@@ -19,13 +20,14 @@
       word-break: break-all;
     }
 
-    .@{upload-prefix}-delete, .@{upload-prefix}-recover {
+    .@{upload-prefix}-delete,
+    .@{upload-prefix}-recover {
       position: absolute;
       top: 2px;
       right: 10px;
-      color: @colors-danger;
       width: 12px;
       height: 12px;
+      color: @colors-danger;
       font-size: 16px;
       vertical-align: middle;
 
@@ -82,29 +84,29 @@
   &-image-item {
     position: relative;
     display: inline-block;
-    vertical-align: top;
     margin-right: 12px;
     border: dashed 1px @upload-image-border;
     background: @upload-image-bg;
     border-radius: 2px;
+    vertical-align: top;
 
     .@{upload-prefix}-image-bg {
       position: absolute;
-      left: @upload-image-space;
+      z-index: 0;
       top: @upload-image-space;
       right: @upload-image-space;
       bottom: @upload-image-space;
-      z-index: 0;
+      left: @upload-image-space;
       background-size: cover;
     }
 
     .@{upload-prefix}-progress-bg {
       position: absolute;
       z-index: 1;
-      left: 0;
       top: 0;
       right: 0;
       bottom: 0;
+      left: 0;
       background: rgba(0, 0, 0, 0.3);
       border-radius: inherit;
     }
@@ -112,32 +114,34 @@
     .@{upload-prefix}-progress {
       position: absolute;
       z-index: 10;
+      right: 4px;
       bottom: 4px;
       left: 4px;
-      right: 4px;
     }
 
-    .@{upload-prefix}-delete, .@{upload-prefix}-recover {
-      display: flex;
+    .@{upload-prefix}-delete,
+    .@{upload-prefix}-recover {
       position: absolute;
-      width: 14px;
-      height: 14px;
+      z-index: 100;
       top: -7px;
       right: -7px;
-      z-index: 100;
-      border-radius: 8px;
+      display: flex;
+      width: 14px;
+      height: 14px;
       background: @colors-danger;
+      border-radius: 8px;
 
       svg {
-        margin: auto;
         width: 6px;
         height: 6px;
+        margin: auto;
         fill: #ffffff;
       }
     }
 
     .@{upload-prefix}-recover {
       background: @colors-primary;
+
       svg {
         width: 8px;
         height: 8px;
@@ -150,30 +154,30 @@
       .@{upload-prefix}-message {
         position: absolute;
         z-index: 1000;
-        font-size: 12px;
-        background: @gray-100;
-        padding: @padding-small-vertical @padding-small-horizontal;
-        min-width: 120px;
-        max-width: 240px;
-        border-radius: @input-border-radius;
-        color: @form-feedback-invalid-color;
-        box-shadow: 0 0 0 1px @state-danger-border, 0 2px 8px rgba(0, 0, 0, 0.15);
         top: 100%;
         left: 50%;
+        min-width: 120px;
+        max-width: 240px;
+        padding: @padding-small-vertical @padding-small-horizontal;
         margin-top: 8px;
-        transform-origin: 0 0;
+        background: @gray-100;
+        border-radius: @input-border-radius;
+        box-shadow: 0 0 0 1px @state-danger-border, 0 2px 8px rgba(0, 0, 0, 0.15);
+        color: @form-feedback-invalid-color;
+        font-size: 12px;
         transform: translateX(-50%);
+        transform-origin: 0 0;
 
         &:before {
-          content: ' ';
-          background: inherit;
           position: absolute;
+          bottom: 100%;
+          left: 50%;
           width: 6px;
           height: 6px;
           border: solid 1px @state-danger-border;
           border-width: 1px 0 0 1px;
-          bottom: 100%;
-          left: 50%;
+          background: inherit;
+          content: ' ';
           transform: rotate(45deg) translateY(3px);
         }
       }
@@ -191,17 +195,18 @@
 
     .@{upload-prefix}-indicator {
       position: absolute;
+      top: 50%;
+      left: 50%;
       width: 30px;
       height: 30px;
-      left: 50%;
-      top: 50%;
       margin: -15px -15px;
 
-      &:before, &:after {
+      &:before,
+      &:after {
         position: absolute;
-        content: ' ';
         display: block;
         background: #999;
+        content: ' ';
       }
 
       &:before {
@@ -219,8 +224,10 @@
 
     &:hover {
       border-color: @colors-primary;
+
       .@{upload-prefix}-indicator {
-        &:before, &:after {
+        &:before,
+        &:after {
           background: @colors-primary;
         }
       }
@@ -244,8 +251,8 @@
       border-style: dashed;
 
       .@{upload-prefix}-image-bg {
-        opacity: 0.6;
         filter: grayscale(100%);
+        opacity: 0.6;
       }
     }
   }

@@ -15,13 +15,13 @@ export function filterProps(obj, props = []) {
   if (typeof props === 'function') {
     const prediction = props
     props = []
-    Object.keys(obj).forEach((k) => {
+    Object.keys(obj).forEach(k => {
       if (prediction(obj[k])) props.push(k)
     })
   }
 
   const newObj = {}
-  props.forEach((k) => {
+  props.forEach(k => {
     newObj[k] = obj[k]
   })
 
@@ -29,7 +29,7 @@ export function filterProps(obj, props = []) {
 }
 
 // Object.values()
-export const objectValues = (obj) => {
+export const objectValues = obj => {
   if (!obj) return []
   return Object.keys(obj).map(k => obj[k])
 }
@@ -40,13 +40,13 @@ export const deepMerge = (target = {}, source, { clone, removeUndefined, skipUnd
 
   const dest = {}
   if (isMergeable(target)) {
-    Object.keys(target).forEach((k) => {
+    Object.keys(target).forEach(k => {
       dest[k] = clone ? deepMerge({}, target[k], clone) : target[k]
       if (removeUndefined && dest[k] === undefined) delete dest[k]
     })
   }
 
-  Object.keys(source).forEach((k) => {
+  Object.keys(source).forEach(k => {
     if (isMergeable(source[k]) && isMergeable(target[k])) {
       dest[k] = deepMerge(target[k], source[k], clone)
     } else {
@@ -59,13 +59,14 @@ export const deepMerge = (target = {}, source, { clone, removeUndefined, skipUnd
   return dest
 }
 
-export function* pathGenerator(raw) {
+export function pathGenerator(raw) {
   const path = insertPoint(raw)
   const reg = /^\[(\d+)\]$/
   const pathModeValues = objectValues(PATH_MODE)
   let index = 0
   let last = 0
   let prop = ''
+  const results = []
   while (index >= 0) {
     index = path.indexOf('.', last)
     prop = path.substring(last, index === -1 ? undefined : index)
@@ -83,8 +84,9 @@ export function* pathGenerator(raw) {
     if (match) prop = parseInt(match[1], 10)
 
     last = index + 1
-    yield [prop, index === -1 ? undefined : path.substring(last), mode]
+    results.push([prop, index === -1 ? undefined : path.substring(last), mode])
   }
+  return results
 }
 
 export const deepSet = (target, path, value, options = {}) => {
@@ -97,7 +99,7 @@ export const deepSet = (target, path, value, options = {}) => {
   // empty root
   if (path === '') {
     const dest = deepMerge(target, value, mergeOptions)
-    Object.keys(dest).forEach((k) => {
+    Object.keys(dest).forEach(k => {
       target[k] = dest[k]
     })
     return target
@@ -127,9 +129,8 @@ export const deepSet = (target, path, value, options = {}) => {
     } else {
       if (skipUndefined && value === undefined) break
 
-      current[prop] = isMergeable(current[prop]) && isMergeable(value)
-        ? deepMerge(current[prop], value, mergeOptions)
-        : value
+      current[prop] =
+        isMergeable(current[prop]) && isMergeable(value) ? deepMerge(current[prop], value, mergeOptions) : value
     }
     if (removeUndefined && value === undefined) delete current[prop]
   }

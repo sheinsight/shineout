@@ -13,16 +13,16 @@ const fontStyle = { fontSize: 20, lineHeight: 1, margin: 4 }
 export default function() {
   return (
     <div>
-      <Tooltip tip="Some text." position="left" style={{ marginRight: 12 }}>
+      <Tooltip tip="Some text." position="left">
         <FontAwesome name="arrow-circle-o-left" style={fontStyle} />
       </Tooltip>
-      <Tooltip tip="Some text." position="top" style={{ marginRight: 12 }}>
+      <Tooltip tip="Some text." position="top">
         <FontAwesome name="arrow-circle-o-up" style={fontStyle} />
       </Tooltip>
-      <Tooltip tip="Some text." position="bottom" style={{ marginRight: 12 }}>
+      <Tooltip tip="Some text." position="bottom">
         <FontAwesome name="arrow-circle-o-down" style={fontStyle} />
       </Tooltip>
-      <Tooltip tip="Some text." position="right" style={{ marginRight: 12 }}>
+      <Tooltip tip="Some text." position="right">
         <FontAwesome name="arrow-circle-o-right" style={fontStyle} />
       </Tooltip>
     </div>

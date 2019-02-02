@@ -7,22 +7,22 @@
   &-sticky {
     position: absolute;
     top: 60px;
-    width: 160px;
     right: 0;
+    width: 160px;
   }
 
   &-nav {
     width: 100%;
-    padding-left: 20px;
     box-sizing: border-box;
+    padding-left: 20px;
 
     a {
       position: relative;
-      color: #333;
       display: block;
+      margin-bottom: 10px;
+      color: #333;
       font-size: 12px;
       line-height: 1;
-      margin-bottom: 10px;
       text-decoration: none;
 
       &:hover {
@@ -33,23 +33,23 @@
         color: @colors-primary;
 
         &:before {
-          content: ' ';
           position: absolute;
-          left: 6px;
           top: 0;
+          left: 6px;
           width: 2px;
           height: 100%;
           background: @colors-primary;
+          content: ' ';
         }
       }
     }
   }
 
   a&-level-2 {
+    margin: 30px 0 12px;
+    color: #666;
     font-size: 16px;
     font-weight: 300;
-    color: #666;
-    margin: 30px 0 12px;
 
     &:first-child {
       margin-top: 0;

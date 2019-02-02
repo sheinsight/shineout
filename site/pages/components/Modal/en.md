@@ -14,6 +14,7 @@
 | padding | number\|string | 16 | Padding style of the content |
 | position | string | - | Pop-up position, one of \['top', 'right', 'bottom', 'left'] |
 | title | string \| ReactElement | - | the title of the pop-up layer |
+| usePortal | bool | true | When the usePortal is true, use ReactDOM.createPortal to create the pop-up layer, otherwise use ReactDOM.render. |
 | visible | bool | false |  |
 | width | number \| string | 500 | the width of the Modal |
 

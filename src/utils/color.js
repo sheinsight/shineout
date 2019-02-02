@@ -27,18 +27,18 @@ const MATCH = {
   hex8: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/,
 }
 
-const isString = (string) => {
+const isString = string => {
   if (!string) {
-    console.log(new Error('the color is empty'))
+    console.error(new Error('the color is empty'))
   }
 
   if (typeof string !== 'string') {
-    console.log(new Error(`the color is get a ${typeof string}, expect string`))
+    console.error(new Error(`the color is get a ${typeof string}, expect string`))
   }
   return true
 }
 
-const dealPointZero = (string) => {
+const dealPointZero = string => {
   const num = string.toFixed(1)
   const reg = /\.0*$/
   if (reg.test(num)) return floor(num)
@@ -62,20 +62,22 @@ const formatHexArray = (array, length) => {
   return [`${array[1]}${array[1]}`, `${array[2]}${array[2]}`, `${array[3]}${array[3]}`, `${array[4]}${array[4]}`]
 }
 
-
 const getRgb = (arr, length) => {
   const array = formatHexArray(arr, length)
   return `rgb(${parseHex(array[0])}, ${parseHex(array[1])}, ${parseHex(array[2])})`
 }
 
-
 const getRgba = (arr, length) => {
   const array = formatHexArray(arr, length)
-  return `rgba(${parseHex(array[0])}, ${parseHex(array[1])}, ${parseHex(array[2])}, ${dealPointZero(parseHex(array[3]) / 255)})`
+  return `rgba(${parseHex(array[0])}, ${parseHex(array[1])}, ${parseHex(array[2])}, ${dealPointZero(
+    parseHex(array[3]) / 255
+  )})`
 }
 
 const toBound01 = (val, max) => {
-  if (isOne(val)) { val = '100%' }
+  if (isOne(val)) {
+    val = '100%'
+  }
 
   const processPercent = isPercent(val)
   val = Math.min(max, Math.max(0, parseInt(val, 10)))
@@ -86,7 +88,7 @@ const toBound01 = (val, max) => {
   }
 
   // Handle floating point rounding errors
-  if ((Math.abs(val - max) < 0.000001)) {
+  if (Math.abs(val - max) < 0.000001) {
     return 1
   }
 
@@ -97,9 +99,9 @@ const toBound01 = (val, max) => {
 const hueToRgb = (p, q, t) => {
   if (t < 0) t += 1
   if (t > 1) t -= 1
-  if (t < 1 / 6) return p + ((q - p) * 6 * t)
+  if (t < 1 / 6) return p + (q - p) * 6 * t
   if (t < 1 / 2) return q
-  if (t < 2 / 3) return p + ((q - p) * ((2 / 3) - t) * 6)
+  if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6
   return p
 }
 
@@ -118,11 +120,11 @@ const translateHsl = (matchs, a) => {
     g = l
     b = l
   } else {
-    const q = l < 0.5 ? l * (1 + s) : (l + s) - (l * s)
-    const p = (2 * l) - q
-    r = hueToRgb(p, q, h + (1 / 3))
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s
+    const p = 2 * l - q
+    r = hueToRgb(p, q, h + 1 / 3)
     g = hueToRgb(p, q, h)
-    b = hueToRgb(p, q, h - (1 / 3))
+    b = hueToRgb(p, q, h - 1 / 3)
   }
 
   r = floor(r * 255)
@@ -132,12 +134,11 @@ const translateHsl = (matchs, a) => {
   return a ? `rgba(${r}, ${g}, ${b}, ${a})` : `rgb(${r}, ${g}, ${b})`
 }
 
-
-const isDarkRgb = (color) => {
+const isDarkRgb = color => {
   const matchs = MATCH.rgb.exec(color) || MATCH.rgba.exec(color)
   if (matchs) {
     const [, r, g, b] = matchs
-    return (r * 0.299) + (g * 0.578) + (b * 0.114) < 192
+    return r * 0.299 + g * 0.578 + b * 0.114 < 192
   }
 
   console.error(new Error(`the string '${color}' is not a legal color`))
@@ -182,10 +183,17 @@ const toHsl = (rgb, _, a) => {
     const d = max - min
     s = l > 0.5 ? d / (2 - max - min) : d / (max + min)
     switch (max) {
-      case r: h = ((g - b) / d) + (g < b ? 6 : 0); break
-      case g: h = ((b - r) / d) + 2; break
-      case b: h = ((r - g) / d) + 4; break
-      default: break
+      case r:
+        h = (g - b) / d + (g < b ? 6 : 0)
+        break
+      case g:
+        h = (b - r) / d + 2
+        break
+      case b:
+        h = (r - g) / d + 4
+        break
+      default:
+        break
     }
 
     h /= 6
@@ -242,6 +250,7 @@ export function hexToRgb(hex) {
   }
 
   console.log(new Error(`the string '${hex}' is not a hex color`))
+  return ''
 }
 
 export function hslToRgb(hsl) {

@@ -50,49 +50,39 @@ class Thead extends PureComponent {
     if (col.firstFixed) fixed.push('fixed-first')
     if (col.lastFixed) fixed.push('fixed-last')
 
-    const {
-      sorter, onSortChange, data, datum, showSelectAll, disabled,
-    } = this.props
+    const { sorter, onSortChange, data, datum, showSelectAll, disabled } = this.props
 
     if (col.title) {
-      trs[level].push((
+      trs[level].push(
         <th
           className={tableClass(level > 0 && 'condensed', ...fixed)}
-          rowSpan={(this.columnLevel - level) + 1}
+          rowSpan={this.columnLevel - level + 1}
           key={col.key}
         >
           {typeof col.title === 'function' ? col.title(data) : col.title}
-          {
-            col.sorter &&
-            <Sorter {...col} current={sorter} onChange={onSortChange} />
-          }
+          {col.sorter && <Sorter {...col} current={sorter} onChange={onSortChange} />}
         </th>
-      ))
+      )
 
       return
     }
 
     if (col.type === 'checkbox') {
-      trs[level].push((
+      trs[level].push(
         <th key="checkbox" rowSpan={trs.length} className={tableClass('checkbox', ...fixed)}>
           {showSelectAll && <CheckboxAll disabled={disabled === true} data={data} datum={datum} />}
         </th>
-      ))
+      )
 
       return
     }
 
     const style = typeof col.name === 'string' ? undefined : { padding: 0 }
-    trs[level].push((
-      <th
-        className={tableClass('center', 'condensed', ...fixed)}
-        colSpan={col.colSpan}
-        key={col.key}
-        style={style}
-      >
+    trs[level].push(
+      <th className={tableClass('center', 'condensed', ...fixed)} colSpan={col.colSpan} key={col.key} style={style}>
         {col.name}
       </th>
-    ))
+    )
 
     if (col.columns) {
       col.columns.forEach(c => this.createTh(trs, c, level + 1))
@@ -102,7 +92,7 @@ class Thead extends PureComponent {
   formatColumns() {
     this.columnLevel = 0
     const columns = []
-    this.props.columns.forEach((col) => {
+    this.props.columns.forEach(col => {
       this.setColumns(columns, col, 0)
     })
 
@@ -126,11 +116,9 @@ class Thead extends PureComponent {
 
     return (
       <thead>
-        {
-          trs.map((tr, i) => (
-            <tr key={i}>{tr}</tr>
-          ))
-        }
+        {trs.map((tr, i) => (
+          <tr key={i}>{tr}</tr>
+        ))}
       </thead>
     )
   }
@@ -140,10 +128,7 @@ Thead.propTypes = {
   columns: PropTypes.array.isRequired,
   data: PropTypes.array,
   datum: PropTypes.object,
-  disabled: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.func,
-  ]),
+  disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   onSortChange: PropTypes.func,
   sorter: PropTypes.object,
   showSelectAll: PropTypes.bool,

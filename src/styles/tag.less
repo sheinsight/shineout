@@ -1,12 +1,11 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
 
-@tag-prefix: ~"@{so-prefix}-tag";
+@tag-prefix: ~'@{so-prefix}-tag';
 
 //
 // Alerts
 // --------------------------------------------------
-
 
 // Base styles
 // -------------------------
@@ -14,62 +13,74 @@
 .@{tag-prefix} {
   position: relative;
   display: inline-block;
-  background: @tag-bg-color;
   padding: @tag-padding-y @tag-padding-x;
-  border-radius: @tag-border-radius;
-  line-height: 1.4;
+  margin: 0 @tag-space;
   border: 1px solid transparent;
-  cursor: pointer;
-  transition: all .3s;
+  background: @tag-bg-color;
+  border-radius: @tag-border-radius;
   color: @tag-color;
+  cursor: pointer;
   font-size: @tag-font-size;
   font-weight: 600;
-  margin: 0 @tag-space;
+  line-height: 1.4;
+  transition: all 0.3s;
+
   .@{tag-prefix}-inline {
     display: inline-block;
     vertical-align: top;
   }
+
   &.@{tag-prefix}-disabled {
     cursor: not-allowed;
   }
+
   &-input {
+    display: inline-block;
+    width: 100px;
+    height: @tag-input-height;
     margin: 0 0 0 @tag-space;
     font-size: @tag-font-size;
-    height: @tag-input-height;
-    display: inline-block;
     vertical-align: middle;
-    width: 100px;
+
     input {
       padding: @tag-input-padding-y @tag-input-padding-x;
     }
   }
+
   .@{tag-prefix}-close-icon {
     display: inline-block;
-    margin: 0 0 0 @tag-close-left;
     width: @tag-icon-width;
+    margin: 0 0 0 @tag-close-left;
+
     svg {
       position: absolute;
-      width: @tag-icon-width;
       top: 50%;
-      transform: translateY(-50%)
+      width: @tag-icon-width;
+      transform: translateY(-50%);
     }
   }
+
   .@{tag-prefix}-close-loading {
     display: inline-block;
     margin: 0 0 0 @tag-close-left;
   }
+
   &-default {
     border-color: @tag-border-color;
   }
+
   &-success {
     .tag-variant(@colors-success);
   }
+
   &-info {
     .tag-variant(@colors-primary);
   }
+
   &-warning {
     .tag-variant(@colors-warning);
   }
+
   &-danger {
     .tag-variant(@colors-danger);
   }

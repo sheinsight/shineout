@@ -2,29 +2,29 @@
 
 .doc-example {
   position: relative;
-  border-radius: 2px;
-  background: #fff;
   overflow: visible;
-  margin-bottom: 40px;
   max-width: 100%;
+  margin-bottom: 40px;
+  background: #fff;
+  border-radius: 2px;
 
   &-toggle {
     position: absolute;
     right: 6px;
     bottom: 2px;
-    padding: 4px 8px;
-    font-size: 16px;
     display: block;
+    padding: 4px 8px;
     color: @gray-500;
+    font-size: 16px;
     font-style: normal;
   }
 
   &-desc {
     position: relative;
-    background: @doc-code-bg;
-    font-size: 12px;
     min-height: 50px;
     padding: 15px 60px 15px 20px;
+    background: @doc-code-bg;
+    font-size: 12px;
   }
 
   &-desc &-toggle {
@@ -39,15 +39,15 @@
 
   &-code {
     position: relative;
-    border-radius: 0;
-    height: 0;
     overflow: hidden;
+    height: 0;
+    border-radius: 0;
 
     pre {
+      margin: 0 0 10px;
+      white-space: pre-wrap;
       word-break: break-all;
       word-wrap: break-word;
-      white-space: pre-wrap;
-      margin: 0 0 10px;
     }
 
     & > a {
@@ -68,10 +68,10 @@
 
   &-placeholder {
     padding: 100px 0;
-    background: #f7f7f7;
-    border: solid 1px #eee;
-    text-align: center;
     margin-bottom: 20px;
+    border: solid 1px #eee;
+    background: #f7f7f7;
+    text-align: center;
   }
 }
 
