@@ -42,7 +42,7 @@ class Result extends PureComponent {
   renderClear() {
     const { onClear, result, disabled } = this.props
 
-    if (onClear && result.length > 0 && !disabled) {
+    if (onClear && result.length > 0 && disabled !== true) {
       /* eslint-disable */
       return (
         <a
@@ -59,9 +59,7 @@ class Result extends PureComponent {
   }
 
   renderInput(text, key = 'input') {
-    const {
-      multiple, onFilter, focus, onInputFocus, onInputBlur, setInputReset,
-    } = this.props
+    const { multiple, onFilter, focus, onInputFocus, onInputBlur, setInputReset } = this.props
     return (
       <Input
         key={`${key}.${focus ? 1 : 0}`}
@@ -92,19 +90,11 @@ class Result extends PureComponent {
   }
 
   renderResult() {
-    const {
-      multiple, result, renderResult, onFilter, focus, datum, filterText,
-    } = this.props
+    const { multiple, result, renderResult, onFilter, focus, datum, filterText } = this.props
 
     if (multiple) {
       const items = result.map((d, i) => (
-        <Item
-          key={i}
-          data={d}
-          disabled={datum.disabled(d)}
-          onClick={this.handleRemove}
-          renderResult={renderResult}
-        />
+        <Item key={i} data={d} disabled={datum.disabled(d)} onClick={this.handleRemove} renderResult={renderResult} />
       ))
 
       if (focus && onFilter) {
@@ -118,26 +108,19 @@ class Result extends PureComponent {
       return this.renderInput(getResultContent(result[0], renderResult))
     }
 
-    return (
-      <span className={selectClass('ellipsis')}>
-        {getResultContent(result[0], renderResult)}
-      </span>
-    )
+    return <span className={selectClass('ellipsis')}>{getResultContent(result[0], renderResult)}</span>
   }
 
   render() {
-    const result = this.props.result.length === 0
-      ? this.renderPlaceholder()
-      : this.renderResult()
+    const result = this.props.result.length === 0 ? this.renderPlaceholder() : this.renderResult()
 
     return (
       <div className={selectClass('result')}>
-        { result }
-        {
-          !this.props.multiple &&
+        {result}
+        {!this.props.multiple && (
           // eslint-disable-next-line
           <a className={selectClass('indicator', 'caret')} href="javascript:;" />
-        }
+        )}
         {this.renderClear()}
       </div>
     )
@@ -146,10 +129,7 @@ class Result extends PureComponent {
 
 Result.propTypes = {
   datum: PropTypes.object,
-  disabled: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.func,
-  ]),
+  disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   filterText: PropTypes.string,
   focus: PropTypes.bool,
   multiple: PropTypes.bool.isRequired,
