@@ -28,11 +28,11 @@ const data = [
     content: 'Message',
   },
 ]
-let dropdownWrapper
-beforeAll(() => {
-  dropdownWrapper = shallow(<Dropdown data={data} placeholder="Dropdown" />)
-})
 describe('Dropdown[Base]', () => {
+  let dropdownWrapper
+  beforeAll(() => {
+    dropdownWrapper = shallow(<Dropdown data={data} placeholder="Dropdown" />)
+  })
   test('should render a correct dom construction', () => {
     // wrapper
     expect(dropdownWrapper.childAt(0).hasClass(`${SO_PREFIX}-dropdown-menu`)).toBe(true)
@@ -123,47 +123,95 @@ describe('Dropdown[Hover]', () => {
 })
 
 describe('Dropdown[Position]', () => {
-  const dropdowns = mount(<DropdownPosition />).find(Dropdown)
-  dropdowns.forEach((dropdown, index) => {
-    if (index > 7) return
-    const position = dropdown.prop('position')
-    expect(dropdown.childAt(0).hasClass(`${SO_PREFIX}-dropdown-${position}`)).toBeTruthy()
+  test('should set correct class while has position prop', () => {
+    const dropdowns = mount(<DropdownPosition />).find(Dropdown)
+    dropdowns.forEach((dropdown, index) => {
+      // ignore auto
+      if (index > 7) return
+      const position = dropdown.prop('position')
+      expect(dropdown.childAt(0).hasClass(`${SO_PREFIX}-dropdown-${position}`)).toBeTruthy()
+    })
+  })
+
+  test('should auto set position while position is auto', () => {
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight
+    const windowWidth = window.innerWidth || document.documentElement.clientWidth
+    const rectMap = {
+      'top-left': {
+        bottom: windowHeight / 2 + 100,
+        right: windowWidth / 2 - 100,
+      },
+      'top-right': {
+        bottom: windowHeight / 2 + 100,
+        right: windowWidth / 2 + 100,
+      },
+      'bottom-left': {
+        bottom: windowHeight / 2 - 100,
+        right: windowWidth / 2 - 100,
+      },
+      'bottom-right': {
+        bottom: windowHeight / 2 - 100,
+        right: windowWidth / 2 + 100,
+      },
+    }
+    let currentRect
+    Element.prototype.getBoundingClientRect = () => currentRect
+    Object.keys(rectMap).forEach(k => {
+      currentRect = rectMap[k]
+      const wrapper = mount(<Dropdown data={data} position="auto" />)
+      document.write(wrapper.html())
+      wrapper.find('button').simulate('click')
+      expect(
+        wrapper
+          .find(Dropdown)
+          .first()
+          .childAt(0)
+          .prop('className')
+          .indexOf(k) >= 0
+      ).toBeTruthy()
+    })
   })
 })
 
 describe('Dropdown[MultipleColumns]', () => {
-  const wrapper = shallow(<DropdownMultipleColumns />)
-  const wrapperWidth = wrapper.prop('width')
-  const wrapperColumns = wrapper.prop('columns')
-  const expectWidth = (wrapperWidth - 2) / wrapperColumns
-  wrapper
-    .find(Dropdown)
-    .shallow()
-    .find('Item')
-    .forEach(item => {
-      expect(item.shallow().prop('style').width).toBe(expectWidth)
-    })
+  test('should has multiple columns', () => {
+    const wrapper = shallow(<DropdownMultipleColumns />)
+    const wrapperWidth = wrapper.prop('width')
+    const wrapperColumns = wrapper.prop('columns')
+    const expectWidth = (wrapperWidth - 2) / wrapperColumns
+    wrapper
+      .find(Dropdown)
+      .shallow()
+      .find('Item')
+      .forEach(item => {
+        expect(item.shallow().prop('style').width).toBe(expectWidth)
+      })
+  })
 })
 
 describe('Dropdown[Split]', () => {
-  const wrapper = shallow(<DropdownSplit />)
-    .find(Dropdown)
-    .shallow()
-  expect(wrapper.find(Button).hasClass(`${SO_PREFIX}-dropdown-split-dropdown`))
+  test('should split', () => {
+    const wrapper = shallow(<DropdownSplit />)
+      .find(Dropdown)
+      .shallow()
+    expect(wrapper.find(Button).hasClass(`${SO_PREFIX}-dropdown-split-dropdown`))
+  })
 })
 
 describe('Dropdown[DropdownType]', () => {
-  const wrapper = shallow(<DropdownType />)
-  const state = wrapper.state()
-  const button = wrapper
-    .find(Dropdown)
-    .shallow()
-    .find(Button)
-    .shallow()
-  expect(button.hasClass(`${SO_PREFIX}-button-${state.type}`)).toBeTruthy()
-  if (state.size !== 'default') {
-    expect(button.hasClass(`${SO_PREFIX}-button-${state.size}`)).toBeTruthy()
-  }
-  expect(button.prop('disabled')).toBe(state.disabled ? true : undefined)
-  expect(button.hasClass(`${SO_PREFIX}-button-outline`)).toBe(state.outline)
+  test('should set dropdown type', () => {
+    const wrapper = shallow(<DropdownType />)
+    const state = wrapper.state()
+    const button = wrapper
+      .find(Dropdown)
+      .shallow()
+      .find(Button)
+      .shallow()
+    expect(button.hasClass(`${SO_PREFIX}-button-${state.type}`)).toBeTruthy()
+    if (state.size !== 'default') {
+      expect(button.hasClass(`${SO_PREFIX}-button-${state.size}`)).toBeTruthy()
+    }
+    expect(button.prop('disabled')).toBe(state.disabled ? true : undefined)
+    expect(button.hasClass(`${SO_PREFIX}-button-outline`)).toBe(state.outline)
+  })
 })
