@@ -58,21 +58,24 @@ class Textarea extends PureComponent {
 
     const isError = res instanceof Error
     const text = isError ? res.message : res
-    return <div key="info" style={{ minWidth: 'auto' }} className={inputClass('bottom-right', isError ? 'error' : 'tip')}>{text}</div>
+    return (
+      <div key="info" style={{ minWidth: 'auto' }} className={inputClass('bottom-right', isError ? 'error' : 'tip')}>
+        {text}
+      </div>
+    )
   }
 
   render() {
-    const {
-      autosize, onChange, maxHeight, info, ...props
-    } = this.props
+    const { autosize, onChange, maxHeight, info, ...props } = this.props
+    const value = props.value || ''
     const height = this.state.height || 'auto'
-
     const className = autosize ? inputClass('auto-size') : ''
 
     const ts = [
       <textarea
         {...cleanProps(props)}
         key="t"
+        value={value}
         className={className}
         style={{ height, maxHeight, overflow: 'auto' }}
         onChange={this.handleChange}
@@ -83,15 +86,15 @@ class Textarea extends PureComponent {
     ]
 
     if (autosize) {
-      ts.push((
+      ts.push(
         <textarea
           key="s"
           ref={this.bindShadow}
           className={inputClass('shadow')}
           rows={props.rows}
-          defaultValue={props.value}
+          defaultValue={value}
         />
-      ))
+      )
     }
 
     return ts
@@ -110,7 +113,6 @@ Textarea.propTypes = {
 }
 
 Textarea.defaultProps = {
-  value: '',
   rows: 4,
 }
 
