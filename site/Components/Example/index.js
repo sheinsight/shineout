@@ -16,7 +16,7 @@ export default function Example({ component, id, name, rawText, title: propsTitl
   const codeblock = useRef(null)
   const [showcode, setShowCode] = useState(false)
   const [codeHeight, setCodeHeight] = useState()
-  const [bottom, setButtom] = useState()
+  let [bottom] = useState()
 
   const collapse = (height, remain, isBottom) => {
     codeblock.current.style.height = `${height * (remain - 1)}px`
@@ -51,7 +51,7 @@ export default function Example({ component, id, name, rawText, title: propsTitl
   const toggleCode = isBottom => {
     const showCode = !showcode
     setShowCode(showCode)
-    setButtom(isBottom)
+    bottom = isBottom
   }
 
   const renderCodeHandle = isBottom => (

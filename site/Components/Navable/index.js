@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import Sticky from 'shineout/Sticky'
 import history from '../../history'
 import { navClass } from '../../styles'
@@ -14,88 +14,61 @@ const scrollTo = id => {
 }
 
 export default function(Component) {
-  return class Nav extends React.Component {
-    constructor(props) {
-      super(props)
+  return function Nav() {
+    const [active, setActive] = useState('')
+    const [headings] = useState([])
 
-      this.state = {
-        active: '',
-        headings: [],
-      }
-
-      this.setHeading = this.setHeading.bind(this)
-      this.handleScroll = this.handleScroll.bind(this)
-    }
-
-    componentDidMount() {
-      this.bindScroll()
-      this.handleScroll()
-    }
-
-    componentWillUnmount() {
-      this.$willUnmount = true
-      this.unbindScroll()
-    }
-
-    setHeading(headings) {
-      this.setState({ headings: [...this.state.headings, ...headings] })
-    }
-
-    bindScroll() {
-      document.addEventListener('scroll', this.handleScroll)
-    }
-
-    unbindScroll() {
-      document.removeEventListener('scroll', this.handleScroll)
-    }
-
-    handleScroll() {
-      const top = document.documentElement.scrollTop
-      const headings = this.state.headings.filter(h => h.level === 3 && h.children[0])
-      if (headings.length === 0) return
-
-      let active = headings[0].id
-      headings.forEach(h => {
-        const el = document.querySelector(`#${h.id}`)
-        if (!el) return
-        if (el.offsetTop <= top) active = h.id
+    const setHeading = useCallback(hs => {
+      hs.forEach(h => {
+        headings.push(h)
       })
+    }, [])
 
-      if (!this.$willUnmount) {
-        this.setState({ active })
+    useEffect(() => {
+      const handleScroll = () => {
+        const top = document.documentElement.scrollTop
+        const hs = headings.filter(h => h.level === 3 && h.children[0])
+        if (hs.length === 0) return
+
+        let newActive = hs[0].id
+        hs.forEach(h => {
+          const el = document.querySelector(`#${h.id}`)
+          if (!el) return
+          if (el.offsetTop <= top) newActive = h.id
+        })
+        setActive(newActive)
       }
-    }
 
-    renderNav() {
-      const { active, headings } = this.state
+      document.addEventListener('scroll', handleScroll)
+      handleScroll()
+      return () => {
+        document.removeEventListener('scroll', handleScroll)
+      }
+    }, [])
 
-      return (
-        <Sticky className={navClass('sticky')} top={50}>
-          <div className={navClass('nav')}>
-            {headings.map((h, i) => {
-              const children = h.children.filter(c => typeof c === 'string')
-              return (
-                <a
-                  key={i}
-                  className={navClass(`level-${h.level}`, active === h.id && 'active')}
-                  onClick={scrollTo.bind(this, h.id)}
-                >
-                  {children}
-                </a>
-              )
-            })}
-          </div>
-        </Sticky>
-      )
-    }
-
-    render() {
-      return (
-        <div className={navClass('_')}>
-          <Component onHeadingSetted={this.setHeading} />
-          {this.renderNav()}
+    const renderNav = () => (
+      <Sticky className={navClass('sticky')} top={50}>
+        <div className={navClass('nav')}>
+          {headings.map((h, i) => {
+            const children = h.children.filter(c => typeof c === 'string')
+            return (
+              <a
+                key={i}
+                className={navClass(`level-${h.level}`, active === h.id && 'active')}
+                onClick={scrollTo.bind(null, h.id)}
+              >
+                {children}
+              </a>
+            )
+          })}
         </div>
-      )
-    }
+      </Sticky>
+    )
+    return (
+      <div className={navClass('_')}>
+        <Component onHeadingSetted={setHeading} />
+        {renderNav()}
+      </div>
+    )
   }
 }

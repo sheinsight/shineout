@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import PropTypes from 'prop-types'
 import MarkDown from './MarkDown'
 import Loading from '../Loading'
@@ -30,5 +30,5 @@ export default function() {
     source: undefined,
   }
 
-  return Lazy
+  return memo(Lazy)
 }

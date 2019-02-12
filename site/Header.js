@@ -72,7 +72,7 @@ const Header = ({ versions }) => {
         {version && (
           <Dropdown
             className={headerClass('light')}
-            data={this.props.versions}
+            data={versions}
             trigger="hover"
             placeholder={version}
             size="small"

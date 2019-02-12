@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkDown from 'react-markdown'
 import { getUidStr } from 'shineout/utils/uid'
@@ -11,41 +11,21 @@ import Console from './Console'
 const codeReg = /^<code name="([\w|-]+)" /
 const exampleReg = /^<example name="([\w|-]+)"/
 
-export default class MarkDown extends PureComponent {
-  static propTypes = {
-    children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
-    codes: PropTypes.object,
-    examples: PropTypes.array,
-    onHeadingSetted: PropTypes.func,
-    source: PropTypes.string.isRequired,
-  }
+export default function MarkDown({ onHeadingSetted, codes, examples, source }) {
+  let [headings] = useState([])
+  const [cache] = useState({})
 
-  static defaultProps = {
-    children: null,
-    examples: null,
-    onHeadingSetted: undefined,
-  }
-
-  constructor(props) {
-    super(props)
-
-    this.headings = []
-    this.appendHeading = this.appendHeading.bind(this)
-    this.cache = {}
-  }
-
-  componentDidMount() {
-    if (this.props.onHeadingSetted) {
-      this.props.onHeadingSetted(this.headings)
+  useEffect(() => {
+    if (onHeadingSetted) {
+      onHeadingSetted(headings)
     }
+  }, [])
+
+  const appendHeading = heading => {
+    headings.push(heading)
   }
 
-  appendHeading(heading) {
-    this.headings.push(heading)
-  }
-
-  renderCode(name) {
-    const { codes } = this.props
+  const renderCode = name => {
     const code = codes[name]
     if (code) {
       return [<CodeBlock key="cb" value={code.text} />, ...code.log.map((txt, i) => <Console key={i}>{txt}</Console>)]
@@ -54,56 +34,54 @@ export default class MarkDown extends PureComponent {
     return null
   }
 
-  renderExamples() {
-    if (this.cache.examples) return this.cache.examples
+  const renderExamples = () => {
+    if (cache.examples) return cache.examples
 
-    const { examples } = this.props
     if (!examples) return <div />
 
     const text = locate('示例', 'Example')
 
     const id = `heading-${getUidStr()}`
-    this.appendHeading({
+    appendHeading({
       id,
       level: 2,
       children: [text],
     })
 
-    this.cache.examples = [
+    cache.examples = [
       <h2 key="h" id={id}>
         {text}
       </h2>,
-      ...examples.map((props, i) => {
-        if (/\d+-/.test(props.name)) {
-          const sid = `heading-${props.name}`
-          const [title] = props.title.split('\n')
-          this.appendHeading({
+      ...examples.map((prop, i) => {
+        if (/\d+-/.test(prop.name)) {
+          const sid = `heading-${prop.name}`
+          const [title] = prop.title.split('\n')
+          appendHeading({
             id: sid,
             level: 3,
             children: [title],
           })
-          return <Example key={i} id={sid} {...props} lazy={i > 2} />
+          return <Example key={i} id={sid} {...prop} lazy={i > 2} />
         }
         return undefined
       }),
     ]
 
-    return this.cache.examples
+    return cache.examples
   }
 
-  renderExample(name) {
+  const renderExample = name => {
     const key = `example-${name}`
-    if (!this.cache[key]) {
-      const { examples } = this.props
+    if (!cache[key]) {
       const example = (examples || []).find(e => e.name === name)
 
-      if (!example) this.cache[key] = null
-      else this.cache[key] = <Example {...example} />
+      if (!example) cache[key] = null
+      else cache[key] = <Example {...example} />
     }
-    return this.cache[key]
+    return cache[key]
   }
 
-  renderHeading = ({ level, children }) => {
+  const renderHeading = ({ level, children }) => {
     const key = `${level}-${children[0]}`
     const Tag = `h${level}`
 
@@ -111,53 +89,63 @@ export default class MarkDown extends PureComponent {
       return <Tag>{children}</Tag>
     }
 
-    if (!this.cache[key]) {
+    if (!cache[key]) {
       const id = `heading-${getUidStr()}`
       if (level === 2 || level === 3) {
-        this.appendHeading({ id, level, children })
+        appendHeading({ id, level, children })
       }
-      this.cache[key] = <Tag id={id}>{children}</Tag>
+      cache[key] = <Tag id={id}>{children}</Tag>
     }
 
-    return this.cache[key]
+    return cache[key]
   }
 
-  render() {
-    const { source } = this.props
+  // clear headings
+  headings = []
 
-    // clear headings
-    this.headings = []
+  return (
+    <ReactMarkDown
+      className={markdownClass('_')}
+      source={source}
+      renderers={{
+        code: CodeBlock,
+        heading: renderHeading,
+        html: prop => {
+          if (prop.value === '<example />') return renderExamples()
 
-    return (
-      <ReactMarkDown
-        className={markdownClass('_')}
-        source={source}
-        renderers={{
-          code: CodeBlock,
-          heading: this.renderHeading,
-          html: ({ value }) => {
-            if (value === '<example />') return this.renderExamples()
+          const example = prop.value.match(exampleReg)
+          if (example) return renderExample(example[1], prop.value.indexOf('noExpand') >= 0)
 
-            const example = value.match(exampleReg)
-            if (example) return this.renderExample(example[1], value.indexOf('noExpand') >= 0)
+          if (prop.value === '<br>' || prop.value === '<br />') return <br />
 
-            if (value === '<br>' || value === '<br />') return <br />
+          const code = prop.value.match(codeReg)
+          if (code) return renderCode(code[1])
 
-            const code = value.match(codeReg)
-            if (code) return this.renderCode(code[1])
+          return null
+        },
+        link: prop => {
+          const target = prop.href.indexOf('http' === 0) ? '_blank' : undefined
+          return (
+            <a href={prop.href} target={target}>
+              {prop.children}
+            </a>
+          )
+        },
+      }}
+    />
+  )
+}
 
-            return null
-          },
-          link: ({ href, children }) => {
-            const target = href.indexOf('http' === 0) ? '_blank' : undefined
-            return (
-              <a href={href} target={target}>
-                {children}
-              </a>
-            )
-          },
-        }}
-      />
-    )
-  }
+MarkDown.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
+  codes: PropTypes.object,
+  examples: PropTypes.array,
+  onHeadingSetted: PropTypes.func,
+  source: PropTypes.string.isRequired,
+}
+
+MarkDown.defaultProps = {
+  children: null,
+  examples: null,
+  onHeadingSetted: undefined,
 }
