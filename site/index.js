@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import 'prismjs/themes/prism.css'
 import './vendor'
 import '../src/styles/normalize.less'
 import './styles/index.less'

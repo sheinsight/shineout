@@ -38,65 +38,63 @@ function handleThemeClick(data) {
   window.location.href = url
 }
 
-class Header extends React.PureComponent {
-  render() {
-    // const path = getPath(this.context.location.pathname)
-    const path = ''
+const Header = ({ versions }) => {
+  // const path = getPath(this.context.location.pathname)
+  const path = ''
 
-    const navs = [
-      { path: '/', en: 'Home', cn: '首页' },
-      { path: '/components', en: 'Components', cn: '组件' },
-      { path: '/documentation', en: '', cn: '文档' },
-    ]
+  const navs = [
+    { path: '/', en: 'Home', cn: '首页' },
+    { path: '/components', en: 'Components', cn: '组件' },
+    { path: '/documentation', en: '', cn: '文档' },
+  ]
 
-    const { pathname } = window.location
-    let version = this.props.versions.find(v => pathname.indexOf(v.content) >= 0)
-    if (version) version = version.content
+  const { pathname } = window.location
+  let version = versions.find(v => pathname.indexOf(v.content) >= 0)
+  if (version) version = version.content
 
-    return (
-      <div className={headerClass('_')}>
-        <div className={headerClass('logo')}>
-          <a href="#/">{logo}</a>
-        </div>
-        <div className={headerClass('nav')}>
-          {navs.map(nav => (
-            <NavLink key={nav.path} to={nav.path} className={headerClass(path === nav.path && 'active')}>
-              {locate(nav.cn, nav.en)}
-            </NavLink>
-          ))}
-        </div>
-        <div className={headerClass('right')}>
-          <Button size="small" onClick={handleLangClick} style={{ marginRight: 12 }}>
-            {locate('English', '中文')}
-          </Button>
+  return (
+    <div className={headerClass('_')}>
+      <div className={headerClass('logo')}>
+        <a href="#/">{logo}</a>
+      </div>
+      <div className={headerClass('nav')}>
+        {navs.map(nav => (
+          <NavLink key={nav.path} to={nav.path} className={headerClass(path === nav.path && 'active')}>
+            {locate(nav.cn, nav.en)}
+          </NavLink>
+        ))}
+      </div>
+      <div className={headerClass('right')}>
+        <Button size="small" onClick={handleLangClick} style={{ marginRight: 12 }}>
+          {locate('English', '中文')}
+        </Button>
 
-          {version && (
-            <Dropdown
-              className={headerClass('light')}
-              data={this.props.versions}
-              trigger="hover"
-              placeholder={version}
-              size="small"
-              style={{ marginRight: 12 }}
-            />
-          )}
-
+        {version && (
           <Dropdown
             className={headerClass('light')}
-            data={themes}
-            onClick={handleThemeClick}
+            data={versions}
             trigger="hover"
-            placeholder={`theme: ${theme.getTheme()}`}
+            placeholder={version}
             size="small"
+            style={{ marginRight: 12 }}
           />
+        )}
 
-          <Button type="link" style={{ color: '#666' }} href="https://github.com/sheinsight/shineout">
-            <Icon name="github" /> GitHub
-          </Button>
-        </div>
+        <Dropdown
+          className={headerClass('light')}
+          data={themes}
+          onClick={handleThemeClick}
+          trigger="hover"
+          placeholder={`theme: ${theme.getTheme()}`}
+          size="small"
+        />
+
+        <Button type="link" style={{ color: '#666' }} href="https://github.com/sheinsight/shineout">
+          <Icon name="github" /> GitHub
+        </Button>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 Header.propTypes = {
