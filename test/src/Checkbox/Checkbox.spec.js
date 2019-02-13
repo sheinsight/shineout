@@ -5,6 +5,11 @@ import CheckboxStatus from '../../../site/pages/components/Checkbox/example-02-c
 import CheckboxRawGroup from '../../../site/pages/components/Checkbox/example-04-rawgroup'
 import CheckboxGroup from '../../../site/pages/components/Checkbox/example-05-group'
 import CheckboxFormat from '../../../site/pages/components/Checkbox/example-06-format'
+import CheckboxDatum from '../../../site/pages/components/Checkbox/example-07-datum'
+import CheckboxBlock from '../../../site/pages/components/Checkbox/example-08-block'
+import CheckboxDisabled from '../../../site/pages/components/Checkbox/example-09-disabled'
+import CheckboxDisabledFunc from '../../../site/pages/components/Checkbox/example-10-disabled'
+import CheckboxInput from '../../../site/pages/components/Checkbox/example-11-input'
 
 /* global SO_PREFIX */
 describe('Checkbox[Base]', () => {
@@ -69,10 +74,12 @@ describe('Checkbox[RawGroup]', () => {
   })
 })
 
-describe('Checkbox[Group]', () => {
+describe('Checkbox[Group-Datum]', () => {
   test('should render checkbox while have data prop', () => {
     const wrapper = mount(<CheckboxGroup />)
+    const wrapperDatum = mount(<CheckboxDatum />)
     expect(wrapper.find('CheckItem').length).toBe(wrapper.find(Checkbox.Group).prop('data').length)
+    expect(wrapperDatum.find('CheckItem').length).toBe(wrapperDatum.find(Checkbox.Group).prop('data').length)
   })
 })
 
@@ -93,5 +100,45 @@ describe('Checkbox[Format]', () => {
       const innerText = item.find(`.${SO_PREFIX}-checkinput span span`).text()
       expect(innerText).toBe(data[index][format])
     })
+  })
+})
+
+describe('Checkbox[Group]', () => {
+  test('should have block class', () => {
+    const wrapper = mount(<CheckboxBlock />)
+    expect(wrapper.find(`.${SO_PREFIX}-checkinput-block`).length).toBe(1)
+  })
+})
+
+describe('Checkbox[Disabled]', () => {
+  test('should have disabled class', () => {
+    const wrapper = mount(<CheckboxDisabled />)
+    wrapper.find('CheckItem').forEach(item => {
+      expect(item.find(`.${SO_PREFIX}-checkinput-disabled`).length).toBe(1)
+      expect(item.find('input').prop('disabled')).toBeTruthy()
+    })
+  })
+
+  test('should set disabled while func return true', () => {
+    const wrapper = mount(<CheckboxDisabledFunc />)
+    const disabledFunc = wrapper.find('ShineoutCheckboxGroup').prop('disabled')
+    wrapper.find('CheckItem').forEach(item => {
+      const value = item.prop('children')
+      expect(item.find(`.${SO_PREFIX}-checkinput-disabled`).length).toBe(disabledFunc(value) ? 1 : 0)
+    })
+  })
+})
+
+describe('Checkbox[Input]', () => {
+  test('should show input while selected', () => {
+    const wrapper = mount(<CheckboxInput />)
+    expect(wrapper.find(`.${SO_PREFIX}-input`).length).toBe(0)
+    // simulate chose
+    wrapper.find('input[type="checkbox"]').simulate('change', {
+      target: {
+        checked: true,
+      },
+    })
+    expect(wrapper.find(`.${SO_PREFIX}-input`).length).toBe(1)
   })
 })
