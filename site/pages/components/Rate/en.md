@@ -22,3 +22,4 @@
 | repeat | bool | true | When repeat is true, display item is a copy of the item corresponding to the current value |
 | size | number \| string | 20 | the size of the icon |
 | value | number | 0 | |
+| clearable | bool | false | whether to allow clear when click again |

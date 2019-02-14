@@ -85,6 +85,15 @@ const examples = [
     component: require('doc/pages/components/Rate/example-09-array.js').default,
     rawText: require('!raw-loader!doc/pages/components/Rate/example-09-array.js'),
   },
+  {
+    name: '10-clearable',
+    title: locate(
+      '清除 \n 支持允许或者禁用再次点击清除。',
+      'clear \n Support set allow to clear star when click again.'
+    ),
+    component: require('doc/pages/components/Rate/example-10-clearable.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Rate/example-10-clearable.js'),
+  },
 ]
 
 const codes = undefined
