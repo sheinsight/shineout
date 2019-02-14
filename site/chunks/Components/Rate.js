@@ -88,8 +88,8 @@ const examples = [
   {
     name: '10-clearable',
     title: locate(
-      '清除 \n 支持允许或者禁用再次点击清除。',
-      'clear \n Support set allow to clear star when click again.'
+      '清除 \n 通过 clearable 属性可以设置再次点击清除 value。',
+      'clear \n Set the clearable to clear value when click again.'
     ),
     component: require('doc/pages/components/Rate/example-10-clearable.js').default,
     rawText: require('!raw-loader!doc/pages/components/Rate/example-10-clearable.js'),
