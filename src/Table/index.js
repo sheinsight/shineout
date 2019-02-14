@@ -45,17 +45,19 @@ export default class extends PureComponent {
       if (c.fixed === 'right' && right < 0) right = i
     })
 
-    this.cachedColumns = columns.map((c, i) => immer(c, (draft) => {
-      draft.index = i
-      if (draft.key === undefined) draft.key = i
-      if (i <= left) draft.fixed = 'left'
-      if (i === left) draft.lastFixed = true
-      if (i >= right && right > 0) draft.fixed = 'right'
-      if (i === right) draft.firstFixed = true
-      // if (draft.type === 'expand' && !draft.width) draft.width = 48
-    }))
+    this.cachedColumns = columns.map((c, i) =>
+      immer(c, draft => {
+        draft.index = i
+        if (draft.key === undefined) draft.key = i
+        if (i <= left) draft.fixed = 'left'
+        if (i === left) draft.lastFixed = true
+        if (i >= right && right > 0) draft.fixed = 'right'
+        if (i === right) draft.firstFixed = true
+        // if (draft.type === 'expand' && !draft.width) draft.width = 48
+      })
+    )
 
-    if ((onRowSelect || datum) && this.cachedColumns[0].type !== 'checkbox') {
+    if ((onRowSelect || datum) && this.cachedColumns[0] && this.cachedColumns[0].type !== 'checkbox') {
       this.cachedColumns.unshift({
         key: 'checkbox',
         type: 'checkbox',
@@ -70,11 +72,13 @@ export default class extends PureComponent {
   }
 
   handleSortChange(order, sorter, index) {
-    this.setState(immer((state) => {
-      state.sorter.order = order
-      state.sorter.index = index
-      state.sorter.sort = sorter(order)
-    }))
+    this.setState(
+      immer(state => {
+        state.sorter.order = order
+        state.sorter.index = index
+        state.sorter.sort = sorter(order)
+      })
+    )
   }
 
   render() {
@@ -100,4 +104,3 @@ export default class extends PureComponent {
     )
   }
 }
-
