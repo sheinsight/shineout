@@ -48,6 +48,11 @@ class Rate extends PureComponent {
   }
 
   handleClick(value) {
+    const { clearable } = this.props
+    if (clearable && this.props.value === value) {
+      value = 0
+      this.setState({ hover: 0 })
+    }
     this.props.onChange(value)
     this.setState({ highlight: value })
 
@@ -147,6 +152,7 @@ Rate.propTypes = {
     PropTypes.element,
     PropTypes.array,
   ]),
+  clearable: PropTypes.bool,
   repeat: PropTypes.bool,
   front: PropTypes.oneOfType([
     PropTypes.element,

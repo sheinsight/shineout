@@ -4,6 +4,8 @@ import IconAwesome from '../../../site/pages/components/Icon/example-1-awesome'
 import IconIconfont from '../../../site/pages/components/Icon/example-2-iconfont'
 import IconSize from '../../../site/pages/components/Icon/example-3-size'
 
+/* global SO_PREFIX */
+
 describe('Icon[Awesome]', () => {
   let icons
   beforeAll(() => {

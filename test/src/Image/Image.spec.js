@@ -10,6 +10,8 @@ import ImageGroup from '../../../site/pages/components/Image/example-07-group'
 import ImagePile from '../../../site/pages/components/Image/example-08-group'
 import ImageLazy from '../../../site/pages/components/Image/example-09-lazy'
 
+/* global SO_PREFIX */
+
 describe('Image[Base]', () => {
   let imageWrapper
   beforeAll(() => {
