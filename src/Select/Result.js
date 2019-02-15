@@ -90,7 +90,6 @@ class Result extends PureComponent {
   }
 
   renderResult() {
-    console.log('1')
     const { multiple, result, renderResult, onFilter, focus, datum, filterText } = this.props
 
     if (multiple) {
