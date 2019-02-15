@@ -9,7 +9,7 @@ export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
 const getResultContent = (data, renderResult) => {
   if (isObject(data) && data.IS_NOT_MATCHED_VALUE) {
-    return data.value
+    return isObject(data.value) ? renderResult(data.value) : data.value
   }
   return renderResult(data)
 }
@@ -90,6 +90,7 @@ class Result extends PureComponent {
   }
 
   renderResult() {
+    console.log('1')
     const { multiple, result, renderResult, onFilter, focus, datum, filterText } = this.props
 
     if (multiple) {
