@@ -40,7 +40,7 @@ class Form extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    if (e.target.id !== this.id) return
+    if (e.target.getAttribute('id') !== this.id) return
     if (this.validating || this.locked) return
 
     this.validating = true
@@ -51,34 +51,35 @@ class Form extends Component {
       this.locked = false
     }, this.props.throttle)
 
-    const {
-      datum, onError, onSubmit, scrollToError,
-    } = this.props
+    const { datum, onError, onSubmit, scrollToError } = this.props
 
     const { activeElement } = document
     if (activeElement) activeElement.blur()
 
     setTimeout(() => {
-      datum.validate().then(() => {
-        this.validating = false
-        if (onSubmit) onSubmit(datum.getValue())
-        if (activeElement) activeElement.focus()
-      }).catch((err) => {
-        this.validating = false
-        if (scrollToError !== false) {
-          const el = this.element.querySelector(`.${formClass('invalid')}`)
-          if (el) {
-            el.scrollIntoView()
-            if (el.focus) el.focus()
+      datum
+        .validate()
+        .then(() => {
+          this.validating = false
+          if (onSubmit) onSubmit(datum.getValue())
+          if (activeElement) activeElement.focus()
+        })
+        .catch(err => {
+          this.validating = false
+          if (scrollToError !== false) {
+            const el = this.element.querySelector(`.${formClass('invalid')}`)
+            if (el) {
+              el.scrollIntoView()
+              if (el.focus) el.focus()
+            }
+            if (typeof scrollToError === 'number' && scrollToError !== 0) {
+              document.documentElement.scrollTop -= scrollToError
+            }
           }
-          if (typeof scrollToError === 'number' && scrollToError !== 0) {
-            document.documentElement.scrollTop -= scrollToError
-          }
-        }
 
-        if (onError) onError(err)
-        if (!(err instanceof FormError)) throw err
-      })
+          if (onError) onError(err)
+          if (!(err instanceof FormError)) throw err
+        })
     }, 10)
   }
 
@@ -89,22 +90,15 @@ class Form extends Component {
   }
 
   render() {
-    const {
-      layout, style, inline, disabled, datum, rules, pending,
-    } = this.props
+    const { layout, style, inline, disabled, datum, rules, pending } = this.props
 
     if (datum && rules && datum.rules !== rules) {
       datum.rules = rules
     }
 
     const className = classnames(
-      formClass(
-        '_',
-        layout,
-        (disabled || pending) && 'disabled',
-        inline && 'inline',
-      ),
-      this.props.className,
+      formClass('_', layout, (disabled || pending) && 'disabled', inline && 'inline'),
+      this.props.className
     )
 
     return (
@@ -127,17 +121,13 @@ Form.propTypes = {
   datum: PropTypes.object,
   disabled: PropTypes.bool,
   inline: PropTypes.bool,
-  labelAlign: PropTypes.string,
   layout: PropTypes.string,
   pending: PropTypes.bool,
   onError: PropTypes.func,
   onReset: PropTypes.func,
   onSubmit: PropTypes.func,
   rules: PropTypes.object,
-  scrollToError: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.number,
-  ]),
+  scrollToError: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   setFormStatus: PropTypes.func,
   throttle: PropTypes.number,
 }
