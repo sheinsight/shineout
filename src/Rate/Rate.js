@@ -152,6 +152,7 @@ Rate.propTypes = {
     PropTypes.element,
     PropTypes.array,
   ]),
+  clearable: PropTypes.bool,
   repeat: PropTypes.bool,
   front: PropTypes.oneOfType([
     PropTypes.element,
