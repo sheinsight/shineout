@@ -77,8 +77,8 @@ class Table extends PureComponent {
 
     const isEmpty = (!data || data.length === 0) && !children
     const RenderTable = fixed && !isEmpty ? SeperateTable : SimpleTable
-    let newStyle = style
-    if (height) newStyle = Object.assign({}, style, { height })
+    const newStyle = Object.assign({}, style)
+    if (height) newStyle.height = height
     if (loading) newStyle.overflow = 'hidden'
 
     return (
