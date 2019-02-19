@@ -79,6 +79,7 @@ class Table extends PureComponent {
     const RenderTable = fixed && !isEmpty ? SeperateTable : SimpleTable
     let newStyle = style
     if (height) newStyle = Object.assign({}, style, { height })
+    if (loading) newStyle.overflow = 'hidden'
 
     return (
       <div className={className} ref={this.bindTable} style={newStyle}>

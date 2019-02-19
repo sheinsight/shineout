@@ -15,6 +15,7 @@
 | placeholder | string | | The same as the native placeholder tag. |
 | popover | string | | The position where the message pops up, options: \['top-left', 'top', 'top-right', 'bottom-left', 'bottom', 'bottom-right'] |
 | rows | number | 4 | The minimum row height. Same as native textarea rows property. |
+| maxHeight | number \| string | 无 | the maxHeight of the textarea, scroll bars appear after more than | 
 | style | object | - | Container element style |
 | trim | bool | false | When trim is true, blank characters are automatically deleted when lose focus。 |
 | value | string \| number | | DefaultValue and value can be set at the same time and defaultValue will be overridden by value. <br />In the Form, the value is taken over by the Form and lose efficacy. |
