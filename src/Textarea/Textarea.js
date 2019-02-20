@@ -23,6 +23,10 @@ class Textarea extends PureComponent {
     if (this.props.autosize) this.resize()
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.autosize && prevProps.value !== this.props.value) this.resize(this.props.value)
+  }
+
   bindShadow(el) {
     this.shadow = el
   }

@@ -7,9 +7,7 @@ import Tbody from './Tbody'
 
 class SimpleTable extends PureComponent {
   render() {
-    const {
-      children, columns, colgroup, data, width, ...other
-    } = this.props
+    const { children, columns, colgroup, data, width, ...other } = this.props
 
     if (!columns) {
       return <table style={{ width }}>{children}</table>
@@ -19,7 +17,7 @@ class SimpleTable extends PureComponent {
       <table style={{ width }}>
         <Colgroup columns={columns} colgroup={colgroup} />
         <Thead {...other} columns={columns} data={data} />
-        { data && <Tbody {...other} index={0} columns={columns} data={data} /> }
+        {data && <Tbody {...other} index={0} columns={columns} data={data} />}
         {children}
       </table>
     )
@@ -40,4 +38,3 @@ SimpleTable.defaultProps = {
 }
 
 export default SimpleTable
-
