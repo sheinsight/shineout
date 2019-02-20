@@ -49,7 +49,7 @@ class Input extends PureComponent {
 
   render() {
     const { type, defaultValue, digits, className, htmlName, forceChange, onEnterPress, ...other } = this.props
-    const value = this.props.value || ''
+    const value = this.props.value == null ? '' : this.props.value
 
     return (
       <input
