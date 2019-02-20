@@ -21,7 +21,7 @@ class TimeScroll extends PureComponent {
 
   componentDidMount() {
     setTimeout(() => {
-      this.scrollToValue()
+      if (this.element) this.scrollToValue()
     })
   }
 
@@ -79,7 +79,7 @@ class TimeScroll extends PureComponent {
         onScroll={this.handleScroll}
       >
         <div className={datepickerClass('pad')} />
-        { range(total, 0).map(v => this.renderItem(v)) }
+        {range(total, 0).map(v => this.renderItem(v))}
         <div className={datepickerClass('pad')} />
       </div>
     )
