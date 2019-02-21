@@ -4,7 +4,7 @@ import { isObject } from './is'
 const types = ['primary', 'warning', 'danger', 'success', 'secondary']
 const attrs = ['background', 'color', 'border']
 
-function validateClassname(data) {
+function validateFormat(data) {
   if (!isObject(data)) {
     console.error(new Error('Should enter a json data with attrs(key) and types(types)'))
     return false
@@ -23,8 +23,24 @@ function validateClassname(data) {
 }
 
 export function getClassname(data) {
-  if (!validateClassname(data)) return ''
+  if (!validateFormat(data)) return ''
   return Object.keys(data)
     .map(attr => `${config.prefix}-${data[attr]}-${attr}`)
     .join(' ')
+}
+
+export function getColor(type) {
+  if (types.indexOf(type) === -1) {
+    console.error(new Error(`The type your entered does not exist need[${types.join('/')}]`))
+    return ''
+  }
+  // insert to body make render
+  const className = `${config.prefix}-location-${type}`
+  const div = document.createElement('div')
+  div.className = className
+  document.body.appendChild(div)
+  // get color
+  const color = window.getComputedStyle(document.querySelector(`.${className}`)).borderColor
+  div.parentElement.removeChild(div)
+  return color
 }

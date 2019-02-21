@@ -1,4 +1,4 @@
-import { getClassname } from '../../src/utils/expose'
+import { getClassname, getColor } from '../../src/utils/expose'
 
 describe('expose[getClassname]', () => {
   test('should joint correct', () => {
@@ -62,5 +62,21 @@ describe('expose[getClassname]', () => {
   })
   test('should return a empty string while not in appoint', () => {
     ;[{ color: 'hello' }, { test: 'primary' }, { test: 'test' }].map(v => expect(getClassname(v)).toBe(''))
+  })
+})
+
+describe('expose[getColor]', () => {
+  const color = { borderColor: '#fff' }
+  const types = ['primary', 'warning', 'danger', 'success', 'secondary']
+  beforeAll(() => {
+    window.getComputedStyle = () => color
+  })
+  test('should return color in types', () => {
+    types.forEach(type => {
+      expect(getColor(type)).toBe(color.borderColor)
+    })
+  })
+  test('should get empty string while not in types', () => {
+    expect(getColor('test')).toBe('')
   })
 })
