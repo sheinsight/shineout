@@ -20,21 +20,21 @@ describe('expose[getClassname]', () => {
       { border: 'secondary' },
     ]
     const output = [
-      'so-primary-color',
-      'so-warning-color',
-      'so-success-color',
-      'so-danger-color',
-      'so-secondary-color',
-      'so-primary-background',
-      'so-warning-background',
-      'so-success-background',
-      'so-danger-background',
-      'so-secondary-background',
-      'so-primary-border',
-      'so-warning-border',
-      'so-success-border',
-      'so-danger-border',
-      'so-secondary-border',
+      'so-expose-primary-color',
+      'so-expose-warning-color',
+      'so-expose-success-color',
+      'so-expose-danger-color',
+      'so-expose-secondary-color',
+      'so-expose-primary-background',
+      'so-expose-warning-background',
+      'so-expose-success-background',
+      'so-expose-danger-background',
+      'so-expose-secondary-background',
+      'so-expose-primary-border',
+      'so-expose-warning-border',
+      'so-expose-success-border',
+      'so-expose-danger-border',
+      'so-expose-secondary-border',
     ]
     data.map((input, index) => expect(getClassname(input)).toBe(output[index]))
   })
@@ -52,8 +52,8 @@ describe('expose[getClassname]', () => {
       },
     ]
     const output = [
-      'so-primary-color so-danger-border so-secondary-background',
-      'so-danger-color so-warning-border so-primary-background',
+      'so-expose-primary-color so-expose-danger-border so-expose-secondary-background',
+      'so-expose-danger-color so-expose-warning-border so-expose-primary-background',
     ]
     data.map((input, index) => expect(getClassname(input)).toBe(output[index]))
   })

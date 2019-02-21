@@ -1,5 +1,5 @@
-import config from '../config'
 import { isObject } from './is'
+import { exposeClass } from '../styles'
 
 const types = ['primary', 'warning', 'danger', 'success', 'secondary']
 const attrs = ['background', 'color', 'border']
@@ -25,7 +25,7 @@ function validateFormat(data) {
 export function getClassname(data) {
   if (!validateFormat(data)) return ''
   return Object.keys(data)
-    .map(attr => `${config.prefix}-${data[attr]}-${attr}`)
+    .map(attr => exposeClass(`${data[attr]}-${attr}`))
     .join(' ')
 }
 
@@ -35,7 +35,7 @@ export function getColor(type) {
     return ''
   }
   // insert to body make render
-  const className = `${config.prefix}-location-${type}`
+  const className = exposeClass(`location-${type}`)
   const div = document.createElement('div')
   div.className = className
   document.body.appendChild(div)
