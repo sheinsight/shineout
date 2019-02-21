@@ -1,5 +1,5 @@
 import { isObject } from './is'
-import { exposeClass } from '../styles'
+import { exposeClass } from '../styles/expose'
 
 const types = ['primary', 'warning', 'danger', 'success', 'secondary']
 const attrs = ['background', 'color', 'border']
