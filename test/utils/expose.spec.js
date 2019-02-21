@@ -1,4 +1,4 @@
-import { getClassname, getColor } from '../../src/utils/expose'
+import { color, style } from '../../src/utils/expose'
 
 describe('expose[getClassname]', () => {
   test('should joint correct', () => {
@@ -36,7 +36,7 @@ describe('expose[getClassname]', () => {
       'so-expose-danger-border',
       'so-expose-secondary-border',
     ]
-    data.map((input, index) => expect(getClassname(input)).toBe(output[index]))
+    data.map((input, index) => expect(style.getClassname(input)).toBe(output[index]))
   })
   test('should joint correct at least one data', () => {
     const data = [
@@ -55,28 +55,25 @@ describe('expose[getClassname]', () => {
       'so-expose-primary-color so-expose-danger-border so-expose-secondary-background',
       'so-expose-danger-color so-expose-warning-border so-expose-primary-background',
     ]
-    data.map((input, index) => expect(getClassname(input)).toBe(output[index]))
+    data.map((input, index) => expect(style.getClassname(input)).toBe(output[index]))
   })
   test('should return a empty string while not a json', () => {
-    ;[1, false, true, 'test'].map(v => expect(getClassname(v)).toBe(''))
+    ;[1, false, true, 'test'].map(v => expect(style.getClassname(v)).toBe(''))
   })
   test('should return a empty string while not in appoint', () => {
-    ;[{ color: 'hello' }, { test: 'primary' }, { test: 'test' }].map(v => expect(getClassname(v)).toBe(''))
+    ;[{ color: 'hello' }, { test: 'primary' }, { test: 'test' }].map(v => expect(style.getClassname(v)).toBe(''))
   })
 })
 
 describe('expose[getColor]', () => {
-  const color = { borderColor: '#fff' }
+  const colorConfig = { borderColor: '#fff' }
   const types = ['primary', 'warning', 'danger', 'success', 'secondary']
   beforeAll(() => {
-    window.getComputedStyle = () => color
+    window.getComputedStyle = () => colorConfig
   })
   test('should return color in types', () => {
     types.forEach(type => {
-      expect(getColor(type)).toBe(color.borderColor)
+      expect(color[type]).toBe(colorConfig.borderColor)
     })
-  })
-  test('should get empty string while not in types', () => {
-    expect(getColor('test')).toBe('')
   })
 })

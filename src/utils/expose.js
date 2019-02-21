@@ -22,18 +22,14 @@ function validateFormat(data) {
   return true
 }
 
-export function getClassname(data) {
+function getClassname(data) {
   if (!validateFormat(data)) return ''
   return Object.keys(data)
     .map(attr => exposeClass(`${data[attr]}-${attr}`))
     .join(' ')
 }
 
-export function getColor(type) {
-  if (types.indexOf(type) === -1) {
-    console.error(new Error(`The type your entered does not exist need[${types.join('/')}]`))
-    return ''
-  }
+function getColor(type) {
   // insert to body make render
   const className = exposeClass(`location-${type}`)
   const div = document.createElement('div')
@@ -43,4 +39,26 @@ export function getColor(type) {
   const color = window.getComputedStyle(document.querySelector(`.${className}`)).borderColor
   div.parentElement.removeChild(div)
   return color
+}
+
+export const color = {
+  get primary() {
+    return getColor('primary')
+  },
+  get warning() {
+    return getColor('warning')
+  },
+  get danger() {
+    return getColor('danger')
+  },
+  get success() {
+    return getColor('success')
+  },
+  get secondary() {
+    return getColor('secondary')
+  },
+}
+
+export const style = {
+  getClassname,
 }
