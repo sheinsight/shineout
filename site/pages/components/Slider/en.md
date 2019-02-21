@@ -16,3 +16,5 @@
 | value | number\|array\[number] | - | current value |
 | vertical | bool | false | Whether to be vertical |
 | autoHide | bool | false | Automatically hides the current value and scale |
+| disabled | bool | false | Disable component |
+| range | bool | false | Whether to display double slider |

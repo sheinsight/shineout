@@ -16,4 +16,5 @@
 | value | number\|array\[number] | 无 | 当前值 |
 | vertical | bool | false | 是否垂直 |
 | autoHide | bool | false | 是否自动隐藏当前值和刻度 |
-
+| disabled | bool | false | 是否禁用组件 |
+| range | bool | false | 是否显示双滑块 |
