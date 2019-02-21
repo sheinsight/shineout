@@ -1,9 +1,13 @@
 import ReactDOM from 'react-dom'
 import { popoverClass } from '../styles'
+import ready from '../utils/dom/ready'
 
 const div = document.createElement('div')
 div.style.display = 'none'
-document.body.appendChild(div)
+
+ready(() => {
+  document.body.appendChild(div)
+})
 
 const arrow = document.createElement('div')
 arrow.className = popoverClass('arrow')
@@ -39,9 +43,7 @@ div.addEventListener('mouseenter', () => {
 })
 
 export function show(props, id) {
-  const {
-    position, style, content, background, border, noArrow, type,
-  } = props
+  const { position, style, content, background, border, noArrow, type } = props
 
   // set current id
   currentId = id
@@ -49,7 +51,7 @@ export function show(props, id) {
   if (timer) clearTimeout(timer)
 
   div.style.cssText = 'display: none'
-  Object.keys(style).forEach((k) => {
+  Object.keys(style).forEach(k => {
     div.style[k] = style[k]
   })
 

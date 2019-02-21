@@ -66,7 +66,7 @@ class Root extends React.Component {
   }
 
   updateActive() {
-    Object.keys(this.items).forEach((id) => {
+    Object.keys(this.items).forEach(id => {
       const update = this.items[id]
       update(this.checkActive, this.state.activeKey)
     })
@@ -128,21 +128,13 @@ class Root extends React.Component {
   }
 
   render() {
-    const {
-      keygen, data, mode, style, theme, defaultOpenKeys, inlineIndent, disabled, height,
-    } = this.props
+    const { keygen, data, mode, style, theme, defaultOpenKeys, inlineIndent, disabled, height } = this.props
 
     const showScroll = (style.height || height) && mode === 'vertical'
 
     const className = classnames(
-      menuClass(
-        '_',
-        mode,
-        theme === 'dark' && 'dark',
-        showScroll && 'scroll',
-        this.state.hasOpen && 'has-open',
-      ),
-      this.props.className,
+      menuClass('_', mode, theme === 'dark' && 'dark', showScroll && 'scroll', this.state.hasOpen && 'has-open'),
+      this.props.className
     )
 
     const rootStyle = {}
@@ -154,12 +146,7 @@ class Root extends React.Component {
     }
 
     return (
-      <div
-        className={className}
-        onWheel={this.handleWheel}
-        ref={this.bindRootElement}
-        style={style}
-      >
+      <div className={className} onWheel={this.handleWheel} ref={this.bindRootElement} style={style}>
         <div className={menuClass('wrapper')}>
           <Provider value={this.providerValue}>
             <List
@@ -182,7 +169,7 @@ class Root extends React.Component {
           </Provider>
         </div>
 
-        { showScroll && this.renderScrollBar() }
+        {showScroll && this.renderScrollBar()}
       </div>
     )
   }
@@ -197,11 +184,7 @@ Root.propTypes = {
   inlineIndent: PropTypes.number,
   mode: PropTypes.oneOf(['inline', 'vertical', 'horizontal']),
   onClick: PropTypes.func,
-  renderItem: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-  ]),
-  scroll: PropTypes.bool,
+  renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 }
 
 Root.defaultProps = {
