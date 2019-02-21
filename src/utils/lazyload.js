@@ -31,7 +31,7 @@ export function dispatch() {
   isLock = true
 
   // handle
-  Object.keys(components).forEach((k) => {
+  Object.keys(components).forEach(k => {
     const { element, render } = components[k]
     const rect = element.getBoundingClientRect()
     if (rect.bottom < 0 || rect.top > winHeight) return
@@ -44,11 +44,15 @@ export function dispatch() {
 }
 
 // scroll event
-document.addEventListener('scroll', () => {
-  if (timeout) clearTimeout(timeout)
+document.addEventListener(
+  'scroll',
+  () => {
+    if (timeout) clearTimeout(timeout)
 
-  timeout = setTimeout(() => {
-    dispatch()
-    timeout = null
-  }, throttle)
-}, eventPassive)
+    timeout = setTimeout(() => {
+      dispatch()
+      timeout = null
+    }, throttle)
+  },
+  eventPassive
+)

@@ -9,7 +9,7 @@ const input = compose(
   inputable,
   inputBorder({}),
   delay(400),
-  trim,
+  trim
 )
 
 const Textarea = input(Component)

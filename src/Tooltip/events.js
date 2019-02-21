@@ -1,8 +1,12 @@
 import { tooltipClass } from '../styles'
+import ready from '../utils/dom/ready'
 
 const div = document.createElement('div')
 div.style.display = 'none'
-document.body.appendChild(div)
+
+ready(() => {
+  document.body.appendChild(div)
+})
 
 const arrow = document.createElement('div')
 arrow.className = tooltipClass('arrow')
