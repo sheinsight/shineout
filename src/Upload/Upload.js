@@ -158,7 +158,18 @@ class Upload extends PureComponent {
   }
 
   uploadFile(id, file, data) {
-    const { onSuccess, name, htmlName, cors, params, withCredentials, headers, request, onProgress } = this.props
+    const {
+      onSuccess,
+      name,
+      htmlName,
+      cors,
+      params,
+      withCredentials,
+      headers,
+      request,
+      onProgress,
+      onStart,
+    } = this.props
 
     const req = request || defaultRequest
     let throttle = false
@@ -171,6 +182,8 @@ class Upload extends PureComponent {
       withCredentials,
       file,
       headers,
+
+      onStart,
 
       onProgress: (e, msg) => {
         const percent = typeof e.percent === 'number' ? e.percent : (e.loaded / e.total) * 100
@@ -342,6 +355,7 @@ Upload.propTypes = {
   customResult: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
   style: PropTypes.object,
   withCredentials: PropTypes.bool,
+  onStart: PropTypes.func,
 }
 
 Upload.defaultProps = {

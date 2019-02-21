@@ -17,19 +17,14 @@ class ImageFile extends PureComponent {
   }
 
   render() {
-    const {
-      process, status, style, data, message,
-    } = this.props
+    const { process, status, style, data, message } = this.props
     const className = uploadClass('image-item', status === ERROR && 'error')
 
     return (
       <div style={style} className={className}>
-        {
-          data &&
-          <Image src={data} fit="center" width="auto" height={0} className={uploadClass('image-bg')} />
-        }
+        {data && <Image src={data} fit="center" width="auto" height={0} className={uploadClass('image-bg')} />}
 
-        { message && <div className={uploadClass('message')}>{message}</div> }
+        {message && <div className={uploadClass('message')}>{message}</div>}
 
         <a className={uploadClass('delete')} onClick={this.handleRemove} href="javascript:;">
           {icons.Close}
