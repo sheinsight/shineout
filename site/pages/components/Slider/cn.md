@@ -15,3 +15,5 @@
 | step | number | 1 | 步长，必须大于等于0；为0时，只能选取 scale 指定的值 |
 | value | number\|array\[number] | 无 | 当前值 |
 | vertical | bool | false | 是否垂直 |
+| autoHide | bool | false | 是否自动隐藏当前值和刻度 |
+
