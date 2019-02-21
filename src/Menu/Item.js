@@ -47,7 +47,7 @@ class Item extends PureComponent {
 
   update(check, activePath) {
     const isActive = check(this.id, this.props.data)
-    const isHighLight = activePath ? activePath.indexOf(this.id) > -1 : false
+    const isHighLight = activePath && isActive ? activePath.indexOf(this.id) > -1 : false
 
     this.setState({ isActive, isHighLight })
   }
@@ -75,9 +75,11 @@ class Item extends PureComponent {
     if (data.disabled) return
 
     if (mode === 'inline') {
-      this.setState(immer((state) => {
-        state.open = !state.open
-      }))
+      this.setState(
+        immer(state => {
+          state.open = !state.open
+        })
+      )
     }
 
     if (typeof data.onClick === 'function') {
@@ -89,8 +91,17 @@ class Item extends PureComponent {
 
   render() {
     const {
-      data, renderItem, mode, keygen, level, onClick, inlineIndent,
-      defaultOpenKeys, disabled, toggleOpenKeys, bottomLine,
+      data,
+      renderItem,
+      mode,
+      keygen,
+      level,
+      onClick,
+      inlineIndent,
+      defaultOpenKeys,
+      disabled,
+      toggleOpenKeys,
+      bottomLine,
     } = this.props
     const { open, isActive, isHighLight } = this.state
     const { children = [] } = data
@@ -99,7 +110,7 @@ class Item extends PureComponent {
 
     let isUp = false
     if (mode === 'vertical' && this.element) {
-      isUp = (this.element.getBoundingClientRect().bottom + 60) > bottomLine
+      isUp = this.element.getBoundingClientRect().bottom + 60 > bottomLine
     }
 
     const className = menuClass(
@@ -109,13 +120,13 @@ class Item extends PureComponent {
       isActive && 'active',
       open && 'open',
       isUp && 'open-up',
-      isHighLight && 'highlight',
+      isHighLight && 'highlight'
     )
 
     const style = {}
     const events = {}
     if (mode === 'inline') {
-      style.paddingLeft = 20 + (level * inlineIndent)
+      style.paddingLeft = 20 + level * inlineIndent
     } else {
       events.onMouseEnter = this.handleMouseEnter
       events.onMouseLeave = this.handleMouseLeave
@@ -126,12 +137,7 @@ class Item extends PureComponent {
       item = cloneElement(item, { className: menuClass('title') })
     } else {
       item = (
-        <a
-          href="javascript:;"
-          className={menuClass('title')}
-          style={style}
-          onClick={this.handleClick}
-        >
+        <a href="javascript:;" className={menuClass('title')} style={style} onClick={this.handleClick}>
           {item}
         </a>
       )
@@ -140,8 +146,7 @@ class Item extends PureComponent {
     return (
       <li className={className} {...events} ref={this.bindElement}>
         {item}
-        {
-          children.length > 0 &&
+        {children.length > 0 && (
           <List
             data={children}
             defaultOpenKeys={defaultOpenKeys}
@@ -156,7 +161,7 @@ class Item extends PureComponent {
             open={open}
             toggleOpenKeys={toggleOpenKeys}
           />
-        }
+        )}
       </li>
     )
   }
@@ -167,10 +172,7 @@ Item.propTypes = {
   bottomLine: PropTypes.number,
   data: PropTypes.object,
   defaultOpenKeys: PropTypes.array,
-  disabled: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.bool,
-  ]),
+  disabled: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   index: PropTypes.number,
   inlineIndent: PropTypes.number,
   level: PropTypes.number,
