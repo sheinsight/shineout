@@ -1,0 +1,38 @@
+@import './variables.less';
+@import './themes/@{so-theme}.less';
+
+@types: primary, warning, danger, success, secondary;
+@attrs: background, color, border;
+
+.borderMixin(@attr, @type) when (@attr = border){
+  @color-var-name: %('colors-%s', @type);
+  border-color: @@color-var-name;
+}
+.backgroundMixin(@attr, @type) when (@attr = background){
+  @color-var-name: %('colors-%s', @type);
+  background-color: @@color-var-name;
+}
+.colorMixin(@attr, @type) when (@attr = color){
+  @color-var-name: %('colors-%s', @type);
+  color: @@color-var-name;
+}
+.generate-attrs(@data, @n, @type, @i: 1) when (@i =< @n) {
+  @name: extract(@attrs, @i);
+  &-@{name} {
+    .borderMixin(@name, @type);
+    .backgroundMixin(@name, @type);
+    .colorMixin(@name, @type);
+  }
+  .generate-attrs(@data, @n, @type, (@i + 1));
+}
+.generate-types(@data, @n, @i: 1) when (@i =< @n) {
+  @name: extract(@types, @i);
+  &-@{name} {
+    .generate-attrs(@attrs, 3, @name)
+  }
+  .generate-types(@data, @n, (@i + 1));
+}
+
+.@{so-prefix}{
+  .generate-types(@types, 5);
+}

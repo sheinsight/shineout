@@ -32,6 +32,7 @@ import progressLess from './progress.less'
 import uploadLess from './upload.less'
 import carouselLess from './carousel.less'
 import cascaderLess from './cascader.less'
+import './classname.less'
 
 export const alertClass = genaration(alertLess, 'alert')
 export const buttonClass = genaration(buttonLess, 'button')
