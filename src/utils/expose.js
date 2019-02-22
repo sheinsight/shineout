@@ -36,7 +36,7 @@ function getColor(type) {
   div.className = className
   document.body.appendChild(div)
   // get color
-  const color = window.getComputedStyle(document.querySelector(`.${className}`)).borderColor
+  const color = window.getComputedStyle(document.querySelector(`.${className}`)).textDecorationColor
   div.parentElement.removeChild(div)
   return color
 }
