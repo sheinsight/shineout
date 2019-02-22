@@ -28,6 +28,7 @@
 | validator | object | 无 | 上传前文件校验 |
 | value | array | \[] | defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖<br />在Form中，value会被表单接管，value无效 |
 | withCredentials | bool | false | 是否携带 cookie |
+| multiple | bool | false | 是否支持多选文件 |
 
 
 ### Image
