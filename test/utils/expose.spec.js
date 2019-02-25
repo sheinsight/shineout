@@ -66,14 +66,14 @@ describe('expose[getClassname]', () => {
 })
 
 describe('expose[getColor]', () => {
-  const colorConfig = { borderColor: '#fff' }
+  const colorConfig = { textDecorationColor: '#fff' }
   const types = ['primary', 'warning', 'danger', 'success', 'secondary']
   beforeAll(() => {
     window.getComputedStyle = () => colorConfig
   })
   test('should return color in types', () => {
     types.forEach(type => {
-      expect(color[type]).toBe(colorConfig.borderColor)
+      expect(color[type]).toBe(colorConfig.textDecorationColor)
     })
   })
 })
