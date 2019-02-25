@@ -41,3 +41,11 @@
 | ext | func(string):Error | Judge the file extension, return the Error when the verification fails. |
 | size | func(number):Error | Judge the size of the file and return the Error when the verification fails. |
 | imageSize | func(Image):Error | It is only valid for Image to determine the size of images and return the Error when the verification fails. |
+
+### Button
+
+| Property | Type | Default | Description |
+| --- | --- | --- | --- |
+| type | string | primary | options: \['primary', success', 'info', 'warning', 'danger'\] |
+| placeholder | string \| ReactElement | none | button default content |
+| loading | string \| ReactElement | none | content of uploading, will have spin if a string |

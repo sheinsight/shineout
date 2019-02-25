@@ -256,4 +256,72 @@
       }
     }
   }
+
+  &-bprogress {
+    user-select: none;
+    border: 1px solid @btn-primary-border;
+    color: @progress-bar-color;
+    position: relative;
+    background: @colors-primary;
+    .button-size(@btn-padding-y; @btn-padding-x; @font-size-base; @line-height-base; @btn-border-radius-base);
+    .@{upload-prefix}-stream{
+      z-index: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      color: @btn-default-bg;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      transition: right 0.2s ease-in-out;
+      > span{
+        display: inline-block;
+        margin: 6px 12px;
+      }
+      .@{so-prefix}-spin-ring{
+        border-top-color: #fff !important;
+      }
+    }
+    &.@{upload-prefix}-uploading{
+      background: @btn-default-bg;
+      color: @btn-default-color;
+      cursor: @cursor-disabled;
+      opacity: 0.85;
+    }
+    &.@{upload-prefix}-bprogress-success {
+      background: @colors-success;
+      border-color: @btn-success-border;
+    }
+
+    &.@{upload-prefix}-bprogress-info {
+      background: @colors-info;
+      border-color: @btn-info-border;
+    }
+
+    &.@{upload-prefix}-bprogress-warning {
+      background: @colors-warning;
+    }
+
+    &.@{upload-prefix}-bprogress-error, &.@{upload-prefix}-bprogress-danger {
+      background: @colors-danger;
+      border-color: @btn-danger-border;
+    }
+  }
+
+  @types: primary, success, info, warning, error, danger;
+  @colors: @colors-primary, @colors-success, @colors-info, @colors-warning, @colors-danger, @colors-danger;
+  @border-colors: @btn-primary-border, @btn-success-border, @btn-info-border, @btn-warning-border, @btn-danger-border, @btn-danger-color;
+
+  .for(@data, @i: 1) when(@i =< length(@data)) {
+    @type: extract(@data, @i);
+    &-bprogress-@{type} {
+      background: extract(@colors, @i);
+      border-color: extract(@border-colors, @i);
+    }
+    &-border-@{type} {
+      border-color: extract(@border-colors, @i);
+    }
+    .for(@data, (@i + 1));
+  }
+  .for(@types);
 }
