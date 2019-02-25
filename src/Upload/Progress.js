@@ -6,9 +6,9 @@ import { PureComponent } from '../component'
 import { uploadClass } from '../styles'
 import Upload from './Upload'
 
-const SPIN = (
+const SPIN = color => (
   <span style={{ display: 'inline-block', marginRight: 8 }}>
-    <Spin size={10} name="ring" />
+    <Spin size={10} name="ring" color={color} />
   </span>
 )
 
@@ -51,13 +51,13 @@ class Progress extends PureComponent {
     if (uploading) e.stopPropagation()
   }
 
-  renderLoadingView() {
+  renderLoadingView(color) {
     const { placeholder, loading } = this.props
     return isValidElement(loading) ? (
       <span>{loading}</span>
     ) : (
       <span>
-        {SPIN}
+        {SPIN(color)}
         {typeof loading === 'string' ? loading : placeholder}
       </span>
     )
@@ -71,7 +71,6 @@ class Progress extends PureComponent {
       this.props.className,
       uploading ? uploadClass('uploading', `border-${type}`) : uploadClass(`bprogress-${type}`)
     )
-    const loadingView = this.renderLoadingView()
     const style = {
       right: uploading ? `${100 - this.state.progress}%` : '100%',
     }
@@ -87,10 +86,10 @@ class Progress extends PureComponent {
         <div className={wrapperClassname} onClick={this.handleUpload}>
           {uploading && (
             <div style={style} className={uploadClass(`bprogress-${type}`, 'stream')}>
-              {loadingView}
+              {this.renderLoadingView('#fff')}
             </div>
           )}
-          <span>{uploading ? loadingView : placeholder}</span>
+          <span>{uploading ? this.renderLoadingView() : placeholder}</span>
         </div>
       </Upload>
     )
