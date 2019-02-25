@@ -34,8 +34,8 @@ const examples = [
   {
     name: '03-button',
     title: locate(
-      '按钮上传 \n 使用按钮展示单个文件的上传进度',
-      'Button \n Use button to show the upload progress of individual files'
+      '按钮上传 \n 使用 Upload.Button 展示单个文件的上传进度',
+      'Button \n Use Upload.Button to show the upload progress of individual files'
     ),
     component: require('doc/pages/components/Upload/example-03-button.js').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-03-button.js'),

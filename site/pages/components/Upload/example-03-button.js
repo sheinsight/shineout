@@ -1,8 +1,8 @@
 /**
  * cn - 按钮上传
- *    -- 使用按钮展示单个文件的上传进度
+ *    -- 使用 Upload.Button 展示单个文件的上传进度
  * en - Button
- *    -- Use button to show the upload progress of individual files
+ *    -- Use Upload.Button to show the upload progress of individual files
  */
 import React from 'react'
 import { Upload } from 'shineout'
