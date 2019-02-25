@@ -6,7 +6,7 @@ export const TRANSFORMS = {
   transform: 'transform',
 }
 
-let transform = 'transfrom'
+let transform = 'transform'
 export function getTransformName() {
   return transform
 }
@@ -22,7 +22,7 @@ export function has3d() {
   // Add it to the body to get the computed style.
   document.body.insertBefore(el, null)
 
-  Object.keys(TRANSFORMS).forEach((t) => {
+  Object.keys(TRANSFORMS).forEach(t => {
     if (el.style[t] !== undefined) {
       el.style[t] = 'translate3d(1px,1px,1px)'
       transform = t
@@ -32,7 +32,7 @@ export function has3d() {
 
   document.body.removeChild(el)
 
-  return (result !== undefined && result.length > 0 && result !== 'none')
+  return result !== undefined && result.length > 0 && result !== 'none'
 }
 
 /* eslint-disable */

@@ -9,7 +9,7 @@ import React from 'react'
 import { Textarea } from 'shineout'
 
 const renderInfo = value => {
-  if (value.length === 0) return null
+  if (!value || value.length === 0) return null
   const text = `${value.length} / 20`
   if (value.length <= 20) return text
   return new Error(text)

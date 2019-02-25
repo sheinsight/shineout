@@ -48,10 +48,8 @@ class Input extends PureComponent {
   }
 
   render() {
-    const {
-      type, value, defaultValue, digits, className, htmlName,
-      forceChange, onEnterPress, ...other
-    } = this.props
+    const { type, defaultValue, digits, className, htmlName, forceChange, onEnterPress, ...other } = this.props
+    const value = this.props.value == null ? '' : this.props.value
 
     return (
       <input
@@ -70,10 +68,7 @@ class Input extends PureComponent {
 
 Input.propTypes = {
   className: PropTypes.string,
-  defaultValue: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
+  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   digits: PropTypes.number,
   forceChange: PropTypes.func,
   htmlName: PropTypes.string,
@@ -82,15 +77,11 @@ Input.propTypes = {
   onEnterPress: PropTypes.func,
   onKeyUp: PropTypes.func,
   type: PropTypes.string,
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 }
 
 Input.defaultProps = {
   type: 'text',
-  value: '',
 }
 
 export default Input

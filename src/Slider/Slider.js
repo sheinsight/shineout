@@ -87,8 +87,6 @@ class Slider extends PureComponent {
       !vertical && index === 1 && 'right'
     )
 
-    console.log(this.props.value, length, style)
-
     return (
       <div ref={this.bindElement} style={style} className={className}>
         {this.renderResult()}

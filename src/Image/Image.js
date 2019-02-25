@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { addStack, removeStack } from '../utils/lazyload'
 import { imageClass } from '../styles'
-import showGellery from './events'
+import showGallery from './events'
 
 const PLACEHOLDER = 0
 const SRC = 1
@@ -73,7 +73,7 @@ class Image extends PureComponent {
     e.preventDefault()
     const { onClick, src, href } = this.props
     if (onClick) onClick()
-    else showGellery({ thumb: src, src: href || src })
+    else showGallery({ thumb: src, src: href || src })
   }
 
   renderType(src) {

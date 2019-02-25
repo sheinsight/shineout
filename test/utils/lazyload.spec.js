@@ -14,6 +14,3 @@ describe('lazyload.js[addStack-removeStack]', () => {
     // #todo: use enzyme to test
   })
 })
-
-describe('lazyload.js[dispatch]', () => {
-})

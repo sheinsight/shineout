@@ -1,4 +1,5 @@
 import * as is from '../../src/utils/is'
+import { beFalsy, beTruthy} from '../utils'
 
 describe('is.js[isArray]', () => {
   test('should return true if array', () => {
@@ -7,35 +8,34 @@ describe('is.js[isArray]', () => {
     expect(is.isArray(new Array())).toBeTruthy()
   })
   test('should return false if not array/array like', () => {
-    expect(is.isArray(new Set())).toBeFalsy()
-    expect(is.isArray(new Date())).toBeFalsy()
-    expect(is.isArray({ length: 1 })).toBeFalsy()
+    const test = [new Set(), new Date(), { length: 1 }]
+    test.forEach(value => {
+      expect(is.isArray(value)).toBeFalsy()
+    })
   })
 })
 
 describe('is.js[isUndef-isNotUndef]', () => {
   test('should return true if a undefined', () => {
-    expect(is.isUndef(null)).toBeTruthy()
-    expect(is.isUndef(undefined)).toBeTruthy()
-    expect(is.isNotUndef(null)).toBeFalsy()
-    expect(is.isNotUndef(undefined)).toBeFalsy()
+    const test = [null, undefined]
+    test.forEach(value => {
+      expect(is.isUndef(value)).toBeTruthy()
+      expect(is.isNotUndef(value)).toBeFalsy()
+    })
   })
   test('should return false if a false like', () => {
-    expect(is.isUndef(false)).toBeFalsy()
-    expect(is.isUndef(Object.create(null))).toBeFalsy()
-    expect(is.isUndef(0)).toBeFalsy()
-    expect(is.isUndef('')).toBeFalsy()
-    expect(is.isNotUndef(false)).toBeTruthy()
-    expect(is.isNotUndef(Object.create(null))).toBeTruthy()
-    expect(is.isNotUndef(0)).toBeTruthy()
-    expect(is.isNotUndef('')).toBeTruthy()
+    const test = [false, Object.create(null), 0, '']
+    test.forEach(value => {
+      expect(is.isUndef(value)).toBeFalsy()
+      expect(is.isNotUndef(value)).toBeTruthy()
+    })
   })
   test('should return false if a plain/refer object', () => {
-    expect(is.isUndef(1)).toBeFalsy()
-    expect(is.isUndef({})).toBeFalsy()
+    beFalsy(is.isUndef)(1)
+    beFalsy(is.isUndef)({})
 
-    expect(is.isNotUndef(1)).toBeTruthy()
-    expect(is.isNotUndef({})).toBeTruthy()
+    beTruthy(is.isNotUndef)(1)
+    beTruthy(is.isNotUndef)({})
   })
 })
 
@@ -45,103 +45,101 @@ describe('is.js[isNan]', () => {
     expect(is.isNan(Number('a'))).toBeTruthy()
   })
   test('should return false if not a NaN', () => {
-    expect(is.isNan(true)).toBeFalsy()
-    expect(is.isNan(false)).toBeFalsy()
-    expect(is.isNan({})).toBeFalsy()
-    expect(is.isNan(null)).toBeFalsy()
-    expect(is.isNan(Number.MAX_VALUE)).toBeFalsy()
-    expect(is.isNan(Number.MIN_VALUE)).toBeFalsy()
+    const test = [true, false, {}, null, Number.MAX_VALUE, Number.MIN_VALUE]
+    test.forEach(value => {
+      expect(is.isNan(value)).toBeFalsy()
+    })
   })
 })
 
 describe('is.js[isFunc]', () => {
   test('should return true if a func', () => {
-    // eslint-disable-next-line
-    expect(is.isFunc(function() {})).toBeTruthy()
-    // eslint-disable-next-line
-    expect(is.isFunc(()=> {})).toBeTruthy()
-    expect(is.isFunc(Date.constructor)).toBeTruthy()
-    expect(is.isFunc(class Test {}))
+    const test = [function() {}, () => {}, Date.constructor, class Test {}]
+    test.forEach(value => {
+      expect(is.isFunc(value)).toBeTruthy()
+    })
   })
   test('should return false if not a func', () => {
-    expect(is.isFunc(true)).toBeFalsy()
-    expect(is.isFunc(false)).toBeFalsy()
-    expect(is.isFunc({})).toBeFalsy()
-    expect(is.isFunc(null)).toBeFalsy()
+    const test = [true, false, {}, null]
+    test.forEach(value => {
+      expect(is.isFunc(value)).toBeFalsy()
+    })
   })
 })
 
 describe('is.js[isNumber]', () => {
   test('should be correct', () => {
-    expect(is.isNumber(1)).toBeTruthy()
-    expect(is.isNumber(Number(1))).toBeTruthy()
-    expect(is.isNumber(Number.MIN_VALUE)).toBeTruthy()
-    expect(is.isNumber(Number.MAX_VALUE)).toBeTruthy()
-    expect(is.isNumber({})).toBeFalsy()
-    expect(is.isNumber(null)).toBeFalsy()
+    const test = [1, Number(1), Number.MAX_VALUE, Number.MIN_VALUE]
+    test.forEach(value => {
+      expect(is.isNumber(value)).toBeTruthy()
+    })
+    beFalsy(is.isNumber)({})
+    beFalsy(is.isNumber)(null)
   })
 })
 
 describe('is.js[isObject]', () => {
   test('should be correct', () => {
-    expect(is.isObject(null)).toBeFalsy()
-    expect(is.isObject({})).toBeTruthy()
-    expect(is.isObject(false)).toBeFalsy()
-    expect(is.isObject(new Date())).toBeTruthy()
-    expect(is.isObject(() => {})).toBeFalsy()
-    expect(is.isObject(class Test {})).toBeFalsy()
+    beTruthy(is.isObject)({})
+    beTruthy(is.isObject)(new Date())
+
+    const falsy = beFalsy(is.isObject)
+    falsy(false)
+    falsy(() => {})
+    falsy(class Test {})
+    falsy(null)
   })
 })
 
 describe('is.js[isString]', () => {
   test('should be correct', () => {
-    expect(is.isString('')).toBeTruthy()
-    expect(is.isString(null)).toBeFalsy()
-    expect(is.isString('abc')).toBeTruthy()
-    expect(is.isString({})).toBeFalsy()
-    // eslint-disable-next-line
-    expect(is.isString(new String(''))).toBeFalsy()
+    beTruthy(is.isString)('')
+    beTruthy(is.isString)('abc')
+    const falsy = beFalsy(is.isString)
+    falsy(null)
+    falsy({})
+    falsy(new String(''))
   })
 })
 
 describe('is.js[isDate]', () => {
   test('should be correct', () => {
-    expect(is.isDate(new Date())).toBeTruthy()
-    expect(is.isDate('2019.1.1')).toBeFalsy()
-    expect(is.isDate(new Date('333'))).toBeTruthy()
-    expect(is.isDate(Date)).toBeFalsy()
+    beTruthy(is.isDate)(new Date())
+    beTruthy(is.isDate)(new Date('333'))
+    beFalsy(is.isDate)(Date)
+    beFalsy(is.isDate)('2019.1.1')
   })
 })
 
 describe('is.js[isError]', () => {
   test('should be correct', () => {
-    expect(is.isError(new Error())).toBeTruthy()
-    expect(is.isError({})).toBeFalsy()
-    expect(is.isEmpty(Error)).toBeFalsy()
+    beTruthy(is.isError)(new Error())
+    beFalsy(is.isError)({})
+    beFalsy(is.isError)(Error)
   })
 })
 
 describe('is.js[isRegexp]', () => {
   test('should be correct', () => {
-    expect(is.isRegexp(/hello/)).toBeTruthy()
-    expect(is.isRegexp(new RegExp('hello'))).toBeTruthy()
-    expect(is.isRegexp('hello')).toBeFalsy()
-    expect(is.isRegexp({})).toBeFalsy()
+    beTruthy(is.isRegexp)(/hello/)
+    beTruthy(is.isRegexp)(new RegExp('hello'))
+    beFalsy(is.isRegexp)('hello')
+    beFalsy(is.isRegexp)({})
   })
 })
 
 describe('is.js[isMap-isSet]', () => {
   test('shoule be correct', () => {
-    expect(is.isMap(new Map())).toBeTruthy()
-    expect(is.isMap({})).toBeFalsy()
-    expect(is.isSet(new Set())).toBeTruthy()
-    expect(is.isSet([])).toBeFalsy()
+    beTruthy(is.isMap)(new Map())
+    beTruthy(is.isSet)(new Set())
+    beFalsy(is.isSet)([])
+    beFalsy(is.isMap)({})
   })
 })
 
 describe('is.js[isPromise]', () => {
   test('should be correct', () => {
-    const promise = new Promise((resolve, reject) => {
+    const promise = new Promise(resolve => {
       resolve(1)
     })
     expect(is.isPromise(promise)).toBeTruthy()
@@ -152,32 +150,36 @@ describe('is.js[isPromise]', () => {
 
 describe('is.js[isInPath]', () => {
   test('should be correct', () => {
-    expect(is.isInPath('a', 'a.b')).toBeTruthy()
-    expect(is.isInPath('a', 'a[1]')).toBeTruthy()
-    expect(is.isInPath('b', 'a.c')).toBeFalsy()
-    expect(is.isInPath('', 'a.b')).toBeFalsy()
-    expect(is.isInPath('a', '')).toBeFalsy()
+    beTruthy(is.isInPath)('a', 'a.b')
+    beTruthy(is.isInPath)('a', 'a[1]')
+    const falsy = beFalsy(is.isInPath)
+    falsy('b', 'a.c')
+    falsy('', 'a.b')
+    falsy('a', '')
   })
 })
 
 describe('is.js[isEmpty]', () => {
   test('should be correct', () => {
-    expect(is.isEmpty(null)).toBeTruthy()
-    expect(is.isEmpty({})).toBeTruthy()
-    expect(is.isEmpty(0)).toBeFalsy()
-    expect(is.isEmpty([])).toBeTruthy()
-    expect(is.isEmpty([0])).toBeFalsy()
-    expect(is.isEmpty([undefined])).toBeFalsy()
+    const truthy = beTruthy(is.isEmpty)
+    truthy(null)
+    truthy({})
+    truthy([])
+    const falsy = beFalsy(is.isEmpty)
+    falsy(0)
+    falsy([0])
+    falsy([undefined])
   })
 })
 
 describe('is.js[isMergeable]', () => {
   test('should be correct', () => {
-    expect(is.isMergeable(null)).toBeFalsy()
-    expect(is.isMergeable(1)).toBeFalsy()
-    expect(is.isMergeable({})).toBeTruthy()
-    expect(is.isMergeable(new Date())).toBeFalsy()
-    expect(is.isMergeable([])).toBeFalsy()
+    beTruthy(is.isMergeable)({})
+    const falsy = beFalsy(is.isMergeable)
+    falsy(new Date())
+    falsy(null)
+    falsy(1)
+    falsy([])
   })
 })
 
@@ -192,18 +194,17 @@ describe('is.js[isBuffer]', () => {
 
 describe('is.js[isOne-isPercent-isInseparable]', () => {
   test('should be correct', () => {
+    beTruthy(is.isInseparable)(() => {})
+    beTruthy(is.isInseparable)(new Set())
+    beTruthy(is.isPercent)('100%')
+    beTruthy(is.isPercent)('1%')
     expect(is.isOne(1) && is.isOne('1.0')).toBeTruthy()
-    expect(is.isOne('11')).toBeFalsy()
-    expect(is.isOne('0')).toBeFalsy()
 
-    expect(is.isPercent('100%')).toBeTruthy()
-    expect(is.isPercent('100')).toBeFalsy()
-    expect(is.isPercent('1%')).toBeTruthy()
-    expect(is.isPercent('%')).toBeFalsy()
-    expect(is.isPercent('%323')).toBeFalsy()
-
-    expect(is.isInseparable({})).toBeFalsy()
-    expect(is.isInseparable(() => {})).toBeTruthy()
-    expect(is.isInseparable(new Set())).toBeTruthy()
+    beFalsy(is.isOne)('11')
+    beFalsy(is.isOne)('0')
+    beFalsy(is.isPercent)('%')
+    beFalsy(is.isPercent)('100')
+    beFalsy(is.isPercent)('%323')
+    beFalsy(is.isInseparable)({})
   })
 })

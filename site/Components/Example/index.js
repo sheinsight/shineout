@@ -1,4 +1,4 @@
-import React, { Component, Fragment, createElement } from 'react'
+import React, { useState, useRef, useEffect, Fragment, createElement } from 'react'
 import PropTypes from 'prop-types'
 import { Lazyload, Spin } from 'shineout'
 import Icon from 'doc/icons/Icon'
@@ -12,40 +12,17 @@ const placeholder = (
   </div>
 )
 
-export default class Example extends Component {
-  static propTypes = {
-    component: PropTypes.func.isRequired,
-    id: PropTypes.string,
-    name: PropTypes.string,
-    rawText: PropTypes.string,
-    title: PropTypes.string.isRequired,
-  }
+export default function Example({ component, id, name, rawText, title: propsTitle }) {
+  const codeblock = useRef(null)
+  const [showcode, setShowCode] = useState(false)
+  const [codeHeight, setCodeHeight] = useState()
+  let [bottom] = useState()
 
-  static defaultProps = {
-    rawText: '',
-  }
-
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      showcode: false,
-    }
-  }
-
-  setCodeBlockHeight = height => {
-    this.codeHeight = height
-  }
-
-  bindCodeBlock = el => {
-    this.codeblock = el
-  }
-
-  collapse(height, remain, isBottom) {
-    this.codeblock.style.height = `${height * (remain - 1)}px`
+  const collapse = (height, remain, isBottom) => {
+    codeblock.current.style.height = `${height * (remain - 1)}px`
     if (remain > 1) {
       setTimeout(() => {
-        this.collapse(height, remain - 1, isBottom)
+        collapse(height, remain - 1, isBottom)
       }, 16)
     }
     if (isBottom) {
@@ -53,73 +30,88 @@ export default class Example extends Component {
     }
   }
 
-  toggleCode(isBottom) {
-    const showcode = !this.state.showcode
-    this.setState({ showcode }, () => {
+  useEffect(
+    () => {
+      if (!codeblock.current) return
       if (showcode) {
-        this.codeblock.style.height = `${this.codeHeight}px`
+        codeblock.current.style.height = `${codeHeight}px`
       } else {
-        const y = this.codeHeight % 15
-        if (y > 0) this.collapse(y, 1, isBottom)
-        this.collapse((this.codeHeight - y) / 15, 15, isBottom)
+        const y = codeHeight % 15
+        if (y > 0) collapse(y, 1, bottom)
+        collapse((codeHeight - y) / 15, 15, bottom)
       }
-    })
+    },
+    [showcode]
+  )
+
+  const setCodeBlockHeight = height => {
+    setCodeHeight(height)
   }
 
-  renderCodeHandle(isBottom) {
-    const { showcode } = this.state
-    return (
-      <a href="javascript:;" className={exampleClass('toggle')} onClick={this.toggleCode.bind(this, isBottom)}>
-        <Icon name={showcode ? 'code-close' : 'code'} />
-      </a>
-    )
+  const toggleCode = isBottom => {
+    const showCode = !showcode
+    setShowCode(showCode)
+    bottom = isBottom
   }
 
-  render() {
-    const { component, id, name, rawText } = this.props
-    const { showcode } = this.state
+  const renderCodeHandle = isBottom => (
+    <a href="javascript:;" className={exampleClass('toggle')} onClick={toggleCode.bind(null, isBottom)}>
+      <Icon name={showcode ? 'code-close' : 'code'} />
+    </a>
+  )
 
-    const text = rawText.replace(/(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/, '').trim()
+  const text = rawText.replace(/(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/, '').trim()
 
-    let { search } = history.location
-    const examplePrefix = '?example='
-    if (search.indexOf(examplePrefix) === 0) {
-      search = search.replace(examplePrefix, '')
-      if (name.indexOf(search) < 0) return null
-    }
+  let { search } = history.location
+  const examplePrefix = '?example='
+  if (search.indexOf(examplePrefix) === 0) {
+    search = search.replace(examplePrefix, '')
+    if (name.indexOf(search) < 0) return null
+  }
 
-    // eslint-disable-next-line
-    let [title, ...sub] = this.props.title.split('\n')
-    if (title) title = title.trim()
+  // eslint-disable-next-line
+  let [title, ...sub] = propsTitle.split('\n')
+  if (title) title = title.trim()
 
-    return (
-      <Fragment>
-        {title && (
-          <h3 key="0" id={id}>
-            {title}
-          </h3>
-        )}
+  return (
+    <Fragment>
+      {title && (
+        <h3 key="0" id={id}>
+          {title}
+        </h3>
+      )}
 
-        <Lazyload placeholder={placeholder}>
-          <div className={exampleClass('_', showcode && 'showcode')}>
-            <div className={exampleClass('body')}>{createElement(component)}</div>
+      <Lazyload placeholder={placeholder}>
+        <div className={exampleClass('_', showcode && 'showcode')}>
+          <div className={exampleClass('body')}>{createElement(component)}</div>
 
-            {this.props.title.length > 0 && (
-              <div className={exampleClass('desc')}>
-                {sub.map((s, i) => (
-                  <div key={i} dangerouslySetInnerHTML={{ __html: s }} />
-                ))}
-                {this.renderCodeHandle(false)}
-              </div>
-            )}
-
-            <div ref={this.bindCodeBlock} className={exampleClass('code')}>
-              <CodeBlock onHighLight={this.setCodeBlockHeight} onClose={this.toggleCode} value={text} />
-              {this.renderCodeHandle(true)}
+          {propsTitle.length > 0 && (
+            <div className={exampleClass('desc')}>
+              {sub.map((s, i) => (
+                <div key={i} dangerouslySetInnerHTML={{ __html: s }} />
+              ))}
+              {renderCodeHandle(false)}
             </div>
+          )}
+
+          <div ref={codeblock} className={exampleClass('code')}>
+            <CodeBlock onHighLight={setCodeBlockHeight} onClose={toggleCode} value={text} />
+            {renderCodeHandle(true)}
           </div>
-        </Lazyload>
-      </Fragment>
-    )
-  }
+        </div>
+      </Lazyload>
+    </Fragment>
+  )
+}
+
+Example.propTypes = {
+  component: PropTypes.func.isRequired,
+  id: PropTypes.string,
+  name: PropTypes.string,
+  rawText: PropTypes.string,
+  title: PropTypes.string.isRequired,
+}
+
+Example.defaultProps = {
+  rawText: '',
 }

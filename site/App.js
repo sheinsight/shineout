@@ -1,4 +1,4 @@
-import React, { PureComponent, lazy, Suspense } from 'react'
+import React, { useState, lazy, Suspense, useEffect } from 'react'
 import { Router, Route, Switch } from 'react-router-dom'
 import history from './history'
 import Header from './Header'
@@ -9,53 +9,46 @@ const Home = lazy(() => import(/* webpackChunkName: "Home" */ './pages/Home'))
 const Components = lazy(() => import(/* webpackChunkName: "Components" */ './chunks/Components'))
 const Documentation = lazy(() => import(/* webpackChunkName: "Documentation" */ './pages/documentation'))
 
-class App extends PureComponent {
-  constructor(props) {
-    super(props)
+const App = () => {
+  const [versions, setVersions] = useState([])
+  const [lastPath, setLastPath] = useState()
 
-    this.state = {
-      versions: [],
-    }
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     window.addEventListener('hashchange', () => {
       const [, path] = window.location.hash.split('#')
 
-      if (this.lastPath !== path) {
+      if (lastPath !== path) {
         document.documentElement.scrollTop = 0
-        this.lastPath = path
+        setLastPath(path)
       }
     })
 
     fetch('../versions.json')
       .then(res => res.json())
       .then(json => {
-        const versions = json.map(v => ({ content: v, url: `../${v}` }))
-        this.setState({ versions })
+        const jsonVersions = json.map(v => ({ content: v, url: `../${v}` }))
+        setVersions(jsonVersions)
       })
       .catch(() => {})
-  }
+  }, [])
 
-  render() {
-    return (
-      <Router history={history}>
-        <div>
-          <Header versions={this.state.versions} />
+  return (
+    <Router history={history}>
+      <div>
+        <Header versions={versions} />
 
-          <div className={mainClass('body')}>
-            <Suspense fallback={<Loading />}>
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/components" component={Components} />
-                <Route path="/documentation" component={Documentation} />
-              </Switch>
-            </Suspense>
-          </div>
+        <div className={mainClass('body')}>
+          <Suspense fallback={<Loading />}>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/components" component={Components} />
+              <Route path="/documentation" component={Documentation} />
+            </Switch>
+          </Suspense>
         </div>
-      </Router>
-    )
-  }
+      </div>
+    </Router>
+  )
 }
 
 export default App

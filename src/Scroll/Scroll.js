@@ -15,6 +15,9 @@ class Scroll extends PureComponent {
   constructor(props) {
     super(props)
 
+    this.touchStartX = 0
+    this.touchStartY = 0
+
     this.pixelX = 0
     this.pixelY = 0
 
@@ -28,17 +31,27 @@ class Scroll extends PureComponent {
     this.handleScrollY = this.handleScrollY.bind(this)
     this.handleWheel = this.handleWheel.bind(this)
     this.bindIframe = this.bindIframe.bind(this)
+    this.handleTouchStart = this.handleTouchStart.bind(this)
+    this.handleTouchMove = this.handleTouchMove.bind(this)
+    this.setStartPoint = this.setStartPoint.bind(this)
   }
 
   componentDidMount() {
     super.componentDidMount()
     setTimeout(this.setRect)
+    this.wheelElement.addEventListener('touchstart', this.handleTouchStart)
+    this.wheelElement.addEventListener('touchmove', this.handleTouchMove, { passive: false })
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.scrollWidth !== prevProps.scrollWidth) {
       this.setRect()
     }
+  }
+
+  componentWillUnmount() {
+    this.wheelElement.removeEventListener('touchstart', this.handleTouchStart)
+    this.wheelElement.removeEventListener('touchmove', this.handleTouchMove)
   }
 
   getWheelRect() {
@@ -75,6 +88,11 @@ class Scroll extends PureComponent {
     }
   }
 
+  setStartPoint(position) {
+    this.touchStartX = position.clientX
+    this.touchStartY = position.clientY
+  }
+
   bindInner(el) {
     this.inner = el
   }
@@ -109,10 +127,10 @@ class Scroll extends PureComponent {
 
     const { left, top } = this.props
     const { scrollWidth, scrollHeight } = this.props
-    let x = left + (this.pixelX / scrollWidth)
+    let x = left + this.pixelX / scrollWidth
     if (x < 0) x = 0
     if (x > 1) x = 1
-    let y = top + (this.pixelY / scrollHeight)
+    let y = top + this.pixelY / scrollHeight
     if (y < 0) y = 0
     if (y > 1) y = 1
 
@@ -149,7 +167,7 @@ class Scroll extends PureComponent {
   handleScroll(x, y, pixelX, pixelY) {
     const { scrollWidth } = this.props
     const { width, height } = this.getWheelRect()
-    const max = Math.round((1 - (width / scrollWidth)) * scrollWidth)
+    const max = Math.round((1 - width / scrollWidth) * scrollWidth)
     if (this.props.onScroll) {
       this.props.onScroll(x, y, max, this.inner, width, height, pixelX, pixelY)
     }
@@ -163,32 +181,40 @@ class Scroll extends PureComponent {
     this.handleScroll(this.props.left, top)
   }
 
+  handleTouchStart(e) {
+    this.setStartPoint(e.changedTouches[0])
+  }
+
+  handleTouchMove(e) {
+    const { scrollX, scrollY } = this.props
+    e.preventDefault()
+    const position = e.changedTouches[0]
+    const moveX = position.clientX - this.touchStartX
+    const moveY = position.clientY - this.touchStartY
+
+    if (scrollX) this.pixelX = -moveX
+    if (scrollY) this.pixelY = -moveY
+
+    // need reset the start
+    this.setStartPoint(position)
+
+    this.boundleScroll()
+  }
+
   render() {
-    const {
-      children, scrollWidth, scrollHeight, left, top, scrollX, scrollY, style,
-    } = this.props
+    const { children, scrollWidth, scrollHeight, left, top, scrollX, scrollY, style } = this.props
     const { width, height } = this.getWheelRect()
 
-    const className = classnames(
-      scrollClass(
-        '_',
-        scrollX && 'show-x',
-        scrollY && 'show-y',
-      ),
-      this.props.className,
-    )
+    const className = classnames(scrollClass('_', scrollX && 'show-x', scrollY && 'show-y'), this.props.className)
 
     return (
       <div onWheel={this.handleWheel} style={style} ref={this.bindWheel} className={className}>
         <iframe title="scroll" ref={this.bindIframe} className={scrollClass('iframe')} />
         <div className={scrollClass('iframe')} />
         <div ref={this.bindInner} className={scrollClass('inner')}>
-          <Provider value={{ left: left * width, top: top * height, element: this.wheelElement }}>
-            { children }
-          </Provider>
+          <Provider value={{ left: left * width, top: top * height, element: this.wheelElement }}>{children}</Provider>
         </div>
-        {
-          scrollY &&
+        {scrollY && (
           <Bar
             direction="y"
             length={scrollHeight < height ? scrollHeight : height}
@@ -197,17 +223,10 @@ class Scroll extends PureComponent {
             offset={top}
             onScroll={this.handleScrollY}
           />
-        }
-        {
-          scrollX &&
-          <Bar
-            direction="x"
-            length={width}
-            scrollLength={scrollWidth}
-            offset={left}
-            onScroll={this.handleScrollX}
-          />
-        }
+        )}
+        {scrollX && (
+          <Bar direction="x" length={width} scrollLength={scrollWidth} offset={left} onScroll={this.handleScrollX} />
+        )}
       </div>
     )
   }

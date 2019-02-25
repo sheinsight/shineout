@@ -19,5 +19,5 @@ const columns = [
 ]
 
 export default function() {
-  return <Table keygen="id" striped bordered columns={columns} data={data} style={{ height: 300 }} />
+  return <Table keygen="id" striped bordered columns={columns} data={data} />
 }

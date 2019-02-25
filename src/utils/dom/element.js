@@ -1,8 +1,11 @@
 if (Element && !Element.prototype.matches) {
   const proto = Element.prototype
-  proto.matches = proto.matchesSelector ||
-      proto.mozMatchesSelector || proto.msMatchesSelector ||
-      proto.oMatchesSelector || proto.webkitMatchesSelector
+  proto.matches =
+    proto.matchesSelector ||
+    proto.mozMatchesSelector ||
+    proto.msMatchesSelector ||
+    proto.oMatchesSelector ||
+    proto.webkitMatchesSelector
 }
 
 export function getParent(el, target) {

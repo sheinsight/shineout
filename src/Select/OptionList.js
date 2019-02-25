@@ -26,6 +26,7 @@ class OptionList extends Component {
     this.handleHover = this.handleHover.bind(this)
     this.handleScroll = this.handleScroll.bind(this)
     this.handleMouseMove = this.handleMouseMove.bind(this)
+    this.renderList = this.renderList.bind(this)
 
     this.lastScrollTop = 0
 
@@ -68,7 +69,7 @@ class OptionList extends Component {
 
     const scrollTop = hoverIndex / max
     const offset = scrollTop * height
-    const emptyHeight = (hoverIndex * lineHeight) + offset
+    const emptyHeight = hoverIndex * lineHeight + offset
 
     if (emptyHeight < this.lastScrollTop + offset) {
       // absolute at top
@@ -84,7 +85,7 @@ class OptionList extends Component {
       // absolute at bottom
 
       this.optionInner.style.marginTop = `${offset}px`
-      const scrollHeight = (emptyHeight + lineHeight) - height
+      const scrollHeight = emptyHeight + lineHeight - height
       setTranslate(this.optionInner, '0px', `-${scrollHeight}px`)
       this.lastScrollTop = scrollHeight - offset
 
@@ -104,7 +105,7 @@ class OptionList extends Component {
   handleScroll(x, y, max, bar, v, h, pixelX, pixelY) {
     const { data, itemsInView, lineHeight } = this.props
     const fullHeight = itemsInView * lineHeight
-    const contentHeight = (data.length * lineHeight) - h
+    const contentHeight = data.length * lineHeight - h
     let scrollTop = h > fullHeight ? 0 : y
 
     this.optionInner.style.marginTop = `${scrollTop * h}px`
@@ -125,7 +126,7 @@ class OptionList extends Component {
     if (data.length - itemsInView < index) index = data.length - itemsInView
     if (index < 0) index = 0
 
-    setTranslate(this.optionInner, '0px', `-${this.lastScrollTop + (scrollTop * h)}px`)
+    setTranslate(this.optionInner, '0px', `-${this.lastScrollTop + scrollTop * h}px`)
 
     this.setState({ scrollTop, currentIndex: index })
   }
@@ -140,19 +141,68 @@ class OptionList extends Component {
     this.props.onControlChange('mouse')
   }
 
-  render() {
+  renderList() {
     const {
-      data, datum, keygen, multiple, itemsInView, lineHeight, height, control,
-      loading, renderItem, focus, onChange, style, renderPending, selectId,
+      loading,
+      data,
+      renderPending,
+      height,
+      lineHeight,
+      itemsInView,
+      datum,
+      keygen,
+      multiple,
+      onChange,
+      renderItem,
     } = this.props
     const { hoverIndex, currentIndex } = this.state
 
     let scroll = ''
-    let scrollHeight = lineHeight * data.length
+    const scrollHeight = lineHeight * data.length
     if (height < scrollHeight) {
       scroll = 'y'
-      scrollHeight = height
     }
+    if (loading)
+      return (
+        <span className={selectClass('option')}>{typeof loading === 'boolean' ? <Spin size={20} /> : loading}</span>
+      )
+    if (data.length === 0 || renderPending)
+      return <span className={selectClass('option')}>{this.getText('noData')}</span>
+    return (
+      <Scroll
+        scroll={scroll}
+        style={{ height: scroll ? height : undefined }}
+        onScroll={this.handleScroll}
+        scrollHeight={data.length * lineHeight}
+        scrollTop={this.state.scrollTop}
+      >
+        <div
+          ref={el => {
+            this.optionInner = el
+          }}
+        >
+          <div style={{ height: currentIndex * lineHeight }} />
+          {data.slice(currentIndex, currentIndex + itemsInView).map((d, i) => (
+            <Option
+              isActive={datum.check(d)}
+              disabled={datum.disabled(d)}
+              isHover={hoverIndex === currentIndex + i}
+              key={getKey(d, keygen, i)}
+              index={currentIndex + i}
+              data={d}
+              multiple={multiple}
+              onClick={onChange}
+              renderItem={renderItem}
+              onHover={this.handleHover}
+            />
+          ))}
+        </div>
+      </Scroll>
+    )
+  }
+
+  render() {
+    const { control, focus, style, selectId } = this.props
 
     return (
       <ScaleList
@@ -162,45 +212,7 @@ class OptionList extends Component {
         data-id={selectId}
         className={selectClass('options', `control-${control}`)}
       >
-        {
-          // eslint-disable-next-line
-          loading ?
-            <span className={selectClass('option')}>
-              {typeof loading === 'boolean' ? <Spin size={20} /> : loading}
-            </span>
-            : (data.length === 0 || renderPending
-              ? <span className={selectClass('option')}>{this.getText('noData')}</span>
-              : (
-                <Scroll
-                  scroll={scroll}
-                  style={{ height: scroll ? height : undefined }}
-                  onScroll={this.handleScroll}
-                  scrollHeight={data.length * lineHeight}
-                  scrollTop={this.state.scrollTop}
-                >
-                  <div ref={(el) => { this.optionInner = el }}>
-                    <div style={{ height: currentIndex * lineHeight }} />
-                    {
-                      data.slice(currentIndex, currentIndex + itemsInView).map((d, i) => (
-                        <Option
-                          isActive={datum.check(d)}
-                          disabled={datum.disabled(d)}
-                          isHover={hoverIndex === currentIndex + i}
-                          key={getKey(d, keygen, i)}
-                          index={currentIndex + i}
-                          data={d}
-                          multiple={multiple}
-                          onClick={onChange}
-                          renderItem={renderItem}
-                          onHover={this.handleHover}
-                        />
-                      ))
-                    }
-                  </div>
-                </Scroll>
-              )
-            )
-        }
+        {this.renderList()}
       </ScaleList>
     )
   }
@@ -215,17 +227,11 @@ OptionList.propTypes = {
   itemsInView: PropTypes.number,
   keygen: PropTypes.any,
   lineHeight: PropTypes.number,
-  loading: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.bool,
-  ]),
+  loading: PropTypes.oneOfType([PropTypes.element, PropTypes.bool]),
   multiple: PropTypes.bool,
   onControlChange: PropTypes.func,
   onChange: PropTypes.func,
-  renderItem: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-  ]),
+  renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   renderPending: PropTypes.bool,
   selectId: PropTypes.string,
   bindOptionFunc: PropTypes.func.isRequired,

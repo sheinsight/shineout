@@ -22,3 +22,4 @@
 | repeat | bool | true | 为 true 时，显示的选项为当前分值对应选项的复制 |
 | size | number \| string | 20 | 图标大小 |
 | value | number | 0 | 作为可输入组件时，为整数。只读展示时，可以带小数 |
+| clearable | bool | false | 是否允许再次点击后清除 |

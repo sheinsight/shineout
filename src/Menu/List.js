@@ -8,38 +8,45 @@ import Item from './Item'
 class List extends PureComponent {
   render() {
     const {
-      data, level, keygen, mode, renderItem, style, active, bottomLine,
-      onClick, path, inlineIndent, defaultOpenKeys, disabled, toggleOpenKeys,
+      data,
+      level,
+      keygen,
+      mode,
+      renderItem,
+      style,
+      active,
+      bottomLine,
+      onClick,
+      path,
+      inlineIndent,
+      defaultOpenKeys,
+      disabled,
+      toggleOpenKeys,
     } = this.props
 
-    const className = classnames(
-      menuClass('list', mode),
-      this.props.className,
-    )
+    const className = classnames(menuClass('list', mode), this.props.className)
 
     return (
       <ul className={className} style={style}>
-        {
-          data.map((d, i) => (
-            <Item
-              active={active}
-              bottomLine={bottomLine}
-              defaultOpenKeys={defaultOpenKeys}
-              disabled={disabled}
-              key={getKey(d, keygen, i)}
-              index={i}
-              keygen={keygen}
-              data={d}
-              renderItem={renderItem}
-              inlineIndent={inlineIndent}
-              level={level}
-              mode={mode}
-              onClick={onClick}
-              path={path}
-              toggleOpenKeys={toggleOpenKeys}
-            />
-          ))
-        }
+        {data.map((d, i) => (
+          <Item
+            active={active}
+            bottomLine={bottomLine}
+            defaultOpenKeys={defaultOpenKeys}
+            disabled={disabled}
+            key={getKey(d, keygen, i)}
+            index={i}
+            keygen={keygen}
+            data={d}
+            renderItem={renderItem}
+            inlineIndent={inlineIndent}
+            level={level}
+            mode={mode}
+            onClick={onClick}
+            path={path}
+            toggleOpenKeys={toggleOpenKeys}
+          />
+        ))}
       </ul>
     )
   }

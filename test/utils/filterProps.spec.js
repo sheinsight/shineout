@@ -19,4 +19,3 @@ describe('objects.js[filterProps]', () => {
     expect(obj).toEqual({ a: '12345', d: 12345 })
   })
 })
-

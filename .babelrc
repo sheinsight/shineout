@@ -33,7 +33,7 @@
       ]
     },
     "test": {
-      "presets": ["env"]
+      "presets": ["react-app"]
     }
   }
 }
