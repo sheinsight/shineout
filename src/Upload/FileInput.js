@@ -22,7 +22,9 @@ class FileInput extends PureComponent {
     this.input.value = ''
     this.input.click()
 
-    setTimeout(() => { this.locked = false }, 1000)
+    setTimeout(() => {
+      this.locked = false
+    }, 1000)
   }
 
   render() {

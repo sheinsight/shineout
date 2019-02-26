@@ -137,6 +137,8 @@ class Root extends React.Component {
       this.props.className
     )
 
+    const onWheel = mode === 'vertical' ? { onWheel: this.handleWheel } : {}
+
     const rootStyle = {}
     if (style.width) rootStyle.width = style.width
 
@@ -146,7 +148,7 @@ class Root extends React.Component {
     }
 
     return (
-      <div className={className} onWheel={this.handleWheel} ref={this.bindRootElement} style={style}>
+      <div className={className} ref={this.bindRootElement} style={style} {...onWheel}>
         <div className={menuClass('wrapper')}>
           <Provider value={this.providerValue}>
             <List
