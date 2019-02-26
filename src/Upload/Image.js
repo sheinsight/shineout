@@ -11,12 +11,12 @@ class Image extends PureComponent {
   }
 
   beforeUpload(blob) {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       const { imageSize } = this.props.validator
       const file = {}
       const reader = new FileReader()
 
-      reader.onload = (e) => {
+      reader.onload = e => {
         const data = e.target.result
         file.data = data
         if (!imageSize) {
@@ -41,9 +41,7 @@ class Image extends PureComponent {
   }
 
   render() {
-    const {
-      children, width, height, ...others
-    } = this.props
+    const { children, width, height, ...others } = this.props
 
     const style = { width, height }
     const content = children || <div className={uploadClass('indicator')} />

@@ -158,7 +158,18 @@ class Upload extends PureComponent {
   }
 
   uploadFile(id, file, data) {
-    const { onSuccess, name, htmlName, cors, params, withCredentials, headers, request, onProgress } = this.props
+    const {
+      onSuccess,
+      name,
+      htmlName,
+      cors,
+      params,
+      withCredentials,
+      headers,
+      request,
+      onProgress,
+      onStart,
+    } = this.props
 
     const req = request || defaultRequest
     let throttle = false
@@ -171,6 +182,8 @@ class Upload extends PureComponent {
       withCredentials,
       file,
       headers,
+
+      onStart,
 
       onProgress: (e, msg) => {
         const percent = typeof e.percent === 'number' ? e.percent : (e.loaded / e.total) * 100
@@ -185,7 +198,13 @@ class Upload extends PureComponent {
             immer(draft => {
               draft.files[id].process = percent
               if (msg) draft.files[id].message = msg
-            })
+            }),
+            // expose the file progress to Upload.Button
+            () => {
+              if (typeof onProgress === 'function') {
+                onProgress(this.state.files[id])
+              }
+            }
           )
         }
       },
@@ -225,7 +244,6 @@ class Upload extends PureComponent {
 
       onError: xhr => this.handleError(id, xhr),
     }
-
     if (onProgress === false || onProgress === null) {
       delete options.onProgress
     }
@@ -261,7 +279,16 @@ class Upload extends PureComponent {
   }
 
   render() {
-    const { limit, value, renderResult, style, imageStyle, recoverAble, customResult: CustomResult } = this.props
+    const {
+      limit,
+      value,
+      renderResult,
+      style,
+      imageStyle,
+      recoverAble,
+      showUploadList,
+      customResult: CustomResult,
+    } = this.props
     const { files, recycle } = this.state
     const className = classnames(uploadClass('_'), this.props.className)
     const FileComponent = imageStyle ? ImageFile : File
@@ -280,20 +307,22 @@ class Upload extends PureComponent {
       <div className={className} style={style}>
         {!imageStyle && this.renderHandle()}
 
-        {value.map((v, i) => (
-          <ResultComponent
-            key={i}
-            value={v}
-            index={i}
-            style={imageStyle}
-            renderResult={renderResult}
-            onRemove={this.removeValue}
-          />
-        ))}
+        {showUploadList &&
+          value.map((v, i) => (
+            <ResultComponent
+              key={i}
+              value={v}
+              index={i}
+              style={imageStyle}
+              renderResult={renderResult}
+              onRemove={this.removeValue}
+            />
+          ))}
 
-        {Object.keys(files).map(id => (
-          <FileComponent {...files[id]} key={id} id={id} style={imageStyle} onRemove={this.removeFile} />
-        ))}
+        {showUploadList &&
+          Object.keys(files).map(id => (
+            <FileComponent {...files[id]} key={id} id={id} style={imageStyle} onRemove={this.removeFile} />
+          ))}
 
         {imageStyle && this.renderHandle()}
 
@@ -329,7 +358,7 @@ Upload.propTypes = {
   multiple: PropTypes.bool,
   name: PropTypes.string,
   onChange: PropTypes.func,
-  onProgress: PropTypes.bool,
+  onProgress: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   onSuccess: PropTypes.func,
   onError: PropTypes.func,
   params: PropTypes.object,
@@ -342,6 +371,8 @@ Upload.propTypes = {
   customResult: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
   style: PropTypes.object,
   withCredentials: PropTypes.bool,
+  onStart: PropTypes.func,
+  showUploadList: PropTypes.bool,
 }
 
 Upload.defaultProps = {
@@ -351,6 +382,7 @@ Upload.defaultProps = {
   validator: {},
   value: [],
   withCredentials: false,
+  showUploadList: true,
 }
 
 export default Upload
