@@ -6,7 +6,11 @@ import Spin from '../Spin'
 import icons from '../icons'
 import { ERROR, UPLOADING } from './request'
 
-const SPIN = <span style={{ display: 'inline-block', marginRight: 8 }}><Spin size={10} name="ring" /></span>
+const SPIN = (
+  <span style={{ display: 'inline-block', marginRight: 8 }}>
+    <Spin size={10} name="ring" />
+  </span>
+)
 
 class File extends PureComponent {
   constructor(props) {
@@ -19,9 +23,7 @@ class File extends PureComponent {
   }
 
   render() {
-    const {
-      message, name, status, process,
-    } = this.props
+    const { message, name, status, process } = this.props
     const className = uploadClass('view-file', status === ERROR && 'error')
 
     return (
@@ -32,15 +34,14 @@ class File extends PureComponent {
         <a href="javascript:;" className={uploadClass('delete')} onClick={this.handleRemove}>
           {icons.Close}
         </a>
-        {
-          status !== ERROR &&
+        {status !== ERROR && (
           <Progress
             className={uploadClass('progress')}
             background={process >= 0 ? '#e9ecef' : 'transparent'}
             value={process}
             strokeWidth={2}
           />
-        }
+        )}
       </div>
     )
   }

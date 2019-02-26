@@ -46,3 +46,11 @@
 | ext | func(string):Error | 判断后缀名，传入参数为文件后缀，校验失败返回 Error |
 | size | func(number):Error | 判断文件大小，校验失败返回 Error |
 | imageSize | func(Image):Error | 只对 Image 有效，判断图片尺寸，校验失败返回 Error |
+
+### Button
+
+| 属性 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| type | string | primary | 可选值为，\['primary', success', 'info', 'warning', 'danger'\] |
+| placeholder | string \| ReactElement | 无 | 按钮默认内容 |
+| loading | string \| ReactElement | 无 | 上传中按钮的内容，如果是字符串默认会有spin loading |

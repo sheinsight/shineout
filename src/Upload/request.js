@@ -18,10 +18,19 @@ function createCORSRequest(method, url) {
   return xhr
 }
 
-export default function (args) {
+export default function(args) {
   const {
-    url, name, cors, file, onProgress, onLoad, onError,
-    withCredentials, params = {}, headers = {},
+    url,
+    name,
+    cors,
+    file,
+    onProgress,
+    onLoad,
+    onError,
+    withCredentials,
+    params = {},
+    headers = {},
+    onStart,
   } = args
 
   if (!url) {
@@ -30,7 +39,7 @@ export default function (args) {
   }
 
   const data = new FormData()
-  Object.keys(params).forEach((k) => {
+  Object.keys(params).forEach(k => {
     data.append(k, params[k])
   })
 
@@ -42,9 +51,11 @@ export default function (args) {
   xhr.onload = e => onLoad(e.currentTarget)
   xhr.onerror = onError
 
-  Object.keys(headers).forEach((k) => {
+  Object.keys(headers).forEach(k => {
     xhr.setRequestHeader(k, headers[k])
   })
+
+  if (onStart) onStart(file)
 
   xhr.send(data)
 
