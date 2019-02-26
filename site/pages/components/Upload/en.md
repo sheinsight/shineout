@@ -24,7 +24,7 @@
 | validator | object | none | Check file before uploading |
 | value | array | \[] | value |
 | withCredentials | bool | false | Whether to take the cookie |
-
+| multiple | bool | false | Whether multi-select files are supported |
 
 ### Image
 
