@@ -88,11 +88,12 @@ class Root extends React.Component {
   }
 
   handleWheel(e) {
+    const { mode } = this.props
     const wheel = normalizeWheel(e)
     const { height } = this.container.getBoundingClientRect()
     this.wrapper.scrollTop += wheel.pixelY
     this.setState({ scrollTop: this.wrapper.scrollTop / height })
-    e.preventDefault()
+    if (mode === 'vertical') e.preventDefault()
   }
 
   handleClick(id, data) {
