@@ -148,6 +148,15 @@ const examples = [
     component: require('doc/pages/components/Select/example-14-columns.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-14-columns.js'),
   },
+  {
+    name: '16-noCache',
+    title: locate(
+      '不使用缓存 \n 设置 noCache 可以不启用缓存(此选项可能导致有性能消耗, 不建议使用, 但是你可以在特殊情况下使用它)',
+      'no cache \n Set noCahe property to disable the cache(this option may result in performance overhead and is not recommended, but you can use it in the special situations)'
+    ),
+    component: require('doc/pages/components/Select/example-16-noCache.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-16-noCache.js'),
+  },
 ]
 
 const codes = undefined

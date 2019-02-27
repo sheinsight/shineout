@@ -13,6 +13,7 @@ export default Origin =>
       onFilter: PropTypes.func,
       onCreate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
       value: PropTypes.any,
+      noCache: PropTypes.bool,
     }
 
     static defaultProps = {
@@ -48,16 +49,16 @@ export default Origin =>
     }
 
     getResultByValues() {
-      const { datum } = this.props
+      const { datum, noCache } = this.props
       const { values = [] } = datum
 
       const result = []
       values.forEach(v => {
-        let res = this.resultCache.get(v)
+        let res = noCache ? undefined : this.resultCache.get(v)
         if (!res) {
           res = this.getResult(v)
-          if (res) this.resultCache.set(v, res)
-          else res = { [IS_NOT_MATCHED_VALUE]: true, value: v }
+          if (res && !noCache) this.resultCache.set(v, res)
+          else if (!res) res = { [IS_NOT_MATCHED_VALUE]: true, value: v }
         }
         if (res) {
           result.push(res)
