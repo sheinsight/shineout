@@ -42,9 +42,7 @@ describe('Select noCache', () => {
     wrapper.find(`.${SO_PREFIX}-select-inner`).simulate('click')
     const options = wrapper.find(`.${SO_PREFIX}-select-option`)
     // select all of options
-    options.forEach((option, i) => {
-      if (i === 0) option.simulate('click')
-    })
+    options.at(0).simulate('click')
     // change the data
     wrapper.setProps({ data: data2 })
     expect(wrapper.find('Select').prop('result')).toEqual([data2[0]])
