@@ -51,7 +51,7 @@ export default class extends Component {
     return (
       <div>
         <Form value={this.state} inline onSubmit={this.handleIndexChange}>
-          <Input.Number min={0} max={9999} width={100} name="index" />
+          <Input.Number min={1} max={10000} width={100} name="index" />
           <Form.Submit>Scroll</Form.Submit>
         </Form>
         <Table
