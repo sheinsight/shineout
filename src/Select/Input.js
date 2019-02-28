@@ -90,10 +90,7 @@ FilterInput.propTypes = {
   onInputFocus: PropTypes.func.isRequired,
   updatAble: PropTypes.bool,
   setInputReset: PropTypes.func.isRequired,
-  text: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element,
-  ]),
+  text: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 }
 
 FilterInput.defaultProps = {
