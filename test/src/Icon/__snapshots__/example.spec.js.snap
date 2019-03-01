@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test: Icon[site/pages/components/Icon/example-1-awesome.js] 1`] = `
+<div>
+  <i />
+  <i />
+  <i />
+  <i />
+</div>
+`;
+
+exports[`Snapshot test: Icon[site/pages/components/Icon/example-2-iconfont.js] 1`] = `
+<div>
+  <i>
+    
+  </i>
+  <i />
+  <i />
+  <i />
+</div>
+`;
+
+exports[`Snapshot test: Icon[site/pages/components/Icon/example-3-size.js] 1`] = `
+<div>
+  <i />
+  <i />
+  <i />
+  <i />
+</div>
+`;

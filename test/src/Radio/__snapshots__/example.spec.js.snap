@@ -1,0 +1,397 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test: Radio[site/pages/components/Radio/example-1-base.js] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span>
+      <span>
+        red
+      </span>
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      <span>
+        orange
+      </span>
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      <span>
+        yellow
+      </span>
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      <span>
+        green
+      </span>
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      <span>
+        cyan
+      </span>
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      <span>
+        blue
+      </span>
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      <span>
+        violet
+      </span>
+    </span>
+  </label>
+</div>
+`;
+
+exports[`Snapshot test: Radio[site/pages/components/Radio/example-2-group.js] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span>
+      red
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      orange
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      yellow
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      green
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      cyan
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      blue
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      violet
+    </span>
+  </label>
+</div>
+`;
+
+exports[`Snapshot test: Radio[site/pages/components/Radio/example-3-format.js] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span>
+      red
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      orange
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      yellow
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      green
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      cyan
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      blue
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      violet
+    </span>
+  </label>
+</div>
+`;
+
+exports[`Snapshot test: Radio[site/pages/components/Radio/example-4-datum.js] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span>
+      red
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      orange
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      yellow
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      green
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      cyan
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      blue
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      violet
+    </span>
+  </label>
+</div>
+`;
+
+exports[`Snapshot test: Radio[site/pages/components/Radio/example-5-block.js] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span>
+      red
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      orange
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      yellow
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      green
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      cyan
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      blue
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      violet
+    </span>
+  </label>
+</div>
+`;
+
+exports[`Snapshot test: Radio[site/pages/components/Radio/example-6-disabled.js] 1`] = `
+<div>
+  <div>
+    <label>
+      <input />
+      <i />
+      <span>
+        red
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        orange
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        yellow
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        green
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        cyan
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        blue
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        violet
+      </span>
+    </label>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Radio[site/pages/components/Radio/example-7-disabled.js] 1`] = `
+<div>
+  <div>
+    <label>
+      <input />
+      <i />
+      <span>
+        red
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        orange
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        yellow
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        green
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        cyan
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        blue
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        violet
+      </span>
+    </label>
+  </div>
+</div>
+`;

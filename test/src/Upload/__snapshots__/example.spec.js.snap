@@ -1,0 +1,184 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-01-base.js] 1`] = `
+<div>
+  <span>
+    <button>
+      <i />
+       Upload file
+    </button>
+    <input />
+  </span>
+</div>
+`;
+
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-02-image.js] 1`] = `
+<div>
+  <span>
+    <div>
+      <div />
+    </div>
+    <input />
+  </span>
+</div>
+`;
+
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-03-button.js] 1`] = `
+<div>
+  <span>
+    <div>
+      <span>
+        点击上传
+      </span>
+    </div>
+    <input />
+  </span>
+</div>
+`;
+
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-04-validator.js] 1`] = `
+<div>
+  <span>
+    <div>
+      <div>
+        <i />
+         Upload Image
+        <br />
+        Allow size 200 * 100
+      </div>
+    </div>
+    <input />
+  </span>
+</div>
+`;
+
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-05-filesize.js] 1`] = `
+<div>
+  <div>
+    <span>
+      <button>
+        <i />
+         Upload file
+      </button>
+      <input />
+    </span>
+  </div>
+  <div>
+    <span>
+      <div>
+        <div />
+      </div>
+      <input />
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-06-error.js] 1`] = `
+<div>
+  <div>
+    <span>
+      <button>
+        <i />
+         Upload file
+      </button>
+      <input />
+    </span>
+  </div>
+  <div>
+    <span>
+      <div>
+        <div />
+      </div>
+      <input />
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-07-recover.js] 1`] = `
+<div>
+  <div>
+    <span>
+      <button>
+        <i />
+         Upload file
+      </button>
+      <input />
+    </span>
+  </div>
+  <div>
+    <span>
+      <div>
+        <div />
+      </div>
+      <input />
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-08-request.js] 1`] = `
+<div>
+  <span>
+    <button>
+      <i />
+       Upload file
+    </button>
+    <input />
+  </span>
+</div>
+`;
+
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-09-zip.js] 1`] = `
+<div>
+  <span>
+    <button>
+      <i />
+       Upload file
+    </button>
+    <input />
+  </span>
+</div>
+`;
+
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-10-defaultValue.js] 1`] = `
+<div>
+  <div>
+    <span>
+      <button>
+        <i />
+         Upload file
+      </button>
+      <input />
+    </span>
+    <div>
+      <div>
+        test file.png
+      </div>
+      <a>
+        <svg>
+          <path />
+        </svg>
+      </a>
+    </div>
+  </div>
+  <div>
+    <div>
+      <a>
+        <div>
+          <div>
+             
+            <span />
+          </div>
+        </div>
+      </a>
+      <a>
+        <svg>
+          <path />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+`;
