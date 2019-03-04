@@ -18,4 +18,3 @@ export function getLocale(name, def) {
   if (def && def[name]) return def[name]
   return deepGet(locale, name)
 }
-
