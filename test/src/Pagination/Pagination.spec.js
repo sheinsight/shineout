@@ -2,6 +2,11 @@ import React from 'react'
 import { Pagination } from 'shineout'
 import { mount } from 'enzyme'
 import PaginationSize from '../../../site/pages/components/Pagination/example-2-size'
+import PaginationLayout from '../../../site/pages/components/Pagination/example-3-layout'
+import PaginationText from '../../../site/pages/components/Pagination/example-4-text'
+import PaginationAlign from '../../../site/pages/components/Pagination/example-5-align'
+import PaginationController from '../../../site/pages/components/Pagination/example-7-controlled'
+import PaginationDisabled from '../../../site/pages/components/Pagination/example-8-disabled'
 
 /* global SO_PREFIX */
 describe('Pagination[Base]', () => {
@@ -74,5 +79,83 @@ describe('Pagination[Size]', () => {
       const size = pagination.prop('size')
       expect(pagination.find(`.${SO_PREFIX}-pagination-${size}`).length).toBe(1)
     })
+  })
+})
+
+describe('Pagination[layout]', () => {
+  test('should render layout', () => {
+    const layout = {
+      links: `.${SO_PREFIX}-pagination-links`,
+      list: `.${SO_PREFIX}-pagination-pagesize .${SO_PREFIX}-select-default`,
+      jumper: `.${SO_PREFIX}-pagination-section input[type="text"]`,
+    }
+    const wrapper = mount(<PaginationLayout />).find('ShineoutPagination')
+    const inner = wrapper.find(`div.${SO_PREFIX}-pagination`)
+    const layoutData = wrapper.prop('layout')
+    layoutData.forEach((l, index) => {
+      if (typeof l !== 'string') return
+      expect(inner.childAt(index).find(layout[l]).length).toBe(1)
+    })
+  })
+})
+
+describe('Pagination[text]', () => {
+  test('should render text', () => {
+    const wrapper = mount(<PaginationText />).find('ShineoutPagination')
+    const text = wrapper.prop('text')
+    expect(
+      wrapper
+        .find('ShineoutPaginationPrev')
+        .find('a')
+        .text()
+    ).toBe(text.prev)
+    expect(
+      wrapper
+        .find('ShineoutPaginationNext')
+        .find('a')
+        .text()
+    ).toBe(text.next)
+    expect(
+      wrapper
+        .find(`.${SO_PREFIX}-select-result span`)
+        .text()
+        .indexOf(text.page) > 0
+    ).toBeTruthy()
+  })
+})
+
+describe('Pagination[position]', () => {
+  test('should render position', () => {
+    const wrapper = mount(<PaginationAlign />).find('ShineoutPagination')
+    wrapper.forEach(pagination => {
+      const align = pagination.prop('align')
+      expect(pagination.find(`.${SO_PREFIX}-pagination-${align}`).length).toBe(1)
+    })
+  })
+})
+
+describe('Pagination[controller]', () => {
+  test('should render controller component', () => {
+    const wrapper = mount(<PaginationController />)
+    Array(50)
+      .fill(1)
+      .forEach((p, index) => {
+        wrapper.setState({
+          current: index + 1,
+        })
+        wrapper.find(`.${SO_PREFIX}-pagination-current`).forEach(item => {
+          expect(item.find('a').text()).toBe(String(index + 1))
+        })
+      })
+  })
+})
+
+describe('Pagination[Disabled]', () => {
+  test('should disabled items', () => {
+    const wrapper = mount(<PaginationDisabled />)
+    wrapper.find(`a.${SO_PREFIX}-pagination-item`).forEach(item => {
+      expect(item.prop('disabled')).toBeTruthy()
+    })
+    expect(wrapper.find(`div.${SO_PREFIX}-select-disabled`).length).toBe(1)
   })
 })
