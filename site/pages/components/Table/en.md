@@ -28,6 +28,7 @@
 | striped | bool | false | Whether to display zebra shading. |
 | style | object | - | Container element style |
 | value | array | none | The current selected value. |
+| empty | string | Data not found | empty text |
 
 ### Column
 | Property | Type | Default | Description |
