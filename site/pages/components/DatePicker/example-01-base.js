@@ -7,12 +7,10 @@
 import React from 'react'
 import { DatePicker } from 'shineout'
 
-const defaultTime = ['02:33:33', '12:33:33']
-
 export default function() {
   return (
     <div>
-      <DatePicker type="datetime" defaultTime="12:12:12" />
+      <DatePicker type="datetime"  />
     </div>
   )
 }

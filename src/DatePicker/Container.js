@@ -11,7 +11,6 @@ import Picker from './Picker'
 import Range from './Range'
 import Text from './Text'
 import { isArray } from '../utils/is'
-import { getParent } from '../utils/dom/element'
 
 const FadeList = List(['fade'], 'fast')
 
@@ -112,7 +111,7 @@ class Container extends PureComponent {
   }
 
   handleClickAway(e) {
-    if (!(e.target === this.element || getParent(e.target, `.${datepickerClass('inner')}`))) {
+    if (!(e.target === this.element || this.element.contains(e.target))) {
       this.handleToggle(false)
     }
   }
