@@ -67,13 +67,35 @@ class Tr extends Component {
     this.element = el
   }
 
-  handleRowClick(e) {
-    const { columns, rowData, index, onRowClick } = this.props
+  isFireElement(el) {
+    const { rowClickAttr } = this.props
+    if (typeof rowClickAttr === 'string') {
+      return el.hasAttribute(rowClickAttr) ? rowClickAttr : false
+    } else if (Array.isArray(rowClickAttr)) {
+      return rowClickAttr.find(v => el.hasAttribute(v)) || false
+    }
+    return false
+  }
+  shouldFireRowClick(el) {
+    return this.isFireElement(el)
+  }
 
+  handleRowClick(e) {
+    const { columns, rowData, index, onRowClick, rowClickAttr } = this.props
+    // business needed #row click to modal drawer
+    const fireAttr = this.shouldFireRowClick(e.target)
+    if (fireAttr) {
+      onRowClick(rowData, index, fireAttr)
+      return
+    }
     if (isExpandableElement(e.target)) {
       const el = this.element.querySelector(`.${tableClass('expand-indicator')}`)
       if (el && el !== e.target && columns.some(c => c.type === 'row-expand')) el.click()
-      if (onRowClick && e.target !== el) onRowClick(rowData, index)
+      const matchBlank =
+        rowClickAttr === '*' ||
+        (Array.isArray(rowClickAttr) && rowClickAttr.indexOf('*') >= 0) ||
+        (Array.isArray(rowClickAttr) && rowClickAttr.indexOf('') >= 0)
+      if (onRowClick && e.target !== el && matchBlank) onRowClick(rowData, index)
     }
   }
 
@@ -165,8 +187,12 @@ Tr.propTypes = {
   rowData: PropTypes.object,
   striped: PropTypes.bool,
   setRowHeight: PropTypes.func,
+  rowClickAttr: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
 }
 
+Tr.defaultProps = {
+  rowClickAttr: '*',
+}
 Tr.displayName = 'ShineoutTr'
 
 export default Tr
