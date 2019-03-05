@@ -109,9 +109,7 @@ class Cascader extends PureComponent {
   }
 
   renderList() {
-    const {
-      data, keygen, renderItem, height, mode, onChange, loader, onItemClick, expandTrigger,
-    } = this.props
+    const { data, keygen, renderItem, height, mode, onChange, loader, onItemClick, expandTrigger } = this.props
     const { focus, path } = this.state
 
     if (!focus && !this.isRendered) return null
@@ -134,35 +132,35 @@ class Cascader extends PureComponent {
     return (
       <div className={className} style={{ height }}>
         <List {...props} key="root" data={tempData} id={path[0]} parentId="" path={[]} />
-        {
-          path.map((p, i) => {
-            tempData = tempData.find((d) => {
-              const nid = this.datum.getKey(d, path[i - 1])
-              return nid === p
-            })
-            if (tempData && tempData.children && tempData.children.length > 0) {
-              tempData = tempData.children
-              return <List {...props} key={p} data={tempData} id={path[i + 1]} parentId={path[i]} path={path.slice(0, i + 1)} />
-            }
-            return null
+        {path.map((p, i) => {
+          tempData = tempData.find(d => {
+            const nid = this.datum.getKey(d, path[i - 1])
+            return nid === p
           })
-        }
+          if (tempData && tempData.children && tempData.children.length > 0) {
+            tempData = tempData.children
+            return (
+              <List
+                {...props}
+                key={p}
+                data={tempData}
+                id={path[i + 1]}
+                parentId={path[i]}
+                path={path.slice(0, i + 1)}
+              />
+            )
+          }
+          return null
+        })}
       </div>
     )
   }
 
   render() {
-    const {
-      placeholder, disabled, size, ...other
-    } = this.props
+    const { placeholder, disabled, size, ...other } = this.props
     const className = classnames(
-      cascaderClass(
-        '_',
-        size,
-        this.state.focus && 'focus',
-        disabled && 'disabled',
-      ),
-      selectClass(this.state.position),
+      cascaderClass('_', size, this.state.focus && 'focus', disabled && 'disabled'),
+      selectClass(this.state.position)
     )
 
     return (
@@ -171,7 +169,9 @@ class Cascader extends PureComponent {
         // onFocus={this.handleFocus}
         onClick={this.handleFocus}
         data-id={this.selectId}
-        ref={(el) => { this.element = el }}
+        ref={el => {
+          this.element = el
+        }}
       >
         <Result
           {...other}
@@ -182,9 +182,7 @@ class Cascader extends PureComponent {
           onPathChange={this.handlePathChange}
         />
 
-        {
-          this.renderList()
-        }
+        {this.renderList()}
       </div>
     )
   }
@@ -194,10 +192,7 @@ Cascader.propTypes = {
   clearable: PropTypes.bool,
   data: PropTypes.array,
   defaultValue: PropTypes.arrayOf(PropTypes.string),
-  disabled: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.func,
-  ]),
+  disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   expandTrigger: PropTypes.oneOf(['click', 'hover', 'hover-only']),
   height: PropTypes.number,
   keygen: PropTypes.any,

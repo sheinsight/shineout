@@ -26,8 +26,7 @@ class Range extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (!shallowEqual(prevProps.value, this.props.value)
-      && !shallowEqual(this.state.rangeDate, this.props.value)) {
+    if (!shallowEqual(prevProps.value, this.props.value) && !shallowEqual(this.state.rangeDate, this.props.value)) {
       // eslint-disable-next-line
       this.setState({ rangeDate: this.props.value })
     }
@@ -49,10 +48,10 @@ class Range extends PureComponent {
   }
 
   handleChange(index, date, change, end, mode) {
-    const { type } = this.props
+    const { type, format, defaultTime } = this.props
 
     if (!change) {
-      const current = immer(this.props.current, (draft) => {
+      const current = immer(this.props.current, draft => {
         draft[index] = date
       })
       this.props.onChange(current)
@@ -60,14 +59,17 @@ class Range extends PureComponent {
     }
 
     if (mode === 'time') {
-      this.setState(immer((draft) => {
-        draft.rangeDate[index] = date
-      }), () => {
-        const current = immer(this.props.value, (draft) => {
-          draft[index] = date
-        })
-        this.props.onChange(current, true)
-      })
+      this.setState(
+        immer(draft => {
+          draft.rangeDate[index] = date
+        }),
+        () => {
+          const current = immer(this.props.value, draft => {
+            draft[index] = date
+          })
+          this.props.onChange(current, true)
+        }
+      )
       return
     }
 
@@ -90,19 +92,21 @@ class Range extends PureComponent {
       return
     }
 
-    this.setState(immer((draft) => {
-      const method = utils.compareAsc(draft.rangeDate[0], date) > 0 ? 'unshift' : 'push'
-      draft.rangeDate[method](date)
-      draft.hover = undefined
-    }), () => {
-      this.props.onChange(this.state.rangeDate, true, type === 'date')
-    })
+    this.setState(
+      immer(draft => {
+        const method = utils.compareAsc(draft.rangeDate[0], date) > 0 ? 'unshift' : 'push'
+        draft.rangeDate[method](date)
+        draft.rangeDate.map((d, i) => utils.formatDateWithDefaultTime(d, defaultTime[i], format))
+        draft.hover = undefined
+      }),
+      () => {
+        this.props.onChange(this.state.rangeDate, true, type === 'date')
+      }
+    )
   }
 
   render() {
-    const {
-      current, value, range, ...props
-    } = this.props
+    const { current, value, range, ...props } = this.props
     const rangeDate = [...this.state.rangeDate]
 
     let rangeTemp
@@ -153,12 +157,10 @@ Range.propTypes = {
   disabled: PropTypes.func,
   format: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  range: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.number,
-  ]),
+  range: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   value: PropTypes.array,
   type: PropTypes.string.isRequired,
+  defaultTime: PropTypes.array,
 }
 
 Range.defaultProps = {

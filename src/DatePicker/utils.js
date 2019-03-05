@@ -15,6 +15,8 @@ import startOfMonth from 'date-fns/startOfMonth'
 import startOfWeek from 'date-fns/startOfWeek'
 import toDate from 'date-fns/toDate'
 
+const TIME_FORMAT = 'HH:mm:ss'
+
 function getDaysOfMonth(dirtyDate) {
   const date = toDate(dirtyDate)
   const end = endOfWeek(endOfMonth(date))
@@ -72,6 +74,15 @@ function cloneTime(date, old, fmt) {
   return date
 }
 
+function formatDateWithDefaultTime(date, defaultTime, fmt) {
+  if (!defaultTime) return date
+  const dateHMS = toDateWithFormat(defaultTime, TIME_FORMAT)
+  if (isInvalid(dateHMS)) return date
+
+  const nDate = cloneTime(date, defaultTime, TIME_FORMAT)
+  return format(nDate, fmt)
+}
+
 export default {
   addDays,
   addMonths,
@@ -91,4 +102,6 @@ export default {
   parse,
   toDate,
   toDateWithFormat,
+  formatDateWithDefaultTime,
+  TIME_FORMAT,
 }

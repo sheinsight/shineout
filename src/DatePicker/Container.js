@@ -10,6 +10,8 @@ import utils from './utils'
 import Picker from './Picker'
 import Range from './Range'
 import Text from './Text'
+import { isArray } from '../utils/is'
+import { getParent } from '../utils/dom/element'
 
 const FadeList = List(['fade'], 'fast')
 
@@ -35,6 +37,7 @@ class Container extends PureComponent {
     this.bindClickAway = this.bindClickAway.bind(this)
     this.clearClickAway = this.clearClickAway.bind(this)
     this.handleClickAway = this.handleClickAway.bind(this)
+    this.getDefaultTime = this.getDefaultTime.bind(this)
 
     this.firstRender = false
   }
@@ -47,7 +50,7 @@ class Container extends PureComponent {
   getCurrent() {
     let current
     if (this.props.range) {
-      current = (this.props.value || []).map((v) => {
+      current = (this.props.value || []).map(v => {
         v = this.parseDate(v)
         if (utils.isInvalid(v)) v = utils.newDate()
         return v
@@ -81,6 +84,13 @@ class Container extends PureComponent {
     }
   }
 
+  getDefaultTime() {
+    const { defaultTime } = this.props
+    if (typeof defaultTime === 'string') return [defaultTime]
+    if (isArray(defaultTime)) return defaultTime
+    return []
+  }
+
   bindElement(el) {
     this.element = el
   }
@@ -102,7 +112,7 @@ class Container extends PureComponent {
   }
 
   handleClickAway(e) {
-    if (!(e.target === this.element || this.element.contains(e.target))) {
+    if (!(e.target === this.element || getParent(e.target, `.${datepickerClass('inner')}`))) {
       this.handleToggle(false)
     }
   }
@@ -111,23 +121,25 @@ class Container extends PureComponent {
     if (this.props.disabled === true) return
     if (focus === this.state.focus) return
 
-    this.setState(immer((state) => {
-      state.focus = focus
-      if (focus === true) {
-        const rect = this.element.getBoundingClientRect()
-        const windowHeight = window.innerHeight || document.documentElement.clientHeight
-        const windowWidth = window.innerWidth || document.documentElement.clientWidth
-        const pickerWidth = this.props.range ? 540 : 270
-        if (!this.props.position) {
-          if (rect.bottom + 300 > windowHeight) {
-            if (rect.left + pickerWidth > windowWidth) state.position = 'right-top'
-            else state.position = 'left-top'
-          } else if (rect.left + pickerWidth > windowWidth) state.position = 'right-bottom'
-          else state.position = 'left-bottom'
+    this.setState(
+      immer(state => {
+        state.focus = focus
+        if (focus === true) {
+          const rect = this.element.getBoundingClientRect()
+          const windowHeight = window.innerHeight || document.documentElement.clientHeight
+          const windowWidth = window.innerWidth || document.documentElement.clientWidth
+          const pickerWidth = this.props.range ? 540 : 270
+          if (!this.props.position) {
+            if (rect.bottom + 300 > windowHeight) {
+              if (rect.left + pickerWidth > windowWidth) state.position = 'right-top'
+              else state.position = 'left-top'
+            } else if (rect.left + pickerWidth > windowWidth) state.position = 'right-bottom'
+            else state.position = 'left-bottom'
+          }
+          state.current = this.getCurrent()
         }
-        state.current = this.getCurrent()
-      }
-    }))
+      })
+    )
 
     if (focus && this.picker && this.picker.resetRange) {
       this.picker.resetRange((this.props.value || []).map(this.parseDate))
@@ -152,9 +164,11 @@ class Container extends PureComponent {
       return
     }
 
-    const value = [...immer(this.props.value, (draft) => {
-      draft[index] = val
-    })]
+    const value = [
+      ...immer(this.props.value, draft => {
+        draft[index] = val
+      }),
+    ]
     if (utils.compareAsc(value[0], value[1]) > 0) value.push(value.shift())
     this.props.onChange(value, () => {
       this.setState({ current: this.getCurrent() })
@@ -188,10 +202,7 @@ class Container extends PureComponent {
   renderText(value, placeholder, key) {
     const { inputable } = this.props
     const date = this.parseDate(value)
-    const className = classnames(
-      datepickerClass('txt'),
-      utils.isInvalid(date) && inputClass('placeholder'),
-    )
+    const className = classnames(datepickerClass('txt'), utils.isInvalid(date) && inputClass('placeholder'))
 
     return (
       <Text
@@ -209,9 +220,7 @@ class Container extends PureComponent {
   }
 
   renderResult() {
-    const {
-      disabled, range, placeholder, type,
-    } = this.props
+    const { disabled, range, placeholder, type } = this.props
 
     let { value } = this.props
     if (!value && range) value = []
@@ -222,28 +231,15 @@ class Container extends PureComponent {
 
     return (
       <div className={datepickerClass('result')}>
-        {
-          range
-            ? [
+        {range
+          ? [
               this.renderText(value[0], placeholder[0], 0),
               <span key="-">~</span>,
               this.renderText(value[1], placeholder[1], 1),
             ]
-            : this.renderText(value, placeholder)
-        }
-        <Icon
-          className={(isEmpty || !clearable) ? '' : 'indecator'}
-          name={type === 'time' ? 'Clock' : 'Calendar'}
-        />
-        {
-          !isEmpty && clearable &&
-          <Icon
-            name="CloseCircle"
-            className="close"
-            tag="a"
-            onClick={this.handleClear}
-          />
-        }
+          : this.renderText(value, placeholder)}
+        <Icon className={isEmpty || !clearable ? '' : 'indecator'} name={type === 'time' ? 'Clock' : 'Calendar'} />
+        {!isEmpty && clearable && <Icon name="CloseCircle" className="close" tag="a" onClick={this.handleClear} />}
       </div>
     )
   }
@@ -251,15 +247,14 @@ class Container extends PureComponent {
   renderPicker() {
     if (!this.firstRender) return undefined
 
-    const {
-      range, type, value, disabled,
-    } = this.props
+    const { range, type, value, disabled } = this.props
     const format = this.getFormat()
     const Component = range ? Range : Picker
 
     return (
       <Component
         ref={this.bindPicker}
+        defaultTime={this.getDefaultTime()}
         current={this.state.current}
         format={format}
         disabled={typeof disabled === 'function' ? disabled : undefined}
@@ -281,19 +276,14 @@ class Container extends PureComponent {
       range && 'range',
       size && `size-${size}`,
       focus && 'focus',
-      this.state.position,
+      this.state.position
     )
 
     return (
-      <div
-        className={className}
-        tabIndex={-1}
-        ref={this.bindElement}
-        onClick={this.handleFocus}
-      >
-        { this.renderResult() }
+      <div className={className} tabIndex={-1} ref={this.bindElement} onClick={this.handleFocus}>
+        {this.renderResult()}
         <FadeList show={focus} className={datepickerClass('picker')}>
-          { this.renderPicker() }
+          {this.renderPicker()}
         </FadeList>
       </div>
     )
@@ -302,10 +292,7 @@ class Container extends PureComponent {
 
 Container.propTypes = {
   clearable: PropTypes.bool,
-  disabled: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.func,
-  ]),
+  disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   format: PropTypes.string,
   inputable: PropTypes.bool,
   placeholder: PropTypes.any,
@@ -313,18 +300,11 @@ Container.propTypes = {
   onChange: PropTypes.func.isRequired,
   onFocus: PropTypes.func.isRequired,
   position: PropTypes.string,
-  range: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.number,
-  ]),
+  range: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   size: PropTypes.string,
   type: PropTypes.string,
-  value: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-    PropTypes.object,
-    PropTypes.array,
-  ]),
+  defaultTime: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object, PropTypes.array]),
 }
 
 Container.defaultProps = {

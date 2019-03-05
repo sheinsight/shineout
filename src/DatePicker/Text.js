@@ -18,9 +18,7 @@ class Text extends PureComponent {
   }
 
   handleBlur(e) {
-    const {
-      format, index, onChange, value,
-    } = this.props
+    const { format, index, onChange, value } = this.props
     const txt = e.target.innerText
     if (txt === value) return
     if (txt.trim().length === 0) {
@@ -39,9 +37,7 @@ class Text extends PureComponent {
   }
 
   render() {
-    const {
-      className, focus, inputable, value, placeholder,
-    } = this.props
+    const { className, focus, inputable, value, placeholder } = this.props
 
     if (!inputable || !focus) {
       return <span className={className}>{value || placeholder}</span>
@@ -49,7 +45,9 @@ class Text extends PureComponent {
 
     return (
       <span
-        ref={(el) => { this.element = el }}
+        ref={el => {
+          this.element = el
+        }}
         contentEditable={inputable}
         onBlur={this.handleBlur}
         onKeyDown={this.handleInput}

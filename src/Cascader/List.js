@@ -21,20 +21,10 @@ class List extends Component {
     const { data, ...other } = this.props
     return (
       <div className={cascaderClass('list')}>
-        {
-          data.map((d, i) => {
-            const id = this.getKey(d, i)
-            return (
-              <Node
-                {...other}
-                key={id}
-                active={other.id === id}
-                id={id}
-                data={d}
-              />
-            )
-          })
-        }
+        {data.map((d, i) => {
+          const id = this.getKey(d, i)
+          return <Node {...other} key={id} active={other.id === id} id={id} data={d} />
+        })}
       </div>
     )
   }
