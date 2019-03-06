@@ -34,14 +34,11 @@ class Month extends PureComponent {
   }
 
   renderMonth(m, i) {
-    const {
-      current, value, min, max, disabled, range, type,
-    } = this.props
+    const { current, value, min, max, disabled, range, type } = this.props
     const date = new Date(current.getTime())
     date.setMonth(i)
 
-    let isDisabled = (min && utils.compareMonth(min, date, 1) >= 0) ||
-      (max && utils.compareMonth(max, date, -1) <= 0)
+    let isDisabled = (min && utils.compareMonth(min, date, 1) >= 0) || (max && utils.compareMonth(max, date, -1) <= 0)
 
     if (!isDisabled && type === 'month' && typeof disabled === 'function') {
       isDisabled = disabled(date)
@@ -55,17 +52,10 @@ class Month extends PureComponent {
       isDisabled = true
     }
 
-    const className = datepickerClass(
-      utils.isSameMonth(value, date) && 'active',
-      isDisabled && 'disabled',
-    )
+    const className = datepickerClass(utils.isSameMonth(value, date) && 'active', isDisabled && 'disabled')
 
     return (
-      <span
-        key={i}
-        className={className}
-        onClick={isDisabled ? undefined : this.handleMonthClick.bind(this, i)}
-      >
+      <span key={i} className={className} onClick={isDisabled ? undefined : this.handleMonthClick.bind(this, i)}>
         {m}
       </span>
     )
@@ -86,9 +76,7 @@ class Month extends PureComponent {
           <Icon name="AngleRight" onClick={this.handleNextYear} />
         </div>
 
-        <div className={datepickerClass('list')}>
-          { getLocale('monthValues.short').map(this.renderMonth.bind(this)) }
-        </div>
+        <div className={datepickerClass('list')}>{getLocale('monthValues.short').map(this.renderMonth.bind(this))}</div>
       </div>
     )
   }
