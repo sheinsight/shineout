@@ -98,7 +98,7 @@ export default function(options) {
         default:
       }
 
-      return { left, top }
+      return { left: Math.round(left), top: Math.round(top) }
     }
 
     elementRef(el) {
