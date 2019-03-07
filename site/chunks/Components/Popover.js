@@ -67,6 +67,15 @@ const examples = [
     component: require('doc/pages/components/Popover/example-6-type.js').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-6-type.js'),
   },
+  {
+    name: '7-inside',
+    title: locate(
+      '内嵌 \n 组件内嵌的Popover',
+      'Inside \n internal Popover'
+    ),
+    component: require('doc/pages/components/Popover/example-7-inside.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Popover/example-7-inside.js'),
+  },
 ]
 
 const codes = undefined
