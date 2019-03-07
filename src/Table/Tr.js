@@ -23,7 +23,6 @@ class Tr extends Component {
     this.handleRowClick = this.handleRowClick.bind(this)
     this.setRowHeight = this.setRowHeight.bind(this)
     this.setExpandHeight = this.setExpandHeight.bind(this)
-    this.getRowClickAttr = this.getRowClickAttr.bind(this)
     this.expandHeight = 0
   }
 
