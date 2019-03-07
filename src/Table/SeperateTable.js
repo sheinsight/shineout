@@ -45,7 +45,7 @@ class SeperateTable extends PureComponent {
     const { data, rowsInView } = this.props
     const max = data.length
     const mcf = scrollTop > 0.5 ? Math.ceil : Math.floor
-    let index = mcf((scrollTop * max) - (rowsInView * scrollTop))
+    let index = mcf(scrollTop * max - rowsInView * scrollTop)
     if (index > max - rowsInView) index = max - rowsInView
     if (index < 0) index = 0
     return index
@@ -127,20 +127,18 @@ class SeperateTable extends PureComponent {
 
   resetWidth(left, right) {
     setTranslate(this.tbody, `-${left}px`, `-${this.lastScrollTop}px`)
-    setTranslate(this.thead, `-${left}px`, '0');
+    setTranslate(this.thead, `-${left}px`, '0')
 
-    [this.thead, this.tbody].forEach((el) => {
-      [].forEach.call(
-        el.parentNode.querySelectorAll(`.${tableClass(CLASS_FIXED_LEFT)}`),
-        (td) => { setTranslate(td, `${left}px`, '0') },
-      )
-    });
+    ;[this.thead, this.tbody].forEach(el => {
+      ;[].forEach.call(el.parentNode.querySelectorAll(`.${tableClass(CLASS_FIXED_LEFT)}`), td => {
+        setTranslate(td, `${left}px`, '0')
+      })
+    })
 
-    [this.thead, this.tbody].forEach((el) => {
-      [].forEach.call(
-        el.parentNode.querySelectorAll(`.${tableClass(CLASS_FIXED_RIGHT)}`),
-        (td) => { setTranslate(td, `-${right}px`, '0') },
-      )
+    ;[this.thead, this.tbody].forEach(el => {
+      ;[].forEach.call(el.parentNode.querySelectorAll(`.${tableClass(CLASS_FIXED_RIGHT)}`), td => {
+        setTranslate(td, `-${right}px`, '0')
+      })
     })
   }
 
@@ -198,8 +196,7 @@ class SeperateTable extends PureComponent {
 
       const index = this.getIndex(scrollTop)
       const lastRowHeight = this.getLastRowHeight(index)
-      const offsetScrollTop = this.getSumHeight(0, index)
-      + (scrollTop * this.realTbody.clientHeight)
+      const offsetScrollTop = this.getSumHeight(0, index) + scrollTop * this.realTbody.clientHeight
 
       this.setState({ currentIndex: index })
       this.lastScrollTop = offsetScrollTop
@@ -218,11 +215,10 @@ class SeperateTable extends PureComponent {
       this.lastScrollTop += pixelY
       if (this.lastScrollTop < 0) this.lastScrollTop = 0
 
-
       // scroll over bottom
       if (this.lastScrollTop > contentHeight) this.lastScrollTop = contentHeight
 
-      let temp = this.lastScrollTop - (scrollTop * h)
+      let temp = this.lastScrollTop - scrollTop * h
       let index = 0
       while (temp > 0) {
         temp -= this.cachedRowHeight[index] || rowHeight
@@ -264,8 +260,7 @@ class SeperateTable extends PureComponent {
       const width = tds[i].offsetWidth
       const colSpan = parseInt(tds[i].getAttribute('colspan'), 10)
       if (colSpan > 1) {
-        split(width, range(colSpan).map(j => columns[i + j].width))
-          .forEach(w => colgroup.push(w))
+        split(width, range(colSpan).map(j => columns[i + j].width)).forEach(w => colgroup.push(w))
       } else {
         colgroup.push(width)
       }
@@ -274,12 +269,8 @@ class SeperateTable extends PureComponent {
   }
 
   renderBody(floatClass) {
-    const {
-      data, rowsInView, columns, width, fixed, rowHeight, ...others
-    } = this.props
-    const {
-      colgroup, scrollTop, offsetLeft, offsetRight, currentIndex,
-    } = this.state
+    const { data, rowsInView, columns, width, fixed, rowHeight, ...others } = this.props
+    const { colgroup, scrollTop, offsetLeft, offsetRight, currentIndex } = this.state
     const contentWidth = this.getContentWidth()
 
     if (!data || data.length === 0) {

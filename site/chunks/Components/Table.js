@@ -248,6 +248,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-24-row-classname.js'),
   },
   {
+    name: '25-row-click-attr',
+    title: locate(
+      '行内元素点击 \n 设置rowClickAttr，可以使行内元素的点击事件触发onRowClick',
+      'Base \n Set the rowClickAttr to trigger an onRowClick event for an element.'
+    ),
+    component: require('doc/pages/components/Table/example-25-row-click-attr.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-25-row-click-attr.js'),
+  },
+  {
     name: '99-raw',
     title: locate(
       '只使用样式 \n 使用原生的tr, td来显示表格',
