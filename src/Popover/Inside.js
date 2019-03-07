@@ -1,27 +1,23 @@
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
+import { getPosition } from '../utils/dom/popover'
 import { popoverClass } from '../styles'
-
-let root
-function initRoot() {
-  root = document.createElement('div')
-  root.className = popoverClass('root')
-  document.body.appendChild(root)
-}
 
 class Inside extends PureComponent {
   constructor(props) {
     super(props)
 
-    if (!root) initRoot()
-
     this.state = { show: false }
     this.isRendered = false
 
-    this.elementRef = this.placeholderRef.bind(this)
+    this.placeholderRef = this.placeholderRef.bind(this)
     this.handleShow = this.toggle.bind(this, true)
-    this.handleHide = this.toggle.bind(this, false)
+    this.handleHide = () => {
+      setTimeout(() => {
+        this.toggle(false)
+      }, 500)
+    }
 
     this.element = document.createElement('div')
   }
@@ -30,18 +26,20 @@ class Inside extends PureComponent {
     this.parentElement = this.placeholder.parentElement
     if (this.props.trigger === 'hover') {
       this.parentElement.addEventListener('mouseenter', this.handleShow)
-      // this.parentElement.addEventListener('mouseleave', this.handleHide)
+      this.parentElement.addEventListener('mouseleave', this.handleHide)
     } else {
       this.parentElement.addEventListener('click', this.handleShow)
     }
 
-    root.appendChild(this.element)
+    document.body.appendChild(this.element)
   }
 
   componentWillUnmount() {
     this.parentElement.removeEventListener('mouseenter', this.handleShow)
     this.parentElement.removeEventListener('mouseleave', this.handleHide)
     this.parentElement.removeEventListener('click', this.handleShow)
+
+    document.body.removeChild(this.element)
   }
 
   placeholderRef(el) {
@@ -60,16 +58,25 @@ class Inside extends PureComponent {
     this.isRendered = true
 
     const colorStyle = { background, borderColor: border }
-    const style = Object.assign({}, this.props.style, { display: show ? 'block' : 'none', background })
-    const className = popoverClass('_', position, type)
+    const innerStyle = Object.assign({}, this.props.style, { background })
+    const pos = getPosition(position, this.parentElement)
+    this.element.className = popoverClass('_', position, type)
+    // eslint-disable-next-line
+    const style = this.element.style
+    style.left = `${pos.left}px`
+    style.top = `${pos.top}px`
+    style.display = show ? 'block' : 'none'
+    if (background) style.background = background
+    if (border) style.borderColor = border
 
-    return (
-      <div className={className} style={colorStyle}>
-        <div className={popoverClass('arrow')} style={colorStyle} />
-        <div className={popoverClass('content')} style={style}>
+    return ReactDOM.createPortal(
+      [
+        <div key="arrow" className={popoverClass('arrow')} style={colorStyle} />,
+        <div key="content" className={popoverClass('content')} style={innerStyle}>
           {children}
-        </div>
-      </div>
+        </div>,
+      ],
+      this.element
     )
   }
 }
