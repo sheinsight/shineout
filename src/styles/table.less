@@ -187,6 +187,8 @@
   }
 
   &-bordered {
+    border-left: 1px solid @table-border-color;
+
     &.@{table-prefix}-fixed {
       border-right: 1px solid @table-border-color;
     }
@@ -199,8 +201,6 @@
 
     table {
       border-top: 1px solid @table-border-color;
-      border-left: 1px solid @table-border-color;
-
       > thead,
       > tbody,
       > tfoot {
@@ -222,14 +222,23 @@
       border-top-width: 0;
     }
 
-    .@{table-prefix}-float-right .@{table-prefix}-fixed-right,
-    .@{table-prefix}-float-left .@{table-prefix}-fixed-left {
+    .@{table-prefix}-float-right .@{table-prefix}-fixed-right {
       &:before {
         bottom: -1px;
       }
-
+    }
+    .@{table-prefix}-float-left,
+    .@{table-prefix}-fixed-left {
+      border-right: 0;
       &:after {
         bottom: -1px;
+        position: absolute;
+        content: ' ';
+        background: @table-border-color;
+        height: 100%;
+        width: 1px;
+        top: 0;
+        right: 0;
       }
     }
   }
