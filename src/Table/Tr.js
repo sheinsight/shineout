@@ -23,7 +23,7 @@ class Tr extends Component {
     this.handleRowClick = this.handleRowClick.bind(this)
     this.setRowHeight = this.setRowHeight.bind(this)
     this.setExpandHeight = this.setExpandHeight.bind(this)
-
+    this.getRowClickAttr = this.getRowClickAttr.bind(this)
     this.expandHeight = 0
   }
 
@@ -63,27 +63,27 @@ class Tr extends Component {
     this.setRowHeight()
   }
 
+  getRowClickAttr() {
+    const { rowClickAttr } = this.props
+    const res = Array.isArray(rowClickAttr) ? rowClickAttr : []
+    if (typeof rowClickAttr === 'string') {
+      res.push(rowClickAttr)
+    }
+    return res.map(v => (v === '*' ? '' : v))
+  }
+
   bindElement(el) {
     this.element = el
   }
 
   isFireElement(el) {
-    const { rowClickAttr } = this.props
-    if (typeof rowClickAttr === 'string') {
-      return el.hasAttribute(rowClickAttr) ? rowClickAttr : false
-    } else if (Array.isArray(rowClickAttr)) {
-      return rowClickAttr.find(v => el.hasAttribute(v)) || false
-    }
-    return false
-  }
-  shouldFireRowClick(el) {
-    return this.isFireElement(el)
+    return this.getRowClickAttr().find(v => el.hasAttribute(v))
   }
 
   handleRowClick(e) {
-    const { columns, rowData, index, onRowClick, rowClickAttr } = this.props
+    const { columns, rowData, index, onRowClick } = this.props
     // business needed #row click to modal drawer
-    const fireAttr = this.shouldFireRowClick(e.target)
+    const fireAttr = this.isFireElement(e.target)
     if (fireAttr) {
       onRowClick(rowData, index, fireAttr)
       return
@@ -91,10 +91,7 @@ class Tr extends Component {
     if (isExpandableElement(e.target)) {
       const el = this.element.querySelector(`.${tableClass('expand-indicator')}`)
       if (el && el !== e.target && columns.some(c => c.type === 'row-expand')) el.click()
-      const matchBlank =
-        rowClickAttr === '*' ||
-        (Array.isArray(rowClickAttr) && rowClickAttr.indexOf('*') >= 0) ||
-        (Array.isArray(rowClickAttr) && rowClickAttr.indexOf('') >= 0)
+      const matchBlank = this.getRowClickAttr().indexOf('') >= 0
       if (onRowClick && e.target !== el && matchBlank) onRowClick(rowData, index)
     }
   }
@@ -191,7 +188,7 @@ Tr.propTypes = {
 }
 
 Tr.defaultProps = {
-  rowClickAttr: '*',
+  rowClickAttr: ['*'],
 }
 Tr.displayName = 'ShineoutTr'
 
