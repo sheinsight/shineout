@@ -124,7 +124,7 @@ class Tr extends Component {
       if (skip > 0) {
         skip -= 1
       } else if (data[i]) {
-        const { className, style, key, fixed, lastFixed, firstFixed, type, render, onClick } = columns[i]
+        const { className, style, key, fixed, lastFixed, firstFixed, type, render, onClick, align } = columns[i]
         const td = (
           <Td
             {...other}
@@ -137,6 +137,7 @@ class Tr extends Component {
             fixed={fixed}
             firstFixed={firstFixed}
             lastFixed={lastFixed}
+            align={align}
             render={render}
             index={index}
             {...data[i]}

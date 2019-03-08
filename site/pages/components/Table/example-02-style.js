@@ -12,9 +12,9 @@ const data = fetchSync(4)
 
 const columns = [
   { title: 'id', render: 'id', width: 50 },
-  { title: 'Name', render: d => `${d.firstName} ${d.lastName}` },
+  { title: 'Name', render: d => `${d.firstName} ${d.lastName}`, align: 'right' },
   { title: 'Country', render: 'country' },
-  { title: 'Position', render: 'position' },
+  { title: 'Position', render: 'position', align: 'right' },
   { title: 'Office', render: 'office' },
 ]
 

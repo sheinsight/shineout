@@ -73,7 +73,7 @@ class Td extends PureComponent {
 
   render() {
     const {
-      rowSpan, colSpan, fixed, style, firstFixed, lastFixed, type,
+      rowSpan, colSpan, fixed, style, firstFixed, lastFixed, type, align,
     } = this.props
 
     const className = classnames(
@@ -84,6 +84,7 @@ class Td extends PureComponent {
         firstFixed && 'fixed-first',
         lastFixed && 'fixed-last',
         (type === 'checkbox' || type === 'expand' || type === 'row-expand') && 'checkbox',
+        align !== 'left' && `align-${align}`,
       ),
     )
 
@@ -105,6 +106,7 @@ Td.propTypes = {
   index: PropTypes.number,
   lastFixed: PropTypes.bool,
   onExpand: PropTypes.func,
+  align: PropTypes.oneOf(['left', 'center', 'right']),
   rowKey: PropTypes.any,
   rowSpan: PropTypes.number,
   style: PropTypes.object,
@@ -121,6 +123,7 @@ Td.propTypes = {
 Td.defaultProps = {
   fixed: '',
   style: {},
+  align: 'left',
 }
 
 export default Td
