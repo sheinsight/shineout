@@ -15,9 +15,7 @@ class Time extends PureComponent {
   }
 
   handleChange(type, val) {
-    const {
-      disabled, value, format, min, max, range,
-    } = this.props
+    const { disabled, value, format, min, max, range } = this.props
     const date = new Date(value.getTime())
     let hours
 
@@ -70,31 +68,15 @@ class Time extends PureComponent {
 
     return (
       <div className={className}>
-        {
-          format.indexOf('H') >= 0 &&
+        {format.indexOf('H') >= 0 && (
           <TimeScroll value={value.getHours()} total={24} onChange={this.handleHourChange} />
-        }
-        {
-          format.indexOf('h') >= 0 &&
-          <TimeScroll value={hours} total={12} onChange={this.handleHourChange} />
-        }
-        {
-          format.indexOf('m') >= 0 &&
-          <TimeScroll value={value.getMinutes()} onChange={this.handleMinuteChange} />
-        }
-        {
-          format.indexOf('s') >= 0 &&
-          <TimeScroll value={value.getSeconds()} onChange={this.handleSecondChange} />
-        }
-        {
-          (/a|A/.test(format)) &&
-          <TimeScroll
-            value={value.getHours() >= 12 ? 1 : 0}
-            total={2}
-            ampm
-            onChange={this.handleAMPMChange}
-          />
-        }
+        )}
+        {format.indexOf('h') >= 0 && <TimeScroll value={hours} total={12} onChange={this.handleHourChange} />}
+        {format.indexOf('m') >= 0 && <TimeScroll value={value.getMinutes()} onChange={this.handleMinuteChange} />}
+        {format.indexOf('s') >= 0 && <TimeScroll value={value.getSeconds()} onChange={this.handleSecondChange} />}
+        {/a|A/.test(format) && (
+          <TimeScroll value={value.getHours() >= 12 ? 1 : 0} total={2} ampm onChange={this.handleAMPMChange} />
+        )}
       </div>
     )
   }

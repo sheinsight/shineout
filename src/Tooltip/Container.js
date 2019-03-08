@@ -98,7 +98,7 @@ export default function(options) {
         default:
       }
 
-      return { left, top }
+      return { left: Math.round(left), top: Math.round(top) }
     }
 
     elementRef(el) {
@@ -140,7 +140,7 @@ export default function(options) {
       const props = { key: 'el' }
       if (trigger === 'hover') {
         props.onMouseEnter = this.handleShow
-        props.onMouseLeave = hide
+        props.onMouseLeave = () => hide()
       } else {
         props.onClick = e => {
           e.stopPropagation()

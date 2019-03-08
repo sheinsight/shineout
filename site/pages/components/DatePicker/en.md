@@ -17,6 +17,7 @@
 | style | object | - | Container element style |
 | type | string | 'date' | options:  \['date', 'time', 'datetime', 'month', 'week'] |
 | value | string \| number \| Date \| array | - | When the value is string, it needs to match the format attribute. <br /> When the range property is true, the value is an array of length 2. |
+| defaultTime | string | - | Default time when selecting a date, the format is: 'HH:mm:ss'
 
 
 ### Format

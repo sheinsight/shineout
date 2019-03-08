@@ -44,6 +44,7 @@
         "jsx-a11y/label-has-for": 0,
         "react/no-did-mount-set-state": 0,
         "react/no-array-index-key": 0,
+        "react/jsx-indent": 0,
         "react/no-find-dom-node": 0,
         "react/require-default-props": 0,
         "semi": [

@@ -5,9 +5,7 @@ import { datepickerClass } from '../styles'
 
 class Icon extends PureComponent {
   render() {
-    const {
-      className, name, onClick, tag, disabled,
-    } = this.props
+    const { className, name, onClick, tag, disabled } = this.props
 
     const newProps = {
       className: datepickerClass(className, 'icon', disabled && 'disabled'),

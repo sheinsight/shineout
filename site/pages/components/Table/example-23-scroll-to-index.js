@@ -43,7 +43,10 @@ export default class extends Component {
 
   handleScroll = () => {
     this.table.scrollToIndex(this.state.index - 1, () => {
-      document.querySelector(`#name_${this.state.index}`).style.color = 'red'
+      const el = document.querySelector(`#name_${this.state.index}`)
+      if (el) {
+        el.style.color = 'red'
+      }
     })
   }
 
@@ -51,7 +54,7 @@ export default class extends Component {
     return (
       <div>
         <Form value={this.state} inline onSubmit={this.handleIndexChange}>
-          <Input.Number min={0} max={9999} width={100} name="index" />
+          <Input.Number min={1} max={10000} width={100} name="index" />
           <Form.Submit>Scroll</Form.Submit>
         </Form>
         <Table

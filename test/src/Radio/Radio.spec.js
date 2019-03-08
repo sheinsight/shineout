@@ -32,13 +32,11 @@ describe('Radio[Base]', () => {
     const radiosWrapper = mount(<Radio.Group keygen data={data} onChange={changeFn} />)
     radiosWrapper.find('input[type="radio"]').forEach(radio => {
       // simulate change
-      radio.simulate('change', () => {
-        return {
-          target: {
-            checked: true,
-          },
-        }
-      })
+      radio.simulate('change', () => ({
+        target: {
+          checked: true,
+        },
+      }))
     })
     changeFn.mock.calls.forEach((call, index) => {
       expect(call[0]).toBe(data[index])
@@ -69,13 +67,11 @@ describe('Radio[Raw]', () => {
     const radiosWrapper = mount(<Radio.Group keygen data={data} onChange={changeFn} />)
     radiosWrapper.find('input[type="radio"]').forEach(radio => {
       // simulate change
-      radio.simulate('change', () => {
-        return {
-          target: {
-            checked: true,
-          },
-        }
-      })
+      radio.simulate('change', () => ({
+        target: {
+          checked: true,
+        },
+      }))
     })
     changeFn.mock.calls.forEach((call, index) => {
       expect(call[0]).toBe(data[index])

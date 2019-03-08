@@ -6,7 +6,7 @@ import { compose } from '../utils/func'
 
 const Cascader = compose(
   inputable,
-  inputBorder({ className: selectClass('_'), tag: 'span' }),
+  inputBorder({ className: selectClass('_'), tag: 'span' })
 )(Component)
 
 Cascader.displayName = 'ShineoutCascader'

@@ -51,6 +51,23 @@
     display: inline-flex;
   }
 
+  &-no-data {
+    width: 100%;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    padding: @dropdown-item-padding-y @dropdown-padding-x+12 @dropdown-item-padding-y @dropdown-padding-x;
+    color: @gray-500;
+    font-size: @font-size-base;
+    line-height: @line-height-base;
+    text-overflow: ellipsis;
+    transition: none;
+    white-space: nowrap;
+    &:hover {
+      color: @dropdown-link-active-color;
+    }
+  }
+
   &-list {
     display: inline-block;
     min-width: 120px;
