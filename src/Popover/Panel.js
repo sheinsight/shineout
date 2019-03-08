@@ -5,6 +5,8 @@ import { getPosition } from '../utils/dom/popover'
 import { isFunc } from '../utils/is'
 import { popoverClass } from '../styles'
 
+const emptyEvent = e => e.stopPropagation()
+
 class Panel extends PureComponent {
   constructor(props) {
     super(props)
@@ -19,7 +21,6 @@ class Panel extends PureComponent {
     this.handleHide500 = this.handleHide.bind(this, 500)
 
     this.element = document.createElement('div')
-    this.element.onclick = e => e.stopPropagation()
   }
 
   componentDidMount() {
@@ -116,7 +117,7 @@ class Panel extends PureComponent {
     return ReactDOM.createPortal(
       [
         <div key="arrow" className={popoverClass('arrow')} style={colorStyle} />,
-        <div key="content" className={popoverClass('content')} style={innerStyle}>
+        <div key="content" onClick={emptyEvent} className={popoverClass('content')} style={innerStyle}>
           {isFunc(children) ? children(this.handleHide0) : children}
         </div>,
       ],
