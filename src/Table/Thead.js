@@ -55,7 +55,7 @@ class Thead extends PureComponent {
     if (col.title) {
       trs[level].push(
         <th
-          className={tableClass(level > 0 && 'condensed', ...fixed)}
+          className={tableClass(level > 0 && 'condensed', `align-${col.align}`, ...fixed)}
           rowSpan={this.columnLevel - level + 1}
           key={col.key}
         >
