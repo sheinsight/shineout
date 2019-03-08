@@ -52,7 +52,7 @@ class Thead extends PureComponent {
 
     const { sorter, onSortChange, data, datum, showSelectAll, disabled } = this.props
 
-    const align = `align-${col.align || 'left'}`
+    const align = col.align && `align-${col.align}`
     if (col.title) {
       trs[level].push(
         <th

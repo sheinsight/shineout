@@ -84,7 +84,7 @@ class Td extends PureComponent {
         firstFixed && 'fixed-first',
         lastFixed && 'fixed-last',
         (type === 'checkbox' || type === 'expand' || type === 'row-expand') && 'checkbox',
-        `align-${align}`,
+        align !== 'left' && `align-${align}`,
       ),
     )
 
