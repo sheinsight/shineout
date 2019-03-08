@@ -68,13 +68,13 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Popover/example-6-type.js'),
   },
   {
-    name: '7-panel',
+    name: '7-old',
     title: locate(
       '旧API \n 旧接口使用 Popover 包在组件外使用，通过 content 传递内容，已不推荐',
       'Old API \n Old API, is out of date.'
     ),
-    component: require('doc/pages/components/Popover/example-7-panel.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Popover/example-7-panel.js'),
+    component: require('doc/pages/components/Popover/example-7-old.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Popover/example-7-old.js'),
   },
 ]
 
