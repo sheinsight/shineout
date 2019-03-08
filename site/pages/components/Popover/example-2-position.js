@@ -25,14 +25,16 @@ const style = {
 }
 
 export default function() {
-  const content = <div style={{ width: 240, padding: 30 }}>Some text</div>
   return positions.map((row, i) => (
     <div key={i}>
       {row.map((p, j) =>
         p ? (
-          <Popover content={content} position={p} key={j}>
-            <div style={style}>{p}</div>
-          </Popover>
+          <div key={j} style={style}>
+            <Popover position={p}>
+              <div style={{ width: 240, padding: 30 }}>Some text</div>
+            </Popover>
+            {p}
+          </div>
         ) : (
           <div key={j} style={{ ...style, border: 0 }} />
         )

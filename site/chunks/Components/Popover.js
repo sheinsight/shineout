@@ -16,7 +16,7 @@ const examples = [
   {
     name: '1-base',
     title: locate(
-      '基本用法 \n 与 Tooltip 相比，Popover 可以控制样式，大小由内容决定',
+      '基本用法 \n Popover 放置在一个组件内部弹出',
       'Base \n The basic usage.'
     ),
     component: require('doc/pages/components/Popover/example-1-base.js').default,
@@ -66,6 +66,15 @@ const examples = [
     ),
     component: require('doc/pages/components/Popover/example-6-type.js').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-6-type.js'),
+  },
+  {
+    name: '7-old',
+    title: locate(
+      '旧API \n 旧接口使用 Popover 包在组件外使用，通过 content 传递内容，已不推荐',
+      'Old API \n Old API, is out of date.'
+    ),
+    component: require('doc/pages/components/Popover/example-7-old.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Popover/example-7-old.js'),
   },
 ]
 

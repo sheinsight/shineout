@@ -8,10 +8,12 @@ import React from 'react'
 import { Button, Popover } from 'shineout'
 
 export default function() {
-  const content = <div style={{ width: 200, padding: 20, color: 'gold' }}>Some text</div>
   return (
-    <Popover content={content} background="#555" border="gold" style={{ marginRight: 12 }}>
-      <Button>Hover</Button>
-    </Popover>
+    <Button>
+      <Popover background="#555" border="gold" style={{ width: 200, padding: 20, color: 'gold' }}>
+        Some text
+      </Popover>
+      Hover
+    </Button>
   )
 }
