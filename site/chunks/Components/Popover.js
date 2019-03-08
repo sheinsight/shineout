@@ -76,6 +76,15 @@ const examples = [
     component: require('doc/pages/components/Popover/example-7-old.js').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-7-old.js'),
   },
+  {
+    name: '8-event',
+    title: locate(
+      '基本用法 \n Popover 放置在一个组件内部弹出',
+      'Base \n The basic usage.'
+    ),
+    component: require('doc/pages/components/Popover/example-8-event.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Popover/example-8-event.js'),
+  },
 ]
 
 const codes = undefined
