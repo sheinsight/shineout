@@ -2,9 +2,10 @@ import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import { getPosition } from '../utils/dom/popover'
+import { isFunc } from '../utils/is'
 import { popoverClass } from '../styles'
 
-class Inside extends PureComponent {
+class Panel extends PureComponent {
   constructor(props) {
     super(props)
 
@@ -12,12 +13,10 @@ class Inside extends PureComponent {
     this.isRendered = false
 
     this.placeholderRef = this.placeholderRef.bind(this)
-    this.handleShow = this.toggle.bind(this, true)
-    this.handleHide = () => {
-      setTimeout(() => {
-        this.toggle(false)
-      }, 500)
-    }
+    this.clickAway = this.clickAway.bind(this)
+    this.handleShow = this.handleShow.bind(this)
+    this.handleHide0 = this.handleHide.bind(this, 0)
+    this.handleHide500 = this.handleHide.bind(this, 500)
 
     this.element = document.createElement('div')
   }
@@ -26,7 +25,9 @@ class Inside extends PureComponent {
     this.parentElement = this.placeholder.parentElement
     if (this.props.trigger === 'hover') {
       this.parentElement.addEventListener('mouseenter', this.handleShow)
-      this.parentElement.addEventListener('mouseleave', this.handleHide)
+      this.parentElement.addEventListener('mouseleave', this.handleHide500)
+      this.element.addEventListener('mouseenter', this.handleShow)
+      this.element.addEventListener('mouseleave', this.handleHide500)
     } else {
       this.parentElement.addEventListener('click', this.handleShow)
     }
@@ -36,22 +37,63 @@ class Inside extends PureComponent {
 
   componentWillUnmount() {
     this.parentElement.removeEventListener('mouseenter', this.handleShow)
-    this.parentElement.removeEventListener('mouseleave', this.handleHide)
+    this.parentElement.removeEventListener('mouseleave', this.handleHide500)
     this.parentElement.removeEventListener('click', this.handleShow)
 
+    document.removeEventListener('click', this.clickAway)
     document.body.removeChild(this.element)
+  }
+
+  getPositionStr() {
+    let { position } = this.props
+    if (position) return position
+
+    const rect = this.parentElement.getBoundingClientRect()
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight
+    const windowWidth = window.innerWidth || document.documentElement.clientWidth
+    if (rect.top + rect.height / 2 > windowHeight / 2) {
+      position = 'top'
+    } else {
+      position = 'bottom'
+    }
+
+    if (rect.left < 100) position += '-right'
+    else if (rect.right > windowWidth - 100) position += '-left'
+
+    return position
   }
 
   placeholderRef(el) {
     this.placeholder = el
   }
 
+  clickAway(e) {
+    if (this.parentElement.contains(e.target)) return
+    if (this.element.contains(e.target)) return
+    this.handleHide(0)
+  }
+
+  handleShow() {
+    if (this.closeTimer) clearTimeout(this.closeTimer)
+    if (this.state.show) return
+    document.addEventListener('click', this.clickAway)
+    this.setState({ show: true })
+  }
+
+  handleHide(delay = 500) {
+    this.closeTimer = setTimeout(() => {
+      document.removeEventListener('click', this.clickAway)
+      this.setState({ show: false })
+    }, delay)
+  }
+
   toggle(show) {
+    if (this.closeTimer) clearTimeout(this.closeTimer)
     this.setState({ show })
   }
 
   render() {
-    const { background, border, children, position, type } = this.props
+    const { background, border, children, type } = this.props
     const { show } = this.state
 
     if (!show && !this.isRendered) return <noscript ref={this.placeholderRef} />
@@ -59,6 +101,7 @@ class Inside extends PureComponent {
 
     const colorStyle = { background, borderColor: border }
     const innerStyle = Object.assign({}, this.props.style, { background })
+    const position = this.getPositionStr()
     const pos = getPosition(position, this.parentElement)
     this.element.className = popoverClass('_', position, type)
     // eslint-disable-next-line
@@ -73,7 +116,7 @@ class Inside extends PureComponent {
       [
         <div key="arrow" className={popoverClass('arrow')} style={colorStyle} />,
         <div key="content" className={popoverClass('content')} style={innerStyle}>
-          {children}
+          {isFunc(children) ? children(this.handleHide0) : children}
         </div>,
       ],
       this.element
@@ -81,7 +124,7 @@ class Inside extends PureComponent {
   }
 }
 
-Inside.propTypes = {
+Panel.propTypes = {
   background: PropTypes.string,
   border: PropTypes.string,
   children: PropTypes.any,
@@ -91,10 +134,9 @@ Inside.propTypes = {
   type: PropTypes.string,
 }
 
-Inside.defaultProps = {
-  background: '#fff',
-  position: 'top',
+Panel.defaultProps = {
+  background: '',
   trigger: 'hover',
 }
 
-export default Inside
+export default Panel

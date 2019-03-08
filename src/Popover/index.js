@@ -1,9 +1,15 @@
+import React from 'react'
 import Container from '../Tooltip/Container'
 import * as events from './events'
-import Inside from './Inside'
+import Panel from './Panel'
 
-const Popover = Container(events)
-Popover.Inside = Inside
+const Component = Container(events)
+
+function Popover(props) {
+  // eslint-disable-next-line
+  if (props.content) return <Component {...props} />
+  return <Panel {...props} />
+}
 
 Popover.displayName = 'ShineoutPopover'
 

@@ -8,26 +8,27 @@ import React from 'react'
 import { Button, Popover, Message } from 'shineout'
 
 export default function() {
-  const content = close => (
-    <div style={{ padding: 20 }}>
-      <div>Are you sure you want to close this panel?</div>
-      <div style={{ marginTop: 30, textAlign: 'right' }}>
-        <Button
-          size="small"
-          onClick={() => {
-            close()
-            Message.success('Popover panel closed.')
-          }}
-        >
-          close
-        </Button>
-      </div>
-    </div>
-  )
-
   return (
-    <Popover content={content} trigger="click" style={{ marginRight: 12 }}>
-      <Button>Click me</Button>
-    </Popover>
+    <Button>
+      <Popover trigger="click">
+        {close => (
+          <div style={{ padding: 20 }}>
+            <div>Are you sure you want to close this panel?</div>
+            <div style={{ marginTop: 30, textAlign: 'right' }}>
+              <Button
+                size="small"
+                onClick={() => {
+                  close()
+                  Message.success('Popover panel closed.')
+                }}
+              >
+                close
+              </Button>
+            </div>
+          </div>
+        )}
+      </Popover>
+      Click me
+    </Button>
   )
 }
