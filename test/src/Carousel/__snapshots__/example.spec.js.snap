@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test: Carousel[site/pages/components/Carousel/example-1-base.js] 1`] = `
+<div>
+  <div>
+    animation:
+     
+    <div>
+      <div>
+        <div>
+          <span>
+            slide
+          </span>
+          <a />
+        </div>
+        <div>
+          <span>
+            Data not found
+          </span>
+        </div>
+      </div>
+    </div>
+    　indicatorPosition: 
+    <div>
+      <div>
+        <div>
+          <span>
+            center
+          </span>
+          <a />
+        </div>
+        <div>
+          <span>
+            Data not found
+          </span>
+        </div>
+      </div>
+    </div>
+    　indicatorType: 
+    <div>
+      <div>
+        <div>
+          <span>
+            circle
+          </span>
+          <a />
+        </div>
+        <div>
+          <span>
+            Data not found
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        <div>
+          Page 1
+        </div>
+      </div>
+    </div>
+    <div>
+      <div>
+        <div>
+          Page 2
+        </div>
+      </div>
+    </div>
+    <div>
+      <div>
+        <div>
+          Page 3
+        </div>
+      </div>
+    </div>
+    <div>
+      <a>
+        <img />
+      </a>
+    </div>
+    <div>
+      <a>
+        
+      </a>
+      <a>
+        
+      </a>
+      <a>
+        
+      </a>
+      <a>
+        
+      </a>
+    </div>
+  </div>
+</div>
+`;

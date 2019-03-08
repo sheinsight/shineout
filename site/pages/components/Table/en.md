@@ -28,6 +28,7 @@
 | striped | bool | false | Whether to display zebra shading. |
 | style | object | - | Container element style |
 | value | array | none | The current selected value. |
+| empty | string | Data not found | empty text |
 | rowClickAttr | string \| string[] | \['*'\] | Sets the attribute of inner element to trigger onRowClick as needed, and '*' to accept the row click |
 
 ### Column

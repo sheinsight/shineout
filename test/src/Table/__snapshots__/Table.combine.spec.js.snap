@@ -1,0 +1,1134 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table[combine] should combine with pagination 1`] = `
+Array [
+  <div
+    className="so-table so-table-default so-table-hover so-table-vertical-top"
+    style={Object {}}
+  >
+    <table
+      style={
+        Object {
+          "width": undefined,
+        }
+      }
+    >
+      <colgroup>
+        <col
+          style={
+            Object {
+              "width": 70,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+      </colgroup>
+      <thead>
+        <tr>
+          <th
+            className=""
+            rowSpan={2}
+          >
+            id
+          </th>
+          <th
+            className="so-table-center so-table-condensed"
+            colSpan={2}
+          >
+            Name
+          </th>
+          <th
+            className=""
+            rowSpan={2}
+          >
+            Start Date
+          </th>
+          <th
+            className=""
+            rowSpan={2}
+          >
+            Time
+          </th>
+          <th
+            className=""
+            rowSpan={2}
+          >
+            Office
+          </th>
+        </tr>
+        <tr>
+          <th
+            className="so-table-condensed"
+            rowSpan={1}
+          >
+            First Name
+          </th>
+          <th
+            className="so-table-condensed"
+            rowSpan={1}
+          >
+            Last Name
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          className="so-table-normal"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            5839
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Ryley
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Ruecker
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            rowSpan={2}
+            style={Object {}}
+          >
+            2005-06-26
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            12:30
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Baghdad
+          </td>
+        </tr>
+        <tr
+          className="so-table-normal"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            6558
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Patience
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Stark
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            10:35
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Osaka-Kobe-Kyoto
+          </td>
+        </tr>
+        <tr
+          className="so-table-normal"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            2418
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Myrtis
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Denesik
+          </td>
+          <td
+            className=""
+            colSpan={2}
+            style={Object {}}
+          >
+            2005-06-27
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Baghdad
+          </td>
+        </tr>
+        <tr
+          className="so-table-normal"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            2612
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Mollie
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Kling
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            2005-06-27
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            10:38
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Fuzhou
+          </td>
+        </tr>
+        <tr
+          className="so-table-normal"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            6257
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Cecilia
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Wisozk
+          </td>
+          <td
+            className=""
+            colSpan={2}
+            rowSpan={2}
+            style={Object {}}
+          >
+            2005-06-28
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Berlin
+          </td>
+        </tr>
+        <tr
+          className="so-table-normal"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            6428
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Lela
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Murray
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Fuzhou
+          </td>
+        </tr>
+        <tr
+          className="so-table-normal"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            9469
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Vernie
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Ondricka
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            2005-06-29
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            09:44
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Osaka-Kobe-Kyoto
+          </td>
+        </tr>
+        <tr
+          className="so-table-normal"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            7841
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Maud
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Gutkowski
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            2005-06-30
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            11:21
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Baghdad
+          </td>
+        </tr>
+        <tr
+          className="so-table-normal"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            9634
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Dixie
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Strosin
+          </td>
+          <td
+            className=""
+            colSpan={2}
+            style={Object {}}
+          >
+            2005-06-30
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Osaka-Kobe-Kyoto
+          </td>
+        </tr>
+        <tr
+          className="so-table-normal"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            4758
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Henderson
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            McCullough
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            2005-07-01
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            12:47
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            Osaka-Kobe-Kyoto
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+  <div
+    className="so-pagination so-pagination-default"
+    style={Object {}}
+  >
+    <div
+      className="so-pagination-links so-pagination-section"
+    >
+      <a
+        className="so-pagination-item"
+        disabled={true}
+        href="javascript:;"
+        onMouseDown={[Function]}
+      >
+        <svg
+          viewBox="0 0 1024 1024"
+        >
+          <path
+            d="M304.905 561.68c-11.785 0-23.57-4.496-32.562-13.488-17.984-17.983-17.984-47.139 0-65.122l402.522-402.522c17.982-17.983 47.14-17.983 65.122 0 17.984 17.984 17.984 47.14 0 65.123l-402.521 402.521c-8.992 8.993-20.776 13.488-32.562 13.488z"
+          />
+          <path
+            d="M707.426 964.201c-11.785 0-23.57-4.496-32.561-13.488l-402.523-402.522c-17.984-17.983-17.984-47.139 0-65.122 17.983-17.983 47.14-17.983 65.123 0l402.521 402.522c17.984 17.983 17.984 47.139 0 65.122-8.991 8.992-20.776 13.488-32.561 13.488z"
+          />
+        </svg>
+      </a>
+      <a
+        className="so-pagination-item so-pagination-current"
+        disabled={true}
+        href="javascript:;"
+        onMouseDown={[Function]}
+      >
+        1
+      </a>
+      <a
+        className="so-pagination-item"
+        disabled={true}
+        href="javascript:;"
+        onMouseDown={[Function]}
+      >
+        <svg
+          viewBox="0 0 1024 1024"
+        >
+          <path
+            d="M728.76 561.68c-11.785 0-23.57-4.496-32.561-13.488l-402.523-402.521c-17.984-17.984-17.984-47.14 0-65.123 17.983-17.983 47.14-17.983 65.123 0l402.521 402.522c17.984 17.984 17.984 47.14 0 65.122-8.991 8.993-20.776 13.488-32.561 13.488z"
+          />
+          <path
+            d="M326.238 964.202c-11.785 0-23.57-4.496-32.562-13.488-17.984-17.983-17.984-47.139 0-65.122l402.522-402.522c17.982-17.983 47.14-17.983 65.122 0 17.984 17.984 17.984 47.14 0 65.122l-402.521 402.522c-8.992 8.992-20.776 13.488-32.562 13.488z"
+          />
+        </svg>
+      </a>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Table[combine] should combine without pagination 1`] = `
+<div
+  className="so-table so-table-default so-table-hover so-table-vertical-top"
+  style={Object {}}
+>
+  <table
+    style={
+      Object {
+        "width": undefined,
+      }
+    }
+  >
+    <colgroup>
+      <col
+        style={
+          Object {
+            "width": 70,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+    </colgroup>
+    <thead>
+      <tr>
+        <th
+          className=""
+          rowSpan={2}
+        >
+          id
+        </th>
+        <th
+          className="so-table-center so-table-condensed"
+          colSpan={2}
+        >
+          Name
+        </th>
+        <th
+          className=""
+          rowSpan={2}
+        >
+          Start Date
+        </th>
+        <th
+          className=""
+          rowSpan={2}
+        >
+          Time
+        </th>
+        <th
+          className=""
+          rowSpan={2}
+        >
+          Office
+        </th>
+      </tr>
+      <tr>
+        <th
+          className="so-table-condensed"
+          rowSpan={1}
+        >
+          First Name
+        </th>
+        <th
+          className="so-table-condensed"
+          rowSpan={1}
+        >
+          Last Name
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        className="so-table-normal"
+        onClick={[Function]}
+      >
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          5839
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Ryley
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Ruecker
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          rowSpan={2}
+          style={Object {}}
+        >
+          2005-06-26
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          12:30
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Baghdad
+        </td>
+      </tr>
+      <tr
+        className="so-table-normal"
+        onClick={[Function]}
+      >
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          6558
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Patience
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Stark
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          10:35
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Osaka-Kobe-Kyoto
+        </td>
+      </tr>
+      <tr
+        className="so-table-normal"
+        onClick={[Function]}
+      >
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          2418
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Myrtis
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Denesik
+        </td>
+        <td
+          className=""
+          colSpan={2}
+          style={Object {}}
+        >
+          2005-06-27
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Baghdad
+        </td>
+      </tr>
+      <tr
+        className="so-table-normal"
+        onClick={[Function]}
+      >
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          2612
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Mollie
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Kling
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          2005-06-27
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          10:38
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Fuzhou
+        </td>
+      </tr>
+      <tr
+        className="so-table-normal"
+        onClick={[Function]}
+      >
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          6257
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Cecilia
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Wisozk
+        </td>
+        <td
+          className=""
+          colSpan={2}
+          rowSpan={2}
+          style={Object {}}
+        >
+          2005-06-28
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Berlin
+        </td>
+      </tr>
+      <tr
+        className="so-table-normal"
+        onClick={[Function]}
+      >
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          6428
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Lela
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Murray
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Fuzhou
+        </td>
+      </tr>
+      <tr
+        className="so-table-normal"
+        onClick={[Function]}
+      >
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          9469
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Vernie
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Ondricka
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          2005-06-29
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          09:44
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Osaka-Kobe-Kyoto
+        </td>
+      </tr>
+      <tr
+        className="so-table-normal"
+        onClick={[Function]}
+      >
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          7841
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Maud
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Gutkowski
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          2005-06-30
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          11:21
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Baghdad
+        </td>
+      </tr>
+      <tr
+        className="so-table-normal"
+        onClick={[Function]}
+      >
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          9634
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Dixie
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Strosin
+        </td>
+        <td
+          className=""
+          colSpan={2}
+          style={Object {}}
+        >
+          2005-06-30
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Osaka-Kobe-Kyoto
+        </td>
+      </tr>
+      <tr
+        className="so-table-normal"
+        onClick={[Function]}
+      >
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          4758
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Henderson
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          McCullough
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          2005-07-01
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          12:47
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          Osaka-Kobe-Kyoto
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

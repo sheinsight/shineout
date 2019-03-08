@@ -1,0 +1,591 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test: Pagination[site/pages/components/Pagination/example-1-base.js] 1`] = `
+<div>
+  <div>
+    <a>
+      <svg>
+        <path />
+        <path />
+      </svg>
+    </a>
+    <a>
+      1
+    </a>
+    <a>
+      <svg>
+        <path />
+        <path />
+      </svg>
+    </a>
+    <a>
+      8
+    </a>
+    <a>
+      9
+    </a>
+    <a>
+      10
+    </a>
+    <a>
+      11
+    </a>
+    <a>
+      12
+    </a>
+    <a>
+      <svg>
+        <path />
+        <path />
+      </svg>
+    </a>
+    <a>
+      100
+    </a>
+    <a>
+      <svg>
+        <path />
+        <path />
+      </svg>
+    </a>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Pagination[site/pages/components/Pagination/example-2-size.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+      <a>
+        1
+      </a>
+      <a>
+        2
+      </a>
+      <a>
+        3
+      </a>
+      <a>
+        4
+      </a>
+      <a>
+        5
+      </a>
+      <a>
+        6
+      </a>
+      <a>
+        7
+      </a>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+      <a>
+        100
+      </a>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+    </div>
+  </div>
+  <br />
+  <div>
+    <div>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+      <a>
+        1
+      </a>
+      <a>
+        2
+      </a>
+      <a>
+        3
+      </a>
+      <a>
+        4
+      </a>
+      <a>
+        5
+      </a>
+      <a>
+        6
+      </a>
+      <a>
+        7
+      </a>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+      <a>
+        100
+      </a>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+    </div>
+  </div>
+  <br />
+  <div>
+    <div>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+      <a>
+        1
+      </a>
+      <a>
+        2
+      </a>
+      <a>
+        3
+      </a>
+      <a>
+        4
+      </a>
+      <a>
+        5
+      </a>
+      <a>
+        6
+      </a>
+      <a>
+        7
+      </a>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+      <a>
+        100
+      </a>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Pagination[site/pages/components/Pagination/example-3-layout.js] 1`] = `
+<div>
+  <div>
+    <a>
+      <svg>
+        <path />
+        <path />
+      </svg>
+    </a>
+    <a>
+      1
+    </a>
+    <a>
+      2
+    </a>
+    <a>
+      3
+    </a>
+    <a>
+      <svg>
+        <path />
+        <path />
+      </svg>
+    </a>
+  </div>
+  <div>
+    <div>
+      <div>
+        <span>
+          50 
+        </span>
+        <a />
+      </div>
+      <div>
+        <span>
+          Data not found
+        </span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <span>
+      total 128
+    </span>
+  </div>
+  <div>
+    Go to 
+    <label>
+      <input />
+    </label>
+    
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Pagination[site/pages/components/Pagination/example-4-text.js] 1`] = `
+<div>
+  <div>
+    <a>
+      Previous
+    </a>
+    <a>
+      1
+    </a>
+    <a>
+      2
+    </a>
+    <a>
+      3
+    </a>
+    <a>
+      4
+    </a>
+    <a>
+      5
+    </a>
+    <a>
+      6
+    </a>
+    <a>
+      Next
+    </a>
+  </div>
+  <div>
+    <div>
+      <div>
+        <span>
+          50 / page
+        </span>
+        <a />
+      </div>
+      <div>
+        <span>
+          Data not found
+        </span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <span>
+      1 to 50 of 256 items
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Pagination[site/pages/components/Pagination/example-5-align.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+      <a>
+        1
+      </a>
+      <a>
+        2
+      </a>
+      <a>
+        3
+      </a>
+      <a>
+        4
+      </a>
+      <a>
+        5
+      </a>
+      <a>
+        6
+      </a>
+      <a>
+        7
+      </a>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+      <a>
+        10
+      </a>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+    </div>
+    <div>
+      <span>
+        Total 100
+      </span>
+    </div>
+  </div>
+  <br />
+  <div>
+    <div>
+      <span>
+        Total 100
+      </span>
+    </div>
+    <div>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+      <a>
+        1
+      </a>
+      <a>
+        2
+      </a>
+      <a>
+        3
+      </a>
+      <a>
+        4
+      </a>
+      <a>
+        5
+      </a>
+      <a>
+        6
+      </a>
+      <a>
+        7
+      </a>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+      <a>
+        10
+      </a>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Pagination[site/pages/components/Pagination/example-7-controlled.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <a>
+        Previous
+      </a>
+      <a>
+        1
+      </a>
+      <a>
+        2
+      </a>
+      <a>
+        3
+      </a>
+      <a>
+        4
+      </a>
+      <a>
+        5
+      </a>
+      <a>
+        6
+      </a>
+      <a>
+        7
+      </a>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+      <a>
+        50
+      </a>
+      <a>
+        Next
+      </a>
+    </div>
+    <div>
+      <div>
+        <div>
+          <span>
+            20 / page
+          </span>
+          <a />
+        </div>
+        <div>
+          <span>
+            Data not found
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div>
+    <div>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+      <a>
+        1
+      </a>
+      <a>
+        2
+      </a>
+      <a>
+        3
+      </a>
+      <a>
+        4
+      </a>
+      <a>
+        5
+      </a>
+      <a>
+        6
+      </a>
+      <a>
+        7
+      </a>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+      <a>
+        50
+      </a>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+    </div>
+    <div>
+      <span>
+        Current page 1
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Pagination[site/pages/components/Pagination/example-8-disabled.js] 1`] = `
+<div>
+  <div>
+    <a>
+      <svg>
+        <path />
+        <path />
+      </svg>
+    </a>
+    <a>
+      1
+    </a>
+    <a>
+      <svg>
+        <path />
+        <path />
+      </svg>
+    </a>
+    <a>
+      8
+    </a>
+    <a>
+      9
+    </a>
+    <a>
+      10
+    </a>
+    <a>
+      11
+    </a>
+    <a>
+      12
+    </a>
+    <a>
+      <svg>
+        <path />
+        <path />
+      </svg>
+    </a>
+    <a>
+      100
+    </a>
+    <a>
+      <svg>
+        <path />
+        <path />
+      </svg>
+    </a>
+  </div>
+  <div>
+    <div>
+      <div>
+        <span>
+          10 
+        </span>
+        <a />
+      </div>
+      <div>
+        <span>
+          Data not found
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
