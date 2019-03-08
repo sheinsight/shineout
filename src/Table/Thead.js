@@ -52,10 +52,11 @@ class Thead extends PureComponent {
 
     const { sorter, onSortChange, data, datum, showSelectAll, disabled } = this.props
 
+    const align = `align-${col.align || 'left'}`
     if (col.title) {
       trs[level].push(
         <th
-          className={tableClass(level > 0 && 'condensed', `align-${col.align}`, ...fixed)}
+          className={tableClass(level > 0 && 'condensed', align, ...fixed)}
           rowSpan={this.columnLevel - level + 1}
           key={col.key}
         >
@@ -69,7 +70,7 @@ class Thead extends PureComponent {
 
     if (col.type === 'checkbox') {
       trs[level].push(
-        <th key="checkbox" rowSpan={trs.length} className={tableClass('checkbox', ...fixed)}>
+        <th key="checkbox" rowSpan={trs.length} className={tableClass('checkbox', align, ...fixed)}>
           {showSelectAll && <CheckboxAll disabled={disabled === true} data={data} datum={datum} />}
         </th>
       )
@@ -79,7 +80,12 @@ class Thead extends PureComponent {
 
     const style = typeof col.name === 'string' ? undefined : { padding: 0 }
     trs[level].push(
-      <th className={tableClass('center', 'condensed', ...fixed)} colSpan={col.colSpan} key={col.key} style={style}>
+      <th
+        className={tableClass('center', 'condensed', align, ...fixed)}
+        colSpan={col.colSpan}
+        key={col.key}
+        style={style}
+      >
         {col.name}
       </th>
     )
