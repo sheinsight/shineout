@@ -19,6 +19,7 @@ class Panel extends PureComponent {
     this.handleHide500 = this.handleHide.bind(this, 500)
 
     this.element = document.createElement('div')
+    this.element.onclick = e => e.stopPropagation()
   }
 
   componentDidMount() {
