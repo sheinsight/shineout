@@ -222,12 +222,16 @@
       border-top-width: 0;
     }
 
-    .@{table-prefix}-float-right .@{table-prefix}-fixed-right {
+    .@{table-prefix}-float-right .@{table-prefix}-float-left {
       &:before {
         bottom: -1px;
       }
+      &:after {
+        bottom: -1px;
+      }
     }
-    .@{table-prefix}-float-left,
+    
+    .@{table-prefix}-fixed-right,
     .@{table-prefix}-fixed-left {
       border-right: 0;
       &:after {

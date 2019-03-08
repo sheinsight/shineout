@@ -9,6 +9,7 @@ import { getLocale } from '../locale'
 import OptionList from './OptionList'
 import absoluteList from './AbsoluteList'
 import BoxList from './BoxList'
+import { isObject } from '../utils/is'
 
 const ListSet = {
   ao: absoluteList(OptionList),
@@ -145,14 +146,18 @@ class Select extends PureComponent {
     }
 
     if (multiple) {
-      const checked = !datum.check(data)
-      if (checked) {
-        datum.add(data)
-      } else {
-        if (fromInput === true) return
+      if (isObject(data) && data.IS_NOT_MATCHED_VALUE) {
         datum.remove(data)
+      } else {
+        const checked = !datum.check(data)
+        if (checked) {
+          datum.add(data)
+        } else {
+          if (fromInput === true) return
+          datum.remove(data)
+        }
+        if (this.inputReset) this.inputReset()
       }
-      if (this.inputReset) this.inputReset()
     } else {
       datum.set(data)
       this.handleState(false)

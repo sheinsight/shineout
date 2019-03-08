@@ -3,9 +3,7 @@ import { CHANGE_TOPIC, WITH_OUT_DISPATCH } from '../Datum/types'
 
 export default class {
   constructor(args = {}) {
-    const {
-      format, onChange, separator, value, prediction, distinct, disabled, limit,
-    } = args
+    const { format, onChange, separator, value, prediction, distinct, disabled, limit } = args
 
     this.distinct = distinct
     this.limit = limit
@@ -69,7 +67,7 @@ export default class {
     if (this.limit === 1) this.$values = []
 
     let raws = Array.isArray(data) ? data : [data]
-    raws = raws.filter((v) => {
+    raws = raws.filter(v => {
       const disabled = this.disabled(v)
       if (disabled) return false
       if (this.distinct) return !this.check(v)
@@ -137,10 +135,9 @@ export default class {
 
     const prediction = this.prediction || this.defaultPrediction.bind(this)
 
-    outer:
-    for (const val of this.values) {
+    outer: for (const val of this.values) {
       for (let j = 0; j < raws.length; j++) {
-        if (prediction(val, raws[j])) {
+        if (raws[j].IS_NOT_MATCHED_VALUE || prediction(val, raws[j])) {
           raws.splice(j, 1)
           continue outer
         }

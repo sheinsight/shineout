@@ -16,7 +16,7 @@ const getResultContent = (data, renderResult) => {
 
 // eslint-disable-next-line
 function Item({ renderResult, data, disabled, onClick }) {
-  const value = isObject(data) && data.IS_NOT_MATCHED_VALUE ? data.value : data
+  const value = data
   const click = disabled ? undefined : () => onClick(value)
   return (
     <a className={selectClass('item', disabled && 'disabled')} onClick={click}>
