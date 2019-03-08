@@ -70,7 +70,7 @@ class Thead extends PureComponent {
 
     if (col.type === 'checkbox') {
       trs[level].push(
-        <th key="checkbox" rowSpan={trs.length} className={tableClass('checkbox', align, ...fixed)}>
+        <th key="checkbox" rowSpan={trs.length} className={tableClass('checkbox', ...fixed)}>
           {showSelectAll && <CheckboxAll disabled={disabled === true} data={data} datum={datum} />}
         </th>
       )
@@ -80,12 +80,7 @@ class Thead extends PureComponent {
 
     const style = typeof col.name === 'string' ? undefined : { padding: 0 }
     trs[level].push(
-      <th
-        className={tableClass('center', 'condensed', align, ...fixed)}
-        colSpan={col.colSpan}
-        key={col.key}
-        style={style}
-      >
+      <th className={tableClass('center', 'condensed', ...fixed)} colSpan={col.colSpan} key={col.key} style={style}>
         {col.name}
       </th>
     )
