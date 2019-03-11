@@ -3,9 +3,10 @@ import { Modal } from 'shineout'
 import { mount } from 'enzyme'
 import { dispatchEvent } from '../../../src/utils/dom/element'
 
+/* global SO_PREFIX */
 class ModalMask extends React.Component {
   state = {
-    maskClosable: false,
+    maskCloseAble: false,
     visible: true,
   }
   handleCancel = () => {
@@ -14,36 +15,41 @@ class ModalMask extends React.Component {
     })
   }
   render() {
-    const { visible, maskClosable } = this.state
-    return (
-      <Modal
-        visible={visible}
-        maskClosable={maskClosable}
-        title="Modal Title"
-        onClose={this.handleCancel}
-      />
-    )
+    const { visible, maskCloseAble } = this.state
+    return <Modal visible={visible} maskCloseAble={maskCloseAble} title="Modal Title" onClose={this.handleCancel} />
   }
 }
 
 describe('Modal[mask]', () => {
-  test('should not click to dismiss && hide close btn while maskClosable false', () => {
+  test('should match maskCloseAble', () => {
+    function expectResult(closeBtn, modalShow){
+      jest.runAllTimers()
+      expect(document.getElementsByClassName(`${SO_PREFIX}-modal-close`).length).toBe(closeBtn ? 1: 0)
+      document.querySelector(`.${SO_PREFIX}-modal-mask`).click()
+      jest.runAllTimers()
+      expect(document.getElementsByClassName(`${SO_PREFIX}-modal-show`).length).toBe(modalShow ? 1: 0)
+    }
     jest.useFakeTimers()
     const wrapper = mount(<ModalMask />)
+    // should not click to dismiss && hide close btn while maskCloseAble false
     wrapper.setState({
       visible: true,
-      maskClosable: false,
+      maskCloseAble: false,
     })
-    jest.runAllTimers()
-    console.log(document.body.innerHTML)
-    dispatchEvent(document, 'click')
-    jest.runAllTimers()
-    console.log(document.body.innerHTML)
-  })
-  test('should dismiss while maskCloseable true', () => {
+    expectResult(false, true)
 
-  })
-  test('should not click to dismiss while maskCloseable null', () => {
+    // should dismiss while maskCloseable true
+    wrapper.setState({
+      visible: true,
+      maskCloseAble: true,
+    })
+    expectResult(true, false)
 
+    // should not click to dismiss while maskCloseable null
+    wrapper.setState({
+      visible: true,
+      maskCloseAble: null,
+    })
+    expectResult(true, true)
   })
 })
