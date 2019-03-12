@@ -10,7 +10,7 @@ div.indicator {
   text-align: center;
   user-select: none;
 }
-div.indicator .indicator-item {
+div.indicator-item {
   margin-right: 10px;
   float: left;
   width: 36px;
@@ -19,11 +19,8 @@ div.indicator .indicator-item {
   color: #ffffff50;
   cursor: pointer;
 }
-div.indicator .indicator-item.active {
+div.indicator-item.active {
   color: #fff;
-}
-div.indicator .indicator-item.beyond .fg {
-  width: 100%;
 }
 div.indicator .indicator-progress {
   position: relative;
