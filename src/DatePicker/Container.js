@@ -15,6 +15,10 @@ import List from '../List'
 import absoluteList from './AbsoluteList'
 
 const FadeList = List(['fade'], 'fast')
+const ListSet = {
+  a: absoluteList(FadeList),
+  n: FadeList,
+}
 
 class Container extends PureComponent {
   constructor(props) {
@@ -250,12 +254,13 @@ class Container extends PureComponent {
   renderWrappedPicker() {
     const { focus, position } = this.state
     const { absolute } = this.props
-    const ListWrapper = absolute ? absoluteList(FadeList) : FadeList
+    const ListWrapper = absolute ? ListSet.a : ListSet.n
     const props = {
       show: focus,
       className: datepickerClass('picker', 'location', `absolute-${position}`),
       position,
     }
+    // computed absolute position needed
     if (absolute) {
       props.parentElement = this.element
     }
