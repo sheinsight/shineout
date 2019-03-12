@@ -18,6 +18,7 @@ class Carousel extends PureComponent {
 
     this.handleMouseIn = this.handleMouseIn.bind(this)
     this.handleMouseOut = this.handleMouseOut.bind(this)
+    this.moveTo = this.moveTo.bind(this)
     this.setNext(1)
   }
 
@@ -67,8 +68,18 @@ class Carousel extends PureComponent {
     ))
   }
 
+  renderCustomIndicator() {
+    const { indicatorType, indicatorPosition } = this.props
+    const { current } = this.state
+    const className = carouselClass('indicator', `indicator-${indicatorPosition}`)
+    return <div className={className}>{indicatorType(current, this.moveTo)}</div>
+  }
+
   renderIndicator() {
     const { indicatorPosition, indicatorType } = this.props
+    if (typeof indicatorType === 'function') {
+      return this.renderCustomIndicator()
+    }
     const { current } = this.state
     const className = carouselClass(
       'indicator',
@@ -116,7 +127,7 @@ Carousel.propTypes = {
     PropTypes.element,
   ]),
   indicatorPosition: PropTypes.oneOf(['left', 'center', 'right']),
-  indicatorType: PropTypes.oneOf(['number', 'circle', 'line']),
+  indicatorType: PropTypes.oneOfType([PropTypes.func, PropTypes.oneOf(['number', 'circle', 'line'])]),
   interval: PropTypes.number,
 }
 
