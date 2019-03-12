@@ -96,4 +96,4 @@ div.indicator .indicator-progress .fg {
   width: 0;
   background: #ffffff;
 }
- */
+*/

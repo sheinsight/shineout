@@ -45,7 +45,7 @@ export default class extends React.Component {
         <Button onClick={this.show}>click me</Button>
         <Modal
           visible={this.state.visible}
-          maskClosable={null}
+          maskCloseAble={null}
           width={500}
           height={300}
           title="Modal Title"
