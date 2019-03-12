@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import immer from 'immer'
 import { PureComponent } from '../component'
-import List from '../List'
 import { datepickerClass, inputClass } from '../styles'
 import Icon from './Icon'
 import utils from './utils'
@@ -11,6 +10,9 @@ import Picker from './Picker'
 import Range from './Range'
 import Text from './Text'
 import { isArray } from '../utils/is'
+import { getParent } from '../utils/dom/element'
+import List from '../List'
+import absoluteList from './AbsoluteList'
 
 const FadeList = List(['fade'], 'fast')
 
@@ -111,7 +113,9 @@ class Container extends PureComponent {
   }
 
   handleClickAway(e) {
-    if (!(e.target === this.element || this.element.contains(e.target))) {
+    const onPicker = e.target === this.element || this.element.contains(e.target)
+    const onAbsolutePicker = getParent(e.target, `.${datepickerClass('location')}`)
+    if (!onPicker && !onAbsolutePicker) {
       this.handleToggle(false)
     }
   }
@@ -243,6 +247,21 @@ class Container extends PureComponent {
     )
   }
 
+  renderWrappedPicker() {
+    const { focus, position } = this.state
+    const { absolute } = this.props
+    const ListWrapper = absolute ? absoluteList(FadeList) : FadeList
+    const props = {
+      show: focus,
+      className: datepickerClass('picker', 'location', `absolute-${position}`),
+      position,
+    }
+    if (absolute) {
+      props.parentElement = this.element
+    }
+    return <ListWrapper {...props}>{this.renderPicker()}</ListWrapper>
+  }
+
   renderPicker() {
     if (!this.firstRender) return undefined
 
@@ -281,9 +300,7 @@ class Container extends PureComponent {
     return (
       <div className={className} tabIndex={-1} ref={this.bindElement} onClick={this.handleFocus}>
         {this.renderResult()}
-        <FadeList show={focus} className={datepickerClass('picker')}>
-          {this.renderPicker()}
-        </FadeList>
+        {this.renderWrappedPicker()}
       </div>
     )
   }
@@ -304,6 +321,7 @@ Container.propTypes = {
   type: PropTypes.string,
   defaultTime: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object, PropTypes.array]),
+  absolute: PropTypes.bool,
 }
 
 Container.defaultProps = {
