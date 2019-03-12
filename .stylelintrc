@@ -4,6 +4,7 @@
     "./node_modules/prettier-stylelint/config.js"
   ],
   "rules": {
+    "order/properties-order": null,
     "at-rule-empty-line-before": [
       "always",
       {
