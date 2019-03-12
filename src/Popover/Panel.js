@@ -1,9 +1,12 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
+import { PureComponent } from '../component'
 import { getPosition } from '../utils/dom/popover'
 import { isFunc } from '../utils/is'
 import { popoverClass } from '../styles'
+
+const emptyEvent = e => e.stopPropagation()
 
 class Panel extends PureComponent {
   constructor(props) {
@@ -78,12 +81,14 @@ class Panel extends PureComponent {
     if (this.state.show) return
     document.addEventListener('click', this.clickAway)
     this.setState({ show: true })
+    if (this.props.onOpen) this.props.onOpen()
   }
 
   handleHide(delay = 500) {
     this.closeTimer = setTimeout(() => {
       document.removeEventListener('click', this.clickAway)
       this.setState({ show: false })
+      if (this.props.onClose) this.props.onClose()
     }, delay)
   }
 
@@ -115,7 +120,7 @@ class Panel extends PureComponent {
     return ReactDOM.createPortal(
       [
         <div key="arrow" className={popoverClass('arrow')} style={colorStyle} />,
-        <div key="content" className={popoverClass('content')} style={innerStyle}>
+        <div key="content" onClick={emptyEvent} className={popoverClass('content')} style={innerStyle}>
           {isFunc(children) ? children(this.handleHide0) : children}
         </div>,
       ],
@@ -128,6 +133,8 @@ Panel.propTypes = {
   background: PropTypes.string,
   border: PropTypes.string,
   children: PropTypes.any,
+  onClose: PropTypes.func,
+  onOpen: PropTypes.func,
   position: PropTypes.string,
   style: PropTypes.object,
   trigger: PropTypes.oneOf(['click', 'hover']),

@@ -22,6 +22,7 @@ const style = {
   margin: 4,
   display: 'inline-block',
   border: 'solid 1px #eee',
+  cursor: 'pointer',
 }
 
 export default function() {
@@ -30,7 +31,7 @@ export default function() {
       {row.map((p, j) =>
         p ? (
           <div key={j} style={style}>
-            <Popover position={p}>
+            <Popover trigger="click" position={p}>
               <div style={{ width: 240, padding: 30 }}>Some text</div>
             </Popover>
             {p}

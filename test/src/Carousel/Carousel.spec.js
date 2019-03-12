@@ -1,6 +1,6 @@
 import React from 'react'
 import { Carousel } from 'shineout'
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import CarouselBase from '../../../site/pages/components/Carousel/example-1-base'
 
 /* global SO_PREFIX */
@@ -123,5 +123,39 @@ describe('Carousel[Autoplay]', () => {
         .at(0)
         .prop('current')
     ).toBeTruthy()
+  })
+})
+
+describe('Carousel[custom-indicator]', () => {
+  test('should call indicatorType', () => {
+    jest.useFakeTimers()
+    const indicatorFn = jest.fn()
+    mount(
+      <Carousel indicatorType={indicatorFn} interval={3000}>
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+      </Carousel>
+    )
+    jest.advanceTimersByTime(6000)
+    expect(indicatorFn.mock.calls[0][0]).toBe(0)
+    expect(indicatorFn.mock.calls[1][0]).toBe(1)
+    expect(indicatorFn.mock.calls[2][0]).toBe(2)
+    jest.advanceTimersByTime(9000)
+    expect(indicatorFn.mock.calls[3][0]).toBe(0)
+    expect(indicatorFn.mock.calls[4][0]).toBe(1)
+    expect(indicatorFn.mock.calls[5][0]).toBe(2)
+  })
+  test('should react with moveTo', () => {
+    const moveToIndex = 2
+    const indicatorFn = (current, moveTo) => moveTo(moveToIndex)
+    const wrapper = mount(
+      <Carousel indicatorType={indicatorFn} interval={3000}>
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+      </Carousel>
+    )
+    expect(wrapper.find('ShineoutCarousel').state('current')).toBe(moveToIndex)
   })
 })

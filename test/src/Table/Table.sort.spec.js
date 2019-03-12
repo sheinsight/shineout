@@ -25,8 +25,8 @@ describe('Table[sort]', () => {
         title: 'name',
         render: 'name',
         sorter: order => (a, b) => {
-          if (order === 'asc') return a.name < b.name
-          return b.name < a.name
+          if (order === 'asc') return b.name.localeCompare(a.name)
+          return a.name.localeCompare(b.name)
         },
       },
     ]

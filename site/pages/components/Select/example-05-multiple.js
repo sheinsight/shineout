@@ -7,7 +7,15 @@
 import React, { Component } from 'react'
 import { Select } from 'shineout'
 
-const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
+const data = [
+  { id: 'red' },
+  { id: 'orange' },
+  { id: 'yellow' },
+  { id: 'green' },
+  { id: 'cyan' },
+  { id: 'blue' },
+  { id: 'violet' },
+]
 
 export default class extends Component {
   constructor(props) {
@@ -25,11 +33,13 @@ export default class extends Component {
       <Select
         style={{ width: 300 }}
         data={data}
-        keygen
+        keygen="id"
         multiple
         placeholder="Multiple select"
         onChange={this.handleChange}
         value={this.state.value}
+        renderItem="id"
+        format="id"
       />
     )
   }
