@@ -1,0 +1,160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test: Input[site/pages/components/Input/example-1-base.js] 1`] = `
+<label>
+  <input />
+</label>
+`;
+
+exports[`Snapshot test: Input[site/pages/components/Input/example-2-size.js] 1`] = `
+<div>
+  <label>
+    <input />
+  </label>
+  <label>
+    <input />
+  </label>
+  <label>
+    <input />
+  </label>
+</div>
+`;
+
+exports[`Snapshot test: Input[site/pages/components/Input/example-3-number.js] 1`] = `
+<div>
+  <label>
+    <input />
+  </label>
+  <label>
+    <input />
+  </label>
+  <label>
+    <input />
+  </label>
+  <label>
+    <input />
+  </label>
+  <label>
+    <input />
+  </label>
+</div>
+`;
+
+exports[`Snapshot test: Input[site/pages/components/Input/example-4-number.js] 1`] = `
+<label>
+  <input />
+  <a>
+    <svg>
+      <path />
+      <path />
+    </svg>
+  </a>
+  <a>
+    <svg>
+      <path />
+      <path />
+    </svg>
+  </a>
+</label>
+`;
+
+exports[`Snapshot test: Input[site/pages/components/Input/example-5-group.js] 1`] = `
+<div>
+  <div>
+    <i />
+    <label>
+      <input />
+    </label>
+    <span>
+      -
+    </span>
+    <label>
+      <input />
+    </label>
+  </div>
+  <div>
+    <label>
+      <input />
+    </label>
+    <i />
+  </div>
+  <div>
+    <label>
+      <input />
+    </label>
+    <label>
+      <input />
+    </label>
+  </div>
+  <div>
+    <label>
+      <input />
+    </label>
+    <button>
+      Search
+    </button>
+  </div>
+  <div>
+    <b>
+      <i />
+    </b>
+    <label>
+      <input />
+    </label>
+    <b>
+      .com
+    </b>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Input[site/pages/components/Input/example-6-tip.js] 1`] = `
+<div>
+  <label>
+    <input />
+  </label>
+  <div>
+    <i />
+    <label>
+      <input />
+    </label>
+  </div>
+  <div>
+    <i />
+    <label>
+      <input />
+    </label>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Input[site/pages/components/Input/example-7-validate.js] 1`] = `
+<label>
+  <input />
+</label>
+`;
+
+exports[`Snapshot test: Input[site/pages/components/Input/example-8-disabled.js] 1`] = `
+<div>
+  <div>
+    <label>
+      <input />
+    </label>
+    <span>
+      -
+    </span>
+    <label>
+      <input />
+    </label>
+  </div>
+  <label>
+    <input />
+  </label>
+</div>
+`;
+
+exports[`Snapshot test: Input[site/pages/components/Input/example-9-password.js] 1`] = `
+<label>
+  <input />
+</label>
+`;

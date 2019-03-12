@@ -25,3 +25,9 @@ export function beFalsy(validate) {
 export function beEqual(process) {
   return (input, expects) => expect(process(...input)).toEqual(expects)
 }
+
+export function appendToDOM(html) {
+  const dom = document.createElement('div')
+  dom.innerHTML = html
+  document.body.appendChild(dom)
+}

@@ -1,0 +1,215 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table[Border&striped] should render border & striped 1`] = `
+<div
+  className="so-table so-table-default so-table-bordered so-table-vertical-top"
+  style={Object {}}
+>
+  <table
+    style={
+      Object {
+        "width": undefined,
+      }
+    }
+  >
+    <colgroup>
+      <col
+        style={
+          Object {
+            "width": 50,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+    </colgroup>
+    <thead>
+      <tr>
+        <th
+          className=""
+          rowSpan={1}
+        >
+          id
+        </th>
+        <th
+          className=""
+          rowSpan={1}
+        >
+          Name
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        className="so-table-normal"
+        onClick={[Function]}
+      >
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          1
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          1
+        </td>
+      </tr>
+      <tr
+        className="so-table-normal so-table-even"
+        onClick={[Function]}
+      >
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          2
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          2
+        </td>
+      </tr>
+      <tr
+        className="so-table-normal"
+        onClick={[Function]}
+      >
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          3
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          3
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`Table[small] should render compact table 1`] = `
+<div
+  className="so-table so-table-small so-table-hover so-table-vertical-top"
+  style={Object {}}
+>
+  <table
+    style={
+      Object {
+        "width": undefined,
+      }
+    }
+  >
+    <colgroup>
+      <col
+        style={
+          Object {
+            "width": 50,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+    </colgroup>
+    <thead>
+      <tr>
+        <th
+          className=""
+          rowSpan={1}
+        >
+          id
+        </th>
+        <th
+          className=""
+          rowSpan={1}
+        >
+          Name
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        className="so-table-normal"
+        onClick={[Function]}
+      >
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          1
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          1
+        </td>
+      </tr>
+      <tr
+        className="so-table-normal"
+        onClick={[Function]}
+      >
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          2
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          2
+        </td>
+      </tr>
+      <tr
+        className="so-table-normal"
+        onClick={[Function]}
+      >
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          3
+        </td>
+        <td
+          className=""
+          colSpan={1}
+          style={Object {}}
+        >
+          3
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

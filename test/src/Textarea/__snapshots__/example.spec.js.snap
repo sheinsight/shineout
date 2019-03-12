@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test: Textarea[site/pages/components/Textarea/example-1-base.js] 1`] = `
+<label>
+  <textarea />
+</label>
+`;
+
+exports[`Snapshot test: Textarea[site/pages/components/Textarea/example-2-autosize.js] 1`] = `
+<div>
+  <label>
+    <textarea />
+    <textarea />
+  </label>
+  <br />
+  <label>
+    <textarea />
+    <textarea />
+  </label>
+</div>
+`;
+
+exports[`Snapshot test: Textarea[site/pages/components/Textarea/example-3-info.js] 1`] = `
+<label>
+  <textarea />
+</label>
+`;

@@ -1,0 +1,555 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test: Rate[site/pages/components/Rate/example-01-base.js] 1`] = `
+<div>
+  <div>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+  </div>
+  <div>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span />
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Rate[site/pages/components/Rate/example-02-color.js] 1`] = `
+<div>
+  <div>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+  </div>
+  <div>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span />
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Rate[site/pages/components/Rate/example-04-max.js] 1`] = `
+<div>
+  <div>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+  </div>
+  <div>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span />
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Rate[site/pages/components/Rate/example-05-size.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <span>
+        <i />
+      </span>
+      <span>
+        <i />
+      </span>
+      <span>
+        <i />
+      </span>
+      <span>
+        <i />
+      </span>
+      <span>
+        <i />
+      </span>
+    </div>
+    <div>
+      <span>
+        <span>
+           
+        </span>
+      </span>
+      <span>
+        <span>
+           
+        </span>
+      </span>
+      <span>
+        <span>
+           
+        </span>
+      </span>
+      <span>
+        <span>
+           
+        </span>
+      </span>
+      <span>
+        <span>
+           
+        </span>
+      </span>
+      <span />
+    </div>
+  </div>
+  <div>
+    <div>
+      <span>
+        <i />
+      </span>
+      <span>
+        <i />
+      </span>
+      <span>
+        <i />
+      </span>
+      <span>
+        <i />
+      </span>
+      <span>
+        <i />
+      </span>
+    </div>
+    <div>
+      <span>
+        <span>
+           
+        </span>
+      </span>
+      <span>
+        <span>
+           
+        </span>
+      </span>
+      <span>
+        <span>
+           
+        </span>
+      </span>
+      <span>
+        <span>
+           
+        </span>
+      </span>
+      <span>
+        <span>
+           
+        </span>
+      </span>
+      <span />
+    </div>
+  </div>
+  <div>
+    <div>
+      <span>
+        <i />
+      </span>
+      <span>
+        <i />
+      </span>
+      <span>
+        <i />
+      </span>
+      <span>
+        <i />
+      </span>
+      <span>
+        <i />
+      </span>
+    </div>
+    <div>
+      <span>
+        <span>
+           
+        </span>
+      </span>
+      <span>
+        <span>
+           
+        </span>
+      </span>
+      <span>
+        <span>
+           
+        </span>
+      </span>
+      <span>
+        <span>
+           
+        </span>
+      </span>
+      <span>
+        <span>
+           
+        </span>
+      </span>
+      <span />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Rate[site/pages/components/Rate/example-06-text.js] 1`] = `
+<div>
+  <div>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+  </div>
+  <div>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      very good
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Rate[site/pages/components/Rate/example-07-disabled.js] 1`] = `
+<div>
+  <div>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+  </div>
+  <div>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <span>
+        <i />
+      </span>
+    </span>
+    <span />
+    <span />
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Rate[site/pages/components/Rate/example-08-face.js] 1`] = `
+<div>
+  <div>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+  </div>
+  <div>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span />
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Rate[site/pages/components/Rate/example-09-array.js] 1`] = `
+<div>
+  <div>
+    <span>
+      A
+    </span>
+    <span>
+      B
+    </span>
+    <span>
+      C
+    </span>
+    <span>
+      D
+    </span>
+    <span>
+      E
+    </span>
+  </div>
+  <div>
+    <span>
+      <span>
+        A
+      </span>
+    </span>
+    <span>
+      <span>
+        B
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span />
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Rate[site/pages/components/Rate/example-10-clearable.js] 1`] = `
+<div>
+  <div>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+  </div>
+  <div>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span />
+  </div>
+</div>
+`;

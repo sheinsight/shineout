@@ -163,6 +163,56 @@ describe('DatePicker[DatetimePick]', () => {
   })
 })
 
+describe('DatePicker[datetime][defaultTime]', () => {
+  test('should render time equal default', () => {
+    const defaultTime = '02:33:33'
+    const wrapper = mount(<DatePicker type="datetime" defaultTime={defaultTime} />)
+    document.write(wrapper.html())
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    wrapper
+      .find(`.${SO_PREFIX}-datepicker-list div`)
+      .at(15)
+      .simulate('click')
+    const datetime = wrapper.find(`span.${SO_PREFIX}-datepicker-txt`).text()
+
+    // time is defaultTime
+    expect(datetime.indexOf(defaultTime) > -1).toBeTruthy()
+  })
+})
+
+describe('RangePicker[datetime][defaultTime]', () => {
+  test('should render time equal default', () => {
+    const defaultTime = ['02:33:33', '12:33:33']
+    const wrapper = mount(<DatePicker range type="datetime" defaultTime={defaultTime} />)
+    document.write(wrapper.html())
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    wrapper
+      .find(`.${SO_PREFIX}-datepicker-list div`)
+      .at(15)
+      .simulate('click')
+    wrapper
+      .find(`.${SO_PREFIX}-datepicker-list div`)
+      .at(16)
+      .simulate('click')
+    const datetimeText = wrapper.find(`span.${SO_PREFIX}-datepicker-txt`)
+
+    // time is defaultTime
+    expect(
+      datetimeText
+        .at(0)
+        .text()
+        .indexOf(defaultTime[0]) > -1
+    ).toBeTruthy()
+
+    expect(
+      datetimeText
+        .at(1)
+        .text()
+        .indexOf(defaultTime[1]) > -1
+    ).toBeTruthy()
+  })
+})
+
 describe('DatePicker[RangePick]', () => {
   test('should render two pick panel', () => {
     const wrapper = mount(<DatePicker range />)
@@ -196,5 +246,4 @@ describe('DataPicker[disabled]', () => {
   })
 })
 
-describe('DataPicker[inputable]', () => {
-})
+describe('DataPicker[inputable]', () => {})

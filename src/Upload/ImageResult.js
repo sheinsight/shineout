@@ -21,40 +21,25 @@ class ImageResult extends PureComponent {
   }
 
   render() {
-    const {
-      value, renderResult, recoverAble, style, showRecover,
-    } = this.props
+    const { value, renderResult, recoverAble, style, showRecover } = this.props
     const className = uploadClass('image-item', 'image-result', recoverAble && 'to-be-delete')
     const url = renderResult(value)
 
     return (
       <div style={style} className={className}>
-        {
-          url &&
-          <Image src={url} href={url} fit="center" width="auto" height={0} className={uploadClass('image-bg')} />
-        }
+        {url && <Image src={url} href={url} fit="center" width="auto" height={0} className={uploadClass('image-bg')} />}
 
-        {
-          showRecover &&
-          <a
-            href="javascript:;"
-            className={uploadClass('recover')}
-            onClick={this.handleRecover}
-          >
+        {showRecover && (
+          <a href="javascript:;" className={uploadClass('recover')} onClick={this.handleRecover}>
             {icons.Recovery}
           </a>
-        }
+        )}
 
-        {
-          this.props.onRemove &&
-          <a
-            href="javascript:;"
-            className={uploadClass('delete')}
-            onClick={this.handleRemove}
-          >
+        {this.props.onRemove && (
+          <a href="javascript:;" className={uploadClass('delete')} onClick={this.handleRemove}>
             {icons.Close}
           </a>
-        }
+        )}
       </div>
     )
   }

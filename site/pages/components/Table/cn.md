@@ -28,7 +28,9 @@
 | striped | bool | false | 是否显示交错斑马底纹 |
 | style | object | 无 | 扩展样式 |
 | value | array | 无 | 当前选中值，格式和 onRowSelect 返回值一致 |
-| verticalAlign | string | 'top' | 单元格内容垂直对齐方式，可选值为 ['top', 'middle'] |
+| empty | string | 无数据 | 空数据文案 |
+| verticalAlign | string | 'top' | 单元格内容垂直对齐方式，可选值为 \['top', 'middle'\] |
+| rowClickAttr | string \| string[] | \['*'\] | 设置行内元素的attribut来按需触发onRowClick, '*'表示接受行点击触发 |
 
 ### Column
 | 属性 | 类型 | 默认值 | 说明 |
@@ -43,3 +45,4 @@
 | title | string \| ReactElement \| function | 无 | 表头显示内容 |
 | type | string | 无 | 特殊用途列，可选值为 \['expand', 'row-expand', 'checkbox']<br />expand: 行展开列，render 函数返回函数时，表示此行可以展开，内容为此函数返回结果<br />row-expand: 同expand。不同为点击行内空白区域也可以折叠/展开行。<br />checkbox: 选择列，用于仅固定选择列的场景 |
 | width | number | 无 | 列宽 |
+| align | string | 'left' | 单元格内容排布方式，可选 \['left', 'center', 'right'\]

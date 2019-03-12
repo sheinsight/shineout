@@ -2,6 +2,7 @@
 import './styles/normalize.less'
 
 export { setLocale } from './locale'
+export { color, style } from './utils/expose'
 
 export { default as Alert } from './Alert'
 export { default as Breadcrumb } from './Breadcrumb'

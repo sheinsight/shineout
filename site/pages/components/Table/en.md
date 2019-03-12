@@ -28,6 +28,8 @@
 | striped | bool | false | Whether to display zebra shading. |
 | style | object | - | Container element style |
 | value | array | none | The current selected value. |
+| empty | string | Data not found | empty text |
+| rowClickAttr | string \| string[] | \['*'\] | Sets the attribute of inner element to trigger onRowClick as needed, and '*' to accept the row click |
 
 ### Column
 | Property | Type | Default | Description |
@@ -42,3 +44,4 @@
 | title | string \| ReactElement \| function(data) | none | The content of the header |
 | type | string | - | Special column, options: \['expand', 'row-expand', 'checkbox']<br />expand: Expand the column. When the render function returns a function, it means that the row can be expanded and the content  is the result returned by this function. <br />row-expand: Similar to expand. The difference is that clicking on the entire row triggers the expand event.<br />checkbox: Select column for scenes with only fixed selection columns |
 | width | number | - | the width of the column |
+| align | string | 'left' | cell align \['left', 'center', 'right'\]

@@ -1,0 +1,249 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test: Button[site/pages/components/Button/example-1-base.js] 1`] = `
+<div>
+  <button>
+    Default
+  </button>
+  <button>
+    Primary
+  </button>
+  <button>
+    Secondary
+  </button>
+  <button>
+    Success
+  </button>
+  <button>
+    Warning
+  </button>
+  <button>
+    Danger
+  </button>
+  <button>
+    Link
+  </button>
+</div>
+`;
+
+exports[`Snapshot test: Button[site/pages/components/Button/example-2-outline.js] 1`] = `
+<div>
+  <button>
+    Primary
+  </button>
+  <button>
+    Secondary
+  </button>
+  <button>
+    Success
+  </button>
+  <button>
+    Warning
+  </button>
+  <button>
+    Danger
+  </button>
+</div>
+`;
+
+exports[`Snapshot test: Button[site/pages/components/Button/example-3-disabled.js] 1`] = `
+<div>
+  <button>
+    Default
+  </button>
+  <button>
+    Primary
+  </button>
+  <button>
+    Secondary
+  </button>
+  <button>
+    Success
+  </button>
+  <button>
+    Warning
+  </button>
+  <button>
+    Danger
+  </button>
+  <button>
+    Link
+  </button>
+</div>
+`;
+
+exports[`Snapshot test: Button[site/pages/components/Button/example-4-size.js] 1`] = `
+<div>
+  <div>
+    <button>
+      Default
+    </button>
+    <button>
+      Primary
+    </button>
+    <button>
+      Secondary
+    </button>
+    <button>
+      Success
+    </button>
+    <button>
+      Warning
+    </button>
+    <button>
+      Danger
+    </button>
+    <button>
+      Link
+    </button>
+  </div>
+  <br />
+  <div>
+    <button>
+      Default
+    </button>
+    <button>
+      Primary
+    </button>
+    <button>
+      Secondary
+    </button>
+    <button>
+      Success
+    </button>
+    <button>
+      Warning
+    </button>
+    <button>
+      Danger
+    </button>
+    <button>
+      Link
+    </button>
+  </div>
+  <br />
+  <div>
+    <button>
+      Default
+    </button>
+    <button>
+      Primary
+    </button>
+    <button>
+      Secondary
+    </button>
+    <button>
+      Success
+    </button>
+    <button>
+      Warning
+    </button>
+    <button>
+      Danger
+    </button>
+    <button>
+      Link
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Button[site/pages/components/Button/example-5-loading.js] 1`] = `
+<div>
+  <button>
+    <span>
+      <div />
+    </span>
+    Small
+  </button>
+  <button>
+    <span>
+      <div />
+    </span>
+    Default
+  </button>
+  <button>
+    <span>
+      <div />
+    </span>
+    Large
+  </button>
+</div>
+`;
+
+exports[`Snapshot test: Button[site/pages/components/Button/example-6-href.js] 1`] = `
+<a>
+  Home
+</a>
+`;
+
+exports[`Snapshot test: Button[site/pages/components/Button/example-7-icon.js] 1`] = `
+<div>
+  <button>
+    <i />
+     Small
+  </button>
+  <button>
+    Default 
+    <i />
+  </button>
+  <button>
+    <i />
+     Large
+  </button>
+</div>
+`;
+
+exports[`Snapshot test: Button[site/pages/components/Button/example-8-group.js] 1`] = `
+<div>
+  <div>
+    <button>
+      Left
+    </button>
+    <button>
+      Center
+    </button>
+    <button>
+      Right
+    </button>
+  </div>
+  <br />
+  <div>
+    <button>
+      Left
+    </button>
+    <button>
+      Center
+    </button>
+    <button>
+      Right
+    </button>
+  </div>
+  <br />
+  <div>
+    <button>
+      <i />
+        Left
+    </button>
+    <button>
+      Center
+    </button>
+    <button>
+      Right  
+      <i />
+    </button>
+  </div>
+  <br />
+  <div>
+    <button>
+      Left
+    </button>
+    <button>
+      Center
+    </button>
+    <button>
+      Right
+    </button>
+  </div>
+</div>
+`;

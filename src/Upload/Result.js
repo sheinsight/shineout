@@ -20,28 +20,24 @@ class Result extends PureComponent {
   }
 
   render() {
-    const {
-      renderResult, value, recoverAble, showRecover,
-    } = this.props
+    const { renderResult, value, recoverAble, showRecover } = this.props
     const className = uploadClass('view-value', recoverAble && 'to-be-delete')
 
     return (
       <div className={className}>
-        <div className={uploadClass('text')}>{ renderResult(value) }</div>
+        <div className={uploadClass('text')}>{renderResult(value)}</div>
 
-        {
-          this.props.onRemove &&
+        {this.props.onRemove && (
           <a href="javascript:;" className={uploadClass('delete')} onClick={this.handleRemove}>
             {icons.Close}
           </a>
-        }
+        )}
 
-        {
-          showRecover &&
+        {showRecover && (
           <a href="javascript:;" className={uploadClass('recover')} onClick={this.handleRecover}>
             {icons.Recovery}
           </a>
-        }
+        )}
       </div>
     )
   }

@@ -19,10 +19,12 @@ const style = {
 }
 
 export default function() {
-  const content = <div style={{ width: 200, padding: 20 }}>Some text</div>
   return types.map((t, i) => (
-    <Popover content={content} type={t} key={i}>
-      <div style={style}>{t}</div>
-    </Popover>
+    <div style={style} key={i}>
+      <Popover type={t} style={{ width: 200, padding: 20 }}>
+        Some text
+      </Popover>
+      {t}
+    </div>
   ))
 }

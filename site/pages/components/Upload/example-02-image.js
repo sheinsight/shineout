@@ -16,6 +16,7 @@ export default function() {
       onSuccess={(res, file, data) => ({ data })}
       renderResult={f => f.data}
       limit={3}
+      onStart={f => console.log(f)}
     />
   )
 }

@@ -52,10 +52,11 @@ class Thead extends PureComponent {
 
     const { sorter, onSortChange, data, datum, showSelectAll, disabled } = this.props
 
+    const align = col.align && `align-${col.align}`
     if (col.title) {
       trs[level].push(
         <th
-          className={tableClass(level > 0 && 'condensed', ...fixed)}
+          className={tableClass(level > 0 && 'condensed', align, ...fixed)}
           rowSpan={this.columnLevel - level + 1}
           key={col.key}
         >

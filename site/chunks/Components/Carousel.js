@@ -22,6 +22,15 @@ const examples = [
     component: require('doc/pages/components/Carousel/example-1-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Carousel/example-1-base.js'),
   },
+  {
+    name: '2-custom-indicator',
+    title: locate(
+      '自定义 Indicator \n 当 indicatorType 为函数时，可以自定义 Indicator',
+      'Custom Indicator \n Indicators can be customized when indicatorType is a function.'
+    ),
+    component: require('doc/pages/components/Carousel/example-2-custom-indicator.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Carousel/example-2-custom-indicator.js'),
+  },
 ]
 
 const codes = undefined

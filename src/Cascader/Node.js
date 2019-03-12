@@ -28,9 +28,7 @@ class Node extends PureComponent {
   }
 
   handleClick() {
-    const {
-      id, data, path, onChange, onPathChange, loader, multiple,
-    } = this.props
+    const { id, data, path, onChange, onPathChange, loader, multiple } = this.props
     onPathChange(id, data, path)
 
     if (!multiple) {
@@ -44,9 +42,7 @@ class Node extends PureComponent {
   }
 
   handlePathChange() {
-    const {
-      id, data, path, onPathChange,
-    } = this.props
+    const { id, data, path, onPathChange } = this.props
     // if (active) return
     onPathChange(id, data, path)
   }
@@ -58,17 +54,13 @@ class Node extends PureComponent {
   }
 
   renderContent() {
-    const {
-      id, active, data, renderItem,
-    } = this.props
+    const { id, active, data, renderItem } = this.props
     const render = typeof renderItem === 'function' ? renderItem : d => d[renderItem]
     return render(data, active, id)
   }
 
   render() {
-    const {
-      active, data, multiple, datum, id, loader, expandTrigger,
-    } = this.props
+    const { active, data, multiple, datum, id, loader, expandTrigger } = this.props
     const { loading } = this.state
     const disabled = this.checkDisabled()
     const className = cascaderClass(
@@ -76,7 +68,7 @@ class Node extends PureComponent {
       active && 'active',
       disabled && 'disabled',
       data.children && data.children.length > 0 && 'has-children',
-      loader && !loading && data.children === undefined && 'may-be-children',
+      loader && !loading && data.children === undefined && 'may-be-children'
     )
 
     const style = {}
@@ -90,21 +82,17 @@ class Node extends PureComponent {
 
     return (
       <div className={className} style={style} {...events}>
-        {
-          multiple &&
+        {multiple && (
           <Checkbox
             checked={datum.getChecked(id)}
             disabled={disabled}
             onChange={this.handleChange}
             style={checkBoxStyle}
           />
-        }
+        )}
 
-        { this.renderContent() }
-        {
-          loading && data.children === undefined &&
-          <Spin className={cascaderClass('loading')} size={10} name="ring" />
-        }
+        {this.renderContent()}
+        {loading && data.children === undefined && <Spin className={cascaderClass('loading')} size={10} name="ring" />}
       </div>
     )
   }
@@ -122,10 +110,7 @@ Node.propTypes = {
   onChange: PropTypes.func,
   onPathChange: PropTypes.func,
   path: PropTypes.array,
-  renderItem: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.string,
-  ]).isRequired,
+  renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]).isRequired,
 }
 
 export default Node

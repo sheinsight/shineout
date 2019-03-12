@@ -1,0 +1,646 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table[Empty] should render empty table 1`] = `
+<div
+  className="so-table so-table-default so-table-hover so-table-vertical-top"
+  style={Object {}}
+>
+  <table
+    style={
+      Object {
+        "width": 1500,
+      }
+    }
+  >
+    <colgroup>
+      <col
+        style={
+          Object {
+            "width": 50,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+    </colgroup>
+    <thead>
+      <tr>
+        <th
+          className=""
+          rowSpan={1}
+        >
+          id
+        </th>
+        <th
+          className=""
+          rowSpan={1}
+        >
+          Name
+        </th>
+        <th
+          className=""
+          rowSpan={1}
+        >
+          Country
+        </th>
+        <th
+          className=""
+          rowSpan={1}
+        >
+          Position
+        </th>
+        <th
+          className=""
+          rowSpan={1}
+        >
+          Office
+        </th>
+        <th
+          className=""
+          rowSpan={1}
+        >
+          Start Date
+        </th>
+      </tr>
+    </thead>
+    <tbody />
+  </table>
+  <div
+    className="so-table-empty"
+  >
+    <span>
+      Data not found
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Table[Empty] should render empty table with emtpyText 1`] = `
+<div
+  className="so-table so-table-default so-table-hover so-table-vertical-top"
+  style={Object {}}
+>
+  <table
+    style={
+      Object {
+        "width": 1500,
+      }
+    }
+  >
+    <colgroup>
+      <col
+        style={
+          Object {
+            "width": 50,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+    </colgroup>
+    <thead>
+      <tr>
+        <th
+          className=""
+          rowSpan={1}
+        >
+          id
+        </th>
+        <th
+          className=""
+          rowSpan={1}
+        >
+          Name
+        </th>
+        <th
+          className=""
+          rowSpan={1}
+        >
+          Country
+        </th>
+        <th
+          className=""
+          rowSpan={1}
+        >
+          Position
+        </th>
+        <th
+          className=""
+          rowSpan={1}
+        >
+          Office
+        </th>
+        <th
+          className=""
+          rowSpan={1}
+        >
+          Start Date
+        </th>
+      </tr>
+    </thead>
+    <tbody />
+  </table>
+  <div
+    className="so-table-empty"
+  >
+    <span>
+      custom empty text
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Table[Empty] should render empty table with fixed column 1`] = `
+<div
+  className="so-table so-table-default so-table-hover so-table-bordered so-table-fixed so-table-vertical-top"
+  style={
+    Object {
+      "height": 300,
+    }
+  }
+>
+  <table
+    style={
+      Object {
+        "width": 1500,
+      }
+    }
+  >
+    <colgroup>
+      <col
+        style={
+          Object {
+            "width": 50,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": 120,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": 120,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": 100,
+          }
+        }
+      />
+    </colgroup>
+    <thead>
+      <tr>
+        <th
+          className="so-table-fixed-left"
+          rowSpan={2}
+        >
+          id
+        </th>
+        <th
+          className="so-table-center so-table-condensed so-table-fixed-left so-table-fixed-last"
+          colSpan={2}
+        >
+          Name
+        </th>
+        <th
+          className=""
+          rowSpan={2}
+        >
+          Country
+        </th>
+        <th
+          className=""
+          rowSpan={2}
+        >
+          Position
+        </th>
+        <th
+          className=""
+          rowSpan={2}
+        >
+          Office
+        </th>
+        <th
+          className=""
+          rowSpan={2}
+        >
+          Start Date
+        </th>
+        <th
+          className="so-table-fixed-right so-table-fixed-first"
+          rowSpan={2}
+        >
+          Salary
+        </th>
+      </tr>
+      <tr>
+        <th
+          className="so-table-condensed so-table-fixed-left"
+          rowSpan={1}
+        >
+          First Name
+        </th>
+        <th
+          className="so-table-condensed so-table-fixed-left so-table-fixed-last"
+          rowSpan={1}
+        >
+          Last Name
+        </th>
+      </tr>
+    </thead>
+    <tbody />
+  </table>
+  <div
+    className="so-table-empty"
+  >
+    <span>
+      Data not found
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Table[Empty] should render loading status while empty 1`] = `
+<div
+  className="so-table so-table-default so-table-hover so-table-vertical-top"
+  style={
+    Object {
+      "overflow": "hidden",
+    }
+  }
+>
+  <table
+    style={
+      Object {
+        "width": 1500,
+      }
+    }
+  >
+    <colgroup>
+      <col
+        style={
+          Object {
+            "width": 50,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <col
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+    </colgroup>
+    <thead>
+      <tr>
+        <th
+          className=""
+          rowSpan={1}
+        >
+          id
+        </th>
+        <th
+          className=""
+          rowSpan={1}
+        >
+          Name
+        </th>
+        <th
+          className=""
+          rowSpan={1}
+        >
+          Country
+        </th>
+        <th
+          className=""
+          rowSpan={1}
+        >
+          Position
+        </th>
+        <th
+          className=""
+          rowSpan={1}
+        >
+          Office
+        </th>
+        <th
+          className=""
+          rowSpan={1}
+        >
+          Start Date
+        </th>
+      </tr>
+    </thead>
+    <tbody />
+  </table>
+  <div
+    className="so-table-loading"
+  >
+    <div
+      className="so-spin-default"
+      style={
+        Object {
+          "height": 40,
+          "margin": undefined,
+          "width": 40,
+        }
+      }
+    >
+      <div
+        className="so-spin-default-item"
+      >
+        <div
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
+            }
+          }
+        />
+      </div>
+      <div
+        className="so-spin-default-item"
+      >
+        <div
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
+            }
+          }
+        />
+      </div>
+      <div
+        className="so-spin-default-item"
+      >
+        <div
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
+            }
+          }
+        />
+      </div>
+      <div
+        className="so-spin-default-item"
+      >
+        <div
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
+            }
+          }
+        />
+      </div>
+      <div
+        className="so-spin-default-item"
+      >
+        <div
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
+            }
+          }
+        />
+      </div>
+      <div
+        className="so-spin-default-item"
+      >
+        <div
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
+            }
+          }
+        />
+      </div>
+      <div
+        className="so-spin-default-item"
+      >
+        <div
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
+            }
+          }
+        />
+      </div>
+      <div
+        className="so-spin-default-item"
+      >
+        <div
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
+            }
+          }
+        />
+      </div>
+      <div
+        className="so-spin-default-item"
+      >
+        <div
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
+            }
+          }
+        />
+      </div>
+      <div
+        className="so-spin-default-item"
+      >
+        <div
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
+            }
+          }
+        />
+      </div>
+      <div
+        className="so-spin-default-item"
+      >
+        <div
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
+            }
+          }
+        />
+      </div>
+      <div
+        className="so-spin-default-item"
+      >
+        <div
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="so-table-empty"
+  >
+    <span>
+      Data not found
+    </span>
+  </div>
+</div>
+`;
