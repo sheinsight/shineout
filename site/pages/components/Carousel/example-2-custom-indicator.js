@@ -7,9 +7,9 @@
 import React from 'react'
 import { Carousel } from 'shineout'
 import classnames from 'classnames'
-import './style-2-custom-indicator.less'
+import './style-2-custom-indicator.css'
 
-const duration = 2000
+const duration = 5000
 const containerStyle = {
   fontSize: 40,
   color: '#fff',
@@ -51,3 +51,52 @@ export default function() {
     </Carousel>
   )
 }
+
+/* style-2-custom-indicator.css
+@keyframes indicator-rise {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+div.indicator {
+  text-align: center;
+  user-select: none;
+}
+div.indicator .indicator-item {
+  margin-right: 10px;
+  float: left;
+  width: 36px;
+  height: 30px;
+  font-size: 20px;
+  color: #ffffff50;
+  cursor: pointer;
+}
+div.indicator .indicator-item.active {
+  color: #fff;
+}
+div.indicator .indicator-item.beyond .fg {
+  width: 100%;
+}
+div.indicator .indicator-progress {
+  position: relative;
+}
+div.indicator .indicator-progress > div {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+}
+div.indicator .indicator-progress .bg {
+  width: 100%;
+  background: #ffffff50;
+}
+div.indicator .indicator-progress .fg {
+  width: 0;
+  background: #ffffff;
+}
+ */

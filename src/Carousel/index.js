@@ -18,6 +18,7 @@ class Carousel extends PureComponent {
 
     this.handleMouseIn = this.handleMouseIn.bind(this)
     this.handleMouseOut = this.handleMouseOut.bind(this)
+    this.moveTo = this.moveTo.bind(this)
     this.setNext(1)
   }
 
@@ -71,7 +72,7 @@ class Carousel extends PureComponent {
     const { indicatorType, indicatorPosition } = this.props
     const { current } = this.state
     const className = carouselClass('indicator', `indicator-${indicatorPosition}`)
-    return <div className={className}>{indicatorType(current, this.moveTo.bind(this))}</div>
+    return <div className={className}>{indicatorType(current, this.moveTo)}</div>
   }
 
   renderIndicator() {
