@@ -6,6 +6,7 @@ import normalizeWheel from '../utils/dom/normalizeWheel'
 import { imageClass } from '../styles'
 import icons from '../icons'
 import Magnify from './Magnify'
+import { docSize } from '../utils/dom/document'
 
 class Gallery extends PureComponent {
   constructor(props) {
@@ -67,8 +68,8 @@ class Gallery extends PureComponent {
   }
 
   renderImage(image, pos) {
-    const windowHeight = window.innerHeight || document.documentElement.clientHeight
-    const windowWidth = window.innerWidth || document.documentElement.clientWidth
+    const windowHeight = docSize.height
+    const windowWidth = docSize.width
 
     let onClick
     if (pos !== 'center') {

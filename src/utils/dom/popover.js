@@ -1,7 +1,9 @@
+import { docScroll } from './document'
+
 export const getPosition = (position, el) => {
   const rect = el.getBoundingClientRect()
-  const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-  const scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft
+  const scrollTop = docScroll.top
+  const scrollLeft = docScroll.left
 
   let left
   let top
