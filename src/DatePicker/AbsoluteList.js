@@ -4,12 +4,6 @@ import PropTypes from 'prop-types'
 import shallowEqual from '../utils/shallowEqual'
 import { datepickerClass } from '../styles'
 
-let root
-function initRoot() {
-  root = document.createElement('div')
-  root.className = datepickerClass('root')
-  document.body.appendChild(root)
-}
 const PICKER_V_MARGIN = 4
 
 export default function(List) {
@@ -18,18 +12,16 @@ export default function(List) {
       super(props)
 
       this.lastStyle = {}
-
-      if (!root) initRoot()
       this.element = document.createElement('div')
       this.element.className = datepickerClass('absolute-wrapper')
     }
 
     componentDidMount() {
-      root.appendChild(this.element)
+      document.body.appendChild(this.element)
     }
 
     componentWillUnmount() {
-      root.removeChild(this.element)
+      document.body.removeChild(this.element)
     }
 
     getStyle() {
@@ -52,8 +44,7 @@ export default function(List) {
         }
 
         style.position = 'absolute'
-        const h = position.split('-')[0]
-        const v = position.split('-')[1]
+        const [h, v] = position.split('-')
         if (h === 'left') {
           style.left = rect.left + document.documentElement.scrollLeft
         } else {
