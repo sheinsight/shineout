@@ -5,6 +5,7 @@ import { getParent } from '../utils/dom/element'
 import { eventPassive } from '../utils/dom/detect'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { cssSupport } from '../utils/dom/element'
+import { docSize } from '../utils/dom/document'
 
 const events = ['scroll', 'resize', 'pageshow', 'load']
 const supportSticky = cssSupport('position', 'sticky')
@@ -70,7 +71,7 @@ class Sticky extends PureComponent {
     const scrollRect = scrollElement.getBoundingClientRect()
 
     const placeholderRect = this.placeholder ? this.placeholder.getBoundingClientRect() : null
-    const viewHeight = window.innerHeight || document.documentElement.clientHeight
+    const viewHeight = docSize.height
 
     const placeholderStyle = {
       width: selfRect.width,

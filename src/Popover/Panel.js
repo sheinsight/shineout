@@ -5,6 +5,7 @@ import { PureComponent } from '../component'
 import { getPosition } from '../utils/dom/popover'
 import { isFunc } from '../utils/is'
 import { popoverClass } from '../styles'
+import { docSize } from '../utils/dom/document'
 
 const emptyEvent = e => e.stopPropagation()
 
@@ -52,8 +53,8 @@ class Panel extends PureComponent {
     if (position) return position
 
     const rect = this.parentElement.getBoundingClientRect()
-    const windowHeight = window.innerHeight || document.documentElement.clientHeight
-    const windowWidth = window.innerWidth || document.documentElement.clientWidth
+    const windowHeight = docSize.height
+    const windowWidth = docSize.width
     if (rect.top + rect.height / 2 > windowHeight / 2) {
       position = 'top'
     } else {
