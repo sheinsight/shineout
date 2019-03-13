@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import immer from 'immer'
 import { PureComponent } from '../component'
-import List from '../List'
 import { datepickerClass, inputClass } from '../styles'
 import Icon from './Icon'
 import utils from './utils'
@@ -11,8 +10,13 @@ import Picker from './Picker'
 import Range from './Range'
 import Text from './Text'
 import { isArray } from '../utils/is'
+import { getParent } from '../utils/dom/element'
+import List from '../List'
+import absoluteList from './AbsoluteContainer'
+import { docSize } from '../utils/dom/document'
 
 const FadeList = List(['fade'], 'fast')
+const absoluteFadeList = absoluteList(FadeList)
 
 class Container extends PureComponent {
   constructor(props) {
@@ -111,7 +115,9 @@ class Container extends PureComponent {
   }
 
   handleClickAway(e) {
-    if (!(e.target === this.element || this.element.contains(e.target))) {
+    const onPicker = e.target === this.element || this.element.contains(e.target)
+    const onAbsolutePicker = getParent(e.target, `.${datepickerClass('location')}`)
+    if (!onPicker && !onAbsolutePicker) {
       this.handleToggle(false)
     }
   }
@@ -125,8 +131,8 @@ class Container extends PureComponent {
         state.focus = focus
         if (focus === true) {
           const rect = this.element.getBoundingClientRect()
-          const windowHeight = window.innerHeight || document.documentElement.clientHeight
-          const windowWidth = window.innerWidth || document.documentElement.clientWidth
+          const windowHeight = docSize.height
+          const windowWidth = docSize.width
           const pickerWidth = this.props.range ? 540 : 270
           if (!this.props.position) {
             if (rect.bottom + 300 > windowHeight) {
@@ -243,6 +249,22 @@ class Container extends PureComponent {
     )
   }
 
+  renderWrappedPicker() {
+    const { focus, position } = this.state
+    const { absolute } = this.props
+    const ListWrapper = absolute ? absoluteFadeList : FadeList
+    const props = {
+      show: focus,
+      className: datepickerClass('picker', 'location', `absolute-${position}`),
+      position,
+    }
+    // computed absolute position needed
+    if (absolute) {
+      props.parentElement = this.element
+    }
+    return <ListWrapper {...props}>{this.renderPicker()}</ListWrapper>
+  }
+
   renderPicker() {
     if (!this.firstRender) return undefined
 
@@ -281,9 +303,7 @@ class Container extends PureComponent {
     return (
       <div className={className} tabIndex={-1} ref={this.bindElement} onClick={this.handleFocus}>
         {this.renderResult()}
-        <FadeList show={focus} className={datepickerClass('picker')}>
-          {this.renderPicker()}
-        </FadeList>
+        {this.renderWrappedPicker()}
       </div>
     )
   }
@@ -304,6 +324,7 @@ Container.propTypes = {
   type: PropTypes.string,
   defaultTime: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object, PropTypes.array]),
+  absolute: PropTypes.bool,
 }
 
 Container.defaultProps = {
