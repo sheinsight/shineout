@@ -8,12 +8,10 @@ export const docScroll = {
   set top(value) {
     document.documentElement.scrollTop = value
     document.body.scrollTop = value
-    window.pageYOffset = value
   },
   set left(value) {
     document.documentElement.scrollLeft = value
     document.body.scrollLeft = value
-    window.pageXOffset = value
   },
 }
 
