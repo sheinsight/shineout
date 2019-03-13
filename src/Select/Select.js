@@ -10,6 +10,7 @@ import OptionList from './OptionList'
 import absoluteList from './AbsoluteList'
 import BoxList from './BoxList'
 import { isObject } from '../utils/is'
+import { docSize } from '../utils/dom/document'
 
 const ListSet = {
   ao: absoluteList(OptionList),
@@ -114,7 +115,7 @@ class Select extends PureComponent {
 
     const { onBlur, onFocus, height } = this.props
     let { position } = this.props
-    const windowHeight = window.innerHeight || document.documentElement.clientHeight
+    const windowHeight = docSize.height
     const bottom = height + this.element.getBoundingClientRect().bottom
     if (bottom > windowHeight && !position) position = 'drop-up'
 

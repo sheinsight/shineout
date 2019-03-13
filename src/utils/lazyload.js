@@ -1,12 +1,13 @@
 import { eventPassive } from './dom/detect'
 import { getUidStr } from './uid'
+import { docSize } from './dom/document'
 
 const throttle = 80
 const components = {}
 let timeout = null
 let isLock = false
 
-const winHeight = window.innerHeight || document.documentElement.clientHeight
+const winHeight = docSize.height
 
 export function addStack(obj) {
   const rect = obj.element.getBoundingClientRect()
