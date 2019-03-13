@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import shallowEqual from '../utils/shallowEqual'
 import { datepickerClass } from '../styles'
+import { docScroll } from '../utils/dom/document'
 
 const PICKER_V_MARGIN = 4
 
@@ -46,15 +47,15 @@ export default function(List) {
         style.position = 'absolute'
         const [h, v] = position.split('-')
         if (h === 'left') {
-          style.left = rect.left + document.documentElement.scrollLeft
+          style.left = rect.left + docScroll.left
         } else {
-          style.left = rect.right + document.documentElement.scrollLeft
+          style.left = rect.right + docScroll.left
           style.transform = 'translateX(-100%)'
         }
         if (v === 'bottom') {
-          style.top = rect.bottom + document.documentElement.scrollTop + PICKER_V_MARGIN
+          style.top = rect.bottom + docScroll.top + PICKER_V_MARGIN
         } else {
-          style.top = rect.top + document.documentElement.scrollTop - PICKER_V_MARGIN
+          style.top = rect.top + docScroll.top - PICKER_V_MARGIN
           style.transform = style.transform ? 'translate(-100%, -100%)' : 'translateY(-100%)'
         }
       }

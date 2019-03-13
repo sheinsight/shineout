@@ -13,6 +13,7 @@ import { isArray } from '../utils/is'
 import { getParent } from '../utils/dom/element'
 import List from '../List'
 import absoluteList from './AbsoluteContainer'
+import { docSize } from '../utils/dom/document'
 
 const FadeList = List(['fade'], 'fast')
 const absoluteFadeList = absoluteList(FadeList)
@@ -130,8 +131,8 @@ class Container extends PureComponent {
         state.focus = focus
         if (focus === true) {
           const rect = this.element.getBoundingClientRect()
-          const windowHeight = window.innerHeight || document.documentElement.clientHeight
-          const windowWidth = window.innerWidth || document.documentElement.clientWidth
+          const windowHeight = docSize.height
+          const windowWidth = docSize.width
           const pickerWidth = this.props.range ? 540 : 270
           if (!this.props.position) {
             if (rect.bottom + 300 > windowHeight) {
