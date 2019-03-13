@@ -7,7 +7,7 @@ import { datepickerClass } from '../styles'
 const PICKER_V_MARGIN = 4
 
 export default function(List) {
-  class AbsoluteList extends Component {
+  class AbsoluteContainer extends Component {
     constructor(props) {
       super(props)
 
@@ -72,7 +72,7 @@ export default function(List) {
     }
   }
 
-  AbsoluteList.propTypes = {
+  AbsoluteContainer.propTypes = {
     show: PropTypes.bool,
     parentElement: PropTypes.object,
     className: PropTypes.string,
@@ -80,5 +80,5 @@ export default function(List) {
     picker: PropTypes.string,
   }
 
-  return AbsoluteList
+  return AbsoluteContainer
 }

@@ -12,7 +12,7 @@ import Text from './Text'
 import { isArray } from '../utils/is'
 import { getParent } from '../utils/dom/element'
 import List from '../List'
-import absoluteList from './AbsoluteList'
+import absoluteList from './AbsoluteContainer'
 
 const FadeList = List(['fade'], 'fast')
 const absoluteFadeList = absoluteList(FadeList)
