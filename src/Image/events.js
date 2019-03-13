@@ -27,7 +27,7 @@ function getContainer() {
   return container
 }
 
-export default function (images, current = 0) {
+export default function(images, current = 0) {
   if (!Array.isArray(images)) images = [images]
   const div = getContainer()
 

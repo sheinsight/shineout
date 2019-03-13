@@ -13,7 +13,7 @@ class Group extends PureComponent {
       if (child && child.type && child.type.symbolType === IMAGE) {
         if (index === i) current = images.length
         const { src, href } = child.props
-        images.push({ thumb: src, src: href || src })
+        images.push({ thumb: src, src: href || src, key: i })
       }
     })
 
@@ -21,28 +21,22 @@ class Group extends PureComponent {
   }
 
   render() {
-    const {
-      children, pile, style, ...props
-    } = this.props
+    const { children, pile, style, ...props } = this.props
     return (
       <div className={imageClass('group', pile && 'pile')} style={style}>
-        {
-          Children.toArray(this.props.children)
-            .map((child, i) => cloneElement(child, {
-              ...props,
-              onClick: this.handleClick.bind(this, i),
-            }))
-        }
+        {Children.toArray(this.props.children).map((child, i) =>
+          cloneElement(child, {
+            ...props,
+            onClick: this.handleClick.bind(this, i),
+          })
+        )}
       </div>
     )
   }
 }
 
 Group.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.array,
-  ]),
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
   pile: PropTypes.bool,
   style: PropTypes.object,
 }
