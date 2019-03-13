@@ -33,17 +33,6 @@ export default function(List) {
       const style = {}
       if (parentElement) {
         const rect = parentElement.getBoundingClientRect()
-        const scrollRect = {}
-
-        if (
-          rect.bottom < scrollRect.top ||
-          rect.bottom > scrollRect.bottom ||
-          rect.right < scrollRect.left ||
-          rect.left > scrollRect.right
-        ) {
-          return { focus: false, style: this.lastStyle }
-        }
-
         style.position = 'absolute'
         const [h, v] = position.split('-')
         if (h === 'left') {
