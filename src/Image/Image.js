@@ -73,7 +73,7 @@ class Image extends PureComponent {
     e.preventDefault()
     const { onClick, src, href } = this.props
     if (onClick) onClick()
-    else showGallery({ thumb: src, src: href || src })
+    else showGallery({ thumb: src, src: href || src, key: 'key' })
   }
 
   renderType(src) {
