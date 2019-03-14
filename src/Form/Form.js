@@ -5,6 +5,7 @@ import { getUidStr } from '../utils/uid'
 import { formClass } from '../styles'
 import { FormError } from '../utils/errors'
 import { getProps, defaultProps } from '../utils/proptypes'
+import { docScroll } from '../utils/dom/document'
 
 class Form extends Component {
   constructor(props) {
@@ -73,7 +74,7 @@ class Form extends Component {
               if (el.focus) el.focus()
             }
             if (typeof scrollToError === 'number' && scrollToError !== 0) {
-              document.documentElement.scrollTop -= scrollToError
+              docScroll.top -= scrollToError
             }
           }
 

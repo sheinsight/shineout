@@ -8,6 +8,7 @@ import Button from '../Button'
 import { dropdownClass } from '../styles'
 import List from '../List'
 import Item from './Item'
+import { docSize } from '../utils/dom/document'
 
 const FadeList = List('fade')
 
@@ -61,8 +62,8 @@ class Dropdown extends PureComponent {
     let { position } = this.props
     if (position !== 'auto') return position
     if (!this.element) return 'bottom-left'
-    const windowHeight = window.innerHeight || document.documentElement.clientHeight
-    const windowWidth = window.innerWidth || document.documentElement.clientWidth
+    const windowHeight = docSize.height
+    const windowWidth = docSize.width
     const rect = this.element.getBoundingClientRect()
     position = rect.bottom > windowHeight / 2 ? 'top-' : 'bottom-'
     position += rect.right > windowWidth / 2 ? 'right' : 'left'

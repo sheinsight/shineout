@@ -34,11 +34,17 @@ class Root extends React.Component {
   }
 
   componentDidMount() {
+    const { mode } = this.props
+    if (mode === 'vertical') this.container.addEventListener('wheel', this.handleWheel, { passive: false })
     this.updateActive()
   }
 
   componentDidUpdate() {
     this.updateActive()
+  }
+
+  componentWillUnmount() {
+    this.container.removeEventListener('wheel', this.handleWheel)
   }
 
   bindRootElement(el) {
@@ -137,8 +143,6 @@ class Root extends React.Component {
       this.props.className
     )
 
-    const onWheel = mode === 'vertical' ? { onWheel: this.handleWheel } : {}
-
     const rootStyle = {}
     if (style.width) rootStyle.width = style.width
 
@@ -148,7 +152,7 @@ class Root extends React.Component {
     }
 
     return (
-      <div className={className} ref={this.bindRootElement} style={style} {...onWheel}>
+      <div className={className} ref={this.bindRootElement} style={style}>
         <div className={menuClass('wrapper')}>
           <Provider value={this.providerValue}>
             <List

@@ -49,17 +49,21 @@ class Magnify extends PureComponent {
   }
 
   handleResize(e) {
-    const { maxHeight, maxWidth } = this.props
+    const { maxHeight, maxWidth, position } = this.props
+    if (position !== 'center') return
     const status = this.state.status === 1 ? 0 : 1
     const { clientX, clientY } = e
 
-    this.setState(immer((state) => {
-      state.status = status
-      state.style = status === 0 ? { maxHeight, maxWidth } : undefined
-    }), () => {
-      if (status === 0) return
-      this.move(clientX, clientY)
-    })
+    this.setState(
+      immer(state => {
+        state.status = status
+        state.style = status === 0 ? { maxHeight, maxWidth } : undefined
+      }),
+      () => {
+        if (status === 0) return
+        this.move(clientX, clientY)
+      }
+    )
     this.props.lockScroll(status === 1)
   }
 
@@ -81,7 +85,9 @@ class Magnify extends PureComponent {
       <div
         onClick={this.handleResize}
         onMouseMove={onMouseMove}
-        ref={(el) => { this.element = el }}
+        ref={el => {
+          this.element = el
+        }}
         style={style}
       >
         <img src={src} alt="" style={this.state.style} />

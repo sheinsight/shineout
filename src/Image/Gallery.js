@@ -6,6 +6,7 @@ import normalizeWheel from '../utils/dom/normalizeWheel'
 import { imageClass } from '../styles'
 import icons from '../icons'
 import Magnify from './Magnify'
+import { docSize } from '../utils/dom/document'
 
 class Gallery extends PureComponent {
   constructor(props) {
@@ -39,16 +40,19 @@ class Gallery extends PureComponent {
 
   handleClick(direction) {
     const { length } = this.props.images
-    this.setState(immer((draft) => {
-      draft.current += direction
-      if (draft.current < 0) draft.current = 0
-      else if (draft.current >= length) draft.current = length - 1
-      else draft.direction = direction === 1 ? 'forward' : 'backward'
-    }), () => {
-      setTimeout(() => {
-        this.setState({ direction: 'init' })
-      }, 400)
-    })
+    this.setState(
+      immer(draft => {
+        draft.current += direction
+        if (draft.current < 0) draft.current = 0
+        else if (draft.current >= length) draft.current = length - 1
+        else draft.direction = direction === 1 ? 'forward' : 'backward'
+      }),
+      () => {
+        setTimeout(() => {
+          this.setState({ direction: 'init' })
+        }, 400)
+      }
+    )
   }
 
   handleScroll(e) {
@@ -67,8 +71,8 @@ class Gallery extends PureComponent {
   }
 
   renderImage(image, pos) {
-    const windowHeight = window.innerHeight || document.documentElement.clientHeight
-    const windowWidth = window.innerWidth || document.documentElement.clientWidth
+    const windowHeight = docSize.height
+    const windowWidth = docSize.width
 
     let onClick
     if (pos !== 'center') {
@@ -76,11 +80,7 @@ class Gallery extends PureComponent {
     }
 
     return (
-      <div
-        key={pos}
-        className={imageClass(pos, this.state.direction)}
-        onClick={onClick}
-      >
+      <div key={image.key} className={imageClass(pos, this.state.direction)} onClick={onClick}>
         <a href="javascript:;" onClick={this.props.onClose} className={imageClass('close')}>
           {icons.Close}
         </a>

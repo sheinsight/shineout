@@ -186,6 +186,7 @@
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.02), @datepicker-box-shadow-up;
   }
 
+
   &-right-bottom &-picker {
     top: 100%;
     right: 0;
@@ -394,6 +395,15 @@
       &:hover {
         overflow: auto;
       }
+    }
+  }
+
+  &-absolute-wrapper {
+    .@{datepicker-prefix}-absolute-left-top {
+      box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.02), @datepicker-box-shadow-up;
+    }
+    .@{datepicker-prefix}-absolute-right-top {
+      box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.02), @datepicker-box-shadow-up;
     }
   }
 }
