@@ -57,7 +57,10 @@ export default Origin =>
 
     convertValue(value) {
       const { range } = this.props
-      if (!value) return value
+      if (!value) {
+        this.setState({ value })
+        return
+      }
       const format = this.getFormat()
 
       if (!range) {

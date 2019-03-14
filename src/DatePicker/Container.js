@@ -200,8 +200,10 @@ class Container extends PureComponent {
   handleClear(e) {
     e.stopPropagation()
     const value = this.props.range ? ['', ''] : ''
-    this.props.onChange(value, this.props.onBlur)
-    this.handleToggle(false)
+    this.props.onChange(value, () => {
+      this.props.onBlur()
+      this.handleToggle(false)
+    })
   }
 
   renderText(value, placeholder, key) {
