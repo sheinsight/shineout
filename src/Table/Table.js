@@ -73,6 +73,7 @@ class Table extends PureComponent {
       columns,
       scrollLeft,
       striped,
+      bordered,
     }
 
     const isEmpty = (!data || data.length === 0) && !children
