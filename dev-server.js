@@ -23,7 +23,7 @@ new WebpackDevServer(webpack(webpackConfig), {
     colors: true,
     // children: false,
   },
-}).listen(config.dev.webpackPort, 'localhost', (err) => {
+}).listen(config.dev.webpackPort, 'localhost', err => {
   if (err) {
     console.log(err)
   }
@@ -33,45 +33,30 @@ new WebpackDevServer(webpack(webpackConfig), {
 const app = new Koa()
 const router = new Router()
 
-router.get('/', async (ctx) => {
-  const reactVersion = ctx.query.v
-  if (reactVersion) {
-    ctx.body = await ejs.renderFile('./site/index-v.html', { version: reactVersion })
-    return
-  }
-  const prepath = config.dev.scriptPath.replace('**', version)
-  const scripts = [
-    ...(config.dev.scripts || []),
-    ...Object.keys(config.webpack.entry).map(s => prepath.replace('*.*', `${s}.js`)),
-  ]
-  const styles = config.dev.styles || []
-  ctx.body = await ejs.renderFile('./site/index.html', { scripts, appName: config.appName, styles })
-})
-
 // use devlopment version React
-router.get('**/react.production.min.js', async (ctx) => {
+router.get('**/react.production.min.js', async ctx => {
   await send(ctx, 'node_modules/react/umd/react.development.js')
 })
-router.get('**/react-dom.production.min.js', async (ctx) => {
+router.get('**/react-dom.production.min.js', async ctx => {
   await send(ctx, 'node_modules/react-dom/umd/react-dom.development.js')
 })
-router.get('**/prop-types.min.js', async (ctx) => {
+router.get('**/prop-types.min.js', async ctx => {
   await send(ctx, 'node_modules/prop-types/prop-types.js')
 })
-router.get('**/jszip.min.js', async (ctx) => {
+router.get('**/jszip.min.js', async ctx => {
   await send(ctx, 'node_modules/jszip/dist/jszip.min.js')
 })
 
-router.get('**/versions.json', async (ctx) => {
+router.get('**/versions.json', async ctx => {
   await send(ctx, 'site/versions.json')
 })
 
-router.get('/images/*', async (ctx) => {
+router.get('/images/*', async ctx => {
   await send(ctx, `site/${ctx.path}`)
 })
 
 const upload = multer({})
-router.post('/upload/', upload.single('file'), async (ctx) => {
+router.post('/upload/', upload.single('file'), async ctx => {
   fs.writeFileSync(ctx.req.file.originalname, ctx.req.file.buffer)
   ctx.body = {
     success: true,
@@ -83,7 +68,7 @@ router.post('/upload/', upload.single('file'), async (ctx) => {
 })
 
 // dev code proxy
-router.get(config.dev.scriptPath, async (ctx) => {
+router.get(config.dev.scriptPath, async ctx => {
   // console.log(ctx.url)
   let url = ctx.url.split('/')
   url = url[url.length - 1]
@@ -95,13 +80,29 @@ router.get(config.dev.scriptPath, async (ctx) => {
 })
 
 // react-hot-loader proxy
-router.get('/*.hot-update.js(on)?', async (ctx) => {
+router.get('/*.hot-update.js(on)?', async ctx => {
   const options = {
     uri: `http://localhost:${config.dev.webpackPort}/${ctx.url}`,
     method: 'GET',
   }
   ctx.set('Access-Control-Allow-Origin', '*')
   ctx.body = request(options)
+})
+
+router.get('/*', async ctx => {
+  const reactVersion = ctx.query.v
+  const lang = ctx.url.indexOf('-en') > -1 ? 'en' : 'cn'
+  if (reactVersion) {
+    ctx.body = await ejs.renderFile('./site/index-v.html', { version: reactVersion })
+    return
+  }
+  const prepath = config.dev.scriptPath.replace('**', version)
+  const scripts = [
+    ...(config.dev.scripts || []),
+    ...Object.keys(config.webpack.entry).map(s => prepath.replace('*.*', `${s}.js`)),
+  ]
+  const styles = config.dev.styles || []
+  ctx.body = await ejs.renderFile(`./site/index-${lang}.html`, { scripts, appName: config.appName, styles })
 })
 
 if (config.proxy) config.proxy(router)
