@@ -90,8 +90,8 @@ router.get('/*.hot-update.js(on)?', async ctx => {
 })
 
 router.get('/*', async ctx => {
+  if (ctx.url === '/') ctx.redirect('/cn')
   const reactVersion = ctx.query.v
-  const lang = ctx.url.indexOf('-en') > -1 ? 'en' : 'cn'
   if (reactVersion) {
     ctx.body = await ejs.renderFile('./site/index-v.html', { version: reactVersion })
     return
@@ -102,7 +102,7 @@ router.get('/*', async ctx => {
     ...Object.keys(config.webpack.entry).map(s => prepath.replace('*.*', `${s}.js`)),
   ]
   const styles = config.dev.styles || []
-  ctx.body = await ejs.renderFile(`./site/index-${lang}.html`, { scripts, appName: config.appName, styles })
+  ctx.body = await ejs.renderFile(`./site/index.html`, { scripts, appName: config.appName, styles })
 })
 
 if (config.proxy) config.proxy(router)

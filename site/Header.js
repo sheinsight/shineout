@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 import { Button, Dropdown } from 'shineout'
-import locate, { setLanguage } from './locate'
+import locate, { setItem, STORAGE_KEY } from './locate'
 import theme from './utils/theme'
 import logo from './icons/logo'
 import Icon from './icons/Icon'
@@ -28,9 +28,20 @@ function getPath(pathname) {
 }
 */
 
+function findLangs() {
+  const prevLang = locate('cn', 'en')
+  const nextLang = locate('en', 'cn')
+  const itemLang = locate('en-US', 'zh-CN')
+
+  return [prevLang, nextLang, itemLang]
+}
+
 function handleLangClick() {
-  const lang = locate('en-US', 'zh-CN')
-  setLanguage(lang)
+  const langs = findLangs()
+  const href = window.location.href.replace(langs[0], langs[1])
+
+  setItem(STORAGE_KEY, langs[2])
+  window.location = href
 }
 
 function handleThemeClick(data) {

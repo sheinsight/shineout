@@ -3,17 +3,29 @@ import { Router, Route, Switch } from 'react-router-dom'
 import history from './history'
 import Header from './Header'
 import Loading from './Components/Loading'
+import { setLanguage, STORAGE_KEY, getItem } from './locate'
 import { mainClass } from './styles'
 
 const Home = lazy(() => import(/* webpackChunkName: "Home" */ './pages/Home'))
 const Components = lazy(() => import(/* webpackChunkName: "Components" */ './chunks/Components'))
 const Documentation = lazy(() => import(/* webpackChunkName: "Documentation" */ './pages/documentation'))
 
+const filterLang = href => {
+  const location = href.split('#')[0]
+  return location.indexOf('en') > -1 ? 'en-US' : 'zh-CN'
+}
+
 const App = () => {
   const [versions, setVersions] = useState([])
   const [lastPath, setLastPath] = useState()
+  const [, setUpdate] = useState()
 
   useEffect(() => {
+    const lang = filterLang(window.location.href)
+    if (getItem(STORAGE_KEY) !== lang) {
+      setLanguage(lang)
+      setUpdate('update')
+    }
     window.addEventListener('hashchange', () => {
       const [, path] = window.location.hash.split('#')
 

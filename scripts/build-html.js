@@ -1,6 +1,5 @@
 const fs = require('fs')
 const ejs = require('./ejs')
-const rimraf = require('rimraf')
 const pkg = require('../package.json')
 const config = require('../config')
 
@@ -21,12 +20,7 @@ async function buildHtml(lang) {
     appName: `Shineout api document ${version}`,
   })
 
-  if (fs.existsSync(dir)) {
-    rimraf.sync(dir)
-  }
-
-  fs.mkdirSync(dir)
-  fs.writeFileSync(`${dir}/index-${lang}.html`, html)
+  fs.writeFileSync(`${dir}/${lang}.html`, html)
 }
 
 buildHtml('en')
