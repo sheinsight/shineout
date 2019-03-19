@@ -12,7 +12,7 @@ import FontAwesome from '../Icon/FontAwesome'
 export default function() {
   return (
     <Upload
-      action="http://jsonplaceholder.typicode.com/posts"
+      action="https://jsonplaceholder.typicode.com/posts"
       accept="image/*"
       name="file"
       onSuccess={(res, file) => file.name}

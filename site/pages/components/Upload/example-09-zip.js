@@ -12,7 +12,7 @@ const request = options => {
   const { file, onLoad, onError, onProgress } = options
 
   const xhr = new XMLHttpRequest()
-  xhr.open('post', 'http://jsonplaceholder.typicode.com/posts')
+  xhr.open('post', 'https://jsonplaceholder.typicode.com/posts')
 
   const zip = new window.JSZip()
   zip.file(file.name, file)

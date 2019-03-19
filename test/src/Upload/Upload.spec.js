@@ -9,7 +9,7 @@ describe('Upload[Base]', () => {
   let wrapper
   beforeAll(() => {
     wrapper = mount(
-      <Upload action="http://jsonplaceholder.typicode.com/posts" onSuccess={(...args) => console.log(args)} />
+      <Upload action="https://jsonplaceholder.typicode.com/posts" onSuccess={(...args) => console.log(args)} />
     )
   })
   test('should render file-input', () => {
@@ -19,7 +19,7 @@ describe('Upload[Base]', () => {
   //   const successFn = () => {
   //     done()
   //   }
-  //   const uploadWrapper = mount(<Upload action="http://jsonplaceholder.typicode.com/posts" onSuccess={successFn} />)
+  //   const uploadWrapper = mount(<Upload action="https://jsonplaceholder.typicode.com/posts" onSuccess={successFn} />)
   //   uploadWrapper.find('input').prop('onChange')({
   //     target: {
   //       files: [new Blob(['content'], { type: 'text/plain' })],
@@ -49,7 +49,7 @@ describe('Upload[Validate]', () => {
     const errorInfo = 'File extension must be jpg or png'
     const wrapper = mount(
       <Upload.Image
-        action="http://jsonplaceholder.typicode.com/posts"
+        action="https://jsonplaceholder.typicode.com/posts"
         accept="image/*"
         name="file"
         limit={1}

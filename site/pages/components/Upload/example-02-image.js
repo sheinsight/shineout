@@ -10,7 +10,7 @@ import { Upload } from 'shineout'
 export default function() {
   return (
     <Upload.Image
-      action="http://jsonplaceholder.typicode.com/posts"
+      action="https://jsonplaceholder.typicode.com/posts"
       accept="image/*"
       name="file"
       onSuccess={(res, file, data) => ({ data })}

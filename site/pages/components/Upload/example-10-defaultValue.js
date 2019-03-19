@@ -19,7 +19,7 @@ export default function() {
   return (
     <div>
       <Upload
-        action="http://jsonplaceholder.typicode.com/posts"
+        action="https://jsonplaceholder.typicode.com/posts"
         accept="image/*"
         multiple
         limit={2}
@@ -35,7 +35,7 @@ export default function() {
       </Upload>
 
       <Upload.Image
-        action="http://jsonplaceholder.typicode.com/posts"
+        action="https://jsonplaceholder.typicode.com/posts"
         accept="image/*"
         multiple
         name="file"
