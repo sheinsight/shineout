@@ -80,7 +80,7 @@ export default class extends PureComponent {
 
         <Form.Item label="">
           <Upload.Image
-            action="https://jsonplaceholder.typicode.com/posts"
+            action="//jsonplaceholder.typicode.com/posts"
             accept="image/*"
             name="file"
             onSuccess={(res, file, data) => ({ data })}

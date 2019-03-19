@@ -10,7 +10,7 @@ import { Upload } from 'shineout'
 export default function() {
   return (
     <Upload.Button
-      action="https://jsonplaceholder.typicode.com/posts"
+      action="//jsonplaceholder.typicode.com/posts"
       name="file"
       onSuccess={(res, file) => file.name}
       loading="正在上传..."

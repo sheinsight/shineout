@@ -12,7 +12,7 @@ export default function() {
   return (
     <div>
       <Upload
-        action="https://jsonplaceholder.typicode.com/posts"
+        action="//jsonplaceholder.typicode.com/posts"
         accept="image/*"
         multiple
         name="file"
@@ -28,7 +28,7 @@ export default function() {
       </Upload>
 
       <Upload.Image
-        action="https://jsonplaceholder.typicode.com/posts"
+        action="//jsonplaceholder.typicode.com/posts"
         accept="image/*"
         multiple
         name="file"

@@ -8,9 +8,7 @@ import UploadButton from '../../../site/pages/components/Upload/example-03-butto
 describe('Upload[Base]', () => {
   let wrapper
   beforeAll(() => {
-    wrapper = mount(
-      <Upload action="https://jsonplaceholder.typicode.com/posts" onSuccess={(...args) => console.log(args)} />
-    )
+    wrapper = mount(<Upload action="//jsonplaceholder.typicode.com/posts" onSuccess={(...args) => console.log(args)} />)
   })
   test('should render file-input', () => {
     expect(wrapper.find('input[type="file"]').length).toBe(1)
@@ -19,7 +17,7 @@ describe('Upload[Base]', () => {
   //   const successFn = () => {
   //     done()
   //   }
-  //   const uploadWrapper = mount(<Upload action="https://jsonplaceholder.typicode.com/posts" onSuccess={successFn} />)
+  //   const uploadWrapper = mount(<Upload action="//jsonplaceholder.typicode.com/posts" onSuccess={successFn} />)
   //   uploadWrapper.find('input').prop('onChange')({
   //     target: {
   //       files: [new Blob(['content'], { type: 'text/plain' })],
@@ -49,7 +47,7 @@ describe('Upload[Validate]', () => {
     const errorInfo = 'File extension must be jpg or png'
     const wrapper = mount(
       <Upload.Image
-        action="https://jsonplaceholder.typicode.com/posts"
+        action="//jsonplaceholder.typicode.com/posts"
         accept="image/*"
         name="file"
         limit={1}

@@ -11,7 +11,7 @@ import FontAwesome from '../Icon/FontAwesome'
 export default function() {
   return (
     <Upload.Image
-      action="https://jsonplaceholder.typicode.com/posts"
+      action="//jsonplaceholder.typicode.com/posts"
       accept="image/*"
       name="file"
       onSuccess={(res, file, data) => ({ data })}
