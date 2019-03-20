@@ -71,7 +71,6 @@ class Table extends PureComponent {
       width,
       data,
       columns,
-      scrollLeft,
       striped,
       bordered,
     }

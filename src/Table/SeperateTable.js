@@ -179,12 +179,16 @@ class SeperateTable extends PureComponent {
   }
 
   handleScroll(x, y, max, bar, v, h, pixelX, pixelY) {
+    // console.log(x, y, max, bar, v, h, pixelX, pixelY)
     if (!this.tbody) return
-
-    const { data, rowHeight, rowsInView } = this.props
+    const { data, rowHeight, rowsInView, scrollLeft } = this.props
     const contentWidth = this.getContentWidth()
     const contentHeight = this.getContentHeight()
     let left = x * (contentWidth - v)
+    if (typeof scrollLeft === 'number') {
+      left = scrollLeft
+      x = left / (contentWidth - v)
+    }
     let scrollTop = h > contentHeight ? 0 : y
     let right = max - left
     if (right < 0) right = 0
@@ -251,7 +255,10 @@ class SeperateTable extends PureComponent {
       offsetRight: right,
     })
 
-    if (this.props.onScroll) this.props.onScroll(x, y)
+    let expectLeft = left + (pixelX || 0)
+    if (expectLeft < 0) expectLeft = 0
+    else if (expectLeft > contentWidth - v) expectLeft = contentWidth - v
+    if (this.props.onScroll) this.props.onScroll(x, y, expectLeft)
   }
 
   handleSortChange(...args) {
@@ -276,7 +283,7 @@ class SeperateTable extends PureComponent {
 
   renderBody(floatClass) {
     const { data, rowsInView, columns, width, fixed, rowHeight, ...others } = this.props
-    const { colgroup, scrollTop, offsetLeft, offsetRight, currentIndex } = this.state
+    const { colgroup, scrollTop, scrollLeft, offsetLeft, offsetRight, currentIndex } = this.state
     const contentWidth = this.getContentWidth()
 
     if (!data || data.length === 0) {
@@ -290,6 +297,7 @@ class SeperateTable extends PureComponent {
       <Scroll
         key="body"
         scrollTop={scrollTop}
+        scrollLeft={scrollLeft}
         scroll={fixed}
         scrollHeight={this.getContentHeight()}
         scrollWidth={contentWidth}
@@ -354,6 +362,7 @@ SeperateTable.propTypes = {
   rowsInView: PropTypes.number.isRequired,
   tableRef: PropTypes.func,
   width: PropTypes.number,
+  scrollLeft: PropTypes.number,
 }
 
 SeperateTable.defaultProps = {
