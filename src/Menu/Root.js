@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import immer from 'immer'
 import { defaultProps, getProps } from '../utils/proptypes'
 import normalizeWheel from '../utils/dom/normalizeWheel'
 import ScrollBar from '../Scroll/Bar'
@@ -8,6 +9,13 @@ import { menuClass } from '../styles'
 import List from './List'
 import { Provider } from './context'
 
+function keyToMap(keys = [], value = true) {
+  const keyMap = {}
+  keys.forEach(v => {
+    keyMap[v] = value
+  })
+  return keyMap
+}
 class Root extends React.Component {
   constructor(props) {
     super(props)
@@ -15,8 +23,10 @@ class Root extends React.Component {
     this.state = {
       activeKey: null,
       scrollTop: 0,
+      openKeys: keyToMap(props.defaultOpenKeys),
     }
 
+    this.checkOpen = this.checkOpen.bind(this)
     this.checkActive = this.checkActive.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleScroll = this.handleScroll.bind(this)
@@ -26,21 +36,25 @@ class Root extends React.Component {
     this.toggleOpenKeys = this.toggleOpenKeys.bind(this)
     this.providerValue = {
       bindItem: this.bindItem.bind(this),
+      bindItemOpen: this.bindItemOpen.bind(this),
       unbindItem: this.unbindItem.bind(this),
+      unbindItemOpen: this.unbindItemOpen.bind(this),
     }
 
     this.items = {}
-    this.openKeys = {}
+    this.itemsOpen = {}
   }
 
   componentDidMount() {
     const { mode } = this.props
     if (mode === 'vertical') this.container.addEventListener('wheel', this.handleWheel, { passive: false })
     this.updateActive()
+    this.updateOpen()
   }
 
   componentDidUpdate() {
     this.updateActive()
+    this.updateOpen()
   }
 
   componentWillUnmount() {
@@ -58,9 +72,16 @@ class Root extends React.Component {
     this.items[id] = update
     return this.checkActive
   }
+  bindItemOpen(id, update) {
+    this.itemsOpen[id] = update
+    return this.checkOpen
+  }
 
   unbindItem(id) {
     delete this.items[id]
+  }
+  unbindItemOpen(id) {
+    delete this.itemsOpen[id]
   }
 
   checkActive(id, data) {
@@ -71,6 +92,18 @@ class Root extends React.Component {
     return id === this.state.activeKey
   }
 
+  getOpenKeys() {
+    return this.props.openKeys || Object.keys(this.state.openKeys)
+  }
+
+  checkOpen(id) {
+    const openKeys = this.getOpenKeys()
+    if (Array.isArray(openKeys)) {
+      return openKeys.indexOf(id) > -1
+    }
+    return false
+  }
+
   updateActive() {
     Object.keys(this.items).forEach(id => {
       const update = this.items[id]
@@ -78,12 +111,32 @@ class Root extends React.Component {
     })
   }
 
-  toggleOpenKeys(id, open) {
-    if (open) this.openKeys[id] = true
-    else delete this.openKeys[id]
+  updateOpen() {
+    Object.keys(this.itemsOpen).forEach(id => {
+      const update = this.itemsOpen[id]
+      update(this.checkOpen)
+    })
+  }
 
-    const hasOpen = Object.keys(this.openKeys).length > 0
-    this.setState({ hasOpen })
+  toggleOpenKeys(id, open) {
+    const newOpenKeys = immer(keyToMap(this.getOpenKeys()), draft => {
+      if (open) {
+        draft[id] = true
+      } else delete draft[id]
+    })
+    const keys = Object.keys(newOpenKeys)
+    const { onOpenChange = () => {}, openKeys } = this.props
+    if (openKeys) {
+      onOpenChange(keys)
+      return
+    }
+    this.setState(
+      {
+        openKeys: newOpenKeys,
+        hasOpen: keys.length > 0,
+      },
+      () => onOpenChange(keys)
+    )
   }
 
   handleScroll(top) {
@@ -134,7 +187,7 @@ class Root extends React.Component {
   }
 
   render() {
-    const { keygen, data, mode, style, theme, defaultOpenKeys, inlineIndent, disabled, height } = this.props
+    const { keygen, data, mode, style, theme, inlineIndent, disabled, height } = this.props
 
     const showScroll = (style.height || height) && mode === 'vertical'
 
@@ -158,7 +211,6 @@ class Root extends React.Component {
             <List
               className={menuClass('root')}
               data={data}
-              defaultOpenKeys={defaultOpenKeys}
               disabled={disabled}
               inlineIndent={inlineIndent}
               keygen={keygen}
@@ -186,11 +238,13 @@ Root.propTypes = {
   active: PropTypes.func,
   data: PropTypes.array,
   defaultOpenKeys: PropTypes.array,
+  openKeys: PropTypes.array,
   disabled: PropTypes.func,
   inlineIndent: PropTypes.number,
   mode: PropTypes.oneOf(['inline', 'vertical', 'horizontal']),
   onClick: PropTypes.func,
   renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  onOpenChange: PropTypes.func,
 }
 
 Root.defaultProps = {

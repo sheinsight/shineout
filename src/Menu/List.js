@@ -14,12 +14,10 @@ class List extends PureComponent {
       mode,
       renderItem,
       style,
-      active,
       bottomLine,
       onClick,
       path,
       inlineIndent,
-      defaultOpenKeys,
       disabled,
       toggleOpenKeys,
     } = this.props
@@ -30,9 +28,7 @@ class List extends PureComponent {
       <ul className={className} style={style}>
         {data.map((d, i) => (
           <Item
-            active={active}
             bottomLine={bottomLine}
-            defaultOpenKeys={defaultOpenKeys}
             disabled={disabled}
             key={getKey(d, keygen, i)}
             index={i}
@@ -53,10 +49,8 @@ class List extends PureComponent {
 }
 
 List.propTypes = {
-  active: PropTypes.func,
   bottomLine: PropTypes.number,
   className: PropTypes.string,
-  defaultOpenKeys: PropTypes.array,
   disabled: PropTypes.func,
   inlineIndent: PropTypes.number,
   keygen: PropTypes.any,
