@@ -3,7 +3,7 @@ import { Router, Route, Switch } from 'react-router-dom'
 import history from './history'
 import Header from './Header'
 import Loading from './Components/Loading'
-import { setLanguage, STORAGE_KEY, getItem } from './locate'
+import locate, { setLanguage, STORAGE_KEY, getItem } from './locate'
 import { mainClass } from './styles'
 
 const Home = lazy(() => import(/* webpackChunkName: "Home" */ './pages/Home'))
@@ -38,7 +38,8 @@ const App = () => {
     fetch('../versions.json')
       .then(res => res.json())
       .then(json => {
-        const jsonVersions = json.map(v => ({ content: v, url: `../${v}` }))
+        const language = locate('cn', 'en')
+        const jsonVersions = json.map(v => ({ content: v, url: `../${v}/${language}` }))
         setVersions(jsonVersions)
       })
       .catch(() => {})

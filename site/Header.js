@@ -65,15 +65,19 @@ const Header = ({ versions }) => {
   let version = versions.find(v => pathname.indexOf(v.content) >= 0)
   if (version) version = version.content
 
+  const searchInput = !version || version === (versions[versions.length - 1] || {}).content
+
   useEffect(() => {
-    docsearch({
-      appId: 'T20UAXDNF8',
-      apiKey: '0bd92ae792815ca5cb44b9e0f392fa8c',
-      indexName: `shineout-${locate('cn', 'en')}-local`,
-      inputSelector: '#algolia-doc-search',
-      // algoliaOptions: { facetFilters: [`version: ${version}`] },
-      debug: false, // Set debug to true if you want to inspect the dropdown
-    })
+    if (searchInput) {
+      docsearch({
+        appId: 'T20UAXDNF8',
+        apiKey: '0bd92ae792815ca5cb44b9e0f392fa8c',
+        indexName: `shineout-${locate('cn', 'en')}-local`,
+        inputSelector: '#algolia-doc-search',
+        // algoliaOptions: { facetFilters: [`version: ${version}`] },
+        debug: false, // Set debug to true if you want to inspect the dropdown
+      })
+    }
   }, [])
 
   return (
@@ -88,10 +92,12 @@ const Header = ({ versions }) => {
           </NavLink>
         ))}
       </div>
-      <Input.Group size="small" className={headerClass('search')} id="algolia-doc-search">
-        <Input placeholder={locate('搜索文档', 'Search Docs')} />
-        <FontAwesome name="search" />
-      </Input.Group>
+      {searchInput && (
+        <Input.Group size="small" className={headerClass('search')} id="algolia-doc-search">
+          <Input placeholder={locate('在 shineout 中搜索', 'Search in shineout')} />
+          <FontAwesome name="search" />
+        </Input.Group>
+      )}
       <div className={headerClass('right')}>
         <Button size="small" onClick={handleLangClick} style={{ marginRight: 12 }}>
           {locate('English', '中文')}
