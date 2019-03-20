@@ -172,6 +172,12 @@ class SeperateTable extends PureComponent {
     setTranslate(this.tbody, `-${this.state.offsetLeft}px`, `-${offsetScrollTop}px`)
   }
 
+  // business component needed
+  scrollOffset(index, callback) {
+    const { currentIndex } = this.state
+    this.scrollToIndex(currentIndex + index + 1, callback)
+  }
+
   handleScroll(x, y, max, bar, v, h, pixelX, pixelY) {
     if (!this.tbody) return
 
