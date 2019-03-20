@@ -40,6 +40,8 @@ class Panel extends PureComponent {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount()
+
     this.parentElement.removeEventListener('mouseenter', this.handleShow)
     this.parentElement.removeEventListener('mouseleave', this.handleHide500)
     this.parentElement.removeEventListener('click', this.handleShow)
