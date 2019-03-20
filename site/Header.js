@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
-import { Button, Dropdown } from 'shineout'
+import { Button, Dropdown, Input } from 'shineout'
+import docsearch from 'docsearch.js'
 import locate, { setItem, STORAGE_KEY } from './locate'
 import theme from './utils/theme'
 import logo from './icons/logo'
 import Icon from './icons/Icon'
 import { headerClass } from './styles'
+import FontAwesome from './pages/components/Icon/FontAwesome'
 
 const themes = [
   {
@@ -63,6 +65,17 @@ const Header = ({ versions }) => {
   let version = versions.find(v => pathname.indexOf(v.content) >= 0)
   if (version) version = version.content
 
+  useEffect(() => {
+    docsearch({
+      appId: 'T20UAXDNF8',
+      apiKey: '0bd92ae792815ca5cb44b9e0f392fa8c',
+      indexName: `shineout-${locate('cn', 'en')}-local`,
+      inputSelector: '#algolia-doc-search',
+      // algoliaOptions: { facetFilters: [`version: ${version}`] },
+      debug: false, // Set debug to true if you want to inspect the dropdown
+    })
+  }, [])
+
   return (
     <div className={headerClass('_')}>
       <div className={headerClass('logo')}>
@@ -75,6 +88,10 @@ const Header = ({ versions }) => {
           </NavLink>
         ))}
       </div>
+      <Input.Group size="small" className={headerClass('search')} id="algolia-doc-search">
+        <Input placeholder={locate('搜索文档', 'Search Docs')} />
+        <FontAwesome name="search" />
+      </Input.Group>
       <div className={headerClass('right')}>
         <Button size="small" onClick={handleLangClick} style={{ marginRight: 12 }}>
           {locate('English', '中文')}

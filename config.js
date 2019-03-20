@@ -10,7 +10,7 @@ const versions = {}
 module.exports = {
   appName: 'Shineout',
   dev: {
-    publishPort: 3000,
+    publishPort: 80,
     webpackPort: 3001,
     scriptPath: '/*.*',
     scripts: [
@@ -21,6 +21,7 @@ module.exports = {
     ],
     styles: [
       // '/prism/1.15.0/themes/prism.min.css',
+      '/docsearch.js/2.6.2/docsearch.css',
     ],
   },
   themes: ['default', 'antd'],

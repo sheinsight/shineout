@@ -47,6 +47,10 @@ router.get('**/jszip.min.js', async ctx => {
   await send(ctx, 'node_modules/jszip/dist/jszip.min.js')
 })
 
+router.get('**/docsearch.css', async ctx => {
+  await send(ctx, 'node_modules/docsearch.js/dist/cdn/docsearch.min.css')
+})
+
 router.get('**/versions.json', async ctx => {
   await send(ctx, 'site/versions.json')
 })
