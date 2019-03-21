@@ -14,7 +14,7 @@ export default (style, module, prefix = config.prefix) => (...args) => {
   const ns = `${prefix}${module ? `-${module}` : '-'}`
   let list = className.split(' ').map(c => (c === '_' ? ns : `${ns}-${c}`))
   if (config.cssModule) {
-    list = list.map(c => style[c])
+    list = list.map(c => style[c] || c)
   }
   return list.join(' ')
 }

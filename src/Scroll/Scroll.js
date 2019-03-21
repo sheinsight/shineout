@@ -40,7 +40,7 @@ class Scroll extends PureComponent {
     super.componentDidMount()
     setTimeout(this.setRect)
     this.wheelElement.addEventListener('wheel', this.handleWheel, { passive: false })
-    this.wheelElement.addEventListener('touchstart', this.handleTouchStart)
+    this.wheelElement.addEventListener('touchstart', this.handleTouchStart, { passive: true })
     this.wheelElement.addEventListener('touchmove', this.handleTouchMove, { passive: false })
   }
 
