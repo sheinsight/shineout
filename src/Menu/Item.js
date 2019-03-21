@@ -13,10 +13,10 @@ class Item extends PureComponent {
     this.id = `${props.path},${getUidStr()}`
 
     const key = this.getKey(props)
-
+    const [activeUpdate, openUpdate] = props.bindItem(key, this.update.bind(this), this.updateOpen.bind(this))
     this.state = {
-      open: props.bindItemOpen(key, this.updateOpen.bind(this))(this.id),
-      isActive: props.bindItem(this.id, this.update.bind(this))(this.id, props.data),
+      open: openUpdate(key),
+      isActive: activeUpdate(key, props.data),
       isHighLight: false,
     }
 
@@ -29,7 +29,6 @@ class Item extends PureComponent {
   componentWillUnmount() {
     super.componentWillUnmount()
     this.props.unbindItem(this.id)
-    this.props.unbindItemOpen(this.id)
     this.unbindDocumentEvent()
   }
 
@@ -165,7 +164,6 @@ class Item extends PureComponent {
 
 Item.propTypes = {
   bindItem: PropTypes.func,
-  bindItemOpen: PropTypes.func,
   bottomLine: PropTypes.number,
   data: PropTypes.object,
   disabled: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
@@ -179,7 +177,6 @@ Item.propTypes = {
   renderItem: PropTypes.func,
   toggleOpenKeys: PropTypes.func,
   unbindItem: PropTypes.func,
-  unbindItemOpen: PropTypes.func,
 }
 
 export default consumer(Item)

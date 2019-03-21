@@ -38,9 +38,7 @@ class Root extends React.Component {
     this.toggleOpenKeys = this.toggleOpenKeys.bind(this)
     this.providerValue = {
       bindItem: this.bindItem.bind(this),
-      bindItemOpen: this.bindItemOpen.bind(this),
       unbindItem: this.unbindItem.bind(this),
-      unbindItemOpen: this.unbindItemOpen.bind(this),
     }
 
     this.items = {}
@@ -50,13 +48,11 @@ class Root extends React.Component {
   componentDidMount() {
     const { mode } = this.props
     if (mode === 'vertical') this.container.addEventListener('wheel', this.handleWheel, { passive: false })
-    this.updateActive()
-    this.updateOpen()
+    this.updateState()
   }
 
   componentDidUpdate() {
-    this.updateActive()
-    this.updateOpen()
+    this.updateState()
   }
 
   componentWillUnmount() {
@@ -74,19 +70,14 @@ class Root extends React.Component {
     this.rootElement = el.querySelector(`.${menuClass('root')}`)
   }
 
-  bindItem(id, update) {
-    this.items[id] = update
-    return this.checkActive
-  }
-  bindItemOpen(id, update) {
-    this.itemsOpen[id] = update
-    return this.checkOpen
+  bindItem(id, updateActive, updateOpen) {
+    this.items[id] = updateActive
+    this.itemsOpen[id] = updateOpen
+    return [this.checkActive, this.checkOpen]
   }
 
   unbindItem(id) {
     delete this.items[id]
-  }
-  unbindItemOpen(id) {
     delete this.itemsOpen[id]
   }
 
@@ -104,6 +95,11 @@ class Root extends React.Component {
       return openKeys.indexOf(id) > -1
     }
     return false
+  }
+
+  updateState() {
+    this.updateActive()
+    this.updateOpen()
   }
 
   updateActive() {
