@@ -51,6 +51,7 @@ class Scroll extends PureComponent {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount()
     this.wheelElement.removeEventListener('wheel', this.handleWheel)
     this.wheelElement.removeEventListener('touchstart', this.handleTouchStart)
     this.wheelElement.removeEventListener('touchmove', this.handleTouchMove)

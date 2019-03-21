@@ -10,6 +10,7 @@ import Scroll from '../Scroll'
 import Colgroup from './Colgroup'
 import Thead from './Thead'
 import Tbody from './Tbody'
+import { isNumber } from '../utils/is'
 import { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
 
 class SeperateTable extends PureComponent {
@@ -24,6 +25,7 @@ class SeperateTable extends PureComponent {
     this.bindTbody = this.bindElement.bind(this, 'tbody')
     this.bindRealTbody = this.bindElement.bind(this, 'realTbody')
     this.bindThead = this.bindElement.bind(this, 'thead')
+    this.bindHeadWrapper = this.bindElement.bind(this, 'headWrapper')
     this.setRowHeight = this.setRowHeight.bind(this)
     this.handleColgroup = this.handleColgroup.bind(this)
     this.handleScroll = this.handleScroll.bind(this)
@@ -35,10 +37,16 @@ class SeperateTable extends PureComponent {
     if (props.tableRef) props.tableRef(this)
   }
 
+  componentDidMount() {
+    super.componentDidMount()
+    this.adjustScrollLeft()
+  }
+
   // reset scrollTop when data changed
   componentDidUpdate(prevProps) {
     if (!this.tbody) return
     if (this.props.data !== prevProps.data) this.resetHeight()
+    this.updateScrollLeft()
   }
 
   getIndex(scrollTop = this.state.scrollTop) {
@@ -100,6 +108,25 @@ class SeperateTable extends PureComponent {
     }
   }
 
+  updateScrollLeft() {
+    const { scrollLeft } = this.props
+    if (!isNumber(scrollLeft)) return
+    const args = this.lastScrollArgs
+    if (scrollLeft !== this.state.offsetLeft && args) {
+      args[0] = scrollLeft / (this.getContentWidth() - args[4])
+      this.handleScroll(...args)
+    }
+  }
+
+  adjustScrollLeft() {
+    const { scrollLeft } = this.props
+    if (isNumber(scrollLeft) && scrollLeft > 0) {
+      const v = this.headWrapper.clientWidth
+      const offset = this.getContentWidth() - v
+      this.setState({ scrollLeft: scrollLeft / offset, offsetLeft: scrollLeft })
+    }
+  }
+
   resetHeight() {
     const { scrollTop, offsetLeft } = this.state
     const fullHeight = this.getContentHeight()
@@ -128,13 +155,11 @@ class SeperateTable extends PureComponent {
   resetWidth(left, right) {
     setTranslate(this.tbody, `-${left}px`, `-${this.lastScrollTop}px`)
     setTranslate(this.thead, `-${left}px`, '0')
-
     ;[this.thead, this.tbody].forEach(el => {
       ;[].forEach.call(el.parentNode.querySelectorAll(`.${tableClass(CLASS_FIXED_LEFT)}`), td => {
         setTranslate(td, `${left}px`, '0')
       })
     })
-
     ;[this.thead, this.tbody].forEach(el => {
       ;[].forEach.call(el.parentNode.querySelectorAll(`.${tableClass(CLASS_FIXED_RIGHT)}`), td => {
         setTranslate(td, `-${right}px`, '0')
@@ -172,9 +197,16 @@ class SeperateTable extends PureComponent {
     setTranslate(this.tbody, `-${this.state.offsetLeft}px`, `-${offsetScrollTop}px`)
   }
 
-  handleScroll(x, y, max, bar, v, h, pixelX, pixelY) {
-    if (!this.tbody) return
+  // business component needed
+  scrollOffset(index, callback) {
+    const { currentIndex } = this.state
+    this.scrollToIndex(currentIndex + index + 1, callback)
+  }
 
+  handleScroll(...args) {
+    if (!this.tbody) return
+    const [x, y, max, bar, v, h, pixelX, pixelY] = args
+    this.lastScrollArgs = args
     const { data, rowHeight, rowsInView } = this.props
     const contentWidth = this.getContentWidth()
     const contentHeight = this.getContentHeight()
@@ -245,7 +277,7 @@ class SeperateTable extends PureComponent {
       offsetRight: right,
     })
 
-    if (this.props.onScroll) this.props.onScroll(x, y)
+    if (this.props.onScroll) this.props.onScroll(x, y, left)
   }
 
   handleSortChange(...args) {
@@ -270,7 +302,7 @@ class SeperateTable extends PureComponent {
 
   renderBody(floatClass) {
     const { data, rowsInView, columns, width, fixed, rowHeight, ...others } = this.props
-    const { colgroup, scrollTop, offsetLeft, offsetRight, currentIndex } = this.state
+    const { colgroup, scrollTop, scrollLeft, offsetLeft, offsetRight, currentIndex } = this.state
     const contentWidth = this.getContentWidth()
 
     if (!data || data.length === 0) {
@@ -284,6 +316,7 @@ class SeperateTable extends PureComponent {
       <Scroll
         key="body"
         scrollTop={scrollTop}
+        scrollLeft={scrollLeft}
         scroll={fixed}
         scrollHeight={this.getContentHeight()}
         scrollWidth={contentWidth}
@@ -327,7 +360,7 @@ class SeperateTable extends PureComponent {
     }
 
     return [
-      <div key="head" className={tableClass('head', ...floatClass)}>
+      <div key="head" className={tableClass('head', ...floatClass)} ref={this.bindHeadWrapper}>
         <table style={{ width }} ref={this.bindThead}>
           <Colgroup colgroup={colgroup} columns={columns} />
           <Thead {...this.props} onSortChange={this.handleSortChange} />
@@ -348,6 +381,7 @@ SeperateTable.propTypes = {
   rowsInView: PropTypes.number.isRequired,
   tableRef: PropTypes.func,
   width: PropTypes.number,
+  scrollLeft: PropTypes.number,
 }
 
 SeperateTable.defaultProps = {
