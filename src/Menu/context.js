@@ -9,5 +9,5 @@ const { Consumer } = context
 export const Provider = context.Provider
 
 export const consumer = Origin => props => (
-  <Consumer>{({ bindItem, unbindItem }) => <Origin {...props} bindItem={bindItem} unbindItem={unbindItem} />}</Consumer>
+  <Consumer>{({ bindItem, unbindItem }) => <Origin {...props} unbindItem={unbindItem} bindItem={bindItem} />}</Consumer>
 )

@@ -1,6 +1,5 @@
 import React, { isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
-import immer from 'immer'
 import { PureComponent } from '../component'
 import { getKey, getUidStr } from '../utils/uid'
 import { menuClass } from '../styles'
@@ -12,12 +11,11 @@ class Item extends PureComponent {
     super(props)
 
     this.id = `${props.path},${getUidStr()}`
-
     const key = this.getKey(props)
-
+    const [activeUpdate, openUpdate] = props.bindItem(this.id, this.update.bind(this), this.updateOpen.bind(this))
     this.state = {
-      open: props.defaultOpenKeys.indexOf(key) > -1,
-      isActive: props.bindItem(this.id, this.update.bind(this))(this.id, props.data),
+      open: openUpdate(key),
+      isActive: activeUpdate(this.id, props.data),
       isHighLight: false,
     }
 
@@ -51,6 +49,10 @@ class Item extends PureComponent {
 
     this.setState({ isActive, isHighLight })
   }
+  updateOpen(check) {
+    const isOpen = check(this.getKey())
+    this.setState({ open: isOpen })
+  }
 
   handleToggle(open) {
     const { toggleOpenKeys } = this.props
@@ -58,12 +60,10 @@ class Item extends PureComponent {
 
     if (this.toggleTimer) clearTimeout(this.toggleTimer)
     if (open) {
-      this.setState({ open })
       toggleOpenKeys(key, true)
       document.addEventListener('click', this.handleMouseLeave)
     } else {
       this.toggleTimer = setTimeout(() => {
-        this.setState({ open: false })
         toggleOpenKeys(key, false)
       }, 200)
       this.unbindDocumentEvent()
@@ -71,15 +71,11 @@ class Item extends PureComponent {
   }
 
   handleClick() {
-    const { data, onClick, mode } = this.props
+    const { data, onClick, mode, toggleOpenKeys } = this.props
     if (data.disabled) return
 
-    if (mode === 'inline') {
-      this.setState(
-        immer(state => {
-          state.open = !state.open
-        })
-      )
+    if (mode === 'inline' && data.children) {
+      toggleOpenKeys(this.getKey(), !this.state.open)
     }
 
     if (typeof data.onClick === 'function') {
@@ -98,7 +94,6 @@ class Item extends PureComponent {
       level,
       onClick,
       inlineIndent,
-      defaultOpenKeys,
       disabled,
       toggleOpenKeys,
       bottomLine,
@@ -149,7 +144,6 @@ class Item extends PureComponent {
         {children.length > 0 && (
           <List
             data={children}
-            defaultOpenKeys={defaultOpenKeys}
             disabled={disabled}
             renderItem={renderItem}
             keygen={keygen}
@@ -171,7 +165,6 @@ Item.propTypes = {
   bindItem: PropTypes.func,
   bottomLine: PropTypes.number,
   data: PropTypes.object,
-  defaultOpenKeys: PropTypes.array,
   disabled: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   index: PropTypes.number,
   inlineIndent: PropTypes.number,
