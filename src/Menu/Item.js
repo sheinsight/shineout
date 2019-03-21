@@ -96,7 +96,6 @@ class Item extends PureComponent {
       level,
       onClick,
       inlineIndent,
-      defaultOpenKeys,
       disabled,
       toggleOpenKeys,
       bottomLine,
@@ -147,7 +146,6 @@ class Item extends PureComponent {
         {children.length > 0 && (
           <List
             data={children}
-            defaultOpenKeys={defaultOpenKeys}
             disabled={disabled}
             renderItem={renderItem}
             keygen={keygen}
@@ -170,7 +168,6 @@ Item.propTypes = {
   bindItemOpen: PropTypes.func,
   bottomLine: PropTypes.number,
   data: PropTypes.object,
-  defaultOpenKeys: PropTypes.array,
   disabled: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   index: PropTypes.number,
   inlineIndent: PropTypes.number,

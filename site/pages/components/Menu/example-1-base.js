@@ -63,7 +63,6 @@ export default class extends React.Component {
     super(props)
     this.state = {
       active: '1',
-      openKeys: [],
     }
     this.handleClick = this.handleClick.bind(this)
   }
@@ -74,20 +73,11 @@ export default class extends React.Component {
     })
   }
 
-  handleChange = keys => {
-    this.setState({
-      openKeys: keys,
-    })
-    console.log(keys)
-  }
-
   checkActive = d => this.state.active === d.id
 
   render() {
     return (
       <Menu
-        onOpenChange={this.handleChange}
-        openKeys={this.state.openKeys}
         keygen="id"
         data={data}
         renderItem={d => d.title}

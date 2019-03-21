@@ -8,6 +8,7 @@ import ScrollBar from '../Scroll/Bar'
 import { menuClass } from '../styles'
 import List from './List'
 import { Provider } from './context'
+import { isArray } from '../utils/is'
 
 function keyToMap(keys = [], value = true) {
   const keyMap = {}
@@ -98,7 +99,7 @@ class Root extends React.Component {
 
   checkOpen(id) {
     const openKeys = this.getOpenKeys()
-    if (Array.isArray(openKeys)) {
+    if (isArray(openKeys)) {
       return openKeys.indexOf(id) > -1
     }
     return false
@@ -130,13 +131,8 @@ class Root extends React.Component {
       onOpenChange(keys)
       return
     }
-    this.setState(
-      {
-        openKeys: newOpenKeys,
-        hasOpen: keys.length > 0,
-      },
-      () => onOpenChange(keys)
-    )
+    this.setState({ openKeys: newOpenKeys, hasOpen: keys.length > 0 })
+    onOpenChange(keys)
   }
 
   handleScroll(top) {
