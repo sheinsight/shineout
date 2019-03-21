@@ -17,6 +17,7 @@ function keyToMap(keys = [], value = true) {
   })
   return keyMap
 }
+
 class Root extends React.Component {
   constructor(props) {
     super(props)
