@@ -26,6 +26,8 @@ class Panel extends PureComponent {
   }
 
   componentDidMount() {
+    super.componentDidMount()
+
     this.parentElement = this.placeholder.parentElement
     if (this.props.trigger === 'hover') {
       this.parentElement.addEventListener('mouseenter', this.handleShow)
