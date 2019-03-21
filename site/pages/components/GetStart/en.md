@@ -77,7 +77,7 @@ If you need to use the CSS Module, modify the css-loader configuration of the we
 {
   loader: 'css-loader',
   options: {
-    module: true,
+    modules: true,
     localIdentName: '[local]--[hash:base64:5]'
   }
 }

@@ -107,7 +107,7 @@ plugins: [
 ```
 import config from 'shineout/config'
 config.setConfig({
-  cssModule: true
+  cssModules: true
 })
 
 ```
