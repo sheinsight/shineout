@@ -11,12 +11,11 @@ class Item extends PureComponent {
     super(props)
 
     this.id = `${props.path},${getUidStr()}`
-
     const key = this.getKey(props)
-    const [activeUpdate, openUpdate] = props.bindItem(key, this.update.bind(this), this.updateOpen.bind(this))
+    const [activeUpdate, openUpdate] = props.bindItem(this.id, this.update.bind(this), this.updateOpen.bind(this))
     this.state = {
       open: openUpdate(key),
-      isActive: activeUpdate(key, props.data),
+      isActive: activeUpdate(this.id, props.data),
       isHighLight: false,
     }
 
@@ -76,7 +75,7 @@ class Item extends PureComponent {
     if (data.disabled) return
 
     if (mode === 'inline' && data.children) {
-      toggleOpenKeys(data.id, !this.state.open)
+      toggleOpenKeys(this.getKey(), !this.state.open)
     }
 
     if (typeof data.onClick === 'function') {
