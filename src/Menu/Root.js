@@ -63,6 +63,10 @@ class Root extends React.Component {
     this.container.removeEventListener('wheel', this.handleWheel)
   }
 
+  getOpenKeys() {
+    return this.props.openKeys || Object.keys(this.state.openKeys)
+  }
+
   bindRootElement(el) {
     this.container = el
     if (!el) return
@@ -94,10 +98,6 @@ class Root extends React.Component {
     return id === this.state.activeKey
   }
 
-  getOpenKeys() {
-    return this.props.openKeys || Object.keys(this.state.openKeys)
-  }
-
   checkOpen(id) {
     const openKeys = this.getOpenKeys()
     if (isArray(openKeys)) {
@@ -118,6 +118,10 @@ class Root extends React.Component {
       const update = this.itemsOpen[id]
       update(this.checkOpen)
     })
+    const hasOpen = this.getOpenKeys().length > 0
+    if (hasOpen !== this.state.hasOpen) {
+      this.setState({ hasOpen })
+    }
   }
 
   toggleOpenKeys(id, open) {
