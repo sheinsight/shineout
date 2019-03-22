@@ -200,7 +200,12 @@ class SeperateTable extends PureComponent {
   // business component needed
   scrollOffset(index, callback) {
     const { currentIndex } = this.state
-    this.scrollToIndex(currentIndex + index + 1, callback)
+    if (this.state.scrollTop === 1 && index > 0) return
+    let scrollIndex = currentIndex + index + 1
+    if (currentIndex === 1 && index === -1) {
+      scrollIndex = 0
+    }
+    this.scrollToIndex(scrollIndex, callback)
   }
 
   handleScroll(...args) {
