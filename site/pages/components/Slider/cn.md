@@ -18,3 +18,5 @@
 | autoHide | bool | false | 是否自动隐藏当前值和刻度 |
 | disabled | bool | false | 是否禁用组件 |
 | range | bool | false | 是否显示双滑块 |
+| allowIncrease | bool | false | 是否允许无限增加 |
+| increaseStep | number | 1 | 无限增加时的步长 | 

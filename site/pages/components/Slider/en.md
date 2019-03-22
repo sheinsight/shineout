@@ -18,3 +18,5 @@
 | autoHide | bool | false | Automatically hides the current value and scale |
 | disabled | bool | false | Disable component |
 | range | bool | false | Whether to display double slider |
+| allowIncrease | bool | false | Whether to allow unlimited increase |
+| increaseStep | number | 1 | Step size when increasing infinitely | 

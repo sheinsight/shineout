@@ -21,7 +21,9 @@ class Slider extends PureComponent {
 
   componentDidUpdate(prevProps) {
     const { value, scale } = this.props
-    if (prevProps.value !== value) {
+    const { dragging } = this.state
+    const len = scale.length
+    if (prevProps.value !== value || (!dragging && prevProps.scale[len - 1] !== scale[len - 1])) {
       // eslint-disable-next-line
       this.setState({ length: value2per(value, scale) })
     }
@@ -37,18 +39,24 @@ class Slider extends PureComponent {
   }
 
   handleDrag(mx, my) {
-    const { scale, onDrag, value, vertical } = this.props
+    const { scale, onDrag, value, vertical, allowIncrease, extendScale } = this.props
     const m = vertical ? my / this.parentElement.clientHeight : mx / this.parentElement.clientWidth
-    const { length } = this.state
+    const { length, dragging } = this.state
 
     const min = this.props.min ? value2per(this.props.min, scale) : 0
     const max = this.props.max ? value2per(this.props.max, scale) : 1
 
     let newLength = length + (vertical ? -m : m)
+    const needIncrease = newLength > 1
+
     if (newLength < min) newLength = min
     if (newLength > max) newLength = max
 
-    this.setState({ length: newLength, dragging: true })
+    if (newLength !== length || !dragging) {
+      this.setState({ length: newLength, dragging: true })
+    }
+
+    if (needIncrease && allowIncrease) extendScale()
 
     if (onDrag) {
       const newValue = this.length2value(newLength)
@@ -110,6 +118,8 @@ Slider.propTypes = {
   step: PropTypes.number,
   value: PropTypes.number.isRequired,
   vertical: PropTypes.bool.isRequired,
+  allowIncrease: PropTypes.bool,
+  extendScale: PropTypes.func,
 }
 
 Slider.defaultProps = {
