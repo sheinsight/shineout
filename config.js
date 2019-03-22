@@ -10,7 +10,7 @@ const versions = {}
 module.exports = {
   appName: 'Shineout',
   dev: {
-    publishPort: 80,
+    publishPort: 3000,
     webpackPort: 3001,
     scriptPath: '/*.*',
     scripts: [
