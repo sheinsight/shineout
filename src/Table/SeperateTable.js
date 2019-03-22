@@ -114,6 +114,7 @@ class SeperateTable extends PureComponent {
     const args = this.lastScrollArgs
     if (scrollLeft !== this.state.offsetLeft && args) {
       args[0] = scrollLeft / (this.getContentWidth() - args[4])
+      args[1] = args[1] || this.state.scrollTop
       this.handleScroll(...args)
     }
   }
