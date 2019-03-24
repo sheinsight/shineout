@@ -2,7 +2,28 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Component } from '../component'
 import { IS_NOT_MATCHED_VALUE } from './Result'
-import { getKey } from '../utils/uid'
+
+function getFilterTree(treeNodes, searchValue, filterFunc) {
+  if (!searchValue) {
+    return null
+  }
+  function mapFilteredNodeToData(node) {
+    if (!node) return null
+
+    let match = false
+    if (filterFunc(node)) {
+      match = true
+    }
+
+    const children = (node.children || []).map(mapFilteredNodeToData).filter(n => n)
+
+    if (children.length || match) {
+      return node
+    }
+    return null
+  }
+  return treeNodes.map(mapFilteredNodeToData).filter(node => node)
+}
 
 export default Origin =>
   class extends Component {
@@ -53,46 +74,36 @@ export default Origin =>
     }
 
     handleFilter(text) {
-      console.log('filter : ', text)
-      // const { filterDelay, onFilter } = this.props
-      //
-      // // not filter
-      // if (!text) {
-      //   this.setState({ filterText: '', innerFilter: undefined, innerData: undefined })
-      //   if (this.timer) clearTimeout(this.timer)
-      //   if (onFilter) onFilter(text)
-      //   return
-      // }
-      //
-      // if (onCreate) {
-      //   const innerData = this.handleCreate(text)
-      //   this.setState({ innerData })
-      // }
-      //
-      // if (!onFilter) return
-      //
-      // this.setState({ filterText: text })
-      //
-      // if (this.timer) clearTimeout(this.timer)
-      // this.timer = setTimeout(() => {
-      //   const fn = onFilter(text)
-      //   if (typeof fn === 'function') {
-      //     this.setState({ innerFilter: fn })
-      //   }
-      // }, filterDelay)
+      const { filterDelay, onFilter } = this.props
+
+      // not filter
+      if (!text) {
+        this.setState({ filterText: '', innerFilter: undefined, innerData: undefined })
+        if (this.timer) clearTimeout(this.timer)
+        if (onFilter) onFilter(text)
+        return
+      }
+
+      if (!onFilter) return
+
+      this.setState({ filterText: text })
+
+      if (this.timer) clearTimeout(this.timer)
+      this.timer = setTimeout(() => {
+        const fn = onFilter(text)
+        if (typeof fn === 'function') {
+          this.setState({ innerFilter: fn })
+        }
+      }, filterDelay)
     }
 
     render() {
       const { data, onFilter, ...other } = this.props
-      const { innerFilter, innerData, filterText } = this.state
+      const { innerFilter, filterText } = this.state
       const filterFn = onFilter ? this.handleFilter : undefined
 
       let newData = data
-      if (innerFilter) newData = data.filter(d => innerFilter(d))
-      if (innerData) {
-        const newKey = getKey(innerData, other.keygen, innerData)
-        newData = [innerData, ...newData.filter(d => getKey(d, other.keygen, d) !== newKey)]
-      }
+      if (innerFilter) newData = getFilterTree(data, filterText, innerFilter)
 
       return (
         <Origin

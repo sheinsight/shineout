@@ -42,7 +42,6 @@ export default function datum(Origin) {
       const { value, defaultValue } = this.props
       const values = toArray(value || defaultValue)
       values.forEach(v => this.datum.set(v, 1))
-      console.log(this.datum.getValue())
     }
 
     render() {

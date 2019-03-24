@@ -9,7 +9,6 @@ class FilterInput extends Component {
 
     this.bindElement = this.bindElement.bind(this)
     this.handleInput = this.handleInput.bind(this)
-    this.handleBlur = this.handleBlur.bind(this)
 
     // for mutiple select
     this.props.setInputReset(this.reset.bind(this))
@@ -17,7 +16,6 @@ class FilterInput extends Component {
 
   componentDidMount() {
     if (this.props.focus) {
-      this.props.onInputFocus()
       this.focus()
     }
   }
@@ -28,8 +26,6 @@ class FilterInput extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.focus === prevProps.focus || !this.props.focus) return
-    this.props.onInputFocus()
-
     this.focus()
   }
 
@@ -48,10 +44,6 @@ class FilterInput extends Component {
 
   handleInput(e) {
     this.props.onFilter(e.target.innerText.replace('\feff ', '').trim())
-  }
-
-  handleBlur(e) {
-    this.props.onInputBlur(e.target.innerText.replace('\feff ', '').trim())
   }
 
   render() {
@@ -86,8 +78,6 @@ FilterInput.propTypes = {
   focus: PropTypes.bool.isRequired,
   multiple: PropTypes.bool,
   onFilter: PropTypes.func.isRequired,
-  onInputBlur: PropTypes.func.isRequired,
-  onInputFocus: PropTypes.func.isRequired,
   updatAble: PropTypes.bool,
   setInputReset: PropTypes.func.isRequired,
   text: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),

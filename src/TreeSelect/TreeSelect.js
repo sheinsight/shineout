@@ -8,6 +8,7 @@ import { treeSelectClass } from '../styles'
 import Result from './Result'
 import { docSize } from '../utils/dom/document'
 import List from '../List'
+import { getLocale } from '../locale'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
 
@@ -25,7 +26,6 @@ export default class TreeSelect extends PureComponent {
       position: 'drop-down',
     }
 
-    this.renderPending = true
     this.treeSelectId = `treeSelect_${getUidStr()}`
 
     this.setInputReset = this.setInputReset.bind(this)
@@ -40,9 +40,28 @@ export default class TreeSelect extends PureComponent {
     this.handleClickAway = this.handleClickAway.bind(this)
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { onFilter } = this.props
+
+    // clear filter
+    if (prevState.focus !== this.state.focus && !this.state.focus && onFilter) {
+      setTimeout(() => {
+        onFilter('')
+      }, 400)
+    }
+  }
+
   componentWillUnmount() {
     super.componentWillUnmount()
     this.clearClickAway()
+  }
+
+  getText(key) {
+    return this.props.empty || getLocale(key)
+  }
+
+  setInputReset(fn) {
+    this.inputReset = fn
   }
 
   bindElement(el) {
@@ -78,7 +97,6 @@ export default class TreeSelect extends PureComponent {
 
     if (focus) {
       this.bindClickAway()
-      this.renderPending = false
       onFocus()
     } else {
       this.clearClickAway()
@@ -103,21 +121,6 @@ export default class TreeSelect extends PureComponent {
     onChange(datum.getValue())
   }
 
-  setInputReset(fn) {
-    this.inputReset = fn
-  }
-
-  handleInputFocus() {
-    // this.inputLocked = true
-    // if (this.props.inputable && this.state.control === 'keyboard') {
-    //   this.optionList.handleHover(0, true)
-    // }
-  }
-
-  handleInputBlur() {
-    // const { multiple } = this.props
-  }
-
   handleClear() {
     this.props.datum.setValue([])
     this.props.onChange([])
@@ -132,12 +135,12 @@ export default class TreeSelect extends PureComponent {
   renderActive(data, expanded, active, id) {
     const { renderItem } = this.props
     const item = typeof renderItem === 'function' ? renderItem(data, expanded, active, id) : data[renderItem]
-    return <p className={treeSelectClass(active && 'selected')}>{item}</p>
+    return <span className={treeSelectClass(active && 'selected')}>{item}</span>
   }
 
   renderTreeOptions() {
     const { focus, position } = this.state
-    const { multiple, datum } = this.props
+    const { multiple, datum, data } = this.props
     const props = {}
     ;[
       'mode',
@@ -162,11 +165,15 @@ export default class TreeSelect extends PureComponent {
       props.renderItem = this.renderActive
       props.active = props.value.length ? props.value[0] : null
     }
+    const content =
+      data.length === 0 ? (
+        <span className={treeSelectClass('option')}>{this.getText('noData')}</span>
+      ) : (
+        <Tree className={treeSelectClass(!multiple && 'single')} {...props} />
+      )
     return (
       <ScaleList position={position} show={focus} data-id={this.treeSelectId} className={treeSelectClass('options')}>
-        <div className={treeSelectClass('tree-wrapper')}>
-          <Tree className={treeSelectClass(!multiple && 'single')} {...props} />
-        </div>
+        <div className={treeSelectClass('tree-wrapper')}>{content}</div>
       </ScaleList>
     )
   }
@@ -203,8 +210,6 @@ export default class TreeSelect extends PureComponent {
           multiple={multiple}
           placeholder={placeholder}
           renderResult={renderResult}
-          onInputBlur={this.handleInputBlur}
-          onInputFocus={this.handleInputFocus}
           setInputReset={this.setInputReset}
         />
         {this.renderTreeOptions()}
@@ -242,6 +247,7 @@ TreeSelect.propTypes = {
   onBlur: PropTypes.func,
   onFilter: PropTypes.func,
   onFocus: PropTypes.func,
+  empty: PropTypes.string,
 }
 
 TreeSelect.defaultProps = {

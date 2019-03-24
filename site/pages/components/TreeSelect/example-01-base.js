@@ -36,6 +36,37 @@ const data = [
     ],
   },
 ]
-export default function() {
-  return <TreeSelect clearable style={{ width: 250 }} keygen="id" renderItem="title" data={data} />
+
+export default class extends React.Component {
+  state = {
+    value: [],
+  }
+  handleChange = v => {
+    console.log(v)
+    this.setState({
+      value: v,
+    })
+  }
+
+  handleFilter = v => d => d.title.indexOf(v) > -1
+  render() {
+    return (
+      <div>
+        <h2>{this.state.value}</h2>
+        <TreeSelect
+          onFilter={this.handleFilter}
+          onChange={this.handleChange}
+          value={this.state.value}
+          clearable
+          style={{ width: 250 }}
+          keygen="id"
+          renderItem="title"
+          data={data}
+        />
+      </div>
+    )
+  }
 }
+// export default function() {
+//   return
+// }
