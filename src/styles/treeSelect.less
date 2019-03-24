@@ -1,8 +1,332 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
 
-@select-prefix: ~'@{so-prefix}-treeSelect';
+@treeSelect-prefix: ~'@{so-prefix}-treeSelect';
 
-.@{select-prefix} {
+.@{treeSelect-prefix} {
   position: relative;
+
+  &-inner {
+    width: 100%;
+    outline: none;
+  }
+
+  &-tree-wrapper {
+    padding: 8px;
+
+    .@{so-prefix}-tree-content {
+      cursor: default;
+    }
+  }
+
+  &-result {
+    display: flex;
+    overflow: auto;
+    max-height: 80px;
+    flex-flow: wrap;
+    padding: @padding-base-vertical @padding-base-horizontal+12 0 @padding-base-horizontal;
+
+    span {
+      display: inline-block;
+
+      &.@{treeSelect-prefix}-ellipsis {
+        display: block;
+        overflow: hidden;
+        flex: 1;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    .@{treeSelect-prefix}-ellipsis {
+      margin-bottom: @padding-base-vertical;
+
+      &:after {
+        content: '\feff ';
+      }
+    }
+
+    .@{treeSelect-prefix}-input {
+      display: inline-flex;
+      min-width: 12px;
+      flex: 1;
+      margin-bottom: @padding-base-vertical;
+      outline: none;
+
+      &:after {
+        content: '\feff ';
+      }
+
+      &.@{treeSelect-prefix}-full {
+        display: block;
+      }
+    }
+
+    .@{treeSelect-prefix}-item {
+      position: relative;
+      display: inline-block;
+      overflow: hidden;
+      max-width: 80%;
+      padding: 0 @select-result-space+16 0 @select-result-space;
+      margin-right: @select-result-space;
+      margin-bottom: @padding-base-vertical;
+      background: @select-result-bg;
+      border-radius: @select-result-border-radius;
+      color: inherit;
+      text-overflow: ellipsis;
+
+      &.@{treeSelect-prefix}-disabled {
+        padding-right: @select-result-space;
+        cursor: not-allowed;
+      }
+
+      .@{treeSelect-prefix}-close {
+        right: @select-result-space;
+        display: block;
+        background-color: transparent;
+
+        &:before,
+        &:after {
+          background-color: @gray-500;
+        }
+      }
+
+      &:hover .@{treeSelect-prefix}-close {
+        background-color: transparent;
+
+        &:before,
+        &:after {
+          background-color: @gray-600;
+        }
+      }
+    }
+  }
+
+  &-indicator {
+    position: absolute;
+    top: 50%;
+    right: 7px;
+    display: block;
+    width: 12px;
+    height: 12px;
+    color: @gray-500;
+    transform: translate(0, -50%);
+
+    &.@{treeSelect-prefix}-close {
+      display: none;
+      .close(12px, @gray-400);
+    }
+
+    &.@{treeSelect-prefix}-caret {
+      .caret(down);
+
+      &:after {
+        position: absolute;
+        top: (12 - @caret-width * 1.4) / 2;
+        left: 2px;
+        margin: 0;
+      }
+    }
+  }
+
+  &-focus &-close,
+  &-result:hover &-close {
+    display: block;
+  }
+
+  &-options,
+  &-box-list {
+    position: absolute;
+    z-index: @zindex-dropdown;
+    left: 0;
+    display: none;
+    overflow: hidden;
+    width: 100%;
+    background: @dropdown-bg;
+    background-clip: padding-box;
+    border-radius: @border-radius-base;
+  }
+
+  &-options p.@{treeSelect-prefix}-selected {
+    background-color: @colors-primary;
+    color: white;
+    border-radius: 2px;
+    padding: 2px 4px;
+  }
+
+  &-box-list {
+    display: flex;
+    overflow: hidden;
+    min-height: 200px;
+    max-height: 300px;
+    flex-direction: column;
+
+    .@{treeSelect-prefix}-header {
+      padding: @dropdown-item-padding-y @dropdown-padding-x;
+      border-bottom: solid 1px #eee;
+    }
+
+    .@{treeSelect-prefix}-box-options {
+      overflow: auto;
+      flex: 1;
+      padding: @dropdown-item-padding-y 0;
+
+      .@{treeSelect-prefix}-no-data {
+        padding-top: 60px;
+        color: @gray-500;
+        text-align: center;
+      }
+    }
+
+    .@{treeSelect-prefix}-option {
+      display: inline-block;
+      padding-right: @dropdown-padding-x;
+      margin-right: 0;
+    }
+
+    .@{treeSelect-prefix}-filter-input {
+      display: inline-flex;
+      width: 180px;
+      border-width: 1px;
+      border-radius: 2px;
+      float: right;
+
+      svg {
+        width: 22px;
+        height: 22px;
+        padding: 4px;
+
+        path {
+          fill: #999;
+        }
+      }
+    }
+  }
+
+  &-drop-down &-options,
+  &-drop-down &-box-list {
+    top: 100%;
+    margin-top: 4px;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.02), @dropdown-box-shadow;
+    transform-origin: 0 0;
+  }
+
+  &-drop-up &-options,
+  &-drop-up &-box-list {
+    bottom: 100%;
+    margin-bottom: 4px;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1), @dropup-box-shadow;
+    transform-origin: 0 100%;
+  }
+
+  &-option {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    padding: @dropdown-item-padding-y @dropdown-padding-x+12 @dropdown-item-padding-y @dropdown-padding-x;
+    color: @dropdown-link-color;
+    font-size: @font-size-base;
+    line-height: @line-height-base;
+    text-overflow: ellipsis;
+    transition: none;
+    white-space: nowrap;
+
+    &.@{treeSelect-prefix}-active {
+      background-color: @dropdown-link-active-bg;
+      color: @dropdown-link-active-color;
+      text-decoration: none;
+
+      &::after {
+        position: absolute;
+        top: 50%;
+        right: 8px;
+        width: 12px;
+        height: 12px;
+        background: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='@{colors-primary}' d='M913.017 237.02c-25.311-25.312-66.349-25.312-91.66 0l-412.475 412.474-206.237-206.237c-25.312-25.312-66.35-25.312-91.661 0s-25.312 66.35 0 91.66l252.067 252.067c0.729 0.73 1.439 1.402 2.134 2.029 25.434 23.257 64.913 22.585 89.527-2.029l458.303-458.303c25.313-25.312 25.313-66.35 0.001-91.661z'%3E%3C/path%3E%3C/svg%3E");
+        color: @colors-primary;
+        content: ' ';
+        transform: translateY(-50%);
+      }
+    }
+
+    &:hover {
+      color: @dropdown-link-color;
+    }
+
+    &.@{treeSelect-prefix}-disabled {
+      &,
+      &:hover,
+      &.@{treeSelect-prefix}-active {
+        background: @input-bg-disabled;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  &-control-mouse &-option:hover {
+    background-color: @select-option-hover-bg;
+    color: @select-option-hover-color;
+    text-decoration: none;
+  }
+
+  &-control-mouse &-option&-disabled:hover {
+    background: @input-bg-disabled;
+  }
+
+  &-control-keyboard &-option.@{treeSelect-prefix}-hover {
+    background-color: @select-option-hover-bg;
+    color: @select-option-hover-color;
+    text-decoration: none;
+  }
+
+  &-control-keyboard &-option {
+    cursor: none;
+  }
+
+  span&-option {
+    color: @gray-500;
+  }
+
+  &-small &-result {
+    padding: @padding-small-vertical @padding-small-horizontal+12 0 @padding-small-horizontal;
+
+    .@{treeSelect-prefix}-item,
+    .@{treeSelect-prefix}-ellipsis,
+    .@{treeSelect-prefix}-input {
+      margin-bottom: @padding-small-vertical;
+    }
+  }
+
+  &-large &-result {
+    padding: @padding-large-vertical @padding-large-horizontal+12 0 @padding-large-horizontal;
+
+    .@{treeSelect-prefix}-item,
+    .@{treeSelect-prefix}-ellipsis,
+    .@{treeSelect-prefix}-input {
+      margin-bottom: @padding-large-vertical;
+    }
+  }
+
+  &-multiple &-result {
+    padding-left: @padding-base-horizontal / 2;
+  }
+
+  &-large&-multiple &-result {
+    padding-left: @padding-large-horizontal / 2;
+  }
+
+  &-small&-multiple &-result {
+    padding-left: @padding-small-horizontal / 2;
+  }
+
+  &-disabled {
+    .@{treeSelect-prefix}-result .@{treeSelect-prefix}-item {
+      padding-right: @select-result-space;
+      background: @input-bg-disabled;
+
+      .@{treeSelect-prefix}-close {
+        display: none;
+      }
+    }
+  }
 }

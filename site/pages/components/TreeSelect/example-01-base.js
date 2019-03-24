@@ -5,10 +5,37 @@
  *    -- Select generate group of options from data.
  */
 import React from 'react'
-import { Select } from 'shineout'
+import { TreeSelect } from 'shineout'
+// import data from 'doc/data/tree'
 
-const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
-
+const data = [
+  {
+    id: '1',
+    title: 'hello',
+    children: [
+      {
+        id: '1-1',
+        title: 'hello 1-1',
+        children: [],
+      },
+      {
+        id: '1-2',
+        title: 'hello 1-2',
+        children: [],
+      },
+    ],
+  },
+  {
+    id: '2',
+    title: 'World',
+    children: [
+      {
+        id: '2-1',
+        title: 'World 2-1',
+      },
+    ],
+  },
+]
 export default function() {
-  return <Select keygen style={{ width: 240 }} data={data} defaultValue="" />
+  return <TreeSelect clearable style={{ width: 250 }} keygen="id" renderItem="title" data={data} />
 }
