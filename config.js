@@ -21,7 +21,7 @@ module.exports = {
     ],
     styles: [
       // '/prism/1.15.0/themes/prism.min.css',
-      `/docsearch.js@${versions['docsearch.js']}/docsearch.css`,
+      `/docsearch.js@${versions['docsearch.js']}/dist/cdn/docsearch.css`,
     ],
   },
   themes: ['default', 'antd'],
