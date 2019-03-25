@@ -7,7 +7,7 @@
 import React from 'react'
 import { Carousel } from 'shineout'
 import classnames from 'classnames'
-import './style-2-custom-indicator.css'
+import './style-2-custom-indicator.less'
 
 const duration = 5000
 const containerStyle = {
@@ -24,7 +24,7 @@ function indicatorSwitch(current, moveTo) {
     <div className="indicator">
       {items.map((item, index) => {
         const isActive = current === index
-        const itemClassname = classnames('indicator-item', isActive && 'active', index < current && 'beyond')
+        const itemClassname = classnames('indicator-item', isActive && 'active')
         const animationStyle = isActive ? { animation: `indicator-rise ${duration / 1000}s linear` } : {}
         return (
           <div key={item} onClick={() => moveTo(index)} className={itemClassname}>
@@ -65,7 +65,7 @@ div.indicator {
   text-align: center;
   user-select: none;
 }
-div.indicator .indicator-item {
+div.indicator-item {
   margin-right: 10px;
   float: left;
   width: 36px;
@@ -74,11 +74,8 @@ div.indicator .indicator-item {
   color: #ffffff50;
   cursor: pointer;
 }
-div.indicator .indicator-item.active {
+div.indicator-item.active {
   color: #fff;
-}
-div.indicator .indicator-item.beyond .fg {
-  width: 100%;
 }
 div.indicator .indicator-progress {
   position: relative;
@@ -99,4 +96,4 @@ div.indicator .indicator-progress .fg {
   width: 0;
   background: #ffffff;
 }
- */
+*/

@@ -73,35 +73,36 @@ class Image extends PureComponent {
     e.preventDefault()
     const { onClick, src, href } = this.props
     if (onClick) onClick()
-    else showGallery({ thumb: src, src: href || src })
+    else showGallery({ thumb: src, src: href || src, key: 'key' })
   }
 
   renderType(src) {
     const { title, fit } = this.props
 
-    return fit === 'fill' || fit === 'fit'
-      ? <div className={imageClass('inner')} title={title} style={{ backgroundImage: `url("${src}")` }} />
-      : <div className={imageClass('inner')} title={title}><img alt="" src={src} /></div>
+    return fit === 'fill' || fit === 'fit' ? (
+      <div className={imageClass('inner')} title={title} style={{ backgroundImage: `url("${src}")` }} />
+    ) : (
+      <div className={imageClass('inner')} title={title}>
+        <img alt="" src={src} />
+      </div>
+    )
   }
 
   renderImage() {
     const { status } = this.state
-    const {
-      alt, placeholder, src, title,
-    } = this.props
+    const { alt, placeholder, src, title } = this.props
 
     switch (status) {
       case PLACEHOLDER:
-        return placeholder
-          ? <div className={imageClass('inner')}>{placeholder}</div>
-          : (
-            <div className={imageClass('inner', 'mask')}>
-              <div>
-                {title}{' '}
-                <span className={imageClass('ellipsis')} />
-              </div>
+        return placeholder ? (
+          <div className={imageClass('inner')}>{placeholder}</div>
+        ) : (
+          <div className={imageClass('inner', 'mask')}>
+            <div>
+              {title} <span className={imageClass('ellipsis')} />
             </div>
-          )
+          </div>
+        )
       case SRC:
         return this.renderType(src)
       case ALT:
@@ -118,14 +119,9 @@ class Image extends PureComponent {
   }
 
   render() {
-    const {
-      href, height, style, shape, fit, width, target,
-    } = this.props
+    const { href, height, style, shape, fit, width, target } = this.props
 
-    const className = classnames(
-      imageClass('_', shape, fit),
-      this.props.className,
-    )
+    const className = classnames(imageClass('_', shape, fit), this.props.className)
 
     const Tag = href ? 'a' : 'div'
 
@@ -133,13 +129,13 @@ class Image extends PureComponent {
       <Tag
         ref={this.bindElement}
         href={href && target === '_modal' ? 'javascript:;' : href}
-        onClick={(href && target === '_modal') ? this.handleClick : undefined}
+        onClick={href && target === '_modal' ? this.handleClick : undefined}
         target={target === '_download' ? '_self' : target}
         download={target === '_download'}
         className={className}
         style={Object.assign({}, style, { width, paddingBottom: height })}
       >
-        { this.renderImage() }
+        {this.renderImage()}
       </Tag>
     )
   }
@@ -148,38 +144,18 @@ class Image extends PureComponent {
 Image.propTypes = {
   alt: PropTypes.string,
   className: PropTypes.string,
-  height: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   href: PropTypes.string,
   lazy: PropTypes.bool,
   onClick: PropTypes.func,
   placeholder: PropTypes.element,
-  shape: PropTypes.oneOf([
-    'rounded',
-    'circle',
-    'thumbnail',
-  ]),
+  shape: PropTypes.oneOf(['rounded', 'circle', 'thumbnail']),
   src: PropTypes.string,
   style: PropTypes.object,
-  target: PropTypes.oneOf([
-    '_blank',
-    '_self',
-    '_modal',
-    '_download',
-  ]),
+  target: PropTypes.oneOf(['_blank', '_self', '_modal', '_download']),
   title: PropTypes.string,
-  fit: PropTypes.oneOf([
-    'fill',
-    'fit',
-    'stretch',
-    'center',
-  ]),
-  width: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
+  fit: PropTypes.oneOf(['fill', 'fit', 'stretch', 'center']),
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 }
 
 Image.defaultProps = {

@@ -71,14 +71,16 @@ class Table extends PureComponent {
       width,
       data,
       columns,
-      scrollLeft,
       striped,
+      bordered,
     }
 
     const isEmpty = (!data || data.length === 0) && !children
-    const RenderTable = fixed && !isEmpty ? SeperateTable : SimpleTable
+    const useSeparate = fixed && !isEmpty
+    const RenderTable = useSeparate ? SeperateTable : SimpleTable
     const newStyle = Object.assign({}, style)
     if (height) newStyle.height = height
+    if (useSeparate && !newStyle.height) newStyle.height = '100%'
     if (loading) newStyle.overflow = 'hidden'
 
     return (

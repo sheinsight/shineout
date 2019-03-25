@@ -5,6 +5,7 @@ import { PureComponent } from '../component'
 import { getPosition } from '../utils/dom/popover'
 import { isFunc } from '../utils/is'
 import { popoverClass } from '../styles'
+import { docSize } from '../utils/dom/document'
 
 const emptyEvent = e => e.stopPropagation()
 
@@ -25,6 +26,8 @@ class Panel extends PureComponent {
   }
 
   componentDidMount() {
+    super.componentDidMount()
+
     this.parentElement = this.placeholder.parentElement
     if (this.props.trigger === 'hover') {
       this.parentElement.addEventListener('mouseenter', this.handleShow)
@@ -39,6 +42,8 @@ class Panel extends PureComponent {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount()
+
     this.parentElement.removeEventListener('mouseenter', this.handleShow)
     this.parentElement.removeEventListener('mouseleave', this.handleHide500)
     this.parentElement.removeEventListener('click', this.handleShow)
@@ -52,8 +57,8 @@ class Panel extends PureComponent {
     if (position) return position
 
     const rect = this.parentElement.getBoundingClientRect()
-    const windowHeight = window.innerHeight || document.documentElement.clientHeight
-    const windowWidth = window.innerWidth || document.documentElement.clientWidth
+    const windowHeight = docSize.height
+    const windowWidth = docSize.width
     if (rect.top + rect.height / 2 > windowHeight / 2) {
       position = 'top'
     } else {

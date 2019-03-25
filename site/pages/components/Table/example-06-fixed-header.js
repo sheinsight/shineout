@@ -1,8 +1,8 @@
 /**
  * cn - 固定表头
- *    -- 设置 fixed 属性为 'both' 或 'y'，可以固定表头，需要设置整个表格的高度
+ *    -- 设置 fixed 属性为 'both' 或 'y'，可以固定表头，表格高度默认填充父元素
  * en - Fixed head
- *    -- Set the fixed property to 'both' or 'y' can fix the table header. You need to set the height of the entire table.
+ *    -- Set the fixed property to 'both' or 'y' can fix the table header. The table height defaults to full the parent element.
  */
 import React from 'react'
 import { Table } from 'shineout'
@@ -23,11 +23,28 @@ const columns = [
   },
 ]
 
+function Normal() {
+  return (
+    <div style={{ height: 300, marginBottom: 40 }}>
+      <Table fixed="both" keygen="id" width={1500} columns={columns} bordered data={data} />
+    </div>
+  )
+}
+
+function Flex() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: 500 }}>
+      <div style={{ textAlign: 'center', height: 40, lineHeight: '40px', background: '#eee' }}>Flex-Header</div>
+      <Table style={{ flex: 1, overflow: 'hidden' }} fixed="y" data={data} keygen="id" columns={columns.slice(0, 4)} />
+    </div>
+  )
+}
+
 export default function() {
   return (
     <div>
-      <Table fixed="both" keygen="id" width={1500} height={300} columns={columns} bordered data={data} />
-      <Table fixed="y" data={data} keygen="id" style={{ height: 300 }} columns={columns.slice(0, 4)} />
+      <Normal />
+      <Flex />
     </div>
   )
 }

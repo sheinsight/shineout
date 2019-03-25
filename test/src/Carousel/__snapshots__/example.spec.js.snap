@@ -97,3 +97,92 @@ exports[`Snapshot test: Carousel[site/pages/components/Carousel/example-1-base.j
   </div>
 </div>
 `;
+
+exports[`Snapshot test: Carousel[site/pages/components/Carousel/example-2-custom-indicator.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        S
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        H
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        I
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        N
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        E
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        <span>
+          S
+        </span>
+        <div>
+          <div />
+          <div />
+        </div>
+      </div>
+      <div>
+        <span>
+          H
+        </span>
+        <div>
+          <div />
+          <div />
+        </div>
+      </div>
+      <div>
+        <span>
+          I
+        </span>
+        <div>
+          <div />
+          <div />
+        </div>
+      </div>
+      <div>
+        <span>
+          N
+        </span>
+        <div>
+          <div />
+          <div />
+        </div>
+      </div>
+      <div>
+        <span>
+          E
+        </span>
+        <div>
+          <div />
+          <div />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

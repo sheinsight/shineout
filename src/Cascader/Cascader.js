@@ -7,6 +7,7 @@ import DatumTree from '../Datum/Tree'
 import { cascaderClass, selectClass } from '../styles'
 import Result from './Result'
 import List from './List'
+import { docSize } from '../utils/dom/document'
 
 const isDescendent = (el, id) => {
   if (el.getAttribute('data-id') === id) return true
@@ -91,7 +92,7 @@ class Cascader extends PureComponent {
     const { onBlur, onFocus, height } = this.props
     let { position } = this.props
     if (!position) {
-      const windowHeight = window.innerHeight || document.documentElement.clientHeight
+      const windowHeight = docSize.height
       const bottom = height + this.element.getBoundingClientRect().bottom
       if (bottom > windowHeight) position = 'drop-up'
     }
@@ -215,6 +216,7 @@ Cascader.defaultProps = {
   expandTrigger: 'click',
   height: 300,
   data: [],
+  mode: 1,
 }
 
 export default Cascader

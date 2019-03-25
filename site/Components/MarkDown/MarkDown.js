@@ -7,6 +7,7 @@ import locate from '../../locate'
 import CodeBlock from '../CodeBlock'
 import Example from '../Example'
 import Console from './Console'
+import Table from '../Table'
 
 const codeReg = /^<code name="([\w|-]+)" /
 const exampleReg = /^<example name="([\w|-]+)"/
@@ -123,6 +124,7 @@ export default function MarkDown({ onHeadingSetted, codes, examples, source }) {
 
           return null
         },
+        table: Table,
         link: prop => {
           const target = prop.href.indexOf('http' === 0) ? '_blank' : undefined
           return (

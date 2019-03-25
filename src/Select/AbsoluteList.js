@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import shallowEqual from '../utils/shallowEqual'
 import { scrollConsumer } from '../Scroll/context'
 import { selectClass } from '../styles'
+import { docScroll } from '../utils/dom/document'
 
 let root
 function initRoot() {
@@ -51,11 +52,11 @@ export default function (List) {
 
         style.position = 'absolute'
         style.width = rect.width
-        style.left = rect.left + document.documentElement.scrollLeft
+        style.left = rect.left + docScroll.left
         if (position === 'drop-down') {
-          style.top = rect.top + rect.height + document.documentElement.scrollTop
+          style.top = rect.top + rect.height + docScroll.top
         } else {
-          style.bottom = -(rect.top + document.documentElement.scrollTop)
+          style.bottom = -(rect.top + docScroll.top)
         }
       }
 

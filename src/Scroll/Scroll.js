@@ -39,7 +39,8 @@ class Scroll extends PureComponent {
   componentDidMount() {
     super.componentDidMount()
     setTimeout(this.setRect)
-    this.wheelElement.addEventListener('touchstart', this.handleTouchStart)
+    this.wheelElement.addEventListener('wheel', this.handleWheel, { passive: false })
+    this.wheelElement.addEventListener('touchstart', this.handleTouchStart, { passive: true })
     this.wheelElement.addEventListener('touchmove', this.handleTouchMove, { passive: false })
   }
 
@@ -50,6 +51,8 @@ class Scroll extends PureComponent {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount()
+    this.wheelElement.removeEventListener('wheel', this.handleWheel)
     this.wheelElement.removeEventListener('touchstart', this.handleTouchStart)
     this.wheelElement.removeEventListener('touchmove', this.handleTouchMove)
   }
@@ -208,7 +211,7 @@ class Scroll extends PureComponent {
     const className = classnames(scrollClass('_', scrollX && 'show-x', scrollY && 'show-y'), this.props.className)
 
     return (
-      <div onWheel={this.handleWheel} style={style} ref={this.bindWheel} className={className}>
+      <div style={style} ref={this.bindWheel} className={className}>
         <iframe title="scroll" ref={this.bindIframe} className={scrollClass('iframe')} />
         <div className={scrollClass('iframe')} />
         <div ref={this.bindInner} className={scrollClass('inner')}>

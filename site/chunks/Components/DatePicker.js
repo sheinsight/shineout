@@ -112,6 +112,15 @@ const examples = [
     component: require('doc/pages/components/DatePicker/example-12-inputable.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-12-inputable.js'),
   },
+  {
+    name: '13-absolute',
+    title: locate(
+      '绝对定位 \n 如果选项弹出层的父容器被遮挡，可以设置 absolute 属性使弹出选项在单独层中渲染。（非必要情况下不建议）',
+      'Absolute \n If the parent container of the pop-up layer is occluded, you can set the absolute property to make the pop-up options rendered in a separate layer. (not recommended if not necessary)'
+    ),
+    component: require('doc/pages/components/DatePicker/example-13-absolute.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-13-absolute.js'),
+  },
 ]
 
 const codes = undefined
