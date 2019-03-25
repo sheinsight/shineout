@@ -10,6 +10,8 @@ const Home = lazy(() => import(/* webpackChunkName: "Home" */ './pages/Home'))
 const Components = lazy(() => import(/* webpackChunkName: "Components" */ './chunks/Components'))
 const Documentation = lazy(() => import(/* webpackChunkName: "Documentation" */ './pages/documentation'))
 
+const oldVersions = ['1.0.x', '1.1.x']
+
 const filterLang = href => {
   const location = href.split('#')[0]
   return location.indexOf('en') > -1 ? 'en-US' : 'zh-CN'
@@ -39,7 +41,10 @@ const App = () => {
       .then(res => res.json())
       .then(json => {
         const language = locate('cn', 'en')
-        const jsonVersions = json.map(v => ({ content: v, url: `../${v}/${language}` }))
+        const jsonVersions = json.map(v => ({
+          content: v,
+          url: oldVersions.find(o => o === v) ? `../${v}` : `../${v}/${language}`,
+        }))
         setVersions(jsonVersions)
       })
       .catch(() => {})
