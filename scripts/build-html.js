@@ -14,7 +14,7 @@ async function buildHtml(lang) {
   Object.keys(config.webpack.entry).forEach(s => {
     scripts.push(`./${s}.js`)
   })
-  const html = await ejs.renderFile(`./site/index-${lang}.html`, {
+  const html = await ejs.renderFile(`./site/index.html`, {
     scripts,
     styles,
     appName: `Shineout api document ${version}`,

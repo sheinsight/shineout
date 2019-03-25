@@ -93,7 +93,7 @@ const Header = ({ versions }) => {
         ))}
       </div>
       {searchInput && (
-        <Input.Group size="small" className={headerClass('search')} id="algolia-doc-search">
+        <Input.Group size="small" className={headerClass('search')} id="algolia-doc-search" width={250}>
           <Input placeholder={locate('在 shineout 中搜索', 'Search in shineout')} />
           <FontAwesome name="search" />
         </Input.Group>
