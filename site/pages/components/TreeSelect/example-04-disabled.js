@@ -1,8 +1,8 @@
 /**
- * cn - 基本用法
- *    -- 基础的TreeSelect用法。
- * en - Base
- *    -- Basic usage of TreeSelect.
+ * cn - 禁用
+ *    -- 设置 disabled 禁用选项
+ * en - Disabled
+ *    -- Set disabled to disabled item.
  */
 import React from 'react'
 import { TreeSelect } from 'shineout'
@@ -17,7 +17,7 @@ const data = [
     ],
   },
   { id: '2', title: '2', children: [{ id: '2-1', title: '2-1' }, { id: '2-2', title: '2-2' }] },
-  { id: '3', title: '3', children: [{ id: '3-1', title: '3-1' }] },
+  { id: '3', title: '3', children: [{ id: '3-1', title: '3-1' }, { id: '3-2', title: '3-2' }] },
 ]
 
 export default class extends React.Component {
@@ -37,6 +37,7 @@ export default class extends React.Component {
   render() {
     return (
       <TreeSelect
+        disabled={v => v.title.startsWith('3-')}
         value={this.state.value}
         onChange={this.handleChange}
         clearable

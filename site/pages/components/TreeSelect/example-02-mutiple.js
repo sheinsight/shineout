@@ -1,8 +1,8 @@
 /**
- * cn - 基本用法
- *    -- 基础的TreeSelect用法。
- * en - Base
- *    -- Basic usage of TreeSelect.
+ * cn - 多选
+ *    -- 通过设置 multiple 来实现多选。
+ * en - Multiple
+ *    -- Set multiple to Multiple choices.
  */
 import React from 'react'
 import { TreeSelect } from 'shineout'
@@ -37,6 +37,7 @@ export default class extends React.Component {
   render() {
     return (
       <TreeSelect
+        multiple
         value={this.state.value}
         onChange={this.handleChange}
         clearable
