@@ -2,7 +2,7 @@ const path = require('path')
 const fs = require('fs')
 
 const versions = {}
-;['react', 'react-dom', 'prop-types', 'jszip'].forEach(lib => {
+;['react', 'react-dom', 'prop-types', 'jszip', 'docsearch.js'].forEach(lib => {
   const pkg = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'node_modules/', lib, 'package.json')))
   versions[lib] = pkg.version
 })
@@ -21,6 +21,7 @@ module.exports = {
     ],
     styles: [
       // '/prism/1.15.0/themes/prism.min.css',
+      `/docsearch.js@${versions['docsearch.js']}/docsearch.css`,
     ],
   },
   themes: ['default', 'antd'],

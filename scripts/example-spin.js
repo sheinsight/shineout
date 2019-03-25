@@ -40,6 +40,6 @@ export default function () {
 }
 `
 
-  const fn = path.resolve(rootPath, `example-${(`0${i + 1}`).slice(-2)}-${spin}.js`)
+  const fn = path.resolve(rootPath, `example-${`0${i + 1}`.slice(-2)}-${spin}.js`)
   fs.writeFileSync(fn, text)
 })
