@@ -34,9 +34,7 @@ class Result extends PureComponent {
 
   handleRemove(...args) {
     const { onRemove } = this.props
-    setTimeout(() => {
-      onRemove(...args)
-    }, 10)
+    onRemove(...args)
   }
 
   renderClear() {

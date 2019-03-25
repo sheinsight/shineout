@@ -3,28 +3,6 @@ import PropTypes from 'prop-types'
 import { Component } from '../component'
 import { IS_NOT_MATCHED_VALUE } from './Result'
 
-function getFilterTree(treeNodes, searchValue, filterFunc) {
-  if (!searchValue) {
-    return null
-  }
-  function mapFilteredNodeToData(node) {
-    if (!node) return null
-
-    let match = false
-    if (filterFunc(node)) {
-      match = true
-    }
-
-    const children = (node.children || []).map(mapFilteredNodeToData).filter(n => n)
-
-    if (children.length || match) {
-      return node
-    }
-    return null
-  }
-  return treeNodes.map(mapFilteredNodeToData).filter(node => node)
-}
-
 export default Origin =>
   class extends Component {
     static propTypes = {
@@ -35,6 +13,7 @@ export default Origin =>
       onFilter: PropTypes.func,
       value: PropTypes.any,
       noCache: PropTypes.bool,
+      expanded: PropTypes.arrayOf(PropTypes.string),
     }
 
     static defaultProps = {
@@ -53,6 +32,34 @@ export default Origin =>
       this.getResultByValues = this.getResultByValues.bind(this)
 
       this.resultCache = new Map()
+    }
+
+    getFilterTree(treeNodes, searchValue, filterFunc) {
+      this.filterExpandKeys = []
+      if (!searchValue) {
+        return null
+      }
+      const mapFilteredNodeToData = node => {
+        if (!node) return null
+
+        let match = false
+        if (filterFunc(node)) {
+          match = true
+        }
+
+        const children = (node.children || []).map(mapFilteredNodeToData).filter(n => n)
+        if (children.length || match) {
+          const { datum } = this.props
+          const key = datum.getKey(node)
+          this.filterExpandKeys.push(key)
+          return {
+            ...node,
+            children,
+          }
+        }
+        return null
+      }
+      return treeNodes.map(mapFilteredNodeToData).filter(node => node)
     }
 
     getResultByValues() {
@@ -98,13 +105,16 @@ export default Origin =>
     }
 
     render() {
-      const { data, onFilter, ...other } = this.props
+      const { data, onFilter, expanded, ...other } = this.props
       const { innerFilter, filterText } = this.state
       const filterFn = onFilter ? this.handleFilter : undefined
 
       let newData = data
-      if (innerFilter) newData = getFilterTree(data, filterText, innerFilter)
-
+      let newExpanded = expanded
+      if (innerFilter) {
+        newData = this.getFilterTree(data, filterText, innerFilter)
+        newExpanded = this.filterExpandKeys
+      }
       return (
         <Origin
           {...other}
@@ -112,6 +122,7 @@ export default Origin =>
           result={this.getResultByValues()}
           data={newData}
           onFilter={filterFn}
+          expanded={newExpanded}
         />
       )
     }

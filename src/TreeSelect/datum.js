@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import DatumTree from '../Datum/Tree'
+import shallowEqual from '../utils/shallowEqual'
 
 function toArray(value) {
   if (!value) return []
@@ -11,6 +12,7 @@ function toArray(value) {
 export default function datum(Origin) {
   return class TreeDatum extends React.Component {
     static propTypes = {
+      loader: PropTypes.func,
       data: PropTypes.array,
       defaultValue: PropTypes.arrayOf(PropTypes.string),
       disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
@@ -30,25 +32,33 @@ export default function datum(Origin) {
       }
       this.datum = new DatumTree({
         data: props.data,
+        loader: props.loader,
         keygen: props.keygen,
         mode: this.mode,
+        value: toArray(props.value || props.defaultValue),
         onChange: props.onChange,
         disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
       })
-      this.setTreeValue()
+      this.setTreeValue(toArray(props.value || props.defaultValue))
     }
 
-    setTreeValue() {
-      const { value, defaultValue } = this.props
-      const values = toArray(value || defaultValue)
+    setTreeValue(values) {
       values.forEach(v => this.datum.set(v, 1))
     }
 
     render() {
+      const { value } = this.props
       const props = {
         ...this.props,
         datum: this.datum,
         mode: this.mode,
+      }
+
+      if (!shallowEqual(toArray(value), this.datum.getValue())) {
+        console.log(value)
+        this.datum.setValue([])
+        this.setTreeValue(toArray(value))
+        console.log(this.datum.getValue())
       }
       return <Origin {...props} />
     }

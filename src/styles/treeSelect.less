@@ -15,8 +15,15 @@
     padding: 8px;
 
     .@{so-prefix}-tree-content {
-      cursor: default;
+      white-space: nowrap;
     }
+    .@{treeSelect-prefix}-single .@{so-prefix}-tree-content {
+      cursor: default;
+      &:hover {
+        background: fade(@colors-primary, 10%)
+      }
+    }
+
   }
 
   &-result {
@@ -137,22 +144,34 @@
   &-options,
   &-box-list {
     position: absolute;
+    min-width: 100%;
     z-index: @zindex-dropdown;
     left: 0;
     display: none;
     overflow: hidden;
-    width: 100%;
     background: @dropdown-bg;
     background-clip: padding-box;
     border-radius: @border-radius-base;
+
+    .@{treeSelect-prefix}-disabled {
+      &,
+      &:hover,
+      &.@{treeSelect-prefix}-active {
+        background: @input-bg-disabled;
+        cursor: not-allowed;
+      }
+    }
   }
 
-  &-options span.@{treeSelect-prefix}-selected {
+  &-options span.@{treeSelect-prefix}-content-wrapper {
     display: block;
-    background-color: @colors-primary;
-    color: white;
     border-radius: 2px;
     padding: 2px 4px;
+  }
+  &-options span.@{treeSelect-prefix}-selected {
+    background-color: fade(@colors-primary, 60%);
+    color: white;
+
   }
 
   &-box-list {

@@ -36,12 +36,15 @@ export default class TreeSelect extends PureComponent {
     this.handleFocus = this.handleState.bind(this, true)
     this.handleBlur = this.handleState.bind(this, false)
     this.handleClear = this.handleClear.bind(this)
-    this.handleRemove = this.handleChange.bind(this, false)
+    this.handleRemove = this.handleRemove.bind(this)
     this.handleClickAway = this.handleClickAway.bind(this)
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { onFilter } = this.props
+    const { onFilter, datum, mode } = this.props
+
+    datum.mode = mode
+    if (prevProps.data !== this.props.data) this.datum.setData(this.props.data)
 
     // clear filter
     if (prevState.focus !== this.state.focus && !this.state.focus && onFilter) {
@@ -104,18 +107,17 @@ export default class TreeSelect extends PureComponent {
     }
   }
 
+  handleRemove(data) {
+    const { datum } = this.props
+    datum.set(datum.getKey(data), 0)
+    this.handleChange()
+  }
+
   handleChange(data) {
     const { datum, multiple, disabled, onChange } = this.props
     if (disabled === true) return
-
-    let newValue = data
-    if (multiple) {
-      // keygen
-      datum.setValue(newValue)
-    } else {
-      // data
-      newValue = [datum.getKey(data)]
-      datum.setValue(newValue)
+    if (!multiple) {
+      datum.set(datum.getKey(data), 1)
       this.handleState(false)
     }
     onChange(datum.getValue())
@@ -133,9 +135,13 @@ export default class TreeSelect extends PureComponent {
   }
 
   renderActive(data, expanded, active, id) {
-    const { renderItem } = this.props
+    const { renderItem, datum } = this.props
     const item = typeof renderItem === 'function' ? renderItem(data, expanded, active, id) : data[renderItem]
-    return <span className={treeSelectClass(active && 'selected')}>{item}</span>
+    return (
+      <span className={treeSelectClass('content-wrapper', active && 'selected', datum.disabled(data) && 'disabled')}>
+        {item}
+      </span>
+    )
   }
 
   renderTreeOptions() {
@@ -145,6 +151,7 @@ export default class TreeSelect extends PureComponent {
     ;[
       'mode',
       'data',
+      'datum',
       'defaultExpanded',
       'disabled',
       'expanded',
@@ -158,6 +165,7 @@ export default class TreeSelect extends PureComponent {
       props[k] = this.props[k]
     })
     props.value = datum.getValue()
+    // console.log(datum.getValue())
     if (multiple) {
       props.onChange = this.handleChange
     } else {

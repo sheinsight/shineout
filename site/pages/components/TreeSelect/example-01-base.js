@@ -21,20 +21,36 @@ const data = [
       {
         id: '1-2',
         title: 'hello 1-2',
-        children: [],
+        children: [
+          {
+            id: '1-2-1',
+            title: 'hello 1-2-1',
+          }
+        ],
       },
     ],
   },
   {
     id: '2',
-    title: 'World',
+    title: 'world',
     children: [
       {
         id: '2-1',
-        title: 'World 2-1',
+        title: 'world 2-1',
       },
     ],
   },
+  {
+    id: '3',
+    title: 'helloworld',
+    children: [
+      {
+        id: '3-1',
+        title: 'helloworld 3-1-1',
+        children: [],
+      }
+    ]
+  }
 ]
 
 export default class extends React.Component {
@@ -54,13 +70,14 @@ export default class extends React.Component {
       <div>
         <h2>{this.state.value}</h2>
         <TreeSelect
+          disabled={v => v.id === '1'}
           onFilter={this.handleFilter}
-          onChange={this.handleChange}
           value={this.state.value}
+          onChange={this.handleChange}
           clearable
           style={{ width: 250 }}
           keygen="id"
-          renderItem="title"
+          renderItem={node => `node ${node.title}`}
           data={data}
         />
       </div>
