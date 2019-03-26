@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Component } from '../component'
+import { getFilterTree } from '../utils/tree'
 import { IS_NOT_MATCHED_VALUE } from './Result'
 
 export default Origin =>
@@ -32,34 +33,6 @@ export default Origin =>
       this.getResultByValues = this.getResultByValues.bind(this)
 
       this.resultCache = new Map()
-    }
-
-    getFilterTree(treeNodes, searchValue, filterFunc) {
-      this.filterExpandKeys = []
-      if (!searchValue) {
-        return null
-      }
-      const mapFilteredNodeToData = node => {
-        if (!node) return null
-
-        let match = false
-        if (filterFunc(node)) {
-          match = true
-        }
-
-        const children = (node.children || []).map(mapFilteredNodeToData).filter(n => n)
-        if (children.length || match) {
-          const { datum } = this.props
-          const key = datum.getKey(node)
-          this.filterExpandKeys.push(key)
-          return {
-            ...node,
-            children,
-          }
-        }
-        return null
-      }
-      return treeNodes.map(mapFilteredNodeToData).filter(node => node)
     }
 
     getResultByValues() {
@@ -112,8 +85,11 @@ export default Origin =>
       let newData = data
       let newExpanded = expanded
       if (innerFilter) {
-        newData = this.getFilterTree(data, filterText, innerFilter)
-        newExpanded = this.filterExpandKeys
+        const filterExpandedKeys = []
+        newData = getFilterTree(data, innerFilter, filterExpandedKeys, node =>
+          this.props.datum.getKey(node)
+        )
+        newExpanded = filterExpandedKeys
       }
       return (
         <Origin

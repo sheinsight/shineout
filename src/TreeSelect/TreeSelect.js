@@ -161,13 +161,11 @@ export default class TreeSelect extends PureComponent {
       'loader',
       'onExpand',
       'renderItem',
-      'defaultValue',
       'line',
     ].forEach(k => {
       props[k] = this.props[k]
     })
     props.value = datum.getValue()
-    // console.log(datum.getValue())
     if (multiple) {
       props.onChange = this.handleChange
     } else {
@@ -230,7 +228,6 @@ export default class TreeSelect extends PureComponent {
 
 TreeSelect.propTypes = {
   ...getProps(PropTypes, 'placehodler', 'keygen'),
-  defaultValue: PropTypes.arrayOf(PropTypes.string),
   value: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
   clearable: PropTypes.bool,
   data: PropTypes.array,

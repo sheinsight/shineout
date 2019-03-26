@@ -14,7 +14,6 @@ export default function datum(Origin) {
     static propTypes = {
       loader: PropTypes.func,
       data: PropTypes.array,
-      defaultValue: PropTypes.arrayOf(PropTypes.string),
       disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
       mode: PropTypes.oneOf([0, 1, 2, 3]),
       onChange: PropTypes.func,
@@ -35,11 +34,11 @@ export default function datum(Origin) {
         loader: props.loader,
         keygen: props.keygen,
         mode: this.mode,
-        value: toArray(props.value || props.defaultValue),
+        value: toArray(props.value),
         onChange: props.onChange,
         disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
       })
-      this.setTreeValue(toArray(props.value || props.defaultValue))
+      this.setTreeValue(toArray(props.value))
     }
 
     setTreeValue(values) {
