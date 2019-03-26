@@ -41,7 +41,16 @@ export function dispatchEvent(form, name) {
   form.dispatchEvent(event)
 }
 
-export function focusElement(element) {
+export function cssSupport(attr, value) {
+  const element = document.createElement('div')
+  if (attr in element.style) {
+    element.style[attr] = value
+    return element.style[attr] === value
+  }
+  return false
+}
+
+function end(element) {
   if (window.getSelection) {
     element.focus()
     const range = window.getSelection()
@@ -55,11 +64,22 @@ export function focusElement(element) {
   }
 }
 
-export function cssSupport(attr, value) {
-  const element = document.createElement('div')
-  if (attr in element.style) {
-    element.style[attr] = value
-    return element.style[attr] === value
+function select(element) {
+  if (window.getSelection && document.createRange) {
+    element.focus()
+    const range = document.createRange()
+    range.selectNodeContents(element)
+    const sel = window.getSelection()
+    sel.removeAllRanges()
+    sel.addRange(range)
+  } else if (document.selection) {
+    const range = document.selection.createRange()
+    range.moveToElementText(element)
+    range.select()
   }
-  return false
+}
+
+export const focusElement = {
+  select,
+  end,
 }

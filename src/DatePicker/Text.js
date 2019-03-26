@@ -13,7 +13,7 @@ class Text extends PureComponent {
 
   componentDidUpdate(prevProps) {
     if (prevProps.focus !== this.props.focus && this.props.focus && this.element) {
-      focusElement(this.element)
+      focusElement.end(this.element)
     }
   }
 
