@@ -49,6 +49,15 @@ const examples = [
     component: require('doc/pages/components/TreeSelect/example-04-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/TreeSelect/example-04-disabled.js'),
   },
+  {
+    name: '05-loader',
+    title: locate(
+      '动态加载 \n 数据过大，需要动态加载时，可以设置 loader 函数，当展开未定义 children（undefined）的节点时，触发此函数。',
+      'Lazy load \n Set the loader function to dynamic fetch data. This function is triggered when the undefined child node is expanded.'
+    ),
+    component: require('doc/pages/components/TreeSelect/example-05-loader.js').default,
+    rawText: require('!raw-loader!doc/pages/components/TreeSelect/example-05-loader.js'),
+  },
 ]
 
 const codes = undefined

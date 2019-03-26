@@ -13,9 +13,9 @@ class Tree extends PureComponent {
     this.state = { active: null }
 
     this.nodes = new Map()
-    let { datum } = props
-    if (!datum) {
-      datum = new DatumTree({
+    this.datum =
+      props.datum ||
+      new DatumTree({
         data: props.data,
         loader: props.loader,
         keygen: props.keygen,
@@ -24,8 +24,6 @@ class Tree extends PureComponent {
         value: props.value || props.defaultValue,
         disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
       })
-    }
-    this.datum = datum
     this.handleDrop = this.handleDrop.bind(this)
     this.handleToggle = this.handleToggle.bind(this)
     this.handleNodeClick = this.handleNodeClick.bind(this)
