@@ -37,7 +37,7 @@ export default class extends React.Component {
   render() {
     return (
       <TreeSelect
-        disabled={v => v.title.startsWith('3-')}
+        disabled={v => v.title.startsWith('2-')}
         value={this.state.value}
         onChange={this.handleChange}
         clearable
