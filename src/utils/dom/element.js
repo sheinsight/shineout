@@ -63,6 +63,7 @@ function end(element) {
     range.select()
   }
 }
+
 function select(element) {
   if (window.getSelection && document.createRange) {
     element.focus()
