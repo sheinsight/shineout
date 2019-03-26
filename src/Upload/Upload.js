@@ -217,7 +217,7 @@ class Upload extends PureComponent {
 
         let value = xhr.responseText || xhr.response
         if (onSuccess) {
-          value = onSuccess(value, file, data)
+          value = onSuccess(value, file, data, xhr)
         }
 
         if (value instanceof Error) {
