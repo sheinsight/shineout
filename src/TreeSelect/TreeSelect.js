@@ -41,12 +41,9 @@ export default class TreeSelect extends PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { onFilter, datum, mode, data } = this.props
+    const { onFilter, datum, mode } = this.props
 
     datum.mode = mode
-    if (prevProps.data !== this.props.data) {
-      datum.setData(data)
-    }
 
     // clear filter
     if (prevState.focus !== this.state.focus && !this.state.focus && onFilter) {

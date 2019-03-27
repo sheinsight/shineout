@@ -131,8 +131,6 @@ Result.propTypes = {
   onRemove: PropTypes.func,
   onClear: PropTypes.func,
   onFilter: PropTypes.func,
-  onInputBlur: PropTypes.func,
-  onInputFocus: PropTypes.func,
   result: PropTypes.array.isRequired,
   renderResult: PropTypes.func.isRequired,
   placeholder: PropTypes.string,

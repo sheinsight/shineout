@@ -91,6 +91,7 @@ export default Origin =>
         )
         newExpanded = filterExpandedKeys
       }
+
       return (
         <Origin
           {...other}

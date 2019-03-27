@@ -26,13 +26,17 @@ export default class extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      value: [],
+      single: '',
+      multiple: [],
     }
+
+    this.handleChangeSingle = this.handleChange.bind(this, 'single')
+    this.handleChangeMultiple = this.handleChange.bind(this, 'multiple')
   }
 
-  handleChange = v => {
+  handleChange = (key, v) => {
     this.setState({
-      value: v,
+      [key]: v,
     })
   }
 
@@ -40,17 +44,30 @@ export default class extends React.Component {
 
   render() {
     return (
-      <TreeSelect
-        multiple
-        onFilter={this.handleFilter}
-        value={this.state.value}
-        onChange={this.handleChange}
-        clearable
-        style={{ width: 250 }}
-        keygen="id"
-        renderItem={node => `node ${node.title}`}
-        data={data}
-      />
+      <div>
+        <TreeSelect
+          onFilter={this.handleFilter}
+          value={this.state.single}
+          onChange={this.handleChangeSingle}
+          clearable
+          style={{ width: 250, marginBottom: 20 }}
+          keygen="id"
+          renderItem={node => `node ${node.title}`}
+          data={data}
+        />
+        <br />
+        <TreeSelect
+          multiple
+          onFilter={this.handleFilter}
+          value={this.state.multiple}
+          onChange={this.handleChangeMultiple}
+          clearable
+          style={{ width: 250 }}
+          keygen="id"
+          renderItem={node => `node ${node.title}`}
+          data={data}
+        />
+      </div>
     )
   }
 }
