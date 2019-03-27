@@ -35,7 +35,7 @@ class FilterInput extends Component {
   }
 
   focus() {
-    focusElement(this.editElement)
+    focusElement.select(this.editElement)
   }
 
   bindElement(el) {
