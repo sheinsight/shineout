@@ -44,7 +44,9 @@ export default class TreeSelect extends PureComponent {
     const { onFilter, datum, mode, data } = this.props
 
     datum.mode = mode
-    if (prevProps.data !== this.props.data) datum.setData(data)
+    if (prevProps.data !== this.props.data) {
+      datum.setData(data)
+    }
 
     // clear filter
     if (prevState.focus !== this.state.focus && !this.state.focus && onFilter) {
@@ -57,6 +59,13 @@ export default class TreeSelect extends PureComponent {
   componentWillUnmount() {
     super.componentWillUnmount()
     this.clearClickAway()
+  }
+
+  getValue() {
+    const { datum, multiple } = this.props
+    const value = datum.getValue()
+    if (multiple) return value
+    return value.length ? value[0] : ''
   }
 
   getText(key) {
@@ -72,11 +81,11 @@ export default class TreeSelect extends PureComponent {
   }
 
   bindClickAway() {
-    document.addEventListener('click', this.handleClickAway)
+    document.addEventListener('mousedown', this.handleClickAway)
   }
 
   clearClickAway() {
-    document.removeEventListener('click', this.handleClickAway)
+    document.removeEventListener('mousedown', this.handleClickAway)
   }
 
   handleClickAway(e) {
@@ -122,12 +131,13 @@ export default class TreeSelect extends PureComponent {
       datum.set(datum.getKey(data), 1)
       this.handleState(false)
     }
-    onChange(datum.getValue())
+    onChange(this.getValue())
   }
 
   handleClear() {
+    const { multiple } = this.props
     this.props.datum.setValue([])
-    this.props.onChange([])
+    this.props.onChange(multiple ? [] : '')
     this.handleState(false)
   }
 

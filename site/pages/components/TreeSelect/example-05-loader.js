@@ -9,8 +9,8 @@ import immer from 'immer'
 import { TreeSelect } from 'shineout'
 
 const initData = ['0', '1', '2', '3', '4'].map(i => ({ id: i }))
-const createRange = () => Array.from({ length: Math.round(Math.random() * 4) }, (_, i) => i)
 
+let index = 0
 export default class extends Component {
   constructor(props) {
     super(props)
@@ -18,23 +18,17 @@ export default class extends Component {
   }
 
   loader = key => {
-    const path = key.split(',')
-
     setTimeout(() => {
       this.setState(
         immer(draft => {
-          let { data } = draft
-          path.forEach((pid, i) => {
-            data = data.find(d => d.id === pid)
-            if (i < path.length - 1) data = data.children
-          })
-          data.children = [...createRange().map(i => ({ id: `${data.id}-${i}` }))]
+          const { data } = draft
+          data[parseInt(key, 10)].children = Array(6)
+            .fill(0)
+            .map(() => ({ id: `-${index++}`, children: [] }))
         })
       )
     }, 500)
   }
-
-  keyGenerator = (node, parentKey) => `${parentKey},${node.id}`.replace(/^,/, '')
 
   handleChange = value => this.setState({ value })
 
@@ -47,7 +41,7 @@ export default class extends Component {
         loader={this.loader}
         value={this.state.value}
         onChange={this.handleChange}
-        keygen={this.keyGenerator}
+        keygen="id"
         renderItem={this.renderItem}
         data={this.state.data}
       />
