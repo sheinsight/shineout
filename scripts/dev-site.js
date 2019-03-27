@@ -41,7 +41,7 @@ function getComponentPage(name, file) {
 
   const componentGroups = getGroups()
 
-  Object.keys(componentGroups).forEach((k) => {
+  Object.keys(componentGroups).forEach(k => {
     const g = componentGroups[k]
     if (g[name] !== undefined) {
       page.group = k
@@ -51,14 +51,14 @@ function getComponentPage(name, file) {
 
   fs.readdirSync(pagePath)
     .filter(n => n.indexOf('example-') === 0 || n.indexOf('code-') === 0)
-    .forEach((e) => {
+    .forEach(e => {
       const text = fs.readFileSync(path.resolve(pagePath, e))
       const comment = /(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/.exec(text)
       const exam = { path: e, cn: '', en: '' }
 
       if (comment) {
         let langlabel = ''
-        comment[0].split('\n').forEach((t) => {
+        comment[0].split('\n').forEach(t => {
           if (t.trim().indexOf('* cn -') >= 0) {
             langlabel = 'cn'
             exam.cn = getComment(t, '* cn -')
@@ -105,11 +105,11 @@ function generateComponents(file = '') {
   const componentGroups = getGroups()
 
   const groups = {}
-  Object.keys(componentGroups).forEach((key) => {
+  Object.keys(componentGroups).forEach(key => {
     groups[key] = []
   })
 
-  fs.readdirSync(componentPath).forEach((dirName) => {
+  fs.readdirSync(componentPath).forEach(dirName => {
     const state = fs.lstatSync(`${componentPath}/${dirName}`)
     if (state.isDirectory()) {
       const page = getComponentPage(dirName, file)
@@ -123,7 +123,7 @@ function generateComponents(file = '') {
 
   if (lastComponentText !== text) {
     console.log('write file chunks/Components/index.js')
-    fs.writeFile(path.resolve(chunkPath, './Components/index.js'), text, (err) => {
+    fs.writeFile(path.resolve(chunkPath, './Components/index.js'), text, err => {
       if (err) console.log(err)
     })
     lastComponentText = text
@@ -142,10 +142,9 @@ function init() {
 
   console.log('watch site/pages')
 
-  chokidar.watch(componentPath, { ignored: /index\.js$/, ignoreInitial: true })
-    .on('all', (e, p) => {
-      generateComponents(p)
-    })
+  chokidar.watch(componentPath, { ignored: /index\.js$/, ignoreInitial: true }).on('all', (e, p) => {
+    generateComponents(p)
+  })
 }
 
 module.exports = {

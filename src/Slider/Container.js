@@ -38,13 +38,9 @@ class Container extends PureComponent {
     if (e.target.className.indexOf(sliderClass('indicator')) >= 0) return
     if (this.props.disabled) return
 
-    const {
-      scale, step, vertical, range,
-    } = this.props
+    const { scale, step, vertical, range } = this.props
     const rect = this.innerElement.getBoundingClientRect()
-    const per = vertical
-      ? 1 - ((e.clientY - rect.top) / rect.height)
-      : (e.clientX - rect.left) / rect.width
+    const per = vertical ? 1 - (e.clientY - rect.top) / rect.height : (e.clientX - rect.left) / rect.width
 
     const val = per2value(per, scale, step)
 
@@ -83,24 +79,20 @@ class Container extends PureComponent {
 
     return (
       <div className={sliderClass('scale', !autoHide && 'show')}>
-        {
-          scale.map((s, i) => (
-            <div key={s}>
-              <span>{formatScale(s, i)}</span>
-            </div>
-          ))
-        }
+        {scale.map((s, i) => (
+          <div key={s}>
+            <span>{formatScale(s, i)}</span>
+          </div>
+        ))}
       </div>
     )
   }
 
   render() {
-    const {
-      range, height, style, vertical, ...other
-    } = this.props
+    const { range, height, style, vertical, ...other } = this.props
     const className = classnames(
       sliderClass('_', vertical && 'vertical', this.props.disabled && 'disabled'),
-      this.props.className,
+      this.props.className
     )
 
     let value = this.getValue()
@@ -113,8 +105,7 @@ class Container extends PureComponent {
       <div style={newStyle} className={className}>
         <div className={sliderClass('background')} />
         <div ref={this.bindElement} onClick={this.handleClick} className={sliderClass('inner')}>
-          {
-            range &&
+          {range && (
             <Slider
               {...other}
               index={0}
@@ -123,7 +114,7 @@ class Container extends PureComponent {
               value={value[0]}
               vertical={vertical}
             />
-          }
+          )}
 
           <Slider
             {...other}
@@ -134,7 +125,7 @@ class Container extends PureComponent {
             vertical={vertical}
           />
         </div>
-        { this.renderScale() }
+        {this.renderScale()}
       </div>
     )
   }
@@ -143,22 +134,13 @@ class Container extends PureComponent {
 Container.propTypes = {
   ...getProps(PropTypes, 'disabled', 'type'),
   autoHide: PropTypes.bool,
-  formatScale: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.bool,
-  ]),
-  height: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
+  formatScale: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   onChange: PropTypes.func,
   onDrag: PropTypes.func,
   scale: PropTypes.arrayOf(PropTypes.number),
   step: PropTypes.number,
-  value: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.arrayOf(PropTypes.number),
-  ]),
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)]),
   vertical: PropTypes.bool,
 }
 

@@ -18,3 +18,4 @@
 | autoHide | bool | false | 是否自动隐藏当前值和刻度 |
 | disabled | bool | false | 是否禁用组件 |
 | range | bool | false | 是否显示双滑块 |
+| onIncrease | func | 无 | 拖动超过最大值事件 |
