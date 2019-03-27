@@ -12,7 +12,7 @@
 | columns | number | 1 | Option columns.  |
 | columnWidth | number | 160 | Option column width, only effective when columns > 1 |
 | data | array | required | Options data |
-| treeData | array | 无 | tree select data，\[{children: []}\] |
+| treeData | array | - | tree select data，\[{children: []}\] |
 | defaultValue | array | | Initial value |
 | datum | object | - | If the format and prediction does not satisfied your requirements, you can pass in a [Datum.List](#/components/Datum.List) object or the Datum.List configuration to process data. |
 | disabled | bool \| function | false | When the value is true, disabled all checkboxes; When the value is function, disable the checkbox that this function returns true. |

@@ -54,10 +54,8 @@ export default function datum(Origin) {
       }
 
       if (!shallowEqual(toArray(value), this.datum.getValue())) {
-        console.log(value)
         this.datum.setValue([])
         this.setTreeValue(toArray(value))
-        console.log(this.datum.getValue())
       }
       return <Origin {...props} />
     }
