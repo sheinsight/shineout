@@ -72,9 +72,9 @@ const Header = ({ versions }) => {
       docsearch({
         appId: 'T20UAXDNF8',
         apiKey: '0bd92ae792815ca5cb44b9e0f392fa8c',
-        indexName: `shineout-${locate('cn', 'en')}`,
+        indexName: `shineout`,
         inputSelector: '#algolia-doc-search',
-        // algoliaOptions: { facetFilters: [`version: ${version}`] },
+        algoliaOptions: { facetFilters: [`lang: ${locate('cn', 'en')}`] },
         debug: false, // Set debug to true if you want to inspect the dropdown
       })
     }
