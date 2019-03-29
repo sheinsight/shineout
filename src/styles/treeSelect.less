@@ -1,14 +1,36 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
 
-@select-prefix: ~'@{so-prefix}-select';
+@treeSelect-prefix: ~'@{so-prefix}-treeSelect';
 
-.@{select-prefix} {
+.@{treeSelect-prefix} {
   position: relative;
 
   &-inner {
     width: 100%;
     outline: none;
+  }
+
+  &-tree-wrapper {
+    padding: 8px 8px 4px 8px;
+
+    .@{so-prefix}-tree-node {
+      &:last-child > div {
+        padding-bottom: 4px;
+      }
+
+      .@{so-prefix}-tree-content {
+        white-space: nowrap;
+      }
+    }
+
+    .@{treeSelect-prefix}-single .@{so-prefix}-tree-content {
+      cursor: default;
+      &:hover {
+        background: fade(@colors-primary, 10%)
+      }
+    }
+
   }
 
   &-result {
@@ -21,7 +43,7 @@
     span {
       display: inline-block;
 
-      &.@{select-prefix}-ellipsis {
+      &.@{treeSelect-prefix}-ellipsis {
         display: block;
         overflow: hidden;
         flex: 1;
@@ -30,7 +52,7 @@
       }
     }
 
-    .@{select-prefix}-ellipsis {
+    .@{treeSelect-prefix}-ellipsis {
       margin-bottom: @padding-base-vertical;
 
       &:after {
@@ -38,7 +60,7 @@
       }
     }
 
-    .@{select-prefix}-input {
+    .@{treeSelect-prefix}-input {
       display: inline-flex;
       min-width: 12px;
       flex: 1;
@@ -49,12 +71,12 @@
         content: '\feff ';
       }
 
-      &.@{select-prefix}-full {
+      &.@{treeSelect-prefix}-full {
         display: block;
       }
     }
 
-    .@{select-prefix}-item {
+    .@{treeSelect-prefix}-item {
       position: relative;
       display: inline-block;
       overflow: hidden;
@@ -67,12 +89,12 @@
       color: inherit;
       text-overflow: ellipsis;
 
-      &.@{select-prefix}-disabled {
+      &.@{treeSelect-prefix}-disabled {
         padding-right: @select-result-space;
         cursor: not-allowed;
       }
 
-      .@{select-prefix}-close {
+      .@{treeSelect-prefix}-close {
         right: @select-result-space;
         display: block;
         background-color: transparent;
@@ -83,7 +105,7 @@
         }
       }
 
-      &:hover .@{select-prefix}-close {
+      &:hover .@{treeSelect-prefix}-close {
         background-color: transparent;
 
         &:before,
@@ -104,12 +126,12 @@
     color: @gray-500;
     transform: translate(0, -50%);
 
-    &.@{select-prefix}-close {
+    &.@{treeSelect-prefix}-close {
       display: none;
       .close(12px, @gray-400);
     }
 
-    &.@{select-prefix}-caret {
+    &.@{treeSelect-prefix}-caret {
       .caret(down);
 
       &:after {
@@ -129,53 +151,34 @@
   &-options,
   &-box-list {
     position: absolute;
+    min-width: 100%;
     z-index: @zindex-dropdown;
     left: 0;
     display: none;
     overflow: hidden;
-    width: 100%;
     background: @dropdown-bg;
     background-clip: padding-box;
     border-radius: @border-radius-base;
-  }
 
-  &-tree {
-    width: auto;
-    min-width: 100%;
-    .@{select-prefix}-tree-wrapper {
-      padding: 8px 8px 4px 8px;
-
-      .@{so-prefix}-tree-node {
-        &:last-child > div {
-          padding-bottom: 4px;
-        }
-      }
-      .@{so-prefix}-tree-content {
-        color: @input-color;
-        white-space: nowrap;
-        cursor: default;
-
-        .@{select-prefix}-tree-node {
-          display: block;
-          padding: 0 4px;
-          border-radius: 2px;
-
-          &:hover {
-            background-color: fade(@colors-primary, 10%);
-          }
-
-          &.@{select-prefix}-selected {
-            background-color: fade(@colors-primary, 60%);
-            color: white;
-          }
-          &.@{select-prefix}-disabled {
-            padding-right: @select-result-space;
-            cursor: not-allowed;
-            background: @input-bg-disabled;
-          }
-        }
+    .@{treeSelect-prefix}-disabled {
+      &,
+      &:hover,
+      &.@{treeSelect-prefix}-active {
+        background: @input-bg-disabled;
+        cursor: not-allowed;
       }
     }
+  }
+
+  &-options span.@{treeSelect-prefix}-content-wrapper {
+    display: block;
+    border-radius: 2px;
+    padding: 0 4px;
+  }
+  &-options span.@{treeSelect-prefix}-selected {
+    background-color: fade(@colors-primary, 60%);
+    color: white;
+
   }
 
   &-box-list {
@@ -185,30 +188,30 @@
     max-height: 300px;
     flex-direction: column;
 
-    .@{select-prefix}-header {
+    .@{treeSelect-prefix}-header {
       padding: @dropdown-item-padding-y @dropdown-padding-x;
       border-bottom: solid 1px #eee;
     }
 
-    .@{select-prefix}-box-options {
+    .@{treeSelect-prefix}-box-options {
       overflow: auto;
       flex: 1;
       padding: @dropdown-item-padding-y 0;
 
-      .@{select-prefix}-no-data {
+      .@{treeSelect-prefix}-no-data {
         padding-top: 60px;
         color: @gray-500;
         text-align: center;
       }
     }
 
-    .@{select-prefix}-option {
+    .@{treeSelect-prefix}-option {
       display: inline-block;
       padding-right: @dropdown-padding-x;
       margin-right: 0;
     }
 
-    .@{select-prefix}-filter-input {
+    .@{treeSelect-prefix}-filter-input {
       display: inline-flex;
       width: 180px;
       border-width: 1px;
@@ -255,7 +258,7 @@
     transition: none;
     white-space: nowrap;
 
-    &.@{select-prefix}-active {
+    &.@{treeSelect-prefix}-active {
       background-color: @dropdown-link-active-bg;
       color: @dropdown-link-active-color;
       text-decoration: none;
@@ -277,10 +280,10 @@
       color: @dropdown-link-color;
     }
 
-    &.@{select-prefix}-disabled {
+    &.@{treeSelect-prefix}-disabled {
       &,
       &:hover,
-      &.@{select-prefix}-active {
+      &.@{treeSelect-prefix}-active {
         background: @input-bg-disabled;
         cursor: not-allowed;
       }
@@ -297,7 +300,7 @@
     background: @input-bg-disabled;
   }
 
-  &-control-keyboard &-option.@{select-prefix}-hover {
+  &-control-keyboard &-option.@{treeSelect-prefix}-hover {
     background-color: @select-option-hover-bg;
     color: @select-option-hover-color;
     text-decoration: none;
@@ -314,9 +317,9 @@
   &-small &-result {
     padding: @padding-small-vertical @padding-small-horizontal+12 0 @padding-small-horizontal;
 
-    .@{select-prefix}-item,
-    .@{select-prefix}-ellipsis,
-    .@{select-prefix}-input {
+    .@{treeSelect-prefix}-item,
+    .@{treeSelect-prefix}-ellipsis,
+    .@{treeSelect-prefix}-input {
       margin-bottom: @padding-small-vertical;
     }
   }
@@ -324,9 +327,9 @@
   &-large &-result {
     padding: @padding-large-vertical @padding-large-horizontal+12 0 @padding-large-horizontal;
 
-    .@{select-prefix}-item,
-    .@{select-prefix}-ellipsis,
-    .@{select-prefix}-input {
+    .@{treeSelect-prefix}-item,
+    .@{treeSelect-prefix}-ellipsis,
+    .@{treeSelect-prefix}-input {
       margin-bottom: @padding-large-vertical;
     }
   }
@@ -344,25 +347,13 @@
   }
 
   &-disabled {
-    .@{select-prefix}-result .@{select-prefix}-item {
+    .@{treeSelect-prefix}-result .@{treeSelect-prefix}-item {
       padding-right: @select-result-space;
       background: @input-bg-disabled;
 
-      .@{select-prefix}-close {
+      .@{treeSelect-prefix}-close {
         display: none;
       }
     }
-  }
-
-  &-root {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  &-absolute-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
   }
 }

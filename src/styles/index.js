@@ -17,6 +17,7 @@ import checkinputLess from './checkinput.less'
 import formLess from './form.less'
 import inputLess from './form.less'
 import selectLess from './select.less'
+import treeSelectLess from './treeSelect.less'
 import modalLess from './modal.less'
 import cardLess from './card.less'
 import datepickerLess from './datepicker.less'
@@ -49,6 +50,7 @@ export const checkinputClass = genaration(checkinputLess, 'checkinput')
 export const formClass = genaration(formLess, 'form')
 export const inputClass = genaration(inputLess, 'input')
 export const selectClass = genaration(selectLess, 'select')
+export const treeSelectClass = genaration(treeSelectLess, 'treeSelect')
 export const modalClass = genaration(modalLess, 'modal')
 export const cardClass = genaration(cardLess, 'card')
 export const datepickerClass = genaration(datepickerLess, 'datepicker')

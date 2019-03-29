@@ -148,6 +148,24 @@ const examples = [
     component: require('doc/pages/components/Select/example-14-columns.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-14-columns.js'),
   },
+  {
+    name: '15-treeData',
+    title: locate(
+      '树形选择 \n 通过设置 treeData 来实现树形选择。',
+      'Tree Select \n Set treeData to select with tree.'
+    ),
+    component: require('doc/pages/components/Select/example-15-treeData.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-15-treeData.js'),
+  },
+  {
+    name: '16-onFilter',
+    title: locate(
+      '树形选择 - 筛选数据 \n 通过设置 onFilter 来筛选树形数据。',
+      'Tree Select Filter \n Set onFilter to filter tree data.'
+    ),
+    component: require('doc/pages/components/Select/example-16-onFilter.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-16-onFilter.js'),
+  },
 ]
 
 const codes = undefined
