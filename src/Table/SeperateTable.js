@@ -206,12 +206,18 @@ class SeperateTable extends PureComponent {
   // business component needed
   scrollOffset(index, callback) {
     const { currentIndex } = this.state
+    let addedIndex = 0
     if (this.state.scrollTop === 1 && index >= 0) return
     let scrollIndex = currentIndex + index + 1
     if (currentIndex === 1 && index === -1) {
       scrollIndex = 0
     }
-    this.scrollToIndex(scrollIndex, callback)
+
+    if (scrollIndex > 0) {
+      const innerHeight = this.cachedRowHeight.slice(scrollIndex - 1).reduce((a, b) => a + b, 0)
+      if (this.lastScrollArgs[5] > innerHeight) addedIndex = this.props.rowsInView
+    }
+    this.scrollToIndex(scrollIndex + addedIndex, callback)
   }
 
   handleScroll(...args) {
