@@ -11,11 +11,10 @@ class Button extends PureComponent {
   getChildren() {
     const { children, loading } = this.props
     if (!loading) return children
-    const filtered = []
-    Children.forEach(children, child => {
+    const filtered = Children.toArray(children).filter(child => {
       const validElement = isValidElement(child) && child !== null
-      if (validElement && child.type.isShineoutIcon) return
-      filtered.push(child)
+      if (validElement && child.type.isShineoutIcon) return false
+      return true
     })
     return filtered
   }
