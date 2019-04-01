@@ -126,10 +126,8 @@ class Item extends PureComponent {
       events.onMouseEnter = this.handleMouseEnter
       events.onMouseLeave = this.handleMouseLeave
     }
-
     let item = renderItem(data)
-    const isLink = item.type === 'a' || (item.type && item.type.displayName === 'Link')
-    if (isValidElement(item) && isLink) {
+    if (isValidElement(item) && (item.type === 'a' || (item.type && item.type.displayName === 'Link'))) {
       item = cloneElement(item, { className: menuClass('title') })
     } else {
       item = (
