@@ -98,7 +98,7 @@ class Upload extends PureComponent {
 
   addFile(e) {
     const input = e.target
-    const { beforeUpload, validator } = this.props
+    const { beforeUpload, validator, noValidatorHandle } = this.props
     const files = { ...this.state.files }
 
     Array.from({ length: input.files.length }).forEach((_, i) => {
@@ -123,7 +123,16 @@ class Upload extends PureComponent {
         error = validator.ext(exts[exts.length - 1])
       }
 
+      if (typeof validator.customValidator === 'function') {
+        error = validator.customValidator(blob)
+      }
+
       if (error instanceof Error) {
+        if (noValidatorHandle) {
+          delete files[id]
+          return
+        }
+
         file.message = error.message
         file.status = ERROR
 
@@ -373,6 +382,7 @@ Upload.propTypes = {
   withCredentials: PropTypes.bool,
   onStart: PropTypes.func,
   showUploadList: PropTypes.bool,
+  noValidatorHandle: PropTypes.bool,
 }
 
 Upload.defaultProps = {
@@ -383,6 +393,7 @@ Upload.defaultProps = {
   value: [],
   withCredentials: false,
   showUploadList: true,
+  noValidatorHandle: false,
 }
 
 export default Upload
