@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, Children, isValidElement } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
@@ -8,9 +8,21 @@ import { buttonClass } from '../styles'
 const spinStyle = { display: 'inline-block', marginRight: 8 }
 
 class Button extends PureComponent {
+  getChildren() {
+    const { children, loading } = this.props
+    if (!loading) return children
+    const filtered = []
+    Children.forEach(children, child => {
+      const validElement = isValidElement(child) && child !== null
+      if (validElement && child.type.isShineoutIcon) return
+      filtered.push(child)
+    })
+    return filtered
+  }
+
   render() {
     const {
-      children, outline, type, size, href, htmlType, loading, disabled, onRef, ...others
+      outline, type, size, href, htmlType, loading, disabled, onRef, ...others
     } = this.props
     const className = classnames(
       buttonClass('_', type, outline && 'outline', {
@@ -22,9 +34,13 @@ class Button extends PureComponent {
 
     if (href) {
       return (
-        <a href={href} {...others} className={className}>{children}</a>
+        <a href={href} {...others} className={className}>
+          {this.props.children}
+        </a>
       )
     }
+
+    const children = this.getChildren()
     return (
       <button {...others} ref={onRef} disabled={disabled || loading} type={htmlType} className={className}>
         {
