@@ -128,7 +128,8 @@ class Item extends PureComponent {
     }
 
     let item = renderItem(data)
-    if (isValidElement(item) && item.type === 'a') {
+    const isLink = item.type === 'a' || (item.type && item.type.displayName === 'Link')
+    if (isValidElement(item) && isLink) {
       item = cloneElement(item, { className: menuClass('title') })
     } else {
       item = (
