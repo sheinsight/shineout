@@ -3,7 +3,7 @@ import Icon from './Icon'
 
 const links = {}
 
-export default function (url, fontFamily = 'iconfont', prefix = 'icon') {
+export default function(url, fontFamily = 'iconfont', prefix = 'icon') {
   if (url && !links[url]) {
     links[url] = true
     const link = document.createElement('link')
@@ -13,6 +13,7 @@ export default function (url, fontFamily = 'iconfont', prefix = 'icon') {
     document.head.appendChild(link)
   }
 
-  return props => (<Icon fontFamily={fontFamily} prefix={prefix} {...props} />)
+  const wrapperIcon = props => <Icon fontFamily={fontFamily} prefix={prefix} {...props} />
+  wrapperIcon.isShineoutIcon = true
+  return wrapperIcon
 }
-
