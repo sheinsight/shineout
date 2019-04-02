@@ -30,6 +30,7 @@
 | value | array | \[] | defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖<br />在Form中，value会被表单接管，value无效 |
 | withCredentials | bool | false | 是否携带 cookie |
 | multiple | bool | false | 是否支持多选文件 |
+| validatorHandle | bool \| func(error, file) | false | 是否处理校验失败的情况, 如果提供一个函数, 则以函数的返回值判断是否处理此 error |
 
 
 ### Image

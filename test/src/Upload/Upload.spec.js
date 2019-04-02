@@ -70,6 +70,33 @@ describe('Upload[Validate]', () => {
   })
 })
 
+describe('Upload[validateHandle false]', () => {
+  test('should no error', () => {
+    const errorInfo = 'File extension must be jpg or png'
+    const wrapper = mount(
+      <Upload
+        action="//jsonplaceholder.typicode.com/posts"
+        name="file"
+        limit={2}
+        validator={{
+          // imageSize: img => ((img.width !== 200 || img.height !== 100) ? new Error('only allow 200px * 100px') : undefined),
+          ext: () => new Error(errorInfo),
+        }}
+        validatorHandle={false}
+      />
+    )
+
+    const blob = new Blob(['content'], { type: 'text/plain' })
+    blob.name = 'test.doc'
+    wrapper.find('input').prop('onChange')({
+      target: {
+        files: [blob],
+      },
+    })
+    wrapper.update()
+    expect(wrapper.find(`.${SO_PREFIX}-upload-error`).length).toBe(0)
+  })
+})
 // describe('Upload[onError]', () => {
 //   test('should call onError while server error', () => {
 //     XMLHttpRequest.prototype.send = function() {

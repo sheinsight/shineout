@@ -20,7 +20,7 @@ export default function() {
       limit={1}
       renderResult={f => f.data}
       validator={{
-        // imageSize: img => ((img.width !== 200 || img.height !== 100) ? new Error('only allow 200px * 100px') : undefined),
+        imageSize: img => (img.width !== 200 || img.height !== 100 ? new Error('only allow 200px * 100px') : undefined),
         ext: ext => (['jpg', 'png'].includes(ext) ? undefined : new Error('File extension must be jpg or png')),
       }}
     >
