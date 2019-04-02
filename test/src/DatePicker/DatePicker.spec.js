@@ -1,6 +1,7 @@
 import React from 'react'
 import DatePicker from 'shineout/DatePicker'
 import { mount } from 'enzyme'
+import utils from '../../../src/DatePicker/utils'
 import DatePickerSize from '../../../site/pages/components/DatePicker/example-03-size'
 
 /* global SO_PREFIX */
@@ -40,14 +41,13 @@ describe('DatePicker[Base]', () => {
 
 describe('DatePicker[Format]', () => {
   test('return date should match to format', () => {
-    // const mockFn = jest.fn()
     const mockFn = jest.fn()
     const formats = ['yyyy-M-d HH:mm', 'yy-MM-dd H:m:s', 'yy-MM-dd h:m:SSS']
-    const output = ['2018-2-1 00:00', '18-02-01 0:0:0', '18-02-01 12:0:000']
 
     formats.forEach((format, index) => {
-      mount(<DatePicker format={format} value={new Date(1517414400000)} type="datetime" onChange={mockFn} />)
-      expect(mockFn.mock.calls[index][0]).toBe(output[index])
+      const date = new Date(1517414400000)
+      mount(<DatePicker format={format} value={date} type="datetime" onChange={mockFn} />)
+      expect(mockFn.mock.calls[index][0]).toBe(utils.format(date, format))
     })
   })
 })
