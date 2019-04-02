@@ -28,6 +28,7 @@ class Upload extends PureComponent {
     this.removeFile = this.removeFile.bind(this)
     this.removeValue = this.removeValue.bind(this)
     this.recoverValue = this.recoverValue.bind(this)
+    this.validatorHandle = this.validatorHandle.bind(this)
 
     props.validateHook(this.validate.bind(this))
   }
@@ -37,6 +38,14 @@ class Upload extends PureComponent {
     if (typeof action === 'string') return action
     if (typeof action === 'function') return action(file)
     return ''
+  }
+
+  validatorHandle(error, file) {
+    const { validatorHandle: vth } = this.props
+
+    if (typeof vth === 'function') return vth(error, file)
+
+    return vth
   }
 
   bindElement(input) {
@@ -123,32 +132,51 @@ class Upload extends PureComponent {
         error = validator.ext(exts[exts.length - 1])
       }
 
+      if (typeof validator.customValidator === 'function') {
+        error = validator.customValidator(blob)
+      }
+
       if (error instanceof Error) {
+        if (!this.validatorHandle(error, file.blob)) {
+          delete files[id]
+          return
+        }
+
         file.message = error.message
         file.status = ERROR
 
         if (beforeUpload) {
-          beforeUpload(blob).then(args => {
-            this.setState(
-              immer(draft => {
-                draft.files[id] = Object.assign({}, draft.files[id], args)
-              })
-            )
-          })
+          beforeUpload(blob, this.validatorHandle)
+            .then(args => {
+              this.setState(
+                immer(draft => {
+                  draft.files[id] = Object.assign({}, draft.files[id], args)
+                })
+              )
+            })
+            .catch(() => true)
         }
 
         return
       }
 
       if (beforeUpload) {
-        beforeUpload(blob).then(args => {
-          if (args.status !== ERROR) files[id].xhr = this.uploadFile(id, blob, args.data)
-          this.setState(
-            immer(draft => {
-              draft.files[id] = Object.assign({}, draft.files[id], args)
-            })
-          )
-        })
+        beforeUpload(blob, this.validatorHandle)
+          .then(args => {
+            if (args.status !== ERROR) files[id].xhr = this.uploadFile(id, blob, args.data)
+            this.setState(
+              immer(draft => {
+                draft.files[id] = Object.assign({}, draft.files[id], args)
+              })
+            )
+          })
+          .catch(() => {
+            this.setState(
+              immer(draft => {
+                delete draft.files[id]
+              })
+            )
+          })
       } else {
         files[id].xhr = this.uploadFile(id, blob)
       }
@@ -373,6 +401,7 @@ Upload.propTypes = {
   withCredentials: PropTypes.bool,
   onStart: PropTypes.func,
   showUploadList: PropTypes.bool,
+  validatorHandle: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 }
 
 Upload.defaultProps = {
@@ -383,6 +412,7 @@ Upload.defaultProps = {
   value: [],
   withCredentials: false,
   showUploadList: true,
+  validatorHandle: true,
 }
 
 export default Upload

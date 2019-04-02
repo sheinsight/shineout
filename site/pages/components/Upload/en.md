@@ -14,6 +14,7 @@
 | htmlName | string | none | The filename received by the server. If it is not filled in, use the name. |
 | limit | number | 100 | Maximum number of uploaded files |
 | name | string | none | The key access data in the Form  |
+| request | func(options) | - | Custom upload method<br /> options: the options of upload |
 | onChange | func(values) | none | The callback function when the value is changing(Upload successfully, delete)<br />values: Array |
 | onSuccess | func(res, file, data, xhr):value | none | The callback function when to upload successfully. The returned result is as the new value. <br />res: the result that the upload interface returns<br />file: selected file<br /> data: the request data<br /> xhr: reponse |
 | onError | func(xhr):string | none | The callback function when to upload unsuccessfully. The returned result is as the error message. |
@@ -25,6 +26,7 @@
 | value | array | \[] | value |
 | withCredentials | bool | false | Whether to take the cookie |
 | multiple | bool | false | Whether multi-select files are supported |
+| validatorHandle | bool \| func(error, file) | true | Whether to handle the case of validation failure, if a function is provided, it is judged by the return value of the function. |
 
 ### Image
 

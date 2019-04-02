@@ -21,6 +21,10 @@ export default function() {
         validator={{
           size: s => (s > 10240 ? new Error('max file size is 10KB') : undefined),
         }}
+        validatorHandle={(error, file) => {
+          console.log(error, file)
+          return true
+        }}
       >
         <Button>
           <FontAwesome name="upload" /> Upload file

@@ -18,7 +18,6 @@ export default function() {
       onSuccess={(res, file) => file.name}
       limit={3}
       style={{ width: 300 }}
-      onStart={f => console.log(f)}
     >
       <Button>
         <FontAwesome name="upload" /> Upload file
