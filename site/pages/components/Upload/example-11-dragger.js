@@ -1,6 +1,6 @@
 /**
  * cn - 拖拽上传
- *    -- 将文件拖入指定区域，完成上传
+ *    -- 将文件拖入指定区域完成上传，支持图片预览及多文件上传。
  * en - Drag and Drop
  *    -- Drag files to a specific area, to upload.
  */

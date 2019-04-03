@@ -107,10 +107,12 @@ class Upload extends PureComponent {
   }
 
   addFile(e) {
-    const { beforeUpload, validator } = this.props
+    const { beforeUpload, validator, value, limit } = this.props
     const files = { ...this.state.files }
     const fileList = e.fromDragger && e.files ? e.files : e.target.files
-    Array.from({ length: fileList.length }).forEach((_, i) => {
+    const addLength = limit - value.length - Object.keys(this.state.files).length
+    if (addLength <= 0) return
+    Array.from({ length: Math.min(fileList.length, addLength) }).forEach((_, i) => {
       const blob = fileList[i]
       const id = getUidStr()
       const file = {
@@ -299,11 +301,9 @@ class Upload extends PureComponent {
     if (limit > 0 && limit <= count) return null
 
     const dragProps = {
-      limit,
       multiple,
       addFile: this.addFile,
       accept,
-      value,
     }
     return (
       <span className={uploadClass('handle')} onClick={this.handleAddClick}>

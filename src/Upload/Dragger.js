@@ -41,10 +41,9 @@ class Dragger extends PureComponent {
   }
 
   handleDrop(e) {
-    const { multiple, addFile, limit, value } = this.props
-    const existLength = value.length
+    const { multiple, addFile } = this.props
     if (!addFile) return
-    const fileList = this.getMatchedFile(e.dataTransfer.files).slice(0, limit - existLength)
+    const fileList = this.getMatchedFile(e.dataTransfer.files)
     if (!fileList || fileList.length <= 0) return
     const files = multiple ? fileList : [fileList[0]]
     addFile({ files, fromDragger: true })
@@ -77,8 +76,6 @@ Dragger.propTypes = {
   multiple: PropTypes.bool,
   addFile: PropTypes.func,
   accept: PropTypes.string,
-  value: PropTypes.array,
-  limit: PropTypes.number,
 }
 
 export default Dragger
