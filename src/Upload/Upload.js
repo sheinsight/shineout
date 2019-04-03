@@ -303,6 +303,7 @@ class Upload extends PureComponent {
       multiple,
       addFile: this.addFile,
       accept,
+      value,
     }
     return (
       <span className={uploadClass('handle')} onClick={this.handleAddClick}>
