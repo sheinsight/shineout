@@ -13,7 +13,7 @@ function initRoot() {
   document.body.appendChild(root)
 }
 
-export default function (List) {
+export default function(List) {
   class AbsoluteList extends Component {
     constructor(props) {
       super(props)
@@ -34,9 +34,7 @@ export default function (List) {
     }
 
     getStyle() {
-      const {
-        parentElement, position, scrollElement, focus,
-      } = this.props
+      const { parentElement, position, scrollElement, focus } = this.props
       const lazyResult = { focus, style: this.lastStyle }
       if (!focus) return lazyResult
 
@@ -45,8 +43,12 @@ export default function (List) {
         const rect = parentElement.getBoundingClientRect()
         const scrollRect = scrollElement ? scrollElement.getBoundingClientRect() : {}
 
-        if (rect.bottom < scrollRect.top || rect.bottom > scrollRect.bottom ||
-          rect.right < scrollRect.left || rect.left > scrollRect.right) {
+        if (
+          rect.bottom < scrollRect.top ||
+          rect.bottom > scrollRect.bottom ||
+          rect.right < scrollRect.left ||
+          rect.left > scrollRect.right
+        ) {
           return { focus: false, style: this.lastStyle }
         }
 
@@ -67,17 +69,12 @@ export default function (List) {
     }
 
     render() {
-      const {
-        parentElement, position, scrollLeft, scrollTop, scrollElement, ...props
-      } = this.props
+      const { parentElement, position, scrollLeft, scrollTop, scrollElement, ...props } = this.props
       const className = selectClass('absolute-wrapper', position)
-      const { focus, style } = props.focus ? this.getStyle() : this.lastStyle
+      const { focus, style } = props.focus ? this.getStyle() : { style: this.lastStyle }
 
       this.element.className = className
-      return ReactDOM.createPortal(
-        <List {...props} focus={focus} style={style} />,
-        this.element,
-      )
+      return ReactDOM.createPortal(<List {...props} focus={focus} style={style} />, this.element)
     }
   }
 
