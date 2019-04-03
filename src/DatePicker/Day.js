@@ -141,15 +141,20 @@ class Day extends PureComponent {
     if (!showTimePicker) return undefined
 
     let { format } = this.props
-    const match = format.match(/[H|h].*/)
-    // eslint-disable-next-line
-    if (match) format = match[0]
+    if (/^[T|t]$/.test(format)) {
+      format = 'HH:mm:ss'
+    } else {
+      const match = format.match(/[H|h].*/)
+      // eslint-disable-next-line
+      if (match) format = match[0]
+    }
+
     const value = rangeDate ? utils.toDateWithFormat(rangeDate[index], format) : this.props.value
     if (!value) return undefined
 
     return (
       <div className={datepickerClass('datetime')}>
-        <Time {...this.props} value={value} onChange={this.handleTimeChange} />
+        <Time {...this.props} format={format} value={value} onChange={this.handleTimeChange} />
         <span>{utils.format(value, format)}</span>
       </div>
     )

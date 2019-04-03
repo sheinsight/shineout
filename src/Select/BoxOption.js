@@ -13,9 +13,7 @@ class BoxOption extends PureComponent {
   }
 
   handleClick() {
-    const {
-      data, onClick, isActive, index, disabled,
-    } = this.props
+    const { data, onClick, isActive, index, disabled } = this.props
 
     if (this.locked || disabled) return
     this.locked = true
@@ -28,9 +26,7 @@ class BoxOption extends PureComponent {
   }
 
   render() {
-    const {
-      data, index, isActive, renderItem, columns, multiple,
-    } = this.props
+    const { data, index, isActive, renderItem, columns, multiple } = this.props
 
     const className = classnames(selectClass('option'), getGrid(1 / columns))
     const Input = multiple ? Checkbox : Radio
@@ -48,11 +44,7 @@ class BoxOption extends PureComponent {
 
 BoxOption.propTypes = {
   columns: PropTypes.number,
-  data: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string,
-    PropTypes.number,
-  ]).isRequired,
+  data: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]).isRequired,
   disabled: PropTypes.bool,
   index: PropTypes.number,
   isActive: PropTypes.bool,
