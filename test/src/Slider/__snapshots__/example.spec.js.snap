@@ -595,3 +595,63 @@ exports[`Snapshot test: Slider[site/pages/components/Slider/example-10-vertical.
   </div>
 </div>
 `;
+
+exports[`Snapshot test: Slider[site/pages/components/Slider/example-11-increase.js] 1`] = `
+<div>
+  <div>
+    <div />
+    <div>
+      <div>
+        <div>
+          50
+        </div>
+        <div />
+        <div />
+      </div>
+    </div>
+    <div>
+      <div>
+        <span>
+          0
+        </span>
+      </div>
+      <div>
+        <span>
+          100
+        </span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div />
+    <div>
+      <div>
+        <div>
+          20
+        </div>
+        <div />
+        <div />
+      </div>
+      <div>
+        <div>
+          50
+        </div>
+        <div />
+        <div />
+      </div>
+    </div>
+    <div>
+      <div>
+        <span>
+          0
+        </span>
+      </div>
+      <div>
+        <span>
+          100
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
