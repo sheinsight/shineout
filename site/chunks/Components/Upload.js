@@ -103,6 +103,15 @@ const examples = [
     component: require('doc/pages/components/Upload/example-10-defaultValue.js').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-10-defaultValue.js'),
   },
+  {
+    name: '11-dragger',
+    title: locate(
+      '拖拽上传 \n 将文件拖入指定区域，完成上传',
+      'Drag and Drop \n Drag files to a specific area, to upload.'
+    ),
+    component: require('doc/pages/components/Upload/example-11-dragger.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Upload/example-11-dragger.js'),
+  },
 ]
 
 const codes = undefined
