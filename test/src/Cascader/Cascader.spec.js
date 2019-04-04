@@ -118,20 +118,6 @@ describe('Cascader[Hover]', () => {
     wrapper.update()
     expect(wrapper.find('List').length).toBe(2)
   })
-  test('only hover can select parent node', () => {
-    jest.useFakeTimers()
-    const wrapper = mount(
-      <Cascader data={userData} keygen="id" expandTrigger="hover" renderItem={n => `node ${n.text}`} />
-    )
-    wrapper.find(`.${SO_PREFIX}-cascader`).simulate('click')
-    wrapper
-      .find(`.${SO_PREFIX}-cascader-node`)
-      .first()
-      .simulate('click')
-    jest.runAllTimers()
-    wrapper.update()
-    expect(wrapper.find('Result').find(`.${SO_PREFIX}-cascader-item`).length).toBe(1)
-  })
 })
 
 describe('Cascader[Disabled]', () => {

@@ -10,7 +10,14 @@ import { DatePicker } from 'shineout'
 export default function() {
   return (
     <div style={{ padding: 10, height: 150, overflow: 'hidden' }}>
-      <DatePicker type="datetime" absolute defaultValue={new Date()} style={{ marginBottom: 8 }} />
+      <DatePicker
+        formatResult="yyyy-MM-dd HH:mm:ss"
+        format="t"
+        type="datetime"
+        absolute
+        defaultValue={new Date()}
+        style={{ marginBottom: 8 }}
+      />
       <br />
       <DatePicker inputable absolute range defaultValue={['2018-05-25', '2018-06-05']} style={{ marginBottom: 8 }} />
       <br />

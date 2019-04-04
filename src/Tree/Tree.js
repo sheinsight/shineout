@@ -13,16 +13,17 @@ class Tree extends PureComponent {
     this.state = { active: null }
 
     this.nodes = new Map()
-    this.datum = new DatumTree({
-      data: props.data,
-      loader: props.loader,
-      keygen: props.keygen,
-      mode: props.mode,
-      onChange: props.onChange,
-      value: props.value || props.defaultValue,
-      disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
-    })
-
+    this.datum =
+      props.datum ||
+      new DatumTree({
+        data: props.data,
+        loader: props.loader,
+        keygen: props.keygen,
+        mode: props.mode,
+        onChange: props.onChange,
+        value: props.value || props.defaultValue,
+        disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
+      })
     this.handleDrop = this.handleDrop.bind(this)
     this.handleToggle = this.handleToggle.bind(this)
     this.handleNodeClick = this.handleNodeClick.bind(this)
@@ -206,6 +207,7 @@ Tree.propTypes = {
   onExpand: PropTypes.func,
   onDrop: PropTypes.func,
   value: PropTypes.array,
+  datum: PropTypes.object,
 }
 
 Tree.defaultProps = {
