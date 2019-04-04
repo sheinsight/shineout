@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import { uploadClass } from '../styles'
 
-const attrAccept = (file, acceptedFiles) => {
+export const attrAccept = (file, acceptedFiles) => {
   if (file && acceptedFiles) {
     const acceptedFilesArray = Array.isArray(acceptedFiles) ? acceptedFiles : acceptedFiles.split(',')
     const fileName = file.name || ''
