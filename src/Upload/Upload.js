@@ -12,6 +12,7 @@ import File from './File'
 import ImageFile from './ImageFile'
 import Result from './Result'
 import ImageResult from './ImageResult'
+import { Provider } from './context'
 
 class Upload extends PureComponent {
   constructor(props) {
@@ -106,12 +107,13 @@ class Upload extends PureComponent {
   }
 
   addFile(e) {
-    const input = e.target
-    const { beforeUpload, validator } = this.props
+    const { beforeUpload, validator, value, limit } = this.props
     const files = { ...this.state.files }
-
-    Array.from({ length: input.files.length }).forEach((_, i) => {
-      const blob = input.files[i]
+    const fileList = e.fromDragger && e.files ? e.files : e.target.files
+    const addLength = limit - value.length - Object.keys(this.state.files).length
+    if (addLength <= 0) return
+    Array.from({ length: Math.min(fileList.length, addLength) }).forEach((_, i) => {
+      const blob = fileList[i]
       const id = getUidStr()
       const file = {
         name: blob.name,
@@ -298,9 +300,14 @@ class Upload extends PureComponent {
     const count = value.length + Object.keys(this.state.files).length
     if (limit > 0 && limit <= count) return null
 
+    const dragProps = {
+      multiple,
+      addFile: this.addFile,
+      accept,
+    }
     return (
       <span className={uploadClass('handle')} onClick={this.handleAddClick}>
-        {children}
+        <Provider value={dragProps}>{children}</Provider>
         <FileInput accept={accept} ref={this.bindElement} multiple={multiple} onChange={this.addFile} />
       </span>
     )
