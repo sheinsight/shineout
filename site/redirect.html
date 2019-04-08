@@ -8,7 +8,7 @@
        if (localStorage && localStorage.getItem) return localStorage.getItem(__storage)
        return window.navigator.language || window.navigator.userLanguage
     }
-    window.location.href = '<%= version %>' + (__getLanguage() === 'zh-CN' ? 'cn' : 'en') + '#/'
+    window.location.href = '<%= version %>/' + (__getLanguage() === 'zh-CN' ? 'cn' : 'en') + '#/'
   </script>
 </head>
 <body>
