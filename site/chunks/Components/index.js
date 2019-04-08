@@ -104,6 +104,12 @@ const pages = [
     component: lazy(() => import(/* webpackChunkName: "Textarea" */ './Textarea')),
   },
   {
+    name: 'TreeSelect',
+    cn: '树选择',
+    level: 2,
+    component: lazy(() => import(/* webpackChunkName: "TreeSelect" */ './TreeSelect')),
+  },
+  {
     name: 'Upload',
     cn: '上传',
     level: 2,

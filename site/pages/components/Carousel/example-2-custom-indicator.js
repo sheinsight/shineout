@@ -64,6 +64,7 @@ export default function() {
 div.indicator {
   text-align: center;
   user-select: none;
+  float: left;
 }
 div.indicator-item {
   margin-right: 10px;

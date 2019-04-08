@@ -109,11 +109,17 @@ class SeperateTable extends PureComponent {
   }
 
   updateScrollLeft() {
-    const { scrollLeft } = this.props
+    let { scrollLeft } = this.props
     if (!isNumber(scrollLeft)) return
-    const args = this.lastScrollArgs
+    const args = this.lastScrollArgs && this.lastScrollArgs.slice()
     if (scrollLeft !== this.state.offsetLeft && args) {
+      const bodyWidth = this.lastScrollArgs[4]
+      if (scrollLeft < 0) scrollLeft = 0
+      if (scrollLeft > this.getContentWidth() - bodyWidth) scrollLeft = this.getContentWidth() - bodyWidth
       args[0] = scrollLeft / (this.getContentWidth() - args[4])
+      args[1] = this.state.scrollTop
+      args[6] = 0
+      args[7] = 0
       this.handleScroll(...args)
     }
   }
@@ -200,7 +206,18 @@ class SeperateTable extends PureComponent {
   // business component needed
   scrollOffset(index, callback) {
     const { currentIndex } = this.state
-    this.scrollToIndex(currentIndex + index + 1, callback)
+    let addedIndex = 0
+    if (this.state.scrollTop === 1 && index >= 0) return
+    let scrollIndex = currentIndex + index + 1
+    if (currentIndex === 1 && index === -1) {
+      scrollIndex = 0
+    }
+
+    if (scrollIndex > 0) {
+      const innerHeight = this.cachedRowHeight.slice(scrollIndex - 1).reduce((a, b) => a + b, 0)
+      if (this.lastScrollArgs[5] > innerHeight) addedIndex = this.props.rowsInView
+    }
+    this.scrollToIndex(scrollIndex + addedIndex, callback)
   }
 
   handleScroll(...args) {

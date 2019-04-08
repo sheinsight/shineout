@@ -20,6 +20,7 @@ const indexFiles = ([
   'form',
   ['input', 'form'],
   'select',
+  'treeSelect',
   'modal',
   'card',
   'datepicker',

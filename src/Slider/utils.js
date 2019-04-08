@@ -13,7 +13,7 @@ export function value2per(value, scale) {
   const min = scale[ps]
   const max = scale[ps + 1]
 
-  return (ps + ((value - min) / (max - min))) / range
+  return (ps + (value - min) / (max - min)) / range
 }
 
 export function per2value(per, scale, step = 1) {
@@ -26,7 +26,7 @@ export function per2value(per, scale, step = 1) {
   const min = scale[ps]
   const max = scale[ps + 1]
   const count = (max - min) / step
-  const sper = (per - (ps / range)) * range
+  const sper = (per - ps / range) * range
 
-  return toPrecision(min + (Math.round(sper * count) * step))
+  return toPrecision(min + Math.round(sper * count) * step)
 }

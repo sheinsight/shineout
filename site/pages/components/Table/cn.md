@@ -28,7 +28,7 @@
 | striped | bool | false | 是否显示交错斑马底纹 |
 | style | object | 无 | 扩展样式 |
 | value | array | 无 | 当前选中值，格式和 onRowSelect 返回值一致 |
-| empty | string | 无数据 | 空数据文案 |
+| empty | string \| ReactElement | 无数据 | 空数据文案 |
 | verticalAlign | string | 'top' | 单元格内容垂直对齐方式，可选值为 \['top', 'middle'\] |
 | rowClickAttr | string \| string[] | \['*'\] | 设置行内元素的attribut来按需触发onRowClick, '*'表示接受行点击触发 |
 

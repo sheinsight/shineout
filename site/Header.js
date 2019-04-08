@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
-import { Button, Dropdown, Input } from 'shineout'
+import { Button, Dropdown } from 'shineout'
 import docsearch from 'docsearch.js'
 import locate, { setItem, STORAGE_KEY } from './locate'
 import theme from './utils/theme'
@@ -58,7 +58,7 @@ const Header = ({ versions }) => {
   const navs = [
     { path: '/', en: 'Home', cn: '首页' },
     { path: '/components', en: 'Components', cn: '组件' },
-    { path: '/documentation', en: '', cn: '文档' },
+    { path: '/documentation', en: '', cn: '杂项' },
   ]
 
   const { pathname } = window.location
@@ -72,9 +72,14 @@ const Header = ({ versions }) => {
       docsearch({
         appId: 'T20UAXDNF8',
         apiKey: '0bd92ae792815ca5cb44b9e0f392fa8c',
-        indexName: `shineout-${locate('cn', 'en')}`,
+        indexName: `shineout`,
         inputSelector: '#algolia-doc-search',
-        // algoliaOptions: { facetFilters: [`version: ${version}`] },
+        algoliaOptions: { facetFilters: [`lang: ${locate('cn', 'en')}`] },
+        transformData(hits) {
+          /* eslint-disable-next-line */
+          hits.map(hit => (hit.url = `${hit.url}#${hit.anchor}`))
+          return hits
+        },
         debug: false, // Set debug to true if you want to inspect the dropdown
       })
     }
@@ -93,10 +98,17 @@ const Header = ({ versions }) => {
         ))}
       </div>
       {searchInput && (
-        <Input.Group size="small" className={headerClass('search')} id="algolia-doc-search" width={250}>
-          <Input placeholder={locate('在 shineout 中搜索', 'Search in shineout')} />
-          <FontAwesome name="search" />
-        </Input.Group>
+        <div className={headerClass('docsearch')}>
+          <label htmlFor="algolia-doc-search">
+            <FontAwesome name="search" className={headerClass('icon')} />
+          </label>
+          <input
+            placeholder={locate('在 shineout 中搜索', 'Search in shineout')}
+            className={headerClass('search')}
+            id="algolia-doc-search"
+            width={220}
+          />
+        </div>
       )}
       <div className={headerClass('right')}>
         <Button size="small" onClick={handleLangClick} style={{ marginRight: 12 }}>

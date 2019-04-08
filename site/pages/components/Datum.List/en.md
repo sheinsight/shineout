@@ -1,4 +1,4 @@
-# Data.List
+# Datum.List
 
  The auxiliary class that process the array values.
  

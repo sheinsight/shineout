@@ -10,8 +10,8 @@ class Image extends PureComponent {
     this.beforeUpload = this.beforeUpload.bind(this)
   }
 
-  beforeUpload(blob) {
-    return new Promise(resolve => {
+  beforeUpload(blob, validatorHandle) {
+    return new Promise((resolve, reject) => {
       const { imageSize } = this.props.validator
       const file = {}
       const reader = new FileReader()
@@ -28,6 +28,7 @@ class Image extends PureComponent {
         image.onload = () => {
           const res = imageSize(image)
           if (res instanceof Error) {
+            if (!validatorHandle(res, blob)) reject()
             file.status = ERROR
             file.message = res.message
           }
