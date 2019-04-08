@@ -16,7 +16,8 @@ export default function(pages) {
     const base = props.match.url
     const indexRoute = pages.find(p => typeof p !== 'string')
 
-    const { search } = props.history.location || ''
+    const { search } = props.history.location || { search: '' }
+
     if (search.indexOf('?example=') === 0) search.replace('?example=', '')
 
     return (

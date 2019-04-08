@@ -6,6 +6,15 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title><%= appName %></title>
   <link rel="icon" href="../images/logo-icon.png" type="image/x-icon">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-137701138-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-137701138-1');
+</script>
 <% styles.forEach(function(link) { -%>
   <link rel="stylesheet" href="<%= link %>" />
 <% }) -%>
