@@ -31,7 +31,7 @@ const cssConfig = config.themes.map(name => ({
   optimization: {
     minimizer: [new OptimizeCSSAssetsPlugin({})],
   },
-  entry: './src/styles/index.js',
+  entry: ['./src/styles/normalize.less', './src/styles/expose.js', './src/styles/index.js', './src/styles/spin.js'],
   devtool: 'source-map',
   output: {
     path: path.join(__dirname, '../publish/dist'),
