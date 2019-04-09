@@ -12,6 +12,11 @@ import Table from '../Table'
 const codeReg = /^<code name="([\w|-]+)" /
 const exampleReg = /^<example name="([\w|-]+)"/
 
+const createId = (level, str) => {
+  if (level === 4) return getUidStr()
+  return (str || '').replace(/[\W|-]/g, '-')
+}
+
 export default function MarkDown({ onHeadingSetted, codes, examples, source }) {
   let [headings] = useState([])
   const [cache] = useState({})
@@ -42,7 +47,7 @@ export default function MarkDown({ onHeadingSetted, codes, examples, source }) {
 
     const text = locate('示例', 'Example')
 
-    const id = `heading-${getUidStr()}`
+    const id = `heading-example-h`
     appendHeading({
       id,
       level: 2,
@@ -91,7 +96,7 @@ export default function MarkDown({ onHeadingSetted, codes, examples, source }) {
     }
 
     if (!cache[key]) {
-      const id = `heading-${getUidStr()}`
+      const id = `heading-${createId(level, children[0])}`
       if (level === 2 || level === 3) {
         appendHeading({ id, level, children })
       }
