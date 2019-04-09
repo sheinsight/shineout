@@ -26,7 +26,7 @@ const columns = [
 function Normal() {
   return (
     <div style={{ height: 300, marginBottom: 40 }}>
-      <Table fixed="both" keygen="id" width={1500} columns={columns} bordered data={data} />
+      <Table rowsInView={0} fixed="both" keygen="id" width={1500} columns={columns} bordered data={data} />
     </div>
   )
 }
