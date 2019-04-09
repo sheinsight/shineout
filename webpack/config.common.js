@@ -43,6 +43,10 @@ module.exports = function getCommon(config) {
       extensions: ['.js', '.json', '.jsx'],
     },
 
+    resolveLoader: {
+      modules: ['node_modules', 'webpack/loaders'],
+    },
+
     module: {
       rules: [
         {
@@ -58,7 +62,7 @@ module.exports = function getCommon(config) {
 
         {
           test: /\.less$/,
-          use: lessLoader,
+          use: config.IGNORE_LESS ? 'ignore-loader' : lessLoader,
         },
 
         {
