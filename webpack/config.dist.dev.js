@@ -32,6 +32,7 @@ const cssConfig = config.themes.map(name => ({
     minimizer: [new OptimizeCSSAssetsPlugin({})],
   },
   entry: './src/styles/index.js',
+  devtool: 'source-map',
   output: {
     path: path.join(__dirname, '../publish/dist'),
     filename: '_temp.file',
@@ -63,7 +64,7 @@ const jsConfig = merge(common({ ...config.webpack, IGNORE_LESS: true }), {
     path: path.join(__dirname, '../publish/dist'),
     libraryTarget: 'umd',
     library: 'Shineout',
-    filename: 'shineout.min.js',
+    filename: 'shineout.js',
   },
   mode: 'development',
 })
