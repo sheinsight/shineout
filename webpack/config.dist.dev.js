@@ -6,6 +6,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
+const TEMP_FILE_NAME = '_temp.file'
 const lessLoader = name => [
   {
     loader: MiniCssExtractPlugin.loader,
@@ -35,7 +36,7 @@ const cssConfig = config.themes.map(name => ({
   devtool: 'source-map',
   output: {
     path: path.join(__dirname, '../publish/dist'),
-    filename: '_temp.file',
+    filename: TEMP_FILE_NAME,
   },
   module: {
     rules: [
@@ -51,7 +52,7 @@ const cssConfig = config.themes.map(name => ({
     }),
     new CleanWebpackPlugin({
       protectWebpackAssets: false,
-      cleanAfterEveryBuildPatterns: ['_temp.file'],
+      cleanAfterEveryBuildPatterns: [TEMP_FILE_NAME],
     }),
   ],
 }))
