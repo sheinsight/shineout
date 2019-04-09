@@ -27,3 +27,4 @@
 | renderItem | string \| function(d) | 必填 | 为 string 时，返回 d\[string]<br />为 function 时，返回函数结果 |
 | renderResult | function(d) | renderItem | 选中后在结果中显示的内容，默认和 renderItem 相同 |
 | value | array \| string \| object | | 在Form中，value会被表单接管，value无效 |
+| compressed | bool | false | 将选中值合并，只在多选模式下有效 |
