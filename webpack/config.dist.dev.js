@@ -2,59 +2,16 @@ const path = require('path')
 const merge = require('webpack-merge')
 const config = require('../config')
 const common = require('./config.common')
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const cssConf = require('./utils/theme.css')
 
-const TEMP_FILE_NAME = '_temp.file'
-const lessLoader = name => [
-  {
-    loader: MiniCssExtractPlugin.loader,
-  },
-  {
-    loader: 'css-loader',
-  },
-  {
-    loader: 'postcss-loader',
-  },
-  {
-    loader: 'less-loader',
-    options: {
-      modifyVars: {
-        'so-prefix': process.env.SO_PREFIX || 'so',
-        'so-theme': name,
-      },
-    },
-  },
-]
-
-const cssConfig = config.themes.map(name => ({
-  optimization: {
-    minimizer: [new OptimizeCSSAssetsPlugin({})],
-  },
-  entry: ['./src/styles/normalize.less', './src/styles/expose.js', './src/styles/index.js', './src/styles/spin.js'],
-  output: {
-    path: path.join(__dirname, '../publish/dist'),
-    filename: TEMP_FILE_NAME,
-  },
-  module: {
-    rules: [
-      {
-        test: /\.less$/,
-        use: lessLoader(name),
-      },
-    ],
-  },
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: `theme.${name}.css`,
-    }),
-    new CleanWebpackPlugin({
-      protectWebpackAssets: false,
-      cleanAfterEveryBuildPatterns: [TEMP_FILE_NAME],
-    }),
-  ],
-}))
+const cssConfig = config.themes.map(name =>
+  cssConf({
+    name,
+    entry: ['./src/styles/normalize.less', './src/styles/expose.js', './src/styles/index.js', './src/styles/spin.js'],
+    output: { path: path.join(__dirname, '../publish/dist') },
+    clean: true,
+  })
+)
 
 const jsConfig = merge(common({ ...config.webpack, IGNORE_LESS: true }), {
   stats: { children: false },

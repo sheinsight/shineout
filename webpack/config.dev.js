@@ -2,8 +2,7 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const config = require('../config')
 const common = require('./config.common')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const cssConf = require('./utils/theme.css')
 
 function getEntry(entry) {
   const newEntry = {}
@@ -23,60 +22,22 @@ function getPublishPath() {
   return `http://localhost:${config.dev.publishPort}/`
 }
 
-const lessLoader = name => [
-  {
-    loader: MiniCssExtractPlugin.loader,
-  },
-  {
-    loader: 'css-loader',
-  },
-  {
-    loader: 'postcss-loader',
-  },
-  {
-    loader: 'less-loader',
-    options: {
-      modifyVars: {
-        'so-prefix': process.env.SO_PREFIX || 'so',
-        'so-theme': name,
-      },
-    },
-  },
-]
-
-const cssConfig = config.themes.map(name => ({
-  optimization: {
-    minimizer: [new OptimizeCSSAssetsPlugin({})],
-  },
-  resolve: {
-    alias: config.webpack.alias,
-  },
-  entry: [
-    './src/styles/normalize.less',
-    './src/styles/expose.js',
-    './src/styles/index.js',
-    './src/styles/spin.js',
-    // site style
-    './site/styles/index.js',
-  ],
-  output: {
-    publicPath: getPublishPath(),
-    filename: '_temp.file',
-  },
-  module: {
-    rules: [
-      {
-        test: /\.less$/,
-        use: lessLoader(name),
-      },
+const cssConfig = config.themes.map(name =>
+  cssConf({
+    name,
+    entry: [
+      './src/styles/normalize.less',
+      './src/styles/expose.js',
+      './src/styles/index.js',
+      './src/styles/spin.js',
+      // site style
+      './site/styles/index.js',
     ],
-  },
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: `${name}.css`,
-    }),
-  ],
-}))
+    output: { publicPath: getPublishPath() },
+    clean: false,
+    prefix: '',
+  })
+)
 
 const jsConfig = merge(common({ ...config.webpack, IGNORE_LESS: true }), {
   devtool: config.webpack.devtool,

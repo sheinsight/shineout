@@ -3,28 +3,37 @@ const merge = require('webpack-merge')
 const config = require('../config')
 const common = require('./config.common')
 const pkg = require('../package.json')
+const cssConf = require('./utils/theme.css')
 
 const dir = pkg.version.substr(0, pkg.version.lastIndexOf('.') + 1)
 
-function getCompiler(name, conf) {
-  const wf = Object.assign({}, conf, {
-    extractTextPluginPath: `${name}.css`,
-    modifyVars: {
-      'so-theme': name,
-    },
-    output: Object.assign({}, conf.output, {
-      path: path.join(__dirname, `../gh-pages/${dir}x`),
-      libraryTarget: 'umd',
-      library: 'ShineoutDoc',
-    }),
-  })
-  return merge(common(wf), {
+const cssConfig = config.themes.map(name =>
+  cssConf({
     name,
-    stats: { children: false },
-    entry: wf.entry,
-    output: wf.output,
-    mode: 'production',
+    entry: [
+      './src/styles/normalize.less',
+      './src/styles/expose.js',
+      './src/styles/index.js',
+      './src/styles/spin.js',
+      // site style
+      './site/styles/index.js',
+    ],
+    output: { path: path.join(__dirname, `../gh-pages/${dir}x`) },
+    clean: true,
+    prefix: '',
   })
-}
+)
 
-module.exports = config.themes.map(name => getCompiler(name, config.webpack))
+const jsConfig = merge(common({ ...config.webpack, IGNORE_LESS: true }), {
+  stats: { children: false },
+  devtool: config.webpack.devtool,
+  entry: config.webpack.entry,
+  output: {
+    path: path.join(__dirname, `../gh-pages/${dir}x`),
+    libraryTarget: 'umd',
+    library: 'ShineoutDoc',
+  },
+  mode: 'production',
+})
+
+module.exports = [jsConfig, ...cssConfig]
