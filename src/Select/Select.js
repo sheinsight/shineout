@@ -335,6 +335,7 @@ class Select extends PureComponent {
       filterText,
       onCreate,
       result,
+      compressed,
     } = this.props
     const className = selectClass(
       'inner',
@@ -373,6 +374,7 @@ class Select extends PureComponent {
           onInputBlur={this.handleInputBlur}
           onInputFocus={this.handleInputFocus}
           setInputReset={this.setInputReset}
+          compressed={compressed}
         />
         {this.renderOptions()}
       </div>
@@ -404,6 +406,7 @@ Select.propTypes = {
   result: PropTypes.array,
   size: PropTypes.string,
   text: PropTypes.object,
+  compressed: PropTypes.bool,
 }
 
 Select.defaultProps = {
@@ -417,6 +420,7 @@ Select.defaultProps = {
   multiple: false,
   renderItem: e => e,
   text: {},
+  compressed: false,
 }
 
 export default Select

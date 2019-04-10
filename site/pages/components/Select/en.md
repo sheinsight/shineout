@@ -27,4 +27,4 @@
 | renderItem | string \| function(d) | required | When it is a string, return d\[string]<br />When it is a function, return the result of the function. |
 | renderResult | function(d) | renderItem | The content displayed in the result after selecting, if not set, use renderItem |
 | value | array \| string \| object | | In the Form, the value will be taken over by the form and the value will be invalid. |
-
+| compressed | bool | false | Merges selected values, valid only in multiselect mode |
