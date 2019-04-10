@@ -2,6 +2,8 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const config = require('../config')
 const common = require('./config.common')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 function getEntry(entry) {
   const newEntry = {}
@@ -21,27 +23,71 @@ function getPublishPath() {
   return `http://localhost:${config.dev.publishPort}/`
 }
 
-function getCompiler(name, conf) {
-  const wf = Object.assign({}, conf, {
-    extractTextPluginPath: `${name}.css`,
-    modifyVars: {
-      'so-theme': name,
+const lessLoader = name => [
+  {
+    loader: MiniCssExtractPlugin.loader,
+  },
+  {
+    loader: 'css-loader',
+  },
+  {
+    loader: 'postcss-loader',
+  },
+  {
+    loader: 'less-loader',
+    options: {
+      modifyVars: {
+        'so-prefix': process.env.SO_PREFIX || 'so',
+        'so-theme': name,
+      },
     },
-  })
-  return merge(common(wf), {
-    name,
-    devtool: wf.devtool,
-    entry: getEntry(wf.entry),
-    output: {
-      filename: '[name].js',
-      publicPath: getPublishPath(),
-      libraryTarget: 'umd',
-    },
+  },
+]
 
-    mode: 'development',
+const cssConfig = config.themes.map(name => ({
+  optimization: {
+    minimizer: [new OptimizeCSSAssetsPlugin({})],
+  },
+  resolve: {
+    alias: config.webpack.alias,
+  },
+  entry: [
+    './src/styles/normalize.less',
+    './src/styles/expose.js',
+    './src/styles/index.js',
+    './src/styles/spin.js',
+    // site style
+    './site/styles/index.js',
+  ],
+  output: {
+    publicPath: getPublishPath(),
+    filename: '_temp.file',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.less$/,
+        use: lessLoader(name),
+      },
+    ],
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: `${name}.css`,
+    }),
+  ],
+}))
 
-    plugins: [new webpack.HotModuleReplacementPlugin()],
-  })
-}
+const jsConfig = merge(common({ ...config.webpack, IGNORE_LESS: true }), {
+  devtool: config.webpack.devtool,
+  entry: getEntry(config.webpack.entry),
+  output: {
+    filename: '[name].js',
+    publicPath: getPublishPath(),
+    libraryTarget: 'umd',
+  },
+  mode: 'development',
+  plugins: [new webpack.HotModuleReplacementPlugin()],
+})
 
-module.exports = config.themes.map(name => getCompiler(name, config.webpack))
+module.exports = [jsConfig, ...cssConfig]
