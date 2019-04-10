@@ -21,6 +21,13 @@ class Table extends PureComponent {
     this.bindTable = this.bindTable.bind(this)
   }
 
+  getRowsInView() {
+    const { rowsInView, data, fixed } = this.props
+    const dataLength = data.length
+    if (rowsInView <= 0 || rowsInView > dataLength || fixed === 'x') return dataLength
+    return rowsInView
+  }
+
   bindTable(el) {
     this.table = el
   }
@@ -65,7 +72,7 @@ class Table extends PureComponent {
       ...others,
       children,
       fixed,
-      rowsInView: fixed === 'x' ? 9999 : others.rowsInView,
+      rowsInView: this.getRowsInView(),
       loading,
       height,
       width,

@@ -144,6 +144,7 @@ class Dropdown extends PureComponent {
         key="button"
       >
         <span className={spanClassName}>{placeholder}</span>
+        <span className={dropdownClass('caret')} />
       </Button>
     )
   }

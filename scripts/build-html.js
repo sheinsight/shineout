@@ -24,9 +24,7 @@ async function buildHtml(lang) {
 }
 
 async function buildRedirect() {
-  const html = await ejs.renderFile(`./site/redirect.html`, {
-    version,
-  })
+  const html = await fs.readFileSync(`./site/redirect.html`)
   fs.writeFileSync(`${dir}/index.html`, html)
 }
 

@@ -24,8 +24,8 @@ const App = () => {
 
   useEffect(() => {
     const lang = filterLang(window.location.href)
+    setLanguage(lang)
     if (getItem(STORAGE_KEY) !== lang) {
-      setLanguage(lang)
       setUpdate('update')
     }
     window.addEventListener('hashchange', () => {
