@@ -23,7 +23,7 @@
 | prediction | function | (val, d) => val===format(d) | By default, the result of the format function is used to compare whether it matches. In some cases (for example, whe an object that returns the original data is updated, an different option with the same value  is generated), the prediction function needs to be used to determine whether match |
 | rowClassName | function(record, index) | - | Specify row className |
 | rowHeight | number | 40 | The expected height of a one-line table is just a rough estimate to show the scroll bar. |
-| rowsInView | number | 20 | The maximum number of rows for a single render. Table uses lazy render to optimize performance under large amounts of data. If your table displays more than 20 rows, you can change the value of rowsInView. |
+| rowsInView | number | 20 | The maximum number of rows for a single render. Table uses lazy render to optimize performance under large amounts of data. If your table displays more than 20 rows, you can change the value of rowsInView. Value of 0 disables lazy loading.|
 | showSelectAll | bool | true | Whether to show being fully selected. |
 | striped | bool | false | Whether to display zebra shading. |
 | style | object | - | Container element style |
