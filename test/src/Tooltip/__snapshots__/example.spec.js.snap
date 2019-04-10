@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test: Tooltip[site/pages/components/Tooltip/example-1-base.js] 1`] = `
+<div>
+  <noscript />
+  <i />
+  <noscript />
+  <i />
+  <noscript />
+  <i />
+  <noscript />
+  <i />
+</div>
+`;
+
+exports[`Snapshot test: Tooltip[site/pages/components/Tooltip/example-2-click.js] 1`] = `
+<div>
+  <noscript />
+  <i />
+  <noscript />
+  <i />
+  <noscript />
+  <i />
+  <noscript />
+  <i />
+</div>
+`;
