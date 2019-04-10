@@ -11,6 +11,12 @@
     outline: none;
   }
 
+  .@{dropdown-prefix}-button span.@{dropdown-prefix}-caret {
+    &:after {
+      vertical-align: middle;
+    }
+  }
+
   &-menu {
     position: absolute;
     z-index: @zindex-dropdown;
@@ -46,7 +52,7 @@
       margin-top: 2px;
     }
 
-    > .@{dropdown-prefix}-button {
+    > .@{dropdown-prefix}-button .@{dropdown-prefix}-caret {
       .caret(down);
     }
   }
@@ -72,7 +78,7 @@
       margin-bottom: 2px;
     }
 
-    > .@{dropdown-prefix}-button {
+    > .@{dropdown-prefix}-button .@{dropdown-prefix}-caret {
       .caret(up);
     }
   }

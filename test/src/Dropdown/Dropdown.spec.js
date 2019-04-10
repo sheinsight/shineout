@@ -39,7 +39,12 @@ describe('Dropdown[Base]', () => {
     expect(dropdownWrapper.childAt(1).hasClass(`${SO_PREFIX}-dropdown-button`)).toBe(true)
     // root btn
     const rootBtnWrapper = dropdownWrapper.find(Button)
-    expect(rootBtnWrapper.find('span').text()).toBe('Dropdown')
+    expect(
+      rootBtnWrapper
+        .find('span')
+        .first()
+        .text()
+    ).toBe('Dropdown')
     // first list
     const listWrapper = dropdownWrapper.find('Hidable').shallow()
     expect(listWrapper.find(Dropdown).length).toBe(1)
