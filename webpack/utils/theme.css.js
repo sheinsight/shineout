@@ -28,8 +28,9 @@ const lessLoader = (name, hot) => {
   return loaders
 }
 
-module.exports = function({ name, hot, entry, output, clean, prefix = 'theme' }) {
+module.exports = function({ name, hot, entry, output, clean, prefix = 'theme', mode = 'production' }) {
   const conf = {
+    mode,
     optimization: {
       minimizer: [new OptimizeCSSAssetsPlugin({})],
     },

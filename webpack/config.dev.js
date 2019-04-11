@@ -24,6 +24,7 @@ function getPublishPath() {
 
 const cssConfig = config.themes.map(name =>
   cssConf({
+    mode: 'development',
     hot: true,
     name,
     entry: [
