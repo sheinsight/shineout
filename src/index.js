@@ -1,9 +1,8 @@
 // Created by scripts/src-index.js.
 import './styles/normalize.less'
-import pack from '../package.json'
 import * as utils from './utils'
 
-export default { utils, version: pack.version }
+export default { utils, version: '1.2.9-rc.7' }
 export { utils }
 export { setLocale } from './locale'
 export { color, style } from './utils/expose'
@@ -36,7 +35,6 @@ export { default as Rate } from './Rate'
 export { default as Rule } from './Rule'
 export { default as Scroll } from './Scroll'
 export { default as Select } from './Select'
-export { default as TreeSelect } from './TreeSelect'
 export { default as Slider } from './Slider'
 export { default as Spin } from './Spin'
 export { default as Sticky } from './Sticky'
@@ -46,4 +44,5 @@ export { default as Tag } from './Tag'
 export { default as Textarea } from './Textarea'
 export { default as Tooltip } from './Tooltip'
 export { default as Tree } from './Tree'
+export { default as TreeSelect } from './TreeSelect'
 export { default as Upload } from './Upload'
