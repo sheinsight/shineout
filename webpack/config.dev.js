@@ -28,6 +28,8 @@ const cssConfig = config.themes.map(name =>
     hot: true,
     name,
     entry: [
+      `webpack-dev-server/client?http://localhost:${config.dev.webpackPort}`,
+      'webpack/hot/only-dev-server',
       './src/styles/normalize.less',
       './src/styles/expose.js',
       './src/styles/index.js',
@@ -37,6 +39,7 @@ const cssConfig = config.themes.map(name =>
     ],
     output: { publicPath: getPublishPath() },
     clean: false,
+    filename: '__css_hot_loader.js',
     prefix: '',
   })
 )

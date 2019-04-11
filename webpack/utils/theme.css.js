@@ -2,6 +2,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const config = require('../../config')
+const webpack = require('webpack')
 
 const lessLoader = (name, hot) => {
   const loaders = [
@@ -28,7 +29,16 @@ const lessLoader = (name, hot) => {
   return loaders
 }
 
-module.exports = function({ name, hot, entry, output, clean, prefix = 'theme', mode = 'production' }) {
+module.exports = function({
+  name,
+  hot,
+  entry,
+  output,
+  clean,
+  prefix = 'theme',
+  mode = 'production',
+  filename = '_temp.file',
+}) {
   const conf = {
     mode,
     optimization: {
@@ -40,7 +50,7 @@ module.exports = function({ name, hot, entry, output, clean, prefix = 'theme', m
     },
     output: {
       ...output,
-      filename: '_temp.file',
+      filename,
     },
     module: {
       rules: [
@@ -63,9 +73,9 @@ module.exports = function({ name, hot, entry, output, clean, prefix = 'theme', m
         cleanStaleWebpackAssets: false,
         protectWebpackAssets: false,
         cleanAfterEveryBuildPatterns: ['_temp.file'],
-      }),
+      })
     )
   }
-
+  if (hot) conf.plugins.push(new webpack.HotModuleReplacementPlugin())
   return conf
 }
