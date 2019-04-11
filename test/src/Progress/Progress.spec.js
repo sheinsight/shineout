@@ -34,7 +34,6 @@ describe('Progress[base]', () => {
         return
       }
       expect(content.instance().childNodes[0].tagName).toBe(children.type.toUpperCase())
-      console.log(content.html())
       expect(content.find(`h2`).html()).toBe('<h2>Test</h2>')
     })
   })
