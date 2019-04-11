@@ -24,6 +24,7 @@ function getPublishPath() {
 
 const cssConfig = config.themes.map(name =>
   cssConf({
+    hot: true,
     name,
     entry: [
       './src/styles/normalize.less',
