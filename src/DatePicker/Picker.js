@@ -24,7 +24,7 @@ class Picker extends PureComponent {
     }
 
     this.state = { mode }
-
+    this.defaultCurrent = utils.newDate()
     this.handleModeChange = this.handleModeChange.bind(this)
   }
 
@@ -36,6 +36,7 @@ class Picker extends PureComponent {
 
   render() {
     const { mode } = this.state
+    const { current } = this.props
 
     let Render
     switch (mode) {
@@ -52,7 +53,7 @@ class Picker extends PureComponent {
         Render = Day
     }
 
-    return <Render {...this.props} onModeChange={this.handleModeChange} />
+    return <Render {...this.props} current={current || this.defaultCurrent} onModeChange={this.handleModeChange} />
   }
 }
 
@@ -65,10 +66,6 @@ Picker.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.object,
   type: PropTypes.string.isRequired,
-}
-
-Picker.defaultProps = {
-  current: utils.newDate(),
 }
 
 export default Picker

@@ -99,7 +99,11 @@ class Day extends PureComponent {
       }
     }
 
-    const classList = [current.getMonth() !== date.getMonth() && 'other-month', isDisabled && 'disabled']
+    const classList = [
+      utils.isSameDay(date, this.today) && 'today',
+      current.getMonth() !== date.getMonth() && 'other-month',
+      isDisabled && 'disabled',
+    ]
 
     let hoverClass
     const hoverProps = {}
@@ -163,6 +167,7 @@ class Day extends PureComponent {
   render() {
     const { current, min, max } = this.props
     const days = this.getDays()
+    this.today = new Date()
 
     return (
       <div className={datepickerClass('day-picker')}>
