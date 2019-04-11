@@ -1,10 +1,14 @@
 import React from 'react'
 import { Button } from 'shineout'
+import history from '../../history'
 import locate from '../../locate'
 import Icon from '../../icons/Icon'
 import { homeClass } from '../../styles'
 
 function Home() {
+  const start = () => {
+    history.push('/components')
+  }
   return (
     <div className={homeClass('_')}>
       <div className={homeClass('left')}>
@@ -12,7 +16,7 @@ function Home() {
           <h2>SHINEOUT</h2>
           <div>{locate('一个更加『轻量』和『快速』的基于React的桌面端组件库', 'A components library for React')}</div>
           <div className={homeClass('buttons')}>
-            <Button type="primary" href="#/components">
+            <Button type="primary" onClick={start}>
               {locate('开始使用', 'Start')}
             </Button>
             <Button style={{ marginLeft: 20 }} href="https://github.com/sheinsight/shineout">

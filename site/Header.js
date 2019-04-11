@@ -88,7 +88,7 @@ const Header = ({ versions }) => {
   return (
     <div className={headerClass('_')}>
       <div className={headerClass('logo')}>
-        <a href="#/">{logo}</a>
+        <a href="/">{logo}</a>
       </div>
       <div className={headerClass('nav')}>
         {navs.map(nav => (

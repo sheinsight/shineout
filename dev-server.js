@@ -94,7 +94,7 @@ router.get('/*.hot-update.js(on)?', async ctx => {
 })
 
 router.get('/*', async ctx => {
-  if (ctx.url === '/') ctx.redirect('/cn')
+  if (ctx.url === '/') ctx.redirect('/cn/')
   const reactVersion = ctx.query.v
   if (reactVersion) {
     ctx.body = await ejs.renderFile('./site/index-v.html', { version: reactVersion })
@@ -106,7 +106,7 @@ router.get('/*', async ctx => {
     ...Object.keys(config.webpack.entry).map(s => prepath.replace('*.*', `${s}.js`)),
   ]
   const styles = config.dev.styles || []
-  ctx.body = await ejs.renderFile(`./site/index.html`, { scripts, appName: config.appName, styles })
+  ctx.body = await ejs.renderFile(`./site/index.html`, { scripts, appName: config.appName, styles, description: '' })
 })
 
 if (config.proxy) config.proxy(router)

@@ -12,10 +12,7 @@ const Documentation = lazy(() => import(/* webpackChunkName: "Documentation" */ 
 
 const oldVersions = ['1.0.x', '1.1.x']
 
-const filterLang = href => {
-  const location = href.split('#')[0]
-  return location.indexOf('en') > -1 ? 'en-US' : 'zh-CN'
-}
+const filterLang = href => (href.indexOf('/en') > -1 ? 'en-US' : 'zh-CN')
 
 const App = () => {
   const [versions, setVersions] = useState([])
@@ -28,12 +25,11 @@ const App = () => {
     if (getItem(STORAGE_KEY) !== lang) {
       setUpdate('update')
     }
-    window.addEventListener('hashchange', () => {
-      const [, path] = window.location.hash.split('#')
 
-      if (lastPath !== path) {
+    const unListen = history.listen(loc => {
+      if (lastPath !== loc.pathname) {
         document.documentElement.scrollTop = 0
-        setLastPath(path)
+        setLastPath(loc.pathname)
       }
     })
 
@@ -48,6 +44,10 @@ const App = () => {
         setVersions(jsonVersions)
       })
       .catch(() => {})
+
+    return () => {
+      unListen()
+    }
   }, [])
 
   return (
