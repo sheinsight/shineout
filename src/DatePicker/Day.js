@@ -167,7 +167,7 @@ class Day extends PureComponent {
   render() {
     const { current, min, max } = this.props
     const days = this.getDays()
-    this.today = new Date()
+    this.today = utils.newDate()
 
     return (
       <div className={datepickerClass('day-picker')}>
