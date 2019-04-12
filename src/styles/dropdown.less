@@ -13,7 +13,7 @@
 
   .@{dropdown-prefix}-button span.@{dropdown-prefix}-caret {
     &:after {
-      vertical-align: middle;
+      vertical-align: @dropdown-arrow-vertical;
     }
   }
 
@@ -188,6 +188,11 @@
 
     &:after {
       margin-left: 0;
+    }
+    .@{dropdown-prefix}-caret {
+      &:after {
+        margin-left: 0;
+      }
     }
   }
 }
