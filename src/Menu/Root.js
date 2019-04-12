@@ -11,9 +11,9 @@ import { Provider } from './context'
 import { isArray } from '../utils/is'
 
 function keyToMap(keys = [], value = true) {
-  const keyMap = {}
+  const keyMap = new Map()
   keys.forEach(v => {
-    keyMap[v] = value
+    keyMap.set(v, value)
   })
   return keyMap
 }
@@ -60,7 +60,7 @@ class Root extends React.Component {
   }
 
   getOpenKeys() {
-    return this.props.openKeys || Object.keys(this.state.openKeys)
+    return this.props.openKeys || Array.from(this.state.openKeys.keys())
   }
 
   bindRootElement(el) {
@@ -123,10 +123,10 @@ class Root extends React.Component {
   toggleOpenKeys(id, open) {
     const newOpenKeys = immer(keyToMap(this.getOpenKeys()), draft => {
       if (open) {
-        draft[id] = true
-      } else delete draft[id]
+        draft.set(id, true)
+      } else draft.delete(id)
     })
-    const keys = Object.keys(newOpenKeys)
+    const keys = newOpenKeys.keys()
     const { onOpenChange = () => {}, openKeys } = this.props
     if (openKeys) {
       onOpenChange(keys)
