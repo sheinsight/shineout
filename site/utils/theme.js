@@ -1,6 +1,6 @@
 let theme = 'default'
 let link
-const pathReg = /(cn\/?)$/
+// const pathReg = /(cn\/?)$/
 
 export const THEMES = ['default', 'antd']
 
@@ -14,12 +14,11 @@ function getParameterByName(name) {
 }
 
 function init(callback) {
-  const linkPath = pathReg.test(window.location.pathname) ? './' : '../'
   theme = getParameterByName('theme') || 'default'
   link = document.createElement('link')
   link.setAttribute('rel', 'stylesheet')
   link.setAttribute('type', 'text/css')
-  link.setAttribute('href', `${linkPath}${theme}.css`)
+  link.setAttribute('href', `../../${theme}.css`)
   link.onload = callback
 
   document.head.appendChild(link)

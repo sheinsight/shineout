@@ -7,7 +7,7 @@ import { homeClass } from '../../styles'
 
 function Home() {
   const start = () => {
-    history.push('/components')
+    history.push('/components/GetStart')
   }
   return (
     <div className={homeClass('_')}>
@@ -49,7 +49,7 @@ function Home() {
       </div>
       <div className={homeClass('right')}>
         <div className={homeClass('img')}>
-          <img src="../images/components.jpg" alt="" />
+          <img src="../../../images/components.jpg" alt="" />
         </div>
       </div>
     </div>

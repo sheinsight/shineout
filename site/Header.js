@@ -56,9 +56,9 @@ const Header = ({ versions }) => {
   const path = ''
 
   const navs = [
-    { path: '/', en: 'Home', cn: '首页' },
-    { path: '/components', en: 'Components', cn: '组件' },
-    { path: '/documentation', en: '', cn: '杂项' },
+    { path: '/index/', en: 'Home', cn: '首页' },
+    { path: '/components/GetStart', en: 'Components', cn: '组件' },
+    { path: '/documentation/Props', en: '', cn: '杂项' },
   ]
 
   const { pathname } = window.location

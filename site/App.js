@@ -33,7 +33,7 @@ const App = () => {
       }
     })
 
-    fetch('../versions.json')
+    fetch('../../../versions.json')
       .then(res => res.json())
       .then(json => {
         const language = locate('cn', 'en')
@@ -58,7 +58,7 @@ const App = () => {
         <div className={mainClass('body')}>
           <Suspense fallback={<Loading />}>
             <Switch>
-              <Route exact path="/" component={Home} />
+              <Route exact path="/index" component={Home} />
               <Route path="/components" component={Components} />
               <Route path="/documentation" component={Documentation} />
             </Switch>
