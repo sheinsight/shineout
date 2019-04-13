@@ -52,8 +52,9 @@ class Tr extends Component {
     const tds = Array.prototype.slice.call(this.element.querySelectorAll('td'))
     const td = tds.find(el => !el.getAttribute('rowspan'))
     const height = td ? parseInt(getComputedStyle(td).height, 10) : this.element.clientHeight
-    if (height === this.lastRowHeight) return
+    if (height === this.lastRowHeight && this.expandHeight === this.lastExpandHeight) return
     this.lastRowHeight = height
+    this.lastExpandHeight = this.expandHeight
     setRowHeight(height + this.expandHeight, this.props.index)
   }
 

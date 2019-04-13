@@ -14,6 +14,18 @@ import Result from './Result'
 import ImageResult from './ImageResult'
 import { Provider } from './context'
 
+const VALIDATORITEMS = [
+  { key: 'size', param: blob => blob.size },
+  {
+    key: 'ext',
+    param: blob => {
+      const exts = blob.name.split('.')
+      return exts[exts.length - 1]
+    },
+  },
+  { key: 'customValidator', param: blob => blob },
+]
+
 class Upload extends PureComponent {
   constructor(props) {
     super(props)
@@ -30,6 +42,7 @@ class Upload extends PureComponent {
     this.removeValue = this.removeValue.bind(this)
     this.recoverValue = this.recoverValue.bind(this)
     this.validatorHandle = this.validatorHandle.bind(this)
+    this.useValidator = this.useValidator.bind(this)
 
     props.validateHook(this.validate.bind(this))
   }
@@ -106,8 +119,25 @@ class Upload extends PureComponent {
     )
   }
 
+  useValidator(blob) {
+    const { validator } = this.props
+    let error = null
+    let i = 0
+
+    while (VALIDATORITEMS[i]) {
+      const item = VALIDATORITEMS[i]
+      if (typeof validator[item.key] === 'function') {
+        error = validator[item.key](item.param(blob))
+        if (error instanceof Error) return error
+      }
+      i += 1
+    }
+
+    return null
+  }
+
   addFile(e) {
-    const { beforeUpload, validator, value, limit } = this.props
+    const { beforeUpload, value, limit } = this.props
     const files = { ...this.state.files }
     const fileList = e.fromDragger && e.files ? e.files : e.target.files
     const addLength = limit - value.length - Object.keys(this.state.files).length
@@ -123,20 +153,7 @@ class Upload extends PureComponent {
       }
 
       files[id] = file
-      let error = null
-
-      if (typeof validator.size === 'function') {
-        error = validator.size(blob.size)
-      }
-
-      if (typeof validator.ext === 'function') {
-        const exts = blob.name.split('.')
-        error = validator.ext(exts[exts.length - 1])
-      }
-
-      if (typeof validator.customValidator === 'function') {
-        error = validator.customValidator(blob)
-      }
+      const error = this.useValidator(blob)
 
       if (error instanceof Error) {
         if (!this.validatorHandle(error, file.blob)) {
