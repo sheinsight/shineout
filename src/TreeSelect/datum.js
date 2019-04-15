@@ -40,6 +40,10 @@ export default function datum(Origin) {
       })
     }
 
+    componentDidUpdate(prevProps) {
+      if (prevProps.data !== this.props.data) this.datum.setData(this.props.data)
+    }
+
     render() {
       const { value } = this.props
       const props = {
