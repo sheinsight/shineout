@@ -15,15 +15,44 @@ a:focus {
     display: flex;
     overflow: hidden;
   }
-
+  &-nav-open-close{
+    z-index: 1000;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    color: #61dafb;
+    font-size: 30px;
+    background: rgb(32, 35, 42);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media (min-width: 979px){
+      display: none;
+    }
+  }
   &-menu {
     overflow: auto;
     width: 20%;
-    min-width: 240px;
     max-width: 360px;
+    min-width: 240px;
     max-height: 100vh;
     padding: 50px 0 100px;
     padding-left: 50px;
+
+    @media (max-width: 979px) and (min-width: 0px){
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      max-width: inherit;
+      background: #fff;
+      z-index: 999;
+    }
 
     label {
       display: block;
@@ -80,6 +109,9 @@ a:focus {
     width: 80%;
     flex: 1;
     padding: 0 60px 50px;
+    @media (max-width: 979px) and (min-width: 0px){
+      padding:50px 20px 0 20px;
+    }
   }
 
   &-foot {

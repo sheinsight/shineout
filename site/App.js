@@ -30,7 +30,6 @@ const App = () => {
     }
     window.addEventListener('hashchange', () => {
       const [, path] = window.location.hash.split('#')
-
       if (lastPath !== path) {
         document.documentElement.scrollTop = 0
         setLastPath(path)

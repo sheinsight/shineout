@@ -18,6 +18,9 @@
     width: 60%;
     margin: 15% 15% 0 25%;
     font-size: 18px;
+    @media (max-width: 979px) and (min-width: 0px){
+      margin :70px auto 0 auto;
+    }
 
     h2 {
       margin-bottom: 30px;
@@ -28,6 +31,11 @@
 
   &-buttons {
     padding-top: 40px;
+    @media (max-width: 979px) and (min-width: 0px){
+      .so-button{
+        margin-bottom: 10px;
+      }
+    }
   }
 
   &-bottom-left {
@@ -37,6 +45,9 @@
     left: 0;
     width: 90%;
     font-size: 0;
+    @media (max-width: 979px) and (min-width: 0px){
+      position: fixed;
+    }
   }
 
   &-right {

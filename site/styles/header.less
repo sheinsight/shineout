@@ -7,6 +7,11 @@
   height: @header-height;
   align-items: center;
   border-bottom: solid 1px rgb(232, 242, 255);
+  @media (max-width: 979px) and (min-width: 0px){
+    position: fixed;
+    z-index: 1;
+    background: #fff;
+  }
 
   &-logo {
     width: 20%;
