@@ -76,11 +76,11 @@ const Header = ({ versions }) => {
         indexName: `shineout`,
         inputSelector: '#algolia-doc-search',
         algoliaOptions: { facetFilters: [`lang: ${locate('cn', 'en')}`] },
-        transformData(hits) {
-          /* eslint-disable-next-line */
-          hits.map(hit => (hit.url = `${hit.url}#${hit.anchor}`))
-          return hits
-        },
+        // transformData(hits) {
+        //   /* eslint-disable-next-line */
+        //   hits.map(hit => (hit.url = `${hit.url}#${hit.anchor}`))
+        //   return hits
+        // },
         debug: false, // Set debug to true if you want to inspect the dropdown
       })
     }
