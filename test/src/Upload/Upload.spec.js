@@ -8,9 +8,7 @@ import UploadButton from '../../../site/pages/components/Upload/example-03-butto
 describe('Upload[Base]', () => {
   let wrapper
   beforeAll(() => {
-    wrapper = mount(
-      <Upload action="http://jsonplaceholder.typicode.com/posts" onSuccess={(...args) => console.log(args)} />
-    )
+    wrapper = mount(<Upload action="//jsonplaceholder.typicode.com/posts" onSuccess={(...args) => console.log(args)} />)
   })
   test('should render file-input', () => {
     expect(wrapper.find('input[type="file"]').length).toBe(1)
@@ -19,7 +17,7 @@ describe('Upload[Base]', () => {
   //   const successFn = () => {
   //     done()
   //   }
-  //   const uploadWrapper = mount(<Upload action="http://jsonplaceholder.typicode.com/posts" onSuccess={successFn} />)
+  //   const uploadWrapper = mount(<Upload action="//jsonplaceholder.typicode.com/posts" onSuccess={successFn} />)
   //   uploadWrapper.find('input').prop('onChange')({
   //     target: {
   //       files: [new Blob(['content'], { type: 'text/plain' })],
@@ -49,7 +47,7 @@ describe('Upload[Validate]', () => {
     const errorInfo = 'File extension must be jpg or png'
     const wrapper = mount(
       <Upload.Image
-        action="http://jsonplaceholder.typicode.com/posts"
+        action="//jsonplaceholder.typicode.com/posts"
         accept="image/*"
         name="file"
         limit={1}
@@ -72,6 +70,33 @@ describe('Upload[Validate]', () => {
   })
 })
 
+describe('Upload[validateHandle false]', () => {
+  test('should no error', () => {
+    const errorInfo = 'File extension must be jpg or png'
+    const wrapper = mount(
+      <Upload
+        action="//jsonplaceholder.typicode.com/posts"
+        name="file"
+        limit={2}
+        validator={{
+          // imageSize: img => ((img.width !== 200 || img.height !== 100) ? new Error('only allow 200px * 100px') : undefined),
+          ext: () => new Error(errorInfo),
+        }}
+        validatorHandle={false}
+      />
+    )
+
+    const blob = new Blob(['content'], { type: 'text/plain' })
+    blob.name = 'test.doc'
+    wrapper.find('input').prop('onChange')({
+      target: {
+        files: [blob],
+      },
+    })
+    wrapper.update()
+    expect(wrapper.find(`.${SO_PREFIX}-upload-error`).length).toBe(0)
+  })
+})
 // describe('Upload[onError]', () => {
 //   test('should call onError while server error', () => {
 //     XMLHttpRequest.prototype.send = function() {

@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 import { Button, Dropdown } from 'shineout'
-import locate, { setLanguage } from './locate'
+import docsearch from 'docsearch.js'
+import locate, { setItem, STORAGE_KEY } from './locate'
 import theme from './utils/theme'
 import logo from './icons/logo'
 import Icon from './icons/Icon'
 import { headerClass } from './styles'
+import FontAwesome from './pages/components/Icon/FontAwesome'
 
 const themes = [
   {
@@ -28,9 +30,20 @@ function getPath(pathname) {
 }
 */
 
+function findLangs() {
+  const prevLang = locate('cn', 'en')
+  const nextLang = locate('en', 'cn')
+  const itemLang = locate('en-US', 'zh-CN')
+
+  return [prevLang, nextLang, itemLang]
+}
+
 function handleLangClick() {
-  const lang = locate('en-US', 'zh-CN')
-  setLanguage(lang)
+  const langs = findLangs()
+  const href = window.location.href.replace(langs[0], langs[1])
+
+  setItem(STORAGE_KEY, langs[2])
+  window.location = href
 }
 
 function handleThemeClick(data) {
@@ -45,12 +58,32 @@ const Header = ({ versions }) => {
   const navs = [
     { path: '/', en: 'Home', cn: '首页' },
     { path: '/components', en: 'Components', cn: '组件' },
-    { path: '/documentation', en: '', cn: '文档' },
+    { path: '/documentation', en: '', cn: '杂项' },
   ]
 
   const { pathname } = window.location
   let version = versions.find(v => pathname.indexOf(v.content) >= 0)
   if (version) version = version.content
+
+  const searchInput = !version || version === (versions[versions.length - 1] || {}).content
+
+  useEffect(() => {
+    if (searchInput) {
+      docsearch({
+        appId: 'T20UAXDNF8',
+        apiKey: '0bd92ae792815ca5cb44b9e0f392fa8c',
+        indexName: `shineout`,
+        inputSelector: '#algolia-doc-search',
+        algoliaOptions: { facetFilters: [`lang: ${locate('cn', 'en')}`] },
+        transformData(hits) {
+          /* eslint-disable-next-line */
+          hits.map(hit => (hit.url = `${hit.url}#${hit.anchor}`))
+          return hits
+        },
+        debug: false, // Set debug to true if you want to inspect the dropdown
+      })
+    }
+  }, [])
 
   return (
     <div className={headerClass('_')}>
@@ -64,6 +97,19 @@ const Header = ({ versions }) => {
           </NavLink>
         ))}
       </div>
+      {searchInput && (
+        <div className={headerClass('docsearch')}>
+          <label htmlFor="algolia-doc-search">
+            <FontAwesome name="search" className={headerClass('icon')} />
+          </label>
+          <input
+            placeholder={locate('在 shineout 中搜索', 'Search in shineout')}
+            className={headerClass('search')}
+            id="algolia-doc-search"
+            width={220}
+          />
+        </div>
+      )}
       <div className={headerClass('right')}>
         <Button size="small" onClick={handleLangClick} style={{ marginRight: 12 }}>
           {locate('English', '中文')}

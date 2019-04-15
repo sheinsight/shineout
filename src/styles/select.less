@@ -67,6 +67,16 @@
       color: inherit;
       text-overflow: ellipsis;
 
+      &.@{select-prefix}-compressed {
+        padding: 0 8px;
+        font-size: 80%;
+        opacity: .9;
+        > span {
+          vertical-align: middle;
+          letter-spacing: 2px;
+        }
+      }
+
       &.@{select-prefix}-disabled {
         padding-right: @select-result-space;
         cursor: not-allowed;
@@ -137,6 +147,45 @@
     background: @dropdown-bg;
     background-clip: padding-box;
     border-radius: @border-radius-base;
+  }
+
+  &-tree {
+    width: auto;
+    min-width: 100%;
+    .@{select-prefix}-tree-wrapper {
+      padding: 8px 8px 4px 8px;
+
+      .@{so-prefix}-tree-node {
+        &:last-child > div {
+          padding-bottom: 4px;
+        }
+      }
+      .@{so-prefix}-tree-content {
+        color: @input-color;
+        white-space: nowrap;
+        cursor: default;
+
+        .@{select-prefix}-tree-node {
+          display: block;
+          padding: 0 4px;
+          border-radius: 2px;
+
+          &:hover {
+            background-color: fade(@colors-primary, 10%);
+          }
+
+          &.@{select-prefix}-selected {
+            background-color: fade(@colors-primary, 60%);
+            color: white;
+          }
+          &.@{select-prefix}-disabled {
+            padding-right: @select-result-space;
+            cursor: not-allowed;
+            background: @input-bg-disabled;
+          }
+        }
+      }
+    }
   }
 
   &-box-list {

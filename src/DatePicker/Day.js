@@ -99,7 +99,11 @@ class Day extends PureComponent {
       }
     }
 
-    const classList = [current.getMonth() !== date.getMonth() && 'other-month', isDisabled && 'disabled']
+    const classList = [
+      utils.isSameDay(date, this.today) && 'today',
+      current.getMonth() !== date.getMonth() && 'other-month',
+      isDisabled && 'disabled',
+    ]
 
     let hoverClass
     const hoverProps = {}
@@ -141,15 +145,20 @@ class Day extends PureComponent {
     if (!showTimePicker) return undefined
 
     let { format } = this.props
-    const match = format.match(/[H|h].*/)
-    // eslint-disable-next-line
-    if (match) format = match[0]
+    if (/^[T|t]$/.test(format)) {
+      format = 'HH:mm:ss'
+    } else {
+      const match = format.match(/[H|h].*/)
+      // eslint-disable-next-line
+      if (match) format = match[0]
+    }
+
     const value = rangeDate ? utils.toDateWithFormat(rangeDate[index], format) : this.props.value
     if (!value) return undefined
 
     return (
       <div className={datepickerClass('datetime')}>
-        <Time {...this.props} value={value} onChange={this.handleTimeChange} />
+        <Time {...this.props} format={format} value={value} onChange={this.handleTimeChange} />
         <span>{utils.format(value, format)}</span>
       </div>
     )
@@ -158,6 +167,7 @@ class Day extends PureComponent {
   render() {
     const { current, min, max } = this.props
     const days = this.getDays()
+    this.today = utils.newDate()
 
     return (
       <div className={datepickerClass('day-picker')}>

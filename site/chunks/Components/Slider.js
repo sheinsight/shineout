@@ -103,6 +103,15 @@ const examples = [
     component: require('doc/pages/components/Slider/example-10-vertical.js').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-10-vertical.js'),
   },
+  {
+    name: '11-increase',
+    title: locate(
+      '增长 \n 允许拖动到最右边的时候进行增长',
+      'onIncrease \n can increase the maximum infinitely while dragging'
+    ),
+    component: require('doc/pages/components/Slider/example-11-increase.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Slider/example-11-increase.js'),
+  },
 ]
 
 const codes = undefined

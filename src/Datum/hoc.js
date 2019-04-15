@@ -12,9 +12,7 @@ const types = {
 }
 
 export default curry((options, Origin) => {
-  const {
-    type = 'list', key = 'value', limit = 0, bindProps = [], ignoreUndefined,
-  } = options || {}
+  const { type = 'list', key = 'value', limit = 0, bindProps = [], ignoreUndefined } = options || {}
   const Datum = types[type]
 
   return class extends PureComponent {
@@ -38,10 +36,13 @@ export default curry((options, Origin) => {
       if (datum instanceof Datum) {
         this.datum = datum
       } else {
-        const ops = bindProps.reduce((o, k) => {
-          o[k] = props[k]
-          return o
-        }, { value, limit, initValidate })
+        const ops = bindProps.reduce(
+          (o, k) => {
+            o[k] = props[k]
+            return o
+          },
+          { value, limit, initValidate }
+        )
         this.datum = new Datum(Object.assign(ops, datum))
       }
 
@@ -55,6 +56,11 @@ export default curry((options, Origin) => {
     }
 
     componentDidUpdate() {
+      // update datum.onchange
+      if (this.props.onChange !== this.datum.onChange) {
+        this.datum.onChange = this.props.onChange
+      }
+
       const values = this.props[key]
       if (!shallowEqual(values, this.prevValues)) {
         this.setValue(this.props.initValidate ? undefined : IGNORE_VALIDATE)
@@ -78,12 +84,7 @@ export default curry((options, Origin) => {
       if (type === 'list') this.setValue(WITH_OUT_DISPATCH)
       // delete props[key]
 
-      return (
-        <Origin
-          {...props}
-          datum={this.datum}
-        />
-      )
+      return <Origin {...props} datum={this.datum} />
     }
   }
 })

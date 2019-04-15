@@ -207,10 +207,10 @@ class Container extends PureComponent {
   }
 
   renderText(value, placeholder, key) {
-    const { inputable } = this.props
+    const { inputable, formatResult } = this.props
     const date = this.parseDate(value)
     const className = classnames(datepickerClass('txt'), utils.isInvalid(date) && inputClass('placeholder'))
-
+    const resultFormat = formatResult || this.getFormat()
     return (
       <Text
         key={key}
@@ -221,7 +221,7 @@ class Container extends PureComponent {
         inputable={inputable}
         placeholder={placeholder}
         onChange={this.handleTextChange}
-        value={utils.isInvalid(date) ? undefined : utils.format(date, this.getFormat())}
+        value={utils.isInvalid(date) ? undefined : utils.format(date, resultFormat)}
       />
     )
   }
@@ -315,6 +315,7 @@ Container.propTypes = {
   clearable: PropTypes.bool,
   disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   format: PropTypes.string,
+  formatResult: PropTypes.string,
   inputable: PropTypes.bool,
   placeholder: PropTypes.any,
   onBlur: PropTypes.func.isRequired,

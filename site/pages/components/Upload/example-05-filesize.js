@@ -12,7 +12,7 @@ export default function() {
   return (
     <div>
       <Upload
-        action="http://jsonplaceholder.typicode.com/posts"
+        action="//jsonplaceholder.typicode.com/posts"
         accept="image/*"
         multiple
         name="file"
@@ -21,6 +21,10 @@ export default function() {
         validator={{
           size: s => (s > 10240 ? new Error('max file size is 10KB') : undefined),
         }}
+        validatorHandle={(error, file) => {
+          console.log(error, file)
+          return true
+        }}
       >
         <Button>
           <FontAwesome name="upload" /> Upload file
@@ -28,7 +32,7 @@ export default function() {
       </Upload>
 
       <Upload.Image
-        action="http://jsonplaceholder.typicode.com/posts"
+        action="//jsonplaceholder.typicode.com/posts"
         accept="image/*"
         multiple
         name="file"

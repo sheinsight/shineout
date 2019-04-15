@@ -21,6 +21,13 @@ class Table extends PureComponent {
     this.bindTable = this.bindTable.bind(this)
   }
 
+  getRowsInView() {
+    const { rowsInView, data, fixed } = this.props
+    const dataLength = data.length
+    if (rowsInView <= 0 || rowsInView > dataLength || fixed === 'x') return dataLength
+    return rowsInView
+  }
+
   bindTable(el) {
     this.table = el
   }
@@ -65,20 +72,22 @@ class Table extends PureComponent {
       ...others,
       children,
       fixed,
-      rowsInView: fixed === 'x' ? 9999 : others.rowsInView,
+      rowsInView: this.getRowsInView(),
       loading,
       height,
       width,
       data,
       columns,
-      scrollLeft,
       striped,
+      bordered,
     }
 
     const isEmpty = (!data || data.length === 0) && !children
-    const RenderTable = fixed && !isEmpty ? SeperateTable : SimpleTable
+    const useSeparate = fixed && !isEmpty
+    const RenderTable = useSeparate ? SeperateTable : SimpleTable
     const newStyle = Object.assign({}, style)
     if (height) newStyle.height = height
+    if (useSeparate && !newStyle.height) newStyle.height = '100%'
     if (loading) newStyle.overflow = 'hidden'
 
     return (

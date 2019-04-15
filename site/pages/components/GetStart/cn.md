@@ -97,7 +97,7 @@ plugins: [
 {
   loader: 'css-loader',
   options: {
-    module: true,
+    modules: true,
     localIdentName: '[local]--[hash:base64:5]'
   }
 }

@@ -7,6 +7,7 @@ import { selectClass } from '../styles'
 import Result from './Result'
 import { getLocale } from '../locale'
 import OptionList from './OptionList'
+import OptionTree from './OptionTree'
 import absoluteList from './AbsoluteList'
 import BoxList from './BoxList'
 import { isObject } from '../utils/is'
@@ -18,6 +19,8 @@ const ListSet = {
   no: OptionList,
   nb: BoxList,
 }
+
+const AbsoluteOptionTree = absoluteList(OptionTree)
 
 const isDescendent = (el, id) => {
   if (el.getAttribute('data-id') === id) return true
@@ -126,7 +129,7 @@ class Select extends PureComponent {
       this.renderPending = false
       onFocus()
     } else {
-      this.optionList.handleHover(undefined)
+      if (this.optionList.handleHover) this.optionList.handleHover(undefined)
       this.clearClickAway()
       onBlur()
     }
@@ -168,7 +171,7 @@ class Select extends PureComponent {
   handleInputFocus() {
     this.inputLocked = true
     if (this.props.inputable && this.state.control === 'keyboard') {
-      this.optionList.handleHover(0, true)
+      if (this.optionList.handleHover) this.optionList.handleHover(0, true)
     }
   }
 
@@ -197,7 +200,7 @@ class Select extends PureComponent {
   }
 
   handleEnter() {
-    const hoverIndex = this.optionList.getIndex()
+    const hoverIndex = this.optionList.getIndex && this.optionList.getIndex()
     const data = this.props.data[hoverIndex]
     if (data) {
       const checked = !this.props.datum.check(data)
@@ -211,11 +214,11 @@ class Select extends PureComponent {
 
     switch (e.keyCode) {
       case 38:
-        this.optionList.hoverMove(-1)
+        if (this.optionList.hoverMove) this.optionList.hoverMove(-1)
         e.preventDefault()
         break
       case 40:
-        this.optionList.hoverMove(1)
+        if (this.optionList.hoverMove) this.optionList.hoverMove(1)
         e.preventDefault()
         break
       case 13:
@@ -237,7 +240,40 @@ class Select extends PureComponent {
     return typeof renderItem === 'function' ? renderItem(data, index) : data[renderItem]
   }
 
-  renderOptions() {
+  renderTree() {
+    const { focus, position } = this.state
+    const { absolute } = this.props
+    const List = absolute ? AbsoluteOptionTree : OptionTree
+    const props = {}
+    ;[
+      'treeData',
+      'expanded',
+      'datum',
+      'keygen',
+      'multiple',
+      'text',
+      'height',
+      'loading',
+      'onFilter',
+      'filterText',
+    ].forEach(k => {
+      props[k] = this.props[k]
+    })
+    props.renderItem = this.renderItem
+    return (
+      <List
+        onChange={this.handleChange}
+        parentElement={this.element}
+        position={position}
+        selectId={this.selectId}
+        focus={focus}
+        renderPending={this.renderPending}
+        {...props}
+      />
+    )
+  }
+
+  renderList() {
     const { focus, control, position } = this.state
 
     const props = {}
@@ -281,6 +317,12 @@ class Select extends PureComponent {
     )
   }
 
+  renderOptions() {
+    const { treeData } = this.props
+    if (treeData) return this.renderTree()
+    return this.renderList()
+  }
+
   render() {
     const {
       placeholder,
@@ -293,6 +335,7 @@ class Select extends PureComponent {
       filterText,
       onCreate,
       result,
+      compressed,
     } = this.props
     const className = selectClass(
       'inner',
@@ -331,6 +374,7 @@ class Select extends PureComponent {
           onInputBlur={this.handleInputBlur}
           onInputFocus={this.handleInputFocus}
           setInputReset={this.setInputReset}
+          compressed={compressed}
         />
         {this.renderOptions()}
       </div>
@@ -344,6 +388,7 @@ Select.propTypes = {
   clearable: PropTypes.bool,
   columns: PropTypes.number,
   data: PropTypes.array,
+  treeData: PropTypes.array,
   datum: PropTypes.object.isRequired,
   disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   filterText: PropTypes.string,
@@ -361,6 +406,7 @@ Select.propTypes = {
   result: PropTypes.array,
   size: PropTypes.string,
   text: PropTypes.object,
+  compressed: PropTypes.bool,
 }
 
 Select.defaultProps = {
@@ -374,6 +420,7 @@ Select.defaultProps = {
   multiple: false,
   renderItem: e => e,
   text: {},
+  compressed: false,
 }
 
 export default Select

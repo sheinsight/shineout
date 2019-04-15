@@ -11,7 +11,7 @@ import FontAwesome from '../Icon/FontAwesome'
 export default function() {
   return (
     <Upload.Image
-      action="http://jsonplaceholder.typicode.com/posts"
+      action="//jsonplaceholder.typicode.com/posts"
       accept="image/*"
       name="file"
       onSuccess={(res, file, data) => ({ data })}
@@ -20,7 +20,7 @@ export default function() {
       limit={1}
       renderResult={f => f.data}
       validator={{
-        // imageSize: img => ((img.width !== 200 || img.height !== 100) ? new Error('only allow 200px * 100px') : undefined),
+        imageSize: img => (img.width !== 200 || img.height !== 100 ? new Error('only allow 200px * 100px') : undefined),
         ext: ext => (['jpg', 'png'].includes(ext) ? undefined : new Error('File extension must be jpg or png')),
       }}
     >

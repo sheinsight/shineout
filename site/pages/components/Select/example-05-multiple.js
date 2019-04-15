@@ -30,17 +30,30 @@ export default class extends Component {
 
   render() {
     return (
-      <Select
-        style={{ width: 300 }}
-        data={data}
-        keygen="id"
-        multiple
-        placeholder="Multiple select"
-        onChange={this.handleChange}
-        value={this.state.value}
-        renderItem="id"
-        format="id"
-      />
+      <div>
+        <Select
+          style={{ width: 300, marginBottom: 15 }}
+          data={data}
+          keygen="id"
+          multiple
+          placeholder="Multiple select"
+          onChange={this.handleChange}
+          value={this.state.value}
+          renderItem="id"
+          format="id"
+        />
+        <br />
+        <Select
+          compressed
+          style={{ width: 300 }}
+          data={data}
+          keygen="id"
+          multiple
+          placeholder="Multiple select Compressed"
+          renderItem="id"
+          format="id"
+        />
+      </div>
     )
   }
 }

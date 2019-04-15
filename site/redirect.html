@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shineout</title>
+  <script>
+    var __storage = '17tee190yt8gs'
+    function __getLanguage() {
+       if (localStorage && localStorage.getItem) return localStorage.getItem(__storage)
+       return window.navigator.language || window.navigator.userLanguage
+    }
+    window.location.href = (__getLanguage() === 'zh-CN' ? 'cn' : 'en') + '#/'
+  </script>
+</head>
+<body>
+</body>
+</html>

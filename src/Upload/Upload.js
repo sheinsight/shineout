@@ -12,6 +12,19 @@ import File from './File'
 import ImageFile from './ImageFile'
 import Result from './Result'
 import ImageResult from './ImageResult'
+import { Provider } from './context'
+
+const VALIDATORITEMS = [
+  { key: 'size', param: blob => blob.size },
+  {
+    key: 'ext',
+    param: blob => {
+      const exts = blob.name.split('.')
+      return exts[exts.length - 1]
+    },
+  },
+  { key: 'customValidator', param: blob => blob },
+]
 
 class Upload extends PureComponent {
   constructor(props) {
@@ -28,6 +41,8 @@ class Upload extends PureComponent {
     this.removeFile = this.removeFile.bind(this)
     this.removeValue = this.removeValue.bind(this)
     this.recoverValue = this.recoverValue.bind(this)
+    this.validatorHandle = this.validatorHandle.bind(this)
+    this.useValidator = this.useValidator.bind(this)
 
     props.validateHook(this.validate.bind(this))
   }
@@ -37,6 +52,14 @@ class Upload extends PureComponent {
     if (typeof action === 'string') return action
     if (typeof action === 'function') return action(file)
     return ''
+  }
+
+  validatorHandle(error, file) {
+    const { validatorHandle: vth } = this.props
+
+    if (typeof vth === 'function') return vth(error, file)
+
+    return vth
   }
 
   bindElement(input) {
@@ -96,13 +119,31 @@ class Upload extends PureComponent {
     )
   }
 
-  addFile(e) {
-    const input = e.target
-    const { beforeUpload, validator } = this.props
-    const files = { ...this.state.files }
+  useValidator(blob) {
+    const { validator } = this.props
+    let error = null
+    let i = 0
 
-    Array.from({ length: input.files.length }).forEach((_, i) => {
-      const blob = input.files[i]
+    while (VALIDATORITEMS[i]) {
+      const item = VALIDATORITEMS[i]
+      if (typeof validator[item.key] === 'function') {
+        error = validator[item.key](item.param(blob))
+        if (error instanceof Error) return error
+      }
+      i += 1
+    }
+
+    return null
+  }
+
+  addFile(e) {
+    const { beforeUpload, value, limit } = this.props
+    const files = { ...this.state.files }
+    const fileList = e.fromDragger && e.files ? e.files : e.target.files
+    const addLength = limit - value.length - Object.keys(this.state.files).length
+    if (addLength <= 0) return
+    Array.from({ length: Math.min(fileList.length, addLength) }).forEach((_, i) => {
+      const blob = fileList[i]
       const id = getUidStr()
       const file = {
         name: blob.name,
@@ -112,43 +153,49 @@ class Upload extends PureComponent {
       }
 
       files[id] = file
-      let error = null
-
-      if (typeof validator.size === 'function') {
-        error = validator.size(blob.size)
-      }
-
-      if (typeof validator.ext === 'function') {
-        const exts = blob.name.split('.')
-        error = validator.ext(exts[exts.length - 1])
-      }
+      const error = this.useValidator(blob)
 
       if (error instanceof Error) {
+        if (!this.validatorHandle(error, file.blob)) {
+          delete files[id]
+          return
+        }
+
         file.message = error.message
         file.status = ERROR
 
         if (beforeUpload) {
-          beforeUpload(blob).then(args => {
-            this.setState(
-              immer(draft => {
-                draft.files[id] = Object.assign({}, draft.files[id], args)
-              })
-            )
-          })
+          beforeUpload(blob, this.validatorHandle)
+            .then(args => {
+              this.setState(
+                immer(draft => {
+                  draft.files[id] = Object.assign({}, draft.files[id], args)
+                })
+              )
+            })
+            .catch(() => true)
         }
 
         return
       }
 
       if (beforeUpload) {
-        beforeUpload(blob).then(args => {
-          if (args.status !== ERROR) files[id].xhr = this.uploadFile(id, blob, args.data)
-          this.setState(
-            immer(draft => {
-              draft.files[id] = Object.assign({}, draft.files[id], args)
-            })
-          )
-        })
+        beforeUpload(blob, this.validatorHandle)
+          .then(args => {
+            if (args.status !== ERROR) files[id].xhr = this.uploadFile(id, blob, args.data)
+            this.setState(
+              immer(draft => {
+                draft.files[id] = Object.assign({}, draft.files[id], args)
+              })
+            )
+          })
+          .catch(() => {
+            this.setState(
+              immer(draft => {
+                delete draft.files[id]
+              })
+            )
+          })
       } else {
         files[id].xhr = this.uploadFile(id, blob)
       }
@@ -217,7 +264,7 @@ class Upload extends PureComponent {
 
         let value = xhr.responseText || xhr.response
         if (onSuccess) {
-          value = onSuccess(value, file, data)
+          value = onSuccess(value, file, data, xhr)
         }
 
         if (value instanceof Error) {
@@ -270,9 +317,14 @@ class Upload extends PureComponent {
     const count = value.length + Object.keys(this.state.files).length
     if (limit > 0 && limit <= count) return null
 
+    const dragProps = {
+      multiple,
+      addFile: this.addFile,
+      accept,
+    }
     return (
       <span className={uploadClass('handle')} onClick={this.handleAddClick}>
-        {children}
+        <Provider value={dragProps}>{children}</Provider>
         <FileInput accept={accept} ref={this.bindElement} multiple={multiple} onChange={this.addFile} />
       </span>
     )
@@ -373,6 +425,7 @@ Upload.propTypes = {
   withCredentials: PropTypes.bool,
   onStart: PropTypes.func,
   showUploadList: PropTypes.bool,
+  validatorHandle: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 }
 
 Upload.defaultProps = {
@@ -383,6 +436,7 @@ Upload.defaultProps = {
   value: [],
   withCredentials: false,
   showUploadList: true,
+  validatorHandle: true,
 }
 
 export default Upload

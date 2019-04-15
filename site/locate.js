@@ -1,6 +1,6 @@
 import { setLocale } from 'shineout'
 
-const STORAGE_KEY = '17tee190yt8gs'
+export const STORAGE_KEY = '17tee190yt8gs'
 const storage = window.localStorage || null
 
 let language
@@ -13,15 +13,24 @@ if (!language) {
   language = 'zh-CN'
 }
 
-setLocale(language)
+// setLocale(language)
+
+export function getItem(key) {
+  if (storage) return storage.getItem(key)
+  return key
+}
+
+export function setItem(key, v) {
+  if (storage) return storage.setItem(key, v)
+  return v
+}
 
 export function setLanguage(lang) {
   language = lang
   if (storage) {
     storage.setItem(STORAGE_KEY, lang)
+    setLocale(language)
   }
-
-  window.location.reload()
 }
 
 export function getLanguage() {

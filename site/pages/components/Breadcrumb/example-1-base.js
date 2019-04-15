@@ -9,7 +9,7 @@ import React from 'react'
 import { Breadcrumb, Message } from 'shineout'
 
 const data = [
-  { title: 'Home', url: '#/' },
+  [{ title: 'Home', url: '#/' }, { title: 'aaa', url: '#/' }, { title: 'bbb', url: '#/' }],
   { title: <a href="#/components/Button">Button</a> },
   { title: 'Self', onClick: () => Message.show('Clicked self') },
 ]

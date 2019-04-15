@@ -53,10 +53,11 @@ class Thead extends PureComponent {
     const { sorter, onSortChange, data, datum, showSelectAll, disabled } = this.props
 
     const align = col.align && `align-${col.align}`
+    const ignoreBorderRight = this.rightBorderRecord[col.key] && 'ignore-right-border'
     if (col.title) {
       trs[level].push(
         <th
-          className={tableClass(level > 0 && 'condensed', align, ...fixed)}
+          className={tableClass(level > 0 && 'condensed', align, ignoreBorderRight, ...fixed)}
           rowSpan={this.columnLevel - level + 1}
           key={col.key}
         >
@@ -80,7 +81,12 @@ class Thead extends PureComponent {
 
     const style = typeof col.name === 'string' ? undefined : { padding: 0 }
     trs[level].push(
-      <th className={tableClass('center', 'condensed', ...fixed)} colSpan={col.colSpan} key={col.key} style={style}>
+      <th
+        className={tableClass('center', 'condensed', ignoreBorderRight, ...fixed)}
+        colSpan={col.colSpan}
+        key={col.key}
+        style={style}
+      >
         {col.name}
       </th>
     )
@@ -90,6 +96,11 @@ class Thead extends PureComponent {
     }
   }
 
+  ignoreRightBorder(column) {
+    this.rightBorderRecord[column.key] = true
+    if (column.columns) this.ignoreRightBorder(column.columns[column.columns.length - 1])
+  }
+
   formatColumns() {
     this.columnLevel = 0
     const columns = []
@@ -97,6 +108,10 @@ class Thead extends PureComponent {
       this.setColumns(columns, col, 0)
     })
 
+    this.rightBorderRecord = {}
+    if (this.props.bordered) {
+      this.ignoreRightBorder(columns[columns.length - 1])
+    }
     return columns
   }
 
@@ -133,6 +148,7 @@ Thead.propTypes = {
   onSortChange: PropTypes.func,
   sorter: PropTypes.object,
   showSelectAll: PropTypes.bool,
+  bordered: PropTypes.bool,
 }
 
 Thead.defaultProps = {

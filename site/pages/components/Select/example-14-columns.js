@@ -37,6 +37,7 @@ export default function() {
         placeholder="Select citys"
         renderItem="city"
         onFilter={text => d => d.city.toLowerCase().indexOf(text.toLowerCase()) >= 0}
+        absolute
       />
     </div>
   )

@@ -187,10 +187,35 @@
   }
 
   &-bordered {
+    position: relative;
     border-left: 1px solid @table-border-color;
+    &:after {
+      z-index: 99;
+      position: absolute;
+      content: '';
+      top: 0;
+      bottom: 0;
+      right: 0;
+      display: inline-block;
+      width: 1px;
+      background: @table-border-color;
+    }
+    &:before {
+      z-index: 99;
+      position: absolute;
+      content: '';
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: inline-block;
+      height: 1px;
+      background: @table-border-color;
+    }
 
     &.@{table-prefix}-fixed {
-      border-right: 1px solid @table-border-color;
+      .@{table-prefix}-ignore-right-border {
+        border-right: none;
+      }
     }
 
     .@{table-prefix}-head {
@@ -230,7 +255,7 @@
         bottom: -1px;
       }
     }
-    
+
     .@{table-prefix}-fixed-right,
     .@{table-prefix}-fixed-left {
       border-right: 0;
@@ -400,12 +425,13 @@
   &-bordered &-empty {
     border-right: 1px solid @table-border-color;
     border-bottom: 1px solid @table-border-color;
-    border-left: 1px solid @table-border-color;
   }
 
   &-fixed &-empty {
     border-right-width: 0;
   }
+
+  &-expand-indicator {}
 
   th&-align-center, td&-align-center {
     text-align: center;

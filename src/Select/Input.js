@@ -1,7 +1,13 @@
 import React, { Component, isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
-import { focusElement } from '../utils/dom/element'
 import { selectClass } from '../styles'
+import { focusElement } from '../utils/dom/element'
+
+const focusSelectAll = element => {
+  requestAnimationFrame(() => {
+    focusElement.select(element)
+  })
+}
 
 class FilterInput extends Component {
   constructor(props) {
@@ -39,7 +45,7 @@ class FilterInput extends Component {
   }
 
   focus() {
-    focusElement(this.editElement)
+    focusSelectAll(this.editElement)
   }
 
   bindElement(el) {

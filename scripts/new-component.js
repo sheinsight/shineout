@@ -7,7 +7,10 @@ const srcPath = path.resolve(__dirname, '../src')
 function createSrc(name) {
   const componentName = name
   const className = `${name.replace(/^\S/, s => s.toLowerCase())}Class`
-  const dashName = name.replace(/^\S/, s => s.toLowerCase()).replace(/([A-Z])/g, '-$1').toLowerCase()
+  const dashName = name
+    .replace(/^\S/, s => s.toLowerCase())
+    .replace(/([A-Z])/g, '-$1')
+    .toLowerCase()
 
   const indexText = `import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
@@ -55,7 +58,7 @@ export default ${componentName}`
   console.log(`append ${className} to file src/styles/index.js`)
   fs.appendFileSync(
     path.resolve(srcPath, 'styles/index.js'),
-    `export const ${className} = genaration(require('./${dashName}.less'), '${dashName}')\n`,
+    `export const ${className} = genaration(require('./${dashName}.less'), '${dashName}')\n`
   )
 }
 
@@ -89,15 +92,20 @@ export default function () {
 
 function remove(name) {
   const className = `${name.replace(/^\S/, s => s.toLowerCase())}Class`
-  const dashName = name.replace(/^\S/, s => s.toLowerCase()).replace(/([A-Z])/g, '-$1').toLowerCase()
+  const dashName = name
+    .replace(/^\S/, s => s.toLowerCase())
+    .replace(/([A-Z])/g, '-$1')
+    .toLowerCase()
 
   rimraf.sync(path.resolve(srcPath, name))
   rimraf.sync(path.resolve(srcPath, 'styles', `${dashName}.less`))
   rimraf.sync(path.resolve(__dirname, '../site/pages/components', name))
   rimraf.sync(path.resolve(__dirname, '../site/chunks/Components', `${name}.js`))
 
-  const styleText = fs.readFileSync(path.resolve(srcPath, 'styles/index.js'))
-    .toString().split('\n')
+  const styleText = fs
+    .readFileSync(path.resolve(srcPath, 'styles/index.js'))
+    .toString()
+    .split('\n')
     .filter(l => l.indexOf(` ${className} `) < 0)
     .join('\n')
 

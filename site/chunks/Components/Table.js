@@ -52,8 +52,8 @@ const examples = [
   {
     name: '06-fixed-header',
     title: locate(
-      '固定表头 \n 设置 fixed 属性为 \'both\' 或 \'y\'，可以固定表头，需要设置整个表格的高度',
-      'Fixed head \n Set the fixed property to \'both\' or \'y\' can fix the table header. You need to set the height of the entire table.'
+      '固定表头 \n 设置 fixed 属性为 \'both\' 或 \'y\'，可以固定表头，表格高度默认填充父元素',
+      'Fixed head \n Set the fixed property to \'both\' or \'y\' can fix the table header. The table height defaults to full the parent element.'
     ),
     component: require('doc/pages/components/Table/example-06-fixed-header.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-06-fixed-header.js'),
