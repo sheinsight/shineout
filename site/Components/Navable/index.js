@@ -29,6 +29,8 @@ export default function(Component) {
     const [headings] = useState([])
     const { hash } = prop.location
 
+    console.log(headings)
+
     const setHeading = useCallback(hs => {
       hs.forEach(h => {
         headings.push(h)
@@ -79,7 +81,7 @@ export default function(Component) {
     return (
       <div className={navClass('_')}>
         <Component onHeadingSetted={setHeading} />
-        {renderNav()}
+        {prop.noNav && renderNav()}
       </div>
     )
   }

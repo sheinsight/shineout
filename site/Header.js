@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 import { Button, Dropdown } from 'shineout'
 import docsearch from 'docsearch.js'
+import { Link } from 'react-router-dom'
 import locate, { setItem, STORAGE_KEY } from './locate'
 import theme from './utils/theme'
 import logo from './icons/logo'
@@ -88,7 +89,7 @@ const Header = ({ versions }) => {
   return (
     <div className={headerClass('_')}>
       <div className={headerClass('logo')}>
-        <a href="/">{logo}</a>
+        <Link to="/index">{logo}</Link>
       </div>
       <div className={headerClass('nav')}>
         {navs.map(nav => (
