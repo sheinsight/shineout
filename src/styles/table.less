@@ -189,17 +189,7 @@
   &-bordered {
     position: relative;
     border-left: 1px solid @table-border-color;
-    &:after {
-      z-index: 99;
-      position: absolute;
-      content: '';
-      top: 0;
-      bottom: 0;
-      right: 0;
-      display: inline-block;
-      width: 1px;
-      background: @table-border-color;
-    }
+    border-right: 1px solid @table-border-color;
     &:before {
       z-index: 99;
       position: absolute;
@@ -212,10 +202,8 @@
       background: @table-border-color;
     }
 
-    &.@{table-prefix}-fixed {
-      .@{table-prefix}-ignore-right-border {
-        border-right: none;
-      }
+    .@{table-prefix}-ignore-right-border {
+      border-right: none;
     }
 
     .@{table-prefix}-head {

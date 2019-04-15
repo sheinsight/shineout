@@ -14,10 +14,7 @@ class Td extends PureComponent {
   }
 
   handleExpandClick() {
-    const {
-      rowKey, expanded, data, expandKeys,
-      expandClick,
-    } = this.props
+    const { rowKey, expanded, data, expandKeys, expandClick } = this.props
     if (expandKeys) {
       if (expandClick) expandClick(data, !expanded)
     } else {
@@ -27,13 +24,7 @@ class Td extends PureComponent {
 
   renderCheckbox() {
     const { index, data, datum } = this.props
-    return (
-      <Checkbox
-        data={data}
-        index={index}
-        datum={datum}
-      />
-    )
+    return <Checkbox data={data} index={index} datum={datum} />
   }
 
   renderExpand(index) {
@@ -57,9 +48,7 @@ class Td extends PureComponent {
   }
 
   renderContent() {
-    const {
-      type, render, data, index,
-    } = this.props
+    const { type, render, data, index } = this.props
     switch (type) {
       case 'checkbox':
         return this.renderCheckbox()
@@ -72,9 +61,7 @@ class Td extends PureComponent {
   }
 
   render() {
-    const {
-      rowSpan, colSpan, fixed, style, firstFixed, lastFixed, type, align,
-    } = this.props
+    const { rowSpan, colSpan, fixed, style, firstFixed, lastFixed, type, align, ignoreBorderRight } = this.props
 
     const className = classnames(
       this.props.className,
@@ -85,12 +72,13 @@ class Td extends PureComponent {
         lastFixed && 'fixed-last',
         (type === 'checkbox' || type === 'expand' || type === 'row-expand') && 'checkbox',
         align !== 'left' && `align-${align}`,
-      ),
+        ignoreBorderRight && 'ignore-right-border'
+      )
     )
 
     return (
       <td style={style} className={className} rowSpan={rowSpan} colSpan={colSpan}>
-        { this.renderContent() }
+        {this.renderContent()}
       </td>
     )
   }
@@ -114,10 +102,8 @@ Td.propTypes = {
   expandKeys: PropTypes.array,
   expandClick: PropTypes.func,
   datum: PropTypes.object,
-  render: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.string,
-  ]),
+  render: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+  ignoreBorderRight: PropTypes.bool,
 }
 
 Td.defaultProps = {

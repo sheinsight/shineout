@@ -6,6 +6,15 @@ import { getProps } from '../utils/proptypes'
 import { getKey } from '../utils/uid'
 import Tr from './Tr'
 
+function ignoreBorderRight(rows) {
+  rows.forEach(row => {
+    const lastColumn = row[row.length - 1]
+    if (lastColumn) {
+      lastColumn.ignoreBorderRight = true
+    }
+  })
+}
+
 function format(columns, data, nextRow, index, expandKeys) {
   const row = columns.map((col, i) => {
     const cell = { index, data, expandKeys }
@@ -119,7 +128,7 @@ class Tbody extends PureComponent {
   }
 
   render() {
-    const { index, data, columns, expandKeys } = this.props
+    const { index, data, columns, expandKeys, bordered } = this.props
     const rows = []
     for (let i = data.length - 1; i >= 0; i--) {
       const d = data[i]
@@ -130,6 +139,8 @@ class Tbody extends PureComponent {
         })
       )
     }
+
+    if (bordered) ignoreBorderRight(rows)
 
     return <tbody ref={this.bindBody}>{rows.map(this.renderTr)}</tbody>
   }
@@ -145,6 +156,7 @@ Tbody.propTypes = {
   onBodyRender: PropTypes.func,
   values: PropTypes.object,
   dataUpdated: PropTypes.bool,
+  bordered: PropTypes.bool,
 }
 
 Tbody.defaultProps = {
