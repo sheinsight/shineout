@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Breadcrumb[Base] should render correct 1`] = `
+<div
+  className="so-breadcrumb"
+  style={Object {}}
+>
+  <span>
+    <a
+      href="#/components/Button"
+    >
+      Button
+    </a>
+    <span
+      className="so-breadcrumb-separator"
+    >
+      /
+    </span>
+  </span>
+  <span>
+    <b>
+      Self
+    </b>
+  </span>
+</div>
+`;
