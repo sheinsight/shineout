@@ -4,6 +4,7 @@ import { Card, Form, Input } from 'shineout'
 import Render from 'react-test-renderer'
 import CardBase from '../../../site/pages/components/Card/example-1-base'
 import CardShallow from '../../../site/pages/components/Card/example-2-boxshadow'
+import CardCollapse from '../../../site/pages/components/Card/example-4-collapse'
 
 /* global SO_PREFIX */
 describe('Card[Base]', () => {

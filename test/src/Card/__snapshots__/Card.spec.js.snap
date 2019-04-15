@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Shineout[Base] should render correct 1`] = `
+exports[`Card[Base] should render correct 1`] = `
 <div>
   <div
     className="so-card"
@@ -69,7 +69,7 @@ exports[`Shineout[Base] should render correct 1`] = `
 </div>
 `;
 
-exports[`Shineout[Shallow] should render correct 1`] = `
+exports[`Card[Shallow] should render correct 1`] = `
 <div>
   <div
     className="so-card"

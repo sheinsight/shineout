@@ -1,0 +1,206 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tabs[Base] should render correct 1`] = `
+<div
+  className="so-tabs"
+>
+  <div
+    className="so-tabs-header"
+    onClick={[Function]}
+  >
+    <div
+      className="so-tabs-inner"
+    >
+      <div
+        className="so-tabs-scroll"
+        style={
+          Object {
+            "marginLeft": -0,
+          }
+        }
+      >
+        <div
+          className="so-tabs-tab"
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "transparent",
+              "borderColor": "transparent transparent transparent transparent",
+              "color": undefined,
+            }
+          }
+        >
+          Home
+        </div>
+        <div
+          className="so-tabs-tab so-tabs-active"
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "#fff",
+              "borderColor": "#ddd #ddd #fff #ddd",
+              "color": "#333",
+            }
+          }
+        >
+          Profile
+        </div>
+        <div
+          className="so-tabs-tab"
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "transparent",
+              "borderColor": "transparent transparent transparent transparent",
+              "color": undefined,
+            }
+          }
+        >
+          Contact
+        </div>
+      </div>
+    </div>
+    <div
+      className="so-tabs-hr"
+      style={
+        Object {
+          "borderColor": "#ddd",
+        }
+      }
+    />
+  </div>
+  <div
+    className="so-tabs-panel so-tabs-show"
+    style={
+      Object {
+        "background": "#fff",
+        "color": undefined,
+      }
+    }
+  >
+    Profile
+  </div>
+</div>
+`;
+
+exports[`Tabs[Base] should render defined style 1`] = `
+<div
+  className="so-tabs"
+>
+  <div
+    className="so-tabs-header"
+    onClick={[Function]}
+  >
+    <div
+      className="so-tabs-inner"
+    >
+      <div
+        className="so-tabs-scroll"
+        style={
+          Object {
+            "marginLeft": -0,
+          }
+        }
+      >
+        <div
+          className="so-tabs-tab so-tabs-active"
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "#ffe7ba",
+              "borderColor": "transparent transparent #ffe7ba transparent",
+              "color": "#333",
+            }
+          }
+        >
+          Home
+        </div>
+        <div
+          className="so-tabs-tab"
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "#ffc069",
+              "borderColor": "transparent transparent transparent transparent",
+              "color": undefined,
+            }
+          }
+        >
+          Profile
+        </div>
+        <div
+          className="so-tabs-tab"
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "#d46b08",
+              "borderColor": "transparent transparent transparent transparent",
+              "color": "#fff",
+            }
+          }
+        >
+          <span>
+            <i
+              className="so-icon so-icon-default fa-user"
+              size="default"
+              style={
+                Object {
+                  "fontFamily": "FontAwesome",
+                  "fontSize": undefined,
+                }
+              }
+            />
+             Contact
+          </span>
+        </div>
+        <div
+          className="so-tabs-tab"
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "#873800",
+              "borderColor": "transparent transparent transparent transparent",
+              "color": "#fff",
+            }
+          }
+        >
+          Setting
+        </div>
+        <div
+          className="so-tabs-tab"
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "#f6ffed",
+              "borderColor": "#b7eb8f #b7eb8f #b7eb8f #b7eb8f",
+              "color": undefined,
+            }
+          }
+        >
+          Message
+        </div>
+      </div>
+    </div>
+    <div
+      className="so-tabs-hr"
+      style={
+        Object {
+          "borderColor": "transparent",
+        }
+      }
+    />
+  </div>
+  <div
+    className="so-tabs-panel so-tabs-show"
+    style={
+      Object {
+        "background": "#ffe7ba",
+        "color": undefined,
+        "padding": 15,
+      }
+    }
+  >
+    Test
+  </div>
+</div>
+`;
