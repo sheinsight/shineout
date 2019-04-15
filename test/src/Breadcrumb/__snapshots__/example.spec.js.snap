@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test: Breadcrumb[site/pages/components/Breadcrumb/example-1-base.js] 1`] = `
+<div>
+  <span>
+    <a>
+       
+      Home
+    </a>
+    <span>
+      /
+    </span>
+  </span>
+  <span>
+    <a>
+      Button
+    </a>
+    <span>
+      /
+    </span>
+  </span>
+  <span>
+    <a>
+       
+      Self
+    </a>
+  </span>
+</div>
+`;
+
+exports[`Snapshot test: Breadcrumb[site/pages/components/Breadcrumb/example-2-separator.js] 1`] = `
+<div>
+  <div>
+    <span>
+      <a>
+         
+        Home
+      </a>
+      <span>
+        |
+      </span>
+    </span>
+    <span>
+      <b>
+        Self
+      </b>
+    </span>
+  </div>
+  <div>
+    <span>
+      <a>
+         
+        Home
+      </a>
+      <span>
+        <span>
+          ~
+        </span>
+      </span>
+    </span>
+    <span>
+      <b>
+        Self
+      </b>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Breadcrumb[site/pages/components/Breadcrumb/example-3-icon.js] 1`] = `
+<div>
+  <span>
+    <a>
+      <i />
+       
+      Home
+    </a>
+    <span>
+      /
+    </span>
+  </span>
+  <span>
+    <b>
+      Menu
+    </b>
+    <span>
+      /
+    </span>
+  </span>
+  <span>
+    <a>
+       
+      Self
+    </a>
+  </span>
+</div>
+`;
