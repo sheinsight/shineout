@@ -44,6 +44,27 @@
     }
   }
 
+  @media (max-width: 599px) and (min-width: 0px) {
+    &-logo {
+      padding: 0;
+      margin-left: 10px;
+      min-width: 120px;
+    }
+    &-nav {
+      display: flex;
+      padding-left: 0;
+      min-width: 120px;
+      overflow-x: scroll;
+    }
+    a {
+      line-height: normal;
+      margin: 0;
+    }
+    &-right {
+      display: none;
+    }
+  }
+
   &-right {
     padding-right: 20px;
   }
@@ -57,6 +78,14 @@
     outline: none;
     font-size: 13px;
     margin-left: 8px;
+  }
+  @media (max-width: 979px) and (min-width: 599px) {
+    a {
+      line-height: normal;
+    }
+    &-right {
+      display: none;
+    }
   }
 
   &-light {
