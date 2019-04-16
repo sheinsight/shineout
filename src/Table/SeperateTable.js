@@ -325,7 +325,9 @@ class SeperateTable extends PureComponent {
     if (!data || data.length === 0) {
       return <div key="body" />
     }
-
+    let dataUpdated = this.lastData !== data // Incorrect height due to changing data length dynamically
+    if (this.lastData) dataUpdated = this.lastData.length !== data.length
+    this.lastData = data
     const prevHeight = this.getSumHeight(0, currentIndex)
     const hasNotRenderRows = data.length > rowsInView
 
@@ -354,6 +356,7 @@ class SeperateTable extends PureComponent {
               data={data.slice(currentIndex, currentIndex + rowsInView)}
               setRowHeight={this.setRowHeight}
               hasNotRenderRows={hasNotRenderRows}
+              dataUpdated={dataUpdated}
             />
           </table>
         </div>
