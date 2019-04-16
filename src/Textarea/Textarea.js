@@ -32,7 +32,7 @@ class Textarea extends PureComponent {
   }
 
   resize(value) {
-    if (value) this.shadow.value = value
+    if (value || value === '') this.shadow.value = value
     const height = this.shadow ? this.shadow.scrollHeight : 0
     this.setState({ height })
   }
