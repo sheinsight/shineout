@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkDown from 'react-markdown'
+import { Link } from 'react-router-dom'
 import { getUidStr } from 'shineout/utils/uid'
 import { markdownClass } from 'doc/styles'
 import locate from '../../locate'
@@ -132,10 +133,16 @@ export default function MarkDown({ onHeadingSetted, codes, examples, source }) {
         table: Table,
         link: prop => {
           const target = prop.href.indexOf('http' === 0) ? '_blank' : undefined
+          if (target)
+            return (
+              <a href={prop.href} target={target}>
+                {prop.children}
+              </a>
+            )
           return (
-            <a href={prop.href} target={target}>
+            <Link to={prop.href} target={target}>
               {prop.children}
-            </a>
+            </Link>
           )
         },
       }}

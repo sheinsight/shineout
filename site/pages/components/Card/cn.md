@@ -37,4 +37,4 @@
 
 #### Card.Submit
 
-同 [Button](#/components/Button)
+同 [Button](/components/Button)

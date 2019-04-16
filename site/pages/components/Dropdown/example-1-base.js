@@ -22,7 +22,7 @@ const data = [
       },
     ],
   },
-  <a href="#/">Home</a>,
+  <a href="/">Home</a>,
   {
     content: 'Message',
     onClick: () => {

@@ -13,23 +13,11 @@ const scrollTo = id => {
   }
 }
 
-const hashScroll = h => {
-  if (h) {
-    const element = document.querySelector(h)
-    if (element)
-      setTimeout(() => {
-        element.scrollIntoView()
-      }, 50)
-  }
-}
-
 export default function(Component) {
   return function Nav(prop) {
     const [active, setActive] = useState('')
     const [headings] = useState([])
     const { hash } = prop.location
-
-    console.log(headings)
 
     const setHeading = useCallback(hs => {
       hs.forEach(h => {
@@ -37,8 +25,21 @@ export default function(Component) {
       })
     }, [])
 
+    const hashScroll = useCallback(
+      () => {
+        if (hash) {
+          const element = document.querySelector(hash)
+          if (element)
+            setTimeout(() => {
+              element.scrollIntoView()
+            }, 50)
+        }
+      },
+      [hash]
+    )
+
     useEffect(() => {
-      hashScroll(hash)
+      hashScroll()
       const handleScroll = () => {
         const top = document.documentElement.scrollTop
         const hs = headings.filter(h => h.level === 3 && h.children[0])
@@ -81,7 +82,7 @@ export default function(Component) {
     return (
       <div className={navClass('_')}>
         <Component onHeadingSetted={setHeading} />
-        {prop.noNav && renderNav()}
+        {!prop.noNav && renderNav()}
       </div>
     )
   }

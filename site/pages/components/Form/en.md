@@ -61,7 +61,7 @@ Used to process interactive data.
 | names | array | none | Specifying which fields to change trigger the Flow update. |
 
 ### Submit, Reset, Button
-Same as [Button](#/components/Button)
+Same as [Button](/components/Button)
 
 
 ### ~~Form.Block~~ out of date

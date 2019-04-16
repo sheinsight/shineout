@@ -94,7 +94,7 @@ router.get('/*.hot-update.js(on)?', async ctx => {
 })
 
 router.get('/*', async ctx => {
-  if (ctx.url === '/') ctx.redirect('/cn/')
+  if (ctx.url === '/') ctx.redirect('/cn/index/')
   const reactVersion = ctx.query.v
   if (reactVersion) {
     ctx.body = await ejs.renderFile('./site/index-v.html', { version: reactVersion })

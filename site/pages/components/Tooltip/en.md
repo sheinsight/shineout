@@ -1,6 +1,6 @@
 # Tooltip
 
-Tooltip is used to display text prompts, and if you need to more content, use [Popover](#/components/Popover).
+Tooltip is used to display text prompts, and if you need to more content, use [Popover](/components/Popover).
 
 <example />
 
