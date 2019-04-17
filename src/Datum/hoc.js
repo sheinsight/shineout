@@ -55,12 +55,11 @@ export default curry((options, Origin) => {
       this.prevValues = this.props[key]
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
       // update datum.onchange
-      if (this.props.onChange !== this.datum.onChange) {
+      if (prevProps.onChange !== this.props.onChange) {
         this.datum.onChange = this.props.onChange
       }
-
       const values = this.props[key]
       if (!shallowEqual(values, this.prevValues)) {
         this.setValue(this.props.initValidate ? undefined : IGNORE_VALIDATE)

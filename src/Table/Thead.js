@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import { getUidStr } from '../utils/uid'
 import { tableClass } from '../styles'
 import Sorter from './Sorter'
@@ -57,7 +58,10 @@ class Thead extends PureComponent {
     if (col.title) {
       trs[level].push(
         <th
-          className={tableClass(level > 0 && 'condensed', align, ignoreBorderRight, ...fixed)}
+          className={classnames(
+            tableClass(level > 0 && 'condensed', align, ignoreBorderRight, ...fixed),
+            col.className
+          )}
           rowSpan={this.columnLevel - level + 1}
           key={col.key}
         >
@@ -71,7 +75,7 @@ class Thead extends PureComponent {
 
     if (col.type === 'checkbox') {
       trs[level].push(
-        <th key="checkbox" rowSpan={trs.length} className={tableClass('checkbox', ...fixed)}>
+        <th key="checkbox" rowSpan={trs.length} className={classnames(tableClass('checkbox', ...fixed), col.className)}>
           {showSelectAll && <CheckboxAll disabled={disabled === true} data={data} datum={datum} />}
         </th>
       )
@@ -82,7 +86,7 @@ class Thead extends PureComponent {
     const style = typeof col.name === 'string' ? undefined : { padding: 0 }
     trs[level].push(
       <th
-        className={tableClass('center', 'condensed', ignoreBorderRight, ...fixed)}
+        className={classnames(tableClass('center', 'condensed', ignoreBorderRight, ...fixed), col.className)}
         colSpan={col.colSpan}
         key={col.key}
         style={style}
