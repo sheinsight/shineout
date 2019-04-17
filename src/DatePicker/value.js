@@ -77,10 +77,8 @@ export default Origin =>
 
       if (!shallowEqual(newValue, value)) {
         this.props.onChange(newValue)
-      } else if (!shallowEqual(newValue, this.state.value)) {
-        this.setState({ value: newValue })
-        return newValue
       }
+
       if (shallowEqual(newValue, [undefined, undefined])) {
         this.setState({ value: newValue })
       } else {
