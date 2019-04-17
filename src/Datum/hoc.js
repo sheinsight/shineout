@@ -57,7 +57,7 @@ export default curry((options, Origin) => {
 
     componentDidUpdate() {
       // update datum.onchange
-      if (this.props.onChange !== this.datum.onChange) {
+      if (this.props.onChange && this.props.onChange !== this.datum.onChange) {
         this.datum.onChange = this.props.onChange
       }
 
