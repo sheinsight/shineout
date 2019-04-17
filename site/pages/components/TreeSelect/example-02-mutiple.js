@@ -36,16 +36,28 @@ export default class extends React.Component {
 
   render() {
     return (
-      <TreeSelect
-        multiple
-        value={this.state.value}
-        onChange={this.handleChange}
-        clearable
-        style={{ width: 250 }}
-        keygen="id"
-        renderItem={node => `node ${node.title}`}
-        data={data}
-      />
+      <div>
+        <TreeSelect
+          multiple
+          value={this.state.value}
+          onChange={this.handleChange}
+          clearable
+          style={{ width: 250, marginBottom: 15 }}
+          keygen="id"
+          renderItem={node => `node ${node.title}`}
+          data={data}
+        />
+        <br />
+        <TreeSelect
+          compressed
+          multiple
+          clearable
+          style={{ width: 250 }}
+          keygen="id"
+          renderItem={node => `node ${node.title}`}
+          data={data}
+        />
+      </div>
     )
   }
 }

@@ -89,6 +89,16 @@
       color: inherit;
       text-overflow: ellipsis;
 
+      &.@{treeSelect-prefix}-compressed {
+        padding: 0 8px;
+        font-size: 80%;
+        opacity: .9;
+        > span {
+          vertical-align: middle;
+          letter-spacing: 2px;
+        }
+      }
+
       &.@{treeSelect-prefix}-disabled {
         padding-right: @select-result-space;
         cursor: not-allowed;
