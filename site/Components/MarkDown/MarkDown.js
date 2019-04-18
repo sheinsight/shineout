@@ -132,7 +132,7 @@ export default function MarkDown({ onHeadingSetted, codes, examples, source }) {
         },
         table: Table,
         link: prop => {
-          const target = prop.href.indexOf('http' === 0) ? '_blank' : undefined
+          const target = prop.href.indexOf('http') === 0 ? '_blank' : undefined
           if (target)
             return (
               <a href={prop.href} target={target}>
