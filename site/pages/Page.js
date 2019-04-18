@@ -21,38 +21,37 @@ export default function(pages) {
 
     if (search.indexOf('?example=') === 0) search.replace('?example=', '')
 
-    const [shownav, setShowNav] = useState(true)
-    if (window.innerWidth > 979 && shownav) {
-      setShowNav(false)
-    }
+    const [shownav, setShowNav] = useState(window.innerWidth < 979)
+
     const toggleCode = () => {
+      if (window.innerWidth > 979) return
       const el = document.querySelector('#-shineout-menu')
       const showNav = !shownav
-      setShowNav(showNav)
       if (showNav) {
+        setShowNav(showNav)
         setTimeout(() => {
           if (el) el.style.display = 'none'
         }, 400)
-      } else if (el) el.style.display = 'block'
+      } else {
+        setTimeout(() => setShowNav(showNav), 16)
+        if (el) el.style.display = 'block'
+      }
     }
 
     useEffect(() => {
       const changeNav = () => {
-        setShowNav(true)
+        setShowNav(window.innerWidth < 979)
+      }
 
-        const el = document.querySelector('#-shineout-menu')
-        if (el) el.style.display = 'none'
-      }
-      window.addEventListener('hashchange', changeNav)
-      return () => {
-        window.removeEventListener('hashchange', changeNav)
-      }
+      window.addEventListener('resize', changeNav)
+
+      return () => window.removeEventListener('resize', changeNav)
     }, [])
 
     return (
       <Fragment>
         <div tabIndex="-1" className={mainClass('nav-open-close')}>
-          <Icon name={shownav ? 'Menu' : 'close'} onClick={toggleCode.bind(null)} />
+          <Icon name={shownav ? 'Menu' : 'close'} onClick={toggleCode} />
         </div>
 
         <Sticky top={0}>
@@ -66,6 +65,7 @@ export default function(pages) {
                   activeClassName={mainClass('active')}
                   key={p.name}
                   to={getUrl(base, p)}
+                  onClick={toggleCode}
                 >
                   <p>
                     {p.name} <span>{locate(p.cn)}</span>
@@ -88,7 +88,6 @@ export default function(pages) {
                     path={getUrl(base, p)}
                     component={p.component}
                     onEnter={() => {
-                      console.log(1)
                       toggleCode.bind(null)
                     }}
                   />

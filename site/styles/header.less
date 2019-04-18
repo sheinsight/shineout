@@ -109,20 +109,31 @@
       width: 100px;
     }
   }
+
   @media (max-width: 599px) and (min-width: 0px) {
     &-logo {
       padding: 0;
       margin: 0 10px;
       min-width: 100px;
     }
+
     &-logo svg{
       width: 100px;
     }
+
     &-nav {
+      -webkit-overflow-scrolling: touch;
       display: flex;
       flex: 1;
       padding-left: 0;
       overflow-x: scroll;
+      overflow: -moz-scrollbars-none;
+      -ms-overflow-style: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      
       a{
         min-width: 50px;
       }
