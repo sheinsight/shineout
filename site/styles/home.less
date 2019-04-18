@@ -12,12 +12,18 @@
     flex: 1;
   }
 
+
   &-content {
     position: relative;
     z-index: 10;
     width: 60%;
     margin: 15% 15% 0 25%;
     font-size: 18px;
+    
+    @media (max-width: 979px) and (min-width: 0px){
+      margin: 60% 30% 0 25%;
+      width: 80%;
+    }
 
     h2 {
       margin-bottom: 30px;
@@ -28,6 +34,12 @@
 
   &-buttons {
     padding-top: 40px;
+
+    @media (max-width: 979px) and (min-width: 0px){
+      .so-button{
+        margin-bottom: 10px;
+      }
+    }
   }
 
   &-bottom-left {
@@ -37,6 +49,10 @@
     left: 0;
     width: 90%;
     font-size: 0;
+
+    @media (max-width: 979px) and (min-width: 0px){
+      position: fixed;
+    }
   }
 
   &-right {
@@ -48,6 +64,10 @@
       position: absolute;
       top: 50%;
       margin-top: -22vw;
+
+      @media (max-width: 679px) and (min-width: 0px){
+        margin-top: 0vw;
+      }
     }
 
     img {

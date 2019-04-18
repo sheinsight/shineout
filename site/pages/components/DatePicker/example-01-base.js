@@ -10,7 +10,7 @@ import { DatePicker } from 'shineout'
 export default function() {
   return (
     <div>
-      <DatePicker type="datetime"  />
+      <DatePicker type="datetime" />
     </div>
   )
 }

@@ -84,14 +84,14 @@ class Panel extends PureComponent {
   handleShow() {
     if (this.closeTimer) clearTimeout(this.closeTimer)
     if (this.state.show) return
-    document.addEventListener('click', this.clickAway)
+    document.addEventListener('mousedown', this.clickAway)
     this.setState({ show: true })
     if (this.props.onOpen) this.props.onOpen()
   }
 
   handleHide(delay = 500) {
     this.closeTimer = setTimeout(() => {
-      document.removeEventListener('click', this.clickAway)
+      document.removeEventListener('mousedown', this.clickAway)
       this.setState({ show: false })
       if (this.props.onClose) this.props.onClose()
     }, delay)
