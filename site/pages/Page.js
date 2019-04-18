@@ -1,13 +1,11 @@
 import React, { Fragment, Suspense, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Route, Redirect, Switch, NavLink } from 'react-router-dom'
-import { Sticky, Icon } from 'shineout'
+import { Sticky } from 'shineout'
 import locate from 'doc/locate'
 import Loading from 'docs/Loading'
 import { mainClass } from 'doc/styles'
-
-const url = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
-const FontAwesome = Icon(url, 'FontAwesome', 'fa')
+import Icon from '../icons/Icon'
 
 function getUrl(base, page) {
   if (page.path === '') return base
@@ -28,24 +26,37 @@ export default function(pages) {
       setShowNav(false)
     }
     const toggleCode = () => {
+      const el = document.querySelector('#-shineout-menu')
       const showNav = !shownav
       setShowNav(showNav)
+      if (showNav) {
+        setTimeout(() => {
+          if (el) el.style.display = 'none'
+        }, 400)
+      } else if (el) el.style.display = 'block'
     }
 
     useEffect(() => {
-      window.addEventListener('hashchange', () => {
+      const changeNav = () => {
         setShowNav(true)
-      })
+
+        const el = document.querySelector('#-shineout-menu')
+        if (el) el.style.display = 'none'
+      }
+      window.addEventListener('hashchange', changeNav)
+      return () => {
+        window.removeEventListener('hashchange', changeNav)
+      }
     }, [])
 
     return (
       <Fragment>
-        <div className={mainClass('nav-open-close')}>
-          <FontAwesome name={shownav ? 'expand' : 'times'} onClick={toggleCode.bind(null)} />
+        <div tabIndex="-1" className={mainClass('nav-open-close')}>
+          <Icon name={shownav ? 'Menu' : 'close'} onClick={toggleCode.bind(null)} />
         </div>
 
         <Sticky top={0}>
-          <div className={mainClass('menu')} style={{ display: shownav ? 'none' : 'block' }}>
+          <div id="-shineout-menu" className={mainClass('menu', shownav && 'hidden')}>
             {pages.map((p, i) =>
               typeof p === 'string' ? (
                 <label key={i}>{p}</label>
