@@ -167,7 +167,7 @@ class Tbody extends PureComponent {
       )
     }
 
-    if (bordered) {
+    if (rows.length > 0 && bordered) {
       ignoreBorderBottom(rows)
       ignoreBorderRight(rows)
     }
