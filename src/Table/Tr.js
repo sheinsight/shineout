@@ -48,11 +48,16 @@ class Tr extends Component {
   }
 
   setRowHeight() {
-    const { setRowHeight, dataUpdated } = this.props
+    const { setRowHeight, dataUpdated, reflow } = this.props
     if (!setRowHeight || !this.element) return
     const tds = Array.prototype.slice.call(this.element.querySelectorAll('td'))
     const td = tds.find(el => !el.getAttribute('rowspan'))
-    const height = td ? parseInt(getComputedStyle(td).height, 10) : this.element.clientHeight
+    let height = td ? parseInt(getComputedStyle(td).height, 10) : this.element.clientHeight
+    if (Number.isNaN(height)) height = this.lastRowHeight || 0
+    if (height === 0) {
+      reflow[this.props.index] = this.setRowHeight.bind(this)
+      return
+    }
     if (height === this.lastRowHeight && this.expandHeight === this.lastExpandHeight && !dataUpdated) return
     this.lastRowHeight = height
     this.lastExpandHeight = this.expandHeight
@@ -188,6 +193,7 @@ Tr.propTypes = {
   setRowHeight: PropTypes.func,
   rowClickAttr: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   dataUpdated: PropTypes.bool,
+  reflow: PropTypes.object,
 }
 
 Tr.defaultProps = {

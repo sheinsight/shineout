@@ -221,7 +221,7 @@ class SeperateTable extends PureComponent {
   }
 
   handleScroll(...args) {
-    if (!this.tbody) return
+    if (!this.tbody || this.realTbody.clientHeight === 0) return
     const [x, y, max, bar, v, h, pixelX, pixelY] = args
     this.lastScrollArgs = args
     const { data, rowHeight, rowsInView } = this.props
@@ -326,7 +326,7 @@ class SeperateTable extends PureComponent {
       return <div key="body" />
     }
     let dataUpdated = this.lastData !== data // Incorrect height due to changing data length dynamically
-    if (this.lastData) dataUpdated = this.lastData.length !== data.length
+    if (this.lastData && !dataUpdated) dataUpdated = this.lastData.length !== data.length
     this.lastData = data
     const prevHeight = this.getSumHeight(0, currentIndex)
     const hasNotRenderRows = data.length > rowsInView
