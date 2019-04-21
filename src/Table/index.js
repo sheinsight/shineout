@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
 import deepEqual from 'deep-eql'
@@ -7,7 +7,7 @@ import Table from './Table'
 
 const TableWithPagination = pagable(Table)
 
-export default class extends PureComponent {
+export default class extends React.Component {
   static displayName = 'ShineoutTable'
 
   static propTypes = {
@@ -28,6 +28,16 @@ export default class extends PureComponent {
     }
 
     this.handleSortChange = this.handleSortChange.bind(this)
+
+    // reshow to reflow colgroup-width and tr-height
+    this.reflow = {}
+  }
+
+  componentDidUpdate() {
+    Object.values(this.reflow).forEach(action => {
+      if (action) action()
+      delete this.reflow[action]
+    })
   }
 
   getColumns(columns) {
@@ -95,6 +105,7 @@ export default class extends PureComponent {
     return (
       <Component
         {...props}
+        reflow={this.reflow}
         onChange={onRowSelect}
         columns={this.getColumns(columns)}
         data={data}

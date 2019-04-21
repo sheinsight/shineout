@@ -88,6 +88,9 @@ class Tbody extends PureComponent {
   componentDidMount() {
     super.componentDidMount()
     this.bodyRender()
+    if (this.body && this.body.clientHeight === 0) {
+      this.props.reflow.colgroup = this.bodyRender.bind(this)
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -99,6 +102,7 @@ class Tbody extends PureComponent {
   bodyRender() {
     const { onBodyRender } = this.props
     if (!onBodyRender || !this.body) return
+    if (this.body.clientHeight === 0) return
     const tr = this.body.querySelector('tr')
     if (!tr) return
     this.colgroupSetted = true
