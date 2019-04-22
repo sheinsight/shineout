@@ -37,7 +37,9 @@ class Tab extends PureComponent {
     const { onClick, id, isActive, disabled } = this.props
     if (disabled) return
     onClick(id, isActive)
-    this.props.moveToCenter(this.element.getBoundingClientRect())
+    if (this.element.getBoundingClientRect) {
+      this.props.moveToCenter(this.element.getBoundingClientRect())
+    }
   }
 
   render() {
@@ -46,17 +48,20 @@ class Tab extends PureComponent {
     const style = this.getActiveStyle()
 
     const props = {
-      ref: this.bindElement,
       className: tabsClass('tab', isActive && 'active', disabled && 'disabled'),
       onClick: this.handleClick,
       style,
     }
 
     if (children.type && children.type.isTabLink) {
-      return React.cloneElement(children, { ...props })
+      return React.cloneElement(children, { ...props, elRef: this.bindElement })
     }
 
-    return <div {...props}>{children}</div>
+    return (
+      <div {...props} ref={this.bindElement}>
+        {children}
+      </div>
+    )
   }
 }
 

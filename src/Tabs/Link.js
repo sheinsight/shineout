@@ -5,28 +5,31 @@ import { tabsClass } from '../styles'
 
 class Link extends PureComponent {
   render() {
-    const { children, href, className, ...other } = this.props
+    const { children, href, className, elRef, ...other } = this.props
     const mergeClass = classnames(className, tabsClass('link'))
+
+    const props = {
+      className: mergeClass,
+      href,
+      ref: elRef,
+      ...other,
+    }
 
     if (
       isValidElement(children) &&
       (children.type === 'a' || (children.type && children.type.displayName === 'Link'))
     ) {
-      return React.cloneElement(children, { className: mergeClass, ...other })
+      return React.cloneElement(children, { ...props })
     }
 
-    return (
-      <a href={href} className={mergeClass} {...other}>
-        {children}
-      </a>
-    )
+    return <a {...props}>{children}</a>
   }
 }
 
 Link.isTabLink = true
 
 Link.propTypes = {
-  style: PropTypes.object,
+  elRef: PropTypes.func,
   className: PropTypes.string,
   href: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
