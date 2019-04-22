@@ -195,6 +195,10 @@
 
     .@{table-prefix}-ignore-right-border, @{table-prefix}-ignore-bottom-border {
       border-right: none;
+
+      &:after {
+        display: none;
+      }
     }
 
     .@{table-prefix}-head {

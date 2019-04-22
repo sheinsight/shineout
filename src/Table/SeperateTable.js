@@ -13,6 +13,8 @@ import Tbody from './Tbody'
 import { isNumber } from '../utils/is'
 import { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
 
+const SCROLL_Y_PADDING_RIGHT = 16
+
 class SeperateTable extends PureComponent {
   constructor(props) {
     super(props)
@@ -89,6 +91,24 @@ class SeperateTable extends PureComponent {
       lastRowHeight = this.cachedRowHeight[index - 1] || rowHeight
     }
     return lastRowHeight
+  }
+
+  getFloatClass() {
+    const floatClass = []
+    const { fixed } = this.props
+    const { scrollLeft } = this.state
+    if (this.headWrapper && this.tbody) {
+      const delta = fixed === 'x' ? 0 : SCROLL_Y_PADDING_RIGHT
+      if (Math.abs(this.headWrapper.clientWidth - this.tbody.clientWidth) !== delta) {
+        if (scrollLeft > 0) {
+          floatClass.push('float-left')
+        }
+        if (scrollLeft !== 1) {
+          floatClass.push('float-right')
+        }
+      }
+    }
+    return floatClass
   }
 
   setRowHeight(height, index) {
@@ -366,15 +386,10 @@ class SeperateTable extends PureComponent {
 
   render() {
     const { columns, fixed, width } = this.props
-    const { colgroup, scrollLeft } = this.state
+    const { colgroup } = this.state
 
-    const floatClass = []
-    if (scrollLeft > 0) {
-      floatClass.push('float-left')
-    }
-    if (scrollLeft !== 1) {
-      floatClass.push('float-right')
-    }
+    const floatClass = this.getFloatClass()
+
     if (fixed === 'y' || fixed === 'both') {
       floatClass.push('scroll-y')
     }
