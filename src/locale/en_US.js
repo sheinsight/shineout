@@ -16,6 +16,7 @@ export default {
   cancel: 'Cancel',
   noData: 'Data not found',
   selectAll: 'Select All',
+  loading: 'loading',
 
   rules: {
     required: {

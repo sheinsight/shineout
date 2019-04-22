@@ -16,6 +16,7 @@ export default {
   cancel: '取消',
   noData: '无数据',
   selectAll: '全选',
+  loading: '加载中',
 
   rules: {
     required: {
