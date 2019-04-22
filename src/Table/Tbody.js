@@ -6,6 +6,8 @@ import { getProps } from '../utils/proptypes'
 import { getKey } from '../utils/uid'
 import Tr from './Tr'
 
+export const RENDER_COL_GROUP_EVENT = 'RENDER_COL_GROUP_EVENT'
+
 function ignoreBorderRight(rows) {
   rows.forEach(row => {
     const lastColumn = row[row.length - 1]
@@ -79,6 +81,7 @@ class Tbody extends PureComponent {
       expand: {},
     }
 
+    this.bodyRender = this.bodyRender.bind(this)
     this.bindBody = this.bindBody.bind(this)
     this.renderTr = this.renderTr.bind(this)
     this.handleExpand = this.handleExpand.bind(this)
@@ -88,9 +91,6 @@ class Tbody extends PureComponent {
   componentDidMount() {
     super.componentDidMount()
     this.bodyRender()
-    if (this.body && this.body.clientHeight === 0) {
-      this.props.reflow.colgroup = this.bodyRender.bind(this)
-    }
   }
 
   componentDidUpdate(prevProps) {
@@ -100,9 +100,13 @@ class Tbody extends PureComponent {
   }
 
   bodyRender() {
-    const { onBodyRender } = this.props
+    const { onBodyRender, datum } = this.props
     if (!onBodyRender || !this.body) return
-    if (this.body.clientHeight === 0) return
+    datum.unsubscribe(RENDER_COL_GROUP_EVENT, this.bodyRender)
+    if (this.body.clientHeight === 0) {
+      datum.subscribe(RENDER_COL_GROUP_EVENT, this.bodyRender)
+      return
+    }
     const tr = this.body.querySelector('tr')
     if (!tr) return
     this.colgroupSetted = true

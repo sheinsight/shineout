@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { PureComponent } from '../component'
+import { Component } from '../component'
 import { getLocale } from '../locale'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { tableClass } from '../styles'
@@ -9,8 +9,10 @@ import Datum from '../Datum'
 import Spin from '../Spin'
 import SimpleTable from './SimpleTable'
 import SeperateTable from './SeperateTable'
+import { ROW_HEIGHT_UPDATE_EVENT } from './Tr'
+import { RENDER_COL_GROUP_EVENT } from './Tbody'
 
-class Table extends PureComponent {
+class Table extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -19,6 +21,12 @@ class Table extends PureComponent {
     }
 
     this.bindTable = this.bindTable.bind(this)
+  }
+
+  componentDidUpdate() {
+    const { datum } = this.props
+    datum.dispatch(ROW_HEIGHT_UPDATE_EVENT)
+    datum.dispatch(RENDER_COL_GROUP_EVENT)
   }
 
   getRowsInView() {

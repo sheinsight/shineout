@@ -6,6 +6,8 @@ import { tableClass, inputClass } from '../styles'
 import Td, { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
 import Expand from './Expand'
 
+export const ROW_HEIGHT_UPDATE_EVENT = 'ROW_HEIGHT_UPDATE_EVENT_NAME'
+
 const isExpandableElement = el => {
   const { tagName } = el
   if (tagName === 'TD' || tagName === 'TR') return true
@@ -48,14 +50,15 @@ class Tr extends Component {
   }
 
   setRowHeight() {
-    const { setRowHeight, dataUpdated, reflow } = this.props
+    const { setRowHeight, dataUpdated, datum } = this.props
     if (!setRowHeight || !this.element) return
     const tds = Array.prototype.slice.call(this.element.querySelectorAll('td'))
     const td = tds.find(el => !el.getAttribute('rowspan'))
     let height = td ? parseInt(getComputedStyle(td).height, 10) : this.element.clientHeight
     if (Number.isNaN(height)) height = this.lastRowHeight || 0
+    datum.unsubscribe(ROW_HEIGHT_UPDATE_EVENT, this.setRowHeight)
     if (height === 0) {
-      reflow[this.props.index] = this.setRowHeight.bind(this)
+      datum.subscribe(ROW_HEIGHT_UPDATE_EVENT, this.setRowHeight)
       return
     }
     if (height === this.lastRowHeight && this.expandHeight === this.lastExpandHeight && !dataUpdated) return
@@ -180,6 +183,7 @@ class Tr extends Component {
 Tr.propTypes = {
   columns: PropTypes.array.isRequired,
   data: PropTypes.array.isRequired,
+  datum: PropTypes.object,
   expandRender: PropTypes.func,
   hasNotRenderRows: PropTypes.bool,
   index: PropTypes.number,
@@ -193,7 +197,6 @@ Tr.propTypes = {
   setRowHeight: PropTypes.func,
   rowClickAttr: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   dataUpdated: PropTypes.bool,
-  reflow: PropTypes.object,
 }
 
 Tr.defaultProps = {

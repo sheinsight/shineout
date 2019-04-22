@@ -28,16 +28,6 @@ export default class extends React.Component {
     }
 
     this.handleSortChange = this.handleSortChange.bind(this)
-
-    // reshow to reflow colgroup-width and tr-height
-    this.reflow = {}
-  }
-
-  componentDidUpdate() {
-    Object.values(this.reflow).forEach(action => {
-      if (action) action()
-      delete this.reflow[action]
-    })
   }
 
   getColumns(columns) {
@@ -105,7 +95,6 @@ export default class extends React.Component {
     return (
       <Component
         {...props}
-        reflow={this.reflow}
         onChange={onRowSelect}
         columns={this.getColumns(columns)}
         data={data}
