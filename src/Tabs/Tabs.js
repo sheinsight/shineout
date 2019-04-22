@@ -66,29 +66,35 @@ class Tabs extends PureComponent {
 
     let { border } = this.props
     Children.toArray(children).forEach((child, i) => {
-      if (child && child.type && child.type.isTabPanel) {
-        const { id = i, tab, background } = child.props
+      if (!child || !child.type) return
 
-        let childBorder = child.props.border
-        // eslint-disable-next-line
-        if (active === id) {
-          if (childBorder) border = childBorder
-          else childBorder = border
-        }
+      let tab = null
+      if (child.type.isTabPanel) {
+        tab = child.props.tab
+      } else if (child.type.isTabLink) {
+        tab = child
+      } else return
 
-        tabs.push({
-          id,
-          isActive: active === id,
-          tab,
-          isVertical,
-          align,
-          background: background || (active === id ? this.props.background : inactiveBackground),
-          border: childBorder,
-          color: child.props.color || (active === id ? color : undefined),
-          disabled: child.props.disabled,
-          shape,
-        })
+      const { id = i, background } = child.props
+      let childBorder = child.props.border
+      // eslint-disable-next-line
+      if (active === id) {
+        if (childBorder) border = childBorder
+        else childBorder = border
       }
+
+      tabs.push({
+        id,
+        isActive: active === id,
+        tab,
+        isVertical,
+        align,
+        background: background || (active === id ? this.props.background : inactiveBackground),
+        border: childBorder,
+        color: child.props.color || (active === id ? color : undefined),
+        disabled: child.props.disabled,
+        shape,
+      })
     })
 
     return (

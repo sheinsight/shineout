@@ -41,20 +41,22 @@ class Tab extends PureComponent {
   }
 
   render() {
-    const { isActive, disabled } = this.props
+    const { isActive, disabled, children } = this.props
 
     const style = this.getActiveStyle()
 
-    return (
-      <div
-        ref={this.bindElement}
-        className={tabsClass('tab', isActive && 'active', disabled && 'disabled')}
-        style={style}
-        onClick={this.handleClick}
-      >
-        {this.props.children}
-      </div>
-    )
+    const props = {
+      ref: this.bindElement,
+      className: tabsClass('tab', isActive && 'active', disabled && 'disabled'),
+      onClick: this.handleClick,
+      style,
+    }
+
+    if (children.type && children.type.isTabLink) {
+      return React.cloneElement(children, { ...props })
+    }
+
+    return <div {...props}>{children}</div>
   }
 }
 
