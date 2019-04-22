@@ -15,7 +15,7 @@ export default curry((options, Origin) => {
   const { type = 'list', key = 'value', limit = 0, bindProps = [], ignoreUndefined } = options || {}
   const Datum = types[type]
 
-  return class extends React.PureComponent {
+  return class extends React.Component {
     static propTypes = {
       onChange: PropTypes.func,
       onDatumBind: PropTypes.func,
