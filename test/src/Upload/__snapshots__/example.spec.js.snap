@@ -169,7 +169,9 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-10-defaultVa
         <div>
           <div>
              
-            <span />
+            <span>
+              loading
+            </span>
           </div>
         </div>
       </a>
