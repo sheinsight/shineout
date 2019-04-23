@@ -24,3 +24,4 @@
 | onFilter | function | - | When the onFilter is not empty, you can filter data by input.<br />If the onFilter returns a function, use this function as a front-end filter.<br />If return undefined, you can do your own backend filtering. |
 | renderItem | string \| function(d) | required | When it is a string, return d\[string]<br />When it is a function, return the result of the function. |
 | renderResult | function(d) | renderItem | The content displayed in the result after selecting, if not set, use renderItem |
+| compressed | bool | false | Merges selected values, valid only in multiselect mode |

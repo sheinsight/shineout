@@ -15,8 +15,13 @@ class Time extends PureComponent {
     this.handleAMPMChange = this.handleChange.bind(this, 'ampm')
   }
 
+  getValue() {
+    return this.props.value || this.defaultValue
+  }
+
   handleChange(type, val) {
-    const { disabled, value, format, min, max, range } = this.props
+    const { disabled, format, min, max, range } = this.props
+    const value = this.getValue()
     const date = new Date(value.getTime())
     let hours
 
@@ -60,7 +65,7 @@ class Time extends PureComponent {
 
   render() {
     const { format } = this.props
-    const value = this.props.value || this.defaultValue
+    const value = this.getValue()
     const className = datepickerClass('time-picker')
 
     let hours = value.getHours()

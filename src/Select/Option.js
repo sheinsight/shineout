@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { selectClass } from '../styles'
+import { isObject } from '../utils/is'
 
 class Option extends PureComponent {
   constructor(props) {
@@ -45,6 +46,10 @@ class Option extends PureComponent {
 
     const result = renderItem(data, index)
     const title = typeof result === 'string' ? result : ''
+
+    if (isObject(data) && result === data) {
+      console.warn('renderItem is essential when data element is Object')
+    }
 
     return (
       <a
