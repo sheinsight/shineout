@@ -22,6 +22,7 @@ class SeperateTable extends PureComponent {
       currentIndex: 0,
       scrollLeft: 0,
       scrollTop: 0,
+      floatFixed: true,
     }
 
     this.bindTbody = this.bindElement.bind(this, 'tbody')
@@ -93,24 +94,6 @@ class SeperateTable extends PureComponent {
     return lastRowHeight
   }
 
-  getFloatClass() {
-    const floatClass = []
-    const { fixed } = this.props
-    const { scrollLeft } = this.state
-    if (this.headWrapper && this.tbody) {
-      const delta = fixed === 'x' ? 0 : SCROLL_Y_PADDING_RIGHT
-      if (Math.abs(this.headWrapper.clientWidth - this.tbody.clientWidth) !== delta) {
-        if (scrollLeft > 0) {
-          floatClass.push('float-left')
-        }
-        if (scrollLeft !== 1) {
-          floatClass.push('float-right')
-        }
-      }
-    }
-    return floatClass
-  }
-
   setRowHeight(height, index) {
     const oldHeight = this.cachedRowHeight[index]
     this.cachedRowHeight[index] = height
@@ -130,6 +113,7 @@ class SeperateTable extends PureComponent {
 
   updateScrollLeft() {
     let { scrollLeft } = this.props
+    this.resetFloatFixed()
     if (!isNumber(scrollLeft)) return
     const args = this.lastScrollArgs && this.lastScrollArgs.slice()
     if (scrollLeft !== this.state.offsetLeft && args) {
@@ -146,10 +130,21 @@ class SeperateTable extends PureComponent {
 
   adjustScrollLeft() {
     const { scrollLeft } = this.props
+    this.resetFloatFixed()
     if (isNumber(scrollLeft) && scrollLeft > 0) {
       const v = this.headWrapper.clientWidth
       const offset = this.getContentWidth() - v
       this.setState({ scrollLeft: scrollLeft / offset, offsetLeft: scrollLeft })
+    }
+  }
+
+  resetFloatFixed() {
+    if (!this.headWrapper || !this.tbody) return
+    const { fixed } = this.props
+    const delta = fixed === 'x' ? 0 : SCROLL_Y_PADDING_RIGHT
+    const floatFixed = Math.abs(this.headWrapper.clientWidth - this.tbody.clientWidth) !== delta
+    if (floatFixed !== this.state.floatFixed) {
+      this.setState({ floatFixed })
     }
   }
 
@@ -386,9 +381,18 @@ class SeperateTable extends PureComponent {
 
   render() {
     const { columns, fixed, width } = this.props
-    const { colgroup } = this.state
+    const { colgroup, scrollLeft, floatFixed } = this.state
 
-    const floatClass = this.getFloatClass()
+    const floatClass = []
+
+    if (floatFixed) {
+      if (scrollLeft > 0) {
+        floatClass.push('float-left')
+      }
+      if (scrollLeft !== 1) {
+        floatClass.push('float-right')
+      }
+    }
 
     if (fixed === 'y' || fixed === 'both') {
       floatClass.push('scroll-y')
