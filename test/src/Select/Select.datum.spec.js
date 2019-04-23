@@ -29,17 +29,35 @@ describe('Select[Datum]', () => {
     const renderItem = 'city'
     const changeFn = jest.fn()
     const datum = { format: 'id' }
-    const wrapper = mount(
-      <Select
-        multiple
-        data={citys}
-        onChange={changeFn}
-        datum={datum}
-        keygen="id"
-        prediction={(v, d) => v === d.id}
-        renderItem={renderItem}
-      />
-    )
+
+    class Demo extends React.Component {
+      constructor(props) {
+        super(props)
+        this.state = { value: [] }
+      }
+
+      handleChange = v => {
+        this.setState({ value: v })
+        changeFn(v)
+      }
+
+      render() {
+        return (
+          <Select
+            multiple
+            data={citys}
+            onChange={this.handleChange}
+            value={this.state.value}
+            datum={datum}
+            keygen="id"
+            prediction={(v, d) => v === d.id}
+            renderItem={renderItem}
+          />
+        )
+      }
+    }
+
+    const wrapper = mount(<Demo />)
     appendToDOM(wrapper.html())
     vMultiple({ wrapper, format: datum.format, changeFn, citys })
   })

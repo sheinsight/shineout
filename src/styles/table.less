@@ -189,32 +189,15 @@
   &-bordered {
     position: relative;
     border-left: 1px solid @table-border-color;
-    &:after {
-      z-index: 99;
-      position: absolute;
-      content: '';
-      top: 0;
-      bottom: 0;
-      right: 0;
-      display: inline-block;
-      width: 1px;
-      background: @table-border-color;
-    }
-    &:before {
-      z-index: 99;
-      position: absolute;
-      content: '';
-      bottom: 0;
-      left: 0;
-      right: 0;
-      display: inline-block;
-      height: 1px;
-      background: @table-border-color;
-    }
+    border-right: 1px solid @table-border-color;
+    border-bottom: 1px solid @table-border-color;
+    border-top: 1px solid @table-border-color;
 
-    &.@{table-prefix}-fixed {
-      .@{table-prefix}-ignore-right-border {
-        border-right: none;
+    .@{table-prefix}-ignore-right-border, @{table-prefix}-ignore-bottom-border {
+      border-right: none;
+
+      &:after {
+        display: none;
       }
     }
 
@@ -225,7 +208,6 @@
     }
 
     table {
-      border-top: 1px solid @table-border-color;
       > thead,
       > tbody,
       > tfoot {
@@ -236,6 +218,14 @@
             border-bottom-width: 1px;
           }
         }
+      }
+
+      > tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      > tbody > tr > td.@{table-prefix}-ignore-bottom-border {
+        border-bottom: none;
       }
 
       > thead + tbody > tr:first-child > td {
@@ -343,10 +333,6 @@
       background-color: @table-head-bg;
       content: ' ';
     }
-  }
-
-  &-bordered &-scroll-y.@{table-prefix}-head:after {
-    border-top: 1px solid @table-border-color;
   }
 
   &-body {

@@ -12,6 +12,7 @@
 | info | function | - | Infomation |
 | name | string | none | The name that accesses data from Form |
 | onChange | function(d) | | The callback function for changing value |
+| onEnterPress | function(value) | | The callback function for enter key |
 | placeholder | string | | The same as the native placeholder tag. |
 | popover | string | | The position where the message pops up, options: \['top-left', 'top', 'top-right', 'bottom-left', 'bottom', 'bottom-right'] |
 | rows | number | 4 | The minimum row height. Same as native textarea rows property. |

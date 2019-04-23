@@ -5,7 +5,7 @@
  *    -- Set the rowClickAttr to trigger an onRowClick event for an element.
  */
 import React from 'react'
-import { Table, Select } from 'shineout'
+import { Table, Select, Button } from 'shineout'
 import { fetchSync } from 'doc/data/user'
 
 const dataList = fetchSync(4)
@@ -19,8 +19,13 @@ const columns = [
     title: 'Operation',
     render: () => (
       <span>
-        <button data-info>info</button>&nbsp;
-        <button data-call>call</button>
+        <Button data-info size="small">
+          info
+        </Button>
+        &nbsp;
+        <Button data-call type="primary" size="small">
+          call
+        </Button>
       </span>
     ),
   },

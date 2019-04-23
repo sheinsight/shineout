@@ -194,7 +194,18 @@ export default class TreeSelect extends PureComponent {
   }
 
   render() {
-    const { placeholder, multiple, datum, clearable, disabled, size, onFilter, filterText, result } = this.props
+    const {
+      placeholder,
+      compressed,
+      multiple,
+      datum,
+      clearable,
+      disabled,
+      size,
+      onFilter,
+      filterText,
+      result,
+    } = this.props
     const className = treeSelectClass(
       'inner',
       size,
@@ -226,6 +237,7 @@ export default class TreeSelect extends PureComponent {
           placeholder={placeholder}
           renderResult={renderResult}
           setInputReset={this.setInputReset}
+          compressed={compressed}
         />
         {this.renderTreeOptions()}
       </div>
@@ -260,10 +272,12 @@ TreeSelect.propTypes = {
   onFilter: PropTypes.func,
   onFocus: PropTypes.func,
   empty: PropTypes.string,
+  compressed: PropTypes.bool,
 }
 
 TreeSelect.defaultProps = {
   clearable: false,
+  compressed: false,
   multiple: false,
   line: false,
   renderItem: e => e,
