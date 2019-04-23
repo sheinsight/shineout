@@ -12,6 +12,7 @@
 | info | function | 无 | 提示信息 |
 | name | string | 无 | Form 存取数据的名称 |
 | onChange | function(d) | | 值改变回调函数 |
+| onEnterPress | function(value) | | 回车键回调函数 |
 | placeholder | string | | 同原生 input 标签的 placeholder |
 | popover | string | | 信息弹出位置，可选值为 \['top-left', 'top', 'top-right', 'bottom-left', 'bottom', 'bottom-right'] |
 | rows | number | 4 | 最小行高，同原生 textarea rows 属性 |
