@@ -48,7 +48,7 @@ module.exports = function getCommon(config) {
     plugins.push(
       new webpack.IgnorePlugin({
         resourceRegExp: /\.less$/,
-      }),
+      })
     )
   }
   return {

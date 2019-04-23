@@ -24,7 +24,7 @@ const cssConfig = config.themes.map(name =>
   })
 )
 
-const jsConfig = merge(common({ ...config.webpack, IGNORE_LESS: true }), {
+const jsConfig = merge(common({ ...config.webpack, DEV: true }), {
   stats: { children: false },
   devtool: config.webpack.devtool,
   entry: config.webpack.entry,
