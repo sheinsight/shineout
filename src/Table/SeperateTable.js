@@ -7,13 +7,12 @@ import { range, split } from '../utils/numbers'
 import { getParent } from '../utils/dom/element'
 import { tableClass } from '../styles'
 import Scroll from '../Scroll'
+import { BAR_WIDTH } from '../Scroll/Scroll'
 import Colgroup from './Colgroup'
 import Thead from './Thead'
 import Tbody from './Tbody'
 import { isNumber } from '../utils/is'
 import { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
-
-const SCROLL_Y_PADDING_RIGHT = 16
 
 class SeperateTable extends PureComponent {
   constructor(props) {
@@ -141,7 +140,7 @@ class SeperateTable extends PureComponent {
   resetFloatFixed() {
     if (!this.headWrapper || !this.tbody) return
     const { fixed } = this.props
-    const delta = fixed === 'x' ? 0 : SCROLL_Y_PADDING_RIGHT
+    const delta = fixed === 'x' ? 0 : BAR_WIDTH
     const floatFixed = Math.abs(this.headWrapper.clientWidth - this.tbody.clientWidth) !== delta
     if (floatFixed !== this.state.floatFixed) {
       this.setState({ floatFixed })
