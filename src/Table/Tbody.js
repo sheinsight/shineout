@@ -6,6 +6,8 @@ import { getProps } from '../utils/proptypes'
 import { getKey } from '../utils/uid'
 import Tr from './Tr'
 
+export const RENDER_COL_GROUP_EVENT = 'RENDER_COL_GROUP_EVENT'
+
 function ignoreBorderRight(rows) {
   rows.forEach(row => {
     const lastColumn = row[row.length - 1]
@@ -13,6 +15,29 @@ function ignoreBorderRight(rows) {
       lastColumn.ignoreBorderRight = true
     }
   })
+}
+
+function ignoreBorderBottom(rows) {
+  const emptyColumn = {}
+  const lastLine = rows[rows.length - 1]
+  if (!lastLine) return
+  lastLine.forEach((column, index) => {
+    if (column === null) {
+      emptyColumn[index] = true
+    }
+  })
+  if (Object.keys(emptyColumn).length === 0) return
+  for (let i = rows.length - 2; i >= 0; i--) {
+    const row = rows[i]
+    Object.keys(emptyColumn).forEach(emptyIndex => {
+      const index = parseInt(emptyIndex, 10)
+      if (row[index]) {
+        row[index].ignoreBorderBottom = true
+        delete emptyColumn[emptyIndex]
+      }
+    })
+    if (row.indexOf(null) === -1) break
+  }
 }
 
 function format(columns, data, nextRow, index, expandKeys) {
@@ -56,6 +81,7 @@ class Tbody extends PureComponent {
       expand: {},
     }
 
+    this.bodyRender = this.bodyRender.bind(this)
     this.bindBody = this.bindBody.bind(this)
     this.renderTr = this.renderTr.bind(this)
     this.handleExpand = this.handleExpand.bind(this)
@@ -74,8 +100,13 @@ class Tbody extends PureComponent {
   }
 
   bodyRender() {
-    const { onBodyRender } = this.props
+    const { onBodyRender, datum } = this.props
     if (!onBodyRender || !this.body) return
+    datum.unsubscribe(RENDER_COL_GROUP_EVENT, this.bodyRender)
+    if (this.body.clientHeight === 0) {
+      datum.subscribe(RENDER_COL_GROUP_EVENT, this.bodyRender)
+      return
+    }
     const tr = this.body.querySelector('tr')
     if (!tr) return
     this.colgroupSetted = true
@@ -140,7 +171,10 @@ class Tbody extends PureComponent {
       )
     }
 
-    if (bordered) ignoreBorderRight(rows)
+    if (rows.length > 0 && bordered) {
+      ignoreBorderBottom(rows)
+      ignoreBorderRight(rows)
+    }
 
     return <tbody ref={this.bindBody}>{rows.map(this.renderTr)}</tbody>
   }

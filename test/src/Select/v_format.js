@@ -14,7 +14,7 @@ export function vSingle({ wrapper, changeFn, citys, renderItem, format }) {
   })
 }
 
-export function vMultiple({ wrapper, citys, changeFn, format}){
+export function vMultiple({ wrapper, citys, changeFn, format }) {
   // select first five option
   wrapper.find(`.${SO_PREFIX}-select-inner`).simulate('click')
   const options = wrapper.find(`.${SO_PREFIX}-select-option`)
@@ -22,6 +22,7 @@ export function vMultiple({ wrapper, citys, changeFn, format}){
   range(5).forEach((...arg) => {
     options.at(arg[1]).simulate('click')
     selected.push(citys[arg[1]][format])
+    wrapper.update()
     expect(changeFn.mock.calls[arg[1]][0]).toEqual(selected)
   })
 }

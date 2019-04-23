@@ -7,6 +7,7 @@ import { range, split } from '../utils/numbers'
 import { getParent } from '../utils/dom/element'
 import { tableClass } from '../styles'
 import Scroll from '../Scroll'
+import { BAR_WIDTH } from '../Scroll/Scroll'
 import Colgroup from './Colgroup'
 import Thead from './Thead'
 import Tbody from './Tbody'
@@ -20,6 +21,7 @@ class SeperateTable extends PureComponent {
       currentIndex: 0,
       scrollLeft: 0,
       scrollTop: 0,
+      floatFixed: true,
     }
 
     this.bindTbody = this.bindElement.bind(this, 'tbody')
@@ -110,6 +112,7 @@ class SeperateTable extends PureComponent {
 
   updateScrollLeft() {
     let { scrollLeft } = this.props
+    this.resetFloatFixed()
     if (!isNumber(scrollLeft)) return
     const args = this.lastScrollArgs && this.lastScrollArgs.slice()
     if (scrollLeft !== this.state.offsetLeft && args) {
@@ -126,10 +129,21 @@ class SeperateTable extends PureComponent {
 
   adjustScrollLeft() {
     const { scrollLeft } = this.props
+    this.resetFloatFixed()
     if (isNumber(scrollLeft) && scrollLeft > 0) {
       const v = this.headWrapper.clientWidth
       const offset = this.getContentWidth() - v
       this.setState({ scrollLeft: scrollLeft / offset, offsetLeft: scrollLeft })
+    }
+  }
+
+  resetFloatFixed() {
+    if (!this.headWrapper || !this.tbody) return
+    const { fixed } = this.props
+    const delta = fixed === 'x' ? 0 : BAR_WIDTH
+    const floatFixed = Math.abs(this.headWrapper.clientWidth - this.tbody.clientWidth) !== delta
+    if (floatFixed !== this.state.floatFixed) {
+      this.setState({ floatFixed })
     }
   }
 
@@ -221,7 +235,7 @@ class SeperateTable extends PureComponent {
   }
 
   handleScroll(...args) {
-    if (!this.tbody) return
+    if (!this.tbody || this.realTbody.clientHeight === 0) return
     const [x, y, max, bar, v, h, pixelX, pixelY] = args
     this.lastScrollArgs = args
     const { data, rowHeight, rowsInView } = this.props
@@ -326,7 +340,7 @@ class SeperateTable extends PureComponent {
       return <div key="body" />
     }
     let dataUpdated = this.lastData !== data // Incorrect height due to changing data length dynamically
-    if (this.lastData) dataUpdated = this.lastData.length !== data.length
+    if (this.lastData && !dataUpdated) dataUpdated = this.lastData.length !== data.length
     this.lastData = data
     const prevHeight = this.getSumHeight(0, currentIndex)
     const hasNotRenderRows = data.length > rowsInView
@@ -366,15 +380,19 @@ class SeperateTable extends PureComponent {
 
   render() {
     const { columns, fixed, width } = this.props
-    const { colgroup, scrollLeft } = this.state
+    const { colgroup, scrollLeft, floatFixed } = this.state
 
     const floatClass = []
-    if (scrollLeft > 0) {
-      floatClass.push('float-left')
+
+    if (floatFixed) {
+      if (scrollLeft > 0) {
+        floatClass.push('float-left')
+      }
+      if (scrollLeft !== 1) {
+        floatClass.push('float-right')
+      }
     }
-    if (scrollLeft !== 1) {
-      floatClass.push('float-right')
-    }
+
     if (fixed === 'y' || fixed === 'both') {
       floatClass.push('scroll-y')
     }
