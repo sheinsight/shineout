@@ -4,10 +4,10 @@ import { Popover, Button } from 'shineout'
 import { dispatchEvent } from '../../../src/utils/dom/element'
 
 describe('Popover[event]', () => {
-  jest.useFakeTimers()
-  const onOpen = jest.fn()
-  const onClose = jest.fn()
   test('should fire event', () => {
+    jest.useFakeTimers()
+    const onOpen = jest.fn()
+    const onClose = jest.fn()
     const wrapper = mount(
       <Button>
         <Popover onOpen={onOpen} onClose={onClose} trigger="click">
@@ -17,8 +17,9 @@ describe('Popover[event]', () => {
       </Button>
     )
     dispatchEvent(wrapper.find('button').instance(), 'click')
+    jest.runAllTimers()
     expect(onOpen).toBeCalled()
-    dispatchEvent(document, 'click')
+    dispatchEvent(document, 'mousedown')
     jest.runAllTimers()
     expect(onClose).toBeCalled()
   })
