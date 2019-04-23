@@ -24,3 +24,77 @@ exports[`Breadcrumb[Base] should render correct 1`] = `
   </span>
 </div>
 `;
+
+exports[`Breadcrumb[Icon] should render Icon 1`] = `
+<div
+  className="so-breadcrumb"
+  style={Object {}}
+>
+  <span>
+    <a
+      href="#/"
+    >
+      <i
+        className="so-icon so-icon-default fa-home"
+        size="default"
+        style={
+          Object {
+            "fontFamily": "FontAwesome",
+            "fontSize": undefined,
+          }
+        }
+      />
+       
+      Home
+    </a>
+    <span
+      className="so-breadcrumb-separator"
+    >
+      /
+    </span>
+  </span>
+  <span>
+    <b>
+      Menu
+    </b>
+    <span
+      className="so-breadcrumb-separator"
+    >
+      /
+    </span>
+  </span>
+  <span>
+    <a
+      href="#/components/Breadcrumb"
+    >
+       
+      Self
+    </a>
+  </span>
+</div>
+`;
+
+exports[`Breadcrumb[Separator] should render separator 1`] = `
+<div
+  className="so-breadcrumb"
+  style={Object {}}
+>
+  <span>
+    <a
+      href="#/components/Button"
+    >
+      Button
+    </a>
+    <span
+      className="so-breadcrumb-separator"
+    >
+      |
+    </span>
+  </span>
+  <span>
+    <b>
+      Self
+    </b>
+  </span>
+</div>
+`;
