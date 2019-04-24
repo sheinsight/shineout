@@ -2,6 +2,7 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const config = require('../config')
 const common = require('./config.common')
+const cssConf = require('./utils/theme.css')
 
 function getEntry(entry) {
   const newEntry = {}
@@ -21,27 +22,38 @@ function getPublishPath() {
   return `http://localhost:${config.dev.publishPort}/`
 }
 
-function getCompiler(name, conf) {
-  const wf = Object.assign({}, conf, {
-    extractTextPluginPath: `${name}.css`,
-    modifyVars: {
-      'so-theme': name,
-    },
-  })
-  return merge(common(wf), {
-    name,
-    devtool: wf.devtool,
-    entry: getEntry(wf.entry),
-    output: {
-      filename: '[name].js',
-      publicPath: getPublishPath(),
-      libraryTarget: 'umd',
-    },
-
+const cssConfig = config.themes.map(name =>
+  cssConf({
     mode: 'development',
-
-    plugins: [new webpack.HotModuleReplacementPlugin()],
+    hot: true,
+    name,
+    entry: [
+      `webpack-dev-server/client?http://localhost:${config.dev.webpackPort}`,
+      'webpack/hot/only-dev-server',
+      './src/styles/normalize.less',
+      './src/styles/expose.js',
+      './src/styles/index.js',
+      './src/styles/spin.js',
+      // site style
+      './site/styles/index.js',
+    ],
+    output: { publicPath: getPublishPath() },
+    clean: false,
+    filename: '__css_hot_loader.js',
+    prefix: '',
   })
-}
+)
 
-module.exports = config.themes.map(name => getCompiler(name, config.webpack))
+const jsConfig = merge(common({ ...config.webpack, DEV: true }), {
+  devtool: config.webpack.devtool,
+  entry: getEntry(config.webpack.entry),
+  output: {
+    filename: '[name].js',
+    publicPath: getPublishPath(),
+    libraryTarget: 'umd',
+  },
+  mode: 'development',
+  plugins: [new webpack.HotModuleReplacementPlugin()],
+})
+
+module.exports = [jsConfig, ...cssConfig]
