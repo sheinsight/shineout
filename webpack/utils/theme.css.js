@@ -70,9 +70,10 @@ module.exports = function({
   if (clean) {
     conf.plugins.push(
       new CleanWebpackPlugin({
-        cleanStaleWebpackAssets: false,
+        verbose: true,
         protectWebpackAssets: false,
         cleanAfterEveryBuildPatterns: ['_temp.file'],
+        cleanOnceBeforeBuildPatterns: [],
       })
     )
   }
