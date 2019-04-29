@@ -17,11 +17,12 @@ const getResultContent = (data, renderResult) => {
 // eslint-disable-next-line
 function Item({ renderResult, data, disabled, onClick }) {
   const value = data
-  const click = disabled ? undefined : () => onClick(value)
+  const click = disabled || !onClick ? undefined : () => onClick(value)
+  const synDisabled = disabled || !click
   return (
-    <a className={selectClass('item', disabled && 'disabled')} onClick={click}>
+    <a className={selectClass('item', synDisabled && 'disabled')} onClick={click}>
       {getResultContent(data, renderResult)}
-      {!disabled && <span className={selectClass('indicator', 'close')} />}
+      {!synDisabled && <span className={selectClass('indicator', 'close')} />}
     </a>
   )
 }
@@ -90,12 +91,27 @@ class Result extends PureComponent {
   }
 
   renderResult() {
-    const { multiple, result, renderResult, onFilter, focus, datum, filterText } = this.props
+    const { multiple, compressed, result, renderResult, onFilter, focus, datum, filterText } = this.props
 
     if (multiple) {
-      const items = result.map((d, i) => (
-        <Item key={i} data={d} disabled={datum.disabled(d)} onClick={this.handleRemove} renderResult={renderResult} />
+      const neededResult = compressed ? result.slice(0, 1) : result
+      const items = neededResult.map((d, i) => (
+        <Item
+          key={i}
+          data={d}
+          disabled={datum.disabled(d)}
+          onClick={compressed ? undefined : this.handleRemove}
+          renderResult={renderResult}
+        />
       ))
+
+      if (compressed && result.length > 1) {
+        items.push(
+          <a key={result.length} className={selectClass('item', 'compressed')}>
+            <span>{`+${result.length - 1}`}</span>
+          </a>
+        )
+      }
 
       if (focus && onFilter) {
         items.push(this.renderInput(filterText, result.length))
@@ -142,6 +158,7 @@ Result.propTypes = {
   renderResult: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   setInputReset: PropTypes.func,
+  compressed: PropTypes.bool,
 }
 
 export default Result

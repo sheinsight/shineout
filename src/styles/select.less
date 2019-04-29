@@ -67,6 +67,16 @@
       color: inherit;
       text-overflow: ellipsis;
 
+      &.@{select-prefix}-compressed {
+        padding: 0 8px;
+        font-size: 80%;
+        opacity: .9;
+        > span {
+          vertical-align: middle;
+          letter-spacing: 2px;
+        }
+      }
+
       &.@{select-prefix}-disabled {
         padding-right: @select-result-space;
         cursor: not-allowed;
@@ -333,6 +343,10 @@
 
   &-multiple &-result {
     padding-left: @padding-base-horizontal / 2;
+    padding-right: @padding-large-horizontal+22;
+    a.@{select-prefix}-close.@{select-prefix}-indicator {
+      right: 17px;
+    }
   }
 
   &-large&-multiple &-result {

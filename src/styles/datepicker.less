@@ -152,15 +152,29 @@
       }
     }
 
+    span.@{datepicker-prefix}-today {
+      color: @colors-primary;
+      background: #fff;
+      box-shadow: 0 0 0 1px @colors-primary inset;
+    }
+
     .@{datepicker-prefix}-list span {
       &:hover {
         background: @datepicker-day-hover-bg;
         color: #000;
       }
+      &:hover.@{datepicker-prefix}-today {
+        background: #fff;
+        color: @colors-primary;
+      }
     }
 
     span.@{datepicker-prefix}-active,
     span.@{datepicker-prefix}-active:hover {
+      background: @colors-primary;
+      color: #fff;
+    }
+    span.@{datepicker-prefix}-active:hover.@{datepicker-prefix}-today {
       background: @colors-primary;
       color: #fff;
     }

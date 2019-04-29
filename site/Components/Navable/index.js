@@ -13,10 +13,21 @@ const scrollTo = id => {
   }
 }
 
+const hashScroll = h => {
+  if (h) {
+    const element = document.querySelector(h)
+    if (element)
+      setTimeout(() => {
+        element.scrollIntoView()
+      }, 50)
+  }
+}
+
 export default function(Component) {
-  return function Nav() {
+  return function Nav(prop) {
     const [active, setActive] = useState('')
     const [headings] = useState([])
+    const { hash } = prop.location
 
     const setHeading = useCallback(hs => {
       hs.forEach(h => {
@@ -25,6 +36,7 @@ export default function(Component) {
     }, [])
 
     useEffect(() => {
+      hashScroll(hash)
       const handleScroll = () => {
         const top = document.documentElement.scrollTop
         const hs = headings.filter(h => h.level === 3 && h.children[0])

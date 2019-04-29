@@ -29,6 +29,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-1-base.j
     <span>
       Dropdown
     </span>
+    <span />
   </button>
 </div>
 `;
@@ -74,6 +75,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-2-hover.
     <span>
       Hover
     </span>
+    <span />
   </button>
 </div>
 `;
@@ -129,6 +131,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
       <span>
         Right Top
       </span>
+      <span />
     </button>
   </div>
   <div>
@@ -180,6 +183,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
       <span>
         Bottom Left
       </span>
+      <span />
     </button>
   </div>
   <div>
@@ -231,6 +235,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
       <span>
         Bottom Right
       </span>
+      <span />
     </button>
   </div>
   <div>
@@ -282,6 +287,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
       <span>
         Left Top
       </span>
+      <span />
     </button>
   </div>
   <br />
@@ -334,6 +340,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
       <span>
         Right Bottom
       </span>
+      <span />
     </button>
   </div>
   <div>
@@ -385,6 +392,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
       <span>
         Top Left
       </span>
+      <span />
     </button>
   </div>
   <div>
@@ -436,6 +444,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
       <span>
         Top Right
       </span>
+      <span />
     </button>
   </div>
   <div>
@@ -487,6 +496,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
       <span>
         Left Bottom
       </span>
+      <span />
     </button>
   </div>
   <br />
@@ -539,6 +549,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
       <span>
         Auto Position
       </span>
+      <span />
     </button>
   </div>
 </div>
@@ -642,6 +653,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-4-items.
     <span>
       Dropdown
     </span>
+    <span />
   </button>
 </div>
 `;
@@ -664,6 +676,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-5-split.
       </a>
     </div>
     <button>
+      <span />
       <span />
     </button>
   </div>
@@ -749,6 +762,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-6-type.j
       <span>
         Dropdown
       </span>
+      <span />
     </button>
   </div>
 </div>

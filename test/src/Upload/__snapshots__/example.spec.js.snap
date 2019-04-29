@@ -169,7 +169,9 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-10-defaultVa
         <div>
           <div>
              
-            <span />
+            <span>
+              loading...
+            </span>
           </div>
         </div>
       </a>
@@ -179,6 +181,34 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-10-defaultVa
         </svg>
       </a>
     </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-11-dragger.js] 1`] = `
+<div>
+  <div>
+    <span>
+      <div>
+        <div>
+          <i />
+          <br />
+          Click or Drag image to upload
+        </div>
+      </div>
+      <input />
+    </span>
+  </div>
+  <br />
+  <div>
+    <span>
+      <div>
+        <i />
+        <br />
+        Click or Drag file to upload
+      </div>
+      <input />
+    </span>
   </div>
 </div>
 `;

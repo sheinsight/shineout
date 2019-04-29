@@ -1,7 +1,6 @@
 import React from 'react'
 import { Table } from 'shineout'
 import Render from 'react-test-renderer'
-import { mount } from 'enzyme'
 
 const columns = [
   { title: 'id', render: 'id', width: 50 },

@@ -22,27 +22,26 @@ export default function datum(Origin) {
       multiple: PropTypes.bool,
     }
 
+    static defaultProps = {
+      mode: 1,
+    }
+
     constructor(props) {
       super(props)
 
-      this.mode = props.mode
-      if (this.mode === undefined) {
-        this.mode = props.multiple ? 1 : 3
-      }
       this.datum = new DatumTree({
         data: props.data,
         loader: props.loader,
         keygen: props.keygen,
-        mode: this.mode,
+        mode: props.mode,
         value: toArray(props.value),
         onChange: props.onChange,
         disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
       })
-      this.setTreeValue(toArray(props.value))
     }
 
-    setTreeValue(values) {
-      values.forEach(v => this.datum.set(v, 1))
+    componentDidUpdate(prevProps) {
+      if (prevProps.data !== this.props.data) this.datum.setData(this.props.data)
     }
 
     render() {
@@ -50,12 +49,10 @@ export default function datum(Origin) {
       const props = {
         ...this.props,
         datum: this.datum,
-        mode: this.mode,
       }
 
       if (!shallowEqual(toArray(value), this.datum.getValue())) {
-        this.datum.setValue([])
-        this.setTreeValue(toArray(value))
+        this.datum.setValue(toArray(value))
       }
       return <Origin {...props} />
     }

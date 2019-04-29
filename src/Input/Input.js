@@ -28,13 +28,13 @@ class Input extends PureComponent {
   handleChange(e) {
     const { value } = e.target
     if (this.invalidNumber(value)) return
-    this.props.onChange(value)
+    this.props.onChange(value, e)
   }
 
   handleKeyUp(e) {
     const { onKeyUp, onEnterPress } = this.props
     if (e.keyCode === 13 && onEnterPress) {
-      onEnterPress(e.target.value)
+      onEnterPress(e.target.value, e)
     }
     if (onKeyUp) onKeyUp(e)
   }

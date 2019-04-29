@@ -24,7 +24,33 @@ module.exports = function getCommon(config) {
       },
     },
   ]
-
+  const jsLoaders = [
+    {
+      loader: 'babel-loader',
+      options: {
+        cacheDirectory: true,
+      },
+    },
+  ]
+  const plugins = [
+    new MiniCssExtractPlugin({
+      filename: `${config.extractTextPluginPath}`,
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        SO_PREFIX: JSON.stringify(process.env.SO_PREFIX || ''),
+        CSS_MODULE: !!process.env.LOCAL_IDENT_NAME,
+      },
+    }),
+  ]
+  if (config.IGNORE_LESS) {
+    jsLoaders.splice(0, 0, { loader: 'remove-less-loader' })
+    plugins.push(
+      new webpack.IgnorePlugin({
+        resourceRegExp: /\.less$/,
+      })
+    )
+  }
   return {
     optimization: {
       minimizer: [
@@ -43,22 +69,21 @@ module.exports = function getCommon(config) {
       extensions: ['.js', '.json', '.jsx'],
     },
 
+    resolveLoader: {
+      modules: ['node_modules', 'webpack/loaders'],
+    },
+
     module: {
       rules: [
         {
           test: /\.jsx?$/,
           exclude: [/node_modules/],
-          use: {
-            loader: 'babel-loader',
-            options: {
-              cacheDirectory: true,
-            },
-          },
+          use: jsLoaders,
         },
 
         {
           test: /\.less$/,
-          use: lessLoader,
+          use: config.DEV ? 'ignore-loader' : lessLoader,
         },
 
         {
@@ -98,16 +123,6 @@ module.exports = function getCommon(config) {
       ],
     },
 
-    plugins: [
-      new MiniCssExtractPlugin({
-        filename: `${config.extractTextPluginPath}`,
-      }),
-      new webpack.DefinePlugin({
-        'process.env': {
-          SO_PREFIX: JSON.stringify(process.env.SO_PREFIX || ''),
-          CSS_MODULE: !!process.env.LOCAL_IDENT_NAME,
-        },
-      }),
-    ],
+    plugins,
   }
 }
