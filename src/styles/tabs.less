@@ -96,6 +96,14 @@
   &-inner {
     overflow: hidden;
     flex: 1;
+
+    a.@{tabs-prefix}-link {
+      color: @text-color;
+
+      &.@{tabs-prefix}-active {
+        color: @tabs-line-active-color;
+      }
+    }
   }
 
   &-scroll {
