@@ -1,6 +1,6 @@
 import { mount, shallow } from 'enzyme'
 import React from 'react'
-import Cascader from 'shineout/Cascader'
+import { Cascader } from 'shineout'
 import Tree from 'shineout/Datum/Tree'
 import { cascader as data } from 'doc/data/tree'
 import CascaderLazyload from '../../../site/pages/components/Cascader/example-05-lazyload'

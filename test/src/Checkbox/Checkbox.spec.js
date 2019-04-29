@@ -1,6 +1,6 @@
 import { mount } from 'enzyme'
 import React from 'react'
-import Checkbox from 'shineout/Checkbox'
+import { Checkbox } from 'shineout'
 import CheckboxStatus from '../../../site/pages/components/Checkbox/example-02-checked'
 import CheckboxRawGroup from '../../../site/pages/components/Checkbox/example-04-rawgroup'
 import CheckboxGroup from '../../../site/pages/components/Checkbox/example-05-group'

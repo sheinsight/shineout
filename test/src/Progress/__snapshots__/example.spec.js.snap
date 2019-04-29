@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test: Progress[site/pages/components/Progress/example-1-base.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <div />
+    </div>
+  </div>
+  <br />
+  <div>
+    <div>
+      <div />
+    </div>
+    <div>
+      50%
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Progress[site/pages/components/Progress/example-2-type.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <div />
+    </div>
+  </div>
+  <br />
+  <div>
+    <div>
+      <div />
+    </div>
+  </div>
+  <br />
+  <div>
+    <div>
+      <div />
+    </div>
+  </div>
+  <br />
+  <div>
+    <div>
+      <div />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Progress[site/pages/components/Progress/example-3-color.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <div />
+    </div>
+  </div>
+  <br />
+  <div>
+    <div>
+      <div />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Progress[site/pages/components/Progress/example-4-circle.js] 1`] = `
+<div>
+  <div>
+    <svg>
+      <circle />
+      <circle />
+    </svg>
+  </div>
+  <div>
+    <svg>
+      <circle />
+      <circle />
+    </svg>
+    <div>
+      70%
+    </div>
+  </div>
+  <div>
+    <svg>
+      <circle />
+      <circle />
+    </svg>
+    <div>
+      Success
+    </div>
+  </div>
+  <div>
+    <svg>
+      <circle />
+      <circle />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Progress[site/pages/components/Progress/example-5-size.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <div />
+    </div>
+  </div>
+  <br />
+  <div>
+    <svg>
+      <circle />
+      <circle />
+    </svg>
+  </div>
+  <div>
+    <svg>
+      <circle />
+      <circle />
+    </svg>
+    <div>
+      70%
+    </div>
+  </div>
+  <div>
+    <svg>
+      <circle />
+      <circle />
+    </svg>
+    <div>
+      Success
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Progress[site/pages/components/Progress/example-6-animation.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div>
+        0
+      </div>
+    </div>
+  </div>
+  <br />
+  <div>
+    <svg>
+      <circle />
+    </svg>
+    <div>
+      0
+      %
+    </div>
+  </div>
+  <button>
+    Start
+  </button>
+</div>
+`;
