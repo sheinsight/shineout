@@ -1,4 +1,4 @@
-import React, { isValidElement, cloneElement } from 'react'
+import React, { cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
@@ -6,6 +6,7 @@ import { getKey, getUidStr } from '../utils/uid'
 import { menuClass } from '../styles'
 import List from './List'
 import { consumer } from './context'
+import { isLink } from '../utils/is'
 
 class Item extends PureComponent {
   constructor(props) {
@@ -128,7 +129,7 @@ class Item extends PureComponent {
       events.onMouseLeave = this.handleMouseLeave
     }
     let item = renderItem(data)
-    if (isValidElement(item) && (item.type === 'a' || (item.type && item.type.displayName === 'Link'))) {
+    if (isLink(item)) {
       const mergeClass = classnames(menuClass('title'), item.props && item.props.className)
       const mergeStyle = Object.assign({}, style, item.props && item.props.style)
       item = cloneElement(item, { className: mergeClass, style: mergeStyle })

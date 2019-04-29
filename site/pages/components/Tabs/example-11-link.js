@@ -28,7 +28,7 @@ export default class extends React.Component {
         <Tabs.Link href="#/components/Tabs?tab=href">Href</Tabs.Link>
 
         <Tabs.Link>
-          <Link to="/components/Tabs?tab=link">Input</Link>
+          <Link to="/components/Tabs?tab=link">Link</Link>
         </Tabs.Link>
       </Tabs>
     )

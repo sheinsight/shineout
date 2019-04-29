@@ -1,13 +1,15 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import { tabsClass } from '../styles'
+import { getUidStr } from '../utils/uid'
 
 class Tab extends PureComponent {
   constructor(props) {
     super(props)
     this.getActiveStyle = this.getActiveStyle.bind(this)
-    this.bindElement = this.bindElement.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.uid = `tab_unique_${getUidStr()}`
   }
 
   getActiveStyle() {
@@ -29,14 +31,13 @@ class Tab extends PureComponent {
     return style
   }
 
-  bindElement(el) {
-    this.element = el
-  }
-
   handleClick() {
     const { onClick, id, isActive, disabled } = this.props
     if (disabled) return
     onClick(id, isActive)
+    if (!this.element) {
+      this.element = document.querySelector(`.${this.uid}`)
+    }
     if (this.element.getBoundingClientRect) {
       this.props.moveToCenter(this.element.getBoundingClientRect())
     }
@@ -48,20 +49,16 @@ class Tab extends PureComponent {
     const style = this.getActiveStyle()
 
     const props = {
-      className: tabsClass('tab', isActive && 'active', disabled && 'disabled'),
+      className: classnames(tabsClass('tab', isActive && 'active', disabled && 'disabled'), this.uid),
       onClick: this.handleClick,
       style,
     }
 
     if (children.type && children.type.isTabLink) {
-      return React.cloneElement(children, { ...props, elRef: this.bindElement })
+      return React.cloneElement(children, { ...props })
     }
 
-    return (
-      <div {...props} ref={this.bindElement}>
-        {children}
-      </div>
-    )
+    return <div {...props}>{children}</div>
   }
 }
 

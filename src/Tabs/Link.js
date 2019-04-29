@@ -2,23 +2,20 @@ import React, { PureComponent, isValidElement } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { tabsClass } from '../styles'
+import { isLink } from '../utils/is'
 
 class Link extends PureComponent {
   render() {
-    const { children, href, className, elRef, ...other } = this.props
+    const { children, href, className, ...other } = this.props
     const mergeClass = classnames(className, tabsClass('link'))
 
     const props = {
       className: mergeClass,
       href,
-      ref: elRef,
       ...other,
     }
 
-    if (
-      isValidElement(children) &&
-      (children.type === 'a' || (children.type && children.type.displayName === 'Link'))
-    ) {
+    if (isLink(children)) {
       return React.cloneElement(children, { ...props })
     }
 
