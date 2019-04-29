@@ -5,6 +5,7 @@ import { PureComponent } from '../component'
 import { addStack, removeStack } from '../utils/lazyload'
 import { imageClass } from '../styles'
 import showGallery from './events'
+import { getLocale } from '../locale'
 
 const PLACEHOLDER = 0
 const SRC = 1
@@ -88,21 +89,27 @@ class Image extends PureComponent {
     )
   }
 
+  renderPlaceholder() {
+    const { placeholder, title } = this.props
+    if (React.isValidElement(placeholder)) {
+      return <div className={imageClass('inner')}>{placeholder}</div>
+    }
+    return (
+      <div className={imageClass('inner', 'mask')}>
+        <div>
+          {title} <span className={imageClass('placeholder')}>{placeholder || getLocale('loading')}</span>
+        </div>
+      </div>
+    )
+  }
+
   renderImage() {
     const { status } = this.state
-    const { alt, placeholder, src, title } = this.props
+    const { alt, src, title } = this.props
 
     switch (status) {
       case PLACEHOLDER:
-        return placeholder ? (
-          <div className={imageClass('inner')}>{placeholder}</div>
-        ) : (
-          <div className={imageClass('inner', 'mask')}>
-            <div>
-              {title} <span className={imageClass('ellipsis')} />
-            </div>
-          </div>
-        )
+        return this.renderPlaceholder()
       case SRC:
         return this.renderType(src)
       case ALT:
@@ -148,7 +155,7 @@ Image.propTypes = {
   href: PropTypes.string,
   lazy: PropTypes.bool,
   onClick: PropTypes.func,
-  placeholder: PropTypes.element,
+  placeholder: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
   shape: PropTypes.oneOf(['rounded', 'circle', 'thumbnail']),
   src: PropTypes.string,
   style: PropTypes.object,

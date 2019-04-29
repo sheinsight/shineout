@@ -14,6 +14,7 @@
 | style | object | - | Container element style |
 | target | string | '_modal' | options: \['_modal', '_blank', '_self', '_download'] |
 | width | string \| number | '100%' | the width of the image |
+| placeholder | ReactElement \| string | 'loading' | loading image placeholder content |
 
 ### Image.Group
 

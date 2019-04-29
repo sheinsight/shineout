@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { curry } from '../utils/func'
 import shallowEqual from '../utils/shallowEqual'
@@ -15,7 +15,7 @@ export default curry((options, Origin) => {
   const { type = 'list', key = 'value', limit = 0, bindProps = [], ignoreUndefined } = options || {}
   const Datum = types[type]
 
-  return class extends PureComponent {
+  return class extends React.Component {
     static propTypes = {
       onChange: PropTypes.func,
       onDatumBind: PropTypes.func,

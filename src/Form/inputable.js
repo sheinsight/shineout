@@ -296,6 +296,7 @@ export default curry(Origin =>
           bindInputToItem,
           unbindInputFromItem,
           scuSkip,
+          defaultValue,
           ...other
         } = this.props
 

@@ -9,7 +9,7 @@ import { scrollClass } from '../styles'
 import Bar from './Bar'
 import { Provider } from './context'
 
-const BAR_WIDTH = 12
+export const BAR_WIDTH = 16
 
 class Scroll extends PureComponent {
   constructor(props) {
