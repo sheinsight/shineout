@@ -30,9 +30,10 @@ export default class extends PureComponent {
   }
 
   handleChange(current, pageSize = this.state.pageSize) {
+    const sizeChange = pageSize !== this.state.pageSize
     this.setState({ current, pageSize })
     if (this.props.onChange) {
-      this.props.onChange(current, pageSize)
+      this.props.onChange(current, pageSize, sizeChange)
     }
   }
 

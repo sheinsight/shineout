@@ -39,7 +39,7 @@ class Textarea extends PureComponent {
   }
 
   handleChange(e) {
-    this.props.onChange(e.target.value)
+    this.props.onChange(e.target.value, e)
 
     if (this.props.autosize) {
       this.resize(e.target.value)
@@ -49,7 +49,7 @@ class Textarea extends PureComponent {
   handleKeyUp(e) {
     const { onEnterPress } = this.props
     if (e.keyCode === 13 && onEnterPress) {
-      onEnterPress(e.target.value)
+      onEnterPress(e.target.value, e)
     }
   }
 

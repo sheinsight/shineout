@@ -23,6 +23,8 @@ class Range extends PureComponent {
     this.handleDayHover = this.handleDayHover.bind(this)
     this.bindFirstPicker = this.bindPicker.bind(this, 0)
     this.bindSecondPicker = this.bindPicker.bind(this, 1)
+    this.handleDisabledStart = this.handleDisabled.bind(this, 'start')
+    this.handleDisabledEnd = this.handleDisabled.bind(this, 'end')
   }
 
   componentDidUpdate(prevProps) {
@@ -105,6 +107,14 @@ class Range extends PureComponent {
     )
   }
 
+  handleDisabled(type, date) {
+    const { disabled } = this.props
+    if (disabled) {
+      return disabled(date, type)
+    }
+    return false
+  }
+
   render() {
     const { current, value, range, ...props } = this.props
     const rangeDate = [...this.state.rangeDate]
@@ -121,6 +131,7 @@ class Range extends PureComponent {
       <div className={datepickerClass('range-picker')}>
         <Picker
           {...props}
+          disabled={this.handleDisabledStart}
           index={0}
           max={rangeDate[1]}
           current={current[0]}
@@ -135,6 +146,7 @@ class Range extends PureComponent {
         />
         <Picker
           {...props}
+          disabled={this.handleDisabledEnd}
           index={1}
           min={rangeDate[0]}
           current={current[1]}
