@@ -20,7 +20,7 @@ exports[`Tabs[Base] should render correct 1`] = `
         }
       >
         <div
-          className="so-tabs-tab"
+          className="so-tabs-tab tab_unique_jv6f42yt"
           onClick={[Function]}
           style={
             Object {
@@ -33,7 +33,7 @@ exports[`Tabs[Base] should render correct 1`] = `
           Home
         </div>
         <div
-          className="so-tabs-tab so-tabs-active"
+          className="so-tabs-tab so-tabs-active tab_unique_jv6f42yu"
           onClick={[Function]}
           style={
             Object {
@@ -46,7 +46,7 @@ exports[`Tabs[Base] should render correct 1`] = `
           Profile
         </div>
         <div
-          className="so-tabs-tab"
+          className="so-tabs-tab tab_unique_jv6f42yv"
           onClick={[Function]}
           style={
             Object {
@@ -103,7 +103,7 @@ exports[`Tabs[Base] should render defined style 1`] = `
         }
       >
         <div
-          className="so-tabs-tab so-tabs-active"
+          className="so-tabs-tab so-tabs-active tab_unique_jv6f42yw"
           onClick={[Function]}
           style={
             Object {
@@ -116,7 +116,7 @@ exports[`Tabs[Base] should render defined style 1`] = `
           Home
         </div>
         <div
-          className="so-tabs-tab"
+          className="so-tabs-tab tab_unique_jv6f42yx"
           onClick={[Function]}
           style={
             Object {
@@ -129,7 +129,7 @@ exports[`Tabs[Base] should render defined style 1`] = `
           Profile
         </div>
         <div
-          className="so-tabs-tab"
+          className="so-tabs-tab tab_unique_jv6f42yy"
           onClick={[Function]}
           style={
             Object {
@@ -154,7 +154,7 @@ exports[`Tabs[Base] should render defined style 1`] = `
           </span>
         </div>
         <div
-          className="so-tabs-tab"
+          className="so-tabs-tab tab_unique_jv6f42yz"
           onClick={[Function]}
           style={
             Object {
@@ -167,7 +167,7 @@ exports[`Tabs[Base] should render defined style 1`] = `
           Setting
         </div>
         <div
-          className="so-tabs-tab"
+          className="so-tabs-tab tab_unique_jv6f42z0"
           onClick={[Function]}
           style={
             Object {
