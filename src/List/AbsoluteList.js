@@ -78,7 +78,7 @@ export default function(List) {
       const lazyResult = { focus, style: this.lastStyle }
       if (!focus) return lazyResult
 
-      let style
+      let style = {}
       if (parentElement) {
         const rect = parentElement.getBoundingClientRect()
         const scrollRect = scrollElement ? scrollElement.getBoundingClientRect() : {}

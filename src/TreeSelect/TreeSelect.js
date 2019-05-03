@@ -12,7 +12,7 @@ import List from '../List'
 import { getLocale } from '../locale'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
-const OptionList = absoluteList(({ focus, parentElement, rootClass, ...other }) => <ScaleList show={focus} {...other} />)
+const OptionList = absoluteList(({ focus, ...other }) => <ScaleList show={focus} {...other} />)
 
 const isDescendent = (el, id) => {
   if (el.getAttribute('data-id') === id) return true
