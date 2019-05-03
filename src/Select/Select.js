@@ -8,10 +8,10 @@ import Result from './Result'
 import { getLocale } from '../locale'
 import OptionList from './OptionList'
 import OptionTree from './OptionTree'
-import absoluteList from './AbsoluteList'
 import BoxList from './BoxList'
 import { isObject } from '../utils/is'
 import { docSize } from '../utils/dom/document'
+import absoluteList from '../List/AbsoluteList'
 
 const ListSet = {
   ao: absoluteList(OptionList),
@@ -265,6 +265,7 @@ class Select extends PureComponent {
         onChange={this.handleChange}
         parentElement={this.element}
         position={position}
+        rootClass={selectClass(position)}
         selectId={this.selectId}
         focus={focus}
         renderPending={this.renderPending}
@@ -302,6 +303,7 @@ class Select extends PureComponent {
     return (
       <List
         {...props}
+        rootClass={selectClass(position)}
         bindOptionFunc={this.bindOptionFunc}
         renderPending={this.renderPending}
         focus={focus}
