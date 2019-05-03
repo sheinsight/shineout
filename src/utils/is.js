@@ -1,5 +1,5 @@
-import { curry } from './func'
 import { isValidElement } from 'react'
+import { curry } from './func'
 
 const nameIs = curry((name, val) => val && val.constructor && val.constructor.name === name)
 
@@ -26,7 +26,7 @@ export const isInPath = (val, path) => {
   return path.indexOf(`${val}[`) === 0 || path.indexOf(`${val}.`) === 0
 }
 
-export const isEmpty = (val) => {
+export const isEmpty = val => {
   if (val == null) return true
   if (isNan(val)) return true
   if (val.length !== undefined) return val.length === 0
@@ -36,14 +36,14 @@ export const isEmpty = (val) => {
   return false
 }
 
-export const isBuffer = (val) => {
+export const isBuffer = val => {
   if (val.constructor && typeof val.constructor.isBuffer === 'function') {
     return val.constructor.isBuffer(val)
   }
   return false
 }
 
-export const isMergeable = (val) => {
+export const isMergeable = val => {
   if (!isObject(val)) return false
   const fns = [isDate, isError, isRegexp, isMap, isSet, isBuffer]
 
@@ -54,15 +54,15 @@ export const isMergeable = (val) => {
   return true
 }
 
-export const isOne = (val) => {
+export const isOne = val => {
   if (val === 1) return true
   return typeof val === 'string' && val.indexOf('.') !== -1 && parseFloat(val) === 1
 }
 
 // /\d{1,3}%$/
 export const isPercent = n => typeof n === 'string' && /\d{1,3}%$/.test(n)
-export const isInseparable = val => (Object(val) !== val ||
-  isFunc(val) || isDate(val) || isError(val) || isSet(val) || isMap(val) || isRegexp(val))
+export const isInseparable = val =>
+  Object(val) !== val || isFunc(val) || isDate(val) || isError(val) || isSet(val) || isMap(val) || isRegexp(val)
 
 export const isLink = el => {
   const linkNames = ['Link', 'NavLink']
