@@ -12,9 +12,7 @@ import List from '../List'
 import { getLocale } from '../locale'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
-// eslint-disable-next-line react/prop-types
-const OptionList = ({ focus, parentElement, rootClass, ...other }) => <ScaleList show={focus} {...other} />
-const AbsoluteOptionList = absoluteList(OptionList)
+const OptionList = absoluteList(({ focus, parentElement, rootClass, ...other }) => <ScaleList show={focus} {...other} />)
 
 const isDescendent = (el, id) => {
   if (el.getAttribute('data-id') === id) return true
@@ -160,7 +158,6 @@ export default class TreeSelect extends PureComponent {
   renderTreeOptions() {
     const { focus, position } = this.state
     const { multiple, datum, data, absolute } = this.props
-    const ListPanel = absolute ? AbsoluteOptionList : OptionList
     const props = {}
     ;[
       'mode',
@@ -192,7 +189,8 @@ export default class TreeSelect extends PureComponent {
         <Tree className={treeSelectClass(!multiple && 'single')} {...props} />
       )
     return (
-      <ListPanel
+      <OptionList
+        absolute={absolute}
         rootClass={treeSelectClass(position)}
         parentElement={this.element}
         position={position}
@@ -201,7 +199,7 @@ export default class TreeSelect extends PureComponent {
         className={treeSelectClass('options')}
       >
         <div className={treeSelectClass('tree-wrapper')}>{content}</div>
-      </ListPanel>
+      </OptionList>
     )
   }
 

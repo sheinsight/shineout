@@ -22,6 +22,7 @@ export default function(List) {
   class AbsoluteList extends Component {
     constructor(props) {
       super(props)
+      if (!props.absolute) return
 
       this.lastStyle = {}
 
@@ -30,10 +31,14 @@ export default function(List) {
     }
 
     componentDidMount() {
+      const { absolute } = this.props
+      if (!absolute) return
       root.appendChild(this.element)
     }
 
     componentWillUnmount() {
+      const { absolute } = this.props
+      if (!absolute) return
       root.removeChild(this.element)
     }
 
@@ -95,8 +100,35 @@ export default function(List) {
       return { focus, style }
     }
 
+    renderList() {
+      const {
+        parentElement,
+        absolute,
+        focus,
+        rootClass,
+        position,
+        scrollLeft,
+        scrollTop,
+        scrollElement,
+        ...props
+      } = this.props
+      return <List {...props} focus={focus} />
+    }
+
     render() {
-      const { parentElement, rootClass, position, scrollLeft, scrollTop, scrollElement, ...props } = this.props
+      if (!this.props.absolute) {
+        return this.renderList()
+      }
+      const {
+        parentElement,
+        rootClass,
+        absolute,
+        position,
+        scrollLeft,
+        scrollTop,
+        scrollElement,
+        ...props
+      } = this.props
       const mergeClass = classnames(listClass('absolute-wrapper'), rootClass)
       const { focus, style } = props.focus ? this.getStyle() : { style: this.lastStyle }
       this.element.className = mergeClass
@@ -109,6 +141,7 @@ export default function(List) {
     onBlur: PropTypes.func,
     parentElement: PropTypes.object,
     position: PropTypes.string,
+    absolute: PropTypes.bool,
     scrollElement: PropTypes.object,
     scrollLeft: PropTypes.number,
     scrollTop: PropTypes.number,

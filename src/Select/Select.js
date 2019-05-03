@@ -13,14 +13,9 @@ import { isObject } from '../utils/is'
 import { docSize } from '../utils/dom/document'
 import absoluteList from '../List/AbsoluteList'
 
-const ListSet = {
-  ao: absoluteList(OptionList),
-  ab: absoluteList(BoxList),
-  no: OptionList,
-  nb: BoxList,
-}
-
-const AbsoluteOptionTree = absoluteList(OptionTree)
+const WrappedOptionList = absoluteList(OptionList)
+const WrappedBoxList = absoluteList(BoxList)
+const WrappedOptionTree = absoluteList(OptionTree)
 
 const isDescendent = (el, id) => {
   if (el.getAttribute('data-id') === id) return true
@@ -242,8 +237,6 @@ class Select extends PureComponent {
 
   renderTree() {
     const { focus, position } = this.state
-    const { absolute } = this.props
-    const List = absolute ? AbsoluteOptionTree : OptionTree
     const props = {}
     ;[
       'treeData',
@@ -256,12 +249,13 @@ class Select extends PureComponent {
       'loading',
       'onFilter',
       'filterText',
+      'absolute',
     ].forEach(k => {
       props[k] = this.props[k]
     })
     props.renderItem = this.renderItem
     return (
-      <List
+      <WrappedOptionTree
         onChange={this.handleChange}
         parentElement={this.element}
         position={position}
@@ -297,8 +291,7 @@ class Select extends PureComponent {
       props[k] = this.props[k]
     })
 
-    const listType = `${props.absolute ? 'a' : 'n'}${props.columns > 1 ? 'b' : 'o'}`
-    const List = ListSet[listType]
+    const List = props.columns > 1 ? WrappedBoxList : WrappedOptionList
 
     return (
       <List
