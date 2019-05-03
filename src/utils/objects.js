@@ -148,7 +148,7 @@ export const deepGet = (target, path, options = {}) => {
   let current = target
   for (const [prop, , mode] of pathGenerator(path)) {
     const isStrict = mode === PATH_MODE.strict || (strictMode && defaultValue === undefined && mode !== PATH_MODE.loose)
-    if (hasOwnProperty.call(current, prop)) {
+    if (current != null && hasOwnProperty.call(current, prop)) {
       current = current[prop]
     } else if (isStrict) {
       throw new Error(`Path ${path} is not exist.`)
@@ -169,7 +169,7 @@ export const deepRemove = (target, path) => {
   let nextIsArray = false
   for (const [prop, next] of pathGenerator(path)) {
     if (next) {
-      if (!hasOwnProperty.call(current, prop)) {
+      if (current == null || !hasOwnProperty.call(current, prop)) {
         break
       }
       current = current[prop]
