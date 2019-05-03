@@ -1,57 +1,12 @@
 import React from 'react'
 import { Tabs } from 'shineout'
 import { mount } from 'enzyme'
-import Render from 'react-test-renderer'
 import TabsActive from '../../../site/pages/components/Tabs/example-04-active'
 import TabsShapeLine from '../../../site/pages/components/Tabs/example-05-shape-line'
 import TabsShapeButton from '../../../site/pages/components/Tabs/example-06-shape-button'
 import TabsCollapsible from '../../../site/pages/components/Tabs/example-10-collapsible'
-import FontAwsome from '../../../site/pages/components/Icon/FontAwesome'
-import TabsCollapse from '../Tabs/Tabs.spec'
 
 /* global SO_PREFIX */
-describe('Tabs[Base]', () => {
-  test('should render correct', () => {
-    const wrapper = Render.create(
-      <Tabs defaultActive={1}>
-        <Tabs.Panel tab="Home">Home</Tabs.Panel>
-        <Tabs.Panel tab="Profile">Profile</Tabs.Panel>
-        <Tabs.Panel tab="Contact">Contact</Tabs.Panel>
-      </Tabs>
-    ).toJSON()
-    expect(wrapper).toMatchSnapshot()
-  })
-
-  test('should render defined style', () => {
-    const panelStyle = { padding: 15 }
-    const contact = (
-      <span>
-        <FontAwsome name="user" /> Contact
-      </span>
-    )
-    const wrapper = Render.create(
-      <Tabs>
-        <Tabs.Panel border="transparent" background="#ffe7ba" style={panelStyle} tab="Home">
-          Test
-        </Tabs.Panel>
-        <Tabs.Panel border="transparent" background="#ffc069" style={panelStyle} tab="Profile">
-          Test
-        </Tabs.Panel>
-        <Tabs.Panel border="transparent" color="#fff" background="#d46b08" style={panelStyle} tab={contact}>
-          Test
-        </Tabs.Panel>
-        <Tabs.Panel border="transparent" color="#fff" background="#873800" style={panelStyle} tab="Setting">
-          Test
-        </Tabs.Panel>
-        <Tabs.Panel border="#b7eb8f" background="#f6ffed" style={panelStyle} tab="Message">
-          Test
-        </Tabs.Panel>
-      </Tabs>
-    ).toJSON()
-    expect(wrapper).toMatchSnapshot()
-  })
-})
-
 describe('Tabs[Active]', () => {
   test('should active controlled', () => {
     const wrapper = mount(<TabsActive />)
