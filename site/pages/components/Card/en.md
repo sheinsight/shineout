@@ -37,4 +37,4 @@
 
 #### Card.Submit
 
-The same as [Button](#/components/Button)
+The same as [Button](/components/Button)

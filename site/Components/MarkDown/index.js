@@ -6,6 +6,6 @@ import navable from '../Navable'
 const LazyMarkDown = lazy(MarkDown)
 export default LazyMarkDown
 
-export function createMarkDown(loader) {
-  return navable(props => <LazyMarkDown {...props} loader={loader} />)
+export function createMarkDown(loader, noNav) {
+  return navable(props => <LazyMarkDown {...props} noNav={noNav} loader={loader} />)
 }

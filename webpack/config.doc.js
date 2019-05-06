@@ -30,6 +30,7 @@ const jsConfig = merge(common({ ...config.webpack, DEV: true }), {
   entry: config.webpack.entry,
   output: {
     path: path.join(__dirname, `../gh-pages/${dir}x`),
+    publicPath: '../../',
     libraryTarget: 'umd',
     library: 'ShineoutDoc',
   },

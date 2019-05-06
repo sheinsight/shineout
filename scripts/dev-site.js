@@ -140,11 +140,13 @@ function init() {
 
   generateComponents()
 
-  console.log('watch site/pages')
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('watch site/pages')
 
-  chokidar.watch(componentPath, { ignored: /index\.js$/, ignoreInitial: true }).on('all', (e, p) => {
-    generateComponents(p)
-  })
+    chokidar.watch(componentPath, { ignored: /index\.js$/, ignoreInitial: true }).on('all', (e, p) => {
+      generateComponents(p)
+    })
+  }
 }
 
 module.exports = {

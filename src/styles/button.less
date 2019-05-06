@@ -6,6 +6,9 @@
 .@{button-prefix} {
   display: inline-block;
   margin-bottom: 0; // For input.btn
+  @media (max-width: 979px) and (min-width: 0px){
+    margin-bottom: 10px;
+  }
   border: 1px solid transparent;
   background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
   cursor: pointer;

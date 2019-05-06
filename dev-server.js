@@ -72,15 +72,19 @@ router.post('/upload/', upload.single('file'), async ctx => {
 })
 
 // dev code proxy
-router.get(config.dev.scriptPath, async ctx => {
+router.get(config.dev.scriptPath, async (ctx, next) => {
   // console.log(ctx.url)
   let url = ctx.url.split('/')
   url = url[url.length - 1]
-  const options = {
-    uri: `http://localhost:${config.dev.webpackPort}/${url}`,
-    method: 'GET',
+  if (url.endsWith('.Form') || url.endsWith('.List')) {
+    await next()
+  } else {
+    const options = {
+      uri: `http://localhost:${config.dev.webpackPort}/${url}`,
+      method: 'GET',
+    }
+    ctx.body = request(options)
   }
-  ctx.body = request(options)
 })
 
 // react-hot-loader proxy
@@ -94,7 +98,7 @@ router.get('/*.hot-update.js(on)?', async ctx => {
 })
 
 router.get('/*', async ctx => {
-  if (ctx.url === '/') ctx.redirect('/cn')
+  if (ctx.url === '/') ctx.redirect('/cn/index/')
   const reactVersion = ctx.query.v
   if (reactVersion) {
     ctx.body = await ejs.renderFile('./site/index-v.html', { version: reactVersion })
@@ -107,7 +111,8 @@ router.get('/*', async ctx => {
     '__css_hot_loader.js',
   ]
   const styles = config.dev.styles || []
-  ctx.body = await ejs.renderFile(`./site/index.html`, { scripts, appName: config.appName, styles })
+  ctx.type = 'text/html; charest=utf-8'
+  ctx.body = await ejs.renderFile(`./site/index.html`, { scripts, appName: config.appName, styles, description: '' })
 })
 
 if (config.proxy) config.proxy(router)

@@ -12,7 +12,7 @@ function Separator() {
   return <span>~</span>
 }
 
-const data = [{ title: 'Home', url: '#/' }, { title: 'Self' }]
+const data = [{ title: 'Home', url: '/' }, { title: 'Self' }]
 
 export default function() {
   return (
