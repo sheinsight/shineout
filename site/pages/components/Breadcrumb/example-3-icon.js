@@ -10,7 +10,7 @@ import { Breadcrumb } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
 const data = [
-  { icon: <FontAwesome name="home" />, title: 'Home', url: '#/' },
+  { icon: <FontAwesome name="home" />, title: 'Home', url: '#home' },
   { title: 'Menu' },
   { title: 'Self', url: '/components/Breadcrumb' },
 ]
