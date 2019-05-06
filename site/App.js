@@ -28,7 +28,7 @@ const versionUrl = (v, lang) => {
 
 const App = () => {
   const [versions, setVersions] = useState([])
-  const [lastPath, setLastPath] = useState()
+  const [lastPath] = useState({ pathname: history.location.pathname })
   const [, setUpdate] = useState()
 
   useEffect(() => {
@@ -39,9 +39,9 @@ const App = () => {
     }
 
     const unListen = history.listen(loc => {
-      if (lastPath !== loc.pathname) {
+      if (lastPath.pathname !== loc.pathname) {
         document.documentElement.scrollTop = 0
-        setLastPath(loc.pathname)
+        lastPath.pathname = loc.pathname
       }
     })
 
