@@ -12,6 +12,7 @@ import { hidableClass } from '../styles'
  */
 export default function (Component, { type = ['fade'], duration = 360, display = 'block' }) {
   const hasCollapse = type.indexOf('collapse') >= 0
+  const needTransform = type.indexOf('scale-y') >= 0
 
   class Hidable extends PureComponent {
     constructor(props) {
@@ -92,8 +93,12 @@ export default function (Component, { type = ['fade'], duration = 360, display =
     }
 
     render() {
+      let animation = `animation-${duration}`
+      if (!needTransform) {
+        animation = `fade-${animation}`
+      }
       const className = classnames(
-        hidableClass('_', ...type, `animation-${duration}`, this.state.show && 'show'),
+        hidableClass('_', ...type, animation, this.state.show && 'show'),
         this.props.className,
         this.id,
       )
