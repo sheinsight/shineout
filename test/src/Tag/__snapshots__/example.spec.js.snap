@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test: Tag[site/pages/components/Tag/example-1-base.js] 1`] = `
+<div>
+  <div>
+    Tag 1
+  </div>
+  <div>
+    Tag 2
+  </div>
+  <div>
+    <div>
+      Tag 3
+    </div>
+    <div>
+      <svg>
+        <path />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Tag[site/pages/components/Tag/example-2-type.js] 1`] = `
+<div>
+  <div>
+    Default
+  </div>
+  <div>
+    Success
+  </div>
+  <div>
+    Info
+  </div>
+  <div>
+    Warning
+  </div>
+  <div>
+    Danger
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Tag[site/pages/components/Tag/example-3-bgcolor.js] 1`] = `
+<div>
+  <div>
+    #eeeeee
+  </div>
+  <div>
+    #613400
+  </div>
+  <div>
+    #f50
+  </div>
+  <div>
+    #87d068
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Tag[site/pages/components/Tag/example-4-close.js] 1`] = `
+<div>
+  <div>
+    <div>
+      onClose=true
+    </div>
+    <div>
+      <svg>
+        <path />
+      </svg>
+    </div>
+  </div>
+  <div>
+    <div>
+      onClose=function
+    </div>
+    <div>
+      <svg>
+        <path />
+      </svg>
+    </div>
+  </div>
+  <div>
+    <div>
+      onClose=promise
+    </div>
+    <div>
+      <svg>
+        <path />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Tag[site/pages/components/Tag/example-5-disabled.js] 1`] = `
+<div>
+  <div>
+    Tag 1
+  </div>
+  <div>
+    Tag 2
+  </div>
+  <div>
+    <div>
+      Tag 3
+    </div>
+    <div>
+      <svg>
+        <path />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Tag[site/pages/components/Tag/example-6-dynamic.js] 1`] = `
+<div>
+  <div>
+    <div>
+      Tag 1
+    </div>
+    <div>
+      <svg>
+        <path />
+      </svg>
+    </div>
+  </div>
+  <div>
+    <div>
+      Tag 2
+    </div>
+    <div>
+      <svg>
+        <path />
+      </svg>
+    </div>
+  </div>
+  <div>
+    <div>
+      Tag 3
+    </div>
+    <div>
+      <svg>
+        <path />
+      </svg>
+    </div>
+  </div>
+  <div>
+    + New Tag
+  </div>
+</div>
+`;

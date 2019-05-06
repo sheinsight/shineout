@@ -11,9 +11,10 @@ function clearProps(tree) {
   }
 }
 
-export default function exampleTest(module) {
+export default function exampleTest(module, options = {}) {
   const files = glob.sync(`site/pages/components/${module}/example-*.js`)
   files.forEach(file => {
+    if (options.ignore && file.endsWith(options.ignore)) return
     const Example = require(`../${file}`).default
     test(`Snapshot test: ${module}[${file}]`, () => {
       const wrapper = Render.create(<Example />).toJSON()

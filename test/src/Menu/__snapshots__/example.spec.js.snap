@@ -1,0 +1,460 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-base.js] 1`] = `
+<div>
+  <div>
+    <ul>
+      <li>
+        <a>
+          Navigation One
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation Two
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 1
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 2
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Three
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 3
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 4
+            </a>
+            <ul>
+              <li>
+                <a>
+                  Optic 1
+                </a>
+              </li>
+              <li>
+                <a>
+                  Optic 2
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Four
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-2-horizontal.js] 1`] = `
+<div>
+  <div>
+    <ul>
+      <li>
+        <a>
+          Navigation One
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation Two
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 1
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 2
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Three
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 3
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 4
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Four
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-4-disabled.js] 1`] = `
+<div>
+  <div>
+    <ul>
+      <li>
+        <a>
+          Navigation One
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation Two
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 1
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 2
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Three
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 3
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 4
+            </a>
+            <ul>
+              <li>
+                <a>
+                  Optic 1
+                </a>
+              </li>
+              <li>
+                <a>
+                  Optic 2
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Four
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-5-selected.js] 1`] = `
+<div>
+  <div>
+    <ul>
+      <li>
+        <a>
+          Navigation One
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation Two
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 1
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 2
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Three
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 3
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 4
+            </a>
+            <ul>
+              <li>
+                <a>
+                  Optic 1
+                </a>
+              </li>
+              <li>
+                <a>
+                  Optic 2
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Four
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-6-itemRender.js] 1`] = `
+<div>
+  <div>
+    <ul>
+      <li>
+        <a>
+          <span>
+            <i />
+             
+            Navigation One
+          </span>
+        </a>
+      </li>
+      <li>
+        <a>
+          <span>
+            <i />
+             
+            Navigation Two
+          </span>
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 1
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 2
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          <span>
+            <i />
+             
+            Navigation Three
+          </span>
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 3
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 4
+            </a>
+            <ul>
+              <li>
+                <a>
+                  Optic 1
+                </a>
+              </li>
+              <li>
+                <a>
+                  Optic 2
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          <span>
+            <i />
+             
+            Navigation Four
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-7-click.js] 1`] = `
+<div>
+  <div>
+    <ul>
+      <li>
+        <a>
+          Navigation One
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation Two
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 1
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 2
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Three
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 3
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 4
+            </a>
+            <ul>
+              <li>
+                <a>
+                  Optic 1
+                </a>
+              </li>
+              <li>
+                <a>
+                  Optic 2
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Four
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-8-dark.js] 1`] = `
+<div>
+  <div>
+    <ul>
+      <li>
+        <a>
+          Navigation One
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation Two
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 1
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 2
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Three
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 3
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 4
+            </a>
+            <ul>
+              <li>
+                <a>
+                  Optic 1
+                </a>
+              </li>
+              <li>
+                <a>
+                  Optic 2
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Four
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;

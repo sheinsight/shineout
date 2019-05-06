@@ -271,7 +271,8 @@
         &.@{datepicker-prefix}-hover-start,
         &.@{datepicker-prefix}-hover-end {
           span {
-            box-shadow: 0 0 0 1px @colors-primary inset;
+            background: @colors-primary;
+            color: #fff;
           }
         }
       }
@@ -291,6 +292,13 @@
       .@{datepicker-prefix}-disabled {
         color: @gray-400;
         cursor: not-allowed;
+
+        &.@{datepicker-prefix}-today {
+          box-shadow: 0 0 0 1px @gray-400 inset;
+          &:hover {
+            color: @gray-400;
+          }
+        }
       }
 
       .@{datepicker-prefix}-other-month {

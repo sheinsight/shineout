@@ -6,6 +6,8 @@ import { tableClass, inputClass } from '../styles'
 import Td, { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
 import Expand from './Expand'
 
+export const ROW_HEIGHT_UPDATE_EVENT = 'ROW_HEIGHT_UPDATE_EVENT_NAME'
+
 const isExpandableElement = el => {
   const { tagName } = el
   if (tagName === 'TD' || tagName === 'TR') return true
@@ -48,11 +50,17 @@ class Tr extends Component {
   }
 
   setRowHeight() {
-    const { setRowHeight, dataUpdated } = this.props
+    const { setRowHeight, dataUpdated, datum } = this.props
     if (!setRowHeight || !this.element) return
     const tds = Array.prototype.slice.call(this.element.querySelectorAll('td'))
     const td = tds.find(el => !el.getAttribute('rowspan'))
-    const height = td ? parseInt(getComputedStyle(td).height, 10) : this.element.clientHeight
+    let height = td ? parseInt(getComputedStyle(td).height, 10) : this.element.clientHeight
+    if (Number.isNaN(height)) height = this.lastRowHeight || 0
+    datum.unsubscribe(ROW_HEIGHT_UPDATE_EVENT, this.setRowHeight)
+    if (height === 0) {
+      datum.subscribe(ROW_HEIGHT_UPDATE_EVENT, this.setRowHeight)
+      return
+    }
     if (height === this.lastRowHeight && this.expandHeight === this.lastExpandHeight && !dataUpdated) return
     this.lastRowHeight = height
     this.lastExpandHeight = this.expandHeight
@@ -175,6 +183,7 @@ class Tr extends Component {
 Tr.propTypes = {
   columns: PropTypes.array.isRequired,
   data: PropTypes.array.isRequired,
+  datum: PropTypes.object,
   expandRender: PropTypes.func,
   hasNotRenderRows: PropTypes.bool,
   index: PropTypes.number,

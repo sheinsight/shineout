@@ -108,6 +108,7 @@ router.get('/*', async ctx => {
   const scripts = [
     ...(config.dev.scripts || []),
     ...Object.keys(config.webpack.entry).map(s => prepath.replace('*.*', `${s}.js`)),
+    '__css_hot_loader.js',
   ]
   const styles = config.dev.styles || []
   ctx.type = 'text/html; charest=utf-8'
