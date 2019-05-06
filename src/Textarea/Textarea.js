@@ -15,6 +15,7 @@ class Textarea extends PureComponent {
     this.bindShadow = this.bindShadow.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleKeyUp = this.handleKeyUp.bind(this)
     this.resize = this.resize.bind(this)
   }
 
@@ -32,16 +33,23 @@ class Textarea extends PureComponent {
   }
 
   resize(value) {
-    if (value) this.shadow.value = value
+    if (value || value === '') this.shadow.value = value
     const height = this.shadow ? this.shadow.scrollHeight : 0
     this.setState({ height })
   }
 
   handleChange(e) {
-    this.props.onChange(e.target.value)
+    this.props.onChange(e.target.value, e)
 
     if (this.props.autosize) {
       this.resize(e.target.value)
+    }
+  }
+
+  handleKeyUp(e) {
+    const { onEnterPress } = this.props
+    if (e.keyCode === 13 && onEnterPress) {
+      onEnterPress(e.target.value, e)
     }
   }
 
@@ -70,7 +78,7 @@ class Textarea extends PureComponent {
   }
 
   render() {
-    const { autosize, onChange, maxHeight, info, ...props } = this.props
+    const { autosize, onChange, maxHeight, info, onEnterPress, ...props } = this.props
     const value = props.value == null ? '' : props.value
     const height = this.state.height || 'auto'
     const className = autosize ? inputClass('auto-size') : ''
@@ -83,6 +91,7 @@ class Textarea extends PureComponent {
         className={className}
         style={{ height, maxHeight, overflow: 'auto' }}
         onChange={this.handleChange}
+        onKeyUp={this.handleKeyUp}
         onBlur={this.handleBlur}
       />,
 
@@ -112,6 +121,7 @@ Textarea.propTypes = {
   maxHeight: PropTypes.number,
   onBlur: PropTypes.func,
   onChange: PropTypes.func.isRequired,
+  onEnterPress: PropTypes.func,
   rows: PropTypes.number,
   value: PropTypes.string,
 }

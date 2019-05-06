@@ -103,6 +103,15 @@ const examples = [
     component: require('doc/pages/components/Tabs/example-10-collapsible.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-10-collapsible.js'),
   },
+  {
+    name: '11-link',
+    title: locate(
+      '链接 \n 使用链接作为标签',
+      'Link \n Use link as every tab.'
+    ),
+    component: require('doc/pages/components/Tabs/example-11-link.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tabs/example-11-link.js'),
+  },
 ]
 
 const codes = undefined

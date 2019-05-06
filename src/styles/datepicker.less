@@ -152,15 +152,29 @@
       }
     }
 
+    span.@{datepicker-prefix}-today {
+      color: @colors-primary;
+      background: #fff;
+      box-shadow: 0 0 0 1px @colors-primary inset;
+    }
+
     .@{datepicker-prefix}-list span {
       &:hover {
         background: @datepicker-day-hover-bg;
         color: #000;
       }
+      &:hover.@{datepicker-prefix}-today {
+        background: #fff;
+        color: @colors-primary;
+      }
     }
 
     span.@{datepicker-prefix}-active,
     span.@{datepicker-prefix}-active:hover {
+      background: @colors-primary;
+      color: #fff;
+    }
+    span.@{datepicker-prefix}-active:hover.@{datepicker-prefix}-today {
       background: @colors-primary;
       color: #fff;
     }
@@ -257,7 +271,8 @@
         &.@{datepicker-prefix}-hover-start,
         &.@{datepicker-prefix}-hover-end {
           span {
-            box-shadow: 0 0 0 1px @colors-primary inset;
+            background: @colors-primary;
+            color: #fff;
           }
         }
       }
@@ -277,6 +292,13 @@
       .@{datepicker-prefix}-disabled {
         color: @gray-400;
         cursor: not-allowed;
+
+        &.@{datepicker-prefix}-today {
+          box-shadow: 0 0 0 1px @gray-400 inset;
+          &:hover {
+            color: @gray-400;
+          }
+        }
       }
 
       .@{datepicker-prefix}-other-month {

@@ -23,8 +23,8 @@ describe('objects.js[deepGet]', () => {
   })
 
   test('get default value if path not existed.', () => {
-    const target = { a: { b: 1 } }
-    const dest = deepGet(target, 'a.b[0].a', { defaultValue: 123 })
+    const target = { a: { b: null } }
+    const dest = deepGet(target, 'a.b.a.c', { defaultValue: 123 })
     expect(dest).toEqual(123)
   })
 
@@ -163,6 +163,12 @@ describe('object.js[deepRemove]', () => {
     const target = { a: 'something' }
     deepRemove(target, 'a')
     expect(target).toEqual({})
+  })
+
+  test('remove path not exist', () => {
+    const target = { a: 'something' }
+    deepRemove(target, 'b.c')
+    expect(target).toEqual({ a: 'something' })
   })
 
   test('should skip if path target value is not exist', () => {

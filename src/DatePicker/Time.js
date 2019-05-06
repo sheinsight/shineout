@@ -8,14 +8,20 @@ class Time extends PureComponent {
   constructor(props) {
     super(props)
 
+    this.defaultValue = utils.newDate()
     this.handleHourChange = this.handleChange.bind(this, 'hour')
     this.handleMinuteChange = this.handleChange.bind(this, 'minute')
     this.handleSecondChange = this.handleChange.bind(this, 'second')
     this.handleAMPMChange = this.handleChange.bind(this, 'ampm')
   }
 
+  getValue() {
+    return this.props.value || this.defaultValue
+  }
+
   handleChange(type, val) {
-    const { disabled, value, format, min, max, range } = this.props
+    const { disabled, format, min, max, range } = this.props
+    const value = this.getValue()
     const date = new Date(value.getTime())
     let hours
 
@@ -58,7 +64,8 @@ class Time extends PureComponent {
   }
 
   render() {
-    const { format, value } = this.props
+    const { format } = this.props
+    const value = this.getValue()
     const className = datepickerClass('time-picker')
 
     let hours = value.getHours()
@@ -90,10 +97,6 @@ Time.propTypes = {
   onChange: PropTypes.func.isRequired,
   range: PropTypes.number,
   value: PropTypes.object,
-}
-
-Time.defaultProps = {
-  value: utils.newDate(),
 }
 
 export default Time

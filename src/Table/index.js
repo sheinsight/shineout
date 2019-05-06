@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
 import deepEqual from 'deep-eql'
@@ -7,7 +7,7 @@ import Table from './Table'
 
 const TableWithPagination = pagable(Table)
 
-export default class extends PureComponent {
+export default class extends React.Component {
   static displayName = 'ShineoutTable'
 
   static propTypes = {

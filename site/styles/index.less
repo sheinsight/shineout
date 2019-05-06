@@ -15,15 +15,55 @@ a:focus {
     display: flex;
     overflow: hidden;
   }
+  &-nav-open-close{
+    z-index: 1000;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    color: #61dafb;
+    font-size: 22px;
+    background: #1B212E;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.6;
+
+    &:focus {
+      opacity: 0.95;
+      outline: none;
+    }
+
+    @media (min-width: 979px){
+      display: none;
+    }
+  }
 
   &-menu {
     overflow: auto;
     width: 20%;
-    min-width: 240px;
     max-width: 360px;
+    min-width: 240px;
     max-height: 100vh;
     padding: 50px 0 100px;
     padding-left: 50px;
+    transition: opacity 0.35s ease, margin 0.35s ease;
+    opacity: 1;
+
+    @media (max-width: 979px) and (min-width: 0px){
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      max-width: inherit;
+      background: #fff;
+      z-index: 999;
+      display: none;
+    }
 
     label {
       display: block;
@@ -75,11 +115,20 @@ a:focus {
     }
   }
 
+  &-hidden {
+    opacity: 0;
+    margin-top: 50px;
+  }
+
   &-page {
     overflow: hidden;
     width: 80%;
     flex: 1;
     padding: 0 60px 50px;
+
+    @media (max-width: 979px) and (min-width: 0px){
+      padding:50px 20px 0 20px;
+    }
   }
 
   &-foot {

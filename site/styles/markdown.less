@@ -3,6 +3,9 @@
 .doc-markdown {
   flex: 1;
   padding: 30px 200px 0 0;
+  @media (max-width: 979px) and (min-width: 0px){
+    padding: 0;
+  }
   // overflow: hidden;
 
   & > h1,
@@ -66,7 +69,7 @@
     border-radius: 2px;
   }
 
-  & > table {
+  & table {
     width: 100%;
     border: 1px solid @doc-border-color;
     background: #fff;
@@ -122,5 +125,10 @@
       color: @gray-300;
       content: '>';
     }
+  }
+}
+@media screen and (max-width: 780px) {
+  .doc-markdown {
+    padding: 0px;
   }
 }

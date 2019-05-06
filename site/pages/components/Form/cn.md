@@ -74,7 +74,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 | names | array | 无 | names 为空时，Form 内任意值变化会触发 Flow 更新；不为空时，只监听指定字段变化 |
 
 ### Submit, Reset, Button
-同 [Button](#/components/Button)
+同 [Button](/components/Button)
 
 
 ### ~~Form.Block~~ 不推荐

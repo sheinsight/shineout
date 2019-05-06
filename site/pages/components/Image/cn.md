@@ -16,7 +16,8 @@
 | style | object | 无 | 最外层扩展样式 |
 | target | string | '_modal' | 可选值为 \['_modal', '_blank', '_self', '_download'] |
 | width | string \| number | '100%' | 图片宽度 |
-
+| placeholder | ReactElement \| string | '加载中' | 图片加载中占位内容 |
+ 
 ### Image.Group
 
 | 属性 | 类型 | 默认值 | 说明 |

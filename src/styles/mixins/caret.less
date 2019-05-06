@@ -93,7 +93,10 @@
   & when (@so-theme = antd) {
     .caret-outline(@direction; @width);
   }
-  & when not (@so-theme = antd) {
+  & when (@so-theme = antd2) {
+    .caret-outline(@direction; @width);
+  }
+  & when (@so-theme = default) {
     .caret-solid(@direction; @width);
   }
 }

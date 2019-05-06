@@ -26,21 +26,35 @@ describe('Select[Format]', () => {
   })
 
   test('should set format key and renderItem on multiple select', () => {
-    const format = 'id'
-    const renderItem = 'city'
     const changeFn = jest.fn()
-    const wrapper = mount(
-      <Select
-        multiple
-        data={citys}
-        onChange={changeFn}
-        format={format}
-        keygen="id"
-        prediction={(v, d) => v === d.id}
-        renderItem={renderItem}
-      />
-    )
+    class Demo extends React.Component {
+      constructor(props) {
+        super(props)
+        this.state = { value: [] }
+      }
+
+      handleChange = v => {
+        this.setState({ value: v })
+        changeFn(v)
+      }
+
+      render() {
+        return (
+          <Select
+            multiple
+            value={this.state.value}
+            data={citys}
+            onChange={this.handleChange}
+            format="id"
+            keygen="id"
+            prediction={(v, d) => v === d.id}
+            renderItem="city"
+          />
+        )
+      }
+    }
+    const wrapper = mount(<Demo />)
     appendToDOM(wrapper.html())
-    vMultiple({ wrapper, format, changeFn, citys })
+    vMultiple({ wrapper, format: 'id', changeFn, citys })
   })
 })

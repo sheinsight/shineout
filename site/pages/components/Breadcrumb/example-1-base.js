@@ -10,7 +10,7 @@ import { Breadcrumb, Message } from 'shineout'
 
 const data = [
   [{ title: 'Home', url: '#/' }, { title: 'aaa', url: '#/' }, { title: 'bbb', url: '#/' }],
-  { title: <a href="#/components/Button">Button</a> },
+  { title: <a href="/components/Button">Button</a> },
   { title: 'Self', onClick: () => Message.show('Clicked self') },
 ]
 

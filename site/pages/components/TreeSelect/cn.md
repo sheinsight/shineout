@@ -1,6 +1,6 @@
 # TreeSelect *树选择*
 
-TreeSelect 用来选择树形数据结构，若需要非关联树形结构选择可使用 [Select(treeData)](#/components/Select)
+TreeSelect 用来选择树形数据结构，若需要非关联树形结构选择可使用 [Select(treeData)](/components/Select)
 
 <example />
 
@@ -26,3 +26,4 @@ TreeSelect 用来选择树形数据结构，若需要非关联树形结构选择
 | onFilter | function | 无 | onFilter 不为空时，可以输入过滤数据<br />onFilter 如果返回一个函数，使用这个函数做前端过滤<br />如果不返回，可以自行做后端过滤 |
 | renderItem | string \| function(d) | 必填 | 为 string 时，返回 d\[string]<br />为 function 时，返回函数结果 |
 | renderResult | function(d) | renderItem | 选中后在结果中显示的内容，默认和 renderItem 相同 |
+| compressed | bool | false | 将选中值合并，只在多选模式下有效 |

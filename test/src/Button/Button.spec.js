@@ -1,6 +1,6 @@
 import enzyme from 'enzyme'
 import React from 'react'
-import Button from 'shineout/Button'
+import { Button } from 'shineout'
 import ButtonBase from '../../../site/pages/components/Button/example-1-base'
 import ButtonOutLine from '../../../site/pages/components/Button/example-2-outline'
 import ButtonDisabled from '../../../site/pages/components/Button/example-3-disabled'

@@ -1,5 +1,5 @@
 import React from 'react'
-import DatePicker from 'shineout/DatePicker'
+import { DatePicker } from 'shineout'
 import { mount } from 'enzyme'
 import utils from '../../../src/DatePicker/utils'
 import DatePickerSize from '../../../site/pages/components/DatePicker/example-03-size'
