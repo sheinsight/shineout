@@ -54,19 +54,22 @@ export default class extends React.Component {
     }
     this.handleClick = this.handleClick.bind(this)
   }
+
   handleClick(da) {
     this.setState({
       active: [da.id],
     })
   }
+
   render() {
+    const { active } = this.state
     return (
       <Menu
         mode="horizontal"
         keygen="id"
         data={data}
         renderItem={d => d.title}
-        active={da => this.state.active.includes(da.id)}
+        active={da => active.includes(da.id)}
         inlineIndent={24}
         onClick={this.handleClick}
       />
