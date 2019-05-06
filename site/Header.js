@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 import { Button, Dropdown } from 'shineout'
 import docsearch from 'docsearch.js'
+import { Link } from 'react-router-dom'
 import locate, { setItem, STORAGE_KEY } from './locate'
 import theme from './utils/theme'
 import logo from './icons/logo'
@@ -56,9 +57,9 @@ const Header = ({ versions }) => {
   const path = ''
 
   const navs = [
-    { path: '/', en: 'Home', cn: '首页' },
-    { path: '/components', en: 'Components', cn: '组件' },
-    { path: '/documentation', en: '', cn: '杂项' },
+    { path: '/index/', en: 'Home', cn: '首页' },
+    { path: '/components/GetStart', en: 'Components', cn: '组件' },
+    { path: '/documentation/Props', en: '', cn: '杂项' },
   ]
 
   const { pathname } = window.location
@@ -75,11 +76,11 @@ const Header = ({ versions }) => {
         indexName: `shineout`,
         inputSelector: '#algolia-doc-search',
         algoliaOptions: { facetFilters: [`lang: ${locate('cn', 'en')}`] },
-        transformData(hits) {
-          /* eslint-disable-next-line */
-          hits.map(hit => (hit.url = `${hit.url}#${hit.anchor}`))
-          return hits
-        },
+        // transformData(hits) {
+        //   /* eslint-disable-next-line */
+        //   hits.map(hit => (hit.url = `${hit.url}#${hit.anchor}`))
+        //   return hits
+        // },
         debug: false, // Set debug to true if you want to inspect the dropdown
       })
     }
@@ -88,7 +89,7 @@ const Header = ({ versions }) => {
   return (
     <div className={headerClass('_')}>
       <div className={headerClass('logo')}>
-        <a href="#/">{logo}</a>
+        <Link to="/index">{logo}</Link>
       </div>
       <div className={headerClass('nav')}>
         {navs.map(nav => (

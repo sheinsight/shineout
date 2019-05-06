@@ -1,6 +1,6 @@
 # Tooltip *提示*
 
-Tooltip 主要用来显示文字提示，如果需要显示更多内容，请使用 [Popover](#/components/Popover)
+Tooltip 主要用来显示文字提示，如果需要显示更多内容，请使用 [Popover](/components/Popover)
 
 <example />
 

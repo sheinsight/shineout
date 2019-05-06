@@ -14,7 +14,7 @@ export default class extends React.Component {
 
     const { href } = window.location
     this.state = {
-      active: href.indexOf('?tab=href') === -1 ? 1 : 0,
+      active: href.indexOf('#heading-11-link') === -1 ? 1 : 0,
     }
   }
 
@@ -25,10 +25,10 @@ export default class extends React.Component {
   render() {
     return (
       <Tabs active={this.state.active} onChange={this.handleChange} shape="line">
-        <Tabs.Link href="#/components/Tabs?tab=href">Href</Tabs.Link>
+        <Tabs.Link href="#tab-href">Href</Tabs.Link>
 
         <Tabs.Link>
-          <Link to="/components/Tabs?tab=link">Link</Link>
+          <Link to="#tab-link">Link</Link>
         </Tabs.Link>
       </Tabs>
     )

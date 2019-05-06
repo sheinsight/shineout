@@ -65,7 +65,7 @@ exports[`Breadcrumb[Icon] should render Icon 1`] = `
   </span>
   <span>
     <a
-      href="#/components/Breadcrumb"
+      href="/components/Breadcrumb"
     >
        
       Self

@@ -32,6 +32,7 @@
     "start": "cross-env NODE_ENV=development node dev-server.js",
     "css-module": "cross-env NODE_ENV=development LOCAL_IDENT_NAME=[local]-[hash:base64:5] node dev-server.js",
     "docs-build-clean": "node scripts/gh-clean.js",
+    "docs-build-chunk": " cross-env NODE_ENV=production node scripts/dev-site.js",
     "docs-build-js": "cross-env NODE_ENV=production webpack --config webpack/config.doc.js",
     "docs-build-html": "node scripts/build-html.js",
     "docs-build": "npm-run-all docs-build-*",

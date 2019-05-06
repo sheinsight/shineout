@@ -18,8 +18,8 @@ export default function() {
             target={target}
             shape="thumbnail"
             fit="fill"
-            src="../images/1_s.jpg"
-            href="../images/1_b.jpg"
+            src="../../../images/1_s.jpg"
+            href="../../../images/1_b.jpg"
           />
           <br />
           {target}

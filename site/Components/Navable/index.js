@@ -13,16 +13,6 @@ const scrollTo = id => {
   }
 }
 
-const hashScroll = h => {
-  if (h) {
-    const element = document.querySelector(h)
-    if (element)
-      setTimeout(() => {
-        element.scrollIntoView()
-      }, 50)
-  }
-}
-
 export default function(Component) {
   return function Nav(prop) {
     const [active, setActive] = useState('')
@@ -35,8 +25,21 @@ export default function(Component) {
       })
     }, [])
 
+    const hashScroll = useCallback(
+      () => {
+        if (hash) {
+          const element = document.querySelector(hash)
+          if (element)
+            setTimeout(() => {
+              element.scrollIntoView()
+            }, 50)
+        }
+      },
+      [hash]
+    )
+
     useEffect(() => {
-      hashScroll(hash)
+      hashScroll()
       const handleScroll = () => {
         const top = document.documentElement.scrollTop
         const hs = headings.filter(h => h.level === 3 && h.children[0])
@@ -79,7 +82,7 @@ export default function(Component) {
     return (
       <div className={navClass('_')}>
         <Component onHeadingSetted={setHeading} />
-        {renderNav()}
+        {!prop.noNav && renderNav()}
       </div>
     )
   }
