@@ -9,7 +9,7 @@ import { Button } from 'shineout'
 
 export default function() {
   return (
-    <Button href="#/" target="_blank" type="primary">
+    <Button href="#home" target="_blank" type="primary">
       Home
     </Button>
   )

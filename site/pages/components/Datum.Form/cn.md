@@ -6,7 +6,7 @@ Form 表单数据处理辅助类，用来收集和分发数据到输入组件。
 
 <code name="example" />
 
-实际使用见 [Form](#/components/Form)
+实际使用见 [Form](/components/Form)
 
 ## 初始化参数
 
