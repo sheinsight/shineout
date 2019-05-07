@@ -41,6 +41,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-03-size.js'),
   },
   {
+    name: '04-day',
+    title: locate(
+      '选择天 \n 设置 type 为 date，选择 天',
+      'Day Mode \n Set type to be date to select day.'
+    ),
+    component: require('doc/pages/components/DatePicker/example-04-day.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-04-day.js'),
+  },
+  {
     name: '05-week',
     title: locate(
       '选择星期 \n 设置 type 为 week，选择星期',
