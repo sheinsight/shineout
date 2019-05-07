@@ -39,7 +39,7 @@ class Textarea extends PureComponent {
   }
 
   handleChange(e) {
-    this.props.onChange(e.target.value, e)
+    this.props.onChange(e.target.value)
 
     if (this.props.autosize) {
       this.resize(e.target.value)
