@@ -28,7 +28,7 @@ class Input extends PureComponent {
   handleChange(e) {
     const { value } = e.target
     if (this.invalidNumber(value)) return
-    this.props.onChange(value, e)
+    this.props.onChange(value)
   }
 
   handleKeyUp(e) {
