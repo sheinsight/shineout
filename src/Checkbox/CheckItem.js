@@ -55,7 +55,7 @@ export default function (type) {
       if (onRawChange) onRawChange(value, checked)
 
       value = checked ? value : undefined
-      if (onChange) onChange(value, checked, index, e)
+      if (onChange) onChange(value, checked, index)
     }
 
     handleInputChange(val) {
