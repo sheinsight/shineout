@@ -32,7 +32,7 @@ exports[`Breadcrumb[Icon] should render Icon 1`] = `
 >
   <span>
     <a
-      href="#/"
+      href="#home"
     >
       <i
         className="so-icon so-icon-default fa-home"
