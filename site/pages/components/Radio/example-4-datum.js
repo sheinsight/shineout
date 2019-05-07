@@ -2,7 +2,7 @@
  * cn -
  *    -- 当 format 不能满足需求时，可以使用 Datum.List 进行处理
  * en -
- *    -- When the format does not satisfied your requirements, you can use <a href="#/components/Datum.List">Data.List</a> istead.
+ *    -- When the format does not satisfied your requirements, you can use <a href="/components/Datum.List">Data.List</a> istead.
  */
 import React, { Component } from 'react'
 import { Radio, Datum } from 'shineout'

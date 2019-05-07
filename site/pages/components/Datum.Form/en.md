@@ -8,7 +8,7 @@ The auxiliary class of Form that process data for collecting and distributing da
 
 <br />
 
-See the example use in [Form](#/components/Form)
+See the example use in [Form](/components/Form)
 
 ## Arguments
 

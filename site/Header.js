@@ -89,7 +89,7 @@ const Header = ({ versions }) => {
   return (
     <div className={headerClass('_')}>
       <div className={headerClass('logo')}>
-        <Link to="/index">{logo}</Link>
+        <Link to="/index/">{logo}</Link>
       </div>
       <div className={headerClass('nav')}>
         {navs.map(nav => (
@@ -137,7 +137,8 @@ const Header = ({ versions }) => {
         />
 
         <Button type="link" style={{ color: '#666' }} href="https://github.com/sheinsight/shineout">
-          <Icon name="github" /> GitHub
+          <Icon name="github" />
+          GitHub
         </Button>
       </div>
     </div>

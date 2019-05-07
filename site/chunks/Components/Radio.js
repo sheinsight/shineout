@@ -44,7 +44,7 @@ const examples = [
     name: '4-datum',
     title: locate(
       ' \n 当 format 不能满足需求时，可以使用 Datum.List 进行处理',
-      ' \n When the format does not satisfied your requirements, you can use <a href="#/components/Datum.List">Data.List</a> istead.'
+      ' \n When the format does not satisfied your requirements, you can use <a href="/components/Datum.List">Data.List</a> istead.'
     ),
     component: require('doc/pages/components/Radio/example-4-datum.js').default,
     rawText: require('!raw-loader!doc/pages/components/Radio/example-4-datum.js'),
