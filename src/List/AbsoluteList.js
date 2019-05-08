@@ -43,11 +43,11 @@ export default function(List) {
     }
 
     getPosition(rect) {
-      const { position, sameWidth } = this.props
+      const { position, fixed } = this.props
       const style = {
         position: 'absolute',
       }
-      if (sameWidth) {
+      if (fixed) {
         style.width = rect.width
       }
       if (listPosition.includes(position)) {
@@ -140,7 +140,7 @@ export default function(List) {
 
   AbsoluteList.propTypes = {
     focus: PropTypes.bool,
-    sameWidth: PropTypes.bool,
+    fixed: PropTypes.bool, // same width with parentElement
     parentElement: PropTypes.object,
     position: PropTypes.string,
     absolute: PropTypes.bool,

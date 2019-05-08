@@ -308,7 +308,7 @@ class Select extends PureComponent {
         parentElement={this.element}
         position={position}
         onBlur={this.handleBlur}
-        sameWidth
+        fixed
       />
     )
   }
