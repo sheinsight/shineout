@@ -26,12 +26,12 @@ class Gallery extends PureComponent {
 
   componentDidMount() {
     super.componentDidMount()
-    document.addEventListener('wheel', this.handleScroll)
+    document.addEventListener('wheel', this.handleScroll, { passive: false })
   }
 
   componentWillUnmount() {
     super.componentWillUnmount()
-    document.removeEventListener('wheel', this.handleScroll)
+    document.removeEventListener('wheel', this.handleScroll, { passive: false })
   }
 
   lockScroll(status) {
