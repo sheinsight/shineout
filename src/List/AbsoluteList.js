@@ -43,12 +43,14 @@ export default function(List) {
     }
 
     getPosition(rect) {
-      const { position } = this.props
+      const { position, fixed } = this.props
       const style = {
         position: 'absolute',
       }
-      if (listPosition.includes(position)) {
+      if (fixed) {
         style.width = rect.width
+      }
+      if (listPosition.includes(position)) {
         style.left = rect.left + docScroll.left
         if (position === 'drop-down') {
           style.top = rect.top + rect.height + docScroll.top
@@ -138,7 +140,7 @@ export default function(List) {
 
   AbsoluteList.propTypes = {
     focus: PropTypes.bool,
-    onBlur: PropTypes.func,
+    fixed: PropTypes.bool, // same width with parentElement
     parentElement: PropTypes.object,
     position: PropTypes.string,
     absolute: PropTypes.bool,
