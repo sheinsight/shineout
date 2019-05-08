@@ -17,6 +17,7 @@ const cssConfig = config.themes.map(name =>
       './src/styles/spin.js',
       // site style
       './site/styles/index.js',
+      './site/less-entry.js',
     ],
     output: { path: path.join(__dirname, `../gh-pages/${dir}x`) },
     clean: true,
