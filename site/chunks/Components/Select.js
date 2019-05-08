@@ -35,7 +35,7 @@ const examples = [
     name: '03-datum',
     title: locate(
       ' \n 如果 format 属性不能满足需求，可以借助 Datum.List 来处理',
-      ' \n When the format does not satisfied your requirements, you can use <a href="/components/Datum.List">Data.List</a> istead.'
+      ' \n When the format does not satisfied your requirements, you can use Datum.List istead.'
     ),
     component: require('doc/pages/components/Select/example-03-datum.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-03-datum.js'),

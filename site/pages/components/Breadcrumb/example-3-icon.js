@@ -12,7 +12,7 @@ import FontAwesome from '../Icon/FontAwesome'
 const data = [
   { icon: <FontAwesome name="home" />, title: 'Home', url: '#home' },
   { title: 'Menu' },
-  { title: 'Self', url: '/components/Breadcrumb' },
+  { title: 'Self', url: 'https://www.google.com' },
 ]
 
 export default function() {

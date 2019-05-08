@@ -6,11 +6,12 @@
  */
 
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Breadcrumb, Message } from 'shineout'
 
 const data = [
   [{ title: 'Home', url: '#home' }, { title: 'aaa', url: '#aaa' }, { title: 'bbb', url: '#bbb' }],
-  { title: <a href="/components/Button">Button</a> },
+  { title: <Link to="/components/Button">Button</Link> },
   { title: 'Self', onClick: () => Message.show('Clicked self') },
 ]
 

@@ -71,7 +71,7 @@ const examples = [
     name: '07-datum',
     title: locate(
       ' \n 当 format 不能满足需求时，可以使用 Datum.List 进行处理',
-      ' \n When the format does not satisfied your requirements, you can use <a href="/components/Datum.List">Data.List</a> istead.'
+      ' \n When the format does not satisfied your requirements, you can use Datum.List istead.'
     ),
     component: require('doc/pages/components/Checkbox/example-07-datum.js').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-07-datum.js'),

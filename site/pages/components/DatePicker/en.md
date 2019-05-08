@@ -24,7 +24,10 @@
 
 ### Format
 
-tip: The format string we used (date-fns) and moment.js are inconsistent, such as: <br /> moment.js:   YYYY-MM-DD hh:mm:ss <br /> date-fns:   yyyy-MM-dd HH:mm:ss<br />
+tip: The format string we used (date-fns) and moment.js are inconsistent, such as:<br />
+moment: YYYY  => date-fns: yyyy <br />
+moment: DD&nbsp;&nbsp;&nbsp;&nbsp; => date-fns: dd <br />
+moment: hh&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  => date-fns: HH<br />
 The commonly used format is as follows
 
 | format | Description | example |
