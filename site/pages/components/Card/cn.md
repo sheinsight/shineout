@@ -7,7 +7,7 @@
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | className | string | 无 | 扩展className |
-| collapsible | bool | false | 是否可折叠 |
+| collapsible | bool \| 'bottom' | false | 是否可折叠，'bottom' 表示从下方点击折叠 |
 | collapsed | bool | 无 | 是否折叠，用于受控状态 |
 | defaultCollapsed | bool | true | 初始折叠状态（仅在 collapsible 为 true 时有效） |
 | onCollapse | function | 无 | 折叠状态改变时回调事件 |
