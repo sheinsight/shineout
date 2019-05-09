@@ -14,6 +14,15 @@ const source = locate(cn, en)
 
 const examples = [
   {
+    name: '00-tree',
+    title: locate(
+      '树形数据 \n 支持树形数据的展示，使用 treeColumnsName 指定子数据，treeIndent 指定每一层缩进宽度。',
+      'Tree Data \n Support Tree Data.'
+    ),
+    component: require('doc/pages/components/Table/example-00-tree.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-00-tree.js'),
+  },
+  {
     name: '01-base',
     title: locate(
       '基本用法 \n 基础的表格用法。推荐 columns 写为常量，以提升性能。',

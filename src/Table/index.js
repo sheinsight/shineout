@@ -4,8 +4,15 @@ import immer from 'immer'
 import deepEqual from 'deep-eql'
 import pagable from '../hoc/pagable'
 import Table from './Table'
+import { compose } from '../utils/func'
+import treeExpand from './TreeExpand'
 
 const TableWithPagination = pagable(Table)
+const TableWithTree = treeExpand(Table)
+const TableWithPT = compose(
+  treeExpand,
+  pagable
+)(Table)
 
 export default class extends React.Component {
   static displayName = 'ShineoutTable'
@@ -44,10 +51,14 @@ export default class extends React.Component {
       if (c.fixed === 'left') left = i
       if (c.fixed === 'right' && right < 0) right = i
     })
-
+    let first = false
     this.cachedColumns = columns.map((c, i) =>
       immer(c, draft => {
         draft.index = i
+        if (!c.type && !first) {
+          first = true
+          draft.first = true
+        }
         if (draft.key === undefined) draft.key = i
         if (i <= left) draft.fixed = 'left'
         if (i === left) draft.lastFixed = true
@@ -91,7 +102,15 @@ export default class extends React.Component {
       data = immer(data, draft => draft.sort(sorter.sort))
     }
 
-    const Component = props.pagination ? TableWithPagination : Table
+    let Component = Table
+    if (props.pagination && props.treeColumnsName) {
+      Component = TableWithPT
+    } else if (props.pagination) {
+      Component = TableWithPagination
+    } else if (props.treeColumnsName) {
+      Component = TableWithTree
+    }
+
     return (
       <Component
         {...props}
