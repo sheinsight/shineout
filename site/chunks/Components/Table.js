@@ -14,15 +14,6 @@ const source = locate(cn, en)
 
 const examples = [
   {
-    name: '00-tree',
-    title: locate(
-      '树形数据 \n 支持树形数据的展示，通过 columns.treeColumnsName 指定子数据字段名，并在该列添加 展开/收起 按钮。\n 通过columns.treeIndent 指定每一层缩进宽度。',
-      'Tree Data \n Support Tree Data.'
-    ),
-    component: require('doc/pages/components/Table/example-00-tree.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Table/example-00-tree.js'),
-  },
-  {
     name: '01-base',
     title: locate(
       '基本用法 \n 基础的表格用法。推荐 columns 写为常量，以提升性能。',
@@ -264,6 +255,15 @@ const examples = [
     ),
     component: require('doc/pages/components/Table/example-25-row-click-attr.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-25-row-click-attr.js'),
+  },
+  {
+    name: '26-tree',
+    title: locate(
+      '树形数据 \n 支持树形数据的展示，通过 columns.treeColumnsName 指定子数据字段名，同时在该列添加 展开/收起 按钮。\n 通过columns.treeIndent 指定每一层缩进宽度。',
+      'Tree Data \n Support Tree Data.'
+    ),
+    component: require('doc/pages/components/Table/example-26-tree.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-26-tree.js'),
   },
   {
     name: '99-raw',
