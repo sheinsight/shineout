@@ -4,6 +4,7 @@ import immer from 'immer'
 import { getKey } from '../utils/uid'
 import { getProps } from '../utils/proptypes'
 
+const TREE_TABLE_DEFAULT_INDENT = 25
 export default WrappedComponent => {
   class TreeExpand extends React.Component {
     constructor(props) {
@@ -15,6 +16,14 @@ export default WrappedComponent => {
       }
       this.expandKeys = new Map()
       this.expandLevel = new Map()
+    }
+
+    getTreeIndent() {
+      const { columns } = this.props
+      for (let i = 0; i < columns.length; i++) {
+        if (typeof columns[i].treeIndent === 'number') return columns[i].treeIndent
+      }
+      return TREE_TABLE_DEFAULT_INDENT
     }
 
     getChildrenLength(children) {
@@ -64,6 +73,7 @@ export default WrappedComponent => {
     render() {
       const { data, ...other } = this.props
       const rootTree = this.state.data.filter(v => v && v[other.treeColumnsName] && v[other.treeColumnsName].length).length === 0
+      const treeIndent = this.getTreeIndent()
       return (
         <WrappedComponent
           data={this.state.data}
@@ -71,15 +81,18 @@ export default WrappedComponent => {
           treeExpandKeys={this.expandKeys}
           treeExpandLevel={this.expandLevel}
           treeRoot={rootTree}
+          treeIndent={treeIndent}
           {...other}
         />
       )
     }
   }
+
   TreeExpand.propTypes = {
     ...getProps(PropTypes, 'keygen'),
     data: PropTypes.arrayOf(PropTypes.object),
     treeColumnsName: PropTypes.string,
   }
+
   return TreeExpand
 }

@@ -16,7 +16,7 @@ const examples = [
   {
     name: '00-tree',
     title: locate(
-      '树形数据 \n 支持树形数据的展示，使用 treeColumnsName 指定子数据，treeIndent 指定每一层缩进宽度。',
+      '树形数据 \n 支持树形数据的展示，通过 columns.treeColumnsName 指定子数据字段名，并在该列添加 展开/收起 按钮。\n 通过columns.treeIndent 指定每一层缩进宽度。',
       'Tree Data \n Support Tree Data.'
     ),
     component: require('doc/pages/components/Table/example-00-tree.js').default,

@@ -37,6 +37,14 @@ export default class extends React.Component {
     this.handleSortChange = this.handleSortChange.bind(this)
   }
 
+  getTreeColumnsName() {
+    const { columns } = this.props
+    if (!Array.isArray(columns)) return null
+    const has = columns.filter(v => typeof v.treeColumnsName === 'string')
+    if (has.length === 0) return null
+    return has[0].treeColumnsName
+  }
+
   getColumns(columns) {
     if (deepEqual(columns, this.oldColumns)) {
       return this.cachedColumns
@@ -55,7 +63,7 @@ export default class extends React.Component {
     this.cachedColumns = columns.map((c, i) =>
       immer(c, draft => {
         draft.index = i
-        if (!c.type && !first) {
+        if (!c.type && !first && c.treeColumnsName) {
           first = true
           draft.first = true
         }
@@ -102,12 +110,13 @@ export default class extends React.Component {
       data = immer(data, draft => draft.sort(sorter.sort))
     }
 
+    const treeColumnsName = this.getTreeColumnsName()
     let Component = Table
-    if (props.pagination && props.treeColumnsName) {
+    if (props.pagination && treeColumnsName) {
       Component = TableWithPT
     } else if (props.pagination) {
       Component = TableWithPagination
-    } else if (props.treeColumnsName) {
+    } else if (treeColumnsName) {
       Component = TableWithTree
     }
 
@@ -119,6 +128,7 @@ export default class extends React.Component {
         data={data}
         sorter={sorter}
         onSortChange={this.handleSortChange}
+        treeColumnsName={treeColumnsName}
       />
     )
   }

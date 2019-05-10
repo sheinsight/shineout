@@ -58,11 +58,8 @@ class Td extends PureComponent {
     const level = treeExpandLevel.get(rowKey) || 0
     if (!treeColumnsName || !data[treeColumnsName] || data[treeColumnsName].length === 0) {
       return (
-        <span
-          className={tableClass('tree-expand')}
-          style={{ marginLeft: level * treeIndent, paddingLeft: treeRoot ? 0 : 25 }}
-        >
-          {content}
+        <span className={tableClass('tree-expand')}>
+          <span style={{ marginLeft: level * treeIndent, paddingLeft: treeRoot ? 0 : 25 }}>{content}</span>
         </span>
       )
     }
@@ -168,7 +165,6 @@ Td.defaultProps = {
   fixed: '',
   style: {},
   align: 'left',
-  treeIndent: 25,
 }
 
 export default Td
