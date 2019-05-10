@@ -94,7 +94,7 @@ class Tbody extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.colgroupSetted || this.props.columns.length !== prevProps.columns.length || this.props.dataUpdated) {
+    if (!this.colgroupSetted || this.props.columns.length !== prevProps.columns.length) {
       this.bodyRender()
     }
   }

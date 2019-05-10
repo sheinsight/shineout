@@ -39,9 +39,9 @@ export default class extends React.Component {
 
   getTreeColumnsName() {
     const { columns } = this.props
-    if (!Array.isArray(columns)) return null
+    if (!Array.isArray(columns)) return undefined
     const has = columns.filter(v => typeof v.treeColumnsName === 'string')
-    if (has.length === 0) return null
+    if (has.length === 0) return undefined
     return has[0].treeColumnsName
   }
 

@@ -1,6 +1,6 @@
 /**
  * cn - 树形数据
- *    -- 支持树形数据的展示，通过 columns.treeColumnsName 指定子数据字段名，同时在该列添加 展开/收起 按钮。\n 通过columns.treeIndent 指定每一层缩进宽度。
+ *    -- 支持树形数据的展示，通过 columns.treeColumnsName 指定子数据字段名，同时在该列自动添加 展开/收起 按钮。\n 通过 columns.treeIndent 指定每一层缩进宽度。\n 备注：当展开列内容过长时，单元格会自动换行。可以通过 width 设定足够的长度来避免。
  * en - Tree Data
  *    -- Support Tree Data.
  */
