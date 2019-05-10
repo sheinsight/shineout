@@ -7,6 +7,7 @@
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | className | string | 无 | 扩展className |
+| bodyStyle | object | - | 扩展 modal body 的样式 |
 | destroy | boolean | false | 关闭时是否销毁元素 |
 | footer | ReactElement \| null | 无 | 底部内容 |
 | maskCloseAble | bool | true | 点击遮罩层是否关闭对话框 |
