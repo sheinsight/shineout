@@ -263,6 +263,7 @@ class Select extends PureComponent {
         selectId={this.selectId}
         focus={focus}
         renderPending={this.renderPending}
+        fixed="min"
         {...props}
       />
     )

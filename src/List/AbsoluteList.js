@@ -48,7 +48,7 @@ export default function(List) {
         position: 'absolute',
       }
       if (fixed) {
-        const widthKey = fixed === 'min' ? 'min-width' : 'width'
+        const widthKey = fixed === 'min' ? 'minWidth' : 'width'
         style[widthKey] = rect.width
       }
       if (listPosition.includes(position)) {
