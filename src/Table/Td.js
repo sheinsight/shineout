@@ -57,28 +57,23 @@ class Td extends PureComponent {
     const { data, treeRoot, treeColumnsName, treeExpand, rowKey, treeExpandLevel, treeIndent } = this.props
     const level = treeExpandLevel.get(rowKey) || 0
     if (!treeColumnsName || !data[treeColumnsName] || data[treeColumnsName].length === 0) {
-      return (
-        <span className={tableClass('tree-expand')}>
-          <span style={{ marginLeft: level * treeIndent, paddingLeft: treeRoot ? 0 : 25 }}>{content}</span>
-        </span>
-      )
+      return <span style={{ marginLeft: level * treeIndent, paddingLeft: treeRoot ? 0 : 25 }}>{content}</span>
     }
-    return (
-      <span className={tableClass('tree-expand')}>
-        <span
-          style={{ marginLeft: level * treeIndent }}
-          onClick={this.handleTreeExpand}
-          className={tableClass('icon-tree-expand', `icon-tree-${treeExpand ? 'sub' : 'plus'}`)}
-        />
-        {content}
-      </span>
-    )
+    return [
+      <span
+        key="expand-icon"
+        style={{ marginLeft: level * treeIndent }}
+        onClick={this.handleTreeExpand}
+        className={tableClass('icon-tree-expand', `icon-tree-${treeExpand ? 'sub' : 'plus'}`)}
+      />,
+      content,
+    ]
   }
 
   renderResult() {
-    const { render, data, index, treeColumnsName, first } = this.props
+    const { render, data, index, treeColumnsName, treeExpandShow } = this.props
     const content = typeof render === 'function' ? render(data, index) : data[render]
-    if (!treeColumnsName || !first) return content
+    if (!treeColumnsName || !treeExpandShow) return content
     return this.renderTreeExpand(content)
   }
 
@@ -155,7 +150,7 @@ Td.propTypes = {
   treeColumnsName: PropTypes.string,
   onTreeExpand: PropTypes.func,
   treeExpand: PropTypes.bool,
-  first: PropTypes.bool,
+  treeExpandShow: PropTypes.bool,
   treeExpandLevel: PropTypes.object,
   treeIndent: PropTypes.number,
   treeRoot: PropTypes.bool,

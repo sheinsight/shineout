@@ -59,14 +59,9 @@ export default class extends React.Component {
       if (c.fixed === 'left') left = i
       if (c.fixed === 'right' && right < 0) right = i
     })
-    let first = false
     this.cachedColumns = columns.map((c, i) =>
       immer(c, draft => {
         draft.index = i
-        if (!c.type && !first && c.treeColumnsName) {
-          first = true
-          draft.first = true
-        }
         if (draft.key === undefined) draft.key = i
         if (i <= left) draft.fixed = 'left'
         if (i === left) draft.lastFixed = true

@@ -135,7 +135,19 @@ class Tr extends Component {
       if (skip > 0) {
         skip -= 1
       } else if (data[i]) {
-        const { className, style, key, fixed, lastFixed, firstFixed, type, render, onClick, align, first } = columns[i]
+        const {
+          className,
+          style,
+          key,
+          fixed,
+          lastFixed,
+          firstFixed,
+          type,
+          render,
+          onClick,
+          align,
+          treeColumnsName,
+        } = columns[i]
         let treeExpand = false
         if (treeExpandKeys) {
           treeExpand = treeExpandKeys.has(other.rowKey)
@@ -145,8 +157,8 @@ class Tr extends Component {
             {...other}
             expanded={typeof expandRender === 'function'}
             key={key}
-            first={first}
             treeExpand={treeExpand}
+            treeExpandShow={!!treeColumnsName}
             type={type}
             expandClick={onClick}
             className={className}
