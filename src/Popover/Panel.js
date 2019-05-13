@@ -13,7 +13,7 @@ class Panel extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.state = { show: false }
+    this.state = { show: props.visible || false }
     this.isRendered = false
 
     this.placeholderRef = this.placeholderRef.bind(this)
@@ -21,6 +21,7 @@ class Panel extends PureComponent {
     this.handleShow = this.handleShow.bind(this)
     this.handleHide0 = this.handleHide.bind(this, 0)
     this.handleHide500 = this.handleHide.bind(this, 500)
+    this.setShow = this.setShow.bind(this)
 
     this.element = document.createElement('div')
   }
@@ -39,6 +40,8 @@ class Panel extends PureComponent {
     }
 
     document.body.appendChild(this.element)
+
+    if (this.shouldUpdate) this.forceUpdate()
   }
 
   componentWillUnmount() {
@@ -50,6 +53,12 @@ class Panel extends PureComponent {
 
     document.removeEventListener('click', this.clickAway)
     document.body.removeChild(this.element)
+  }
+
+  setShow(show) {
+    const { onVisibleChange } = this.props
+    if (onVisibleChange) onVisibleChange(show)
+    this.setState({ show })
   }
 
   getPositionStr() {
@@ -85,29 +94,34 @@ class Panel extends PureComponent {
     if (this.closeTimer) clearTimeout(this.closeTimer)
     if (this.state.show) return
     document.addEventListener('mousedown', this.clickAway)
-    this.setState({ show: true })
+    this.setShow(true)
     if (this.props.onOpen) this.props.onOpen()
   }
 
   handleHide(delay = 500) {
     this.closeTimer = setTimeout(() => {
       document.removeEventListener('mousedown', this.clickAway)
-      this.setState({ show: false })
+      this.setShow(false)
       if (this.props.onClose) this.props.onClose()
     }, delay)
   }
 
   toggle(show) {
     if (this.closeTimer) clearTimeout(this.closeTimer)
-    this.setState({ show })
+    this.setShow(show)
   }
 
   render() {
-    const { background, border, children, type } = this.props
-    const { show } = this.state
+    const { background, border, children, type, visible } = this.props
+    const show = typeof visible === 'boolean' ? visible : this.state.show
 
-    if (!show && !this.isRendered) return <noscript ref={this.placeholderRef} />
-    this.isRendered = true
+    if (!this.isRendered) {
+      if (show) {
+        this.shouldUpdate = true
+      }
+      this.isRendered = true
+      return <noscript ref={this.placeholderRef} />
+    }
 
     const colorStyle = { background, borderColor: border }
     const innerStyle = Object.assign({}, this.props.style, { background })
@@ -144,6 +158,8 @@ Panel.propTypes = {
   style: PropTypes.object,
   trigger: PropTypes.oneOf(['click', 'hover']),
   type: PropTypes.string,
+  visible: PropTypes.bool,
+  onVisibleChange: PropTypes.func,
 }
 
 Panel.defaultProps = {
