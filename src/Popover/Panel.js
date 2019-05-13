@@ -13,7 +13,7 @@ class Panel extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.state = { show: props.visible || false }
+    this.state = { show: props.defaultVisible || false }
     this.isRendered = false
 
     this.placeholderRef = this.placeholderRef.bind(this)
@@ -160,6 +160,7 @@ Panel.propTypes = {
   type: PropTypes.string,
   visible: PropTypes.bool,
   onVisibleChange: PropTypes.func,
+  defaultVisible: PropTypes.func,
 }
 
 Panel.defaultProps = {
