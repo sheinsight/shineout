@@ -48,7 +48,8 @@ export default function(List) {
         position: 'absolute',
       }
       if (fixed) {
-        style.width = rect.width
+        const widthKey = fixed === 'min' ? 'min-width' : 'width'
+        style[widthKey] = rect.width
       }
       if (listPosition.includes(position)) {
         style.left = rect.left + docScroll.left
@@ -140,7 +141,7 @@ export default function(List) {
 
   AbsoluteList.propTypes = {
     focus: PropTypes.bool,
-    fixed: PropTypes.bool, // same width with parentElement
+    fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]), // same width with parentElement
     parentElement: PropTypes.object,
     position: PropTypes.string,
     absolute: PropTypes.bool,
