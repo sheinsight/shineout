@@ -26,6 +26,8 @@ Used to layout, display labels, tips, errors, etc
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | label | string \| ReactElement | undefined | When it is undefined, the tag does not be rendered or occupy space. If there is no content, but it needs to be occupied, you can use an empty string ''. |
+| labelAlign | string | | options:  \['top', 'right'], the default value is left. |
+| labelWidth | string \| number | 140px | The width of label. It is invalid when labelAlign is 'top'. |
 | required | boolean | false | Required tags for pure display. Do not trigger validation |
 | tip | string | | Prompting information |
 
