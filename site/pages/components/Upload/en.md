@@ -13,6 +13,7 @@
 | headers | object | none | Request headers |
 | htmlName | string | none | The filename received by the server. If it is not filled in, use the name. |
 | limit | number | 100 | Maximum number of uploaded files |
+| disabled | bool | false | disabled upload action | 
 | name | string | none | The key access data in the Form  |
 | request | func(options) | - | Custom upload method<br /> options: the options of upload |
 | onChange | func(values) | none | The callback function when the value is changing(Upload successfully, delete)<br />values: Array |

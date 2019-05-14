@@ -18,6 +18,7 @@
 | headers | object | 无 | 请求头部信息 |
 | htmlName | string | 无 | 服务端接收的 filename，不填使用 name |
 | limit | number | 100 | 最大上传文件数 |
+| disabled | bool | false | 是否禁用上传行为 | 
 | name | string | 无 | Form 内存取数据的 key |
 | request | func(options) | 无 | 自定义上传方法<br /> options: 上传的配置 |
 | onChange | func(values) | 无 | 值改变回调(上传成功，删除)<br />values: 数组 |
