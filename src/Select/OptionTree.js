@@ -62,7 +62,7 @@ class OptionList extends Component {
 
   render() {
     const { focus, style, selectId, height } = this.props
-    const mergeStyle = Object.assign({}, style, { maxHeight: height, overflowY: 'auto' })
+    const mergeStyle = Object.assign({}, { maxHeight: height, overflowY: 'auto' }, style)
     return (
       <ScaleList show={focus} style={mergeStyle} data-id={selectId} className={selectClass('options', 'tree')}>
         {this.renderTree()}
