@@ -135,7 +135,8 @@ export default function(List) {
       const mergeClass = classnames(listClass('absolute-wrapper'), rootClass)
       const { focus, style } = props.focus ? this.getStyle() : { style: this.lastStyle }
       this.element.className = mergeClass
-      return ReactDOM.createPortal(<List {...props} focus={focus} style={style} />, this.element)
+      const mergeStyle = Object.assign({}, props.style, style)
+      return ReactDOM.createPortal(<List {...props} focus={focus} style={mergeStyle} />, this.element)
     }
   }
 
