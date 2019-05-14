@@ -4,8 +4,15 @@ import immer from 'immer'
 import deepEqual from 'deep-eql'
 import pagable from '../hoc/pagable'
 import Table from './Table'
+import { compose } from '../utils/func'
+import treeExpand from './TreeExpand'
 
 const TableWithPagination = pagable(Table)
+const TableWithTree = treeExpand(Table)
+const TableWithPT = compose(
+  treeExpand,
+  pagable
+)(Table)
 
 export default class extends React.Component {
   static displayName = 'ShineoutTable'
@@ -30,6 +37,14 @@ export default class extends React.Component {
     this.handleSortChange = this.handleSortChange.bind(this)
   }
 
+  getTreeColumnsName() {
+    const { columns } = this.props
+    if (!Array.isArray(columns)) return undefined
+    const has = columns.filter(v => typeof v.treeColumnsName === 'string')
+    if (has.length === 0) return undefined
+    return has[0].treeColumnsName
+  }
+
   getColumns(columns) {
     if (deepEqual(columns, this.oldColumns)) {
       return this.cachedColumns
@@ -44,7 +59,6 @@ export default class extends React.Component {
       if (c.fixed === 'left') left = i
       if (c.fixed === 'right' && right < 0) right = i
     })
-
     this.cachedColumns = columns.map((c, i) =>
       immer(c, draft => {
         draft.index = i
@@ -91,7 +105,16 @@ export default class extends React.Component {
       data = immer(data, draft => draft.sort(sorter.sort))
     }
 
-    const Component = props.pagination ? TableWithPagination : Table
+    const treeColumnsName = this.getTreeColumnsName()
+    let Component = Table
+    if (props.pagination && treeColumnsName) {
+      Component = TableWithPT
+    } else if (props.pagination) {
+      Component = TableWithPagination
+    } else if (treeColumnsName) {
+      Component = TableWithTree
+    }
+
     return (
       <Component
         {...props}
@@ -100,6 +123,7 @@ export default class extends React.Component {
         data={data}
         sorter={sorter}
         onSortChange={this.handleSortChange}
+        treeColumnsName={treeColumnsName}
       />
     )
   }

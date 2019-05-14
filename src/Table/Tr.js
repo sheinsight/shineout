@@ -126,6 +126,7 @@ class Tr extends Component {
       offsetRight,
       hasNotRenderRows,
       rowClassName,
+      treeExpandKeys,
       ...other
     } = this.props
     const tds = []
@@ -134,12 +135,30 @@ class Tr extends Component {
       if (skip > 0) {
         skip -= 1
       } else if (data[i]) {
-        const { className, style, key, fixed, lastFixed, firstFixed, type, render, onClick, align } = columns[i]
+        const {
+          className,
+          style,
+          key,
+          fixed,
+          lastFixed,
+          firstFixed,
+          type,
+          render,
+          onClick,
+          align,
+          treeColumnsName,
+        } = columns[i]
+        let treeExpand = false
+        if (treeExpandKeys) {
+          treeExpand = treeExpandKeys.has(other.rowKey)
+        }
         const td = (
           <Td
             {...other}
             expanded={typeof expandRender === 'function'}
             key={key}
+            treeExpand={treeExpand}
+            treeExpandShow={!!treeColumnsName}
             type={type}
             expandClick={onClick}
             className={className}
@@ -197,6 +216,7 @@ Tr.propTypes = {
   setRowHeight: PropTypes.func,
   rowClickAttr: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   dataUpdated: PropTypes.bool,
+  treeExpandKeys: PropTypes.object,
 }
 
 Tr.defaultProps = {

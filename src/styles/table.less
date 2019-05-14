@@ -277,6 +277,31 @@
     }
   }
 
+  .@{table-prefix}-icon-tree-expand {
+    margin-right: 8px;
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    line-height: 14px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    cursor: pointer;
+    user-select: none;
+
+    &.@{table-prefix}-icon-tree-plus {
+      &:after {
+        content: '+'
+      }
+    }
+
+    &.@{table-prefix}-icon-tree-sub {
+      &:after {
+        content: '-'
+      }
+    }
+  }
+
   &-icon-expand-plus,
   &-icon-expand-sub {
     position: relative;
