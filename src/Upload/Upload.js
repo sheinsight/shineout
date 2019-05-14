@@ -67,6 +67,8 @@ class Upload extends PureComponent {
   }
 
   handleAddClick() {
+    const { disabled } = this.props
+    if (disabled) return
     this.input.click()
   }
 
@@ -313,7 +315,7 @@ class Upload extends PureComponent {
   }
 
   renderHandle() {
-    const { limit, value, children, accept, multiple } = this.props
+    const { limit, value, children, accept, multiple, disabled } = this.props
     const count = value.length + Object.keys(this.state.files).length
     if (limit > 0 && limit <= count) return null
 
@@ -321,6 +323,7 @@ class Upload extends PureComponent {
       multiple,
       addFile: this.addFile,
       accept,
+      disabled,
     }
     return (
       <span className={uploadClass('handle')} onClick={this.handleAddClick}>
@@ -426,6 +429,7 @@ Upload.propTypes = {
   onStart: PropTypes.func,
   showUploadList: PropTypes.bool,
   validatorHandle: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+  disabled: PropTypes.bool,
 }
 
 Upload.defaultProps = {

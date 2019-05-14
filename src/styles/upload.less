@@ -217,6 +217,13 @@
         border-color: @colors-primary;
       }
     }
+
+    &.@{upload-prefix}-disabled {
+      cursor: not-allowed;
+      :after {
+        border: 1px dashed #d9d9d9;
+      }
+    }
   }
 
   &-image-plus {
