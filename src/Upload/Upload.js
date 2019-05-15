@@ -123,13 +123,14 @@ class Upload extends PureComponent {
 
   useValidator(blob) {
     const { validator } = this.props
+    const { files } = this.state
     let error = null
     let i = 0
 
     while (VALIDATORITEMS[i]) {
       const item = VALIDATORITEMS[i]
       if (typeof validator[item.key] === 'function') {
-        error = validator[item.key](item.param(blob))
+        error = validator[item.key](item.param(blob), files)
         if (error instanceof Error) return error
       }
       i += 1
