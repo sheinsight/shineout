@@ -233,7 +233,6 @@
 
     &.@{upload-prefix}-disabled {
       cursor: @cursor-disabled;
-      //opacity: 0.65;
       &:hover {
         border-color: @upload-image-border;
         .@{upload-prefix}-indicator {
@@ -338,12 +337,14 @@
       cursor: @cursor-disabled;
       opacity: 0.65;
     }
+
     &.@{upload-prefix}-uploading{
       background: @btn-default-bg;
       color: @btn-default-color;
       cursor: @cursor-disabled;
       opacity: 0.85;
     }
+
     &.@{upload-prefix}-bprogress-success {
       background: @colors-success;
       border-color: @btn-success-border;
