@@ -208,7 +208,7 @@
       bottom: -1px;
       position: absolute;
       border-radius: 2px;
-      border: 1px dashed #d9d9d9;
+      border: 1px dashed @upload-image-border;
       transition: border-color .3s;
     }
 
@@ -221,7 +221,7 @@
     &.@{upload-prefix}-disabled {
       cursor: not-allowed;
       :after {
-        border: 1px dashed #d9d9d9;
+        border: 1px dashed @upload-image-border;
       }
     }
   }
@@ -230,6 +230,20 @@
     position: relative;
     display: inline-flex;
     vertical-align: top;
+
+    &.@{upload-prefix}-disabled {
+      cursor: @cursor-disabled;
+      //opacity: 0.65;
+      &:hover {
+        border-color: @upload-image-border;
+        .@{upload-prefix}-indicator {
+          &:before,
+          &:after {
+            background: #999;;
+          }
+        }
+      }
+    }
 
     .@{upload-prefix}-indicator {
       position: absolute;

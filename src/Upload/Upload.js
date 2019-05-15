@@ -301,10 +301,11 @@ class Upload extends PureComponent {
   }
 
   handleError(id, xhr) {
-    const { onError } = this.props
+    const { onError, onHttpError } = this.props
 
     let message = xhr.statusText
     if (onError) message = onError(xhr)
+    if (onHttpError) message = onHttpError(xhr) || message
 
     this.setState(
       immer(draft => {
@@ -416,6 +417,7 @@ Upload.propTypes = {
   onProgress: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   onSuccess: PropTypes.func,
   onError: PropTypes.func,
+  onHttpError: PropTypes.func,
   params: PropTypes.object,
   recoverAble: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   renderResult: PropTypes.func,
