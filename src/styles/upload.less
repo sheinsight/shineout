@@ -208,7 +208,7 @@
       bottom: -1px;
       position: absolute;
       border-radius: 2px;
-      border: 1px dashed #d9d9d9;
+      border: 1px dashed @upload-image-border;
       transition: border-color .3s;
     }
 
@@ -217,12 +217,32 @@
         border-color: @colors-primary;
       }
     }
+
+    &.@{upload-prefix}-disabled {
+      cursor: not-allowed;
+      :after {
+        border: 1px dashed @upload-image-border;
+      }
+    }
   }
 
   &-image-plus {
     position: relative;
     display: inline-flex;
     vertical-align: top;
+
+    &.@{upload-prefix}-disabled {
+      cursor: @cursor-disabled;
+      &:hover {
+        border-color: @upload-image-border;
+        .@{upload-prefix}-indicator {
+          &:before,
+          &:after {
+            background: #999;;
+          }
+        }
+      }
+    }
 
     .@{upload-prefix}-indicator {
       position: absolute;
@@ -310,12 +330,21 @@
         margin: 6px 12px;
       }
     }
+
+    &.@{upload-prefix}-disabled {
+      position: relative;
+      box-shadow: none;
+      cursor: @cursor-disabled;
+      opacity: 0.65;
+    }
+
     &.@{upload-prefix}-uploading{
       background: @btn-default-bg;
       color: @btn-default-color;
       cursor: @cursor-disabled;
       opacity: 0.85;
     }
+
     &.@{upload-prefix}-bprogress-success {
       background: @colors-success;
       border-color: @btn-success-border;

@@ -48,7 +48,8 @@ export default function(List) {
         position: 'absolute',
       }
       if (fixed) {
-        style.width = rect.width
+        const widthKey = fixed === 'min' ? 'minWidth' : 'width'
+        style[widthKey] = rect.width
       }
       if (listPosition.includes(position)) {
         style.left = rect.left + docScroll.left
@@ -134,13 +135,14 @@ export default function(List) {
       const mergeClass = classnames(listClass('absolute-wrapper'), rootClass)
       const { focus, style } = props.focus ? this.getStyle() : { style: this.lastStyle }
       this.element.className = mergeClass
-      return ReactDOM.createPortal(<List {...props} focus={focus} style={style} />, this.element)
+      const mergeStyle = Object.assign({}, style, props.style)
+      return ReactDOM.createPortal(<List {...props} focus={focus} style={mergeStyle} />, this.element)
     }
   }
 
   AbsoluteList.propTypes = {
     focus: PropTypes.bool,
-    fixed: PropTypes.bool, // same width with parentElement
+    fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]), // same width with parentElement
     parentElement: PropTypes.object,
     position: PropTypes.string,
     absolute: PropTypes.bool,

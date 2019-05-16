@@ -67,6 +67,8 @@ class Upload extends PureComponent {
   }
 
   handleAddClick() {
+    const { disabled } = this.props
+    if (disabled) return
     this.input.click()
   }
 
@@ -121,13 +123,14 @@ class Upload extends PureComponent {
 
   useValidator(blob) {
     const { validator } = this.props
+    const { files } = this.state
     let error = null
     let i = 0
 
     while (VALIDATORITEMS[i]) {
       const item = VALIDATORITEMS[i]
       if (typeof validator[item.key] === 'function') {
-        error = validator[item.key](item.param(blob))
+        error = validator[item.key](item.param(blob), files)
         if (error instanceof Error) return error
       }
       i += 1
@@ -299,10 +302,11 @@ class Upload extends PureComponent {
   }
 
   handleError(id, xhr) {
-    const { onError } = this.props
+    const { onError, onHttpError } = this.props
 
     let message = xhr.statusText
     if (onError) message = onError(xhr)
+    if (onHttpError) message = onHttpError(xhr) || message
 
     this.setState(
       immer(draft => {
@@ -313,7 +317,7 @@ class Upload extends PureComponent {
   }
 
   renderHandle() {
-    const { limit, value, children, accept, multiple } = this.props
+    const { limit, value, children, accept, multiple, disabled } = this.props
     const count = value.length + Object.keys(this.state.files).length
     if (limit > 0 && limit <= count) return null
 
@@ -321,6 +325,7 @@ class Upload extends PureComponent {
       multiple,
       addFile: this.addFile,
       accept,
+      disabled,
     }
     return (
       <span className={uploadClass('handle')} onClick={this.handleAddClick}>
@@ -413,6 +418,7 @@ Upload.propTypes = {
   onProgress: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   onSuccess: PropTypes.func,
   onError: PropTypes.func,
+  onHttpError: PropTypes.func,
   params: PropTypes.object,
   recoverAble: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   renderResult: PropTypes.func,
@@ -426,6 +432,7 @@ Upload.propTypes = {
   onStart: PropTypes.func,
   showUploadList: PropTypes.bool,
   validatorHandle: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+  disabled: PropTypes.bool,
 }
 
 Upload.defaultProps = {

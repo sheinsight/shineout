@@ -13,19 +13,28 @@ class Body extends PureComponent {
     collapsed: PropTypes.bool,
     collapsible: PropTypes.bool,
     style: PropTypes.object,
+    onCollapse: PropTypes.func,
   }
 
   render() {
     const {
-      className, collapsed, collapsible, ...other
+      className, collapsed, collapsible, onCollapse, ...other
     } = this.props
     const newClassName = classnames(cardClass('body'), className)
 
     if (!collapsible) return <div {...other} className={newClassName} />
 
+    const onClick = typeof collapsed === 'boolean' ? onCollapse : undefined
     return (
       <CollapseList show={!collapsed}>
-        <div {...other} className={newClassName} />
+        <div {...other} className={newClassName}>
+          {other.children}
+          {collapsible === 'bottom' && (
+            <div className={cardClass('foldup')} onClick={onClick}>
+              <span />
+            </div>
+          )}
+        </div>
       </CollapseList>
     )
   }

@@ -11,6 +11,7 @@ class Td extends PureComponent {
   constructor(props) {
     super(props)
     this.handleExpandClick = this.handleExpandClick.bind(this)
+    this.handleTreeExpand = this.handleTreeExpand.bind(this)
   }
 
   handleExpandClick() {
@@ -20,6 +21,11 @@ class Td extends PureComponent {
     } else {
       this.props.onExpand(rowKey, expanded ? undefined : this.cachedRender)
     }
+  }
+
+  handleTreeExpand() {
+    const { data, onTreeExpand, index } = this.props
+    onTreeExpand(data, index)
   }
 
   renderCheckbox() {
@@ -47,8 +53,32 @@ class Td extends PureComponent {
     )
   }
 
+  renderTreeExpand(content) {
+    const { data, treeRoot, treeColumnsName, treeExpand, rowKey, treeExpandLevel, treeIndent } = this.props
+    const level = treeExpandLevel.get(rowKey) || 0
+    if (!treeColumnsName || !data[treeColumnsName] || data[treeColumnsName].length === 0) {
+      return <span style={{ marginLeft: level * treeIndent, paddingLeft: treeRoot ? 0 : 25 }}>{content}</span>
+    }
+    return [
+      <span
+        key="expand-icon"
+        style={{ marginLeft: level * treeIndent }}
+        onClick={this.handleTreeExpand}
+        className={tableClass('icon-tree-expand', `icon-tree-${treeExpand ? 'sub' : 'plus'}`)}
+      />,
+      content,
+    ]
+  }
+
+  renderResult() {
+    const { render, data, index, treeColumnsName, treeExpandShow } = this.props
+    const content = typeof render === 'function' ? render(data, index) : data[render]
+    if (!treeColumnsName || !treeExpandShow) return content
+    return this.renderTreeExpand(content)
+  }
+
   renderContent() {
-    const { type, render, data, index } = this.props
+    const { type, index } = this.props
     switch (type) {
       case 'checkbox':
         return this.renderCheckbox()
@@ -56,7 +86,7 @@ class Td extends PureComponent {
       case 'row-expand':
         return this.renderExpand(index)
       default:
-        return typeof render === 'function' ? render(data, index) : data[render]
+        return this.renderResult()
     }
   }
 
@@ -84,7 +114,7 @@ class Td extends PureComponent {
         (type === 'checkbox' || type === 'expand' || type === 'row-expand') && 'checkbox',
         align !== 'left' && `align-${align}`,
         ignoreBorderRight && 'ignore-right-border',
-        ignoreBorderBottom && 'ignore-bottom-border',
+        ignoreBorderBottom && 'ignore-bottom-border'
       )
     )
 
@@ -117,6 +147,13 @@ Td.propTypes = {
   render: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   ignoreBorderRight: PropTypes.bool,
   ignoreBorderBottom: PropTypes.bool,
+  treeColumnsName: PropTypes.string,
+  onTreeExpand: PropTypes.func,
+  treeExpand: PropTypes.bool,
+  treeExpandShow: PropTypes.bool,
+  treeExpandLevel: PropTypes.object,
+  treeIndent: PropTypes.number,
+  treeRoot: PropTypes.bool,
 }
 
 Td.defaultProps = {

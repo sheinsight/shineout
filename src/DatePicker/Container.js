@@ -216,7 +216,7 @@ class Container extends PureComponent {
         key={key}
         className={className}
         focus={this.state.focus}
-        format={this.getFormat()}
+        format={resultFormat}
         index={key}
         inputable={inputable}
         placeholder={placeholder}
