@@ -1,8 +1,8 @@
 /**
  * cn - 事件
- *    --
+ *    -- 提供了onOpen 和 onClose 事件
  * en - Events
- *    --
+ *    -- provider onOpen and onClose event
  */
 import React from 'react'
 import { Button, Popover } from 'shineout'
