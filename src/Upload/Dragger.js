@@ -50,20 +50,22 @@ class Dragger extends PureComponent {
   }
 
   handleFileDrop(e) {
+    const { disabled } = this.props
+    if (disabled) return
     e.preventDefault()
     this.setState({ dragType: e.type })
     if (e.type === 'drop') this.handleDrop(e)
   }
 
   render() {
-    const { children } = this.props
+    const { children, disabled } = this.props
     const { dragType } = this.state
     return (
       <div
         onDragOver={this.handleFileDrop}
         onDragLeave={this.handleFileDrop}
         onDrop={this.handleFileDrop}
-        className={uploadClass('dragger-area', dragType === 'dragover' && 'dragger-hover')}
+        className={uploadClass('dragger-area', dragType === 'dragover' && 'dragger-hover', disabled && 'disabled')}
       >
         {children}
       </div>
@@ -76,6 +78,7 @@ Dragger.propTypes = {
   multiple: PropTypes.bool,
   addFile: PropTypes.func,
   accept: PropTypes.string,
+  disabled: PropTypes.bool,
 }
 
 export default Dragger

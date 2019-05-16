@@ -49,7 +49,7 @@ class Image extends PureComponent {
 
     return (
       <Upload {...others} imageStyle={style} beforeUpload={this.beforeUpload}>
-        <div style={style} className={uploadClass('image-plus', 'image-item')}>
+        <div style={style} className={uploadClass('image-plus', 'image-item', others.disabled && 'disabled' )}>
           {content}
         </div>
       </Upload>

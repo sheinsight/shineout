@@ -32,14 +32,17 @@ class Progress extends PureComponent {
       progress: p,
     })
   }
+
   handleProgress(file) {
     this.handleChange(file.process)
   }
+
   handleError(error) {
     const { onError } = this.props
     if (onError) onError(error)
     this.handleOver()
   }
+
   handleSuccess(...args) {
     const { onSuccess } = this.props
     if (onSuccess) onSuccess(...args)
@@ -67,7 +70,7 @@ class Progress extends PureComponent {
     const { placeholder, type, ...others } = this.props
     const uploading = this.state.progress >= 0
     const wrapperClassname = classnames(
-      uploadClass('bprogress'),
+      uploadClass('bprogress', others.disabled && 'disabled'),
       this.props.className,
       uploading ? uploadClass('uploading', `border-${type}`) : uploadClass(`bprogress-${type}`)
     )
