@@ -112,6 +112,15 @@ const examples = [
     component: require('doc/pages/components/Tabs/example-11-link.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-11-link.js'),
   },
+  {
+    name: '12-extra',
+    title: locate(
+      '基本用法 \n 默认标签样式',
+      'Base \n Basic usage.'
+    ),
+    component: require('doc/pages/components/Tabs/example-12-extra.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tabs/example-12-extra.js'),
+  },
 ]
 
 const codes = undefined

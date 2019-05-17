@@ -88,7 +88,7 @@ const examples = [
   {
     name: '09-range-date',
     title: locate(
-      '选择范围 \n 设置 range 属性可以选择范围，输入和返回的 value 为长度为 2 的数组',
+      '范围选择 \n 设置 range 属性可以选择范围，输入和返回的 value 为长度为 2 的数组',
       'Range \n Set the range property to select range, the input value and return value is an array of length 2.'
     ),
     component: require('doc/pages/components/DatePicker/example-09-range-date.js').default,

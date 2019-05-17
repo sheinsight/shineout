@@ -59,3 +59,21 @@ describe('Tabs[collapsible]', () => {
     expect(wrapper.find(`div.${SO_PREFIX}-hidable-collapse`).hasClass(`${SO_PREFIX}-hidable-show`)).toBeFalsy()
   })
 })
+
+describe('Tabs[extra]', () => {
+  test('should render a extra button', () => {
+    const wrapper = mount(
+      <Tabs defaultActive={1}>
+        <Tabs.Panel tab="Home">Test</Tabs.Panel>
+      </Tabs>
+    )
+    expect(wrapper.find(`.${SO_PREFIX}-tabs-extra`)).toHaveLength(0)
+
+    const wrapper1 = mount(
+      <Tabs defaultActive={1} tabBarExtraContent="niconiconi">
+        <Tabs.Panel tab="Home">Test</Tabs.Panel>
+      </Tabs>
+    )
+    expect(wrapper1.find(`.${SO_PREFIX}-tabs-extra`)).toHaveLength(1)
+  })
+})

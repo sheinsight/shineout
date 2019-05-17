@@ -10,7 +10,9 @@ import { DatePicker } from 'shineout'
 export default function() {
   return (
     <div>
-      <DatePicker type="datetime" />
+      <DatePicker type="date" />
+      <br />
+      <DatePicker type="datetime" style={{ marginTop: '12px' }} />
     </div>
   )
 }

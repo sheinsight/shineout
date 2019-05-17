@@ -10,13 +10,9 @@ class Tabs extends PureComponent {
   constructor(props) {
     super(props)
 
-    const align = this.getAlign()
-
     this.state = {
       active: props.defaultActive || 0,
       collapsed: props.defaultCollapsed,
-      align: align.align,
-      isVertical: align.isVertical,
     }
 
     this.getAlign = this.getAlign.bind(this)
@@ -27,14 +23,14 @@ class Tabs extends PureComponent {
 
   getAlign() {
     const { shape, collapsible, align } = this.props
-    const isVertical = align && (align.indexOf('vertical') > -1)
+    const isVertical = align && align.indexOf('vertical') > -1
     if (shape === 'button' && isVertical) {
-      console.warn('align vertical-* can\'t supported when shape is button')
+      console.warn("align vertical-* can't supported when shape is button")
       return { align: 'left', isVertical: false }
     }
 
     if (collapsible && isVertical) {
-      console.warn('align vertical-* can\'t supported when collapsible is true')
+      console.warn("align vertical-* can't supported when collapsible is true")
       return { align: 'left', isVertical: false }
     }
 
@@ -56,11 +52,8 @@ class Tabs extends PureComponent {
     this.setState({ collapsed })
   }
 
-  renderHeader() {
-    const {
-      children, color, shape, inactiveBackground, collapsible,
-    } = this.props
-    const { align, isVertical } = this.state
+  renderHeader({ align, isVertical }) {
+    const { children, color, shape, tabBarStyle, inactiveBackground, collapsible, tabBarExtraContent } = this.props
     const active = this.getActive()
     const tabs = []
 
@@ -70,6 +63,7 @@ class Tabs extends PureComponent {
 
       let tab = null
       if (child.type.isTabPanel) {
+        // eslint-disable-next-line
         tab = child.props.tab
       } else if (child.type.isTabLink) {
         tab = child
@@ -106,6 +100,8 @@ class Tabs extends PureComponent {
         shape={shape}
         onChange={this.handleChange}
         tabs={tabs}
+        tabBarExtraContent={tabBarExtraContent}
+        tabBarStyle={tabBarStyle}
       />
     )
   }
@@ -128,25 +124,19 @@ class Tabs extends PureComponent {
   }
 
   render() {
-    const {
-      children, shape, style,
-    } = this.props
-    const { align, isVertical } = this.state
+    const { children, shape, style } = this.props
+    const position = this.getAlign()
+    const { align, isVertical } = position
     const className = classnames(
-      tabsClass(
-        '_',
-        align && `align-${align}`,
-        isVertical && 'vertical',
-        shape,
-      ),
-      this.props.className,
+      tabsClass('_', align && `align-${align}`, isVertical && 'vertical', shape),
+      this.props.className
     )
 
     return (
       <div className={className} style={style}>
-        {align !== 'vertical-right' && this.renderHeader()}
+        {align !== 'vertical-right' && this.renderHeader(position)}
         {Children.toArray(children).map(this.renderContent)}
-        {align === 'vertical-right' && this.renderHeader()}
+        {align === 'vertical-right' && this.renderHeader(position)}
       </div>
     )
   }
@@ -157,10 +147,7 @@ Tabs.propTypes = {
   align: PropTypes.oneOf(['left', 'right', 'vertical-left', 'vertical-right']),
   background: PropTypes.string,
   border: PropTypes.string,
-  children: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.array,
-  ]),
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
   className: PropTypes.string,
   collapsible: PropTypes.bool,
   color: PropTypes.string,
@@ -170,6 +157,8 @@ Tabs.propTypes = {
   onChange: PropTypes.func,
   shape: PropTypes.oneOf(['card', 'line', 'button']),
   style: PropTypes.object,
+  tabBarExtraContent: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  tabBarStyle: PropTypes.object,
 }
 
 Tabs.defaultProps = {
