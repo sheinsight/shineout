@@ -134,9 +134,9 @@ class Tabs extends PureComponent {
 
     return (
       <div className={className} style={style}>
-        {align !== 'vertical-right' && this.renderHeader(position)}
+        {align !== 'vertical-right' && align !== 'bottom' && this.renderHeader(position)}
         {Children.toArray(children).map(this.renderContent)}
-        {align === 'vertical-right' && this.renderHeader(position)}
+        {(align === 'vertical-right' || align === 'bottom') && this.renderHeader(position)}
       </div>
     )
   }
