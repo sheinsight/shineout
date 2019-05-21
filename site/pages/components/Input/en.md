@@ -29,3 +29,4 @@ The basic API is the same as the above table, and the specific API is as follows
 | max | number | - | The maximum value |
 | min | number | - | The minimum value|
 | step | number | 1 | Change the digital span. It can be decimal. |
+| digits | number | - | the digits of number |
