@@ -12,9 +12,9 @@ const types = {
 }
 
 export default curry((options, Origin) => {
-  const { type = 'list', key = 'value', limit = 0, bindProps = [], ignoreUndefined, impure } = options || {}
+  const { type = 'list', key = 'value', limit = 0, bindProps = [], ignoreUndefined, pure = true } = options || {}
   const Datum = types[type]
-  const Component = impure ? React.Component : React.PureComponent
+  const Component = pure ? React.PureComponent : React.Component
 
   return class extends Component {
     static propTypes = {
