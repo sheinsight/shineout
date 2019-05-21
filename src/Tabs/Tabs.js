@@ -144,7 +144,7 @@ class Tabs extends PureComponent {
 
 Tabs.propTypes = {
   active: PropTypes.any,
-  align: PropTypes.oneOf(['left', 'right', 'vertical-left', 'vertical-right']),
+  align: PropTypes.oneOf(['left', 'right', 'vertical-left', 'vertical-right', 'bottom']),
   background: PropTypes.string,
   border: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
