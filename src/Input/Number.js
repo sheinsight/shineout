@@ -30,15 +30,18 @@ class Number extends PureComponent {
       return
     }
 
-    const stepStr = this.props.step.toString()
-    const dot = stepStr.lastIndexOf('.')
-    if (dot >= 0) value = parseFloat(value.toFixed(stepStr.length - dot))
+    if (typeof this.props.digits === 'number') {
+      value = parseFloat(value.toFixed(this.props.digits))
+    } else {
+      const stepStr = this.props.step.toString()
+      const dot = stepStr.lastIndexOf('.')
+      if (dot >= 0) value = parseFloat(value.toFixed(stepStr.length - dot))
+    }
 
     const { min, max } = this.props
 
     if (max !== undefined && value > max) value = max
     if (min !== undefined && value < min) value = min
-
 
     if (value !== this.props.value) {
       this.props.onChange(value)
@@ -146,10 +149,8 @@ Number.propTypes = {
   onBlur: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   step: PropTypes.number,
-  value: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
+  digits: PropTypes.number,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 }
 
 Number.defaultProps = {
