@@ -132,6 +132,13 @@
   div&-pagesize {
     display: inline-block;
     width: auto;
-    min-width: 120px;
+    .@{so-prefix}-select-result {
+      .@{so-prefix}-select-ellipsis {
+        overflow: unset;
+      }
+    }
+    .@{so-prefix}-select-options{
+      width: auto;
+    }
   }
 }
