@@ -200,7 +200,6 @@ export default curry(Origin =>
         if (value === undefined || Array.isArray(name)) value = this.getValue()
         if (!Array.isArray(name)) value = [value]
         if (this.customValidate) validates.push(this.customValidate())
-        console.log(type)
         if (formDatum && bind && type !== IGNORE_BIND) {
           // console.error(new Error('Use "bind" props to combine validate is not recommend. Use Form "groups" props instead.'))
           formDatum.validateFields(bind, IGNORE_BIND).catch(() => {})
