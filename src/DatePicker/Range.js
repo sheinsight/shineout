@@ -61,7 +61,7 @@ class Range extends PureComponent {
     }
 
     if (mode === 'time') {
-      let endChangedDate = null
+      let endChangedDate
       this.setState(
         immer(draft => {
           draft.rangeDate[index] = date
@@ -71,7 +71,7 @@ class Range extends PureComponent {
             endChangedDate = date
             draft.rangeDate[1] = endChangedDate
           }
-          if (range && utils.compareAsc(s, utils.addSeconds(e, -range)) < 0) {
+          if (typeof range === 'number' && utils.compareAsc(s, utils.addSeconds(e, -range)) < 0) {
             endChangedDate = utils.addSeconds(s, range)
             draft.rangeDate[1] = endChangedDate
           }

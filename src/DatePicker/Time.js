@@ -99,6 +99,7 @@ Time.propTypes = {
   onChange: PropTypes.func.isRequired,
   range: PropTypes.number,
   value: PropTypes.object,
+  pos: PropTypes.string,
 }
 
 export default Time
