@@ -212,5 +212,6 @@ export default class {
     } else {
       this.resetValue(this.formatValue(values))
     }
+    this.$cachedValue = this.getValue()
   }
 }
