@@ -14,7 +14,6 @@ import {
   FORCE_PASS,
   ERROR_TYPE,
   IGNORE_VALIDATE,
-  IGNORE_BIND,
 } from './types'
 
 export default class {
@@ -240,13 +239,13 @@ export default class {
     else delete this.$events[name]
   }
 
-  validate() {
+  validate(type) {
     return new Promise((resolve, reject) => {
       const keys = Object.keys(this.$validator)
       const values = this.getValue()
 
       const validates = [
-        ...keys.map(k => this.$validator[k](this.get(k), values, IGNORE_BIND)),
+        ...keys.map(k => this.$validator[k](this.get(k), values, type)),
         ...(this.$events[VALIDATE_TOPIC] || []).map(fn => fn()),
       ]
 
