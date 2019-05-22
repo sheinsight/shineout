@@ -73,7 +73,7 @@ export default curry((options, Origin) => class extends Component {
     const newClassName = classnames(
       inputClass(
         '_',
-        focus && other.disabled === false && 'focus',
+        focus && !other.disabled && 'focus',
         other.disabled === true && 'disabled',
         options.isGroup && 'group',
         size,
