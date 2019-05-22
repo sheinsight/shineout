@@ -22,3 +22,5 @@ export const ERROR_TYPE = '__UPDATE_ERROR_TYPE__'
 export const REMOVE_ERROR = '__REMOVE_ERROR_TYPE__'
 
 export const WITH_OUT_DISPATCH = '__WITH_OUT_DISPATCH__'
+
+export const IGNORE_BIND = '__IGNORE_BIND__'

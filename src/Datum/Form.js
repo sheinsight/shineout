@@ -14,6 +14,7 @@ import {
   FORCE_PASS,
   ERROR_TYPE,
   IGNORE_VALIDATE,
+  IGNORE_BIND,
 } from './types'
 
 export default class {
@@ -245,7 +246,7 @@ export default class {
       const values = this.getValue()
 
       const validates = [
-        ...keys.map(k => this.$validator[k](this.get(k), values)),
+        ...keys.map(k => this.$validator[k](this.get(k), values, IGNORE_BIND)),
         ...(this.$events[VALIDATE_TOPIC] || []).map(fn => fn()),
       ]
 

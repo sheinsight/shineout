@@ -9,7 +9,7 @@ import { filterProps } from '../utils/objects'
 import { getUidStr } from '../utils/uid'
 import { isArray } from '../utils/is'
 import validate from '../utils/validate'
-import { FORCE_PASS, ERROR_TYPE, IGNORE_VALIDATE, errorSubscribe } from '../Datum/types'
+import { FORCE_PASS, ERROR_TYPE, IGNORE_VALIDATE, errorSubscribe, IGNORE_BIND } from '../Datum/types'
 import { formConsumer } from './formContext'
 import { itemConsumer } from './Item'
 import { loopConsumer } from './Loop'
@@ -200,9 +200,10 @@ export default curry(Origin =>
         if (value === undefined || Array.isArray(name)) value = this.getValue()
         if (!Array.isArray(name)) value = [value]
         if (this.customValidate) validates.push(this.customValidate())
-        if (formDatum && bind) {
+        console.log(type)
+        if (formDatum && bind && type !== IGNORE_BIND) {
           // console.error(new Error('Use "bind" props to combine validate is not recommend. Use Form "groups" props instead.'))
-          formDatum.validateFields(bind).catch(() => {})
+          formDatum.validateFields(bind, IGNORE_BIND).catch(() => {})
         }
         if (!data && formDatum) data = formDatum.getValue()
 
