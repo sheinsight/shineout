@@ -67,7 +67,7 @@ class Range extends PureComponent {
           draft.rangeDate[index] = date
           const [s, e] = draft.rangeDate
           if (index !== 0) return
-          if (utils.compareAsc(s, e) === 1) {
+          if (range && utils.compareAsc(s, e) === 1) {
             endChangedDate = date
             draft.rangeDate[1] = endChangedDate
           }
