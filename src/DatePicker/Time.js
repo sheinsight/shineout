@@ -20,7 +20,7 @@ class Time extends PureComponent {
   }
 
   handleChange(type, val) {
-    const { disabled, format, min, max, range } = this.props
+    const { disabled, format, min, max, range, pos } = this.props
     const value = this.getValue()
     const date = new Date(value.getTime())
     let hours
@@ -50,13 +50,15 @@ class Time extends PureComponent {
     let isDisabled
     if (disabled) isDisabled = disabled(date)
 
-    if (!isDisabled && min) {
-      if (utils.compareAsc(date, min) < 0) return
-      if (range && utils.compareAsc(date, utils.addSeconds(min, range)) > 0) return
-    }
-    if (!isDisabled && max) {
-      if (utils.compareAsc(date, max) > 0) return
-      if (range && utils.compareAsc(date, utils.addSeconds(max, -range)) < 0) return
+    if (pos !== 'start') {
+      if (!isDisabled && min) {
+        if (utils.compareAsc(date, min) < 0) return
+        if (range && utils.compareAsc(date, utils.addSeconds(min, range)) > 0) return
+      }
+      if (!isDisabled && max) {
+        if (utils.compareAsc(date, max) > 0) return
+        if (range && utils.compareAsc(date, utils.addSeconds(max, -range)) < 0) return
+      }
     }
 
     if (isDisabled) return
@@ -97,6 +99,7 @@ Time.propTypes = {
   onChange: PropTypes.func.isRequired,
   range: PropTypes.number,
   value: PropTypes.object,
+  pos: PropTypes.string,
 }
 
 export default Time

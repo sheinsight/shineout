@@ -208,6 +208,8 @@ class Day extends PureComponent {
 
         <div className={datepickerClass('list')}>{days.map(d => this.renderDay(d))}</div>
 
+        <div style={{ flex: 1 }} />
+
         {this.renderTimepicker()}
       </div>
     )
