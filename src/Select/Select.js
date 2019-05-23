@@ -241,6 +241,7 @@ class Select extends PureComponent {
     ;[
       'treeData',
       'expanded',
+      'defaultExpanded',
       'datum',
       'keygen',
       'multiple',
