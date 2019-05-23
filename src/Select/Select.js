@@ -93,11 +93,11 @@ class Select extends PureComponent {
   }
 
   bindClickAway() {
-    document.addEventListener('click', this.handleClickAway)
+    document.addEventListener('mousedown', this.handleClickAway,)
   }
 
   clearClickAway() {
-    document.removeEventListener('click', this.handleClickAway)
+    document.removeEventListener('mousedown', this.handleClickAway)
   }
 
   handleClickAway(e) {
