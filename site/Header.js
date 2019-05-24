@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
-import { Button, Dropdown } from 'shineout'
+import { Button, Dropdown, Popover, color } from 'shineout'
+import { SketchPicker } from 'react-color'
 import docsearch from 'docsearch.js'
 import { Link } from 'react-router-dom'
 import locate, { setItem, STORAGE_KEY } from './locate'
@@ -11,6 +12,7 @@ import Icon from './icons/Icon'
 import { headerClass } from './styles'
 import FontAwesome from './pages/components/Icon/FontAwesome'
 
+let primaryChangeTimer = null
 const themes = [
   {
     content: 'antd',
@@ -50,6 +52,32 @@ function handleLangClick() {
 function handleThemeClick(data) {
   const url = `?theme=${data.content}${window.location.hash}`
   window.location.href = url
+}
+
+function handlePrimaryChange(c) {
+  if (primaryChangeTimer) clearTimeout(primaryChangeTimer)
+  primaryChangeTimer = setTimeout(() => {
+    document.body.style.setProperty('--primary-color', c)
+  }, 300)
+}
+
+const PrimarySetter = () => {
+  const [primary, setPrimary] = useState(color.primary)
+  return (
+    <span size="small" className={headerClass('color')}>
+      <div className={headerClass('color-current')} style={{ backgroundColor: primary }} />
+      <Popover position="bottom-right">
+        <SketchPicker
+          color={primary}
+          className={headerClass('color-picker')}
+          onChange={v => {
+            setPrimary(v.hex)
+            handlePrimaryChange(v.hex)
+          }}
+        />
+      </Popover>
+    </span>
+  )
 }
 
 const Header = ({ versions }) => {
@@ -140,6 +168,8 @@ const Header = ({ versions }) => {
           <Icon name="github" />
           &nbsp;GitHub
         </Button>
+
+        <PrimarySetter />
       </div>
     </div>
   )

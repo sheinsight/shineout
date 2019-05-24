@@ -29,16 +29,27 @@ function getClassname(data) {
     .join(' ')
 }
 
+export function getDOMStyle(dom) {
+  document.body.appendChild(dom)
+  const style = window.getComputedStyle(dom)
+  setTimeout(() => {
+    dom.parentElement.removeChild(dom)
+  })
+  return style
+}
+
 function getColor(type) {
   // insert to body make render
   const className = exposeClass(`location-${type}`)
   const div = document.createElement('div')
   div.className = className
-  document.body.appendChild(div)
-  // get color
-  const color = window.getComputedStyle(document.querySelector(`.${className}`)).textDecorationColor
-  div.parentElement.removeChild(div)
-  return color
+  return getDOMStyle(div).color
+}
+
+function toRGB(c) {
+  const el = document.createElement('div')
+  el.style.color = c
+  return getDOMStyle(el).color
 }
 
 export const color = {
@@ -56,6 +67,15 @@ export const color = {
   },
   get secondary() {
     return getColor('secondary')
+  },
+  // {primary: 'red'}
+  setColor(options) {
+    if (!options) return
+    for (const [key, value] of Object.entries(options)) {
+      switch (key) {
+        case 'primary':
+      }
+    }
   },
 }
 
