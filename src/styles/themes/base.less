@@ -47,7 +47,7 @@
 // Global textual link color.
 @link-color:            @colors-primary;
 // Link hover color set via `darken()` function.
-@link-hover-color:      darken(@link-color, 15%);
+@link-hover-color:      var(--primary-color-dark-15);
 // Link hover decoration.
 @link-hover-decoration: underline;
 
@@ -164,7 +164,7 @@
 
 @btn-primary-color:              #fff;
 @btn-primary-bg:                 @colors-primary;
-@btn-primary-border:             darken(@btn-primary-bg, 5%);
+@btn-primary-border:             var(--primary-color-dark-5);
 
 @btn-success-color:              #fff;
 @btn-success-bg:                 @colors-success;
@@ -700,7 +700,7 @@
 // Border color of active list elements
 @list-group-active-border:      @list-group-active-bg;
 // Text color for content within active list items
-@list-group-active-text-color:  lighten(@list-group-active-bg, 40%);
+@list-group-active-text-color:  var(--primary-color-lighten-40);
 
 // Text color of disabled list items
 @list-group-disabled-color:      @gray-500;

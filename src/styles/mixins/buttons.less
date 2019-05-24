@@ -3,6 +3,54 @@
 // Easily pump out default styles, as well as :hover, :focus, :active,
 // and disabled options for all buttons
 
+.button-case-box-shadow(@color, @width, @fade) {
+  & when (@color = @btn-primary-border) {
+    & when (@so-theme = antd) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width var(--primary-color-fade-60);
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width var(--primary-color-fade-0);
+      }
+    }
+    & when (@so-theme = default) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width var(--primary-color-dark-5_fade-60);
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width var(--primary-color-dark-5_fade-0);
+      }
+    }
+  }
+
+  & when not (@color = @btn-primary-border) {
+    box-shadow: 0 0 0 @width fade(@color, @fade);
+  }
+}
+
+.button-case-background(@background) {
+  & when (@background = @btn-primary-bg) {
+    background-color: var(--primary-color-dark-btn-hover);
+  }
+  & when not (@background = @btn-primary-bg) {
+    background-color: darken(@background, @btn-hover-darken);
+  }
+}
+
+.button-case-border-color(@color) {
+  & when (@color = @btn-primary-border) {
+    & when (@so-theme = antd) {
+      border-color: var(--primary-color-dark-btn-hover);
+    }
+    & when (@so-theme = default) {
+      border-color: var(--primary-color);
+    }
+  }
+  & when not (@color = @btn-primary-border) {
+    border-color: darken(@color, @btn-hover-darken);
+  }
+}
+
 .button-variant(@color; @background; @outline; @name; @border:transparent) {
   border-color: @border;
   background-color: @background;
@@ -13,15 +61,15 @@
 
   @keyframes @keyname {
     0% {
-      box-shadow: 0 0 0 0 fade(@outline, 60%);
+      .button-case-box-shadow(@outline, 0, 60%);
     }
 
     50% {
-      box-shadow: 0 0 0 @btn-focus-width / 2 fade(@outline, 0%);
+      .button-case-box-shadow(@outline, @btn-focus-width / 2, 0%);
     }
 
     100% {
-      box-shadow: 0 0 0 @btn-focus-width fade(@outline, 0);
+      .button-case-box-shadow(@outline, @btn-focus-width, 0%);
     }
   }
 
@@ -31,15 +79,15 @@
   }
 
   &:hover {
-    border-color: darken(@outline, @btn-hover-darken);
-    background-color: darken(@background, @btn-hover-darken);
+    .button-case-border-color(@outline);
+    .button-case-background(@background);
     color: @color;
   }
 
   &:active {
-    border-color: darken(@outline, @btn-hover-darken);
+    .button-case-border-color(@outline);
     animation: @keyname 0.4s ease-out;
-    background-color: darken(@background, @btn-hover-darken);
+    .button-case-background(@background);
     color: @color;
   }
 

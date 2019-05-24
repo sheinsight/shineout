@@ -138,7 +138,7 @@ const Header = ({ versions }) => {
 
         <Button type="link" style={{ color: '#666' }} href="https://github.com/sheinsight/shineout">
           <Icon name="github" />
-          GitHub
+          &nbsp;GitHub
         </Button>
       </div>
     </div>
