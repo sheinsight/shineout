@@ -14,7 +14,9 @@ describe('Select[Clearable]', () => {
   })
   test('should have clear button & clear value on multiple select', () => {
     const wrapper = mount(<Select multiple defaultValue={['red', 'blue']} data={data} keygen clearable />)
-    const closeBtn = wrapper.find(`.${SO_PREFIX}-select-result > .${SO_PREFIX}-select-close`)
+    const closeBtn = wrapper.find(
+      `.${SO_PREFIX}-select-result > .${SO_PREFIX}-select-close-warpper > .${SO_PREFIX}-select-close`
+    )
     expect(closeBtn.length).toBe(1)
     // clear value
     closeBtn.simulate('click')
