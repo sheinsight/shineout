@@ -46,12 +46,13 @@ class Result extends PureComponent {
     if (onClear && result.length > 0 && disabled !== true) {
       /* eslint-disable */
       return (
-        <a
+        <div onClick={onClear} className={selectClass('close-warpper')}>
+          <a
           data-role="close"
           className={selectClass('indicator', 'close')}
           href="javascript:;"
-          onClick={onClear}
         />
+        </div>
       )
       /* eslint-enable */
     }
@@ -85,7 +86,8 @@ class Result extends PureComponent {
 
     return (
       <span className={classnames(inputClass('placeholder'), selectClass('ellipsis'))}>
-        {this.props.placeholder}&nbsp;
+        {this.props.placeholder}
+        &nbsp;
       </span>
     )
   }
