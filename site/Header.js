@@ -57,7 +57,7 @@ function handleThemeClick(data) {
 function handlePrimaryChange(c) {
   if (primaryChangeTimer) clearTimeout(primaryChangeTimer)
   primaryChangeTimer = setTimeout(() => {
-    document.body.style.setProperty('--primary-color', c)
+    color.setColor({ primary: c })
   }, 300)
 }
 

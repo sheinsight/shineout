@@ -1,8 +1,11 @@
 import { isObject } from './is'
 import { exposeClass } from '../styles/expose'
+import { darken, fade } from './color'
 
 const types = ['primary', 'warning', 'danger', 'success', 'secondary']
 const attrs = ['background', 'color', 'border']
+
+const cssVarSupported = window.CSS && window.CSS.supports && window.CSS.supports('--a', 0)
 
 function validateFormat(data) {
   if (!isObject(data)) {
@@ -29,7 +32,7 @@ function getClassname(data) {
     .join(' ')
 }
 
-export function getDOMStyle(dom) {
+function getDOMStyle(dom) {
   document.body.appendChild(dom)
   const style = window.getComputedStyle(dom)
   setTimeout(() => {
@@ -52,9 +55,31 @@ function toRGB(c) {
   return getDOMStyle(el).color
 }
 
-export const color = {
+const color = {
   get primary() {
     return getColor('primary')
+  },
+  set primary(v) {
+    v = toRGB(v)
+    const btnHoverDarken = getComputedStyle(document.body)
+      .getPropertyValue('--btn-hover-darken')
+      .trim()
+    const colors = {
+      '--primary-color': v,
+      '--primary-color-dark-5': darken(v, 5),
+      '--primary-color-dark-15': darken(v, 15),
+      '--primary-color-dark-btn-hover': darken(v, parseInt(btnHoverDarken, 10)),
+      '--primary-color-lighten-40': darken(v, -40),
+      '--primary-color-fade-60': fade(v, 0.6),
+      '--primary-color-fade-50': fade(v, 0.5),
+      '--primary-color-fade-10': fade(v, 0.1),
+      '--primary-color-fade-0': fade(v, 0),
+      '--primary-color-dark-5_fade-60': fade(toRGB(darken(v, 5)), 0.6),
+      '--primary-color-dark-5_fade-0': fade(toRGB(darken(v, 5)), 0),
+    }
+    for (const [cssVar, cssValue] of Object.entries(colors)) {
+      document.body.style.setProperty(cssVar, cssValue)
+    }
   },
   get warning() {
     return getColor('warning')
@@ -68,17 +93,19 @@ export const color = {
   get secondary() {
     return getColor('secondary')
   },
-  // {primary: 'red'}
   setColor(options) {
-    if (!options) return
+    if (!options || !cssVarSupported) return
     for (const [key, value] of Object.entries(options)) {
-      switch (key) {
-        case 'primary':
+      if (types.includes(key)) {
+        color[key] = value
       }
     }
   },
 }
 
-export const style = {
+
+const style = {
   getClassname,
 }
+
+export { color, style, getDOMStyle }
