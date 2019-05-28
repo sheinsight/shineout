@@ -7,18 +7,18 @@
   & when (@color = @btn-primary-border) {
     & when (@so-theme = antd) {
       & when (@fade = 60%) {
-        box-shadow: 0 0 0 @width var(--primary-color-fade-60);
+        box-shadow: 0 0 0 @width @primary-color-fade-60;
       }
       & when (@fade = 0%) {
-        box-shadow: 0 0 0 @width var(--primary-color-fade-0);
+        box-shadow: 0 0 0 @width @primary-color-fade-0;
       }
     }
     & when (@so-theme = default) {
       & when (@fade = 60%) {
-        box-shadow: 0 0 0 @width var(--primary-color-dark-5_fade-60);
+        box-shadow: 0 0 0 @width @primary-color-dark-5_fade-60;
       }
       & when (@fade = 0%) {
-        box-shadow: 0 0 0 @width var(--primary-color-dark-5_fade-0);
+        box-shadow: 0 0 0 @width @primary-color-dark-5_fade-0;
       }
     }
   }
@@ -30,7 +30,7 @@
 
 .button-case-background(@background) {
   & when (@background = @btn-primary-bg) {
-    background-color: var(--primary-color-dark-btn-hover);
+    background-color: @primary-color-dark-btn-hover;
   }
   & when not (@background = @btn-primary-bg) {
     background-color: darken(@background, @btn-hover-darken);
@@ -40,10 +40,10 @@
 .button-case-border-color(@color) {
   & when (@color = @btn-primary-border) {
     & when (@so-theme = antd) {
-      border-color: var(--primary-color-dark-btn-hover);
+      border-color: @primary-color-dark-btn-hover;
     }
     & when (@so-theme = default) {
-      border-color: var(--primary-color);
+      border-color: @colors-primary;
     }
   }
   & when not (@color = @btn-primary-border) {

@@ -1,14 +1,36 @@
+@primary-color-dark-5-value:            darken(@colors-primary-value, 5%);
+@primary-color-dark-15-value:           darken(@colors-primary-value, 15%);
+@primary-color-dark-btn-hover-value:    darken(@colors-primary-value, @btn-hover-darken);
+@primary-color-lighten-40-value:        lighten(@colors-primary-value,40%);
+@primary-color-fade-60-value:           fade(@colors-primary-value, 60%);
+@primary-color-fade-50-value:           fade(@colors-primary-value, 50%);
+@primary-color-fade-10-value:           fade(@colors-primary-value, 10%);
+@primary-color-fade-0-value:            fade(@colors-primary-value, 0);
+@primary-color-dark-5_fade-60-value:    fade(darken(@colors-primary-value, 5%), 60%);
+@primary-color-dark-5_fade-0-value:     fade(darken(@colors-primary-value, 5%), 0%);
+
+@primary-color-dark-5:                  var(--primary-color-dark-5, @primary-color-dark-5-value);
+@primary-color-dark-15:                 var(--primary-color-dark-15, @primary-color-dark-15-value);
+@primary-color-dark-btn-hover:          var(--primary-color-dark-btn-hover, @primary-color-dark-btn-hover-value);
+@primary-color-lighten-40:              var(--primary-color-lighten-40, @primary-color-lighten-40-value);
+@primary-color-fade-60:                 var(--primary-color-fade-60, @primary-color-fade-60-value);
+@primary-color-fade-50:                 var(--primary-color-fade-50, @primary-color-fade-50-value);
+@primary-color-fade-10:                 var(--primary-color-fade-10, @primary-color-fade-10-value);
+@primary-color-fade-0:                  var(--primary-color-fade-0, @primary-color-fade-0-value);
+@primary-color-dark-5_fade-60:          var(--primary-color-dark-5_fade-60, @primary-color-dark-5_fade-60-value);
+@primary-color-dark-5_fade-0:           var(--primary-color-dark-5_fade-0, @primary-color-dark-5_fade-0-value);
+
 body {
   --primary-color: @colors-primary-value;
-  --primary-color-dark-5: darken(@colors-primary-value, 5%);
-  --primary-color-dark-15: darken(@colors-primary-value, 15%);
-  --primary-color-dark-btn-hover: darken(@colors-primary-value, @btn-hover-darken);
-  --primary-color-lighten-40: lighten(@colors-primary-value,40%);
-  --primary-color-fade-60: fade(@colors-primary-value, 60%);
-  --primary-color-fade-50: fade(@colors-primary-value, 50%);
-  --primary-color-fade-10: fade(@colors-primary-value, 10%);
-  --primary-color-fade-0: fade(@colors-primary-value, 0);
-  --primary-color-dark-5_fade-60: fade(darken(@colors-primary-value, 5%), 60%);
-  --primary-color-dark-5_fade-0: fade(darken(@colors-primary-value, 5%), 0%);
+  --primary-color-dark-5: @primary-color-dark-5-value;
+  --primary-color-dark-15: @primary-color-dark-15-value;
+  --primary-color-dark-btn-hover: @primary-color-dark-btn-hover-value;
+  --primary-color-lighten-40: @primary-color-lighten-40-value;
+  --primary-color-fade-60: @primary-color-fade-60-value;
+  --primary-color-fade-50: @primary-color-fade-50-value;
+  --primary-color-fade-10: @primary-color-fade-10-value;
+  --primary-color-fade-0: @primary-color-fade-0-value;
+  --primary-color-dark-5_fade-60: @primary-color-dark-5_fade-60-value;
+  --primary-color-dark-5_fade-0: @primary-color-dark-5_fade-0-value;
   --btn-hover-darken: @btn-hover-darken;
 }
