@@ -21,3 +21,4 @@
 | renderResult | string \| function(d) | renderItem | 选中后在结果中显示的内容，默认和 renderItem 相同 |
 | value | array\[key] | 无 | 选中的 key （受控） | 
 | absolute | bool | false | 为 true 时，选项弹出层在 DOM 中独立 render |
+| compressed | bool | false | 将选中值合并 |

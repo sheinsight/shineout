@@ -43,12 +43,16 @@ class Result extends PureComponent {
   }
 
   renderResult() {
-    const { datum, value, renderItem, renderResult } = this.props
+    const { datum, value, renderItem, renderResult, compressed } = this.props
     const nodes = value.map(v => datum.getDataById(v))
     let render = renderResult || renderItem
-    if (typeof render === 'string') render = n => n[render]
+    if (typeof render === 'string') {
+      const copyRender = render
+      render = n => n[copyRender]
+    }
 
-    return nodes.map((n, i) => {
+    const neededResult = compressed ? nodes.slice(0, 1) : nodes
+    const items = neededResult.map((n, i) => {
       const res = n && render(n)
       if (!res) return null
       return (
@@ -57,6 +61,16 @@ class Result extends PureComponent {
         </a>
       )
     })
+
+    if (compressed && nodes.length > 1) {
+      items.push(
+        <a key={items.length} className={cascaderClass('item', 'compressed')}>
+          <span>{`+${nodes.length - 1}`}</span>
+        </a>
+      )
+    }
+
+    return items
   }
 
   render() {
@@ -88,6 +102,7 @@ Result.propTypes = {
   renderResult: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   style: PropTypes.object,
   value: PropTypes.array,
+  compressed: PropTypes.bool,
 }
 
 Result.defaultProps = {
