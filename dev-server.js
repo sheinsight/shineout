@@ -112,7 +112,13 @@ router.get('/*', async ctx => {
   ]
   const styles = config.dev.styles || []
   ctx.type = 'text/html; charest=utf-8'
-  ctx.body = await ejs.renderFile(`./site/index.html`, { scripts, appName: config.appName, styles, description: '' })
+  ctx.body = await ejs.renderFile(`./site/index.html`, {
+    scripts,
+    env: 'development',
+    appName: config.appName,
+    styles,
+    description: '',
+  })
 })
 
 if (config.proxy) config.proxy(router)

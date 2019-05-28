@@ -37,6 +37,7 @@ const renderEjs = (scripts, styles, description) =>
   ejs.renderFile(`./site/index.html`, {
     description,
     scripts,
+    env: 'production',
     styles,
     appName: `Shineout api document ${version}`,
   })
