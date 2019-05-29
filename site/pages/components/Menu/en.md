@@ -13,5 +13,6 @@
 | keygen | string \| function(obj):string \| true | required | Key generator<br />When it is true, the data itself is used as the key equivalent to (d => d)<br />When it is a function, use its return value.<br />When it is a string，ues the value of the string.For example, 'id' is the same thing as (d) => d.id. |
 | active | function | null | The item is actived when the active function return true. |
 | defaultOpenKeys | array | [] | Initial expanded menu |
+| openKeys | array | [] | expended menu | 
 | onClick | function | null | The function will be called when the user clicks the menu item. |
 | style | object | - | Container element style |

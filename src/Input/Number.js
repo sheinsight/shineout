@@ -22,7 +22,12 @@ class Number extends PureComponent {
     if (this.keyPressTimeOut) clearTimeout(this.keyPressTimeOut)
   }
 
-  handleChange(value, check) {
+  handleChange(value, check, isEmpty) {
+    if (isEmpty) {
+      this.props.onChange(value)
+      return
+    }
+
     if (!check) {
       if (new RegExp('^-?\\d*\\.?\\d*$').test(value)) {
         this.props.onChange(value)
@@ -50,9 +55,15 @@ class Number extends PureComponent {
 
   handleBlur(e) {
     let value = parseFloat(e.target.value)
-    // eslint-disable-next-line
-    if (isNaN(value)) value = 0
-    this.handleChange(value, true)
+    // for the empty
+    if (e.target.value === '' && this.props.allowNull) {
+      value = null
+      this.handleChange(value, false, true)
+      // eslint-disable-next-line
+    } else if (isNaN(value)) {
+      value = 0
+      this.handleChange(value, true)
+    }
     this.props.onBlur(e)
   }
 
@@ -104,7 +115,7 @@ class Number extends PureComponent {
   }
 
   render() {
-    const { onChange, ...other } = this.props
+    const { onChange, allowNull, ...other } = this.props
     return [
       <Input
         key="input"
@@ -150,11 +161,13 @@ Number.propTypes = {
   onChange: PropTypes.func.isRequired,
   step: PropTypes.number,
   digits: PropTypes.number,
+  allowNull: PropTypes.bool,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 }
 
 Number.defaultProps = {
   step: 1,
+  allowNull: false,
 }
 
 export default Number
