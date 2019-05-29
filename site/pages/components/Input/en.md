@@ -30,3 +30,4 @@ The basic API is the same as the above table, and the specific API is as follows
 | min | number | - | The minimum value|
 | step | number | 1 | Change the digital span. It can be decimal. |
 | digits | number | - | the digits of number |
+| allowNull | bool | false | allow value is null |
