@@ -1,16 +1,16 @@
 module.exports = function(content) {
-  const reg = /[\w-]{1,}: .*(var\([\w-]+, ([\w\d#(),. ]+)\)).*;/g
-  const matched = Array.from(new Set(content.match(reg)))
-
-  if (matched) {
-    // eslint-disable-next-line array-callback-return
-    matched.map(line => {
-      const res = /[\w-]{1,}: .*(var\([\w-]+, ([\w\d#(),. ]+)\)).*;/g.exec(line)
-      const varStr = res[1]
-      const defaultValue = res[2]
-      const replaced = `${line.replace(varStr, defaultValue)}\n${line}`
-      content = content.split(line).join(replaced)
-    })
+  let parsed = ''
+  let matched
+  // eslint-disable-next-line no-cond-assign
+  while ((matched = /[\w-]{1,}: .*(var\([\w-]+, ([\w\d#(),. ]+)\)).*;/g.exec(content))) {
+    const [line, varStr, defaultValue] = matched
+    const { index } = matched
+    const scaned = line.length + index
+    parsed += content.substring(0, index)
+    const replaced = `${line.replace(varStr, defaultValue)}\n${line}`
+    parsed += replaced
+    content = content.substring(scaned)
   }
-  return content
+  parsed += content
+  return parsed
 }
