@@ -44,7 +44,7 @@
     "build-readme": "cp README.md publish/README.md",
     "build-es6": "cp -R src publish/es",
     "build-less": "mkdir publish/lib && cp -R src/styles publish/lib/styles",
-    "build-es5": "cross-env NODE_ENV=publish babel src --out-dir publish/css && cp -R publish/css/* publish/lib",
+    "build-es5": "cross-env NODE_ENV=production BABEL_ENV=publish babel src --out-dir publish/css && cp -R publish/css/* publish/lib",
     "build-css": "node scripts/build-css.js",
     "build": "npm-run-all build-*"
   },
