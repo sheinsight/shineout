@@ -17,6 +17,7 @@ class Alert extends PureComponent {
     this.bindRef = this.bindRef.bind(this)
     this.dismiss = this.dismiss.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.renderClose = this.renderClose.bind(this)
   }
 
   componentDidUpdate(prevProps) {
@@ -53,23 +54,35 @@ class Alert extends PureComponent {
   renderIcon() {
     let { icon } = this.props
     const { type, iconSize } = this.props
-    if (typeof icon === 'boolean') {
+    if (typeof icon === 'boolean' && icon) {
       icon = icons[capitalize(type)]
     }
 
     if (!icon) return null
     const style = { width: iconSize, height: iconSize, marginRight: iconSize / 2 }
 
-    return <div className={alertClass('icon')} style={style}>{icon}</div>
+    return (
+      <div className={alertClass('icon')} style={style}>
+        {icon}
+      </div>
+    )
+  }
+
+  renderClose() {
+    const { closeItem } = this.props
+    if (React.isValidElement(closeItem)) return React.cloneElement(closeItem, { onClick: this.handleClose })
+    return (
+      <a href="javascript:;" className={alertClass('close')} onClick={this.handleClose}>
+        {closeItem || icons.Close}
+      </a>
+    )
   }
 
   render() {
     const { dismiss } = this.state
     if (dismiss === 2) return null
 
-    const {
-      children, className, type, onClose,
-    } = this.props
+    const { children, className, type, onClose } = this.props
     const icon = this.renderIcon()
 
     const { style } = this.props
@@ -78,26 +91,15 @@ class Alert extends PureComponent {
       type,
       dismiss === 1 && 'dismissed',
       onClose && 'with-close',
-      icon && 'with-icon',
+      icon && 'with-icon'
     )
     if (className) wrapClassName += ` ${className}`
 
     return (
       <div ref={this.bindRef} className={wrapClassName} style={style}>
-        {
-          onClose &&
-          <a
-            href="javascript:;"
-            className={alertClass('close')}
-            onClick={this.handleClose}
-          >
-            {icons.Close}
-          </a>
-        }
-        { icon }
-        <div className={alertClass('content')}>
-          {children}
-        </div>
+        {onClose && this.renderClose()}
+        {icon}
+        <div className={alertClass('content')}>{children}</div>
       </div>
     )
   }
@@ -108,15 +110,9 @@ Alert.propTypes = {
   children: PropTypes.any,
   dismiss: PropTypes.bool,
   duration: PropTypes.number,
-  icon: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.element,
-  ]),
+  icon: PropTypes.oneOfType([PropTypes.bool, PropTypes.element]),
   iconSize: PropTypes.number,
-  onClose: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.bool,
-  ]),
+  onClose: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
 }
 
 Alert.defaultProps = {
