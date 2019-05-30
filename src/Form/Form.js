@@ -6,6 +6,7 @@ import { formClass } from '../styles'
 import { FormError } from '../utils/errors'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { docScroll } from '../utils/dom/document'
+import { IGNORE_BIND } from '../Datum/types'
 
 class Form extends Component {
   constructor(props) {
@@ -59,7 +60,7 @@ class Form extends Component {
 
     setTimeout(() => {
       datum
-        .validate()
+        .validate(IGNORE_BIND)
         .then(() => {
           this.validating = false
           if (onSubmit) onSubmit(datum.getValue())

@@ -6,11 +6,13 @@ import { getProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
 import { treeSelectClass } from '../styles'
 import Result from './Result'
+import absoluteList from '../List/AbsoluteList'
 import { docSize } from '../utils/dom/document'
 import List from '../List'
 import { getLocale } from '../locale'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
+const OptionList = absoluteList(({ focus, ...other }) => <ScaleList show={focus} {...other} />)
 
 const isDescendent = (el, id) => {
   if (el.getAttribute('data-id') === id) return true
@@ -155,7 +157,7 @@ export default class TreeSelect extends PureComponent {
 
   renderTreeOptions() {
     const { focus, position } = this.state
-    const { multiple, datum, data } = this.props
+    const { multiple, datum, data, absolute, height } = this.props
     const props = {}
     ;[
       'mode',
@@ -187,9 +189,19 @@ export default class TreeSelect extends PureComponent {
         <Tree className={treeSelectClass(!multiple && 'single')} {...props} />
       )
     return (
-      <ScaleList position={position} show={focus} data-id={this.treeSelectId} className={treeSelectClass('options')}>
+      <OptionList
+        absolute={absolute}
+        rootClass={treeSelectClass(position)}
+        parentElement={this.element}
+        position={position}
+        focus={focus}
+        data-id={this.treeSelectId}
+        className={treeSelectClass('options')}
+        style={{ maxHeight: height, overflowY: 'auto' }}
+        fixed="min"
+      >
         <div className={treeSelectClass('tree-wrapper')}>{content}</div>
-      </ScaleList>
+      </OptionList>
     )
   }
 
@@ -273,15 +285,17 @@ TreeSelect.propTypes = {
   onFocus: PropTypes.func,
   empty: PropTypes.string,
   compressed: PropTypes.bool,
+  absolute: PropTypes.bool,
 }
 
 TreeSelect.defaultProps = {
   clearable: false,
   compressed: false,
+  absolute: false,
   multiple: false,
   line: false,
   renderItem: e => e,
-  height: 250,
+  height: 300,
   data: [],
   defaultExpanded: [],
 }

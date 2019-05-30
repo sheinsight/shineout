@@ -104,6 +104,20 @@
     }
   }
 
+  &-close-warpper {
+    position: absolute;
+    top: 50%;
+    right: 7px;
+    display: block;
+    width: 18px;
+    height: 18px;
+    transform: translate(0, -50%);
+
+    .@{select-prefix}-indicator {
+      right: 2px;
+    }
+  }
+
   &-indicator {
     position: absolute;
     top: 50%;
@@ -344,7 +358,7 @@
   &-multiple &-result {
     padding-left: @padding-base-horizontal / 2;
     padding-right: @padding-large-horizontal+22;
-    a.@{select-prefix}-close.@{select-prefix}-indicator {
+    .@{select-prefix}-close-warpper {
       right: 17px;
     }
   }
@@ -369,12 +383,6 @@
   }
 
   &-root {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  &-absolute-wrapper {
     position: absolute;
     top: 0;
     left: 0;

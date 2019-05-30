@@ -19,3 +19,5 @@
 | renderResult | string \| function(d) | renderItem | The content displayed in the result after selecting, if not set, use renderItem |
 | defaultValue | array\[key] | - | Default selected key (not controlled) | 
 | value | array\[key] | - | Selected key (controlled) |
+| absolute | bool | false | When it is true, the pop-up layer of option append into document.body. |
+| compressed | bool | false | Merges selected values |

@@ -37,6 +37,7 @@ export default class extends React.Component {
   render() {
     return (
       <TreeSelect
+        absolute
         disabled={v => v.title.startsWith('2-')}
         value={this.state.value}
         onChange={this.handleChange}

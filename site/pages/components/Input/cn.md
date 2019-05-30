@@ -29,3 +29,5 @@
 | max | number | 无 | 最大值 |
 | min | number | 无 | 最小值 |
 | step | number | 1 | 改变数字跨度，可为小数 |
+| digits | number | 无 | 数值的精度 |
+| allowNull | bool | false | 允许空值 | 

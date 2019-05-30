@@ -46,3 +46,5 @@
 | type | string | 无 | 特殊用途列，可选值为 \['expand', 'row-expand', 'checkbox']<br />expand: 行展开列，render 函数返回函数时，表示此行可以展开，内容为此函数返回结果<br />row-expand: 同expand。不同为点击行内空白区域也可以折叠/展开行。<br />checkbox: 选择列，用于仅固定选择列的场景 |
 | width | number | 无 | 列宽 |
 | align | string | 'left' | 单元格内容排布方式，可选 \['left', 'center', 'right'\]
+| treeColumnsName | string | 无 | 树形表格子数据字段名 |
+| treeIndent | number | 25 | 每一层缩进宽度 |   

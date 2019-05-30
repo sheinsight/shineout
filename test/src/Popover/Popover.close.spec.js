@@ -13,6 +13,7 @@ describe('Popover[close]', () => {
       </Button>
     )
     dispatchEvent(wrapper.find('button').instance(), 'click')
+    jest.runAllTimers()
     expect(document.querySelectorAll(`.${SO_PREFIX}-popover button`).length).toBe(1)
     document.querySelector(`.${SO_PREFIX}-popover button`).click()
     jest.runAllTimers()

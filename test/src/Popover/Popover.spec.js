@@ -6,6 +6,7 @@ import { dispatchEvent } from '../../../src/utils/dom/element'
 /* global SO_PREFIX */
 describe('Popover[Base]', () => {
   test('should hover/click to render default', () => {
+    jest.useFakeTimers()
     const modalText = 'Some Test Text'
     const wrapperHover = mount(
       <Button>
@@ -15,6 +16,7 @@ describe('Popover[Base]', () => {
     )
     expect(document.querySelectorAll(`.${SO_PREFIX}-popover`).length).toBe(0)
     dispatchEvent(wrapperHover.find('button').instance(), 'mouseenter')
+    jest.runAllTimers()
     expect(document.querySelector(`.${SO_PREFIX}-popover .${SO_PREFIX}-popover-content`).innerHTML).toBe(modalText)
 
     document.body.innerHTML = ''
@@ -26,6 +28,7 @@ describe('Popover[Base]', () => {
     )
     expect(document.querySelectorAll(`.${SO_PREFIX}-popover`).length).toBe(0)
     dispatchEvent(wrapperClick.find('button').instance(), 'click')
+    jest.runAllTimers()
     expect(document.querySelector(`.${SO_PREFIX}-popover .${SO_PREFIX}-popover-content`).innerHTML).toBe(modalText)
 
     // render correctly

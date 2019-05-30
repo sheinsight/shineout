@@ -13,11 +13,12 @@
 | headers | object | none | Request headers |
 | htmlName | string | none | The filename received by the server. If it is not filled in, use the name. |
 | limit | number | 100 | Maximum number of uploaded files |
+| disabled | bool | false | disabled upload action | 
 | name | string | none | The key access data in the Form  |
 | request | func(options) | - | Custom upload method<br /> options: the options of upload |
 | onChange | func(values) | none | The callback function when the value is changing(Upload successfully, delete)<br />values: Array |
 | onSuccess | func(res, file, data, xhr):value | none | The callback function when to upload successfully. The returned result is as the new value. <br />res: the result that the upload interface returns<br />file: selected file<br /> data: the request data<br /> xhr: reponse |
-| onError | func(xhr):string | none | The callback function when to upload unsuccessfully. The returned result is as the error message. |
+| onHttpError | func(xhr):string | none | The callback function when to upload unsuccessfully. The returned result is as the error message. |
 | params | object | none | Additional parameters submitted to the server |
 | recoverAble | bool | true | Whether to recover deleted values. |
 | renderResult | func | a => a | Display results |

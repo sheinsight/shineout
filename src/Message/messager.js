@@ -27,20 +27,20 @@ export function destroy(type) {
 }
 
 export function getComponent(type) {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const component = components[type]
     if (component) {
       resolve(component)
     } else {
       ReactDOM.render(
         <Container
-          ref={(comp) => {
+          ref={comp => {
             components[type] = comp
             resolve(comp)
           }}
           onDestory={destroy.bind(null, type)}
         />,
-        getElement(type),
+        getElement(type)
       )
     }
   })

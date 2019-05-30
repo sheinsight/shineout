@@ -65,6 +65,10 @@ function end(element) {
 }
 
 function select(element) {
+  if (element && element.innerText.length === 0) {
+    element.focus()
+    return
+  }
   if (window.getSelection && document.createRange) {
     element.focus()
     const range = document.createRange()

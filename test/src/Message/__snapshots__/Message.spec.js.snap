@@ -2,7 +2,7 @@
 
 exports[`Message should render alert correct 1`] = `
 "<ShineoutMessage onDestory={[Function: onDestory]}>
-  <div className=\\"so-message-item\\">
+  <div className=\\"so-message-item undefined\\">
     <ShineoutAlert className=\\"so-message-msg\\" dismiss={[undefined]} onClose={[Function: bound removeMessage]} icon={true} iconSize={14} type=\\"info\\" size=\\"default\\" style={{...}} duration={216}>
       <div className=\\"so-alert so-alert-info so-alert-with-close so-alert-with-icon so-message-msg\\" style={{...}}>
         <a href=\\"javascript:;\\" className=\\"so-alert-close\\" onClick={[Function: bound handleClose]}>
@@ -26,7 +26,7 @@ exports[`Message should render alert correct 1`] = `
 
 exports[`Message should render alert correct 2`] = `
 "<ShineoutMessage onDestory={[Function: onDestory]}>
-  <div className=\\"so-message-item\\">
+  <div className=\\"so-message-item undefined\\">
     <ShineoutAlert className=\\"so-message-msg\\" dismiss={[undefined]} onClose={[Function: bound removeMessage]} icon={true} iconSize={14} type=\\"success\\" size=\\"default\\" style={{...}} duration={216}>
       <div className=\\"so-alert so-alert-success so-alert-with-close so-alert-with-icon so-message-msg\\" style={{...}}>
         <a href=\\"javascript:;\\" className=\\"so-alert-close\\" onClick={[Function: bound handleClose]}>
@@ -50,7 +50,7 @@ exports[`Message should render alert correct 2`] = `
 
 exports[`Message should render alert correct 3`] = `
 "<ShineoutMessage onDestory={[Function: onDestory]}>
-  <div className=\\"so-message-item\\">
+  <div className=\\"so-message-item undefined\\">
     <ShineoutAlert className=\\"so-message-msg\\" dismiss={[undefined]} onClose={[Function: bound removeMessage]} icon={true} iconSize={14} type=\\"warn\\" size=\\"default\\" style={{...}} duration={216}>
       <div className=\\"so-alert so-alert-warn so-alert-with-close so-message-msg\\" style={{...}}>
         <a href=\\"javascript:;\\" className=\\"so-alert-close\\" onClick={[Function: bound handleClose]}>
@@ -69,7 +69,7 @@ exports[`Message should render alert correct 3`] = `
 
 exports[`Message should render alert correct 4`] = `
 "<ShineoutMessage onDestory={[Function: onDestory]}>
-  <div className=\\"so-message-item\\">
+  <div className=\\"so-message-item undefined\\">
     <ShineoutAlert className=\\"so-message-msg\\" dismiss={[undefined]} onClose={[Function: bound removeMessage]} icon={true} iconSize={14} type=\\"error\\" size=\\"default\\" style={{...}} duration={216}>
       <div className=\\"so-alert so-alert-error so-alert-with-close so-alert-with-icon so-message-msg\\" style={{...}}>
         <a href=\\"javascript:;\\" className=\\"so-alert-close\\" onClick={[Function: bound handleClose]}>

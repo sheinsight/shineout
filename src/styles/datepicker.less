@@ -226,6 +226,8 @@
   }
 
   &-day-picker {
+    display: flex;
+    flex-direction: column;
     .@{datepicker-prefix}-week {
       margin-bottom: 4px;
       border-bottom: solid 1px #f2f2f2;
@@ -420,7 +422,7 @@
     }
   }
 
-  &-absolute-wrapper {
+  &-absolute {
     .@{datepicker-prefix}-absolute-left-top {
       box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.02), @datepicker-box-shadow-up;
     }

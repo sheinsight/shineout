@@ -27,6 +27,20 @@
       color: inherit;
       text-overflow: ellipsis;
 
+      &.@{cascader-prefix}-compressed {
+        padding: 0 8px;
+        font-size: 80%;
+        opacity: .9;
+        > span {
+          vertical-align: middle;
+          letter-spacing: 2px;
+          padding: 0;
+          margin: 0;
+          overflow: visible;
+          max-width: none;
+        }
+      }
+
       &:after {
         content: '\feff ';
       }
