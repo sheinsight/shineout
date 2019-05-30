@@ -165,6 +165,7 @@ class Tree extends PureComponent {
       mode,
       onDrop,
       loader,
+      parentClickExpand,
     } = this.props
     const onToggle = onExpand ? this.handleToggle : undefined
 
@@ -186,6 +187,7 @@ class Tree extends PureComponent {
         onNodeClick={this.handleNodeClick}
         renderItem={renderItem}
         style={style}
+        parentClickExpand={parentClickExpand}
       />
     )
   }
@@ -208,6 +210,7 @@ Tree.propTypes = {
   onDrop: PropTypes.func,
   value: PropTypes.array,
   datum: PropTypes.object,
+  parentClickExpand: PropTypes.bool,
 }
 
 Tree.defaultProps = {
