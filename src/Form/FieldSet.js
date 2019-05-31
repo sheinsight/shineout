@@ -28,12 +28,7 @@ class FieldSet extends Component {
   componentDidMount() {
     super.componentDidMount()
     const { formDatum, name, defaultValue } = this.props
-    formDatum.bind(
-      name,
-      this.handleUpdate,
-      defaultValue,
-      this.validate,
-    )
+    formDatum.bind(name, this.handleUpdate, defaultValue, this.validate)
   }
 
   componentWillUnmount() {
@@ -53,13 +48,16 @@ class FieldSet extends Component {
 
     if (rules.length === 0) return Promise.resolve(true)
 
-    return validate(value, data, rules, validateProps).then(() => {
-      this.handleError()
-      return true
-    }, (e) => {
-      this.handleError(e)
-      return new FormError(e)
-    })
+    return validate(value, data, rules, validateProps).then(
+      () => {
+        this.handleError()
+        return true
+      },
+      e => {
+        this.handleError(e)
+        return new FormError(e)
+      }
+    )
   }
 
   updateWithValidate() {
@@ -69,9 +67,10 @@ class FieldSet extends Component {
   }
 
   handleError(error) {
-    const { formDatum, name } = this.props
+    const { formDatum, name, onError } = this.props
     if (isSameError(error, formDatum.getError(name, true))) return
     formDatum.setError(name, error, true)
+    if (onError) onError(error)
   }
 
   handleUpdate(v, n, type) {
@@ -103,9 +102,7 @@ class FieldSet extends Component {
   }
 
   render() {
-    const {
-      children, formDatum, name, empty, defaultValue,
-    } = this.props
+    const { children, formDatum, name, empty, defaultValue } = this.props
 
     const errors = formDatum.getError(name)
     const result = []
@@ -114,10 +111,7 @@ class FieldSet extends Component {
       return (
         <Provider value={{ path: name, val: this.validate }}>
           {children}
-          {
-            errors instanceof Error &&
-            <FieldError key="error" error={errors} />
-          }
+          {errors instanceof Error && <FieldError key="error" error={errors} />}
         </Provider>
       )
     }
@@ -130,23 +124,21 @@ class FieldSet extends Component {
       const errorList = Array.isArray(errors) ? errors : []
       values.forEach((v, i) => {
         const error = errorList[i]
-        result.push((
+        result.push(
           <Provider key={i} value={{ path: `${name}[${i}]`, val: this.validate }}>
-            {
-              children({
-                list: values,
-                value: v,
-                index: i,
-                error,
-                datum: formDatum,
-                onChange: this.handleChange.bind(this, i),
-                onInsert: this.handleInsert.bind(this, i),
-                onAppend: this.handleInsert.bind(this, i + 1),
-                onRemove: this.handleRemove.bind(this, i),
-              })
-            }
+            {children({
+              list: values,
+              value: v,
+              index: i,
+              error,
+              datum: formDatum,
+              onChange: this.handleChange.bind(this, i),
+              onInsert: this.handleInsert.bind(this, i),
+              onAppend: this.handleInsert.bind(this, i + 1),
+              onRemove: this.handleRemove.bind(this, i),
+            })}
           </Provider>
-        ))
+        )
       })
     }
 
@@ -164,6 +156,7 @@ FieldSet.propTypes = {
   empty: PropTypes.func,
   formDatum: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
+  onError: PropTypes.func,
   rules: PropTypes.array,
 }
 
