@@ -25,3 +25,4 @@
 | renderItem | string \| function(d) | required | When it is a string, return d\[string]<br />When it is a function, return the result of the function. |
 | renderResult | function(d) | renderItem | The content displayed in the result after selecting, if not set, use renderItem |
 | compressed | bool | false | Merges selected values, valid only in multiselect mode |
+| absolute | bool | false | When it is true, the pop-up layer of option append into document.body. |

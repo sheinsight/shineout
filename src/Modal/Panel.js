@@ -8,7 +8,7 @@ import { modalClass } from '../styles'
 
 export default class Panel extends PureComponent {
   getStyle() {
-    const { width, height, top, position } = this.props
+    const { width, height, top, position, style } = this.props
 
     return Object.assign(
       {
@@ -21,7 +21,8 @@ export default class Panel extends PureComponent {
             height,
             top,
             position: 'relative',
-          }
+          },
+      style || {}
     )
   }
 
@@ -31,10 +32,12 @@ export default class Panel extends PureComponent {
   }
 
   renderContent() {
-    const { children, noPadding, title, type, padding, position } = this.props
+    const { children, noPadding, title, type, padding, position, bodyStyle } = this.props
 
-    const style = { padding: noPadding === true ? 0 : padding }
+    let style = { padding: noPadding === true ? 0 : padding }
     if (position) style.overflow = 'auto'
+
+    if (bodyStyle) style = Object.assign(style, bodyStyle)
 
     if (type === 'default') return <Card.Body style={style}>{children}</Card.Body>
 

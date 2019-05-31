@@ -24,8 +24,13 @@ class Content extends PureComponent {
   }
 
   handleNodeClick() {
-    const { data, id } = this.props
-    this.props.onNodeClick(data, id)
+    const { data, id, parentClickExpand } = this.props
+    const hasChildren = data.children && data.children.length > 0
+    if (hasChildren && parentClickExpand) {
+      this.handleIndicatorClick()
+    } else {
+      this.props.onNodeClick(data, id)
+    }
   }
 
   handleIndicatorClick() {
@@ -97,6 +102,7 @@ Content.propTypes = {
   onDrop: PropTypes.func,
   onNodeClick: PropTypes.func,
   renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]).isRequired,
+  parentClickExpand: PropTypes.bool,
 }
 
 export default Content

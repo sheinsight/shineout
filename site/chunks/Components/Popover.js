@@ -79,8 +79,8 @@ const examples = [
   {
     name: '8-event',
     title: locate(
-      '事件 \n ',
-      'Events \n '
+      '事件 \n 提供了onOpen 和 onClose 事件',
+      'Events \n provider onOpen and onClose event'
     ),
     component: require('doc/pages/components/Popover/example-8-event.js').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-8-event.js'),

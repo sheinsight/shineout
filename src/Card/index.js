@@ -7,7 +7,7 @@ import Footer from './Footer'
 import Accordion from './Accordion'
 
 Card.Header = consumer(Header, ['collapsed', 'onCollapse'])
-Card.Body = consumer(Body, ['collapsed', 'collapsible'])
+Card.Body = consumer(Body, ['collapsed', 'collapsible', 'onCollapse'])
 Card.Footer = Footer
 Card.Submit = consumer(Submit, ['onSubmit', 'formStatus'])
 Card.Accordion = Accordion

@@ -20,13 +20,25 @@ class TimeScroll extends PureComponent {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      if (this.element) this.scrollToValue()
-    })
+    this.updateScrollTop()
+  }
+
+  componentDidUpdate() {
+    this.updateScrollTop()
   }
 
   bindElement(el) {
     this.element = el
+  }
+
+  updateScrollTop() {
+    const { value } = this.props
+    if (!this.element) return
+    if (this.element.scrollTop !== lineHeight * value) {
+      setTimeout(() => {
+        if (this.element) this.scrollToValue()
+      })
+    }
   }
 
   scrollToValue() {

@@ -6,8 +6,11 @@ import { getUidStr } from '../utils/uid'
 import DatumTree from '../Datum/Tree'
 import { cascaderClass, selectClass } from '../styles'
 import Result from './Result'
-import List from './List'
+import CascaderList from './List'
 import { docSize } from '../utils/dom/document'
+import absoluteList from '../List/AbsoluteList'
+
+const OptionList = absoluteList(({ focus, ...other }) => (focus ? <div {...other} /> : null))
 
 const isDescendent = (el, id) => {
   if (el.getAttribute('data-id') === id) return true
@@ -111,10 +114,7 @@ class Cascader extends PureComponent {
 
   renderList() {
     const { data, keygen, renderItem, height, mode, onChange, loader, onItemClick, expandTrigger } = this.props
-    const { focus, path } = this.state
-
-    if (!focus && !this.isRendered) return null
-    this.isRendered = true
+    const { path } = this.state
 
     const props = {
       datum: this.datum,
@@ -132,7 +132,7 @@ class Cascader extends PureComponent {
     let tempData = data
     return (
       <div className={className} style={data.length === 0 ? { height: 'auto', width: '100%' } : { height }}>
-        <List {...props} key="root" data={tempData} id={path[0]} parentId="" path={[]} />
+        <CascaderList {...props} key="root" data={tempData} id={path[0]} parentId="" path={[]} />
         {path.map((p, i) => {
           tempData = tempData.find(d => {
             const nid = this.datum.getKey(d, path[i - 1])
@@ -141,7 +141,7 @@ class Cascader extends PureComponent {
           if (tempData && tempData.children && tempData.children.length > 0) {
             tempData = tempData.children
             return (
-              <List
+              <CascaderList
                 {...props}
                 key={p}
                 data={tempData}
@@ -154,6 +154,26 @@ class Cascader extends PureComponent {
           return null
         })}
       </div>
+    )
+  }
+
+  renderAbsoluteList() {
+    const { absolute } = this.props
+    const { focus, position } = this.state
+    const className = classnames(cascaderClass(focus && 'focus'), selectClass(this.state.position))
+    if (!focus && !this.isRendered) return null
+    this.isRendered = true
+    return (
+      <OptionList
+        rootClass={className}
+        position={position}
+        absolute={absolute}
+        focus={focus}
+        parentElement={this.element}
+        data-id={this.selectId}
+      >
+        {this.renderList()}
+      </OptionList>
     )
   }
 
@@ -183,7 +203,7 @@ class Cascader extends PureComponent {
           onPathChange={this.handlePathChange}
         />
 
-        {this.renderList()}
+        {this.renderAbsoluteList()}
       </div>
     )
   }
@@ -209,6 +229,7 @@ Cascader.propTypes = {
   size: PropTypes.string,
   style: PropTypes.object,
   value: PropTypes.array,
+  absolute: PropTypes.bool,
 }
 
 Cascader.defaultProps = {
@@ -216,7 +237,6 @@ Cascader.defaultProps = {
   expandTrigger: 'click',
   height: 300,
   data: [],
-  mode: 1,
 }
 
 export default Cascader

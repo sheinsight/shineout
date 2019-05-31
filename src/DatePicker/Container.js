@@ -11,12 +11,12 @@ import Range from './Range'
 import Text from './Text'
 import { isArray } from '../utils/is'
 import { getParent } from '../utils/dom/element'
-import List from '../List'
-import absoluteList from './AbsoluteContainer'
+import absoluteList from '../List/AbsoluteList'
 import { docSize } from '../utils/dom/document'
+import List from '../List'
 
 const FadeList = List(['fade'], 'fast')
-const absoluteFadeList = absoluteList(FadeList)
+const OptionList = absoluteList(({ focus, ...other }) => <FadeList show={focus} {...other} />)
 
 class Container extends PureComponent {
   constructor(props) {
@@ -216,7 +216,7 @@ class Container extends PureComponent {
         key={key}
         className={className}
         focus={this.state.focus}
-        format={this.getFormat()}
+        format={resultFormat}
         index={key}
         inputable={inputable}
         placeholder={placeholder}
@@ -254,17 +254,18 @@ class Container extends PureComponent {
   renderWrappedPicker() {
     const { focus, position } = this.state
     const { absolute } = this.props
-    const ListWrapper = absolute ? absoluteFadeList : FadeList
     const props = {
-      show: focus,
+      absolute,
+      focus,
       className: datepickerClass('picker', 'location', `absolute-${position}`),
       position,
     }
     // computed absolute position needed
     if (absolute) {
+      props.rootClass = datepickerClass('absolute')
       props.parentElement = this.element
     }
-    return <ListWrapper {...props}>{this.renderPicker()}</ListWrapper>
+    return <OptionList {...props}>{this.renderPicker()}</OptionList>
   }
 
   renderPicker() {

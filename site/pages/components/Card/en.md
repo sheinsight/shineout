@@ -7,7 +7,7 @@
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | className | string | none | Extend className |
-| collapsible | bool | false | Whether can be collapsed |
+| collapsible | bool \| 'bottom' | false | Whether can be collapsed，'bottom' can collaps on bottom |
 | collapsed | bool | - | Whether to be collapsed. |
 | defaultCollapsed | bool | true | Initial collapsed state |
 | onCollapse | function | - | Callback when collapsed state changed |

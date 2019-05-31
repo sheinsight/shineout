@@ -38,7 +38,7 @@ class OptionList extends Component {
   componentDidUpdate(prevProps) {
     const { data } = this.props
 
-    if (data !== prevProps.data) {
+    if (data !== prevProps.data && data.length !== prevProps.data.length) {
       this.lastScrollTop = 0
       // eslint-disable-next-line
       this.setState({ currentIndex: 0, scrollTop: 0 }, () => {

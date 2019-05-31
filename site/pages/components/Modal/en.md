@@ -7,6 +7,7 @@
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | className | string | - | Extend className |
+| bodyStyle | object | - | Extend modal body style |
 | destroy | boolean | false | Whether to destroy elements when it is closed |
 | footer | ReactElement \| null | - | The content at the bottom |
 | maskCloseAble | bool | true | Whether to close the mask when the mask is clicked |

@@ -257,6 +257,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-25-row-click-attr.js'),
   },
   {
+    name: '26-tree',
+    title: locate(
+      '树形数据 \n 支持树形数据的展示，通过 columns.treeColumnsName 指定子数据字段名，同时在该列自动添加 展开/收起 按钮。\n 通过 columns.treeIndent 指定每一层缩进宽度。\n 备注：当展开列内容过长时，单元格会自动换行。可以通过 width 设定足够的长度来避免。',
+      'Tree Data \n Support Tree Data.'
+    ),
+    component: require('doc/pages/components/Table/example-26-tree.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-26-tree.js'),
+  },
+  {
     name: '99-raw',
     title: locate(
       '只使用样式 \n 使用原生的tr, td来显示表格',
