@@ -11,15 +11,12 @@ import { Cascader } from 'shineout'
 const data = [
   {
     value: 'zhejiang',
-    label: 'Zhejiang',
     children: [
       {
         value: 'hangzhou',
-        label: 'Hangzhou',
         children: [
           {
             value: 'xihu',
-            label: 'West Lake',
           },
         ],
       },
@@ -27,15 +24,12 @@ const data = [
   },
   {
     value: 'jiangsu',
-    label: 'Jiangsu',
     children: [
       {
         value: 'nanjing',
-        label: 'Nanjing',
         children: [
           {
             value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
           },
         ],
       },
@@ -44,5 +38,5 @@ const data = [
 ]
 
 export default function() {
-  return <Cascader data={data} absolute keygen="label" renderItem={n => `${n.value}`} />
+  return <Cascader data={data} absolute keygen="value" renderItem={n => `${n.value}`} />
 }
