@@ -17,7 +17,14 @@ const WrappedOptionList = absoluteList(OptionList)
 const WrappedBoxList = absoluteList(BoxList)
 const WrappedOptionTree = absoluteList(OptionTree)
 
+let closeByResult = false
+
 const isDescendent = (el, id) => {
+  if (el.classList.contains(selectClass('input'))) return true
+  if (el.classList.contains(selectClass('result'))) {
+    closeByResult = true
+    return false
+  }
   if (el.getAttribute('data-id') === id) return true
   if (!el.parentElement) return false
   return isDescendent(el.parentElement, id)
@@ -37,7 +44,7 @@ class Select extends PureComponent {
     this.bindOptionFunc = this.bindOptionFunc.bind(this)
     this.setInputReset = this.setInputReset.bind(this)
 
-    this.handleFocus = this.handleState.bind(this, true)
+    this.handleFocus = this.handleFocus.bind(this)
     this.handleBlur = this.handleState.bind(this, false)
     this.handleClear = this.handleClear.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -93,16 +100,24 @@ class Select extends PureComponent {
   }
 
   bindClickAway() {
-    document.addEventListener('mousedown', this.handleClickAway,)
+    document.addEventListener('click', this.handleClickAway, true)
   }
 
   clearClickAway() {
-    document.removeEventListener('mousedown', this.handleClickAway)
+    document.removeEventListener('click', this.handleClickAway, true)
   }
 
   handleClickAway(e) {
     const desc = isDescendent(e.target, this.selectId)
     if (!desc) this.handleState(false)
+  }
+
+  handleFocus(e) {
+    if (closeByResult) {
+      closeByResult = false
+      return
+    }
+    this.handleState(true, e)
   }
 
   handleState(focus, e) {
