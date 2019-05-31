@@ -166,6 +166,15 @@ const examples = [
     component: require('doc/pages/components/Select/example-16-onFilter.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-16-onFilter.js'),
   },
+  {
+    name: '17-result',
+    title: locate(
+      '自定义结果 \n 使用 renderResult 去自定义选中的结果。',
+      'result \n use renderRsult. to format the result'
+    ),
+    component: require('doc/pages/components/Select/example-17-result.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-17-result.js'),
+  },
 ]
 
 const codes = undefined

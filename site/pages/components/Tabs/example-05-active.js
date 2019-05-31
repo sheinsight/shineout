@@ -12,7 +12,8 @@ import FontAwsome from '../Icon/FontAwesome'
 const panelStyle = { padding: 15 }
 const contact = (
   <span>
-    <FontAwsome name="user" /> Contact
+    <FontAwsome name="user" />
+    Contact
   </span>
 )
 
