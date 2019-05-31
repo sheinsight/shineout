@@ -17,19 +17,6 @@ const WrappedOptionList = absoluteList(OptionList)
 const WrappedBoxList = absoluteList(BoxList)
 const WrappedOptionTree = absoluteList(OptionTree)
 
-let closeByResult = false
-
-const isDescendent = (el, id) => {
-  if (el.classList.contains(selectClass('input'))) return true
-  if (el.classList.contains(selectClass('result'))) {
-    closeByResult = true
-    return false
-  }
-  if (el.getAttribute('data-id') === id) return true
-  if (!el.parentElement) return false
-  return isDescendent(el.parentElement, id)
-}
-
 class Select extends PureComponent {
   constructor(props) {
     super(props)
@@ -63,6 +50,7 @@ class Select extends PureComponent {
 
     this.optionList = {}
     this.selectId = `select_${getUidStr()}`
+    this.closeByResult = false
 
     this.lastResult = undefined
   }
@@ -91,6 +79,17 @@ class Select extends PureComponent {
     this.inputReset = fn
   }
 
+  isDescendent(el, id) {
+    if (el.classList.contains(selectClass('input'))) return true
+    if (el.classList.contains(selectClass('result'))) {
+      this.closeByResult = true
+      return false
+    }
+    if (el.getAttribute('data-id') === id) return true
+    if (!el.parentElement) return false
+    return this.isDescendent(el.parentElement, id)
+  }
+
   bindOptionFunc(name, fn) {
     this.optionList[name] = fn
   }
@@ -108,13 +107,13 @@ class Select extends PureComponent {
   }
 
   handleClickAway(e) {
-    const desc = isDescendent(e.target, this.selectId)
+    const desc = this.isDescendent(e.target, this.selectId)
     if (!desc) this.handleState(false)
   }
 
   handleFocus(e) {
-    if (closeByResult) {
-      closeByResult = false
+    if (this.closeByResult) {
+      this.closeByResult = false
       return
     }
     this.handleState(true, e)
