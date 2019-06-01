@@ -30,6 +30,7 @@ class Root extends React.Component {
 
     this.checkOpen = this.checkOpen.bind(this)
     this.checkActive = this.checkActive.bind(this)
+    this.checkInPath = this.checkInPath.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleScroll = this.handleScroll.bind(this)
     this.handleWheel = this.handleWheel.bind(this)
@@ -43,6 +44,7 @@ class Root extends React.Component {
 
     this.items = {}
     this.itemsOpen = {}
+    this.itemsInPath = {}
   }
 
   componentDidMount() {
@@ -70,15 +72,17 @@ class Root extends React.Component {
     this.rootElement = el.querySelector(`.${menuClass('root')}`)
   }
 
-  bindItem(id, updateActive, updateOpen) {
+  bindItem(id, updateActive, updateOpen, updateInPath) {
     this.items[id] = updateActive
     this.itemsOpen[id] = updateOpen
-    return [this.checkActive, this.checkOpen]
+    this.itemsInPath[id] = updateInPath
+    return [this.checkActive, this.checkOpen, this.checkInPath]
   }
 
   unbindItem(id) {
     delete this.items[id]
     delete this.itemsOpen[id]
+    delete this.itemsInPath[id]
   }
 
   checkActive(id, data) {
@@ -97,9 +101,16 @@ class Root extends React.Component {
     return false
   }
 
+  checkInPath(id) {
+    const { activeKey } = this.state
+    if (!activeKey || !id) return false
+    return activeKey.indexOf(id) >= 0
+  }
+
   updateState() {
     this.updateActive()
     this.updateOpen()
+    this.updateInPath()
   }
 
   updateActive() {
@@ -118,6 +129,13 @@ class Root extends React.Component {
     if (hasOpen !== this.state.hasOpen) {
       this.setState({ hasOpen })
     }
+  }
+
+  updateInPath() {
+    Object.keys(this.itemsInPath).forEach(id => {
+      const update = this.itemsInPath[id]
+      update(this.checkInPath)
+    })
   }
 
   toggleOpenKeys(id, open) {
