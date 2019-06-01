@@ -237,7 +237,6 @@ Cascader.defaultProps = {
   expandTrigger: 'click',
   height: 300,
   data: [],
-  mode: 1,
 }
 
 export default Cascader

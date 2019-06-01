@@ -28,11 +28,11 @@ class Node extends PureComponent {
   }
 
   handleClick() {
-    const { id, data, path, onChange, onPathChange, loader, multiple } = this.props
+    const { id, data, path, onChange, onPathChange, loader, multiple, datum } = this.props
     onPathChange(id, data, path)
 
     if (!multiple) {
-      onChange([...path, id])
+      onChange([...path, id], datum.getDataById(id))
     }
 
     if (loader && !this.state.loading) {
@@ -50,7 +50,7 @@ class Node extends PureComponent {
   handleChange(_, checked) {
     const { datum, id, onChange } = this.props
     datum.set(id, checked ? 1 : 0)
-    onChange(datum.getValue())
+    onChange(datum.getValue(), datum.getDataById(id))
   }
 
   renderContent() {
