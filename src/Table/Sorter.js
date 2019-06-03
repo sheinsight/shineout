@@ -10,9 +10,10 @@ class Sorter extends PureComponent {
   }
 
   handleChange(order) {
-    const { sorter, index, onChange } = this.props
-
-    onChange(order, sorter, index)
+    const { sorter, index, onChange, current } = this.props
+    const isCancel = index === current.index && order === current.order
+    const finalOrder = isCancel ? undefined : order
+    onChange(finalOrder, sorter, index)
   }
 
   handleAsc() {

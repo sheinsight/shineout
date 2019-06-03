@@ -86,6 +86,11 @@ export default class extends React.Component {
   }
 
   handleSortChange(order, sorter, index) {
+    // cancel sorter
+    if (!order) {
+      this.setState({ sorter: {} })
+      return
+    }
     this.setState(
       immer(state => {
         state.sorter.order = order
