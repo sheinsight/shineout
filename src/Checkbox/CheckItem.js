@@ -66,7 +66,7 @@ export default function (type) {
 
     render() {
       const {
-        disabled, style, children, inputable,
+        disabled, style, children, inputable, onClick,
       } = this.props
 
       const checked = this.getChecked()
@@ -84,7 +84,7 @@ export default function (type) {
       const value = typeof this.props.value === 'string' ? this.props.value : ''
 
       return (
-        <label className={className} style={style} htmlFor={this.id}>
+        <label className={className} style={style} htmlFor={this.id} onClick={onClick}>
           <input
             id={this.id}
             disabled={disabled}
@@ -119,11 +119,13 @@ export default function (type) {
     onChange: PropTypes.func,
     onRawChange: PropTypes.func,
     value: PropTypes.any,
+    onClick: PropTypes.func,
   }
 
   CheckItem.defaultProps = {
     ...defaultProps,
     htmlValue: true,
+    onClick: undefined,
   }
 
   return CheckItem
