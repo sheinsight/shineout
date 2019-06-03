@@ -113,7 +113,8 @@ class Item extends PureComponent {
       bottomLine,
     } = this.props
     const { open, isActive, isHighLight, inPath } = this.state
-    const { children = [] } = data
+    const { children: dChildren } = data
+    const children = dChildren || []
 
     const isDisabled = typeof disabled === 'function' ? disabled(data) : disabled
 
