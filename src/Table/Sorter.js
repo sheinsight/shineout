@@ -53,7 +53,7 @@ Sorter.propTypes = {
   current: PropTypes.object,
   index: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
-  sorter: PropTypes.func.isRequired,
+  sorter: PropTypes.oneOfType([PropTypes.func, PropTypes.string]).isRequired,
 }
 
 Sorter.defaultProps = {

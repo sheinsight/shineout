@@ -22,6 +22,7 @@ export default class extends React.Component {
     data: PropTypes.array,
     onRowSelect: PropTypes.func,
     datum: PropTypes.object,
+    sorter: PropTypes.func,
   }
 
   static defaultProps = {
@@ -85,17 +86,31 @@ export default class extends React.Component {
     return this.cachedColumns
   }
 
+  getTableSorter() {
+    let { sorter: tableSorter } = this.props
+    if (!tableSorter) {
+      console.error('You need to specify a sorter as a sort function for the table. Default alphabetical order.')
+      tableSorter = (sorter, order) => (a, b) => {
+        const a1 = (a[sorter] || '').toString()
+        const b1 = (b[sorter] || '').toString()
+        return order === 'asc' ? a1.localeCompare(b1) : b1.localeCompare(a1)
+      }
+    }
+    return tableSorter
+  }
+
   handleSortChange(order, sorter, index) {
     // cancel sorter
     if (!order) {
       this.setState({ sorter: {} })
       return
     }
+    const sort = typeof sorter === 'string' ? this.getTableSorter()(sorter, order) : sorter(order)
     this.setState(
       immer(state => {
         state.sorter.order = order
         state.sorter.index = index
-        state.sorter.sort = sorter(order)
+        state.sorter.sort = sort
       })
     )
   }

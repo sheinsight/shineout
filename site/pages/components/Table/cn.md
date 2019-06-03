@@ -31,6 +31,7 @@
 | empty | string \| ReactElement | 无数据 | 空数据文案 |
 | verticalAlign | string | 'top' | 单元格内容垂直对齐方式，可选值为 \['top', 'middle'\] |
 | rowClickAttr | string \| string[] | \['*'\] | 设置行内元素的attribut来按需触发onRowClick, '*'表示接受行点击触发 |
+| sorter | func | alphaSort(Column.sorter, sorter) | 表格统一排序函数，参数分别为 Column.sorter 和 排序方式 |
 
 ### Column
 | 属性 | 类型 | 默认值 | 说明 |
@@ -41,7 +42,7 @@
 | key | string \| number | 无 | 列的key，默认使用index |
 | render | string \| function(d,i) | 必填 | 表格内容生成函数；<br />d: 当前行数据<br />i: 当前行索引<br />为了使用方便，可以传入一个数据的key，如 'id'，相当于 (d) => { return d.id }
 | rowSpan | function(a, b) | 无 | 根据函数返回的结果（bool）判断是否合并行，a、b为相邻的两行数据。 |
-| sorter | function(order) | 无 | sorter 不为空时，这一列会出现排序 icon。order的值为\['asc', 'desc']<br />前端排序，返回一个排序函数，参考 Array.sort。<br />服务端排序，不要返回值，自行处理即可。
+| sorter | function(order) \| string | 无 | sorter 不为空时，这一列会出现排序 icon。order的值为\['asc', 'desc']<br />字符串表示排序依据字段，作为第一个参数传入Table.sorter<br />前端排序，返回一个排序函数，参考 Array.sort。<br />服务端排序，不要返回值，自行处理即可。
 | title | string \| ReactElement \| function | 无 | 表头显示内容 |
 | type | string | 无 | 特殊用途列，可选值为 \['expand', 'row-expand', 'checkbox']<br />expand: 行展开列，render 函数返回函数时，表示此行可以展开，内容为此函数返回结果<br />row-expand: 同expand。不同为点击行内空白区域也可以折叠/展开行。<br />checkbox: 选择列，用于仅固定选择列的场景 |
 | width | number | 无 | 列宽 |
