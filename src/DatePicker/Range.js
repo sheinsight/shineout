@@ -28,7 +28,12 @@ class Range extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (!shallowEqual(prevProps.value, this.props.value) && !shallowEqual(this.state.rangeDate, this.props.value)) {
+    const { rangeDate } = this.state
+    if (
+      rangeDate.length !== 1 &&
+      !shallowEqual(prevProps.value, this.props.value) &&
+      !shallowEqual(this.state.rangeDate, this.props.value)
+    ) {
       // eslint-disable-next-line
       this.setState({ rangeDate: this.props.value })
     }
