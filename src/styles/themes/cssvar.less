@@ -1,3 +1,4 @@
+/** primary-color **/
 @primary-color-dark-5-value:            darken(@colors-primary-value, 5%);
 @primary-color-dark-15-value:           darken(@colors-primary-value, 15%);
 @primary-color-dark-btn-hover-value:    darken(@colors-primary-value, @btn-hover-darken);
@@ -19,8 +20,23 @@
 @primary-color-fade-0:                  var(--primary-color-fade-0, @primary-color-fade-0-value);
 @primary-color-dark-5_fade-60:          var(--primary-color-dark-5_fade-60, @primary-color-dark-5_fade-60-value);
 @primary-color-dark-5_fade-0:           var(--primary-color-dark-5_fade-0, @primary-color-dark-5_fade-0-value);
+/** primary-color **/
+
+/** secondary-color **/
+@secondary-color-dark-5-value:          darken(@colors-secondary-value, 5%);
+@secondary-color-dark-btn-hover-value:  darken(@colors-secondary-value, @btn-hover-darken);
+@secondary-color-dark-5_fade-60-value:  fade(darken(@colors-secondary-value, 5%), 60%);
+@secondary-color-dark-5_fade-0-value:   fade(darken(@colors-secondary-value, 5%), 0%);
+
+@secondary-color-dark-5:                var(--secondary-value-dark-5, @secondary-color-dark-5-value);
+@secondary-color-dark-btn-hover:        var(--secondary-color-dark-btn-hover, @secondary-color-dark-btn-hover-value);
+@secondary-color-dark-5_fade-60:        var(--secondary-color-dark-5_fade-60, @secondary-color-dark-5_fade-60-value);
+@secondary-color-dark-5_fade-0:         var(--secondary-color-dark-5_fade-0, @secondary-color-dark-5_fade-0-value);
+/** secondary-color **/
 
 body {
+  --btn-hover-darken: @btn-hover-darken;
+  // primary
   --primary-color: @colors-primary-value;
   --primary-color-dark-5: @primary-color-dark-5-value;
   --primary-color-dark-15: @primary-color-dark-15-value;
@@ -32,5 +48,10 @@ body {
   --primary-color-fade-0: @primary-color-fade-0-value;
   --primary-color-dark-5_fade-60: @primary-color-dark-5_fade-60-value;
   --primary-color-dark-5_fade-0: @primary-color-dark-5_fade-0-value;
-  --btn-hover-darken: @btn-hover-darken;
+  // secondary
+  --secondary-value: @colors-secondary-value;
+  --secondary-value-dark-5: @secondary-color-dark-5-value;
+  --secondary-color-dark-btn-hover: @secondary-color-dark-btn-hover-value;
+  --secondary-color-dark-5_fade-60: @secondary-color-dark-5_fade-60-value;
+  --secondary-color-dark-5_fade-0: @secondary-color-dark-5_fade-0-value;
 }

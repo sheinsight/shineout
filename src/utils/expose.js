@@ -5,7 +5,7 @@ import { darken, fade } from './color'
 const types = ['primary', 'warning', 'danger', 'success', 'secondary']
 const attrs = ['background', 'color', 'border']
 
-const cssVarSupported = window.CSS && window.CSS.supports && window.CSS.supports('--a', 0)
+const cssVarSupported = window.CSS && window.CSS.supports && window.CSS.supports('--css-var-support', 0)
 
 function validateFormat(data) {
   if (!isObject(data)) {
@@ -55,6 +55,12 @@ function toRGB(c) {
   return getDOMStyle(el).color
 }
 
+function setBodyProperty(colors) {
+  for (const [cssVar, cssValue] of Object.entries(colors)) {
+    document.body.style.setProperty(cssVar, cssValue)
+  }
+}
+
 const color = {
   get primary() {
     return getColor('primary')
@@ -77,9 +83,7 @@ const color = {
       '--primary-color-dark-5_fade-60': fade(toRGB(darken(v, 5)), 0.6),
       '--primary-color-dark-5_fade-0': fade(toRGB(darken(v, 5)), 0),
     }
-    for (const [cssVar, cssValue] of Object.entries(colors)) {
-      document.body.style.setProperty(cssVar, cssValue)
-    }
+    setBodyProperty(colors)
   },
   get warning() {
     return getColor('warning')
@@ -93,6 +97,20 @@ const color = {
   get secondary() {
     return getColor('secondary')
   },
+  set secondary(v) {
+    v = toRGB(v)
+    const btnHoverDarken = getComputedStyle(document.body)
+      .getPropertyValue('--btn-hover-darken')
+      .trim()
+    const colors = {
+      '--secondary-value': v,
+      '--secondary-value-dark-5': darken(v, 5),
+      '--secondary-color-dark-btn-hover': darken(v, parseInt(btnHoverDarken, 10)),
+      '--secondary-color-dark-5_fade-60': fade(toRGB(darken(v, 5)), 0.6),
+      '--secondary-color-dark-5_fade-0': fade(toRGB(darken(v, 5)), 0),
+    }
+    setBodyProperty(colors)
+  },
   setColor(options) {
     if (!options || !cssVarSupported) return
     for (const [key, value] of Object.entries(options)) {
@@ -102,7 +120,6 @@ const color = {
     }
   },
 }
-
 
 const style = {
   getClassname,

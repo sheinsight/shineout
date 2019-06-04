@@ -4,7 +4,7 @@
 // and disabled options for all buttons
 
 .button-case-box-shadow(@color, @width, @fade) {
-  & when (@color = @btn-primary-border) {
+  & when (%('%s', @color) = %('%s', @btn-primary-border)) {
     & when (@so-theme = antd) {
       & when (@fade = 60%) {
         box-shadow: 0 0 0 @width @primary-color-fade-60;
@@ -22,23 +22,32 @@
       }
     }
   }
-
-  & when not (@color = @btn-primary-border) {
+  & when (%('%s', @color) = %('%s', @btn-secondary-border)) {
+    & when (@fade = 60%) {
+      box-shadow: 0 0 0 @width @secondary-color-dark-5_fade-60;
+    }
+    & when (@fade = 0%) {
+      box-shadow: 0 0 0 @width @secondary-color-dark-5_fade-0;
+    }
+  }
+  & when not (%('%s', @color) = %('%s', @btn-primary-border)) and not (%('%s', @color) = %('%s', @btn-secondary-border)) {
     box-shadow: 0 0 0 @width fade(@color, @fade);
   }
 }
 
-.button-case-background(@background) {
-  & when (@background = @btn-primary-bg) {
-    background-color: @primary-color-dark-btn-hover;
-  }
-  & when not (@background = @btn-primary-bg) {
-    background-color: darken(@background, @btn-hover-darken);
-  }
+.button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-primary-bg)) {
+  background-color: @primary-color-dark-btn-hover;
+}
+.button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-secondary-bg)) {
+  background-color: @secondary-color-dark-btn-hover;
+}
+.button-case-background(@bg) when not (%('%s', @bg) = %('%s', @btn-primary-bg)) and not (%('%s', @bg) = %('%s', @btn-secondary-bg)) {
+  background-color: darken(@bg, @btn-hover-darken);
 }
 
+
 .button-case-border-color(@color) {
-  & when (@color = @btn-primary-border) {
+  & when (%('%s', @color) = %('%s', @btn-primary-border)) {
     & when (@so-theme = antd) {
       border-color: @primary-color-dark-btn-hover;
     }
@@ -46,7 +55,15 @@
       border-color: @colors-primary;
     }
   }
-  & when not (@color = @btn-primary-border) {
+  & when (%('%s', @color) = %('%s', @btn-secondary-border)) {
+    & when (@so-theme = antd) {
+      border-color: @secondary-color-dark-btn-hover;
+    }
+    & when (@so-theme = default) {
+      border-color: @colors-secondary;
+    }
+  }
+  & when not (%('%s', @color) = %('%s', @btn-primary-border)) and not (%('%s', @color) = %('%s', @btn-secondary-border)) {
     border-color: darken(@color, @btn-hover-darken);
   }
 }
