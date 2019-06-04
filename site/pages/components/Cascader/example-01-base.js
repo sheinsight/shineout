@@ -28,5 +28,5 @@ const data = [
 ]
 
 export default function() {
-  return <Cascader data={data} keygen="id" renderItem={n => `node ${n.text}`} />
+  return <Cascader data={data} keygen="id" renderItem={n => `node ${n.text}`} absolute />
 }
