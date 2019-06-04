@@ -170,9 +170,9 @@ export default class {
     return value
   }
 
-  resetValue(values) {
+  resetValue(values, cached) {
     this.$values = values
-    if (this.onChange) {
+    if (this.onChange && !cached) {
       this.onChange(this.getValue())
     }
     this.dispatch(CHANGE_TOPIC)
@@ -204,13 +204,10 @@ export default class {
   }
 
   setValue(values = [], type) {
-    // value not change
-    if (shallowEqual(this.$cachedValue, values)) return
-
     if (type === WITH_OUT_DISPATCH) {
       this.$values = this.formatValue(values)
     } else {
-      this.resetValue(this.formatValue(values))
+      this.resetValue(this.formatValue(values), shallowEqual(this.$cachedValue, values))
     }
     this.$cachedValue = this.getValue()
   }
