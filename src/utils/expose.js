@@ -74,7 +74,7 @@ const color = {
       '--primary-color': v,
       '--primary-color-dark-5': darken(v, 5),
       '--primary-color-dark-15': darken(v, 15),
-      '--primary-color-dark-btn-hover': darken(v, parseInt(btnHoverDarken, 10)),
+      '--primary-color-dark-btn-hover': darken(v, btnHoverDarken),
       '--primary-color-lighten-40': darken(v, -40),
       '--primary-color-fade-60': fade(v, 0.6),
       '--primary-color-fade-50': fade(v, 0.5),
@@ -100,7 +100,7 @@ const color = {
       '--warning-color-dark-5_fade-60': fade(toRGB(darken(v, 5)), 0.6),
       '--warning-color-fade-0': fade(v, 0),
       '--warning-color-dark-5_fade-0': fade(toRGB(darken(v, 5)), 0),
-      '--warning-color-dark-btn-hover': darken(v, parseInt(btnHoverDarken, 10)),
+      '--warning-color-dark-btn-hover': darken(v, btnHoverDarken),
     }
     setBodyProperty(colors)
   },
@@ -120,7 +120,7 @@ const color = {
       '--danger-color-dark-5_fade-60': fade(toRGB(darken(v, 5)), 0.6),
       '--danger-color-fade-0': fade(v, 0),
       '--danger-color-dark-5_fade-0': fade(toRGB(darken(v, 5)), 0),
-      '--danger-color-dark-btn-hover': darken(v, parseInt(btnHoverDarken, 10)),
+      '--danger-color-dark-btn-hover': darken(v, btnHoverDarken),
     }
     setBodyProperty(colors)
   },
@@ -139,7 +139,7 @@ const color = {
       '--success-color-dark-5_fade-60': fade(toRGB(darken(v, 5)), 0.6),
       '--success-color-fade-0': fade(v, 0),
       '--success-color-dark-5_fade-0': fade(toRGB(darken(v, 5)), 0),
-      '--success-color-dark-btn-hover': darken(v, parseInt(btnHoverDarken, 10)),
+      '--success-color-dark-btn-hover': darken(v, btnHoverDarken),
     }
     setBodyProperty(colors)
   },
@@ -154,7 +154,7 @@ const color = {
     const colors = {
       '--secondary-color': v,
       '--secondary-color-dark-5': darken(v, 5),
-      '--secondary-color-dark-btn-hover': darken(v, parseInt(btnHoverDarken, 10)),
+      '--secondary-color-dark-btn-hover': darken(v, btnHoverDarken),
       '--secondary-color-dark-5_fade-60': fade(toRGB(darken(v, 5)), 0.6),
       '--secondary-color-dark-5_fade-0': fade(toRGB(darken(v, 5)), 0),
     }

@@ -337,6 +337,7 @@ function getHSLA(color) {
  * @param value -100 ~ 100
  */
 export function darken(color, value = 0) {
+  value = parseInt(value, 10)
   const hsl = rgbTohsl(color)
   const { h, s, l, a } = getHSLA(hsl)
   return `hsla(${h},${s}%,${l - value}%,${a})`
