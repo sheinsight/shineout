@@ -88,8 +88,41 @@ const color = {
   get warning() {
     return getColor('warning')
   },
+  set warning(v) {
+    v = toRGB(v)
+    const btnHoverDarken = getComputedStyle(document.body)
+      .getPropertyValue('--btn-hover-darken')
+      .trim()
+    const colors = {
+      '--warning-color': v,
+      '--warning-color-dark-5': darken(v, 5),
+      '--warning-color-fade-60': fade(v, 0.6),
+      '--warning-color-dark-5_fade-60': fade(toRGB(darken(v, 5)), 0.6),
+      '--warning-color-fade-0': fade(v, 0),
+      '--warning-color-dark-5_fade-0': fade(toRGB(darken(v, 5)), 0),
+      '--warning-color-dark-btn-hover': darken(v, parseInt(btnHoverDarken, 10)),
+    }
+    setBodyProperty(colors)
+  },
   get danger() {
     return getColor('danger')
+  },
+  set danger(v) {
+    v = toRGB(v)
+    const btnHoverDarken = getComputedStyle(document.body)
+      .getPropertyValue('--btn-hover-darken')
+      .trim()
+    const colors = {
+      '--danger-color': v,
+      '--danger-color-fade-25': fade(v, 0.25),
+      '--danger-color-dark-5': darken(v, 5),
+      '--danger-color-fade-60': fade(v, 0.6),
+      '--danger-color-dark-5_fade-60': fade(toRGB(darken(v, 5)), 0.6),
+      '--danger-color-fade-0': fade(v, 0),
+      '--danger-color-dark-5_fade-0': fade(toRGB(darken(v, 5)), 0),
+      '--danger-color-dark-btn-hover': darken(v, parseInt(btnHoverDarken, 10)),
+    }
+    setBodyProperty(colors)
   },
   get success() {
     return getColor('success')

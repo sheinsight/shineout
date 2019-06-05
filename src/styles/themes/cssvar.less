@@ -66,6 +66,40 @@
 @info-color-dark-5_fade-60:             var(--info-color-dark-5_fade-60, @info-color-dark-5_fade-60-value);
 /** info-color **/
 
+/** warning-color **/
+@warning-color-dark-5-value:            darken(@colors-warning-value, 5%);
+@warning-color-dark-btn-hover-value:    darken(@colors-warning-value, @btn-hover-darken);
+@warning-color-fade-60-value:           fade(@colors-warning-value, 60%);
+@warning-color-fade-0-value:            fade(@colors-warning-value, 0);
+@warning-color-dark-5_fade-0-value:     fade(darken(@colors-warning-value, 5%), 0%);
+@warning-color-dark-5_fade-60-value:    fade(darken(@colors-warning-value, 5%), 60%);
+
+@warning-color-dark-5:                  var(--warning-color-dark-5, @warning-color-dark-5-value);
+@warning-color-dark-btn-hover:          var(--warning-color-dark-btn-hover, @warning-color-dark-btn-hover-value);
+@warning-color-fade-60:                 var(--warning-color-fade-60, @warning-color-fade-60-value);
+@warning-color-fade-0:                  var(--warning-color-fade-0, @warning-color-fade-0-value);
+@warning-color-dark-5_fade-0:           var(--warning-color-dark-5_fade-0, @warning-color-dark-5_fade-0-value);
+@warning-color-dark-5_fade-60:          var(--warning-color-dark-5_fade-60, @warning-color-dark-5_fade-60-value);
+/** warning-color **/
+
+/** danger-color **/
+@danger-color-dark-5-value:            darken(@colors-danger-value, 5%);
+@danger-color-fade-25-value:           fade(@colors-danger-value, 25%);
+@danger-color-dark-btn-hover-value:    darken(@colors-danger-value, @btn-hover-darken);
+@danger-color-fade-60-value:           fade(@colors-danger-value, 60%);
+@danger-color-fade-0-value:            fade(@colors-danger-value, 0);
+@danger-color-dark-5_fade-0-value:     fade(darken(@colors-danger-value, 5%), 0%);
+@danger-color-dark-5_fade-60-value:    fade(darken(@colors-danger-value, 5%), 60%);
+
+@danger-color-dark-5:                  var(--danger-color-dark-5, @danger-color-dark-5-value);
+@danger-color-fade-25:                 var(--danger-color-fade-25, @danger-color-fade-25-value);
+@danger-color-dark-btn-hover:          var(--danger-color-dark-btn-hover, @danger-color-dark-btn-hover-value);
+@danger-color-fade-60:                 var(--danger-color-fade-60, @danger-color-fade-60-value);
+@danger-color-fade-0:                  var(--danger-color-fade-0, @danger-color-fade-0-value);
+@danger-color-dark-5_fade-0:           var(--danger-color-dark-5_fade-0, @danger-color-dark-5_fade-0-value);
+@danger-color-dark-5_fade-60:          var(--danger-color-dark-5_fade-60, @danger-color-dark-5_fade-60-value);
+/** danger-color **/
+
 
 body {
   --btn-hover-darken: @btn-hover-darken;
@@ -103,4 +137,21 @@ body {
   --info-color-fade-0: @info-color-fade-0-value;
   --info-color-dark-5_fade-0: @info-color-dark-5_fade-0-value;
   --info-color-dark-btn-hover: @info-color-dark-btn-hover-value;
+  // warning
+  --warning-color: @colors-warning-value;
+  --warning-color-dark-5: @warning-color-dark-5-value;
+  --warning-color-fade-60: @warning-color-fade-60-value;
+  --warning-color-dark-5_fade-60: @warning-color-dark-5_fade-60-value;
+  --warning-color-fade-0: @warning-color-fade-0-value;
+  --warning-color-dark-5_fade-0: @warning-color-dark-5_fade-0-value;
+  --warning-color-dark-btn-hover: @warning-color-dark-btn-hover-value;
+  // danger
+  --danger-color: @colors-danger-value;
+  --danger-color-fade-25: @danger-color-fade-25-value;
+  --danger-color-dark-5: @danger-color-dark-5-value;
+  --danger-color-fade-60: @danger-color-fade-60-value;
+  --danger-color-dark-5_fade-60: @danger-color-dark-5_fade-60-value;
+  --danger-color-fade-0: @danger-color-fade-0-value;
+  --danger-color-dark-5_fade-0: @danger-color-dark-5_fade-0-value;
+  --danger-color-dark-btn-hover: @danger-color-dark-btn-hover-value;
 }
