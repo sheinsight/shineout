@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
-import { Button, Dropdown, Popover, color } from 'shineout'
-import { SketchPicker } from 'react-color'
+import { Button, Dropdown, Modal, color } from 'shineout'
 import docsearch from 'docsearch.js'
 import { Link } from 'react-router-dom'
 import locate, { setItem, STORAGE_KEY } from './locate'
@@ -11,8 +10,8 @@ import logo from './icons/logo'
 import Icon from './icons/Icon'
 import { headerClass } from './styles'
 import FontAwesome from './pages/components/Icon/FontAwesome'
+import ThemeEditor from './Components/ThemeEdit'
 
-let primaryChangeTimer = null
 const themes = [
   {
     content: 'antd',
@@ -54,30 +53,17 @@ function handleThemeClick(data) {
   window.location.href = url
 }
 
-function handlePrimaryChange(c) {
-  if (primaryChangeTimer) clearTimeout(primaryChangeTimer)
-  primaryChangeTimer = setTimeout(() => {
-    color.setColor({ primary: c })
-  }, 300)
-}
-
 const PrimarySetter = () => {
   const [primary, setPrimary] = useState(color.primary)
-  return (
-    <span size="small" className={headerClass('color')}>
+  const [visible, setVisible] = useState(false)
+  return [
+    <span key="picker" className={headerClass('color')} onClick={() => setVisible(true)}>
       <div className={headerClass('color-current')} style={{ backgroundColor: primary }} />
-      <Popover position="bottom-right">
-        <SketchPicker
-          color={primary}
-          className={headerClass('color-picker')}
-          onChange={v => {
-            setPrimary(v.hex)
-            handlePrimaryChange(v.hex)
-          }}
-        />
-      </Popover>
-    </span>
-  )
+    </span>,
+    <Modal bodyStyle={{ padding: 0 }} position="right" key="modal" visible={visible} onClose={() => setVisible(false)}>
+      <ThemeEditor onChange={v => setPrimary(v)} />
+    </Modal>,
+  ]
 }
 
 const Header = ({ versions }) => {

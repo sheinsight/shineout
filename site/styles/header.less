@@ -1,5 +1,7 @@
 @import './variables.less';
 
+@doc-header-prefix: doc-header;
+
 .doc-header {
   @header-height: 60px;
 
@@ -72,6 +74,40 @@
     }
   }
 
+  &-editor {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    &-footer {
+      padding: 16px;
+      border-top: 1px solid @table-border-color;
+      text-align: right;
+    }
+    &-content {
+      padding: 16px 24px;
+      flex: 1;
+      overflow: auto;
+      h2 {
+        margin: 0 0 14px 0;
+      }
+    }
+    .@{doc-header-prefix}-color {
+      &-item {
+        display: inline-block;
+        text-align: left;
+        margin-right: 18px;
+        margin-bottom: 8px;
+        > p {
+          margin: 0;
+          &:first-child {
+            text-transform: capitalize;
+            margin-bottom: 4px;
+          }
+        }
+      }
+    }
+  }
+
   &-color {
     width: 30px;
     height: 30px;
@@ -84,6 +120,7 @@
     outline: none;
     touch-action: manipulation;
     white-space: nowrap;
+    vertical-align: middle;
 
     &-current {
       width: 100%;
@@ -92,13 +129,6 @@
       border-style: solid;
       border-color: inherit;
       border-radius: inherit;
-      position: relative;
-      .caret(down);
-      &:after {
-        color: white;
-        margin-left: 0;
-        vertical-align: @dropdown-arrow-vertical;
-      }
     }
     &-picker {
       box-shadow: none !important;

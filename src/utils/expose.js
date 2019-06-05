@@ -162,4 +162,4 @@ const style = {
   getClassname,
 }
 
-export { color, style, getDOMStyle, toRGB }
+export { color, style, getDOMStyle, toRGB, types }
