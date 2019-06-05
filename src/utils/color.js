@@ -1,4 +1,5 @@
 import { isOne, isPercent } from './is'
+import { toRGB } from './expose'
 
 const CSS_INTEGER = '[-\\+]?\\d+%?'
 
@@ -338,9 +339,10 @@ function getHSLA(color) {
  */
 export function darken(color, value = 0) {
   value = parseInt(value, 10)
+  color = toRGB(color)
   const hsl = rgbTohsl(color)
   const { h, s, l, a } = getHSLA(hsl)
-  return `hsla(${h},${s}%,${l - value}%,${a})`
+  return toRGB(`hsla(${h},${s}%,${l - value}%,${a})`)
 }
 
 /**
@@ -349,7 +351,8 @@ export function darken(color, value = 0) {
  * @param alpha 0-1
  */
 export function fade(color, alpha = 1) {
+  color = toRGB(color)
   const hsl = rgbTohsl(color)
   const { h, s, l } = getHSLA(hsl)
-  return `hsla(${h},${s}%,${l}%,${alpha})`
+  return toRGB(`hsla(${h},${s}%,${l}%,${alpha})`)
 }

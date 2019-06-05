@@ -49,6 +49,14 @@ function getColor(type) {
   return getDOMStyle(div).color
 }
 
+function getBtnHoverDarken() {
+  return (
+    getComputedStyle(document.body)
+      .getPropertyValue('--btn-hover-darken')
+      .trim() || '5%'
+  )
+}
+
 function toRGB(c) {
   const el = document.createElement('div')
   el.style.color = c
@@ -66,22 +74,18 @@ const color = {
     return getColor('primary')
   },
   set primary(v) {
-    v = toRGB(v)
-    const btnHoverDarken = getComputedStyle(document.body)
-      .getPropertyValue('--btn-hover-darken')
-      .trim()
     const colors = {
       '--primary-color': v,
       '--primary-color-dark-5': darken(v, 5),
       '--primary-color-dark-15': darken(v, 15),
-      '--primary-color-dark-btn-hover': darken(v, btnHoverDarken),
+      '--primary-color-dark-btn-hover': darken(v, getBtnHoverDarken()),
       '--primary-color-lighten-40': darken(v, -40),
       '--primary-color-fade-60': fade(v, 0.6),
       '--primary-color-fade-50': fade(v, 0.5),
       '--primary-color-fade-10': fade(v, 0.1),
       '--primary-color-fade-0': fade(v, 0),
-      '--primary-color-dark-5_fade-60': fade(toRGB(darken(v, 5)), 0.6),
-      '--primary-color-dark-5_fade-0': fade(toRGB(darken(v, 5)), 0),
+      '--primary-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
+      '--primary-color-dark-5_fade-0': fade(darken(v, 5), 0),
     }
     setBodyProperty(colors)
   },
@@ -89,18 +93,14 @@ const color = {
     return getColor('warning')
   },
   set warning(v) {
-    v = toRGB(v)
-    const btnHoverDarken = getComputedStyle(document.body)
-      .getPropertyValue('--btn-hover-darken')
-      .trim()
     const colors = {
       '--warning-color': v,
       '--warning-color-dark-5': darken(v, 5),
       '--warning-color-fade-60': fade(v, 0.6),
-      '--warning-color-dark-5_fade-60': fade(toRGB(darken(v, 5)), 0.6),
+      '--warning-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
       '--warning-color-fade-0': fade(v, 0),
-      '--warning-color-dark-5_fade-0': fade(toRGB(darken(v, 5)), 0),
-      '--warning-color-dark-btn-hover': darken(v, btnHoverDarken),
+      '--warning-color-dark-5_fade-0': fade(darken(v, 5), 0),
+      '--warning-color-dark-btn-hover': darken(v, getBtnHoverDarken()),
     }
     setBodyProperty(colors)
   },
@@ -108,19 +108,15 @@ const color = {
     return getColor('danger')
   },
   set danger(v) {
-    v = toRGB(v)
-    const btnHoverDarken = getComputedStyle(document.body)
-      .getPropertyValue('--btn-hover-darken')
-      .trim()
     const colors = {
       '--danger-color': v,
       '--danger-color-fade-25': fade(v, 0.25),
       '--danger-color-dark-5': darken(v, 5),
       '--danger-color-fade-60': fade(v, 0.6),
-      '--danger-color-dark-5_fade-60': fade(toRGB(darken(v, 5)), 0.6),
+      '--danger-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
       '--danger-color-fade-0': fade(v, 0),
-      '--danger-color-dark-5_fade-0': fade(toRGB(darken(v, 5)), 0),
-      '--danger-color-dark-btn-hover': darken(v, btnHoverDarken),
+      '--danger-color-dark-5_fade-0': fade(darken(v, 5), 0),
+      '--danger-color-dark-btn-hover': darken(v, getBtnHoverDarken()),
     }
     setBodyProperty(colors)
   },
@@ -128,18 +124,14 @@ const color = {
     return getColor('success')
   },
   set success(v) {
-    v = toRGB(v)
-    const btnHoverDarken = getComputedStyle(document.body)
-      .getPropertyValue('--btn-hover-darken')
-      .trim()
     const colors = {
       '--success-color': v,
       '--success-color-dark-5': darken(v, 5),
       '--success-color-fade-60': fade(v, 0.6),
-      '--success-color-dark-5_fade-60': fade(toRGB(darken(v, 5)), 0.6),
+      '--success-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
       '--success-color-fade-0': fade(v, 0),
-      '--success-color-dark-5_fade-0': fade(toRGB(darken(v, 5)), 0),
-      '--success-color-dark-btn-hover': darken(v, btnHoverDarken),
+      '--success-color-dark-5_fade-0': fade(darken(v, 5), 0),
+      '--success-color-dark-btn-hover': darken(v, getBtnHoverDarken()),
     }
     setBodyProperty(colors)
   },
@@ -147,16 +139,12 @@ const color = {
     return getColor('secondary')
   },
   set secondary(v) {
-    v = toRGB(v)
-    const btnHoverDarken = getComputedStyle(document.body)
-      .getPropertyValue('--btn-hover-darken')
-      .trim()
     const colors = {
       '--secondary-color': v,
       '--secondary-color-dark-5': darken(v, 5),
-      '--secondary-color-dark-btn-hover': darken(v, btnHoverDarken),
-      '--secondary-color-dark-5_fade-60': fade(toRGB(darken(v, 5)), 0.6),
-      '--secondary-color-dark-5_fade-0': fade(toRGB(darken(v, 5)), 0),
+      '--secondary-color-dark-btn-hover': darken(v, getBtnHoverDarken()),
+      '--secondary-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
+      '--secondary-color-dark-5_fade-0': fade(darken(v, 5), 0),
     }
     setBodyProperty(colors)
   },
@@ -174,4 +162,4 @@ const style = {
   getClassname,
 }
 
-export { color, style, getDOMStyle }
+export { color, style, getDOMStyle, toRGB }
