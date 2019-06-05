@@ -1,15 +1,19 @@
 @import './bootstrap.less';
 @import './cssvar.less';
 
+@colors-blue: #3399ff;
 @colors-primary-value: #3399ff;
 @colors-primary: var(--primary-color, @colors-primary-value);
 
-@colors-blue: #3399ff;
-
 @colors-secondary-value: #999999;
-@colors-secondary: var(--secondary-value, @colors-secondary-value);
+@colors-secondary: var(--secondary-color, @colors-secondary-value);
 
-@colors-success: #00cc66;
+@colors-success-value: #00cc66;
+@colors-success: var(--success-color, @colors-success-value);
+
+@colors-info-value: @colors-cyan;
+@colors-info: var(--info-color, @colors-info-value);
+
 @colors-warning: #ff9900;
 @colors-danger: #f85555;
 

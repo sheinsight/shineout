@@ -94,6 +94,22 @@ const color = {
   get success() {
     return getColor('success')
   },
+  set success(v) {
+    v = toRGB(v)
+    const btnHoverDarken = getComputedStyle(document.body)
+      .getPropertyValue('--btn-hover-darken')
+      .trim()
+    const colors = {
+      '--success-color': v,
+      '--success-color-dark-5': darken(v, 5),
+      '--success-color-fade-60': fade(v, 0.6),
+      '--success-color-dark-5_fade-60': fade(toRGB(darken(v, 5)), 0.6),
+      '--success-color-fade-0': fade(v, 0),
+      '--success-color-dark-5_fade-0': fade(toRGB(darken(v, 5)), 0),
+      '--success-color-dark-btn-hover': darken(v, parseInt(btnHoverDarken, 10)),
+    }
+    setBodyProperty(colors)
+  },
   get secondary() {
     return getColor('secondary')
   },
@@ -103,8 +119,8 @@ const color = {
       .getPropertyValue('--btn-hover-darken')
       .trim()
     const colors = {
-      '--secondary-value': v,
-      '--secondary-value-dark-5': darken(v, 5),
+      '--secondary-color': v,
+      '--secondary-color-dark-5': darken(v, 5),
       '--secondary-color-dark-btn-hover': darken(v, parseInt(btnHoverDarken, 10)),
       '--secondary-color-dark-5_fade-60': fade(toRGB(darken(v, 5)), 0.6),
       '--secondary-color-dark-5_fade-0': fade(toRGB(darken(v, 5)), 0),

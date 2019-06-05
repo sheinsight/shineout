@@ -22,6 +22,42 @@
       }
     }
   }
+  & when (%('%s', @color) = %('%s', @btn-success-border)) {
+    & when (@so-theme = antd) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @success-color-fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @success-color-fade-0;
+      }
+    }
+    & when (@so-theme = default) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @success-color-dark-5_fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @success-color-dark-5_fade-0;
+      }
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-info-border)) {
+    & when (@so-theme = antd) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @info-color-fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @info-color-fade-0;
+      }
+    }
+    & when (@so-theme = default) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @info-color-dark-5_fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @info-color-dark-5_fade-0;
+      }
+    }
+  }
   & when (%('%s', @color) = %('%s', @btn-secondary-border)) {
     & when (@fade = 60%) {
       box-shadow: 0 0 0 @width @secondary-color-dark-5_fade-60;
@@ -30,7 +66,7 @@
       box-shadow: 0 0 0 @width @secondary-color-dark-5_fade-0;
     }
   }
-  & when not (%('%s', @color) = %('%s', @btn-primary-border)) and not (%('%s', @color) = %('%s', @btn-secondary-border)) {
+  & when not (%('%s', @color) = %('%s', @btn-primary-border)) and not (%('%s', @color) = %('%s', @btn-secondary-border)) and not (%('%s', @color) = %('%s', @btn-success-border)) and not (%('%s', @color) = %('%s', @btn-info-border)) {
     box-shadow: 0 0 0 @width fade(@color, @fade);
   }
 }
@@ -41,7 +77,13 @@
 .button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-secondary-bg)) {
   background-color: @secondary-color-dark-btn-hover;
 }
-.button-case-background(@bg) when not (%('%s', @bg) = %('%s', @btn-primary-bg)) and not (%('%s', @bg) = %('%s', @btn-secondary-bg)) {
+.button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-success-bg)) {
+  background-color: @success-color-dark-btn-hover;
+}
+.button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-info-bg)) {
+  background-color: @info-color-dark-btn-hover;
+}
+.button-case-background(@bg) when not (%('%s', @bg) = %('%s', @btn-primary-bg)) and not (%('%s', @bg) = %('%s', @btn-secondary-bg)) and not (%('%s', @bg) = %('%s', @btn-success-bg)) and not (%('%s', @bg) = %('%s', @btn-info-bg)) {
   background-color: darken(@bg, @btn-hover-darken);
 }
 
@@ -63,8 +105,24 @@
       border-color: @colors-secondary;
     }
   }
-  & when not (%('%s', @color) = %('%s', @btn-primary-border)) and not (%('%s', @color) = %('%s', @btn-secondary-border)) {
-    border-color: darken(@color, @btn-hover-darken);
+  & when (%('%s', @color) = %('%s', @btn-success-border)) {
+    & when (@so-theme = antd) {
+      border-color: @success-color-dark-btn-hover;
+    }
+    & when (@so-theme = default) {
+      border-color: @colors-success;
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-info-border)) {
+    & when (@so-theme = antd) {
+      border-color: @info-color-dark-btn-hover;
+    }
+    & when (@so-theme = default) {
+      border-color: @colors-info;
+    }
+  }
+  & when not (%('%s', @color) = %('%s', @btn-primary-border)) and not (%('%s', @color) = %('%s', @btn-secondary-border)) and not (%('%s', @color) = %('%s', @btn-success-border)) and not (%('%s', @color) = %('%s', @btn-info-border)) {
+    //border-color: darken(@color, @btn-hover-darken);
   }
 }
 
