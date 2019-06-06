@@ -10,7 +10,7 @@ import logo from './icons/logo'
 import Icon from './icons/Icon'
 import { headerClass } from './styles'
 import FontAwesome from './pages/components/Icon/FontAwesome'
-import ThemeEditor from './Components/ThemeEdit'
+import ThemeEditor from './Components/ThemeEditor'
 
 const themes = [
   {
