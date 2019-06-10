@@ -40,6 +40,8 @@ Form 是一个比较复杂的组件，由下列组件组成
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | label | string \| ReactElement | undefined | 未定义时，标签不会render，也不会占位。如果无内容需要占位，使用空字符串 ''。 |
+| labelAlign | string | | 可选值为 \['top', 'right']，默认为左边对齐。 |
+| labelWidth | string \| number | 140px | 标签宽度，labelAlign 为 'top' 时无效。 |
 | required | boolean | false | 必填标记，纯展示用，不会触发校验 |
 | tip | string | | 提示文案 |
 

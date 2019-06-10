@@ -80,7 +80,8 @@ class Select extends PureComponent {
   }
 
   isDescendent(el, id) {
-    if (el.classList.contains(selectClass('input'))) return true
+    const stay = el.classList.contains(selectClass('input')) || el.classList.contains(selectClass('item'))
+    if (stay) return true
     if (el.classList.contains(selectClass('result'))) {
       this.closeByResult = true
       return false

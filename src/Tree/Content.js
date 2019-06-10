@@ -41,7 +41,7 @@ class Content extends PureComponent {
     if (data.children !== undefined) return
 
     this.setState({ fetching: true })
-    loader(id)
+    loader(id, data)
   }
 
   renderNode() {
