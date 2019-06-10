@@ -33,7 +33,7 @@ export default class extends PureComponent {
   handleChange(v, checked) {
     const { datum, id, onChange } = this.props
     datum.set(id, checked ? 1 : 0)
-    onChange(datum.getValue())
+    onChange(datum.getValue(), id)
   }
 
   render() {

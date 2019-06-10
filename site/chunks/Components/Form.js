@@ -70,8 +70,8 @@ const examples = [
   {
     name: '07-validate',
     title: locate(
-      '校验 \n 通过 rules 校验，每个字段的 rules 是一个数组，可以使用多条规则。 \n 在处理复杂表单或表单层级比较深的时候，不推荐这种方式，建议使用 <a href="/components/Rule">Rule</a>，并在 Field 字段上设置 rules.',
-      'Validate \n Validate by rules.'
+      '校验 \n 通过 Rule 对象，可以使用内置的规则。规则详见 Rule',
+      'Validate \n Use Rule∂ to create new rules object.'
     ),
     component: require('doc/pages/components/Form/example-07-validate.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-07-validate.js'),
@@ -79,8 +79,8 @@ const examples = [
   {
     name: '08-validate',
     title: locate(
-      ' \n 通过 Rule 对象，可以使用内置的规则。规则详见 <a href="/components/Rule">Rule</a>',
-      ' \n Use <a href="/components/Rule">Rule</a> to create new rules object.'
+      ' \n 通过 Rule 参数对校验规则进行扩展。',
+      ' \n The validation rules can be extended by parameters.'
     ),
     component: require('doc/pages/components/Form/example-08-validate.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-08-validate.js'),
@@ -88,8 +88,8 @@ const examples = [
   {
     name: '09-validate',
     title: locate(
-      ' \n 通过 Rule 参数对校验规则进行扩展。',
-      ' \n The validation rules can be extended by parameters.'
+      ' \n 通过 rules 校验，每个字段的 rules 是一个数组，可以使用多条规则。 \n 在处理复杂表单或表单层级比较深的时候，不推荐这种方式，建议使用 Rule，并在 Field 字段上设置 rules.',
+      ' \n Validate by rules.'
     ),
     component: require('doc/pages/components/Form/example-09-validate.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-09-validate.js'),

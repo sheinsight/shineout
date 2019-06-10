@@ -16,7 +16,7 @@ const examples = [
   {
     name: '1-base',
     title: locate(
-      '基本用法 \n 最基本的组件用法。 \n Modal 会在 document.body 中创建一个新的层显示弹出内容。',
+      '基本用法 \n 最基本的组件用法。 \n Modal 会在 document.body 中创建一个新的层显示弹出内容。 \n 关闭 modal 时没有对组件进行销毁, 只是隐藏, 组件的状态会被保留。 如果不需要保留组件之前的状态, 可以通过改变 modal 的 key 去实现。',
       'Base \n The basic usage for component.'
     ),
     component: require('doc/pages/components/Modal/example-1-base.js').default,

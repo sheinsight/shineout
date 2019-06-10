@@ -139,7 +139,7 @@ class Tbody extends PureComponent {
   renderTr(row, i) {
     const { columns, keygen, data, sorter, index, expandKeys, ...other } = this.props
 
-    let key = getKey(data[i], keygen, row.index)
+    let key = getKey(data[i], keygen, index + i)
     if (sorter && sorter.order) {
       key = `${key}-${sorter.index}-${sorter.order}`
     }

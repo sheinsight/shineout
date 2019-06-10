@@ -5,8 +5,6 @@ import { getProps, defaultProps } from '../utils/proptypes'
 import Spin from '../Spin'
 import { buttonClass } from '../styles'
 
-const spinStyle = { display: 'inline-block', marginRight: 8 }
-
 class Button extends PureComponent {
   getChildren() {
     const { children, loading } = this.props
@@ -20,15 +18,13 @@ class Button extends PureComponent {
   }
 
   render() {
-    const {
-      outline, type, size, href, htmlType, loading, disabled, onRef, ...others
-    } = this.props
+    const { outline, type, size, href, htmlType, loading, disabled, onRef, ...others } = this.props
     const className = classnames(
       buttonClass('_', type, outline && 'outline', {
         large: size === 'large',
         small: size === 'small',
       }),
-      this.props.className,
+      this.props.className
     )
 
     if (href) {
@@ -41,13 +37,13 @@ class Button extends PureComponent {
 
     const children = this.getChildren()
     return (
+      // eslint-disable-next-line
       <button {...others} ref={onRef} disabled={disabled || loading} type={htmlType} className={className}>
-        {
-          loading &&
-          <span style={spinStyle}>
+        {loading && (
+          <span className={buttonClass('spin')}>
             <Spin size={12} name="ring" color="#fff" />
           </span>
-        }
+        )}
         {children}
       </button>
     )
