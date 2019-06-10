@@ -215,8 +215,11 @@ class Root extends React.Component {
     if (style.width) rootStyle.width = style.width
 
     let bottomLine = 0
+    let topLine = 0
     if (showScroll && this.container) {
-      bottomLine = this.container.getBoundingClientRect().bottom
+      const rect = this.container.getBoundingClientRect()
+      bottomLine = rect.bottom
+      topLine = rect.top
     }
 
     return (
@@ -238,6 +241,7 @@ class Root extends React.Component {
               style={rootStyle}
               toggleOpenKeys={this.toggleOpenKeys}
               bottomLine={bottomLine}
+              topLine={topLine}
             />
           </Provider>
         </div>
