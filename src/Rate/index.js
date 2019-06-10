@@ -9,3 +9,4 @@ export default (background, front, opts = {}) => {
   Rate.displayName = 'ShineoutRate'
   return Rate
 }
+

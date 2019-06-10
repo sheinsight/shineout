@@ -37,7 +37,7 @@ class Rate extends PureComponent {
     if (!Array.isArray(icons)) {
       icon = icons
     } else {
-      icon = icons[repeat ? value - 1 : i]
+      icon = icons[repeat ? (value - 1) : i]
       if (!icon) icon = icons[icons.length - 1]
     }
 
@@ -66,80 +66,81 @@ class Rate extends PureComponent {
     this.setState({ hover })
   }
 
-  handleMove(hover, e) {
-    const { x, width } = e.target.getBoundingClientRect()
-    this.setState({ hover: hover - (x + width / 2 > e.clientX ? 0.5 : 0) })
-  }
-
   renderBackground() {
-    const { background, max, disabled, allowHalf } = this.props
+    const { background, max, disabled } = this.props
     const style = this.getStyle()
     const value = this.getValue()
 
     return (
       <div className={rateClass('background')}>
-        {range(max).map(v => (
-          <span
-            key={v}
-            // the allowHalf only for the front same as background
-            style={Object.assign({ visibility: !allowHalf && !disabled && value > v ? 'hidden' : 'visible' }, style)}
-          >
-            {this.getIcon(background, v, true)}
-          </span>
-        ))}
+        {
+          range(max).map(v => (
+            <span key={v} style={Object.assign({ visibility: (!disabled && value > v) ? 'hidden' : 'visible' }, style)}>
+              {this.getIcon(background, v, true)}
+            </span>
+          ))
+        }
       </div>
     )
   }
 
   renderRate() {
-    const { front, max, text, allowHalf } = this.props
+    const { front, max, text } = this.props
     const { highlight } = this.state
     const value = this.getValue()
     const style = this.getStyle()
 
     return (
       <div className={rateClass('front')}>
-        {range(max).map(v => (
-          <span
-            key={v}
-            onClick={this.handleClick.bind(this, v + 1)}
-            onMouseLeave={this.handleHover.bind(this, 0)}
-            onMouseMove={allowHalf ? this.handleMove.bind(this, v + 1) : undefined}
-            onMouseEnter={!allowHalf ? this.handleHover.bind(this, v + 1) : undefined}
-            style={style}
-          >
-            {value > v ? this.getIcon(front, v) : <span>&nbsp;</span>}
-            {highlight === v + 1 && <i className={rateClass('highlight')}>{this.getIcon(front, v)}</i>}
-          </span>
-        ))}
-        <span className={rateClass('text')}>{text[Math.ceil(value) - 1]}</span>
+        {
+          range(max).map(v => (
+            <span
+              key={v}
+              onClick={this.handleClick.bind(this, v + 1)}
+              onMouseEnter={this.handleHover.bind(this, v + 1)}
+              onMouseLeave={this.handleHover.bind(this, 0)}
+              style={style}
+            >
+              { value > v ? this.getIcon(front, v) : <span>&nbsp;</span> }
+              { highlight === v + 1 && <i className={rateClass('highlight')}>{this.getIcon(front, v)}</i> }
+            </span>
+          ))
+        }
+        <span className={rateClass('text')}>{ text[Math.ceil(value) - 1] }</span>
       </div>
     )
   }
 
   renderStatic() {
-    const { front, value, max, text } = this.props
+    const {
+      front, value, max, text,
+    } = this.props
     const style = this.getStyle()
 
     return (
       <div className={rateClass('static')}>
-        {range(max).map(v => (
-          <span key={v} style={style}>
-            {value > v && this.getIcon(front, v)}
-          </span>
-        ))}
-        <span className={rateClass('text')}>{text[Math.ceil(value) - 1]}</span>
+        {
+          range(max).map(v => (
+            <span key={v} style={style}>
+              { value > v && this.getIcon(front, v) }
+            </span>
+          ))
+        }
+        <span className={rateClass('text')}>{ text[Math.ceil(value) - 1] }</span>
       </div>
     )
   }
 
   render() {
-    const className = classnames(rateClass('_'), this.props.className)
+    const className = classnames(
+      rateClass('_'),
+      this.props.className,
+    )
 
     return (
       <div className={className}>
-        {this.renderBackground()}
-        {this.props.disabled ? this.renderStatic() : this.renderRate()}
+        { this.renderBackground() }
+        { this.props.disabled ? this.renderStatic() : this.renderRate() }
       </div>
     )
   }
@@ -147,13 +148,22 @@ class Rate extends PureComponent {
 
 Rate.propTypes = {
   ...getProps(PropTypes, 'disabled', 'type'),
-  background: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
+  background: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.array,
+  ]),
   clearable: PropTypes.bool,
   repeat: PropTypes.bool,
-  front: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
+  front: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.array,
+  ]),
   max: PropTypes.number,
   onChange: PropTypes.func.isRequired,
-  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  size: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   text: PropTypes.array,
   value: PropTypes.number,
 }
