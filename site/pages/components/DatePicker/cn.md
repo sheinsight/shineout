@@ -24,7 +24,10 @@
 
 ### Format
 
-我们使用的格式化字符串(date-fns)和 moment.js 是不一致的, 如: <br /> moment:   YYYY-MM-DD hh:mm:ss <br /> date-fns:   yyyy-MM-dd HH:mm:ss<br />
+我们使用的格式化字符串(date-fns)和 moment.js 是不一致的, 如:<br />
+moment: YYYY  => date-fns: yyyy <br />
+moment: DD&nbsp;&nbsp;&nbsp;&nbsp; => date-fns: dd <br />
+moment: hh&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  => date-fns: HH<br />
 常用的 format 格式如下，更多见 [UTS #35](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table)
 
 | 格式 | 说明 | 示例 |
