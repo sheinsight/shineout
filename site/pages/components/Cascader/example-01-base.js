@@ -10,26 +10,26 @@ import { Cascader } from 'shineout'
 
 const data = [
   {
-    value: 'zhejiang',
-    children: [
-      {
-        value: 'hangzhou',
-        children: [
-          {
-            value: 'xihu',
-          },
-        ],
-      },
-    ],
-  },
-  {
     value: 'jiangsu',
     children: [
       {
         value: 'nanjing',
         children: [
           {
-            value: 'zhonghuamen',
+            value: 'jiangning',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    value: 'anhui',
+    children: [
+      {
+        value: 'hefei',
+        children: [
+          {
+            value: 'feidong',
           },
         ],
       },
