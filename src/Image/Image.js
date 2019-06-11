@@ -71,7 +71,6 @@ class Image extends PureComponent {
   }
 
   handleClick(e) {
-    e.preventDefault()
     const { onClick, target, src, href } = this.props
     if (onClick) {
       onClick(e)
@@ -79,6 +78,7 @@ class Image extends PureComponent {
     }
 
     if (href && target === '_modal') {
+      e.preventDefault()
       showGallery({ thumb: src, src: href || src, key: 'key' })
     }
   }
