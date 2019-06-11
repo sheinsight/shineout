@@ -1,6 +1,7 @@
 import { isObject } from './is'
 import { exposeClass } from '../styles/expose'
 import { darken, fade } from './color'
+import { buttonClass } from '../styles'
 
 const types = ['primary', 'warning', 'danger', 'success', 'secondary']
 const attrs = ['background', 'color', 'border']
@@ -41,12 +42,10 @@ function getDOMStyle(dom) {
   return style
 }
 
-function getColor(type) {
-  // insert to body make render
-  const className = exposeClass(`location-${type}`)
+function getStyleAttr(className, key = 'color') {
   const div = document.createElement('div')
   div.className = className
-  return getDOMStyle(div).color
+  return getDOMStyle(div)[key]
 }
 
 function getBtnHoverDarken() {
@@ -71,7 +70,7 @@ function setBodyProperty(colors) {
 
 const color = {
   get primary() {
-    return getColor('primary')
+    return getStyleAttr(exposeClass('location-primary'))
   },
   set primary(v) {
     const colors = {
@@ -90,7 +89,7 @@ const color = {
     setBodyProperty(colors)
   },
   get warning() {
-    return getColor('warning')
+    return getStyleAttr(exposeClass('location-warning'))
   },
   set warning(v) {
     const colors = {
@@ -105,7 +104,7 @@ const color = {
     setBodyProperty(colors)
   },
   get danger() {
-    return getColor('danger')
+    return getStyleAttr(exposeClass('location-danger'))
   },
   set danger(v) {
     const colors = {
@@ -121,7 +120,7 @@ const color = {
     setBodyProperty(colors)
   },
   get success() {
-    return getColor('success')
+    return getStyleAttr(exposeClass('location-success'))
   },
   set success(v) {
     const colors = {
@@ -136,7 +135,7 @@ const color = {
     setBodyProperty(colors)
   },
   get secondary() {
-    return getColor('secondary')
+    return getStyleAttr(exposeClass('location-secondary'))
   },
   set secondary(v) {
     const colors = {
@@ -158,8 +157,25 @@ const color = {
   },
 }
 
+const button = {
+  get borderRadius() {
+    return getStyleAttr(buttonClass('_'), 'borderRadius')
+  },
+  set borderRadius(v) {
+    setBodyProperty({
+      '--button-border-radius': `${parseInt(v, 10)}px`,
+    })
+  },
+  setButton(options) {
+    if (!options || !cssVarSupported) return
+    for (const [key, value] of Object.entries(options)) {
+      button[key] = value
+    }
+  },
+}
+
 const style = {
   getClassname,
 }
 
-export { color, style, getDOMStyle, toRGB, types }
+export { color, button, style, getDOMStyle, toRGB, types }

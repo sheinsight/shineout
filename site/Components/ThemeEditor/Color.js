@@ -37,6 +37,7 @@ function Color({ title, onChange }) {
     </div>
   )
 }
+
 Color.propTypes = {
   title: PropTypes.string,
   onChange: PropTypes.func,

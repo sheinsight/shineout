@@ -3,6 +3,7 @@ import { Button, Modal } from 'shineout'
 import immer from 'immer'
 import { headerClass } from '../../styles'
 import ColorPicker from './Color'
+import ButtonEditor from './Button'
 import { context, Provider } from './context'
 
 function Foot() {
@@ -62,6 +63,7 @@ export default class extends React.Component {
         <Provider value={provideValue}>
           <div className={headerClass('editor-content')}>
             <ColorPicker />
+            <ButtonEditor />
           </div>
           <Foot />
         </Provider>
