@@ -159,11 +159,59 @@ const color = {
 
 const button = {
   get borderRadius() {
-    return getStyleAttr(buttonClass('_'), 'borderRadius')
+    return parseInt(getStyleAttr(buttonClass('_'), 'borderRadius'), 10)
   },
   set borderRadius(v) {
     setBodyProperty({
       '--button-border-radius': `${parseInt(v, 10)}px`,
+    })
+  },
+  get paddingBaseHorizontal() {
+    return parseInt(getStyleAttr(buttonClass('_'), 'padding').split(' ')[1], 10)
+  },
+  set paddingBaseHorizontal(v) {
+    setBodyProperty({
+      '--button-padding-base-horizontal': `${parseInt(v, 10)}px`,
+    })
+  },
+  get paddingLargeHorizontal() {
+    return parseInt(getStyleAttr(buttonClass('large'), 'padding').split(' ')[1], 10)
+  },
+  set paddingLargeHorizontal(v) {
+    setBodyProperty({
+      '--button-padding-large-horizontal': `${parseInt(v, 10)}px`,
+    })
+  },
+  get paddingSmallHorizontal() {
+    return parseInt(getStyleAttr(buttonClass('small'), 'padding').split(' ')[1], 10)
+  },
+  set paddingSmallHorizontal(v) {
+    setBodyProperty({
+      '--button-padding-small-horizontal': `${parseInt(v, 10)}px`,
+    })
+  },
+  get paddingBaseVertical() {
+    return parseInt(getStyleAttr(buttonClass('_'), 'padding').split(' ')[0], 10)
+  },
+  set paddingBaseVertical(v) {
+    setBodyProperty({
+      '--button-padding-base-vertical': `${parseInt(v, 10)}px`,
+    })
+  },
+  get paddingLargeVertical() {
+    return parseInt(getStyleAttr(buttonClass('large'), 'padding').split(' ')[0], 10)
+  },
+  set paddingLargeVertical(v) {
+    setBodyProperty({
+      '--button-padding-large-vertical': `${parseInt(v, 10)}px`,
+    })
+  },
+  get paddingSmallVertical() {
+    return parseInt(getStyleAttr(buttonClass('small'), 'padding').split(' ')[0], 10)
+  },
+  set paddingSmallVertical(v) {
+    setBodyProperty({
+      '--button-padding-small-vertical': `${parseInt(v, 10)}px`,
     })
   },
   setButton(options) {

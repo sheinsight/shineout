@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
-import { Button, Dropdown, Modal, color } from 'shineout'
+import { Button, Dropdown, Modal, color, Sticky } from 'shineout'
 import docsearch from 'docsearch.js'
 import { Link } from 'react-router-dom'
 import locate, { setItem, STORAGE_KEY } from './locate'
@@ -155,7 +155,9 @@ const Header = ({ versions }) => {
           &nbsp;GitHub
         </Button>
 
-        <PrimarySetter />
+        <Sticky top={18} style={{ width: 30, height: 30, display: 'inline-block'}}>
+          <PrimarySetter />
+        </Sticky>
       </div>
     </div>
   )

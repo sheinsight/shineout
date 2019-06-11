@@ -1,16 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Input } from 'shineout'
+import { Input, Form } from 'shineout'
 import { consumer } from './context'
 import { button } from '../../../src/utils/expose'
 
+const { Item } = Form
 class ButtonEditor extends React.Component {
   constructor(props) {
     super(props)
-    this.borderRadiusChange = this.handleChange.bind(this, 'borderRadius')
-  }
-
-  componentDidMount() {
+    this.handleChange = this.handleChange.bind(this)
     this.getButtonConfig()
   }
 
@@ -22,7 +20,13 @@ class ButtonEditor extends React.Component {
   getButtonConfig() {
     const { setConfig } = this.props
     this.conf = {
-      borderRadius: button.borderRadius,
+      borderRadius: button.borderRadius || 0,
+      paddingBaseHorizontal: button.paddingBaseHorizontal || 0,
+      paddingBaseVertical: button.paddingBaseVertical || 0,
+      paddingLargeHorizontal: button.paddingLargeHorizontal || 0,
+      paddingLargeVertical: button.paddingLargeVertical || 0,
+      paddingSmallHorizontal: button.paddingSmallHorizontal || 0,
+      paddingSmallVertical: button.paddingSmallVertical || 0,
     }
     setConfig('button', this.conf)
     this.defaultConf = { ...this.conf }
@@ -31,34 +35,27 @@ class ButtonEditor extends React.Component {
   reset() {
     const { setConfig } = this.props
     setConfig('button', this.defaultConf)
-    button.setButton(this.defaultConf.borderRadius)
+    button.setButton(this.defaultConf)
   }
 
-  handleChange(name, v) {
+  handleChange(v) {
     const { setConfig } = this.props
-    this.conf[name] = v
-    setConfig('button', this.conf)
-    button[name] = v
+    setConfig('button', v)
+    button.setButton(v)
   }
 
   render() {
     const { button: buttonGetter = {} } = this.props.config
-    const borderRadius = buttonGetter.borderRadius || 0
     return (
       <div>
         <h2>Button 按钮</h2>
-        <div>
-          <span>border-radius: </span>
-          <Input.Number
-            value={parseInt(borderRadius, 10)}
-            onChange={this.borderRadiusChange}
-            size="small"
-            style={{ marginLeft: 10 }}
-            width={80}
-            min={0}
-            digits={0}
-          />
-        </div>
+        <Form labelWidth={200} value={buttonGetter} onChange={this.handleChange}>
+          {Object.keys(this.conf).map(name => (
+            <Item key={name} label={`${name}: `}>
+              <Input.Number name={name} min={0} digits={0} />
+            </Item>
+          ))}
+        </Form>
       </div>
     )
   }
