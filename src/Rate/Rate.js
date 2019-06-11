@@ -137,7 +137,7 @@ class Rate extends PureComponent {
     const className = classnames(rateClass('_'), this.props.className)
 
     return (
-      <div className={className}>
+      <div className={className} style={this.props.style}>
         {this.renderBackground()}
         {this.props.disabled ? this.renderStatic() : this.renderRate()}
       </div>
