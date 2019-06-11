@@ -70,7 +70,7 @@ function setBodyProperty(colors) {
 
 const color = {
   get primary() {
-    return getStyleAttr(exposeClass('location-primary'))
+    return getStyleAttr(buttonClass('primary'), 'backgroundColor')
   },
   set primary(v) {
     const colors = {
@@ -89,7 +89,7 @@ const color = {
     setBodyProperty(colors)
   },
   get warning() {
-    return getStyleAttr(exposeClass('location-warning'))
+    return getStyleAttr(buttonClass('warning'), 'backgroundColor')
   },
   set warning(v) {
     const colors = {
@@ -104,7 +104,7 @@ const color = {
     setBodyProperty(colors)
   },
   get danger() {
-    return getStyleAttr(exposeClass('location-danger'))
+    return getStyleAttr(buttonClass('danger'), 'backgroundColor')
   },
   set danger(v) {
     const colors = {
@@ -120,7 +120,7 @@ const color = {
     setBodyProperty(colors)
   },
   get success() {
-    return getStyleAttr(exposeClass('location-success'))
+    return getStyleAttr(buttonClass('success'), 'backgroundColor')
   },
   set success(v) {
     const colors = {
@@ -135,7 +135,7 @@ const color = {
     setBodyProperty(colors)
   },
   get secondary() {
-    return getStyleAttr(exposeClass('location-secondary'))
+    return getStyleAttr(buttonClass('secondary'), 'backgroundColor')
   },
   set secondary(v) {
     const colors = {
