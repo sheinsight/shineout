@@ -72,9 +72,15 @@ class Image extends PureComponent {
 
   handleClick(e) {
     e.preventDefault()
-    const { onClick, src, href } = this.props
-    if (onClick) onClick()
-    else showGallery({ thumb: src, src: href || src, key: 'key' })
+    const { onClick, target, src, href } = this.props
+    if (onClick) {
+      onClick(e)
+      return
+    }
+
+    if (href && target === '_modal') {
+      showGallery({ thumb: src, src: href || src, key: 'key' })
+    }
   }
 
   renderType(src) {
@@ -136,7 +142,7 @@ class Image extends PureComponent {
       <Tag
         ref={this.bindElement}
         href={href && target === '_modal' ? 'javascript:;' : href}
-        onClick={href && target === '_modal' ? this.handleClick : undefined}
+        onClick={this.handleClick}
         target={target === '_download' ? '_self' : target}
         download={target === '_download'}
         className={className}
