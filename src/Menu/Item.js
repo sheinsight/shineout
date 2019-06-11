@@ -111,6 +111,7 @@ class Item extends PureComponent {
       disabled,
       toggleOpenKeys,
       bottomLine,
+      topLine,
     } = this.props
     const { open, isActive, isHighLight, inPath } = this.state
     const { children: dChildren } = data
@@ -120,7 +121,7 @@ class Item extends PureComponent {
 
     let isUp = false
     if (mode === 'vertical' && this.element) {
-      isUp = this.element.getBoundingClientRect().bottom + 60 > bottomLine
+      isUp = this.element.getBoundingClientRect().bottom - topLine > (bottomLine - topLine) / 2
     }
 
     const className = menuClass(
@@ -181,6 +182,7 @@ class Item extends PureComponent {
 Item.propTypes = {
   bindItem: PropTypes.func,
   bottomLine: PropTypes.number,
+  topLine: PropTypes.number,
   data: PropTypes.object,
   disabled: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   index: PropTypes.number,
