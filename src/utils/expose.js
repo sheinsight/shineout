@@ -1,7 +1,7 @@
 import { isObject } from './is'
 import { exposeClass } from '../styles/expose'
-import { darken, fade } from './color'
 import { buttonClass } from '../styles'
+import cssInject from './vars-inject'
 
 const types = ['primary', 'warning', 'danger', 'success', 'secondary']
 const attrs = ['background', 'color', 'border']
@@ -48,171 +48,47 @@ function getStyleAttr(className, key = 'color') {
   return getDOMStyle(div)[key]
 }
 
-function getBtnHoverDarken() {
-  return (
-    getComputedStyle(document.body)
-      .getPropertyValue('--btn-hover-darken')
-      .trim() || '5%'
-  )
-}
-
 function toRGB(c) {
   const el = document.createElement('div')
   el.style.color = c
   return getDOMStyle(el).color
 }
 
-function setBodyProperty(colors) {
-  for (const [cssVar, cssValue] of Object.entries(colors)) {
-    document.body.style.setProperty(cssVar, cssValue)
-  }
-}
-
 const color = {
-  get primary() {
-    return getStyleAttr(buttonClass('primary'), 'backgroundColor')
-  },
-  set primary(v) {
-    const colors = {
-      '--primary-color': v,
-      '--primary-color-dark-5': darken(v, 5),
-      '--primary-color-dark-15': darken(v, 15),
-      '--primary-color-dark-btn-hover': darken(v, getBtnHoverDarken()),
-      '--primary-color-lighten-40': darken(v, -40),
-      '--primary-color-fade-60': fade(v, 0.6),
-      '--primary-color-fade-50': fade(v, 0.5),
-      '--primary-color-fade-10': fade(v, 0.1),
-      '--primary-color-fade-0': fade(v, 0),
-      '--primary-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
-      '--primary-color-dark-5_fade-0': fade(darken(v, 5), 0),
-    }
-    setBodyProperty(colors)
-  },
-  get warning() {
-    return getStyleAttr(buttonClass('warning'), 'backgroundColor')
-  },
-  set warning(v) {
-    const colors = {
-      '--warning-color': v,
-      '--warning-color-dark-5': darken(v, 5),
-      '--warning-color-fade-60': fade(v, 0.6),
-      '--warning-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
-      '--warning-color-fade-0': fade(v, 0),
-      '--warning-color-dark-5_fade-0': fade(darken(v, 5), 0),
-      '--warning-color-dark-btn-hover': darken(v, getBtnHoverDarken()),
-    }
-    setBodyProperty(colors)
-  },
-  get danger() {
-    return getStyleAttr(buttonClass('danger'), 'backgroundColor')
-  },
-  set danger(v) {
-    const colors = {
-      '--danger-color': v,
-      '--danger-color-fade-25': fade(v, 0.25),
-      '--danger-color-dark-5': darken(v, 5),
-      '--danger-color-fade-60': fade(v, 0.6),
-      '--danger-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
-      '--danger-color-fade-0': fade(v, 0),
-      '--danger-color-dark-5_fade-0': fade(darken(v, 5), 0),
-      '--danger-color-dark-btn-hover': darken(v, getBtnHoverDarken()),
-    }
-    setBodyProperty(colors)
-  },
-  get success() {
-    return getStyleAttr(buttonClass('success'), 'backgroundColor')
-  },
-  set success(v) {
-    const colors = {
-      '--success-color': v,
-      '--success-color-dark-5': darken(v, 5),
-      '--success-color-fade-60': fade(v, 0.6),
-      '--success-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
-      '--success-color-fade-0': fade(v, 0),
-      '--success-color-dark-5_fade-0': fade(darken(v, 5), 0),
-      '--success-color-dark-btn-hover': darken(v, getBtnHoverDarken()),
-    }
-    setBodyProperty(colors)
-  },
-  get secondary() {
-    return getStyleAttr(buttonClass('secondary'), 'backgroundColor')
-  },
-  set secondary(v) {
-    const colors = {
-      '--secondary-color': v,
-      '--secondary-color-dark-5': darken(v, 5),
-      '--secondary-color-dark-btn-hover': darken(v, getBtnHoverDarken()),
-      '--secondary-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
-      '--secondary-color-dark-5_fade-0': fade(darken(v, 5), 0),
-    }
-    setBodyProperty(colors)
-  },
+  primary: null,
+  warning: null,
+  danger: null,
+  secondary: null,
+  success: null,
   setColor(options) {
     if (!options || !cssVarSupported) return
     for (const [key, value] of Object.entries(options)) {
-      if (types.includes(key)) {
-        color[key] = value
-      }
+      color[key] = value
     }
   },
 }
+types.forEach(type => {
+  Object.defineProperty(color, type, {
+    enumerable: true,
+    get: () => getStyleAttr(buttonClass(type), 'backgroundColor'),
+    set: v => {
+      cssInject.color[type] = v
+    },
+  })
+})
 
 const button = {
+  paddingBaseHorizontal: null,
+  paddingLargeHorizontal: null,
+  paddingSmallHorizontal: null,
+  paddingBaseVertical: null,
+  paddingLargeVertical: null,
+  paddingSmallVertical: null,
   get borderRadius() {
     return parseInt(getStyleAttr(buttonClass('_'), 'borderRadius'), 10)
   },
   set borderRadius(v) {
-    setBodyProperty({
-      '--button-border-radius': `${parseInt(v, 10)}px`,
-    })
-  },
-  get paddingBaseHorizontal() {
-    return parseInt(getStyleAttr(buttonClass('_'), 'padding').split(' ')[1], 10)
-  },
-  set paddingBaseHorizontal(v) {
-    setBodyProperty({
-      '--button-padding-base-horizontal': `${parseInt(v, 10)}px`,
-    })
-  },
-  get paddingLargeHorizontal() {
-    return parseInt(getStyleAttr(buttonClass('large'), 'padding').split(' ')[1], 10)
-  },
-  set paddingLargeHorizontal(v) {
-    setBodyProperty({
-      '--button-padding-large-horizontal': `${parseInt(v, 10)}px`,
-    })
-  },
-  get paddingSmallHorizontal() {
-    return parseInt(getStyleAttr(buttonClass('small'), 'padding').split(' ')[1], 10)
-  },
-  set paddingSmallHorizontal(v) {
-    setBodyProperty({
-      '--button-padding-small-horizontal': `${parseInt(v, 10)}px`,
-    })
-  },
-  get paddingBaseVertical() {
-    return parseInt(getStyleAttr(buttonClass('_'), 'padding').split(' ')[0], 10)
-  },
-  set paddingBaseVertical(v) {
-    setBodyProperty({
-      '--button-padding-base-vertical': `${parseInt(v, 10)}px`,
-    })
-  },
-  get paddingLargeVertical() {
-    return parseInt(getStyleAttr(buttonClass('large'), 'padding').split(' ')[0], 10)
-  },
-  set paddingLargeVertical(v) {
-    setBodyProperty({
-      '--button-padding-large-vertical': `${parseInt(v, 10)}px`,
-    })
-  },
-  get paddingSmallVertical() {
-    return parseInt(getStyleAttr(buttonClass('small'), 'padding').split(' ')[0], 10)
-  },
-  set paddingSmallVertical(v) {
-    setBodyProperty({
-      '--button-padding-small-vertical': `${parseInt(v, 10)}px`,
-    })
+    cssInject.button.borderRadius = v
   },
   setButton(options) {
     if (!options || !cssVarSupported) return
@@ -221,6 +97,24 @@ const button = {
     }
   },
 }
+
+;[
+  'paddingBaseHorizontal._.1',
+  'paddingLargeHorizontal.large.1',
+  'paddingSmallHorizontal.small.1',
+  'paddingBaseVertical._.0',
+  'paddingLargeVertical.large.0',
+  'paddingSmallVertical.small.0',
+].forEach(item => {
+  const [attr, className, index] = item.split('.')
+  Object.defineProperty(button, attr, {
+    enumerable: true,
+    get: () => parseInt(getStyleAttr(buttonClass(className), 'padding').split(' ')[index], 10),
+    set: v => {
+      cssInject.button[attr] = v
+    },
+  })
+})
 
 const style = {
   getClassname,
