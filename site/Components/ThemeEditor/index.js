@@ -25,11 +25,24 @@ export default class extends React.Component {
     this.state = {
       config: {},
       exportConf: false,
+      open: '',
     }
+
+    this.editors = [
+      {
+        title: 'Color 颜色',
+        component: ColorPicker,
+      },
+      {
+        title: 'Button 按钮',
+        component: ButtonEditor,
+      },
+    ]
 
     this.resetConfig = this.resetConfig.bind(this)
     this.genConfig = this.genConfig.bind(this)
     this.setConfig = this.setConfig.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   setConfig(key, value) {
@@ -38,6 +51,15 @@ export default class extends React.Component {
         draft.config[key] = value
       })
     )
+  }
+
+  handleClick(e) {
+    const { target } = e
+    if (!target.classList.contains('picker-title')) return
+
+    this.setState(prev => ({
+      open: target.innerText === prev.open ? '' : target.innerText,
+    }))
   }
 
   genConfig() {
@@ -51,7 +73,7 @@ export default class extends React.Component {
   }
 
   render() {
-    const { config, exportConf } = this.state
+    const { config, exportConf, open } = this.state
     const provideValue = {
       config,
       setConfig: this.setConfig,
@@ -61,9 +83,10 @@ export default class extends React.Component {
     return (
       <div className={headerClass('editor')}>
         <Provider value={provideValue}>
-          <div className={headerClass('editor-content')}>
-            <ColorPicker />
-            <ButtonEditor />
+          <div className={headerClass('editor-content')} onClick={this.handleClick}>
+            {this.editors.map(editor => (
+              <editor.component key={editor.title} title={editor.title} open={open === editor.title} />
+            ))}
           </div>
           <Foot />
         </Provider>

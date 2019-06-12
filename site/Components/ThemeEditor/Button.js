@@ -46,16 +46,19 @@ class ButtonEditor extends React.Component {
 
   render() {
     const { button: buttonGetter = {} } = this.props.config
+    const { open, title } = this.props
     return (
       <div>
-        <h2>Button 按钮</h2>
-        <Form labelWidth={200} value={buttonGetter} onChange={this.handleChange}>
-          {Object.keys(this.conf).map(name => (
-            <Item key={name} label={`${name}: `}>
-              <Input.Number name={name} min={0} digits={0} />
-            </Item>
-          ))}
-        </Form>
+        <h2 className="picker-title">{title}</h2>
+        {open && (
+          <Form labelWidth={200} value={buttonGetter} onChange={this.handleChange}>
+            {Object.keys(this.conf).map(name => (
+              <Item key={name} label={`${name}: `}>
+                <Input.Number name={name} min={0} digits={0} />
+              </Item>
+            ))}
+          </Form>
+        )}
       </div>
     )
   }
@@ -64,6 +67,8 @@ class ButtonEditor extends React.Component {
 ButtonEditor.propTypes = {
   config: PropTypes.object,
   setConfig: PropTypes.func,
+  open: PropTypes.bool,
+  title: PropTypes.string,
 }
 
 export default consumer(ButtonEditor)

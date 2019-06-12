@@ -80,14 +80,17 @@ class ColorPicker extends React.Component {
   }
 
   render() {
+    const { title, open } = this.props
     return (
       <div>
-        <h2>Color 颜色</h2>
-        <div className={headerClass('color-picker')}>
-          {types.map(type => (
-            <Color title={type} key={type} onChange={this.handleChange} />
-          ))}
-        </div>
+        <h2 className="picker-title">{title}</h2>
+        {open && (
+          <div className={headerClass('color-picker')}>
+            {types.map(type => (
+              <Color title={type} key={type} onChange={this.handleChange} />
+            ))}
+          </div>
+        )}
       </div>
     )
   }
@@ -96,6 +99,8 @@ class ColorPicker extends React.Component {
 ColorPicker.propTypes = {
   config: PropTypes.object,
   setConfig: PropTypes.func,
+  title: PropTypes.string,
+  open: PropTypes.bool,
 }
 
 export default consumer(ColorPicker)
