@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, Modal } from 'shineout'
 import immer from 'immer'
+import history from '../../history'
 import { headerClass } from '../../styles'
 import ColorPicker from './Color'
 import ButtonEditor from './Button'
@@ -22,12 +23,6 @@ export default class extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      config: {},
-      exportConf: false,
-      open: '',
-    }
-
     this.editors = [
       {
         title: 'Color 颜色',
@@ -36,8 +31,15 @@ export default class extends React.Component {
       {
         title: 'Button 按钮',
         component: ButtonEditor,
+        path: 'Button',
       },
     ]
+
+    this.state = {
+      config: {},
+      exportConf: false,
+      open: this.editors[0].title,
+    }
 
     this.resetConfig = this.resetConfig.bind(this)
     this.genConfig = this.genConfig.bind(this)
@@ -57,9 +59,16 @@ export default class extends React.Component {
     const { target } = e
     if (!target.classList.contains('picker-title')) return
 
-    this.setState(prev => ({
-      open: target.innerText === prev.open ? '' : target.innerText,
-    }))
+    const title = target.innerText
+    this.setState(
+      prev => ({
+        open: title === prev.open ? '' : title,
+      }),
+      () => {
+        const { path = undefined } = this.editors.find(v => v.title === title)
+        if (path) history.push(path)
+      }
+    )
   }
 
   genConfig() {
