@@ -113,6 +113,13 @@ const injects = {
       })
     },
   },
+  pagination: {
+    set borderRadius(v) {
+      setBodyProperty({
+        '--pagination-border-radius': `${parseInt(v, 10)}px`,
+      })
+    },
+  },
 }
 
 export default injects

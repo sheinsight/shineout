@@ -1,6 +1,6 @@
 import { isObject } from './is'
 import { exposeClass } from '../styles/expose'
-import { buttonClass } from '../styles'
+import { buttonClass, paginationClass } from '../styles'
 import cssInject from './vars-inject'
 
 const types = ['primary', 'warning', 'danger', 'success', 'secondary']
@@ -54,18 +54,20 @@ function toRGB(c) {
   return getDOMStyle(el).color
 }
 
+function setOptions(options) {
+  if (!options || !cssVarSupported) return
+  for (const [key, value] of Object.entries(options)) {
+    this[key] = value
+  }
+}
+
 const color = {
   primary: null,
   warning: null,
   danger: null,
   secondary: null,
   success: null,
-  setColor(options) {
-    if (!options || !cssVarSupported) return
-    for (const [key, value] of Object.entries(options)) {
-      color[key] = value
-    }
-  },
+  setColor: options => setOptions.call(color, options),
 }
 types.forEach(type => {
   Object.defineProperty(color, type, {
@@ -90,12 +92,7 @@ const button = {
   set borderRadius(v) {
     cssInject.button.borderRadius = v
   },
-  setButton(options) {
-    if (!options || !cssVarSupported) return
-    for (const [key, value] of Object.entries(options)) {
-      button[key] = value
-    }
-  },
+  setButton: options => setOptions.call(button, options),
 }
 
 ;[
@@ -116,8 +113,18 @@ const button = {
   })
 })
 
+const pagination = {
+  get borderRadius() {
+    return parseInt(getStyleAttr(paginationClass('item'), 'borderRadius'), 10)
+  },
+  set borderRadius(v) {
+    cssInject.pagination.borderRadius = v
+  },
+  setPagination: options => setOptions.call(pagination, options),
+}
+
 const style = {
   getClassname,
 }
 
-export { color, button, style, getDOMStyle, toRGB, types }
+export { color, button, pagination, style, getDOMStyle, toRGB, types }

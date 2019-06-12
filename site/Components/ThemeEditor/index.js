@@ -4,6 +4,7 @@ import immer from 'immer'
 import history from '../../history'
 import { headerClass } from '../../styles'
 import ColorPicker from './Color'
+import PaginationEditor from './Pagination'
 import ButtonEditor from './Button'
 import { context, Provider } from './context'
 
@@ -32,6 +33,11 @@ export default class extends React.Component {
         title: 'Button 按钮',
         component: ButtonEditor,
         path: 'Button',
+      },
+      {
+        title: 'Pagination 分页',
+        component: PaginationEditor,
+        path: 'Pagination',
       },
     ]
 
