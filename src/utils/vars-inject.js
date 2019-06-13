@@ -119,6 +119,18 @@ const injects = {
         '--pagination-border-radius': `${parseInt(v, 10)}px`,
       })
     },
+    set borderWidth(v) {
+      setBodyProperty({
+        '--pagination-border-width': `${parseInt(v, 10)}px`,
+      })
+    },
+  },
+  carousel: {
+    set indicatorPosition(v) {
+      setBodyProperty({
+        '--carousel-indicator-position': `${parseInt(v, 10)}px`,
+      })
+    },
   },
 }
 

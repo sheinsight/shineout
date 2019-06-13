@@ -6,6 +6,7 @@ import { headerClass } from '../../styles'
 import ColorPicker from './Color'
 import PaginationEditor from './Pagination'
 import ButtonEditor from './Button'
+import CarouselEditor from './Carousel'
 import { context, Provider } from './context'
 
 function Foot() {
@@ -38,6 +39,11 @@ export default class extends React.Component {
         title: 'Pagination 分页',
         component: PaginationEditor,
         path: 'Pagination',
+      },
+      {
+        title: 'Carousel 轮播',
+        component: CarouselEditor,
+        path: 'Carousel',
       },
     ]
 

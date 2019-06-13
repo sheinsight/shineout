@@ -1,6 +1,6 @@
 import { isObject } from './is'
 import { exposeClass } from '../styles/expose'
-import { buttonClass, paginationClass } from '../styles'
+import { buttonClass, paginationClass, carouselClass } from '../styles'
 import cssInject from './vars-inject'
 
 const types = ['primary', 'warning', 'danger', 'success', 'secondary']
@@ -114,17 +114,32 @@ const button = {
 })
 
 const pagination = {
-  get borderRadius() {
-    return parseInt(getStyleAttr(paginationClass('item'), 'borderRadius'), 10)
-  },
-  set borderRadius(v) {
-    cssInject.pagination.borderRadius = v
-  },
+  borderRadius: null,
+  borderWidth: null,
   setPagination: options => setOptions.call(pagination, options),
+}
+;['borderRadius', 'borderWidth'].forEach(attr => {
+  Object.defineProperty(pagination, attr, {
+    enumerable: true,
+    get: () => parseInt(getStyleAttr(paginationClass('item'), attr), 10),
+    set: v => {
+      cssInject.pagination[attr] = v
+    },
+  })
+})
+
+const carousel = {
+  get indicatorPosition() {
+    return parseInt(getStyleAttr(carouselClass('indicator'), 'bottom'), 10)
+  },
+  set indicatorPosition(v) {
+    cssInject.carousel.indicatorPosition = v
+  },
+  setCarousel: options => setOptions.call(carousel, options),
 }
 
 const style = {
   getClassname,
 }
 
-export { color, button, pagination, style, getDOMStyle, toRGB, types }
+export { color, button, pagination, carousel, style, getDOMStyle, toRGB, types }
