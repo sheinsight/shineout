@@ -10,18 +10,20 @@ const { Item } = Form
 
 function CarouselEditor(props) {
   const { carousel: getter = {} } = props.config
-  const { open, title, onChange } = props
+  const { open, header, onChange } = props
   return (
     <div>
-      <h2 className="picker-title">{title}</h2>
+      {header}
       {open && (
-        <Form labelWidth={200} value={getter} onChange={onChange}>
-          {Object.keys(getter).map(name => (
-            <Item key={name} label={`${name}: `}>
-              <Input.Number name={name} min={0} digits={0} />
-            </Item>
-          ))}
-        </Form>
+        <div>
+          <Form labelWidth={200} value={getter} onChange={onChange}>
+            {Object.keys(getter).map(name => (
+              <Item key={name} label={`${name}: `}>
+                <Input.Number name={name} min={0} digits={0} />
+              </Item>
+            ))}
+          </Form>
+        </div>
       )}
     </div>
   )
@@ -30,7 +32,7 @@ function CarouselEditor(props) {
 CarouselEditor.propTypes = {
   config: PropTypes.object,
   open: PropTypes.bool,
-  title: PropTypes.string,
+  header: PropTypes.element,
   onChange: PropTypes.func,
 }
 

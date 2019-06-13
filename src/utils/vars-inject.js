@@ -132,6 +132,18 @@ const injects = {
       })
     },
   },
+  table: {
+    set headBg(v) {
+      setBodyProperty({
+        '--table-head-bg': v,
+      })
+    },
+    set borderRadiusTop(v) {
+      setBodyProperty({
+        '--table-border-radius-top': `${parseInt(v, 10)}px`,
+      })
+    },
+  },
 }
 
 export default injects

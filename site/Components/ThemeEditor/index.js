@@ -1,11 +1,14 @@
 import React from 'react'
 import { Button, Modal } from 'shineout'
 import immer from 'immer'
+import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import history from '../../history'
 import { headerClass } from '../../styles'
 import ColorPicker from './Color'
 import PaginationEditor from './Pagination'
 import ButtonEditor from './Button'
+import TableEditor from './Table'
 import CarouselEditor from './Carousel'
 import { context, Provider } from './context'
 
@@ -19,6 +22,19 @@ function Foot() {
       </Button>
     </div>
   )
+}
+
+function Head({ active, title }) {
+  return (
+    <h2 className={classnames('picker-title', active && headerClass('active'))}>
+      <span />
+      {title}
+    </h2>
+  )
+}
+Head.propTypes = {
+  active: PropTypes.bool,
+  title: PropTypes.string,
 }
 
 export default class extends React.Component {
@@ -44,6 +60,11 @@ export default class extends React.Component {
         title: 'Carousel 轮播',
         component: CarouselEditor,
         path: 'Carousel',
+      },
+      {
+        title: 'Table 表格',
+        component: TableEditor,
+        path: 'Table',
       },
     ]
 
@@ -106,7 +127,11 @@ export default class extends React.Component {
         <Provider value={provideValue}>
           <div className={headerClass('editor-content')} onClick={this.handleClick}>
             {this.editors.map(editor => (
-              <editor.component key={editor.title} title={editor.title} open={open === editor.title} />
+              <editor.component
+                header={<Head title={editor.title} active={editor.title === open} />}
+                key={editor.title}
+                open={open === editor.title}
+              />
             ))}
           </div>
           <Foot />

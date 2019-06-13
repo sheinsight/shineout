@@ -81,6 +81,11 @@
     margin: 16px 24px;
   }
 
+  &-editor-modal {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
   &-editor {
     height: 100%;
     display: flex;
@@ -96,7 +101,7 @@
       text-align: right;
     }
     &-content {
-      width: 450px;
+      width: 500px;
       padding: 16px 24px;
       flex: 1;
       overflow: auto;
@@ -104,6 +109,14 @@
         margin-top: 30px;
         .@{so-prefix}-form-label {
           padding-left: 0;
+          text-transform: capitalize;
+        }
+        .@{so-prefix}-form-item {
+          margin-bottom: 8px;
+          .@{so-prefix}-slider {
+            top: -7px;
+            padding-bottom: 0;
+          }
         }
         &:first-child {
           margin-top: 0;
@@ -111,7 +124,44 @@
       }
       h2 {
         cursor: pointer;
+        user-select: none;
+        color: @gray-500;
+        font-weight: normal;
+        font-size: 20px;
         margin: 0 0 14px 0;
+        &.@{doc-header-prefix}-active {
+          color: @gray-800;
+          > span {
+            .caret-outline(down, @caret-width);
+            margin-right: 10px;
+            display: inline-block;
+            &:after {
+              width: 8px;
+              height: 8px;
+              margin-left: 0;
+              top: -1px;
+              border-width: 0 2px 2px 0;
+            }
+          }
+        }
+        &:hover {
+          color: @gray-800;
+        }
+        > span {
+          .caret-outline(right, @caret-width);
+          margin-right: 10px;
+          display: inline-block;
+          &:after {
+            width: 8px;
+            height: 8px;
+            margin-left: 0;
+            top: -1px;
+            border-width: 0 2px 2px 0;
+          }
+        }
+        & + div{
+          padding-left: 18px;
+        }
       }
     }
     .@{doc-header-prefix}-color {

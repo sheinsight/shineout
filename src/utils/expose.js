@@ -138,8 +138,24 @@ const carousel = {
   setCarousel: options => setOptions.call(carousel, options),
 }
 
+const table = {
+  get headBg() {
+    return getStyleAttr(exposeClass('table-head'), 'backgroundColor')
+  },
+  set headBg(v) {
+    cssInject.table.headBg = v
+  },
+  get borderRadiusTop() {
+    return parseInt(getStyleAttr(exposeClass('table-head'), 'borderTopLeftRadius'), 10)
+  },
+  set borderRadiusTop(v) {
+    cssInject.table.borderRadiusTop = v
+  },
+  setTable: options => setOptions.call(table, options),
+}
+
 const style = {
   getClassname,
 }
 
-export { color, button, pagination, carousel, style, getDOMStyle, toRGB, types }
+export { color, button, pagination, table, carousel, style, getDOMStyle, toRGB, types }

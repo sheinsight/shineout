@@ -14,6 +14,21 @@ function handlePrimaryChange(type, c) {
   }, 300)
 }
 
+export function Picker({ value, onChange }) {
+  return (
+    <span className={headerClass('color')}>
+      <div className={headerClass('color-current')} style={{ background: value }} />
+      <Popover position="bottom-right" trigger="click">
+        <SketchPicker color={value} className={headerClass('color-picker')} onChange={v => onChange(v)} />
+      </Popover>
+    </span>
+  )
+}
+Picker.propTypes = {
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+}
+
 function Color({ title, onChange }) {
   const ctx = React.useContext(context)
   const { color: colorGetter = {} } = ctx.config
@@ -21,23 +36,16 @@ function Color({ title, onChange }) {
   return (
     <div className={headerClass('color-item')}>
       <p>{title}</p>
-      <span className={headerClass('color')}>
-        <div className={headerClass('color-current')} style={{ background: current }} />
-        <Popover position="bottom-right" trigger="click">
-          <SketchPicker
-            color={current}
-            className={headerClass('color-picker')}
-            onChange={v => {
-              onChange(title, v.hex)
-              handlePrimaryChange(title, v.hex)
-            }}
-          />
-        </Popover>
-      </span>
+      <Picker
+        value={current}
+        onChange={v => {
+          onChange(title, v.hex)
+          handlePrimaryChange(title, v.hex)
+        }}
+      />
     </div>
   )
 }
-
 Color.propTypes = {
   title: PropTypes.string,
   onChange: PropTypes.func,
@@ -80,10 +88,10 @@ class ColorPicker extends React.Component {
   }
 
   render() {
-    const { title, open } = this.props
+    const { header, open } = this.props
     return (
       <div>
-        <h2 className="picker-title">{title}</h2>
+        {header}
         {open && (
           <div className={headerClass('color-picker')}>
             {types.map(type => (
@@ -99,7 +107,7 @@ class ColorPicker extends React.Component {
 ColorPicker.propTypes = {
   config: PropTypes.object,
   setConfig: PropTypes.func,
-  title: PropTypes.string,
+  header: PropTypes.element,
   open: PropTypes.bool,
 }
 

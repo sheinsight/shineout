@@ -54,14 +54,21 @@ function handleThemeClick(data) {
 }
 
 const PrimarySetter = () => {
-  const [primary, setPrimary] = useState(color.primary)
   const [visible, setVisible] = useState(false)
   return [
     <span key="picker" className={headerClass('color')} onClick={() => setVisible(true)}>
-      <div className={headerClass('color-current')} style={{ backgroundColor: primary }} />
+      <div className={headerClass('color-current')} style={{ backgroundColor: color.primary }} />
     </span>,
-    <Modal bodyStyle={{ padding: 0 }} position="right" key="modal" visible={visible} onClose={() => setVisible(false)}>
-      <ThemeEditor onChange={v => setPrimary(v)} />
+    <Modal
+      maskOpacity={0.1}
+      className={headerClass('editor-modal')}
+      bodyStyle={{ padding: 0 }}
+      position="right"
+      key="modal"
+      visible={visible}
+      onClose={() => setVisible(false)}
+    >
+      <ThemeEditor />
     </Modal>,
   ]
 }
