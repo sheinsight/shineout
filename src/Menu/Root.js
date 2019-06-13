@@ -62,7 +62,9 @@ class Root extends React.Component {
   }
 
   getOpenKeys() {
-    return this.props.openKeys || Array.from(this.state.openKeys.keys())
+    const { openKeys, defaultOpenKeys } = this.props
+    if (openKeys) return openKeys
+    return this.hasToggled ? Array.from(this.state.openKeys.keys()) : defaultOpenKeys
   }
 
   bindRootElement(el) {
@@ -139,6 +141,7 @@ class Root extends React.Component {
   }
 
   toggleOpenKeys(id, open) {
+    this.hasToggled = true
     const newOpenKeys = immer(keyToMap(this.getOpenKeys()), draft => {
       if (open) {
         draft.set(id, true)
