@@ -66,7 +66,7 @@ class FilterInput extends Component {
 
     if (isValidElement(value)) {
       return cloneElement(value, {
-        className: selectClass('input', !multiple && 'full'),
+        className: selectClass('input', !focus && 'ellipsis', !multiple && 'full'),
         ref: this.bindElement,
         key: 'input',
         onInput: this.handleInput,
@@ -77,7 +77,7 @@ class FilterInput extends Component {
     return (
       <span
         key="input"
-        className={selectClass('input', !multiple && 'full')}
+        className={selectClass('input', !focus && 'ellipsis', !multiple && 'full')}
         ref={this.bindElement}
         contentEditable={focus}
         onInput={this.handleInput}
