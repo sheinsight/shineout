@@ -128,22 +128,18 @@ const pagination = {
   })
 })
 
-const carousel = {
-  get indicatorPosition() {
-    return parseInt(getStyleAttr(carouselClass('indicator'), 'bottom'), 10)
-  },
-  set indicatorPosition(v) {
-    cssInject.carousel.indicatorPosition = v
-  },
-  setCarousel: options => setOptions.call(carousel, options),
-}
-
 const table = {
   get headBg() {
     return getStyleAttr(exposeClass('table-head'), 'backgroundColor')
   },
   set headBg(v) {
     cssInject.table.headBg = v
+  },
+  get headColor() {
+    return getStyleAttr(exposeClass('table-head'), 'color')
+  },
+  set headColor(v) {
+    cssInject.table.headColor = v
   },
   get borderRadiusTop() {
     return parseInt(getStyleAttr(exposeClass('table-head'), 'borderTopLeftRadius'), 10)
@@ -158,4 +154,4 @@ const style = {
   getClassname,
 }
 
-export { color, button, pagination, table, carousel, style, getDOMStyle, toRGB, types }
+export { color, button, pagination, table, style, getDOMStyle, toRGB, types }

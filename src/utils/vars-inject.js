@@ -125,17 +125,15 @@ const injects = {
       })
     },
   },
-  carousel: {
-    set indicatorPosition(v) {
-      setBodyProperty({
-        '--carousel-indicator-position': `${parseInt(v, 10)}px`,
-      })
-    },
-  },
   table: {
     set headBg(v) {
       setBodyProperty({
         '--table-head-bg': v,
+      })
+    },
+    set headColor(v) {
+      setBodyProperty({
+        '--table-head-color': v,
       })
     },
     set borderRadiusTop(v) {

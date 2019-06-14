@@ -23,6 +23,11 @@ function TableEditor(props) {
                 {({ value, onChange: onChangeForm }) => <Picker value={value} onChange={v => onChangeForm(v.hex)} />}
               </Field>
             </Item>
+            <Item label="headColor: ">
+              <Field name="headColor">
+                {({ value, onChange: onChangeForm }) => <Picker value={value} onChange={v => onChangeForm(v.hex)} />}
+              </Field>
+            </Item>
             <Item label="borderRadiusTop: ">
               <Slider name="borderRadiusTop" scale={[0, 50]} autoHide />
             </Item>
