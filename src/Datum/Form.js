@@ -99,9 +99,14 @@ export default class {
 
   insert(name, index, value) {
     this.insertError(name, index, undefined)
-    this.get(name).splice(index, 0, value)
-    this.publishValue(name, IGNORE_VALIDATE)
-    this.publishError(name)
+    const val = this.get(name)
+    if (val) {
+      val.splice(index, 0, value)
+      this.publishValue(name, IGNORE_VALIDATE)
+      this.publishError(name)
+    } else {
+      this.set(name, [value])
+    }
   }
 
   splice(name, index) {
