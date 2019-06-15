@@ -29,6 +29,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 | onChange | function(data) | | 表单内组件值变化函数 |
 | onError | function(err) | | 异常回调处理 |
 | onSubmit | function(data) | | 表单提交函数。表单内部校验失败时不会触发。 |
+| removeUndefined | bool | true | 是否删除值为 undefined 的字段，默认值为删除 |
 | rules | object | | 校验规则，详见 Rules |
 | scrollToError | bool\|number | false | 校验失败时是否滚动到第一个校验失败组件，该值为数字时，表示相对于顶部的偏移量 |
 | style | object | | 扩展样式 |

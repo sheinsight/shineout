@@ -100,6 +100,7 @@ export default class extends PureComponent {
             name="hateColor"
             keygen
             style={{ width: 100 }}
+            clearable
             data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
           />
         </Form.Item>
