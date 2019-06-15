@@ -222,6 +222,8 @@ export default class {
     delete this.$defaultValues[name]
 
     deepRemove(this.$values, name)
+
+    this.handleChange()
   }
 
   dispatch(name, ...args) {
