@@ -1,6 +1,6 @@
 import { isObject } from './is'
 import { exposeClass } from '../styles/expose'
-import { buttonClass, paginationClass, carouselClass } from '../styles'
+import { buttonClass, paginationClass, tagClass } from '../styles'
 import cssInject from './vars-inject'
 
 const types = ['primary', 'warning', 'danger', 'success', 'secondary']
@@ -107,9 +107,8 @@ const button = {
   Object.defineProperty(button, attr, {
     enumerable: true,
     get: () => parseInt(getStyleAttr(buttonClass(className), 'padding').split(' ')[index], 10),
-    set: v => {
-      cssInject.button[attr] = v
-    },
+    // eslint-disable-next-line no-return-assign
+    set: v => (cssInject.button[attr] = v),
   })
 })
 
@@ -122,25 +121,16 @@ const pagination = {
   Object.defineProperty(pagination, attr, {
     enumerable: true,
     get: () => parseInt(getStyleAttr(paginationClass('item'), attr), 10),
-    set: v => {
-      cssInject.pagination[attr] = v
-    },
+    // eslint-disable-next-line no-return-assign
+    set: v => (cssInject.pagination[attr] = v),
   })
 })
 
 const table = {
-  get headBg() {
-    return getStyleAttr(exposeClass('table-head'), 'backgroundColor')
-  },
-  set headBg(v) {
-    cssInject.table.headBg = v
-  },
-  get headColor() {
-    return getStyleAttr(exposeClass('table-head'), 'color')
-  },
-  set headColor(v) {
-    cssInject.table.headColor = v
-  },
+  headBg: null,
+  headColor: null,
+  borderColor: null,
+  hoverBg: null,
   get borderRadiusTop() {
     return parseInt(getStyleAttr(exposeClass('table-head'), 'borderTopLeftRadius'), 10)
   },
@@ -149,9 +139,55 @@ const table = {
   },
   setTable: options => setOptions.call(table, options),
 }
+;['headBg.backgroundColor', 'headColor.color', 'borderColor.borderColor', 'hoverBg.backgroundColor.hover'].forEach(
+  item => {
+    const [name, attr, c] = item.split('.')
+    const className = `table-head${c ? `-${c}` : ''}`
+    Object.defineProperty(table, name, {
+      enumerable: true,
+      get: () => getStyleAttr(exposeClass(className), attr),
+      // eslint-disable-next-line no-return-assign
+      set: v => (cssInject.table[name] = v),
+    })
+  }
+)
+
+const tag = {
+  get bg() {
+    return getStyleAttr(tagClass('_'), 'backgroundColor')
+  },
+  set bg(v) {
+    cssInject.tag.bg = v
+  },
+  get borderColor() {
+    return getStyleAttr(tagClass('default'), 'borderColor')
+  },
+  set borderColor(v) {
+    cssInject.tag.borderColor = v
+  },
+  get borderRadius() {
+    return parseInt(getStyleAttr(tagClass('_'), 'borderRadius'), 10)
+  },
+  set borderRadius(v) {
+    cssInject.tag.borderRadius = v
+  },
+  get paddingHorizontal() {
+    return parseInt(getStyleAttr(tagClass('_'), 'paddingLeft'), 10)
+  },
+  set paddingHorizontal(v) {
+    cssInject.tag.paddingHorizontal = v
+  },
+  get paddingVertical() {
+    return parseInt(getStyleAttr(tagClass('_'), 'paddingTop'), 10)
+  },
+  set paddingVertical(v) {
+    cssInject.tag.paddingVertical = v
+  },
+  setTag: options => setOptions.call(tag, options),
+}
 
 const style = {
   getClassname,
 }
 
-export { color, button, pagination, table, style, getDOMStyle, toRGB, types }
+export { color, button, pagination, table, tag, style, getDOMStyle, toRGB, types }

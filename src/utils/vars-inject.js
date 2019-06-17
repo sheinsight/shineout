@@ -131,14 +131,51 @@ const injects = {
         '--table-head-bg': v,
       })
     },
+    set hoverBg(v) {
+      setBodyProperty({
+        '--table-hover-bg': v,
+      })
+    },
     set headColor(v) {
       setBodyProperty({
         '--table-head-color': v,
       })
     },
+    set borderColor(v) {
+      setBodyProperty({
+        '--table-border-color': v,
+      })
+    },
     set borderRadiusTop(v) {
       setBodyProperty({
         '--table-border-radius-top': `${parseInt(v, 10)}px`,
+      })
+    },
+  },
+  tag: {
+    set bg(v) {
+      setBodyProperty({
+        '--tag-bg': v,
+      })
+    },
+    set borderColor(v) {
+      setBodyProperty({
+        '--tag-border-color': v,
+      })
+    },
+    set borderRadius(v) {
+      setBodyProperty({
+        '--tag-border-radius': `${parseInt(v, 10)}px`,
+      })
+    },
+    set paddingHorizontal(v) {
+      setBodyProperty({
+        '--tag-padding-horizontal': `${parseInt(v, 10)}px`,
+      })
+    },
+    set paddingVertical(v) {
+      setBodyProperty({
+        '--tag-padding-vertical': `${parseInt(v, 10)}px`,
       })
     },
   },

@@ -6,6 +6,7 @@ import classnames from 'classnames'
 import history from '../../history'
 import { headerClass } from '../../styles'
 import ColorPicker from './Color'
+import TagEditor from './Tag'
 import PaginationEditor from './Pagination'
 import ButtonEditor from './Button'
 import TableEditor from './Table'
@@ -59,6 +60,11 @@ export default class extends React.Component {
         title: 'Table 表格',
         component: TableEditor,
         path: 'Table',
+      },
+      {
+        title: 'Tag 标签',
+        component: TagEditor,
+        path: 'Tag',
       },
     ]
 

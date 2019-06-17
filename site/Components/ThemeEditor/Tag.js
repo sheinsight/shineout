@@ -2,29 +2,23 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Form, Slider } from 'shineout'
 import { consumer } from './context'
-import { Picker } from './Color'
 import config from './config'
 import { compose } from '../../../src/utils/func'
-import { table } from '../../../src/utils/expose'
+import { tag } from '../../../src/utils/expose'
+import { Picker } from './Color'
 
-const { Item, Field } = Form
-
-function TableEditor(props) {
-  const { table: getter = {} } = props.config
-  const { open, header, onChange } = props
+const { Field, Item } = Form
+function TagEditor(props) {
+  const { tag: getter = {} } = props.config
+  const { open, onChange, header } = props
   return (
     <div>
       {header}
       {open && (
         <div>
           <Form labelWidth={200} value={getter} onChange={onChange}>
-            <Item label="headBg: ">
-              <Field name="headBg">
-                {({ value, onChange: onChangeForm }) => <Picker value={value} onChange={v => onChangeForm(v.hex)} />}
-              </Field>
-            </Item>
-            <Item label="headColor: ">
-              <Field name="headColor">
+            <Item label="background: ">
+              <Field name="bg">
                 {({ value, onChange: onChangeForm }) => <Picker value={value} onChange={v => onChangeForm(v.hex)} />}
               </Field>
             </Item>
@@ -33,13 +27,14 @@ function TableEditor(props) {
                 {({ value, onChange: onChangeForm }) => <Picker value={value} onChange={v => onChangeForm(v.hex)} />}
               </Field>
             </Item>
-            <Item label="hoverBg: ">
-              <Field name="hoverBg">
-                {({ value, onChange: onChangeForm }) => <Picker value={value} onChange={v => onChangeForm(v.hex)} />}
-              </Field>
+            <Item label="borderRadius: ">
+              <Slider name="borderRadius" scale={[0, 50]} autoHide />
             </Item>
-            <Item label="borderRadiusTop: ">
-              <Slider name="borderRadiusTop" scale={[0, 50]} autoHide />
+            <Item label="paddingHorizontal: ">
+              <Slider name="paddingHorizontal" scale={[0, 50]} autoHide />
+            </Item>
+            <Item label="paddingVertical: ">
+              <Slider name="paddingVertical" scale={[0, 50]} autoHide />
             </Item>
           </Form>
         </div>
@@ -48,7 +43,7 @@ function TableEditor(props) {
   )
 }
 
-TableEditor.propTypes = {
+TagEditor.propTypes = {
   config: PropTypes.object,
   open: PropTypes.bool,
   header: PropTypes.element,
@@ -57,5 +52,5 @@ TableEditor.propTypes = {
 
 export default compose(
   consumer,
-  config('table', table)
-)(TableEditor)
+  config('tag', tag)
+)(TagEditor)
