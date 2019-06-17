@@ -4,13 +4,13 @@ import immer from 'immer'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import history from '../../history'
+import cssInject from '../../../src/utils/vars-inject'
 import { headerClass } from '../../styles'
-import ColorPicker from './Color'
-import TagEditor from './Tag'
-import PaginationEditor from './Pagination'
-import ButtonEditor from './Button'
-import TableEditor from './Table'
-import { context, Provider } from './context'
+import EditorItem from './EditorItem'
+import { consumer, context, Provider } from './context'
+import { compose } from '../../../src/utils/func'
+import configHOC from './config'
+import * as accessors from '../../../src/utils/expose'
 
 function Foot() {
   const ctx = React.useContext(context)
@@ -41,33 +41,16 @@ export default class extends React.Component {
   constructor(props) {
     super(props)
 
-    this.editors = [
-      {
-        title: 'Color 颜色',
-        component: ColorPicker,
-      },
-      {
-        title: 'Button 按钮',
-        component: ButtonEditor,
-        path: 'Button',
-      },
-      {
-        title: 'Pagination 分页',
-        component: PaginationEditor,
-        path: 'Pagination',
-      },
-      {
-        title: 'Table 表格',
-        component: TableEditor,
-        path: 'Table',
-      },
-      {
-        title: 'Tag 标签',
-        component: TagEditor,
-        path: 'Tag',
-      },
-    ]
-
+    this.editors = Object.keys(cssInject).map(v => {
+      const { name } = cssInject[v].info
+      return {
+        ...cssInject[v].info,
+        component: compose(
+          consumer,
+          configHOC(name, accessors[name])
+        )(EditorItem),
+      }
+    })
     this.state = {
       config: {},
       exportConf: false,
@@ -126,13 +109,17 @@ export default class extends React.Component {
       <div className={headerClass('editor')}>
         <Provider value={provideValue}>
           <div className={headerClass('editor-content')} onClick={this.handleClick}>
-            {this.editors.map(editor => (
-              <editor.component
-                header={<Head title={editor.title} active={editor.title === open} />}
-                key={editor.title}
-                open={open === editor.title}
-              />
-            ))}
+            {this.editors.map(editor => {
+              const { title, className } = editor
+              return (
+                <editor.component
+                  header={<Head title={title} active={title === open} />}
+                  key={title}
+                  open={open === title}
+                  className={headerClass(className)}
+                />
+              )
+            })}
           </div>
           <Foot />
         </Provider>

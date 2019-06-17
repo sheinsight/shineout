@@ -41,7 +41,7 @@ export default (type, getter) => WrappedComponent => {
     }
 
     render() {
-      return <WrappedComponent {...this.props} onChange={this.handleChange} />
+      return <WrappedComponent {...this.props} field={type} onChange={this.handleChange} />
     }
   }
 }

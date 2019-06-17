@@ -100,6 +100,16 @@
       border-top: 1px solid @table-border-color;
       text-align: right;
     }
+    &-color {
+      > div {
+        display: inline-flex;
+        flex-direction: column;
+        margin-right: 14px;
+        > div {
+          width: auto !important;
+        }
+      }
+    }
     &-content {
       width: 500px;
       padding: 16px 24px;

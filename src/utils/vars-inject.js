@@ -1,4 +1,6 @@
 import { darken, fade } from './color'
+import { paginationClass, tagClass, buttonClass } from '../styles'
+import { exposeClass } from '../styles/expose'
 
 function getBtnHoverDarken() {
   return (
@@ -16,6 +18,43 @@ function setBodyProperty(colors) {
 
 const injects = {
   color: {
+    info: {
+      title: 'Color 颜色',
+      name: 'color',
+      className: 'editor-color',
+    },
+    conf: [
+      {
+        name: 'primary',
+        type: 'color',
+        attr: 'backgroundColor',
+        className: buttonClass('primary'),
+      },
+      {
+        name: 'warning',
+        type: 'color',
+        attr: 'backgroundColor',
+        className: buttonClass('warning'),
+      },
+      {
+        name: 'danger',
+        type: 'color',
+        attr: 'backgroundColor',
+        className: buttonClass('danger'),
+      },
+      {
+        name: 'secondary',
+        type: 'color',
+        attr: 'backgroundColor',
+        className: buttonClass('secondary'),
+      },
+      {
+        name: 'success',
+        type: 'color',
+        attr: 'backgroundColor',
+        className: buttonClass('success'),
+      },
+    ],
     set primary(v) {
       setBodyProperty({
         '--primary-color': v,
@@ -76,6 +115,62 @@ const injects = {
     },
   },
   button: {
+    info: {
+      title: 'Button 按钮',
+      name: 'button',
+      path: 'Button',
+    },
+    conf: [
+      {
+        name: 'paddingBaseHorizontal',
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('_'),
+      },
+      {
+        name: 'paddingLargeHorizontal',
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('large'),
+      },
+      {
+        name: 'paddingSmallHorizontal',
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('small'),
+      },
+      {
+        name: 'paddingBaseVertical',
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('_'),
+      },
+      {
+        name: 'paddingLargeVertical',
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('large'),
+      },
+      {
+        name: 'paddingSmallVertical',
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('small'),
+      },
+      {
+        name: 'borderRadius',
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('_'),
+      },
+    ],
     set borderRadius(v) {
       setBodyProperty({
         '--button-border-radius': `${parseInt(v, 10)}px`,
@@ -114,6 +209,27 @@ const injects = {
     },
   },
   pagination: {
+    info: {
+      title: 'Pagination 分页',
+      name: 'pagination',
+      path: 'Pagination',
+    },
+    conf: [
+      {
+        name: 'borderRadius',
+        className: paginationClass('item'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'borderWidth',
+        className: paginationClass('item'),
+        attr: 'borderWidth',
+        type: 'number',
+        parser: parseInt,
+      },
+    ],
     set borderRadius(v) {
       setBodyProperty({
         '--pagination-border-radius': `${parseInt(v, 10)}px`,
@@ -126,6 +242,44 @@ const injects = {
     },
   },
   table: {
+    info: {
+      title: 'Table 表格',
+      name: 'table',
+      path: 'Table',
+    },
+    conf: [
+      {
+        name: 'headBg',
+        className: exposeClass('table-head'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
+        name: 'headColor',
+        className: exposeClass('table-head'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
+        name: 'borderColor',
+        className: exposeClass('table-head'),
+        attr: 'borderColor',
+        type: 'color',
+      },
+      {
+        name: 'hoverBg',
+        className: exposeClass('table-head-hover'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
+        name: 'borderRadiusTop',
+        className: exposeClass('table-head'),
+        attr: 'borderTopLeftRadius',
+        type: 'number',
+        parser: parseInt,
+      },
+    ],
     set headBg(v) {
       setBodyProperty({
         '--table-head-bg': v,
@@ -153,6 +307,46 @@ const injects = {
     },
   },
   tag: {
+    info: {
+      title: 'Tag 标签',
+      name: 'tag',
+      path: 'Tag',
+    },
+    conf: [
+      {
+        name: 'bg',
+        className: tagClass('_'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
+        name: 'borderColor',
+        className: tagClass('default'),
+        attr: 'borderColor',
+        type: 'color',
+      },
+      {
+        name: 'borderRadius',
+        className: tagClass('_'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'paddingHorizontal',
+        className: tagClass('_'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'paddingVertical',
+        className: tagClass('_'),
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+      },
+    ],
     set bg(v) {
       setBodyProperty({
         '--tag-bg': v,
