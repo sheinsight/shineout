@@ -84,6 +84,7 @@ const button = {}
 const pagination = {}
 const table = {}
 const tag = {}
+const tooltip = {}
 
 const cssVarAccessors = {
   table,
@@ -91,6 +92,7 @@ const cssVarAccessors = {
   pagination,
   button,
   color,
+  tooltip,
 }
 for (const [key, value] of Object.entries(cssVarAccessors)) {
   const setterName = `set${key.replace(/^\S/, s => s.toUpperCase())}`
@@ -98,4 +100,4 @@ for (const [key, value] of Object.entries(cssVarAccessors)) {
   genAccessors(value, cssInject[key])
 }
 
-export { table, tag, pagination, button, color, style, getDOMStyle, toRGB, types }
+export { table, tag, pagination, button, color, tooltip, style, getDOMStyle, toRGB, types }

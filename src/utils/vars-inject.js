@@ -1,5 +1,5 @@
 import { darken, fade } from './color'
-import { paginationClass, tagClass, buttonClass } from '../styles'
+import { paginationClass, tagClass, buttonClass, tooltipClass } from '../styles'
 import { exposeClass } from '../styles/expose'
 
 function getBtnHoverDarken() {
@@ -370,6 +370,50 @@ const injects = {
     set paddingVertical(v) {
       setBodyProperty({
         '--tag-padding-vertical': `${parseInt(v, 10)}px`,
+      })
+    },
+  },
+  tooltip: {
+    info: {
+      title: 'Tooltip 提示',
+      name: 'tooltip',
+      path: 'Tooltip',
+    },
+    conf: [
+      {
+        name: 'bg',
+        className: tooltipClass('inner'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
+        name: 'paddingHorizontal',
+        className: tooltipClass('inner'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'paddingVertical',
+        className: tooltipClass('inner'),
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+      },
+    ],
+    set bg(v) {
+      setBodyProperty({
+        '--tooltip-bg': v,
+      })
+    },
+    set paddingHorizontal(v) {
+      setBodyProperty({
+        '--tooltip-padding-horizontal': `${parseInt(v, 10)}px`,
+      })
+    },
+    set paddingVertical(v) {
+      setBodyProperty({
+        '--tooltip-padding-vertical': `${parseInt(v, 10)}px`,
       })
     },
   },
