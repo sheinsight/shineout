@@ -38,6 +38,8 @@ const accessors = {
   button: {},
   color: {},
   tooltip: {},
+  form: {},
+  select: {},
 }
 
 for (const [key, value] of Object.entries(accessors)) {

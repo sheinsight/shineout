@@ -1,5 +1,5 @@
 import { darken, fade } from './color'
-import { paginationClass, tagClass, buttonClass, tooltipClass } from '../styles'
+import { paginationClass, tagClass, buttonClass, tooltipClass, inputClass, selectClass } from '../styles'
 import { exposeClass } from '../styles/expose'
 
 function getBtnHoverDarken() {
@@ -414,6 +414,116 @@ const injects = {
     set paddingVertical(v) {
       setBodyProperty({
         '--tooltip-padding-vertical': `${parseInt(v, 10)}px`,
+      })
+    },
+  },
+  form: {
+    info: {
+      title: 'Form 表单',
+      name: 'form',
+      path: 'Form',
+    },
+    conf: [
+      {
+        name: 'borderRadius',
+        className: inputClass('_'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'disabledBg',
+        className: inputClass('disabled'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+    ],
+    set borderRadius(v) {
+      setBodyProperty({
+        '--input-border-radius': `${parseInt(v, 10)}px`,
+      })
+    },
+    set disabledBg(v) {
+      setBodyProperty({
+        '--input-bg-disabled': v,
+      })
+    },
+  },
+  select: {
+    info: {
+      title: 'Select 选择框',
+      name: 'select',
+      path: 'Select',
+    },
+    conf: [
+      {
+        name: 'resultBg',
+        className: exposeClass('select-result-item'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
+        name: 'resultPaddingHorizontal',
+        className: exposeClass('select-result-item'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'resultPaddingVertical',
+        className: exposeClass('select-result-item'),
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'itemActiveBg',
+        className: selectClass('active', 'option'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
+        name: 'itemActiveColor',
+        className: selectClass('active', 'option'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
+        name: 'itemHoverBg',
+        className: selectClass('option', 'hover'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+    ],
+    set resultBg(v) {
+      setBodyProperty({
+        '--select-result-bg': v,
+      })
+    },
+    set resultPaddingVertical(v) {
+      setBodyProperty({
+        '--select-result-padding-vertical': `${parseInt(v, 10)}px`,
+      })
+    },
+    set resultPaddingHorizontal(v) {
+      setBodyProperty({
+        '--select-result-padding-horizontal': `${parseInt(v, 10)}px`,
+        '--select-result-padding-horizontal-16': `${parseInt(v, 10) + 16}px`,
+      })
+    },
+    set itemActiveBg(v) {
+      setBodyProperty({
+        '--select-item-active-bg': v,
+      })
+    },
+    set itemActiveColor(v) {
+      setBodyProperty({
+        '--select-item-active-color': v,
+      })
+    },
+    set itemHoverBg(v) {
+      setBodyProperty({
+        '--select-item-hover-bg': v,
       })
     },
   },

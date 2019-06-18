@@ -9,7 +9,7 @@ function Picker({ value, onChange }) {
   return (
     <span className={headerClass('color')}>
       <div className={headerClass('color-current')} style={{ background: value }} />
-      <Popover position="bottom-right" trigger="click">
+      <Popover trigger="click">
         <SketchPicker color={value} className={headerClass('color-picker')} onChange={v => onChange(v)} />
       </Popover>
     </span>
