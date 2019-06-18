@@ -10,7 +10,7 @@ import EditorItem from './EditorItem'
 import { consumer, context, Provider } from './context'
 import { compose } from '../../../src/utils/func'
 import configHOC from './config'
-import * as accessors from '../../../src/utils/expose'
+import accessors from '../../../src/utils/css-accessors'
 
 function Foot() {
   const ctx = React.useContext(context)

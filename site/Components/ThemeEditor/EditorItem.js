@@ -26,6 +26,8 @@ export default props => {
   // eslint-disable-next-line react/prop-types
   const { config, field, open, onChange, header, className } = props
   const getter = config[field]
+
+  if (!getter) return null
   return (
     <div>
       {header}

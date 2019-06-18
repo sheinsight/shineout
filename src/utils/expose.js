@@ -1,11 +1,9 @@
 import { isObject } from './is'
 import { exposeClass } from '../styles/expose'
-import cssInject from './vars-inject'
+import cssAccessors from './css-accessors'
 
 const types = ['primary', 'warning', 'danger', 'success', 'secondary']
 const attrs = ['background', 'color', 'border']
-
-const cssVarSupported = window.CSS && window.CSS.supports && window.CSS.supports('--css-var-support', 0)
 
 function validateFormat(data) {
   if (!isObject(data)) {
@@ -41,63 +39,16 @@ function getDOMStyle(dom) {
   return style
 }
 
-function getStyleAttr(className, key = 'color') {
-  const div = document.createElement('div')
-  div.className = className
-  return getDOMStyle(div)[key]
-}
-
 function toRGB(c) {
   const el = document.createElement('div')
   el.style.color = c
   return getDOMStyle(el).color
 }
 
-function setOptions(options) {
-  if (!options || !cssVarSupported) return
-  for (const [key, value] of Object.entries(options)) {
-    this[key] = value
-  }
-}
-
-function genAccessors(obj, data) {
-  data.conf.forEach(item => {
-    const { name, className, attr, parser = v => v } = item
-    Object.defineProperty(obj, name, {
-      enumerable: true,
-      get: () => {
-        const res = getStyleAttr(className, attr)
-        return parser(res)
-      },
-      // eslint-disable-next-line no-return-assign
-      set: v => (data[name] = v),
-    })
-  })
-}
-
 const style = {
   getClassname,
 }
 
-const color = {}
-const button = {}
-const pagination = {}
-const table = {}
-const tag = {}
-const tooltip = {}
+const { color } = cssAccessors
 
-const cssVarAccessors = {
-  table,
-  tag,
-  pagination,
-  button,
-  color,
-  tooltip,
-}
-for (const [key, value] of Object.entries(cssVarAccessors)) {
-  const setterName = `set${key.replace(/^\S/, s => s.toUpperCase())}`
-  value[setterName] = options => setOptions.call(value, options)
-  genAccessors(value, cssInject[key])
-}
-
-export { table, tag, pagination, button, color, tooltip, style, getDOMStyle, toRGB, types }
+export { color, style, getDOMStyle, toRGB, types }
