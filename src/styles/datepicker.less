@@ -30,6 +30,12 @@
     width: 250px;
   }
 
+  &-title {
+    padding: 0 0 8px 0;
+    text-align: center;
+    // border-bottom: 1px solid @table-border-color;
+  }
+
   &-inner {
     width: 100%;
     padding: @padding-base-vertical @padding-base-horizontal+12 @padding-base-vertical @padding-base-horizontal;
@@ -222,6 +228,19 @@
 
     & > div:first-child {
       margin-right: 12px;
+    }
+
+    & > div + div {
+
+      position: relative;
+      
+      &:before {
+        content: ' ';
+        position: absolute;
+        left: -6px;
+        height: 100%;
+        border-left: 1px solid @table-border-color;
+      }
     }
   }
 

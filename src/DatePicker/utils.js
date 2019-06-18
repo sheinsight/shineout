@@ -64,6 +64,7 @@ function newDate() {
 }
 
 function cloneTime(date, old, fmt) {
+  if (!date) return date
   old = toDateWithFormat(old, fmt)
   if (isInvalid(old)) return date
 
@@ -75,6 +76,7 @@ function cloneTime(date, old, fmt) {
 }
 
 function formatDateWithDefaultTime(date, defaultTime, fmt) {
+  if (!date) return date
   if (!defaultTime) return date
   const dateHMS = toDateWithFormat(defaultTime, TIME_FORMAT)
   if (isInvalid(dateHMS)) return date
@@ -83,7 +85,13 @@ function formatDateWithDefaultTime(date, defaultTime, fmt) {
   return format(nDate, fmt)
 }
 
+function clearHMS(date) {
+  if (!isValid(date)) return date
+  return new Date(new Date(date.toLocaleDateString()).getTime())
+}
+
 export default {
+  clearHMS,
   addDays,
   addMonths,
   addYears,

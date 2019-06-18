@@ -7,8 +7,23 @@ export default {
 
   monthValues: {
     short: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    long: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    long: [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ],
   },
+
+  pickerTitle: ['Start Time', 'End Time'],
 
   timeOfDayValues: ['a.m.', 'p.m.'],
 
@@ -39,4 +54,3 @@ export default {
     reg: '{title} is invalid.',
   },
 }
-

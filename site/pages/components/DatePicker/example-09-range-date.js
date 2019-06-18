@@ -12,9 +12,9 @@ const style = { marginBottom: 12 }
 export default function() {
   return (
     <div>
-      <DatePicker range={86400 * 10} style={style} defaultValue={['2018-05-25', '2018-06-05']} />
+      <DatePicker range={86400 * 20} type="date" allowSingle onChange={a => console.log(a)} style={style} />
       <br />
-      <DatePicker
+      {/* <DatePicker
         range={86400 * 100}
         onChange={v => console.log(v)}
         type="month"
@@ -26,7 +26,7 @@ export default function() {
       <br />
       <DatePicker range type="datetime" style={style} onChange={d => console.log(d)} />
       <br />
-      <DatePicker range type="datetime" defaultTime={['02:33:33', '14:33:33']} onChange={d => console.log(d)} />
+      <DatePicker range type="datetime" defaultTime={['02:33:33', '14:33:33']} onChange={d => console.log(d)} /> */}
     </div>
   )
 }

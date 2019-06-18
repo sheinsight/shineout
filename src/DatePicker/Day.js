@@ -28,6 +28,7 @@ class Day extends PureComponent {
 
   getDays() {
     const { current } = this.props
+    if (!current) return this.cachedDays
     if (this.cachedDate && utils.isSameMonth(this.cachedDate, current) && this.cachedDays) {
       return this.cachedDays
     }
@@ -44,7 +45,7 @@ class Day extends PureComponent {
   }
 
   handleDayClick(date) {
-    const { type } = this.props
+    const { type, allowSingle, rangeDate, index } = this.props
     const current = this.formatWithDefaultTime()
     if (type === 'week') {
       if (date.getDay() === 0) {
@@ -52,7 +53,7 @@ class Day extends PureComponent {
       }
       this.props.onChange(date, true, true)
     } else {
-      const newDate = new Date(
+      let newDate = new Date(
         date.getFullYear(),
         date.getMonth(),
         date.getDate(),
@@ -60,6 +61,7 @@ class Day extends PureComponent {
         current.getMinutes(),
         current.getSeconds()
       )
+      if (allowSingle && rangeDate[index] && newDate.getTime() === rangeDate[index].getTime()) newDate = ''
       this.props.onChange(newDate, true, type !== 'datetime')
     }
   }
@@ -86,15 +88,12 @@ class Day extends PureComponent {
   }
 
   renderDay(date) {
-    const { current, disabled, value, type, rangeDate, range, rangeTemp } = this.props
+    const { current, disabled, value, index, type, rangeDate, range, rangeTemp } = this.props
     const { hover } = this.state
     let isDisabled = disabled ? disabled(date) : false
 
-    if (!isDisabled && typeof range === 'number' && rangeTemp) {
-      if (
-        utils.compareAsc(date, utils.addSeconds(rangeTemp, range)) > 0 ||
-        utils.compareAsc(date, utils.addSeconds(rangeTemp, -range)) < 0
-      ) {
+    if (!isDisabled && typeof range === 'number' && rangeTemp && index === 1) {
+      if (utils.compareAsc(date, utils.addSeconds(rangeTemp, range)) > 0 || utils.compareAsc(date, rangeTemp) < 0) {
         isDisabled = true
       }
     }
@@ -118,11 +117,13 @@ class Day extends PureComponent {
     } else if (rangeDate && current.getMonth() === date.getMonth()) {
       hoverProps.onMouseEnter = this.handleDayHover.bind(this, date)
 
+      classList.push(utils.isSameDay(date, rangeDate[index]) && 'active')
+
       hoverClass = datepickerClass(
-        utils.compareAsc(rangeDate[0], date) <= 0 && utils.compareAsc(rangeDate[1], date) >= 0 && 'hover',
-        utils.isSameDay(rangeDate[0], date) && 'hover-start active',
-        utils.isSameDay(rangeDate[1], date) && 'hover-end active'
+        utils.compareAsc(rangeDate[0], date) <= 0 && utils.compareAsc(rangeDate[1], date) >= 0 && 'hover'
       )
+      // utils.isSameDay(rangeDate[index], date) && 'hover-start active'
+      // utils.isSameDay(rangeDate[1], date) && 'hover-end active'
     } else if (value) {
       classList.push(utils.isSameDay(date, value) && 'active')
     }
@@ -165,7 +166,7 @@ class Day extends PureComponent {
   }
 
   render() {
-    const { current, min, max } = this.props
+    const { current, min } = this.props
     const days = this.getDays()
     this.today = utils.newDate()
 
@@ -174,12 +175,12 @@ class Day extends PureComponent {
         <div className={datepickerClass('header')}>
           <Icon
             name="AngleDoubleLeft"
-            disabled={min && current.getFullYear() <= min.getFullYear()}
+            disabled={!!(min && current.getFullYear() <= min.getFullYear())}
             onClick={this.handlePrevYear}
           />
           <Icon
             name="AngleLeft"
-            disabled={min && utils.compareMonth(current, min, 1) <= 0}
+            disabled={!!(min && utils.compareMonth(current, min) <= 0)}
             onClick={this.handlePrevMonth}
           />
 
@@ -190,12 +191,12 @@ class Day extends PureComponent {
 
           <Icon
             name="AngleRight"
-            disabled={max && utils.compareMonth(current, max, -1) >= 0}
+            // disabled={max && utils.compareMonth(current, max, 0) >= 0}
             onClick={this.handleNextMonth}
           />
           <Icon
             onClick={this.handleNextYear}
-            disabled={max && current.getFullYear() >= max.getFullYear()}
+            // disabled={max && current.getFullYear() >= max.getFullYear()}
             name="AngleDoubleRight"
           />
         </div>
@@ -221,18 +222,19 @@ Day.propTypes = {
   disabled: PropTypes.func,
   format: PropTypes.string,
   index: PropTypes.number,
-  max: PropTypes.object,
-  min: PropTypes.object,
+  max: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  min: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   onChange: PropTypes.func.isRequired,
   onDayHover: PropTypes.func,
   onModeChange: PropTypes.func.isRequired,
   range: PropTypes.number,
   rangeDate: PropTypes.array,
-  rangeTemp: PropTypes.object,
+  rangeTemp: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   showTimePicker: PropTypes.bool,
   type: PropTypes.string.isRequired,
   value: PropTypes.object,
   defaultTime: PropTypes.array,
+  allowSingle: PropTypes.bool,
 }
 
 export default Day

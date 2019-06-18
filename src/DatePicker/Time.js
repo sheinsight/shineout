@@ -94,8 +94,8 @@ class Time extends PureComponent {
 Time.propTypes = {
   disabled: PropTypes.func,
   format: PropTypes.string.isRequired,
-  min: PropTypes.object,
-  max: PropTypes.object,
+  min: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  max: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   onChange: PropTypes.func.isRequired,
   range: PropTypes.number,
   value: PropTypes.object,

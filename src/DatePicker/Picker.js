@@ -6,6 +6,8 @@ import Year from './Year'
 import Month from './Month'
 import Day from './Day'
 import Time from './Time'
+import { getLocale } from '../locale'
+import { datepickerClass } from '../styles'
 
 class Picker extends PureComponent {
   constructor(props) {
@@ -36,7 +38,7 @@ class Picker extends PureComponent {
 
   render() {
     const { mode } = this.state
-    const { current } = this.props
+    const { current, index } = this.props
 
     let Render
     switch (mode) {
@@ -53,7 +55,16 @@ class Picker extends PureComponent {
         Render = Day
     }
 
-    return <Render {...this.props} current={current || this.defaultCurrent} onModeChange={this.handleModeChange} />
+    // only range has index prop
+    if (index === undefined)
+      return <Render {...this.props} current={current || this.defaultCurrent} onModeChange={this.handleModeChange} />
+
+    return (
+      <div>
+        <div className={datepickerClass('title')}>{getLocale('pickerTitle')[index]}</div>
+        <Render {...this.props} current={current || this.defaultCurrent} onModeChange={this.handleModeChange} />
+      </div>
+    )
   }
 }
 
@@ -61,8 +72,8 @@ Picker.propTypes = {
   current: PropTypes.object,
   disabled: PropTypes.func,
   format: PropTypes.string,
-  max: PropTypes.object,
-  min: PropTypes.object,
+  max: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  min: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   onChange: PropTypes.func.isRequired,
   value: PropTypes.object,
   type: PropTypes.string.isRequired,

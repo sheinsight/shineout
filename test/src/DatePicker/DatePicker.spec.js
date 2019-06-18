@@ -187,11 +187,15 @@ describe('RangePicker[datetime][defaultTime]', () => {
     document.write(wrapper.html())
     wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
     wrapper
-      .find(`.${SO_PREFIX}-datepicker-list div`)
+      .find(`.${SO_PREFIX}-datepicker-list`)
+      .at(0)
+      .find('div')
       .at(15)
       .simulate('click')
     wrapper
-      .find(`.${SO_PREFIX}-datepicker-list div`)
+      .find(`.${SO_PREFIX}-datepicker-list`)
+      .at(1)
+      .find('div')
       .at(16)
       .simulate('click')
     const datetimeText = wrapper.find(`span.${SO_PREFIX}-datepicker-txt`)

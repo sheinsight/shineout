@@ -36,6 +36,7 @@ class Container extends PureComponent {
     this.handleClear = this.handleClear.bind(this)
     this.handleTextChange = this.handleTextChange.bind(this)
     this.parseDate = this.parseDate.bind(this)
+    this.dateToCurrent = this.dateToCurrent.bind(this)
 
     this.bindClickAway = this.bindClickAway.bind(this)
     this.clearClickAway = this.clearClickAway.bind(this)
@@ -60,9 +61,9 @@ class Container extends PureComponent {
       })
       if (current.length === 0) current = [utils.newDate(), utils.newDate()]
 
-      if (utils.compareMonth(current[0], current[1], -1) >= 0) {
-        current[1] = utils.addMonths(current[0], 1)
-      }
+      // if (utils.compareMonth(current[0], current[1], -1) >= 0) {
+      //   current[1] = utils.addMonths(current[0], 1)
+      // }
     } else {
       current = this.parseDate(this.props.value)
     }
@@ -180,20 +181,38 @@ class Container extends PureComponent {
     })
   }
 
-  handleChange(date, change, blur) {
+  dateToCurrent(date) {
+    const { range } = this.props
+    if (!range) return date
+
+    const { current } = this.state
+
+    return [date[0] || current[0], date[1] || current[1]]
+  }
+
+  handleChange(date, change, blur, isEnd) {
+    // is range only select one
+    const rangeOne = this.props.range && !(date[0] && date[1])
+
     const format = this.getFormat()
 
     let value
-    if (this.props.range) value = date.map(v => utils.format(v, format))
+    if (this.props.range) value = date.map(v => (v ? utils.format(v, format) : v))
     else value = utils.format(date, format)
 
-    const callback = blur ? this.handleBlur : undefined
+    let callback
+    if (!this.props.range) callback = blur ? this.handleBlur : undefined
+    else {
+      callback = blur && isEnd && !rangeOne ? this.handleBlur : undefined
+    }
+
+    const newCurrent = this.dateToCurrent(date)
 
     if (change) {
-      this.setState({ current: date })
+      this.setState({ current: newCurrent })
       this.props.onChange(value, callback)
     } else {
-      this.setState({ current: date }, callback)
+      this.setState({ current: newCurrent }, callback)
     }
   }
 
@@ -271,7 +290,7 @@ class Container extends PureComponent {
   renderPicker() {
     if (!this.firstRender) return undefined
 
-    const { range, type, value, disabled } = this.props
+    const { range, type, value, disabled, allowSingle } = this.props
     const format = this.getFormat()
     const Component = range ? Range : Picker
 
@@ -287,6 +306,7 @@ class Container extends PureComponent {
         range={range}
         value={range ? (value || []).map(v => this.parseDate(v)) : this.parseDate(value)}
         showTimePicker={!!value}
+        allowSingle={allowSingle}
       />
     )
   }
@@ -326,6 +346,7 @@ Container.propTypes = {
   range: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   size: PropTypes.string,
   type: PropTypes.string,
+  allowSingle: PropTypes.bool,
   defaultTime: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object, PropTypes.array]),
   absolute: PropTypes.bool,
@@ -335,6 +356,7 @@ Container.defaultProps = {
   clearable: true,
   placeholder: <span>&nbsp;</span>,
   type: 'date',
+  allowSingle: false,
 }
 
 export default Container
