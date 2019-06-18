@@ -527,6 +527,71 @@ const injects = {
       })
     },
   },
+  datepicker: {
+    info: {
+      title: 'Datepicker 日期选择',
+      name: 'datepicker',
+      path: 'Datepicker',
+    },
+    conf: [
+      {
+        name: 'rectBorderRadius',
+        className: exposeClass('datepicker-month-item'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+      },
+    ],
+    set rectBorderRadius(v) {
+      setBodyProperty({
+        '--datepicker-rect-active-border-radius': `${parseInt(v, 10)}px`,
+      })
+    },
+  },
+  slider: {
+    info: {
+      title: 'Slider 滑块',
+      name: 'slider',
+      path: 'Slider',
+    },
+    conf: [
+      {
+        name: 'barBg',
+        className: exposeClass('slider-bar'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
+        name: 'indicatorBg',
+        className: exposeClass('slider-indicator'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
+        name: 'indicatorSize',
+        className: exposeClass('slider-indicator'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+      },
+    ],
+    set barBg(v) {
+      setBodyProperty({
+        '--slider-bar-bg': v,
+      })
+    },
+    set indicatorBg(v) {
+      setBodyProperty({
+        '--slider-indicator-bg': v,
+      })
+    },
+    set indicatorSize(v) {
+      setBodyProperty({
+        '--slider-indicator-size': `${parseInt(v, 10)}px`,
+        '--slider-indicator-size-half': `${parseInt(v, 10) / 2}px`,
+      })
+    },
+  },
 }
 
 export default injects

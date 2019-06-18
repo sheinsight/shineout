@@ -40,6 +40,8 @@ const accessors = {
   tooltip: {},
   form: {},
   select: {},
+  datepicker: {},
+  slider: {},
 }
 
 for (const [key, value] of Object.entries(accessors)) {
