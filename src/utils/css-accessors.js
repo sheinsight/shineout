@@ -42,6 +42,7 @@ const accessors = {
   select: {},
   datepicker: {},
   slider: {},
+  menu: {},
 }
 
 for (const [key, value] of Object.entries(accessors)) {

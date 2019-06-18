@@ -592,6 +592,37 @@ const injects = {
       })
     },
   },
+  menu: {
+    info: {
+      title: 'Menu 菜单',
+      name: 'menu',
+      path: 'Menu',
+    },
+    conf: [
+      {
+        name: 'darkBg',
+        className: exposeClass('menu-dark'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
+        name: 'darkColor',
+        className: exposeClass('menu-dark'),
+        attr: 'color',
+        type: 'color',
+      },
+    ],
+    set darkBg(v) {
+      setBodyProperty({
+        '--menu-dark-bg': v,
+      })
+    },
+    set darkColor(v) {
+      setBodyProperty({
+        '--menu-dark-color': v,
+      })
+    },
+  },
 }
 
 export default injects
