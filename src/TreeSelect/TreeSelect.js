@@ -157,7 +157,7 @@ export default class TreeSelect extends PureComponent {
 
   renderTreeOptions() {
     const { focus, position } = this.state
-    const { multiple, datum, data, absolute, height } = this.props
+    const { multiple, datum, data, absolute, height, zIndex } = this.props
     const props = {}
     ;[
       'mode',
@@ -200,6 +200,7 @@ export default class TreeSelect extends PureComponent {
         className={treeSelectClass('options')}
         style={{ maxHeight: height, overflowY: 'auto' }}
         fixed="min"
+        zIndex={zIndex}
       >
         <div className={treeSelectClass('tree-wrapper')}>{content}</div>
       </OptionList>
@@ -288,6 +289,7 @@ TreeSelect.propTypes = {
   compressed: PropTypes.bool,
   absolute: PropTypes.bool,
   parentClickExpand: PropTypes.bool,
+  zIndex: PropTypes.number,
 }
 
 TreeSelect.defaultProps = {

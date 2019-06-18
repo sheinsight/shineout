@@ -113,9 +113,12 @@ export default function(List) {
         scrollLeft,
         scrollTop,
         scrollElement,
+        style = {},
+        zIndex,
         ...props
       } = this.props
-      return <List {...props} focus={focus} />
+      if (typeof zIndex === 'number') style.zIndex = zIndex
+      return <List {...props} focus={focus} style={style} />
     }
 
     render() {
@@ -130,12 +133,14 @@ export default function(List) {
         scrollLeft,
         scrollTop,
         scrollElement,
+        zIndex,
         ...props
       } = this.props
       const mergeClass = classnames(listClass('absolute-wrapper'), rootClass)
       const { focus, style } = props.focus ? this.getStyle() : { style: this.lastStyle }
       this.element.className = mergeClass
       const mergeStyle = Object.assign({}, style, props.style)
+      if (typeof zIndex === 'number') mergeStyle.zIndex = zIndex
       return ReactDOM.createPortal(<List {...props} focus={focus} style={mergeStyle} />, this.element)
     }
   }
@@ -150,6 +155,8 @@ export default function(List) {
     scrollLeft: PropTypes.number,
     scrollTop: PropTypes.number,
     rootClass: PropTypes.string,
+    zIndex: PropTypes.number,
+    style: PropTypes.object,
   }
 
   return scrollConsumer(AbsoluteList)
