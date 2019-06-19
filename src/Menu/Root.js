@@ -109,11 +109,12 @@ class Root extends React.Component {
 
   updateState() {
     const { mode } = this.props
-    const bindMethod = mode === 'vertical' ? this.container.addEventListener : this.container.removeEventListener
-    bindMethod.call(this.container, 'wheel', this.handleWheel, { passive: false })
     this.updateActive()
     this.updateOpen()
     this.updateInPath()
+    if (!this.container) return
+    const bindMethod = mode === 'vertical' ? this.container.addEventListener : this.container.removeEventListener
+    bindMethod.call(this.container, 'wheel', this.handleWheel, { passive: false })
   }
 
   updateActive() {
