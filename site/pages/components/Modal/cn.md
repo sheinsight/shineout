@@ -19,6 +19,7 @@
 | usePortal | bool | true | 为 true 时，使用 ReactDOM.createPortal 创建弹出层，为 false 时，使用 ReactDOM.render |
 | visible | bool | false | 是否显示 |
 | width | number \| string | 500 | 对话框宽度 |
+| zIndex | number | 1050 | 对话框 z-index 值 |
 
 ### Methods
 
