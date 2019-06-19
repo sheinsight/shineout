@@ -117,7 +117,8 @@ export default function(List) {
         zIndex,
         ...props
       } = this.props
-      if (zIndex || typeof zIndex === 'number') style.zIndex = parseInt(zIndex, 10)
+      const parsed = parseInt(zIndex, 10)
+      if (!Number.isNaN(parsed)) style.zIndex = parsed
       return <List {...props} focus={focus} style={style} />
     }
 
