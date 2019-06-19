@@ -26,3 +26,4 @@
 | renderResult | function(d) | renderItem | The content displayed in the result after selecting, if not set, use renderItem |
 | compressed | bool | false | Merges selected values, valid only in multiselect mode |
 | absolute | bool | false | When it is true, the pop-up layer of option append into document.body. |
+| zIndex | number | 1000 | options z-index |

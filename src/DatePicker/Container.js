@@ -253,12 +253,13 @@ class Container extends PureComponent {
 
   renderWrappedPicker() {
     const { focus, position } = this.state
-    const { absolute } = this.props
+    const { absolute, zIndex } = this.props
     const props = {
       absolute,
       focus,
       className: datepickerClass('picker', 'location', `absolute-${position}`),
       position,
+      zIndex,
     }
     // computed absolute position needed
     if (absolute) {
@@ -329,6 +330,7 @@ Container.propTypes = {
   defaultTime: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object, PropTypes.array]),
   absolute: PropTypes.bool,
+  zIndex: PropTypes.number,
 }
 
 Container.defaultProps = {

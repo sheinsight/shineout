@@ -20,6 +20,7 @@
 | value | string \| number \| Date \| array | 无 | 值。为 string 时，需要和 format 属性匹配。<br />range 属性为 true 时，值为长度为2的数组 |
 | defaultTime | string | 无 | 选择日期时默认的时间, 格式为: 'HH:mm:ss' |
 | absolute | bool | false | 为 true 时，选项弹出层在 DOM 中独立 render |
+| zIndex | number | 1000 | 选择面板 z-index 值 |
 
 
 ### Format

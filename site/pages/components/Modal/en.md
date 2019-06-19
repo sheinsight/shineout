@@ -18,6 +18,7 @@
 | usePortal | bool | true | When the usePortal is true, use ReactDOM.createPortal to create the pop-up layer, otherwise use ReactDOM.render. |
 | visible | bool | false |  |
 | width | number \| string | 500 | the width of the Modal |
+| zIndex | number | 1050 | Modal z-index |
 
 ### Methods
 

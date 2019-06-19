@@ -71,10 +71,10 @@ export function createDiv(props) {
 
 // eslint-disable-next-line
 export function open(props, isPortal) {
-  const { content, onClose, ...otherProps } = props
+  const { content, onClose, zIndex, ...otherProps } = props
   const div = createDiv(props)
-
   div.style.display = 'block'
+  if (typeof zIndex === 'number') div.style.zIndex = zIndex
 
   const scrollWidth = window.innerWidth - document.body.clientWidth
   const doc = document.body.parentNode

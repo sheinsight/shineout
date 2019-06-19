@@ -28,3 +28,4 @@
 | renderResult | function(d) | renderItem | The content displayed in the result after selecting, if not set, use renderItem |
 | value | array \| string \| object | | In the Form, the value will be taken over by the form and the value will be invalid. |
 | compressed | bool | false | Merges selected values, valid only in multiselect mode |
+| zIndex | number | 1000 | options z-index |
