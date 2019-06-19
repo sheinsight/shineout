@@ -330,7 +330,7 @@ Container.propTypes = {
   defaultTime: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object, PropTypes.array]),
   absolute: PropTypes.bool,
-  zIndex: PropTypes.oneOfType(PropTypes.number, PropTypes.string),
+  zIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 }
 
 Container.defaultProps = {
