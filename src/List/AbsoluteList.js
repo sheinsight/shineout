@@ -117,7 +117,8 @@ export default function(List) {
         zIndex,
         ...props
       } = this.props
-      if (typeof zIndex === 'number') style.zIndex = zIndex
+      const parsed = parseInt(zIndex, 10)
+      if (!Number.isNaN(parsed)) style.zIndex = parsed
       return <List {...props} focus={focus} style={style} />
     }
 
@@ -140,7 +141,7 @@ export default function(List) {
       const { focus, style } = props.focus ? this.getStyle() : { style: this.lastStyle }
       this.element.className = mergeClass
       const mergeStyle = Object.assign({}, style, props.style)
-      if (typeof zIndex === 'number') mergeStyle.zIndex = zIndex
+      if (zIndex || typeof zIndex === 'number') mergeStyle.zIndex = parseInt(zIndex, 10)
       return ReactDOM.createPortal(<List {...props} focus={focus} style={mergeStyle} />, this.element)
     }
   }
