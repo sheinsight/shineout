@@ -231,7 +231,7 @@ Cascader.propTypes = {
   style: PropTypes.object,
   value: PropTypes.array,
   absolute: PropTypes.bool,
-  zIndex: PropTypes.number,
+  zIndex: PropTypes.oneOfType(PropTypes.number, PropTypes.string),
 }
 
 Cascader.defaultProps = {

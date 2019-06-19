@@ -289,7 +289,7 @@ TreeSelect.propTypes = {
   compressed: PropTypes.bool,
   absolute: PropTypes.bool,
   parentClickExpand: PropTypes.bool,
-  zIndex: PropTypes.number,
+  zIndex: PropTypes.oneOfType(PropTypes.number, PropTypes.string),
 }
 
 TreeSelect.defaultProps = {

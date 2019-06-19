@@ -74,7 +74,7 @@ export function open(props, isPortal) {
   const { content, onClose, zIndex, ...otherProps } = props
   const div = createDiv(props)
   div.style.display = 'block'
-  if (typeof zIndex === 'number') div.style.zIndex = zIndex
+  if (zIndex || typeof zIndex === 'number') div.style.zIndex = parseInt(zIndex, 10)
 
   const scrollWidth = window.innerWidth - document.body.clientWidth
   const doc = document.body.parentNode
