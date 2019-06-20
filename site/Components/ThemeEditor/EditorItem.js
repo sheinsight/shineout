@@ -10,7 +10,14 @@ function Picker({ value, onChange }) {
     <span className={headerClass('color')}>
       <div className={headerClass('color-current')} style={{ background: value }} />
       <Popover trigger="click">
-        <SketchPicker color={value} className={headerClass('color-picker')} onChange={v => onChange(v)} />
+        <SketchPicker
+          color={value}
+          className={headerClass('color-picker')}
+          onChange={v => {
+            const { rgb } = v
+            onChange(`rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${rgb.a})`)
+          }}
+        />
       </Popover>
     </span>
   )
@@ -40,9 +47,7 @@ export default props => {
                 <Item key={name} label={`${name}: `}>
                   {type === 'color' ? (
                     <Field name={name}>
-                      {({ value, onChange: onChangeForm }) => (
-                        <Picker value={value} onChange={v => onChangeForm(v.hex)} />
-                      )}
+                      {({ value, onChange: onChangeForm }) => <Picker value={value} onChange={onChangeForm} />}
                     </Field>
                   ) : (
                     <Slider name={name} scale={[item.min || 0, item.max || 50]} />

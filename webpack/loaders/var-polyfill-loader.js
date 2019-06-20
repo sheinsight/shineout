@@ -7,7 +7,17 @@ module.exports = function(content) {
     const { index } = matched
     const scaned = line.length + index
     parsed += content.substring(0, index)
-    const replaced = `${line.replace(varStr, defaultValue)}\n${line}`
+    let origin = line.replace(varStr, defaultValue)
+    // special: box-shadow: ... var(--name, #fff), ....;
+    if (origin.startsWith('box-shadow:') && origin.indexOf('(') > 0 && !/\(.+\)/.test(origin)) {
+      origin = `${
+        origin
+          .split(')')
+          .join('')
+          .split(';')[0]
+      });`
+    }
+    const replaced = `${origin}\n${line}`
     parsed += replaced
     content = content.substring(scaned)
   }

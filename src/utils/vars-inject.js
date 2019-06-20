@@ -437,6 +437,12 @@ const injects = {
         attr: 'backgroundColor',
         type: 'color',
       },
+      {
+        name: 'borderColor',
+        classname: inputClass('_'),
+        attr: 'borderColor',
+        type: 'color',
+      },
     ],
     set borderRadius(v) {
       setBodyProperty({
@@ -446,6 +452,11 @@ const injects = {
     set disabledBg(v) {
       setBodyProperty({
         '--input-bg-disabled': v,
+      })
+    },
+    set borderColor(v) {
+      setBodyProperty({
+        '--input-border-color': v,
       })
     },
   },
