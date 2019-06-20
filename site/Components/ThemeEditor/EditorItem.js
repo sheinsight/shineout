@@ -45,7 +45,7 @@ export default props => {
                       )}
                     </Field>
                   ) : (
-                    <Slider name={name} scale={[0, 50]} autoHide />
+                    <Slider name={name} scale={[item.min || 0, item.max || 50]} />
                   )}
                 </Item>
               )

@@ -38,7 +38,7 @@ const accessors = {
   button: {},
   color: {},
   tooltip: {},
-  form: {},
+  input: {},
   select: {},
   datepicker: {},
   slider: {},

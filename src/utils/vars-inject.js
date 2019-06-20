@@ -417,11 +417,11 @@ const injects = {
       })
     },
   },
-  form: {
+  input: {
     info: {
-      title: 'Form 表单',
-      name: 'form',
-      path: 'Form',
+      title: 'Input 输入框',
+      name: 'input',
+      path: 'Input',
     },
     conf: [
       {
@@ -572,6 +572,8 @@ const injects = {
         className: exposeClass('slider-indicator'),
         attr: 'width',
         type: 'number',
+        min: 8,
+        max: 20,
         parser: parseInt,
       },
     ],

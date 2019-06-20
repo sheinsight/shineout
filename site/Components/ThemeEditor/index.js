@@ -11,6 +11,7 @@ import { consumer, context, Provider } from './context'
 import { compose } from '../../../src/utils/func'
 import configHOC from './config'
 import accessors from '../../../src/utils/css-accessors'
+import Icons from '../../../src/icons'
 
 function Foot() {
   const ctx = React.useContext(context)
@@ -38,6 +39,10 @@ Head.propTypes = {
 }
 
 export default class extends React.Component {
+  static propTypes = {
+    onClose: PropTypes.func,
+  }
+
   constructor(props) {
     super(props)
 
@@ -99,6 +104,7 @@ export default class extends React.Component {
 
   render() {
     const { config, exportConf, open } = this.state
+    const { onClose } = this.props
     const provideValue = {
       config,
       setConfig: this.setConfig,
@@ -107,6 +113,9 @@ export default class extends React.Component {
     }
     return (
       <div className={headerClass('editor')}>
+        <a className={headerClass('close')} onClick={onClose} href="javascript:;">
+          {Icons.Close}
+        </a>
         <Provider value={provideValue}>
           <div className={headerClass('editor-content')} onClick={this.handleClick}>
             {this.editors.map(editor => {

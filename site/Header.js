@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
-import { Button, Dropdown, Modal, color, Sticky } from 'shineout'
+import { Button, Dropdown, color } from 'shineout'
 import docsearch from 'docsearch.js'
 import { Link } from 'react-router-dom'
 import locate, { setItem, STORAGE_KEY } from './locate'
 import theme from './utils/theme'
 import logo from './icons/logo'
 import Icon from './icons/Icon'
+import Drawer from './Components/ThemeEditor/Drawer'
 import { headerClass } from './styles'
 import FontAwesome from './pages/components/Icon/FontAwesome'
 import ThemeEditor from './Components/ThemeEditor'
@@ -56,20 +57,12 @@ function handleThemeClick(data) {
 const PrimarySetter = () => {
   const [visible, setVisible] = useState(false)
   return [
-    <span key="picker" className={headerClass('color')} onClick={() => setVisible(true)}>
+    <span key="picker" className={headerClass('color')} onClick={() => setVisible(!visible)}>
       <div className={headerClass('color-current')} style={{ backgroundColor: color.primary }} />
     </span>,
-    <Modal
-      maskOpacity={0.1}
-      className={headerClass('editor-modal')}
-      bodyStyle={{ padding: 0 }}
-      position="right"
-      key="modal"
-      visible={visible}
-      onClose={() => setVisible(false)}
-    >
-      <ThemeEditor />
-    </Modal>,
+    <Drawer key="modal" visible={visible} onClose={() => setVisible(false)}>
+      <ThemeEditor onClose={() => setVisible(false)} />
+    </Drawer>,
   ]
 }
 
@@ -162,9 +155,7 @@ const Header = ({ versions }) => {
           &nbsp;GitHub
         </Button>
 
-        <Sticky top={18} style={{ width: 30, height: 30, display: 'inline-block'}}>
-          <PrimarySetter />
-        </Sticky>
+        <PrimarySetter />
       </div>
     </div>
   )

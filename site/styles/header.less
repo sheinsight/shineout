@@ -81,21 +81,38 @@
     margin: 16px 24px;
   }
 
-  &-editor-modal {
-    border-radius: 0;
-    box-shadow: none;
+  &-editor-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    background: #fff;
+    height: 100%;
+    border-left: 1px solid @doc-border-color;
   }
 
   &-editor {
-    height: 100%;
     display: flex;
     flex-direction: column;
+    height: 100%;
+    .@{doc-header-prefix}-close {
+      position: absolute;
+      z-index: 100;
+      top: 13px;
+      right: 24px;
+      display: block;
+      width: 10px;
+      height: 10px;
+      padding: 0;
+    }
     &-item {
       display: flex;
       flex-direction: row;
       align-items: center;
     }
     &-footer {
+      background: #fff;
       padding: 16px;
       border-top: 1px solid @table-border-color;
       text-align: right;
@@ -111,21 +128,29 @@
       }
     }
     &-content {
-      width: 500px;
-      padding: 16px 24px;
+      width: 400px;
       flex: 1;
+      padding: 16px 24px;
       overflow: auto;
       > div {
-        margin-top: 30px;
+        margin-top: 20px;
         .@{so-prefix}-form-label {
           padding-left: 0;
           text-transform: capitalize;
         }
         .@{so-prefix}-form-item {
-          margin-bottom: 8px;
+          margin-bottom: 14px;
           .@{so-prefix}-slider {
             top: -7px;
-            padding-bottom: 0;
+            padding-bottom: 2px;
+            .@{so-prefix}-slider-scale {
+              visibility: hidden;
+            }
+            &:hover {
+              .@{so-prefix}-slider-scale {
+                visibility: visible;
+              }
+            }
           }
         }
         &:first-child {
@@ -133,6 +158,7 @@
         }
       }
       h2 {
+        display: inline-block;
         cursor: pointer;
         user-select: none;
         color: @gray-500;
