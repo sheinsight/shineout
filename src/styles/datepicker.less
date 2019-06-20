@@ -226,6 +226,8 @@
   }
 
   &-day-picker {
+    display: flex;
+    flex-direction: column;
     .@{datepicker-prefix}-week {
       margin-bottom: 4px;
       border-bottom: solid 1px #f2f2f2;
@@ -407,6 +409,7 @@
         padding-left: 18px;
         color: #eee;
         line-height: @datepicker-time-height;
+        height: @datepicker-time-height;
       }
 
       .@{datepicker-prefix}-time-active {

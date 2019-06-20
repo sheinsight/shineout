@@ -1,6 +1,6 @@
 import deepEqual from 'deep-eql'
 import { unflatten, insertValue, spliceValue, getSthByName } from '../utils/flat'
-import { fastClone } from '../utils/clone'
+import { fastClone, deepClone } from '../utils/clone'
 import { deepGet, deepSet, deepRemove, deepMerge, objectValues } from '../utils/objects'
 import { isObject, isArray } from '../utils/is'
 import { promiseAll, FormError } from '../utils/errors'
@@ -99,9 +99,14 @@ export default class {
 
   insert(name, index, value) {
     this.insertError(name, index, undefined)
-    this.get(name).splice(index, 0, value)
-    this.publishValue(name, IGNORE_VALIDATE)
-    this.publishError(name)
+    const val = this.get(name)
+    if (val) {
+      val.splice(index, 0, value)
+      this.publishValue(name, IGNORE_VALIDATE)
+      this.publishError(name)
+    } else {
+      this.set(name, [value])
+    }
   }
 
   splice(name, index) {
@@ -163,7 +168,7 @@ export default class {
   }
 
   getValue() {
-    return fastClone(this.$values)
+    return deepClone(this.$values)
   }
 
   setValue(values = {}, type, forceSet) {
@@ -217,6 +222,8 @@ export default class {
     delete this.$defaultValues[name]
 
     deepRemove(this.$values, name)
+
+    this.handleChange()
   }
 
   dispatch(name, ...args) {
@@ -239,13 +246,13 @@ export default class {
     else delete this.$events[name]
   }
 
-  validate() {
+  validate(type) {
     return new Promise((resolve, reject) => {
       const keys = Object.keys(this.$validator)
       const values = this.getValue()
 
       const validates = [
-        ...keys.map(k => this.$validator[k](this.get(k), values)),
+        ...keys.map(k => this.$validator[k](this.get(k), values, type)),
         ...(this.$events[VALIDATE_TOPIC] || []).map(fn => fn()),
       ]
 

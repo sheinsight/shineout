@@ -17,12 +17,6 @@ const WrappedOptionList = absoluteList(OptionList)
 const WrappedBoxList = absoluteList(BoxList)
 const WrappedOptionTree = absoluteList(OptionTree)
 
-const isDescendent = (el, id) => {
-  if (el.getAttribute('data-id') === id) return true
-  if (!el.parentElement) return false
-  return isDescendent(el.parentElement, id)
-}
-
 class Select extends PureComponent {
   constructor(props) {
     super(props)
@@ -37,7 +31,7 @@ class Select extends PureComponent {
     this.bindOptionFunc = this.bindOptionFunc.bind(this)
     this.setInputReset = this.setInputReset.bind(this)
 
-    this.handleFocus = this.handleState.bind(this, true)
+    this.handleFocus = this.handleFocus.bind(this)
     this.handleBlur = this.handleState.bind(this, false)
     this.handleClear = this.handleClear.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -56,6 +50,7 @@ class Select extends PureComponent {
 
     this.optionList = {}
     this.selectId = `select_${getUidStr()}`
+    this.closeByResult = false
 
     this.lastResult = undefined
   }
@@ -84,6 +79,18 @@ class Select extends PureComponent {
     this.inputReset = fn
   }
 
+  isDescendent(el, id) {
+    const stay = el.classList.contains(selectClass('input')) || el.classList.contains(selectClass('item'))
+    if (stay) return true
+    if (el.classList.contains(selectClass('result'))) {
+      this.closeByResult = true
+      return false
+    }
+    if (el.getAttribute('data-id') === id) return true
+    if (!el.parentElement) return false
+    return this.isDescendent(el.parentElement, id)
+  }
+
   bindOptionFunc(name, fn) {
     this.optionList[name] = fn
   }
@@ -93,16 +100,24 @@ class Select extends PureComponent {
   }
 
   bindClickAway() {
-    document.addEventListener('click', this.handleClickAway)
+    document.addEventListener('click', this.handleClickAway, true)
   }
 
   clearClickAway() {
-    document.removeEventListener('click', this.handleClickAway)
+    document.removeEventListener('click', this.handleClickAway, true)
   }
 
   handleClickAway(e) {
-    const desc = isDescendent(e.target, this.selectId)
+    const desc = this.isDescendent(e.target, this.selectId)
     if (!desc) this.handleState(false)
+  }
+
+  handleFocus(e) {
+    if (this.closeByResult) {
+      this.closeByResult = false
+      return
+    }
+    this.handleState(true, e)
   }
 
   handleState(focus, e) {
@@ -250,6 +265,7 @@ class Select extends PureComponent {
       'onFilter',
       'filterText',
       'absolute',
+      'zIndex',
     ].forEach(k => {
       props[k] = this.props[k]
     })
@@ -288,6 +304,7 @@ class Select extends PureComponent {
       'loading',
       'onFilter',
       'filterText',
+      'zIndex',
     ].forEach(k => {
       props[k] = this.props[k]
     })

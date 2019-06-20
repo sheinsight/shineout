@@ -20,11 +20,14 @@
 | value | string \| number \| Date \| array | - | When the value is string, it needs to match the format attribute. <br /> When the range property is true, the value is an array of length 2. |
 | defaultTime | string | - | Default time when selecting a date, the format is: 'HH:mm:ss' |
 | absolute | bool | false | When it is true, the pop-up layer of option append into document.body. |
-
+| zIndex | number | 1000 | panel z-index |
 
 ### Format
 
-tip: The format string we used (date-fns) and moment.js are inconsistent, such as: <br /> moment.js:   YYYY-MM-DD hh:mm:ss <br /> date-fns:   yyyy-MM-dd HH:mm:ss<br />
+tip: The format string we used (date-fns) and moment.js are inconsistent, such as:<br />
+moment: YYYY  => date-fns: yyyy <br />
+moment: DD&nbsp;&nbsp;&nbsp;&nbsp; => date-fns: dd <br />
+moment: hh&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  => date-fns: HH<br />
 The commonly used format is as follows
 
 | format | Description | example |

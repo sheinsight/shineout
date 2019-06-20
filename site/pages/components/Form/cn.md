@@ -29,6 +29,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 | onChange | function(data) | | 表单内组件值变化函数 |
 | onError | function(err) | | 异常回调处理 |
 | onSubmit | function(data) | | 表单提交函数。表单内部校验失败时不会触发。 |
+| removeUndefined | bool | true | 是否删除值为 undefined 的字段，默认值为删除 |
 | rules | object | | 校验规则，详见 Rules |
 | scrollToError | bool\|number | false | 校验失败时是否滚动到第一个校验失败组件，该值为数字时，表示相对于顶部的偏移量 |
 | style | object | | 扩展样式 |
@@ -40,6 +41,8 @@ Form 是一个比较复杂的组件，由下列组件组成
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | label | string \| ReactElement | undefined | 未定义时，标签不会render，也不会占位。如果无内容需要占位，使用空字符串 ''。 |
+| labelAlign | string | | 可选值为 \['top', 'right']，默认为左边对齐。 |
+| labelWidth | string \| number | 140px | 标签宽度，labelAlign 为 'top' 时无效。 |
 | required | boolean | false | 必填标记，纯展示用，不会触发校验 |
 | tip | string | | 提示文案 |
 

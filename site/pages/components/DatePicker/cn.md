@@ -20,11 +20,15 @@
 | value | string \| number \| Date \| array | 无 | 值。为 string 时，需要和 format 属性匹配。<br />range 属性为 true 时，值为长度为2的数组 |
 | defaultTime | string | 无 | 选择日期时默认的时间, 格式为: 'HH:mm:ss' |
 | absolute | bool | false | 为 true 时，选项弹出层在 DOM 中独立 render |
+| zIndex | number | 1000 | 选择面板 z-index 值 |
 
 
 ### Format
 
-我们使用的格式化字符串(date-fns)和 moment.js 是不一致的, 如: <br /> moment:   YYYY-MM-DD hh:mm:ss <br /> date-fns:   yyyy-MM-dd HH:mm:ss<br />
+我们使用的格式化字符串(date-fns)和 moment.js 是不一致的, 如:<br />
+moment: YYYY  => date-fns: yyyy <br />
+moment: DD&nbsp;&nbsp;&nbsp;&nbsp; => date-fns: dd <br />
+moment: hh&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  => date-fns: HH<br />
 常用的 format 格式如下，更多见 [UTS #35](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table)
 
 | 格式 | 说明 | 示例 |

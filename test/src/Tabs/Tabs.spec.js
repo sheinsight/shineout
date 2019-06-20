@@ -1,10 +1,10 @@
 import React from 'react'
 import { Tabs } from 'shineout'
 import { mount } from 'enzyme'
-import TabsActive from '../../../site/pages/components/Tabs/example-04-active'
-import TabsShapeLine from '../../../site/pages/components/Tabs/example-05-shape-line'
-import TabsShapeButton from '../../../site/pages/components/Tabs/example-06-shape-button'
-import TabsCollapsible from '../../../site/pages/components/Tabs/example-10-collapsible'
+import TabsActive from '../../../site/pages/components/Tabs/example-05-active'
+import TabsShapeLine from '../../../site/pages/components/Tabs/example-06-shape-line'
+import TabsShapeButton from '../../../site/pages/components/Tabs/example-07-shape-button'
+import TabsCollapsible from '../../../site/pages/components/Tabs/example-11-collapsible'
 
 /* global SO_PREFIX */
 describe('Tabs[Active]', () => {

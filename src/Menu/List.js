@@ -15,6 +15,7 @@ class List extends PureComponent {
       renderItem,
       style,
       bottomLine,
+      topLine,
       onClick,
       path,
       inlineIndent,
@@ -29,6 +30,7 @@ class List extends PureComponent {
         {data.map((d, i) => (
           <Item
             bottomLine={bottomLine}
+            topLine={topLine}
             disabled={disabled}
             key={getKey(d, keygen, i)}
             index={i}
@@ -50,6 +52,7 @@ class List extends PureComponent {
 
 List.propTypes = {
   bottomLine: PropTypes.number,
+  topLine: PropTypes.number,
   className: PropTypes.string,
   disabled: PropTypes.func,
   inlineIndent: PropTypes.number,

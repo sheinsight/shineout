@@ -30,6 +30,7 @@ class Root extends React.Component {
 
     this.checkOpen = this.checkOpen.bind(this)
     this.checkActive = this.checkActive.bind(this)
+    this.checkInPath = this.checkInPath.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleScroll = this.handleScroll.bind(this)
     this.handleWheel = this.handleWheel.bind(this)
@@ -43,6 +44,7 @@ class Root extends React.Component {
 
     this.items = {}
     this.itemsOpen = {}
+    this.itemsInPath = {}
   }
 
   componentDidMount() {
@@ -60,7 +62,9 @@ class Root extends React.Component {
   }
 
   getOpenKeys() {
-    return this.props.openKeys || Array.from(this.state.openKeys.keys())
+    const { openKeys, defaultOpenKeys } = this.props
+    if (openKeys) return openKeys
+    return this.hasToggled ? Array.from(this.state.openKeys.keys()) : defaultOpenKeys
   }
 
   bindRootElement(el) {
@@ -70,15 +74,17 @@ class Root extends React.Component {
     this.rootElement = el.querySelector(`.${menuClass('root')}`)
   }
 
-  bindItem(id, updateActive, updateOpen) {
+  bindItem(id, updateActive, updateOpen, updateInPath) {
     this.items[id] = updateActive
     this.itemsOpen[id] = updateOpen
-    return [this.checkActive, this.checkOpen]
+    this.itemsInPath[id] = updateInPath
+    return [this.checkActive, this.checkOpen, this.checkInPath]
   }
 
   unbindItem(id) {
     delete this.items[id]
     delete this.itemsOpen[id]
+    delete this.itemsInPath[id]
   }
 
   checkActive(id, data) {
@@ -97,9 +103,16 @@ class Root extends React.Component {
     return false
   }
 
+  checkInPath(id) {
+    const { activeKey } = this.state
+    if (!activeKey || !id) return false
+    return activeKey.indexOf(id) >= 0
+  }
+
   updateState() {
     this.updateActive()
     this.updateOpen()
+    this.updateInPath()
   }
 
   updateActive() {
@@ -120,7 +133,15 @@ class Root extends React.Component {
     }
   }
 
+  updateInPath() {
+    Object.keys(this.itemsInPath).forEach(id => {
+      const update = this.itemsInPath[id]
+      update(this.checkInPath)
+    })
+  }
+
   toggleOpenKeys(id, open) {
+    this.hasToggled = true
     const newOpenKeys = immer(keyToMap(this.getOpenKeys()), draft => {
       if (open) {
         draft.set(id, true)
@@ -197,8 +218,11 @@ class Root extends React.Component {
     if (style.width) rootStyle.width = style.width
 
     let bottomLine = 0
+    let topLine = 0
     if (showScroll && this.container) {
-      bottomLine = this.container.getBoundingClientRect().bottom
+      const rect = this.container.getBoundingClientRect()
+      bottomLine = rect.bottom
+      topLine = rect.top
     }
 
     return (
@@ -220,6 +244,7 @@ class Root extends React.Component {
               style={rootStyle}
               toggleOpenKeys={this.toggleOpenKeys}
               bottomLine={bottomLine}
+              topLine={topLine}
             />
           </Provider>
         </div>

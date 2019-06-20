@@ -143,6 +143,7 @@ export default Datum.hoc(
     bindProps: ['disabled', 'format', 'prediction'],
     ignoreUndefined: true,
     setValueType: null,
+    pure: false,
   },
   Table
 )

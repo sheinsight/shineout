@@ -14,10 +14,16 @@ class Item extends PureComponent {
 
     this.id = `${props.path},${getUidStr()}`
     const key = this.getKey(props)
-    const [activeUpdate, openUpdate] = props.bindItem(this.id, this.update.bind(this), this.updateOpen.bind(this))
+    const [activeUpdate, openUpdate, inPathUpdate] = props.bindItem(
+      this.id,
+      this.update.bind(this),
+      this.updateOpen.bind(this),
+      this.updateInPath.bind(this)
+    )
     this.state = {
       open: openUpdate(key),
       isActive: activeUpdate(this.id, props.data),
+      inPath: inPathUpdate(this.id),
       isHighLight: false,
     }
 
@@ -51,9 +57,15 @@ class Item extends PureComponent {
 
     this.setState({ isActive, isHighLight })
   }
+
   updateOpen(check) {
     const isOpen = check(this.getKey())
     this.setState({ open: isOpen })
+  }
+
+  updateInPath(check) {
+    const inPath = check(this.id)
+    this.setState({ inPath })
   }
 
   handleToggle(open) {
@@ -99,15 +111,17 @@ class Item extends PureComponent {
       disabled,
       toggleOpenKeys,
       bottomLine,
+      topLine,
     } = this.props
-    const { open, isActive, isHighLight } = this.state
-    const { children = [] } = data
+    const { open, isActive, isHighLight, inPath } = this.state
+    const { children: dChildren } = data
+    const children = dChildren || []
 
     const isDisabled = typeof disabled === 'function' ? disabled(data) : disabled
 
     let isUp = false
     if (mode === 'vertical' && this.element) {
-      isUp = this.element.getBoundingClientRect().bottom + 60 > bottomLine
+      isUp = this.element.getBoundingClientRect().bottom - topLine > (bottomLine - topLine) / 2
     }
 
     const className = menuClass(
@@ -117,7 +131,8 @@ class Item extends PureComponent {
       isActive && 'active',
       open && 'open',
       isUp && 'open-up',
-      isHighLight && 'highlight'
+      isHighLight && 'highlight',
+      inPath && 'in-path'
     )
 
     const style = {}
@@ -167,6 +182,7 @@ class Item extends PureComponent {
 Item.propTypes = {
   bindItem: PropTypes.func,
   bottomLine: PropTypes.number,
+  topLine: PropTypes.number,
   data: PropTypes.object,
   disabled: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   index: PropTypes.number,

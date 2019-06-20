@@ -30,6 +30,7 @@
 | value | array | none | The current selected value. |
 | empty | string | Data not found | empty text |
 | rowClickAttr | string \| string[] | \['*'\] | Sets the attribute of inner element to trigger onRowClick as needed, and '*' to accept the row click |
+| sorter | func | alphaSort(Column.sorter, sorter) | the method of table sort，args are Column.sorter and order |
 
 ### Column
 | Property | Type | Default | Description |
@@ -40,7 +41,7 @@
 | key | string \| number | none | The key of the column |
 | render | string \| function(d,i) | required | The generation function for Table content.<br />d: the data of the current row<br />i: the index of the current row <br />For ease of use, you can pass in the key of a data, such as 'id', which is equivalent to (d) => { return d.id } |
 | rowSpan | function(a, b) | none | When it is a function, it is judged whether the rows are merged according to the result (bool) returned by the function, and a and b are two adjacent rows of data. |
-| sorter | function(order) | none | When the sorter is not empty, the sort icon appears in this column. the value of order: \['asc', 'desc']<br />Front-end sorting returns a sort function, refer to Array.sort.<br />Server-side sorting, do not return values and handle it itself. |
+| sorter | function(order) \| string | none | When the sorter is not empty, the sort icon appears in this column. the value of order: \['asc', 'desc']<br />Indicate the sort key string, will pass to table sorter method.<br />Front-end sorting returns a sort function, refer to Array.sort.<br />Server-side sorting, do not return values and handle it itself. |
 | title | string \| ReactElement \| function(data) | none | The content of the header |
 | type | string | - | Special column, options: \['expand', 'row-expand', 'checkbox']<br />expand: Expand the column. When the render function returns a function, it means that the row can be expanded and the content  is the result returned by this function. <br />row-expand: Similar to expand. The difference is that clicking on the entire row triggers the expand event.<br />checkbox: Select column for scenes with only fixed selection columns |
 | width | number | - | the width of the column |

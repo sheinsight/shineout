@@ -28,7 +28,12 @@ class Range extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (!shallowEqual(prevProps.value, this.props.value) && !shallowEqual(this.state.rangeDate, this.props.value)) {
+    const { rangeDate } = this.state
+    if (
+      rangeDate.length !== 1 &&
+      !shallowEqual(prevProps.value, this.props.value) &&
+      !shallowEqual(this.state.rangeDate, this.props.value)
+    ) {
       // eslint-disable-next-line
       this.setState({ rangeDate: this.props.value })
     }
@@ -50,7 +55,7 @@ class Range extends PureComponent {
   }
 
   handleChange(index, date, change, end, mode) {
-    const { type, format, defaultTime } = this.props
+    const { type, format, defaultTime, range } = this.props
 
     if (!change) {
       const current = immer(this.props.current, draft => {
@@ -61,13 +66,25 @@ class Range extends PureComponent {
     }
 
     if (mode === 'time') {
+      let endChangedDate
       this.setState(
         immer(draft => {
           draft.rangeDate[index] = date
+          const [s, e] = draft.rangeDate
+          if (index !== 0) return
+          if (range && utils.compareAsc(s, e) === 1) {
+            endChangedDate = date
+            draft.rangeDate[1] = endChangedDate
+          }
+          if (typeof range === 'number' && utils.compareAsc(s, utils.addSeconds(e, -range)) < 0) {
+            endChangedDate = utils.addSeconds(s, range)
+            draft.rangeDate[1] = endChangedDate
+          }
         }),
         () => {
           const current = immer(this.props.value, draft => {
             draft[index] = date
+            if (endChangedDate) draft[1] = endChangedDate
           })
           this.props.onChange(current, true)
         }
@@ -109,8 +126,9 @@ class Range extends PureComponent {
 
   handleDisabled(type, date) {
     const { disabled } = this.props
+    const { rangeDate } = this.state
     if (disabled) {
-      return disabled(date, type)
+      return disabled(date, type, ...rangeDate)
     }
     return false
   }
@@ -131,6 +149,7 @@ class Range extends PureComponent {
       <div className={datepickerClass('range-picker')}>
         <Picker
           {...props}
+          pos="start"
           disabled={this.handleDisabledStart}
           index={0}
           max={rangeDate[1]}

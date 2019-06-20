@@ -25,8 +25,8 @@ const examples = [
   {
     name: '02-format',
     title: locate(
-      '格式化 \n 传入值可为 日期对象，时间戳，字符串，通过format 属性可以定义返回值的格式.<br /><b>如果传入的 value 和 format 不一致的话,内部会将 value 按照 format 转换并触发一次 onChange</b> <br /><br /> <b>注: 我们使用的格式化字符串(date-fns)和 moment.js 是不一致的, 如: <br /> moment.js:   YYYY-MM-DD hh:mm:ss <br /> date-fns:   yyyy-MM-dd HH:mm:ss</b> <br /><br /> 详细的请参照 <a href="#heading-3-Format">Format<a>',
-      'Format \n The format attribute defines the format of the return value.<br /><b>If the value and format passed in are inconsistent, the internal will convert the value according to the format and trigger an onChange</b>   <br /><br /> <b>tip: The format string we used (date-fns) and moment.js are inconsistent, such as: <br /> moment.js:   YYYY-MM-DD hh:mm:ss <br /> date-fns:   yyyy-MM-dd HH:mm:ss</b> <br /><br /> Please refer to the details <a href="#heading-3-Format">Format<a>'
+      '格式化 \n 传入值可为 日期对象，时间戳，字符串，通过format 属性可以定义返回值的格式. <br /><br /> <b>注: 我们使用的格式化字符串(date-fns)和 moment 是不一致的, 如: <br /> <br /> moment: YYYY  => date-fns: yyyy <br /> moment: DD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => date-fns: dd <br /> moment: hh&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  => date-fns: HH  </b><br /><br /> 详细的请参照 <a href="#heading-3-Format">Format<a>',
+      'Format \n The format attribute defines the format of the return value.  <br /><br /> <b>tip: The format string we used (date-fns) and moment.js are inconsistent, such as: <br /> <br /> moment: YYYY  => date-fns: yyyy <br /> moment: DD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => date-fns: dd <br /> moment: hh&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  => date-fns: HH  </b><br /><br /> Please refer to the details <a href="#heading-3-Format">Format<a>'
     ),
     component: require('doc/pages/components/DatePicker/example-02-format.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-02-format.js'),

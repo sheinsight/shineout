@@ -121,16 +121,16 @@ export default class TreeSelect extends PureComponent {
     this.handleChange()
   }
 
-  handleChange(data) {
+  handleChange(data, id) {
     const { datum, multiple, disabled, onChange } = this.props
     if (disabled === true || datum.disabled(data)) return
-
+    const current = datum.getDataById(id)
     if (!multiple) {
       datum.setValue([])
       datum.set(datum.getKey(data), 1)
       this.handleState(false)
     }
-    onChange(this.getValue())
+    onChange(this.getValue(), current)
   }
 
   handleClear() {
@@ -157,7 +157,7 @@ export default class TreeSelect extends PureComponent {
 
   renderTreeOptions() {
     const { focus, position } = this.state
-    const { multiple, datum, data, absolute, height } = this.props
+    const { multiple, datum, data, absolute, height, zIndex } = this.props
     const props = {}
     ;[
       'mode',
@@ -171,6 +171,7 @@ export default class TreeSelect extends PureComponent {
       'onExpand',
       'renderItem',
       'line',
+      'parentClickExpand',
     ].forEach(k => {
       props[k] = this.props[k]
     })
@@ -199,6 +200,7 @@ export default class TreeSelect extends PureComponent {
         className={treeSelectClass('options')}
         style={{ maxHeight: height, overflowY: 'auto' }}
         fixed="min"
+        zIndex={zIndex}
       >
         <div className={treeSelectClass('tree-wrapper')}>{content}</div>
       </OptionList>
@@ -286,6 +288,8 @@ TreeSelect.propTypes = {
   empty: PropTypes.string,
   compressed: PropTypes.bool,
   absolute: PropTypes.bool,
+  parentClickExpand: PropTypes.bool,
+  zIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 }
 
 TreeSelect.defaultProps = {

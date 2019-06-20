@@ -74,6 +74,7 @@ class Panel extends PureComponent {
     if (position) return position
 
     const rect = this.parentElement.getBoundingClientRect()
+    const centerPoint = rect.left + rect.width / 2
     const windowHeight = docSize.height
     const windowWidth = docSize.width
     if (rect.top + rect.height / 2 > windowHeight / 2) {
@@ -82,8 +83,8 @@ class Panel extends PureComponent {
       position = 'bottom'
     }
 
-    if (rect.left < 100) position += '-right'
-    else if (rect.right > windowWidth - 100) position += '-left'
+    if (centerPoint > windowWidth * 0.6) position += '-right'
+    else if (centerPoint < windowWidth * 0.3) position += '-left'
 
     return position
   }

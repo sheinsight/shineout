@@ -7,7 +7,7 @@ import { getUidStr } from '../utils/uid'
 import Input from '../Input'
 import { checkinputClass } from '../styles'
 
-export default function (type) {
+export default function(type) {
   class CheckItem extends PureComponent {
     constructor(props) {
       super(props)
@@ -22,9 +22,7 @@ export default function (type) {
     }
 
     componentDidUpdate(prevProps) {
-      const {
-        checked, inputable, value, htmlValue,
-      } = this.props
+      const { checked, inputable, value, htmlValue } = this.props
       if (prevProps.value !== value && checked === undefined) {
         // eslint-disable-next-line
         this.setState({ checked: inputable ? !!value : value === htmlValue })
@@ -45,9 +43,7 @@ export default function (type) {
     }
 
     handleChange(e) {
-      const {
-        onChange, onRawChange, index, inputable,
-      } = this.props
+      const { onChange, onRawChange, index, inputable } = this.props
       const { checked } = e.target
       this.setState({ checked })
       let value = inputable ? this.props.value : this.props.htmlValue
@@ -65,9 +61,7 @@ export default function (type) {
     }
 
     render() {
-      const {
-        disabled, style, children, inputable,
-      } = this.props
+      const { disabled, style, children, inputable, onClick } = this.props
 
       const checked = this.getChecked()
 
@@ -76,9 +70,9 @@ export default function (type) {
           '_',
           disabled && 'disabled',
           checked === true && 'checked',
-          checked === 'indeterminate' && 'indeterminate',
+          checked === 'indeterminate' && 'indeterminate'
         ),
-        this.props.className,
+        this.props.className
       )
 
       const value = typeof this.props.value === 'string' ? this.props.value : ''
@@ -89,19 +83,15 @@ export default function (type) {
             id={this.id}
             disabled={disabled}
             type={type}
+            onClick={onClick}
             onChange={this.handleChange}
             checked={checked}
           />
           <i className={checkinputClass('indicator', type)} />
           {children && <span>{children}</span>}
-          {
-            inputable && checked &&
-            <Input
-              className={checkinputClass('text')}
-              onChange={this.handleInputChange}
-              value={value}
-            />
-          }
+          {inputable && checked && (
+            <Input className={checkinputClass('text')} onChange={this.handleInputChange} value={value} />
+          )}
         </label>
       )
     }
@@ -109,21 +99,20 @@ export default function (type) {
 
   CheckItem.propTypes = {
     ...getProps(PropTypes, 'disabled'),
-    checked: PropTypes.oneOfType([
-      PropTypes.oneOf([true, false, 'indeterminate']),
-      PropTypes.func,
-    ]),
+    checked: PropTypes.oneOfType([PropTypes.oneOf([true, false, 'indeterminate']), PropTypes.func]),
     inputable: PropTypes.bool,
     htmlValue: PropTypes.any,
     index: PropTypes.number,
     onChange: PropTypes.func,
     onRawChange: PropTypes.func,
     value: PropTypes.any,
+    onClick: PropTypes.func,
   }
 
   CheckItem.defaultProps = {
     ...defaultProps,
     htmlValue: true,
+    onClick: undefined,
   }
 
   return CheckItem
