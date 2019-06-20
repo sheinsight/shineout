@@ -77,6 +77,7 @@ Picker.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.object,
   type: PropTypes.string.isRequired,
+  index: PropTypes.number,
 }
 
 export default Picker

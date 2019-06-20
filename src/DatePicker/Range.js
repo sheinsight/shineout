@@ -84,7 +84,14 @@ class Range extends PureComponent {
         immer(draft => {
           draft.rangeDate[index] = date
           const [s, e] = draft.rangeDate
-          if (index !== 0) return
+          if (index !== 0) {
+            if (s && s.getHours() === e.getHours()) {
+              if (utils.compareAsc(s, e) === 1) {
+                e.setMinutes(s.getMinutes())
+              }
+            }
+            return
+          }
           if (range && utils.compareAsc(s, e) === 1) {
             endChangedDate = date
             draft.rangeDate[1] = endChangedDate

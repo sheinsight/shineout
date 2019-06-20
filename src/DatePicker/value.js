@@ -12,6 +12,7 @@ export default Origin =>
       range: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
       type: PropTypes.string,
       value: PropTypes.any,
+      allowSingle: PropTypes.bool,
     }
 
     constructor(props) {
@@ -58,7 +59,7 @@ export default Origin =>
 
     rangeWithSingle() {
       if (!this.state.value) return false
-      return this.props.range && !this.props.allowSingle && !(this.state.value[0] && this.state.value[1])
+      return this.props.range && !this.props.allowSingle && this.state.value.filter(v => v).length === 1
     }
 
     convertValue(value) {
@@ -104,9 +105,7 @@ export default Origin =>
     handleBlur() {
       if (this.rangeWithSingle()) {
         this.setState({ value: this.props.value })
-      } else {
-        this.props.onChange(this.state.value)
-      }
+      } else if (this.state.value !== this.props.value) this.props.onChange(this.state.value)
       this.props.onBlur()
     }
 
