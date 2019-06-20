@@ -17,6 +17,7 @@ export default class Panel extends PureComponent {
       position
         ? {}
         : {
+            display: 'inline-flex',
             width,
             height,
             top,
