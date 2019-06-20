@@ -432,6 +432,14 @@ const injects = {
         parser: parseInt,
       },
       {
+        name: 'focusWidth',
+        className: inputClass('focus'),
+        attr: 'boxShadow',
+        type: 'number',
+        max: 20,
+        parser: v => parseInt(v.split(' ').pop(), 10),
+      },
+      {
         name: 'disabledBg',
         className: inputClass('disabled'),
         attr: 'backgroundColor',
@@ -439,7 +447,7 @@ const injects = {
       },
       {
         name: 'borderColor',
-        classname: inputClass('_'),
+        className: inputClass('_'),
         attr: 'borderColor',
         type: 'color',
       },
@@ -457,6 +465,11 @@ const injects = {
     set borderColor(v) {
       setBodyProperty({
         '--input-border-color': v,
+      })
+    },
+    set focusWidth(v) {
+      setBodyProperty({
+        '--input-focus-width': `${parseInt(v, 10)}px`,
       })
     },
   },
