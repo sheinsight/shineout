@@ -18,6 +18,12 @@ export default WrappedComponent => {
       this.expandLevel = new Map()
     }
 
+    componentDidUpdate(prevProps) {
+      if (prevProps.data !== this.props.data) {
+        this.reExpand()
+      }
+    }
+
     getTreeIndent() {
       const { columns } = this.props
       for (let i = 0; i < columns.length; i++) {
@@ -42,7 +48,29 @@ export default WrappedComponent => {
       return length
     }
 
-    handleTreeExpand(data, index) {
+    reExpand() {
+      const { data, keygen, treeColumnsName } = this.props
+      this.expandLevel.clear()
+      if (this.expandKeys.size === 0) {
+        this.setState({ data: this.props.data })
+        return
+      }
+
+      this.storeExpandKeys = new Map()
+      this.expandKeys.forEach((value, key) => this.storeExpandKeys.set(key, value))
+      this.expandKeys.clear()
+      for (let i = 0; i < data.length; i++) {
+        const item = data[i]
+        const key = getKey(item, keygen, i)
+        if (this.storeExpandKeys.get(key) && item[treeColumnsName]) {
+          this.handleTreeExpand(item, i, data)
+        }
+      }
+      this.storeExpandKeys.clear()
+      this.setState({ data })
+    }
+
+    handleTreeExpand(data, index, list) {
       const { treeColumnsName, keygen } = this.props
       const children = data[treeColumnsName]
       const key = getKey(data, keygen, index)
@@ -56,23 +84,27 @@ export default WrappedComponent => {
             state.data.splice(index + 1, delLength)
           })
         )
-      } else {
-        children.forEach((child, i) => {
-          this.expandLevel.set(getKey(child, keygen, index + i + 1), parentLevel + 1)
-        })
+        return
+      }
 
-        this.expandKeys.set(key, true)
+      children.forEach((child, i) => {
+        this.expandLevel.set(getKey(child, keygen, index + i + 1), parentLevel + 1)
+      })
+
+      this.expandKeys.set(key, true)
+      if (!list) {
         this.setState(
           immer(state => {
             state.data.splice(index + 1, 0, ...children)
           })
         )
-      }
+      } else list.splice(index + 1, 0, ...children)
     }
 
     render() {
       const { data, ...other } = this.props
-      const rootTree = this.state.data.filter(v => v && v[other.treeColumnsName] && v[other.treeColumnsName].length).length === 0
+      const rootTree =
+        this.state.data.filter(v => v && v[other.treeColumnsName] && v[other.treeColumnsName].length).length === 0
       const treeIndent = this.getTreeIndent()
       return (
         <WrappedComponent
