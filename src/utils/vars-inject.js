@@ -21,7 +21,7 @@ const injects = {
     info: {
       title: 'Color 颜色',
       name: 'color',
-      className: 'editor-color',
+      path: 'Button',
     },
     conf: [
       {

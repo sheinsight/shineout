@@ -13,23 +13,27 @@ import configHOC from './config'
 import accessors from '../../../src/utils/css-accessors'
 import Icons from '../../../src/icons'
 
-function Foot() {
+function Foot({ onClose }) {
   const ctx = React.useContext(context)
   return (
     <div className={headerClass('editor-footer')}>
-      <Button onClick={ctx.resetConfig}>恢复</Button>
-      <Button type="primary" onClick={ctx.genConfig}>
-        导出配置
-      </Button>
+      <a className={headerClass('editor-close')} onClick={onClose} href="javascript:;">
+        {Icons.Close}
+      </a>
+      <span onClick={ctx.resetConfig}>恢复</span>
+      <span onClick={ctx.genConfig}>导出</span>
     </div>
   )
+}
+Foot.propTypes = {
+  onClose: PropTypes.func,
 }
 
 function Head({ active, title }) {
   return (
     <h2 className={classnames('picker-title', active && headerClass('active'))}>
-      <span />
       {title}
+      <span />
     </h2>
   )
 }
@@ -113,10 +117,8 @@ export default class extends React.Component {
     }
     return (
       <div className={headerClass('editor')}>
-        <a className={headerClass('close')} onClick={onClose} href="javascript:;">
-          {Icons.Close}
-        </a>
         <Provider value={provideValue}>
+          <Foot onClose={onClose} />
           <div className={headerClass('editor-content')} onClick={this.handleClick}>
             {this.editors.map(editor => {
               const { title, className } = editor
@@ -130,7 +132,6 @@ export default class extends React.Component {
               )
             })}
           </div>
-          <Foot />
         </Provider>
         <Modal visible={exportConf} onClose={() => this.setState({ exportConf: false })}>
           <div className={headerClass('export-conf')}>{exportConf}</div>

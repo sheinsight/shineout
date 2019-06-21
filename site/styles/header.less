@@ -1,6 +1,8 @@
 @import './variables.less';
 
 @doc-header-prefix: doc-header;
+@editor-text-color: #c0c4cc;
+@editor-darken-text-color: darken(@editor-text-color, 40%);
 
 .doc-header {
   @header-height: 60px;
@@ -65,7 +67,6 @@
 
   &-light {
     vertical-align: middle;
-
     button,
     button:hover,
     button:focus,
@@ -82,6 +83,7 @@
   }
 
   &-editor-drawer {
+    z-index: @zindex-navbar-fixed;
     position: fixed;
     top: 0;
     right: 0;
@@ -89,19 +91,18 @@
     overflow: hidden;
     background: #fff;
     height: 100%;
-    border-left: 1px solid @doc-border-color;
+    border-left: 1px solid @table-border-color;
   }
 
   &-editor {
-    display: flex;
-    flex-direction: column;
+    overflow: auto;
     height: 100%;
-    .@{doc-header-prefix}-close {
-      position: absolute;
+    background: @doc-code-bg;
+    &-close {
+      margin-left: 8px;
+      float: left;
       z-index: 100;
-      top: 13px;
-      right: 24px;
-      display: block;
+      display: inline-block;
       width: 10px;
       height: 10px;
       padding: 0;
@@ -112,64 +113,64 @@
       align-items: center;
     }
     &-footer {
-      background: #fff;
-      padding: 16px;
-      border-top: 1px solid @table-border-color;
+      height: 44px;
+      line-height: 44px;
+      padding: 0 24px 0 12px;
       text-align: right;
-    }
-    &-color {
-      > div {
-        display: inline-flex;
-        flex-direction: column;
-        margin-right: 14px;
-        > div {
-          width: auto !important;
+      color: @editor-text-color;
+      span {
+        transition: color .3s;
+        cursor: pointer;
+        margin-left: 14px;
+        color: @editor-darken-text-color;
+        &:hover {
+          color: @colors-primary;
         }
       }
     }
     &-content {
-      width: 400px;
+      width: 283px;
       flex: 1;
-      padding: 16px 24px;
+      padding: 15px 18px;
       overflow: auto;
       > div {
-        margin-top: 20px;
-        .@{so-prefix}-form-label {
-          padding-left: 0;
-          text-transform: capitalize;
-        }
+        margin-bottom: 20px;
         .@{so-prefix}-form-item {
-          margin-bottom: 14px;
-          .@{so-prefix}-slider {
-            top: -7px;
-            padding-bottom: 2px;
-            .@{so-prefix}-slider-scale {
-              visibility: hidden;
+          padding: 5px 0;
+          margin-bottom: 0;
+          display: block;
+          .@{so-prefix}-form-label {
+            font-size: 12px;
+            width: auto;
+            color: @editor-darken-text-color;
+          }
+          .@{doc-header-prefix}-attr-item {
+            display: flex;
+            flex-direction: row;
+            > label {
+              margin-right: 8px;
             }
-            &:hover {
-              .@{so-prefix}-slider-scale {
-                visibility: visible;
-              }
+            .@{doc-header-prefix}-color {
+              width: 34px;
+              height: 34px;
             }
           }
         }
-        &:first-child {
-          margin-top: 0;
-        }
       }
       h2 {
-        display: inline-block;
         cursor: pointer;
         user-select: none;
-        color: @gray-500;
-        font-weight: normal;
-        font-size: 20px;
-        margin: 0 0 14px 0;
+        color: @editor-text-color;
+        font-size: 15px;
+        font-weight: 400;
+        margin: 0 0 8px 0;
         transition: color .3s;
         &.@{doc-header-prefix}-active {
-          color: @gray-800;
+          padding-bottom: 8px;
+          border-bottom: 2px solid fade(@editor-text-color, 30%);
+          color: @editor-darken-text-color;
           > span {
-            .caret-outline(down, @caret-width);
+            .caret-outline(up, @caret-width);
             margin-right: 10px;
             display: inline-block;
             &:after {
@@ -177,15 +178,16 @@
               height: 8px;
               margin-left: 0;
               top: -1px;
-              border-width: 0 2px 2px 0;
+              border-width: 0 1px 1px 0;
             }
           }
         }
         &:hover {
-          color: @gray-800;
+          color: @editor-darken-text-color;
         }
         > span {
-          .caret-outline(right, @caret-width);
+          .caret-outline(down, @caret-width);
+          float: right;
           margin-right: 10px;
           display: inline-block;
           &:after {
@@ -193,11 +195,11 @@
             height: 8px;
             margin-left: 0;
             top: -1px;
-            border-width: 0 2px 2px 0;
+            border-width: 0 1px 1px 0;
           }
         }
-        & + div{
-          padding-left: 18px;
+        & + div {
+          margin-left: -5px;
         }
       }
     }
