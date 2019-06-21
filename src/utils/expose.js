@@ -50,8 +50,7 @@ const style = {
   setStyle(options) {
     for (const [key, values] of Object.entries(options)) {
       const setterName = `set${key.replace(/^\S/, s => s.toUpperCase())}`
-      if (cssAccessors[key] && cssAccessors[key][setterName])
-      cssAccessors[key][setterName](values)
+      if (cssAccessors[key] && cssAccessors[key][setterName]) cssAccessors[key][setterName](values)
     }
   },
 }
