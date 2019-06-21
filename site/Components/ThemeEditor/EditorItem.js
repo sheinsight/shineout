@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Form, Slider, Popover, Input } from 'shineout'
+import { Form, Popover, Input } from 'shineout'
 import { SketchPicker } from 'react-color'
 import cssInject from '../../../src/utils/vars-inject'
 import { headerClass } from '../../styles'
