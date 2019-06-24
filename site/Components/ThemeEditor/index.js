@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Modal } from 'shineout'
+import { Modal } from 'shineout'
 import immer from 'immer'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
@@ -98,7 +98,11 @@ export default class extends React.Component {
 
   genConfig() {
     const { config } = this.state
-    const str = JSON.stringify(config, null, 4)
+    const str = `import { style } from 'shineout';\nconst config = ${JSON.stringify(
+      config,
+      null,
+      4
+    )};\nstyle.setStyle(config)`
     this.setState({ exportConf: str })
   }
 
