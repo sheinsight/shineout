@@ -266,6 +266,7 @@ class Select extends PureComponent {
       'onFilter',
       'filterText',
       'absolute',
+      'zIndex',
     ].forEach(k => {
       props[k] = this.props[k]
     })
@@ -304,6 +305,7 @@ class Select extends PureComponent {
       'loading',
       'onFilter',
       'filterText',
+      'zIndex',
     ].forEach(k => {
       props[k] = this.props[k]
     })

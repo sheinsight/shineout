@@ -27,7 +27,7 @@ class Tag extends PureComponent {
     this.setState({ dismiss: 2 })
   }
 
-  dismiss() {
+  dismiss(e) {
     const { onClose } = this.props
     let callback
     if (onClose === true) {
@@ -35,7 +35,7 @@ class Tag extends PureComponent {
       return
     }
     if (typeof onClose === 'function') {
-      callback = onClose()
+      callback = onClose(e)
     }
     if (isPromise(callback)) {
       this.setState({ dismiss: 1 })
@@ -44,19 +44,22 @@ class Tag extends PureComponent {
       })
       return
     }
+    if (e.defaultPrevented) {
+      return
+    }
     this.closeTag()
   }
 
-  handleClick() {
+  handleClick(e) {
     const { onClick, disabled } = this.props
     if (disabled) return
-    if (typeof onClick === 'function') onClick()
+    if (typeof onClick === 'function') onClick(e)
   }
 
-  handleClose() {
+  handleClose(e) {
     const { disabled } = this.props
     if (this.state.dismiss > 0 || disabled) return
-    this.dismiss()
+    this.dismiss(e)
   }
 
   renderClose(dismiss) {
@@ -66,18 +69,13 @@ class Tag extends PureComponent {
     const loadingClass = tagClass('close-loading')
     if (dismiss === 0) {
       return (
-        <div
-          className={closeClass}
-          onClick={this.handleClose}
-        >
+        <div className={closeClass} onClick={this.handleClose}>
           {icons.Close}
         </div>
       )
     }
     return (
-      <div
-        className={loadingClass}
-      >
+      <div className={loadingClass}>
         <Spin name="ring" size={10} />
       </div>
     )
@@ -87,18 +85,11 @@ class Tag extends PureComponent {
     const { dismiss } = this.state
     if (dismiss === 2) return null
 
-    const {
-      children, className, type, backgroundColor, onClose,
-      disabled,
-    } = this.props
+    const { children, className, type, backgroundColor, onClose, disabled } = this.props
 
     const { style } = this.props
 
-    let tagClassName = tagClass(
-      '_',
-      disabled && 'disabled',
-      type,
-    )
+    let tagClassName = tagClass('_', disabled && 'disabled', type)
     const inlineClassName = tagClass('inline')
     const click = !onClose ? { onClick: this.handleClick } : {}
     let tagStyle = style || {}
@@ -114,11 +105,13 @@ class Tag extends PureComponent {
     }
     return (
       <div className={tagClassName} style={tagStyle} {...click}>
-        {
-           onClose
-           ? <div onClick={this.handleClick} className={inlineClassName}>{children}</div>
-           : children
-        }
+        {onClose ? (
+          <div onClick={this.handleClick} className={inlineClassName}>
+            {children}
+          </div>
+        ) : (
+          children
+        )}
         {this.renderClose(dismiss)}
       </div>
     )
@@ -128,10 +121,7 @@ class Tag extends PureComponent {
 Tag.propTypes = {
   ...getProps(PropTypes, 'type'),
   children: PropTypes.any,
-  onClose: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.bool,
-  ]),
+  onClose: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   backgroundColor: PropTypes.string,
 }
 
@@ -139,6 +129,5 @@ Tag.defaultProps = {
   ...defaultProps,
   type: 'default',
 }
-
 
 export default Tag

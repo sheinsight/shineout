@@ -53,10 +53,10 @@ class Header extends PureComponent {
   }
 
   handleMove(lt) {
-    const { attributeString } = this.state
+    const { attributeString, attribute: a } = this.state
     const innerAttribute = this.innerElement[`client${attributeString}`]
     const scrollAttribute = this.scrollElement[`client${attributeString}`]
-    let attribute = this.state.attribute + (lt ? -innerAttribute : innerAttribute)
+    let attribute = a + (lt ? -innerAttribute : innerAttribute)
     if (attribute < 0) attribute = 0
     if (attribute + innerAttribute > scrollAttribute) attribute = scrollAttribute - innerAttribute
     this.setState({ attribute })
@@ -67,13 +67,17 @@ class Header extends PureComponent {
     const positions = isVertical ? ['top', 'bottom'] : ['left', 'right']
     const rect = this.innerElement.getBoundingClientRect()
     if (tabRect[positions[0]] < rect[positions[0]]) {
-      this.setState(immer((draft) => {
-        draft.attribute -= rect[positions[0]] - tabRect[positions[0]]
-      }))
+      this.setState(
+        immer(draft => {
+          draft.attribute -= rect[positions[0]] - tabRect[positions[0]]
+        })
+      )
     } else if (tabRect[positions[1]] > rect[positions[1]]) {
-      this.setState(immer((draft) => {
-        draft.attribute += tabRect[positions[1]] - rect[positions[1]] - (draft.attribute === 0 ? -30 : 0)
-      }))
+      this.setState(
+        immer(draft => {
+          draft.attribute += tabRect[positions[1]] - rect[positions[1]] - (draft.attribute === 0 ? -30 : 0)
+        })
+      )
     }
   }
 
@@ -104,13 +108,7 @@ class Header extends PureComponent {
 
   renderTab({ tab, id, ...other }) {
     return (
-      <Tab
-        {...other}
-        key={id}
-        id={id}
-        moveToCenter={this.moveToCenter}
-        onClick={this.handleClick}
-      >
+      <Tab {...other} key={id} id={id} moveToCenter={this.moveToCenter} onClick={this.handleClick}>
         {tab}
       </Tab>
     )
@@ -120,52 +118,46 @@ class Header extends PureComponent {
     const { onChange, tabs } = this.props
     return (
       <Button.Group>
-        {
-          tabs.map(tab => (
-            <Button
-              key={tab.id}
-              onClick={tab.isActive ? undefined : onChange.bind(this, tab.id)}
-              className={tabsClass(tab.isActive && 'button-active')}
-            >
-              {tab.tab}
-            </Button>
-          ))
-        }
+        {tabs.map(tab => (
+          <Button
+            key={tab.id}
+            onClick={tab.isActive ? undefined : onChange.bind(this, tab.id)}
+            className={tabsClass(tab.isActive && 'button-active')}
+          >
+            {tab.tab}
+          </Button>
+        ))}
       </Button.Group>
     )
   }
 
   renderTabs() {
-    const {
-      border, onCollapse, collapsed, tabs, isVertical,
-    } = this.props
+    const { border, onCollapse, collapsed, tabs, isVertical, tabBarExtraContent, tabBarStyle } = this.props
     const { attribute, overflow } = this.state
 
     const position = isVertical ? 'Top' : 'Left'
 
     return (
-      <div ref={this.bindWrapper} onClick={this.handleCollapse} className={tabsClass('header')}>
-        {
-          onCollapse &&
-          <span className={tabsClass('indicator', collapsed && 'collapsed')}>{icons.AngleRight}</span>
-        }
-        {
-          attribute > 0 &&
-          <div onClick={this.handlePrevClick} className={tabsClass('scroll-prev')}>
-            {icons.AngleLeft}
+      <div onClick={this.handleCollapse} className={tabsClass('header')} style={tabBarStyle || {}}>
+        <div ref={this.bindWrapper} className={tabsClass('header-tabs')}>
+          {onCollapse && <span className={tabsClass('indicator', collapsed && 'collapsed')}>{icons.AngleRight}</span>}
+          {attribute > 0 && (
+            <div onClick={this.handlePrevClick} className={tabsClass('scroll-prev')}>
+              {icons.AngleLeft}
+            </div>
+          )}
+          <div ref={this.bindInner} className={tabsClass('inner')}>
+            <div ref={this.bindScroll} style={{ [`margin${position}`]: -attribute }} className={tabsClass('scroll')}>
+              {tabs.map(this.renderTab)}
+            </div>
           </div>
-        }
-        <div ref={this.bindInner} className={tabsClass('inner')}>
-          <div ref={this.bindScroll} style={{ [`margin${position}`]: -attribute }} className={tabsClass('scroll')}>
-            { tabs.map(this.renderTab) }
-          </div>
+          {overflow && (
+            <div onClick={this.handleNextClick} className={tabsClass('scroll-next')}>
+              {isVertical ? icons.AngleRight : icons.AngleRight}
+            </div>
+          )}
         </div>
-        {
-          overflow &&
-          <div onClick={this.handleNextClick} className={tabsClass('scroll-next')}>
-            {isVertical ? icons.AngleRight : icons.AngleRight}
-          </div>
-        }
+        {tabBarExtraContent && <div className={tabsClass('extra')}>{tabBarExtraContent}</div>}
         <div style={{ borderColor: border }} className={tabsClass('hr')} />
       </div>
     )
@@ -184,6 +176,8 @@ Header.propTypes = {
   onCollapse: PropTypes.func,
   shape: PropTypes.string,
   tabs: PropTypes.array,
+  tabBarExtraContent: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  tabBarStyle: PropTypes.object,
 }
 
 export default Header

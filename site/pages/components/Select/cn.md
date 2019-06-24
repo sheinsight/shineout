@@ -28,3 +28,4 @@
 | renderResult | function(d) | renderItem | 选中后在结果中显示的内容，默认和 renderItem 相同 |
 | value | array \| string \| object | | 在Form中，value会被表单接管，value无效 |
 | compressed | bool | false | 将选中值合并，只在多选模式下有效 |
+| zIndex | number | 1000 | 选项列表 z-index 值 |
