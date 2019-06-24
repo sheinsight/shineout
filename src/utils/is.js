@@ -69,6 +69,6 @@ export const isLink = el => {
   if (!isValidElement(el)) return false
   if (!el.type) return false
   if (el.type === 'a') return true
-  if (linkNames.includes(el.type.displayName)) return true
+  if (linkNames.includes(el.type.displayName || el.type.name)) return true
   return false
 }
