@@ -28,7 +28,7 @@
 moment: YYYY  => date-fns: yyyy <br />
 moment: DD&nbsp;&nbsp;&nbsp;&nbsp; => date-fns: dd <br />
 moment: hh&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  => date-fns: HH<br />
-常用的 format 格式如下，更多见 [UTS #35](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table)
+常用的 format 格式如下，更多见 [format](https://date-fns.org/v2.0.0-alpha.10/docs/format)
 
 | 格式 | 说明 | 示例 |
 | --- | --- | --- |
@@ -37,8 +37,8 @@ moment: hh&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  => date-fns: HH<br />
 | Q | 季度 | 1, 2, 3, 4 |
 | d | 日 |	1, 2, ..., 31
 | dd | 日（补0） |	01, 02, ..., 31 |
-| W | 周 | 1, 2, ..., 53 |
-| WW | 周（补0）| 01, 02, ..., 53 |
+| w | 周 | 1, 2, ..., 53 |
+| ww | 周（补0）| 01, 02, ..., 53 |
 | yy | 年 | 00, 01, ..., 99 |
 | yyyy | 完整年 | 1900, 1901, ..., 2099 |
 | a | AM/PM | AM, PM |

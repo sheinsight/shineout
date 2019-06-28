@@ -121,7 +121,7 @@ class Range extends PureComponent {
       this.changeDateSmart(rangeDate)
 
       this.setState({ rangeDate })
-      this.props.onChange(rangeDate, true)
+      this.props.onChange(rangeDate, true, true, index === 1)
 
       return
     }
@@ -146,7 +146,8 @@ class Range extends PureComponent {
         draft.hover = undefined
       }),
       () => {
-        this.props.onChange(this.state.rangeDate, true, type === 'date', index === 1)
+        // only 'datetime' don not need close, 'time is up'
+        this.props.onChange(this.state.rangeDate, true, type !== 'datetime', index === 1)
       }
     )
   }

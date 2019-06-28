@@ -82,7 +82,7 @@ class Container extends PureComponent {
       case 'time':
         return 'HH:mm:ss'
       case 'week':
-        return 'yyyy WW'
+        return 'yyyy ww'
       default:
         return 'yyyy-MM-dd HH:mm:ss'
     }
