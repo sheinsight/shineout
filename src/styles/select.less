@@ -16,6 +16,7 @@
     overflow: auto;
     max-height: 80px;
     flex-flow: wrap;
+    cursor: pointer;
     padding: @padding-base-vertical @padding-base-horizontal+12 0 @padding-base-horizontal;
 
     span {
@@ -44,6 +45,7 @@
       flex: 1;
       margin-bottom: @padding-base-vertical;
       outline: none;
+      cursor: text;
 
       &:after {
         content: '\feff ';
@@ -67,7 +69,7 @@
       color: inherit;
       text-overflow: ellipsis;
 
-      &.@{select-prefix}-compressed {
+      &-compressed {
         padding: 0 8px;
         font-size: 80%;
         opacity: .9;
@@ -391,12 +393,15 @@
   }
 
   &-disabled {
-    .@{select-prefix}-result .@{select-prefix}-item {
-      padding-right: @select-result-space;
-      background: @input-bg-disabled;
+    .@{select-prefix}-result {
+      cursor: not-allowed;
+      .@{select-prefix}-item {
+        padding-right: @select-result-space;
+        background: @input-bg-disabled;
 
-      .@{select-prefix}-close {
-        display: none;
+        .@{select-prefix}-close {
+          display: none;
+        }
       }
     }
   }

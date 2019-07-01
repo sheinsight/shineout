@@ -109,7 +109,7 @@ class Result extends PureComponent {
 
       if (compressed && result.length > 1) {
         items.push(
-          <a key={result.length} className={selectClass('item', 'compressed')}>
+          <a key={result.length} className={selectClass('item', 'item-compressed')}>
             <span>{`+${result.length - 1}`}</span>
           </a>
         )

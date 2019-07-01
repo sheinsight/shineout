@@ -181,7 +181,7 @@ class Cascader extends PureComponent {
   render() {
     const { placeholder, disabled, size, ...other } = this.props
     const className = classnames(
-      cascaderClass('_', size, this.state.focus && 'focus', disabled && 'disabled'),
+      cascaderClass('_', size, this.state.focus && 'focus', disabled === true && 'disabled'),
       selectClass(this.state.position)
     )
 

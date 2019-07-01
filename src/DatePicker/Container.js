@@ -293,7 +293,7 @@ class Container extends PureComponent {
   }
 
   render() {
-    const { range, size } = this.props
+    const { range, size, disabled } = this.props
     const { focus } = this.state
 
     const className = datepickerClass(
@@ -301,6 +301,7 @@ class Container extends PureComponent {
       range && 'range',
       size && `size-${size}`,
       focus && 'focus',
+      disabled === true && 'disabled',
       this.state.position
     )
 
