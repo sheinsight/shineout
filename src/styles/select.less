@@ -71,6 +71,7 @@
         padding: 0 8px;
         font-size: 80%;
         opacity: .9;
+        text-overflow: unset;
         > span {
           vertical-align: middle;
           letter-spacing: 2px;
@@ -101,6 +102,16 @@
           background-color: @gray-600;
         }
       }
+    }
+  }
+
+  &-compressed {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    .@{select-prefix}-item {
+      padding-right: @select-result-space;
     }
   }
 
@@ -357,9 +368,17 @@
 
   &-multiple &-result {
     padding-left: @padding-base-horizontal / 2;
-    padding-right: @padding-large-horizontal+22;
+    padding-right: @padding-base-horizontal + 22;
     .@{select-prefix}-close-warpper {
       right: 17px;
+    }
+  }
+
+  &-multiple &-compressed {
+    padding-left: @padding-base-horizontal / 2;
+    padding-right: @padding-base-horizontal + 12;
+    .@{select-prefix}-close-warpper {
+      right: 7px;
     }
   }
 
