@@ -20,7 +20,7 @@ function Item({ renderResult, data, disabled, onClick }) {
   const click = disabled || !onClick ? undefined : () => onClick(value)
   const synDisabled = disabled || !click
   return (
-    <a className={treeSelectClass('item', synDisabled && 'disabled')} onClick={click}>
+    <a className={treeSelectClass('item', disabled && 'disabled')} onClick={click}>
       {getResultContent(data, renderResult)}
       {!synDisabled && <span className={treeSelectClass('indicator', 'close')} />}
     </a>
@@ -102,7 +102,7 @@ class Result extends PureComponent {
 
       if (compressed && result.length > 1) {
         items.push(
-          <a key={result.length} className={treeSelectClass('item', 'compressed')}>
+          <a key={result.length} className={treeSelectClass('item', 'item-compressed')}>
             <span>{`+${result.length - 1}`}</span>
           </a>
         )
@@ -124,9 +124,10 @@ class Result extends PureComponent {
 
   render() {
     const result = this.props.result.length === 0 ? this.renderPlaceholder() : this.renderResult()
+    const { compressed } = this.props
 
     return (
-      <div className={treeSelectClass('result')}>
+      <div className={treeSelectClass('result', compressed && 'compressed')}>
         {result}
         {!this.props.multiple && (
           // eslint-disable-next-line

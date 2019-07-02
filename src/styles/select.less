@@ -16,6 +16,7 @@
     overflow: auto;
     max-height: 80px;
     flex-flow: wrap;
+    cursor: pointer;
     padding: @padding-base-vertical @padding-base-horizontal+12 0 @padding-base-horizontal;
 
     span {
@@ -44,6 +45,7 @@
       flex: 1;
       margin-bottom: @padding-base-vertical;
       outline: none;
+      cursor: text;
 
       &:after {
         content: '\feff ';
@@ -67,10 +69,11 @@
       color: inherit;
       text-overflow: ellipsis;
 
-      &.@{select-prefix}-compressed {
+      &-compressed {
         padding: 0 8px;
         font-size: 80%;
         opacity: .9;
+        text-overflow: unset;
         > span {
           vertical-align: middle;
           letter-spacing: 2px;
@@ -101,6 +104,16 @@
           background-color: @gray-600;
         }
       }
+    }
+  }
+
+  &-compressed {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    .@{select-prefix}-item {
+      padding-right: @select-result-space;
     }
   }
 
@@ -357,9 +370,17 @@
 
   &-multiple &-result {
     padding-left: @padding-base-horizontal / 2;
-    padding-right: @padding-large-horizontal+22;
+    padding-right: @padding-base-horizontal + 22;
     .@{select-prefix}-close-warpper {
       right: 17px;
+    }
+  }
+
+  &-multiple &-compressed {
+    padding-left: @padding-base-horizontal / 2;
+    padding-right: @padding-base-horizontal + 12;
+    .@{select-prefix}-close-warpper {
+      right: 7px;
     }
   }
 
@@ -372,12 +393,15 @@
   }
 
   &-disabled {
-    .@{select-prefix}-result .@{select-prefix}-item {
-      padding-right: @select-result-space;
-      background: @input-bg-disabled;
+    .@{select-prefix}-result {
+      cursor: not-allowed;
+      .@{select-prefix}-item {
+        padding-right: @select-result-space;
+        background: @input-bg-disabled;
 
-      .@{select-prefix}-close {
-        display: none;
+        .@{select-prefix}-close {
+          display: none;
+        }
       }
     }
   }

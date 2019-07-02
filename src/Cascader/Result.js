@@ -64,7 +64,7 @@ class Result extends PureComponent {
 
     if (compressed && nodes.length > 1) {
       items.push(
-        <a key={items.length} className={cascaderClass('item', 'compressed')}>
+        <a key={items.length} className={cascaderClass('item', 'item-compressed')}>
           <span>{`+${nodes.length - 1}`}</span>
         </a>
       )
