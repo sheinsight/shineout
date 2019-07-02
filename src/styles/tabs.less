@@ -9,6 +9,7 @@
     position: relative;
     z-index: 1;
     display: flex;
+    margin-bottom: @tabs-header-margin;
 
     &-tabs {
       display: flex;
@@ -169,6 +170,10 @@
 
     .@{tabs-prefix}-header-tabs {
        flex-direction: column;
+    }
+
+    .@{tabs-prefix}-header {
+      margin-right: @tabs-header-margin;
     }
 
     .@{tabs-prefix}-tab {
