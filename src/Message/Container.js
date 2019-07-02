@@ -68,7 +68,7 @@ class Container extends PureComponent {
   render() {
     const { messages } = this.state
     return [
-      messages.map(({ id, type, content, dismiss, title, className }) => (
+      messages.map(({ id, type, content, dismiss, title, top, className }) => (
         <div key={id} className={`${messageClass('item')} ${className}`}>
           <Alert
             className={messageClass('msg')}
@@ -76,6 +76,7 @@ class Container extends PureComponent {
             onClose={this.removeMessage.bind(this, id)}
             icon
             iconSize={title ? 20 : 14}
+            style={{ top }}
             type={type}
           >
             {title && <h3>{title}</h3>}
