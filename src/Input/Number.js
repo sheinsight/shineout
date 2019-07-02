@@ -58,12 +58,10 @@ class Number extends PureComponent {
     // for the empty
     if (e.target.value === '' && this.props.allowNull) {
       value = null
-      this.handleChange(value, false, true)
-      // eslint-disable-next-line
-    } else if (isNaN(value)) {
-      value = 0
-      this.handleChange(value, true)
     }
+    // eslint-disable-next-line no-restricted-globals
+    if (isNaN(value)) value = 0
+    this.handleChange(value, true, value === null)
     this.props.onBlur(e)
   }
 

@@ -158,7 +158,7 @@ class Cascader extends PureComponent {
   }
 
   renderAbsoluteList() {
-    const { absolute } = this.props
+    const { absolute, zIndex } = this.props
     const { focus, position } = this.state
     const className = classnames(cascaderClass(focus && 'focus'), selectClass(this.state.position))
     if (!focus && !this.isRendered) return null
@@ -171,6 +171,7 @@ class Cascader extends PureComponent {
         focus={focus}
         parentElement={this.element}
         data-id={this.selectId}
+        zIndex={zIndex}
       >
         {this.renderList()}
       </OptionList>
@@ -180,7 +181,7 @@ class Cascader extends PureComponent {
   render() {
     const { placeholder, disabled, size, ...other } = this.props
     const className = classnames(
-      cascaderClass('_', size, this.state.focus && 'focus', disabled && 'disabled'),
+      cascaderClass('_', size, this.state.focus && 'focus', disabled === true && 'disabled'),
       selectClass(this.state.position)
     )
 
@@ -230,6 +231,7 @@ Cascader.propTypes = {
   style: PropTypes.object,
   value: PropTypes.array,
   absolute: PropTypes.bool,
+  zIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 }
 
 Cascader.defaultProps = {

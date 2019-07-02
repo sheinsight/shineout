@@ -15,7 +15,7 @@ import { formProvider, formConsumer } from './formContext'
 import useMode from './mode'
 
 const exportForm = compose(
-  Datum.hoc({ type: 'form' }),
+  Datum.hoc({ type: 'form', bindProps: ['removeUndefined'] }),
   formProvider
 )(cardConsumer(Form, ['setFormStatus']))
 exportForm.Item = formConsumer(['formDatum', 'labelWidth', 'labelAlign'])(Item)

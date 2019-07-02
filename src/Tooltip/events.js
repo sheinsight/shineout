@@ -48,7 +48,7 @@ export function show(props, id, innerStyle) {
   }, 0)
 
   inner.innerText = tip
-  inner.removeAttribute('style')
+  inner.setAttribute('style', false)
   if (innerStyle) {
     Object.keys(innerStyle).forEach(k => {
       inner.style[k] = innerStyle[k]

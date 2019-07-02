@@ -48,8 +48,6 @@ class Root extends React.Component {
   }
 
   componentDidMount() {
-    const { mode } = this.props
-    if (mode === 'vertical') this.container.addEventListener('wheel', this.handleWheel, { passive: false })
     this.updateState()
   }
 
@@ -62,7 +60,9 @@ class Root extends React.Component {
   }
 
   getOpenKeys() {
-    return this.props.openKeys || Array.from(this.state.openKeys.keys())
+    const { openKeys, defaultOpenKeys } = this.props
+    if (openKeys) return openKeys
+    return this.hasToggled ? Array.from(this.state.openKeys.keys()) : defaultOpenKeys
   }
 
   bindRootElement(el) {
@@ -108,9 +108,13 @@ class Root extends React.Component {
   }
 
   updateState() {
+    const { mode } = this.props
     this.updateActive()
     this.updateOpen()
     this.updateInPath()
+    if (!this.container) return
+    const bindMethod = mode === 'vertical' ? this.container.addEventListener : this.container.removeEventListener
+    bindMethod.call(this.container, 'wheel', this.handleWheel, { passive: false })
   }
 
   updateActive() {
@@ -139,6 +143,7 @@ class Root extends React.Component {
   }
 
   toggleOpenKeys(id, open) {
+    this.hasToggled = true
     const newOpenKeys = immer(keyToMap(this.getOpenKeys()), draft => {
       if (open) {
         draft.set(id, true)
@@ -215,8 +220,11 @@ class Root extends React.Component {
     if (style.width) rootStyle.width = style.width
 
     let bottomLine = 0
+    let topLine = 0
     if (showScroll && this.container) {
-      bottomLine = this.container.getBoundingClientRect().bottom
+      const rect = this.container.getBoundingClientRect()
+      bottomLine = rect.bottom
+      topLine = rect.top
     }
 
     return (
@@ -238,6 +246,7 @@ class Root extends React.Component {
               style={rootStyle}
               toggleOpenKeys={this.toggleOpenKeys}
               bottomLine={bottomLine}
+              topLine={topLine}
             />
           </Provider>
         </div>

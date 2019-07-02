@@ -90,6 +90,29 @@ describe('Input.Number', () => {
     wrapper.find(`a.${SO_PREFIX}-input-number-up`).simulate('mouseDown')
     expect(wrapper.find('input').prop('value')).toBe(10)
   })
+  test('should max/min work', () => {
+    const wrapper = mount(<Input.Number width={120} defaultValue={50} min={23} max={100} digits={0} />)
+    const blurFunc = wrapper.find(`Input`).prop('onBlur')
+    function getValue() {
+      return wrapper.find('input').prop('value')
+    }
+    blurFunc({
+      target: {
+        value: 400,
+      },
+    })
+    wrapper.update()
+
+    expect(wrapper.find('input').prop('value')).toBe(100)
+    blurFunc({
+      target: {
+        value: 1,
+      },
+    })
+
+    wrapper.update()
+    expect(getValue()).toBe(23)
+  })
 })
 
 describe('Input[Group]', () => {

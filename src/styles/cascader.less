@@ -8,6 +8,7 @@
   width: 100%;
 
   &-result {
+    cursor: pointer;
     position: relative;
     display: flex;
     max-height: 105px;
@@ -31,7 +32,7 @@
       color: inherit;
       text-overflow: ellipsis;
 
-      &.@{cascader-prefix}-compressed {
+      &-compressed {
         padding: 0 8px;
         font-size: 80%;
         opacity: .9;
@@ -53,6 +54,10 @@
     .@{cascader-prefix}-item {
       background: @select-result-bg;
     }
+  }
+
+  &-disabled &-result {
+    cursor: not-allowed;
   }
 
   &-focus &-close,

@@ -16,6 +16,7 @@
 | onChange | function(data) | | callback function, executed when the value is changing |
 | onError | function(err) | | callback when the error happens |
 | onSubmit | function(data) | | the function for Form Submission.  When the internal validation fails, it will not be triggered. |
+| removeUndefined | bool | true | When removeUndefined is true, remove undefined value on submit. |
 | rules | object | | validation rules, see details in the Rules |
 | style | object | - | Container element style |
 | throttle | number | 1000 | ms, the interval between two submissions(Prevent repeat submission) |

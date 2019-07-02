@@ -14,6 +14,8 @@
 | collapsible | bool | false | Whether can be collapsed |
 | defaultActive | string \| int | 0 | Default active tab id or index |
 | inactiveBackground | string | 'transparent' | Inactive background color |
+| tabBarExtraContent | string \| ReactElement | - | extra element in tab bar | 
+| tabBarStyle | style | - | style in tab bar |
 | onChange | function(key) | - | Change callback |
 | shape | string | - | Options: \['line', 'button']. If shape is not null, the style properties such as background, border will lose effect |
 | style | object | - | Container element style |

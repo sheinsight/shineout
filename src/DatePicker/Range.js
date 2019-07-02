@@ -126,8 +126,9 @@ class Range extends PureComponent {
 
   handleDisabled(type, date) {
     const { disabled } = this.props
+    const { rangeDate } = this.state
     if (disabled) {
-      return disabled(date, type)
+      return disabled(date, type, ...rangeDate)
     }
     return false
   }

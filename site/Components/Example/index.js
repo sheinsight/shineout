@@ -15,6 +15,7 @@ const placeholder = (
 export default function Example({ component, id, name, rawText, title: propsTitle }) {
   const codeblock = useRef(null)
   const [showcode, setShowCode] = useState(false)
+  const [com] = useState(createElement(component))
   const [codeHeight, setCodeHeight] = useState()
   let [bottom] = useState()
 
@@ -83,7 +84,7 @@ export default function Example({ component, id, name, rawText, title: propsTitl
 
       <Lazyload placeholder={placeholder}>
         <div className={exampleClass('_', showcode && 'showcode')}>
-          <div className={exampleClass('body')}>{createElement(component)}</div>
+          <div className={exampleClass('body')}>{com}</div>
 
           {propsTitle.length > 0 && (
             <div className={exampleClass('desc')}>
