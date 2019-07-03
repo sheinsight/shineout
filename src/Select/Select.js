@@ -351,6 +351,7 @@ class Select extends PureComponent {
       onCreate,
       result,
       compressed,
+      trim,
     } = this.props
     const className = selectClass(
       'inner',
@@ -374,6 +375,7 @@ class Select extends PureComponent {
         onKeyUp={this.handleKeyUp}
       >
         <Result
+          trim={trim}
           filterText={filterText}
           onClear={clearable ? this.handleClear : undefined}
           onCreate={onCreate}
@@ -422,6 +424,7 @@ Select.propTypes = {
   size: PropTypes.string,
   text: PropTypes.object,
   compressed: PropTypes.bool,
+  trim: PropTypes.bool,
 }
 
 Select.defaultProps = {
@@ -436,6 +439,7 @@ Select.defaultProps = {
   renderItem: e => e,
   text: {},
   compressed: false,
+  trim: true,
 }
 
 export default Select

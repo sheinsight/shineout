@@ -53,11 +53,15 @@ class FilterInput extends Component {
   }
 
   handleInput(e) {
-    this.props.onFilter(e.target.innerText.replace('\feff ', '').trim())
+    const { trim } = this.props
+    const text = e.target.innerText.replace('\feff ', '')
+    this.props.onFilter(trim ? text.trim() : text)
   }
 
   handleBlur(e) {
-    this.props.onInputBlur(e.target.innerText.replace('\feff ', '').trim())
+    const { trim } = this.props
+    const text = e.target.innerText.replace('\feff ', '')
+    this.props.onInputBlur(trim ? text.trim() : text)
   }
 
   render() {
@@ -97,6 +101,7 @@ FilterInput.propTypes = {
   updatAble: PropTypes.bool,
   setInputReset: PropTypes.func.isRequired,
   text: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  trim: PropTypes.bool,
 }
 
 FilterInput.defaultProps = {
