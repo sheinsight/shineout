@@ -7,6 +7,7 @@
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | absolute | bool | false | When it is true, the pop-up layer of option append into document.body. |
+| autoAdapt | bool | false | option list is auto adapt |
 | clearable | bool | false | If clearable is true, show clear value icon |
 | multiple | bool | false | if it is true, it will be multiple selection |
 | columns | number | 1 | Option columns.  |
