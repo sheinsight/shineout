@@ -41,7 +41,7 @@ class FilterInput extends Component {
 
   getProcessedValue(value) {
     const text = value.replace('\feff ', '')
-    return this.props.trim ? value.trim() : text
+    return this.props.trim ? text.trim() : text
   }
 
   reset() {
