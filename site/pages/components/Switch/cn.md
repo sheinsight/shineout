@@ -15,4 +15,5 @@
 | content | array | 无 | 选中和未选中时的内容 |
 | size | string | default | 开关大小，可选值为 \["default", "small"\] |
 | value | bool | 无 | checked 未设置的情况下， checked = value |
+| defaultValue | bool | 无 | 初始值 |
 

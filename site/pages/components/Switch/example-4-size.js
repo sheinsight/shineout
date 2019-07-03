@@ -10,9 +10,11 @@ import { Switch } from 'shineout'
 export default function() {
   return (
     <div>
+      <Switch size="small" />
+      <br />
       <Switch />
       <br />
-      <Switch size="small" />
+      <Switch size="large" />
     </div>
   )
 }

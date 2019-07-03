@@ -15,4 +15,4 @@
 | content | array | none | content with checked and unchecked |
 | size | string | default | size of switch \["default", "small"\] |
 | value | bool | none | set while no checked |
-
+| defaultValue | bool | none | init value |

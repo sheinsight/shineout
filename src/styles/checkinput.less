@@ -75,12 +75,6 @@
       color: #fff;
       padding: 0 4px;
     }
-
-    &:active {
-      .@{checkinput-prefix}-switch-indicator {
-        width: @switch-indicator-size + 4;
-      }
-    }
   }
 
   &-checked&-switch {
@@ -101,6 +95,11 @@
     padding-right: @switch-small-indicator-size;
   }
 
+  &-checked&-large&-switch {
+    padding-left: 0;
+    padding-right: @switch-large-indicator-size;
+  }
+
   &-small&-switch {
     min-width: @switch-small-bg-width;
     height: @switch-small-bg-height;
@@ -113,6 +112,21 @@
       width: @switch-small-indicator-size;
       height: @switch-small-indicator-size;
       top: @switch-small-indicator-top;
+    }
+  }
+
+  &-large&-switch {
+    min-width: @switch-large-bg-width;
+    height: @switch-large-bg-height;
+    line-height: @switch-large-bg-height;
+    border-radius: @switch-large-bg-border-radius;
+    padding-left: @switch-large-indicator-size;
+    padding-right: 0;
+
+    .@{checkinput-prefix}-switch-indicator{
+      width: @switch-large-indicator-size;
+      height: @switch-large-indicator-size;
+      top: @switch-large-indicator-top;
     }
   }
 

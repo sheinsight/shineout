@@ -79,7 +79,10 @@ export default function(type) {
           checked === true && 'checked',
           checked === 'indeterminate' && 'indeterminate',
           isSwitch && 'switch',
-          size === 'small' && 'small'
+          {
+            large: size === 'large',
+            small: size === 'small',
+          }
         ),
         this.props.className
       )
@@ -124,7 +127,7 @@ export default function(type) {
     onRawChange: PropTypes.func,
     value: PropTypes.any,
     onClick: PropTypes.func,
-    size: PropTypes.oneOf(['small', 'default']),
+    size: PropTypes.oneOf(['small', 'default', 'large']),
     content: PropTypes.array,
   }
 
