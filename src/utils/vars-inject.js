@@ -1,5 +1,5 @@
 import { darken, fade } from './color'
-import { paginationClass, tagClass, buttonClass, tooltipClass, inputClass, selectClass } from '../styles'
+import { paginationClass, tagClass, buttonClass, tooltipClass, inputClass, selectClass, formClass } from '../styles'
 import { exposeClass } from '../styles/expose'
 
 function getBtnHoverDarken() {
@@ -129,8 +129,22 @@ const injects = {
         className: buttonClass('_'),
       },
       {
+        name: 'paddingBaseVertical',
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('_'),
+      },
+      {
         name: 'paddingLargeHorizontal',
         attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('large'),
+      },
+      {
+        name: 'paddingLargeVertical',
+        attr: 'paddingTop',
         type: 'number',
         parser: parseInt,
         className: buttonClass('large'),
@@ -141,20 +155,6 @@ const injects = {
         type: 'number',
         parser: parseInt,
         className: buttonClass('small'),
-      },
-      {
-        name: 'paddingBaseVertical',
-        attr: 'paddingTop',
-        type: 'number',
-        parser: parseInt,
-        className: buttonClass('_'),
-      },
-      {
-        name: 'paddingLargeVertical',
-        attr: 'paddingTop',
-        type: 'number',
-        parser: parseInt,
-        className: buttonClass('large'),
       },
       {
         name: 'paddingSmallVertical',
@@ -414,6 +414,39 @@ const injects = {
     set paddingVertical(v) {
       setBodyProperty({
         '--tooltip-padding-vertical': `${parseInt(v, 10)}px`,
+      })
+    },
+  },
+  form: {
+    info: {
+      title: 'Form 表单',
+      name: 'form',
+      path: 'Form',
+    },
+    conf: [
+      {
+        name: 'itemMarginBottom',
+        className: formClass('item'),
+        attr: 'marginBottom',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'itemMarginRight',
+        className: exposeClass('form-inline'),
+        attr: 'marginRight',
+        type: 'number',
+        parser: parseInt,
+      },
+    ],
+    set itemMarginBottom(v) {
+      setBodyProperty({
+        '--form-item-margin-bottom': `${parseInt(v, 10)}px`,
+      })
+    },
+    set itemMarginRight(v) {
+      setBodyProperty({
+        '--form-item-margin-right': `${parseInt(v, 10)}px`,
       })
     },
   },
