@@ -187,11 +187,32 @@
 
 // slider
 @slider-height: 6px;
-@slider-indicator-size: 14px;
+@slider-indicator-size: 24px;
 @slider-active-color: @colors-primary;
 @slider-bg-color: @colors-primary;
 @slider-disabled-color: @gray-500;
 @slider-bar-color: @gray-400;
+
+// switch
+@switch-uncheck-bg: @gray-400;
+@switch-checked-bg: fade(@colors-primary, 50);
+@switch-indicator-uncheck-bg: #fff;
+@switch-indicator-checked-bg: @colors-primary;
+@switch-checked-box-shadow: 0 1px 4px fade(@colors-primary, 50);
+@switch-uncheck-box-shadow: 0 1px 4px @gray-500;
+@switch-indicator-padding-horizontal: 0px;
+@switch-indicator-size: 24px;
+@switch-bg-width: 44px;
+@switch-bg-border-radius: @switch-bg-width / 2;
+@switch-bg-height: 16px;
+@switch-font-size: 12px;
+@switch-indicator-top: -(@switch-indicator-size / 2 - @switch-bg-height / 2);
+
+@switch-small-indicator-size: 16px;
+@switch-small-bg-width: 28px;
+@switch-small-bg-border-radius: @switch-small-bg-width / 2;
+@switch-small-bg-height: 10px;
+@switch-small-indicator-top: -(@switch-small-indicator-size / 2 - @switch-small-bg-height / 2);
 
 // tabs
 @tabs-link-padding: 10px 15px;
