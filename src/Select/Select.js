@@ -288,6 +288,7 @@ class Select extends PureComponent {
 
   renderList() {
     const { focus, control, position } = this.state
+    const { autoAdapt } = this.props
 
     const props = {}
     ;[
@@ -316,6 +317,7 @@ class Select extends PureComponent {
       <List
         {...props}
         rootClass={selectClass(position)}
+        autoClass={selectClass(autoAdapt && 'auto-adapt')}
         bindOptionFunc={this.bindOptionFunc}
         renderPending={this.renderPending}
         focus={focus}
@@ -327,7 +329,7 @@ class Select extends PureComponent {
         parentElement={this.element}
         position={position}
         onBlur={this.handleBlur}
-        fixed
+        fixed={autoAdapt ? 'min' : true}
       />
     )
   }
@@ -425,6 +427,7 @@ Select.propTypes = {
   text: PropTypes.object,
   compressed: PropTypes.bool,
   trim: PropTypes.bool,
+  autoAdapt: PropTypes.bool,
 }
 
 Select.defaultProps = {
@@ -440,6 +443,7 @@ Select.defaultProps = {
   text: {},
   compressed: false,
   trim: true,
+  autoAdapt: false,
 }
 
 export default Select

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import { getKey } from '../utils/uid'
 import { setTranslate } from '../utils/dom/translate'
 import List from '../List'
@@ -202,7 +203,7 @@ class OptionList extends Component {
   }
 
   render() {
-    const { control, focus, style, selectId } = this.props
+    const { control, focus, style, selectId, autoClass } = this.props
 
     return (
       <ScaleList
@@ -210,7 +211,7 @@ class OptionList extends Component {
         onMouseMove={this.handleMouseMove}
         style={style}
         data-id={selectId}
-        className={selectClass('options', `control-${control}`)}
+        className={classnames(selectClass('options', `control-${control}`), autoClass)}
       >
         {this.renderList()}
       </ScaleList>
@@ -235,6 +236,7 @@ OptionList.propTypes = {
   renderPending: PropTypes.bool,
   selectId: PropTypes.string,
   bindOptionFunc: PropTypes.func.isRequired,
+  autoClass: PropTypes.string,
   style: PropTypes.object,
   text: PropTypes.object,
 }

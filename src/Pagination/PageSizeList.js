@@ -25,6 +25,7 @@ class PageSizeList extends PureComponent {
         onChange={this.handleChange}
         disabled={disabled}
         absolute
+        autoAdapt
         keygen
         value={pageSize}
         size={size}
