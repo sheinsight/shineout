@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import cleanProps from '../utils/cleanProps'
+import Clear from './clear'
 
 class Input extends PureComponent {
   constructor(props) {
@@ -48,21 +49,33 @@ class Input extends PureComponent {
   }
 
   render() {
-    const { type, defaultValue, digits, className, htmlName, forceChange, onEnterPress, ...other } = this.props
+    const {
+      type,
+      defaultValue,
+      digits,
+      className,
+      htmlName,
+      forceChange,
+      onEnterPress,
+      allowClear,
+      ...other
+    } = this.props
     const value = this.props.value == null ? '' : this.props.value
 
-    return (
+    return [
       <input
         {...cleanProps(other)}
         className={className}
+        key="input"
         name={other.name || htmlName}
         type={type === 'password' ? type : 'text'}
         value={value}
         onChange={this.handleChange}
         onKeyUp={this.handleKeyUp}
         onBlur={this.handleBlur}
-      />
-    )
+      />,
+      allowClear && value && <Clear onClick={this.handleChange} key="clear" />,
+    ]
   }
 }
 
@@ -77,11 +90,13 @@ Input.propTypes = {
   onEnterPress: PropTypes.func,
   onKeyUp: PropTypes.func,
   type: PropTypes.string,
+  allowClear: PropTypes.bool,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 }
 
 Input.defaultProps = {
   type: 'text',
+  allowClear: false,
 }
 
 export default Input
