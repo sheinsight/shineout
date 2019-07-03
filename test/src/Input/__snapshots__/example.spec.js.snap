@@ -1,12 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-1-base.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-01-base.js] 1`] = `
 <label>
   <input />
 </label>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-2-size.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-02-allowclear.js] 1`] = `
+<label>
+  <input />
+  
+</label>
+`;
+
+exports[`Snapshot test: Input[site/pages/components/Input/example-03-size.js] 1`] = `
 <div>
   <label>
     <input />
@@ -20,7 +27,7 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-2-size.js] 1`]
 </div>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-3-number.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-04-number.js] 1`] = `
 <div>
   <label>
     <input />
@@ -40,7 +47,7 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-3-number.js] 1
 </div>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-4-number.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-05-number.js] 1`] = `
 <label>
   <input />
   <a>
@@ -58,7 +65,7 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-4-number.js] 1
 </label>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-5-group.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-06-group.js] 1`] = `
 <div>
   <div>
     <i />
@@ -108,7 +115,7 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-5-group.js] 1`
 </div>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-6-tip.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-07-tip.js] 1`] = `
 <div>
   <label>
     <input />
@@ -128,13 +135,13 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-6-tip.js] 1`] 
 </div>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-7-validate.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-08-validate.js] 1`] = `
 <label>
   <input />
 </label>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-8-disabled.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-09-disabled.js] 1`] = `
 <div>
   <div>
     <label>
@@ -153,7 +160,7 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-8-disabled.js]
 </div>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-9-password.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-10-password.js] 1`] = `
 <label>
   <input />
 </label>
