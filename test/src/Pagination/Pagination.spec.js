@@ -115,6 +115,7 @@ describe('Pagination[text]', () => {
         .find('a')
         .text()
     ).toBe(text.next)
+    wrapper.find(`.${SO_PREFIX}-select-inner`).simulate('click')
     expect(
       wrapper
         .find(`.${SO_PREFIX}-select-result span`)
@@ -156,6 +157,7 @@ describe('Pagination[Disabled]', () => {
     wrapper.find(`a.${SO_PREFIX}-pagination-item`).forEach(item => {
       expect(item.prop('disabled')).toBeTruthy()
     })
-    expect(wrapper.find(`div.${SO_PREFIX}-select-disabled`).length).toBe(1)
+    wrapper.find(`.${SO_PREFIX}-select-inner`).simulate('click')
+    expect(wrapper.find(`.${SO_PREFIX}-select-disabled`).length).toBe(1)
   })
 })
