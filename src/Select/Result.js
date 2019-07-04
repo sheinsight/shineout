@@ -61,9 +61,10 @@ class Result extends PureComponent {
   }
 
   renderInput(text, key = 'input') {
-    const { multiple, onFilter, trim, focus, onInputFocus, onInputBlur, setInputReset } = this.props
+    const { result, multiple, onFilter, trim, focus, onInputFocus, onInputBlur, setInputReset } = this.props
     return (
       <Input
+        result={result}
         key={`${key}.${focus ? 1 : 0}`}
         onInputFocus={onInputFocus}
         onInputBlur={onInputBlur}

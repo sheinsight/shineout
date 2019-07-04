@@ -40,8 +40,11 @@ class FilterInput extends Component {
   }
 
   getProcessedValue(value) {
+    const { multiple, result, trim } = this.props
     const text = value.replace('\feff ', '')
-    return this.props.trim ? text.trim() : text
+    // first can't be while-space
+    if (!trim && multiple && result.length === 0 && /^\u00A0$/.test(text)) return ''
+    return trim ? text.trim() : text
   }
 
   reset() {
@@ -103,6 +106,7 @@ FilterInput.propTypes = {
   setInputReset: PropTypes.func.isRequired,
   text: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   trim: PropTypes.bool,
+  result: PropTypes.array,
 }
 
 FilterInput.defaultProps = {
