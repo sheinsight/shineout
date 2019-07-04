@@ -1,7 +1,7 @@
 import React, { Component, isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import { selectClass } from '../styles'
-import { focusElement } from '../utils/dom/element'
+import { focusElement, getCursorOffset } from '../utils/dom/element'
 
 const focusSelectAll = element => {
   requestAnimationFrame(() => {
@@ -40,8 +40,10 @@ class FilterInput extends Component {
   }
 
   getProcessedValue(value) {
+    const { trim } = this.props
     const text = value.replace('\feff ', '')
-    return this.props.trim ? text.trim() : text
+    if (!trim && this.lastCursorOffset === 0 && /^\u00A0$/.test(text)) return ''
+    return trim ? text.trim() : text.replace(/\u00A0/g, ' ')
   }
 
   reset() {
@@ -58,6 +60,7 @@ class FilterInput extends Component {
   }
 
   handleInput(e) {
+    this.lastCursorOffset = getCursorOffset()
     this.props.onFilter(this.getProcessedValue(e.target.innerText))
   }
 

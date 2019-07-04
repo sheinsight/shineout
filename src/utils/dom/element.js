@@ -50,6 +50,10 @@ export function cssSupport(attr, value) {
   return false
 }
 
+export function getCursorOffset() {
+  return window.getSelection().anchorOffset
+}
+
 function end(element) {
   if (window.getSelection) {
     element.focus()
