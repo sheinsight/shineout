@@ -69,6 +69,10 @@
       color: inherit;
       text-overflow: ellipsis;
 
+      &:after {
+        content: '\feff ';
+      }
+
       &-compressed {
         padding: 0 8px;
         font-size: 80%;

@@ -39,9 +39,8 @@ class FilterInput extends Component {
     this.focus()
   }
 
-  getProcessedValue(value) {
+  getProcessedValue(text) {
     const { trim } = this.props
-    const text = value.replace('\feff ', '')
     if (!trim && this.lastCursorOffset === 0 && /^\u00A0$/.test(text)) return ''
     return trim ? text.trim() : text.replace(/\u00A0/g, ' ')
   }
@@ -60,12 +59,14 @@ class FilterInput extends Component {
   }
 
   handleInput(e) {
-    this.lastCursorOffset = getCursorOffset()
-    this.props.onFilter(this.getProcessedValue(e.target.innerText))
+    const text = e.target.innerText.replace('\feff ', '')
+    this.lastCursorOffset = getCursorOffset(text.length)
+    this.props.onFilter(this.getProcessedValue(text))
   }
 
   handleBlur(e) {
-    this.props.onInputBlur(this.getProcessedValue(e.target.innerText))
+    const text = e.target.innerText.replace('\feff ', '')
+    this.props.onInputBlur(this.getProcessedValue(text))
   }
 
   render() {

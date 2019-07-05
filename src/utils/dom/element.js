@@ -50,8 +50,16 @@ export function cssSupport(attr, value) {
   return false
 }
 
-export function getCursorOffset() {
-  return window.getSelection().anchorOffset
+export function getCursorOffset(length) {
+  if (window.getSelection) {
+    return window.getSelection().anchorOffset
+  }
+  if (document.selection) {
+    const range = document.selection.createRange()
+    range.moveStart('character', -length)
+    return range.text.length
+  }
+  return null
 }
 
 function end(element) {
