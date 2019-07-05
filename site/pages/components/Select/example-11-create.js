@@ -21,7 +21,7 @@ export default function() {
         defaultValue="brown"
       />
       <br />
-      <Select trim={false} style={{ width: 400 }} data={data} keygen multiple placeholder="input color" onCreate={t => t} />
+      <Select style={{ width: 400 }} data={data} keygen multiple placeholder="input color" onCreate={t => t} />
     </div>
   )
 }
