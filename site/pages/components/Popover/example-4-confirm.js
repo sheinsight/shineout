@@ -11,12 +11,15 @@ export default function() {
   return (
     <Button>
       <Popover.Confirm
-        onOk={() => {
-          console.log('ok')
-        }}
         onCancel={() => {
           console.log('cancel')
         }}
+        onOk={() =>
+          new Promise(resolve => {
+            console.log('ok')
+            setTimeout(() => resolve(true), 2000)
+          })
+        }
         text={{ ok: 'Yes', cancel: 'No' }}
       >
         Are you sure delete ?

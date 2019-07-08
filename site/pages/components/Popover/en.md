@@ -24,7 +24,7 @@
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| onOk | func | none | ok button click callback |
-| onCancel | func | none | cancel button click callback |
+| onOk | func | none | ok button click callback, will close tooltip while returned promise resolve |
+| onCancel | func | none | cancel button click callback, will close tooltip while returned promise resolve |
 | text | object | { ok: 'Ok', cancel: 'Cancel' } | button text |
 | type | string | *warning* |  icon type \[*success*, *info*, *warning*, *danger(error)*] |
