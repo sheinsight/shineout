@@ -1,7 +1,7 @@
 import React, { Component, isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import { selectClass } from '../styles'
-import { focusElement } from '../utils/dom/element'
+import { focusElement, getCursorOffset } from '../utils/dom/element'
 
 const focusSelectAll = element => {
   requestAnimationFrame(() => {
@@ -39,9 +39,10 @@ class FilterInput extends Component {
     this.focus()
   }
 
-  getProcessedValue(value) {
-    const text = value.replace('\feff ', '')
-    return this.props.trim ? text.trim() : text
+  getProcessedValue(text) {
+    const { trim } = this.props
+    if (!trim && this.lastCursorOffset === 0 && /^\u00A0$/.test(text)) return ''
+    return trim ? text.trim() : text.replace(/\u00A0/g, ' ')
   }
 
   reset() {
@@ -58,11 +59,14 @@ class FilterInput extends Component {
   }
 
   handleInput(e) {
-    this.props.onFilter(this.getProcessedValue(e.target.innerText))
+    const text = e.target.innerText.replace('\feff ', '')
+    this.lastCursorOffset = getCursorOffset(text.length)
+    this.props.onFilter(this.getProcessedValue(text))
   }
 
   handleBlur(e) {
-    this.props.onInputBlur(this.getProcessedValue(e.target.innerText))
+    const text = e.target.innerText.replace('\feff ', '')
+    this.props.onInputBlur(this.getProcessedValue(text))
   }
 
   render() {
