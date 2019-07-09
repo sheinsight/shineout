@@ -27,7 +27,6 @@
 @secondary-color-dark-btn-hover:        var(--secondary-color-dark-btn-hover, @secondary-color-dark-btn-hover-value);
 @secondary-color-dark-5_fade-60:        var(--secondary-color-dark-5_fade-60, @secondary-color-dark-5_fade-60-value);
 @secondary-color-dark-5_fade-0:         var(--secondary-color-dark-5_fade-0, @secondary-color-dark-5_fade-0-value);
-
 @success-color-dark-5-value:            darken(@colors-success-value, 5%);
 @success-color-fade-60-value:           fade(@colors-success-value, 60%);
 @success-color-dark-5_fade-60-value:    fade(darken(@colors-success-value, 5%), 60%);
@@ -127,9 +126,6 @@
 @datepicker-rect-active-border-radius-value: 2px;
 @datepicker-rect-active-border-radius: var(--datepicker-rect-active-border-radius, @datepicker-rect-active-border-radius-value);
 
-@slider-bar-color-value: @gray-400;
-@slider-bar-color: var(--slider-bar-bg, @slider-bar-color-value);
-
 @slider-indicator-bg-value: #fff;
 @slider-indicator-bg: var(--slider-indicator-bg, @slider-indicator-bg-value);
 
@@ -139,11 +135,45 @@
 @slider-indicator-size-half-value: @slider-indicator-size-value / 2;
 @slider-indicator-size-half: var(--slider-indicator-size-half, @slider-indicator-size-half-value);
 
-@input-border-value: @gray-400;
-@input-border: var(--input-border-color, @input-border-value);
-
 @form-group-margin-bottom-value: 20px;
 @form-group-margin-bottom: var(--form-item-margin-bottom, @form-group-margin-bottom-value);
 
 @form-inline-margin-right-value: 20px;
 @form-inline-margin-right: var(--form-item-margin-right, @form-inline-margin-right-value);
+
+@gray-100-value:               #f8f9fa;
+@gray-200-value:               #e9ecef;
+@gray-300-value:               #dee2e6;
+@gray-400-value:               #ced4da;
+@gray-500-value:               #adb5bd;
+@gray-600-value:               #6c757d;
+@gray-700-value:               #495057;
+@gray-800-value:               #343a40;
+@gray-900-value:               #212529;
+@gray-800-darken-5-value:            darken(@gray-800-value, 5%);
+@gray-600-lighten-15-value:          lighten(@gray-600-value, 15%);
+@gray-200-darken-5-value:            darken(@gray-200-value, 5%);
+@gray-900-lighten-40-value:          lighten(@gray-900-value, 40%);
+@gray-400-darken-20-value:           darken(@gray-400-value, 20%);
+@gray-300-darken-hover-value:        darken(@gray-300-value, @btn-hover-darken);
+@gray-300-fade-60-value:             fade(@gray-300-value, 60%);
+@gray-300-fade-0-value:              fade(@gray-300-value, 0%);
+
+@gray-100: var(--gray-100, @gray-100-value);
+@gray-200: var(--gray-200, @gray-200-value);
+@gray-300: var(--gray-300, @gray-300-value);
+@gray-400: var(--gray-400, @gray-400-value);
+@gray-500: var(--gray-500, @gray-500-value);
+@gray-600: var(--gray-600, @gray-600-value);
+@gray-700: var(--gray-700, @gray-700-value);
+@gray-800: var(--gray-800, @gray-800-value);
+@gray-900: var(--gray-900, @gray-900-value);
+@gray-800-darken-5: var(--gray-800-darken-5, @gray-800-darken-5-value);
+@gray-600-lighten-15: var(--gray-600-lighten-15, @gray-600-lighten-15-value);
+@gray-200-darken-5: var(--gray-200-darken-5, @gray-200-darken-5-value);
+@gray-900-lighten-40: var(--gray-900-lighten-40, @gray-900-lighten-40-value);
+@gray-400-darken-20: var(--gray-400-darken-20, @gray-400-darken-20-value);
+@gray-300-darken-hover: var(--gray-300-darken-hover, @gray-300-darken-hover-value);
+@gray-300-fade-60: var(--gray-300-fade-60, @gray-300-fade-60-value);
+@gray-300-fade-0: var(--gray-300-fade-0, @gray-300-fade-0-value);
+

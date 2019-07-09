@@ -103,7 +103,17 @@
     }
   }
   & when (%('%s', @color) = %('%s', @btn-default-border)) {
-    box-shadow: 0 0 0 @width fade(@color, @fade);
+    & when (@so-theme = antd) {
+      box-shadow: 0 0 0 @width fade(@color, @fade);
+    }
+    & when (@so-theme = default) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @gray-300-fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @gray-300-fade-60;
+      }
+    }
   }
 }
 
@@ -180,7 +190,12 @@
     }
   }
   & when (%('%s', @color) = %('%s', @btn-default-border)) {
-    border-color: darken(@color, @btn-hover-darken);
+    & when (@so-theme = antd) {
+      border-color: darken(@color, @btn-hover-darken);
+    }
+    & when (@so-theme = default) {
+      border-color: @gray-300-darken-hover;
+    }
   }
 }
 

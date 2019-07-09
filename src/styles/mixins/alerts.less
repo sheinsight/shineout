@@ -6,7 +6,12 @@
   color: @text-color;
 
   hr {
-    border-top-color: darken(@border, 5%);
+    & when (@border = @alert-default-border) {
+      border-top-color: @gray-200-darken-5;
+    }
+    & when not (@border = @alert-default-border) {
+
+    }
   }
 
   .alert-link {

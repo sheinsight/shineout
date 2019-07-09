@@ -43,6 +43,14 @@
   .generate-location(@data, @n, (@i + 1));
 }
 
+.loop-gray(@n, @i: 1) when(@i =< @n){
+  @var-name: %('gray-%s00', @i);
+  &-gray-@{i}00 {
+    color: @@var-name;
+  }
+  .loop-gray(@n, (@i + 1));
+}
+
 @expose-prefix: ~'@{so-prefix}-expose';
 
 .@{expose-prefix} {
@@ -86,4 +94,5 @@
       margin-right: @form-inline-margin-right;
     }
   }
+  .loop-gray(9);
 }

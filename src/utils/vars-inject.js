@@ -2,12 +2,10 @@ import { darken, fade } from './color'
 import { paginationClass, tagClass, buttonClass, tooltipClass, inputClass, selectClass, formClass } from '../styles'
 import { exposeClass } from '../styles/expose'
 
-function getBtnHoverDarken() {
-  return (
-    getComputedStyle(document.body)
-      .getPropertyValue('--btn-hover-darken')
-      .trim() || '5%'
-  )
+function getProperty(name = '--btn-hover-darken') {
+  return getComputedStyle(document.body)
+    .getPropertyValue(name)
+    .trim()
 }
 
 function setBodyProperty(colors) {
@@ -54,13 +52,67 @@ const injects = {
         attr: 'backgroundColor',
         className: buttonClass('success'),
       },
+      {
+        name: 'gray100',
+        type: 'color',
+        attr: 'color',
+        className: exposeClass('gray-100'),
+      },
+      {
+        name: 'gray200',
+        type: 'color',
+        attr: 'color',
+        className: exposeClass('gray-200'),
+      },
+      {
+        name: 'gray300',
+        type: 'color',
+        attr: 'color',
+        className: exposeClass('gray-300'),
+      },
+      {
+        name: 'gray400',
+        type: 'color',
+        attr: 'color',
+        className: exposeClass('gray-400'),
+      },
+      {
+        name: 'gray500',
+        type: 'color',
+        attr: 'color',
+        className: exposeClass('gray-500'),
+      },
+      {
+        name: 'gray600',
+        type: 'color',
+        attr: 'color',
+        className: exposeClass('gray-600'),
+      },
+      {
+        name: 'gray700',
+        type: 'color',
+        attr: 'color',
+        className: exposeClass('gray-700'),
+      },
+      {
+        name: 'gray800',
+        type: 'color',
+        attr: 'color',
+        className: exposeClass('gray-800'),
+      },
+      {
+        name: 'gray900',
+        type: 'color',
+        attr: 'color',
+        className: exposeClass('gray-900'),
+      },
     ],
     set primary(v) {
       setBodyProperty({
         '--primary-color': v,
         '--primary-color-dark-5': darken(v, 5),
         '--primary-color-dark-15': darken(v, 15),
-        '--primary-color-dark-btn-hover': darken(v, getBtnHoverDarken()),
+        '--primary-color-dark-btn-hover': darken(v, getProperty()),
         '--primary-color-lighten-40': darken(v, -40),
         '--primary-color-fade-60': fade(v, 0.6),
         '--primary-color-fade-50': fade(v, 0.5),
@@ -78,7 +130,7 @@ const injects = {
         '--warning-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
         '--warning-color-fade-0': fade(v, 0),
         '--warning-color-dark-5_fade-0': fade(darken(v, 5), 0),
-        '--warning-color-dark-btn-hover': darken(v, getBtnHoverDarken()),
+        '--warning-color-dark-btn-hover': darken(v, getProperty()),
       })
     },
     set danger(v) {
@@ -90,7 +142,7 @@ const injects = {
         '--danger-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
         '--danger-color-fade-0': fade(v, 0),
         '--danger-color-dark-5_fade-0': fade(darken(v, 5), 0),
-        '--danger-color-dark-btn-hover': darken(v, getBtnHoverDarken()),
+        '--danger-color-dark-btn-hover': darken(v, getProperty()),
       })
     },
     set success(v) {
@@ -101,16 +153,69 @@ const injects = {
         '--success-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
         '--success-color-fade-0': fade(v, 0),
         '--success-color-dark-5_fade-0': fade(darken(v, 5), 0),
-        '--success-color-dark-btn-hover': darken(v, getBtnHoverDarken()),
+        '--success-color-dark-btn-hover': darken(v, getProperty()),
       })
     },
     set secondary(v) {
       setBodyProperty({
         '--secondary-color': v,
         '--secondary-color-dark-5': darken(v, 5),
-        '--secondary-color-dark-btn-hover': darken(v, getBtnHoverDarken()),
+        '--secondary-color-dark-btn-hover': darken(v, getProperty()),
         '--secondary-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
         '--secondary-color-dark-5_fade-0': fade(darken(v, 5), 0),
+      })
+    },
+    set gray100(v) {
+      setBodyProperty({
+        '--gray-100': v,
+      })
+    },
+    set gray200(v) {
+      setBodyProperty({
+        '--gray-200': v,
+        '--gray-200-darken-5': darken(v, 5),
+      })
+    },
+    set gray300(v) {
+      setBodyProperty({
+        '--gray-300': v,
+        '--gray-300-darken-hover': darken(v, getProperty()),
+        '--gray-300-fade-60': fade(v, 0.6),
+        '--gray-300-fade-0': fade(v, 0),
+      })
+    },
+    set gray400(v) {
+      setBodyProperty({
+        '--gray-400': v,
+        '--gray-400-darken-20': darken(v, 20),
+      })
+    },
+    set gray500(v) {
+      setBodyProperty({
+        '--gray-500': v,
+      })
+    },
+    set gray600(v) {
+      setBodyProperty({
+        '--gray-600': v,
+        '--gray-600-lighten-15': darken(v, -15),
+      })
+    },
+    set gray700(v) {
+      setBodyProperty({
+        '--gray-700': v,
+      })
+    },
+    set gray800(v) {
+      setBodyProperty({
+        '--gray-800': v,
+        '--gray-800-darken-5': darken(v, 5),
+      })
+    },
+    set gray900(v) {
+      setBodyProperty({
+        '--gray-900': v,
+        '--gray-900-lighten-40': darken(v, -40),
       })
     },
   },
@@ -514,12 +619,6 @@ const injects = {
     },
     conf: [
       {
-        name: 'resultBg',
-        className: exposeClass('select-result-item'),
-        attr: 'backgroundColor',
-        type: 'color',
-      },
-      {
         name: 'resultPaddingHorizontal',
         className: exposeClass('select-result-item'),
         attr: 'paddingLeft',
@@ -552,11 +651,6 @@ const injects = {
         type: 'color',
       },
     ],
-    set resultBg(v) {
-      setBodyProperty({
-        '--select-result-bg': v,
-      })
-    },
     set resultPaddingVertical(v) {
       setBodyProperty({
         '--select-result-padding-vertical': `${parseInt(v, 10)}px`,
@@ -613,12 +707,6 @@ const injects = {
     },
     conf: [
       {
-        name: 'barBg',
-        className: exposeClass('slider-bar'),
-        attr: 'backgroundColor',
-        type: 'color',
-      },
-      {
         name: 'indicatorBg',
         className: exposeClass('slider-indicator'),
         attr: 'backgroundColor',
@@ -634,11 +722,6 @@ const injects = {
         parser: parseInt,
       },
     ],
-    set barBg(v) {
-      setBodyProperty({
-        '--slider-bar-bg': v,
-      })
-    },
     set indicatorBg(v) {
       setBodyProperty({
         '--slider-indicator-bg': v,

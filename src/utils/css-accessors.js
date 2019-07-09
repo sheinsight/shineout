@@ -5,6 +5,7 @@ const cssVarSupported = window.CSS && window.CSS.supports && window.CSS.supports
 
 function setOptions(options) {
   if (!options || !cssVarSupported) return
+  debugger
   for (const [key, value] of Object.entries(options)) {
     this[key] = value
   }
