@@ -51,8 +51,9 @@ class Input extends PureComponent {
     if (onKeyUp) onKeyUp(e)
   }
 
-  handleFocus() {
+  handleFocus(e) {
     this.focus = true
+    if (this.props.onFocus) this.props.onFocus(e)
   }
 
   handleBlur(e) {
@@ -79,6 +80,7 @@ class Input extends PureComponent {
       forceChange,
       onEnterPress,
       clearable,
+      onFocus,
       ...other
     } = this.props
     const value = this.props.value == null ? '' : this.props.value
@@ -108,6 +110,7 @@ Input.propTypes = {
   digits: PropTypes.number,
   forceChange: PropTypes.func,
   htmlName: PropTypes.string,
+  onFocus: PropTypes.func,
   onBlur: PropTypes.func,
   onChange: PropTypes.func.isRequired,
   onEnterPress: PropTypes.func,

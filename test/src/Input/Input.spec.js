@@ -18,6 +18,20 @@ describe('Input[Base]', () => {
     const attr = singleInput.find('input').prop('placeholder')
     expect(prop).toBe(attr)
   })
+  test('should clear the input value', () => {
+    const fn = jest.fn()
+    const input = mount(<Input value="a" delay={0} clearable onChange={fn} />)
+    input.find('input').simulate('change', {
+      target: {
+        value: 'aaa',
+      },
+    })
+    expect(fn).toBeCalledWith('aaa')
+
+    input.find(`.${SO_PREFIX}-input-clear-wrapper`).simulate('mousedown')
+
+    expect(fn).toBeCalledWith('')
+  })
   test('should set size', () => {
     const wrapper = mount(<InputSize />)
     wrapper.find('ShineoutInput').forEach(input => {
