@@ -8,5 +8,5 @@ import React from 'react'
 import { Input } from 'shineout'
 
 export default function() {
-  return <Input allowClear placeholder="input something" />
+  return <Input clearable placeholder="input something" />
 }

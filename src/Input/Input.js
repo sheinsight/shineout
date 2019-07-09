@@ -8,7 +8,13 @@ class Input extends PureComponent {
     super(props)
     this.handleChange = this.handleChange.bind(this)
     this.handleKeyUp = this.handleKeyUp.bind(this)
+    this.handleFocus = this.handleFocus.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
+    this.bindRef = this.bindRef.bind(this)
+  }
+
+  bindRef(el) {
+    this.ref = el
   }
 
   invalidNumber(value) {
@@ -26,7 +32,12 @@ class Input extends PureComponent {
     return !reg.test(value)
   }
 
-  handleChange(e) {
+  handleChange(e, clearClick) {
+    if (clearClick) {
+      this.clearClick = true
+
+      if (!this.focus) this.ref.focus()
+    }
     const { value } = e.target
     if (this.invalidNumber(value)) return
     this.props.onChange(value)
@@ -40,7 +51,17 @@ class Input extends PureComponent {
     if (onKeyUp) onKeyUp(e)
   }
 
+  handleFocus() {
+    this.focus = true
+  }
+
   handleBlur(e) {
+    this.focus = false
+    if (this.clearClick) {
+      this.ref.focus()
+      this.clearClick = false
+      return
+    }
     const { value } = e.target
     const { forceChange, onBlur } = this.props
     if (onBlur) onBlur(e)
@@ -57,7 +78,7 @@ class Input extends PureComponent {
       htmlName,
       forceChange,
       onEnterPress,
-      allowClear,
+      clearable,
       ...other
     } = this.props
     const value = this.props.value == null ? '' : this.props.value
@@ -66,6 +87,8 @@ class Input extends PureComponent {
       <input
         {...cleanProps(other)}
         className={className}
+        ref={this.bindRef}
+        onFocus={this.handleFocus}
         key="input"
         name={other.name || htmlName}
         type={type === 'password' ? type : 'text'}
@@ -74,7 +97,7 @@ class Input extends PureComponent {
         onKeyUp={this.handleKeyUp}
         onBlur={this.handleBlur}
       />,
-      allowClear && value && <Clear onClick={this.handleChange} key="clear" />,
+      clearable && value && <Clear onClick={this.handleChange} key="clear" />,
     ]
   }
 }
@@ -90,13 +113,13 @@ Input.propTypes = {
   onEnterPress: PropTypes.func,
   onKeyUp: PropTypes.func,
   type: PropTypes.string,
-  allowClear: PropTypes.bool,
+  clearable: PropTypes.bool,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 }
 
 Input.defaultProps = {
   type: 'text',
-  allowClear: false,
+  clearable: false,
 }
 
 export default Input

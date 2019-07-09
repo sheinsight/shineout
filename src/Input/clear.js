@@ -10,12 +10,12 @@ class Clear extends Component {
 
   handleClick() {
     const { onClick } = this.props
-    if (onClick) onClick({ target: { value: '' } })
+    if (onClick) onClick({ target: { value: '' } }, true)
   }
 
   render() {
     return (
-      <div onClick={this.handleClick} className={inputClass('clear-wrapper')}>
+      <div onMouseDown={this.handleClick} className={inputClass('clear-wrapper')}>
         <div className={inputClass('clear')} />
       </div>
     )
