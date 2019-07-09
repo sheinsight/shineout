@@ -44,17 +44,20 @@ export default props => {
       <div style={{ display: open ? 'block' : 'none' }}>
         <Form value={getter} onChange={onChange} className={className}>
           {cssInject[field].conf.map(item => {
-            const { name, type } = item
+            const { name, type, desc } = item
             return (
-              <Item key={name} label={name} className={headerClass('form-color')}>
-                {type === 'color' ? (
-                  <Field name={name}>
-                    {({ value, onChange: onChangeForm }) => <Picker value={value} onChange={onChangeForm} />}
-                  </Field>
-                ) : (
-                  <Input.Number name={name} min={item.min || 0} max={item.max || 50} />
-                )}
-              </Item>
+              <div key={name}>
+                <Item label={name} className={headerClass('form-color')}>
+                  {type === 'color' ? (
+                    <Field name={name}>
+                      {({ value, onChange: onChangeForm }) => <Picker value={value} onChange={onChangeForm} />}
+                    </Field>
+                  ) : (
+                    <Input.Number name={name} min={item.min || 0} max={item.max || 50} />
+                  )}
+                </Item>
+                {desc && <span className={headerClass('form-desc')}>{desc}</span>}
+              </div>
             )
           })}
         </Form>
