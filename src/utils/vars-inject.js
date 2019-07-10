@@ -322,215 +322,6 @@ const injects = {
       })
     },
   },
-  pagination: {
-    info: {
-      title: 'Pagination 分页',
-      name: 'pagination',
-      path: 'Pagination',
-    },
-    conf: [
-      {
-        name: 'borderRadius',
-        className: paginationClass('item'),
-        attr: 'borderRadius',
-        type: 'number',
-        parser: parseInt,
-      },
-      {
-        name: 'borderWidth',
-        className: paginationClass('item'),
-        attr: 'borderWidth',
-        type: 'number',
-        parser: parseInt,
-      },
-    ],
-    set borderRadius(v) {
-      setBodyProperty({
-        '--pagination-border-radius': `${parseInt(v, 10)}px`,
-      })
-    },
-    set borderWidth(v) {
-      setBodyProperty({
-        '--pagination-border-width': `${parseInt(v, 10)}px`,
-      })
-    },
-  },
-  table: {
-    info: {
-      title: 'Table 表格',
-      name: 'table',
-      path: 'Table',
-    },
-    conf: [
-      {
-        name: 'headBg',
-        className: exposeClass('table-head'),
-        attr: 'backgroundColor',
-        type: 'color',
-      },
-      {
-        name: 'headColor',
-        className: exposeClass('table-head'),
-        attr: 'color',
-        type: 'color',
-      },
-      {
-        name: 'borderColor',
-        className: exposeClass('table-head'),
-        attr: 'borderColor',
-        type: 'color',
-      },
-      {
-        name: 'hoverBg',
-        className: exposeClass('table-head-hover'),
-        attr: 'backgroundColor',
-        type: 'color',
-      },
-      {
-        name: 'borderRadiusTop',
-        className: exposeClass('table-head'),
-        attr: 'borderTopLeftRadius',
-        type: 'number',
-        parser: parseInt,
-      },
-    ],
-    set headBg(v) {
-      setBodyProperty({
-        '--table-head-bg': v,
-      })
-    },
-    set hoverBg(v) {
-      setBodyProperty({
-        '--table-hover-bg': v,
-      })
-    },
-    set headColor(v) {
-      setBodyProperty({
-        '--table-head-color': v,
-      })
-    },
-    set borderColor(v) {
-      setBodyProperty({
-        '--table-border-color': v,
-      })
-    },
-    set borderRadiusTop(v) {
-      setBodyProperty({
-        '--table-border-radius-top': `${parseInt(v, 10)}px`,
-      })
-    },
-  },
-  tag: {
-    info: {
-      title: 'Tag 标签',
-      name: 'tag',
-      path: 'Tag',
-    },
-    conf: [
-      {
-        name: 'bg',
-        className: tagClass('_'),
-        attr: 'backgroundColor',
-        type: 'color',
-      },
-      {
-        name: 'borderColor',
-        className: tagClass('default'),
-        attr: 'borderColor',
-        type: 'color',
-      },
-      {
-        name: 'borderRadius',
-        className: tagClass('_'),
-        attr: 'borderRadius',
-        type: 'number',
-        parser: parseInt,
-      },
-      {
-        name: 'paddingHorizontal',
-        className: tagClass('_'),
-        attr: 'paddingLeft',
-        type: 'number',
-        parser: parseInt,
-      },
-      {
-        name: 'paddingVertical',
-        className: tagClass('_'),
-        attr: 'paddingTop',
-        type: 'number',
-        parser: parseInt,
-      },
-    ],
-    set bg(v) {
-      setBodyProperty({
-        '--tag-bg': v,
-      })
-    },
-    set borderColor(v) {
-      setBodyProperty({
-        '--tag-border-color': v,
-      })
-    },
-    set borderRadius(v) {
-      setBodyProperty({
-        '--tag-border-radius': `${parseInt(v, 10)}px`,
-      })
-    },
-    set paddingHorizontal(v) {
-      setBodyProperty({
-        '--tag-padding-horizontal': `${parseInt(v, 10)}px`,
-      })
-    },
-    set paddingVertical(v) {
-      setBodyProperty({
-        '--tag-padding-vertical': `${parseInt(v, 10)}px`,
-      })
-    },
-  },
-  tooltip: {
-    info: {
-      title: 'Tooltip 提示',
-      name: 'tooltip',
-      path: 'Tooltip',
-    },
-    conf: [
-      {
-        name: 'bg',
-        className: tooltipClass('inner'),
-        attr: 'backgroundColor',
-        type: 'color',
-      },
-      {
-        name: 'paddingHorizontal',
-        className: tooltipClass('inner'),
-        attr: 'paddingLeft',
-        type: 'number',
-        parser: parseInt,
-      },
-      {
-        name: 'paddingVertical',
-        className: tooltipClass('inner'),
-        attr: 'paddingTop',
-        type: 'number',
-        parser: parseInt,
-      },
-    ],
-    set bg(v) {
-      setBodyProperty({
-        '--tooltip-bg': v,
-      })
-    },
-    set paddingHorizontal(v) {
-      setBodyProperty({
-        '--tooltip-padding-horizontal': `${parseInt(v, 10)}px`,
-      })
-    },
-    set paddingVertical(v) {
-      setBodyProperty({
-        '--tooltip-padding-vertical': `${parseInt(v, 10)}px`,
-      })
-    },
-  },
   form: {
     info: {
       title: 'Form 表单',
@@ -740,6 +531,215 @@ const injects = {
       setBodyProperty({
         '--slider-indicator-size': `${parseInt(v, 10)}px`,
         '--slider-indicator-size-half': `${parseInt(v, 10) / 2}px`,
+      })
+    },
+  },
+  table: {
+    info: {
+      title: 'Table 表格',
+      name: 'table',
+      path: 'Table',
+    },
+    conf: [
+      {
+        name: 'headBg',
+        className: exposeClass('table-head'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
+        name: 'headColor',
+        className: exposeClass('table-head'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
+        name: 'borderColor',
+        className: exposeClass('table-head'),
+        attr: 'borderColor',
+        type: 'color',
+      },
+      {
+        name: 'hoverBg',
+        className: exposeClass('table-head-hover'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
+        name: 'borderRadiusTop',
+        className: exposeClass('table-head'),
+        attr: 'borderTopLeftRadius',
+        type: 'number',
+        parser: parseInt,
+      },
+    ],
+    set headBg(v) {
+      setBodyProperty({
+        '--table-head-bg': v,
+      })
+    },
+    set hoverBg(v) {
+      setBodyProperty({
+        '--table-hover-bg': v,
+      })
+    },
+    set headColor(v) {
+      setBodyProperty({
+        '--table-head-color': v,
+      })
+    },
+    set borderColor(v) {
+      setBodyProperty({
+        '--table-border-color': v,
+      })
+    },
+    set borderRadiusTop(v) {
+      setBodyProperty({
+        '--table-border-radius-top': `${parseInt(v, 10)}px`,
+      })
+    },
+  },
+  pagination: {
+    info: {
+      title: 'Pagination 分页',
+      name: 'pagination',
+      path: 'Pagination',
+    },
+    conf: [
+      {
+        name: 'borderRadius',
+        className: paginationClass('item'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'borderWidth',
+        className: paginationClass('item'),
+        attr: 'borderWidth',
+        type: 'number',
+        parser: parseInt,
+      },
+    ],
+    set borderRadius(v) {
+      setBodyProperty({
+        '--pagination-border-radius': `${parseInt(v, 10)}px`,
+      })
+    },
+    set borderWidth(v) {
+      setBodyProperty({
+        '--pagination-border-width': `${parseInt(v, 10)}px`,
+      })
+    },
+  },
+  tag: {
+    info: {
+      title: 'Tag 标签',
+      name: 'tag',
+      path: 'Tag',
+    },
+    conf: [
+      {
+        name: 'bg',
+        className: tagClass('_'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
+        name: 'borderColor',
+        className: tagClass('default'),
+        attr: 'borderColor',
+        type: 'color',
+      },
+      {
+        name: 'borderRadius',
+        className: tagClass('_'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'paddingHorizontal',
+        className: tagClass('_'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'paddingVertical',
+        className: tagClass('_'),
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+      },
+    ],
+    set bg(v) {
+      setBodyProperty({
+        '--tag-bg': v,
+      })
+    },
+    set borderColor(v) {
+      setBodyProperty({
+        '--tag-border-color': v,
+      })
+    },
+    set borderRadius(v) {
+      setBodyProperty({
+        '--tag-border-radius': `${parseInt(v, 10)}px`,
+      })
+    },
+    set paddingHorizontal(v) {
+      setBodyProperty({
+        '--tag-padding-horizontal': `${parseInt(v, 10)}px`,
+      })
+    },
+    set paddingVertical(v) {
+      setBodyProperty({
+        '--tag-padding-vertical': `${parseInt(v, 10)}px`,
+      })
+    },
+  },
+  tooltip: {
+    info: {
+      title: 'Tooltip 提示',
+      name: 'tooltip',
+      path: 'Tooltip',
+    },
+    conf: [
+      {
+        name: 'bg',
+        className: tooltipClass('inner'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
+        name: 'paddingHorizontal',
+        className: tooltipClass('inner'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'paddingVertical',
+        className: tooltipClass('inner'),
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+      },
+    ],
+    set bg(v) {
+      setBodyProperty({
+        '--tooltip-bg': v,
+      })
+    },
+    set paddingHorizontal(v) {
+      setBodyProperty({
+        '--tooltip-padding-horizontal': `${parseInt(v, 10)}px`,
+      })
+    },
+    set paddingVertical(v) {
+      setBodyProperty({
+        '--tooltip-padding-vertical': `${parseInt(v, 10)}px`,
       })
     },
   },
