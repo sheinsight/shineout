@@ -1,5 +1,14 @@
 import { darken, fade } from './color'
-import { paginationClass, tagClass, buttonClass, tooltipClass, inputClass, selectClass, formClass } from '../styles'
+import {
+  paginationClass,
+  checkinputClass,
+  tagClass,
+  buttonClass,
+  tooltipClass,
+  inputClass,
+  selectClass,
+  formClass,
+} from '../styles'
 import { exposeClass } from '../styles/expose'
 
 function getProperty(name = '--btn-hover-darken') {
@@ -236,6 +245,13 @@ const injects = {
     },
     conf: [
       {
+        name: 'marginLeft',
+        attr: 'marginLeft',
+        type: 'number',
+        parser: parseInt,
+        className: exposeClass('button'),
+      },
+      {
         name: 'paddingBaseHorizontal',
         attr: 'paddingLeft',
         type: 'number',
@@ -285,6 +301,11 @@ const injects = {
         className: buttonClass('_'),
       },
     ],
+    set marginLeft(v) {
+      setBodyProperty({
+        '--button-margin-left': `${parseInt(v, 10)}px`,
+      })
+    },
     set borderRadius(v) {
       setBodyProperty({
         '--button-border-radius': `${parseInt(v, 10)}px`,
@@ -352,6 +373,27 @@ const injects = {
     set itemMarginRight(v) {
       setBodyProperty({
         '--form-item-margin-right': `${parseInt(v, 10)}px`,
+      })
+    },
+  },
+  checkbox: {
+    info: {
+      title: 'Checkbox 复选框',
+      name: 'checkbox',
+      path: 'Checkbox',
+    },
+    conf: [
+      {
+        name: 'marginRight',
+        className: checkinputClass('_'),
+        attr: 'marginRight',
+        type: 'number',
+        parser: parseInt,
+      },
+    ],
+    set marginRight(v) {
+      setBodyProperty({
+        '--checkbox-margin-right': `${parseInt(v, 10)}px`,
       })
     },
   },

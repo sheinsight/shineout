@@ -44,6 +44,7 @@ const accessors = {
   slider: {},
   menu: {},
   form: {},
+  checkbox: {},
 }
 
 for (const [key, value] of Object.entries(accessors)) {
