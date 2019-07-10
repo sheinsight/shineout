@@ -1,4 +1,5 @@
 import cssInject from './vars-inject'
+import { capitalize } from './strings'
 import { getDOMStyle } from './expose'
 
 const cssVarSupported = window.CSS && window.CSS.supports && window.CSS.supports('--css-var-support', 0)
@@ -48,7 +49,7 @@ const accessors = {
 }
 
 for (const [key, value] of Object.entries(accessors)) {
-  const setterName = `set${key.replace(/^\S/, s => s.toUpperCase())}`
+  const setterName = `set${capitalize(key)}`
   value[setterName] = options => setOptions.call(value, options)
   genAccessors(value, cssInject[key])
 }

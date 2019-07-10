@@ -23,7 +23,6 @@ export default (type, getter) => WrappedComponent => {
     getDefaultConfig() {
       const { setConfig } = this.props
       this.conf = { ...getter }
-      delete this.conf[setterName]
       setConfig(type, this.conf)
       this.defaultConf = { ...this.conf }
     }
