@@ -91,6 +91,9 @@
 @input-focus-width-value: 2px;
 @input-focus-width: var(--input-focus-width, @input-focus-width-value);
 
+@menu-item-active-bg-value: #e6f7ff;
+@menu-item-active-bg: var(--menu-item-active-bg, @menu-item-active-bg-value);
+
 @state-success-text: rgba(0, 0, 0, 0.65);
 @state-success-bg: #f6ffed;
 @state-success-border: #b7eb8f;
@@ -108,6 +111,8 @@
 @state-danger-border: #ffa39e;
 
 @font-size-large: @font-size-base + 2;
+@button-font-size-large-value: @font-size-large;
+@button-font-size-large: var(--button-font-size-large, @button-font-size-large-value);
 
 @caret-width: 6px;
 
@@ -164,9 +169,7 @@
 @input-border-focus: #40a9ff;
 
 //menu
-
 @menu-item-active-color: @colors-primary;
-@menu-item-active-bg: #e6f7ff;
 @menu-title-transform: translateY(-85%) rotate(45deg);
 @menu-title-open-transform: translateY(-65%) rotate(225deg);
 @menu-title-vertical-transform: translateY(-60%) rotate(-45deg);

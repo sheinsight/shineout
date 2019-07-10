@@ -18,12 +18,12 @@
   touch-action: manipulation;
   vertical-align: middle;
   white-space: nowrap;
-  .button-size(@btn-padding-y; @btn-padding-x; @font-size-base; @line-height-base; @btn-border-radius-base);
+  .button-size(@btn-padding-y; @btn-padding-x; @button-font-size-base; @line-height-base; @btn-border-radius-base);
   .user-select(none);
 
   &-spin {
     display: inline-block;
-    margin-right: 8px;
+    margin-right: @button-spin-margin;
   }
 
   &:hover,
@@ -170,13 +170,13 @@
 
   &-large {
     .button-size(
-      @btn-padding-large-y; @btn-padding-large-x; @font-size-large; @line-height-base; @btn-border-radius-large
+      @btn-padding-large-y; @btn-padding-large-x; @button-font-size-large; @line-height-base; @btn-border-radius-large
     );
   }
 
   &-small {
     .button-size(
-      @btn-padding-small-y; @btn-padding-small-x; @font-size-small; @line-height-small; @btn-border-radius-small
+      @btn-padding-small-y; @btn-padding-small-x; @button-font-size-small; @line-height-small; @btn-border-radius-small
     );
   }
 

@@ -245,11 +245,39 @@ const injects = {
     },
     conf: [
       {
+        name: 'fontSizeBase',
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('_'),
+      },
+      {
+        name: 'fontSizeLarge',
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('large'),
+      },
+      {
+        name: 'fontSizeSmall',
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('small'),
+      },
+      {
         name: 'marginLeft',
         attr: 'marginLeft',
         type: 'number',
         parser: parseInt,
         className: exposeClass('button'),
+      },
+      {
+        name: 'spinMargin',
+        attr: 'marginRight',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('spin'),
       },
       {
         name: 'paddingBaseHorizontal',
@@ -301,6 +329,26 @@ const injects = {
         className: buttonClass('_'),
       },
     ],
+    set fontSizeBase(v) {
+      setBodyProperty({
+        '--button-font-size-base': `${parseInt(v, 10)}px`,
+      })
+    },
+    set fontSizeLarge(v) {
+      setBodyProperty({
+        '--button-font-size-large': `${parseInt(v, 10)}px`,
+      })
+    },
+    set fontSizeSmall(v) {
+      setBodyProperty({
+        '--button-font-size-small': `${parseInt(v, 10)}px`,
+      })
+    },
+    set spinMargin(v) {
+      setBodyProperty({
+        '--button-spin-margin': `${parseInt(v, 10)}px`,
+      })
+    },
     set marginLeft(v) {
       setBodyProperty({
         '--button-margin-left': `${parseInt(v, 10)}px`,
@@ -799,6 +847,12 @@ const injects = {
         type: 'color',
       },
       {
+        name: 'activeBg',
+        className: exposeClass('menu-active'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
         name: 'darkColor',
         className: exposeClass('menu-dark'),
         attr: 'color',
@@ -808,6 +862,11 @@ const injects = {
     set darkBg(v) {
       setBodyProperty({
         '--menu-dark-bg': v,
+      })
+    },
+    set activeBg(v) {
+      setBodyProperty({
+        '--menu-item-active-bg': v,
       })
     },
     set darkColor(v) {
