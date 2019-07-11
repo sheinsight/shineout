@@ -736,6 +736,12 @@ const injects = {
         type: 'color',
       },
       {
+        name: 'color',
+        className: tagClass('_'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
         name: 'borderColor',
         className: tagClass('default'),
         attr: 'borderColor',
@@ -766,6 +772,11 @@ const injects = {
     set bg(v) {
       setBodyProperty({
         '--tag-bg': v,
+      })
+    },
+    set color(v) {
+      setBodyProperty({
+        '--tag-color': v,
       })
     },
     set borderColor(v) {
@@ -853,6 +864,12 @@ const injects = {
         type: 'color',
       },
       {
+        name: 'activeColor',
+        className: exposeClass('menu-active'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
         name: 'darkColor',
         className: exposeClass('menu-dark'),
         attr: 'color',
@@ -867,6 +884,11 @@ const injects = {
     set activeBg(v) {
       setBodyProperty({
         '--menu-item-active-bg': v,
+      })
+    },
+    set activeColor(v) {
+      setBodyProperty({
+        '--menu-item-active-color': v,
       })
     },
     set darkColor(v) {
