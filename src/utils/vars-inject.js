@@ -8,6 +8,7 @@ import {
   inputClass,
   selectClass,
   formClass,
+  menuClass,
 } from '../styles'
 import { exposeClass } from '../styles/expose'
 
@@ -852,6 +853,13 @@ const injects = {
     },
     conf: [
       {
+        name: 'height',
+        className: menuClass('title'),
+        attr: 'height',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
         name: 'darkBg',
         className: exposeClass('menu-dark'),
         attr: 'backgroundColor',
@@ -876,6 +884,13 @@ const injects = {
         type: 'color',
       },
     ],
+    set height(v) {
+      const height = parseInt(v, 10)
+      setBodyProperty({
+        '--menu-item-height': `${height}px`,
+        '--menu-item-height-half': `${height / 2}px`,
+      })
+    },
     set darkBg(v) {
       setBodyProperty({
         '--menu-dark-bg': v,
