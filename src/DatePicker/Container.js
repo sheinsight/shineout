@@ -324,7 +324,9 @@ class Container extends PureComponent {
         range={range}
         value={range ? (value || []).map(v => this.parseDate(v)) : this.parseDate(value)}
         showTimePicker={!!value}
-      />
+      >
+        {this.props.children}
+      </Component>
     )
   }
 
@@ -378,6 +380,7 @@ Container.propTypes = {
   absolute: PropTypes.bool,
   zIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   onValueBlur: PropTypes.func,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 }
 
 Container.defaultProps = {

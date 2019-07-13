@@ -62,6 +62,12 @@ export default function(type) {
       const { onChange, onRawChange, index, inputable } = this.props
       const { checked } = e.target
       this.setState({ checked })
+
+      if (type === 'switch' && onChange) {
+        onChange(checked)
+        return
+      }
+
       let value = inputable ? this.props.value : this.props.htmlValue
 
       if (onRawChange) onRawChange(value, checked)
@@ -77,19 +83,31 @@ export default function(type) {
     }
 
     render() {
-      const { disabled, style, children, inputable, onClick } = this.props
+      const { disabled, style, content, size, children, inputable, onClick } = this.props
 
       const checked = this.getChecked()
+      const isSwitch = type === 'switch'
 
       const className = classnames(
         checkinputClass(
           '_',
           disabled && 'disabled',
           checked === true && 'checked',
-          checked === 'indeterminate' && 'indeterminate'
+          checked === 'indeterminate' && 'indeterminate',
+          isSwitch && 'switch',
+          {
+            large: size === 'large',
+            small: size === 'small',
+          }
         ),
         this.props.className
       )
+
+      const [checkedChildren, uncheckedChildren] = content
+      const switchChildren =
+        isSwitch && size !== 'small' ? (
+          <span className={checkinputClass('switch-children')}>{checked ? checkedChildren : uncheckedChildren}</span>
+        ) : null
 
       const value = typeof this.props.value === 'string' ? this.props.value : ''
 
@@ -102,20 +120,22 @@ export default function(type) {
           tabIndex={disabled ? -1 : 0}
           ref={this.bindRef}
         >
+          {switchChildren}
           <input
             id={this.id}
             disabled={disabled}
             tabIndex={-1}
-            type={type}
+            type={isSwitch ? 'checkbox' : type}
             onClick={onClick}
             onChange={this.handleChange}
             checked={checked}
           />
           <i className={checkinputClass('indicator', type)} />
-          {children && <span>{children}</span>}
-          {inputable && checked && (
+          {children && !isSwitch && <span>{children}</span>}
+          {inputable && !isSwitch && checked && (
             <Input className={checkinputClass('text')} onChange={this.handleInputChange} value={value} />
           )}
+          {isSwitch && <span className={checkinputClass('switch-indicator')} />}
         </label>
       )
     }
@@ -131,12 +151,15 @@ export default function(type) {
     onRawChange: PropTypes.func,
     value: PropTypes.any,
     onClick: PropTypes.func,
+    size: PropTypes.oneOf(['small', 'default', 'large']),
+    content: PropTypes.array,
   }
 
   CheckItem.defaultProps = {
     ...defaultProps,
     htmlValue: true,
     onClick: undefined,
+    content: [],
   }
 
   return CheckItem
