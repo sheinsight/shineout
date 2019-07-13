@@ -11,6 +11,7 @@ import OptionTree from './OptionTree'
 import BoxList from './BoxList'
 import { isObject } from '../utils/is'
 import { docSize } from '../utils/dom/document'
+import { getParent } from '../utils/dom/element'
 import absoluteList from '../List/AbsoluteList'
 
 const WrappedOptionList = absoluteList(OptionList)
@@ -30,7 +31,9 @@ class Select extends PureComponent {
     this.bindElement = this.bindElement.bind(this)
     this.bindOptionFunc = this.bindOptionFunc.bind(this)
     this.setInputReset = this.setInputReset.bind(this)
+    this.shouldFocus = this.shouldFocus.bind(this)
 
+    this.handleClick = this.handleClick.bind(this)
     this.handleFocus = this.handleFocus.bind(this)
     this.handleBlur = this.handleState.bind(this, false)
     this.handleClear = this.handleClear.bind(this)
@@ -51,6 +54,8 @@ class Select extends PureComponent {
     this.optionList = {}
     this.selectId = `select_${getUidStr()}`
     this.closeByResult = false
+    this.mouseDown = false
+    this.isOptionList = false
 
     this.lastResult = undefined
   }
@@ -82,7 +87,7 @@ class Select extends PureComponent {
   isDescendent(el, id) {
     const stay = el.classList.contains(selectClass('input')) || el.classList.contains(selectClass('item'))
     if (stay) this.optionsHold = true
-    if (el.classList.contains(selectClass('result')) && this.optionsHold === null) {
+    if (el.classList.contains(selectClass('result')) && this.optionsHold === null && this.state.focus) {
       this.closeByResult = true
       this.optionsHold = false
     }
@@ -110,10 +115,16 @@ class Select extends PureComponent {
   handleClickAway(e) {
     this.optionsHold = null
     const desc = this.isDescendent(e.target, this.selectId)
-    if (!desc) this.handleState(false)
+    if (!desc) {
+      if (!getParent(e.target, `[data-id=${this.selectId}]`)) {
+        this.props.onBlur()
+        this.clearClickAway()
+      }
+      this.handleState(false, null)
+    }
   }
 
-  handleFocus(e) {
+  handleClick(e) {
     if (this.closeByResult) {
       this.closeByResult = false
       return
@@ -127,7 +138,7 @@ class Select extends PureComponent {
     // click close icon
     if (focus && e && e.target.classList.contains(selectClass('close'))) return
 
-    const { onBlur, onFocus, height } = this.props
+    const { height } = this.props
     let { position } = this.props
     const windowHeight = docSize.height
     const bottom = height + this.element.getBoundingClientRect().bottom
@@ -136,13 +147,7 @@ class Select extends PureComponent {
     this.setState({ focus, position: position || 'drop-down' })
 
     if (focus) {
-      this.bindClickAway()
       this.renderPending = false
-      onFocus()
-    } else {
-      if (this.optionList.handleHover) this.optionList.handleHover(undefined)
-      this.clearClickAway()
-      onBlur()
     }
   }
 
@@ -176,7 +181,20 @@ class Select extends PureComponent {
     } else {
       datum.set(data)
       this.handleState(false)
+      this.element.focus()
     }
+  }
+
+  shouldFocus(el) {
+    if (el.getAttribute('data-id') === this.selectId) return true
+    if (getParent(el, `.${selectClass('result')}`)) return true
+    return false
+  }
+
+  handleFocus(e) {
+    if (!this.shouldFocus(e.target)) return
+    this.props.onFocus(e)
+    this.bindClickAway()
   }
 
   handleInputFocus() {
@@ -216,11 +234,32 @@ class Select extends PureComponent {
     if (data) {
       const checked = !this.props.datum.check(data)
       this.handleChange(checked, data)
+      if (this.optionList.handleHover) this.optionList.handleHover(hoverIndex)
     }
   }
 
   handleKeyDown(e) {
     this.keyLocked = true
+
+    // just for enter to open the list
+    if ((e.keyCode === 13 || e.keyCode === 40) && !this.state.focus) {
+      e.preventDefault()
+      this.handleClick(e)
+      return
+    }
+
+    // fot close the list
+    if (e.keyCode === 9) {
+      this.props.onBlur(e)
+      // e.preventDefault()
+      if (this.state.focus) this.handleState(false, e)
+      else this.clearClickAway()
+      return
+    }
+
+    // no focus no event
+    if (!this.state.focus) return
+
     this.handleControlChange('keyboard')
 
     switch (e.keyCode) {
@@ -367,12 +406,13 @@ class Select extends PureComponent {
 
     return (
       <div
-        tabIndex={-1}
+        // eslint-disable-next-line
+        tabIndex={disabled === true ? -1 : 0}
         ref={this.bindElement}
         className={className}
         data-id={this.selectId}
-        // onFocus={this.handleFocus}
-        onClick={this.handleFocus}
+        onFocus={this.handleFocus}
+        onClick={this.handleClick}
         onKeyDown={this.handleKeyDown}
         onKeyUp={this.handleKeyUp}
       >

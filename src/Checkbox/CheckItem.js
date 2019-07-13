@@ -4,6 +4,7 @@ import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
+import { isEnterPress } from '../utils/is'
 import Input from '../Input'
 import { checkinputClass } from '../styles'
 
@@ -17,8 +18,12 @@ export default function(type) {
       }
 
       this.id = `cb_${getUidStr()}`
+      this.input = null
+      this.el = null
       this.handleChange = this.handleChange.bind(this)
       this.handleInputChange = this.handleInputChange.bind(this)
+      this.handleEnter = this.handleEnter.bind(this)
+      this.bindRef = this.bindRef.bind(this)
     }
 
     componentDidUpdate(prevProps) {
@@ -40,6 +45,17 @@ export default function(type) {
     getProp(key) {
       if (this.props[key] !== undefined) return this.props[key]
       return this.state[key]
+    }
+
+    bindRef(el) {
+      if (el) this.el = el
+    }
+
+    handleEnter(e) {
+      if (isEnterPress(e)) {
+        e.target.click()
+        if (this.el) this.el.focus()
+      }
     }
 
     handleChange(e) {
@@ -78,10 +94,18 @@ export default function(type) {
       const value = typeof this.props.value === 'string' ? this.props.value : ''
 
       return (
-        <label className={className} style={style} htmlFor={this.id}>
+        <label
+          onKeyDown={this.handleEnter}
+          className={className}
+          style={style}
+          htmlFor={this.id}
+          tabIndex={disabled ? -1 : 0}
+          ref={this.bindRef}
+        >
           <input
             id={this.id}
             disabled={disabled}
+            tabIndex={-1}
             type={type}
             onClick={onClick}
             onChange={this.handleChange}

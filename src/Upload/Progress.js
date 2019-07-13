@@ -12,6 +12,10 @@ const SPIN = color => (
   </span>
 )
 
+const handleKeyDown = e => {
+  if (e.keyCode === 13) e.target.click()
+}
+
 class Progress extends PureComponent {
   constructor(props) {
     super(props)
@@ -86,7 +90,13 @@ class Progress extends PureComponent {
         onError={this.handleError}
         onSuccess={this.handleSuccess}
       >
-        <div className={wrapperClassname} onClick={this.handleUpload}>
+        <div
+          // eslint-disable-next-line
+          tabIndex={this.props.disabled ? -1 : 0}
+          className={wrapperClassname}
+          onClick={this.handleUpload}
+          onKeyDown={handleKeyDown}
+        >
           {uploading && (
             <div style={style} className={uploadClass(`bprogress-${type}`, 'stream')}>
               {this.renderLoadingView('#fff')}

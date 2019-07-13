@@ -5,7 +5,7 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-01-base.js] 
   <span>
     <button>
       <i />
-       Upload file
+      Upload file
     </button>
     <input />
   </span>

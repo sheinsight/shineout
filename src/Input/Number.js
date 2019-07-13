@@ -128,6 +128,8 @@ class Number extends PureComponent {
 
       <a
         key="up"
+        // do not need the tab to focus
+        tabIndex={-1}
         className={inputClass('number-up')}
         href="javascript:;"
         onMouseDown={this.handleAddClick}
@@ -139,6 +141,8 @@ class Number extends PureComponent {
 
       <a
         key="down"
+        // do not need the tab to focus
+        tabIndex={-1}
         className={inputClass('number-down')}
         href="javascript:;"
         onMouseDown={this.handleSubClick}

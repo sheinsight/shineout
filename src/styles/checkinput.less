@@ -101,9 +101,18 @@
     margin-bottom: @padding-large-vertical;
   }
 
-  &:hover i&-indicator {
-    border-color: @checkbox-hover-color;
+  &:focus {
+    outline: none;
+    i.@{checkinput-prefix}-indicator{
+      box-shadow: 0 0 0 @input-focus-width @color-rgba;
+    } 
   }
+
+  &:hover,&:focus{
+    i.@{checkinput-prefix}-indicator{
+      border-color: @checkbox-hover-color;
+    } 
+  } 
 
   &-checked i&-checkbox&-indicator {
     border-color: @checkbox-active-color;

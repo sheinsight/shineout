@@ -15,7 +15,7 @@ describe('DatePicker[Base]', () => {
     expect(wrapper.find(`.${SO_PREFIX}-input-focus`).length).toBe(0)
     wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
     jest.runAllTimers()
-    expect(wrapper.find(`.${SO_PREFIX}-input-focus`).length).toBe(1)
+    expect(wrapper.find(`.${SO_PREFIX}-datepicker-focus`).length).toBe(1)
     expect(wrapper.html().indexOf(`${SO_PREFIX}-hidable-show`) > 0).toBeTruthy()
   })
   test('should set placeholder if not have value', () => {

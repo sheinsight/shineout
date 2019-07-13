@@ -20,7 +20,7 @@ function Item({ renderResult, data, disabled, onClick }) {
   const click = disabled || !onClick ? undefined : () => onClick(value)
   const synDisabled = disabled || !click
   return (
-    <a className={selectClass('item', disabled && 'disabled')} onClick={click}>
+    <a tabIndex={-1} className={selectClass('item', disabled && 'disabled')} onClick={click}>
       {getResultContent(data, renderResult)}
       {!synDisabled && <span className={selectClass('indicator', 'close')} />}
     </a>
@@ -48,6 +48,7 @@ class Result extends PureComponent {
       return (
         <div onClick={onClear} className={selectClass('close-warpper')}>
           <a
+          tabIndex={-1}
           data-role="close"
           className={selectClass('indicator', 'close')}
           href="javascript:;"
@@ -110,7 +111,7 @@ class Result extends PureComponent {
 
       if (compressed && result.length > 1) {
         items.push(
-          <a key={result.length} className={selectClass('item', 'item-compressed')}>
+          <a tabIndex={-1} key={result.length} className={selectClass('item', 'item-compressed')}>
             <span>{`+${result.length - 1}`}</span>
           </a>
         )
@@ -139,7 +140,7 @@ class Result extends PureComponent {
         {result}
         {!this.props.multiple && (
           // eslint-disable-next-line
-          <a className={selectClass('indicator', 'caret')} href="javascript:;" />
+          <a tabIndex={-1} className={selectClass('indicator', 'caret')} href="javascript:;" />
         )}
         {this.renderClear()}
       </div>

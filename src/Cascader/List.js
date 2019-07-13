@@ -15,9 +15,10 @@ class List extends Component {
   getKey(data, index) {
     const { keygen, parentId } = this.props
     if (typeof keygen === 'function') return keygen(data, parentId)
-    else if (keygen) return data[keygen]
+    if (keygen) return data[keygen]
     return parentId + (parentId ? ',' : '') + index
   }
+
   getText(key) {
     return this.props.text[key] || getLocale(key)
   }

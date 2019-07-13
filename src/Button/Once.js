@@ -20,13 +20,7 @@ class OnceButton extends PureComponent {
   }
 
   render() {
-    return (
-      <Button
-        {...this.props}
-        loading={this.state.loading}
-        onClick={this.handleClick}
-      />
-    )
+    return <Button {...this.props} loading={this.state.loading} onClick={this.handleClick} />
   }
 }
 

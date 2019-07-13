@@ -4,6 +4,10 @@
 @datepicker-prefix: ~'@{so-prefix}-datepicker';
 
 .@{datepicker-prefix} {
+  &:focus {
+    outline: none;
+  }
+  
   label& {
     display: inline-block;
     width: 150px;

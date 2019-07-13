@@ -8,6 +8,7 @@ import { treeSelectClass } from '../styles'
 import Result from './Result'
 import absoluteList from '../List/AbsoluteList'
 import { docSize } from '../utils/dom/document'
+import { getParent } from '../utils/dom/element'
 import List from '../List'
 import { getLocale } from '../locale'
 
@@ -35,11 +36,14 @@ export default class TreeSelect extends PureComponent {
     this.handleChange = this.handleChange.bind(this)
     this.renderItem = this.renderItem.bind(this)
     this.bindElement = this.bindElement.bind(this)
-    this.handleFocus = this.handleState.bind(this, true)
+    this.handleClick = this.handleState.bind(this, true)
+    this.handleFocus = this.handleFocus.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleBlur = this.handleState.bind(this, false)
     this.handleClear = this.handleClear.bind(this)
     this.handleRemove = this.handleRemove.bind(this)
     this.handleClickAway = this.handleClickAway.bind(this)
+    this.shouldFocus = this.shouldFocus.bind(this)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -79,6 +83,12 @@ export default class TreeSelect extends PureComponent {
     this.element = el
   }
 
+  shouldFocus(el) {
+    if (el.getAttribute('data-id') === this.treeSelectId) return true
+    if (getParent(el, `.${treeSelectClass('result')}`)) return true
+    return false
+  }
+
   bindClickAway() {
     document.addEventListener('mousedown', this.handleClickAway)
   }
@@ -89,7 +99,11 @@ export default class TreeSelect extends PureComponent {
 
   handleClickAway(e) {
     const desc = isDescendent(e.target, this.treeSelectId)
-    if (!desc) this.handleState(false)
+    if (!desc) {
+      this.clearClickAway()
+      this.props.onBlur()
+      this.handleState(false, e)
+    }
   }
 
   handleState(focus, e) {
@@ -98,7 +112,7 @@ export default class TreeSelect extends PureComponent {
     // click close icon
     if (focus && e && e.target.classList.contains(treeSelectClass('close'))) return
 
-    const { onBlur, onFocus, height } = this.props
+    const { height } = this.props
     let { position } = this.props
     const windowHeight = docSize.height
     const bottom = height + this.element.getBoundingClientRect().bottom
@@ -108,10 +122,31 @@ export default class TreeSelect extends PureComponent {
 
     if (focus) {
       this.bindClickAway()
-      onFocus()
-    } else {
-      this.clearClickAway()
-      onBlur()
+      // onFocus()
+    }
+  }
+
+  handleFocus(e) {
+    if (!this.shouldFocus(e.target)) return
+    this.props.onFocus(e)
+    this.bindClickAway()
+  }
+
+  handleKeyDown(e) {
+    if (e.keyCode === 13) {
+      e.preventDefault()
+      this.handleState(!this.state.focus)
+    }
+
+    // fot close the list
+    if (e.keyCode === 9) {
+      this.props.onBlur()
+      // e.preventDefault()
+      if (this.state.focus) {
+        this.handleState(false, e, true)
+      } else {
+        this.clearClickAway()
+      }
     }
   }
 
@@ -232,11 +267,14 @@ export default class TreeSelect extends PureComponent {
 
     return (
       <div
-        tabIndex={-1}
+        // eslint-disable-next-line
+        tabIndex={ disabled === true ? -1 : 0}
         ref={this.bindElement}
         className={className}
         data-id={this.treeSelectId}
-        onClick={this.handleFocus}
+        onFocus={this.handleFocus}
+        onKeyDown={this.handleKeyDown}
+        onClick={this.handleClick}
       >
         <Result
           filterText={filterText}

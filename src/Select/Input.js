@@ -9,6 +9,10 @@ const focusSelectAll = element => {
   })
 }
 
+const handleFocus = e => {
+  e.stopPropagation()
+}
+
 class FilterInput extends Component {
   constructor(props) {
     super(props)
@@ -86,6 +90,7 @@ class FilterInput extends Component {
         ref={this.bindElement}
         contentEditable={focus}
         onInput={this.handleInput}
+        onFocus={handleFocus}
         onBlur={this.handleBlur}
         dangerouslySetInnerHTML={{ __html: value }}
       />
