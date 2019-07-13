@@ -53,15 +53,20 @@ export default function(type) {
 
     handleEnter(e) {
       if (isEnterPress(e)) {
-        e.target.click()
-        if (this.el) this.el.focus()
+        this.handleChange({
+          target: {
+            checked: !this.getChecked(),
+          },
+        })
+        // e.target.click()
+        // if (this.el) this.el.focus()
       }
     }
 
     handleChange(e) {
       const { onChange, onRawChange, index, inputable } = this.props
       const { checked } = e.target
-      this.setState({ checked })
+      this.setState({ checked }, () => this.el.focus())
 
       if (type === 'switch' && onChange) {
         onChange(checked)

@@ -247,9 +247,11 @@
 
   &-disabled,
   &-disabled:hover,
+  &-disable:focus,
   &-disabled&-checked {
     i.@{checkinput-prefix}-indicator {
       border-color: @gray-500;
+      box-shadow: none;
       background-color: @input-bg-disabled;
     }
   }

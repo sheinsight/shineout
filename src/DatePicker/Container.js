@@ -239,6 +239,7 @@ class Container extends PureComponent {
     this.props.onChange(value, () => {
       this.props.onValueBlur()
       this.handleToggle(false)
+      this.element.focus()
     })
   }
 
@@ -253,6 +254,7 @@ class Container extends PureComponent {
         className={className}
         focus={this.state.focus}
         format={resultFormat}
+        element={this.element}
         index={key}
         inputable={inputable}
         placeholder={placeholder}

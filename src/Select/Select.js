@@ -181,7 +181,8 @@ class Select extends PureComponent {
     } else {
       datum.set(data)
       this.handleState(false)
-      this.element.focus()
+      //  let the element focus
+      setTimeout(() => this.element.focus(), 10)
     }
   }
 
@@ -220,6 +221,7 @@ class Select extends PureComponent {
 
   handleClear() {
     this.props.datum.setValue([])
+    this.element.focus()
 
     if (this.state.focus === false) {
       this.forceUpdate()

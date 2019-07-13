@@ -44,6 +44,7 @@ export default class TreeSelect extends PureComponent {
     this.handleRemove = this.handleRemove.bind(this)
     this.handleClickAway = this.handleClickAway.bind(this)
     this.shouldFocus = this.shouldFocus.bind(this)
+    this.handleFilter = this.handleFilter.bind(this)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -173,6 +174,12 @@ export default class TreeSelect extends PureComponent {
     this.props.datum.setValue([])
     this.props.onChange(multiple ? [] : '')
     this.handleState(false)
+    this.element.focus()
+  }
+
+  handleFilter(...args) {
+    this.element.focus()
+    this.props.onFilter(...args)
   }
 
   renderItem(data, index) {
@@ -245,13 +252,13 @@ export default class TreeSelect extends PureComponent {
   render() {
     const {
       placeholder,
+      onFilter,
       compressed,
       multiple,
       datum,
       clearable,
       disabled,
       size,
-      onFilter,
       filterText,
       result,
     } = this.props
@@ -280,7 +287,7 @@ export default class TreeSelect extends PureComponent {
           filterText={filterText}
           onClear={clearable ? this.handleClear : undefined}
           onRemove={this.handleRemove}
-          onFilter={onFilter}
+          onFilter={onFilter ? this.handleFilter : onFilter}
           result={result}
           disabled={disabled}
           datum={datum}
