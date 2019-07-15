@@ -131,8 +131,9 @@ class Panel extends PureComponent {
     this.element.className = classnames(popoverClass('_', position, type), this.props.className)
     // eslint-disable-next-line
     const style = this.element.style
-    style.left = `${pos.left}px`
-    style.top = `${pos.top}px`
+    Object.keys(pos).forEach(attr => {
+      style[attr] = `${pos[attr]}px`
+    })
     style.display = show ? 'block' : 'none'
     if (background) style.background = background
     if (border) style.borderColor = border
