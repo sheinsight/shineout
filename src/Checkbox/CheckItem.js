@@ -4,6 +4,7 @@ import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
+import { isEnterPress } from '../utils/is'
 import Input from '../Input'
 import { checkinputClass } from '../styles'
 
@@ -17,8 +18,12 @@ export default function(type) {
       }
 
       this.id = `cb_${getUidStr()}`
+      this.input = null
+      this.el = null
       this.handleChange = this.handleChange.bind(this)
       this.handleInputChange = this.handleInputChange.bind(this)
+      this.handleEnter = this.handleEnter.bind(this)
+      this.bindRef = this.bindRef.bind(this)
     }
 
     componentDidUpdate(prevProps) {
@@ -42,10 +47,26 @@ export default function(type) {
       return this.state[key]
     }
 
+    bindRef(el) {
+      if (el) this.el = el
+    }
+
+    handleEnter(e) {
+      if (isEnterPress(e)) {
+        this.handleChange({
+          target: {
+            checked: !this.getChecked(),
+          },
+        })
+        // e.target.click()
+        // if (this.el) this.el.focus()
+      }
+    }
+
     handleChange(e) {
       const { onChange, onRawChange, index, inputable } = this.props
       const { checked } = e.target
-      this.setState({ checked })
+      this.setState({ checked }, () => this.el.focus())
 
       if (type === 'switch' && onChange) {
         onChange(checked)
@@ -96,11 +117,19 @@ export default function(type) {
       const value = typeof this.props.value === 'string' ? this.props.value : ''
 
       return (
-        <label className={className} style={style} htmlFor={this.id}>
+        <label
+          onKeyDown={this.handleEnter}
+          className={className}
+          style={style}
+          htmlFor={this.id}
+          tabIndex={disabled ? -1 : 0}
+          ref={this.bindRef}
+        >
           {switchChildren}
           <input
             id={this.id}
             disabled={disabled}
+            tabIndex={-1}
             type={isSwitch ? 'checkbox' : type}
             onClick={onClick}
             onChange={this.handleChange}

@@ -7,8 +7,5 @@ const context = createReactContext()
 export const Provider = context.Provider
 
 export const consumer = Origin => props => (
-  <context.Consumer>
-    {value => <Origin {...props} {...value} />}
-  </context.Consumer>
+  <context.Consumer>{value => <Origin {...props} {...value} />}</context.Consumer>
 )
-

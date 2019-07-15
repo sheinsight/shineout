@@ -128,11 +128,10 @@
 }
 
 .@{input-prefix} {
-  .input-focus(@color: @input-border-focus) {
-    @color-rgba: rgba(red(@color), green(@color), blue(@color), 0.25);
 
-    border-color: @color;
-    box-shadow: 0 0 0 @input-focus-width @color-rgba;
+  &:focus {
+    outline: none;
+    .input-focus()
   }
 
   position: relative;

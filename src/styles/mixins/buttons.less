@@ -25,11 +25,12 @@
     }
   }
 
-  &:focus {
-    color: @color;
-    // box-shadow: 0 0 0 @btn-focus-width fade(@border, 50%);
-  }
+  // &:focus {
+  //   // color: @color;
+  //   // box-shadow: 0 0 0 @btn-focus-width fade(@border, 50%);
+  // }
 
+  &:focus,
   &:hover {
     border-color: darken(@outline, @btn-hover-darken);
     background-color: darken(@background, @btn-hover-darken);
@@ -66,6 +67,7 @@
   background: transparent;
   color: @border;
 
+  &:focus,
   &:hover {
     background-color: @background;
     color: @color;

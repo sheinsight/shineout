@@ -8,6 +8,7 @@ import { cascaderClass, selectClass } from '../styles'
 import Result from './Result'
 import CascaderList from './List'
 import { docSize } from '../utils/dom/document'
+import { getParent } from '../utils/dom/element'
 import absoluteList from '../List/AbsoluteList'
 
 const OptionList = absoluteList(({ focus, ...other }) => (focus ? <div {...other} /> : null))
@@ -41,11 +42,14 @@ class Cascader extends PureComponent {
     this.isRendered = false
 
     this.selectId = `select_${getUidStr()}`
-    this.handleFocus = this.handleState.bind(this, true)
+    this.handleClick = this.handleState.bind(this, true)
     this.handleBlur = this.handleState.bind(this, false)
+    this.handleFocus = this.handleFocus.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleClickAway = this.handleClickAway.bind(this)
     this.handlePathChange = this.handlePathChange.bind(this)
     this.handleClear = this.handleClear.bind(this)
+    this.shouldFocus = this.shouldFocus.bind(this)
   }
 
   componentDidUpdate(prevProps) {
@@ -60,22 +64,38 @@ class Cascader extends PureComponent {
   }
 
   bindClickAway() {
-    document.addEventListener('click', this.handleClickAway)
+    document.addEventListener('mousedown', this.handleClickAway)
   }
 
   clearClickAway() {
-    document.removeEventListener('click', this.handleClickAway)
+    document.removeEventListener('mousedown', this.handleClickAway)
+  }
+
+  shouldFocus(el) {
+    if (el.getAttribute('data-id') === this.selectId) return true
+    if (getParent(el, `.${cascaderClass('result')}`)) return true
+    return false
   }
 
   handleClickAway(e) {
     const desc = isDescendent(e.target, this.selectId)
-    if (!desc) this.handleState(false)
+    if (!desc) {
+      this.clearClickAway()
+      this.props.onBlur()
+      this.handleState(false)
+    }
   }
 
   handlePathChange(id, data, path) {
     setTimeout(() => {
       this.setState({ path: [...path, id] })
     }, 50)
+  }
+
+  handleFocus(e) {
+    if (!this.shouldFocus(e.target)) return
+    this.props.onFocus(e)
+    this.bindClickAway()
   }
 
   handleClear() {
@@ -88,11 +108,14 @@ class Cascader extends PureComponent {
     setTimeout(() => this.handleState(false), 10)
   }
 
-  handleState(focus) {
+  handleState(focus, e) {
     if (this.props.disabled === true) return
     if (focus === this.state.focus) return
 
-    const { onBlur, onFocus, height } = this.props
+    // click close icon
+    if (focus && e && e.target.classList.contains(cascaderClass('close'))) return
+
+    const { height } = this.props
     let { position } = this.props
     if (!position) {
       const windowHeight = docSize.height
@@ -103,12 +126,30 @@ class Cascader extends PureComponent {
     this.setState({ focus, position: position || 'drop-down' })
 
     if (focus) {
-      this.bindClickAway()
       this.renderPending = false
-      onFocus()
-    } else {
-      this.clearClickAway()
-      onBlur()
+      this.bindClickAway()
+    }
+    // } else if (blur) {
+    //   this.clearClickAway()
+    //   onBlur()
+    // }
+  }
+
+  handleKeyDown(e) {
+    if (e.keyCode === 13) {
+      e.preventDefault()
+      this.handleState(!this.state.focus)
+    }
+
+    // fot close the list
+    if (e.keyCode === 9) {
+      this.props.onBlur()
+      // e.preventDefault()
+      if (this.state.focus) {
+        this.handleState(false)
+      } else {
+        this.clearClickAway()
+      }
     }
   }
 
@@ -187,10 +228,13 @@ class Cascader extends PureComponent {
 
     return (
       <div
+        // eslint-disable-next-line
+        tabIndex={ disabled === true ? -1 : 0}
         className={className}
-        // onFocus={this.handleFocus}
-        onClick={this.handleFocus}
+        onFocus={this.handleFocus}
+        onClick={this.handleClick}
         data-id={this.selectId}
+        onKeyDown={this.handleKeyDown}
         ref={el => {
           this.element = el
         }}

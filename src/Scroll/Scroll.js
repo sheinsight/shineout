@@ -212,7 +212,7 @@ class Scroll extends PureComponent {
 
     return (
       <div style={style} ref={this.bindWheel} className={className}>
-        <iframe title="scroll" ref={this.bindIframe} className={scrollClass('iframe')} />
+        <iframe tabIndex={-1} title="scroll" ref={this.bindIframe} className={scrollClass('iframe')} />
         <div className={scrollClass('iframe')} />
         <div ref={this.bindInner} className={scrollClass('inner')}>
           <Provider value={{ left: left * width, top: top * height, element: this.wheelElement }}>{children}</Provider>
