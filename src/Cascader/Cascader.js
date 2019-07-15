@@ -213,6 +213,7 @@ class Cascader extends PureComponent {
         parentElement={this.element}
         data-id={this.selectId}
         zIndex={zIndex}
+        fixed="min"
       >
         {this.renderList()}
       </OptionList>
