@@ -34,6 +34,20 @@
 | validatorHandle | bool \| func(error, file) | false | 是否处理校验失败的情况, 如果提供一个函数, 则以函数的返回值判断是否处理此 error |
 
 
+### options 
+
+| 属性 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| file |  object | 无 |  传入的文件 |
+| onLoad | string | 无 | 上传事件 |
+| onError | any | 无| 上传出错事件(props 中为 onHttpError) |
+| onProgress | string | 无 | 上传中进度 |
+| onSuccess | array | 无 | 上传成功事件 |
+| params | object | 无 | 上传参数 |
+| onStart | object | 无 | 开始上传事件 |
+| headers | object | 无 | 请求头部信息 |
+
+
 ### Image
 
 | 属性 | 类型 | 默认值 | 说明 |
