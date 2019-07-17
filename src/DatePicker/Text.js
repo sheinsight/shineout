@@ -18,8 +18,9 @@ class Text extends PureComponent {
   }
 
   handleBlur(e) {
-    const { format, index, onChange, value } = this.props
+    const { format, index, onChange, value, element } = this.props
     const txt = e.target.innerText
+    element.focus()
     if (txt === value) return
     if (txt.trim().length === 0) {
       onChange(undefined, index)

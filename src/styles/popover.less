@@ -170,6 +170,14 @@
     }
   }
 
+  &-bottom-right {
+    transform: none;
+  }
+
+  &-top-right {
+    transform: translateY(-100%);
+  }
+
   &-content {
     position: relative;
     z-index: 2;
@@ -207,6 +215,22 @@
 
     .@{popover-prefix}-icon path {
       fill: @colors-danger;
+    }
+  }
+
+  &-confirm {
+    padding: 8px 12px;
+
+    .@{popover-prefix}-footer {
+      text-align: right;
+      margin-bottom: 4px;
+    }
+    .@{popover-prefix}-mention .@{popover-prefix}-alert {
+      background: transparent;
+      border: none;
+      color: @text-color;
+      margin-bottom: 8px;
+      font-size: @font-size-base;
     }
   }
 }

@@ -23,6 +23,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Select/example-01-base.js'),
   },
   {
+    name: '01-cadapt',
+    title: locate(
+      ' \n 列表自适应内容宽度',
+      ' \n options auto adapt width'
+    ),
+    component: require('doc/pages/components/Select/example-01-cadapt.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-01-cadapt.js'),
+  },
+  {
     name: '02-format',
     title: locate(
       '数据处理 \n 设置 format 选项把数据对象格式化为指定的 value',

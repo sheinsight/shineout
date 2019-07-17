@@ -30,11 +30,18 @@ export default curry(
 
       constructor(props) {
         super(props)
+        this.el = null
         this.state = {
           focus: props.autoFocus,
         }
+        this.bindRef = this.bindRef.bind(this)
         this.handleBlur = this.handleBlur.bind(this)
         this.handleFocus = this.handleFocus.bind(this)
+        // this.enterPress = this.enterPress.bind(this)
+      }
+
+      bindRef(el) {
+        this.el = el
       }
 
       handleBlur(event) {
@@ -70,7 +77,7 @@ export default curry(
         const newClassName = classnames(
           inputClass(
             '_',
-            focus && !other.disabled && 'focus',
+            focus && other.disabled !== true && 'focus',
             other.disabled === true && 'disabled',
             options.isGroup && 'group',
             size,
@@ -86,7 +93,12 @@ export default curry(
         )
 
         return (
-          <Tag className={newClassName} style={newStyle}>
+          <Tag
+            ref={this.bindRef}
+            className={newClassName}
+            style={newStyle}
+            tabIndex={options.enterPress ? '0' : undefined}
+          >
             <Origin {...other} size={size} onFocus={this.handleFocus} onBlur={this.handleBlur} />
             {this.renderHelp(focus)}
           </Tag>

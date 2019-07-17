@@ -5,8 +5,14 @@ import Datum from '../Datum'
 import Group from './Group'
 import { consumer } from './context'
 
-const exports = compose(inputable, consumer)(Checkbox)
-exports.Group = compose(inputable, Datum.hoc({ bindProps: ['disabled', 'format', 'prediction'] }))(Group)
+const exports = compose(
+  inputable,
+  consumer
+)(Checkbox)
+exports.Group = compose(
+  inputable,
+  Datum.hoc({ bindProps: ['disabled', 'format', 'prediction'] })
+)(Group)
 exports.Checkbox = Checkbox
 
 exports.displayName = 'ShineoutCheckbox'

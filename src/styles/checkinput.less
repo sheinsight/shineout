@@ -2,6 +2,7 @@
 @import './themes/@{so-theme}.less';
 
 @checkinput-prefix: ~'@{so-prefix}-checkinput';
+@switch-transition: all 0.36s cubic-bezier(.78, .14, .15, .86);
 
 .@{checkinput-prefix} {
   @keyname: ~'@{checkinput-prefix}-focus';
@@ -33,6 +34,104 @@
     100% {
       box-shadow: 0 0 0 8px fade(@checkbox-active-color, 0);
     }
+  }
+
+  &-switch {
+    user-select: none;
+    text-align: center;
+    margin: 8px 0;
+    min-width: @switch-bg-width;
+    height: @switch-bg-height;
+    line-height: @switch-bg-height;
+    border-radius: @switch-bg-border-radius;
+    padding-left: @switch-indicator-size;
+    padding-right: 4px;
+    background: @switch-uncheck-bg;
+    position: relative;
+    transition: @switch-transition;
+    input {
+      width: 0;
+      height: 0;
+    }
+    .@{checkinput-prefix}-indicator {
+      display: none;
+    }
+
+    &-indicator {
+      position: absolute;
+      left: @switch-indicator-padding-horizontal;
+      transition: @switch-transition;
+      width: @switch-indicator-size;
+      height: @switch-indicator-size;
+      top: @switch-indicator-top;
+      background: @switch-indicator-uncheck-bg;
+      display: inline-block;
+      border-radius: 50%;
+      box-shadow: @switch-uncheck-box-shadow;
+    }
+
+    &-children {
+      font-size: @switch-font-size;
+      color: #fff;
+      padding: 0 4px;
+    }
+  }
+
+  &-checked&-switch {
+    padding-right: @switch-indicator-size;
+    padding-left: 4px;
+    background: @switch-checked-bg;
+    .@{checkinput-prefix}-switch-indicator {
+      box-shadow: @switch-checked-box-shadow;
+      left: 100%;
+      margin-left: -@switch-indicator-padding-horizontal;
+      transform: translateX(-100%);
+      background: @switch-indicator-checked-bg;
+    }
+  }
+
+  &-checked&-small&-switch {
+    padding-left: 0;
+    padding-right: @switch-small-indicator-size;
+  }
+
+  &-checked&-large&-switch {
+    padding-left: 0;
+    padding-right: @switch-large-indicator-size;
+  }
+
+  &-small&-switch {
+    min-width: @switch-small-bg-width;
+    height: @switch-small-bg-height;
+    line-height: @switch-small-bg-height;
+    border-radius: @switch-small-bg-border-radius;
+    padding-left: @switch-small-indicator-size;
+    padding-right: 0;
+
+    .@{checkinput-prefix}-switch-indicator{
+      width: @switch-small-indicator-size;
+      height: @switch-small-indicator-size;
+      top: @switch-small-indicator-top;
+    }
+  }
+
+  &-large&-switch {
+    min-width: @switch-large-bg-width;
+    height: @switch-large-bg-height;
+    line-height: @switch-large-bg-height;
+    border-radius: @switch-large-bg-border-radius;
+    padding-left: @switch-large-indicator-size;
+    padding-right: 0;
+
+    .@{checkinput-prefix}-switch-indicator{
+      width: @switch-large-indicator-size;
+      height: @switch-large-indicator-size;
+      top: @switch-large-indicator-top;
+    }
+  }
+
+  &-disabled&-switch {
+    opacity: .4;
   }
 
   &-checked i&-indicator,
@@ -101,9 +200,18 @@
     margin-bottom: @padding-large-vertical;
   }
 
-  &:hover i&-indicator {
-    border-color: @checkbox-hover-color;
+  &:focus {
+    outline: none;
+    i.@{checkinput-prefix}-indicator{
+      box-shadow: 0 0 0 @input-focus-width @color-rgba;
+    } 
   }
+
+  &:hover,&:focus{
+    i.@{checkinput-prefix}-indicator{
+      border-color: @checkbox-hover-color;
+    } 
+  } 
 
   &-checked i&-checkbox&-indicator {
     border-color: @checkbox-active-color;
@@ -139,9 +247,11 @@
 
   &-disabled,
   &-disabled:hover,
+  &-disable:focus,
   &-disabled&-checked {
     i.@{checkinput-prefix}-indicator {
       border-color: @gray-500;
+      box-shadow: none;
       background-color: @input-bg-disabled;
     }
   }

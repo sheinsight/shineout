@@ -98,6 +98,12 @@ const pages = [
     component: lazy(() => import(/* webpackChunkName: "Slider" */ './Slider')),
   },
   {
+    name: 'Switch',
+    cn: '开关',
+    level: 2,
+    component: lazy(() => import(/* webpackChunkName: "Switch" */ './Switch')),
+  },
+  {
     name: 'Textarea',
     cn: '多行文本框',
     level: 2,

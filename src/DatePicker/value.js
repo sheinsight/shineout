@@ -59,7 +59,7 @@ export default Origin =>
       const { range } = this.props
       if (!value) {
         this.setState({ value })
-        return
+        return undefined
       }
       const format = this.getFormat()
 
@@ -97,12 +97,19 @@ export default Origin =>
 
     handleBlur() {
       this.props.onChange(this.state.value)
-      this.props.onBlur()
     }
 
     render() {
       const { value } = this.state
 
-      return <Origin {...this.props} onChange={this.handleChange} onBlur={this.handleBlur} value={value} />
+      return (
+        <Origin
+          {...this.props}
+          onChange={this.handleChange}
+          onValueBlur={this.handleBlur}
+          onBlur={this.props.onBlur}
+          value={value}
+        />
+      )
     }
   }

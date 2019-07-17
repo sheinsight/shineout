@@ -12,9 +12,7 @@ class Option extends PureComponent {
   }
 
   handleClick() {
-    const {
-      data, onClick, isActive, index, disabled,
-    } = this.props
+    const { data, onClick, isActive, index, disabled } = this.props
 
     if (this.locked || disabled) return
     this.locked = true
@@ -31,17 +29,10 @@ class Option extends PureComponent {
   }
 
   render() {
-    const {
-      data, isActive, index, renderItem, isHover, disabled,
-    } = this.props
+    const { data, isActive, index, renderItem, isHover, disabled } = this.props
     const className = classnames(
-      selectClass(
-        'option',
-        isActive && 'active',
-        isHover && 'hover',
-        disabled && 'disabled',
-      ),
-      `option-${index}`,
+      selectClass('option', isActive && 'active', isHover && 'hover', disabled && 'disabled'),
+      `option-${index}`
     )
 
     const result = renderItem(data, index)
@@ -52,24 +43,15 @@ class Option extends PureComponent {
     }
 
     return (
-      <a
-        onClick={this.handleClick}
-        onMouseEnter={this.handleEnter}
-        className={className}
-        title={title}
-      >
-        { result }
+      <a tabIndex={-1} onClick={this.handleClick} onMouseEnter={this.handleEnter} className={className} title={title}>
+        {result}
       </a>
     )
   }
 }
 
 Option.propTypes = {
-  data: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string,
-    PropTypes.number,
-  ]).isRequired,
+  data: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]).isRequired,
   disabled: PropTypes.bool,
   index: PropTypes.number,
   isActive: PropTypes.bool,
