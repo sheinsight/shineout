@@ -176,60 +176,6 @@ exports[`Snapshot test: Radio[site/pages/components/Radio/example-3-format.js] 1
 </div>
 `;
 
-exports[`Snapshot test: Radio[site/pages/components/Radio/example-4-datum.js] 1`] = `
-<div>
-  <label>
-    <input />
-    <i />
-    <span>
-      red
-    </span>
-  </label>
-  <label>
-    <input />
-    <i />
-    <span>
-      orange
-    </span>
-  </label>
-  <label>
-    <input />
-    <i />
-    <span>
-      yellow
-    </span>
-  </label>
-  <label>
-    <input />
-    <i />
-    <span>
-      green
-    </span>
-  </label>
-  <label>
-    <input />
-    <i />
-    <span>
-      cyan
-    </span>
-  </label>
-  <label>
-    <input />
-    <i />
-    <span>
-      blue
-    </span>
-  </label>
-  <label>
-    <input />
-    <i />
-    <span>
-      violet
-    </span>
-  </label>
-</div>
-`;
-
 exports[`Snapshot test: Radio[site/pages/components/Radio/example-5-block.js] 1`] = `
 <div>
   <label>
