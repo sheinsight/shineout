@@ -20,7 +20,7 @@ function Item({ renderResult, data, disabled, onClick }) {
   const click = disabled || !onClick ? undefined : () => onClick(value)
   const synDisabled = disabled || !click
   return (
-    <a className={treeSelectClass('item', disabled && 'disabled')} onClick={click}>
+    <a tabIndex={-1} className={treeSelectClass('item', disabled && 'disabled')} onClick={click}>
       {getResultContent(data, renderResult)}
       {!synDisabled && <span className={treeSelectClass('indicator', 'close')} />}
     </a>
@@ -44,6 +44,7 @@ class Result extends PureComponent {
       /* eslint-disable */
       return (
         <a
+          tabIndex={-1}
           data-role="close"
           className={treeSelectClass('indicator', 'close')}
           href="javascript:;"
@@ -80,7 +81,8 @@ class Result extends PureComponent {
 
     return (
       <span className={classnames(inputClass('placeholder'), treeSelectClass('ellipsis'))}>
-        {this.props.placeholder}&nbsp;
+        {this.props.placeholder}
+        &nbsp;
       </span>
     )
   }
@@ -102,7 +104,7 @@ class Result extends PureComponent {
 
       if (compressed && result.length > 1) {
         items.push(
-          <a key={result.length} className={treeSelectClass('item', 'item-compressed')}>
+          <a tabIndex={-1} key={result.length} className={treeSelectClass('item', 'item-compressed')}>
             <span>{`+${result.length - 1}`}</span>
           </a>
         )
@@ -131,7 +133,7 @@ class Result extends PureComponent {
         {result}
         {!this.props.multiple && (
           // eslint-disable-next-line
-          <a className={treeSelectClass('indicator', 'caret')} href="javascript:;" />
+          <a tabIndex={-1} className={treeSelectClass('indicator', 'caret')} href="javascript:;" />
         )}
         {this.renderClear()}
       </div>

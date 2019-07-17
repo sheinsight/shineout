@@ -72,3 +72,5 @@ export const isLink = el => {
   if (linkNames.includes(el.type.displayName || el.type.name)) return true
   return false
 }
+
+export const isEnterPress = e => e.keyCode === 13

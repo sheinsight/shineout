@@ -7,21 +7,16 @@ import { buttonClass } from '../styles'
 
 class ButtonGroup extends PureComponent {
   render() {
-    const {
-      children, outline, size, type,
-    } = this.props
+    const { children, outline, size, type } = this.props
 
     const className = classnames(
       buttonClass('group', (outline || type === 'default') && 'outline'),
-      this.props.className,
+      this.props.className
     )
 
     return (
       <div className={className}>
-        {
-          Children.toArray(children)
-            .map(child => cloneElement(child, { size, outline, type }))
-        }
+        {Children.toArray(children).map(child => cloneElement(child, { size, outline, type }))}
       </div>
     )
   }

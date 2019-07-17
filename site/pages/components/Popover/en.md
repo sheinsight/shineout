@@ -4,6 +4,8 @@
 
 ## API
 
+### Popover 
+
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | background | string | '#fff' | Pop-up background-color(with arrows) |
@@ -17,3 +19,12 @@
 | trigger | string | 'hover' | options: \['click', 'hover'] |
 | type | string | none | Options: \['success', 'info', 'warning', 'danger'] |
 | * content | ReactElement \| function | | Old API, out of date. | 
+
+### Popover.Confirm
+
+| Property | Type | Default | Description |
+| --- | --- | --- | --- |
+| onOk | func | none | ok button click callback, will close tooltip while returned promise resolve |
+| onCancel | func | none | cancel button click callback, will close tooltip while returned promise resolve |
+| text | object | { ok: 'Ok', cancel: 'Cancel' } | button text |
+| type | string | *warning* |  icon type \[*success*, *info*, *warning*, *danger(error)*] |

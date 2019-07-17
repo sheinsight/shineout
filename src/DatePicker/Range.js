@@ -134,7 +134,7 @@ class Range extends PureComponent {
   }
 
   render() {
-    const { current, value, range, ...props } = this.props
+    const { current, value, range, children, ...props } = this.props
     const rangeDate = [...this.state.rangeDate]
 
     let rangeTemp
@@ -147,6 +147,7 @@ class Range extends PureComponent {
 
     return (
       <div className={datepickerClass('range-picker')}>
+        {children}
         <Picker
           {...props}
           pos="start"
@@ -186,6 +187,7 @@ class Range extends PureComponent {
 Range.propTypes = {
   current: PropTypes.array,
   disabled: PropTypes.func,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   format: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   range: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),

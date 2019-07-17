@@ -63,14 +63,9 @@ class CheckboxGroup extends PureComponent {
   }
 
   render() {
-    const {
-      block, data, datum, keygen, children,
-    } = this.props
+    const { block, data, datum, keygen, children } = this.props
 
-    const className = classnames(
-      checkinputClass('group', block && 'block'),
-      this.props.className,
-    )
+    const className = classnames(checkinputClass('group', block && 'block'), this.props.className)
 
     if (data === undefined) {
       return (
@@ -84,20 +79,18 @@ class CheckboxGroup extends PureComponent {
 
     return (
       <div className={className}>
-        {
-          data.map((d, i) => (
-            <Checkbox
-              checked={datum.check(d)}
-              disabled={datum.disabled(d)}
-              key={getKey(d, keygen, i)}
-              htmlValue={i}
-              index={i}
-              onChange={this.handleClick}
-            >
-              {this.getContent(d)}
-            </Checkbox>
-          ))
-        }
+        {data.map((d, i) => (
+          <Checkbox
+            checked={datum.check(d)}
+            disabled={datum.disabled(d)}
+            key={getKey(d, keygen, i)}
+            htmlValue={i}
+            index={i}
+            onChange={this.handleClick}
+          >
+            {this.getContent(d)}
+          </Checkbox>
+        ))}
         {children}
       </div>
     )
@@ -110,10 +103,7 @@ CheckboxGroup.propTypes = {
   data: PropTypes.array,
   datum: PropTypes.object.isRequired,
 
-  renderItem: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-  ]),
+  renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 }
 
 CheckboxGroup.defaultProps = {

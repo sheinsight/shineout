@@ -141,6 +141,7 @@ class Upload extends PureComponent {
 
   addFile(e) {
     const { beforeUpload, value, limit } = this.props
+    // eslint-disable-next-line
     const files = { ...this.state.files }
     const fileList = e.fromDragger && e.files ? e.files : e.target.files
     const addLength = limit - value.length - Object.keys(this.state.files).length
