@@ -194,7 +194,7 @@ export default class {
       console.warn(`There is already an item with name "${name}" exists. The name props must be unique.`)
     }
 
-    if (value !== undefined && !this.get(name)) {
+    if (value !== undefined && this.get(name) == null) {
       this.set(name, value, true)
       this.dispatch(changeSubscribe(name))
       this.dispatch(CHANGE_TOPIC)
@@ -223,7 +223,9 @@ export default class {
 
     deepRemove(this.$values, name)
 
-    this.handleChange()
+    setTimeout(() => {
+      this.handleChange()
+    })
   }
 
   dispatch(name, ...args) {
