@@ -2,7 +2,7 @@
 import './styles/normalize.less'
 import * as utils from './utils'
 
-export default { utils, version: '1.3.5-rc.4' }
+export default { utils, version: '1.3.5-rc.8' }
 export { utils }
 export { setLocale } from './locale'
 export { color, style } from './utils/expose'
@@ -37,8 +37,8 @@ export { default as Scroll } from './Scroll'
 export { default as Select } from './Select'
 export { default as Slider } from './Slider'
 export { default as Spin } from './Spin'
-export { default as Switch } from './Switch'
 export { default as Sticky } from './Sticky'
+export { default as Switch } from './Switch'
 export { default as Table } from './Table'
 export { default as Tabs } from './Tabs'
 export { default as Tag } from './Tag'
