@@ -63,10 +63,7 @@ function newDate() {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate())
 }
 
-function cloneTime(date, old, fmt) {
-  old = toDateWithFormat(old, fmt)
-  if (isInvalid(old)) return date
-
+function setTime(date, old) {
   date.setHours(old.getHours())
   date.setMinutes(old.getMinutes())
   date.setSeconds(old.getSeconds())
@@ -74,8 +71,17 @@ function cloneTime(date, old, fmt) {
   return date
 }
 
-function formatDateWithDefaultTime(date, defaultTime, fmt) {
+function cloneTime(date, old, fmt) {
+  old = toDateWithFormat(old, fmt)
+  if (isInvalid(old)) return date
+
+  return setTime(date, old)
+}
+
+function formatDateWithDefaultTime(date, value, defaultTime, fmt) {
+  if (value) return setTime(date, value)
   if (!defaultTime) return date
+
   const dateHMS = toDateWithFormat(defaultTime, TIME_FORMAT)
   if (isInvalid(dateHMS)) return date
 
