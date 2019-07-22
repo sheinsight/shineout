@@ -179,7 +179,7 @@ export default class {
     this.dispatch('set-value')
   }
 
-  formatValue(values) {
+  formatValue(values = []) {
     if (this.limit === 1 && !Array.isArray(values)) {
       return [values]
     }
