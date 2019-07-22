@@ -223,9 +223,11 @@ export default class {
 
     deepRemove(this.$values, name)
 
-    setTimeout(() => {
-      this.handleChange()
-    })
+    if (!this.formUnmount) {
+      setTimeout(() => {
+        this.handleChange()
+      })
+    }
   }
 
   dispatch(name, ...args) {
