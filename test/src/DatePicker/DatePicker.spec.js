@@ -1,6 +1,8 @@
 import React from 'react'
 import { DatePicker } from 'shineout'
 import { mount } from 'enzyme'
+import { format, addDays, subDays } from 'date-fns'
+import { dispatchEvent } from '../../../src/utils/dom/element'
 import utils from '../../../src/DatePicker/utils'
 import DatePickerSize from '../../../site/pages/components/DatePicker/example-03-size'
 
@@ -44,10 +46,10 @@ describe('DatePicker[Format]', () => {
     const mockFn = jest.fn()
     const formats = ['yyyy-M-d HH:mm', 'yy-MM-dd H:m:s', 'yy-MM-dd h:m:SSS']
 
-    formats.forEach((format, index) => {
+    formats.forEach((fmt, index) => {
       const date = new Date(1517414400000)
-      mount(<DatePicker format={format} value={date} type="datetime" onChange={mockFn} />)
-      expect(mockFn.mock.calls[index][0]).toBe(utils.format(date, format))
+      mount(<DatePicker format={fmt} value={date} type="datetime" onChange={mockFn} />)
+      expect(mockFn.mock.calls[index][0]).toBe(utils.format(date, fmt))
     })
   })
 })
@@ -137,8 +139,8 @@ describe('DatePicker[TimePick]', () => {
   test('should render different picks to match format', () => {
     const formats = ['HH:mm', 'hh:mm a']
     const outputLength = [[24, 60], [12, 60, 2]]
-    formats.forEach((format, index) => {
-      const wrapper = mount(<DatePicker type="time" defaultValue={Date.now()} format={format} />)
+    formats.forEach((fmt, index) => {
+      const wrapper = mount(<DatePicker type="time" defaultValue={Date.now()} format={fmt} />)
       // show pickers
       document.write(wrapper.html())
       wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
@@ -276,6 +278,56 @@ describe('DataPicker[disabled]', () => {
       }
       expect(day.find('span').hasClass(`${SO_PREFIX}-datepicker-disabled`)).toBe(!beyondTody)
     })
+  })
+})
+
+describe('DataPicker[quick]', () => {
+  test('should render quick select', () => {
+    const today = new Date()
+    const formatStart = 'yyyy-MM-dd 00:00:00'
+    const formatEnd = 'yyyy-MM-dd 23:59:59'
+    const format1 = format(today, formatStart)
+    const format2 = format(addDays(today, 7), formatEnd)
+    const fn = jest.fn()
+    const wrapper = mount(
+      <DatePicker
+        range
+        type="datetime"
+        quickSelect={[
+          {
+            name: '下一周',
+            value: [format1, format2],
+          },
+          {
+            name: '上一周',
+            value: [format(subDays(today, 7), formatStart), format(today, formatEnd)],
+          },
+          {
+            name: '后30天',
+            value: [format(today, formatStart), format(addDays(today, 30), formatEnd)],
+          },
+          {
+            name: '前30天',
+            value: [format(subDays(today, 30), formatStart), format(today, formatEnd)],
+          },
+        ]}
+        style={{ marginTop: '12px' }}
+        onChange={fn}
+      />
+    )
+    // show picker
+    document.innerHTML = ''
+    document.write(wrapper.html())
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    const quicks = wrapper.find(`.${SO_PREFIX}-datepicker-quick-select-item`)
+
+    expect(quicks.length).toBe(4)
+
+    quicks.at(0).simulate('click')
+    const datetimeText = wrapper.find(`span.${SO_PREFIX}-datepicker-txt`)
+
+    expect(datetimeText.at(0).text()).toBe(format1)
+    expect(datetimeText.at(1).text()).toBe(format2)
   })
 })
 

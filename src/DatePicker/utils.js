@@ -89,6 +89,11 @@ function formatDateWithDefaultTime(date, value, defaultTime, fmt) {
   return format(nDate, fmt)
 }
 
+function compareDateArray(arr1, arr2) {
+  if (!arr1 || !arr2 || arr1.length !== arr2.length) return false
+  return arr1.every((v, i) => v.getTime() === arr2[i].getTime())
+}
+
 export default {
   addDays,
   addMonths,
@@ -109,5 +114,6 @@ export default {
   toDate,
   toDateWithFormat,
   formatDateWithDefaultTime,
+  compareDateArray,
   TIME_FORMAT,
 }

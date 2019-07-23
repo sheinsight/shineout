@@ -15,6 +15,7 @@ import { getParent } from '../utils/dom/element'
 import absoluteList from '../List/AbsoluteList'
 import { docSize } from '../utils/dom/document'
 import List from '../List'
+import DateFns from './utils'
 
 const FadeList = List(['fade'], 'fast')
 const OptionList = absoluteList(({ focus, ...other }) => <FadeList show={focus} {...other} />)
@@ -46,6 +47,7 @@ class Container extends PureComponent {
     this.clearClickAway = this.clearClickAway.bind(this)
     this.handleClickAway = this.handleClickAway.bind(this)
     this.getDefaultTime = this.getDefaultTime.bind(this)
+    this.getQuick = this.getQuick.bind(this)
 
     this.firstRender = false
   }
@@ -90,6 +92,22 @@ class Container extends PureComponent {
       default:
         return 'yyyy-MM-dd HH:mm:ss'
     }
+  }
+
+  getQuick(format) {
+    const { quickSelect } = this.props
+
+    if (!Array.isArray(quickSelect)) return undefined
+
+    return quickSelect.map(q => {
+      if (!q.value || q.value.length !== 2) return { name: q.name, invalid: true }
+      const date = q.value.map(v => DateFns.parse(v, format, new Date()))
+      if (DateFns.isInvalid(date[0]) || DateFns.isInvalid(date[1])) return { name: q.name, invalid: true }
+      return {
+        name: q.name,
+        value: date,
+      }
+    })
   }
 
   getDefaultTime() {
@@ -312,6 +330,7 @@ class Container extends PureComponent {
 
     const { range, type, value, disabled } = this.props
     const format = this.getFormat()
+    const quicks = this.getQuick(format)
     const Component = range ? Range : Picker
 
     return (
@@ -324,6 +343,7 @@ class Container extends PureComponent {
         onChange={this.handleChange}
         type={type}
         range={range}
+        quicks={quicks}
         value={range ? (value || []).map(v => this.parseDate(v)) : this.parseDate(value)}
         showTimePicker={!!value}
       >
@@ -383,6 +403,7 @@ Container.propTypes = {
   zIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   onValueBlur: PropTypes.func,
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  quickSelect: PropTypes.array,
 }
 
 Container.defaultProps = {

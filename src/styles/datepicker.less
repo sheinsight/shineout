@@ -444,4 +444,22 @@
       box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.02), @datepicker-box-shadow-up;
     }
   }
+
+  &-quick-select {
+    min-width: 80px;
+    border-right: 1px solid @gray-300;
+    &-item {
+      margin: 12px 0;
+      cursor: pointer;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &-active {
+        color: @colors-primary;
+        border-right: 2px solid @colors-primary;
+      }
+    }
+  }
 }
