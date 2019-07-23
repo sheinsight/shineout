@@ -20,7 +20,7 @@ function Item({ renderResult, data, disabled, onClick }) {
   const click = disabled || !onClick ? undefined : () => onClick(value)
   const synDisabled = disabled || !click
   return (
-    <a className={selectClass('item', synDisabled && 'disabled')} onClick={click}>
+    <a className={selectClass('item', disabled && 'disabled')} onClick={click}>
       {getResultContent(data, renderResult)}
       {!synDisabled && <span className={selectClass('indicator', 'close')} />}
     </a>
@@ -109,7 +109,7 @@ class Result extends PureComponent {
 
       if (compressed && result.length > 1) {
         items.push(
-          <a key={result.length} className={selectClass('item', 'compressed')}>
+          <a key={result.length} className={selectClass('item', 'item-compressed')}>
             <span>{`+${result.length - 1}`}</span>
           </a>
         )
@@ -130,10 +130,11 @@ class Result extends PureComponent {
   }
 
   render() {
+    const { compressed } = this.props
     const result = this.props.result.length === 0 ? this.renderPlaceholder() : this.renderResult()
 
     return (
-      <div className={selectClass('result')}>
+      <div className={selectClass('result', compressed && 'compressed')}>
         {result}
         {!this.props.multiple && (
           // eslint-disable-next-line

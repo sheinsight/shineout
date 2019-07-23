@@ -81,12 +81,12 @@ class Select extends PureComponent {
 
   isDescendent(el, id) {
     const stay = el.classList.contains(selectClass('input')) || el.classList.contains(selectClass('item'))
-    if (stay) return true
-    if (el.classList.contains(selectClass('result'))) {
+    if (stay) this.optionsHold = true
+    if (el.classList.contains(selectClass('result')) && this.optionsHold === null) {
       this.closeByResult = true
-      return false
+      this.optionsHold = false
     }
-    if (el.getAttribute('data-id') === id) return true
+    if (el.getAttribute('data-id') === id) return typeof this.optionsHold === 'boolean' ? this.optionsHold : true
     if (!el.parentElement) return false
     return this.isDescendent(el.parentElement, id)
   }
@@ -108,6 +108,7 @@ class Select extends PureComponent {
   }
 
   handleClickAway(e) {
+    this.optionsHold = null
     const desc = this.isDescendent(e.target, this.selectId)
     if (!desc) this.handleState(false)
   }
@@ -265,6 +266,7 @@ class Select extends PureComponent {
       'onFilter',
       'filterText',
       'absolute',
+      'zIndex',
     ].forEach(k => {
       props[k] = this.props[k]
     })
@@ -303,6 +305,7 @@ class Select extends PureComponent {
       'loading',
       'onFilter',
       'filterText',
+      'zIndex',
     ].forEach(k => {
       props[k] = this.props[k]
     })

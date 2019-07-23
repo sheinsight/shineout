@@ -54,6 +54,7 @@
   &-result {
     position: relative;
     display: flex;
+    cursor: pointer;
 
     .@{datepicker-prefix}-icon {
       position: absolute;
@@ -83,8 +84,16 @@
     }
   }
 
+  &-disabled &-result {
+    cursor: not-allowed;
+  }
+
   &-range &-result &-txt {
     text-align: center;
+  }
+
+  &-txt[contenteditable="true"] {
+    cursor: text;
   }
 
   &:hover &-result {

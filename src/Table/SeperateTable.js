@@ -297,7 +297,7 @@ class SeperateTable extends PureComponent {
       // offset last row
       index -= 1
 
-      // if (data.length - rowsInView < index) index = data.length - rowsInView
+      if (data.length - rowsInView < index) index = data.length - rowsInView
       if (index < 0) index = 0
 
       this.setState({ currentIndex: index })

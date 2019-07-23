@@ -13,6 +13,8 @@
 | className | string | - | 扩展className |
 | collapsible | bool | false | 是否可折叠 |
 | defaultActive | string \| int | 0 | 默认选中标签页（非受控） |
+| tabBarExtraContent | string \| ReactElement | - | tab bar 上额外的元素 | 
+| tabBarStyle | style | - | tab bar 的样式对象 |
 | inactiveBackground | string | 'transparent' | 未选中标签背景色 |
 | onChange | function(key) | - | 标签选中时触发回调事件 |
 | shape | string | - | 可选值为 \['line', 'button']，shape 不为空时，background 等颜色参数将会无效 |
