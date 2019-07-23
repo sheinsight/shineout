@@ -41,15 +41,6 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Radio/example-3-format.js'),
   },
   {
-    name: '4-datum',
-    title: locate(
-      ' \n 当 format 不能满足需求时，可以使用 Datum.List 进行处理',
-      ' \n When the format does not satisfied your requirements, you can use Data.List istead.'
-    ),
-    component: require('doc/pages/components/Radio/example-4-datum.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Radio/example-4-datum.js'),
-  },
-  {
     name: '5-block',
     title: locate(
       '垂直布局 \n 默认为水平布局，设置 block 属性可以改为垂直布局',

@@ -16,38 +16,38 @@ const examples = [
   {
     name: '1-base',
     title: locate(
-      '基本用法 \n Button 内置了几种常用的样式，通过 type 来使用',
-      'Base \n Button has several built-in styles, used by type.'
+      '基本用法 \n Button 内置了几种常用的类型，分为默认(default), 主要(primary), 次要(secondary), 成功(success), 警告(warning), 危险(danger)和链接(link)',
+      'Base \n Button has several built-in type, default, primary, secondary, success, warning, dange, and link.'
     ),
     component: require('doc/pages/components/Button/example-1-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-1-base.js'),
   },
   {
-    name: '2-outline',
+    name: '2-icon',
     title: locate(
-      '透明背景 \n 添加 outline 属性可以设置为透明背景，type 不能为 default 和 link。',
-      'Outline \n Adding outline property can set background to transparent. Outline type can not be default and link.'
+      '图标 \n shineout 并不提供内置的图标, 所以需要图标可以在内容中自行加入',
+      'Icon \n shineout does not provide built-in icons, you can add it to the content by yourself.'
     ),
-    component: require('doc/pages/components/Button/example-2-outline.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Button/example-2-outline.js'),
+    component: require('doc/pages/components/Button/example-2-icon.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Button/example-2-icon.js'),
   },
   {
-    name: '3-disabled',
-    title: locate(
-      '不可用 \n 添加 disabled 属性可以禁用按钮。',
-      'Disabled \n Adding disabled property can disable the button.'
-    ),
-    component: require('doc/pages/components/Button/example-3-disabled.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Button/example-3-disabled.js'),
-  },
-  {
-    name: '4-size',
+    name: '3-size',
     title: locate(
       '大小 \n 一共有三种尺寸，[\'small\', \'default\', \'large\']，默认为 \'default\'',
       'Size \n There are three sizes, [\'small\', \'default\', \'large\'], default value is \'default\'.'
     ),
-    component: require('doc/pages/components/Button/example-4-size.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Button/example-4-size.js'),
+    component: require('doc/pages/components/Button/example-3-size.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Button/example-3-size.js'),
+  },
+  {
+    name: '4-disabled',
+    title: locate(
+      '不可用 \n 添加 disabled 属性可以禁用按钮。',
+      'Disabled \n Adding disabled property can disable the button.'
+    ),
+    component: require('doc/pages/components/Button/example-4-disabled.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Button/example-4-disabled.js'),
   },
   {
     name: '5-loading',
@@ -68,13 +68,13 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Button/example-6-href.js'),
   },
   {
-    name: '7-icon',
+    name: '7-outline',
     title: locate(
-      '图标 \n 需要图标可以在内容中自行加入',
-      'Icon \n If you need a icon, you can add it to the content by yourself.'
+      '透明背景 \n 添加 outline 属性可以设置为透明背景，type 不能为 default 和 link。',
+      'Outline \n Adding outline property can set background to transparent. Outline type can not be default and link.'
     ),
-    component: require('doc/pages/components/Button/example-7-icon.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Button/example-7-icon.js'),
+    component: require('doc/pages/components/Button/example-7-outline.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Button/example-7-outline.js'),
   },
   {
     name: '8-group',

@@ -68,15 +68,6 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-06-format.js'),
   },
   {
-    name: '07-datum',
-    title: locate(
-      ' \n 当 format 不能满足需求时，可以使用 Datum.List 进行处理',
-      ' \n When the format does not satisfied your requirements, you can use Datum.List istead.'
-    ),
-    component: require('doc/pages/components/Checkbox/example-07-datum.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Checkbox/example-07-datum.js'),
-  },
-  {
     name: '08-block',
     title: locate(
       '垂直布局 \n 默认是水平布局，设置 block 属性可以改为垂直布局',
