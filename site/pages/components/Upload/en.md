@@ -29,6 +29,19 @@
 | multiple | bool | false | Whether multi-select files are supported |
 | validatorHandle | bool \| func(error, file) | true | Whether to handle the case of validation failure, if a function is provided, it is judged by the return value of the function. |
 
+### options 
+
+| Property | Type | Default | Description |
+| --- | --- | --- | --- |
+| file |  object | - |  the file |
+| onLoad | string | - | the event of uploading |
+| onError | any | - | the event of upload fail(in props is onHttpError) |
+| onProgress | string | - | the event of uploading progress |
+| onSuccess | array | - | the event of upload successing |
+| params | object | - | the request params |
+| onStart | object | - | the event of start upload |
+| headers | object | - | the request header |
+
 ### Image
 
 | Property | Type | Default | Description |

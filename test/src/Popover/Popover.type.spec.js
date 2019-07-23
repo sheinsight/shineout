@@ -8,16 +8,20 @@ class PopoverTest extends React.Component {
   state = {
     type: 'success',
   }
+
   render() {
     return (
       <button>
-        <Popover type={this.state.type} style={{ padding: 20 }}>Content</Popover>
+        <Popover type={this.state.type} style={{ padding: 20 }}>
+          Content
+        </Popover>
         Test
       </button>
     )
   }
 }
 describe('Popover[Type]', () => {
+  jest.useFakeTimers()
   test('should render different background-color with type', () => {
     const wrapper = mount(<PopoverTest />)
     ;['success', 'info', 'warning', 'danger'].forEach(type => {
@@ -26,6 +30,8 @@ describe('Popover[Type]', () => {
         type,
       })
       dispatchEvent(wrapper.find('button').instance(), 'mouseenter')
+      wrapper.update()
+      jest.runAllTimers()
       expect(document.querySelectorAll(`.${SO_PREFIX}-popover-${type}`)).toHaveLength(1)
     })
   })

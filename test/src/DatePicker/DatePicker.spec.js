@@ -15,7 +15,7 @@ describe('DatePicker[Base]', () => {
     expect(wrapper.find(`.${SO_PREFIX}-input-focus`).length).toBe(0)
     wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
     jest.runAllTimers()
-    expect(wrapper.find(`.${SO_PREFIX}-input-focus`).length).toBe(1)
+    expect(wrapper.find(`.${SO_PREFIX}-datepicker-focus`).length).toBe(1)
     expect(wrapper.html().indexOf(`${SO_PREFIX}-hidable-show`) > 0).toBeTruthy()
   })
   test('should set placeholder if not have value', () => {
@@ -209,6 +209,39 @@ describe('RangePicker[datetime][defaultTime]', () => {
         .at(1)
         .text()
         .indexOf(defaultTime[1]) > -1
+    ).toBeTruthy()
+  })
+})
+
+describe('RangePicker[time]', () => {
+  test('time should not change', () => {
+    const value = ['2019-01-01 02:33:33', '2019-02-02 12:33:33']
+    const wrapper = mount(<DatePicker range type="datetime" value={value} />)
+    document.write(wrapper.html())
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    wrapper
+      .find(`.${SO_PREFIX}-datepicker-list div`)
+      .at(15)
+      .simulate('click')
+    wrapper
+      .find(`.${SO_PREFIX}-datepicker-list div`)
+      .at(16)
+      .simulate('click')
+    const datetimeText = wrapper.find(`span.${SO_PREFIX}-datepicker-txt`)
+
+    // time is defaultTime
+    expect(
+      datetimeText
+        .at(0)
+        .text()
+        .indexOf('02:33:33') > -1
+    ).toBeTruthy()
+
+    expect(
+      datetimeText
+        .at(1)
+        .text()
+        .indexOf('12:33:33') > -1
     ).toBeTruthy()
   })
 })

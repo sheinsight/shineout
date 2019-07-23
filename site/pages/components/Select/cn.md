@@ -7,6 +7,7 @@
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | absolute | bool | false | 为 true 时，选项弹出层在 DOM 中独立 render |
+| autoAdapt | bool | false | 是否列表自适应 |
 | clearable | bool | false | 是否可清除值 |
 | multiple | bool | false | 是否是多选 |
 | columns | number | 1 | columns 大于 1 时，选项展示为多列布局模式 |

@@ -134,10 +134,11 @@ export default function(List) {
         scrollLeft,
         scrollTop,
         scrollElement,
+        autoClass,
         zIndex,
         ...props
       } = this.props
-      const mergeClass = classnames(listClass('absolute-wrapper'), rootClass)
+      const mergeClass = classnames(listClass('absolute-wrapper'), rootClass, autoClass)
       const { focus, style } = props.focus ? this.getStyle() : { style: this.lastStyle }
       this.element.className = mergeClass
       const mergeStyle = Object.assign({}, style, props.style)
@@ -158,6 +159,7 @@ export default function(List) {
     rootClass: PropTypes.string,
     zIndex: PropTypes.number,
     style: PropTypes.object,
+    autoClass: PropTypes.string,
   }
 
   return scrollConsumer(AbsoluteList)

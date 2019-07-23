@@ -1,19 +1,30 @@
 /**
- * cn -
- *    -- 如果内置样式不满足需求，可以通过 background 和 border 自定义样式
- * en -
- *    -- Customize the style with background and border.
+ * cn - 样式
+ *    -- 内置四种样式
+ * en - Type
+ *    -- Four styles are built in.
  */
 import React from 'react'
-import { Button, Popover } from 'shineout'
+import { Popover } from 'shineout'
+
+const types = ['success', 'info', 'warning', 'danger']
+
+const style = {
+  width: 100,
+  textAlign: 'center',
+  lineHeight: '30px',
+  margin: 4,
+  display: 'inline-block',
+  border: 'solid 1px #eee',
+}
 
 export default function() {
-  return (
-    <Button>
-      <Popover background="#555" border="gold" style={{ width: 200, padding: 20, color: 'gold' }}>
+  return types.map((t, i) => (
+    <div style={style} key={i}>
+      <Popover type={t} style={{ width: 200, padding: 20 }}>
         Some text
       </Popover>
-      Hover
-    </Button>
-  )
+      {t}
+    </div>
+  ))
 }

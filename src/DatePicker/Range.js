@@ -25,6 +25,7 @@ class Range extends PureComponent {
     this.bindSecondPicker = this.bindPicker.bind(this, 1)
     this.handleDisabledStart = this.handleDisabled.bind(this, 'start')
     this.handleDisabledEnd = this.handleDisabled.bind(this, 'end')
+    this.fillTime = this.fillTime.bind(this)
   }
 
   componentDidUpdate(prevProps) {
@@ -55,7 +56,7 @@ class Range extends PureComponent {
   }
 
   handleChange(index, date, change, end, mode) {
-    const { type, format, defaultTime, range } = this.props
+    const { type, range } = this.props
 
     if (!change) {
       const current = immer(this.props.current, draft => {
@@ -93,6 +94,7 @@ class Range extends PureComponent {
     }
 
     if (type === 'month') {
+      // eslint-disable-next-line
       const rangeDate = [...this.state.rangeDate]
       rangeDate[index] = date
       if (rangeDate.some(v => !utils.isInvalid(v))) {
@@ -115,13 +117,18 @@ class Range extends PureComponent {
       immer(draft => {
         const method = utils.compareAsc(draft.rangeDate[0], date) > 0 ? 'unshift' : 'push'
         draft.rangeDate[method](date)
-        draft.rangeDate.map((d, i) => utils.formatDateWithDefaultTime(d, defaultTime[i], format))
+        draft.rangeDate.map(this.fillTime)
         draft.hover = undefined
       }),
       () => {
         this.props.onChange(this.state.rangeDate, true, type === 'date')
       }
     )
+  }
+
+  fillTime(date, index) {
+    const { defaultTime, format, value } = this.props
+    return utils.formatDateWithDefaultTime(date, value[index], defaultTime[index], format)
   }
 
   handleDisabled(type, date) {
@@ -134,7 +141,7 @@ class Range extends PureComponent {
   }
 
   render() {
-    const { current, value, range, ...props } = this.props
+    const { current, value, range, children, ...props } = this.props
     const rangeDate = [...this.state.rangeDate]
 
     let rangeTemp
@@ -147,6 +154,7 @@ class Range extends PureComponent {
 
     return (
       <div className={datepickerClass('range-picker')}>
+        {children}
         <Picker
           {...props}
           pos="start"
@@ -186,6 +194,7 @@ class Range extends PureComponent {
 Range.propTypes = {
   current: PropTypes.array,
   disabled: PropTypes.func,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   format: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   range: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),

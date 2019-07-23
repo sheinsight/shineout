@@ -188,7 +188,7 @@ export default curry(Origin =>
         const validateProps = filterProps(this.props, v => typeof v === 'string' || typeof v === 'number')
 
         if (this.datum) {
-          value = this.datum
+          value = this.datum.formatValue(value)
           validateProps.type = 'array'
         }
 

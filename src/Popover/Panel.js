@@ -41,7 +41,7 @@ class Panel extends PureComponent {
 
     document.body.appendChild(this.element)
 
-    if (this.shouldUpdate) this.forceUpdate()
+    if (this.props.visible) this.forceUpdate()
   }
 
   componentWillUnmount() {
@@ -116,13 +116,11 @@ class Panel extends PureComponent {
     const { background, border, children, type, visible } = this.props
     const show = typeof visible === 'boolean' ? visible : this.state.show
 
-    if (!this.isRendered) {
-      if (show) {
-        this.shouldUpdate = true
-      }
-      this.isRendered = true
+    if ((!this.isRendered && !show) || !this.parentElement) {
       return <noscript ref={this.placeholderRef} />
     }
+
+    this.isRendered = true
 
     const colorStyle = { background, borderColor: border }
     const innerStyle = Object.assign({}, this.props.style, { background })
@@ -131,8 +129,9 @@ class Panel extends PureComponent {
     this.element.className = classnames(popoverClass('_', position, type), this.props.className)
     // eslint-disable-next-line
     const style = this.element.style
-    style.left = `${pos.left}px`
-    style.top = `${pos.top}px`
+    Object.keys(pos).forEach(attr => {
+      style[attr] = `${pos[attr]}px`
+    })
     style.display = show ? 'block' : 'none'
     if (background) style.background = background
     if (border) style.borderColor = border

@@ -36,7 +36,7 @@ class Picker extends PureComponent {
 
   render() {
     const { mode } = this.state
-    const { current } = this.props
+    const { current, children, ...otherProps } = this.props
 
     let Render
     switch (mode) {
@@ -53,7 +53,7 @@ class Picker extends PureComponent {
         Render = Day
     }
 
-    return <Render {...this.props} current={current || this.defaultCurrent} onModeChange={this.handleModeChange} />
+    return <Render {...otherProps} current={current || this.defaultCurrent} onModeChange={this.handleModeChange} />
   }
 }
 
@@ -66,6 +66,7 @@ Picker.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.object,
   type: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 }
 
 export default Picker
