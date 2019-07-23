@@ -97,15 +97,16 @@
         &:before,
         &:after {
           background-color: @gray-500;
+          width: 8px;
         }
-      }
 
-      &:hover .@{select-prefix}-close {
-        background-color: transparent;
+        &:hover {
+          background-color: transparent;
 
-        &:before,
-        &:after {
-          background-color: @gray-600;
+          &:before,
+          &:after {
+            background-color: @gray-600;
+          }
         }
       }
     }
