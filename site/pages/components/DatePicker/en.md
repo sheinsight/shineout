@@ -1,5 +1,7 @@
 # Datepicker
 
+####   <br />*Please note that the format tokens differ from Moment.js and other libraries: [differ](https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md)
+
 <example />
 
 ## API
