@@ -23,7 +23,7 @@
 | defaultTime | string | - | Default time when selecting a date, the format is: 'HH:mm:ss' |
 | absolute | bool | false | When it is true, the pop-up layer of option append into document.body. |
 | zIndex | number | 1000 | panel z-index |
-| allowSignle | boolean | false | allow single select, only in range can set | 
+| allowSingle | boolean | false | allow single select, only in range can set | 
 | quickSelect | array<object> | false | quick select, only in range can set, name: tip, value: range date | 
 
 ### Format

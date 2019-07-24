@@ -23,7 +23,7 @@
 | defaultTime | string | 无 | 选择日期时默认的时间, 格式为: 'HH:mm:ss' |
 | absolute | bool | false | 为 true 时，选项弹出层在 DOM 中独立 render |
 | zIndex | number | 1000 | 选择面板 z-index 值 |
-| allowSignle | boolean | false | 是否允许单选, 仅在 range 模式下有效 | 
+| allowSingle | boolean | false | 是否允许单选, 仅在 range 模式下有效 | 
 | quickSelect | array<object> | false | 快速选择, 仅在 range 模式下有效, name: 文字提示, value: 时间范围 | 
 
 
