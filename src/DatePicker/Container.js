@@ -28,6 +28,8 @@ class Container extends PureComponent {
       focus: false,
       current: this.getCurrent(),
       position: props.position,
+      picker0: false,
+      picker1: false,
     }
 
     this.pickerId = `picker_${getUidStr()}`
@@ -39,6 +41,7 @@ class Container extends PureComponent {
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleClear = this.handleClear.bind(this)
+    this.handleHover = this.handleHover.bind(this)
     this.handleTextChange = this.handleTextChange.bind(this)
     this.parseDate = this.parseDate.bind(this)
     this.dateToCurrent = this.dateToCurrent.bind(this)
@@ -280,10 +283,19 @@ class Container extends PureComponent {
     })
   }
 
+  handleHover(index, isEnter) {
+    this.setState({
+      [`picker${index}`]: isEnter,
+    })
+  }
+
   renderText(value, placeholder, key) {
     const { inputable, formatResult } = this.props
     const date = this.parseDate(value)
-    const className = classnames(datepickerClass('txt'), utils.isInvalid(date) && inputClass('placeholder'))
+    const className = classnames(
+      datepickerClass('txt', this.state[`picker${key}`] && 'text-focus'),
+      utils.isInvalid(date) && inputClass('placeholder')
+    )
     const resultFormat = formatResult || this.getFormat()
     return (
       <Text
@@ -316,7 +328,9 @@ class Container extends PureComponent {
         {range
           ? [
               this.renderText(value[0], placeholder[0], 0),
-              <span key="-">~</span>,
+              <span key="-" className={datepickerClass('separate')}>
+                ~
+              </span>,
               this.renderText(value[1], placeholder[1], 1),
             ]
           : this.renderText(value, placeholder)}
@@ -366,6 +380,7 @@ class Container extends PureComponent {
         value={range ? (value || []).map(v => this.parseDate(v)) : this.parseDate(value)}
         showTimePicker={!!value}
         allowSingle={allowSingle}
+        handleHover={this.handleHover}
       >
         {this.props.children}
       </Component>

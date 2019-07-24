@@ -26,6 +26,17 @@ class Picker extends PureComponent {
     this.state = { mode }
     this.defaultCurrent = utils.newDate()
     this.handleModeChange = this.handleModeChange.bind(this)
+    this.handleEnter = this.handleMouse.bind(this, true)
+    this.handleLeave = this.handleMouse.bind(this, false)
+  }
+
+  handleMouse(isEnter, e) {
+    // stop
+    e.stopPropagation()
+
+    const { index, handleHover } = this.props
+
+    handleHover(index, isEnter)
   }
 
   handleModeChange(mode) {
@@ -58,7 +69,7 @@ class Picker extends PureComponent {
       return <Render {...otherProps} current={current || this.defaultCurrent} onModeChange={this.handleModeChange} />
 
     return (
-      <div>
+      <div onMouseEnter={this.handleEnter} onMouseLeave={this.handleLeave}>
         <Render
           {...otherProps}
           index={index}
@@ -81,6 +92,7 @@ Picker.propTypes = {
   type: PropTypes.string.isRequired,
   index: PropTypes.number,
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  handleHover: PropTypes.func,
 }
 
 export default Picker
