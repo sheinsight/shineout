@@ -1,5 +1,7 @@
 # DatePicker *日期选择*
 
+####   <br />*请注意date-fns的 format 字符串 与 Moment.js 的区别: [区别](https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md)
+
 <example />
 
 ## API
@@ -31,7 +33,7 @@
 moment: YYYY  => date-fns: yyyy <br />
 moment: DD&nbsp;&nbsp;&nbsp;&nbsp; => date-fns: dd <br />
 moment: hh&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  => date-fns: HH<br />
-常用的 format 格式如下，更多见 [format](https://date-fns.org/v2.0.0-alpha.10/docs/format)
+常用的 format 格式如下，更多见 [format](https://date-fns.org/v2.0.0-alpha.20/docs/format)
 
 | 格式 | 说明 | 示例 |
 | --- | --- | --- |

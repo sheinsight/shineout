@@ -9,6 +9,10 @@
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | background | string | '#fff' | Pop-up background-color(with arrows) |
+| visible | bool | - | is visible (controlled) |
+| onVisibleChange | func | - | the event of visible change | 
+| mouseEnterDelay | number | 0 | the show delay of mouseenter(ms) | 
+| mouseLeaveDelay | number | 500 | the hidden delay of mouseleave (ms) | 
 | border | string | '#dee2e6' | The color of pop-up border(with arrows) |
 | className | string | - | Extend className |
 | children | ReactElement | required | Pop-up content. |

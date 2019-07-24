@@ -28,6 +28,10 @@ class Form extends Component {
     this.setStatus()
   }
 
+  componentWillUnmount() {
+    this.props.datum.formUnmount = true
+  }
+
   setStatus() {
     const { disabled, pending, setFormStatus } = this.props
     if (!setFormStatus) return

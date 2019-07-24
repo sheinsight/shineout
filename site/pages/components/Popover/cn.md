@@ -9,6 +9,10 @@
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | background | string | '#fff' | 弹出层背景色（含箭头） |
+| visible | bool | 无 | 是否显示(受控) |
+| onVisibleChange | func | 无 | 显示隐藏改变时事件 | 
+| mouseEnterDelay | number | 0 | 移入显示延迟(毫秒) | 
+| mouseLeaveDelay | number | 500 | 移除隐藏延迟(毫秒) | 
 | border | string | '#dee2e6' | 弹出层边框颜色（含箭头） |
 | className | string | 无 | 扩展className |
 | children | ReactElement | 必填 | 弹出显示内容 |

@@ -32,6 +32,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Select/example-01-cadapt.js'),
   },
   {
+    name: '01-multiple',
+    title: locate(
+      '多选 \n multiple 属性为true时，为多选状态，默认为单选',
+      'Multiple \n Set the multiple property to true, it is multi-selection.'
+    ),
+    component: require('doc/pages/components/Select/example-01-multiple.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-01-multiple.js'),
+  },
+  {
     name: '02-format',
     title: locate(
       '数据处理 \n 设置 format 选项把数据对象格式化为指定的 value',
@@ -39,15 +48,6 @@ const examples = [
     ),
     component: require('doc/pages/components/Select/example-02-format.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-02-format.js'),
-  },
-  {
-    name: '03-datum',
-    title: locate(
-      ' \n 如果 format 属性不能满足需求，可以借助 Datum.List 来处理',
-      ' \n When the format does not satisfied your requirements, you can use Datum.List istead.'
-    ),
-    component: require('doc/pages/components/Select/example-03-datum.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Select/example-03-datum.js'),
   },
   {
     name: '04-clearable',
@@ -66,15 +66,6 @@ const examples = [
     ),
     component: require('doc/pages/components/Select/example-04-size.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-04-size.js'),
-  },
-  {
-    name: '05-multiple',
-    title: locate(
-      '多选 \n multiple 属性为true时，为多选状态，默认为单选',
-      'Multiple \n Set the multiple property to true, it is multi-selection.'
-    ),
-    component: require('doc/pages/components/Select/example-05-multiple.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Select/example-05-multiple.js'),
   },
   {
     name: '06-bigdata',

@@ -23,6 +23,24 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Popover/example-1-base.js'),
   },
   {
+    name: '1-controll',
+    title: locate(
+      '受控 \n 可以通过 visible 去控制',
+      'controll \n Use cisible to controll the show/hidden'
+    ),
+    component: require('doc/pages/components/Popover/example-1-controll.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Popover/example-1-controll.js'),
+  },
+  {
+    name: '2-delay',
+    title: locate(
+      '延迟 \n 可以设置展示延时和关闭延时',
+      'delay \n the hidden/show delay'
+    ),
+    component: require('doc/pages/components/Popover/example-2-delay.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Popover/example-2-delay.js'),
+  },
+  {
     name: '2-position',
     title: locate(
       '弹出位置 \n 内置了十二个弹出的位置',
