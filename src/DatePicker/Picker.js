@@ -38,7 +38,7 @@ class Picker extends PureComponent {
 
   render() {
     const { mode } = this.state
-    const { current, index } = this.props
+    const { current, index, children, ...otherProps } = this.props
 
     let Render
     switch (mode) {
@@ -57,12 +57,12 @@ class Picker extends PureComponent {
 
     // only range has index prop
     if (index === undefined)
-      return <Render {...this.props} current={current || this.defaultCurrent} onModeChange={this.handleModeChange} />
+      return <Render {...otherProps} current={current || this.defaultCurrent} onModeChange={this.handleModeChange} />
 
     return (
       <div>
         <div className={datepickerClass('title')}>{getLocale('pickerTitle')[index]}</div>
-        <Render {...this.props} current={current || this.defaultCurrent} onModeChange={this.handleModeChange} />
+        <Render {...otherProps} current={current || this.defaultCurrent} onModeChange={this.handleModeChange} />
       </div>
     )
   }
@@ -78,6 +78,7 @@ Picker.propTypes = {
   value: PropTypes.object,
   type: PropTypes.string.isRequired,
   index: PropTypes.number,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 }
 
 export default Picker

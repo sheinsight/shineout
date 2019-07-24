@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { getUidStr } from '../utils/uid'
 import { paginationClass } from '../styles'
 import Input from '../Input'
 
@@ -10,6 +11,7 @@ class Jumper extends PureComponent {
     super(props)
 
     this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.renderRequire = getUidStr()
   }
 
   getMax() {
@@ -27,6 +29,10 @@ class Jumper extends PureComponent {
       const max = this.getMax()
       if (current > max) current = max
 
+      if (current === this.props.current) {
+        this.renderRequire = getUidStr()
+        this.forceUpdate()
+      }
       this.props.onChange(current)
     }
   }
@@ -39,6 +45,7 @@ class Jumper extends PureComponent {
       <div className={paginationClass('section')}>
         {txt[0]}
         <Input
+          data-unique={this.renderRequire}
           value={current}
           onKeyDown={this.handleKeyDown}
           digits={0}

@@ -1,12 +1,16 @@
 import React, { Component, isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import { selectClass } from '../styles'
-import { focusElement } from '../utils/dom/element'
+import { focusElement, getCursorOffset } from '../utils/dom/element'
 
 const focusSelectAll = element => {
   requestAnimationFrame(() => {
     focusElement.select(element)
   })
+}
+
+const handleFocus = e => {
+  e.stopPropagation()
 }
 
 class FilterInput extends Component {
@@ -39,6 +43,12 @@ class FilterInput extends Component {
     this.focus()
   }
 
+  getProcessedValue(text) {
+    const { trim } = this.props
+    if (!trim && this.lastCursorOffset === 0 && /^\u00A0$/.test(text)) return ''
+    return trim ? text.trim() : text.replace(/\u00A0/g, ' ')
+  }
+
   reset() {
     if (this.editElement) this.editElement.innerText = ''
     if (this.blurTimer) clearTimeout(this.blurTimer)
@@ -53,11 +63,14 @@ class FilterInput extends Component {
   }
 
   handleInput(e) {
-    this.props.onFilter(e.target.innerText.replace('\feff ', '').trim())
+    const text = e.target.innerText.replace('\feff ', '')
+    this.lastCursorOffset = getCursorOffset(text.length)
+    this.props.onFilter(this.getProcessedValue(text))
   }
 
   handleBlur(e) {
-    this.props.onInputBlur(e.target.innerText.replace('\feff ', '').trim())
+    const text = e.target.innerText.replace('\feff ', '')
+    this.props.onInputBlur(this.getProcessedValue(text))
   }
 
   render() {
@@ -81,6 +94,7 @@ class FilterInput extends Component {
         ref={this.bindElement}
         contentEditable={focus}
         onInput={this.handleInput}
+        onFocus={handleFocus}
         onBlur={this.handleBlur}
         dangerouslySetInnerHTML={{ __html: value }}
       />
@@ -97,6 +111,7 @@ FilterInput.propTypes = {
   updatAble: PropTypes.bool,
   setInputReset: PropTypes.func.isRequired,
   text: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  trim: PropTypes.bool,
 }
 
 FilterInput.defaultProps = {

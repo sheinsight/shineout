@@ -4,6 +4,9 @@ import { uploadClass } from '../styles'
 import Upload from './Upload'
 import { ERROR } from './request'
 
+const handleKeyDown = e => {
+  if (e.keyCode === 13) e.target.click()
+}
 class Image extends PureComponent {
   constructor(props) {
     super(props)
@@ -49,7 +52,12 @@ class Image extends PureComponent {
 
     return (
       <Upload {...others} imageStyle={style} beforeUpload={this.beforeUpload}>
-        <div style={style} className={uploadClass('image-plus', 'image-item', others.disabled && 'disabled' )}>
+        <div
+          tabIndex={this.props.disabled ? -1 : 0}
+          style={style}
+          onKeyDown={handleKeyDown}
+          className={uploadClass('image-plus', 'image-item', others.disabled && 'disabled')}
+        >
           {content}
         </div>
       </Upload>
@@ -67,6 +75,7 @@ Image.propTypes = {
     size: PropTypes.func,
   }),
   width: PropTypes.number,
+  disabled: PropTypes.bool,
 }
 
 Image.defaultProps = {

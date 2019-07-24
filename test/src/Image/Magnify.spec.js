@@ -35,23 +35,52 @@ describe('Image[Magnify]', () => {
     }
     const wrapper = mount(<Magnify {...props} />)
 
-    const renderStyle = wrapper.find('div').prop('style')
+    const renderStyle = wrapper
+      .find('div')
+      .at(0)
+      .prop('style')
     expect(renderStyle.cursor).toBe('zoom-in')
     // simulate click
-    wrapper.find('div').simulate('click', {
-      clientX: 0,
-      clientY: 0,
-    })
-    expect(wrapper.find('div').prop('style').cursor).toBe('zoom-out')
-    expect(wrapper.find('img').prop('style')).toBeUndefined()
+    wrapper
+      .find('div')
+      .at(0)
+      .simulate('click', {
+        clientX: 0,
+        clientY: 0,
+      })
+    expect(
+      wrapper
+        .find('div')
+        .at(0)
+        .prop('style').cursor
+    ).toBe('zoom-out')
+    expect(
+      wrapper
+        .find('img')
+        .at(0)
+        .prop('style')
+    ).toBeUndefined()
     // zoom-out
     // simulate click
-    wrapper.find('div').simulate('click', {
-      clientX: 0,
-      clientY: 0,
-    })
-    expect(wrapper.find('div').prop('style').cursor).toBe('zoom-in')
-    expect(wrapper.find('img').prop('style')).toEqual({
+    wrapper
+      .find('div')
+      .at(0)
+      .simulate('click', {
+        clientX: 0,
+        clientY: 0,
+      })
+    expect(
+      wrapper
+        .find('div')
+        .at(0)
+        .prop('style').cursor
+    ).toBe('zoom-in')
+    expect(
+      wrapper
+        .find('img')
+        .at(0)
+        .prop('style')
+    ).toEqual({
       maxWidth: 300,
       maxHeight: 200,
     })

@@ -115,6 +115,7 @@ describe('Dropdown[Hover]', () => {
           .hasClass(`${SO_PREFIX}-hidable-show`)
       ).toBeTruthy()
       container.simulate('mouseLeave')
+      // eslint-disable-next-line
       await sleep()
       expect(
         container

@@ -67,7 +67,7 @@ class Content extends PureComponent {
     if (Array.isArray(data.children) || data.children === null) return null
 
     if (this.state.fetching && !data.children) return loading
-    else if (loader && !this.state.fetching) return indicator
+    if (loader && !this.state.fetching) return indicator
 
     return null
   }

@@ -69,6 +69,10 @@
       color: inherit;
       text-overflow: ellipsis;
 
+      &:after {
+        content: '\feff ';
+      }
+
       &-compressed {
         padding: 0 8px;
         font-size: 80%;
@@ -410,5 +414,17 @@
     position: absolute;
     top: 0;
     left: 0;
+  }
+
+  &-auto-adapt {
+    .@{select-prefix}-options {
+      width: auto;
+    }
+  }
+
+
+  // for normal Select
+  &-auto-adapt.@{select-prefix}-options {
+    width: auto;
   }
 }

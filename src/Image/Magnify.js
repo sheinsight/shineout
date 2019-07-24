@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
+import Spin from '../Spin'
+import { imageClass } from '../styles'
 import { PureComponent } from '../component'
 
 class Magnify extends PureComponent {
@@ -8,6 +10,7 @@ class Magnify extends PureComponent {
     super(props)
 
     this.state = {
+      loading: true,
       status: 0,
       style: {
         maxHeight: props.maxHeight,
@@ -17,12 +20,14 @@ class Magnify extends PureComponent {
 
     this.handleMove = this.handleMove.bind(this)
     this.handleResize = this.handleResize.bind(this)
+    this.handleLoaded = this.handleLoaded.bind(this)
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.src !== this.props.src && this.state.status === 1) {
       // eslint-disable-next-line
       this.setState({
+        loading: true,
         status: 0,
         style: {
           maxHeight: this.props.maxHeight,
@@ -42,6 +47,10 @@ class Magnify extends PureComponent {
     const y = (clientY - rect.top - 50) / height
     this.element.scrollTop = (image.offsetHeight - height) * y
     this.element.scrollLeft = (image.offsetWidth - width) * x
+  }
+
+  handleLoaded() {
+    this.setState({ loading: false })
   }
 
   handleMove(e) {
@@ -69,7 +78,7 @@ class Magnify extends PureComponent {
 
   render() {
     const { maxHeight, maxWidth, src } = this.props
-    const { status } = this.state
+    const { status, loading } = this.state
     // eslint-disable-next-line
     const cursor = this.props.position === 'center' ? (status === 1 ? 'zoom-out' : 'zoom-in') : 'pointer'
     const style = { maxHeight, maxWidth, cursor }
@@ -89,8 +98,14 @@ class Magnify extends PureComponent {
           this.element = el
         }}
         style={style}
+        className={imageClass('magnify')}
       >
-        <img src={src} alt="" style={this.state.style} />
+        <img onLoad={this.handleLoaded} src={src} alt="" style={this.state.style} />
+        {loading && (
+          <div className={imageClass('magnify-loading')}>
+            <Spin size={30} />
+          </div>
+        )}
       </div>
     )
   }

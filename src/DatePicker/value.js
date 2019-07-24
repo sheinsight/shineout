@@ -107,11 +107,20 @@ export default Origin =>
         this.setState({ value: this.props.value })
       } else if (this.state.value !== this.props.value) this.props.onChange(this.state.value)
       this.props.onBlur()
+      // this.props.onChange(this.state.value)
     }
 
     render() {
       const { value } = this.state
 
-      return <Origin {...this.props} onChange={this.handleChange} onBlur={this.handleBlur} value={value} />
+      return (
+        <Origin
+          {...this.props}
+          onChange={this.handleChange}
+          onValueBlur={this.handleBlur}
+          onBlur={this.props.onBlur}
+          value={value}
+        />
+      )
     }
   }

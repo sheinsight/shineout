@@ -10,21 +10,12 @@ import FontAwesome from '../Icon/FontAwesome'
 
 const rules = Rule({
   isExist: (values, _, callback) => {
-    const names = new Map()
-    values.forEach((v, i) => {
-      if (names.has(v.name)) names.set(v.name, [...names.get(v.name), i])
-      else names.set(v.name, [i])
-    })
     const result = []
-    names.forEach((v, k) => {
-      if (k && v.length > 1) {
-        // show error to input
-        v.forEach(i => {
-          result[i] = { name: new Error(`Name "${k}" is existed.`) }
-        })
-        // show error to item
-        // v.forEach((i) => { result[i] = new Error(`Name "${k}"" is existed.`) })
-      }
+    const valueMap = {}
+    values.forEach(({ name }, i) => {
+      if (!name) return
+      if (valueMap[name]) result[i] = { name: new Error(`Name "${name}" is existed.`) }
+      else valueMap[name] = true
     })
     callback(result.length > 0 ? result : true)
   },

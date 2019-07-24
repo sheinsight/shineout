@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import immer from 'immer'
 import { PureComponent } from '../component'
 import shallowEqual from '../utils/shallowEqual'
+import dateFns from './utils'
 import utils from './utils'
 import Picker from './Picker'
 import { datepickerClass } from '../styles'
@@ -25,6 +26,7 @@ class Range extends PureComponent {
     this.handleDisabledStart = this.handleDisabled.bind(this, 'start')
     this.handleDisabledEnd = this.handleDisabled.bind(this, 'end')
     this.changeDateSmart = this.changeDateSmart.bind(this)
+    this.fillTime = this.fillTime.bind(this)
   }
 
   componentDidUpdate(prevProps) {
@@ -68,7 +70,7 @@ class Range extends PureComponent {
   }
 
   handleChange(index, date, change, end, mode) {
-    const { type, format, defaultTime, range } = this.props
+    const { type, range } = this.props
 
     if (!change) {
       const current = immer(this.props.current, draft => {
@@ -138,11 +140,10 @@ class Range extends PureComponent {
         // const method = utils.compareAsc(draft.rangeDate[0], date) > 0 ? 'unshift' : 'push'
         draft.rangeDate[index] = date
         draft.rangeDate[1 - index] = draft.rangeDate[1 - index] || ''
-        draft.rangeDate.map((d, i) => utils.formatDateWithDefaultTime(d, defaultTime[i], format))
+        draft.rangeDate.map(this.fillTime)
 
         // range change start&end
         this.changeDateSmart(draft.rangeDate)
-
         draft.hover = undefined
       }),
       () => {
@@ -150,6 +151,11 @@ class Range extends PureComponent {
         this.props.onChange(this.state.rangeDate, true, type !== 'datetime', index === 1)
       }
     )
+  }
+
+  fillTime(date, index) {
+    const { defaultTime, format, value } = this.props
+    return utils.formatDateWithDefaultTime(date, value[index], defaultTime[index], format)
   }
 
   handleDisabled(type, date) {
@@ -161,8 +167,42 @@ class Range extends PureComponent {
     return false
   }
 
+  handleQuick(quick) {
+    if (quick.invalid) {
+      console.error(`the date you provider for ${quick.name} is invalid, please check the date in quickSelect!`)
+      return
+    }
+    this.setState({ rangeDate: quick.value })
+    this.props.onChange(quick.value, true)
+  }
+
+  createQuick() {
+    const { quicks } = this.props
+    const { rangeDate } = this.state
+
+    if (!quicks) return null
+
+    return (
+      <div className={datepickerClass('quick-select')}>
+        {quicks.map(q => (
+          <div
+            onClick={this.handleQuick.bind(this, q)}
+            className={datepickerClass(
+              'quick-select-item',
+              dateFns.compareDateArray(q.value, rangeDate) && 'quick-select-item-active'
+            )}
+            key={q.name}
+          >
+            {q.name}
+          </div>
+        ))}
+      </div>
+    )
+  }
+
   render() {
-    const { current, value, range, ...props } = this.props
+    const { current, value, range, children, quicks, ...props } = this.props
+    const quick = this.createQuick()
     const rangeDate = [...this.state.rangeDate]
 
     // if (rangeDate.length === 1) {
@@ -174,6 +214,7 @@ class Range extends PureComponent {
 
     return (
       <div className={datepickerClass('range-picker')}>
+        {quick || children}
         <Picker
           {...props}
           pos="start"
@@ -213,12 +254,14 @@ class Range extends PureComponent {
 Range.propTypes = {
   current: PropTypes.array,
   disabled: PropTypes.func,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   format: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   range: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   value: PropTypes.array,
   type: PropTypes.string.isRequired,
   defaultTime: PropTypes.array,
+  quicks: PropTypes.array,
 }
 
 Range.defaultProps = {

@@ -63,11 +63,7 @@ function newDate() {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate())
 }
 
-function cloneTime(date, old, fmt) {
-  if (!date) return date
-  old = toDateWithFormat(old, fmt)
-  if (isInvalid(old)) return date
-
+function setTime(date, old) {
   date.setHours(old.getHours())
   date.setMinutes(old.getMinutes())
   date.setSeconds(old.getSeconds())
@@ -75,9 +71,19 @@ function cloneTime(date, old, fmt) {
   return date
 }
 
-function formatDateWithDefaultTime(date, defaultTime, fmt) {
+function cloneTime(date, old, fmt) {
   if (!date) return date
+  old = toDateWithFormat(old, fmt)
+  if (isInvalid(old)) return date
+
+  return setTime(date, old)
+}
+
+function formatDateWithDefaultTime(date, value, defaultTime, fmt) {
+  if (!date) return date
+  if (value) return setTime(date, value)
   if (!defaultTime) return date
+
   const dateHMS = toDateWithFormat(defaultTime, TIME_FORMAT)
   if (isInvalid(dateHMS)) return date
 
@@ -88,6 +94,11 @@ function formatDateWithDefaultTime(date, defaultTime, fmt) {
 function clearHMS(date) {
   if (!isValid(date)) return date
   return new Date(new Date(date.toLocaleDateString()).getTime())
+}
+
+function compareDateArray(arr1, arr2) {
+  if (!arr1 || !arr2 || arr1.length !== arr2.length) return false
+  return arr1.every((v, i) => v.getTime() === arr2[i].getTime())
 }
 
 export default {
@@ -111,5 +122,6 @@ export default {
   toDate,
   toDateWithFormat,
   formatDateWithDefaultTime,
+  compareDateArray,
   TIME_FORMAT,
 }
