@@ -120,9 +120,9 @@ class Day extends PureComponent {
       classList.push(utils.isSameDay(date, rangeDate[index]) && 'active')
 
       hoverClass = datepickerClass(
-        utils.compareAsc(rangeDate[0], date) <= 0 && utils.compareAsc(rangeDate[1], date) >= 0 && 'hover'
+        utils.compareAsc(rangeDate[0], date) <= 0 && utils.compareAsc(rangeDate[1], date) >= 0 && 'hover',
+        utils.isSameDay(rangeDate[index], date) && 'hover-start active'
       )
-      // utils.isSameDay(rangeDate[index], date) && 'hover-start active'
       // utils.isSameDay(rangeDate[1], date) && 'hover-end active'
     } else if (value) {
       classList.push(utils.isSameDay(date, value) && 'active')
@@ -166,12 +166,13 @@ class Day extends PureComponent {
   }
 
   render() {
-    const { current, min } = this.props
+    const { current, min, index } = this.props
     const days = this.getDays()
     this.today = utils.newDate()
 
     return (
       <div className={datepickerClass('day-picker')}>
+        <div className={datepickerClass('title')}>{getLocale('pickerTitle')[index]}</div>
         <div className={datepickerClass('header')}>
           <Icon
             name="AngleDoubleLeft"

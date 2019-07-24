@@ -106,8 +106,6 @@ export default Origin =>
       if (this.rangeWithSingle()) {
         this.setState({ value: this.props.value })
       } else if (this.state.value !== this.props.value) this.props.onChange(this.state.value)
-      this.props.onBlur()
-      // this.props.onChange(this.state.value)
     }
 
     render() {

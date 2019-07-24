@@ -240,11 +240,11 @@
   &-range-picker {
     display: flex;
 
-    & > div:first-child {
+    & > div:nth-last-child(2) {
       margin-right: 12px;
     }
 
-    & > div + div {
+    & > div:last-child {
 
       position: relative;
       
@@ -261,6 +261,7 @@
   &-day-picker {
     display: flex;
     flex-direction: column;
+    height: 100%;
     .@{datepicker-prefix}-week {
       margin-bottom: 4px;
       border-bottom: solid 1px #f2f2f2;

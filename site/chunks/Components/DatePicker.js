@@ -32,15 +32,6 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-02-format.js'),
   },
   {
-    name: '03-quick',
-    title: locate(
-      '快速选择 \n 可以配置一些快速选择的选项, 需要提供的时间值为字符串且和所格式填写的 format 一致',
-      'Quick select \n can set some quick select options, need provider date is string and same with format'
-    ),
-    component: require('doc/pages/components/DatePicker/example-03-quick.js').default,
-    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-03-quick.js'),
-  },
-  {
     name: '03-size',
     title: locate(
       '尺寸 \n 内置了三种尺寸，small、default、large',
@@ -102,6 +93,24 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-09-range-date.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-09-range-date.js'),
+  },
+  {
+    name: '09-single',
+    title: locate(
+      '允许单选 \n 可以设置范围选择的时候只选择一侧.',
+      'allow single \n can set range select only select single'
+    ),
+    component: require('doc/pages/components/DatePicker/example-09-single.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-09-single.js'),
+  },
+  {
+    name: '09-squick',
+    title: locate(
+      '快速选择 \n 可以配置一些快速选择的选项, 需要提供的时间值为字符串且和所格式填写的 format 一致',
+      'Quick select \n can set some quick select options, need provider date is string and same with format'
+    ),
+    component: require('doc/pages/components/DatePicker/example-09-squick.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-09-squick.js'),
   },
   {
     name: '10-disabled',

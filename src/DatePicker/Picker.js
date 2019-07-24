@@ -6,8 +6,6 @@ import Year from './Year'
 import Month from './Month'
 import Day from './Day'
 import Time from './Time'
-import { getLocale } from '../locale'
-import { datepickerClass } from '../styles'
 
 class Picker extends PureComponent {
   constructor(props) {
@@ -61,8 +59,12 @@ class Picker extends PureComponent {
 
     return (
       <div>
-        <div className={datepickerClass('title')}>{getLocale('pickerTitle')[index]}</div>
-        <Render {...otherProps} current={current || this.defaultCurrent} onModeChange={this.handleModeChange} />
+        <Render
+          {...otherProps}
+          index={index}
+          current={current || this.defaultCurrent}
+          onModeChange={this.handleModeChange}
+        />
       </div>
     )
   }

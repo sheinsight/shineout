@@ -98,7 +98,10 @@ function clearHMS(date) {
 
 function compareDateArray(arr1, arr2) {
   if (!arr1 || !arr2 || arr1.length !== arr2.length) return false
-  return arr1.every((v, i) => v.getTime() === arr2[i].getTime())
+  return arr1.every((v, i) => {
+    if (!v || !arr2[i]) return false
+    return v.getTime() === arr2[i].getTime()
+  })
 }
 
 export default {

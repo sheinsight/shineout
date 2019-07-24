@@ -2,7 +2,6 @@ import React from 'react'
 import { DatePicker } from 'shineout'
 import { mount } from 'enzyme'
 import { format, addDays, subDays } from 'date-fns'
-import { dispatchEvent } from '../../../src/utils/dom/element'
 import utils from '../../../src/DatePicker/utils'
 import DatePickerSize from '../../../site/pages/components/DatePicker/example-03-size'
 
