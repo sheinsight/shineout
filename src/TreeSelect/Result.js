@@ -20,9 +20,9 @@ function Item({ renderResult, data, disabled, onClick }) {
   const click = disabled || !onClick ? undefined : () => onClick(value)
   const synDisabled = disabled || !click
   return (
-    <a tabIndex={-1} className={treeSelectClass('item', disabled && 'disabled')} onClick={click}>
+    <a tabIndex={-1} className={treeSelectClass('item', disabled && 'disabled')}>
       {getResultContent(data, renderResult)}
-      {!synDisabled && <span className={treeSelectClass('indicator', 'close')} />}
+      {!synDisabled && <span className={treeSelectClass('indicator', 'close')} onClick={click} />}
     </a>
   )
 }
