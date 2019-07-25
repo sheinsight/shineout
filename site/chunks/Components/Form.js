@@ -71,7 +71,7 @@ const examples = [
     name: '07-validate',
     title: locate(
       '校验 \n 通过 Rule 对象，可以使用内置的规则。规则详见 Rule',
-      'Validate \n Use Rule∂ to create new rules object.'
+      'Validate \n Creating new rules object through built-in Rule.'
     ),
     component: require('doc/pages/components/Form/example-07-validate.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-07-validate.js'),
