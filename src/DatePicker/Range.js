@@ -201,16 +201,10 @@ class Range extends PureComponent {
   }
 
   render() {
-    const { current, value, range, children, quicks, ...props } = this.props
+    // min & max can not to child
+    const { current, value, range, children, min, max, quicks, ...props } = this.props
     const quick = this.createQuick()
     const rangeDate = [...this.state.rangeDate]
-
-    // if (rangeDate.length === 1) {
-    //   // eslint-disable-next-line
-    //   rangeTemp = rangeDate[0]
-    //   const method = utils.compareAsc(rangeDate[0], this.state.hover) > 0 ? 'unshift' : 'push'
-    //   rangeDate[method](this.state.hover)
-    // }
 
     return (
       <div className={datepickerClass('range-picker')}>
@@ -262,6 +256,8 @@ Range.propTypes = {
   type: PropTypes.string.isRequired,
   defaultTime: PropTypes.array,
   quicks: PropTypes.array,
+  min: PropTypes.object,
+  max: PropTypes.object,
 }
 
 Range.defaultProps = {

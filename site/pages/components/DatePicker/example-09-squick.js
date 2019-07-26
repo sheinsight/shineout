@@ -1,8 +1,8 @@
 /**
  * cn - 快速选择
- *    -- 可以配置一些快速选择的选项, 需要提供的时间值为字符串且和所格式填写的 format 一致
+ *    -- 可以配置一些快速选择的选项, 日期可以是 Date, 时间戳, 或者字符串,字符串需要和所格式填写的 format 一致
  * en - Quick select
- *    -- can set some quick select options, need provider date is string and same with format
+ *    -- can configure some options for quick selection. The date can be Date, timestamp, or string. The string needs to be in the same format as the format.
  */
 import React from 'react'
 import { DatePicker } from 'shineout'
@@ -20,8 +20,8 @@ export default function() {
       type="datetime"
       quickSelect={[
         {
-          name: '今天',
-          value: [format(today, formatStart), format(today, formatEnd)],
+          name: '当前时间',
+          value: [Date.now(), Date.now()],
         },
         {
           name: '下一周',
@@ -38,6 +38,10 @@ export default function() {
         {
           name: '前30天',
           value: [format(subDays(today, 30), formatStart), format(today, formatEnd)],
+        },
+        {
+          name: '特定时间',
+          value: ['2019-01-01 00:00:00', '2019-12-31 23:59:59'],
         },
       ]}
       style={{ marginTop: '12px' }}

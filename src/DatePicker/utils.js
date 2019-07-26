@@ -3,8 +3,6 @@ import addMonths from 'date-fns/addMonths'
 import addSeconds from 'date-fns/addSeconds'
 import addYears from 'date-fns/addYears'
 import compareAsc from 'date-fns/compareAsc'
-import endOfMonth from 'date-fns/endOfMonth'
-import endOfWeek from 'date-fns/endOfWeek'
 import format from 'date-fns/format'
 import isSameDay from 'date-fns/isSameDay'
 import isSameMonth from 'date-fns/isSameMonth'
@@ -19,17 +17,18 @@ const TIME_FORMAT = 'HH:mm:ss'
 
 function getDaysOfMonth(dirtyDate) {
   const date = toDate(dirtyDate)
-  const end = endOfWeek(endOfMonth(date))
   let current = startOfWeek(startOfMonth(date))
   current.setHours(dirtyDate.getHours())
   current.setMinutes(dirtyDate.getMinutes())
   current.setSeconds(dirtyDate.getSeconds())
 
   const days = []
+  let index = 0
 
-  while (current.getTime() < end.getTime()) {
+  while (index < 42) {
     days.push(current)
     current = addDays(current, 1)
+    index += 1
   }
 
   return days
@@ -121,6 +120,7 @@ export default {
   isSameWeek,
   isValid,
   newDate,
+  setTime,
   parse,
   toDate,
   toDateWithFormat,

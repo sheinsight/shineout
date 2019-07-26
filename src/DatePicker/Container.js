@@ -83,7 +83,11 @@ class Container extends PureComponent {
 
   getFormat() {
     const { format, type } = this.props
-    if (format) return format
+    if (format) {
+      if (type === 'week') return format.replace(/y/g, 'Y')
+
+      return format
+    }
     switch (type) {
       case 'date':
         return 'yyyy-MM-dd'
@@ -92,7 +96,7 @@ class Container extends PureComponent {
       case 'time':
         return 'HH:mm:ss'
       case 'week':
-        return 'yyyy ww'
+        return 'YYYY ww'
       default:
         return 'yyyy-MM-dd HH:mm:ss'
     }
@@ -105,7 +109,7 @@ class Container extends PureComponent {
 
     return quickSelect.map(q => {
       if (!q.value || q.value.length !== 2) return { name: q.name, invalid: true }
-      const date = q.value.map(v => DateFns.parse(v, format, new Date()))
+      const date = q.value.map(v => DateFns.toDateWithFormat(v, format))
       if (DateFns.isInvalid(date[0]) || DateFns.isInvalid(date[1])) return { name: q.name, invalid: true }
       return {
         name: q.name,
@@ -361,7 +365,7 @@ class Container extends PureComponent {
   renderPicker() {
     if (!this.firstRender) return undefined
 
-    const { range, type, value, disabled, allowSingle } = this.props
+    const { range, type, value, min, max, disabled, allowSingle } = this.props
     const format = this.getFormat()
     const quicks = this.getQuick(format)
     const Component = range ? Range : Picker
@@ -381,6 +385,8 @@ class Container extends PureComponent {
         showTimePicker={!!value}
         allowSingle={allowSingle}
         handleHover={this.handleHover}
+        min={DateFns.toDateWithFormat(min, format)}
+        max={DateFns.toDateWithFormat(max, format)}
       >
         {this.props.children}
       </Component>
@@ -440,6 +446,8 @@ Container.propTypes = {
   onValueBlur: PropTypes.func,
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   quickSelect: PropTypes.array,
+  min: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
+  max: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
 }
 
 Container.defaultProps = {

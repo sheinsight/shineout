@@ -251,6 +251,44 @@ describe('RangePicker[time]', () => {
   })
 })
 
+describe('Datepicker min/max', () => {
+  test('should change to  min when select', () => {
+    const today = new Date()
+    const wrapper = mount(<DatePicker type="datetime" min={today} />)
+    document.write(wrapper.html())
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    wrapper
+      .find(`.${SO_PREFIX}-datepicker-today`)
+      .parent()
+      .prop('onClick')(new Date(`${today.getFullYear()}-${today.getMonth()}-${today.getDay()} 00:00:00`))
+    expect(
+      wrapper
+        .find(`span.${SO_PREFIX}-datepicker-txt`)
+        .text()
+        .indexOf('00:00:00')
+    ).toBe(-1)
+    // expect(wrapper.find(`.${SO_PREFIX}-datepicker-day-picker`).length).toBe(2)
+  })
+
+  test('should change to  max when select', () => {
+    const today = new Date()
+    const wrapper = mount(<DatePicker type="datetime" max={today} />)
+    document.write(wrapper.html())
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    wrapper
+      .find(`.${SO_PREFIX}-datepicker-today`)
+      .parent()
+      .prop('onClick')(new Date(`${today.getFullYear()}-${today.getMonth()}-${today.getDay()} 23:59:59`))
+    expect(
+      wrapper
+        .find(`span.${SO_PREFIX}-datepicker-txt`)
+        .text()
+        .indexOf('23:59:59')
+    ).toBe(-1)
+    // expect(wrapper.find(`.${SO_PREFIX}-datepicker-day-picker`).length).toBe(2)
+  })
+})
+
 describe('DatePicker[RangePick]', () => {
   test('should render two pick panel', () => {
     const wrapper = mount(<DatePicker range />)

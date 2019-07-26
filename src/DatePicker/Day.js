@@ -7,6 +7,9 @@ import { getLocale } from '../locale'
 import { PureComponent } from '../component'
 import Time from './Time'
 
+const minStr = 'yyyy-MM-dd 00:00:00'
+const maxStr = 'yyyy-MM-dd 23:59:59'
+
 class Day extends PureComponent {
   constructor(props) {
     super(props)
@@ -45,7 +48,7 @@ class Day extends PureComponent {
   }
 
   handleDayClick(date) {
-    const { type, allowSingle, rangeDate, index } = this.props
+    const { type, allowSingle, rangeDate, min, max, index } = this.props
     const current = this.formatWithDefaultTime()
     if (type === 'week') {
       if (date.getDay() === 0) {
@@ -61,6 +64,10 @@ class Day extends PureComponent {
         current.getMinutes(),
         current.getSeconds()
       )
+      // only can select day with the same day of min/max
+      if (min && utils.compareAsc(newDate, min) < 0) utils.setTime(newDate, min)
+      if (max && utils.compareAsc(newDate, max) > 0) utils.setTime(newDate, max)
+
       if (allowSingle && rangeDate[index] && newDate.getTime() === rangeDate[index].getTime()) newDate = ''
       this.props.onChange(newDate, true, type !== 'datetime')
     }
@@ -87,10 +94,15 @@ class Day extends PureComponent {
     this.props.onDayHover(date)
   }
 
-  renderDay(date) {
+  renderDay(date, minD, maxD) {
     const { current, disabled, value, index, type, rangeDate, range, rangeTemp } = this.props
     const { hover } = this.state
     let isDisabled = disabled ? disabled(date) : false
+
+    // onyl for single
+    if (!range && !isDisabled) {
+      if ((minD && utils.compareAsc(date, minD) < 0) || (maxD && utils.compareAsc(date, maxD) > 0)) isDisabled = true
+    }
 
     if (!isDisabled && typeof range === 'number' && rangeTemp && index === 1) {
       if (utils.compareAsc(date, utils.addSeconds(rangeTemp, range)) > 0 || utils.compareAsc(date, rangeTemp) < 0) {
@@ -132,7 +144,7 @@ class Day extends PureComponent {
       <div
         key={date.getTime()}
         className={hoverClass}
-        onClick={isDisabled ? undefined : this.handleDayClick.bind(this, date)}
+        onClick={isDisabled ? undefined : this.handleDayClick.bind(this, date, minD, maxD)}
         {...hoverProps}
       >
         <span className={datepickerClass(...classList)}>{date.getDate()}</span>
@@ -166,9 +178,12 @@ class Day extends PureComponent {
   }
 
   render() {
-    const { current, min, index } = this.props
+    const { current, min, index, max } = this.props
     const days = this.getDays()
     this.today = utils.newDate()
+
+    const minDate = min && new Date(utils.format(min, minStr, new Date()))
+    const maxDate = max && new Date(utils.format(max, maxStr, new Date()))
 
     return (
       <div className={datepickerClass('day-picker')}>
@@ -208,7 +223,7 @@ class Day extends PureComponent {
           ))}
         </div>
 
-        <div className={datepickerClass('list')}>{days.map(d => this.renderDay(d))}</div>
+        <div className={datepickerClass('list')}>{days.map(d => this.renderDay(d, minDate, maxDate))}</div>
 
         <div style={{ flex: 1 }} />
 
