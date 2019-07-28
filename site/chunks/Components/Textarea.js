@@ -34,11 +34,20 @@ const examples = [
   {
     name: '3-info',
     title: locate(
-      '信息 \n 设置 info 属性后，用户 focus 时显示 info 函数执行的结果，例如用户已输入文字长度。 \n 如果 info 返回类型为 Error，不会隐藏。',
-      'Info \n The result of the info function is displayed when you focus.'
+      '信息 \n 设置 info 为数字, 设定最大长度，用户 focus 时会显示用户已输入文字长度。 \n 如果超出长度， 则会报错. 不会隐藏。',
+      'Info \n Set info to number, set the maximum length, and the user\'s focus shows the length of text that the user has entered. \n If the length is exceeded, the error is reported. It is not hidden.'
     ),
     component: require('doc/pages/components/Textarea/example-3-info.js').default,
     rawText: require('!raw-loader!doc/pages/components/Textarea/example-3-info.js'),
+  },
+  {
+    name: '4-custom',
+    title: locate(
+      '自定义信息 \n 可以通过设置 info 为函数去自定义提示信息 \n 如果 info 返回类型为 Error，不会隐藏。',
+      'Custom Info \n can customize the info by setting info as a function \n if the functio return an Error , the info doesn\'t hide'
+    ),
+    component: require('doc/pages/components/Textarea/example-4-custom.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Textarea/example-4-custom.js'),
   },
 ]
 
