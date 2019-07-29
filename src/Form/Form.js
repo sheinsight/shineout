@@ -24,8 +24,9 @@ class Form extends Component {
     this.setStatus()
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     this.setStatus()
+    if (prevProps.error !== this.props.error) this.props.datum.resetFormError(this.props.error)
   }
 
   componentWillUnmount() {
