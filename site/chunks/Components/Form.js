@@ -89,7 +89,7 @@ const examples = [
     name: '09-server-validate',
     title: locate(
       ' \n 通过给 Form 设置 error，实现后端校验数据展示。在表单值被改变后，对应后端校验数据会被清空。<br />前端校验优先级大于后端校验。',
-      ' \n Use Rule∂ to create new rules object.'
+      ' \n By setting an error on the Form, the back-end validation data is presented. After the form value is changed, the corresponding back-end validation data is cleared. <br /> front-end validation priority is greater than back-end validation.'
     ),
     component: require('doc/pages/components/Form/example-09-server-validate.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-09-server-validate.js'),
