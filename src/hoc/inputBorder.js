@@ -77,7 +77,7 @@ export default curry(
         const newClassName = classnames(
           inputClass(
             '_',
-            focus && other.disabled !== true && 'focus',
+            focus && other.disabled !== true && !error && 'focus',
             other.disabled === true && 'disabled',
             options.isGroup && 'group',
             size,
