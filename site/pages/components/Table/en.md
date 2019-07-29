@@ -31,6 +31,8 @@
 | empty | string | Data not found | empty text |
 | rowClickAttr | string \| string[] | \['*'\] | Sets the attribute of inner element to trigger onRowClick as needed, and '*' to accept the row click |
 | sorter | func | alphaSort(Column.sorter, sorter) | the method of table sort，args are Column.sorter and order |
+| treeExpandKeys | array | 无  | Tree Table expanded row keys |
+| onTreeExpand | function(keys) | expand row change, keys is expanded row keys |
 
 ### Column
 | Property | Type | Default | Description |

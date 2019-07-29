@@ -275,13 +275,22 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-27-tree.js'),
   },
   {
-    name: '28-sort',
+    name: '28-tree',
+    title: locate(
+      ' \n 使用 treeExpandKeys 和 onTreeExpand 使展开行受控',
+      ' \n Use treeExpandKeys and onTreeExpand to control the expand row.'
+    ),
+    component: require('doc/pages/components/Table/example-28-tree.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-28-tree.js'),
+  },
+  {
+    name: '29-sort',
     title: locate(
       '排序 (旧) \n 设置 column 的 sorter 属性标示此列需要排序 \n sorter 返回一个 sort 函数时，使用这个函数对数据进行内部排序 \n 后端或自行排序用户自行处理，sorter 函数不要返回结果',
       'Sorter (Out of date) \n Set the sorter property of column to indicate that this column can be sorted. \n When the sorter returns a function, use this function to sort data internally. \n Server-side or self-sorting is is handled by the user, do not return results.'
     ),
-    component: require('doc/pages/components/Table/example-28-sort.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Table/example-28-sort.js'),
+    component: require('doc/pages/components/Table/example-29-sort.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-29-sort.js'),
   },
   {
     name: '99-raw',
