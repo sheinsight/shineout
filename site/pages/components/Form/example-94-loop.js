@@ -4,7 +4,7 @@
  *    -- Form.Loop 通过 name 属性从 Form 中获取一个类型为 array 的 value，遍历这个 value 生成一组子组件。
  * en - Loop (Out of date)
  *    -- <b>Form.Loop is not recommend, use Form.FieldSet instead.</b>
- *    -- Form.Loop takes a value whose type is the array from the form via the name property, and iterates over this value to generate a set of subcomponents.
+ *    -- Form.Loop takes a value which type is the array from the form through the name property, furthermore iterates over this value to generate a set of subcomponents.
  */
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
