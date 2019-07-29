@@ -3,8 +3,6 @@ import addMonths from 'date-fns/addMonths'
 import addSeconds from 'date-fns/addSeconds'
 import addYears from 'date-fns/addYears'
 import compareAsc from 'date-fns/compareAsc'
-import endOfMonth from 'date-fns/endOfMonth'
-import endOfWeek from 'date-fns/endOfWeek'
 import format from 'date-fns/format'
 import isSameDay from 'date-fns/isSameDay'
 import isSameMonth from 'date-fns/isSameMonth'
@@ -19,17 +17,18 @@ const TIME_FORMAT = 'HH:mm:ss'
 
 function getDaysOfMonth(dirtyDate) {
   const date = toDate(dirtyDate)
-  const end = endOfWeek(endOfMonth(date))
   let current = startOfWeek(startOfMonth(date))
   current.setHours(dirtyDate.getHours())
   current.setMinutes(dirtyDate.getMinutes())
   current.setSeconds(dirtyDate.getSeconds())
 
   const days = []
+  let index = 0
 
-  while (current.getTime() < end.getTime()) {
+  while (index < 42) {
     days.push(current)
     current = addDays(current, 1)
+    index += 1
   }
 
   return days
@@ -72,6 +71,7 @@ function setTime(date, old) {
 }
 
 function cloneTime(date, old, fmt) {
+  if (!date) return date
   old = toDateWithFormat(old, fmt)
   if (isInvalid(old)) return date
 
@@ -79,6 +79,7 @@ function cloneTime(date, old, fmt) {
 }
 
 function formatDateWithDefaultTime(date, value, defaultTime, fmt) {
+  if (!date) return date
   if (value) return setTime(date, value)
   if (!defaultTime) return date
 
@@ -89,7 +90,21 @@ function formatDateWithDefaultTime(date, value, defaultTime, fmt) {
   return format(nDate, fmt)
 }
 
+function clearHMS(date) {
+  if (!isValid(date)) return date
+  return new Date(new Date(date.toLocaleDateString()).getTime())
+}
+
+function compareDateArray(arr1, arr2) {
+  if (!arr1 || !arr2 || arr1.length !== arr2.length) return false
+  return arr1.every((v, i) => {
+    if (!v || !arr2[i]) return false
+    return v.getTime() === arr2[i].getTime()
+  })
+}
+
 export default {
+  clearHMS,
   addDays,
   addMonths,
   addYears,
@@ -105,9 +120,11 @@ export default {
   isSameWeek,
   isValid,
   newDate,
+  setTime,
   parse,
   toDate,
   toDateWithFormat,
   formatDateWithDefaultTime,
+  compareDateArray,
   TIME_FORMAT,
 }

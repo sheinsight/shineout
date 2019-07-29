@@ -22,6 +22,7 @@
   }
 
   label&-r-date,
+  label&-r-week,
   label&-r-month {
     width: 300px;
   }
@@ -32,6 +33,12 @@
 
   label&-r-time {
     width: 250px;
+  }
+
+  &-title {
+    padding: 0 0 8px 0;
+    text-align: center;
+    // border-bottom: 1px solid @table-border-color;
   }
 
   &-inner {
@@ -91,6 +98,16 @@
 
   &-txt[contenteditable="true"] {
     cursor: text;
+  }
+
+  &-separate {
+    margin: 0 @datepicker-margin;
+  }
+
+  &-text-focus {
+    background: @colors-primary;
+    color: #fff;
+    border-radius: @datepicker-radius;
   }
 
   &:hover &-result {
@@ -233,14 +250,28 @@
   &-range-picker {
     display: flex;
 
-    & > div:first-child {
+    & > div:nth-last-child(2) {
       margin-right: 12px;
+    }
+
+    & > div:last-child {
+
+      position: relative;
+      
+      &:before {
+        content: ' ';
+        position: absolute;
+        left: -6px;
+        height: 100%;
+        border-left: 1px solid @table-border-color;
+      }
     }
   }
 
   &-day-picker {
     display: flex;
     flex-direction: column;
+    height: 100%;
     .@{datepicker-prefix}-week {
       margin-bottom: 4px;
       border-bottom: solid 1px #f2f2f2;
@@ -442,6 +473,24 @@
     }
     .@{datepicker-prefix}-absolute-right-top {
       box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.02), @datepicker-box-shadow-up;
+    }
+  }
+
+  &-quick-select {
+    min-width: 80px;
+    border-right: 1px solid @gray-300;
+    &-item {
+      margin: 12px 0;
+      cursor: pointer;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &-active {
+        color: @colors-primary;
+        border-right: 2px solid @colors-primary;
+      }
     }
   }
 }

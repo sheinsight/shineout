@@ -36,25 +36,21 @@ class Year extends PureComponent {
         <div className={datepickerClass('header')}>
           <Icon name="AngleLeft" onClick={this.handlePrevRange} />
 
-          <span className={datepickerClass('ym')}>
-            {years[0]} ~ {years[years.length - 1]}
-          </span>
+          <span className={datepickerClass('ym')}>{`${years[0]} ~ ${years[years.length - 1]}`}</span>
 
           <Icon name="AngleRight" onClick={this.handleNextRange} />
         </div>
 
         <div className={datepickerClass('list')}>
-          {
-            years.map(y => (
-              <span
-                key={y}
-                className={datepickerClass(value && value.getFullYear() === y && 'active')}
-                onClick={this.handleChange.bind(this, y)}
-              >
-                {y}
-              </span>
-            ))
-          }
+          {years.map(y => (
+            <span
+              key={y}
+              className={datepickerClass(value && value.getFullYear() === y && 'active')}
+              onClick={this.handleChange.bind(this, y)}
+            >
+              {y}
+            </span>
+          ))}
         </div>
       </div>
     )

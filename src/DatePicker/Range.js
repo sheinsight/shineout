@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import immer from 'immer'
 import { PureComponent } from '../component'
 import shallowEqual from '../utils/shallowEqual'
+import dateFns from './utils'
 import utils from './utils'
 import Picker from './Picker'
 import { datepickerClass } from '../styles'
@@ -12,7 +13,6 @@ class Range extends PureComponent {
     super(props)
 
     this.state = {
-      hover: undefined,
       rangeDate: props.value,
     }
 
@@ -25,6 +25,7 @@ class Range extends PureComponent {
     this.bindSecondPicker = this.bindPicker.bind(this, 1)
     this.handleDisabledStart = this.handleDisabled.bind(this, 'start')
     this.handleDisabledEnd = this.handleDisabled.bind(this, 'end')
+    this.changeDateSmart = this.changeDateSmart.bind(this)
     this.fillTime = this.fillTime.bind(this)
   }
 
@@ -45,13 +46,26 @@ class Range extends PureComponent {
   }
 
   resetRange(rangeDate) {
-    this.setState({ rangeDate, hover: undefined })
+    this.setState({ rangeDate })
   }
 
   handleDayHover(date) {
     if (this.state.rangeDate.length === 1) {
       utils.cloneTime(date, this.props.value[1], this.props.format)
-      this.setState({ hover: date })
+      // this.setState({ hover: date })
+    }
+  }
+
+  changeDateSmart(rangeDate) {
+    if (!rangeDate[0] || !rangeDate[1]) return
+    const [s, e] = rangeDate
+    const { range } = this.props
+    if (typeof range === 'number') {
+      if (utils.compareAsc(s, utils.addSeconds(e, -range)) < 0) rangeDate[1] = utils.addSeconds(s, range)
+    }
+    // console.log(utils.compareAsc(s, e))
+    if (utils.compareAsc(s, e) > 0) {
+      rangeDate[1] = s
     }
   }
 
@@ -72,7 +86,14 @@ class Range extends PureComponent {
         immer(draft => {
           draft.rangeDate[index] = date
           const [s, e] = draft.rangeDate
-          if (index !== 0) return
+          if (index !== 0) {
+            if (s && s.getHours() === e.getHours()) {
+              if (utils.compareAsc(s, e) === 1) {
+                e.setMinutes(s.getMinutes())
+              }
+            }
+            return
+          }
           if (range && utils.compareAsc(s, e) === 1) {
             endChangedDate = date
             draft.rangeDate[1] = endChangedDate
@@ -97,31 +118,37 @@ class Range extends PureComponent {
       // eslint-disable-next-line
       const rangeDate = [...this.state.rangeDate]
       rangeDate[index] = date
-      if (rangeDate.some(v => !utils.isInvalid(v))) {
-        rangeDate.sort((a, b) => a.getTime() - b.getTime())
-      }
+      rangeDate[1 - index] = rangeDate[1 - index] || ''
+
+      this.changeDateSmart(rangeDate)
+
       this.setState({ rangeDate })
-      this.props.onChange(rangeDate, true)
+      this.props.onChange(rangeDate, true, true, index === 1)
 
       return
     }
 
     utils.cloneTime(date, this.props.value[index])
 
-    if (this.state.rangeDate.length !== 1) {
-      this.setState({ rangeDate: [date], hover: undefined })
-      return
-    }
+    // if (this.state.rangeDate.filter(a => a).length !== 1) {
+    //   this.setState({ rangeDate: index === 1 ? [undefined, date] : [date], hover: undefined })
+    //   return
+    // }
 
     this.setState(
       immer(draft => {
-        const method = utils.compareAsc(draft.rangeDate[0], date) > 0 ? 'unshift' : 'push'
-        draft.rangeDate[method](date)
+        // const method = utils.compareAsc(draft.rangeDate[0], date) > 0 ? 'unshift' : 'push'
+        draft.rangeDate[index] = date
+        draft.rangeDate[1 - index] = draft.rangeDate[1 - index] || ''
         draft.rangeDate.map(this.fillTime)
+
+        // range change start&end
+        this.changeDateSmart(draft.rangeDate)
         draft.hover = undefined
       }),
       () => {
-        this.props.onChange(this.state.rangeDate, true, type === 'date')
+        // only 'datetime' don not need close, 'time is up'
+        this.props.onChange(this.state.rangeDate, true, type !== 'datetime', index === 1)
       }
     )
   }
@@ -140,21 +167,48 @@ class Range extends PureComponent {
     return false
   }
 
-  render() {
-    const { current, value, range, children, ...props } = this.props
-    const rangeDate = [...this.state.rangeDate]
-
-    let rangeTemp
-    if (rangeDate.length === 1) {
-      // eslint-disable-next-line
-      rangeTemp = rangeDate[0]
-      const method = utils.compareAsc(rangeDate[0], this.state.hover) > 0 ? 'unshift' : 'push'
-      rangeDate[method](this.state.hover)
+  handleQuick(quick) {
+    if (quick.invalid) {
+      console.error(`the date you provider for ${quick.name} is invalid, please check the date in quickSelect!`)
+      return
     }
+    this.setState({ rangeDate: quick.value })
+    this.props.onChange(quick.value, true)
+  }
+
+  createQuick() {
+    const { quicks } = this.props
+    const { rangeDate } = this.state
+
+    if (!quicks) return null
+
+    return (
+      <div className={datepickerClass('quick-select')}>
+        {quicks.map(q => (
+          <div
+            onClick={this.handleQuick.bind(this, q)}
+            className={datepickerClass(
+              'quick-select-item',
+              dateFns.compareDateArray(q.value, rangeDate) && 'quick-select-item-active'
+            )}
+            key={q.name}
+          >
+            {q.name}
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  render() {
+    // min & max can not to child
+    const { current, value, range, children, min, max, quicks, ...props } = this.props
+    const quick = this.createQuick()
+    const rangeDate = [...this.state.rangeDate]
 
     return (
       <div className={datepickerClass('range-picker')}>
-        {children}
+        {quick || children}
         <Picker
           {...props}
           pos="start"
@@ -164,7 +218,7 @@ class Range extends PureComponent {
           current={current[0]}
           range={typeof range === 'number' ? range : undefined}
           rangeDate={rangeDate}
-          rangeTemp={rangeTemp}
+          rangeTemp={utils.clearHMS(rangeDate[0])}
           onChange={this.handleFirstChange}
           onDayHover={this.handleDayHover}
           ref={this.bindFirstPicker}
@@ -179,7 +233,7 @@ class Range extends PureComponent {
           current={current[1]}
           range={typeof range === 'number' ? range : undefined}
           rangeDate={rangeDate}
-          rangeTemp={rangeTemp}
+          rangeTemp={utils.clearHMS(rangeDate[0])}
           onChange={this.handleSecondChange}
           onDayHover={this.handleDayHover}
           ref={this.bindSecondPicker}
@@ -201,6 +255,9 @@ Range.propTypes = {
   value: PropTypes.array,
   type: PropTypes.string.isRequired,
   defaultTime: PropTypes.array,
+  quicks: PropTypes.array,
+  min: PropTypes.object,
+  max: PropTypes.object,
 }
 
 Range.defaultProps = {

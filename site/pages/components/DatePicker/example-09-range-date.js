@@ -12,7 +12,7 @@ const style = { marginBottom: 12 }
 export default function() {
   return (
     <div>
-      <DatePicker range={86400 * 10} style={style} defaultValue={['2018-05-25', '2018-06-05']} />
+      <DatePicker range={86400 * 20} type="date" onChange={a => console.log(a)} style={style} />
       <br />
       <DatePicker
         range={86400 * 100}

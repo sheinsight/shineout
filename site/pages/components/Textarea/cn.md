@@ -9,7 +9,7 @@
 | autosize | bool | false | 高度是否随内容自动变化 |
 | defaultValue | string \| number | | 默认值 |
 | delay | number | 400 | 用户输入触发 onChange 和校验间隔时间，单位 毫秒。|
-| info | function | 无 | 提示信息 |
+| info | function \| number | 无 | 提示信息 |
 | name | string | 无 | Form 存取数据的名称 |
 | onChange | function(d) | | 值改变回调函数 |
 | onEnterPress | function(value) | | 回车键回调函数 |

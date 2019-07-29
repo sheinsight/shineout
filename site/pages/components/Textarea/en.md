@@ -9,7 +9,7 @@
 | autosize | bool | false | Whether the height changes automatically with the content |
 | defaultValue | string \| number | | default value |
 | delay | number | 400 | User input triggers onChange and to check interval, unit: ms.|
-| info | function | - | Infomation |
+| info | function \| number | - | Infomation |
 | name | string | none | The name that accesses data from Form |
 | onChange | function(d) | | The callback function for changing value |
 | onEnterPress | function(value) | | The callback function for enter key |
