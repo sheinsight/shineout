@@ -4,7 +4,6 @@ import { Radio } from 'shineout'
 import RadioBase from '../../../site/pages/components/Radio/example-1-base'
 import RadioGroup from '../../../site/pages/components/Radio/example-2-group'
 import RadioFormat from '../../../site/pages/components/Radio/example-3-format'
-import RadioDatum from '../../../site/pages/components/Radio/example-4-datum'
 import RadioBlock from '../../../site/pages/components/Radio/example-5-block'
 import RadioDisabled from '../../../site/pages/components/Radio/example-6-disabled'
 
@@ -86,21 +85,6 @@ describe('Radio[Format]', () => {
     const format = wrapper.find('ShineoutRadioGroup').prop('format')
     wrapper.find(`label.${SO_PREFIX}`).forEach((text, index) => {
       expect(text).toBe(data[index][format])
-    })
-  })
-  test('should use datum', () => {
-    const data = [
-      { id: 1, color: 'red' },
-      { id: 2, color: 'orange' },
-      { id: 3, color: 'yellow' },
-      { id: 4, color: 'green' },
-      { id: 5, color: 'cyan' },
-      { id: 6, color: 'blue' },
-      { id: 7, color: 'violet' },
-    ]
-    const wrapper = mount(<RadioDatum />)
-    wrapper.find(`label.${SO_PREFIX}`).forEach((text, index) => {
-      expect(text).toBe(data[index].color)
     })
   })
 })

@@ -260,6 +260,8 @@ class Upload extends PureComponent {
         }
       },
 
+      onSuccess,
+
       onLoad: xhr => {
         if (!/^2|1223/.test(xhr.status)) {
           this.handleError(id, xhr)

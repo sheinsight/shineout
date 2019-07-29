@@ -20,6 +20,7 @@ class FilterInput extends Component {
     this.bindElement = this.bindElement.bind(this)
     this.handleInput = this.handleInput.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
+    this.handlePaste = this.handlePaste.bind(this)
 
     // for mutiple select
     this.props.setInputReset(this.reset.bind(this))
@@ -73,6 +74,15 @@ class FilterInput extends Component {
     this.props.onInputBlur(this.getProcessedValue(text))
   }
 
+  handlePaste(e) {
+    const text = (e.clipboardData || window.clipboardData).getData('text')
+    if (!text) return
+    e.preventDefault()
+    this.editElement.innerText = text
+    focusElement.end(this.editElement)
+    this.handleInput({ target: { innerText: text } })
+  }
+
   render() {
     const { text, focus, multiple } = this.props
     const value = typeof text === 'string' ? text.replace(/<\/?[^>]*>/g, '') : text
@@ -96,6 +106,7 @@ class FilterInput extends Component {
         onInput={this.handleInput}
         onFocus={handleFocus}
         onBlur={this.handleBlur}
+        onPaste={this.handlePaste}
         dangerouslySetInnerHTML={{ __html: value }}
       />
     )

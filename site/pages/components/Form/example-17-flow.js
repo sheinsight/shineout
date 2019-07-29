@@ -1,6 +1,6 @@
 /**
  * cn - 联动
- *    -- 在某些情况下，Form 不通过 value 和 onChange 方式处理数据，只是在 submit 的时候获取数据提交。
+ *    -- 在通常情况下，Form 不通过 value 和 onChange 方式处理数据，只是在 submit 的时候获取数据提交。
  *    -- 这种情况下，需要联动时，可以使用 Flow 组件来实现。如果设置了 names 属性，只监听 names 包含的字段变化，如果没有设置，会监听 Form 内所有数据的变化。
  * en - Flow
  *    -- For performance reasons, internal data of the Form is isolated and changing one component does not trigger another component to change.

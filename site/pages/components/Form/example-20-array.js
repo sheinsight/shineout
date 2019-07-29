@@ -2,7 +2,7 @@
  * cn - 数组 name
  *    -- 数据为数组类型的组件，name 可以传入一个相应的数组，来分别处理数组内的单个数据
  * en - Array name
- *    -- The name of component whose data is an array can be passed in a corresponding array to process individual data in the array.
+ *    -- While the component's data type is array, name can accept an array to process item individually.
  */
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'

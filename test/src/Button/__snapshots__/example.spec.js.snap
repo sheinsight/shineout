@@ -26,27 +26,101 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-1-base.js] 1
 </div>
 `;
 
-exports[`Snapshot test: Button[site/pages/components/Button/example-2-outline.js] 1`] = `
+exports[`Snapshot test: Button[site/pages/components/Button/example-2-icon.js] 1`] = `
 <div>
   <button>
-    Primary
+    <i />
+    left
   </button>
   <button>
-    Secondary
+    right
+    <i />
   </button>
   <button>
-    Success
-  </button>
-  <button>
-    Warning
-  </button>
-  <button>
-    Danger
+    ce
+    <i />
+    ter
   </button>
 </div>
 `;
 
-exports[`Snapshot test: Button[site/pages/components/Button/example-3-disabled.js] 1`] = `
+exports[`Snapshot test: Button[site/pages/components/Button/example-3-size.js] 1`] = `
+<div>
+  <div>
+    <button>
+      Default
+    </button>
+    <button>
+      Primary
+    </button>
+    <button>
+      Secondary
+    </button>
+    <button>
+      Success
+    </button>
+    <button>
+      Warning
+    </button>
+    <button>
+      Danger
+    </button>
+    <button>
+      Link
+    </button>
+  </div>
+  <br />
+  <div>
+    <button>
+      Default
+    </button>
+    <button>
+      Primary
+    </button>
+    <button>
+      Secondary
+    </button>
+    <button>
+      Success
+    </button>
+    <button>
+      Warning
+    </button>
+    <button>
+      Danger
+    </button>
+    <button>
+      Link
+    </button>
+  </div>
+  <br />
+  <div>
+    <button>
+      Default
+    </button>
+    <button>
+      Primary
+    </button>
+    <button>
+      Secondary
+    </button>
+    <button>
+      Success
+    </button>
+    <button>
+      Warning
+    </button>
+    <button>
+      Danger
+    </button>
+    <button>
+      Link
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Button[site/pages/components/Button/example-4-disabled.js] 1`] = `
 <div>
   <button>
     Default
@@ -69,82 +143,6 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-3-disabled.j
   <button>
     Link
   </button>
-</div>
-`;
-
-exports[`Snapshot test: Button[site/pages/components/Button/example-4-size.js] 1`] = `
-<div>
-  <div>
-    <button>
-      Default
-    </button>
-    <button>
-      Primary
-    </button>
-    <button>
-      Secondary
-    </button>
-    <button>
-      Success
-    </button>
-    <button>
-      Warning
-    </button>
-    <button>
-      Danger
-    </button>
-    <button>
-      Link
-    </button>
-  </div>
-  <br />
-  <div>
-    <button>
-      Default
-    </button>
-    <button>
-      Primary
-    </button>
-    <button>
-      Secondary
-    </button>
-    <button>
-      Success
-    </button>
-    <button>
-      Warning
-    </button>
-    <button>
-      Danger
-    </button>
-    <button>
-      Link
-    </button>
-  </div>
-  <br />
-  <div>
-    <button>
-      Default
-    </button>
-    <button>
-      Primary
-    </button>
-    <button>
-      Secondary
-    </button>
-    <button>
-      Success
-    </button>
-    <button>
-      Warning
-    </button>
-    <button>
-      Danger
-    </button>
-    <button>
-      Link
-    </button>
-  </div>
 </div>
 `;
 
@@ -177,19 +175,22 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-6-href.js] 1
 </a>
 `;
 
-exports[`Snapshot test: Button[site/pages/components/Button/example-7-icon.js] 1`] = `
+exports[`Snapshot test: Button[site/pages/components/Button/example-7-outline.js] 1`] = `
 <div>
   <button>
-    <i />
-     Small
+    Primary
   </button>
   <button>
-    Default 
-    <i />
+    Secondary
   </button>
   <button>
-    <i />
-     Large
+    Success
+  </button>
+  <button>
+    Warning
+  </button>
+  <button>
+    Danger
   </button>
 </div>
 `;

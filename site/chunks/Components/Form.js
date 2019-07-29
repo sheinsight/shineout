@@ -71,7 +71,7 @@ const examples = [
     name: '07-validate',
     title: locate(
       '校验 \n 通过 Rule 对象，可以使用内置的规则。规则详见 Rule',
-      'Validate \n Use Rule∂ to create new rules object.'
+      'Validate \n Creating new rules object through built-in Rule.'
     ),
     component: require('doc/pages/components/Form/example-07-validate.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-07-validate.js'),
@@ -84,15 +84,6 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-08-validate.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-08-validate.js'),
-  },
-  {
-    name: '09-validate',
-    title: locate(
-      ' \n 通过 rules 校验，每个字段的 rules 是一个数组，可以使用多条规则。 \n 在处理复杂表单或表单层级比较深的时候，不推荐这种方式，建议使用 Rule，并在 Field 字段上设置 rules.',
-      ' \n Validate by rules.'
-    ),
-    component: require('doc/pages/components/Form/example-09-validate.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-09-validate.js'),
   },
   {
     name: '11-disabled',
@@ -183,6 +174,15 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-21-mode.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-21-mode.js'),
+  },
+  {
+    name: '93-validate',
+    title: locate(
+      '校验(旧) \n 改方法已不建议使用，请使用 Rule \n 通过 rules 校验，每个字段的 rules 是一个数组，可以使用多条规则。',
+      'validate(old) \n please use Rule \n Validate by rules.'
+    ),
+    component: require('doc/pages/components/Form/example-93-validate.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-93-validate.js'),
   },
   {
     name: '94-loop',

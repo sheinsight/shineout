@@ -7,6 +7,8 @@ import Loading from 'docs/Loading'
 import { mainClass } from 'doc/styles'
 import Icon from '../icons/Icon'
 
+const filters = ['Datum.Form', 'Datum.List']
+
 function getUrl(base, page) {
   if (page.path === '') return base
   return `${base}/${page.path || page.name}`
@@ -56,23 +58,27 @@ export default function(pages) {
 
         <Sticky top={0}>
           <div id="-shineout-menu" className={mainClass('menu', shownav && 'hidden')}>
-            {pages.map((p, i) =>
-              typeof p === 'string' ? (
+            {pages
+              .filter(v => filters.indexOf(v.name) === -1)
+              .map((p, i) =>
+                typeof p === 'string' ? (
+                  // eslint-disable-next-line
                 <label key={i}>{p}</label>
-              ) : (
-                <NavLink
-                  className={mainClass(p.level === 2 && 'sub')}
-                  activeClassName={mainClass('active')}
-                  key={p.name}
-                  to={getUrl(base, p)}
-                  onClick={toggleCode}
-                >
-                  <p>
-                    {p.name} <span>{locate(p.cn)}</span>
-                  </p>
-                </NavLink>
-              )
-            )}
+                ) : (
+                  <NavLink
+                    className={mainClass(p.level === 2 && 'sub')}
+                    activeClassName={mainClass('active')}
+                    key={p.name}
+                    to={getUrl(base, p)}
+                    onClick={toggleCode}
+                  >
+                    <p>
+                      {p.name}
+                      <span>{locate(p.cn)}</span>
+                    </p>
+                  </NavLink>
+                )
+              )}
           </div>
         </Sticky>
 
