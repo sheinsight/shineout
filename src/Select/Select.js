@@ -18,6 +18,9 @@ const WrappedOptionList = absoluteList(OptionList)
 const WrappedBoxList = absoluteList(BoxList)
 const WrappedOptionTree = absoluteList(OptionTree)
 
+const isResult = el =>
+  [selectClass('ellipsis'), selectClass('caret'), selectClass('result')].some(c => el.classList.contains(c))
+
 class Select extends PureComponent {
   constructor(props) {
     super(props)
@@ -53,9 +56,8 @@ class Select extends PureComponent {
 
     this.optionList = {}
     this.selectId = `select_${getUidStr()}`
-    this.closeByResult = false
+    // this.closeByResult = false
     this.mouseDown = false
-    this.isOptionList = false
 
     this.lastResult = undefined
   }
@@ -85,13 +87,13 @@ class Select extends PureComponent {
   }
 
   isDescendent(el, id) {
-    const stay = el.classList.contains(selectClass('input')) || el.classList.contains(selectClass('item'))
-    if (stay) this.optionsHold = true
-    if (el.classList.contains(selectClass('result')) && this.optionsHold === null && this.state.focus) {
-      this.closeByResult = true
-      this.optionsHold = false
-    }
-    if (el.getAttribute('data-id') === id) return typeof this.optionsHold === 'boolean' ? this.optionsHold : true
+    // const stay = el.classList.contains(selectClass('input')) || el.classList.contains(selectClass('item'))
+    // if (stay) this.optionsHold = true
+    // if (el.classList.contains(selectClass('result')) && this.optionsHold === null && this.state.focus) {
+    //   this.closeByResult = true
+    //   this.optionsHold = false
+    // }
+    if (el.getAttribute('data-id') === id) return true
     if (!el.parentElement) return false
     return this.isDescendent(el.parentElement, id)
   }
@@ -113,7 +115,6 @@ class Select extends PureComponent {
   }
 
   handleClickAway(e) {
-    this.optionsHold = null
     const desc = this.isDescendent(e.target, this.selectId)
     if (!desc) {
       if (!getParent(e.target, `[data-id=${this.selectId}]`)) {
@@ -125,8 +126,12 @@ class Select extends PureComponent {
   }
 
   handleClick(e) {
-    if (this.closeByResult) {
-      this.closeByResult = false
+    // if (this.closeByResult) {
+    //   this.closeByResult = false
+    //   return
+    // }
+    if (isResult(e.target) && this.state.focus) {
+      this.handleState(false, e)
       return
     }
     this.handleState(true, e)
