@@ -29,11 +29,11 @@ export function getParent(el, target) {
   return null
 }
 
-export function dispatchEvent(form, name) {
+export function dispatchEvent(form, name, detail) {
   if (!form) return
   let event
   if (CustomEvent) {
-    event = new CustomEvent(name, { bubbles: false, cancelable: true })
+    event = new CustomEvent(name, { bubbles: false, cancelable: true, detail })
   } else {
     event = document.createEvent('HTMLEvents')
     event.initEvent(name, true, true)

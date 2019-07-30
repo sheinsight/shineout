@@ -46,6 +46,7 @@ class Form extends Component {
   }
 
   handleSubmit(e) {
+    e.persist()
     e.preventDefault()
     if (e.target.getAttribute('id') !== this.id) return
     if (this.validating || this.locked) return
@@ -68,7 +69,7 @@ class Form extends Component {
         .validate(IGNORE_BIND)
         .then(() => {
           this.validating = false
-          if (onSubmit) onSubmit(datum.getValue())
+          if (onSubmit) onSubmit(datum.getValue(), e.nativeEvent && e.nativeEvent.detail)
           if (activeElement) activeElement.focus()
         })
         .catch(err => {
