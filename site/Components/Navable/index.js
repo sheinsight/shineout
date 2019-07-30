@@ -8,6 +8,7 @@ const scrollTo = id => {
   if (isSingleMode) {
     history.push(`${history.location.pathname}?example=${id.replace('heading-', '')}`)
   } else {
+    history.push(`${history.location.pathname}#${id}`)
     const element = document.getElementById(id)
     if (element) element.scrollIntoView()
   }
