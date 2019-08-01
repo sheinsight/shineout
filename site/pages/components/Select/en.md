@@ -7,6 +7,7 @@
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | absolute | bool | false | When it is true, the pop-up layer of option append into document.body. |
+| autoAdapt | bool | false | option list is auto adapt |
 | clearable | bool | false | If clearable is true, show clear value icon |
 | multiple | bool | false | if it is true, it will be multiple selection |
 | columns | number | 1 | Option columns.  |
@@ -14,7 +15,6 @@
 | data | array | required | Options data |
 | treeData | array | - | tree select data，\[{children: []}\] |
 | defaultValue | array | | Initial value |
-| datum | object | - | If the format and prediction does not satisfied your requirements, you can pass in a [Datum.List](/components/Datum.List) object or the Datum.List configuration to process data. |
 | disabled | bool \| function | false | When the value is true, disabled all checkboxes; When the value is function, disable the checkbox that this function returns true. |
 | filterDelay | number | 400 | ms. The delay of user input triggering filter events |
 | format | string \| function | d => d | Format value<br />The defaule value is return the original data.<br />When it is a string, the value is fetched from the original data as a key equivalent to (d) => d[format]<br />When it is a function, use its return value. |

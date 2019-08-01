@@ -46,8 +46,10 @@ class SeperateTable extends PureComponent {
 
   // reset scrollTop when data changed
   componentDidUpdate(prevProps) {
+    const { columns } = this.props
     if (!this.tbody) return
     if (this.props.data !== prevProps.data) this.resetHeight()
+    if (columns !== prevProps.columns || columns.length !== prevProps.columns.length) this.resetWidth()
     this.updateScrollLeft()
   }
 
@@ -179,7 +181,9 @@ class SeperateTable extends PureComponent {
     }
   }
 
-  resetWidth(left, right) {
+  resetWidth(left = this.lastResetLeft || 0, right = this.lastResetRight || 0) {
+    this.lastResetLeft = left
+    this.lastResetRight = right
     setTranslate(this.tbody, `-${left}px`, `-${this.lastScrollTop}px`)
     setTranslate(this.thead, `-${left}px`, '0')
     ;[this.thead, this.tbody].forEach(el => {
@@ -348,6 +352,9 @@ class SeperateTable extends PureComponent {
     let dataUpdated = this.lastData !== data // Incorrect height due to changing data length dynamically
     if (this.lastData && !dataUpdated) dataUpdated = this.lastData.length !== data.length
     this.lastData = data
+
+    if (!dataUpdated && this.lastColumns && this.lastColumns.length !== columns.length) dataUpdated = true
+    this.lastColumns = columns
     const prevHeight = this.getSumHeight(0, currentIndex)
     const hasNotRenderRows = data.length > rowsInView
 

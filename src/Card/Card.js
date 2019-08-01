@@ -43,9 +43,9 @@ class Card extends PureComponent {
     else this.setState({ collapsed })
   }
 
-  handleSubmit() {
+  handleSubmit(target) {
     const form = this.element.querySelector('form')
-    if (form) dispatchEvent(form, 'submit')
+    if (form) dispatchEvent(form, 'submit', target)
     else console.error(new Error('No form found.'))
   }
 

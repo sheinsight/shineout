@@ -23,6 +23,7 @@ class Result extends PureComponent {
       /* eslint-disable */
       return (
         <a
+          tabIndex={-1}
           className={className}
           href="javascript:;"
           onClick={onClear}
@@ -37,7 +38,8 @@ class Result extends PureComponent {
   renderPlaceholder() {
     return (
       <span className={classnames(inputClass('placeholder'), selectClass('ellipsis'))}>
-        {this.props.placeholder}&nbsp;
+        {this.props.placeholder}
+        &nbsp;
       </span>
     )
   }
@@ -56,7 +58,7 @@ class Result extends PureComponent {
       const res = n && render(n)
       if (!res) return null
       return (
-        <a className={cascaderClass('item')} onClick={this.handleNodeClick.bind(this, value[i])} key={i}>
+        <a tabIndex={-1} className={cascaderClass('item')} onClick={this.handleNodeClick.bind(this, value[i])} key={i}>
           {res}
         </a>
       )
@@ -64,7 +66,7 @@ class Result extends PureComponent {
 
     if (compressed && nodes.length > 1) {
       items.push(
-        <a key={items.length} className={cascaderClass('item', 'compressed')}>
+        <a tabIndex={-1} key={items.length} className={cascaderClass('item', 'item-compressed')}>
           <span>{`+${nodes.length - 1}`}</span>
         </a>
       )
@@ -82,7 +84,7 @@ class Result extends PureComponent {
         {result}
         {!this.props.multiple && (
           // eslint-disable-next-line
-          <a className={selectClass('indicator', 'caret')} href="javascript:;" />
+          <a tabIndex={-1} className={selectClass('indicator', 'caret')} href="javascript:;" />
         )}
         {this.renderClear()}
       </div>

@@ -29,11 +29,11 @@ export function getParent(el, target) {
   return null
 }
 
-export function dispatchEvent(form, name) {
+export function dispatchEvent(form, name, detail) {
   if (!form) return
   let event
   if (CustomEvent) {
-    event = new CustomEvent(name, { bubbles: false, cancelable: true })
+    event = new CustomEvent(name, { bubbles: false, cancelable: true, detail })
   } else {
     event = document.createEvent('HTMLEvents')
     event.initEvent(name, true, true)
@@ -48,6 +48,18 @@ export function cssSupport(attr, value) {
     return element.style[attr] === value
   }
   return false
+}
+
+export function getCursorOffset(length) {
+  if (window.getSelection) {
+    return window.getSelection().anchorOffset
+  }
+  if (document.selection) {
+    const range = document.selection.createRange()
+    range.moveStart('character', -length)
+    return range.text.length
+  }
+  return null
 }
 
 function end(element) {

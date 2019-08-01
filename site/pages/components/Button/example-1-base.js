@@ -1,8 +1,8 @@
 /**
  * cn - 基本用法
- *    -- Button 内置了几种常用的样式，通过 type 来使用
+ *    -- Button 内置了几种常用的类型，分为默认(default), 主要(primary), 次要(secondary), 成功(success), 警告(warning), 危险(danger)和链接(link)
  * en - Base
- *    -- Button has several built-in styles, used by type.
+ *    -- Button has several built-in type, default, primary, secondary, success, warning, dange, and link.
  */
 import React from 'react'
 import { Button } from 'shineout'

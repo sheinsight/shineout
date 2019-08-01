@@ -9,13 +9,10 @@
  *    -- If input is invalid, the message will not be hidden.
  */
 import React from 'react'
-import { Input } from 'shineout'
+import { Input, Rule } from 'shineout'
 
-const rules = [
-  { required: true, message: 'Please enter your email.' },
-  { type: 'email', message: 'Please enter a valid email.' },
-]
+const rules = new Rule()
 
 export default function() {
-  return <Input placeholder="email" rules={rules} tip="Email, required" popover="top-left" width={300} />
+  return <Input placeholder="email" rules={[rules.required]} tip="Email, required" popover="top-left" width={300} />
 }

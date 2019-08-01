@@ -7,13 +7,13 @@
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | absolute | bool | false | 为 true 时，选项弹出层在 DOM 中独立 render |
+| autoAdapt | bool | false | 是否列表自适应 |
 | clearable | bool | false | 是否可清除值 |
 | multiple | bool | false | 是否是多选 |
 | columns | number | 1 | columns 大于 1 时，选项展示为多列布局模式 |
 | columnWidth | number | 160 | column 单列宽度，仅在 columns 大于 1 时有效 |
 | data | array | 必填 | 数据项，单条数据作为 value 的数据必须是唯一的 |
 | treeData | array | 无 | 树形结构数据项，\[{children: []}\] |
-| datum | object | 无 | 如果 format 和 prediction 属性无法满足需求，可以传入一个 [Datum.List](/components/Datum.List) 对象，或者 Datum.List 配置来处理数据。 |
 | defaultValue | array | | 初始值 |
 | disabled | bool \| function | false | 如果 disabled 为 true，禁用全部选项，如果 disabled 为函数，根据函数反回结果禁用选项 |
 | filterDelay | number | 400 | 毫秒。用户输入触发 fitler 事件的延时 |

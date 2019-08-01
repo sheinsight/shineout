@@ -35,6 +35,7 @@
   }
 
   &-result {
+    cursor: pointer;
     display: flex;
     overflow: auto;
     max-height: 80px;
@@ -90,10 +91,11 @@
       color: inherit;
       text-overflow: ellipsis;
 
-      &.@{treeSelect-prefix}-compressed {
+      &-compressed {
         padding: 0 8px;
         font-size: 80%;
         opacity: .9;
+        text-overflow: unset;
         > span {
           vertical-align: middle;
           letter-spacing: 2px;
@@ -113,17 +115,27 @@
         &:before,
         &:after {
           background-color: @gray-500;
+          width: 8px;
+        }
+
+        &:hover {
+          background-color: transparent;
+
+          &:before,
+          &:after {
+            background-color: @gray-600;
+          }
         }
       }
+    }
+  }
 
-      &:hover .@{treeSelect-prefix}-close {
-        background-color: transparent;
-
-        &:before,
-        &:after {
-          background-color: @gray-600;
-        }
-      }
+  &-compressed {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    .@{treeSelect-prefix}-item {
+      padding-right: @select-result-space;
     }
   }
 
@@ -347,9 +359,17 @@
 
   &-multiple &-result {
     padding-left: @padding-base-horizontal / 2;
-    padding-right: @padding-large-horizontal+22;
+    padding-right: @padding-base-horizontal + 22;
     a.@{treeSelect-prefix}-close.@{treeSelect-prefix}-indicator {
       right: 17px;
+    }
+  }
+
+  &-multiple &-compressed {
+    padding-left: @padding-base-horizontal / 2;
+    padding-right: @padding-base-horizontal + 12;
+    a.@{treeSelect-prefix}-close.@{treeSelect-prefix}-indicator {
+      right: 7px;
     }
   }
 
@@ -362,12 +382,15 @@
   }
 
   &-disabled {
-    .@{treeSelect-prefix}-result .@{treeSelect-prefix}-item {
-      padding-right: @select-result-space;
-      background: @input-bg-disabled;
+    .@{treeSelect-prefix}-result {
+      cursor: not-allowed;
+      .@{treeSelect-prefix}-item {
+        padding-right: @select-result-space;
+        background: @input-bg-disabled;
 
-      .@{treeSelect-prefix}-close {
-        display: none;
+        .@{treeSelect-prefix}-close {
+          display: none;
+        }
       }
     }
   }

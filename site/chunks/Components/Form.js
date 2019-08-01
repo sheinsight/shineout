@@ -86,13 +86,13 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-08-validate.js'),
   },
   {
-    name: '09-validate',
+    name: '09-server-validate',
     title: locate(
-      ' \n 通过 rules 校验，每个字段的 rules 是一个数组，可以使用多条规则。 \n 在处理复杂表单或表单层级比较深的时候，不推荐这种方式，建议使用 Rule，并在 Field 字段上设置 rules.',
-      ' \n Validate by rules.'
+      ' \n 通过给 Form 设置 error，实现后端校验数据展示。在表单值被改变后，对应后端校验数据会被清空。<br />前端校验优先级大于后端校验。',
+      ' \n By setting an error on the Form, the back-end validation data is presented. After the form value is changed, the corresponding back-end validation data is cleared. <br /> front-end validation priority is greater than back-end validation.'
     ),
-    component: require('doc/pages/components/Form/example-09-validate.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-09-validate.js'),
+    component: require('doc/pages/components/Form/example-09-server-validate.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-09-server-validate.js'),
   },
   {
     name: '11-disabled',
@@ -183,6 +183,15 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-21-mode.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-21-mode.js'),
+  },
+  {
+    name: '93-validate',
+    title: locate(
+      '校验(旧) \n 改方法已不建议使用，请使用 Rule \n 通过 rules 校验，每个字段的 rules 是一个数组，可以使用多条规则。',
+      'validate(old) \n please use Rule \n Validate by rules.'
+    ),
+    component: require('doc/pages/components/Form/example-93-validate.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-93-validate.js'),
   },
   {
     name: '94-loop',

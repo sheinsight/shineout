@@ -191,6 +191,33 @@
 @slider-disabled-color: @gray-500;
 @slider-bar-color: @gray-400;
 
+// switch
+@switch-uncheck-bg: @gray-400;
+@switch-checked-bg: @primary-color-fade-50;
+@switch-indicator-uncheck-bg: #fff;
+@switch-indicator-checked-bg: @colors-primary;
+@switch-checked-box-shadow: 0 1px 4px @primary-color-fade-50;
+@switch-uncheck-box-shadow: 0 1px 4px @gray-500;
+@switch-indicator-padding-horizontal: 0px;
+@switch-indicator-size: 24px;
+@switch-bg-width: 44px;
+@switch-bg-border-radius: @switch-bg-width / 2;
+@switch-bg-height: 16px;
+@switch-font-size: 12px;
+@switch-indicator-top: -(@switch-indicator-size / 2 - @switch-bg-height / 2);
+
+@switch-small-indicator-size: 16px;
+@switch-small-bg-width: 28px;
+@switch-small-bg-border-radius: @switch-small-bg-width / 2;
+@switch-small-bg-height: 10px;
+@switch-small-indicator-top: -(@switch-small-indicator-size / 2 - @switch-small-bg-height / 2);
+
+@switch-large-indicator-size: 32px;
+@switch-large-bg-width: 60px;
+@switch-large-bg-border-radius: @switch-large-bg-width / 2;
+@switch-large-bg-height: 22px;
+@switch-large-indicator-top: -(@switch-large-indicator-size / 2 - @switch-large-bg-height / 2);
+
 // tabs
 @tabs-link-padding: 10px 15px;
 @tabs-link-spacing: 4px;
@@ -198,6 +225,7 @@
 @tabs-link-background: @gray-200;
 @tabs-border-color: #ddd;
 @tabs-line-active-color: @colors-primary;
+@tabs-header-margin:              0;
 
 // progress
 @progress-bg-color: @gray-200;
@@ -242,3 +270,8 @@
 
 // dropdown
 @dropdown-arrow-vertical: middle;
+
+@color-rgba: rgba(red(@input-border-focus), green(@input-border-focus), blue(@input-border-focus), 0.25);
+
+@datepicker-margin:        8px;
+@datepicker-radius:        50px;

@@ -1,5 +1,7 @@
 # DatePicker *日期选择*
 
+####   <br />*请注意date-fns的 format 字符串 与 Moment.js 的区别: [区别](https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md)
+
 <example />
 
 ## API
@@ -21,6 +23,8 @@
 | defaultTime | string | 无 | 选择日期时默认的时间, 格式为: 'HH:mm:ss' |
 | absolute | bool | false | 为 true 时，选项弹出层在 DOM 中独立 render |
 | zIndex | number | 1000 | 选择面板 z-index 值 |
+| allowSingle | boolean | false | 是否允许单选, 仅在 range 模式下有效 | 
+| quickSelect | array<object> | false | 快速选择, 仅在 range 模式下有效, name: 文字提示, value: 时间范围 | 
 
 
 ### Format
@@ -29,7 +33,7 @@
 moment: YYYY  => date-fns: yyyy <br />
 moment: DD&nbsp;&nbsp;&nbsp;&nbsp; => date-fns: dd <br />
 moment: hh&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  => date-fns: HH<br />
-常用的 format 格式如下，更多见 [UTS #35](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table)
+常用的 format 格式如下，更多见 [format](https://date-fns.org/v2.0.0-alpha.20/docs/format)
 
 | 格式 | 说明 | 示例 |
 | --- | --- | --- |
@@ -38,8 +42,8 @@ moment: hh&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  => date-fns: HH<br />
 | Q | 季度 | 1, 2, 3, 4 |
 | d | 日 |	1, 2, ..., 31
 | dd | 日（补0） |	01, 02, ..., 31 |
-| W | 周 | 1, 2, ..., 53 |
-| WW | 周（补0）| 01, 02, ..., 53 |
+| w | 周 | 1, 2, ..., 53 |
+| ww | 周（补0）| 01, 02, ..., 53 |
 | yy | 年 | 00, 01, ..., 99 |
 | yyyy | 完整年 | 1900, 1901, ..., 2099 |
 | a | AM/PM | AM, PM |

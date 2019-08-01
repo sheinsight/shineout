@@ -138,6 +138,10 @@
     border-color: @color;
     .input-focus-color(@color);
   }
+  &:focus {
+    outline: none;
+    .input-focus()
+  }
 
   position: relative;
   display: block;

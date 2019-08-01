@@ -1,6 +1,6 @@
 // https://stackoverflow.com/questions/19098797/fastest-way-to-flatten-un-flatten-nested-json-objects
 
-import { isEmpty } from './is'
+import { isEmpty, isObject } from './is'
 import { deepClone } from './clone'
 
 export function insertPoint(name) {
@@ -130,6 +130,9 @@ export const getSthByName = (name, source = {}) => {
     if (result) result = result[n]
     else result = undefined
   })
+
+  // get from form-error
+  if (!result && isObject(source[''])) result = source[''][name]
 
   return result
 }

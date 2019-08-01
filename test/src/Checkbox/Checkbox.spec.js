@@ -5,7 +5,6 @@ import CheckboxStatus from '../../../site/pages/components/Checkbox/example-02-c
 import CheckboxRawGroup from '../../../site/pages/components/Checkbox/example-04-rawgroup'
 import CheckboxGroup from '../../../site/pages/components/Checkbox/example-05-group'
 import CheckboxFormat from '../../../site/pages/components/Checkbox/example-06-format'
-import CheckboxDatum from '../../../site/pages/components/Checkbox/example-07-datum'
 import CheckboxBlock from '../../../site/pages/components/Checkbox/example-08-block'
 import CheckboxDisabled from '../../../site/pages/components/Checkbox/example-09-disabled'
 import CheckboxDisabledFunc from '../../../site/pages/components/Checkbox/example-10-disabled'
@@ -57,7 +56,7 @@ describe('Checkbox[htmlValue]', () => {
   test('should return htmlValue', () => {
     const fn = jest.fn()
     const checkedText = 'ok'
-    const wrapper = mount(<Checkbox htmlValue={checkedText} onChange={fn}/>)
+    const wrapper = mount(<Checkbox htmlValue={checkedText} onChange={fn} />)
     wrapper.find('input').simulate('change', {
       target: {
         checked: true,
@@ -77,9 +76,7 @@ describe('Checkbox[RawGroup]', () => {
 describe('Checkbox[Group-Datum]', () => {
   test('should render checkbox while have data prop', () => {
     const wrapper = mount(<CheckboxGroup />)
-    const wrapperDatum = mount(<CheckboxDatum />)
     expect(wrapper.find('CheckItem').length).toBe(wrapper.find(Checkbox.Group).prop('data').length)
-    expect(wrapperDatum.find('CheckItem').length).toBe(wrapperDatum.find(Checkbox.Group).prop('data').length)
   })
 })
 

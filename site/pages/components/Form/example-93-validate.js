@@ -1,8 +1,9 @@
 /**
- * cn -
+ * cn -  校验(旧)
+ *    -- 改方法已不建议使用，请使用 Rule
  *    -- 通过 rules 校验，每个字段的 rules 是一个数组，可以使用多条规则。
- *    -- 在处理复杂表单或表单层级比较深的时候，不推荐这种方式，建议使用 Rule，并在 Field 字段上设置 rules.
- * en -
+ * en -  validate(old)
+ *    -- please use Rule
  *    -- Validate by rules.
  */
 import React from 'react'

@@ -221,11 +221,12 @@
     }
   }
 
-  &:focus {
-    color: @color;
-    // box-shadow: 0 0 0 @btn-focus-width fade(@border, 50%);
-  }
+  // &:focus {
+  //   // color: @color;
+  //   // box-shadow: 0 0 0 @btn-focus-width fade(@border, 50%);
+  // }
 
+  &:focus,
   &:hover {
     .button-case-border-color(@outline);
     .button-case-background(@background);
@@ -262,6 +263,7 @@
   background: transparent;
   color: @border;
 
+  &:focus,
   &:hover {
     background-color: @background;
     color: @color;

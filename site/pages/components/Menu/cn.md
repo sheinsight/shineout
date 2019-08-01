@@ -16,3 +16,4 @@
 | openKeys | array | [] | 展开的菜单(受控) | 
 | onClick | function | null | 子菜单点击事件,参数为当条数据|
 | style | object | 无 | 最外层扩展样式 |
+| inlineIndent | number | 24 | 每一层缩进宽度 |

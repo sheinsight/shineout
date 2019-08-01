@@ -20,9 +20,9 @@ function Item({ renderResult, data, disabled, onClick }) {
   const click = disabled || !onClick ? undefined : () => onClick(value)
   const synDisabled = disabled || !click
   return (
-    <a className={selectClass('item', synDisabled && 'disabled')} onClick={click}>
+    <a tabIndex={-1} className={selectClass('item', disabled && 'disabled')}>
       {getResultContent(data, renderResult)}
-      {!synDisabled && <span className={selectClass('indicator', 'close')} />}
+      {!synDisabled && <span className={selectClass('indicator', 'close')} onClick={click} />}
     </a>
   )
 }
@@ -48,6 +48,7 @@ class Result extends PureComponent {
       return (
         <div onClick={onClear} className={selectClass('close-warpper')}>
           <a
+          tabIndex={-1}
           data-role="close"
           className={selectClass('indicator', 'close')}
           href="javascript:;"
@@ -61,7 +62,7 @@ class Result extends PureComponent {
   }
 
   renderInput(text, key = 'input') {
-    const { multiple, onFilter, focus, onInputFocus, onInputBlur, setInputReset } = this.props
+    const { multiple, onFilter, trim, focus, onInputFocus, onInputBlur, setInputReset } = this.props
     return (
       <Input
         key={`${key}.${focus ? 1 : 0}`}
@@ -71,6 +72,7 @@ class Result extends PureComponent {
         multiple={multiple}
         focus={focus}
         text={text}
+        trim={trim}
         onFilter={onFilter}
         setInputReset={setInputReset}
       />
@@ -109,7 +111,7 @@ class Result extends PureComponent {
 
       if (compressed && result.length > 1) {
         items.push(
-          <a key={result.length} className={selectClass('item', 'compressed')}>
+          <a tabIndex={-1} key={result.length} className={selectClass('item', 'item-compressed')}>
             <span>{`+${result.length - 1}`}</span>
           </a>
         )
@@ -130,14 +132,15 @@ class Result extends PureComponent {
   }
 
   render() {
+    const { compressed } = this.props
     const result = this.props.result.length === 0 ? this.renderPlaceholder() : this.renderResult()
 
     return (
-      <div className={selectClass('result')}>
+      <div className={selectClass('result', compressed && 'compressed')}>
         {result}
         {!this.props.multiple && (
           // eslint-disable-next-line
-          <a className={selectClass('indicator', 'caret')} href="javascript:;" />
+          <a tabIndex={-1} className={selectClass('indicator', 'caret')} href="javascript:;" />
         )}
         {this.renderClear()}
       </div>
@@ -161,6 +164,7 @@ Result.propTypes = {
   placeholder: PropTypes.string,
   setInputReset: PropTypes.func,
   compressed: PropTypes.bool,
+  trim: PropTypes.bool,
 }
 
 export default Result

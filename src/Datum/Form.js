@@ -37,7 +37,7 @@ export default class {
     this.deepSetOptions = { removeUndefined, forceSet: true }
 
     if (value) this.setValue(value, initValidate ? undefined : IGNORE_VALIDATE)
-    if (error) this.setError('', error)
+    if (error) this.resetFormError(error)
   }
 
   handleChange() {
@@ -136,6 +136,36 @@ export default class {
     return getSthByName(name, this.$errors)
   }
 
+  resetFormError(error = {}) {
+    if (!this.$errors['']) this.$errors[''] = {}
+    let items
+    if (Object.keys(error).length) {
+      items = Object.keys(error).reduce((data, item) => {
+        data[item] = error[item] instanceof Error ? error[item] : new Error(error[item])
+        return data
+      }, {})
+    } else {
+      items = Object.keys(this.$errors['']).reduce((data, name) => {
+        data[name] = undefined
+        return data
+      }, {})
+    }
+    Object.keys(items).map(n => this.setFormError(n, items[n]))
+  }
+
+  removeFormError(name) {
+    if (!this.$errors[''] || !this.$errors[''][name]) return
+    this.setFormError(name)
+  }
+
+  setFormError(name, error) {
+    if (!this.$errors['']) return
+    if (error === undefined) delete this.$errors[''][name]
+    else this.$errors[''][name] = error
+    this.dispatch(errorSubscribe(name), this.getError(name), name, ERROR_TYPE)
+    this.dispatch(updateSubscribe(name))
+  }
+
   setError(name, error, pub) {
     if (error === undefined) delete this.$errors[name]
     else this.$errors[name] = error
@@ -194,7 +224,7 @@ export default class {
       console.warn(`There is already an item with name "${name}" exists. The name props must be unique.`)
     }
 
-    if (value !== undefined && !this.get(name)) {
+    if (value !== undefined && this.get(name) == null) {
       this.set(name, value, true)
       this.dispatch(changeSubscribe(name))
       this.dispatch(CHANGE_TOPIC)
@@ -223,7 +253,11 @@ export default class {
 
     deepRemove(this.$values, name)
 
-    this.handleChange()
+    if (!this.formUnmount) {
+      setTimeout(() => {
+        this.handleChange()
+      })
+    }
   }
 
   dispatch(name, ...args) {

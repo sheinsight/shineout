@@ -9,11 +9,13 @@ import utils from './utils'
 import Picker from './Picker'
 import Range from './Range'
 import Text from './Text'
+import { getUidStr } from '../utils/uid'
 import { isArray } from '../utils/is'
 import { getParent } from '../utils/dom/element'
 import absoluteList from '../List/AbsoluteList'
 import { docSize } from '../utils/dom/document'
 import List from '../List'
+import DateFns from './utils'
 
 const FadeList = List(['fade'], 'fast')
 const OptionList = absoluteList(({ focus, ...other }) => <FadeList show={focus} {...other} />)
@@ -26,21 +28,30 @@ class Container extends PureComponent {
       focus: false,
       current: this.getCurrent(),
       position: props.position,
+      picker0: false,
+      picker1: false,
     }
 
+    this.pickerId = `picker_${getUidStr()}`
     this.bindElement = this.bindElement.bind(this)
     this.bindPicker = this.bindPicker.bind(this)
-    this.handleFocus = this.handleToggle.bind(this, true)
+    this.handleClick = this.handleToggle.bind(this, true)
     this.handleBlur = this.handleToggle.bind(this, false)
+    this.handleFocus = this.handleFocus.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleClear = this.handleClear.bind(this)
+    this.handleHover = this.handleHover.bind(this)
     this.handleTextChange = this.handleTextChange.bind(this)
     this.parseDate = this.parseDate.bind(this)
+    this.dateToCurrent = this.dateToCurrent.bind(this)
+    this.shouldFocus = this.shouldFocus.bind(this)
 
     this.bindClickAway = this.bindClickAway.bind(this)
     this.clearClickAway = this.clearClickAway.bind(this)
     this.handleClickAway = this.handleClickAway.bind(this)
     this.getDefaultTime = this.getDefaultTime.bind(this)
+    this.getQuick = this.getQuick.bind(this)
 
     this.firstRender = false
   }
@@ -60,9 +71,9 @@ class Container extends PureComponent {
       })
       if (current.length === 0) current = [utils.newDate(), utils.newDate()]
 
-      if (utils.compareMonth(current[0], current[1], -1) >= 0) {
-        current[1] = utils.addMonths(current[0], 1)
-      }
+      // if (utils.compareMonth(current[0], current[1], -1) >= 0) {
+      //   current[1] = utils.addMonths(current[0], 1)
+      // }
     } else {
       current = this.parseDate(this.props.value)
     }
@@ -72,7 +83,11 @@ class Container extends PureComponent {
 
   getFormat() {
     const { format, type } = this.props
-    if (format) return format
+    if (format) {
+      if (type === 'week') return format.replace(/y/g, 'Y')
+
+      return format
+    }
     switch (type) {
       case 'date':
         return 'yyyy-MM-dd'
@@ -81,10 +96,26 @@ class Container extends PureComponent {
       case 'time':
         return 'HH:mm:ss'
       case 'week':
-        return 'yyyy WW'
+        return 'YYYY ww'
       default:
         return 'yyyy-MM-dd HH:mm:ss'
     }
+  }
+
+  getQuick(format) {
+    const { quickSelect } = this.props
+
+    if (!Array.isArray(quickSelect)) return undefined
+
+    return quickSelect.map(q => {
+      if (!q.value || q.value.length !== 2) return { name: q.name, invalid: true }
+      const date = q.value.map(v => DateFns.toDateWithFormat(v, format))
+      if (DateFns.isInvalid(date[0]) || DateFns.isInvalid(date[1])) return { name: q.name, invalid: true }
+      return {
+        name: q.name,
+        value: date,
+      }
+    })
   }
 
   getDefaultTime() {
@@ -107,24 +138,56 @@ class Container extends PureComponent {
   }
 
   bindClickAway() {
-    document.addEventListener('click', this.handleClickAway)
+    document.addEventListener('mousedown', this.handleClickAway)
   }
 
   clearClickAway() {
-    document.removeEventListener('click', this.handleClickAway)
+    document.removeEventListener('mousedown', this.handleClickAway)
+  }
+
+  shouldFocus(el) {
+    if (el.getAttribute('data-id') === this.pickerId) return true
+    if (getParent(el, `.${datepickerClass('result')}`)) return true
+    return false
   }
 
   handleClickAway(e) {
     const onPicker = e.target === this.element || this.element.contains(e.target)
     const onAbsolutePicker = getParent(e.target, `.${datepickerClass('location')}`)
     if (!onPicker && !onAbsolutePicker) {
+      this.clearClickAway()
       this.handleToggle(false)
+      this.props.onBlur()
     }
   }
 
-  handleToggle(focus) {
+  handleFocus(e) {
+    if (!this.shouldFocus(e.target)) return
+    this.props.onFocus(e)
+    this.bindClickAway()
+  }
+
+  handleKeyDown(e) {
+    if (e.keyCode === 13) {
+      e.preventDefault()
+      this.handleToggle(!this.state.focus)
+    }
+
+    // fot close the list
+    if (e.keyCode === 9) {
+      this.props.onBlur(e)
+      // e.preventDefault()
+      if (this.state.focus) this.handleToggle(false)
+      else this.clearClickAway()
+    }
+  }
+
+  handleToggle(focus, e) {
     if (this.props.disabled === true) return
     if (focus === this.state.focus) return
+
+    // click close icon
+    if (focus && e && e.target.classList.contains(datepickerClass('close'))) return
 
     this.setState(
       immer(state => {
@@ -152,11 +215,10 @@ class Container extends PureComponent {
 
     if (focus === true) {
       this.firstRender = true
-      this.props.onFocus()
+      // this.props.onFocus()
       this.bindClickAway()
     } else {
-      this.props.onBlur()
-      this.clearClickAway()
+      this.props.onValueBlur()
     }
   }
 
@@ -180,20 +242,38 @@ class Container extends PureComponent {
     })
   }
 
-  handleChange(date, change, blur) {
+  dateToCurrent(date) {
+    const { range } = this.props
+    if (!range) return date
+
+    const { current } = this.state
+
+    return [date[0] || current[0], date[1] || current[1]]
+  }
+
+  handleChange(date, change, blur, isEnd) {
+    // is range only select one
+    const rangeOne = this.props.range && !(date[0] && date[1])
+
     const format = this.getFormat()
 
     let value
-    if (this.props.range) value = date.map(v => utils.format(v, format))
+    if (this.props.range) value = date.map(v => (v ? utils.format(v, format) : v))
     else value = utils.format(date, format)
 
-    const callback = blur ? this.handleBlur : undefined
+    let callback
+    if (!this.props.range) callback = blur ? this.handleBlur : undefined
+    else {
+      callback = blur && isEnd && !rangeOne ? this.handleBlur : undefined
+    }
+
+    const newCurrent = this.dateToCurrent(date)
 
     if (change) {
-      this.setState({ current: date })
+      this.setState({ current: newCurrent })
       this.props.onChange(value, callback)
     } else {
-      this.setState({ current: date }, callback)
+      this.setState({ current: newCurrent }, callback)
     }
   }
 
@@ -201,15 +281,25 @@ class Container extends PureComponent {
     e.stopPropagation()
     const value = this.props.range ? ['', ''] : ''
     this.props.onChange(value, () => {
-      this.props.onBlur()
+      this.props.onValueBlur()
       this.handleToggle(false)
+      this.element.focus()
+    })
+  }
+
+  handleHover(index, isEnter) {
+    this.setState({
+      [`picker${index}`]: isEnter,
     })
   }
 
   renderText(value, placeholder, key) {
     const { inputable, formatResult } = this.props
     const date = this.parseDate(value)
-    const className = classnames(datepickerClass('txt'), utils.isInvalid(date) && inputClass('placeholder'))
+    const className = classnames(
+      datepickerClass('txt', this.state[`picker${key}`] && 'text-focus'),
+      utils.isInvalid(date) && inputClass('placeholder')
+    )
     const resultFormat = formatResult || this.getFormat()
     return (
       <Text
@@ -217,6 +307,7 @@ class Container extends PureComponent {
         className={className}
         focus={this.state.focus}
         format={resultFormat}
+        element={this.element}
         index={key}
         inputable={inputable}
         placeholder={placeholder}
@@ -241,7 +332,9 @@ class Container extends PureComponent {
         {range
           ? [
               this.renderText(value[0], placeholder[0], 0),
-              <span key="-">~</span>,
+              <span key="-" className={datepickerClass('separate')}>
+                ~
+              </span>,
               this.renderText(value[1], placeholder[1], 1),
             ]
           : this.renderText(value, placeholder)}
@@ -272,8 +365,9 @@ class Container extends PureComponent {
   renderPicker() {
     if (!this.firstRender) return undefined
 
-    const { range, type, value, disabled } = this.props
+    const { range, type, value, min, max, disabled, allowSingle } = this.props
     const format = this.getFormat()
+    const quicks = this.getQuick(format)
     const Component = range ? Range : Picker
 
     return (
@@ -286,14 +380,21 @@ class Container extends PureComponent {
         onChange={this.handleChange}
         type={type}
         range={range}
+        quicks={quicks}
         value={range ? (value || []).map(v => this.parseDate(v)) : this.parseDate(value)}
         showTimePicker={!!value}
-      />
+        allowSingle={allowSingle}
+        handleHover={this.handleHover}
+        min={DateFns.toDateWithFormat(min, format)}
+        max={DateFns.toDateWithFormat(max, format)}
+      >
+        {this.props.children}
+      </Component>
     )
   }
 
   render() {
-    const { range, size } = this.props
+    const { range, size, disabled } = this.props
     const { focus } = this.state
 
     const className = datepickerClass(
@@ -301,11 +402,21 @@ class Container extends PureComponent {
       range && 'range',
       size && `size-${size}`,
       focus && 'focus',
+      disabled === true && 'disabled',
       this.state.position
     )
 
     return (
-      <div className={className} tabIndex={-1} ref={this.bindElement} onClick={this.handleFocus}>
+      <div
+        // eslint-disable-next-line
+        tabIndex={ disabled === true ? -1 : 0}
+        className={className}
+        onFocus={this.handleFocus}
+        data-id={this.pickerId}
+        ref={this.bindElement}
+        onClick={this.handleClick}
+        onKeyDown={this.handleKeyDown}
+      >
         {this.renderResult()}
         {this.renderWrappedPicker()}
       </div>
@@ -327,16 +438,23 @@ Container.propTypes = {
   range: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   size: PropTypes.string,
   type: PropTypes.string,
+  allowSingle: PropTypes.bool,
   defaultTime: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object, PropTypes.array]),
   absolute: PropTypes.bool,
   zIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  onValueBlur: PropTypes.func,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  quickSelect: PropTypes.array,
+  min: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
+  max: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
 }
 
 Container.defaultProps = {
   clearable: true,
   placeholder: <span>&nbsp;</span>,
   type: 'date',
+  allowSingle: false,
 }
 
 export default Container

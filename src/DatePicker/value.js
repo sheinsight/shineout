@@ -12,6 +12,7 @@ export default Origin =>
       range: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
       type: PropTypes.string,
       value: PropTypes.any,
+      allowSingle: PropTypes.bool,
     }
 
     constructor(props) {
@@ -20,6 +21,7 @@ export default Origin =>
       this.state = { value: props.value }
       this.handleBlur = this.handleBlur.bind(this)
       this.handleChange = this.handleChange.bind(this)
+      this.rangeWithSingle = this.rangeWithSingle.bind(this)
     }
 
     componentDidMount() {
@@ -55,11 +57,16 @@ export default Origin =>
       }
     }
 
+    rangeWithSingle() {
+      if (!this.state.value) return false
+      return this.props.range && !this.props.allowSingle && this.state.value.filter(v => v).length === 1
+    }
+
     convertValue(value) {
       const { range } = this.props
       if (!value) {
         this.setState({ value })
-        return
+        return undefined
       }
       const format = this.getFormat()
 
@@ -96,13 +103,22 @@ export default Origin =>
     }
 
     handleBlur() {
-      this.props.onChange(this.state.value)
-      this.props.onBlur()
+      if (this.rangeWithSingle()) {
+        this.setState({ value: this.props.value })
+      } else if (this.state.value !== this.props.value) this.props.onChange(this.state.value)
     }
 
     render() {
       const { value } = this.state
 
-      return <Origin {...this.props} onChange={this.handleChange} onBlur={this.handleBlur} value={value} />
+      return (
+        <Origin
+          {...this.props}
+          onChange={this.handleChange}
+          onValueBlur={this.handleBlur}
+          onBlur={this.props.onBlur}
+          value={value}
+        />
+      )
     }
   }

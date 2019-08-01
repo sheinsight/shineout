@@ -1,12 +1,16 @@
 import React, { Component, isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import { selectClass } from '../styles'
-import { focusElement } from '../utils/dom/element'
+import { focusElement, getCursorOffset } from '../utils/dom/element'
 
 const focusSelectAll = element => {
   requestAnimationFrame(() => {
     focusElement.select(element)
   })
+}
+
+const handleFocus = e => {
+  e.stopPropagation()
 }
 
 class FilterInput extends Component {
@@ -16,6 +20,7 @@ class FilterInput extends Component {
     this.bindElement = this.bindElement.bind(this)
     this.handleInput = this.handleInput.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
+    this.handlePaste = this.handlePaste.bind(this)
 
     // for mutiple select
     this.props.setInputReset(this.reset.bind(this))
@@ -39,6 +44,12 @@ class FilterInput extends Component {
     this.focus()
   }
 
+  getProcessedValue(text) {
+    const { trim } = this.props
+    if (!trim && this.lastCursorOffset === 0 && /^\u00A0$/.test(text)) return ''
+    return trim ? text.trim() : text.replace(/\u00A0/g, ' ')
+  }
+
   reset() {
     if (this.editElement) this.editElement.innerText = ''
     if (this.blurTimer) clearTimeout(this.blurTimer)
@@ -53,11 +64,23 @@ class FilterInput extends Component {
   }
 
   handleInput(e) {
-    this.props.onFilter(e.target.innerText.replace('\feff ', '').trim())
+    const text = e.target.innerText.replace('\feff ', '')
+    this.lastCursorOffset = getCursorOffset(text.length)
+    this.props.onFilter(this.getProcessedValue(text))
   }
 
   handleBlur(e) {
-    this.props.onInputBlur(e.target.innerText.replace('\feff ', '').trim())
+    const text = e.target.innerText.replace('\feff ', '')
+    this.props.onInputBlur(this.getProcessedValue(text))
+  }
+
+  handlePaste(e) {
+    const text = (e.clipboardData || window.clipboardData).getData('text')
+    if (!text) return
+    e.preventDefault()
+    this.editElement.innerText = text
+    focusElement.end(this.editElement)
+    this.handleInput({ target: { innerText: text } })
   }
 
   render() {
@@ -81,7 +104,9 @@ class FilterInput extends Component {
         ref={this.bindElement}
         contentEditable={focus}
         onInput={this.handleInput}
+        onFocus={handleFocus}
         onBlur={this.handleBlur}
+        onPaste={this.handlePaste}
         dangerouslySetInnerHTML={{ __html: value }}
       />
     )
@@ -97,6 +122,7 @@ FilterInput.propTypes = {
   updatAble: PropTypes.bool,
   setInputReset: PropTypes.func.isRequired,
   text: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  trim: PropTypes.bool,
 }
 
 FilterInput.defaultProps = {

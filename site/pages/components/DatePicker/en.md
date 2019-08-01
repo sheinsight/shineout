@@ -1,5 +1,7 @@
 # Datepicker
 
+####   <br />*Please note that the format tokens differ from Moment.js and other libraries: [differ](https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md)
+
 <example />
 
 ## API
@@ -21,6 +23,8 @@
 | defaultTime | string | - | Default time when selecting a date, the format is: 'HH:mm:ss' |
 | absolute | bool | false | When it is true, the pop-up layer of option append into document.body. |
 | zIndex | number | 1000 | panel z-index |
+| allowSingle | boolean | false | allow single select, only in range can set | 
+| quickSelect | array<object> | false | quick select, only in range can set, name: tip, value: range date | 
 
 ### Format
 

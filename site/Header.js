@@ -87,7 +87,7 @@ const Header = ({ versions }) => {
       docsearch({
         appId: 'T20UAXDNF8',
         apiKey: '0bd92ae792815ca5cb44b9e0f392fa8c',
-        indexName: `shineout`,
+        indexName: process.env.LOG_ENV === 'rc' ? `shineout-rc` : `shineout`,
         inputSelector: '#algolia-doc-search',
         algoliaOptions: { facetFilters: [`lang: ${locate('cn', 'en')}`] },
         // transformData(hits) {

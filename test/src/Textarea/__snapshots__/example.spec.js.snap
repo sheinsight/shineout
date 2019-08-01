@@ -25,3 +25,9 @@ exports[`Snapshot test: Textarea[site/pages/components/Textarea/example-3-info.j
   <textarea />
 </label>
 `;
+
+exports[`Snapshot test: Textarea[site/pages/components/Textarea/example-4-custom.js] 1`] = `
+<label>
+  <textarea />
+</label>
+`;
