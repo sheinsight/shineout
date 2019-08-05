@@ -5,7 +5,7 @@ import Icon from './Icon'
 import utils from './utils'
 import { getLocale } from '../locale'
 
-const MONTHBASE = '2019-10-01 00:00:00'
+const MONTHBASE = '2019-01-01 00:00:00'
 
 class Month extends PureComponent {
   constructor(props) {
@@ -36,9 +36,10 @@ class Month extends PureComponent {
   }
 
   renderMonth(m, i) {
-    const { value, min, disabled, range, type } = this.props
+    const { value, min, disabled, range, type, current } = this.props
     const date = new Date(MONTHBASE)
     date.setMonth(i)
+    date.setFullYear(current.getFullYear())
 
     let isDisabled = min && utils.compareMonth(min, date, 1) >= 0
 
