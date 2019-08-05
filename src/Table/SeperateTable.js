@@ -169,6 +169,10 @@ class SeperateTable extends PureComponent {
       }
 
       if (index === 0) {
+        this.lastScrollTop = 0
+        setTimeout(() => {
+          this.setState({ scrollTop: 0 })
+        })
         this.tbody.style.marginTop = '0px'
         setTranslate(this.tbody, `-${offsetLeft}px`, '0px')
       } else {
