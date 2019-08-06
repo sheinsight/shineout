@@ -4,6 +4,7 @@ import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
 import { setTranslate } from '../utils/dom/translate'
 import { range, split } from '../utils/numbers'
+import { compareColumns } from '../utils/shallowEqual'
 import { getParent } from '../utils/dom/element'
 import { tableClass } from '../styles'
 import Scroll from '../Scroll'
@@ -51,6 +52,10 @@ class SeperateTable extends PureComponent {
     if (this.props.data !== prevProps.data) this.resetHeight()
     if (columns !== prevProps.columns || columns.length !== prevProps.columns.length) this.resetWidth()
     this.updateScrollLeft()
+
+    if (!compareColumns(prevProps.columns, this.props.columns)) {
+      this.setState({ colgroup: undefined })
+    }
   }
 
   getIndex(scrollTop = this.state.scrollTop) {
