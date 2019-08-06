@@ -25,6 +25,8 @@
 | zIndex | number | 1000 | panel z-index |
 | allowSingle | boolean | false | allow single select, only in range can set | 
 | quickSelect | array<object> | false | quick select, only in range can set, name: tip, value: range date | 
+| min | string \| number \| Date | none | option min value |
+| max | string \| number \| Date | none | option max value |
 
 ### Format
 

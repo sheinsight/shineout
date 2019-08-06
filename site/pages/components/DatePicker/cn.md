@@ -25,7 +25,8 @@
 | zIndex | number | 1000 | 选择面板 z-index 值 |
 | allowSingle | boolean | false | 是否允许单选, 仅在 range 模式下有效 | 
 | quickSelect | array<object> | false | 快速选择, 仅在 range 模式下有效, name: 文字提示, value: 时间范围 | 
-
+| min | string \| number \| Date | 无 | 可选最小值，暂不支持 range 模式 |
+| max | string \| number \| Date | 无 | 可选最大值，暂不支持 range 模式 |
 
 ### Format
 
