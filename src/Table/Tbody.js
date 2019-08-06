@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import immer from 'immer'
 import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
+import { compareColumns } from '../utils/shallowEqual'
 import { getKey } from '../utils/uid'
 import Tr from './Tr'
 
@@ -94,7 +95,7 @@ class Tbody extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.colgroupSetted || this.props.columns.length !== prevProps.columns.length) {
+    if (!this.colgroupSetted || !compareColumns(prevProps.columns, this.props.columns)) {
       this.bodyRender()
     }
   }
