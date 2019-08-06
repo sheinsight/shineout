@@ -55,7 +55,7 @@ class Result extends PureComponent {
 
     const neededResult = compressed ? nodes.slice(0, 1) : nodes
     const items = neededResult.map((n, i) => {
-      const res = n && render(n)
+      const res = n && render(n, nodes)
       if (!res) return null
       return (
         <a tabIndex={-1} className={cascaderClass('item')} onClick={this.handleNodeClick.bind(this, value[i])} key={i}>
