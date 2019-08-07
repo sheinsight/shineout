@@ -99,8 +99,8 @@ class Day extends PureComponent {
     const { hover } = this.state
     let isDisabled = disabled ? disabled(date) : false
 
-    // onyl for single
-    if (!range && !isDisabled) {
+    // onyl for single, single picker don't has index
+    if (index === undefined && !isDisabled) {
       if ((minD && utils.compareAsc(date, minD) < 0) || (maxD && utils.compareAsc(date, maxD) > 0)) isDisabled = true
     }
 
