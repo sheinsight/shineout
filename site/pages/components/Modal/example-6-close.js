@@ -42,10 +42,10 @@ export default class extends React.Component {
   render() {
     return (
       <div>
-        <Button onClick={this.show}>click me</Button>
+        <Button onClick={this.show}>Click me</Button>
         <Modal
           visible={this.state.visible}
-          maskCloseAble={null}
+          maskCloseAble
           width={500}
           height={300}
           title="Modal Title"

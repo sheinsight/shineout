@@ -25,7 +25,7 @@ const examples = [
   {
     name: '2-special',
     title: locate(
-      '类型 \n Modal 内置了 4 个类型的样式，为了方便调用，设计为静态函数',
+      '类型 \n Modal 内置了 4 个类型的样式：info（纯信息展示，不带有状态）、Success、Warn 和 Error，为了方便调用，设计为静态函数。',
       'Type \n Modal has 4 built in style.'
     ),
     component: require('doc/pages/components/Modal/example-2-special.js').default,
@@ -34,7 +34,7 @@ const examples = [
   {
     name: '3-confirm',
     title: locate(
-      '确认框 \n 调用 confirm 函数显示确认框。',
+      '确认框 \n 调用 confirm 函数可以快捷的显示确认框，便于用户操作；同时可以通过 text 配置 Modal 按钮文案，onOk 与 onClose 配置 Modal 确认和取消事件回调（当事件返回 Promise 时会等待 Promise resolve 后关闭 Modal）',
       'Confirm \n The confirmation modal dialog.'
     ),
     component: require('doc/pages/components/Modal/example-3-confirm.js').default,
@@ -43,7 +43,7 @@ const examples = [
   {
     name: '4-form',
     title: locate(
-      '表单 \n Modal 内部的表单，可以用 Modal.Submit 来代替 Button',
+      '表单 \n Modal 支持 Form 表单，并且支持 Form 的所有特性，表单提交可以使用 Modal.Submit 来代替 Button[type=submit]',
       'Form \n The internal form of Modal can use Modal.Submit to trigger submit.'
     ),
     component: require('doc/pages/components/Modal/example-4-form.js').default,
@@ -52,7 +52,7 @@ const examples = [
   {
     name: '5-multistage',
     title: locate(
-      '多层 Modal \n 支持多层 Modal',
+      '多层 Modal \n 支持多层叠加 Modal',
       'Multistage \n Multi-layer Modal'
     ),
     component: require('doc/pages/components/Modal/example-5-multistage.js').default,
@@ -70,7 +70,7 @@ const examples = [
   {
     name: '7-position',
     title: locate(
-      '位置 \n 通过position设置弹出位置。',
+      '位置（抽屉） \n 通过 position 可设置 Modal 弹出的位置，这时 Modal 就如 Drawer 一样。现支持 top、right、bottom 和 left 四个位置配置。',
       'Position \n Set position property to specify the pop-up position.'
     ),
     component: require('doc/pages/components/Modal/example-7-position.js').default,

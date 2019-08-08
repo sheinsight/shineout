@@ -1,8 +1,8 @@
 /**
- * cn - 通知提醒
- *    -- 设置 positoin 参数，修改显示位置。借此可以实现 Notification 的功能。
+ * cn - 弹出位置
+ *    -- 设置 positoin 参数，修改显示位置，可以实现消息提醒展示位置，可选值：top, middle, top-left, top-right, bottom-left, bottom-right。
  * en - Notification
- *    -- Set position property to specify the pop-up layer location.
+ *    -- Set position property to specify the pop-up layer location, optional value: top, middle, top-left, top-right, bottom-left, bottom-right.
  */
 import React from 'react'
 import { Button, Message, Select } from 'shineout'
@@ -28,7 +28,7 @@ export default class extends React.Component {
         position:
         <Select
           keygen
-          data={['top-left', 'top-right', 'bottom-left', 'bottom-right']}
+          data={['top', 'middle', 'top-left', 'top-right', 'bottom-left', 'bottom-right']}
           onChange={this.setPosition}
           value={this.state.position}
           width={200}
