@@ -15,6 +15,7 @@ import { getParent } from '../utils/dom/element'
 import absoluteList from '../List/AbsoluteList'
 import { docSize } from '../utils/dom/document'
 import List from '../List'
+import { getLocale } from '../locale'
 import DateFns from './utils'
 
 const FadeList = List(['fade'], 'fast')
@@ -84,7 +85,7 @@ class Container extends PureComponent {
   getFormat() {
     const { format, type } = this.props
     if (format) {
-      if (type === 'week') return format.replace(/y/g, 'Y')
+      if (type === 'week' && format.indexOf('I') > -1) return format.replace(/y/g, 'Y')
 
       return format
     }
@@ -96,7 +97,7 @@ class Container extends PureComponent {
       case 'time':
         return 'HH:mm:ss'
       case 'week':
-        return 'YYYY ww'
+        return 'RRRR II'
       default:
         return 'yyyy-MM-dd HH:mm:ss'
     }
@@ -258,8 +259,18 @@ class Container extends PureComponent {
     const format = this.getFormat()
 
     let value
-    if (this.props.range) value = date.map(v => (v ? utils.format(v, format) : v))
-    else value = utils.format(date, format)
+    if (this.props.range)
+      value = date.map(v =>
+        v
+          ? utils.format(v, format, {
+              weekStartsOn: getLocale('startOfWeek'),
+            })
+          : v
+      )
+    else
+      value = utils.format(date, format, {
+        weekStartsOn: getLocale('startOfWeek'),
+      })
 
     let callback
     if (!this.props.range) callback = blur ? this.handleBlur : undefined

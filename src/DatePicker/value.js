@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import shallowEqual from '../utils/shallowEqual'
 import utils from './utils'
+import { getLocale } from '../locale'
 
 export default Origin =>
   class extends Component {
@@ -51,7 +52,7 @@ export default Origin =>
         case 'time':
           return 'HH:mm:ss'
         case 'week':
-          return 'yyyy WW'
+          return 'RRRR II'
         default:
           return 'yyyy-MM-dd'
       }
@@ -71,7 +72,9 @@ export default Origin =>
       const format = this.getFormat()
 
       if (!range) {
-        const newValue = utils.format(utils.toDateWithFormat(value, format, undefined), format)
+        const newValue = utils.format(utils.toDateWithFormat(value, format, undefined), format, {
+          weekStartsOn: getLocale('startOfWeek'),
+        })
         if (newValue !== value) this.props.onChange(newValue)
         else if (newValue !== this.state.value) this.setState({ value: newValue })
         return newValue
@@ -79,7 +82,9 @@ export default Origin =>
 
       const newValue = value.map(v => {
         if (!v) return undefined
-        return utils.format(utils.toDateWithFormat(v, format, undefined), format)
+        return utils.format(utils.toDateWithFormat(v, format, undefined), format, {
+          weekStartsOn: getLocale('startOfWeek'),
+        })
       })
 
       if (!shallowEqual(newValue, value)) {

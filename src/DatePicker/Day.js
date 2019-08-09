@@ -51,9 +51,9 @@ class Day extends PureComponent {
     const { type, allowSingle, rangeDate, min, max, index } = this.props
     const current = this.formatWithDefaultTime()
     if (type === 'week') {
-      if (date.getDay() === 0) {
-        date = utils.addDays(date, 1)
-      }
+      // if (date.getDay() === 0) {
+      //   date = utils.subDays(date, 1)
+      // }
       this.props.onChange(date, true, true)
     } else {
       let newDate = new Date(
@@ -118,13 +118,32 @@ class Day extends PureComponent {
 
     let hoverClass
     const hoverProps = {}
+    const weekStart = getLocale('startOfWeek')
+    const weekEnd = weekStart ? 0 : 6
     if (type === 'week') {
       hoverProps.onMouseEnter = this.handleWeek.bind(this, date)
       hoverProps.onMouseLeave = this.handleWeekLeave
-      if (utils.isSameWeek(date, value)) {
-        hoverClass = datepickerClass('active', date.getDay() === 0 && 'hover-start', date.getDay() === 6 && 'hover-end')
-      } else if (hover && utils.isSameWeek(date, hover)) {
-        hoverClass = datepickerClass('hover', date.getDay() === 0 && 'hover-start', date.getDay() === 6 && 'hover-end')
+      if (
+        utils.isSameWeek(date, value, {
+          weekStartsOn: weekStart,
+        })
+      ) {
+        hoverClass = datepickerClass(
+          'active',
+          date.getDay() === weekStart && 'hover-start',
+          date.getDay() === weekEnd && 'hover-end'
+        )
+      } else if (
+        hover &&
+        utils.isSameWeek(date, hover, {
+          weekStartsOn: weekStart,
+        })
+      ) {
+        hoverClass = datepickerClass(
+          'hover',
+          date.getDay() === weekStart && 'hover-start',
+          date.getDay() === weekEnd && 'hover-end'
+        )
       }
     } else if (rangeDate && current.getMonth() === date.getMonth()) {
       hoverProps.onMouseEnter = this.handleDayHover.bind(this, date)
