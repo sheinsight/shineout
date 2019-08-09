@@ -8,5 +8,5 @@ import React from 'react'
 import { DatePicker } from 'shineout'
 
 export default function() {
-  return <DatePicker type="week" format="YYYY Www" defaultValue={Date.now()} />
+  return <DatePicker type="week" defaultValue={Date.now()} />
 }
