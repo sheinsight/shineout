@@ -44,7 +44,7 @@ const examples = [
     name: '04-inline',
     title: locate(
       '水平布局 \n 设置 inline 属性使 Form 变为水平布局',
-      'Inline \n Set the inline to true make the Form horizontal.'
+      'Inline \n Set the inline property to true to make the Form horizontal.'
     ),
     component: require('doc/pages/components/Form/example-04-inline.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-04-inline.js'),
@@ -71,7 +71,7 @@ const examples = [
     name: '07-validate',
     title: locate(
       '校验 \n 通过 Rule 对象，可以使用内置的规则。规则详见 Rule',
-      'Validate \n Use Rule∂ to create new rules object.'
+      'Validate \n Creating new rules object through built-in Rule.'
     ),
     component: require('doc/pages/components/Form/example-07-validate.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-07-validate.js'),
@@ -107,7 +107,7 @@ const examples = [
     name: '12-field',
     title: locate(
       '字段 \n 支持 value 和 onChange 的组件可以放在 Form.Field 中。 \n children 为 ReactElement时，必须支持 value 和 onChange 属性 \n children 为 Function 时，返回一个或一组 ReactElement，在函数内部自行处理 value 和 onChange',
-      'Field \n Components that support value property and onChange property can be placed in a Form.Field . \n When the children property is a ReactElement, the value property and onChange property must be supported. \n When the children property is a function, return one or one group of ReactElement.'
+      'Field \n Components that support value property and onChange property can be put in a Form.Field . \n When the children property is a ReactElement, the value and onChange property must be provided. \n When the children property is a function, return one or one group of ReactElement.'
     ),
     component: require('doc/pages/components/Form/example-12-field.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-12-field.js'),
@@ -151,7 +151,7 @@ const examples = [
   {
     name: '17-flow',
     title: locate(
-      '联动 \n 在某些情况下，Form 不通过 value 和 onChange 方式处理数据，只是在 submit 的时候获取数据提交。 \n 这种情况下，需要联动时，可以使用 Flow 组件来实现。如果设置了 names 属性，只监听 names 包含的字段变化，如果没有设置，会监听 Form 内所有数据的变化。',
+      '联动 \n 在通常情况下，Form 不通过 value 和 onChange 方式处理数据，只是在 submit 的时候获取数据提交。 \n 这种情况下，需要联动时，可以使用 Flow 组件来实现。如果设置了 names 属性，只监听 names 包含的字段变化，如果没有设置，会监听 Form 内所有数据的变化。',
       'Flow \n For performance reasons, internal data of the Form is isolated and changing one component does not trigger another component to change. \n If one component depends on another component\'s value, place it in the Flow component.'
     ),
     component: require('doc/pages/components/Form/example-17-flow.js').default,
@@ -170,7 +170,7 @@ const examples = [
     name: '20-array',
     title: locate(
       '数组 name \n 数据为数组类型的组件，name 可以传入一个相应的数组，来分别处理数组内的单个数据',
-      'Array name \n The name of component whose data is an array can be passed in a corresponding array to process individual data in the array.'
+      'Array name \n While the component\'s data type is array, name can accept an array to process item individually.'
     ),
     component: require('doc/pages/components/Form/example-20-array.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-20-array.js'),
@@ -179,7 +179,7 @@ const examples = [
     name: '21-mode',
     title: locate(
       '模式 \n 使用 Form.useMode 可以创建一组指定 key 的组件，配合 Form 设置的 mode 属性过滤显示指定的元素',
-      'Mode \n Form.useMode create a set of components, filters the specified element with the mode attribute of the Form.'
+      'Mode \n Form.useMode creates a set of components, filters the specified element with the mode attribute of the Form.'
     ),
     component: require('doc/pages/components/Form/example-21-mode.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-21-mode.js'),
@@ -197,7 +197,7 @@ const examples = [
     name: '94-loop',
     title: locate(
       '遍历 (旧) \n <b>Form.Loop 已不建议使用，请使用 Form.FieldSet。</b> \n Form.Loop 通过 name 属性从 Form 中获取一个类型为 array 的 value，遍历这个 value 生成一组子组件。',
-      'Loop (Out of date) \n <b>Form.Loop is not recommend, use Form.FieldSet instead.</b> \n Form.Loop takes a value whose type is the array from the form via the name property, and iterates over this value to generate a set of subcomponents.'
+      'Loop (Out of date) \n <b>Form.Loop is not recommend, use Form.FieldSet instead.</b> \n Form.Loop takes a value which type is the array from the form through the name property, furthermore iterates over this value to generate a set of subcomponents.'
     ),
     component: require('doc/pages/components/Form/example-94-loop.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-94-loop.js'),
@@ -206,7 +206,7 @@ const examples = [
     name: '95-block',
     title: locate(
       '表单块 (旧) \n <b>Form.Block已不推荐，建议使用 FieldSet</b> \n Block 类似 Form，可以存取数据，只是没有 Submit 能力。一般用在 Form 中处理复杂数据。 \n Block 内组件设置的 name 只在这个 Block 内有效，只能存取 Block 的 value 中的数据，不能存取 Form 的数据。',
-      'Block (Out of date) \n <b>Not recommend, use FieldSet instead.</b> \n Block is similar to Form, can access data, but does not have the ability to submit. \n The name set in the Block component is valid only in this block. It can only access the data in the value of the block and cannot access the data of the Form.'
+      'Block (Out of date) \n <b>Not recommend, use FieldSet instead.</b> \n Block is similar to Form except submit \n The name set in the Block component is valid only in this block. It can only access the data in the value of instead of the Form.'
     ),
     component: require('doc/pages/components/Form/example-95-block.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-95-block.js'),
@@ -224,7 +224,7 @@ const examples = [
     name: '97-nested',
     title: locate(
       '嵌套数据 (旧) \n <b>Form.Block已不推荐，建议使用 FieldSet</b> \n Form.Block 配合 Form.Field 使用，可以处理多层嵌套数据',
-      'BlockField (Out of date) \n <b>Form.Block is not recommend, use FieldSet instead.</b> \n Form.Block can handle multiple levels of nested data by working with Form.Field.'
+      'BlockField (Out of date) \n <b>Form.Block is not recommend, use FieldSet instead.</b> \n Form.Block can handle multiple levels of nested data well through Form.Field.'
     ),
     component: require('doc/pages/components/Form/example-97-nested.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-97-nested.js'),

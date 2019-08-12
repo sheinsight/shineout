@@ -1,4 +1,5 @@
 # Modal *对话框*
+在不跳转页面的前提下，可以使用 Modal 展示次要内容或者操作。
 
 <example />
 
@@ -9,7 +10,7 @@
 | className | string | 无 | 扩展className |
 | bodyStyle | object | - | 扩展 modal body 的样式 |
 | destroy | boolean | false | 关闭时是否销毁元素 |
-| footer | ReactElement \| null | 无 | 底部内容 |
+| footer | ReactElement \| Array \| null | 无 | 底部内容 |
 | maskCloseAble | bool | true | 点击遮罩层是否关闭对话框 |
 | maskOpacity | number | 0.25 | 遮罩层透明度 |
 | padding | number\|string | 16 | 内容内边距 |
@@ -19,7 +20,7 @@
 | usePortal | bool | true | 为 true 时，使用 ReactDOM.createPortal 创建弹出层，为 false 时，使用 ReactDOM.render |
 | visible | bool | false | 是否显示 |
 | width | number \| string | 500 | 对话框宽度 |
-| zIndex | number | 1050 | 对话框 z-index 值 |
+| zIndex | number | 1050 | 对话框 z-index 值，注意：如 Modal 嵌套 Select 组件，并且 Select 组件含有 absolute 字段，需要修改 Select 的 z-index的值 |
 
 ### Methods
 

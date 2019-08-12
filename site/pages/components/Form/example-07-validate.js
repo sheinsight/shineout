@@ -2,7 +2,7 @@
  * cn - 校验
  *    -- 通过 Rule 对象，可以使用内置的规则。规则详见 Rule
  * en - Validate
- *    -- Use Rule∂ to create new rules object.
+ *    -- Creating new rules object through built-in Rule.
  */
 import React from 'react'
 import { Form, Input, Checkbox, Rule } from 'shineout'
