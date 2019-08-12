@@ -5,7 +5,7 @@
  *    -- A simpler way to handle multi-level nested data is to separate the field names in name with '.' .
  */
 import React, { PureComponent } from 'react'
-import { Form, Input, Checkbox } from 'shineout'
+import { Form, Input, Checkbox, Rule } from 'shineout'
 
 export default class extends PureComponent {
   initValue = {
@@ -22,18 +22,12 @@ export default class extends PureComponent {
     },
   }
 
-  rules = {
-    'account.age': [
-      { required: true, message: 'Please enter age.' },
-      { min: 18, max: 60, message: 'Age must between {min} and {max}.' },
-    ],
-  }
+  rules = new Rule()
 
   render() {
     return (
       <Form
         value={this.initValue}
-        rules={this.rules}
         onSubmit={data => {
           console.log(data)
         }}
@@ -54,8 +48,15 @@ export default class extends PureComponent {
           </Input.Group>
         </Form.Item>
 
-        <Form.Item label="Account Age">
-          <Input style={{ width: 100 }} name="account.age" type="number" digits={0} defaultValue={0} />
+        <Form.Item label="Account Age" required>
+          <Input
+            style={{ width: 100 }}
+            rules={[this.rules.required]}
+            name="account.age"
+            type="number"
+            digits={0}
+            defaultValue={0}
+          />
         </Form.Item>
 
         <Form.Item label="Favorite Color">
