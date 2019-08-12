@@ -479,7 +479,6 @@ Select.propTypes = {
 
 Select.defaultProps = {
   clearable: false,
-  columns: 1,
   data: [],
   height: 250,
   itemsInView: 10,
