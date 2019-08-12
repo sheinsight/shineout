@@ -357,7 +357,7 @@ class Select extends PureComponent {
       props[k] = this.props[k]
     })
 
-    const List = props.columns > 1 ? WrappedBoxList : WrappedOptionList
+    const List = props.columns >= 1 ? WrappedBoxList : WrappedOptionList
 
     return (
       <List
