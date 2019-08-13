@@ -1,8 +1,8 @@
 /**
  * cn -
- *    -- 示例：创建选项和 filter 配合使用
+ *    -- 示例：创建选项和 filter(前端过滤) 配合使用
  * en -
- *    -- Example: Create options with filter
+ *    -- Example: Create options with filter(front-end filtering).
  */
 import React from 'react'
 import { Select } from 'shineout'

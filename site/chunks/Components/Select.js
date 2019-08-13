@@ -34,8 +34,8 @@ const examples = [
   {
     name: '01-multiple',
     title: locate(
-      '多选 \n multiple 属性为true时，为多选状态，默认为单选',
-      'Multiple \n Set the multiple property to true, it is multi-selection.'
+      '多选 \n multiple 属性为true时，为多选状态，默认为单选 \n compressed属性为true时，将选中值合并，只在多选模式下有效',
+      'Multiple \n Set the multiple property to true, it is multi-selection. \n Set the compressed property to true to merge selected values, valid only in multiselect mode.'
     ),
     component: require('doc/pages/components/Select/example-01-multiple.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-01-multiple.js'),
@@ -48,6 +48,15 @@ const examples = [
     ),
     component: require('doc/pages/components/Select/example-02-format.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-02-format.js'),
+  },
+  {
+    name: '02-prediction',
+    title: locate(
+      ' \n 返回原始数据的对象时，借助 prediction 函数来判断是否匹配',
+      ' \n When the type of value is object,use the function of prediction to match.'
+    ),
+    component: require('doc/pages/components/Select/example-02-prediction.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-02-prediction.js'),
   },
   {
     name: '04-clearable',
@@ -122,13 +131,31 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Select/example-11-create.js'),
   },
   {
+    name: '11-createObj',
+    title: locate(
+      ' \n 通过输入创建一个对象',
+      ' \n Set the onCreate property can create options(type of Object) by inputting.'
+    ),
+    component: require('doc/pages/components/Select/example-11-createObj.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-11-createObj.js'),
+  },
+  {
     name: '12-create',
     title: locate(
-      ' \n 示例：创建选项和 filter 配合使用',
-      ' \n Example: Create options with filter'
+      ' \n 示例：创建选项和 filter(前端过滤) 配合使用',
+      ' \n Example: Create options with filter(front-end filtering).'
     ),
     component: require('doc/pages/components/Select/example-12-create.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-12-create.js'),
+  },
+  {
+    name: '12-createWithFilter',
+    title: locate(
+      ' \n 示例：创建选项和 filter(服务端过滤) 配合使用',
+      ' \n Example: Create options with filter(filter data from server)'
+    ),
+    component: require('doc/pages/components/Select/example-12-createWithFilter.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-12-createWithFilter.js'),
   },
   {
     name: '13-absolute',
