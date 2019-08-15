@@ -300,6 +300,7 @@ class SeperateTable extends PureComponent {
       this.setState({ currentIndex: 0 })
     } else {
       // wheel scroll
+
       this.lastScrollTop += pixelY
       if (this.lastScrollTop < 0) this.lastScrollTop = 0
 
@@ -346,7 +347,6 @@ class SeperateTable extends PureComponent {
     const colgroup = []
     for (let i = 0, count = tds.length; i < count; i++) {
       const width = tds[i].offsetWidth
-      debugger
       const colSpan = parseInt(tds[i].getAttribute('colspan'), 10)
       if (colSpan > 1) {
         split(width, range(colSpan).map(j => columns[i + j].width)).forEach(w => colgroup.push(w))
