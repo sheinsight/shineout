@@ -212,6 +212,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-20-select.js'),
   },
   {
+    name: '21-drag-column',
+    title: locate(
+      '可伸缩列 \n 设置 columnResizable，使所有列可伸缩。<br />可在columns中设置某一列 columnResizable: false 来取消伸缩该列。',
+      'Fixed head \n Set the columnResizable property to make all columns resizable. set columnResizable: false on columns item to cancel resizable.'
+    ),
+    component: require('doc/pages/components/Table/example-21-drag-column.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-21-drag-column.js'),
+  },
+  {
     name: '21-expand',
     title: locate(
       '可展开 \n 需要展开行时，可以增加一个 type 为 \'expand\' 的 column，render 函数返回函数时，表示此行可以展开，内容为此函数返回结果',

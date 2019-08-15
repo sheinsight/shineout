@@ -7,10 +7,13 @@ import { getProps, defaultProps } from '../utils/proptypes'
 import { tableClass } from '../styles'
 import Datum from '../Datum'
 import Spin from '../Spin'
+import resizableHOC from './resizable'
 import SimpleTable from './SimpleTable'
 import SeperateTable from './SeperateTable'
 import { ROW_HEIGHT_UPDATE_EVENT } from './Tr'
 import { RENDER_COL_GROUP_EVENT } from './Tbody'
+
+const ResizeSeperateTable = resizableHOC(SeperateTable)
 
 class Table extends Component {
   constructor(props) {
@@ -57,6 +60,7 @@ class Table extends Component {
       width,
       loading,
       verticalAlign,
+      columnResizable,
       ...others
     } = this.props
 
@@ -71,7 +75,8 @@ class Table extends Component {
         fixed && 'fixed',
         scrollLeft > 0 && 'left-float',
         scrollRight < 0 && 'right-float',
-        `vertical-${verticalAlign}`
+        `vertical-${verticalAlign}`,
+        columnResizable && 'resize'
       ),
       this.props.className
     )
@@ -88,11 +93,13 @@ class Table extends Component {
       columns,
       striped,
       bordered,
+      columnResizable,
     }
 
     const isEmpty = (!data || data.length === 0) && !children
     const useSeparate = fixed && !isEmpty
-    const RenderTable = useSeparate ? SeperateTable : SimpleTable
+    const ResizeTable = columnResizable ? ResizeSeperateTable : SeperateTable
+    const RenderTable = useSeparate ? ResizeTable : SimpleTable
     const newStyle = Object.assign({}, style)
     if (height) newStyle.height = height
     if (useSeparate && !newStyle.height) newStyle.height = '100%'
@@ -129,6 +136,7 @@ Table.propTypes = {
   striped: PropTypes.bool,
   verticalAlign: PropTypes.oneOf(['top', 'middle']),
   width: PropTypes.number,
+  columnResizable: PropTypes.bool,
 }
 
 Table.defaultProps = {

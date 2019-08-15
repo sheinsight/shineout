@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import immer from 'immer'
 import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
 import { setTranslate } from '../utils/dom/translate'
@@ -47,13 +48,11 @@ class SeperateTable extends PureComponent {
 
   // reset scrollTop when data changed
   componentDidUpdate(prevProps) {
-    const { columns } = this.props
     if (!this.tbody) return
     if (this.props.data !== prevProps.data) this.resetHeight()
-    if (columns !== prevProps.columns || columns.length !== prevProps.columns.length) this.resetWidth()
     this.updateScrollLeft()
-
     if (!compareColumns(prevProps.columns, this.props.columns)) {
+      this.resetWidth()
       this.setState({ colgroup: undefined })
     }
   }
@@ -113,6 +112,14 @@ class SeperateTable extends PureComponent {
     }
 
     if (oldHeight && height !== oldHeight) {
+      if (this.lastScrollTop > this.getContentHeight()) {
+        this.handleScroll(
+          ...immer(this.lastScrollArgs, draft => {
+            draft[1] = 1
+          })
+        )
+        return
+      }
       this.setState({ scrollTop: this.lastScrollTop / this.getContentHeight() })
     }
   }
@@ -293,7 +300,6 @@ class SeperateTable extends PureComponent {
       this.setState({ currentIndex: 0 })
     } else {
       // wheel scroll
-
       this.lastScrollTop += pixelY
       if (this.lastScrollTop < 0) this.lastScrollTop = 0
 
@@ -340,6 +346,7 @@ class SeperateTable extends PureComponent {
     const colgroup = []
     for (let i = 0, count = tds.length; i < count; i++) {
       const width = tds[i].offsetWidth
+      debugger
       const colSpan = parseInt(tds[i].getAttribute('colspan'), 10)
       if (colSpan > 1) {
         split(width, range(colSpan).map(j => columns[i + j].width)).forEach(w => colgroup.push(w))
@@ -362,7 +369,7 @@ class SeperateTable extends PureComponent {
     if (this.lastData && !dataUpdated) dataUpdated = this.lastData.length !== data.length
     this.lastData = data
 
-    if (!dataUpdated && this.lastColumns && this.lastColumns.length !== columns.length) dataUpdated = true
+    if (!dataUpdated && this.lastColumns && !compareColumns(this.lastColumns, columns)) dataUpdated = true
     this.lastColumns = columns
     const prevHeight = this.getSumHeight(0, currentIndex)
     const hasNotRenderRows = data.length > rowsInView
@@ -401,7 +408,7 @@ class SeperateTable extends PureComponent {
   }
 
   render() {
-    const { columns, fixed, width } = this.props
+    const { columns, fixed, width, onResize } = this.props
     const { colgroup, scrollLeft, floatFixed } = this.state
 
     const floatClass = []
@@ -423,7 +430,7 @@ class SeperateTable extends PureComponent {
       <div key="head" className={tableClass('head', ...floatClass)} ref={this.bindHeadWrapper}>
         <table style={{ width }} ref={this.bindThead}>
           <Colgroup colgroup={colgroup} columns={columns} />
-          <Thead {...this.props} onSortChange={this.handleSortChange} />
+          <Thead {...this.props} onSortChange={this.handleSortChange} onColChange={onResize} />
         </table>
       </div>,
       this.renderBody(floatClass),
@@ -442,6 +449,7 @@ SeperateTable.propTypes = {
   tableRef: PropTypes.func,
   width: PropTypes.number,
   scrollLeft: PropTypes.number,
+  onResize: PropTypes.func,
 }
 
 SeperateTable.defaultProps = {

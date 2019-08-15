@@ -96,7 +96,9 @@ class Tbody extends PureComponent {
 
   componentDidUpdate(prevProps) {
     if (!this.colgroupSetted || !compareColumns(prevProps.columns, this.props.columns)) {
-      this.bodyRender()
+      setTimeout(() => {
+        this.bodyRender()
+      })
     }
   }
 
