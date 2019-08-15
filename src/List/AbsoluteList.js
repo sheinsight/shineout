@@ -36,6 +36,13 @@ export default function(List) {
       root.appendChild(this.element)
     }
 
+    componentDidUpdate(prevProps) {
+      if (prevProps.value === this.props.value) return
+      setTimeout(() => {
+        this.forceUpdate()
+      })
+    }
+
     componentWillUnmount() {
       const { absolute } = this.props
       if (!absolute) return
@@ -136,6 +143,8 @@ export default function(List) {
         scrollElement,
         autoClass,
         zIndex,
+        // do not need the value
+        value,
         ...props
       } = this.props
       const mergeClass = classnames(listClass('absolute-wrapper'), rootClass, autoClass)
@@ -160,6 +169,7 @@ export default function(List) {
     zIndex: PropTypes.number,
     style: PropTypes.object,
     autoClass: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
   }
 
   return scrollConsumer(AbsoluteList)
