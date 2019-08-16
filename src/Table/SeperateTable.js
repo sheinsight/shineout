@@ -115,7 +115,7 @@ class SeperateTable extends PureComponent {
       if (this.lastScrollTop > this.getContentHeight()) {
         this.handleScroll(
           ...immer(this.lastScrollArgs, draft => {
-            draft[1] = 1
+            draft[7] = 1
           })
         )
         return
