@@ -12,12 +12,15 @@ import parse from 'date-fns/parse'
 import startOfMonth from 'date-fns/startOfMonth'
 import startOfWeek from 'date-fns/startOfWeek'
 import toDate from 'date-fns/toDate'
+import { getLocale } from '../locale'
 
 const TIME_FORMAT = 'HH:mm:ss'
 
 function getDaysOfMonth(dirtyDate) {
   const date = toDate(dirtyDate)
-  let current = startOfWeek(startOfMonth(date))
+  let current = startOfWeek(startOfMonth(date), {
+    weekStartsOn: getLocale('startOfWeek'),
+  })
   current.setHours(dirtyDate.getHours())
   current.setMinutes(dirtyDate.getMinutes())
   current.setSeconds(dirtyDate.getSeconds())
@@ -41,7 +44,10 @@ function isInvalid(date) {
 
 function toDateWithFormat(dirtyDate, fmt, def) {
   let date
-  if (typeof dirtyDate === 'string') date = parse(dirtyDate, fmt, new Date())
+  if (typeof dirtyDate === 'string')
+    date = parse(dirtyDate, fmt, new Date(), {
+      weekStartsOn: getLocale('startOfWeek'),
+    })
   else date = toDate(dirtyDate)
 
   if (isInvalid(date)) date = toDate(dirtyDate)

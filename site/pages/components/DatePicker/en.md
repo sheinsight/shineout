@@ -12,7 +12,7 @@
 | clearable | bool | true | whether it can be cleared |
 | defaultValue | string \| number \| Date \| array | - | default |
 | disabled | bool \| function | false | When the value is true, disabled all options; When the value is function, disable the options that this function returns true. |
-| format | string | | default values for different types: <br />'date': 'yyyy-MM-dd'<br />'time': 'HH:mm:ss'<br />'week': 'yyyy WW'<br />'month': 'yyyy-MM'<br />'datetime': 'yyyy-MM-dd HH:mm:ss' |
+| format | string | | default values for different types: <br />'date': 'yyyy-MM-dd'<br />'time': 'HH:mm:ss'<br />'week': 'RRRR II'<br />'month': 'yyyy-MM'<br />'datetime': 'yyyy-MM-dd HH:mm:ss' |
 | formatResult | string | props.format | Format the selected time |
 | onChange | function(d) | | a callback when the value is changing |
 | placeholder | string \| array | - | placeholder text<br />When the range property is not empty, it is an array of length 2. |
@@ -25,6 +25,8 @@
 | zIndex | number | 1000 | panel z-index |
 | allowSingle | boolean | false | allow single select, only in range can set | 
 | quickSelect | array<object> | false | quick select, only in range can set, name: tip, value: range date | 
+| min | string \| number \| Date | none | option min value |
+| max | string \| number \| Date | none | option max value |
 
 ### Format
 
@@ -41,8 +43,8 @@ The commonly used format is as follows
 | Q | quarter | 1, 2, 3, 4 |
 | d | day |	1, 2, ..., 31
 | dd | day(fill up 0) |	01, 02, ..., 31 |
-| W | week | 1, 2, ..., 53 |
-| WW | week(fill up 0) | 01, 02, ..., 53 |
+| I | ISO week | 1, 2, ..., 53 |
+| II | ISO week(fill up 0) | 01, 02, ..., 53 |
 | yy | year | 00, 01, ..., 99 |
 | yyyy | full year | 1900, 1901, ..., 2099 |
 | a | AM/PM | AM, PM |

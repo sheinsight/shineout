@@ -18,7 +18,7 @@
 | onChange | function(array) | 无 | 设置 onChange 属性时，显示 选择框。参数为当前选中值，和 mode 属性相关 |
 | onItemChange | function(key, d) | 无 | 节点点击触发事件 |
 | renderItem | string \| function(d) | 必填 | 为 string 时，返回 d\[string]<br />为 function 时，返回函数结果 |
-| renderResult | string \| function(d) | renderItem | 选中后在结果中显示的内容，默认和 renderItem 相同 |
+| renderResult | string \| function(d, result) | renderItem | 选中后在结果中显示的内容，默认和 renderItem 相同。返回 null 则不展示，result 为当前选中的所有值。 |
 | value | array\[key] | 无 | 选中的 key （受控） | 
 | absolute | bool | false | 为 true 时，选项弹出层在 DOM 中独立 render |
 | compressed | bool | false | 将选中值合并 |

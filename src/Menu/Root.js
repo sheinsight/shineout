@@ -221,7 +221,7 @@ class Root extends React.Component {
 
     let bottomLine = 0
     let topLine = 0
-    if (showScroll && this.container) {
+    if (this.container) {
       const rect = this.container.getBoundingClientRect()
       bottomLine = rect.bottom
       topLine = rect.top

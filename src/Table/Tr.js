@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { setTranslate } from '../utils/dom/translate'
-import { tableClass, inputClass } from '../styles'
+import { tableClass, inputClass, checkinputClass } from '../styles'
 import Td, { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
 import Expand from './Expand'
 
@@ -12,7 +12,7 @@ const isExpandableElement = el => {
   const { tagName } = el
   if (tagName === 'TD' || tagName === 'TR') return true
   if (tagName === 'A' || tagName === 'BUTTON' || tagName === 'INPUT') return false
-  if (el.classList.contains(inputClass('_'))) return false
+  if (el.classList.contains(inputClass('_')) || el.classList.contains(checkinputClass('_'))) return false
   if (!el.parentElement) return false
   return isExpandableElement(el.parentElement)
 }

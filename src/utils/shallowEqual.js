@@ -16,13 +16,18 @@ function getOption(options, key) {
   return Array.isArray(val) ? val : [val]
 }
 
-export default function (objA, objB, options = {}) {
+export function compareColumns(columns1, columns2) {
+  if (columns1.length !== columns2.length) return false
+
+  return columns1.every((c, i) => c.title === columns2[i].title)
+}
+
+export default function(objA, objB, options = {}) {
   if (is(objA, objB)) {
     return true
   }
 
-  if (typeof objA !== 'object' || objA === null
-      || typeof objB !== 'object' || objB === null) {
+  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
     return false
   }
 

@@ -5,8 +5,8 @@
  *    -- Block 内组件设置的 name 只在这个 Block 内有效，只能存取 Block 的 value 中的数据，不能存取 Form 的数据。
  * en - Block (Out of date)
  *    -- <b>Not recommend, use FieldSet instead.</b>
- *    -- Block is similar to Form, can access data, but does not have the ability to submit.
- *    -- The name set in the Block component is valid only in this block. It can only access the data in the value of the block and cannot access the data of the Form.
+ *    -- Block is similar to Form except submit
+ *    -- The name set in the Block component is valid only in this block. It can only access the data in the value of instead of the Form.
  */
 import React, { PureComponent } from 'react'
 import { Form, Input } from 'shineout'
