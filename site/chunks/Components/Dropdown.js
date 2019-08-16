@@ -67,6 +67,15 @@ const examples = [
     component: require('doc/pages/components/Dropdown/example-6-type.js').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-6-type.js'),
   },
+  {
+    name: '7-base',
+    title: locate(
+      '绝对定位 \n 如果选项弹出层的父容器被遮挡，可以设置 absolute 属性使弹出选项在单独层中渲染。',
+      'Absolute \n If the parent container of the pop-up layer is occluded, you can set the absolute property to make the pop-up options rendered in a separate layer.'
+    ),
+    component: require('doc/pages/components/Dropdown/example-7-base.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-7-base.js'),
+  },
 ]
 
 const codes = undefined

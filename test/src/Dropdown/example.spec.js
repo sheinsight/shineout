@@ -1,3 +1,5 @@
 import exampleTest from '../../example'
 
-exampleTest('Dropdown')
+exampleTest('Dropdown', {
+  ignore: 'example-7-base.js',
+})
