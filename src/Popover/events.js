@@ -55,7 +55,8 @@ export function show(props, id) {
     div.style[k] = style[k]
   })
 
-  div.setAttribute('raw-left', style.left)
+  if (style.right) div.setAttribute('raw-right', style.right)
+  if (style.left) div.setAttribute('raw-left', style.left)
   div.setAttribute('raw-top', style.top)
   div.style.background = background || ''
   inner.style.background = background || ''
