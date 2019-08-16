@@ -60,9 +60,10 @@ export function show(props, id, innerStyle) {
   }
 }
 
-export function move(id, left, top) {
+export function move(id, left, top, right) {
   if (id === currentId) {
-    div.style.left = `${left}px`
+    if (right) div.style.right = `${right}px`
+    if (left) div.style.left = `${left}px`
     div.style.top = `${top}px`
   }
 }
