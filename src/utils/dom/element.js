@@ -82,9 +82,9 @@ function select(element) {
     return
   }
   if (window.getSelection && document.createRange) {
-    element.focus()
+    if (element) element.focus()
     const range = document.createRange()
-    range.selectNodeContents(element)
+    if (element) range.selectNodeContents(element)
     const sel = window.getSelection()
     sel.removeAllRanges()
     sel.addRange(range)
