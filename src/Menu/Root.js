@@ -337,7 +337,6 @@ Root.defaultProps = {
   renderItem: 'title',
   defaultOpenKeys: [],
   onClick: () => true,
-  linkKey: 'link',
 }
 
 export default Root

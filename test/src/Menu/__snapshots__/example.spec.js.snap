@@ -65,6 +65,30 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-base.js] 1`] =
 </div>
 `;
 
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-link.js] 1`] = `
+<div>
+  <div>
+    <ul>
+      <li>
+        <a>
+          Google
+        </a>
+      </li>
+      <li>
+        <a>
+          strackoverflow
+        </a>
+      </li>
+      <li>
+        <a>
+          github
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
 exports[`Snapshot test: Menu[site/pages/components/Menu/example-2-horizontal.js] 1`] = `
 <div>
   <div>
