@@ -705,6 +705,15 @@ const injects = {
         type: 'color',
       },
       {
+        name: 'headFontWeight',
+        className: exposeClass('table-head'),
+        attr: 'fontWeight',
+        type: 'number',
+        max: 900,
+        min: 100,
+        parser: parseInt,
+      },
+      {
         name: 'borderColor',
         className: exposeClass('table-head'),
         attr: 'borderColor',
@@ -714,6 +723,12 @@ const injects = {
         name: 'hoverBg',
         className: exposeClass('table-head-hover'),
         attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
+        name: 'textColor',
+        className: exposeClass('table'),
+        attr: 'color',
         type: 'color',
       },
       {
@@ -739,9 +754,19 @@ const injects = {
         '--table-head-color': v,
       })
     },
+    set headFontWeight(v) {
+      setBodyProperty({
+        '--table-head-font-weight': `${parseInt(v, 10)}`,
+      })
+    },
     set borderColor(v) {
       setBodyProperty({
         '--table-border-color': v,
+      })
+    },
+    set textColor(v) {
+      setBodyProperty({
+        '--table-color': v,
       })
     },
     set borderRadiusTop(v) {
