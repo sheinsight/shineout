@@ -10,6 +10,7 @@ import {
   formClass,
   sliderClass,
   menuClass,
+  alertClass,
 } from '../styles'
 import { exposeClass } from '../styles/expose'
 
@@ -890,7 +891,7 @@ const injects = {
       setBodyProperty({
         '--pagination-hover-bg': v,
       })
-    }
+    },
   },
   tag: {
     info: {
@@ -1078,6 +1079,167 @@ const injects = {
     set darkColor(v) {
       setBodyProperty({
         '--menu-dark-color': v,
+      })
+    },
+  },
+  alert: {
+    info: {
+      title: 'Alert 提示框',
+      name: 'alert',
+      path: 'Alert',
+    },
+    conf: [
+      {
+        name: 'borderWidth',
+        className: alertClass('_'),
+        attr: 'borderWidth',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'successTextColor',
+        className: alertClass('success'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
+        name: 'successBg',
+        className: alertClass('success'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
+        name: 'successBorderColor',
+        className: alertClass('success'),
+        attr: 'borderColor',
+        type: 'color',
+      },
+      {
+        name: 'infoTextColor',
+        className: alertClass('info'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
+        name: 'infoBg',
+        className: alertClass('info'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
+        name: 'infoBorderColor',
+        className: alertClass('info'),
+        attr: 'borderColor',
+        type: 'color',
+      },
+      {
+        name: 'warningTextColor',
+        className: alertClass('warning'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
+        name: 'warningBg',
+        className: alertClass('warning'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
+        name: 'warningBorderColor',
+        className: alertClass('warning'),
+        attr: 'borderColor',
+        type: 'color',
+      },
+      {
+        name: 'dangerTextColor',
+        className: alertClass('danger'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
+        name: 'dangerBg',
+        className: alertClass('danger'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
+        name: 'dangerBorderColor',
+        className: alertClass('danger'),
+        attr: 'borderColor',
+        type: 'color',
+      },
+    ],
+    set borderWidth(v) {
+      setBodyProperty({
+        '--alert-border-width': `${parseInt(v, 10)}px`,
+      })
+    },
+    set successTextColor(v) {
+      setBodyProperty({
+        '--alert-success-text-color': v,
+        '--alert-success-text-darken-10-color': darken(v, 10),
+      })
+    },
+    set successBg(v) {
+      setBodyProperty({
+        '--alert-success-bg': v,
+      })
+    },
+    set successBorderColor(v) {
+      setBodyProperty({
+        '--alert-success-border-color': v,
+        '--alert-success-border-darken-5-color': darken(v, 5),
+      })
+    },
+    set infoTextColor(v) {
+      setBodyProperty({
+        '--alert-info-text-color': v,
+        '--alert-info-text-darken-10-color': darken(v, 10),
+      })
+    },
+    set infoBg(v) {
+      setBodyProperty({
+        '--alert-info-bg': v,
+      })
+    },
+    set infoBorderColor(v) {
+      setBodyProperty({
+        '--alert-info-border-color': v,
+        '--alert-info-border-darken-5-color': darken(v, 5),
+      })
+    },
+    set warningTextColor(v) {
+      setBodyProperty({
+        '--alert-warning-text-color': v,
+        '--alert-warning-text-darken-10-color': darken(v, 10),
+      })
+    },
+    set warningBg(v) {
+      setBodyProperty({
+        '--alert-warning-bg': v,
+      })
+    },
+    set warningBorderColor(v) {
+      setBodyProperty({
+        '--alert-warning-border-color': v,
+        '--alert-warning-border-darken-5-color': darken(v, 5),
+      })
+    },
+    set dangerTextColor(v) {
+      setBodyProperty({
+        '--alert-danger-text-color': v,
+        '--alert-danger-text-darken-10-color': darken(v, 10),
+      })
+    },
+    set dangerBg(v) {
+      setBodyProperty({
+        '--alert-danger-bg': v,
+      })
+    },
+    set dangerBorderColor(v) {
+      setBodyProperty({
+        '--alert-danger-border-color': v,
+        '--alert-danger-border-darken-5-color': darken(v, 5),
       })
     },
   },
