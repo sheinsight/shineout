@@ -82,6 +82,9 @@
       background: @slider-indicator-bg;
       width: @slider-indicator-size;
     }
+    &-value {
+      height: @slider-value-bottom;
+    }
   }
   &-menu {
     &-dark {
@@ -101,5 +104,10 @@
   .loop-gray(9);
   &-button {
     margin-left: @button-margin-left;
+  }
+  &-input {
+    &-focus {
+      border-color: @input-border-focus;
+    }
   }
 }

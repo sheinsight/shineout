@@ -126,6 +126,9 @@
 @input-border-radius-value: @border-radius-base;
 @input-border-radius: var(--input-border-radius, @input-border-radius-value);
 
+@input-border-focus-fade-25-value: fade(@input-border-focus-value, 25%);
+@input-border-focus-fade-25: var(--input-border-focus-color-fade-25, @input-border-focus-fade-25-value);
+
 @select-result-padding-vertical-value: 0;
 @select-result-padding-vertical: var(--select-result-padding-vertical, @select-result-padding-vertical-value);
 
@@ -149,6 +152,18 @@
 
 @slider-indicator-size-half-value: @slider-indicator-size-value / 2;
 @slider-indicator-size-half: var(--slider-indicator-size-half, @slider-indicator-size-half-value);
+
+@slider-bar-color-value: @gray-400-value;
+@slider-bar-color: var(--slider-bar-color, @slider-bar-color-value);
+
+@slider-height-value: 6px;
+@slider-height: var(--slider-bar-height, @slider-height-value);
+
+@slider-border-radius-value: 3px;
+@slider-border-radius: var(--slider-border-radius, @slider-border-radius-value);
+
+@slider-value-bottom-value: 14px;
+@slider-value-bottom: var(--slider-value-bottom, @slider-value-bottom-value);
 
 @form-group-margin-bottom-value: 20px;
 @form-group-margin-bottom: var(--form-item-margin-bottom, @form-group-margin-bottom-value);

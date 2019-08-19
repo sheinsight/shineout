@@ -8,6 +8,7 @@ import {
   inputClass,
   selectClass,
   formClass,
+  sliderClass,
   menuClass,
 } from '../styles'
 import { exposeClass } from '../styles/expose'
@@ -480,6 +481,12 @@ const injects = {
         attr: 'borderColor',
         type: 'color',
       },
+      {
+        name: 'borderHoverColor',
+        className: exposeClass('input-focus'),
+        attr: 'borderColor',
+        type: 'color',
+      },
     ],
     set borderRadius(v) {
       setBodyProperty({
@@ -494,6 +501,12 @@ const injects = {
     set borderColor(v) {
       setBodyProperty({
         '--input-border-color': v,
+      })
+    },
+    set borderHoverColor(v) {
+      setBodyProperty({
+        '--input-border-focus-color': v,
+        '--input-border-focus-color-fade-25': fade(v, 0.25),
       })
     },
     set focusWidth(v) {
@@ -609,7 +622,34 @@ const injects = {
         attr: 'width',
         type: 'number',
         min: 8,
-        max: 20,
+        max: 40,
+        parser: parseInt,
+      },
+      {
+        name: 'barBg',
+        className: exposeClass('slider-bar'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
+        name: 'height',
+        className: sliderClass('background'),
+        attr: 'height',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'borderRadius',
+        className: sliderClass('background'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'valueBottom',
+        className: exposeClass('slider-value'),
+        attr: 'height',
+        type: 'number',
         parser: parseInt,
       },
     ],
@@ -622,6 +662,26 @@ const injects = {
       setBodyProperty({
         '--slider-indicator-size': `${parseInt(v, 10)}px`,
         '--slider-indicator-size-half': `${parseInt(v, 10) / 2}px`,
+      })
+    },
+    set barBg(v) {
+      setBodyProperty({
+        '--slider-bar-color': v,
+      })
+    },
+    set height(v) {
+      setBodyProperty({
+        '--slider-bar-height': `${parseInt(v, 10)}px`,
+      })
+    },
+    set borderRadius(v) {
+      setBodyProperty({
+        '--slider-border-radius': `${parseInt(v, 10)}px`,
+      })
+    },
+    set valueBottom(v) {
+      setBodyProperty({
+        '--slider-value-bottom': `${parseInt(v, 10)}px`,
       })
     },
   },

@@ -131,7 +131,7 @@
   box-shadow: 0 0 0 @input-focus-width @danger-color-fade-25;
 }
 .input-focus-color(@color) when not (%('%s', @color) = %('%s', @colors-danger)) {
-  box-shadow: 0 0 0 @input-focus-width rgba(red(@color), green(@color), blue(@color), 0.25);
+  box-shadow: 0 0 0 @input-focus-width @input-border-focus-fade-25;
 }
 .@{input-prefix} {
   .input-focus(@color: @input-border-focus) {
