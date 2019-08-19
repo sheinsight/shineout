@@ -46,6 +46,7 @@ const accessors = {
   menu: {},
   form: {},
   checkbox: {},
+  radio: {},
 }
 
 for (const [key, value] of Object.entries(accessors)) {

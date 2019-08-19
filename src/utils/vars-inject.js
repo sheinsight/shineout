@@ -447,6 +447,57 @@ const injects = {
       })
     },
   },
+  radio: {
+    info: {
+      title: 'Radio 单选框',
+      name: 'radio',
+      path: 'Radio',
+    },
+    conf: [
+      {
+        name: 'size',
+        className: exposeClass('radio'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        min: 8,
+        max: 40,
+      },
+      {
+        name: 'borderWidth',
+        className: exposeClass('radio'),
+        attr: 'borderWidth',
+        type: 'number',
+        parser: parseInt,
+        min: 0,
+        max: 10,
+      },
+      {
+        name: 'innerWidth',
+        className: exposeClass('radio-inner'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        min: 0,
+        max: 10,
+      },
+    ],
+    set size(v) {
+      setBodyProperty({
+        '--radio-width': `${parseInt(v, 10)}px`,
+      })
+    },
+    set borderWidth(v) {
+      setBodyProperty({
+        '--radio-border-width': `${parseInt(v, 10)}px`,
+      })
+    },
+    set innerWidth(v) {
+      setBodyProperty({
+        '--radio-inner-width': `${parseInt(v, 10)}px`,
+      })
+    },
+  },
   input: {
     info: {
       title: 'Input 输入框',
