@@ -15,10 +15,7 @@ const source = locate(cn, en)
 const examples = [
   {
     name: '01-base',
-    title: locate(
-      '基本用法 \n 基础的文件上传',
-      'Base \n Basic usage for uploading file'
-    ),
+    title: locate('基本用法 \n 基础的文件上传', 'Base \n Basic usage for uploading file'),
     component: require('doc/pages/components/Upload/example-01-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-01-base.js'),
   },
@@ -43,8 +40,8 @@ const examples = [
   {
     name: '04-validator',
     title: locate(
-      '校验 \n 通过 validator.imageSize 校验图片长宽，本例为 200px * 100px',
-      'Validator \n Set validator.imageSize to validate the width and height of the image.'
+      '校验 \n 通过 validator.imageSize 校验图片长宽，本例为 200px * 100px \n 通过 Image.children 配置上传按钮内容',
+      'Validator \n Set validator.imageSize to validate the width and height of the image. \n Set Image.children to configure the content of the upload button.'
     ),
     component: require('doc/pages/components/Upload/example-04-validator.js').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-04-validator.js'),
@@ -61,8 +58,8 @@ const examples = [
   {
     name: '06-error',
     title: locate(
-      '异常处理 \n onError 用来处理上传到服务器返回的异常',
-      'Error \n Set onError to handle exceptions returned by uploading to the server.'
+      '异常处理 \n onHttpError 用来处理上传到服务器返回的异常',
+      'Error \n Set onHttpError to handle exceptions returned by uploading to the server.'
     ),
     component: require('doc/pages/components/Upload/example-06-error.js').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-06-error.js'),
@@ -86,22 +83,34 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Upload/example-08-request.js'),
   },
   {
-    name: '09-zip',
+    name: '09-headers',
     title: locate(
-      ' \n 此事例演示通过自定义函数压缩文件后上传',
-      ' \n Zip file and upload.'
+      ' \n 通过 headers 配置请求头部信息 \n 通过 params 配置提交到服务器的额外参数',
+      ' \n Use the property headers to configure the request header. \n Use the property params to configure the request params.'
     ),
+    component: require('doc/pages/components/Upload/example-09-headers.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Upload/example-09-headers.js'),
+  },
+  {
+    name: '09-zip',
+    title: locate(' \n 此事例演示通过自定义函数压缩文件后上传', ' \n Zip file and upload.'),
     component: require('doc/pages/components/Upload/example-09-zip.js').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-09-zip.js'),
   },
   {
     name: '10-defaultValue',
-    title: locate(
-      '默认值 \n 默认值示例',
-      'defaultValue \n defaultValue example'
-    ),
+    title: locate('默认值 \n 默认值示例', 'defaultValue \n defaultValue example'),
     component: require('doc/pages/components/Upload/example-10-defaultValue.js').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-10-defaultValue.js'),
+  },
+  {
+    name: '10-onChange',
+    title: locate(
+      '值改变回调 \n onChange 属性处理值改变事件（上传成功，删除）',
+      'onChange \n Set onChange to handle the event of upload successing or delete successing'
+    ),
+    component: require('doc/pages/components/Upload/example-10-onChange.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Upload/example-10-onChange.js'),
   },
   {
     name: '11-dragger',
@@ -116,6 +125,4 @@ const examples = [
 
 const codes = undefined
 
-export default navable(props => (
-  <MarkDown {...props} codes={codes} source={source} examples={examples} />
-))
+export default navable(props => <MarkDown {...props} codes={codes} source={source} examples={examples} />)

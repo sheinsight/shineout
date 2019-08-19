@@ -1,8 +1,8 @@
 /**
  * cn - 异常处理
- *    -- onError 用来处理上传到服务器返回的异常
+ *    -- onHttpError 用来处理上传到服务器返回的异常
  * en - Error
- *    -- Set onError to handle exceptions returned by uploading to the server.
+ *    -- Set onHttpError to handle exceptions returned by uploading to the server.
  */
 import React from 'react'
 import { Upload, Button } from 'shineout'
@@ -16,7 +16,7 @@ export default function() {
         accept="image/*"
         name="file"
         onSuccess={(res, file) => file.name}
-        onError={xhr => {
+        onHttpError={xhr => {
           console.log(xhr)
           if (xhr.status === 404) return 'Url not found.'
           return 'Upload Fail.'
@@ -25,7 +25,8 @@ export default function() {
         style={{ width: 300, marginBottom: 30 }}
       >
         <Button>
-          <FontAwesome name="upload" /> Upload file
+          <FontAwesome name="upload" />
+          Upload file
         </Button>
       </Upload>
 
@@ -34,7 +35,7 @@ export default function() {
         accept="image/*"
         name="file"
         onSuccess={(res, file, data) => ({ data })}
-        onError={xhr => {
+        onHttpError={xhr => {
           console.log(xhr)
           if (xhr.status === 404) return 'Url not found.'
           return 'Upload Fail.'

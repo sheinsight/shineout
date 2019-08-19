@@ -1,8 +1,10 @@
 /**
  * cn - 校验
  *    -- 通过 validator.imageSize 校验图片长宽，本例为 200px * 100px
+ *    -- 通过 Image.children 配置上传按钮内容
  * en - Validator
  *    -- Set validator.imageSize to validate the width and height of the image.
+ *    -- Set Image.children to configure the content of the upload button.
  */
 import React from 'react'
 import { Upload } from 'shineout'
@@ -25,7 +27,8 @@ export default function() {
       }}
     >
       <div style={{ margin: 'auto', color: '#999', textAlign: 'center' }}>
-        <FontAwesome name="upload" /> Upload Image
+        <FontAwesome name="upload" />
+        Upload Image
         <br />
         Allow size 200 * 100
       </div>
