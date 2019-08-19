@@ -52,8 +52,10 @@ export default props => {
                     <Field name={name}>
                       {({ value, onChange: onChangeForm }) => <Picker value={value} onChange={onChangeForm} />}
                     </Field>
-                  ) : (
+                  ) : type === 'number' ? (
                     <Input.Number name={name} min={item.min || 0} max={item.max || 50} />
+                  ) : (
+                    <Input name={name} />
                   )}
                 </Item>
                 {desc && <span className={headerClass('form-desc')}>{desc}</span>}

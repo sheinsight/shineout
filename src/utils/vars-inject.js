@@ -1090,6 +1090,19 @@ const injects = {
     },
     conf: [
       {
+        name: 'fontSize',
+        className: alertClass('_'),
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'boxShadow',
+        className: alertClass('_'),
+        attr: 'boxShadow',
+        type: 'string',
+      },
+      {
         name: 'borderWidth',
         className: alertClass('_'),
         attr: 'borderWidth',
@@ -1169,6 +1182,16 @@ const injects = {
         type: 'color',
       },
     ],
+    set fontSize(v) {
+      setBodyProperty({
+        '--alert-font-size': `${parseInt(v, 10)}px`,
+      })
+    },
+    set boxShadow(v) {
+      setBodyProperty({
+        '--alert-box-shadow': v,
+      })
+    },
     set borderWidth(v) {
       setBodyProperty({
         '--alert-border-width': `${parseInt(v, 10)}px`,
