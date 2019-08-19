@@ -60,12 +60,10 @@ class ScrollBar extends PureComponent {
     this.mouseX = event.clientX
     this.mouseY = event.clientY
 
-    const {
-      direction, offset, length, onScroll, barLength,
-    } = this.props
+    const { direction, offset, length, onScroll, barLength } = this.props
     const value = direction === 'x' ? x : y
 
-    let newOffset = offset + (value / (length - barLength))
+    let newOffset = offset + value / (length - barLength)
     if (newOffset < 0) newOffset = 0
     if (newOffset > 1) newOffset = 1
 
@@ -75,20 +73,16 @@ class ScrollBar extends PureComponent {
   handleBgClick(event) {
     if (event.target === this.handle) return
 
-    const {
-      direction, length, scrollLength, offset, onScroll,
-    } = this.props
+    const { direction, length, scrollLength, offset, onScroll } = this.props
     const rect = this.handle.getBoundingClientRect()
 
     let newOffset = offset
     const page = length / (scrollLength - length)
 
-    if ((direction === 'x' && event.clientX < rect.left) ||
-        (direction === 'y' && event.clientY < rect.top)) {
+    if ((direction === 'x' && event.clientX < rect.left) || (direction === 'y' && event.clientY < rect.top)) {
       newOffset = offset - page
       if (newOffset < 0) newOffset = 0
-    } else if ((direction === 'x' && event.clientX > rect.right) ||
-        (direction === 'y' && event.clientY > rect.top)) {
+    } else if ((direction === 'x' && event.clientX > rect.right) || (direction === 'y' && event.clientY > rect.top)) {
       newOffset = offset + page
       if (newOffset > 1) newOffset = 1
     }
@@ -97,20 +91,12 @@ class ScrollBar extends PureComponent {
   }
 
   render() {
-    const {
-      direction, length, scrollLength, offset, barLength, forceHeight,
-    } = this.props
+    const { direction, length, scrollLength, offset, barLength, forceHeight } = this.props
     const { dragging } = this.state
     const show = scrollLength > length
     const className = classnames(
-      scrollClass(
-        'bar',
-        direction,
-        show && 'show',
-        dragging && 'dragging',
-        !forceHeight && 'padding-y',
-      ),
-      this.props.className,
+      scrollClass('bar', direction, show && 'show', dragging && 'dragging', !forceHeight && 'padding-y'),
+      this.props.className
     )
 
     const value = (length - barLength) * offset
@@ -127,17 +113,8 @@ class ScrollBar extends PureComponent {
     }
 
     return (
-      <div
-        className={className}
-        style={{ height: forceHeight }}
-        onMouseDown={show ? this.handleBgClick : undefined}
-      >
-        <div
-          className={scrollClass('handle')}
-          onMouseDown={this.handleBarClick}
-          ref={this.bindHandle}
-          style={style}
-        />
+      <div className={className} style={{ height: forceHeight }} onMouseDown={show ? this.handleBgClick : undefined}>
+        <div className={scrollClass('handle')} onMouseDown={this.handleBarClick} ref={this.bindHandle} style={style} />
       </div>
     )
   }

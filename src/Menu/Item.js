@@ -112,6 +112,7 @@ class Item extends PureComponent {
       toggleOpenKeys,
       bottomLine,
       topLine,
+      linkKey,
     } = this.props
     const { open, isActive, isHighLight, inPath } = this.state
     const { children: dChildren } = data
@@ -150,7 +151,12 @@ class Item extends PureComponent {
       item = cloneElement(item, { className: mergeClass, style: mergeStyle })
     } else {
       item = (
-        <a href="javascript:;" className={menuClass('title')} style={style} onClick={this.handleClick}>
+        <a
+          href={data[linkKey] || 'javascript:;'}
+          className={menuClass('title')}
+          style={style}
+          onClick={this.handleClick}
+        >
           {item}
         </a>
       )
@@ -195,6 +201,7 @@ Item.propTypes = {
   renderItem: PropTypes.func,
   toggleOpenKeys: PropTypes.func,
   unbindItem: PropTypes.func,
+  linkKey: PropTypes.string,
 }
 
 export default consumer(Item)
