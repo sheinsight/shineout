@@ -847,6 +847,24 @@ const injects = {
         type: 'number',
         parser: parseInt,
       },
+      {
+        name: 'hoverBorderColor',
+        className: exposeClass('pagination-hover'),
+        attr: 'borderColor',
+        type: 'color',
+      },
+      {
+        name: 'hoverColor',
+        className: exposeClass('pagination-hover'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
+        name: 'hoverBg',
+        className: exposeClass('pagination-hover'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
     ],
     set borderRadius(v) {
       setBodyProperty({
@@ -858,6 +876,21 @@ const injects = {
         '--pagination-border-width': `${parseInt(v, 10)}px`,
       })
     },
+    set hoverBorderColor(v) {
+      setBodyProperty({
+        '--pagination-hover-border': v,
+      })
+    },
+    set hoverColor(v) {
+      setBodyProperty({
+        '--pagination-hover-color': v,
+      })
+    },
+    set hoverBg(v) {
+      setBodyProperty({
+        '--pagination-hover-bg': v,
+      })
+    }
   },
   tag: {
     info: {
