@@ -10,6 +10,24 @@ import List from './List'
 import { Provider } from './context'
 import { isArray } from '../utils/is'
 
+const modeDirection = {
+  vertical: 'y',
+  horizontal: 'x',
+}
+
+const getOption = mode =>
+  mode === 'vertical'
+    ? {
+        key: 'height',
+        pos: 'Top',
+        direction: 'Y',
+      }
+    : {
+        key: 'width',
+        pos: 'Left',
+        direction: 'X',
+      }
+
 function keyToMap(keys = [], value = true) {
   const keyMap = new Map()
   keys.forEach(v => {
@@ -25,6 +43,7 @@ class Root extends React.Component {
     this.state = {
       activeKey: null,
       scrollTop: 0,
+      scrollLeft: 0,
       openKeys: keyToMap(props.defaultOpenKeys),
     }
 
@@ -32,6 +51,8 @@ class Root extends React.Component {
     this.checkActive = this.checkActive.bind(this)
     this.checkInPath = this.checkInPath.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.handleScrollLeft = this.handleScrollX.bind(this, 'Left')
+    this.handleScrollTop = this.handleScrollX.bind(this, 'Top')
     this.handleScroll = this.handleScroll.bind(this)
     this.handleWheel = this.handleWheel.bind(this)
     this.renderItem = this.renderItem.bind(this)
@@ -113,7 +134,7 @@ class Root extends React.Component {
     this.updateOpen()
     this.updateInPath()
     if (!this.container) return
-    const bindMethod = mode === 'vertical' ? this.container.addEventListener : this.container.removeEventListener
+    const bindMethod = mode !== 'inline' ? this.container.addEventListener : this.container.removeEventListener
     bindMethod.call(this.container, 'wheel', this.handleWheel, { passive: false })
   }
 
@@ -159,6 +180,14 @@ class Root extends React.Component {
     onOpenChange(keys)
   }
 
+  handleScrollX(pos, param) {
+    const sizeKey = pos === 'Top' ? 'height' : 'width'
+    const size = this.container.getBoundingClientRect()[sizeKey]
+    const scroll = this.rootElement.getBoundingClientRect()[sizeKey]
+    this.wrapper[`scroll${pos}`] = param * (scroll - size)
+    this.setState({ [`scroll${pos}`]: param })
+  }
+
   handleScroll(top) {
     const { height } = this.container.getBoundingClientRect()
     const scrollHeight = this.rootElement.getBoundingClientRect().height
@@ -167,10 +196,12 @@ class Root extends React.Component {
   }
 
   handleWheel(e) {
+    const { mode } = this.props
+    const { key, pos, direction } = getOption(mode)
     const wheel = normalizeWheel(e)
-    const { height } = this.container.getBoundingClientRect()
-    this.wrapper.scrollTop += wheel.pixelY
-    this.setState({ scrollTop: this.wrapper.scrollTop / height })
+    const size = this.container.getBoundingClientRect()[key]
+    this.wrapper[`scroll${pos}`] += wheel[`pixel${direction}`]
+    this.setState({ [`scroll${pos}`]: this.wrapper[`scroll${pos}`] / size })
     e.preventDefault()
   }
 
@@ -183,12 +214,34 @@ class Root extends React.Component {
   renderItem(data) {
     const { renderItem } = this.props
     if (typeof renderItem === 'string') return data[renderItem]
-    else if (typeof renderItem === 'function') return renderItem(data)
+    if (typeof renderItem === 'function') return renderItem(data)
     return null
   }
 
   renderScrollBar() {
     if (!this.rootElement || !this.container) return null
+
+    const { mode } = this.props
+    const direction = modeDirection[mode]
+
+    if (!direction) return null
+
+    if (direction === 'x') {
+      const { width } = this.container.getBoundingClientRect()
+      const scrollWidth = this.rootElement.getBoundingClientRect().width
+      if (scrollWidth < width) return null
+
+      return (
+        <ScrollBar
+          className={menuClass('bar')}
+          length={width}
+          scrollLength={scrollWidth}
+          offset={this.state.scrollLeft}
+          onScroll={this.handleScrollLeft}
+          direction="x"
+        />
+      )
+    }
 
     const length = this.container.getBoundingClientRect().height
     const scrollHeight = this.rootElement.getBoundingClientRect().height
@@ -201,15 +254,15 @@ class Root extends React.Component {
         length={length}
         scrollLength={scrollHeight}
         offset={this.state.scrollTop}
-        onScroll={this.handleScroll}
+        onScroll={this.handleScrollTop}
       />
     )
   }
 
   render() {
-    const { keygen, data, mode, style, theme, inlineIndent, disabled, height } = this.props
+    const { keygen, data, mode, style, theme, inlineIndent, linkKey, disabled, height } = this.props
 
-    const showScroll = (style.height || height) && mode === 'vertical'
+    const showScroll = ((style.height || height) && mode === 'vertical') || mode === 'horizontal'
 
     const className = classnames(
       menuClass('_', mode, theme === 'dark' && 'dark', showScroll && 'scroll', this.state.hasOpen && 'has-open'),
@@ -217,7 +270,7 @@ class Root extends React.Component {
     )
 
     const rootStyle = {}
-    if (style.width) rootStyle.width = style.width
+    if (style.width && mode !== 'horizontal') rootStyle.width = style.width
 
     let bottomLine = 0
     let topLine = 0
@@ -247,6 +300,7 @@ class Root extends React.Component {
               toggleOpenKeys={this.toggleOpenKeys}
               bottomLine={bottomLine}
               topLine={topLine}
+              linkKey={linkKey}
             />
           </Provider>
         </div>

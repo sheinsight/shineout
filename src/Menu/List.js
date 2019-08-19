@@ -21,6 +21,7 @@ class List extends PureComponent {
       inlineIndent,
       disabled,
       toggleOpenKeys,
+      linkKey,
     } = this.props
 
     const className = classnames(menuClass('list', mode), this.props.className)
@@ -43,6 +44,7 @@ class List extends PureComponent {
             onClick={onClick}
             path={path}
             toggleOpenKeys={toggleOpenKeys}
+            linkKey={linkKey}
           />
         ))}
       </ul>
@@ -65,6 +67,7 @@ List.propTypes = {
   renderItem: PropTypes.func,
   style: PropTypes.object,
   toggleOpenKeys: PropTypes.func,
+  linkKey: PropTypes.string,
 }
 
 export default List

@@ -23,6 +23,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Menu/example-1-base.js'),
   },
   {
+    name: '1-link',
+    title: locate(
+      '链接 \n 可以通过设置 linkKey 来渲染出对应的链接',
+      'link \n Can render the corresponding link by setting linkKey'
+    ),
+    component: require('doc/pages/components/Menu/example-1-link.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Menu/example-1-link.js'),
+  },
+  {
     name: '2-horizontal',
     title: locate(
       '水平布局 \n 设置 mode 为 "horizontal"，显示为水平布局（子菜单在右侧弹出）',
