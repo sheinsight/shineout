@@ -48,6 +48,7 @@ const accessors = {
   checkbox: {},
   radio: {},
   alert: {},
+  message: {},
 }
 
 for (const [key, value] of Object.entries(accessors)) {

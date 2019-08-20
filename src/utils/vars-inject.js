@@ -11,6 +11,7 @@ import {
   sliderClass,
   menuClass,
   alertClass,
+  messageClass,
 } from '../styles'
 import { exposeClass } from '../styles/expose'
 
@@ -1263,6 +1264,37 @@ const injects = {
       setBodyProperty({
         '--alert-danger-border-color': v,
         '--alert-danger-border-darken-5-color': darken(v, 5),
+      })
+    },
+  },
+  message: {
+    info: {
+      title: 'Message 消息提示',
+      name: 'message',
+      path: 'Message',
+    },
+    conf: [
+      {
+        name: 'boxShadow',
+        className: messageClass('msg'),
+        attr: 'boxShadow',
+        type: 'string',
+      },
+      {
+        name: 'color',
+        className: messageClass('msg'),
+        attr: 'color',
+        type: 'color',
+      },
+    ],
+    set boxShadow(v) {
+      setBodyProperty({
+        '--message-box-shadow': v,
+      })
+    },
+    set color(v) {
+      setBodyProperty({
+        '--message-text-color': v,
       })
     },
   },
