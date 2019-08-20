@@ -50,7 +50,8 @@ export default class extends React.Component {
   constructor(props) {
     super(props)
 
-    this.editors = Object.keys(cssInject).map(v => {
+    const sorted = Object.keys(cssInject).sort((a, b) => a.localeCompare(b))
+    this.editors = sorted.map(v => {
       const { name } = cssInject[v].info
       return {
         ...cssInject[v].info,
@@ -63,7 +64,7 @@ export default class extends React.Component {
     this.state = {
       config: {},
       exportConf: false,
-      open: this.editors[0].title,
+      open: '',
     }
 
     this.resetConfig = this.resetConfig.bind(this)
@@ -91,7 +92,7 @@ export default class extends React.Component {
       }),
       () => {
         const { path = undefined } = this.editors.find(v => v.title === title)
-        if (path) history.push(path)
+        if (path && this.state.open) history.push(path)
       }
     )
   }

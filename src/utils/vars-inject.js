@@ -12,6 +12,8 @@ import {
   menuClass,
   alertClass,
   messageClass,
+  cardClass,
+  modalClass,
 } from '../styles'
 import { exposeClass } from '../styles/expose'
 
@@ -1295,6 +1297,117 @@ const injects = {
     set color(v) {
       setBodyProperty({
         '--message-text-color': v,
+      })
+    },
+  },
+  card: {
+    info: {
+      title: 'Card 卡片',
+      name: 'card',
+      path: 'Card',
+    },
+    conf: [
+      {
+        name: 'fontSize',
+        className: cardClass('_'),
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'borderWidth',
+        className: cardClass('_'),
+        attr: 'borderWidth',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'dividerWidth',
+        className: cardClass('header'),
+        attr: 'borderBottomWidth',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'borderColor',
+        className: cardClass('_'),
+        attr: 'borderColor',
+        type: 'color',
+      },
+      {
+        name: 'color',
+        className: cardClass('_'),
+        attr: 'color',
+        type: 'color',
+      },
+    ],
+    set fontSize(v) {
+      setBodyProperty({
+        '--card-font-size': `${parseInt(v, 10)}px`,
+      })
+    },
+    set borderWidth(v) {
+      setBodyProperty({
+        '--card-border-width': `${parseInt(v, 10)}px`,
+      })
+    },
+    set dividerWidth(v) {
+      setBodyProperty({
+        '--card-divider-width': `${parseInt(v, 10)}px`,
+      })
+    },
+    set borderColor(v) {
+      setBodyProperty({
+        '--card-border-color': v,
+      })
+    },
+    set color(v) {
+      setBodyProperty({
+        '--card-color': v,
+      })
+    },
+  },
+  modal: {
+    info: {
+      title: 'Modal 对话框',
+      name: 'modal',
+      path: 'Modal',
+    },
+    conf: [
+      {
+        name: 'iconSize',
+        className: exposeClass('modal-icon'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'titleFontSize',
+        className: modalClass('title'),
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'titleColor',
+        className: modalClass('title'),
+        attr: 'color',
+        type: 'color',
+      },
+    ],
+    set iconSize(v) {
+      setBodyProperty({
+        '--modal-icon-size': `${parseInt(v, 10)}px`,
+      })
+    },
+    set titleFontSize(v) {
+      setBodyProperty({
+        '--modal-title-font-size': `${parseInt(v, 10)}px`,
+      })
+    },
+    set titleColor(v) {
+      setBodyProperty({
+        '--modal-title-color': v,
       })
     },
   },

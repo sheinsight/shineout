@@ -49,6 +49,8 @@ const accessors = {
   radio: {},
   alert: {},
   message: {},
+  card: {},
+  modal: {},
 }
 
 for (const [key, value] of Object.entries(accessors)) {
