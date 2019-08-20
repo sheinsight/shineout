@@ -35,7 +35,17 @@ class OptionList extends Component {
   }
 
   renderTree() {
-    const { loading, treeData, keygen, onExpand, loader, expanded, defaultExpanded, renderPending } = this.props
+    const {
+      loading,
+      treeData,
+      keygen,
+      onExpand,
+      loader,
+      expanded,
+      defaultExpanded,
+      defaultExpandAll,
+      renderPending,
+    } = this.props
     if (loading)
       return (
         <span className={selectClass('option')}>{typeof loading === 'boolean' ? <Spin size={20} /> : loading}</span>
@@ -54,6 +64,7 @@ class OptionList extends Component {
           onExpand={onExpand}
           loader={loader}
           expanded={expanded}
+          defaultExpandAll={defaultExpandAll}
           defaultExpanded={defaultExpanded}
         />
       </div>
@@ -88,6 +99,7 @@ OptionList.propTypes = {
   style: PropTypes.object,
   text: PropTypes.object,
   height: PropTypes.number,
+  defaultExpandAll: PropTypes.bool,
 }
 
 export default OptionList
