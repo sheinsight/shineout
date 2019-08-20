@@ -57,7 +57,6 @@ export default Origin =>
 
     getResult(value) {
       const { data, treeData, datum, onCreate } = this.props
-      if (onCreate) return this.handleCreate(value)
 
       const prediction = datum.prediction || ((v, d) => v === datum.format(d))
       if (treeData) return this.getTreeResult(value, prediction)
@@ -66,6 +65,9 @@ export default Origin =>
         const d = data[i]
         if (prediction(value, d)) return d
       }
+
+      if (onCreate) return this.handleCreate(value)
+
       return undefined
     }
 

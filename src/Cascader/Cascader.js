@@ -173,6 +173,8 @@ class Cascader extends PureComponent {
       this.setState({ listStyle: { height: 'auto', width: '100%' } })
       return
     }
+    // for clear the style width: 100%
+    if (listStyle.width === '100%') this.setState({ listStyle: { height } })
 
     if (left + width > docSize.width) {
       if (listStyle.left === 'auto') return
@@ -258,7 +260,13 @@ class Cascader extends PureComponent {
   render() {
     const { placeholder, disabled, size, ...other } = this.props
     const className = classnames(
-      cascaderClass('_', size, this.state.focus && 'focus', disabled === true && 'disabled'),
+      cascaderClass(
+        '_',
+        size,
+        this.state.focus && 'focus',
+        other.mode !== undefined && 'multiple',
+        disabled === true && 'disabled'
+      ),
       selectClass(this.state.position)
     )
 

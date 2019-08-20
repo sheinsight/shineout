@@ -113,7 +113,9 @@ class SeperateTable extends PureComponent {
     }
 
     if (oldHeight && height !== oldHeight) {
-      this.setState({ scrollTop: this.lastScrollTop / this.getContentHeight() })
+      const scrollTop = this.lastScrollTop / this.getContentHeight()
+      if (scrollTop === this.state.scrollTop) this.forceUpdate()
+      else this.setState({ scrollTop })
     }
   }
 

@@ -17,6 +17,7 @@ function initRoot() {
 
 const listPosition = ['drop-down', 'drop-up']
 const pickerPosition = ['left-bottom', 'left-top', 'right-bottom', 'right-top']
+const dropdownPosition = ['bottom-left', 'bottom-right', 'top-left', 'top-right']
 
 export default function(List) {
   class AbsoluteList extends Component {
@@ -36,6 +37,13 @@ export default function(List) {
       root.appendChild(this.element)
     }
 
+    componentDidUpdate(prevProps) {
+      if (prevProps.value === this.props.value) return
+      setTimeout(() => {
+        this.forceUpdate()
+      })
+    }
+
     componentWillUnmount() {
       const { absolute } = this.props
       if (!absolute) return
@@ -43,13 +51,20 @@ export default function(List) {
     }
 
     getPosition(rect) {
-      const { position, fixed } = this.props
+      const { fixed } = this.props
+      let { position } = this.props
       const style = {
         position: 'absolute',
       }
       if (fixed) {
         const widthKey = fixed === 'min' ? 'minWidth' : 'width'
         style[widthKey] = rect.width
+      }
+      if (dropdownPosition.includes(position)) {
+        position = position
+          .split('-')
+          .reverse()
+          .join('-')
       }
       if (listPosition.includes(position)) {
         style.left = rect.left + docScroll.left
@@ -136,6 +151,8 @@ export default function(List) {
         scrollElement,
         autoClass,
         zIndex,
+        // do not need the value
+        value,
         ...props
       } = this.props
       const mergeClass = classnames(listClass('absolute-wrapper'), rootClass, autoClass)
@@ -160,6 +177,7 @@ export default function(List) {
     zIndex: PropTypes.number,
     style: PropTypes.object,
     autoClass: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
   }
 
   return scrollConsumer(AbsoluteList)

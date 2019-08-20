@@ -31,6 +31,7 @@ class Item extends PureComponent {
     this.handleClick = this.handleClick.bind(this)
     this.handleMouseEnter = this.handleToggle.bind(this, true)
     this.handleMouseLeave = this.handleToggle.bind(this, false)
+    this.renderLink = this.renderLink.bind(this)
   }
 
   componentWillUnmount() {
@@ -99,6 +100,12 @@ class Item extends PureComponent {
     }
   }
 
+  renderLink(data) {
+    const { linkKey } = this.props
+    if (linkKey && data[linkKey]) return data[linkKey]
+    return 'javascript:;'
+  }
+
   render() {
     const {
       data,
@@ -144,13 +151,14 @@ class Item extends PureComponent {
       events.onMouseLeave = this.handleMouseLeave
     }
     let item = renderItem(data)
+    const link = this.renderLink(data)
     if (isLink(item)) {
       const mergeClass = classnames(menuClass('title'), item.props && item.props.className)
       const mergeStyle = Object.assign({}, style, item.props && item.props.style)
       item = cloneElement(item, { className: mergeClass, style: mergeStyle })
     } else {
       item = (
-        <a href="javascript:;" className={menuClass('title')} style={style} onClick={this.handleClick}>
+        <a href={link} className={menuClass('title')} style={style} onClick={this.handleClick}>
           {item}
         </a>
       )
@@ -195,6 +203,7 @@ Item.propTypes = {
   renderItem: PropTypes.func,
   toggleOpenKeys: PropTypes.func,
   unbindItem: PropTypes.func,
+  linkKey: PropTypes.string,
 }
 
 export default consumer(Item)
