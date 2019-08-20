@@ -206,6 +206,7 @@ export default class TreeSelect extends PureComponent {
       'data',
       'datum',
       'defaultExpanded',
+      'defaultExpandAll',
       'disabled',
       'expanded',
       'keygen',
