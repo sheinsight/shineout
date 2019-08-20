@@ -16,7 +16,7 @@
 | mode | \[0\|1\|2\|3\] | none | mode <br />0: Returns only the fully selected node including the parent node. <br />1: Returns all selected nodes and semi-selected nodes. <br />2: Return only the selected child nodes. <br />3: If the parent node is full selected, only return the parent node. |
 | onChange | function(array) | - | When the onChange property is set, the selection box is displayed. The parameter is the current selected value, which is related to the mode property. |
 | renderItem | string \| function(d) | required | When it is a string, return d\[string].<br /> When it is a function, return the result of this function. |
-| renderResult | string \| function(d) | renderItem | The content displayed in the result after selecting, if not set, use renderItem |
+| renderResult | string \| function(d) | renderItem | The content displayed in the result after selecting, if not set, use renderItem. not show while return null, result is current selected |
 | defaultValue | array\[key] | - | Default selected key (not controlled) | 
 | value | array\[key] | - | Selected key (controlled) |
 | absolute | bool | false | When it is true, the pop-up layer of option append into document.body. |

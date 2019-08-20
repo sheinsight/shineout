@@ -79,7 +79,6 @@ describe('Table[rowSection]', () => {
     const disabled = wrapper.prop('disabled')
     const data = wrapper.prop('data')
     wrapper.find(`.${SO_PREFIX}-scroll table tbody tr input[type="checkbox"]`).forEach((checkbox, index) => {
-      console.log(checkbox.prop('disabled'), disabled(data[index]), index)
       expect(!!checkbox.prop('disabled')).toBe(disabled(data[index]))
     })
   })

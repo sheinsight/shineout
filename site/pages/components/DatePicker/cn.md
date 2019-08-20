@@ -12,7 +12,7 @@
 | clearable | bool | true | 是否可清空 |
 | defaultValue | string \| number \| Date \| array | 无 | 默认值。如果 defaultValue 和 format 类型不一致，会执行一次 format，并触发 onChange 事件返回 format 后的值 |
 | disabled | bool \| function | false | 如果 disabled 为 true，禁用全部选项，如果 disabled 为函数，根据函数反回结果禁用选项 |
-| format | string | | 不同type对应的默认值<br />'date': 'yyyy-MM-dd'<br />'time': 'HH:mm:ss'<br />'week': 'yyyy WW'<br />'month': 'yyyy-MM'<br />'datetime': 'yyyy-MM-dd HH:mm:ss' |
+| format | string | | 不同type对应的默认值<br />'date': 'yyyy-MM-dd'<br />'time': 'HH:mm:ss'<br />'week': 'RRRR II'<br />'month': 'yyyy-MM'<br />'datetime': 'yyyy-MM-dd HH:mm:ss' |
 | formatResult | string | props.format | 对选中时间进行格式化 |
 | onChange | function(d) | | 值改变回调函数 |
 | placeholder | string \| array | 无 | 占位文字<br />range 属性不为空时，为长度为2的数组 |
@@ -23,7 +23,10 @@
 | defaultTime | string | 无 | 选择日期时默认的时间, 格式为: 'HH:mm:ss' |
 | absolute | bool | false | 为 true 时，选项弹出层在 DOM 中独立 render |
 | zIndex | number | 1000 | 选择面板 z-index 值 |
-
+| allowSingle | boolean | false | 是否允许单选, 仅在 range 模式下有效 | 
+| quickSelect | array<object> | false | 快速选择, 仅在 range 模式下有效, name: 文字提示, value: 时间范围 | 
+| min | string \| number \| Date | 无 | 可选最小值，暂不支持 range 模式 |
+| max | string \| number \| Date | 无 | 可选最大值，暂不支持 range 模式 |
 
 ### Format
 
@@ -40,8 +43,8 @@ moment: hh&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  => date-fns: HH<br />
 | Q | 季度 | 1, 2, 3, 4 |
 | d | 日 |	1, 2, ..., 31
 | dd | 日（补0） |	01, 02, ..., 31 |
-| W | 周 | 1, 2, ..., 53 |
-| WW | 周（补0）| 01, 02, ..., 53 |
+| I | ISO周 | 1, 2, ..., 53 |
+| II | ISO周（补0）| 01, 02, ..., 53 |
 | yy | 年 | 00, 01, ..., 99 |
 | yyyy | 完整年 | 1900, 1901, ..., 2099 |
 | a | AM/PM | AM, PM |

@@ -32,3 +32,7 @@
 | onCancel | func | none | cancel button click callback, will close tooltip while returned promise resolve |
 | text | object | { ok: 'Ok', cancel: 'Cancel' } | button text |
 | type | string | *warning* |  icon type \[*success*, *info*, *warning*, *danger(error)*] |
+
+
+## Note
+Please ensure that the parent node of `Popover` accepts `onMouseEnter`, `onMouseLeave`, `onFocus`, `onClick` events.

@@ -26,6 +26,17 @@ class Picker extends PureComponent {
     this.state = { mode }
     this.defaultCurrent = utils.newDate()
     this.handleModeChange = this.handleModeChange.bind(this)
+    this.handleEnter = this.handleMouse.bind(this, true)
+    this.handleLeave = this.handleMouse.bind(this, false)
+  }
+
+  handleMouse(isEnter, e) {
+    // stop
+    e.stopPropagation()
+
+    const { index, handleHover } = this.props
+
+    handleHover(index, isEnter)
   }
 
   handleModeChange(mode) {
@@ -36,7 +47,7 @@ class Picker extends PureComponent {
 
   render() {
     const { mode } = this.state
-    const { current, children, ...otherProps } = this.props
+    const { current, index, children, ...otherProps } = this.props
 
     let Render
     switch (mode) {
@@ -53,7 +64,20 @@ class Picker extends PureComponent {
         Render = Day
     }
 
-    return <Render {...otherProps} current={current || this.defaultCurrent} onModeChange={this.handleModeChange} />
+    // only range has index prop
+    if (index === undefined)
+      return <Render {...otherProps} current={current || this.defaultCurrent} onModeChange={this.handleModeChange} />
+
+    return (
+      <div onMouseEnter={this.handleEnter} onMouseLeave={this.handleLeave}>
+        <Render
+          {...otherProps}
+          index={index}
+          current={current || this.defaultCurrent}
+          onModeChange={this.handleModeChange}
+        />
+      </div>
+    )
   }
 }
 
@@ -61,12 +85,14 @@ Picker.propTypes = {
   current: PropTypes.object,
   disabled: PropTypes.func,
   format: PropTypes.string,
-  max: PropTypes.object,
-  min: PropTypes.object,
+  max: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  min: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   onChange: PropTypes.func.isRequired,
   value: PropTypes.object,
   type: PropTypes.string.isRequired,
+  index: PropTypes.number,
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  handleHover: PropTypes.func,
 }
 
 export default Picker

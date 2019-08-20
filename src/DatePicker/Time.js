@@ -52,7 +52,7 @@ class Time extends PureComponent {
 
     if (pos !== 'start') {
       if (!isDisabled && min) {
-        if (utils.compareAsc(date, min) < 0) return
+        if (date.getHours() !== min.getHours() && utils.compareAsc(date, min) < 0) return
         if (range && utils.compareAsc(date, utils.addSeconds(min, range)) > 0) return
       }
       if (!isDisabled && max) {
@@ -94,8 +94,8 @@ class Time extends PureComponent {
 Time.propTypes = {
   disabled: PropTypes.func,
   format: PropTypes.string.isRequired,
-  min: PropTypes.object,
-  max: PropTypes.object,
+  min: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  max: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   onChange: PropTypes.func.isRequired,
   range: PropTypes.number,
   value: PropTypes.object,

@@ -31,14 +31,15 @@ const data = [
 describe('Dropdown[Base]', () => {
   let dropdownWrapper
   beforeAll(() => {
-    dropdownWrapper = shallow(<Dropdown data={data} placeholder="Dropdown" />)
+    dropdownWrapper = mount(<Dropdown data={data} placeholder="Dropdown" />)
   })
   test('should render a correct dom construction', () => {
+    const dropdown = dropdownWrapper.find('.so-dropdown').first()
     // wrapper
-    expect(dropdownWrapper.childAt(0).hasClass(`${SO_PREFIX}-dropdown-menu`)).toBe(true)
-    expect(dropdownWrapper.childAt(1).hasClass(`${SO_PREFIX}-dropdown-button`)).toBe(true)
+    expect(dropdown.childAt(0).hasClass(`${SO_PREFIX}-dropdown-menu`)).toBe(true)
+    expect(dropdown.childAt(1).hasClass(`${SO_PREFIX}-dropdown-button`)).toBe(true)
     // root btn
-    const rootBtnWrapper = dropdownWrapper.find(Button)
+    const rootBtnWrapper = dropdown.find(Button)
     expect(
       rootBtnWrapper
         .find('span')
@@ -46,22 +47,23 @@ describe('Dropdown[Base]', () => {
         .text()
     ).toBe('Dropdown')
     // first list
-    const listWrapper = dropdownWrapper.find('Hidable').shallow()
+    const listWrapper = dropdown.find('Hidable')
     expect(listWrapper.find(Dropdown).length).toBe(1)
-    expect(listWrapper.find('Item').length).toBe(1)
+    expect(listWrapper.find('Item').length).toBe(3)
     expect(
       listWrapper
         .find('Item')
-        .shallow()
         .find('a')
+        .first()
         .text()
-    ).toBe('Message')
+    ).toBe('Link to Google')
     // dropdown nest
-    const nestDropdown = listWrapper.find(Dropdown).shallow()
+    const nestDropdown = listWrapper.find(Dropdown)
     expect(
       nestDropdown
         .find('a')
         .find('span')
+        .first()
         .text()
     ).toBe('Submenu')
     expect(nestDropdown.find('Item').length).toBe(2)
@@ -70,60 +72,6 @@ describe('Dropdown[Base]', () => {
     const wrapper = mount(<Dropdown data={data} placeholder="Dropdown" />)
     // find the disabled item
     expect(wrapper.find('a[disabled]').text()).toBe('Disabled')
-  })
-  test('should show/hide list when click the dropdown button', () => {
-    let container = shallow(<Dropdown data={data} placeholder="Dropdown" />)
-    while (container) {
-      expect(
-        container
-          .find('Hidable')
-          .shallow()
-          .hasClass(`${SO_PREFIX}-hidable-show`)
-      ).toBeFalsy()
-      const btnWrapper = container.find(Button).length
-        ? container.find(Button)
-        : container.find(`a.${SO_PREFIX}-dropdown-button`)
-      btnWrapper.simulate('click')
-      expect(
-        container
-          .find('Hidable')
-          .shallow()
-          .hasClass(`${SO_PREFIX}-hidable-show`)
-      ).toBeTruthy()
-      container = container.find(Dropdown).length ? container.find(Dropdown).shallow() : null
-    }
-  })
-})
-
-describe('Dropdown[Hover]', () => {
-  test('should show/hide list when hover/leave', async () => {
-    let container = shallow(<Dropdown trigger="hover" data={data} placeholder="Dropdown" />)
-      .find(Dropdown)
-      .shallow()
-    while (container) {
-      expect(
-        container
-          .find('Hidable')
-          .shallow()
-          .hasClass(`${SO_PREFIX}-hidable-show`)
-      ).toBeFalsy()
-      container.simulate('mouseEnter')
-      expect(
-        container
-          .find('Hidable')
-          .shallow()
-          .hasClass(`${SO_PREFIX}-hidable-show`)
-      ).toBeTruthy()
-      container.simulate('mouseLeave')
-      await sleep()
-      expect(
-        container
-          .find('Hidable')
-          .shallow()
-          .hasClass(`${SO_PREFIX}-hidable-show`)
-      ).toBeFalsy()
-      container = container.find(Dropdown).length ? container.find(Dropdown).shallow() : null
-    }
   })
 })
 

@@ -29,11 +29,11 @@ export function getParent(el, target) {
   return null
 }
 
-export function dispatchEvent(form, name) {
+export function dispatchEvent(form, name, detail) {
   if (!form) return
   let event
   if (CustomEvent) {
-    event = new CustomEvent(name, { bubbles: false, cancelable: true })
+    event = new CustomEvent(name, { bubbles: false, cancelable: true, detail })
   } else {
     event = document.createEvent('HTMLEvents')
     event.initEvent(name, true, true)
@@ -82,9 +82,9 @@ function select(element) {
     return
   }
   if (window.getSelection && document.createRange) {
-    element.focus()
+    if (element) element.focus()
     const range = document.createRange()
-    range.selectNodeContents(element)
+    if (element) range.selectNodeContents(element)
     const sel = window.getSelection()
     sel.removeAllRanges()
     sel.addRange(range)

@@ -41,6 +41,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Select/example-01-multiple.js'),
   },
   {
+    name: '01-o-compressed',
+    title: locate(
+      ' \n 设置 compressed 使选中值合并展示，鼠标悬浮时将会展示所有值。',
+      ' \n Set the compressed property to compress values, hover to show all values.'
+    ),
+    component: require('doc/pages/components/Select/example-01-o-compressed.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-01-o-compressed.js'),
+  },
+  {
     name: '02-format',
     title: locate(
       '数据处理 \n 设置 format 选项把数据对象格式化为指定的 value',

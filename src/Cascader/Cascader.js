@@ -27,6 +27,7 @@ class Cascader extends PureComponent {
       focus: false,
       path: [],
       position: 'drop-down',
+      listStyle: props.data.length === 0 ? { height: 'auto', width: '100%' } : { height: props.height },
     }
 
     this.datum = new DatumTree({
@@ -50,6 +51,8 @@ class Cascader extends PureComponent {
     this.handlePathChange = this.handlePathChange.bind(this)
     this.handleClear = this.handleClear.bind(this)
     this.shouldFocus = this.shouldFocus.bind(this)
+    this.bindRef = this.bindRef.bind(this)
+    this.resetPosition = this.resetPosition.bind(this)
   }
 
   componentDidUpdate(prevProps) {
@@ -61,6 +64,10 @@ class Cascader extends PureComponent {
   componentWillUnmount() {
     super.componentWillUnmount()
     this.clearClickAway()
+  }
+
+  bindRef(el) {
+    this.ref = el
   }
 
   bindClickAway() {
@@ -153,9 +160,34 @@ class Cascader extends PureComponent {
     }
   }
 
+  resetPosition() {
+    if (!this.ref) return
+
+    const { listStyle } = this.state
+    const { data, height } = this.props
+    const { width } = this.ref.getBoundingClientRect()
+    const { left } = this.ref.parentElement.getBoundingClientRect()
+
+    if (data.length === 0) {
+      if (listStyle.height === 'auto') return
+      this.setState({ listStyle: { height: 'auto', width: '100%' } })
+      return
+    }
+    // for clear the style width: 100%
+    if (listStyle.width === '100%') this.setState({ listStyle: { height } })
+
+    if (left + width > docSize.width) {
+      if (listStyle.left === 'auto') return
+      this.setState({ listStyle: { height, left: 'auto', right: 0 } })
+    } else {
+      if (listStyle.right === undefined) return
+      this.setState({ listStyle: { height } })
+    }
+  }
+
   renderList() {
-    const { data, keygen, renderItem, height, mode, onChange, loader, onItemClick, expandTrigger } = this.props
-    const { path } = this.state
+    const { data, keygen, renderItem, mode, onChange, loader, onItemClick, expandTrigger } = this.props
+    const { path, listStyle } = this.state
 
     const props = {
       datum: this.datum,
@@ -171,8 +203,13 @@ class Cascader extends PureComponent {
     const className = classnames(selectClass('options'), cascaderClass('options'))
 
     let tempData = data
+
+    setTimeout(() => {
+      this.resetPosition()
+    })
+
     return (
-      <div className={className} style={data.length === 0 ? { height: 'auto', width: '100%' } : { height }}>
+      <div className={className} ref={this.bindRef} style={listStyle}>
         <CascaderList {...props} key="root" data={tempData} id={path[0]} parentId="" path={[]} />
         {path.map((p, i) => {
           tempData = tempData.find(d => {
@@ -223,7 +260,13 @@ class Cascader extends PureComponent {
   render() {
     const { placeholder, disabled, size, ...other } = this.props
     const className = classnames(
-      cascaderClass('_', size, this.state.focus && 'focus', disabled === true && 'disabled'),
+      cascaderClass(
+        '_',
+        size,
+        this.state.focus && 'focus',
+        other.mode !== undefined && 'multiple',
+        disabled === true && 'disabled'
+      ),
       selectClass(this.state.position)
     )
 

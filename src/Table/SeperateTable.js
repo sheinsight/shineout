@@ -4,6 +4,7 @@ import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
 import { setTranslate } from '../utils/dom/translate'
 import { range, split } from '../utils/numbers'
+import { compareColumns } from '../utils/shallowEqual'
 import { getParent } from '../utils/dom/element'
 import { tableClass } from '../styles'
 import Scroll from '../Scroll'
@@ -51,6 +52,10 @@ class SeperateTable extends PureComponent {
     if (this.props.data !== prevProps.data) this.resetHeight()
     if (columns !== prevProps.columns || columns.length !== prevProps.columns.length) this.resetWidth()
     this.updateScrollLeft()
+
+    if (!compareColumns(prevProps.columns, this.props.columns)) {
+      this.setState({ colgroup: undefined })
+    }
   }
 
   getIndex(scrollTop = this.state.scrollTop) {
@@ -108,7 +113,9 @@ class SeperateTable extends PureComponent {
     }
 
     if (oldHeight && height !== oldHeight) {
-      this.setState({ scrollTop: this.lastScrollTop / this.getContentHeight() })
+      const scrollTop = this.lastScrollTop / this.getContentHeight()
+      if (scrollTop === this.state.scrollTop) this.forceUpdate()
+      else this.setState({ scrollTop })
     }
   }
 
@@ -169,6 +176,10 @@ class SeperateTable extends PureComponent {
       }
 
       if (index === 0) {
+        this.lastScrollTop = 0
+        setTimeout(() => {
+          this.setState({ scrollTop: 0 })
+        })
         this.tbody.style.marginTop = '0px'
         setTranslate(this.tbody, `-${offsetLeft}px`, '0px')
       } else {
@@ -352,6 +363,9 @@ class SeperateTable extends PureComponent {
     let dataUpdated = this.lastData !== data // Incorrect height due to changing data length dynamically
     if (this.lastData && !dataUpdated) dataUpdated = this.lastData.length !== data.length
     this.lastData = data
+
+    if (!dataUpdated && this.lastColumns && this.lastColumns.length !== columns.length) dataUpdated = true
+    this.lastColumns = columns
     const prevHeight = this.getSumHeight(0, currentIndex)
     const hasNotRenderRows = data.length > rowsInView
 

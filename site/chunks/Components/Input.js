@@ -23,6 +23,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Input/example-1-base.js'),
   },
   {
+    name: '1-clearable',
+    title: locate(
+      '允许删除 \n Input 允许删除',
+      'allow clear \n Input allow clear'
+    ),
+    component: require('doc/pages/components/Input/example-1-clearable.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Input/example-1-clearable.js'),
+  },
+  {
     name: '2-size',
     title: locate(
       '大小 \n 提供了三种尺寸的输入框，small、default、large',

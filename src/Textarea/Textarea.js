@@ -17,6 +17,7 @@ class Textarea extends PureComponent {
     this.handleChange = this.handleChange.bind(this)
     this.handleKeyUp = this.handleKeyUp.bind(this)
     this.resize = this.resize.bind(this)
+    this.defaultInfo = this.defaultInfo.bind(this)
   }
 
   componentDidMount() {
@@ -26,6 +27,14 @@ class Textarea extends PureComponent {
 
   componentDidUpdate(prevProps) {
     if (this.props.autosize && prevProps.value !== this.props.value) this.resize(this.props.value)
+  }
+
+  defaultInfo = value => {
+    if (!value || value.length === 0) return null
+    const { info } = this.props
+    const text = `${value.length} / ${info}`
+    if (value.length <= info) return text
+    return new Error(text)
   }
 
   bindShadow(el) {
@@ -62,8 +71,12 @@ class Textarea extends PureComponent {
 
   renderInfo() {
     const { info } = this.props
-    if (typeof info !== 'function') return null
-    const res = info(this.props.value)
+    const notNumber = typeof info !== 'number'
+
+    if (typeof info !== 'function' && notNumber) return null
+
+    const textInfo = notNumber ? info : this.defaultInfo
+    const res = textInfo(this.props.value)
 
     // empty
     if (!res) return null
@@ -117,7 +130,7 @@ class Textarea extends PureComponent {
 Textarea.propTypes = {
   autosize: PropTypes.bool,
   forceChange: PropTypes.func,
-  info: PropTypes.func,
+  info: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
   maxHeight: PropTypes.number,
   onBlur: PropTypes.func,
   onChange: PropTypes.func.isRequired,

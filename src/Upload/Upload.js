@@ -320,7 +320,7 @@ class Upload extends PureComponent {
   }
 
   renderHandle() {
-    const { limit, value, children, accept, multiple, disabled } = this.props
+    const { limit, value, children, accept, multiple, disabled, webkitdirectory } = this.props
     const count = value.length + Object.keys(this.state.files).length
     if (limit > 0 && limit <= count) return null
 
@@ -333,7 +333,13 @@ class Upload extends PureComponent {
     return (
       <span className={uploadClass('handle')} onClick={this.handleAddClick}>
         <Provider value={dragProps}>{children}</Provider>
-        <FileInput accept={accept} ref={this.bindElement} multiple={multiple} onChange={this.addFile} />
+        <FileInput
+          webkitdirectory={webkitdirectory}
+          accept={accept}
+          ref={this.bindElement}
+          multiple={multiple}
+          onChange={this.addFile}
+        />
       </span>
     )
   }
@@ -436,6 +442,7 @@ Upload.propTypes = {
   showUploadList: PropTypes.bool,
   validatorHandle: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   disabled: PropTypes.bool,
+  webkitdirectory: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 }
 
 Upload.defaultProps = {

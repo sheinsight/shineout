@@ -31,3 +31,7 @@
 | onCancel | func | 无 | 点击取消按钮时触发事件，返回 Promise 时，会在 Promise resolve 后关闭 Tooltip |
 | text | object | { ok: 'Ok', cancel: 'Cancel' } | 按钮文字 |
 | type | string | *warning* |  icon的类型，4 选 1，\[*success*, *info*, *warning*, *danger(error)*] |
+
+
+## 注意
+请确保 Popover 的父元素能接受 onMouseEnter、onMouseLeave、onFocus、onClick 事件。

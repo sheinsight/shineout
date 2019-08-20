@@ -1,6 +1,6 @@
 {
   "name": "shineout",
-  "version": "1.3.5",
+  "version": "1.4.0",
   "description": "Shein 前端组件库",
   "main": "./lib/index.js",
   "author": "lobos841@gmail.com",
@@ -36,6 +36,7 @@
     "docs-build-js": "cross-env NODE_ENV=production webpack --config webpack/config.doc.js",
     "docs-build-html": "node scripts/build-html.js",
     "docs-build": "npm-run-all docs-build-*",
+    "docs-rc-build": "cross-env LOG_ENV=rc npm-run-all docs-build-*",
     "build-clean": "rm -rf publish/es publish/dist publish/lib publish/css",
     "build-index": "node scripts/src-index.js",
     "build-package": "node scripts/build-package.js",

@@ -40,6 +40,7 @@ module.exports = function getCommon(config) {
       'process.env': {
         SO_PREFIX: JSON.stringify(process.env.SO_PREFIX || ''),
         CSS_MODULE: !!process.env.LOCAL_IDENT_NAME,
+        LOG_ENV: JSON.stringify(process.env.LOG_ENV || ''),
       },
     }),
   ]

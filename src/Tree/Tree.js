@@ -62,6 +62,9 @@ class Tree extends PureComponent {
 
     const active = this.props.active === id
     const expanded = this.props.expanded || this.props.defaultExpanded
+    if (this.props.defaultExpandAll) {
+      return { active, expanded: true }
+    }
 
     return { active, expanded: expanded && expanded.indexOf(id) >= 0 }
   }
@@ -211,6 +214,7 @@ Tree.propTypes = {
   value: PropTypes.array,
   datum: PropTypes.object,
   parentClickExpand: PropTypes.bool,
+  defaultExpandAll: PropTypes.bool,
 }
 
 Tree.defaultProps = {

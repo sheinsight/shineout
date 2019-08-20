@@ -10,7 +10,6 @@ export default WrappedComponent => {
     constructor(props) {
       super(props)
       this.handleTreeExpand = this.handleTreeExpand.bind(this)
-      this.expandLevel = new Map()
       this.state = {
         expandKeys: new Map(),
       }
@@ -22,6 +21,15 @@ export default WrappedComponent => {
         if (typeof columns[i].treeIndent === 'number') return columns[i].treeIndent
       }
       return TREE_TABLE_DEFAULT_INDENT
+    }
+
+    getExpandKeys() {
+      const { treeExpandKeys } = this.props
+      if (!treeExpandKeys) return this.state.expandKeys
+      return treeExpandKeys.reduce((map, key) => {
+        map.set(key, true)
+        return map
+      }, new Map())
     }
 
     getChildrenLength(children) {
@@ -43,7 +51,8 @@ export default WrappedComponent => {
 
     getExpandData() {
       const { data, keygen, treeColumnsName } = this.props
-      const { expandKeys } = this.state
+      const expandKeys = this.getExpandKeys()
+      this.expandLevel = new Map()
       if (expandKeys.size === 0) return data
 
       const storeExpandKeys = new Map()
@@ -55,7 +64,11 @@ export default WrappedComponent => {
           if (storeExpandKeys.size === 0) break
           const item = dataCo[i]
           const key = getKey(item, keygen, i)
+          const parentLevel = this.expandLevel.get(key) || 0
           if (storeExpandKeys.get(key) && item[treeColumnsName]) {
+            item[treeColumnsName].forEach(child => {
+              this.expandLevel.set(getKey(child, keygen), parentLevel + 1)
+            })
             draft.splice(i + 1, 0, ...item[treeColumnsName])
             dataCo = draft
             storeExpandKeys.delete(key)
@@ -65,24 +78,25 @@ export default WrappedComponent => {
     }
 
     handleTreeExpand(data, index) {
-      const { treeColumnsName, keygen } = this.props
-      const { expandKeys } = this.state
-      const children = data[treeColumnsName]
+      const { keygen, treeExpandKeys, onTreeExpand } = this.props
+      const expandKeys = this.getExpandKeys()
       const key = getKey(data, keygen, index)
-      const parentLevel = this.expandLevel.get(key) || 0
-      if (expandKeys.get(key)) {
-        this.setState(immer(draft => draft.expandKeys.delete(key)))
-      } else {
-        children.forEach((child, i) => {
-          this.expandLevel.set(getKey(child, keygen, index + i + 1), parentLevel + 1)
-        })
-        this.setState(immer(draft => draft.expandKeys.set(key, true)))
+      const changedKeys = immer(expandKeys, draft => {
+        // eslint-disable-next-line no-unused-expressions
+        expandKeys.get(key) ? draft.delete(key) : draft.set(key, true)
+      })
+      if (treeExpandKeys && onTreeExpand) {
+        onTreeExpand([...changedKeys.keys()])
+        return
       }
+      this.setState({
+        expandKeys: changedKeys,
+      })
     }
 
     render() {
       const { treeColumnsName } = this.props
-      const { expandKeys } = this.state
+      const expandKeys = this.getExpandKeys()
       const data = this.getExpandData()
       const rootTree = data.filter(v => v && v[treeColumnsName] && v[treeColumnsName].length).length === 0
       const treeIndent = this.getTreeIndent()
@@ -104,6 +118,8 @@ export default WrappedComponent => {
     ...getProps(PropTypes, 'keygen'),
     data: PropTypes.arrayOf(PropTypes.object),
     treeColumnsName: PropTypes.string,
+    treeExpandKeys: PropTypes.array,
+    onTreeExpand: PropTypes.func,
   }
 
   return TreeExpand

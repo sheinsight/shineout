@@ -18,6 +18,24 @@ describe('Input[Base]', () => {
     const attr = singleInput.find('input').prop('placeholder')
     expect(prop).toBe(attr)
   })
+  test('should clear the value', () => {
+    const wrapper = mount(<Input clearable />)
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: 'value',
+      },
+    })
+
+    wrapper.update()
+
+    expect(wrapper.find('input').prop('value')).toBe('value')
+
+    wrapper.find(`.${SO_PREFIX}-input-clear-wrapper`).simulate('mousedown')
+
+    wrapper.update()
+
+    expect(wrapper.find('input').prop('value')).toBe('')
+  })
   test('should set size', () => {
     const wrapper = mount(<InputSize />)
     wrapper.find('ShineoutInput').forEach(input => {
