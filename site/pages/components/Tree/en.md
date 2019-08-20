@@ -26,3 +26,4 @@
 | defaultValue | array\[key] | - | Default selected key (not controlled) | 
 | value | array\[key] | - | Selected key (controlled) |
 | onDrop | function(data, key, targetKey, position) | - | It is draggable when setting the onDrop property. <br />data: Full data after dragging.<br />key: the key of dragged node<br />targetKey: the key of target node<br />position: The position of the target node. start at 0. | 
+| defaultExpandAll | boolean | false | default expand all nodes | 
