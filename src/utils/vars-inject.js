@@ -923,6 +923,12 @@ const injects = {
         type: 'color',
       },
       {
+        name: 'closeColor',
+        className: exposeClass('tag-close'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
         name: 'borderRadius',
         className: tagClass('_'),
         attr: 'borderRadius',
@@ -952,6 +958,11 @@ const injects = {
     set color(v) {
       setBodyProperty({
         '--tag-color': v,
+      })
+    },
+    set closeColor(v) {
+      setBodyProperty({
+        '--tag-close-color': v,
       })
     },
     set borderColor(v) {
