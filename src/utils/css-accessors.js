@@ -51,6 +51,7 @@ const accessors = {
   message: {},
   card: {},
   modal: {},
+  popover: {},
 }
 
 for (const [key, value] of Object.entries(accessors)) {

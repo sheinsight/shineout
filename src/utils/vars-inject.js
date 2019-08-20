@@ -14,6 +14,7 @@ import {
   messageClass,
   cardClass,
   modalClass,
+  popoverClass,
 } from '../styles'
 import { exposeClass } from '../styles/expose'
 
@@ -1340,6 +1341,12 @@ const injects = {
         attr: 'color',
         type: 'color',
       },
+      {
+        name: 'boxShadow',
+        className: cardClass('shadow'),
+        attr: 'boxShadow',
+        type: 'string',
+      },
     ],
     set fontSize(v) {
       setBodyProperty({
@@ -1364,6 +1371,11 @@ const injects = {
     set color(v) {
       setBodyProperty({
         '--card-color': v,
+      })
+    },
+    set boxShadow(v) {
+      setBodyProperty({
+        '--card-box-shadow': v,
       })
     },
   },
@@ -1408,6 +1420,49 @@ const injects = {
     set titleColor(v) {
       setBodyProperty({
         '--modal-title-color': v,
+      })
+    },
+  },
+  popover: {
+    info: {
+      title: 'Popover 气泡',
+      name: 'popover',
+      path: 'Popover',
+    },
+    conf: [
+      {
+        name: 'borderColor',
+        className: popoverClass('_'),
+        attr: 'borderColor',
+        type: 'color',
+      },
+      {
+        name: 'borderWidth',
+        className: popoverClass('_'),
+        attr: 'borderWidth',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'boxShadow',
+        className: popoverClass('_'),
+        attr: 'boxShadow',
+        type: 'string',
+      },
+    ],
+    set borderColor(v) {
+      setBodyProperty({
+        '--popover-border-color': v,
+      })
+    },
+    set borderWidth(v) {
+      setBodyProperty({
+        '--popover-border-width': `${parseInt(v, 10)}px`,
+      })
+    },
+    set boxShadow(v) {
+      setBodyProperty({
+        '--popover-box-shadow': v,
       })
     },
   },
