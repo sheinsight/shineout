@@ -12,6 +12,7 @@ import Drawer from './Components/ThemeEditor/Drawer'
 import { headerClass } from './styles'
 import FontAwesome from './pages/components/Icon/FontAwesome'
 import ThemeEditor from './Components/ThemeEditor'
+import history from './history'
 
 const themes = [
   {
@@ -56,8 +57,16 @@ function handleThemeClick(data) {
 
 const PrimarySetter = () => {
   const [visible, setVisible] = useState(false)
+  const handleClick = () => {
+    const { href } = window.location
+    if (href.indexOf('components') === -1) {
+      history.push('/components/Button')
+      return
+    }
+    setVisible(!visible)
+  }
   return [
-    <span key="picker" className={headerClass('color')} onClick={() => setVisible(!visible)}>
+    <span key="picker" className={headerClass('color')} onClick={handleClick}>
       <div className={headerClass('color-current')} style={{ backgroundColor: color.primary }} />
     </span>,
     <Drawer key="modal" visible={visible} onClose={() => setVisible(false)}>
