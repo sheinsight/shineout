@@ -59,6 +59,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Select/example-02-format.js'),
   },
   {
+    name: '02-group',
+    title: locate(
+      '分组 \n 可以通过 groupBy 去将数据分组 \n 组件会通过该函数的返回值对内容进行分组, 如果返回的是空, 则默认不分组, 为了防止产生歧义, 建议有一个默认分组.',
+      'GroupBy \n Grouping data by groupBy. \n The component will group the content by the return value of the function. If the return is empty, the default is not grouped. To prevent ambiguity, it is recommended to have a default grouping.'
+    ),
+    component: require('doc/pages/components/Select/example-02-group.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-02-group.js'),
+  },
+  {
     name: '04-clearable',
     title: locate(
       '可清空 \n clearable 属性为 true 时，hover 后会显示清空图标。',

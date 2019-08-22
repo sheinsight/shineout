@@ -14,7 +14,7 @@ class Option extends PureComponent {
   handleClick() {
     const { data, onClick, isActive, index, disabled } = this.props
 
-    if (this.locked || disabled) return
+    if (this.locked || disabled || data.$$group) return
     this.locked = true
 
     onClick(!isActive, data, index)
@@ -30,12 +30,13 @@ class Option extends PureComponent {
 
   render() {
     const { data, isActive, index, renderItem, isHover, disabled } = this.props
+    const isGroupTitle = data.$$group
     const className = classnames(
-      selectClass('option', isActive && 'active', isHover && 'hover', disabled && 'disabled'),
+      selectClass('option', isActive && 'active', isHover && 'hover', disabled && 'disabled', isGroupTitle && 'group'),
       `option-${index}`
     )
 
-    const result = renderItem(data, index)
+    const result = isGroupTitle ? data.$$group : renderItem(data, index)
     const title = typeof result === 'string' ? result : ''
 
     if (isObject(data) && result === data) {

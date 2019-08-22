@@ -10,6 +10,7 @@ export function getUidStr() {
 }
 
 function $getKey(d, gen, index) {
+  if (d.$$group) return `__${d.$$group}__`
   if (gen === true) return d
   if (typeof gen === 'string') return d[gen]
   if (typeof gen === 'function') return gen(d)

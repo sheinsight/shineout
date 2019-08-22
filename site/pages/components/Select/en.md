@@ -29,3 +29,4 @@
 | value | array \| string \| object | | In the Form, the value will be taken over by the form and the value will be invalid. |
 | compressed | bool | false | Merges selected values, valid only in multiselect mode |
 | zIndex | number | 1000 | options z-index |
+| groupBy | func: (record, index, data) => {} | - | group by

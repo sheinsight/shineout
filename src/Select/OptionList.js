@@ -66,6 +66,13 @@ class OptionList extends Component {
       hoverIndex = 0
       this.lastScrollTop = 0
     }
+
+    // jump the group, the group would't be the last, so do't need to fixed the last
+    const data = this.props.data[hoverIndex]
+    if (data && data.$$group) {
+      if (step > 0) hoverIndex += 1
+      else hoverIndex -= 1
+    }
     if (hoverIndex < 0) hoverIndex = max - 1
 
     const scrollTop = hoverIndex / max

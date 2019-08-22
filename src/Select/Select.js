@@ -238,7 +238,7 @@ class Select extends PureComponent {
   handleEnter() {
     const hoverIndex = this.optionList.getIndex && this.optionList.getIndex()
     const data = this.props.data[hoverIndex]
-    if (data) {
+    if (data && !data.$$group) {
       const checked = !this.props.datum.check(data)
       this.handleChange(checked, data)
       if (this.optionList.handleHover) this.optionList.handleHover(hoverIndex)
