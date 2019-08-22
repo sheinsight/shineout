@@ -73,7 +73,7 @@ describe('expose[getColor]', () => {
   })
   test('should return color in types', () => {
     types.forEach(type => {
-      expect(color[type]).toBe(colorConfig.textDecorationColor)
+      expect(color[type]).toBe(colorConfig.color)
     })
   })
 })

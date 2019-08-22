@@ -59,7 +59,7 @@
 
     &:after {
       position: absolute;
-      top: @menu-item-height / 2;
+      top: @menu-item-height-half;
       right: 16px;
       transform: @menu-title-transform;
     }
@@ -270,7 +270,7 @@
 
     &.@{menu-prefix}-horizontal,&.@{menu-prefix}-vertical {
       border-color: @menu-dark-bg;
-      
+
       .@{menu-prefix}-list {
         background-color: @menu-dark-bg;
         color: @menu-dark-item;

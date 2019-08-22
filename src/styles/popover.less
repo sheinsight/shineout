@@ -32,7 +32,7 @@
   position: absolute;
   z-index: @zindex-popover;
   display: block;
-  border: 1px solid @popover-arrow-outer-color;
+  border: @popover-border-width solid @popover-arrow-outer-color;
   // animation: @keyframe-opacity 0.5s ease;
   background-clip: padding-box;
   background-color: @popover-bg;
@@ -46,7 +46,7 @@
     z-index: 1;
     display: inline-block;
     padding: @popover-arrow-width * 0.7;
-    border: 1px solid @popover-arrow-outer-color;
+    border: @popover-border-width solid @popover-arrow-outer-color;
     background-color: @popover-bg;
   }
 

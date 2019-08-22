@@ -1,8 +1,8 @@
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const config = require('../../config')
 const webpack = require('webpack')
+const config = require('../../config')
 
 const lessLoader = (name, hot) => {
   const loaders = [
@@ -11,6 +11,9 @@ const lessLoader = (name, hot) => {
     },
     {
       loader: 'css-loader',
+    },
+    {
+      loader: 'var-polyfill-loader',
     },
     {
       loader: 'postcss-loader',
@@ -45,6 +48,9 @@ module.exports = function({
       minimizer: [new OptimizeCSSAssetsPlugin({})],
     },
     entry,
+    resolveLoader: {
+      modules: ['node_modules', 'webpack/loaders'],
+    },
     resolve: {
       alias: config.webpack.alias,
     },

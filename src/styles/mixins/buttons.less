@@ -3,6 +3,202 @@
 // Easily pump out default styles, as well as :hover, :focus, :active,
 // and disabled options for all buttons
 
+.button-case-box-shadow(@color, @width, @fade) {
+  & when (%('%s', @color) = %('%s', @btn-primary-border)) {
+    & when (@so-theme = antd) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @primary-color-fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @primary-color-fade-0;
+      }
+    }
+    & when (@so-theme = default) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @primary-color-dark-5_fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @primary-color-dark-5_fade-0;
+      }
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-success-border)) {
+    & when (@so-theme = antd) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @success-color-fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @success-color-fade-0;
+      }
+    }
+    & when (@so-theme = default) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @success-color-dark-5_fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @success-color-dark-5_fade-0;
+      }
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-info-border)) {
+    & when (@so-theme = antd) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @info-color-fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @info-color-fade-0;
+      }
+    }
+    & when (@so-theme = default) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @info-color-dark-5_fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @info-color-dark-5_fade-0;
+      }
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-warning-border)) {
+    & when (@so-theme = antd) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @warning-color-fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @warning-color-fade-0;
+      }
+    }
+    & when (@so-theme = default) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @warning-color-dark-5_fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @warning-color-dark-5_fade-0;
+      }
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-danger-border)) {
+    & when (@so-theme = antd) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @danger-color-fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @danger-color-fade-0;
+      }
+    }
+    & when (@so-theme = default) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @danger-color-dark-5_fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @danger-color-dark-5_fade-0;
+      }
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-secondary-border)) {
+    & when (@fade = 60%) {
+      box-shadow: 0 0 0 @width @secondary-color-dark-5_fade-60;
+    }
+    & when (@fade = 0%) {
+      box-shadow: 0 0 0 @width @secondary-color-dark-5_fade-0;
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-default-border)) {
+    & when (@so-theme = antd) {
+      box-shadow: 0 0 0 @width fade(@color, @fade);
+    }
+    & when (@so-theme = default) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @gray-300-fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @gray-300-fade-60;
+      }
+    }
+  }
+}
+
+.button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-primary-bg)) {
+  background-color: @primary-color-dark-btn-hover;
+}
+.button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-secondary-bg)) {
+  background-color: @secondary-color-dark-btn-hover;
+}
+.button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-success-bg)) {
+  background-color: @success-color-dark-btn-hover;
+}
+.button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-info-bg)) {
+  background-color: @info-color-dark-btn-hover;
+}
+.button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-warning-bg)) {
+  background-color: @warning-color-dark-btn-hover;
+}
+.button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-danger-bg)) {
+  background-color: @danger-color-dark-btn-hover;
+}
+.button-case-background(@bg) when (%('%s', @bg) = %('%s', @btn-default-bg)) {
+  background-color: darken(@bg, @btn-hover-darken);
+}
+
+
+.button-case-border-color(@color) {
+  & when (%('%s', @color) = %('%s', @btn-primary-border)) {
+    & when (@so-theme = antd) {
+      border-color: @primary-color-dark-btn-hover;
+    }
+    & when (@so-theme = default) {
+      border-color: @colors-primary;
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-secondary-border)) {
+    & when (@so-theme = antd) {
+      border-color: @secondary-color-dark-btn-hover;
+    }
+    & when (@so-theme = default) {
+      border-color: @colors-secondary;
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-success-border)) {
+    & when (@so-theme = antd) {
+      border-color: @success-color-dark-btn-hover;
+    }
+    & when (@so-theme = default) {
+      border-color: @colors-success;
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-info-border)) {
+    & when (@so-theme = antd) {
+      border-color: @info-color-dark-btn-hover;
+    }
+    & when (@so-theme = default) {
+      border-color: @colors-info;
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-warning-border)) {
+    & when (@so-theme = antd) {
+      border-color: @warning-color-dark-btn-hover;
+    }
+    & when (@so-theme = default) {
+      border-color: @colors-warning;
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-danger-border)) {
+    & when (@so-theme = antd) {
+      border-color: @danger-color-dark-btn-hover;
+    }
+    & when (@so-theme = default) {
+      border-color: @colors-danger;
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-default-border)) {
+    & when (@so-theme = antd) {
+      border-color: darken(@color, @btn-hover-darken);
+    }
+    & when (@so-theme = default) {
+      border-color: @gray-300-darken-hover;
+    }
+  }
+}
+
 .button-variant(@color; @background; @outline; @name; @border:transparent) {
   border-color: @border;
   background-color: @background;
@@ -13,15 +209,15 @@
 
   @keyframes @keyname {
     0% {
-      box-shadow: 0 0 0 0 fade(@outline, 60%);
+      .button-case-box-shadow(@outline, 0, 60%);
     }
 
     50% {
-      box-shadow: 0 0 0 @btn-focus-width / 2 fade(@outline, 0%);
+      .button-case-box-shadow(@outline, @btn-focus-width / 2, 0%);
     }
 
     100% {
-      box-shadow: 0 0 0 @btn-focus-width fade(@outline, 0);
+      .button-case-box-shadow(@outline, @btn-focus-width, 0%);
     }
   }
 
@@ -32,15 +228,15 @@
 
   &:focus,
   &:hover {
-    border-color: darken(@outline, @btn-hover-darken);
-    background-color: darken(@background, @btn-hover-darken);
+    .button-case-border-color(@outline);
+    .button-case-background(@background);
     color: @color;
   }
 
   &:active {
-    border-color: darken(@outline, @btn-hover-darken);
+    .button-case-border-color(@outline);
     animation: @keyname 0.4s ease-out;
-    background-color: darken(@background, @btn-hover-darken);
+    .button-case-background(@background);
     color: @color;
   }
 
