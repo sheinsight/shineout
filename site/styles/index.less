@@ -11,6 +11,17 @@ a:focus {
 }
 
 .doc-main {
+  &-drawer {
+    .doc-markdown {
+      padding-right: 0;
+    }
+    .doc-main-nav-open-close + div {
+      //display: none;
+    }
+    .doc-nav-nav {
+      display: none;
+    }
+  }
   &-body {
     display: flex;
     overflow: hidden;

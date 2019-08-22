@@ -36,11 +36,19 @@
   @name: extract(@types, @i);
   @color-var-name: %('colors-%s', @name);
   &-location-@{name} {
-    text-decoration-color: @@color-var-name;
+    color: @@color-var-name;
     display: none;
     position: absolute;
   }
   .generate-location(@data, @n, (@i + 1));
+}
+
+.loop-gray(@n, @i: 1) when(@i =< @n){
+  @var-name: %('gray-%s00', @i);
+  &-gray-@{i}00 {
+    color: @@var-name;
+  }
+  .loop-gray(@n, (@i + 1));
 }
 
 @expose-prefix: ~'@{so-prefix}-expose';
@@ -48,4 +56,86 @@
 .@{expose-prefix} {
   .generate-location(@types, 5);
   .generate-types(@types, 5);
+  &-table {
+    color: @table-color;
+    &-head {
+      font-weight: @table-head-font-weight;
+      background: @table-head-bg;
+      border-radius: @table-border-radius-top @table-border-radius-top 0 0;
+      color: @table-head-color;
+      border-color: @table-border-color;
+      &-hover {
+        background: @table-bg-hover;
+      }
+    }
+  }
+  &-select-result-item {
+    background: @select-result-bg;
+    padding: @select-result-padding-vertical @select-result-space-16 @select-result-padding-vertical @select-result-space;
+  }
+  &-datepicker-month{
+    &-item {
+      border-radius: @datepicker-rect-active-border-radius-value;
+    }
+  }
+  &-slider {
+    &-bar {
+      background: @slider-bar-color;
+    }
+    &-indicator {
+      background: @slider-indicator-bg;
+      width: @slider-indicator-size;
+    }
+    &-value {
+      height: @slider-value-bottom;
+    }
+  }
+  &-menu {
+    &-dark {
+      background: @menu-dark-bg;
+      color: @menu-dark-item;
+    }
+    &-active {
+      background: @menu-item-active-bg;
+      color: @menu-item-active-color;
+    }
+  }
+  &-form {
+    &-inline {
+      margin-right: @form-inline-margin-right;
+    }
+  }
+  .loop-gray(9);
+  &-button {
+    margin-left: @button-margin-left;
+  }
+  &-input {
+    &-focus {
+      border-color: @input-border-focus;
+    }
+  }
+  &-radio {
+    width: @radio-width;
+    border: @radio-border-width solid #fff;
+    &-inner {
+      width: @radio-inner-width;
+    }
+  }
+  &-pagination {
+    &-hover {
+      border-color: @pagination-hover-border;
+      color: @pagination-hover-color;
+      background-color: @pagination-hover-bg;
+    }
+  }
+  &-modal {
+    &-icon {
+      width: @modal-icon-size;
+    }
+  }
+  &-tag {
+    &-close {
+      color: @tag-close-color;
+    }
+  }
 }

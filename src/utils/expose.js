@@ -1,5 +1,7 @@
 import { isObject } from './is'
 import { exposeClass } from '../styles/expose'
+import cssAccessors from './css-accessors'
+import { capitalize } from './strings'
 
 const types = ['primary', 'warning', 'danger', 'success', 'secondary']
 const attrs = ['background', 'color', 'border']
@@ -29,36 +31,31 @@ function getClassname(data) {
     .join(' ')
 }
 
-function getColor(type) {
-  // insert to body make render
-  const className = exposeClass(`location-${type}`)
-  const div = document.createElement('div')
-  div.className = className
-  document.body.appendChild(div)
-  // get color
-  const color = window.getComputedStyle(document.querySelector(`.${className}`)).textDecorationColor
-  div.parentElement.removeChild(div)
-  return color
+function getDOMStyle(dom) {
+  document.body.appendChild(dom)
+  const style = window.getComputedStyle(dom)
+  setTimeout(() => {
+    dom.parentElement.removeChild(dom)
+  })
+  return style
 }
 
-export const color = {
-  get primary() {
-    return getColor('primary')
-  },
-  get warning() {
-    return getColor('warning')
-  },
-  get danger() {
-    return getColor('danger')
-  },
-  get success() {
-    return getColor('success')
-  },
-  get secondary() {
-    return getColor('secondary')
-  },
+function toRGB(c) {
+  const el = document.createElement('div')
+  el.style.color = c
+  return getDOMStyle(el).color
 }
 
-export const style = {
+const style = {
   getClassname,
+  setStyle(options) {
+    for (const [key, values] of Object.entries(options)) {
+      const setterName = `set${capitalize(key)}`
+      if (cssAccessors[key] && cssAccessors[key][setterName]) cssAccessors[key][setterName](values)
+    }
+  },
 }
+
+const { color } = cssAccessors
+
+export { color, style, getDOMStyle, toRGB, types }

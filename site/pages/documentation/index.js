@@ -2,7 +2,7 @@ import { createMarkDown } from 'docs/MarkDown'
 import Page from '../Page'
 
 const versions = ['1.x.x']
-const changelogDir = process.env.LOG_ENV === 'rc' ? 'changelog-rc' : 'changlog'
+const changelogDir = process.env.LOG_ENV === 'rc' ? 'changelog-rc' : 'changelog'
 
 const pages = [
   'API',
