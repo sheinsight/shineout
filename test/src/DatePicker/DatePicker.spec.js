@@ -65,7 +65,7 @@ describe('DatePicker[Size]', () => {
 
 describe('DatePicker[WeekPicker]', () => {
   test('should only pick week', () => {
-    const wrapper = mount(<DatePicker type="week" format="yyyy wWW" defaultValue={Date.now()} />)
+    const wrapper = mount(<DatePicker type="week" format="RRRR IWW" defaultValue={Date.now()} />)
     document.write(wrapper.html())
     wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
     const days = wrapper.find(`.${SO_PREFIX}-datepicker-list`)
@@ -74,6 +74,7 @@ describe('DatePicker[WeekPicker]', () => {
       const last = days.childAt(i * 7 + 6)
       if (first.find(`.${SO_PREFIX}-datepicker-active`).length > 0) continue
       first.simulate('mouseEnter')
+      console.log(first.html())
       expect(first.html().indexOf(`${SO_PREFIX}-datepicker-hover-start`) > 0).toBeTruthy()
       expect(last.html().indexOf(`${SO_PREFIX}-datepicker-hover-end`) > 0).toBeTruthy()
       for (let j = 0; j < 5; j++) {

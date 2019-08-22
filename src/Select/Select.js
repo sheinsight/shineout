@@ -303,6 +303,7 @@ class Select extends PureComponent {
     ;[
       'treeData',
       'expanded',
+      'defaultExpanded',
       'datum',
       'keygen',
       'multiple',
@@ -334,7 +335,7 @@ class Select extends PureComponent {
 
   renderList() {
     const { focus, control, position } = this.state
-    const { autoAdapt } = this.props
+    const { autoAdapt, value } = this.props
 
     const props = {}
     ;[
@@ -357,7 +358,7 @@ class Select extends PureComponent {
       props[k] = this.props[k]
     })
 
-    const List = props.columns > 1 ? WrappedBoxList : WrappedOptionList
+    const List = props.columns >= 1 ? WrappedBoxList : WrappedOptionList
 
     return (
       <List
@@ -376,6 +377,7 @@ class Select extends PureComponent {
         position={position}
         onBlur={this.handleBlur}
         fixed={autoAdapt ? 'min' : true}
+        value={value}
       />
     )
   }
@@ -479,7 +481,6 @@ Select.propTypes = {
 
 Select.defaultProps = {
   clearable: false,
-  columns: 1,
   data: [],
   height: 250,
   itemsInView: 10,

@@ -59,7 +59,7 @@
 
     &:after {
       position: absolute;
-      top: @menu-item-height / 2;
+      top: @menu-item-height-half;
       right: 16px;
       transform: @menu-title-transform;
     }
@@ -125,8 +125,29 @@
   }
 
   &-horizontal {
+    height: 42px;
+
     &.@{menu-prefix}-root {
       border-bottom: solid 1px @menu-border-color;
+      display: inline-block;
+      white-space: nowrap;
+      min-width: 100%;
+    }
+
+    .@{menu-prefix}-wrapper {
+      position: absolute;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    &.@{menu-prefix}-has-open {
+      .@{menu-prefix}-wrapper {
+        height: 100vh;
+      }
+    }
+
+    &:hover .@{menu-prefix}-bar {
+      display: block;
     }
 
     & > .@{menu-prefix}-item {
@@ -249,7 +270,7 @@
 
     &.@{menu-prefix}-horizontal,&.@{menu-prefix}-vertical {
       border-color: @menu-dark-bg;
-      
+
       .@{menu-prefix}-list {
         background-color: @menu-dark-bg;
         color: @menu-dark-item;

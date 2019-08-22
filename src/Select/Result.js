@@ -163,7 +163,13 @@ class Result extends PureComponent {
       return this.renderInput(getResultContent(result[0], renderResult))
     }
 
-    return <span className={selectClass('ellipsis')}>{getResultContent(result[0], renderResult)}</span>
+    const v = getResultContent(result[0], renderResult)
+
+    return (
+      <span title={v} className={selectClass('ellipsis')}>
+        {v}
+      </span>
+    )
   }
 
   render() {

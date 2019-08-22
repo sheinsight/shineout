@@ -1,10 +1,125 @@
 @import './bootstrap.less';
+@import './cssvar.less';
 
+@colors-primary-value: #1890ff;
+@colors-primary: var(--primary-color, @colors-primary-value);
 @colors-blue: #1890ff;
+
+@colors-secondary-value: #6c757d;
+@colors-secondary: var(--secondary-color, @colors-secondary-value);
+
 @colors-green: #52c41a;
+@colors-success-value: @colors-green;
+@colors-success: var(--success-color, @colors-success-value);
+
 @colors-cyan: #1890ff;
+@colors-info-value: @colors-cyan;
+@colors-info: var(--info-color, @colors-info-value);
+
 @colors-yellow: #faad14;
+@colors-warning-value: @colors-yellow;
+@colors-warning: var(--warning-color, @colors-warning-value);
+
 @colors-red: #f5222d;
+@colors-danger-value: @colors-red;
+@colors-danger: var(--danger-color, @colors-danger-value);
+
+@button-border-radius-value: 4px;
+@btn-border-radius-base: var(--button-border-radius, @button-border-radius-value);
+
+@padding-base-horizontal: 12px;
+@padding-base-vertical: 5px;
+@button-padding-base-horizontal-value: @padding-base-horizontal;
+@btn-padding-x: var(--button-padding-base-horizontal, @button-padding-base-horizontal-value);
+@button-padding-base-vertical-value: @padding-base-vertical;
+@btn-padding-y: var(--button-padding-base-vertical, @button-padding-base-vertical-value);
+
+@padding-large-horizontal: 15px;
+@padding-large-vertical: 8px;
+@button-padding-large-horizontal-value: @padding-large-horizontal;
+@btn-padding-large-x: var(--button-padding-large-horizontal, @button-padding-large-horizontal-value);
+@button-padding-large-vertical-value: @padding-large-vertical;
+@btn-padding-large-y: var(--button-padding-large-vertical, @button-padding-large-vertical-value);
+
+@padding-small-horizontal: 7px;
+@padding-small-vertical: 2px;
+@padding-large-vertical: 8px;
+@button-padding-small-horizontal-value: @padding-small-horizontal;
+@btn-padding-small-x: var(--button-padding-small-horizontal, @button-padding-small-horizontal-value);
+@button-padding-small-vertical-value: @padding-small-vertical;
+@btn-padding-small-y: var(--button-padding-small-vertical, @button-padding-small-vertical-value);
+
+@table-head-color-value: rgba(0, 0, 0, 0.85);
+@table-head-color: var(--table-head-color, @table-head-color-value);
+
+@table-border-color-value: #e8e8e8;
+@table-border-color: var(--table-border-color, @table-border-color-value);
+
+@table-bg-hover-value: #e6f7ff;
+@table-bg-hover: var(--table-hover-bg, @table-bg-hover-value);
+
+@table-color-value: rgba(0, 0, 0, 0.65);
+@table-color: var(--table-color, @table-color-value);
+
+@tag-bg-color-value: #fafafa;
+@tag-bg-color: var(--tag-bg, @tag-bg-color-value);
+
+@tag-border-color-value: #d9d9d9;
+@tag-border-color: var(--tag-border-color, @tag-border-color-value);
+
+@input-border-focus-value: #40a9ff;
+@input-border-focus: var(--input-border-focus-color, @input-border-focus-value);
+
+@tag-border-radius-value: 3px;
+@tag-border-radius: var(--tag-border-radius, @tag-border-radius-value);
+
+@tag-padding-x-value: 8px;
+@tag-padding-x: var(--tag-padding-horizontal, @tag-padding-x-value);
+
+@tag-padding-y-value: 2px;
+@tag-padding-y: var(--tag-padding-vertical, @tag-padding-y-value);
+
+@input-bg-disabled-value: hsv(0, 0, 96%);
+@input-bg-disabled: var(--input-bg-disabled, @input-bg-disabled-value);
+
+@input-border-value: @gray-300-value;
+@input-border: var(--input-border-color, @input-border-value);
+
+@dropdown-link-active-bg-value: #f2f2f2;
+@dropdown-link-active-bg: var(--select-item-active-bg, @dropdown-link-active-bg-value);
+
+@dropdown-link-active-color-value: rgba(0, 0, 0, 0.65);
+@dropdown-link-active-color: var(--select-item-active-color, @dropdown-link-active-color-value);
+
+@menu-dark-bg-value: #001529;
+@menu-dark-bg: var(--menu-dark-bg, @menu-dark-bg-value);
+
+@menu-dark-item-value: #bfbfbf;
+@menu-dark-item: var(--menu-dark-color, @menu-dark-item-value);
+
+@input-focus-width-value: 2px;
+@input-focus-width: var(--input-focus-width, @input-focus-width-value);
+
+@menu-item-active-bg-value: #e6f7ff;
+@menu-item-active-bg: var(--menu-item-active-bg, @menu-item-active-bg-value);
+
+@menu-item-active-color-value: @colors-primary-value;
+@menu-item-active-color: var(--menu-item-active-color, @menu-item-active-color-value);
+
+@tag-color-value: #595959;
+@tag-color: var(--tag-color, @tag-color-value);
+
+@pagination-hover-border-value: @colors-primary-value;
+@pagination-hover-border: var(--pagination-hover-border, @pagination-hover-border-value);
+
+@pagination-hover-bg-value: @pagination-bg;
+@pagination-hover-bg: var(--pagination-hover-bg, @pagination-hover-bg-value);
+
+@pagination-hover-color-value: @colors-primary-value;
+@pagination-hover-color: var(--pagination-hover-color, @pagination-hover-color-value);
+
+@message-box-shadow-value: 0 4px 12px rgba(0, 0, 0, 0.15);
+@message-box-shadow: var(--message-box-shadow, @message-box-shadow-value);
 
 @state-success-text: rgba(0, 0, 0, 0.65);
 @state-success-bg: #f6ffed;
@@ -23,22 +138,14 @@
 @state-danger-border: #ffa39e;
 
 @font-size-large: @font-size-base + 2;
+@button-font-size-large-value: @font-size-large;
+@button-font-size-large: var(--button-font-size-large, @button-font-size-large-value);
 
 @caret-width: 6px;
-
-@padding-base-horizontal: 12px;
-@padding-base-vertical: 5px;
-@padding-large-horizontal: 15px;
-@padding-large-vertical: 8px;
-@padding-small-horizontal: 7px;
-@padding-small-vertical: 2px;
 
 @ease-in-out: 0.3s;
 // Alert
 @alert-padding-y: 8px;
-
-// Input
-@input-bg-disabled: hsv(0, 0, 96%);
 
 // Button
 @btn-border-radius-large: 4px;
@@ -65,25 +172,15 @@
 @dropdown-link-color: rgba(0, 0, 0, 0.65);
 @dropdown-link-hover-color: rgba(0, 0, 0, 0.65);
 @dropdown-link-hover-bg: #e6f7ff;
-@dropdown-link-active-color: rgba(0, 0, 0, 0.65);
-@dropdown-link-active-bg: #f2f2f2;
 
 // message
-@message-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 
 // table
 @table-cell-padding: 16px;
-@table-border-color: #e8e8e8;
 @table-head-border: 1px;
-@table-head-color: rgba(0, 0, 0, 0.85);
-@table-color: rgba(0, 0, 0, 0.65);
-@table-bg-hover: #e6f7ff;
 @table-condensed-cell-padding: 10px 16px;
 
 // pagination
-@pagination-hover-color: @colors-primary;
-@pagination-hover-bg: @pagination-bg;
-@pagination-hover-border: @colors-primary;
 
 //breadcrumb
 @breadcrumb-bg: transparent;
@@ -91,17 +188,11 @@
 @breadcrumb-active-color: rgba(0, 0, 0, 0.85);
 
 @input-color-placeholder: #bfbfbf;
-@input-border-focus: #40a9ff;
-@input-focus-width: 2px;
 
 //menu
-
-@menu-item-active-color: @colors-primary;
-@menu-item-active-bg: #e6f7ff;
 @menu-title-transform: translateY(-85%) rotate(45deg);
 @menu-title-open-transform: translateY(-65%) rotate(225deg);
 @menu-title-vertical-transform: translateY(-60%) rotate(-45deg);
-@menu-dark-bg: #001529;
 
 // card
 @panel-border-radius: 2px;
@@ -109,12 +200,6 @@
 @datepicker-day-hover-bg: #e6f7ff;
 
 // tag
-@tag-bg-color: #fafafa;
-@tag-padding-x: 8px;
-@tag-padding-y: 2px;
-@tag-border-radius: 3px;
-@tag-border-color: #d9d9d9;
-@tag-color: #595959;
 @tag-font-size: 80%;
 @tag-input-padding-y: 2px;
 

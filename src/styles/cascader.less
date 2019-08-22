@@ -13,7 +13,7 @@
 
   &-result {
     cursor: pointer;
-    position: relative;
+    // position: relative;
     display: flex;
     max-height: 105px;
     flex-flow: wrap;
@@ -67,6 +67,12 @@
   &-focus &-close,
   &-result:hover &-close {
     display: block;
+  }
+
+  &-multiple {
+    .@{cascader-prefix}-close {
+      right: 19px;
+    }
   }
 
   &-options {

@@ -121,6 +121,9 @@ class SeperateTable extends PureComponent {
         return
       }
       this.setState({ scrollTop: this.lastScrollTop / this.getContentHeight() })
+      const scrollTop = this.lastScrollTop / this.getContentHeight()
+      if (scrollTop === this.state.scrollTop) this.forceUpdate()
+      else this.setState({ scrollTop })
     }
   }
 

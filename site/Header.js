@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
-import { Button, Dropdown } from 'shineout'
+import { Button, Dropdown, color } from 'shineout'
 import docsearch from 'docsearch.js'
 import { Link } from 'react-router-dom'
 import locate, { setItem, STORAGE_KEY } from './locate'
 import theme from './utils/theme'
 import logo from './icons/logo'
 import Icon from './icons/Icon'
+import Drawer from './Components/ThemeEditor/Drawer'
 import { headerClass } from './styles'
 import FontAwesome from './pages/components/Icon/FontAwesome'
+import ThemeEditor from './Components/ThemeEditor'
+import history from './history'
 
 const themes = [
   {
@@ -50,6 +53,26 @@ function handleLangClick() {
 function handleThemeClick(data) {
   const url = `?theme=${data.content}${window.location.hash}`
   window.location.href = url
+}
+
+const PrimarySetter = () => {
+  const [visible, setVisible] = useState(false)
+  const handleClick = () => {
+    const { href } = window.location
+    if (href.indexOf('components') === -1) {
+      history.push('/components/Button')
+      return
+    }
+    setVisible(!visible)
+  }
+  return [
+    <span key="picker" className={headerClass('color')} onClick={handleClick}>
+      <div className={headerClass('color-current')} style={{ backgroundColor: color.primary }} />
+    </span>,
+    <Drawer key="modal" visible={visible} onClose={() => setVisible(false)}>
+      <ThemeEditor onClose={() => setVisible(false)} />
+    </Drawer>,
+  ]
 }
 
 const Header = ({ versions }) => {
@@ -138,8 +161,10 @@ const Header = ({ versions }) => {
 
         <Button type="link" style={{ color: '#666' }} href="https://github.com/sheinsight/shineout">
           <Icon name="github" />
-          GitHub
+          &nbsp;GitHub
         </Button>
+
+        <PrimarySetter />
       </div>
     </div>
   )

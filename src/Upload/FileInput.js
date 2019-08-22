@@ -28,7 +28,7 @@ class FileInput extends PureComponent {
   }
 
   render() {
-    const { accept, onChange, multiple } = this.props
+    const { accept, onChange, multiple, webkitdirectory } = this.props
 
     return (
       <input
@@ -37,6 +37,7 @@ class FileInput extends PureComponent {
         multiple={multiple}
         onChange={onChange}
         style={inputStyle}
+        webkitdirectory={webkitdirectory}
         type="file"
       />
     )
@@ -47,6 +48,7 @@ FileInput.propTypes = {
   accept: PropTypes.string,
   multiple: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
+  webkitdirectory: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 }
 
 export default FileInput

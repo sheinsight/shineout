@@ -2,7 +2,7 @@
  * cn - 模式
  *    -- 使用 Form.useMode 可以创建一组指定 key 的组件，配合 Form 设置的 mode 属性过滤显示指定的元素
  * en - Mode
- *    -- Form.useMode create a set of components, filters the specified element with the mode attribute of the Form.
+ *    -- Form.useMode creates a set of components, filters the specified element with the mode attribute of the Form.
  */
 import React, { PureComponent } from 'react'
 import { Form, Input, Radio } from 'shineout'

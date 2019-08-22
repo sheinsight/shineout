@@ -52,8 +52,8 @@ const examples = [
   {
     name: '06-fixed-header',
     title: locate(
-      '固定表头 \n 设置 fixed 属性为 \'both\' 或 \'y\'，可以固定表头，表格高度默认填充父元素',
-      'Fixed head \n Set the fixed property to \'both\' or \'y\' can fix the table header. The table height defaults to full the parent element.'
+      '固定表头 \n 设置 fixed 属性为 \'both\' 或 \'y\'，可以固定表头，表格高度默认填充父元素 \n 注:横向滚动需要指定 Table 的 width 属性, 不建议给所有的 column 设置宽度, 如果出现表头对不齐的问题, 请尝试至少留一列不设宽度以适应弹性布局，或者检查表格内容是否有超长不换行元素破坏布局.',
+      'Fixed head \n Set the fixed property to \'both\' or \'y\' can fix the table header. The table height defaults to full the parent element. \n Note: Horizontal scrolling requires the width property of Table, it is not recommended to set the width for all columns, if there is a problem with tablehead pairs, try leaving at least one column without a width to fit the elastic layout, or check the table contentford for excessively long unwrapped elements to break the layout.'
     ),
     component: require('doc/pages/components/Table/example-06-fixed-header.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-06-fixed-header.js'),

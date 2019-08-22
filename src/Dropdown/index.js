@@ -9,8 +9,11 @@ import { dropdownClass } from '../styles'
 import List from '../List'
 import Item from './Item'
 import { docSize } from '../utils/dom/document'
+import absoluteList from '../List/AbsoluteList'
+import { getUidStr } from '../utils/uid'
 
 const FadeList = List('fade')
+const AbsoluteList = absoluteList(({ focus, ...other }) => <FadeList show={focus} {...other} />)
 
 const positionMap = {
   'left-top': 'left-top',
@@ -36,6 +39,7 @@ class Dropdown extends PureComponent {
       console.warn('The "hover" property is not recommend, use trigger="hover" instead.')
     }
 
+    this.dropdownId = `dropdown_${getUidStr()}`
     this.bindElement = this.bindElement.bind(this)
 
     this.clickAway = this.clickAway.bind(this)
@@ -81,8 +85,12 @@ class Dropdown extends PureComponent {
   }
 
   clickAway(e) {
+    const { absolute } = this.props
     const el = getParent(e.target, 'a')
-    if (el && (el === this.element || this.element.contains(el)) && el.getAttribute('data-role') === 'item') return
+    const onSelf = absolute
+      ? getParent(e.target, `[data-id=${this.dropdownId}]`)
+      : el === this.element || this.element.contains(el)
+    if (el && onSelf && el.getAttribute('data-role') === 'item') return
     this.handleHide(0)
   }
 
@@ -150,11 +158,21 @@ class Dropdown extends PureComponent {
   }
 
   renderList(data, placeholder, position) {
-    const { width, onClick, columns, renderItem } = this.props
+    const { width, onClick, columns, renderItem, absolute } = this.props
     if (!Array.isArray(data) || data.length === 0) return null
 
     return [
-      <FadeList className={dropdownClass('menu')} style={{ width }} key="list" show={this.state.show}>
+      <AbsoluteList
+        absolute={absolute}
+        parentElement={this.element}
+        position={position}
+        className={dropdownClass('menu')}
+        style={{ width }}
+        key="list"
+        focus={this.state.show}
+        data-id={this.dropdownId}
+        fixed="min"
+      >
         {data.map((d, index) => {
           const childPosition = positionMap[position]
           const itemClassName = dropdownClass(
@@ -189,7 +207,7 @@ class Dropdown extends PureComponent {
             />
           )
         })}
-      </FadeList>,
+      </AbsoluteList>,
 
       this.renderButton(placeholder),
     ]

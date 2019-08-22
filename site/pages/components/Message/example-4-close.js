@@ -1,6 +1,6 @@
 /**
  * cn - 关闭回调
- *    -- onClose 属性处理消息关闭事件
+ *    -- 通过第三个参数[options]的 onClose 属性处理消息关闭回调。以下用例将在 Message 关闭后弹出新的 Message。
  * en - Close
  *    -- Set onClose to handle close event.
  */
@@ -16,5 +16,5 @@ export default function() {
     })
   }
 
-  return <Button onClick={close}>Close</Button>
+  return <Button onClick={close}>Close callback</Button>
 }

@@ -1,15 +1,116 @@
 @import './bootstrap.less';
+@import './cssvar.less';
 
-@colors-primary: #3399ff;
 @colors-blue: #3399ff;
-@colors-secondary: #999999;
-@colors-success: #00cc66;
-@colors-warning: #ff9900;
-@colors-danger: #f85555;
+@colors-primary-value: #3399ff;
+@colors-primary: var(--primary-color, @colors-primary-value);
+
+@colors-secondary-value: #999999;
+@colors-secondary: var(--secondary-color, @colors-secondary-value);
+
+@colors-success-value: #00cc66;
+@colors-success: var(--success-color, @colors-success-value);
+
+@colors-info-value: @colors-cyan;
+@colors-info: var(--info-color, @colors-info-value);
+
+@colors-warning-value: #ff9900;
+@colors-warning: var(--warning-color, @colors-warning-value);
+
+@colors-danger-value: #f85555;
+@colors-danger: var(--danger-color, @colors-danger-value);
+
+@button-border-radius-value: 3px;
+@btn-border-radius-base: var(--button-border-radius, @button-border-radius-value);
+
+@button-padding-base-horizontal-value: @padding-base-horizontal;
+@btn-padding-x: var(--button-padding-base-horizontal, @button-padding-base-horizontal-value);
+@button-padding-base-vertical-value: @padding-base-vertical;
+@btn-padding-y: var(--button-padding-base-vertical, @button-padding-base-vertical-value);
+
+@button-padding-large-horizontal-value: @padding-large-horizontal;
+@btn-padding-large-x: var(--button-padding-large-horizontal, @button-padding-large-horizontal-value);
+@button-padding-large-vertical-value: @padding-large-vertical;
+@btn-padding-large-y: var(--button-padding-large-vertical, @button-padding-large-vertical-value);
+
+@button-padding-small-horizontal-value: @padding-small-horizontal;
+@btn-padding-small-x: var(--button-padding-small-horizontal, @button-padding-small-horizontal-value);
+@button-padding-small-vertical-value: @padding-small-vertical;
+@btn-padding-small-y: var(--button-padding-small-vertical, @button-padding-small-vertical-value);
+
+@table-head-color-value: @text-color;
+@table-head-color: var(--table-head-color, @table-head-color-value);
+
+@table-border-color-value: #ddd;
+@table-border-color: var(--table-border-color, @table-border-color-value);
+
+@table-bg-hover-value: #f5f5f5;
+@table-bg-hover: var(--table-hover-bg, @table-bg-hover-value);
+
+@table-color-value: @gray-600-value;
+@table-color: var(--table-color, @table-color-value);
+
+@pagination-hover-border-value: @pagination-border;
+@pagination-hover-border: var(--pagination-hover-border, @pagination-hover-border-value);
+
+@pagination-hover-bg-value: @gray-100-value;
+@pagination-hover-bg: var(--pagination-hover-bg, @pagination-hover-bg-value);
+
+@tag-bg-color-value: #fafafa;
+@tag-bg-color: var(--tag-bg, @tag-bg-color-value);
+
+@tag-border-color-value: #d9d9d9;
+@tag-border-color: var(--tag-border-color, @tag-border-color-value);
+
+@tag-border-radius-value: 3px;
+@tag-border-radius: var(--tag-border-radius, @tag-border-radius-value);
+
+@tag-padding-x-value: 8px;
+@tag-padding-x: var(--tag-padding-horizontal, @tag-padding-x-value);
+
+@tag-padding-y-value: 2px;
+@tag-padding-y: var(--tag-padding-vertical, @tag-padding-y-value);
+
+@dropdown-link-active-bg-value: #f5f5f5;
+@dropdown-link-active-bg: var(--select-item-active-bg, @dropdown-link-active-bg-value);
+
+@button-font-size-large-value: @font-size-large;
+@button-font-size-large: var(--button-font-size-large, @button-font-size-large-value);
+
+@dropdown-link-active-color: @gray-800-darken-5;
+
+@menu-dark-bg-value: #001529;
+@menu-dark-bg: var(--menu-dark-bg, @menu-dark-bg-value);
+
+@menu-dark-item-value: #bfbfbf;
+@menu-dark-item: var(--menu-dark-color, @menu-dark-item-value);
+
+@menu-item-active-bg-value: @colors-primary-value;
+@menu-item-active-bg: var(--menu-item-active-bg, @menu-item-active-bg-value);
+
+@menu-item-active-color-value: #fff;
+@menu-item-active-color: var(--menu-item-active-color, @menu-item-active-color-value);
+
+@message-box-shadow-value: 0 6px 12px rgba(0, 0, 0, 0.175);
+@message-box-shadow: var(--message-box-shadow, @message-box-shadow-value);
+
+@tag-color-value: #595959;
+@tag-color: var(--tag-color, @tag-color-value);
+
+@input-focus-width-value: 3px;
+@input-focus-width: var(--input-focus-width, @input-focus-width-value);
+
+@input-bg-disabled-value: @gray-200-value;
+@input-bg-disabled: var(--input-bg-disabled, @input-bg-disabled-value);
+
+@input-border-value: @gray-400-value;
+@input-border: var(--input-border-color, @input-border-value);
+
+@input-border-focus-value: #80bdff;
+@input-border-focus: var(--input-border-focus-color, @input-border-focus-value);
 
 @breadcrumb-bg: transparent;
 
-@btn-border-radius-base: 3px;
 @btn-border-radius-large: 4px;
 
 @select-option-hover-color: @colors-primary;
