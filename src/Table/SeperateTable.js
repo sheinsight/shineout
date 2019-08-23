@@ -166,7 +166,7 @@ class SeperateTable extends PureComponent {
 
   resetHeight() {
     const { scrollTop, offsetLeft } = this.state
-    const { treeColumnsName } = this.props
+    const { treeColumnsName, changedByExpand } = this.props
     const fullHeight = this.getContentHeight()
     const height = fullHeight * scrollTop
 
@@ -177,7 +177,7 @@ class SeperateTable extends PureComponent {
         this.setState({ currentIndex: index })
       })
 
-      if (treeColumnsName) {
+      if (treeColumnsName && changedByExpand) {
         this.tbody.style.marginTop = `${this.lastScrollArgs[5] * scrollTop}px`
         setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
         return
