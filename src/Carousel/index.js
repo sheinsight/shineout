@@ -90,7 +90,6 @@ class Carousel extends PureComponent {
     const inds = range(this.count).map(i => (
       <a
         key={i}
-        href="javascript:;"
         onClick={this.moveTo.bind(this, i)}
         className={carouselClass(current === i && 'indicator-active')}
       >

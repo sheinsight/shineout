@@ -103,7 +103,7 @@ class Item extends PureComponent {
   renderLink(data) {
     const { linkKey } = this.props
     if (linkKey && data[linkKey]) return data[linkKey]
-    return 'javascript:;'
+    return null
   }
 
   render() {
@@ -157,11 +157,13 @@ class Item extends PureComponent {
       const mergeStyle = Object.assign({}, style, item.props && item.props.style)
       item = cloneElement(item, { className: mergeClass, style: mergeStyle })
     } else {
-      item = (
-        <a href={link} className={menuClass('title')} style={style} onClick={this.handleClick}>
-          {item}
-        </a>
-      )
+      const props = {
+        className: menuClass('title'),
+        style,
+        onClick: this.handleClick,
+      }
+      if (link) props.href = link
+      item = <a {...props}>{item}</a>
     }
 
     return (

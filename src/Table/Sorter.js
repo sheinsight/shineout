@@ -31,7 +31,6 @@ class Sorter extends PureComponent {
     return [
       <a
         key="asc"
-        href="javascript:;"
         className={tableClass(active && current.order === 'asc' && 'sorter-active', 'sorter-asc')}
         onClick={this.handleAsc}
       >
@@ -39,7 +38,6 @@ class Sorter extends PureComponent {
       </a>,
       <a
         key="desc"
-        href="javascript:;"
         className={tableClass(active && current.order === 'desc' && 'sorter-active', 'sorter-desc')}
         onClick={this.handleDesc}
       >

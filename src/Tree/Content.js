@@ -55,7 +55,6 @@ class Content extends PureComponent {
 
     const indicator = (
       <a
-        href="javascript:;"
         onClick={this.handleIndicatorClick}
         className={treeClass(`icon-${expanded ? 'sub' : 'plus'}`)}
       >
