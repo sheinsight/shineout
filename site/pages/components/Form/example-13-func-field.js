@@ -54,8 +54,7 @@ class ColorPicker extends PureComponent {
     return (
       <div style={colorStyle.outer}>
         <a style={{ ...colorStyle.handle, background: value }}
-          onClick={this.handleClick}
-          href="javascript:;" />
+          onClick={this.handleClick} />
         {
           this.state.showPicker &&
           <div style={colorStyle.picker}>

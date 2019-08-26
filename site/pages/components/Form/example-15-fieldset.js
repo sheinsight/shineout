@@ -60,10 +60,10 @@ export default class extends PureComponent {
                   rules={[rules.min(18)]}
                   placeholder="Age"
                 />
-                <a href="javascript:;" style={{ margin: '0 12px' }} onClick={() => onAppend({ age: 16 })}>
+                <a style={{ margin: '0 12px' }} onClick={() => onAppend({ age: 16 })}>
                   <FontAwesome name="plus" />
                 </a>
-                <a href="javascript:;" onClick={onRemove}>
+                <a onClick={onRemove}>
                   <FontAwesome name="close" />
                 </a>
               </Form.Item>
