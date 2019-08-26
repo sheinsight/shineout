@@ -549,7 +549,6 @@ Array [
       <a
         className="so-pagination-item"
         disabled={true}
-        href="javascript:;"
         onMouseDown={[Function]}
       >
         <svg
@@ -566,7 +565,6 @@ Array [
       <a
         className="so-pagination-item so-pagination-current"
         disabled={true}
-        href="javascript:;"
         onMouseDown={[Function]}
       >
         1
@@ -574,7 +572,6 @@ Array [
       <a
         className="so-pagination-item"
         disabled={true}
-        href="javascript:;"
         onMouseDown={[Function]}
       >
         <svg
