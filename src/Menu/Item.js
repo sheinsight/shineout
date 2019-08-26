@@ -119,6 +119,7 @@ class Item extends PureComponent {
       toggleOpenKeys,
       bottomLine,
       topLine,
+      linkKey,
     } = this.props
     const { open, isActive, isHighLight, inPath } = this.state
     const { children: dChildren } = data
@@ -180,6 +181,7 @@ class Item extends PureComponent {
             level={level + 1}
             open={open}
             toggleOpenKeys={toggleOpenKeys}
+            linkKey={linkKey}
           />
         )}
       </li>
