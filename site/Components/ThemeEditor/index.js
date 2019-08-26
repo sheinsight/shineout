@@ -17,7 +17,7 @@ function Foot({ onClose }) {
   const ctx = React.useContext(context)
   return (
     <div className={headerClass('editor-footer')}>
-      <a className={headerClass('editor-close')} onClick={onClose} href="javascript:;">
+      <a className={headerClass('editor-close')} onClick={onClose}>
         {Icons.Close}
       </a>
       <span onClick={ctx.resetConfig}>恢复</span>

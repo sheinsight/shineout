@@ -72,7 +72,7 @@ class Alert extends PureComponent {
     const { closeItem } = this.props
     if (React.isValidElement(closeItem)) return React.cloneElement(closeItem, { onClick: this.handleClose })
     return (
-      <a href="javascript:;" className={alertClass('close')} onClick={this.handleClose}>
+      <a className={alertClass('close')} onClick={this.handleClose}>
         {closeItem || icons.Close}
       </a>
     )

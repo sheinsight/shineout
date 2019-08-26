@@ -56,7 +56,7 @@ export default function Example({ component, id, name, rawText, title: propsTitl
   }
 
   const renderCodeHandle = isBottom => (
-    <a href="javascript:;" className={exampleClass('toggle')} onClick={toggleCode.bind(null, isBottom)}>
+    <a className={exampleClass('toggle')} onClick={toggleCode.bind(null, isBottom)}>
       <Icon name={showcode ? 'code-close' : 'code'} />
     </a>
   )

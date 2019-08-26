@@ -26,7 +26,7 @@ class ImageFile extends PureComponent {
 
         {message && <div className={uploadClass('message')}>{message}</div>}
 
-        <a className={uploadClass('delete')} onClick={this.handleRemove} href="javascript:;">
+        <a className={uploadClass('delete')} onClick={this.handleRemove}>
           {icons.Close}
         </a>
 

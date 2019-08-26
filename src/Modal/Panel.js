@@ -64,7 +64,7 @@ export default class Panel extends PureComponent {
 
       <Card key="card" shadow className={className} style={this.getStyle()}>
         {(maskCloseAble || maskCloseAble === null) && (
-          <a className={modalClass('close')} onClick={onClose} href="javascript:;">
+          <a className={modalClass('close')} onClick={onClose} >
             {Icons.Close}
           </a>
         )}

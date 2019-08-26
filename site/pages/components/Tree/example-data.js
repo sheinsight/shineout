@@ -16,7 +16,7 @@ export default class extends Component {
     return (
       <div>
         Current node count: {allIds.length}.{' '}
-        <a href="javascript:;" onClick={this.toggle}>
+        <a onClick={this.toggle}>
           {expand ? 'Collapse' : 'Expand'} Code
         </a>
         <pre style={{ display: expand ? 'block' : 'none' }}>{JSON.stringify(data, null, 2)}</pre>

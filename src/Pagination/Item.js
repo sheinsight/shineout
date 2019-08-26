@@ -27,7 +27,6 @@ class Item extends PureComponent {
         className={className}
         disabled={disabled || isCurrent}
         onMouseDown={this.handleClick}
-        href="javascript:;"
       >
         {children}
       </a>
