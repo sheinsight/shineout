@@ -47,7 +47,7 @@ class Tr extends Component {
   componentDidUpdate() {
     const { hasNotRenderRows, dataUpdated, columnResizable } = this.props
     if (hasNotRenderRows || dataUpdated) {
-      const exec = columnResizable ? setTimeout : () => {}
+      const exec = columnResizable ? setTimeout : func => func()
       exec(() => {
         this.setRowHeight()
       })
