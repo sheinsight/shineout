@@ -84,7 +84,6 @@ class RadioGroup extends PureComponent {
               htmlValue={i}
               index={i}
               onChange={this.handleClick}
-              button={button}
             >
               {this.getContent(d)}
             </Radio>
