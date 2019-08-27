@@ -1,10 +1,8 @@
 /**
  * cn - 多选
  *    -- multiple 属性为true时，为多选状态，默认为单选
- *    -- compressed属性为true时，将选中值合并，只在多选模式下有效
  * en - Multiple
  *    -- Set the multiple property to true, it is multi-selection.
- *    -- Set the compressed property to true to merge selected values, valid only in multiselect mode.
  */
 import React, { Component } from 'react'
 import { Select } from 'shineout'

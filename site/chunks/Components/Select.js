@@ -34,8 +34,8 @@ const examples = [
   {
     name: '01-multiple',
     title: locate(
-      '多选 \n multiple 属性为true时，为多选状态，默认为单选 \n compressed属性为true时，将选中值合并，只在多选模式下有效',
-      'Multiple \n Set the multiple property to true, it is multi-selection. \n Set the compressed property to true to merge selected values, valid only in multiselect mode.'
+      '多选 \n multiple 属性为true时，为多选状态，默认为单选',
+      'Multiple \n Set the multiple property to true, it is multi-selection.'
     ),
     component: require('doc/pages/components/Select/example-01-multiple.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-01-multiple.js'),
@@ -43,8 +43,8 @@ const examples = [
   {
     name: '01-o-compressed',
     title: locate(
-      ' \n 设置 compressed 使选中值合并展示，鼠标悬浮时将会展示所有值。',
-      ' \n Set the compressed property to compress values, hover to show all values.'
+      ' \n compressed属性为true时，将选中值合并，鼠标悬浮时将会展示所有值，只在多选模式下有效。',
+      ' \n Set the compressed property to true to merge selected values, valid only in multiselect mode, hover to show all values.'
     ),
     component: require('doc/pages/components/Select/example-01-o-compressed.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-01-o-compressed.js'),

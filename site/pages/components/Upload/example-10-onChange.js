@@ -14,7 +14,7 @@ export default class extends Component {
       imgList: [
         {
           pictureName: '测试图片',
-          pictureUrl: '../images/1_s.jpg',
+          pictureUrl: '/images/1_s.jpg',
         },
       ],
     }
@@ -35,6 +35,7 @@ export default class extends Component {
 
   deleteImg = data => {
     const { imgList } = this.state
+    console.log('delete file: ', data)
     this.setState({
       imgList: imgList.filter(v => v !== data),
     })

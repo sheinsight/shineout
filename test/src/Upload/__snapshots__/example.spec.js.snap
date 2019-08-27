@@ -42,7 +42,7 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-04-validator
     <div>
       <div>
         <i />
-         Upload Image
+        Upload Image
         <br />
         Allow size 200 * 100
       </div>
@@ -80,7 +80,7 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-06-error.js]
     <span>
       <button>
         <i />
-         Upload file
+        Upload file
       </button>
       <input />
     </span>
@@ -125,6 +125,19 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-08-request.j
       <i />
        Upload file
     </button>
+    <input />
+  </span>
+</div>
+`;
+
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-09-headers.js] 1`] = `
+<div>
+  <span>
+    <div>
+      <span>
+        导入excel文件
+      </span>
+    </div>
     <input />
   </span>
 </div>
@@ -181,6 +194,41 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-10-defaultVa
         </svg>
       </a>
     </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-10-onChange.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <a>
+        <div>
+          <div>
+             
+            <span>
+              loading...
+            </span>
+          </div>
+        </div>
+      </a>
+      <a>
+        <svg>
+          <path />
+        </svg>
+      </a>
+    </div>
+    <span>
+      <div>
+        <div />
+      </div>
+      <input />
+    </span>
+  </div>
+  <div>
+    <p>
+      测试图片
+    </p>
   </div>
 </div>
 `;

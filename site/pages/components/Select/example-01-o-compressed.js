@@ -1,8 +1,8 @@
 /**
  * cn -
- *    -- 设置 compressed 使选中值合并展示，鼠标悬浮时将会展示所有值。
+ *    -- compressed属性为true时，将选中值合并，鼠标悬浮时将会展示所有值，只在多选模式下有效。
  * en -
- *    -- Set the compressed property to compress values, hover to show all values.
+ *    -- Set the compressed property to true to merge selected values, valid only in multiselect mode, hover to show all values.
  */
 import React from 'react'
 import { Select } from 'shineout'

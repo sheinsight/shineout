@@ -15,7 +15,10 @@ const source = locate(cn, en)
 const examples = [
   {
     name: '01-base',
-    title: locate('基本用法 \n 基础的文件上传', 'Base \n Basic usage for uploading file'),
+    title: locate(
+      '基本用法 \n 基础的文件上传',
+      'Base \n Basic usage for uploading file'
+    ),
     component: require('doc/pages/components/Upload/example-01-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-01-base.js'),
   },
@@ -93,13 +96,19 @@ const examples = [
   },
   {
     name: '09-zip',
-    title: locate(' \n 此事例演示通过自定义函数压缩文件后上传', ' \n Zip file and upload.'),
+    title: locate(
+      ' \n 此事例演示通过自定义函数压缩文件后上传',
+      ' \n Zip file and upload.'
+    ),
     component: require('doc/pages/components/Upload/example-09-zip.js').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-09-zip.js'),
   },
   {
     name: '10-defaultValue',
-    title: locate('默认值 \n 默认值示例', 'defaultValue \n defaultValue example'),
+    title: locate(
+      '默认值 \n 默认值示例',
+      'defaultValue \n defaultValue example'
+    ),
     component: require('doc/pages/components/Upload/example-10-defaultValue.js').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-10-defaultValue.js'),
   },
@@ -125,4 +134,6 @@ const examples = [
 
 const codes = undefined
 
-export default navable(props => <MarkDown {...props} codes={codes} source={source} examples={examples} />)
+export default navable(props => (
+  <MarkDown {...props} codes={codes} source={source} examples={examples} />
+))
