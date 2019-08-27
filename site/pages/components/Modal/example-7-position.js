@@ -1,6 +1,6 @@
 /**
- * cn - 位置
- *    -- 通过position设置弹出位置。
+ * cn - 位置（抽屉）
+ *    -- 通过 position 可设置 Modal 弹出的位置，这时 Modal 就如 Drawer 一样。现支持 top、right、bottom 和 left 四个位置配置。
  * en - Position
  *    -- Set position property to specify the pop-up position.
  */

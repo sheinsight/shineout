@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import shallowEqual from '../utils/shallowEqual'
 import utils from './utils'
+import { getLocale } from '../locale'
 
 export default Origin =>
   class extends Component {
@@ -12,6 +13,7 @@ export default Origin =>
       range: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
       type: PropTypes.string,
       value: PropTypes.any,
+      allowSingle: PropTypes.bool,
     }
 
     constructor(props) {
@@ -20,6 +22,7 @@ export default Origin =>
       this.state = { value: props.value }
       this.handleBlur = this.handleBlur.bind(this)
       this.handleChange = this.handleChange.bind(this)
+      this.rangeWithSingle = this.rangeWithSingle.bind(this)
     }
 
     componentDidMount() {
@@ -49,10 +52,15 @@ export default Origin =>
         case 'time':
           return 'HH:mm:ss'
         case 'week':
-          return 'yyyy WW'
+          return 'RRRR II'
         default:
           return 'yyyy-MM-dd'
       }
+    }
+
+    rangeWithSingle() {
+      if (!this.state.value) return false
+      return this.props.range && !this.props.allowSingle && this.state.value.filter(v => v).length === 1
     }
 
     convertValue(value) {
@@ -64,7 +72,9 @@ export default Origin =>
       const format = this.getFormat()
 
       if (!range) {
-        const newValue = utils.format(utils.toDateWithFormat(value, format, undefined), format)
+        const newValue = utils.format(utils.toDateWithFormat(value, format, undefined), format, {
+          weekStartsOn: getLocale('startOfWeek'),
+        })
         if (newValue !== value) this.props.onChange(newValue)
         else if (newValue !== this.state.value) this.setState({ value: newValue })
         return newValue
@@ -72,7 +82,9 @@ export default Origin =>
 
       const newValue = value.map(v => {
         if (!v) return undefined
-        return utils.format(utils.toDateWithFormat(v, format, undefined), format)
+        return utils.format(utils.toDateWithFormat(v, format, undefined), format, {
+          weekStartsOn: getLocale('startOfWeek'),
+        })
       })
 
       if (!shallowEqual(newValue, value)) {
@@ -96,7 +108,9 @@ export default Origin =>
     }
 
     handleBlur() {
-      this.props.onChange(this.state.value)
+      if (this.rangeWithSingle()) {
+        this.setState({ value: this.props.value })
+      } else if (this.state.value !== this.props.value) this.props.onChange(this.state.value)
     }
 
     render() {

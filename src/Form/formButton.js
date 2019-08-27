@@ -27,10 +27,10 @@ export default htmlType =>
         this.button = el
       }
 
-      handleClick() {
+      handleClick(e) {
         if (htmlType === 'button') {
           const form = getParent(this.button, 'form')
-          dispatchEvent(form, 'submit')
+          dispatchEvent(form, 'submit', e.target)
         }
 
         if (this.props.onClick) this.props.onClick()

@@ -1,4 +1,5 @@
 # Modal
+You can use Modal to display secondary content or actions without jumping to the page.
 
 <example />
 

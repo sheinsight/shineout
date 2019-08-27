@@ -1,13 +1,18 @@
 # Message
 
+Display message about operational feedback.
+
+- Displays **success**, **warnings**, **errors**, and **general** information
+- It is an immersive interactive experience that is lightweight, multi-location, and customizable.
+
 <example />
 
 ## API 
 Message provides a set of methods for global calls
 
-Message.show(content, \[duration], \[options]) // no style
+Message.show(content, \[duration], \[options]) // No icon, pure message display
 
-Message.info(content, \[duration], \[options])
+Message.info(content, \[duration], \[options])  // With basic style and icon
 
 Message.success(content, \[duration], \[options])
 

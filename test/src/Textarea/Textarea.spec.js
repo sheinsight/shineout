@@ -1,9 +1,9 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import { Textarea, Input } from 'shineout'
+import { Textarea } from 'shineout'
 import TextareaBase from '../../../site/pages/components/Textarea/example-1-base'
 import TextareaAutosize from '../../../site/pages/components/Textarea/example-2-autosize'
-import TextareaInfo from '../../../site/pages/components/Textarea/example-3-info'
+import TextareaInfo from '../../../site/pages/components/Textarea/example-4-custom'
 
 /* global SO_PREFIX */
 describe('Textarea[Base]', () => {

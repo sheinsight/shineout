@@ -6,6 +6,13 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-1-base.js] 1`]
 </label>
 `;
 
+exports[`Snapshot test: Input[site/pages/components/Input/example-1-clearable.js] 1`] = `
+<label>
+  <input />
+  
+</label>
+`;
+
 exports[`Snapshot test: Input[site/pages/components/Input/example-2-size.js] 1`] = `
 <div>
   <label>

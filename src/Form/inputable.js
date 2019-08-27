@@ -188,7 +188,8 @@ export default curry(Origin =>
         const validateProps = filterProps(this.props, v => typeof v === 'string' || typeof v === 'number')
 
         if (this.datum) {
-          value = this.datum.formatValue(value)
+          const datumValue = this.datum.formatValue(value)
+          value = this.datum.limit === 1 ? datumValue[0] : datumValue
           validateProps.type = 'array'
         }
 
@@ -239,6 +240,7 @@ export default curry(Origin =>
         if (formDatum && name) {
           value = beforeChange(value, formDatum)
           formDatum.set(name, value)
+          formDatum.removeFormError(this.errorName)
         } else {
           value = beforeChange(value, null)
           this.setState({ value })

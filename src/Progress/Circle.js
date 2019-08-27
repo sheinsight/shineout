@@ -4,9 +4,7 @@ import classnames from 'classnames'
 import { progressClass } from '../styles'
 
 function Circle(props) {
-  const {
-    children, strokeWidth, type, color, size, value, background, strokeLinecap,
-  } = props
+  const { children, strokeWidth, type, color, size, value, background, strokeLinecap } = props
   const className = classnames(progressClass('circle', type), props.className)
 
   const r = 100 - Math.ceil(((strokeWidth * 2) / size) * 100)
@@ -14,6 +12,7 @@ function Circle(props) {
   const p = Math.PI * 2 * r
   const dasharray = [p * (value / 100), p * (1 - (value / 100))]
   const style = Object.assign({ width: size, height: size }, props.style)
+  const width = value === 0 && strokeLinecap === 'round' ? 0 : strokeWidth * 2
 
   return (
     <div className={className} style={style}>
@@ -27,22 +26,19 @@ function Circle(props) {
           fill="transparent"
           style={{ stroke: background }}
         />
-        {
-          value > 0 &&
-          <circle
-            className={progressClass('front')}
-            cx="100"
-            cy="100"
-            r={r}
-            fill="transparent"
-            style={{ stroke: color }}
-            strokeDasharray={dasharray}
-            strokeLinecap={strokeLinecap}
-            strokeWidth={strokeWidth * 2}
-          />
-        }
+        <circle
+          className={progressClass('front')}
+          cx="100"
+          cy="100"
+          r={r}
+          fill="transparent"
+          style={{ stroke: color }}
+          strokeDasharray={dasharray}
+          strokeLinecap={strokeLinecap}
+          strokeWidth={width}
+        />
       </svg>
-      { children && <div className={progressClass('content')}>{children}</div> }
+      {children && <div className={progressClass('content')}>{children}</div>}
     </div>
   )
 }
@@ -67,4 +63,3 @@ Circle.defaultProps = {
 }
 
 export default Circle
-

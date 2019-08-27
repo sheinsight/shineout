@@ -1,20 +1,14 @@
 /**
  * cn - 信息
- *    -- 设置 info 属性后，用户 focus 时显示 info 函数执行的结果，例如用户已输入文字长度。
- *    -- 如果 info 返回类型为 Error，不会隐藏。
+ *    -- 设置 info 为数字, 设定最大长度，用户 focus 时会显示用户已输入文字长度。
+ *    -- 如果超出长度， 则会报错. 不会隐藏。
  * en - Info
- *    -- The result of the info function is displayed when you focus.
+ *    -- Set info to number, set the maximum length, and the user's focus shows the length of text that the user has entered.
+ *    -- If the length is exceeded, the error is reported. It is not hidden.
  */
 import React from 'react'
 import { Textarea } from 'shineout'
 
-const renderInfo = value => {
-  if (!value || value.length === 0) return null
-  const text = `${value.length} / 20`
-  if (value.length <= 20) return text
-  return new Error(text)
-}
-
 export default function() {
-  return <Textarea rows={4} trim placeholder="input something" info={renderInfo} />
+  return <Textarea rows={4} trim placeholder="input something" info={10} />
 }

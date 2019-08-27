@@ -50,6 +50,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-04-day.js'),
   },
   {
+    name: '04-minmax',
+    title: locate(
+      '最大最小时间 \n 可以通过设置 min/max 去设置一个选择时间的最大最小值. 推荐在单选且datetime 类型下使用',
+      'min max date \n The basic usage'
+    ),
+    component: require('doc/pages/components/DatePicker/example-04-minmax.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-04-minmax.js'),
+  },
+  {
     name: '05-week',
     title: locate(
       '选择星期 \n 设置 type 为 week，选择星期',
@@ -93,6 +102,24 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-09-range-date.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-09-range-date.js'),
+  },
+  {
+    name: '09-single',
+    title: locate(
+      '允许单选 \n 可以设置范围选择的时候只选择一侧.',
+      'allow single \n can set range select only select single'
+    ),
+    component: require('doc/pages/components/DatePicker/example-09-single.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-09-single.js'),
+  },
+  {
+    name: '09-squick',
+    title: locate(
+      '快速选择 \n 可以配置一些快速选择的选项, 日期可以是 Date, 时间戳, 或者字符串,字符串需要和所格式填写的 format 一致',
+      'Quick select \n can configure some options for quick selection. The date can be Date, timestamp, or string. The string needs to be in the same format as the format.'
+    ),
+    component: require('doc/pages/components/DatePicker/example-09-squick.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-09-squick.js'),
   },
   {
     name: '10-disabled',

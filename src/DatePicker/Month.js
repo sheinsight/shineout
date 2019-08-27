@@ -5,6 +5,8 @@ import Icon from './Icon'
 import utils from './utils'
 import { getLocale } from '../locale'
 
+const MONTHBASE = '2019-01-01 00:00:00'
+
 class Month extends PureComponent {
   constructor(props) {
     super(props)
@@ -34,23 +36,24 @@ class Month extends PureComponent {
   }
 
   renderMonth(m, i) {
-    const { current, value, min, max, disabled, range, type } = this.props
-    const date = new Date(current.getTime())
+    const { value, min, disabled, range, type, current } = this.props
+    const date = new Date(MONTHBASE)
     date.setMonth(i)
+    date.setFullYear(current.getFullYear())
 
-    let isDisabled = (min && utils.compareMonth(min, date, 1) >= 0) || (max && utils.compareMonth(max, date, -1) <= 0)
+    let isDisabled = min && utils.compareMonth(min, date, 1) >= 0
 
     if (!isDisabled && type === 'month' && typeof disabled === 'function') {
       isDisabled = disabled(date)
     }
 
-    if (!isDisabled && min && range && utils.compareAsc(date, utils.addSeconds(min, range)) > 0) {
+    if (!isDisabled && min && typeof range === 'number' && utils.compareAsc(date, utils.addSeconds(min, range)) > 0) {
       isDisabled = true
     }
 
-    if (!isDisabled && max && range && utils.compareAsc(date, utils.addSeconds(max, -range)) < 0) {
-      isDisabled = true
-    }
+    // if (!isDisabled && max && range && utils.compareAsc(date, utils.addSeconds(max, -range)) < 0) {
+    //   isDisabled = true
+    // }
 
     const className = datepickerClass(utils.isSameMonth(value, date) && 'active', isDisabled && 'disabled')
 
@@ -85,8 +88,8 @@ class Month extends PureComponent {
 Month.propTypes = {
   current: PropTypes.object.isRequired,
   disabled: PropTypes.func,
-  max: PropTypes.object,
-  min: PropTypes.object,
+  // max: PropTypes.object,
+  min: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   onChange: PropTypes.func.isRequired,
   onModeChange: PropTypes.func.isRequired,
   range: PropTypes.number,

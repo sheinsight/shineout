@@ -149,6 +149,7 @@ exports[`Snapshot test: Progress[site/pages/components/Progress/example-6-animat
   <div>
     <svg>
       <circle />
+      <circle />
     </svg>
     <div>
       0

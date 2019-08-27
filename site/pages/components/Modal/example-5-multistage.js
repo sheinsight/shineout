@@ -1,6 +1,6 @@
 /**
  * cn - 多层 Modal
- *    -- 支持多层 Modal
+ *    -- 支持多层叠加 Modal
  * en - Multistage
  *    -- Multi-layer Modal
  */
@@ -39,12 +39,20 @@ export default class extends React.Component {
             onClose={this.show.bind(this, i - 1)}
             footer={<Button onClick={this.show.bind(this, i - 1)}>Close</Button>}
           >
-            Level {i}.
+            {`Level ${i}`}
+            .
             <br />
             {i < 10 && (
-              <a href="javascript:;" onClick={this.show.bind(this, i + 1)}>
-                Next level
-              </a>
+              <>
+                <a href="javascript:;" onClick={this.show.bind(this, i + 1)}>
+                  Next level
+                </a>
+                <br />
+                <br />
+                <a href="javascript:;" onClick={this.show.bind(this, 0)}>
+                  Close all
+                </a>
+              </>
             )}
           </Modal>
         ))}
