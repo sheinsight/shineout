@@ -5,7 +5,7 @@ import RadioBase from '../../../site/pages/components/Radio/example-1-base'
 import RadioGroup from '../../../site/pages/components/Radio/example-2-group'
 import RadioFormat from '../../../site/pages/components/Radio/example-3-format'
 import RadioBlock from '../../../site/pages/components/Radio/example-5-block'
-import RadioDisabled from '../../../site/pages/components/Radio/example-6-disabled'
+import RadioDisabled from '../../../site/pages/components/Radio/example-7-disabled'
 
 /* global SO_PREFIX */
 describe('Radio[Base]', () => {

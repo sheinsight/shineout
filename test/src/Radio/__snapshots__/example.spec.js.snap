@@ -230,7 +230,133 @@ exports[`Snapshot test: Radio[site/pages/components/Radio/example-5-block.js] 1`
 </div>
 `;
 
-exports[`Snapshot test: Radio[site/pages/components/Radio/example-6-disabled.js] 1`] = `
+exports[`Snapshot test: Radio[site/pages/components/Radio/example-6-button-1.js] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span>
+      red
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      orange
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      yellow
+    </span>
+  </label>
+</div>
+`;
+
+exports[`Snapshot test: Radio[site/pages/components/Radio/example-6-button-2.js] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span>
+      red
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      orange
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      yellow
+    </span>
+  </label>
+</div>
+`;
+
+exports[`Snapshot test: Radio[site/pages/components/Radio/example-6-button-3.js] 1`] = `
+<div>
+  <div>
+    <label>
+      <input />
+      <i />
+      <span>
+        red
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        orange
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        yellow
+      </span>
+    </label>
+  </div>
+  <div>
+    <label>
+      <input />
+      <i />
+      <span>
+        red
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        orange
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        yellow
+      </span>
+    </label>
+  </div>
+  <div>
+    <label>
+      <input />
+      <i />
+      <span>
+        red
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        orange
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        yellow
+      </span>
+    </label>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Radio[site/pages/components/Radio/example-7-disabled.js] 1`] = `
 <div>
   <div>
     <label>
@@ -286,7 +412,7 @@ exports[`Snapshot test: Radio[site/pages/components/Radio/example-6-disabled.js]
 </div>
 `;
 
-exports[`Snapshot test: Radio[site/pages/components/Radio/example-7-disabled.js] 1`] = `
+exports[`Snapshot test: Radio[site/pages/components/Radio/example-8-disabled.js] 1`] = `
 <div>
   <div>
     <label>
