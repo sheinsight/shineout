@@ -187,7 +187,7 @@ class Select extends PureComponent {
       datum.set(data)
       this.handleState(false)
       //  let the element focus
-      setTimeout(() => this.element.focus(), 10)
+      setTimeout(() => this.element && this.element.focus(), 10)
     }
   }
 
