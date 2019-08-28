@@ -14,15 +14,6 @@ const source = locate(cn, en)
 
 const examples = [
   {
-    name: '00-fieldset',
-    title: locate(
-      'FieldSet (Loop) \n FieldSet children 为函数时，根据 name 从 Form 中获取 value （类型为 array），遍历这个 value 生成一组子组件。',
-      'FieldSet (Loop) \n When FieldSet\'s children is a function, takes the value (type is array) from the form by the name property, and generate a set of subcomponents.'
-    ),
-    component: require('doc/pages/components/Form/example-00-fieldset.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-00-fieldset.js'),
-  },
-  {
     name: '01-base',
     title: locate(
       '基本用法 \n 表单内置了类似双向绑定的机制，根据表单元素的 name 属性自动下发、收集数据',
