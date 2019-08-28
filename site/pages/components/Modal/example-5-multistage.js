@@ -44,12 +44,12 @@ export default class extends React.Component {
             <br />
             {i < 10 && (
               <>
-                <a href="javascript:;" onClick={this.show.bind(this, i + 1)}>
+                <a onClick={this.show.bind(this, i + 1)}>
                   Next level
                 </a>
                 <br />
                 <br />
-                <a href="javascript:;" onClick={this.show.bind(this, 0)}>
+                <a onClick={this.show.bind(this, 0)}>
                   Close all
                 </a>
               </>

@@ -54,7 +54,7 @@ class Friend extends PureComponent {
           value={value.age}
           placeholder="Age"
         />
-        <a href="javascript:;" style={{ padding: '0 12px' }} onClick={onRemove}>
+        <a style={{ padding: '0 12px' }} onClick={onRemove}>
           <FontAwesome name="close" />
         </a>
       </Form.Item>

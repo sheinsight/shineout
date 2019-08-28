@@ -5,8 +5,17 @@ import { getUidStr } from '../utils/uid'
 import { tableClass } from '../styles'
 import Sorter from './Sorter'
 import CheckboxAll from './CheckboxAll'
+import { getParent } from '../utils/dom/element'
 
+const MIN_RESIZABLE_WIDTH = 20
 class Thead extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.handleMouseDown = this.handleResize.bind(this, 'mousedown')
+    this.handleMouseMove = this.handleResize.bind(this, 'mousemove')
+    this.handleMouseUp = this.handleResize.bind(this, 'mouseup')
+  }
+
   setColumns(columns, col, level) {
     if (!col.group) {
       columns.push(col)
@@ -45,7 +54,46 @@ class Thead extends PureComponent {
     return colSpan
   }
 
+  resizeColgroup(deltaX) {
+    let oWidth = parseInt(this.resizingCol.style.width, 10)
+    if (Number.isNaN(oWidth) || oWidth === 0) {
+      oWidth = this.resizingTh.getBoundingClientRect().width
+    }
+    const w = `${Math.max(oWidth + deltaX, MIN_RESIZABLE_WIDTH)}px`
+    this.resizingCol.style.width = w
+  }
+
+  handleResize(type, e) {
+    if (type === 'mousedown') {
+      const { target } = e
+      this.resizingTh = target.parentElement
+      this.resizingTable = getParent(target, 'table')
+      this.resizingIndex = [].indexOf.call(getParent(target, 'tr').children, this.resizingTh)
+      this.resizingCol = this.resizingTable.querySelectorAll('col')[this.resizingIndex]
+      this.resizingTable.classList.add(tableClass('resizing'))
+      this.resizingTh.classList.add(tableClass('resizing-item'))
+      document.addEventListener('mousemove', this.handleMouseMove)
+      document.addEventListener('mouseup', this.handleMouseUp)
+    } else if (type === 'mousemove') {
+      const x = e.clientX
+      if (typeof this.lastX === 'number') {
+        const deltaX = x - this.lastX
+        this.resizeColgroup(deltaX)
+      }
+      this.lastX = x
+    } else if (type === 'mouseup') {
+      const { onColChange } = this.props
+      document.removeEventListener('mousemove', this.handleMouseMove)
+      document.removeEventListener('mouseup', this.handleMouseUp)
+      this.resizingTable.classList.remove(tableClass('resizing'))
+      this.resizingTh.classList.remove(tableClass('resizing-item'))
+      this.lastX = undefined
+      if (onColChange) onColChange(this.resizingIndex, parseInt(this.resizingCol.style.width, 10))
+    }
+  }
+
   createTh(trs, col, level) {
+    const { columnResizable } = this.props
     const fixed = []
     if (col.fixed) fixed.push(`fixed-${col.fixed}`)
     if (col.firstFixed) fixed.push('fixed-first')
@@ -55,6 +103,10 @@ class Thead extends PureComponent {
 
     const align = col.align && `align-${col.align}`
     const ignoreBorderRight = this.rightBorderRecord[col.key] && 'ignore-right-border'
+    const resize =
+      level === 0 && columnResizable && col.columnResizable !== false ? (
+        <span onMouseDown={this.handleMouseDown} className={tableClass('resize-spanner')} />
+      ) : null
     if (col.title) {
       trs[level].push(
         <th
@@ -67,6 +119,7 @@ class Thead extends PureComponent {
         >
           {typeof col.title === 'function' ? col.title(data) : col.title}
           {col.sorter && <Sorter {...col} current={sorter} onChange={onSortChange} />}
+          {resize}
         </th>
       )
 
@@ -92,6 +145,7 @@ class Thead extends PureComponent {
         style={style}
       >
         {col.name}
+        {resize}
       </th>
     )
 
@@ -153,6 +207,8 @@ Thead.propTypes = {
   sorter: PropTypes.object,
   showSelectAll: PropTypes.bool,
   bordered: PropTypes.bool,
+  onColChange: PropTypes.func,
+  columnResizable: PropTypes.bool,
 }
 
 Thead.defaultProps = {

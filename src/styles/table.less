@@ -4,6 +4,7 @@
 @table-prefix: ~'@{so-prefix}-table';
 
 .@{table-prefix} {
+  border-radius: @table-border-radius-top @table-border-radius-top 0 0;
   position: relative;
   display: flex;
   overflow: auto;
@@ -39,6 +40,7 @@
       background-color: @table-head-bg;
       color: @table-head-color;
       vertical-align: middle;
+      font-weight: @table-head-font-weight;
     }
 
     > thead + tbody > tr:first-child > td {
@@ -249,6 +251,7 @@
     .@{table-prefix}-fixed-right,
     .@{table-prefix}-fixed-left {
       border-right: 0;
+      z-index: 1;
       &:after {
         bottom: -1px;
         position: absolute;
@@ -452,5 +455,52 @@
   }
   th&-align-left, td&-align-left {
     text-align: left;
+  }
+
+  &-resize {
+    &-spanner {
+      z-index: 12;
+      position: absolute;
+      right: -2px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: @colors-primary;
+      opacity: 0;
+      transition: opacity .3s;
+      cursor: ew-resize;
+      &:after, &:before {
+        border-width: 3px;
+        content: " ";
+        position: absolute;
+        width: 0;
+        height: 0;
+        margin: auto;
+        bottom: 0;
+        top: 0;
+      }
+      &:after {
+        border-style: dashed solid dashed dashed;
+        border-color: transparent @colors-primary transparent transparent;
+        right: 4px;
+      }
+      &:before {
+        border-style: dashed dashed dashed solid;
+        border-color: transparent transparent transparent @colors-primary;
+        left: 4px;
+      }
+    }
+    thead tr th:last-child .@{table-prefix}-resize-spanner {
+      display: none;
+    }
+    table.@{table-prefix}-resizing span.@{table-prefix}-resize-spanner{
+      opacity: 0;
+    }
+    table th.@{table-prefix}-resizing-item .@{table-prefix}-resize-spanner {
+      opacity: 1;
+    }
+    th:hover .@{table-prefix}-resize-spanner{
+      opacity: 1;
+    }
   }
 }

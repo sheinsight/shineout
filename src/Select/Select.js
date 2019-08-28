@@ -303,6 +303,11 @@ class Select extends PureComponent {
     ;[
       'treeData',
       'expanded',
+      'onExpand',
+      'loader',
+      'renderPending',
+      'defaultExpanded',
+      'defaultExpandAll',
       'datum',
       'keygen',
       'multiple',

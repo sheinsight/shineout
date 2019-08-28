@@ -30,13 +30,13 @@ class ImageResult extends PureComponent {
         {url && <Image src={url} href={url} fit="center" width="auto" height={0} className={uploadClass('image-bg')} />}
 
         {showRecover && (
-          <a href="javascript:;" className={uploadClass('recover')} onClick={this.handleRecover}>
+          <a className={uploadClass('recover')} onClick={this.handleRecover}>
             {icons.Recovery}
           </a>
         )}
 
         {this.props.onRemove && (
-          <a href="javascript:;" className={uploadClass('delete')} onClick={this.handleRemove}>
+          <a className={uploadClass('delete')} onClick={this.handleRemove}>
             {icons.Close}
           </a>
         )}

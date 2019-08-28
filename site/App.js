@@ -13,7 +13,6 @@ const Documentation = lazy(() => import(/* webpackChunkName: "Documentation" */ 
 // 上古版本
 const oldestVersions = ['1.0.x', '1.1.x']
 // 旧版本
-const oldVersions = ['1.2.x']
 
 const verReg = /(\d+\.){2}x/
 
@@ -22,8 +21,8 @@ const filterLang = href => (href.indexOf('/en') > -1 ? 'en-US' : 'zh-CN')
 const versionUrl = (v, lang) => {
   const preUrl = window.location.href.split(verReg)[0]
   if (oldestVersions.find(a => a === v)) return `${preUrl}${v}/`
-  if (oldVersions.find(b => b === v)) return `${preUrl}${v}/${lang}`
-  return ''
+  // if (oldVersions.find(b => b === v)) return `${preUrl}${v}/${lang}`
+  return `${preUrl}${v}/${lang}`
 }
 
 const App = () => {

@@ -14,6 +14,15 @@ const source = locate(cn, en)
 
 const examples = [
   {
+    name: '00-fieldset',
+    title: locate(
+      'FieldSet (Loop) \n FieldSet children 为函数时，根据 name 从 Form 中获取 value （类型为 array），遍历这个 value 生成一组子组件。',
+      'FieldSet (Loop) \n When FieldSet\'s children is a function, takes the value (type is array) from the form by the name property, and generate a set of subcomponents.'
+    ),
+    component: require('doc/pages/components/Form/example-00-fieldset.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-00-fieldset.js'),
+  },
+  {
     name: '01-base',
     title: locate(
       '基本用法 \n 表单内置了类似双向绑定的机制，根据表单元素的 name 属性自动下发、收集数据',
@@ -183,60 +192,6 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-21-mode.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-21-mode.js'),
-  },
-  {
-    name: '93-validate',
-    title: locate(
-      '校验(旧) \n 改方法已不建议使用，请使用 Rule \n 通过 rules 校验，每个字段的 rules 是一个数组，可以使用多条规则。',
-      'validate(old) \n please use Rule \n Validate by rules.'
-    ),
-    component: require('doc/pages/components/Form/example-93-validate.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-93-validate.js'),
-  },
-  {
-    name: '94-loop',
-    title: locate(
-      '遍历 (旧) \n <b>Form.Loop 已不建议使用，请使用 Form.FieldSet。</b> \n Form.Loop 通过 name 属性从 Form 中获取一个类型为 array 的 value，遍历这个 value 生成一组子组件。',
-      'Loop (Out of date) \n <b>Form.Loop is not recommend, use Form.FieldSet instead.</b> \n Form.Loop takes a value which type is the array from the form through the name property, furthermore iterates over this value to generate a set of subcomponents.'
-    ),
-    component: require('doc/pages/components/Form/example-94-loop.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-94-loop.js'),
-  },
-  {
-    name: '95-block',
-    title: locate(
-      '表单块 (旧) \n <b>Form.Block已不推荐，建议使用 FieldSet</b> \n Block 类似 Form，可以存取数据，只是没有 Submit 能力。一般用在 Form 中处理复杂数据。 \n Block 内组件设置的 name 只在这个 Block 内有效，只能存取 Block 的 value 中的数据，不能存取 Form 的数据。',
-      'Block (Out of date) \n <b>Not recommend, use FieldSet instead.</b> \n Block is similar to Form except submit \n The name set in the Block component is valid only in this block. It can only access the data in the value of instead of the Form.'
-    ),
-    component: require('doc/pages/components/Form/example-95-block.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-95-block.js'),
-  },
-  {
-    name: '96-block',
-    title: locate(
-      ' \n <b>Form.Block已不推荐，建议使用 FieldSet</b> \n 上例可以使用 Form.Block 改写',
-      ' \n <b>Form.Block is not recommend, use FieldSet instead.</b> \n The above example can be overwritten with Form.Block.'
-    ),
-    component: require('doc/pages/components/Form/example-96-block.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-96-block.js'),
-  },
-  {
-    name: '97-nested',
-    title: locate(
-      '嵌套数据 (旧) \n <b>Form.Block已不推荐，建议使用 FieldSet</b> \n Form.Block 配合 Form.Field 使用，可以处理多层嵌套数据',
-      'BlockField (Out of date) \n <b>Form.Block is not recommend, use FieldSet instead.</b> \n Form.Block can handle multiple levels of nested data well through Form.Field.'
-    ),
-    component: require('doc/pages/components/Form/example-97-nested.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-97-nested.js'),
-  },
-  {
-    name: '98-block-field',
-    title: locate(
-      ' \n <b>Form.BlockField已不推荐，建议使用 FieldSet</b> \n Form.BlockField 合并了 Form.Field 和 Form.Block，可以简化如上',
-      ' \n <b>Form.BlockField is not recommend, use FieldSet instead.</b> \n Form.BlockField combines Form.Field and Form.Block and can be simplified as above.'
-    ),
-    component: require('doc/pages/components/Form/example-98-block-field.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-98-block-field.js'),
   },
 ]
 

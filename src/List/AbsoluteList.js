@@ -177,7 +177,7 @@ export default function(List) {
     zIndex: PropTypes.number,
     style: PropTypes.object,
     autoClass: PropTypes.string,
-    value: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+    value: PropTypes.any,
   }
 
   return scrollConsumer(AbsoluteList)

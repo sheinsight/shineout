@@ -7,6 +7,9 @@ import { FormError } from '../utils/errors'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { docScroll } from '../utils/dom/document'
 import { IGNORE_BIND } from '../Datum/types'
+import { FieldSetProvider } from './FieldSet'
+
+const emptyValue = { path: '' }
 
 class Form extends Component {
   constructor(props) {
@@ -118,7 +121,7 @@ class Form extends Component {
         onReset={this.handleReset}
         onSubmit={this.handleSubmit}
       >
-        {this.props.children}
+        <FieldSetProvider value={emptyValue}>{this.props.children}</FieldSetProvider>
       </form>
     )
   }

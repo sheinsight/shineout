@@ -89,7 +89,6 @@ class Result extends PureComponent {
           tabIndex={-1}
           data-role="close"
           className={selectClass('indicator', 'close')}
-          href="javascript:;"
         />
         </div>
       )
@@ -181,7 +180,7 @@ class Result extends PureComponent {
         {result}
         {!this.props.multiple && (
           // eslint-disable-next-line
-          <a tabIndex={-1} className={selectClass('indicator', 'caret')} href="javascript:;" />
+          <a tabIndex={-1} className={selectClass('indicator', 'caret')} />
         )}
         {this.renderClear()}
       </div>

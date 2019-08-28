@@ -5,7 +5,7 @@ exports[`Message should render alert correct 1`] = `
   <div className=\\"so-message-item undefined\\">
     <ShineoutAlert className=\\"so-message-msg\\" dismiss={[undefined]} onClose={[Function: bound removeMessage]} icon={true} iconSize={14} style={{...}} type=\\"info\\" size=\\"default\\" duration={216}>
       <div className=\\"so-alert so-alert-info so-alert-with-close so-alert-with-icon so-message-msg\\" style={{...}}>
-        <a href=\\"javascript:;\\" className=\\"so-alert-close\\" onClick={[Function: bound handleClose]}>
+        <a className=\\"so-alert-close\\" onClick={[Function: bound handleClose]}>
           <svg viewBox=\\"0 0 1024 1024\\">
             <path d=\\"M602.512147 511.99738l402.747939-402.747939a63.999673 63.999673 0 0 0-90.509537-90.509537L512.00261 421.487843 109.254671 18.749904a63.999673 63.999673 0 0 0-90.509537 90.509537L421.493073 511.99738 18.755134 914.745319a63.999673 63.999673 0 0 0 90.509537 90.509537L512.00261 602.506917l402.747939 402.747939a63.999673 63.999673 0 0 0 90.509537-90.509537z\\" />
           </svg>
@@ -29,7 +29,7 @@ exports[`Message should render alert correct 2`] = `
   <div className=\\"so-message-item undefined\\">
     <ShineoutAlert className=\\"so-message-msg\\" dismiss={[undefined]} onClose={[Function: bound removeMessage]} icon={true} iconSize={14} style={{...}} type=\\"success\\" size=\\"default\\" duration={216}>
       <div className=\\"so-alert so-alert-success so-alert-with-close so-alert-with-icon so-message-msg\\" style={{...}}>
-        <a href=\\"javascript:;\\" className=\\"so-alert-close\\" onClick={[Function: bound handleClose]}>
+        <a className=\\"so-alert-close\\" onClick={[Function: bound handleClose]}>
           <svg viewBox=\\"0 0 1024 1024\\">
             <path d=\\"M602.512147 511.99738l402.747939-402.747939a63.999673 63.999673 0 0 0-90.509537-90.509537L512.00261 421.487843 109.254671 18.749904a63.999673 63.999673 0 0 0-90.509537 90.509537L421.493073 511.99738 18.755134 914.745319a63.999673 63.999673 0 0 0 90.509537 90.509537L512.00261 602.506917l402.747939 402.747939a63.999673 63.999673 0 0 0 90.509537-90.509537z\\" />
           </svg>
@@ -53,7 +53,7 @@ exports[`Message should render alert correct 3`] = `
   <div className=\\"so-message-item undefined\\">
     <ShineoutAlert className=\\"so-message-msg\\" dismiss={[undefined]} onClose={[Function: bound removeMessage]} icon={true} iconSize={14} style={{...}} type=\\"warn\\" size=\\"default\\" duration={216}>
       <div className=\\"so-alert so-alert-warn so-alert-with-close so-message-msg\\" style={{...}}>
-        <a href=\\"javascript:;\\" className=\\"so-alert-close\\" onClick={[Function: bound handleClose]}>
+        <a className=\\"so-alert-close\\" onClick={[Function: bound handleClose]}>
           <svg viewBox=\\"0 0 1024 1024\\">
             <path d=\\"M602.512147 511.99738l402.747939-402.747939a63.999673 63.999673 0 0 0-90.509537-90.509537L512.00261 421.487843 109.254671 18.749904a63.999673 63.999673 0 0 0-90.509537 90.509537L421.493073 511.99738 18.755134 914.745319a63.999673 63.999673 0 0 0 90.509537 90.509537L512.00261 602.506917l402.747939 402.747939a63.999673 63.999673 0 0 0 90.509537-90.509537z\\" />
           </svg>
@@ -72,7 +72,7 @@ exports[`Message should render alert correct 4`] = `
   <div className=\\"so-message-item undefined\\">
     <ShineoutAlert className=\\"so-message-msg\\" dismiss={[undefined]} onClose={[Function: bound removeMessage]} icon={true} iconSize={14} style={{...}} type=\\"error\\" size=\\"default\\" duration={216}>
       <div className=\\"so-alert so-alert-error so-alert-with-close so-alert-with-icon so-message-msg\\" style={{...}}>
-        <a href=\\"javascript:;\\" className=\\"so-alert-close\\" onClick={[Function: bound handleClose]}>
+        <a className=\\"so-alert-close\\" onClick={[Function: bound handleClose]}>
           <svg viewBox=\\"0 0 1024 1024\\">
             <path d=\\"M602.512147 511.99738l402.747939-402.747939a63.999673 63.999673 0 0 0-90.509537-90.509537L512.00261 421.487843 109.254671 18.749904a63.999673 63.999673 0 0 0-90.509537 90.509537L421.493073 511.99738 18.755134 914.745319a63.999673 63.999673 0 0 0 90.509537 90.509537L512.00261 602.506917l402.747939 402.747939a63.999673 63.999673 0 0 0 90.509537-90.509537z\\" />
           </svg>

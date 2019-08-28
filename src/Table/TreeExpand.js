@@ -15,6 +15,10 @@ export default WrappedComponent => {
       }
     }
 
+    componentDidUpdate() {
+      this.changedByExpand = false
+    }
+
     getTreeIndent() {
       const { columns } = this.props
       for (let i = 0; i < columns.length; i++) {
@@ -89,6 +93,7 @@ export default WrappedComponent => {
         onTreeExpand([...changedKeys.keys()])
         return
       }
+      this.changedByExpand = true
       this.setState({
         expandKeys: changedKeys,
       })
@@ -103,6 +108,7 @@ export default WrappedComponent => {
       return (
         <WrappedComponent
           {...this.props}
+          changedByExpand={this.changedByExpand}
           data={data}
           onTreeExpand={this.handleTreeExpand}
           treeExpandKeys={expandKeys}
