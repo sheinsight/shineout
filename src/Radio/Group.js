@@ -50,13 +50,17 @@ class RadioGroup extends PureComponent {
   }
 
   render() {
-    const {
-      block, data, datum, keygen, children,
-    } = this.props
+    const { block, data, datum, keygen, children, button, size } = this.props
 
     const className = classnames(
-      checkinputClass('group', block && 'block'),
-      this.props.className,
+      checkinputClass(
+        'group',
+        block && 'block',
+        button && 'button',
+        button === 'outline' && 'outline',
+        button && size
+      ),
+      this.props.className
     )
 
     if (data === undefined) {
@@ -92,9 +96,10 @@ class RadioGroup extends PureComponent {
 }
 
 RadioGroup.propTypes = {
-  ...getProps(PropTypes, 'children', 'keygen'),
+  ...getProps(PropTypes, 'children', 'keygen', 'size'),
   block: PropTypes.bool,
   data: PropTypes.array,
+  button: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   datum: PropTypes.object.isRequired,
   renderItem: PropTypes.oneOfType([
     PropTypes.string,

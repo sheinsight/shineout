@@ -50,22 +50,49 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Radio/example-5-block.js'),
   },
   {
-    name: '6-disabled',
+    name: '6-button-1',
     title: locate(
-      '禁用 \n 设置 disabled 为 true 时，禁用所有选项',
-      'Disabled \n Set disabled property is set to true, all the options is disabled.'
+      '按钮样式 \n 设置 button 属性可以展示为按钮样式',
+      'Button \n set button to show button style'
     ),
-    component: require('doc/pages/components/Radio/example-6-disabled.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Radio/example-6-disabled.js'),
+    component: require('doc/pages/components/Radio/example-6-button-1.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Radio/example-6-button-1.js'),
+  },
+  {
+    name: '6-button-2',
+    title: locate(
+      ' \n 设置 button 为 outline 可以展示透明背景的按钮样式',
+      ' \n set button with outline to show outline button style'
+    ),
+    component: require('doc/pages/components/Radio/example-6-button-2.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Radio/example-6-button-2.js'),
+  },
+  {
+    name: '6-button-3',
+    title: locate(
+      ' \n 设置 size 可以控制按钮样式的大小',
+      ' \n size to set button style size'
+    ),
+    component: require('doc/pages/components/Radio/example-6-button-3.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Radio/example-6-button-3.js'),
   },
   {
     name: '7-disabled',
     title: locate(
-      ' \n disabled 为函数时，根据函数返回结果实现有条件禁用',
-      ' \n When the disabled is a function, disbale the option that the function to return true.'
+      '禁用 \n 设置 disabled 为 true 时，禁用所有选项',
+      'Disabled \n Set disabled property is set to true, all the options is disabled.'
     ),
     component: require('doc/pages/components/Radio/example-7-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/Radio/example-7-disabled.js'),
+  },
+  {
+    name: '8-disabled',
+    title: locate(
+      ' \n disabled 为函数时，根据函数返回结果实现有条件禁用',
+      ' \n When the disabled is a function, disbale the option that the function to return true.'
+    ),
+    component: require('doc/pages/components/Radio/example-8-disabled.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Radio/example-8-disabled.js'),
   },
 ]
 
