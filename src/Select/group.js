@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { getUidStr } from '../utils/uid'
 
 export default Origin =>
   class extends React.Component {
@@ -18,6 +19,7 @@ export default Origin =>
         data: [],
       }
       this.groupByData = this.groupByData.bind(this)
+      this.groupKey = getUidStr()
     }
 
     componentDidMount() {
@@ -40,7 +42,7 @@ export default Origin =>
 
       data.forEach((d, i) => {
         const g = groupBy(d, i, data)
-        if (!groupData[g]) groupData[g || ''] = g ? [{ $$group: g }] : []
+        if (!groupData[g]) groupData[g || ''] = g ? [{ [this.groupKey]: g }] : []
         groupData[g].push(d)
       })
 
@@ -51,6 +53,6 @@ export default Origin =>
 
     render() {
       const { groupBy, data, ...props } = this.props
-      return <Origin {...props} data={this.state.data} />
+      return <Origin {...props} data={this.state.data} groupKey={this.groupKey} />
     }
   }

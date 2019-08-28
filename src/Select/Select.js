@@ -238,7 +238,7 @@ class Select extends PureComponent {
   handleEnter() {
     const hoverIndex = this.optionList.getIndex && this.optionList.getIndex()
     const data = this.props.data[hoverIndex]
-    if (data && !data.$$group) {
+    if (data && !data[this.props.groupKey]) {
       const checked = !this.props.datum.check(data)
       this.handleChange(checked, data)
       if (this.optionList.handleHover) this.optionList.handleHover(hoverIndex)
@@ -358,6 +358,7 @@ class Select extends PureComponent {
       'onFilter',
       'filterText',
       'zIndex',
+      'groupKey',
     ].forEach(k => {
       props[k] = this.props[k]
     })
