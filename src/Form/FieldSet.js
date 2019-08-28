@@ -178,4 +178,6 @@ export const fieldSetConsumer = Origin => props => (
   </Consumer>
 )
 
+export const FieldSetProvider = Provider
+
 export default fieldSetConsumer(FieldSet)

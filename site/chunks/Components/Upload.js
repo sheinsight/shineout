@@ -61,8 +61,8 @@ const examples = [
   {
     name: '06-error',
     title: locate(
-      '异常处理 \n onError 用来处理上传到服务器返回的异常',
-      'Error \n Set onError to handle exceptions returned by uploading to the server.'
+      '异常处理 \n onHttpError 用来处理上传到服务器返回的异常',
+      'Error \n Set onHttpError to handle exceptions returned by uploading to the server.'
     ),
     component: require('doc/pages/components/Upload/example-06-error.js').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-06-error.js'),
