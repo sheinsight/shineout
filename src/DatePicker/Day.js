@@ -95,7 +95,7 @@ class Day extends PureComponent {
   }
 
   renderDay(date, minD, maxD) {
-    const { current, disabled, value, index, type, rangeDate, range, rangeTemp } = this.props
+    const { current, disabled, value, index, type, rangeDate, range, rangeTemp, min } = this.props
     const { hover } = this.state
     let isDisabled = disabled ? disabled(date) : false
 
@@ -104,10 +104,14 @@ class Day extends PureComponent {
       if ((minD && utils.compareAsc(date, minD) < 0) || (maxD && utils.compareAsc(date, maxD) > 0)) isDisabled = true
     }
 
-    if (!isDisabled && typeof range === 'number' && rangeTemp && index === 1) {
-      if (utils.compareAsc(date, utils.addSeconds(rangeTemp, range)) > 0 || utils.compareAsc(date, rangeTemp) < 0) {
+    if (!isDisabled && rangeTemp && index === 1) {
+      if (
+        (typeof range === 'number' && utils.compareAsc(date, utils.addSeconds(rangeTemp, range)) > 0) ||
+        utils.compareAsc(date, rangeTemp) < 0
+      ) {
         isDisabled = true
       }
+      if (utils.compareAsc(date, min) < 0) isDisabled = true
     }
 
     const classList = [
