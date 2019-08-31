@@ -130,7 +130,7 @@ class Panel extends PureComponent {
     // eslint-disable-next-line
     const style = this.element.style
     Object.keys(pos).forEach(attr => {
-      style[attr] = `${pos[attr]}px`
+      style[attr] = pos[attr]
     })
     style.display = show ? 'block' : 'none'
     if (background) style.background = background
