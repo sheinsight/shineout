@@ -1085,6 +1085,27 @@ const injects = {
         attr: 'color',
         type: 'color',
       },
+      {
+        name: 'activePaddingHorizontal',
+        className: exposeClass('menu-active-horizontal'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'activePaddingVertical',
+        className: exposeClass('menu-active-vertical'),
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'activeBorderRadius',
+        className: exposeClass('menu-acitive-borderRadius'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+      },
     ],
     set height(v) {
       const height = parseInt(v, 10)
@@ -1116,6 +1137,22 @@ const injects = {
     set darkColor(v) {
       setBodyProperty({
         '--menu-dark-color': v,
+      })
+    },
+    set activePaddingHorizontal(v) {
+      setBodyProperty({
+        '--menu-active-padding-horizontal': `${parseInt(v, 10)}px`,
+        '--menu-active-padding-horizontal-negative': `-${parseInt(v, 10)}px`
+      })
+    },
+    set activePaddingVertical(v) {
+      setBodyProperty({
+        '--menu-active-padding-vertical': `${parseInt(v, 10)}px`,
+      })
+    },
+    set activeBorderRadius(v) {
+      setBodyProperty({
+        '--menu-active-border-radius': `${parseInt(v, 10)}px`,
       })
     },
   },
