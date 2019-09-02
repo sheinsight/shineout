@@ -33,6 +33,8 @@ Modal.error(options)
 
 Modal.confirm(options)
 
+Modal.show(options)
+
 #### Options Parameter
 
 | Property | Type | Default | Description |
@@ -43,3 +45,4 @@ Modal.confirm(options)
 | onClose | function | none | The event is triggered when the modal is closed. |
 | onOk | function | none | The event is triggered when the ok button is clicked. |
 | text | object | { ok: 'Ok', cancel: 'Cancel' } | The text of button |
+| autoFocusButton | string | - | auto focus button, one of \['ok', 'cancel'] |

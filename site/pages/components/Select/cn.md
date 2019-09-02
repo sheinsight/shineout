@@ -29,3 +29,5 @@
 | value | array \| string \| object | | 在Form中，value会被表单接管，value无效 |
 | compressed | bool | false | 将选中值合并，只在多选模式下有效 |
 | zIndex | number | 1000 | 选项列表 z-index 值 |
+| groupBy | func: (record, index, data) => {} | 无 | 分组 | 
+| filterSingleSelect | bool | false | 当筛选数据仅为一条时，失焦后直接选中该条数据。仅在 Filter 下有效。 |

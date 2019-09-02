@@ -211,7 +211,11 @@ class Select extends PureComponent {
   }
 
   handleInputBlur(text) {
-    const { onCreate, multiple } = this.props
+    const { onFilter, onCreate, multiple, filterSingleSelect, data } = this.props
+    if (onFilter && text && filterSingleSelect && data.length === 1) {
+      this.handleChange(null, data[0], false)
+      return
+    }
     if (!onCreate) return
     if (multiple && !text) return
 
@@ -219,8 +223,8 @@ class Select extends PureComponent {
 
     // if click option, ignore input blur
     this.inputBlurTimer = setTimeout(() => {
-      const data = onCreate(text)
-      this.handleChange(null, data, true)
+      const retData = onCreate(text)
+      this.handleChange(null, retData, true)
     }, 200)
   }
 
@@ -238,7 +242,7 @@ class Select extends PureComponent {
   handleEnter() {
     const hoverIndex = this.optionList.getIndex && this.optionList.getIndex()
     const data = this.props.data[hoverIndex]
-    if (data) {
+    if (data && !data[this.props.groupKey]) {
       const checked = !this.props.datum.check(data)
       this.handleChange(checked, data)
       if (this.optionList.handleHover) this.optionList.handleHover(hoverIndex)
@@ -358,6 +362,7 @@ class Select extends PureComponent {
       'onFilter',
       'filterText',
       'zIndex',
+      'groupKey',
     ].forEach(k => {
       props[k] = this.props[k]
     })
@@ -481,6 +486,7 @@ Select.propTypes = {
   compressed: PropTypes.bool,
   trim: PropTypes.bool,
   autoAdapt: PropTypes.bool,
+  filterSingleSelect: PropTypes.bool,
 }
 
 Select.defaultProps = {

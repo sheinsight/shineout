@@ -338,10 +338,31 @@
     }
   }
 
+  &-group {
+    font-size: @font-size-small;
+    color: @select-group-color;
+    cursor: default;
+  }
+
+  &-option + &-group {
+    &:before {
+      content: '';
+      position: absolute;
+      left: @dropdown-padding-x;
+      top: 0;
+      right: 2px;
+      border-top: 1px solid @select-split-color;
+    }
+  }
+
   &-control-mouse &-option:hover {
     background-color: @select-option-hover-bg;
     color: @select-option-hover-color;
     text-decoration: none;
+  }
+
+  &-control-mouse &-group:hover {
+    color: @select-group-color;
   }
 
   &-control-mouse &-option&-disabled:hover {
@@ -352,6 +373,10 @@
     background-color: @select-option-hover-bg;
     color: @select-option-hover-color;
     text-decoration: none;
+  }
+
+  &-control-keyboard &-option.@{select-prefix}-group.@{select-prefix}-hover {
+    color: @select-group-color;
   }
 
   &-control-keyboard &-option {

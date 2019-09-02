@@ -34,6 +34,8 @@ Modal.error(options) // 错误提示框
 
 Modal.confirm(options) // 确认提示框
 
+Modal.show(options) // 默认弹窗 没有图标
+
 #### Options参数
 
 | 属性 | 类型 | 默认值 | 说明 |
@@ -44,3 +46,4 @@ Modal.confirm(options) // 确认提示框
 | onClose | function | 无 | 关闭Modal时触发 |
 | onOk | function | 无 | 点击确定按钮时触发事件，返回 Promise 时，会在 Promise resolve 后关闭Modal |
 | text | object | { ok: 'Ok', cancel: 'Cancel' } | 按钮文字 |
+| autoFocusButton | string | 无 | 默认聚焦的按钮, 可选值 \['ok', 'cancel'] |

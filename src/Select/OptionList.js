@@ -57,7 +57,7 @@ class OptionList extends Component {
 
   hoverMove(step) {
     const max = this.props.data.length
-    const { lineHeight, height } = this.props
+    const { lineHeight, height, groupKey } = this.props
     let { hoverIndex, currentIndex } = this.state
     if (hoverIndex === undefined) hoverIndex = currentIndex
     else hoverIndex += step
@@ -65,6 +65,13 @@ class OptionList extends Component {
     if (hoverIndex >= max) {
       hoverIndex = 0
       this.lastScrollTop = 0
+    }
+
+    // jump the group, the group would't be the last, so do't need to fixed the last
+    const data = this.props.data[hoverIndex]
+    if (data && data[groupKey]) {
+      if (step > 0) hoverIndex += 1
+      else hoverIndex -= 1
     }
     if (hoverIndex < 0) hoverIndex = max - 1
 
@@ -155,6 +162,7 @@ class OptionList extends Component {
       multiple,
       onChange,
       renderItem,
+      groupKey,
     } = this.props
     const { hoverIndex, currentIndex } = this.state
 
@@ -188,13 +196,14 @@ class OptionList extends Component {
               isActive={datum.check(d)}
               disabled={datum.disabled(d)}
               isHover={hoverIndex === currentIndex + i}
-              key={getKey(d, keygen, i)}
+              key={d[groupKey] ? `__${d[groupKey]}__` : getKey(d, keygen, i)}
               index={currentIndex + i}
               data={d}
               multiple={multiple}
               onClick={onChange}
               renderItem={renderItem}
               onHover={this.handleHover}
+              groupKey={groupKey}
             />
           ))}
         </div>
@@ -239,6 +248,7 @@ OptionList.propTypes = {
   autoClass: PropTypes.string,
   style: PropTypes.object,
   text: PropTypes.object,
+  groupKey: PropTypes.string,
 }
 
 export default OptionList

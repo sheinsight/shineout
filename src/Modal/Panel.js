@@ -7,6 +7,14 @@ import { defaultProps, getProps } from '../utils/proptypes'
 import { modalClass } from '../styles'
 
 export default class Panel extends PureComponent {
+  componentDidMount() {
+    const { autoFocusButton, id } = this.props
+    if (!autoFocusButton) return
+    const el = document.querySelector(`#${id}-${autoFocusButton}`)
+    if (!el) return
+    el.focus()
+  }
+
   getStyle() {
     const { width, height, top, position, style } = this.props
 

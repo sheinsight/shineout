@@ -36,12 +36,20 @@ export default function() {
     })
   }
 
+  function show() {
+    Modal.show({
+      title: 'This is a message',
+      content: 'this is show information',
+    })
+  }
+
   return (
     <div>
       <Button onClick={info}>info</Button>
       <Button onClick={success}>success</Button>
       <Button onClick={warning}>warning</Button>
       <Button onClick={error}>error</Button>
+      <Button onClick={show}>show</Button>
     </div>
   )
 }

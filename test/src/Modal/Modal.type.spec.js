@@ -8,7 +8,7 @@ describe('Modal[Type]', () => {
         title: `This is a ${type} message`,
         content: 'this is some information',
       })
-      expect(document.body.innerHTML).toMatchSnapshot()
+      expect(document.body.innerHTML.replace(/id=".*"/g, 'id="a')).toMatchSnapshot()
     })
   })
 })
