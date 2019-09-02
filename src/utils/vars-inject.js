@@ -419,6 +419,12 @@ const injects = {
         type: 'number',
         parser: parseInt,
       },
+      {
+        name: 'tipColor',
+        className: exposeClass('form-tip'),
+        attr: 'color',
+        type: 'color',
+      },
     ],
     set itemMarginBottom(v) {
       setBodyProperty({
@@ -430,6 +436,11 @@ const injects = {
         '--form-item-margin-right': `${parseInt(v, 10)}px`,
       })
     },
+    set tipColor(v) {
+      setBodyProperty({
+        '--form-tip-color': v,
+      })
+    }
   },
   checkbox: {
     info: {
@@ -1045,8 +1056,20 @@ const injects = {
         parser: parseInt,
       },
       {
+        name: 'darkColor',
+        className: exposeClass('menu-dark'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
         name: 'darkBg',
         className: exposeClass('menu-dark'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
+        name: 'darkActiveBg',
+        className: exposeClass('menu-dark-active'),
         attr: 'backgroundColor',
         type: 'color',
       },
@@ -1062,12 +1085,6 @@ const injects = {
         attr: 'color',
         type: 'color',
       },
-      {
-        name: 'darkColor',
-        className: exposeClass('menu-dark'),
-        attr: 'color',
-        type: 'color',
-      },
     ],
     set height(v) {
       const height = parseInt(v, 10)
@@ -1079,6 +1096,11 @@ const injects = {
     set darkBg(v) {
       setBodyProperty({
         '--menu-dark-bg': v,
+      })
+    },
+    set darkActiveBg(v) {
+      setBodyProperty({
+        '--menu-dark-acitve-bg': v,
       })
     },
     set activeBg(v) {

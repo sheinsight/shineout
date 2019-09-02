@@ -94,6 +94,9 @@
     &-dark {
       background: @menu-dark-bg;
       color: @menu-dark-item;
+      &-active {
+        background: @menu-dark-active-bg;
+      }
     }
     &-active {
       background: @menu-item-active-bg;
@@ -103,6 +106,9 @@
   &-form {
     &-inline {
       margin-right: @form-inline-margin-right;
+    }
+    &-tip {
+      color: @form-tip-color;
     }
   }
   .loop-gray(9);
