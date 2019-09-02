@@ -60,11 +60,10 @@ export function show(props, id, innerStyle) {
   }
 }
 
-export function move(id, left, top, right) {
+export function move(id, pos) {
   if (id === currentId) {
-    if (right) div.style.right = `${right}px`
-    if (left) div.style.left = `${left}px`
-    div.style.top = `${top}px`
+    // eslint-disable-next-line no-return-assign
+    Object.keys(pos).map(key => (div.style[key] = pos[key]))
   }
 }
 

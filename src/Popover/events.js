@@ -81,10 +81,10 @@ export function show(props, id) {
   document.addEventListener('click', clickaway)
 }
 
-export function move(id, left, top) {
+export function move(id, pos) {
   if (id === currentId) {
-    div.style.left = `${left}px`
-    div.style.top = `${top}px`
+    // eslint-disable-next-line no-return-assign
+    Object.keys(pos).map(key => (div.style[key] = pos[key]))
   }
 }
 

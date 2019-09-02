@@ -22,8 +22,8 @@ export default function(options) {
 
       const { scrollLeft, scrollTop } = this.props
       if (prevProps.scrollLeft !== scrollLeft || prevProps.scrollTop !== scrollTop) {
-        const { left, top, right } = this.getPosition()
-        move(this.id, left, top, right)
+        const pos = this.getPosition()
+        move(this.id, pos)
         this.tryHide()
       }
     }
@@ -66,7 +66,7 @@ export default function(options) {
       this.showTimer = setTimeout(() => {
         const pos = this.getPosition()
         const style = Object.keys(pos).reduce((data, key) => {
-          data[key] = `${pos[key]}px`
+          data[key] = pos[key]
           return data
         }, {})
         const props = Object.assign({}, this.props, { style })
