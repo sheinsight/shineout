@@ -94,15 +94,23 @@
     &-dark {
       background: @menu-dark-bg;
       color: @menu-dark-item;
+      &-active {
+        background: @menu-dark-active-bg;
+      }
     }
     &-active {
       background: @menu-item-active-bg;
       color: @menu-item-active-color;
+      border-radius: @menu-active-border-radius;
+      padding: @menu-active-padding-vertical @menu-active-padding-horizontal;
     }
   }
   &-form {
     &-inline {
       margin-right: @form-inline-margin-right;
+    }
+    &-tip {
+      color: @form-tip-color;
     }
   }
   .loop-gray(9);

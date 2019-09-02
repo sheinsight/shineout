@@ -104,18 +104,23 @@
       display: block;
     }
 
-    .@{menu-prefix}-active.@{menu-prefix}-no-children > a {
-      background: @menu-item-active-bg;
-      color: @menu-item-active-color;
+    .@{menu-prefix}-active.@{menu-prefix}-no-children {
+      padding: @menu-active-padding-vertical @menu-active-padding-horizontal;
+      > a {
+        background: @menu-item-active-bg;
+        color: @menu-item-active-color;
+        border-radius: @menu-active-border-radius;
+        text-indent: @menu-active-padding-horizontal-negative;
 
-      &:after {
-        position: absolute;
-        top: 0;
-        right: 0px;
-        width: 3px;
-        height: 100%;
-        background: @menu-item-active-indicator;
-        content: ' ';
+        &:after {
+          position: absolute;
+          top: 0;
+          right: 0px;
+          width: 3px;
+          height: 100%;
+          background: @menu-item-active-indicator;
+          content: ' ';
+        }
       }
     }
 

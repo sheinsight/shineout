@@ -419,6 +419,12 @@ const injects = {
         type: 'number',
         parser: parseInt,
       },
+      {
+        name: 'tipColor',
+        className: exposeClass('form-tip'),
+        attr: 'color',
+        type: 'color',
+      },
     ],
     set itemMarginBottom(v) {
       setBodyProperty({
@@ -430,6 +436,11 @@ const injects = {
         '--form-item-margin-right': `${parseInt(v, 10)}px`,
       })
     },
+    set tipColor(v) {
+      setBodyProperty({
+        '--form-tip-color': v,
+      })
+    }
   },
   checkbox: {
     info: {
@@ -1045,8 +1056,20 @@ const injects = {
         parser: parseInt,
       },
       {
+        name: 'darkColor',
+        className: exposeClass('menu-dark'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
         name: 'darkBg',
         className: exposeClass('menu-dark'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
+        name: 'darkActiveBg',
+        className: exposeClass('menu-dark-active'),
         attr: 'backgroundColor',
         type: 'color',
       },
@@ -1063,10 +1086,25 @@ const injects = {
         type: 'color',
       },
       {
-        name: 'darkColor',
-        className: exposeClass('menu-dark'),
-        attr: 'color',
-        type: 'color',
+        name: 'activePaddingHorizontal',
+        className: exposeClass('menu-active-horizontal'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'activePaddingVertical',
+        className: exposeClass('menu-active-vertical'),
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'activeBorderRadius',
+        className: exposeClass('menu-acitive-borderRadius'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
       },
     ],
     set height(v) {
@@ -1079,6 +1117,11 @@ const injects = {
     set darkBg(v) {
       setBodyProperty({
         '--menu-dark-bg': v,
+      })
+    },
+    set darkActiveBg(v) {
+      setBodyProperty({
+        '--menu-dark-acitve-bg': v,
       })
     },
     set activeBg(v) {
@@ -1094,6 +1137,22 @@ const injects = {
     set darkColor(v) {
       setBodyProperty({
         '--menu-dark-color': v,
+      })
+    },
+    set activePaddingHorizontal(v) {
+      setBodyProperty({
+        '--menu-active-padding-horizontal': `${parseInt(v, 10)}px`,
+        '--menu-active-padding-horizontal-negative': `-${parseInt(v, 10)}px`
+      })
+    },
+    set activePaddingVertical(v) {
+      setBodyProperty({
+        '--menu-active-padding-vertical': `${parseInt(v, 10)}px`,
+      })
+    },
+    set activeBorderRadius(v) {
+      setBodyProperty({
+        '--menu-active-border-radius': `${parseInt(v, 10)}px`,
       })
     },
   },
