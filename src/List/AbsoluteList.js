@@ -29,11 +29,6 @@ export default function(List) {
 
       if (!root) initRoot()
       this.element = document.createElement('div')
-    }
-
-    componentDidMount() {
-      const { absolute } = this.props
-      if (!absolute) return
       root.appendChild(this.element)
     }
 
