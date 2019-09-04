@@ -59,7 +59,7 @@ class Tr extends Component {
     if (!setRowHeight || !this.element) return
     const tds = Array.prototype.slice.call(this.element.querySelectorAll('td'))
     const td = tds.find(el => !el.getAttribute('rowspan'))
-    let height = td ? parseInt(getComputedStyle(td).height, 10) : this.element.clientHeight
+    let { height } = (td || this.element).getBoundingClientRect()
     if (Number.isNaN(height)) height = this.lastRowHeight || 0
     datum.unsubscribe(ROW_HEIGHT_UPDATE_EVENT, this.setRowHeight)
     if (height === 0) {
