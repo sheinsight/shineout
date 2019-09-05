@@ -14,6 +14,8 @@ export default function() {
     <div>
       <DatePicker range={86400 * 20} type="date" onChange={a => console.log(a)} style={style} />
       <br />
+      <DatePicker range={86400 * 20} type="week" onChange={a => console.log(a)} style={style} />
+      <br />
       <DatePicker
         range={86400 * 100}
         onChange={v => console.log(v)}

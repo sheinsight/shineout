@@ -1,7 +1,7 @@
 /**
- * cn - 选择行 (分页)
- *    -- 默认情况下，翻页时 Datum 对象会保留当前选中的数据
- * en - Select (paging)
+ * cn -
+ *    -- 分页中 默认情况下，翻页时会保留当前选中的数据
+ * en -
  *    -- By default, the Datum object retains the currently selected data when the page is changed.
  */
 import React, { PureComponent } from 'react'
@@ -79,7 +79,7 @@ export default class extends PureComponent {
           }}
         />
         <br />
-        <div>selected rows: {JSON.stringify(selectedValue)}</div>
+        <div>selected rows: {JSON.stringify(selectedValue)}        </div>
       </div>
     )
   }

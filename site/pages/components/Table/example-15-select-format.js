@@ -1,7 +1,7 @@
 /**
- * cn - 选择行 (format)
+ * cn -
  *    -- 使用 format，可以格式化返回的数据
- * en - Select (format)
+ * en -
  *    -- Set format property to format the returned value.
  */
 import React, { PureComponent } from 'react'
@@ -53,7 +53,11 @@ export default class extends PureComponent {
           onRowSelect={this.handelRowSelect}
           value={this.state.selectedValue}
         />
-        <div style={{ wordBreak: 'break-all' }}>selected rows: {JSON.stringify(this.state.selectedValue)}</div>
+        <div style={{ wordBreak: 'break-all' }}>
+selected rows:
+{' '}
+{JSON.stringify(this.state.selectedValue)}
+</div>
       </div>
     )
   }
