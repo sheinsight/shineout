@@ -155,6 +155,7 @@ class Thead extends PureComponent {
   }
 
   ignoreRightBorder(column) {
+    column.key += 'unique'
     this.rightBorderRecord[column.key] = true
     if (column.columns) this.ignoreRightBorder(column.columns[column.columns.length - 1])
   }
