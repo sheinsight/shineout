@@ -51,7 +51,7 @@ export function show(props, id, innerStyle) {
   inner.setAttribute('style', false)
   if (innerStyle) {
     Object.keys(innerStyle).forEach(k => {
-      inner.style[k] = innerStyle[k]
+      inner.style[k] = typeof innerStyle[k] === 'number' ? `${innerStyle[k]}px` : innerStyle[k]
     })
   }
 
