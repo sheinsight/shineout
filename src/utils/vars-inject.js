@@ -617,8 +617,14 @@ const injects = {
       },
       {
         name: 'itemHoverBg',
-        className: selectClass('option', 'hover'),
+        className: exposeClass('select-option-hover'),
         attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
+        name: 'itemHoverColor',
+        className: exposeClass('select-option-hover'),
+        attr: 'color',
         type: 'color',
       },
     ],
@@ -645,7 +651,12 @@ const injects = {
     },
     set itemHoverBg(v) {
       setBodyProperty({
-        '--select-item-hover-bg': v,
+        '--select-option-hover-bg': v,
+      })
+    },
+    set itemHoverColor(v) {
+      setBodyProperty({
+        '--select-option-hover-color': v,
       })
     },
   },
