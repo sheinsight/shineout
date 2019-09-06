@@ -1,8 +1,8 @@
 /**
- * cn - 前端分页
- *    -- 设置 pagination 显示分页，没有设置 onChange 处理数据的情况下，会自动对数据进行分页
+ * cn - 分页
+ *    -- 前端分页的情况下, 设置 pagination 显示分页，没有设置 onChange 处理数据的情况下，会自动对数据进行分页
  *    -- pagination 的参数和 Pagination 组件一致
- * en - Pagination (frontend)
+ * en - Pagination
  *    -- Set the pagination property to show the pagination and if not set onChange property, the data is automatically paged.
  *    -- The parameters of pagination are consistent with the Pagination component.
  */

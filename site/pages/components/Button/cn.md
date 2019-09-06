@@ -8,7 +8,7 @@
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| children | string \| ReactElement | 必填 |  |
+| children | string \| ReactElement | 必填 | 按钮里面的内容, 可以是文字图标等  |
 | className | string | 无 | 扩展className |
 | disabled | bool | false | 禁用 |
 | href | string | 无 | 如果设置了 href 属性，将会用 &lt;a> 代替 &lt;button> |

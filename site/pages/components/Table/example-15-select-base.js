@@ -58,7 +58,7 @@ export default class extends PureComponent {
           value={this.state.selectedValue}
           prediction={(v, d) => v.id === d.id}
         />
-        <div>selected rows: [{this.state.selectedValue.map(v => v.id).join(', ')}]</div>
+        <div>selected rows: [{this.state.selectedValue.map(v => v.id).join(', ')}]        </div>
       </div>
     )
   }

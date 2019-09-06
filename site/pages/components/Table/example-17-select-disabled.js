@@ -1,7 +1,7 @@
 /**
- * cn - 选择行（禁用）
+ * cn -
  *    -- 设置 disabled 属性，禁用选项。
- * en - Select (disabled)
+ * en -
  *    -- Set disabled to disable the selection.
  */
 import React, { PureComponent } from 'react'
@@ -52,7 +52,7 @@ export default class extends PureComponent {
           onRowSelect={this.handelRowSelect}
           value={this.state.selectedText}
         />
-        <div>selected rows: [{this.state.selectedText.join(', ')}]</div>
+        <div>selected rows: [{this.state.selectedText.join(', ')}]        </div>
       </div>
     )
   }

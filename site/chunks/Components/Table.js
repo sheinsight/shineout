@@ -106,8 +106,8 @@ const examples = [
   {
     name: '11-pagination',
     title: locate(
-      '前端分页 \n 设置 pagination 显示分页，没有设置 onChange 处理数据的情况下，会自动对数据进行分页 \n pagination 的参数和 Pagination 组件一致',
-      'Pagination (frontend) \n Set the pagination property to show the pagination and if not set onChange property, the data is automatically paged. \n The parameters of pagination are consistent with the Pagination component.'
+      '分页 \n 前端分页的情况下, 设置 pagination 显示分页，没有设置 onChange 处理数据的情况下，会自动对数据进行分页 \n pagination 的参数和 Pagination 组件一致',
+      'Pagination \n Set the pagination property to show the pagination and if not set onChange property, the data is automatically paged. \n The parameters of pagination are consistent with the Pagination component.'
     ),
     component: require('doc/pages/components/Table/example-11-pagination.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-11-pagination.js'),
@@ -115,8 +115,8 @@ const examples = [
   {
     name: '12-pagination',
     title: locate(
-      '服务端分页 \n 在 pagination 的 onChange 中处理（获取）数据，可以实现服务端分页',
-      'Pagination (server) \n Processing (acquiring) data in pagination\'s onChange realizes the pagination of server-side.'
+      ' \n 后端分页的情况下, 在 pagination 的 onChange 中处理（获取）数据，可以实现服务端分页',
+      ' \n Processing (acquiring) data in pagination\'s onChange realizes the pagination of server-side.'
     ),
     component: require('doc/pages/components/Table/example-12-pagination.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-12-pagination.js'),
@@ -160,26 +160,17 @@ const examples = [
   {
     name: '15-select-format',
     title: locate(
-      '选择行 (format) \n 使用 format，可以格式化返回的数据',
-      'Select (format) \n Set format property to format the returned value.'
+      ' \n 使用 format，可以格式化返回的数据',
+      ' \n Set format property to format the returned value.'
     ),
     component: require('doc/pages/components/Table/example-15-select-format.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-15-select-format.js'),
   },
   {
-    name: '16-select-datum',
-    title: locate(
-      '选择行 (Datum) \n 使用 Datum，可以做更复杂的数据处理的工作',
-      'Select (datum) \n Using Datum.List can process more complex data.'
-    ),
-    component: require('doc/pages/components/Table/example-16-select-datum.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Table/example-16-select-datum.js'),
-  },
-  {
     name: '17-select-disabled',
     title: locate(
-      '选择行（禁用） \n 设置 disabled 属性，禁用选项。',
-      'Select (disabled) \n Set disabled to disable the selection.'
+      ' \n 设置 disabled 属性，禁用选项。',
+      ' \n Set disabled to disable the selection.'
     ),
     component: require('doc/pages/components/Table/example-17-select-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-17-select-disabled.js'),
@@ -187,29 +178,11 @@ const examples = [
   {
     name: '18-select',
     title: locate(
-      '选择行 (分页) \n 默认情况下，翻页时 Datum 对象会保留当前选中的数据',
-      'Select (paging) \n By default, the Datum object retains the currently selected data when the page is changed.'
+      ' \n 分页中 默认情况下，翻页时会保留当前选中的数据',
+      ' \n By default, the Datum object retains the currently selected data when the page is changed.'
     ),
     component: require('doc/pages/components/Table/example-18-select.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-18-select.js'),
-  },
-  {
-    name: '19-select',
-    title: locate(
-      ' \n 如果需要翻页时清除选中数据，可以在翻页时调用 Datum.clear() 方法',
-      ' \n If you need to clear the selected data when the page is changed, you can clear value property or call the Datum.clear() method.'
-    ),
-    component: require('doc/pages/components/Table/example-19-select.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Table/example-19-select.js'),
-  },
-  {
-    name: '20-select',
-    title: locate(
-      '选择行 (示例) \n 可以不处理 onChange 事件，在调用时使用 datum.getValue 获取当前选中值。',
-      'Select (getValue) \n You can use datum.getValue to get current selected values.'
-    ),
-    component: require('doc/pages/components/Table/example-20-select.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Table/example-20-select.js'),
   },
   {
     name: '21-drag-column',
@@ -232,8 +205,8 @@ const examples = [
   {
     name: '22-expand-control',
     title: locate(
-      '可展开(受控) \n 当传入一个expandKeys时,展开会变成受控的,需要自行在column里面的onClick去处理',
-      'Expand(controlled) \n When an expandKeys is provided, the expansion becomes controlled and needs to be processed by the onClick in the column.'
+      ' \n 受控,当传入一个expandKeys时,展开会变成受控的,需要自行在column里面的onClick去处理',
+      ' \n When an expandKeys is provided, the expansion becomes controlled and needs to be processed by the onClick in the column.'
     ),
     component: require('doc/pages/components/Table/example-22-expand-control.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-22-expand-control.js'),

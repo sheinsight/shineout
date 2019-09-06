@@ -2,7 +2,6 @@ import React from 'react'
 import { mount } from 'enzyme'
 import TableSelectBase from '../../../site/pages/components/Table/example-15-select-base'
 import TableSelectFormat from '../../../site/pages/components/Table/example-15-select-format'
-import TableSelectDatum from '../../../site/pages/components/Table/example-16-select-datum'
 import TableSelectDisabled from '../../../site/pages/components/Table/example-17-select-disabled'
 // import TableSelectPagination from '../../../site/pages/components/Table/example-18-select'
 
@@ -30,48 +29,6 @@ describe('Table[rowSection]', () => {
     wrapper.update()
     const value = wrapper.find('ShineoutTable').prop('value')
     expect(value[value.length - 1]).toBe(format(data[0]))
-  })
-
-  test('should render with datum', () => {
-    const wrapper = mount(<TableSelectDatum />)
-    const wrapperTable = wrapper.find('ShineoutTable')
-    const data = wrapperTable.prop('data')
-    const datum = wrapperTable.prop('datum')
-    expect(datum.check(data[0])).toBeFalsy()
-    // select first item
-    const first = wrapperTable.find(`.${SO_PREFIX}-scroll tbody tr input[type="checkbox"]`).first()
-    first.prop('onChange')({
-      target: {
-        checked: true,
-      },
-    })
-    wrapper.update()
-    expect(datum.check(data[0])).toBeTruthy()
-  })
-
-  test('should call onChange with datum', () => {
-    const wrapper = mount(<TableSelectDatum />)
-    const wrapperTable = wrapper.find('ShineoutTable')
-    const data = wrapperTable.prop('data')
-    const datum = wrapperTable.prop('datum')
-    expect(datum.check(data[0])).toBeFalsy()
-    // select first item
-    const first = wrapperTable.find(`.${SO_PREFIX}-scroll tbody tr input[type="checkbox"]`).first()
-    first.prop('onChange')({
-      target: {
-        checked: true,
-      },
-    })
-    wrapper.update()
-    expect(wrapper.state('selectedValue').includes(`${data[0].firstName} ${data[0].lastName}`)).toBeTruthy()
-
-    first.prop('onChange')({
-      target: {
-        checked: false,
-      },
-    })
-    wrapper.update()
-    expect(wrapper.state('selectedValue').includes(`${data[0].firstName} ${data[0].lastName}`)).toBeFalsy()
   })
 
   test('should render disabled', () => {

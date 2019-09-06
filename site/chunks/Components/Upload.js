@@ -16,11 +16,20 @@ const examples = [
   {
     name: '01-base',
     title: locate(
-      '基本用法 \n 基础的文件上传',
-      'Base \n Basic usage for uploading file'
+      '基本用法 \n 基础的文件上传, onSuccess 的返回值会作为 value 传给 onChange',
+      'Base \n Basic usage for uploading file, the onSuccess\'s returns will be the onChange params'
     ),
     component: require('doc/pages/components/Upload/example-01-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-01-base.js'),
+  },
+  {
+    name: '01-onChange',
+    title: locate(
+      '自定义结果 \n 默认展示的结果和 value 里面所存储的值是一样的, 如果有需求需要, 可以用 renderResult 自行处理',
+      'Custom result \n The result of the default display is the same as the value stored in the value. If there is a need, you can use the renderResult to handle it yourself.'
+    ),
+    component: require('doc/pages/components/Upload/example-01-onChange.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Upload/example-01-onChange.js'),
   },
   {
     name: '02-image',

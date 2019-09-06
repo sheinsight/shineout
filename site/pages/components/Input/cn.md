@@ -17,7 +17,7 @@
 | style | object | 无 | 最外层扩展样式 |
 | tip | string \| ReactElement | | 提示信息 |
 | trim | bool | false | trim 为 true 时，失去焦点时会自动删除空白字符。 |
-| type | string | | 同原生 input 标签的 type |
+| type | string | 'text' | 同原生 input 标签的 type |
 | value | string \| number | | defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖<br />在Form中，value会被表单接管，value无效 |
 
 ### Input.Number
