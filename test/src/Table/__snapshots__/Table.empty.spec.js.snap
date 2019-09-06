@@ -329,7 +329,7 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
           Start Date
         </th>
         <th
-          className="so-table-ignore-right-border so-table-fixed-right so-table-fixed-first"
+          className="so-table-fixed-right so-table-fixed-first"
           rowSpan={2}
         >
           Salary

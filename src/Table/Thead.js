@@ -17,8 +17,9 @@ class Thead extends PureComponent {
   }
 
   setColumns(columns, col, level) {
+    const unique = getUidStr()
     if (!col.group) {
-      columns.push(col)
+      columns.push({ ...col, unique })
       return 1
     }
 
@@ -27,7 +28,7 @@ class Thead extends PureComponent {
     const last = columns[columns.length - 1]
 
     if (!g[level]) {
-      columns.push(col)
+      columns.push({ ...col, unique })
       return 1
     }
 
@@ -41,8 +42,9 @@ class Thead extends PureComponent {
       const sub = []
       colSpan = this.setColumns(sub, col, level + 1)
       columns.push({
+        unique,
         name: g[level],
-        key: typeof g[level] === 'string' ? g[level] : getUidStr(),
+        key: typeof g[level] === 'string' ? g[level] : unique,
         colSpan,
         level,
         fixed: col.fixed,
@@ -100,6 +102,7 @@ class Thead extends PureComponent {
     if (col.lastFixed) fixed.push('fixed-last')
 
     const { sorter, onSortChange, data, datum, showSelectAll, disabled } = this.props
+    const key = this.rightBorderRecord[col.unique] ? col.unique : col.key
 
     const align = col.align && `align-${col.align}`
     const ignoreBorderRight = this.rightBorderRecord[col.key] && 'ignore-right-border'
@@ -115,7 +118,7 @@ class Thead extends PureComponent {
             col.className
           )}
           rowSpan={this.columnLevel - level + 1}
-          key={col.key}
+          key={key}
         >
           {typeof col.title === 'function' ? col.title(data) : col.title}
           {col.sorter && <Sorter {...col} current={sorter} onChange={onSortChange} />}
@@ -141,7 +144,7 @@ class Thead extends PureComponent {
       <th
         className={classnames(tableClass('center', 'condensed', ignoreBorderRight, ...fixed), col.className)}
         colSpan={col.colSpan}
-        key={col.key}
+        key={key}
         style={style}
       >
         {col.name}
@@ -155,8 +158,7 @@ class Thead extends PureComponent {
   }
 
   ignoreRightBorder(column) {
-    column.key += 'unique'
-    this.rightBorderRecord[column.key] = true
+    this.rightBorderRecord[column.unique] = true
     if (column.columns) this.ignoreRightBorder(column.columns[column.columns.length - 1])
   }
 
