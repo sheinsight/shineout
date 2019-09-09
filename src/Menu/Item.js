@@ -95,7 +95,10 @@ class Item extends PureComponent {
 
     if (typeof data.onClick === 'function') {
       data.onClick(this.id, data)
-    } else if ((!data.children || data.onClick === true) && typeof onClick === 'function') {
+    } else if (
+      (!data.children || data.children.length === 0 || data.onClick === true) &&
+      typeof onClick === 'function'
+    ) {
       onClick(this.id, data)
     }
   }
@@ -156,7 +159,7 @@ class Item extends PureComponent {
     if (isLink(item)) {
       const mergeClass = classnames(menuClass('title'), item.props && item.props.className)
       const mergeStyle = Object.assign({}, style, item.props && item.props.style)
-      item = cloneElement(item, { className: mergeClass, style: mergeStyle })
+      item = cloneElement(item, { className: mergeClass, style: mergeStyle, onClick: this.handleClick })
     } else {
       const props = {
         className: menuClass('title'),
