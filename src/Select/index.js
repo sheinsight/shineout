@@ -18,7 +18,7 @@ const exportSelect = compose(
   inputable,
   inputBorder({ className: selectClass('_'), tag: 'div' }),
   limitWrap,
-  Datum.hoc({ bindProps: ['disabled', 'limit', 'format', 'prediction'] }),
+  Datum.hoc({ bindProps: ['disabled', 'limit', 'format', 'prediction', 'separator'] }),
   filter,
   group
 )(Select)
