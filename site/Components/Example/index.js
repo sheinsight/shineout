@@ -4,6 +4,7 @@ import { Lazyload, Spin } from 'shineout'
 import Icon from 'doc/icons/Icon'
 import history from 'doc/history'
 import { exampleClass } from 'doc/styles'
+import Codesandbox from './Codesandbox'
 import CodeBlock from '../CodeBlock'
 
 const placeholder = (
@@ -18,6 +19,8 @@ export default function Example({ component, id, name, rawText, title: propsTitl
   const [com] = useState(createElement(component))
   const [codeHeight, setCodeHeight] = useState()
   let [bottom] = useState()
+
+  const text = rawText.replace(/(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/, '').trim()
 
   const collapse = (height, remain, isBottom) => {
     codeblock.current.style.height = `${height * (remain - 1)}px`
@@ -61,8 +64,6 @@ export default function Example({ component, id, name, rawText, title: propsTitl
     </a>
   )
 
-  const text = rawText.replace(/(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/, '').trim()
-
   let { search } = history.location
   const examplePrefix = '?example='
   if (search.indexOf(examplePrefix) === 0) {
@@ -91,6 +92,7 @@ export default function Example({ component, id, name, rawText, title: propsTitl
               {sub.map((s, i) => (
                 <div key={i} dangerouslySetInnerHTML={{ __html: s }} />
               ))}
+              <Codesandbox id={id} text={text} />
               {renderCodeHandle(false)}
             </div>
           )}
