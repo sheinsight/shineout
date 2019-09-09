@@ -103,6 +103,11 @@ class Item extends PureComponent {
     }
   }
 
+  handleItemClick(clickMethod) {
+    clickMethod()
+    this.handleClick()
+  }
+
   renderLink(data) {
     const { linkKey } = this.props
     if (linkKey && data[linkKey]) return data[linkKey]
@@ -159,7 +164,9 @@ class Item extends PureComponent {
     if (isLink(item)) {
       const mergeClass = classnames(menuClass('title'), item.props && item.props.className)
       const mergeStyle = Object.assign({}, style, item.props && item.props.style)
-      item = cloneElement(item, { className: mergeClass, style: mergeStyle, onClick: this.handleClick })
+      const handleItemClick =
+        item.props && item.props.onClick ? this.handleItemClick.bind(this, item.props.onClick) : this.handleClick
+      item = cloneElement(item, { className: mergeClass, style: mergeStyle, onClick: handleItemClick })
     } else {
       const props = {
         className: menuClass('title'),
