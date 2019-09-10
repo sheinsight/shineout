@@ -35,6 +35,10 @@ export default Origin =>
       this.resultCache = new Map()
     }
 
+    componentDidUpdate(prevProps) {
+      if (prevProps.data !== this.props.data) this.datumPathMap = null
+    }
+
     getResultByValues() {
       const { datum, noCache } = this.props
       const value = datum.getValue() || []
@@ -54,7 +58,12 @@ export default Origin =>
     }
 
     handleFilter(text) {
-      const { filterDelay, onFilter } = this.props
+      const { filterDelay, onFilter, datum } = this.props
+
+      if (!this.datumPathMap && datum.pathMap.size > 0) {
+        this.datumPathMap = datum.pathMap
+        datum.setFilterPathMap(this.datumPathMap)
+      }
 
       // not filter
       if (!text) {
@@ -86,9 +95,7 @@ export default Origin =>
       let newExpanded = expanded
       if (innerFilter) {
         const filterExpandedKeys = []
-        newData = getFilterTree(data, innerFilter, filterExpandedKeys, node =>
-          this.props.datum.getKey(node)
-        )
+        newData = getFilterTree(data, innerFilter, filterExpandedKeys, node => this.props.datum.getKey(node))
         newExpanded = filterExpandedKeys
       }
 

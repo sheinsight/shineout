@@ -69,9 +69,17 @@
       }
     }
   }
-  &-select-result-item {
-    background: @select-result-bg;
-    padding: @select-result-padding-vertical @select-result-space-16 @select-result-padding-vertical @select-result-space;
+  &-select {
+   &-result-item {
+     background: @select-result-bg;
+     padding: @select-result-padding-vertical @select-result-space-16 @select-result-padding-vertical @select-result-space;
+   }
+    &-option {
+      &-hover {
+        background: @select-option-hover-bg;
+        color: @select-option-hover-color;
+      }
+    }
   }
   &-datepicker-month{
     &-item {

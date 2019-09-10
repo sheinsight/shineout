@@ -34,6 +34,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 | scrollToError | bool\|number | false | 校验失败时是否滚动到第一个校验失败组件，该值为数字时，表示相对于顶部的偏移量 |
 | style | object | | 扩展样式 |
 | throttle | number | 1000 | ms, 两次提交间隔时长（防止重复提交）|
+| initValidate | bool | false | 设置 value 后是否自动校验 |
 
 ### Form.Item
 表单项，主要用来布局，显示标签，提示文案信息等
