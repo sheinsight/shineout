@@ -66,11 +66,7 @@ class Range extends PureComponent {
     if (utils.compareAsc(s, e) > 0) {
       const sWitheTime = new Date(s)
       utils.setTime(sWitheTime, e)
-      if (utils.compareAsc(s, sWitheTime) > 0) {
-        rangeDate[1] = s
-      } else {
-        rangeDate[1] = sWitheTime
-      }
+      rangeDate[1] = utils.compareAsc(s, sWitheTime) > 0 ? s : sWitheTime
     }
   }
 
