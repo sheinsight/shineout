@@ -35,10 +35,6 @@ export default Origin =>
       this.resultCache = new Map()
     }
 
-    componentDidUpdate(prevProps) {
-      if (prevProps.data !== this.props.data) this.datumPathMap = null
-    }
-
     getResultByValues() {
       const { datum, noCache } = this.props
       const value = datum.getValue() || []
@@ -58,12 +54,7 @@ export default Origin =>
     }
 
     handleFilter(text) {
-      const { filterDelay, onFilter, datum } = this.props
-
-      if (!this.datumPathMap && datum.pathMap.size > 0) {
-        this.datumPathMap = datum.pathMap
-        datum.setFilterPathMap(this.datumPathMap)
-      }
+      const { filterDelay, onFilter } = this.props
 
       // not filter
       if (!text) {

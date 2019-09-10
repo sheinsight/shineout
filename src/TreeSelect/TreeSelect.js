@@ -225,7 +225,7 @@ export default class TreeSelect extends PureComponent {
       data.length === 0 ? (
         <span className={treeSelectClass('option')}>{this.getText('noData')}</span>
       ) : (
-        <Tree className={treeSelectClass(!multiple && 'single')} {...props} />
+        <Tree className={treeSelectClass(!multiple && 'single')} {...props} dataUpdate={false} />
       )
     return (
       <OptionList

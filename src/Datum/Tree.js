@@ -43,7 +43,6 @@ export default class {
 
   getValue() {
     const value = []
-    const pathMap = this.getPathMap()
     this.valueMap.forEach((checked, id) => {
       switch (this.mode) {
         case CheckedMode.Full:
@@ -53,12 +52,12 @@ export default class {
           if (checked >= 1) value.push(id)
           break
         case CheckedMode.Child:
-          if (checked === 1 && pathMap.get(id).children.length === 0) value.push(id)
+          if (checked === 1 && this.pathMap.get(id).children.length === 0) value.push(id)
           break
         case CheckedMode.Shallow:
           if (checked === 1) {
             const parentChecked = (() => {
-              const { path } = pathMap.get(id)
+              const { path } = this.pathMap.get(id)
               const pid = path[path.length - 1]
               if (!pid) return false
               return this.valueMap.get(pid) === 1
@@ -79,16 +78,11 @@ export default class {
     if (update) update()
   }
 
-  setFilterPathMap(pathMap) {
-    this.storePathMap = pathMap
-  }
-
   set(id, checked, direction) {
     // self
     if (!this.isDisabled(id)) this.setValueMap(id, checked)
-    const pathMap = this.getPathMap()
 
-    const { path, children } = pathMap.get(id)
+    const { path, children } = this.pathMap.get(id)
 
     // children
     if (direction !== 'asc') {
@@ -101,7 +95,7 @@ export default class {
     if (direction !== 'desc' && path.length > 0) {
       const parentId = path[path.length - 1]
       let parentChecked = checked
-      pathMap.get(parentId).children.forEach(cid => {
+      this.pathMap.get(parentId).children.forEach(cid => {
         if (parentChecked !== this.valueMap.get(cid)) {
           parentChecked = 2
         }
@@ -111,7 +105,7 @@ export default class {
   }
 
   isDisabled(id) {
-    const node = this.getPathMap().get(id)
+    const node = this.pathMap.get(id)
     if (node) return node.isDisabled
     return false
   }
@@ -120,16 +114,12 @@ export default class {
     return this.valueMap.get(id)
   }
 
-  getPathMap() {
-    return this.storePathMap || this.pathMap
-  }
-
   getDataById(id) {
     return this.dataMap.get(id)
   }
 
   getPath(id) {
-    return this.getPathMap().get(id)
+    return this.pathMap.get(id)
   }
 
   getChecked(id) {
@@ -147,17 +137,17 @@ export default class {
 
   initValue(ids, forceCheck) {
     if (!this.data || !this.value) return undefined
-    const pathMap = this.getPathMap()
+
     if (!ids) {
       ids = []
-      pathMap.forEach((val, id) => {
+      this.pathMap.forEach((val, id) => {
         if (val.path.length === 0) ids.push(id)
       })
     }
 
     let checked
     ids.forEach(id => {
-      const { children } = pathMap.get(id)
+      const { children } = this.pathMap.get(id)
 
       if (forceCheck) {
         this.setValueMap(id, 1)
