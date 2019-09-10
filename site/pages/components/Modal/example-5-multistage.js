@@ -4,10 +4,24 @@
  * en - Multistage
  *    -- Multi-layer Modal
  */
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Modal, Button } from 'shineout'
-import { pickNumber } from 'doc/utils/faker'
-import { range } from 'shineout/utils/numbers'
+
+const pickNumber = (max = 65555, min = 0, fixed = 2) => {
+  if (typeof max === 'string') max = parseInt(max, 10)
+  if (typeof min === 'string') min = parseInt(min, 10)
+
+  const num = Math.random() * (max - min) + min
+  return parseFloat(num.toFixed(fixed), 0)
+}
+
+const range = (end, start = 0) => {
+  const delta = end - start
+  if (typeof delta !== 'number' || Number.isNaN(delta)) {
+    console.error(new Error('end can not computed with start'))
+  }
+  return Array.from({ length: end - start }, (v, k) => k + start)
+}
 
 const size = range(11, 0).map(() => [pickNumber(600, 450), pickNumber(450, 320)])
 
@@ -43,16 +57,12 @@ export default class extends React.Component {
             .
             <br />
             {i < 10 && (
-              <>
-                <a onClick={this.show.bind(this, i + 1)}>
-                  Next level
-                </a>
+              <Fragment>
+                <a onClick={this.show.bind(this, i + 1)}>Next level</a>
                 <br />
                 <br />
-                <a onClick={this.show.bind(this, 0)}>
-                  Close all
-                </a>
-              </>
+                <a onClick={this.show.bind(this, 0)}>Close all</a>
+              </Fragment>
             )}
           </Modal>
         ))}

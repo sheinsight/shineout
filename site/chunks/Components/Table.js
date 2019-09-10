@@ -178,7 +178,7 @@ const examples = [
   {
     name: '18-select',
     title: locate(
-      ' \n 分页中 默认情况下，翻页时会保留当前选中的数据',
+      ' \n 分页中 默认情况下，翻页时会保留当前选中的数据, 如果不需要保留, 则可以分页的时候手动清除',
       ' \n By default, the Datum object retains the currently selected data when the page is changed.'
     ),
     component: require('doc/pages/components/Table/example-18-select.js').default,
