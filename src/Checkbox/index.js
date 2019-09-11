@@ -11,7 +11,7 @@ const exports = compose(
 )(Checkbox)
 exports.Group = compose(
   inputable,
-  Datum.hoc({ bindProps: ['disabled', 'format', 'prediction'] })
+  Datum.hoc({ bindProps: ['disabled', 'format', 'prediction', 'separator'] })
 )(Group)
 exports.Checkbox = Checkbox
 
