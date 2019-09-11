@@ -131,7 +131,6 @@ class Number extends PureComponent {
         // do not need the tab to focus
         tabIndex={-1}
         className={inputClass('number-up')}
-        href="javascript:;"
         onMouseDown={this.handleAddClick}
         onMouseUp={this.handleMouseUp}
         onMouseLeave={this.handleMouseUp}
@@ -144,7 +143,6 @@ class Number extends PureComponent {
         // do not need the tab to focus
         tabIndex={-1}
         className={inputClass('number-down')}
-        href="javascript:;"
         onMouseDown={this.handleSubClick}
         onMouseUp={this.handleMouseUp}
         onMouseLeave={this.handleMouseUp}

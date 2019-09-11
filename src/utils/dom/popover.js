@@ -1,5 +1,6 @@
 import { docScroll, docSize } from './document'
 
+const posKeys = ['left', 'top', 'bottom', 'right']
 export const getPosition = (position, el) => {
   const rect = el.getBoundingClientRect()
   const scrollTop = docScroll.top
@@ -58,5 +59,11 @@ export const getPosition = (position, el) => {
     default:
   }
 
-  return Object.keys(pos).reduce((data, key) => ({ ...data, [key]: Math.round(pos[key]) }), {})
+  return posKeys.reduce(
+    (data, key) => ({
+      ...data,
+      [key]: typeof pos[key] === 'number' ? `${Math.round(pos[key])}px` : 'auto',
+    }),
+    {}
+  )
 }

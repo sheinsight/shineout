@@ -86,9 +86,7 @@ export default Origin =>
       let newExpanded = expanded
       if (innerFilter) {
         const filterExpandedKeys = []
-        newData = getFilterTree(data, innerFilter, filterExpandedKeys, node =>
-          this.props.datum.getKey(node)
-        )
+        newData = getFilterTree(data, innerFilter, filterExpandedKeys, node => this.props.datum.getKey(node))
         newExpanded = filterExpandedKeys
       }
 

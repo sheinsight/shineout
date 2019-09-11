@@ -81,7 +81,7 @@ class Gallery extends PureComponent {
 
     return (
       <div key={image.key} className={imageClass(pos, this.state.direction)} onClick={onClick}>
-        <a href="javascript:;" onClick={this.props.onClose} className={imageClass('close')}>
+        <a onClick={this.props.onClose} className={imageClass('close')}>
           {icons.Close}
         </a>
         <Magnify

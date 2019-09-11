@@ -10,11 +10,13 @@
   display: flex;
   min-width: 0;
   flex-direction: column;
-  border: 1px solid @panel-default-border;
+  border: @card-border-width solid @card-border-color;
   background-clip: border-box;
   background-color: @panel-bg;
   border-radius: @panel-border-radius;
   word-wrap: break-word;
+  color: @card-color;
+  font-size: @card-font-size;
 
   &-hover:hover,
   &-shadow {
@@ -26,7 +28,7 @@
     z-index: 10;
     padding: @panel-heading-padding;
     margin-bottom: -1px;
-    border-bottom: 1px solid @panel-inner-border;
+    border-bottom: @card-divider-width solid @panel-inner-border;
     background-color: @panel-header-bg;
 
     .@{card-prefix}-indicator {
@@ -106,7 +108,7 @@
 
   &-footer {
     padding: @panel-footer-padding;
-    border-top: 1px solid @panel-inner-border;
+    border-top: @card-divider-width solid @panel-inner-border;
     background-color: @panel-footer-bg;
   }
 

@@ -23,8 +23,8 @@
   }
 
   &-title {
-    color: rgba(0, 0, 0, 0.85);
-    font-size: ceil((@font-size-base * 1.125));
+    color: @modal-title-color;
+    font-size: @modal-title-font-size;
     font-weight: 500;
   }
 
@@ -39,8 +39,8 @@
       position: absolute;
       top: 40px;
       left: 32px;
-      width: 24px;
-      height: 24px;
+      width: @modal-icon-size;
+      height: @modal-icon-size;
     }
   }
 
@@ -110,6 +110,7 @@
   &-success,
   &-warning,
   &-error,
+  &-normal,
   &-confirm {
     .@{modal-prefix}-footer {
       border-top: 0;

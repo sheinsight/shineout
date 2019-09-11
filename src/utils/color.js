@@ -1,4 +1,5 @@
 import { isOne, isPercent } from './is'
+import { toRGB } from './expose'
 
 const CSS_INTEGER = '[-\\+]?\\d+%?'
 
@@ -315,4 +316,43 @@ export function isLight(color) {
   const result = judgeDark(color)
   if (result === undefined) return false
   return !result
+}
+
+/**
+ * get hsla h s l a
+ * @param color hsl
+ */
+function getHSLA(color) {
+  const hslReg = new RegExp(/hsla?\((\d{1,3}), (\d{1,3}), (\d{1,3})(, (\d{1,3}))?\)$/)
+  hslReg.test(color)
+  const h = RegExp.$1
+  const s = RegExp.$2
+  const l = RegExp.$3
+  const a = RegExp.$5.length ? RegExp.$5 : 1
+  return { h, s, l: parseInt(l, 10), a }
+}
+
+/**
+ * darken color
+ * @param color format rgb | rgba
+ * @param value -100 ~ 100
+ */
+export function darken(color, value = 0) {
+  value = parseInt(value, 10)
+  color = toRGB(color)
+  const hsl = rgbTohsl(color)
+  const { h, s, l, a } = getHSLA(hsl)
+  return toRGB(`hsla(${h},${s}%,${l - value}%,${a})`)
+}
+
+/**
+ * fade color
+ * @param color format rgb
+ * @param alpha 0-1
+ */
+export function fade(color, alpha = 1) {
+  color = toRGB(color)
+  const hsl = rgbTohsl(color)
+  const { h, s, l } = getHSLA(hsl)
+  return toRGB(`hsla(${h},${s}%,${l}%,${alpha})`)
 }

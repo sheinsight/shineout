@@ -6,6 +6,7 @@ import inputBorder from '../hoc/inputBorder'
 import { selectClass } from '../styles'
 import Select from './Select'
 import filter from './filter'
+import group from './group'
 
 const limitWrap = Origin => props => {
   // eslint-disable-next-line
@@ -17,8 +18,9 @@ const exportSelect = compose(
   inputable,
   inputBorder({ className: selectClass('_'), tag: 'div' }),
   limitWrap,
-  Datum.hoc({ bindProps: ['disabled', 'limit', 'format', 'prediction'] }),
-  filter
+  Datum.hoc({ bindProps: ['disabled', 'limit', 'format', 'prediction', 'separator'] }),
+  filter,
+  group
 )(Select)
 
 exportSelect.displayName = 'ShineoutSelect'

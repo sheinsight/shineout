@@ -11,7 +11,7 @@
   &-background {
     height: @slider-height;
     background: @slider-bg-color;
-    border-radius: @slider-height / 2;
+    border-radius: @slider-border-radius;
   }
 
   &-inner {
@@ -33,7 +33,7 @@
     .@{slider-prefix}-bar-bg {
       height: 100%;
       background: @slider-bar-color;
-      border-radius: @slider-height / 2;
+      border-radius: @slider-border-radius;
     }
 
     .@{slider-prefix}-indicator {
@@ -43,7 +43,7 @@
     .@{slider-prefix}-result {
       position: absolute;
       right: 0;
-      bottom: 14px;
+      bottom: @slider-value-bottom;
       display: none;
       padding: 0 4px;
       background: #fff;
@@ -81,8 +81,8 @@
     width: @slider-indicator-size;
     height: @slider-indicator-size;
     border: solid 2px @slider-active-color;
-    background: #fff;
-    border-radius: @slider-indicator-size / 2;
+    background: @slider-indicator-bg;
+    border-radius: @slider-indicator-size-half;
     cursor: pointer;
     transform: translate(50%, -50%);
   }

@@ -14,9 +14,7 @@ export const CheckedMode = {
 
 export default class {
   constructor(options = {}) {
-    const {
-      data, value, keygen, mode, disabled,
-    } = options
+    const { data, value, keygen, mode, disabled } = options
 
     this.keygen = keygen
     this.mode = mode
@@ -88,7 +86,7 @@ export default class {
 
     // children
     if (direction !== 'asc') {
-      children.forEach((cid) => {
+      children.forEach(cid => {
         this.set(cid, checked, 'desc')
       })
     }
@@ -97,7 +95,7 @@ export default class {
     if (direction !== 'desc' && path.length > 0) {
       const parentId = path[path.length - 1]
       let parentChecked = checked
-      this.pathMap.get(parentId).children.forEach((cid) => {
+      this.pathMap.get(parentId).children.forEach(cid => {
         if (parentChecked !== this.valueMap.get(cid)) {
           parentChecked = 2
         }
@@ -133,7 +131,7 @@ export default class {
 
   getKey(data, id = '', index) {
     if (typeof this.keygen === 'function') return this.keygen(data, id)
-    else if (this.keygen) return data[this.keygen]
+    if (this.keygen) return data[this.keygen]
     return id + (id ? ',' : '') + index
   }
 
@@ -148,7 +146,7 @@ export default class {
     }
 
     let checked
-    ids.forEach((id) => {
+    ids.forEach(id => {
       const { children } = this.pathMap.get(id)
 
       if (forceCheck) {
@@ -194,7 +192,11 @@ export default class {
         children = this.initData(d.children, [...path, id], isDisabled, indexPath)
       }
       this.pathMap.set(id, {
-        children, path, isDisabled, indexPath, index: i,
+        children,
+        path,
+        isDisabled,
+        indexPath,
+        index: i,
       })
     })
     return ids

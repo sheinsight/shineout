@@ -17,6 +17,8 @@ import normalizeWheel from './dom/normalizeWheel'
 import * as position from './dom/popover'
 import ready from './dom/ready'
 import isJson from './validate/isJson'
+import cssAccessors from './css-accessors'
+import cssInject from './vars-inject'
 
 export {
   classname,
@@ -38,4 +40,6 @@ export {
   position,
   ready,
   isJson,
+  cssAccessors,
+  cssInject,
 }

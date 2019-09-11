@@ -7,6 +7,7 @@ Modal.info = method('info')
 Modal.warn = method('warning')
 Modal.error = method('error')
 Modal.confirm = method('confirm')
+Modal.show = method('normal')
 Modal.Submit = Card.Submit
 
 export default Modal

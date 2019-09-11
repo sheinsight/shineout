@@ -124,7 +124,7 @@ const closeCallback = (fn, option) => () => {
 const btnOk = option => {
   const onClick = closeCallback(option.onOk, option)
   return (
-    <Button.Once key="ok" onClick={onClick} type="primary">
+    <Button.Once key="ok" id={`${option.id}-ok`} onClick={onClick} type="primary">
       {getLocale('ok', option.text)}
     </Button.Once>
   )
@@ -133,7 +133,7 @@ const btnOk = option => {
 const btnCancel = option => {
   const onClick = closeCallback(option.onCancel, option)
   return (
-    <Button.Once key="cancel" onClick={onClick}>
+    <Button.Once id={`${option.id}-cancel`} key="cancel" onClick={onClick}>
       {getLocale('cancel', option.text)}
     </Button.Once>
   )

@@ -7,6 +7,14 @@ import { defaultProps, getProps } from '../utils/proptypes'
 import { modalClass } from '../styles'
 
 export default class Panel extends PureComponent {
+  componentDidMount() {
+    const { autoFocusButton, id } = this.props
+    if (!autoFocusButton) return
+    const el = document.querySelector(`#${id}-${autoFocusButton}`)
+    if (!el) return
+    el.focus()
+  }
+
   getStyle() {
     const { width, height, top, position, style } = this.props
 
@@ -64,7 +72,7 @@ export default class Panel extends PureComponent {
 
       <Card key="card" shadow className={className} style={this.getStyle()}>
         {(maskCloseAble || maskCloseAble === null) && (
-          <a className={modalClass('close')} onClick={onClose} href="javascript:;">
+          <a className={modalClass('close')} onClick={onClose} >
             {Icons.Close}
           </a>
         )}

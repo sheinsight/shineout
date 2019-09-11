@@ -42,7 +42,7 @@ class Tree extends PureComponent {
     if (this.props.onChange || this.props.onDrop) {
       this.datum.mode = this.props.mode
       if (prevProps.value !== this.props.value) this.datum.setValue(this.props.value || [])
-      if (prevProps.data !== this.props.data) this.datum.setData(this.props.data)
+      if (prevProps.data !== this.props.data && this.props.dataUpdate) this.datum.setData(this.props.data)
     }
   }
 
@@ -215,6 +215,7 @@ Tree.propTypes = {
   datum: PropTypes.object,
   parentClickExpand: PropTypes.bool,
   defaultExpandAll: PropTypes.bool,
+  dataUpdate: PropTypes.bool,
 }
 
 Tree.defaultProps = {
@@ -222,6 +223,7 @@ Tree.defaultProps = {
   defaultExpanded: [],
   defaultValue: [],
   mode: 0,
+  dataUpdate: true,
 }
 
 export default Tree

@@ -29,8 +29,12 @@ class Breadcrumb extends React.PureComponent {
     let item = d.title
     if (!React.isValidElement(item)) {
       if (d.onClick || d.url) {
+        const props = {
+          onClick: d.onClick,
+        }
+        if (d.url) props.href = d.url
         item = (
-          <a onClick={d.onClick} href={d.url ? d.url : 'javascript:;'}>
+          <a {...props}>
             {d.icon} {d.title}
           </a>
         )

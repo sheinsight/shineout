@@ -137,20 +137,16 @@ class Image extends PureComponent {
     const className = classnames(imageClass('_', shape, fit), this.props.className)
 
     const Tag = href ? 'a' : 'div'
-
-    return (
-      <Tag
-        ref={this.bindElement}
-        href={href && target === '_modal' ? 'javascript:;' : href}
-        onClick={this.handleClick}
-        target={target === '_download' ? '_self' : target}
-        download={target === '_download'}
-        className={className}
-        style={Object.assign({}, style, { width, paddingBottom: height })}
-      >
-        {this.renderImage()}
-      </Tag>
-    )
+    const props = {
+      ref: this.bindElement,
+      onClick: this.handleClick,
+      target: target === '_download' ? '_self' : target,
+      download: target === '_download',
+      className,
+      style: Object.assign({}, style, { width, paddingBottom: height })
+    }
+    if (!href || target !== '_modal') props.href = href
+    return <Tag {...props}>{this.renderImage()}</Tag>
   }
 }
 

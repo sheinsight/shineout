@@ -52,10 +52,10 @@ export default class extends PureComponent {
                   rules={[rules.required]}
                   placeholder="Name"
                 />
-                <a href="javascript:;" style={{ margin: '0 12px' }} onClick={() => onAppend('')}>
+                <a style={{ margin: '0 12px' }} onClick={() => onAppend('')}>
                   <FontAwesome name="plus" />
                 </a>
-                <a href="javascript:;" onClick={onRemove}>
+                <a onClick={onRemove}>
                   <FontAwesome name="close" />
                 </a>
               </Form.Item>

@@ -23,10 +23,10 @@ class Item extends React.PureComponent {
       disabled: data.disabled,
       onClick: this.handleClick,
       className: itemClassName,
-      href: data.url ? data.url : 'javascript:;',
       target: data.target,
       style: aWidth ? { display: 'inline-block', width: aWidth } : null,
     }
+    if (data.url) props.href = data.url
 
     let content
     if (isValidElement(data)) {

@@ -133,7 +133,6 @@ class Dropdown extends PureComponent {
           key="button"
           className={dropdownClass('button', 'item', this.state.show && 'active')}
           data-role="item"
-          href="javascript:;"
           onClick={this.handleFocus}
         >
           <span className={spanClassName}>{placeholder}</span>

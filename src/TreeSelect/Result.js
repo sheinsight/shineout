@@ -47,7 +47,6 @@ class Result extends PureComponent {
           tabIndex={-1}
           data-role="close"
           className={treeSelectClass('indicator', 'close')}
-          href="javascript:;"
           onClick={onClear}
         />
       )
@@ -133,7 +132,7 @@ class Result extends PureComponent {
         {result}
         {!this.props.multiple && (
           // eslint-disable-next-line
-          <a tabIndex={-1} className={treeSelectClass('indicator', 'caret')} href="javascript:;" />
+          <a tabIndex={-1} className={treeSelectClass('indicator', 'caret')} />
         )}
         {this.renderClear()}
       </div>

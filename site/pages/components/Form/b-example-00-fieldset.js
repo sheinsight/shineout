@@ -41,12 +41,12 @@ const domain = ({ value, onAppend, onRemove, index }) => (
       <Input title="Domain" rules={[rule.required, rule.url]} name="domain" placeholder="domain" />
     </Input.Group>
 
-    <a href="javascript:;" onClick={() => onAppend({})} style={iconStyle}>
+    <a onClick={() => onAppend({})} style={iconStyle}>
       <Icon name="plus" />
     </a>
 
     {index > 0 && (
-      <a href="javascript:;" onClick={onRemove} style={iconStyle}>
+      <a onClick={onRemove} style={iconStyle}>
         <Icon name="remove" />
       </a>
     )}

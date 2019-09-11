@@ -44,7 +44,6 @@ export default class TreeSelect extends PureComponent {
     this.handleRemove = this.handleRemove.bind(this)
     this.handleClickAway = this.handleClickAway.bind(this)
     this.shouldFocus = this.shouldFocus.bind(this)
-    this.handleFilter = this.handleFilter.bind(this)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -136,7 +135,8 @@ export default class TreeSelect extends PureComponent {
   handleKeyDown(e) {
     if (e.keyCode === 13) {
       e.preventDefault()
-      this.handleState(!this.state.focus)
+      // enter only can open
+      if (!this.state.focus) this.handleState(true)
     }
 
     // fot close the list
@@ -175,11 +175,6 @@ export default class TreeSelect extends PureComponent {
     this.props.onChange(multiple ? [] : '')
     this.handleState(false)
     this.element.focus()
-  }
-
-  handleFilter(...args) {
-    this.element.focus()
-    this.props.onFilter(...args)
   }
 
   renderItem(data, index) {
@@ -230,7 +225,7 @@ export default class TreeSelect extends PureComponent {
       data.length === 0 ? (
         <span className={treeSelectClass('option')}>{this.getText('noData')}</span>
       ) : (
-        <Tree className={treeSelectClass(!multiple && 'single')} {...props} />
+        <Tree className={treeSelectClass(!multiple && 'single')} {...props} dataUpdate={false} />
       )
     return (
       <OptionList
@@ -288,7 +283,7 @@ export default class TreeSelect extends PureComponent {
           filterText={filterText}
           onClear={clearable ? this.handleClear : undefined}
           onRemove={this.handleRemove}
-          onFilter={onFilter ? this.handleFilter : onFilter}
+          onFilter={onFilter}
           result={result}
           disabled={disabled}
           datum={datum}

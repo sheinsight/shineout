@@ -8,7 +8,7 @@
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| children | string \| ReactElement | required |  |
+| children | string \| ReactElement | required | The content inside the button, can be a text icon, etc.  |
 | className | string | - | extend className |
 | disabled | bool | false | Specifies the button should be disabled |
 | href | string | - | If the href attribute is set, &lt;a> will be used instead of &lt;button>. |

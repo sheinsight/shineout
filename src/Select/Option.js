@@ -12,9 +12,9 @@ class Option extends PureComponent {
   }
 
   handleClick() {
-    const { data, onClick, isActive, index, disabled } = this.props
+    const { data, onClick, isActive, index, disabled, groupKey } = this.props
 
-    if (this.locked || disabled) return
+    if (this.locked || disabled || data[groupKey]) return
     this.locked = true
 
     onClick(!isActive, data, index)
@@ -29,13 +29,14 @@ class Option extends PureComponent {
   }
 
   render() {
-    const { data, isActive, index, renderItem, isHover, disabled } = this.props
+    const { data, isActive, index, renderItem, isHover, disabled, groupKey } = this.props
+    const isGroupTitle = data[groupKey]
     const className = classnames(
-      selectClass('option', isActive && 'active', isHover && 'hover', disabled && 'disabled'),
+      selectClass('option', isActive && 'active', isHover && 'hover', disabled && 'disabled', isGroupTitle && 'group'),
       `option-${index}`
     )
 
-    const result = renderItem(data, index)
+    const result = isGroupTitle ? data[groupKey] : renderItem(data, index)
     const title = typeof result === 'string' ? result : ''
 
     if (isObject(data) && result === data) {
@@ -59,6 +60,7 @@ Option.propTypes = {
   onClick: PropTypes.func,
   onHover: PropTypes.func.isRequired,
   renderItem: PropTypes.func.isRequired,
+  groupKey: PropTypes.string,
 }
 
 export default Option

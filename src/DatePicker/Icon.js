@@ -12,8 +12,6 @@ class Icon extends PureComponent {
       onClick: disabled ? undefined : onClick,
     }
 
-    if (tag === 'a') newProps.href = 'javascript:;'
-
     return createElement(tag, newProps, icons[name])
   }
 }

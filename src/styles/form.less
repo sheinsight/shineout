@@ -42,7 +42,7 @@
   .@{form-prefix}-error {
     margin-top: 5px;
     margin-bottom: 8px;
-    color: lighten(@text-color, 40%);
+    color: @form-tip-color;
     font-size: @form-help-font-size;
   }
 
@@ -127,8 +127,17 @@
   }
 }
 
+.input-focus-color(@color) when (%('%s', @color) = %('%s', @colors-danger)) {
+  box-shadow: 0 0 0 @input-focus-width @danger-color-fade-25;
+}
+.input-focus-color(@color) when not (%('%s', @color) = %('%s', @colors-danger)) {
+  box-shadow: 0 0 0 @input-focus-width @input-border-focus-fade-25;
+}
 .@{input-prefix} {
-
+  .input-focus(@color: @input-border-focus) {
+    border-color: @color;
+    .input-focus-color(@color);
+  }
   &:focus {
     outline: none;
     .input-focus()
@@ -317,7 +326,7 @@
     background: @gray-100;
     border-radius: @input-border-radius;
     box-shadow: 0 0 0 1px @input-border, 0 2px 8px rgba(0, 0, 0, 0.15);
-    color: lighten(@text-color, 40%);
+    color: @gray-900-lighten-40;
     font-size: 12px;
 
     &:before {
@@ -471,7 +480,7 @@
   }
 
   & input&-number {
-    padding-right: 22px;
+    padding-right: 12px;
   }
 
   textarea&-shadow {

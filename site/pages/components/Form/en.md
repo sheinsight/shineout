@@ -20,6 +20,7 @@
 | rules | object | | validation rules, see details in the Rules |
 | style | object | - | Container element style |
 | throttle | number | 1000 | ms, the interval between two submissions(Prevent repeat submission) |
+| initValidate | bool | false | validate after set value |
 
 ### Form.Item
 Used to layout, display labels, tips, errors, etc

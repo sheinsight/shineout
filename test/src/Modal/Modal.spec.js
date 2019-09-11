@@ -10,6 +10,6 @@ describe('Modal', () => {
         Modal Content
       </Modal>
     )
-    expect(document.querySelector(`.${SO_PREFIX}-modal`).innerHTML).toMatchSnapshot()
+    expect(document.querySelector(`.${SO_PREFIX}-modal`).innerHTML.replace(/id=".*"/g, 'id="a')).toMatchSnapshot()
   })
 })

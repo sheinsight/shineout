@@ -6,7 +6,7 @@
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| accept | string | none | The type of the upload file |
+| accept | string | none | The type of the upload file, same as the standard,See details [accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept)  |
 | action | string | required | The address for uploading |
 | children | any | required | Upload placeholder |
 | className | string | none | Extend className |
@@ -16,7 +16,7 @@
 | disabled | bool | false | disabled upload action | 
 | name | string | none | The key access data in the Form  |
 | request | func(options) | - | Custom upload method<br /> options: the options of upload |
-| onChange | func(values) | none | The callback function when the value is changing(Upload successfully, delete)<br />values: Array |
+| onChange | func(values) | none | The callback function when the value is changing(Upload successfully, delete)<br />values: Array, the value is the onSuccess returns |
 | onSuccess | func(res, file, data, xhr):value | none | The callback function when to upload successfully. The returned result is as the new value. <br />res: the result that the upload interface returns<br />file: selected file<br /> data: the request data<br /> xhr: reponse |
 | onHttpError | func(xhr):string | none | The callback function when to upload unsuccessfully. The returned result is as the error message. |
 | params | object | none | Additional parameters submitted to the server |

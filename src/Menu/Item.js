@@ -95,15 +95,23 @@ class Item extends PureComponent {
 
     if (typeof data.onClick === 'function') {
       data.onClick(this.id, data)
-    } else if ((!data.children || data.onClick === true) && typeof onClick === 'function') {
+    } else if (
+      (!data.children || data.children.length === 0 || data.onClick === true) &&
+      typeof onClick === 'function'
+    ) {
       onClick(this.id, data)
     }
+  }
+
+  handleItemClick(clickMethod) {
+    clickMethod()
+    this.handleClick()
   }
 
   renderLink(data) {
     const { linkKey } = this.props
     if (linkKey && data[linkKey]) return data[linkKey]
-    return 'javascript:;'
+    return null
   }
 
   render() {
@@ -119,6 +127,7 @@ class Item extends PureComponent {
       toggleOpenKeys,
       bottomLine,
       topLine,
+      linkKey,
     } = this.props
     const { open, isActive, isHighLight, inPath } = this.state
     const { children: dChildren } = data
@@ -155,13 +164,17 @@ class Item extends PureComponent {
     if (isLink(item)) {
       const mergeClass = classnames(menuClass('title'), item.props && item.props.className)
       const mergeStyle = Object.assign({}, style, item.props && item.props.style)
-      item = cloneElement(item, { className: mergeClass, style: mergeStyle })
+      const handleItemClick =
+        item.props && item.props.onClick ? this.handleItemClick.bind(this, item.props.onClick) : this.handleClick
+      item = cloneElement(item, { className: mergeClass, style: mergeStyle, onClick: handleItemClick })
     } else {
-      item = (
-        <a href={link} className={menuClass('title')} style={style} onClick={this.handleClick}>
-          {item}
-        </a>
-      )
+      const props = {
+        className: menuClass('title'),
+        style,
+        onClick: this.handleClick,
+      }
+      if (link) props.href = link
+      item = <a {...props}>{item}</a>
     }
 
     return (
@@ -180,6 +193,7 @@ class Item extends PureComponent {
             level={level + 1}
             open={open}
             toggleOpenKeys={toggleOpenKeys}
+            linkKey={linkKey}
           />
         )}
       </li>

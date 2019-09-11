@@ -1,11 +1,11 @@
 /**
- * cn - 选择行 (分页)
- *    -- 默认情况下，翻页时 Datum 对象会保留当前选中的数据
- * en - Select (paging)
+ * cn -
+ *    -- 分页中 默认情况下，翻页时会保留当前选中的数据, 如果不需要保留, 则可以分页的时候手动清除
+ * en -
  *    -- By default, the Datum object retains the currently selected data when the page is changed.
  */
 import React, { PureComponent } from 'react'
-import { Table, Datum } from 'shineout'
+import { Table } from 'shineout'
 import { fetch } from 'doc/data/user'
 
 export default class extends PureComponent {
@@ -17,13 +17,6 @@ export default class extends PureComponent {
       total: 0,
       selectedValue: '',
     }
-
-    this.datum = new Datum.List({
-      format: 'id',
-      onChange: selectedValue => {
-        this.setState({ selectedValue })
-      },
-    })
 
     this.columns = [
       {
@@ -69,7 +62,10 @@ export default class extends PureComponent {
           data={data}
           keygen="id"
           columns={this.columns}
-          datum={this.datum}
+          format="id"
+          onRowSelect={value => {
+            this.setState({ selectedValue: value })
+          }}
           pagination={{
             align: 'center',
             current,
@@ -79,7 +75,7 @@ export default class extends PureComponent {
           }}
         />
         <br />
-        <div>selected rows: {JSON.stringify(selectedValue)}</div>
+        <div>{`selected rows: ${JSON.stringify(selectedValue)}`}</div>
       </div>
     )
   }

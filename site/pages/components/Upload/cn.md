@@ -10,7 +10,7 @@
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| accept | string | 无 | 上传文件类型 |
+| accept | string | 无 | 上传文件类型, 和标准一致, 详见[accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) |
 | action | string | 必填 | 上传地址 |
 | children | any | 必填 | 上传占位内容 |
 | className | string | 无 | 扩展className |
@@ -21,7 +21,7 @@
 | disabled | bool | false | 是否禁用上传行为 | 
 | name | string | 无 | Form 内存取数据的 key |
 | request | func(options) | 无 | 自定义上传方法<br /> options: 上传的配置 |
-| onChange | func(values) | 无 | 值改变回调(上传成功，删除)<br />values: 数组 |
+| onChange | func(values) | 无 | 值改变回调(上传成功，删除)<br />values: 数组, 其每个值是 onSuccess 的返回值 |
 | onSuccess | func(res, file, data, xhr):value | 无 | 上传成功回调，返回结果作为新的 value<br />res: 上传接口返回结果<br />file: 选择的文件<br />data: 请求的数据<br />xhr: 返回的 response |
 | onHttpError | func(xhr):string | 无 | 上传失败时回调，返回结果作为错误内容提示 |
 | params | object | 无 | 提交到服务端的额外参数 |
