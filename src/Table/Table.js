@@ -70,7 +70,7 @@ class Table extends Component {
       tableClass(
         '_',
         size,
-        hover && !striped && 'hover',
+        hover && 'hover',
         bordered && 'bordered',
         fixed && 'fixed',
         scrollLeft > 0 && 'left-float',
