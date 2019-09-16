@@ -54,8 +54,8 @@ class Td extends PureComponent {
   }
 
   renderTreeExpand(content) {
-    const { data, treeRoot, treeColumnsName, treeExpand, rowKey, treeExpandLevel, treeIndent } = this.props
-    const level = treeExpandLevel.get(rowKey) || 0
+    const { data, treeRoot, treeColumnsName, treeExpand, originKey, treeExpandLevel, treeIndent } = this.props
+    const level = treeExpandLevel.get(originKey) || 0
     const className = tableClass('expand-wrapped')
     if (!treeColumnsName || !data[treeColumnsName] || data[treeColumnsName].length === 0) {
       return (
@@ -144,6 +144,7 @@ Td.propTypes = {
   onExpand: PropTypes.func,
   align: PropTypes.oneOf(['left', 'center', 'right']),
   rowKey: PropTypes.any,
+  originKey: PropTypes.any,
   rowSpan: PropTypes.number,
   style: PropTypes.object,
   type: PropTypes.string,
