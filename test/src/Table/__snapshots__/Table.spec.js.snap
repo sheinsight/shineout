@@ -2,7 +2,7 @@
 
 exports[`Table[Border&striped] should render border & striped 1`] = `
 <div
-  className="so-table so-table-default so-table-bordered so-table-vertical-top"
+  className="so-table so-table-default so-table-hover so-table-bordered so-table-vertical-top"
   style={Object {}}
 >
   <table

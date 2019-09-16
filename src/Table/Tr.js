@@ -153,7 +153,7 @@ class Tr extends Component {
         } = columns[i]
         let treeExpand = false
         if (treeExpandKeys) {
-          treeExpand = treeExpandKeys.has(other.rowKey)
+          treeExpand = treeExpandKeys.has(other.originKey)
         }
         const td = (
           <Td

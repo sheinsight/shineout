@@ -33,6 +33,7 @@
 | sorter | func | alphaSort(Column.sorter, sorter) | the method of table sort，args are Column.sorter and order |
 | treeExpandKeys | array | none  | Tree Table expanded row keys |
 | onTreeExpand | function(keys) | none | expand row change, keys is expanded row keys |
+| hover | bool | true | row hover highlight |
 
 ### Column
 | Property | Type | Default | Description |
