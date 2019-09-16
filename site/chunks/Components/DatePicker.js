@@ -104,6 +104,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-09-range-date.js'),
   },
   {
+    name: '09-range-month',
+    title: locate(
+      '默认月份 \n 设置  defaultRangeMonth 可以设置范围选择的初始面板月份.优先级低于 value 和 defaultValue, 值为时间对象或者时间戳',
+      'Range \n Set the range property to select range, the input value and return value is an array of length 2.'
+    ),
+    component: require('doc/pages/components/DatePicker/example-09-range-month.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-09-range-month.js'),
+  },
+  {
     name: '09-single',
     title: locate(
       '允许单选 \n 可以设置范围选择的时候只选择一侧.',
