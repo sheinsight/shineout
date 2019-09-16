@@ -33,7 +33,7 @@
 | rowClickAttr | string \| string[] | \['*'\] | 设置行内元素的attribut来按需触发onRowClick, '*'表示接受行点击触发 |
 | sorter | func | alphaSort(Column.sorter, sorter) | 表格统一排序函数，参数分别为 Column.sorter 和 排序方式 |
 | treeExpandKeys | array | 无  | 树形数据展开行，受控 |
-| onTreeExpand | function(keys) | 展开行，keys为展开的行 |
+| onTreeExpand | function(keys) | 无 |  展开行，keys为展开的行 |
 
 ### Column
 | 属性 | 类型 | 默认值 | 说明 |
