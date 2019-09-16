@@ -29,7 +29,14 @@ class Image extends PureComponent {
   componentDidMount() {
     super.componentDidMount()
     if (!this.props.lazy) this.markToRender()
-    else this.lazyId = addStack({ element: this.element, render: this.markToRender })
+    else {
+      const { container } = this.props
+      this.lazyId = addStack({
+        element: this.element,
+        render: this.markToRender,
+        container: typeof container === 'string' ? document.querySelector(container) : container,
+      })
+    }
   }
 
   componentWillUnmount() {
@@ -103,7 +110,8 @@ class Image extends PureComponent {
     return (
       <div className={imageClass('inner', 'mask')}>
         <div>
-          {title} <span className={imageClass('placeholder')}>{placeholder || getLocale('loading')}</span>
+          {title}
+          <span className={imageClass('placeholder')}>{placeholder || getLocale('loading')}</span>
         </div>
       </div>
     )
@@ -143,7 +151,7 @@ class Image extends PureComponent {
       target: target === '_download' ? '_self' : target,
       download: target === '_download',
       className,
-      style: Object.assign({}, style, { width, paddingBottom: height })
+      style: Object.assign({}, style, { width, paddingBottom: height }),
     }
     if (!href || target !== '_modal') props.href = href
     return <Tag {...props}>{this.renderImage()}</Tag>
@@ -165,6 +173,7 @@ Image.propTypes = {
   title: PropTypes.string,
   fit: PropTypes.oneOf(['fill', 'fit', 'stretch', 'center']),
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  container: PropTypes.element,
 }
 
 Image.defaultProps = {
