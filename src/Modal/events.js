@@ -62,7 +62,7 @@ export function createDiv(props) {
 
   div = document.createElement('div')
   document.body.appendChild(div)
-  div.className = classnames(modalClass('_'))
+  div.className = classnames(modalClass('_'), props.rootClassName)
 
   containers[id] = { div }
 
