@@ -88,11 +88,20 @@ const examples = [
   {
     name: '09-lazy',
     title: locate(
-      '延迟加载 \n lazy 属性为 true 时，图片会在进入屏幕可视区域后加载',
+      '延迟加载 \n lazy 属性为 true 时，图片会在进入屏幕可视区域后加载, 默认以 document 的滚动条为判断',
       'Lazy load \n When the lazy property is true, the image will load when it enter the visual area of the screen.'
     ),
     component: require('doc/pages/components/Image/example-09-lazy.js').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-09-lazy.js'),
+  },
+  {
+    name: '10-lazy',
+    title: locate(
+      ' \n 如果需要在特定的元素内部进行懒加载, 则需要提供一个选择器, 请确保 Image 组件渲染的时候能够通过选择器获取到指定元素.',
+      ' \n If you need to lazy loading inside a specific element, you need to provide a selector, please ensure that the Image component can get the specified element through the selector when rendering.'
+    ),
+    component: require('doc/pages/components/Image/example-10-lazy.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Image/example-10-lazy.js'),
   },
 ]
 
