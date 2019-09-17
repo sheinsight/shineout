@@ -143,6 +143,7 @@ class Tbody extends PureComponent {
     const { columns, keygen, data, sorter, index, expandKeys, ...other } = this.props
 
     let key = getKey(data[i], keygen, index + i)
+    const originKey = key
     if (sorter && sorter.order) {
       key = `${key}-${sorter.index}-${sorter.order}`
     }
@@ -151,6 +152,7 @@ class Tbody extends PureComponent {
         {...other}
         index={i + index}
         key={key}
+        originKey={originKey}
         data={row}
         rowData={data[i]}
         columns={columns}

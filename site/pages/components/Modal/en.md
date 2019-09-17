@@ -5,21 +5,22 @@ You can use Modal to display secondary content or actions without jumping to the
 
 ## API
 
-| Property | Type | Default | Description |
-| --- | --- | --- | --- |
-| className | string | - | Extend className |
-| bodyStyle | object | - | Extend modal body style |
-| destroy | boolean | false | Whether to destroy elements when it is closed |
-| footer | ReactElement \| null | - | The content at the bottom |
-| maskCloseAble | bool | true | Whether to close the mask when the mask is clicked |
-| maskOpacity | number | 0.25 | The opacity of the mask |
-| padding | number\|string | 16 | Padding style of the content |
-| position | string | - | Pop-up position, one of \['top', 'right', 'bottom', 'left'] |
-| title | string \| ReactElement | - | the title of the pop-up layer |
-| usePortal | bool | true | When the usePortal is true, use ReactDOM.createPortal to create the pop-up layer, otherwise use ReactDOM.render. |
-| visible | bool | false |  |
-| width | number \| string | 500 | the width of the Modal |
-| zIndex | number | 1050 | Modal z-index |
+| Property | Type | Default | Description | version | 
+| --- | --- | --- | --- | --- | 
+| className | string | - | Extend className | |
+| bodyStyle | object | - | Extend modal body style | |
+| destroy | boolean | false | Whether to destroy elements when it is closed | |
+| footer | ReactElement \| null | - | The content at the bottom | |
+| maskCloseAble | bool | true | Whether to close the mask when the mask is clicked | |
+| maskOpacity | number | 0.25 | The opacity of the mask | |
+| padding | number\|string | 16 | Padding style of the content | |
+| position | string | - | Pop-up position, one of \['top', 'right', 'bottom', 'left'] | |
+| title | string \| ReactElement | - | the title of the pop-up layer | |
+| usePortal | bool | true | When the usePortal is true, use ReactDOM.createPortal to create the pop-up layer, otherwise use ReactDOM.render. | |
+| visible | bool | false |  | |
+| width | number \| string | 500 | the width of the Modal | |
+| zIndex | number | 1050 | Modal z-index | |
+| rootClassName | string | - | the root element of modal, the mask parent element | 1.4.2 |
 
 ### Methods
 

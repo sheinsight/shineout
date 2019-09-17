@@ -27,6 +27,7 @@
 | quickSelect | array<object> | false | quick select, only in range can set, name: tip, value: range date | 
 | min | string \| number \| Date | none | option min value |
 | max | string \| number \| Date | none | option max value |
+| defaultRangeMonth | array:\[date] | - | The initial month of range selection, the value is a time object, valid only in range mode, and the priority is lower than value and defaultValue | 
 
 ### Format
 
