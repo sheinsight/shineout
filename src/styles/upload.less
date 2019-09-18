@@ -382,6 +382,12 @@
     }
   }
 
+  &-disabled {
+    .@{upload-prefix}-delete {
+      cursor: not-allowed;
+    }
+  }
+
   @types: primary, success, info, warning, error, danger;
   @colors: @colors-primary, @colors-success, @colors-info, @colors-warning, @colors-danger, @colors-danger;
   @border-colors: @btn-primary-border, @btn-success-border, @btn-info-border, @btn-warning-border, @btn-danger-border, @btn-danger-color;
