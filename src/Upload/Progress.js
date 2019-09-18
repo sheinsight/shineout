@@ -84,6 +84,7 @@ class Progress extends PureComponent {
     return (
       <Upload
         {...others}
+        limit={undefined}
         onProgress={this.handleProgress}
         onStart={this.handleStart}
         showUploadList={false}
