@@ -19,7 +19,11 @@ function getOption(options, key) {
 export function compareColumns(columns1, columns2) {
   if (columns1.length !== columns2.length) return false
 
-  return columns1.every((c, i) => c.title === columns2[i].title && c.width === columns2[i].width)
+  return columns1.every(
+    (c, i) =>
+      c.title === columns2[i].title &&
+      (c.width === columns2[i].width || (Number.isNaN(c.width) && Number.isNaN(columns2[i].width)))
+  )
 }
 
 export default function(objA, objB, options = {}) {
