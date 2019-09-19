@@ -166,7 +166,7 @@ export default class TreeSelect extends PureComponent {
       datum.set(datum.getKey(data), 1)
       this.handleState(false)
     }
-    onChange(this.getValue(), current)
+    onChange(this.getValue(), current, datum.getPath(id).path)
   }
 
   handleClear() {

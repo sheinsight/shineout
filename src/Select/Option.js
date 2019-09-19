@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { selectClass } from '../styles'
 import { isObject } from '../utils/is'
+import icons from '../icons'
 
 class Option extends PureComponent {
   constructor(props) {
@@ -46,6 +47,7 @@ class Option extends PureComponent {
     return (
       <a tabIndex={-1} onClick={this.handleClick} onMouseEnter={this.handleEnter} className={className} title={title}>
         {result}
+        {isActive && icons.Check}
       </a>
     )
   }
