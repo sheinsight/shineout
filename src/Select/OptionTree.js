@@ -19,10 +19,11 @@ class OptionList extends Component {
     return this.props.text[key] || getLocale(key)
   }
 
-  handleClick(data) {
+  handleClick(data, _, p) {
+    const { path } = p
     const { datum, onChange } = this.props
     if (datum.disabled(data)) return
-    onChange(null, data)
+    onChange(null, { ...data, path })
   }
 
   renderItem(data) {
