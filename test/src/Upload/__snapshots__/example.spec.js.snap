@@ -35,6 +35,17 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-02-image.js]
 </div>
 `;
 
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-02-show-image.js] 1`] = `
+<div>
+  <span>
+    <div>
+      <div />
+    </div>
+    <input />
+  </span>
+</div>
+`;
+
 exports[`Snapshot test: Upload[site/pages/components/Upload/example-03-button.js] 1`] = `
 <div>
   <span>
