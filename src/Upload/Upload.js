@@ -358,6 +358,7 @@ class Upload extends PureComponent {
       showUploadList,
       customResult: CustomResult,
       disabled,
+      renderContent,
     } = this.props
     const { files, recycle } = this.state
     const className = classnames(uploadClass('_', disabled && 'disabled'), this.props.className)
@@ -380,6 +381,7 @@ class Upload extends PureComponent {
         {showUploadList &&
           value.map((v, i) => (
             <ResultComponent
+              renderContent={renderContent}
               key={i}
               value={v}
               index={i}
@@ -399,6 +401,7 @@ class Upload extends PureComponent {
         {recoverAble &&
           recycle.map((v, i) => (
             <ResultComponent
+              renderContent={renderContent}
               key={i}
               value={v}
               index={i}
@@ -447,6 +450,7 @@ Upload.propTypes = {
   validatorHandle: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   disabled: PropTypes.bool,
   webkitdirectory: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  renderContent: PropTypes.func,
 }
 
 Upload.defaultProps = {
