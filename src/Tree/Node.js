@@ -119,12 +119,13 @@ class Node extends PureComponent {
   render() {
     const { data, expandedMap, listComponent, onDrop, ...other } = this.props
 
-    const hasChildren = data.children && data.children.length > 0
+    const children = data[other.childrenKey]
+    const hasChildren = children && children.length > 0
     const { expanded } = this.state
 
     const listProps = {
       ...other,
-      data: data.children,
+      data: children,
       expanded,
       expandedMap,
       onDrop,

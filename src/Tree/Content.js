@@ -24,8 +24,9 @@ class Content extends PureComponent {
   }
 
   handleNodeClick() {
-    const { data, id, parentClickExpand } = this.props
-    const hasChildren = data.children && data.children.length > 0
+    const { data, id, parentClickExpand, childrenKey } = this.props
+    const children = data[childrenKey]
+    const hasChildren = children && children.length > 0
     if (hasChildren && parentClickExpand) {
       this.handleIndicatorClick()
     } else {
@@ -34,11 +35,11 @@ class Content extends PureComponent {
   }
 
   handleIndicatorClick() {
-    const { id, data, onToggle, loader } = this.props
+    const { id, data, onToggle, loader, childrenKey } = this.props
 
     onToggle()
 
-    if (data.children !== undefined) return
+    if (data[childrenKey] !== undefined) return
 
     this.setState({ fetching: true })
     loader(id, data)
@@ -51,21 +52,19 @@ class Content extends PureComponent {
   }
 
   renderIndicator() {
-    const { data, expanded, loader } = this.props
+    const { data, expanded, loader, childrenKey } = this.props
+    const children = data[childrenKey]
 
     const indicator = (
-      <a
-        onClick={this.handleIndicatorClick}
-        className={treeClass(`icon-${expanded ? 'sub' : 'plus'}`)}
-      >
+      <a onClick={this.handleIndicatorClick} className={treeClass(`icon-${expanded ? 'sub' : 'plus'}`)}>
         <span />
       </a>
     )
 
-    if (data.children && data.children.length > 0) return indicator
-    if (Array.isArray(data.children) || data.children === null) return null
+    if (children && children.length > 0) return indicator
+    if (Array.isArray(children) || children === null) return null
 
-    if (this.state.fetching && !data.children) return loading
+    if (this.state.fetching && !children) return loading
     if (loader && !this.state.fetching) return indicator
 
     return null
@@ -102,6 +101,7 @@ Content.propTypes = {
   onNodeClick: PropTypes.func,
   renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]).isRequired,
   parentClickExpand: PropTypes.bool,
+  childrenKey: PropTypes.string,
 }
 
 export default Content

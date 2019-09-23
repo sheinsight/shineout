@@ -38,6 +38,7 @@ class Cascader extends PureComponent {
       onChange: props.onChange,
       value: props.value || props.defaultValue,
       disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
+      childrenKey: props.childrenKey,
     })
 
     this.isRendered = false
@@ -186,7 +187,7 @@ class Cascader extends PureComponent {
   }
 
   renderList() {
-    const { data, keygen, renderItem, mode, onChange, loader, onItemClick, expandTrigger } = this.props
+    const { data, keygen, renderItem, mode, onChange, loader, onItemClick, expandTrigger, childrenKey } = this.props
     const { path, listStyle } = this.state
 
     const props = {
@@ -199,6 +200,7 @@ class Cascader extends PureComponent {
       onItemClick,
       multiple: mode !== undefined,
       expandTrigger,
+      childrenKey,
     }
     const className = classnames(selectClass('options'), cascaderClass('options'))
 
@@ -216,8 +218,8 @@ class Cascader extends PureComponent {
             const nid = this.datum.getKey(d, path[i - 1])
             return nid === p
           })
-          if (tempData && tempData.children && tempData.children.length > 0) {
-            tempData = tempData.children
+          if (tempData && tempData[childrenKey] && tempData[childrenKey].length > 0) {
+            tempData = tempData[childrenKey]
             return (
               <CascaderList
                 {...props}
@@ -320,6 +322,7 @@ Cascader.propTypes = {
   value: PropTypes.array,
   absolute: PropTypes.bool,
   zIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  childrenKey: PropTypes.string,
 }
 
 Cascader.defaultProps = {
@@ -327,6 +330,7 @@ Cascader.defaultProps = {
   expandTrigger: 'click',
   height: 300,
   data: [],
+  childrenKey: 'children',
 }
 
 export default Cascader

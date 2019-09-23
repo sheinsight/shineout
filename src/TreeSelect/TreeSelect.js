@@ -210,6 +210,7 @@ export default class TreeSelect extends PureComponent {
       'renderItem',
       'line',
       'parentClickExpand',
+      'childrenKey',
     ].forEach(k => {
       props[k] = this.props[k]
     })

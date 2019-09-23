@@ -29,3 +29,4 @@ TreeSelect 用来选择树形数据结构，若需要非关联树形结构选择
 | compressed | bool | false | 将选中值合并，只在多选模式下有效 |
 | absolute | bool | false | 为 true 时，选项弹出层在 DOM 中独立 render |
 | zIndex | number | 1000 | 选项列表 z-index 值 |
+| childrenKey | string | 'children' | 指定子数据的属性名 | 
