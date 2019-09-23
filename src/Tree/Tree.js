@@ -95,7 +95,7 @@ class Tree extends PureComponent {
       })
     }
     if (onClick) {
-      onClick(node, id)
+      onClick(node, id, this.datum.getPath(id))
     }
   }
 

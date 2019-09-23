@@ -7,6 +7,7 @@ import { getLocale } from '../locale'
 import { selectClass } from '../styles'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
+const DATA_PATH_KEY = '$PATH'
 
 class OptionList extends Component {
   constructor(props) {
@@ -19,10 +20,11 @@ class OptionList extends Component {
     return this.props.text[key] || getLocale(key)
   }
 
-  handleClick(data) {
+  handleClick(data, _, p) {
+    const { path } = p
     const { datum, onChange } = this.props
     if (datum.disabled(data)) return
-    onChange(null, data)
+    onChange(null, { ...data, [DATA_PATH_KEY]: path })
   }
 
   renderItem(data) {
