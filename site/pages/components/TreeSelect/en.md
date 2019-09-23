@@ -27,3 +27,4 @@
 | compressed | bool | false | Merges selected values, valid only in multiselect mode |
 | absolute | bool | false | When it is true, the pop-up layer of option append into document.body. |
 | zIndex | number | 1000 | options z-index |
+| childrenKey | string | 'children' | the key of the children data name | 

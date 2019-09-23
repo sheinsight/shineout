@@ -20,10 +20,12 @@ export default function datum(Origin) {
       value: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
       keygen: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
       multiple: PropTypes.bool,
+      childrenKey: PropTypes.string,
     }
 
     static defaultProps = {
       mode: 1,
+      childrenKey: 'children',
     }
 
     constructor(props) {
@@ -37,6 +39,7 @@ export default function datum(Origin) {
         value: toArray(props.value),
         onChange: props.onChange,
         disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
+        childrenKey: props.childrenKey,
       })
     }
 

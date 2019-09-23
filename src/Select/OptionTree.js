@@ -45,6 +45,7 @@ class OptionList extends Component {
       defaultExpanded,
       defaultExpandAll,
       renderPending,
+      childrenKey,
     } = this.props
     if (loading)
       return (
@@ -66,6 +67,7 @@ class OptionList extends Component {
           expanded={expanded}
           defaultExpandAll={defaultExpandAll}
           defaultExpanded={defaultExpanded}
+          childrenKey={childrenKey}
         />
       </div>
     )
@@ -100,6 +102,7 @@ OptionList.propTypes = {
   text: PropTypes.object,
   height: PropTypes.number,
   defaultExpandAll: PropTypes.bool,
+  childrenKey: PropTypes.string,
 }
 
 export default OptionList
