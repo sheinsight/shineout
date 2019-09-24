@@ -31,6 +31,15 @@ const examples = [
     component: require('doc/pages/components/Tooltip/example-2-click.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tooltip/example-2-click.js'),
   },
+  {
+    name: '3-disabled-inner',
+    title: locate(
+      '禁用元素 \n 设置 disabledChild 来使内部禁用的元素正常工作',
+      'Disabled \n Set disabledChild make disabled child work'
+    ),
+    component: require('doc/pages/components/Tooltip/example-3-disabled-inner.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tooltip/example-3-disabled-inner.js'),
+  },
 ]
 
 const codes = undefined
