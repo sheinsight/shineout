@@ -75,12 +75,20 @@ export default function(options) {
     }
 
     render() {
-      const { children, trigger } = this.props
+      const { children, trigger, disabledChild } = this.props
 
       if (!isValidElement(children)) {
         console.error(new Error('Tooltip children expect a single ReactElement.'))
         return null
       }
+
+      const inner = disabledChild ? (
+        <span style={{ cursor: 'not-allowed' }}>
+          {cloneElement(children, { style: { ...children.props.style, pointerEvents: 'none' } })}
+        </span>
+      ) : (
+        children
+      )
 
       const props = { key: 'el' }
       if (trigger === 'hover') {
@@ -94,7 +102,7 @@ export default function(options) {
         }
       }
 
-      return [<noscript ref={this.elementRef} key="ns" />, cloneElement(children, props)]
+      return [<noscript ref={this.elementRef} key="ns" />, cloneElement(inner, props)]
     }
   }
 
@@ -127,6 +135,7 @@ export default function(options) {
     scrollTop: PropTypes.number,
     style: PropTypes.object,
     trigger: PropTypes.oneOf(['click', 'hover']),
+    disabledChild: PropTypes.bool,
   }
 
   Container.defaultProps = {
