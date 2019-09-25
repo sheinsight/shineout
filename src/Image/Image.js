@@ -173,7 +173,7 @@ Image.propTypes = {
   title: PropTypes.string,
   fit: PropTypes.oneOf(['fill', 'fit', 'stretch', 'center']),
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  container: PropTypes.element,
+  container: PropTypes.string,
 }
 
 Image.defaultProps = {
