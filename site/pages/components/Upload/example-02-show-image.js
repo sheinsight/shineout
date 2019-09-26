@@ -17,8 +17,8 @@ export default function() {
       renderResult={f => f.data}
       limit={3}
       onStart={f => console.log(f)}
-      renderContent={(d, v) => {
-        console.log(d, v)
+      renderContent={(d, v, i, values) => {
+        console.log(d, v, i, values)
         return (
           <div onClick={() => Message.info('i am click')}>
             <img width="100%" src={d} alt="not found" />

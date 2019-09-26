@@ -384,6 +384,7 @@ class Upload extends PureComponent {
               renderContent={renderContent}
               key={i}
               value={v}
+              values={value}
               index={i}
               style={imageStyle}
               renderResult={renderResult}
@@ -404,6 +405,7 @@ class Upload extends PureComponent {
               renderContent={renderContent}
               key={i}
               value={v}
+              values={recycle}
               index={i}
               renderResult={renderResult}
               recoverAble={!!recoverAble}
