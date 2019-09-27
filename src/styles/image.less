@@ -125,6 +125,7 @@
     .@{image-prefix}-center,
     .@{image-prefix}-left,
     .@{image-prefix}-right {
+      display: flex;
       position: absolute;
       z-index: 10;
       top: 50%;
@@ -280,6 +281,8 @@
   }
 
   &-magnify {
+    display: inline-block;
+    margin: auto;
     > img {
       background: #fff;
       position: relative;
