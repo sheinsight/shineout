@@ -34,6 +34,7 @@
 | treeExpandKeys | array | none  | Tree Table expanded row keys |
 | onTreeExpand | function(keys) | none | expand row change, keys is expanded row keys |
 | hover | bool | true | row hover highlight |
+| treeEmptyExpand | bool | false | show expand button while children data is empty |
 
 ### Column
 | Property | Type | Default | Description |
