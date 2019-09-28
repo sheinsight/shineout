@@ -32,7 +32,7 @@ const files = {
   },
 }
 
-const importReg = /import.*[from]?[ ]+'(.*)'/g
+const importReg = /import.*[from]?[ ]+'(.*)'/
 
 const Codesandbox = ({ id, text }) => {
   const formId = `${id}_form`
