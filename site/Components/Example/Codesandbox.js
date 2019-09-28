@@ -10,6 +10,7 @@ import { fCitys } from 'doc/data/city'
 import { fetchSync } from 'doc/data/user'
 import lorem from 'doc/utils/faker/lorem'
 import { iconStr, cssStr, fetch } from './template'
+import { getMatched } from '../../utils/regexp'
 
 const files = {
   tree: {
@@ -31,7 +32,7 @@ const files = {
   },
 }
 
-const importReg = /(?<=import.*(from)?[ ]+').*(?=')/g
+const importReg = /import.*[from]?[ ]+'(.*)'/g
 
 const Codesandbox = ({ id, text }) => {
   const formId = `${id}_form`
@@ -53,8 +54,8 @@ ${files[file].constExport ? `export const allIds = ${JSON.stringify(files[file].
 export default ${file}`,
     }
 
-    const dataName = importText
-      .match(/(?<=import +).+(?=from)/g)[0]
+    const dataName = /import +(.+) from/g
+      .exec(importText)[1]
       .replace(/[{}]/g, '')
       .trim()
       .split(' ')
@@ -98,7 +99,7 @@ ReactDOM.render(<App />, document.querySelector('#root'))
         },
       }
 
-      const imports = text.match(importReg)
+      const imports = getMatched(text, importReg)
 
       imports.forEach(i => {
         if (i.indexOf('.') === -1) {
