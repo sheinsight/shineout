@@ -303,7 +303,7 @@ export default class TreeSelect extends PureComponent {
 
 TreeSelect.propTypes = {
   ...getProps(PropTypes, 'placehodler', 'keygen'),
-  value: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+  value: PropTypes.oneOfType([PropTypes.array, PropTypes.any]),
   clearable: PropTypes.bool,
   data: PropTypes.array,
   datum: PropTypes.object,
