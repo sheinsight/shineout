@@ -12,7 +12,7 @@ function getFilterTree(treeNodes, filterFunc, filterExpandKeys, keyFunc, childre
       filterExpandKeys.push(key)
       return {
         ...node,
-        children,
+        [childrenKey]: children,
       }
     }
     return null

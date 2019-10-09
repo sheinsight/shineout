@@ -133,7 +133,13 @@ export default Origin =>
       let newData = treeData
       if (innerFilter) {
         filterExpandedKeys = []
-        newData = getFilterTree(treeData, innerFilter, filterExpandedKeys, node => getKey(node, other.keygen))
+        newData = getFilterTree(
+          treeData,
+          innerFilter,
+          filterExpandedKeys,
+          node => getKey(node, other.keygen),
+          other.childrenKey
+        )
       }
       return {
         treeData: newData,
