@@ -100,3 +100,17 @@
     .caret-solid(@direction; @width);
   }
 }
+
+.dropdown-svg(@color) {
+  // https://github.com/less/less.js/issues/3086
+  @fill: escape(@color);
+  & when (@so-theme = antd) {
+    background: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='@{fill}' d='M753.966545 337.058909L500.363636 611.816727 246.737455 337.058909a34.909091 34.909091 0 1 0-51.316364 47.36l279.272727 302.545455a34.909091 34.909091 0 0 0 51.316364 0l279.272727-302.545455a34.909091 34.909091 0 1 0-51.316364-47.36'%3E%3C/path%3E%3C/svg%3E");
+  }
+  & when (@so-theme = default) {
+    background: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='@{fill}' d='M512 686.08 163.84 337.92 860.16 337.92Z'%3E%3C/path%3E%3C/svg%3E");
+  }
+  & when (@so-theme = antd2) {
+    background: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='@{fill}' d='M512 686.08 163.84 337.92 860.16 337.92Z'%3E%3C/path%3E%3C/svg%3E");
+  }
+}

@@ -93,7 +93,8 @@ class Upload extends PureComponent {
   }
 
   removeValue(index) {
-    const { recoverAble } = this.props
+    const { recoverAble, disabled } = this.props
+    if (disabled) return
     this.setState(
       immer(draft => {
         draft.recycle.push(this.props.value[index])
@@ -109,6 +110,8 @@ class Upload extends PureComponent {
   }
 
   recoverValue(index, value) {
+    const { disabled } = this.props
+    if (disabled) return
     this.props.onChange(
       immer(this.props.value, draft => {
         draft.push(value)
@@ -354,9 +357,11 @@ class Upload extends PureComponent {
       recoverAble,
       showUploadList,
       customResult: CustomResult,
+      disabled,
+      renderContent,
     } = this.props
     const { files, recycle } = this.state
-    const className = classnames(uploadClass('_'), this.props.className)
+    const className = classnames(uploadClass('_', disabled && 'disabled'), this.props.className)
     const FileComponent = imageStyle ? ImageFile : File
     const ResultComponent = imageStyle ? ImageResult : Result
 
@@ -376,8 +381,10 @@ class Upload extends PureComponent {
         {showUploadList &&
           value.map((v, i) => (
             <ResultComponent
+              renderContent={renderContent}
               key={i}
               value={v}
+              values={value}
               index={i}
               style={imageStyle}
               renderResult={renderResult}
@@ -395,8 +402,10 @@ class Upload extends PureComponent {
         {recoverAble &&
           recycle.map((v, i) => (
             <ResultComponent
+              renderContent={renderContent}
               key={i}
               value={v}
+              values={recycle}
               index={i}
               renderResult={renderResult}
               recoverAble={!!recoverAble}
@@ -443,6 +452,7 @@ Upload.propTypes = {
   validatorHandle: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   disabled: PropTypes.bool,
   webkitdirectory: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  renderContent: PropTypes.func,
 }
 
 Upload.defaultProps = {

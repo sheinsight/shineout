@@ -41,6 +41,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Progress/example-3-color.js'),
   },
   {
+    name: '3-linear',
+    title: locate(
+      '渐变色 \n 当 color 为对象时可以设置渐变色, 推荐只使用两种颜色',
+      'Gradient \n Gradient color can be set when color is an object, recommended only in two colors'
+    ),
+    component: require('doc/pages/components/Progress/example-3-linear.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Progress/example-3-linear.js'),
+  },
+  {
     name: '4-circle',
     title: locate(
       '圆形 \n 设置 shape 为 \'circle\'，显示为环形进度条',

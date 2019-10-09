@@ -32,3 +32,4 @@
 | groupBy | func: (record, index, data) => {} | - | group by | 
 | filterSingleSelect | bool | false | blur to select the data when filter data has only single. only work in filter. |
 | separator | string | none | set with multiple, value will separator by this |
+| childrenKey | string | 'children' | treeData，the key of the children data name | 

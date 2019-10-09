@@ -16,7 +16,7 @@ class List extends PureComponent {
   getKey(data, index) {
     const { id, keygen } = this.props
     if (typeof keygen === 'function') return keygen(data, id)
-    else if (keygen) return data[keygen]
+    if (keygen) return data[keygen]
     return id + (id ? ',' : '') + index
   }
 
@@ -52,7 +52,7 @@ List.propTypes = {
   className: PropTypes.string,
   data: PropTypes.array,
   expanded: PropTypes.bool,
-  id: PropTypes.string,
+  id: PropTypes.any,
   isRoot: PropTypes.bool,
   keygen: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
   line: PropTypes.bool,

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-export default function (Origin) {
+export default function(Origin) {
   class Toggle extends PureComponent {
     constructor(props) {
       super(props)
@@ -57,14 +57,7 @@ export default function (Origin) {
       const { expanded, onExpand, ...props } = this.props
       const onToggle = onExpand ? this.handleToggle : undefined
 
-      return (
-        <Origin
-          {...props}
-          bindNode={this.bindNode}
-          unbindNode={this.unbindNode}
-          onToggle={onToggle}
-        />
-      )
+      return <Origin {...props} bindNode={this.bindNode} unbindNode={this.unbindNode} onToggle={onToggle} />
     }
   }
 

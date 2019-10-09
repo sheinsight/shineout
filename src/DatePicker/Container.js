@@ -64,13 +64,14 @@ class Container extends PureComponent {
 
   getCurrent() {
     let current
+    const { defaultRangeMonth } = this.props
     if (this.props.range) {
-      current = (this.props.value || []).map(v => {
+      current = (this.props.value || []).map((v, i) => {
         v = this.parseDate(v)
-        if (utils.isInvalid(v)) v = utils.newDate()
+        if (utils.isInvalid(v)) v = utils.newDate(defaultRangeMonth[i])
         return v
       })
-      if (current.length === 0) current = [utils.newDate(), utils.newDate()]
+      if (current.length === 0) current = [utils.newDate(defaultRangeMonth[0]), utils.newDate(defaultRangeMonth[1])]
 
       // if (utils.compareMonth(current[0], current[1], -1) >= 0) {
       //   current[1] = utils.addMonths(current[0], 1)
@@ -459,6 +460,7 @@ Container.propTypes = {
   quickSelect: PropTypes.array,
   min: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
   max: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
+  defaultRangeMonth: PropTypes.array,
 }
 
 Container.defaultProps = {
@@ -466,6 +468,7 @@ Container.defaultProps = {
   placeholder: <span>&nbsp;</span>,
   type: 'date',
   allowSingle: false,
+  defaultRangeMonth: [],
 }
 
 export default Container

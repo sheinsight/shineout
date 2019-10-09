@@ -23,6 +23,7 @@ class Tree extends PureComponent {
         onChange: props.onChange,
         value: props.value || props.defaultValue,
         disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
+        childrenKey: props.childrenKey,
       })
     this.handleDrop = this.handleDrop.bind(this)
     this.handleToggle = this.handleToggle.bind(this)
@@ -94,7 +95,7 @@ class Tree extends PureComponent {
       })
     }
     if (onClick) {
-      onClick(node, id)
+      onClick(node, id, this.datum.getPath(id))
     }
   }
 
@@ -110,6 +111,7 @@ class Tree extends PureComponent {
   }
 
   handleDrop(id, targetId, position) {
+    const { childrenKey } = this.props
     const current = this.datum.getPath(id)
     const target = this.datum.getPath(targetId)
     const data = immer(this.props.data, draft => {
@@ -118,7 +120,7 @@ class Tree extends PureComponent {
       let removeNode
       current.indexPath.forEach((p, i) => {
         if (i < current.indexPath.length - 1) {
-          node = node[p].children
+          node = node[p][childrenKey]
         } else {
           temp = node
           removeNode = () => temp.splice(p, 1)[0]
@@ -129,7 +131,7 @@ class Tree extends PureComponent {
       let tnode = draft
       target.indexPath.forEach((p, i) => {
         if (i < target.indexPath.length - 1) {
-          tnode = tnode[p].children
+          tnode = tnode[p][childrenKey]
         } else if (tnode === temp) {
           // same parent
           removeNode()
@@ -139,9 +141,9 @@ class Tree extends PureComponent {
 
       if (position === -1) {
         tnode = tnode[target.index]
-        if (!Array.isArray(tnode.children)) tnode.children = []
-        tnode.children.push(node)
-        position = tnode.children.length - 1
+        if (!Array.isArray(tnode[childrenKey])) tnode[childrenKey] = []
+        tnode[childrenKey].push(node)
+        position = tnode[childrenKey].length - 1
         const update = this.nodes.get(targetId)
         if (update) update('expanded', true)
       } else {
@@ -169,6 +171,7 @@ class Tree extends PureComponent {
       onDrop,
       loader,
       parentClickExpand,
+      childrenKey,
     } = this.props
     const onToggle = onExpand ? this.handleToggle : undefined
 
@@ -191,6 +194,7 @@ class Tree extends PureComponent {
         renderItem={renderItem}
         style={style}
         parentClickExpand={parentClickExpand}
+        childrenKey={childrenKey}
       />
     )
   }
@@ -198,7 +202,7 @@ class Tree extends PureComponent {
 
 Tree.propTypes = {
   ...getProps(PropTypes),
-  active: PropTypes.string,
+  active: PropTypes.any,
   data: PropTypes.array,
   defaultExpanded: PropTypes.arrayOf(PropTypes.string),
   defaultValue: PropTypes.arrayOf(PropTypes.string),
@@ -216,6 +220,7 @@ Tree.propTypes = {
   parentClickExpand: PropTypes.bool,
   defaultExpandAll: PropTypes.bool,
   dataUpdate: PropTypes.bool,
+  childrenKey: PropTypes.string,
 }
 
 Tree.defaultProps = {
@@ -224,6 +229,7 @@ Tree.defaultProps = {
   defaultValue: [],
   mode: 0,
   dataUpdate: true,
+  childrenKey: 'children',
 }
 
 export default Tree

@@ -5,7 +5,7 @@ import shallowEqual from '../utils/shallowEqual'
 
 function toArray(value) {
   if (!value) return []
-  if (typeof value === 'string') return [value]
+  if (!Array.isArray(value)) return [value]
   return value
 }
 
@@ -17,13 +17,15 @@ export default function datum(Origin) {
       disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
       mode: PropTypes.oneOf([0, 1, 2, 3]),
       onChange: PropTypes.func,
-      value: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+      value: PropTypes.oneOfType([PropTypes.array, PropTypes.any]),
       keygen: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
       multiple: PropTypes.bool,
+      childrenKey: PropTypes.string,
     }
 
     static defaultProps = {
       mode: 1,
+      childrenKey: 'children',
     }
 
     constructor(props) {
@@ -37,6 +39,7 @@ export default function datum(Origin) {
         value: toArray(props.value),
         onChange: props.onChange,
         disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
+        childrenKey: props.childrenKey,
       })
     }
 

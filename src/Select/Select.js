@@ -322,6 +322,7 @@ class Select extends PureComponent {
       'filterText',
       'absolute',
       'zIndex',
+      'childrenKey',
     ].forEach(k => {
       props[k] = this.props[k]
     })
