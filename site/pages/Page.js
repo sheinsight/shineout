@@ -74,7 +74,7 @@ export default function(pages) {
                   >
                     <p>
                       {p.name}
-                      <span>{locate(p.cn)}</span>
+                      <span style={{ margin: '0 0 0 6px' }}>{locate(p.cn)}</span>
                     </p>
                   </NavLink>
                 )
