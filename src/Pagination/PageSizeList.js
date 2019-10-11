@@ -18,7 +18,7 @@ class PageSizeList extends PureComponent {
   }
 
   render() {
-    const { pageSize, pageSizeList, text, disabled, size } = this.props
+    const { pageSize, pageSizeList, text, disabled, size, sizeListProps = {} } = this.props
 
     return (
       <Select
@@ -32,6 +32,7 @@ class PageSizeList extends PureComponent {
         className={paginationClass('section', 'pagesize')}
         data={pageSizeList}
         renderItem={d => `${d} ${text.page || ''}`}
+        {...sizeListProps}
       />
     )
   }
@@ -45,6 +46,7 @@ PageSizeList.propTypes = {
   pageSizeList: PropTypes.array,
   text: PropTypes.object.isRequired,
   size: PropTypes.string,
+  sizeListProps: PropTypes.object,
 }
 
 PageSizeList.defaultProps = {

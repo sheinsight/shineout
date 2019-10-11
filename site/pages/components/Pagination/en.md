@@ -16,3 +16,4 @@
 | pageSizeList | number\[] | \[10, 20, 30, 50, 100] | The list of number of each page |
 | text | object | none | Replaced text<br />prev: the previous page<br />next: the next page<br />page:the text of pageSizeList<br />jumper: jump to input box text, '{input}' pilaceholder for input box |
 | total | number | 0 | Total number. If total is less than 0, hide the Pagination. |
+| sizeListProps| object | - | Additional attributes which need to given page size selector  | 
