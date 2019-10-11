@@ -36,11 +36,11 @@ function keyToMap(keys = [], value = true) {
   return keyMap
 }
 
-function isSubMenu(el) {
-  if (el.matches(`.${menuClass('sub')}`)) return true
-  if (!el.parentElement) return false
-  return isSubMenu(el.parentElement)
-}
+// function isSubMenu(el) {
+//   if (el.matches(`.${menuClass('sub')}`)) return true
+//   if (!el.parentElement) return false
+//   return isSubMenu(el.parentElement)
+// }
 
 class Root extends React.Component {
   constructor(props) {
@@ -202,13 +202,15 @@ class Root extends React.Component {
   }
 
   handleWheel(e) {
-    if (isSubMenu(e.target)) return
+    // if (isSubMenu(e.target)) return
     const { mode } = this.props
     const { key, pos, direction } = getOption(mode)
     const wheel = normalizeWheel(e)
-    const size = this.rootElement.getBoundingClientRect()[key] - this.container.getBoundingClientRect()[key]
+    const size = this.container.getBoundingClientRect()[key]
+    // const size = this.rootElement.getBoundingClientRect()[key] - this.container.getBoundingClientRect()[key]
     this.wrapper[`scroll${pos}`] += wheel[`pixel${direction}`]
-    this.setState({ [`scroll${pos}`]: size === 0 ? 0 : this.wrapper[`scroll${pos}`] / size })
+    this.setState({ [`scroll${pos}`]: this.wrapper[`scroll${pos}`] / size })
+    // this.setState({ [`scroll${pos}`]: size === 0 ? 0 : this.wrapper[`scroll${pos}`] / size })
     e.preventDefault()
   }
 
