@@ -23,6 +23,7 @@ class Button extends PureComponent {
       buttonClass('_', type, outline && 'outline', {
         large: size === 'large',
         small: size === 'small',
+        disabled,
       }),
       this.props.className
     )
