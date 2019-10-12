@@ -158,6 +158,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Select/example-13-absolute.js'),
   },
   {
+    name: '13-modal',
+    title: locate(
+      '在 Modal 中使用 \n 在 Modal 中使用Select 的话, 不推荐使用 absolute, 如果需要使用 absolute, 则需要同时设置 zIndex=1051(或者更高)',
+      'use in Modal \n if use Selct in Modal, not recommended to use absolute. if need, please set zIndex=1051(or higner) too.'
+    ),
+    component: require('doc/pages/components/Select/example-13-modal.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-13-modal.js'),
+  },
+  {
     name: '14-columns',
     title: locate(
       '多列选项 \n 设置 columns 属性，选项变为多列展示，设置 columnWidth 指定每一列宽度',

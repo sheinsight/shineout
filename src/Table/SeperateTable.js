@@ -266,6 +266,8 @@ class SeperateTable extends PureComponent {
   handleScroll(...args) {
     if (!this.tbody || this.realTbody.clientHeight === 0) return
     const [x, y, max, bar, v, h, pixelX, pixelY] = args
+    const { colgroup } = this.state
+    this.resize = v && this.lastScrollArgs && v !== this.lastScrollArgs[4]
     this.lastScrollArgs = args
     const { data, rowHeight, rowsInView } = this.props
     const contentWidth = this.getContentWidth()
@@ -335,6 +337,7 @@ class SeperateTable extends PureComponent {
       scrollTop,
       offsetLeft: left,
       offsetRight: right,
+      colgroup: this.resize ? undefined : colgroup,
     })
 
     if (this.props.onScroll) this.props.onScroll(x, y, left)
@@ -368,7 +371,8 @@ class SeperateTable extends PureComponent {
     if (!data || data.length === 0) {
       return <div key="body" />
     }
-    let dataUpdated = this.lastData !== data // Incorrect height due to changing data length dynamically
+
+    let dataUpdated = this.lastData !== data || this.resize // Incorrect height due to changing data length dynamically
     if (this.lastData && !dataUpdated) dataUpdated = this.lastData.length !== data.length
     this.lastData = data
 

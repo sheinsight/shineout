@@ -24,9 +24,13 @@ function getProperty(name = '--btn-hover-darken') {
     .trim()
 }
 
-function setBodyProperty(colors) {
+function setBodyProperty(colors, value) {
   for (const [cssVar, cssValue] of Object.entries(colors)) {
-    document.body.style.setProperty(cssVar, cssValue)
+    if (!value) {
+      document.body.style.removeProperty(cssVar)
+    } else {
+      document.body.style.setProperty(cssVar, cssValue)
+    }
   }
 }
 
@@ -133,115 +137,157 @@ const injects = {
       },
     ],
     set primary(v) {
-      setBodyProperty({
-        '--primary-color': v,
-        '--primary-color-dark-5': darken(v, 5),
-        '--primary-color-dark-15': darken(v, 15),
-        '--primary-color-dark-btn-hover': darken(v, getProperty()),
-        '--primary-color-lighten-40': darken(v, -40),
-        '--primary-color-fade-60': fade(v, 0.6),
-        '--primary-color-fade-50': fade(v, 0.5),
-        '--primary-color-fade-10': fade(v, 0.1),
-        '--primary-color-fade-0': fade(v, 0),
-        '--primary-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
-        '--primary-color-dark-5_fade-0': fade(darken(v, 5), 0),
-      })
+      setBodyProperty(
+        {
+          '--primary-color': v,
+          '--primary-color-dark-5': darken(v, 5),
+          '--primary-color-dark-15': darken(v, 15),
+          '--primary-color-dark-btn-hover': darken(v, getProperty()),
+          '--primary-color-lighten-40': darken(v, -40),
+          '--primary-color-fade-60': fade(v, 0.6),
+          '--primary-color-fade-50': fade(v, 0.5),
+          '--primary-color-fade-10': fade(v, 0.1),
+          '--primary-color-fade-0': fade(v, 0),
+          '--primary-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
+          '--primary-color-dark-5_fade-0': fade(darken(v, 5), 0),
+        },
+        v
+      )
     },
     set warning(v) {
-      setBodyProperty({
-        '--warning-color': v,
-        '--warning-color-dark-5': darken(v, 5),
-        '--warning-color-fade-60': fade(v, 0.6),
-        '--warning-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
-        '--warning-color-fade-0': fade(v, 0),
-        '--warning-color-dark-5_fade-0': fade(darken(v, 5), 0),
-        '--warning-color-dark-btn-hover': darken(v, getProperty()),
-      })
+      setBodyProperty(
+        {
+          '--warning-color': v,
+          '--warning-color-dark-5': darken(v, 5),
+          '--warning-color-fade-60': fade(v, 0.6),
+          '--warning-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
+          '--warning-color-fade-0': fade(v, 0),
+          '--warning-color-dark-5_fade-0': fade(darken(v, 5), 0),
+          '--warning-color-dark-btn-hover': darken(v, getProperty()),
+        },
+        v
+      )
     },
     set danger(v) {
-      setBodyProperty({
-        '--danger-color': v,
-        '--danger-color-fade-25': fade(v, 0.25),
-        '--danger-color-dark-5': darken(v, 5),
-        '--danger-color-fade-60': fade(v, 0.6),
-        '--danger-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
-        '--danger-color-fade-0': fade(v, 0),
-        '--danger-color-dark-5_fade-0': fade(darken(v, 5), 0),
-        '--danger-color-dark-btn-hover': darken(v, getProperty()),
-      })
+      setBodyProperty(
+        {
+          '--danger-color': v,
+          '--danger-color-fade-25': fade(v, 0.25),
+          '--danger-color-dark-5': darken(v, 5),
+          '--danger-color-fade-60': fade(v, 0.6),
+          '--danger-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
+          '--danger-color-fade-0': fade(v, 0),
+          '--danger-color-dark-5_fade-0': fade(darken(v, 5), 0),
+          '--danger-color-dark-btn-hover': darken(v, getProperty()),
+        },
+        v
+      )
     },
     set success(v) {
-      setBodyProperty({
-        '--success-color': v,
-        '--success-color-dark-5': darken(v, 5),
-        '--success-color-fade-60': fade(v, 0.6),
-        '--success-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
-        '--success-color-fade-0': fade(v, 0),
-        '--success-color-dark-5_fade-0': fade(darken(v, 5), 0),
-        '--success-color-dark-btn-hover': darken(v, getProperty()),
-      })
+      setBodyProperty(
+        {
+          '--success-color': v,
+          '--success-color-dark-5': darken(v, 5),
+          '--success-color-fade-60': fade(v, 0.6),
+          '--success-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
+          '--success-color-fade-0': fade(v, 0),
+          '--success-color-dark-5_fade-0': fade(darken(v, 5), 0),
+          '--success-color-dark-btn-hover': darken(v, getProperty()),
+        },
+        v
+      )
     },
     set secondary(v) {
-      setBodyProperty({
-        '--secondary-color': v,
-        '--secondary-color-dark-5': darken(v, 5),
-        '--secondary-color-dark-btn-hover': darken(v, getProperty()),
-        '--secondary-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
-        '--secondary-color-dark-5_fade-0': fade(darken(v, 5), 0),
-      })
+      setBodyProperty(
+        {
+          '--secondary-color': v,
+          '--secondary-color-dark-5': darken(v, 5),
+          '--secondary-color-dark-btn-hover': darken(v, getProperty()),
+          '--secondary-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
+          '--secondary-color-dark-5_fade-0': fade(darken(v, 5), 0),
+        },
+        v
+      )
     },
     set gray100(v) {
-      setBodyProperty({
-        '--gray-100': v,
-      })
+      setBodyProperty(
+        {
+          '--gray-100': v,
+        },
+        v
+      )
     },
     set gray200(v) {
-      setBodyProperty({
-        '--gray-200': v,
-        '--gray-200-darken-5': darken(v, 5),
-      })
+      setBodyProperty(
+        {
+          '--gray-200': v,
+          '--gray-200-darken-5': darken(v, 5),
+        },
+        v
+      )
     },
     set gray300(v) {
-      setBodyProperty({
-        '--gray-300': v,
-        '--gray-300-darken-hover': darken(v, getProperty()),
-        '--gray-300-fade-60': fade(v, 0.6),
-        '--gray-300-fade-0': fade(v, 0),
-      })
+      setBodyProperty(
+        {
+          '--gray-300': v,
+          '--gray-300-darken-hover': darken(v, getProperty()),
+          '--gray-300-fade-60': fade(v, 0.6),
+          '--gray-300-fade-0': fade(v, 0),
+        },
+        v
+      )
     },
     set gray400(v) {
-      setBodyProperty({
-        '--gray-400': v,
-        '--gray-400-darken-20': darken(v, 20),
-      })
+      setBodyProperty(
+        {
+          '--gray-400': v,
+          '--gray-400-darken-20': darken(v, 20),
+        },
+        v
+      )
     },
     set gray500(v) {
-      setBodyProperty({
-        '--gray-500': v,
-      })
+      setBodyProperty(
+        {
+          '--gray-500': v,
+        },
+        v
+      )
     },
     set gray600(v) {
-      setBodyProperty({
-        '--gray-600': v,
-        '--gray-600-lighten-15': darken(v, -15),
-      })
+      setBodyProperty(
+        {
+          '--gray-600': v,
+          '--gray-600-lighten-15': darken(v, -15),
+        },
+        v
+      )
     },
     set gray700(v) {
-      setBodyProperty({
-        '--gray-700': v,
-      })
+      setBodyProperty(
+        {
+          '--gray-700': v,
+        },
+        v
+      )
     },
     set gray800(v) {
-      setBodyProperty({
-        '--gray-800': v,
-        '--gray-800-darken-5': darken(v, 5),
-      })
+      setBodyProperty(
+        {
+          '--gray-800': v,
+          '--gray-800-darken-5': darken(v, 5),
+        },
+        v
+      )
     },
     set gray900(v) {
-      setBodyProperty({
-        '--gray-900': v,
-        '--gray-900-lighten-40': darken(v, -40),
-      })
+      setBodyProperty(
+        {
+          '--gray-900': v,
+          '--gray-900-lighten-40': darken(v, -40),
+        },
+        v
+      )
     },
   },
   button: {
@@ -337,65 +383,101 @@ const injects = {
       },
     ],
     set fontSizeBase(v) {
-      setBodyProperty({
-        '--button-font-size-base': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--button-font-size-base': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set fontSizeLarge(v) {
-      setBodyProperty({
-        '--button-font-size-large': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--button-font-size-large': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set fontSizeSmall(v) {
-      setBodyProperty({
-        '--button-font-size-small': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--button-font-size-small': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set spinMargin(v) {
-      setBodyProperty({
-        '--button-spin-margin': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--button-spin-margin': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set marginLeft(v) {
-      setBodyProperty({
-        '--button-margin-left': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--button-margin-left': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set borderRadius(v) {
-      setBodyProperty({
-        '--button-border-radius': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--button-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set paddingBaseHorizontal(v) {
-      setBodyProperty({
-        '--button-padding-base-horizontal': `${parseInt(v, 10)}px`,
-        '--button-padding-base-horizontal-7': `${parseInt(v, 10) * 0.7}px`,
-      })
+      setBodyProperty(
+        {
+          '--button-padding-base-horizontal': `${parseInt(v, 10)}px`,
+          '--button-padding-base-horizontal-7': `${parseInt(v, 10) * 0.7}px`,
+        },
+        v
+      )
     },
     set paddingLargeHorizontal(v) {
-      setBodyProperty({
-        '--button-padding-large-horizontal': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--button-padding-large-horizontal': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set paddingSmallHorizontal(v) {
-      setBodyProperty({
-        '--button-padding-small-horizontal': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--button-padding-small-horizontal': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set paddingBaseVertical(v) {
-      setBodyProperty({
-        '--button-padding-base-vertical': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--button-padding-base-vertical': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set paddingLargeVertical(v) {
-      setBodyProperty({
-        '--button-padding-large-vertical': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--button-padding-large-vertical': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set paddingSmallVertical(v) {
-      setBodyProperty({
-        '--button-padding-small-vertical': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--button-padding-small-vertical': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
   },
   form: {
@@ -427,20 +509,29 @@ const injects = {
       },
     ],
     set itemMarginBottom(v) {
-      setBodyProperty({
-        '--form-item-margin-bottom': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--form-item-margin-bottom': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set itemMarginRight(v) {
-      setBodyProperty({
-        '--form-item-margin-right': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--form-item-margin-right': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set tipColor(v) {
-      setBodyProperty({
-        '--form-tip-color': v,
-      })
-    }
+      setBodyProperty(
+        {
+          '--form-tip-color': v,
+        },
+        v
+      )
+    },
   },
   checkbox: {
     info: {
@@ -458,9 +549,12 @@ const injects = {
       },
     ],
     set marginRight(v) {
-      setBodyProperty({
-        '--checkbox-margin-right': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--checkbox-margin-right': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
   },
   radio: {
@@ -499,19 +593,28 @@ const injects = {
       },
     ],
     set size(v) {
-      setBodyProperty({
-        '--radio-width': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--radio-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set borderWidth(v) {
-      setBodyProperty({
-        '--radio-border-width': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--radio-border-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set innerWidth(v) {
-      setBodyProperty({
-        '--radio-inner-width': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--radio-inner-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
   },
   input: {
@@ -556,30 +659,45 @@ const injects = {
       },
     ],
     set borderRadius(v) {
-      setBodyProperty({
-        '--input-border-radius': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--input-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set disabledBg(v) {
-      setBodyProperty({
-        '--input-bg-disabled': v,
-      })
+      setBodyProperty(
+        {
+          '--input-bg-disabled': v,
+        },
+        v
+      )
     },
     set borderColor(v) {
-      setBodyProperty({
-        '--input-border-color': v,
-      })
+      setBodyProperty(
+        {
+          '--input-border-color': v,
+        },
+        v
+      )
     },
     set borderHoverColor(v) {
-      setBodyProperty({
-        '--input-border-focus-color': v,
-        '--input-border-focus-color-fade-25': fade(v, 0.25),
-      })
+      setBodyProperty(
+        {
+          '--input-border-focus-color': v,
+          '--input-border-focus-color-fade-25': fade(v, 0.25),
+        },
+        v
+      )
     },
     set focusWidth(v) {
-      setBodyProperty({
-        '--input-focus-width': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--input-focus-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
   },
   select: {
@@ -629,35 +747,53 @@ const injects = {
       },
     ],
     set resultPaddingVertical(v) {
-      setBodyProperty({
-        '--select-result-padding-vertical': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--select-result-padding-vertical': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set resultPaddingHorizontal(v) {
-      setBodyProperty({
-        '--select-result-padding-horizontal': `${parseInt(v, 10)}px`,
-        '--select-result-padding-horizontal-16': `${parseInt(v, 10) + 16}px`,
-      })
+      setBodyProperty(
+        {
+          '--select-result-padding-horizontal': `${parseInt(v, 10)}px`,
+          '--select-result-padding-horizontal-16': `${parseInt(v, 10) + 16}px`,
+        },
+        v
+      )
     },
     set itemActiveBg(v) {
-      setBodyProperty({
-        '--select-item-active-bg': v,
-      })
+      setBodyProperty(
+        {
+          '--select-item-active-bg': v,
+        },
+        v
+      )
     },
     set itemActiveColor(v) {
-      setBodyProperty({
-        '--select-item-active-color': v,
-      })
+      setBodyProperty(
+        {
+          '--select-item-active-color': v,
+        },
+        v
+      )
     },
     set itemHoverBg(v) {
-      setBodyProperty({
-        '--select-option-hover-bg': v,
-      })
+      setBodyProperty(
+        {
+          '--select-option-hover-bg': v,
+        },
+        v
+      )
     },
     set itemHoverColor(v) {
-      setBodyProperty({
-        '--select-option-hover-color': v,
-      })
+      setBodyProperty(
+        {
+          '--select-option-hover-color': v,
+        },
+        v
+      )
     },
   },
   datepicker: {
@@ -676,9 +812,12 @@ const injects = {
       },
     ],
     set rectBorderRadius(v) {
-      setBodyProperty({
-        '--datepicker-rect-active-border-radius': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--datepicker-rect-active-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
   },
   slider: {
@@ -732,35 +871,53 @@ const injects = {
       },
     ],
     set indicatorBg(v) {
-      setBodyProperty({
-        '--slider-indicator-bg': v,
-      })
+      setBodyProperty(
+        {
+          '--slider-indicator-bg': v,
+        },
+        v
+      )
     },
     set indicatorSize(v) {
-      setBodyProperty({
-        '--slider-indicator-size': `${parseInt(v, 10)}px`,
-        '--slider-indicator-size-half': `${parseInt(v, 10) / 2}px`,
-      })
+      setBodyProperty(
+        {
+          '--slider-indicator-size': `${parseInt(v, 10)}px`,
+          '--slider-indicator-size-half': `${parseInt(v, 10) / 2}px`,
+        },
+        v
+      )
     },
     set barBg(v) {
-      setBodyProperty({
-        '--slider-bar-color': v,
-      })
+      setBodyProperty(
+        {
+          '--slider-bar-color': v,
+        },
+        v
+      )
     },
     set height(v) {
-      setBodyProperty({
-        '--slider-bar-height': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--slider-bar-height': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set borderRadius(v) {
-      setBodyProperty({
-        '--slider-border-radius': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--slider-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set valueBottom(v) {
-      setBodyProperty({
-        '--slider-value-bottom': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--slider-value-bottom': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
   },
   table: {
@@ -818,39 +975,60 @@ const injects = {
       },
     ],
     set headBg(v) {
-      setBodyProperty({
-        '--table-head-bg': v,
-      })
+      setBodyProperty(
+        {
+          '--table-head-bg': v,
+        },
+        v
+      )
     },
     set hoverBg(v) {
-      setBodyProperty({
-        '--table-hover-bg': v,
-      })
+      setBodyProperty(
+        {
+          '--table-hover-bg': v,
+        },
+        v
+      )
     },
     set headColor(v) {
-      setBodyProperty({
-        '--table-head-color': v,
-      })
+      setBodyProperty(
+        {
+          '--table-head-color': v,
+        },
+        v
+      )
     },
     set headFontWeight(v) {
-      setBodyProperty({
-        '--table-head-font-weight': `${parseInt(v, 10)}`,
-      })
+      setBodyProperty(
+        {
+          '--table-head-font-weight': `${parseInt(v, 10)}`,
+        },
+        v
+      )
     },
     set borderColor(v) {
-      setBodyProperty({
-        '--table-border-color': v,
-      })
+      setBodyProperty(
+        {
+          '--table-border-color': v,
+        },
+        v
+      )
     },
     set textColor(v) {
-      setBodyProperty({
-        '--table-color': v,
-      })
+      setBodyProperty(
+        {
+          '--table-color': v,
+        },
+        v
+      )
     },
     set borderRadiusTop(v) {
-      setBodyProperty({
-        '--table-border-radius-top': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--table-border-radius-top': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
   },
   pagination: {
@@ -894,29 +1072,44 @@ const injects = {
       },
     ],
     set borderRadius(v) {
-      setBodyProperty({
-        '--pagination-border-radius': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--pagination-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set borderWidth(v) {
-      setBodyProperty({
-        '--pagination-border-width': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--pagination-border-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set hoverBorderColor(v) {
-      setBodyProperty({
-        '--pagination-hover-border': v,
-      })
+      setBodyProperty(
+        {
+          '--pagination-hover-border': v,
+        },
+        v
+      )
     },
     set hoverColor(v) {
-      setBodyProperty({
-        '--pagination-hover-color': v,
-      })
+      setBodyProperty(
+        {
+          '--pagination-hover-color': v,
+        },
+        v
+      )
     },
     set hoverBg(v) {
-      setBodyProperty({
-        '--pagination-hover-bg': v,
-      })
+      setBodyProperty(
+        {
+          '--pagination-hover-bg': v,
+        },
+        v
+      )
     },
   },
   tag: {
@@ -973,39 +1166,60 @@ const injects = {
       },
     ],
     set bg(v) {
-      setBodyProperty({
-        '--tag-bg': v,
-      })
+      setBodyProperty(
+        {
+          '--tag-bg': v,
+        },
+        v
+      )
     },
     set color(v) {
-      setBodyProperty({
-        '--tag-color': v,
-      })
+      setBodyProperty(
+        {
+          '--tag-color': v,
+        },
+        v
+      )
     },
     set closeColor(v) {
-      setBodyProperty({
-        '--tag-close-color': v,
-      })
+      setBodyProperty(
+        {
+          '--tag-close-color': v,
+        },
+        v
+      )
     },
     set borderColor(v) {
-      setBodyProperty({
-        '--tag-border-color': v,
-      })
+      setBodyProperty(
+        {
+          '--tag-border-color': v,
+        },
+        v
+      )
     },
     set borderRadius(v) {
-      setBodyProperty({
-        '--tag-border-radius': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--tag-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set paddingHorizontal(v) {
-      setBodyProperty({
-        '--tag-padding-horizontal': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--tag-padding-horizontal': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set paddingVertical(v) {
-      setBodyProperty({
-        '--tag-padding-vertical': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--tag-padding-vertical': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
   },
   tooltip: {
@@ -1037,19 +1251,28 @@ const injects = {
       },
     ],
     set bg(v) {
-      setBodyProperty({
-        '--tooltip-bg': v,
-      })
+      setBodyProperty(
+        {
+          '--tooltip-bg': v,
+        },
+        v
+      )
     },
     set paddingHorizontal(v) {
-      setBodyProperty({
-        '--tooltip-padding-horizontal': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--tooltip-padding-horizontal': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set paddingVertical(v) {
-      setBodyProperty({
-        '--tooltip-padding-vertical': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--tooltip-padding-vertical': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
   },
   menu: {
@@ -1120,51 +1343,78 @@ const injects = {
     ],
     set height(v) {
       const height = parseInt(v, 10)
-      setBodyProperty({
-        '--menu-item-height': `${height}px`,
-        '--menu-item-height-half': `${height / 2}px`,
-      })
+      setBodyProperty(
+        {
+          '--menu-item-height': `${height}px`,
+          '--menu-item-height-half': `${height / 2}px`,
+        },
+        v
+      )
     },
     set darkBg(v) {
-      setBodyProperty({
-        '--menu-dark-bg': v,
-      })
+      setBodyProperty(
+        {
+          '--menu-dark-bg': v,
+        },
+        v
+      )
     },
     set darkActiveBg(v) {
-      setBodyProperty({
-        '--menu-dark-acitve-bg': v,
-      })
+      setBodyProperty(
+        {
+          '--menu-dark-acitve-bg': v,
+        },
+        v
+      )
     },
     set activeBg(v) {
-      setBodyProperty({
-        '--menu-item-active-bg': v,
-      })
+      setBodyProperty(
+        {
+          '--menu-item-active-bg': v,
+        },
+        v
+      )
     },
     set activeColor(v) {
-      setBodyProperty({
-        '--menu-item-active-color': v,
-      })
+      setBodyProperty(
+        {
+          '--menu-item-active-color': v,
+        },
+        v
+      )
     },
     set darkColor(v) {
-      setBodyProperty({
-        '--menu-dark-color': v,
-      })
+      setBodyProperty(
+        {
+          '--menu-dark-color': v,
+        },
+        v
+      )
     },
     set activePaddingHorizontal(v) {
-      setBodyProperty({
-        '--menu-active-padding-horizontal': `${parseInt(v, 10)}px`,
-        '--menu-active-padding-horizontal-negative': `-${parseInt(v, 10)}px`
-      })
+      setBodyProperty(
+        {
+          '--menu-active-padding-horizontal': `${parseInt(v, 10)}px`,
+          '--menu-active-padding-horizontal-negative': `-${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set activePaddingVertical(v) {
-      setBodyProperty({
-        '--menu-active-padding-vertical': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--menu-active-padding-vertical': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set activeBorderRadius(v) {
-      setBodyProperty({
-        '--menu-active-border-radius': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--menu-active-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
   },
   alert: {
@@ -1268,87 +1518,132 @@ const injects = {
       },
     ],
     set fontSize(v) {
-      setBodyProperty({
-        '--alert-font-size': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--alert-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set boxShadow(v) {
-      setBodyProperty({
-        '--alert-box-shadow': v,
-      })
+      setBodyProperty(
+        {
+          '--alert-box-shadow': v,
+        },
+        v
+      )
     },
     set borderWidth(v) {
-      setBodyProperty({
-        '--alert-border-width': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--alert-border-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set successTextColor(v) {
-      setBodyProperty({
-        '--alert-success-text-color': v,
-        '--alert-success-text-darken-10-color': darken(v, 10),
-      })
+      setBodyProperty(
+        {
+          '--alert-success-text-color': v,
+          '--alert-success-text-darken-10-color': darken(v, 10),
+        },
+        v
+      )
     },
     set successBg(v) {
-      setBodyProperty({
-        '--alert-success-bg': v,
-      })
+      setBodyProperty(
+        {
+          '--alert-success-bg': v,
+        },
+        v
+      )
     },
     set successBorderColor(v) {
-      setBodyProperty({
-        '--alert-success-border-color': v,
-        '--alert-success-border-darken-5-color': darken(v, 5),
-      })
+      setBodyProperty(
+        {
+          '--alert-success-border-color': v,
+          '--alert-success-border-darken-5-color': darken(v, 5),
+        },
+        v
+      )
     },
     set infoTextColor(v) {
-      setBodyProperty({
-        '--alert-info-text-color': v,
-        '--alert-info-text-darken-10-color': darken(v, 10),
-      })
+      setBodyProperty(
+        {
+          '--alert-info-text-color': v,
+          '--alert-info-text-darken-10-color': darken(v, 10),
+        },
+        v
+      )
     },
     set infoBg(v) {
-      setBodyProperty({
-        '--alert-info-bg': v,
-      })
+      setBodyProperty(
+        {
+          '--alert-info-bg': v,
+        },
+        v
+      )
     },
     set infoBorderColor(v) {
-      setBodyProperty({
-        '--alert-info-border-color': v,
-        '--alert-info-border-darken-5-color': darken(v, 5),
-      })
+      setBodyProperty(
+        {
+          '--alert-info-border-color': v,
+          '--alert-info-border-darken-5-color': darken(v, 5),
+        },
+        v
+      )
     },
     set warningTextColor(v) {
-      setBodyProperty({
-        '--alert-warning-text-color': v,
-        '--alert-warning-text-darken-10-color': darken(v, 10),
-      })
+      setBodyProperty(
+        {
+          '--alert-warning-text-color': v,
+          '--alert-warning-text-darken-10-color': darken(v, 10),
+        },
+        v
+      )
     },
     set warningBg(v) {
-      setBodyProperty({
-        '--alert-warning-bg': v,
-      })
+      setBodyProperty(
+        {
+          '--alert-warning-bg': v,
+        },
+        v
+      )
     },
     set warningBorderColor(v) {
-      setBodyProperty({
-        '--alert-warning-border-color': v,
-        '--alert-warning-border-darken-5-color': darken(v, 5),
-      })
+      setBodyProperty(
+        {
+          '--alert-warning-border-color': v,
+          '--alert-warning-border-darken-5-color': darken(v, 5),
+        },
+        v
+      )
     },
     set dangerTextColor(v) {
-      setBodyProperty({
-        '--alert-danger-text-color': v,
-        '--alert-danger-text-darken-10-color': darken(v, 10),
-      })
+      setBodyProperty(
+        {
+          '--alert-danger-text-color': v,
+          '--alert-danger-text-darken-10-color': darken(v, 10),
+        },
+        v
+      )
     },
     set dangerBg(v) {
-      setBodyProperty({
-        '--alert-danger-bg': v,
-      })
+      setBodyProperty(
+        {
+          '--alert-danger-bg': v,
+        },
+        v
+      )
     },
     set dangerBorderColor(v) {
-      setBodyProperty({
-        '--alert-danger-border-color': v,
-        '--alert-danger-border-darken-5-color': darken(v, 5),
-      })
+      setBodyProperty(
+        {
+          '--alert-danger-border-color': v,
+          '--alert-danger-border-darken-5-color': darken(v, 5),
+        },
+        v
+      )
     },
   },
   message: {
@@ -1372,14 +1667,20 @@ const injects = {
       },
     ],
     set boxShadow(v) {
-      setBodyProperty({
-        '--message-box-shadow': v,
-      })
+      setBodyProperty(
+        {
+          '--message-box-shadow': v,
+        },
+        v
+      )
     },
     set color(v) {
-      setBodyProperty({
-        '--message-text-color': v,
-      })
+      setBodyProperty(
+        {
+          '--message-text-color': v,
+        },
+        v
+      )
     },
   },
   card: {
@@ -1430,34 +1731,52 @@ const injects = {
       },
     ],
     set fontSize(v) {
-      setBodyProperty({
-        '--card-font-size': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--card-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set borderWidth(v) {
-      setBodyProperty({
-        '--card-border-width': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--card-border-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set dividerWidth(v) {
-      setBodyProperty({
-        '--card-divider-width': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--card-divider-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set borderColor(v) {
-      setBodyProperty({
-        '--card-border-color': v,
-      })
+      setBodyProperty(
+        {
+          '--card-border-color': v,
+        },
+        v
+      )
     },
     set color(v) {
-      setBodyProperty({
-        '--card-color': v,
-      })
+      setBodyProperty(
+        {
+          '--card-color': v,
+        },
+        v
+      )
     },
     set boxShadow(v) {
-      setBodyProperty({
-        '--card-box-shadow': v,
-      })
+      setBodyProperty(
+        {
+          '--card-box-shadow': v,
+        },
+        v
+      )
     },
   },
   modal: {
@@ -1489,19 +1808,28 @@ const injects = {
       },
     ],
     set iconSize(v) {
-      setBodyProperty({
-        '--modal-icon-size': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--modal-icon-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set titleFontSize(v) {
-      setBodyProperty({
-        '--modal-title-font-size': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--modal-title-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set titleColor(v) {
-      setBodyProperty({
-        '--modal-title-color': v,
-      })
+      setBodyProperty(
+        {
+          '--modal-title-color': v,
+        },
+        v
+      )
     },
   },
   popover: {
@@ -1532,19 +1860,28 @@ const injects = {
       },
     ],
     set borderColor(v) {
-      setBodyProperty({
-        '--popover-border-color': v,
-      })
+      setBodyProperty(
+        {
+          '--popover-border-color': v,
+        },
+        v
+      )
     },
     set borderWidth(v) {
-      setBodyProperty({
-        '--popover-border-width': `${parseInt(v, 10)}px`,
-      })
+      setBodyProperty(
+        {
+          '--popover-border-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
     set boxShadow(v) {
-      setBodyProperty({
-        '--popover-box-shadow': v,
-      })
+      setBodyProperty(
+        {
+          '--popover-box-shadow': v,
+        },
+        v
+      )
     },
   },
 }
