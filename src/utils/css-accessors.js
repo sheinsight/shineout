@@ -4,9 +4,10 @@ import { getDOMStyle } from './expose'
 
 const cssVarSupported = window.CSS && window.CSS.supports && window.CSS.supports('--css-var-support', 0)
 
-function setOptions(options) {
+function setOptions(options, setter) {
   if (!options || !cssVarSupported) return
   for (const [key, value] of Object.entries(options)) {
+    if (key === setter) continue
     this[key] = value
   }
 }
@@ -56,7 +57,7 @@ const accessors = {
 
 for (const [key, value] of Object.entries(accessors)) {
   const setterName = `set${capitalize(key)}`
-  value[setterName] = options => setOptions.call(value, options)
+  value[setterName] = options => setOptions.call(value, options, setterName)
   genAccessors(value, cssInject[key])
 }
 
