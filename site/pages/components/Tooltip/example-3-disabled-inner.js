@@ -11,7 +11,7 @@ export default function() {
   return (
     <div>
       <Tooltip tip="Some text." position="left" disabledChild>
-        <Button disabled>被禁用</Button>
+        <Button disabled>Disabled</Button>
       </Tooltip>
     </div>
   )

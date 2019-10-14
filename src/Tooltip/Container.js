@@ -1,5 +1,6 @@
 import React, { PureComponent, cloneElement, isValidElement } from 'react'
 import PropTypes from 'prop-types'
+import { tooltipClass } from 'shineout/styles';
 import { scrollConsumer } from '../Scroll/context'
 import { getUidStr } from '../utils/uid'
 import { getPosition } from '../utils/dom/popover'
@@ -83,7 +84,7 @@ export default function(options) {
       }
 
       const inner = disabledChild ? (
-        <span style={{ cursor: 'not-allowed' }}>
+        <span className={tooltipClass('disabled-wrapper')} style={{ cursor: 'not-allowed' }}>
           {cloneElement(children, { style: { ...children.props.style, pointerEvents: 'none' } })}
         </span>
       ) : (
