@@ -1747,11 +1747,17 @@ const injects = {
         parser: parseInt,
       },
       {
-        name: 'dividerWidth',
-        className: cardClass('header'),
-        attr: 'borderBottomWidth',
+        name: 'dividerHeight',
+        className: exposeClass('card-divider'),
+        attr: 'height',
         type: 'number',
         parser: parseInt,
+      },
+      {
+        name: 'dividerWidth',
+        className: exposeClass('card-divider'),
+        attr: 'width',
+        type: 'string',
       },
       {
         name: 'borderColor',
@@ -1788,10 +1794,18 @@ const injects = {
         v
       )
     },
+    set dividerHeight(v) {
+      setBodyProperty(
+        {
+          '--card-divider-height': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
     set dividerWidth(v) {
       setBodyProperty(
         {
-          '--card-divider-width': `${parseInt(v, 10)}px`,
+          '--card-divider-width': v,
         },
         v
       )
