@@ -85,7 +85,6 @@ See [i18n](https://shine.wiki/1.4.x/en/components/GetStart#heading-2-I18N)
 
 - [Home page](http://shine.wiki/)
 - [Components](https://shine.wiki/1.4.x/en/components/GetStart)
-- [Changelog](https://shine.wiki/1.4.x/en/documentation/1.x.x)
 - [Smart Form](https://shine.wiki/1.4.x/en/components/Form#heading-01-base)
 - [Performance Table](https://shine.wiki/1.4.x/en/components/Table#heading-08-bigdata)
 - [Shineout template](https://codesandbox.io/s/delicate-http-y3duk)
