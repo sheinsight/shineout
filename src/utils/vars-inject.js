@@ -381,6 +381,24 @@ const injects = {
         parser: parseInt,
         className: buttonClass('_'),
       },
+      {
+        name: 'disabledBg',
+        attr: 'backgroundColor',
+        type: 'color',
+        className: buttonClass('disabled'),
+      },
+      {
+        name: 'disabledBorderColor',
+        attr: 'borderColor',
+        type: 'color',
+        className: buttonClass('disabled'),
+      },
+      {
+        name: 'disabledColor',
+        attr: 'color',
+        type: 'color',
+        className: buttonClass('disabled'),
+      },
     ],
     set fontSizeBase(v) {
       setBodyProperty(
@@ -475,6 +493,30 @@ const injects = {
       setBodyProperty(
         {
           '--button-padding-small-vertical': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set disabledBg(v) {
+      setBodyProperty(
+        {
+          '--button-disabled-bg': v,
+        },
+        v
+      )
+    },
+    set disabledColor(v) {
+      setBodyProperty(
+        {
+          '--button-disabled-color': v,
+        },
+        v
+      )
+    },
+    set disabledBorderColor(v) {
+      setBodyProperty(
+        {
+          '--button-disabled-border-color': v,
         },
         v
       )
@@ -1705,11 +1747,17 @@ const injects = {
         parser: parseInt,
       },
       {
-        name: 'dividerWidth',
-        className: cardClass('header'),
-        attr: 'borderBottomWidth',
+        name: 'dividerHeight',
+        className: exposeClass('card-divider'),
+        attr: 'height',
         type: 'number',
         parser: parseInt,
+      },
+      {
+        name: 'dividerWidth',
+        className: exposeClass('card-divider'),
+        attr: 'width',
+        type: 'string',
       },
       {
         name: 'borderColor',
@@ -1746,10 +1794,18 @@ const injects = {
         v
       )
     },
+    set dividerHeight(v) {
+      setBodyProperty(
+        {
+          '--card-divider-height': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
     set dividerWidth(v) {
       setBodyProperty(
         {
-          '--card-divider-width': `${parseInt(v, 10)}px`,
+          '--card-divider-width': v,
         },
         v
       )

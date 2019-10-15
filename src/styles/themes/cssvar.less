@@ -93,6 +93,15 @@
 @radio-border-width-value: 1px;
 @radio-border-width: var(--radio-border-width, @radio-border-width-value);
 
+@button-disabled-bg-value: #f5f5f5;
+@button-disabled-bg: var(--button-disabled-bg, @button-disabled-bg-value);
+
+@button-disabled-color-value: rgba(0, 0, 0, 0.45);
+@button-disabled-color: var(--button-disabled-color, @button-disabled-color-value);
+
+@button-disabled-border-color-value: #b9b9b9;
+@button-disabled-border-color: var(--button-disabled-border-color, @button-disabled-border-color-value);
+
 @button-font-size-base-value: @font-size-base;
 @button-font-size-base: var(--button-font-size-base, @button-font-size-base-value);
 
@@ -321,7 +330,10 @@
 @card-font-size-value: 'inherit';
 @card-font-size: var(--card-font-size, @card-font-size-value);
 
-@card-divider-width-value: 1px;
+@card-divider-height-value: 1px;
+@card-divider-height: var(--card-divider-height, @card-divider-height-value);
+
+@card-divider-width-value: 100%;
 @card-divider-width: var(--card-divider-width, @card-divider-width-value);
 
 @panel-box-shadow-value: 0 2px 8px rgba(0, 0, 0, 0.1);
