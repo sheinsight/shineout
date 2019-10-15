@@ -1,11 +1,11 @@
-English | [简体中文](./README-zh_CN.md)
+[English](./README.md) | 简体中文
 
 <p align="center">
   <img alt="react-router" src="https://user-images.githubusercontent.com/101764/44770646-44f53000-ab9b-11e8-834e-2b1394cea318.png" width="300">
 </p>
 
 <p align="center">
-  A components library for <a href="https://facebook.github.io/react">React</a>
+一个更加『轻量』和『快速』的基于<a href="https://facebook.github.io/react">React</a>的桌面端组件库
 </p>
 
 <p align="center">
@@ -15,38 +15,38 @@ English | [简体中文](./README-zh_CN.md)
   <img src="https://img.shields.io/badge/React-%3E%3D16.0.0-green.svg?style=flat-square">
 </p>
 
-## ✨ Features
+## ✨ 特性
 
- - A concise and friendly API
- - A set of high-performance React components out of the box.
- - Always backward compatible
- - Flexible theme customization
+ - 精巧且友好的 API
+ - 开箱即用的高性能 React 组件
+ - 接口永远向下兼容
+ - 灵活的主题配置
 
 <!-- [View docs here](https://sheinsight.github.io/shineout/) -->
 
-## 🎯 Requirements
+## 🎯 依赖
 
 ```
 React >= 16.0.0
 React-dom >= 16.0.0
 ```
 
-## 🖥 Browsers support
+## 🖥 浏览器支持
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Electron |
 | --------- | --------- | --------- | --------- | --------- | --------- |
 | IE10, IE11, Edge| last 2 versions| last 2 versions| last 2 versions| last 2 versions| last 2 versions |
 
-## 💡Examples
-  - [Concise and intelligent Form](https://shine.wiki/1.4.x/en/components/Form#heading-01-base)
+## 💡示例
+  - [精简且智能的表单](https://shine.wiki/1.4.x/cn/components/Form#heading-01-base)
   
    <img src="./site/images/form.gif" />
 
-  - [performance Table width 10000 records](https://shine.wiki/1.4.x/en/components/Table#heading-08-bigdata)
+  - [ 10000 条数据的高性能表格](https://shine.wiki/1.4.x/cn/components/Table#heading-08-bigdata)
   
    <img src="./site/images/table.gif" />
 
-## 📦 Installation
+## 📦 安装
 
 ```bash
 yarn add shineout
@@ -56,14 +56,14 @@ yarn add shineout
 npm install shineout
 ```
 
-## ☁️ CDN
+## ☁️  CDN
 
 ```html
 <link rel="stylesheet" href="https://unpkg.com/shineout/dist/theme.default.css" />
 <script crossorigin src="https://unpkg.com/shineout/dist/shineout.min.js"></script>
 ```
 
-## 🔨  Usage
+## 🔨   使用
 
 ```javascript
 import { Button } from 'shineout'
@@ -71,28 +71,28 @@ import { Button } from 'shineout'
 <Button />
 ```
 
-And import style manually:
+引入 css
 
 ```javascript
 import 'shineout/dist/theme.default.css' // or 'shineout/dist/theme.antd.css'
 ```
 
-## 🌍 Internationalization
+## 🌍  国际化
 
-See [i18n](https://shine.wiki/1.4.x/en/components/GetStart#heading-2-I18N)
+文档地址 [i18n](https://shine.wiki/1.4.x/cn/components/GetStart#heading-2-I18N)
 
-## 🔗 Links
+## 🔗 链接
 
-- [Home page](http://shine.wiki/)
-- [Components](https://shine.wiki/1.4.x/en/components/GetStart)
-- [Changelog](https://shine.wiki/1.4.x/en/documentation/1.x.x)
-- [Smart Form](https://shine.wiki/1.4.x/en/components/Form#heading-01-base)
-- [Performance Table](https://shine.wiki/1.4.x/en/components/Table#heading-08-bigdata)
-- [Shineout template](https://codesandbox.io/s/delicate-http-y3duk)
+- [首页](http://shine.wiki/)
+- [组件](https://shine.wiki/1.4.x/cn/components/GetStart)
+- [更新日志](https://shine.wiki/1.4.x/cn/documentation/1.x.x)
+- [易用表单](https://shine.wiki/1.4.x/cn/components/Form#heading-01-base)
+- [性能表格](https://shine.wiki/1.4.x/cn/components/Table#heading-08-bigdata)
+- [CodeSandbox 模板](https://codesandbox.io/s/delicate-http-y3duk)
 
-## ⌨️ Development
+## ⌨️ 开发
 
-clone locally:
+本地克隆:
 
 ```bash
 $ git clone git@github.com:ant-design/ant-design.git
@@ -101,7 +101,7 @@ $ yarn
 $ yarn start
 ```
 
-Open your browser and visit http://localhost:3000
+访问 http://localhost:3000
 
-## 📜 LICENSE
+## 📜 开源许可
 [MIT](./LICENSE)
