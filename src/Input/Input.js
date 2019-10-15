@@ -83,7 +83,7 @@ class Input extends PureComponent {
         onKeyUp={this.handleKeyUp}
         onBlur={this.handleBlur}
       />,
-      clearable && value && <Clear onClick={this.handleChange} key="close" />,
+      clearable && value !== '' && <Clear onClick={this.handleChange} key="close" />,
     ]
   }
 }
