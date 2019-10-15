@@ -1,4 +1,4 @@
-import { attrAccept } from '../../../src/Upload/Dragger'
+import { accept as attrAccept } from '../../../src/utils'
 
 describe('Upload[attr-accept]', () => {
   test('should validate image/*', () => {

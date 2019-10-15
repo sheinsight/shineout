@@ -43,6 +43,7 @@ class Upload extends PureComponent {
     this.recoverValue = this.recoverValue.bind(this)
     this.validatorHandle = this.validatorHandle.bind(this)
     this.useValidator = this.useValidator.bind(this)
+    this.handleFileDrop = this.handleFileDrop.bind(this)
 
     props.validateHook(this.validate.bind(this))
   }
@@ -307,6 +308,16 @@ class Upload extends PureComponent {
     return req(options)
   }
 
+  handleFileDrop(e) {
+    e.preventDefault()
+    if (e.type !== 'drop') return
+    const { dropValidate, value } = this.props
+    const { files } = e.dataTransfer
+    if (!files) return
+    const filterFile = dropValidate ? files.filter(file => dropValidate(file, value)) : files
+    this.addFile({ files: filterFile, fromDragger: true })
+  }
+
   handleError(id, xhr) {
     const { onError, onHttpError } = this.props
 
@@ -334,7 +345,12 @@ class Upload extends PureComponent {
       disabled,
     }
     return (
-      <span className={uploadClass('handle')} onClick={this.handleAddClick}>
+      <span
+        className={uploadClass('handle')}
+        onClick={this.handleAddClick}
+        onDrop={this.handleFileDrop}
+        onDragOver={this.handleFileDrop}
+      >
         <Provider value={dragProps}>{children}</Provider>
         <FileInput
           webkitdirectory={webkitdirectory}
@@ -453,6 +469,7 @@ Upload.propTypes = {
   disabled: PropTypes.bool,
   webkitdirectory: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   renderContent: PropTypes.func,
+  dropValidate: PropTypes.func,
 }
 
 Upload.defaultProps = {
