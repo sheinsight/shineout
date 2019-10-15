@@ -381,6 +381,24 @@ const injects = {
         parser: parseInt,
         className: buttonClass('_'),
       },
+      {
+        name: 'disabledBg',
+        attr: 'backgroundColor',
+        type: 'color',
+        className: buttonClass('disabled'),
+      },
+      {
+        name: 'disabledBorderColor',
+        attr: 'borderColor',
+        type: 'color',
+        className: buttonClass('disabled'),
+      },
+      {
+        name: 'disabledColor',
+        attr: 'color',
+        type: 'color',
+        className: buttonClass('disabled'),
+      },
     ],
     set fontSizeBase(v) {
       setBodyProperty(
@@ -475,6 +493,30 @@ const injects = {
       setBodyProperty(
         {
           '--button-padding-small-vertical': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set disabledBg(v) {
+      setBodyProperty(
+        {
+          '--button-disabled-bg': v,
+        },
+        v
+      )
+    },
+    set disabledColor(v) {
+      setBodyProperty(
+        {
+          '--button-disabled-color': v,
+        },
+        v
+      )
+    },
+    set disabledBorderColor(v) {
+      setBodyProperty(
+        {
+          '--button-disabled-border-color': v,
         },
         v
       )
