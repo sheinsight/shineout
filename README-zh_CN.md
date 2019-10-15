@@ -27,8 +27,8 @@
 ## 🎯 依赖
 
 ```
-React >= 16.0.0
-React-dom >= 16.0.0
+react >= 16.0.0
+react-dom >= 16.0.0
 ```
 
 ## 🖥 浏览器支持
@@ -95,8 +95,8 @@ import 'shineout/dist/theme.default.css' // or 'shineout/dist/theme.antd.css'
 本地克隆:
 
 ```bash
-$ git clone git@github.com:ant-design/ant-design.git
-$ cd ant-design
+$ git clone git@github.com:sheinsight/shineout.git
+$ cd shineout
 $ yarn
 $ yarn start
 ```

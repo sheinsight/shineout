@@ -27,8 +27,8 @@ English | [简体中文](./README-zh_CN.md)
 ## 🎯 Requirements
 
 ```
-React >= 16.0.0
-React-dom >= 16.0.0
+react >= 16.0.0
+react-dom >= 16.0.0
 ```
 
 ## 🖥 Browsers support
@@ -95,8 +95,8 @@ See [i18n](https://shine.wiki/1.4.x/en/components/GetStart#heading-2-I18N)
 clone locally:
 
 ```bash
-$ git clone git@github.com:ant-design/ant-design.git
-$ cd ant-design
+$ git clone git@github.com:sheinsight/shineout.git
+$ cd shineout
 $ yarn
 $ yarn start
 ```
