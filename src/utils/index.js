@@ -19,6 +19,7 @@ import ready from './dom/ready'
 import isJson from './validate/isJson'
 import cssAccessors from './css-accessors'
 import cssInject from './vars-inject'
+import accept from './accept'
 
 export {
   classname,
@@ -42,4 +43,5 @@ export {
   isJson,
   cssAccessors,
   cssInject,
+  accept,
 }

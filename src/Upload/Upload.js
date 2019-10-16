@@ -13,6 +13,7 @@ import ImageFile from './ImageFile'
 import Result from './Result'
 import ImageResult from './ImageResult'
 import { Provider } from './context'
+import { accept as fileAccept } from '../utils'
 
 const VALIDATORITEMS = [
   { key: 'size', param: blob => blob.size },
@@ -43,6 +44,7 @@ class Upload extends PureComponent {
     this.recoverValue = this.recoverValue.bind(this)
     this.validatorHandle = this.validatorHandle.bind(this)
     this.useValidator = this.useValidator.bind(this)
+    this.handleFileDrop = this.handleFileDrop.bind(this)
 
     props.validateHook(this.validate.bind(this))
   }
@@ -307,6 +309,16 @@ class Upload extends PureComponent {
     return req(options)
   }
 
+  handleFileDrop(e) {
+    e.preventDefault()
+    if (e.type !== 'drop') return
+    const { accept } = this.props
+    const { files } = e.dataTransfer
+    if (!files) return
+    const filterFile = accept ? Array.prototype.filter.call(files, file => fileAccept(file, accept)) : files
+    this.addFile({ files: filterFile, fromDragger: true })
+  }
+
   handleError(id, xhr) {
     const { onError, onHttpError } = this.props
 
@@ -334,7 +346,12 @@ class Upload extends PureComponent {
       disabled,
     }
     return (
-      <span className={uploadClass('handle')} onClick={this.handleAddClick}>
+      <span
+        className={uploadClass('handle')}
+        onClick={this.handleAddClick}
+        onDrop={this.handleFileDrop}
+        onDragOver={this.handleFileDrop}
+      >
         <Provider value={dragProps}>{children}</Provider>
         <FileInput
           webkitdirectory={webkitdirectory}
