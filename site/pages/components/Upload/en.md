@@ -29,7 +29,6 @@
 | multiple | bool | false | Whether multi-select files are supported |
 | renderContent | func(res, value, index, values) | - | Custom content of result  | 
 | validatorHandle | bool \| func(error, file) | true | Whether to handle the case of validation failure, if a function is provided, it is judged by the return value of the function. |
-| dropValidate | func | none | validate before drop to upload, return true/false |
 
 ### options 
 

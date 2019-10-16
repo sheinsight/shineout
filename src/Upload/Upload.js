@@ -13,6 +13,7 @@ import ImageFile from './ImageFile'
 import Result from './Result'
 import ImageResult from './ImageResult'
 import { Provider } from './context'
+import { accept as fileAccept } from '../utils'
 
 const VALIDATORITEMS = [
   { key: 'size', param: blob => blob.size },
@@ -311,10 +312,10 @@ class Upload extends PureComponent {
   handleFileDrop(e) {
     e.preventDefault()
     if (e.type !== 'drop') return
-    const { dropValidate, value } = this.props
+    const { accept } = this.props
     const { files } = e.dataTransfer
     if (!files) return
-    const filterFile = dropValidate ? files.filter(file => dropValidate(file, value)) : files
+    const filterFile = accept ? Array.prototype.filter.call(files, file => fileAccept(file, accept)) : files
     this.addFile({ files: filterFile, fromDragger: true })
   }
 
@@ -469,7 +470,6 @@ Upload.propTypes = {
   disabled: PropTypes.bool,
   webkitdirectory: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   renderContent: PropTypes.func,
-  dropValidate: PropTypes.func,
 }
 
 Upload.defaultProps = {
