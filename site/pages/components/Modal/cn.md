@@ -25,7 +25,7 @@
 
 ### Methods
 
-Modal 提供了一组方法供全局调用，这些方法生成的元素，会在关闭后销毁。
+Modal 提供了一组方法供全局调用，这些方法生成的元素，会在关闭后销毁。该组方法应仅供展示所用, 如果需要数据交互, 请使用 Modal
 
 Modal.info(options) // 提示信息
 
@@ -38,6 +38,8 @@ Modal.confirm(options) // 确认提示框
 Modal.show(options) // 默认弹窗 没有图标
 
 #### Options参数
+
+** *options 支持 Modal除了 usePortal 和 destory 的其他任何属性, 此外还有如下的额外属性**
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |

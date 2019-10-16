@@ -18,6 +18,9 @@ class Scroll extends PureComponent {
     this.touchStartX = 0
     this.touchStartY = 0
 
+    this.wheelX = true
+    this.wheelY = true
+
     this.pixelX = 0
     this.pixelY = 0
 
@@ -146,7 +149,8 @@ class Scroll extends PureComponent {
   }
 
   handleWheel(event) {
-    const { scrollX, scrollY } = this.props
+    const scrollX = this.wheelX
+    const scrollY = this.wheelY
     if (!scrollX && !scrollY) return
 
     const target = getParent(event.target, `.${scrollClass('_')}`)
@@ -210,6 +214,11 @@ class Scroll extends PureComponent {
 
     const className = classnames(scrollClass('_', scrollX && 'show-x', scrollY && 'show-y'), this.props.className)
 
+    const yLength = scrollHeight < height ? scrollHeight : height
+
+    this.wheelY = scrollHeight > yLength
+    this.wheelX = scrollWidth > width
+
     return (
       <div style={style} ref={this.bindWheel} className={className}>
         <iframe tabIndex={-1} title="scroll" ref={this.bindIframe} className={scrollClass('iframe')} />
@@ -220,7 +229,7 @@ class Scroll extends PureComponent {
         {scrollY && (
           <Bar
             direction="y"
-            length={scrollHeight < height ? scrollHeight : height}
+            length={yLength}
             forceHeight={scrollHeight < height ? scrollHeight : undefined}
             scrollLength={scrollHeight}
             offset={top}
