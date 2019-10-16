@@ -2,17 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import { uploadClass } from '../styles'
+import Drop from './Drop'
 import { accept as attrAccept } from '../utils'
 
 class Dragger extends PureComponent {
   constructor(props) {
     super(props)
-
-    this.state = {
-      dragType: '',
-    }
-
-    this.handleFileDrop = this.handleFileDrop.bind(this)
+    this.handleDrop = this.handleDrop.bind(this)
   }
 
   getMatchedFile(files = []) {
@@ -20,35 +16,24 @@ class Dragger extends PureComponent {
     return Array.prototype.slice.call(files).filter(file => attrAccept(file, accept))
   }
 
-  handleDrop(e) {
-    const { multiple, addFile } = this.props
-    if (!addFile) return
-    const fileList = this.getMatchedFile(e.dataTransfer.files)
-    if (!fileList || fileList.length <= 0) return
-    const files = multiple ? fileList : [fileList[0]]
+  handleDrop(files) {
+    const { addFile } = this.props
     addFile({ files, fromDragger: true })
   }
 
-  handleFileDrop(e) {
-    const { disabled } = this.props
-    if (disabled) return
-    e.preventDefault()
-    this.setState({ dragType: e.type })
-    if (e.type === 'drop') this.handleDrop(e)
-  }
-
   render() {
-    const { children, disabled } = this.props
-    const { dragType } = this.state
+    const { children, disabled, multiple, limit, accept } = this.props
     return (
-      <div
-        onDragOver={this.handleFileDrop}
-        onDragLeave={this.handleFileDrop}
-        onDrop={this.handleFileDrop}
-        className={uploadClass('dragger-area', dragType === 'dragover' && 'dragger-hover', disabled && 'disabled')}
+      <Drop
+        className={uploadClass('dragger-wrapper')}
+        drop
+        disabled={disabled}
+        multiple={multiple || limit > 1}
+        accept={accept}
+        onDrop={this.handleDrop}
       >
-        {children}
-      </div>
+        <div className={uploadClass('dragger-area', disabled && 'disabled')}>{children}</div>
+      </Drop>
     )
   }
 }
@@ -59,6 +44,7 @@ Dragger.propTypes = {
   addFile: PropTypes.func,
   accept: PropTypes.string,
   disabled: PropTypes.bool,
+  limit: PropTypes.number,
 }
 
 export default Dragger

@@ -27,10 +27,12 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-01-onChange.
 exports[`Snapshot test: Upload[site/pages/components/Upload/example-02-image.js] 1`] = `
 <div>
   <span>
-    <div>
-      <div />
-    </div>
-    <input />
+    <span>
+      <div>
+        <div />
+      </div>
+      <input />
+    </span>
   </span>
 </div>
 `;
@@ -212,11 +214,13 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-11-dragger.j
   <div>
     <span>
       <div>
-        <div>
-          <i />
-          <br />
-          Click or Drag image to upload
-        </div>
+        <span>
+          <div>
+            <i />
+            <br />
+            Click or Drag image to upload
+          </div>
+        </span>
       </div>
       <input />
     </span>
@@ -224,11 +228,13 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-11-dragger.j
   <br />
   <div>
     <span>
-      <div>
-        <i />
-        <br />
-        Click or Drag file to upload
-      </div>
+      <span>
+        <div>
+          <i />
+          <br />
+          Click or Drag file to upload
+        </div>
+      </span>
       <input />
     </span>
   </div>
