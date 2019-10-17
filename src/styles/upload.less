@@ -188,6 +188,10 @@
     }
   }
 
+  &-dragger-wrapper {
+    display: block;
+    width: 100%;
+  }
   &-dragger-area {
     position: relative;
     color: rgba(0, 0, 0, .8);
@@ -212,7 +216,7 @@
       transition: border-color .3s;
     }
 
-    &:hover, &.@{upload-prefix}-dragger-hover {
+    &:hover {
       :after {
         border-color: @colors-primary;
       }
@@ -222,6 +226,17 @@
       cursor: not-allowed;
       :after {
         border: 1px dashed @upload-image-border;
+      }
+    }
+  }
+
+  &-drop {
+    .@{upload-prefix}-image-plus, .@{upload-prefix}-image-item {
+      border-color: @colors-primary;
+    }
+    .@{upload-prefix}-dragger-area {
+      :after {
+        border-color: @colors-primary;
       }
     }
   }
