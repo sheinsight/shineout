@@ -21,7 +21,9 @@ exports[`Tree[Base] should render correctly 1`] = `
         className="so-tree-icon-sub"
         onClick={[Function]}
       >
-        <span />
+        <span
+          className="so-tree-default-icon"
+        />
       </a>
       <div
         className="so-tree-content"
@@ -92,7 +94,9 @@ exports[`Tree[Base] should render correctly 1`] = `
         className="so-tree-icon-sub"
         onClick={[Function]}
       >
-        <span />
+        <span
+          className="so-tree-default-icon"
+        />
       </a>
       <div
         className="so-tree-content"
@@ -125,7 +129,9 @@ exports[`Tree[Base] should render correctly 1`] = `
             className="so-tree-icon-sub"
             onClick={[Function]}
           >
-            <span />
+            <span
+              className="so-tree-default-icon"
+            />
           </a>
           <div
             className="so-tree-content"
@@ -194,7 +200,9 @@ exports[`Tree[Icon] should render correctly 1`] = `
         className="so-tree-icon-plus"
         onClick={[Function]}
       >
-        <span />
+        <span
+          className="so-tree-default-icon"
+        />
       </a>
       <div
         className="so-tree-content"
@@ -232,7 +240,9 @@ exports[`Tree[Icon] should render correctly 1`] = `
         className="so-tree-icon-plus"
         onClick={[Function]}
       >
-        <span />
+        <span
+          className="so-tree-default-icon"
+        />
       </a>
       <div
         className="so-tree-content"
