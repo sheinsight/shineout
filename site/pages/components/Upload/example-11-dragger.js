@@ -1,11 +1,11 @@
 /**
  * cn - 拖拽上传
- *    -- 将文件拖入指定区域完成上传，支持图片预览及多文件上传。
+ *    -- 设置 drop 来支持拖拽上传
  * en - Drag and Drop
- *    -- Drag files to a specific area, to upload.
+ *    -- set drop to Drag files to upload.
  */
 import React from 'react'
-import { Upload } from 'shineout'
+import { Upload, Button } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
 function DraggerImage() {
@@ -16,16 +16,16 @@ function DraggerImage() {
       name="file"
       onSuccess={(res, file, data) => ({ data })}
       renderResult={f => f.data}
-      limit={1}
-      multiple
+      limit={3}
       onStart={f => console.log(f)}
       width={250}
+      drop
     >
-      <Upload.Dragger>
-        <FontAwesome style={{ color: '#409dfd', fontSize: 20 }} name="upload" />
+      <div style={{ textAlign: 'center', width: '100%', padding: 20 }}>
+        <FontAwesome style={{ color: '#409dfd', fontSize: 20 }} name="image" />
         <br />
         Click or Drag image to upload
-      </Upload.Dragger>
+      </div>
     </Upload.Image>
   )
 }
@@ -39,12 +39,12 @@ function DraggerFile() {
       onSuccess={(res, file) => file.name}
       limit={3}
       style={{ width: 300 }}
+      drop
     >
-      <Upload.Dragger>
-        <FontAwesome style={{ color: '#409dfd', fontSize: 20 }} name="upload" />
-        <br />
-        Click or Drag file to upload
-      </Upload.Dragger>
+      <Button>
+        <FontAwesome name="file" />
+        &nbsp; Drop file to upload
+      </Button>
     </Upload>
   )
 }
