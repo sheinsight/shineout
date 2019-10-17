@@ -213,29 +213,28 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-11-dragger.j
 <div>
   <div>
     <span>
-      <div>
-        <span>
+      <span>
+        <div>
           <div>
             <i />
             <br />
             Click or Drag image to upload
           </div>
-        </span>
-      </div>
-      <input />
+        </div>
+        <input />
+      </span>
     </span>
   </div>
   <br />
   <div>
     <span>
       <span>
-        <div>
+        <button>
           <i />
-          <br />
-          Click or Drag file to upload
-        </div>
+            Drop file to upload
+        </button>
+        <input />
       </span>
-      <input />
     </span>
   </div>
 </div>
