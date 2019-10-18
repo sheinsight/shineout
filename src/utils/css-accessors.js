@@ -53,6 +53,7 @@ const accessors = {
   card: {},
   modal: {},
   popover: {},
+  tree: {},
 }
 
 for (const [key, value] of Object.entries(accessors)) {
