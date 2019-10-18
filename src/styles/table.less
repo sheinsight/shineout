@@ -15,7 +15,7 @@
   table {
     min-width: 100%;
     border-collapse: separate;
-    border-spacing: 0;
+    border-spacing: 0 @table-row-spacing;
     color: @table-color;
     table-layout: fixed;
     // Cells
@@ -31,6 +31,12 @@
           background-clip: padding-box;
           line-height: @line-height-base;
           word-break: break-all;
+          &:first-child {
+            border-radius: @table-row-border-radius 0 0 @table-row-border-radius;
+          }
+          &:last-child {
+            border-radius: 0 @table-row-border-radius @table-row-border-radius 0;
+          }
         }
       }
     }
