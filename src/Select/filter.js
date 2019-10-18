@@ -17,6 +17,7 @@ export default Origin =>
       onCreate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
       value: PropTypes.any,
       noCache: PropTypes.bool,
+      multiple: PropTypes.bool,
     }
 
     static defaultProps = {
@@ -36,6 +37,13 @@ export default Origin =>
       this.getResultByValues = this.getResultByValues.bind(this)
 
       this.resultCache = new Map()
+    }
+
+    componentDidUpdate(prevProps) {
+      const { datum, multiple } = this.props
+      if (prevProps.multiple !== multiple) {
+        datum.limit = multiple ? 0 : 1
+      }
     }
 
     getTreeResult(value, prediction) {
