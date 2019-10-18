@@ -52,12 +52,12 @@ class Content extends PureComponent {
   }
 
   renderIndicator() {
-    const { data, expanded, loader, childrenKey } = this.props
+    const { data, expanded, expandIcons, loader, childrenKey } = this.props
     const children = data[childrenKey]
-
+    const icon = expandIcons ? expandIcons[expanded + 0] : <span className={treeClass('default-icon')} />
     const indicator = (
       <a onClick={this.handleIndicatorClick} className={treeClass(`icon-${expanded ? 'sub' : 'plus'}`)}>
-        <span />
+        {icon}
       </a>
     )
 
@@ -102,6 +102,7 @@ Content.propTypes = {
   renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]).isRequired,
   parentClickExpand: PropTypes.bool,
   childrenKey: PropTypes.string,
+  expandIcons: PropTypes.array,
 }
 
 export default Content

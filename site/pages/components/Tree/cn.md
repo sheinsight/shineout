@@ -27,4 +27,5 @@
 | value | array\[key] | 无 | 选中的 key （受控） | 
 | onDrop | function(data, key, targetKey, position) | 无 | 设置 onDrop 属性时，为可拖动状态<br />data: 拖动后重新排序的完整数据<br />key: 拖动的节点key<br />targetKey: 目标节点 key<br />position: 在目标节点的位置，以 0 开始 | 
 | defaultExpandAll | boolean | false | 默认展开所有节点 | 
-| childrenKey | string | 'children' | 指定子数据的属性名 | 
+| childrenKey | string | 'children' | 指定子数据的属性名 |
+| expandIcons | [Element, Element] | 无 | 自定义展开/收起按钮 |

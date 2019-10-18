@@ -66,15 +66,15 @@
       top: 0px;
       left: 0px;
 
-      &:hover span {
+      &:hover span.@{tree-prefix}-default-icon {
         border-color: @colors-primary;
       }
 
-      &:focus span {
+      &:focus span.@{tree-prefix}-default-icon {
         .input-focus()
       }
 
-      span {
+      span.@{tree-prefix}-default-icon {
         position: relative;
         display: inline-block;
         width: 11px;
@@ -97,7 +97,7 @@
       }
     }
 
-    .@{tree-prefix}-icon-plus span {
+    .@{tree-prefix}-icon-plus span.@{tree-prefix}-default-icon {
       &:after {
         position: absolute;
         top: 1px;
@@ -121,11 +121,11 @@
       left: 0px;
       width: 16px;
 
-      &:hover span {
+      &:hover span.@{tree-prefix}-default-icon {
         border-left-color: @colors-primary;
       }
 
-      span {
+      span.@{tree-prefix}-default-icon {
         position: absolute;
         top: 6px;
         left: 6px;
@@ -140,7 +140,7 @@
       }
     }
 
-    .@{tree-prefix}-icon-sub span {
+    .@{tree-prefix}-icon-sub span.@{tree-prefix}-default-icon {
       transform: rotate(90deg);
     }
   }
