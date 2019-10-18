@@ -1972,6 +1972,31 @@ const injects = {
       )
     },
   },
+  tree: {
+    info: {
+      title: 'Tree 树型选择',
+      name: 'tree',
+      path: 'Tree',
+    },
+    conf: [
+      {
+        name: 'levelIndent',
+        className: exposeClass('tree-indent'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        min: -100,
+      },
+    ],
+    set levelIndent(v) {
+      setBodyProperty(
+        {
+          '--tree-level-indent': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+  },
 }
 
 export default injects
