@@ -982,6 +982,22 @@ const injects = {
         type: 'color',
       },
       {
+        name: 'rowSpacing',
+        className: exposeClass('table-spacing'),
+        attr: 'height',
+        type: 'number',
+        parser: parseInt,
+        desc: 'Use with caution while rowspan',
+      },
+      {
+        name: 'rowBorderRadius',
+        className: exposeClass('table-spacing'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+        desc: 'Use with caution while rowspan',
+      },
+      {
         name: 'headFontWeight',
         className: exposeClass('table-head'),
         attr: 'fontWeight',
@@ -1036,6 +1052,22 @@ const injects = {
       setBodyProperty(
         {
           '--table-head-color': v,
+        },
+        v
+      )
+    },
+    set rowSpacing(v) {
+      setBodyProperty(
+        {
+          '--table-row-spacing': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set rowBorderRadius(v) {
+      setBodyProperty(
+        {
+          '--table-row-border-radius': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -1935,6 +1967,31 @@ const injects = {
       setBodyProperty(
         {
           '--popover-box-shadow': v,
+        },
+        v
+      )
+    },
+  },
+  tree: {
+    info: {
+      title: 'Tree 树型选择',
+      name: 'tree',
+      path: 'Tree',
+    },
+    conf: [
+      {
+        name: 'levelIndent',
+        className: exposeClass('tree-indent'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        min: -100,
+      },
+    ],
+    set levelIndent(v) {
+      setBodyProperty(
+        {
+          '--tree-level-indent': `${parseInt(v, 10)}px`,
         },
         v
       )
