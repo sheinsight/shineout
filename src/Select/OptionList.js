@@ -111,6 +111,7 @@ class OptionList extends Component {
   }
 
   handleScroll(x, y, max, bar, v, h, pixelX, pixelY) {
+    if (!this.optionInner) return
     const { data, itemsInView, lineHeight } = this.props
     const fullHeight = itemsInView * lineHeight
     const contentHeight = data.length * lineHeight - h
