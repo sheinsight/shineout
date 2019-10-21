@@ -20,7 +20,8 @@
     "TreeSelect": "树选择",
     "Slider": "滑块",
     "Textarea": "多行文本框",
-    "Upload": "上传"
+    "Upload": "上传",
+    "Transfer": "穿梭框"
   },
   "Data": {
     "Carousel": "轮播",
