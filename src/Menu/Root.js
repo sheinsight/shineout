@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import immer from 'immer'
+import { getKey } from '../utils/uid'
 import { defaultProps, getProps } from '../utils/proptypes'
 import normalizeWheel from '../utils/dom/normalizeWheel'
 import ScrollBar from '../Scroll/Bar'
@@ -152,11 +153,12 @@ class Root extends React.Component {
   }
 
   updateOpen() {
+    const { data, keygen } = this.props
     Object.keys(this.itemsOpen).forEach(id => {
       const update = this.itemsOpen[id]
       update(this.checkOpen)
     })
-    const hasOpen = this.getOpenKeys().length > 0
+    const hasOpen = this.getOpenKeys().filter(k => data.find((d, i) => getKey(d, keygen, i) === k)).length > 0
     if (hasOpen !== this.state.hasOpen) {
       this.setState({ hasOpen })
     }
