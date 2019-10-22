@@ -211,7 +211,8 @@ class Root extends React.Component {
     const size = this.container.getBoundingClientRect()[key]
     // const size = this.rootElement.getBoundingClientRect()[key] - this.container.getBoundingClientRect()[key]
     this.wrapper[`scroll${pos}`] += wheel[`pixel${direction}`]
-    this.setState({ [`scroll${pos}`]: this.wrapper[`scroll${pos}`] / size })
+    const precent = this.wrapper[`scroll${pos}`] / size
+    this.setState({ [`scroll${pos}`]: precent > 1 ? 1 : precent })
     // this.setState({ [`scroll${pos}`]: size === 0 ? 0 : this.wrapper[`scroll${pos}`] / size })
     e.preventDefault()
   }
