@@ -158,7 +158,7 @@ class Tbody extends PureComponent {
         columns={columns}
         rowKey={key}
         onExpand={this.handleExpand}
-        expandRender={this.findExpandFunc(key, i)}
+        expandRender={this.findExpandFunc(originKey, i)}
       />
     )
   }
