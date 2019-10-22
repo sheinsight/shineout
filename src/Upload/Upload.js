@@ -270,7 +270,7 @@ class Upload extends PureComponent {
 
       onLoad: xhr => {
         if (!/^2|1223/.test(xhr.status)) {
-          this.handleError(id, xhr)
+          this.handleError(id, xhr, file)
           return
         }
 
@@ -301,7 +301,7 @@ class Upload extends PureComponent {
         }
       },
 
-      onError: xhr => this.handleError(id, xhr),
+      onError: xhr => this.handleError(id, xhr, file),
     }
     if (onProgress === false || onProgress === null) {
       delete options.onProgress
@@ -321,12 +321,12 @@ class Upload extends PureComponent {
     })
   }
 
-  handleError(id, xhr) {
+  handleError(id, xhr, file) {
     const { onError, onHttpError } = this.props
 
     let message = xhr.statusText
-    if (onError) message = onError(xhr)
-    if (onHttpError) message = onHttpError(xhr) || message
+    if (onError) message = onError(xhr, file)
+    if (onHttpError) message = onHttpError(xhr, file) || message
 
     this.setState(
       immer(draft => {

@@ -28,14 +28,13 @@ class Image extends PureComponent {
 
   componentDidMount() {
     super.componentDidMount()
-    if (!this.props.lazy) this.markToRender()
-    else {
-      const { container } = this.props
-      this.lazyId = addStack({
-        element: this.element,
-        render: this.markToRender,
-        container: typeof container === 'string' ? document.querySelector(container) : container,
-      })
+    this.fetchImage()
+  }
+
+  componentDidUpdate(prevProps) {
+    const { src, alt } = this.props
+    if (prevProps.src !== src || prevProps.alt !== alt) {
+      this.fetchImage()
     }
   }
 
@@ -47,6 +46,20 @@ class Image extends PureComponent {
 
   bindElement(el) {
     this.element = el
+  }
+
+  fetchImage() {
+    if (this.lazyId) removeStack(this.lazyId)
+    if (!this.props.lazy) {
+      this.markToRender()
+    } else {
+      const { container } = this.props
+      this.lazyId = addStack({
+        element: this.element,
+        render: this.markToRender,
+        container: typeof container === 'string' ? document.querySelector(container) : container,
+      })
+    }
   }
 
   markToRender() {
