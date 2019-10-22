@@ -44,7 +44,15 @@ export default function datum(Origin) {
     }
 
     componentDidUpdate(prevProps) {
-      if (prevProps.data !== this.props.data) this.datum.setData(this.props.data)
+      if (!shallowEqual(prevProps.data, this.props.data)) {
+        const prevValue = this.datum.getValue()
+        this.datum.setValue([])
+        this.datum.setData(this.props.data)
+        prevValue.forEach(v => {
+          if (this.datum.getDataById(v)) this.datum.set(v, 1)
+        })
+        this.forceUpdate()
+      }
     }
 
     render() {
