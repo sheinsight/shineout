@@ -29,3 +29,7 @@
 | defaultExpandAll | boolean | false | 默认展开所有节点 | 
 | childrenKey | string | 'children' | 指定子数据的属性名 |
 | expandIcons | [Element, Element] | 无 | 自定义展开/收起按钮 |
+| dragImageSelector | string: Selector \| function(data) | 无 | 定义拖拽图片的选择器 |
+| dragImageStyle | object | 无 | 拖拽图片的样式 |
+| leafClass | string \| function(data) | 无 | 叶子节点的 class, 函数的参数为该条叶子节点数据 |
+| dragHoverExpand | bool | false | 拖拽时自动展开含有子节点的节点 |

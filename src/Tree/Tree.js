@@ -173,6 +173,11 @@ class Tree extends PureComponent {
       parentClickExpand,
       childrenKey,
       expandIcons,
+      dragImageStyle,
+      dragImageSelector,
+      childrenClass,
+      leafClass,
+      dragHoverExpand,
     } = this.props
     const onToggle = onExpand ? this.handleToggle : undefined
 
@@ -197,6 +202,11 @@ class Tree extends PureComponent {
         parentClickExpand={parentClickExpand}
         childrenKey={childrenKey}
         expandIcons={expandIcons}
+        dragImageStyle={dragImageStyle}
+        dragImageSelector={typeof dragImageSelector === 'function' ? dragImageSelector : () => dragImageSelector}
+        childrenClass={typeof childrenClass === 'function' ? childrenClass : () => childrenClass}
+        leafClass={typeof leafClass === 'function' ? leafClass : () => leafClass}
+        dragHoverExpand={dragHoverExpand}
       />
     )
   }
@@ -224,6 +234,7 @@ Tree.propTypes = {
   dataUpdate: PropTypes.bool,
   childrenKey: PropTypes.string,
   expandIcons: PropTypes.array,
+  dragImageStyle: PropTypes.object,
 }
 
 Tree.defaultProps = {
@@ -233,6 +244,7 @@ Tree.defaultProps = {
   mode: 0,
   dataUpdate: true,
   childrenKey: 'children',
+  dragImageStyle: {},
 }
 
 export default Tree
