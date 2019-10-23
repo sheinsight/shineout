@@ -35,6 +35,7 @@
 | onTreeExpand | function(keys) | none | expand row change, keys is expanded row keys |
 | hover | bool | true | row hover highlight |
 | treeEmptyExpand | bool | false | show expand button while children data is empty |
+| treeCheckAll | bool | false | check children data while select all | 
 
 ### Column
 | Property | Type | Default | Description |

@@ -95,7 +95,7 @@ class Thead extends PureComponent {
   }
 
   createTh(trs, col, level) {
-    const { columnResizable } = this.props
+    const { columnResizable, allData } = this.props
     const fixed = []
     if (col.fixed) fixed.push(`fixed-${col.fixed}`)
     if (col.firstFixed) fixed.push('fixed-first')
@@ -132,7 +132,7 @@ class Thead extends PureComponent {
     if (col.type === 'checkbox') {
       trs[level].push(
         <th key="checkbox" rowSpan={trs.length} className={classnames(tableClass('checkbox', ...fixed), col.className)}>
-          {showSelectAll && <CheckboxAll disabled={disabled === true} data={data} datum={datum} />}
+          {showSelectAll && <CheckboxAll disabled={disabled === true} data={data} datum={datum} allData={allData} />}
         </th>
       )
 
@@ -212,6 +212,7 @@ Thead.propTypes = {
   bordered: PropTypes.bool,
   onColChange: PropTypes.func,
   columnResizable: PropTypes.bool,
+  allData: PropTypes.array,
 }
 
 Thead.defaultProps = {
