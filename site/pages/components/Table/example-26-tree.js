@@ -153,9 +153,6 @@ const data = [
 ]
 
 const columns = [
-  {
-    type: 'checkbox',
-  },
   { title: 'Name', render: d => `${d.firstName} ${d.lastName}`, width: 300, treeColumnsName: 'children' },
   { title: 'Country', render: 'country' },
   { title: 'Position', render: 'position' },
@@ -163,5 +160,5 @@ const columns = [
 ]
 
 export default function() {
-  return <Table treeCheckAll bordered fixed="y" height={300} keygen="id" columns={columns} data={data} />
+  return <Table bordered fixed="y" height={300} keygen="id" columns={columns} data={data} />
 }
