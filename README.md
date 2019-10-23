@@ -38,11 +38,11 @@ react-dom >= 16.0.0
 | IE10, IE11, Edge| last 2 versions| last 2 versions| last 2 versions| last 2 versions| last 2 versions |
 
 ## 💡Examples
-  - [Concise and intelligent Form](https://shine.wiki/1.4.x/en/components/Form#heading-01-base)
+  - [Concise And Intelligent Form](https://shine.wiki/1.4.x/en/components/Form#heading-01-base)
   
    <img src="./site/images/form.gif" />
 
-  - [performance Table width 10000 records](https://shine.wiki/1.4.x/en/components/Table#heading-08-bigdata)
+  - [Performance Table With 10000 Records](https://shine.wiki/1.4.x/en/components/Table#heading-08-bigdata)
   
    <img src="./site/images/table.gif" />
 
