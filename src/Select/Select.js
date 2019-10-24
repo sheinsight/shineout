@@ -412,6 +412,7 @@ class Select extends PureComponent {
       result,
       compressed,
       trim,
+      renderUnmatched,
     } = this.props
     const className = selectClass(
       'inner',
@@ -449,6 +450,7 @@ class Select extends PureComponent {
           multiple={multiple}
           placeholder={placeholder}
           renderResult={renderResult}
+          renderUnmatched={renderUnmatched}
           onInputBlur={this.handleInputBlur}
           onInputFocus={this.handleInputFocus}
           setInputReset={this.setInputReset}
@@ -488,6 +490,7 @@ Select.propTypes = {
   trim: PropTypes.bool,
   autoAdapt: PropTypes.bool,
   filterSingleSelect: PropTypes.bool,
+  renderUnmatched: PropTypes.func,
 }
 
 Select.defaultProps = {
