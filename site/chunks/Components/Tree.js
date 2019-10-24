@@ -86,6 +86,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Tree/example-08-drag.js'),
   },
   {
+    name: '08-styledrag',
+    title: locate(
+      '设置拖动样式 \n 可以通过 dragImageSelector, dragImageStyle, dragHoverExpand定义一些拖动的设置',
+      'Set the drag style \n Some drag settings can be defined by dragImageSelector, dragImageStyle, dragHoverExpand'
+    ),
+    component: require('doc/pages/components/Tree/example-08-styledrag.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tree/example-08-styledrag.js'),
+  },
+  {
     name: '09-lazyload',
     title: locate(
       '动态加载 \n 数据过大，需要动态加载时，可以设置 loader 函数，当展开未定义 children（undefined）的节点时，触发此函数',

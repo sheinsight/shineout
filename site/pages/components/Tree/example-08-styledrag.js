@@ -1,8 +1,8 @@
 /**
- * cn - 拖动
- *    -- 设置 onDrop 属性可以拖动节点
- * en - Drag
- *    -- Set the onDrop property to drag nodes.
+ * cn - 设置拖动样式
+ *    -- 可以通过 dragImageSelector, dragImageStyle, dragHoverExpand定义一些拖动的设置
+ * en - Set the drag style
+ *    -- Some drag settings can be defined by dragImageSelector, dragImageStyle, dragHoverExpand
  */
 import React, { Component } from 'react'
 import { Tree } from 'shineout'
@@ -34,7 +34,10 @@ export default class extends Component {
         keygen="id"
         defaultExpanded={this.defaultExpanded}
         onDrop={this.handleDrop}
+        dragImageSelector={d => `#node-id-${d.id}`}
+        dragImageStyle={{ color: 'red' }}
         renderItem={this.renderItem}
+        dragHoverExpand
       />
     )
   }
