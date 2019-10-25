@@ -34,3 +34,4 @@
 | separator | string | 无 | 多选情况下设置后，value 会处理为 separator 分隔的字符串 |
 | childrenKey | string | 'children' | 树形数据下，指定子数据的属性名 | 
 | defaultExpandAll| bool | false | 默认展开全部子节点, 仅树形数据下有效 | 
+| renderUnmatched | func | 无 | 渲染未匹配值的方式 |

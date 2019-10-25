@@ -24,11 +24,15 @@ function genAccessors(obj, data) {
     Object.defineProperty(obj, name, {
       enumerable: true,
       get: () => {
+        if (item.value) return item.value
         const res = getStyleAttr(className, attr)
         return parser(res)
       },
       // eslint-disable-next-line no-return-assign
-      set: v => (data[name] = v),
+      set: v => {
+        if (item.value) item.value = v
+        data[name] = v
+      },
     })
   })
 }

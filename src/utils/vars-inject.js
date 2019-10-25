@@ -1787,7 +1787,7 @@ const injects = {
       },
       {
         name: 'dividerWidth',
-        className: exposeClass('card-divider'),
+        value: '100%',
         attr: 'width',
         type: 'string',
       },

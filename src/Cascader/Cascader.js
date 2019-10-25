@@ -11,7 +11,7 @@ import { docSize } from '../utils/dom/document'
 import { getParent } from '../utils/dom/element'
 import absoluteList from '../List/AbsoluteList'
 
-const OptionList = absoluteList(({ focus, ...other }) => (focus ? <div {...other} /> : null))
+const OptionList = absoluteList(({ focus, getRef, ...other }) => (focus ? <div {...other} /> : null))
 
 const isDescendent = (el, id) => {
   if (el.getAttribute('data-id') === id) return true

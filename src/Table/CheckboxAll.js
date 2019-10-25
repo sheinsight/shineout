@@ -7,7 +7,9 @@ import Checkbox from '../Checkbox/Checkbox'
 export default class extends PureComponent {
   static propTypes = {
     data: PropTypes.array,
+    allData: PropTypes.array,
     datum: PropTypes.object.isRequired,
+    treeCheckAll: PropTypes.bool,
   }
 
   constructor(props) {
@@ -45,23 +47,18 @@ export default class extends PureComponent {
   }
 
   handleChange(_, checked, index) {
-    const { data, datum } = this.props
+    const { data, datum, allData } = this.props
+    const checkedData = allData || data
     if (checked) {
-      datum.add(data, index)
+      datum.add(checkedData, index)
     } else {
-      datum.remove(data, index)
+      datum.remove(checkedData, index)
     }
   }
 
   render() {
     if (this.props.datum.limit === 1) return null
 
-    return (
-      <Checkbox
-        {...this.props}
-        checked={this.getChecked()}
-        onChange={this.handleChange}
-      />
-    )
+    return <Checkbox {...this.props} checked={this.getChecked()} onChange={this.handleChange} />
   }
 }

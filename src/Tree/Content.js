@@ -15,10 +15,6 @@ class Content extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.state = {
-      fetching: false,
-    }
-
     this.handleNodeClick = this.handleNodeClick.bind(this)
     this.handleIndicatorClick = this.handleIndicatorClick.bind(this)
   }
@@ -35,13 +31,13 @@ class Content extends PureComponent {
   }
 
   handleIndicatorClick() {
-    const { id, data, onToggle, loader, childrenKey } = this.props
+    const { id, data, onToggle, loader, childrenKey, setFetching } = this.props
 
     onToggle()
 
     if (data[childrenKey] !== undefined) return
 
-    this.setState({ fetching: true })
+    setFetching(true)
     loader(id, data)
   }
 
@@ -52,7 +48,7 @@ class Content extends PureComponent {
   }
 
   renderIndicator() {
-    const { data, expanded, expandIcons, loader, childrenKey } = this.props
+    const { data, expanded, expandIcons, loader, childrenKey, fetching } = this.props
     const children = data[childrenKey]
     const icon = expandIcons ? expandIcons[expanded + 0] : <span className={treeClass('default-icon')} />
     const indicator = (
@@ -64,8 +60,8 @@ class Content extends PureComponent {
     if (children && children.length > 0) return indicator
     if (Array.isArray(children) || children === null) return null
 
-    if (this.state.fetching && !children) return loading
-    if (loader && !this.state.fetching) return indicator
+    if (fetching && !children) return loading
+    if (loader && !fetching) return indicator
 
     return null
   }
@@ -103,6 +99,8 @@ Content.propTypes = {
   parentClickExpand: PropTypes.bool,
   childrenKey: PropTypes.string,
   expandIcons: PropTypes.array,
+  setFetching: PropTypes.func,
+  fetching: PropTypes.bool,
 }
 
 export default Content
