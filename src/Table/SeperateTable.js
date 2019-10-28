@@ -99,10 +99,12 @@ class SeperateTable extends PureComponent {
     return lastRowHeight
   }
 
-  setRowHeight(height, index) {
+  setRowHeight(height, index, expand) {
     const oldHeight = this.cachedRowHeight[index]
     this.cachedRowHeight[index] = height
-
+    if (!this.renderByExpand && expand) {
+      this.renderByExpand = true
+    }
     if (!this.tbody) return
 
     const { offsetLeft, currentIndex } = this.state
@@ -171,12 +173,17 @@ class SeperateTable extends PureComponent {
     const height = fullHeight * scrollTop
 
     if (this.lastScrollTop - height >= 1) {
-      this.lastScrollTop = height
       const index = this.getIndex(scrollTop)
       setTimeout(() => {
         this.setState({ currentIndex: index })
       })
 
+      if (this.renderByExpand) {
+        this.renderByExpand = false
+        return
+      }
+
+      this.lastScrollTop = height
       if (treeColumnsName && changedByExpand) {
         this.tbody.style.marginTop = `${this.lastScrollArgs[5] * scrollTop}px`
         setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
