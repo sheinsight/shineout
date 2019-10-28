@@ -105,7 +105,7 @@ export default class extends React.Component {
     // cancel sorter
     if (!order) {
       this.setState({ sorter: {} }, () => {
-        if (onSortCancel) onSortCancel(cancelOrder)
+        if (onSortCancel) onSortCancel(cancelOrder, index)
       })
       return
     }

@@ -45,8 +45,8 @@ function handleSorter(name, order) {
   return sorter[name](order)
 }
 
-function handleCancel(prevType) {
-  console.log('sort cancel : ', prevType)
+function handleCancel(prevType, index) {
+  console.log('sort cancel : ', prevType, index)
 }
 
 export default function() {
