@@ -13,7 +13,7 @@ class Sorter extends PureComponent {
     const { sorter, index, onChange, current } = this.props
     const isCancel = index === current.index && order === current.order
     const finalOrder = isCancel ? undefined : order
-    onChange(finalOrder, sorter, index)
+    onChange(finalOrder, sorter, index, order)
   }
 
   handleAsc() {

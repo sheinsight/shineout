@@ -23,6 +23,7 @@ export default class extends React.Component {
     onRowSelect: PropTypes.func,
     datum: PropTypes.object,
     sorter: PropTypes.func,
+    onSortCancel: PropTypes.func,
   }
 
   static defaultProps = {
@@ -99,10 +100,13 @@ export default class extends React.Component {
     return tableSorter
   }
 
-  handleSortChange(order, sorter, index) {
+  handleSortChange(order, sorter, index, cancelOrder) {
+    const { onSortCancel } = this.props
     // cancel sorter
     if (!order) {
-      this.setState({ sorter: {} })
+      this.setState({ sorter: {} }, () => {
+        if (onSortCancel) onSortCancel(cancelOrder)
+      })
       return
     }
     const sort = typeof sorter === 'string' ? this.getTableSorter()(sorter, order) : sorter(order)

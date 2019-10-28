@@ -45,6 +45,10 @@ function handleSorter(name, order) {
   return sorter[name](order)
 }
 
+function handleCancel(prevType) {
+  console.log('sort cancel : ', prevType)
+}
+
 export default function() {
   return (
     <Table
@@ -57,6 +61,7 @@ export default function() {
       columns={columns}
       data={data}
       rowsInView={10}
+      onSortCancel={handleCancel}
     />
   )
 }
