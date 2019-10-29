@@ -1267,6 +1267,15 @@ const injects = {
         type: 'number',
         parser: parseInt,
       },
+      {
+        name: 'fontWeight',
+        className: tagClass('_'),
+        attr: 'fontWeight',
+        type: 'number',
+        parser: parseInt,
+        min: 100,
+        max: 900,
+      },
     ],
     set bg(v) {
       setBodyProperty(
@@ -1320,6 +1329,14 @@ const injects = {
       setBodyProperty(
         {
           '--tag-padding-vertical': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set fontWeight(v) {
+      setBodyProperty(
+        {
+          '--tag-font-weight': v,
         },
         v
       )
