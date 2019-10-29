@@ -1060,6 +1060,20 @@ const injects = {
         type: 'number',
         parser: parseInt,
       },
+      {
+        name: 'cellPaddingHorizontal',
+        className: exposeClass('table-cell'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'cellPaddingVertical',
+        className: exposeClass('table-cell'),
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+      },
     ],
     set headBg(v) {
       setBodyProperty(
@@ -1129,6 +1143,22 @@ const injects = {
       setBodyProperty(
         {
           '--table-border-radius-top': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set cellPaddingHorizontal(v) {
+      setBodyProperty(
+        {
+          '--table-cell-padding-horizontal': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set cellPaddingVertical(v) {
+      setBodyProperty(
+        {
+          '--table-cell-padding-vertical': `${parseInt(v, 10)}px`,
         },
         v
       )
