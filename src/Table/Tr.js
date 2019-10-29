@@ -54,7 +54,7 @@ class Tr extends Component {
     }
   }
 
-  setRowHeight() {
+  setRowHeight(expand) {
     const { setRowHeight, dataUpdated, datum } = this.props
     if (!setRowHeight || !this.element) return
     let { height } = this.element.getBoundingClientRect()
@@ -67,12 +67,12 @@ class Tr extends Component {
     if (height === this.lastRowHeight && this.expandHeight === this.lastExpandHeight && !dataUpdated) return
     this.lastRowHeight = height
     this.lastExpandHeight = this.expandHeight
-    setRowHeight(height + this.expandHeight, this.props.index)
+    setRowHeight(height + this.expandHeight, this.props.index, expand)
   }
 
   setExpandHeight(height) {
     this.expandHeight = height
-    this.setRowHeight()
+    this.setRowHeight(true)
   }
 
   getRowClickAttr() {
