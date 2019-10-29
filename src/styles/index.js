@@ -33,6 +33,7 @@ import progressLess from './progress.less'
 import uploadLess from './upload.less'
 import carouselLess from './carousel.less'
 import cascaderLess from './cascader.less'
+import transferLess from './transfer.less'
 
 export const alertClass = genaration(alertLess, 'alert')
 export const buttonClass = genaration(buttonLess, 'button')
@@ -66,3 +67,4 @@ export const progressClass = genaration(progressLess, 'progress')
 export const uploadClass = genaration(uploadLess, 'upload')
 export const carouselClass = genaration(carouselLess, 'carousel')
 export const cascaderClass = genaration(cascaderLess, 'cascader')
+export const transferClass = genaration(transferLess, 'transfer')
