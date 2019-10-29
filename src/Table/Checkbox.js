@@ -8,6 +8,7 @@ export default class extends PureComponent {
   static propTypes = {
     data: PropTypes.object.isRequired,
     datum: PropTypes.object.isRequired,
+    treeColumnsName: PropTypes.string,
   }
 
   constructor(props) {
@@ -27,11 +28,11 @@ export default class extends PureComponent {
   }
 
   handleChange(_, checked, index) {
-    const { data, datum } = this.props
+    const { data, datum, treeColumnsName } = this.props
     if (checked) {
-      datum.add(data, index)
+      datum.add(data, index, treeColumnsName)
     } else {
-      datum.remove(data, index)
+      datum.remove(data, index, treeColumnsName)
     }
   }
 

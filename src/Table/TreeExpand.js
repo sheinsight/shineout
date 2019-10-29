@@ -15,21 +15,8 @@ export default WrappedComponent => {
       }
     }
 
-    componentDidMount() {
-      if (this.props.treeCheckAll) {
-        this.setState({
-          allData: this.getAllData(),
-        })
-      }
-    }
-
-    componentDidUpdate(prevProps) {
+    componentDidUpdate() {
       this.changedByExpand = false
-      if (prevProps.data !== this.props.data && this.props.treeCheckAll) {
-        this.setState({
-          allData: this.getAllData(),
-        })
-      }
     }
 
     getTreeIndent() {
@@ -94,19 +81,6 @@ export default WrappedComponent => {
       })
     }
 
-    getAllData() {
-      const { data, treeColumnsName } = this.props
-      const allData = []
-      const deepAdd = items => {
-        items.forEach(item => {
-          allData.push(item)
-          if (item[treeColumnsName]) deepAdd(item[treeColumnsName])
-        })
-      }
-      deepAdd(data)
-      return allData
-    }
-
     handleTreeExpand(data, index) {
       const { keygen, treeExpandKeys, onTreeExpand } = this.props
       const expandKeys = this.getExpandKeys()
@@ -126,8 +100,7 @@ export default WrappedComponent => {
     }
 
     render() {
-      const { treeColumnsName, treeCheckAll } = this.props
-      const { allData } = this.state
+      const { treeColumnsName } = this.props
       const expandKeys = this.getExpandKeys()
       const data = this.getExpandData()
       const rootTree = data.filter(v => v && v[treeColumnsName] && v[treeColumnsName].length).length === 0
@@ -137,7 +110,6 @@ export default WrappedComponent => {
           {...this.props}
           changedByExpand={this.changedByExpand}
           data={data}
-          allData={treeCheckAll && allData}
           onTreeExpand={this.handleTreeExpand}
           treeExpandKeys={expandKeys}
           treeExpandLevel={this.expandLevel}
@@ -152,7 +124,6 @@ export default WrappedComponent => {
     ...getProps(PropTypes, 'keygen'),
     data: PropTypes.arrayOf(PropTypes.object),
     treeColumnsName: PropTypes.string,
-    treeCheckAll: PropTypes.bool,
     treeExpandKeys: PropTypes.array,
     onTreeExpand: PropTypes.func,
   }

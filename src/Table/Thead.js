@@ -95,13 +95,13 @@ class Thead extends PureComponent {
   }
 
   createTh(trs, col, level) {
-    const { columnResizable, allData } = this.props
+    const { columnResizable } = this.props
     const fixed = []
     if (col.fixed) fixed.push(`fixed-${col.fixed}`)
     if (col.firstFixed) fixed.push('fixed-first')
     if (col.lastFixed) fixed.push('fixed-last')
 
-    const { sorter, onSortChange, data, datum, showSelectAll, disabled } = this.props
+    const { sorter, onSortChange, data, datum, showSelectAll, disabled, treeColumnsName } = this.props
     const key = this.rightBorderRecord[col.unique] ? col.unique : col.key
 
     const align = col.align && `align-${col.align}`
@@ -132,7 +132,7 @@ class Thead extends PureComponent {
     if (col.type === 'checkbox') {
       trs[level].push(
         <th key="checkbox" rowSpan={trs.length} className={classnames(tableClass('checkbox', ...fixed), col.className)}>
-          {showSelectAll && <CheckboxAll disabled={disabled === true} data={data} datum={datum} allData={allData} />}
+          {showSelectAll && <CheckboxAll disabled={disabled === true} data={data} datum={datum} treeColumnsName={treeColumnsName} />}
         </th>
       )
 
@@ -193,9 +193,9 @@ class Thead extends PureComponent {
 
     return (
       <thead>
-        {trs.map((tr, i) => (
-          <tr key={i}>{tr}</tr>
-        ))}
+      {trs.map((tr, i) => (
+        <tr key={i}>{tr}</tr>
+      ))}
       </thead>
     )
   }
@@ -212,7 +212,6 @@ Thead.propTypes = {
   bordered: PropTypes.bool,
   onColChange: PropTypes.func,
   columnResizable: PropTypes.bool,
-  allData: PropTypes.array,
 }
 
 Thead.defaultProps = {
