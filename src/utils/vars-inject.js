@@ -1768,6 +1768,15 @@ const injects = {
         attr: 'color',
         type: 'color',
       },
+      {
+        name: 'fontWeight',
+        className: messageClass('msg'),
+        attr: 'fontWeight',
+        type: 'number',
+        parser: parseInt,
+        max: 900,
+        min: 100,
+      },
     ],
     set boxShadow(v) {
       setBodyProperty(
@@ -1781,6 +1790,14 @@ const injects = {
       setBodyProperty(
         {
           '--message-text-color': v,
+        },
+        v
+      )
+    },
+    set fontWeight(v) {
+      setBodyProperty(
+        {
+          '--message-font-weight': v,
         },
         v
       )
