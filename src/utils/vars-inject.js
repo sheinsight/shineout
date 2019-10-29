@@ -26,7 +26,7 @@ function getProperty(name = '--btn-hover-darken') {
 
 function setBodyProperty(colors, value) {
   for (const [cssVar, cssValue] of Object.entries(colors)) {
-    if (!value) {
+    if (value === undefined) {
       document.body.style.removeProperty(cssVar)
     } else {
       document.body.style.setProperty(cssVar, cssValue)
@@ -699,6 +699,19 @@ const injects = {
         attr: 'borderColor',
         type: 'color',
       },
+      {
+        name: 'placeholderColor',
+        className: exposeClass('input-placeholder'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
+        name: 'placeholderSize',
+        className: exposeClass('input-placeholder'),
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+      },
     ],
     set borderRadius(v) {
       setBodyProperty(
@@ -737,6 +750,22 @@ const injects = {
       setBodyProperty(
         {
           '--input-focus-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set placeholderColor(v) {
+      setBodyProperty(
+        {
+          '--input-placeholder-color': v,
+        },
+        v
+      )
+    },
+    set placeholderSize(v) {
+      setBodyProperty(
+        {
+          '--input-placeholder-size': `${parseInt(v, 10)}px`,
         },
         v
       )
