@@ -26,7 +26,7 @@ function getProperty(name = '--btn-hover-darken') {
 
 function setBodyProperty(colors, value) {
   for (const [cssVar, cssValue] of Object.entries(colors)) {
-    if (!value) {
+    if (value === undefined) {
       document.body.style.removeProperty(cssVar)
     } else {
       document.body.style.setProperty(cssVar, cssValue)
@@ -699,6 +699,19 @@ const injects = {
         attr: 'borderColor',
         type: 'color',
       },
+      {
+        name: 'placeholderColor',
+        className: exposeClass('input-placeholder'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
+        name: 'placeholderSize',
+        className: exposeClass('input-placeholder'),
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+      },
     ],
     set borderRadius(v) {
       setBodyProperty(
@@ -737,6 +750,22 @@ const injects = {
       setBodyProperty(
         {
           '--input-focus-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set placeholderColor(v) {
+      setBodyProperty(
+        {
+          '--input-placeholder-color': v,
+        },
+        v
+      )
+    },
+    set placeholderSize(v) {
+      setBodyProperty(
+        {
+          '--input-placeholder-size': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -1031,6 +1060,20 @@ const injects = {
         type: 'number',
         parser: parseInt,
       },
+      {
+        name: 'cellPaddingHorizontal',
+        className: exposeClass('table-cell'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'cellPaddingVertical',
+        className: exposeClass('table-cell'),
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+      },
     ],
     set headBg(v) {
       setBodyProperty(
@@ -1100,6 +1143,22 @@ const injects = {
       setBodyProperty(
         {
           '--table-border-radius-top': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set cellPaddingHorizontal(v) {
+      setBodyProperty(
+        {
+          '--table-cell-padding-horizontal': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set cellPaddingVertical(v) {
+      setBodyProperty(
+        {
+          '--table-cell-padding-vertical': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -1238,6 +1297,15 @@ const injects = {
         type: 'number',
         parser: parseInt,
       },
+      {
+        name: 'fontWeight',
+        className: tagClass('_'),
+        attr: 'fontWeight',
+        type: 'number',
+        parser: parseInt,
+        min: 100,
+        max: 900,
+      },
     ],
     set bg(v) {
       setBodyProperty(
@@ -1291,6 +1359,14 @@ const injects = {
       setBodyProperty(
         {
           '--tag-padding-vertical': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set fontWeight(v) {
+      setBodyProperty(
+        {
+          '--tag-font-weight': v,
         },
         v
       )
@@ -1739,6 +1815,15 @@ const injects = {
         attr: 'color',
         type: 'color',
       },
+      {
+        name: 'fontWeight',
+        className: messageClass('msg'),
+        attr: 'fontWeight',
+        type: 'number',
+        parser: parseInt,
+        max: 900,
+        min: 100,
+      },
     ],
     set boxShadow(v) {
       setBodyProperty(
@@ -1752,6 +1837,14 @@ const injects = {
       setBodyProperty(
         {
           '--message-text-color': v,
+        },
+        v
+      )
+    },
+    set fontWeight(v) {
+      setBodyProperty(
+        {
+          '--message-font-weight': v,
         },
         v
       )

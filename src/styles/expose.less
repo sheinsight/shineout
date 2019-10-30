@@ -72,6 +72,9 @@
       height: @table-row-spacing;
       border-radius: @table-row-border-radius;
     }
+    &-cell {
+      padding: @table-cell-padding-vertical @table-cell-padding-horizontal;
+    }
   }
   &-select {
    &-result-item {
@@ -132,6 +135,10 @@
   &-input {
     &-focus {
       border-color: @input-border-focus;
+    }
+    &-placeholder {
+      font-size: @input-size-placeholder;
+      color: @input-color-placeholder;
     }
   }
   &-radio {
