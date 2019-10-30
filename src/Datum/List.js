@@ -12,6 +12,7 @@ export default class {
     this.$events = {}
 
     this.$cachedDisabled = {}
+    this.$cachedFlatten = new Map()
     this.setDisabled(disabled)
 
     if (prediction) this.prediction = prediction
@@ -61,6 +62,12 @@ export default class {
   }
 
   flattenTreeData(data, childrenKey) {
+    const keys = data.map(v => this.format(v)).filter(v => typeof v !== 'object')
+    const key = keys.join()
+    if (keys.length !== 0) {
+      const cached = this.$cachedFlatten.get(key)
+      if (cached) return cached
+    }
     const flatten = []
     const deepAdd = items => {
       items.forEach(item => {
@@ -69,6 +76,7 @@ export default class {
       })
     }
     deepAdd(data)
+    if (keys.length) this.$cachedFlatten.set(key, flatten)
     return flatten
   }
 
