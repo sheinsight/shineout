@@ -40,7 +40,7 @@ class Tree extends PureComponent {
       this.handleActive(this.props.active)
     }
 
-    if (this.props.onChange || this.props.onDrop) {
+    if (this.props.onChange || this.props.onDrop || this.props.radioUpdate) {
       this.datum.mode = this.props.mode
       if (prevProps.value !== this.props.value) this.datum.setValue(this.props.value || [])
       if (prevProps.data !== this.props.data && this.props.dataUpdate) this.datum.setData(this.props.data)
@@ -235,6 +235,7 @@ Tree.propTypes = {
   childrenKey: PropTypes.string,
   expandIcons: PropTypes.array,
   dragImageStyle: PropTypes.object,
+  radioUpdate: PropTypes.bool,
 }
 
 Tree.defaultProps = {
