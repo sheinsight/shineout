@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { Component } from '../component'
 import { getLocale } from '../locale'
+import { compose } from '../utils/func'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { tableClass } from '../styles'
 import Datum from '../Datum'
@@ -14,6 +15,11 @@ import { ROW_HEIGHT_UPDATE_EVENT } from './Tr'
 import { RENDER_COL_GROUP_EVENT } from './Tbody'
 
 const ResizeSeperateTable = resizableHOC(SeperateTable)
+
+const RadioWrapper = Origin => props => (
+  // eslint-disable-next-line react/prop-types
+  <Origin {...props} limit={props.radio ? 1 : 0} />
+)
 
 class Table extends Component {
   constructor(props) {
@@ -146,12 +152,12 @@ Table.defaultProps = {
   verticalAlign: 'top',
 }
 
-export default Datum.hoc(
-  {
-    bindProps: ['disabled', 'format', 'prediction'],
+export default compose(
+  RadioWrapper,
+  Datum.hoc({
+    bindProps: ['disabled', 'format', 'prediction', 'limit'],
     ignoreUndefined: true,
     setValueType: null,
     pure: false,
-  },
-  Table
-)
+  })
+)(Table)

@@ -38,6 +38,7 @@
 | treeEmptyExpand | bool | false | 树形表格子数据为空时依然展示展开按钮 |
 | treeCheckAll | bool | false | 全选时是否将子孙数据选中 | 
 | onSortCancel | func | 无 | 排序取消事件 |
+| radio | bool | false | 是否单选 |
 
 ### Column
 | 属性 | 类型 | 默认值 | 说明 |

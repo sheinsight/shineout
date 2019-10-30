@@ -167,6 +167,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-15-select-format.js'),
   },
   {
+    name: '15-select-radio',
+    title: locate(
+      ' \n 设置 radio 属性实现单选效果',
+      ' \n Set the radio attribute to achieve the radio effect'
+    ),
+    component: require('doc/pages/components/Table/example-15-select-radio.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-15-select-radio.js'),
+  },
+  {
     name: '17-select-disabled',
     title: locate(
       ' \n 设置 disabled 属性，禁用选项。',
