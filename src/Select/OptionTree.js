@@ -59,6 +59,7 @@ class OptionList extends Component {
     return (
       <div className={selectClass('tree-wrapper')}>
         <Tree
+          radioUpdate
           onClick={this.handleClick}
           line={false}
           data={treeData}
