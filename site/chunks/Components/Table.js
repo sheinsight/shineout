@@ -248,6 +248,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-26-tree.js'),
   },
   {
+    name: '26-tree0',
+    title: locate(
+      ' \n 设置 treeCheckAll, 支持递归选择子数据',
+      ' \n Set treeCheckAll to deep check children'
+    ),
+    component: require('doc/pages/components/Table/example-26-tree0.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-26-tree0.js'),
+  },
+  {
     name: '27-tree',
     title: locate(
       ' \n 展开图标在其他列',

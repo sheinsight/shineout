@@ -101,7 +101,7 @@ class Thead extends PureComponent {
     if (col.firstFixed) fixed.push('fixed-first')
     if (col.lastFixed) fixed.push('fixed-last')
 
-    const { sorter, onSortChange, data, datum, showSelectAll, disabled, treeColumnsName } = this.props
+    const { sorter, onSortChange, data, datum, showSelectAll, disabled, treeColumnsName, treeCheckAll } = this.props
     const key = this.rightBorderRecord[col.unique] ? col.unique : col.key
 
     const align = col.align && `align-${col.align}`
@@ -132,7 +132,14 @@ class Thead extends PureComponent {
     if (col.type === 'checkbox') {
       trs[level].push(
         <th key="checkbox" rowSpan={trs.length} className={classnames(tableClass('checkbox', ...fixed), col.className)}>
-          {showSelectAll && <CheckboxAll disabled={disabled === true} data={data} datum={datum} treeColumnsName={treeColumnsName} />}
+          {showSelectAll && (
+            <CheckboxAll
+              disabled={disabled === true}
+              data={data}
+              datum={datum}
+              treeColumnsName={treeCheckAll && treeColumnsName}
+            />
+          )}
         </th>
       )
 
@@ -212,6 +219,8 @@ Thead.propTypes = {
   bordered: PropTypes.bool,
   onColChange: PropTypes.func,
   columnResizable: PropTypes.bool,
+  treeColumnsName: PropTypes.string,
+  treeCheckAll: PropTypes.bool,
 }
 
 Thead.defaultProps = {
