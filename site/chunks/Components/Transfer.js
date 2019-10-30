@@ -22,6 +22,24 @@ const examples = [
     component: require('doc/pages/components/Transfer/example-1-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Transfer/example-1-base.js'),
   },
+  {
+    name: '2-controlled',
+    title: locate(
+      '受控 \n 组件受控',
+      'Controlled \n Component controlled'
+    ),
+    component: require('doc/pages/components/Transfer/example-2-controlled.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Transfer/example-2-controlled.js'),
+  },
+  {
+    name: '2-customTitle',
+    title: locate(
+      '自定义 \n 可以自定义标题, 按钮, 底部等属性',
+      'Customize \n Customizable title, button, bottom properties'
+    ),
+    component: require('doc/pages/components/Transfer/example-2-customTitle.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Transfer/example-2-customTitle.js'),
+  },
 ]
 
 const codes = undefined

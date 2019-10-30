@@ -7,38 +7,15 @@
 import React from 'react'
 import { Transfer } from 'shineout'
 
-const data = [
-  {
-    id: 'a',
-    title: 'a',
-  },
-  {
-    id: 'b',
-    title: 'b',
-  },
-  {
-    id: 'c',
-    title: 'c',
-  },
-  {
-    id: 'd',
-    title: 'd',
-  },
-  {
-    id: 'e',
-    title: 'e',
-  },
-]
+const data = []
+
+for (let i = 1; i < 20; i++) {
+  data.push({
+    id: i,
+    content: `content ${i}`,
+  })
+}
 
 export default function() {
-  return (
-    <Transfer
-      data={data}
-      format="id"
-      renderItem={d => `content ${d.title}`}
-      value={['a']}
-      keygen="id"
-      titles={['左护法', '右护法']}
-    />
-  )
+  return <Transfer data={data} format="id" renderItem="content" keygen="id" titles={['Source', 'Target']} />
 }

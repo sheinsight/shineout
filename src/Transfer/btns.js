@@ -9,22 +9,8 @@ import icons from '../icons'
 class Btns extends Component {
   constructor(props) {
     super(props)
-    this.hasCheck = this.hasCheck.bind(this)
     this.toSource = this.change.bind(this, 0)
     this.toTarget = this.change.bind(this, 1)
-  }
-
-  hasCheck(index) {
-    const { checks, sources, targets, keygen } = this.props
-    const { length } = checks[index]
-    if (length === 0) return true
-    const data = index ? targets : sources
-    for (let i = 0; i < length; i++) {
-      // eslint-disable-next-line
-      if (data.find((d, j) => getKey(d, keygen, j) === checks[index][i])) return false
-    }
-
-    return true
   }
 
   change(index) {
@@ -38,28 +24,29 @@ class Btns extends Component {
   }
 
   render() {
-    const { content, checks, checkKey, index } = this.props
+    const { content, checks, operations } = this.props
+    const defaultOperations = [icons.AngleRight, icons.AngleLeft]
     return (
       <div className={transferClass('btns')}>
         <div>
           <Button
             type="primary"
-            disabled={this.hasCheck(0)}
+            disabled={!checks[0].length}
             size="small"
             className={transferClass('btns-button', 'btns-bottom')}
             onClick={this.toTarget}
           >
-            {icons.AngleRight}
+            {operations(defaultOperations)[0] || icons.AngleRight}
           </Button>
           <br />
           <Button
             type="primary"
-            disabled={this.hasCheck(1)}
+            disabled={!checks[1].length}
             size="small"
             className={transferClass('btns-button')}
             onClick={this.toSource}
           >
-            {icons.AngleLeft}
+            {operations(defaultOperations)[1] || icons.AngleLeft}
           </Button>
         </div>
       </div>

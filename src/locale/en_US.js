@@ -55,4 +55,6 @@ export default {
     },
     reg: '{title} is invalid.',
   },
+
+  selected: 'selected',
 }

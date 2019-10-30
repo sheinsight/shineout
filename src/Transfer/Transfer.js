@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { getKey } from '../utils/uid'
 import Btns from './btns'
 import { Component } from '../component'
 import Card from './Card'
@@ -18,14 +19,20 @@ class Transfer extends Component {
   setChecks(index, value) {
     const { checks } = this.state
     const newChecks = index ? [checks[0], value] : [value, checks[1]]
+    console.log('new', newChecks, value)
     this.setState({
       checks: newChecks,
     })
   }
 
   render() {
-    const { titles, data, datum, keygen, renderItem } = this.props
+    const { titles, data, datum, keygen, renderItem, footers, operations } = this.props
     const { checks } = this.state
+
+    // use this.props.value prioritized
+    if ('value' in this.props && this.props.datum.getValue() !== this.props.value) {
+      this.props.datum.setValue(this.props.value)
+    }
 
     const sources = data.filter(d => !datum.check(d))
     const targets = data.filter(d => datum.check(d))
@@ -41,6 +48,7 @@ class Transfer extends Component {
             renderItem={renderItem}
             setChecks={this.setChecks}
             index={0}
+            footer={footers[0]}
           />
           <Btns
             checks={checks}
@@ -49,6 +57,7 @@ class Transfer extends Component {
             keygen={keygen}
             sources={sources}
             targets={targets}
+            operations={typeof operations === 'function' ? args => operations(args) : () => operations}
             data={data}
           />
           <Card
@@ -59,6 +68,7 @@ class Transfer extends Component {
             renderItem={renderItem}
             setChecks={this.setChecks}
             index={1}
+            footer={footers[1]}
           />
         </Context.Provider>
       </div>
@@ -69,6 +79,8 @@ class Transfer extends Component {
 Transfer.defaultProps = {
   titles: [],
   data: [],
+  footers: [],
+  operations: [],
 }
 
 Transfer.propTypes = {

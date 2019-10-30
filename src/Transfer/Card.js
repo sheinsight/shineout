@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import shallowEqual from '../utils/shallowEqual'
 import SCard from '../Card'
 import Checkbox from '../Checkbox'
 import { Component } from '../component'
@@ -7,6 +8,7 @@ import { transferClass } from '../styles'
 import { getKey } from '../utils/uid'
 import { createFunc } from '../utils/func'
 import Item from './item'
+import { getLocale } from '../locale'
 
 class Card extends Component {
   constructor(props) {
@@ -15,20 +17,20 @@ class Card extends Component {
     this.checkAll = this.checkAll.bind(this)
   }
 
+  // componentDidUpdate(prevProps) {
+  //   if (!shallowEqual(prevProps.data, this.props.data)) {
+  //     const { keygen, data, index, setChecks, checks } = this.props
+  //     console.log('checks', checks.filter(c => !!data.find((d, i) => getKey(d, keygen, i) === c)))
+  //     setChecks(index, checks.filter(c => !!data.find((d, i) => getKey(d, keygen, i) === c)))
+  //   }
+  // }
+
   getCheckAll() {
-    const { checks, keygen, data } = this.props
+    const { checks, data } = this.props
 
     if (checks.length === 0) return false
 
-    let checkNum = 0
-
-    data.forEach((d, i) => {
-      if (checks.indexOf(getKey(d, keygen, i)) > -1) checkNum += 1
-    })
-
-    if (!checkNum) return false
-
-    if (checkNum === data.length) return true
+    if (checks.length === data.length) return true
 
     return 'indeterminate'
   }
@@ -43,12 +45,15 @@ class Card extends Component {
   }
 
   render() {
-    const { title, data, renderItem, keygen, index } = this.props
+    const { title, data, renderItem, checks, keygen, index, footer } = this.props
+    const check = this.getCheckAll()
     return (
       <SCard className={transferClass('card')}>
         <SCard.Header className={transferClass('card-header')}>
           <div>
-            <Checkbox onChange={this.checkAll} checked={this.getCheckAll()}>{`${data.length} 项`}</Checkbox>
+            <Checkbox onChange={this.checkAll} checked={check}>
+              {check ? `${checks.length} ${getLocale('selected')}` : getLocale('selectAll')}
+            </Checkbox>
           </div>
           <div className={transferClass('card-header-title')}>{title}</div>
         </SCard.Header>
@@ -58,6 +63,7 @@ class Card extends Component {
             return <Item key={key} index={index} checkKey={key} liData={d} content={createFunc(renderItem)(d)} />
           })}
         </SCard.Body>
+        {footer && <SCard.Footer className={transferClass('card-footer')}>{footer}</SCard.Footer>}
       </SCard>
     )
   }

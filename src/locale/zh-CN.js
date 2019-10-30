@@ -42,4 +42,6 @@ export default {
     },
     reg: '{title} 格式不正确',
   },
+
+  selected: '项',
 }
