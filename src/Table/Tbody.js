@@ -194,7 +194,6 @@ Tbody.propTypes = {
   offsetRight: PropTypes.number,
   onBodyRender: PropTypes.func,
   values: PropTypes.object,
-  dataUpdated: PropTypes.bool,
   bordered: PropTypes.bool,
 }
 

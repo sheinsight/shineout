@@ -24,6 +24,7 @@ class SeperateTable extends PureComponent {
       scrollLeft: 0,
       scrollTop: 0,
       floatFixed: true,
+      resize: false,
     }
 
     this.bindTbody = this.bindElement.bind(this, 'tbody')
@@ -274,7 +275,7 @@ class SeperateTable extends PureComponent {
     if (!this.tbody || this.realTbody.clientHeight === 0) return
     const [x, y, max, bar, v, h, pixelX, pixelY] = args
     const { colgroup } = this.state
-    this.resize = v && this.lastScrollArgs && v !== this.lastScrollArgs[4]
+    const isResize = v && this.lastScrollArgs && v !== this.lastScrollArgs[4]
     this.lastScrollArgs = args
     const { data, rowHeight, rowsInView } = this.props
     const contentWidth = this.getContentWidth()
@@ -344,7 +345,8 @@ class SeperateTable extends PureComponent {
       scrollTop,
       offsetLeft: left,
       offsetRight: right,
-      colgroup: this.resize ? undefined : colgroup,
+      colgroup: isResize ? undefined : colgroup,
+      resize: isResize ? v : false,
     })
 
     if (this.props.onScroll) this.props.onScroll(x, y, left)
@@ -372,14 +374,14 @@ class SeperateTable extends PureComponent {
 
   renderBody(floatClass) {
     const { data, rowsInView, columns, width, fixed, rowHeight, ...others } = this.props
-    const { colgroup, scrollTop, scrollLeft, offsetLeft, offsetRight, currentIndex } = this.state
+    const { colgroup, scrollTop, scrollLeft, offsetLeft, offsetRight, currentIndex, resize } = this.state
     const contentWidth = this.getContentWidth()
 
     if (!data || data.length === 0) {
       return <div key="body" />
     }
 
-    let dataUpdated = this.lastData !== data || this.resize // Incorrect height due to changing data length dynamically
+    let dataUpdated = this.lastData !== data // Incorrect height due to changing data length dynamically
     if (this.lastData && !dataUpdated) dataUpdated = this.lastData.length !== data.length
     this.lastData = data
 
@@ -414,6 +416,7 @@ class SeperateTable extends PureComponent {
               setRowHeight={this.setRowHeight}
               hasNotRenderRows={hasNotRenderRows}
               dataUpdated={dataUpdated}
+              resize={resize}
             />
           </table>
         </div>
