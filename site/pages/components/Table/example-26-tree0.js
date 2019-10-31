@@ -114,6 +114,7 @@ export default function() {
       bordered
       fixed="y"
       keygen="id"
+      format="id"
       columns={columns}
       data={data}
       treeCheckAll
