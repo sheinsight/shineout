@@ -172,7 +172,6 @@ class Thead extends PureComponent {
     if (columns.length > 0 && this.props.bordered) {
       this.ignoreRightBorder(columns[columns.length - 1])
     }
-    console.log(this.rightBorderRecord)
     return columns
   }
 
