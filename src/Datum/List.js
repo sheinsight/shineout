@@ -87,7 +87,7 @@ export default class {
     if (this.limit === 1) this.$values = []
 
     let raws = Array.isArray(data) ? data : [data]
-    if (childrenKey) {
+    if (childrenKey && this.limit !== 1) {
       raws = this.flattenTreeData(raws, childrenKey)
     }
     raws = raws.filter(v => {
