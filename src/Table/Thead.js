@@ -103,9 +103,8 @@ class Thead extends PureComponent {
 
     const { sorter, onSortChange, data, datum, showSelectAll, disabled } = this.props
     const key = this.rightBorderRecord[col.unique] ? col.unique : col.key
-
     const align = col.align && `align-${col.align}`
-    const ignoreBorderRight = this.rightBorderRecord[col.key] && 'ignore-right-border'
+    const ignoreBorderRight = this.rightBorderRecord[key] && 'ignore-right-border'
     const resize =
       level === 0 && columnResizable && col.columnResizable !== false ? (
         <span onMouseDown={this.handleMouseDown} className={tableClass('resize-spanner')} />
@@ -173,6 +172,7 @@ class Thead extends PureComponent {
     if (columns.length > 0 && this.props.bordered) {
       this.ignoreRightBorder(columns[columns.length - 1])
     }
+    console.log(this.rightBorderRecord)
     return columns
   }
 
