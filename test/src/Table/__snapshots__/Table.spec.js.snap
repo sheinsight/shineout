@@ -37,7 +37,7 @@ exports[`Table[Border&striped] should render border & striped 1`] = `
           id
         </th>
         <th
-          className=""
+          className="so-table-ignore-right-border"
           rowSpan={1}
         >
           Name

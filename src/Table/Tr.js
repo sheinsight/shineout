@@ -44,9 +44,9 @@ class Tr extends Component {
     this.setRowHeight()
   }
 
-  componentDidUpdate() {
-    const { hasNotRenderRows, dataUpdated, columnResizable } = this.props
-    if (hasNotRenderRows || dataUpdated) {
+  componentDidUpdate(prevProps) {
+    const { hasNotRenderRows, dataUpdated, columnResizable, resize } = this.props
+    if (hasNotRenderRows || dataUpdated || prevProps.resize !== resize) {
       const exec = columnResizable ? setTimeout : func => func()
       exec(() => {
         this.setRowHeight()
@@ -221,6 +221,7 @@ Tr.propTypes = {
   dataUpdated: PropTypes.bool,
   treeExpandKeys: PropTypes.object,
   columnResizable: PropTypes.bool,
+  resize: PropTypes.oneOfType([PropTypes.number, PropTypes.bool])
 }
 
 Tr.defaultProps = {
