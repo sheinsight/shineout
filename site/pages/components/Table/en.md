@@ -37,6 +37,7 @@
 | treeEmptyExpand | bool | false | show expand button while children data is empty |
 | treeCheckAll | bool | false | check children data while select all | 
 | onSortCancel | func | none | sort cancel event |
+| radio | bool | false | is Radio |
 
 ### Column
 | Property | Type | Default | Description |

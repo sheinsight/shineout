@@ -3,11 +3,13 @@ import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import { CHANGE_TOPIC } from '../Datum/types'
 import Checkbox from '../Checkbox/Checkbox'
+import Radio from '../Radio/Radio'
 
 export default class extends PureComponent {
   static propTypes = {
     data: PropTypes.object.isRequired,
     datum: PropTypes.object.isRequired,
+    treeColumnsName: PropTypes.string,
   }
 
   constructor(props) {
@@ -27,11 +29,11 @@ export default class extends PureComponent {
   }
 
   handleChange(_, checked, index) {
-    const { data, datum } = this.props
+    const { data, datum, treeColumnsName } = this.props
     if (checked) {
-      datum.add(data, index)
+      datum.add(data, index, treeColumnsName)
     } else {
-      datum.remove(data, index)
+      datum.remove(data, index, treeColumnsName)
     }
   }
 
@@ -39,13 +41,7 @@ export default class extends PureComponent {
     const { data, datum } = this.props
     const checked = datum.check(data)
     const disabled = datum.disabled(data)
-    return (
-      <Checkbox
-        {...this.props}
-        checked={checked}
-        disabled={disabled}
-        onChange={this.handleChange}
-      />
-    )
+    const CheckItem = datum.limit === 1 ? Radio : Checkbox
+    return <CheckItem {...this.props} checked={checked} disabled={disabled} onChange={this.handleChange} />
   }
 }
