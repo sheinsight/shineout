@@ -130,6 +130,7 @@ class Tr extends Component {
       hasNotRenderRows,
       rowClassName,
       treeExpandKeys,
+      rowEvents,
       ...other
     } = this.props
     const tds = []
@@ -186,7 +187,7 @@ class Tr extends Component {
       className = classnames(className, rowClassName(rowData, index))
     }
     const result = [
-      <tr key="0" onClick={this.handleRowClick} className={className} ref={this.bindElement}>
+      <tr key="0" {...rowEvents} onClick={this.handleRowClick} className={className} ref={this.bindElement}>
         {tds}
       </tr>,
     ]
@@ -221,7 +222,8 @@ Tr.propTypes = {
   dataUpdated: PropTypes.bool,
   treeExpandKeys: PropTypes.object,
   columnResizable: PropTypes.bool,
-  resize: PropTypes.oneOfType([PropTypes.number, PropTypes.bool])
+  resize: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
+  rowEvents: PropTypes.array,
 }
 
 Tr.defaultProps = {

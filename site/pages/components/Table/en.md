@@ -38,6 +38,7 @@
 | treeCheckAll | bool | false | check children data while select all | 
 | onSortCancel | func | none | sort cancel event |
 | radio | bool | false | is Radio |
+| rowEvents | array | none | tr events |
 
 ### Column
 | Property | Type | Default | Description |
