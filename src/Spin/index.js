@@ -1,9 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { spinClass } from '../styles'
 
 import {
-  ChasingDots, DoubleBounce, ThreeBounce, ScaleCircle, FadingCircle,
-  CubeGrid, ChasingRing, Wave, FourDots, Default,
+  ChasingDots,
+  DoubleBounce,
+  ThreeBounce,
+  ScaleCircle,
+  FadingCircle,
+  CubeGrid,
+  ChasingRing,
+  Wave,
+  FourDots,
+  Default,
 } from './Multiple'
 import { Ring, Plane, Pulse } from './Simple'
 
@@ -23,13 +32,29 @@ const spins = {
   'three-bounce': ThreeBounce,
 }
 
+function renderContainer(Loading, props) {
+  // eslint-disable-next-line react/prop-types
+  const { loading, children } = props
+  return (
+    <div className={spinClass('container', loading && 'show')}>
+      <div className={spinClass('content')}>{children}</div>
+      {loading && (
+        <div className={spinClass('loading')}>
+          <Loading {...props} />
+        </div>
+      )}
+    </div>
+  )
+}
+
 export default function Spin(props) {
-  const { name } = props
+  const { name, children } = props
   const Component = spins[name]
   if (!Component) {
     console.warn(`Spin type '${name}' not existed.`)
     return null
   }
+  if (children) return renderContainer(Component, props)
   return <Component {...props} />
 }
 
@@ -37,6 +62,7 @@ Spin.displayName = 'ShineoutSpin'
 
 Spin.propTypes = {
   color: PropTypes.string,
+  children: PropTypes.node,
   size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   name: PropTypes.oneOf([
     'default',
