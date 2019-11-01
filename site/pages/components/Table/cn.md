@@ -39,6 +39,7 @@
 | treeCheckAll | bool | false | 全选时是否将子孙数据选中 | 
 | onSortCancel | func | 无 | 排序取消事件 |
 | radio | bool | false | 是否单选 |
+| rowEvents | array | 无 | tr 事件监听器集合 |
 
 ### Column
 | 属性 | 类型 | 默认值 | 说明 |

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import immer from 'immer'
 import { getKey } from '../utils/uid'
 import { getProps } from '../utils/proptypes'
+import { keysToArray } from '../utils/transform'
 
 const TREE_TABLE_DEFAULT_INDENT = 25
 export default WrappedComponent => {
@@ -90,7 +91,7 @@ export default WrappedComponent => {
         expandKeys.get(key) ? draft.delete(key) : draft.set(key, true)
       })
       if (treeExpandKeys && onTreeExpand) {
-        onTreeExpand([...changedKeys.keys()])
+        onTreeExpand(keysToArray(changedKeys))
         return
       }
       this.changedByExpand = true
