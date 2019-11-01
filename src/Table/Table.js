@@ -18,7 +18,7 @@ const ResizeSeperateTable = resizableHOC(SeperateTable)
 
 const RadioWrapper = Origin => props => (
   // eslint-disable-next-line react/prop-types
-  <Origin {...props} limit={props.radio ? 1 : 0} />
+  <Origin {...props} distinct limit={props.radio ? 1 : 0} />
 )
 
 class Table extends Component {
@@ -155,7 +155,7 @@ Table.defaultProps = {
 export default compose(
   RadioWrapper,
   Datum.hoc({
-    bindProps: ['disabled', 'format', 'prediction', 'limit'],
+    bindProps: ['disabled', 'format', 'prediction', 'limit', 'distinct'],
     ignoreUndefined: true,
     setValueType: null,
     pure: false,
