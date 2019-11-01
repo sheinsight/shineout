@@ -23,6 +23,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Spin/example-01-default.js'),
   },
   {
+    name: '01-wrapper',
+    title: locate(
+      '包裹容器 \n 直接把内容内嵌到 Spin 中，将现有容器变为加载状态。',
+      'Container \n children in Spin'
+    ),
+    component: require('doc/pages/components/Spin/example-01-wrapper.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Spin/example-01-wrapper.js'),
+  },
+  {
     name: '02-chasing-dots',
     title: locate(
       'chasing-dots \n name="chasing-dots"',

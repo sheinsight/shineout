@@ -119,6 +119,69 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-01-default.js] 1
 </div>
 `;
 
+exports[`Snapshot test: Spin[site/pages/components/Spin/example-01-wrapper.js] 1`] = `
+<div>
+  <label>
+    <span />
+    <input />
+    <i />
+    <span />
+  </label>
+  <div>
+    <div>
+      <div>
+        <div>
+          <h3>
+            This is Title
+          </h3>
+          Some Content Here...
+        </div>
+      </div>
+    </div>
+    <div>
+      <div>
+        <div>
+          <div />
+        </div>
+        <div>
+          <div />
+        </div>
+        <div>
+          <div />
+        </div>
+        <div>
+          <div />
+        </div>
+        <div>
+          <div />
+        </div>
+        <div>
+          <div />
+        </div>
+        <div>
+          <div />
+        </div>
+        <div>
+          <div />
+        </div>
+        <div>
+          <div />
+        </div>
+        <div>
+          <div />
+        </div>
+        <div>
+          <div />
+        </div>
+        <div>
+          <div />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Snapshot test: Spin[site/pages/components/Spin/example-02-chasing-dots.js] 1`] = `
 <div>
   <div>
