@@ -57,4 +57,5 @@ export default {
   },
 
   selected: 'selected',
+  search: 'search',
 }

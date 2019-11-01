@@ -32,13 +32,31 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Transfer/example-2-controlled.js'),
   },
   {
-    name: '2-customTitle',
+    name: '3-customTitle',
     title: locate(
-      '自定义 \n 可以自定义标题, 按钮, 底部等属性',
+      '自定义 \n 可以自定义标题, 按钮, 底部, 样式等属性',
       'Customize \n Customizable title, button, bottom properties'
     ),
-    component: require('doc/pages/components/Transfer/example-2-customTitle.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Transfer/example-2-customTitle.js'),
+    component: require('doc/pages/components/Transfer/example-3-customTitle.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Transfer/example-3-customTitle.js'),
+  },
+  {
+    name: '4-selected',
+    title: locate(
+      '受控选中 \n 可以通过 selectedKeys 和 onSelectChange 去控制哪些列表项被选中 \n <b>注: 勾选的值均使用的是 keygen 的结果</b>',
+      'Controlled selected \n Can control which elements are selected by selectedKeys and onSelectChange'
+    ),
+    component: require('doc/pages/components/Transfer/example-4-selected.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Transfer/example-4-selected.js'),
+  },
+  {
+    name: '5-filter',
+    title: locate(
+      '筛选 \n 可以通过设置 onFilter 去筛选列表项',
+      'Filter \n Can filter list items by setting onFilter'
+    ),
+    component: require('doc/pages/components/Transfer/example-5-filter.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Transfer/example-5-filter.js'),
   },
 ]
 

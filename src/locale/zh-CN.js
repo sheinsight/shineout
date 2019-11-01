@@ -44,4 +44,5 @@ export default {
   },
 
   selected: '项',
+  search: '搜索',
 }

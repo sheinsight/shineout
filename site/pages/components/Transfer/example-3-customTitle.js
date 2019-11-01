@@ -1,6 +1,6 @@
 /**
  * cn - 自定义
- *    -- 可以自定义标题, 按钮, 底部等属性
+ *    -- 可以自定义标题, 按钮, 底部, 样式等属性
  * en - Customize
  *    -- Customizable title, button, bottom properties
  */
@@ -27,6 +27,7 @@ export default function() {
       keygen="id"
       operations={['to right', 'to left']}
       operationIcon={false}
+      listStyle={{ height: 240 }}
     />
   )
 }

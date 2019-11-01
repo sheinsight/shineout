@@ -14,39 +14,42 @@ class Btns extends Component {
   }
 
   change(index) {
-    const { setChecks, checks, datum, data, keygen } = this.props
+    const { setSelecteds, selecteds, datum, data, keygen } = this.props
 
-    const newValue = checks[1 - index].map(c => data.find((d, i) => getKey(d, keygen, i) === c))
+    const newValue = selecteds[1 - index].map(c => data.find((d, i) => getKey(d, keygen, i) === c))
 
-    setChecks(1 - index, [])
+    setSelecteds(1 - index, [])
 
     datum[index ? 'add' : 'remove'](newValue)
   }
 
   render() {
-    const { content, checks, operations } = this.props
-    const defaultOperations = [icons.AngleRight, icons.AngleLeft]
+    const { selecteds, operations, operationIcon, disabled } = this.props
+
+    const disable = disabled === true
     return (
       <div className={transferClass('btns')}>
         <div>
           <Button
             type="primary"
-            disabled={!checks[0].length}
+            disabled={disable || !selecteds[0].length}
             size="small"
             className={transferClass('btns-button', 'btns-bottom')}
             onClick={this.toTarget}
           >
-            {operations(defaultOperations)[0] || icons.AngleRight}
+            {operationIcon && icons.AngleRight}
+            {operations[0]}
           </Button>
           <br />
           <Button
             type="primary"
-            disabled={!checks[1].length}
+            disabled={disable || !selecteds[1].length}
             size="small"
             className={transferClass('btns-button')}
             onClick={this.toSource}
           >
-            {operations(defaultOperations)[1] || icons.AngleLeft}
+            {operationIcon && icons.AngleLeft}
+            {operations[1]}
           </Button>
         </div>
       </div>
@@ -55,11 +58,14 @@ class Btns extends Component {
 }
 
 Btns.propTypes = {
-  index: PropTypes.number,
-  checks: PropTypes.array,
-  checkKey: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  setChecks: PropTypes.func,
-  content: PropTypes.object,
+  datum: PropTypes.object,
+  selecteds: PropTypes.array,
+  data: PropTypes.array,
+  setSelecteds: PropTypes.func,
+  keygen: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  operations: PropTypes.array,
+  operationIcon: PropTypes.bool,
+  disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 }
 
 export default Btns

@@ -17,7 +17,7 @@
 | defaultValue | array | | Initial value |
 | disabled | bool \| function | false | When the value is true, disabled all checkboxes; When the value is function, disable the checkbox that this function returns true. |
 | filterDelay | number | 400 | ms. The delay of user input triggering filter events |
-| format | string \| function | d => d | Format value<br />The defaule value is return the original data.<br />When it is a string, the value is fetched from the original data as a key equivalent to (d) => d[format]<br />When it is a function, use its return value. |
+| format | string \| function | d => d | Format value<br />The defaule value is return the original data.<br />When it is a string, the value is fetched from the original data as a key equivalent to (d) => d\[format\]<br />When it is a function, use its return value. |
 | name | string | - | The name of a Form that accesses data |
 | keygen | string \| function(obj):string | index | Generate a auxiliary method for each key<br />If not filled, index will be used(not recommended,there may be problems with more than 10 data)<br />When it is a function, use its return value.<br />When it is a string，ues the value of the string.For example, 'id' is the same thing as (d) => d.id. |
 | onChange | function(value) | - | value is the datum.getValue(). |

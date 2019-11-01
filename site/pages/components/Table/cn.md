@@ -11,7 +11,6 @@
 | className | string | 无 | 扩展className |
 | columns | Column\[] | 无 | 数组，见Column |
 | data | object\[] | 无 | 数据 |
-| datum | object | 无 | 如果 format 和 prediction 属性无法满足需求，可以传入一个 [Datum.List](/components/Datum.List) 对象，或者 Datum.List 配置来处理数据。 |
 | disabled | bool \| function | false | 如果 disabled 为 true，禁用全部选项，如果 disabled 为函数，根据函数反回结果禁用选项 |
 | fixed | string | 无 | 可填值 \['both', 'x', 'y'] 
 | format | string \| function | d => d | 格式化 value<br />默认值，返回原始数据<br />为string时，会作为key从原始数据中获取值，相当于 (d) => d[format]<br /> 为函数时，以函数返回结果作为 value |

@@ -38,6 +38,7 @@ export default class extends Component {
         format="id"
         renderItem="content"
         keygen="id"
+        disabled={d => d.content.indexOf('1') > -1}
       />
     )
   }
