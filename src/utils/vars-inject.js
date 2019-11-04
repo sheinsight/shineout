@@ -1894,6 +1894,13 @@ const injects = {
         parser: parseInt,
       },
       {
+        name: 'borderRadius',
+        className: cardClass('_'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
         name: 'borderWidth',
         className: cardClass('_'),
         attr: 'borderWidth',
@@ -1936,6 +1943,14 @@ const injects = {
       setBodyProperty(
         {
           '--card-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set borderRadius(v) {
+      setBodyProperty(
+        {
+          '--panel-border-radius': `${parseInt(v, 10)}px`,
         },
         v
       )
