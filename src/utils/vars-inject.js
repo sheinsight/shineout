@@ -1440,6 +1440,13 @@ const injects = {
         parser: parseInt,
       },
       {
+        name: 'fontSize',
+        className: menuClass('title'),
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
         name: 'darkColor',
         className: exposeClass('menu-dark'),
         attr: 'color',
@@ -1466,6 +1473,12 @@ const injects = {
       {
         name: 'activeColor',
         className: exposeClass('menu-active'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
+        name: 'color',
+        className: menuClass('title'),
         attr: 'color',
         type: 'color',
       },
@@ -1501,6 +1514,14 @@ const injects = {
         v
       )
     },
+    set fontSize(v) {
+      setBodyProperty(
+        {
+          '--menu-item-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
     set darkBg(v) {
       setBodyProperty(
         {
@@ -1529,6 +1550,14 @@ const injects = {
       setBodyProperty(
         {
           '--menu-item-active-color': v,
+        },
+        v
+      )
+    },
+    set color(v) {
+      setBodyProperty(
+        {
+          '--menu-item-color': v,
         },
         v
       )
