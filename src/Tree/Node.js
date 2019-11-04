@@ -110,15 +110,15 @@ class Node extends PureComponent {
 
     const hover = this.element
     const rect = hover.getBoundingClientRect()
-
+    const clientHeight = e.target.getBoundingClientRect().height || 20
     const hoverMiddleY = (rect.bottom - rect.top) / 2
     const hoverClientY = e.clientY - rect.top
 
     let position = this.props.index
     innerPlaceElement.style.height = '0px'
-    if (hoverClientY < hoverMiddleY + 4) {
+    if (hoverClientY < hoverMiddleY + clientHeight * 0.2) {
       hover.parentNode.insertBefore(placeElement, hover)
-      if (hoverClientY > 6) {
+      if (hoverClientY > clientHeight * 0.3) {
         position = -1
         innerPlaceElement.style.height = `${rect.height}px`
       }
