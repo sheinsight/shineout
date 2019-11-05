@@ -667,6 +667,12 @@ const injects = {
     },
     conf: [
       {
+        name: 'color',
+        className: inputClass('_'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
         name: 'borderRadius',
         className: inputClass('_'),
         attr: 'borderRadius',
@@ -713,6 +719,14 @@ const injects = {
         parser: parseInt,
       },
     ],
+    set color(v) {
+      setBodyProperty(
+        {
+          '--input-text-color': v,
+        },
+        v
+      )
+    },
     set borderRadius(v) {
       setBodyProperty(
         {
