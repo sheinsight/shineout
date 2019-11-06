@@ -612,7 +612,7 @@ const injects = {
         attr: 'width',
         type: 'number',
         parser: parseInt,
-        min: 8,
+        min: 0,
         max: 40,
       },
       {
