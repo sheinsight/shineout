@@ -667,6 +667,12 @@ const injects = {
     },
     conf: [
       {
+        name: 'color',
+        className: inputClass('_'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
         name: 'borderRadius',
         className: inputClass('_'),
         attr: 'borderRadius',
@@ -713,6 +719,14 @@ const injects = {
         parser: parseInt,
       },
     ],
+    set color(v) {
+      setBodyProperty(
+        {
+          '--input-text-color': v,
+        },
+        v
+      )
+    },
     set borderRadius(v) {
       setBodyProperty(
         {
@@ -1440,6 +1454,13 @@ const injects = {
         parser: parseInt,
       },
       {
+        name: 'fontSize',
+        className: menuClass('title'),
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
         name: 'darkColor',
         className: exposeClass('menu-dark'),
         attr: 'color',
@@ -1466,6 +1487,12 @@ const injects = {
       {
         name: 'activeColor',
         className: exposeClass('menu-active'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
+        name: 'color',
+        className: menuClass('title'),
         attr: 'color',
         type: 'color',
       },
@@ -1501,6 +1528,14 @@ const injects = {
         v
       )
     },
+    set fontSize(v) {
+      setBodyProperty(
+        {
+          '--menu-item-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
     set darkBg(v) {
       setBodyProperty(
         {
@@ -1529,6 +1564,14 @@ const injects = {
       setBodyProperty(
         {
           '--menu-item-active-color': v,
+        },
+        v
+      )
+    },
+    set color(v) {
+      setBodyProperty(
+        {
+          '--menu-item-color': v,
         },
         v
       )
@@ -1865,6 +1908,13 @@ const injects = {
         parser: parseInt,
       },
       {
+        name: 'borderRadius',
+        className: cardClass('_'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
         name: 'borderWidth',
         className: cardClass('_'),
         attr: 'borderWidth',
@@ -1907,6 +1957,14 @@ const injects = {
       setBodyProperty(
         {
           '--card-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set borderRadius(v) {
+      setBodyProperty(
+        {
+          '--panel-border-radius': `${parseInt(v, 10)}px`,
         },
         v
       )
