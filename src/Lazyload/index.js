@@ -13,7 +13,9 @@ class Lazyload extends PureComponent {
 
 
   componentDidMount() {
+    const { container } = this.props
     this.lazyId = addStack({
+      container,
       element: this.placeholder,
       render: () => this.setState({ ready: true }),
     })
@@ -35,6 +37,7 @@ class Lazyload extends PureComponent {
 Lazyload.propTypes = {
   children: PropTypes.any,
   placeholder: PropTypes.element,
+  container: PropTypes.element,
 }
 
 export default Lazyload
