@@ -16,10 +16,9 @@ class Thead extends PureComponent {
     this.handleMouseUp = this.handleResize.bind(this, 'mouseup')
   }
 
-  setColumns(columns, col, level) {
-    const unique = getUidStr()
+  setColumns(columns, col, level, index = 0) {
     if (!col.group) {
-      columns.push({ ...col, unique })
+      columns.push(col)
       return 1
     }
 
@@ -28,23 +27,22 @@ class Thead extends PureComponent {
     const last = columns[columns.length - 1]
 
     if (!g[level]) {
-      columns.push({ ...col, unique })
+      columns.push(col)
       return 1
     }
 
     let colSpan = 0
     if (last && last.name === g[level]) {
-      colSpan = this.setColumns(last.columns, col, level + 1)
+      colSpan = this.setColumns(last.columns, col, level + 1, index)
       last.colSpan += colSpan
       if (col.fixed) last.fixed = col.fixed
       if (col.lastFixed) last.lastFixed = true
     } else {
       const sub = []
-      colSpan = this.setColumns(sub, col, level + 1)
+      colSpan = this.setColumns(sub, col, level + 1, index)
       columns.push({
-        unique,
         name: g[level],
-        key: typeof g[level] === 'string' ? g[level] : unique,
+        key: typeof g[level] === 'string' ? `${index}-${g[level]}` : getUidStr(),
         colSpan,
         level,
         fixed: col.fixed,
@@ -102,9 +100,8 @@ class Thead extends PureComponent {
     if (col.lastFixed) fixed.push('fixed-last')
 
     const { sorter, onSortChange, data, datum, showSelectAll, disabled, treeColumnsName, treeCheckAll } = this.props
-    const key = this.rightBorderRecord[col.unique] ? col.unique : col.key
     const align = col.align && `align-${col.align}`
-    const ignoreBorderRight = this.rightBorderRecord[key] && 'ignore-right-border'
+    const ignoreBorderRight = this.rightBorderRecord[col.key] && 'ignore-right-border'
     const resize =
       level === 0 && columnResizable && col.columnResizable !== false ? (
         <span onMouseDown={this.handleMouseDown} className={tableClass('resize-spanner')} />
@@ -117,7 +114,7 @@ class Thead extends PureComponent {
             col.className
           )}
           rowSpan={this.columnLevel - level + 1}
-          key={key}
+          key={col.key}
         >
           {typeof col.title === 'function' ? col.title(data) : col.title}
           {col.sorter && <Sorter {...col} current={sorter} onChange={onSortChange} />}
@@ -150,7 +147,7 @@ class Thead extends PureComponent {
       <th
         className={classnames(tableClass('center', 'condensed', ignoreBorderRight, ...fixed), col.className)}
         colSpan={col.colSpan}
-        key={key}
+        key={col.key}
         style={style}
       >
         {col.name}
@@ -164,15 +161,15 @@ class Thead extends PureComponent {
   }
 
   ignoreRightBorder(column) {
-    this.rightBorderRecord[column.unique] = true
+    this.rightBorderRecord[column.key] = true
     if (column.columns) this.ignoreRightBorder(column.columns[column.columns.length - 1])
   }
 
   formatColumns() {
     this.columnLevel = 0
     const columns = []
-    this.props.columns.forEach(col => {
-      this.setColumns(columns, col, 0)
+    this.props.columns.forEach((col, index) => {
+      this.setColumns(columns, col, 0, index)
     })
 
     this.rightBorderRecord = {}
@@ -188,9 +185,7 @@ class Thead extends PureComponent {
     for (let i = 0; i <= this.columnLevel; i++) {
       trs.push([])
     }
-
     columns.forEach(col => this.createTh(trs, col, 0))
-
     return trs
   }
 
