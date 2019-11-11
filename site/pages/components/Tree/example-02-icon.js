@@ -27,5 +27,5 @@ function renderItem(node, isExpanded) {
 }
 
 export default function() {
-  return <Tree data={data} keygen="id" renderItem={renderItem} />
+  return <Tree data={data} keygen="id" renderItem={renderItem} doubleClickExpand />
 }
