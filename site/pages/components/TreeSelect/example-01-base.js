@@ -37,6 +37,7 @@ export default class extends React.Component {
   render() {
     return (
       <TreeSelect
+        doubleClickExpand
         value={this.state.value}
         onChange={this.handleChange}
         clearable
