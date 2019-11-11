@@ -36,7 +36,7 @@ class Result extends PureComponent {
 
   renderPlaceholder() {
     return (
-      <span className={classnames(inputClass('placeholder'), selectClass('ellipsis'))}>
+      <span key="placeholder" className={classnames(inputClass('placeholder'), selectClass('ellipsis'))}>
         {this.props.placeholder}
         &nbsp;
       </span>
@@ -69,6 +69,10 @@ class Result extends PureComponent {
           <span>{`+${nodes.length - 1}`}</span>
         </a>
       )
+    }
+
+    if (items.filter(v => v).length === 0) {
+      items.push(this.renderPlaceholder())
     }
 
     return items
