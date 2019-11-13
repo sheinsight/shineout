@@ -34,3 +34,4 @@
 | leafClass | string \| function(data) | - | the class of lead, the params of function is data |
 | dragHoverExpand | bool | false | auto expand the node when drag over |
 | doubleClickExpand | bool | false | expand node while double click |
+| onClick | func | none | node click |
