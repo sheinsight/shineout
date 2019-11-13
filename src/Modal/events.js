@@ -15,6 +15,11 @@ function getDiv(id) {
   return mod ? mod.div : null
 }
 
+function getContainer(id) {
+  const mod = containers[id]
+  return mod ? mod.container : null
+}
+
 function hasVisible() {
   return Object.keys(containers).some(k => containers[k].visible)
 }
@@ -27,10 +32,11 @@ function isMask(id) {
 
 export function destroy(id, unmount) {
   const div = getDiv(id)
-  if (!div) return
+  const container = getContainer(id)
+  if (!div || !container) return
   delete containers[id]
   if (unmount) ReactDOM.unmountComponentAtNode(div)
-  document.body.removeChild(div)
+  container.removeChild(div)
 }
 
 export function close(props) {
@@ -56,15 +62,16 @@ export function close(props) {
 }
 
 export function createDiv(props) {
-  const { id } = props
+  const { id, container = document.body } = props
   let div = getDiv(props.id)
   if (div) return div
 
+  const parent = typeof container === 'function' ? container() : container
   div = document.createElement('div')
-  document.body.appendChild(div)
+  parent.appendChild(div)
   div.className = classnames(modalClass('_'), props.rootClassName)
 
-  containers[id] = { div }
+  containers[id] = { div, container: parent }
 
   return div
 }
@@ -87,7 +94,8 @@ export function open(props, isPortal) {
     if (!isPortal) close(props)
   }
 
-  const maskOpacity = isMask(props.id) ? props.maskOpacity || 0.25 : 0.01
+  const opacityDefault = props.maskOpacity === undefined ? 0.25 : props.maskOpacity
+  const maskOpacity = isMask(props.id) ? opacityDefault : 0.01
   div.style.background = `rgba(0,0,0,${maskOpacity})`
 
   containers[props.id].visible = true
