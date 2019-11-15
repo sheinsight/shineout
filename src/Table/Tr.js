@@ -55,8 +55,8 @@ class Tr extends Component {
   }
 
   setRowHeight(expand) {
-    const { setRowHeight, dataUpdated, datum } = this.props
-    if (!setRowHeight || !this.element) return
+    const { setRowHeight, dataUpdated, datum, lazy } = this.props
+    if (!lazy || !setRowHeight || !this.element) return
     let { height } = this.element.getBoundingClientRect()
     if (Number.isNaN(height)) height = this.lastRowHeight || 0
     datum.unsubscribe(ROW_HEIGHT_UPDATE_EVENT, this.setRowHeight)
@@ -224,10 +224,12 @@ Tr.propTypes = {
   columnResizable: PropTypes.bool,
   resize: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
   rowEvents: PropTypes.array,
+  lazy: PropTypes.bool,
 }
 
 Tr.defaultProps = {
   rowClickAttr: ['*'],
+  lazy: true,
 }
 Tr.displayName = 'ShineoutTr'
 

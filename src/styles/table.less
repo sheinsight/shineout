@@ -283,6 +283,17 @@
     background-color: @table-bg-accent;
   }
 
+  &-simple-body {
+    overflow: auto;
+  }
+
+  &-simple-head.@{table-prefix}-scroll-y.@{table-prefix}-head {
+    padding-right: 0;
+    &:after {
+      display: none;
+    }
+  }
+
   &-head {
     position: relative;
     overflow: hidden;
@@ -446,11 +457,6 @@
       display: block;
       margin: auto;
     }
-  }
-
-  &-bordered &-empty {
-    border-right: 1px solid @table-border-color;
-    border-bottom: 1px solid @table-border-color;
   }
 
   &-fixed &-empty {

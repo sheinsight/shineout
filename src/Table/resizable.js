@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import { compareColumns } from '../utils/shallowEqual'
 
-export default SeperateTable =>
+export default Table =>
   class extends React.Component {
     static propTypes = {
       columns: PropTypes.array.isRequired,
@@ -41,6 +41,6 @@ export default SeperateTable =>
     render() {
       const { columns } = this.state
       const { onColumnResize, ...other } = this.props
-      return <SeperateTable {...other} columns={columns} onResize={this.handleResize} />
+      return <Table {...other} columns={columns} onResize={this.handleResize} />
     }
   }

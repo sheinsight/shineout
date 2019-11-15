@@ -26,7 +26,7 @@ describe('Table[Base]', () => {
     wrapper = mount(<TableBase />)
   })
   test('should render correct dom structure', () => {
-    expect(wrapper.find(`table colgroup`).length).toBe(1)
+    expect(wrapper.find(`table colgroup`).length).toBe(2)
     expect(wrapper.find(`table thead`).length).toBe(1)
     expect(wrapper.find(`table tbody`).length).toBe(1)
   })
