@@ -36,6 +36,9 @@
 | hover | bool | true | row hover highlight |
 | treeEmptyExpand | bool | false | show expand button while children data is empty |
 | treeCheckAll | bool | false | check children data while select all | 
+| onSortCancel | func | none | sort cancel event |
+| radio | bool | false | is Radio |
+| rowEvents | array | none | tr events |
 
 ### Column
 | Property | Type | Default | Description |

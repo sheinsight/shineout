@@ -16,6 +16,7 @@ class Content extends PureComponent {
     super(props)
 
     this.handleNodeClick = this.handleNodeClick.bind(this)
+    this.handleNodeExpand = this.handleNodeExpand.bind(this)
     this.handleIndicatorClick = this.handleIndicatorClick.bind(this)
   }
 
@@ -28,6 +29,14 @@ class Content extends PureComponent {
     } else {
       this.props.onNodeClick(data, id)
     }
+  }
+
+  handleNodeExpand() {
+    const { data, childrenKey, doubleClickExpand } = this.props
+    if (!doubleClickExpand) return
+    const children = data[childrenKey]
+    const hasChildren = children && children.length > 0
+    if (hasChildren) this.handleIndicatorClick()
   }
 
   handleIndicatorClick() {
@@ -74,7 +83,7 @@ class Content extends PureComponent {
         {this.renderIndicator()}
         <div className={treeClass('content')}>
           {onChange && <Checkbox {...other} onChange={onChange} />}
-          <div className={treeClass('text')} onClick={this.handleNodeClick}>
+          <div className={treeClass('text')} onClick={this.handleNodeClick} onDoubleClick={this.handleNodeExpand}>
             {this.renderNode()}
           </div>
         </div>
@@ -101,6 +110,7 @@ Content.propTypes = {
   expandIcons: PropTypes.array,
   setFetching: PropTypes.func,
   fetching: PropTypes.bool,
+  doubleClickExpand: PropTypes.bool,
 }
 
 export default Content

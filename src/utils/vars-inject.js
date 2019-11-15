@@ -26,7 +26,7 @@ function getProperty(name = '--btn-hover-darken') {
 
 function setBodyProperty(colors, value) {
   for (const [cssVar, cssValue] of Object.entries(colors)) {
-    if (!value) {
+    if (value === undefined) {
       document.body.style.removeProperty(cssVar)
     } else {
       document.body.style.setProperty(cssVar, cssValue)
@@ -612,7 +612,7 @@ const injects = {
         attr: 'width',
         type: 'number',
         parser: parseInt,
-        min: 8,
+        min: 0,
         max: 40,
       },
       {
@@ -667,6 +667,12 @@ const injects = {
     },
     conf: [
       {
+        name: 'color',
+        className: inputClass('_'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
         name: 'borderRadius',
         className: inputClass('_'),
         attr: 'borderRadius',
@@ -699,7 +705,28 @@ const injects = {
         attr: 'borderColor',
         type: 'color',
       },
+      {
+        name: 'placeholderColor',
+        className: exposeClass('input-placeholder'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
+        name: 'placeholderSize',
+        className: exposeClass('input-placeholder'),
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+      },
     ],
+    set color(v) {
+      setBodyProperty(
+        {
+          '--input-text-color': v,
+        },
+        v
+      )
+    },
     set borderRadius(v) {
       setBodyProperty(
         {
@@ -737,6 +764,22 @@ const injects = {
       setBodyProperty(
         {
           '--input-focus-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set placeholderColor(v) {
+      setBodyProperty(
+        {
+          '--input-placeholder-color': v,
+        },
+        v
+      )
+    },
+    set placeholderSize(v) {
+      setBodyProperty(
+        {
+          '--input-placeholder-size': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -1031,6 +1074,20 @@ const injects = {
         type: 'number',
         parser: parseInt,
       },
+      {
+        name: 'cellPaddingHorizontal',
+        className: exposeClass('table-cell'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'cellPaddingVertical',
+        className: exposeClass('table-cell'),
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+      },
     ],
     set headBg(v) {
       setBodyProperty(
@@ -1100,6 +1157,22 @@ const injects = {
       setBodyProperty(
         {
           '--table-border-radius-top': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set cellPaddingHorizontal(v) {
+      setBodyProperty(
+        {
+          '--table-cell-padding-horizontal': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set cellPaddingVertical(v) {
+      setBodyProperty(
+        {
+          '--table-cell-padding-vertical': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -1238,6 +1311,15 @@ const injects = {
         type: 'number',
         parser: parseInt,
       },
+      {
+        name: 'fontWeight',
+        className: tagClass('_'),
+        attr: 'fontWeight',
+        type: 'number',
+        parser: parseInt,
+        min: 100,
+        max: 900,
+      },
     ],
     set bg(v) {
       setBodyProperty(
@@ -1291,6 +1373,14 @@ const injects = {
       setBodyProperty(
         {
           '--tag-padding-vertical': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set fontWeight(v) {
+      setBodyProperty(
+        {
+          '--tag-font-weight': v,
         },
         v
       )
@@ -1364,6 +1454,13 @@ const injects = {
         parser: parseInt,
       },
       {
+        name: 'fontSize',
+        className: menuClass('title'),
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
         name: 'darkColor',
         className: exposeClass('menu-dark'),
         attr: 'color',
@@ -1390,6 +1487,12 @@ const injects = {
       {
         name: 'activeColor',
         className: exposeClass('menu-active'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
+        name: 'color',
+        className: menuClass('title'),
         attr: 'color',
         type: 'color',
       },
@@ -1425,6 +1528,14 @@ const injects = {
         v
       )
     },
+    set fontSize(v) {
+      setBodyProperty(
+        {
+          '--menu-item-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
     set darkBg(v) {
       setBodyProperty(
         {
@@ -1453,6 +1564,14 @@ const injects = {
       setBodyProperty(
         {
           '--menu-item-active-color': v,
+        },
+        v
+      )
+    },
+    set color(v) {
+      setBodyProperty(
+        {
+          '--menu-item-color': v,
         },
         v
       )
@@ -1739,6 +1858,15 @@ const injects = {
         attr: 'color',
         type: 'color',
       },
+      {
+        name: 'fontWeight',
+        className: messageClass('msg'),
+        attr: 'fontWeight',
+        type: 'number',
+        parser: parseInt,
+        max: 900,
+        min: 100,
+      },
     ],
     set boxShadow(v) {
       setBodyProperty(
@@ -1756,6 +1884,14 @@ const injects = {
         v
       )
     },
+    set fontWeight(v) {
+      setBodyProperty(
+        {
+          '--message-font-weight': v,
+        },
+        v
+      )
+    },
   },
   card: {
     info: {
@@ -1768,6 +1904,13 @@ const injects = {
         name: 'fontSize',
         className: cardClass('_'),
         attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'borderRadius',
+        className: cardClass('_'),
+        attr: 'borderRadius',
         type: 'number',
         parser: parseInt,
       },
@@ -1814,6 +1957,14 @@ const injects = {
       setBodyProperty(
         {
           '--card-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set borderRadius(v) {
+      setBodyProperty(
+        {
+          '--panel-border-radius': `${parseInt(v, 10)}px`,
         },
         v
       )

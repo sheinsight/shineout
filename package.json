@@ -1,6 +1,6 @@
 {
   "name": "shineout",
-  "version": "1.4.3-rc.15",
+  "version": "1.4.3",
   "description": "Shein 前端组件库",
   "main": "./lib/index.js",
   "author": "lobos841@gmail.com",
@@ -30,6 +30,7 @@
     "lint": "eslint src/",
     "stylelint": "stylelint site/**/*.less --fix && stylelint src/**/*.less --fix",
     "start": "cross-env NODE_ENV=development LOG_ENV=rc node dev-server.js",
+    "start-site": "cross-env NODE_ENV=development node dev-server.js",
     "css-module": "cross-env NODE_ENV=development LOCAL_IDENT_NAME=[local]-[hash:base64:5] node dev-server.js",
     "docs-build-clean": "node scripts/gh-clean.js",
     "docs-build-chunk": " cross-env NODE_ENV=production node scripts/dev-site.js",
@@ -58,7 +59,6 @@
     "react-dom": ">=16.0.0"
   },
   "dependencies": {
-    "@babel/runtime": "^7.1.5",
     "classnames": "^2.2.5",
     "create-react-context": "^0.2.3",
     "date-fns": "2.0.0-alpha.10",

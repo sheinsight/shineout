@@ -26,7 +26,7 @@
         > th,
         > td {
           position: relative;
-          padding: @table-cell-padding;
+          padding: @table-cell-padding-vertical @table-cell-padding-horizontal;
           border-bottom: 1px solid @table-border-color;
           background-clip: padding-box;
           line-height: @line-height-base;
@@ -84,8 +84,8 @@
   }
 
   caption {
-    padding-top: @table-cell-padding;
-    padding-bottom: @table-cell-padding;
+    padding-top: @table-cell-padding-vertical;
+    padding-bottom: @table-cell-padding-vertical;
     color: @text-muted;
     text-align: left;
   }
@@ -269,6 +269,13 @@
         top: 0;
         right: 0;
       }
+    }
+
+    .@{so-prefix}-scroll-y {
+      border-left: 1px solid @table-border-color;
+    }
+    .@{so-prefix}-scroll-x {
+      border-top: 1px solid @table-border-color;
     }
   }
 

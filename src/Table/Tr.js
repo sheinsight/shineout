@@ -44,9 +44,9 @@ class Tr extends Component {
     this.setRowHeight()
   }
 
-  componentDidUpdate() {
-    const { hasNotRenderRows, dataUpdated, columnResizable } = this.props
-    if (hasNotRenderRows || dataUpdated) {
+  componentDidUpdate(prevProps) {
+    const { hasNotRenderRows, dataUpdated, columnResizable, resize } = this.props
+    if (hasNotRenderRows || dataUpdated || prevProps.resize !== resize) {
       const exec = columnResizable ? setTimeout : func => func()
       exec(() => {
         this.setRowHeight()
@@ -54,7 +54,7 @@ class Tr extends Component {
     }
   }
 
-  setRowHeight() {
+  setRowHeight(expand) {
     const { setRowHeight, dataUpdated, datum } = this.props
     if (!setRowHeight || !this.element) return
     let { height } = this.element.getBoundingClientRect()
@@ -67,12 +67,12 @@ class Tr extends Component {
     if (height === this.lastRowHeight && this.expandHeight === this.lastExpandHeight && !dataUpdated) return
     this.lastRowHeight = height
     this.lastExpandHeight = this.expandHeight
-    setRowHeight(height + this.expandHeight, this.props.index)
+    setRowHeight(height + this.expandHeight, this.props.index, expand)
   }
 
   setExpandHeight(height) {
     this.expandHeight = height
-    this.setRowHeight()
+    this.setRowHeight(true)
   }
 
   getRowClickAttr() {
@@ -130,6 +130,7 @@ class Tr extends Component {
       hasNotRenderRows,
       rowClassName,
       treeExpandKeys,
+      rowEvents,
       ...other
     } = this.props
     const tds = []
@@ -186,7 +187,7 @@ class Tr extends Component {
       className = classnames(className, rowClassName(rowData, index))
     }
     const result = [
-      <tr key="0" onClick={this.handleRowClick} className={className} ref={this.bindElement}>
+      <tr key="0" {...rowEvents} onClick={this.handleRowClick} className={className} ref={this.bindElement}>
         {tds}
       </tr>,
     ]
@@ -221,6 +222,8 @@ Tr.propTypes = {
   dataUpdated: PropTypes.bool,
   treeExpandKeys: PropTypes.object,
   columnResizable: PropTypes.bool,
+  resize: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
+  rowEvents: PropTypes.array,
 }
 
 Tr.defaultProps = {

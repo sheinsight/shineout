@@ -33,3 +33,5 @@
 | dragImageStyle | object | 无 | 拖拽图片的样式 |
 | leafClass | string \| function(data) | 无 | 叶子节点的 class, 函数的参数为该条叶子节点数据 |
 | dragHoverExpand | bool | false | 拖拽时自动展开含有子节点的节点 |
+| doubleClickExpand | bool | false | 双击是否展开节点 |
+| onClick | func | 无 | 节点点击事件 |

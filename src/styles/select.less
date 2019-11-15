@@ -182,9 +182,6 @@
     background-clip: padding-box;
     border-radius: @border-radius-base;
   }
-  &-box-list {
-    min-width: 100%;
-  }
 
   &-tree {
     width: auto;
@@ -198,7 +195,7 @@
         }
       }
       .@{so-prefix}-tree-content {
-        color: @input-color;
+        color: @gray-600;
         white-space: nowrap;
         cursor: default;
 
@@ -301,7 +298,7 @@
     text-overflow: ellipsis;
     transition: none;
     white-space: nowrap;
-    
+
     &.@{select-prefix}-active {
       background-color: @dropdown-link-active-bg;
       color: @dropdown-link-active-color;

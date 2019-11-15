@@ -459,17 +459,18 @@
   textarea {
     display: block;
     width: 100%;
-    padding: 0;
     padding: @padding-base-vertical @padding-base-horizontal;
     border: 0;
     background: transparent;
     line-height: inherit;
     outline: none;
+    color: @input-color;
   }
 
   ::placeholder,
   &-placeholder {
     color: @input-color-placeholder;
+    font-size: @input-size-placeholder;
   }
 
   textarea {

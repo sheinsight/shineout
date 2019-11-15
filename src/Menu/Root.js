@@ -241,7 +241,7 @@ class Root extends React.Component {
     if (direction === 'x') {
       const { width } = this.container.getBoundingClientRect()
       const scrollWidth = this.rootElement.getBoundingClientRect().width
-      if (scrollWidth < width) return null
+      if (scrollWidth <= width) return null
 
       return (
         <ScrollBar

@@ -122,7 +122,6 @@ export default function(List) {
       if (!this.el || !focus) return
       const pos = this.el.getBoundingClientRect()
       const overdoc = pos.left + pos.width >= docSize.width
-      if (!overdoc && this.el.style.left === 'auto') return
       if (this.state.overdoc === overdoc) return
       this.setState({
         overdoc,

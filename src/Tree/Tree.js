@@ -40,7 +40,7 @@ class Tree extends PureComponent {
       this.handleActive(this.props.active)
     }
 
-    if (this.props.onChange || this.props.onDrop) {
+    if (this.props.onChange || this.props.onDrop || this.props.radioUpdate) {
       this.datum.mode = this.props.mode
       if (prevProps.value !== this.props.value) this.datum.setValue(this.props.value || [])
       if (prevProps.data !== this.props.data && this.props.dataUpdate) this.datum.setData(this.props.data)
@@ -178,6 +178,7 @@ class Tree extends PureComponent {
       childrenClass,
       leafClass,
       dragHoverExpand,
+      doubleClickExpand,
     } = this.props
     const onToggle = onExpand ? this.handleToggle : undefined
 
@@ -207,6 +208,7 @@ class Tree extends PureComponent {
         childrenClass={typeof childrenClass === 'function' ? childrenClass : () => childrenClass}
         leafClass={typeof leafClass === 'function' ? leafClass : () => leafClass}
         dragHoverExpand={dragHoverExpand}
+        doubleClickExpand={doubleClickExpand}
       />
     )
   }
@@ -235,6 +237,8 @@ Tree.propTypes = {
   childrenKey: PropTypes.string,
   expandIcons: PropTypes.array,
   dragImageStyle: PropTypes.object,
+  radioUpdate: PropTypes.bool,
+  doubleClickExpand: PropTypes.bool,
 }
 
 Tree.defaultProps = {
