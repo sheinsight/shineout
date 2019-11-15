@@ -113,7 +113,9 @@
   &-normal,
   &-confirm {
     .@{modal-prefix}-footer {
-      border-top: 0;
+      &:after {
+        display: none;
+      }
     }
   }
 

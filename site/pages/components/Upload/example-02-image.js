@@ -10,6 +10,7 @@ import { Upload } from 'shineout'
 export default function() {
   return (
     <Upload.Image
+      drop
       action="//jsonplaceholder.typicode.com/posts"
       accept="image/*"
       name="file"

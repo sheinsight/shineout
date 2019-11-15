@@ -23,14 +23,27 @@
     box-shadow: @panel-box-shadow;
   }
 
+  &-header, &-footer {
+    &:after {
+      content: ' ';
+      height: @card-divider-height;
+      background: @panel-inner-border;
+      position: absolute;
+      width: @card-divider-width;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
   &-header {
     position: relative;
     z-index: 10;
     padding: @panel-heading-padding;
     margin-bottom: -1px;
-    border-bottom: @card-divider-width solid @panel-inner-border;
     background-color: @panel-header-bg;
-
+    &:after {
+      bottom: 0;
+    }
     .@{card-prefix}-indicator {
       display: inline-block;
       width: @panel-indicator-size;
@@ -107,9 +120,12 @@
   }
 
   &-footer {
+    position: relative;
     padding: @panel-footer-padding;
-    border-top: @card-divider-width solid @panel-inner-border;
     background-color: @panel-footer-bg;
+    &:after {
+      top: 0;
+    }
   }
 
   &-center {
@@ -120,11 +136,11 @@
     text-align: right;
   }
 
-  & > div:first-child {
+  & > &-header {
     border-radius: @card-inner-border-radius @card-inner-border-radius 0 0;
   }
 
-  & > div:last-child {
+  & > &-footer {
     border-radius: 0 0 @card-inner-border-radius @card-inner-border-radius;
   }
 }

@@ -33,3 +33,6 @@
 | filterSingleSelect | bool | false | 当筛选数据仅为一条时，失焦后直接选中该条数据。仅在 Filter 下有效。 |
 | separator | string | 无 | 多选情况下设置后，value 会处理为 separator 分隔的字符串 |
 | childrenKey | string | 'children' | 树形数据下，指定子数据的属性名 | 
+| defaultExpandAll| bool | false | 默认展开全部子节点, 仅树形数据下有效 | 
+| renderUnmatched | func | 无 | 渲染未匹配值的方式 |
+| emptyAfterSelect | bool | false | 选中后是否清空输入框内容 ｜

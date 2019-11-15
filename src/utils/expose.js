@@ -46,9 +46,25 @@ function toRGB(c) {
   return getDOMStyle(el).color
 }
 
+function resetTheme() {
+  Object.keys(cssAccessors).forEach(module => {
+    const setter = `set${capitalize(module)}`
+    cssAccessors[module][setter](
+      Object.keys(cssAccessors[module]).reduce((obj, key) => {
+        obj[key] = undefined
+        return obj
+      }, {})
+    )
+  })
+}
+
 const style = {
   getClassname,
   setStyle(options) {
+    if (!options) {
+      resetTheme()
+      return
+    }
     for (const [key, values] of Object.entries(options)) {
       const setterName = `set${capitalize(key)}`
       if (cssAccessors[key] && cssAccessors[key][setterName]) cssAccessors[key][setterName](values)

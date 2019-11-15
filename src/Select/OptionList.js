@@ -111,6 +111,7 @@ class OptionList extends Component {
   }
 
   handleScroll(x, y, max, bar, v, h, pixelX, pixelY) {
+    if (!this.optionInner) return
     const { data, itemsInView, lineHeight } = this.props
     const fullHeight = itemsInView * lineHeight
     const contentHeight = data.length * lineHeight - h
@@ -212,7 +213,7 @@ class OptionList extends Component {
   }
 
   render() {
-    const { control, focus, style, selectId, autoClass } = this.props
+    const { control, focus, style, selectId, autoClass, getRef } = this.props
 
     return (
       <ScaleList
@@ -221,6 +222,7 @@ class OptionList extends Component {
         style={style}
         data-id={selectId}
         className={classnames(selectClass('options', `control-${control}`), autoClass)}
+        getRef={getRef}
       >
         {this.renderList()}
       </ScaleList>
@@ -249,6 +251,7 @@ OptionList.propTypes = {
   style: PropTypes.object,
   text: PropTypes.object,
   groupKey: PropTypes.string,
+  getRef: PropTypes.func,
 }
 
 export default OptionList

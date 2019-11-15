@@ -61,6 +61,12 @@
 @table-color-value: rgba(0, 0, 0, 0.65);
 @table-color: var(--table-color, @table-color-value);
 
+@table-cell-padding-horizontal-value: 16px;
+@table-cell-padding-horizontal: var(--table-cell-padding-horizontal, @table-cell-padding-horizontal-value);
+
+@table-cell-padding-vertical-value: 16px;
+@table-cell-padding-vertical: var(--table-cell-padding-vertical, @table-cell-padding-vertical-value);
+
 @tag-bg-color-value: #fafafa;
 @tag-bg-color: var(--tag-bg, @tag-bg-color-value);
 
@@ -84,6 +90,9 @@
 
 @input-border-value: @gray-300-value;
 @input-border: var(--input-border-color, @input-border-value);
+
+@input-color-placeholder-value: #bfbfbf;
+@input-color-placeholder: var(--input-placeholder-color, @input-color-placeholder-value);
 
 @dropdown-link-active-bg-value: #f2f2f2;
 @dropdown-link-active-bg: var(--select-item-active-bg, @dropdown-link-active-bg-value);
@@ -147,6 +156,9 @@
 @button-font-size-large-value: @font-size-large;
 @button-font-size-large: var(--button-font-size-large, @button-font-size-large-value);
 
+@panel-border-radius-value: 2px;
+@panel-border-radius: var(--panel-border-radius, @panel-border-radius-value);
+
 @caret-width: 6px;
 
 @ease-in-out: 0.3s;
@@ -193,15 +205,10 @@
 @breadcrumb-a-color: rgba(0, 0, 0, 0.45);
 @breadcrumb-active-color: rgba(0, 0, 0, 0.85);
 
-@input-color-placeholder: #bfbfbf;
-
 //menu
 @menu-title-transform: translateY(-85%) rotate(45deg);
 @menu-title-open-transform: translateY(-65%) rotate(225deg);
 @menu-title-vertical-transform: translateY(-60%) rotate(-45deg);
-
-// card
-@panel-border-radius: 2px;
 
 @datepicker-day-hover-bg: #e6f7ff;
 

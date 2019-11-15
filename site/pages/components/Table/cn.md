@@ -36,6 +36,10 @@
 | hover | bool | true | 数据行鼠标悬浮高亮效果 |
 | onTreeExpand | function(keys) | 无 |  展开行，keys为展开的行 |
 | treeEmptyExpand | bool | false | 树形表格子数据为空时依然展示展开按钮 |
+| treeCheckAll | bool | false | 全选时是否将子孙数据选中 | 
+| onSortCancel | func | 无 | 排序取消事件 |
+| radio | bool | false | 是否单选 |
+| rowEvents | array | 无 | tr 事件监听器集合 |
 
 ### Column
 | 属性 | 类型 | 默认值 | 说明 |

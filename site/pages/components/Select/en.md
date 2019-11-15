@@ -33,3 +33,6 @@
 | filterSingleSelect | bool | false | blur to select the data when filter data has only single. only work in filter. |
 | separator | string | none | set with multiple, value will separator by this |
 | childrenKey | string | 'children' | treeData，the key of the children data name | 
+| defaultExpandAll| bool | false | expand all node, only in can be use in treeData | 
+| renderUnmatched | func | none | the way to render not matched data value |
+| emptyAfterSelect | bool | false | empty input after select value |

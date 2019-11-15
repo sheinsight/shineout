@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import immer from 'immer'
+import { getKey } from '../utils/uid'
 import { defaultProps, getProps } from '../utils/proptypes'
 import normalizeWheel from '../utils/dom/normalizeWheel'
 import ScrollBar from '../Scroll/Bar'
@@ -36,11 +37,11 @@ function keyToMap(keys = [], value = true) {
   return keyMap
 }
 
-function isSubMenu(el) {
-  if (el.matches(`.${menuClass('sub')}`)) return true
-  if (!el.parentElement) return false
-  return isSubMenu(el.parentElement)
-}
+// function isSubMenu(el) {
+//   if (el.matches(`.${menuClass('sub')}`)) return true
+//   if (!el.parentElement) return false
+//   return isSubMenu(el.parentElement)
+// }
 
 class Root extends React.Component {
   constructor(props) {
@@ -152,11 +153,12 @@ class Root extends React.Component {
   }
 
   updateOpen() {
+    const { data, keygen } = this.props
     Object.keys(this.itemsOpen).forEach(id => {
       const update = this.itemsOpen[id]
       update(this.checkOpen)
     })
-    const hasOpen = this.getOpenKeys().length > 0
+    const hasOpen = this.getOpenKeys().filter(k => data.find((d, i) => getKey(d, keygen, i) === k)).length > 0
     if (hasOpen !== this.state.hasOpen) {
       this.setState({ hasOpen })
     }
@@ -202,13 +204,16 @@ class Root extends React.Component {
   }
 
   handleWheel(e) {
-    if (isSubMenu(e.target)) return
+    // if (isSubMenu(e.target)) return
     const { mode } = this.props
     const { key, pos, direction } = getOption(mode)
     const wheel = normalizeWheel(e)
-    const size = this.rootElement.getBoundingClientRect()[key] - this.container.getBoundingClientRect()[key]
+    const size = this.container.getBoundingClientRect()[key]
+    // const size = this.rootElement.getBoundingClientRect()[key] - this.container.getBoundingClientRect()[key]
     this.wrapper[`scroll${pos}`] += wheel[`pixel${direction}`]
-    this.setState({ [`scroll${pos}`]: size === 0 ? 0 : this.wrapper[`scroll${pos}`] / size })
+    const precent = this.wrapper[`scroll${pos}`] / size
+    this.setState({ [`scroll${pos}`]: precent > 1 ? 1 : precent })
+    // this.setState({ [`scroll${pos}`]: size === 0 ? 0 : this.wrapper[`scroll${pos}`] / size })
     e.preventDefault()
   }
 
@@ -236,7 +241,7 @@ class Root extends React.Component {
     if (direction === 'x') {
       const { width } = this.container.getBoundingClientRect()
       const scrollWidth = this.rootElement.getBoundingClientRect().width
-      if (scrollWidth < width) return null
+      if (scrollWidth <= width) return null
 
       return (
         <ScrollBar

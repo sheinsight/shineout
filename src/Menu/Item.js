@@ -125,8 +125,8 @@ class Item extends PureComponent {
       inlineIndent,
       disabled,
       toggleOpenKeys,
-      bottomLine,
-      topLine,
+      // bottomLine,
+      // topLine,
       linkKey,
     } = this.props
     const { open, isActive, isHighLight, inPath } = this.state
@@ -134,15 +134,16 @@ class Item extends PureComponent {
     const children = dChildren || []
 
     const isDisabled = typeof disabled === 'function' ? disabled(data) : disabled
-    const listStyle = {}
-    let isUp = false
-    if (mode === 'vertical' && this.element) {
-      const { bottom: itemBottom, top: itemTop } = this.element.getBoundingClientRect()
-      isUp = itemBottom - topLine > (bottomLine - topLine) / 2
-      const listHeight = isUp ? itemBottom - topLine : bottomLine - itemTop
-      listStyle.maxHeight = listHeight
-      listStyle.overflow = 'auto'
-    }
+
+    // let isUp = false
+    // if (mode === 'vertical' && this.element) {
+    //   isUp = this.element.getBoundingClientRect().bottom - topLine > (bottomLine - topLine) / 2
+    //   // const { bottom: itemBottom, top: itemTop } = this.element.getBoundingClientRect()
+    //   // isUp = itemBottom - topLine > (bottomLine - topLine) / 2
+    //   // const listHeight = isUp ? itemBottom - topLine : bottomLine - itemTop
+    //   // listStyle.maxHeight = listHeight
+    //   // listStyle.overflow = 'auto'
+    // }
 
     const className = menuClass(
       'item',
@@ -150,7 +151,7 @@ class Item extends PureComponent {
       children.length > 0 ? 'has-children' : 'no-children',
       isActive && 'active',
       open && 'open',
-      isUp && 'open-up',
+      // isUp && 'open-up',
       isHighLight && 'highlight',
       inPath && 'in-path'
     )
@@ -186,8 +187,7 @@ class Item extends PureComponent {
         {item}
         {children.length > 0 && (
           <List
-            className={menuClass('sub')}
-            style={listStyle}
+            // className={menuClass('sub')}
             data={children}
             disabled={disabled}
             renderItem={renderItem}

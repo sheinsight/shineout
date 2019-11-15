@@ -161,7 +161,7 @@ class Select extends PureComponent {
   }
 
   handleChange(_, data, fromInput) {
-    const { datum, multiple, disabled } = this.props
+    const { datum, multiple, disabled, emptyAfterSelect, onFilter, filterText } = this.props
     if (disabled === true) return
 
     // if click option, ignore blur event
@@ -189,6 +189,8 @@ class Select extends PureComponent {
       //  let the element focus
       setTimeout(() => this.element && this.element.focus(), 10)
     }
+
+    if (emptyAfterSelect && onFilter && filterText) onFilter('')
   }
 
   shouldFocus(el) {
@@ -412,6 +414,7 @@ class Select extends PureComponent {
       result,
       compressed,
       trim,
+      renderUnmatched,
     } = this.props
     const className = selectClass(
       'inner',
@@ -449,6 +452,7 @@ class Select extends PureComponent {
           multiple={multiple}
           placeholder={placeholder}
           renderResult={renderResult}
+          renderUnmatched={renderUnmatched}
           onInputBlur={this.handleInputBlur}
           onInputFocus={this.handleInputFocus}
           setInputReset={this.setInputReset}
@@ -488,6 +492,8 @@ Select.propTypes = {
   trim: PropTypes.bool,
   autoAdapt: PropTypes.bool,
   filterSingleSelect: PropTypes.bool,
+  renderUnmatched: PropTypes.func,
+  emptyAfterSelect: PropTypes.bool,
 }
 
 Select.defaultProps = {

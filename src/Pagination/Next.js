@@ -4,9 +4,7 @@ import icons from '../icons'
 import Item from './Item'
 
 function Next(props) {
-  const {
-    onChange, current, text, total, pageSize, disabled,
-  } = props
+  const { onChange, current, text, total, pageSize, disabled } = props
   const max = Math.ceil(total / pageSize)
   const next = current + 1
   const className = text.next ? 'no-border' : ''

@@ -18,11 +18,12 @@ class Button extends PureComponent {
   }
 
   render() {
-    const { outline, type, size, href, htmlType, loading, disabled, onRef, ...others } = this.props
+    const { outline, type, size, href, htmlType, loading, disabled, onRef, shape, ...others } = this.props
     const className = classnames(
-      buttonClass('_', type, outline && 'outline', {
+      buttonClass('_', shape, type, outline && 'outline', {
         large: size === 'large',
         small: size === 'small',
+        disabled,
       }),
       this.props.className
     )
@@ -57,6 +58,7 @@ Button.propTypes = {
   htmlType: PropTypes.string,
   loading: PropTypes.bool,
   onRef: PropTypes.func,
+  shape: PropTypes.oneOf(['round', 'circle']),
   outline: PropTypes.bool,
 }
 

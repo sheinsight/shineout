@@ -167,6 +167,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-15-select-format.js'),
   },
   {
+    name: '15-select-radio',
+    title: locate(
+      ' \n 设置 radio 属性实现单选效果',
+      ' \n Set the radio attribute to achieve the radio effect'
+    ),
+    component: require('doc/pages/components/Table/example-15-select-radio.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-15-select-radio.js'),
+  },
+  {
     name: '17-select-disabled',
     title: locate(
       ' \n 设置 disabled 属性，禁用选项。',
@@ -246,6 +255,15 @@ const examples = [
     ),
     component: require('doc/pages/components/Table/example-26-tree.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-26-tree.js'),
+  },
+  {
+    name: '26-tree0',
+    title: locate(
+      ' \n 设置 treeCheckAll, 支持递归选择子数据',
+      ' \n Set treeCheckAll to deep check children'
+    ),
+    component: require('doc/pages/components/Table/example-26-tree0.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-26-tree0.js'),
   },
   {
     name: '27-tree',

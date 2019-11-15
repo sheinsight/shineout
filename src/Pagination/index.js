@@ -41,13 +41,6 @@ export default class extends PureComponent {
     const current = this.props.current || this.state.current
     if (this.props.total < 0) return null
 
-    return (
-      <Pagination
-        {...this.props}
-        current={current}
-        pageSize={this.state.pageSize}
-        onChange={this.handleChange}
-      />
-    )
+    return <Pagination {...this.props} current={current} pageSize={this.state.pageSize} onChange={this.handleChange} />
   }
 }

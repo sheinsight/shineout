@@ -15,11 +15,8 @@ class Content extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.state = {
-      fetching: false,
-    }
-
     this.handleNodeClick = this.handleNodeClick.bind(this)
+    this.handleNodeExpand = this.handleNodeExpand.bind(this)
     this.handleIndicatorClick = this.handleIndicatorClick.bind(this)
   }
 
@@ -34,14 +31,22 @@ class Content extends PureComponent {
     }
   }
 
+  handleNodeExpand() {
+    const { data, childrenKey, doubleClickExpand } = this.props
+    if (!doubleClickExpand) return
+    const children = data[childrenKey]
+    const hasChildren = children && children.length > 0
+    if (hasChildren) this.handleIndicatorClick()
+  }
+
   handleIndicatorClick() {
-    const { id, data, onToggle, loader, childrenKey } = this.props
+    const { id, data, onToggle, loader, childrenKey, setFetching } = this.props
 
     onToggle()
 
     if (data[childrenKey] !== undefined) return
 
-    this.setState({ fetching: true })
+    setFetching(true)
     loader(id, data)
   }
 
@@ -52,20 +57,20 @@ class Content extends PureComponent {
   }
 
   renderIndicator() {
-    const { data, expanded, loader, childrenKey } = this.props
+    const { data, expanded, expandIcons, loader, childrenKey, fetching } = this.props
     const children = data[childrenKey]
-
+    const icon = expandIcons ? expandIcons[expanded + 0] : <span className={treeClass('default-icon')} />
     const indicator = (
       <a onClick={this.handleIndicatorClick} className={treeClass(`icon-${expanded ? 'sub' : 'plus'}`)}>
-        <span />
+        {icon}
       </a>
     )
 
     if (children && children.length > 0) return indicator
     if (Array.isArray(children) || children === null) return null
 
-    if (this.state.fetching && !children) return loading
-    if (loader && !this.state.fetching) return indicator
+    if (fetching && !children) return loading
+    if (loader && !fetching) return indicator
 
     return null
   }
@@ -78,7 +83,7 @@ class Content extends PureComponent {
         {this.renderIndicator()}
         <div className={treeClass('content')}>
           {onChange && <Checkbox {...other} onChange={onChange} />}
-          <div className={treeClass('text')} onClick={this.handleNodeClick}>
+          <div className={treeClass('text')} onClick={this.handleNodeClick} onDoubleClick={this.handleNodeExpand}>
             {this.renderNode()}
           </div>
         </div>
@@ -102,6 +107,10 @@ Content.propTypes = {
   renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]).isRequired,
   parentClickExpand: PropTypes.bool,
   childrenKey: PropTypes.string,
+  expandIcons: PropTypes.array,
+  setFetching: PropTypes.func,
+  fetching: PropTypes.bool,
+  doubleClickExpand: PropTypes.bool,
 }
 
 export default Content

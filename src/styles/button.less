@@ -177,6 +177,20 @@
     );
   }
 
+  &-disabled:not(&-link), &-disabled:not(&-link):hover {
+    background: @button-disabled-bg;
+    color: @button-disabled-color;
+    border-color: @button-disabled-border-color;
+  }
+
+  &-circle {
+    border-radius: 50%;
+  }
+
+  &-round {
+    border-radius: 1000px;
+  }
+
   &-group {
     .@{button-prefix} {
       position: relative;
