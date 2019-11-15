@@ -30,6 +30,7 @@
     "lint": "eslint src/",
     "stylelint": "stylelint site/**/*.less --fix && stylelint src/**/*.less --fix",
     "start": "cross-env NODE_ENV=development LOG_ENV=rc node dev-server.js",
+    "start-site": "cross-env NODE_ENV=development node dev-server.js",
     "css-module": "cross-env NODE_ENV=development LOCAL_IDENT_NAME=[local]-[hash:base64:5] node dev-server.js",
     "docs-build-clean": "node scripts/gh-clean.js",
     "docs-build-chunk": " cross-env NODE_ENV=production node scripts/dev-site.js",
