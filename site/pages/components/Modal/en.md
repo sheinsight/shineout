@@ -9,7 +9,6 @@ You can use Modal to display secondary content or actions without jumping to the
 | --- | --- | --- | --- | --- | 
 | className | string | - | Extend className | |
 | bodyStyle | object | - | Extend modal body style | |
-| destroy | boolean | false | Whether to destroy elements when it is closed | |
 | footer | ReactElement \| null | - | The content at the bottom | |
 | maskCloseAble | bool | true | Whether to close the mask when the mask is clicked | |
 | maskOpacity | number | 0.25 | The opacity of the mask | |
@@ -21,6 +20,7 @@ You can use Modal to display secondary content or actions without jumping to the
 | width | number \| string | 500 | the width of the Modal | |
 | zIndex | number | 1050 | Modal z-index | |
 | rootClassName | string | - | the root element of modal, the mask parent element | 1.4.2 |
+| container | () => HTMLElement \| HTMLElement | document.body | target element | |
 
 ### Methods
 

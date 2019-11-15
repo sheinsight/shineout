@@ -50,6 +50,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Modal/example-3-focus.js'),
   },
   {
+    name: '3-gcontainer',
+    title: locate(
+      '指定目标 \n 使用 container 来指定 Modal 渲染的目标节点',
+      'Target \n set container to render target node'
+    ),
+    component: require('doc/pages/components/Modal/example-3-gcontainer.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Modal/example-3-gcontainer.js'),
+  },
+  {
     name: '4-form',
     title: locate(
       '表单 \n Modal 支持 Form 表单，并且支持 Form 的所有特性，表单提交可以使用 Modal.Submit 来代替 Button[type=submit]',
