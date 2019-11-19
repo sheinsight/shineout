@@ -1908,6 +1908,48 @@ const injects = {
         parser: parseInt,
       },
       {
+        name: 'paddingHeaderHorizontal',
+        className: cardClass('header'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'paddingHeaderVertical',
+        className: cardClass('header'),
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'paddingBodyHorizontal',
+        className: cardClass('body'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'paddingBodyVertical',
+        className: cardClass('body'),
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'paddingFooterHorizontal',
+        className: cardClass('footer'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'paddingFooterVertical',
+        className: cardClass('footer'),
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
         name: 'borderRadius',
         className: cardClass('_'),
         attr: 'borderRadius',
@@ -1957,6 +1999,54 @@ const injects = {
       setBodyProperty(
         {
           '--card-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set paddingHeaderHorizontal(v) {
+      setBodyProperty(
+        {
+          '--panel-header-padding-horizontal': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set paddingHeaderVertical(v) {
+      setBodyProperty(
+        {
+          '--panel-header-padding-vertical': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set paddingBodyHorizontal(v) {
+      setBodyProperty(
+        {
+          '--panel-body-padding-horizontal': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set paddingBodyVertical(v) {
+      setBodyProperty(
+        {
+          '--panel-body-padding-vertical': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set paddingFooterHorizontal(v) {
+      setBodyProperty(
+        {
+          '--panel-footer-padding-horizontal': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set paddingFooterVertical(v) {
+      setBodyProperty(
+        {
+          '--panel-footer-padding-vertical': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -2033,6 +2123,12 @@ const injects = {
         parser: parseInt,
       },
       {
+        name: 'closeIconColor',
+        className: exposeClass('modal-close'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
         name: 'titleFontSize',
         className: modalClass('title'),
         attr: 'fontSize',
@@ -2050,6 +2146,14 @@ const injects = {
       setBodyProperty(
         {
           '--modal-icon-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set closeIconColor(v) {
+      setBodyProperty(
+        {
+          '--modal-close-icon-color': v,
         },
         v
       )
@@ -2097,6 +2201,13 @@ const injects = {
         attr: 'boxShadow',
         type: 'string',
       },
+      {
+        name: 'borderRadius',
+        className: popoverClass('_'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+      },
     ],
     set borderColor(v) {
       setBodyProperty(
@@ -2118,6 +2229,14 @@ const injects = {
       setBodyProperty(
         {
           '--popover-box-shadow': v,
+        },
+        v
+      )
+    },
+    set borderRadius(v) {
+      setBodyProperty(
+        {
+          '--popover-border-radius': `${parseInt(v, 10)}px`,
         },
         v
       )
