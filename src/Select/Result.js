@@ -176,9 +176,10 @@ class Result extends PureComponent {
     }
 
     const v = getResultContent(result[0], renderResult, renderUnmatched)
+    const title = typeof v === 'string' ? v : undefined
 
     return (
-      <span title={v} className={selectClass('ellipsis')}>
+      <span title={title} className={selectClass('ellipsis')}>
         {v}
       </span>
     )
