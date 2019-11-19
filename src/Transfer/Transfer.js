@@ -2,13 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import Btns from './btns'
-import { Component } from '../component'
+import { PureComponent } from '../component'
 import Card from './Card'
 import { transferClass } from '../styles'
 import Context from './context'
 import splitSelecteds from './select'
 
-class Transfer extends Component {
+class Transfer extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -61,10 +61,12 @@ class Transfer extends Component {
     if ('value' in this.props && this.props.datum.getValue() !== this.props.value) {
       this.props.datum.setValue(this.props.value)
     }
-
     const sources = data.filter(d => !datum.check(d))
-    const targets = data.filter(d => datum.check(d))
-
+    const targets = datum.getValue().reduce((p, n) => {
+      const d = datum.getDataByValue(data, n)
+      if (d) p.push(d)
+      return p
+    }, [])
     return (
       <div className={classnames(transferClass('_'), className)} style={style}>
         <Context.Provider value={{ selecteds, setSelecteds: this.setSelecteds }}>
