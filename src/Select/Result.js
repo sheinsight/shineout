@@ -186,13 +186,13 @@ class Result extends PureComponent {
   }
 
   render() {
-    const { compressed } = this.props
+    const { compressed, showArrow } = this.props
     const result = this.props.result.length === 0 ? this.renderPlaceholder() : this.renderResult()
 
     return (
       <div className={selectClass('result', compressed && 'compressed')}>
         {result}
-        {!this.props.multiple && (
+        {showArrow && !this.props.multiple && (
           // eslint-disable-next-line
           <a tabIndex={-1} className={selectClass('indicator', 'caret')} />
         )}
@@ -220,6 +220,7 @@ Result.propTypes = {
   compressed: PropTypes.bool,
   trim: PropTypes.bool,
   renderUnmatched: PropTypes.func,
+  showArrow: PropTypes.bool,
 }
 
 export default Result
