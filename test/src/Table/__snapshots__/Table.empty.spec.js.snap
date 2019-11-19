@@ -96,7 +96,6 @@ exports[`Table[Empty] should render empty table 1`] = `
         </th>
       </tr>
     </thead>
-    <tbody />
   </table>
   <div
     className="so-table-empty"
@@ -204,7 +203,6 @@ exports[`Table[Empty] should render empty table with emtpyText 1`] = `
         </th>
       </tr>
     </thead>
-    <tbody />
   </table>
   <div
     className="so-table-empty"
@@ -350,7 +348,6 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
         </th>
       </tr>
     </thead>
-    <tbody />
   </table>
   <div
     className="so-table-empty"
@@ -462,7 +459,6 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
         </th>
       </tr>
     </thead>
-    <tbody />
   </table>
   <div
     className="so-table-loading"

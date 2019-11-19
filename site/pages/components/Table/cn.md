@@ -13,7 +13,7 @@
 | data | object\[] | 无 | 数据 |
 | datum | object | 无 | 如果 format 和 prediction 属性无法满足需求，可以传入一个 [Datum.List](/components/Datum.List) 对象，或者 Datum.List 配置来处理数据。 |
 | disabled | bool \| function | false | 如果 disabled 为 true，禁用全部选项，如果 disabled 为函数，根据函数反回结果禁用选项 |
-| fixed | string | 无 | 可填值 \['both', 'x', 'y'] 
+| fixed | string | 无 | 可填值 \['both', 'x', 'y'\]，不设置则关闭懒加载 | 
 | format | string \| function | d => d | 格式化 value<br />默认值，返回原始数据<br />为string时，会作为key从原始数据中获取值，相当于 (d) => d[format]<br /> 为函数时，以函数返回结果作为 value |
 | loading | bool \| element | false | 数据加载中，为true时会展示一个默认的[Spin](/components/Spin)组件，可以传入一个自定义的Spin代替 |
 | keygen | string \| function(obj):string \| true | 必填 | 生成每一项key的辅助方法<br />为 true 时，以数据项本身作为key，相当于 (d => d)<br />为函数时，使用此函数返回值<br />为string时，使用这个string对应的数据值。如 'id'，相当于 (d => d.id) |
@@ -23,7 +23,7 @@
 | prediction | function | (val, d) => val===format(d) | 默认使用 format 函数执行的结果来比较是否匹配，在某些情况下（例如返回原始数据的对象，更新数据时，生成了一个值相同，非同一个对象的选项），需要借助 prediction 函数来判断是否匹配 |
 | rowClassName | function(record, index) | 无 | 指定单行className |
 | rowHeight | number | 40 | 单行表格的预期高度，只是一个大概的估值，用来展示滚动条 |
-| rowsInView | number | 20 | 单次render的最大行数。Table 采用了lazy render的方式来优化在大量数据下的性能，如果你的表格显示的高度超出了20条，可以调整rowsInView的值。为0表示禁用懒加载。 |
+| rowsInView | number | 20 | 单次render的最大行数。Table 采用了lazy render的方式来优化在大量数据下的性能，如果你的表格显示的高度超出了20条，可以调整rowsInView的值。为 0 表示单次 render 所有数据。 |
 | showSelectAll | bool | true | 是否显示全选 |
 | striped | bool | false | 是否显示交错斑马底纹 |
 | style | object | 无 | 扩展样式 |

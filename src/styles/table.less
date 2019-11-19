@@ -12,6 +12,22 @@
   flex-direction: column;
   margin-bottom: @line-height-computed;
 
+  &:after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    opacity: 0;
+    transition: all 0.3s;
+    content: '';
+    pointer-events: none;
+  }
+
   table {
     min-width: 100%;
     border-collapse: separate;
@@ -283,6 +299,17 @@
     background-color: @table-bg-accent;
   }
 
+  &-simple-body {
+    overflow: auto;
+  }
+
+  &-simple-head.@{table-prefix}-scroll-y.@{table-prefix}-head {
+    padding-right: 0;
+    &:after {
+      display: none;
+    }
+  }
+
   &-head {
     position: relative;
     overflow: hidden;
@@ -446,11 +473,6 @@
       display: block;
       margin: auto;
     }
-  }
-
-  &-bordered &-empty {
-    border-right: 1px solid @table-border-color;
-    border-bottom: 1px solid @table-border-color;
   }
 
   &-fixed &-empty {
