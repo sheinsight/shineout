@@ -4,6 +4,7 @@ import { PureComponent } from '../component'
 import { getProps, defaultProps } from '../utils/proptypes'
 import Spin from '../Spin'
 import icons from '../icons'
+import { wrapSpan } from '../utils/dom/element'
 import { isPromise } from '../utils/is'
 import { isDark } from '../utils/color'
 import { tagClass } from '../styles'
@@ -86,7 +87,7 @@ class Tag extends PureComponent {
     if (dismiss === 2) return null
 
     const { children, className, type, backgroundColor, onClose, disabled } = this.props
-
+    const childrenParsed = wrapSpan(children)
     const { style } = this.props
 
     let tagClassName = tagClass('_', disabled && 'disabled', type)
@@ -107,10 +108,10 @@ class Tag extends PureComponent {
       <div className={tagClassName} style={tagStyle} {...click}>
         {onClose ? (
           <div onClick={this.handleClick} className={inlineClassName}>
-            {children}
+            {childrenParsed}
           </div>
         ) : (
-          children
+          childrenParsed
         )}
         {this.renderClose(dismiss)}
       </div>

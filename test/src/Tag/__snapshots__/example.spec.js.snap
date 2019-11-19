@@ -3,14 +3,20 @@
 exports[`Snapshot test: Tag[site/pages/components/Tag/example-1-base.js] 1`] = `
 <div>
   <div>
-    Tag 1
+    <span>
+      Tag 1
+    </span>
   </div>
   <div>
-    Tag 2
+    <span>
+      Tag 2
+    </span>
   </div>
   <div>
     <div>
-      Tag 3
+      <span>
+        Tag 3
+      </span>
     </div>
     <div>
       <svg>
@@ -24,19 +30,29 @@ exports[`Snapshot test: Tag[site/pages/components/Tag/example-1-base.js] 1`] = `
 exports[`Snapshot test: Tag[site/pages/components/Tag/example-2-type.js] 1`] = `
 <div>
   <div>
-    Default
+    <span>
+      Default
+    </span>
   </div>
   <div>
-    Success
+    <span>
+      Success
+    </span>
   </div>
   <div>
-    Info
+    <span>
+      Info
+    </span>
   </div>
   <div>
-    Warning
+    <span>
+      Warning
+    </span>
   </div>
   <div>
-    Danger
+    <span>
+      Danger
+    </span>
   </div>
 </div>
 `;
@@ -44,16 +60,24 @@ exports[`Snapshot test: Tag[site/pages/components/Tag/example-2-type.js] 1`] = `
 exports[`Snapshot test: Tag[site/pages/components/Tag/example-3-bgcolor.js] 1`] = `
 <div>
   <div>
-    #eeeeee
+    <span>
+      #eeeeee
+    </span>
   </div>
   <div>
-    #613400
+    <span>
+      #613400
+    </span>
   </div>
   <div>
-    #f50
+    <span>
+      #f50
+    </span>
   </div>
   <div>
-    #87d068
+    <span>
+      #87d068
+    </span>
   </div>
 </div>
 `;
@@ -62,7 +86,9 @@ exports[`Snapshot test: Tag[site/pages/components/Tag/example-4-close.js] 1`] = 
 <div>
   <div>
     <div>
-      onClose=true
+      <span>
+        onClose=true
+      </span>
     </div>
     <div>
       <svg>
@@ -72,7 +98,9 @@ exports[`Snapshot test: Tag[site/pages/components/Tag/example-4-close.js] 1`] = 
   </div>
   <div>
     <div>
-      onClose=function
+      <span>
+        onClose=function
+      </span>
     </div>
     <div>
       <svg>
@@ -82,7 +110,9 @@ exports[`Snapshot test: Tag[site/pages/components/Tag/example-4-close.js] 1`] = 
   </div>
   <div>
     <div>
-      onClose=promise
+      <span>
+        onClose=promise
+      </span>
     </div>
     <div>
       <svg>
@@ -96,14 +126,20 @@ exports[`Snapshot test: Tag[site/pages/components/Tag/example-4-close.js] 1`] = 
 exports[`Snapshot test: Tag[site/pages/components/Tag/example-5-disabled.js] 1`] = `
 <div>
   <div>
-    Tag 1
+    <span>
+      Tag 1
+    </span>
   </div>
   <div>
-    Tag 2
+    <span>
+      Tag 2
+    </span>
   </div>
   <div>
     <div>
-      Tag 3
+      <span>
+        Tag 3
+      </span>
     </div>
     <div>
       <svg>
@@ -118,7 +154,9 @@ exports[`Snapshot test: Tag[site/pages/components/Tag/example-6-dynamic.js] 1`] 
 <div>
   <div>
     <div>
-      Tag 1
+      <span>
+        Tag 1
+      </span>
     </div>
     <div>
       <svg>
@@ -128,7 +166,9 @@ exports[`Snapshot test: Tag[site/pages/components/Tag/example-6-dynamic.js] 1`] 
   </div>
   <div>
     <div>
-      Tag 2
+      <span>
+        Tag 2
+      </span>
     </div>
     <div>
       <svg>
@@ -138,7 +178,9 @@ exports[`Snapshot test: Tag[site/pages/components/Tag/example-6-dynamic.js] 1`] 
   </div>
   <div>
     <div>
-      Tag 3
+      <span>
+        Tag 3
+      </span>
     </div>
     <div>
       <svg>
@@ -147,7 +189,9 @@ exports[`Snapshot test: Tag[site/pages/components/Tag/example-6-dynamic.js] 1`] 
     </div>
   </div>
   <div>
-    + New Tag
+    <span>
+      + New Tag
+    </span>
   </div>
 </div>
 `;

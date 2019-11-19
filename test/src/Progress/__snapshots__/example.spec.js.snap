@@ -195,7 +195,9 @@ exports[`Snapshot test: Progress[site/pages/components/Progress/example-6-animat
     </div>
   </div>
   <button>
-    Start
+    <span>
+      Start
+    </span>
   </button>
 </div>
 `;

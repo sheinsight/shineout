@@ -1,20 +1,19 @@
-import React, { PureComponent, Children, isValidElement } from 'react'
+import React, { PureComponent, isValidElement } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
 import Spin from '../Spin'
+import { wrapSpan } from '../utils/dom/element'
 import { buttonClass } from '../styles'
 
 class Button extends PureComponent {
   getChildren() {
     const { children, loading } = this.props
-    if (!loading) return children
-    const filtered = Children.toArray(children).filter(child => {
-      const validElement = isValidElement(child) && child !== null
-      if (validElement && child.type.isShineoutIcon) return false
-      return true
-    })
-    return filtered
+    const parsed = React.Children.map(wrapSpan(children), item => {
+      if (loading && isValidElement(item) && item.type.isShineoutIcon) return null
+      return item
+    }).filter(v => v !== null)
+    return parsed
   }
 
   render() {

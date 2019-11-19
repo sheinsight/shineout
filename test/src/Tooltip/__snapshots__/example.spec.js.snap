@@ -31,7 +31,9 @@ exports[`Snapshot test: Tooltip[site/pages/components/Tooltip/example-3-disabled
   <noscript />
   <span>
     <button>
-      Disabled
+      <span>
+        Disabled
+      </span>
     </button>
   </span>
 </div>
