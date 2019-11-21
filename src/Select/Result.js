@@ -176,22 +176,23 @@ class Result extends PureComponent {
     }
 
     const v = getResultContent(result[0], renderResult, renderUnmatched)
+    const title = typeof v === 'string' ? v : undefined
 
     return (
-      <span title={v} className={selectClass('ellipsis')}>
+      <span title={title} className={selectClass('ellipsis')}>
         {v}
       </span>
     )
   }
 
   render() {
-    const { compressed } = this.props
+    const { compressed, showArrow } = this.props
     const result = this.props.result.length === 0 ? this.renderPlaceholder() : this.renderResult()
 
     return (
       <div className={selectClass('result', compressed && 'compressed')}>
         {result}
-        {!this.props.multiple && (
+        {showArrow && !this.props.multiple && (
           // eslint-disable-next-line
           <a tabIndex={-1} className={selectClass('indicator', 'caret')} />
         )}
@@ -219,6 +220,7 @@ Result.propTypes = {
   compressed: PropTypes.bool,
   trim: PropTypes.bool,
   renderUnmatched: PropTypes.func,
+  showArrow: PropTypes.bool,
 }
 
 export default Result
