@@ -80,7 +80,7 @@ export default class {
     return flatten
   }
 
-  add(data, _, childrenKey) {
+  add(data, _, childrenKey, unshift) {
     if (data === undefined || data === null) return
 
     // clear value
@@ -103,7 +103,7 @@ export default class {
       if (v !== undefined) values.push(v)
     }
 
-    this.handleChange(this.values.concat(values), data, true)
+    this.handleChange(unshift ? values.concat(this.values) : this.values.concat(values), data, true)
   }
 
   set(value) {
@@ -119,6 +119,16 @@ export default class {
       return false
     }
     return this.values.indexOf(this.format(raw)) >= 0
+  }
+
+  getDataByValue(data, value) {
+    if (this.prediction) {
+      for (let i = 0, count = data.length; i < count; i++) {
+        if (this.prediction(value, data[i])) return data[i]
+      }
+      return null
+    }
+    return data.find(d => value === this.format(d))
   }
 
   clear() {

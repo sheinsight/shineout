@@ -36,3 +36,4 @@
 | defaultExpandAll| bool | false | expand all node, only in can be use in treeData | 
 | renderUnmatched | func | none | the way to render not matched data value |
 | emptyAfterSelect | bool | false | empty input after select value |
+| showArrow | bool | true | show dropdown arrow, only single select |
