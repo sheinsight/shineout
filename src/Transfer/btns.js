@@ -20,7 +20,7 @@ class Btns extends Component {
 
     setSelecteds(1 - index, [])
 
-    datum[index ? 'add' : 'remove'](newValue)
+    datum[index ? 'add' : 'remove'](newValue, undefined, undefined, true)
   }
 
   render() {

@@ -160,7 +160,7 @@ const pages = [
   },
   {
     name: 'Tree',
-    cn: '树形选择',
+    cn: '树',
     level: 2,
     component: lazy(() => import(/* webpackChunkName: "Tree" */ './Tree')),
   },

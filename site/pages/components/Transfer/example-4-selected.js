@@ -26,7 +26,7 @@ export default class extends Component {
     }
   }
 
-  selectedChange = (sourceKeys, targetKeys) => {
+  selectChange = (sourceKeys, targetKeys) => {
     this.setState({ selectedKeys: [...sourceKeys, ...targetKeys] })
   }
 
