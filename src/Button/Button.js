@@ -9,6 +9,7 @@ import { buttonClass } from '../styles'
 class Button extends PureComponent {
   getChildren() {
     const { children, loading } = this.props
+    if (!children) return children
     const parsed = React.Children.map(wrapSpan(children), item => {
       if (loading && isValidElement(item) && item.type.isShineoutIcon) return null
       return item
