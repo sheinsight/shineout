@@ -38,7 +38,7 @@
   &-header {
     position: relative;
     z-index: 10;
-    padding: @panel-heading-padding;
+    padding: @panel-header-padding-vertical @panel-header-padding-horizontal;
     margin-bottom: -1px;
     background-color: @panel-header-bg;
     &:after {
@@ -81,7 +81,7 @@
 
   &-body {
     flex: 1 1 auto;
-    padding: @panel-body-padding;
+    padding: @panel-body-padding-vertical @panel-body-padding-horizontal;
     position: relative;
 
     &:hover {
@@ -121,7 +121,7 @@
 
   &-footer {
     position: relative;
-    padding: @panel-footer-padding;
+    padding: @panel-footer-padding-vertical @panel-footer-padding-horizontal;
     background-color: @panel-footer-bg;
     &:after {
       top: 0;

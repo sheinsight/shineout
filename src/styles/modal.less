@@ -122,12 +122,16 @@
   &-close {
     position: absolute;
     z-index: 100;
-    top: 13px;
-    right: 16px;
+    top: @panel-header-padding-vertical;
+    right: @panel-header-padding-horizontal;
     display: block;
     width: 10px;
     height: 10px;
     padding: 0;
+
+    > svg {
+      fill: @modal-close-icon-color;
+    }
   }
 
   &-mask {
