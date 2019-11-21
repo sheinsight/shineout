@@ -331,13 +331,10 @@
 
   &-bprogress {
     .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border; 'primary');
-
     user-select: none;
-    // border: 1px solid @btn-primary-border;
-    // color: @progress-bar-color;
+     border: 1px solid transparent;
     position: relative;
-    // background: @colors-primary;
-    .button-size(@btn-padding-y; @btn-padding-x; @font-size-base; @line-height-base; @btn-border-radius-base);
+    .button-size(@btn-padding-y; @btn-padding-x; @button-font-size-base; @line-height-base; @btn-border-radius-base);
     .@{upload-prefix}-stream{
       z-index: 1;
       white-space: nowrap;
