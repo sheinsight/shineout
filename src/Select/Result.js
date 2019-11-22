@@ -127,7 +127,7 @@ class Result extends PureComponent {
 
     return (
       <span className={classnames(inputClass('placeholder'), selectClass('ellipsis'))}>
-        {this.props.placeholder}
+        <span>{this.props.placeholder}</span>
         &nbsp;
       </span>
     )
