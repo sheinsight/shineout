@@ -2141,6 +2141,13 @@ const injects = {
         attr: 'color',
         type: 'color',
       },
+      {
+        name: 'padding',
+        className: modalClass('panel'),
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+      },
     ],
     set iconSize(v) {
       setBodyProperty(
@@ -2174,6 +2181,14 @@ const injects = {
         v
       )
     },
+    set padding(v) {
+      setBodyProperty(
+        {
+          '--modal-panel-padding': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    }
   },
   popover: {
     info: {
