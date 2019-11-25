@@ -23,6 +23,7 @@
 | trigger | string | 'hover' | options: \['click', 'hover'] |
 | type | string | none | Options: \['success', 'info', 'warning', 'danger'] |
 | * content | ReactElement \| function | | Old API, out of date. | 
+| priorityDirection | string | 'horizontal' | Popup location priority, default is left and right priority, only valid when position is not set |
 
 ### Popover.Confirm
 
