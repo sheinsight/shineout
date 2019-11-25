@@ -71,20 +71,42 @@ class Panel extends PureComponent {
 
   getPositionStr() {
     let { position } = this.props
+    const { priorityDirection } = this.props
     if (position) return position
 
     const rect = this.parentElement.getBoundingClientRect()
-    const centerPoint = rect.left + rect.width / 2
+    const horizontalPoint = rect.left + rect.width / 2
+    const verticalPoint = rect.top + rect.height / 2
     const windowHeight = docSize.height
     const windowWidth = docSize.width
-    if (rect.top + rect.height / 2 > windowHeight / 2) {
-      position = 'top'
-    } else {
-      position = 'bottom'
-    }
 
-    if (centerPoint > windowWidth * 0.6) position += '-right'
-    else if (centerPoint < windowWidth * 0.3) position += '-left'
+    if (priorityDirection === 'horizontal') {
+      if (horizontalPoint > windowWidth / 2) position = 'left'
+      else position = 'right'
+
+      if (verticalPoint > windowHeight * 0.6) {
+        position += '-bottom'
+      } else if (verticalPoint < windowHeight * 0.4) {
+        position += '-top'
+      }
+    } else {
+      if (verticalPoint > windowHeight / 2) position = 'top'
+      else position = 'bottom'
+
+      if (horizontalPoint > windowWidth * 0.6) {
+        position += '-right'
+      } else if (horizontalPoint < windowWidth * 0.4) {
+        position += '-left'
+      }
+    }
+    // if (rect.top + rect.height / 2 > windowHeight / 2) {
+    //   position = 'top'
+    // } else {
+    //   position = 'bottom'
+    // }
+
+    // if (centerPoint > windowWidth * 0.6) position += '-right'
+    // else if (centerPoint < windowWidth * 0.3) position += '-left'
 
     return position
   }
@@ -164,6 +186,7 @@ Panel.propTypes = {
   mouseEnterDelay: PropTypes.number,
   mouseLeaveDelay: PropTypes.number,
   className: PropTypes.string,
+  priorityDirection: PropTypes.string,
 }
 
 Panel.defaultProps = {
@@ -171,6 +194,7 @@ Panel.defaultProps = {
   trigger: 'hover',
   mouseEnterDelay: 0,
   mouseLeaveDelay: 500,
+  priorityDirection: 'horizontal',
 }
 
 export default Panel
