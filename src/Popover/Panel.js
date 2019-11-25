@@ -147,7 +147,6 @@ class Panel extends PureComponent {
     const colorStyle = { background, borderColor: border }
     const innerStyle = Object.assign({}, this.props.style, { background })
     const position = this.getPositionStr()
-    console.log(position)
     const pos = getPosition(position, this.parentElement)
     this.element.className = classnames(popoverClass('_', position, type), this.props.className)
     // eslint-disable-next-line
