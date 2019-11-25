@@ -216,8 +216,8 @@ class Scroll extends PureComponent {
 
     const yLength = scrollHeight < height ? scrollHeight : height
 
-    this.wheelY = scrollHeight > yLength
-    this.wheelX = scrollWidth > width
+    this.wheelY = Math.ceil(scrollHeight) > Math.ceil(yLength)
+    this.wheelX = Math.ceil(scrollWidth) > Math.ceil(width)
 
     return (
       <div style={style} ref={this.bindWheel} className={className}>
