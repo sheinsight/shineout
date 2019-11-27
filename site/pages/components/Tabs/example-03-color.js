@@ -19,7 +19,7 @@ const contact = (
 
 export default function() {
   return (
-    <Tabs>
+    <Tabs lazy={false}>
       <Tabs.Panel border="transparent" background="#ffe7ba" style={panelStyle} tab="Home">
         {lorem(5)}
       </Tabs.Panel>
