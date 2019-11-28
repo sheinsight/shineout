@@ -43,6 +43,7 @@
   },
   "Layout": {
     "Card": "卡片",
+    "CardGroup": "卡片组",
     "Grid": "栅格",
     "Sticky": "附着",
     "Tabs": "标签页"
