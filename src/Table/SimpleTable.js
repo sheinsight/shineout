@@ -93,9 +93,9 @@ class SimpleTable extends PureComponent {
         <Thead {...this.props} onSortChange={this.handleSortChange} onColChange={onResize} />
       </table>
     )
-    if (data.length === 0) return header
+    const empty = data.length === 0
     return [
-      <div key="head" className={tableClass('head', 'simple-head')} ref={this.bindHeader}>
+      <div key="head" className={tableClass('head', 'simple-head', empty && 'empty-head')} ref={this.bindHeader}>
         {header}
       </div>,
       this.renderBody(),
