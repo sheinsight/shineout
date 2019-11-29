@@ -14,9 +14,9 @@ class Panel extends PureComponent {
 
   render() {
     const {
-      children, background, color, isActive, collapsible, collapsed,
+      children, background, color, isActive, collapsible, collapsed, lazy,
     } = this.props
-    if (!isActive && this.isPristine) return null
+    if (!isActive && this.isPristine && lazy) return null
     this.isPristine = false
 
     const style = Object.assign({ background: background || '#fff', color }, this.props.style)
@@ -41,6 +41,7 @@ Panel.propTypes = {
   children: PropTypes.any,
   isActive: PropTypes.bool,
   style: PropTypes.object,
+  lazy: PropTypes.bool,
 }
 
 export default Panel
