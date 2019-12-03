@@ -55,7 +55,7 @@ class Tab extends PureComponent {
           'tab',
           isActive && (isBordered ? 'tab-bordered-active' : 'active'),
           disabled && 'disabled',
-          shape === 'bordered' && 'tab-bordered'
+          isBordered && 'tab-bordered'
         ),
         this.uid
       ),
