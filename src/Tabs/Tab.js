@@ -15,9 +15,11 @@ class Tab extends PureComponent {
   getActiveStyle() {
     const { shape, align, background, color, border, isActive, isVertical } = this.props
 
-    if (shape === 'line' || shape === 'bordered') return {}
+    if (shape === 'line') return {}
 
     const style = { background, color }
+
+    if (shape === 'bordered') return style
 
     if (shape !== 'line' && !isVertical)
       style.borderColor = `${border} ${border} ${isActive ? background : border} ${border}`
