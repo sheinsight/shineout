@@ -40,13 +40,13 @@
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| file |  object | 无 |  传入的文件 |
-| onLoad | string | 无 | 上传事件 |
-| onError | any | 无| 上传出错事件(props 中为 onHttpError) |
-| onProgress | string | 无 | 上传中进度 |
-| onSuccess | array | 无 | 上传成功事件 |
+| file |  File | 无 |  传入的文件 |
+| onLoad | function | 无 | 上传事件 |
+| onError | function | 无| 上传出错事件(props 中为 onHttpError) |
+| onProgress | function | 无 | 上传中进度 |
+| onSuccess | function | 无 | 上传成功事件 |
 | params | object | 无 | 上传参数 |
-| onStart | object | 无 | 开始上传事件 |
+| onStart | function | 无 | 开始上传事件 |
 | headers | object | 无 | 请求头部信息 |
 
 

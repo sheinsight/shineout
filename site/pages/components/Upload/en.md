@@ -35,13 +35,13 @@
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| file |  object | - |  the file |
-| onLoad | string | - | the event of uploading |
-| onError | any | - | the event of upload fail(in props is onHttpError) |
-| onProgress | string | - | the event of uploading progress |
-| onSuccess | array | - | the event of upload successing |
+| file |  File | - |  the file |
+| onLoad | function | - | the event of uploading |
+| onError | function | - | the event of upload fail(in props is onHttpError) |
+| onProgress | function | - | the event of uploading progress |
+| onSuccess | function | - | the event of upload successing |
 | params | object | - | the request params |
-| onStart | object | - | the event of start upload |
+| onStart | function | - | the event of start upload |
 | headers | object | - | the request header |
 
 ### Image
