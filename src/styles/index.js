@@ -35,6 +35,7 @@ import carouselLess from './carousel.less'
 import cascaderLess from './cascader.less'
 import transferLess from './transfer.less'
 import spinLess from './spin.less'
+import cardGroupLess from './cardGroup.less'
 
 export const alertClass = genaration(alertLess, 'alert')
 export const buttonClass = genaration(buttonLess, 'button')
@@ -70,3 +71,4 @@ export const carouselClass = genaration(carouselLess, 'carousel')
 export const cascaderClass = genaration(cascaderLess, 'cascader')
 export const transferClass = genaration(transferLess, 'transfer')
 export const spinClass = genaration(spinLess, 'spin')
+export const cardGroupClass = genaration(spinLess, 'card-group')

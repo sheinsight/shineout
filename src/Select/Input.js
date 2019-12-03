@@ -75,11 +75,10 @@ class FilterInput extends Component {
   }
 
   handlePaste(e) {
-    const text = (e.clipboardData || window.clipboardData).getData('text')
+    const text = (e.clipboardData || window.clipboardData).getData('text/plain')
     if (!text) return
     e.preventDefault()
-    this.editElement.innerText = text
-    focusElement.end(this.editElement)
+    document.execCommand('insertText', false, text)
     this.handleInput({ target: { innerText: text } })
   }
 

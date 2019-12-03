@@ -221,6 +221,12 @@ const pages = [
     component: lazy(() => import(/* webpackChunkName: "Card" */ './Card')),
   },
   {
+    name: 'CardGroup',
+    cn: '卡片组',
+    level: 2,
+    component: lazy(() => import(/* webpackChunkName: "CardGroup" */ './CardGroup')),
+  },
+  {
     name: 'Grid',
     cn: '栅格',
     level: 2,

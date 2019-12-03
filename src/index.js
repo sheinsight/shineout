@@ -2,7 +2,7 @@
 import './styles/normalize.less'
 import * as utils from './utils'
 
-export default { utils, version: '1.4.3' }
+export default { utils, version: '1.4.4-rc.5' }
 export { utils }
 export { setLocale } from './locale'
 export { color, style } from './utils/expose'
@@ -11,6 +11,7 @@ export { default as Alert } from './Alert'
 export { default as Breadcrumb } from './Breadcrumb'
 export { default as Button } from './Button'
 export { default as Card } from './Card'
+export { default as CardGroup } from './CardGroup'
 export { default as Carousel } from './Carousel'
 export { default as Cascader } from './Cascader'
 export { default as Checkbox } from './Checkbox'
