@@ -19,6 +19,8 @@ class Tab extends PureComponent {
 
     const style = { background, color }
 
+    if (shape === 'bordered') return style
+
     if (shape !== 'line' && !isVertical)
       style.borderColor = `${border} ${border} ${isActive ? background : border} ${border}`
 
@@ -44,12 +46,21 @@ class Tab extends PureComponent {
   }
 
   render() {
-    const { isActive, disabled, children } = this.props
+    const { isActive, disabled, children, shape } = this.props
 
     const style = this.getActiveStyle()
+    const isBordered = shape === 'bordered'
 
     const props = {
-      className: classnames(tabsClass('tab', isActive && 'active', disabled && 'disabled'), this.uid),
+      className: classnames(
+        tabsClass(
+          'tab',
+          isActive && (isBordered ? 'tab-bordered-active' : 'active'),
+          disabled && 'disabled',
+          isBordered && 'tab-bordered'
+        ),
+        this.uid
+      ),
       onClick: this.handleClick,
       style,
     }
