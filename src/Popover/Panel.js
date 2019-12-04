@@ -194,7 +194,7 @@ Panel.defaultProps = {
   trigger: 'hover',
   mouseEnterDelay: 0,
   mouseLeaveDelay: 500,
-  priorityDirection: 'horizontal',
+  priorityDirection: 'vertical',
 }
 
 export default Panel
