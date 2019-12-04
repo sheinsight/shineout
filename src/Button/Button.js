@@ -19,6 +19,7 @@ class Button extends PureComponent {
 
   render() {
     const { outline, type, size, href, htmlType, loading, disabled, onRef, shape, ...others } = this.props
+    const color = outline || type === 'default' ? undefined : '#fff'
     const className = classnames(
       buttonClass('_', shape, type, outline && 'outline', {
         large: size === 'large',
@@ -42,7 +43,7 @@ class Button extends PureComponent {
       <button {...others} ref={onRef} disabled={disabled || loading} type={htmlType} className={className}>
         {loading && (
           <span className={buttonClass('spin')}>
-            <Spin size={12} name="ring" color="#fff" />
+            <Spin size={12} name="ring" color={color} />
           </span>
         )}
         {children}
