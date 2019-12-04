@@ -1994,6 +1994,30 @@ const injects = {
         attr: 'boxShadow',
         type: 'string',
       },
+      {
+        name: 'headerBg',
+        className: cardClass('header'),
+        attr: 'background-color',
+        type: 'color',
+      },
+      {
+        name: 'footerBg',
+        className: cardClass('footer'),
+        attr: 'background-color',
+        type: 'color',
+      },
+      {
+        name: 'headerColor',
+        className: cardClass('header'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
+        name: 'footerColor',
+        className: cardClass('footer'),
+        attr: 'color',
+        type: 'color',
+      },
     ],
     set fontSize(v) {
       setBodyProperty(
@@ -2103,6 +2127,38 @@ const injects = {
       setBodyProperty(
         {
           '--card-box-shadow': v,
+        },
+        v
+      )
+    },
+    set headerBg(v) {
+      setBodyProperty(
+        {
+          '--card-header-bg': v,
+        },
+        v
+      )
+    },
+    set footerBg(v) {
+      setBodyProperty(
+        {
+          '--card-footer-bg': v,
+        },
+        v
+      )
+    },
+    set headerColor(v) {
+      setBodyProperty(
+        {
+          '--card-header-color': v,
+        },
+        v
+      )
+    },
+    set footerColor(v) {
+      setBodyProperty(
+        {
+          '--card-footer-color': v,
         },
         v
       )
