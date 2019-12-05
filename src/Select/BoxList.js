@@ -100,7 +100,7 @@ class BoxList extends Component {
     if (loading) return null
 
     const empty = data.length === 0
-    const scrollHeight = lineHeight * Math.floor(data.length / columns)
+    const scrollHeight = lineHeight * Math.ceil(data.length / columns)
     const sliceData = data.reduce((red, item) => {
       let lastItem = red[red.length - 1]
       if (!lastItem) {
