@@ -152,6 +152,7 @@ Table.defaultProps = {
   hover: true,
   rowsInView: 20,
   verticalAlign: 'top',
+  columns: [],
 }
 
 export default compose(
