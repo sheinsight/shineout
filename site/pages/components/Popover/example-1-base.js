@@ -10,7 +10,7 @@ import { Button, Popover } from 'shineout'
 export default function() {
   return (
     <Button>
-      <Popover style={{ width: 200, padding: 20 }}>Some text</Popover>
+      <Popover style={{ padding: '4px 8px' }}>Some text</Popover>
       Hover
     </Button>
   )
