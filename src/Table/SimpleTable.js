@@ -86,7 +86,7 @@ class SimpleTable extends PureComponent {
   render() {
     const { columns, width, data, onResize, children } = this.props
     const { colgroup } = this.state
-    if (!columns) return <table style={{ width }}>{children}</table>
+    if (!columns || columns.length === 0) return <table style={{ width }}>{children}</table>
     const header = (
       <table style={{ width }}>
         <Colgroup colgroup={colgroup} columns={columns} />
