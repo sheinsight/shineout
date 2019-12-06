@@ -19,7 +19,7 @@ class Tab extends PureComponent {
 
     const style = { background, color }
 
-    if (shape === 'bordered') return style
+    if (shape === 'bordered') return { background }
 
     if (shape !== 'line' && !isVertical)
       style.borderColor = `${border} ${border} ${isActive ? background : border} ${border}`
