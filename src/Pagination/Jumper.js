@@ -11,7 +11,6 @@ class Jumper extends PureComponent {
     super(props)
 
     this.handleKeyDown = this.handleKeyDown.bind(this)
-    this.handleInputOnRef = this.handleInputOnRef.bind(this)
     this.renderRequire = getUidStr()
   }
 
@@ -39,10 +38,6 @@ class Jumper extends PureComponent {
     }
   }
 
-  handleInputOnRef() {
-    this.autoFocus = undefined;
-  }
-
   render() {
     const { current, text, size } = this.props
     const txt = text.jumper ? text.jumper.split('{input}') : []
@@ -54,7 +49,6 @@ class Jumper extends PureComponent {
           key={this.renderRequire}
           value={current}
           autoFocus={this.autoFocus}
-          onRef={this.handleInputOnRef}
           onKeyDown={this.handleKeyDown}
           digits={0}
           type="number"

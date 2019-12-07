@@ -14,8 +14,6 @@ class Input extends PureComponent {
 
   bindRef(el) {
     this.ref = el
-    const { onRef } = this.props
-    onRef && typeof onRef === 'function' && onRef( el )
   }
 
   invalidNumber(value) {
@@ -68,7 +66,6 @@ class Input extends PureComponent {
       htmlName,
       forceChange,
       onEnterPress,
-      onRef,
       ...other
     } = this.props
     const value = this.props.value == null ? '' : this.props.value
