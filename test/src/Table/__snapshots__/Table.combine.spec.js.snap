@@ -8,6 +8,11 @@ Array [
   >
     <div
       className="so-table-head so-table-simple-head"
+      style={
+        Object {
+          "overflowY": "hidden",
+        }
+      }
     >
       <table
         style={
@@ -658,6 +663,11 @@ exports[`Table[combine] should combine without pagination 1`] = `
 >
   <div
     className="so-table-head so-table-simple-head"
+    style={
+      Object {
+        "overflowY": "hidden",
+      }
+    }
   >
     <table
       style={
