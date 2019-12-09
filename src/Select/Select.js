@@ -120,6 +120,7 @@ class Select extends PureComponent {
       if (!getParent(e.target, `[data-id=${this.selectId}]`)) {
         this.props.onBlur()
         this.clearClickAway()
+        this.element && this.element.blur()
       }
       this.handleState(false, null)
     }
