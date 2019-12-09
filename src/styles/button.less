@@ -2,6 +2,7 @@
 @import './themes/@{so-theme}.less';
 
 @button-prefix: ~'@{so-prefix}-button';
+@button-disabled: ~'.@{button-prefix}-disabled';
 
 .@{button-prefix} {
   display: inline-block;
@@ -62,7 +63,7 @@
   &-default {
     .button-variant(@btn-default-color; @btn-default-bg; @btn-default-border; 'default' ; @btn-default-border);
 
-    &.@{button-prefix}-outline {
+    &.@{button-prefix}-outline:not(@{button-disabled}) {
       .button-outline(@btn-default-color; @btn-default-bg; @btn-default-bg;);
     }
 
@@ -82,7 +83,7 @@
   &-primary {
     .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border; 'primary');
 
-    &.@{button-prefix}-outline {
+    &.@{button-prefix}-outline:not(@{button-disabled}) {
       .button-outline(@btn-primary-color; @btn-primary-bg; @colors-primary;);
     }
   }
@@ -90,7 +91,7 @@
   &-secondary {
     .button-variant(@btn-secondary-color; @btn-secondary-bg; @btn-secondary-border; 'secondary');
 
-    &.@{button-prefix}-outline {
+    &.@{button-prefix}-outline:not(@{button-disabled}) {
       .button-outline(@btn-secondary-color; @btn-secondary-bg; @colors-secondary;);
     }
   }
@@ -98,7 +99,7 @@
   &-success {
     .button-variant(@btn-success-color; @btn-success-bg; @btn-success-border; 'success');
 
-    &.@{button-prefix}-outline {
+    &.@{button-prefix}-outline:not(@{button-disabled}) {
       .button-outline(@btn-success-color; @btn-success-bg; @colors-success;);
     }
   }
@@ -106,7 +107,7 @@
   &-info {
     .button-variant(@btn-info-color; @btn-info-bg; @btn-info-border; 'info');
 
-    &.@{button-prefix}-outline {
+    &.@{button-prefix}-outline:not(@{button-disabled}) {
       .button-outline(@btn-info-color; @btn-info-bg; @colors-info;);
     }
   }
@@ -114,7 +115,7 @@
   &-warning {
     .button-variant(@btn-warning-color; @btn-warning-bg; @btn-warning-border; 'warning');
 
-    &.@{button-prefix}-outline {
+    &.@{button-prefix}-outline:not(@{button-disabled}) {
       .button-outline(@btn-warning-color; @btn-warning-bg; @colors-warning;);
     }
   }
@@ -123,7 +124,7 @@
   &-danger {
     .button-variant(@btn-danger-color; @btn-danger-bg; @btn-danger-border; 'danger');
 
-    &.@{button-prefix}-outline {
+    &.@{button-prefix}-outline:not(@{button-disabled}) {
       .button-outline(@btn-danger-color; @btn-danger-bg; @colors-danger;);
     }
   }
