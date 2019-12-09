@@ -7,7 +7,7 @@ exports[`Table[expand] should render correct 1`] = `
       <Table data={{...}} keygen=\\"id\\" onChange={[undefined]} columns={{...}} sorter={{...}} onSortChange={[Function: bound handleSortChange]} treeColumnsName={[undefined]} distinct={true} limit={0} initValidate={false} datum={{...}} className=\\"\\" size=\\"default\\" style={{...}} type=\\"default\\" hover={true} rowsInView={20} verticalAlign=\\"top\\">
         <div className=\\"so-table so-table-default so-table-hover so-table-vertical-top\\" style={{...}}>
           <SimpleTable keygen=\\"id\\" onChange={[undefined]} sorter={{...}} onSortChange={[Function: bound handleSortChange]} treeColumnsName={[undefined]} distinct={true} limit={0} initValidate={false} datum={{...}} className=\\"\\" type=\\"default\\" rowsInView={10} fixed={[undefined]} loading={[undefined]} height={[undefined]} width={[undefined]} data={{...}} columns={{...}} striped={[undefined]} bordered={[undefined]} columnResizable={[undefined]}>
-            <div className=\\"so-table-head so-table-simple-head\\">
+            <div style={{...}} className=\\"so-table-head so-table-simple-head\\">
               <table style={{...}}>
                 <Colgroup colgroup={[undefined]} columns={{...}}>
                   <colgroup>

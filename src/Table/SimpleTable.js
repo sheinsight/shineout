@@ -18,6 +18,7 @@ class SimpleTable extends PureComponent {
 
     this.state = {
       colgroup: undefined,
+      scrollAble: false,
     }
     this.handleSortChange = this.handleSortChange.bind(this)
     this.bindHeader = this.bindElement.bind(this, 'header')
@@ -41,7 +42,11 @@ class SimpleTable extends PureComponent {
   }
 
   bindElement(key, el) {
+    const { scrollAble } = this.state
     this[key] = el
+    if (!this.body) return
+    const overHeight = this.body.scrollHeight > this.body.clientHeight
+    if (scrollAble !== overHeight) this.setState({ scrollAble: overHeight })
   }
 
   handleSortChange(...args) {
@@ -85,7 +90,7 @@ class SimpleTable extends PureComponent {
 
   render() {
     const { columns, width, data, onResize, children } = this.props
-    const { colgroup } = this.state
+    const { colgroup, scrollAble } = this.state
     if (!columns || columns.length === 0) return <table style={{ width }}>{children}</table>
     const header = (
       <table style={{ width }}>
@@ -94,8 +99,15 @@ class SimpleTable extends PureComponent {
       </table>
     )
     const empty = data.length === 0
+    const headerStyle = {}
+    if (!empty) headerStyle.overflowY = scrollAble ? 'scroll' : 'hidden'
     return [
-      <div key="head" className={tableClass('head', 'simple-head', empty && 'empty-head')} ref={this.bindHeader}>
+      <div
+        key="head"
+        style={headerStyle}
+        className={tableClass('head', 'simple-head', empty && 'empty-head')}
+        ref={this.bindHeader}
+      >
         {header}
       </div>,
       this.renderBody(),

@@ -7,6 +7,7 @@ exports[`Table[Empty] should render empty table 1`] = `
 >
   <div
     className="so-table-head so-table-simple-head so-table-empty-head"
+    style={Object {}}
   >
     <table
       style={
@@ -176,6 +177,7 @@ exports[`Table[Empty] should render empty table with emtpyText 1`] = `
 >
   <div
     className="so-table-head so-table-simple-head so-table-empty-head"
+    style={Object {}}
   >
     <table
       style={
@@ -349,6 +351,7 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
 >
   <div
     className="so-table-head so-table-simple-head so-table-empty-head"
+    style={Object {}}
   >
     <table
       style={
@@ -570,6 +573,7 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
 >
   <div
     className="so-table-head so-table-simple-head so-table-empty-head"
+    style={Object {}}
   >
     <table
       style={
