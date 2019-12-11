@@ -67,7 +67,9 @@ class Number extends PureComponent {
 
   changeValue(mod) {
     if (this.props.disabled) return
-    let value = parseFloat(this.props.value)
+    let val = this.props.value
+    if (val === 0) val = '0'
+    let value = parseFloat(`${val || ''}`.replace(/,/g, ''))
     // eslint-disable-next-line
     if (isNaN(value)) value = 0
     this.handleChange(value + mod, true)
@@ -95,6 +97,8 @@ class Number extends PureComponent {
   }
 
   handleCalc(mod) {
+    const { onMouseDown } = this.props
+    onMouseDown && onMouseDown()
     this.hold = true
     this.changeValue(mod)
     this.keyPressTimeOut = setTimeout(() => {
@@ -108,17 +112,19 @@ class Number extends PureComponent {
   }
 
   handleMouseUp() {
+    const { onMouseUp } = this.props
+    onMouseUp && onMouseUp()
     this.hold = false
     if (this.keyPressTimeOut) clearTimeout(this.keyPressTimeOut)
   }
 
   render() {
-    const { onChange, allowNull, ...other } = this.props
+    const { onChange, allowNull, showArrow, ...other } = this.props
     return [
       <Input
         key="input"
         {...other}
-        className={inputClass('number')}
+        className={inputClass({ number: showArrow })}
         onChange={this.handleChange}
         onKeyDown={this.handleKeyDown}
         onKeyUp={this.handleKeyUp}
@@ -130,7 +136,7 @@ class Number extends PureComponent {
         key="up"
         // do not need the tab to focus
         tabIndex={-1}
-        className={inputClass('number-up')}
+        className={inputClass('number-up', { 'number-arrow-hide': !showArrow })}
         onMouseDown={this.handleAddClick}
         onMouseUp={this.handleMouseUp}
         onMouseLeave={this.handleMouseUp}
@@ -142,7 +148,7 @@ class Number extends PureComponent {
         key="down"
         // do not need the tab to focus
         tabIndex={-1}
-        className={inputClass('number-down')}
+        className={inputClass('number-down', { 'number-arrow-hide': !showArrow })}
         onMouseDown={this.handleSubClick}
         onMouseUp={this.handleMouseUp}
         onMouseLeave={this.handleMouseUp}
@@ -162,12 +168,14 @@ Number.propTypes = {
   step: PropTypes.number,
   digits: PropTypes.number,
   allowNull: PropTypes.bool,
+  showArrow: PropTypes.bool,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 }
 
 Number.defaultProps = {
   step: 1,
   allowNull: false,
+  showArrow: true,
 }
 
 export default Number

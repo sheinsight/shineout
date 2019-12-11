@@ -154,7 +154,8 @@
   font-size: @font-size-base;
   line-height: @line-height-base;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-
+  .user-select(none);
+  
   &-clear-wrapper {
     width: 16px;
 
@@ -275,6 +276,10 @@
     svg {
       transform: rotate(90deg);
     }
+  }
+
+  &-number-arrow-hide {
+    display: none;
   }
 
   &-group&-small,
@@ -481,7 +486,7 @@
   }
 
   & input&-number {
-    padding-right: 12px;
+    padding-right: 22px;
     & + .@{input-prefix}-clear-wrapper {
       .@{input-prefix}-clear {
         right: 22px;

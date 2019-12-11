@@ -3,6 +3,7 @@ import inputable from '../Form/inputable'
 import inputBorder from '../hoc/inputBorder'
 import delay from '../hoc/delay'
 import trim from '../hoc/trim'
+import coin from '../hoc/coin'
 import Input from './Input'
 import Number from './Number'
 import Group from './Group'
@@ -12,12 +13,14 @@ const exports = compose(
   inputable,
   inputBorder({}),
   delay(400),
-  trim
+  trim,
+  coin('input')
 )(Input)
 exports.Group = inputBorder({ tag: 'div', isGroup: true })(Group)
 exports.Number = compose(
   inputable,
-  inputBorder({})
+  inputBorder({}),
+  coin()
 )(Number)
 exports.Password = compose(
   inputable,
