@@ -10,9 +10,8 @@ export default WrappedComponent => {
   class TreeExpand extends React.Component {
     constructor(props) {
       super(props)
-      const { defaultTreeExpandKeys } = props
       this.state = {
-        expandKeys: defaultTreeExpandKeys ? this.getMapFromArray(defaultTreeExpandKeys) : new Map(),
+        expandKeys: this.getMapFromArray(props.defaultTreeExpandKeys),
       }
 
       this.handleTreeExpand = this.handleTreeExpand.bind(this)
@@ -134,6 +133,10 @@ export default WrappedComponent => {
     defaultTreeExpandKeys: PropTypes.array,
     treeExpandKeys: PropTypes.array,
     onTreeExpand: PropTypes.func,
+  }
+
+  TreeExpand.defaultProps = {
+    defaultTreeExpandKeys: [],
   }
 
   return TreeExpand
