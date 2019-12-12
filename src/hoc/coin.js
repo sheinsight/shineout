@@ -30,28 +30,28 @@ export default coinType => Origin => class extends PureComponent {
     const { onFocus } = this.props
     this.isFocus = true
     this.setState({ showCoin: false })
-    onFocus && onFocus(e)
+    if (onFocus) onFocus(e)
   }
 
   handleBlur(e) {
     const { onBlur } = this.props
     this.isFocus = false
     if (!this.mouseDown) this.setState({ showCoin: true })
-    onBlur && onBlur(e)
+    if (onBlur) onBlur(e)
   }
   
   handleMouseDown(e) {
     const { onMouseDown } = this.props
     this.mouseDown = true
     this.setState({ showCoin: false })
-    onMouseDown && onMouseDown(e)
+    if (onMouseDown) onMouseDown(e)
   }
 
   handleMouseUp(e) {
     const { onMouseUp } = this.props
     if (this.mouseDown && !this.isFocus) { this.setState({ showCoin: true }) }
     this.mouseDown = false
-    onMouseUp && onMouseUp(e)
+    if (onMouseUp)  onMouseUp(e)
   }
 
   getValue() {

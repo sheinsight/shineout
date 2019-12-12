@@ -98,7 +98,7 @@ class Number extends PureComponent {
 
   handleCalc(mod) {
     const { onMouseDown } = this.props
-    onMouseDown && onMouseDown()
+    if (onMouseDown) onMouseDown()
     this.hold = true
     this.changeValue(mod)
     this.keyPressTimeOut = setTimeout(() => {
@@ -113,7 +113,7 @@ class Number extends PureComponent {
 
   handleMouseUp() {
     const { onMouseUp } = this.props
-    onMouseUp && onMouseUp()
+    if (onMouseUp) onMouseUp()
     this.hold = false
     if (this.keyPressTimeOut) clearTimeout(this.keyPressTimeOut)
   }
