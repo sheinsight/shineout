@@ -163,6 +163,8 @@ Number.propTypes = {
   disabled: PropTypes.bool,
   min: PropTypes.number,
   max: PropTypes.number,
+  onMouseDown: PropTypes.func,
+  onMouseUp: PropTypes.func,
   onBlur: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   step: PropTypes.number,
