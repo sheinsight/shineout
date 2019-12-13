@@ -369,7 +369,7 @@ class SeperateTable extends PureComponent {
         colgroup.push(width)
       }
     }
-    this.setState({ colgroup })
+    this.setState({ colgroup, resize: false })
   }
 
   renderBody(floatClass) {

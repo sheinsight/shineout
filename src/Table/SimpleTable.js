@@ -29,9 +29,11 @@ class SimpleTable extends PureComponent {
 
   componentDidMount() {
     if (this.body) this.body.addEventListener('wheel', this.handleScroll, { passive: false })
+    this.scrollCheck()
   }
 
   componentDidUpdate(prevProps) {
+    this.scrollCheck()
     if (!compareColumns(prevProps.columns, this.props.columns)) {
       this.setState({ colgroup: undefined })
     }
@@ -42,8 +44,11 @@ class SimpleTable extends PureComponent {
   }
 
   bindElement(key, el) {
-    const { scrollAble } = this.state
     this[key] = el
+  }
+
+  scrollCheck() {
+    const { scrollAble } = this.state
     if (!this.body) return
     const overHeight = this.body.scrollHeight > this.body.clientHeight
     if (scrollAble !== overHeight) this.setState({ scrollAble: overHeight })
