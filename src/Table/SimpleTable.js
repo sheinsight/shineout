@@ -66,7 +66,9 @@ class SimpleTable extends PureComponent {
         colgroup.push(width)
       }
     }
-    this.setState({ colgroup })
+    setTimeout(() => {
+      this.setState({ colgroup })
+    })
   }
 
   handleScroll({ currentTarget }) {
