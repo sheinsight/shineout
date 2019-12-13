@@ -37,3 +37,4 @@
 | renderUnmatched | func | none | the way to render not matched data value |
 | emptyAfterSelect | bool | false | empty input after select value |
 | showArrow | bool | true | show dropdown arrow, only single select |
+| showHitDescendants | bool | false | Whether to show the descendant nodes of the hit node after filtering |

@@ -31,3 +31,4 @@ TreeSelect 用来选择树形数据结构，若需要非关联树形结构选择
 | zIndex | number | 1000 | 选项列表 z-index 值 |
 | childrenKey | string | 'children' | 指定子数据的属性名 | 
 | defaultExpandAll | bool | false | 默认全部展开节点 | 
+| showHitDescendants | bool | false | 筛选后是否展示命中节点的后代节点 |

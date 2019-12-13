@@ -1,4 +1,4 @@
-function getFilterTree(treeNodes, filterFunc, filterExpandKeys, keyFunc, childrenKey = 'children') {
+function getFilterTree(treeNodes, filterFunc, filterExpandKeys, keyFunc, childrenKey = 'children', showHitDescendants) {
   const mapFilteredNodeToData = node => {
     if (!node) return null
     let match = false
@@ -12,7 +12,7 @@ function getFilterTree(treeNodes, filterFunc, filterExpandKeys, keyFunc, childre
       filterExpandKeys.push(key)
       return {
         ...node,
-        [childrenKey]: children,
+        [childrenKey]: showHitDescendants && match ? node[childrenKey] || [] : children,
       }
     }
     return null
