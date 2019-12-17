@@ -39,6 +39,7 @@
 | onSortCancel | func | none | sort cancel event |
 | radio | bool | false | is Radio |
 | rowEvents | array | none | tr events |
+| defaultTreeExpandKeys | array | none | Default expanded row keys |
 
 ### Column
 | Property | Type | Default | Description |
