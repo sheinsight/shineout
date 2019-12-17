@@ -37,3 +37,4 @@
 | renderUnmatched | func | 无 | 渲染未匹配值的方式 |
 | emptyAfterSelect | bool | false | 选中后是否清空输入框内容 ｜
 | showArrow | bool | true | 是否显示下拉箭头，仅针对单选情况 |
+| showHitDescendants | bool | false | 筛选后是否展示命中节点的后代节点 |
