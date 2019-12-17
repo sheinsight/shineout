@@ -60,6 +60,7 @@ class Tabs extends PureComponent {
     let { border } = this.props
     Children.toArray(children).forEach((child, i) => {
       if (!child || !child.type) return
+
       let tab = null
       if (child.type.isTabPanel) {
         // eslint-disable-next-line
