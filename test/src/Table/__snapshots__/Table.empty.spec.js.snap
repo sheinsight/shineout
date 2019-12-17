@@ -65,37 +65,61 @@ exports[`Table[Empty] should render empty table 1`] = `
             className=""
             rowSpan={1}
           >
-            id
+            <div>
+              <span>
+                id
+              </span>
+            </div>
           </th>
           <th
             className=""
             rowSpan={1}
           >
-            Name
+            <div>
+              <span>
+                Name
+              </span>
+            </div>
           </th>
           <th
             className=""
             rowSpan={1}
           >
-            Country
+            <div>
+              <span>
+                Country
+              </span>
+            </div>
           </th>
           <th
             className=""
             rowSpan={1}
           >
-            Position
+            <div>
+              <span>
+                Position
+              </span>
+            </div>
           </th>
           <th
             className=""
             rowSpan={1}
           >
-            Office
+            <div>
+              <span>
+                Office
+              </span>
+            </div>
           </th>
           <th
             className=""
             rowSpan={1}
           >
-            Start Date
+            <div>
+              <span>
+                Start Date
+              </span>
+            </div>
           </th>
         </tr>
       </thead>
@@ -234,37 +258,61 @@ exports[`Table[Empty] should render empty table with emtpyText 1`] = `
             className=""
             rowSpan={1}
           >
-            id
+            <div>
+              <span>
+                id
+              </span>
+            </div>
           </th>
           <th
             className=""
             rowSpan={1}
           >
-            Name
+            <div>
+              <span>
+                Name
+              </span>
+            </div>
           </th>
           <th
             className=""
             rowSpan={1}
           >
-            Country
+            <div>
+              <span>
+                Country
+              </span>
+            </div>
           </th>
           <th
             className=""
             rowSpan={1}
           >
-            Position
+            <div>
+              <span>
+                Position
+              </span>
+            </div>
           </th>
           <th
             className=""
             rowSpan={1}
           >
-            Office
+            <div>
+              <span>
+                Office
+              </span>
+            </div>
           </th>
           <th
             className=""
             rowSpan={1}
           >
-            Start Date
+            <div>
+              <span>
+                Start Date
+              </span>
+            </div>
           </th>
         </tr>
       </thead>
@@ -421,7 +469,11 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
             className="so-table-fixed-left"
             rowSpan={2}
           >
-            id
+            <div>
+              <span>
+                id
+              </span>
+            </div>
           </th>
           <th
             className="so-table-center so-table-condensed so-table-fixed-left so-table-fixed-last"
@@ -433,31 +485,51 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
             className=""
             rowSpan={2}
           >
-            Country
+            <div>
+              <span>
+                Country
+              </span>
+            </div>
           </th>
           <th
             className=""
             rowSpan={2}
           >
-            Position
+            <div>
+              <span>
+                Position
+              </span>
+            </div>
           </th>
           <th
             className=""
             rowSpan={2}
           >
-            Office
+            <div>
+              <span>
+                Office
+              </span>
+            </div>
           </th>
           <th
             className=""
             rowSpan={2}
           >
-            Start Date
+            <div>
+              <span>
+                Start Date
+              </span>
+            </div>
           </th>
           <th
             className="so-table-ignore-right-border so-table-fixed-right so-table-fixed-first"
             rowSpan={2}
           >
-            Salary
+            <div>
+              <span>
+                Salary
+              </span>
+            </div>
           </th>
         </tr>
         <tr>
@@ -465,13 +537,21 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
             className="so-table-condensed so-table-fixed-left"
             rowSpan={1}
           >
-            First Name
+            <div>
+              <span>
+                First Name
+              </span>
+            </div>
           </th>
           <th
             className="so-table-condensed so-table-fixed-left so-table-fixed-last"
             rowSpan={1}
           >
-            Last Name
+            <div>
+              <span>
+                Last Name
+              </span>
+            </div>
           </th>
         </tr>
       </thead>
@@ -628,37 +708,61 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
             className=""
             rowSpan={1}
           >
-            id
+            <div>
+              <span>
+                id
+              </span>
+            </div>
           </th>
           <th
             className=""
             rowSpan={1}
           >
-            Name
+            <div>
+              <span>
+                Name
+              </span>
+            </div>
           </th>
           <th
             className=""
             rowSpan={1}
           >
-            Country
+            <div>
+              <span>
+                Country
+              </span>
+            </div>
           </th>
           <th
             className=""
             rowSpan={1}
           >
-            Position
+            <div>
+              <span>
+                Position
+              </span>
+            </div>
           </th>
           <th
             className=""
             rowSpan={1}
           >
-            Office
+            <div>
+              <span>
+                Office
+              </span>
+            </div>
           </th>
           <th
             className=""
             rowSpan={1}
           >
-            Start Date
+            <div>
+              <span>
+                Start Date
+              </span>
+            </div>
           </th>
         </tr>
       </thead>

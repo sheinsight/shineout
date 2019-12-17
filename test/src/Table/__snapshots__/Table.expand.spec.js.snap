@@ -20,11 +20,19 @@ exports[`Table[expand] should render correct 1`] = `
                   <thead>
                     <tr>
                       <th className=\\"\\" rowSpan={1}>
-                        id
+                        <div>
+                          <span>
+                            id
+                          </span>
+                        </div>
                       </th>
                       <th className=\\"so-table-center so-table-condensed\\" colSpan={[undefined]} style={{...}} />
                       <th className=\\"\\" rowSpan={1}>
-                        Name
+                        <div>
+                          <span>
+                            Name
+                          </span>
+                        </div>
                       </th>
                     </tr>
                   </thead>
