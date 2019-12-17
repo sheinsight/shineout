@@ -118,25 +118,15 @@ class Number extends PureComponent {
     if (this.keyPressTimeOut) clearTimeout(this.keyPressTimeOut)
   }
 
-  render() {
-    const { onChange, allowNull, showArrow, ...other } = this.props
+  renderArrowGroup() {
+    const { hideArrow } = this.props
+    if (hideArrow) return []
     return [
-      <Input
-        key="input"
-        {...other}
-        className={inputClass({ number: showArrow })}
-        onChange={this.handleChange}
-        onKeyDown={this.handleKeyDown}
-        onKeyUp={this.handleKeyUp}
-        onBlur={this.handleBlur}
-        type="number"
-      />,
-
       <a
         key="up"
         // do not need the tab to focus
         tabIndex={-1}
-        className={inputClass('number-up', { 'number-arrow-hide': !showArrow })}
+        className={inputClass('number-up')}
         onMouseDown={this.handleAddClick}
         onMouseUp={this.handleMouseUp}
         onMouseLeave={this.handleMouseUp}
@@ -148,13 +138,30 @@ class Number extends PureComponent {
         key="down"
         // do not need the tab to focus
         tabIndex={-1}
-        className={inputClass('number-down', { 'number-arrow-hide': !showArrow })}
+        className={inputClass('number-down')}
         onMouseDown={this.handleSubClick}
         onMouseUp={this.handleMouseUp}
         onMouseLeave={this.handleMouseUp}
       >
         {icons.AngleRight}
       </a>,
+    ]
+  }
+
+  render() {
+    const { onChange, allowNull, hideArrow, ...other } = this.props
+    return [
+      <Input
+        key="input"
+        {...other}
+        className={inputClass({ number: !hideArrow })}
+        onChange={this.handleChange}
+        onKeyDown={this.handleKeyDown}
+        onKeyUp={this.handleKeyUp}
+        onBlur={this.handleBlur}
+        type="number"
+      />,
+      ...this.renderArrowGroup(),
     ]
   }
 }
@@ -170,14 +177,14 @@ Number.propTypes = {
   step: PropTypes.number,
   digits: PropTypes.number,
   allowNull: PropTypes.bool,
-  showArrow: PropTypes.bool,
+  hideArrow: PropTypes.bool,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 }
 
 Number.defaultProps = {
   step: 1,
   allowNull: false,
-  showArrow: true,
+  hideArrow: false,
 }
 
 export default Number

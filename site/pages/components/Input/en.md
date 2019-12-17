@@ -33,5 +33,5 @@ The basic API is the same as the above table, and the specific API is as follows
 | step | number | 1 | Change the digital span. It can be decimal. |
 | digits | number | - | the digits of number |
 | allowNull | bool | false | allow value is null |
-| showArrow | bool | true | Whether to show increase/decrease buttons |
+| hideArrow | bool | false | Whether to show increase/decrease buttons |
 | coin | bool | false | Show as thousands separator |

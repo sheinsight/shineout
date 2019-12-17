@@ -33,6 +33,6 @@
 | step | number | 1 | 改变数字跨度，可为小数 |
 | digits | number | 无 | 数值的精度 |
 | allowNull | bool | false | 允许空值 |
-| showArrow | bool | true | 是否展示增减按钮 |
+| hideArrow | bool | false | 是否展示增减按钮 |
 | coin | bool | false | 以千位分隔符展示 | 
 
