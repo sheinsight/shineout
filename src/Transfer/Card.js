@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import Spin from '../Spin'
 import SCard from '../Card'
 import Checkbox from '../Checkbox'
 import { Component } from '../component'
@@ -72,6 +73,7 @@ class Card extends Component {
       onFilter,
       empty,
       disabled,
+      loading,
     } = this.props
 
     const check = this.getCheckAll()
@@ -100,27 +102,30 @@ class Card extends Component {
             />
           </div>
         )}
-        <SCard.Body className={classnames(transferClass('card-body'), listClassName)} style={listStyle}>
-          {data.map((d, i) => {
-            const key = getKey(d, keygen, i)
-            if (onFilter && !onFilter(this.state.filter, d)) return null
+        <Spin loading={loading}>
+          <SCard.Body className={classnames(transferClass('card-body'), listClassName)} style={listStyle}>
+            {data.map((d, i) => {
+              const key = getKey(d, keygen, i)
+              if (onFilter && !onFilter(this.state.filter, d)) return null
 
-            this.hasData = true
+              this.hasData = true
 
-            return (
-              <Item
-                key={key}
-                disabled={disable || (typeof disabled === 'function' && disabled(d))}
-                index={index}
-                checkKey={key}
-                liData={d}
-                content={createFunc(renderItem)(d)}
-              />
-            )
-          })}
+              return (
+                <Item
+                  key={key}
+                  disabled={disable || (typeof disabled === 'function' && disabled(d))}
+                  index={index}
+                  checkKey={key}
+                  liData={d}
+                  content={createFunc(renderItem)(d)}
+                />
+              )
+            })}
 
-          {!this.hasData && <div className={transferClass('empty')}>{empty || getLocale('noData')}</div>}
-        </SCard.Body>
+            {!this.hasData && <div className={transferClass('empty')}>{empty || getLocale('noData')}</div>}
+          </SCard.Body>
+        </Spin>
+
         {footer && <SCard.Footer className={transferClass('card-footer')}>{footer}</SCard.Footer>}
       </SCard>
     )
@@ -141,6 +146,7 @@ Card.propTypes = {
   disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   onFilter: PropTypes.func,
   empty: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  loading: PropTypes.bool,
 }
 
 export default Card

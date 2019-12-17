@@ -7,6 +7,11 @@ exports[`Table[rowClassname] should render correct 1`] = `
 >
   <div
     className="so-table-head so-table-simple-head"
+    style={
+      Object {
+        "overflowY": "hidden",
+      }
+    }
   >
     <table
       style={

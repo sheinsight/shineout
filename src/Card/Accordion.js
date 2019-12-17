@@ -25,12 +25,12 @@ class Accordion extends PureComponent {
   }
 
   render() {
-    const { active } = this.state
+    const active = this.getActive()
     return Children.toArray(this.props.children).map((child, i) => {
       const props = {
         collapsed: active !== i,
         collapsible: true,
-        className: classnames((typeof child === 'object') && child.className, cardClass('accordion')),
+        className: classnames(typeof child === 'object' && child.className, cardClass('accordion')),
         onCollapse: this.handleActive.bind(this, i),
       }
       return cloneElement(child, props)

@@ -39,6 +39,7 @@
 | onSortCancel | func | 无 | 排序取消事件 |
 | radio | bool | false | 是否单选 |
 | rowEvents | array | 无 | tr 事件监听器集合 |
+| defaultTreeExpandKeys | array | 无 | 默认展开行(非受控) |
 
 ### Column
 | 属性 | 类型 | 默认值 | 说明 |

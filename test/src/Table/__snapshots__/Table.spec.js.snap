@@ -7,6 +7,11 @@ exports[`Table[Border&striped] should render border & striped 1`] = `
 >
   <div
     className="so-table-head so-table-simple-head"
+    style={
+      Object {
+        "overflowY": "hidden",
+      }
+    }
   >
     <table
       style={
@@ -147,6 +152,11 @@ exports[`Table[small] should render compact table 1`] = `
 >
   <div
     className="so-table-head so-table-simple-head"
+    style={
+      Object {
+        "overflowY": "hidden",
+      }
+    }
   >
     <table
       style={

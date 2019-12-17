@@ -22,15 +22,16 @@ class Jumper extends PureComponent {
   handleKeyDown(e) {
     if (e.keyCode === 13) {
       let current = parseInt(e.target.value, 10)
+      this.autoFocus = true;
 
       if (!Number.isFinite(current)) return
       if (current < 1) current = 1
+      this.renderRequire = getUidStr()
 
       const max = this.getMax()
       if (current > max) current = max
 
       if (current === this.props.current) {
-        this.renderRequire = getUidStr()
         this.forceUpdate()
       }
       this.props.onChange(current)
@@ -45,8 +46,9 @@ class Jumper extends PureComponent {
       <div className={paginationClass('section')}>
         {txt[0]}
         <Input
-          data-unique={this.renderRequire}
+          key={this.renderRequire}
           value={current}
+          autoFocus={this.autoFocus}
           onKeyDown={this.handleKeyDown}
           digits={0}
           type="number"

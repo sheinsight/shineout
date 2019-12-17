@@ -30,3 +30,4 @@
 | disabled | bool \| function | false | 如果 disabled 为 true，禁用全部选项，如果 disabled 为函数，根据函数反回结果禁用选项 |
 | empty | element \| string | "无数据" | 无内容的展示 |
 | onFilter | function: (text, value) => bool | 无 | 筛选函数 |
+| loading| boolean \| array: boolean | 无 | 加载中, 如果需要两侧加载中状态不一致, 需要传入数组 |

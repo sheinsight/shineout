@@ -15,11 +15,11 @@ class Td extends PureComponent {
   }
 
   handleExpandClick() {
-    const { rowKey, expanded, data, expandKeys, expandClick } = this.props
+    const { originKey, expanded, data, expandKeys, expandClick } = this.props
     if (expandKeys) {
       if (expandClick) expandClick(data, !expanded)
     } else {
-      this.props.onExpand(rowKey, expanded ? undefined : this.cachedRender)
+      this.props.onExpand(originKey, expanded ? undefined : this.cachedRender)
     }
   }
 

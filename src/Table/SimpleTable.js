@@ -18,6 +18,7 @@ class SimpleTable extends PureComponent {
 
     this.state = {
       colgroup: undefined,
+      scrollAble: false,
     }
     this.handleSortChange = this.handleSortChange.bind(this)
     this.bindHeader = this.bindElement.bind(this, 'header')
@@ -28,9 +29,11 @@ class SimpleTable extends PureComponent {
 
   componentDidMount() {
     if (this.body) this.body.addEventListener('wheel', this.handleScroll, { passive: false })
+    this.scrollCheck()
   }
 
   componentDidUpdate(prevProps) {
+    this.scrollCheck()
     if (!compareColumns(prevProps.columns, this.props.columns)) {
       this.setState({ colgroup: undefined })
     }
@@ -42,6 +45,13 @@ class SimpleTable extends PureComponent {
 
   bindElement(key, el) {
     this[key] = el
+  }
+
+  scrollCheck() {
+    const { scrollAble } = this.state
+    if (!this.body) return
+    const overHeight = this.body.scrollHeight > this.body.clientHeight
+    if (scrollAble !== overHeight) this.setState({ scrollAble: overHeight })
   }
 
   handleSortChange(...args) {
@@ -61,7 +71,9 @@ class SimpleTable extends PureComponent {
         colgroup.push(width)
       }
     }
-    this.setState({ colgroup })
+    setTimeout(() => {
+      this.setState({ colgroup })
+    })
   }
 
   handleScroll({ currentTarget }) {
@@ -85,8 +97,8 @@ class SimpleTable extends PureComponent {
 
   render() {
     const { columns, width, data, onResize, children } = this.props
-    const { colgroup } = this.state
-    if (!columns) return <table style={{ width }}>{children}</table>
+    const { colgroup, scrollAble } = this.state
+    if (!columns || columns.length === 0) return <table style={{ width }}>{children}</table>
     const header = (
       <table style={{ width }}>
         <Colgroup colgroup={colgroup} columns={columns} />
@@ -94,8 +106,15 @@ class SimpleTable extends PureComponent {
       </table>
     )
     const empty = data.length === 0
+    const headerStyle = {}
+    if (!empty) headerStyle.overflowY = scrollAble ? 'scroll' : 'hidden'
     return [
-      <div key="head" className={tableClass('head', 'simple-head', empty && 'empty-head')} ref={this.bindHeader}>
+      <div
+        key="head"
+        style={headerStyle}
+        className={tableClass('head', 'simple-head', empty && 'empty-head')}
+        ref={this.bindHeader}
+      >
         {header}
       </div>,
       this.renderBody(),

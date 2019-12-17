@@ -18,6 +18,13 @@ class Transfer extends PureComponent {
     }
     this.getSelected = this.getSelected.bind(this)
     this.setSelecteds = this.setSelecteds.bind(this)
+    this.getLoading = this.getLoading.bind(this)
+  }
+
+  getLoading(index) {
+    const { loading } = this.props
+    if (Array.isArray(loading)) return loading[index]
+    return loading
   }
 
   getSelected() {
@@ -54,6 +61,7 @@ class Transfer extends PureComponent {
       onFilter,
       empty,
       disabled,
+      itemClass,
     } = this.props
     const selecteds = this.getSelected()
 
@@ -69,7 +77,7 @@ class Transfer extends PureComponent {
     }, [])
     return (
       <div className={classnames(transferClass('_'), className)} style={style}>
-        <Context.Provider value={{ selecteds, setSelecteds: this.setSelecteds }}>
+        <Context.Provider value={{ selecteds, setSelecteds: this.setSelecteds, itemClass }}>
           <Card
             title={titles[0]}
             selecteds={selecteds[0]}
@@ -81,6 +89,7 @@ class Transfer extends PureComponent {
             footer={footers[0]}
             listClassName={listClassName}
             listStyle={listStyle}
+            loading={this.getLoading(0)}
             onFilter={onFilter}
             empty={empty}
             disabled={disabled}
@@ -103,6 +112,7 @@ class Transfer extends PureComponent {
             data={targets}
             keygen={keygen}
             renderItem={renderItem}
+            loading={this.getLoading(1)}
             setSelecteds={this.setSelecteds}
             index={1}
             footer={footers[1]}
@@ -147,6 +157,8 @@ Transfer.propTypes = {
   disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   empty: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   onFilter: PropTypes.func,
+  itemClass: PropTypes.string,
+  loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
 }
 
 export default Transfer
