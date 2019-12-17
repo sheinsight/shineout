@@ -2,6 +2,7 @@
 @import './themes/@{so-theme}.less';
 
 @table-prefix: ~'@{so-prefix}-table';
+@table-sorter-width: 18px;
 
 .@{table-prefix} {
   border-radius: @table-border-radius-top @table-border-radius-top 0 0;
@@ -63,6 +64,10 @@
       color: @table-head-color;
       vertical-align: middle;
       font-weight: @table-head-font-weight;
+
+      & > div {
+        display: flex;
+      }
     }
 
     > thead + tbody > tr:first-child > td {
@@ -118,11 +123,17 @@
     vertical-align: middle;
   }
 
+  &-sorter-container {
+    width: @table-sorter-width;
+    min-width: @table-sorter-width;
+    position: relative;
+  }
+
   &-sorter-asc,
   &-sorter-desc {
     position: absolute;
     right: 0;
-    width: 18px;
+    width: @table-sorter-width;
     color: transparent;
 
     &:active,
@@ -487,14 +498,28 @@
     display: inline-block;
   }
 
-  th&-align-center, td&-align-center {
+  td&-align-center {
     text-align: center;
   }
-  th&-align-right, td&-align-right {
+
+  th&-align-center > div {
+    justify-content: center;
+  }
+
+  td&-align-right {
     text-align: right;
   }
-  th&-align-left, td&-align-left {
+
+  th&-align-right > div {
+    justify-content: flex-end;
+  }
+
+  td&-align-left {
     text-align: left;
+  }
+
+  th&-align-left {
+    justify-content: flex-start;
   }
 
   &-resize {
