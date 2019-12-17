@@ -51,7 +51,11 @@ Array [
               className=""
               rowSpan={1}
             >
-              Name
+              <div>
+                <span>
+                  Name
+                </span>
+              </div>
             </th>
           </tr>
         </thead>

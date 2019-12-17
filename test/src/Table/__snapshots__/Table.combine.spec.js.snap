@@ -71,7 +71,11 @@ Array [
               className=""
               rowSpan={2}
             >
-              id
+              <div>
+                <span>
+                  id
+                </span>
+              </div>
             </th>
             <th
               className="so-table-center so-table-condensed"
@@ -83,19 +87,31 @@ Array [
               className=""
               rowSpan={2}
             >
-              Start Date
+              <div>
+                <span>
+                  Start Date
+                </span>
+              </div>
             </th>
             <th
               className=""
               rowSpan={2}
             >
-              Time
+              <div>
+                <span>
+                  Time
+                </span>
+              </div>
             </th>
             <th
               className=""
               rowSpan={2}
             >
-              Office
+              <div>
+                <span>
+                  Office
+                </span>
+              </div>
             </th>
           </tr>
           <tr>
@@ -103,13 +119,21 @@ Array [
               className="so-table-condensed"
               rowSpan={1}
             >
-              First Name
+              <div>
+                <span>
+                  First Name
+                </span>
+              </div>
             </th>
             <th
               className="so-table-condensed"
               rowSpan={1}
             >
-              Last Name
+              <div>
+                <span>
+                  Last Name
+                </span>
+              </div>
             </th>
           </tr>
         </thead>
@@ -726,7 +750,11 @@ exports[`Table[combine] should combine without pagination 1`] = `
             className=""
             rowSpan={2}
           >
-            id
+            <div>
+              <span>
+                id
+              </span>
+            </div>
           </th>
           <th
             className="so-table-center so-table-condensed"
@@ -738,19 +766,31 @@ exports[`Table[combine] should combine without pagination 1`] = `
             className=""
             rowSpan={2}
           >
-            Start Date
+            <div>
+              <span>
+                Start Date
+              </span>
+            </div>
           </th>
           <th
             className=""
             rowSpan={2}
           >
-            Time
+            <div>
+              <span>
+                Time
+              </span>
+            </div>
           </th>
           <th
             className=""
             rowSpan={2}
           >
-            Office
+            <div>
+              <span>
+                Office
+              </span>
+            </div>
           </th>
         </tr>
         <tr>
@@ -758,13 +798,21 @@ exports[`Table[combine] should combine without pagination 1`] = `
             className="so-table-condensed"
             rowSpan={1}
           >
-            First Name
+            <div>
+              <span>
+                First Name
+              </span>
+            </div>
           </th>
           <th
             className="so-table-condensed"
             rowSpan={1}
           >
-            Last Name
+            <div>
+              <span>
+                Last Name
+              </span>
+            </div>
           </th>
         </tr>
       </thead>

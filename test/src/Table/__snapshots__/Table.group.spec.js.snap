@@ -77,7 +77,11 @@ exports[`Table[group] should render group header 1`] = `
             className=""
             rowSpan={3}
           >
-            id
+            <div>
+              <span>
+                id
+              </span>
+            </div>
           </th>
           <th
             className="so-table-center so-table-condensed"
@@ -105,7 +109,11 @@ exports[`Table[group] should render group header 1`] = `
             className=""
             rowSpan={3}
           >
-            Country
+            <div>
+              <span>
+                Country
+              </span>
+            </div>
           </th>
           <th
             className="so-table-center so-table-condensed so-table-ignore-right-border"
@@ -132,19 +140,31 @@ exports[`Table[group] should render group header 1`] = `
             className="so-table-condensed"
             rowSpan={2}
           >
-            Nick Name
+            <div>
+              <span>
+                Nick Name
+              </span>
+            </div>
           </th>
           <th
             className="so-table-condensed"
             rowSpan={2}
           >
-            Office
+            <div>
+              <span>
+                Office
+              </span>
+            </div>
           </th>
           <th
             className="so-table-condensed so-table-ignore-right-border"
             rowSpan={2}
           >
-            Position
+            <div>
+              <span>
+                Position
+              </span>
+            </div>
           </th>
         </tr>
         <tr>
@@ -152,13 +172,21 @@ exports[`Table[group] should render group header 1`] = `
             className="so-table-condensed"
             rowSpan={1}
           >
-            First Name
+            <div>
+              <span>
+                First Name
+              </span>
+            </div>
           </th>
           <th
             className="so-table-condensed"
             rowSpan={1}
           >
-            Last Name
+            <div>
+              <span>
+                Last Name
+              </span>
+            </div>
           </th>
         </tr>
       </thead>
