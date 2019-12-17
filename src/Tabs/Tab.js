@@ -64,7 +64,6 @@ class Tab extends PureComponent {
       onClick: this.handleClick,
       style,
     }
-
     if (children.type && children.type.isTabLink) {
       return React.cloneElement(children, { ...props })
     }

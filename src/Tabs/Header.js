@@ -123,6 +123,7 @@ class Header extends PureComponent {
             key={tab.id}
             onClick={tab.isActive ? undefined : onChange.bind(this, tab.id)}
             className={tabsClass(tab.isActive && 'button-active')}
+            disabled={tab.disabled}
           >
             {tab.tab}
           </Button>
