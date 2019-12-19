@@ -24,7 +24,9 @@ class Picker extends PureComponent {
     }
 
     this.state = { mode }
-    this.defaultCurrent = utils.newDate()
+    this.defaultCurrent = new Date(
+      utils.formatDateWithDefaultTime(utils.newDate(), undefined, props.defaultTime[0], 'yyyy-MM-dd HH:mm:ss')
+    )
     this.handleModeChange = this.handleModeChange.bind(this)
     this.handleEnter = this.handleMouse.bind(this, true)
     this.handleLeave = this.handleMouse.bind(this, false)
@@ -93,6 +95,7 @@ Picker.propTypes = {
   index: PropTypes.number,
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   handleHover: PropTypes.func,
+  defaultTime: PropTypes.array,
 }
 
 export default Picker

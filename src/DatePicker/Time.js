@@ -52,7 +52,9 @@ class Time extends PureComponent {
 
     if (pos !== 'start') {
       if (!isDisabled && min) {
-        if (date.getHours() !== min.getHours() && utils.compareAsc(date, min) < 0) return
+        // if (date.getHours() !== min.getHours() && utils.compareAsc(date, min) < 0) return
+        // fix 'min' props invalid bug when hours are equal. To be confirmed...
+        if (utils.compareAsc(date, min) < 0) return
         if (range && utils.compareAsc(date, utils.addSeconds(min, range)) > 0) return
       }
       if (!isDisabled && max) {
