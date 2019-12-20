@@ -93,6 +93,9 @@ class FilterInput extends Component {
         key: 'input',
         onInput: this.handleInput,
         contentEditable: focus,
+        onFocus: this.handleFocus,
+        onBlur: this.handleBlur,
+        suppressContentEditableWarning: true,
       })
     }
 
