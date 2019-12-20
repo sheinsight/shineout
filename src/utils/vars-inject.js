@@ -662,6 +662,14 @@ const injects = {
         min: 0,
         max: 10,
       },
+      {
+        name: 'uncheckBorderWidth',
+        className: exposeClass('radio-uncheck'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        min: 0,
+      },
     ],
     set size(v) {
       setBodyProperty(
@@ -683,6 +691,14 @@ const injects = {
       setBodyProperty(
         {
           '--radio-inner-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set uncheckBorderWidth(v) {
+      setBodyProperty(
+        {
+          '--radio-border-uncheck-width': `${parseInt(v, 10)}px`,
         },
         v
       )

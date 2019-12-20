@@ -211,7 +211,6 @@
     overflow: hidden;
     width: @checkbox-size;
     height: @checkbox-size;
-    box-sizing: content-box;
     border: solid @checkbox-border-width @checkbox-border-color;
     border-radius: @checkbox-border-radius;
     vertical-align: middle;
@@ -238,6 +237,10 @@
       border: solid 2px transparent;
       border-width: 0 0 2px 2px;
     }
+  }
+
+  &:not(&-checked) i&-radio&-indicator {
+    border-width: @radio-border-uncheck-width;
   }
 
   i&-radio&-indicator {
