@@ -589,11 +589,40 @@ const injects = {
         type: 'number',
         parser: parseInt,
       },
+      {
+        name: 'borderWidth',
+        className: exposeClass('checkbox-indicator'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'borderColor',
+        className: exposeClass('checkbox-indicator'),
+        attr: 'borderColor',
+        type: 'color',
+      },
     ],
     set marginRight(v) {
       setBodyProperty(
         {
           '--checkbox-margin-right': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set borderColor(v) {
+      setBodyProperty(
+        {
+          '--checkbox-border-color': v,
+        },
+        v
+      )
+    },
+    set borderWidth(v) {
+      setBodyProperty(
+        {
+          '--checkbox-border-width': `${parseInt(v, 10)}px`,
         },
         v
       )
