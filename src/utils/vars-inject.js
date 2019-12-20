@@ -1684,6 +1684,13 @@ const injects = {
         parser: parseInt,
       },
       {
+        name: 'borderRadius',
+        className: alertClass('_'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
         name: 'boxShadow',
         className: alertClass('_'),
         attr: 'boxShadow',
@@ -1773,6 +1780,14 @@ const injects = {
       setBodyProperty(
         {
           '--alert-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set borderRadius(v) {
+      setBodyProperty(
+        {
+          '--alert-border-radius': `${parseInt(v, 10)}px`,
         },
         v
       )
