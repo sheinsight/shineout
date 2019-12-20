@@ -1133,6 +1133,12 @@ const injects = {
         type: 'number',
         parser: parseInt,
       },
+      {
+        name: 'fixedShadow',
+        className: exposeClass('table-fixed'),
+        attr: 'backgroundImage',
+        type: 'string',
+      },
     ],
     set headBg(v) {
       setBodyProperty(
@@ -1218,6 +1224,14 @@ const injects = {
       setBodyProperty(
         {
           '--table-cell-padding-vertical': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set fixedShadow(v) {
+      setBodyProperty(
+        {
+          '--table-fixed-shadow': v,
         },
         v
       )
