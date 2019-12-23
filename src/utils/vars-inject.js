@@ -1731,8 +1731,32 @@ const injects = {
         parser: parseInt,
       },
       {
-        name: 'boxShadow',
+        name: 'defaultBoxShadow',
         className: alertClass('_'),
+        attr: 'boxShadow',
+        type: 'string',
+      },
+      {
+        name: 'successBoxShadow',
+        className: alertClass('success'),
+        attr: 'boxShadow',
+        type: 'string',
+      },
+      {
+        name: 'infoBoxShadow',
+        className: alertClass('info'),
+        attr: 'boxShadow',
+        type: 'string',
+      },
+      {
+        name: 'warningBoxShadow',
+        className: alertClass('warning'),
+        attr: 'boxShadow',
+        type: 'string',
+      },
+      {
+        name: 'dangerBoxShadow',
+        className: alertClass('danger'),
         attr: 'boxShadow',
         type: 'string',
       },
@@ -1852,6 +1876,38 @@ const injects = {
       setBodyProperty(
         {
           '--alert-box-shadow': v,
+        },
+        v
+      )
+    },
+    set successBoxShadow(v) {
+      setBodyProperty(
+        {
+          '--alert-success-box-shadow': v,
+        },
+        v
+      )
+    },
+    set infoBoxShadow(v) {
+      setBodyProperty(
+        {
+          '--alert-info-box-shadow': v,
+        },
+        v
+      )
+    },
+    set dangerBoxShadow(v) {
+      setBodyProperty(
+        {
+          '--alert-danger-box-shadow': v,
+        },
+        v
+      )
+    },
+    set warningBoxShadow(v) {
+      setBodyProperty(
+        {
+          '--alert-warning-box-shadow': v,
         },
         v
       )
