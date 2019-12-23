@@ -32,6 +32,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Popover/example-1-controll.js'),
   },
   {
+    name: '10-container',
+    title: locate(
+      '自定义容器 \n 使用 getPopupContainer 指定渲染的目标容器',
+      'Custom container \n use getPopupContainer return target container'
+    ),
+    component: require('doc/pages/components/Popover/example-10-container.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Popover/example-10-container.js'),
+  },
+  {
     name: '2-delay',
     title: locate(
       '延迟 \n 可以设置展示延时和关闭延时',
