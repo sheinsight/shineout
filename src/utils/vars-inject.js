@@ -875,6 +875,12 @@ const injects = {
         attr: 'color',
         type: 'color',
       },
+      {
+        name: 'clearIconBg',
+        className: exposeClass('select-close'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
     ],
     set resultPaddingVertical(v) {
       setBodyProperty(
@@ -921,6 +927,14 @@ const injects = {
       setBodyProperty(
         {
           '--select-option-hover-color': v,
+        },
+        v
+      )
+    },
+    set clearIconBg(v) {
+      setBodyProperty(
+        {
+          '--select-clear-bg-color': v,
         },
         v
       )
