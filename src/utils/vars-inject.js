@@ -1698,6 +1698,18 @@ const injects = {
         parser: parseInt,
       },
       {
+        name: 'closeIconColor',
+        className: exposeClass('alert-close'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
+        name: 'closeIconHoverColor',
+        className: exposeClass('alert-close-hover'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
         name: 'borderRadius',
         className: alertClass('_'),
         attr: 'borderRadius',
@@ -1794,6 +1806,22 @@ const injects = {
       setBodyProperty(
         {
           '--alert-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set closeIconColor(v) {
+      setBodyProperty(
+        {
+          '--alert-close-color': v,
+        },
+        v
+      )
+    },
+    set closeIconHoverColor(v) {
+      setBodyProperty(
+        {
+          '--alert-close-hover-color': v,
         },
         v
       )
@@ -2294,9 +2322,8 @@ const injects = {
       {
         name: 'padding',
         className: modalClass('panel'),
-        attr: 'paddingTop',
-        type: 'number',
-        parser: parseInt,
+        attr: 'padding',
+        type: 'string',
       },
     ],
     set iconSize(v) {
@@ -2342,7 +2369,7 @@ const injects = {
     set padding(v) {
       setBodyProperty(
         {
-          '--modal-panel-padding': `${parseInt(v, 10)}px`,
+          '--modal-panel-padding': v,
         },
         v
       )
