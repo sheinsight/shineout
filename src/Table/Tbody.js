@@ -130,9 +130,10 @@ class Tbody extends PureComponent {
   }
 
   findExpandFunc(key, index) {
-    const { columns, expandKeys, data } = this.props
+    const { columns, expandKeys, data, externalExpandRender } = this.props
     if (expandKeys) {
       const expanded = expandKeys.find(k => k === key)
+      if (externalExpandRender) return expanded ? externalExpandRender(data[index]) : undefined
       const expandObj = expanded ? columns.find(c => c.type === 'expand' || c.type === 'row-expand') : {}
       return expandObj.render ? expandObj.render(data[index]) : undefined
     }
@@ -195,6 +196,7 @@ Tbody.propTypes = {
   onBodyRender: PropTypes.func,
   values: PropTypes.object,
   bordered: PropTypes.bool,
+  externalExpandRender: PropTypes.func,
 }
 
 Tbody.defaultProps = {

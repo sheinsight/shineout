@@ -94,13 +94,33 @@ class Tr extends Component {
   }
 
   handleRowClick(e) {
-    const { columns, rowData, index, onRowClick } = this.props
+    const {
+      columns,
+      rowData,
+      index,
+      onRowClick,
+      externalExpandRender,
+      externalExpandClick,
+      expandKeys,
+      onExpand,
+      originKey,
+      expandRender,
+    } = this.props
     // business needed #row click to modal drawer
     const fireAttr = this.isFireElement(e.target)
     if (fireAttr) {
       onRowClick(rowData, index, fireAttr)
       return
     }
+    if (externalExpandRender) {
+      const expanded = typeof expandRender === 'function'
+      if (expandKeys) {
+        if (externalExpandClick) externalExpandClick(rowData, !expanded)
+      } else {
+        onExpand(originKey, expanded ? undefined : externalExpandRender(rowData, index))
+      }
+    }
+
     if (isExpandableElement(e.target)) {
       const el = this.element.querySelector(`.${tableClass('expand-indicator')}`)
       if (el && el !== e.target && columns.some(c => c.type === 'row-expand')) el.click()
@@ -226,6 +246,10 @@ Tr.propTypes = {
   resize: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
   rowEvents: PropTypes.array,
   lazy: PropTypes.bool,
+  externalExpandRender: PropTypes.func,
+  externalExpandClick: PropTypes.func,
+  expandKeys: PropTypes.array,
+  originKey: PropTypes.any,
 }
 
 Tr.defaultProps = {

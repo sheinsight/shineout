@@ -40,7 +40,7 @@ export default class extends React.Component {
   }
 
   getTreeColumnsName() {
-    const { columns } = this.props
+    const columns = this.getFilteredColumn()
     if (!Array.isArray(columns)) return undefined
     const has = columns.filter(v => typeof v.treeColumnsName === 'string')
     if (has.length === 0) return undefined
@@ -100,6 +100,20 @@ export default class extends React.Component {
     return tableSorter
   }
 
+  getFilteredColumn() {
+    const { columns } = this.props
+    if (!columns) return columns
+    return columns.filter(v => !(['expand', 'row-expand'].indexOf(v.type) > -1 && v.hideExpandIcon))
+  }
+
+  getExternalExpandObj() {
+    const { columns } = this.props
+    if (!columns) return undefined
+    const obj = columns.find(v => ['expand', 'row-expand'].indexOf(v.type) > -1 && v.hideExpandIcon)
+    if (obj && typeof obj === 'object') return obj
+    return undefined
+  }
+
   handleSortChange(order, sorter, index, cancelOrder) {
     const { onSortCancel } = this.props
     // cancel sorter
@@ -120,7 +134,8 @@ export default class extends React.Component {
   }
 
   render() {
-    const { columns, onRowSelect, ...props } = this.props
+    const { onRowSelect, ...props } = this.props
+    const columns = this.getFilteredColumn()
     const { sorter } = this.state
     if (!columns) return <Table {...props} />
 
@@ -139,6 +154,9 @@ export default class extends React.Component {
       Component = TableWithTree
     }
 
+    const externalExpandRender = (this.getExternalExpandObj() || {}).render
+    const externalExpandClick = (this.getExternalExpandObj() || {}).click
+
     return (
       <Component
         {...props}
@@ -148,6 +166,8 @@ export default class extends React.Component {
         sorter={sorter}
         onSortChange={this.handleSortChange}
         treeColumnsName={treeColumnsName}
+        externalExpandRender={externalExpandRender}
+        externalExpandClick={externalExpandClick}
       />
     )
   }
