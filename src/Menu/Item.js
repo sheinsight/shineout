@@ -70,7 +70,7 @@ class Item extends PureComponent {
   }
 
   handleToggle(open) {
-    const { toggleOpenKeys } = this.props
+    const { toggleOpenKeys, toggleDuration } = this.props
     const key = this.getKey()
 
     if (this.toggleTimer) clearTimeout(this.toggleTimer)
@@ -80,7 +80,7 @@ class Item extends PureComponent {
     } else {
       this.toggleTimer = setTimeout(() => {
         toggleOpenKeys(key, false)
-      }, 200)
+      }, toggleDuration)
       this.unbindDocumentEvent()
     }
   }
@@ -128,6 +128,7 @@ class Item extends PureComponent {
       // bottomLine,
       // topLine,
       linkKey,
+      toggleDuration,
     } = this.props
     const { open, isActive, isHighLight, inPath } = this.state
     const { children: dChildren } = data
@@ -200,6 +201,7 @@ class Item extends PureComponent {
             open={open}
             toggleOpenKeys={toggleOpenKeys}
             linkKey={linkKey}
+            toggleDuration={toggleDuration}
           />
         )}
       </li>
@@ -224,6 +226,7 @@ Item.propTypes = {
   toggleOpenKeys: PropTypes.func,
   unbindItem: PropTypes.func,
   linkKey: PropTypes.string,
+  toggleDuration: PropTypes.number,
 }
 
 export default consumer(Item)
