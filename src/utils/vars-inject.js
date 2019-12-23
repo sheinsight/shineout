@@ -852,6 +852,12 @@ const injects = {
         parser: parseInt,
       },
       {
+        name: 'itemColor',
+        className: selectClass('option'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
         name: 'itemActiveBg',
         className: selectClass('active', 'option'),
         attr: 'backgroundColor',
@@ -895,6 +901,14 @@ const injects = {
         {
           '--select-result-padding-horizontal': `${parseInt(v, 10)}px`,
           '--select-result-padding-horizontal-16': `${parseInt(v, 10) + 16}px`,
+        },
+        v
+      )
+    },
+    set itemColor(v) {
+      setBodyProperty(
+        {
+          '--select-option-color': v,
         },
         v
       )
