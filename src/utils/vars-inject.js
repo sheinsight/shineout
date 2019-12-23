@@ -1350,6 +1350,12 @@ const injects = {
         type: 'color',
       },
       {
+        name: 'closeHoverColor',
+        className: exposeClass('tag-close-hover'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
         name: 'borderRadius',
         className: tagClass('_'),
         attr: 'borderRadius',
@@ -1400,6 +1406,14 @@ const injects = {
       setBodyProperty(
         {
           '--tag-close-color': v,
+        },
+        v
+      )
+    },
+    set closeHoverColor(v) {
+      setBodyProperty(
+        {
+          '--tag-close-hover-color': v,
         },
         v
       )
@@ -2259,6 +2273,12 @@ const injects = {
         type: 'color',
       },
       {
+        name: 'closeIconHoverColor',
+        className: exposeClass('modal-close-hover'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
         name: 'titleFontSize',
         className: modalClass('title'),
         attr: 'fontSize',
@@ -2291,6 +2311,14 @@ const injects = {
       setBodyProperty(
         {
           '--modal-close-icon-color': v,
+        },
+        v
+      )
+    },
+    set closeIconHoverColor(v) {
+      setBodyProperty(
+        {
+          '--modal-close-icon-hover-color': v,
         },
         v
       )
