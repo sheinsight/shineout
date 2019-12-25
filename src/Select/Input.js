@@ -86,29 +86,25 @@ class FilterInput extends Component {
     const { text, focus, multiple } = this.props
     const value = typeof text === 'string' ? text.replace(/<\/?[^>]*>/g, '') : text
 
+    const props = {
+      className: selectClass('input', !focus && 'ellipsis', !multiple && 'full'),
+      ref: this.bindElement,
+      key: 'input',
+      onInput: this.handleInput,
+      contentEditable: focus,
+      onFocus: handleFocus,
+      onBlur: this.handleBlur,
+      onPaste: this.handlePaste,
+    }
+
     if (isValidElement(value)) {
       return cloneElement(value, {
-        className: selectClass('input', !focus && 'ellipsis', !multiple && 'full'),
-        ref: this.bindElement,
-        key: 'input',
-        onInput: this.handleInput,
-        contentEditable: focus,
+        ...props,
+        suppressContentEditableWarning: true,
       })
     }
 
-    return (
-      <span
-        key="input"
-        className={selectClass('input', !focus && 'ellipsis', !multiple && 'full')}
-        ref={this.bindElement}
-        contentEditable={focus}
-        onInput={this.handleInput}
-        onFocus={handleFocus}
-        onBlur={this.handleBlur}
-        onPaste={this.handlePaste}
-        dangerouslySetInnerHTML={{ __html: value }}
-      />
-    )
+    return <span dangerouslySetInnerHTML={{ __html: value }} {...props} />
   }
 }
 
