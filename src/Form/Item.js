@@ -15,10 +15,7 @@ const { Provider, Consumer } = createReactContext()
 class Label extends PureComponent {
   static propTypes = {
     children: PropTypes.any,
-    width: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
+    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   }
 
   render() {
@@ -57,13 +54,13 @@ class Item extends Component {
     const errors = []
 
     if (formDatum) {
-      Object.keys(this.state.inputs).forEach((name) => {
+      Object.keys(this.state.inputs).forEach(name => {
         const err = formDatum.getError(name)
         if (err) errors.push(err)
       })
     }
 
-    objectValues(this.state.errors).forEach((err) => {
+    objectValues(this.state.errors).forEach(err => {
       if (err) errors.push(err)
     })
 
@@ -81,41 +78,53 @@ class Item extends Component {
     const names = Array.isArray(name) ? name : [name]
     const { formDatum } = this.props
     if (formDatum) {
-      names.forEach((n) => {
+      names.forEach(n => {
         formDatum.subscribe(errorSubscribe(n), this.handleUpdate)
       })
     }
 
-    this.setState(immer((state) => {
-      names.forEach((n) => { state.inputs[n] = true })
-    }))
+    this.setState(
+      immer(state => {
+        names.forEach(n => {
+          state.inputs[n] = true
+        })
+      })
+    )
   }
 
   unbind(name) {
     const names = Array.isArray(name) ? name : [name]
     const { formDatum } = this.props
     if (formDatum) {
-      names.forEach((n) => {
+      names.forEach(n => {
         formDatum.unsubscribe(errorSubscribe(n))
       })
     }
 
-    this.setState(immer((state) => {
-      names.forEach((n) => { delete state.inputs[n] })
-    }))
+    this.setState(
+      immer(state => {
+        names.forEach(n => {
+          delete state.inputs[n]
+        })
+      })
+    )
   }
 
   handleError(name, error) {
-    this.setState(immer((state) => {
-      state.errors[name] = error
-    }))
+    this.setState(
+      immer(state => {
+        state.errors[name] = error
+      })
+    )
   }
 
   renderHelp(errors) {
     if (errors.length > 0) {
       return (
         <div className={formClass('error')}>
-          { errors.map((e, i) => <div key={i}>{e.message}</div>) }
+          {errors.map((e, i) => (
+            <div key={i}>{e.message}</div>
+          ))}
         </div>
       )
     }
@@ -126,9 +135,7 @@ class Item extends Component {
   }
 
   render() {
-    const {
-      children, grid, label, labelAlign, labelWidth, required, style,
-    } = this.props
+    const { children, grid, label, labelAlign, labelWidth, required, style } = this.props
 
     const errors = this.getErrors()
 
@@ -138,9 +145,9 @@ class Item extends Component {
         'item',
         required && 'required',
         errors.length > 0 && 'invalid',
-        ['top', 'right'].indexOf(labelAlign) >= 0 && `label-align-${labelAlign}`,
+        ['top', 'right'].indexOf(labelAlign) >= 0 && `label-align-${labelAlign}`
       ),
-      this.props.className,
+      this.props.className
     )
 
     return (
@@ -160,13 +167,10 @@ class Item extends Component {
 Item.propTypes = {
   ...getProps(PropTypes, 'children', 'grid'),
   className: PropTypes.string,
-  formItemErrors: PropTypes.array,
+  // formItemErrors: PropTypes.array,
   label: PropTypes.any,
   labelAlign: PropTypes.string,
-  labelWidth: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
+  labelWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   required: PropTypes.bool,
   tip: PropTypes.any,
 }
@@ -180,9 +184,5 @@ export default Item
 
 // eslint-disable-next-line
 export const itemConsumer = Origin => (props) => {
-  return (
-    <Consumer>
-      {events => <Origin {...props} {...events} />}
-    </Consumer>
-  )
+  return <Consumer>{events => <Origin {...props} {...events} />}</Consumer>
 }

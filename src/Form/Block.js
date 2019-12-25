@@ -63,19 +63,13 @@ class Block extends PureComponent {
   }
 
   render() {
-    const {
-      children, labelAlign, labelWidth, rules,
-    } = this.props
+    const { children, labelAlign, labelWidth, rules } = this.props
 
     if (rules && this.datum.rules !== rules) {
       this.datum.rules = Array.isArray(rules) ? {} : rules
     }
 
-    return (
-      <Provider value={{ formDatum: this.datum, labelWidth, labelAlign }}>
-        {children}
-      </Provider>
-    )
+    return <Provider value={{ formDatum: this.datum, labelWidth, labelAlign }}>{children}</Provider>
   }
 }
 
@@ -84,10 +78,7 @@ Block.propTypes = {
   error: PropTypes.object,
   formDatum: PropTypes.object,
   labelAlign: PropTypes.string,
-  labelWidth: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
+  labelWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func.isRequired,
   rules: PropTypes.array,
   value: PropTypes.any,
