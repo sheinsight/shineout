@@ -12,7 +12,7 @@ class Flow extends Component {
 
     const { names, formDatum } = this.props
     if (names) {
-      names.forEach((n) => {
+      names.forEach(n => {
         const nc = changeSubscribe(n)
         formDatum.subscribe(nc, this.update)
         this.events.push(nc)

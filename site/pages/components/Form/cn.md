@@ -35,6 +35,18 @@ Form 是一个比较复杂的组件，由下列组件组成
 | style | object | | 扩展样式 |
 | throttle | number | 1000 | ms, 两次提交间隔时长（防止重复提交）|
 | initValidate | bool | false | 设置 value 后是否自动校验 |
+| formRef | func: (form) => {} | - | 绑定 form 的引用, 可以调用某些 form 的方法 | 
+
+### formRef
+
+| 属性 | 类型 | 默认值 | 说明 | 版本 |
+| --- | --- | --- | --- | -- |
+| getValue | function | - | 返回表单的值 | 1.4.4 |
+| validate | function | - | 校验表单 | 1.4.4 |
+| clearValidate | function | - | 清除校验 | 1.4.4 |
+| reset | function | - | 重置表单 | 1.4.4 |
+| submit | function: (withValidate = true) => {} | - | 提交表单, withValidate: 是否校验 | 1.4.4 |
+
 
 ### Form.Item
 表单项，主要用来布局，显示标签，提示文案信息等
