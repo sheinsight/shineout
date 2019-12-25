@@ -3,12 +3,6 @@ import PropTypes from 'prop-types'
 import { selectClass } from '../styles'
 import { focusElement, getCursorOffset } from '../utils/dom/element'
 
-const focusSelectAll = element => {
-  requestAnimationFrame(() => {
-    focusElement.select(element)
-  })
-}
-
 const handleFocus = e => {
   e.stopPropagation()
 }
@@ -56,7 +50,11 @@ class FilterInput extends Component {
   }
 
   focus() {
-    focusSelectAll(this.editElement)
+    const { focusSelected } = this.props
+    const action = focusSelected ? focusElement.select : focusElement.end
+    requestAnimationFrame(() => {
+      action(this.editElement)
+    })
   }
 
   bindElement(el) {
@@ -118,6 +116,7 @@ FilterInput.propTypes = {
   setInputReset: PropTypes.func.isRequired,
   text: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   trim: PropTypes.bool,
+  focusSelected: PropTypes.bool,
 }
 
 FilterInput.defaultProps = {
