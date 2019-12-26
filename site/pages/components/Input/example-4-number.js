@@ -8,5 +8,5 @@ import React from 'react'
 import { Input } from 'shineout'
 
 export default function() {
-  return <Input.Number width={120} min={23} max={100} digits={0} />
+  return <Input.Number coin width={120} min={23} max={10000} digits={0} />
 }

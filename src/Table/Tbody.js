@@ -129,15 +129,21 @@ class Tbody extends PureComponent {
     )
   }
 
-  findExpandFunc(key, index) {
-    const { columns, expandKeys, data, externalExpandRender } = this.props
+  findExpandFunc(key, i) {
+    const { columns, expandKeys, data, externalExpandRender, index } = this.props
+    const expandableObj = columns.find(c => c.type === 'expand' || c.type === 'row-expand')
+    const idx = i + index
     if (expandKeys) {
       const expanded = expandKeys.find(k => k === key)
-      if (externalExpandRender) return expanded ? externalExpandRender(data[index]) : undefined
-      const expandObj = expanded ? columns.find(c => c.type === 'expand' || c.type === 'row-expand') : {}
-      return expandObj.render ? expandObj.render(data[index]) : undefined
+      if (externalExpandRender) return expanded ? externalExpandRender(data[i], idx) : undefined
+      const expandObj = expanded ? expandableObj : {}
+      return expandObj.render ? expandObj.render(data[i], idx) : undefined
     }
-    return this.state.expand[key]
+    if (this.state.expand[key]) {
+      if (externalExpandRender) return externalExpandRender(data[i], idx)
+      return expandableObj.render ? expandableObj.render(data[i], idx) : undefined
+    }
+    return undefined
   }
 
   renderTr(row, i) {
