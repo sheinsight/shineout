@@ -89,7 +89,14 @@ class SimpleTable extends PureComponent {
       <div key="body" className={tableClass('simple-body')} ref={this.bindBody} onScroll={this.handleScroll}>
         <table style={{ width }}>
           <Colgroup colgroup={colgroup} columns={columns} />
-          <Tbody lazy={false} index={0} columns={columns} onBodyRender={this.handleColgroup} {...others} />
+          <Tbody
+            colgroup={colgroup}
+            lazy={false}
+            index={0}
+            columns={columns}
+            onBodyRender={this.handleColgroup}
+            {...others}
+          />
         </table>
       </div>
     )
