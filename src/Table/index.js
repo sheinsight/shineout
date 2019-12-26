@@ -155,7 +155,7 @@ export default class extends React.Component {
     }
 
     const externalExpandRender = (this.getExternalExpandObj() || {}).render
-    const externalExpandClick = (this.getExternalExpandObj() || {}).click
+    const externalExpandOnClick = (this.getExternalExpandObj() || {}).onClick
 
     return (
       <Component
@@ -167,7 +167,7 @@ export default class extends React.Component {
         onSortChange={this.handleSortChange}
         treeColumnsName={treeColumnsName}
         externalExpandRender={externalExpandRender}
-        externalExpandClick={externalExpandClick}
+        externalExpandClick={externalExpandOnClick}
       />
     )
   }
