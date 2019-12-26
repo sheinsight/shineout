@@ -114,7 +114,7 @@ class Tbody extends PureComponent {
     const tr = this.body.querySelector('tr')
     if (!tr) return
     this.colgroupSetted = true
-    onBodyRender(tr.querySelectorAll('td'), tr)
+    onBodyRender(tr.querySelectorAll('td'))
   }
 
   bindBody(el) {

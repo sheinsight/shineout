@@ -57,3 +57,4 @@
 | align | string | 'left' | 单元格内容排布方式，可选 \['left', 'center', 'right'\]
 | treeColumnsName | string | 无 | 树形表格子数据字段名 |
 | treeIndent | number | 25 | 每一层缩进宽度 |   
+| minWidth | number | 无 | 最小列宽 |

@@ -57,3 +57,4 @@
 | align | string | 'left' | cell align \['left', 'center', 'right'\]
 | treeColumnsName | string | none | tree table children-data name |
 | treeIndent | number | 25 | indent of each level |   
+| minWidth | number | - | the minimum width of the column |
