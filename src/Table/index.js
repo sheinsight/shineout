@@ -103,13 +103,13 @@ export default class extends React.Component {
   getFilteredColumn() {
     const { columns } = this.props
     if (!columns) return columns
-    return columns.filter(v => !(['expand', 'row-expand'].indexOf(v.type) > -1 && v.hideExpandIcon))
+    return columns.filter(v => !(['expand', 'row-expand'].indexOf(v.type) > -1 && v.hide))
   }
 
   getExternalExpandObj() {
     const { columns } = this.props
     if (!columns) return undefined
-    const obj = columns.find(v => ['expand', 'row-expand'].indexOf(v.type) > -1 && v.hideExpandIcon)
+    const obj = columns.find(v => ['expand', 'row-expand'].indexOf(v.type) > -1 && v.hide)
     if (obj && typeof obj === 'object') return obj
     return undefined
   }

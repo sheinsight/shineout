@@ -57,4 +57,4 @@
 | align | string | 'left' | cell align \['left', 'center', 'right'\]
 | treeColumnsName | string | none | tree table children-data name |
 | treeIndent | number | 25 | indent of each level |
-| hideExpandIcon | bool | false | Whether to hide the expand button | 
+| hide | bool | false | hide the column, only work on row-expand column |
