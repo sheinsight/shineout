@@ -154,7 +154,6 @@
   font-size: @font-size-base;
   line-height: @line-height-base;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-  .user-select(none);
   
   &-clear-wrapper {
     width: 16px;
@@ -249,6 +248,7 @@
     padding: 0 4px;
     border-left: solid 1px @gray-200;
     line-height: 1;
+    .user-select(none);
 
     svg path {
       fill: @gray-500;
