@@ -272,7 +272,7 @@ class Root extends React.Component {
   }
 
   render() {
-    const { keygen, data, mode, style, theme, inlineIndent, linkKey, disabled, height } = this.props
+    const { keygen, data, mode, style, theme, inlineIndent, linkKey, disabled, height, toggleDuration } = this.props
 
     const showScroll = ((style.height || height) && mode === 'vertical') || mode === 'horizontal'
 
@@ -313,6 +313,7 @@ class Root extends React.Component {
               bottomLine={bottomLine}
               topLine={topLine}
               linkKey={linkKey}
+              toggleDuration={toggleDuration}
             />
           </Provider>
         </div>
@@ -335,6 +336,7 @@ Root.propTypes = {
   onClick: PropTypes.func,
   renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   onOpenChange: PropTypes.func,
+  toggleDuration: PropTypes.number,
 }
 
 Root.defaultProps = {
@@ -349,6 +351,7 @@ Root.defaultProps = {
   renderItem: 'title',
   defaultOpenKeys: [],
   onClick: () => true,
+  toggleDuration: 200,
 }
 
 export default Root

@@ -417,6 +417,7 @@ class Select extends PureComponent {
       trim,
       renderUnmatched,
       showArrow,
+      focusSelected,
     } = this.props
     const className = selectClass(
       'inner',
@@ -460,6 +461,7 @@ class Select extends PureComponent {
           setInputReset={this.setInputReset}
           compressed={compressed}
           showArrow={showArrow}
+          focusSelected={focusSelected}
         />
         {this.renderOptions()}
       </div>
@@ -498,6 +500,7 @@ Select.propTypes = {
   renderUnmatched: PropTypes.func,
   emptyAfterSelect: PropTypes.bool,
   showArrow: PropTypes.bool,
+  focusSelected: PropTypes.bool,
 }
 
 Select.defaultProps = {
@@ -514,6 +517,7 @@ Select.defaultProps = {
   trim: true,
   autoAdapt: false,
   showArrow: true,
+  focusSelected: true,
 }
 
 export default Select

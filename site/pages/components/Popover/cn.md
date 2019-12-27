@@ -24,6 +24,7 @@
 | type | string | 无 | 可选值为，\['success', 'info', 'warning', 'danger'] |
 | * content | ReactElement \| function | | 旧接口，如果content为空，父组件作为触发元素 | 
 | priorityDirection | string | 'vertical' | 弹出位置优先级, 默认为左右优先, 只在未设置 position 时生效, 可选值\['vertical', 'horizontal'] |
+| getPopupContainer | function | 无 | 自定义Popover容器，覆盖默认渲染在body下的行为, () => DOMElement |
 
 ### Popover.Confirm
 | 属性 | 类型 | 默认值 | 说明 |

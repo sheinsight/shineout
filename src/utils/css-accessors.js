@@ -2,10 +2,8 @@ import cssInject from './vars-inject'
 import { capitalize } from './strings'
 import { getDOMStyle } from './expose'
 
-const cssVarSupported = window.CSS && window.CSS.supports && window.CSS.supports('--css-var-support', 0)
-
 function setOptions(options, setter) {
-  if (!options || !cssVarSupported) return
+  if (!options) return
   for (const [key, value] of Object.entries(options)) {
     if (key === setter) continue
     this[key] = value

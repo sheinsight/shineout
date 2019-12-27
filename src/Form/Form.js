@@ -21,9 +21,32 @@ class Form extends Component {
 
     this.locked = false
     this.id = `form_${getUidStr()}`
+
+    this.form = {
+      getValue: () => this.props.datum.getValue(),
+      validate: () => this.props.datum.validate(),
+      clearValidate: () => {
+        this.props.datum.validateClear()
+      },
+      submit: (withValidate = true) => {
+        if (withValidate) this.handleSubmit()
+        else {
+          const { activeElement } = document
+          if (activeElement) activeElement.blur()
+
+          if (this.props.onSubmit) this.props.onSubmit(this.props.datum.getValue())
+          if (activeElement) activeElement.focus()
+        }
+      },
+      reset: () => {
+        this.handleReset()
+      },
+    }
   }
 
   componentDidMount() {
+    const { formRef } = this.props
+    if (formRef) formRef(this.form)
     this.setStatus()
   }
 
@@ -49,9 +72,11 @@ class Form extends Component {
   }
 
   handleSubmit(e) {
-    e.persist()
-    e.preventDefault()
-    if (e.target.getAttribute('id') !== this.id) return
+    if (e) {
+      e.persist()
+      e.preventDefault()
+    }
+    if (e && e.target.getAttribute('id') !== this.id) return
     if (this.validating || this.locked) return
 
     this.validating = true
@@ -72,7 +97,7 @@ class Form extends Component {
         .validate(IGNORE_BIND)
         .then(() => {
           this.validating = false
-          if (onSubmit) onSubmit(datum.getValue(), e.nativeEvent && e.nativeEvent.detail)
+          if (onSubmit) onSubmit(datum.getValue(), e && e.nativeEvent && e.nativeEvent.detail)
           if (activeElement) activeElement.focus()
         })
         .catch(err => {

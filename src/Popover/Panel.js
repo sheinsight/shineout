@@ -7,6 +7,7 @@ import { getPosition } from '../utils/dom/popover'
 import { isFunc } from '../utils/is'
 import { popoverClass } from '../styles'
 import { docSize } from '../utils/dom/document'
+import isDOMElement from '../utils/dom/isDOMElement'
 
 const emptyEvent = e => e.stopPropagation()
 
@@ -38,8 +39,8 @@ class Panel extends PureComponent {
     } else {
       this.parentElement.addEventListener('click', this.handleShow)
     }
-
-    document.body.appendChild(this.element)
+    this.container = this.getContainer()
+    this.container.appendChild(this.element)
 
     if (this.props.visible) this.forceUpdate()
   }
@@ -52,7 +53,7 @@ class Panel extends PureComponent {
     this.parentElement.removeEventListener('click', this.handleShow)
 
     document.removeEventListener('click', this.clickAway)
-    document.body.removeChild(this.element)
+    this.container.removeChild(this.element)
   }
 
   setShow(show) {
@@ -111,6 +112,26 @@ class Panel extends PureComponent {
     return position
   }
 
+  getContainer() {
+    const { getPopupContainer } = this.props
+    let container
+    if (getPopupContainer) container = getPopupContainer()
+    if (container && isDOMElement(container)) {
+      const child = document.createElement('div')
+      child.setAttribute('style', ' position: absolute; top: 0px; left: 0px; width: 100% ')
+      return container.appendChild(child)
+    }
+    return document.body
+  }
+
+  updatePosition(position) {
+    const pos = getPosition(position, this.parentElement, this.container)
+    // eslint-disable-next-line
+    Object.keys(pos).forEach(attr => {
+      this.element.style[attr] = pos[attr]
+    })
+  }
+
   placeholderRef(el) {
     this.placeholder = el
   }
@@ -147,13 +168,10 @@ class Panel extends PureComponent {
     const colorStyle = { background, borderColor: border }
     const innerStyle = Object.assign({}, this.props.style, { background })
     const position = this.getPositionStr()
-    const pos = getPosition(position, this.parentElement)
     this.element.className = classnames(popoverClass('_', position, type), this.props.className)
     // eslint-disable-next-line
     const style = this.element.style
-    Object.keys(pos).forEach(attr => {
-      style[attr] = pos[attr]
-    })
+    this.updatePosition(position)
     style.display = show ? 'block' : 'none'
     if (background) style.background = background
     if (border) style.borderColor = border
@@ -187,6 +205,7 @@ Panel.propTypes = {
   mouseLeaveDelay: PropTypes.number,
   className: PropTypes.string,
   priorityDirection: PropTypes.string,
+  getPopupContainer: PropTypes.func,
 }
 
 Panel.defaultProps = {

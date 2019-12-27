@@ -21,6 +21,18 @@
 | style | object | - | Container element style |
 | throttle | number | 1000 | ms, the interval between two submissions(Prevent repeat submission) |
 | initValidate | bool | false | validate after set value |
+| formRef | func: (form) => {} | - | bind form ref, Can call some form methods | 
+
+### formRef
+
+| Property | Type | Default | Description | Version |
+| --- | --- | --- | --- | -- |
+| getValue | function | - | Returns the value of the form | 1.4.4 |
+| validate | function | - | Validation form | 1.4.4 |
+| clearValidate | function | - | Clear check | 1.4.4 |
+| reset | function | - | Reset form | 1.4.4 |
+| submit | function: (withValidate = true) => {} | - | Submit Form, withValidate: Whether to verify | 1.4.4 |
+
 
 ### Form.Item
 Used to layout, display labels, tips, errors, etc
