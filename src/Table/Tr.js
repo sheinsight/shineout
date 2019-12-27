@@ -8,7 +8,12 @@ import Expand from './Expand'
 
 export const ROW_HEIGHT_UPDATE_EVENT = 'ROW_HEIGHT_UPDATE_EVENT_NAME'
 
-const preventClasses = [inputClass('_'), checkinputClass('_'), tableClass('icon-tree-plus'), tableClass('icon-tree-sub')]
+const preventClasses = [
+  inputClass('_'),
+  checkinputClass('_'),
+  tableClass('icon-tree-plus'),
+  tableClass('icon-tree-sub'),
+]
 const isExpandableElement = el => {
   const { tagName } = el
   if (tagName === 'TD' || tagName === 'TR') return true
