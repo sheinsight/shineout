@@ -58,3 +58,4 @@
 | treeColumnsName | string | none | tree table children-data name |
 | treeIndent | number | 25 | indent of each level |   
 | minWidth | number | - | the minimum width of the column |
+| hide | bool | false | hide the column, only work on row-expand column |

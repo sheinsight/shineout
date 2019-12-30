@@ -101,7 +101,7 @@ class Result extends PureComponent {
   }
 
   renderInput(text, key = 'input') {
-    const { multiple, onFilter, trim, focus, onInputFocus, onInputBlur, setInputReset } = this.props
+    const { multiple, onFilter, trim, focus, onInputFocus, onInputBlur, setInputReset, focusSelected } = this.props
     return (
       <Input
         key={`${key}.${focus ? 1 : 0}`}
@@ -114,6 +114,7 @@ class Result extends PureComponent {
         trim={trim}
         onFilter={onFilter}
         setInputReset={setInputReset}
+        focusSelected={focusSelected}
       />
     )
   }
@@ -221,6 +222,7 @@ Result.propTypes = {
   trim: PropTypes.bool,
   renderUnmatched: PropTypes.func,
   showArrow: PropTypes.bool,
+  focusSelected: PropTypes.bool,
 }
 
 export default Result

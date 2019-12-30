@@ -3,12 +3,6 @@ import PropTypes from 'prop-types'
 import { selectClass } from '../styles'
 import { focusElement, getCursorOffset } from '../utils/dom/element'
 
-const focusSelectAll = element => {
-  requestAnimationFrame(() => {
-    focusElement.select(element)
-  })
-}
-
 const handleFocus = e => {
   e.stopPropagation()
 }
@@ -56,7 +50,11 @@ class FilterInput extends Component {
   }
 
   focus() {
-    focusSelectAll(this.editElement)
+    const { focusSelected } = this.props
+    const action = focusSelected ? focusElement.select : focusElement.end
+    requestAnimationFrame(() => {
+      action(this.editElement)
+    })
   }
 
   bindElement(el) {
@@ -86,29 +84,25 @@ class FilterInput extends Component {
     const { text, focus, multiple } = this.props
     const value = typeof text === 'string' ? text.replace(/<\/?[^>]*>/g, '') : text
 
+    const props = {
+      className: selectClass('input', !focus && 'ellipsis', !multiple && 'full'),
+      ref: this.bindElement,
+      key: 'input',
+      onInput: this.handleInput,
+      contentEditable: focus,
+      onFocus: handleFocus,
+      onBlur: this.handleBlur,
+      onPaste: this.handlePaste,
+    }
+
     if (isValidElement(value)) {
       return cloneElement(value, {
-        className: selectClass('input', !focus && 'ellipsis', !multiple && 'full'),
-        ref: this.bindElement,
-        key: 'input',
-        onInput: this.handleInput,
-        contentEditable: focus,
+        ...props,
+        suppressContentEditableWarning: true,
       })
     }
 
-    return (
-      <span
-        key="input"
-        className={selectClass('input', !focus && 'ellipsis', !multiple && 'full')}
-        ref={this.bindElement}
-        contentEditable={focus}
-        onInput={this.handleInput}
-        onFocus={handleFocus}
-        onBlur={this.handleBlur}
-        onPaste={this.handlePaste}
-        dangerouslySetInnerHTML={{ __html: value }}
-      />
-    )
+    return <span dangerouslySetInnerHTML={{ __html: value }} {...props} />
   }
 }
 
@@ -122,6 +116,7 @@ FilterInput.propTypes = {
   setInputReset: PropTypes.func.isRequired,
   text: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   trim: PropTypes.bool,
+  focusSelected: PropTypes.bool,
 }
 
 FilterInput.defaultProps = {

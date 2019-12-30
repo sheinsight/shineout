@@ -1,9 +1,10 @@
 // Alerts
 
-.alert-variant(@background; @border; @text-color) {
+.alert-variant(@background; @border; @text-color; @box-shadow) {
   border-color: @border;
   background-color: @background;
   color: @text-color;
+  box-shadow: @box-shadow;
 
   hr {
     & when (%('%s', @border) = %('%s', @alert-default-border)) {

@@ -326,8 +326,8 @@ export default class {
 
   validateClear() {
     const keys = Object.keys(this.$validator)
-    this.$errors = {}
     const validates = keys.map(k => this.$validator[k](FORCE_PASS))
     Promise.all(validates)
+    this.$errors = {}
   }
 }

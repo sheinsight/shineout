@@ -75,6 +75,9 @@
     &-cell {
       padding: @table-cell-padding-vertical @table-cell-padding-horizontal;
     }
+    &-fixed {
+      background: @table-fixed-shadow;
+    }
   }
   &-select {
    &-result-item {
@@ -86,6 +89,9 @@
         background: @select-option-hover-bg;
         color: @select-option-hover-color;
       }
+    }
+    &-close {
+      background: @select-clear-bg-color;
     }
   }
   &-datepicker-month{
@@ -141,11 +147,22 @@
       color: @input-color-placeholder;
     }
   }
+  &-alert {
+    &-close {
+      color: @alert-close-color;
+      &-hover {
+        color: @alert-close-hover-color;
+      }
+    }
+  }
   &-radio {
     width: @radio-width;
     border: @radio-border-width solid #fff;
     &-inner {
       width: @radio-inner-width;
+    }
+    &-uncheck {
+      width: @radio-border-uncheck-width;
     }
   }
   &-pagination {
@@ -161,11 +178,17 @@
     }
     &-close {
       color: @modal-close-icon-color;
+      &-hover {
+        color: @modal-close-icon-hover-color;
+      }
     }
   }
   &-tag {
     &-close {
       color: @tag-close-color;
+      &-hover {
+        color: @tag-close-hover-color;
+      }
     }
   }
   &-card {
@@ -177,6 +200,12 @@
   &-tree {
     &-indent {
       width: @tree-level-indent;
+    }
+  }
+  &-checkbox {
+    &-indicator {
+      border-color: @checkbox-border-color;
+      width: @checkbox-border-width;
     }
   }
 }
