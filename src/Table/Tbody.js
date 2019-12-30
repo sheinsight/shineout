@@ -7,7 +7,6 @@ import { compareColumns } from '../utils/shallowEqual'
 import { getKey } from '../utils/uid'
 import Tr from './Tr'
 import { tableClass } from '../styles'
-import Checkbox from '../Checkbox/Checkbox'
 
 export const RENDER_COL_GROUP_EVENT = 'RENDER_COL_GROUP_EVENT'
 
