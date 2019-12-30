@@ -36,13 +36,14 @@
 
   &-item {
     min-height: 32px;
-    padding: 6px 0 6px 12px;
+    // padding: 6px 0 6px 12px;
     width: 100%;
     cursor: pointer;
 
     &-check {
       width: 100%;
       margin-right: 0;
+      padding: 6px 0 6px 12px;
     }
 
     &:hover {
@@ -70,13 +71,12 @@
 
     &-button {
       color: #fff;
+      display: inline-flex;
 
       > svg {
         height: 18px;
         width: 10px;
         fill: #fff;
-        vertical-align: middle;
-        // margin: 0 4px 0 0;
       }
 
       &[disabled] > svg {

@@ -26,7 +26,6 @@ export default function() {
       renderItem="content"
       keygen="id"
       operations={['to right', 'to left']}
-      operationIcon={false}
       listStyle={{ height: 240 }}
     />
   )
