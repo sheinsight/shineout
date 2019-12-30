@@ -171,24 +171,20 @@ class Tbody extends PureComponent {
       <tr className={tableClass('placeholder-tr')} key={`so-placeholder-${new Date().getTime()}`}>
         {columns.map((v, i) => {
           if (!v) return <td key={i} />
-          if (v.minWidth)
+          if (v.minWidth) {
             return (
               <td key={i}>
                 <div style={{ width: v.minWidth }} />
               </td>
             )
-          if (v.title)
+          }
+          if (v.title) {
             return (
               <td key={i}>
                 <div>{typeof v.title === 'function' ? v.title(data) : v.title}</div>
               </td>
             )
-          if (v.type === 'checkbox')
-            return (
-              <td>
-                <Checkbox />
-              </td>
-            )
+          }
           return <td key={i} />
         })}
       </tr>

@@ -256,6 +256,45 @@ exports[`Table[group] should render group header 1`] = `
       </colgroup>
       <tbody>
         <tr
+          className="so-table-placeholder-tr"
+        >
+          <td>
+            <div>
+              id
+            </div>
+          </td>
+          <td>
+            <div>
+              First Name
+            </div>
+          </td>
+          <td>
+            <div>
+              Last Name
+            </div>
+          </td>
+          <td>
+            <div>
+              Nick Name
+            </div>
+          </td>
+          <td>
+            <div>
+              Country
+            </div>
+          </td>
+          <td>
+            <div>
+              Office
+            </div>
+          </td>
+          <td>
+            <div>
+              Position
+            </div>
+          </td>
+        </tr>
+        <tr
           className="so-table-normal"
           onClick={[Function]}
         >

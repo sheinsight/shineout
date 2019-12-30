@@ -167,6 +167,35 @@ exports[`Table[loading] should render loading 1`] = `
       </colgroup>
       <tbody>
         <tr
+          className="so-table-placeholder-tr"
+        >
+          <td>
+            <div>
+              id
+            </div>
+          </td>
+          <td>
+            <div>
+              Name
+            </div>
+          </td>
+          <td>
+            <div>
+              Country
+            </div>
+          </td>
+          <td>
+            <div>
+              Position
+            </div>
+          </td>
+          <td>
+            <div>
+              Office
+            </div>
+          </td>
+        </tr>
+        <tr
           className="so-table-normal"
           onClick={[Function]}
         >

@@ -91,6 +91,20 @@ exports[`Table[rowClassname] should render correct 1`] = `
       </colgroup>
       <tbody>
         <tr
+          className="so-table-placeholder-tr"
+        >
+          <td>
+            <div>
+              id
+            </div>
+          </td>
+          <td>
+            <div>
+              Name
+            </div>
+          </td>
+        </tr>
+        <tr
           className="so-table-normal table-bg-success"
           onClick={[Function]}
         >
