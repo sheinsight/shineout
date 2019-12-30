@@ -569,9 +569,15 @@
       opacity: 1;
     }
   }
+
   &-placeholder-tr td{
     padding: 0!important;
     border-bottom-width: 0!important;
-    height: 0!important;
+    line-height: 0!important;
+    > label,
+    > div {
+      height: 0!important;
+      overflow: hidden;
+    }
   }
 }

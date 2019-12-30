@@ -7,6 +7,7 @@ import { compareColumns } from '../utils/shallowEqual'
 import { getKey } from '../utils/uid'
 import Tr from './Tr'
 import { tableClass } from '../styles'
+import Checkbox from '../Checkbox/Checkbox'
 
 export const RENDER_COL_GROUP_EVENT = 'RENDER_COL_GROUP_EVENT'
 
@@ -165,14 +166,27 @@ class Tbody extends PureComponent {
   }
 
   renderPlaceholderTr() {
-    const { columns } = this.props
+    const { columns, data } = this.props
     return (
       <tr className={tableClass('placeholder-tr')} key={`so-placeholder-${new Date().getTime()}`}>
         {columns.map((v, i) => {
+          if (!v) return <td key={i} />
           if (v.minWidth)
             return (
               <td key={i}>
                 <div style={{ width: v.minWidth }} />
+              </td>
+            )
+          if (v.title)
+            return (
+              <td key={i}>
+                <div>{typeof v.title === 'function' ? v.title(data) : v.title}</div>
+              </td>
+            )
+          if (v.type === 'checkbox')
+            return (
+              <td>
+                <Checkbox />
               </td>
             )
           return <td key={i} />
