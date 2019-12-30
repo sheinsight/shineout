@@ -1,4 +1,5 @@
 import React from 'react'
+import { findDOMNode } from 'react-dom'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import immer from 'immer'
@@ -133,6 +134,8 @@ class Container extends PureComponent {
 
   bindPicker(picker) {
     this.picker = picker
+    this.pickerContainer = findDOMNode(picker)
+    if (this.pickerContainer) this.pickerContainer = this.pickerContainer.parentNode
   }
 
   parseDate(value) {
@@ -187,6 +190,7 @@ class Container extends PureComponent {
   handleToggle(focus, e) {
     if (this.props.disabled === true) return
     if (focus === this.state.focus) return
+    if (e && focus && getParent(e.target, this.pickerContainer)) return
 
     // click close icon
     if (focus && e && e.target.classList.contains(datepickerClass('close'))) return
