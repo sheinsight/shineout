@@ -64,7 +64,7 @@ describe('Input[Base]', () => {
         },
       })
       if (digits === undefined) {
-        expect(input.find('input').prop('value')).toBe(inputValue)
+        expect(Number(input.find('input').prop('value'))).toBe(inputValue)
         return
       }
       input.find('input').simulate('change', {
@@ -72,7 +72,7 @@ describe('Input[Base]', () => {
           value: valueMap[digits],
         },
       })
-      expect(input.find('input').prop('value')).toBe(valueMap[digits])
+      expect(Number(input.find('input').prop('value'))).toBe(valueMap[digits])
     })
   })
 })
