@@ -35,7 +35,9 @@ class Input extends PureComponent {
     if (clearClick) {
       this.ref.focus()
     }
-    const { value } = e.target
+    let { value } = e.target
+    const { type } = this.props
+    if (type === 'number') value = value.replace(/。/g, '.')
     if (this.invalidNumber(value)) return
     this.props.onChange(value)
   }
