@@ -6,7 +6,7 @@ import { PureComponent } from '../component'
 import { transferClass } from '../styles'
 import Context from './context'
 
-class Card extends PureComponent {
+class Item extends PureComponent {
   constructor(props) {
     super(props)
     this.check = this.check.bind(this)
@@ -38,7 +38,7 @@ class Card extends PureComponent {
   }
 }
 
-Card.propTypes = {
+Item.propTypes = {
   index: PropTypes.number,
   selecteds: PropTypes.array,
   checkKey: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -50,6 +50,6 @@ Card.propTypes = {
 
 export default prop => (
   <Context.Consumer>
-    {value => <Card {...prop} selecteds={value.selecteds} setSelecteds={value.setSelecteds} />}
+    {value => <Item {...prop} selecteds={value.selecteds} setSelecteds={value.setSelecteds} />}
   </Context.Consumer>
 )

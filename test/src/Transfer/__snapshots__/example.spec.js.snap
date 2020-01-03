@@ -678,12 +678,20 @@ exports[`Snapshot test: Transfer[site/pages/components/Transfer/example-3-custom
   <div>
     <div>
       <button>
+        <svg>
+          <path />
+          <path />
+        </svg>
         <span>
           to right
         </span>
       </button>
       <br />
       <button>
+        <svg>
+          <path />
+          <path />
+        </svg>
         <span>
           to left
         </span>
