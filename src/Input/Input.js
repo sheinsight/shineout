@@ -37,7 +37,7 @@ class Input extends PureComponent {
     }
     let { value } = e.target
     const { type } = this.props
-    if (type === 'number') value = String(value).replace(/。/g, '.')
+    if (type === 'number' && typeof value !== 'number') value = String(value).replace(/。/g, '.')
     if (this.invalidNumber(value)) return
     this.props.onChange(value)
   }
