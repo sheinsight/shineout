@@ -37,12 +37,12 @@ class Day extends PureComponent {
     }
     this.cachedDays = utils.getDaysOfMonth(current)
     this.cachedDate = current
-
     return this.cachedDays
   }
 
   formatWithDefaultTime() {
     const { current, defaultTime } = this.props
+    console.log(current)
     if (!defaultTime[0]) return current
     return utils.cloneTime(current, defaultTime[0], utils.TIME_FORMAT)
   }
@@ -50,6 +50,7 @@ class Day extends PureComponent {
   handleDayClick(date) {
     const { type, allowSingle, rangeDate, min, max, index } = this.props
     const current = this.formatWithDefaultTime()
+    console.log(current)
     if (type === 'week') {
       // if (date.getDay() === 0) {
       //   date = utils.subDays(date, 1)
@@ -97,6 +98,10 @@ class Day extends PureComponent {
   renderDay(date, minD, maxD) {
     const { current, disabled, value, index, type, rangeDate, range, rangeTemp, min } = this.props
     const { hover } = this.state
+    if (this.props.defaultTime[0]) {
+      date = utils.cloneTime(date, this.props.defaultTime[0], utils.TIME_FORMAT)
+    }
+    console.log(date)
     let isDisabled = disabled ? disabled(date) : false
 
     // onyl for single, single picker don't has index
