@@ -174,7 +174,7 @@ class Tbody extends PureComponent {
   renderPlaceholderTr() {
     const { columns, data } = this.props
     return (
-      <tr className={tableClass('placeholder-tr')} key={`so-placeholder-${new Date().getTime()}`}>
+      <tr className={tableClass('placeholder-tr', 'normal')} key={`so-placeholder-${new Date().getTime()}`}>
         {columns.map((v, i) => {
           if (!v) return <td key={i} />
           if (v.minWidth) {
@@ -190,6 +190,9 @@ class Tbody extends PureComponent {
                 <div>{typeof v.title === 'function' ? v.title(data) : v.title}</div>
               </td>
             )
+          }
+          if (v.type === 'checkbox' || v.type === 'expand' || v.type === 'row-expand') {
+            return <td key={i} className={tableClass('checkbox')} />
           }
           return <td key={i} />
         })}
