@@ -85,7 +85,7 @@ class Item extends PureComponent {
     }
   }
 
-  handleClick() {
+  handleClick(e) {
     const { data, onClick, mode, toggleOpenKeys } = this.props
     if (data.disabled) return
 
@@ -101,11 +101,13 @@ class Item extends PureComponent {
     ) {
       onClick(this.id, data)
     }
+    const isLeaf = ((data || {}).children || []).length === 0
+    if (!isLeaf) e.nativeEvent.stopImmediatePropagation()
   }
 
-  handleItemClick(clickMethod) {
+  handleItemClick(clickMethod, e) {
     clickMethod()
-    this.handleClick()
+    this.handleClick(e)
   }
 
   renderLink(data) {
@@ -171,7 +173,7 @@ class Item extends PureComponent {
       const mergeClass = classnames(menuClass('title'), item.props && item.props.className)
       const mergeStyle = Object.assign({}, style, item.props && item.props.style)
       const handleItemClick =
-        item.props && item.props.onClick ? this.handleItemClick.bind(this, item.props.onClick) : this.handleClick
+        item.props && item.props.onClick ? (e) => { this.handleItemClick.call(this, item.props.onClick, e) } : this.handleClick
       item = cloneElement(item, { className: mergeClass, style: mergeStyle, onClick: handleItemClick })
     } else {
       const props = {

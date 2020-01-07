@@ -36,6 +36,7 @@ class Container extends PureComponent {
     this.pickerId = `picker_${getUidStr()}`
     this.bindElement = this.bindElement.bind(this)
     this.bindPicker = this.bindPicker.bind(this)
+    this.bindWrappedPicker = this.bindWrappedPicker.bind(this)
     this.handleClick = this.handleToggle.bind(this, true)
     this.handleBlur = this.handleToggle.bind(this, false)
     this.handleFocus = this.handleFocus.bind(this)
@@ -135,6 +136,10 @@ class Container extends PureComponent {
     this.picker = picker
   }
 
+  bindWrappedPicker(el) {
+    this.pickerContainer = el
+  }
+
   parseDate(value) {
     return utils.toDateWithFormat(value, this.getFormat(), undefined)
   }
@@ -187,6 +192,7 @@ class Container extends PureComponent {
   handleToggle(focus, e) {
     if (this.props.disabled === true) return
     if (focus === this.state.focus) return
+    if (e && focus && getParent(e.target, this.pickerContainer)) return
 
     // click close icon
     if (focus && e && e.target.classList.contains(datepickerClass('close'))) return
@@ -365,6 +371,7 @@ class Container extends PureComponent {
       className: datepickerClass('picker', 'location', `absolute-${position}`),
       position,
       zIndex,
+      getRef: this.bindWrappedPicker,
     }
     // computed absolute position needed
     if (absolute) {
