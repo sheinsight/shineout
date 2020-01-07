@@ -1,5 +1,4 @@
 import React from 'react'
-import { findDOMNode } from 'react-dom'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import immer from 'immer'
@@ -37,6 +36,7 @@ class Container extends PureComponent {
     this.pickerId = `picker_${getUidStr()}`
     this.bindElement = this.bindElement.bind(this)
     this.bindPicker = this.bindPicker.bind(this)
+    this.bindWrappedPicker = this.bindWrappedPicker.bind(this)
     this.handleClick = this.handleToggle.bind(this, true)
     this.handleBlur = this.handleToggle.bind(this, false)
     this.handleFocus = this.handleFocus.bind(this)
@@ -134,8 +134,10 @@ class Container extends PureComponent {
 
   bindPicker(picker) {
     this.picker = picker
-    this.pickerContainer = findDOMNode(picker)
-    if (this.pickerContainer) this.pickerContainer = this.pickerContainer.parentNode
+  }
+
+  bindWrappedPicker(el) {
+    this.pickerContainer = el
   }
 
   parseDate(value) {
@@ -369,6 +371,7 @@ class Container extends PureComponent {
       className: datepickerClass('picker', 'location', `absolute-${position}`),
       position,
       zIndex,
+      getRef: this.bindWrappedPicker,
     }
     // computed absolute position needed
     if (absolute) {
