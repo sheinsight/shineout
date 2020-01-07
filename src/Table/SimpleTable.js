@@ -19,6 +19,7 @@ class SimpleTable extends PureComponent {
     this.state = {
       colgroup: undefined,
       scrollAble: false,
+      resize: false,
     }
     this.handleSortChange = this.handleSortChange.bind(this)
     this.bindHeader = this.bindElement.bind(this, 'header')
@@ -34,8 +35,9 @@ class SimpleTable extends PureComponent {
 
   componentDidUpdate(prevProps) {
     this.scrollCheck()
-    if (!compareColumns(prevProps.columns, this.props.columns)) {
-      this.setState({ colgroup: undefined })
+    const resetColgroup = this.props.dataChangeResize && this.props.data !== prevProps.data
+    if (resetColgroup || !compareColumns(prevProps.columns, this.props.columns)) {
+      this.setState({ colgroup: undefined, resize: true })
     }
   }
 
@@ -72,7 +74,7 @@ class SimpleTable extends PureComponent {
       }
     }
     setTimeout(() => {
-      this.setState({ colgroup })
+      this.setState({ colgroup, resize: false })
     })
   }
 
@@ -84,7 +86,7 @@ class SimpleTable extends PureComponent {
 
   renderBody() {
     const { columns, width, fixed, ...others } = this.props
-    const { colgroup } = this.state
+    const { colgroup, resize } = this.state
     return (
       <div key="body" className={tableClass('simple-body')} ref={this.bindBody} onScroll={this.handleScroll}>
         <table style={{ width }}>
@@ -95,6 +97,7 @@ class SimpleTable extends PureComponent {
             index={0}
             columns={columns}
             onBodyRender={this.handleColgroup}
+            resize={resize}
             {...others}
           />
         </table>
@@ -138,6 +141,7 @@ SimpleTable.propTypes = {
   onResize: PropTypes.func,
   onSortChange: PropTypes.func,
   children: PropTypes.any,
+  dataChangeResize: PropTypes.bool,
 }
 
 SimpleTable.defaultProps = {

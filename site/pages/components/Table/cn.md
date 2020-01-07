@@ -40,6 +40,7 @@
 | radio | bool | false | 是否单选 |
 | rowEvents | array | 无 | tr 事件监听器集合 |
 | defaultTreeExpandKeys | array | 无 | 默认展开行(非受控) |
+| dataChangeResize | bool | false | 数据发生变化后是否重新计算列宽 |
 
 ### Column
 | 属性 | 类型 | 默认值 | 说明 |
