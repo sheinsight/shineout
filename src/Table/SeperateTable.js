@@ -420,6 +420,7 @@ class SeperateTable extends PureComponent {
               hasNotRenderRows={hasNotRenderRows}
               dataUpdated={dataUpdated}
               resize={resize}
+              colgroup={colgroup}
             />
           </table>
         </div>

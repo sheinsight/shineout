@@ -34,7 +34,7 @@ describe('Table[Base]', () => {
     const innerColumns = wrapper.find('ShineoutTable').prop('columns')
     const innerData = wrapper.find('ShineoutTable').prop('data')
     expect(wrapper.find('table thead th').length).toBe(innerColumns.length)
-    expect(wrapper.find('table tbody tr').length).toBe(innerData.length)
+    expect(wrapper.find('table tbody tr').length).toBe(innerData.length + 1)
   })
   test('should update columns when receiving props', () => {
     const innerColumns = [{ title: 'id', render: 'id' }]

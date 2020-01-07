@@ -6,6 +6,7 @@ import { getProps } from '../utils/proptypes'
 import { compareColumns } from '../utils/shallowEqual'
 import { getKey } from '../utils/uid'
 import Tr from './Tr'
+import { tableClass } from '../styles'
 
 export const RENDER_COL_GROUP_EVENT = 'RENDER_COL_GROUP_EVENT'
 
@@ -170,8 +171,34 @@ class Tbody extends PureComponent {
     )
   }
 
+  renderPlaceholderTr() {
+    const { columns, data } = this.props
+    return (
+      <tr className={tableClass('placeholder-tr')} key={`so-placeholder-${new Date().getTime()}`}>
+        {columns.map((v, i) => {
+          if (!v) return <td key={i} />
+          if (v.minWidth) {
+            return (
+              <td key={i}>
+                <div style={{ width: v.minWidth }} />
+              </td>
+            )
+          }
+          if (v.title) {
+            return (
+              <td key={i}>
+                <div>{typeof v.title === 'function' ? v.title(data) : v.title}</div>
+              </td>
+            )
+          }
+          return <td key={i} />
+        })}
+      </tr>
+    )
+  }
+
   render() {
-    const { index, data, columns, expandKeys, bordered } = this.props
+    const { index, data, columns, expandKeys, bordered, colgroup } = this.props
     const rows = []
     for (let i = data.length - 1; i >= 0; i--) {
       const d = data[i]
@@ -187,8 +214,8 @@ class Tbody extends PureComponent {
       ignoreBorderBottom(rows)
       ignoreBorderRight(rows)
     }
-
-    return <tbody ref={this.bindBody}>{rows.map(this.renderTr)}</tbody>
+    const combinedTrs = colgroup ? rows.map(this.renderTr) : [this.renderPlaceholderTr(), ...rows.map(this.renderTr)]
+    return <tbody ref={this.bindBody}>{combinedTrs}</tbody>
   }
 }
 
