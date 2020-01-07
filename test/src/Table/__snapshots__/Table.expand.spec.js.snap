@@ -56,7 +56,7 @@ exports[`Table[expand] should render correct 1`] = `
                           id
                         </div>
                       </td>
-                      <td />
+                      <td className=\\"so-table-placeholder-checkbox\\" />
                       <td>
                         <div>
                           Name

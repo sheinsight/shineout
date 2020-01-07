@@ -3,6 +3,7 @@
 
 @table-prefix: ~'@{so-prefix}-table';
 @table-sorter-width: 18px;
+@checkbox-width: 48px;
 
 .@{table-prefix} {
   border-radius: @table-border-radius-top @table-border-radius-top 0 0;
@@ -89,7 +90,7 @@
   }
 
   table tr &-checkbox {
-    width: 48px;
+    width: @checkbox-width;
     padding-right: 0;
     padding-left: 0;
     text-align: center;
@@ -102,6 +103,10 @@
     i {
       vertical-align: top;
     }
+  }
+
+  table tr &-placeholder-checkbox {
+    width: @checkbox-width;
   }
 
   caption {
