@@ -116,7 +116,7 @@ class Thead extends PureComponent {
           rowSpan={this.columnLevel - level + 1}
           key={col.key}
         >
-          <div>
+          <div className={tableClass(col.sorter && 'has-sorter')}>
             <span>{typeof col.title === 'function' ? col.title(data) : col.title}</span>
             {col.sorter && <Sorter {...col} current={sorter} onChange={onSortChange} />}
             {resize}

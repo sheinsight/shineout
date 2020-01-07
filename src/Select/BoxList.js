@@ -131,7 +131,7 @@ class BoxList extends Component {
   }
 
   render() {
-    const { columnWidth, columns, data, datum, style, loading, focus, selectId } = this.props
+    const { columnWidth, columns, data, datum, style, loading, focus, selectId, getRef } = this.props
 
     const checkedCount = data.filter(d => datum.check(d)).length
 
@@ -144,6 +144,7 @@ class BoxList extends Component {
         data-id={selectId}
         style={newStyle}
         className={selectClass('box-list')}
+        getRef={getRef}
       >
         {loading && typeof loading === 'boolean' ? <Spin size={30} /> : loading}
         {this.renderHeader(checkedCount)}
@@ -173,6 +174,7 @@ BoxList.propTypes = {
   height: PropTypes.number,
   lineHeight: PropTypes.number,
   itemsInView: PropTypes.number,
+  getRef: PropTypes.func,
 }
 
 BoxList.defaultProps = {

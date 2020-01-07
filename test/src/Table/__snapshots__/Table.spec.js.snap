@@ -42,7 +42,9 @@ exports[`Table[Border&striped] should render border & striped 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 id
               </span>
@@ -52,7 +54,9 @@ exports[`Table[Border&striped] should render border & striped 1`] = `
             className="so-table-ignore-right-border"
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Name
               </span>
@@ -195,7 +199,9 @@ exports[`Table[small] should render compact table 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 id
               </span>
@@ -205,7 +211,9 @@ exports[`Table[small] should render compact table 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Name
               </span>

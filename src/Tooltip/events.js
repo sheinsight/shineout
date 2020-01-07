@@ -2,6 +2,7 @@ import { tooltipClass } from '../styles'
 import ready from '../utils/dom/ready'
 
 const div = document.createElement('div')
+let timer
 div.style.display = 'none'
 
 ready(() => {
@@ -19,6 +20,7 @@ div.appendChild(inner)
 let currentId
 
 export function hide() {
+  if (timer) clearTimeout(timer)
   div.style.display = 'none'
   div.className = ''
   currentId = undefined
@@ -42,7 +44,7 @@ export function show(props, id, innerStyle) {
   const className = tooltipClass('_', 'in', position, animation && 'animation')
 
   // fix safari
-  setTimeout(() => {
+  timer = setTimeout(() => {
     div.style.display = 'block'
     div.className = className
   }, 0)

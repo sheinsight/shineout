@@ -64,15 +64,24 @@ export default function(options) {
 
     handleShow() {
       if (this.showTimer) clearTimeout(this.showTimer)
-      this.showTimer = setTimeout(() => {
-        const pos = this.getPosition()
-        const style = Object.keys(pos).reduce((data, key) => {
-          data[key] = pos[key]
-          return data
-        }, {})
-        const props = Object.assign({}, this.props, { style })
-        show(props, this.id, this.props.style)
-      }, this.props.delay)
+      const { delay } = this.props
+      if (!delay) {
+        this.showSync()
+      } else {
+        this.showTimer = setTimeout(() => {
+          this.showSync()
+        }, delay)
+      }
+    }
+
+    showSync() {
+      const pos = this.getPosition()
+      const style = Object.keys(pos).reduce((data, key) => {
+        data[key] = pos[key]
+        return data
+      }, {})
+      const props = Object.assign({}, this.props, { style })
+      show(props, this.id, this.props.style)
     }
 
     render() {

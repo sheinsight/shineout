@@ -71,7 +71,9 @@ Array [
               className=""
               rowSpan={2}
             >
-              <div>
+              <div
+                className=""
+              >
                 <span>
                   id
                 </span>
@@ -87,7 +89,9 @@ Array [
               className=""
               rowSpan={2}
             >
-              <div>
+              <div
+                className=""
+              >
                 <span>
                   Start Date
                 </span>
@@ -97,7 +101,9 @@ Array [
               className=""
               rowSpan={2}
             >
-              <div>
+              <div
+                className=""
+              >
                 <span>
                   Time
                 </span>
@@ -107,7 +113,9 @@ Array [
               className=""
               rowSpan={2}
             >
-              <div>
+              <div
+                className=""
+              >
                 <span>
                   Office
                 </span>
@@ -119,7 +127,9 @@ Array [
               className="so-table-condensed"
               rowSpan={1}
             >
-              <div>
+              <div
+                className=""
+              >
                 <span>
                   First Name
                 </span>
@@ -129,7 +139,9 @@ Array [
               className="so-table-condensed"
               rowSpan={1}
             >
-              <div>
+              <div
+                className=""
+              >
                 <span>
                   Last Name
                 </span>
@@ -750,7 +762,9 @@ exports[`Table[combine] should combine without pagination 1`] = `
             className=""
             rowSpan={2}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 id
               </span>
@@ -766,7 +780,9 @@ exports[`Table[combine] should combine without pagination 1`] = `
             className=""
             rowSpan={2}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Start Date
               </span>
@@ -776,7 +792,9 @@ exports[`Table[combine] should combine without pagination 1`] = `
             className=""
             rowSpan={2}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Time
               </span>
@@ -786,7 +804,9 @@ exports[`Table[combine] should combine without pagination 1`] = `
             className=""
             rowSpan={2}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Office
               </span>
@@ -798,7 +818,9 @@ exports[`Table[combine] should combine without pagination 1`] = `
             className="so-table-condensed"
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 First Name
               </span>
@@ -808,7 +830,9 @@ exports[`Table[combine] should combine without pagination 1`] = `
             className="so-table-condensed"
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Last Name
               </span>

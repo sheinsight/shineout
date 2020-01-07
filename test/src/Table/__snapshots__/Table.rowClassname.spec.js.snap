@@ -42,7 +42,9 @@ exports[`Table[rowClassname] should render correct 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 id
               </span>
@@ -52,7 +54,9 @@ exports[`Table[rowClassname] should render correct 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Name
               </span>
