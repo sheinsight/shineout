@@ -77,7 +77,9 @@ exports[`Table[group] should render group header 1`] = `
             className=""
             rowSpan={3}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 id
               </span>
@@ -109,7 +111,9 @@ exports[`Table[group] should render group header 1`] = `
             className=""
             rowSpan={3}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Country
               </span>
@@ -140,7 +144,9 @@ exports[`Table[group] should render group header 1`] = `
             className="so-table-condensed"
             rowSpan={2}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Nick Name
               </span>
@@ -150,7 +156,9 @@ exports[`Table[group] should render group header 1`] = `
             className="so-table-condensed"
             rowSpan={2}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Office
               </span>
@@ -160,7 +168,9 @@ exports[`Table[group] should render group header 1`] = `
             className="so-table-condensed so-table-ignore-right-border"
             rowSpan={2}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Position
               </span>
@@ -172,7 +182,9 @@ exports[`Table[group] should render group header 1`] = `
             className="so-table-condensed"
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 First Name
               </span>
@@ -182,7 +194,9 @@ exports[`Table[group] should render group header 1`] = `
             className="so-table-condensed"
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Last Name
               </span>

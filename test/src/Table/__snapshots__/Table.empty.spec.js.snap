@@ -66,7 +66,9 @@ exports[`Table[Empty] should render empty table 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 id
               </span>
@@ -76,7 +78,9 @@ exports[`Table[Empty] should render empty table 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Name
               </span>
@@ -86,7 +90,9 @@ exports[`Table[Empty] should render empty table 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Country
               </span>
@@ -96,7 +102,9 @@ exports[`Table[Empty] should render empty table 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Position
               </span>
@@ -106,7 +114,9 @@ exports[`Table[Empty] should render empty table 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Office
               </span>
@@ -116,7 +126,9 @@ exports[`Table[Empty] should render empty table 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Start Date
               </span>
@@ -260,7 +272,9 @@ exports[`Table[Empty] should render empty table with emtpyText 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 id
               </span>
@@ -270,7 +284,9 @@ exports[`Table[Empty] should render empty table with emtpyText 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Name
               </span>
@@ -280,7 +296,9 @@ exports[`Table[Empty] should render empty table with emtpyText 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Country
               </span>
@@ -290,7 +308,9 @@ exports[`Table[Empty] should render empty table with emtpyText 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Position
               </span>
@@ -300,7 +320,9 @@ exports[`Table[Empty] should render empty table with emtpyText 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Office
               </span>
@@ -310,7 +332,9 @@ exports[`Table[Empty] should render empty table with emtpyText 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Start Date
               </span>
@@ -472,7 +496,9 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
             className="so-table-fixed-left"
             rowSpan={2}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 id
               </span>
@@ -488,7 +514,9 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
             className=""
             rowSpan={2}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Country
               </span>
@@ -498,7 +526,9 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
             className=""
             rowSpan={2}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Position
               </span>
@@ -508,7 +538,9 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
             className=""
             rowSpan={2}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Office
               </span>
@@ -518,7 +550,9 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
             className=""
             rowSpan={2}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Start Date
               </span>
@@ -528,7 +562,9 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
             className="so-table-ignore-right-border so-table-fixed-right so-table-fixed-first"
             rowSpan={2}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Salary
               </span>
@@ -540,7 +576,9 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
             className="so-table-condensed so-table-fixed-left"
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 First Name
               </span>
@@ -550,7 +588,9 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
             className="so-table-condensed so-table-fixed-left so-table-fixed-last"
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Last Name
               </span>
@@ -712,7 +752,9 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 id
               </span>
@@ -722,7 +764,9 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Name
               </span>
@@ -732,7 +776,9 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Country
               </span>
@@ -742,7 +788,9 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Position
               </span>
@@ -752,7 +800,9 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Office
               </span>
@@ -762,7 +812,9 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
             className=""
             rowSpan={1}
           >
-            <div>
+            <div
+              className=""
+            >
               <span>
                 Start Date
               </span>
