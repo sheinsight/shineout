@@ -191,6 +191,9 @@ class Tbody extends PureComponent {
               </td>
             )
           }
+          if (v.type === 'checkbox' || v.type === 'expand' || v.type === 'row-expand') {
+            return <td key={i} className={tableClass('placeholder-checkbox')} />
+          }
           return <td key={i} />
         })}
       </tr>
