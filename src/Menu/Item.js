@@ -29,6 +29,7 @@ class Item extends PureComponent {
 
     this.bindElement = this.bindElement.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.handleSwitch = this.handleSwitch.bind(this)
     this.handleMouseEnter = this.handleToggle.bind(this, true)
     this.handleMouseLeave = this.handleToggle.bind(this, false)
     this.renderLink = this.renderLink.bind(this)
@@ -110,6 +111,16 @@ class Item extends PureComponent {
     this.handleClick(e)
   }
 
+  handleSwitch(e) {
+    const { renderItem, data } = this.props
+    const item = renderItem(data)
+    if (item.props && item.props.onClick) {
+      this.handleItemClick(item.props.onClick, e)
+    } else {
+      this.handleClick(e)
+    }
+  }
+
   renderLink(data) {
     const { linkKey } = this.props
     if (linkKey && data[linkKey]) return data[linkKey]
@@ -172,9 +183,7 @@ class Item extends PureComponent {
     if (isLink(item)) {
       const mergeClass = classnames(menuClass('title'), item.props && item.props.className)
       const mergeStyle = Object.assign({}, style, item.props && item.props.style)
-      const handleItemClick =
-        item.props && item.props.onClick ? this.handleItemClick.bind(this, item.props.onClick) : this.handleClick
-      item = cloneElement(item, { className: mergeClass, style: mergeStyle, onClick: handleItemClick })
+      item = cloneElement(item, { className: mergeClass, style: mergeStyle, onClick: this.handleSwitch })
     } else {
       const props = {
         className: menuClass('title'),
