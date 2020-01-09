@@ -142,9 +142,19 @@ class Panel extends PureComponent {
     this.handleHide(0)
   }
 
+  bindScrollDismiss(show) {
+    const { scrollDismiss } = this.props
+    if (!scrollDismiss) return
+    let target = document
+    if (typeof scrollDismiss === 'function') target = scrollDismiss()
+    const method = show ? target.addEventListener : target.removeEventListener
+    method.call(target, 'scroll', this.handleHide)
+  }
+
   handleShow() {
     if (this.delayTimeout) clearTimeout(this.delayTimeout)
     if (this.state.show) return
+    this.bindScrollDismiss(true)
     document.addEventListener('mousedown', this.clickAway)
     this.setShow(true)
   }
@@ -152,6 +162,7 @@ class Panel extends PureComponent {
   handleHide() {
     if (this.delayTimeout) clearTimeout(this.delayTimeout)
     document.removeEventListener('mousedown', this.clickAway)
+    this.bindScrollDismiss(false)
     this.setShow(false)
   }
 
@@ -206,6 +217,7 @@ Panel.propTypes = {
   className: PropTypes.string,
   priorityDirection: PropTypes.string,
   getPopupContainer: PropTypes.func,
+  scrollDismiss: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 }
 
 Panel.defaultProps = {
