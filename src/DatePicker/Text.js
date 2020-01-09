@@ -38,7 +38,7 @@ class Text extends PureComponent {
   }
 
   render() {
-    const { className, focus, inputable, value, placeholder } = this.props
+    const { className, focus, inputable, value, placeholder, onTextSpanRef } = this.props
 
     if (!inputable || !focus) {
       return <span className={className}>{value || placeholder}</span>
@@ -48,6 +48,7 @@ class Text extends PureComponent {
       <span
         ref={el => {
           this.element = el
+          onTextSpanRef(el)
         }}
         contentEditable={inputable}
         onBlur={this.handleBlur}
@@ -68,6 +69,8 @@ Text.propTypes = {
   onChange: PropTypes.func,
   placeholder: PropTypes.any,
   value: PropTypes.string,
+  onTextSpanRef: PropTypes.func,
+  element: PropTypes.any,
 }
 
 Text.defaultProps = {
