@@ -9,12 +9,20 @@ class Text extends PureComponent {
 
     this.handleBlur = this.handleBlur.bind(this)
     this.handleInput = this.handleInput.bind(this)
+    this.handleFocus = this.handleFocus.bind(this)
+    this.bindElement = this.bindElement.bind(this)
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.focus !== this.props.focus && this.props.focus && this.element) {
       focusElement.end(this.element)
     }
+  }
+
+  bindElement(el) {
+    const { onTextSpanRef } = this.props
+    this.element = el
+    onTextSpanRef(el)
   }
 
   handleBlur(e) {
@@ -30,6 +38,11 @@ class Text extends PureComponent {
     }
   }
 
+  handleFocus(e) {
+    const { onTextSpanRef } = this.props
+    onTextSpanRef(e.target)
+  }
+
   handleInput(e) {
     if (e.keyCode === 13) {
       e.preventDefault()
@@ -38,7 +51,7 @@ class Text extends PureComponent {
   }
 
   render() {
-    const { className, focus, inputable, value, placeholder, onTextSpanRef } = this.props
+    const { className, focus, inputable, value, placeholder } = this.props
 
     if (!inputable || !focus) {
       return <span className={className}>{value || placeholder}</span>
@@ -46,12 +59,10 @@ class Text extends PureComponent {
 
     return (
       <span
-        ref={el => {
-          this.element = el
-          onTextSpanRef(el)
-        }}
+        ref={this.bindElement}
         contentEditable={inputable}
         onBlur={this.handleBlur}
+        onFocus={this.handleFocus}
         onKeyDown={this.handleInput}
         className={className}
         dangerouslySetInnerHTML={{ __html: value }}
