@@ -28,14 +28,15 @@ class BoxOption extends PureComponent {
   render() {
     const { data, index, isActive, renderItem, columns, multiple } = this.props
 
-    const className = classnames(selectClass('option'), getGrid(1 / columns))
+    const className = selectClass('option')
+    const width = `${(1 / columns) * 100}%`
     const Input = multiple ? Checkbox : Radio
 
     const result = renderItem(data, index)
     const title = typeof result === 'string' ? result : undefined
 
     return (
-      <Input checked={isActive} className={className} onChange={this.handleClick}>
+      <Input style={{ width }} checked={isActive} className={className} onChange={this.handleClick}>
         <span title={title}>{result}</span>
       </Input>
     )
