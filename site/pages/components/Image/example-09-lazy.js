@@ -13,7 +13,7 @@ export default function() {
   return (
     <div>
       {data.map((img, i) => (
-        <Image lazy key={i} fit="fill" height="66%" src={img} />
+        <Image lazy={200} key={i} fit="fill" height="66%" src={img} />
       ))}
     </div>
   )
