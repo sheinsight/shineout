@@ -25,7 +25,8 @@ class List extends PureComponent {
       toggleDuration,
     } = this.props
 
-    const className = classnames(menuClass('list', mode), this.props.className)
+    const isVertical = mode.indexOf('vertical') === 0
+    const className = classnames(menuClass('list', isVertical ? 'vertical' : mode), this.props.className)
 
     return (
       <ul className={className} style={style}>

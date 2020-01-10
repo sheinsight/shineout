@@ -12,12 +12,13 @@ import { Provider } from './context'
 import { isArray } from '../utils/is'
 
 const modeDirection = {
+  'vertical-auto': 'y',
   vertical: 'y',
   horizontal: 'x',
 }
 
 const getOption = mode =>
-  mode === 'vertical'
+  mode.indexOf('vertical') === 0
     ? {
         key: 'height',
         pos: 'Top',
@@ -273,11 +274,17 @@ class Root extends React.Component {
 
   render() {
     const { keygen, data, mode, style, theme, inlineIndent, linkKey, disabled, height, toggleDuration } = this.props
-
-    const showScroll = ((style.height || height) && mode === 'vertical') || mode === 'horizontal'
+    const isVertical = mode.indexOf('vertical') === 0
+    const showScroll = ((style.height || height) && isVertical) || mode === 'horizontal'
 
     const className = classnames(
-      menuClass('_', mode, theme === 'dark' && 'dark', showScroll && 'scroll', this.state.hasOpen && 'has-open'),
+      menuClass(
+        '_',
+        isVertical ? 'vertical' : mode,
+        theme === 'dark' && 'dark',
+        showScroll && 'scroll',
+        this.state.hasOpen && 'has-open'
+      ),
       this.props.className
     )
 
@@ -332,7 +339,7 @@ Root.propTypes = {
   openKeys: PropTypes.array,
   disabled: PropTypes.func,
   inlineIndent: PropTypes.number,
-  mode: PropTypes.oneOf(['inline', 'vertical', 'horizontal']),
+  mode: PropTypes.oneOf(['inline', 'vertical', 'horizontal', 'vertical-auto']),
   onClick: PropTypes.func,
   renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   onOpenChange: PropTypes.func,
