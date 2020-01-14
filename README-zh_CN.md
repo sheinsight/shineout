@@ -38,13 +38,14 @@ react-dom >= 16.0.0
 | IE10, IE11, Edge| last 2 versions| last 2 versions| last 2 versions| last 2 versions| last 2 versions |
 
 ## 💡示例
-  - [精简且智能的表单](https://shine.wiki/1.4.x/cn/components/Form#heading-01-base)
-  
-   <img src="./site/images/form.gif" />
 
   - [ 10000 条数据的高性能表格](https://shine.wiki/1.4.x/cn/components/Table#heading-08-bigdata)
   
-   <img src="./site/images/table.gif" />
+   [<img src="./site/images/table.gif" />](https://shine.wiki/1.4.x/cn/components/Table#heading-08-bigdata)
+
+  - [精简且智能的表单](https://shine.wiki/1.4.x/cn/components/Form#heading-01-base)
+  
+   [<img src="./site/images/form.gif" />](https://shine.wiki/1.4.x/cn/components/Form#heading-01-base)
 
 ## 📦 安装
 

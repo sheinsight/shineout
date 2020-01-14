@@ -2,6 +2,8 @@
 @import './themes/@{so-theme}.less';
 
 @table-prefix: ~'@{so-prefix}-table';
+@table-sorter-width: 18px;
+@checkbox-width: 48px;
 
 .@{table-prefix} {
   border-radius: @table-border-radius-top @table-border-radius-top 0 0;
@@ -11,6 +13,22 @@
   max-width: 100%;
   flex-direction: column;
   margin-bottom: @line-height-computed;
+
+  &:after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    opacity: 0;
+    transition: all 0.3s;
+    content: '';
+    pointer-events: none;
+  }
 
   table {
     min-width: 100%;
@@ -47,6 +65,10 @@
       color: @table-head-color;
       vertical-align: middle;
       font-weight: @table-head-font-weight;
+
+      & > div.@{table-prefix}-has-sorter {
+        display: flex;
+      }
     }
 
     > thead + tbody > tr:first-child > td {
@@ -68,19 +90,23 @@
   }
 
   table tr &-checkbox {
-    width: 48px;
+    width: @checkbox-width;
     padding-right: 0;
     padding-left: 0;
     text-align: center;
 
     label {
       margin-right: 0;
-      display: block;
+      vertical-align: baseline;
     }
 
     i {
       vertical-align: top;
     }
+  }
+
+  table tr &-placeholder-checkbox {
+    width: @checkbox-width;
   }
 
   caption {
@@ -102,11 +128,18 @@
     vertical-align: middle;
   }
 
+  &-sorter-container {
+    width: @table-sorter-width;
+    min-width: @table-sorter-width;
+    position: relative;
+    transform: translateX(6px);
+  }
+
   &-sorter-asc,
   &-sorter-desc {
     position: absolute;
     right: 0;
-    width: 18px;
+    width: @table-sorter-width;
     color: transparent;
 
     &:active,
@@ -283,6 +316,17 @@
     background-color: @table-bg-accent;
   }
 
+  &-simple-body {
+    overflow: auto;
+  }
+
+  &-simple-head.@{table-prefix}-scroll-y.@{table-prefix}-head {
+    padding-right: 0;
+    &:after {
+      display: none;
+    }
+  }
+
   &-head {
     position: relative;
     overflow: hidden;
@@ -292,6 +336,10 @@
     > table {
       border-bottom: @table-head-border solid @table-border-color;
     }
+  }
+
+  &-empty-head {
+    overflow: visible;
   }
 
   .@{table-prefix}-icon-tree-expand {
@@ -399,7 +447,7 @@
       bottom: 0;
       left: 100%;
       width: 6px;
-      background: linear-gradient(to right, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+      background: @table-fixed-shadow;
       content: ' ';
     }
   }
@@ -448,11 +496,6 @@
     }
   }
 
-  &-bordered &-empty {
-    border-right: 1px solid @table-border-color;
-    border-bottom: 1px solid @table-border-color;
-  }
-
   &-fixed &-empty {
     border-right-width: 0;
   }
@@ -461,14 +504,25 @@
     display: inline-block;
   }
 
-  th&-align-center, td&-align-center {
+  td&-align-center, th&-align-center {
     text-align: center;
+    > div.@{table-prefix}-has-sorter {
+      justify-content: center;
+    }
   }
-  th&-align-right, td&-align-right {
+  
+  td&-align-right, th&-align-right {
     text-align: right;
+    > div.@{table-prefix}-has-sorter {
+      justify-content: flex-end;
+    }
   }
-  th&-align-left, td&-align-left {
+
+  td&-align-left, th&-align-left {
     text-align: left;
+    > div.@{table-prefix}-has-sorter {
+      justify-content: flex-start;
+    }
   }
 
   &-resize {
@@ -515,6 +569,17 @@
     }
     th:hover .@{table-prefix}-resize-spanner{
       opacity: 1;
+    }
+  }
+
+  &-placeholder-tr td{
+    padding-top: 0!important;
+    padding-bottom: 0!important;
+    border-bottom-width: 0!important;
+    line-height: 0!important;
+    > div {
+      height: 0!important;
+      overflow: hidden;
     }
   }
 }

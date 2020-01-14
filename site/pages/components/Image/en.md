@@ -9,7 +9,7 @@
 | className | string | none | extend className | |
 | height | string \| number | '100%' | the height of the image(When the value is percentage, the ratio is the width of the image) | |
 | href | string | none | original picture address | |
-| lazy | bool | false | whether to delay loading | |
+| lazy | bool \| number | false | whether to delay loading, number to set lazy offset | |
 | src | string | required | the picture address | |
 | style | object | - | Container element style | |
 | target | string | '_modal' | options: \['_modal', '_blank', '_self', '_download'] | |

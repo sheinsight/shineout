@@ -120,6 +120,7 @@ class Select extends PureComponent {
       if (!getParent(e.target, `[data-id=${this.selectId}]`)) {
         this.props.onBlur()
         this.clearClickAway()
+        this.element && this.element.blur()
       }
       this.handleState(false, null)
     }
@@ -415,6 +416,8 @@ class Select extends PureComponent {
       compressed,
       trim,
       renderUnmatched,
+      showArrow,
+      focusSelected,
     } = this.props
     const className = selectClass(
       'inner',
@@ -457,6 +460,8 @@ class Select extends PureComponent {
           onInputFocus={this.handleInputFocus}
           setInputReset={this.setInputReset}
           compressed={compressed}
+          showArrow={showArrow}
+          focusSelected={focusSelected}
         />
         {this.renderOptions()}
       </div>
@@ -494,6 +499,8 @@ Select.propTypes = {
   filterSingleSelect: PropTypes.bool,
   renderUnmatched: PropTypes.func,
   emptyAfterSelect: PropTypes.bool,
+  showArrow: PropTypes.bool,
+  focusSelected: PropTypes.bool,
 }
 
 Select.defaultProps = {
@@ -509,6 +516,8 @@ Select.defaultProps = {
   compressed: false,
   trim: true,
   autoAdapt: false,
+  showArrow: true,
+  focusSelected: true,
 }
 
 export default Select

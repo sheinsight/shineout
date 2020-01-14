@@ -17,10 +17,10 @@
 | defaultValue | array | | 初始值 |
 | disabled | bool \| function | false | 如果 disabled 为 true，禁用全部选项，如果 disabled 为函数，根据函数反回结果禁用选项 |
 | filterDelay | number | 400 | 毫秒。用户输入触发 fitler 事件的延时 |
-| format | string \| function | d => d | 格式化 value<br />默认值，返回原始数据<br />为string时，会作为key从原始数据中获取值，相当于 (d) => d[format]<br /> 为函数时，以函数返回结果作为 value |
+| format | string \| function | d => d | 格式化 value<br />默认值，返回原始数据<br />为string时，会作为key从原始数据中获取值，相当于 (d) => d\[format\]<br /> 为函数时，以函数返回结果作为 value |
 | name | string | 无 | Form 存取数据的名称 |
 | keygen | string \| function(obj):string \| true | 必填 | 生成每一项key的辅助方法<br />为 true 时，以数据项本身作为key，相当于 (d => d)<br />为函数时，使用此函数返回值<br />为string时，使用这个string对应的数据值。如 'id'，相当于 (d => d.id) |
-| onChange | function(value) | 无 | value 为 datum.getValue() |
+| onChange | function(value, data, checked) | 无 | value 为 datum.getValue() |
 | onCreate | function \| bool | 无 | 如果设置了 onCreate 事件，组件为可输入状态<br />onCreate为函数时，将此函数返回值作为新的选项拆入最上方<br />onCreate为true时，使用默认函数 text => text |
 | onFilter | function | 无 | onFilter 不为空时，可以输入过滤数据<br />onFilter 如果返回一个函数，使用这个函数做前端过滤<br />如果不返回，可以自行做后端过滤 |
 | prediction | function | (val, d) => val===format(d) | 默认使用 format 函数执行的结果来比较是否匹配，在某些情况下（例如返回原始数据的对象，更新数据时，生成了一个值相同，非同一个对象的选项），需要借助 prediction 函数来判断是否匹配 |
@@ -36,3 +36,6 @@
 | defaultExpandAll| bool | false | 默认展开全部子节点, 仅树形数据下有效 | 
 | renderUnmatched | func | 无 | 渲染未匹配值的方式 |
 | emptyAfterSelect | bool | false | 选中后是否清空输入框内容 ｜
+| showArrow | bool | true | 是否显示下拉箭头，仅针对单选情况 |
+| showHitDescendants | bool | false | 筛选后是否展示命中节点的后代节点 |
+| focusSelected | bool | true | onCreate 或 onFilter 在单选情况下单击值后是否选中值 |

@@ -6,69 +6,123 @@ Array [
     className="so-table so-table-default so-table-hover so-table-vertical-top"
     style={Object {}}
   >
-    <table
+    <div
+      className="so-table-head so-table-simple-head"
       style={
         Object {
-          "width": undefined,
+          "overflowY": "hidden",
         }
       }
     >
-      <colgroup>
-        <col
-          style={
-            Object {
-              "width": undefined,
-            }
+      <table
+        style={
+          Object {
+            "width": undefined,
           }
-        />
-        <col
-          style={
-            Object {
-              "width": undefined,
-            }
-          }
-        />
-      </colgroup>
-      <thead>
-        <tr>
-          <th
-            className="so-table-center so-table-condensed"
+        }
+      >
+        <colgroup>
+          <col
             style={
               Object {
-                "padding": 0,
+                "width": undefined,
               }
             }
           />
-          <th
-            className=""
-            rowSpan={1}
+          <col
+            style={
+              Object {
+                "width": undefined,
+              }
+            }
+          />
+        </colgroup>
+        <thead>
+          <tr>
+            <th
+              className="so-table-center so-table-condensed"
+              style={
+                Object {
+                  "padding": 0,
+                }
+              }
+            />
+            <th
+              className=""
+              rowSpan={1}
+            >
+              <div
+                className=""
+              >
+                <span>
+                  Name
+                </span>
+              </div>
+            </th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <div
+      className="so-table-simple-body"
+      onScroll={[Function]}
+    >
+      <table
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      >
+        <colgroup>
+          <col
+            style={
+              Object {
+                "width": undefined,
+              }
+            }
+          />
+          <col
+            style={
+              Object {
+                "width": undefined,
+              }
+            }
+          />
+        </colgroup>
+        <tbody>
+          <tr
+            className="so-table-placeholder-tr"
           >
-            Name
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          className="so-table-normal"
-          onClick={[Function]}
-        >
-          <td
-            className=""
-            colSpan={1}
-            style={Object {}}
+            <td />
+            <td>
+              <div>
+                Name
+              </div>
+            </td>
+          </tr>
+          <tr
+            className="so-table-normal"
+            onClick={[Function]}
           >
-            0
-          </td>
-          <td
-            className=""
-            colSpan={1}
-            style={Object {}}
-          >
-            Jack
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            <td
+              className=""
+              colSpan={1}
+              style={Object {}}
+            >
+              0
+            </td>
+            <td
+              className=""
+              colSpan={1}
+              style={Object {}}
+            >
+              Jack
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>,
   <div
     className="so-pagination so-pagination-default"

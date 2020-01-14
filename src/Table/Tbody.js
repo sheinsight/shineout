@@ -6,6 +6,7 @@ import { getProps } from '../utils/proptypes'
 import { compareColumns } from '../utils/shallowEqual'
 import { getKey } from '../utils/uid'
 import Tr from './Tr'
+import { tableClass } from '../styles'
 
 export const RENDER_COL_GROUP_EVENT = 'RENDER_COL_GROUP_EVENT'
 
@@ -95,7 +96,7 @@ class Tbody extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.colgroupSetted || !compareColumns(prevProps.columns, this.props.columns)) {
+    if (this.props.resize || !this.colgroupSetted || !compareColumns(prevProps.columns, this.props.columns)) {
       setTimeout(() => {
         this.bodyRender()
       })
@@ -129,14 +130,21 @@ class Tbody extends PureComponent {
     )
   }
 
-  findExpandFunc(key, index) {
-    const { columns, expandKeys, data } = this.props
+  findExpandFunc(key, i) {
+    const { columns, expandKeys, data, externalExpandRender, index } = this.props
+    const expandableObj = columns.find(c => c.type === 'expand' || c.type === 'row-expand')
+    const idx = i + index
     if (expandKeys) {
       const expanded = expandKeys.find(k => k === key)
-      const expandObj = expanded ? columns.find(c => c.type === 'expand' || c.type === 'row-expand') : {}
-      return expandObj.render ? expandObj.render(data[index]) : undefined
+      if (externalExpandRender) return expanded ? externalExpandRender(data[i], idx) : undefined
+      const expandObj = expanded ? expandableObj : {}
+      return expandObj.render ? expandObj.render(data[i], idx) : undefined
     }
-    return this.state.expand[key]
+    if (this.state.expand[key]) {
+      if (externalExpandRender) return externalExpandRender(data[i], idx)
+      return expandableObj.render ? expandableObj.render(data[i], idx) : undefined
+    }
+    return undefined
   }
 
   renderTr(row, i) {
@@ -163,8 +171,37 @@ class Tbody extends PureComponent {
     )
   }
 
+  renderPlaceholderTr() {
+    const { columns, data } = this.props
+    return (
+      <tr className={tableClass('placeholder-tr')} key={`so-placeholder-${new Date().getTime()}`}>
+        {columns.map((v, i) => {
+          if (!v) return <td key={i} />
+          if (v.minWidth) {
+            return (
+              <td key={i}>
+                <div style={{ width: v.minWidth }} />
+              </td>
+            )
+          }
+          if (v.title) {
+            return (
+              <td key={i}>
+                <div>{typeof v.title === 'function' ? v.title(data) : v.title}</div>
+              </td>
+            )
+          }
+          if (v.type === 'checkbox' || v.type === 'expand' || v.type === 'row-expand') {
+            return <td key={i} className={tableClass('placeholder-checkbox')} />
+          }
+          return <td key={i} />
+        })}
+      </tr>
+    )
+  }
+
   render() {
-    const { index, data, columns, expandKeys, bordered } = this.props
+    const { index, data, columns, expandKeys, bordered, colgroup } = this.props
     const rows = []
     for (let i = data.length - 1; i >= 0; i--) {
       const d = data[i]
@@ -180,8 +217,8 @@ class Tbody extends PureComponent {
       ignoreBorderBottom(rows)
       ignoreBorderRight(rows)
     }
-
-    return <tbody ref={this.bindBody}>{rows.map(this.renderTr)}</tbody>
+    const combinedTrs = colgroup ? rows.map(this.renderTr) : [this.renderPlaceholderTr(), ...rows.map(this.renderTr)]
+    return <tbody ref={this.bindBody}>{combinedTrs}</tbody>
   }
 }
 
@@ -195,6 +232,7 @@ Tbody.propTypes = {
   onBodyRender: PropTypes.func,
   values: PropTypes.object,
   bordered: PropTypes.bool,
+  externalExpandRender: PropTypes.func,
 }
 
 Tbody.defaultProps = {

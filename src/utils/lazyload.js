@@ -25,10 +25,10 @@ export function dispatch() {
 
   // handle
   Object.keys(components).forEach(k => {
-    const { element, render, container } = components[k]
+    const { element, render, container, offset } = components[k]
     const rect = element.getBoundingClientRect()
     const containerRect = getRect(container)
-    if (rect.bottom < containerRect.top || rect.top > containerRect.bottom) return
+    if (rect.bottom + offset < containerRect.top || rect.top - offset > containerRect.bottom) return
 
     delete components[k]
     render()
@@ -48,13 +48,14 @@ const handleScroll = () => {
 
 export function addStack(obj) {
   const scrollEl = obj.container || document
+  obj.offset = obj.offset || 0
 
   scrollEl.addEventListener('scroll', handleScroll, eventPassive)
 
   const rect = obj.element.getBoundingClientRect()
   const containerRect = getRect(obj.container)
 
-  if (rect.bottom < containerRect.top || rect.top > containerRect.bottom) {
+  if (rect.bottom + obj.offset < containerRect.top || rect.top - obj.offset > containerRect.bottom) {
     const id = getUidStr()
     components[id] = obj
     return id

@@ -123,6 +123,7 @@ class Header extends PureComponent {
             key={tab.id}
             onClick={tab.isActive ? undefined : onChange.bind(this, tab.id)}
             className={tabsClass(tab.isActive && 'button-active')}
+            disabled={tab.disabled}
           >
             {tab.tab}
           </Button>
@@ -132,7 +133,7 @@ class Header extends PureComponent {
   }
 
   renderTabs() {
-    const { border, onCollapse, collapsed, tabs, isVertical, tabBarExtraContent, tabBarStyle } = this.props
+    const { border, onCollapse, collapsed, tabs, isVertical, tabBarExtraContent, tabBarStyle, shape } = this.props
     const { attribute, overflow } = this.state
 
     const position = isVertical ? 'Top' : 'Left'
@@ -158,7 +159,7 @@ class Header extends PureComponent {
           )}
         </div>
         {tabBarExtraContent && <div className={tabsClass('extra')}>{tabBarExtraContent}</div>}
-        <div style={{ borderColor: border }} className={tabsClass('hr')} />
+        {shape !== 'bordered' && <div style={{ borderColor: border }} className={tabsClass('hr')} />}
       </div>
     )
   }

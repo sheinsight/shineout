@@ -66,7 +66,7 @@ class Thead extends PureComponent {
   handleResize(type, e) {
     if (type === 'mousedown') {
       const { target } = e
-      this.resizingTh = target.parentElement
+      this.resizingTh = target.parentElement.parentElement
       this.resizingTable = getParent(target, 'table')
       this.resizingIndex = [].indexOf.call(getParent(target, 'tr').children, this.resizingTh)
       this.resizingCol = this.resizingTable.querySelectorAll('col')[this.resizingIndex]
@@ -116,9 +116,11 @@ class Thead extends PureComponent {
           rowSpan={this.columnLevel - level + 1}
           key={col.key}
         >
-          {typeof col.title === 'function' ? col.title(data) : col.title}
-          {col.sorter && <Sorter {...col} current={sorter} onChange={onSortChange} />}
-          {resize}
+          <div className={tableClass(col.sorter && 'has-sorter')}>
+            <span>{typeof col.title === 'function' ? col.title(data) : col.title}</span>
+            {col.sorter && <Sorter {...col} current={sorter} onChange={onSortChange} />}
+            {resize}
+          </div>
         </th>
       )
 
@@ -194,9 +196,9 @@ class Thead extends PureComponent {
 
     return (
       <thead>
-      {trs.map((tr, i) => (
-        <tr key={i}>{tr}</tr>
-      ))}
+        {trs.map((tr, i) => (
+          <tr key={i}>{tr}</tr>
+        ))}
       </thead>
     )
   }

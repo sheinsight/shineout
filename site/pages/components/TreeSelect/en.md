@@ -28,4 +28,5 @@
 | absolute | bool | false | When it is true, the pop-up layer of option append into document.body. |
 | zIndex | number | 1000 | options z-index |
 | childrenKey | string | 'children' | the key of the children data name | 
-| defaultExpandAll | bool | false | default expand all node | 
+| defaultExpandAll | bool | false | default expand all node |
+| showHitDescendants | bool | false | Whether to show the descendant nodes of the hit node after filtering |

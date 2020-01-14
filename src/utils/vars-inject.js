@@ -589,11 +589,40 @@ const injects = {
         type: 'number',
         parser: parseInt,
       },
+      {
+        name: 'borderWidth',
+        className: exposeClass('checkbox-indicator'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'borderColor',
+        className: exposeClass('checkbox-indicator'),
+        attr: 'borderColor',
+        type: 'color',
+      },
     ],
     set marginRight(v) {
       setBodyProperty(
         {
           '--checkbox-margin-right': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set borderColor(v) {
+      setBodyProperty(
+        {
+          '--checkbox-border-color': v,
+        },
+        v
+      )
+    },
+    set borderWidth(v) {
+      setBodyProperty(
+        {
+          '--checkbox-border-width': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -633,6 +662,14 @@ const injects = {
         min: 0,
         max: 10,
       },
+      {
+        name: 'uncheckBorderWidth',
+        className: exposeClass('radio-uncheck'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        min: 0,
+      },
     ],
     set size(v) {
       setBodyProperty(
@@ -654,6 +691,14 @@ const injects = {
       setBodyProperty(
         {
           '--radio-inner-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set uncheckBorderWidth(v) {
+      setBodyProperty(
+        {
+          '--radio-border-uncheck-width': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -807,6 +852,12 @@ const injects = {
         parser: parseInt,
       },
       {
+        name: 'itemColor',
+        className: selectClass('option'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
         name: 'itemActiveBg',
         className: selectClass('active', 'option'),
         attr: 'backgroundColor',
@@ -830,6 +881,12 @@ const injects = {
         attr: 'color',
         type: 'color',
       },
+      {
+        name: 'clearIconBg',
+        className: exposeClass('select-close'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
     ],
     set resultPaddingVertical(v) {
       setBodyProperty(
@@ -844,6 +901,14 @@ const injects = {
         {
           '--select-result-padding-horizontal': `${parseInt(v, 10)}px`,
           '--select-result-padding-horizontal-16': `${parseInt(v, 10) + 16}px`,
+        },
+        v
+      )
+    },
+    set itemColor(v) {
+      setBodyProperty(
+        {
+          '--select-option-color': v,
         },
         v
       )
@@ -876,6 +941,14 @@ const injects = {
       setBodyProperty(
         {
           '--select-option-hover-color': v,
+        },
+        v
+      )
+    },
+    set clearIconBg(v) {
+      setBodyProperty(
+        {
+          '--select-clear-bg-color': v,
         },
         v
       )
@@ -1088,6 +1161,12 @@ const injects = {
         type: 'number',
         parser: parseInt,
       },
+      {
+        name: 'fixedShadow',
+        className: exposeClass('table-fixed'),
+        attr: 'backgroundImage',
+        type: 'string',
+      },
     ],
     set headBg(v) {
       setBodyProperty(
@@ -1173,6 +1252,14 @@ const injects = {
       setBodyProperty(
         {
           '--table-cell-padding-vertical': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set fixedShadow(v) {
+      setBodyProperty(
+        {
+          '--table-fixed-shadow': v,
         },
         v
       )
@@ -1291,6 +1378,12 @@ const injects = {
         type: 'color',
       },
       {
+        name: 'closeHoverColor',
+        className: exposeClass('tag-close-hover'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
         name: 'borderRadius',
         className: tagClass('_'),
         attr: 'borderRadius',
@@ -1341,6 +1434,14 @@ const injects = {
       setBodyProperty(
         {
           '--tag-close-color': v,
+        },
+        v
+      )
+    },
+    set closeHoverColor(v) {
+      setBodyProperty(
+        {
+          '--tag-close-hover-color': v,
         },
         v
       )
@@ -1625,8 +1726,51 @@ const injects = {
         parser: parseInt,
       },
       {
-        name: 'boxShadow',
+        name: 'closeIconColor',
+        className: exposeClass('alert-close'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
+        name: 'closeIconHoverColor',
+        className: exposeClass('alert-close-hover'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
+        name: 'borderRadius',
         className: alertClass('_'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'defaultBoxShadow',
+        className: alertClass('_'),
+        attr: 'boxShadow',
+        type: 'string',
+      },
+      {
+        name: 'successBoxShadow',
+        className: alertClass('success'),
+        attr: 'boxShadow',
+        type: 'string',
+      },
+      {
+        name: 'infoBoxShadow',
+        className: alertClass('info'),
+        attr: 'boxShadow',
+        type: 'string',
+      },
+      {
+        name: 'warningBoxShadow',
+        className: alertClass('warning'),
+        attr: 'boxShadow',
+        type: 'string',
+      },
+      {
+        name: 'dangerBoxShadow',
+        className: alertClass('danger'),
         attr: 'boxShadow',
         type: 'string',
       },
@@ -1718,10 +1862,66 @@ const injects = {
         v
       )
     },
+    set closeIconColor(v) {
+      setBodyProperty(
+        {
+          '--alert-close-color': v,
+        },
+        v
+      )
+    },
+    set closeIconHoverColor(v) {
+      setBodyProperty(
+        {
+          '--alert-close-hover-color': v,
+        },
+        v
+      )
+    },
+    set borderRadius(v) {
+      setBodyProperty(
+        {
+          '--alert-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
     set boxShadow(v) {
       setBodyProperty(
         {
           '--alert-box-shadow': v,
+        },
+        v
+      )
+    },
+    set successBoxShadow(v) {
+      setBodyProperty(
+        {
+          '--alert-success-box-shadow': v,
+        },
+        v
+      )
+    },
+    set infoBoxShadow(v) {
+      setBodyProperty(
+        {
+          '--alert-info-box-shadow': v,
+        },
+        v
+      )
+    },
+    set dangerBoxShadow(v) {
+      setBodyProperty(
+        {
+          '--alert-danger-box-shadow': v,
+        },
+        v
+      )
+    },
+    set warningBoxShadow(v) {
+      setBodyProperty(
+        {
+          '--alert-warning-box-shadow': v,
         },
         v
       )
@@ -1908,6 +2108,48 @@ const injects = {
         parser: parseInt,
       },
       {
+        name: 'paddingHeaderHorizontal',
+        className: cardClass('header'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'paddingHeaderVertical',
+        className: cardClass('header'),
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'paddingBodyHorizontal',
+        className: cardClass('body'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'paddingBodyVertical',
+        className: cardClass('body'),
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'paddingFooterHorizontal',
+        className: cardClass('footer'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
+        name: 'paddingFooterVertical',
+        className: cardClass('footer'),
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
         name: 'borderRadius',
         className: cardClass('_'),
         attr: 'borderRadius',
@@ -1952,11 +2194,83 @@ const injects = {
         attr: 'boxShadow',
         type: 'string',
       },
+      {
+        name: 'headerBg',
+        className: cardClass('header'),
+        attr: 'background-color',
+        type: 'color',
+      },
+      {
+        name: 'footerBg',
+        className: cardClass('footer'),
+        attr: 'background-color',
+        type: 'color',
+      },
+      {
+        name: 'headerColor',
+        className: cardClass('header'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
+        name: 'footerColor',
+        className: cardClass('footer'),
+        attr: 'color',
+        type: 'color',
+      },
     ],
     set fontSize(v) {
       setBodyProperty(
         {
           '--card-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set paddingHeaderHorizontal(v) {
+      setBodyProperty(
+        {
+          '--panel-header-padding-horizontal': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set paddingHeaderVertical(v) {
+      setBodyProperty(
+        {
+          '--panel-header-padding-vertical': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set paddingBodyHorizontal(v) {
+      setBodyProperty(
+        {
+          '--panel-body-padding-horizontal': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set paddingBodyVertical(v) {
+      setBodyProperty(
+        {
+          '--panel-body-padding-vertical': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set paddingFooterHorizontal(v) {
+      setBodyProperty(
+        {
+          '--panel-footer-padding-horizontal': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set paddingFooterVertical(v) {
+      setBodyProperty(
+        {
+          '--panel-footer-padding-vertical': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -2017,6 +2331,38 @@ const injects = {
         v
       )
     },
+    set headerBg(v) {
+      setBodyProperty(
+        {
+          '--card-header-bg': v,
+        },
+        v
+      )
+    },
+    set footerBg(v) {
+      setBodyProperty(
+        {
+          '--card-footer-bg': v,
+        },
+        v
+      )
+    },
+    set headerColor(v) {
+      setBodyProperty(
+        {
+          '--card-header-color': v,
+        },
+        v
+      )
+    },
+    set footerColor(v) {
+      setBodyProperty(
+        {
+          '--card-footer-color': v,
+        },
+        v
+      )
+    },
   },
   modal: {
     info: {
@@ -2033,6 +2379,18 @@ const injects = {
         parser: parseInt,
       },
       {
+        name: 'closeIconColor',
+        className: exposeClass('modal-close'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
+        name: 'closeIconHoverColor',
+        className: exposeClass('modal-close-hover'),
+        attr: 'color',
+        type: 'color',
+      },
+      {
         name: 'titleFontSize',
         className: modalClass('title'),
         attr: 'fontSize',
@@ -2045,11 +2403,33 @@ const injects = {
         attr: 'color',
         type: 'color',
       },
+      {
+        name: 'padding',
+        className: modalClass('panel'),
+        attr: 'padding',
+        type: 'string',
+      },
     ],
     set iconSize(v) {
       setBodyProperty(
         {
           '--modal-icon-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set closeIconColor(v) {
+      setBodyProperty(
+        {
+          '--modal-close-icon-color': v,
+        },
+        v
+      )
+    },
+    set closeIconHoverColor(v) {
+      setBodyProperty(
+        {
+          '--modal-close-icon-hover-color': v,
         },
         v
       )
@@ -2070,6 +2450,14 @@ const injects = {
         v
       )
     },
+    set padding(v) {
+      setBodyProperty(
+        {
+          '--modal-panel-padding': v,
+        },
+        v
+      )
+    }
   },
   popover: {
     info: {
@@ -2097,6 +2485,13 @@ const injects = {
         attr: 'boxShadow',
         type: 'string',
       },
+      {
+        name: 'borderRadius',
+        className: popoverClass('_'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+      },
     ],
     set borderColor(v) {
       setBodyProperty(
@@ -2118,6 +2513,14 @@ const injects = {
       setBodyProperty(
         {
           '--popover-box-shadow': v,
+        },
+        v
+      )
+    },
+    set borderRadius(v) {
+      setBodyProperty(
+        {
+          '--popover-border-radius': `${parseInt(v, 10)}px`,
         },
         v
       )

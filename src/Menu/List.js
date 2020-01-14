@@ -22,9 +22,11 @@ class List extends PureComponent {
       disabled,
       toggleOpenKeys,
       linkKey,
+      toggleDuration,
     } = this.props
 
-    const className = classnames(menuClass('list', mode), this.props.className)
+    const isVertical = mode.indexOf('vertical') === 0
+    const className = classnames(menuClass('list', isVertical ? 'vertical' : mode), this.props.className)
 
     return (
       <ul className={className} style={style}>
@@ -45,6 +47,7 @@ class List extends PureComponent {
             path={path}
             toggleOpenKeys={toggleOpenKeys}
             linkKey={linkKey}
+            toggleDuration={toggleDuration}
           />
         ))}
       </ul>
@@ -68,6 +71,7 @@ List.propTypes = {
   style: PropTypes.object,
   toggleOpenKeys: PropTypes.func,
   linkKey: PropTypes.string,
+  toggleDuration: PropTypes.number,
 }
 
 export default List

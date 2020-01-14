@@ -108,12 +108,13 @@ class Tabs extends PureComponent {
 
   renderContent(child, i) {
     if (!(child && child.type && child.type.isTabPanel)) return null
-    const { collapsible } = this.props
+    const { collapsible, lazy } = this.props
     const { id = i, ...other } = child.props
 
     return (
       <Wrapper
         {...other}
+        lazy={lazy}
         collapsed={this.state.collapsed}
         collapsible={collapsible}
         id={id}
@@ -155,10 +156,11 @@ Tabs.propTypes = {
   defaultCollapsed: PropTypes.bool,
   inactiveBackground: PropTypes.string,
   onChange: PropTypes.func,
-  shape: PropTypes.oneOf(['card', 'line', 'button']),
+  shape: PropTypes.oneOf(['card', 'line', 'button', 'bordered']),
   style: PropTypes.object,
   tabBarExtraContent: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   tabBarStyle: PropTypes.object,
+  lazy: PropTypes.bool,
 }
 
 Tabs.defaultProps = {
@@ -167,6 +169,7 @@ Tabs.defaultProps = {
   color: '#333',
   defaultCollapsed: false,
   inactiveBackground: 'transparent',
+  lazy: true,
 }
 
 export default Tabs

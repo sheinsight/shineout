@@ -5,99 +5,232 @@ exports[`Table[Empty] should render empty table 1`] = `
   className="so-table so-table-default so-table-hover so-table-vertical-top"
   style={Object {}}
 >
-  <table
-    style={
-      Object {
-        "width": 1500,
-      }
-    }
+  <div
+    className="so-table-head so-table-simple-head so-table-empty-head"
+    style={Object {}}
   >
-    <colgroup>
-      <col
-        style={
-          Object {
-            "width": 50,
-          }
+    <table
+      style={
+        Object {
+          "width": 1500,
         }
-      />
-      <col
-        style={
-          Object {
-            "width": undefined,
+      }
+    >
+      <colgroup>
+        <col
+          style={
+            Object {
+              "width": 50,
+            }
           }
-        }
-      />
-      <col
-        style={
-          Object {
-            "width": undefined,
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
           }
-        }
-      />
-      <col
-        style={
-          Object {
-            "width": undefined,
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
           }
-        }
-      />
-      <col
-        style={
-          Object {
-            "width": undefined,
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
           }
-        }
-      />
-      <col
-        style={
-          Object {
-            "width": undefined,
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
           }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+      </colgroup>
+      <thead>
+        <tr>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                id
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Name
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Country
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Position
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Office
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Start Date
+              </span>
+            </div>
+          </th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div
+    className="so-table-simple-body"
+    onScroll={[Function]}
+  >
+    <table
+      style={
+        Object {
+          "width": 1500,
         }
-      />
-    </colgroup>
-    <thead>
-      <tr>
-        <th
-          className=""
-          rowSpan={1}
+      }
+    >
+      <colgroup>
+        <col
+          style={
+            Object {
+              "width": 50,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+      </colgroup>
+      <tbody>
+        <tr
+          className="so-table-placeholder-tr"
         >
-          id
-        </th>
-        <th
-          className=""
-          rowSpan={1}
-        >
-          Name
-        </th>
-        <th
-          className=""
-          rowSpan={1}
-        >
-          Country
-        </th>
-        <th
-          className=""
-          rowSpan={1}
-        >
-          Position
-        </th>
-        <th
-          className=""
-          rowSpan={1}
-        >
-          Office
-        </th>
-        <th
-          className=""
-          rowSpan={1}
-        >
-          Start Date
-        </th>
-      </tr>
-    </thead>
-    <tbody />
-  </table>
+          <td>
+            <div>
+              id
+            </div>
+          </td>
+          <td>
+            <div>
+              Name
+            </div>
+          </td>
+          <td>
+            <div>
+              Country
+            </div>
+          </td>
+          <td>
+            <div>
+              Position
+            </div>
+          </td>
+          <td>
+            <div>
+              Office
+            </div>
+          </td>
+          <td>
+            <div>
+              Start Date
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <div
     className="so-table-empty"
   >
@@ -113,99 +246,232 @@ exports[`Table[Empty] should render empty table with emtpyText 1`] = `
   className="so-table so-table-default so-table-hover so-table-vertical-top"
   style={Object {}}
 >
-  <table
-    style={
-      Object {
-        "width": 1500,
-      }
-    }
+  <div
+    className="so-table-head so-table-simple-head so-table-empty-head"
+    style={Object {}}
   >
-    <colgroup>
-      <col
-        style={
-          Object {
-            "width": 50,
-          }
+    <table
+      style={
+        Object {
+          "width": 1500,
         }
-      />
-      <col
-        style={
-          Object {
-            "width": undefined,
+      }
+    >
+      <colgroup>
+        <col
+          style={
+            Object {
+              "width": 50,
+            }
           }
-        }
-      />
-      <col
-        style={
-          Object {
-            "width": undefined,
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
           }
-        }
-      />
-      <col
-        style={
-          Object {
-            "width": undefined,
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
           }
-        }
-      />
-      <col
-        style={
-          Object {
-            "width": undefined,
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
           }
-        }
-      />
-      <col
-        style={
-          Object {
-            "width": undefined,
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
           }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+      </colgroup>
+      <thead>
+        <tr>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                id
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Name
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Country
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Position
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Office
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Start Date
+              </span>
+            </div>
+          </th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div
+    className="so-table-simple-body"
+    onScroll={[Function]}
+  >
+    <table
+      style={
+        Object {
+          "width": 1500,
         }
-      />
-    </colgroup>
-    <thead>
-      <tr>
-        <th
-          className=""
-          rowSpan={1}
+      }
+    >
+      <colgroup>
+        <col
+          style={
+            Object {
+              "width": 50,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+      </colgroup>
+      <tbody>
+        <tr
+          className="so-table-placeholder-tr"
         >
-          id
-        </th>
-        <th
-          className=""
-          rowSpan={1}
-        >
-          Name
-        </th>
-        <th
-          className=""
-          rowSpan={1}
-        >
-          Country
-        </th>
-        <th
-          className=""
-          rowSpan={1}
-        >
-          Position
-        </th>
-        <th
-          className=""
-          rowSpan={1}
-        >
-          Office
-        </th>
-        <th
-          className=""
-          rowSpan={1}
-        >
-          Start Date
-        </th>
-      </tr>
-    </thead>
-    <tbody />
-  </table>
+          <td>
+            <div>
+              id
+            </div>
+          </td>
+          <td>
+            <div>
+              Name
+            </div>
+          </td>
+          <td>
+            <div>
+              Country
+            </div>
+          </td>
+          <td>
+            <div>
+              Position
+            </div>
+          </td>
+          <td>
+            <div>
+              Office
+            </div>
+          </td>
+          <td>
+            <div>
+              Start Date
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <div
     className="so-table-empty"
   >
@@ -225,133 +491,302 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
     }
   }
 >
-  <table
-    style={
-      Object {
-        "width": 1500,
-      }
-    }
+  <div
+    className="so-table-head so-table-simple-head so-table-empty-head"
+    style={Object {}}
   >
-    <colgroup>
-      <col
-        style={
-          Object {
-            "width": 50,
-          }
+    <table
+      style={
+        Object {
+          "width": 1500,
         }
-      />
-      <col
-        style={
-          Object {
-            "width": 120,
+      }
+    >
+      <colgroup>
+        <col
+          style={
+            Object {
+              "width": 50,
+            }
           }
-        }
-      />
-      <col
-        style={
-          Object {
-            "width": 120,
+        />
+        <col
+          style={
+            Object {
+              "width": 120,
+            }
           }
-        }
-      />
-      <col
-        style={
-          Object {
-            "width": undefined,
+        />
+        <col
+          style={
+            Object {
+              "width": 120,
+            }
           }
-        }
-      />
-      <col
-        style={
-          Object {
-            "width": undefined,
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
           }
-        }
-      />
-      <col
-        style={
-          Object {
-            "width": undefined,
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
           }
-        }
-      />
-      <col
-        style={
-          Object {
-            "width": undefined,
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
           }
-        }
-      />
-      <col
-        style={
-          Object {
-            "width": 100,
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
           }
+        />
+        <col
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        />
+      </colgroup>
+      <thead>
+        <tr>
+          <th
+            className="so-table-fixed-left"
+            rowSpan={2}
+          >
+            <div
+              className=""
+            >
+              <span>
+                id
+              </span>
+            </div>
+          </th>
+          <th
+            className="so-table-center so-table-condensed so-table-fixed-left so-table-fixed-last"
+            colSpan={2}
+          >
+            Name
+          </th>
+          <th
+            className=""
+            rowSpan={2}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Country
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={2}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Position
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={2}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Office
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={2}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Start Date
+              </span>
+            </div>
+          </th>
+          <th
+            className="so-table-ignore-right-border so-table-fixed-right so-table-fixed-first"
+            rowSpan={2}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Salary
+              </span>
+            </div>
+          </th>
+        </tr>
+        <tr>
+          <th
+            className="so-table-condensed so-table-fixed-left"
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                First Name
+              </span>
+            </div>
+          </th>
+          <th
+            className="so-table-condensed so-table-fixed-left so-table-fixed-last"
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Last Name
+              </span>
+            </div>
+          </th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div
+    className="so-table-simple-body"
+    onScroll={[Function]}
+  >
+    <table
+      style={
+        Object {
+          "width": 1500,
         }
-      />
-    </colgroup>
-    <thead>
-      <tr>
-        <th
-          className="so-table-fixed-left"
-          rowSpan={2}
+      }
+    >
+      <colgroup>
+        <col
+          style={
+            Object {
+              "width": 50,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": 120,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": 120,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        />
+      </colgroup>
+      <tbody>
+        <tr
+          className="so-table-placeholder-tr"
         >
-          id
-        </th>
-        <th
-          className="so-table-center so-table-condensed so-table-fixed-left so-table-fixed-last"
-          colSpan={2}
-        >
-          Name
-        </th>
-        <th
-          className=""
-          rowSpan={2}
-        >
-          Country
-        </th>
-        <th
-          className=""
-          rowSpan={2}
-        >
-          Position
-        </th>
-        <th
-          className=""
-          rowSpan={2}
-        >
-          Office
-        </th>
-        <th
-          className=""
-          rowSpan={2}
-        >
-          Start Date
-        </th>
-        <th
-          className="so-table-ignore-right-border so-table-fixed-right so-table-fixed-first"
-          rowSpan={2}
-        >
-          Salary
-        </th>
-      </tr>
-      <tr>
-        <th
-          className="so-table-condensed so-table-fixed-left"
-          rowSpan={1}
-        >
-          First Name
-        </th>
-        <th
-          className="so-table-condensed so-table-fixed-left so-table-fixed-last"
-          rowSpan={1}
-        >
-          Last Name
-        </th>
-      </tr>
-    </thead>
-    <tbody />
-  </table>
+          <td>
+            <div>
+              id
+            </div>
+          </td>
+          <td>
+            <div>
+              First Name
+            </div>
+          </td>
+          <td>
+            <div>
+              Last Name
+            </div>
+          </td>
+          <td>
+            <div>
+              Country
+            </div>
+          </td>
+          <td>
+            <div>
+              Position
+            </div>
+          </td>
+          <td>
+            <div>
+              Office
+            </div>
+          </td>
+          <td>
+            <div>
+              Start Date
+            </div>
+          </td>
+          <td>
+            <div>
+              Salary
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <div
     className="so-table-empty"
   >
@@ -371,99 +806,232 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
     }
   }
 >
-  <table
-    style={
-      Object {
-        "width": 1500,
-      }
-    }
+  <div
+    className="so-table-head so-table-simple-head so-table-empty-head"
+    style={Object {}}
   >
-    <colgroup>
-      <col
-        style={
-          Object {
-            "width": 50,
-          }
+    <table
+      style={
+        Object {
+          "width": 1500,
         }
-      />
-      <col
-        style={
-          Object {
-            "width": undefined,
+      }
+    >
+      <colgroup>
+        <col
+          style={
+            Object {
+              "width": 50,
+            }
           }
-        }
-      />
-      <col
-        style={
-          Object {
-            "width": undefined,
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
           }
-        }
-      />
-      <col
-        style={
-          Object {
-            "width": undefined,
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
           }
-        }
-      />
-      <col
-        style={
-          Object {
-            "width": undefined,
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
           }
-        }
-      />
-      <col
-        style={
-          Object {
-            "width": undefined,
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
           }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+      </colgroup>
+      <thead>
+        <tr>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                id
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Name
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Country
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Position
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Office
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Start Date
+              </span>
+            </div>
+          </th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div
+    className="so-table-simple-body"
+    onScroll={[Function]}
+  >
+    <table
+      style={
+        Object {
+          "width": 1500,
         }
-      />
-    </colgroup>
-    <thead>
-      <tr>
-        <th
-          className=""
-          rowSpan={1}
+      }
+    >
+      <colgroup>
+        <col
+          style={
+            Object {
+              "width": 50,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+      </colgroup>
+      <tbody>
+        <tr
+          className="so-table-placeholder-tr"
         >
-          id
-        </th>
-        <th
-          className=""
-          rowSpan={1}
-        >
-          Name
-        </th>
-        <th
-          className=""
-          rowSpan={1}
-        >
-          Country
-        </th>
-        <th
-          className=""
-          rowSpan={1}
-        >
-          Position
-        </th>
-        <th
-          className=""
-          rowSpan={1}
-        >
-          Office
-        </th>
-        <th
-          className=""
-          rowSpan={1}
-        >
-          Start Date
-        </th>
-      </tr>
-    </thead>
-    <tbody />
-  </table>
+          <td>
+            <div>
+              id
+            </div>
+          </td>
+          <td>
+            <div>
+              Name
+            </div>
+          </td>
+          <td>
+            <div>
+              Country
+            </div>
+          </td>
+          <td>
+            <div>
+              Position
+            </div>
+          </td>
+          <td>
+            <div>
+              Office
+            </div>
+          </td>
+          <td>
+            <div>
+              Start Date
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <div
     className="so-table-loading"
   >

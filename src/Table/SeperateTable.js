@@ -50,7 +50,10 @@ class SeperateTable extends PureComponent {
   // reset scrollTop when data changed
   componentDidUpdate(prevProps) {
     if (!this.tbody) return
-    if (this.props.data !== prevProps.data) this.resetHeight()
+    if (this.props.data !== prevProps.data) {
+      if (this.props.dataChangeResize) this.setState({ resize: true, colgroup: undefined })
+      this.resetHeight()
+    }
     this.updateScrollLeft()
     if (!compareColumns(prevProps.columns, this.props.columns)) {
       this.resetWidth()
@@ -369,7 +372,7 @@ class SeperateTable extends PureComponent {
         colgroup.push(width)
       }
     }
-    this.setState({ colgroup })
+    this.setState({ colgroup, resize: false })
   }
 
   renderBody(floatClass) {
@@ -417,6 +420,7 @@ class SeperateTable extends PureComponent {
               hasNotRenderRows={hasNotRenderRows}
               dataUpdated={dataUpdated}
               resize={resize}
+              colgroup={colgroup}
             />
           </table>
         </div>

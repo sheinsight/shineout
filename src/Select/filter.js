@@ -18,11 +18,13 @@ export default Origin =>
       value: PropTypes.any,
       noCache: PropTypes.bool,
       multiple: PropTypes.bool,
+      showHitDescendants: PropTypes.bool,
     }
 
     static defaultProps = {
       data: [],
       filterDelay: 300,
+      showHitDescendants: false,
     }
 
     constructor(props) {
@@ -135,7 +137,7 @@ export default Origin =>
     }
 
     filterTreeData() {
-      const { treeData, expanded, ...other } = this.props
+      const { treeData, expanded, showHitDescendants, ...other } = this.props
       const { innerFilter } = this.state
       let filterExpandedKeys = expanded
       let newData = treeData
@@ -146,7 +148,8 @@ export default Origin =>
           innerFilter,
           filterExpandedKeys,
           node => getKey(node, other.keygen),
-          other.childrenKey
+          other.childrenKey,
+          showHitDescendants
         )
       }
       return {

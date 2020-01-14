@@ -1,24 +1,25 @@
-import React, { PureComponent, Children, isValidElement } from 'react'
+import React, { PureComponent, isValidElement } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
 import Spin from '../Spin'
+import { wrapSpan } from '../utils/dom/element'
 import { buttonClass } from '../styles'
 
 class Button extends PureComponent {
   getChildren() {
     const { children, loading } = this.props
-    if (!loading) return children
-    const filtered = Children.toArray(children).filter(child => {
-      const validElement = isValidElement(child) && child !== null
-      if (validElement && child.type.isShineoutIcon) return false
-      return true
-    })
-    return filtered
+    if (!children) return children
+    const parsed = React.Children.map(wrapSpan(children), item => {
+      if (loading && isValidElement(item) && item.type.isShineoutIcon) return null
+      return item
+    }).filter(v => v !== null)
+    return parsed
   }
 
   render() {
     const { outline, type, size, href, htmlType, loading, disabled, onRef, shape, ...others } = this.props
+    const color = outline || type === 'default' ? undefined : '#fff'
     const className = classnames(
       buttonClass('_', shape, type, outline && 'outline', {
         large: size === 'large',
@@ -42,7 +43,7 @@ class Button extends PureComponent {
       <button {...others} ref={onRef} disabled={disabled || loading} type={htmlType} className={className}>
         {loading && (
           <span className={buttonClass('spin')}>
-            <Spin size={12} name="ring" color="#fff" />
+            <Spin size={12} name="ring" color={color} />
           </span>
         )}
         {children}

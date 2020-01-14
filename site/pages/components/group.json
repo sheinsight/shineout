@@ -20,7 +20,8 @@
     "TreeSelect": "树选择",
     "Slider": "滑块",
     "Textarea": "多行文本框",
-    "Upload": "上传"
+    "Upload": "上传",
+    "Transfer": "穿梭框"
   },
   "Data": {
     "Carousel": "轮播",
@@ -28,7 +29,7 @@
     "Datum.List": "数据处理",
     "Pagination": "分页",
     "Table": "表格",
-    "Tree": "树形选择"
+    "Tree": "树"
   },
   "Feedback": {
     "Alert": "提示框",
@@ -42,6 +43,7 @@
   },
   "Layout": {
     "Card": "卡片",
+    "CardGroup": "卡片组",
     "Grid": "栅格",
     "Sticky": "附着",
     "Tabs": "标签页"

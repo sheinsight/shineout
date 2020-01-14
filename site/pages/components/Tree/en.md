@@ -35,3 +35,4 @@
 | dragHoverExpand | bool | false | auto expand the node when drag over |
 | doubleClickExpand | bool | false | expand node while double click |
 | onClick | func | none | node click |
+| iconClass | string | - | expand/collapse button's class |

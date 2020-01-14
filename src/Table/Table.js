@@ -9,12 +9,13 @@ import { tableClass } from '../styles'
 import Datum from '../Datum'
 import Spin from '../Spin'
 import resizableHOC from './resizable'
-import SimpleTable from './SimpleTable'
 import SeperateTable from './SeperateTable'
+import SimpleTable from './SimpleTable'
 import { ROW_HEIGHT_UPDATE_EVENT } from './Tr'
 import { RENDER_COL_GROUP_EVENT } from './Tbody'
 
 const ResizeSeperateTable = resizableHOC(SeperateTable)
+const ResizeSimpleTable = resizableHOC(SimpleTable)
 
 const RadioWrapper = Origin => props => (
   // eslint-disable-next-line react/prop-types
@@ -104,8 +105,9 @@ class Table extends Component {
 
     const isEmpty = (!data || data.length === 0) && !children
     const useSeparate = fixed && !isEmpty
-    const ResizeTable = columnResizable ? ResizeSeperateTable : SeperateTable
-    const RenderTable = useSeparate ? ResizeTable : SimpleTable
+    const ResizeSepTable = columnResizable ? ResizeSeperateTable : SeperateTable
+    const ResizeSimTable = columnResizable ? ResizeSimpleTable : SimpleTable
+    const RenderTable = useSeparate ? ResizeSepTable : ResizeSimTable
     const newStyle = Object.assign({}, style)
     if (height) newStyle.height = height
     if (useSeparate && !newStyle.height) newStyle.height = '100%'
@@ -150,6 +152,7 @@ Table.defaultProps = {
   hover: true,
   rowsInView: 20,
   verticalAlign: 'top',
+  columns: [],
 }
 
 export default compose(

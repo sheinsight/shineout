@@ -10,7 +10,7 @@ import { Button, Popover, Card } from 'shineout'
 export default function() {
   return (
     <Button>
-      <Popover trigger="click" style={{ marginRight: 12 }}>
+      <Popover style={{ marginRight: 12 }}>
         <Card style={{ width: 300, border: 0, background: 'transparent' }}>
           <Card.Header>Header</Card.Header>
           <Card.Body style={{ height: 80 }}>Body</Card.Body>

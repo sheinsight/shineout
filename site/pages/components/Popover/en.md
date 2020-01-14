@@ -23,6 +23,9 @@
 | trigger | string | 'hover' | options: \['click', 'hover'] |
 | type | string | none | Options: \['success', 'info', 'warning', 'danger'] |
 | * content | ReactElement \| function | | Old API, out of date. | 
+| priorityDirection | string | 'vertical' | Popup location priority, default is left and right priority, only valid when position is not set, Options: \['vertical', 'horizontal'] |
+| getPopupContainer | function | none | Custom Popover container, override the default behavior which is rendering under the body, () => DOMElement |
+| scrollDismiss | bool \| () => HTMLElement | false | scroll to dismiss, return el to order scroller |
 
 ### Popover.Confirm
 

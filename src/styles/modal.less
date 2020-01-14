@@ -16,6 +16,7 @@
 
   &-panel {
     // max-width: 90%;
+    padding: @modal-panel-padding;
     text-align: left;
     margin: 0 auto;
     transform: translate(0, -100px);
@@ -122,12 +123,22 @@
   &-close {
     position: absolute;
     z-index: 100;
-    top: 13px;
-    right: 16px;
+    top: @panel-header-padding-vertical;
+    right: @panel-header-padding-horizontal;
     display: block;
     width: 10px;
     height: 10px;
     padding: 0;
+    margin-top: @modal-panel-padding;
+    margin-right: @modal-panel-padding;
+
+    &:hover > svg {
+      fill: @modal-close-icon-hover-color;
+    }
+
+    > svg {
+      fill: @modal-close-icon-color;
+    }
   }
 
   &-mask {

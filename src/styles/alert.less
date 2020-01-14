@@ -19,7 +19,6 @@
   border-radius: @alert-border-radius;
   transform-origin: 0 0;
   transition: transform 0.216s, opacity 0.216s ease-out;
-  box-shadow: @alert-box-shadow;
   font-size: @alert-font-size;
 
   // Headings for larger alerts
@@ -52,12 +51,12 @@
       height: 10px;
 
       path {
-        fill: rgba(0, 0, 0, 0.3);
+        fill: @alert-close-color;
       }
     }
 
     &:hover svg path {
-      fill: rgba(0, 0, 0, 0.8);
+      fill: @alert-close-hover-color;
     }
   }
 
@@ -93,11 +92,11 @@
   }
 
   &-default {
-    .alert-variant(@alert-default-bg; @alert-default-border; @alert-default-text);
+    .alert-variant(@alert-default-bg; @alert-default-border; @alert-default-text; @alert-box-shadow);
   }
 
   &-info {
-    .alert-variant(@alert-info-bg; @alert-info-border; @alert-info-text);
+    .alert-variant(@alert-info-bg; @alert-info-border; @alert-info-text; @alert-info-box-shadow);
 
     .@{alert-prefix}-icon path {
       fill: @colors-info;
@@ -105,7 +104,7 @@
   }
 
   &-warning {
-    .alert-variant(@alert-warning-bg; @alert-warning-border; @alert-warning-text);
+    .alert-variant(@alert-warning-bg; @alert-warning-border; @alert-warning-text; @alert-warning-box-shadow);
 
     .@{alert-prefix}-icon path {
       fill: @colors-warning;
@@ -113,7 +112,7 @@
   }
 
   &-success {
-    .alert-variant(@alert-success-bg; @alert-success-border; @alert-success-text);
+    .alert-variant(@alert-success-bg; @alert-success-border; @alert-success-text; @alert-success-box-shadow);
 
     .@{alert-prefix}-icon path {
       fill: @colors-success;
@@ -122,7 +121,7 @@
 
   &-danger,
   &-error {
-    .alert-variant(@alert-danger-bg; @alert-danger-border; @alert-danger-text);
+    .alert-variant(@alert-danger-bg; @alert-danger-border; @alert-danger-text; @alert-danger-box-shadow);
 
     .@{alert-prefix}-icon path {
       fill: @colors-danger;

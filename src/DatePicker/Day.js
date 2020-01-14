@@ -97,9 +97,11 @@ class Day extends PureComponent {
   renderDay(date, minD, maxD) {
     const { current, disabled, value, index, type, rangeDate, range, rangeTemp, min } = this.props
     const { hover } = this.state
+    const hmsDate = new Date(date)
+    utils.setTime(hmsDate, current)
     let isDisabled = disabled ? disabled(date) : false
 
-    // onyl for single, single picker don't has index
+    // only for single, single picker don't has index
     if (index === undefined && !isDisabled) {
       if ((minD && utils.compareAsc(date, minD) < 0) || (maxD && utils.compareAsc(date, maxD) > 0)) isDisabled = true
     }
@@ -111,7 +113,7 @@ class Day extends PureComponent {
       ) {
         isDisabled = true
       }
-      if (utils.compareAsc(date, min) < 0) isDisabled = true
+      if (utils.compareAsc(hmsDate, min) < 0) isDisabled = true
     }
 
     const classList = [

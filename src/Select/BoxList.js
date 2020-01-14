@@ -9,10 +9,10 @@ import Input from '../Input'
 import Checkbox from '../Checkbox/Checkbox'
 import { selectClass } from '../styles'
 import BoxOption from './BoxOption'
+import LazyList from '../List/LazyList'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast', 'flex')
 const emptyFunc = () => {}
-
 
 class BoxList extends Component {
   constructor(props) {
@@ -25,6 +25,7 @@ class BoxList extends Component {
 
     this.handleSelectAll = this.handleSelectAll.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
+    this.handleRenderItem = this.handleRenderItem.bind(this)
   }
 
   getText(key) {
@@ -41,6 +42,29 @@ class BoxList extends Component {
     this.props.onFilter(text)
   }
 
+  handleRenderItem(data, groupIndex) {
+    const { datum, keygen, columns, multiple, onChange, renderItem, lineHeight } = this.props
+    return (
+      <div key={groupIndex} style={{ height: lineHeight }}>
+        {data.map((d, i) => {
+          const isActive = datum.check(d)
+          return (
+            <BoxOption
+              key={getKey(d, keygen, groupIndex + i)}
+              isActive={isActive}
+              disabled={datum.disabled(d)}
+              data={d}
+              columns={columns}
+              multiple={multiple}
+              onClick={onChange}
+              renderItem={renderItem}
+            />
+          )
+        })}
+      </div>
+    )
+  }
+
   renderFilter() {
     const { filterText } = this.props
     return (
@@ -52,9 +76,7 @@ class BoxList extends Component {
   }
 
   renderHeader(count) {
-    const {
-      data, loading, multiple,
-    } = this.props
+    const { data, loading, multiple } = this.props
 
     if (loading || !multiple) return null
 
@@ -64,57 +86,54 @@ class BoxList extends Component {
 
     return (
       <div className={selectClass('header')}>
-        {
-          multiple &&
+        {multiple && (
           <Checkbox onChange={this.handleSelectAll} checked={checked}>
             {this.getText('selectAll')}
           </Checkbox>
-        }
+        )}
       </div>
     )
   }
 
-  renderOptions(options) {
-    const { loading } = this.props
+  renderOptions() {
+    const { loading, columns, height, lineHeight, data, itemsInView } = this.props
     if (loading) return null
 
+    const empty = data.length === 0
+    const scrollHeight = lineHeight * Math.ceil(data.length / columns)
+    const sliceData = data.reduce((red, item) => {
+      let lastItem = red[red.length - 1]
+      if (!lastItem) {
+        lastItem = []
+        red.push(lastItem)
+      }
+      if (lastItem.length >= columns) red.push([item])
+      else lastItem.push(item)
+      return red
+    }, [])
     return (
-      <div className={selectClass('box-options')}>{options}</div>
+      <div className={selectClass('box-options')}>
+        {empty && (
+          <div key="empty" className={selectClass('no-data')}>
+            {this.getText('noData')}
+          </div>
+        )}
+        <LazyList
+          scrollHeight={scrollHeight}
+          lineHeight={lineHeight}
+          data={sliceData}
+          itemsInView={itemsInView}
+          height={height}
+          renderItem={this.handleRenderItem}
+        />
+      </div>
     )
   }
 
   render() {
-    const {
-      columnWidth, columns, data, datum, keygen, multiple, style,
-      loading, renderItem, focus, onChange, selectId,
-    } = this.props
+    const { columnWidth, columns, data, datum, style, loading, focus, selectId, getRef } = this.props
 
-    const options = []
-    if (data.length === 0) {
-      options.push((
-        <div key="empty" className={selectClass('no-data')}>
-          {this.getText('noData')}
-        </div>
-      ))
-    }
-
-    let checkedCount = 0
-    data.forEach((d, i) => {
-      const isActive = datum.check(d)
-      if (isActive) checkedCount += 1
-      options.push((
-        <BoxOption
-          key={getKey(d, keygen, i)}
-          isActive={isActive}
-          disabled={datum.disabled(d)}
-          data={d}
-          columns={columns}
-          multiple={multiple}
-          onClick={onChange}
-          renderItem={renderItem}
-        />
-      ))
-    })
+    const checkedCount = data.filter(d => datum.check(d)).length
 
     const newStyle = Object.assign({}, style, { width: columnWidth * columns })
 
@@ -125,10 +144,11 @@ class BoxList extends Component {
         data-id={selectId}
         style={newStyle}
         className={selectClass('box-list')}
+        getRef={getRef}
       >
         {loading && typeof loading === 'boolean' ? <Spin size={30} /> : loading}
         {this.renderHeader(checkedCount)}
-        {this.renderOptions(options)}
+        {this.renderOptions()}
       </ScaleList>
     )
   }
@@ -143,20 +163,18 @@ BoxList.propTypes = {
   filterText: PropTypes.string,
   focus: PropTypes.bool,
   keygen: PropTypes.any,
-  loading: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.bool,
-  ]),
+  loading: PropTypes.oneOfType([PropTypes.element, PropTypes.bool]),
   multiple: PropTypes.bool,
   onChange: PropTypes.func,
   onFilter: PropTypes.func,
-  renderItem: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-  ]),
+  renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   selectId: PropTypes.string,
   style: PropTypes.object,
   text: PropTypes.object,
+  height: PropTypes.number,
+  lineHeight: PropTypes.number,
+  itemsInView: PropTypes.number,
+  getRef: PropTypes.func,
 }
 
 BoxList.defaultProps = {

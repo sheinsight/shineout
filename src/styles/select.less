@@ -127,6 +127,14 @@
     }
   }
 
+  &-compressed&-result {
+    .@{select-prefix}-item {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+
   &-close-warpper {
     position: absolute;
     top: 50%;
@@ -153,7 +161,7 @@
 
     &.@{select-prefix}-close {
       display: none;
-      .close(12px, @gray-400-darken-20);
+      .close(12px, @select-clear-bg-color);
     }
 
     &.@{select-prefix}-caret {
@@ -235,9 +243,8 @@
     }
 
     .@{select-prefix}-box-options {
-      overflow: auto;
+      overflow: hidden;
       flex: 1;
-      padding: @dropdown-item-padding-y 0;
 
       .@{select-prefix}-no-data {
         padding-top: 60px;
@@ -292,7 +299,7 @@
     display: block;
     overflow: hidden;
     padding: @dropdown-item-padding-y @dropdown-padding-x+12 @dropdown-item-padding-y @dropdown-padding-x;
-    color: @dropdown-link-color;
+    color: @select-option-color;
     font-size: @font-size-base;
     line-height: @line-height-base;
     text-overflow: ellipsis;
