@@ -22,7 +22,7 @@ class Text extends PureComponent {
   bindElement(el) {
     const { onTextSpanRef } = this.props
     this.element = el
-    onTextSpanRef(el)
+    if (onTextSpanRef) onTextSpanRef(el)
   }
 
   handleBlur(e) {
@@ -40,7 +40,7 @@ class Text extends PureComponent {
 
   handleFocus(e) {
     const { onTextSpanRef } = this.props
-    onTextSpanRef(e.target)
+    if (onTextSpanRef) onTextSpanRef(e.target)
   }
 
   handleInput(e) {
