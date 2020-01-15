@@ -24,11 +24,18 @@ export default function() {
         placeholder={['first month', 'last-month']}
       />
       <br />
-      <DatePicker range={3600 * 6} type="time" format="HH:mm" style={style} />
+      <DatePicker min={Date.now()} range={3600 * 6} type="time" format="HH:mm" style={style} />
       <br />
       <DatePicker range type="datetime" style={style} onChange={d => console.log(d)} />
       <br />
-      <DatePicker range type="datetime" defaultTime={['02:33:33', '14:33:33']} onChange={d => console.log(d)} />
+      <DatePicker
+        range
+        min={Date.now()}
+        max={Date.now() + 86400000 * 4}
+        type="datetime"
+        defaultTime={['02:33:33', '14:33:33']}
+        onChange={d => console.log(d)}
+      />
     </div>
   )
 }
