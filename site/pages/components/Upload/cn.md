@@ -34,6 +34,7 @@
 | renderContent | func(res, value, index, values) | - | 自定义结果的内容 |
 | validatorHandle | bool \| func(error, file) | false | 是否处理校验失败的情况, 如果提供一个函数, 则以函数的返回值判断是否处理此 error |
 | drop | bool | false | 是否开启拖拽上传文件 |
+| filesFilter | func(fileList) | 无 | 文件选中后的筛选，用户可自定义最终需要上传的文件列表<br />需返回一个新的文件列表 |
 
 
 ### options 
