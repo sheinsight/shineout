@@ -56,6 +56,12 @@ const pages = [
     component: lazy(() => import(/* webpackChunkName: "DatePicker" */ './DatePicker')),
   },
   {
+    name: 'EditableArea',
+    cn: '可编辑域',
+    level: 2,
+    component: lazy(() => import(/* webpackChunkName: "EditableArea" */ './EditableArea')),
+  },
+  {
     name: 'Form',
     cn: '表单',
     level: 2,

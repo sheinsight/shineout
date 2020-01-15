@@ -3,6 +3,7 @@
 
 @form-prefix: ~'@{so-prefix}-form';
 @input-prefix: ~'@{so-prefix}-input';
+@editableArea-prefix: ~'@{so-prefix}-editableArea';
 
 .@{form-prefix} {
   position: relative;
@@ -522,4 +523,78 @@
 
     font-size: @font-size-large;
   }
+}
+
+.@{editableArea-prefix} {
+  font-size: @font-size-base;
+  line-height: @line-height-base;
+  height: 34px;
+  color: @input-color;
+  outline: none;
+  position: relative;
+
+  &-textarea, &-placeholder {
+    width: 100%;
+    margin: 0!important;
+    padding: @padding-base-vertical @padding-base-horizontal;
+    border: 1px solid transparent;
+    cursor: text;
+    overflow: hidden;
+    font-family: @font-family-base;
+    word-wrap: break-word;
+    word-break: break-all;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &-textarea {
+    resize: none;
+    outline: none;
+    line-height: @line-height-base;
+    color: @input-color;
+    display: block;
+
+    &::placeholder,
+    &-placeholder {
+      color: @input-color-placeholder;
+      font-size: @input-size-placeholder;
+    }
+  }
+
+  &-placeholder {
+    height: auto;
+    background-color: #fff!important;
+  }
+
+  &-edit {
+    border-color: @input-border;
+    border-radius: @input-border-radius;
+    z-Index: 2;
+  }
+
+  &-placeholder-one-line {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap!important;
+  }
+
+  &-show {
+    opacity: 0;
+    z-Index: 1;
+    // visibility: hidden;
+  }
+
+  &-clear-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 16px;
+    z-index: 1;
+  }
+
+  .@{input-prefix}-clear-wrapper > .@{input-prefix}-clear {
+    right: 0!important;
+  }
+
 }

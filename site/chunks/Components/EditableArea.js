@@ -1,0 +1,40 @@
+/**
+ * 此文件根据 scripts/components-page.ejs 生成，不要手动修改
+ */
+import React from 'react'
+import navable from 'docs/Navable'
+import MarkDown from 'docs/MarkDown'
+
+import locate from 'doc/locate'
+
+import cn from 'doc/pages/components/EditableArea/cn.md'
+import en from 'doc/pages/components/EditableArea/en.md'
+
+const source = locate(cn, en)
+
+const examples = [
+  {
+    name: '1-base',
+    title: locate(
+      '基本用法 \n EditableArea 默认展示一行，超过一行的内容用...代替',
+      'Base \n Editablearea displays one line by default, and more than one line is replaced by ...'
+    ),
+    component: require('doc/pages/components/EditableArea/example-1-base.js').default,
+    rawText: require('!raw-loader!doc/pages/components/EditableArea/example-1-base.js'),
+  },
+  {
+    name: '2-controlled',
+    title: locate(
+      '受控 \n 传递value, onChange使组件受控',
+      'Controlled \n Pass value and onChange props to make the component controlled'
+    ),
+    component: require('doc/pages/components/EditableArea/example-2-controlled.js').default,
+    rawText: require('!raw-loader!doc/pages/components/EditableArea/example-2-controlled.js'),
+  },
+]
+
+const codes = undefined
+
+export default navable(props => (
+  <MarkDown {...props} codes={codes} source={source} examples={examples} />
+))
