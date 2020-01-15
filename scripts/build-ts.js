@@ -11,6 +11,9 @@ module.exports = function() {
     fs.copyFileSync(path.join(src, 'index.js'), path.join(lib, 'index.d.ts'))
     const dirs = fs.readdirSync(src)
     .filter(dir => /[A-Z]/.test(dir[0]))
+    glob.sync('*/*.d.ts', {
+        cwd: src,
+    }).forEach(file => fs.copyFileSync(path.join(src, file), path.join(lib, file)))
     dirs.forEach(dir => {
         const files = glob.sync('*.js', {
             cwd: path.join(src, dir)
@@ -25,7 +28,7 @@ module.exports = function() {
             const shouldUpdate = !fs.existsSync(targetPath) || Date.now() - srcFileMTime < UPDATE_AGING
             if (!shouldUpdate) return
             const transfer = `cat ${srcPath} | react2dts --top-level-module=false`
-            if (filename === 'index.js') {
+            if (filename === 'index.js' && !fs.existsSync(path.join(src, dir, 'index.d.ts'))) {
                 tsDeclear = files.length === 1 ? 
                 execSync(transfer)
                 : fs.readFileSync(srcPath)
