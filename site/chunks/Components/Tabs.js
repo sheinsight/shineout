@@ -115,8 +115,8 @@ const examples = [
   {
     name: '12-extra',
     title: locate(
-      '基本用法 \n 默认标签样式',
-      'Base \n Basic usage.'
+      '额外内容 \n 可以在标签页的右侧添加额外内容',
+      'Extra Content \n Can add extra content on the right side of the tab'
     ),
     component: require('doc/pages/components/Tabs/example-12-extra.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-12-extra.js'),

@@ -15,7 +15,7 @@
   <img src="https://img.shields.io/badge/React-%3E%3D16.0.0-green.svg?style=flat-square">
 </p>
 
-## ✨ 特性
+## 特性
 
  - 精巧且友好的 API
  - 开箱即用的高性能 React 组件
@@ -24,30 +24,30 @@
 
 <!-- [View docs here](https://sheinsight.github.io/shineout/) -->
 
-## 🎯 依赖
+## 依赖
 
 ```
 react >= 16.0.0
 react-dom >= 16.0.0
 ```
 
-## 🖥 浏览器支持
+## 浏览器支持
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Electron |
 | --------- | --------- | --------- | --------- | --------- | --------- |
 | IE10, IE11, Edge| last 2 versions| last 2 versions| last 2 versions| last 2 versions| last 2 versions |
 
-## 💡示例
-
-  - [ 10000 条数据的高性能表格](https://shine.wiki/1.4.x/cn/components/Table#heading-08-bigdata)
-  
-   [<img src="./site/images/table.gif" />](https://shine.wiki/1.4.x/cn/components/Table#heading-08-bigdata)
+## 示例
 
   - [精简且智能的表单](https://shine.wiki/1.4.x/cn/components/Form#heading-01-base)
   
    [<img src="./site/images/form.gif" />](https://shine.wiki/1.4.x/cn/components/Form#heading-01-base)
 
-## 📦 安装
+  - [ 10000 条数据的高性能表格](https://shine.wiki/1.4.x/cn/components/Table#heading-08-bigdata)
+  
+   [<img src="./site/images/table.gif" />](https://shine.wiki/1.4.x/cn/components/Table#heading-08-bigdata)
+
+## 安装
 
 ```bash
 yarn add shineout
@@ -57,14 +57,14 @@ yarn add shineout
 npm install shineout
 ```
 
-## ☁️  CDN
+## CDN
 
 ```html
 <link rel="stylesheet" href="https://unpkg.com/shineout/dist/theme.default.css" />
 <script crossorigin src="https://unpkg.com/shineout/dist/shineout.min.js"></script>
 ```
 
-## 🔨   使用
+## 使用
 
 ```javascript
 import { Button } from 'shineout'
@@ -78,11 +78,11 @@ import { Button } from 'shineout'
 import 'shineout/dist/theme.default.css' // or 'shineout/dist/theme.antd.css'
 ```
 
-## 🌍  国际化
+## 国际化
 
 文档地址 [i18n](https://shine.wiki/1.4.x/cn/components/GetStart#heading-2-I18N)
 
-## 🔗 链接
+## 链接
 
 - [首页](http://shine.wiki/)
 - [组件](https://shine.wiki/1.4.x/cn/components/GetStart)
@@ -91,7 +91,7 @@ import 'shineout/dist/theme.default.css' // or 'shineout/dist/theme.antd.css'
 - [性能表格](https://shine.wiki/1.4.x/cn/components/Table#heading-08-bigdata)
 - [CodeSandbox 模板](https://codesandbox.io/s/delicate-http-y3duk)
 
-## ⌨️ 开发
+## 开发
 
 本地克隆:
 
@@ -104,5 +104,5 @@ $ yarn start
 
 访问 http://localhost:3000
 
-## 📜 开源许可
+## 开源许可
 [MIT](./LICENSE)
