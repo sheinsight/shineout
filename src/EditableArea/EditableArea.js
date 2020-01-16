@@ -202,9 +202,9 @@ class EditableArea extends React.PureComponent {
 }
 
 EditableArea.propTypes = {
-  value: PropTypes.any,
+  value: PropTypes.string,
   onChange: PropTypes.func,
-  style: PropTypes.shape(),
+  style: PropTypes.object,
   defaultValue: PropTypes.string,
   placeholder: PropTypes.string,
   clearable: PropTypes.bool,

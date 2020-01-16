@@ -35,8 +35,9 @@ class SimpleTable extends PureComponent {
 
   componentDidUpdate(prevProps) {
     this.scrollCheck()
+    const resize = prevProps.data.length === 0 && this.props.data.length
     const resetColgroup = this.props.dataChangeResize && this.props.data !== prevProps.data
-    if (resetColgroup || !compareColumns(prevProps.columns, this.props.columns)) {
+    if (resize || resetColgroup || !compareColumns(prevProps.columns, this.props.columns)) {
       this.setState({ colgroup: undefined, resize: true })
     }
   }
