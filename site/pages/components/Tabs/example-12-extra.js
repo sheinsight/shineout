@@ -1,8 +1,8 @@
 /**
- * cn - 基本用法
- *    -- 默认标签样式
- * en - Base
- *    -- Basic usage.
+ * cn - 额外内容
+ *    -- 可以在标签页的右侧添加额外内容
+ * en - Extra Content
+ *    -- Can add extra content on the right side of the tab
  */
 import React from 'react'
 import { Tabs, Button } from 'shineout'
