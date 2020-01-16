@@ -137,7 +137,7 @@ class Tbody extends PureComponent {
     if (expandKeys) {
       const expanded = expandKeys.find(k => k === key)
       if (externalExpandRender) return expanded ? externalExpandRender(data[i], idx) : undefined
-      const expandObj = expanded ? expandableObj : {}
+      const expandObj = expanded !== undefined ? expandableObj : {}
       return expandObj.render ? expandObj.render(data[i], idx) : undefined
     }
     if (this.state.expand[key]) {
