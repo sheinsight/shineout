@@ -9,10 +9,53 @@ let isLock = false
 
 const winHeight = docSize.height
 
-export function addStack(obj) {
-  const rect = obj.element.getBoundingClientRect()
+const getRect = el => {
+  // document or invalid element
+  if (!el || !el.getBoundingClientRect) {
+    if (el) console.error(`the ${el} is not a element`)
+    return { top: 0, bottom: winHeight }
+  }
 
-  if (rect.bottom < 0 || rect.top > winHeight) {
+  return el.getBoundingClientRect()
+}
+
+export function dispatch() {
+  if (isLock) return
+  isLock = true
+
+  // handle
+  Object.keys(components).forEach(k => {
+    const { element, render, container, offset } = components[k]
+    const rect = element.getBoundingClientRect()
+    const containerRect = getRect(container)
+    if (rect.bottom + offset < containerRect.top || rect.top - offset > containerRect.bottom) return
+
+    delete components[k]
+    render()
+  })
+
+  isLock = false
+}
+
+const handleScroll = () => {
+  if (timeout) clearTimeout(timeout)
+
+  timeout = setTimeout(() => {
+    dispatch()
+    timeout = null
+  }, throttle)
+}
+
+export function addStack(obj) {
+  const scrollEl = obj.container || document
+  obj.offset = obj.offset || 0
+
+  scrollEl.addEventListener('scroll', handleScroll, eventPassive)
+
+  const rect = obj.element.getBoundingClientRect()
+  const containerRect = getRect(obj.container)
+
+  if (rect.bottom + obj.offset < containerRect.top || rect.top - obj.offset > containerRect.bottom) {
     const id = getUidStr()
     components[id] = obj
     return id
@@ -26,34 +69,3 @@ export function removeStack(id) {
   if (!id) return
   delete components[id]
 }
-
-export function dispatch() {
-  if (isLock) return
-  isLock = true
-
-  // handle
-  Object.keys(components).forEach(k => {
-    const { element, render } = components[k]
-    const rect = element.getBoundingClientRect()
-    if (rect.bottom < 0 || rect.top > winHeight) return
-
-    delete components[k]
-    render()
-  })
-
-  isLock = false
-}
-
-// scroll event
-document.addEventListener(
-  'scroll',
-  () => {
-    if (timeout) clearTimeout(timeout)
-
-    timeout = setTimeout(() => {
-      dispatch()
-      timeout = null
-    }, throttle)
-  },
-  eventPassive
-)

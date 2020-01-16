@@ -3,16 +3,18 @@ import PropTypes from 'prop-types'
 import immer from 'immer'
 import { getKey } from '../utils/uid'
 import { getProps } from '../utils/proptypes'
+import { keysToArray } from '../utils/transform'
 
 const TREE_TABLE_DEFAULT_INDENT = 25
 export default WrappedComponent => {
   class TreeExpand extends React.Component {
     constructor(props) {
       super(props)
-      this.handleTreeExpand = this.handleTreeExpand.bind(this)
       this.state = {
-        expandKeys: new Map(),
+        expandKeys: this.getMapFromArray(props.defaultTreeExpandKeys),
       }
+
+      this.handleTreeExpand = this.handleTreeExpand.bind(this)
     }
 
     componentDidUpdate() {
@@ -30,7 +32,11 @@ export default WrappedComponent => {
     getExpandKeys() {
       const { treeExpandKeys } = this.props
       if (!treeExpandKeys) return this.state.expandKeys
-      return treeExpandKeys.reduce((map, key) => {
+      return this.getMapFromArray(treeExpandKeys)
+    }
+
+    getMapFromArray(arr) {
+      return arr.reduce((map, key) => {
         map.set(key, true)
         return map
       }, new Map())
@@ -90,7 +96,7 @@ export default WrappedComponent => {
         expandKeys.get(key) ? draft.delete(key) : draft.set(key, true)
       })
       if (treeExpandKeys && onTreeExpand) {
-        onTreeExpand([...changedKeys.keys()])
+        onTreeExpand(keysToArray(changedKeys))
         return
       }
       this.changedByExpand = true
@@ -124,8 +130,13 @@ export default WrappedComponent => {
     ...getProps(PropTypes, 'keygen'),
     data: PropTypes.arrayOf(PropTypes.object),
     treeColumnsName: PropTypes.string,
+    defaultTreeExpandKeys: PropTypes.array,
     treeExpandKeys: PropTypes.array,
     onTreeExpand: PropTypes.func,
+  }
+
+  TreeExpand.defaultProps = {
+    defaultTreeExpandKeys: [],
   }
 
   return TreeExpand

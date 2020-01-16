@@ -13,7 +13,7 @@ class Sorter extends PureComponent {
     const { sorter, index, onChange, current } = this.props
     const isCancel = index === current.index && order === current.order
     const finalOrder = isCancel ? undefined : order
-    onChange(finalOrder, sorter, index)
+    onChange(finalOrder, sorter, index, order)
   }
 
   handleAsc() {
@@ -28,22 +28,24 @@ class Sorter extends PureComponent {
     const { current, index } = this.props
     const active = current.index === index
 
-    return [
-      <a
-        key="asc"
-        className={tableClass(active && current.order === 'asc' && 'sorter-active', 'sorter-asc')}
-        onClick={this.handleAsc}
-      >
-        &nbsp;
-      </a>,
-      <a
-        key="desc"
-        className={tableClass(active && current.order === 'desc' && 'sorter-active', 'sorter-desc')}
-        onClick={this.handleDesc}
-      >
-        &nbsp;
-      </a>,
-    ]
+    return (
+      <div className={tableClass('sorter-container')}>
+        <a
+          key="asc"
+          className={tableClass(active && current.order === 'asc' && 'sorter-active', 'sorter-asc')}
+          onClick={this.handleAsc}
+        >
+          &nbsp;
+        </a>
+        <a
+          key="desc"
+          className={tableClass(active && current.order === 'desc' && 'sorter-active', 'sorter-desc')}
+          onClick={this.handleDesc}
+        >
+          &nbsp;
+        </a>
+      </div>
+    )
   }
 }
 

@@ -12,10 +12,12 @@
   @keyframes @keyframe-opacity {
     0% {
       opacity: 0;
+      pointer-events: none;
     }
 
     100% {
       opacity: 1;
+      pointer-events: auto;
     }
   }
 
@@ -67,6 +69,10 @@
 
   &-animation {
     transition: opacity 0.3 ease, transform 0.3s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+  }
+
+  &-disabled-wrapper {
+    display: inline-block;
   }
 
   &-arrow {

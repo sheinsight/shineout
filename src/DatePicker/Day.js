@@ -41,10 +41,18 @@ class Day extends PureComponent {
   }
 
   formatWithDefaultTime() {
+<<<<<<< HEAD
     const { current, defaultTime } = this.props
     console.log(current)
     if (!defaultTime[0]) return current
     return utils.cloneTime(current, defaultTime[0], utils.TIME_FORMAT)
+=======
+    let idx = 0
+    const { current, defaultTime, index } = this.props
+    if (typeof index === 'number') idx = index
+    if (!defaultTime[idx]) return current
+    return utils.cloneTime(current, defaultTime[idx], utils.TIME_FORMAT)
+>>>>>>> shineout/dev
   }
 
   handleDayClick(date) {
@@ -96,27 +104,39 @@ class Day extends PureComponent {
   }
 
   renderDay(date, minD, maxD) {
-    const { current, disabled, value, index, type, rangeDate, range, rangeTemp, min } = this.props
+    const { current, disabled, value, index, type, rangeDate, range, rangeTemp, min, max } = this.props
     const { hover } = this.state
+<<<<<<< HEAD
     if (this.props.defaultTime[0]) {
       date = utils.cloneTime(date, this.props.defaultTime[0], utils.TIME_FORMAT)
     }
     console.log(date)
+=======
+    const hmsDate = new Date(date)
+    utils.setTime(hmsDate, current)
+>>>>>>> shineout/dev
     let isDisabled = disabled ? disabled(date) : false
 
-    // onyl for single, single picker don't has index
+    // only for single, single picker don't has index
     if (index === undefined && !isDisabled) {
       if ((minD && utils.compareAsc(date, minD) < 0) || (maxD && utils.compareAsc(date, maxD) > 0)) isDisabled = true
     }
-
     if (!isDisabled && rangeTemp && index === 1) {
       if (
         (typeof range === 'number' && utils.compareAsc(date, utils.addSeconds(rangeTemp, range)) > 0) ||
-        utils.compareAsc(date, rangeTemp) < 0
+        utils.compareAsc(date, rangeTemp) < 0 ||
+        utils.compareAsc(date, utils.clearHMS(min)) < 0 ||
+        utils.compareAsc(date, utils.clearHMS(max)) > 0
       ) {
         isDisabled = true
       }
-      if (utils.compareAsc(date, min) < 0) isDisabled = true
+      // if (utils.compareAsc(date, min) < 0) isDisabled = true
+    }
+
+    if (!isDisabled && index === 0) {
+      if (utils.compareAsc(date, utils.clearHMS(min)) < 0 || utils.compareAsc(date, utils.clearHMS(max)) > 0) {
+        isDisabled = true
+      }
     }
 
     const classList = [
@@ -209,7 +229,6 @@ class Day extends PureComponent {
     const { current, min, index, max } = this.props
     const days = this.getDays()
     this.today = utils.newDate()
-
     const minDate = min && new Date(utils.format(min, minStr, new Date()))
     const maxDate = max && new Date(utils.format(max, maxStr, new Date()))
 

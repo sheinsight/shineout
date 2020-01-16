@@ -5,7 +5,7 @@ import classnames from 'classnames'
 import shallowEqual from '../utils/shallowEqual'
 import { scrollConsumer } from '../Scroll/context'
 import { listClass } from '../styles'
-import { docScroll } from '../utils/dom/document'
+import { docScroll, docSize } from '../utils/dom/document'
 
 const PICKER_V_MARGIN = 4
 let root
@@ -21,10 +21,14 @@ const dropdownPosition = ['bottom-left', 'bottom-right', 'top-left', 'top-right'
 
 export default function(List) {
   class AbsoluteList extends Component {
+    state = {
+      overdoc: false,
+    }
+
     constructor(props) {
       super(props)
+      this.handleRef = this.handleRef.bind(this)
       if (!props.absolute) return
-
       this.lastStyle = {}
 
       if (!root) initRoot()
@@ -34,6 +38,7 @@ export default function(List) {
 
     componentDidUpdate(prevProps) {
       if (prevProps.value === this.props.value) return
+      if (!this.props.focus) this.ajustdoc = false
       setTimeout(() => {
         this.forceUpdate()
       })
@@ -113,6 +118,22 @@ export default function(List) {
       return { focus, style }
     }
 
+    resetPosition() {
+      const { focus } = this.props
+      if (!this.el || !focus || this.ajustdoc) return
+      const pos = this.el.getBoundingClientRect()
+      const overdoc = pos.left + pos.width > docSize.width
+      if (this.state.overdoc === overdoc) return
+      this.ajustdoc = true
+      this.setState({
+        overdoc,
+      })
+    }
+
+    handleRef(ref) {
+      this.el = ref
+    }
+
     renderList() {
       const {
         parentElement,
@@ -129,10 +150,15 @@ export default function(List) {
       } = this.props
       const parsed = parseInt(zIndex, 10)
       if (!Number.isNaN(parsed)) style.zIndex = parsed
-      return <List {...props} focus={focus} style={style} />
+      const mergeStyle = Object.assign({}, style, this.state.overdoc ? { right: 0, left: 'auto' } : undefined)
+      return <List getRef={this.handleRef} {...props} focus={focus} style={mergeStyle} />
     }
 
     render() {
+      setTimeout(() => {
+        this.resetPosition()
+      })
+
       if (!this.props.absolute) {
         return this.renderList()
       }
@@ -153,9 +179,17 @@ export default function(List) {
       const mergeClass = classnames(listClass('absolute-wrapper'), rootClass, autoClass)
       const { focus, style } = props.focus ? this.getStyle() : { style: this.lastStyle }
       this.element.className = mergeClass
-      const mergeStyle = Object.assign({}, style, props.style)
+      const mergeStyle = Object.assign(
+        {},
+        style,
+        props.style,
+        this.state.overdoc ? { right: 0, left: 'auto' } : undefined
+      )
       if (zIndex || typeof zIndex === 'number') mergeStyle.zIndex = parseInt(zIndex, 10)
-      return ReactDOM.createPortal(<List {...props} focus={focus} style={mergeStyle} />, this.element)
+      return ReactDOM.createPortal(
+        <List getRef={this.handleRef} {...props} focus={focus} style={mergeStyle} />,
+        this.element
+      )
     }
   }
 

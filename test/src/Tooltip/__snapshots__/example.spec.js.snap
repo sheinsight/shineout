@@ -25,3 +25,16 @@ exports[`Snapshot test: Tooltip[site/pages/components/Tooltip/example-2-click.js
   <i />
 </div>
 `;
+
+exports[`Snapshot test: Tooltip[site/pages/components/Tooltip/example-3-disabled-inner.js] 1`] = `
+<div>
+  <noscript />
+  <span>
+    <button>
+      <span>
+        Disabled
+      </span>
+    </button>
+  </span>
+</div>
+`;

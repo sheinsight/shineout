@@ -15,11 +15,11 @@ class Td extends PureComponent {
   }
 
   handleExpandClick() {
-    const { rowKey, expanded, data, expandKeys, expandClick } = this.props
+    const { originKey, expanded, data, expandKeys, expandClick } = this.props
     if (expandKeys) {
       if (expandClick) expandClick(data, !expanded)
     } else {
-      this.props.onExpand(rowKey, expanded ? undefined : this.cachedRender)
+      this.props.onExpand(originKey, expanded ? undefined : this.cachedRender)
     }
   }
 
@@ -29,8 +29,8 @@ class Td extends PureComponent {
   }
 
   renderCheckbox() {
-    const { index, data, datum } = this.props
-    return <Checkbox data={data} index={index} datum={datum} />
+    const { index, data, datum, treeColumnsName, treeCheckAll } = this.props
+    return <Checkbox data={data} index={index} datum={datum} treeColumnsName={treeCheckAll && treeColumnsName} />
   }
 
   renderExpand(index) {
@@ -54,20 +54,35 @@ class Td extends PureComponent {
   }
 
   renderTreeExpand(content) {
-    const { data, treeRoot, treeColumnsName, treeExpand, rowKey, treeExpandLevel, treeIndent } = this.props
-    const level = treeExpandLevel.get(rowKey) || 0
-    if (!treeColumnsName || !data[treeColumnsName] || data[treeColumnsName].length === 0) {
-      return <span style={{ marginLeft: level * treeIndent, paddingLeft: treeRoot ? 0 : 25 }}>{content}</span>
+    const {
+      data,
+      treeRoot,
+      treeColumnsName,
+      treeExpand,
+      originKey,
+      treeExpandLevel,
+      treeIndent,
+      treeEmptyExpand,
+    } = this.props
+    const level = treeExpandLevel.get(originKey) || 0
+    const className = tableClass('expand-wrapped')
+    if (!treeColumnsName || !data[treeColumnsName] || (data[treeColumnsName].length === 0 && !treeEmptyExpand)) {
+      return (
+        <span className={className} style={{ marginLeft: level * treeIndent, paddingLeft: treeRoot ? 0 : 25 }}>
+          {content}
+        </span>
+      )
     }
-    return [
-      <span
-        key="expand-icon"
-        style={{ marginLeft: level * treeIndent }}
-        onClick={this.handleTreeExpand}
-        className={tableClass('icon-tree-expand', `icon-tree-${treeExpand ? 'sub' : 'plus'}`)}
-      />,
-      content,
-    ]
+    return (
+      <span className={className} style={{ marginLeft: level * treeIndent }}>
+        <span
+          key="expand-icon"
+          onClick={this.handleTreeExpand}
+          className={tableClass('icon-tree-expand', `icon-tree-${treeExpand ? 'sub' : 'plus'}`)}
+        />
+        {content}
+      </span>
+    )
   }
 
   renderResult() {
@@ -138,6 +153,7 @@ Td.propTypes = {
   onExpand: PropTypes.func,
   align: PropTypes.oneOf(['left', 'center', 'right']),
   rowKey: PropTypes.any,
+  originKey: PropTypes.any,
   rowSpan: PropTypes.number,
   style: PropTypes.object,
   type: PropTypes.string,
@@ -154,6 +170,8 @@ Td.propTypes = {
   treeExpandLevel: PropTypes.object,
   treeIndent: PropTypes.number,
   treeRoot: PropTypes.bool,
+  treeEmptyExpand: PropTypes.bool,
+  treeCheckAll: PropTypes.bool,
 }
 
 Td.defaultProps = {

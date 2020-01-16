@@ -3,25 +3,39 @@
 exports[`Snapshot test: Button[site/pages/components/Button/example-1-base.js] 1`] = `
 <div>
   <button>
-    Default
+    <span>
+      Default
+    </span>
   </button>
   <button>
-    Primary
+    <span>
+      Primary
+    </span>
   </button>
   <button>
-    Secondary
+    <span>
+      Secondary
+    </span>
   </button>
   <button>
-    Success
+    <span>
+      Success
+    </span>
   </button>
   <button>
-    Warning
+    <span>
+      Warning
+    </span>
   </button>
   <button>
-    Danger
+    <span>
+      Danger
+    </span>
   </button>
   <button>
-    Link
+    <span>
+      Link
+    </span>
   </button>
 </div>
 `;
@@ -30,16 +44,24 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-2-icon.js] 1
 <div>
   <button>
     <i />
-    left
+    <span>
+      left
+    </span>
   </button>
   <button>
-    right
+    <span>
+      right
+    </span>
     <i />
   </button>
   <button>
-    ce
+    <span>
+      ce
+    </span>
     <i />
-    ter
+    <span>
+      ter
+    </span>
   </button>
 </div>
 `;
@@ -48,73 +70,115 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-3-size.js] 1
 <div>
   <div>
     <button>
-      Default
+      <span>
+        Default
+      </span>
     </button>
     <button>
-      Primary
+      <span>
+        Primary
+      </span>
     </button>
     <button>
-      Secondary
+      <span>
+        Secondary
+      </span>
     </button>
     <button>
-      Success
+      <span>
+        Success
+      </span>
     </button>
     <button>
-      Warning
+      <span>
+        Warning
+      </span>
     </button>
     <button>
-      Danger
+      <span>
+        Danger
+      </span>
     </button>
     <button>
-      Link
-    </button>
-  </div>
-  <br />
-  <div>
-    <button>
-      Default
-    </button>
-    <button>
-      Primary
-    </button>
-    <button>
-      Secondary
-    </button>
-    <button>
-      Success
-    </button>
-    <button>
-      Warning
-    </button>
-    <button>
-      Danger
-    </button>
-    <button>
-      Link
+      <span>
+        Link
+      </span>
     </button>
   </div>
   <br />
   <div>
     <button>
-      Default
+      <span>
+        Default
+      </span>
     </button>
     <button>
-      Primary
+      <span>
+        Primary
+      </span>
     </button>
     <button>
-      Secondary
+      <span>
+        Secondary
+      </span>
     </button>
     <button>
-      Success
+      <span>
+        Success
+      </span>
     </button>
     <button>
-      Warning
+      <span>
+        Warning
+      </span>
     </button>
     <button>
-      Danger
+      <span>
+        Danger
+      </span>
     </button>
     <button>
-      Link
+      <span>
+        Link
+      </span>
+    </button>
+  </div>
+  <br />
+  <div>
+    <button>
+      <span>
+        Default
+      </span>
+    </button>
+    <button>
+      <span>
+        Primary
+      </span>
+    </button>
+    <button>
+      <span>
+        Secondary
+      </span>
+    </button>
+    <button>
+      <span>
+        Success
+      </span>
+    </button>
+    <button>
+      <span>
+        Warning
+      </span>
+    </button>
+    <button>
+      <span>
+        Danger
+      </span>
+    </button>
+    <button>
+      <span>
+        Link
+      </span>
     </button>
   </div>
 </div>
@@ -123,25 +187,39 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-3-size.js] 1
 exports[`Snapshot test: Button[site/pages/components/Button/example-4-disabled.js] 1`] = `
 <div>
   <button>
-    Default
+    <span>
+      Default
+    </span>
   </button>
   <button>
-    Primary
+    <span>
+      Primary
+    </span>
   </button>
   <button>
-    Secondary
+    <span>
+      Secondary
+    </span>
   </button>
   <button>
-    Success
+    <span>
+      Success
+    </span>
   </button>
   <button>
-    Warning
+    <span>
+      Warning
+    </span>
   </button>
   <button>
-    Danger
+    <span>
+      Danger
+    </span>
   </button>
   <button>
-    Link
+    <span>
+      Link
+    </span>
   </button>
 </div>
 `;
@@ -152,19 +230,25 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-5-loading.js
     <span>
       <div />
     </span>
-    Small
+    <span>
+      Small
+    </span>
   </button>
   <button>
     <span>
       <div />
     </span>
-    Default
+    <span>
+      Default
+    </span>
   </button>
   <button>
     <span>
       <div />
     </span>
-    Large
+    <span>
+      Large
+    </span>
   </button>
 </div>
 `;
@@ -178,19 +262,29 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-6-href.js] 1
 exports[`Snapshot test: Button[site/pages/components/Button/example-7-outline.js] 1`] = `
 <div>
   <button>
-    Primary
+    <span>
+      Primary
+    </span>
   </button>
   <button>
-    Secondary
+    <span>
+      Secondary
+    </span>
   </button>
   <button>
-    Success
+    <span>
+      Success
+    </span>
   </button>
   <button>
-    Warning
+    <span>
+      Warning
+    </span>
   </button>
   <button>
-    Danger
+    <span>
+      Danger
+    </span>
   </button>
 </div>
 `;
@@ -199,51 +293,75 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-8-group.js] 
 <div>
   <div>
     <button>
-      Left
+      <span>
+        Left
+      </span>
     </button>
     <button>
-      Center
+      <span>
+        Center
+      </span>
     </button>
     <button>
-      Right
+      <span>
+        Right
+      </span>
     </button>
   </div>
   <br />
   <div>
     <button>
-      Left
+      <span>
+        Left
+      </span>
     </button>
     <button>
-      Center
+      <span>
+        Center
+      </span>
     </button>
     <button>
-      Right
+      <span>
+        Right
+      </span>
     </button>
   </div>
   <br />
   <div>
     <button>
       <i />
-        Left
+      <span>
+          Left
+      </span>
     </button>
     <button>
-      Center
+      <span>
+        Center
+      </span>
     </button>
     <button>
-      Right  
+      <span>
+        Right  
+      </span>
       <i />
     </button>
   </div>
   <br />
   <div>
     <button>
-      Left
+      <span>
+        Left
+      </span>
     </button>
     <button>
-      Center
+      <span>
+        Center
+      </span>
     </button>
     <button>
-      Right
+      <span>
+        Right
+      </span>
     </button>
   </div>
 </div>

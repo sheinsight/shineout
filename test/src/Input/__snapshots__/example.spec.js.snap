@@ -9,7 +9,6 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-1-base.js] 1`]
 exports[`Snapshot test: Input[site/pages/components/Input/example-1-clearable.js] 1`] = `
 <label>
   <input />
-  
 </label>
 `;
 
@@ -98,7 +97,9 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-5-group.js] 1`
       <input />
     </label>
     <button>
-      Search
+      <span>
+        Search
+      </span>
     </button>
   </div>
   <div>

@@ -63,8 +63,8 @@ function compareMonth(dateLeft, dateRight, pad = 0) {
   return compareAsc(left, right)
 }
 
-function newDate() {
-  const date = new Date()
+function newDate(defaultDate) {
+  const date = defaultDate ? new Date(defaultDate) : new Date()
   return new Date(date.getFullYear(), date.getMonth(), date.getDate())
 }
 

@@ -13,6 +13,7 @@ import ImageFile from './ImageFile'
 import Result from './Result'
 import ImageResult from './ImageResult'
 import { Provider } from './context'
+import Drop from './Drop'
 
 const VALIDATORITEMS = [
   { key: 'size', param: blob => blob.size },
@@ -43,6 +44,8 @@ class Upload extends PureComponent {
     this.recoverValue = this.recoverValue.bind(this)
     this.validatorHandle = this.validatorHandle.bind(this)
     this.useValidator = this.useValidator.bind(this)
+    this.handleFileDrop = this.handleFileDrop.bind(this)
+    this.handleReplace = this.handleReplace.bind(this)
 
     props.validateHook(this.validate.bind(this))
   }
@@ -93,7 +96,8 @@ class Upload extends PureComponent {
   }
 
   removeValue(index) {
-    const { recoverAble } = this.props
+    const { recoverAble, disabled } = this.props
+    if (disabled) return
     this.setState(
       immer(draft => {
         draft.recycle.push(this.props.value[index])
@@ -109,6 +113,8 @@ class Upload extends PureComponent {
   }
 
   recoverValue(index, value) {
+    const { disabled } = this.props
+    if (disabled) return
     this.props.onChange(
       immer(this.props.value, draft => {
         draft.push(value)
@@ -140,10 +146,11 @@ class Upload extends PureComponent {
   }
 
   addFile(e) {
-    const { beforeUpload, value, limit } = this.props
+    const { beforeUpload, value, limit, filesFilter } = this.props
     // eslint-disable-next-line
     const files = { ...this.state.files }
-    const fileList = e.fromDragger && e.files ? e.files : e.target.files
+    let fileList = e.fromDragger && e.files ? e.files : e.target.files
+    if (filesFilter) fileList = filesFilter(Array.from(fileList))
     const addLength = limit - value.length - Object.keys(this.state.files).length
     if (addLength <= 0) return
     Array.from({ length: Math.min(fileList.length, addLength) }).forEach((_, i) => {
@@ -264,7 +271,7 @@ class Upload extends PureComponent {
 
       onLoad: xhr => {
         if (!/^2|1223/.test(xhr.status)) {
-          this.handleError(id, xhr)
+          this.handleError(id, xhr, file)
           return
         }
 
@@ -295,7 +302,7 @@ class Upload extends PureComponent {
         }
       },
 
-      onError: xhr => this.handleError(id, xhr),
+      onError: xhr => this.handleError(id, xhr, file),
     }
     if (onProgress === false || onProgress === null) {
       delete options.onProgress
@@ -304,12 +311,23 @@ class Upload extends PureComponent {
     return req(options)
   }
 
-  handleError(id, xhr) {
+  handleFileDrop(files) {
+    this.addFile({ files, fromDragger: true })
+  }
+
+  handleReplace(files, index) {
+    this.removeValue(index)
+    setTimeout(() => {
+      this.addFile({ files, fromDragger: true })
+    })
+  }
+
+  handleError(id, xhr, file) {
     const { onError, onHttpError } = this.props
 
     let message = xhr.statusText
-    if (onError) message = onError(xhr)
-    if (onHttpError) message = onHttpError(xhr) || message
+    if (onError) message = onError(xhr, file)
+    if (onHttpError) message = onHttpError(xhr, file) || message
 
     this.setState(
       immer(draft => {
@@ -320,7 +338,7 @@ class Upload extends PureComponent {
   }
 
   renderHandle() {
-    const { limit, value, children, accept, multiple, disabled, webkitdirectory } = this.props
+    const { limit, value, children, accept, multiple, disabled, webkitdirectory, drop } = this.props
     const count = value.length + Object.keys(this.state.files).length
     if (limit > 0 && limit <= count) return null
 
@@ -329,18 +347,28 @@ class Upload extends PureComponent {
       addFile: this.addFile,
       accept,
       disabled,
+      limit,
     }
+
     return (
-      <span className={uploadClass('handle')} onClick={this.handleAddClick}>
-        <Provider value={dragProps}>{children}</Provider>
-        <FileInput
-          webkitdirectory={webkitdirectory}
-          accept={accept}
-          ref={this.bindElement}
-          multiple={multiple}
-          onChange={this.addFile}
-        />
-      </span>
+      <Drop
+        drop={drop}
+        accept={accept}
+        disabled={disabled}
+        onDrop={this.handleFileDrop}
+        multiple={multiple || limit > 1}
+      >
+        <span className={uploadClass('handle')} onClick={this.handleAddClick}>
+          <Provider value={dragProps}>{children}</Provider>
+          <FileInput
+            webkitdirectory={webkitdirectory}
+            accept={accept}
+            ref={this.bindElement}
+            multiple={multiple}
+            onChange={this.addFile}
+          />
+        </span>
+      </Drop>
     )
   }
 
@@ -354,9 +382,13 @@ class Upload extends PureComponent {
       recoverAble,
       showUploadList,
       customResult: CustomResult,
+      disabled,
+      renderContent,
+      accept,
+      drop,
     } = this.props
     const { files, recycle } = this.state
-    const className = classnames(uploadClass('_'), this.props.className)
+    const className = classnames(uploadClass('_', disabled && 'disabled'), this.props.className)
     const FileComponent = imageStyle ? ImageFile : File
     const ResultComponent = imageStyle ? ImageResult : Result
 
@@ -375,14 +407,25 @@ class Upload extends PureComponent {
 
         {showUploadList &&
           value.map((v, i) => (
-            <ResultComponent
+            <Drop
+              drop={drop}
+              multiple={false}
               key={i}
-              value={v}
-              index={i}
-              style={imageStyle}
-              renderResult={renderResult}
-              onRemove={this.removeValue}
-            />
+              accept={accept}
+              dropData={i}
+              disabled={disabled}
+              onDrop={this.handleReplace}
+            >
+              <ResultComponent
+                renderContent={renderContent}
+                value={v}
+                values={value}
+                index={i}
+                style={imageStyle}
+                renderResult={renderResult}
+                onRemove={this.removeValue}
+              />
+            </Drop>
           ))}
 
         {showUploadList &&
@@ -395,8 +438,10 @@ class Upload extends PureComponent {
         {recoverAble &&
           recycle.map((v, i) => (
             <ResultComponent
+              renderContent={renderContent}
               key={i}
               value={v}
+              values={recycle}
               index={i}
               renderResult={renderResult}
               recoverAble={!!recoverAble}
@@ -443,6 +488,9 @@ Upload.propTypes = {
   validatorHandle: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   disabled: PropTypes.bool,
   webkitdirectory: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  renderContent: PropTypes.func,
+  drop: PropTypes.bool,
+  filesFilter: PropTypes.func,
 }
 
 Upload.defaultProps = {

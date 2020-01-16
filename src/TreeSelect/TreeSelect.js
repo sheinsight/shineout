@@ -166,7 +166,7 @@ export default class TreeSelect extends PureComponent {
       datum.set(datum.getKey(data), 1)
       this.handleState(false)
     }
-    onChange(this.getValue(), current)
+    onChange(this.getValue(), current, id && datum.getPath(id).path)
   }
 
   handleClear() {
@@ -210,6 +210,7 @@ export default class TreeSelect extends PureComponent {
       'renderItem',
       'line',
       'parentClickExpand',
+      'childrenKey',
     ].forEach(k => {
       props[k] = this.props[k]
     })
@@ -302,7 +303,7 @@ export default class TreeSelect extends PureComponent {
 
 TreeSelect.propTypes = {
   ...getProps(PropTypes, 'placehodler', 'keygen'),
-  value: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+  value: PropTypes.oneOfType([PropTypes.array, PropTypes.any]),
   clearable: PropTypes.bool,
   data: PropTypes.array,
   datum: PropTypes.object,

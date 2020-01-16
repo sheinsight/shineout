@@ -60,21 +60,22 @@ class Node extends PureComponent {
   }
 
   render() {
-    const { active, data, multiple, datum, id, loader, expandTrigger } = this.props
+    const { active, data, multiple, datum, id, loader, expandTrigger, childrenKey } = this.props
     const { loading } = this.state
     const disabled = this.checkDisabled()
+    const children = data[childrenKey]
     const className = cascaderClass(
       'node',
       active && 'active',
       disabled && 'disabled',
-      data.children && data.children.length > 0 && 'has-children',
-      loader && !loading && data.children === undefined && 'may-be-children'
+      children && children.length > 0 && 'has-children',
+      loader && !loading && children === undefined && 'may-be-children'
     )
 
     const style = {}
 
     const events = {}
-    if (!disabled && (expandTrigger !== 'hover-only' || !data.children || data.children.length === 0)) {
+    if (!disabled && (expandTrigger !== 'hover-only' || !children || children.length === 0)) {
       events.onClick = this.handleClick
       style.cursor = 'pointer'
     }
@@ -92,7 +93,7 @@ class Node extends PureComponent {
         )}
 
         {this.renderContent()}
-        {loading && data.children === undefined && <Spin className={cascaderClass('loading')} size={10} name="ring" />}
+        {loading && children === undefined && <Spin className={cascaderClass('loading')} size={10} name="ring" />}
       </div>
     )
   }
@@ -111,6 +112,7 @@ Node.propTypes = {
   onPathChange: PropTypes.func,
   path: PropTypes.array,
   renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]).isRequired,
+  childrenKey: PropTypes.string,
 }
 
 export default Node

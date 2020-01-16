@@ -12,7 +12,7 @@
   }
 
   &-tree-wrapper {
-    color: @input-color;
+    color: @gray-600;
     padding: 8px 8px 4px 8px;
 
     .@{so-prefix}-tree-node {
@@ -96,10 +96,15 @@
         font-size: 80%;
         opacity: .9;
         text-overflow: unset;
+        transition: none;
         > span {
           vertical-align: middle;
           letter-spacing: 2px;
         }
+      }
+      &-more {
+        background: @primary-color-fade-60;
+        color: #fff;
       }
 
       &.@{treeSelect-prefix}-disabled {
@@ -134,7 +139,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    .@{treeSelect-prefix}-item {
+    .@{treeSelect-prefix}-ban {
       padding-right: @select-result-space;
     }
   }
@@ -379,6 +384,20 @@
 
   &-small&-multiple &-result {
     padding-left: @padding-small-horizontal / 2;
+  }
+
+  &-popover {
+    .@{treeSelect-prefix}-result {
+      padding: 14px 14px 8px 14px;
+      max-height: 112px;
+      max-width: 300px;
+
+      .@{treeSelect-prefix}-item {
+        max-width: 100%;
+        color: @gray-600;
+        font-size: 16px;
+      }
+    }
   }
 
   &-disabled {

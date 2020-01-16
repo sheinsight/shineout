@@ -16,18 +16,10 @@ class Item extends PureComponent {
 
   render() {
     const { children, isCurrent, disabled } = this.props
-    const className = paginationClass(
-      'item',
-      this.props.className,
-      isCurrent && 'current',
-    )
+    const className = paginationClass('item', this.props.className, isCurrent && 'current')
 
     return (
-      <a
-        className={className}
-        disabled={disabled || isCurrent}
-        onMouseDown={this.handleClick}
-      >
+      <a className={className} disabled={disabled || isCurrent} onMouseDown={this.handleClick}>
         {children}
       </a>
     )

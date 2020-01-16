@@ -63,6 +63,44 @@ exports[`Snapshot test: Progress[site/pages/components/Progress/example-3-color.
 </div>
 `;
 
+exports[`Snapshot test: Progress[site/pages/components/Progress/example-3-linear.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <div />
+    </div>
+    <div>
+      99%
+    </div>
+  </div>
+  <br />
+  <div>
+    <div>
+      <div />
+    </div>
+    <div>
+      99%
+    </div>
+  </div>
+  <br />
+  <div>
+    <svg>
+      <defs>
+        <linearGradient>
+          <stop />
+          <stop />
+        </linearGradient>
+      </defs>
+      <circle />
+      <circle />
+    </svg>
+    <div>
+      99%
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Snapshot test: Progress[site/pages/components/Progress/example-4-circle.js] 1`] = `
 <div>
   <div>
@@ -157,7 +195,9 @@ exports[`Snapshot test: Progress[site/pages/components/Progress/example-6-animat
     </div>
   </div>
   <button>
-    Start
+    <span>
+      Start
+    </span>
   </button>
 </div>
 `;

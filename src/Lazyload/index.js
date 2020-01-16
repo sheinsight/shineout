@@ -11,9 +11,11 @@ class Lazyload extends PureComponent {
     this.placeholderRef = (el) => { this.placeholder = el }
   }
 
-
   componentDidMount() {
+    const { container, offset } = this.props
     this.lazyId = addStack({
+      offset,
+      container,
       element: this.placeholder,
       render: () => this.setState({ ready: true }),
     })
@@ -35,6 +37,12 @@ class Lazyload extends PureComponent {
 Lazyload.propTypes = {
   children: PropTypes.any,
   placeholder: PropTypes.element,
+  container: PropTypes.oneOfType([PropTypes.element, PropTypes.object]),
+  offset: PropTypes.number,
+}
+
+Lazyload.defaultProps = {
+  offset: 0,
 }
 
 export default Lazyload

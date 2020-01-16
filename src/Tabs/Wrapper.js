@@ -5,9 +5,7 @@ import Panel from './Panel'
 class Wrapper extends PureComponent {
   render() {
     const { active, id, ...other } = this.props
-    return (
-      <Panel {...other} isActive={id === active} />
-    )
+    return <Panel {...other} isActive={id === active} />
   }
 }
 

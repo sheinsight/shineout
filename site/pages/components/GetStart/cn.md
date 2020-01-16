@@ -276,7 +276,7 @@ module.exports = [
 
 `libraryDirectory` 设置为 css，css 目录结构下为 less 和 jsx 编译后的文件夹。
 
-### 修改主题
+### 修改Shineout主题
 
 因为修改主题需要编译 less ，因此需引入重写 less 相关的内容。
 

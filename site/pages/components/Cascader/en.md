@@ -21,3 +21,4 @@
 | value | array\[key] | - | Selected key (controlled) |
 | absolute | bool | false | When it is true, the pop-up layer of option append into document.body. |
 | compressed | bool | false | Merges selected values |
+| childrenKey | string | 'children' | the key of the children data name | 

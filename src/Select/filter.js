@@ -17,11 +17,14 @@ export default Origin =>
       onCreate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
       value: PropTypes.any,
       noCache: PropTypes.bool,
+      multiple: PropTypes.bool,
+      showHitDescendants: PropTypes.bool,
     }
 
     static defaultProps = {
       data: [],
       filterDelay: 300,
+      showHitDescendants: false,
     }
 
     constructor(props) {
@@ -36,6 +39,13 @@ export default Origin =>
       this.getResultByValues = this.getResultByValues.bind(this)
 
       this.resultCache = new Map()
+    }
+
+    componentDidUpdate(prevProps) {
+      const { datum, multiple } = this.props
+      if (prevProps.multiple !== multiple) {
+        datum.limit = multiple ? 0 : 1
+      }
     }
 
     getTreeResult(value, prediction) {
@@ -127,13 +137,20 @@ export default Origin =>
     }
 
     filterTreeData() {
-      const { treeData, expanded, ...other } = this.props
+      const { treeData, expanded, showHitDescendants, ...other } = this.props
       const { innerFilter } = this.state
       let filterExpandedKeys = expanded
       let newData = treeData
       if (innerFilter) {
         filterExpandedKeys = []
-        newData = getFilterTree(treeData, innerFilter, filterExpandedKeys, node => getKey(node, other.keygen))
+        newData = getFilterTree(
+          treeData,
+          innerFilter,
+          filterExpandedKeys,
+          node => getKey(node, other.keygen),
+          other.childrenKey,
+          showHitDescendants
+        )
       }
       return {
         treeData: newData,

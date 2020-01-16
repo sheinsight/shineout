@@ -23,6 +23,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-01-base.js'),
   },
   {
+    name: '02-controlform',
+    title: locate(
+      '表单方法 \n 可以通过 formRef 去获得表单的一些方法集, 包含校验, 清空校验, 提交等.',
+      'Form Methods \n You can use formRef to get some methods of the form, including validation, clear validation, submission, etc.'
+    ),
+    component: require('doc/pages/components/Form/example-02-controlform.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-02-controlform.js'),
+  },
+  {
     name: '02-label',
     title: locate(
       '标签 \n 通过 labelWidth 和 labelAlign 改变标签宽度和对齐方式',

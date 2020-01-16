@@ -9,12 +9,20 @@ class Text extends PureComponent {
 
     this.handleBlur = this.handleBlur.bind(this)
     this.handleInput = this.handleInput.bind(this)
+    this.handleFocus = this.handleFocus.bind(this)
+    this.bindElement = this.bindElement.bind(this)
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.focus !== this.props.focus && this.props.focus && this.element) {
       focusElement.end(this.element)
     }
+  }
+
+  bindElement(el) {
+    const { onTextSpanRef } = this.props
+    this.element = el
+    if (onTextSpanRef) onTextSpanRef(el)
   }
 
   handleBlur(e) {
@@ -28,6 +36,11 @@ class Text extends PureComponent {
       const newValue = utils.toDateWithFormat(txt, format, undefined)
       onChange(newValue, index)
     }
+  }
+
+  handleFocus(e) {
+    const { onTextSpanRef } = this.props
+    if (onTextSpanRef) onTextSpanRef(e.target)
   }
 
   handleInput(e) {
@@ -46,11 +59,10 @@ class Text extends PureComponent {
 
     return (
       <span
-        ref={el => {
-          this.element = el
-        }}
+        ref={this.bindElement}
         contentEditable={inputable}
         onBlur={this.handleBlur}
+        onFocus={this.handleFocus}
         onKeyDown={this.handleInput}
         className={className}
         dangerouslySetInnerHTML={{ __html: value }}
@@ -68,6 +80,8 @@ Text.propTypes = {
   onChange: PropTypes.func,
   placeholder: PropTypes.any,
   value: PropTypes.string,
+  onTextSpanRef: PropTypes.func,
+  element: PropTypes.any,
 }
 
 Text.defaultProps = {

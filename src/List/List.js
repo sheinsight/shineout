@@ -8,16 +8,9 @@ import { listClass } from '../styles'
 // eslint-disable-next-line
 class List extends Component {
   render() {
-    const className = classnames(
-      listClass('_'),
-      this.props.className,
-    )
-
-    const { show, ...props } = this.props
-
-    return (
-      <div {...props} className={className} style={this.props.style} />
-    )
+    const className = classnames(listClass('_'), this.props.className)
+    const { show, getRef, ...props } = this.props
+    return <div ref={getRef} {...props} className={className} style={this.props.style} />
   }
 }
 

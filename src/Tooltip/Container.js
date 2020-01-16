@@ -1,5 +1,6 @@
 import React, { PureComponent, cloneElement, isValidElement } from 'react'
 import PropTypes from 'prop-types'
+import { tooltipClass } from '../styles'
 import { scrollConsumer } from '../Scroll/context'
 import { getUidStr } from '../utils/uid'
 import { getPosition } from '../utils/dom/popover'
@@ -63,24 +64,41 @@ export default function(options) {
 
     handleShow() {
       if (this.showTimer) clearTimeout(this.showTimer)
-      this.showTimer = setTimeout(() => {
-        const pos = this.getPosition()
-        const style = Object.keys(pos).reduce((data, key) => {
-          data[key] = pos[key]
-          return data
-        }, {})
-        const props = Object.assign({}, this.props, { style })
-        show(props, this.id, this.props.style)
-      }, this.props.delay)
+      const { delay } = this.props
+      if (!delay) {
+        this.showSync()
+      } else {
+        this.showTimer = setTimeout(() => {
+          this.showSync()
+        }, delay)
+      }
+    }
+
+    showSync() {
+      const pos = this.getPosition()
+      const style = Object.keys(pos).reduce((data, key) => {
+        data[key] = pos[key]
+        return data
+      }, {})
+      const props = Object.assign({}, this.props, { style })
+      show(props, this.id, this.props.style)
     }
 
     render() {
-      const { children, trigger } = this.props
+      const { children, trigger, disabledChild } = this.props
 
       if (!isValidElement(children)) {
         console.error(new Error('Tooltip children expect a single ReactElement.'))
         return null
       }
+
+      const inner = disabledChild ? (
+        <span className={tooltipClass('disabled-wrapper')} style={{ cursor: 'not-allowed' }}>
+          {cloneElement(children, { style: { ...children.props.style, pointerEvents: 'none' } })}
+        </span>
+      ) : (
+        children
+      )
 
       const props = { key: 'el' }
       if (trigger === 'hover') {
@@ -94,7 +112,7 @@ export default function(options) {
         }
       }
 
-      return [<noscript ref={this.elementRef} key="ns" />, cloneElement(children, props)]
+      return [<noscript ref={this.elementRef} key="ns" />, cloneElement(inner, props)]
     }
   }
 
@@ -127,6 +145,7 @@ export default function(options) {
     scrollTop: PropTypes.number,
     style: PropTypes.object,
     trigger: PropTypes.oneOf(['click', 'hover']),
+    disabledChild: PropTypes.bool,
   }
 
   Container.defaultProps = {

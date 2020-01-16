@@ -120,6 +120,7 @@ class Select extends PureComponent {
       if (!getParent(e.target, `[data-id=${this.selectId}]`)) {
         this.props.onBlur()
         this.clearClickAway()
+        this.element && this.element.blur()
       }
       this.handleState(false, null)
     }
@@ -161,7 +162,7 @@ class Select extends PureComponent {
   }
 
   handleChange(_, data, fromInput) {
-    const { datum, multiple, disabled } = this.props
+    const { datum, multiple, disabled, emptyAfterSelect, onFilter, filterText } = this.props
     if (disabled === true) return
 
     // if click option, ignore blur event
@@ -189,6 +190,8 @@ class Select extends PureComponent {
       //  let the element focus
       setTimeout(() => this.element && this.element.focus(), 10)
     }
+
+    if (emptyAfterSelect && onFilter && filterText) onFilter('')
   }
 
   shouldFocus(el) {
@@ -322,6 +325,7 @@ class Select extends PureComponent {
       'filterText',
       'absolute',
       'zIndex',
+      'childrenKey',
     ].forEach(k => {
       props[k] = this.props[k]
     })
@@ -411,6 +415,9 @@ class Select extends PureComponent {
       result,
       compressed,
       trim,
+      renderUnmatched,
+      showArrow,
+      focusSelected,
     } = this.props
     const className = selectClass(
       'inner',
@@ -448,10 +455,13 @@ class Select extends PureComponent {
           multiple={multiple}
           placeholder={placeholder}
           renderResult={renderResult}
+          renderUnmatched={renderUnmatched}
           onInputBlur={this.handleInputBlur}
           onInputFocus={this.handleInputFocus}
           setInputReset={this.setInputReset}
           compressed={compressed}
+          showArrow={showArrow}
+          focusSelected={focusSelected}
         />
         {this.renderOptions()}
       </div>
@@ -487,6 +497,10 @@ Select.propTypes = {
   trim: PropTypes.bool,
   autoAdapt: PropTypes.bool,
   filterSingleSelect: PropTypes.bool,
+  renderUnmatched: PropTypes.func,
+  emptyAfterSelect: PropTypes.bool,
+  showArrow: PropTypes.bool,
+  focusSelected: PropTypes.bool,
 }
 
 Select.defaultProps = {
@@ -502,6 +516,8 @@ Select.defaultProps = {
   compressed: false,
   trim: true,
   autoAdapt: false,
+  showArrow: true,
+  focusSelected: true,
 }
 
 export default Select

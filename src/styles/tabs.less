@@ -32,6 +32,20 @@
       margin-left: @tabs-link-spacing;
     }
 
+    .@{tabs-prefix}-tab-bordered {
+      border: 1px solid #ddd;
+      margin-bottom: 0;
+
+      & + .@{tabs-prefix}-tab-bordered {
+        margin-left: @tabs-button-spacing;
+      }
+
+      &-active {
+        border-bottom-color: transparent;
+        color: @colors-primary;
+      }
+    }
+
     .@{tabs-prefix}-disabled {
       cursor: not-allowed;
     }

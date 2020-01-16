@@ -75,7 +75,6 @@ class Progress extends PureComponent {
     const uploading = this.state.progress >= 0
     const wrapperClassname = classnames(
       uploadClass('bprogress', others.disabled && 'disabled'),
-      this.props.className,
       uploading ? uploadClass('uploading', `border-${type}`) : uploadClass(`bprogress-${type}`)
     )
     const style = {
@@ -84,6 +83,7 @@ class Progress extends PureComponent {
     return (
       <Upload
         {...others}
+        limit={undefined}
         onProgress={this.handleProgress}
         onStart={this.handleStart}
         showUploadList={false}

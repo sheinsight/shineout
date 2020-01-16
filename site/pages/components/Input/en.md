@@ -20,7 +20,11 @@
 | type | string | 'text' | Same as the type of the native input tag |
 | value | string \| number | - | The defaultValue and value can be set at the same time and defaultValue will be overridden by value<br />In the Form, the value will be taken over by the form and the value will lose efficacy. |
 | clearable | bool | false | Remove content of the input when clicking the clear icon |
+<<<<<<< HEAD
 
+=======
+| coin | bool | false | Show as thousands separator, valid only when type is 'number' |
+>>>>>>> shineout/dev
 
 ### Input.Number
 
@@ -33,3 +37,5 @@ The basic API is the same as the above table, and the specific API is as follows
 | step | number | 1 | Change the digital span. It can be decimal. |
 | digits | number | - | the digits of number |
 | allowNull | bool | false | allow value is null |
+| hideArrow | bool | false | Whether to show increase/decrease buttons |
+| coin | bool | false | Show as thousands separator |

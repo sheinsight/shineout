@@ -188,6 +188,10 @@
     }
   }
 
+  &-dragger-wrapper {
+    display: block;
+    width: 100%;
+  }
   &-dragger-area {
     position: relative;
     color: rgba(0, 0, 0, .8);
@@ -212,7 +216,7 @@
       transition: border-color .3s;
     }
 
-    &:hover, &.@{upload-prefix}-dragger-hover {
+    &:hover {
       :after {
         border-color: @colors-primary;
       }
@@ -222,6 +226,17 @@
       cursor: not-allowed;
       :after {
         border: 1px dashed @upload-image-border;
+      }
+    }
+  }
+
+  &-drop {
+    .@{upload-prefix}-image-plus, .@{upload-prefix}-image-item {
+      border-color: @colors-primary;
+    }
+    .@{upload-prefix}-dragger-area {
+      :after {
+        border-color: @colors-primary;
       }
     }
   }
@@ -316,13 +331,10 @@
 
   &-bprogress {
     .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border; 'primary');
-
     user-select: none;
-    // border: 1px solid @btn-primary-border;
-    // color: @progress-bar-color;
+     border: 1px solid transparent;
     position: relative;
-    // background: @colors-primary;
-    .button-size(@btn-padding-y; @btn-padding-x; @font-size-base; @line-height-base; @btn-border-radius-base);
+    .button-size(@btn-padding-y; @btn-padding-x; @button-font-size-base; @line-height-base; @btn-border-radius-base);
     .@{upload-prefix}-stream{
       z-index: 1;
       white-space: nowrap;
@@ -379,6 +391,12 @@
     &.@{upload-prefix}-bprogress-error, &.@{upload-prefix}-bprogress-danger {
       background: @colors-danger;
       border-color: @btn-danger-border;
+    }
+  }
+
+  &-disabled {
+    .@{upload-prefix}-delete {
+      cursor: not-allowed;
     }
   }
 

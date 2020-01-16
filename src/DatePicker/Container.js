@@ -36,6 +36,8 @@ class Container extends PureComponent {
     this.pickerId = `picker_${getUidStr()}`
     this.bindElement = this.bindElement.bind(this)
     this.bindPicker = this.bindPicker.bind(this)
+    this.bindWrappedPicker = this.bindWrappedPicker.bind(this)
+    this.bindTextSpan = this.bindTextSpan.bind(this)
     this.handleClick = this.handleToggle.bind(this, true)
     this.handleBlur = this.handleToggle.bind(this, false)
     this.handleFocus = this.handleFocus.bind(this)
@@ -64,13 +66,14 @@ class Container extends PureComponent {
 
   getCurrent() {
     let current
+    const { defaultRangeMonth } = this.props
     if (this.props.range) {
-      current = (this.props.value || []).map(v => {
+      current = (this.props.value || []).map((v, i) => {
         v = this.parseDate(v)
-        if (utils.isInvalid(v)) v = utils.newDate()
+        if (utils.isInvalid(v)) v = utils.newDate(defaultRangeMonth[i])
         return v
       })
-      if (current.length === 0) current = [utils.newDate(), utils.newDate()]
+      if (current.length === 0) current = [utils.newDate(defaultRangeMonth[0]), utils.newDate(defaultRangeMonth[1])]
 
       // if (utils.compareMonth(current[0], current[1], -1) >= 0) {
       //   current[1] = utils.addMonths(current[0], 1)
@@ -134,6 +137,14 @@ class Container extends PureComponent {
     this.picker = picker
   }
 
+  bindWrappedPicker(el) {
+    this.pickerContainer = el
+  }
+
+  bindTextSpan(el) {
+    this.textSpan = el
+  }
+
   parseDate(value) {
     return utils.toDateWithFormat(value, this.getFormat(), undefined)
   }
@@ -156,6 +167,7 @@ class Container extends PureComponent {
     const onPicker = e.target === this.element || this.element.contains(e.target)
     const onAbsolutePicker = getParent(e.target, `.${datepickerClass('location')}`)
     if (!onPicker && !onAbsolutePicker) {
+      if (this.props.inputable && this.textSpan) this.textSpan.blur()
       this.clearClickAway()
       this.handleToggle(false)
       this.props.onBlur()
@@ -186,10 +198,10 @@ class Container extends PureComponent {
   handleToggle(focus, e) {
     if (this.props.disabled === true) return
     if (focus === this.state.focus) return
+    if (e && focus && getParent(e.target, this.pickerContainer)) return
 
     // click close icon
     if (focus && e && e.target.classList.contains(datepickerClass('close'))) return
-
     this.setState(
       immer(state => {
         state.focus = focus
@@ -315,6 +327,7 @@ class Container extends PureComponent {
     return (
       <Text
         key={key}
+        onTextSpanRef={this.bindTextSpan}
         className={className}
         focus={this.state.focus}
         format={resultFormat}
@@ -364,6 +377,7 @@ class Container extends PureComponent {
       className: datepickerClass('picker', 'location', `absolute-${position}`),
       position,
       zIndex,
+      getRef: this.bindWrappedPicker,
     }
     // computed absolute position needed
     if (absolute) {
@@ -459,6 +473,7 @@ Container.propTypes = {
   quickSelect: PropTypes.array,
   min: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
   max: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
+  defaultRangeMonth: PropTypes.array,
 }
 
 Container.defaultProps = {
@@ -466,6 +481,7 @@ Container.defaultProps = {
   placeholder: <span>&nbsp;</span>,
   type: 'date',
   allowSingle: false,
+  defaultRangeMonth: [],
 }
 
 export default Container

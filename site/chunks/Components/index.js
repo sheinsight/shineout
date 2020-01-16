@@ -56,6 +56,12 @@ const pages = [
     component: lazy(() => import(/* webpackChunkName: "DatePicker" */ './DatePicker')),
   },
   {
+    name: 'EditableArea',
+    cn: '可编辑域',
+    level: 2,
+    component: lazy(() => import(/* webpackChunkName: "EditableArea" */ './EditableArea')),
+  },
+  {
     name: 'Form',
     cn: '表单',
     level: 2,
@@ -110,6 +116,12 @@ const pages = [
     component: lazy(() => import(/* webpackChunkName: "Textarea" */ './Textarea')),
   },
   {
+    name: 'Transfer',
+    cn: '穿梭框',
+    level: 2,
+    component: lazy(() => import(/* webpackChunkName: "Transfer" */ './Transfer')),
+  },
+  {
     name: 'TreeSelect',
     cn: '树选择',
     level: 2,
@@ -154,7 +166,7 @@ const pages = [
   },
   {
     name: 'Tree',
-    cn: '树形选择',
+    cn: '树',
     level: 2,
     component: lazy(() => import(/* webpackChunkName: "Tree" */ './Tree')),
   },
@@ -213,6 +225,12 @@ const pages = [
     cn: '卡片',
     level: 2,
     component: lazy(() => import(/* webpackChunkName: "Card" */ './Card')),
+  },
+  {
+    name: 'CardGroup',
+    cn: '卡片组',
+    level: 2,
+    component: lazy(() => import(/* webpackChunkName: "CardGroup" */ './CardGroup')),
   },
   {
     name: 'Grid',

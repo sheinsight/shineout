@@ -27,3 +27,12 @@
 | value | array\[key] | - | Selected key (controlled) |
 | onDrop | function(data, key, targetKey, position) | - | It is draggable when setting the onDrop property. <br />data: Full data after dragging.<br />key: the key of dragged node<br />targetKey: the key of target node<br />position: The position of the target node. start at 0. | 
 | defaultExpandAll | boolean | false | default expand all nodes | 
+| childrenKey | string | 'children' | the key of the children data name | 
+| expandIcons | \[Element, Element\] | none | custom expand/collapse button |
+| dragImageSelector | string: Selector \| function(data) | - | the selector of drag image |
+| dragImageStyle | object | - | the style of drag Image |
+| leafClass | string \| function(data) | - | the class of lead, the params of function is data |
+| dragHoverExpand | bool | false | auto expand the node when drag over |
+| doubleClickExpand | bool | false | expand node while double click |
+| onClick | func | none | node click |
+| iconClass | string | - | expand/collapse button's class |

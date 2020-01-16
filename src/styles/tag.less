@@ -21,7 +21,7 @@
   color: @tag-color;
   cursor: pointer;
   font-size: @tag-font-size;
-  font-weight: 600;
+  font-weight: @tag-font-weight;
   line-height: 1.4;
   transition: all 0.3s;
 
@@ -51,6 +51,10 @@
     display: inline-block;
     width: @tag-icon-width;
     margin: 0 0 0 @tag-close-left;
+
+    &:hover svg{
+      fill: @tag-close-hover-color;
+    }
 
     svg {
       fill: @tag-close-color;

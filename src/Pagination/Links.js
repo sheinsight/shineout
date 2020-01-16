@@ -8,9 +8,7 @@ import Next from './Next'
 
 class Links extends PureComponent {
   getLinks() {
-    const {
-      current, total, pageSize, span,
-    } = this.props
+    const { current, total, pageSize, span } = this.props
 
     if (total === 0) return { links: [], max: 0 }
 
@@ -59,46 +57,36 @@ class Links extends PureComponent {
   }
 
   render() {
-    const {
-      current, onChange, span, disabled,
-    } = this.props
+    const { current, onChange, span, disabled } = this.props
     const { links, max } = this.getLinks()
 
     return (
       <div className={paginationClass('links', 'section')}>
         <Prev {...this.props} />
-        {
-          links.map((p) => {
-            if (typeof p === 'number') {
-              return (
-                <Item
-                  key={p}
-                  disabled={disabled}
-                  isCurrent={current === p}
-                  page={p}
-                  onClick={onChange}
-                >
-                  {p}
-                </Item>
-              )
-            }
-            const isPrev = p === '<<'
-            let page = isPrev ? current - span : current + span
-            if (page < 1) page = 1
-            if (page > max) page = max
+        {links.map(p => {
+          if (typeof p === 'number') {
             return (
-              <Item
-                key={p}
-                disabled={disabled}
-                page={page}
-                className={`no-border ${isPrev ? 'more-left' : 'more-right'}`}
-                onClick={onChange}
-              >
-                {isPrev ? icons.AngleDoubleLeft : icons.AngleDoubleRight}
+              <Item key={p} disabled={disabled} isCurrent={current === p} page={p} onClick={onChange}>
+                {p}
               </Item>
             )
-          })
-        }
+          }
+          const isPrev = p === '<<'
+          let page = isPrev ? current - span : current + span
+          if (page < 1) page = 1
+          if (page > max) page = max
+          return (
+            <Item
+              key={p}
+              disabled={disabled}
+              page={page}
+              className={`no-border ${isPrev ? 'more-left' : 'more-right'}`}
+              onClick={onChange}
+            >
+              {isPrev ? icons.AngleDoubleLeft : icons.AngleDoubleRight}
+            </Item>
+          )
+        })}
         <Next {...this.props} />
       </div>
     )

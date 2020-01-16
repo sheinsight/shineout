@@ -1,0 +1,1813 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test: Transfer[site/pages/components/Transfer/example-1-base.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        <label>
+          <input />
+          <i />
+          <span>
+            Select All
+          </span>
+        </label>
+      </div>
+      <div>
+        Source
+      </div>
+    </div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 1
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 2
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 3
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 4
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 5
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 6
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 7
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 8
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 9
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 10
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 11
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 12
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 13
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 14
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 15
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 16
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 17
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 18
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 19
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <button>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </button>
+      <br />
+      <button>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        <label>
+          <input />
+          <i />
+          <span>
+            Select All
+          </span>
+        </label>
+      </div>
+      <div>
+        Target
+      </div>
+    </div>
+    <div>
+      <div>
+        <div>
+          <div>
+            Data not found
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Transfer[site/pages/components/Transfer/example-2-controlled.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        <label>
+          <input />
+          <i />
+          <span>
+            Select All
+          </span>
+        </label>
+      </div>
+      <div />
+    </div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 2
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 4
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 6
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 8
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 10
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 11
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 12
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 13
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 14
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 15
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 16
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 17
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 18
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 19
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <button>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </button>
+      <br />
+      <button>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        <label>
+          <input />
+          <i />
+          <span>
+            Select All
+          </span>
+        </label>
+      </div>
+      <div />
+    </div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 1
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 3
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 5
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 7
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 9
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Transfer[site/pages/components/Transfer/example-3-customTitle.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        <label>
+          <input />
+          <i />
+          <span>
+            Select All
+          </span>
+        </label>
+      </div>
+      <div>
+        I am left
+      </div>
+    </div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 1
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 2
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 3
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 4
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 5
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 6
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 7
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 8
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 9
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 10
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 11
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 12
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 13
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 14
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 15
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 16
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 17
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 18
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 19
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button>
+        <span>
+          left
+        </span>
+      </button>
+    </div>
+  </div>
+  <div>
+    <div>
+      <button>
+        <svg>
+          <path />
+          <path />
+        </svg>
+        <span>
+          to right
+        </span>
+      </button>
+      <br />
+      <button>
+        <svg>
+          <path />
+          <path />
+        </svg>
+        <span>
+          to left
+        </span>
+      </button>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        <label>
+          <input />
+          <i />
+          <span>
+            Select All
+          </span>
+        </label>
+      </div>
+      <div>
+        I am right
+      </div>
+    </div>
+    <div>
+      <div>
+        <div>
+          <div>
+            Data not found
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button>
+        <span>
+          right
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Transfer[site/pages/components/Transfer/example-4-selected.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        <label>
+          <input />
+          <i />
+          <span>
+            2 selected
+          </span>
+        </label>
+      </div>
+      <div />
+    </div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 2
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 4
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 6
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 8
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 10
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 11
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 12
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 13
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 14
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 15
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 16
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 17
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 18
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 19
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <button>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </button>
+      <br />
+      <button>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        <label>
+          <input />
+          <i />
+          <span>
+            2 selected
+          </span>
+        </label>
+      </div>
+      <div />
+    </div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 1
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 3
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 5
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 7
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 9
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Transfer[site/pages/components/Transfer/example-5-filter.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        <label>
+          <input />
+          <i />
+          <span>
+            Select All
+          </span>
+        </label>
+      </div>
+      <div />
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 1
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 2
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 3
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 4
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 5
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 6
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 7
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 8
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 9
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 10
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 11
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 12
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 13
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 14
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 15
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 16
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 17
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 18
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 19
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <button>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </button>
+      <br />
+      <button>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        <label>
+          <input />
+          <i />
+          <span>
+            Select All
+          </span>
+        </label>
+      </div>
+      <div />
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+    <div>
+      <div>
+        <div>
+          <div>
+            Data not found
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Transfer[site/pages/components/Transfer/example-6-loading.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        <label>
+          <input />
+          <i />
+          <span>
+            Select All
+          </span>
+        </label>
+      </div>
+      <div>
+        Source
+      </div>
+    </div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 1
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 2
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 3
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 4
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 5
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 6
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 7
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 8
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 9
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 10
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 11
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 12
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 13
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 14
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 15
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 16
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 17
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 18
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 19
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <button>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </button>
+      <br />
+      <button>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        <label>
+          <input />
+          <i />
+          <span>
+            Select All
+          </span>
+        </label>
+      </div>
+      <div>
+        Target
+      </div>
+    </div>
+    <div>
+      <div>
+        <div>
+          <div>
+            Data not found
+          </div>
+        </div>
+      </div>
+      <div>
+        <div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Transfer[site/pages/components/Transfer/example-6-mloading.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        <label>
+          <input />
+          <i />
+          <span>
+            Select All
+          </span>
+        </label>
+      </div>
+      <div>
+        Source
+      </div>
+    </div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 1
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 2
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 3
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 4
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 5
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 6
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 7
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 8
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 9
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 10
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 11
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 12
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 13
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 14
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 15
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 16
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 17
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 18
+              </span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input />
+              <i />
+              <span>
+                content 19
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <button>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </button>
+      <br />
+      <button>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        <label>
+          <input />
+          <i />
+          <span>
+            Select All
+          </span>
+        </label>
+      </div>
+      <div>
+        Target
+      </div>
+    </div>
+    <div>
+      <div>
+        <div>
+          <div>
+            Data not found
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

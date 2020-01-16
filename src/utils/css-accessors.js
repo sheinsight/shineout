@@ -2,11 +2,10 @@ import cssInject from './vars-inject'
 import { capitalize } from './strings'
 import { getDOMStyle } from './expose'
 
-const cssVarSupported = window.CSS && window.CSS.supports && window.CSS.supports('--css-var-support', 0)
-
-function setOptions(options) {
-  if (!options || !cssVarSupported) return
+function setOptions(options, setter) {
+  if (!options) return
   for (const [key, value] of Object.entries(options)) {
+    if (key === setter) continue
     this[key] = value
   }
 }
@@ -23,11 +22,15 @@ function genAccessors(obj, data) {
     Object.defineProperty(obj, name, {
       enumerable: true,
       get: () => {
+        if (item.value) return item.value
         const res = getStyleAttr(className, attr)
         return parser(res)
       },
       // eslint-disable-next-line no-return-assign
-      set: v => (data[name] = v),
+      set: v => {
+        if (item.value) item.value = v
+        data[name] = v
+      },
     })
   })
 }
@@ -52,11 +55,12 @@ const accessors = {
   card: {},
   modal: {},
   popover: {},
+  tree: {},
 }
 
 for (const [key, value] of Object.entries(accessors)) {
   const setterName = `set${capitalize(key)}`
-  value[setterName] = options => setOptions.call(value, options)
+  value[setterName] = options => setOptions.call(value, options, setterName)
   genAccessors(value, cssInject[key])
 }
 

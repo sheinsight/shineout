@@ -661,10 +661,14 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-4-items.
 exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-5-split.js] 1`] = `
 <div>
   <button>
-    Left
+    <span>
+      Left
+    </span>
   </button>
   <button>
-    Center
+    <span>
+      Center
+    </span>
   </button>
   <div>
     <div>

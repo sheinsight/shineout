@@ -127,6 +127,14 @@
     }
   }
 
+  &-compressed&-result {
+    .@{select-prefix}-item {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+
   &-close-warpper {
     position: absolute;
     top: 50%;
@@ -149,28 +157,25 @@
     width: 12px;
     height: 12px;
     color: @gray-500;
-    transform: translate(0, -50%);
+    margin-top: -5px;
 
     &.@{select-prefix}-close {
       display: none;
-      .close(12px, @gray-400-darken-20);
+      .close(12px, @select-clear-bg-color);
     }
 
     &.@{select-prefix}-caret {
-      .caret(down);
-
-      &:after {
-        position: absolute;
-        top: (12 - @caret-width * 1.4) / 2;
-        left: 2px;
-        margin: 0;
-      }
+      transition: transform .3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+      .dropdown-svg(@gray-500-value);
     }
   }
 
   &-focus &-close,
   &-result:hover &-close {
     display: block;
+  }
+  &-focus .@{select-prefix}-caret {
+    transform: rotate(180deg);
   }
 
   &-options,
@@ -185,9 +190,6 @@
     background-clip: padding-box;
     border-radius: @border-radius-base;
   }
-  &-box-list {
-    min-width: 100%;
-  }
 
   &-tree {
     width: auto;
@@ -201,7 +203,7 @@
         }
       }
       .@{so-prefix}-tree-content {
-        color: @input-color;
+        color: @gray-600;
         white-space: nowrap;
         cursor: default;
 
@@ -241,9 +243,8 @@
     }
 
     .@{select-prefix}-box-options {
-      overflow: auto;
+      overflow: hidden;
       flex: 1;
-      padding: @dropdown-item-padding-y 0;
 
       .@{select-prefix}-no-data {
         padding-top: 60px;
@@ -298,7 +299,7 @@
     display: block;
     overflow: hidden;
     padding: @dropdown-item-padding-y @dropdown-padding-x+12 @dropdown-item-padding-y @dropdown-padding-x;
-    color: @dropdown-link-color;
+    color: @select-option-color;
     font-size: @font-size-base;
     line-height: @line-height-base;
     text-overflow: ellipsis;
@@ -310,15 +311,13 @@
       color: @dropdown-link-active-color;
       text-decoration: none;
 
-      &::after {
+      > svg {
         position: absolute;
         top: 50%;
         right: 8px;
         width: 12px;
         height: 12px;
-        background: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='@{colors-primary}' d='M913.017 237.02c-25.311-25.312-66.349-25.312-91.66 0l-412.475 412.474-206.237-206.237c-25.312-25.312-66.35-25.312-91.661 0s-25.312 66.35 0 91.66l252.067 252.067c0.729 0.73 1.439 1.402 2.134 2.029 25.434 23.257 64.913 22.585 89.527-2.029l458.303-458.303c25.313-25.312 25.313-66.35 0.001-91.661z'%3E%3C/path%3E%3C/svg%3E");
-        color: @colors-primary;
-        content: ' ';
+        fill: @colors-primary;
         transform: translateY(-50%);
       }
     }

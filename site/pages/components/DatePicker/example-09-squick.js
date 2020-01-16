@@ -20,27 +20,27 @@ export default function() {
       type="datetime"
       quickSelect={[
         {
-          name: '当前时间',
+          name: 'now',
           value: [Date.now(), Date.now()],
         },
         {
-          name: '下一周',
+          name: 'next week',
           value: [format(today, formatStart), format(addDays(today, 7), formatEnd)],
         },
         {
-          name: '上一周',
+          name: 'last week',
           value: [format(subDays(today, 7), formatStart), format(today, formatEnd)],
         },
         {
-          name: '后30天',
+          name: 'next month',
           value: [format(today, formatStart), format(addDays(today, 30), formatEnd)],
         },
         {
-          name: '前30天',
+          name: 'last month',
           value: [format(subDays(today, 30), formatStart), format(today, formatEnd)],
         },
         {
-          name: '特定时间',
+          name: 'special date',
           value: ['2019-01-01 00:00:00', '2019-12-31 23:59:59'],
         },
       ]}

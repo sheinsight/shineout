@@ -61,6 +61,12 @@
 @table-color-value: rgba(0, 0, 0, 0.65);
 @table-color: var(--table-color, @table-color-value);
 
+@table-cell-padding-horizontal-value: 16px;
+@table-cell-padding-horizontal: var(--table-cell-padding-horizontal, @table-cell-padding-horizontal-value);
+
+@table-cell-padding-vertical-value: 16px;
+@table-cell-padding-vertical: var(--table-cell-padding-vertical, @table-cell-padding-vertical-value);
+
 @tag-bg-color-value: #fafafa;
 @tag-bg-color: var(--tag-bg, @tag-bg-color-value);
 
@@ -84,6 +90,12 @@
 
 @input-border-value: @gray-300-value;
 @input-border: var(--input-border-color, @input-border-value);
+
+@input-color-placeholder-value: #bfbfbf;
+@input-color-placeholder: var(--input-placeholder-color, @input-color-placeholder-value);
+
+@checkbox-border-color-value: @input-border-value;
+@checkbox-border-color: var(--checkbox-border-color, @checkbox-border-color-value);
 
 @dropdown-link-active-bg-value: #f2f2f2;
 @dropdown-link-active-bg: var(--select-item-active-bg, @dropdown-link-active-bg-value);
@@ -127,6 +139,9 @@
 @select-option-hover-color-value: @dropdown-link-hover-color;
 @select-option-hover-color: var(--select-option-hover-color, @select-option-hover-color-value);
 
+@select-option-color-value: rgba(0, 0, 0, 0.65);
+@select-option-color: var(--select-option-color, @select-option-color-value);
+
 @state-success-text: rgba(0, 0, 0, 0.65);
 @state-success-bg: #f6ffed;
 @state-success-border: #b7eb8f;
@@ -147,6 +162,27 @@
 @button-font-size-large-value: @font-size-large;
 @button-font-size-large: var(--button-font-size-large, @button-font-size-large-value);
 
+@panel-border-radius-value: 2px;
+@panel-border-radius: var(--panel-border-radius, @panel-border-radius-value);
+
+@panel-header-padding-horizontal-value: 16px;
+@panel-header-padding-horizontal: var(--panel-header-padding-horizontal, @panel-header-padding-horizontal-value);
+
+@panel-header-padding-vertical-value: 16px;
+@panel-header-padding-vertical: var(--panel-header-padding-vertical, @panel-header-padding-vertical-value);
+
+@panel-body-padding-horizontal-value: 16px;
+@panel-body-padding-horizontal: var(--panel-body-padding-horizontal, @panel-body-padding-horizontal-value);
+
+@panel-body-padding-vertical-value: 16px;
+@panel-body-padding-vertical: var(--panel-body-padding-vertical, @panel-body-padding-vertical-value);
+
+@panel-footer-padding-horizontal-value: 16px;
+@panel-footer-padding-horizontal: var(--panel-footer-padding-horizontal, @panel-footer-padding-horizontal-value);
+
+@panel-footer-padding-vertical-value: 16px;
+@panel-footer-padding-vertical: var(--panel-footer-padding-vertical, @panel-footer-padding-vertical-value);
+
 @caret-width: 6px;
 
 @ease-in-out: 0.3s;
@@ -163,11 +199,6 @@
 @btn-info-border: @colors-info;
 @btn-danger-border: @colors-danger;
 @btn-hover-darken: -5%;
-
-// card
-@panel-heading-padding: 16px;
-@panel-body-padding: 16px;
-@panel-footer-padding: 16px;
 
 // Dropdown
 @dropdown-padding-x: 12px;
@@ -193,15 +224,10 @@
 @breadcrumb-a-color: rgba(0, 0, 0, 0.45);
 @breadcrumb-active-color: rgba(0, 0, 0, 0.85);
 
-@input-color-placeholder: #bfbfbf;
-
 //menu
 @menu-title-transform: translateY(-85%) rotate(45deg);
 @menu-title-open-transform: translateY(-65%) rotate(225deg);
 @menu-title-vertical-transform: translateY(-60%) rotate(-45deg);
-
-// card
-@panel-border-radius: 2px;
 
 @datepicker-day-hover-bg: #e6f7ff;
 

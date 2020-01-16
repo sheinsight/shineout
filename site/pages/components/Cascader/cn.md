@@ -22,3 +22,4 @@
 | value | array\[key] | 无 | 选中的 key （受控） | 
 | absolute | bool | false | 为 true 时，选项弹出层在 DOM 中独立 render |
 | compressed | bool | false | 将选中值合并 |
+| childrenKey | string | 'children' | 指定子数据的属性名 | 

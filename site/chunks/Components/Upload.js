@@ -41,6 +41,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Upload/example-02-image.js'),
   },
   {
+    name: '02-show-image',
+    title: locate(
+      '自定义结果内容 \n 使用  renderContent 可以自定义上传之后的图片结果.',
+      'Custom result content \n Use renderContent to customize the image results after uploading.'
+    ),
+    component: require('doc/pages/components/Upload/example-02-show-image.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Upload/example-02-show-image.js'),
+  },
+  {
     name: '03-button',
     title: locate(
       '按钮上传 \n 使用 Upload.Button 展示单个文件的上传进度',
@@ -115,8 +124,8 @@ const examples = [
   {
     name: '11-dragger',
     title: locate(
-      '拖拽上传 \n 将文件拖入指定区域完成上传，支持图片预览及多文件上传。',
-      'Drag and Drop \n Drag files to a specific area, to upload.'
+      '拖拽上传 \n 设置 drop 来支持拖拽上传',
+      'Drag and Drop \n set drop to Drag files to upload.'
     ),
     component: require('doc/pages/components/Upload/example-11-dragger.js').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-11-dragger.js'),

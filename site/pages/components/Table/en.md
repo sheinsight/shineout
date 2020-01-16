@@ -13,7 +13,7 @@
 | data | object\[] | - | data |
 | datum | object | - | If the format and prediction does not satisfied your requirements, you can pass in a [Datum.List](/components/Datum.List) object or the Datum.List configuration to process data. |
 | disabled | bool \| function | false | When the value is true, disabled all checkboxes; When the value is function, disable the checkbox that this function returns true. |
-| fixed | string | - | options:  \['both', 'x', 'y'] 
+| fixed | string | - | options:  \['both', 'x', 'y'\], empty will disabled lazy load | 
 | format | string \| function | d => d | Format value<br />The defaule value is return the original data.<br />When it is a string, the value is fetched from the original data as a key equivalent to (d) => d\[format]<br />When it is a function, use its return value. |
 | loading | bool \| element | false | When it is true, a default [Spin](/components/Spin) component will be displayed, a custom loading icon can be passed in to replace. |
 | keygen | string \| function(obj):string | index | Generate a auxiliary method for each key<br />If not filled, index will be used (not recommended, in some cases there may be problems)<br />When it is a function, use its return value. <br />When it is a string，ues the value of the string.For example, 'id' is the same thing as (d) => d.id . |
@@ -23,7 +23,7 @@
 | prediction | function | (val, d) => val===format(d) | By default, the result of the format function is used to compare whether it matches. In some cases (for example, whe an object that returns the original data is updated, an different option with the same value  is generated), the prediction function needs to be used to determine whether match |
 | rowClassName | function(record, index) | - | Specify row className |
 | rowHeight | number | 40 | The expected height of a one-line table is just a rough estimate to show the scroll bar. |
-| rowsInView | number | 20 | The maximum number of rows for a single render. Table uses lazy render to optimize performance under large amounts of data. If your table displays more than 20 rows, you can change the value of rowsInView. Value of 0 disables lazy loading.|
+| rowsInView | number | 20 | The maximum number of rows for a single render. Table uses lazy render to optimize performance under large amounts of data. If your table displays more than 20 rows, you can change the value of rowsInView. Value of 0 render all data.|
 | showSelectAll | bool | true | Whether to show being fully selected. |
 | striped | bool | false | Whether to display zebra shading. |
 | style | object | - | Container element style |
@@ -32,7 +32,14 @@
 | rowClickAttr | string \| string[] | \['*'\] | Sets the attribute of inner element to trigger onRowClick as needed, and '*' to accept the row click |
 | sorter | func | alphaSort(Column.sorter, sorter) | the method of table sort，args are Column.sorter and order |
 | treeExpandKeys | array | none  | Tree Table expanded row keys |
-| onTreeExpand | function(keys) | expand row change, keys is expanded row keys |
+| onTreeExpand | function(keys) | none | expand row change, keys is expanded row keys |
+| hover | bool | true | row hover highlight |
+| treeEmptyExpand | bool | false | show expand button while children data is empty |
+| treeCheckAll | bool | false | check children data while select all | 
+| onSortCancel | func | none | sort cancel event |
+| radio | bool | false | is Radio |
+| rowEvents | array | none | tr events |
+| defaultTreeExpandKeys | array | none | Default expanded row keys |
 
 ### Column
 | Property | Type | Default | Description |
@@ -50,3 +57,6 @@
 | align | string | 'left' | cell align \['left', 'center', 'right'\]
 | treeColumnsName | string | none | tree table children-data name |
 | treeIndent | number | 25 | indent of each level |   
+| minWidth | number | - | the minimum width of the column |
+| hide | bool | false | hide the column, only work on row-expand column |
+| dataChangeResize | bool | false | Recalculate columns width while data change |

@@ -67,7 +67,9 @@ class Number extends PureComponent {
 
   changeValue(mod) {
     if (this.props.disabled) return
-    let value = parseFloat(this.props.value)
+    let val = this.props.value
+    if (val === 0) val = '0'
+    let value = parseFloat(`${val || ''}`.replace(/,/g, ''))
     // eslint-disable-next-line
     if (isNaN(value)) value = 0
     this.handleChange(value + mod, true)
@@ -95,6 +97,8 @@ class Number extends PureComponent {
   }
 
   handleCalc(mod) {
+    const { onMouseDown } = this.props
+    if (onMouseDown) onMouseDown()
     this.hold = true
     this.changeValue(mod)
     this.keyPressTimeOut = setTimeout(() => {
@@ -108,24 +112,16 @@ class Number extends PureComponent {
   }
 
   handleMouseUp() {
+    const { onMouseUp } = this.props
+    if (onMouseUp) onMouseUp()
     this.hold = false
     if (this.keyPressTimeOut) clearTimeout(this.keyPressTimeOut)
   }
 
-  render() {
-    const { onChange, allowNull, ...other } = this.props
+  renderArrowGroup() {
+    const { hideArrow } = this.props
+    if (hideArrow) return []
     return [
-      <Input
-        key="input"
-        {...other}
-        className={inputClass('number')}
-        onChange={this.handleChange}
-        onKeyDown={this.handleKeyDown}
-        onKeyUp={this.handleKeyUp}
-        onBlur={this.handleBlur}
-        type="number"
-      />,
-
       <a
         key="up"
         // do not need the tab to focus
@@ -151,23 +147,44 @@ class Number extends PureComponent {
       </a>,
     ]
   }
+
+  render() {
+    const { onChange, allowNull, hideArrow, ...other } = this.props
+    return [
+      <Input
+        key="input"
+        {...other}
+        className={inputClass({ number: !hideArrow })}
+        onChange={this.handleChange}
+        onKeyDown={this.handleKeyDown}
+        onKeyUp={this.handleKeyUp}
+        onBlur={this.handleBlur}
+        type="number"
+      />,
+      ...this.renderArrowGroup(),
+    ]
+  }
 }
 
 Number.propTypes = {
   disabled: PropTypes.bool,
   min: PropTypes.number,
   max: PropTypes.number,
+  onMouseDown: PropTypes.func,
+  onMouseUp: PropTypes.func,
   onBlur: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   step: PropTypes.number,
   digits: PropTypes.number,
   allowNull: PropTypes.bool,
+  hideArrow: PropTypes.bool,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 }
 
 Number.defaultProps = {
   step: 1,
   allowNull: false,
+  hideArrow: false,
 }
 
 export default Number

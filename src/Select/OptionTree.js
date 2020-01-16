@@ -7,6 +7,7 @@ import { getLocale } from '../locale'
 import { selectClass } from '../styles'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
+const DATA_PATH_KEY = '$PATH'
 
 class OptionList extends Component {
   constructor(props) {
@@ -19,10 +20,11 @@ class OptionList extends Component {
     return this.props.text[key] || getLocale(key)
   }
 
-  handleClick(data) {
+  handleClick(data, _, p) {
+    const { path } = p
     const { datum, onChange } = this.props
     if (datum.disabled(data)) return
-    onChange(null, data)
+    onChange(null, { ...data, [DATA_PATH_KEY]: path })
   }
 
   renderItem(data) {
@@ -45,6 +47,7 @@ class OptionList extends Component {
       defaultExpanded,
       defaultExpandAll,
       renderPending,
+      childrenKey,
     } = this.props
     if (loading)
       return (
@@ -56,6 +59,7 @@ class OptionList extends Component {
     return (
       <div className={selectClass('tree-wrapper')}>
         <Tree
+          radioUpdate
           onClick={this.handleClick}
           line={false}
           data={treeData}
@@ -66,16 +70,17 @@ class OptionList extends Component {
           expanded={expanded}
           defaultExpandAll={defaultExpandAll}
           defaultExpanded={defaultExpanded}
+          childrenKey={childrenKey}
         />
       </div>
     )
   }
 
   render() {
-    const { focus, style, selectId, height } = this.props
+    const { focus, style, selectId, height, getRef } = this.props
     const mergeStyle = Object.assign({}, { maxHeight: height, overflowY: 'auto' }, style)
     return (
-      <ScaleList show={focus} style={mergeStyle} data-id={selectId} className={selectClass('options', 'tree')}>
+      <ScaleList getRef={getRef} show={focus} style={mergeStyle} data-id={selectId} className={selectClass('options', 'tree')}>
         {this.renderTree()}
       </ScaleList>
     )
@@ -100,6 +105,8 @@ OptionList.propTypes = {
   text: PropTypes.object,
   height: PropTypes.number,
   defaultExpandAll: PropTypes.bool,
+  childrenKey: PropTypes.string,
+  getRef: PropTypes.func,
 }
 
 export default OptionList

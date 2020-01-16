@@ -1,3 +1,5 @@
+English | [简体中文](./README-zh_CN.md)
+
 <p align="center">
   <img alt="react-router" src="https://user-images.githubusercontent.com/101764/44770646-44f53000-ab9b-11e8-834e-2b1394cea318.png" width="300">
 </p>
@@ -13,14 +15,20 @@
   <img src="https://img.shields.io/badge/React-%3E%3D16.0.0-green.svg?style=flat-square">
 </p>
 
-## Docs
+## Features
 
-[View docs here](https://sheinsight.github.io/shineout/)
+ - A concise and friendly API
+ - A set of high-performance React components out of the box.
+ - Always backward compatible
+ - Flexible theme customization
+
+<!-- [View docs here](https://sheinsight.github.io/shineout/) -->
 
 ## Requirements
 
 ```
-React >= 16.0.0
+react >= 16.0.0
+react-dom >= 16.0.0
 ```
 
 ## Browsers support
@@ -29,25 +37,71 @@ React >= 16.0.0
 | --------- | --------- | --------- | --------- | --------- | --------- |
 | IE10, IE11, Edge| last 2 versions| last 2 versions| last 2 versions| last 2 versions| last 2 versions |
 
+## Examples
+
+  - [Concise And Intelligent Form](https://shine.wiki/1.4.x/en/components/Form#heading-01-base)
+  
+   [<img src="./site/images/form.gif" />](https://shine.wiki/1.4.x/en/components/Form#heading-01-base)
+
+  - [Performance Table With 10000 Records](https://shine.wiki/1.4.x/en/components/Table#heading-08-bigdata)
+  
+   [<img src="./site/images/table.gif" />](https://shine.wiki/1.4.x/en/components/Table#heading-08-bigdata)
+
 ## Installation
 
-```
+```bash
 yarn add shineout
+```
 // or
+```bash
 npm install shineout
 ```
 
 ## CDN
 
-```
+```html
 <link rel="stylesheet" href="https://unpkg.com/shineout/dist/theme.default.css" />
 <script crossorigin src="https://unpkg.com/shineout/dist/shineout.min.js"></script>
 ```
 
 ## Usage
 
-```
+```javascript
 import { Button } from 'shineout'
 
 <Button />
 ```
+
+And import style manually:
+
+```javascript
+import 'shineout/dist/theme.default.css' // or 'shineout/dist/theme.antd.css'
+```
+
+## Internationalization
+
+See [i18n](https://shine.wiki/1.4.x/en/components/GetStart#heading-2-I18N)
+
+## Links
+
+- [Home page](http://shine.wiki/)
+- [Components](https://shine.wiki/1.4.x/en/components/GetStart)
+- [Smart Form](https://shine.wiki/1.4.x/en/components/Form#heading-01-base)
+- [Performance Table](https://shine.wiki/1.4.x/en/components/Table#heading-08-bigdata)
+- [Shineout template](https://codesandbox.io/s/delicate-http-y3duk)
+
+## Development
+
+clone locally:
+
+```bash
+$ git clone git@github.com:sheinsight/shineout.git
+$ cd shineout
+$ yarn
+$ yarn start
+```
+
+Open your browser and visit http://localhost:3000
+
+## LICENSE
+[MIT](./LICENSE)

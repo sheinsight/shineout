@@ -4,6 +4,7 @@ import classnames from 'classnames'
 import { inputClass, treeSelectClass } from '../styles'
 import { isObject } from '../utils/is'
 import Input from './Input'
+import Popover from '../Popover'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -20,7 +21,7 @@ function Item({ renderResult, data, disabled, onClick }) {
   const click = disabled || !onClick ? undefined : () => onClick(value)
   const synDisabled = disabled || !click
   return (
-    <a tabIndex={-1} className={treeSelectClass('item', disabled && 'disabled')}>
+    <a tabIndex={-1} className={treeSelectClass('item', disabled && 'disabled', synDisabled && 'ban')}>
       {getResultContent(data, renderResult)}
       {!synDisabled && <span className={treeSelectClass('indicator', 'close')} onClick={click} />}
     </a>
@@ -30,12 +31,25 @@ function Item({ renderResult, data, disabled, onClick }) {
 class Result extends PureComponent {
   constructor(props) {
     super(props)
+    this.state = {
+      more: false,
+    }
     this.handleRemove = this.handleRemove.bind(this)
+    this.handelMore = this.handelMore.bind(this)
+  }
+
+  componentDidUpdate() {
+    const { result, compressed } = this.props
+    if (compressed && result.length <= 1) this.state.more = false
   }
 
   handleRemove(...args) {
     const { onRemove } = this.props
     onRemove(...args)
+  }
+
+  handelMore(more) {
+    this.setState({ more })
   }
 
   renderClear() {
@@ -71,6 +85,29 @@ class Result extends PureComponent {
     )
   }
 
+  renderMore(list) {
+    const { datum, renderResult } = this.props
+    const { more } = this.state
+    return (
+      <a tabIndex={-1} key="more" className={treeSelectClass('item', 'item-compressed', more && 'item-more')}>
+        <span>{`+${list.length - 1}`}</span>
+        <Popover visible={more} onVisibleChange={this.handelMore} className={treeSelectClass('popover')}>
+          <div className={treeSelectClass('result')}>
+            {list.map((d, i) => (
+              <Item
+                key={i}
+                data={d}
+                disabled={datum.disabled(d)}
+                onClick={this.handleRemove}
+                renderResult={renderResult}
+              />
+            ))}
+          </div>
+        </Popover>
+      </a>
+    )
+  }
+
   renderPlaceholder() {
     const { focus, onFilter } = this.props
 
@@ -91,22 +128,19 @@ class Result extends PureComponent {
 
     if (multiple) {
       const neededResult = compressed ? result.slice(0, 1) : result
+      const firstRemove = !compressed || result.length === 1
       const items = neededResult.map((d, i) => (
         <Item
           key={i}
           data={d}
           disabled={datum.disabled(d)}
-          onClick={compressed ? undefined : this.handleRemove}
+          onClick={firstRemove ? this.handleRemove : undefined}
           renderResult={renderResult}
         />
       ))
 
       if (compressed && result.length > 1) {
-        items.push(
-          <a tabIndex={-1} key={result.length} className={treeSelectClass('item', 'item-compressed')}>
-            <span>{`+${result.length - 1}`}</span>
-          </a>
-        )
+        items.push(this.renderMore(result))
       }
 
       if (focus && onFilter) {

@@ -20,13 +20,14 @@
 | style | object | - | Container element style |
 | type | string | 'date' | options:  \['date', 'time', 'datetime', 'month', 'week'] |
 | value | string \| number \| Date \| array | - | When the value is string, it needs to match the format attribute. <br /> When the range property is true, the value is an array of length 2. |
-| defaultTime | string | - | Default time when selecting a date, the format is: 'HH:mm:ss' |
+| defaultTime | string \| array | - | Default time when selecting a date, the format is: 'HH:mm:ss' |
 | absolute | bool | false | When it is true, the pop-up layer of option append into document.body. |
 | zIndex | number | 1000 | panel z-index |
 | allowSingle | boolean | false | allow single select, only in range can set | 
 | quickSelect | array<object> | false | quick select, only in range can set, name: tip, value: range date | 
 | min | string \| number \| Date | none | option min value |
 | max | string \| number \| Date | none | option max value |
+| defaultRangeMonth | array:\[date] | - | The initial month of range selection, the value is a time object, valid only in range mode, and the priority is lower than value and defaultValue | 
 
 ### Format
 

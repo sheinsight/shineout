@@ -15,11 +15,13 @@ export default Origin =>
       value: PropTypes.any,
       noCache: PropTypes.bool,
       expanded: PropTypes.arrayOf(PropTypes.string),
+      showHitDescendants: PropTypes.bool,
     }
 
     static defaultProps = {
       data: [],
       filterDelay: 300,
+      showHitDescendants: false,
     }
 
     constructor(props) {
@@ -78,7 +80,7 @@ export default Origin =>
     }
 
     render() {
-      const { data, onFilter, expanded, ...other } = this.props
+      const { data, onFilter, expanded, showHitDescendants, ...other } = this.props
       const { innerFilter, filterText } = this.state
       const filterFn = onFilter ? this.handleFilter : undefined
 
@@ -86,7 +88,14 @@ export default Origin =>
       let newExpanded = expanded
       if (innerFilter) {
         const filterExpandedKeys = []
-        newData = getFilterTree(data, innerFilter, filterExpandedKeys, node => this.props.datum.getKey(node))
+        newData = getFilterTree(
+          data,
+          innerFilter,
+          filterExpandedKeys,
+          node => this.props.datum.getKey(node),
+          other.childrenKey,
+          showHitDescendants
+        )
         newExpanded = filterExpandedKeys
       }
 

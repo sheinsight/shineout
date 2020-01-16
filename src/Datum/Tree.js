@@ -14,13 +14,14 @@ export const CheckedMode = {
 
 export default class {
   constructor(options = {}) {
-    const { data, value, keygen, mode, disabled } = options
+    const { data, value, keygen, mode, disabled, childrenKey = 'children' } = options
 
     this.keygen = keygen
     this.mode = mode
     this.valueMap = new Map()
     this.events = {}
     this.disabled = disabled || (() => false)
+    this.childrenKey = childrenKey
 
     this.setValue(value)
     this.setData(data)
@@ -188,8 +189,8 @@ export default class {
       const indexPath = [...index, i]
       ids.push(id)
       let children = []
-      if (Array.isArray(d.children)) {
-        children = this.initData(d.children, [...path, id], isDisabled, indexPath)
+      if (Array.isArray(d[this.childrenKey])) {
+        children = this.initData(d[this.childrenKey], [...path, id], isDisabled, indexPath)
       }
       this.pathMap.set(id, {
         children,

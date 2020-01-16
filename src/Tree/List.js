@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import { treeClass } from '../styles'
 import { empty } from '../utils/func'
 import Node from './Node'
@@ -16,7 +17,7 @@ class List extends PureComponent {
   getKey(data, index) {
     const { id, keygen } = this.props
     if (typeof keygen === 'function') return keygen(data, id)
-    else if (keygen) return data[keygen]
+    if (keygen) return data[keygen]
     return id + (id ? ',' : '') + index
   }
 
@@ -33,7 +34,7 @@ class List extends PureComponent {
   }
 
   render() {
-    const { data, expanded, className, style } = this.props
+    const { data, expanded, className, style, childrenClassName } = this.props
 
     if (!expanded && !this.hasExpanded) return null
     this.hasExpanded = true
@@ -41,7 +42,13 @@ class List extends PureComponent {
     const newStyle = Object.assign({}, style, { display: expanded ? 'block' : 'none' })
 
     return (
-      <div className={className} ref={this.bindElement} onDrop={empty} onDragOver={empty} style={newStyle}>
+      <div
+        className={classnames(className, childrenClassName)}
+        ref={this.bindElement}
+        onDrop={empty}
+        onDragOver={empty}
+        style={newStyle}
+      >
         {data.map(this.renderNode)}
       </div>
     )
@@ -52,12 +59,13 @@ List.propTypes = {
   className: PropTypes.string,
   data: PropTypes.array,
   expanded: PropTypes.bool,
-  id: PropTypes.string,
+  id: PropTypes.any,
   isRoot: PropTypes.bool,
   keygen: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
   line: PropTypes.bool,
   setLine: PropTypes.func,
   style: PropTypes.object,
+  childrenClassName: PropTypes.string,
 }
 
 List.defaultProps = {

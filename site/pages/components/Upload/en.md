@@ -27,19 +27,22 @@
 | value | array | \[] | value |
 | withCredentials | bool | false | Whether to take the cookie |
 | multiple | bool | false | Whether multi-select files are supported |
+| renderContent | func(res, value, index, values) | - | Custom content of result  | 
 | validatorHandle | bool \| func(error, file) | true | Whether to handle the case of validation failure, if a function is provided, it is judged by the return value of the function. |
+| drop | bool | false | drop to update |
+| filesFilter | func(fileList) | none | Filter after file selection, users can customize the list of files that need to be uploaded eventually<br />Need to return a new file list |
 
 ### options 
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| file |  object | - |  the file |
-| onLoad | string | - | the event of uploading |
-| onError | any | - | the event of upload fail(in props is onHttpError) |
-| onProgress | string | - | the event of uploading progress |
-| onSuccess | array | - | the event of upload successing |
+| file |  File | - |  the file |
+| onLoad | function | - | the event of uploading |
+| onError | function | - | the event of upload fail(in props is onHttpError) |
+| onProgress | function | - | the event of uploading progress |
+| onSuccess | function | - | the event of upload successing |
 | params | object | - | the request params |
-| onStart | object | - | the event of start upload |
+| onStart | function | - | the event of start upload |
 | headers | object | - | the request header |
 
 ### Image

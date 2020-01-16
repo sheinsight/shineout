@@ -20,13 +20,14 @@
 | style | object | 无 | 最外层扩展样式 |
 | type | string | 'date' | 可选值为 \['date', 'time', 'datetime', 'month', 'week'] |
 | value | string \| number \| Date \| array | 无 | 值。为 string 时，需要和 format 属性匹配。<br />range 属性为 true 时，值为长度为2的数组 |
-| defaultTime | string | 无 | 选择日期时默认的时间, 格式为: 'HH:mm:ss' |
+| defaultTime | string \| array | 无 | 选择日期时默认的时间, 格式为: 'HH:mm:ss' |
 | absolute | bool | false | 为 true 时，选项弹出层在 DOM 中独立 render |
 | zIndex | number | 1000 | 选择面板 z-index 值 |
 | allowSingle | boolean | false | 是否允许单选, 仅在 range 模式下有效 | 
 | quickSelect | array<object> | false | 快速选择, 仅在 range 模式下有效, name: 文字提示, value: 时间范围 | 
-| min | string \| number \| Date | 无 | 可选最小值，暂不支持 range 模式 |
-| max | string \| number \| Date | 无 | 可选最大值，暂不支持 range 模式 |
+| min | string \| number \| Date | 无 | 可选最小值 |
+| max | string \| number \| Date | 无 | 可选最大值 |
+| defaultRangeMonth | array:\[date \| number] | 无 | 范围选择的初始月份, 值为时间对象 或者时间戳, 仅在 range 模式下生效, 优先级低于 value 和 defaultValue | 
 
 ### Format
 

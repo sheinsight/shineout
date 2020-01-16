@@ -3,17 +3,24 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { Component } from '../component'
 import { getLocale } from '../locale'
+import { compose } from '../utils/func'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { tableClass } from '../styles'
 import Datum from '../Datum'
 import Spin from '../Spin'
 import resizableHOC from './resizable'
-import SimpleTable from './SimpleTable'
 import SeperateTable from './SeperateTable'
+import SimpleTable from './SimpleTable'
 import { ROW_HEIGHT_UPDATE_EVENT } from './Tr'
 import { RENDER_COL_GROUP_EVENT } from './Tbody'
 
 const ResizeSeperateTable = resizableHOC(SeperateTable)
+const ResizeSimpleTable = resizableHOC(SimpleTable)
+
+const RadioWrapper = Origin => props => (
+  // eslint-disable-next-line react/prop-types
+  <Origin {...props} distinct limit={props.radio ? 1 : 0} />
+)
 
 class Table extends Component {
   constructor(props) {
@@ -70,7 +77,7 @@ class Table extends Component {
       tableClass(
         '_',
         size,
-        hover && !striped && 'hover',
+        hover && 'hover',
         bordered && 'bordered',
         fixed && 'fixed',
         scrollLeft > 0 && 'left-float',
@@ -98,8 +105,9 @@ class Table extends Component {
 
     const isEmpty = (!data || data.length === 0) && !children
     const useSeparate = fixed && !isEmpty
-    const ResizeTable = columnResizable ? ResizeSeperateTable : SeperateTable
-    const RenderTable = useSeparate ? ResizeTable : SimpleTable
+    const ResizeSepTable = columnResizable ? ResizeSeperateTable : SeperateTable
+    const ResizeSimTable = columnResizable ? ResizeSimpleTable : SimpleTable
+    const RenderTable = useSeparate ? ResizeSepTable : ResizeSimTable
     const newStyle = Object.assign({}, style)
     if (height) newStyle.height = height
     if (useSeparate && !newStyle.height) newStyle.height = '100%'
@@ -144,14 +152,15 @@ Table.defaultProps = {
   hover: true,
   rowsInView: 20,
   verticalAlign: 'top',
+  columns: [],
 }
 
-export default Datum.hoc(
-  {
-    bindProps: ['disabled', 'format', 'prediction'],
+export default compose(
+  RadioWrapper,
+  Datum.hoc({
+    bindProps: ['disabled', 'format', 'prediction', 'limit', 'distinct'],
     ignoreUndefined: true,
     setValueType: null,
     pure: false,
-  },
-  Table
-)
+  })
+)(Table)

@@ -1,60 +1,63 @@
 import { docScroll, docSize } from './document'
 
 const posKeys = ['left', 'top', 'bottom', 'right']
-export const getPosition = (position, el) => {
+export const getPosition = (position, el, container = document.body) => {
   const rect = el.getBoundingClientRect()
-  const scrollTop = docScroll.top
-  const scrollLeft = docScroll.left
-  const pos = {}
+  let containerRect = { top: 0, left: 0, bottom: 0, right: 0 }
+  if (container.tagName === 'BODY') container = undefined
+  if (container) containerRect = container.getBoundingClientRect()
+  const scrollTop = container ? 0 : docScroll.top
+  const scrollLeft = container ? 0 : docScroll.left
 
+  const pos = {}
   switch (position) {
     case 'top-left':
-      pos.left = scrollLeft + rect.left
-      pos.top = scrollTop + rect.top
+      pos.left = scrollLeft + rect.left - containerRect.left
+      pos.top = scrollTop + rect.top - containerRect.top
       break
     case 'top':
-      pos.left = scrollLeft + rect.left + rect.width / 2
-      pos.top = scrollTop + rect.top
+      pos.left = scrollLeft + rect.left - containerRect.left + rect.width / 2
+      pos.top = scrollTop + rect.top - containerRect.top
       break
     case 'top-right':
-      pos.right = docSize.width - rect.right - scrollLeft
-      pos.top = scrollTop + rect.top
+      pos.right = (containerRect.right || docSize.width) - rect.right - scrollLeft
+      pos.top = scrollTop + rect.top - containerRect.top
       break
     case 'left-top':
-      pos.left = scrollLeft + rect.left
-      pos.top = scrollTop + rect.top
+      pos.left = scrollLeft + rect.left - containerRect.left
+      pos.top = scrollTop + rect.top - containerRect.top
       break
     case 'left':
-      pos.left = scrollLeft + rect.left
-      pos.top = scrollTop + rect.top + rect.height / 2
+      pos.left = scrollLeft + rect.left - containerRect.left
+      pos.top = scrollTop + rect.top - containerRect.top + rect.height / 2
       break
     case 'left-bottom':
-      pos.left = scrollLeft + rect.left
-      pos.top = scrollTop + rect.bottom
+      pos.left = scrollLeft + rect.left - containerRect.left
+      pos.top = scrollTop + rect.bottom - containerRect.bottom
       break
     case 'right-top':
-      pos.left = scrollLeft + rect.left + rect.width
-      pos.top = scrollTop + rect.top
+      pos.left = scrollLeft + rect.left - containerRect.left + rect.width
+      pos.top = scrollTop + rect.top - containerRect.top
       break
     case 'right':
-      pos.left = scrollLeft + rect.left + rect.width
-      pos.top = scrollTop + rect.top + rect.height / 2
+      pos.left = scrollLeft + rect.left - containerRect.left + rect.width
+      pos.top = scrollTop + rect.top - containerRect.top + rect.height / 2
       break
     case 'right-bottom':
-      pos.left = scrollLeft + rect.left + rect.width
-      pos.top = scrollTop + rect.bottom
+      pos.left = scrollLeft + rect.left - containerRect.left + rect.width
+      pos.top = scrollTop + rect.bottom - containerRect.bottom
       break
     case 'bottom-left':
-      pos.left = scrollLeft + rect.left
-      pos.top = scrollTop + rect.top + rect.height
+      pos.left = scrollLeft + rect.left - containerRect.left
+      pos.top = scrollTop + rect.top - containerRect.top + rect.height
       break
     case 'bottom':
-      pos.left = scrollLeft + rect.left + rect.width / 2
-      pos.top = scrollTop + rect.top + rect.height
+      pos.left = scrollLeft + rect.left - containerRect.left + rect.width / 2
+      pos.top = scrollTop + rect.top - containerRect.top + rect.height
       break
     case 'bottom-right':
-      pos.right = docSize.width - rect.right - scrollLeft
-      pos.top = scrollTop + rect.top + rect.height
+      pos.right = (containerRect.right || docSize.width) - rect.right - scrollLeft
+      pos.top = scrollTop + rect.top - containerRect.top + rect.height
       break
     default:
   }

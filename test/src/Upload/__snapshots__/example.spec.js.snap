@@ -5,7 +5,9 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-01-base.js] 
   <span>
     <button>
       <i />
-      Upload file
+      <span>
+        Upload file
+      </span>
     </button>
     <input />
   </span>
@@ -17,7 +19,9 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-01-onChange.
   <span>
     <button>
       <i />
-      Upload file
+      <span>
+        Upload file
+      </span>
     </button>
     <input />
   </span>
@@ -25,6 +29,19 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-01-onChange.
 `;
 
 exports[`Snapshot test: Upload[site/pages/components/Upload/example-02-image.js] 1`] = `
+<div>
+  <span>
+    <span>
+      <div>
+        <div />
+      </div>
+      <input />
+    </span>
+  </span>
+</div>
+`;
+
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-02-show-image.js] 1`] = `
 <div>
   <span>
     <div>
@@ -70,7 +87,9 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-05-filesize.
     <span>
       <button>
         <i />
-         Upload file
+        <span>
+           Upload file
+        </span>
       </button>
       <input />
     </span>
@@ -92,7 +111,9 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-06-error.js]
     <span>
       <button>
         <i />
-         Upload file
+        <span>
+           Upload file
+        </span>
       </button>
       <input />
     </span>
@@ -114,7 +135,9 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-07-recover.j
     <span>
       <button>
         <i />
-         Upload file
+        <span>
+           Upload file
+        </span>
       </button>
       <input />
     </span>
@@ -135,7 +158,9 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-08-request.j
   <span>
     <button>
       <i />
-       Upload file
+      <span>
+         Upload file
+      </span>
     </button>
     <input />
   </span>
@@ -147,7 +172,9 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-09-zip.js] 1
   <span>
     <button>
       <i />
-       Upload file
+      <span>
+         Upload file
+      </span>
     </button>
     <input />
   </span>
@@ -160,7 +187,9 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-10-defaultVa
     <span>
       <button>
         <i />
-         Upload file
+        <span>
+           Upload file
+        </span>
       </button>
       <input />
     </span>
@@ -180,7 +209,6 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-10-defaultVa
       <a>
         <div>
           <div>
-             
             <span>
               loading...
             </span>
@@ -201,25 +229,30 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-11-dragger.j
 <div>
   <div>
     <span>
-      <div>
+      <span>
         <div>
-          <i />
-          <br />
-          Click or Drag image to upload
+          <div>
+            <i />
+            <br />
+            Click or Drag image to upload
+          </div>
         </div>
-      </div>
-      <input />
+        <input />
+      </span>
     </span>
   </div>
   <br />
   <div>
     <span>
-      <div>
-        <i />
-        <br />
-        Click or Drag file to upload
-      </div>
-      <input />
+      <span>
+        <button>
+          <i />
+          <span>
+              Drop file to upload
+          </span>
+        </button>
+        <input />
+      </span>
     </span>
   </div>
 </div>

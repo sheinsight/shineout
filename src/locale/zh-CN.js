@@ -42,4 +42,7 @@ export default {
     },
     reg: '{title} 格式不正确',
   },
+
+  selected: '项',
+  search: '搜索',
 }

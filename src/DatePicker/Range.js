@@ -71,7 +71,7 @@ class Range extends PureComponent {
   }
 
   handleChange(index, date, change, end, mode) {
-    const { type, range } = this.props
+    const { type, range, min, max } = this.props
 
     if (!change) {
       const current = immer(this.props.current, draft => {
@@ -130,7 +130,12 @@ class Range extends PureComponent {
     }
 
     utils.cloneTime(date, this.props.value[index])
-
+    if (min && utils.compareAsc(date, min) <= 0) {
+      utils.setTime(date, min)
+    }
+    if (max && utils.compareAsc(date, max) >= 0) {
+      utils.setTime(date, max)
+    }
     // if (this.state.rangeDate.filter(a => a).length !== 1) {
     //   this.setState({ rangeDate: index === 1 ? [undefined, date] : [date], hover: undefined })
     //   return
@@ -141,8 +146,7 @@ class Range extends PureComponent {
         // const method = utils.compareAsc(draft.rangeDate[0], date) > 0 ? 'unshift' : 'push'
         draft.rangeDate[index] = date
         draft.rangeDate[1 - index] = draft.rangeDate[1 - index] || ''
-        draft.rangeDate.map(this.fillTime)
-
+        // draft.rangeDate.map(this.fillTime)
         // range change start&end
         this.changeDateSmart(draft.rangeDate)
         draft.hover = undefined
@@ -206,7 +210,6 @@ class Range extends PureComponent {
     const { current, value, range, children, min, max, quicks, ...props } = this.props
     const quick = this.createQuick()
     const rangeDate = [...this.state.rangeDate]
-
     return (
       <div className={datepickerClass('range-picker')}>
         {quick || children}
@@ -215,7 +218,8 @@ class Range extends PureComponent {
           pos="start"
           disabled={this.handleDisabledStart}
           index={0}
-          max={rangeDate[1]}
+          min={min}
+          max={max}
           current={current[0]}
           range={typeof range === 'number' ? range : undefined}
           rangeDate={rangeDate}
@@ -230,7 +234,8 @@ class Range extends PureComponent {
           {...props}
           disabled={this.handleDisabledEnd}
           index={1}
-          min={rangeDate[0]}
+          min={rangeDate[0] ? rangeDate[0] : min}
+          max={max}
           current={current[1]}
           range={typeof range === 'number' ? range : undefined}
           rangeDate={rangeDate}
