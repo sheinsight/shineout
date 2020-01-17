@@ -47,6 +47,8 @@ class ScrollBar extends PureComponent {
   }
 
   handleBarClick(event) {
+    const { offset } = this.props
+    this.cacheOffset = offset
     this.setState({ dragging: true })
     this.mouseX = event.clientX
     this.mouseY = event.clientY
@@ -60,13 +62,14 @@ class ScrollBar extends PureComponent {
     this.mouseX = event.clientX
     this.mouseY = event.clientY
 
-    const { direction, offset, length, onScroll, barLength } = this.props
+    const { direction, length, onScroll, barLength } = this.props
     const value = direction === 'x' ? x : y
 
-    let newOffset = offset + value / (length - barLength)
+    let newOffset = this.cacheOffset + value / (length - barLength)
     if (newOffset < 0) newOffset = 0
     if (newOffset > 1) newOffset = 1
-
+    if (newOffset === this.cacheOffset) return
+    this.cacheOffset = newOffset
     onScroll(newOffset)
   }
 
