@@ -38,7 +38,7 @@ class Tabs extends PureComponent {
   }
 
   getActive() {
-    if (this.props.active) return this.props.active
+    if ('active' in this.props) return this.props.active
     return this.state.active
   }
 
