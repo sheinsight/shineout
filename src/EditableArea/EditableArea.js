@@ -75,9 +75,9 @@ class EditableArea extends React.PureComponent {
 
   showClear() {
     const { showTextarea, showClear } = this.state
-    const { clearable } = this.props
+    const { clearable, disabled } = this.props
     const value = this.getValue()
-    return value && showClear && !showTextarea && clearable
+    return value && showClear && !showTextarea && clearable && !disabled
   }
 
   handleResize() {
@@ -93,7 +93,8 @@ class EditableArea extends React.PureComponent {
   }
 
   handleFocus(e) {
-    const { onFocus } = this.props
+    const { onFocus, disabled } = this.props
+    if (disabled) return
     document.addEventListener('mousedown', this.handleMousedown)
     this.handleToggle(true)
     if (onFocus) onFocus(e)
@@ -147,14 +148,21 @@ class EditableArea extends React.PureComponent {
 
   renderItem() {
     const { showTextarea, height } = this.state
-    const { style, placeholder, onBlur } = this.props
+    const { style, placeholder, onBlur, bordered, disabled } = this.props
     const value = this.getValue()
+    const showClear = this.showClear()
     return [
       // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
       <pre
         key="pre"
         ref={this.bindPlaceholder}
-        className={editableAreaClass('placeholder', !showTextarea && 'placeholder-one-line')}
+        className={editableAreaClass(
+          'placeholder',
+          !showTextarea && 'placeholder-one-line',
+          bordered && 'bordered',
+          disabled ? 'disabled' : 'editable',
+          showClear && 'reset-padding-right'
+        )}
       >
         {this.getPreTagValue(value)}
       </pre>,
@@ -167,10 +175,10 @@ class EditableArea extends React.PureComponent {
         spellCheck="false"
         style={{ height, lineHeight: (style || {}).lineHeight }}
         rows={1}
-        className={editableAreaClass('textarea', showTextarea ? 'edit' : 'show')}
+        className={editableAreaClass('textarea', showTextarea ? 'edit' : 'show', disabled && 'disabled')}
         value={showTextarea ? value : formatShowValue(value)}
       />,
-      this.showClear() && (
+      showClear && (
         <div key="d" style={{ height }} className={editableAreaClass('clear-wrapper')}>
           <Clear
             onClick={() => {
@@ -208,11 +216,18 @@ EditableArea.propTypes = {
   defaultValue: PropTypes.string,
   placeholder: PropTypes.string,
   clearable: PropTypes.bool,
+  onFocus: PropTypes.func,
+  className: PropTypes.shape(),
+  onBlur: PropTypes.func,
+  bordered: PropTypes.bool,
+  disabled: PropTypes.bool,
 }
 
 EditableArea.defaultProps = {
   defaultValue: '',
   clearable: true,
+  bordered: false,
+  disabled: false,
 }
 
 export default EditableArea

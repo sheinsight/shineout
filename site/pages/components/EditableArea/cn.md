@@ -10,6 +10,8 @@
 | value | string | 无 | 受控时，传入的value |
 | onChange | function(value) | 无 | 值改变时的回调函数，和value一起设置时使组件受控 |
 | style | object | 无 | 组件最外层的扩展样式 |
+| bordered | bool | false | 是否显示外边框 |
+| disabled | bool | false | 是否禁用 |
 | clearable | bool | true | 是否展示清除按钮 |
 | placeholder | string | 无 | 同原生 textarea 标签的 placeholder |
 | delay | number | 400 | 用户输入触发 onChange 和校验间隔时间，单位 毫秒 |
