@@ -175,12 +175,7 @@ class EditableArea extends React.PureComponent {
         spellCheck="false"
         style={{ height, lineHeight: (style || {}).lineHeight }}
         rows={1}
-        className={editableAreaClass(
-          'textarea',
-          showTextarea ? 'edit' : 'show',
-          disabled && 'disabled',
-          showClear && 'reset-padding-right'
-        )}
+        className={editableAreaClass('textarea', showTextarea ? 'edit' : 'show', disabled && 'disabled')}
         value={showTextarea ? value : formatShowValue(value)}
       />,
       showClear && (
