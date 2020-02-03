@@ -52,7 +52,6 @@ class Day extends PureComponent {
   handleDayClick(date) {
     const { type, allowSingle, rangeDate, min, max, index } = this.props
     const current = this.formatWithDefaultTime()
-
     if (type === 'week') {
       // if (date.getDay() === 0) {
       //   date = utils.subDays(date, 1)
