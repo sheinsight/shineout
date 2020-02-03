@@ -49,7 +49,7 @@ export default Origin =>
     }
 
     getTreeResult(value, prediction) {
-      const { treeData } = this.props
+      const { treeData, childrenKey = 'children' } = this.props
       let finded
       const treeNode = children => {
         if (finded) return false
@@ -57,7 +57,7 @@ export default Origin =>
         for (let i = 0; i < children.length; i++) {
           const d = children[i]
           if (prediction(value, d)) finded = d
-          treeNode(d.children)
+          treeNode(d[childrenKey])
         }
         return false
       }
