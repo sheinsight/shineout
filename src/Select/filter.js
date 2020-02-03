@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { getKey } from '../utils/uid'
+import shallowEqual from '../utils/shallowEqual'
 import { getFilterTree } from '../utils/tree'
 import { IS_NOT_MATCHED_VALUE } from './Result'
 
@@ -88,8 +89,9 @@ export default Origin =>
       const result = []
       values.forEach(v => {
         let res = noCache ? undefined : this.resultCache.get(v)
-        if (!res) {
-          res = this.getResult(v)
+        const mayCacheRes = this.getResult(v)
+        if (!res || !shallowEqual(res, mayCacheRes)) {
+          res = mayCacheRes
           if (res && !noCache) this.resultCache.set(v, res)
           else if (!res) res = { [IS_NOT_MATCHED_VALUE]: true, value: v }
         }
