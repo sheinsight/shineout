@@ -49,9 +49,27 @@ const handleScroll = () => {
 export function addStack(obj) {
   const scrollEl = obj.container || document
   obj.offset = obj.offset || 0
-
-  scrollEl.addEventListener('scroll', handleScroll, eventPassive)
-
+  if (window.IntersectionObserver) {
+    const root = obj.container || null
+    const rootMargin = `${obj.offset}px`
+    obj.io = new IntersectionObserver(
+      entries => {
+        entries.forEach(en => {
+          if (en.isIntersecting) {
+            obj.render()
+            obj.io.unobserve(en.target)
+          }
+        })
+      },
+      {
+        root,
+        rootMargin,
+      }
+    )
+    obj.io.observe(obj.element)
+  } else {
+    scrollEl.addEventListener('scroll', handleScroll, eventPassive)
+  }
   const rect = obj.element.getBoundingClientRect()
   const containerRect = getRect(obj.container)
 
@@ -67,5 +85,7 @@ export function addStack(obj) {
 
 export function removeStack(id) {
   if (!id) return
+  const { io } = components[id]
+  if (io && io.disconnect) io.disconnect()
   delete components[id]
 }
