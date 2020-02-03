@@ -41,18 +41,11 @@ class Day extends PureComponent {
   }
 
   formatWithDefaultTime() {
-<<<<<<< HEAD
-    const { current, defaultTime } = this.props
-    console.log(current)
-    if (!defaultTime[0]) return current
-    return utils.cloneTime(current, defaultTime[0], utils.TIME_FORMAT)
-=======
     let idx = 0
     const { current, defaultTime, index } = this.props
     if (typeof index === 'number') idx = index
     if (!defaultTime[idx]) return current
     return utils.cloneTime(current, defaultTime[idx], utils.TIME_FORMAT)
->>>>>>> shineout/dev
   }
 
   handleDayClick(date) {
@@ -106,15 +99,8 @@ class Day extends PureComponent {
   renderDay(date, minD, maxD) {
     const { current, disabled, value, index, type, rangeDate, range, rangeTemp, min, max } = this.props
     const { hover } = this.state
-<<<<<<< HEAD
-    if (this.props.defaultTime[0]) {
-      date = utils.cloneTime(date, this.props.defaultTime[0], utils.TIME_FORMAT)
-    }
-    console.log(date)
-=======
     const hmsDate = new Date(date)
     utils.setTime(hmsDate, current)
->>>>>>> shineout/dev
     let isDisabled = disabled ? disabled(date) : false
 
     // only for single, single picker don't has index
