@@ -39,3 +39,4 @@
 | showArrow | bool | true | show dropdown arrow, only single select |
 | showHitDescendants | bool | false | Whether to show the descendant nodes of the hit node after filtering |
 | focusSelected | bool | true | selected value while click under onCreate or onFilter |
+| noCache | bool | false | data cache, if data change asynchronously, better set true |
