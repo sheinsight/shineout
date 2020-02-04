@@ -15,6 +15,7 @@ export interface SelectProps {
     autoAdapt?: any;
     showArrow?: any;
     focusSelected?: any;
+    noCache?: boolean;
 }
 
 export default class Select extends React.Component<SelectProps, any> {
