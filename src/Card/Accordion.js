@@ -4,6 +4,11 @@ import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { cardClass } from '../styles'
 
+const getChildId = (child, i) => {
+  if (child && child.props && child.props.id !== undefined) return child.props.id
+  return i
+}
+
 class Accordion extends PureComponent {
   constructor(props) {
     super(props)
@@ -19,7 +24,7 @@ class Accordion extends PureComponent {
   }
 
   handleActive(active) {
-    if (active === this.state.active) active = -1
+    if (active === this.state.active) active = null
     this.setState({ active })
     if (this.props.onChange) this.props.onChange(active)
   }
@@ -27,11 +32,12 @@ class Accordion extends PureComponent {
   render() {
     const active = this.getActive()
     return Children.toArray(this.props.children).map((child, i) => {
+      const childId = getChildId(child, i)
       const props = {
-        collapsed: active !== i,
+        collapsed: active !== childId,
         collapsible: true,
         className: classnames(typeof child === 'object' && child.className, cardClass('accordion')),
-        onCollapse: this.handleActive.bind(this, i),
+        onCollapse: this.handleActive.bind(this, childId),
       }
       return cloneElement(child, props)
     })
@@ -39,11 +45,8 @@ class Accordion extends PureComponent {
 }
 
 Accordion.propTypes = {
-  active: PropTypes.number,
-  children: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.array,
-  ]),
+  active: PropTypes.any,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
   defaultActive: PropTypes.number,
   onChange: PropTypes.func,
 }
