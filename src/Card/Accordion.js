@@ -32,7 +32,6 @@ class Accordion extends PureComponent {
   render() {
     const active = this.getActive()
     return Children.toArray(this.props.children).map((child, i) => {
-      console.log(child)
       const childId = getChildId(child, i)
       const props = {
         collapsed: active !== childId,
