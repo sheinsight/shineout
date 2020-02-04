@@ -122,6 +122,20 @@ plugins: [
 ],
 ```
 
+### 输入延迟
+
+输入延迟指的是用户输入触发 onChange 和校验间隔时间，Input、TextArea、EditableArea 组件具有该功能，默认为 400毫秒。
+
+可以通过设置 config.delay 改变全局的延迟时间。
+
+```
+import config from 'shineout/config'
+config.setConfig({
+  delay: 0
+})
+
+```
+
 ## 在 Create-React-App 中使用
 
 <br />
