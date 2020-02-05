@@ -13,7 +13,7 @@
 | data | object\[] | - | data |
 | datum | object | - | If the format and prediction does not satisfied your requirements, you can pass in a [Datum.List](/components/Datum.List) object or the Datum.List configuration to process data. |
 | disabled | bool \| function | false | When the value is true, disabled all checkboxes; When the value is function, disable the checkbox that this function returns true. |
-| fixed | string | - | options:  \['both', 'x', 'y'\], empty will disabled lazy load | 
+| fixed | string | - | options:  \['both', 'x', 'y', 'auto'\], empty will disabled lazy load | 
 | format | string \| function | d => d | Format value<br />The defaule value is return the original data.<br />When it is a string, the value is fetched from the original data as a key equivalent to (d) => d\[format]<br />When it is a function, use its return value. |
 | loading | bool \| element | false | When it is true, a default [Spin](/components/Spin) component will be displayed, a custom loading icon can be passed in to replace. |
 | keygen | string \| function(obj):string | index | Generate a auxiliary method for each key<br />If not filled, index will be used (not recommended, in some cases there may be problems)<br />When it is a function, use its return value. <br />When it is a string，ues the value of the string.For example, 'id' is the same thing as (d) => d.id . |

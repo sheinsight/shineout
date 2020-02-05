@@ -6,6 +6,7 @@ import { getLocale } from '../locale'
 import { compose } from '../utils/func'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { tableClass } from '../styles'
+import fixedAuto from './fixedAuto'
 import Datum from '../Datum'
 import Spin from '../Spin'
 import resizableHOC from './resizable'
@@ -47,7 +48,9 @@ class Table extends Component {
   }
 
   bindTable(el) {
+    const { bindWrapper } = this.props
     this.table = el
+    if (el && bindWrapper) bindWrapper(el)
   }
 
   render() {
@@ -145,6 +148,7 @@ Table.propTypes = {
   verticalAlign: PropTypes.oneOf(['top', 'middle']),
   width: PropTypes.number,
   columnResizable: PropTypes.bool,
+  bindWrapper: PropTypes.func,
 }
 
 Table.defaultProps = {
@@ -162,5 +166,6 @@ export default compose(
     ignoreUndefined: true,
     setValueType: null,
     pure: false,
-  })
+  }),
+  fixedAuto
 )(Table)

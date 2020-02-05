@@ -1,9 +1,11 @@
 /**
  * cn - 固定表头
  *    -- 设置 fixed 属性为 'both' 或 'y'，可以固定表头，表格高度默认填充父元素
+ *    -- 设置 fixed 属性为 'auto'，可以自动展示滚动条
  *    -- 注:横向滚动需要指定 Table 的 width 属性, 不建议给所有的 column 设置宽度, 如果出现表头对不齐的问题, 请尝试至少留一列不设宽度以适应弹性布局，或者检查表格内容是否有超长不换行元素破坏布局.
  * en - Fixed head
  *    -- Set the fixed property to 'both' or 'y' can fix the table header. The table height defaults to full the parent element.
+ *    -- Set the fixed property to 'auto' can auto show scrollbar.
  *    -- Note: Horizontal scrolling requires the width property of Table, it is not recommended to set the width for all columns, if there is a problem with tablehead pairs, try leaving at least one column without a width to fit the elastic layout, or check the table contentford for excessively long unwrapped elements to break the layout.
  */
 import React from 'react'
@@ -28,7 +30,7 @@ const columns = [
 function Normal() {
   return (
     <div style={{ height: 300, marginBottom: 40 }}>
-      <Table rowsInView={0} fixed="both" keygen="id" width={1500} columns={columns} bordered data={data} />
+      <Table rowsInView={0} fixed="auto" keygen="id" width={1500} columns={columns} bordered data={data} />
     </div>
   )
 }
