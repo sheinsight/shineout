@@ -89,3 +89,16 @@ export function removeStack(id) {
   if (io && io.disconnect) io.disconnect()
   delete components[id]
 }
+
+export function throttleWrapper(cb) {
+  let timer = null
+  return (...args) => {
+    const ctx = this
+    if (!timer) {
+      timer = setTimeout(() => {
+        cb.apply(ctx, args)
+        timer = null
+      }, throttle)
+    }
+  }
+}

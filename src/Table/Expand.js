@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { throttleWrapper } from '../utils/lazyload'
 
 const iframeStyle = {
   position: 'absolute', left: 0, width: 0, height: '100%', border: 0,
@@ -34,7 +35,7 @@ class Expand extends PureComponent {
 
   bindIframe(el) {
     if (el && el.contentWindow) {
-      el.contentWindow.onresize = this.setHeight
+      el.contentWindow.onresize = throttleWrapper(this.setHeight)
     }
   }
 

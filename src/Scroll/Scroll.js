@@ -8,6 +8,7 @@ import normalizeWheel from '../utils/dom/normalizeWheel'
 import { scrollClass } from '../styles'
 import Bar from './Bar'
 import { Provider } from './context'
+import { throttleWrapper } from '../utils/lazyload'
 
 export const BAR_WIDTH = 16
 
@@ -105,7 +106,7 @@ class Scroll extends PureComponent {
 
   bindIframe(el) {
     if (el && el.contentWindow) {
-      el.contentWindow.onresize = this.setRect
+      el.contentWindow.onresize = throttleWrapper(this.setRect)
     }
   }
 
