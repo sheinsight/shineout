@@ -29,5 +29,5 @@
 | onSelectChange | function: (souceKeys, targetKeys) => void | - |  Check the trigger method |
 | disabled | bool \| function | false | When the value is true, disabled all checkboxes; When the value is function, disable the checkbox that this function returns true. |
 | empty | element \| string | "no data" | Contentless display |
-| onFilter | function: (text, value) => bool | - | Filter function |
+| onFilter | function: (text, value, isSource) => bool | - | Filter function. params: input text, the data, is data on left |
 | loading| boolean \| array: boolean | - | Loading, if you need to have inconsistent states on both sides of the load, you need to pass in the array |

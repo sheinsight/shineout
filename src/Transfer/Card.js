@@ -106,7 +106,7 @@ class Card extends Component {
           <SCard.Body className={classnames(transferClass('card-body'), listClassName)} style={listStyle}>
             {data.map((d, i) => {
               const key = getKey(d, keygen, i)
-              if (onFilter && !onFilter(this.state.filter, d)) return null
+              if (onFilter && !onFilter(this.state.filter, d, !index)) return null
 
               this.hasData = true
 
