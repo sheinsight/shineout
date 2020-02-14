@@ -21,9 +21,11 @@ function Item({ renderResult, renderUnmatched, data, disabled, onClick }) {
   const value = data
   const click = disabled || !onClick ? undefined : () => onClick(value)
   const synDisabled = disabled || !click
+  const content = getResultContent(data, renderResult, renderUnmatched)
+  if (content === null) return null
   return (
     <a tabIndex={-1} className={selectClass('item', disabled && 'disabled', synDisabled && 'ban')}>
-      {getResultContent(data, renderResult, renderUnmatched)}
+      {content}
       {!synDisabled && <span className={selectClass('indicator', 'close')} onClick={click} />}
     </a>
   )
