@@ -56,6 +56,10 @@ class Card extends Component {
   }
 
   filterChange(v) {
+    const { onSearch, index } = this.props
+
+    if (onSearch) onSearch(v, !index)
+
     this.setState({ filter: v })
   }
 
@@ -74,6 +78,7 @@ class Card extends Component {
       empty,
       disabled,
       loading,
+      onSearch,
     } = this.props
 
     const check = this.getCheckAll()
@@ -91,7 +96,7 @@ class Card extends Component {
           </div>
           <div className={transferClass('card-header-title')}>{title}</div>
         </SCard.Header>
-        {onFilter && (
+        {(onFilter || onSearch) && (
           <div className={transferClass('filter')}>
             <Input
               disabled={disable}
@@ -99,6 +104,7 @@ class Card extends Component {
               placeholder={getLocale('search')}
               clearable
               size="small"
+              value={this.state.filter}
             />
           </div>
         )}
@@ -147,6 +153,7 @@ Card.propTypes = {
   onFilter: PropTypes.func,
   empty: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   loading: PropTypes.bool,
+  onSearch: PropTypes.func,
 }
 
 export default Card
