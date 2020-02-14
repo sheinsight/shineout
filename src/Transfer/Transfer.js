@@ -59,6 +59,7 @@ class Transfer extends PureComponent {
       listClassName,
       listStyle,
       onFilter,
+      onSearch,
       empty,
       disabled,
       itemClass,
@@ -93,6 +94,7 @@ class Transfer extends PureComponent {
             onFilter={onFilter}
             empty={empty}
             disabled={disabled}
+            onSearch={onSearch}
           />
           <Btns
             selecteds={selecteds}
@@ -121,6 +123,7 @@ class Transfer extends PureComponent {
             onFilter={onFilter}
             empty={empty}
             disabled={disabled}
+            onSearch={onSearch}
           />
         </Context.Provider>
       </div>
@@ -159,6 +162,7 @@ Transfer.propTypes = {
   onFilter: PropTypes.func,
   itemClass: PropTypes.string,
   loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
+  onSearch: PropTypes.func,
 }
 
 export default Transfer
