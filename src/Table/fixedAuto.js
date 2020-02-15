@@ -21,7 +21,7 @@ export default Table =>
     }
 
     componentDidUpdate(prevProps) {
-      const diff = ['data', 'fixed', 'width', 'height'].find(k => prevProps[k] !== this.props[k])
+      const diff = ['data', 'fixed', 'width', 'height'].find(k => this.props[k] && prevProps[k] !== this.props[k])
       const reset = !compareColumns(prevProps.columns, this.props.columns) || diff
       if (reset) {
         this.setState({
