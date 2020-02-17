@@ -25,10 +25,10 @@ export function dispatch() {
 
   // handle
   Object.keys(components).forEach(k => {
-    const { element, render, container } = components[k]
+    const { element, render, container, offset } = components[k]
     const rect = element.getBoundingClientRect()
     const containerRect = getRect(container)
-    if (rect.bottom < containerRect.top || rect.top > containerRect.bottom) return
+    if (rect.bottom + offset < containerRect.top || rect.top - offset > containerRect.bottom) return
 
     delete components[k]
     render()
@@ -48,13 +48,32 @@ const handleScroll = () => {
 
 export function addStack(obj) {
   const scrollEl = obj.container || document
-
-  scrollEl.addEventListener('scroll', handleScroll, eventPassive)
-
+  obj.offset = obj.offset || 0
+  if (window.IntersectionObserver) {
+    const root = obj.container || null
+    const rootMargin = `${obj.offset}px`
+    obj.io = new IntersectionObserver(
+      entries => {
+        entries.forEach(en => {
+          if (en.isIntersecting) {
+            obj.render()
+            obj.io.unobserve(en.target)
+          }
+        })
+      },
+      {
+        root,
+        rootMargin,
+      }
+    )
+    obj.io.observe(obj.element)
+  } else {
+    scrollEl.addEventListener('scroll', handleScroll, eventPassive)
+  }
   const rect = obj.element.getBoundingClientRect()
   const containerRect = getRect(obj.container)
 
-  if (rect.bottom < containerRect.top || rect.top > containerRect.bottom) {
+  if (rect.bottom + obj.offset < containerRect.top || rect.top - obj.offset > containerRect.bottom) {
     const id = getUidStr()
     components[id] = obj
     return id
@@ -66,5 +85,20 @@ export function addStack(obj) {
 
 export function removeStack(id) {
   if (!id) return
+  const { io } = components[id]
+  if (io && io.disconnect) io.disconnect()
   delete components[id]
+}
+
+export function throttleWrapper(cb) {
+  let timer = null
+  return (...args) => {
+    const ctx = this
+    if (!timer) {
+      timer = setTimeout(() => {
+        cb.apply(ctx, args)
+        timer = null
+      }, throttle)
+    }
+  }
 }

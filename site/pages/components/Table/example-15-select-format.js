@@ -14,7 +14,7 @@ const columns = [
   {
     title: 'id',
     render: 'id',
-    width: 50,
+    width: 60,
     sorter: order => (a, b) => {
       if (order === 'asc') return a.id - b.id
       return b.id - a.id

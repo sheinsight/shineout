@@ -21,9 +21,11 @@ function Item({ renderResult, renderUnmatched, data, disabled, onClick }) {
   const value = data
   const click = disabled || !onClick ? undefined : () => onClick(value)
   const synDisabled = disabled || !click
+  const content = getResultContent(data, renderResult, renderUnmatched)
+  if (content === null) return null
   return (
     <a tabIndex={-1} className={selectClass('item', disabled && 'disabled', synDisabled && 'ban')}>
-      {getResultContent(data, renderResult, renderUnmatched)}
+      {content}
       {!synDisabled && <span className={selectClass('indicator', 'close')} onClick={click} />}
     </a>
   )
@@ -101,7 +103,7 @@ class Result extends PureComponent {
   }
 
   renderInput(text, key = 'input') {
-    const { multiple, onFilter, trim, focus, onInputFocus, onInputBlur, setInputReset } = this.props
+    const { multiple, onFilter, trim, focus, onInputFocus, onInputBlur, setInputReset, focusSelected } = this.props
     return (
       <Input
         key={`${key}.${focus ? 1 : 0}`}
@@ -114,6 +116,7 @@ class Result extends PureComponent {
         trim={trim}
         onFilter={onFilter}
         setInputReset={setInputReset}
+        focusSelected={focusSelected}
       />
     )
   }
@@ -127,7 +130,7 @@ class Result extends PureComponent {
 
     return (
       <span className={classnames(inputClass('placeholder'), selectClass('ellipsis'))}>
-        {this.props.placeholder}
+        <span>{this.props.placeholder}</span>
         &nbsp;
       </span>
     )
@@ -176,22 +179,23 @@ class Result extends PureComponent {
     }
 
     const v = getResultContent(result[0], renderResult, renderUnmatched)
+    const title = typeof v === 'string' ? v : undefined
 
     return (
-      <span title={v} className={selectClass('ellipsis')}>
+      <span title={title} className={selectClass('ellipsis')}>
         {v}
       </span>
     )
   }
 
   render() {
-    const { compressed } = this.props
+    const { compressed, showArrow } = this.props
     const result = this.props.result.length === 0 ? this.renderPlaceholder() : this.renderResult()
 
     return (
       <div className={selectClass('result', compressed && 'compressed')}>
         {result}
-        {!this.props.multiple && (
+        {showArrow && !this.props.multiple && (
           // eslint-disable-next-line
           <a tabIndex={-1} className={selectClass('indicator', 'caret')} />
         )}
@@ -219,6 +223,8 @@ Result.propTypes = {
   compressed: PropTypes.bool,
   trim: PropTypes.bool,
   renderUnmatched: PropTypes.func,
+  showArrow: PropTypes.bool,
+  focusSelected: PropTypes.bool,
 }
 
 export default Result

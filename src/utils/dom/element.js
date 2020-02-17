@@ -1,3 +1,5 @@
+import React from 'react'
+
 if (Element && !Element.prototype.matches) {
   const proto = Element.prototype
   proto.matches =
@@ -27,6 +29,14 @@ export function getParent(el, target) {
   }
 
   return null
+}
+
+export function wrapSpan(children) {
+  if (!children) return children
+  return React.Children.map(children, item => {
+    if (typeof item === 'string') return <span>{item}</span>
+    return item
+  })
 }
 
 export function dispatchEvent(form, name, detail) {
@@ -98,4 +108,5 @@ function select(element) {
 export const focusElement = {
   select,
   end,
+  wrapSpan,
 }

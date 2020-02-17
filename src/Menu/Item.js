@@ -29,6 +29,7 @@ class Item extends PureComponent {
 
     this.bindElement = this.bindElement.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.handleSwitch = this.handleSwitch.bind(this)
     this.handleMouseEnter = this.handleToggle.bind(this, true)
     this.handleMouseLeave = this.handleToggle.bind(this, false)
     this.renderLink = this.renderLink.bind(this)
@@ -70,7 +71,7 @@ class Item extends PureComponent {
   }
 
   handleToggle(open) {
-    const { toggleOpenKeys } = this.props
+    const { toggleOpenKeys, toggleDuration } = this.props
     const key = this.getKey()
 
     if (this.toggleTimer) clearTimeout(this.toggleTimer)
@@ -80,12 +81,12 @@ class Item extends PureComponent {
     } else {
       this.toggleTimer = setTimeout(() => {
         toggleOpenKeys(key, false)
-      }, 200)
+      }, toggleDuration)
       this.unbindDocumentEvent()
     }
   }
 
-  handleClick() {
+  handleClick(e) {
     const { data, onClick, mode, toggleOpenKeys } = this.props
     if (data.disabled) return
 
@@ -101,11 +102,23 @@ class Item extends PureComponent {
     ) {
       onClick(this.id, data)
     }
+    const isLeaf = ((data || {}).children || []).length === 0
+    if (!isLeaf) e.nativeEvent.stopImmediatePropagation()
   }
 
-  handleItemClick(clickMethod) {
+  handleItemClick(clickMethod, e) {
     clickMethod()
-    this.handleClick()
+    this.handleClick(e)
+  }
+
+  handleSwitch(e) {
+    const { renderItem, data } = this.props
+    const item = renderItem(data)
+    if (item.props && item.props.onClick) {
+      this.handleItemClick(item.props.onClick, e)
+    } else {
+      this.handleClick(e)
+    }
   }
 
   renderLink(data) {
@@ -125,9 +138,10 @@ class Item extends PureComponent {
       inlineIndent,
       disabled,
       toggleOpenKeys,
-      // bottomLine,
-      // topLine,
+      bottomLine,
+      topLine,
       linkKey,
+      toggleDuration,
     } = this.props
     const { open, isActive, isHighLight, inPath } = this.state
     const { children: dChildren } = data
@@ -135,15 +149,10 @@ class Item extends PureComponent {
 
     const isDisabled = typeof disabled === 'function' ? disabled(data) : disabled
 
-    // let isUp = false
-    // if (mode === 'vertical' && this.element) {
-    //   isUp = this.element.getBoundingClientRect().bottom - topLine > (bottomLine - topLine) / 2
-    //   // const { bottom: itemBottom, top: itemTop } = this.element.getBoundingClientRect()
-    //   // isUp = itemBottom - topLine > (bottomLine - topLine) / 2
-    //   // const listHeight = isUp ? itemBottom - topLine : bottomLine - itemTop
-    //   // listStyle.maxHeight = listHeight
-    //   // listStyle.overflow = 'auto'
-    // }
+    let isUp = false
+    if (mode === 'vertical-auto' && this.element) {
+      isUp = this.element.getBoundingClientRect().bottom - topLine > (bottomLine - topLine) / 2
+    }
 
     const className = menuClass(
       'item',
@@ -151,7 +160,7 @@ class Item extends PureComponent {
       children.length > 0 ? 'has-children' : 'no-children',
       isActive && 'active',
       open && 'open',
-      // isUp && 'open-up',
+      isUp && 'open-up',
       isHighLight && 'highlight',
       inPath && 'in-path'
     )
@@ -169,9 +178,7 @@ class Item extends PureComponent {
     if (isLink(item)) {
       const mergeClass = classnames(menuClass('title'), item.props && item.props.className)
       const mergeStyle = Object.assign({}, style, item.props && item.props.style)
-      const handleItemClick =
-        item.props && item.props.onClick ? this.handleItemClick.bind(this, item.props.onClick) : this.handleClick
-      item = cloneElement(item, { className: mergeClass, style: mergeStyle, onClick: handleItemClick })
+      item = cloneElement(item, { className: mergeClass, style: mergeStyle, onClick: this.handleSwitch })
     } else {
       const props = {
         className: menuClass('title'),
@@ -200,6 +207,7 @@ class Item extends PureComponent {
             open={open}
             toggleOpenKeys={toggleOpenKeys}
             linkKey={linkKey}
+            toggleDuration={toggleDuration}
           />
         )}
       </li>
@@ -224,6 +232,7 @@ Item.propTypes = {
   toggleOpenKeys: PropTypes.func,
   unbindItem: PropTypes.func,
   linkKey: PropTypes.string,
+  toggleDuration: PropTypes.number,
 }
 
 export default consumer(Item)

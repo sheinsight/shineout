@@ -38,9 +38,10 @@
   &-header {
     position: relative;
     z-index: 10;
-    padding: @panel-heading-padding;
+    padding: @panel-header-padding-vertical @panel-header-padding-horizontal;
     margin-bottom: -1px;
-    background-color: @panel-header-bg;
+    background-color: @card-header-bg;
+    color: @card-header-color;
     &:after {
       bottom: 0;
     }
@@ -81,7 +82,7 @@
 
   &-body {
     flex: 1 1 auto;
-    padding: @panel-body-padding;
+    padding: @panel-body-padding-vertical @panel-body-padding-horizontal;
     position: relative;
 
     &:hover {
@@ -121,8 +122,9 @@
 
   &-footer {
     position: relative;
-    padding: @panel-footer-padding;
-    background-color: @panel-footer-bg;
+    padding: @panel-footer-padding-vertical @panel-footer-padding-horizontal;
+    background-color: @card-footer-bg;
+    color: @card-footer-color;
     &:after {
       top: 0;
     }

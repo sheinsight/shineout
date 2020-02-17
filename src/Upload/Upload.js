@@ -146,10 +146,11 @@ class Upload extends PureComponent {
   }
 
   addFile(e) {
-    const { beforeUpload, value, limit } = this.props
+    const { beforeUpload, value, limit, filesFilter } = this.props
     // eslint-disable-next-line
     const files = { ...this.state.files }
-    const fileList = e.fromDragger && e.files ? e.files : e.target.files
+    let fileList = e.fromDragger && e.files ? e.files : e.target.files
+    if (filesFilter) fileList = filesFilter(Array.from(fileList))
     const addLength = limit - value.length - Object.keys(this.state.files).length
     if (addLength <= 0) return
     Array.from({ length: Math.min(fileList.length, addLength) }).forEach((_, i) => {
@@ -489,6 +490,7 @@ Upload.propTypes = {
   webkitdirectory: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   renderContent: PropTypes.func,
   drop: PropTypes.bool,
+  filesFilter: PropTypes.func,
 }
 
 Upload.defaultProps = {

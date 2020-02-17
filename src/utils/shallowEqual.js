@@ -20,9 +20,7 @@ export function compareColumns(columns1, columns2) {
   if (columns1.length !== columns2.length) return false
 
   return columns1.every(
-    (c, i) =>
-      c.title === columns2[i].title &&
-      (c.width === columns2[i].width || (Number.isNaN(c.width) && Number.isNaN(columns2[i].width)))
+    (c, i) => c.width === columns2[i].width || (Number.isNaN(c.width) && Number.isNaN(columns2[i].width))
   )
 }
 

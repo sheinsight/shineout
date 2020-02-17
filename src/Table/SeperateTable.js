@@ -50,7 +50,11 @@ class SeperateTable extends PureComponent {
   // reset scrollTop when data changed
   componentDidUpdate(prevProps) {
     if (!this.tbody) return
-    if (this.props.data !== prevProps.data) this.resetHeight()
+    if (this.props.data !== prevProps.data) {
+      const resize = prevProps.data.length === 0 && this.props.data.length
+      if (resize || this.props.dataChangeResize) this.setState({ resize: true, colgroup: undefined })
+      this.resetHeight()
+    }
     this.updateScrollLeft()
     if (!compareColumns(prevProps.columns, this.props.columns)) {
       this.resetWidth()
@@ -173,6 +177,8 @@ class SeperateTable extends PureComponent {
     const fullHeight = this.getContentHeight()
     const height = fullHeight * scrollTop
 
+    const scrollHeight = this.lastScrollArgs[5]
+
     if (this.lastScrollTop - height >= 1) {
       const index = this.getIndex(scrollTop)
       setTimeout(() => {
@@ -184,10 +190,18 @@ class SeperateTable extends PureComponent {
         return
       }
 
-      this.lastScrollTop = height
+      // this.lastScrollTop = height
+      // if (treeColumnsName && changedByExpand) {
+      //   this.tbody.style.marginTop = `${this.lastScrollTop - this.realOffset}px`
+      //   setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
+      //   return
+      // }
       if (treeColumnsName && changedByExpand) {
-        this.tbody.style.marginTop = `${this.lastScrollArgs[5] * scrollTop}px`
-        setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
+        if (fullHeight - this.lastScrollTop < (1 - this.lastScrollArgs[1]) * scrollHeight) {
+          this.tbody.style.marginTop = `${scrollHeight}px`
+          setTranslate(this.tbody, `-${offsetLeft}px`, `-${fullHeight}px`)
+          this.lastScrollTop = fullHeight
+        }
         return
       }
 
@@ -369,7 +383,7 @@ class SeperateTable extends PureComponent {
         colgroup.push(width)
       }
     }
-    this.setState({ colgroup })
+    this.setState({ colgroup, resize: false })
   }
 
   renderBody(floatClass) {
@@ -417,6 +431,7 @@ class SeperateTable extends PureComponent {
               hasNotRenderRows={hasNotRenderRows}
               dataUpdated={dataUpdated}
               resize={resize}
+              colgroup={colgroup}
             />
           </table>
         </div>

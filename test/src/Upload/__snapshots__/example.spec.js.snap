@@ -5,7 +5,9 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-01-base.js] 
   <span>
     <button>
       <i />
-      Upload file
+      <span>
+        Upload file
+      </span>
     </button>
     <input />
   </span>
@@ -17,7 +19,9 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-01-onChange.
   <span>
     <button>
       <i />
-      Upload file
+      <span>
+        Upload file
+      </span>
     </button>
     <input />
   </span>
@@ -83,7 +87,9 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-05-filesize.
     <span>
       <button>
         <i />
-         Upload file
+        <span>
+           Upload file
+        </span>
       </button>
       <input />
     </span>
@@ -105,7 +111,9 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-06-error.js]
     <span>
       <button>
         <i />
-         Upload file
+        <span>
+           Upload file
+        </span>
       </button>
       <input />
     </span>
@@ -127,7 +135,9 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-07-recover.j
     <span>
       <button>
         <i />
-         Upload file
+        <span>
+           Upload file
+        </span>
       </button>
       <input />
     </span>
@@ -148,7 +158,9 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-08-request.j
   <span>
     <button>
       <i />
-       Upload file
+      <span>
+         Upload file
+      </span>
     </button>
     <input />
   </span>
@@ -160,7 +172,9 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-09-zip.js] 1
   <span>
     <button>
       <i />
-       Upload file
+      <span>
+         Upload file
+      </span>
     </button>
     <input />
   </span>
@@ -173,7 +187,9 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-10-defaultVa
     <span>
       <button>
         <i />
-         Upload file
+        <span>
+           Upload file
+        </span>
       </button>
       <input />
     </span>
@@ -231,7 +247,9 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-11-dragger.j
       <span>
         <button>
           <i />
-            Drop file to upload
+          <span>
+              Drop file to upload
+          </span>
         </button>
         <input />
       </span>

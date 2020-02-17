@@ -35,3 +35,4 @@
 | dragHoverExpand | bool | false | 拖拽时自动展开含有子节点的节点 |
 | doubleClickExpand | bool | false | 双击是否展开节点 |
 | onClick | func | 无 | 节点点击事件 |
+| iconClass | string | 无 | 展开/收起按钮的类名 |

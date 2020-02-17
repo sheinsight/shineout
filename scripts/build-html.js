@@ -33,13 +33,16 @@ function getDocumentation() {
   return result
 }
 
-const renderEjs = (scripts, styles, description) =>
+const renderEjs = (scripts, styles, description, lang = 'en') =>
   ejs.renderFile(`./site/index.html`, {
     description,
     scripts,
     env: 'production',
     styles,
-    appName: `Shineout api document ${version}`,
+    appName:
+      lang === 'cn'
+        ? `Shineout-一套高质量,高性能的前端的 React 组件库`
+        : `Shineout-A set of high-quality, high-performance front-end React component libraries`,
   })
 
 async function buildRedirect(lang) {
@@ -65,19 +68,19 @@ async function buildHtml(lang) {
     scripts.push(`../../${s}.js`)
   })
 
-  const html = await renderEjs(scripts, styles, '')
+  const html = await renderEjs(scripts, styles, '', lang)
 
   fs.writeFileSync(`${dir}/${lang}/index/index.html`, html)
 
   components.forEach(async c => {
     if (c === 'group') return
-    const comHtml = await renderEjs(scripts, styles, `react-${c}`)
+    const comHtml = await renderEjs(scripts, styles, `react-${c}`, lang)
     fs.writeFileSync(`${dir}/${lang}/components/${c}.html`, comHtml)
   })
 
   documents.forEach(async c => {
     if (c === 'index') return
-    const dHtml = await renderEjs(scripts, styles, `shineout-${c}`)
+    const dHtml = await renderEjs(scripts, styles, `shineout-${c}`, lang)
     fs.writeFileSync(`${dir}/${lang}/documentation/${c}.html`, dHtml)
   })
 

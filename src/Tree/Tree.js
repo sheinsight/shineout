@@ -179,6 +179,7 @@ class Tree extends PureComponent {
       leafClass,
       dragHoverExpand,
       doubleClickExpand,
+      iconClass,
     } = this.props
     const onToggle = onExpand ? this.handleToggle : undefined
 
@@ -209,6 +210,7 @@ class Tree extends PureComponent {
         leafClass={typeof leafClass === 'function' ? leafClass : () => leafClass}
         dragHoverExpand={dragHoverExpand}
         doubleClickExpand={doubleClickExpand}
+        iconClass={iconClass}
       />
     )
   }

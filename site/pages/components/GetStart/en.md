@@ -102,6 +102,20 @@ plugins: [
 ],
 ```
 
+### Input delay
+
+Input delay refers to the user's input trigger onchange and check interval. Input, Textarea and Editablearea components have this function, and the default is 400ms.
+
+You can change the global delay time by setting config.delay.
+
+```
+import config from 'shineout/config'
+config.setConfig({
+  delay: 0
+})
+
+```
+
 
 ## Use Shineout In Create React App
 

@@ -55,6 +55,7 @@ class Image extends PureComponent {
     } else {
       const { container } = this.props
       this.lazyId = addStack({
+        offset: typeof this.props.lazy === 'number' ? this.props.lazy : 0,
         element: this.element,
         render: this.markToRender,
         container: typeof container === 'string' ? document.querySelector(container) : container,
@@ -176,7 +177,7 @@ Image.propTypes = {
   className: PropTypes.string,
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   href: PropTypes.string,
-  lazy: PropTypes.bool,
+  lazy: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   onClick: PropTypes.func,
   placeholder: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
   shape: PropTypes.oneOf(['rounded', 'circle', 'thumbnail']),

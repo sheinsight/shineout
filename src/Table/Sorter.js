@@ -28,22 +28,24 @@ class Sorter extends PureComponent {
     const { current, index } = this.props
     const active = current.index === index
 
-    return [
-      <a
-        key="asc"
-        className={tableClass(active && current.order === 'asc' && 'sorter-active', 'sorter-asc')}
-        onClick={this.handleAsc}
-      >
-        &nbsp;
-      </a>,
-      <a
-        key="desc"
-        className={tableClass(active && current.order === 'desc' && 'sorter-active', 'sorter-desc')}
-        onClick={this.handleDesc}
-      >
-        &nbsp;
-      </a>,
-    ]
+    return (
+      <div className={tableClass('sorter-container')}>
+        <a
+          key="asc"
+          className={tableClass(active && current.order === 'asc' && 'sorter-active', 'sorter-asc')}
+          onClick={this.handleAsc}
+        >
+          &nbsp;
+        </a>
+        <a
+          key="desc"
+          className={tableClass(active && current.order === 'desc' && 'sorter-active', 'sorter-desc')}
+          onClick={this.handleDesc}
+        >
+          &nbsp;
+        </a>
+      </div>
+    )
   }
 }
 

@@ -13,16 +13,18 @@ class Panel extends PureComponent {
   }
 
   render() {
-    const {
-      children, background, color, isActive, collapsible, collapsed,
-    } = this.props
-    if (!isActive && this.isPristine) return null
+    const { children, background, color, isActive, collapsible, collapsed, lazy } = this.props
+    if (!isActive && this.isPristine && lazy) return null
     this.isPristine = false
 
     const style = Object.assign({ background: background || '#fff', color }, this.props.style)
     const className = classnames(tabsClass('panel', isActive && 'show'), this.props.className)
 
-    const result = <div style={style} className={className}>{children}</div>
+    const result = (
+      <div style={style} className={className}>
+        {children}
+      </div>
+    )
 
     if (!collapsible) return result
 
@@ -41,6 +43,7 @@ Panel.propTypes = {
   children: PropTypes.any,
   isActive: PropTypes.bool,
   style: PropTypes.object,
+  lazy: PropTypes.bool,
 }
 
 export default Panel

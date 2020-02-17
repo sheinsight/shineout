@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { treeClass } from '../styles'
 import Spin from '../Spin'
@@ -57,11 +58,14 @@ class Content extends PureComponent {
   }
 
   renderIndicator() {
-    const { data, expanded, expandIcons, loader, childrenKey, fetching } = this.props
+    const { data, expanded, expandIcons, loader, childrenKey, fetching, iconClass } = this.props
     const children = data[childrenKey]
     const icon = expandIcons ? expandIcons[expanded + 0] : <span className={treeClass('default-icon')} />
     const indicator = (
-      <a onClick={this.handleIndicatorClick} className={treeClass(`icon-${expanded ? 'sub' : 'plus'}`)}>
+      <a
+        onClick={this.handleIndicatorClick}
+        className={classnames(treeClass(`icon-${expanded ? 'sub' : 'plus'}`), iconClass)}
+      >
         {icon}
       </a>
     )
@@ -111,6 +115,7 @@ Content.propTypes = {
   setFetching: PropTypes.func,
   fetching: PropTypes.bool,
   doubleClickExpand: PropTypes.bool,
+  iconClass: PropTypes.string,
 }
 
 export default Content

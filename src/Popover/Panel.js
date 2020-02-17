@@ -7,6 +7,7 @@ import { getPosition } from '../utils/dom/popover'
 import { isFunc } from '../utils/is'
 import { popoverClass } from '../styles'
 import { docSize } from '../utils/dom/document'
+import isDOMElement from '../utils/dom/isDOMElement'
 
 const emptyEvent = e => e.stopPropagation()
 
@@ -38,8 +39,8 @@ class Panel extends PureComponent {
     } else {
       this.parentElement.addEventListener('click', this.handleShow)
     }
-
-    document.body.appendChild(this.element)
+    this.container = this.getContainer()
+    this.container.appendChild(this.element)
 
     if (this.props.visible) this.forceUpdate()
   }
@@ -52,7 +53,7 @@ class Panel extends PureComponent {
     this.parentElement.removeEventListener('click', this.handleShow)
 
     document.removeEventListener('click', this.clickAway)
-    document.body.removeChild(this.element)
+    this.container.removeChild(this.element)
   }
 
   setShow(show) {
@@ -71,22 +72,64 @@ class Panel extends PureComponent {
 
   getPositionStr() {
     let { position } = this.props
+    const { priorityDirection } = this.props
     if (position) return position
 
     const rect = this.parentElement.getBoundingClientRect()
-    const centerPoint = rect.left + rect.width / 2
+    const horizontalPoint = rect.left + rect.width / 2
+    const verticalPoint = rect.top + rect.height / 2
     const windowHeight = docSize.height
     const windowWidth = docSize.width
-    if (rect.top + rect.height / 2 > windowHeight / 2) {
-      position = 'top'
-    } else {
-      position = 'bottom'
-    }
 
-    if (centerPoint > windowWidth * 0.6) position += '-right'
-    else if (centerPoint < windowWidth * 0.3) position += '-left'
+    if (priorityDirection === 'horizontal') {
+      if (horizontalPoint > windowWidth / 2) position = 'left'
+      else position = 'right'
+
+      if (verticalPoint > windowHeight * 0.6) {
+        position += '-bottom'
+      } else if (verticalPoint < windowHeight * 0.4) {
+        position += '-top'
+      }
+    } else {
+      if (verticalPoint > windowHeight / 2) position = 'top'
+      else position = 'bottom'
+
+      if (horizontalPoint > windowWidth * 0.6) {
+        position += '-right'
+      } else if (horizontalPoint < windowWidth * 0.4) {
+        position += '-left'
+      }
+    }
+    // if (rect.top + rect.height / 2 > windowHeight / 2) {
+    //   position = 'top'
+    // } else {
+    //   position = 'bottom'
+    // }
+
+    // if (centerPoint > windowWidth * 0.6) position += '-right'
+    // else if (centerPoint < windowWidth * 0.3) position += '-left'
 
     return position
+  }
+
+  getContainer() {
+    const { getPopupContainer } = this.props
+    let container
+    if (getPopupContainer) container = getPopupContainer()
+    if (container && isDOMElement(container)) {
+      const child = document.createElement('div')
+      child.setAttribute('style', ' position: absolute; top: 0px; left: 0px; width: 100% ')
+      return container.appendChild(child)
+    }
+    return document.body
+  }
+
+  updatePosition(position) {
+    const pos = getPosition(position, this.parentElement, this.container)
+    // eslint-disable-next-line
+    Object.keys(pos).forEach(attr => {
+      this.element.style[attr] = pos[attr]
+    })
   }
 
   placeholderRef(el) {
@@ -99,9 +142,19 @@ class Panel extends PureComponent {
     this.handleHide(0)
   }
 
+  bindScrollDismiss(show) {
+    const { scrollDismiss } = this.props
+    if (!scrollDismiss) return
+    let target = document
+    if (typeof scrollDismiss === 'function') target = scrollDismiss()
+    const method = show ? target.addEventListener : target.removeEventListener
+    method.call(target, 'scroll', this.handleHide)
+  }
+
   handleShow() {
     if (this.delayTimeout) clearTimeout(this.delayTimeout)
     if (this.state.show) return
+    this.bindScrollDismiss(true)
     document.addEventListener('mousedown', this.clickAway)
     this.setShow(true)
   }
@@ -109,6 +162,7 @@ class Panel extends PureComponent {
   handleHide() {
     if (this.delayTimeout) clearTimeout(this.delayTimeout)
     document.removeEventListener('mousedown', this.clickAway)
+    this.bindScrollDismiss(false)
     this.setShow(false)
   }
 
@@ -125,13 +179,10 @@ class Panel extends PureComponent {
     const colorStyle = { background, borderColor: border }
     const innerStyle = Object.assign({}, this.props.style, { background })
     const position = this.getPositionStr()
-    const pos = getPosition(position, this.parentElement)
     this.element.className = classnames(popoverClass('_', position, type), this.props.className)
     // eslint-disable-next-line
     const style = this.element.style
-    Object.keys(pos).forEach(attr => {
-      style[attr] = pos[attr]
-    })
+    this.updatePosition(position)
     style.display = show ? 'block' : 'none'
     if (background) style.background = background
     if (border) style.borderColor = border
@@ -164,6 +215,9 @@ Panel.propTypes = {
   mouseEnterDelay: PropTypes.number,
   mouseLeaveDelay: PropTypes.number,
   className: PropTypes.string,
+  priorityDirection: PropTypes.string,
+  getPopupContainer: PropTypes.func,
+  scrollDismiss: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 }
 
 Panel.defaultProps = {
@@ -171,6 +225,7 @@ Panel.defaultProps = {
   trigger: 'hover',
   mouseEnterDelay: 0,
   mouseLeaveDelay: 500,
+  priorityDirection: 'vertical',
 }
 
 export default Panel

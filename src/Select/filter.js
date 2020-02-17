@@ -18,11 +18,13 @@ export default Origin =>
       value: PropTypes.any,
       noCache: PropTypes.bool,
       multiple: PropTypes.bool,
+      showHitDescendants: PropTypes.bool,
     }
 
     static defaultProps = {
       data: [],
       filterDelay: 300,
+      showHitDescendants: false,
     }
 
     constructor(props) {
@@ -47,7 +49,7 @@ export default Origin =>
     }
 
     getTreeResult(value, prediction) {
-      const { treeData } = this.props
+      const { treeData, childrenKey = 'children' } = this.props
       let finded
       const treeNode = children => {
         if (finded) return false
@@ -55,7 +57,7 @@ export default Origin =>
         for (let i = 0; i < children.length; i++) {
           const d = children[i]
           if (prediction(value, d)) finded = d
-          treeNode(d.children)
+          treeNode(d[childrenKey])
         }
         return false
       }
@@ -135,7 +137,7 @@ export default Origin =>
     }
 
     filterTreeData() {
-      const { treeData, expanded, ...other } = this.props
+      const { treeData, expanded, showHitDescendants, ...other } = this.props
       const { innerFilter } = this.state
       let filterExpandedKeys = expanded
       let newData = treeData
@@ -146,7 +148,8 @@ export default Origin =>
           innerFilter,
           filterExpandedKeys,
           node => getKey(node, other.keygen),
-          other.childrenKey
+          other.childrenKey,
+          showHitDescendants
         )
       }
       return {

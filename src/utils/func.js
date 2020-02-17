@@ -42,3 +42,8 @@ export function memoize(fn) {
     return fn.cache[key]
   }
 }
+
+export function createFunc(func) {
+  if (typeof func === 'function') return func
+  return data => (func ? data[func] : data)
+}

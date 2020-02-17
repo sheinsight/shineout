@@ -122,7 +122,7 @@ export default function(type) {
           className={className}
           style={style}
           htmlFor={this.id}
-          tabIndex={disabled ? -1 : 0}
+          tabIndex={disabled ? undefined : 0}
           ref={this.bindRef}
         >
           {switchChildren}
