@@ -3,7 +3,7 @@ const path = require('path')
 const ejs = require('ejs')
 
 const rootPath = path.resolve(__dirname, '../src/styles')
-const indexFiles = ([
+const indexFiles = [
   'alert',
   'button',
   'dropdown',
@@ -23,6 +23,7 @@ const indexFiles = ([
   'treeSelect',
   'modal',
   'card',
+  'cardGroup',
   'datepicker',
   'rate',
   'image',
@@ -36,7 +37,7 @@ const indexFiles = ([
   'upload',
   'carousel',
   'cascader',
-]).map((item) => {
+].map(item => {
   const name = Array.isArray(item) ? item[0] : item
   const file = Array.isArray(item) ? item[1] : item
   return { name, file }
@@ -57,7 +58,7 @@ export const <%= item.name %>Class = genaration(<%= item.name %>Less, '<%= item.
 const text = ejs.render(indexTemp, { files: indexFiles })
 fs.writeFileSync(`${rootPath}/index.js`, text)
 
-const spinFiles = ([
+const spinFiles = [
   ['default', 'spin-default'],
   ['ring', 'spin-ring'],
   ['plane', 'spin-plane'],
@@ -71,7 +72,7 @@ const spinFiles = ([
   ['scale-circle', 'scale-circle'],
   ['three-bounce', 'three-bounce'],
   ['four-dots', 'four-dots'],
-]).map(([file, module]) => {
+].map(([file, module]) => {
   const name = file.replace(/-([a-z])/g, g => g[1].toUpperCase())
   return {
     name,
