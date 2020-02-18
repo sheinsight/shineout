@@ -37,6 +37,7 @@ class SeperateTable extends PureComponent {
     this.handleSortChange = this.handleSortChange.bind(this)
 
     this.cachedRowHeight = []
+    this.lastScrollArgs = {}
     this.lastScrollTop = 0
 
     if (props.tableRef) props.tableRef(this)

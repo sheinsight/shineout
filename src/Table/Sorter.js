@@ -9,11 +9,25 @@ class Sorter extends PureComponent {
     this.handleDesc = this.handleDesc.bind(this)
   }
 
-  handleChange(order) {
+  componentDidMount() {
+    this.defaultSorterOrder()
+  }
+
+  componentDidUpdate() {
+    this.defaultSorterOrder()
+  }
+
+  defaultSorterOrder() {
+    const { defaultOrder, current, index } = this.props
+    const changed = index === current.index && defaultOrder === current.order
+    if (defaultOrder && !changed && !current.manual) this.handleChange(defaultOrder, false)
+  }
+
+  handleChange(order, manual = true) {
     const { sorter, index, onChange, current } = this.props
     const isCancel = index === current.index && order === current.order
     const finalOrder = isCancel ? undefined : order
-    onChange(finalOrder, sorter, index, order)
+    onChange(finalOrder, sorter, index, order, manual)
   }
 
   handleAsc() {
@@ -54,6 +68,7 @@ Sorter.propTypes = {
   index: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
   sorter: PropTypes.oneOfType([PropTypes.func, PropTypes.string]).isRequired,
+  defaultOrder: PropTypes.oneOf(['desc', 'asc']),
 }
 
 Sorter.defaultProps = {

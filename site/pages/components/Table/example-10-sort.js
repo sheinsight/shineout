@@ -2,11 +2,13 @@
  * cn - 排序
  *    -- 设置 Table 的 sorter 属性统一指定排序函数
  *    -- 设置 column 的 sorter 标示此列需要排序并指定依据字段，会作为第一个参数传入排序函数
+ *    -- defaultOrder 指定该列默认排序规则
  *    -- sorter 返回一个 sort 函数时，使用这个函数对数据进行内部排序
  *    -- 后端或自行排序用户自行处理，sorter 函数不要返回结果
  * en - Sorter
  *    -- Set the sorter property of Table to indicate the method of table sort.
  *    -- Set the sorter property of Column to indicate the sort key string, will pass to table sorter method
+ *    -- Set defaultOrder mark defualt order
  *    -- When the sorter returns a function, use this function to sort data internally.
  *    -- Server-side or self-sorting is is handled by the user, do not return results.
  */
@@ -28,6 +30,7 @@ const columns = [
     render: d => `${d.firstName} ${d.lastName}`,
     width: 160,
     sorter: 'firstName',
+    defaultOrder: 'asc',
   },
   { title: 'Country', render: 'country' },
   { title: 'Position', render: 'position' },

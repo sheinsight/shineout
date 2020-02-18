@@ -60,3 +60,4 @@
 | minWidth | number | - | the minimum width of the column |
 | hide | bool | false | hide the column, only work on row-expand column |
 | dataChangeResize | bool | false | Recalculate columns width while data change |
+| defaultOrder | string | 'asc' \| 'desc' | default sort | 

@@ -97,8 +97,8 @@ const examples = [
   {
     name: '10-sort',
     title: locate(
-      '排序 \n 设置 Table 的 sorter 属性统一指定排序函数 \n 设置 column 的 sorter 标示此列需要排序并指定依据字段，会作为第一个参数传入排序函数 \n sorter 返回一个 sort 函数时，使用这个函数对数据进行内部排序 \n 后端或自行排序用户自行处理，sorter 函数不要返回结果',
-      'Sorter \n Set the sorter property of Table to indicate the method of table sort. \n Set the sorter property of Column to indicate the sort key string, will pass to table sorter method \n When the sorter returns a function, use this function to sort data internally. \n Server-side or self-sorting is is handled by the user, do not return results.'
+      '排序 \n 设置 Table 的 sorter 属性统一指定排序函数 \n 设置 column 的 sorter 标示此列需要排序并指定依据字段，会作为第一个参数传入排序函数 \n defaultOrder 指定该列默认排序规则 \n sorter 返回一个 sort 函数时，使用这个函数对数据进行内部排序 \n 后端或自行排序用户自行处理，sorter 函数不要返回结果',
+      'Sorter \n Set the sorter property of Table to indicate the method of table sort. \n Set the sorter property of Column to indicate the sort key string, will pass to table sorter method \n Set defaultOrder mark defualt order \n When the sorter returns a function, use this function to sort data internally. \n Server-side or self-sorting is is handled by the user, do not return results.'
     ),
     component: require('doc/pages/components/Table/example-10-sort.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-10-sort.js'),
