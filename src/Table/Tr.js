@@ -179,7 +179,7 @@ class Tr extends Component {
           treeColumnsName,
         } = columns[i]
         let treeExpand = false
-        if (treeExpandKeys) {
+        if (treeExpandKeys instanceof Map) {
           treeExpand = treeExpandKeys.has(other.originKey)
         }
         const td = (
