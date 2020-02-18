@@ -61,6 +61,7 @@ export default class extends React.Component {
       if (c.fixed === 'left') left = i
       if (c.fixed === 'right' && right < 0) right = i
     })
+    let setDefaultOrder = false
     this.cachedColumns = columns.map((c, i) =>
       immer(c, draft => {
         draft.index = i
@@ -69,6 +70,8 @@ export default class extends React.Component {
         if (i === left) draft.lastFixed = true
         if (i >= right && right > 0) draft.fixed = 'right'
         if (i === right) draft.firstFixed = true
+        if (draft.defaultOrder && setDefaultOrder) delete draft.defaultOrder
+        if (draft.defaultOrder) setDefaultOrder = true
         // if (draft.type === 'expand' && !draft.width) draft.width = 48
       })
     )
@@ -114,11 +117,11 @@ export default class extends React.Component {
     return undefined
   }
 
-  handleSortChange(order, sorter, index, cancelOrder) {
+  handleSortChange(order, sorter, index, cancelOrder, manual) {
     const { onSortCancel } = this.props
     // cancel sorter
     if (!order) {
-      this.setState({ sorter: {} }, () => {
+      this.setState({ sorter: { manual: true } }, () => {
         if (onSortCancel) onSortCancel(cancelOrder, index)
       })
       return
@@ -129,6 +132,7 @@ export default class extends React.Component {
         state.sorter.order = order
         state.sorter.index = index
         state.sorter.sort = sort
+        state.sorter.manual = manual
       })
     )
   }
