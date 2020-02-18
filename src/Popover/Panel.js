@@ -167,7 +167,7 @@ class Panel extends PureComponent {
   }
 
   render() {
-    const { background, border, children, type, visible } = this.props
+    const { background, border, children, type, visible, showArrow } = this.props
     const show = typeof visible === 'boolean' ? visible : this.state.show
 
     if ((!this.isRendered && !show) || !this.parentElement) {
@@ -189,7 +189,7 @@ class Panel extends PureComponent {
 
     return ReactDOM.createPortal(
       [
-        <div key="arrow" className={popoverClass('arrow')} style={colorStyle} />,
+        showArrow && <div key="arrow" className={popoverClass('arrow')} style={colorStyle} />,
         <div key="content" onClick={emptyEvent} className={popoverClass('content')} style={innerStyle}>
           {isFunc(children) ? children(this.handleHide) : children}
         </div>,
@@ -218,6 +218,7 @@ Panel.propTypes = {
   priorityDirection: PropTypes.string,
   getPopupContainer: PropTypes.func,
   scrollDismiss: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+  showArrow: PropTypes.bool,
 }
 
 Panel.defaultProps = {
@@ -226,6 +227,7 @@ Panel.defaultProps = {
   mouseEnterDelay: 0,
   mouseLeaveDelay: 500,
   priorityDirection: 'vertical',
+  showArrow: true,
 }
 
 export default Panel
