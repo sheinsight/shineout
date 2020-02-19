@@ -32,11 +32,12 @@ class Input extends PureComponent {
   }
 
   handleChange(e, clearClick) {
+    const { type, clearable } = this.props
     if (clearClick) {
       this.ref.focus()
+      if (typeof clearable === 'function') clearable()
     }
     let { value } = e.target
-    const { type } = this.props
     if (type === 'number' && typeof value !== 'number') value = String(value).replace(/。/g, '.')
     if (this.invalidNumber(value)) return
     this.props.onChange(value)
@@ -103,7 +104,7 @@ Input.propTypes = {
   type: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onFocus: PropTypes.func,
-  clearable: PropTypes.bool,
+  clearable: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 }
 
 Input.defaultProps = {

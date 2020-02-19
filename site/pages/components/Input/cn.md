@@ -19,7 +19,7 @@
 | trim | bool | false | trim 为 true 时，失去焦点时会自动删除空白字符。 |
 | type | string | 'text' | 同原生 input 标签的 type |
 | value | string \| number | 无 | defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖<br />在Form中，value会被表单接管，value无效 |
-| clearable | bool | false | 可点击清空图标删除输入框内容 |
+| clearable | bool \| function | false | 可点击清空图标删除输入框内容，为函数式表示清空回调 |
 | coin | bool | false | 以千位分隔符展示,仅当type为number时有效 |
 
 ### Input.Number
