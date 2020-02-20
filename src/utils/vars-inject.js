@@ -15,6 +15,7 @@ import {
   cardClass,
   modalClass,
   popoverClass,
+  datepickerClass,
 } from '../styles'
 import { exposeClass } from '../styles/expose'
 
@@ -725,6 +726,13 @@ const injects = {
         parser: parseInt,
       },
       {
+        name: 'dropdownBorderRadius',
+        className: datepickerClass('picker'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
         name: 'focusWidth',
         className: inputClass('focus'),
         attr: 'boxShadow',
@@ -776,6 +784,14 @@ const injects = {
       setBodyProperty(
         {
           '--input-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set dropdownBorderRadius(v) {
+      setBodyProperty(
+        {
+          '--input-dropdown-border-radius': `${parseInt(v, 10)}px`,
         },
         v
       )
