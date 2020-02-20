@@ -15,6 +15,7 @@ import {
   cardClass,
   modalClass,
   popoverClass,
+  datepickerClass,
 } from '../styles'
 import { exposeClass } from '../styles/expose'
 
@@ -725,6 +726,13 @@ const injects = {
         parser: parseInt,
       },
       {
+        name: 'dropdownBorderRadius',
+        className: datepickerClass('picker'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
         name: 'focusWidth',
         className: inputClass('focus'),
         attr: 'boxShadow',
@@ -776,6 +784,14 @@ const injects = {
       setBodyProperty(
         {
           '--input-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set dropdownBorderRadius(v) {
+      setBodyProperty(
+        {
+          '--input-dropdown-border-radius': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -1086,6 +1102,16 @@ const injects = {
     },
     conf: [
       {
+        name: 'scrollRatio',
+        className: exposeClass('table-scroll-ratio'),
+        attr: 'width',
+        parser: parseInt,
+        type: 'number',
+        desc: 'only work in windows',
+        logic: true,
+        max: 500,
+      },
+      {
         name: 'headBg',
         className: exposeClass('table-head'),
         attr: 'backgroundColor',
@@ -1168,6 +1194,14 @@ const injects = {
         type: 'string',
       },
     ],
+    set scrollRatio(v) {
+      setBodyProperty(
+        {
+          '--table-scroll-ratio': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
     set headBg(v) {
       setBodyProperty(
         {
@@ -2457,7 +2491,7 @@ const injects = {
         },
         v
       )
-    }
+    },
   },
   popover: {
     info: {
