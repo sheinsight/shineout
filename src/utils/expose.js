@@ -34,7 +34,7 @@ function getClassname(data) {
 function getDOMStyle(dom) {
   document.body.appendChild(dom)
   const style = window.getComputedStyle(dom)
-  setTimeout(() => {
+  Promise.resolve().then(() => {
     dom.parentElement.removeChild(dom)
   })
   return style
