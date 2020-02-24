@@ -163,7 +163,7 @@ export const method = type => option => {
   if (type === 'confirm') {
     props.footer = [btnCancel(props), btnOk(props)]
   } else {
-    props.footer = [btnOk(props)]
+    props.footer = 'footer' in props ? props.footer : [btnOk(props)]
   }
 
   open(props)
