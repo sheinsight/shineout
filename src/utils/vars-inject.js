@@ -523,6 +523,30 @@ const injects = {
       )
     },
   },
+  dropdown: {
+    info: {
+      title: 'Dropdown 下拉菜单',
+      name: 'dropdown',
+      path: 'Dropdown',
+    },
+    conf: [
+      {
+        name: 'borderWidth',
+        attr: 'borderWidth',
+        type: 'number',
+        parser: parseInt,
+        className: exposeClass('dropdown-button'),
+      },
+    ],
+    set borderWidth(v) {
+      setBodyProperty(
+        {
+          '--dropdown-border-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+  },
   form: {
     info: {
       title: 'Form 表单',
