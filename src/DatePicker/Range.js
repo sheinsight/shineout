@@ -108,6 +108,7 @@ class Range extends PureComponent {
           const current = immer(this.props.value, draft => {
             draft[index] = date
             if (endChangedDate) draft[1] = endChangedDate
+            draft[1 - index] = draft[1 - index] || ''
           })
           this.props.onChange(current, true)
         }
