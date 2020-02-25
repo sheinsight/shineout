@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { scrollClass } from '../styles'
 import fixedLength from './fixedLength'
+import { throttleWrapper } from '../utils/lazyload'
 
 class ScrollBar extends PureComponent {
   constructor(props) {
@@ -15,7 +16,7 @@ class ScrollBar extends PureComponent {
     this.bindHandle = this.bindHandle.bind(this)
     this.handleBarClick = this.handleBarClick.bind(this)
     this.handleBgClick = this.handleBgClick.bind(this)
-    this.handleMouseMove = this.handleMouseMove.bind(this)
+    this.handleMouseMove = throttleWrapper(this.handleMouseMove.bind(this), 40)
     this.unbindEvent = this.unbindEvent.bind(this)
   }
 

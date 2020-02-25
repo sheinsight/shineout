@@ -90,15 +90,20 @@ export function removeStack(id) {
   delete components[id]
 }
 
-export function throttleWrapper(cb) {
+export function throttleWrapper(cb, delay = throttle) {
   let timer = null
+  let start = true
   return (...args) => {
     const ctx = this
+    if (start) {
+      cb.apply(ctx, args)
+      start = false
+    }
     if (!timer) {
       timer = setTimeout(() => {
         cb.apply(ctx, args)
         timer = null
-      }, throttle)
+      }, delay)
     }
   }
 }
