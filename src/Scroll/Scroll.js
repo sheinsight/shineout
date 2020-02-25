@@ -90,7 +90,7 @@ class Scroll extends PureComponent {
     if (this.baseScrollRatio) return
     this.baseScrollRatio = 1
 
-    const ratio = accessors.table.scrollRatio || 60
+    const ratio = accessors.table.scrollRatio || 100
     // windows scroll
     if (Math.abs(height) > 10) {
       this.baseScrollRatio = ratio / Math.abs(height)
