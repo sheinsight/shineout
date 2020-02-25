@@ -56,6 +56,7 @@ const accessors = {
   modal: {},
   popover: {},
   tree: {},
+  dropdown: {},
 }
 
 for (const [key, value] of Object.entries(accessors)) {
