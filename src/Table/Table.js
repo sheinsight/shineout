@@ -44,7 +44,7 @@ class Table extends Component {
     const { rowsInView, data, fixed } = this.props
     const dataLength = data.length
     if (rowsInView <= 0 || rowsInView > dataLength || fixed === 'x') return dataLength
-    return rowsInView
+    return parseInt(rowsInView, 10)
   }
 
   bindTable(el) {
