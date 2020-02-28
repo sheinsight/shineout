@@ -230,10 +230,10 @@
 
   i&-checkbox&-indicator {
     &:after {
-      top: 20%;
-      left: 2px;
+      top: 50%;
+      left: 50%;
       width: @checkbox-size - 4;
-      height: 35%;
+      height: 5px;
       border: solid 2px transparent;
       border-width: 0 0 2px 2px;
     }
@@ -291,7 +291,7 @@
 
     &:after {
       border-color: #fff;
-      transform: rotate(-45deg);
+      transform: translate(-50%, -65%) rotate(-45deg);
     }
   }
 
@@ -310,6 +310,8 @@
     &:after {
       border-color: #fff;
       border-left-width: 0;
+      transform: translate(-50%, -50%);
+      height: 2px;
     }
   }
 
