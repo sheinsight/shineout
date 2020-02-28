@@ -795,6 +795,12 @@ const injects = {
         type: 'number',
         parser: parseInt,
       },
+      {
+        name: 'clearHoverBg',
+        className: exposeClass('input-clear-hover'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
     ],
     set color(v) {
       setBodyProperty(
@@ -865,6 +871,14 @@ const injects = {
       setBodyProperty(
         {
           '--input-placeholder-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set clearHoverBg(v) {
+      setBodyProperty(
+        {
+          '--input-clear-bg-hover-color': v,
         },
         v
       )
