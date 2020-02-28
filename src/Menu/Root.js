@@ -116,10 +116,9 @@ class Root extends React.Component {
 
   checkActive(id, data) {
     const { active } = this.props
-    if (typeof active === 'function') {
-      return active(data)
-    }
-    return id === this.state.activeKey
+    const act = typeof active === 'function' ? active(data) : id === this.state.activeKey
+    if (act) this.state.activeKey = id
+    return act
   }
 
   checkOpen(id) {
