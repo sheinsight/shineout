@@ -103,7 +103,7 @@ export default function(List) {
 
         if (
           rect.bottom < scrollRect.top ||
-          rect.bottom > scrollRect.bottom ||
+          rect.top > scrollRect.bottom ||
           rect.right < scrollRect.left ||
           rect.left > scrollRect.right
         ) {
