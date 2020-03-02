@@ -16,6 +16,12 @@ class Link extends PureComponent {
     }
 
     if (isLink(children)) {
+      if (children.props.onClick) {
+        props.onClick = () => {
+          children.props.onClick()
+          other.onClick()
+        }
+      }
       return React.cloneElement(children, { ...props })
     }
 
