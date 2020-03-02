@@ -12,7 +12,7 @@ export function getUidStr() {
 function $getKey(d, gen, index) {
   if (gen === true) return d
   if (typeof gen === 'string') return d[gen]
-  if (typeof gen === 'function') return gen(d)
+  if (typeof gen === 'function') return gen(d, index)
 
   console.warn('Key generator not found or invalid, use index.')
   return index
