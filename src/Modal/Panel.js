@@ -8,12 +8,6 @@ import { modalClass } from '../styles'
 import { Provider } from '../Scroll/context'
 
 export default class Panel extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.maskRef = {}
-    this.bindRef = this.bindRef.bind(this)
-  }
-
   componentDidMount() {
     const { autoFocusButton, id } = this.props
     if (!autoFocusButton) return
@@ -40,10 +34,6 @@ export default class Panel extends PureComponent {
           },
       style || {}
     )
-  }
-
-  bindRef(el) {
-    this.maskRef = el
   }
 
   // eslint-disable-next-line
@@ -79,13 +69,8 @@ export default class Panel extends PureComponent {
     const className = classnames(modalClass('panel', type, position), this.props.className)
 
     return (
-      <Provider value={{ element: this.maskRef }}>
-        <div
-          key="mask"
-          ref={this.bindRef}
-          className={modalClass('mask')}
-          onClick={maskCloseAble ? onClose : undefined}
-        />
+      <Provider value={{ element: undefined }}>
+        <div key="mask" className={modalClass('mask')} onClick={maskCloseAble ? onClose : undefined} />
 
         <Card key="card" shadow className={className} style={this.getStyle()}>
           {(maskCloseAble || maskCloseAble === null) && (
