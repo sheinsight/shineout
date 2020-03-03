@@ -1,16 +1,22 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import immer from 'immer'
 import { uploadClass } from '../styles'
 import Upload from './Upload'
 import { ERROR } from './request'
+import { getLocale } from '../locale'
+import { validate } from '../utils'
 
-const handleKeyDown = e => {
-  if (e.keyCode === 13) e.target.click()
-}
 class Image extends PureComponent {
   constructor(props) {
     super(props)
     this.beforeUpload = this.beforeUpload.bind(this)
+    this.handleMouseDown = this.handleMouseDown.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.state = {
+      urlInvalid: false,
+    }
+    this.timeout = null
   }
 
   beforeUpload(blob, validatorHandle) {
@@ -22,13 +28,21 @@ class Image extends PureComponent {
       reader.onload = e => {
         const data = e.target.result
         file.data = data
-        if (!imageSize) {
-          resolve(file)
-          return
-        }
 
         const image = new window.Image()
+        image.onerror = () => {
+          this.setState(
+            immer(draft => {
+              draft.urlInvalid = true
+            })
+          )
+          reject()
+        }
         image.onload = () => {
+          if (!imageSize) {
+            resolve(file)
+            return
+          }
           const res = imageSize(image)
           if (res instanceof Error) {
             if (!validatorHandle(res, blob)) reject()
@@ -44,22 +58,62 @@ class Image extends PureComponent {
     })
   }
 
+  handleKeyDown(e) {
+    this.setState(
+      immer(draft => {
+        draft.urlInvalid = false
+      })
+    )
+    if (e.keyCode === 13) e.target.click()
+  }
+
+  handleMouseDown() {
+    this.setState(
+      immer(draft => {
+        draft.urlInvalid = false
+      })
+    )
+  }
+
   render() {
+    console.log(validate)
     const { children, width, height, ...others } = this.props
+    const { urlInvalid } = this.state
+    if (urlInvalid) {
+      clearTimeout(this.timeout)
+      this.timeout = setTimeout(() => {
+        this.setState(
+          immer(draft => {
+            draft.urlInvalid = false
+          })
+        )
+      }, 3000)
+    }
 
     const style = { width, height }
-    const content = children || <div className={uploadClass('indicator')} />
+    const content = children || <div className={uploadClass('indicator', urlInvalid && 'url-invalid-indicator')} />
 
     return (
       <Upload {...others} imageStyle={style} beforeUpload={this.beforeUpload}>
         <div
           tabIndex={this.props.disabled ? -1 : 0}
           style={style}
-          onKeyDown={handleKeyDown}
-          className={uploadClass('image-plus', 'image-item', others.disabled && 'disabled')}
+          onKeyDown={this.handleKeyDown}
+          onMouseDown={this.handleMouseDown}
+          className={uploadClass(
+            'image-plus',
+            'image-item',
+            others.disabled && 'disabled',
+            urlInvalid && 'url-invalid-border'
+          )}
         >
           {content}
         </div>
+        {urlInvalid && (
+          <div style={{ width: '100%', position: 'relative' }}>
+            <div className={uploadClass('url-invalid-message')}>{getLocale('urlInvalidMsg')}</div>
+          </div>
+        )}
       </Upload>
     )
   }
