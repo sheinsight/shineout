@@ -5,7 +5,6 @@ import { uploadClass } from '../styles'
 import Upload from './Upload'
 import { ERROR } from './request'
 import { getLocale } from '../locale'
-import { validate } from '../utils'
 
 class Image extends PureComponent {
   constructor(props) {
@@ -76,7 +75,6 @@ class Image extends PureComponent {
   }
 
   render() {
-    console.log(validate)
     const { children, width, height, ...others } = this.props
     const { urlInvalid } = this.state
     if (urlInvalid) {
