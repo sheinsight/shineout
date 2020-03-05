@@ -7,6 +7,7 @@ import Sorter from './Sorter'
 import CheckboxAll from './CheckboxAll'
 import { getParent } from '../utils/dom/element'
 
+const cacheGroup = new Map()
 const MIN_RESIZABLE_WIDTH = 20
 class Thead extends PureComponent {
   constructor(props) {
@@ -40,9 +41,13 @@ class Thead extends PureComponent {
     } else {
       const sub = []
       colSpan = this.setColumns(sub, col, level + 1, index)
+      const group = g[level]
       columns.push({
         name: g[level],
-        key: typeof g[level] === 'string' ? `${index}-${g[level]}` : getUidStr(),
+        key:
+          typeof g[level] === 'string'
+            ? `${index}-${g[level]}`
+            : cacheGroup.get(group) || cacheGroup.set(group, getUidStr()).get(group),
         colSpan,
         level,
         fixed: col.fixed,
