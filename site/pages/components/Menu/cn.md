@@ -17,4 +17,4 @@
 | onClick | function | null | 子菜单点击事件,参数为当条数据|
 | style | object | 无 | 最外层扩展样式 |
 | inlineIndent | number | 24 | 每一层缩进宽度 |
-| linkKey | string | 无 | 需要注入子菜单的链接键值 |  
+| linkKey | string \| (d: object): string | 无 | 需要注入子菜单的链接键值 |  
