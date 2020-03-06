@@ -2564,6 +2564,12 @@ const injects = {
         type: 'number',
         parser: parseInt,
       },
+      {
+        name: 'textMaxWidth',
+        className: popoverClass('text'),
+        attr: 'maxWidth',
+        type: 'string',
+      },
     ],
     set borderColor(v) {
       setBodyProperty(
@@ -2593,6 +2599,14 @@ const injects = {
       setBodyProperty(
         {
           '--popover-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set textMaxWidth(v) {
+      setBodyProperty(
+        {
+          '--popover-text-max-width': v,
         },
         v
       )
