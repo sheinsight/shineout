@@ -1,12 +1,26 @@
+import { deepGet } from './utils/objects'
+
 const config = {
   cssModule: process.env.CSS_MODULE || false,
   prefix: process.env.SO_PREFIX || 'so',
   locale: process.env.LOCALE || 'en-US',
   delay: undefined,
+  scrollRatio: 100,
+  trim: undefined,
 }
 
 export default config
 
 export function setConfig(conf) {
-  Object.assign(config, conf)
+  for (const [key, value] of Object.entries(conf)) {
+    if (value !== undefined && key in config) config[key] = value
+  }
+}
+
+export function syncConfig(conf) {
+  if (!conf) return
+  const delay = deepGet(conf, 'common.inputDelay')
+  const trim = !!deepGet(conf, 'common.inputTrim')
+  const scrollRatio = deepGet(conf, 'table.scrollRatio')
+  setConfig({ delay, scrollRatio, trim })
 }
