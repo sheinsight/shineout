@@ -2613,11 +2613,26 @@ const injects = {
         parser: parseInt,
         min: -100,
       },
+      {
+        name: 'nodeMarginBottom',
+        className: exposeClass('tree-node'),
+        attr: 'marginBottom',
+        type: 'number',
+        parser: parseInt,
+      },
     ],
     set levelIndent(v) {
       setBodyProperty(
         {
           '--tree-level-indent': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set nodeMarginBottom(v) {
+      setBodyProperty(
+        {
+          '--tree-node-margin-bottom': `${parseInt(v, 10)}px`,
         },
         v
       )
