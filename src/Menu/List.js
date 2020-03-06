@@ -70,7 +70,7 @@ List.propTypes = {
   renderItem: PropTypes.func,
   style: PropTypes.object,
   toggleOpenKeys: PropTypes.func,
-  linkKey: PropTypes.string,
+  linkKey: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   toggleDuration: PropTypes.number,
 }
 
