@@ -2638,6 +2638,43 @@ const injects = {
       )
     },
   },
+  common: {
+    info: {
+      title: 'Common 公共',
+      name: 'common',
+      path: 'Button',
+    },
+    conf: [
+      {
+        name: 'contentBlockPadding',
+        className: '',
+        attr: 'padding',
+        type: 'string',
+      },
+      {
+        name: 'contentTextPadding',
+        className: popoverClass('text'),
+        attr: 'padding',
+        type: 'string',
+      },
+    ],
+    set contentBlockPadding(v) {
+      setBodyProperty(
+        {
+          '--common-content-block-padding': v,
+        },
+        v
+      )
+    },
+    set contentTextPadding(v) {
+      setBodyProperty(
+        {
+          '--common-content-text-padding': v,
+        },
+        v
+      )
+    },
+  },
 }
 
 export default injects

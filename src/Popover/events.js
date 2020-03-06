@@ -77,7 +77,7 @@ export function show(props, id) {
   }, 0)
 
   let newContent = typeof content === 'function' ? content(hide0) : content
-  if (typeof newContent === 'string') newContent = <span className={popoverClass('width-limit')}>{newContent}</span>
+  if (typeof newContent === 'string') newContent = <span className={popoverClass('text')}>{newContent}</span>
   ReactDOM.render(newContent, inner)
 
   document.addEventListener('click', clickaway)
