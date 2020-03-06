@@ -18,3 +18,4 @@
 | trim | bool | false | When trim is true, blank characters are automatically deleted when lose focus |
 | onBlur | func(e) | none | blur event |
 | onFocus | func(e) | none | focus event |
+| absolute | boolean | false | 为 true 时，选项弹出层在 DOM 中独立 render |

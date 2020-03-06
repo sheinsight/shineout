@@ -26,3 +26,5 @@ export function getKey(...args) {
 
   return key
 }
+
+export const defer = typeof Promise === 'function' ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout
