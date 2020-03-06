@@ -183,7 +183,7 @@ class Range extends PureComponent {
   }
 
   createQuick() {
-    const { quicks } = this.props
+    const { quicks, type } = this.props
     const { rangeDate } = this.state
 
     if (!quicks) return null
@@ -195,7 +195,7 @@ class Range extends PureComponent {
             onClick={this.handleQuick.bind(this, q)}
             className={datepickerClass(
               'quick-select-item',
-              dateFns.compareDateArray(q.value, rangeDate) && 'quick-select-item-active'
+              dateFns.compareDateArray(q.value, rangeDate, type) && 'quick-select-item-active'
             )}
             key={q.name}
           >

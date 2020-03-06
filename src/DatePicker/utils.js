@@ -101,10 +101,16 @@ function clearHMS(date) {
   return new Date(new Date(date.toLocaleDateString()).getTime())
 }
 
-function compareDateArray(arr1, arr2) {
+function weekNumberFromUNIXTime(date) {
+  const days = parseInt(new Date(date).getTime() / (1000 * 60 * 60 * 24), 10)
+  return parseInt((days + 4) / 7, 10)
+}
+
+function compareDateArray(arr1, arr2, type = 'date') {
   if (!arr1 || !arr2 || arr1.length !== arr2.length) return false
   return arr1.every((v, i) => {
     if (!v || !arr2[i]) return false
+    if (type === 'week') return weekNumberFromUNIXTime(v) === weekNumberFromUNIXTime(arr2[i])
     return v.getTime() === arr2[i].getTime()
   })
 }
