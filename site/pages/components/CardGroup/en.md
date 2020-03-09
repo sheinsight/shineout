@@ -20,9 +20,9 @@
 | --- | --- | --- | --- |
 | className | string | none | extend className |
 | style | object | none | card style | 
-| placeholder | React.Element | none | lazy load placeholder, enable lazy load while set |
-| checked | bool \| undefined | - | checked status, hide while not set |
-| disabled | bool | false | disable checkbox |
+| placeholder | ReactNode | none | lazy load placeholder, enable lazy load while set |
+| checked | boolean \| undefined | - | checked status, hide while not set |
+| disabled | boolean | false | disable checkbox |
 | value | any | true | Specifies the result |
-| onChange | function(checked,value) | - | check changed, value is the value props |
+| onChange | (checked: boolean, value: any) => void | - | check changed, value is the value props |
 

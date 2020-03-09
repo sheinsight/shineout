@@ -40,6 +40,7 @@
     "build-es6": "cp -R src publish/es",
     "build-less": "mkdir publish/lib && cp -R src/styles publish/lib/styles",
     "build-es5": "node scripts/build-es5.js",
+    "build-ts": "node scripts/build-ts.js",
     "build-css": "node scripts/build-css.js",
     "build": "npm-run-all build-*"
   },
@@ -126,7 +127,6 @@
     "react-markdown": "^3.1.4",
     "react-router-dom": "^4.4.0-beta.6",
     "react-test-renderer": "^16.8.3",
-    "react-to-typescript-definitions": "^2.0.0",
     "rimraf": "^2.6.2",
     "style-loader": "^0.21.0",
     "stylelint": "^9.10.1",
