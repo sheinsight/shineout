@@ -2613,11 +2613,63 @@ const injects = {
         parser: parseInt,
         min: -100,
       },
+      {
+        name: 'nodeMarginBottom',
+        className: exposeClass('tree-node'),
+        attr: 'marginBottom',
+        type: 'number',
+        parser: parseInt,
+      },
     ],
     set levelIndent(v) {
       setBodyProperty(
         {
           '--tree-level-indent': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set nodeMarginBottom(v) {
+      setBodyProperty(
+        {
+          '--tree-node-margin-bottom': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+  },
+  common: {
+    info: {
+      title: 'Common 公共',
+      name: 'common',
+      path: 'Button',
+    },
+    conf: [
+      {
+        name: 'contentBlockPadding',
+        className: '',
+        attr: 'padding',
+        type: 'string',
+      },
+      {
+        name: 'contentTextPadding',
+        className: popoverClass('text'),
+        attr: 'padding',
+        type: 'string',
+      },
+    ],
+    set contentBlockPadding(v) {
+      setBodyProperty(
+        {
+          '--common-content-block-padding': v,
+        },
+        v
+      )
+    },
+    set contentTextPadding(v) {
+      setBodyProperty(
+        {
+          '--common-content-text-padding': v,
         },
         v
       )

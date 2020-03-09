@@ -18,10 +18,16 @@ function getOption(options, key) {
 
 export function compareColumns(columns1, columns2) {
   if (columns1.length !== columns2.length) return false
-
-  return columns1.every(
+  const simpleCompare = columns1.every(
     (c, i) => c.width === columns2[i].width || (Number.isNaN(c.width) && Number.isNaN(columns2[i].width))
   )
+  if (!simpleCompare) return false
+  const complexCompare = columns1.every((c, i) => {
+    if (Array.isArray(c.group) && Array.isArray(columns2[i].group))
+      return c.group.every((d, index) => d === columns2[i].group[index])
+    return c.group === columns2[i].group
+  })
+  return complexCompare
 }
 
 export default function(objA, objB, options = {}) {

@@ -186,12 +186,13 @@ class Panel extends PureComponent {
     style.display = show ? 'block' : 'none'
     if (background) style.background = background
     if (border) style.borderColor = border
-
+    let childrened = isFunc(children) ? children(this.handleHide) : children
+    if (typeof childrened === 'string') childrened = <span className={popoverClass('text')}>{childrened}</span>
     return ReactDOM.createPortal(
       [
         showArrow && <div key="arrow" className={popoverClass('arrow')} style={colorStyle} />,
         <div key="content" onClick={emptyEvent} className={popoverClass('content')} style={innerStyle}>
-          {isFunc(children) ? children(this.handleHide) : children}
+          {childrened}
         </div>,
       ],
       this.element

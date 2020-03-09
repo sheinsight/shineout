@@ -74,7 +74,7 @@ export default class extends PureComponent {
         data={data}
         keygen="id"
         columns={this.columns}
-        style={{ height: 450 }}
+        style={{ height: 400 }}
         fixed="y"
         pagination={{
           align: 'center',

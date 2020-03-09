@@ -3,6 +3,37 @@
 
 @upload-prefix: ~'@{so-prefix}-upload';
 
+.message {
+  position: absolute;
+  z-index: 1000;
+  top: 100%;
+  left: 50%;
+  min-width: 120px;
+  max-width: 240px;
+  padding: @padding-small-vertical @padding-small-horizontal;
+  margin-top: 8px;
+  background: @gray-100;
+  border-radius: @input-border-radius;
+  box-shadow: 0 0 0 1px @state-danger-border, 0 2px 8px rgba(0, 0, 0, 0.15);
+  color: @form-feedback-invalid-color;
+  font-size: 12px;
+  transform: translateX(-50%);
+  transform-origin: 0 0;
+
+  &:before {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    border: solid 1px @state-danger-border;
+    border-width: 1px 0 0 1px;
+    background: inherit;
+    content: ' ';
+    transform: rotate(45deg) translateY(3px);
+  }
+}
+
 .@{upload-prefix} {
   &-handle {
     display: inline-block;
@@ -152,34 +183,7 @@
       border-color: @colors-danger;
 
       .@{upload-prefix}-message {
-        position: absolute;
-        z-index: 1000;
-        top: 100%;
-        left: 50%;
-        min-width: 120px;
-        max-width: 240px;
-        padding: @padding-small-vertical @padding-small-horizontal;
-        margin-top: 8px;
-        background: @gray-100;
-        border-radius: @input-border-radius;
-        box-shadow: 0 0 0 1px @state-danger-border, 0 2px 8px rgba(0, 0, 0, 0.15);
-        color: @form-feedback-invalid-color;
-        font-size: 12px;
-        transform: translateX(-50%);
-        transform-origin: 0 0;
-
-        &:before {
-          position: absolute;
-          bottom: 100%;
-          left: 50%;
-          width: 6px;
-          height: 6px;
-          border: solid 1px @state-danger-border;
-          border-width: 1px 0 0 1px;
-          background: inherit;
-          content: ' ';
-          transform: rotate(45deg) translateY(3px);
-        }
+        .message()
       }
 
       .@{upload-prefix}-progress-bg {
@@ -416,4 +420,19 @@
     .for(@data, (@i + 1));
   }
   .for(@types);
+
+  &-url-invalid-border {
+    border-color: @colors-danger!important;
+  }
+
+  &-url-invalid-indicator {
+    &:before,
+    &:after {
+      background: @colors-danger!important;
+    }
+  }
+
+  &-url-invalid-message {
+    .message()
+  }
 }

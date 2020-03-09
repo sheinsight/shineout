@@ -18,3 +18,4 @@
 | trim | bool | false | trim 为 true 时，失去焦点时会自动删除空白字符 |
 | onBlur | func(e) | 无 | 失去焦点事件 |
 | onFocus | func(e) | 无 | 聚焦事件 |
+| absolute | boolean | false | When it is true, the pop-up layer of option append into document.body. |

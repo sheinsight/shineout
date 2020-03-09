@@ -2,10 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
 import classnames from 'classnames'
+import { getUidStr } from '../utils/uid'
+import absoluteList from '../List/AbsoluteList'
 import { editableAreaClass } from '../styles'
 import Clear from '../Input/clear'
-import { getParent } from '../utils/dom/element'
+import { focusElement } from '../utils/dom/element'
+import { defer } from '../utils/uid'
 
+const AbsoluteView = absoluteList(({ focus, getRef, fixed, ...other }) => (focus ? <div {...other} /> : null))
 function formatPreTagValue(value) {
   if (!value && value !== 0) return '\u00a0'
   const arr = String(value).split('\n')
@@ -23,6 +27,12 @@ function formatShowValue(value) {
   return String(value)
 }
 
+function isDescendent(el, id) {
+  if (el.getAttribute('data-id') === id) return true
+  if (!el.parentElement) return false
+  return isDescendent(el.parentElement, id)
+}
+
 class EditableArea extends React.PureComponent {
   constructor(props) {
     super(props)
@@ -32,11 +42,12 @@ class EditableArea extends React.PureComponent {
       height: 0,
       showClear: false,
     }
-
+    this.editableAreaId = `editable_${getUidStr()}`
     this.handleFocus = this.handleFocus.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleMousedown = this.handleMousedown.bind(this)
     this.bindElement = this.bindElement.bind(this)
+    this.bindInput = this.bindInput.bind(this)
     this.bindPlaceholder = this.bindPlaceholder.bind(this)
     this.handleMouseEnter = this.handleMouseEnter.bind(this)
     this.handleMouseLeave = this.handleMouseLeave.bind(this)
@@ -69,6 +80,10 @@ class EditableArea extends React.PureComponent {
     this.container = el
   }
 
+  bindInput(el) {
+    this.input = el
+  }
+
   bindPlaceholder(el) {
     this.placeholder = el
   }
@@ -98,10 +113,13 @@ class EditableArea extends React.PureComponent {
     document.addEventListener('mousedown', this.handleMousedown)
     this.handleToggle(true)
     if (onFocus) onFocus(e)
+    defer(() => {
+      focusElement.end(this.input)
+    })
   }
 
   handleMousedown(e) {
-    const isChild = getParent(e.target, this.container)
+    const isChild = isDescendent(e.target, this.editableAreaId)
     if (!isChild) {
       this.handleToggle(false)
       document.removeEventListener('mousedown', this.handleMousedown)
@@ -148,11 +166,10 @@ class EditableArea extends React.PureComponent {
 
   renderItem() {
     const { showTextarea, height } = this.state
-    const { style, placeholder, onBlur, bordered, disabled } = this.props
+    const { style, placeholder, onBlur, bordered, disabled, absolute } = this.props
     const value = this.getValue()
     const showClear = this.showClear()
-    return [
-      // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+    const content = [
       <pre
         key="pre"
         ref={this.bindPlaceholder}
@@ -167,6 +184,7 @@ class EditableArea extends React.PureComponent {
         {this.getPreTagValue(value)}
       </pre>,
       <textarea
+        ref={this.bindInput}
         key="t"
         placeholder={placeholder}
         onChange={this.handleChange}
@@ -189,6 +207,20 @@ class EditableArea extends React.PureComponent {
         </div>
       ),
     ]
+    if (!showTextarea || !absolute) return content
+    return (
+      <AbsoluteView
+        rootClass={editableAreaClass('absolute')}
+        fixed
+        position="drop-down"
+        absolute
+        focus={showTextarea}
+        parentElement={this.container}
+        data-id={this.editableAreaId}
+      >
+        {content}
+      </AbsoluteView>
+    )
   }
 
   render() {
@@ -200,6 +232,7 @@ class EditableArea extends React.PureComponent {
         className={cls}
         ref={this.bindElement}
         style={style}
+        data-id={this.editableAreaId}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
       >
@@ -221,6 +254,7 @@ EditableArea.propTypes = {
   onBlur: PropTypes.func,
   bordered: PropTypes.bool,
   disabled: PropTypes.bool,
+  absolute: PropTypes.bool,
 }
 
 EditableArea.defaultProps = {
