@@ -75,7 +75,7 @@ export default class {
       this.dispatch(changeSubscribe(name))
     }
 
-    if (pub) this.publishValue(name, FORCE_PASS)
+    if ((value !== null && typeof value === 'object') || pub) this.publishValue(name, FORCE_PASS)
 
     this.dispatch(CHANGE_TOPIC)
     this.handleChange()
