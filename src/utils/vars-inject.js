@@ -2564,6 +2564,12 @@ const injects = {
         type: 'number',
         parser: parseInt,
       },
+      {
+        name: 'textMaxWidth',
+        className: popoverClass('text'),
+        attr: 'maxWidth',
+        type: 'string',
+      },
     ],
     set borderColor(v) {
       setBodyProperty(
@@ -2593,6 +2599,14 @@ const injects = {
       setBodyProperty(
         {
           '--popover-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set textMaxWidth(v) {
+      setBodyProperty(
+        {
+          '--popover-text-max-width': v,
         },
         v
       )
@@ -2657,6 +2671,26 @@ const injects = {
         attr: 'padding',
         type: 'string',
       },
+      {
+        name: 'inputDelay',
+        className: exposeClass('common-input-delay'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        min: 0,
+        max: 2000,
+        desc: 'Input, Textarea, EditableArea',
+      },
+      {
+        name: 'inputTrim',
+        className: exposeClass('common-input-trim'),
+        attr: 'opacity',
+        type: 'number',
+        parser: parseInt,
+        min: 0,
+        max: 1,
+        desc: 'Input, Textarea, EditableArea work. 0 or 1',
+      },
     ],
     set contentBlockPadding(v) {
       setBodyProperty(
@@ -2670,6 +2704,22 @@ const injects = {
       setBodyProperty(
         {
           '--common-content-text-padding': v,
+        },
+        v
+      )
+    },
+    set inputDelay(v) {
+      setBodyProperty(
+        {
+          '--common-input-delay': parseInt(v, 10),
+        },
+        v
+      )
+    },
+    set inputTrim(v) {
+      setBodyProperty(
+        {
+          '--common-input-trim': parseInt(v, 10),
         },
         v
       )
