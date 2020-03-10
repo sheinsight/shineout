@@ -12,7 +12,7 @@ export interface <%= component.name%>Props {
   <% component.props.forEach(function({ attribute, type, def, desc }){%>
     /**
      * desc: <%- desc%>
-     * default: <%= def %>
+     * default: <%- def %>
      */
     <%= attribute%>?: <%- type%>;
   <% }); %>

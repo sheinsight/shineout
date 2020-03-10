@@ -6,30 +6,32 @@
 
 ## API
 
+### DatePicker
+
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | className | string | - | extend className |
-| clearable | bool | true | whether it can be cleared |
-| defaultValue | string \| number \| Date \| array | - | default |
-| disabled | bool \| function | false | When the value is true, disabled all options; When the value is function, disable the options that this function returns true. |
+| clearable | boolean | true | whether it can be cleared |
+| defaultValue | string \| number \| Date \| \[any, any] | - | default |
+| disabled | (date: Date, value: \[any, any], type: string) => boolean \| boolean  | false | When the value is true, disabled all options; When the value is function, disable the options that this function returns true. |
 | format | string | | default values for different types: <br />'date': 'yyyy-MM-dd'<br />'time': 'HH:mm:ss'<br />'week': 'RRRR II'<br />'month': 'yyyy-MM'<br />'datetime': 'yyyy-MM-dd HH:mm:ss' |
 | formatResult | string | props.format | Format the selected time |
-| onChange | function(d) | | a callback when the value is changing |
-| placeholder | string \| array | - | placeholder text<br />When the range property is not empty, it is an array of length 2. |
-| range | bool \| number | - | range span，unit: **second**，<br />When it is true, selection scope is not limited. |
+| onChange | (value: any) => void | - | a callback when the value is changing |
+| placeholder | string \| string[] | - | placeholder text<br />When the range property is not empty, it is an array of length 2. |
+| range | boolean \| number | - | range span，unit: **second**，<br />When it is true, selection scope is not limited. |
 | style | object | - | Container element style |
-| type | string | 'date' | options:  \['date', 'time', 'datetime', 'month', 'week'] |
-| value | string \| number \| Date \| array | - | When the value is string, it needs to match the format attribute. <br /> When the range property is true, the value is an array of length 2. |
-| defaultTime | string \| array | - | Default time when selecting a date, the format is: 'HH:mm:ss' |
-| absolute | bool | false | When it is true, the pop-up layer of option append into document.body. |
+| type | 'date' \| 'time' \| 'datetime' \| 'month' \| 'week' | 'date' | type of datepicker |
+| value | string \| number \| Date \| \[any, any] | - | When the value is string, it needs to match the format attribute. <br /> When the range property is true, the value is an array of length 2. |
+| defaultTime | string \| \[any, any] | - | Default time when selecting a date, the format is: 'HH:mm:ss' |
+| absolute | boolean | false | When it is true, the pop-up layer of option append into document.body. |
 | zIndex | number | 1000 | panel z-index |
 | allowSingle | boolean | false | allow single select, only in range can set | 
-| quickSelect | array<object> | false | quick select, only in range can set, name: tip, value: range date | 
+| quickSelect | object[] | false | quick select, only in range can set, name: tip, value: range date | 
 | min | string \| number \| Date | none | option min value |
 | max | string \| number \| Date | none | option max value |
-| defaultRangeMonth | array:\[date] | - | The initial month of range selection, the value is a time object, valid only in range mode, and the priority is lower than value and defaultValue | 
+| defaultRangeMonth | number[] \| Date[] | - | The initial month of range selection, the value is a time object, valid only in range mode, and the priority is lower than value and defaultValue | 
 
-### Format
+### DatePickerFormat
 
 tip: The format string we used (date-fns) and moment.js are inconsistent, such as:<br />
 moment: YYYY  => date-fns: yyyy <br />

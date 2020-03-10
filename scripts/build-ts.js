@@ -7,6 +7,7 @@ const libPath = path.resolve(__dirname, '../publish/lib')
 const sitePath = path.resolve(__dirname, '../site/pages/components')
 const temp = fs.readFileSync(path.resolve(__dirname, './component-declare.ejs'), 'utf-8')
 const sep = '-- |'
+const ignoreModule = ['Rule']
 
 function parseTable(c) {
   const header = c.lastIndexOf(sep)
@@ -15,13 +16,14 @@ function parseTable(c) {
   const list = []
   if (c.indexOf('| ') === -1) return []
   lines.forEach(line => {
-    if (!line) return
+    if (!line.trim()) return
     const replaced = String.raw`${line}`.replace(/\\\|/g, '#REP#')
     const [attribute, type, def, desc] = replaced
       .split('|')
       .filter(v => !!v)
       .map(v => v.trim())
       .map(d => d.replace(/#REP#/g, '\|'))
+      .map(d => d.replace('\\[', '['))
     list.push({
       attribute,
       type,
@@ -51,9 +53,12 @@ function readMarkdown(c, name) {
       .split('###')
       .filter(v => !!v)
     apis.forEach(api => {
-      const componentName = api.substring(0, api.indexOf('\n')).trim()
+      let componentName = api.substring(0, api.indexOf('\n')).trim()
+      if (componentName.indexOf('*') !== -1) {
+        componentName = componentName.substring(0, componentName.indexOf('*')).trim()
+      }
       // multiple components inline
-      if (componentName.indexOf(',')) {
+      if (componentName.indexOf(',') !== -1) {
         const names = componentName.split(',').map(v => v.trim())
         names.forEach(item => {
           data.push({
@@ -78,6 +83,7 @@ const markdown = glob('**/en.md', {
 
 markdown.forEach(p => {
   const componentName = path.dirname(p)
+  if (ignoreModule.includes(componentName)) return
   const componentDir = path.resolve(libPath, componentName)
   if (!fs.existsSync(componentDir)) return
   const content = fs.readFileSync(path.resolve(sitePath, p), 'utf-8')

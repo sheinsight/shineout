@@ -9,38 +9,27 @@
 | --- | --- | --- | --- |
 | className | string | | extend className |
 | datum | object \| Datum.Form | | The formdata helper class, which is created automatically inside a Form without setting it, usually does not need to be set. |
-| disabled | bool | false | When disabled is true, all the elements in the form are disabled. |
-| inline | bool | false | When inline is true, the form is horizontal layout |
-| labelAlign | string | | options:  \['top', 'right'], the default value is left. |
+| disabled | boolean | false | When disabled is true, all the elements in the form are disabled. |
+| inline | boolean | false | When inline is true, the form is horizontal layout |
+| labelAlign | 'top' \| 'right' | | the default value is left. |
 | labelWidth | string \| number | 140px | The width of label. It is invalid when labelAlign is 'top'. |
-| onChange | function(data) | | callback function, executed when the value is changing |
-| onError | function(err) | | callback when the error happens |
-| onSubmit | function(data) | | the function for Form Submission.  When the internal validation fails, it will not be triggered. |
-| removeUndefined | bool | true | When removeUndefined is true, remove undefined value on submit. |
+| onChange | (data: any) => void | | callback function, executed when the value is changing |
+| onError | (err: Error) => void | | callback when the error happens |
+| onSubmit | (data: any) => void | | the function for Form Submission.  When the internal validation fails, it will not be triggered. |
+| removeUndefined | boolean | true | When removeUndefined is true, remove undefined value on submit. |
 | rules | object | | validation rules, see details in the Rules |
 | style | object | - | Container element style |
 | throttle | number | 1000 | ms, the interval between two submissions(Prevent repeat submission) |
-| initValidate | bool | false | validate after set value |
-| formRef | func: (form) => {} | - | bind form ref, Can call some form methods | 
-
-### formRef
-
-| Property | Type | Default | Description | Version |
-| --- | --- | --- | --- | -- |
-| getValue | function | - | Returns the value of the form | 1.4.4 |
-| validate | function | - | Validation form | 1.4.4 |
-| clearValidate | function | - | Clear check | 1.4.4 |
-| reset | function | - | Reset form | 1.4.4 |
-| submit | function: (withValidate = true) => {} | - | Submit Form, withValidate: Whether to verify | 1.4.4 |
-
+| initValidate | boolean | false | validate after set value |
+| formRef | (form: any) => void | - | bind form ref, Can call some form methods | 
 
 ### Form.Item
 Used to layout, display labels, tips, errors, etc
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| label | string \| ReactElement | undefined | When it is undefined, the tag does not be rendered or occupy space. If there is no content, but it needs to be occupied, you can use an empty string ''. |
-| labelAlign | string | | options:  \['top', 'right'], the default value is left. |
+| label | string \| ReactNode | undefined | When it is undefined, the tag does not be rendered or occupy space. If there is no content, but it needs to be occupied, you can use an empty string ''. |
+| labelAlign | 'top' \| 'right' | | the default value is left. |
 | labelWidth | string \| number | 140px | The width of label. It is invalid when labelAlign is 'top'. |
 | required | boolean | false | Required tags for pure display. Do not trigger validation |
 | tip | string | | Prompting information |
@@ -50,22 +39,22 @@ Used to handle custom form components, enabling custom form components to get/st
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| children | ReactElement\|function(object) | required | React components that support value and onChange or function. The function object attribute is as follows: <br />value: The value obtained from the parent Form or Form.Block by name.<br />error: the error information of data validation. type is Error.<br />onChange: The callback when the value is changing. |
+| bind | string[] | - | bind name, render while the name change |
+| children | (opts: object) => ReactNode \| ReactNode | required | React components that support value and onChange or function. The function object attribute is as follows: <br />value: The value obtained from the parent Form or Form.Block by name.<br />error: the error information of data validation. type is Error.<br />onChange: The callback when the value is changing. |
 | defaultValue | string \| number | | default value |
 | name | string | none | The name of a Form that accesses data |
-| rules | array | none | Validation rules | 
+| rules | any[] | none | Validation rules | 
 
 ### Form.FieldSet
 Handle a set(group) data from form by name.
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| children | !function | required | When children type is not function, handle a set data type of object |
-| children | function(options) :ReactElement | required | When children type is function, handle a group of data type of array. options property: <br />list: all data of name <br />value：a single piece of data for the value obtained by name <br />onChange：a callback when the value is changing <br />onRemove：a callback when a child component is removed <br />index：the current index <br />onInsert: Insert a piece of data before the current item <br />onAppend: Insert a piece of data after the current item |
-| defaultValue | string \| array | | Default value |
-| empty | function(onInsert):ReactElement | | . |
+| children | (opts: object) => ReactNode \| ReactNode | required | When children type is not function, handle a set data type of object, When children type is function, handle a group of data type of array. options property: <br />list: all data of name <br />value：a single piece of data for the value obtained by name <br />onChange：a callback when the value is changing <br />onRemove：a callback when a child component is removed <br />index：the current index <br />onInsert: Insert a piece of data before the current item <br />onAppend: Insert a piece of data after the current item |
+| defaultValue | string \| number | | Default value |
+| empty | (onInsert: any) => ReactNode | | . |
 | name | string | required | The name that accesses data from from |
-| rules | array | none | Validation rules | 
+| rules | any[] | none | Validation rules | 
 
 ### Form.Flow
 
@@ -73,8 +62,18 @@ Used to process interactive data.
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| children | function(datum) :ReactElement | required | datum is the object of Datum.Form. |
-| names | array | none | Specifying which fields to change trigger the Flow update. |
+| children | (datum: any) => ReactNode | required | datum is the object of Datum.Form. |
+| names | string[] | none | Specifying which fields to change trigger the Flow update. |
+
+### FormRef
+
+| Property | Type | Default | Description | Version |
+| --- | --- | --- | --- | -- |
+| getValue | () => any | - | Returns the value of the form | 1.4.4 |
+| validate | () => void | - | Validation form | 1.4.4 |
+| clearValidate | () => void | - | Clear check | 1.4.4 |
+| reset | () => void | - | Reset form | 1.4.4 |
+| submit | (withValidate: boolean) => void | - | Submit Form, withValidate: Whether to verify | 1.4.4 |
 
 ### Submit, Reset, Button
 Same as [Button](/components/Button)

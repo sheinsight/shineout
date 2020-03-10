@@ -8,6 +8,9 @@
 <example />
 
 ## API 
+
+### Message
+
 Message 提供了一组方法供全局调用
 
 Message.show(content, \[duration], \[options])  // 不带有icon，纯 Message 展示
@@ -24,11 +27,11 @@ Message.close() // 关闭所有消息
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| content | string\|ReactElement | 必填 | 消息内容 |
+| content | ReactNode | 必填 | 消息内容 |
 | duration | number | 3 | 消息持续时间，单位秒；如果设置为 0，必须手动关闭 |
 
 
-#### options
+### MessageOptions
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |

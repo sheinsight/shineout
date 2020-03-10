@@ -4,22 +4,24 @@
 
 ## API
 
+### Dropdown
+
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | className | string | none | Extend className |
 | columns | number | none | Display multiple elements on the page. This property depends on the width attribute. Please set the number of columns and width appropriately. |
-| data | \[] | required | See the detail in the data of the drop down box. |
-| disabled | bool | false | disabled |
-| onClick | func | none | The click event. The parameter is the rendered data. <br /> Note: if the onClick is set in the data, this method will be ignored and data.onclick will be called. |
+| data | object[] | required | See the detail in the data of the drop down box. |
+| disabled | boolean | false | disabled |
+| onClick | (data: object) => void | none | The click event. The parameter is the rendered data. <br /> Note: if the onClick is set in the data, this method will be ignored and data.onclick will be called. |
 | outline | boolean | false | The same as [Button](/components/Button) |
-| placeholder | string \| ReactElement | required | Displayed content of the button |
-| renderItem | func \| string | 'content' | Set the displayed content. If it is a string,  the corresponding value will be displayed. <br />If it is a function, the return value will be displayed and its parameter is the current data. |
+| placeholder | string \| ReactNode | required | Displayed content of the button |
+| renderItem | (data: object) => ReactNode \| string | 'content' | Set the displayed content. If it is a string,  the corresponding value will be displayed. <br />If it is a function, the return value will be displayed and its parameter is the current data. |
 | size | string | 'default' | The same as [Button](/components/Button) |
-| trigger | string | 'click' | Toggle mode, options: \['click', 'hover'] |
-| type | string | 'default' | options: \['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'link'] |
+| trigger | 'click' \| 'hover' | 'click' | Toggle mode, options |
+| type | 'primary' \| 'secondary' \|  'success' \| 'info' \|  'warning' \|  'danger' \|  'link' | 'default' | type of Dropdown |
 | width | number | none | The width of the pop-up option layer |
 
-### data
+### DropdownData
 
 - If data item is a ReactElement, render the item;
 - If data item is an object and renderItem is set, render the renderItem's result;
