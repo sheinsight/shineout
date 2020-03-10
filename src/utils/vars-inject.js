@@ -2564,6 +2564,12 @@ const injects = {
         type: 'number',
         parser: parseInt,
       },
+      {
+        name: 'textMaxWidth',
+        className: popoverClass('text'),
+        attr: 'maxWidth',
+        type: 'string',
+      },
     ],
     set borderColor(v) {
       setBodyProperty(
@@ -2597,6 +2603,14 @@ const injects = {
         v
       )
     },
+    set textMaxWidth(v) {
+      setBodyProperty(
+        {
+          '--popover-text-max-width': v,
+        },
+        v
+      )
+    },
   },
   tree: {
     info: {
@@ -2613,11 +2627,99 @@ const injects = {
         parser: parseInt,
         min: -100,
       },
+      {
+        name: 'nodeMarginBottom',
+        className: exposeClass('tree-node'),
+        attr: 'marginBottom',
+        type: 'number',
+        parser: parseInt,
+      },
     ],
     set levelIndent(v) {
       setBodyProperty(
         {
           '--tree-level-indent': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set nodeMarginBottom(v) {
+      setBodyProperty(
+        {
+          '--tree-node-margin-bottom': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+  },
+  common: {
+    info: {
+      title: 'Common 公共',
+      name: 'common',
+      path: 'Button',
+    },
+    conf: [
+      {
+        name: 'contentBlockPadding',
+        className: '',
+        attr: 'padding',
+        type: 'string',
+      },
+      {
+        name: 'contentTextPadding',
+        className: popoverClass('text'),
+        attr: 'padding',
+        type: 'string',
+      },
+      {
+        name: 'inputDelay',
+        className: exposeClass('common-input-delay'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        min: 0,
+        max: 2000,
+        desc: 'Input, Textarea, EditableArea',
+      },
+      {
+        name: 'inputTrim',
+        className: exposeClass('common-input-trim'),
+        attr: 'opacity',
+        type: 'number',
+        parser: parseInt,
+        min: 0,
+        max: 1,
+        desc: 'Input, Textarea, EditableArea work. 0 or 1',
+      },
+    ],
+    set contentBlockPadding(v) {
+      setBodyProperty(
+        {
+          '--common-content-block-padding': v,
+        },
+        v
+      )
+    },
+    set contentTextPadding(v) {
+      setBodyProperty(
+        {
+          '--common-content-text-padding': v,
+        },
+        v
+      )
+    },
+    set inputDelay(v) {
+      setBodyProperty(
+        {
+          '--common-input-delay': parseInt(v, 10),
+        },
+        v
+      )
+    },
+    set inputTrim(v) {
+      setBodyProperty(
+        {
+          '--common-input-trim': parseInt(v, 10),
         },
         v
       )

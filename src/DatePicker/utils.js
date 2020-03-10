@@ -101,10 +101,11 @@ function clearHMS(date) {
   return new Date(new Date(date.toLocaleDateString()).getTime())
 }
 
-function compareDateArray(arr1, arr2) {
+function compareDateArray(arr1, arr2, type = 'date') {
   if (!arr1 || !arr2 || arr1.length !== arr2.length) return false
   return arr1.every((v, i) => {
     if (!v || !arr2[i]) return false
+    if (type === 'week') return format(v, 'RRRR II') === format(arr2[i], 'RRR II')
     return v.getTime() === arr2[i].getTime()
   })
 }

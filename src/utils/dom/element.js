@@ -73,8 +73,13 @@ export function getCursorOffset(length) {
 }
 
 function end(element) {
+  if (!element) return
+  element.focus()
+  if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+    element.selectionStart = -1
+    return
+  }
   if (window.getSelection) {
-    element.focus()
     const range = window.getSelection()
     range.selectAllChildren(element)
     range.collapseToEnd()
