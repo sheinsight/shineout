@@ -3,6 +3,7 @@ const path = require('path')
 const ejs = require('ejs')
 const glob = require('glob').sync
 
+const srcPath = path.resolve(__dirname, '../src')
 const libPath = path.resolve(__dirname, '../publish/lib')
 const sitePath = path.resolve(__dirname, '../site/pages/components')
 const temp = fs.readFileSync(path.resolve(__dirname, './component-declare.ejs'), 'utf-8')
@@ -91,4 +92,7 @@ markdown.forEach(p => {
   const declare = ejs.render(temp, { data })
   const fullPath = path.resolve(componentDir, 'index.d.ts')
   fs.writeFileSync(fullPath, declare)
+
+  // copy index
+  fs.copyFileSync(path.resolve(srcPath, 'index.js'), path.resolve(libPath, 'index.d.ts'))
 })
