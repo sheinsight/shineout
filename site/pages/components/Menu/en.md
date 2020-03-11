@@ -17,4 +17,4 @@
 | onClick | (data: object) => void | null | The function will be called when the user clicks the menu item. |
 | style | object | - | Container element style |
 | inlineIndent | number | 24 | indent of each level |   
-| linkKey | (d: object): string \| string | - |  the key of inject the link value of the submenu |
+| linkKey | (d: object) => string \| string | - |  the key of inject the link value of the submenu |
