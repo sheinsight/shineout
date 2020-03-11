@@ -20,7 +20,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | className | string | | 扩展className |
-| datum | object \| Datum.Form | | formdata 辅助类，不设置Form内部会自动创建，通常情况下不需要设置。 |
+| datum | object | | formdata 辅助类，不设置Form内部会自动创建，通常情况下不需要设置。 |
 | disabled | boolean | false | 是否禁用，为 true 时，表单内所有元素 disabled 都为 true |
 | inline | boolean | false | 是否水平布局 |
 | labelAlign | 'top' \| 'right' | | 默认为左边对齐。 |

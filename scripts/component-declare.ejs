@@ -4,9 +4,6 @@ import React, { ReactNode } from 'react';
 declare const <%= component.name%>: React.ComponentType<<%= component.name%>Props>;
 <% }); %>
 declare const <%= data[0].name%>: React.ComponentType<<%= data[0].name%>Props> & { <% data.slice(1).forEach(function(c){%><%= c.name.replace(data[0].name, '')%>: typeof <%= c.name %>,<%});%>};
-<% data.slice(1).forEach(function(component) {%>
-<%= data[0].name%>.<%= component.name.replace(data[0].name, '') %> = <%= component.name %>;
-<% });%>
 <% data.forEach(function(component){ %>
 export interface <%= component.name%>Props {
   <% component.props.forEach(function({ attribute, type, def, desc }){%>

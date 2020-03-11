@@ -8,7 +8,7 @@
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | className | string | | extend className |
-| datum | object \| Datum.Form | | The formdata helper class, which is created automatically inside a Form without setting it, usually does not need to be set. |
+| datum | object | | The formdata helper class, which is created automatically inside a Form without setting it, usually does not need to be set. |
 | disabled | boolean | false | When disabled is true, all the elements in the form are disabled. |
 | inline | boolean | false | When inline is true, the form is horizontal layout |
 | labelAlign | 'top' \| 'right' | | the default value is left. |

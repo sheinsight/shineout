@@ -2,13 +2,27 @@ const fs = require('fs')
 const path = require('path')
 const ejs = require('ejs')
 const glob = require('glob').sync
+const ts = require('typescript')
 
 const srcPath = path.resolve(__dirname, '../src')
 const libPath = path.resolve(__dirname, '../publish/lib')
 const sitePath = path.resolve(__dirname, '../site/pages/components')
 const temp = fs.readFileSync(path.resolve(__dirname, './component-declare.ejs'), 'utf-8')
 const sep = '-- |'
-const ignoreModule = ['Rule']
+const ignoreModule = [
+  'Rule',
+  'Datum',
+  'hoc',
+  'Icons',
+  'List',
+  'locale',
+  'styles',
+  'utils',
+  'Datum.List',
+  'Datum.Form',
+  'GetStart',
+]
+if (!fs.existsSync(libPath)) fs.mkdirSync(libPath, { recursive: true })
 
 function parseTable(c) {
   const header = c.lastIndexOf(sep)
@@ -86,13 +100,18 @@ markdown.forEach(p => {
   const componentName = path.dirname(p)
   if (ignoreModule.includes(componentName)) return
   const componentDir = path.resolve(libPath, componentName)
-  if (!fs.existsSync(componentDir)) return
+  if (!fs.existsSync(componentDir)) fs.mkdirSync(componentDir)
   const content = fs.readFileSync(path.resolve(sitePath, p), 'utf-8')
   const data = readMarkdown(content, componentName)
   const declare = ejs.render(temp, { data })
   const fullPath = path.resolve(componentDir, 'index.d.ts')
   fs.writeFileSync(fullPath, declare)
-
+  // validator
+  const dangerous = ts.createProgram([fullPath], { allowJs: true }).getSyntacticDiagnostics()
+  if (dangerous.length)
+    throw new Error(
+      `The generated declaration file: <${fullPath}> does not meet the standards, please check your api documentation: <${p}>`
+    )
   // copy index
   fs.copyFileSync(path.resolve(srcPath, 'index.js'), path.resolve(libPath, 'index.d.ts'))
 })
