@@ -90,7 +90,7 @@ class Item extends PureComponent {
     const { data, onClick, mode, toggleOpenKeys } = this.props
     if (data.disabled) return
 
-    if (mode === 'inline' && data.children) {
+    if (mode === 'inline' && data.children && data.children.length) {
       toggleOpenKeys(this.getKey(), !this.state.open)
     }
 

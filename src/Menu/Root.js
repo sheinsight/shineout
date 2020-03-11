@@ -172,12 +172,12 @@ class Root extends React.Component {
   }
 
   toggleOpenKeys(id, open) {
-    this.hasToggled = true
     const newOpenKeys = immer(keyToMap(this.getOpenKeys()), draft => {
       if (open) {
         draft.set(id, true)
       } else draft.delete(id)
     })
+    this.hasToggled = true
     const keys = newOpenKeys.keys()
     const { onOpenChange = () => {}, openKeys } = this.props
     if (openKeys) {
