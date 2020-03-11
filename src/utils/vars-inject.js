@@ -383,6 +383,20 @@ const injects = {
         className: buttonClass('_'),
       },
       {
+        name: 'smallBorderRadius',
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('small'),
+      },
+      {
+        name: 'largeBorderRadius',
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('large'),
+      },
+      {
         name: 'disabledBg',
         attr: 'backgroundColor',
         type: 'color',
@@ -445,6 +459,22 @@ const injects = {
       setBodyProperty(
         {
           '--button-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set smallBorderRadius(v) {
+      setBodyProperty(
+        {
+          '--button-small-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set largeBorderRadius(v) {
+      setBodyProperty(
+        {
+          '--button-large-border-radius': `${parseInt(v, 10)}px`,
         },
         v
       )
