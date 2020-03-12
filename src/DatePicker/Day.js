@@ -70,7 +70,12 @@ class Day extends PureComponent {
       if (min && utils.compareAsc(newDate, min) < 0) utils.setTime(newDate, min)
       if (max && utils.compareAsc(newDate, max) > 0) utils.setTime(newDate, max)
 
-      if (allowSingle && rangeDate[index] && newDate.getTime() === rangeDate[index].getTime()) newDate = ''
+      if (
+        allowSingle &&
+        rangeDate[index] &&
+        utils.clearHMS(newDate).getTime() === utils.clearHMS(rangeDate[index]).getTime()
+      )
+        newDate = ''
       this.props.onChange(newDate, true, type !== 'datetime')
     }
   }
