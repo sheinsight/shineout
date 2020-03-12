@@ -5,6 +5,7 @@ import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { getPosition } from '../utils/dom/popover'
 import { isFunc } from '../utils/is'
+import { getParent } from '../utils/dom/element'
 import { popoverClass } from '../styles'
 import { docSize } from '../utils/dom/document'
 import isDOMElement from '../utils/dom/isDOMElement'
@@ -139,6 +140,7 @@ class Panel extends PureComponent {
   clickAway(e) {
     if (this.parentElement.contains(e.target)) return
     if (this.element.contains(e.target)) return
+    if (getParent(e.target, `.${popoverClass('_')}`)) return
     this.handleHide(0)
   }
 
