@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-
+import * as React from 'react';
+type ReactNode = React.ReactNode;
 <% data.slice(1).reverse().forEach(function(component) {%>
 declare const <%= component.name%>: React.ComponentType<<%= component.name%>Props>;
 <% }); %>
