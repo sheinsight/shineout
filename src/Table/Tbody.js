@@ -202,7 +202,7 @@ class Tbody extends PureComponent {
 
   renderTrs(rows) {
     const { columns, colgroup } = this.props
-    const minWidthSup = columns.find(d => typeof d.minWidth === 'number')
+    const minWidthSup = columns.find(d => d.minWidth)
     const trs = rows.map(this.renderTr)
     if (!minWidthSup || colgroup) return trs
     return [this.renderPlaceholderTr()].concat(trs)
