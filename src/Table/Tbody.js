@@ -200,8 +200,16 @@ class Tbody extends PureComponent {
     )
   }
 
+  renderTrs(rows) {
+    const { columns, colgroup } = this.props
+    const minWidthSup = columns.find(d => typeof d.minWidth === 'number')
+    const trs = rows.map(this.renderTr)
+    if (!minWidthSup || colgroup) return trs
+    return [this.renderPlaceholderTr()].concat(trs)
+  }
+
   render() {
-    const { index, data, columns, expandKeys, bordered, colgroup } = this.props
+    const { index, data, columns, expandKeys, bordered } = this.props
     const rows = []
     for (let i = data.length - 1; i >= 0; i--) {
       const d = data[i]
@@ -217,8 +225,7 @@ class Tbody extends PureComponent {
       ignoreBorderBottom(rows)
       ignoreBorderRight(rows)
     }
-    const combinedTrs = colgroup ? rows.map(this.renderTr) : [this.renderPlaceholderTr(), ...rows.map(this.renderTr)]
-    return <tbody ref={this.bindBody}>{combinedTrs}</tbody>
+    return <tbody ref={this.bindBody}>{this.renderTrs(rows)}</tbody>
   }
 }
 
