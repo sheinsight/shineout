@@ -16,6 +16,7 @@
 | size | 'large' \| 'default' \| 'small' | 'default' | 按钮尺寸 |
 | style | object | 无 | 最外层扩展样式 |
 | type | 'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger' \| 'link' | 'default' | 可选值  |
+| text | boolean | false | 文字按钮，不展示边框和背景 |
 
 ### Button.Group
 

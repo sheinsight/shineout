@@ -16,6 +16,7 @@
 | size | 'large' \| 'default' \| 'small' | 'default' | size of button |
 | style | object | - | Container element style |
 | type | 'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger' \| 'link' | 'default' | type of button |
+| text | boolean | false | text button |
 
 ### Button.Group
 
