@@ -2690,6 +2690,12 @@ const injects = {
     },
     conf: [
       {
+        name: 'fontFamily',
+        className: buttonClass('_'),
+        attr: 'fontFamily',
+        type: 'string',
+      },
+      {
         name: 'contentBlockPadding',
         className: '',
         attr: 'padding',
@@ -2722,6 +2728,14 @@ const injects = {
         desc: 'Input, Textarea, EditableArea work. 0 or 1',
       },
     ],
+    set fontFamily(v) {
+      setBodyProperty(
+        {
+          '--common-body-font-family': v,
+        },
+        v
+      )
+    },
     set contentBlockPadding(v) {
       setBodyProperty(
         {
