@@ -275,4 +275,28 @@
     max-width: @popover-text-max-width;
     padding: @common-content-text-padding;
   }
+
+  &-input-tip {
+    color: @form-tip-color;
+    border: none;
+    box-shadow: 0 0 0 1px @input-border, 0 2px 8px rgba(0, 0, 0, 0.15);
+    .@{popover-prefix}-content, .@{popover-prefix}-arrow {
+      background-color: @gray-100;
+      border-color: @input-border;
+    }
+    .@{popover-prefix}-content {
+      & > span {
+        padding: @padding-base-vertical @padding-base-horizontal;
+      }
+    }
+  }
+
+  &-input-error {
+    color: @form-feedback-invalid-color;
+    border: none;
+    box-shadow: 0 0 0 1px @state-danger-border, 0 2px 8px rgba(0, 0, 0, 0.15);
+    .@{popover-prefix}-arrow {
+      border-color: @state-danger-border;
+    }
+  }
 }

@@ -1,9 +1,18 @@
 import immer from 'immer'
 
 const names = [
-  'delay', 'onDatumBind', 'rules', 'formDatum',
-  'forceChange', 'trim', 'beforeChange', 'validateHook',
-  'innerFormNamePath', 'fieldSetValidate', 'combineRules',
+  'delay',
+  'onDatumBind',
+  'rules',
+  'formDatum',
+  'forceChange',
+  'trim',
+  'beforeChange',
+  'validateHook',
+  'innerFormNamePath',
+  'fieldSetValidate',
+  'combineRules',
+  'popoverProps',
 ]
 
 /**
@@ -12,7 +21,7 @@ const names = [
  * @returns {Produced<*, *>}
  */
 export default function cleanProps(props) {
-  return immer(props, (draft) => {
+  return immer(props, draft => {
     names.forEach(p => delete draft[p])
   })
 }

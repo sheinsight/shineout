@@ -14,5 +14,5 @@ import { Input, Rule } from 'shineout'
 const rules = new Rule()
 
 export default function() {
-  return <Input placeholder="email" rules={[rules.required]} tip="Email, required" popover="top-left" width={300} />
+  return <Input type="number" placeholder="email" rules={[rules.required]} tip="Email, required" popover="top-left" width={300} />
 }
