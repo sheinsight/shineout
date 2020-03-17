@@ -51,19 +51,6 @@ exports[`Table[expand] should render correct 1`] = `
                   </Colgroup>
                   <Tbody colgroup={[undefined]} lazy={false} index={0} columns={{...}} onBodyRender={[Function: bound handleColgroup]} resize={false} keygen=\\"id\\" onChange={[undefined]} sorter={{...}} onSortChange={[Function: bound handleSortChange]} treeColumnsName={[undefined]} externalExpandRender={[undefined]} externalExpandClick={[undefined]} distinct={true} limit={0} initValidate={false} datum={{...}} bindWrapper={[Function: bound bindWrapper]} className=\\"\\" type=\\"default\\" rowsInView={10} loading={[undefined]} height={[undefined]} data={{...}} striped={[undefined]} bordered={[undefined]} columnResizable={[undefined]}>
                     <tbody>
-                      <tr className=\\"so-table-placeholder-tr\\">
-                        <td>
-                          <div>
-                            id
-                          </div>
-                        </td>
-                        <td className=\\"so-table-placeholder-checkbox\\" />
-                        <td>
-                          <div>
-                            Name
-                          </div>
-                        </td>
-                      </tr>
                       <ShineoutTr colgroup={[undefined]} lazy={false} onBodyRender={[Function: bound handleColgroup]} resize={false} onChange={[undefined]} onSortChange={[Function: bound handleSortChange]} treeColumnsName={[undefined]} externalExpandRender={[undefined]} externalExpandClick={[undefined]} distinct={true} limit={0} initValidate={false} datum={{...}} bindWrapper={[Function: bound bindWrapper]} className=\\"\\" type=\\"default\\" rowsInView={10} loading={[undefined]} height={[undefined]} striped={[undefined]} bordered={[undefined]} columnResizable={[undefined]} index={0} originKey=\\"id0\\" data={{...}} rowData={{...}} columns={{...}} rowKey=\\"id0\\" onExpand={[Function: bound handleExpand]} expandRender={[Function]} rowClickAttr={{...}}>
                         <tr onClick={[Function: bound handleRowClick]} className=\\"so-table-normal\\">
                           <Td colgroup={[undefined]} lazy={false} onBodyRender={[Function: bound handleColgroup]} resize={false} onChange={[undefined]} onSortChange={[Function: bound handleSortChange]} treeColumnsName={[undefined]} externalExpandRender={[undefined]} externalExpandClick={[undefined]} distinct={true} limit={0} initValidate={false} datum={{...}} bindWrapper={[Function: bound bindWrapper]} className={[undefined]} type={[undefined]} rowsInView={10} loading={[undefined]} height={[undefined]} bordered={[undefined]} columnResizable={[undefined]} originKey=\\"id0\\" rowKey=\\"id0\\" onExpand={[Function: bound handleExpand]} rowClickAttr={{...}} expanded={true} treeExpand={false} treeExpandShow={false} expandClick={[undefined]} style={{...}} fixed=\\"\\" firstFixed={[undefined]} lastFixed={[undefined]} align=\\"left\\" render=\\"id\\" index={0} data={{...}} expandKeys={[undefined]} colSpan={1}>
