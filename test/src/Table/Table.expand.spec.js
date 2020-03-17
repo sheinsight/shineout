@@ -47,7 +47,7 @@ describe('Table[expand]', () => {
         expandKeys: [dataProp[i].id],
       })
       wrapper.update()
-      const expand = wrapper.find(`.${SO_PREFIX}-scroll table tbody tr`).at(i + 2)
+      const expand = wrapper.find(`.${SO_PREFIX}-scroll table tbody tr`).at(i + 1)
       expect(expand.find('iframe')).toHaveLength(1)
     }
   })

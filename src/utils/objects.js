@@ -168,10 +168,10 @@ export const deepRemove = (target, path) => {
   let current = target
   let nextIsArray = false
   for (const [prop, next] of pathGenerator(path)) {
+    if (current == null || !hasOwnProperty.call(current, prop)) {
+      break
+    }
     if (next) {
-      if (current == null || !hasOwnProperty.call(current, prop)) {
-        break
-      }
       current = current[prop]
       nextIsArray = /^\[\d+\]/.test(next)
     } else if (isObject(current)) {
