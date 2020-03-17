@@ -604,6 +604,12 @@ const injects = {
         attr: 'color',
         type: 'color',
       },
+      {
+        name: 'labelHorizontalAlign',
+        className: exposeClass('form-label'),
+        attr: 'textAlign',
+        type: ['start', 'center', 'end'],
+      },
     ],
     set itemMarginBottom(v) {
       setBodyProperty(
@@ -629,6 +635,14 @@ const injects = {
         v
       )
     },
+    set labelHorizontalAlign(v) {
+      setBodyProperty(
+        {
+          '--form-item-label-align': v,
+        },
+        v
+      )
+    }
   },
   checkbox: {
     info: {

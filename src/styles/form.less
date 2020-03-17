@@ -29,6 +29,12 @@
       }
     }
 
+    &:not(.@{form-prefix}-label-align-top) {
+      .@{form-prefix}-label {
+        text-align: @form-item-label-align;
+      }
+    }
+
     .@{form-prefix}-control {
       flex: 1;
       padding: 0 @form-item-padding-x;
@@ -55,7 +61,7 @@
     display: none;
   }
 
-  &-label-align-right &-label {
+  &-item&-label-align-right &-label {
     text-align: right;
   }
 
