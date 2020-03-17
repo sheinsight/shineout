@@ -2696,6 +2696,57 @@ const injects = {
       )
     },
   },
+  switch: {
+    info: {
+      title: 'Switch 开关选择器',
+      name: 'switch',
+      path: 'Switch',
+    },
+    conf: [
+      {
+        name: 'type',
+        className: exposeClass('switch-type'),
+        attr: 'animationName',
+        type: ['outter', 'inner'],
+      }
+    ],
+    set type(v) {
+      const o = {}
+      if (v === 'outter') {
+        const fade50 = getProperty('--primary-color-fade-50')
+        o['--switch-checked-bg'] = fade50
+        o['--switch-indicator-checked-bg'] = getProperty('--primary-color')
+        o['--switch-checked-box-shadow'] = `0 1px 4px ${fade50}`
+        o['--switch-indicator-padding-horizontal'] = `0px`
+        o['--switch-indicator-padding-horizontal-negative'] = `0px`
+        o['--switch-indicator-size'] = `24px`
+        o['--switch-bg-height'] = `16px`
+        o['--switch-indicator-top'] = `-4px`
+        o['--switch-small-indicator-size'] = `16px`
+        o['--switch-small-bg-height'] = `10px`
+        o['--switch-large-bg-height'] = `22px`
+        o['--switch-large-indicator-top'] = `-5px`
+        o['--switch-small-indicator-top'] = `-3px`
+        o['--switch-large-indicator-size'] = `32px`
+      } else if (v === 'inner') {
+        o['--switch-checked-bg'] = getProperty('--primary-color')
+        o['--switch-indicator-checked-bg'] = `#fff`
+        o['--switch-checked-box-shadow'] = `0 1px 4px ${getProperty('--gray-500')}`
+        o['--switch-indicator-padding-horizontal'] = `2px`
+        o['--switch-indicator-padding-horizontal-negative'] = `-2px`
+        o['--switch-indicator-size'] = `18px`
+        o['--switch-bg-height'] = `22px`
+        o['--switch-indicator-top'] = `2px`
+        o['--switch-small-indicator-size'] = `12px`
+        o['--switch-small-bg-height'] = `16px`
+        o['--switch-large-bg-height'] = `28px`
+        o['--switch-large-indicator-top'] = `2px`
+        o['--switch-small-indicator-top'] = `2px`
+        o['--switch-large-indicator-size'] = `24px`
+      }
+      setBodyProperty(o, v)
+    }
+  },
   common: {
     info: {
       title: 'Common 公共',

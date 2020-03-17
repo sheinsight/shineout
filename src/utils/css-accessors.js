@@ -58,6 +58,7 @@ const accessors = {
   tree: {},
   dropdown: {},
   common: {},
+  switch: {},
 }
 
 for (const [key, value] of Object.entries(accessors)) {
