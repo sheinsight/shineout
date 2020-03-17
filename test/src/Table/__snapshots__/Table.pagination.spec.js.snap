@@ -92,16 +92,6 @@ Array [
         </colgroup>
         <tbody>
           <tr
-            className="so-table-placeholder-tr"
-          >
-            <td />
-            <td>
-              <div>
-                Name
-              </div>
-            </td>
-          </tr>
-          <tr
             className="so-table-normal"
             onClick={[Function]}
           >

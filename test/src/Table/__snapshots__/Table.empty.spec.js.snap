@@ -193,42 +193,7 @@ exports[`Table[Empty] should render empty table 1`] = `
           }
         />
       </colgroup>
-      <tbody>
-        <tr
-          className="so-table-placeholder-tr"
-        >
-          <td>
-            <div>
-              id
-            </div>
-          </td>
-          <td>
-            <div>
-              Name
-            </div>
-          </td>
-          <td>
-            <div>
-              Country
-            </div>
-          </td>
-          <td>
-            <div>
-              Position
-            </div>
-          </td>
-          <td>
-            <div>
-              Office
-            </div>
-          </td>
-          <td>
-            <div>
-              Start Date
-            </div>
-          </td>
-        </tr>
-      </tbody>
+      <tbody />
     </table>
   </div>
   <div
@@ -434,42 +399,7 @@ exports[`Table[Empty] should render empty table with emtpyText 1`] = `
           }
         />
       </colgroup>
-      <tbody>
-        <tr
-          className="so-table-placeholder-tr"
-        >
-          <td>
-            <div>
-              id
-            </div>
-          </td>
-          <td>
-            <div>
-              Name
-            </div>
-          </td>
-          <td>
-            <div>
-              Country
-            </div>
-          </td>
-          <td>
-            <div>
-              Position
-            </div>
-          </td>
-          <td>
-            <div>
-              Office
-            </div>
-          </td>
-          <td>
-            <div>
-              Start Date
-            </div>
-          </td>
-        </tr>
-      </tbody>
+      <tbody />
     </table>
   </div>
   <div
@@ -739,52 +669,7 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
           }
         />
       </colgroup>
-      <tbody>
-        <tr
-          className="so-table-placeholder-tr"
-        >
-          <td>
-            <div>
-              id
-            </div>
-          </td>
-          <td>
-            <div>
-              First Name
-            </div>
-          </td>
-          <td>
-            <div>
-              Last Name
-            </div>
-          </td>
-          <td>
-            <div>
-              Country
-            </div>
-          </td>
-          <td>
-            <div>
-              Position
-            </div>
-          </td>
-          <td>
-            <div>
-              Office
-            </div>
-          </td>
-          <td>
-            <div>
-              Start Date
-            </div>
-          </td>
-          <td>
-            <div>
-              Salary
-            </div>
-          </td>
-        </tr>
-      </tbody>
+      <tbody />
     </table>
   </div>
   <div
@@ -994,42 +879,7 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
           }
         />
       </colgroup>
-      <tbody>
-        <tr
-          className="so-table-placeholder-tr"
-        >
-          <td>
-            <div>
-              id
-            </div>
-          </td>
-          <td>
-            <div>
-              Name
-            </div>
-          </td>
-          <td>
-            <div>
-              Country
-            </div>
-          </td>
-          <td>
-            <div>
-              Position
-            </div>
-          </td>
-          <td>
-            <div>
-              Office
-            </div>
-          </td>
-          <td>
-            <div>
-              Start Date
-            </div>
-          </td>
-        </tr>
-      </tbody>
+      <tbody />
     </table>
   </div>
   <div

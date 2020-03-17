@@ -1,8 +1,8 @@
 import React from 'react'
 import { mount, render, shallow } from 'enzyme'
 import { Table } from 'shineout'
-import TableBase from '../../../site/pages/components/Table/example-01-base'
 import Render from 'react-test-renderer'
+import TableBase from '../../../site/pages/components/Table/example-01-base'
 
 const columns = [{ title: 'id', render: 'id', width: 50 }, { title: 'Name', render: 'name' }]
 const data = [
@@ -34,7 +34,7 @@ describe('Table[Base]', () => {
     const innerColumns = wrapper.find('ShineoutTable').prop('columns')
     const innerData = wrapper.find('ShineoutTable').prop('data')
     expect(wrapper.find('table thead th').length).toBe(innerColumns.length)
-    expect(wrapper.find('table tbody tr').length).toBe(innerData.length + 1)
+    expect(wrapper.find('table tbody tr').length).toBe(innerData.length)
   })
   test('should update columns when receiving props', () => {
     const innerColumns = [{ title: 'id', render: 'id' }]
