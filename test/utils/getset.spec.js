@@ -171,6 +171,12 @@ describe('object.js[deepRemove]', () => {
     expect(target).toEqual({ a: 'something' })
   })
 
+  test('remove path while null', () => {
+    const target = { a: 'something', b: null }
+    deepRemove(target, 'b.c')
+    expect(target).toEqual({ a: 'something', b: null })
+  })
+
   test('should skip if path target value is not exist', () => {
     const target = { a: { b: { c: [1, 2, 3] } } }
     deepRemove(target, 'a.b.d')
