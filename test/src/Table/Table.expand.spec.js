@@ -48,7 +48,6 @@ describe('Table[expand]', () => {
       })
       wrapper.update()
       const expand = wrapper.find(`.${SO_PREFIX}-scroll table tbody tr`).at(i + 1)
-      console.log(expand.debug())
       expect(expand.find('iframe')).toHaveLength(1)
     }
   })
