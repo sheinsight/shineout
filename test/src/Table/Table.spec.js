@@ -1,8 +1,8 @@
 import React from 'react'
 import { mount, render, shallow } from 'enzyme'
 import { Table } from 'shineout'
-import TableBase from '../../../site/pages/components/Table/example-01-base'
 import Render from 'react-test-renderer'
+import TableBase from '../../../site/pages/components/Table/example-01-base'
 
 const columns = [{ title: 'id', render: 'id', width: 50 }, { title: 'Name', render: 'name' }]
 const data = [
