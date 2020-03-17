@@ -208,40 +208,6 @@ Array [
         </colgroup>
         <tbody>
           <tr
-            className="so-table-placeholder-tr"
-          >
-            <td>
-              <div>
-                id
-              </div>
-            </td>
-            <td>
-              <div>
-                First Name
-              </div>
-            </td>
-            <td>
-              <div>
-                Last Name
-              </div>
-            </td>
-            <td>
-              <div>
-                Start Date
-              </div>
-            </td>
-            <td>
-              <div>
-                Time
-              </div>
-            </td>
-            <td>
-              <div>
-                Office
-              </div>
-            </td>
-          </tr>
-          <tr
             className="so-table-normal"
             onClick={[Function]}
           >
@@ -932,40 +898,6 @@ exports[`Table[combine] should combine without pagination 1`] = `
         />
       </colgroup>
       <tbody>
-        <tr
-          className="so-table-placeholder-tr"
-        >
-          <td>
-            <div>
-              id
-            </div>
-          </td>
-          <td>
-            <div>
-              First Name
-            </div>
-          </td>
-          <td>
-            <div>
-              Last Name
-            </div>
-          </td>
-          <td>
-            <div>
-              Start Date
-            </div>
-          </td>
-          <td>
-            <div>
-              Time
-            </div>
-          </td>
-          <td>
-            <div>
-              Office
-            </div>
-          </td>
-        </tr>
         <tr
           className="so-table-normal"
           onClick={[Function]}
