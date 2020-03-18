@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { Component } from '../component'
 import { curry } from '../utils/func'
-import { buttonClass, inputClass } from '../styles'
+import { buttonClass, inputClass, popoverClass } from '../styles'
+import Popover from '../Popover'
 
 export default curry(
   (options, Origin) =>
@@ -21,11 +22,13 @@ export default curry(
         tip: PropTypes.any,
         width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         popover: PropTypes.oneOf(['top-left', 'top', 'top-right', 'bottom-left', 'bottom', 'bottom-right']),
+        popoverProps: PropTypes.object,
       }
 
       static defaultProps = {
         border: true,
         style: {},
+        popoverProps: {},
       }
 
       constructor(props) {
@@ -57,20 +60,52 @@ export default curry(
       }
 
       renderHelp(focus) {
-        const { error, tip, popover } = this.props
-        const classList = ['tip', popover || 'bottom-left']
+        const { error, tip, popover, popoverProps } = this.props
+        const classList = ['input-tip']
+        const position = popover || 'bottom-left'
+        let styles
+        if (popoverProps.style && popoverProps.style.width) {
+          styles = popoverProps.style
+        } else {
+          styles = { minWidth: 200, maxWidth: 400 }
+          if (popoverProps.style) {
+            Object.assign(styles, popoverProps.style)
+          }
+        }
 
         if (error && popover) {
-          classList.push('error')
-          return <div className={inputClass(...classList)}>{error.message}</div>
+          classList.push('input-error')
+          return (
+            <Popover
+              getPopupContainer={() => this.el}
+              {...popoverProps}
+              visible
+              style={styles}
+              className={popoverClass(...classList)}
+              position={position}
+            >
+              {error.message}
+            </Popover>
+          )
         }
 
         if (!tip || !focus) return null
-        return <div className={inputClass([...classList])}>{tip}</div>
+        return (
+          <Popover
+            getPopupContainer={() => this.el}
+            {...popoverProps}
+            visible
+            style={styles}
+            className={popoverClass(...classList)}
+            position={position}
+          >
+            {tip}
+          </Popover>
+        )
       }
 
       render() {
-        const { className, border, size, tip, popover, width, style, error, ...other } = this.props
+        const { className, border, size, tip, popover, width, style, error, popoverProps, ...other } = this.props
         const { focus } = this.state
         const Tag = options.tag || 'label'
         const newStyle = Object.assign({ width }, style)

@@ -56,7 +56,11 @@ class Panel extends PureComponent {
     this.parentElement.removeEventListener('click', this.handleShow)
 
     document.removeEventListener('click', this.clickAway)
-    this.container.removeChild(this.element)
+    if (this.container === document.body) {
+      this.container.removeChild(this.element)
+    } else {
+      this.container.parentElement.removeChild(this.container)
+    }
   }
 
   setShow(show) {
