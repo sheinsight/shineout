@@ -18,12 +18,28 @@ class Button extends PureComponent {
   }
 
   render() {
-    const { outline, type, size, href, htmlType, loading, disabled, onRef, shape, ...others } = this.props
+    const {
+      outline: outlineProp,
+      type: typeProp,
+      size,
+      href,
+      htmlType,
+      loading,
+      disabled,
+      onRef,
+      shape,
+      text,
+      ...others
+    } = this.props
+    const isSecondary = typeProp === 'secondary' && !outlineProp && !text
+    const type = isSecondary ? 'primary' : typeProp
+    const outline = outlineProp || isSecondary
     const color = outline || type === 'default' ? undefined : '#fff'
     const className = classnames(
       buttonClass('_', shape, type, outline && 'outline', {
         large: size === 'large',
         small: size === 'small',
+        text: text && 'text',
         disabled,
       }),
       this.props.className
@@ -61,6 +77,7 @@ Button.propTypes = {
   onRef: PropTypes.func,
   shape: PropTypes.oneOf(['round', 'circle']),
   outline: PropTypes.bool,
+  text: PropTypes.bool,
 }
 
 Button.defaultProps = {
