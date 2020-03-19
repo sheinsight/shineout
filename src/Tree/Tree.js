@@ -102,6 +102,12 @@ class Tree extends PureComponent {
   handleToggle(id) {
     const { expanded, onExpand } = this.props
     let newExpanded
+
+    if (!expanded && onExpand) {
+      onExpand([id])
+      return
+    }
+
     if (expanded.indexOf(id) >= 0) {
       newExpanded = expanded.filter(e => e !== id)
     } else {
