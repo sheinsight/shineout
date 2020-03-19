@@ -1243,6 +1243,12 @@ const injects = {
         type: 'color',
       },
       {
+        name: 'selectedBg',
+        className: exposeClass('table-selected'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
         name: 'textColor',
         className: exposeClass('table'),
         attr: 'color',
@@ -1296,6 +1302,14 @@ const injects = {
       setBodyProperty(
         {
           '--table-hover-bg': v,
+        },
+        v
+      )
+    },
+    set selectedBg(v) {
+      setBodyProperty(
+        {
+          '--table-selected-row-bg': v,
         },
         v
       )

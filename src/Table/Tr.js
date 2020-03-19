@@ -212,8 +212,9 @@ class Tr extends Component {
     if (rowClassName) {
       className = classnames(className, rowClassName(rowData, index))
     }
+    const mc = classnames(className, other.datum.check(rowData) && tableClass('selected'))
     const result = [
-      <tr key="0" {...rowEvents} onClick={this.handleRowClick} className={className} ref={this.bindElement}>
+      <tr key="0" {...rowEvents} onClick={this.handleRowClick} className={mc} ref={this.bindElement}>
         {tds}
       </tr>,
     ]
