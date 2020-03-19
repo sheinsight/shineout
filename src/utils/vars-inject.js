@@ -642,7 +642,7 @@ const injects = {
         },
         v
       )
-    }
+    },
   },
   checkbox: {
     info: {
@@ -1243,6 +1243,12 @@ const injects = {
         type: 'color',
       },
       {
+        name: 'selectedBg',
+        className: exposeClass('table-selected'),
+        attr: 'backgroundColor',
+        type: 'color',
+      },
+      {
         name: 'textColor',
         className: exposeClass('table'),
         attr: 'color',
@@ -1296,6 +1302,14 @@ const injects = {
       setBodyProperty(
         {
           '--table-hover-bg': v,
+        },
+        v
+      )
+    },
+    set selectedBg(v) {
+      setBodyProperty(
+        {
+          '--table-selected-row-bg': v,
         },
         v
       )
@@ -2708,7 +2722,7 @@ const injects = {
         className: exposeClass('switch-type'),
         attr: 'animationName',
         type: ['outter', 'inner'],
-      }
+      },
     ],
     set type(v) {
       const o = {}
@@ -2745,7 +2759,7 @@ const injects = {
         o['--switch-large-indicator-size'] = `24px`
       }
       setBodyProperty(o, v)
-    }
+    },
   },
   common: {
     info: {
@@ -2761,6 +2775,12 @@ const injects = {
         type: 'string',
       },
       {
+        name: 'lineHeight',
+        className: exposeClass('common-line-height'),
+        attr: 'flexGrow',
+        type: 'string',
+      },
+      {
         name: 'contentBlockPadding',
         className: '',
         attr: 'padding',
@@ -2771,6 +2791,25 @@ const injects = {
         className: popoverClass('text'),
         attr: 'padding',
         type: 'string',
+      },
+      {
+        name: 'spinDefaultName',
+        className: exposeClass('common-spin-default'),
+        attr: 'animationName',
+        type: [
+          'default',
+          'chasing-dots',
+          'cube-grid',
+          'double-bounce',
+          'fading-circle',
+          'four-dots',
+          'plane',
+          'pulse',
+          'ring',
+          'scale-circle',
+          'three-bounce',
+          'wave',
+        ],
       },
       {
         name: 'inputDelay',
@@ -2797,6 +2836,14 @@ const injects = {
       setBodyProperty(
         {
           '--common-body-font-family': v,
+        },
+        v
+      )
+    },
+    set lineHeight(v) {
+      setBodyProperty(
+        {
+          '--common-line-height': v,
         },
         v
       )
@@ -2829,6 +2876,14 @@ const injects = {
       setBodyProperty(
         {
           '--common-input-trim': parseInt(v, 10),
+        },
+        v
+      )
+    },
+    set spinDefaultName(v) {
+      setBodyProperty(
+        {
+          '--common-spin-default-name': v,
         },
         v
       )

@@ -83,6 +83,9 @@
         width: @table-scroll-ratio;
       }
     }
+    &-selected {
+      background: @table-selected-row-bg;
+    }
   }
   &-dropdown {
     &-button {
@@ -237,6 +240,14 @@
       &-trim {
         opacity: @common-input-trim;
       }
+    }
+    &-spin {
+      &-default {
+        animation-name: @common-spin-default-name;
+      }
+    }
+    &-line-height {
+      flex-grow: @line-height-base;
     }
   }
 }

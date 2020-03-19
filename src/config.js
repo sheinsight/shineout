@@ -7,6 +7,7 @@ const config = {
   delay: undefined,
   scrollRatio: 100,
   trim: undefined,
+  spin: undefined,
 }
 
 export default config
@@ -22,5 +23,6 @@ export function syncConfig(conf) {
   const delay = deepGet(conf, 'common.inputDelay')
   const trim = !!deepGet(conf, 'common.inputTrim')
   const scrollRatio = deepGet(conf, 'table.scrollRatio')
-  setConfig({ delay, scrollRatio, trim })
+  const spin = deepGet(conf, 'common.spinDefaultName')
+  setConfig({ delay, scrollRatio, trim, spin })
 }

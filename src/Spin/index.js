@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import config from '../config'
 import { spinClass } from '../styles'
-
 import {
   ChasingDots,
   DoubleBounce,
@@ -47,8 +47,15 @@ function renderContainer(Loading, props) {
   )
 }
 
+function getName(name) {
+  if (name !== 'default') return name
+  if (typeof config.spin === 'string') return config.spin
+  return name
+}
+
 export default function Spin(props) {
-  const { name, children } = props
+  const { children } = props
+  const name = getName(props.name)
   const Component = spins[name]
   if (!Component) {
     console.warn(`Spin type '${name}' not existed.`)
