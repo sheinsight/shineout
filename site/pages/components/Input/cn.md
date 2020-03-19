@@ -21,6 +21,7 @@
 | value | string \| number | 无 | defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖<br />在Form中，value会被表单接管，value无效 |
 | clearable | () => void \| boolean | 可点击清空图标删除输入框内容，为函数式表示清空回调 |
 | coin | boolean | false | 以千位分隔符展示,仅当type为number时有效 |
+| info | (value: string) => string \| number | 无 | 提示信息 |
 
 ### Input.Number
 
