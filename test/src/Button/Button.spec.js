@@ -26,6 +26,7 @@ describe('Button[Base]', () => {
   test('should make contact on prop and className', () => {
     wrapper.find(Button).forEach(button => {
       const type = button.prop('type')
+      if (type === 'secondary') return
       expect(button.shallow().hasClass(`${SO_PREFIX}-button-${type}`)).toBeTruthy()
     })
   })

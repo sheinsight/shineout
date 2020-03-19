@@ -24,6 +24,7 @@
 | clearable | () => void \| boolean | false | Remove content of the input when clicking the clear icon, clear event function |
 | coin | boolean | false | Show as thousands separator, valid only when type is 'number' |
 | info | (value: string) => string \| number | - | Infomation |
+| popoverProps | object | none | Vilidate popup properties, specific properties refer to Popover component description |
 
 ### Input.Number
 
