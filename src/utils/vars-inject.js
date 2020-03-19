@@ -2761,6 +2761,12 @@ const injects = {
         type: 'string',
       },
       {
+        name: 'lineHeight',
+        className: exposeClass('common-line-height'),
+        attr: 'flexGrow',
+        type: 'string',
+      },
+      {
         name: 'contentBlockPadding',
         className: '',
         attr: 'padding',
@@ -2816,6 +2822,14 @@ const injects = {
       setBodyProperty(
         {
           '--common-body-font-family': v,
+        },
+        v
+      )
+    },
+    set lineHeight(v) {
+      setBodyProperty(
+        {
+          '--common-line-height': v,
         },
         v
       )
