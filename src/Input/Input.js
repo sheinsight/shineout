@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import cleanProps from '../utils/cleanProps'
 import Clear from './clear'
+import { inputClass } from '../styles'
 
 class Input extends PureComponent {
   constructor(props) {
@@ -59,6 +60,35 @@ class Input extends PureComponent {
     if (forceChange) forceChange(value)
   }
 
+  defaultInfo = value => {
+    if (!value || value.length === 0) return null
+    const { info } = this.props
+    const text = `${value.length} / ${info}`
+    if (value.length <= info) return text
+    return new Error(text)
+  }
+
+  renderInfo() {
+    const { info } = this.props
+    const notNumber = typeof info !== 'number'
+
+    if (typeof info !== 'function' && notNumber) return null
+
+    const textInfo = notNumber ? info : this.defaultInfo
+    const res = textInfo(this.props.value)
+
+    // empty
+    if (!res) return null
+
+    const isError = res instanceof Error
+    const text = isError ? res.message : res
+    return (
+      <div key="info" style={{ minWidth: 'auto' }} className={inputClass('bottom-right', isError ? 'error' : 'tip')}>
+        {text}
+      </div>
+    )
+  }
+
   render() {
     const {
       type,
@@ -87,6 +117,7 @@ class Input extends PureComponent {
         onBlur={this.handleBlur}
       />,
       !other.disabled && clearable && value !== '' && <Clear onClick={this.handleChange} key="close" />,
+      this.renderInfo(),
     ]
   }
 }
@@ -105,6 +136,7 @@ Input.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onFocus: PropTypes.func,
   clearable: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+  info: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
 }
 
 Input.defaultProps = {
