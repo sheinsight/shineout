@@ -642,7 +642,7 @@ const injects = {
         },
         v
       )
-    }
+    },
   },
   checkbox: {
     info: {
@@ -2708,7 +2708,7 @@ const injects = {
         className: exposeClass('switch-type'),
         attr: 'animationName',
         type: ['outter', 'inner'],
-      }
+      },
     ],
     set type(v) {
       const o = {}
@@ -2745,7 +2745,7 @@ const injects = {
         o['--switch-large-indicator-size'] = `24px`
       }
       setBodyProperty(o, v)
-    }
+    },
   },
   common: {
     info: {
@@ -2771,6 +2771,25 @@ const injects = {
         className: popoverClass('text'),
         attr: 'padding',
         type: 'string',
+      },
+      {
+        name: 'spinDefaultName',
+        className: exposeClass('common-spin-default'),
+        attr: 'animationName',
+        type: [
+          'default',
+          'chasing-dots',
+          'cube-grid',
+          'double-bounce',
+          'fading-circle',
+          'four-dots',
+          'plane',
+          'pulse',
+          'ring',
+          'scale-circle',
+          'three-bounce',
+          'wave',
+        ],
       },
       {
         name: 'inputDelay',
@@ -2829,6 +2848,14 @@ const injects = {
       setBodyProperty(
         {
           '--common-input-trim': parseInt(v, 10),
+        },
+        v
+      )
+    },
+    set spinDefaultName(v) {
+      setBodyProperty(
+        {
+          '--common-spin-default-name': v,
         },
         v
       )
