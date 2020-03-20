@@ -124,6 +124,7 @@ export default function(type) {
           htmlFor={this.id}
           tabIndex={disabled ? undefined : 0}
           ref={this.bindRef}
+          disabled={disabled}
         >
           {switchChildren}
           <input
