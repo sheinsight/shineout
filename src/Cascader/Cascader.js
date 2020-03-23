@@ -214,10 +214,12 @@ class Cascader extends PureComponent {
       <div className={className} ref={this.bindRef} style={listStyle}>
         <CascaderList {...props} key="root" data={tempData} id={path[0]} parentId="" path={[]} />
         {path.map((p, i) => {
-          tempData = tempData.find(d => {
-            const nid = this.datum.getKey(d, path[i - 1])
-            return nid === p
-          })
+          tempData =
+            tempData &&
+            tempData.find(d => {
+              const nid = this.datum.getKey(d, path[i - 1])
+              return nid === p
+            })
           if (tempData && tempData[childrenKey] && tempData[childrenKey].length > 0) {
             tempData = tempData[childrenKey]
             return (
