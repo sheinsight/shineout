@@ -18,3 +18,4 @@
 | trim | boolean | false | When trim is true, blank characters are automatically deleted when lose focus |
 | onBlur | (e: MouseEvent) => void | none | blur event |
 | onFocus | (e: MouseEvent) => void | none | focus event |
+| absolute | boolean | false | When it is true, the pop-up layer of option append into document.body. |
