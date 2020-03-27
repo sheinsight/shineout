@@ -22,14 +22,20 @@ const columns = [
     title: 'id',
     render: 'id',
     width: 80,
-    sorter: 'id',
+    sorter: {
+      rule: 'id',
+      weight: 1,
+    },
   },
   {
     title: 'Name',
     fixed: 'left',
     render: d => `${d.firstName} ${d.lastName}`,
     width: 160,
-    sorter: 'firstName',
+    sorter: {
+      rule: 'firstName',
+      weight: 2,
+    },
     defaultOrder: 'asc',
   },
   { title: 'Country', render: 'country' },

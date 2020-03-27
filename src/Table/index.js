@@ -33,7 +33,7 @@ export default class extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      sorter: {},
+      sorter: [],
     }
 
     this.handleSortChange = this.handleSortChange.bind(this)
@@ -119,34 +119,80 @@ export default class extends React.Component {
 
   handleSortChange(order, sorter, index, cancelOrder, manual) {
     const { onSortCancel } = this.props
+    console.log(order, index)
     // cancel sorter
     if (!order) {
-      this.setState({ sorter: { manual: true } }, () => {
-        if (onSortCancel) onSortCancel(cancelOrder, index)
-      })
+      this.setState(
+        immer(state => {
+          const i = state.sorter.findIndex(v => v.index === index)
+          if (i > -1) state.sorter.splice(i, 1)
+          if (!state.sorter.length) state.sorter.push({ manual: true, index })
+        }),
+        () => {
+          if (onSortCancel) onSortCancel(cancelOrder, index)
+        }
+      )
       return
     }
-    const sort = typeof sorter === 'string' ? this.getTableSorter()(sorter, order) : sorter(order)
-    this.setState(
-      immer(state => {
-        state.sorter.order = order
-        state.sorter.index = index
-        state.sorter.sort = sort
-        state.sorter.manual = manual
-      })
-    )
+    if (typeof sorter === 'object' && typeof sorter.rule === 'string') {
+      const sort = this.getTableSorter()(sorter.rule, order)
+      this.setState(
+        immer(state => {
+          const item = state.sorter.find(v => v.index === index)
+          if (sorter.length === 1 && !sorter[0].multiple) state.sorter = []
+          if (item) {
+            item.order = order
+            item.sort = sort
+            item.manual = manual
+          } else {
+            state.sorter.push({
+              order,
+              index,
+              sort,
+              manual,
+              multiple: true,
+              weight: sorter.weight,
+            })
+            state.sorter.sort((a, b) => {
+              const a1 = (a.weight || 0).toString()
+              const b1 = (b.weight || 0).toString()
+              return a1.localeCompare(b1)
+            })
+          }
+        })
+      )
+    } else {
+      const sort = typeof sorter === 'string' ? this.getTableSorter()(sorter, order) : sorter(order)
+      this.setState(
+        immer(state => {
+          state.sorter = []
+          state.sorter.push({
+            order,
+            index,
+            sort,
+            manual,
+            multiple: false,
+          })
+        })
+      )
+    }
   }
 
   render() {
     const { onRowSelect, ...props } = this.props
     const columns = this.getFilteredColumn()
-    const { sorter } = this.state
+    let { sorter } = this.state
     if (!columns) return <Table {...props} />
 
     let { data } = this.props
-    if (sorter.sort) {
-      data = immer(data, draft => draft.sort(sorter.sort))
+    if (!sorter.length) {
+      sorter = immer(sorter, draft => {
+        draft.push({})
+      })
     }
+    sorter.forEach(v => {
+      if (v.sort) data = immer(data, draft => draft.sort(v.sort))
+    })
 
     const treeColumnsName = this.getTreeColumnsName()
     let Component = Table
