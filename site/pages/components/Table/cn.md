@@ -31,7 +31,7 @@
 | empty | string \| ReactNode | 无数据 | 空数据文案 |
 | verticalAlign | 'top' \| 'middle' | 'top' | 单元格内容垂直对齐方式 |
 | rowClickAttr | string \| string[] | \['*'\] | 设置行内元素的attribut来按需触发onRowClick, '*'表示接受行点击触发 |
-| sorter | (sortKey: any, sorter: 'asc' \| 'desc') => (a: object, b: object) => boolean | alphaSort(Column.sorter, sorter) | 表格统一排序函数，参数分别为 Column.sorter 和 排序方式 |
+| sorter | (sortKey: any, sorter: 'asc' \| 'desc') => (a: object, b: object) => boolean | alphaSort(Column.sorter, sorter) | 表格统一排序函数，参数分别为 Column.sorter 和 排序方式;<br />支持多列排序，sorter传入对象{ rule: string \| function, weight: number }, rule为排序规则，为字符串时参考单列排序的用法，为函数时用于服务端排序，形式为 ({ index, order }) => {}, weight为权重，指明排序的优先级|
 | treeExpandKeys | any[] | 无  | 树形数据展开行，受控 |
 | hover | boolean | true | 数据行鼠标悬浮高亮效果 |
 | onTreeExpand | (openKeys: string[]) => void | 无 |  展开行，keys为展开的行 |

@@ -70,12 +70,20 @@ export default class extends React.Component {
         if (i === left) draft.lastFixed = true
         if (i >= right && right > 0) draft.fixed = 'right'
         if (i === right) draft.firstFixed = true
-        if (draft.defaultOrder && setDefaultOrder) delete draft.defaultOrder
-        if (draft.defaultOrder) setDefaultOrder = true
+        if (typeof draft.sorter !== 'object') {
+          if (draft.defaultOrder && setDefaultOrder) delete draft.defaultOrder
+          if (draft.defaultOrder) setDefaultOrder = true
+        }
         // if (draft.type === 'expand' && !draft.width) draft.width = 48
       })
     )
-
+    if (this.cachedColumns.find(v => typeof v.sorter !== 'object' && v.defaultOrder)) {
+      this.cachedColumns = this.cachedColumns.map(v =>
+        immer(v, draft => {
+          if (typeof draft.sorter === 'object' && draft.defaultOrder) delete draft.defaultOrder
+        })
+      )
+    }
     if ((onRowSelect || datum) && this.cachedColumns[0] && this.cachedColumns[0].type !== 'checkbox') {
       this.cachedColumns.unshift({
         key: 'checkbox',
@@ -119,14 +127,20 @@ export default class extends React.Component {
 
   handleSortChange(order, sorter, index, cancelOrder, manual) {
     const { onSortCancel } = this.props
-    console.log(order, index)
     // cancel sorter
     if (!order) {
       this.setState(
         immer(state => {
-          const i = state.sorter.findIndex(v => v.index === index)
-          if (i > -1) state.sorter.splice(i, 1)
-          if (!state.sorter.length) state.sorter.push({ manual: true, index })
+          const item = state.sorter.find(v => v.index === index)
+          if (item) {
+            item.order = undefined
+            item.manual = true
+            item.deleted = true
+          }
+          if (typeof sorter === 'object' && typeof sorter.rule === 'function') {
+            const rpm = state.sorter.filter(v => v.order && !v.deleted).map(v => ({ order: v.order, index: v.index }))
+            sorter.rule(rpm)
+          }
         }),
         () => {
           if (onSortCancel) onSortCancel(cancelOrder, index)
@@ -134,16 +148,17 @@ export default class extends React.Component {
       )
       return
     }
-    if (typeof sorter === 'object' && typeof sorter.rule === 'string') {
-      const sort = this.getTableSorter()(sorter.rule, order)
+    if (typeof sorter === 'object') {
+      const sort = typeof sorter.rule === 'string' ? this.getTableSorter()(sorter.rule, order) : undefined
       this.setState(
         immer(state => {
           const item = state.sorter.find(v => v.index === index)
-          if (sorter.length === 1 && !sorter[0].multiple) state.sorter = []
+          if (state.sorter.length === 1 && !state.sorter[0].multiple) state.sorter = []
           if (item) {
             item.order = order
             item.sort = sort
             item.manual = manual
+            item.deleted = false
           } else {
             state.sorter.push({
               order,
@@ -152,12 +167,17 @@ export default class extends React.Component {
               manual,
               multiple: true,
               weight: sorter.weight,
+              deleted: false,
             })
             state.sorter.sort((a, b) => {
               const a1 = (a.weight || 0).toString()
               const b1 = (b.weight || 0).toString()
               return a1.localeCompare(b1)
             })
+          }
+          if (typeof sorter.rule === 'function') {
+            const rpm = state.sorter.filter(v => v.order && !v.deleted).map(v => ({ order: v.order, index: v.index }))
+            sorter.rule(rpm)
           }
         })
       )
@@ -172,6 +192,7 @@ export default class extends React.Component {
             sort,
             manual,
             multiple: false,
+            deleted: false,
           })
         })
       )
@@ -190,9 +211,11 @@ export default class extends React.Component {
         draft.push({})
       })
     }
-    sorter.forEach(v => {
-      if (v.sort) data = immer(data, draft => draft.sort(v.sort))
-    })
+    sorter
+      .filter(v => !v.deleted)
+      .forEach(v => {
+        if (v.sort) data = immer(data, draft => draft.sort(v.sort))
+      })
 
     const treeColumnsName = this.getTreeColumnsName()
     let Component = Table

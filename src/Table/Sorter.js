@@ -19,7 +19,13 @@ class Sorter extends PureComponent {
 
   defaultSorterOrder() {
     const { defaultOrder, current, index } = this.props
-    const item = current.find(v => v.index === index) || {}
+    let item
+    if (current.length === 1) {
+      // eslint-disable-next-line prefer-destructuring
+      item = current[0]
+    } else {
+      return
+    }
     const changed = index === item.index && defaultOrder === item.order
     if (defaultOrder && !changed && !item.manual) this.handleChange(defaultOrder, false)
   }
