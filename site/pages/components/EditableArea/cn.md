@@ -18,3 +18,4 @@
 | trim | boolean | false | trim 为 true 时，失去焦点时会自动删除空白字符 |
 | onBlur | (e: MouseEvent) => void | 无 | 失去焦点事件 |
 | onFocus | (e: MouseEvent) => void | 无 | 聚焦事件 |
+| absolute | boolean | false | 为 true 时，选项弹出层在 DOM 中独立 render |
