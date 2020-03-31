@@ -4,14 +4,6 @@ import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { iconClass } from '../styles'
 
-const svgStyle = {
-  width: '1em',
-  height: '1em',
-  verticalAlign: '-0.15em',
-  fill: 'currentColor',
-  overflow: 'hidden',
-}
-
 function Icon(props) {
   const { children, prefix, type, name, fontFamily, fontSize, ext, ...otherProps } = props
 
@@ -29,7 +21,7 @@ function Icon(props) {
   if (ext === 'js') {
     return (
       <i {...otherProps} className={className} style={style}>
-        <svg style={svgStyle} aria-hidden="true">
+        <svg className={iconClass('svg')} aria-hidden="true">
           <use xlinkHref={`#icon-${name}`} />
         </svg>
       </i>
