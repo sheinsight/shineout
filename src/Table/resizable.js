@@ -9,6 +9,7 @@ export default Table =>
     static propTypes = {
       columns: PropTypes.array.isRequired,
       onColumnResize: PropTypes.func,
+      width: PropTypes.number,
     }
 
     constructor(props) {
@@ -16,6 +17,7 @@ export default Table =>
       this.handleResize = this.handleResize.bind(this)
       this.state = {
         columns: props.columns,
+        delta: 0,
       }
     }
 
@@ -25,22 +27,32 @@ export default Table =>
       }
     }
 
+    getWidth() {
+      const { width } = this.props
+      if (typeof width === 'number') return width + this.state.delta
+      return width
+    }
+
     handleResize(index, width) {
       const { onColumnResize } = this.props
-      const { columns } = this.state
-      const changed = immer(columns, draft => {
-        draft[index].width = width
+      const changed = immer(this.state, draft => {
+        const column = draft.columns[index]
+        if (column.width) {
+          draft.delta += parseFloat(width - column.width)
+        }
+        column.width = width
       })
       if (onColumnResize) {
-        onColumnResize(changed)
+        onColumnResize(changed.columns)
         return
       }
-      this.setState({ columns: changed })
+      this.setState(changed)
     }
 
     render() {
       const { columns } = this.state
       const { onColumnResize, ...other } = this.props
-      return <Table {...other} columns={columns} onResize={this.handleResize} />
+      const width = this.getWidth()
+      return <Table {...other} width={width} columns={columns} onResize={this.handleResize} />
     }
   }
