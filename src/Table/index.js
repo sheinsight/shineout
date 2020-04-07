@@ -138,12 +138,6 @@ export default class extends React.Component {
             item.manual = true
             item.deleted = true
           }
-          if (typeof sorter === 'object' && typeof sorter.rule === 'function') {
-            const rpm = state.sorter
-              .filter(v => v.order && !v.deleted)
-              .map(v => ({ order: v.order, index: v.index, weight: v.weight }))
-            sorter.rule(rpm)
-          }
         }),
         () => {
           const rpm = this.state.sorter
