@@ -37,6 +37,7 @@ export default class extends React.Component {
     }
 
     this.handleSortChange = this.handleSortChange.bind(this)
+    this.cacheDefaultSorterList = []
   }
 
   getTreeColumnsName() {
@@ -138,28 +139,54 @@ export default class extends React.Component {
             item.deleted = true
           }
           if (typeof sorter === 'object' && typeof sorter.rule === 'function') {
-            const rpm = state.sorter.filter(v => v.order && !v.deleted).map(v => ({ order: v.order, index: v.index }))
+            const rpm = state.sorter
+              .filter(v => v.order && !v.deleted)
+              .map(v => ({ order: v.order, index: v.index, weight: v.weight }))
             sorter.rule(rpm)
           }
         }),
         () => {
-          if (onSortCancel) onSortCancel(cancelOrder, index)
+          const rpm = this.state.sorter
+            .filter(v => v.order && !v.deleted)
+            .map(v => ({ order: v.order, index: v.index, weight: v.weight, manual: v.manual }))
+          if (typeof sorter === 'object' && typeof sorter.rule === 'function') {
+            sorter.rule(rpm)
+          }
+          if (onSortCancel) onSortCancel(cancelOrder, index, rpm)
         }
       )
       return
     }
     if (typeof sorter === 'object') {
-      const sort = typeof sorter.rule === 'string' ? this.getTableSorter()(sorter.rule, order) : undefined
       this.setState(
         immer(state => {
+          let rpm = state.sorter.map(v => ({ order: v.order, index: v.index, weight: v.weight, manual: v.manual }))
           const item = state.sorter.find(v => v.index === index)
-          if (state.sorter.length === 1 && !state.sorter[0].multiple) state.sorter = []
+          if (state.sorter.length === 1 && !state.sorter[0].multiple) {
+            state.sorter = []
+            rpm = []
+          }
           if (item) {
             item.order = order
-            item.sort = sort
             item.manual = manual
             item.deleted = false
+            const rpmItem = rpm.find(v => v.index === index)
+            rpmItem.order = order
+            rpmItem.manual = manual
+            rpm = rpm.filter(v => v.order && !v.deleted)
+            const sort = typeof sorter.rule === 'string' ? this.getTableSorter()(sorter.rule, order, rpm) : undefined
+            item.sort = sort
           } else {
+            if (manual) {
+              this.cacheDefaultSorterList = []
+              rpm.push({ order, index, weight: sorter.weight, manual })
+              rpm = rpm.filter(v => v.order && !v.deleted)
+            }
+            if (!manual) {
+              this.cacheDefaultSorterList.push({ order, index, weight: sorter.weight, manual })
+              rpm = this.cacheDefaultSorterList
+            }
+            const sort = typeof sorter.rule === 'string' ? this.getTableSorter()(sorter.rule, order, rpm) : undefined
             state.sorter.push({
               order,
               index,
@@ -176,13 +203,13 @@ export default class extends React.Component {
             })
           }
           if (typeof sorter.rule === 'function') {
-            const rpm = state.sorter.filter(v => v.order && !v.deleted).map(v => ({ order: v.order, index: v.index }))
+            rpm = rpm.filter(v => v.order && !v.deleted)
             sorter.rule(rpm)
           }
         })
       )
     } else {
-      const sort = typeof sorter === 'string' ? this.getTableSorter()(sorter, order) : sorter(order)
+      const sort = typeof sorter === 'string' ? this.getTableSorter()(sorter, order, [{ order, index }]) : sorter(order)
       this.setState(
         immer(state => {
           state.sorter = []
