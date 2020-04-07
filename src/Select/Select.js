@@ -118,9 +118,10 @@ class Select extends PureComponent {
     const desc = this.isDescendent(e.target, this.selectId)
     if (!desc) {
       if (!getParent(e.target, `[data-id=${this.selectId}]`)) {
+        this.blured = true
         this.props.onBlur()
         this.clearClickAway()
-        this.element && this.element.blur()
+        if (this.element) this.element.blur()
       }
       this.handleState(false, null)
     }
@@ -153,6 +154,7 @@ class Select extends PureComponent {
     this.setState({ focus, position: position || 'drop-down' })
 
     if (focus) {
+      this.blured = false
       this.renderPending = false
     }
   }
@@ -162,7 +164,7 @@ class Select extends PureComponent {
   }
 
   handleChange(_, data, fromInput) {
-    const { datum, multiple, disabled, emptyAfterSelect, onFilter, filterText } = this.props
+    const { datum, multiple, disabled, emptyAfterSelect, onFilter, filterText, onCreate } = this.props
     if (disabled === true) return
 
     // if click option, ignore blur event
@@ -188,7 +190,10 @@ class Select extends PureComponent {
       datum.set(data)
       this.handleState(false)
       //  let the element focus
-      setTimeout(() => this.element && this.element.focus(), 10)
+      setTimeout(() => {
+        if (onCreate && this.blured) return
+        if (this.element) this.element.focus()
+      }, 10)
     }
 
     if (emptyAfterSelect && onFilter && filterText) onFilter('')
