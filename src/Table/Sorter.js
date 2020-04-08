@@ -19,13 +19,8 @@ class Sorter extends PureComponent {
 
   defaultSorterOrder() {
     const { defaultOrder, current, index } = this.props
-    let item
-    if (current.length === 1) {
-      // eslint-disable-next-line prefer-destructuring
-      item = current[0]
-    } else {
-      return
-    }
+    if (current.length !== 1) return
+    const item = current[0]
     const changed = index === item.index && defaultOrder === item.order
     if (defaultOrder && !changed && !item.manual) this.handleChange(defaultOrder, false)
   }
