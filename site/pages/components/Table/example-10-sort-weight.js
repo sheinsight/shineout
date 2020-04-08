@@ -1,6 +1,5 @@
 /**
  * cn - 多列排序
- *    -- 设置 Table 的 sorter 属性统一指定排序函数
  *    -- 设置 column 的 sorter 为一个对象，对象的rule属性同单列排序的sorter，weight表示排序权重，值越大表示排序优先级越高
  *    -- 支持多列默认排序，为需要默认排序的列设置defaultOrder
  *    -- sorter 返回一个 sort 函数时，使用这个函数对数据进行内部排序
@@ -26,6 +25,7 @@ const columns = [
       rule: 'id',
       weight: 1,
     },
+    defaultOrder: 'asc',
   },
   {
     title: 'Name',
