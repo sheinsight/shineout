@@ -293,6 +293,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-29-sort.js'),
   },
   {
+    name: '30-multiple-sort',
+    title: locate(
+      '多列排序 \n 设置 Table 的 sorter 属性统一指定排序函数 \n 设置 column 的 sorter 为一个对象，对象的rule属性同单列排序的sorter，weight表示排序权重，值越大表示排序优先级越高 \n 支持多列默认排序，为需要默认排序的列设置defaultOrder \n sorter 返回一个 sort 函数时，使用这个函数对数据进行内部排序 \n 后端或自行排序用户自行处理，sorter 函数不要返回结果',
+      'multiple Sorter \n Set the sorter property of Table to indicate the method of table sort. \n Set the sorter of column to an object, the rule attribute of the object is the same as the sorter of single column sorting, weight indicates the sorting weight, the larger the value, the higher the sorting priority \n Support multi-column default sorting, set defaultOrder for columns that need default sorting \n When the sorter returns a function, use this function to sort data internally. \n Server-side or self-sorting is is handled by the user, do not return results.'
+    ),
+    component: require('doc/pages/components/Table/example-30-multiple-sort.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-30-multiple-sort.js'),
+  },
+  {
     name: '99-raw',
     title: locate(
       '只使用样式 \n 使用原生的tr, td来显示表格',
