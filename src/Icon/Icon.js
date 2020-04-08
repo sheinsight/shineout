@@ -5,22 +5,28 @@ import { getProps, defaultProps } from '../utils/proptypes'
 import { iconClass } from '../styles'
 
 function Icon(props) {
-  const {
-    children,
-    prefix,
-    type,
-    name,
-    fontFamily,
-    fontSize,
-    ...otherProps
-  } = props
+  const { children, prefix, type, name, fontFamily, fontSize, ext, ...otherProps } = props
 
   const className = classnames(iconClass('_', type), props.className, `${prefix}-${name}`)
 
-  const style = Object.assign({}, {
-    fontFamily,
-    fontSize,
-  }, props.style)
+  const style = Object.assign(
+    {},
+    {
+      fontFamily,
+      fontSize,
+    },
+    props.style
+  )
+
+  if (ext === 'js') {
+    return (
+      <i {...otherProps} className={className} style={style}>
+        <svg className={iconClass('svg')} aria-hidden="true">
+          <use xlinkHref={`#icon-${name}`} />
+        </svg>
+      </i>
+    )
+  }
 
   return (
     <i {...otherProps} className={className} style={style}>
@@ -34,10 +40,7 @@ Icon.propTypes = {
   prefix: PropTypes.string,
   name: PropTypes.string,
   fontFamily: PropTypes.string,
-  fontSize: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
+  fontSize: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 }
 
 Icon.defaultProps = {

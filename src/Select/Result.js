@@ -125,7 +125,7 @@ class Result extends PureComponent {
     const { focus, onFilter } = this.props
 
     if (focus && onFilter) {
-      return this.renderInput(' ')
+      return this.renderInput()
     }
 
     return (

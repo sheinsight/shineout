@@ -11,8 +11,8 @@
 
 | 参数 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| url | string |  | 图标css文件地址，使用在线地址，不需要引入到项目中。如果在 link 中已经引用过，可以为空(null) |
-| fontFamily | string | 'iconfont' | font-family 需要和引入的css文件内的font-family一致 |
+| url | string |  | 图标css或js文件地址，使用在线地址，不需要引入到项目中。如果在 link或script 中已经引用过，可以为空(null) |
+| fontFamily | string | 'iconfont' | font-family 需要和引入的css/js文件内的font-family一致 |
 | prefix | string | 'icon' | 类名前缀 |
 
 ### MyIcon *Icon函数创建的图标组件*
