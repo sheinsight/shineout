@@ -12,8 +12,8 @@ Function, returns a new component. A project can create more than one, but fontF
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| url | string |  | The address of css file of the icon. If it has been introduced in the link tag, it can be empty. |
-| fontFamily | string | 'iconfont' | The font-family needs to be the same as the font-family in the introduced CSS file. |
+| url | string |  | The address of css or js file of the icon. If it has been introduced in the link/script tag, it can be empty. |
+| fontFamily | string | 'iconfont' | The font-family needs to be the same as the font-family in the introduced CSS/JS file. |
 | prefix | string | 'icon' | The prefix of the class |
 
 ### IconComponent *Component created by the Icon function*

@@ -1276,6 +1276,13 @@ const injects = {
         parser: parseInt,
       },
       {
+        name: 'treeExpandIconMarginRight',
+        className: exposeClass('table-tree-expand'),
+        attr: 'marginRight',
+        type: 'number',
+        parser: parseInt,
+      },
+      {
         name: 'fixedShadow',
         className: exposeClass('table-fixed'),
         attr: 'backgroundImage',
@@ -1382,6 +1389,14 @@ const injects = {
       setBodyProperty(
         {
           '--table-cell-padding-vertical': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set treeExpandIconMarginRight(v) {
+      setBodyProperty(
+        {
+          '--table-tree-expand-icon-margin-right': `${parseInt(v, 10)}px`,
         },
         v
       )
