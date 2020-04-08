@@ -250,7 +250,7 @@ Tr.propTypes = {
   treeExpandKeys: PropTypes.object,
   columnResizable: PropTypes.bool,
   resize: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
-  rowEvents: PropTypes.array,
+  rowEvents: PropTypes.object,
   lazy: PropTypes.bool,
   externalExpandRender: PropTypes.func,
   externalExpandClick: PropTypes.func,
