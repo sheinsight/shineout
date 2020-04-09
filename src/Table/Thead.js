@@ -215,7 +215,7 @@ Thead.propTypes = {
   datum: PropTypes.object,
   disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   onSortChange: PropTypes.func,
-  sorter: PropTypes.object,
+  sorter: PropTypes.array,
   showSelectAll: PropTypes.bool,
   bordered: PropTypes.bool,
   onColChange: PropTypes.func,

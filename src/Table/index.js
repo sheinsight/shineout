@@ -33,10 +33,11 @@ export default class extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      sorter: {},
+      sorter: [],
     }
 
     this.handleSortChange = this.handleSortChange.bind(this)
+    this.cacheDefaultSorterList = []
   }
 
   getTreeColumnsName() {
@@ -70,12 +71,20 @@ export default class extends React.Component {
         if (i === left) draft.lastFixed = true
         if (i >= right && right > 0) draft.fixed = 'right'
         if (i === right) draft.firstFixed = true
-        if (draft.defaultOrder && setDefaultOrder) delete draft.defaultOrder
-        if (draft.defaultOrder) setDefaultOrder = true
+        if (typeof draft.sorter !== 'object') {
+          if (draft.defaultOrder && setDefaultOrder) delete draft.defaultOrder
+          if (draft.defaultOrder) setDefaultOrder = true
+        }
         // if (draft.type === 'expand' && !draft.width) draft.width = 48
       })
     )
-
+    if (this.cachedColumns.find(v => typeof v.sorter !== 'object' && v.defaultOrder)) {
+      this.cachedColumns = this.cachedColumns.map(v =>
+        immer(v, draft => {
+          if (typeof draft.sorter === 'object' && draft.defaultOrder) delete draft.defaultOrder
+        })
+      )
+    }
     if ((onRowSelect || datum) && this.cachedColumns[0] && this.cachedColumns[0].type !== 'checkbox') {
       this.cachedColumns.unshift({
         key: 'checkbox',
@@ -121,32 +130,113 @@ export default class extends React.Component {
     const { onSortCancel } = this.props
     // cancel sorter
     if (!order) {
-      this.setState({ sorter: { manual: true } }, () => {
-        if (onSortCancel) onSortCancel(cancelOrder, index)
-      })
+      this.setState(
+        immer(state => {
+          const item = state.sorter.find(v => v.index === index)
+          if (item) {
+            item.order = undefined
+            item.manual = true
+            item.deleted = true
+          }
+        }),
+        () => {
+          const rpm = this.state.sorter
+            .filter(v => v.order && !v.deleted)
+            .map(v => ({ order: v.order, index: v.index, weight: v.weight, manual: v.manual }))
+          if (typeof sorter === 'object' && typeof sorter.rule === 'function') {
+            sorter.rule(rpm)
+          }
+          if (onSortCancel) onSortCancel(cancelOrder, index, rpm)
+        }
+      )
       return
     }
-    const sort = typeof sorter === 'string' ? this.getTableSorter()(sorter, order) : sorter(order)
-    this.setState(
-      immer(state => {
-        state.sorter.order = order
-        state.sorter.index = index
-        state.sorter.sort = sort
-        state.sorter.manual = manual
-      })
-    )
+    if (typeof sorter === 'object') {
+      this.setState(
+        immer(state => {
+          let rpm = state.sorter.map(v => ({ order: v.order, index: v.index, weight: v.weight, manual: v.manual }))
+          const item = state.sorter.find(v => v.index === index)
+          if (state.sorter.length === 1 && !state.sorter[0].multiple) {
+            state.sorter = []
+            rpm = []
+          }
+          if (item) {
+            item.order = order
+            item.manual = manual
+            item.deleted = false
+            const rpmItem = rpm.find(v => v.index === index)
+            rpmItem.order = order
+            rpmItem.manual = manual
+            rpm = rpm.filter(v => v.order && !v.deleted)
+            const sort = typeof sorter.rule === 'string' ? this.getTableSorter()(sorter.rule, order, rpm) : undefined
+            item.sort = sort
+          } else {
+            if (manual) {
+              this.cacheDefaultSorterList = []
+              rpm.push({ order, index, weight: sorter.weight, manual })
+              rpm = rpm.filter(v => v.order && !v.deleted)
+            }
+            if (!manual) {
+              this.cacheDefaultSorterList.push({ order, index, weight: sorter.weight, manual })
+              rpm = this.cacheDefaultSorterList
+            }
+            const sort = typeof sorter.rule === 'string' ? this.getTableSorter()(sorter.rule, order, rpm) : undefined
+            state.sorter.push({
+              order,
+              index,
+              sort,
+              manual,
+              multiple: true,
+              weight: sorter.weight,
+              deleted: false,
+            })
+            state.sorter.sort((a, b) => {
+              const a1 = (a.weight || 0).toString()
+              const b1 = (b.weight || 0).toString()
+              return a1.localeCompare(b1)
+            })
+          }
+          if (typeof sorter.rule === 'function') {
+            rpm = rpm.filter(v => v.order && !v.deleted)
+            sorter.rule(rpm)
+          }
+        })
+      )
+    } else {
+      const sort = typeof sorter === 'string' ? this.getTableSorter()(sorter, order, [{ order, index }]) : sorter(order)
+      this.setState(
+        immer(state => {
+          state.sorter = []
+          state.sorter.push({
+            order,
+            index,
+            sort,
+            manual,
+            multiple: false,
+            deleted: false,
+          })
+        })
+      )
+    }
   }
 
   render() {
     const { onRowSelect, ...props } = this.props
     const columns = this.getFilteredColumn()
-    const { sorter } = this.state
+    let { sorter } = this.state
     if (!columns) return <Table {...props} />
 
     let { data } = this.props
-    if (sorter.sort) {
-      data = immer(data, draft => draft.sort(sorter.sort))
+    if (!sorter.length) {
+      sorter = immer(sorter, draft => {
+        draft.push({})
+      })
     }
+    sorter
+      .filter(v => !v.deleted)
+      .forEach(v => {
+        if (v.sort) data = immer(data, draft => draft.sort(v.sort))
+      })
 
     const treeColumnsName = this.getTreeColumnsName()
     let Component = Table

@@ -19,13 +19,16 @@ class Sorter extends PureComponent {
 
   defaultSorterOrder() {
     const { defaultOrder, current, index } = this.props
-    const changed = index === current.index && defaultOrder === current.order
-    if (defaultOrder && !changed && !current.manual) this.handleChange(defaultOrder, false)
+    if (current.length !== 1) return
+    const item = current[0]
+    const changed = index === item.index && defaultOrder === item.order
+    if (defaultOrder && !changed && !item.manual) this.handleChange(defaultOrder, false)
   }
 
   handleChange(order, manual = true) {
     const { sorter, index, onChange, current } = this.props
-    const isCancel = index === current.index && order === current.order
+    const item = current.find(v => v.index === index)
+    const isCancel = !!item && order === item.order
     const finalOrder = isCancel ? undefined : order
     onChange(finalOrder, sorter, index, order, manual)
   }
@@ -40,20 +43,21 @@ class Sorter extends PureComponent {
 
   render() {
     const { current, index } = this.props
-    const active = current.index === index
+    const item = current.find(v => v.index === index)
+    const active = !!item
 
     return (
       <div className={tableClass('sorter-container')}>
         <a
           key="asc"
-          className={tableClass(active && current.order === 'asc' && 'sorter-active', 'sorter-asc')}
+          className={tableClass(active && item.order === 'asc' && 'sorter-active', 'sorter-asc')}
           onClick={this.handleAsc}
         >
           &nbsp;
         </a>
         <a
           key="desc"
-          className={tableClass(active && current.order === 'desc' && 'sorter-active', 'sorter-desc')}
+          className={tableClass(active && item.order === 'desc' && 'sorter-active', 'sorter-desc')}
           onClick={this.handleDesc}
         >
           &nbsp;
@@ -64,15 +68,11 @@ class Sorter extends PureComponent {
 }
 
 Sorter.propTypes = {
-  current: PropTypes.object,
+  current: PropTypes.array,
   index: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
-  sorter: PropTypes.oneOfType([PropTypes.func, PropTypes.string]).isRequired,
+  sorter: PropTypes.oneOfType([PropTypes.func, PropTypes.string, PropTypes.object]).isRequired,
   defaultOrder: PropTypes.oneOf(['desc', 'asc']),
-}
-
-Sorter.defaultProps = {
-  current: {},
 }
 
 export default Sorter
