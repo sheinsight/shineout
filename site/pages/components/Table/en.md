@@ -40,7 +40,7 @@
 | treeCheckAll | boolean | false | check children data while select all | 
 | onSortCancel | () => void | none | sort cancel event |
 | radio | boolean | false | is Radio |
-| rowEvents | any[] | none | tr events |
+| rowEvents | object | none | tr events |
 | defaultTreeExpandKeys | string[] | none | Default expanded row keys |
 
 ### TableColumn

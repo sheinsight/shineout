@@ -39,7 +39,7 @@
 | treeCheckAll | boolean | false | 全选时是否将子孙数据选中 | 
 | onSortCancel | () => void | 无 | 排序取消事件 |
 | radio | boolean | false | 是否单选 |
-| rowEvents | any[] | 无 | tr 事件监听器集合 |
+| rowEvents | object | 无 | tr 事件监听器集合 |
 | defaultTreeExpandKeys | string[] | 无 | 默认展开行(非受控) |
 | dataChangeResize | boolean | false | 数据发生变化后是否重新计算列宽 |
 
