@@ -2784,6 +2784,13 @@ const injects = {
     },
     conf: [
       {
+        name: 'fontSize',
+        className: buttonClass('_'),
+        attr: 'fontSize',
+        parser: parseInt,
+        type: 'number',
+      },
+      {
         name: 'fontFamily',
         className: buttonClass('_'),
         attr: 'fontFamily',
@@ -2847,6 +2854,23 @@ const injects = {
         desc: 'Input, Textarea, EditableArea work. 0 or 1',
       },
     ],
+    set fontSize(v) {
+      const base = parseInt(v, 10)
+      setBodyProperty(
+        {
+          '--font-size-base': `${base}px`,
+          '--font-size-base-26': `${Math.floor(base * 2.6)}px`,
+          '--font-size-base-215': `${Math.floor(base * 2.15)}px`,
+          '--font-size-base-17': `${Math.floor(base * 1.7)}px`,
+          '--font-size-base-125': `${Math.floor(base * 1.25)}px`,
+          '--font-size-base-085': `${Math.floor(base * 0.85)}px`,
+          '--font-size-large': `${Math.ceil(base * 1.25)}px`,
+          '--font-size-small': `${Math.ceil(base * 0.85)}px`,
+          '--font-size-large-medium': `${base + 2}px`,
+        },
+        v
+      )
+    },
     set fontFamily(v) {
       setBodyProperty(
         {

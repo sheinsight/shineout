@@ -1,3 +1,16 @@
+@font-size-base-value: 14px;
+@font-size-base: var(--font-size-base, @font-size-base-value);
+@font-size-base-26: var(--font-size-base-26, floor((@font-size-base-value * 2.6)));
+@font-size-base-215: var(--font-size-base-215, floor((@font-size-base-value * 2.15)));
+@font-size-base-17: var(--font-size-base-17, floor((@font-size-base-value * 1.7)));
+@font-size-base-125: var(--font-size-base-125, floor((@font-size-base-value * 1.25)));
+@font-size-base-085: var(--font-size-base-085, floor((@font-size-base-value * 0.85)));
+@font-size-large-value: ceil((@font-size-base-value * 1.25));
+@font-size-large: var(--font-size-large, @font-size-large-value);
+@font-size-small-value: ceil((@font-size-base-value * 0.85));
+@font-size-large-medium: var(--font-size-large-medium, @font-size-base-value + 2);
+@font-size-small: var(--font-size-small, @font-size-small-value);
+
 @primary-color-dark-5-value: darken(@colors-primary-value, 5%);
 @primary-color-dark-15-value: darken(@colors-primary-value, 15%);
 @primary-color-dark-btn-hover-value: darken(@colors-primary-value, @btn-hover-darken);
@@ -427,7 +440,7 @@
 @modal-icon-size-value: 24px;
 @modal-icon-size: var(--modal-icon-size, @modal-icon-size-value);
 
-@modal-title-font-size-value: ceil((@font-size-base * 1.125));
+@modal-title-font-size-value: ceil((@font-size-base-value * 1.125));
 @modal-title-font-size: var(--modal-title-font-size, @modal-title-font-size-value);
 
 @modal-title-color-value: rgba(0, 0, 0, 0.85);
