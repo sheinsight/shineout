@@ -9,7 +9,10 @@ import Clear from '../Input/clear'
 import { focusElement } from '../utils/dom/element'
 import { defer } from '../utils/uid'
 
-const AbsoluteView = absoluteList(({ focus, getRef, fixed, ...other }) => (focus ? <div {...other} /> : null))
+const AbsoluteView = absoluteList(({ focus, getRef, fixed, ...other }) =>
+  focus ? <div className={editableAreaClass('focus')} {...other} /> : null
+)
+
 function formatPreTagValue(value) {
   if (!value && value !== 0) return '\u00a0'
   const arr = String(value).split('\n')
@@ -224,8 +227,9 @@ class EditableArea extends React.PureComponent {
   }
 
   render() {
+    const { showTextarea } = this.state
     const { style, className } = this.props
-    const cls = classnames(className, editableAreaClass('_'))
+    const cls = classnames(className, editableAreaClass('_', showTextarea && 'focus'))
     return (
       <div
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
