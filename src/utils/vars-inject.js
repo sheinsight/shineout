@@ -1,4 +1,5 @@
 import { darken, fade } from './color'
+import { set as configSet } from '../config'
 import {
   paginationClass,
   checkinputClass,
@@ -1357,6 +1358,7 @@ const injects = {
       },
     ],
     set scrollRatio(v) {
+      configSet('scrollRatio', v)
       setBodyProperty(
         {
           '--table-scroll-ratio': `${parseInt(v, 10)}px`,
@@ -3064,14 +3066,16 @@ const injects = {
       )
     },
     set inputDelay(v) {
+      configSet('delay', v)
       setBodyProperty(
         {
-          '--common-input-delay': parseInt(v, 10),
+          '--common-input-delay': `${parseInt(v, 10)}px`,
         },
         v
       )
     },
     set inputTrim(v) {
+      configSet('trim', !!v)
       setBodyProperty(
         {
           '--common-input-trim': parseInt(v, 10),
@@ -3080,6 +3084,7 @@ const injects = {
       )
     },
     set spinDefaultName(v) {
+      configSet('spin', v)
       setBodyProperty(
         {
           '--common-spin-default-name': v,
