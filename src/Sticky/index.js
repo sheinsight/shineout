@@ -67,11 +67,11 @@ class Sticky extends PureComponent {
   setPosition() {
     const { bottom, top, target } = this.props
     const { mode, scrollWidth } = this.state
-    const selfRect = this.element.getBoundingClientRect()
+    const selfRect = this.element.getBoundingClientRect().toJSON()
     const scrollElement = this.targetElement || document.body
     const scrollRect = scrollElement.getBoundingClientRect()
 
-    const placeholderRect = this.placeholder ? this.placeholder.getBoundingClientRect() : null
+    const placeholderRect = this.placeholder ? this.placeholder.getBoundingClientRect().toJSON() : null
     const viewHeight = docSize.height
 
     if (this.origin) {
