@@ -2,7 +2,6 @@ import { isObject } from './is'
 import { exposeClass } from '../styles/expose'
 import cssAccessors from './css-accessors'
 import { capitalize } from './strings'
-import { syncConfig } from '../config'
 
 const types = ['primary', 'warning', 'danger', 'success', 'secondary']
 const attrs = ['background', 'color', 'border']
@@ -66,7 +65,6 @@ const style = {
       resetTheme()
       return
     }
-    syncConfig(options)
     for (const [key, values] of Object.entries(options)) {
       const setterName = `set${capitalize(key)}`
       if (cssAccessors[key] && cssAccessors[key][setterName]) cssAccessors[key][setterName](values)
