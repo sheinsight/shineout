@@ -41,22 +41,32 @@ class Day extends PureComponent {
     return this.cachedDays
   }
 
-  formatWithDefaultTime() {
+  formatWithDefaultTime(i) {
     let idx = 0
     const { current, defaultTime, index } = this.props
     if (typeof index === 'number') idx = index
+    if (typeof i === 'number') idx = i
     if (!defaultTime[idx]) return current
     return utils.cloneTime(current, defaultTime[idx], utils.TIME_FORMAT)
   }
 
-  handleDayClick(date) {
+  handleDayDoubleClick(date) {
+    const { type, defaultTime, index } = this.props
+    // range & datetime & deafultTime
+    if (type !== 'datetime' || !defaultTime.length || index === undefined) return
+    this.handleDayClick(date, 0)
+    this.handleDayClick(date, 1)
+  }
+
+  handleDayClick(date, sync) {
     const { type, allowSingle, rangeDate, min, max, index } = this.props
-    const current = this.formatWithDefaultTime()
+    const current = this.formatWithDefaultTime(sync)
+    const onChange = typeof sync === 'number' ? this.props.onChangeSync.bind(this.props, sync) : this.props.onChange
     if (type === 'week') {
       // if (date.getDay() === 0) {
       //   date = utils.subDays(date, 1)
       // }
-      this.props.onChange(date, true, true)
+      onChange(date, true, true)
     } else {
       let newDate = new Date(
         date.getFullYear(),
@@ -76,7 +86,7 @@ class Day extends PureComponent {
         utils.clearHMS(newDate).getTime() === utils.clearHMS(rangeDate[index]).getTime()
       )
         newDate = ''
-      this.props.onChange(newDate, true, type !== 'datetime')
+      onChange(newDate, true, type !== 'datetime')
     }
   }
 
@@ -184,6 +194,7 @@ class Day extends PureComponent {
         key={date.getTime()}
         className={hoverClass}
         onClick={isDisabled ? undefined : this.handleDayClick.bind(this, date, minD, maxD)}
+        onDoubleClick={isDisabled ? undefined : this.handleDayDoubleClick.bind(this, date)}
         {...hoverProps}
       >
         <span className={datepickerClass(...classList)}>{date.getDate()}</span>
@@ -279,6 +290,7 @@ Day.propTypes = {
   max: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   min: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   onChange: PropTypes.func.isRequired,
+  onChangeSync: PropTypes.func,
   onDayHover: PropTypes.func,
   onModeChange: PropTypes.func.isRequired,
   range: PropTypes.number,
