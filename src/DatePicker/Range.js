@@ -18,6 +18,7 @@ class Range extends PureComponent {
 
     this.pickers = []
 
+    this.handleChange = this.handleChange.bind(this)
     this.handleFirstChange = this.handleChange.bind(this, 0)
     this.handleSecondChange = this.handleChange.bind(this, 1)
     this.handleDayHover = this.handleDayHover.bind(this)
@@ -226,6 +227,7 @@ class Range extends PureComponent {
           rangeDate={rangeDate}
           rangeTemp={utils.clearHMS(rangeDate[0])}
           onChange={this.handleFirstChange}
+          onChangeSync={this.handleChange}
           onDayHover={this.handleDayHover}
           ref={this.bindFirstPicker}
           value={utils.toDateWithFormat(value[0], props.format)}
@@ -242,6 +244,7 @@ class Range extends PureComponent {
           rangeDate={rangeDate}
           rangeTemp={utils.clearHMS(rangeDate[0])}
           onChange={this.handleSecondChange}
+          onChangeSync={this.handleChange}
           onDayHover={this.handleDayHover}
           ref={this.bindSecondPicker}
           value={utils.toDateWithFormat(value[1], props.format)}
