@@ -42,6 +42,7 @@
 | radio | boolean | false | is Radio |
 | rowEvents | object | none | tr events |
 | defaultTreeExpandKeys | string[] | none | Default expanded row keys |
+| onColumnResize | (newColumns: object[]) => void | none | columns resize callback |
 
 ### TableColumn
 

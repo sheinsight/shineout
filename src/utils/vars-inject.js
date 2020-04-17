@@ -2657,6 +2657,14 @@ const injects = {
     },
     conf: [
       {
+        name: 'fontSize',
+        className: exposeClass('modal-card'),
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+        desc: '文字大小',
+      },
+      {
         name: 'iconSize',
         className: exposeClass('modal-icon'),
         attr: 'width',
@@ -2687,6 +2695,79 @@ const injects = {
         desc: '标题字体大小',
       },
       {
+        name: 'padding',
+        className: modalClass('panel'),
+        attr: 'padding',
+        type: 'string',
+        desc: '整体内边距',
+      },
+      {
+        name: 'headerPadding',
+        className: exposeClass('modal-card-header'),
+        attr: 'padding',
+        type: 'string',
+        desc: '头部内边距',
+      },
+      {
+        name: 'bodyPadding',
+        className: exposeClass('modal-card-body'),
+        attr: 'padding',
+        type: 'string',
+        desc: '内容内边距',
+      },
+      {
+        name: 'footerPadding',
+        className: exposeClass('modal-card-footer'),
+        attr: 'padding',
+        type: 'string',
+        desc: '底部内边距',
+      },
+      {
+        name: 'borderRadius',
+        className: exposeClass('modal-card'),
+        attr: 'borderTopLeftRadius',
+        type: 'number',
+        parser: parseInt,
+        desc: '圆角',
+      },
+      {
+        name: 'borderWidth',
+        className: exposeClass('modal-card'),
+        attr: 'borderWidth',
+        type: 'number',
+        parser: parseInt,
+        desc: '边框宽度',
+      },
+      {
+        name: 'dividerHeight',
+        className: exposeClass('modal-divider'),
+        attr: 'height',
+        type: 'number',
+        parser: parseInt,
+        desc: '分割线高度',
+      },
+      {
+        name: 'dividerWidth',
+        value: '100%',
+        attr: 'width',
+        type: 'string',
+        desc: '分割线宽度',
+      },
+      {
+        name: 'borderColor',
+        className: exposeClass('modal-card'),
+        attr: 'borderColor',
+        type: 'color',
+        desc: '边框颜色',
+      },
+      {
+        name: 'color',
+        className: exposeClass('modal-card'),
+        attr: 'color',
+        type: 'color',
+        desc: '内容部分文字颜色',
+      },
+      {
         name: 'titleColor',
         className: modalClass('title'),
         attr: 'color',
@@ -2694,13 +2775,42 @@ const injects = {
         desc: '标题文字颜色',
       },
       {
-        name: 'padding',
-        className: modalClass('panel'),
-        attr: 'padding',
+        name: 'footerColor',
+        className: modalClass('modal-card-footer'),
+        attr: 'color',
+        type: 'color',
+        desc: '底部文字颜色',
+      },
+      {
+        name: 'headerBg',
+        className: exposeClass('modal-card-header'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '头部背景色',
+      },
+      {
+        name: 'footerBg',
+        className: exposeClass('modal-card-footer'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '底部背景色',
+      },
+      {
+        name: 'boxShadow',
+        className: exposeClass('modal-card'),
+        attr: 'boxShadow',
         type: 'string',
-        desc: '整体内边距',
+        desc: '阴影',
       },
     ],
+    set fontSize(v) {
+      setBodyProperty(
+        {
+          '--modal-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
     set iconSize(v) {
       setBodyProperty(
         {
@@ -2745,6 +2855,102 @@ const injects = {
       setBodyProperty(
         {
           '--modal-panel-padding': v,
+        },
+        v
+      )
+    },
+    set headerPadding(v) {
+      setBodyProperty(
+        {
+          '--modal-header-padding': v,
+        },
+        v
+      )
+    },
+    set bodyPadding(v) {
+      setBodyProperty(
+        {
+          '--modal-body-padding': v,
+        },
+        v
+      )
+    },
+    set footerPadding(v) {
+      setBodyProperty(
+        {
+          '--modal-footer-padding': v,
+        },
+        v
+      )
+    },
+    set borderRadius(v) {
+      setBodyProperty(
+        {
+          '--modal-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set borderWidth(v) {
+      setBodyProperty(
+        {
+          '--modal-border-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set dividerHeight(v) {
+      setBodyProperty(
+        {
+          '--modal-divider-height': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set dividerWidth(v) {
+      setBodyProperty(
+        {
+          '--modal-divider-width': v,
+        },
+        v
+      )
+    },
+    set borderColor(v) {
+      setBodyProperty(
+        {
+          '--modal-border-color': v,
+        },
+        v
+      )
+    },
+    set color(v) {
+      setBodyProperty(
+        {
+          '--modal-color': v,
+        },
+        v
+      )
+    },
+    set headerBg(v) {
+      setBodyProperty(
+        {
+          '--modal-header-bg': v,
+        },
+        v
+      )
+    },
+    set footerBg(v) {
+      setBodyProperty(
+        {
+          '--modal-footer-bg': v,
+        },
+        v
+      )
+    },
+    set boxShadow(v) {
+      setBodyProperty(
+        {
+          '--modal-box-shadow': v,
         },
         v
       )
