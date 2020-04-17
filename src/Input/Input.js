@@ -7,10 +7,13 @@ import { inputClass } from '../styles'
 class Input extends PureComponent {
   constructor(props) {
     super(props)
+    this.enterLock = false
     this.handleChange = this.handleChange.bind(this)
     this.handleKeyUp = this.handleKeyUp.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
     this.bindRef = this.bindRef.bind(this)
+    this.handleCompositionEnd = this.handleComposition.bind(this, 1)
+    this.handleCompositionStart = this.handleComposition.bind(this, 0)
   }
 
   bindRef(el) {
@@ -46,10 +49,20 @@ class Input extends PureComponent {
 
   handleKeyUp(e) {
     const { onKeyUp, onEnterPress } = this.props
-    if (e.keyCode === 13 && onEnterPress) {
+    if (e.keyCode === 13 && onEnterPress && !this.enterLock) {
       onEnterPress(e.target.value, e)
     }
     if (onKeyUp) onKeyUp(e)
+  }
+
+  handleComposition(type) {
+    if (type === 0) {
+      this.enterLock = true
+    } else {
+      setTimeout(() => {
+        this.enterLock = false
+      }, 100)
+    }
   }
 
   handleBlur(e) {
@@ -115,6 +128,8 @@ class Input extends PureComponent {
         onChange={this.handleChange}
         onKeyUp={this.handleKeyUp}
         onBlur={this.handleBlur}
+        onCompositionStart={this.handleCompositionStart}
+        onCompositionEnd={this.handleCompositionEnd}
       />,
       !other.disabled && clearable && value !== '' && <Clear onClick={this.handleChange} key="close" />,
       this.renderInfo(),
