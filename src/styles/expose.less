@@ -149,6 +149,9 @@
     &-tip {
       color: @form-tip-color;
     }
+    &-label {
+      text-align: @form-item-label-align;
+    }
   }
   .loop-gray(9);
   &-button {
@@ -200,6 +203,27 @@
       &-hover {
         color: @modal-close-icon-hover-color;
       }
+    }
+    &-card {
+      font-size: @modal-font-size;
+      border-radius: @modal-border-radius;
+      border: @modal-border-width solid @modal-border-color;
+      box-shadow: @modal-box-shadow;
+      &-header {
+        padding: @modal-header-padding;
+        background: @modal-header-bg;
+      }
+      &-body {
+        padding: @modal-body-padding;
+      }
+      &-footer {
+        padding: @modal-footer-padding;
+        background: @modal-footer-bg;
+        color: @modal-footer-color;
+      }
+    }
+    &-divider {
+      height: @modal-divider-height;
     }
   }
   &-tag {
