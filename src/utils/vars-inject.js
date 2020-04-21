@@ -2687,6 +2687,22 @@ const injects = {
         desc: '关闭按钮鼠标悬浮颜色',
       },
       {
+        name: 'closeIconTopMargin',
+        className: exposeClass('modal-close'),
+        attr: 'marginTop',
+        type: 'number',
+        parser: parseInt,
+        desc: '关闭按钮顶部间距',
+      },
+      {
+        name: 'closeIconRightMargin',
+        className: exposeClass('modal-close'),
+        attr: 'marginRight',
+        type: 'number',
+        parser: parseInt,
+        desc: '关闭按钮右侧间距',
+      },
+      {
         name: 'titleFontSize',
         className: modalClass('title'),
         attr: 'fontSize',
@@ -2714,6 +2730,13 @@ const injects = {
         attr: 'padding',
         type: 'string',
         desc: '内容内边距',
+      },
+      {
+        name: 'iconBodyPadding',
+        className: exposeClass('modal-icon-body'),
+        attr: 'padding',
+        type: 'string',
+        desc: '带有 Icon 的对话框内容内边距',
       },
       {
         name: 'footerPadding',
@@ -2835,6 +2858,22 @@ const injects = {
         v
       )
     },
+    set closeIconTopMargin(v) {
+      setBodyProperty(
+        {
+          '--modal-close-top-margin': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set closeIconRightMargin(v) {
+      setBodyProperty(
+        {
+          '--modal-close-right-margin': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
     set titleFontSize(v) {
       setBodyProperty(
         {
@@ -2871,6 +2910,14 @@ const injects = {
       setBodyProperty(
         {
           '--modal-body-padding': v,
+        },
+        v
+      )
+    },
+    set iconBodyPadding(v) {
+      setBodyProperty(
+        {
+          '--modal-icon-body-padding': v,
         },
         v
       )

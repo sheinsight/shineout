@@ -124,8 +124,8 @@
   &-close {
     position: absolute;
     z-index: 100;
-    top: @panel-header-padding-vertical;
-    right: @panel-header-padding-horizontal;
+    top: @modal-close-top-margin;
+    right: @modal-close-right-margin;
     display: block;
     width: 10px;
     height: 10px;
@@ -166,6 +166,9 @@
     }
     .@{card-prefix}-body {
       padding: @modal-body-padding;
+    }
+    .@{modal-prefix}-body {
+      padding: @modal-icon-body-padding;
     }
     .@{card-prefix}-footer {
       padding: @modal-footer-padding;
