@@ -3260,6 +3260,13 @@ const injects = {
     },
     conf: [
       {
+        name: 'uncheckBg',
+        className: checkinputClass('switch'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '关闭状态背景色',
+      },
+      {
         name: 'type',
         className: exposeClass('switch-type'),
         attr: 'animationName',
@@ -3302,6 +3309,14 @@ const injects = {
         o['--switch-large-indicator-size'] = `24px`
       }
       setBodyProperty(o, v)
+    },
+    set uncheckBg(v) {
+      setBodyProperty(
+        {
+          '--switch-unchecked-bg': v,
+        },
+        v
+      )
     },
   },
   common: {
