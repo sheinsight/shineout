@@ -1385,6 +1385,13 @@ const injects = {
         desc: '表头文字颜色',
       },
       {
+        name: 'bodyBg',
+        className: exposeClass('table-body'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '表格内容背景色',
+      },
+      {
         name: 'rowSpacing',
         className: exposeClass('table-spacing'),
         attr: 'height',
@@ -1515,6 +1522,14 @@ const injects = {
       setBodyProperty(
         {
           '--table-head-color': v,
+        },
+        v
+      )
+    },
+    set bodyBg(v) {
+      setBodyProperty(
+        {
+          '--table-body-bg': v,
         },
         v
       )
