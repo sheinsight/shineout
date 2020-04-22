@@ -896,6 +896,13 @@ const injects = {
         desc: '占位文字大小',
       },
       {
+        name: 'clearBg',
+        className: exposeClass('input-clear'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '清空图标背景色',
+      },
+      {
         name: 'clearHoverBg',
         className: exposeClass('input-clear-hover'),
         attr: 'backgroundColor',
@@ -972,6 +979,14 @@ const injects = {
       setBodyProperty(
         {
           '--input-placeholder-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set clearBg(v) {
+      setBodyProperty(
+        {
+          '--input-clear-bg-color': v,
         },
         v
       )
