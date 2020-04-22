@@ -1478,11 +1478,18 @@ const injects = {
         desc: '子表格展开/收起按钮距离文字距离',
       },
       {
-        name: 'fixedShadow',
-        className: exposeClass('table-fixed'),
-        attr: 'backgroundImage',
-        type: 'string',
-        desc: '固定列阴影',
+        name: 'fixedStart',
+        className: exposeClass('table-fixed-start'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '固定列渐变色开始颜色',
+      },
+      {
+        name: 'fixedEnd',
+        className: exposeClass('table-fixed-end'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '固定列渐变色结束颜色',
       },
     ],
     set scrollRatio(v) {
@@ -1606,10 +1613,18 @@ const injects = {
         v
       )
     },
-    set fixedShadow(v) {
+    set fixedStart(v) {
       setBodyProperty(
         {
-          '--table-fixed-shadow': v,
+          '--table-fixed-start-color': v,
+        },
+        v
+      )
+    },
+    set fixedEnd(v) {
+      setBodyProperty(
+        {
+          '--table-fixed-end-color': v,
         },
         v
       )

@@ -76,7 +76,12 @@
       padding: @table-cell-padding-vertical @table-cell-padding-horizontal;
     }
     &-fixed {
-      background: @table-fixed-shadow;
+      &-start {
+        background: @table-fixed-start-color;
+      }
+      &-end {
+        background: @table-fixed-end-color;
+      }
     }
     &-scroll {
       &-ratio {
