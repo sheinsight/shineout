@@ -1031,6 +1031,27 @@ const injects = {
         desc: '选项文字颜色',
       },
       {
+        name: 'itemBgColor',
+        className: selectClass('option'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '选项背景颜色',
+      },
+      {
+        name: 'disabledBg',
+        className: selectClass('option', 'disabled'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '禁用选项背景色',
+      },
+      {
+        name: 'disabledColor',
+        className: selectClass('option', 'disabled'),
+        attr: 'color',
+        type: 'color',
+        desc: '禁用选项文字颜色',
+      },
+      {
         name: 'itemActiveBg',
         className: selectClass('active', 'option'),
         attr: 'backgroundColor',
@@ -1057,6 +1078,13 @@ const injects = {
         attr: 'color',
         type: 'color',
         desc: '选项鼠标悬浮文字颜色',
+      },
+      {
+        name: 'compressedMoreHoverBg',
+        className: exposeClass('select-compressed'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'compressed模式按钮鼠标悬浮背景色',
       },
       {
         name: 'clearIconBg',
@@ -1091,6 +1119,30 @@ const injects = {
         v
       )
     },
+    set itemBgColor(v) {
+      setBodyProperty(
+        {
+          '--select-option-bg-color': v,
+        },
+        v
+      )
+    },
+    set disabledBg(v) {
+      setBodyProperty(
+        {
+          '--select-disabled-bg-color': v,
+        },
+        v
+      )
+    },
+    set disabledColor(v) {
+      setBodyProperty(
+        {
+          '--select-disabled-color': v,
+        },
+        v
+      )
+    },
     set itemActiveBg(v) {
       setBodyProperty(
         {
@@ -1119,6 +1171,14 @@ const injects = {
       setBodyProperty(
         {
           '--select-option-hover-color': v,
+        },
+        v
+      )
+    },
+    set compressedMoreHoverBg(v) {
+      setBodyProperty(
+        {
+          '--select-compressed-hover-bg': v,
         },
         v
       )

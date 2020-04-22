@@ -86,7 +86,7 @@
         }
       }
       &-more {
-        background: @primary-color-fade-60;
+        background: @select-compressed-hover-bg;
         color: #fff;
       }
 
@@ -249,7 +249,7 @@
           &.@{select-prefix}-disabled {
             padding-right: @select-result-space;
             cursor: not-allowed;
-            background: @input-bg-disabled;
+            background: @select-disabled-bg-color;
           }
         }
       }
@@ -331,6 +331,7 @@
     text-overflow: ellipsis;
     transition: none;
     white-space: nowrap;
+    background: @select-option-bg-color;
 
     &.@{select-prefix}-active {
       background-color: @dropdown-link-active-bg;
@@ -357,7 +358,8 @@
       &,
       &:hover,
       &.@{select-prefix}-active {
-        background: @input-bg-disabled;
+        background: @select-disabled-bg-color;
+        color: @select-disabled-color;
         cursor: not-allowed;
       }
     }
@@ -391,7 +393,7 @@
   }
 
   &-control-mouse &-option&-disabled:hover {
-    background: @input-bg-disabled;
+    background: @select-disabled-bg-color;
   }
 
   &-control-keyboard &-option.@{select-prefix}-hover {
@@ -461,7 +463,7 @@
       cursor: not-allowed;
       .@{select-prefix}-item {
         padding-right: @select-result-space;
-        background: @input-bg-disabled;
+        background: @select-disabled-bg-color;
 
         .@{select-prefix}-close {
           display: none;
