@@ -1242,11 +1242,25 @@ const injects = {
         desc: '滑块尺寸',
       },
       {
+        name: 'indicatorBoxShadow',
+        className: exposeClass('slider-indicator'),
+        attr: 'boxShadow',
+        type: 'string',
+        desc: '滑块阴影',
+      },
+      {
         name: 'barBg',
         className: exposeClass('slider-bar'),
         attr: 'backgroundColor',
         type: 'color',
         desc: '滑动条背景色',
+      },
+      {
+        name: 'disabledBarBg',
+        className: exposeClass('slider-bar-disabled'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '滑动条禁用背景色',
       },
       {
         name: 'height',
@@ -1290,10 +1304,26 @@ const injects = {
         v
       )
     },
+    set indicatorBoxShadow(v) {
+      setBodyProperty(
+        {
+          '--slider-indicator-box-shadow': v,
+        },
+        v
+      )
+    },
     set barBg(v) {
       setBodyProperty(
         {
           '--slider-bar-color': v,
+        },
+        v
+      )
+    },
+    set disabledBarBg(v) {
+      setBodyProperty(
+        {
+          '--slider-disabled-bar-bg': v,
         },
         v
       )
