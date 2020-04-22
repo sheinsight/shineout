@@ -176,6 +176,17 @@
       margin-left: 0;
     }
   }
+
+  &-box-list {
+    padding: @dropdown-columns-padding;
+    box-sizing: content-box;
+    .@{dropdown-prefix}-item {
+      text-align: center;
+      &:hover {
+        color: @colors-primary;
+      }
+    }
+  }
 }
 
 .@{dropdown-prefix}-split-dropdown {

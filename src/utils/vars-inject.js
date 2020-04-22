@@ -17,6 +17,7 @@ import {
   modalClass,
   popoverClass,
   datepickerClass,
+  dropdownClass,
 } from '../styles'
 import { exposeClass } from '../styles/expose'
 
@@ -587,11 +588,26 @@ const injects = {
         className: exposeClass('dropdown-button'),
         desc: '按钮边框宽度',
       },
+      {
+        name: 'columnsPadding',
+        attr: 'padding',
+        type: 'string',
+        className: dropdownClass('box-list'),
+        desc: '多列平铺的内边距',
+      },
     ],
     set borderWidth(v) {
       setBodyProperty(
         {
           '--dropdown-border-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set columnsPadding(v) {
+      setBodyProperty(
+        {
+          '--dropdown-columns-padding': v,
         },
         v
       )
