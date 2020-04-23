@@ -146,7 +146,7 @@
     display: flex;
     justify-content: flex-start;
 
-    .@{tabs-prefix}-header {
+    > .@{tabs-prefix}-header {
       flex-direction: column;
 
       .@{tabs-prefix}-inner {
@@ -179,7 +179,7 @@
       }
     }
 
-    .@{tabs-prefix}-panel {
+    > .@{tabs-prefix}-panel {
       flex: 1;
     }
   }
@@ -267,14 +267,14 @@
   }
 
   &-line:not(.@{tabs-prefix}-vertical) {
-    .@{tabs-prefix}-active:after {
+    > .@{tabs-prefix}-header .@{tabs-prefix}-active:after {
       bottom: 0;
       left: 0;
     }
   }
 
   &-line.@{tabs-prefix}-align-vertical-left {
-    .@{tabs-prefix}-active:after {
+    > .@{tabs-prefix}-header .@{tabs-prefix}-active:after {
       top: 0;
       right: 0;
       width: 2px;
@@ -283,7 +283,7 @@
   }
 
   &-line.@{tabs-prefix}-align-vertical-right {
-    .@{tabs-prefix}-active::after {
+    > .@{tabs-prefix}-header .@{tabs-prefix}-active::after {
       top: 0;
       left: 0;
       width: 2px;
