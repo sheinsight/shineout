@@ -34,18 +34,17 @@ class Panel extends PureComponent {
     super.componentDidMount()
 
     this.parentElement = this.placeholder.parentElement
-    if (this.props.trigger === 'hover') {
-      this.parentElement.addEventListener('mouseenter', this.handleShow)
-      this.parentElement.addEventListener('mouseleave', this.handleHide)
-      this.element.addEventListener('mouseenter', this.handleShow)
-      this.element.addEventListener('mouseleave', this.handleHide)
-    } else {
-      this.parentElement.addEventListener('click', this.handleShow)
-    }
+    this.bindEvents()
     this.container = this.getContainer()
     this.container.appendChild(this.element)
 
     if (this.props.visible) this.forceUpdate()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.trigger !== prevProps.trigger) {
+      this.bindEvents()
+    }
   }
 
   componentWillUnmount() {
@@ -138,6 +137,23 @@ class Panel extends PureComponent {
     Object.keys(pos).forEach(attr => {
       this.element.style[attr] = pos[attr]
     })
+  }
+
+  bindEvents() {
+    const { trigger } = this.props
+    if (trigger === 'hover') {
+      this.parentElement.addEventListener('mouseenter', this.handleShow)
+      this.parentElement.addEventListener('mouseleave', this.handleHide)
+      this.element.addEventListener('mouseenter', this.handleShow)
+      this.element.addEventListener('mouseleave', this.handleHide)
+      this.parentElement.removeEventListener('click', this.handleShow)
+    } else {
+      this.parentElement.addEventListener('click', this.handleShow)
+      this.parentElement.removeEventListener('mouseenter', this.handleShow)
+      this.parentElement.removeEventListener('mouseleave', this.handleHide)
+      this.element.removeEventListener('mouseenter', this.handleShow)
+      this.element.removeEventListener('mouseleave', this.handleHide)
+    }
   }
 
   placeholderRef(el) {
