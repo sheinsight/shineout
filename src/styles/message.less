@@ -2,6 +2,7 @@
 @import './themes/@{so-theme}.less';
 
 @message-prefix: ~'@{so-prefix}-message';
+@alert-prefix: ~'@{so-prefix}-alert';
 
 .@{message-prefix} {
   position: fixed;
@@ -100,5 +101,9 @@
       padding: 20px;
       animation: @keyframes-left-in 0.216s ease-out;
     }
+  }
+  
+  .@{alert-prefix}-close svg path {
+    fill: @message-close-color;
   }
 }

@@ -2469,6 +2469,13 @@ const injects = {
         desc: '阴影',
       },
       {
+        name: 'closeColor',
+        className: exposeClass('msg-close'),
+        attr: 'color',
+        type: 'color',
+        desc: '关闭图标颜色',
+      },
+      {
         name: 'color',
         className: messageClass('msg'),
         attr: 'color',
@@ -2498,6 +2505,14 @@ const injects = {
       setBodyProperty(
         {
           '--message-text-color': v,
+        },
+        v
+      )
+    },
+    set closeColor(v) {
+      setBodyProperty(
+        {
+          '--message-close-color': v,
         },
         v
       )
