@@ -2628,6 +2628,13 @@ const injects = {
         desc: '边框颜色',
       },
       {
+        name: 'dividerColor',
+        className: exposeClass('card-divider'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '分割线颜色',
+      },
+      {
         name: 'color',
         className: cardClass('_'),
         attr: 'color',
@@ -2762,6 +2769,14 @@ const injects = {
       setBodyProperty(
         {
           '--card-border-color': v,
+        },
+        v
+      )
+    },
+    set dividerColor(v) {
+      setBodyProperty(
+        {
+          '--card-divider-color': v,
         },
         v
       )
