@@ -2965,6 +2965,13 @@ const injects = {
         desc: '边框颜色',
       },
       {
+        name: 'dividerColor',
+        className: exposeClass('modal-divider'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '分割线颜色',
+      },
+      {
         name: 'color',
         className: exposeClass('modal-card'),
         attr: 'color',
@@ -3147,6 +3154,14 @@ const injects = {
       setBodyProperty(
         {
           '--modal-border-color': v,
+        },
+        v
+      )
+    },
+    set dividerColor(v) {
+      setBodyProperty(
+        {
+          '--modal-divider-color': v,
         },
         v
       )
