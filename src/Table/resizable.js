@@ -1,8 +1,7 @@
 import React from 'react'
 import immer from 'immer'
 import PropTypes from 'prop-types'
-
-import { compareColumns } from '../utils/shallowEqual'
+import deepEqual from 'deep-eql'
 
 export default Table =>
   class extends React.Component {
@@ -22,7 +21,7 @@ export default Table =>
     }
 
     componentDidUpdate(prevProps) {
-      if (!compareColumns(prevProps.columns, this.props.columns)) {
+      if (!deepEqual(prevProps.columns, this.props.columns)) {
         this.setState({ columns: this.props.columns })
       }
     }
