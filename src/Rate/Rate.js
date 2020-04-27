@@ -6,6 +6,7 @@ import { range } from '../utils/numbers'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { rateClass } from '../styles'
 
+const MIN_SIZE = 12
 class Rate extends PureComponent {
   constructor(props) {
     super(props)
@@ -24,8 +25,16 @@ class Rate extends PureComponent {
   getStyle() {
     const { size } = this.props
     if (!size) return undefined
+    const parsed = Math.max(MIN_SIZE, parseFloat(size))
+    return { width: parsed, fontSize: parsed }
+  }
 
-    return { width: size, fontSize: size }
+  getScale() {
+    const { size } = this.props
+    if (size >= MIN_SIZE) return undefined
+    return {
+      transform: `scale(${size / MIN_SIZE})`,
+    }
   }
 
   getIcon(icons, i, isBg) {
@@ -135,9 +144,9 @@ class Rate extends PureComponent {
 
   render() {
     const className = classnames(rateClass('_'), this.props.className)
-
+    const ms = Object.assign({}, this.props.style, this.getScale())
     return (
-      <div className={className} style={this.props.style}>
+      <div className={className} style={ms}>
         {this.renderBackground()}
         {this.props.disabled ? this.renderStatic() : this.renderRate()}
       </div>
