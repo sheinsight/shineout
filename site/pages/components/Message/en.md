@@ -8,6 +8,9 @@ Display message about operational feedback.
 <example />
 
 ## API 
+
+### Message
+
 Message provides a set of methods for global calls
 
 Message.show(content, \[duration], \[options]) // No icon, pure message display
@@ -24,11 +27,11 @@ Message.close() // Close all messages
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| content | string\|ReactElement | required | The message content |
+| content | ReactNode | required | The message content |
 | duration | number | 3 | Message duration, unit: s; If it is set to 0, it must be manually closed. |
 
 
-#### options
+### MessageOptions
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |

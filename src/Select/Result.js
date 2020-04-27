@@ -125,7 +125,7 @@ class Result extends PureComponent {
     const { focus, onFilter } = this.props
 
     if (focus && onFilter) {
-      return this.renderInput(' ')
+      return this.renderInput()
     }
 
     return (
@@ -188,17 +188,21 @@ class Result extends PureComponent {
     )
   }
 
+  renderIndicator() {
+    const { multiple, showArrow, compressed } = this.props
+    if (!showArrow || (multiple && !compressed)) return null
+    // eslint-disable-next-line
+    return <a tabIndex={-1} className={selectClass('indicator', multiple ? 'multi' : 'caret')} />
+  }
+
   render() {
-    const { compressed, showArrow } = this.props
+    const { compressed } = this.props
     const result = this.props.result.length === 0 ? this.renderPlaceholder() : this.renderResult()
 
     return (
       <div className={selectClass('result', compressed && 'compressed')}>
         {result}
-        {showArrow && !this.props.multiple && (
-          // eslint-disable-next-line
-          <a tabIndex={-1} className={selectClass('indicator', 'caret')} />
-        )}
+        {this.renderIndicator()}
         {this.renderClear()}
       </div>
     )

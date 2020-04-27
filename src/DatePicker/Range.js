@@ -18,6 +18,7 @@ class Range extends PureComponent {
 
     this.pickers = []
 
+    this.handleChange = this.handleChange.bind(this)
     this.handleFirstChange = this.handleChange.bind(this, 0)
     this.handleSecondChange = this.handleChange.bind(this, 1)
     this.handleDayHover = this.handleDayHover.bind(this)
@@ -108,6 +109,7 @@ class Range extends PureComponent {
           const current = immer(this.props.value, draft => {
             draft[index] = date
             if (endChangedDate) draft[1] = endChangedDate
+            draft[1 - index] = draft[1 - index] || ''
           })
           this.props.onChange(current, true)
         }
@@ -182,7 +184,7 @@ class Range extends PureComponent {
   }
 
   createQuick() {
-    const { quicks } = this.props
+    const { quicks, type } = this.props
     const { rangeDate } = this.state
 
     if (!quicks) return null
@@ -194,7 +196,7 @@ class Range extends PureComponent {
             onClick={this.handleQuick.bind(this, q)}
             className={datepickerClass(
               'quick-select-item',
-              dateFns.compareDateArray(q.value, rangeDate) && 'quick-select-item-active'
+              dateFns.compareDateArray(q.value, rangeDate, type) && 'quick-select-item-active'
             )}
             key={q.name}
           >
@@ -225,6 +227,7 @@ class Range extends PureComponent {
           rangeDate={rangeDate}
           rangeTemp={utils.clearHMS(rangeDate[0])}
           onChange={this.handleFirstChange}
+          onChangeSync={this.handleChange}
           onDayHover={this.handleDayHover}
           ref={this.bindFirstPicker}
           value={utils.toDateWithFormat(value[0], props.format)}
@@ -241,6 +244,7 @@ class Range extends PureComponent {
           rangeDate={rangeDate}
           rangeTemp={utils.clearHMS(rangeDate[0])}
           onChange={this.handleSecondChange}
+          onChangeSync={this.handleChange}
           onDayHover={this.handleDayHover}
           ref={this.bindSecondPicker}
           value={utils.toDateWithFormat(value[1], props.format)}

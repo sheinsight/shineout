@@ -179,7 +179,7 @@ class Tr extends Component {
           treeColumnsName,
         } = columns[i]
         let treeExpand = false
-        if (treeExpandKeys) {
+        if (treeExpandKeys instanceof Map) {
           treeExpand = treeExpandKeys.has(other.originKey)
         }
         const td = (
@@ -212,8 +212,9 @@ class Tr extends Component {
     if (rowClassName) {
       className = classnames(className, rowClassName(rowData, index))
     }
+    const mc = classnames(className, other.datum.check(rowData) && tableClass('selected'))
     const result = [
-      <tr key="0" {...rowEvents} onClick={this.handleRowClick} className={className} ref={this.bindElement}>
+      <tr key="0" {...rowEvents} onClick={this.handleRowClick} className={mc} ref={this.bindElement}>
         {tds}
       </tr>,
     ]
@@ -249,7 +250,7 @@ Tr.propTypes = {
   treeExpandKeys: PropTypes.object,
   columnResizable: PropTypes.bool,
   resize: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
-  rowEvents: PropTypes.array,
+  rowEvents: PropTypes.object,
   lazy: PropTypes.bool,
   externalExpandRender: PropTypes.func,
   externalExpandClick: PropTypes.func,

@@ -129,6 +129,54 @@
     }
   }
 
+  &-text {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+
+    &:not(:disabled):hover {
+      opacity: .8;
+    }
+
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      animation: none;
+    }
+
+    &:disabled:hover {
+      background: transparent;
+    }
+
+    &.@{button-prefix}-primary {
+      color: @btn-primary-bg;
+    }
+
+    &.@{button-prefix}-success {
+      color: @btn-success-bg;
+    }
+
+    &.@{button-prefix}-info {
+      color: @btn-info-bg;
+    }
+
+    &.@{button-prefix}-danger {
+      color: @btn-danger-bg;
+    }
+
+    &.@{button-prefix}-warning {
+      color: @btn-warning-bg;
+    }
+
+    &.@{button-prefix}-secondary {
+      color: @btn-secondary-bg;
+    }
+  }
+
   &-link {
     border-radius: 0;
     color: @link-color;
@@ -178,7 +226,7 @@
     );
   }
 
-  &-disabled:not(&-link), &-disabled:not(&-link):hover {
+  &-disabled:not(&-link):not(&-text), &-disabled:not(&-link):not(&-text):hover {
     background: @button-disabled-bg;
     color: @button-disabled-color;
     border-color: @button-disabled-border-color;
@@ -186,6 +234,15 @@
 
   &-circle {
     border-radius: 50%;
+    min-width: 34px;
+    padding-left: 0;
+    padding-right: 0;
+    &.@{button-prefix}-large {
+      min-width: 43px;
+    }
+    &.@{button-prefix}-small {
+      min-width: 30px;
+    }
   }
 
   &-round {

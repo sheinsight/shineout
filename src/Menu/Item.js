@@ -90,7 +90,7 @@ class Item extends PureComponent {
     const { data, onClick, mode, toggleOpenKeys } = this.props
     if (data.disabled) return
 
-    if (mode === 'inline' && data.children) {
+    if (mode === 'inline' && data.children && data.children.length) {
       toggleOpenKeys(this.getKey(), !this.state.open)
     }
 
@@ -123,8 +123,9 @@ class Item extends PureComponent {
 
   renderLink(data) {
     const { linkKey } = this.props
-    if (linkKey && data[linkKey]) return data[linkKey]
-    return null
+    if (!linkKey) return null
+    if (typeof linkKey === 'function') return linkKey(data)
+    return data[linkKey]
   }
 
   render() {
@@ -231,7 +232,7 @@ Item.propTypes = {
   renderItem: PropTypes.func,
   toggleOpenKeys: PropTypes.func,
   unbindItem: PropTypes.func,
-  linkKey: PropTypes.string,
+  linkKey: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   toggleDuration: PropTypes.number,
 }
 

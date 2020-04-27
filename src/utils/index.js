@@ -17,6 +17,7 @@ import normalizeWheel from './dom/normalizeWheel'
 import * as position from './dom/popover'
 import ready from './dom/ready'
 import isJson from './validate/isJson'
+import validate from './validate'
 import cssAccessors from './css-accessors'
 import cssInject from './vars-inject'
 import accept from './accept'
@@ -41,6 +42,7 @@ export {
   position,
   ready,
   isJson,
+  validate,
   cssAccessors,
   cssInject,
   accept,

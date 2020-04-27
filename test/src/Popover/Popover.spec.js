@@ -34,6 +34,7 @@ describe('Popover[Base]', () => {
   test('should hover/click to render default', () => {
     jest.useFakeTimers()
     const modalText = 'Some Test Text'
+    const expectModalText = `<span class="so-popover-text">${modalText}</span>`
     const wrapperHover = mount(
       <Button>
         <Popover>{modalText}</Popover>
@@ -43,7 +44,9 @@ describe('Popover[Base]', () => {
     expect(document.querySelectorAll(`.${SO_PREFIX}-popover`).length).toBe(0)
     dispatchEvent(wrapperHover.find('button').instance(), 'mouseenter')
     jest.runAllTimers()
-    expect(document.querySelector(`.${SO_PREFIX}-popover .${SO_PREFIX}-popover-content`).innerHTML).toBe(modalText)
+    expect(document.querySelector(`.${SO_PREFIX}-popover .${SO_PREFIX}-popover-content`).innerHTML).toBe(
+      expectModalText
+    )
 
     document.body.innerHTML = ''
     const wrapperClick = mount(
@@ -55,7 +58,9 @@ describe('Popover[Base]', () => {
     expect(document.querySelectorAll(`.${SO_PREFIX}-popover`).length).toBe(0)
     dispatchEvent(wrapperClick.find('button').instance(), 'click')
     jest.runAllTimers()
-    expect(document.querySelector(`.${SO_PREFIX}-popover .${SO_PREFIX}-popover-content`).innerHTML).toBe(modalText)
+    expect(document.querySelector(`.${SO_PREFIX}-popover .${SO_PREFIX}-popover-content`).innerHTML).toBe(
+      expectModalText
+    )
 
     // render correctly
     expect(document.querySelector(`.${SO_PREFIX}-popover`).innerHTML).toMatchSnapshot()

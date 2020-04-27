@@ -29,6 +29,12 @@
       }
     }
 
+    &:not(.@{form-prefix}-label-align-top) {
+      .@{form-prefix}-label {
+        text-align: @form-item-label-align;
+      }
+    }
+
     .@{form-prefix}-control {
       flex: 1;
       padding: 0 @form-item-padding-x;
@@ -55,7 +61,7 @@
     display: none;
   }
 
-  &-label-align-right &-label {
+  &-item&-label-align-right &-label {
     text-align: right;
   }
 
@@ -100,7 +106,7 @@
       .@{form-prefix}-label {
         width: auto;
         padding: 0;
-        margin-top: 6px;
+        margin-top: 8px;
         margin-right: @form-item-padding-x * 2;
       }
 
@@ -523,86 +529,4 @@
 
     font-size: @font-size-large;
   }
-}
-
-.@{editableArea-prefix} {
-  font-size: @font-size-base;
-  line-height: @line-height-base;
-  height: 34px;
-  color: @input-color;
-  outline: none;
-  position: relative;
-
-  &-textarea, &-placeholder {
-    width: 100%;
-    margin: 0!important;
-    padding: @padding-base-vertical @padding-base-horizontal;
-    border: 1px solid transparent;
-    cursor: text;
-    overflow: hidden;
-    font-family: @font-family-base;
-    word-wrap: break-word;
-    word-break: break-all;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  &-reset-padding-right {
-    padding-right: @padding-base-horizontal + 8px;
-  }
-
-  &-textarea {
-    resize: none;
-    outline: none;
-    line-height: @line-height-base;
-    color: @input-color;
-    display: block;
-
-    &::placeholder,
-    &-placeholder {
-      color: @input-color-placeholder;
-      font-size: @input-size-placeholder;
-      
-    }
-  }
-
-  &-editable {
-    background-color: #fff!important;
-  }
-
-  &-edit, &-bordered {
-    border-color: @input-border;
-    border-radius: @input-border-radius;
-  }
-
-  &-edit {
-    z-Index: 2;
-  }
-
-  &-disabled {
-    .input-disabled();
-  }
-
-
-
-  &-placeholder-one-line {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap!important;
-  }
-
-  &-show {
-    opacity: 0;
-    z-Index: 1;
-  }
-
-  &-clear-wrapper {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 16px;
-    z-index: 1;
-  }
-
 }

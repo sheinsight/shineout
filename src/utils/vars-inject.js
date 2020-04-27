@@ -1,4 +1,5 @@
 import { darken, fade } from './color'
+import { set as configSet } from '../config'
 import {
   paginationClass,
   checkinputClass,
@@ -15,6 +16,7 @@ import {
   cardClass,
   modalClass,
   popoverClass,
+  datepickerClass,
 } from '../styles'
 import { exposeClass } from '../styles/expose'
 
@@ -47,6 +49,7 @@ const injects = {
         type: 'color',
         attr: 'backgroundColor',
         className: buttonClass('primary'),
+        desc: '主色',
       },
       {
         name: 'warning',
@@ -303,6 +306,7 @@ const injects = {
         type: 'number',
         parser: parseInt,
         className: buttonClass('_'),
+        desc: '常规按钮字体大小',
       },
       {
         name: 'fontSizeLarge',
@@ -310,6 +314,7 @@ const injects = {
         type: 'number',
         parser: parseInt,
         className: buttonClass('large'),
+        desc: '大按钮字体大小',
       },
       {
         name: 'fontSizeSmall',
@@ -317,6 +322,7 @@ const injects = {
         type: 'number',
         parser: parseInt,
         className: buttonClass('small'),
+        desc: '小按钮字体大小',
       },
       {
         name: 'marginLeft',
@@ -324,6 +330,7 @@ const injects = {
         type: 'number',
         parser: parseInt,
         className: exposeClass('button'),
+        desc: '连续按钮间距',
       },
       {
         name: 'spinMargin',
@@ -331,6 +338,7 @@ const injects = {
         type: 'number',
         parser: parseInt,
         className: buttonClass('spin'),
+        desc: '加载图标与文字间距',
       },
       {
         name: 'paddingBaseHorizontal',
@@ -338,6 +346,7 @@ const injects = {
         type: 'number',
         parser: parseInt,
         className: buttonClass('_'),
+        desc: '常规按钮水平内边距',
       },
       {
         name: 'paddingBaseVertical',
@@ -345,6 +354,7 @@ const injects = {
         type: 'number',
         parser: parseInt,
         className: buttonClass('_'),
+        desc: '常规按钮垂直内边距',
       },
       {
         name: 'paddingLargeHorizontal',
@@ -352,6 +362,7 @@ const injects = {
         type: 'number',
         parser: parseInt,
         className: buttonClass('large'),
+        desc: '大按钮水平内边距',
       },
       {
         name: 'paddingLargeVertical',
@@ -359,6 +370,7 @@ const injects = {
         type: 'number',
         parser: parseInt,
         className: buttonClass('large'),
+        desc: '大按钮垂直内边距',
       },
       {
         name: 'paddingSmallHorizontal',
@@ -366,6 +378,7 @@ const injects = {
         type: 'number',
         parser: parseInt,
         className: buttonClass('small'),
+        desc: '小按钮水平内边距',
       },
       {
         name: 'paddingSmallVertical',
@@ -373,6 +386,7 @@ const injects = {
         type: 'number',
         parser: parseInt,
         className: buttonClass('small'),
+        desc: '小按钮垂直内边距',
       },
       {
         name: 'borderRadius',
@@ -380,24 +394,44 @@ const injects = {
         type: 'number',
         parser: parseInt,
         className: buttonClass('_'),
+        desc: '常规按钮圆角',
+      },
+      {
+        name: 'smallBorderRadius',
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('small'),
+        desc: '小按钮圆角',
+      },
+      {
+        name: 'largeBorderRadius',
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('large'),
+        desc: '大按钮圆角',
       },
       {
         name: 'disabledBg',
         attr: 'backgroundColor',
         type: 'color',
         className: buttonClass('disabled'),
+        desc: '禁用按钮背景色',
       },
       {
         name: 'disabledBorderColor',
         attr: 'borderColor',
         type: 'color',
         className: buttonClass('disabled'),
+        desc: '禁用按钮边框色',
       },
       {
         name: 'disabledColor',
         attr: 'color',
         type: 'color',
         className: buttonClass('disabled'),
+        desc: '禁用按钮文字颜色',
       },
     ],
     set fontSizeBase(v) {
@@ -444,6 +478,22 @@ const injects = {
       setBodyProperty(
         {
           '--button-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set smallBorderRadius(v) {
+      setBodyProperty(
+        {
+          '--button-small-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set largeBorderRadius(v) {
+      setBodyProperty(
+        {
+          '--button-large-border-radius': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -522,6 +572,31 @@ const injects = {
       )
     },
   },
+  dropdown: {
+    info: {
+      title: 'Dropdown 下拉菜单',
+      name: 'dropdown',
+      path: 'Dropdown',
+    },
+    conf: [
+      {
+        name: 'borderWidth',
+        attr: 'borderWidth',
+        type: 'number',
+        parser: parseInt,
+        className: exposeClass('dropdown-button'),
+        desc: '按钮边框宽度',
+      },
+    ],
+    set borderWidth(v) {
+      setBodyProperty(
+        {
+          '--dropdown-border-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+  },
   form: {
     info: {
       title: 'Form 表单',
@@ -535,6 +610,7 @@ const injects = {
         attr: 'marginBottom',
         type: 'number',
         parser: parseInt,
+        desc: '条目垂直间隔',
       },
       {
         name: 'itemMarginRight',
@@ -542,12 +618,21 @@ const injects = {
         attr: 'marginRight',
         type: 'number',
         parser: parseInt,
+        desc: '条目水平间隔',
       },
       {
         name: 'tipColor',
         className: exposeClass('form-tip'),
         attr: 'color',
         type: 'color',
+        desc: '提示文字颜色',
+      },
+      {
+        name: 'labelHorizontalAlign',
+        className: exposeClass('form-label'),
+        attr: 'textAlign',
+        type: ['start', 'center', 'end'],
+        desc: '标签对齐方式',
       },
     ],
     set itemMarginBottom(v) {
@@ -574,6 +659,14 @@ const injects = {
         v
       )
     },
+    set labelHorizontalAlign(v) {
+      setBodyProperty(
+        {
+          '--form-item-label-align': v,
+        },
+        v
+      )
+    },
   },
   checkbox: {
     info: {
@@ -588,6 +681,7 @@ const injects = {
         attr: 'marginRight',
         type: 'number',
         parser: parseInt,
+        desc: '水平间隔',
       },
       {
         name: 'borderWidth',
@@ -595,12 +689,14 @@ const injects = {
         attr: 'width',
         type: 'number',
         parser: parseInt,
+        desc: '边框宽度',
       },
       {
         name: 'borderColor',
         className: exposeClass('checkbox-indicator'),
         attr: 'borderColor',
         type: 'color',
+        desc: '边框颜色',
       },
     ],
     set marginRight(v) {
@@ -643,6 +739,7 @@ const injects = {
         parser: parseInt,
         min: 0,
         max: 40,
+        desc: '尺寸',
       },
       {
         name: 'borderWidth',
@@ -652,6 +749,7 @@ const injects = {
         parser: parseInt,
         min: 0,
         max: 10,
+        desc: '选中的边框宽度',
       },
       {
         name: 'innerWidth',
@@ -661,6 +759,7 @@ const injects = {
         parser: parseInt,
         min: 0,
         max: 10,
+        desc: '选中点尺寸',
       },
       {
         name: 'uncheckBorderWidth',
@@ -669,6 +768,7 @@ const injects = {
         type: 'number',
         parser: parseInt,
         min: 0,
+        desc: '未选中边框宽度',
       },
     ],
     set size(v) {
@@ -716,6 +816,7 @@ const injects = {
         className: inputClass('_'),
         attr: 'color',
         type: 'color',
+        desc: '文字颜色',
       },
       {
         name: 'borderRadius',
@@ -723,6 +824,15 @@ const injects = {
         attr: 'borderRadius',
         type: 'number',
         parser: parseInt,
+        desc: '圆角',
+      },
+      {
+        name: 'dropdownBorderRadius',
+        className: datepickerClass('picker'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+        desc: '下拉框圆角，例如Select Options',
       },
       {
         name: 'focusWidth',
@@ -731,30 +841,35 @@ const injects = {
         type: 'number',
         max: 20,
         parser: v => parseInt(v.split(' ').pop(), 10),
+        desc: '聚焦发散光宽度',
       },
       {
         name: 'disabledBg',
         className: inputClass('disabled'),
         attr: 'backgroundColor',
         type: 'color',
+        desc: '禁用背景色',
       },
       {
         name: 'borderColor',
         className: inputClass('_'),
         attr: 'borderColor',
         type: 'color',
+        desc: '边框颜色',
       },
       {
         name: 'borderHoverColor',
         className: exposeClass('input-focus'),
         attr: 'borderColor',
         type: 'color',
+        desc: '鼠标悬浮、聚焦时的边框色',
       },
       {
         name: 'placeholderColor',
         className: exposeClass('input-placeholder'),
         attr: 'color',
         type: 'color',
+        desc: '占位文字颜色',
       },
       {
         name: 'placeholderSize',
@@ -762,6 +877,14 @@ const injects = {
         attr: 'fontSize',
         type: 'number',
         parser: parseInt,
+        desc: '占位文字大小',
+      },
+      {
+        name: 'clearHoverBg',
+        className: exposeClass('input-clear-hover'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '清空图标鼠标悬浮背景色',
       },
     ],
     set color(v) {
@@ -776,6 +899,14 @@ const injects = {
       setBodyProperty(
         {
           '--input-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set dropdownBorderRadius(v) {
+      setBodyProperty(
+        {
+          '--input-dropdown-border-radius': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -829,6 +960,14 @@ const injects = {
         v
       )
     },
+    set clearHoverBg(v) {
+      setBodyProperty(
+        {
+          '--input-clear-bg-hover-color': v,
+        },
+        v
+      )
+    },
   },
   select: {
     info: {
@@ -843,6 +982,7 @@ const injects = {
         attr: 'paddingLeft',
         type: 'number',
         parser: parseInt,
+        desc: '选中值水平内边距',
       },
       {
         name: 'resultPaddingVertical',
@@ -850,42 +990,49 @@ const injects = {
         attr: 'paddingTop',
         type: 'number',
         parser: parseInt,
+        desc: '选中值垂直内边距',
       },
       {
         name: 'itemColor',
         className: selectClass('option'),
         attr: 'color',
         type: 'color',
+        desc: '选项文字颜色',
       },
       {
         name: 'itemActiveBg',
         className: selectClass('active', 'option'),
         attr: 'backgroundColor',
         type: 'color',
+        desc: '选中项背景色',
       },
       {
         name: 'itemActiveColor',
         className: selectClass('active', 'option'),
         attr: 'color',
         type: 'color',
+        desc: '选中项文字颜色',
       },
       {
         name: 'itemHoverBg',
         className: exposeClass('select-option-hover'),
         attr: 'backgroundColor',
         type: 'color',
+        desc: '选项鼠标悬浮背景色',
       },
       {
         name: 'itemHoverColor',
         className: exposeClass('select-option-hover'),
         attr: 'color',
         type: 'color',
+        desc: '选项鼠标悬浮文字颜色',
       },
       {
         name: 'clearIconBg',
         className: exposeClass('select-close'),
         attr: 'backgroundColor',
         type: 'color',
+        desc: '清空按钮背景色',
       },
     ],
     set resultPaddingVertical(v) {
@@ -967,6 +1114,7 @@ const injects = {
         attr: 'borderRadius',
         type: 'number',
         parser: parseInt,
+        desc: '年份、月份选中项圆角',
       },
     ],
     set rectBorderRadius(v) {
@@ -990,6 +1138,7 @@ const injects = {
         className: exposeClass('slider-indicator'),
         attr: 'backgroundColor',
         type: 'color',
+        desc: '滑块背景色',
       },
       {
         name: 'indicatorSize',
@@ -999,12 +1148,14 @@ const injects = {
         min: 8,
         max: 40,
         parser: parseInt,
+        desc: '滑块尺寸',
       },
       {
         name: 'barBg',
         className: exposeClass('slider-bar'),
         attr: 'backgroundColor',
         type: 'color',
+        desc: '滑动条背景色',
       },
       {
         name: 'height',
@@ -1012,6 +1163,7 @@ const injects = {
         attr: 'height',
         type: 'number',
         parser: parseInt,
+        desc: '滑动条高度',
       },
       {
         name: 'borderRadius',
@@ -1019,6 +1171,7 @@ const injects = {
         attr: 'borderRadius',
         type: 'number',
         parser: parseInt,
+        desc: '滑动条圆角',
       },
       {
         name: 'valueBottom',
@@ -1026,6 +1179,7 @@ const injects = {
         attr: 'height',
         type: 'number',
         parser: parseInt,
+        desc: '当前值距离滑块距离',
       },
     ],
     set indicatorBg(v) {
@@ -1086,16 +1240,28 @@ const injects = {
     },
     conf: [
       {
+        name: 'scrollRatio',
+        className: exposeClass('table-scroll-ratio'),
+        attr: 'width',
+        parser: parseInt,
+        type: 'number',
+        desc: '滚动速率，仅在 Windows 下有效',
+        logic: true,
+        max: 500,
+      },
+      {
         name: 'headBg',
         className: exposeClass('table-head'),
         attr: 'backgroundColor',
         type: 'color',
+        desc: '表头背景色',
       },
       {
         name: 'headColor',
         className: exposeClass('table-head'),
         attr: 'color',
         type: 'color',
+        desc: '表头文字颜色',
       },
       {
         name: 'rowSpacing',
@@ -1103,7 +1269,7 @@ const injects = {
         attr: 'height',
         type: 'number',
         parser: parseInt,
-        desc: 'Use with caution while rowspan',
+        desc: '行间距',
       },
       {
         name: 'rowBorderRadius',
@@ -1111,7 +1277,7 @@ const injects = {
         attr: 'borderRadius',
         type: 'number',
         parser: parseInt,
-        desc: 'Use with caution while rowspan',
+        desc: '行圆角',
       },
       {
         name: 'headFontWeight',
@@ -1121,24 +1287,35 @@ const injects = {
         max: 900,
         min: 100,
         parser: parseInt,
+        desc: '表头字重',
       },
       {
         name: 'borderColor',
         className: exposeClass('table-head'),
         attr: 'borderColor',
         type: 'color',
+        desc: '边框颜色',
       },
       {
         name: 'hoverBg',
         className: exposeClass('table-head-hover'),
         attr: 'backgroundColor',
         type: 'color',
+        desc: '鼠标悬浮行背景色',
+      },
+      {
+        name: 'selectedBg',
+        className: exposeClass('table-selected'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '选中行背景色',
       },
       {
         name: 'textColor',
         className: exposeClass('table'),
         attr: 'color',
         type: 'color',
+        desc: '文字颜色',
       },
       {
         name: 'borderRadiusTop',
@@ -1146,6 +1323,7 @@ const injects = {
         attr: 'borderTopLeftRadius',
         type: 'number',
         parser: parseInt,
+        desc: '表格头部圆角',
       },
       {
         name: 'cellPaddingHorizontal',
@@ -1153,6 +1331,7 @@ const injects = {
         attr: 'paddingLeft',
         type: 'number',
         parser: parseInt,
+        desc: '单元格水平内边距',
       },
       {
         name: 'cellPaddingVertical',
@@ -1160,14 +1339,33 @@ const injects = {
         attr: 'paddingTop',
         type: 'number',
         parser: parseInt,
+        desc: '单元格垂直内边距',
+      },
+      {
+        name: 'treeExpandIconMarginRight',
+        className: exposeClass('table-tree-expand'),
+        attr: 'marginRight',
+        type: 'number',
+        parser: parseInt,
+        desc: '子表格展开/收起按钮距离文字距离',
       },
       {
         name: 'fixedShadow',
         className: exposeClass('table-fixed'),
         attr: 'backgroundImage',
         type: 'string',
+        desc: '固定列阴影',
       },
     ],
+    set scrollRatio(v) {
+      configSet('scrollRatio', v)
+      setBodyProperty(
+        {
+          '--table-scroll-ratio': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
     set headBg(v) {
       setBodyProperty(
         {
@@ -1180,6 +1378,14 @@ const injects = {
       setBodyProperty(
         {
           '--table-hover-bg': v,
+        },
+        v
+      )
+    },
+    set selectedBg(v) {
+      setBodyProperty(
+        {
+          '--table-selected-row-bg': v,
         },
         v
       )
@@ -1256,6 +1462,14 @@ const injects = {
         v
       )
     },
+    set treeExpandIconMarginRight(v) {
+      setBodyProperty(
+        {
+          '--table-tree-expand-icon-margin-right': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
     set fixedShadow(v) {
       setBodyProperty(
         {
@@ -1278,6 +1492,7 @@ const injects = {
         attr: 'borderRadius',
         type: 'number',
         parser: parseInt,
+        desc: '项目圆角',
       },
       {
         name: 'borderWidth',
@@ -1285,24 +1500,28 @@ const injects = {
         attr: 'borderWidth',
         type: 'number',
         parser: parseInt,
+        desc: '项目边框宽度',
       },
       {
         name: 'hoverBorderColor',
         className: exposeClass('pagination-hover'),
         attr: 'borderColor',
         type: 'color',
+        desc: '项目鼠标悬浮边框颜色',
       },
       {
         name: 'hoverColor',
         className: exposeClass('pagination-hover'),
         attr: 'color',
         type: 'color',
+        desc: '项目鼠标悬浮文字颜色',
       },
       {
         name: 'hoverBg',
         className: exposeClass('pagination-hover'),
         attr: 'backgroundColor',
         type: 'color',
+        desc: '项目鼠标悬浮背景色',
       },
     ],
     set borderRadius(v) {
@@ -1358,30 +1577,35 @@ const injects = {
         className: tagClass('_'),
         attr: 'backgroundColor',
         type: 'color',
+        desc: '背景色',
       },
       {
         name: 'color',
         className: tagClass('_'),
         attr: 'color',
         type: 'color',
+        desc: '文字颜色',
       },
       {
         name: 'borderColor',
         className: tagClass('default'),
         attr: 'borderColor',
         type: 'color',
+        desc: '边框颜色',
       },
       {
         name: 'closeColor',
         className: exposeClass('tag-close'),
         attr: 'color',
         type: 'color',
+        desc: '关闭按钮颜色',
       },
       {
         name: 'closeHoverColor',
         className: exposeClass('tag-close-hover'),
         attr: 'color',
         type: 'color',
+        desc: '关闭按钮鼠标悬浮时颜色',
       },
       {
         name: 'borderRadius',
@@ -1389,6 +1613,7 @@ const injects = {
         attr: 'borderRadius',
         type: 'number',
         parser: parseInt,
+        desc: '圆角',
       },
       {
         name: 'paddingHorizontal',
@@ -1396,6 +1621,7 @@ const injects = {
         attr: 'paddingLeft',
         type: 'number',
         parser: parseInt,
+        desc: '水平内边距',
       },
       {
         name: 'paddingVertical',
@@ -1403,6 +1629,7 @@ const injects = {
         attr: 'paddingTop',
         type: 'number',
         parser: parseInt,
+        desc: '垂直内边距',
       },
       {
         name: 'fontWeight',
@@ -1412,6 +1639,7 @@ const injects = {
         parser: parseInt,
         min: 100,
         max: 900,
+        desc: '字重',
       },
     ],
     set bg(v) {
@@ -1499,6 +1727,7 @@ const injects = {
         className: tooltipClass('inner'),
         attr: 'backgroundColor',
         type: 'color',
+        desc: '背景色',
       },
       {
         name: 'paddingHorizontal',
@@ -1506,6 +1735,7 @@ const injects = {
         attr: 'paddingLeft',
         type: 'number',
         parser: parseInt,
+        desc: '水平内边距',
       },
       {
         name: 'paddingVertical',
@@ -1513,6 +1743,7 @@ const injects = {
         attr: 'paddingTop',
         type: 'number',
         parser: parseInt,
+        desc: '垂直内边距',
       },
     ],
     set bg(v) {
@@ -1553,6 +1784,7 @@ const injects = {
         attr: 'height',
         type: 'number',
         parser: parseInt,
+        desc: '条目高度',
       },
       {
         name: 'fontSize',
@@ -1560,42 +1792,49 @@ const injects = {
         attr: 'fontSize',
         type: 'number',
         parser: parseInt,
+        desc: '字体大小',
       },
       {
         name: 'darkColor',
         className: exposeClass('menu-dark'),
         attr: 'color',
         type: 'color',
+        desc: '黑色主题文字颜色',
       },
       {
         name: 'darkBg',
         className: exposeClass('menu-dark'),
         attr: 'backgroundColor',
         type: 'color',
+        desc: '黑色主题背景色',
       },
       {
         name: 'darkActiveBg',
         className: exposeClass('menu-dark-active'),
         attr: 'backgroundColor',
         type: 'color',
+        desc: '黑色主题选中项背景色',
       },
       {
         name: 'activeBg',
         className: exposeClass('menu-active'),
         attr: 'backgroundColor',
         type: 'color',
+        desc: '选中项背景色',
       },
       {
         name: 'activeColor',
         className: exposeClass('menu-active'),
         attr: 'color',
         type: 'color',
+        desc: '选中项文字颜色',
       },
       {
         name: 'color',
         className: menuClass('title'),
         attr: 'color',
         type: 'color',
+        desc: '文字颜色',
       },
       {
         name: 'activePaddingHorizontal',
@@ -1603,6 +1842,7 @@ const injects = {
         attr: 'paddingLeft',
         type: 'number',
         parser: parseInt,
+        desc: '选中项水平内边距',
       },
       {
         name: 'activePaddingVertical',
@@ -1610,6 +1850,7 @@ const injects = {
         attr: 'paddingTop',
         type: 'number',
         parser: parseInt,
+        desc: '选中项垂直内边距',
       },
       {
         name: 'activeBorderRadius',
@@ -1617,6 +1858,7 @@ const injects = {
         attr: 'borderRadius',
         type: 'number',
         parser: parseInt,
+        desc: '选中项圆角',
       },
     ],
     set height(v) {
@@ -1724,18 +1966,21 @@ const injects = {
         attr: 'fontSize',
         type: 'number',
         parser: parseInt,
+        desc: '文字大小',
       },
       {
         name: 'closeIconColor',
         className: exposeClass('alert-close'),
         attr: 'color',
         type: 'color',
+        desc: '关闭按钮颜色',
       },
       {
         name: 'closeIconHoverColor',
         className: exposeClass('alert-close-hover'),
         attr: 'color',
         type: 'color',
+        desc: '关闭按钮鼠标悬浮颜色',
       },
       {
         name: 'borderRadius',
@@ -1743,36 +1988,42 @@ const injects = {
         attr: 'borderRadius',
         type: 'number',
         parser: parseInt,
+        desc: '圆角',
       },
       {
         name: 'defaultBoxShadow',
         className: alertClass('_'),
         attr: 'boxShadow',
         type: 'string',
+        desc: '常规阴影',
       },
       {
         name: 'successBoxShadow',
         className: alertClass('success'),
         attr: 'boxShadow',
         type: 'string',
+        desc: 'success 类型阴影',
       },
       {
         name: 'infoBoxShadow',
         className: alertClass('info'),
         attr: 'boxShadow',
         type: 'string',
+        desc: 'info 类型阴影',
       },
       {
         name: 'warningBoxShadow',
         className: alertClass('warning'),
         attr: 'boxShadow',
         type: 'string',
+        desc: 'warning 类型阴影',
       },
       {
         name: 'dangerBoxShadow',
         className: alertClass('danger'),
         attr: 'boxShadow',
         type: 'string',
+        desc: 'danger 类型阴影',
       },
       {
         name: 'borderWidth',
@@ -1780,78 +2031,91 @@ const injects = {
         attr: 'borderWidth',
         type: 'number',
         parser: parseInt,
+        desc: '边框宽度',
       },
       {
         name: 'successTextColor',
         className: alertClass('success'),
         attr: 'color',
         type: 'color',
+        desc: 'success 类型文字颜色',
       },
       {
         name: 'successBg',
         className: alertClass('success'),
         attr: 'backgroundColor',
         type: 'color',
+        desc: 'success 类型背景色',
       },
       {
         name: 'successBorderColor',
         className: alertClass('success'),
         attr: 'borderColor',
         type: 'color',
+        desc: 'success 类型边框色',
       },
       {
         name: 'infoTextColor',
         className: alertClass('info'),
         attr: 'color',
         type: 'color',
+        desc: 'info 类型文字颜色',
       },
       {
         name: 'infoBg',
         className: alertClass('info'),
         attr: 'backgroundColor',
         type: 'color',
+        desc: 'info 类型背景色',
       },
       {
         name: 'infoBorderColor',
         className: alertClass('info'),
         attr: 'borderColor',
         type: 'color',
+        desc: 'info 类型边框色',
       },
       {
         name: 'warningTextColor',
         className: alertClass('warning'),
         attr: 'color',
         type: 'color',
+        desc: 'warning 类型文字颜色',
       },
       {
         name: 'warningBg',
         className: alertClass('warning'),
         attr: 'backgroundColor',
         type: 'color',
+        desc: 'warning 类型背景色',
       },
       {
         name: 'warningBorderColor',
         className: alertClass('warning'),
         attr: 'borderColor',
         type: 'color',
+        desc: 'warning 类型边框颜色',
       },
       {
         name: 'dangerTextColor',
         className: alertClass('danger'),
         attr: 'color',
         type: 'color',
+        desc: 'danger 类型文字颜色',
       },
       {
         name: 'dangerBg',
         className: alertClass('danger'),
         attr: 'backgroundColor',
         type: 'color',
+        desc: 'success 类型背景色',
       },
       {
         name: 'dangerBorderColor',
         className: alertClass('danger'),
         attr: 'borderColor',
         type: 'color',
+        desc: 'danger 类型边框色',
       },
     ],
     set fontSize(v) {
@@ -2051,12 +2315,14 @@ const injects = {
         className: messageClass('msg'),
         attr: 'boxShadow',
         type: 'string',
+        desc: '阴影',
       },
       {
         name: 'color',
         className: messageClass('msg'),
         attr: 'color',
         type: 'color',
+        desc: '文字颜色',
       },
       {
         name: 'fontWeight',
@@ -2066,6 +2332,7 @@ const injects = {
         parser: parseInt,
         max: 900,
         min: 100,
+        desc: '字重',
       },
     ],
     set boxShadow(v) {
@@ -2106,6 +2373,7 @@ const injects = {
         attr: 'fontSize',
         type: 'number',
         parser: parseInt,
+        desc: '文字大小',
       },
       {
         name: 'paddingHeaderHorizontal',
@@ -2113,6 +2381,7 @@ const injects = {
         attr: 'paddingLeft',
         type: 'number',
         parser: parseInt,
+        desc: '头部水平内边距',
       },
       {
         name: 'paddingHeaderVertical',
@@ -2120,6 +2389,7 @@ const injects = {
         attr: 'paddingTop',
         type: 'number',
         parser: parseInt,
+        desc: '头部垂直内边距',
       },
       {
         name: 'paddingBodyHorizontal',
@@ -2127,6 +2397,7 @@ const injects = {
         attr: 'paddingLeft',
         type: 'number',
         parser: parseInt,
+        desc: '内容部分水平内边距',
       },
       {
         name: 'paddingBodyVertical',
@@ -2134,6 +2405,7 @@ const injects = {
         attr: 'paddingTop',
         type: 'number',
         parser: parseInt,
+        desc: '内容部分垂直内边距',
       },
       {
         name: 'paddingFooterHorizontal',
@@ -2141,6 +2413,7 @@ const injects = {
         attr: 'paddingLeft',
         type: 'number',
         parser: parseInt,
+        desc: '底部水平内边距',
       },
       {
         name: 'paddingFooterVertical',
@@ -2148,6 +2421,7 @@ const injects = {
         attr: 'paddingTop',
         type: 'number',
         parser: parseInt,
+        desc: '底部垂直内边距',
       },
       {
         name: 'borderRadius',
@@ -2155,6 +2429,7 @@ const injects = {
         attr: 'borderRadius',
         type: 'number',
         parser: parseInt,
+        desc: '圆角',
       },
       {
         name: 'borderWidth',
@@ -2162,6 +2437,7 @@ const injects = {
         attr: 'borderWidth',
         type: 'number',
         parser: parseInt,
+        desc: '边框宽度',
       },
       {
         name: 'dividerHeight',
@@ -2169,54 +2445,63 @@ const injects = {
         attr: 'height',
         type: 'number',
         parser: parseInt,
+        desc: '分割线高度',
       },
       {
         name: 'dividerWidth',
         value: '100%',
         attr: 'width',
         type: 'string',
+        desc: '分割线宽度',
       },
       {
         name: 'borderColor',
         className: cardClass('_'),
         attr: 'borderColor',
         type: 'color',
+        desc: '边框颜色',
       },
       {
         name: 'color',
         className: cardClass('_'),
         attr: 'color',
         type: 'color',
+        desc: '内容部分文字颜色',
       },
       {
         name: 'boxShadow',
         className: cardClass('shadow'),
         attr: 'boxShadow',
         type: 'string',
+        desc: '阴影',
       },
       {
         name: 'headerBg',
         className: cardClass('header'),
         attr: 'background-color',
         type: 'color',
+        desc: '头部背景色',
       },
       {
         name: 'footerBg',
         className: cardClass('footer'),
         attr: 'background-color',
         type: 'color',
+        desc: '底部背景色',
       },
       {
         name: 'headerColor',
         className: cardClass('header'),
         attr: 'color',
         type: 'color',
+        desc: '头部文字颜色',
       },
       {
         name: 'footerColor',
         className: cardClass('footer'),
         attr: 'color',
         type: 'color',
+        desc: '底部文字颜色',
       },
     ],
     set fontSize(v) {
@@ -2372,23 +2657,50 @@ const injects = {
     },
     conf: [
       {
+        name: 'fontSize',
+        className: exposeClass('modal-card'),
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+        desc: '文字大小',
+      },
+      {
         name: 'iconSize',
         className: exposeClass('modal-icon'),
         attr: 'width',
         type: 'number',
         parser: parseInt,
+        desc: '类型图标尺寸',
       },
       {
         name: 'closeIconColor',
         className: exposeClass('modal-close'),
         attr: 'color',
         type: 'color',
+        desc: '关闭按钮颜色',
       },
       {
         name: 'closeIconHoverColor',
         className: exposeClass('modal-close-hover'),
         attr: 'color',
         type: 'color',
+        desc: '关闭按钮鼠标悬浮颜色',
+      },
+      {
+        name: 'closeIconTopMargin',
+        className: exposeClass('modal-close'),
+        attr: 'marginTop',
+        type: 'number',
+        parser: parseInt,
+        desc: '关闭按钮顶部间距',
+      },
+      {
+        name: 'closeIconRightMargin',
+        className: exposeClass('modal-close'),
+        attr: 'marginRight',
+        type: 'number',
+        parser: parseInt,
+        desc: '关闭按钮右侧间距',
       },
       {
         name: 'titleFontSize',
@@ -2396,20 +2708,132 @@ const injects = {
         attr: 'fontSize',
         type: 'number',
         parser: parseInt,
-      },
-      {
-        name: 'titleColor',
-        className: modalClass('title'),
-        attr: 'color',
-        type: 'color',
+        desc: '标题字体大小',
       },
       {
         name: 'padding',
         className: modalClass('panel'),
         attr: 'padding',
         type: 'string',
+        desc: '整体内边距',
+      },
+      {
+        name: 'headerPadding',
+        className: exposeClass('modal-card-header'),
+        attr: 'padding',
+        type: 'string',
+        desc: '头部内边距',
+      },
+      {
+        name: 'bodyPadding',
+        className: exposeClass('modal-card-body'),
+        attr: 'padding',
+        type: 'string',
+        desc: '内容内边距',
+      },
+      {
+        name: 'iconBodyPadding',
+        className: exposeClass('modal-icon-body'),
+        attr: 'padding',
+        type: 'string',
+        desc: '带有 Icon 的对话框内容内边距',
+      },
+      {
+        name: 'footerPadding',
+        className: exposeClass('modal-card-footer'),
+        attr: 'padding',
+        type: 'string',
+        desc: '底部内边距',
+      },
+      {
+        name: 'borderRadius',
+        className: exposeClass('modal-card'),
+        attr: 'borderTopLeftRadius',
+        type: 'number',
+        parser: parseInt,
+        desc: '圆角',
+      },
+      {
+        name: 'borderWidth',
+        className: exposeClass('modal-card'),
+        attr: 'borderWidth',
+        type: 'number',
+        parser: parseInt,
+        desc: '边框宽度',
+      },
+      {
+        name: 'dividerHeight',
+        className: exposeClass('modal-divider'),
+        attr: 'height',
+        type: 'number',
+        parser: parseInt,
+        desc: '分割线高度',
+      },
+      {
+        name: 'dividerWidth',
+        value: '100%',
+        attr: 'width',
+        type: 'string',
+        desc: '分割线宽度',
+      },
+      {
+        name: 'borderColor',
+        className: exposeClass('modal-card'),
+        attr: 'borderColor',
+        type: 'color',
+        desc: '边框颜色',
+      },
+      {
+        name: 'color',
+        className: exposeClass('modal-card'),
+        attr: 'color',
+        type: 'color',
+        desc: '内容部分文字颜色',
+      },
+      {
+        name: 'titleColor',
+        className: modalClass('title'),
+        attr: 'color',
+        type: 'color',
+        desc: '标题文字颜色',
+      },
+      {
+        name: 'footerColor',
+        className: modalClass('modal-card-footer'),
+        attr: 'color',
+        type: 'color',
+        desc: '底部文字颜色',
+      },
+      {
+        name: 'headerBg',
+        className: exposeClass('modal-card-header'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '头部背景色',
+      },
+      {
+        name: 'footerBg',
+        className: exposeClass('modal-card-footer'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '底部背景色',
+      },
+      {
+        name: 'boxShadow',
+        className: exposeClass('modal-card'),
+        attr: 'boxShadow',
+        type: 'string',
+        desc: '阴影',
       },
     ],
+    set fontSize(v) {
+      setBodyProperty(
+        {
+          '--modal-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
     set iconSize(v) {
       setBodyProperty(
         {
@@ -2430,6 +2854,22 @@ const injects = {
       setBodyProperty(
         {
           '--modal-close-icon-hover-color': v,
+        },
+        v
+      )
+    },
+    set closeIconTopMargin(v) {
+      setBodyProperty(
+        {
+          '--modal-close-top-margin': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set closeIconRightMargin(v) {
+      setBodyProperty(
+        {
+          '--modal-close-right-margin': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -2457,7 +2897,111 @@ const injects = {
         },
         v
       )
-    }
+    },
+    set headerPadding(v) {
+      setBodyProperty(
+        {
+          '--modal-header-padding': v,
+        },
+        v
+      )
+    },
+    set bodyPadding(v) {
+      setBodyProperty(
+        {
+          '--modal-body-padding': v,
+        },
+        v
+      )
+    },
+    set iconBodyPadding(v) {
+      setBodyProperty(
+        {
+          '--modal-icon-body-padding': v,
+        },
+        v
+      )
+    },
+    set footerPadding(v) {
+      setBodyProperty(
+        {
+          '--modal-footer-padding': v,
+        },
+        v
+      )
+    },
+    set borderRadius(v) {
+      setBodyProperty(
+        {
+          '--modal-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set borderWidth(v) {
+      setBodyProperty(
+        {
+          '--modal-border-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set dividerHeight(v) {
+      setBodyProperty(
+        {
+          '--modal-divider-height': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set dividerWidth(v) {
+      setBodyProperty(
+        {
+          '--modal-divider-width': v,
+        },
+        v
+      )
+    },
+    set borderColor(v) {
+      setBodyProperty(
+        {
+          '--modal-border-color': v,
+        },
+        v
+      )
+    },
+    set color(v) {
+      setBodyProperty(
+        {
+          '--modal-color': v,
+        },
+        v
+      )
+    },
+    set headerBg(v) {
+      setBodyProperty(
+        {
+          '--modal-header-bg': v,
+        },
+        v
+      )
+    },
+    set footerBg(v) {
+      setBodyProperty(
+        {
+          '--modal-footer-bg': v,
+        },
+        v
+      )
+    },
+    set boxShadow(v) {
+      setBodyProperty(
+        {
+          '--modal-box-shadow': v,
+        },
+        v
+      )
+    },
   },
   popover: {
     info: {
@@ -2471,6 +3015,7 @@ const injects = {
         className: popoverClass('_'),
         attr: 'borderColor',
         type: 'color',
+        desc: '边框颜色',
       },
       {
         name: 'borderWidth',
@@ -2478,12 +3023,14 @@ const injects = {
         attr: 'borderWidth',
         type: 'number',
         parser: parseInt,
+        desc: '边框宽度',
       },
       {
         name: 'boxShadow',
         className: popoverClass('_'),
         attr: 'boxShadow',
         type: 'string',
+        desc: '阴影',
       },
       {
         name: 'borderRadius',
@@ -2491,6 +3038,14 @@ const injects = {
         attr: 'borderRadius',
         type: 'number',
         parser: parseInt,
+        desc: '圆角',
+      },
+      {
+        name: 'textMaxWidth',
+        className: popoverClass('text'),
+        attr: 'maxWidth',
+        type: 'string',
+        desc: '纯文字时的最大宽度',
       },
     ],
     set borderColor(v) {
@@ -2525,6 +3080,14 @@ const injects = {
         v
       )
     },
+    set textMaxWidth(v) {
+      setBodyProperty(
+        {
+          '--popover-text-max-width': v,
+        },
+        v
+      )
+    },
   },
   tree: {
     info: {
@@ -2540,12 +3103,244 @@ const injects = {
         type: 'number',
         parser: parseInt,
         min: -100,
+        desc: '项目缩进',
+      },
+      {
+        name: 'nodeMarginBottom',
+        className: exposeClass('tree-node'),
+        attr: 'marginBottom',
+        type: 'number',
+        parser: parseInt,
+        desc: '项目垂直间隔',
       },
     ],
     set levelIndent(v) {
       setBodyProperty(
         {
           '--tree-level-indent': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set nodeMarginBottom(v) {
+      setBodyProperty(
+        {
+          '--tree-node-margin-bottom': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+  },
+  switch: {
+    info: {
+      title: 'Switch 开关选择器',
+      name: 'switch',
+      path: 'Switch',
+    },
+    conf: [
+      {
+        name: 'type',
+        className: exposeClass('switch-type'),
+        attr: 'animationName',
+        type: ['outter', 'inner'],
+        desc: '类型',
+      },
+    ],
+    set type(v) {
+      const o = {}
+      if (v === 'outter') {
+        const fade50 = getProperty('--primary-color-fade-50')
+        o['--switch-checked-bg'] = fade50
+        o['--switch-indicator-checked-bg'] = getProperty('--primary-color')
+        o['--switch-checked-box-shadow'] = `0 1px 4px ${fade50}`
+        o['--switch-indicator-padding-horizontal'] = `0px`
+        o['--switch-indicator-padding-horizontal-negative'] = `0px`
+        o['--switch-indicator-size'] = `24px`
+        o['--switch-bg-height'] = `16px`
+        o['--switch-indicator-top'] = `-4px`
+        o['--switch-small-indicator-size'] = `16px`
+        o['--switch-small-bg-height'] = `10px`
+        o['--switch-large-bg-height'] = `22px`
+        o['--switch-large-indicator-top'] = `-5px`
+        o['--switch-small-indicator-top'] = `-3px`
+        o['--switch-large-indicator-size'] = `32px`
+      } else if (v === 'inner') {
+        o['--switch-checked-bg'] = getProperty('--primary-color')
+        o['--switch-indicator-checked-bg'] = `#fff`
+        o['--switch-checked-box-shadow'] = `0 1px 4px ${getProperty('--gray-500')}`
+        o['--switch-indicator-padding-horizontal'] = `2px`
+        o['--switch-indicator-padding-horizontal-negative'] = `-2px`
+        o['--switch-indicator-size'] = `18px`
+        o['--switch-bg-height'] = `22px`
+        o['--switch-indicator-top'] = `2px`
+        o['--switch-small-indicator-size'] = `12px`
+        o['--switch-small-bg-height'] = `16px`
+        o['--switch-large-bg-height'] = `28px`
+        o['--switch-large-indicator-top'] = `2px`
+        o['--switch-small-indicator-top'] = `2px`
+        o['--switch-large-indicator-size'] = `24px`
+      }
+      setBodyProperty(o, v)
+    },
+  },
+  common: {
+    info: {
+      title: 'Common 公共',
+      name: 'common',
+      path: 'Button',
+    },
+    conf: [
+      {
+        name: 'fontSize',
+        className: buttonClass('_'),
+        attr: 'fontSize',
+        parser: parseInt,
+        type: 'number',
+        desc: '字体大小',
+      },
+      {
+        name: 'fontFamily',
+        className: buttonClass('_'),
+        attr: 'fontFamily',
+        type: 'string',
+        desc: '字体',
+      },
+      {
+        name: 'lineHeight',
+        className: exposeClass('common-line-height'),
+        attr: 'flexGrow',
+        type: 'string',
+        desc: '行高',
+      },
+      {
+        name: 'contentBlockPadding',
+        className: '',
+        attr: 'padding',
+        type: 'string',
+        desc: '区块内边距',
+      },
+      {
+        name: 'contentTextPadding',
+        className: popoverClass('text'),
+        attr: 'padding',
+        type: 'string',
+        desc: '文字内边距',
+      },
+      {
+        name: 'spinDefaultName',
+        className: exposeClass('common-spin-default'),
+        attr: 'animationName',
+        type: [
+          'default',
+          'chasing-dots',
+          'cube-grid',
+          'double-bounce',
+          'fading-circle',
+          'four-dots',
+          'plane',
+          'pulse',
+          'ring',
+          'scale-circle',
+          'three-bounce',
+          'wave',
+        ],
+        desc: '默认加载中样式',
+      },
+      {
+        name: 'inputDelay',
+        className: exposeClass('common-input-delay'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        min: 0,
+        max: 2000,
+        desc: '输入延迟，Input, Textarea, EditableArea',
+      },
+      {
+        name: 'inputTrim',
+        className: exposeClass('common-input-trim'),
+        attr: 'opacity',
+        type: 'number',
+        parser: parseInt,
+        min: 0,
+        max: 1,
+        desc: '输入过滤两侧空格，Input, Textarea, EditableArea work. 0 or 1',
+      },
+    ],
+    set fontSize(v) {
+      const base = parseInt(v, 10)
+      setBodyProperty(
+        {
+          '--font-size-base': `${base}px`,
+          '--font-size-base-26': `${Math.floor(base * 2.6)}px`,
+          '--font-size-base-215': `${Math.floor(base * 2.15)}px`,
+          '--font-size-base-17': `${Math.floor(base * 1.7)}px`,
+          '--font-size-base-125': `${Math.floor(base * 1.25)}px`,
+          '--font-size-base-085': `${Math.floor(base * 0.85)}px`,
+          '--font-size-base-15': `${Math.floor(base * 1.5)}px`,
+          '--font-size-base-45': `${Math.floor(base * 4.5)}px`,
+          '--font-size-large': `${Math.ceil(base * 1.25)}px`,
+          '--font-size-small': `${Math.ceil(base * 0.85)}px`,
+          '--font-size-large-medium': `${base + 2}px`,
+        },
+        v
+      )
+    },
+    set fontFamily(v) {
+      setBodyProperty(
+        {
+          '--common-body-font-family': v,
+        },
+        v
+      )
+    },
+    set lineHeight(v) {
+      setBodyProperty(
+        {
+          '--common-line-height': v,
+        },
+        v
+      )
+    },
+    set contentBlockPadding(v) {
+      setBodyProperty(
+        {
+          '--common-content-block-padding': v,
+        },
+        v
+      )
+    },
+    set contentTextPadding(v) {
+      setBodyProperty(
+        {
+          '--common-content-text-padding': v,
+        },
+        v
+      )
+    },
+    set inputDelay(v) {
+      configSet('delay', v)
+      setBodyProperty(
+        {
+          '--common-input-delay': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set inputTrim(v) {
+      configSet('trim', !!v)
+      setBodyProperty(
+        {
+          '--common-input-trim': parseInt(v, 10),
+        },
+        v
+      )
+    },
+    set spinDefaultName(v) {
+      configSet('spin', v)
+      setBodyProperty(
+        {
+          '--common-spin-default-name': v,
         },
         v
       )

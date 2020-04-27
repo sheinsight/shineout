@@ -1,0 +1,94 @@
+@import './variables.less';
+@import './themes/@{so-theme}.less';
+
+@editableArea-prefix: ~'@{so-prefix}-editableArea';
+@height: 34px;
+.@{editableArea-prefix} {
+    font-size: @font-size-base;
+    line-height: @line-height-base;
+    height: @height;
+    color: @input-color;
+    outline: none;
+    position: relative;
+
+    &-textarea, &-placeholder {
+      width: 100%;
+      margin: 0!important;
+      padding: @padding-base-vertical @padding-base-horizontal;
+      border: 1px solid transparent;
+      cursor: text;
+      overflow: hidden;
+      font-family: @font-family-base;
+      word-wrap: break-word;
+      word-break: break-all;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    &-reset-padding-right {
+      padding-right: @padding-base-horizontal + 8px;
+    }
+
+    &-textarea {
+      resize: none;
+      outline: none;
+      line-height: @line-height-base;
+      color: @input-color;
+      display: block;
+
+      &::placeholder,
+      &-placeholder {
+        color: @input-color-placeholder;
+        font-size: @input-size-placeholder;
+
+      }
+    }
+
+    &-editable {
+      background-color: #fff!important;
+    }
+
+    &-edit, &-bordered {
+      border-color: @input-border;
+      border-radius: @input-border-radius;
+    }
+
+    &-edit {
+      z-Index: 2;
+    }
+
+    &-disabled {
+      .input-disabled();
+    }
+
+
+
+    &-placeholder-one-line {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap!important;
+    }
+
+    &-show {
+      opacity: 0;
+      z-Index: 1;
+    }
+
+    &-clear-wrapper {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 16px;
+      z-index: 1;
+    }
+
+    &-absolute {
+        transform: translateY(-@height);
+    }
+
+    &-focus {
+      z-index: @zindex-dropdown;
+    }
+
+}

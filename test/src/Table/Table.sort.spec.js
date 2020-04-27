@@ -1,7 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import { Table } from 'shineout'
-import TableSort from '../../../site/pages/components/Table/example-10-sort'
+import TableSort from '../../../site/pages/components/Table/example-10-sort-default'
 
 /* global SO_PREFIX */
 describe('Table[sort]', () => {

@@ -60,23 +60,19 @@
 @font-family-serif:       Georgia, "Times New Roman", Times, serif;
 // Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 @font-family-monospace:   "SFMono-Regular", Menlo, Monaco, Consolas, "Courier New", monospace;
-@font-family-base:        @font-family-sans-serif;
+@font-family-base:        @common-body-font-family;
 
-@font-size-base:          14px;
-@font-size-large:         ceil((@font-size-base * 1.25)); // ~18px
-@font-size-small:         ceil((@font-size-base * 0.85)); // ~12px
-
-@font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
-@font-size-h2:            floor((@font-size-base * 2.15)); // ~30px
-@font-size-h3:            ceil((@font-size-base * 1.7)); // ~24px
-@font-size-h4:            ceil((@font-size-base * 1.25)); // ~18px
+@font-size-h1:            @font-size-base-26; // ~36px
+@font-size-h2:            @font-size-base-215; // ~30px
+@font-size-h3:            @font-size-base-17; // ~24px
+@font-size-h4:            @font-size-base-125; // ~18px
 @font-size-h5:            @font-size-base;
-@font-size-h6:            ceil((@font-size-base * 0.85)); // ~12px
+@font-size-h6:            @font-size-base-085; // ~12px
 
 // Unit-less `line-height` for use in components like buttons.
-@line-height-base:        1.428571429; // 20/14
+// @line-height-base:        1.428571429; // 20/14
 // Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
-@line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
+@line-height-computed:    20px; // ~20px
 
 // By default, this inherits from the `<body>`.
 @headings-font-family:    inherit;
@@ -222,9 +218,9 @@
 // Default `.form-control` height
 @input-height-base:              (@line-height-computed + (@padding-base-vertical * 2) + 2);
 // Large `.form-control` height
-@input-height-large:             (ceil(@font-size-large * @line-height-large) + (@padding-large-vertical * 2) + 2);
+@input-height-large:             (ceil(@font-size-large-value * @line-height-large) + (@padding-large-vertical * 2) + 2);
 // Small `.form-control` height
-@input-height-small:             (floor(@font-size-small * @line-height-small) + (@padding-small-vertical * 2) + 2);
+@input-height-small:             (floor(@font-size-small-value * @line-height-small) + (@padding-small-vertical * 2) + 2);
 
 // `.form-group` margin
 @form-group-margin-bottom:       15px;
@@ -502,8 +498,8 @@
 @jumbotron-color:                inherit;
 @jumbotron-bg:                   @gray-200;
 @jumbotron-heading-color:        inherit;
-@jumbotron-font-size:            ceil((@font-size-base * 1.5));
-@jumbotron-heading-font-size:    ceil((@font-size-base * 4.5));
+@jumbotron-font-size:            @font-size-base-15;
+@jumbotron-heading-font-size:    @font-size-base-45;
 
 
 //== Form states and alerts
@@ -872,7 +868,7 @@
 // Blockquote small color
 @blockquote-small-color:      @gray-500;
 // Blockquote font size
-@blockquote-font-size:        (@font-size-base * 1.25);
+@blockquote-font-size:        @font-size-base-125;
 // Blockquote border color
 @blockquote-border-color:     @gray-200;
 // Page header border color

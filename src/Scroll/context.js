@@ -10,15 +10,6 @@ export const Provider = context.Provider
 
 export const scrollConsumer = Origin => props => (
   <Consumer>
-    {
-      (value = {}) => (
-        <Origin
-          {...props}
-          scrollElement={value.element}
-          scrollLeft={value.left}
-          scrollTop={value.top}
-        />
-      )
-    }
+    {(value = {}) => <Origin {...props} scrollElement={value.element} scrollLeft={value.left} scrollTop={value.top} />}
   </Consumer>
 )

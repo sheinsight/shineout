@@ -5,9 +5,11 @@ import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { getPosition } from '../utils/dom/popover'
 import { isFunc } from '../utils/is'
+import { getParent } from '../utils/dom/element'
 import { popoverClass } from '../styles'
 import { docSize } from '../utils/dom/document'
 import isDOMElement from '../utils/dom/isDOMElement'
+import { consumer, Provider } from './context'
 
 const emptyEvent = e => e.stopPropagation()
 
@@ -23,6 +25,7 @@ class Panel extends PureComponent {
     this.handleShow = this.handleShow.bind(this)
     this.handleHide = this.handleHide.bind(this)
     this.setShow = this.setShow.bind(this)
+    this.childStateChange = this.childStateChange.bind(this)
 
     this.element = document.createElement('div')
   }
@@ -31,18 +34,17 @@ class Panel extends PureComponent {
     super.componentDidMount()
 
     this.parentElement = this.placeholder.parentElement
-    if (this.props.trigger === 'hover') {
-      this.parentElement.addEventListener('mouseenter', this.handleShow)
-      this.parentElement.addEventListener('mouseleave', this.handleHide)
-      this.element.addEventListener('mouseenter', this.handleShow)
-      this.element.addEventListener('mouseleave', this.handleHide)
-    } else {
-      this.parentElement.addEventListener('click', this.handleShow)
-    }
+    this.bindEvents()
     this.container = this.getContainer()
     this.container.appendChild(this.element)
 
     if (this.props.visible) this.forceUpdate()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.trigger !== prevProps.trigger) {
+      this.bindEvents()
+    }
   }
 
   componentWillUnmount() {
@@ -53,12 +55,17 @@ class Panel extends PureComponent {
     this.parentElement.removeEventListener('click', this.handleShow)
 
     document.removeEventListener('click', this.clickAway)
-    this.container.removeChild(this.element)
+    if (this.container === document.body) {
+      this.container.removeChild(this.element)
+    } else {
+      this.container.parentElement.removeChild(this.container)
+    }
   }
 
   setShow(show) {
-    const { onVisibleChange, mouseEnterDelay, mouseLeaveDelay, trigger } = this.props
+    const { onVisibleChange, mouseEnterDelay, mouseLeaveDelay, trigger, onChildStateChange } = this.props
     const delay = show ? mouseEnterDelay : mouseLeaveDelay
+    if (onChildStateChange) onChildStateChange(show)
     this.delayTimeout = setTimeout(
       () => {
         if (onVisibleChange) onVisibleChange(show)
@@ -132,6 +139,23 @@ class Panel extends PureComponent {
     })
   }
 
+  bindEvents() {
+    const { trigger } = this.props
+    if (trigger === 'hover') {
+      this.parentElement.addEventListener('mouseenter', this.handleShow)
+      this.parentElement.addEventListener('mouseleave', this.handleHide)
+      this.element.addEventListener('mouseenter', this.handleShow)
+      this.element.addEventListener('mouseleave', this.handleHide)
+      this.parentElement.removeEventListener('click', this.handleShow)
+    } else {
+      this.parentElement.addEventListener('click', this.handleShow)
+      this.parentElement.removeEventListener('mouseenter', this.handleShow)
+      this.parentElement.removeEventListener('mouseleave', this.handleHide)
+      this.element.removeEventListener('mouseenter', this.handleShow)
+      this.element.removeEventListener('mouseleave', this.handleHide)
+    }
+  }
+
   placeholderRef(el) {
     this.placeholder = el
   }
@@ -139,7 +163,12 @@ class Panel extends PureComponent {
   clickAway(e) {
     if (this.parentElement.contains(e.target)) return
     if (this.element.contains(e.target)) return
+    if (getParent(e.target, `.${popoverClass('_')}`)) return
     this.handleHide(0)
+  }
+
+  childStateChange(state) {
+    this.childStatus = state
   }
 
   bindScrollDismiss(show) {
@@ -159,15 +188,19 @@ class Panel extends PureComponent {
     this.setShow(true)
   }
 
-  handleHide() {
+  handleHide(e) {
+    const { parentClose } = this.props
+    if (this.childStatus) return
+    if (e && getParent(e.relatedTarget, `.${popoverClass('inner')}`)) return
     if (this.delayTimeout) clearTimeout(this.delayTimeout)
     document.removeEventListener('mousedown', this.clickAway)
     this.bindScrollDismiss(false)
     this.setShow(false)
+    if (parentClose) parentClose()
   }
 
   render() {
-    const { background, border, children, type, visible } = this.props
+    const { background, border, children, type, visible, showArrow, parentClose } = this.props
     const show = typeof visible === 'boolean' ? visible : this.state.show
 
     if ((!this.isRendered && !show) || !this.parentElement) {
@@ -179,19 +212,24 @@ class Panel extends PureComponent {
     const colorStyle = { background, borderColor: border }
     const innerStyle = Object.assign({}, this.props.style, { background })
     const position = this.getPositionStr()
-    this.element.className = classnames(popoverClass('_', position, type), this.props.className)
+    this.element.className = classnames(popoverClass('_', position, type, parentClose && 'inner'), this.props.className)
     // eslint-disable-next-line
     const style = this.element.style
     this.updatePosition(position)
     style.display = show ? 'block' : 'none'
     if (background) style.background = background
     if (border) style.borderColor = border
-
+    let childrened = isFunc(children) ? children(this.handleHide) : children
+    if (typeof childrened === 'string') childrened = <span className={popoverClass('text')}>{childrened}</span>
+    const provider = {
+      parentClose: this.handleHide,
+      onChildStateChange: this.childStateChange,
+    }
     return ReactDOM.createPortal(
       [
-        <div key="arrow" className={popoverClass('arrow')} style={colorStyle} />,
+        showArrow && <div key="arrow" className={popoverClass('arrow')} style={colorStyle} />,
         <div key="content" onClick={emptyEvent} className={popoverClass('content')} style={innerStyle}>
-          {isFunc(children) ? children(this.handleHide) : children}
+          <Provider value={provider}>{childrened}</Provider>
         </div>,
       ],
       this.element
@@ -218,6 +256,9 @@ Panel.propTypes = {
   priorityDirection: PropTypes.string,
   getPopupContainer: PropTypes.func,
   scrollDismiss: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+  showArrow: PropTypes.bool,
+  parentClose: PropTypes.func,
+  onChildStateChange: PropTypes.func,
 }
 
 Panel.defaultProps = {
@@ -226,6 +267,7 @@ Panel.defaultProps = {
   mouseEnterDelay: 0,
   mouseLeaveDelay: 500,
   priorityDirection: 'vertical',
+  showArrow: true,
 }
 
-export default Panel
+export default consumer(Panel)

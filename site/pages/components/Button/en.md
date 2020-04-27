@@ -8,20 +8,21 @@
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| children | string \| ReactElement | required | The content inside the button, can be a text icon, etc.  |
+| children | ReactNode | required | The content inside the button, can be a text icon, etc.  |
 | className | string | - | extend className |
-| disabled | bool | false | Specifies the button should be disabled |
+| disabled | boolean | false | Specifies the button should be disabled |
 | href | string | - | If the href attribute is set, &lt;a> will be used instead of &lt;button>. |
 | outline | boolean | false | When outline is true, the background is transparent. |
-| size | string | 'default' | optional value \['large', 'default', 'small'] |
+| size | 'large' \| 'default' \| 'small' | 'default' | size of button |
 | style | object | - | Container element style |
-| type | string | 'default' | optional value \['default', 'primary', 'secondary', 'success', 'warning', 'danger', 'link'] |
+| type | 'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger' \| 'link' | 'default' | type of button |
+| text | boolean | false | text button |
 
 ### Button.Group
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| children | \[Button] | required | array of Button |
+| children | ReactNode | required | array of Button |
 | size | string | - | same as Button |
 | outline | boolean | - | same as Button |
 | type | string | - | same as Button |

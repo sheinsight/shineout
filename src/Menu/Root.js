@@ -116,10 +116,9 @@ class Root extends React.Component {
 
   checkActive(id, data) {
     const { active } = this.props
-    if (typeof active === 'function') {
-      return active(data)
-    }
-    return id === this.state.activeKey
+    const act = typeof active === 'function' ? active(data) : id === this.state.activeKey
+    if (act) this.state.activeKey = id
+    return act
   }
 
   checkOpen(id) {
@@ -173,12 +172,12 @@ class Root extends React.Component {
   }
 
   toggleOpenKeys(id, open) {
-    this.hasToggled = true
     const newOpenKeys = immer(keyToMap(this.getOpenKeys()), draft => {
       if (open) {
         draft.set(id, true)
       } else draft.delete(id)
     })
+    this.hasToggled = true
     const keys = newOpenKeys.keys()
     const { onOpenChange = () => {}, openKeys } = this.props
     if (openKeys) {

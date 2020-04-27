@@ -17,6 +17,7 @@ class Sticky extends PureComponent {
     this.state = {}
 
     this.bindElement = this.bindElement.bind(this)
+    this.bindOrigin = this.bindOrigin.bind(this)
     this.bindPlaceholder = this.bindPlaceholder.bind(this)
     this.handlePosition = this.handlePosition.bind(this)
   }
@@ -66,12 +67,18 @@ class Sticky extends PureComponent {
   setPosition() {
     const { bottom, top, target } = this.props
     const { mode, scrollWidth } = this.state
-    const selfRect = this.element.getBoundingClientRect()
+    const selfRect = this.element.getBoundingClientRect().toJSON()
     const scrollElement = this.targetElement || document.body
     const scrollRect = scrollElement.getBoundingClientRect()
 
-    const placeholderRect = this.placeholder ? this.placeholder.getBoundingClientRect() : null
+    const placeholderRect = this.placeholder ? this.placeholder.getBoundingClientRect().toJSON() : null
     const viewHeight = docSize.height
+
+    if (this.origin) {
+      const { width } = this.origin.getBoundingClientRect()
+      selfRect.width = width
+      if (placeholderRect) placeholderRect.width = width
+    }
 
     const placeholderStyle = {
       width: selfRect.width,
@@ -115,8 +122,10 @@ class Sticky extends PureComponent {
         this.setState({ scrollWidth: scrollRect.width, mode: 'bottom' })
         style = this.getStyle('bottom', bottom, selfRect.left, selfRect.width)
         placeholder = placeholderStyle
-      } else if (placeholderRect &&
-        (this.targetElement ? scrollRect.bottom : selfRect.bottom) > placeholderRect.bottom) {
+      } else if (
+        placeholderRect &&
+        (this.targetElement ? scrollRect.bottom : selfRect.bottom) > placeholderRect.bottom
+      ) {
         this.setState({ mode: '' })
         style = {}
         placeholder = null
@@ -160,6 +169,10 @@ class Sticky extends PureComponent {
     this.element = el
   }
 
+  bindOrigin(el) {
+    this.origin = el
+  }
+
   bindPlaceholder(el) {
     this.placeholder = el
   }
@@ -168,7 +181,7 @@ class Sticky extends PureComponent {
     if (this.targetElement) {
       this.targetElement.addEventListener('scroll', this.handlePosition, eventPassive)
     } else {
-      events.forEach((e) => {
+      events.forEach(e => {
         window.addEventListener(e, this.handlePosition)
       })
     }
@@ -178,7 +191,7 @@ class Sticky extends PureComponent {
     if (this.targetElement) {
       this.targetElement.removeEventListener('scroll', this.handlePosition)
     } else {
-      events.forEach((e) => {
+      events.forEach(e => {
         window.removeEventListener(e, this.handlePosition)
       })
     }
@@ -200,7 +213,8 @@ class Sticky extends PureComponent {
         <div ref={this.bindElement} style={innerStyle}>
           {children}
         </div>
-        { placeholder && <div ref={this.bindPlaceholder} style={placeholder} /> }
+        <div ref={this.bindOrigin} />
+        {placeholder && <div ref={this.bindPlaceholder} style={placeholder} />}
       </div>
     )
   }
@@ -210,10 +224,7 @@ Sticky.propTypes = {
   ...getProps(PropTypes),
   bottom: PropTypes.number,
   children: PropTypes.any.isRequired,
-  target: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-  ]),
+  target: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   top: PropTypes.number,
 }
 

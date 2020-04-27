@@ -20,9 +20,9 @@
 | --- | --- | --- | --- |
 | className | string | 无 | 扩展className |
 | style | object | 无 | 卡片的样式 | 
-| disabled | bool | false | 是否禁用选择框 |
-| placeholder | React.Element | 无 | 懒加载占位元素，设置后卡片将开启懒加载 |
-| checked | bool \| undefined | 无 | checked 表示选中状态，不设置则不显示选择框 |
+| disabled | boolean | false | 是否禁用选择框 |
+| placeholder | ReactNode | 无 | 懒加载占位元素，设置后卡片将开启懒加载 |
+| checked | boolean \| undefined | 无 | checked 表示选中状态，不设置则不显示选择框 |
 | value | any | true | 选中时返回值 |
-| onChange | function(checked,value) | 无 | 选中状态变化事件，checked表示选中状态，value代表对应的值 |
+| onChange | (checked: boolean, value: any) => void | 无 | 选中状态变化事件，checked表示选中状态，value代表对应的值 |
 

@@ -68,6 +68,7 @@
       flex: 1;
       margin-bottom: @padding-base-vertical;
       outline: none;
+      white-space: pre;
 
       &:after {
         content: '\feff ';
@@ -186,7 +187,7 @@
     overflow: hidden;
     background: @dropdown-bg;
     background-clip: padding-box;
-    border-radius: @border-radius-base;
+    border-radius: @input-dropdown-border-radius;
 
     .@{treeSelect-prefix}-disabled {
       &,

@@ -65,11 +65,10 @@ export const isInseparable = val =>
   Object(val) !== val || isFunc(val) || isDate(val) || isError(val) || isSet(val) || isMap(val) || isRegexp(val)
 
 export const isLink = el => {
-  const linkNames = ['Link', 'NavLink']
   if (!isValidElement(el)) return false
   if (!el.type) return false
   if (el.type === 'a') return true
-  if (linkNames.includes(el.type.displayName || el.type.name)) return true
+  if (el.props && el.props.to) return true
   return false
 }
 

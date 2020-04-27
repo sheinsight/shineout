@@ -18,7 +18,7 @@ export function getParent(el, target) {
   let temp = el
   while (temp) {
     if (typeof target === 'string') {
-      if (temp.matches(target)) {
+      if (temp.matches && temp.matches(target)) {
         return temp
       }
     } else if (temp === target) {
@@ -73,8 +73,13 @@ export function getCursorOffset(length) {
 }
 
 function end(element) {
+  if (!element) return
+  element.focus()
+  if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+    element.selectionStart = -1
+    return
+  }
   if (window.getSelection) {
-    element.focus()
     const range = window.getSelection()
     range.selectAllChildren(element)
     range.collapseToEnd()

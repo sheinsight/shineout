@@ -1,6 +1,7 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
 @modal-prefix: ~'@{so-prefix}-modal';
+@card-prefix: ~'@{so-prefix}-card';
 
 .@{modal-prefix} {
   position: fixed;
@@ -123,8 +124,8 @@
   &-close {
     position: absolute;
     z-index: 100;
-    top: @panel-header-padding-vertical;
-    right: @panel-header-padding-horizontal;
+    top: @modal-close-top-margin;
+    right: @modal-close-right-margin;
     display: block;
     width: 10px;
     height: 10px;
@@ -147,5 +148,38 @@
     left: 0;
     width: 100%;
     height: 100%;
+  }
+
+  > .@{card-prefix} {
+    font-size: @modal-font-size;
+    border-radius: @modal-border-radius;
+    border: @modal-border-width solid @modal-border-color;
+    color:  @modal-color;
+    &-hover:hover,
+    &-shadow {
+      box-shadow: @modal-box-shadow;
+    }
+    .@{card-prefix}-header {
+      padding: @modal-header-padding;
+      border-radius: @modal-border-radius @modal-border-radius 0 0;
+      background: @modal-header-bg;
+    }
+    .@{card-prefix}-body {
+      padding: @modal-body-padding;
+    }
+    .@{modal-prefix}-body {
+      padding: @modal-icon-body-padding;
+    }
+    .@{card-prefix}-footer {
+      padding: @modal-footer-padding;
+      border-radius: 0 0 @modal-border-radius @modal-border-radius;
+      background: @modal-footer-bg;
+    }
+    .@{card-prefix}-header, .@{card-prefix}-footer {
+      &:after {
+        height: @modal-divider-height;
+        width: @modal-divider-width;
+      }
+    }
   }
 }

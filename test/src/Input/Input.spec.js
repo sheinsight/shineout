@@ -158,7 +158,7 @@ describe('Input[Tip]', () => {
     const wrapper = mount(<Input placeholder="email" tip={tips} popover="top-left" />)
     expect(wrapper.find(`.${SO_PREFIX}-input-tip`).length).toBe(0)
     wrapper.find('input').simulate('focus')
-    expect(wrapper.find(`.${SO_PREFIX}-input-tip`).text()).toBe(tips)
+    expect(wrapper.find(`.${SO_PREFIX}-popover-content`).text()).toBe(tips)
   })
 })
 
@@ -180,7 +180,7 @@ describe('Input[Rule]', () => {
     })
     setTimeout(() => {
       wrapper.update()
-      expect(wrapper.find(`div.${SO_PREFIX}-input-tip`).text()).toBe('Please enter your email.')
+      expect(wrapper.find(`div.${SO_PREFIX}-popover-content`).text()).toBe('Please enter your email.')
       done()
     }, 1000)
   })
@@ -201,7 +201,7 @@ describe('Input[Rule]', () => {
     })
     setTimeout(() => {
       wrapper.update()
-      expect(wrapper.find(`div.${SO_PREFIX}-input-tip`).text()).toBe('Please enter a valid email.')
+      expect(wrapper.find(`div.${SO_PREFIX}-popover-content`).text()).toBe('Please enter a valid email.')
       done()
     }, 1000)
   })

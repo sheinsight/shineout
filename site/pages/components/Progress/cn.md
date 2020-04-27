@@ -8,8 +8,8 @@
 | --- | --- | --- | --- | --- |
 | background | string | '#e9ecef' | 背景色 | |
 | className | string | - | 扩展className | |
-| children | string \| ReactElement | - | 附加内容 | |
-| color | string \| object: {from, to} \| {0%, 100%} | primary | 前景色, 可以设置为对象变成渐变.  | 渐变色: 1.4.2 |
+| children | string \| ReactNode | - | 附加内容 | |
+| color | string \| { from: string, to: string} \| { '0%': string, '100%': string} | primary | 前景色, 可以设置为对象变成渐变.  | 渐变色: 1.4.2 |
 | shape | string | 'line' | 样式，可选值为 \['line', 'circle'] | |
 | size | number | 100 | 进度条大小，仅对 circle 有效 | |
 | strokeWidth | number | 8 | 线框宽度 | |

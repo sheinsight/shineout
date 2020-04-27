@@ -1,3 +1,18 @@
+@font-size-base-value: 14px;
+@font-size-base: var(--font-size-base, @font-size-base-value);
+@font-size-base-26: var(--font-size-base-26, floor((@font-size-base-value * 2.6)));
+@font-size-base-215: var(--font-size-base-215, floor((@font-size-base-value * 2.15)));
+@font-size-base-17: var(--font-size-base-17, floor((@font-size-base-value * 1.7)));
+@font-size-base-125: var(--font-size-base-125, floor((@font-size-base-value * 1.25)));
+@font-size-base-085: var(--font-size-base-085, floor((@font-size-base-value * 0.85)));
+@font-size-base-15: var(--font-size-base-15, floor((@font-size-base-value * 1.5)));
+@font-size-base-45: var(--font-size-base-45, floor((@font-size-base-value * 4.5)));
+@font-size-large-value: ceil((@font-size-base-value * 1.25));
+@font-size-large: var(--font-size-large, @font-size-large-value);
+@font-size-small-value: ceil((@font-size-base-value * 0.85));
+@font-size-large-medium: var(--font-size-large-medium, @font-size-base-value + 2);
+@font-size-small: var(--font-size-small, @font-size-small-value);
+
 @primary-color-dark-5-value: darken(@colors-primary-value, 5%);
 @primary-color-dark-15-value: darken(@colors-primary-value, 15%);
 @primary-color-dark-btn-hover-value: darken(@colors-primary-value, @btn-hover-darken);
@@ -135,6 +150,9 @@
 @carousel-indicator-position-value: 10px;
 @carousel-indicator-position: var(--carousel-indicator-position, @carousel-indicator-position-value);
 
+@table-scroll-ratio-value: 100px;
+@table-scroll-ratio: var(--table-scroll-ratio, @table-scroll-ratio-value);
+
 @table-row-spacing-value: 0;
 @table-row-spacing: var(--table-row-spacing, @table-row-spacing-value);
 
@@ -153,6 +171,10 @@
 @table-fixed-shadow-value: linear-gradient(to right, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
 @table-fixed-shadow: var(--table-fixed-shadow, @table-fixed-shadow-value);
 
+@table-selected-row-bg: var(--table-selected-row-bg, #fff);
+
+@table-tree-expand-icon-margin-right: var(--table-tree-expand-icon-margin-right, 8px);
+
 @tooltip-bg-value: #000;
 @tooltip-bg: var(--tooltip-bg, @tooltip-bg-value);
 
@@ -165,6 +187,9 @@
 @input-border-radius-value: @border-radius-base;
 @input-border-radius: var(--input-border-radius, @input-border-radius-value);
 
+@input-dropdown-border-radius-value: @border-radius-base;
+@input-dropdown-border-radius: var(--input-dropdown-border-radius, @input-dropdown-border-radius-value);
+
 @input-border-focus-fade-25-value: fade(@input-border-focus-value, 25%);
 @input-border-focus-fade-25: var(--input-border-focus-color-fade-25, @input-border-focus-fade-25-value);
 
@@ -173,6 +198,12 @@
 
 @input-color-value: #333E59;
 @input-color: var(--input-text-color, @input-color-value);
+
+@input-clear-bg-hover-color-value: @colors-primary-value;
+@input-clear-bg-hover-color: var(--input-clear-bg-hover-color, @input-clear-bg-hover-color-value);
+
+@dropdown-border-width-value: 1px;
+@dropdown-border-width: var(--dropdown-border-width, @dropdown-border-width-value);
 
 @select-result-padding-vertical-value: 0;
 @select-result-padding-vertical: var(--select-result-padding-vertical, @select-result-padding-vertical-value);
@@ -221,6 +252,9 @@
 
 @form-tip-color-value: lighten(@gray-900-value, 40%);
 @form-tip-color: var(--form-tip-color, @form-tip-color-value);
+
+@form-item-label-align-value: 'left';
+@form-item-label-align: var(--form-item-label-align, @form-item-label-align-value);
 
 @gray-100-value: #f8f9fa;
 @gray-200-value: #e9ecef;
@@ -408,7 +442,7 @@
 @modal-icon-size-value: 24px;
 @modal-icon-size: var(--modal-icon-size, @modal-icon-size-value);
 
-@modal-title-font-size-value: ceil((@font-size-base * 1.125));
+@modal-title-font-size-value: ceil((@font-size-base-value * 1.125));
 @modal-title-font-size: var(--modal-title-font-size, @modal-title-font-size-value);
 
 @modal-title-color-value: rgba(0, 0, 0, 0.85);
@@ -423,6 +457,19 @@
 @modal-panel-padding-value: 0;
 @modal-panel-padding: var(--modal-panel-padding, @modal-panel-padding-value);
 
+@modal-font-size: var(--modal-font-size, inherit);
+@modal-divider-height: var(--modal-divider-height, 1px);
+@modal-divider-width: var(--modal-divider-width, 100%);
+@modal-border-width: var(--modal-border-width, 1px);
+@modal-border-color: var(--modal-border-color, @panel-default-border);
+@modal-color: var(--modal-color, inherit);
+@modal-box-shadow: var(--modal-box-shadow, 0 2px 8px rgba(0, 0, 0, 0.1));
+@modal-header-bg: var(--modal-header-bg, #fff);
+@modal-footer-bg: var(--modal-footer-bg, #fff);
+@modal-header-color: var(--modal-header-color, @card-color-value);
+@modal-footer-color: var(--modal-footer-color, @card-color-value);
+@modal-icon-body-padding: var(--modal-icon-body-padding, 40px 40px 20px 70px);
+
 @popover-arrow-outer-color-value: @gray-300-value;
 @popover-arrow-outer-color: var(--popover-border-color, @popover-arrow-outer-color-value);
 
@@ -435,6 +482,9 @@
 @popover-border-radius-value: @border-radius-base;
 @popover-border-radius: var(--popover-border-radius, @popover-border-radius-value);
 
+@popover-text-max-width-value: 320px;
+@popover-text-max-width: var(--popover-text-max-width, @popover-text-max-width-value);
+
 @tag-close-color-value: '#000';
 @tag-close-color: var(--tag-close-color, @tag-close-color-value);
 
@@ -446,3 +496,23 @@
 
 @tree-level-indent-value: 0;
 @tree-level-indent: var(--tree-level-indent, @tree-level-indent-value);
+
+@tree-node-margin-bottom-value: 4px;
+@tree-node-margin-bottom: var(--tree-node-margin-bottom, @tree-node-margin-bottom-value);
+
+@common-content-text-padding-value: 8px 12px;
+@common-content-text-padding: var(--common-content-text-padding, @common-content-text-padding-value);
+
+@common-input-delay-value: 400px;
+@common-input-delay: var(--common-input-delay, @common-input-delay-value);
+
+@common-input-trim-value: 0;
+@common-input-trim: var(--common-input-trim, @common-input-trim-value);
+
+@common-body-font-family-value: @font-family-sans-serif;
+@common-body-font-family: var(--common-body-font-family, @common-body-font-family-value);
+
+@common-spin-default-name: var(--common-spin-default-name, default);
+
+@common-line-height-value: 1.428571429;
+@line-height-base: var(--common-line-height, @common-line-height-value);

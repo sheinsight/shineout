@@ -29,6 +29,16 @@ export default class extends PureComponent {
     this.handleChange = this.handleChange.bind(this)
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.current !== this.props.current || prevProps.pageSize !== this.props.pageSize) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        current: this.props.current,
+        pageSize: this.props.pageSize,
+      })
+    }
+  }
+
   handleChange(current, pageSize = this.state.pageSize) {
     const sizeChange = pageSize !== this.state.pageSize
     this.setState({ current, pageSize })

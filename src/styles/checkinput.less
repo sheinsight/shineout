@@ -37,6 +37,18 @@
   }
 
   &-button {
+    > .@{checkinput-prefix}.@{checkinput-prefix}-disabled {
+      
+      &.@{checkinput-prefix}:not(.@{checkinput-prefix}-checked) {
+        background: @button-disabled-bg;
+        color: @button-disabled-color;
+        &:hover {
+          background: @button-disabled-bg;
+          color: @button-disabled-color;
+        }
+      }
+    }
+    
     &.@{checkinput-prefix}-small {
       .@{checkinput-prefix} {
         .button-size(
@@ -52,14 +64,16 @@
       }
     }
     .@{checkinput-prefix} {
+      position: relative;
       margin-right: 0;
-      border: 1px solid transparent;
+      border: 1px solid @gray-300;
       font-weight: @btn-font-weight;
       outline: none;
       text-align: center;
       touch-action: manipulation;
       vertical-align: middle;
       white-space: nowrap;
+      box-sizing: border-box;
       .user-select(none);
       .button-size(@btn-padding-y; @btn-padding-x; @button-font-size-base; @line-height-base; @btn-border-radius-base);
       .button-variant(@btn-default-color; @btn-default-bg; @btn-default-border; 'default' ; @btn-default-border);
@@ -67,15 +81,30 @@
       & > .@{checkinput-prefix}-indicator, & > input {
         display: none;
       }
-
-      &.@{checkinput-prefix}-checked {
-        .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border; 'primary');
-        & + .@{checkinput-prefix} {
-          border-left-width: 0px;
+      &:not(:first-child) {
+        border-left-width: 0px;
+        &:before {
+          position: absolute;
+          top: -1px;
+          left: -1px;
+          display: block;
+          box-sizing: content-box;
+          width: 1px;
+          height: 100%;
+          padding: 1px 0;
+          background-color: @gray-300;
+          content: '';
         }
       }
-      &:not(:last-child) {
-        border-right-width: 0px;
+
+      &.@{checkinput-prefix}-checked {
+        &:not(.@{checkinput-prefix}-disabled) {
+          z-index: 1;
+        }
+        .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border; 'primary');
+        &:before {
+          background: @btn-primary-bg;
+        }
       }
       &:first-child {
         border-top-left-radius: @btn-border-radius-base;
@@ -150,7 +179,7 @@
     .@{checkinput-prefix}-switch-indicator {
       box-shadow: @switch-checked-box-shadow;
       left: 100%;
-      margin-left: -@switch-indicator-padding-horizontal;
+      margin-left: @switch-indicator-padding-horizontal-negative;
       transform: translateX(-100%);
       background: @switch-indicator-checked-bg;
     }
@@ -229,11 +258,12 @@
   }
 
   i&-checkbox&-indicator {
+    background: #fff;
     &:after {
-      top: 20%;
-      left: 2px;
+      top: 50%;
+      left: 50%;
       width: @checkbox-size - 4;
-      height: 35%;
+      height: 5px;
       border: solid 2px transparent;
       border-width: 0 0 2px 2px;
     }
@@ -291,7 +321,7 @@
 
     &:after {
       border-color: #fff;
-      transform: rotate(-45deg);
+      transform: translate(-50%, -65%) rotate(-45deg);
     }
   }
 
@@ -310,6 +340,8 @@
     &:after {
       border-color: #fff;
       border-left-width: 0;
+      transform: translate(-50%, -50%);
+      height: 2px;
     }
   }
 

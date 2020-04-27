@@ -7,6 +7,7 @@ import { getParent } from '../utils/dom/element'
 import normalizeWheel from '../utils/dom/normalizeWheel'
 import { scrollClass } from '../styles'
 import Bar from './Bar'
+import config from '../config'
 import { Provider } from './context'
 import { throttleWrapper } from '../utils/lazyload'
 
@@ -89,9 +90,10 @@ class Scroll extends PureComponent {
     if (this.baseScrollRatio) return
     this.baseScrollRatio = 1
 
+    const ratio = config.scrollRatio
     // windows scroll
     if (Math.abs(height) > 10) {
-      this.baseScrollRatio = 60 / Math.abs(height)
+      this.baseScrollRatio = ratio / Math.abs(height)
     }
   }
 

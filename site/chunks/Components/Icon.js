@@ -25,8 +25,8 @@ const examples = [
   {
     name: '2-iconfont',
     title: locate(
-      '使用 Iconfont \n 可以在 iconfont.cn 定制一个图标，在项目中引入',
-      'Customize Font \n You can customize an icon in <a target="_blank" href="http://iconfont.cn">iconfont.cn</a> or <a target="_blank" href="http://fontastic.me/">fontastic.me</a>'
+      '使用 Iconfont \n 可以在 iconfont.cn 定制一个图标，在项目中引入，支持font和svg两种方式',
+      'Customize Font \n You can customize an icon in <a target="_blank" href="http://iconfont.cn">iconfont.cn</a> or <a target="_blank" href="http://fontastic.me/">fontastic.me</a>, support font and svg.'
     ),
     component: require('doc/pages/components/Icon/example-2-iconfont.js').default,
     rawText: require('!raw-loader!doc/pages/components/Icon/example-2-iconfont.js'),

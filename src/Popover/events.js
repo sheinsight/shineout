@@ -1,3 +1,4 @@
+import React from 'react'
 import ReactDOM from 'react-dom'
 import { popoverClass } from '../styles'
 import ready from '../utils/dom/ready'
@@ -75,7 +76,8 @@ export function show(props, id) {
     div.className = className
   }, 0)
 
-  const newContent = typeof content === 'function' ? content(hide0) : content
+  let newContent = typeof content === 'function' ? content(hide0) : content
+  if (typeof newContent === 'string') newContent = <span className={popoverClass('text')}>{newContent}</span>
   ReactDOM.render(newContent, inner)
 
   document.addEventListener('click', clickaway)

@@ -6,10 +6,10 @@
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| children | any  | - | Content, text or react component |
+| children | ReactNode  | - | Content, text or react component |
 | className | string | - | Extend className |
-| icon | ReactElement \| boolean | - | When the type is true, the status icon is displayed according to the type property. If you need to display a custom icon, pass in ReactElement. |
+| icon | ReactNode \| boolean | - | When the type is true, the status icon is displayed according to the type property. If you need to display a custom icon, pass in ReactElement. |
 | iconSize | number | 14 | The size for icon |
-| onClose | func \| boolean | - | When onClose is empty, no close is displayed. If you need to close and do not need to handle callbacks, set it true. |
+| onClose | () => void \| boolean | - | When onClose is empty, no close is displayed. If you need to close and do not need to handle callbacks, set it true. |
 | style | object | - | Container element style |
-| type | string | *warning* | options: \[*success*, *info*, *warning*, *danger(error)*] |
+| type | 'success' \| 'info' \| 'warning' \| 'danger' \| 'error' | *warning* | type of alert |

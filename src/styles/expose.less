@@ -78,6 +78,22 @@
     &-fixed {
       background: @table-fixed-shadow;
     }
+    &-scroll {
+      &-ratio {
+        width: @table-scroll-ratio;
+      }
+    }
+    &-selected {
+      background: @table-selected-row-bg;
+    }
+    &-tree-expand {
+      margin-right: @table-tree-expand-icon-margin-right;
+    }
+  }
+  &-dropdown {
+    &-button {
+      border: @dropdown-border-width solid #000;
+    }
   }
   &-select {
    &-result-item {
@@ -133,6 +149,9 @@
     &-tip {
       color: @form-tip-color;
     }
+    &-label {
+      text-align: @form-item-label-align;
+    }
   }
   .loop-gray(9);
   &-button {
@@ -145,6 +164,9 @@
     &-placeholder {
       font-size: @input-size-placeholder;
       color: @input-color-placeholder;
+    }
+    &-clear-hover {
+      background-color: @input-clear-bg-hover-color;
     }
   }
   &-alert {
@@ -175,12 +197,38 @@
   &-modal {
     &-icon {
       width: @modal-icon-size;
+      &-body {
+        padding: @modal-icon-body-padding;
+      }
     }
     &-close {
       color: @modal-close-icon-color;
+      margin-top: @modal-close-top-margin;
+      margin-right: @modal-close-right-margin;
       &-hover {
         color: @modal-close-icon-hover-color;
       }
+    }
+    &-card {
+      font-size: @modal-font-size;
+      border-radius: @modal-border-radius;
+      border: @modal-border-width solid @modal-border-color;
+      box-shadow: @modal-box-shadow;
+      &-header {
+        padding: @modal-header-padding;
+        background: @modal-header-bg;
+      }
+      &-body {
+        padding: @modal-body-padding;
+      }
+      &-footer {
+        padding: @modal-footer-padding;
+        background: @modal-footer-bg;
+        color: @modal-footer-color;
+      }
+    }
+    &-divider {
+      height: @modal-divider-height;
     }
   }
   &-tag {
@@ -201,11 +249,37 @@
     &-indent {
       width: @tree-level-indent;
     }
+    &-node {
+      margin-bottom: @tree-node-margin-bottom;
+    }
   }
   &-checkbox {
     &-indicator {
       border-color: @checkbox-border-color;
       width: @checkbox-border-width;
+    }
+  }
+  &-switch {
+    &-type {
+      animation-name: @switch-type;
+    }
+  }
+  &-common {
+    &-input{
+      &-delay {
+        width: @common-input-delay;
+      }
+      &-trim {
+        opacity: @common-input-trim;
+      }
+    }
+    &-spin {
+      &-default {
+        animation-name: @common-spin-default-name;
+      }
+    }
+    &-line-height {
+      flex-grow: @line-height-base;
     }
   }
 }

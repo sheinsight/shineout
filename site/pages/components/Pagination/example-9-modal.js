@@ -1,8 +1,8 @@
 /**
  * cn - 在 Modal 中使用
- *    -- 注意在 Modal 使用 Pagination 的时候需要设置 sizeListProps={{ absoulate: false }} 或者 sizeListProps={{ zIndex: 1051 }}(或者更大的), 否则会出现下拉框被挡住的问题.
+ *    -- 注意在 Modal 使用 Pagination 的时候需要设置 sizeListProps={{ absolute: false }} 或者 sizeListProps={{ zIndex: 1051 }}(或者更大的), 否则会出现下拉框被挡住的问题.
  * en - use in Modal
- *    -- Note that when Modal uses Pagination, you need to set sizeListProps={{ absoulate: false }} or sizeListProps={{ zIndex: 1051 }} (or larger), otherwise the drop-down box will be blocked.
+ *    -- Note that when Modal uses Pagination, you need to set sizeListProps={{ absolute: false }} or sizeListProps={{ zIndex: 1051 }} (or larger), otherwise the drop-down box will be blocked.
  */
 import React from 'react'
 import { Pagination, Modal, Button } from 'shineout'

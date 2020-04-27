@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Form, Popover, Input } from 'shineout'
+import { Form, Popover, Input, Select } from 'shineout'
 import { SketchPicker } from 'react-color'
 import cssInject from '../../../src/utils/vars-inject'
 import { headerClass } from '../../styles'
@@ -54,6 +54,8 @@ export default props => {
                     </Field>
                   ) : type === 'number' ? (
                     <Input.Number name={name} min={item.min || 0} max={item.max || 50} />
+                  ) : Array.isArray(type) ? (
+                    <Select keygen data={type} name={name} />
                   ) : (
                     <Input name={name} />
                   )}

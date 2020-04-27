@@ -115,7 +115,7 @@
 @menu-dark-active-bg: @colors-primary;
 
 // checkbox
-@checkbox-size: @font-size-base;
+@checkbox-size: @font-size-base-value;
 @checkbox-hover-color: @colors-primary;
 @checkbox-active-color: @colors-primary;
 @checkbox-border-radius: 2px;
@@ -194,31 +194,36 @@
 @slider-bar-color: @gray-400;
 
 // switch
+@switch-type: outter;
+@switch-indicator-size-value: 24px;
+@switch-bg-height-value: 16px;
+
 @switch-uncheck-bg: @gray-400;
-@switch-checked-bg: @primary-color-fade-50;
+@switch-checked-bg: var(--switch-checked-bg, @primary-color-fade-50-value);
 @switch-indicator-uncheck-bg: #fff;
-@switch-indicator-checked-bg: @colors-primary;
-@switch-checked-box-shadow: 0 1px 4px @primary-color-fade-50;
+@switch-indicator-checked-bg:  var(--switch-indicator-checked-bg, @colors-primary-value);
+@switch-checked-box-shadow: var(--switch-checked-box-shadow, 0 1px 4px @primary-color-fade-50-value);
 @switch-uncheck-box-shadow: 0 1px 4px @gray-500;
-@switch-indicator-padding-horizontal: 0px;
-@switch-indicator-size: 24px;
+@switch-indicator-padding-horizontal: var(--switch-indicator-padding-horizontal, 0px);
+@switch-indicator-padding-horizontal-negative: var(--switch-indicator-padding-horizontal-negative, 0px);
+@switch-indicator-size: var(--switch-indicator-size, @switch-indicator-size-value);
 @switch-bg-width: 44px;
 @switch-bg-border-radius: @switch-bg-width / 2;
-@switch-bg-height: 16px;
+@switch-bg-height: var(--switch-bg-height, @switch-bg-height-value);
 @switch-font-size: 12px;
-@switch-indicator-top: -(@switch-indicator-size / 2 - @switch-bg-height / 2);
+@switch-indicator-top: var(--switch-indicator-top, -(@switch-indicator-size-value / 2 - @switch-bg-height-value / 2));
 
-@switch-small-indicator-size: 16px;
+@switch-small-indicator-size: var(--switch-small-indicator-size, 16px);
 @switch-small-bg-width: 28px;
 @switch-small-bg-border-radius: @switch-small-bg-width / 2;
-@switch-small-bg-height: 10px;
-@switch-small-indicator-top: -(@switch-small-indicator-size / 2 - @switch-small-bg-height / 2);
+@switch-small-bg-height: var(--switch-small-bg-height, 10px);
+@switch-small-indicator-top: var(--switch-small-indicator-top, -3px);
 
-@switch-large-indicator-size: 32px;
+@switch-large-indicator-size: var(--switch-large-indicator-size, 32px);
 @switch-large-bg-width: 60px;
 @switch-large-bg-border-radius: @switch-large-bg-width / 2;
-@switch-large-bg-height: 22px;
-@switch-large-indicator-top: -(@switch-large-indicator-size / 2 - @switch-large-bg-height / 2);
+@switch-large-bg-height: var(--switch-large-bg-height, 22px);
+@switch-large-indicator-top: var(--switch-large-indicator-top, -5px);
 
 // tabs
 @tabs-link-padding: 10px 15px;
