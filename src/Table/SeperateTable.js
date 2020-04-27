@@ -139,7 +139,7 @@ class SeperateTable extends PureComponent {
     let { scrollLeft } = this.props
     this.resetFloatFixed()
     if (!isNumber(scrollLeft)) return
-    const args = this.lastScrollArgs && this.lastScrollArgs.slice()
+    const args = Array.isArray(this.lastScrollArgs) && this.lastScrollArgs.slice()
     if (scrollLeft !== this.state.offsetLeft && args) {
       const bodyWidth = this.lastScrollArgs[4]
       if (scrollLeft < 0) scrollLeft = 0
