@@ -43,7 +43,7 @@ class Rate extends PureComponent {
 
     if (remain <= 0 || remain >= 1 || isBg) return icon
 
-    const style = { width: `${remain * 100}%`, display: 'block', overflow: 'hidden' }
+    const style = { width: `${remain * 100}%`, display: 'block', overflow: 'hidden', fontSize: 'inherit' }
     return <span style={style}>{icon}</span>
   }
 
