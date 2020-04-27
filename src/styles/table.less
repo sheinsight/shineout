@@ -214,7 +214,7 @@
   }
 
   &-normal td {
-    background-color: @table-bg;
+    background-color: @table-body-bg;
   }
 
   &-small {
@@ -451,7 +451,7 @@
       bottom: 0;
       left: 100%;
       width: 6px;
-      background: @table-fixed-shadow;
+      background: linear-gradient(to right, @table-fixed-start-color, @table-fixed-end-color);
       content: ' ';
     }
   }
@@ -463,7 +463,7 @@
       right: 100%;
       bottom: 0;
       width: 6px;
-      background: linear-gradient(to left, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+      background: linear-gradient(to left, @table-fixed-start-color, @table-fixed-end-color);
       content: ' ';
     }
   }

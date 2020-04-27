@@ -168,12 +168,13 @@
 @table-head-font-weight-value: bold;
 @table-head-font-weight: var(--table-head-font-weight, @table-head-font-weight-value);
 
-@table-fixed-shadow-value: linear-gradient(to right, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
-@table-fixed-shadow: var(--table-fixed-shadow, @table-fixed-shadow-value);
+@table-fixed-start-color: var(--table-fixed-start-color, rgba(0, 0, 0, 0.15));
+@table-fixed-end-color: var(--table-fixed-end-color, rgba(0, 0, 0, 0));
 
 @table-selected-row-bg: var(--table-selected-row-bg, #fff);
 
 @table-tree-expand-icon-margin-right: var(--table-tree-expand-icon-margin-right, 8px);
+@table-body-bg: var(--table-body-bg, @table-bg);
 
 @tooltip-bg-value: #000;
 @tooltip-bg: var(--tooltip-bg, @tooltip-bg-value);
@@ -199,11 +200,15 @@
 @input-color-value: #333E59;
 @input-color: var(--input-text-color, @input-color-value);
 
+@input-clear-bg-color: var(--input-clear-bg-color, @gray-400-value);
+
 @input-clear-bg-hover-color-value: @colors-primary-value;
 @input-clear-bg-hover-color: var(--input-clear-bg-hover-color, @input-clear-bg-hover-color-value);
 
 @dropdown-border-width-value: 1px;
 @dropdown-border-width: var(--dropdown-border-width, @dropdown-border-width-value);
+
+@dropdown-columns-padding: var(--dropdown-columns-padding, 0);
 
 @select-result-padding-vertical-value: 0;
 @select-result-padding-vertical: var(--select-result-padding-vertical, @select-result-padding-vertical-value);
@@ -216,6 +221,11 @@
 
 @select-clear-bg-color-value: @gray-400-darken-20-value;
 @select-clear-bg-color: var(--select-clear-bg-color, @select-clear-bg-color-value);
+
+@select-option-bg-color: var(--select-option-bg-color, transparent);
+@select-disabled-bg-color: var(--select-disabled-bg-color, @input-bg-disabled-value);
+@select-disabled-color: var(--select-disabled-color, @select-option-color-value);
+@select-compressed-hover-bg: var(--select-compressed-hover-bg, @primary-color-fade-60-value);
 
 @datepicker-rect-active-border-radius-value: 2px;
 @datepicker-rect-active-border-radius: var(
@@ -243,6 +253,9 @@
 
 @slider-value-bottom-value: 14px;
 @slider-value-bottom: var(--slider-value-bottom, @slider-value-bottom-value);
+
+@slider-indicator-box-shadow: var(--slider-indicator-box-shadow, none);
+@slider-disabled-bar-bg: var(--slider-disabled-bar-bg, @gray-500-value);
 
 @form-group-margin-bottom-value: 20px;
 @form-group-margin-bottom: var(--form-item-margin-bottom, @form-group-margin-bottom-value);
@@ -406,6 +419,8 @@
 @message-font-weight-value: 400;
 @message-font-weight: var(--message-font-weight, @message-font-weight-value);
 
+@message-close-color: var(--message-close-color, @alert-close-color-value);
+
 @card-border-width-value: 1px;
 @card-border-width: var(--card-border-width, @card-border-width-value);
 
@@ -435,6 +450,7 @@
 
 @card-footer-color-value: @card-color-value;
 @card-footer-color: var(--card-footer-color, @card-footer-color-value);
+@card-divider-color: var(--card-divider-color, @panel-inner-border);
 
 @panel-box-shadow-value: 0 2px 8px rgba(0, 0, 0, 0.1);
 @panel-box-shadow: var(--card-box-shadow, @panel-box-shadow-value);
@@ -468,7 +484,8 @@
 @modal-footer-bg: var(--modal-footer-bg, #fff);
 @modal-header-color: var(--modal-header-color, @card-color-value);
 @modal-footer-color: var(--modal-footer-color, @card-color-value);
-@modal-icon-body-padding: var(--modal-icon-body-padding, 40px 40px 20px 70px);
+@modal-icon-body-padding: var(--modal-icon-body-padding, 40px 40px 20px 40px);
+@modal-divider-color: var(--modal-divider-color, @panel-inner-border);
 
 @popover-arrow-outer-color-value: @gray-300-value;
 @popover-arrow-outer-color: var(--popover-border-color, @popover-arrow-outer-color-value);
@@ -499,6 +516,8 @@
 
 @tree-node-margin-bottom-value: 4px;
 @tree-node-margin-bottom: var(--tree-node-margin-bottom, @tree-node-margin-bottom-value);
+
+@switch-uncheck-bg: var(--switch-unchecked-bg, @gray-400-value);
 
 @common-content-text-padding-value: 8px 12px;
 @common-content-text-padding: var(--common-content-text-padding, @common-content-text-padding-value);

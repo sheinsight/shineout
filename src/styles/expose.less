@@ -76,7 +76,12 @@
       padding: @table-cell-padding-vertical @table-cell-padding-horizontal;
     }
     &-fixed {
-      background: @table-fixed-shadow;
+      &-start {
+        background: @table-fixed-start-color;
+      }
+      &-end {
+        background: @table-fixed-end-color;
+      }
     }
     &-scroll {
       &-ratio {
@@ -88,6 +93,9 @@
     }
     &-tree-expand {
       margin-right: @table-tree-expand-icon-margin-right;
+    }
+    &-body {
+      background: @table-body-bg;
     }
   }
   &-dropdown {
@@ -109,6 +117,9 @@
     &-close {
       background: @select-clear-bg-color;
     }
+    &-compressed {
+      background: @select-compressed-hover-bg;
+    }
   }
   &-datepicker-month{
     &-item {
@@ -118,6 +129,9 @@
   &-slider {
     &-bar {
       background: @slider-bar-color;
+      &-disabled {
+        background: @slider-disabled-bar-bg;
+      }
     }
     &-indicator {
       background: @slider-indicator-bg;
@@ -165,8 +179,11 @@
       font-size: @input-size-placeholder;
       color: @input-color-placeholder;
     }
-    &-clear-hover {
-      background-color: @input-clear-bg-hover-color;
+    &-clear {
+      background-color: @input-clear-bg-color;
+      &-hover {
+        background-color: @input-clear-bg-hover-color;
+      }
     }
   }
   &-alert {
@@ -229,6 +246,7 @@
     }
     &-divider {
       height: @modal-divider-height;
+      background: @modal-divider-color;
     }
   }
   &-tag {
@@ -243,6 +261,7 @@
     &-divider {
       height: @card-divider-height;
       width: @card-divider-width;
+      background: @card-divider-color;
     }
   }
   &-tree {
@@ -262,6 +281,11 @@
   &-switch {
     &-type {
       animation-name: @switch-type;
+    }
+  }
+  &-msg {
+    &-close {
+      color: @message-close-color;
     }
   }
   &-common {

@@ -35,14 +35,15 @@
 
     .@{modal-prefix}-title {
       margin-bottom: 8px;
+      display: flex;
+      align-items: center;
     }
 
     .@{modal-prefix}-icon {
-      position: absolute;
-      top: 40px;
-      left: 32px;
+      display: inline-block;
       width: @modal-icon-size;
       height: @modal-icon-size;
+      margin-right: 8px;
     }
   }
 
@@ -179,6 +180,7 @@
       &:after {
         height: @modal-divider-height;
         width: @modal-divider-width;
+        background: @modal-divider-color;
       }
     }
   }

@@ -165,7 +165,7 @@ class Dropdown extends PureComponent {
         absolute={absolute}
         parentElement={this.element}
         position={position}
-        className={dropdownClass('menu')}
+        className={dropdownClass('menu', columns > 1 && 'box-list')}
         style={{ width }}
         key="list"
         focus={this.state.show}
