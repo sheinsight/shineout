@@ -265,7 +265,7 @@ Panel.defaultProps = {
   background: '',
   trigger: 'hover',
   mouseEnterDelay: 0,
-  mouseLeaveDelay: 500,
+  mouseLeaveDelay: 0,
   priorityDirection: 'vertical',
   showArrow: true,
 }
