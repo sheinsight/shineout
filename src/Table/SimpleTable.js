@@ -91,7 +91,7 @@ class SimpleTable extends PureComponent {
     return (
       <div key="body" className={tableClass('simple-body')} ref={this.bindBody} onScroll={this.handleScroll}>
         <table style={{ width }}>
-          <Colgroup colgroup={colgroup} columns={columns} />
+          <Colgroup {...others} colgroup={colgroup} columns={columns} />
           <Tbody
             colgroup={colgroup}
             lazy={false}
@@ -107,13 +107,13 @@ class SimpleTable extends PureComponent {
   }
 
   render() {
-    const { columns, width, data, onResize, children } = this.props
+    const { columns, width, data, onResize, children, ...other } = this.props
     const { colgroup, scrollAble } = this.state
     if (!columns || columns.length === 0) return <table style={{ width }}>{children}</table>
     const header = (
       <table style={{ width }}>
-        <Colgroup colgroup={colgroup} columns={columns} />
-        <Thead {...this.props} onSortChange={this.handleSortChange} onColChange={onResize} />
+        <Colgroup {...other} colgroup={colgroup} columns={columns} />
+        <Thead {...this.props} colgroup={colgroup} onSortChange={this.handleSortChange} onColChange={onResize} />
       </table>
     )
     const empty = data.length === 0
