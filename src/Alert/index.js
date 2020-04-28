@@ -118,7 +118,7 @@ Alert.propTypes = {
 Alert.defaultProps = {
   ...defaultProps,
   duration: 216,
-  iconSize: 14,
+  iconSize: 16,
   type: 'warning',
 }
 
