@@ -4,15 +4,16 @@ import classnames from 'classnames'
 import Spin from '../Spin'
 import SCard from '../Card'
 import Checkbox from '../Checkbox'
-import { Component } from '../component'
+import { PureComponent } from '../component'
 import { transferClass } from '../styles'
 import { getKey } from '../utils/uid'
 import { createFunc } from '../utils/func'
 import Item from './item'
+import LazyList from '../List/LazyList'
 import { getLocale } from '../locale'
 import Input from '../Input'
 
-class Card extends Component {
+class Card extends PureComponent {
   constructor(props) {
     super(props)
 
@@ -25,6 +26,7 @@ class Card extends Component {
     this.getCheckAll = this.getCheckAll.bind(this)
     this.checkAll = this.checkAll.bind(this)
     this.filterChange = this.filterChange.bind(this)
+    this.handleRenderItem = this.handleRenderItem.bind(this)
   }
 
   getCheckAll() {
@@ -63,14 +65,32 @@ class Card extends Component {
     this.setState({ filter: v })
   }
 
+  handleRenderItem(d, i) {
+    const { keygen, index, renderItem, onFilter, disabled, lineHeight } = this.props
+    const disable = disabled === true
+    const key = getKey(d, keygen, i)
+    if (onFilter && !onFilter(this.state.filter, d, !index)) return null
+
+    this.hasData = true
+
+    return (
+      <Item
+        lineHeight={lineHeight}
+        key={key}
+        disabled={disable || (typeof disabled === 'function' && disabled(d))}
+        index={index}
+        checkKey={key}
+        liData={d}
+        content={createFunc(renderItem)(d)}
+      />
+    )
+  }
+
   render() {
     const {
       title,
       data,
-      renderItem,
       selecteds,
-      keygen,
-      index,
       footer,
       listClassName,
       listStyle,
@@ -79,13 +99,15 @@ class Card extends Component {
       disabled,
       loading,
       onSearch,
+      lineHeight,
+      listHeight,
+      rowsInView,
     } = this.props
 
+    this.hasData = false
     const check = this.getCheckAll()
     const disable = disabled === true
-
-    this.hasData = false
-
+    const listms = Object.assign({}, listStyle, { height: listHeight })
     return (
       <SCard className={transferClass('card')}>
         <SCard.Header className={transferClass('card-header')}>
@@ -109,24 +131,15 @@ class Card extends Component {
           </div>
         )}
         <Spin loading={loading}>
-          <SCard.Body className={classnames(transferClass('card-body'), listClassName)} style={listStyle}>
-            {data.map((d, i) => {
-              const key = getKey(d, keygen, i)
-              if (onFilter && !onFilter(this.state.filter, d, !index)) return null
-
-              this.hasData = true
-
-              return (
-                <Item
-                  key={key}
-                  disabled={disable || (typeof disabled === 'function' && disabled(d))}
-                  index={index}
-                  checkKey={key}
-                  liData={d}
-                  content={createFunc(renderItem)(d)}
-                />
-              )
-            })}
+          <SCard.Body className={classnames(transferClass('card-body'), listClassName)} style={listms}>
+            <LazyList
+              data={data}
+              itemsInView={rowsInView}
+              lineHeight={lineHeight}
+              height={listHeight}
+              scrollHeight={lineHeight * data.length}
+              renderItem={this.handleRenderItem}
+            />
 
             {!this.hasData && <div className={transferClass('empty')}>{empty || getLocale('noData')}</div>}
           </SCard.Body>
@@ -154,6 +167,9 @@ Card.propTypes = {
   empty: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   loading: PropTypes.bool,
   onSearch: PropTypes.func,
+  rowsInView: PropTypes.number,
+  lineHeight: PropTypes.number,
+  listHeight: PropTypes.number,
 }
 
 export default Card
