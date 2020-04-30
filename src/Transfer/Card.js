@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import Spin from '../Spin'
+import filter from './filter'
 import SCard from '../Card'
 import Checkbox from '../Checkbox'
 import { PureComponent } from '../component'
@@ -16,16 +17,8 @@ import Input from '../Input'
 class Card extends PureComponent {
   constructor(props) {
     super(props)
-
-    this.state = {
-      filter: '',
-    }
-
-    this.hasData = false
-
     this.getCheckAll = this.getCheckAll.bind(this)
     this.checkAll = this.checkAll.bind(this)
-    this.filterChange = this.filterChange.bind(this)
     this.handleRenderItem = this.handleRenderItem.bind(this)
   }
 
@@ -57,21 +50,10 @@ class Card extends PureComponent {
     }
   }
 
-  filterChange(v) {
-    const { onSearch, index } = this.props
-
-    if (onSearch) onSearch(v, !index)
-
-    this.setState({ filter: v })
-  }
-
   handleRenderItem(d, i) {
-    const { keygen, index, renderItem, onFilter, disabled, lineHeight } = this.props
+    const { keygen, index, renderItem, disabled, lineHeight } = this.props
     const disable = disabled === true
     const key = getKey(d, keygen, i)
-    if (onFilter && !onFilter(this.state.filter, d, !index)) return null
-
-    this.hasData = true
 
     return (
       <Item
@@ -102,9 +84,9 @@ class Card extends PureComponent {
       lineHeight,
       listHeight,
       rowsInView,
+      filterText,
     } = this.props
 
-    this.hasData = false
     const check = this.getCheckAll()
     const disable = disabled === true
     const listms = Object.assign({}, listStyle, { height: listHeight })
@@ -122,11 +104,11 @@ class Card extends PureComponent {
           <div className={transferClass('filter')}>
             <Input
               disabled={disable}
-              onChange={this.filterChange}
+              onChange={onFilter}
               placeholder={getLocale('search')}
               clearable
               size="small"
-              value={this.state.filter}
+              value={filterText}
             />
           </div>
         )}
@@ -140,8 +122,7 @@ class Card extends PureComponent {
               scrollHeight={lineHeight * data.length}
               renderItem={this.handleRenderItem}
             />
-
-            {!this.hasData && <div className={transferClass('empty')}>{empty || getLocale('noData')}</div>}
+            {data.length === 0 && <div className={transferClass('empty')}>{empty || getLocale('noData')}</div>}
           </SCard.Body>
         </Spin>
 
@@ -170,6 +151,7 @@ Card.propTypes = {
   rowsInView: PropTypes.number,
   lineHeight: PropTypes.number,
   listHeight: PropTypes.number,
+  filterText: PropTypes.string,
 }
 
-export default Card
+export default filter(Card)
