@@ -43,6 +43,8 @@
 | rowEvents | object | none | tr events |
 | defaultTreeExpandKeys | string[] | none | Default expanded row keys |
 | onColumnResize | (newColumns: object[]) => void | none | columns resize callback |
+| size | 'small' \| 'normal' | 'normal' | size of table |
+| pagination | object | none | pagination of table |
 
 ### TableColumn
 

@@ -31,3 +31,6 @@
 | onFilter | (text: string, value: any, isSource: boolean) => boolean | 无 | 筛选函数, 参数为: 输入文本, 数据, 是否为左侧数据 | |
 | loading| boolean \| boolean[] | 无 | 加载中, 如果需要两侧加载中状态不一致, 需要传入数组 | |
 | onSearch | (text: string, isSource: boolean) => void | 无 | 输入框值变化的回调, 参数为: 输入文本, 是否为左侧数据 | 1.4.4 |
+| rowsInView | number | 20 | 一次加载的数据条数 |
+| listHeight | number | 180 | 列表高度 |
+| lineHeight | number | 32 | 列表行高 |
