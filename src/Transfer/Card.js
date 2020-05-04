@@ -2,29 +2,24 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import Spin from '../Spin'
+import filter from './filter'
 import SCard from '../Card'
 import Checkbox from '../Checkbox'
-import { Component } from '../component'
+import { PureComponent } from '../component'
 import { transferClass } from '../styles'
 import { getKey } from '../utils/uid'
 import { createFunc } from '../utils/func'
 import Item from './item'
+import LazyList from '../List/LazyList'
 import { getLocale } from '../locale'
 import Input from '../Input'
 
-class Card extends Component {
+class Card extends PureComponent {
   constructor(props) {
     super(props)
-
-    this.state = {
-      filter: '',
-    }
-
-    this.hasData = false
-
     this.getCheckAll = this.getCheckAll.bind(this)
     this.checkAll = this.checkAll.bind(this)
-    this.filterChange = this.filterChange.bind(this)
+    this.handleRenderItem = this.handleRenderItem.bind(this)
   }
 
   getCheckAll() {
@@ -55,22 +50,29 @@ class Card extends Component {
     }
   }
 
-  filterChange(v) {
-    const { onSearch, index } = this.props
+  handleRenderItem(d, i) {
+    const { keygen, index, renderItem, disabled, lineHeight } = this.props
+    const disable = disabled === true
+    const key = getKey(d, keygen, i)
 
-    if (onSearch) onSearch(v, !index)
-
-    this.setState({ filter: v })
+    return (
+      <Item
+        lineHeight={lineHeight}
+        key={key}
+        disabled={disable || (typeof disabled === 'function' && disabled(d))}
+        index={index}
+        checkKey={key}
+        liData={d}
+        content={createFunc(renderItem)(d)}
+      />
+    )
   }
 
   render() {
     const {
       title,
       data,
-      renderItem,
       selecteds,
-      keygen,
-      index,
       footer,
       listClassName,
       listStyle,
@@ -79,13 +81,15 @@ class Card extends Component {
       disabled,
       loading,
       onSearch,
+      lineHeight,
+      listHeight,
+      rowsInView,
+      filterText,
     } = this.props
 
     const check = this.getCheckAll()
     const disable = disabled === true
-
-    this.hasData = false
-
+    const listms = Object.assign({}, listStyle, { height: listHeight })
     return (
       <SCard className={transferClass('card')}>
         <SCard.Header className={transferClass('card-header')}>
@@ -100,35 +104,25 @@ class Card extends Component {
           <div className={transferClass('filter')}>
             <Input
               disabled={disable}
-              onChange={this.filterChange}
+              onChange={onFilter}
               placeholder={getLocale('search')}
               clearable
               size="small"
-              value={this.state.filter}
+              value={filterText}
             />
           </div>
         )}
         <Spin loading={loading}>
-          <SCard.Body className={classnames(transferClass('card-body'), listClassName)} style={listStyle}>
-            {data.map((d, i) => {
-              const key = getKey(d, keygen, i)
-              if (onFilter && !onFilter(this.state.filter, d, !index)) return null
-
-              this.hasData = true
-
-              return (
-                <Item
-                  key={key}
-                  disabled={disable || (typeof disabled === 'function' && disabled(d))}
-                  index={index}
-                  checkKey={key}
-                  liData={d}
-                  content={createFunc(renderItem)(d)}
-                />
-              )
-            })}
-
-            {!this.hasData && <div className={transferClass('empty')}>{empty || getLocale('noData')}</div>}
+          <SCard.Body className={classnames(transferClass('card-body'), listClassName)} style={listms}>
+            <LazyList
+              data={data}
+              itemsInView={rowsInView}
+              lineHeight={lineHeight}
+              height={listHeight}
+              scrollHeight={lineHeight * data.length}
+              renderItem={this.handleRenderItem}
+            />
+            {data.length === 0 && <div className={transferClass('empty')}>{empty || getLocale('noData')}</div>}
           </SCard.Body>
         </Spin>
 
@@ -154,6 +148,10 @@ Card.propTypes = {
   empty: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   loading: PropTypes.bool,
   onSearch: PropTypes.func,
+  rowsInView: PropTypes.number,
+  lineHeight: PropTypes.number,
+  listHeight: PropTypes.number,
+  filterText: PropTypes.string,
 }
 
-export default Card
+export default filter(Card)

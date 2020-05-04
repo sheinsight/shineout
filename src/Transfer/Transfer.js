@@ -63,6 +63,9 @@ class Transfer extends PureComponent {
       empty,
       disabled,
       itemClass,
+      rowsInView,
+      lineHeight,
+      listHeight,
     } = this.props
     const selecteds = this.getSelected()
 
@@ -95,6 +98,9 @@ class Transfer extends PureComponent {
             empty={empty}
             disabled={disabled}
             onSearch={onSearch}
+            rowsInView={rowsInView}
+            lineHeight={lineHeight}
+            listHeight={listHeight}
           />
           <Btns
             selecteds={selecteds}
@@ -124,6 +130,9 @@ class Transfer extends PureComponent {
             empty={empty}
             disabled={disabled}
             onSearch={onSearch}
+            rowsInView={rowsInView}
+            lineHeight={lineHeight}
+            listHeight={listHeight}
           />
         </Context.Provider>
       </div>
@@ -138,6 +147,9 @@ Transfer.defaultProps = {
   operations: [],
   operationIcon: true,
   renderItem: d => d,
+  rowsInView: 20,
+  lineHeight: 32,
+  listHeight: 180,
 }
 
 Transfer.propTypes = {
@@ -163,6 +175,9 @@ Transfer.propTypes = {
   itemClass: PropTypes.string,
   loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
   onSearch: PropTypes.func,
+  rowsInView: PropTypes.number,
+  lineHeight: PropTypes.number,
+  listHeight: PropTypes.number,
 }
 
 export default Transfer

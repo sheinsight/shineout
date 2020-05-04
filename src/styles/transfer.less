@@ -2,6 +2,7 @@
 @import './themes/@{so-theme}.less';
 
 @transfer-prefix: ~'@{so-prefix}-transfer';
+@checkinput-prefix: ~'@{so-prefix}-checkinput';
 
 .@{transfer-prefix} {
   display: flex;
@@ -25,7 +26,7 @@
 
     &-body {
       padding: 2px 0;
-      overflow: auto;
+      overflow: hidden;
       height: 180px;
     }
 
@@ -35,8 +36,6 @@
   }
 
   &-item {
-    min-height: 32px;
-    // padding: 6px 0 6px 12px;
     width: 100%;
     cursor: pointer;
 
@@ -44,6 +43,9 @@
       width: 100%;
       margin-right: 0;
       padding: 6px 0 6px 12px;
+      i.@{checkinput-prefix}-indicator + span {
+        vertical-align: top;
+      }
     }
 
     &:hover {

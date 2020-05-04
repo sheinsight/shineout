@@ -50,7 +50,7 @@ class Scroll extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.scrollWidth !== prevProps.scrollWidth) {
+    if (this.props.scrollWidth !== prevProps.scrollWidth || this.props.scrollHeight !== prevProps.scrollHeight) {
       this.setRect()
     }
   }
