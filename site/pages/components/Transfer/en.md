@@ -31,3 +31,6 @@
 | onFilter | (text: string, value: any, isSource: boolean) => boolean | - | Filter function. params: input text, the data, is data in left |
 | loading| boolean \| boolean[] | - | Loading, if you need to have inconsistent states on both sides of the load, you need to pass in the array | |
 | onSearch | (text: string, isSource: boolean) => void | - | the callback of input change, params: input text, is data in the left | 1.4.4 |
+| rowsInView | number | 20 | loaded rows |
+| listHeight | number | 180 | list height |
+| lineHeight | number | 32 | list line height |

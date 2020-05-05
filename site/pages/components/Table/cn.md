@@ -43,6 +43,8 @@
 | defaultTreeExpandKeys | string[] | 无 | 默认展开行(非受控) |
 | dataChangeResize | boolean | false | 数据发生变化后是否重新计算列宽 |
 | onColumnResize | (newColumns: object[]) => void | 无 | 列宽伸缩后的回调 |
+| size | 'small' \| 'normal' | 'normal' | 表格尺寸 |
+| pagination | object | 无 | 分页数据 |
 
 ### TableColumn
 
