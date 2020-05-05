@@ -68,6 +68,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Modal/example-4-form.js'),
   },
   {
+    name: '4-moveable',
+    title: locate(
+      '可移动 \n 设置 moveable 来使 Modal 可以按住头部移动',
+      'Form \n set moveable mark modal move by header'
+    ),
+    component: require('doc/pages/components/Modal/example-4-moveable.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Modal/example-4-moveable.js'),
+  },
+  {
     name: '5-multistage',
     title: locate(
       '多层 Modal \n 支持多层叠加 Modal',

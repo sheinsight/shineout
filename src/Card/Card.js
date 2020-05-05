@@ -87,4 +87,4 @@ Card.defaultProps = {
   collapsible: false,
 }
 
-export default moveable(Card)
+export default moveable(`.${cardClass('header')}`, Card)

@@ -2,6 +2,7 @@
 @import './themes/@{so-theme}.less';
 @modal-prefix: ~'@{so-prefix}-modal';
 @card-prefix: ~'@{so-prefix}-card';
+@moveable-prefix: ~'@{so-prefix}-moveable';
 
 .@{modal-prefix} {
   position: fixed;
@@ -140,6 +141,12 @@
 
     > svg {
       fill: @modal-close-icon-color;
+    }
+  }
+
+  .@{moveable-prefix} {
+    .@{modal-prefix}-title {
+      cursor: move;
     }
   }
 
