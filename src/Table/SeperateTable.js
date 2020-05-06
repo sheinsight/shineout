@@ -388,7 +388,7 @@ class SeperateTable extends PureComponent {
   }
 
   renderBody(floatClass) {
-    const { data, rowsInView, columns, width, fixed, rowHeight, ...others } = this.props
+    const { data, rowsInView, columns, width, fixed, rowHeight, columnResizable, ...others } = this.props
     const { colgroup, scrollTop, scrollLeft, offsetLeft, offsetRight, currentIndex, resize } = this.state
     const contentWidth = this.getContentWidth()
 
@@ -419,7 +419,7 @@ class SeperateTable extends PureComponent {
         <div ref={this.bindTbody} className={tableClass('scroll-inner')} style={{ width }}>
           <div style={{ height: prevHeight }} />
           <table style={{ width }} ref={this.bindRealTbody}>
-            <Colgroup {...others} colgroup={colgroup} columns={columns} />
+            <Colgroup colgroup={colgroup} columns={columns} resizeable={columnResizable && this.lastScrollArgs[4]} />
             <Tbody
               {...others}
               columns={columns}
@@ -441,7 +441,7 @@ class SeperateTable extends PureComponent {
   }
 
   render() {
-    const { columns, fixed, width, onResize, ...others } = this.props
+    const { columns, fixed, width, onResize, columnResizable } = this.props
     const { colgroup, scrollLeft, floatFixed } = this.state
 
     const floatClass = []
@@ -462,7 +462,7 @@ class SeperateTable extends PureComponent {
     return [
       <div key="head" className={tableClass('head', ...floatClass)} ref={this.bindHeadWrapper}>
         <table style={{ width }} ref={this.bindThead}>
-          <Colgroup {...others} colgroup={colgroup} columns={columns} />
+          <Colgroup colgroup={colgroup} columns={columns} resizeable={columnResizable && this.lastScrollArgs[4]} />
           <Thead {...this.props} colgroup={colgroup} onSortChange={this.handleSortChange} onColChange={onResize} />
         </table>
       </div>,
