@@ -17,6 +17,7 @@ export { utils }
 export { setLocale } from './locale'
 export { color, style } from './utils/expose'
 
+export { default as LazyList } from './List/LazyList'
 <% files.forEach(function (name) { -%>
 export { default as <%= name %> } from './<%= name %>'
 <% }) -%>`

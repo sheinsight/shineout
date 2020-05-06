@@ -56,6 +56,7 @@ class LazyList extends PureComponent {
     if (items.length === 0) return null
     return (
       <Scroll
+        stable
         scroll={scroll}
         style={{ height: scroll ? height : undefined }}
         onScroll={this.handleScroll}
