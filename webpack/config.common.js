@@ -58,6 +58,11 @@ module.exports = function getCommon(config) {
         new UglifyWebpackPlugin({
           cache: true,
           parallel: true,
+          uglifyOptions: {
+            output: {
+              comments: false,
+            },
+          },
         }),
         new OptimizeCSSAssetsPlugin({}),
       ],
