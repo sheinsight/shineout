@@ -185,3 +185,9 @@ export const deepRemove = (target, path) => {
 
   return target
 }
+
+export const entries = obj => {
+  if (!obj) return []
+  const keys = Object.keys(obj)
+  return keys.map(key => [key, obj[key]])
+}

@@ -2,6 +2,7 @@
 @import './themes/@{so-theme}.less';
 @modal-prefix: ~'@{so-prefix}-modal';
 @card-prefix: ~'@{so-prefix}-card';
+@moveable-prefix: ~'@{so-prefix}-moveable';
 
 .@{modal-prefix} {
   position: fixed;
@@ -35,15 +36,14 @@
 
     .@{modal-prefix}-title {
       margin-bottom: 8px;
-      display: flex;
-      align-items: center;
     }
 
     .@{modal-prefix}-icon {
-      display: inline-block;
+      position: absolute;
+      top: 40px;
+      left: 32px;
       width: @modal-icon-size;
       height: @modal-icon-size;
-      margin-right: 8px;
     }
   }
 
@@ -140,6 +140,12 @@
 
     > svg {
       fill: @modal-close-icon-color;
+    }
+  }
+
+  .@{moveable-prefix} {
+    .@{modal-prefix}-title {
+      cursor: move;
     }
   }
 

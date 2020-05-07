@@ -15,6 +15,15 @@ class LazyList extends PureComponent {
     this.handleScroll = this.handleScroll.bind(this)
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.data.length !== this.props.data.length) {
+      this.setState({
+        currentIndex: 0,
+        scrollTop: 0,
+      })
+    }
+  }
+
   handleScroll(x, y, max, bar, v, h, pixelX, pixelY) {
     if (!this.optionInner) return
     const { data, itemsInView, lineHeight, scrollHeight } = this.props
@@ -56,6 +65,7 @@ class LazyList extends PureComponent {
     if (items.length === 0) return null
     return (
       <Scroll
+        stable
         scroll={scroll}
         style={{ height: scroll ? height : undefined }}
         onScroll={this.handleScroll}

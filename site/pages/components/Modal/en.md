@@ -23,6 +23,7 @@ You can use Modal to display secondary content or actions without jumping to the
 | zIndex | number | 1050 | Modal z-index | |
 | rootClassName | string | - | the root element of modal, the mask parent element | 1.4.2 |
 | container | () => HTMLElement \| HTMLElement | document.body | target element | |
+| moveable | boolean | false | modal support move |
 
 ### ModalMethods
 
