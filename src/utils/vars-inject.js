@@ -2855,6 +2855,22 @@ const injects = {
         desc: '类型图标尺寸',
       },
       {
+        name: 'iconTop',
+        className: exposeClass('modal-icon'),
+        attr: 'marginTop',
+        type: 'number',
+        parser: parseInt,
+        desc: '类型图标距离顶部距离',
+      },
+      {
+        name: 'iconLeft',
+        className: exposeClass('modal-icon'),
+        attr: 'marginLeft',
+        type: 'number',
+        parser: parseInt,
+        desc: '类型图标距离左侧距离',
+      },
+      {
         name: 'closeIconColor',
         className: exposeClass('modal-close'),
         attr: 'color',
@@ -3027,6 +3043,22 @@ const injects = {
       setBodyProperty(
         {
           '--modal-icon-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set iconLeft(v) {
+      setBodyProperty(
+        {
+          '--modal-icon-left': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set iconTop(v) {
+      setBodyProperty(
+        {
+          '--modal-icon-top': `${parseInt(v, 10)}px`,
         },
         v
       )
