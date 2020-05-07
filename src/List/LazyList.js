@@ -16,7 +16,7 @@ class LazyList extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.data.length !== this.props.data.length) {
+    if (prevProps.data.length !== this.props.data.length && !this.props.stay) {
       this.setState({
         currentIndex: 0,
         scrollTop: 0,
@@ -98,6 +98,7 @@ LazyList.propTypes = {
   lineHeight: PropType.number,
   height: PropType.number.isRequired,
   renderItem: PropType.func.isRequired,
+  stay: PropType.bool,
 }
 
 export default LazyList

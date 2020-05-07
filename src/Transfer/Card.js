@@ -115,6 +115,7 @@ class Card extends PureComponent {
         <Spin loading={loading}>
           <SCard.Body className={classnames(transferClass('card-body'), listClassName)} style={listms}>
             <LazyList
+              stay={!filterText}
               data={data}
               itemsInView={rowsInView}
               lineHeight={lineHeight}
