@@ -1,5 +1,6 @@
 import { darken, fade } from './color'
 import { set as configSet } from '../config'
+import { entries } from './objects'
 import {
   paginationClass,
   checkinputClass,
@@ -28,7 +29,7 @@ function getProperty(name = '--btn-hover-darken') {
 }
 
 function setBodyProperty(colors, value) {
-  for (const [cssVar, cssValue] of Object.entries(colors)) {
+  for (const [cssVar, cssValue] of entries(colors)) {
     if (value === undefined) {
       document.body.style.removeProperty(cssVar)
     } else {

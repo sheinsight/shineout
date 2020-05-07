@@ -1,3 +1,5 @@
+import { entries } from './utils/objects'
+
 const config = {
   cssModule: process.env.CSS_MODULE || false,
   prefix: process.env.SO_PREFIX || 'so',
@@ -15,7 +17,7 @@ export function set(name, value) {
 }
 
 export function setConfig(conf) {
-  for (const [key, value] of Object.entries(conf)) {
+  for (const [key, value] of entries(conf)) {
     set(key, value)
   }
 }
