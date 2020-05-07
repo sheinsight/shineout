@@ -16,7 +16,7 @@ class LazyList extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.data.length !== this.props.data.length && !this.props.stay) {
+    if (!this.props.stay && prevProps.data.length !== this.props.data.length) {
       this.setState({
         currentIndex: 0,
         scrollTop: 0,
