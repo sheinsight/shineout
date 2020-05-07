@@ -53,15 +53,10 @@ export default class Panel extends PureComponent {
 
     const iconType = type.charAt(0).toUpperCase() + type.slice(1)
     const icon = Icons[iconType]
-    const iconCom = icon && <span className={modalClass('icon')}>{icon}</span>
     return (
       <Card.Body className={modalClass('body')} style={style}>
-        {title && (
-          <div className={modalClass('title')}>
-            {iconCom}
-            <span>{title}</span>
-          </div>
-        )}
+        {icon && <div className={modalClass('icon')}>{icon}</div>}
+        {title && <div className={modalClass('title')}>{title}</div>}
         <div>{children}</div>
       </Card.Body>
     )
