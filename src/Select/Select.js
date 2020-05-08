@@ -430,7 +430,8 @@ class Select extends PureComponent {
       this.state.focus && 'focus',
       this.state.position,
       multiple && 'multiple',
-      disabled === true && 'disabled'
+      disabled === true && 'disabled',
+      !trim && 'pre'
     )
     const renderResult = this.props.renderResult || this.renderItem
 
