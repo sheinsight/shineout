@@ -123,7 +123,7 @@ const injects = {
         name: 'gray700',
         type: 'color',
         attr: 'color',
-        desc: 'Table border',
+        desc: 'Table sort icon hover color',
         className: exposeClass('gray-700'),
       },
       {
