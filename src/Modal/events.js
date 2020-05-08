@@ -96,7 +96,7 @@ export function open(props, isPortal) {
 
   const opacityDefault = props.maskOpacity === undefined ? 0.25 : props.maskOpacity
   const maskOpacity = isMask(props.id) ? opacityDefault : 0.01
-  div.style.background = `rgba(0,0,0,${maskOpacity})`
+  div.style.background = props.maskBackground || `rgba(0,0,0,${maskOpacity})`
 
   containers[props.id].visible = true
 

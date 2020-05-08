@@ -25,6 +25,7 @@
 | rootClassName | string | - | modal 的根元素类名, 为遮罩层的父元素 | 1.4.2 |
 | container | () => HTMLElement \| HTMLElement | document.body | 渲染的目标节点 | |
 | moveable | boolean | false | 是否可移动 |
+| maskBackground | string | 无 | 遮罩背景色，设置后透明度将失效 |
 
 ### ModalMethods
 
