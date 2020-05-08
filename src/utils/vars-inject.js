@@ -2143,13 +2143,6 @@ const injects = {
         desc: '圆角',
       },
       {
-        name: 'defaultBoxShadow',
-        className: alertClass('_'),
-        attr: 'boxShadow',
-        type: 'string',
-        desc: '常规阴影',
-      },
-      {
         name: 'successBoxShadow',
         className: alertClass('success'),
         attr: 'boxShadow',
