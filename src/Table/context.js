@@ -10,7 +10,7 @@ const consumer = Origin => props => (
   <context.Consumer>
     {value => {
       // eslint-disable-next-line react/prop-types
-      const mp = Object.assign({}, props, value && props.absolute && props.zIndex === undefined && { zIndex: 1051 })
+      const mp = Object.assign({}, props, value && props.absolute === undefined && { absolute: true })
       return <Origin {...mp} />
     }}
   </context.Consumer>
