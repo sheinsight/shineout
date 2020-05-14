@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { isNumber } from '../utils/is'
 import config from '../config'
 import { curry } from '../utils/func'
 
@@ -11,10 +10,6 @@ export default curry(
         delay: PropTypes.number,
         onChange: PropTypes.func.isRequired,
         value: PropTypes.any,
-      }
-
-      static defaultProps = {
-        delay: defaultDelay,
       }
 
       constructor(props) {
@@ -34,8 +29,10 @@ export default curry(
       }
 
       getDelay() {
-        if (isNumber(config.delay)) return config.delay
-        return this.props.delay
+        const { delay } = this.props
+        if (delay !== undefined) return delay
+        if (config.delay !== undefined) return config.delay
+        return defaultDelay
       }
 
       handleChange(value, ...args) {

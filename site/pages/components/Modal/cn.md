@@ -26,6 +26,7 @@
 | container | () => HTMLElement \| HTMLElement | document.body | 渲染的目标节点 | |
 | moveable | boolean | false | 是否可移动 |
 | maskBackground | string | 无 | 遮罩背景色，设置后透明度将失效 |
+| onClose | () => void | 无 | 模态框关闭回调 |
 
 ### ModalMethods
 

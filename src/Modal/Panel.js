@@ -6,6 +6,7 @@ import Card from '../Card'
 import { defaultProps, getProps } from '../utils/proptypes'
 import { modalClass } from '../styles'
 import { Provider } from '../Scroll/context'
+import { Provider as ZProvider } from './context'
 
 export default class Panel extends PureComponent {
   componentDidMount() {
@@ -68,24 +69,26 @@ export default class Panel extends PureComponent {
     const className = classnames(modalClass('panel', type, position), this.props.className)
 
     return (
-      <Provider value={{ element: undefined }}>
-        <div key="mask" className={modalClass('mask')} onClick={maskCloseAble ? onClose : undefined} />
+      <ZProvider value>
+        <Provider value={{ element: undefined }}>
+          <div key="mask" className={modalClass('mask')} onClick={maskCloseAble ? onClose : undefined} />
 
-        <Card moveable={moveable} key="card" shadow className={className} style={this.getStyle()}>
-          {(maskCloseAble || maskCloseAble === null) && (
-            <a className={modalClass('close')} onClick={onClose}>
-              {Icons.Close}
-            </a>
-          )}
-          {title && type === 'default' && <Card.Header className={modalClass('title')}>{title}</Card.Header>}
-          {this.renderContent()}
-          {footer && (
-            <Card.Footer className={modalClass('footer')} align="right">
-              {footer}
-            </Card.Footer>
-          )}
-        </Card>
-      </Provider>
+          <Card moveable={moveable} key="card" shadow className={className} style={this.getStyle()}>
+            {(maskCloseAble || maskCloseAble === null) && (
+              <a className={modalClass('close')} onClick={onClose}>
+                {Icons.Close}
+              </a>
+            )}
+            {title && type === 'default' && <Card.Header className={modalClass('title')}>{title}</Card.Header>}
+            {this.renderContent()}
+            {footer && (
+              <Card.Footer className={modalClass('footer')} align="right">
+                {footer}
+              </Card.Footer>
+            )}
+          </Card>
+        </Provider>
+      </ZProvider>
     )
   }
 }
