@@ -14,6 +14,7 @@ export default () => {
       <Button onClick={() => setShow(true)}>Moveable modal</Button>
       <Modal
         moveable
+        resizable
         visible={show}
         title="Moveable"
         onClose={() => setShow(false)}

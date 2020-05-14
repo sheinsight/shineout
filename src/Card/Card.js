@@ -5,6 +5,8 @@ import { getProps, defaultProps } from '../utils/proptypes'
 import { dispatchEvent } from '../utils/dom/element'
 import { cardClass } from '../styles'
 import { Provider } from './context'
+import { compose } from '../utils/func'
+import resizable from '../hoc/resizable'
 import moveable from '../hoc/moveable'
 
 class Card extends PureComponent {
@@ -87,4 +89,7 @@ Card.defaultProps = {
   collapsible: false,
 }
 
-export default moveable(`.${cardClass('header')}`, Card)
+export default compose(
+  moveable(`.${cardClass('header')}`),
+  resizable
+)(Card)

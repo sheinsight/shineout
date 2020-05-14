@@ -11,7 +11,7 @@ exports[`Table[expand] should render correct 1`] = `
               <SimpleTable keygen=\\"id\\" onChange={[undefined]} sorter={{...}} onSortChange={[Function: bound handleSortChange]} treeColumnsName={[undefined]} externalExpandRender={[undefined]} externalExpandClick={[undefined]} distinct={true} limit={0} initValidate={false} datum={{...}} bindWrapper={[Function: bound bindWrapper]} className=\\"\\" type=\\"default\\" rowsInView={10} fixed={[undefined]} loading={[undefined]} height={[undefined]} width={[undefined]} data={{...}} columns={{...}} striped={[undefined]} bordered={[undefined]} columnResizable={[undefined]}>
                 <div style={{...}} className=\\"so-table-head so-table-simple-head\\">
                   <table style={{...}}>
-                    <Colgroup colgroup={[undefined]} columns={{...}} resizeable={[undefined]}>
+                    <Colgroup colgroup={[undefined]} columns={{...}} resizable={[undefined]}>
                       <colgroup>
                         <col style={{...}} />
                         <col style={{...}} />
@@ -43,7 +43,7 @@ exports[`Table[expand] should render correct 1`] = `
                 </div>
                 <div className=\\"so-table-simple-body\\" onScroll={[Function: bound handleScroll]}>
                   <table style={{...}}>
-                    <Colgroup colgroup={[undefined]} columns={{...}} resizeable={[undefined]}>
+                    <Colgroup colgroup={[undefined]} columns={{...}} resizable={[undefined]}>
                       <colgroup>
                         <col style={{...}} />
                         <col style={{...}} />

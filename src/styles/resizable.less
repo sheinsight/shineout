@@ -1,0 +1,32 @@
+@import './variables.less';
+
+@resizable-prefix: ~'@{so-prefix}-resizable';
+
+@handler-size: 10px;
+
+.@{resizable-prefix} {
+    position: relative;
+    &-handler {
+        z-index: 11;
+        position: absolute;
+        width: @handler-size;
+        height: @handler-size;
+        cursor: nwse-resize;
+        background: red;
+        &-top-right {
+            right: 0;
+            top: 0;
+            cursor: nesw-resize;
+        }
+        &-bottom-left {
+            bottom: 0;
+            left: 0;
+            cursor: nesw-resize;
+        }
+        &-bottom-right {
+            bottom: 0;
+            right: 0;
+            cursor: nwse-resize;
+        }
+    }
+}
