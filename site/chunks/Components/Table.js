@@ -160,8 +160,8 @@ const examples = [
   {
     name: '15-select-base',
     title: locate(
-      '选择行 \n 设置 onRowChange 属性，会自动添加选择列',
-      'Select \n Set the onRowChange property will automatically add a column with checkbox.'
+      '选择行 \n 设置 onRowSelect 属性，会自动添加选择列',
+      'Select \n Set the onRowSelect property will automatically add a column with checkbox.'
     ),
     component: require('doc/pages/components/Table/example-15-select-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-15-select-base.js'),

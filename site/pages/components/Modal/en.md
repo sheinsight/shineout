@@ -25,6 +25,7 @@ You can use Modal to display secondary content or actions without jumping to the
 | container | () => HTMLElement \| HTMLElement | document.body | target element | |
 | moveable | boolean | false | modal support move |
 | maskBackground | string | 无 | mask background |
+| onClose | () => void | none | modal close callback |
 
 ### ModalMethods
 
