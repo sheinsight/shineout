@@ -11,6 +11,7 @@ import Item from './Item'
 import { docSize } from '../utils/dom/document'
 import absoluteList from '../List/AbsoluteList'
 import { getUidStr } from '../utils/uid'
+import absoluteComsumer from '../Table/context'
 
 const FadeList = List('fade')
 const AbsoluteList = absoluteList(({ focus, ...other }) => <FadeList show={focus} {...other} />)
@@ -255,4 +256,4 @@ Dropdown.defaultProps = {
 
 Dropdown.displayName = 'ShineoutDropdown'
 
-export default Dropdown
+export default absoluteComsumer(Dropdown)

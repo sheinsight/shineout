@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import shallowEqual from '../utils/shallowEqual'
+import { compose } from '../utils/func'
 import { scrollConsumer } from '../Scroll/context'
 import { listClass } from '../styles'
 import { docScroll, docSize } from '../utils/dom/document'
+import zIndexConsumer from '../Modal/context'
 
 const PICKER_V_MARGIN = 4
 let root
@@ -209,5 +211,8 @@ export default function(List) {
     value: PropTypes.any,
   }
 
-  return scrollConsumer(AbsoluteList)
+  return compose(
+    scrollConsumer,
+    zIndexConsumer
+  )(AbsoluteList)
 }

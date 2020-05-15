@@ -7,6 +7,7 @@ import { selectClass } from '../styles'
 import Select from './Select'
 import filter from './filter'
 import group from './group'
+import absolute from '../Table/context'
 
 const limitWrap = Origin => props => {
   // eslint-disable-next-line
@@ -20,7 +21,8 @@ const exportSelect = compose(
   limitWrap,
   Datum.hoc({ bindProps: ['disabled', 'limit', 'format', 'prediction', 'separator'] }),
   filter,
-  group
+  group,
+  absolute
 )(Select)
 
 exportSelect.displayName = 'ShineoutSelect'

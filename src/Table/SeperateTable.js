@@ -14,6 +14,7 @@ import Colgroup from './Colgroup'
 import Thead from './Thead'
 import Tbody from './Tbody'
 import { isNumber } from '../utils/is'
+import { Provider as AbsoluteProvider } from './context'
 import { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
 
 class SeperateTable extends PureComponent {
@@ -393,7 +394,7 @@ class SeperateTable extends PureComponent {
     const contentWidth = this.getContentWidth()
 
     if (!data || data.length === 0) {
-      return <div key="body" />
+      return <div />
     }
 
     let dataUpdated = this.lastData !== data // Incorrect height due to changing data length dynamically
@@ -407,7 +408,6 @@ class SeperateTable extends PureComponent {
 
     return (
       <Scroll
-        key="body"
         scrollTop={scrollTop}
         scrollLeft={scrollLeft}
         scroll={fixed}
@@ -466,7 +466,9 @@ class SeperateTable extends PureComponent {
           <Thead {...this.props} colgroup={colgroup} onSortChange={this.handleSortChange} onColChange={onResize} />
         </table>
       </div>,
-      this.renderBody(floatClass),
+      <AbsoluteProvider value key="body">
+        {this.renderBody(floatClass)}
+      </AbsoluteProvider>,
     ]
   }
 }
