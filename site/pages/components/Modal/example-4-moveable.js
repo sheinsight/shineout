@@ -1,8 +1,8 @@
 /**
- * cn - 可移动
- *    -- 设置 moveable 来使 Modal 可以按住头部移动
- * en - Form
- *    -- set moveable mark modal move by header
+ * cn - 可移动/伸缩
+ *    -- 设置 moveable 来使 Modal 可以按住头部移动, 设置 resizable 来自由调整 Modal 大小
+ * en - Moveable/resizable
+ *    -- set moveable mark modal move by header, set resizable to resize modal
  */
 import React from 'react'
 import { Modal, Button } from 'shineout'
