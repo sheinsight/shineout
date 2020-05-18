@@ -70,8 +70,8 @@ const examples = [
   {
     name: '4-moveable',
     title: locate(
-      '可移动 \n 设置 moveable 来使 Modal 可以按住头部移动',
-      'Form \n set moveable mark modal move by header'
+      '可移动/伸缩 \n 设置 moveable 来使 Modal 可以按住头部移动, 设置 resizable 来自由调整 Modal 大小',
+      'Moveable/resizable \n set moveable mark modal move by header, set resizable to resize modal'
     ),
     component: require('doc/pages/components/Modal/example-4-moveable.js').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-4-moveable.js'),

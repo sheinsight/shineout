@@ -64,7 +64,7 @@ export default class Panel extends PureComponent {
   }
 
   render() {
-    const { footer, title, type, onClose, maskCloseAble, position, moveable } = this.props
+    const { footer, title, type, onClose, maskCloseAble, position, moveable, resizable } = this.props
 
     const className = classnames(modalClass('panel', type, position), this.props.className)
 
@@ -73,7 +73,14 @@ export default class Panel extends PureComponent {
         <Provider value={{ element: undefined }}>
           <div key="mask" className={modalClass('mask')} onClick={maskCloseAble ? onClose : undefined} />
 
-          <Card moveable={moveable} key="card" shadow className={className} style={this.getStyle()}>
+          <Card
+            moveable={moveable}
+            resizable={resizable}
+            key="card"
+            shadow
+            className={className}
+            style={this.getStyle()}
+          >
             {(maskCloseAble || maskCloseAble === null) && (
               <a className={modalClass('close')} onClick={onClose}>
                 {Icons.Close}
@@ -107,6 +114,7 @@ Panel.propTypes = {
   type: PropTypes.string,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   moveable: PropTypes.bool,
+  resizable: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
 }
 
 Panel.defaultProps = {
