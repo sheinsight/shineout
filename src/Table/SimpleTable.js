@@ -91,7 +91,7 @@ class SimpleTable extends PureComponent {
     return (
       <div key="body" className={tableClass('simple-body')} ref={this.bindBody} onScroll={this.handleScroll}>
         <table style={{ width }}>
-          <Colgroup colgroup={colgroup} columns={columns} resizeable={columnResizable} />
+          <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable} />
           <Tbody
             colgroup={colgroup}
             lazy={false}
@@ -112,7 +112,7 @@ class SimpleTable extends PureComponent {
     if (!columns || columns.length === 0) return <table style={{ width }}>{children}</table>
     const header = (
       <table style={{ width }}>
-        <Colgroup colgroup={colgroup} columns={columns} resizeable={columnResizable} />
+        <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable} />
         <Thead {...this.props} colgroup={colgroup} onSortChange={this.handleSortChange} onColChange={onResize} />
       </table>
     )

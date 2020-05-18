@@ -1,6 +1,6 @@
 import { mount } from 'enzyme/build'
 import React from 'react'
-import SelectColumns from '../../../site/pages/components/Select/example-14-columns'
+import SelectColumns from '../../../site/pages/components/Select/example-14-columns-default'
 import { appendToDOM } from '../../utils'
 
 /* global SO_PREFIX */

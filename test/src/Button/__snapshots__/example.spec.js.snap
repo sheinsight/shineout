@@ -40,6 +40,46 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-1-base.js] 1
 </div>
 `;
 
+exports[`Snapshot test: Button[site/pages/components/Button/example-1-text.js] 1`] = `
+<div>
+  <button>
+    <span>
+      Default
+    </span>
+  </button>
+  <button>
+    <span>
+      Primary
+    </span>
+  </button>
+  <button>
+    <span>
+      Secondary
+    </span>
+  </button>
+  <button>
+    <span>
+      Success
+    </span>
+  </button>
+  <button>
+    <span>
+      Warning
+    </span>
+  </button>
+  <button>
+    <span>
+      Danger
+    </span>
+  </button>
+  <button>
+    <span>
+      Link
+    </span>
+  </button>
+</div>
+`;
+
 exports[`Snapshot test: Button[site/pages/components/Button/example-2-icon.js] 1`] = `
 <div>
   <button>

@@ -10,8 +10,8 @@ class Colgroup extends React.Component {
   }
 
   componentDidUpdate() {
-    const { colgroup, columns, resizeable } = this.props
-    if (!resizeable || this.state.didShow) return
+    const { colgroup, columns, resizable } = this.props
+    if (!resizable || this.state.didShow) return
     if (!colgroup || colgroup.length !== columns.length) return
     this.setState({ didShow: true })
   }
@@ -45,7 +45,7 @@ class Colgroup extends React.Component {
 Colgroup.propTypes = {
   columns: PropTypes.array.isRequired,
   colgroup: PropTypes.array,
-  resizeable: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
+  resizable: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
 }
 
 Colgroup.defaultProps = {

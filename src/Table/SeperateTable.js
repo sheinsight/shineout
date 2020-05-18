@@ -419,7 +419,7 @@ class SeperateTable extends PureComponent {
         <div ref={this.bindTbody} className={tableClass('scroll-inner')} style={{ width }}>
           <div style={{ height: prevHeight }} />
           <table style={{ width }} ref={this.bindRealTbody}>
-            <Colgroup colgroup={colgroup} columns={columns} resizeable={columnResizable && this.lastScrollArgs[4]} />
+            <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable && this.lastScrollArgs[4]} />
             <Tbody
               {...others}
               columns={columns}
@@ -462,7 +462,7 @@ class SeperateTable extends PureComponent {
     return [
       <div key="head" className={tableClass('head', ...floatClass)} ref={this.bindHeadWrapper}>
         <table style={{ width }} ref={this.bindThead}>
-          <Colgroup colgroup={colgroup} columns={columns} resizeable={columnResizable && this.lastScrollArgs[4]} />
+          <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable && this.lastScrollArgs[4]} />
           <Thead {...this.props} colgroup={colgroup} onSortChange={this.handleSortChange} onColChange={onResize} />
         </table>
       </div>,

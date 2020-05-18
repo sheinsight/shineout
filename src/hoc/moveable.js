@@ -60,6 +60,7 @@ export default curry(
         if (handler && !e.target.matches(handler)) return
         document.addEventListener('mousemove', this.handleMouseMove)
         document.addEventListener('mouseup', this.handleMouseUp)
+        document.addEventListener('mouseleave', this.handleMouseUp)
         if (!this.handlerPos) {
           this.handlerPos = this.handlerEl.getBoundingClientRect()
         }
@@ -88,6 +89,7 @@ export default curry(
       handleMouseUp() {
         document.removeEventListener('mousemove', this.handleMouseMove)
         document.removeEventListener('mouseup', this.handleMouseUp)
+        document.removeEventListener('mouseleave', this.handleMouseUp)
         this.setState({
           draging: false,
         })
