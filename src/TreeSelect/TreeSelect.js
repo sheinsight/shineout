@@ -159,7 +159,7 @@ export default class TreeSelect extends PureComponent {
 
   handleChange(data, id) {
     const { datum, multiple, disabled, onChange } = this.props
-    if (disabled === true || datum.disabled(data)) return
+    if (disabled === true || datum.isDisabled(id)) return
     const current = datum.getDataById(id)
     if (!multiple) {
       datum.setValue([])
