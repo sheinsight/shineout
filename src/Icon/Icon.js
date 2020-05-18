@@ -22,7 +22,7 @@ function Icon(props) {
     return (
       <i {...otherProps} className={className} style={style}>
         <svg className={iconClass('svg')} aria-hidden="true">
-          <use xlinkHref={`#icon-${name}`} />
+          <use xlinkHref={`#${prefix}-${name}`} />
         </svg>
       </i>
     )
