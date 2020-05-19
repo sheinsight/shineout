@@ -8,6 +8,7 @@ const config = {
   scrollRatio: 100,
   trim: undefined,
   spin: undefined,
+  caret: undefined,
 }
 
 export default config

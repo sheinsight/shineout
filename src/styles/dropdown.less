@@ -2,6 +2,7 @@
 @import './themes/@{so-theme}.less';
 
 @dropdown-prefix: ~'@{so-prefix}-dropdown';
+@dropdown-caret-size: 10px;
 
 .@{dropdown-prefix} {
   position: relative;
@@ -16,6 +17,13 @@
   }
 
   .@{dropdown-prefix}-button span.@{dropdown-prefix}-caret {
+    width: @dropdown-caret-size;
+    height: @dropdown-caret-size;
+    display: inline-block;
+    vertical-align: middle;
+    svg {
+      vertical-align: top;
+    }
     &:after {
       vertical-align: @dropdown-arrow-vertical;
     }
@@ -47,6 +55,8 @@
   .@{dropdown-prefix}-button-content {
     display: inline-block;
     flex: 1;
+    padding: 0 2px;
+    text-align: left;
   }
 
   &-bottom-left,
@@ -54,10 +64,6 @@
     > .@{dropdown-prefix}-menu {
       top: 100%;
       margin-top: 2px;
-    }
-
-    > .@{dropdown-prefix}-button .@{dropdown-prefix}-caret {
-      .caret(down);
     }
   }
 
@@ -83,7 +89,7 @@
     }
 
     > .@{dropdown-prefix}-button .@{dropdown-prefix}-caret {
-      .caret(up);
+      transform: rotate(180deg);
     }
   }
 
@@ -101,8 +107,8 @@
       margin-right: 2px;
     }
 
-    > .@{dropdown-prefix}-button {
-      .caret(left);
+    > .@{dropdown-prefix}-button .@{dropdown-prefix}-caret {
+      transform: rotate(90deg);
     }
   }
 
@@ -120,8 +126,14 @@
       margin-left: 2px;
     }
 
-    > .@{dropdown-prefix}-button {
-      .caret(right);
+    > .@{dropdown-prefix}-button .@{dropdown-prefix}-caret {
+      transform: rotate(270deg);
+    }
+  }
+
+  &-left-bottom, &-left-top {
+    .@{dropdown-prefix}-button {
+      direction: rtl;
     }
   }
 

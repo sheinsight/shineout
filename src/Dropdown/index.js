@@ -12,6 +12,7 @@ import { docSize } from '../utils/dom/document'
 import absoluteList from '../List/AbsoluteList'
 import { getUidStr } from '../utils/uid'
 import absoluteComsumer from '../Table/context'
+import Caret from '../icons/Caret'
 
 const FadeList = List('fade')
 const AbsoluteList = absoluteList(({ focus, ...other }) => <FadeList show={focus} {...other} />)
@@ -127,6 +128,11 @@ class Dropdown extends PureComponent {
     const { type, outline, size, disabled, isSub } = this.props
     const buttonClassName = dropdownClass('button', !placeholder && 'split-button')
     const spanClassName = dropdownClass('button-content')
+    const caret = (
+      <span className={dropdownClass('caret')}>
+        <Caret />
+      </span>
+    )
 
     if (isSub) {
       return (
@@ -137,6 +143,7 @@ class Dropdown extends PureComponent {
           onClick={this.handleFocus}
         >
           <span className={spanClassName}>{placeholder}</span>
+          {caret}
         </a>
       )
     }
@@ -152,7 +159,7 @@ class Dropdown extends PureComponent {
         key="button"
       >
         <span className={spanClassName}>{placeholder}</span>
-        <span className={dropdownClass('caret')} />
+        {caret}
       </Button>
     )
   }
