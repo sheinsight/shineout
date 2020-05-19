@@ -389,7 +389,17 @@ class SeperateTable extends PureComponent {
   }
 
   renderBody(floatClass) {
-    const { data, rowsInView, columns, width, fixed, rowHeight, columnResizable, ...others } = this.props
+    const {
+      data,
+      rowsInView,
+      columns,
+      width,
+      fixed,
+      rowHeight,
+      columnResizable,
+      innerScrollAttr,
+      ...others
+    } = this.props
     const { colgroup, scrollTop, scrollLeft, offsetLeft, offsetRight, currentIndex, resize } = this.state
     const contentWidth = this.getContentWidth()
 
@@ -415,6 +425,7 @@ class SeperateTable extends PureComponent {
         scrollWidth={contentWidth}
         onScroll={this.handleScroll}
         className={tableClass('body', ...floatClass)}
+        innerScrollAttr={innerScrollAttr}
       >
         <div ref={this.bindTbody} className={tableClass('scroll-inner')} style={{ width }}>
           <div style={{ height: prevHeight }} />
@@ -485,6 +496,7 @@ SeperateTable.propTypes = {
   width: PropTypes.number,
   scrollLeft: PropTypes.number,
   onResize: PropTypes.func,
+  innerScrollAttr: PropTypes.arrayOf(PropTypes.string),
 }
 
 SeperateTable.defaultProps = {
