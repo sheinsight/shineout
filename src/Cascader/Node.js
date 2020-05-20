@@ -4,6 +4,7 @@ import { PureComponent } from '../component'
 import Checkbox from '../Checkbox'
 import Spin from '../Spin'
 import { cascaderClass } from '../styles'
+import Caret from '../icons/Caret'
 
 const checkBoxStyle = { marginRight: 8, marginTop: -1, verticalAlign: 'top' }
 
@@ -64,11 +65,12 @@ class Node extends PureComponent {
     const { loading } = this.state
     const disabled = this.checkDisabled()
     const children = data[childrenKey]
+    const hasChildren = children && children.length > 0
     const className = cascaderClass(
       'node',
       active && 'active',
       disabled && 'disabled',
-      children && children.length > 0 && 'has-children',
+      hasChildren && 'has-children',
       loader && !loading && children === undefined && 'may-be-children'
     )
 
@@ -80,6 +82,7 @@ class Node extends PureComponent {
       style.cursor = 'pointer'
     }
     if (expandTrigger === 'hover' || expandTrigger === 'hover-only') events.onMouseEnter = this.handlePathChange
+    const caret = <span className={cascaderClass('caret')}>{<Caret />}</span>
 
     return (
       <div className={className} style={style} {...events}>
@@ -94,6 +97,7 @@ class Node extends PureComponent {
 
         {this.renderContent()}
         {loading && children === undefined && <Spin className={cascaderClass('loading')} size={10} name="ring" />}
+        {hasChildren && caret}
       </div>
     )
   }

@@ -138,13 +138,14 @@
 
   &-has-children,
   &-may-be-children {
-    .caret(down);
-
-    &:after {
+    .@{cascader-prefix}-caret {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
       position: absolute;
       top: 50%;
       right: 12px;
-      transform: @menu-title-vertical-transform;
+      transform: translateY(-50%) rotate(-90deg);
     }
   }
 

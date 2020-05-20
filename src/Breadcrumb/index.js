@@ -5,6 +5,7 @@ import Popover from '../Popover'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { breadcrumbClass } from '../styles'
 import { getKey } from '../utils/uid'
+import Caret from '../icons/Caret'
 
 class Breadcrumb extends React.PureComponent {
   renderArray(data) {
@@ -19,7 +20,7 @@ class Breadcrumb extends React.PureComponent {
             </div>
           ))}
         </Popover>
-        <span className={breadcrumbClass('down')} />
+        <span className={breadcrumbClass('down')}>{<Caret />}</span>
       </span>,
     ]
   }
@@ -35,7 +36,9 @@ class Breadcrumb extends React.PureComponent {
         if (d.url) props.href = d.url
         item = (
           <a {...props}>
-            {d.icon} {d.title}
+            {d.icon}
+            &nbsp;
+            {d.title}
           </a>
         )
       } else {
