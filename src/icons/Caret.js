@@ -1,8 +1,15 @@
 import icons from './index'
 import config from '../config'
+import cssAccessor from '../utils/css-accessors'
 
-const { CaretLine, CaretFill } = icons
+let cachedCaret
+const caretMap = {
+  line: icons.CaretLine,
+  fill: icons.CaretFill,
+}
 export default () => {
-  if (config.caret === 'line') return CaretLine
-  return CaretFill
+  if (config.caret) return caretMap[config.caret]
+  if (cachedCaret) return cachedCaret
+  cachedCaret = caretMap[cssAccessor.common.caret]
+  return cachedCaret || icons.CaretFill
 }
