@@ -5,6 +5,7 @@ import { inputClass, treeSelectClass } from '../styles'
 import { isObject } from '../utils/is'
 import Input from './Input'
 import Popover from '../Popover'
+import Caret from '../icons/Caret'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -166,7 +167,9 @@ class Result extends PureComponent {
         {result}
         {!this.props.multiple && (
           // eslint-disable-next-line
-          <a tabIndex={-1} className={treeSelectClass('indicator', 'caret')} />
+          <a tabIndex={-1} className={treeSelectClass('indicator', 'caret')}>
+            {<Caret />}
+          </a>
         )}
         {this.renderClear()}
       </div>
