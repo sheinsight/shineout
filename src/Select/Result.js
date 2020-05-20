@@ -5,6 +5,7 @@ import Popover from '../Popover'
 import { inputClass, selectClass } from '../styles'
 import { isObject } from '../utils/is'
 import Input from './Input'
+import Caret from '../icons/Caret'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -191,8 +192,13 @@ class Result extends PureComponent {
   renderIndicator() {
     const { multiple, showArrow, compressed } = this.props
     if (!showArrow || (multiple && !compressed)) return null
+    const showCaret = !multiple
     // eslint-disable-next-line
-    return <a tabIndex={-1} className={selectClass('indicator', multiple ? 'multi' : 'caret')} />
+    return (
+      <a tabIndex={-1} className={selectClass('indicator', multiple ? 'multi' : 'caret')}>
+        {showCaret && <Caret />}
+      </a>
+    )
   }
 
   render() {

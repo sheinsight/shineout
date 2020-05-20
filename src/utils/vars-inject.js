@@ -3484,6 +3484,13 @@ const injects = {
         desc: '默认加载中样式',
       },
       {
+        name: 'caret',
+        className: exposeClass('common-caret'),
+        attr: 'animationName',
+        type: ['line', 'fill'],
+        desc: '下拉箭头风格',
+      },
+      {
         name: 'inputDelay',
         className: exposeClass('common-input-delay'),
         attr: 'width',
@@ -3551,6 +3558,15 @@ const injects = {
       setBodyProperty(
         {
           '--common-content-text-padding': v,
+        },
+        v
+      )
+    },
+    set caret(v) {
+      configSet('caret', v)
+      setBodyProperty(
+        {
+          '--common-caret-style': v,
         },
         v
       )

@@ -169,7 +169,10 @@
 
     &.@{select-prefix}-caret {
       transition: transform .3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
-      .dropdown-svg(@gray-500-value);
+      svg {
+        fill: @gray-500;
+        vertical-align: top;
+      }
     }
 
     &.@{select-prefix}-multi {
