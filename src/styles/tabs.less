@@ -252,6 +252,24 @@
     }
   }
 
+  &-dash {
+    .@{tabs-prefix}-active {
+      color: @tabs-line-active-color;
+
+      &:after {
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        position: absolute;
+        width: 24px;
+        height: 3px;
+        border-radius: 3px;
+        background: @tabs-line-active-color;
+        content: ' ';
+      }
+    }
+  }
+
   &-line {
     .@{tabs-prefix}-active {
       color: @tabs-line-active-color;
