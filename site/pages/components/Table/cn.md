@@ -45,6 +45,7 @@
 | onColumnResize | (newColumns: object[]) => void | 无 | 列宽伸缩后的回调 |
 | size | 'small' \| 'normal' | 'normal' | 表格尺寸 |
 | pagination | object | 无 | 分页数据 |
+| innerScrollAttr | array | 无 | 虚拟滚动模式下，设置行内元素的 attribut 来实现内部滚动 |
 
 ### TableColumn
 
