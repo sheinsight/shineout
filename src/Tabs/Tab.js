@@ -15,7 +15,7 @@ class Tab extends PureComponent {
   getActiveStyle() {
     const { shape, align, background, color, border, isActive, isVertical } = this.props
 
-    if (shape === 'line') return {}
+    if (shape === 'line' || shape === 'dash') return {}
 
     const style = { background, color }
 

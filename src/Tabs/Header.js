@@ -137,6 +137,7 @@ class Header extends PureComponent {
     const { attribute, overflow } = this.state
 
     const position = isVertical ? 'Top' : 'Left'
+    const showBorder = shape !== 'bordered' && shape !== 'dash'
 
     return (
       <div onClick={this.handleCollapse} className={tabsClass('header')} style={tabBarStyle || {}}>
@@ -159,7 +160,7 @@ class Header extends PureComponent {
           )}
         </div>
         {tabBarExtraContent && <div className={tabsClass('extra')}>{tabBarExtraContent}</div>}
-        {shape !== 'bordered' && <div style={{ borderColor: border }} className={tabsClass('hr')} />}
+        {showBorder && <div style={{ borderColor: border }} className={tabsClass('hr')} />}
       </div>
     )
   }
