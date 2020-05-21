@@ -19,4 +19,4 @@
 | onBlur | (e: MouseEvent) => void | 无 | 失去焦点事件 |
 | onFocus | (e: MouseEvent) => void | 无 | 聚焦事件 |
 | absolute | boolean | false | 为 true 时，选项弹出层在 DOM 中独立 render |
-| zIndex | number | 100 | 当 absolute 为 true 时，EditableArea zIndex 属性值 |
+| zIndex | number | 无 | 当 absolute 为 true 时，EditableArea zIndex 属性值 |

@@ -268,7 +268,6 @@ EditableArea.defaultProps = {
   clearable: true,
   bordered: false,
   disabled: false,
-  zIndex: 100,
 }
 
 export default EditableArea
