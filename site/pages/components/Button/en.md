@@ -17,6 +17,7 @@
 | style | object | - | Container element style |
 | type | 'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger' \| 'link' | 'default' | type of button |
 | text | boolean | false | text button |
+| onClick | () => void | none | button click callback |
 
 ### Button.Group
 

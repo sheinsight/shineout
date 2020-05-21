@@ -2018,7 +2018,6 @@ const injects = {
       setBodyProperty(
         {
           '--menu-item-height': `${height}px`,
-          '--menu-item-height-half': `${height / 2}px`,
         },
         v
       )
