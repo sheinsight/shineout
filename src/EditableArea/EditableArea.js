@@ -169,7 +169,7 @@ class EditableArea extends React.PureComponent {
 
   renderItem() {
     const { showTextarea, height } = this.state
-    const { style, placeholder, onBlur, bordered, disabled, absolute } = this.props
+    const { style, placeholder, onBlur, bordered, disabled, absolute, zIndex } = this.props
     const value = this.getValue()
     const showClear = this.showClear()
     const content = [
@@ -217,6 +217,7 @@ class EditableArea extends React.PureComponent {
         fixed
         position="drop-down"
         absolute
+        zIndex={zIndex}
         focus={showTextarea}
         parentElement={this.container}
         data-id={this.editableAreaId}
@@ -259,6 +260,7 @@ EditableArea.propTypes = {
   bordered: PropTypes.bool,
   disabled: PropTypes.bool,
   absolute: PropTypes.bool,
+  zIndex: PropTypes.number,
 }
 
 EditableArea.defaultProps = {
