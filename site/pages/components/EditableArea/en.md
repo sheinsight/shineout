@@ -19,3 +19,4 @@
 | onBlur | (e: MouseEvent) => void | none | blur event |
 | onFocus | (e: MouseEvent) => void | none | focus event |
 | absolute | boolean | false | When it is true, the pop-up layer of option append into document.body. |
+| zIndex | number | 100 | When absolute is true, the EditableArea zIndex property value |
