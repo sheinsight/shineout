@@ -28,7 +28,7 @@ export default function(Component, { type = ['fade'], duration = 360, display = 
       this.state = {
         show: props.show,
       }
-
+      this.height = 0
       this.id = `__hidable_${getUidStr()}__`
     }
 
@@ -37,8 +37,8 @@ export default function(Component, { type = ['fade'], duration = 360, display = 
       const el = this.getElement()
       if (!el) return
 
-      this.height = el.offsetHeight
       if (this.props.show) return
+      this.height = el.offsetHeight
 
       el.style.display = 'none'
       if (hasCollapse) {
