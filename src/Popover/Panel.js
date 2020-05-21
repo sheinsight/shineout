@@ -202,8 +202,7 @@ class Panel extends PureComponent {
   render() {
     const { background, border, children, type, visible, showArrow, parentClose } = this.props
     const show = typeof visible === 'boolean' ? visible : this.state.show
-
-    if ((!this.isRendered && !show) || !this.parentElement) {
+    if ((!this.isRendered && !show) || !this.parentElement || !children) {
       return <noscript ref={this.placeholderRef} />
     }
 
