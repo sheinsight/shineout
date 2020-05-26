@@ -42,7 +42,7 @@ class EditableArea extends React.PureComponent {
     this.state = {
       value: props.defaultValue,
       showTextarea: false,
-      height: 0,
+      height: null,
       showClear: false,
     }
     this.editableAreaId = `editable_${getUidStr()}`
@@ -58,6 +58,14 @@ class EditableArea extends React.PureComponent {
 
   componentDidMount() {
     this.handleResize()
+  }
+
+  componentDidUpdate() {
+    // if height === null || undefine, reacquire height
+    const { height } = this.state
+    if (height == null) {
+      this.handleResize()
+    }
   }
 
   componentWillUnmount() {
@@ -101,7 +109,10 @@ class EditableArea extends React.PureComponent {
   handleResize() {
     let height
     if (this.placeholder) {
-      height = this.placeholder.offsetHeight || 0
+      height = this.placeholder.offsetHeight
+    }
+    if (!height) {
+      return
     }
     this.setState(
       immer(state => {
