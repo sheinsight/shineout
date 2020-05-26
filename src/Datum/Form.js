@@ -1,7 +1,7 @@
 import deepEqual from 'deep-eql'
 import { unflatten, insertValue, spliceValue, getSthByName } from '../utils/flat'
 import { fastClone, deepClone } from '../utils/clone'
-import { deepGet, deepSet, deepRemove, deepMerge, objectValues } from '../utils/objects'
+import { deepGet, deepSet, deepRemove, deepMerge, objectValues, deepHas } from '../utils/objects'
 import { isObject, isArray } from '../utils/is'
 import { promiseAll, FormError } from '../utils/errors'
 import {
@@ -251,6 +251,7 @@ export default class {
     delete this.$errors[name]
     delete this.$defaultValues[name]
 
+    if (!deepHas(this.$values, name)) return
     deepRemove(this.$values, name)
 
     if (!this.formUnmount) {
