@@ -122,7 +122,7 @@ class Day extends PureComponent {
     if (index === undefined && !isDisabled) {
       if ((minD && utils.compareAsc(date, minD) < 0) || (maxD && utils.compareAsc(date, maxD) > 0)) isDisabled = true
     }
-    if (!isDisabled && rangeTemp && index === 1) {
+    if (!isDisabled && index === 1) {
       if (
         (typeof range === 'number' && utils.compareAsc(date, utils.addSeconds(rangeTemp, range)) > 0) ||
         utils.compareAsc(date, rangeTemp) < 0 ||
