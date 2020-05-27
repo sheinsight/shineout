@@ -63,6 +63,7 @@
         "no-restricted-syntax": 0,
         "no-script-url": 0,
         "no-param-reassign": 0,
+        "no-cond-assign": 0,
         "no-plusplus": [
             "error",
             {

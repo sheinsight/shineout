@@ -22,10 +22,13 @@ import {
 } from '../styles'
 import { exposeClass } from '../styles/expose'
 
+const computedCache = {}
 function getProperty(name = '--btn-hover-darken') {
-  return getComputedStyle(document.body)
+  if (computedCache[name]) return computedCache[name]
+  computedCache[name] = getComputedStyle(document.body)
     .getPropertyValue(name)
     .trim()
+  return computedCache[name]
 }
 
 function setBodyProperty(colors, value) {
