@@ -56,13 +56,12 @@ export default function datum(Origin) {
     }
 
     render() {
-      const { value, disabled } = this.props
+      const { value } = this.props
       const props = {
         ...this.props,
         datum: this.datum,
       }
 
-      if (disabled) this.datum.setDisabled(disabled)
       if (!shallowEqual(toArray(value), this.datum.getValue())) {
         this.datum.setValue(toArray(value))
       }
