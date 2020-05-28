@@ -1,3 +1,4 @@
+import classnames from 'classnames'
 import { tooltipClass } from '../styles'
 import ready from '../utils/dom/ready'
 
@@ -32,7 +33,7 @@ function clickaway() {
 }
 
 export function show(props, id, innerStyle) {
-  const { position, style, tip, trigger, animation } = props
+  const { position, style, tip, trigger, animation, className: cn } = props
 
   currentId = id
 
@@ -46,7 +47,7 @@ export function show(props, id, innerStyle) {
   // fix safari
   timer = setTimeout(() => {
     div.style.display = 'block'
-    div.className = className
+    div.className = classnames(className, cn)
   }, 0)
 
   inner.innerText = tip
