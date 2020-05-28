@@ -10,6 +10,7 @@ import { popoverClass } from '../styles'
 import { docSize } from '../utils/dom/document'
 import isDOMElement from '../utils/dom/isDOMElement'
 import { consumer, Provider } from './context'
+import { Provider as AbsoluteProvider } from '../Table/context'
 
 const emptyEvent = e => e.stopPropagation()
 
@@ -228,7 +229,9 @@ class Panel extends PureComponent {
       [
         showArrow && <div key="arrow" className={popoverClass('arrow')} style={colorStyle} />,
         <div key="content" onClick={emptyEvent} className={popoverClass('content')} style={innerStyle}>
-          <Provider value={provider}>{childrened}</Provider>
+          <AbsoluteProvider value={false}>
+            <Provider value={provider}>{childrened}</Provider>
+          </AbsoluteProvider>
         </div>,
       ],
       this.element
