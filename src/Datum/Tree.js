@@ -213,8 +213,4 @@ export default class {
     this.initData(data, [])
     this.initValue()
   }
-
-  setDisabled(disabled = () => false) {
-    this.disabled = disabled
-  }
 }

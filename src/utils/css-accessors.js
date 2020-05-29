@@ -1,6 +1,5 @@
 import cssInject from './vars-inject'
 import { capitalize } from './strings'
-import { getDOMStyle } from './expose'
 import { entries } from './objects'
 
 function setOptions(options, setter) {
@@ -9,6 +8,15 @@ function setOptions(options, setter) {
     if (key === setter) continue
     this[key] = value
   }
+}
+
+function getDOMStyle(dom) {
+  document.body.appendChild(dom)
+  const style = window.getComputedStyle(dom)
+  Promise.resolve().then(() => {
+    dom.parentElement.removeChild(dom)
+  })
+  return style
 }
 
 function getStyleAttr(className, key = 'color') {

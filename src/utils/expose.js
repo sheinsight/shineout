@@ -32,21 +32,6 @@ function getClassname(data) {
     .join(' ')
 }
 
-function getDOMStyle(dom) {
-  document.body.appendChild(dom)
-  const style = window.getComputedStyle(dom)
-  Promise.resolve().then(() => {
-    dom.parentElement.removeChild(dom)
-  })
-  return style
-}
-
-function toRGB(c) {
-  const el = document.createElement('div')
-  el.style.color = c
-  return getDOMStyle(el).color
-}
-
 function resetTheme() {
   Object.keys(cssAccessors).forEach(module => {
     const setter = `set${capitalize(module)}`
@@ -74,5 +59,4 @@ const style = {
 }
 
 const { color } = cssAccessors
-
-export { color, style, getDOMStyle, toRGB, types }
+export { color, style, types }
