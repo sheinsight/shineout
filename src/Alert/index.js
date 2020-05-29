@@ -40,7 +40,15 @@ class Alert extends PureComponent {
 
   handleClose() {
     if (this.state.dismiss > 0) return
-    const { duration } = this.props
+    const { duration, outAnimation, onClose } = this.props
+
+    // outer animation
+    if (outAnimation) {
+      if (typeof onClose === 'function') {
+        onClose(duration, this.element.offsetHeight)
+      }
+      return
+    }
 
     if (duration > 0) {
       this.setState({ dismiss: 1 }, () => {
@@ -82,14 +90,14 @@ class Alert extends PureComponent {
     const { dismiss } = this.state
     if (dismiss === 2) return null
 
-    const { children, className, type, onClose } = this.props
+    const { children, className, type, onClose, outAnimation } = this.props
     const icon = this.renderIcon()
 
     const { style } = this.props
     let wrapClassName = alertClass(
       '_',
       type,
-      dismiss === 1 && 'dismissed',
+      !outAnimation && dismiss === 1 && 'dismissed',
       onClose && 'with-close',
       icon && 'with-icon'
     )
@@ -117,7 +125,7 @@ Alert.propTypes = {
 
 Alert.defaultProps = {
   ...defaultProps,
-  duration: 216,
+  duration: 200,
   iconSize: 16,
   type: 'warning',
 }

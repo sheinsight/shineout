@@ -13,6 +13,40 @@ class Container extends PureComponent {
     this.state = {
       messages: [],
     }
+
+    this.removeMessage = this.removeMessage.bind(this)
+
+    this.handleClassName = (position = 'top') => {
+      if (position === 'top') {
+        return messageClass('item', 'item-show')
+      }
+      return messageClass('item')
+    }
+
+    this.handleStyle = (closeMsg, h, position) => {
+      if (!closeMsg) {
+        return null
+      }
+      const styles = {
+        zIndex: -1,
+        opacity: 0,
+      }
+
+      // if bottom, switch left or right
+      switch (position) {
+        case 'bottom-right':
+          styles.transform = 'translateX(100%)'
+          break
+        case 'bottom-left':
+          styles.transform = 'translateX(-100%)'
+          break
+        default:
+          styles.marginTop = -h
+          break
+      }
+
+      return styles
+    }
   }
 
   addMessage(msg) {
@@ -57,6 +91,29 @@ class Container extends PureComponent {
     if (callback) callback()
   }
 
+  closeMessageForAnimation(...args) {
+    const [id, duration, msgHeight] = args
+    if (!duration) {
+      this.removeMessage(id)
+      return
+    }
+
+    // duration animation duration time
+    this.setState(
+      immer(state => {
+        state.messages.forEach(m => {
+          if (m.id === id) {
+            m.closeMsg = true
+            m.h = msgHeight + 20 // messageHeight + messageMargin
+          }
+        })
+      })
+    )
+    setTimeout(() => {
+      this.removeMessage(id)
+    }, duration)
+  }
+
   closeEvent(id, duration) {
     if (duration === 0) {
       return this.removeMessage.bind(this, id)
@@ -68,12 +125,17 @@ class Container extends PureComponent {
   render() {
     const { messages } = this.state
     return [
-      messages.map(({ id, type, content, dismiss, title, top, className }) => (
-        <div key={id} className={`${messageClass('item')} ${className}`}>
+      messages.map(({ id, type, content, dismiss, closeMsg, h, title, top, className, position }) => (
+        <div
+          key={id}
+          className={`${this.handleClassName(position)} ${className}`}
+          style={this.handleStyle(closeMsg, h, position)}
+        >
           <Alert
+            outAnimation
             className={messageClass('msg')}
             dismiss={dismiss}
-            onClose={this.removeMessage.bind(this, id)}
+            onClose={this.closeMessageForAnimation.bind(this, id)}
             icon
             iconSize={title ? 20 : 14}
             style={{ top }}

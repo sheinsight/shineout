@@ -3,6 +3,7 @@
 
 @message-prefix: ~'@{so-prefix}-message';
 @alert-prefix: ~'@{so-prefix}-alert';
+@message-animation-duration: 0.2s;
 
 .@{message-prefix} {
   position: fixed;
@@ -45,6 +46,22 @@
 
   &-item {
     display: flex;
+    transition: all @message-animation-duration;
+    z-index: 1;
+  }
+
+  &-item-show {
+    animation-name: MoveUpShow;
+    animation-duration: @message-animation-duration;
+  }
+
+  &-item-show-bottom {
+    animation-name: MoveDownShow;
+    animation-duration: @message-animation-duration;
+  }
+
+  &-item-dismissed {
+    opacity: 0;
   }
 
   &-msg {
@@ -65,7 +82,7 @@
     .@{message-prefix}-msg {
       min-width: 340px;
       padding: 20px;
-      animation: @keyframes-right-in 0.216s ease-out;
+      animation: @keyframes-right-in @message-animation-duration ease-out;
     }
   }
 
@@ -88,7 +105,7 @@
     .@{message-prefix}-msg {
       min-width: 340px;
       padding: 20px;
-      animation: @keyframes-right-in 0.216s ease-out;
+      animation: @keyframes-right-in @message-animation-duration ease-out;
     }
   }
 
@@ -99,11 +116,33 @@
     .@{message-prefix}-msg {
       min-width: 340px;
       padding: 20px;
-      animation: @keyframes-left-in 0.216s ease-out;
+      animation: @keyframes-left-in @message-animation-duration ease-out;
     }
   }
   
   .@{alert-prefix}-close svg path {
     fill: @message-close-color;
+  }
+
+  @keyframes MoveUpShow {
+    0% {
+      transform: translateY(-50%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes MoveDownShow {
+    0% {
+      transform: translateY(50%);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateY(0);
+    }
   }
 }
