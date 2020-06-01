@@ -50,18 +50,21 @@
     z-index: 1;
   }
 
-  &-item-show {
+  &-item-show-top {
     animation-name: MoveUpShow;
     animation-duration: @message-animation-duration;
   }
 
-  &-item-show-bottom {
-    animation-name: MoveDownShow;
-    animation-duration: @message-animation-duration;
+  &-item-dismissed-bottom-right {
+    opacity: 0;
+    z-index: -1;
+    transform: translateX(100%);
   }
 
-  &-item-dismissed {
+  &-item-dismissed-bottom-left {
     opacity: 0;
+    z-index: -1;
+    transform: translateX(-100%);
   }
 
   &-msg {
@@ -135,14 +138,4 @@
     }
   }
 
-  @keyframes MoveDownShow {
-    0% {
-      transform: translateY(50%);
-      opacity: 0;
-    }
-
-    100% {
-      transform: translateY(0);
-    }
-  }
 }

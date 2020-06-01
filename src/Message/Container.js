@@ -16,32 +16,25 @@ class Container extends PureComponent {
 
     this.removeMessage = this.removeMessage.bind(this)
 
-    this.handleClassName = (position = 'top') => {
-      if (position === 'top') {
-        return messageClass('item', 'item-show')
-      }
-      return messageClass('item')
-    }
+    this.handleClassName = (position = 'top', closeMsg) =>
+      messageClass('item', `item-${closeMsg ? 'dismissed' : 'show'}-${position}`)
 
     this.handleStyle = (closeMsg, h, position) => {
       if (!closeMsg) {
         return null
       }
-      const styles = {
-        zIndex: -1,
-        opacity: 0,
-      }
-
+      let styles = {}
       // if bottom, switch left or right
       switch (position) {
         case 'bottom-right':
-          styles.transform = 'translateX(100%)'
-          break
         case 'bottom-left':
-          styles.transform = 'translateX(-100%)'
           break
         default:
-          styles.marginTop = -h
+          styles = {
+            zIndex: -1,
+            opacity: 0,
+            marginTop: -h,
+          }
           break
       }
 
@@ -103,7 +96,7 @@ class Container extends PureComponent {
       immer(state => {
         state.messages.forEach(m => {
           if (m.id === id) {
-            m.closeMsg = true
+            m.dismiss = true
             m.h = msgHeight + 20 // messageHeight + messageMargin
           }
         })
@@ -125,11 +118,11 @@ class Container extends PureComponent {
   render() {
     const { messages } = this.state
     return [
-      messages.map(({ id, type, content, dismiss, closeMsg, h, title, top, className, position }) => (
+      messages.map(({ id, type, content, dismiss, h, title, top, className, position }) => (
         <div
           key={id}
-          className={`${this.handleClassName(position)} ${className}`}
-          style={this.handleStyle(closeMsg, h, position)}
+          className={`${this.handleClassName(position, dismiss)} ${className}`}
+          style={this.handleStyle(dismiss, h, position)}
         >
           <Alert
             outAnimation
