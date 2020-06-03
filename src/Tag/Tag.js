@@ -6,7 +6,7 @@ import { getProps, defaultProps } from '../utils/proptypes'
 import Spin from '../Spin'
 import icons from '../icons'
 import { wrapSpan } from '../utils/dom/element'
-import { isPromise, isFunc } from '../utils/is'
+import { isPromise, isFunc, isString, isEmpty } from '../utils/is'
 import { isDark } from '../utils/color'
 import { tagClass } from '../styles'
 
@@ -20,6 +20,7 @@ class Tag extends PureComponent {
     this.state = {
       dismiss: 0,
       inputVisible: hideInput, // tag input status
+      value: null,
     }
 
     this.dismiss = this.dismiss.bind(this)
@@ -30,6 +31,13 @@ class Tag extends PureComponent {
     this.toggleInputVisible = this.toggleInputVisible.bind(this)
     this.inputBlur = this.inputBlur.bind(this)
     this.inputChange = this.inputChange.bind(this)
+  }
+
+  componentDidMount() {
+    const { children, onCompleted } = this.props
+    if (onCompleted && isString(children) && !isEmpty(children)) {
+      this.setState({ value: children })
+    }
   }
 
   closeTag() {
@@ -59,22 +67,22 @@ class Tag extends PureComponent {
     this.closeTag()
   }
 
-  inputBlur(val) {
-    const { onBlur } = this.props
-    if (isFunc(onBlur)) onBlur(val)
+  inputBlur(value) {
+    const { onCompleted } = this.props
+    if (isFunc(onCompleted)) onCompleted(value)
     this.setState({ inputVisible: hideInput })
   }
 
-  inputChange(val) {
-    const { onChange } = this.props
-    if (isFunc(onChange)) onChange(val)
+  inputChange(value) {
+    this.setState({ value })
   }
 
   toggleInputVisible() {
-    const { inputVisible } = this.state
-    const { editable } = this.props
-    // if editable is true
-    if (editable) this.setState({ inputVisible: inputVisible === hideInput ? showInput : hideInput })
+    const { inputVisible, value } = this.state
+    const { onCompleted } = this.props
+    // if onCompleted is not null
+    if (onCompleted && !isEmpty(value))
+      this.setState({ inputVisible: inputVisible === hideInput ? showInput : hideInput })
   }
 
   handleClick(e) {
@@ -115,16 +123,16 @@ class Tag extends PureComponent {
   }
 
   render() {
-    const { dismiss, inputVisible } = this.state
+    const { dismiss, inputVisible, value } = this.state
     if (dismiss === 2) return null
 
-    const { children, className, type, backgroundColor, onClose, disabled, editable, value } = this.props
+    const { children, className, type, backgroundColor, onClose, disabled, onCompleted } = this.props
 
     // if editable and input visible
-    if (editable && inputVisible === showInput)
+    if (onCompleted && inputVisible === showInput)
       return <Input value={value} onBlur={this.inputBlur} onChange={this.inputChange} />
 
-    const childrenParsed = wrapSpan(editable ? value : children)
+    const childrenParsed = wrapSpan(children)
     const { style } = this.props
 
     let tagClassName = tagClass('_', disabled && 'disabled', type)

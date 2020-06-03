@@ -14,7 +14,4 @@
 | style | object | 无 | 最外层扩展样式 |
 | disabled | boolean | false | 是否禁用 | 
 | type | 'success' \| 'info' \| 'warning' \| 'danger' \| 'error' | *default* |  类型 |
-| editable | boolean | false |  是否可编辑 |
-| value | string | 无 |  Tag 展示的文本（仅 editable 为true可用，注意：该情况下 children 不可用）|
-| onBlur | (value) => void | 无 |  失去焦点事件（仅 editable 为true可用） |
-| onChange | (value) => void | 无 |  文本发生改变时触发（仅 editable 为true可用）|
+| onCompleted | (value) => void | 无 | Tag 编辑完成时触发该事件（children 必须为 string） |
