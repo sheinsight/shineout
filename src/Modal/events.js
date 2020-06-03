@@ -39,7 +39,7 @@ export function destroy(id, unmount) {
   container.removeChild(div)
 }
 
-export function close(props) {
+export function close(props, callback) {
   const { id } = props
   const modal = containers[props.id]
 
@@ -51,13 +51,14 @@ export function close(props) {
 
   setTimeout(() => {
     div.style.display = 'none'
-    if (props.destroy) destroy(id)
+    if (props.destroy) destroy(id, !props.usePortal)
 
     if (!hasVisible()) {
       const doc = document.body.parentNode
       doc.style.overflow = ''
       doc.style.paddingRight = ''
     }
+    if (callback) callback()
   }, DURATION)
 }
 

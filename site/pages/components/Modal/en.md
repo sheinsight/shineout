@@ -27,6 +27,7 @@ You can use Modal to display secondary content or actions without jumping to the
 | resizable | boolean | false | modal resizable |
 | maskBackground | string | 无 | mask background |
 | onClose | () => void | none | modal close callback |
+| destroy | boolean | false | Whether to destroy elements when it is closed |
 
 ### ModalMethods
 
