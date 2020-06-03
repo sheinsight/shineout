@@ -4,7 +4,6 @@ import { PureComponent } from '../component'
 import inputBorder from '../hoc/inputBorder'
 import { tagClass } from '../styles'
 
-
 class TagInput extends PureComponent {
   constructor(props) {
     super(props)
@@ -44,9 +43,7 @@ class TagInput extends PureComponent {
   }
 
   render() {
-    const {
-      value, onFocus,
-    } = this.props
+    const { value, onFocus } = this.props
 
     return (
       <input

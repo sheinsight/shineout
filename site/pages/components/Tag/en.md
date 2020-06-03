@@ -14,3 +14,7 @@
 | style | object | - | Container element style |
 | disabled | boolean | false | is disabled | 
 | type | 'success' \| 'info' \| 'warning' \| 'danger' \| 'error' | *default* | types |
+| editable | boolean | false |  is editable |
+| value | string | - |  Tag text(only editable is true.note: in this case children are not available)|
+| onBlur | (value) => void | - |  onBlur event(only editable is true)|
+| onChange | (value) => void | - |  Triggered when the text changes(only editable is true)|

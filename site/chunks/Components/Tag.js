@@ -67,6 +67,15 @@ const examples = [
     component: require('doc/pages/components/Tag/example-6-dynamic.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tag/example-6-dynamic.js'),
   },
+  {
+    name: '7-editable',
+    title: locate(
+      '可编辑 \n editable 属性，标记 Tag 是否可编辑，如果是true，则 children 无效，使用 value 替换',
+      'editable \n Basic usage'
+    ),
+    component: require('doc/pages/components/Tag/example-7-editable.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tag/example-7-editable.js'),
+  },
 ]
 
 const codes = undefined
