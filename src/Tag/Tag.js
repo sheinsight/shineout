@@ -169,8 +169,7 @@ Tag.propTypes = {
   children: PropTypes.any,
   onClose: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   backgroundColor: PropTypes.string,
-  editable: PropTypes.bool,
-  onBlur: PropTypes.func,
+  onCompleted: PropTypes.func,
 }
 
 Tag.defaultProps = {
