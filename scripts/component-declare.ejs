@@ -1,10 +1,9 @@
 import * as React from 'react';
 type ReactNode = React.ReactNode;
-<% data.slice(1).reverse().forEach(function(component) {%>
-declare const <%= component.name%>: React.ComponentType<<%= component.name%>Props>;
-<% }); %>
+
 declare class <%= data[0].name%> extends React.Component<<%= data[0].name%>Props> { 
-  <% data.slice(1).forEach(function(c){%> static <%= c.name.replace(data[0].name, '')%>: React.Component<<%= c.name %>,<%});%>Props>
+  <% data.slice(1).forEach(function(c){%> static <%= c.name.replace(data[0].name, '')%>: React.Component<<%= c.name %>Props>;
+  <%});%>
 }
 <% data.forEach(function(component){ %>
 export interface <%= component.name%>Props {
