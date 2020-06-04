@@ -64,6 +64,7 @@
       border-radius: @table-border-radius-top @table-border-radius-top 0 0;
       color: @table-head-color;
       border-color: @table-border-color;
+      padding: @table-header-cell-padding;
       &-hover {
         background: @table-bg-hover;
       }
@@ -74,6 +75,9 @@
     }
     &-cell {
       padding: @table-cell-padding-vertical @table-cell-padding-horizontal;
+    }
+    &-small {
+      padding: @table-small-cell-padding;
     }
     &-fixed {
       &-start {

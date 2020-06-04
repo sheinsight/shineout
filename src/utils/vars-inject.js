@@ -1458,6 +1458,20 @@ const injects = {
         desc: '表格头部圆角',
       },
       {
+        name: 'headerCellPadding',
+        className: exposeClass('table-head'),
+        attr: 'padding',
+        type: 'string',
+        desc: '表头分组内边距',
+      },
+      {
+        name: 'smallCellPadding',
+        className: exposeClass('table-small'),
+        attr: 'padding',
+        type: 'string',
+        desc: '紧凑表格单元格内边距',
+      },
+      {
         name: 'cellPaddingHorizontal',
         className: exposeClass('table-cell'),
         attr: 'paddingLeft',
@@ -1589,6 +1603,22 @@ const injects = {
       setBodyProperty(
         {
           '--table-border-radius-top': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set headerCellPadding(v) {
+      setBodyProperty(
+        {
+          '--table-header-cell-padding': v,
+        },
+        v
+      )
+    },
+    set smallCellPadding(v) {
+      setBodyProperty(
+        {
+          '--table-small-cell-padding': v,
         },
         v
       )
