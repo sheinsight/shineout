@@ -712,6 +712,13 @@ const injects = {
         desc: '边框宽度',
       },
       {
+        name: 'color',
+        className: checkinputClass('_'),
+        attr: 'color',
+        type: 'color',
+        desc: '文字颜色',
+      },
+      {
         name: 'borderColor',
         className: exposeClass('checkbox-indicator'),
         attr: 'borderColor',
@@ -723,6 +730,14 @@ const injects = {
       setBodyProperty(
         {
           '--checkbox-margin-right': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set color(v) {
+      setBodyProperty(
+        {
+          '--checkinput-color': v,
         },
         v
       )
