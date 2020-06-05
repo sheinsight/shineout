@@ -2989,6 +2989,13 @@ const injects = {
     },
     conf: [
       {
+        name: 'titleFontFamily',
+        className: modalClass('title'),
+        attr: 'fontFamily',
+        type: 'string',
+        desc: '标题字体',
+      },
+      {
         name: 'fontSize',
         className: exposeClass('modal-card'),
         attr: 'fontSize',
@@ -3181,6 +3188,9 @@ const injects = {
         desc: '阴影',
       },
     ],
+    set titleFontFamily(v) {
+      setBodyProperty({ '--modal-title-font': v }, v)
+    },
     set fontSize(v) {
       setBodyProperty(
         {
