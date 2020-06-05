@@ -1282,6 +1282,20 @@ const injects = {
         desc: '滑动条禁用背景色',
       },
       {
+        name: 'disabledIndicatorBorder',
+        className: exposeClass('slider-indicator-disabled'),
+        attr: 'borderColor',
+        type: 'color',
+        desc: '禁用状态下滑块边框色',
+      },
+      {
+        name: 'disabledIndicatorBg',
+        className: exposeClass('slider-indicator-disabled'),
+        attr: 'background',
+        type: 'color',
+        desc: '禁用状态下滑块边背景色',
+      },
+      {
         name: 'height',
         className: sliderClass('background'),
         attr: 'height',
@@ -1343,6 +1357,22 @@ const injects = {
       setBodyProperty(
         {
           '--slider-disabled-bar-bg': v,
+        },
+        v
+      )
+    },
+    set disabledIndicatorBorder(v) {
+      setBodyProperty(
+        {
+          '--slider-disbaled-indicator-border-color': v,
+        },
+        v
+      )
+    },
+    set disabledIndicatorBg(v) {
+      setBodyProperty(
+        {
+          '--slider-disbaled-indicator-bg': v,
         },
         v
       )
