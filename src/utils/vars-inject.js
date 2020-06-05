@@ -1807,14 +1807,70 @@ const injects = {
         className: tagClass('_'),
         attr: 'backgroundColor',
         type: 'color',
-        desc: '背景色',
+        desc: '默认背景色',
+      },
+      {
+        name: 'successBg',
+        className: tagClass('success'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'success类型背景色',
+      },
+      {
+        name: 'infoBg',
+        className: tagClass('info'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'info类型背景色',
+      },
+      {
+        name: 'warningBg',
+        className: tagClass('warning'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'warning类型背景色',
+      },
+      {
+        name: 'dangerBg',
+        className: tagClass('danger'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'danger类型背景色',
       },
       {
         name: 'color',
         className: tagClass('_'),
         attr: 'color',
         type: 'color',
-        desc: '文字颜色',
+        desc: '默认文字颜色',
+      },
+      {
+        name: 'successColor',
+        className: tagClass('success'),
+        attr: 'color',
+        type: 'color',
+        desc: 'success类型文字颜色',
+      },
+      {
+        name: 'infoColor',
+        className: tagClass('info'),
+        attr: 'color',
+        type: 'color',
+        desc: 'info类型文字颜色',
+      },
+      {
+        name: 'warningColor',
+        className: tagClass('warning'),
+        attr: 'color',
+        type: 'color',
+        desc: 'warning类型文字颜色',
+      },
+      {
+        name: 'dangerColor',
+        className: tagClass('danger'),
+        attr: 'color',
+        type: 'color',
+        desc: 'danger类型文字颜色',
       },
       {
         name: 'borderColor',
@@ -1880,6 +1936,18 @@ const injects = {
         v
       )
     },
+    set successBg(v) {
+      setBodyProperty({ '--tag-success-bg': v }, v)
+    },
+    set infoBg(v) {
+      setBodyProperty({ '--tag-info-bg': v }, v)
+    },
+    set warningBg(v) {
+      setBodyProperty({ '--tag-warning-bg': v }, v)
+    },
+    set dangerBg(v) {
+      setBodyProperty({ '--tag-danger-bg': v }, v)
+    },
     set color(v) {
       setBodyProperty(
         {
@@ -1887,6 +1955,18 @@ const injects = {
         },
         v
       )
+    },
+    set successColor(v) {
+      setBodyProperty({ '--tag-success-color': v }, v)
+    },
+    set infoColor(v) {
+      setBodyProperty({ '--tag-info-color': v }, v)
+    },
+    set warningColor(v) {
+      setBodyProperty({ '--tag-warning-color': v }, v)
+    },
+    set dangerColor(v) {
+      setBodyProperty({ '--tag-danger-color': v }, v)
     },
     set closeColor(v) {
       setBodyProperty(
