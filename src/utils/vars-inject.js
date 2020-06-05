@@ -2643,6 +2643,13 @@ const injects = {
         min: 100,
         desc: '字重',
       },
+      {
+        name: 'borderColor',
+        className: messageClass('msg'),
+        attr: 'borderColor',
+        type: 'color',
+        desc: '边框颜色',
+      },
     ],
     set boxShadow(v) {
       setBodyProperty(
@@ -2675,6 +2682,9 @@ const injects = {
         },
         v
       )
+    },
+    set borderColor(v) {
+      setBodyProperty({ '--message-border-color': v }, v)
     },
   },
   card: {
