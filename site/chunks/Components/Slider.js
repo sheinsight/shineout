@@ -23,6 +23,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Slider/example-01-base.js'),
   },
   {
+    name: '01-input',
+    title: locate(
+      '带输入框 \n 和 数组输入框 保持同步',
+      'Input \n change with number input'
+    ),
+    component: require('doc/pages/components/Slider/example-01-input.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Slider/example-01-input.js'),
+  },
+  {
     name: '02-range',
     title: locate(
       '范围选择 \n 设置 range 属性显示为双滑块，输入(返回)值为长度为 2 的数组',
