@@ -48,7 +48,7 @@ class Tab extends PureComponent {
     if (!this.element) {
       this.element = document.querySelector(`.${this.uid}`)
     }
-    if (this.element.getBoundingClientRect) {
+    if (this.element && this.element.getBoundingClientRect) {
       this.props.moveToCenter(this.element.getBoundingClientRect())
     }
   }
