@@ -20,7 +20,7 @@ class Container extends PureComponent {
       messageClass('item', `item-${closeMsg ? 'dismissed' : 'show'}-${position}`)
 
     this.handleStyle = (closeMsg, h, position) => {
-      if (!closeMsg) {
+      if (!closeMsg || h == null) {
         return null
       }
       let styles = {}
