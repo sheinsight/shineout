@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { PureComponent } from '../component'
+import { Component } from '../component'
 import { getPosition } from '../utils/dom/popover'
 import { isFunc } from '../utils/is'
 import { getParent } from '../utils/dom/element'
@@ -14,7 +14,7 @@ import { Provider as AbsoluteProvider } from '../Table/context'
 
 const emptyEvent = e => e.stopPropagation()
 
-class Panel extends PureComponent {
+class Panel extends Component {
   constructor(props) {
     super(props)
 
@@ -40,6 +40,12 @@ class Panel extends PureComponent {
     this.container.appendChild(this.element)
 
     if (this.props.visible) this.forceUpdate()
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.visible === false && nextProps.visible === false) return false
+    if (this.state.show === false && nextState.show === false) return false
+    return true
   }
 
   componentDidUpdate(prevProps) {
