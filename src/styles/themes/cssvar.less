@@ -101,6 +101,7 @@
 
 @checkbox-border-width-value: 1px;
 @checkbox-border-width: var(--checkbox-border-width, @checkbox-border-width-value);
+@checkinput-color: var(--checkinput-color, @gray-900);
 
 @radio-width-value: @checkbox-size + 2;
 @radio-width: var(--radio-width, @radio-width-value);
@@ -175,6 +176,8 @@
 
 @table-tree-expand-icon-margin-right: var(--table-tree-expand-icon-margin-right, 8px);
 @table-body-bg: var(--table-body-bg, @table-bg);
+@table-header-cell-padding: var(--table-header-cell-padding, @table-condensed-cell-padding);
+@table-small-cell-padding: var(--table-small-cell-padding, @table-header-cell-padding);
 
 @tooltip-bg-value: #000;
 @tooltip-bg: var(--tooltip-bg, @tooltip-bg-value);
@@ -256,6 +259,8 @@
 
 @slider-indicator-box-shadow: var(--slider-indicator-box-shadow, none);
 @slider-disabled-bar-bg: var(--slider-disabled-bar-bg, @gray-500-value);
+@slider-disbaled-indicator-border-color: var(--slider-disbaled-indicator-border-color, @slider-disabled-bar-bg);
+@slider-disbaled-indicator-bg: var(--slider-disbaled-indicator-bg, @slider-indicator-bg);
 
 @form-group-margin-bottom-value: 20px;
 @form-group-margin-bottom: var(--form-item-margin-bottom, @form-group-margin-bottom-value);
@@ -417,6 +422,7 @@
 @message-font-weight: var(--message-font-weight, @message-font-weight-value);
 
 @message-close-color: var(--message-close-color, @alert-close-color-value);
+@message-border-color: var(--message-border-color, @alert-default-border);
 
 @card-border-width-value: 1px;
 @card-border-width: var(--card-border-width, @card-border-width-value);
@@ -485,6 +491,7 @@
 @modal-divider-color: var(--modal-divider-color, @panel-inner-border);
 @modal-icon-top: var(--modal-icon-top, 40px);
 @modal-icon-left: var(--modal-icon-left, 32px);
+@modal-title-font: var(--modal-title-font, inherit);
 
 @popover-arrow-outer-color-value: @gray-300-value;
 @popover-arrow-outer-color: var(--popover-border-color, @popover-arrow-outer-color-value);
@@ -509,6 +516,18 @@
 
 @tag-font-weight-value: 600;
 @tag-font-weight: var(--tag-font-weight, @tag-font-weight-value);
+
+@tag-bg-color: var(--tag-bg, #fafafa);
+@tag-color: var(--tag-color, #595959);
+@tag-success-bg: var(--tag-success-bg, @colors-success);
+@tag-info-bg: var(--tag-info-bg, @colors-primary);
+@tag-warning-bg: var(--tag-warning-bg, @colors-warning);
+@tag-danger-bg: var(--tag-danger-bg, @colors-danger);
+
+@tag-success-color: var(--tag-success-color, #fff);
+@tag-info-color: var(--tag-info-color, #fff);
+@tag-warning-color: var(--tag-warning-color, #fff);
+@tag-danger-color: var(--tag-danger-color, #fff);
 
 @tree-level-indent-value: 0;
 @tree-level-indent: var(--tree-level-indent, @tree-level-indent-value);

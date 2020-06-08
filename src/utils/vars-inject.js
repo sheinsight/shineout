@@ -712,6 +712,13 @@ const injects = {
         desc: '边框宽度',
       },
       {
+        name: 'color',
+        className: checkinputClass('_'),
+        attr: 'color',
+        type: 'color',
+        desc: '文字颜色',
+      },
+      {
         name: 'borderColor',
         className: exposeClass('checkbox-indicator'),
         attr: 'borderColor',
@@ -723,6 +730,14 @@ const injects = {
       setBodyProperty(
         {
           '--checkbox-margin-right': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set color(v) {
+      setBodyProperty(
+        {
+          '--checkinput-color': v,
         },
         v
       )
@@ -1267,6 +1282,20 @@ const injects = {
         desc: '滑动条禁用背景色',
       },
       {
+        name: 'disabledIndicatorBorder',
+        className: exposeClass('slider-indicator-disabled'),
+        attr: 'borderColor',
+        type: 'color',
+        desc: '禁用状态下滑块边框色',
+      },
+      {
+        name: 'disabledIndicatorBg',
+        className: exposeClass('slider-indicator-disabled'),
+        attr: 'background',
+        type: 'color',
+        desc: '禁用状态下滑块边背景色',
+      },
+      {
         name: 'height',
         className: sliderClass('background'),
         attr: 'height',
@@ -1328,6 +1357,22 @@ const injects = {
       setBodyProperty(
         {
           '--slider-disabled-bar-bg': v,
+        },
+        v
+      )
+    },
+    set disabledIndicatorBorder(v) {
+      setBodyProperty(
+        {
+          '--slider-disbaled-indicator-border-color': v,
+        },
+        v
+      )
+    },
+    set disabledIndicatorBg(v) {
+      setBodyProperty(
+        {
+          '--slider-disbaled-indicator-bg': v,
         },
         v
       )
@@ -1456,6 +1501,20 @@ const injects = {
         type: 'number',
         parser: parseInt,
         desc: '表格头部圆角',
+      },
+      {
+        name: 'headerCellPadding',
+        className: exposeClass('table-head'),
+        attr: 'padding',
+        type: 'string',
+        desc: '表头分组内边距',
+      },
+      {
+        name: 'smallCellPadding',
+        className: exposeClass('table-small'),
+        attr: 'padding',
+        type: 'string',
+        desc: '紧凑表格单元格内边距',
       },
       {
         name: 'cellPaddingHorizontal',
@@ -1589,6 +1648,22 @@ const injects = {
       setBodyProperty(
         {
           '--table-border-radius-top': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set headerCellPadding(v) {
+      setBodyProperty(
+        {
+          '--table-header-cell-padding': v,
+        },
+        v
+      )
+    },
+    set smallCellPadding(v) {
+      setBodyProperty(
+        {
+          '--table-small-cell-padding': v,
         },
         v
       )
@@ -1732,14 +1807,70 @@ const injects = {
         className: tagClass('_'),
         attr: 'backgroundColor',
         type: 'color',
-        desc: '背景色',
+        desc: '默认背景色',
+      },
+      {
+        name: 'successBg',
+        className: tagClass('success'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'success类型背景色',
+      },
+      {
+        name: 'infoBg',
+        className: tagClass('info'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'info类型背景色',
+      },
+      {
+        name: 'warningBg',
+        className: tagClass('warning'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'warning类型背景色',
+      },
+      {
+        name: 'dangerBg',
+        className: tagClass('danger'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'danger类型背景色',
       },
       {
         name: 'color',
         className: tagClass('_'),
         attr: 'color',
         type: 'color',
-        desc: '文字颜色',
+        desc: '默认文字颜色',
+      },
+      {
+        name: 'successColor',
+        className: tagClass('success'),
+        attr: 'color',
+        type: 'color',
+        desc: 'success类型文字颜色',
+      },
+      {
+        name: 'infoColor',
+        className: tagClass('info'),
+        attr: 'color',
+        type: 'color',
+        desc: 'info类型文字颜色',
+      },
+      {
+        name: 'warningColor',
+        className: tagClass('warning'),
+        attr: 'color',
+        type: 'color',
+        desc: 'warning类型文字颜色',
+      },
+      {
+        name: 'dangerColor',
+        className: tagClass('danger'),
+        attr: 'color',
+        type: 'color',
+        desc: 'danger类型文字颜色',
       },
       {
         name: 'borderColor',
@@ -1805,6 +1936,18 @@ const injects = {
         v
       )
     },
+    set successBg(v) {
+      setBodyProperty({ '--tag-success-bg': v }, v)
+    },
+    set infoBg(v) {
+      setBodyProperty({ '--tag-info-bg': v }, v)
+    },
+    set warningBg(v) {
+      setBodyProperty({ '--tag-warning-bg': v }, v)
+    },
+    set dangerBg(v) {
+      setBodyProperty({ '--tag-danger-bg': v }, v)
+    },
     set color(v) {
       setBodyProperty(
         {
@@ -1812,6 +1955,18 @@ const injects = {
         },
         v
       )
+    },
+    set successColor(v) {
+      setBodyProperty({ '--tag-success-color': v }, v)
+    },
+    set infoColor(v) {
+      setBodyProperty({ '--tag-info-color': v }, v)
+    },
+    set warningColor(v) {
+      setBodyProperty({ '--tag-warning-color': v }, v)
+    },
+    set dangerColor(v) {
+      setBodyProperty({ '--tag-danger-color': v }, v)
     },
     set closeColor(v) {
       setBodyProperty(
@@ -2488,6 +2643,13 @@ const injects = {
         min: 100,
         desc: '字重',
       },
+      {
+        name: 'borderColor',
+        className: messageClass('msg'),
+        attr: 'borderColor',
+        type: 'color',
+        desc: '边框颜色',
+      },
     ],
     set boxShadow(v) {
       setBodyProperty(
@@ -2520,6 +2682,9 @@ const injects = {
         },
         v
       )
+    },
+    set borderColor(v) {
+      setBodyProperty({ '--message-border-color': v }, v)
     },
   },
   card: {
@@ -2834,6 +2999,13 @@ const injects = {
     },
     conf: [
       {
+        name: 'titleFontFamily',
+        className: modalClass('title'),
+        attr: 'fontFamily',
+        type: 'string',
+        desc: '标题字体',
+      },
+      {
         name: 'fontSize',
         className: exposeClass('modal-card'),
         attr: 'fontSize',
@@ -3026,6 +3198,9 @@ const injects = {
         desc: '阴影',
       },
     ],
+    set titleFontFamily(v) {
+      setBodyProperty({ '--modal-title-font': v }, v)
+    },
     set fontSize(v) {
       setBodyProperty(
         {

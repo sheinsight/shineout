@@ -204,7 +204,7 @@
   }
 
   table > thead > tr > th&-condensed {
-    padding: @table-condensed-cell-padding;
+    padding: @table-header-cell-padding;
   }
 
   &-hover {
@@ -219,13 +219,16 @@
 
   &-small {
     table {
-      > thead,
+      > thead > tr > th {
+        padding: @table-header-cell-padding;
+      }
+    }
+    table {
       > tbody,
       > tfoot {
         > tr {
-          > th,
           > td {
-            padding: @table-condensed-cell-padding;
+            padding: @table-small-cell-padding;
           }
         }
       }

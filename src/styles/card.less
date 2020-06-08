@@ -39,7 +39,6 @@
     position: relative;
     z-index: 10;
     padding: @panel-header-padding-vertical @panel-header-padding-horizontal;
-    margin-bottom: -1px;
     background-color: @card-header-bg;
     color: @card-header-color;
     &:after {
@@ -61,6 +60,7 @@
   &-collapsible {
     .@{card-prefix}-header {
       cursor: pointer;
+      margin-bottom: -1px;
     }
   }
 
@@ -77,6 +77,7 @@
 
     .@{card-prefix}-header {
       background: @gray-100;
+      margin-bottom: -1px;
     }
   }
 
