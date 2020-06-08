@@ -50,7 +50,8 @@
     z-index: 1;
   }
 
-  &-item-show-top {
+  &-item-show-top, 
+  &-item-show-middle {
     animation-name: MoveUpShow;
     animation-duration: @message-animation-duration;
   }
@@ -129,7 +130,7 @@
 
   @keyframes MoveUpShow {
     0% {
-      transform: translateY(-50%);
+      transform: translateY(-25px);
       opacity: 0;
     }
     100% {
