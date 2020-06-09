@@ -1,5 +1,4 @@
 import React from 'react'
-import immer from 'immer'
 import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import { getProps, defaultProps } from '../utils/proptypes'
@@ -102,11 +101,9 @@ class Dropdown extends PureComponent {
     }
 
     if (this.state.show) return
-    this.setState(
-      immer(state => {
-        state.show = true
-      })
-    )
+    this.setState({
+      show: true,
+    })
 
     this.toggleDocumentEvent(true)
   }
