@@ -38,7 +38,7 @@ export default function(Component, { type = ['fade'], duration = 360, display = 
       if (!el) return
 
       if (this.props.show) return
-      this.height = el.offsetHeight
+      if (hasCollapse) this.height = el.offsetHeight
 
       el.style.display = 'none'
       if (hasCollapse) {
