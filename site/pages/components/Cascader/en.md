@@ -22,3 +22,4 @@
 | absolute | boolean | false | When it is true, the pop-up layer of option append into document.body. |
 | compressed | boolean | false | Merges selected values |
 | childrenKey | string | 'children' | the key of the children data name | 
+| finalDismiss | boolean | false | close options after chose the final node |

@@ -22,3 +22,4 @@
 | absolute | boolean | false | 为 true 时，选项弹出层在 DOM 中独立 render |
 | compressed | boolean | false | 将选中值合并 |
 | childrenKey | string | 'children' | 指定子数据的属性名 | 
+| finalDismiss | boolean | false | 选择末级节点后是否关闭选项列表 |
