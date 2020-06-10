@@ -75,8 +75,10 @@ class EditableArea extends React.PureComponent {
   }
 
   onBlur() {
+    const { absolute, onBlur } = this.props
     // fix out page mouse click dont remove absolute dom
     this.handleToggle(false)
+    if (!absolute && isFunc(onBlur)) onBlur()
   }
 
   getValue() {
