@@ -8,7 +8,7 @@
 import React, { useState } from 'react'
 import { EditableArea } from 'shineout'
 
-export default function() {
+export default function () {
   const [value, setValue] = useState('')
   return (
     <EditableArea
@@ -18,6 +18,9 @@ export default function() {
         setValue(val)
       }}
       style={{ width: 300 }}
+      onBlur={() => {
+        console.log('EditableArea: onBlur')
+      }}
     />
   )
 }

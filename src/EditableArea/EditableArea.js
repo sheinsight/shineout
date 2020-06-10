@@ -8,9 +8,10 @@ import { editableAreaClass } from '../styles'
 import Clear from '../Input/clear'
 import { focusElement } from '../utils/dom/element'
 import { defer } from '../utils/uid'
+import { isFunc } from '../utils/is'
 
-const AbsoluteView = absoluteList(({ focus, getRef, fixed, ...other }) =>
-  focus ? <div className={editableAreaClass('focus')} {...other} /> : null
+const AbsoluteView = absoluteList(({ focus, getRef, fixed, className, ...other }) =>
+  focus ? <div className={`${editableAreaClass('focus')} ${className}`} {...other} /> : null
 )
 
 function formatPreTagValue(value) {
@@ -54,6 +55,7 @@ class EditableArea extends React.PureComponent {
     this.bindPlaceholder = this.bindPlaceholder.bind(this)
     this.handleMouseEnter = this.handleMouseEnter.bind(this)
     this.handleMouseLeave = this.handleMouseLeave.bind(this)
+    this.onBlur = this.onBlur.bind(this)
   }
 
   componentDidMount() {
@@ -70,6 +72,11 @@ class EditableArea extends React.PureComponent {
 
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleMousedown)
+  }
+
+  onBlur() {
+    // fix out page mouse click dont remove absolute dom
+    this.handleToggle(false)
   }
 
   getValue() {
@@ -135,6 +142,9 @@ class EditableArea extends React.PureComponent {
   handleMousedown(e) {
     const isChild = isDescendent(e.target, this.editableAreaId)
     if (!isChild) {
+      // resolve absolute cant toggle onBlur
+      const { onBlur, absolute } = this.props
+      if (absolute && isFunc(onBlur)) onBlur()
       this.handleToggle(false)
       document.removeEventListener('mousedown', this.handleMousedown)
     }
@@ -180,7 +190,7 @@ class EditableArea extends React.PureComponent {
 
   renderItem() {
     const { showTextarea, height } = this.state
-    const { style, placeholder, onBlur, bordered, disabled, absolute, zIndex } = this.props
+    const { style, placeholder, bordered, disabled, absolute, zIndex, className } = this.props
     const value = this.getValue()
     const showClear = this.showClear()
     const content = [
@@ -203,7 +213,7 @@ class EditableArea extends React.PureComponent {
         placeholder={placeholder}
         onChange={this.handleChange}
         onFocus={this.handleFocus}
-        onBlur={onBlur}
+        onBlur={this.onBlur}
         spellCheck="false"
         style={{ height, lineHeight: (style || {}).lineHeight }}
         rows={1}
@@ -224,6 +234,7 @@ class EditableArea extends React.PureComponent {
     if (!showTextarea || !absolute) return content
     return (
       <AbsoluteView
+        className={className}
         rootClass={editableAreaClass('absolute')}
         fixed
         position="drop-down"
