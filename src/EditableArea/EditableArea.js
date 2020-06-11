@@ -11,7 +11,7 @@ import { defer } from '../utils/uid'
 import { isFunc } from '../utils/is'
 
 const AbsoluteView = absoluteList(({ focus, getRef, fixed, className, ...other }) =>
-  focus ? <div className={`${editableAreaClass('focus')} ${className}`} {...other} /> : null
+  focus ? <div className={classnames(className, editableAreaClass('focus'))} {...other} /> : null
 )
 
 function formatPreTagValue(value) {
