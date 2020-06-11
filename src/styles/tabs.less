@@ -2,6 +2,8 @@
 @import './themes/@{so-theme}.less';
 @tabs-prefix: ~'@{so-prefix}-tabs';
 
+@tabs-animation-duration-time: 0.2s;
+
 .@{tabs-prefix} {
   position: relative;
 
@@ -26,6 +28,7 @@
       border: solid 1px transparent;
       border-radius: @tabs-link-border-radius @tabs-link-border-radius 0 0;
       cursor: pointer;
+      transition: color @tabs-animation-duration-time;
     }
 
     .@{tabs-prefix}-tab + .@{tabs-prefix}-tab {
@@ -280,6 +283,13 @@
         height: 2px;
         background: @tabs-line-active-color;
         content: ' ';
+      }
+    }
+
+    // line hover css
+    .@{tabs-prefix}-header {
+      .@{tabs-prefix}-tab:hover:not(.@{tabs-prefix}-active) {
+        color: @primary-color-dark-btn-hover;
       }
     }
   }

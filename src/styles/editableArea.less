@@ -3,6 +3,8 @@
 
 @editableArea-prefix: ~'@{so-prefix}-editableArea';
 @height: 34px;
+@editableArea-animation-duration-time: 0.2s;
+
 .@{editableArea-prefix} {
     font-size: @font-size-base;
     line-height: @line-height-base;
@@ -24,6 +26,8 @@
       position: absolute;
       top: 0;
       left: 0;
+      transition: border-color @editableArea-animation-duration-time;
+      border-radius: @input-border-radius;
     }
 
     &-reset-padding-right {
@@ -41,7 +45,6 @@
       &-placeholder {
         color: @input-color-placeholder;
         font-size: @input-size-placeholder;
-
       }
     }
 
@@ -50,8 +53,12 @@
     }
 
     &-edit, &-bordered {
-      border-color: @input-border;
-      border-radius: @input-border-radius;
+      border-color: var(--input-border-focus-color, #80bdff);
+      box-shadow: 0 0 0 var(--input-focus-width, 3px) var(--input-border-focus-color-fade-25, rgba(128, 189, 255, 0.25));
+    }
+
+    &:hover &-textarea, &:hover &-placeholder {
+      border-color: var(--input-border-focus-color, #80bdff);
     }
 
     &-edit {
