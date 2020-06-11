@@ -317,7 +317,6 @@ class Select extends PureComponent {
       'expanded',
       'onExpand',
       'loader',
-      'renderPending',
       'defaultExpanded',
       'defaultExpandAll',
       'datum',
