@@ -53,8 +53,8 @@
     }
 
     &-edit, &-bordered {
-      border-color: var(--input-border-focus-color, #80bdff);
-      box-shadow: 0 0 0 var(--input-focus-width, 3px) var(--input-border-focus-color-fade-25, rgba(128, 189, 255, 0.25));
+      border-color: @input-border-focus;
+      box-shadow: 0 0 0 @input-focus-width @input-border-focus-color-fade-25;
     }
 
     &:hover &-textarea, &:hover &-placeholder {
