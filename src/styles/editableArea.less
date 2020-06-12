@@ -52,9 +52,13 @@
       background-color: #fff!important;
     }
 
-    &-edit, &-bordered {
+    &-edit {
       border-color: @input-border-focus;
       box-shadow: 0 0 0 @input-focus-width @input-border-focus-fade-25;
+    }
+
+    &-bordered {
+      border-color: @input-border;
     }
 
     &:hover &-textarea, &:hover &-placeholder {
