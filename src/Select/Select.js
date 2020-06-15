@@ -18,8 +18,7 @@ const WrappedOptionList = absoluteList(OptionList)
 const WrappedBoxList = absoluteList(BoxList)
 const WrappedOptionTree = absoluteList(OptionTree)
 
-const isResult = el =>
-  [selectClass('ellipsis'), selectClass('caret'), selectClass('result')].some(c => el.classList.contains(c))
+const isResult = el => getParent(el, `.${selectClass('result')}`)
 
 class Select extends PureComponent {
   constructor(props) {
