@@ -71,14 +71,14 @@ class EditableArea extends React.PureComponent {
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleMousedown)
+    document.removeEventListener('mouseup', this.handleMousedown)
   }
 
-  onBlur() {
-    const { absolute, onBlur } = this.props
+  onBlur(e) {
+    const { onBlur } = this.props
     // fix out page mouse click dont remove absolute dom
     this.handleToggle(false)
-    if (!absolute && isFunc(onBlur)) onBlur()
+    if (isFunc(onBlur)) onBlur(e)
   }
 
   getValue() {
@@ -133,7 +133,7 @@ class EditableArea extends React.PureComponent {
   handleFocus(e) {
     const { onFocus, disabled } = this.props
     if (disabled) return
-    document.addEventListener('mousedown', this.handleMousedown)
+    document.addEventListener('mouseup', this.handleMousedown)
     this.handleToggle(true)
     if (onFocus) onFocus(e)
     defer(() => {
@@ -144,11 +144,8 @@ class EditableArea extends React.PureComponent {
   handleMousedown(e) {
     const isChild = isDescendent(e.target, this.editableAreaId)
     if (!isChild) {
-      // resolve absolute cant toggle onBlur
-      const { onBlur, absolute } = this.props
-      if (absolute && isFunc(onBlur)) onBlur()
       this.handleToggle(false)
-      document.removeEventListener('mousedown', this.handleMousedown)
+      document.removeEventListener('mouseup', this.handleMousedown)
     }
   }
 
