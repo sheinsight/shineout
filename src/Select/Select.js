@@ -131,7 +131,6 @@ class Select extends PureComponent {
     //   this.closeByResult = false
     //   return
     // }
-    console.log(e.target)
     if (isResult(e.target) && this.state.focus) {
       this.handleState(false, e)
       return
