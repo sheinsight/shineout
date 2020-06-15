@@ -18,8 +18,7 @@ const WrappedOptionList = absoluteList(OptionList)
 const WrappedBoxList = absoluteList(BoxList)
 const WrappedOptionTree = absoluteList(OptionTree)
 
-const isResult = el =>
-  [selectClass('ellipsis'), selectClass('caret'), selectClass('result')].some(c => el.classList.contains(c))
+const isResult = el => getParent(el, `.${selectClass('result')}`)
 
 class Select extends PureComponent {
   constructor(props) {
@@ -132,6 +131,7 @@ class Select extends PureComponent {
     //   this.closeByResult = false
     //   return
     // }
+    console.log(e.target)
     if (isResult(e.target) && this.state.focus) {
       this.handleState(false, e)
       return
