@@ -90,10 +90,10 @@ export default Origin =>
         let res = noCache ? undefined : this.resultCache.get(v)
         if (!res) {
           res = this.getResult(v)
-          if (res && !noCache) this.resultCache.set(v, res)
-          else if (!res) res = { [IS_NOT_MATCHED_VALUE]: true, value: v }
+          if (res !== undefined && !noCache) this.resultCache.set(v, res)
+          else if (res === undefined) res = { [IS_NOT_MATCHED_VALUE]: true, value: v }
         }
-        if (res) {
+        if (res !== undefined) {
           result.push(res)
         }
       })
