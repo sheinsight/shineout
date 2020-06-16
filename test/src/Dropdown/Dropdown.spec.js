@@ -114,6 +114,12 @@ describe('Dropdown[Position]', () => {
       const wrapper = mount(<Dropdown data={data} position="auto" />)
       document.write(wrapper.html())
       wrapper.find('button').simulate('click')
+      console.log(
+        wrapper
+        .find('ShineoutDropdown')
+        .first()
+        .childAt(0)
+        .prop('className'))
       expect(
         wrapper
           .find('ShineoutDropdown')
