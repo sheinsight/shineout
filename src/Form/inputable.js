@@ -111,8 +111,11 @@ export default curry(Origin =>
 
       shouldComponentUpdate(nextProps, nextState) {
         const skip = [...(this.props.scuSkip || []), 'formDatum', 'loopContext']
-        if (this.props.formDatum && this.props.name) skip.push('value')
+        const isFormDatum = this.props.formDatum && this.props.name
+        if (isFormDatum) skip.push('value')
         const options = { skip, deep: ['data', 'defaultValue', 'datum', 'name', 'rule', 'style'] }
+        if (!isFormDatum && !shallowEqual(this.getValue(), nextState.value)) return true
+
         return !(shallowEqual(nextProps, this.props, options) && shallowEqual(nextState, this.state))
       }
 
@@ -203,7 +206,7 @@ export default curry(Origin =>
         if (this.customValidate) validates.push(this.customValidate())
         if (formDatum && bind && type !== IGNORE_BIND) {
           // console.error(new Error('Use "bind" props to combine validate is not recommend. Use Form "groups" props instead.'))
-          formDatum.validateFields(bind, IGNORE_BIND).catch(() => {})
+          formDatum.validateFields(bind, IGNORE_BIND).catch(() => { })
         }
         if (!data && formDatum) data = formDatum.getValue()
 
@@ -244,7 +247,7 @@ export default curry(Origin =>
         } else {
           value = beforeChange(value, null)
           this.setState({ value })
-          this.validate(value).catch(() => {})
+          this.validate(value).catch(() => { })
         }
 
         if (onChange) onChange(value, ...args)
@@ -268,10 +271,10 @@ export default curry(Origin =>
         const newValue = !Array.isArray(name)
           ? value
           : immer(this.getValue(), draft => {
-              name.forEach((n, i) => {
-                if (n === sn) draft[i] = value
-              })
+            name.forEach((n, i) => {
+              if (n === sn) draft[i] = value
             })
+          })
 
         if (shallowEqual(newValue, this.lastValue)) return
         this.lastValue = newValue
@@ -281,7 +284,7 @@ export default curry(Origin =>
         if (type !== IGNORE_VALIDATE) {
           if (this.updateTimer) clearTimeout(this.updateTimer)
           this.updateTimer = setTimeout(() => {
-            this.validate(newValue, undefined, type).catch(() => {})
+            this.validate(newValue, undefined, type).catch(() => { })
           })
         }
         this.forceUpdate()
