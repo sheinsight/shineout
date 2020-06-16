@@ -77,6 +77,7 @@ export default curry(
           classList.push('input-error')
           return (
             <Popover
+              key="error"
               getPopupContainer={() => this.el}
               {...popoverProps}
               visible
@@ -92,6 +93,7 @@ export default curry(
         if (!tip || !focus) return null
         return (
           <Popover
+            key="tip"
             getPopupContainer={() => this.el}
             {...popoverProps}
             visible
