@@ -3,4 +3,6 @@ language: node_js
 node_js:
   - 10
 
-script: yarn test:silent & yarn build-ts
+script: 
+  - yarn test:silent
+  - yarn build-ts

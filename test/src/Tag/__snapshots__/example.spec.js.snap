@@ -195,3 +195,20 @@ exports[`Snapshot test: Tag[site/pages/components/Tag/example-6-dynamic.js] 1`] 
   </div>
 </div>
 `;
+
+exports[`Snapshot test: Tag[site/pages/components/Tag/example-7-editable.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <span>
+        abc
+      </span>
+    </div>
+    <div>
+      <svg>
+        <path />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
