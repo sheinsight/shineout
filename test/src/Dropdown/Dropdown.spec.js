@@ -128,8 +128,7 @@ describe('Dropdown[Position]', () => {
 
 describe('Dropdown[Split]', () => {
   test('should split', () => {
-    const wrapper = mount(<DropdownSplit />)
-      .find('ShineoutDropdown')
+    const wrapper = mount(<DropdownSplit />).find('ShineoutDropdown')
     expect(wrapper.find(Button).hasClass(`${SO_PREFIX}-dropdown-split-dropdown`))
   })
 })
