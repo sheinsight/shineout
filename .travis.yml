@@ -4,5 +4,5 @@ node_js:
   - 10
 
 script: 
-  - yarn test:silent
+  - yarn test
   - yarn build-ts
