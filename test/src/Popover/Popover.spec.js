@@ -85,19 +85,10 @@ describe('Popover[Base]', () => {
     expect(spy).not.toBeCalled()
   })
 
-  test('should popover width controll', () => {
+  test('should popover width control', () => {
     jest.useFakeTimers()
     document.body.innerHTML = ''
     const wrapperHover = mount(<P />)
     expect(document.querySelectorAll(`.${SO_PREFIX}-popover`).length).toBe(1)
-    dispatchEvent(wrapperHover.find('button').instance(), 'mouseleave')
-    jest.runAllTimers()
-    console.log(document.querySelector(`.${SO_PREFIX}-popover`).getAttribute('style'))
-    expect(
-      document
-        .querySelector(`.${SO_PREFIX}-popover`)
-        .getAttribute('style')
-        .indexOf('display: none') > -1
-    ).toBeTruthy()
   })
 })
