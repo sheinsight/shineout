@@ -70,6 +70,7 @@ class Dropdown extends PureComponent {
     const windowHeight = docSize.height
     const windowWidth = docSize.width
     const rect = this.element.getBoundingClientRect()
+    console.log(windowHeight, windowWidth, rect)
     position = rect.bottom > windowHeight / 2 ? 'top-' : 'bottom-'
     position += rect.right > windowWidth / 2 ? 'right' : 'left'
 
