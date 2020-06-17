@@ -87,8 +87,8 @@ describe('Dropdown[Position]', () => {
   })
 
   test('should auto set position while position is auto', () => {
-    const windowHeight = window.innerHeight || document.documentElement.clientHeight
-    const windowWidth = window.innerWidth || document.documentElement.clientWidth
+    const windowHeight = 768
+    const windowWidth = 1024
     const rectMap = {
       'top-left': {
         bottom: windowHeight / 2 + 100,
@@ -128,8 +128,7 @@ describe('Dropdown[Position]', () => {
 
 describe('Dropdown[Split]', () => {
   test('should split', () => {
-    const wrapper = mount(<DropdownSplit />)
-      .find('ShineoutDropdown')
+    const wrapper = mount(<DropdownSplit />).find('ShineoutDropdown')
     expect(wrapper.find(Button).hasClass(`${SO_PREFIX}-dropdown-split-dropdown`))
   })
 })

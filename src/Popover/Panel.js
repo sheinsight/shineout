@@ -43,9 +43,9 @@ class Panel extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.visible === false && nextProps.visible === false) return false
-    if (this.state.show === false && nextState.show === false) return false
-    return true
+    if (this.props.visible === true || nextProps.visible === true) return true
+    if (this.state.show === true || nextState.show === true) return true
+    return false
   }
 
   componentDidUpdate(prevProps) {

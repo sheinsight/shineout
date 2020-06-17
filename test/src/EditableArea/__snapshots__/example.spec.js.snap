@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: EditableArea[site/pages/components/EditableArea/example-1-base.js] 1`] = `
+exports[`Snapshot test: EditableArea[site/pages/components/EditableArea/example-01-base.js] 1`] = `
 <div>
   <pre>
     <span>
@@ -12,7 +12,7 @@ exports[`Snapshot test: EditableArea[site/pages/components/EditableArea/example-
 </div>
 `;
 
-exports[`Snapshot test: EditableArea[site/pages/components/EditableArea/example-2-controlled.js] 1`] = `
+exports[`Snapshot test: EditableArea[site/pages/components/EditableArea/example-02-controlled.js] 1`] = `
 <div>
   <pre>
     <span>

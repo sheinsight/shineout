@@ -2,8 +2,8 @@
 
 exports[`Message should render alert correct 1`] = `
 "<ShineoutMessage onDestory={[Function: onDestory]}>
-  <div className=\\"so-message-item undefined\\">
-    <ShineoutAlert className=\\"so-message-msg\\" dismiss={[undefined]} onClose={[Function: bound removeMessage]} icon={true} iconSize={14} style={{...}} type=\\"info\\" size=\\"default\\" duration={216}>
+  <div className=\\"so-message-item so-message-item-show-top undefined\\" style={{...}}>
+    <ShineoutAlert outAnimation={true} className=\\"so-message-msg\\" dismiss={[undefined]} onClose={[Function: bound closeMessageForAnimation]} icon={true} iconSize={14} style={{...}} type=\\"info\\" size=\\"default\\" duration={200}>
       <div className=\\"so-alert so-alert-info so-alert-with-close so-alert-with-icon so-message-msg\\" style={{...}}>
         <a className=\\"so-alert-close\\" onClick={[Function: bound handleClose]}>
           <svg viewBox=\\"0 0 1024 1024\\">
@@ -26,8 +26,8 @@ exports[`Message should render alert correct 1`] = `
 
 exports[`Message should render alert correct 2`] = `
 "<ShineoutMessage onDestory={[Function: onDestory]}>
-  <div className=\\"so-message-item undefined\\">
-    <ShineoutAlert className=\\"so-message-msg\\" dismiss={[undefined]} onClose={[Function: bound removeMessage]} icon={true} iconSize={14} style={{...}} type=\\"success\\" size=\\"default\\" duration={216}>
+  <div className=\\"so-message-item so-message-item-show-top undefined\\" style={{...}}>
+    <ShineoutAlert outAnimation={true} className=\\"so-message-msg\\" dismiss={[undefined]} onClose={[Function: bound closeMessageForAnimation]} icon={true} iconSize={14} style={{...}} type=\\"success\\" size=\\"default\\" duration={200}>
       <div className=\\"so-alert so-alert-success so-alert-with-close so-alert-with-icon so-message-msg\\" style={{...}}>
         <a className=\\"so-alert-close\\" onClick={[Function: bound handleClose]}>
           <svg viewBox=\\"0 0 1024 1024\\">
@@ -50,8 +50,8 @@ exports[`Message should render alert correct 2`] = `
 
 exports[`Message should render alert correct 3`] = `
 "<ShineoutMessage onDestory={[Function: onDestory]}>
-  <div className=\\"so-message-item undefined\\">
-    <ShineoutAlert className=\\"so-message-msg\\" dismiss={[undefined]} onClose={[Function: bound removeMessage]} icon={true} iconSize={14} style={{...}} type=\\"warn\\" size=\\"default\\" duration={216}>
+  <div className=\\"so-message-item so-message-item-show-top undefined\\" style={{...}}>
+    <ShineoutAlert outAnimation={true} className=\\"so-message-msg\\" dismiss={[undefined]} onClose={[Function: bound closeMessageForAnimation]} icon={true} iconSize={14} style={{...}} type=\\"warn\\" size=\\"default\\" duration={200}>
       <div className=\\"so-alert so-alert-warn so-alert-with-close so-message-msg\\" style={{...}}>
         <a className=\\"so-alert-close\\" onClick={[Function: bound handleClose]}>
           <svg viewBox=\\"0 0 1024 1024\\">
@@ -69,8 +69,8 @@ exports[`Message should render alert correct 3`] = `
 
 exports[`Message should render alert correct 4`] = `
 "<ShineoutMessage onDestory={[Function: onDestory]}>
-  <div className=\\"so-message-item undefined\\">
-    <ShineoutAlert className=\\"so-message-msg\\" dismiss={[undefined]} onClose={[Function: bound removeMessage]} icon={true} iconSize={14} style={{...}} type=\\"error\\" size=\\"default\\" duration={216}>
+  <div className=\\"so-message-item so-message-item-show-top undefined\\" style={{...}}>
+    <ShineoutAlert outAnimation={true} className=\\"so-message-msg\\" dismiss={[undefined]} onClose={[Function: bound closeMessageForAnimation]} icon={true} iconSize={14} style={{...}} type=\\"error\\" size=\\"default\\" duration={200}>
       <div className=\\"so-alert so-alert-error so-alert-with-close so-alert-with-icon so-message-msg\\" style={{...}}>
         <a className=\\"so-alert-close\\" onClick={[Function: bound handleClose]}>
           <svg viewBox=\\"0 0 1024 1024\\">
