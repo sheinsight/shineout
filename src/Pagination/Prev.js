@@ -4,11 +4,9 @@ import icons from '../icons'
 import Item from './Item'
 
 function Prev(props) {
-  const {
-    onChange, current, text, disabled,
-  } = props
+  const { onChange, current, text, disabled, size = '' } = props
   const prev = current - 1
-  const className = text.prev ? 'no-border' : ''
+  const className = text.prev ? `no-border ${size}` : size
   return (
     <Item className={className} page={prev} disabled={disabled || prev < 1} onClick={onChange}>
       {text.prev || icons.AngleLeft}
@@ -21,6 +19,7 @@ Prev.propTypes = {
   disabled: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   text: PropTypes.object,
+  size: PropTypes.string,
 }
 
 Prev.displayName = 'ShineoutPaginationPrev'
