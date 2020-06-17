@@ -102,7 +102,7 @@
     "happypack": "^5.0.0",
     "http-proxy": "^1.16.2",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^24.0.0",
+    "jest": "26.0.1",
     "jszip": "^3.1.5",
     "koa": "^2.4.1",
     "koa-multer": "^1.0.2",
