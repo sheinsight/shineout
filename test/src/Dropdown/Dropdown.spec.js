@@ -1,11 +1,10 @@
 import { Dropdown, Button } from 'shineout'
-import { mount, shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import React from 'react'
 import DropdownPosition from '../../../site/pages/components/Dropdown/example-3-position'
-import DropdownMultipleColumns from '../../../site/pages/components/Dropdown/example-4-items'
 import DropdownSplit from '../../../site/pages/components/Dropdown/example-5-split'
 import DropdownType from '../../../site/pages/components/Dropdown/example-6-type'
-import { sleep } from '../../utils'
+import { docSize } from '../../../src/utils/dom/document'
 
 /* global SO_PREFIX */
 
@@ -87,8 +86,8 @@ describe('Dropdown[Position]', () => {
   })
 
   test('should auto set position while position is auto', () => {
-    const windowHeight = 768
-    const windowWidth = 1024
+    const windowHeight = docSize.height
+    const windowWidth = docSize.width
     const rectMap = {
       'top-left': {
         bottom: windowHeight / 2 + 100,
