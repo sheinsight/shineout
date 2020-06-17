@@ -86,6 +86,8 @@ describe('Dropdown[Position]', () => {
   })
 
   test('should auto set position while position is auto', () => {
+    window.innerWidth = 1024
+    window.innerHeight = 768
     const windowHeight = docSize.height
     const windowWidth = docSize.width
     const rectMap = {
