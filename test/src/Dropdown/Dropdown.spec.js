@@ -108,10 +108,7 @@ describe('Dropdown[Position]', () => {
       },
     }
     let currentRect
-    Element.prototype.getBoundingClientRect = () => {
-      console.log('getBoundingClientRect: ', currentRect)
-      return currentRect
-    }
+    Element.prototype.getBoundingClientRect = () => currentRect
     Object.keys(rectMap).forEach(k => {
       currentRect = rectMap[k]
       const wrapper = mount(<Dropdown data={data} position="auto" />)

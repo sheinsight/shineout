@@ -1,8 +1,8 @@
 language: node_js
 
 node_js:
-  - 12
+  - 10
 
-script: 
-  - yarn test
+script:
+  - yarn test:silent
   - yarn build-ts
