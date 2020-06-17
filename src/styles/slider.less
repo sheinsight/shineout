@@ -38,6 +38,7 @@
 
     .@{slider-prefix}-indicator {
       z-index: 100;
+      box-shadow: @slider-indicator-box-shadow;
     }
 
     .@{slider-prefix}-result {
@@ -89,7 +90,7 @@
 
   &-disabled {
     .@{slider-prefix}-background {
-      background: @slider-disabled-color;
+      background: @slider-disabled-bar-bg;
     }
 
     .@{slider-prefix}-inner {
@@ -97,7 +98,8 @@
     }
 
     .@{slider-prefix}-indicator {
-      border: solid 2px @slider-disabled-color;
+      border: solid 2px @slider-disbaled-indicator-border-color;
+      background: @slider-disbaled-indicator-bg;
       cursor: not-allowed;
     }
   }

@@ -76,6 +76,15 @@ const examples = [
     component: require('doc/pages/components/Transfer/example-6-mloading.js').default,
     rawText: require('!raw-loader!doc/pages/components/Transfer/example-6-mloading.js'),
   },
+  {
+    name: '7-bigdata',
+    title: locate(
+      '性能 \n Transfer 内部用懒加载机制来优化性能，本例加载了10000条数据',
+      ' \n Transfer uses a lazy loading to optimize performance. This example loads 10,000 pieces of data.'
+    ),
+    component: require('doc/pages/components/Transfer/example-7-bigdata.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Transfer/example-7-bigdata.js'),
+  },
 ]
 
 const codes = undefined

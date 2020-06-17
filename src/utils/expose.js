@@ -2,6 +2,7 @@ import { isObject } from './is'
 import { exposeClass } from '../styles/expose'
 import cssAccessors from './css-accessors'
 import { capitalize } from './strings'
+import { entries } from './objects'
 
 const types = ['primary', 'warning', 'danger', 'success', 'secondary']
 const attrs = ['background', 'color', 'border']
@@ -31,21 +32,6 @@ function getClassname(data) {
     .join(' ')
 }
 
-function getDOMStyle(dom) {
-  document.body.appendChild(dom)
-  const style = window.getComputedStyle(dom)
-  Promise.resolve().then(() => {
-    dom.parentElement.removeChild(dom)
-  })
-  return style
-}
-
-function toRGB(c) {
-  const el = document.createElement('div')
-  el.style.color = c
-  return getDOMStyle(el).color
-}
-
 function resetTheme() {
   Object.keys(cssAccessors).forEach(module => {
     const setter = `set${capitalize(module)}`
@@ -65,7 +51,7 @@ const style = {
       resetTheme()
       return
     }
-    for (const [key, values] of Object.entries(options)) {
+    for (const [key, values] of entries(options)) {
       const setterName = `set${capitalize(key)}`
       if (cssAccessors[key] && cssAccessors[key][setterName]) cssAccessors[key][setterName](values)
     }
@@ -73,5 +59,4 @@ const style = {
 }
 
 const { color } = cssAccessors
-
-export { color, style, getDOMStyle, toRGB, types }
+export { color, style, types }

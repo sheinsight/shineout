@@ -1,5 +1,4 @@
 import { isOne, isPercent } from './is'
-import { toRGB } from './expose'
 
 const CSS_INTEGER = '[-\\+]?\\d+%?'
 
@@ -26,6 +25,64 @@ const MATCH = {
   hex6: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/,
   hex4: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
   hex8: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/,
+}
+
+function parseIntFromHex(val) {
+  return parseInt(val, 16)
+}
+
+function convertHexToDecimal(h) {
+  return parseIntFromHex(h) / 255
+}
+
+// string to rgba {}
+const parse = color => {
+  color = color.toLowerCase()
+  let match
+  if ((match = MATCH.rgb.exec(color))) {
+    return { r: match[1], g: match[2], b: match[3] }
+  }
+  if ((match = MATCH.rgba.exec(color))) {
+    return { r: match[1], g: match[2], b: match[3], a: match[4] }
+  }
+  if ((match = MATCH.hex8.exec(color))) {
+    return {
+      r: parseIntFromHex(match[1]),
+      g: parseIntFromHex(match[2]),
+      b: parseIntFromHex(match[3]),
+      a: convertHexToDecimal(match[4]),
+    }
+  }
+  if ((match = MATCH.hex6.exec(color))) {
+    return {
+      r: parseIntFromHex(match[1]),
+      g: parseIntFromHex(match[2]),
+      b: parseIntFromHex(match[3]),
+    }
+  }
+  if ((match = MATCH.hex4.exec(color))) {
+    return {
+      r: parseIntFromHex(`${match[1]}${match[1]}`),
+      g: parseIntFromHex(`${match[2]}${match[2]}`),
+      b: parseIntFromHex(`${match[3]}${match[3]}`),
+      a: convertHexToDecimal(`${match[4]}${match[4]}`),
+    }
+  }
+  if ((match = MATCH.hex3.exec(color))) {
+    return {
+      r: parseIntFromHex(`${match[1]}${match[1]}`),
+      g: parseIntFromHex(`${match[2]}${match[2]}`),
+      b: parseIntFromHex(`${match[3]}${match[3]}`),
+    }
+  }
+  return false
+}
+
+const toRGB = input => {
+  if (!input || typeof input !== 'string') return ''
+  const color = parse(input)
+  if (!color) return ''
+  return color.a ? `rgba(${color.r},${color.g},${color.b},${color.a})` : `rgb(${color.r},${color.g},${color.b})`
 }
 
 const isString = string => {
@@ -338,11 +395,12 @@ function getHSLA(color) {
  * @param value -100 ~ 100
  */
 export function darken(color, value = 0) {
+  if (!color) return ''
   value = parseInt(value, 10)
   color = toRGB(color)
   const hsl = rgbTohsl(color)
   const { h, s, l, a } = getHSLA(hsl)
-  return toRGB(`hsla(${h},${s}%,${l - value}%,${a})`)
+  return hslToRgb(`hsla(${h},${s}%,${l - value}%,${a})`)
 }
 
 /**
@@ -351,8 +409,9 @@ export function darken(color, value = 0) {
  * @param alpha 0-1
  */
 export function fade(color, alpha = 1) {
+  if (!color) return ''
   color = toRGB(color)
   const hsl = rgbTohsl(color)
   const { h, s, l } = getHSLA(hsl)
-  return toRGB(`hsla(${h},${s}%,${l}%,${alpha})`)
+  return hslToRgb(`hsla(${h},${s}%,${l}%,${alpha})`)
 }

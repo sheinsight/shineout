@@ -46,48 +46,54 @@ const handleScroll = () => {
   }, throttle)
 }
 
+export function removeStack(id) {
+  if (!id || !components[id]) return
+  const { observer } = components[id]
+  if (observer && observer.disconnect) observer.disconnect()
+  delete components[id]
+}
+
+function getObserver(obj, id) {
+  const { container = null, offset, render } = obj
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          render()
+          removeStack(id)
+        }
+      })
+    },
+    {
+      root: container,
+      rootMargin: `${offset}px`,
+    }
+  )
+  obj.observer = observer
+  return observer
+}
+
 export function addStack(obj) {
+  const id = getUidStr()
   const scrollEl = obj.container || document
   obj.offset = obj.offset || 0
   if (window.IntersectionObserver) {
-    const root = obj.container || null
-    const rootMargin = `${obj.offset}px`
-    obj.io = new IntersectionObserver(
-      entries => {
-        entries.forEach(en => {
-          if (en.isIntersecting) {
-            obj.render()
-            obj.io.unobserve(en.target)
-          }
-        })
-      },
-      {
-        root,
-        rootMargin,
-      }
-    )
-    obj.io.observe(obj.element)
-  } else {
-    scrollEl.addEventListener('scroll', handleScroll, eventPassive)
+    components[id] = obj
+    const observer = getObserver(obj, id)
+    observer.observe(obj.element)
+    return id
   }
+  scrollEl.addEventListener('scroll', handleScroll, eventPassive)
   const rect = obj.element.getBoundingClientRect()
   const containerRect = getRect(obj.container)
 
   if (rect.bottom + obj.offset < containerRect.top || rect.top - obj.offset > containerRect.bottom) {
-    const id = getUidStr()
     components[id] = obj
     return id
   }
 
   obj.render()
   return null
-}
-
-export function removeStack(id) {
-  if (!id) return
-  const { io } = components[id]
-  if (io && io.disconnect) io.disconnect()
-  delete components[id]
 }
 
 export function throttleWrapper(cb) {

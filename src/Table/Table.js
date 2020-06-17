@@ -10,6 +10,7 @@ import fixedAuto from './fixedAuto'
 import Datum from '../Datum'
 import Spin from '../Spin'
 import resizableHOC from './resizable'
+import { consumer as hideableConsumer } from '../hoc/hidable'
 import SeperateTable from './SeperateTable'
 import SimpleTable from './SimpleTable'
 import { ROW_HEIGHT_UPDATE_EVENT } from './Tr'
@@ -167,5 +168,6 @@ export default compose(
     setValueType: null,
     pure: false,
   }),
-  fixedAuto
+  fixedAuto,
+  hideableConsumer
 )(Table)

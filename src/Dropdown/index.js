@@ -1,5 +1,4 @@
 import React from 'react'
-import immer from 'immer'
 import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import { getProps, defaultProps } from '../utils/proptypes'
@@ -11,6 +10,8 @@ import Item from './Item'
 import { docSize } from '../utils/dom/document'
 import absoluteList from '../List/AbsoluteList'
 import { getUidStr } from '../utils/uid'
+import absoluteComsumer from '../Table/context'
+import Caret from '../icons/Caret'
 
 const FadeList = List('fade')
 const AbsoluteList = absoluteList(({ focus, ...other }) => <FadeList show={focus} {...other} />)
@@ -100,11 +101,9 @@ class Dropdown extends PureComponent {
     }
 
     if (this.state.show) return
-    this.setState(
-      immer(state => {
-        state.show = true
-      })
-    )
+    this.setState({
+      show: true,
+    })
 
     this.toggleDocumentEvent(true)
   }
@@ -126,6 +125,11 @@ class Dropdown extends PureComponent {
     const { type, outline, size, disabled, isSub } = this.props
     const buttonClassName = dropdownClass('button', !placeholder && 'split-button')
     const spanClassName = dropdownClass('button-content')
+    const caret = (
+      <span className={dropdownClass('caret')}>
+        <Caret />
+      </span>
+    )
 
     if (isSub) {
       return (
@@ -136,6 +140,7 @@ class Dropdown extends PureComponent {
           onClick={this.handleFocus}
         >
           <span className={spanClassName}>{placeholder}</span>
+          {caret}
         </a>
       )
     }
@@ -151,7 +156,7 @@ class Dropdown extends PureComponent {
         key="button"
       >
         <span className={spanClassName}>{placeholder}</span>
-        <span className={dropdownClass('caret')} />
+        {caret}
       </Button>
     )
   }
@@ -165,7 +170,7 @@ class Dropdown extends PureComponent {
         absolute={absolute}
         parentElement={this.element}
         position={position}
-        className={dropdownClass('menu')}
+        className={dropdownClass('menu', columns > 1 && 'box-list')}
         style={{ width }}
         key="list"
         focus={this.state.show}
@@ -255,4 +260,4 @@ Dropdown.defaultProps = {
 
 Dropdown.displayName = 'ShineoutDropdown'
 
-export default Dropdown
+export default absoluteComsumer(Dropdown)

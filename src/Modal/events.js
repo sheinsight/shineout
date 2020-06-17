@@ -39,7 +39,7 @@ export function destroy(id, unmount) {
   container.removeChild(div)
 }
 
-export function close(props) {
+export function close(props, callback) {
   const { id } = props
   const modal = containers[props.id]
 
@@ -51,13 +51,14 @@ export function close(props) {
 
   setTimeout(() => {
     div.style.display = 'none'
-    if (props.destroy) destroy(id)
+    if (props.destroy) destroy(id, !props.usePortal)
 
     if (!hasVisible()) {
       const doc = document.body.parentNode
       doc.style.overflow = ''
       doc.style.paddingRight = ''
     }
+    if (callback) callback()
   }, DURATION)
 }
 
@@ -96,7 +97,7 @@ export function open(props, isPortal) {
 
   const opacityDefault = props.maskOpacity === undefined ? 0.25 : props.maskOpacity
   const maskOpacity = isMask(props.id) ? opacityDefault : 0.01
-  div.style.background = `rgba(0,0,0,${maskOpacity})`
+  div.style.background = props.maskBackground || `rgba(0,0,0,${maskOpacity})`
 
   containers[props.id].visible = true
 

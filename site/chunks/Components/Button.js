@@ -23,6 +23,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Button/example-1-base.js'),
   },
   {
+    name: '1-text',
+    title: locate(
+      '文字按钮 \n 设置 text 属性来使用文字按钮',
+      'Text \n set text to use text button'
+    ),
+    component: require('doc/pages/components/Button/example-1-text.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Button/example-1-text.js'),
+  },
+  {
     name: '2-icon',
     title: locate(
       '图标 \n shineout 并不提供内置的图标, 所以需要图标可以在内容中自行加入',

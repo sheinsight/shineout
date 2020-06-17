@@ -5,12 +5,14 @@ import { treeSelectClass } from '../styles'
 import TreeSelect from './TreeSelect'
 import filter from './filter'
 import datum from './datum'
+import absolute from '../Table/context'
 
 const exportTreeSelect = compose(
   inputable,
   inputBorder({ className: treeSelectClass('_'), tag: 'div' }),
   datum,
-  filter
+  filter,
+  absolute
 )(TreeSelect)
 
 exportTreeSelect.displayName = 'ShineoutTreeSelect'

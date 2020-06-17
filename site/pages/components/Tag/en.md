@@ -14,3 +14,4 @@
 | style | object | - | Container element style |
 | disabled | boolean | false | is disabled | 
 | type | 'success' \| 'info' \| 'warning' \| 'danger' \| 'error' | *default* | types |
+| onCompleted | (value) => void | - | This event is triggered when Tag editing is completed (children must be string) |

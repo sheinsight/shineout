@@ -12,7 +12,7 @@
 | visible | boolean | 无 | 是否显示(受控) |
 | onVisibleChange | (visible: boolean) => void | 无 | 显示隐藏改变时事件 | 
 | mouseEnterDelay | number | 0 | 移入显示延迟(毫秒) | 
-| mouseLeaveDelay | number | 500 | 移除隐藏延迟(毫秒) | 
+| mouseLeaveDelay | number | 0 | 移除隐藏延迟(毫秒) | 
 | border | string | '#dee2e6' | 弹出层边框颜色（含箭头） |
 | className | string | 无 | 扩展className |
 | children | ReactNode | 必填 | 弹出显示内容 |

@@ -14,6 +14,7 @@ import Colgroup from './Colgroup'
 import Thead from './Thead'
 import Tbody from './Tbody'
 import { isNumber } from '../utils/is'
+import { Provider as AbsoluteProvider } from './context'
 import { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
 
 class SeperateTable extends PureComponent {
@@ -139,7 +140,7 @@ class SeperateTable extends PureComponent {
     let { scrollLeft } = this.props
     this.resetFloatFixed()
     if (!isNumber(scrollLeft)) return
-    const args = this.lastScrollArgs && this.lastScrollArgs.slice()
+    const args = Array.isArray(this.lastScrollArgs) && this.lastScrollArgs.slice()
     if (scrollLeft !== this.state.offsetLeft && args) {
       const bodyWidth = this.lastScrollArgs[4]
       if (scrollLeft < 0) scrollLeft = 0
@@ -388,12 +389,22 @@ class SeperateTable extends PureComponent {
   }
 
   renderBody(floatClass) {
-    const { data, rowsInView, columns, width, fixed, rowHeight, ...others } = this.props
+    const {
+      data,
+      rowsInView,
+      columns,
+      width,
+      fixed,
+      rowHeight,
+      columnResizable,
+      innerScrollAttr,
+      ...others
+    } = this.props
     const { colgroup, scrollTop, scrollLeft, offsetLeft, offsetRight, currentIndex, resize } = this.state
     const contentWidth = this.getContentWidth()
 
     if (!data || data.length === 0) {
-      return <div key="body" />
+      return <div />
     }
 
     let dataUpdated = this.lastData !== data // Incorrect height due to changing data length dynamically
@@ -407,7 +418,6 @@ class SeperateTable extends PureComponent {
 
     return (
       <Scroll
-        key="body"
         scrollTop={scrollTop}
         scrollLeft={scrollLeft}
         scroll={fixed}
@@ -415,11 +425,12 @@ class SeperateTable extends PureComponent {
         scrollWidth={contentWidth}
         onScroll={this.handleScroll}
         className={tableClass('body', ...floatClass)}
+        innerScrollAttr={innerScrollAttr}
       >
         <div ref={this.bindTbody} className={tableClass('scroll-inner')} style={{ width }}>
           <div style={{ height: prevHeight }} />
           <table style={{ width }} ref={this.bindRealTbody}>
-            <Colgroup colgroup={colgroup} columns={columns} />
+            <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable && this.lastScrollArgs[4]} />
             <Tbody
               {...others}
               columns={columns}
@@ -441,7 +452,7 @@ class SeperateTable extends PureComponent {
   }
 
   render() {
-    const { columns, fixed, width, onResize } = this.props
+    const { columns, fixed, width, onResize, columnResizable } = this.props
     const { colgroup, scrollLeft, floatFixed } = this.state
 
     const floatClass = []
@@ -462,11 +473,13 @@ class SeperateTable extends PureComponent {
     return [
       <div key="head" className={tableClass('head', ...floatClass)} ref={this.bindHeadWrapper}>
         <table style={{ width }} ref={this.bindThead}>
-          <Colgroup colgroup={colgroup} columns={columns} />
-          <Thead {...this.props} onSortChange={this.handleSortChange} onColChange={onResize} />
+          <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable && this.lastScrollArgs[4]} />
+          <Thead {...this.props} colgroup={colgroup} onSortChange={this.handleSortChange} onColChange={onResize} />
         </table>
       </div>,
-      this.renderBody(floatClass),
+      <AbsoluteProvider value key="body">
+        {this.renderBody(floatClass)}
+      </AbsoluteProvider>,
     ]
   }
 }
@@ -483,6 +496,7 @@ SeperateTable.propTypes = {
   width: PropTypes.number,
   scrollLeft: PropTypes.number,
   onResize: PropTypes.func,
+  innerScrollAttr: PropTypes.arrayOf(PropTypes.string),
 }
 
 SeperateTable.defaultProps = {

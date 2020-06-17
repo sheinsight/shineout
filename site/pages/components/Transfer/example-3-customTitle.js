@@ -9,7 +9,7 @@ import { Transfer, Button } from 'shineout'
 
 const data = []
 
-for (let i = 1; i < 20; i++) {
+for (let i = 1; i < 30; i++) {
   data.push({
     id: i,
     content: `content ${i}`,
@@ -26,7 +26,7 @@ export default function() {
       renderItem="content"
       keygen="id"
       operations={['to right', 'to left']}
-      listStyle={{ height: 240 }}
+      listHeight={240}
     />
   )
 }

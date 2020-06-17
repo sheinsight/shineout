@@ -2,11 +2,12 @@
 import './styles/normalize.less'
 import * as utils from './utils'
 
-export default { utils, version: '1.5.1-rc.26' }
+export default { utils, version: '1.6.0-rc.17' }
 export { utils }
 export { setLocale } from './locale'
 export { color, style } from './utils/expose'
 
+export { default as LazyList } from './List/LazyList'
 export { default as Alert } from './Alert'
 export { default as Breadcrumb } from './Breadcrumb'
 export { default as Button } from './Button'

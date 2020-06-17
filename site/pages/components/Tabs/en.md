@@ -19,7 +19,7 @@
 | tabBarExtraContent | string \| ReactNode | - | extra element in tab bar | 
 | tabBarStyle | object | - | style in tab bar |
 | onChange | (key: any) => void | - | Change callback |
-| shape | string | - | Options: \['line', 'button']. If shape is not null, the style properties such as background, border will lose effect |
+| shape | string | - | Options: \['card', 'line', 'button', 'bordered', 'dash'\]. If shape is not null, the style properties such as background, border will lose effect |
 | style | object | - | Container element style |
 | lazy | boolean | true | lazy load |
 

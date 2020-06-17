@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { tabsClass } from '../styles'
 import { getUidStr } from '../utils/uid'
+import { defer } from '../utils/uid'
 
 class Tab extends PureComponent {
   constructor(props) {
@@ -12,10 +13,16 @@ class Tab extends PureComponent {
     this.uid = `tab_unique_${getUidStr()}`
   }
 
+  componentDidMount() {
+    defer(() => {
+      if (this.props.isActive) this.handleClick(true)
+    })
+  }
+
   getActiveStyle() {
     const { shape, align, background, color, border, isActive, isVertical } = this.props
 
-    if (shape === 'line') return {}
+    if (shape === 'line' || shape === 'dash') return {}
 
     const style = { background, color }
 
@@ -33,14 +40,15 @@ class Tab extends PureComponent {
     return style
   }
 
-  handleClick() {
+  handleClick(init) {
     const { onClick, id, isActive, disabled } = this.props
     if (disabled) return
-    onClick(id, isActive)
+
+    if (init !== true) onClick(id, isActive)
     if (!this.element) {
       this.element = document.querySelector(`.${this.uid}`)
     }
-    if (this.element.getBoundingClientRect) {
+    if (this.element && this.element.getBoundingClientRect) {
       this.props.moveToCenter(this.element.getBoundingClientRect())
     }
   }

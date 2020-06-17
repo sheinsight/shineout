@@ -156,7 +156,7 @@ Tabs.propTypes = {
   defaultCollapsed: PropTypes.bool,
   inactiveBackground: PropTypes.string,
   onChange: PropTypes.func,
-  shape: PropTypes.oneOf(['card', 'line', 'button', 'bordered']),
+  shape: PropTypes.oneOf(['card', 'line', 'button', 'bordered', 'dash']),
   style: PropTypes.object,
   tabBarExtraContent: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   tabBarStyle: PropTypes.object,

@@ -7,7 +7,7 @@
 import React from 'react'
 import { Button, Message } from 'shineout'
 
-export default function() {
+export default function () {
   return (
     <div>
       <Button

@@ -7,6 +7,7 @@
 .@{checkinput-prefix} {
   @keyname: ~'@{checkinput-prefix}-focus';
 
+  color: @checkinput-color;
   position: relative;
   display: inline-block;
   margin-right: @checkbox-margin-right;
@@ -20,6 +21,7 @@
     top: 0;
     left: 0;
     clip: rect(0, 0, 0, 0);
+    visibility: hidden;
   }
 
   @keyframes @keyname {
@@ -354,7 +356,7 @@
   &-disable:focus,
   &-disabled&-checked {
     i.@{checkinput-prefix}-indicator {
-      border-color: @gray-500;
+      border-color: @checkbox-border-color;
       box-shadow: none;
       background-color: @input-bg-disabled;
     }
@@ -367,7 +369,7 @@
   &-disabled&-checked i&-indicator,
   &-disabled&-indeterminate i&-indicator {
     &:after {
-      border-color: @gray-500;
+      border-color: @checkbox-border-color;
     }
   }
 }

@@ -17,7 +17,7 @@
 | fixed | 'both' \| 'x' \| 'y' \| 'auto' | - | visual scroll-bar direction, empty will use native scroll-bar and disabled lazy load | 
 | format | (data: object) => any \| string | d => d | Format value<br />The defaule value is return the original data.<br />When it is a string, the value is fetched from the original data as a key equivalent to (d) => d\[format]<br />When it is a function, use its return value. |
 | loading | boolean \| ReactNode | false | When it is true, a default [Spin](/components/Spin) component will be displayed, a custom loading icon can be passed in to replace. |
-| keygen | (data: object) => string \| string \| true | index | Generate a auxiliary method for each key<br />If not filled, index will be used (not recommended, in some cases there may be problems)<br />When it is a function, use its return value. <br />When it is a string，ues the value of the string.For example, 'id' is the same thing as (d) => d.id . |
+| keygen | ((data: object) => any) \| string \| true | index | Generate a auxiliary method for each key<br />If not filled, index will be used (not recommended, in some cases there may be problems)<br />When it is a function, use its return value. <br />When it is a string，ues the value of the string.For example, 'id' is the same thing as (d) => d.id . |
 | onScroll | (x: number, y: number) => void | none | The callback function after scrolling.<br />x: Horizontal rolling ratio(0 <= x <= 1)<br />y: Vertical scroll ratio(0 <= y <= 1) |
 | onRowClick | (data: object, index: number) => void | none | Callback when row click.<br />data: current row data<br />index: current row index |
 | onRowSelect | (rows: any[]) => void | none | Select row. Rows is the selected data. |
@@ -41,8 +41,11 @@
 | onSortCancel | () => void | none | sort cancel event |
 | radio | boolean | false | is Radio |
 | rowEvents | object | none | tr events |
-| defaultTreeExpandKeys | string[] | none | Default expanded row keys |
+| defaultTreeExpandKeys | any[] | none | Default expanded row keys |
 | onColumnResize | (newColumns: object[]) => void | none | columns resize callback |
+| size | 'small' \| 'normal' | 'normal' | size of table |
+| pagination | object | none | pagination of table |
+| innerScrollAttr | array | 无 | set inner scrollable element's attribute |
 
 ### TableColumn
 

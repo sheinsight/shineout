@@ -95,6 +95,11 @@ class Cascader extends PureComponent {
   }
 
   handlePathChange(id, data, path) {
+    const { childrenKey, finalDismiss } = this.props
+    if (data) {
+      const leaf = !data[childrenKey] || data[childrenKey].length === 0
+      if (finalDismiss && leaf) this.handleState(false)
+    }
     setTimeout(() => {
       this.setState({ path: [...path, id] })
     }, 50)
@@ -325,6 +330,7 @@ Cascader.propTypes = {
   absolute: PropTypes.bool,
   zIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   childrenKey: PropTypes.string,
+  finalDismiss: PropTypes.bool,
 }
 
 Cascader.defaultProps = {

@@ -50,9 +50,9 @@ class Scroll extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.scrollWidth !== prevProps.scrollWidth) {
-      this.setRect()
-    }
+    const { stable, scrollWidth, scrollHeight } = this.props
+    if (scrollWidth !== prevProps.scrollWidth) this.setRect()
+    else if (stable && scrollHeight !== prevProps.scrollHeight) this.setRect()
   }
 
   componentWillUnmount() {
@@ -154,7 +154,12 @@ class Scroll extends PureComponent {
   handleWheel(event) {
     const scrollX = this.wheelX
     const scrollY = this.wheelY
+    const { innerScrollAttr } = this.props
     if (!scrollX && !scrollY) return
+    if (innerScrollAttr.find(attr => event.target.hasAttribute(attr))) {
+      event.stopPropagation()
+      return
+    }
 
     const target = getParent(event.target, `.${scrollClass('_')}`)
     if (target !== this.wheelElement) return
@@ -257,6 +262,8 @@ Scroll.propTypes = {
   scrollWidth: PropTypes.number,
   scrollX: PropTypes.bool.isRequired,
   scrollY: PropTypes.bool.isRequired,
+  stable: PropTypes.bool,
+  innerScrollAttr: PropTypes.arrayOf(PropTypes.string),
 }
 
 Scroll.defaultProps = {
@@ -264,6 +271,7 @@ Scroll.defaultProps = {
   // overLock: true,
   scrollHeight: 0,
   scrollWidth: 0,
+  innerScrollAttr: [],
 }
 
 export default Scroll

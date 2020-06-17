@@ -48,7 +48,7 @@ describe('Dropdown[Base]', () => {
     ).toBe('Dropdown')
     // first list
     const listWrapper = dropdown.find('Hidable')
-    expect(listWrapper.find(Dropdown).length).toBe(1)
+    expect(listWrapper.find('ShineoutDropdown').length).toBe(1)
     expect(listWrapper.find('Item').length).toBe(3)
     expect(
       listWrapper
@@ -58,7 +58,7 @@ describe('Dropdown[Base]', () => {
         .text()
     ).toBe('Link to Google')
     // dropdown nest
-    const nestDropdown = listWrapper.find(Dropdown)
+    const nestDropdown = listWrapper.find('ShineoutDropdown')
     expect(
       nestDropdown
         .find('a')
@@ -77,7 +77,7 @@ describe('Dropdown[Base]', () => {
 
 describe('Dropdown[Position]', () => {
   test('should set correct class while has position prop', () => {
-    const dropdowns = mount(<DropdownPosition />).find(Dropdown)
+    const dropdowns = mount(<DropdownPosition />).find('ShineoutDropdown')
     dropdowns.forEach((dropdown, index) => {
       // ignore auto
       if (index > 7) return
@@ -87,8 +87,8 @@ describe('Dropdown[Position]', () => {
   })
 
   test('should auto set position while position is auto', () => {
-    const windowHeight = window.innerHeight || document.documentElement.clientHeight
-    const windowWidth = window.innerWidth || document.documentElement.clientWidth
+    const windowHeight = 768
+    const windowWidth = 1024
     const rectMap = {
       'top-left': {
         bottom: windowHeight / 2 + 100,
@@ -116,7 +116,7 @@ describe('Dropdown[Position]', () => {
       wrapper.find('button').simulate('click')
       expect(
         wrapper
-          .find(Dropdown)
+          .find('ShineoutDropdown')
           .first()
           .childAt(0)
           .prop('className')
@@ -126,40 +126,18 @@ describe('Dropdown[Position]', () => {
   })
 })
 
-describe('Dropdown[MultipleColumns]', () => {
-  test('should has multiple columns', () => {
-    const wrapper = shallow(<DropdownMultipleColumns />)
-    const wrapperWidth = wrapper.prop('width')
-    const wrapperColumns = wrapper.prop('columns')
-    const expectWidth = (wrapperWidth - 2) / wrapperColumns
-    wrapper
-      .find(Dropdown)
-      .shallow()
-      .find('Item')
-      .forEach(item => {
-        expect(item.shallow().prop('style').width).toBe(expectWidth)
-      })
-  })
-})
-
 describe('Dropdown[Split]', () => {
   test('should split', () => {
-    const wrapper = shallow(<DropdownSplit />)
-      .find(Dropdown)
-      .shallow()
+    const wrapper = mount(<DropdownSplit />).find('ShineoutDropdown')
     expect(wrapper.find(Button).hasClass(`${SO_PREFIX}-dropdown-split-dropdown`))
   })
 })
 
 describe('Dropdown[DropdownType]', () => {
   test('should set dropdown type', () => {
-    const wrapper = shallow(<DropdownType />)
+    const wrapper = mount(<DropdownType />)
     const state = wrapper.state()
-    const button = wrapper
-      .find(Dropdown)
-      .shallow()
-      .find(Button)
-      .shallow()
+    const button = wrapper.find(Button).find('button')
     expect(button.hasClass(`${SO_PREFIX}-button-${state.type}`)).toBeTruthy()
     if (state.size !== 'default') {
       expect(button.hasClass(`${SO_PREFIX}-button-${state.size}`)).toBeTruthy()

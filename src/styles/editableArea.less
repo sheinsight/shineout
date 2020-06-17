@@ -3,6 +3,8 @@
 
 @editableArea-prefix: ~'@{so-prefix}-editableArea';
 @height: 34px;
+@editableArea-animation-duration-time: 0.2s;
+
 .@{editableArea-prefix} {
     font-size: @font-size-base;
     line-height: @line-height-base;
@@ -24,6 +26,8 @@
       position: absolute;
       top: 0;
       left: 0;
+      transition: border-color @editableArea-animation-duration-time;
+      border-radius: @input-border-radius;
     }
 
     &-reset-padding-right {
@@ -41,7 +45,6 @@
       &-placeholder {
         color: @input-color-placeholder;
         font-size: @input-size-placeholder;
-
       }
     }
 
@@ -49,9 +52,17 @@
       background-color: #fff!important;
     }
 
-    &-edit, &-bordered {
+    &-edit {
+      border-color: @input-border-focus;
+      box-shadow: 0 0 0 @input-focus-width @input-border-focus-fade-25;
+    }
+
+    &-bordered {
       border-color: @input-border;
-      border-radius: @input-border-radius;
+    }
+
+    &:hover &-textarea, &:hover &-placeholder {
+      border-color: @input-border-focus;
     }
 
     &-edit {

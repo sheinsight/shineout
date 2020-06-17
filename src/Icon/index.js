@@ -4,7 +4,7 @@ import Icon from './Icon'
 const links = {}
 const scripts = {}
 
-export default function(url, fontFamily = 'iconfont', prefix = 'icon') {
+export default function(url = '', fontFamily = 'iconfont', prefix = 'icon') {
   const ext = url.substr(url.lastIndexOf('.') + 1)
   if (ext === 'css' && !links[url]) {
     links[url] = true

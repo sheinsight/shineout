@@ -14,3 +14,4 @@
 | style | object | 无 | 最外层扩展样式 |
 | disabled | boolean | false | 是否禁用 | 
 | type | 'success' \| 'info' \| 'warning' \| 'danger' \| 'error' | *default* |  类型 |
+| onCompleted | (value) => void | 无 | Tag 编辑完成时触发该事件（children 必须为 string） |

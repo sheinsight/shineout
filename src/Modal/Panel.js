@@ -6,6 +6,7 @@ import Card from '../Card'
 import { defaultProps, getProps } from '../utils/proptypes'
 import { modalClass } from '../styles'
 import { Provider } from '../Scroll/context'
+import { Provider as ZProvider } from './context'
 
 export default class Panel extends PureComponent {
   componentDidMount() {
@@ -53,7 +54,6 @@ export default class Panel extends PureComponent {
 
     const iconType = type.charAt(0).toUpperCase() + type.slice(1)
     const icon = Icons[iconType]
-
     return (
       <Card.Body className={modalClass('body')} style={style}>
         {icon && <div className={modalClass('icon')}>{icon}</div>}
@@ -64,29 +64,38 @@ export default class Panel extends PureComponent {
   }
 
   render() {
-    const { footer, title, type, onClose, maskCloseAble, position } = this.props
+    const { footer, title, type, onClose, maskCloseAble, position, moveable, resizable, hideClose } = this.props
 
     const className = classnames(modalClass('panel', type, position), this.props.className)
-
+    const showClose = typeof hideClose === 'boolean' ? !hideClose : maskCloseAble || maskCloseAble === null
     return (
-      <Provider value={{ element: undefined }}>
-        <div key="mask" className={modalClass('mask')} onClick={maskCloseAble ? onClose : undefined} />
+      <ZProvider value>
+        <Provider value={{ element: undefined }}>
+          <div key="mask" className={modalClass('mask')} onClick={maskCloseAble ? onClose : undefined} />
 
-        <Card key="card" shadow className={className} style={this.getStyle()}>
-          {(maskCloseAble || maskCloseAble === null) && (
-            <a className={modalClass('close')} onClick={onClose}>
-              {Icons.Close}
-            </a>
-          )}
-          {title && type === 'default' && <Card.Header className={modalClass('title')}>{title}</Card.Header>}
-          {this.renderContent()}
-          {footer && (
-            <Card.Footer className={modalClass('footer')} align="right">
-              {footer}
-            </Card.Footer>
-          )}
-        </Card>
-      </Provider>
+          <Card
+            moveable={moveable}
+            resizable={resizable}
+            key="card"
+            shadow
+            className={className}
+            style={this.getStyle()}
+          >
+            {showClose && (
+              <a className={modalClass('close')} onClick={onClose}>
+                {Icons.Close}
+              </a>
+            )}
+            {title && type === 'default' && <Card.Header className={modalClass('title')}>{title}</Card.Header>}
+            {this.renderContent()}
+            {footer && (
+              <Card.Footer className={modalClass('footer')} align="right">
+                {footer}
+              </Card.Footer>
+            )}
+          </Card>
+        </Provider>
+      </ZProvider>
     )
   }
 }
@@ -104,6 +113,9 @@ Panel.propTypes = {
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   type: PropTypes.string,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  moveable: PropTypes.bool,
+  resizable: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+  hideClose: PropTypes.bool,
 }
 
 Panel.defaultProps = {

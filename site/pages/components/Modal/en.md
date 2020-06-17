@@ -23,6 +23,12 @@ You can use Modal to display secondary content or actions without jumping to the
 | zIndex | number | 1050 | Modal z-index | |
 | rootClassName | string | - | the root element of modal, the mask parent element | 1.4.2 |
 | container | () => HTMLElement \| HTMLElement | document.body | target element | |
+| moveable | boolean | false | modal support move | |
+| resizable | boolean | false | modal resizable | |
+| maskBackground | string | 无 | mask background | |
+| onClose | () => void | none | modal close callback | |
+| destroy | boolean | false | Whether to destroy elements when it is closed | |
+| hideClose | boolean | none | hide the close button | |
 
 ### ModalMethods
 

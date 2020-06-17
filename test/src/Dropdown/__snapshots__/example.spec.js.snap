@@ -16,6 +16,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-1-base.j
         <span>
           Submenu
         </span>
+        <span>
+          <svg>
+            <path />
+          </svg>
+        </span>
       </a>
     </div>
     <a>
@@ -29,7 +34,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-1-base.j
     <span>
       Dropdown
     </span>
-    <span />
+    <span>
+      <svg>
+        <path />
+      </svg>
+    </span>
   </button>
 </div>
 `;
@@ -47,6 +56,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-2-hover.
         <span>
           First
         </span>
+        <span>
+          <svg>
+            <path />
+          </svg>
+        </span>
       </a>
     </div>
     <div>
@@ -61,12 +75,22 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-2-hover.
             <span>
               topic 2
             </span>
+            <span>
+              <svg>
+                <path />
+              </svg>
+            </span>
           </a>
         </div>
       </div>
       <a>
         <span>
           Second
+        </span>
+        <span>
+          <svg>
+            <path />
+          </svg>
         </span>
       </a>
     </div>
@@ -75,7 +99,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-2-hover.
     <span>
       Hover
     </span>
-    <span />
+    <span>
+      <svg>
+        <path />
+      </svg>
+    </span>
   </button>
 </div>
 `;
@@ -97,6 +125,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
           <span>
             First
           </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
         </a>
       </div>
       <div>
@@ -117,12 +150,22 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
               <span>
                 link4
               </span>
+              <span>
+                <svg>
+                  <path />
+                </svg>
+              </span>
             </a>
           </div>
         </div>
         <a>
           <span>
             Second
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
           </span>
         </a>
       </div>
@@ -131,7 +174,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
       <span>
         Right Top
       </span>
-      <span />
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
     </button>
   </div>
   <div>
@@ -148,6 +195,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
         <a>
           <span>
             First
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
           </span>
         </a>
       </div>
@@ -169,12 +221,22 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
               <span>
                 link4
               </span>
+              <span>
+                <svg>
+                  <path />
+                </svg>
+              </span>
             </a>
           </div>
         </div>
         <a>
           <span>
             Second
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
           </span>
         </a>
       </div>
@@ -183,7 +245,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
       <span>
         Bottom Left
       </span>
-      <span />
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
     </button>
   </div>
   <div>
@@ -200,6 +266,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
         <a>
           <span>
             First
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
           </span>
         </a>
       </div>
@@ -221,12 +292,22 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
               <span>
                 link4
               </span>
+              <span>
+                <svg>
+                  <path />
+                </svg>
+              </span>
             </a>
           </div>
         </div>
         <a>
           <span>
             Second
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
           </span>
         </a>
       </div>
@@ -235,7 +316,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
       <span>
         Bottom Right
       </span>
-      <span />
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
     </button>
   </div>
   <div>
@@ -252,6 +337,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
         <a>
           <span>
             First
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
           </span>
         </a>
       </div>
@@ -273,12 +363,22 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
               <span>
                 link4
               </span>
+              <span>
+                <svg>
+                  <path />
+                </svg>
+              </span>
             </a>
           </div>
         </div>
         <a>
           <span>
             Second
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
           </span>
         </a>
       </div>
@@ -287,7 +387,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
       <span>
         Left Top
       </span>
-      <span />
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
     </button>
   </div>
   <br />
@@ -305,6 +409,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
         <a>
           <span>
             First
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
           </span>
         </a>
       </div>
@@ -326,12 +435,22 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
               <span>
                 link4
               </span>
+              <span>
+                <svg>
+                  <path />
+                </svg>
+              </span>
             </a>
           </div>
         </div>
         <a>
           <span>
             Second
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
           </span>
         </a>
       </div>
@@ -340,7 +459,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
       <span>
         Right Bottom
       </span>
-      <span />
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
     </button>
   </div>
   <div>
@@ -357,6 +480,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
         <a>
           <span>
             First
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
           </span>
         </a>
       </div>
@@ -378,12 +506,22 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
               <span>
                 link4
               </span>
+              <span>
+                <svg>
+                  <path />
+                </svg>
+              </span>
             </a>
           </div>
         </div>
         <a>
           <span>
             Second
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
           </span>
         </a>
       </div>
@@ -392,7 +530,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
       <span>
         Top Left
       </span>
-      <span />
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
     </button>
   </div>
   <div>
@@ -409,6 +551,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
         <a>
           <span>
             First
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
           </span>
         </a>
       </div>
@@ -430,12 +577,22 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
               <span>
                 link4
               </span>
+              <span>
+                <svg>
+                  <path />
+                </svg>
+              </span>
             </a>
           </div>
         </div>
         <a>
           <span>
             Second
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
           </span>
         </a>
       </div>
@@ -444,7 +601,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
       <span>
         Top Right
       </span>
-      <span />
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
     </button>
   </div>
   <div>
@@ -461,6 +622,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
         <a>
           <span>
             First
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
           </span>
         </a>
       </div>
@@ -482,12 +648,22 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
               <span>
                 link4
               </span>
+              <span>
+                <svg>
+                  <path />
+                </svg>
+              </span>
             </a>
           </div>
         </div>
         <a>
           <span>
             Second
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
           </span>
         </a>
       </div>
@@ -496,7 +672,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
       <span>
         Left Bottom
       </span>
-      <span />
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
     </button>
   </div>
   <br />
@@ -515,6 +695,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
           <span>
             First
           </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
         </a>
       </div>
       <div>
@@ -535,12 +720,22 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
               <span>
                 link4
               </span>
+              <span>
+                <svg>
+                  <path />
+                </svg>
+              </span>
             </a>
           </div>
         </div>
         <a>
           <span>
             Second
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
           </span>
         </a>
       </div>
@@ -549,7 +744,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
       <span>
         Auto Position
       </span>
-      <span />
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
     </button>
   </div>
 </div>
@@ -653,7 +852,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-4-items.
     <span>
       Dropdown
     </span>
-    <span />
+    <span>
+      <svg>
+        <path />
+      </svg>
+    </span>
   </button>
 </div>
 `;
@@ -681,7 +884,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-5-split.
     </div>
     <button>
       <span />
-      <span />
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
     </button>
   </div>
 </div>
@@ -699,7 +906,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-6-type.j
           <span>
             primary
           </span>
-          <a />
+          <a>
+            <svg>
+              <path />
+            </svg>
+          </a>
         </div>
         <div>
           <span>
@@ -717,7 +928,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-6-type.j
           <span>
             default
           </span>
-          <a />
+          <a>
+            <svg>
+              <path />
+            </svg>
+          </a>
         </div>
         <div>
           <span>
@@ -756,6 +971,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-6-type.j
           <span>
             Submenu
           </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
         </a>
       </div>
       <a>
@@ -766,7 +986,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-6-type.j
       <span>
         Dropdown
       </span>
-      <span />
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
     </button>
   </div>
 </div>
