@@ -108,26 +108,23 @@ describe('Dropdown[Position]', () => {
       },
     }
     let currentRect
-    Element.prototype.getBoundingClientRect = () => currentRect
+    Element.prototype.getBoundingClientRect = () => {
+      console.log('getBoundingClientRect: ', currentRect)
+      return currentRect
+    }
     Object.keys(rectMap).forEach(k => {
       currentRect = rectMap[k]
       const wrapper = mount(<Dropdown data={data} position="auto" />)
       document.write(wrapper.html())
       wrapper.find('button').simulate('click')
-      console.log(
+      expect(
         wrapper
-        .find('ShineoutDropdown')
-        .first()
-        .childAt(0)
-        .prop('className'))
-      // expect(
-      //   wrapper
-      //     .find('ShineoutDropdown')
-      //     .first()
-      //     .childAt(0)
-      //     .prop('className')
-      //     .indexOf(k) >= 0
-      // ).toBeTruthy()
+          .find('ShineoutDropdown')
+          .first()
+          .childAt(0)
+          .prop('className')
+          .indexOf(k) >= 0
+      ).toBeTruthy()
     })
   })
 })
