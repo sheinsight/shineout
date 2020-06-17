@@ -108,10 +108,10 @@ describe('Dropdown[Position]', () => {
         right: windowWidth / 2 + 100,
       },
     }
-    let currentRect
-    Element.prototype.getBoundingClientRect = () => currentRect
+    const cur = { value: null }
+    Element.prototype.getBoundingClientRect = jest.fn(() => cur.value)
     Object.keys(rectMap).forEach(k => {
-      currentRect = rectMap[k]
+      cur.value = rectMap[k]
       const wrapper = mount(<Dropdown data={data} position="auto" />)
       document.write(wrapper.html())
       wrapper.find('button').simulate('click')
