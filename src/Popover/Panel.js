@@ -218,13 +218,13 @@ class Panel extends Component {
     const colorStyle = { background, borderColor: border }
     const innerStyle = Object.assign({}, this.props.style, { background })
     const position = this.getPositionStr()
-    this.element.className = classnames(popoverClass('_', position, type, parentClose && 'inner'), this.props.className)
     // eslint-disable-next-line
     const style = this.element.style
     this.updatePosition(position)
     style.display = show ? 'block' : 'none'
     if (background) style.background = background
     if (border) style.borderColor = border
+    this.element.className = classnames(popoverClass('_', position, type, parentClose && 'inner'), this.props.className)
     let childrened = isFunc(children) ? children(this.handleHide) : children
     if (typeof childrened === 'string') childrened = <span className={popoverClass('text')}>{childrened}</span>
     const provider = {

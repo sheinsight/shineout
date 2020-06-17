@@ -10,9 +10,13 @@ import { Button, Popover } from 'shineout'
 export default function() {
   return (
     <div id="popup-target" style={{ height: 200, overflowY: 'auto', position: 'relative' }}>
-      <Button style={{ marginBottom: 500 }}>
+      <Button style={{ margin: '100px 0' }}>
         Scrollable
-        <Popover style={{ padding: '8px 16px' }} getPopupContainer={() => document.querySelector('#popup-target')}>
+        <Popover
+          trigger="click"
+          style={{ padding: '8px 16px' }}
+          getPopupContainer={() => document.querySelector('#popup-target')}
+        >
           render in parent element
         </Popover>
       </Button>
