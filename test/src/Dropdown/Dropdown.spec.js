@@ -85,47 +85,47 @@ describe('Dropdown[Position]', () => {
     })
   })
 
-//   test('should auto set position while position is auto', () => {
-//     window.innerWidth = 1024
-//     window.innerHeight = 768
-//     const windowHeight = docSize.height
-//     const windowWidth = docSize.width
-//     const rectMap = {
-//       'top-left': {
-//         bottom: windowHeight / 2 + 100,
-//         right: windowWidth / 2 - 100,
-//       },
-//       'top-right': {
-//         bottom: windowHeight / 2 + 100,
-//         right: windowWidth / 2 + 100,
-//       },
-//       'bottom-left': {
-//         bottom: windowHeight / 2 - 100,
-//         right: windowWidth / 2 - 100,
-//       },
-//       'bottom-right': {
-//         bottom: windowHeight / 2 - 100,
-//         right: windowWidth / 2 + 100,
-//       },
-//     }
-//     const cur = { value: null }
-//     Element.prototype.getBoundingClientRect = jest.fn(() => cur.value)
-//     Object.keys(rectMap).forEach(k => {
-//       cur.value = rectMap[k]
-//       const wrapper = mount(<Dropdown data={data} position="auto" />)
-//       document.write(wrapper.html())
-//       wrapper.find('button').simulate('click')
-//       expect(
-//         wrapper
-//           .find('ShineoutDropdown')
-//           .first()
-//           .childAt(0)
-//           .prop('className')
-//           .indexOf(k) >= 0
-//       ).toBeTruthy()
-//     })
-//   })
-// })
+  //   test('should auto set position while position is auto', () => {
+  //     window.innerWidth = 1024
+  //     window.innerHeight = 768
+  //     const windowHeight = docSize.height
+  //     const windowWidth = docSize.width
+  //     const rectMap = {
+  //       'top-left': {
+  //         bottom: windowHeight / 2 + 100,
+  //         right: windowWidth / 2 - 100,
+  //       },
+  //       'top-right': {
+  //         bottom: windowHeight / 2 + 100,
+  //         right: windowWidth / 2 + 100,
+  //       },
+  //       'bottom-left': {
+  //         bottom: windowHeight / 2 - 100,
+  //         right: windowWidth / 2 - 100,
+  //       },
+  //       'bottom-right': {
+  //         bottom: windowHeight / 2 - 100,
+  //         right: windowWidth / 2 + 100,
+  //       },
+  //     }
+  //     const cur = { value: null }
+  //     Element.prototype.getBoundingClientRect = jest.fn(() => cur.value)
+  //     Object.keys(rectMap).forEach(k => {
+  //       cur.value = rectMap[k]
+  //       const wrapper = mount(<Dropdown data={data} position="auto" />)
+  //       document.write(wrapper.html())
+  //       wrapper.find('button').simulate('click')
+  //       expect(
+  //         wrapper
+  //           .find('ShineoutDropdown')
+  //           .first()
+  //           .childAt(0)
+  //           .prop('className')
+  //           .indexOf(k) >= 0
+  //       ).toBeTruthy()
+  //     })
+  //   })
+})
 
 describe('Dropdown[Split]', () => {
   test('should split', () => {
