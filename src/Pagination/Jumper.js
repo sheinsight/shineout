@@ -22,7 +22,7 @@ class Jumper extends PureComponent {
   handleKeyDown(e) {
     if (e.keyCode === 13) {
       let current = parseInt(e.target.value, 10)
-      this.autoFocus = true;
+      this.autoFocus = true
 
       if (!Number.isFinite(current)) return
       if (current < 1) current = 1
@@ -54,6 +54,7 @@ class Jumper extends PureComponent {
           type="number"
           style={inputStyle}
           size={size}
+          delay={400}
         />
         {txt[1]}
       </div>
