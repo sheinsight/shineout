@@ -22,7 +22,7 @@ class Jumper extends PureComponent {
   handleKeyDown(e) {
     if (e.keyCode === 13) {
       let current = parseInt(e.target.value, 10)
-      this.autoFocus = true;
+      this.autoFocus = true
 
       if (!Number.isFinite(current)) return
       if (current < 1) current = 1
@@ -39,8 +39,24 @@ class Jumper extends PureComponent {
   }
 
   render() {
-    const { current, text, size } = this.props
-    const txt = text.jumper ? text.jumper.split('{input}') : []
+    const { current, text, size, isSimple } = this.props
+
+    let txt = text.jumper ? text.jumper.split('{input}') : []
+    const inputClassName = isSimple ? paginationClass('simple-input') : ''
+    if (isSimple) {
+      const spanClass = paginationClass('simple-span')
+      txt = [
+        [],
+        [
+          <span key="separator" className={spanClass}>
+            /
+          </span>,
+          <span key="pageMax" className={spanClass}>
+            {this.getMax()}
+          </span>,
+        ],
+      ]
+    }
 
     return (
       <div className={paginationClass('section')}>
@@ -54,6 +70,7 @@ class Jumper extends PureComponent {
           type="number"
           style={inputStyle}
           size={size}
+          className={inputClassName}
         />
         {txt[1]}
       </div>
@@ -68,6 +85,7 @@ Jumper.propTypes = {
   text: PropTypes.object,
   total: PropTypes.number.isRequired,
   size: PropTypes.string,
+  isSimple: PropTypes.bool,
 }
 
 export default Jumper

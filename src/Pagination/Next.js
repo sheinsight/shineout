@@ -4,10 +4,10 @@ import icons from '../icons'
 import Item from './Item'
 
 function Next(props) {
-  const { onChange, current, text, total, pageSize, disabled, size = '' } = props
+  const { onChange, current, text, total, pageSize, disabled, size = '', isSimple } = props
   const max = Math.ceil(total / pageSize)
   const next = current + 1
-  const className = text.next ? `no-border ${size}` : size
+  const className = text.next || isSimple ? `no-border ${size}` : size
   return (
     <Item className={className} page={next} disabled={disabled || next > max} onClick={onChange}>
       {text.next || icons.AngleRight}
@@ -23,6 +23,7 @@ Next.propTypes = {
   text: PropTypes.object,
   total: PropTypes.number.isRequired,
   size: PropTypes.string,
+  isSimple: PropTypes.bool,
 }
 
 Next.displayName = 'ShineoutPaginationNext'

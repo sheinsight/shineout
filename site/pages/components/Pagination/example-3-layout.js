@@ -9,16 +9,21 @@ import { Pagination } from 'shineout'
 
 const info = ({ total }) => `total ${total}`
 
-export default function() {
+export default function () {
   return (
-    <Pagination
-      total={128}
-      pageSize={50}
-      text={{
-        jumper: 'Go to {input}',
-      }}
-      onChange={(...args) => console.log(args)}
-      layout={['links', 'list', info, 'jumper']}
-    />
+    <>
+      <Pagination
+        total={128}
+        pageSize={50}
+        text={{
+          jumper: 'Go to {input}',
+        }}
+        onChange={(...args) => console.log(args)}
+        layout={['links', 'list', info, 'jumper']}
+      />
+      <div style={{ marginTop: '8px' }}>
+        <Pagination total={100} pageSize={20} layout={['simple']} onChange={(...args) => console.log(args)} />
+      </div>
+    </>
   )
 }
