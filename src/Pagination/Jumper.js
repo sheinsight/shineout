@@ -42,7 +42,6 @@ class Jumper extends PureComponent {
     const { current, text, size, isSimple } = this.props
 
     let txt = text.jumper ? text.jumper.split('{input}') : []
-    const inputClassName = isSimple ? paginationClass('simple-input') : ''
     if (isSimple) {
       const spanClass = paginationClass('simple-span')
       txt = [
@@ -70,7 +69,7 @@ class Jumper extends PureComponent {
           type="number"
           style={inputStyle}
           size={size}
-          className={inputClassName}
+          className={paginationClass(isSimple && 'simple-input')}
         />
         {txt[1]}
       </div>

@@ -79,8 +79,8 @@ const examples = [
   {
     name: '9-simple',
     title: locate(
-      'simple 模式 \n layout 设置为 simple；注意：simple 模式不与其他layout共存。',
-      'simple mode \n layout set to simple; Note: simple mode does not coexist with other layouts.'
+      'Simple 模式 \n layout 设置为 simple；注意：simple 模式不与其他layout共存。',
+      'Simple mode \n layout set to simple; Note: simple mode does not coexist with other layouts.'
     ),
     component: require('doc/pages/components/Pagination/example-9-simple.js').default,
     rawText: require('!raw-loader!doc/pages/components/Pagination/example-9-simple.js'),
