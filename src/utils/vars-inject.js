@@ -2708,7 +2708,7 @@ const injects = {
         attr: 'fontWeight',
         type: 'number',
         parser: parseInt,
-        desc: '子重',
+        desc: '字重',
       },
       {
         name: 'paddingHeaderHorizontal',
