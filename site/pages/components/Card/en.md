@@ -16,6 +16,7 @@
 | shadow | true \| false \| 'hover' | false | Whether to show the shadow.<br />'hover' - Display it when the mouse is over the element.<br />true - Always show<br />false - Never show |
 | style | object | - | Container element style |
 | id | any | none | Card.Accordion expand controlled key |
+| bordered | boolean | true | Whether to show border |
 
 ### Card.Header, Card.Body, Card.Footer
 

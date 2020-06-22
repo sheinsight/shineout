@@ -15,7 +15,7 @@ const cardStyle = {
 }
 const gray = { background: '#f7f7f7' }
 
-export default function() {
+export default function () {
   return (
     <div>
       <Card style={cardStyle}>

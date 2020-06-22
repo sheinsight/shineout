@@ -16,6 +16,7 @@
 | shadow | true \| false \| 'hover' | false | 是否显示阴影<br />'hover' - 鼠标移到元素上显示<br />true - 总是显示<br />false - 从不显示 |
 | style | object | 无 | 最外层扩展样式 |
 | id | any | 无 | 手风琴下控制展开的值 |
+| bordered | boolean | true | 是否显示border |
 
 <br />
 

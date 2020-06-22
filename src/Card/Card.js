@@ -53,11 +53,11 @@ class Card extends PureComponent {
   }
 
   render() {
-    const { collapsible } = this.props
+    const { collapsible, bordered } = this.props
     const collapsed = this.getCollapsed()
     const shadow = this.props.shadow === true ? 'shadow' : this.props.shadow
     const className = classnames(
-      cardClass('_', shadow, collapsible && 'collapsible', collapsed && 'collapsed'),
+      cardClass('_', shadow, collapsible && 'collapsible', collapsed && 'collapsed', !bordered && 'no-border'),
       this.props.className
     )
 
@@ -81,12 +81,14 @@ class Card extends PureComponent {
 Card.propTypes = {
   ...getProps(PropTypes),
   shadow: PropTypes.oneOf([true, false, 'hover']),
+  bordered: PropTypes.bool,
 }
 
 Card.defaultProps = {
   ...defaultProps,
   defaultCollapsed: true,
   collapsible: false,
+  bordered: true,
 }
 
 export default compose(

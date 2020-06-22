@@ -41,6 +41,7 @@
     padding: @panel-header-padding-vertical @panel-header-padding-horizontal;
     background-color: @card-header-bg;
     color: @card-header-color;
+    font-weight: @card-font-weight;
     &:after {
       bottom: 0;
     }
@@ -85,6 +86,7 @@
     flex: 1 1 auto;
     padding: @panel-body-padding-vertical @panel-body-padding-horizontal;
     position: relative;
+    font-weight: @card-font-weight;
 
     &:hover {
       .@{card-prefix}-foldup {
@@ -126,6 +128,7 @@
     padding: @panel-footer-padding-vertical @panel-footer-padding-horizontal;
     background-color: @card-footer-bg;
     color: @card-footer-color;
+    font-weight: @card-font-weight;
     &:after {
       top: 0;
     }
@@ -145,5 +148,16 @@
 
   & > &-footer {
     border-radius: 0 0 @card-inner-border-radius @card-inner-border-radius;
+  }
+}
+
+
+.@{card-prefix}.@{card-prefix}-no-border {
+  border: none;
+
+  .@{card-prefix}-header, .@{card-prefix}-footer {
+    &:after {
+      height: 0;
+    }
   }
 }

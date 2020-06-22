@@ -2703,6 +2703,14 @@ const injects = {
         desc: '文字大小',
       },
       {
+        name: 'fontWeight',
+        className: cardClass('_'),
+        attr: 'fontWeight',
+        type: 'number',
+        parser: parseInt,
+        desc: '子重',
+      },
+      {
         name: 'paddingHeaderHorizontal',
         className: cardClass('header'),
         attr: 'paddingLeft',
@@ -2842,6 +2850,14 @@ const injects = {
       setBodyProperty(
         {
           '--card-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set fontWeight(v) {
+      setBodyProperty(
+        {
+          '--card-font-weight': v,
         },
         v
       )
