@@ -34,6 +34,10 @@
     line-height: @pagination-small-width;
   }
 
+  &-small &-arrow {
+    padding-top: 1px;
+  }
+
   &-large &-item {
     min-width: @pagination-large-width;
     height: @pagination-large-width;
@@ -90,10 +94,6 @@
     &:focus {
       text-decoration: none;
     }
-  }
-
-  &-item.@{pagination-prefix}-small {
-    padding-top: 1px;
   }
 
   &-current[disabled] {

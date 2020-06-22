@@ -4,9 +4,9 @@ import icons from '../icons'
 import Item from './Item'
 
 function Prev(props) {
-  const { onChange, current, text, disabled, size = '', isSimple } = props
+  const { onChange, current, text, disabled, isSimple } = props
   const prev = current - 1
-  const className = text.prev || isSimple ? `no-border ${size}` : size
+  const className = text.prev || isSimple ? `no-border arrow` : 'arrow'
   return (
     <Item className={className} page={prev} disabled={disabled || prev < 1} onClick={onChange}>
       {text.prev || icons.AngleLeft}
@@ -19,7 +19,6 @@ Prev.propTypes = {
   disabled: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   text: PropTypes.object,
-  size: PropTypes.string,
   isSimple: PropTypes.bool,
 }
 
