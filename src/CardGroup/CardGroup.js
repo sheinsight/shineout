@@ -14,7 +14,7 @@ class CardGroup extends PureComponent {
     this.bindScroller = this.bindScroller.bind(this)
   }
 
-  get templateColumns() {
+  getTemplateColumns() {
     const { columns, cardWidth, cardMaxWidth } = this.props
     if (cardWidth === undefined && cardMaxWidth === undefined) {
       return `repeat(${columns}, 1fr)`
@@ -43,7 +43,7 @@ class CardGroup extends PureComponent {
       gridRowGap: gap,
       gridColumnGap: gap,
       ...other.gridStyle,
-      gridTemplateColumns: this.templateColumns,
+      gridTemplateColumns: this.getTemplateColumns(),
     }
     return (
       <Provider value={context}>
