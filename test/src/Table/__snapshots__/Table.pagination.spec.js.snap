@@ -122,7 +122,7 @@ Array [
       className="so-pagination-links so-pagination-section"
     >
       <a
-        className="so-pagination-item"
+        className="so-pagination-item so-pagination-arrow"
         disabled={true}
         onMouseDown={[Function]}
       >
@@ -166,7 +166,7 @@ Array [
         4
       </a>
       <a
-        className="so-pagination-item"
+        className="so-pagination-item so-pagination-arrow"
         disabled={false}
         onMouseDown={[Function]}
       >
