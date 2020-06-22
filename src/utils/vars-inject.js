@@ -2703,11 +2703,13 @@ const injects = {
         desc: '文字大小',
       },
       {
-        name: 'fontWeight',
-        className: cardClass('_'),
+        name: 'headerFontWeight',
+        className: cardClass('header'),
         attr: 'fontWeight',
         type: 'number',
         parser: parseInt,
+        max: 900,
+        min: 100,
         desc: '字重',
       },
       {
@@ -2854,10 +2856,10 @@ const injects = {
         v
       )
     },
-    set fontWeight(v) {
+    set headerFontWeight(v) {
       setBodyProperty(
         {
-          '--card-font-weight': v,
+          '--card-header-font-weight': v,
         },
         v
       )
@@ -3106,6 +3108,16 @@ const injects = {
         desc: '头部内边距',
       },
       {
+        name: 'headerFontWeight',
+        className: exposeClass('modal-card-header'),
+        attr: 'fontWeight',
+        type: 'number',
+        parser: parseInt,
+        max: 900,
+        min: 100,
+        desc: '头部字重',
+      },
+      {
         name: 'bodyPadding',
         className: exposeClass('modal-card-body'),
         attr: 'padding',
@@ -3309,6 +3321,14 @@ const injects = {
       setBodyProperty(
         {
           '--modal-header-padding': v,
+        },
+        v
+      )
+    },
+    set headerFontWeight(v) {
+      setBodyProperty(
+        {
+          '--modal-header-font-weight': v,
         },
         v
       )
