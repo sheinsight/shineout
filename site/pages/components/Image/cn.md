@@ -20,6 +20,7 @@
 | width | string \| number | '100%' | 图片宽度 | |
 | placeholder | ReactNode | '加载中' | 图片加载中占位内容 | |
 | container | string | - | 对特定元素进行懒加载判断的选择器, 如: '#id', '.class' | 1.4.2  |
+| error | ReactNode | 无 | 图片载入错误的文案 |  |
  
 ### Image.Group
 
