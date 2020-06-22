@@ -9,6 +9,7 @@ class F extends React.Component {
       value: {
         a: '1',
         input: true,
+        fuck: 'hello',
       },
       show: true,
     }

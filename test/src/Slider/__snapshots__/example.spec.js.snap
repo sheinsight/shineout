@@ -27,6 +27,50 @@ exports[`Snapshot test: Slider[site/pages/components/Slider/example-01-base.js] 
 </div>
 `;
 
+exports[`Snapshot test: Slider[site/pages/components/Slider/example-01-input.js] 1`] = `
+<div>
+  <div>
+    <div />
+    <div>
+      <div>
+        <div>
+          50
+        </div>
+        <div />
+        <div />
+      </div>
+    </div>
+    <div>
+      <div>
+        <span>
+          0
+        </span>
+      </div>
+      <div>
+        <span>
+          100
+        </span>
+      </div>
+    </div>
+  </div>
+  <label>
+    <input />
+    <a>
+      <svg>
+        <path />
+        <path />
+      </svg>
+    </a>
+    <a>
+      <svg>
+        <path />
+        <path />
+      </svg>
+    </a>
+  </label>
+</div>
+`;
+
 exports[`Snapshot test: Slider[site/pages/components/Slider/example-02-range.js] 1`] = `
 <div>
   <div />

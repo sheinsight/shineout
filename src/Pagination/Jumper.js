@@ -70,6 +70,7 @@ class Jumper extends PureComponent {
           style={inputStyle}
           size={size}
           className={paginationClass(isSimple && 'simple-input')}
+          delay={400}
         />
         {txt[1]}
       </div>
