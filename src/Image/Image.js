@@ -133,7 +133,7 @@ class Image extends PureComponent {
 
   renderImage() {
     const { status } = this.state
-    const { alt, src, title } = this.props
+    const { alt, src, title, error } = this.props
 
     switch (status) {
       case PLACEHOLDER:
@@ -145,7 +145,7 @@ class Image extends PureComponent {
       case ERROR:
         return (
           <div className={imageClass('inner', 'mask')}>
-            <div>{title || 'no found'}</div>
+            <div>{error || title || 'no found'}</div>
           </div>
         )
       default:
@@ -188,6 +188,7 @@ Image.propTypes = {
   fit: PropTypes.oneOf(['fill', 'fit', 'stretch', 'center']),
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   container: PropTypes.string,
+  error: PropTypes.node,
 }
 
 Image.defaultProps = {
