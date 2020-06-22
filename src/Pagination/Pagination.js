@@ -5,44 +5,40 @@ import { getProps, defaultProps } from '../utils/proptypes'
 import { paginationClass } from '../styles'
 import Links from './Links'
 import Jumper from './Jumper'
+import Simple from './Simple'
 import PageSizeList from './PageSizeList'
 
 class Pagination extends PureComponent {
   render() {
-    const {
-      align, layout, size, style,
-    } = this.props
+    const { align, layout, size, style } = this.props
 
-    const className = classnames(
-      paginationClass('_', size, align),
-      this.props.className,
-    )
+    const className = classnames(paginationClass('_', size, align), this.props.className)
 
     const sectionClassName = paginationClass('section')
 
     return (
       <div className={className} style={style}>
-        {
-          layout.map((section, i) => {
-            switch (section) {
-              case 'links':
-                return <Links key={section} {...this.props} />
-              case 'list':
-                return <PageSizeList key={section} {...this.props} />
-              case 'jumper':
-                return <Jumper key={section} {...this.props} />
-              default:
-                if (typeof section === 'function') {
-                  return (
-                    <div key={i} className={sectionClassName}>
-                      <span>{section(this.props)}</span>
-                    </div>
-                  )
-                }
-                return null
-            }
-         })
-       }
+        {layout.map((section, i) => {
+          switch (section) {
+            case 'links':
+              return <Links key={section} {...this.props} />
+            case 'list':
+              return <PageSizeList key={section} {...this.props} />
+            case 'jumper':
+              return <Jumper key={section} {...this.props} />
+            case 'simple':
+              return <Simple key={section} {...this.props} />
+            default:
+              if (typeof section === 'function') {
+                return (
+                  <div key={i} className={sectionClassName}>
+                    <span>{section(this.props)}</span>
+                  </div>
+                )
+              }
+              return null
+          }
+        })}
       </div>
     )
   }

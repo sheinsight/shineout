@@ -39,8 +39,23 @@ class Jumper extends PureComponent {
   }
 
   render() {
-    const { current, text, size } = this.props
-    const txt = text.jumper ? text.jumper.split('{input}') : []
+    const { current, text, size, isSimple } = this.props
+
+    let txt = text.jumper ? text.jumper.split('{input}') : []
+    if (isSimple) {
+      const spanClass = paginationClass('simple-span')
+      txt = [
+        [],
+        [
+          <span key="separator" className={spanClass}>
+            /
+          </span>,
+          <span key="pageMax" className={spanClass}>
+            {this.getMax()}
+          </span>,
+        ],
+      ]
+    }
 
     return (
       <div className={paginationClass('section')}>
@@ -54,6 +69,7 @@ class Jumper extends PureComponent {
           type="number"
           style={inputStyle}
           size={size}
+          className={paginationClass(isSimple && 'simple-input')}
           delay={400}
         />
         {txt[1]}
@@ -69,6 +85,7 @@ Jumper.propTypes = {
   text: PropTypes.object,
   total: PropTypes.number.isRequired,
   size: PropTypes.string,
+  isSimple: PropTypes.bool,
 }
 
 export default Jumper

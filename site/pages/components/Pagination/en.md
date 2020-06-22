@@ -10,7 +10,7 @@
 | current | number | - | Current page. |
 | defaultCurrent | number | 1 | Initial page number |
 | disabled | boolean | false | Disabled |
-| layout | string[] | \['links'] | The layout of child elements, options: <br />'links': page number<br />'simple': simple page number(Do not use both simple and links)<br />'list': page size selector<br />'jumper': jump to page number<br />function({ current, total, pageSize }): custom information |
+| layout | string[] | \['links'] | The layout of child elements, options: <br />'links': page number<br />'simple': simple page number(Do not use both simple and links)<br />'list': page size selector<br />'jumper': jump to page number<br />'simple': minimalist mode<br />function({ current, total, pageSize }): custom information |
 | onChange | (current: number, pageSize: number) => void | - | The callback function when current page or pageSize is changing<br />current: new page number<br />pageSize: number of each page |
 | pageSize | number | 10 | Number of each page |
 | pageSizeList | number[] | \[10, 20, 30, 50, 100] | The list of number of each page |
