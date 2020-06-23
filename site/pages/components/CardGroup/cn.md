@@ -10,7 +10,6 @@
 | style | object | 无 | 外层样式 |
 | height | number | 无 | 卡片组高度 |
 | cardWidth | number | 无 | 卡片最小宽度 |
-| cardMaxWidth | number | 无 | 卡片最大宽度 |
 | columns | number | 3 | 列数，设置 cardWidth 后该属性将失效 |
 | gridStyle | object | 无 | 卡片网格样式 |
 | gap | number | 16 | 卡片横向纵向间距，如果两个间距相互独立可以通过 gridStyle 调整 |

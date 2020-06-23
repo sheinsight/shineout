@@ -14,16 +14,6 @@ class CardGroup extends PureComponent {
     this.bindScroller = this.bindScroller.bind(this)
   }
 
-  getTemplateColumns() {
-    const { columns, cardWidth, cardMaxWidth } = this.props
-    if (cardWidth === undefined && cardMaxWidth === undefined) {
-      return `repeat(${columns}, 1fr)`
-    }
-    const min = cardWidth !== undefined ? `${cardWidth}px` : 'auto'
-    const max = cardMaxWidth !== undefined ? `${cardMaxWidth}px` : '1fr'
-    return `repeat(auto-fit, minmax(${min}, ${max}))`
-  }
-
   bindScroller(ref) {
     const { scroller } = this.state
     if (scroller || !ref) return
@@ -43,7 +33,8 @@ class CardGroup extends PureComponent {
       gridRowGap: gap,
       gridColumnGap: gap,
       ...other.gridStyle,
-      gridTemplateColumns: this.getTemplateColumns(),
+      gridTemplateColumns:
+        cardWidth !== undefined ? `repeat(auto-fill, minmax(${cardWidth}px, 1fr))` : `repeat(${columns}, 1fr)`,
     }
     return (
       <Provider value={context}>
@@ -82,7 +73,6 @@ CardGroup.propTypes = {
   className: PropTypes.string,
   height: PropTypes.number,
   cardWidth: PropTypes.number,
-  cardMaxWidth: PropTypes.number,
   columns: PropTypes.number,
   gridStyle: PropTypes.object,
   gap: PropTypes.number,
