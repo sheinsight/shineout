@@ -23,8 +23,8 @@ import {
 import { exposeClass } from '../styles/expose'
 
 const computedCache = {}
-function getProperty(name = '--btn-hover-darken') {
-  if (computedCache[name]) return computedCache[name]
+function getProperty(name = '--btn-hover-darken', cache = true) {
+  if (cache && computedCache[name]) return computedCache[name]
   computedCache[name] = getComputedStyle(document.body)
     .getPropertyValue(name)
     .trim()
@@ -3555,10 +3555,6 @@ const injects = {
     set type(v) {
       const o = {}
       if (v === 'outter') {
-        const fade50 = getProperty('--primary-color-fade-50')
-        o['--switch-checked-bg'] = fade50
-        o['--switch-indicator-checked-bg'] = getProperty('--primary-color')
-        o['--switch-checked-box-shadow'] = `0 1px 4px ${fade50}`
         o['--switch-indicator-padding-horizontal'] = `0px`
         o['--switch-indicator-padding-horizontal-negative'] = `0px`
         o['--switch-indicator-size'] = `24px`
@@ -3571,9 +3567,7 @@ const injects = {
         o['--switch-small-indicator-top'] = `-3px`
         o['--switch-large-indicator-size'] = `32px`
       } else if (v === 'inner') {
-        o['--switch-checked-bg'] = getProperty('--primary-color')
         o['--switch-indicator-checked-bg'] = `#fff`
-        o['--switch-checked-box-shadow'] = `0 1px 4px ${getProperty('--gray-500')}`
         o['--switch-indicator-padding-horizontal'] = `2px`
         o['--switch-indicator-padding-horizontal-negative'] = `-2px`
         o['--switch-indicator-size'] = `18px`
