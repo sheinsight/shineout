@@ -8,13 +8,46 @@ import { modalClass } from '../styles'
 import { Provider } from '../Scroll/context'
 import { Provider as ZProvider } from './context'
 
+function getOffset(node) {
+  const { left, top } = node.getBoundingClientRect()
+  const { clientWidth, clientHeight } = node
+  return {
+    top: top - clientHeight / 2,
+    left: left - clientWidth / 2,
+  }
+}
+function setTransformOrigin(node, value) {
+  const { style } = node
+  style.transformOrigin = value
+}
+
+let mousePosition = null
+const getClickPosition = e => {
+  mousePosition = {
+    x: e.clientX,
+    y: e.clientY,
+  }
+  setTimeout(() => {
+    mousePosition = null
+  }, 100)
+}
+
+document.documentElement.addEventListener('click', getClickPosition)
+
 export default class Panel extends PureComponent {
+  panel = null
+
   componentDidMount() {
+    this.updateOrigin()
     const { autoFocusButton, id } = this.props
     if (!autoFocusButton) return
     const el = document.querySelector(`#${id}-${autoFocusButton}`)
     if (!el) return
     el.focus()
+  }
+
+  componentDidUpdate() {
+    this.updateOrigin()
   }
 
   getStyle() {
@@ -35,6 +68,25 @@ export default class Panel extends PureComponent {
           },
       style || {}
     )
+  }
+
+  savePanel = node => {
+    this.panel = node
+  }
+
+  updateOrigin() {
+    const node = this.panel
+    setTransformOrigin(node, '')
+    if (node) {
+      if (mousePosition) {
+        const offset = getOffset(node)
+        const left = mousePosition.x - offset.left
+        const top = mousePosition.y - offset.top
+        setTransformOrigin(node, `${left}px ${top}px`)
+      } else {
+        setTransformOrigin(node, '')
+      }
+    }
   }
 
   // eslint-disable-next-line
@@ -74,6 +126,7 @@ export default class Panel extends PureComponent {
           <div key="mask" className={modalClass('mask')} onClick={maskCloseAble ? onClose : undefined} />
 
           <Card
+            forwardedRef={this.savePanel}
             moveable={moveable}
             resizable={resizable}
             key="card"
