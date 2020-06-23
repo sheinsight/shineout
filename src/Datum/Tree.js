@@ -204,7 +204,7 @@ export default class {
   }
 
   setData(data) {
-    const prevValue = this.getValue()
+    const prevValue = this.value || []
     this.setValue([])
     this.pathMap = new Map()
     this.dataMap = new Map()
@@ -214,8 +214,6 @@ export default class {
 
     this.initData(data, [])
     this.initValue()
-    prevValue.forEach(v => {
-      if (this.getDataById(v)) this.set(v, 1)
-    })
+    this.setValue(prevValue)
   }
 }
