@@ -85,7 +85,10 @@ export default curry(
         this.appended = true
         this.el = document.querySelector(`.${resizableClass(this.resizableId)}`)
         if (!this.el) return
-        this.size = this.el.getBoundingClientRect()
+        this.size = {
+          width: this.el.clientWidth,
+          height: this.el.clientHeight,
+        }
         this.handlers = new Map()
         ;['e', 's', 'se'].forEach(dir => {
           const handler = document.createElement('div')

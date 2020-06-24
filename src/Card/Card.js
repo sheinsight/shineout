@@ -38,6 +38,8 @@ class Card extends PureComponent {
 
   bindElement(el) {
     this.element = el
+    const { forwardedRef } = this.props
+    if (forwardedRef) forwardedRef(el)
   }
 
   handleCollapse() {
@@ -81,6 +83,7 @@ class Card extends PureComponent {
 Card.propTypes = {
   ...getProps(PropTypes),
   shadow: PropTypes.oneOf([true, false, 'hover']),
+  forwardedRef: PropTypes.func,
 }
 
 Card.defaultProps = {
