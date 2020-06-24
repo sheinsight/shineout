@@ -16,6 +16,7 @@ function getOffset(node) {
     left: left - clientWidth / 2,
   }
 }
+
 function setTransformOrigin(node, value) {
   const { style } = node
   style.transformOrigin = value

@@ -3,6 +3,7 @@
 @modal-prefix: ~'@{so-prefix}-modal';
 @card-prefix: ~'@{so-prefix}-card';
 @moveable-prefix: ~'@{so-prefix}-moveable';
+@animation-function: cubic-bezier(.78,.14,.15,.86)
 
 .@{modal-prefix} {
   position: fixed;
@@ -14,7 +15,7 @@
   height: 100%;
   text-align: center;
   opacity: 0;
-  transition: opacity 0.2s linear;
+  transition: opacity 0.3s @animation-function;
 
   &-panel {
     // max-width: 90%;
@@ -22,7 +23,7 @@
     text-align: left;
     margin: 0 auto;
     transform: scale(0);
-    transition: transform 0.2s linear;
+    transition: transform 0.3s @animation-function;
   }
 
   &-title {
