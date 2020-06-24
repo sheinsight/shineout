@@ -32,15 +32,6 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/CardGroup/example-2-width.js'),
   },
   {
-    name: '2-widthMax',
-    title: locate(
-      '限定最大宽度 \n 设置 cardMaxWidth 限定卡片最大宽度',
-      'Card Max Width \n set cardMaxWidth limited cardMaxWidth'
-    ),
-    component: require('doc/pages/components/CardGroup/example-2-widthMax.js').default,
-    rawText: require('!raw-loader!doc/pages/components/CardGroup/example-2-widthMax.js'),
-  },
-  {
     name: '3-lazyload',
     title: locate(
       '懒加载 \n 设置 Item 的 placeholder 后会开启懒加载 \n placeholder 必须要有一定的高度，否则懒加载无法有效果',
