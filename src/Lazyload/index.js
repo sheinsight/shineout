@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
+import { lazyloadClass } from '../styles'
 import { addStack, removeStack } from '../utils/lazyload'
 
 class Lazyload extends PureComponent {
@@ -8,7 +9,9 @@ class Lazyload extends PureComponent {
     super(props)
     this.state = { ready: false }
 
-    this.placeholderRef = (el) => { this.placeholder = el }
+    this.placeholderRef = el => {
+      this.placeholder = el
+    }
   }
 
   componentDidMount() {
@@ -30,7 +33,11 @@ class Lazyload extends PureComponent {
     const { children, placeholder } = this.props
 
     if (ready) return children
-    return <span ref={this.placeholderRef}>{placeholder}</span>
+    return (
+      <span ref={this.placeholderRef} className={lazyloadClass('_')}>
+        {placeholder}
+      </span>
+    )
   }
 }
 

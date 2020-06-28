@@ -6,7 +6,6 @@ import { cardGroupClass } from '../styles'
 import Lazyload from '../Lazyload'
 
 class Item extends React.Component {
-
   handleChange(value, _, checked) {
     const { onChange } = this.props
     if (onChange) onChange(checked, value)
@@ -40,6 +39,7 @@ Item.propTypes = {
   children: PropTypes.element,
   placeholder: PropTypes.element,
   onChange: PropTypes.func,
+  value: PropTypes.any,
   checked: PropTypes.oneOfType([PropTypes.oneOf([true, false, 'indeterminate']), PropTypes.func]),
 }
 
