@@ -19,12 +19,15 @@ class Carousel extends PureComponent {
     this.handleMouseIn = this.handleMouseIn.bind(this)
     this.handleMouseOut = this.handleMouseOut.bind(this)
     this.moveTo = this.moveTo.bind(this)
+  }
+
+  componentDidMount() {
     this.setNext(1)
   }
 
   setNext(next) {
     const { interval } = this.props
-    if (interval > 0) {
+    if (interval > 0 && this.count > 1) {
       if (this.$timeout) clearTimeout(this.$timeout)
       this.$timeout = setTimeout(() => {
         this.moveTo(next)
@@ -58,11 +61,7 @@ class Carousel extends PureComponent {
   renderItems() {
     const { current, pre } = this.state
     return Children.toArray(this.props.children).map((child, i) => (
-      <Item
-        key={i}
-        current={i === current}
-        pre={i === pre && pre !== current}
-      >
+      <Item key={i} current={i === current} pre={i === pre && pre !== current}>
         {child}
       </Item>
     ))
@@ -81,18 +80,10 @@ class Carousel extends PureComponent {
       return this.renderCustomIndicator()
     }
     const { current } = this.state
-    const className = carouselClass(
-      'indicator',
-      `indicator-${indicatorPosition}`,
-      `indicator-${indicatorType}`,
-    )
+    const className = carouselClass('indicator', `indicator-${indicatorPosition}`, `indicator-${indicatorType}`)
 
     const inds = range(this.count).map(i => (
-      <a
-        key={i}
-        onClick={this.moveTo.bind(this, i)}
-        className={carouselClass(current === i && 'indicator-active')}
-      >
+      <a key={i} onClick={this.moveTo.bind(this, i)} className={carouselClass(current === i && 'indicator-active')}>
         {indicatorType === 'number' ? i + 1 : ''}
       </a>
     ))
@@ -104,15 +95,12 @@ class Carousel extends PureComponent {
 
     const { animation, style } = this.props
     const { direction } = this.state
-    const className = classnames(
-      carouselClass('_', animation, direction),
-      this.props.className,
-    )
+    const className = classnames(carouselClass('_', animation, direction), this.props.className)
 
     return (
       <div className={className} style={style}>
-        { this.renderItems() }
-        { this.renderIndicator() }
+        {this.renderItems()}
+        {this.renderIndicator()}
       </div>
     )
   }
@@ -121,10 +109,7 @@ class Carousel extends PureComponent {
 Carousel.propTypes = {
   ...getProps(PropTypes, 'size', 'type'),
   animation: PropTypes.oneOf(['slide', 'slide-y', 'fade']),
-  children: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.element,
-  ]),
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.element]),
   indicatorPosition: PropTypes.oneOf(['left', 'center', 'right']),
   indicatorType: PropTypes.oneOfType([PropTypes.func, PropTypes.oneOf(['number', 'circle', 'line'])]),
   interval: PropTypes.number,
