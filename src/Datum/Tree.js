@@ -179,6 +179,9 @@ export default class {
     const ids = []
     data.forEach((d, i) => {
       const id = this.getKey(d, path[path.length - 1], i)
+      if (this.dataMap.get(id)) {
+        console.warn(`There is already a key "${id}" exists. The key must be unique.`)
+      }
       this.dataMap.set(id, d)
 
       let isDisabled = disabled
