@@ -39,6 +39,7 @@ import cardGroupLess from './cardGroup.less'
 import editableAreaLess from './editableArea.less'
 import moveableLess from './moveable.less'
 import resizableLess from './resizable.less'
+import lazyloadLess from './lazyload.less'
 
 export const alertClass = genaration(alertLess, 'alert')
 export const buttonClass = genaration(buttonLess, 'button')
@@ -78,3 +79,4 @@ export const cardGroupClass = genaration(cardGroupLess, 'card-group')
 export const editableAreaClass = genaration(editableAreaLess, 'editableArea')
 export const moveableClass = genaration(moveableLess, 'moveable')
 export const resizableClass = genaration(resizableLess, 'resizable')
+export const lazyloadClass = genaration(lazyloadLess, 'lazyload')

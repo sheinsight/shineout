@@ -45,7 +45,8 @@
 | onColumnResize | (newColumns: object[]) => void | none | columns resize callback |
 | size | 'small' \| 'normal' | 'normal' | size of table |
 | pagination | object | none | pagination of table |
-| innerScrollAttr | array | 无 | set inner scrollable element's attribute |
+| innerScrollAttr | string[] | 无 | set inner scrollable element's attribute |
+| expandKeys | any[] | none | controlled expand rows |
 
 ### TableColumn
 
