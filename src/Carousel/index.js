@@ -100,7 +100,7 @@ class Carousel extends PureComponent {
     return (
       <div className={className} style={style}>
         {this.renderItems()}
-        {this.renderIndicator()}
+        {this.count > 1 && this.renderIndicator()}
       </div>
     )
   }
