@@ -8,15 +8,6 @@ import { modalClass } from '../styles'
 import { Provider } from '../Scroll/context'
 import { Provider as ZProvider } from './context'
 
-function getOffset(node) {
-  const { left, top } = node.getBoundingClientRect()
-  const { clientWidth, clientHeight } = node
-  return {
-    top: top - clientHeight / 2,
-    left: left - clientWidth / 2,
-  }
-}
-
 function setTransformOrigin(node, value) {
   const { style } = node
   style.transformOrigin = value
@@ -33,7 +24,7 @@ const getClickPosition = e => {
   }, 100)
 }
 
-document.documentElement.addEventListener('click', getClickPosition)
+document.addEventListener('click', getClickPosition, true)
 
 export default class Panel extends PureComponent {
   panel = null
@@ -76,14 +67,16 @@ export default class Panel extends PureComponent {
   }
 
   updateOrigin() {
+    const { position } = this.props
+    if (position) return
     const node = this.panel
     setTransformOrigin(node, '')
     if (node) {
       if (mousePosition) {
-        const offset = getOffset(node)
-        const left = mousePosition.x - offset.left
-        const top = mousePosition.y - offset.top
-        setTransformOrigin(node, `${left}px ${top}px`)
+        const { left, top } = node.getBoundingClientRect()
+        const ol = mousePosition.x - left
+        const ot = mousePosition.y - top
+        setTransformOrigin(node, `${ol}px ${ot}px`)
       } else {
         setTransformOrigin(node, '')
       }
