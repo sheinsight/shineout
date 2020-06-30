@@ -64,7 +64,8 @@ class Scroll extends PureComponent {
 
   getWheelRect() {
     if (!this.wheelElement) return { width: 0, height: 0 }
-    let { width, height } = this.wheelElement.getBoundingClientRect()
+    let width = this.wheelElement.clientWidth
+    let height = this.wheelElement.clientHeight
 
     // display none
     if (width === 0 && height === 0) {

@@ -38,6 +38,7 @@ describe('Carousel[props]', () => {
       const wrapper = shallow(
         <Carousel indicatorPosition={position}>
           <div />
+          <div />
         </Carousel>
       )
       expect(wrapper.find(`.${SO_PREFIX}-carousel-indicator-${position}`).length).toBe(1)
@@ -49,6 +50,7 @@ describe('Carousel[props]', () => {
       const wrapper = shallow(
         <Carousel indicatorType={type}>
           <div />
+          <div />
         </Carousel>
       )
       expect(wrapper.find(`.${SO_PREFIX}-carousel-indicator-${type}`).length).toBe(1)
@@ -59,6 +61,7 @@ describe('Carousel[props]', () => {
     const defaultPosition = 'center'
     const wrapper = shallow(
       <Carousel>
+        <div />
         <div />
       </Carousel>
     )
