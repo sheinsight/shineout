@@ -3,7 +3,6 @@
 @modal-prefix: ~'@{so-prefix}-modal';
 @card-prefix: ~'@{so-prefix}-card';
 @moveable-prefix: ~'@{so-prefix}-moveable';
-@animation-function: cubic-bezier(.78,.14,.15,.86);
 
 .@{modal-prefix} {
   position: fixed;
@@ -15,15 +14,13 @@
   height: 100%;
   text-align: center;
   opacity: 0;
-  transition: opacity 0.3s @animation-function;
 
   &-panel {
     // max-width: 90%;
     padding: @modal-panel-padding;
     text-align: left;
     margin: 0 auto;
-    transform: scale(0);
-    transition: transform 0.3s @animation-function;
+
   }
 
   &-title {
@@ -49,11 +46,34 @@
     }
   }
 
+  &-position {
+    transition: opacity .3s @zoom-out;
+    .@{modal-prefix}-panel {
+      transition: transform .3s @zoom-out;
+    }
+  }
+
+  &-start {
+    .@{modal-prefix}-panel {
+      transform: scale(0.2);
+    }
+  }
+
+  &-end {
+    opacity: 0;
+    transition: opacity .3s @zoom-out;
+    .@{modal-prefix}-panel {
+      transform: scale(0.2);
+      transition: transform .3s @zoom-out;
+    }
+  }
+
   &-show {
     opacity: 1;
-
+    transition: opacity .3s @zoom-in;
     .@{modal-prefix}-panel {
-      transform: scale(1);
+      transition: transform .3s @zoom-in;
+      transform: scale(1) translate(0, 0);
     }
   }
 
