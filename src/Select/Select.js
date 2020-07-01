@@ -421,6 +421,7 @@ class Select extends PureComponent {
       renderUnmatched,
       showArrow,
       focusSelected,
+      compressedClassName,
     } = this.props
     const className = selectClass(
       'inner',
@@ -466,6 +467,7 @@ class Select extends PureComponent {
           compressed={compressed}
           showArrow={showArrow}
           focusSelected={focusSelected}
+          compressedClassName={compressedClassName}
         />
         {this.renderOptions()}
       </div>
@@ -505,6 +507,7 @@ Select.propTypes = {
   emptyAfterSelect: PropTypes.bool,
   showArrow: PropTypes.bool,
   focusSelected: PropTypes.bool,
+  compressedClassName: PropTypes.string,
 }
 
 Select.defaultProps = {

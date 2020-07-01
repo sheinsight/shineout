@@ -40,3 +40,4 @@
 | showHitDescendants | boolean | false | Whether to show the descendant nodes of the hit node after filtering |
 | focusSelected | boolean | true | selected value while click under onCreate or onFilter |
 | noCache | boolean | false | data cache, if data change asynchronously, better set true |
+| compressedClassName | string | none | compressed popover classname |
