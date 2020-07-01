@@ -40,3 +40,4 @@
 | showHitDescendants | boolean | false | 筛选后是否展示命中节点的后代节点 |
 | focusSelected | boolean | true | onCreate 或 onFilter 在单选情况下单击值后是否选中值 |
 | noCache | boolean | false | 是否开启数据缓存，如果数据存在动态更新的情况建议开启 |
+| compressedClassName | string | 无 | 多选合并展示弹出框的类名 |

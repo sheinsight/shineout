@@ -60,12 +60,13 @@ class Result extends PureComponent {
   }
 
   renderMore(list) {
-    const { datum, renderResult, renderUnmatched } = this.props
+    const { datum, renderResult, renderUnmatched, compressedClassName } = this.props
     const { more } = this.state
+    const className = classnames(selectClass('popover'), compressedClassName)
     return (
       <a tabIndex={-1} key="more" className={selectClass('item', 'item-compressed', more && 'item-more')}>
         <span>{`+${list.length - 1}`}</span>
-        <Popover visible={more} onVisibleChange={this.handelMore} className={selectClass('popover')}>
+        <Popover visible={more} onVisibleChange={this.handelMore} className={className}>
           <div className={selectClass('result')}>
             {list.map((d, i) => (
               <Item
@@ -235,6 +236,7 @@ Result.propTypes = {
   renderUnmatched: PropTypes.func,
   showArrow: PropTypes.bool,
   focusSelected: PropTypes.bool,
+  compressedClassName: PropTypes.string,
 }
 
 export default Result
