@@ -149,7 +149,8 @@ export default curry(Origin =>
           }
           return tryValue(formDatum.get(name), defaultValue)
         }
-        return value === undefined && !formDatum ? this.state.value : value
+        const hasValue = 'value' in this.props
+        return !hasValue && !formDatum ? this.state.value : value
       }
 
       getError() {
