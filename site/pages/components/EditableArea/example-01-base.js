@@ -8,6 +8,6 @@
 import React from 'react'
 import { EditableArea } from 'shineout'
 
-export default function() {
+export default function () {
   return <EditableArea placeholder="input something" style={{ width: 300 }} />
 }

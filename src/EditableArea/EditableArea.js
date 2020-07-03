@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import immer from 'immer'
 import classnames from 'classnames'
 import { getUidStr } from '../utils/uid'
 import absoluteList from '../List/AbsoluteList'
@@ -50,12 +49,13 @@ class EditableArea extends React.PureComponent {
     this.handleFocus = this.handleFocus.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleMousedown = this.handleMousedown.bind(this)
-    this.bindElement = this.bindElement.bind(this)
-    this.bindInput = this.bindInput.bind(this)
-    this.bindPlaceholder = this.bindPlaceholder.bind(this)
     this.handleMouseEnter = this.handleMouseEnter.bind(this)
     this.handleMouseLeave = this.handleMouseLeave.bind(this)
     this.onBlur = this.onBlur.bind(this)
+
+    this.bindContainer = this.bindElement.bind(this, 'container')
+    this.bindInput = this.bindElement.bind(this, 'input')
+    this.bindPlaceholder = this.bindElement.bind(this, 'placeholder')
   }
 
   componentDidMount() {
@@ -71,6 +71,10 @@ class EditableArea extends React.PureComponent {
   }
 
   componentWillUnmount() {
+    // clear ref
+    this.container = null
+    this.input = null
+    this.placeholder = null
     document.removeEventListener('mouseup', this.handleMousedown)
   }
 
@@ -96,16 +100,8 @@ class EditableArea extends React.PureComponent {
     return showTextarea ? formatPreTagValue(value) : formatShowValue(value)
   }
 
-  bindElement(el) {
-    this.container = el
-  }
-
-  bindInput(el) {
-    this.input = el
-  }
-
-  bindPlaceholder(el) {
-    this.placeholder = el
+  bindElement(type, el) {
+    this[type] = el
   }
 
   showClear() {
@@ -123,11 +119,7 @@ class EditableArea extends React.PureComponent {
     if (!height) {
       return
     }
-    this.setState(
-      immer(state => {
-        state.height = height
-      })
-    )
+    this.setState({ height })
   }
 
   handleFocus(e) {
@@ -151,9 +143,9 @@ class EditableArea extends React.PureComponent {
 
   handleToggle(show) {
     this.setState(
-      immer(state => {
-        state.showTextarea = show
-        state.showClear = false
+      () => ({
+        showTextarea: show,
+        showClear: false,
       }),
       this.handleResize
     )
@@ -164,27 +156,19 @@ class EditableArea extends React.PureComponent {
     const { onChange } = this.props
     if (onChange) onChange(value)
     this.setState(
-      immer(state => {
-        state.value = value
+      () => ({
+        value,
       }),
       this.handleResize
     )
   }
 
   handleMouseEnter() {
-    this.setState(
-      immer(state => {
-        state.showClear = true
-      })
-    )
+    this.setState({ showClear: true })
   }
 
   handleMouseLeave() {
-    this.setState(
-      immer(state => {
-        state.showClear = false
-      })
-    )
+    this.setState({ showClear: false })
   }
 
   renderItem() {
@@ -256,7 +240,7 @@ class EditableArea extends React.PureComponent {
       <div
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
         className={cls}
-        ref={this.bindElement}
+        ref={this.bindContainer}
         style={style}
         data-id={this.editableAreaId}
         onMouseEnter={this.handleMouseEnter}
