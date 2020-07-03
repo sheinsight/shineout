@@ -96,9 +96,10 @@ class FieldSet extends Component {
     this.updateWithValidate()
   }
 
-  handleChange(index, value) {
+  handleChange(index, value, update) {
     const { formDatum, name } = this.props
     formDatum.set(`${name}[${index}]`, value)
+    if (update) this.updateWithValidate()
   }
 
   render() {
