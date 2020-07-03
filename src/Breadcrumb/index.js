@@ -10,9 +10,10 @@ import Caret from '../icons/Caret'
 class Breadcrumb extends React.PureComponent {
   renderArray(data) {
     const first = data[0]
-    return [
-      <span key="first">{this.renderItem(first)}</span>,
-      <span key="down">
+    return (
+      <span>
+        {this.renderItem(first)}
+        <span className={breadcrumbClass('down')}>{<Caret />}</span>
         <Popover position="bottom">
           {data.slice(1).map((d, i) => (
             <div className={breadcrumbClass('dropdown-item')} key={i}>
@@ -20,9 +21,8 @@ class Breadcrumb extends React.PureComponent {
             </div>
           ))}
         </Popover>
-        <span className={breadcrumbClass('down')}>{<Caret />}</span>
-      </span>,
-    ]
+      </span>
+    )
   }
 
   renderItem(d) {
