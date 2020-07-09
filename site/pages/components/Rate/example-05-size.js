@@ -15,7 +15,9 @@ export default function() {
   return (
     <div>
       <StarRate size={14} />
+      <br />
       <StarRate size={20} />
+      <br />
       <StarRate size={40} />
     </div>
   )
