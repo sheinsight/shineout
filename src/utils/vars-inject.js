@@ -805,6 +805,13 @@ const injects = {
         min: 0,
         desc: '未选中边框宽度',
       },
+      {
+        name: 'radioTextColor',
+        className: checkinputClass('checkinput-radio-wrap'),
+        attr: 'color',
+        type: 'color',
+        desc: '文字颜色',
+      },
     ],
     set size(v) {
       setBodyProperty(
@@ -834,6 +841,14 @@ const injects = {
       setBodyProperty(
         {
           '--radio-border-uncheck-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set radioTextColor(v) {
+      setBodyProperty(
+        {
+          '--radio-text-color': v,
         },
         v
       )
@@ -1554,6 +1569,20 @@ const injects = {
         type: 'color',
         desc: '固定列渐变色结束颜色',
       },
+      {
+        name: 'tableEvenBgc',
+        className: exposeClass('table-even'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '偶数行背景颜色',
+      },
+      {
+        name: 'tableOddBgc',
+        className: exposeClass('table-odd'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '奇数行背景颜色',
+      },
     ],
     set scrollRatio(v) {
       configSet('scrollRatio', v)
@@ -1704,6 +1733,22 @@ const injects = {
       setBodyProperty(
         {
           '--table-fixed-end-color': v,
+        },
+        v
+      )
+    },
+    set tableEvenBgc(v) {
+      setBodyProperty(
+        {
+          '--table-even-td-bgc': v,
+        },
+        v
+      )
+    },
+    set tableOddBgc(v) {
+      setBodyProperty(
+        {
+          '--table-odd-td-bgc': v,
         },
         v
       )
@@ -3496,6 +3541,13 @@ const injects = {
     },
     conf: [
       {
+        name: 'treeTriangleColor',
+        className: exposeClass('tree-default-icon'),
+        attr: 'borderLeftColor',
+        type: 'color',
+        desc: '三角按钮样式',
+      },
+      {
         name: 'levelIndent',
         className: exposeClass('tree-indent'),
         attr: 'width',
@@ -3525,6 +3577,14 @@ const injects = {
       setBodyProperty(
         {
           '--tree-node-margin-bottom': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set treeTriangleColor(v) {
+      setBodyProperty(
+        {
+          '--tree-indicator-color': v,
         },
         v
       )
