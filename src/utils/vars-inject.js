@@ -438,6 +438,13 @@ const injects = {
         className: buttonClass('disabled'),
         desc: '禁用按钮文字颜色',
       },
+      {
+        name: 'buttonDefaultTextColor',
+        attr: 'color',
+        type: 'color',
+        className: buttonClass('default'),
+        desc: 'default样式下文字颜色',
+      },
     ],
     set fontSizeBase(v) {
       setBodyProperty(
@@ -576,6 +583,14 @@ const injects = {
         v
       )
     },
+    set buttonDefaultTextColor(v) {
+      setBodyProperty(
+        {
+          '--button-default-text-color': v,
+        },
+        v
+      )
+    },
   },
   dropdown: {
     info: {
@@ -654,6 +669,14 @@ const injects = {
         type: ['start', 'center', 'end'],
         desc: '标签对齐方式',
       },
+      {
+        name: 'formTipFontSize',
+        className: exposeClass('form-tip'),
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+        desc: 'form提示信息字体大小',
+      },
     ],
     set itemMarginBottom(v) {
       setBodyProperty(
@@ -683,6 +706,14 @@ const injects = {
       setBodyProperty(
         {
           '--form-item-label-align': v,
+        },
+        v
+      )
+    },
+    set formTipFontSize(v) {
+      setBodyProperty(
+        {
+          '--form-tip-font-size': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -807,10 +838,61 @@ const injects = {
       },
       {
         name: 'radioTextColor',
-        className: checkinputClass('checkinput-radio-wrap'),
+        className: checkinputClass('radio-wrap'),
         attr: 'color',
         type: 'color',
         desc: '文字颜色',
+      },
+      {
+        name: 'radioBtnGroupActiveColor',
+        className: exposeClass('radio-group-active'),
+        attr: 'color',
+        type: 'color',
+        desc: 'radio按钮样式选中字体颜色',
+      },
+      {
+        name: 'radioBtnGroupActiveBgc',
+        className: exposeClass('radio-group-active'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'radio按钮样式选中背景颜色',
+      },
+      {
+        name: 'radioBtnGroupActiveBorderColor',
+        className: exposeClass('radio-group-active'),
+        attr: 'borderColor',
+        type: 'color',
+        desc: 'radio按钮样式选中边框颜色',
+      },
+      {
+        name: 'radioBtnGroupColor',
+        className: exposeClass('radio-group-default'),
+        attr: 'color',
+        type: 'color',
+        desc: 'radio按钮样式字体颜色',
+      },
+      {
+        name: 'radioBtnGroupBgc',
+        className: exposeClass('radio-group-default'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'radio按钮样式背景颜色',
+      },
+      {
+        name: 'radioBtnGroupBorderColor',
+        className: exposeClass('radio-group-default'),
+        attr: 'borderColor',
+        type: 'color',
+        desc: 'radio按钮样式边框颜色',
+      },
+      {
+        name: 'radioGroupBorderRadius',
+        className: exposeClass('radio-group-default'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+        min: 3,
+        desc: 'radio按钮样式边框圆角',
       },
     ],
     set size(v) {
@@ -849,6 +931,62 @@ const injects = {
       setBodyProperty(
         {
           '--radio-text-color': v,
+        },
+        v
+      )
+    },
+    set radioBtnGroupColor(v) {
+      setBodyProperty(
+        {
+          '--radio-button-group-color': v,
+        },
+        v
+      )
+    },
+    set radioBtnGroupBgc(v) {
+      setBodyProperty(
+        {
+          '--radio-button-group-bgc': v,
+        },
+        v
+      )
+    },
+    set radioBtnGroupBorderColor(v) {
+      setBodyProperty(
+        {
+          '--radio-button-group-border-color': v,
+        },
+        v
+      )
+    },
+    set radioBtnGroupActiveColor(v) {
+      setBodyProperty(
+        {
+          '--radio-button-group-active-color': v,
+        },
+        v
+      )
+    },
+    set radioBtnGroupActiveBgc(v) {
+      setBodyProperty(
+        {
+          '--radio-button-group-active-bgc': v,
+        },
+        v
+      )
+    },
+    set radioBtnGroupActiveBorderColor(v) {
+      setBodyProperty(
+        {
+          '--radio-button-group-active-border-color': v,
+        },
+        v
+      )
+    },
+    set radioGroupBorderRadius(v) {
+      setBodyProperty(
+        {
+          '--radio-button-group-border-radius': `${parseInt(v, 10)}px`,
         },
         v
       )

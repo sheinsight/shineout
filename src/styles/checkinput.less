@@ -78,7 +78,7 @@
       box-sizing: border-box;
       .user-select(none);
       .button-size(@btn-padding-y; @btn-padding-x; @button-font-size-base; @line-height-base; @btn-border-radius-base);
-      .button-variant(@btn-default-color; @btn-default-bg; @btn-default-border; 'default' ; @btn-default-border);
+      .button-variant(@button-default-text-color; @btn-default-bg; @btn-default-border; 'default' ; @btn-default-border);
       border-radius: 0px;
       & > .@{checkinput-prefix}-indicator, & > input {
         display: none;
@@ -99,6 +99,10 @@
         }
       }
 
+      &.@{checkinput-prefix}-radio {
+        .button-variant(@radio-button-group-color; @radio-button-group-bgc; @radio-button-group-border-color; 'default' ; @radio-button-group-border-color);
+      }
+
       &.@{checkinput-prefix}-checked {
         &:not(.@{checkinput-prefix}-disabled) {
           z-index: 1;
@@ -108,17 +112,26 @@
           background: @btn-primary-bg;
         }
       }
+
+      &.@{checkinput-prefix}-checked.@{checkinput-prefix}-radio {
+        .button-variant(@radio-button-group-active-color; @radio-button-group-active-bgc; @radio-button-group-active-border-color; 'primary');
+        &:before {
+          background: @radio-button-group-active-bgc;
+        }
+      }
+
       &:first-child {
-        border-top-left-radius: @btn-border-radius-base;
-        border-bottom-left-radius: @btn-border-radius-base;
+        border-top-left-radius: @radio-button-group-border-radius;
+        border-bottom-left-radius: @radio-button-group-border-radius;
       }
       &:last-child {
-        border-top-right-radius: @btn-border-radius-base;
-        border-bottom-right-radius: @btn-border-radius-base;
+        border-top-right-radius: @radio-button-group-border-radius;
+        border-bottom-right-radius: @radio-button-group-border-radius;
       }
     }
     &.@{checkinput-prefix}-outline {
-      .@{checkinput-prefix}-checked {
+      // adjust weight
+      .@{checkinput-prefix}.@{checkinput-prefix}-checked {
         border-color: @colors-primary;
         background: transparent;
         color: @colors-primary;
