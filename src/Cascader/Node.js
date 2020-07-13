@@ -66,12 +66,13 @@ class Node extends PureComponent {
     const disabled = this.checkDisabled()
     const children = data[childrenKey]
     const hasChildren = children && children.length > 0
+    const mayChildren = loader && !loading && children === undefined
     const className = cascaderClass(
       'node',
       active && 'active',
       disabled && 'disabled',
       hasChildren && 'has-children',
-      loader && !loading && children === undefined && 'may-be-children'
+      mayChildren && 'may-be-children'
     )
 
     const style = {}
@@ -97,7 +98,7 @@ class Node extends PureComponent {
 
         {this.renderContent()}
         {loading && children === undefined && <Spin className={cascaderClass('loading')} size={10} name="ring" />}
-        {hasChildren && caret}
+        {(hasChildren || mayChildren) && caret}
       </div>
     )
   }
