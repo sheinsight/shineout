@@ -229,6 +229,7 @@ exports[`Snapshot test: Rate[site/pages/components/Rate/example-05-size.js] 1`] 
       <span />
     </div>
   </div>
+  <br />
   <div>
     <div>
       <span>
@@ -276,6 +277,7 @@ exports[`Snapshot test: Rate[site/pages/components/Rate/example-05-size.js] 1`] 
       <span />
     </div>
   </div>
+  <br />
   <div>
     <div>
       <span>
