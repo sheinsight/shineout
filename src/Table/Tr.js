@@ -208,7 +208,7 @@ class Tr extends Component {
       }
     }
 
-    let className = tableClass('normal', striped && index % 2 === 1 ? 'even' : 'odd')
+    let className = tableClass('normal', striped && (index % 2 === 1 ? 'even' : 'odd'))
     if (rowClassName) {
       className = classnames(className, rowClassName(rowData, index))
     }
