@@ -806,7 +806,7 @@ const injects = {
         desc: '未选中边框宽度',
       },
       {
-        name: 'radioTextColor',
+        name: 'color',
         className: checkinputClass('checkinput-radio-wrap'),
         attr: 'color',
         type: 'color',
@@ -845,7 +845,7 @@ const injects = {
         v
       )
     },
-    set radioTextColor(v) {
+    set color(v) {
       setBodyProperty(
         {
           '--radio-text-color': v,
@@ -3545,7 +3545,7 @@ const injects = {
         className: exposeClass('tree-default-icon'),
         attr: 'borderLeftColor',
         type: 'color',
-        desc: '三角按钮样式',
+        desc: '三角按钮颜色',
       },
       {
         name: 'levelIndent',
