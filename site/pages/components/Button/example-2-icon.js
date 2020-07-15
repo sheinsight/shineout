@@ -8,20 +8,20 @@ import React from 'react'
 import { Button } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
-export default function() {
+export default function () {
   return (
     <div>
       <Button type="primary">
-        <FontAwesome name="home" />
+        <FontAwesome name="home" style={{ marginRight: 4 }} />
         left
       </Button>
       <Button type="primary">
         right
-        <FontAwesome name="home" />
+        <FontAwesome name="home" style={{ marginLeft: 4 }} />
       </Button>
       <Button type="primary">
         ce
-        <FontAwesome name="home" />
+        <FontAwesome name="home" style={{ margin: '0 4px' }} />
         ter
       </Button>
     </div>

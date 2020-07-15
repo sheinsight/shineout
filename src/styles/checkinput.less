@@ -3,6 +3,7 @@
 
 @checkinput-prefix: ~'@{so-prefix}-checkinput';
 @switch-transition: all 0.36s cubic-bezier(.78, .14, .15, .86);
+@checkinput-text-padding-x: 8px;
 
 .@{checkinput-prefix} {
   @keyname: ~'@{checkinput-prefix}-focus';
@@ -247,7 +248,7 @@
     vertical-align: middle;
 
     & + span {
-      padding: 0 @form-item-padding-x;
+      padding: 0 @checkinput-text-padding-x;
       vertical-align: middle;
     }
 
