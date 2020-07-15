@@ -7,6 +7,6 @@
 import React from 'react'
 import { Textarea } from 'shineout'
 
-export default function() {
+export default function () {
   return <Textarea rows={6} placeholder="input something" />
 }

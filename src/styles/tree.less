@@ -2,6 +2,8 @@
 @import './themes/@{so-theme}.less';
 
 @tree-prefix: ~'@{so-prefix}-tree';
+@tree-line-value: 2px;
+@tree-transparent-value: 3px;
 
 .@{tree-prefix} {
   position: relative;
@@ -35,8 +37,8 @@
         bottom: 0;
         left: 5px;
         width: 1px;
-        background: linear-gradient(to bottom, @tree-line-color, @tree-line-color 1px, transparent 1px, transparent);
-        background-size: 100% 2px;
+        background: linear-gradient(to bottom, @tree-line-color, @tree-line-color @tree-line-value, transparent @tree-transparent-value, transparent);
+        background-size: 100% @tree-line-value * @tree-transparent-value;
         content: ' ';
       }
 
@@ -46,8 +48,8 @@
         left: 6px;
         width: 11px;
         height: 1px;
-        background: linear-gradient(to right, @tree-line-color, @tree-line-color 1px, transparent 1px, transparent);
-        background-size: 2px 100%;
+        background: linear-gradient(to right, @tree-line-color, @tree-line-color @tree-line-value, transparent @tree-transparent-value, transparent);
+        background-size: @tree-line-value * @tree-transparent-value 100%;
         content: ' ';
       }
 

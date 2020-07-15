@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-export default function(Origin) {
+export default function (Origin) {
   class Toggle extends PureComponent {
     constructor(props) {
       super(props)

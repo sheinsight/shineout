@@ -256,7 +256,7 @@
     width: @checkbox-size + 2;
     height: @checkbox-size + 2;
     border: solid @checkbox-border-width @checkbox-border-color;
-    border-radius: @checkbox-border-radius;
+    border-radius: @checkbox-indicator-border-radius;
     vertical-align: middle;
 
     & + span {
@@ -269,6 +269,12 @@
       z-index: 10;
       display: block;
       content: ' ';
+    }
+  }
+
+  i&-indicator&-checkbox {
+    & + span {
+      padding: 0 @checkbox-text-padding-x;
     }
   }
 
