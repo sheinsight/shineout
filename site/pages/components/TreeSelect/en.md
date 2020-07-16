@@ -30,3 +30,4 @@
 | childrenKey | string | 'children' | the key of the children data name | 
 | defaultExpandAll | boolean | false | default expand all node |
 | showHitDescendants | boolean | false | Whether to show the descendant nodes of the hit node after filtering |
+| renderUnmatched | (data: any) => ReactNode | none | render unmatched value |
