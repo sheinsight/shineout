@@ -122,7 +122,7 @@ export default curry(
             error && 'invalid',
             popover && error && 'focus'
           ),
-          buttonClass(options.isGroup && 'group'),
+          buttonClass(options.isGroup && 'group', options.from === 'input' && options.isGroup && 'from-input-group'),
           typeof options.className === 'function' ? options.className(this.props) : options.className,
           this.props.className
         )
