@@ -3541,11 +3541,11 @@ const injects = {
     },
     conf: [
       {
-        name: 'treeTriangleColor',
+        name: 'treeIndicatorColor',
         className: exposeClass('tree-default-icon'),
         attr: 'borderLeftColor',
         type: 'color',
-        desc: '三角按钮颜色',
+        desc: '三角/+-颜色',
       },
       {
         name: 'levelIndent',
@@ -3581,7 +3581,7 @@ const injects = {
         v
       )
     },
-    set treeTriangleColor(v) {
+    set treeIndicatorColor(v) {
       setBodyProperty(
         {
           '--tree-indicator-color': v,
