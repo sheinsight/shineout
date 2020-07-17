@@ -43,7 +43,7 @@
 
   &-inner {
     width: 100%;
-    padding: @padding-base-vertical @padding-base-horizontal+12 @padding-base-vertical @padding-base-horizontal;
+    padding: @padding-base-vertical @datepicker-padding-right @padding-base-vertical @padding-base-horizontal;
     outline: none;
   }
 
@@ -66,11 +66,18 @@
       right: 0;
       width: 14px;
       height: 14px;
-      margin: -9px -16px 0 0;
+      margin: -9px -18px 0 0;
       font-size: 14px;
 
       path {
+        transition: all .2s;
         fill: @gray-500;
+      }
+    }
+
+    .@{datepicker-prefix}-close:hover {
+      path {
+        fill: @gray-700;
       }
     }
 

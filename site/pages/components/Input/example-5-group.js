@@ -10,7 +10,7 @@ import FontAwesome from '../Icon/FontAwesome'
 
 const style = { width: 300, marginBottom: 12 }
 
-export default function() {
+export default function () {
   return (
     <div>
       <Input.Group style={style}>
@@ -22,7 +22,9 @@ export default function() {
 
       <Input.Group style={style}>
         <Input placeholder="search text" />
-        <FontAwesome name="search" />
+        <Button text>
+          <FontAwesome name="search" />
+        </Button>
       </Input.Group>
 
       <Input.Group style={style}>

@@ -213,6 +213,9 @@
 
 @dropdown-columns-padding: var(--dropdown-columns-padding, 0);
 
+@dropdown-options-hover-bgc: var(--dropdown-options-hover-bgc, @dropdown-link-hover-bg);
+@dropdown-options-hover-color: var(--dropdown-options-hover-color, @dropdown-link-hover-color);
+
 @select-result-padding-vertical-value: 0;
 @select-result-padding-vertical: var(--select-result-padding-vertical, @select-result-padding-vertical-value);
 
@@ -472,17 +475,17 @@
 @modal-title-color-value: rgba(0, 0, 0, 0.85);
 @modal-title-color: var(--modal-title-color, @modal-title-color-value);
 
-@modal-close-icon-color-value: #000;
+@modal-close-icon-color-value: @gray-500-value;
 @modal-close-icon-color: var(--modal-close-icon-color, @modal-close-icon-color-value);
 
-@modal-close-icon-hover-color-value: #000;
+@modal-close-icon-hover-color-value: @gray-800-value;
 @modal-close-icon-hover-color: var(--modal-close-icon-hover-color, @modal-close-icon-hover-color-value);
 
 @modal-panel-padding-value: 0;
 @modal-panel-padding: var(--modal-panel-padding, @modal-panel-padding-value);
 
 @modal-font-size: var(--modal-font-size, inherit);
-@modal-divider-height: var(--modal-divider-height, 1px);
+@modal-divider-height: var(--modal-divider-height, 0);
 @modal-divider-width: var(--modal-divider-width, 100%);
 @modal-border-width: var(--modal-border-width, 1px);
 @modal-border-color: var(--modal-border-color, @panel-default-border);
@@ -492,10 +495,10 @@
 @modal-footer-bg: var(--modal-footer-bg, #fff);
 @modal-header-color: var(--modal-header-color, @card-color-value);
 @modal-footer-color: var(--modal-footer-color, @card-color-value);
-@modal-icon-body-padding: var(--modal-icon-body-padding, 40px 40px 20px 70px);
+@modal-icon-body-padding: var(--modal-icon-body-padding, 24px 24px 24px 56px);
 @modal-divider-color: var(--modal-divider-color, @panel-inner-border);
-@modal-icon-top: var(--modal-icon-top, 40px);
-@modal-icon-left: var(--modal-icon-left, 32px);
+@modal-icon-top: var(--modal-icon-top, 24px);
+@modal-icon-left: var(--modal-icon-left, 24px);
 @modal-title-font: var(--modal-title-font, inherit);
 
 @popover-arrow-outer-color-value: @gray-300-value;

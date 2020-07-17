@@ -4,6 +4,9 @@
 @card-prefix: ~'@{so-prefix}-card';
 @moveable-prefix: ~'@{so-prefix}-moveable';
 
+@modal-close-icon-container: 16px;
+@modal-close-icon-svg: 12px;
+
 .@{modal-prefix} {
   position: fixed;
   z-index: @zindex-modal;
@@ -31,10 +34,10 @@
   }
 
   & &-body {
-    padding: 40px 40px 20px 70px;
+    padding: @modal-icon-body-padding;
 
     .@{modal-prefix}-title {
-      margin-bottom: 8px;
+      margin-bottom: 16px;
     }
 
     .@{modal-prefix}-icon {
@@ -150,8 +153,8 @@
     top: @modal-close-top-margin;
     right: @modal-close-right-margin;
     display: block;
-    width: 10px;
-    height: 10px;
+    width: @modal-close-icon-container;
+    height: @modal-close-icon-container;
     padding: 0;
     margin-top: @modal-panel-padding;
     margin-right: @modal-panel-padding;
@@ -161,8 +164,11 @@
     }
 
     > svg {
-      transform: scale(1.2);
+      width: @modal-close-icon-svg;
+      height: @modal-close-icon-svg;
+      margin-left: 2px;
       fill: @modal-close-icon-color;
+      transition: all 0.2s;
     }
   }
 

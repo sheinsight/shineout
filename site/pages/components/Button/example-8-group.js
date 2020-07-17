@@ -29,13 +29,13 @@ export default function () {
 
       <Button.Group type="primary">
         <Button>
-          <FontAwesome name="angle-left" style={{ marginRight: 4 }} />
+          <FontAwesome name="chevron-left" style={{ marginRight: 4 }} />
           Left
         </Button>
         <Button>Center</Button>
         <Button>
           Right
-          <FontAwesome name="angle-right" style={{ marginLeft: 4 }} />
+          <FontAwesome name="chevron-right" style={{ marginLeft: 4 }} />
         </Button>
       </Button.Group>
 
