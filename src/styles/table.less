@@ -4,6 +4,7 @@
 @table-prefix: ~'@{so-prefix}-table';
 @table-sorter-width: 18px;
 @checkbox-width: 48px;
+@table-expand-size: 15px;
 
 .@{table-prefix} {
   border-radius: @table-border-radius-top @table-border-radius-top 0 0;
@@ -378,8 +379,8 @@
   &-icon-expand-sub {
     position: relative;
     display: block;
-    width: 15px;
-    height: 15px;
+    width: @table-expand-size;
+    height: @table-expand-size;
     margin: 2px 0;
     border: solid 1px @gray-600;
     background: #fff;
