@@ -16,6 +16,7 @@ export default Origin =>
       noCache: PropTypes.bool,
       expanded: PropTypes.arrayOf(PropTypes.string),
       showHitDescendants: PropTypes.bool,
+      renderUnmatched: PropTypes.func,
     }
 
     static defaultProps = {
@@ -38,8 +39,11 @@ export default Origin =>
     }
 
     getResultByValues() {
-      const { datum, noCache } = this.props
-      const value = datum.getValue() || []
+      const { datum, noCache, renderUnmatched } = this.props
+      let value = datum.getValue() || []
+      if (renderUnmatched) {
+        value = value.concat([].concat(this.props.value).filter(v => v && value.indexOf(v) === -1))
+      }
       const result = []
       value.forEach(v => {
         let res = noCache ? undefined : this.resultCache.get(v)

@@ -13,9 +13,6 @@ import { getUidStr } from '../utils/uid'
 import absoluteComsumer from '../Table/context'
 import Caret from '../icons/Caret'
 
-const FadeList = List('fade')
-const AbsoluteList = absoluteList(({ focus, ...other }) => <FadeList show={focus} {...other} />)
-
 const positionMap = {
   'left-top': 'left-top',
   'left-bottom': 'left-bottom',
@@ -51,6 +48,7 @@ class Dropdown extends PureComponent {
     this.handleMouseLeave = this.handleToggle.bind(this, false)
 
     this.renderList = this.renderList.bind(this)
+    this.bindList()
   }
 
   componentWillUnmount() {
@@ -78,6 +76,12 @@ class Dropdown extends PureComponent {
 
   bindElement(el) {
     this.element = el
+  }
+
+  bindList() {
+    const { animation } = this.props
+    const FadeList = List('fade', animation ? 'fast' : 0)
+    this.DropdownList = absoluteList(({ focus, ...other }) => <FadeList show={focus} {...other} />)
   }
 
   toggleDocumentEvent(bind) {
@@ -164,9 +168,9 @@ class Dropdown extends PureComponent {
   renderList(data, placeholder, position) {
     const { width, onClick, columns, renderItem, absolute } = this.props
     if (!Array.isArray(data) || data.length === 0) return null
-
+    const { DropdownList } = this
     return [
-      <AbsoluteList
+      <DropdownList
         absolute={absolute}
         parentElement={this.element}
         position={position}
@@ -211,7 +215,7 @@ class Dropdown extends PureComponent {
             />
           )
         })}
-      </AbsoluteList>,
+      </DropdownList>,
 
       this.renderButton(placeholder),
     ]
@@ -248,6 +252,7 @@ Dropdown.propTypes = {
   position: PropTypes.string,
   trigger: PropTypes.oneOf(['click', 'hover']),
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  animation: PropTypes.bool,
 }
 
 Dropdown.defaultProps = {
@@ -256,6 +261,7 @@ Dropdown.defaultProps = {
   data: [],
   position: 'bottom-left',
   trigger: 'click',
+  animation: true,
 }
 
 Dropdown.displayName = 'ShineoutDropdown'

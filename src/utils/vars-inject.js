@@ -837,8 +837,8 @@ const injects = {
         desc: '未选中边框宽度',
       },
       {
-        name: 'radioTextColor',
-        className: checkinputClass('radio-wrap'),
+        name: 'color',
+        className: exposeClass('radio'),
         attr: 'color',
         type: 'color',
         desc: '文字颜色',
@@ -927,66 +927,10 @@ const injects = {
         v
       )
     },
-    set radioTextColor(v) {
+    set color(v) {
       setBodyProperty(
         {
           '--radio-text-color': v,
-        },
-        v
-      )
-    },
-    set radioBtnGroupColor(v) {
-      setBodyProperty(
-        {
-          '--radio-button-group-color': v,
-        },
-        v
-      )
-    },
-    set radioBtnGroupBgc(v) {
-      setBodyProperty(
-        {
-          '--radio-button-group-bgc': v,
-        },
-        v
-      )
-    },
-    set radioBtnGroupBorderColor(v) {
-      setBodyProperty(
-        {
-          '--radio-button-group-border-color': v,
-        },
-        v
-      )
-    },
-    set radioBtnGroupActiveColor(v) {
-      setBodyProperty(
-        {
-          '--radio-button-group-active-color': v,
-        },
-        v
-      )
-    },
-    set radioBtnGroupActiveBgc(v) {
-      setBodyProperty(
-        {
-          '--radio-button-group-active-bgc': v,
-        },
-        v
-      )
-    },
-    set radioBtnGroupActiveBorderColor(v) {
-      setBodyProperty(
-        {
-          '--radio-button-group-active-border-color': v,
-        },
-        v
-      )
-    },
-    set radioGroupBorderRadius(v) {
-      setBodyProperty(
-        {
-          '--radio-button-group-border-radius': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -3679,11 +3623,11 @@ const injects = {
     },
     conf: [
       {
-        name: 'treeTriangleColor',
+        name: 'treeIndicatorColor',
         className: exposeClass('tree-default-icon'),
         attr: 'borderLeftColor',
         type: 'color',
-        desc: '三角按钮样式',
+        desc: '三角/+-颜色',
       },
       {
         name: 'levelIndent',
@@ -3719,7 +3663,7 @@ const injects = {
         v
       )
     },
-    set treeTriangleColor(v) {
+    set treeIndicatorColor(v) {
       setBodyProperty(
         {
           '--tree-indicator-color': v,

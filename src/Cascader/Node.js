@@ -5,6 +5,8 @@ import Checkbox from '../Checkbox'
 import Spin from '../Spin'
 import { cascaderClass } from '../styles'
 import Caret from '../icons/Caret'
+import { getParent } from '../utils/dom/element'
+import { checkinputClass } from '../styles'
 
 const checkBoxStyle = { marginRight: 8, marginTop: -1, verticalAlign: 'top' }
 
@@ -19,6 +21,7 @@ class Node extends PureComponent {
     this.handleClick = this.handleClick.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handlePathChange = this.handlePathChange.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
   }
 
   checkDisabled() {
@@ -54,6 +57,13 @@ class Node extends PureComponent {
     onChange(datum.getValue(), datum.getDataById(id))
   }
 
+  handleSelect(e) {
+    const { datum, id } = this.props
+    if (getParent(e.target, `.${checkinputClass('_')}`)) return
+    const checked = datum.getChecked(id)
+    this.handleChange(null, !checked)
+  }
+
   renderContent() {
     const { id, active, data, renderItem } = this.props
     const render = typeof renderItem === 'function' ? renderItem : d => d[renderItem]
@@ -66,12 +76,13 @@ class Node extends PureComponent {
     const disabled = this.checkDisabled()
     const children = data[childrenKey]
     const hasChildren = children && children.length > 0
+    const mayChildren = loader && !loading && children === undefined
     const className = cascaderClass(
       'node',
       active && 'active',
       disabled && 'disabled',
       hasChildren && 'has-children',
-      loader && !loading && children === undefined && 'may-be-children'
+      mayChildren && 'may-be-children'
     )
 
     const style = {}
@@ -81,7 +92,10 @@ class Node extends PureComponent {
       events.onClick = this.handleClick
       style.cursor = 'pointer'
     }
-    if (expandTrigger === 'hover' || expandTrigger === 'hover-only') events.onMouseEnter = this.handlePathChange
+    if (expandTrigger === 'hover' || expandTrigger === 'hover-only') {
+      events.onMouseEnter = this.handlePathChange
+      if (multiple) events.onClick = this.handleSelect
+    }
     const caret = <span className={cascaderClass('caret')}>{<Caret />}</span>
 
     return (
@@ -97,7 +111,7 @@ class Node extends PureComponent {
 
         {this.renderContent()}
         {loading && children === undefined && <Spin className={cascaderClass('loading')} size={10} name="ring" />}
-        {hasChildren && caret}
+        {(hasChildren || mayChildren) && caret}
       </div>
     )
   }
