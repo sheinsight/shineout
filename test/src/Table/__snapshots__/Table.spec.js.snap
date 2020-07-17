@@ -95,7 +95,7 @@ exports[`Table[Border&striped] should render border & striped 1`] = `
       </colgroup>
       <tbody>
         <tr
-          className="so-table-normal"
+          className="so-table-normal so-table-odd"
           onClick={[Function]}
         >
           <td
@@ -133,7 +133,7 @@ exports[`Table[Border&striped] should render border & striped 1`] = `
           </td>
         </tr>
         <tr
-          className="so-table-normal"
+          className="so-table-normal so-table-odd"
           onClick={[Function]}
         >
           <td

@@ -74,9 +74,7 @@ class SimpleTable extends PureComponent {
         colgroup.push(width)
       }
     }
-    setTimeout(() => {
-      this.setState({ colgroup, resize: false })
-    })
+    this.setState({ colgroup, resize: false })
   }
 
   handleScroll({ currentTarget }) {
@@ -119,6 +117,7 @@ class SimpleTable extends PureComponent {
     const empty = data.length === 0
     const headerStyle = {}
     if (!empty) headerStyle.overflowY = scrollAble ? 'scroll' : 'hidden'
+
     return [
       <div
         key="head"

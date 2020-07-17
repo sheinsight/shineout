@@ -103,6 +103,7 @@
 @checkbox-border-width: var(--checkbox-border-width, @checkbox-border-width-value);
 @checkinput-color: var(--checkinput-color, @gray-900);
 
+
 @radio-width-value: @checkbox-size + 2;
 @radio-width: var(--radio-width, @radio-width-value);
 
@@ -114,6 +115,8 @@
 
 @radio-border-uncheck-width-value: @radio-border-width-value;
 @radio-border-uncheck-width: var(--radio-border-uncheck-width, @radio-border-uncheck-width-value);
+
+@radio-text-color: var(--radio-text-color, @checkinput-color);
 
 @button-disabled-bg-value: #f5f5f5;
 @button-disabled-bg: var(--button-disabled-bg, @button-disabled-bg-value);
@@ -178,6 +181,9 @@
 @table-body-bg: var(--table-body-bg, @table-bg);
 @table-header-cell-padding: var(--table-header-cell-padding, @table-condensed-cell-padding);
 @table-small-cell-padding: var(--table-small-cell-padding, @table-header-cell-padding);
+
+@table-even-td-bgc: var(--table-even-td-bgc, @table-bg-accent);
+@table-odd-td-bgc: var(--table-odd-td-bgc, #fff);
 
 @tooltip-bg-value: #000;
 @tooltip-bg: var(--tooltip-bg, @tooltip-bg-value);
@@ -542,6 +548,8 @@
 
 @tree-node-margin-bottom-value: 4px;
 @tree-node-margin-bottom: var(--tree-node-margin-bottom, @tree-node-margin-bottom-value);
+
+@tree-indicator-color: var(--tree-indicator-color, @gray-600);
 
 @switch-uncheck-bg: var(--switch-unchecked-bg, @gray-400-value);
 

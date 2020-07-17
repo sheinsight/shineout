@@ -1,7 +1,7 @@
 import List from './List'
 import hidable from '../hoc/hidable'
 
-export default function (type, duration, display) {
+export default function(type, duration, display) {
   switch (duration) {
     case 'fast':
       duration = 240
@@ -10,7 +10,7 @@ export default function (type, duration, display) {
       duration = 480
       break
     default:
-      duration = 360
+      if (typeof duration !== 'number') duration = 360
       break
   }
 
