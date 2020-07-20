@@ -100,8 +100,7 @@ export default function (type) {
           checked === true && 'checked',
           checked === 'indeterminate' && 'indeterminate',
           isSwitch && 'switch',
-          type,
-          `${type}-wrap`,
+          `${type}-container`,
           {
             large: size === 'large',
             small: size === 'small',

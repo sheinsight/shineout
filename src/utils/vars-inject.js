@@ -935,6 +935,62 @@ const injects = {
         v
       )
     },
+    set radioBtnGroupColor(v) {
+      setBodyProperty(
+        {
+          '--radio-button-group-color': v,
+        },
+        v
+      )
+    },
+    set radioBtnGroupBgc(v) {
+      setBodyProperty(
+        {
+          '--radio-button-group-bgc': v,
+        },
+        v
+      )
+    },
+    set radioBtnGroupBorderColor(v) {
+      setBodyProperty(
+        {
+          '--radio-button-group-border-color': v,
+        },
+        v
+      )
+    },
+    set radioBtnGroupActiveColor(v) {
+      setBodyProperty(
+        {
+          '--radio-button-group-active-color': v,
+        },
+        v
+      )
+    },
+    set radioBtnGroupActiveBgc(v) {
+      setBodyProperty(
+        {
+          '--radio-button-group-active-bgc': v,
+        },
+        v
+      )
+    },
+    set radioBtnGroupActiveBorderColor(v) {
+      setBodyProperty(
+        {
+          '--radio-button-group-active-border-color': v,
+        },
+        v
+      )
+    },
+    set radioGroupBorderRadius(v) {
+      setBodyProperty(
+        {
+          '--radio-button-group-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
   },
   input: {
     info: {
