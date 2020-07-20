@@ -107,6 +107,10 @@
         &:before {
           background: @btn-primary-bg;
         }
+
+        .@{checkinput-prefix}-radio + span {
+          color: @btn-primary-color;
+        }
       }
       &:first-child {
         border-top-left-radius: @btn-border-radius-base;
@@ -127,6 +131,10 @@
         &:hover, &:active, &:focus {
           border-color: @colors-primary;
           background: transparent;
+          color: @colors-primary;
+        }
+
+        .@{checkinput-prefix}-radio + span {
           color: @colors-primary;
         }
       }
