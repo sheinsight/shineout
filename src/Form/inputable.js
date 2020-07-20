@@ -149,7 +149,7 @@ export default curry(Origin =>
           }
           return tryValue(formDatum.get(name), defaultValue)
         }
-        const hasValue = 'value' in this.props
+        const hasValue = 'value' in this.props || 'checked' in this.props
         return !hasValue && !formDatum ? this.state.value : value
       }
 
