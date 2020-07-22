@@ -90,7 +90,7 @@ class Editable extends React.PureComponent {
 
   renderTextarea() {
     const { showTextarea, value } = this.state
-    const { delay, placeholder } = this.props
+    const { delay, placeholder, maxHeight } = this.props
     if (!showTextarea) return null
     const that = this
     defer(() => {
@@ -109,6 +109,7 @@ class Editable extends React.PureComponent {
           onBlur={this.onBlur}
           onFocus={this.textareaFocus}
           placeholder={placeholder}
+          maxHeight={maxHeight}
         />
       </div>
     )
@@ -172,6 +173,7 @@ Editable.propTypes = {
   disabled: PropTypes.bool,
   clearable: PropTypes.bool,
   getPopupContainer: PropTypes.func,
+  maxHeight: PropTypes.oneOf([PropTypes.number, PropTypes.string]),
 }
 
 export default Editable
