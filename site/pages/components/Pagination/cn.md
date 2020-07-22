@@ -10,7 +10,7 @@
 | current | number | 无 | 当前页，如果传入值，组件为受控组件，必须通过onChange来处理回调 |
 | defaultCurrent | number | 1 | 初始页码 |
 | disabled | boolean | false | 禁用 |
-| layout | string[] | \['links'] | 子组件布局，可选值为:<br />'links': 页码<br />'simple': 简约页码(和links不要同时使用)<br />'list': 每页数量选择<br />'jumper': 跳转页码<br />function({ current, total, pageSize }): 匿名函数，用来信息展示 |
+| layout | string[] | \['links'] | 子组件布局，可选值为:<br />'links': 页码<br />'simple': 简约页码(和links不要同时使用)<br />'list': 每页数量选择<br />'jumper': 跳转页码<br />'simple': 极简模式<br />function({ current, total, pageSize }): 匿名函数，用来信息展示 |
 | onChange | (current: number, pageSize: number) => void | 无 | 页码或每页显示数量改变时回调<br />current: 新的页码<br />pageSize: 每页数量 |
 | pageSize | number | 10 | 每页数量 |
 | pageSizeList | number[] | \[10, 20, 30, 50, 100] | 每页数量可选列表 |

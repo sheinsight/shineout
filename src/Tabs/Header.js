@@ -7,6 +7,7 @@ import icons from '../icons'
 import Tab from './Tab'
 import { tabsClass } from '../styles'
 
+const REDUNDANT = 30
 class Header extends PureComponent {
   constructor(props) {
     super(props)
@@ -62,20 +63,21 @@ class Header extends PureComponent {
     this.setState({ attribute })
   }
 
-  moveToCenter(tabRect) {
+  moveToCenter(tabRect, last, first) {
     const { isVertical } = this.props
     const positions = isVertical ? ['top', 'bottom'] : ['left', 'right']
     const rect = this.innerElement.getBoundingClientRect()
     if (tabRect[positions[0]] < rect[positions[0]]) {
       this.setState(
         immer(draft => {
-          draft.attribute -= rect[positions[0]] - tabRect[positions[0]]
+          draft.attribute -= rect[positions[0]] - tabRect[positions[0]] + (first ? 0 : REDUNDANT)
         })
       )
     } else if (tabRect[positions[1]] > rect[positions[1]]) {
       this.setState(
         immer(draft => {
-          draft.attribute += tabRect[positions[1]] - rect[positions[1]] - (draft.attribute === 0 ? -30 : 0)
+          draft.attribute +=
+            tabRect[positions[1]] - rect[positions[1]] - (draft.attribute === 0 ? -30 : 0) + (last ? 0 : REDUNDANT)
         })
       )
     }
@@ -137,6 +139,7 @@ class Header extends PureComponent {
     const { attribute, overflow } = this.state
 
     const position = isVertical ? 'Top' : 'Left'
+    const showBorder = shape !== 'bordered' && shape !== 'dash'
 
     return (
       <div onClick={this.handleCollapse} className={tabsClass('header')} style={tabBarStyle || {}}>
@@ -159,7 +162,7 @@ class Header extends PureComponent {
           )}
         </div>
         {tabBarExtraContent && <div className={tabsClass('extra')}>{tabBarExtraContent}</div>}
-        {shape !== 'bordered' && <div style={{ borderColor: border }} className={tabsClass('hr')} />}
+        {showBorder && <div style={{ borderColor: border }} className={tabsClass('hr')} />}
       </div>
     )
   }

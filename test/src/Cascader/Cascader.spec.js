@@ -91,7 +91,7 @@ describe('Cascader[multiple]', () => {
   })
   test('should return correct value while use diff mode', () => {
     const modes = [0, 1, 2, 3]
-    const expectsChose = [['0', '0-0', '0-1'], ['0', '0-0', '0-1'], ['0-0', '0-1'], ['0']]
+    const expectsChose = [['0-0', '0-1', '0'], ['0-0', '0-1', '0'], ['0-0', '0-1'], ['0']]
     modes.forEach((mode, index) => {
       const wrapper = mount(<Cascader data={userData} keygen="id" mode={mode} renderItem={n => `${n.text}`} />)
       const datum = wrapper.find('Result').prop('datum')

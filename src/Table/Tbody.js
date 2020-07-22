@@ -148,9 +148,17 @@ class Tbody extends PureComponent {
   }
 
   renderTr(row, i) {
-    const { columns, keygen, data, sorter, index, expandKeys, ...other } = this.props
+    const { columns, keygen, data, sorter, index, expandKeys, resize, colgroup, ...other } = this.props
 
     let key = getKey(data[i], keygen, index + i)
+    if (this.keys[key]) {
+      const converted = `${key}-${index + i}`
+      console.warn(
+        `Tr has same key: (${key}). Already converted with (${converted}), Please check the 'keygen' property.`
+      )
+      key = converted
+    }
+    this.keys[key] = true
     const originKey = key
     if (sorter && sorter.order) {
       key = `${key}-${sorter.index}-${sorter.order}`
@@ -225,6 +233,7 @@ class Tbody extends PureComponent {
       ignoreBorderBottom(rows)
       ignoreBorderRight(rows)
     }
+    this.keys = {}
     return <tbody ref={this.bindBody}>{this.renderTrs(rows)}</tbody>
   }
 }

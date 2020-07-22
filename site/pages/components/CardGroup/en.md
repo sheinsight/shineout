@@ -9,7 +9,7 @@
 | className | string | none | extend className |
 | style | object | none | wrapper style |
 | height | number | none | group height |
-| cardWidth | number | none | card min height |
+| cardWidth | number | none | card min width |
 | columns | number | 3 | items count each row, not work while cardWidth setted |
 | gridStyle | object | none | grid style |
 | gap | number | 16 | gap width horizontal and vertical, if diff shoud set gridStyle |

@@ -2,6 +2,8 @@
 @import './themes/@{so-theme}.less';
 
 @message-prefix: ~'@{so-prefix}-message';
+@alert-prefix: ~'@{so-prefix}-alert';
+@message-animation-duration: 0.2s;
 
 .@{message-prefix} {
   position: fixed;
@@ -44,12 +46,32 @@
 
   &-item {
     display: flex;
+    transition: all @message-animation-duration;
+    z-index: 1;
+  }
+
+  &-item-show-top, 
+  &-item-show-middle {
+    animation-name: MoveUpShow;
+    animation-duration: @message-animation-duration;
+  }
+
+  &-item-dismissed-bottom-right {
+    opacity: 0;
+    z-index: -1;
+    transform: translateX(100%);
+  }
+
+  &-item-dismissed-bottom-left {
+    opacity: 0;
+    z-index: -1;
+    transform: translateX(-100%);
   }
 
   &-msg {
     display: inline-flex;
     margin: 0 auto 20px;
-    border-color: @alert-default-border;
+    border-color: @message-border-color;
     background: @alert-default-bg;
     box-shadow: @message-box-shadow;
     color: @message-text-color;
@@ -64,7 +86,7 @@
     .@{message-prefix}-msg {
       min-width: 340px;
       padding: 20px;
-      animation: @keyframes-right-in 0.216s ease-out;
+      animation: @keyframes-right-in @message-animation-duration ease-out;
     }
   }
 
@@ -87,7 +109,7 @@
     .@{message-prefix}-msg {
       min-width: 340px;
       padding: 20px;
-      animation: @keyframes-right-in 0.216s ease-out;
+      animation: @keyframes-right-in @message-animation-duration ease-out;
     }
   }
 
@@ -98,7 +120,23 @@
     .@{message-prefix}-msg {
       min-width: 340px;
       padding: 20px;
-      animation: @keyframes-left-in 0.216s ease-out;
+      animation: @keyframes-left-in @message-animation-duration ease-out;
     }
   }
+  
+  .@{alert-prefix}-close svg path {
+    fill: @message-close-color;
+  }
+
+  @keyframes MoveUpShow {
+    0% {
+      transform: translateY(-25px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
 }

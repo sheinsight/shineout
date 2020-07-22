@@ -175,7 +175,7 @@
       transform: translateY(-50%);
       cursor: pointer;
 
-      .close(12px, @gray-400);
+      .close(12px, @input-clear-bg-color);
     }
   }
 
@@ -488,7 +488,7 @@
   textarea {
     position: relative;
     z-index: 2;
-    line-height: 1.4;
+    line-height: var(--common-line-height, 1.42857143);
     resize: none;
   }
 

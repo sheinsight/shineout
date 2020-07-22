@@ -24,7 +24,7 @@ describe('Datum.js[Tree]', () => {
       mode: 1,
     })
     datum.set('0', 1)
-    expect(datum.getValue()).toEqual(['0', '0,0', '0,1'])
+    expect(datum.getValue()).toEqual(['0,0', '0,1', '0'])
   })
   test('should only select parent while mode = 3', () => {
     const value = [
@@ -97,7 +97,7 @@ describe('Datum.js[Tree]', () => {
     const test = [
       {
         set: ['0,0', '0,1'],
-        res: ['0,0', '0', '0,1'],
+        res: ['0,0', '0,1', '0'],
       },
       {
         set: ['0,0'],

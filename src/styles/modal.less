@@ -2,6 +2,7 @@
 @import './themes/@{so-theme}.less';
 @modal-prefix: ~'@{so-prefix}-modal';
 @card-prefix: ~'@{so-prefix}-card';
+@moveable-prefix: ~'@{so-prefix}-moveable';
 
 .@{modal-prefix} {
   position: fixed;
@@ -13,21 +14,20 @@
   height: 100%;
   text-align: center;
   opacity: 0;
-  transition: opacity 0.2s linear;
 
   &-panel {
     // max-width: 90%;
     padding: @modal-panel-padding;
     text-align: left;
     margin: 0 auto;
-    transform: translate(0, -100px);
-    transition: transform 0.2s linear;
+
   }
 
   &-title {
     color: @modal-title-color;
     font-size: @modal-title-font-size;
     font-weight: 500;
+    font-family: @modal-title-font;
   }
 
   & &-body {
@@ -39,18 +39,41 @@
 
     .@{modal-prefix}-icon {
       position: absolute;
-      top: 40px;
-      left: 32px;
+      top: @modal-icon-top;
+      left: @modal-icon-left;
       width: @modal-icon-size;
       height: @modal-icon-size;
     }
   }
 
+  &-position {
+    transition: opacity .3s @zoom-out;
+    .@{modal-prefix}-panel {
+      transition: transform .3s @zoom-out;
+    }
+  }
+
+  &-start {
+    .@{modal-prefix}-panel {
+      transform: scale(0.2);
+    }
+  }
+
+  &-end {
+    opacity: 0;
+    transition: opacity .3s @zoom-out;
+    .@{modal-prefix}-panel {
+      transform: scale(0.2);
+      transition: transform .3s @zoom-out;
+    }
+  }
+
   &-show {
     opacity: 1;
-
+    transition: opacity .3s @zoom-in;
     .@{modal-prefix}-panel {
-      transform: translate(0, 0);
+      transition: transform .3s @zoom-in;
+      transform: scale(1) translate(0, 0);
     }
   }
 
@@ -105,7 +128,7 @@
   }
 
   &-error &-icon path {
-    fill: @colors-error;
+    fill: @colors-danger;
   }
 
   &-info,
@@ -139,6 +162,12 @@
 
     > svg {
       fill: @modal-close-icon-color;
+    }
+  }
+
+  .@{moveable-prefix} {
+    .@{modal-prefix}-title {
+      cursor: move;
     }
   }
 
@@ -179,6 +208,7 @@
       &:after {
         height: @modal-divider-height;
         width: @modal-divider-width;
+        background: @modal-divider-color;
       }
     }
   }

@@ -1,16 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import createReactContext from 'create-react-context'
 import { PureComponent } from '../component'
 import { getUidStr } from '../utils/uid'
 import { hidableClass } from '../styles'
+
+const context = createReactContext()
+
+export const consumer = Origin => props => (
+  <context.Consumer>{value => <Origin {...value} {...props} />}</context.Consumer>
+)
 
 /**
  * @param {*} Component
  * @param {*} duration
  * @param {*} type - fade, collapse, tranlate
  */
-export default function (Component, { type = ['fade'], duration = 360, display = 'block' }) {
+export default function(Component, { type = ['fade'], duration = 360, display = 'block' }) {
   const hasCollapse = type.indexOf('collapse') >= 0
   const needTransform = type.indexOf('scale-y') >= 0
 
@@ -21,7 +28,7 @@ export default function (Component, { type = ['fade'], duration = 360, display =
       this.state = {
         show: props.show,
       }
-
+      this.height = 0
       this.id = `__hidable_${getUidStr()}__`
     }
 
@@ -30,8 +37,8 @@ export default function (Component, { type = ['fade'], duration = 360, display =
       const el = this.getElement()
       if (!el) return
 
-      this.height = el.offsetHeight
       if (this.props.show) return
+      if (hasCollapse) this.height = el.offsetHeight
 
       el.style.display = 'none'
       if (hasCollapse) {
@@ -100,14 +107,13 @@ export default function (Component, { type = ['fade'], duration = 360, display =
       const className = classnames(
         hidableClass('_', ...type, animation, this.state.show && 'show'),
         this.props.className,
-        this.id,
+        this.id
       )
-
+      const provider = { visible: this.state.show }
       return (
-        <Component
-          {...this.props}
-          className={className}
-        />
+        <context.Provider value={provider}>
+          <Component {...this.props} className={className} />
+        </context.Provider>
       )
     }
   }

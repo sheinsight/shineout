@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { PureComponent } from '../component'
+import { Component } from '../component'
 import { getPosition } from '../utils/dom/popover'
 import { isFunc } from '../utils/is'
 import { getParent } from '../utils/dom/element'
@@ -10,10 +10,11 @@ import { popoverClass } from '../styles'
 import { docSize } from '../utils/dom/document'
 import isDOMElement from '../utils/dom/isDOMElement'
 import { consumer, Provider } from './context'
+import { Provider as AbsoluteProvider } from '../Table/context'
 
 const emptyEvent = e => e.stopPropagation()
 
-class Panel extends PureComponent {
+class Panel extends Component {
   constructor(props) {
     super(props)
 
@@ -39,6 +40,12 @@ class Panel extends PureComponent {
     this.container.appendChild(this.element)
 
     if (this.props.visible) this.forceUpdate()
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.visible === true || nextProps.visible === true) return true
+    if (this.state.show === true || nextState.show === true) return true
+    return false
   }
 
   componentDidUpdate(prevProps) {
@@ -202,8 +209,7 @@ class Panel extends PureComponent {
   render() {
     const { background, border, children, type, visible, showArrow, parentClose } = this.props
     const show = typeof visible === 'boolean' ? visible : this.state.show
-
-    if ((!this.isRendered && !show) || !this.parentElement) {
+    if ((!this.isRendered && !show) || !this.parentElement || !children) {
       return <noscript ref={this.placeholderRef} />
     }
 
@@ -212,13 +218,13 @@ class Panel extends PureComponent {
     const colorStyle = { background, borderColor: border }
     const innerStyle = Object.assign({}, this.props.style, { background })
     const position = this.getPositionStr()
-    this.element.className = classnames(popoverClass('_', position, type, parentClose && 'inner'), this.props.className)
     // eslint-disable-next-line
     const style = this.element.style
     this.updatePosition(position)
     style.display = show ? 'block' : 'none'
     if (background) style.background = background
     if (border) style.borderColor = border
+    this.element.className = classnames(popoverClass('_', position, type, parentClose && 'inner'), this.props.className)
     let childrened = isFunc(children) ? children(this.handleHide) : children
     if (typeof childrened === 'string') childrened = <span className={popoverClass('text')}>{childrened}</span>
     const provider = {
@@ -229,7 +235,9 @@ class Panel extends PureComponent {
       [
         showArrow && <div key="arrow" className={popoverClass('arrow')} style={colorStyle} />,
         <div key="content" onClick={emptyEvent} className={popoverClass('content')} style={innerStyle}>
-          <Provider value={provider}>{childrened}</Provider>
+          <AbsoluteProvider value={false}>
+            <Provider value={provider}>{childrened}</Provider>
+          </AbsoluteProvider>
         </div>,
       ],
       this.element
@@ -265,7 +273,7 @@ Panel.defaultProps = {
   background: '',
   trigger: 'hover',
   mouseEnterDelay: 0,
-  mouseLeaveDelay: 500,
+  mouseLeaveDelay: 0,
   priorityDirection: 'vertical',
   showArrow: true,
 }

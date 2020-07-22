@@ -6,6 +6,7 @@ import { getUidStr } from '../utils/uid'
 import { modalClass } from '../styles'
 import Panel from './Panel'
 import { getLocale } from '../locale'
+import { defer } from '../utils/uid'
 
 const containers = {}
 const DURATION = 300
@@ -39,7 +40,7 @@ export function destroy(id, unmount) {
   container.removeChild(div)
 }
 
-export function close(props) {
+export function close(props, callback) {
   const { id } = props
   const modal = containers[props.id]
 
@@ -47,29 +48,32 @@ export function close(props) {
   modal.visible = false
 
   const { div } = modal
-  div.classList.remove(modalClass('show'))
+  div.classList.remove(modalClass('show'), modalClass('start'))
+  if (!props.position) div.classList.add(modalClass('end'))
 
   setTimeout(() => {
     div.style.display = 'none'
-    if (props.destroy) destroy(id)
+    div.classList.remove(modalClass('end'))
+    if (props.destroy) destroy(id, !props.usePortal)
 
     if (!hasVisible()) {
       const doc = document.body.parentNode
       doc.style.overflow = ''
       doc.style.paddingRight = ''
     }
+    if (callback) callback()
   }, DURATION)
 }
 
 export function createDiv(props) {
-  const { id, container = document.body } = props
+  const { id, position, container = document.body } = props
   let div = getDiv(props.id)
   if (div) return div
 
   const parent = typeof container === 'function' ? container() : container
   div = document.createElement('div')
   parent.appendChild(div)
-  div.className = classnames(modalClass('_'), props.rootClassName)
+  div.className = classnames(modalClass('_', position && 'position'), props.rootClassName)
 
   containers[id] = { div, container: parent }
 
@@ -96,9 +100,13 @@ export function open(props, isPortal) {
 
   const opacityDefault = props.maskOpacity === undefined ? 0.25 : props.maskOpacity
   const maskOpacity = isMask(props.id) ? opacityDefault : 0.01
-  div.style.background = `rgba(0,0,0,${maskOpacity})`
+  div.style.background = props.maskBackground || `rgba(0,0,0,${maskOpacity})`
 
   containers[props.id].visible = true
+
+  defer(() => {
+    if (!otherProps.position) div.classList.add(modalClass('start'))
+  })
 
   setTimeout(() => {
     div.classList.add(modalClass('show'))

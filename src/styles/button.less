@@ -72,11 +72,13 @@
       &:focus {
         border-color: @link-color;
         color: @link-color;
+        fill: @link-color;
       }
     }
 
     &[disabled]:hover {
       color: @btn-default-color;
+      fill: @link-color;
     }
   }
 
@@ -229,6 +231,7 @@
   &-disabled:not(&-link):not(&-text), &-disabled:not(&-link):not(&-text):hover {
     background: @button-disabled-bg;
     color: @button-disabled-color;
+    fill: @button-disabled-color;
     border-color: @button-disabled-border-color;
   }
 
@@ -304,6 +307,14 @@
     &.@{button-prefix}-outline .@{button-prefix} {
       &:before {
         border-left-color: inherit;
+      }
+    }
+  }
+
+  &-from-input-group {
+    .@{button-prefix} {
+      &:before {
+        border-left: none;
       }
     }
   }

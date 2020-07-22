@@ -16,7 +16,7 @@ const exports = compose(
   trim,
   coin('input')
 )(Input)
-exports.Group = inputBorder({ tag: 'div', isGroup: true })(Group)
+exports.Group = inputBorder({ tag: 'div', isGroup: true, from: 'input' })(Group)
 exports.Number = compose(
   inputable,
   inputBorder({}),

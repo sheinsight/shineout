@@ -64,6 +64,7 @@
       border-radius: @table-border-radius-top @table-border-radius-top 0 0;
       color: @table-head-color;
       border-color: @table-border-color;
+      padding: @table-header-cell-padding;
       &-hover {
         background: @table-bg-hover;
       }
@@ -75,8 +76,16 @@
     &-cell {
       padding: @table-cell-padding-vertical @table-cell-padding-horizontal;
     }
+    &-small {
+      padding: @table-small-cell-padding;
+    }
     &-fixed {
-      background: @table-fixed-shadow;
+      &-start {
+        background: @table-fixed-start-color;
+      }
+      &-end {
+        background: @table-fixed-end-color;
+      }
     }
     &-scroll {
       &-ratio {
@@ -88,6 +97,9 @@
     }
     &-tree-expand {
       margin-right: @table-tree-expand-icon-margin-right;
+    }
+    &-body {
+      background: @table-body-bg;
     }
   }
   &-dropdown {
@@ -109,6 +121,9 @@
     &-close {
       background: @select-clear-bg-color;
     }
+    &-compressed {
+      background: @select-compressed-hover-bg;
+    }
   }
   &-datepicker-month{
     &-item {
@@ -118,10 +133,17 @@
   &-slider {
     &-bar {
       background: @slider-bar-color;
+      &-disabled {
+        background: @slider-disabled-bar-bg;
+      }
     }
     &-indicator {
       background: @slider-indicator-bg;
       width: @slider-indicator-size;
+      &-disabled {
+        background: @slider-disbaled-indicator-bg;
+        border-color: @slider-disbaled-indicator-border-color;
+      }
     }
     &-value {
       height: @slider-value-bottom;
@@ -165,8 +187,11 @@
       font-size: @input-size-placeholder;
       color: @input-color-placeholder;
     }
-    &-clear-hover {
-      background-color: @input-clear-bg-hover-color;
+    &-clear {
+      background-color: @input-clear-bg-color;
+      &-hover {
+        background-color: @input-clear-bg-hover-color;
+      }
     }
   }
   &-alert {
@@ -197,6 +222,8 @@
   &-modal {
     &-icon {
       width: @modal-icon-size;
+      margin-left: @modal-icon-left;
+      margin-top: @modal-icon-top;
       &-body {
         padding: @modal-icon-body-padding;
       }
@@ -229,6 +256,7 @@
     }
     &-divider {
       height: @modal-divider-height;
+      background: @modal-divider-color;
     }
   }
   &-tag {
@@ -243,6 +271,7 @@
     &-divider {
       height: @card-divider-height;
       width: @card-divider-width;
+      background: @card-divider-color;
     }
   }
   &-tree {
@@ -264,6 +293,11 @@
       animation-name: @switch-type;
     }
   }
+  &-msg {
+    &-close {
+      color: @message-close-color;
+    }
+  }
   &-common {
     &-input{
       &-delay {
@@ -277,6 +311,9 @@
       &-default {
         animation-name: @common-spin-default-name;
       }
+    }
+    &-caret {
+      animation-name: @common-caret-style;
     }
     &-line-height {
       flex-grow: @line-height-base;

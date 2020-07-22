@@ -11,6 +11,7 @@ const create = type => (content, duration = 3, options = {}) => {
       title,
       className,
       top,
+      position,
     })
   })
 }

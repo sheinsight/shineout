@@ -12,7 +12,7 @@
 | defaultValue | any[] | 无 | 默认选中的 key （非受控） | 
 | disabled | (data: any) => boolean \| boolean | false | 显示选择框时有效，为 true 时，所有节点禁用选择，为函数时，根据函数返回结果确定是否禁用 |
 | expandTrigger | 'click' \| 'hover' \| 'hover-only' | 'click' | 节点展开触发方式 |
-| keygen | (data: any, parentKey: any) => string \| string  | 必填 | 生成key的辅助方法<br />为函数时，使用此函数返回值<br />为string时，使用这个string对应的数据值。如 'id'，相当于 (d) => d.id |
+| keygen | ((data: any, parentKey: any) => string) \| string  | 必填 | 生成key的辅助方法<br />为函数时，使用此函数返回值<br />为string时，使用这个string对应的数据值。如 'id'，相当于 (d) => d.id |
 | loader | (key: any, data: any) => void | 无 | 设置loader属性后，未定义children的节点视为动态加载节点，点击展开触发 loader事件，children 为 null 或者长度为 0 视为叶子节点 |
 | mode | 0 \| 1 \| 2 \| 3 | 无 | 选中值模式，未设置值为单选<br />0: 只返回完全选中的节点，包含父节点<br />1: 返回全部选中的节点和半选中的父节点<br />2: 只返回选中的子节点<br />3: 如果父节点选中，只返回父节点 |
 | onChange | (value: any[], selected: boolean) => void | 无 | 设置 onChange 属性时，显示 选择框。参数为当前选中值，和 mode 属性相关 |
@@ -22,3 +22,4 @@
 | absolute | boolean | false | 为 true 时，选项弹出层在 DOM 中独立 render |
 | compressed | boolean | false | 将选中值合并 |
 | childrenKey | string | 'children' | 指定子数据的属性名 | 
+| finalDismiss | boolean | false | 选择末级节点后是否关闭选项列表 |

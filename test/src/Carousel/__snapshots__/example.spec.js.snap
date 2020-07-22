@@ -11,7 +11,11 @@ exports[`Snapshot test: Carousel[site/pages/components/Carousel/example-1-base.j
           <span>
             slide
           </span>
-          <a />
+          <a>
+            <svg>
+              <path />
+            </svg>
+          </a>
         </div>
         <div>
           <span>
@@ -27,7 +31,11 @@ exports[`Snapshot test: Carousel[site/pages/components/Carousel/example-1-base.j
           <span>
             center
           </span>
-          <a />
+          <a>
+            <svg>
+              <path />
+            </svg>
+          </a>
         </div>
         <div>
           <span>
@@ -43,7 +51,11 @@ exports[`Snapshot test: Carousel[site/pages/components/Carousel/example-1-base.j
           <span>
             circle
           </span>
-          <a />
+          <a>
+            <svg>
+              <path />
+            </svg>
+          </a>
         </div>
         <div>
           <span>

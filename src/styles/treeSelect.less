@@ -161,13 +161,9 @@
     }
 
     &.@{treeSelect-prefix}-caret {
-      .caret(down);
-
-      &:after {
-        position: absolute;
-        top: (12 - @caret-width * 1.4) / 2;
-        left: 2px;
-        margin: 0;
+      svg {
+        fill: @gray-500;
+        vertical-align: top;
       }
     }
   }

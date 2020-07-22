@@ -12,7 +12,7 @@
 | visible | boolean | - | is visible (controlled) |
 | onVisibleChange | (visible: boolean) => void | - | the event of visible change | 
 | mouseEnterDelay | number | 0 | the show delay of mouseenter(ms) | 
-| mouseLeaveDelay | number | 500 | the hidden delay of mouseleave (ms) | 
+| mouseLeaveDelay | number | 0 | the hidden delay of mouseleave (ms) | 
 | border | string | '#dee2e6' | The color of pop-up border(with arrows) |
 | className | string | - | Extend className |
 | children | ReactNode | required | Pop-up content. |

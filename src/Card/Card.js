@@ -5,6 +5,9 @@ import { getProps, defaultProps } from '../utils/proptypes'
 import { dispatchEvent } from '../utils/dom/element'
 import { cardClass } from '../styles'
 import { Provider } from './context'
+import { compose } from '../utils/func'
+import resizable from '../hoc/resizable'
+import moveable from '../hoc/moveable'
 
 class Card extends PureComponent {
   constructor(props) {
@@ -35,6 +38,8 @@ class Card extends PureComponent {
 
   bindElement(el) {
     this.element = el
+    const { forwardedRef } = this.props
+    if (forwardedRef) forwardedRef(el)
   }
 
   handleCollapse() {
@@ -55,7 +60,7 @@ class Card extends PureComponent {
     const shadow = this.props.shadow === true ? 'shadow' : this.props.shadow
     const className = classnames(
       cardClass('_', shadow, collapsible && 'collapsible', collapsed && 'collapsed'),
-      this.props.className,
+      this.props.className
     )
 
     const provierValue = {
@@ -69,9 +74,7 @@ class Card extends PureComponent {
 
     return (
       <div className={className} ref={this.bindElement} style={this.props.style}>
-        <Provider value={provierValue}>
-          {this.props.children}
-        </Provider>
+        <Provider value={provierValue}>{this.props.children}</Provider>
       </div>
     )
   }
@@ -80,6 +83,7 @@ class Card extends PureComponent {
 Card.propTypes = {
   ...getProps(PropTypes),
   shadow: PropTypes.oneOf([true, false, 'hover']),
+  forwardedRef: PropTypes.func,
 }
 
 Card.defaultProps = {
@@ -88,4 +92,7 @@ Card.defaultProps = {
   collapsible: false,
 }
 
-export default Card
+export default compose(
+  moveable(`.${cardClass('header')}`),
+  resizable
+)(Card)

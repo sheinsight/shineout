@@ -8,7 +8,7 @@ import Radio from './Radio'
 const exports = consumer(Radio)
 exports.Group = compose(
   inputable,
-  Datum.hoc({ limit: 1, bindProps: ['disabled', 'format', 'prediction'] })
+  Datum.hoc({ limit: 1, bindProps: ['disabled', 'format', 'prediction'], pure: false })
 )(Group)
 
 exports.displayName = 'ShineoutRadio'

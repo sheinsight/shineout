@@ -77,13 +77,13 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Pagination/example-8-disabled.js'),
   },
   {
-    name: '9-modal',
+    name: '9-simple',
     title: locate(
-      '在 Modal 中使用 \n 注意在 Modal 使用 Pagination 的时候需要设置 sizeListProps={{ absolute: false }} 或者 sizeListProps={{ zIndex: 1051 }}(或者更大的), 否则会出现下拉框被挡住的问题.',
-      'use in Modal \n Note that when Modal uses Pagination, you need to set sizeListProps={{ absolute: false }} or sizeListProps={{ zIndex: 1051 }} (or larger), otherwise the drop-down box will be blocked.'
+      'Simple 模式 \n layout 设置为 simple；注意：simple 模式不与其他layout共存。',
+      'Simple mode \n layout set to simple; Note: simple mode does not coexist with other layouts.'
     ),
-    component: require('doc/pages/components/Pagination/example-9-modal.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Pagination/example-9-modal.js'),
+    component: require('doc/pages/components/Pagination/example-9-simple.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Pagination/example-9-simple.js'),
   },
 ]
 

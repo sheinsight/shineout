@@ -128,6 +128,15 @@
       left: 0px;
       width: 16px;
 
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: inline-block;
+        padding: 10px;
+      }
+
       &:hover span.@{tree-prefix}-default-icon {
         border-left-color: @colors-primary;
       }

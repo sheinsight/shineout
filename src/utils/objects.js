@@ -185,3 +185,24 @@ export const deepRemove = (target, path) => {
 
   return target
 }
+
+export const deepHas = (target, path) => {
+  if (!isObject(target)) throw new Error('Target must be an object.')
+  if (typeof path !== 'string') throw new Error('Path must be a string.')
+
+  if (path === '') return true
+
+  let current = target
+  for (const [prop, ,] of pathGenerator(path)) {
+    if (!current || !hasOwnProperty.call(current, prop)) return false
+    current = current[prop]
+  }
+
+  return true
+}
+
+export const entries = obj => {
+  if (!obj) return []
+  const keys = Object.keys(obj)
+  return keys.map(key => [key, obj[key]])
+}

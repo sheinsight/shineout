@@ -32,6 +32,12 @@ class BoxList extends Component {
     return this.props.text[key] || getLocale(key)
   }
 
+  getWidth() {
+    const { columnWidth, columns } = this.props
+    if (columns === -1) return columnWidth
+    return columnWidth * columns
+  }
+
   handleSelectAll(_, checked) {
     const { datum, data } = this.props
     if (checked) datum.add(data)
@@ -95,11 +101,8 @@ class BoxList extends Component {
     )
   }
 
-  renderOptions() {
-    const { loading, columns, height, lineHeight, data, itemsInView } = this.props
-    if (loading) return null
-
-    const empty = data.length === 0
+  renderLazyList() {
+    const { columns, height, lineHeight, data, itemsInView } = this.props
     const scrollHeight = lineHeight * Math.ceil(data.length / columns)
     const sliceData = data.reduce((red, item) => {
       let lastItem = red[red.length - 1]
@@ -112,30 +115,59 @@ class BoxList extends Component {
       return red
     }, [])
     return (
-      <div className={selectClass('box-options')}>
+      <LazyList
+        scrollHeight={scrollHeight}
+        lineHeight={lineHeight}
+        data={sliceData}
+        itemsInView={itemsInView}
+        height={height}
+        renderItem={this.handleRenderItem}
+      />
+    )
+  }
+
+  renderStack() {
+    const { columns, datum, multiple, onChange, renderItem, data, keygen } = this.props
+    return data.map((d, i) => {
+      const isActive = datum.check(d)
+      return (
+        <BoxOption
+          key={getKey(d, keygen, i)}
+          isActive={isActive}
+          disabled={datum.disabled(d)}
+          data={d}
+          columns={columns}
+          multiple={multiple}
+          onClick={onChange}
+          renderItem={renderItem}
+        />
+      )
+    })
+  }
+
+  renderOptions() {
+    const { loading, columns, data } = this.props
+    if (loading) return null
+    const stack = columns === -1
+    const empty = data.length === 0
+    return (
+      <div className={selectClass('box-options', stack && 'scrollable')}>
         {empty && (
           <div key="empty" className={selectClass('no-data')}>
             {this.getText('noData')}
           </div>
         )}
-        <LazyList
-          scrollHeight={scrollHeight}
-          lineHeight={lineHeight}
-          data={sliceData}
-          itemsInView={itemsInView}
-          height={height}
-          renderItem={this.handleRenderItem}
-        />
+        {stack ? this.renderStack() : this.renderLazyList()}
       </div>
     )
   }
 
   render() {
-    const { columnWidth, columns, data, datum, style, loading, focus, selectId, getRef } = this.props
+    const { data, datum, style, loading, focus, selectId, getRef } = this.props
 
     const checkedCount = data.filter(d => datum.check(d)).length
 
-    const newStyle = Object.assign({}, style, { width: columnWidth * columns })
+    const newStyle = Object.assign({}, style, { width: this.getWidth() })
 
     return (
       <ScaleList

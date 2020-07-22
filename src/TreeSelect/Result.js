@@ -5,24 +5,26 @@ import { inputClass, treeSelectClass } from '../styles'
 import { isObject } from '../utils/is'
 import Input from './Input'
 import Popover from '../Popover'
+import Caret from '../icons/Caret'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
-const getResultContent = (data, renderResult) => {
+const getResultContent = (data, renderResult, renderUnmatched) => {
   if (isObject(data) && data.IS_NOT_MATCHED_VALUE) {
+    if (typeof renderUnmatched === 'function') return renderUnmatched(data.value)
     return isObject(data.value) ? renderResult(data.value) : data.value
   }
   return renderResult(data)
 }
 
 // eslint-disable-next-line
-function Item({ renderResult, data, disabled, onClick }) {
+function Item({ renderResult, renderUnmatched, data, disabled, onClick }) {
   const value = data
   const click = disabled || !onClick ? undefined : () => onClick(value)
   const synDisabled = disabled || !click
   return (
     <a tabIndex={-1} className={treeSelectClass('item', disabled && 'disabled', synDisabled && 'ban')}>
-      {getResultContent(data, renderResult)}
+      {getResultContent(data, renderResult, renderUnmatched)}
       {!synDisabled && <span className={treeSelectClass('indicator', 'close')} onClick={click} />}
     </a>
   )
@@ -86,7 +88,7 @@ class Result extends PureComponent {
   }
 
   renderMore(list) {
-    const { datum, renderResult } = this.props
+    const { datum, renderResult, renderUnmatched } = this.props
     const { more } = this.state
     return (
       <a tabIndex={-1} key="more" className={treeSelectClass('item', 'item-compressed', more && 'item-more')}>
@@ -100,6 +102,7 @@ class Result extends PureComponent {
                 disabled={datum.disabled(d)}
                 onClick={this.handleRemove}
                 renderResult={renderResult}
+                renderUnmatched={renderUnmatched}
               />
             ))}
           </div>
@@ -124,7 +127,17 @@ class Result extends PureComponent {
   }
 
   renderResult() {
-    const { multiple, compressed, result, renderResult, onFilter, focus, datum, filterText } = this.props
+    const {
+      multiple,
+      compressed,
+      result,
+      renderResult,
+      renderUnmatched,
+      onFilter,
+      focus,
+      datum,
+      filterText,
+    } = this.props
 
     if (multiple) {
       const neededResult = compressed ? result.slice(0, 1) : result
@@ -136,6 +149,7 @@ class Result extends PureComponent {
           disabled={datum.disabled(d)}
           onClick={firstRemove ? this.handleRemove : undefined}
           renderResult={renderResult}
+          renderUnmatched={renderUnmatched}
         />
       ))
 
@@ -151,22 +165,25 @@ class Result extends PureComponent {
     }
 
     if (onFilter) {
-      return this.renderInput(getResultContent(result[0], renderResult))
+      return this.renderInput(getResultContent(result[0], renderResult, renderUnmatched))
     }
 
-    return <span className={treeSelectClass('ellipsis')}>{getResultContent(result[0], renderResult)}</span>
+    return (
+      <span className={treeSelectClass('ellipsis')}>{getResultContent(result[0], renderResult, renderUnmatched)}</span>
+    )
   }
 
   render() {
     const result = this.props.result.length === 0 ? this.renderPlaceholder() : this.renderResult()
     const { compressed } = this.props
-
     return (
       <div className={treeSelectClass('result', compressed && 'compressed')}>
         {result}
         {!this.props.multiple && (
           // eslint-disable-next-line
-          <a tabIndex={-1} className={treeSelectClass('indicator', 'caret')} />
+          <a tabIndex={-1} className={treeSelectClass('indicator', 'caret')}>
+            {<Caret />}
+          </a>
         )}
         {this.renderClear()}
       </div>
@@ -188,6 +205,7 @@ Result.propTypes = {
   placeholder: PropTypes.string,
   setInputReset: PropTypes.func,
   compressed: PropTypes.bool,
+  renderUnmatched: PropTypes.func,
 }
 
 export default Result

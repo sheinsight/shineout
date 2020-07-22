@@ -74,9 +74,7 @@ class SimpleTable extends PureComponent {
         colgroup.push(width)
       }
     }
-    setTimeout(() => {
-      this.setState({ colgroup, resize: false })
-    })
+    this.setState({ colgroup, resize: false })
   }
 
   handleScroll({ currentTarget }) {
@@ -86,12 +84,12 @@ class SimpleTable extends PureComponent {
   }
 
   renderBody() {
-    const { columns, width, fixed, ...others } = this.props
+    const { columns, width, fixed, columnResizable, ...others } = this.props
     const { colgroup, resize } = this.state
     return (
       <div key="body" className={tableClass('simple-body')} ref={this.bindBody} onScroll={this.handleScroll}>
         <table style={{ width }}>
-          <Colgroup colgroup={colgroup} columns={columns} />
+          <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable} />
           <Tbody
             colgroup={colgroup}
             lazy={false}
@@ -107,18 +105,19 @@ class SimpleTable extends PureComponent {
   }
 
   render() {
-    const { columns, width, data, onResize, children } = this.props
+    const { columns, width, data, onResize, children, columnResizable } = this.props
     const { colgroup, scrollAble } = this.state
     if (!columns || columns.length === 0) return <table style={{ width }}>{children}</table>
     const header = (
       <table style={{ width }}>
-        <Colgroup colgroup={colgroup} columns={columns} />
-        <Thead {...this.props} onSortChange={this.handleSortChange} onColChange={onResize} />
+        <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable} />
+        <Thead {...this.props} colgroup={colgroup} onSortChange={this.handleSortChange} onColChange={onResize} />
       </table>
     )
     const empty = data.length === 0
     const headerStyle = {}
     if (!empty) headerStyle.overflowY = scrollAble ? 'scroll' : 'hidden'
+
     return [
       <div
         key="head"
@@ -143,6 +142,7 @@ SimpleTable.propTypes = {
   onSortChange: PropTypes.func,
   children: PropTypes.any,
   dataChangeResize: PropTypes.bool,
+  columnResizable: PropTypes.bool,
 }
 
 SimpleTable.defaultProps = {

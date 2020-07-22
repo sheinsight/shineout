@@ -1,13 +1,22 @@
 import cssInject from './vars-inject'
 import { capitalize } from './strings'
-import { getDOMStyle } from './expose'
+import { entries } from './objects'
 
 function setOptions(options, setter) {
   if (!options) return
-  for (const [key, value] of Object.entries(options)) {
+  for (const [key, value] of entries(options)) {
     if (key === setter) continue
     this[key] = value
   }
+}
+
+function getDOMStyle(dom) {
+  document.body.appendChild(dom)
+  const style = window.getComputedStyle(dom)
+  Promise.resolve().then(() => {
+    dom.parentElement.removeChild(dom)
+  })
+  return style
 }
 
 function getStyleAttr(className, key = 'color') {
@@ -61,7 +70,7 @@ const accessors = {
   switch: {},
 }
 
-for (const [key, value] of Object.entries(accessors)) {
+for (const [key, value] of entries(accessors)) {
   const setterName = `set${capitalize(key)}`
   value[setterName] = options => setOptions.call(value, options, setterName)
   genAccessors(value, cssInject[key])

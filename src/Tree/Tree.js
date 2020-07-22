@@ -30,6 +30,9 @@ class Tree extends PureComponent {
     this.handleNodeClick = this.handleNodeClick.bind(this)
     this.bindNode = this.bindNode.bind(this)
     this.unbindNode = this.unbindNode.bind(this)
+    this.handleDragImageSelector = this.handleProps.bind(this, 'dragImageSelector')
+    this.handleClidrenClass = this.handleProps.bind(this, 'childrenClass')
+    this.handleLeafClass = this.handleProps.bind(this, 'leafClass')
   }
 
   componentDidUpdate(prevProps) {
@@ -162,6 +165,10 @@ class Tree extends PureComponent {
     this.props.onDrop(data, id, targetId, position)
   }
 
+  handleProps(key) {
+    return this.props[key]
+  }
+
   render() {
     const {
       className,
@@ -211,9 +218,9 @@ class Tree extends PureComponent {
         childrenKey={childrenKey}
         expandIcons={expandIcons}
         dragImageStyle={dragImageStyle}
-        dragImageSelector={typeof dragImageSelector === 'function' ? dragImageSelector : () => dragImageSelector}
-        childrenClass={typeof childrenClass === 'function' ? childrenClass : () => childrenClass}
-        leafClass={typeof leafClass === 'function' ? leafClass : () => leafClass}
+        dragImageSelector={typeof dragImageSelector === 'function' ? dragImageSelector : this.handleDragImageSelector}
+        childrenClass={typeof childrenClass === 'function' ? childrenClass : this.handleClidrenClass}
+        leafClass={typeof leafClass === 'function' ? leafClass : this.handleLeafClass}
         dragHoverExpand={dragHoverExpand}
         doubleClickExpand={doubleClickExpand}
         iconClass={iconClass}

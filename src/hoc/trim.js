@@ -17,8 +17,10 @@ export default Origin =>
     }
 
     getTrim() {
-      if (typeof config.trim === 'boolean') return config.trim
-      return this.props.trim
+      const { trim } = this.props
+      if (trim !== undefined) return trim
+      if (config.trim !== undefined) return config.trim
+      return false
     }
 
     handleBlur(e) {

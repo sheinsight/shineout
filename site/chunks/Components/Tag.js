@@ -67,6 +67,15 @@ const examples = [
     component: require('doc/pages/components/Tag/example-6-dynamic.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tag/example-6-dynamic.js'),
   },
+  {
+    name: '7-editable',
+    title: locate(
+      '可编辑 \n onCompleted 不为空时，可编辑',
+      'editable \n editable when onCompleted is not empty'
+    ),
+    component: require('doc/pages/components/Tag/example-7-editable.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tag/example-7-editable.js'),
+  },
 ]
 
 const codes = undefined

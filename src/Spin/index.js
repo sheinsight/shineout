@@ -48,9 +48,9 @@ function renderContainer(Loading, props) {
 }
 
 function getName(name) {
-  if (name !== 'default') return name
-  if (typeof config.spin === 'string') return config.spin
-  return name
+  if (name !== undefined) return name
+  if (config.spin !== undefined) return config.spin
+  return 'default'
 }
 
 export default function Spin(props) {
@@ -91,5 +91,4 @@ Spin.propTypes = {
 Spin.defaultProps = {
   color: '#6c757d',
   size: 40,
-  name: 'default',
 }

@@ -5,6 +5,7 @@ import Popover from '../Popover'
 import { inputClass, selectClass } from '../styles'
 import { isObject } from '../utils/is'
 import Input from './Input'
+import Caret from '../icons/Caret'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -59,12 +60,13 @@ class Result extends PureComponent {
   }
 
   renderMore(list) {
-    const { datum, renderResult, renderUnmatched } = this.props
+    const { datum, renderResult, renderUnmatched, compressedClassName } = this.props
     const { more } = this.state
+    const className = classnames(selectClass('popover'), compressedClassName)
     return (
       <a tabIndex={-1} key="more" className={selectClass('item', 'item-compressed', more && 'item-more')}>
         <span>{`+${list.length - 1}`}</span>
-        <Popover visible={more} onVisibleChange={this.handelMore} className={selectClass('popover')}>
+        <Popover visible={more} onVisibleChange={this.handelMore} className={className}>
           <div className={selectClass('result')}>
             {list.map((d, i) => (
               <Item
@@ -191,8 +193,13 @@ class Result extends PureComponent {
   renderIndicator() {
     const { multiple, showArrow, compressed } = this.props
     if (!showArrow || (multiple && !compressed)) return null
+    const showCaret = !multiple
     // eslint-disable-next-line
-    return <a tabIndex={-1} className={selectClass('indicator', multiple ? 'multi' : 'caret')} />
+    return (
+      <a tabIndex={-1} className={selectClass('indicator', multiple ? 'multi' : 'caret')}>
+        {showCaret && <Caret />}
+      </a>
+    )
   }
 
   render() {
@@ -229,6 +236,7 @@ Result.propTypes = {
   renderUnmatched: PropTypes.func,
   showArrow: PropTypes.bool,
   focusSelected: PropTypes.bool,
+  compressedClassName: PropTypes.string,
 }
 
 export default Result

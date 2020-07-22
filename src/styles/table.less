@@ -204,7 +204,7 @@
   }
 
   table > thead > tr > th&-condensed {
-    padding: @table-condensed-cell-padding;
+    padding: @table-header-cell-padding;
   }
 
   &-hover {
@@ -214,18 +214,21 @@
   }
 
   &-normal td {
-    background-color: @table-bg;
+    background-color: @table-body-bg;
   }
 
   &-small {
     table {
-      > thead,
+      > thead > tr > th {
+        padding: @table-header-cell-padding;
+      }
+    }
+    table {
       > tbody,
       > tfoot {
         > tr {
-          > th,
           > td {
-            padding: @table-condensed-cell-padding;
+            padding: @table-small-cell-padding;
           }
         }
       }
@@ -264,10 +267,6 @@
             border-bottom-width: 1px;
           }
         }
-      }
-
-      > tbody tr:last-child td {
-        border-bottom: none;
       }
 
       > tbody > tr > td.@{table-prefix}-ignore-bottom-border {
@@ -312,12 +311,24 @@
       border-left: 1px solid @table-border-color;
     }
     .@{so-prefix}-scroll-x {
-      border-top: 1px solid @table-border-color;
+      &:after {
+        position: absolute;
+        content: '';
+        display: inline-block;
+        top: -2px;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: @table-border-color;
+      }
     }
   }
 
   table > tbody > tr&-even > td {
-    background-color: @table-bg-accent;
+    background-color: @table-even-td-bgc;
+  }
+  table > tbody >tr&-odd > td {
+    background-color: @table-odd-td-bgc;
   }
 
   &-simple-body {
@@ -451,7 +462,7 @@
       bottom: 0;
       left: 100%;
       width: 6px;
-      background: @table-fixed-shadow;
+      background: linear-gradient(to right, @table-fixed-start-color, @table-fixed-end-color);
       content: ' ';
     }
   }
@@ -463,7 +474,7 @@
       right: 100%;
       bottom: 0;
       width: 6px;
-      background: linear-gradient(to left, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+      background: linear-gradient(to left, @table-fixed-start-color, @table-fixed-end-color);
       content: ' ';
     }
   }
@@ -512,6 +523,12 @@
     text-align: center;
     > div.@{table-prefix}-has-sorter {
       justify-content: center;
+    }
+  }
+
+  td&-align-center{
+    .@{table-prefix}-icon-expand-plus, .@{table-prefix}-icon-expand-sub {
+      margin: 0 auto;
     }
   }
   

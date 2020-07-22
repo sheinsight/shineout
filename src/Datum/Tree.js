@@ -179,6 +179,9 @@ export default class {
     const ids = []
     data.forEach((d, i) => {
       const id = this.getKey(d, path[path.length - 1], i)
+      if (this.dataMap.get(id)) {
+        console.warn(`There is already a key "${id}" exists. The key must be unique.`)
+      }
       this.dataMap.set(id, d)
 
       let isDisabled = disabled
@@ -204,6 +207,8 @@ export default class {
   }
 
   setData(data) {
+    const prevValue = this.value || []
+    this.cachedValue = []
     this.pathMap = new Map()
     this.dataMap = new Map()
     this.data = data
@@ -212,5 +217,6 @@ export default class {
 
     this.initData(data, [])
     this.initValue()
+    this.setValue(prevValue)
   }
 }

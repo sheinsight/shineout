@@ -1,5 +1,5 @@
-import { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Component } from 'react'
 import { defaultProps, getProps } from '../utils/proptypes'
 import shallowEqual from '../utils/shallowEqual'
 import { getUidStr } from '../utils/uid'
@@ -10,6 +10,7 @@ class Modal extends Component {
     super(props)
     this.id = getUidStr()
     this.visible = props.visible
+    this.handleUpdate = this.handleUpdate.bind(this)
   }
 
   componentDidMount() {
@@ -21,7 +22,7 @@ class Modal extends Component {
   shouldComponentUpdate(nextProps) {
     if (shallowEqual(this.props, nextProps)) return false
     if (nextProps.visible) return true
-    close({ id: this.id })
+    close({ ...this.props, id: this.id }, this.handleUpdate)
     return !shallowEqual(this.props, nextProps) && nextProps.visible
   }
 
@@ -32,8 +33,9 @@ class Modal extends Component {
   }
 
   componentWillUnmount() {
+    const { usePortal } = this.props
     close({ id: this.id })
-    destroy(this.id)
+    destroy(this.id, !usePortal)
   }
 
   getOption() {
@@ -43,6 +45,11 @@ class Modal extends Component {
       content: children,
       id: this.id,
     }
+  }
+
+  handleUpdate() {
+    const { destroy: destroyProps } = this.props
+    if (destroyProps) this.forceUpdate()
   }
 
   render() {
@@ -57,6 +64,7 @@ class Modal extends Component {
 Modal.propTypes = {
   ...getProps(PropTypes),
   usePortal: PropTypes.bool,
+  destroy: PropTypes.bool,
 }
 
 Modal.defaultProps = {

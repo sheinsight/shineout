@@ -6,14 +6,40 @@ import Card from '../Card'
 import { defaultProps, getProps } from '../utils/proptypes'
 import { modalClass } from '../styles'
 import { Provider } from '../Scroll/context'
+import { Provider as ZProvider } from './context'
+
+function setTransformOrigin(node, value) {
+  const { style } = node
+  style.transformOrigin = value
+}
+
+let mousePosition = null
+const getClickPosition = e => {
+  mousePosition = {
+    x: e.clientX,
+    y: e.clientY,
+  }
+  setTimeout(() => {
+    mousePosition = null
+  }, 100)
+}
+
+document.addEventListener('click', getClickPosition, true)
 
 export default class Panel extends PureComponent {
+  panel = null
+
   componentDidMount() {
+    this.updateOrigin()
     const { autoFocusButton, id } = this.props
     if (!autoFocusButton) return
     const el = document.querySelector(`#${id}-${autoFocusButton}`)
     if (!el) return
     el.focus()
+  }
+
+  componentDidUpdate() {
+    this.updateOrigin()
   }
 
   getStyle() {
@@ -36,6 +62,27 @@ export default class Panel extends PureComponent {
     )
   }
 
+  savePanel = node => {
+    this.panel = node
+  }
+
+  updateOrigin() {
+    const { position } = this.props
+    if (position) return
+    const node = this.panel
+    setTransformOrigin(node, '')
+    if (node) {
+      if (mousePosition) {
+        const { left, top } = node.getBoundingClientRect()
+        const ol = mousePosition.x - left
+        const ot = mousePosition.y - top
+        setTransformOrigin(node, `${ol}px ${ot}px`)
+      } else {
+        setTransformOrigin(node, '')
+      }
+    }
+  }
+
   // eslint-disable-next-line
   lockWheel(event) {
     event.preventDefault()
@@ -53,7 +100,6 @@ export default class Panel extends PureComponent {
 
     const iconType = type.charAt(0).toUpperCase() + type.slice(1)
     const icon = Icons[iconType]
-
     return (
       <Card.Body className={modalClass('body')} style={style}>
         {icon && <div className={modalClass('icon')}>{icon}</div>}
@@ -64,29 +110,39 @@ export default class Panel extends PureComponent {
   }
 
   render() {
-    const { footer, title, type, onClose, maskCloseAble, position } = this.props
+    const { footer, title, type, onClose, maskCloseAble, position, moveable, resizable, hideClose } = this.props
 
     const className = classnames(modalClass('panel', type, position), this.props.className)
-
+    const showClose = typeof hideClose === 'boolean' ? !hideClose : maskCloseAble || maskCloseAble === null
     return (
-      <Provider value={{ element: undefined }}>
-        <div key="mask" className={modalClass('mask')} onClick={maskCloseAble ? onClose : undefined} />
+      <ZProvider value>
+        <Provider value={{ element: undefined }}>
+          <div key="mask" className={modalClass('mask')} onClick={maskCloseAble ? onClose : undefined} />
 
-        <Card key="card" shadow className={className} style={this.getStyle()}>
-          {(maskCloseAble || maskCloseAble === null) && (
-            <a className={modalClass('close')} onClick={onClose}>
-              {Icons.Close}
-            </a>
-          )}
-          {title && type === 'default' && <Card.Header className={modalClass('title')}>{title}</Card.Header>}
-          {this.renderContent()}
-          {footer && (
-            <Card.Footer className={modalClass('footer')} align="right">
-              {footer}
-            </Card.Footer>
-          )}
-        </Card>
-      </Provider>
+          <Card
+            forwardedRef={this.savePanel}
+            moveable={moveable}
+            resizable={resizable}
+            key="card"
+            shadow
+            className={className}
+            style={this.getStyle()}
+          >
+            {showClose && (
+              <a className={modalClass('close')} onClick={onClose}>
+                {Icons.Close}
+              </a>
+            )}
+            {title && type === 'default' && <Card.Header className={modalClass('title')}>{title}</Card.Header>}
+            {this.renderContent()}
+            {footer && (
+              <Card.Footer className={modalClass('footer')} align="right">
+                {footer}
+              </Card.Footer>
+            )}
+          </Card>
+        </Provider>
+      </ZProvider>
     )
   }
 }
@@ -104,6 +160,9 @@ Panel.propTypes = {
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   type: PropTypes.string,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  moveable: PropTypes.bool,
+  resizable: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+  hideClose: PropTypes.bool,
 }
 
 Panel.defaultProps = {

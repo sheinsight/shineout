@@ -8,6 +8,7 @@
 | --- | --- | --- | --- |
 | defaultValue | string | none | Set initial value |
 | value | string | none | The value passed in when controlled |
+| className | string | none | The outermost extension className of a component |
 | onChange | (value: string) => void | none | Callback function when the value changes, making the component controlled when set with value |
 | style | object | none | The outermost extension style of a component |
 | bordered | boolean | false | Whether to show the border |
@@ -18,4 +19,3 @@
 | trim | boolean | false | When trim is true, blank characters are automatically deleted when lose focus |
 | onBlur | (e: MouseEvent) => void | none | blur event |
 | onFocus | (e: MouseEvent) => void | none | focus event |
-| absolute | boolean | false | When it is true, the pop-up layer of option append into document.body. |

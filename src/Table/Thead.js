@@ -87,13 +87,13 @@ class Thead extends PureComponent {
       }
       this.lastX = x
     } else if (type === 'mouseup') {
-      const { onColChange } = this.props
+      const { onColChange, colgroup } = this.props
       document.removeEventListener('mousemove', this.handleMouseMove)
       document.removeEventListener('mouseup', this.handleMouseUp)
       this.resizingTable.classList.remove(tableClass('resizing'))
       this.resizingTh.classList.remove(tableClass('resizing-item'))
       this.lastX = undefined
-      if (onColChange) onColChange(this.resizingIndex, parseInt(this.resizingCol.style.width, 10))
+      if (onColChange) onColChange(this.resizingIndex, parseInt(this.resizingCol.style.width, 10), colgroup)
     }
   }
 
@@ -222,6 +222,7 @@ Thead.propTypes = {
   columnResizable: PropTypes.bool,
   treeColumnsName: PropTypes.string,
   treeCheckAll: PropTypes.bool,
+  colgroup: PropTypes.array,
 }
 
 Thead.defaultProps = {

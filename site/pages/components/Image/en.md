@@ -18,6 +18,7 @@
 | width | string \| number | '100%' | the width of the image | |
 | placeholder | ReactNode | 'loading' | loading image placeholder content | |
 | container | string | - | the special element selector witch container the lazy image, such as: '#id', '.class' | 1.4.2 |
+| error | ReactNode | none | image error placeholder |  |
 
 ### Image.Group
 

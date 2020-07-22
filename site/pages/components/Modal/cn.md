@@ -24,6 +24,12 @@
 | zIndex | number | 1050 | 对话框 z-index 值，注意：如 Modal 嵌套 Select 组件，并且 Select 组件含有 absolute 字段，需要修改 Select 的 z-index的值 | |
 | rootClassName | string | - | modal 的根元素类名, 为遮罩层的父元素 | 1.4.2 |
 | container | () => HTMLElement \| HTMLElement | document.body | 渲染的目标节点 | |
+| moveable | boolean | false | 是否可移动 | |
+| resizable | boolean | false | 是否可调整大小 | |
+| maskBackground | string | 无 | 遮罩背景色，设置后透明度将失效 | |
+| onClose | () => void | 无 | 模态框关闭回调 | |
+| destroy | boolean | false | 关闭时是否销毁元素 | |
+| hideClose | boolean | 无 | 是否隐藏关闭按钮 | |
 
 ### ModalMethods
 

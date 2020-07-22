@@ -1,8 +1,7 @@
 import React from 'react'
 import immer from 'immer'
 import PropTypes from 'prop-types'
-
-import { compareColumns } from '../utils/shallowEqual'
+import deepEqual from 'deep-eql'
 
 export default Table =>
   class extends React.Component {
@@ -22,7 +21,7 @@ export default Table =>
     }
 
     componentDidUpdate(prevProps) {
-      if (!compareColumns(prevProps.columns, this.props.columns)) {
+      if (!deepEqual(prevProps.columns, this.props.columns)) {
         this.setState({ columns: this.props.columns })
       }
     }
@@ -33,14 +32,16 @@ export default Table =>
       return width
     }
 
-    handleResize(index, width) {
+    handleResize(index, width, colgroup) {
       const { onColumnResize } = this.props
       const changed = immer(this.state, draft => {
         const column = draft.columns[index]
-        if (column.width) {
-          draft.delta += parseFloat(width - column.width)
-        }
-        column.width = width
+        draft.delta += parseFloat(width - (column.width || 0))
+        colgroup[index] = width
+        draft.columns.forEach((col, i) => {
+          const w = colgroup[i]
+          if (w) col.width = w
+        })
       })
       if (onColumnResize) {
         onColumnResize(changed.columns)

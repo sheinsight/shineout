@@ -111,8 +111,11 @@ export default curry(Origin =>
 
       shouldComponentUpdate(nextProps, nextState) {
         const skip = [...(this.props.scuSkip || []), 'formDatum', 'loopContext']
-        if (this.props.formDatum && this.props.name) skip.push('value')
+        const isFormDatum = this.props.formDatum && this.props.name
+        if (isFormDatum) skip.push('value')
         const options = { skip, deep: ['data', 'defaultValue', 'datum', 'name', 'rule', 'style'] }
+        if (!isFormDatum && !shallowEqual(this.getValue(), nextState.value)) return true
+
         return !(shallowEqual(nextProps, this.props, options) && shallowEqual(nextState, this.state))
       }
 
@@ -138,7 +141,7 @@ export default curry(Origin =>
       }
 
       getValue() {
-        const { formDatum, name, value, defaultValue, onChange } = this.props
+        const { formDatum, name, value, defaultValue } = this.props
         if (formDatum && name) {
           if (Array.isArray(name)) {
             const dv = defaultValue || []
@@ -146,7 +149,8 @@ export default curry(Origin =>
           }
           return tryValue(formDatum.get(name), defaultValue)
         }
-        return value === undefined && !formDatum && !onChange ? this.state.value : value
+        const hasValue = 'value' in this.props || 'checked' in this.props
+        return !hasValue && !formDatum ? this.state.value : value
       }
 
       getError() {
@@ -257,13 +261,6 @@ export default curry(Origin =>
           return
         }
 
-        if (type === FORCE_PASS) {
-          this.handleError()
-          this.setState({ error: undefined })
-          this.forceUpdate()
-          return
-        }
-
         const { name, onChange, forceChangeOnValueSet } = this.props
         const newValue = !Array.isArray(name)
           ? value
@@ -275,6 +272,13 @@ export default curry(Origin =>
 
         if (shallowEqual(newValue, this.lastValue)) return
         this.lastValue = newValue
+
+        if (type === FORCE_PASS) {
+          this.handleError()
+          this.setState({ error: undefined })
+          this.forceUpdate()
+          return
+        }
 
         if (onChange && forceChangeOnValueSet) onChange(newValue)
 

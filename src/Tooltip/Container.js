@@ -85,12 +85,14 @@ export default function(options) {
     }
 
     render() {
-      const { children, trigger, disabledChild } = this.props
+      const { children, trigger, disabledChild, tip } = this.props
 
       if (!isValidElement(children)) {
         console.error(new Error('Tooltip children expect a single ReactElement.'))
         return null
       }
+
+      if (!tip) return children
 
       const inner = disabledChild ? (
         <span className={tooltipClass('disabled-wrapper')} style={{ cursor: 'not-allowed' }}>
@@ -146,6 +148,7 @@ export default function(options) {
     style: PropTypes.object,
     trigger: PropTypes.oneOf(['click', 'hover']),
     disabledChild: PropTypes.bool,
+    tip: PropTypes.string,
   }
 
   Container.defaultProps = {

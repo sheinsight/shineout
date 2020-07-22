@@ -44,7 +44,7 @@ exports[`Breadcrumb[Icon] should render Icon 1`] = `
           }
         }
       />
-       
+       
       Home
     </a>
     <span
@@ -67,7 +67,7 @@ exports[`Breadcrumb[Icon] should render Icon 1`] = `
     <a
       href="https://www.google.com"
     >
-       
+       
       Self
     </a>
   </span>

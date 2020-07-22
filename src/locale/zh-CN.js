@@ -24,8 +24,8 @@ export default {
 
   rules: {
     required: {
-      array: '请选择 {title}',
-      string: '请输入 {title}',
+      array: '{title} 不能为空',
+      string: '{title} 不能为空',
     },
     type: '请输入正确的 {title}',
     length: {

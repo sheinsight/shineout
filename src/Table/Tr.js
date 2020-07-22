@@ -63,7 +63,7 @@ class Tr extends Component {
   setRowHeight(expand) {
     const { setRowHeight, dataUpdated, datum, lazy } = this.props
     if (!lazy || !setRowHeight || !this.element) return
-    let { height } = this.element.getBoundingClientRect()
+    let height = this.element.clientHeight
     if (Number.isNaN(height)) height = this.lastRowHeight || 0
     datum.unsubscribe(ROW_HEIGHT_UPDATE_EVENT, this.setRowHeight)
     if (height === 0) {
@@ -208,7 +208,7 @@ class Tr extends Component {
       }
     }
 
-    let className = tableClass('normal', striped && index % 2 === 1 && 'even')
+    let className = tableClass('normal', striped && (index % 2 === 1 ? 'even' : 'odd'))
     if (rowClassName) {
       className = classnames(className, rowClassName(rowData, index))
     }

@@ -18,8 +18,7 @@ const WrappedOptionList = absoluteList(OptionList)
 const WrappedBoxList = absoluteList(BoxList)
 const WrappedOptionTree = absoluteList(OptionTree)
 
-const isResult = el =>
-  [selectClass('ellipsis'), selectClass('caret'), selectClass('result')].some(c => el.classList.contains(c))
+const isResult = el => getParent(el, `.${selectClass('result')}`)
 
 class Select extends PureComponent {
   constructor(props) {
@@ -317,7 +316,6 @@ class Select extends PureComponent {
       'expanded',
       'onExpand',
       'loader',
-      'renderPending',
       'defaultExpanded',
       'defaultExpandAll',
       'datum',
@@ -376,7 +374,7 @@ class Select extends PureComponent {
       props[k] = this.props[k]
     })
 
-    const List = props.columns >= 1 ? WrappedBoxList : WrappedOptionList
+    const List = props.columns >= 1 || props.columns === -1 ? WrappedBoxList : WrappedOptionList
 
     return (
       <List
@@ -423,6 +421,7 @@ class Select extends PureComponent {
       renderUnmatched,
       showArrow,
       focusSelected,
+      compressedClassName,
     } = this.props
     const className = selectClass(
       'inner',
@@ -430,7 +429,8 @@ class Select extends PureComponent {
       this.state.focus && 'focus',
       this.state.position,
       multiple && 'multiple',
-      disabled === true && 'disabled'
+      disabled === true && 'disabled',
+      !trim && 'pre'
     )
     const renderResult = this.props.renderResult || this.renderItem
 
@@ -467,6 +467,7 @@ class Select extends PureComponent {
           compressed={compressed}
           showArrow={showArrow}
           focusSelected={focusSelected}
+          compressedClassName={compressedClassName}
         />
         {this.renderOptions()}
       </div>
@@ -506,6 +507,7 @@ Select.propTypes = {
   emptyAfterSelect: PropTypes.bool,
   showArrow: PropTypes.bool,
   focusSelected: PropTypes.bool,
+  compressedClassName: PropTypes.string,
 }
 
 Select.defaultProps = {

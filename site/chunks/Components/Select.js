@@ -158,22 +158,22 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Select/example-13-absolute.js'),
   },
   {
-    name: '13-modal',
-    title: locate(
-      '在 Modal 中使用 \n 在 Modal 中使用Select 的话, 不推荐使用 absolute, 如果需要使用 absolute, 则需要同时设置 zIndex=1051(或者更高)',
-      'use in Modal \n if use Selct in Modal, not recommended to use absolute. if need, please set zIndex=1051(or higner) too.'
-    ),
-    component: require('doc/pages/components/Select/example-13-modal.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Select/example-13-modal.js'),
-  },
-  {
-    name: '14-columns',
+    name: '14-columns-default',
     title: locate(
       '多列选项 \n 设置 columns 属性，选项变为多列展示，设置 columnWidth 指定每一列宽度',
       'Columns \n Set columns property over 1, options will display in multiple columns.'
     ),
-    component: require('doc/pages/components/Select/example-14-columns.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Select/example-14-columns.js'),
+    component: require('doc/pages/components/Select/example-14-columns-default.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-14-columns-default.js'),
+  },
+  {
+    name: '14-columns-stack',
+    title: locate(
+      ' \n columns 为 -1 时选项会堆叠展示， columnWidth 为选项框的宽度',
+      ' \n Set columns -1, options will display end by end， columnsWidth is the width of the option box'
+    ),
+    component: require('doc/pages/components/Select/example-14-columns-stack.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-14-columns-stack.js'),
   },
   {
     name: '15-treeData',

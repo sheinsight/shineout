@@ -19,7 +19,7 @@
 | filterDelay | number | 400 | 毫秒。用户输入触发 fitler 事件的延时 |
 | format | (data: any) => any \| string | d => d | 格式化 value<br />默认值，返回原始数据<br />为string时，会作为key从原始数据中获取值，相当于 (d) => d\[format\]<br /> 为函数时，以函数返回结果作为 value |
 | name | string | 无 | Form 存取数据的名称 |
-| keygen | (data: any) => string \| string \| true | 必填 | 生成每一项key的辅助方法<br />为 true 时，以数据项本身作为key，相当于 (d => d)<br />为函数时，使用此函数返回值<br />为string时，使用这个string对应的数据值。如 'id'，相当于 (d => d.id) |
+| keygen | ((data: any) => string) \| string \| true | 必填 | 生成每一项key的辅助方法<br />为 true 时，以数据项本身作为key，相当于 (d => d)<br />为函数时，使用此函数返回值<br />为string时，使用这个string对应的数据值。如 'id'，相当于 (d => d.id) |
 | onChange | (value: any, data: any, checked: boolean) => void | 无 | value 为 datum.getValue() |
 | onCreate | (input: string) => any \| boolean | 无 | 如果设置了 onCreate 事件，组件为可输入状态<br />onCreate为函数时，将此函数返回值作为新的选项拆入最上方<br />onCreate为true时，使用默认函数 text => text |
 | onFilter | (text: string) => (data: any) => boolean | 无 | onFilter 不为空时，可以输入过滤数据<br />onFilter 如果返回一个函数，使用这个函数做前端过滤<br />如果不返回，可以自行做后端过滤 |
@@ -40,3 +40,4 @@
 | showHitDescendants | boolean | false | 筛选后是否展示命中节点的后代节点 |
 | focusSelected | boolean | true | onCreate 或 onFilter 在单选情况下单击值后是否选中值 |
 | noCache | boolean | false | 是否开启数据缓存，如果数据存在动态更新的情况建议开启 |
+| compressedClassName | string | 无 | 多选合并展示弹出框的类名 |

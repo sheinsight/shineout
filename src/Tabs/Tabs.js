@@ -58,7 +58,7 @@ class Tabs extends PureComponent {
     const tabs = []
 
     let { border } = this.props
-    Children.toArray(children).forEach((child, i) => {
+    Children.toArray(children).forEach((child, i, arr) => {
       if (!child || !child.type) return
 
       let tab = null
@@ -88,6 +88,7 @@ class Tabs extends PureComponent {
         color: child.props.color || (active === id ? color : undefined),
         disabled: child.props.disabled,
         shape,
+        last: arr.length - 1 === i,
       })
     })
 
@@ -156,7 +157,7 @@ Tabs.propTypes = {
   defaultCollapsed: PropTypes.bool,
   inactiveBackground: PropTypes.string,
   onChange: PropTypes.func,
-  shape: PropTypes.oneOf(['card', 'line', 'button', 'bordered']),
+  shape: PropTypes.oneOf(['card', 'line', 'button', 'bordered', 'dash']),
   style: PropTypes.object,
   tabBarExtraContent: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   tabBarStyle: PropTypes.object,

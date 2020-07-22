@@ -34,7 +34,7 @@ class CardGroup extends PureComponent {
       gridColumnGap: gap,
       ...other.gridStyle,
       gridTemplateColumns:
-        cardWidth !== undefined ? `repeat(auto-fit, minmax(${cardWidth}px, 1fr))` : `repeat(${columns}, 1fr)`,
+        cardWidth !== undefined ? `repeat(auto-fill, minmax(${cardWidth}px, 1fr))` : `repeat(${columns}, 1fr)`,
     }
     return (
       <Provider value={context}>

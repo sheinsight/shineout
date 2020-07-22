@@ -10,7 +10,7 @@ import FontAwesome from '../Icon/FontAwesome'
 
 const style = { width: 300, marginBottom: 12 }
 
-export default function() {
+export default function () {
   return (
     <div>
       <Input.Group style={style}>

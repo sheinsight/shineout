@@ -1,271 +1,175 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import immer from 'immer'
 import classnames from 'classnames'
-import { getUidStr } from '../utils/uid'
-import absoluteList from '../List/AbsoluteList'
+import Textarea from '../Textarea'
+import Input from '../Input'
+import Popover from '../Popover'
 import { editableAreaClass } from '../styles'
-import Clear from '../Input/clear'
-import { focusElement } from '../utils/dom/element'
+import icons from '../icons'
 import { defer } from '../utils/uid'
+import { focusElement } from '../utils/dom/element'
 
-const AbsoluteView = absoluteList(({ focus, getRef, fixed, ...other }) =>
-  focus ? <div className={editableAreaClass('focus')} {...other} /> : null
-)
-
-function formatPreTagValue(value) {
-  if (!value && value !== 0) return '\u00a0'
-  const arr = String(value).split('\n')
-  const len = arr.length
-  const last = arr[len - 1]
-  if (last === '') arr[len - 1] = '\u00a0'
-  return arr.join('\n')
-}
+const findNode = (el, target) => el.querySelector(target)
 
 function formatShowValue(value) {
-  if (!value && value !== 0) return '\u00a0'
+  if (!value && value !== 0) return ''
   const arr = String(value).split('\n')
   const len = arr.length
   if (len > 1) return `${arr[0]}...`
   return String(value)
 }
 
-function isDescendent(el, id) {
-  if (el.getAttribute('data-id') === id) return true
-  if (!el.parentElement) return false
-  return isDescendent(el.parentElement, id)
-}
-
-class EditableArea extends React.PureComponent {
+class Editable extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      value: props.defaultValue,
+      value: props.value,
       showTextarea: false,
-      height: 0,
-      showClear: false,
     }
-    this.editableAreaId = `editable_${getUidStr()}`
-    this.handleFocus = this.handleFocus.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleMousedown = this.handleMousedown.bind(this)
-    this.bindElement = this.bindElement.bind(this)
-    this.bindInput = this.bindInput.bind(this)
-    this.bindPlaceholder = this.bindPlaceholder.bind(this)
-    this.handleMouseEnter = this.handleMouseEnter.bind(this)
-    this.handleMouseLeave = this.handleMouseLeave.bind(this)
+
+    this.bindContainer = this.bindElement.bind(this, 'container')
+
+    this.renderInput = this.renderInput.bind(this)
+    this.renderTextarea = this.renderTextarea.bind(this)
+    this.onChange = this.onChange.bind(this)
+    this.onBlur = this.onBlur.bind(this)
+    this.autoFocus = this.autoFocus.bind(this)
+    this.textareaFocus = this.textareaFocus.bind(this)
+    this.updateValue = this.updateValue.bind(this)
+    this.showPop = this.updateShowTextarea.bind(this, true)
+    this.hidePop = this.updateShowTextarea.bind(this, false)
   }
 
-  componentDidMount() {
-    this.handleResize()
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleMousedown)
-  }
-
-  getValue() {
-    const { value, onChange } = this.props
-    if (onChange && value !== undefined) return value
-    return this.state.value
-  }
-
-  getPreTagValue(value) {
-    const { showTextarea } = this.state
-    const { placeholder } = this.props
-    if (!value && value !== 0 && placeholder) {
-      return <span className={editableAreaClass('textarea-placeholder')}>{placeholder}</span>
-    }
-    return showTextarea ? formatPreTagValue(value) : formatShowValue(value)
-  }
-
-  bindElement(el) {
-    this.container = el
-  }
-
-  bindInput(el) {
-    this.input = el
-  }
-
-  bindPlaceholder(el) {
-    this.placeholder = el
-  }
-
-  showClear() {
-    const { showTextarea, showClear } = this.state
-    const { clearable, disabled } = this.props
-    const value = this.getValue()
-    return value && showClear && !showTextarea && clearable && !disabled
-  }
-
-  handleResize() {
-    let height
-    if (this.placeholder) {
-      height = this.placeholder.offsetHeight || 0
-    }
-    this.setState(
-      immer(state => {
-        state.height = height
-      })
-    )
-  }
-
-  handleFocus(e) {
-    const { onFocus, disabled } = this.props
-    if (disabled) return
-    document.addEventListener('mousedown', this.handleMousedown)
-    this.handleToggle(true)
-    if (onFocus) onFocus(e)
-    defer(() => {
-      focusElement.end(this.input)
-    })
-  }
-
-  handleMousedown(e) {
-    const isChild = isDescendent(e.target, this.editableAreaId)
-    if (!isChild) {
-      this.handleToggle(false)
-      document.removeEventListener('mousedown', this.handleMousedown)
+  componentDidUpdate(prevProps) {
+    const { value } = this.props
+    if (value !== prevProps.value) {
+      this.updateValue(value)
     }
   }
 
-  handleToggle(show) {
-    this.setState(
-      immer(state => {
-        state.showTextarea = show
-        state.showClear = false
-      }),
-      this.handleResize
-    )
-  }
-
-  handleChange(e) {
-    const { value } = e.target
+  onChange(value) {
     const { onChange } = this.props
-    if (onChange) onChange(value)
-    this.setState(
-      immer(state => {
-        state.value = value
-      }),
-      this.handleResize
-    )
+    if (typeof onChange === 'function') onChange(value)
+    this.updateValue(value)
   }
 
-  handleMouseEnter() {
-    this.setState(
-      immer(state => {
-        state.showClear = true
-      })
-    )
+  onBlur(e) {
+    const { onBlur } = this.props
+    this.hidePop()
+    if (typeof onBlur === 'function') onBlur(e)
   }
 
-  handleMouseLeave() {
-    this.setState(
-      immer(state => {
-        state.showClear = false
-      })
-    )
+  get popoverStyle() {
+    const { style } = this.props
+    if (!style || !style.width) return null
+    return { width: style.width }
   }
 
-  renderItem() {
-    const { showTextarea, height } = this.state
-    const { style, placeholder, onBlur, bordered, disabled, absolute } = this.props
-    const value = this.getValue()
-    const showClear = this.showClear()
-    const content = [
-      <pre
-        key="pre"
-        ref={this.bindPlaceholder}
-        className={editableAreaClass(
-          'placeholder',
-          !showTextarea && 'placeholder-one-line',
-          bordered && 'bordered',
-          disabled ? 'disabled' : 'editable',
-          showClear && 'reset-padding-right'
-        )}
-      >
-        {this.getPreTagValue(value)}
-      </pre>,
-      <textarea
-        ref={this.bindInput}
-        key="t"
-        placeholder={placeholder}
-        onChange={this.handleChange}
-        onFocus={this.handleFocus}
-        onBlur={onBlur}
-        spellCheck="false"
-        style={{ height, lineHeight: (style || {}).lineHeight }}
-        rows={1}
-        className={editableAreaClass('textarea', showTextarea ? 'edit' : 'show', disabled && 'disabled')}
-        value={showTextarea ? value : formatShowValue(value)}
-      />,
-      showClear && (
-        <div key="d" style={{ height }} className={editableAreaClass('clear-wrapper')}>
-          <Clear
-            onClick={() => {
-              this.handleChange({ target: { value: '' } })
-            }}
-            key="c"
-          />
-        </div>
-      ),
-    ]
-    if (!showTextarea || !absolute) return content
+  updateShowTextarea(flag) {
+    this.setState({ showTextarea: flag })
+  }
+
+  updateValue(value) {
+    this.setState({ value })
+  }
+
+  textareaFocus(e) {
+    const { onFocus } = this.props
+    if (typeof onFocus === 'function') onFocus(e)
+  }
+
+  bindElement(type, el) {
+    this[type] = el
+  }
+
+  autoFocus() {
+    if (!this.container) return
+    const target = findNode(this.container, `.${editableAreaClass('text-area')} textarea.so-input-auto-size`)
+    if (target) focusElement.end(target)
+  }
+
+  renderTextarea() {
+    const { showTextarea, value } = this.state
+    const { delay, placeholder } = this.props
+    if (!showTextarea) return null
+    const that = this
+    defer(() => {
+      that.autoFocus()
+    })
+
     return (
-      <AbsoluteView
-        rootClass={editableAreaClass('absolute')}
-        fixed
-        position="drop-down"
-        absolute
-        focus={showTextarea}
-        parentElement={this.container}
-        data-id={this.editableAreaId}
-      >
-        {content}
-      </AbsoluteView>
+      <div ref={this.bindContainer}>
+        <Textarea
+          className={editableAreaClass('text-area')}
+          autosize
+          value={value}
+          rows={1}
+          delay={delay}
+          onChange={this.onChange}
+          onBlur={this.onBlur}
+          onFocus={this.textareaFocus}
+          placeholder={placeholder}
+        />
+      </div>
+    )
+  }
+
+  renderInput() {
+    const { value } = this.state
+    const { placeholder, disabled } = this.props
+    return (
+      <Input
+        placeholder={placeholder}
+        value={formatShowValue(value)}
+        className={editableAreaClass('input')}
+        onFocus={this.showPop}
+        disabled={disabled}
+      />
     )
   }
 
   render() {
-    const { showTextarea } = this.state
-    const { style, className } = this.props
-    const cls = classnames(className, editableAreaClass('_', showTextarea && 'focus'))
+    const { showTextarea, value } = this.state
+    const { style, className, bordered, clearable } = this.props
+    const cls = classnames(className, editableAreaClass('_', !bordered && 'none-bordered'))
     return (
-      <div
-        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-        className={cls}
-        ref={this.bindElement}
-        style={style}
-        data-id={this.editableAreaId}
-        onMouseEnter={this.handleMouseEnter}
-        onMouseLeave={this.handleMouseLeave}
-      >
-        {this.renderItem()}
+      <div className={cls} style={style}>
+        {this.renderInput()}
+        <Popover
+          visible={showTextarea}
+          showArrow={false}
+          className={editableAreaClass('popover')}
+          position="cover"
+          style={this.popoverStyle}
+        >
+          {this.renderTextarea()}
+        </Popover>
+        {clearable && value ? (
+          <div className={editableAreaClass('clear')} onClick={() => this.updateValue('')}>
+            {icons.CloseCircle}
+          </div>
+        ) : null}
       </div>
     )
   }
 }
 
-EditableArea.propTypes = {
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-  style: PropTypes.object,
-  defaultValue: PropTypes.string,
-  placeholder: PropTypes.string,
-  clearable: PropTypes.bool,
-  onFocus: PropTypes.func,
-  className: PropTypes.shape(),
-  onBlur: PropTypes.func,
-  bordered: PropTypes.bool,
-  disabled: PropTypes.bool,
-  absolute: PropTypes.bool,
-}
-
-EditableArea.defaultProps = {
-  defaultValue: '',
-  clearable: true,
+Editable.defaultProps = {
   bordered: false,
-  disabled: false,
 }
 
-export default EditableArea
+Editable.propTypes = {
+  onBlur: PropTypes.func,
+  onChange: PropTypes.func,
+  value: PropTypes.string,
+  style: PropTypes.object,
+  className: PropTypes.string,
+  delay: PropTypes.number,
+  bordered: PropTypes.bool,
+  placeholder: PropTypes.string,
+  onFocus: PropTypes.func,
+  disabled: PropTypes.bool,
+  clearable: PropTypes.bool,
+}
+
+export default Editable

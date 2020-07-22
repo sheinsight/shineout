@@ -17,7 +17,7 @@
 | defaultExpanded | string[] | 无 | 默认展开的节点 key（非受控） |
 | disabled | (data: any) => boolean \| boolean | false | 显示选择框时有效，为 true 时，所有节点禁用选择，为函数时，根据函数返回结果确定是否禁用 |
 | expanded | string[] | 无 | 展开的节点 key （受控） |
-| keygen | (data: any, parentKey: string) => string \| string | 必填 | 生成key的辅助方法<br />为函数时，使用此函数返回值<br />为string时，使用这个string对应的数据值。如 'id'，相当于 (d) => d.id |
+| keygen | ((data: any, parentKey: string) => string) \| string | 必填 | 生成key的辅助方法<br />为函数时，使用此函数返回值<br />为string时，使用这个string对应的数据值。如 'id'，相当于 (d) => d.id |
 | line | boolean | true | 是否显示连接线 |
 | loader | (key: string) => void | 无 | 设置loader属性后，未定义children的节点视为动态加载节点，点击展开触发 loader事件，children 为 null 或者长度为 0 视为叶子节点 |
 | mode | 0 \| 1 \| 2 \| 3 \| 4 | 1 | 选中值模式<br />0: 只返回完全选中的节点，包含父节点<br />1: 返回全部选中的节点和半选中的父节点<br />2: 只返回选中的子节点<br />3: 如果父节点选中，只返回父节点 |

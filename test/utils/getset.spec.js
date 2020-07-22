@@ -1,4 +1,4 @@
-import { deepGet, deepSet, deepRemove, pathGenerator } from '../../src/utils/objects'
+import { deepGet, deepSet, deepRemove, pathGenerator, deepHas } from '../../src/utils/objects'
 
 const func = () => {}
 const date = new Date()
@@ -218,5 +218,20 @@ describe('object.js[pathGenerator]', () => {
   test('get path with mode.', () => {
     const gen = pathGenerator('a.b![0]?.c!')
     expect(gen).toEqual([['a', 'b!.[0]?.c!', undefined], ['b', '[0]?.c!', '!'], [0, 'c!', '?'], ['c', undefined, '!']])
+  })
+})
+
+describe('object.js[deepHas]', () => {
+  test('has path', () => {
+    const data = {
+      a: { b: 1 },
+      b: [0, 1],
+      c: undefined,
+    }
+    const arr = [['a.b.c', false], ['a.b', true], ['b[0]', true], ['c', true], ['c.d', false]]
+    expect(deepHas({}, 'a')).toBe(false)
+    arr.forEach(item => {
+      expect(deepHas(data, item[0])).toBe(item[1])
+    })
   })
 })

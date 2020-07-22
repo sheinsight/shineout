@@ -43,6 +43,11 @@ div.addEventListener('mouseenter', () => {
   document.addEventListener('click', clickaway)
 })
 
+div.addEventListener('mouseleave', () => {
+  clearTimeout(timer)
+  hide()
+})
+
 export function show(props, id) {
   const { position, style, content, background, border, noArrow, type } = props
 
