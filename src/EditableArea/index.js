@@ -3,13 +3,11 @@ import delay from '../hoc/delay'
 import trim from '../hoc/trim'
 import inputable from '../Form/inputable'
 import Component from './EditableArea'
-import absolute from '../Table/context'
 
 const EditableArea = compose(
   inputable,
   delay(400),
-  trim,
-  absolute
+  trim
 )(Component)
 
 EditableArea.displayName = 'ShineoutEditableArea'
