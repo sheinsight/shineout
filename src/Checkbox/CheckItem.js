@@ -138,7 +138,7 @@ export default function (type) {
             checked={checked}
           />
           <i className={checkinputClass('indicator', type)} />
-          {children && !isSwitch && <span>{children}</span>}
+          {children && !isSwitch && <span className={checkinputClass('desc')}>{children}</span>}
           {inputable && !isSwitch && checked && (
             <Input className={checkinputClass('text')} onChange={this.handleInputChange} value={value} />
           )}

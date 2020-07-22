@@ -99,18 +99,6 @@
         }
       }
 
-      // radio background-color && color && border-color can be setting
-      &.@{checkinput-prefix}-radio-container {
-        .button-variant(@radio-button-group-color; @radio-button-group-bgc; @radio-button-group-border-color; 'default' ; @radio-button-group-border-color);
-
-        &:before {
-          background: @radio-button-group-border-color;
-        }
-        .@{checkinput-prefix}-radio + span {
-          color: @radio-button-group-color;
-        }
-      }
-
       &.@{checkinput-prefix}-checked {
         &:not(.@{checkinput-prefix}-disabled) {
           z-index: 1;
@@ -120,18 +108,8 @@
           background: @btn-primary-bg;
         }
 
-        .@{checkinput-prefix}-radio + span {
+        .@{checkinput-prefix}-desc {
           color: @btn-primary-color;
-        }
-      }
-
-      &.@{checkinput-prefix}-checked.@{checkinput-prefix}-radio-container {
-        .button-variant(@radio-button-group-active-color; @radio-button-group-active-bgc; @radio-button-group-active-border-color; 'primary');
-        &:before {
-          background: @radio-button-group-active-bgc;
-        }
-        .@{checkinput-prefix}-radio + span {
-          color: @radio-button-group-active-color;
         }
       }
 
@@ -158,7 +136,7 @@
           color: @colors-primary;
         }
 
-        .@{checkinput-prefix}-radio + span {
+        .@{checkinput-prefix}-desc {
           color: @colors-primary;
         }
       }
@@ -405,7 +383,9 @@
     }
   }
 
-  &-radio + span {
-    color: @radio-text-color;
+  &-radio-container {
+    .@{checkinput-prefix}-desc {
+      color: @radio-text-color;
+    }
   }
 }
