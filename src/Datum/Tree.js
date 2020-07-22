@@ -208,7 +208,7 @@ export default class {
 
   setData(data) {
     const prevValue = this.value || []
-    this.setValue([])
+    this.cachedValue = []
     this.pathMap = new Map()
     this.dataMap = new Map()
     this.data = data
