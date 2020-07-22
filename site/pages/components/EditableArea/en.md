@@ -19,3 +19,6 @@
 | trim | boolean | false | When trim is true, blank characters are automatically deleted when lose focus |
 | onBlur | (e: MouseEvent) => void | none | blur event |
 | onFocus | (e: MouseEvent) => void | none | focus event |
+| maxHeight | number \| string | - | the maxHeight of the textarea, scroll bars appear after more than | 
+| getPopupContainer | () => HTMLElement | none | Custom Popover container, override the default behavior which is rendering under the body, () => DOMElement |
+| width | number \| string | none | width of the editablearea |
