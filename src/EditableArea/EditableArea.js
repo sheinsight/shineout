@@ -89,7 +89,7 @@ class Editable extends React.PureComponent {
 
   renderTextarea() {
     const { showTextarea, value } = this.state
-    const { delay } = this.props
+    const { delay, placeholder } = this.props
     if (!showTextarea) return null
     const that = this
     defer(() => {
@@ -107,6 +107,7 @@ class Editable extends React.PureComponent {
           onChange={this.onChange}
           onBlur={this.onBlur}
           onFocus={this.textareaFocus}
+          placeholder={placeholder}
         />
       </div>
     )
