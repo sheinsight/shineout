@@ -7,6 +7,7 @@ import Popover from '../Popover'
 import { editableAreaClass } from '../styles'
 import icons from '../icons'
 import { defer } from '../utils/uid'
+import { focusElement } from '../utils/dom/element'
 
 const findNode = (el, target) => el.querySelector(target)
 
@@ -84,7 +85,7 @@ class Editable extends React.PureComponent {
   autoFocus() {
     if (!this.container) return
     const target = findNode(this.container, `.${editableAreaClass('text-area')} textarea.so-input-auto-size`)
-    if (target) target.focus()
+    if (target) focusElement.end(target)
   }
 
   renderTextarea() {
