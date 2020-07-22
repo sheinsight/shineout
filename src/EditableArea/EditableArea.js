@@ -130,7 +130,7 @@ class Editable extends React.PureComponent {
 
   render() {
     const { showTextarea, value } = this.state
-    const { style, className, bordered, clearable } = this.props
+    const { style, className, bordered, clearable, getPopupContainer } = this.props
     const cls = classnames(className, editableAreaClass('_', !bordered && 'none-bordered'))
     return (
       <div className={cls} style={style}>
@@ -141,6 +141,7 @@ class Editable extends React.PureComponent {
           className={editableAreaClass('popover')}
           position="cover"
           style={this.popoverStyle}
+          getPopupContainer={getPopupContainer}
         >
           {this.renderTextarea()}
         </Popover>
@@ -170,6 +171,7 @@ Editable.propTypes = {
   onFocus: PropTypes.func,
   disabled: PropTypes.bool,
   clearable: PropTypes.bool,
+  getPopupContainer: PropTypes.func,
 }
 
 export default Editable
