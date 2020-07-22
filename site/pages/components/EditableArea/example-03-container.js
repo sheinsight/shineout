@@ -7,13 +7,13 @@
 import React from 'react'
 import { EditableArea } from 'shineout'
 
-export default function () {
+export default function() {
   return (
     <div id="popup-target" style={{ height: 200, overflowY: 'auto', position: 'relative', paddingLeft: 16 }}>
-      <div style={{ height: 140 }} />
+      <div style={{ height: 100 }} />
       <EditableArea
         bordered
-        value="使用 getPopupContainer 指定渲染的目标容器"
+        placeholder="scroll in container"
         getPopupContainer={() => document.querySelector('#popup-target')}
         maxHeight={100}
       />

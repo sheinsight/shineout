@@ -20,4 +20,4 @@
 | onBlur | (e: MouseEvent) => void | none | blur event |
 | onFocus | (e: MouseEvent) => void | none | focus event |
 | maxHeight | number \| string | - | the maxHeight of the textarea, scroll bars appear after more than | 
-| getPopupContainer | () => HTMLElement \| HTMLElement | none | Custom Popover container, override the default behavior which is rendering under the body, () => DOMElement |
+| getPopupContainer | () => HTMLElement | none | Custom Popover container, override the default behavior which is rendering under the body, () => DOMElement |
