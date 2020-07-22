@@ -6,6 +6,7 @@
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
+| defaultValue | string | none | Set initial value |
 | value | string | none | The value passed in when controlled |
 | className | string | none | The outermost extension className of a component |
 | onChange | (value: string) => void | none | Callback function when the value changes, making the component controlled when set with value |

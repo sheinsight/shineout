@@ -17,7 +17,7 @@ const examples = [
     name: '01-base',
     title: locate(
       '基本用法 \n EditableArea 默认展示一行，超过一行的内容用...代替',
-      'Base \n Editablearea displays one line by default, and replace the content of the newline with...'
+      'Base \n Editablearea displays one line by default, and more than one line is replaced by ...'
     ),
     component: require('doc/pages/components/EditableArea/example-01-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/EditableArea/example-01-base.js'),

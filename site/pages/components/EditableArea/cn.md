@@ -6,6 +6,7 @@
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
+| defaultValue | string | 无 | 设置初始值 |
 | value | string | 无 | 受控时，传入的value |
 | className | string | 无 | 扩展外层className |
 | onChange | (value: string) => void | 无 | 值改变时的回调函数，和value一起设置时使组件受控 |
