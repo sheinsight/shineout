@@ -269,10 +269,6 @@
         }
       }
 
-      > tbody tr:last-child td {
-        border-bottom: none;
-      }
-
       > tbody > tr > td.@{table-prefix}-ignore-bottom-border {
         border-bottom: none;
       }
@@ -315,7 +311,16 @@
       border-left: 1px solid @table-border-color;
     }
     .@{so-prefix}-scroll-x {
-      border-top: 1px solid @table-border-color;
+      &:after {
+        position: absolute;
+        content: '';
+        display: inline-block;
+        top: -2px;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: @table-border-color;
+      }
     }
   }
 
