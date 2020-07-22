@@ -34,7 +34,7 @@ const examples = [
   {
     name: '03-container',
     title: locate(
-      '自定义容器 \n 使用 getPopupContainer 指定渲染的目标容器',
+      '自定义容器 \n 在内滚容器中使用此组件，可使用 getPopupContainer 指定渲染的目标容器，使之随之滚动',
       'Custom container \n use getPopupContainer return target container'
     ),
     component: require('doc/pages/components/EditableArea/example-03-container.js').default,

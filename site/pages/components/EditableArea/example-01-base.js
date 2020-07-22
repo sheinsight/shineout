@@ -9,5 +9,5 @@ import React from 'react'
 import { EditableArea } from 'shineout'
 
 export default function() {
-  return <EditableArea bordered placeholder="input something" style={{ width: 300 }} />
+  return <EditableArea bordered placeholder="input something" />
 }
