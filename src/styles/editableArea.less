@@ -2,106 +2,61 @@
 @import './themes/@{so-theme}.less';
 
 @editableArea-prefix: ~'@{so-prefix}-editableArea';
-@height: 34px;
-@editableArea-animation-duration-time: 0.2s;
+@editableArea-clearable-icon: 12px;
+
 
 .@{editableArea-prefix} {
-    font-size: @font-size-base;
-    line-height: @line-height-base;
-    height: @height;
-    color: @input-color;
-    outline: none;
-    position: relative;
+  width: 100%;
+  position: relative;
 
-    &-textarea, &-placeholder {
-      width: 100%;
-      margin: 0!important;
-      padding: @padding-base-vertical @padding-base-horizontal;
-      border: 1px solid transparent;
-      cursor: text;
+
+  &-input {
+    input {
       overflow: hidden;
-      font-family: @font-family-base;
-      word-wrap: break-word;
-      word-break: break-all;
-      white-space: pre-wrap;  // fix: EditableArea cont autosize when absolute is true
-      position: absolute;
-      top: 0;
-      left: 0;
-      transition: border-color @editableArea-animation-duration-time;
-      border-radius: @input-border-radius;
+      text-overflow: ellipsis;
     }
+  }
 
-    &-reset-padding-right {
-      padding-right: @padding-base-horizontal + 8px;
+  &-none-bordered {
+    .@{editableArea-prefix}-input {
+      border-color: transparent;
+
+      &:hover{
+        border-color: @input-border-focus;
+      }
     }
+  }
 
-    &-textarea {
-      resize: none;
-      outline: none;
-      line-height: @line-height-base;
-      color: @input-color;
-      display: block;
+  &-popover {
+    border: none;
+    box-shadow: none;
+  }
 
-      &::placeholder,
-      &-placeholder {
-        color: @input-color-placeholder;
-        font-size: @input-size-placeholder;
+  &-clear {
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    width: @editableArea-clearable-icon;
+    height: @editableArea-clearable-icon;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      svg {
+        fill: @input-clear-bg-hover-color;
       }
     }
 
-    &-editable {
-      background-color: #fff!important;
+    svg {
+      width: 100%;
+      height: 100%;
+
+      background-color: #fff;
+      fill: @input-clear-bg-color;
+      transition: all 0.2s;
     }
-
-    &-edit {
-      border-color: @input-border-focus;
-      box-shadow: 0 0 0 @input-focus-width @input-border-focus-fade-25;
-    }
-
-    &-bordered {
-      border-color: @input-border;
-    }
-
-    &:hover &-textarea, &:hover &-placeholder {
-      border-color: @input-border-focus;
-    }
-
-    &-edit {
-      z-Index: 2;
-    }
-
-    &-disabled {
-      .input-disabled();
-    }
-
-
-
-    &-placeholder-one-line {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap!important;
-    }
-
-    &-show {
-      opacity: 0;
-      z-Index: 1;
-    }
-
-    &-clear-wrapper {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 16px;
-      z-index: 1;
-    }
-
-    &-absolute {
-        transform: translateY(-@height);
-        z-index: 1000; // fix EditableArea context zIndex error
-    }
-
-    &-focus {
-      z-index: @zindex-dropdown;
-    }
-
+  }
 }
