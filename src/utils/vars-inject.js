@@ -438,6 +438,13 @@ const injects = {
         className: buttonClass('disabled'),
         desc: '禁用按钮文字颜色',
       },
+      {
+        name: 'buttonDefaultTextColor',
+        attr: 'color',
+        type: 'color',
+        className: buttonClass('default'),
+        desc: '默认样式下文字颜色',
+      },
     ],
     set fontSizeBase(v) {
       setBodyProperty(
@@ -576,6 +583,14 @@ const injects = {
         v
       )
     },
+    set buttonDefaultTextColor(v) {
+      setBodyProperty(
+        {
+          '--button-default-text-color': v,
+        },
+        v
+      )
+    },
   },
   dropdown: {
     info: {
@@ -654,6 +669,14 @@ const injects = {
         type: ['start', 'center', 'end'],
         desc: '标签对齐方式',
       },
+      {
+        name: 'formTipFontSize',
+        className: exposeClass('form-tip'),
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+        desc: '提示信息字体大小',
+      },
     ],
     set itemMarginBottom(v) {
       setBodyProperty(
@@ -683,6 +706,14 @@ const injects = {
       setBodyProperty(
         {
           '--form-item-label-align': v,
+        },
+        v
+      )
+    },
+    set formTipFontSize(v) {
+      setBodyProperty(
+        {
+          '--form-tip-font-size': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -807,7 +838,7 @@ const injects = {
       },
       {
         name: 'color',
-        className: checkinputClass('checkinput-radio-wrap'),
+        className: exposeClass('radio'),
         attr: 'color',
         type: 'color',
         desc: '文字颜色',

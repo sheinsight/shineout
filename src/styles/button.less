@@ -61,10 +61,10 @@
   }
 
   &-default {
-    .button-variant(@btn-default-color; @btn-default-bg; @btn-default-border; 'default' ; @btn-default-border);
+    .button-variant(@button-default-text-color; @btn-default-bg; @btn-default-border; 'default' ; @btn-default-border);
 
     &.@{button-prefix}-outline:not(@{button-disabled}) {
-      .button-outline(@btn-default-color; @btn-default-bg; @btn-default-bg;);
+      .button-outline(@button-default-text-color; @btn-default-bg; @btn-default-bg;);
     }
 
     & when (@so-theme = antd) {
@@ -77,7 +77,7 @@
     }
 
     &[disabled]:hover {
-      color: @btn-default-color;
+      color: @button-default-text-color;
       fill: @link-color;
     }
   }
