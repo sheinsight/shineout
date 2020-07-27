@@ -148,7 +148,7 @@ class Tbody extends PureComponent {
   }
 
   renderTr(row, i) {
-    const { columns, keygen, data, sorter, index, expandKeys, resize, colgroup, ...other } = this.props
+    const { columns, keygen, data, sorter, index, expandKeys, colgroup, ...other } = this.props
 
     let key = getKey(data[i], keygen, index + i)
     if (this.keys[key]) {

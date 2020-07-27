@@ -291,7 +291,7 @@ class SeperateTable extends PureComponent {
     if (!this.tbody || this.realTbody.clientHeight === 0) return
     const [x, y, max, bar, v, h, pixelX, pixelY] = args
     const { colgroup } = this.state
-    const isResize = v && this.lastScrollArgs && v !== this.lastScrollArgs[4]
+    const isResize = v && this.lastScrollArgs[4] && v !== this.lastScrollArgs[4]
     this.lastScrollArgs = args
     const { data, rowHeight, rowsInView } = this.props
     const contentWidth = this.getContentWidth()
