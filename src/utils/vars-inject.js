@@ -443,7 +443,7 @@ const injects = {
         attr: 'color',
         type: 'color',
         className: buttonClass('default'),
-        desc: 'default样式下文字颜色',
+        desc: '默认样式下文字颜色',
       },
     ],
     set fontSizeBase(v) {
@@ -675,7 +675,7 @@ const injects = {
         attr: 'fontSize',
         type: 'number',
         parser: parseInt,
-        desc: 'form提示信息字体大小',
+        desc: '提示信息字体大小',
       },
     ],
     set itemMarginBottom(v) {
