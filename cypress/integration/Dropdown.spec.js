@@ -116,8 +116,9 @@ describe('Dropdown', () => {
       cy.visit('/Dropdown?example=3')
     })
 
-    it.only('should hava correct position className', () => {
-      cy.get('.doc-example-body > div > .so-dropdown').each(el => {
+    it('should hava correct position className', () => {
+      cy.get('.doc-example-body > div > .so-dropdown').each((el, index) => {
+        if (index >= 8) return
         const position = el.get(0).classList[1]
         const text = position
           .slice(12)
@@ -131,6 +132,27 @@ describe('Dropdown', () => {
           .contains(text)
           .click()
       })
+    })
+  })
+
+  describe('Absolute', () => {
+    beforeEach(() => {
+      cy.visit('/Dropdown?example=7')
+    })
+
+    it.only('should render options under body', () => {
+      cy.get('.doc-example-body > div > .so-dropdown')
+        .first()
+        .as('dropdown')
+
+      cy.get('@dropdown')
+        .contains('Absolute')
+        .click()
+
+      cy.get('@dropdown')
+        .get('.so-list')
+        .should('not.exist')
+      cy.get('body > .so-list-root > .so-list-absolute-wrapper > .so-list').should('has.class', 'so-hidable-show')
     })
   })
 })
