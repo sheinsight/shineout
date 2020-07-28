@@ -34,6 +34,9 @@
     display: inline-block;
     flex: 1;
     padding-left: 30px;
+    height: @header-height;
+    overflow: auto;
+    white-space: nowrap;
 
     a {
       display: inline-block;
@@ -267,9 +270,6 @@
   @media (max-width: 979px) and (min-width: 599px) {
     &-logo svg{
       width: 100px;
-    }
-    a {
-      line-height: normal;
     }
     &-light {
       display: none !important;
