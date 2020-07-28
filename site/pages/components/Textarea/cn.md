@@ -19,5 +19,5 @@
 | maxHeight | number \| string | 无 | 输入框的最大高度, 超过之后会出现滚动条 | 
 | style | object | 无 | 最外层扩展样式 |
 | trim | boolean | false | trim 为 true 时，失去焦点时会自动删除空白字符。 |
-| resize | boolean | false | textarea是否可拖动（仅在autosize为false条件下生效） |
+| resize | boolean | false | textarea是否可拖动改变宽高（仅在autosize为false条件下生效） |
 | value | string \| number | | defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖<br />在Form中，value会被表单接管，value无效 |

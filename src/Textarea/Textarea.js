@@ -94,7 +94,7 @@ class Textarea extends PureComponent {
     const { autosize, onChange, maxHeight, info, onEnterPress, resize, ...props } = this.props
     const value = props.value == null ? '' : props.value
     const height = this.state.height || 'auto'
-    const className = autosize ? inputClass('auto-size') : resize && inputClass('textarea-resize')
+    const className = autosize ? inputClass('auto-size') : inputClass(resize && 'textarea-resize')
 
     const ts = [
       <textarea
