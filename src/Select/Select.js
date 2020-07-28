@@ -144,12 +144,13 @@ class Select extends PureComponent {
     // click close icon
     if (focus && e && e.target.classList.contains(selectClass('close'))) return
 
-    const { height } = this.props
+    const { height, onCollapse } = this.props
     let { position } = this.props
     const windowHeight = docSize.height
     const bottom = height + this.element.getBoundingClientRect().bottom
     if (bottom > windowHeight && !position) position = 'drop-up'
 
+    if (onCollapse) onCollapse(focus)
     this.setState({ focus, position: position || 'drop-down' })
 
     if (focus) {
@@ -508,6 +509,7 @@ Select.propTypes = {
   showArrow: PropTypes.bool,
   focusSelected: PropTypes.bool,
   compressedClassName: PropTypes.string,
+  onCollapse: PropTypes.func,
 }
 
 Select.defaultProps = {
