@@ -54,6 +54,8 @@
     padding: @popover-arrow-width * 0.7;
     border: @popover-border-width solid @popover-arrow-outer-color;
     background-color: @popover-bg;
+    border-left: none;
+    border-bottom: none;
   }
 
   &-top,
@@ -168,7 +170,8 @@
 
   &-bottom-left,
   &-bottom,
-  &-bottom-right {
+  &-bottom-right,
+  &-cover {
     margin-top: @popover-arrow-margin;
     transform: translateX(-50%);
 
@@ -186,12 +189,15 @@
     }
   }
 
-  &-bottom-left {
+  &-bottom-left, &-cover {
     transform: translateX(0);
 
     .@{popover-prefix}-arrow {
       left: @popover-arrow-width * 2;
     }
+  }
+  &-cover {
+    margin-top: 0;
   }
 
   &-bottom-right {
@@ -216,7 +222,6 @@
     z-index: 2;
     background-color: @popover-bg;
     border-radius: inherit;
-    overflow: auto;
   }
 
   &-info {

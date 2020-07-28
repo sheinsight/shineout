@@ -17,7 +17,9 @@ class Input extends PureComponent {
   }
 
   bindRef(el) {
+    const { forwardedRef } = this.props
     this.ref = el
+    if (forwardedRef) forwardedRef(el)
   }
 
   invalidNumber(value) {
@@ -112,6 +114,7 @@ class Input extends PureComponent {
       htmlName,
       forceChange,
       onEnterPress,
+      forwardedRef,
       ...other
     } = this.props
     const value = this.props.value == null ? '' : this.props.value
@@ -152,6 +155,7 @@ Input.propTypes = {
   onFocus: PropTypes.func,
   clearable: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   info: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+  forwardedRef: PropTypes.func,
 }
 
 Input.defaultProps = {

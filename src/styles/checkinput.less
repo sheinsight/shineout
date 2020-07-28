@@ -111,12 +111,9 @@
         &:before {
           background: @btn-primary-bg;
         }
-      }
 
-      &.@{checkinput-prefix}-checked.@{checkinput-prefix}-radio {
-        .button-variant(@radio-button-group-active-color; @radio-button-group-active-bgc; @radio-button-group-active-border-color; 'primary');
-        &:before {
-          background: @radio-button-group-active-bgc;
+        .@{checkinput-prefix}-desc {
+          color: @btn-primary-color;
         }
       }
 
@@ -140,6 +137,10 @@
         &:hover, &:active, &:focus {
           border-color: @colors-primary;
           background: transparent;
+          color: @colors-primary;
+        }
+
+        .@{checkinput-prefix}-desc {
           color: @colors-primary;
         }
       }
@@ -392,7 +393,9 @@
     }
   }
 
-  &-radio-wrap {
-    color: @radio-text-color;
+  &-radio-container {
+    .@{checkinput-prefix}-desc {
+      color: @radio-text-color;
+    }
   }
 }

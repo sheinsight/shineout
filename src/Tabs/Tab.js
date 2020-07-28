@@ -41,7 +41,7 @@ class Tab extends PureComponent {
   }
 
   handleClick(init) {
-    const { onClick, id, isActive, disabled } = this.props
+    const { onClick, id, isActive, disabled, last } = this.props
     if (disabled) return
 
     if (init !== true) onClick(id, isActive)
@@ -49,7 +49,7 @@ class Tab extends PureComponent {
       this.element = document.querySelector(`.${this.uid}`)
     }
     if (this.element && this.element.getBoundingClientRect) {
-      this.props.moveToCenter(this.element.getBoundingClientRect())
+      this.props.moveToCenter(this.element.getBoundingClientRect(), last, id === 0)
     }
   }
 
@@ -94,6 +94,7 @@ Tab.propTypes = {
   onClick: PropTypes.func.isRequired,
   shape: PropTypes.string,
   align: PropTypes.oneOf(['left', 'right', 'vertical-left', 'vertical-right']),
+  last: PropTypes.bool,
 }
 
 Tab.defaultProps = {

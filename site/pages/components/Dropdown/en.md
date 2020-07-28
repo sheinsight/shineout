@@ -20,6 +20,8 @@
 | trigger | 'click' \| 'hover' | 'click' | Toggle mode, options |
 | type | 'primary' \| 'secondary' \|  'success' \| 'info' \|  'warning' \|  'danger' \|  'link' | 'default' | type of Dropdown |
 | width | number | none | The width of the pop-up option layer |
+| animation | boolean | true | animation toggle |
+
 
 ### DropdownData
 

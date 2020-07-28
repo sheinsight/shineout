@@ -20,6 +20,7 @@
 | trigger | 'click' \| 'hover' | 'click' | 触发方式 |
 | type | 'primary' \| 'secondary' \|  'success' \| 'info' \|  'warning' \|  'danger' \|  'link' | 'default' | 类型 |
 | width | number | 无 | 弹出选项层的宽度 |
+| animation | boolean | true | 是否开启动画 |
 
 ### DropdownData
 

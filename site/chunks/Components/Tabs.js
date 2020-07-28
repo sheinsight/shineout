@@ -77,6 +77,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-07-shape-button.js'),
   },
   {
+    name: '07-shape-dash',
+    title: locate(
+      ' \n 设置 shape 为 \'dash\'，标签显示为短线条',
+      ' \n dash tab type'
+    ),
+    component: require('doc/pages/components/Tabs/example-07-shape-dash.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tabs/example-07-shape-dash.js'),
+  },
+  {
     name: '08-align-right',
     title: locate(
       '对齐 \n 设置 align="right" 使标签右对齐',

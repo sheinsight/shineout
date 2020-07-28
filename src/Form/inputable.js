@@ -149,7 +149,7 @@ export default curry(Origin =>
           }
           return tryValue(formDatum.get(name), defaultValue)
         }
-        const hasValue = 'value' in this.props
+        const hasValue = 'value' in this.props || 'checked' in this.props
         return !hasValue && !formDatum ? this.state.value : value
       }
 
@@ -261,13 +261,6 @@ export default curry(Origin =>
           return
         }
 
-        if (type === FORCE_PASS) {
-          this.handleError()
-          this.setState({ error: undefined })
-          this.forceUpdate()
-          return
-        }
-
         const { name, onChange, forceChangeOnValueSet } = this.props
         const newValue = !Array.isArray(name)
           ? value
@@ -279,6 +272,13 @@ export default curry(Origin =>
 
         if (shallowEqual(newValue, this.lastValue)) return
         this.lastValue = newValue
+
+        if (type === FORCE_PASS) {
+          this.handleError()
+          this.setState({ error: undefined })
+          this.forceUpdate()
+          return
+        }
 
         if (onChange && forceChangeOnValueSet) onChange(newValue)
 

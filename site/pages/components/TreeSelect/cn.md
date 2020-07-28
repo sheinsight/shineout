@@ -32,3 +32,4 @@ TreeSelect 用来选择树形数据结构，若需要非关联树形结构选择
 | childrenKey | string | 'children' | 指定子数据的属性名 | 
 | defaultExpandAll | boolean | false | 默认全部展开节点 | 
 | showHitDescendants | boolean | false | 筛选后是否展示命中节点的后代节点 |
+| renderUnmatched | (data: any) => ReactNode | 无 | 渲染未匹配值的方式 |
