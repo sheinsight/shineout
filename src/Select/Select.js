@@ -127,11 +127,9 @@ class Select extends PureComponent {
   }
 
   handleClick(e) {
-    // if (this.closeByResult) {
-    //   this.closeByResult = false
-    //   return
-    // }
-    if (isResult(e.target) && this.state.focus) {
+    const { onCreate, onFilter } = this.props
+    const plain = !onCreate && !onFilter
+    if (plain && isResult(e.target) && this.state.focus) {
       this.handleState(false, e)
       return
     }
