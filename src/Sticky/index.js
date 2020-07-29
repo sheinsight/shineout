@@ -4,7 +4,7 @@ import { PureComponent } from '../component'
 import { getParent } from '../utils/dom/element'
 import { eventPassive } from '../utils/dom/detect'
 import { getProps, defaultProps } from '../utils/proptypes'
-import { cssSupport } from '../utils/dom/element'
+import { cssSupport, copyBoundingClientRect } from '../utils/dom/element'
 import { docSize } from '../utils/dom/document'
 
 const events = ['scroll', 'resize', 'pageshow', 'load']
@@ -67,11 +67,11 @@ class Sticky extends PureComponent {
   setPosition() {
     const { bottom, top, target } = this.props
     const { mode, scrollWidth } = this.state
-    const selfRect = this.element.getBoundingClientRect().toJSON()
+    const selfRect = copyBoundingClientRect(this.element)
     const scrollElement = this.targetElement || document.body
     const scrollRect = scrollElement.getBoundingClientRect()
 
-    const placeholderRect = this.placeholder ? this.placeholder.getBoundingClientRect().toJSON() : null
+    const placeholderRect = this.placeholder ? copyBoundingClientRect(this.placeholder) : null
     const viewHeight = docSize.height
 
     if (this.origin) {
