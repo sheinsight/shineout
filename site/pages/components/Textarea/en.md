@@ -19,5 +19,5 @@
 | maxHeight | number \| string | - | the maxHeight of the textarea, scroll bars appear after more than | 
 | style | object | - | Container element style |
 | trim | boolean | false | When trim is true, blank characters are automatically deleted when lose focus。 |
-| resize | boolean | false | Whether textarea is draggable to change width/height (only effective if autosize is false) |
+| resize | boolean | false | support resize |
 | value | string \| number | | DefaultValue and value can be set at the same time and defaultValue will be overridden by value. <br />In the Form, the value is taken over by the Form and lose efficacy. |
