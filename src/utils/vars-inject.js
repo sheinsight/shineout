@@ -756,6 +756,23 @@ const injects = {
         type: 'color',
         desc: '边框颜色',
       },
+      {
+        name: 'textPaddingX',
+        className: exposeClass('checkbox-text'),
+        attr: 'paddingRight',
+        type: 'number',
+        parser: parseInt,
+        desc: '文字水平内间距',
+      },
+      {
+        name: 'indicatorBorderRadius',
+        className: exposeClass('checkbox-indicator'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+        min: 3,
+        desc: '圆角',
+      },
     ],
     set marginRight(v) {
       setBodyProperty(
@@ -785,6 +802,22 @@ const injects = {
       setBodyProperty(
         {
           '--checkbox-border-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set textPaddingX(v) {
+      setBodyProperty(
+        {
+          '--checkbox-text-padding-x': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set indicatorBorderRadius(v) {
+      setBodyProperty(
+        {
+          '--checkbox-indicator-border-radius': `${parseInt(v, 10)}px`,
         },
         v
       )

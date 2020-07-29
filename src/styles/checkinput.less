@@ -99,6 +99,10 @@
         }
       }
 
+      &.@{checkinput-prefix}-radio {
+        .button-variant(@radio-button-group-color; @radio-button-group-bgc; @radio-button-group-border-color; 'default' ; @radio-button-group-border-color);
+      }
+
       &.@{checkinput-prefix}-checked {
         &:not(.@{checkinput-prefix}-disabled) {
           z-index: 1;
@@ -253,7 +257,7 @@
     width: @checkbox-size + 2;
     height: @checkbox-size + 2;
     border: solid @checkbox-border-width @checkbox-border-color;
-    border-radius: @checkbox-border-radius;
+    border-radius: @checkbox-indicator-border-radius;
     vertical-align: middle;
 
     & + span {
@@ -266,6 +270,12 @@
       z-index: 10;
       display: block;
       content: ' ';
+    }
+  }
+
+  i&-indicator&-checkbox {
+    & + span {
+      padding: 0 @checkbox-text-padding-x;
     }
   }
 

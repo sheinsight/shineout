@@ -16,7 +16,7 @@ i
 z
 e`
 
-export default function() {
+export default function () {
   return (
     <div>
       <Textarea rows={2} autosize maxHeight={200} placeholder="autosize" />

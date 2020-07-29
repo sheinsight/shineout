@@ -8,7 +8,7 @@ import { isEnterPress } from '../utils/is'
 import Input from '../Input'
 import { checkinputClass } from '../styles'
 
-export default function (type) {
+export default function(type) {
   class CheckItem extends PureComponent {
     constructor(props) {
       super(props)
