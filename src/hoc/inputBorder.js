@@ -108,7 +108,9 @@ export default curry(
         const { className, border, size, tip, popover, width, style, error, popoverProps, ...other } = this.props
         const { focus } = this.state
         const Tag = options.tag || 'label'
-        const newStyle = Object.assign({ width }, style)
+
+        // resize attribute for textarea
+        const newStyle = Object.assign({ width: other.resize ? undefined : width }, style)
         const newClassName = classnames(
           inputClass(
             '_',
@@ -120,7 +122,8 @@ export default curry(
             !border && 'no-border',
             options.overflow && `overflow-${options.overflow}`,
             error && 'invalid',
-            popover && error && 'focus'
+            popover && error && 'focus',
+            other.resize && 'textarea' // need to change display and width when textarea with resize
           ),
           buttonClass(options.isGroup && 'group', options.from === 'input' && options.isGroup && 'from-input-group'),
           typeof options.className === 'function' ? options.className(this.props) : options.className,
@@ -134,7 +137,13 @@ export default curry(
             style={newStyle}
             tabIndex={options.enterPress ? '0' : undefined}
           >
-            <Origin {...other} size={size} onFocus={this.handleFocus} onBlur={this.handleBlur} />
+            <Origin
+              {...other}
+              size={size}
+              width={other.resize ? width : undefined}
+              onFocus={this.handleFocus}
+              onBlur={this.handleBlur}
+            />
             {this.renderHelp(focus)}
           </Tag>
         )

@@ -91,7 +91,7 @@ class Textarea extends PureComponent {
   }
 
   render() {
-    const { autosize, onChange, maxHeight, info, onEnterPress, resize, ...props } = this.props
+    const { autosize, onChange, maxHeight, info, onEnterPress, resize, width, ...props } = this.props
     const value = props.value == null ? '' : props.value
     const height = this.state.height || 'auto'
     const className = autosize ? inputClass('auto-size') : inputClass(resize && 'textarea-resize')
@@ -102,7 +102,7 @@ class Textarea extends PureComponent {
         key="t"
         value={value}
         className={className}
-        style={{ height, maxHeight, overflow: 'auto' }}
+        style={{ height, width, maxHeight, overflow: 'auto' }}
         onChange={this.handleChange}
         onKeyUp={this.handleKeyUp}
         onBlur={this.handleBlur}
@@ -131,6 +131,7 @@ Textarea.propTypes = {
   autosize: PropTypes.bool,
   forceChange: PropTypes.func,
   info: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   maxHeight: PropTypes.number,
   onBlur: PropTypes.func,
   onChange: PropTypes.func.isRequired,
