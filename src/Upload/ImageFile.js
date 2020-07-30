@@ -26,9 +26,7 @@ class ImageFile extends PureComponent {
 
         {message && <div className={uploadClass('message')}>{message}</div>}
 
-        <a className={uploadClass('delete')} onClick={this.handleRemove}>
-          {icons.Close}
-        </a>
+        <span className={uploadClass('delete')} onClick={this.handleRemove} />
 
         <div className={uploadClass('progress-bg')}>
           <Progress
