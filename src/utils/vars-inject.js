@@ -438,6 +438,13 @@ const injects = {
         className: buttonClass('disabled'),
         desc: '禁用按钮文字颜色',
       },
+      {
+        name: 'buttonDefaultTextColor',
+        attr: 'color',
+        type: 'color',
+        className: buttonClass('default'),
+        desc: '默认样式下文字颜色',
+      },
     ],
     set fontSizeBase(v) {
       setBodyProperty(
@@ -576,6 +583,14 @@ const injects = {
         v
       )
     },
+    set buttonDefaultTextColor(v) {
+      setBodyProperty(
+        {
+          '--button-default-text-color': v,
+        },
+        v
+      )
+    },
   },
   dropdown: {
     info: {
@@ -684,6 +699,14 @@ const injects = {
         type: ['start', 'center', 'end'],
         desc: '标签对齐方式',
       },
+      {
+        name: 'formTipFontSize',
+        className: exposeClass('form-tip'),
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+        desc: '提示信息字体大小',
+      },
     ],
     set itemMarginBottom(v) {
       setBodyProperty(
@@ -713,6 +736,14 @@ const injects = {
       setBodyProperty(
         {
           '--form-item-label-align': v,
+        },
+        v
+      )
+    },
+    set formTipFontSize(v) {
+      setBodyProperty(
+        {
+          '--form-tip-font-size': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -755,6 +786,23 @@ const injects = {
         type: 'color',
         desc: '边框颜色',
       },
+      {
+        name: 'textPaddingX',
+        className: exposeClass('checkbox-text'),
+        attr: 'paddingRight',
+        type: 'number',
+        parser: parseInt,
+        desc: '文字水平内间距',
+      },
+      {
+        name: 'indicatorBorderRadius',
+        className: exposeClass('checkbox-indicator'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+        min: 3,
+        desc: '圆角',
+      },
     ],
     set marginRight(v) {
       setBodyProperty(
@@ -784,6 +832,22 @@ const injects = {
       setBodyProperty(
         {
           '--checkbox-border-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set textPaddingX(v) {
+      setBodyProperty(
+        {
+          '--checkbox-text-padding-x': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set indicatorBorderRadius(v) {
+      setBodyProperty(
+        {
+          '--checkbox-indicator-border-radius': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -837,7 +901,7 @@ const injects = {
       },
       {
         name: 'color',
-        className: checkinputClass('checkinput-radio-wrap'),
+        className: exposeClass('radio'),
         attr: 'color',
         type: 'color',
         desc: '文字颜色',

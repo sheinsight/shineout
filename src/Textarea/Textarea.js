@@ -91,10 +91,10 @@ class Textarea extends PureComponent {
   }
 
   render() {
-    const { autosize, onChange, maxHeight, info, onEnterPress, ...props } = this.props
+    const { autosize, onChange, maxHeight, info, onEnterPress, resize, ...props } = this.props
     const value = props.value == null ? '' : props.value
     const height = this.state.height || 'auto'
-    const className = autosize ? inputClass('auto-size') : ''
+    const className = autosize ? inputClass('auto-size') : inputClass(resize && 'textarea-resize')
 
     const ts = [
       <textarea
@@ -137,10 +137,12 @@ Textarea.propTypes = {
   onEnterPress: PropTypes.func,
   rows: PropTypes.number,
   value: PropTypes.string,
+  resize: PropTypes.bool,
 }
 
 Textarea.defaultProps = {
   rows: 4,
+  resize: false,
 }
 
 export default Textarea

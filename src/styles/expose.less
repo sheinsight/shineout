@@ -219,11 +219,23 @@
   &-radio {
     width: @radio-width;
     border: @radio-border-width solid #fff;
+    color: @radio-text-color;
     &-inner {
       width: @radio-inner-width;
     }
     &-uncheck {
       width: @radio-border-uncheck-width;
+    }
+    &-group-default {
+      color: @radio-button-group-color;
+      background-color: @radio-button-group-bgc;
+      border-color: @radio-button-group-border-color;
+      border-radius: @radio-button-group-border-radius;
+    }
+    &-group-active {
+      color: @radio-button-group-active-color;
+      background-color: @radio-button-group-active-bgc;
+      border-color: @radio-button-group-active-border-color;
     }
   }
   &-pagination {
@@ -300,6 +312,11 @@
     &-indicator {
       border-color: @checkbox-border-color;
       width: @checkbox-border-width;
+      border-radius: @checkbox-indicator-border-radius;
+    }
+
+    &-text {
+      padding: 0 @checkbox-text-padding-x;
     }
   }
   &-switch {

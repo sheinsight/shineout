@@ -95,6 +95,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-08-validate.js'),
   },
   {
+    name: '08-x-validate-bind',
+    title: locate(
+      ' \n 使用 bind 属性进行联动校验',
+      ' \n use bind to Linkage verification'
+    ),
+    component: require('doc/pages/components/Form/example-08-x-validate-bind.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-08-x-validate-bind.js'),
+  },
+  {
     name: '09-server-validate',
     title: locate(
       ' \n 通过给 Form 设置 error，实现后端校验数据展示。在表单值被改变后，对应后端校验数据会被清空。<br />前端校验优先级大于后端校验。',

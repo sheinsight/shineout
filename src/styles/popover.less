@@ -170,7 +170,8 @@
 
   &-bottom-left,
   &-bottom,
-  &-bottom-right {
+  &-bottom-right,
+  &-cover {
     margin-top: @popover-arrow-margin;
     transform: translateX(-50%);
 
@@ -188,12 +189,15 @@
     }
   }
 
-  &-bottom-left {
+  &-bottom-left, &-cover {
     transform: translateX(0);
 
     .@{popover-prefix}-arrow {
       left: @popover-arrow-width * 2;
     }
+  }
+  &-cover {
+    margin-top: 0;
   }
 
   &-bottom-right {

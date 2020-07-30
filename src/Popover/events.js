@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { popoverClass } from '../styles'
 import ready from '../utils/dom/ready'
 
+let currentProps = null
 const div = document.createElement('div')
 div.style.display = 'none'
 
@@ -45,12 +46,13 @@ div.addEventListener('mouseenter', () => {
 
 div.addEventListener('mouseleave', () => {
   clearTimeout(timer)
+  if (currentProps && currentProps.trigger === 'click') return
   hide()
 })
 
 export function show(props, id) {
   const { position, style, content, background, border, noArrow, type } = props
-
+  currentProps = props
   // set current id
   currentId = id
 

@@ -5,7 +5,7 @@
  *    -- The validation rules can be extended by parameters.
  */
 import React from 'react'
-import { Form, Input, Rule } from 'shineout'
+import { Form, Input, Rule, Checkbox } from 'shineout'
 
 const rules = Rule(
   // validate function package
@@ -33,7 +33,7 @@ const rules = Rule(
   }
 )
 
-export default function() {
+export default function () {
   return (
     <Form style={{ maxWidth: 500 }} scrollToError={30} onSubmit={d => console.log(d)}>
       <Form.Item required label="Name">
@@ -46,6 +46,16 @@ export default function() {
           title="Password"
           type="password"
           rules={[rules.required, rules.range(6, 20), rules.password]}
+        />
+      </Form.Item>
+      <Form.Item required label="Favorite Colors" tip="select your favorite colors">
+        <Checkbox.Group
+          name="colors"
+          keygen={d => d}
+          data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
+          defaultValue={[]}
+          title="Favorite Colors"
+          rules={[rules.required('At least select one favorite color'), rules.min(2), rules.max(3)]}
         />
       </Form.Item>
 

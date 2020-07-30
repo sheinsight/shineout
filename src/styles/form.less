@@ -52,7 +52,7 @@
     margin-top: 5px;
     margin-bottom: 8px;
     color: @form-tip-color;
-    font-size: @form-help-font-size;
+    font-size: @form-tip-font-size;
   }
 
   .@{form-prefix}-error {
@@ -490,7 +490,7 @@
   textarea {
     position: relative;
     z-index: 2;
-    line-height: 1.4;
+    line-height: var(--common-line-height, 1.42857143);
     resize: none;
   }
 
@@ -513,6 +513,9 @@
 
   textarea&-auto-size {
     overflow: hidden;
+  }
+  textarea&-textarea-resize {
+    resize: vertical;
   }
 
   &-small {

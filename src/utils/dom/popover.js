@@ -59,6 +59,10 @@ export const getPosition = (position, el, container = document.body) => {
       pos.right = (containerRect.right || docSize.width) - rect.right - scrollLeft
       pos.top = scrollTop + rect.top - containerRect.top + rect.height
       break
+    case 'cover':
+      pos.left = scrollLeft + rect.left - containerRect.left
+      pos.top = scrollTop + rect.top - containerRect.top
+      break
     default:
   }
 
