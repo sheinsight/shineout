@@ -58,7 +58,7 @@ class Month extends PureComponent {
     const className = datepickerClass(utils.isSameMonth(value, date) && 'active', isDisabled && 'disabled')
 
     return (
-      <span key={i} className={className} onClick={isDisabled ? undefined : this.handleMonthClick.bind(this, i)}>
+      <span key={i} className={className} onMouseDown={isDisabled ? undefined : this.handleMonthClick.bind(this, i)}>
         {m}
       </span>
     )

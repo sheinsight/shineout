@@ -46,7 +46,7 @@ class Year extends PureComponent {
             <span
               key={y}
               className={datepickerClass(value && value.getFullYear() === y && 'active')}
-              onClick={this.handleChange.bind(this, y)}
+              onMouseDown={this.handleChange.bind(this, y)}
             >
               {y}
             </span>

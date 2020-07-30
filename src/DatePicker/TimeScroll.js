@@ -74,7 +74,7 @@ class TimeScroll extends PureComponent {
         key={num}
         className={className}
         style={grayStyle[Math.abs(value - num)]}
-        onClick={this.handleClick.bind(this, num)}
+        onMouseDown={this.handleClick.bind(this, num)}
       >
         {text}
       </span>

@@ -193,7 +193,7 @@ class Day extends PureComponent {
       <div
         key={date.getTime()}
         className={hoverClass}
-        onClick={isDisabled ? undefined : this.handleDayClick.bind(this, date, minD, maxD)}
+        onMouseDown={isDisabled ? undefined : this.handleDayClick.bind(this, date, minD, maxD)}
         onDoubleClick={isDisabled ? undefined : this.handleDayDoubleClick.bind(this, date)}
         {...hoverProps}
       >
