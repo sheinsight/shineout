@@ -40,11 +40,7 @@ class ImageResult extends PureComponent {
           </a>
         )}
 
-        {this.props.onRemove && (
-          <a className={uploadClass('delete')} onClick={this.handleRemove}>
-            {icons.Close}
-          </a>
-        )}
+        {this.props.onRemove && <span className={uploadClass('delete')} onClick={this.handleRemove} />}
       </div>
     )
   }
