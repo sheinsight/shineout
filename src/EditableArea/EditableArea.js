@@ -6,7 +6,7 @@ import Input from '../Input'
 import Popover from '../Popover'
 import { editableAreaClass } from '../styles'
 import icons from '../icons'
-import { focusElement } from '../utils/dom/element'
+import { focusElement, getParent } from '../utils/dom/element'
 
 function formatShowValue(value) {
   if (!value && value !== 0) return ''
@@ -61,7 +61,9 @@ class Editable extends React.PureComponent {
   }
 
   updateShowTextarea(flag) {
-    if (flag && this.input) this.width = this.input.clientWidth
+    if (flag && this.input) {
+      this.width = getParent(this.input, `.${editableAreaClass('input')}`).offsetWidth
+    }
     this.setState({ showTextarea: flag })
   }
 
