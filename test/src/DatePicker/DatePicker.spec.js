@@ -35,7 +35,7 @@ describe('DatePicker[Base]', () => {
       .find(`.${SO_PREFIX}-datepicker-list`)
       .childAt(0)
       .find('span')
-      .simulate('click')
+      .simulate('mousedown')
     expect(changeFn.mock.calls[0][0]).toBeTruthy()
   })
 })
@@ -174,7 +174,7 @@ describe('DatePicker[datetime][defaultTime]', () => {
     wrapper
       .find(`.${SO_PREFIX}-datepicker-list div`)
       .at(15)
-      .simulate('click')
+      .simulate('mousedown')
     const datetime = wrapper.find(`span.${SO_PREFIX}-datepicker-txt`).text()
 
     // time is defaultTime
@@ -193,13 +193,13 @@ describe('RangePicker[datetime][defaultTime]', () => {
       .at(0)
       .find('div')
       .at(15)
-      .simulate('click')
+      .simulate('mousedown')
     wrapper
       .find(`.${SO_PREFIX}-datepicker-list`)
       .at(1)
       .find('div')
       .at(16)
-      .simulate('click')
+      .simulate('mousedown')
     const datetimeText = wrapper.find(`span.${SO_PREFIX}-datepicker-txt`)
 
     // time is defaultTime
@@ -228,11 +228,11 @@ describe('RangePicker[time]', () => {
     wrapper
       .find(`.${SO_PREFIX}-datepicker-list div`)
       .at(15)
-      .simulate('click')
+      .simulate('mousedown')
     wrapper
       .find(`.${SO_PREFIX}-datepicker-list div`)
       .at(16)
-      .simulate('click')
+      .simulate('mousedown')
     const datetimeText = wrapper.find(`span.${SO_PREFIX}-datepicker-txt`)
 
     // time is defaultTime
@@ -261,7 +261,7 @@ describe('Datepicker min/max', () => {
     wrapper
       .find(`.${SO_PREFIX}-datepicker-today`)
       .parent()
-      .prop('onClick')(new Date(`${today.getFullYear()}-${today.getMonth()}-${today.getDay()} 00:00:00`))
+      .prop('onMouseDown')(new Date(`${today.getFullYear()}-${today.getMonth()}-${today.getDay()} 00:00:00`))
     expect(
       wrapper
         .find(`span.${SO_PREFIX}-datepicker-txt`)
@@ -279,7 +279,7 @@ describe('Datepicker min/max', () => {
     wrapper
       .find(`.${SO_PREFIX}-datepicker-today`)
       .parent()
-      .prop('onClick')(new Date(`${today.getFullYear()}-${today.getMonth()}-${today.getDay()} 23:59:59`))
+      .prop('onMouseDown')(new Date(`${today.getFullYear()}-${today.getMonth()}-${today.getDay()} 23:59:59`))
     expect(
       wrapper
         .find(`span.${SO_PREFIX}-datepicker-txt`)
