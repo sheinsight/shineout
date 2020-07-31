@@ -8,19 +8,20 @@ import React from 'react'
 import { DatePicker } from 'shineout'
 
 export default function() {
-  const [v, setV] = React.useState()
   return (
     <div style={{ padding: 10, height: 150, overflow: 'hidden' }}>
       <DatePicker
-        inputable
+        formatResult="yyyy-MM-dd HH:mm:ss"
+        format="t"
+        type="datetime"
         absolute
-        value={v}
-        onChange={d => {
-          console.log('d: ', d)
-          setV(d)
-        }}
+        defaultValue={new Date()}
         style={{ marginBottom: 8 }}
       />
+      <br />
+      <DatePicker inputable absolute range defaultValue={['2018-05-25', '2018-06-05']} style={{ marginBottom: 8 }} />
+      <br />
+      <DatePicker absolute type="time" defaultValue={Date.now()} />
     </div>
   )
 }
