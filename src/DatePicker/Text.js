@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { focusElement } from '../utils/dom/element'
+import { focusElement, getParent } from '../utils/dom/element'
 import utils from './utils'
+import { datepickerClass } from '../styles'
 
 class Text extends PureComponent {
   constructor(props) {
@@ -11,12 +12,33 @@ class Text extends PureComponent {
     this.handleInput = this.handleInput.bind(this)
     this.handleFocus = this.handleFocus.bind(this)
     this.bindElement = this.bindElement.bind(this)
+
+    this.checkTarget = this.checkTarget.bind(this)
+
+    this.datepicker = false
+  }
+
+  componentDidMount() {
+    document.addEventListener('mousedown', this.checkTarget, true)
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.focus !== this.props.focus && this.props.focus && this.element) {
       focusElement.end(this.element)
     }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.checkTarget, true)
+  }
+
+  checkTarget(e) {
+    const res = getParent(e.target, `.${datepickerClass('picker')}`)
+    if (res) {
+      this.datepicker = true
+      return
+    }
+    this.datepicker = false
   }
 
   bindElement(el) {
@@ -29,6 +51,7 @@ class Text extends PureComponent {
     const { format, index, onChange, value, element } = this.props
     const txt = e.target.innerText
     element.focus()
+    if (this.datepicker) return
     if (txt === value) return
     if (txt.trim().length === 0) {
       onChange(undefined, index)
