@@ -23,3 +23,4 @@
 | compressed | boolean | false | 将选中值合并 |
 | childrenKey | string | 'children' | 指定子数据的属性名 | 
 | finalDismiss | boolean | false | 选择末级节点后是否关闭选项列表 |
+| onCollapse | (collapse: boolean) => void | 无 | 下拉列表展开/收起回调 |
