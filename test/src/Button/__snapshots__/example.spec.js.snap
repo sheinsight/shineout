@@ -371,7 +371,7 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-8-group.js] 
     <button>
       <i />
       <span>
-          Left
+        Left
       </span>
     </button>
     <button>
@@ -381,7 +381,7 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-8-group.js] 
     </button>
     <button>
       <span>
-        Right  
+        Right
       </span>
       <i />
     </button>

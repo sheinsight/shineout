@@ -58,12 +58,10 @@ exports[`Snapshot test: Slider[site/pages/components/Slider/example-01-input.js]
     <a>
       <svg>
         <path />
-        <path />
       </svg>
     </a>
     <a>
       <svg>
-        <path />
         <path />
       </svg>
     </a>

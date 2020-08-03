@@ -52,12 +52,10 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-4-number.js] 1
   <a>
     <svg>
       <path />
-      <path />
     </svg>
   </a>
   <a>
     <svg>
-      <path />
       <path />
     </svg>
   </a>
@@ -82,7 +80,9 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-5-group.js] 1`
     <label>
       <input />
     </label>
-    <i />
+    <button>
+      <i />
+    </button>
   </div>
   <div>
     <label>
