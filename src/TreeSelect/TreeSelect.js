@@ -112,12 +112,13 @@ export default class TreeSelect extends PureComponent {
     // click close icon
     if (focus && e && e.target.classList.contains(treeSelectClass('close'))) return
 
-    const { height } = this.props
+    const { height, onCollapse } = this.props
     let { position } = this.props
     const windowHeight = docSize.height
     const bottom = height + this.element.getBoundingClientRect().bottom
     if (bottom > windowHeight && !position) position = 'drop-up'
 
+    if (onCollapse) onCollapse(focus)
     this.setState({ focus, position: position || 'drop-down' })
 
     if (focus) {
@@ -335,6 +336,7 @@ TreeSelect.propTypes = {
   parentClickExpand: PropTypes.bool,
   zIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   renderUnmatched: PropTypes.func,
+  onCollapse: PropTypes.func,
 }
 
 TreeSelect.defaultProps = {
