@@ -27,7 +27,11 @@ class Result extends PureComponent {
       <div className={className}>
         <div className={uploadClass('text')}>{renderResult(value)}</div>
 
-        {this.props.onRemove && <span className={uploadClass('delete')} onClick={this.handleRemove} />}
+        {this.props.onRemove && (
+          <a className={uploadClass('delete')} onClick={this.handleRemove}>
+            {icons.Close}
+          </a>
+        )}
 
         {showRecover && (
           <a className={uploadClass('recover')} onClick={this.handleRecover}>

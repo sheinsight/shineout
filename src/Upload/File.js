@@ -31,7 +31,9 @@ class File extends PureComponent {
         <div className={uploadClass('text')}>
           {status === UPLOADING && SPIN} {name} {message && <span>({message}) </span>}
         </div>
-        <span className={uploadClass('delete')} onClick={this.handleRemove} />
+        <a className={uploadClass('delete')} onClick={this.handleRemove}>
+          {icons.Close}
+        </a>
         {status !== ERROR && (
           <Progress
             className={uploadClass('progress')}
