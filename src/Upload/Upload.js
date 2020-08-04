@@ -84,13 +84,20 @@ class Upload extends PureComponent {
   }
 
   removeFile(id) {
+    const { onErrorRemove } = this.props
     const file = this.state.files[id]
+
     if (file) {
       if (file.xhr && file.xhr.abort) file.xhr.abort()
       this.setState(
         immer(draft => {
           delete draft.files[id]
-        })
+        }),
+        () => {
+          if (file.status === ERROR && onErrorRemove) {
+            onErrorRemove(file.xhr, file.blob, file)
+          }
+        }
       )
     }
   }
@@ -491,6 +498,7 @@ Upload.propTypes = {
   renderContent: PropTypes.func,
   drop: PropTypes.bool,
   filesFilter: PropTypes.func,
+  onErrorRemove: PropTypes.func,
 }
 
 Upload.defaultProps = {
