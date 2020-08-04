@@ -128,7 +128,7 @@ class Cascader extends PureComponent {
     // click close icon
     if (focus && e && e.target.classList.contains(cascaderClass('close'))) return
 
-    const { height } = this.props
+    const { height, onCollapse } = this.props
     let { position } = this.props
     if (!position) {
       const windowHeight = docSize.height
@@ -136,6 +136,7 @@ class Cascader extends PureComponent {
       if (bottom > windowHeight) position = 'drop-up'
     }
 
+    if (onCollapse) onCollapse(focus)
     this.setState({ focus, position: position || 'drop-down' })
 
     if (focus) {
@@ -331,6 +332,7 @@ Cascader.propTypes = {
   zIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   childrenKey: PropTypes.string,
   finalDismiss: PropTypes.bool,
+  onCollapse: PropTypes.func,
 }
 
 Cascader.defaultProps = {

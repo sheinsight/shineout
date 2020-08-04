@@ -23,3 +23,4 @@
 | compressed | boolean | false | Merges selected values |
 | childrenKey | string | 'children' | the key of the children data name | 
 | finalDismiss | boolean | false | close options after chose the final node |
+| onCollapse | (collapse: boolean) => void | none | options collapse callback |
