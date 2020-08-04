@@ -16,7 +16,7 @@ class LazyList extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.props.stay || prevProps.data.length !== this.props.data.length) {
+    if (!this.props.stay && prevProps.data.length !== this.props.data.length) {
       this.setState({
         currentIndex: 0,
         scrollTop: 0,
@@ -62,7 +62,6 @@ class LazyList extends PureComponent {
       scroll = 'y'
     }
     const items = data.slice(currentIndex, currentIndex + itemsInView).map((d, i) => renderItem(d, i))
-    if (items.length === 0) return null
     return (
       <Scroll
         stable
