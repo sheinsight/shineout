@@ -102,19 +102,22 @@ class Form extends Component {
         })
         .catch(err => {
           this.validating = false
-          if (scrollToError !== false) {
-            const el = this.element.querySelector(`.${formClass('invalid')}`)
-            if (el) {
-              el.scrollIntoView()
-              if (el.focus) el.focus()
+          // wait for render complete
+          setTimeout(() => {
+            if (scrollToError !== false) {
+              const el = this.element.querySelector(`.${formClass('invalid')}`)
+              if (el) {
+                el.scrollIntoView()
+                if (el.focus) el.focus()
+              }
+              if (typeof scrollToError === 'number' && scrollToError !== 0) {
+                docScroll.top -= scrollToError
+              }
             }
-            if (typeof scrollToError === 'number' && scrollToError !== 0) {
-              docScroll.top -= scrollToError
-            }
-          }
 
-          if (onError) onError(err)
-          if (!(err instanceof FormError)) throw err
+            if (onError) onError(err)
+            if (!(err instanceof FormError)) throw err
+          })
         })
     }, 10)
   }
