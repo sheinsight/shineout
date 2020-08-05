@@ -37,6 +37,8 @@ class SeperateTable extends PureComponent {
     this.handleScroll = this.handleScroll.bind(this)
     this.handleSortChange = this.handleSortChange.bind(this)
 
+    this.updateColgroup = this.updateColgroup.bind(this)
+
     this.cachedRowHeight = []
     this.lastScrollArgs = {}
     this.lastScrollTop = 0
@@ -60,7 +62,7 @@ class SeperateTable extends PureComponent {
     this.updateScrollLeft()
     if (!compareColumns(prevProps.columns, this.props.columns)) {
       this.resetWidth()
-      this.setState({ colgroup: undefined })
+      this.setState({ colgroup: this.updateColgroup() })
     }
   }
 
@@ -134,6 +136,41 @@ class SeperateTable extends PureComponent {
       if (scrollTop === this.state.scrollTop) this.forceUpdate()
       else this.setState({ scrollTop })
     }
+  }
+
+  // columns change will call this func
+  updateColgroup() {
+    const { columns } = this.props
+    const { colgroup } = this.state
+    if (!colgroup) return null
+    // count width
+    const countWidth = colgroup.reduce((acc, cur) => {
+      acc += cur
+      return acc
+    }, 0)
+
+    // pick up item when dont have width
+    if (columns.find(v => !(v.width || v.minWidth))) return null
+
+    const cols = columns.map(v => v.width || v.minWidth)
+    // count cols width
+    const colW = cols.reduce((acc, cur) => {
+      acc += cur
+      return acc
+    }, 0)
+
+    const mean = countWidth / colW
+    let c = 0
+    return cols.reduce((acc, cur, index) => {
+      if (index === cols.length - 1) {
+        acc.push(countWidth - c)
+      } else {
+        const t = Math.floor(cur * mean)
+        c += t
+        acc.push(t)
+      }
+      return acc
+    }, [])
   }
 
   updateScrollLeft() {

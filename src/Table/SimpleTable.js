@@ -26,6 +26,8 @@ class SimpleTable extends PureComponent {
     this.bindBody = this.bindElement.bind(this, 'body')
     this.handleScroll = this.handleScroll.bind(this)
     this.handleColgroup = this.handleColgroup.bind(this)
+
+    this.updateColgroup = this.updateColgroup.bind(this)
   }
 
   componentDidMount() {
@@ -37,8 +39,13 @@ class SimpleTable extends PureComponent {
     this.scrollCheck()
     const resize = prevProps.data.length === 0 && this.props.data.length
     const resetColgroup = this.props.dataChangeResize && this.props.data !== prevProps.data
-    if (resize || resetColgroup || !compareColumns(prevProps.columns, this.props.columns)) {
-      this.setState({ colgroup: undefined, resize: true })
+    const resetCol = !compareColumns(prevProps.columns, this.props.columns)
+    if (resize || resetColgroup || resetCol) {
+      if (resetCol) {
+        this.setState({ colgroup: this.updateColgroup(), resize: true })
+      } else {
+        this.setState({ colgroup: undefined, resize: true })
+      }
     }
   }
 
@@ -48,6 +55,41 @@ class SimpleTable extends PureComponent {
 
   bindElement(key, el) {
     this[key] = el
+  }
+
+  // columns change will call this func
+  updateColgroup() {
+    const { columns } = this.props
+    const { colgroup } = this.state
+    if (!colgroup) return null
+    // count width
+    const countWidth = colgroup.reduce((acc, cur) => {
+      acc += cur
+      return acc
+    }, 0)
+
+    // pick up item when dont have width
+    if (columns.find(v => !(v.width || v.minWidth))) return null
+
+    const cols = columns.map(v => v.width || v.minWidth)
+    // count cols width
+    const colW = cols.reduce((acc, cur) => {
+      acc += cur
+      return acc
+    }, 0)
+
+    const mean = countWidth / colW
+    let c = 0
+    return cols.reduce((acc, cur, index) => {
+      if (index === cols.length - 1) {
+        acc.push(countWidth - c)
+      } else {
+        const t = Math.floor(cur * mean)
+        c += t
+        acc.push(t)
+      }
+      return acc
+    }, [])
   }
 
   scrollCheck() {
