@@ -124,7 +124,7 @@ export default function(List) {
       const { focus } = this.props
       if (!this.el || !focus || this.ajustdoc) return
       const pos = this.el.getBoundingClientRect()
-      const overdoc = pos.left + pos.width > docSize.width
+      const overdoc = pos.left + pos.width >= docSize.width
       if (this.state.overdoc === overdoc) return
       this.ajustdoc = true
       this.setState({
