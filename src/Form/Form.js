@@ -18,7 +18,6 @@ class Form extends Component {
     this.bindElement = this.bindElement.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleReset = this.handleReset.bind(this)
-    this.scrollToError = this.scrollToError.bind(this)
 
     this.locked = false
     this.id = `form_${getUidStr()}`
@@ -73,23 +72,20 @@ class Form extends Component {
   }
 
   scrollToError(err) {
-    const ctx = this
-    return function ste() {
-      const { scrollToError, onError } = ctx.props
-      if (scrollToError !== false) {
-        const el = ctx.element.querySelector(`.${formClass('invalid')}`)
-        if (el) {
-          el.scrollIntoView()
-          if (el.focus) el.focus()
-        }
-        if (typeof scrollToError === 'number' && scrollToError !== 0) {
-          docScroll.top -= scrollToError
-        }
+    const { scrollToError, onError } = this.props
+    if (scrollToError !== false) {
+      const el = this.element.querySelector(`.${formClass('invalid')}`)
+      if (el) {
+        el.scrollIntoView()
+        if (el.focus) el.focus()
       }
-
-      if (onError) onError(err)
-      if (!(err instanceof FormError)) throw err
+      if (typeof scrollToError === 'number' && scrollToError !== 0) {
+        docScroll.top -= scrollToError
+      }
     }
+
+    if (onError) onError(err)
+    if (!(err instanceof FormError)) throw err
   }
 
   handleSubmit(e) {
@@ -124,7 +120,7 @@ class Form extends Component {
         .catch(err => {
           this.validating = false
           // wait for render complete
-          setTimeout(this.scrollToError(err))
+          setTimeout(this.scrollToError.bind(this, err))
         })
     }, 10)
   }
