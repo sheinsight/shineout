@@ -18,3 +18,4 @@
 | style | object | - | Container element style |
 | inlineIndent | number | 24 | indent of each level |   
 | linkKey | (d: object) => string \| string | - |  the key of inject the link value of the submenu |
+| onOpenChange | (keys: string[]) => void | none | menu open change callback |
