@@ -71,6 +71,23 @@ class Form extends Component {
     this.element = el
   }
 
+  scrollToError(err) {
+    const { scrollToError, onError } = this.props
+    if (scrollToError !== false) {
+      const el = this.element.querySelector(`.${formClass('invalid')}`)
+      if (el) {
+        el.scrollIntoView()
+        if (el.focus) el.focus()
+      }
+      if (typeof scrollToError === 'number' && scrollToError !== 0) {
+        docScroll.top -= scrollToError
+      }
+    }
+
+    if (onError) onError(err)
+    if (!(err instanceof FormError)) throw err
+  }
+
   handleSubmit(e) {
     if (e) {
       e.persist()
@@ -87,7 +104,7 @@ class Form extends Component {
       this.locked = false
     }, this.props.throttle)
 
-    const { datum, onError, onSubmit, scrollToError } = this.props
+    const { datum, onSubmit } = this.props
 
     const { activeElement } = document
     if (activeElement) activeElement.blur()
@@ -102,19 +119,8 @@ class Form extends Component {
         })
         .catch(err => {
           this.validating = false
-          if (scrollToError !== false) {
-            const el = this.element.querySelector(`.${formClass('invalid')}`)
-            if (el) {
-              el.scrollIntoView()
-              if (el.focus) el.focus()
-            }
-            if (typeof scrollToError === 'number' && scrollToError !== 0) {
-              docScroll.top -= scrollToError
-            }
-          }
-
-          if (onError) onError(err)
-          if (!(err instanceof FormError)) throw err
+          // wait for render complete
+          setTimeout(this.scrollToError.bind(this, err))
         })
     }, 10)
   }
