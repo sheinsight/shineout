@@ -33,6 +33,7 @@
 | validatorHandle | (error: any, file: File) => boolean \| boolean  | true | Whether to handle the case of validation failure, if a function is provided, it is judged by the return value of the function. |
 | drop | boolean | false | drop to update |
 | filesFilter | (fileList: any[]) => boolean | none | Filter after file selection, users can customize the list of files that need to be uploaded eventually<br />Need to return a new file list |
+| onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | none | remove update failed callback |
 
 ### Upload.Image
 
@@ -40,6 +41,7 @@
 | --- | --- | --- | --- |
 | children | ReactNode | none | The content of the upload button. It can be empty. |
 | renderResult | (data: any) => ReactNode | a => a | Return the link address of the url of the image.|
+| onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | none | remove update failed callback |
 
 ### Upload.Button
 
