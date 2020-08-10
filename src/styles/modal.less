@@ -4,7 +4,7 @@
 @card-prefix: ~'@{so-prefix}-card';
 @moveable-prefix: ~'@{so-prefix}-moveable';
 
-@modal-close-icon-container: 16px;
+@modal-close-icon-container: 10px;
 @modal-close-icon-svg: 12px;
 
 .@{modal-prefix} {
@@ -34,10 +34,10 @@
   }
 
   & &-body {
-    padding: @modal-icon-body-padding;
+    padding: 40px 40px 20px 70px;
 
     .@{modal-prefix}-title {
-      margin-bottom: 16px;
+      margin-bottom: 8px;
     }
 
     .@{modal-prefix}-icon {
@@ -164,11 +164,8 @@
     }
 
     > svg {
-      width: @modal-close-icon-svg;
-      height: @modal-close-icon-svg;
-      margin-left: 2px;
+      transform: scale(1.2);
       fill: @modal-close-icon-color;
-      transition: all 0.2s;
     }
   }
 
