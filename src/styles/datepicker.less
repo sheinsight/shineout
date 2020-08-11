@@ -71,12 +71,19 @@
       font-size: 14px;
 
       path {
+        transition: all .2s;
         fill: @gray-500;
       }
     }
 
     .@{datepicker-prefix}-close {
       display: none;
+    }
+
+    .@{datepicker-prefix}-close:hover {
+      path {
+        fill: @gray-700;
+      }
     }
 
     .@{datepicker-prefix}-txt {
