@@ -2,7 +2,7 @@ import { destroy, getComponent } from './messager'
 
 const create = type => (content, duration = 3, options = {}) => {
   const { onClose, position = 'top', title, className = '', top = 'auto' } = options
-  getComponent(position).then(messager => {
+  return getComponent(position).then(messager =>
     messager.addMessage({
       content,
       duration,
@@ -13,7 +13,7 @@ const create = type => (content, duration = 3, options = {}) => {
       top,
       position,
     })
-  })
+  )
 }
 
 export default {
