@@ -34,7 +34,7 @@ export default class extends React.Component {
         style={{ width: 300 }}
       >
         <Button>
-          <FontAwesome name="upload" />
+          <FontAwesome name="upload" style={{ marginRight: 4 }} />
           Upload file
         </Button>
       </Upload>
