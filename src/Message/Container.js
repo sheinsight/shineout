@@ -63,6 +63,7 @@ class Container extends PureComponent {
         )
       }, msg.duration * 1000)
     }
+    return this.closeMessageForAnimation.bind(this, id, 200, 200)
   }
 
   removeMessage(id) {
