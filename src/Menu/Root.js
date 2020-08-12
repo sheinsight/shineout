@@ -178,14 +178,14 @@ class Root extends React.Component {
       } else draft.delete(id)
     })
     this.hasToggled = true
-    const keys = newOpenKeys.keys()
+    const keys = Array.from(newOpenKeys.keys())
     const { onOpenChange = () => {}, openKeys } = this.props
     if (openKeys) {
-      onOpenChange([...keys])
+      onOpenChange(keys)
       return
     }
     this.setState({ openKeys: newOpenKeys, hasOpen: keys.length > 0 })
-    onOpenChange([...keys])
+    onOpenChange(keys)
   }
 
   handleScrollX(pos, param) {
