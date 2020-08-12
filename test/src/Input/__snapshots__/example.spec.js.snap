@@ -82,7 +82,9 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-5-group.js] 1`
     <label>
       <input />
     </label>
-    <i />
+    <button>
+      <i />
+    </button>
   </div>
   <div>
     <label>
