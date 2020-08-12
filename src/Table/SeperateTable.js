@@ -377,7 +377,7 @@ class SeperateTable extends PureComponent {
     const { columns } = this.props
     const colgroup = []
     for (let i = 0, count = tds.length; i < count; i++) {
-      const width = tds[i].offsetWidth
+      const { width } = tds[i].getBoundingClientRect()
       const colSpan = parseInt(tds[i].getAttribute('colspan'), 10)
       if (colSpan > 1) {
         split(width, range(colSpan).map(j => columns[i + j].width)).forEach(w => colgroup.push(w))
