@@ -156,12 +156,22 @@
       &-active {
         background: @menu-dark-active-bg;
       }
+      &-hover {
+        color: @menu-item-dark-hover-color;
+        background-color: @menu-item-dark-hover-bgc;
+      }
     }
     &-active {
       background: @menu-item-active-bg;
       color: @menu-item-active-color;
       border-radius: @menu-active-border-radius;
       padding: @menu-active-padding-vertical @menu-active-padding-horizontal;
+    }
+    &-light {
+      &-hover {
+        color: @menu-item-light-hover-color;
+        background-color: @menu-item-light-hover-bgc;
+      }
     }
   }
   &-form {
