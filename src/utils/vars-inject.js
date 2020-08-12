@@ -2279,6 +2279,34 @@ const injects = {
         parser: parseInt,
         desc: '选中项圆角',
       },
+      {
+        name: 'itemHoverColor',
+        className: exposeClass('menu-light-hover'),
+        attr: 'color',
+        type: 'color',
+        desc: 'hover状态下文字颜色',
+      },
+      {
+        name: 'itemHoverDarkColor',
+        className: exposeClass('menu-dark-hover'),
+        attr: 'color',
+        type: 'color',
+        desc: '暗黑主题 hover状态下文字颜色',
+      },
+      {
+        name: 'itemHoverBgc',
+        className: exposeClass('menu-light-hover'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'hover状态下背景颜色',
+      },
+      {
+        name: 'itemHoverDarkBgc',
+        className: exposeClass('menu-dark-hover'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '暗黑主题 hover状态下背景颜色',
+      },
     ],
     set height(v) {
       const height = parseInt(v, 10)
@@ -2366,6 +2394,38 @@ const injects = {
       setBodyProperty(
         {
           '--menu-active-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set itemHoverColor(v) {
+      setBodyProperty(
+        {
+          '--menu-item-light-hover-color': v,
+        },
+        v
+      )
+    },
+    set itemHoverDarkColor(v) {
+      setBodyProperty(
+        {
+          '--menu-item-dark-hover-color': v,
+        },
+        v
+      )
+    },
+    set itemHoverBgc(v) {
+      setBodyProperty(
+        {
+          '--menu-item-light-hover-bgc': v,
+        },
+        v
+      )
+    },
+    set itemHoverDarkBgc(v) {
+      setBodyProperty(
+        {
+          '--menu-item-dark-hover-bgc': v,
         },
         v
       )
