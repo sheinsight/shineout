@@ -3739,8 +3739,7 @@ const injects = {
       },
       {
         name: 'lineHeight',
-        className: exposeClass('common-line-height'),
-        attr: 'flexGrow',
+        value: 1.428571429,
         type: 'string',
         desc: '行高',
       },
