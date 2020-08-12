@@ -614,6 +614,20 @@ const injects = {
         className: dropdownClass('box-list'),
         desc: '多列平铺的内边距',
       },
+      {
+        name: 'optionsHoverBgc',
+        attr: 'backgroundColor',
+        type: 'color',
+        className: exposeClass('dropdown-options-hover'),
+        desc: 'options hover时背景颜色',
+      },
+      {
+        name: 'optionsHoverColor',
+        attr: 'color',
+        type: 'color',
+        className: exposeClass('dropdown-options-hover'),
+        desc: 'options hover时字体颜色',
+      },
     ],
     set borderWidth(v) {
       setBodyProperty(
@@ -627,6 +641,22 @@ const injects = {
       setBodyProperty(
         {
           '--dropdown-columns-padding': v,
+        },
+        v
+      )
+    },
+    set optionsHoverBgc(v) {
+      setBodyProperty(
+        {
+          '--dropdown-options-hover-bgc': v,
+        },
+        v
+      )
+    },
+    set optionsHoverColor(v) {
+      setBodyProperty(
+        {
+          '--dropdown-options-hover-color': v,
         },
         v
       )
