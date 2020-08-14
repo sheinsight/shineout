@@ -85,7 +85,9 @@ export default class extends React.Component {
         })
       )
     }
-    if ((onRowSelect || datum) && this.cachedColumns[0] && this.cachedColumns[0].type !== 'checkbox') {
+    // filter checkbox
+    const haveCheckbox = columns.find(v => v.type === 'checkbox')
+    if ((onRowSelect || datum) && this.cachedColumns[0] && this.cachedColumns[0].type !== 'checkbox' && !haveCheckbox) {
       this.cachedColumns.unshift({
         key: 'checkbox',
         type: 'checkbox',
