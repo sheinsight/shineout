@@ -21,6 +21,7 @@
 | placeholder | ReactNode | '加载中' | 图片加载中占位内容 | |
 | container | string | - | 对特定元素进行懒加载判断的选择器, 如: '#id', '.class' | 1.4.2  |
 | error | ReactNode | 无 | 图片载入错误的文案 |  |
+| autoSSL | boolean | false | 是否根据页面自动转换协议 | 1.6.1 |
  
 ### Image.Group
 

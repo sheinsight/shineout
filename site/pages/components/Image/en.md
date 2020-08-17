@@ -19,6 +19,7 @@
 | placeholder | ReactNode | 'loading' | loading image placeholder content | |
 | container | string | - | the special element selector witch container the lazy image, such as: '#id', '.class' | 1.4.2 |
 | error | ReactNode | none | image error placeholder |  |
+| autoSSL | boolean | false | auto transform protocol | 1.6.1 |
 
 ### Image.Group
 

@@ -17,7 +17,8 @@ export function substitute(str, obj) {
       }
       return obj[name] === null || obj[name] === undefined ? '' : obj[name]
     })
-  } else if (typeof str === 'function') {
+  }
+  if (typeof str === 'function') {
     let val = str(obj)
     if (val === obj && typeof val === 'object') {
       val = Object.assign({}, obj)
@@ -26,4 +27,14 @@ export function substitute(str, obj) {
   }
 
   return ''
+}
+
+export function removeProtocol(url) {
+  if (url.indexOf('http') !== 0) return url
+  try {
+    const { href, protocol } = new URL(url)
+    return href.slice(protocol.length)
+  } catch (error) {
+    return url
+  }
 }
