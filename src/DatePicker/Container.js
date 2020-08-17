@@ -195,7 +195,7 @@ class Container extends PureComponent {
     }
   }
 
-  handleToggle(focus, e) {
+  handleToggle(focus, e, reset = false) {
     if (this.props.disabled === true) return
     if (focus === this.state.focus) return
     if (e && focus && getParent(e.target, this.pickerContainer)) return
@@ -223,7 +223,7 @@ class Container extends PureComponent {
     )
 
     if (focus && this.picker && this.picker.resetRange) {
-      this.picker.resetRange((this.props.value || []).map(this.parseDate))
+      this.picker.resetRange((this.props.value || []).map(this.parseDate), reset)
     }
 
     if (focus === true) {
@@ -305,7 +305,7 @@ class Container extends PureComponent {
     const value = this.props.range ? ['', ''] : ''
     this.props.onChange(value, () => {
       this.props.onValueBlur()
-      this.handleToggle(false)
+      this.handleToggle(false, null, true)
       this.element.focus()
     })
   }

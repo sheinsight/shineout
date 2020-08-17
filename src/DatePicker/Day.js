@@ -112,7 +112,7 @@ class Day extends PureComponent {
   }
 
   renderDay(date, minD, maxD) {
-    const { current, disabled, value, index, type, rangeDate, range, rangeTemp, min, max } = this.props
+    const { current, disabled, value, index, type, rangeDate, range, rangeTemp, min, max, mode } = this.props
     const { hover } = this.state
     const hmsDate = new Date(date)
     utils.setTime(hmsDate, current)
@@ -122,12 +122,17 @@ class Day extends PureComponent {
     if (index === undefined && !isDisabled) {
       if ((minD && utils.compareAsc(date, minD) < 0) || (maxD && utils.compareAsc(date, maxD) > 0)) isDisabled = true
     }
+
+    // range
     if (!isDisabled && index === 1) {
-      if (
+      const flag = utils.compareAsc(date, utils.clearHMS(min)) < 0 || utils.compareAsc(date, utils.clearHMS(max)) > 0
+
+      if (mode === 'end') {
+        isDisabled = flag
+      } else if (
         (typeof range === 'number' && utils.compareAsc(date, utils.addSeconds(rangeTemp, range)) > 0) ||
         utils.compareAsc(date, rangeTemp) < 0 ||
-        utils.compareAsc(date, utils.clearHMS(min)) < 0 ||
-        utils.compareAsc(date, utils.clearHMS(max)) > 0
+        flag
       ) {
         isDisabled = true
       }
@@ -135,11 +140,12 @@ class Day extends PureComponent {
     }
 
     if (!isDisabled && index === 0) {
-      if (utils.compareAsc(date, utils.clearHMS(min)) < 0 || utils.compareAsc(date, utils.clearHMS(max)) > 0) {
-        isDisabled = true
-      }
+      const flag = utils.compareAsc(date, utils.clearHMS(min)) < 0 || utils.compareAsc(date, utils.clearHMS(max)) > 0
+
+      isDisabled = flag
     }
 
+    // render
     const classList = [
       utils.isSameDay(date, this.today) && 'today',
       current.getMonth() !== date.getMonth() && 'other-month',
@@ -301,6 +307,7 @@ Day.propTypes = {
   value: PropTypes.object,
   defaultTime: PropTypes.array,
   allowSingle: PropTypes.bool,
+  mode: PropTypes.string,
 }
 
 export default Day

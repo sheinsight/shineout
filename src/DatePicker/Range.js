@@ -18,6 +18,11 @@ class Range extends PureComponent {
 
     this.pickers = []
 
+    this.mode = {
+      value: null,
+      mode: 'start',
+    }
+
     this.handleChange = this.handleChange.bind(this)
     this.handleFirstChange = this.handleChange.bind(this, 0)
     this.handleSecondChange = this.handleChange.bind(this, 1)
@@ -28,6 +33,12 @@ class Range extends PureComponent {
     this.handleDisabledEnd = this.handleDisabled.bind(this, 'end')
     this.changeDateSmart = this.changeDateSmart.bind(this)
     this.fillTime = this.fillTime.bind(this)
+
+    this.getMinDate = this.getMinDate.bind(this)
+    this.getMaxDate = this.getMaxDate.bind(this)
+
+    // init mode
+    this.changeMode(props.value)
   }
 
   componentDidUpdate(prevProps) {
@@ -37,16 +48,55 @@ class Range extends PureComponent {
       !shallowEqual(prevProps.value, this.props.value) &&
       !shallowEqual(this.state.rangeDate, this.props.value)
     ) {
+      this.changeMode(this.props.value)
       // eslint-disable-next-line
       this.setState({ rangeDate: this.props.value })
     }
+  }
+
+  getMinDate(index) {
+    const { min, range } = this.props
+    const { rangeDate } = this.state
+    const { mode } = this.mode
+    if (mode === 'start') {
+      // stay consistent, not change
+      if (index === 0) {
+        return min
+      }
+      return rangeDate[0] ? rangeDate[0] : min
+    }
+    // when endDate picke first
+    if (index === 0) {
+      // determine the end date
+      if (rangeDate[1] && typeof range === 'number') {
+        const end = new Date(rangeDate[1])
+        return utils.subSeconds(utils.clearHMS(end), range)
+      }
+      // rangeDate[1] is null
+      return rangeDate[0] ? rangeDate[0] : min
+    }
+    return min
+  }
+
+  getMaxDate(index) {
+    const { max } = this.props
+    const { rangeDate } = this.state
+    const { mode } = this.mode
+    if (mode === 'start') {
+      return max
+    }
+    if (index === 0) {
+      return rangeDate[1] ? rangeDate[1] : max
+    }
+    return max
   }
 
   bindPicker(index, el) {
     this.pickers[index] = el
   }
 
-  resetRange(rangeDate) {
+  resetRange(rangeDate, reset = false) {
+    this.changeMode(rangeDate, reset)
     this.setState({ rangeDate })
   }
 
@@ -54,6 +104,31 @@ class Range extends PureComponent {
     if (this.state.rangeDate.length === 1) {
       utils.cloneTime(date, this.props.value[1], this.props.format)
       // this.setState({ hover: date })
+    }
+  }
+
+  changeMode(rangeDate, reset = false) {
+    if (!Array.isArray(rangeDate)) return
+    if (this.mode.value && !reset) return
+    const [s, e] = rangeDate
+    if (s) {
+      this.mode = {
+        value: s,
+        mode: 'start',
+      }
+      return
+    }
+    if (e) {
+      this.mode = {
+        value: e,
+        mode: 'end',
+      }
+      return
+    }
+
+    this.mode = {
+      value: null,
+      mode: 'start',
     }
   }
 
@@ -151,6 +226,7 @@ class Range extends PureComponent {
         // draft.rangeDate.map(this.fillTime)
         // range change start&end
         this.changeDateSmart(draft.rangeDate)
+        this.changeMode(draft.rangeDate)
         draft.hover = undefined
       }),
       () => {
@@ -220,8 +296,9 @@ class Range extends PureComponent {
           pos="start"
           disabled={this.handleDisabledStart}
           index={0}
-          min={min}
-          max={max}
+          min={this.getMinDate(0)}
+          max={this.getMaxDate(0)}
+          mode={this.mode.mode}
           current={current[0]}
           range={typeof range === 'number' ? range : undefined}
           rangeDate={rangeDate}
@@ -237,8 +314,9 @@ class Range extends PureComponent {
           {...props}
           disabled={this.handleDisabledEnd}
           index={1}
-          min={rangeDate[0] ? rangeDate[0] : min}
-          max={max}
+          min={this.getMinDate(1)}
+          max={this.getMaxDate(1)}
+          mode={this.mode.mode}
           current={current[1]}
           range={typeof range === 'number' ? range : undefined}
           rangeDate={rangeDate}
@@ -273,5 +351,7 @@ Range.propTypes = {
 Range.defaultProps = {
   value: [],
 }
+
+Range.displayName = 'Range'
 
 export default Range
