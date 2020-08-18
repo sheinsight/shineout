@@ -6,6 +6,8 @@ import { addStack, removeStack } from '../utils/lazyload'
 import { imageClass } from '../styles'
 import showGallery from './events'
 import { getLocale } from '../locale'
+import config from '../config'
+import { removeProtocol } from '../utils/strings'
 
 const PLACEHOLDER = 0
 const SRC = 1
@@ -44,6 +46,12 @@ class Image extends PureComponent {
     delete this.image
   }
 
+  getUrl(url) {
+    const autoSSL = 'autoSSL' in this.props ? this.props.autoSSL : config.autoSSL
+    if (autoSSL) return removeProtocol(url)
+    return url
+  }
+
   bindElement(el) {
     this.element = el
   }
@@ -74,7 +82,7 @@ class Image extends PureComponent {
     const image = new window.Image()
     image.onload = () => this.setState({ status: SRC })
     image.onerror = this.handleAlt
-    image.src = this.props.src
+    image.src = this.getUrl(src)
     this.image = image
   }
 
@@ -88,7 +96,7 @@ class Image extends PureComponent {
     const image = new window.Image()
     image.onload = () => this.setState({ status: ALT })
     image.onerror = () => this.setState({ status: ERROR })
-    image.src = alt
+    image.src = this.getUrl(alt)
   }
 
   handleClick(e) {
@@ -189,6 +197,7 @@ Image.propTypes = {
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   container: PropTypes.string,
   error: PropTypes.node,
+  autoSSL: PropTypes.bool,
 }
 
 Image.defaultProps = {
