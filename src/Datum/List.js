@@ -173,7 +173,7 @@ export default class {
 
     outer: for (const val of this.values) {
       for (let j = 0; j < raws.length; j++) {
-        if (raws[j].IS_NOT_MATCHED_VALUE || prediction(val, raws[j])) {
+        if ((raws[j].IS_NOT_MATCHED_VALUE && val === raws[j].value) || prediction(val, raws[j])) {
           raws.splice(j, 1)
           continue outer
         }
