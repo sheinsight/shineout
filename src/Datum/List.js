@@ -155,12 +155,6 @@ export default class {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  checkNotMatchedValue(value, data) {
-    // check default value
-    return value === data.value
-  }
-
   defaultPrediction(value, data) {
     return value === this.format(data)
   }
@@ -179,7 +173,7 @@ export default class {
 
     outer: for (const val of this.values) {
       for (let j = 0; j < raws.length; j++) {
-        if ((raws[j].IS_NOT_MATCHED_VALUE && this.checkNotMatchedValue(val, raws[j])) || prediction(val, raws[j])) {
+        if ((raws[j].IS_NOT_MATCHED_VALUE && val === raws[j].value) || prediction(val, raws[j])) {
           raws.splice(j, 1)
           continue outer
         }
