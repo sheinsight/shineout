@@ -28,6 +28,27 @@
     font-size: @modal-title-font-size;
     font-weight: 500;
     font-family: @modal-title-font;
+    line-height: 1.5;
+
+
+    &.@{modal-prefix}-with-icon {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .@{modal-prefix}-icon{
+      margin-right: 8px;
+      width: @modal-default-title-icon-size;
+      height: @modal-default-title-icon-size;
+      display: flex;
+
+      svg {
+        width: @modal-default-title-icon-size;
+        height: @modal-default-title-icon-size;
+        font-size: @modal-default-title-icon-size;
+      }
+    }
   }
 
   & &-body {
@@ -138,7 +159,7 @@
   &-error,
   &-normal,
   &-confirm {
-    .@{modal-prefix}-footer {
+    .@{modal-prefix}-footer.@{modal-prefix}-method {
       &:after {
         display: none;
       }
