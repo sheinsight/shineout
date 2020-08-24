@@ -1677,6 +1677,14 @@ const injects = {
         type: 'color',
         desc: '奇数行背景颜色',
       },
+      {
+        name: 'marginBottom',
+        className: exposeClass('table'),
+        attr: 'marginBottom',
+        type: 'number',
+        parser: parseInt,
+        desc: '表格底部外边距',
+      },
     ],
     set scrollRatio(v) {
       configSet('scrollRatio', v)
@@ -1843,6 +1851,14 @@ const injects = {
       setBodyProperty(
         {
           '--table-odd-td-bgc': v,
+        },
+        v
+      )
+    },
+    set marginBottom(v) {
+      setBodyProperty(
+        {
+          '--table-margin-bottom': `${parseInt(v, 10)}px`,
         },
         v
       )
