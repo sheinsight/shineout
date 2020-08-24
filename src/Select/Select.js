@@ -421,6 +421,7 @@ class Select extends PureComponent {
       showArrow,
       focusSelected,
       compressedClassName,
+      resultClassName,
     } = this.props
     const className = selectClass(
       'inner',
@@ -467,6 +468,7 @@ class Select extends PureComponent {
           showArrow={showArrow}
           focusSelected={focusSelected}
           compressedClassName={compressedClassName}
+          resultClassName={resultClassName}
         />
         {this.renderOptions()}
       </div>
@@ -508,6 +510,7 @@ Select.propTypes = {
   focusSelected: PropTypes.bool,
   compressedClassName: PropTypes.string,
   onCollapse: PropTypes.func,
+  resultClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 }
 
 Select.defaultProps = {
