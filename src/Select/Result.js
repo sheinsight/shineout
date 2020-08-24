@@ -3,11 +3,27 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import Popover from '../Popover'
 import { inputClass, selectClass } from '../styles'
-import { isObject } from '../utils/is'
+import { isObject, isFunc, isString } from '../utils/is'
 import Input from './Input'
 import Caret from '../icons/Caret'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
+
+/**
+ * get result className from resultClassName attr
+ * @param {function | string} f props => resultClassName
+ * @param {any} value result value
+ * @returns {string | null}
+ */
+const getResultClassName = (f, value) => {
+  if (isFunc(f)) {
+    return f(isObject(value) && value.IS_NOT_MATCHED_VALUE ? value.value : value)
+  }
+  if (isString(f)) {
+    return f
+  }
+  return null
+}
 
 const getResultContent = (data, renderResult, renderUnmatched) => {
   if (isObject(data) && data.IS_NOT_MATCHED_VALUE) {
@@ -18,14 +34,20 @@ const getResultContent = (data, renderResult, renderUnmatched) => {
 }
 
 // eslint-disable-next-line
-function Item({ renderResult, renderUnmatched, data, disabled, onClick }) {
+function Item({ renderResult, renderUnmatched, data, disabled, onClick, resultClassName }) {
   const value = data
   const click = disabled || !onClick ? undefined : () => onClick(value)
   const synDisabled = disabled || !click
   const content = getResultContent(data, renderResult, renderUnmatched)
   if (content === null) return null
   return (
-    <a tabIndex={-1} className={selectClass('item', disabled && 'disabled', synDisabled && 'ban')}>
+    <a
+      tabIndex={-1}
+      className={classnames(
+        selectClass('item', disabled && 'disabled', synDisabled && 'ban'),
+        getResultClassName(resultClassName, data)
+      )}
+    >
       {content}
       {!synDisabled && <span className={selectClass('indicator', 'close')} onClick={click} />}
     </a>
@@ -60,7 +82,7 @@ class Result extends PureComponent {
   }
 
   renderMore(list) {
-    const { datum, renderResult, renderUnmatched, compressedClassName } = this.props
+    const { datum, renderResult, renderUnmatched, compressedClassName, resultClassName } = this.props
     const { more } = this.state
     const className = classnames(selectClass('popover'), compressedClassName)
     return (
@@ -76,6 +98,7 @@ class Result extends PureComponent {
                 onClick={this.handleRemove}
                 renderResult={renderResult}
                 renderUnmatched={renderUnmatched}
+                resultClassName={resultClassName}
               />
             ))}
           </div>
@@ -149,6 +172,7 @@ class Result extends PureComponent {
       focus,
       datum,
       filterText,
+      resultClassName,
     } = this.props
 
     if (multiple) {
@@ -162,6 +186,7 @@ class Result extends PureComponent {
           onClick={firstRemove ? this.handleRemove : undefined}
           renderResult={renderResult}
           renderUnmatched={renderUnmatched}
+          resultClassName={resultClassName}
         />
       ))
 
@@ -184,7 +209,10 @@ class Result extends PureComponent {
     const title = typeof v === 'string' ? v : undefined
 
     return (
-      <span title={title} className={selectClass('ellipsis')}>
+      <span
+        title={title}
+        className={classnames(selectClass('ellipsis'), getResultClassName(resultClassName, result[0]))}
+      >
         {v}
       </span>
     )
@@ -237,6 +265,7 @@ Result.propTypes = {
   showArrow: PropTypes.bool,
   focusSelected: PropTypes.bool,
   compressedClassName: PropTypes.string,
+  resultClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 }
 
 export default Result

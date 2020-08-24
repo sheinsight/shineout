@@ -42,3 +42,4 @@
 | noCache | boolean | false | data cache, if data change asynchronously, better set true |
 | compressedClassName | string | none | compressed popover classname |
 | onCollapse | (collapse: boolean) => void | none | option list collapse callback |
+| resultClassName | ((value: any) => string) \| string | none | The className of the selected result content container |
