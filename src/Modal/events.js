@@ -165,6 +165,7 @@ export const method = type => option => {
       id: getUidStr(),
       destroy: true,
       type,
+      from: 'method',
     }
   )
 

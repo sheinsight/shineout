@@ -44,6 +44,7 @@ class Modal extends Component {
       ...props,
       content: children,
       id: this.id,
+      from: 'modal', // overwrite props from
     }
   }
 
