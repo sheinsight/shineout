@@ -30,7 +30,7 @@
 | onClose | () => void | 无 | 模态框关闭回调 | |
 | destroy | boolean | false | 关闭时是否销毁元素 | |
 | hideClose | boolean | 无 | 是否隐藏关闭按钮 | |
-| type | info\|success\|warning\|error\|normal | 无 | Modal title 显示状态icon | 1.6.1-rc.13 |
+| type | 'info' \| 'success' \| 'warning' \| 'error' \| 'normal' | 无 | Modal title 显示状态icon | 1.6.1-rc.13 |
 
 ### ModalMethods
 

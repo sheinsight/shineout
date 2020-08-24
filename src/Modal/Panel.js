@@ -42,13 +42,6 @@ export default class Panel extends PureComponent {
     this.updateOrigin()
   }
 
-  get icon() {
-    const { type } = this.props
-    if (type === 'default') return null
-    const iconType = type.charAt(0).toUpperCase() + type.slice(1)
-    return Icons[iconType]
-  }
-
   getStyle() {
     const { width, height, top, position, style } = this.props
 
@@ -95,6 +88,13 @@ export default class Panel extends PureComponent {
     event.preventDefault()
   }
 
+  renderIcon() {
+    const { type } = this.props
+    if (type === 'default') return null
+    const iconType = type.charAt(0).toUpperCase() + type.slice(1)
+    return Icons[iconType]
+  }
+
   renderTitle(justRenderClassComponent = false) {
     const { from, title } = this.props
     if (!title) return null
@@ -108,7 +108,8 @@ export default class Panel extends PureComponent {
     }
 
     // base Component
-    const { icon } = this
+    const icon = this.renderIcon()
+
     return (
       <Card.Header className={modalClass('title', icon && 'with-icon')}>
         {icon && <div className={modalClass('icon')}>{icon}</div>}
@@ -127,7 +128,7 @@ export default class Panel extends PureComponent {
 
     if (!from || from !== 'method') return <Card.Body style={style}>{children}</Card.Body>
 
-    const { icon } = this
+    const icon = this.renderIcon()
 
     return (
       <Card.Body className={modalClass('body')} style={style}>

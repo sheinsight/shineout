@@ -29,7 +29,7 @@ You can use Modal to display secondary content or actions without jumping to the
 | onClose | () => void | none | modal close callback | |
 | destroy | boolean | false | Whether to destroy elements when it is closed | |
 | hideClose | boolean | none | hide the close button | |
-| type | info\|success\|warning\|error\|normal | null | Modal Title show status icon | 1.6.1-rc.13 |
+| type | 'info' \| 'success' \| 'warning' \| 'error' \| 'normal' | null | Modal Title show status icon | 1.6.1-rc.13 |
 
 ### ModalMethods
 
