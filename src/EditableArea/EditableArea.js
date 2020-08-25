@@ -34,7 +34,7 @@ class Editable extends React.PureComponent {
     this.handleFocus = this.handleFocus.bind(this)
     this.showPop = this.updateShowTextarea.bind(this, true)
     this.hidePop = this.updateShowTextarea.bind(this, false)
-    this.handleClear = this.handleClear.bind(this)
+    this.handleClear = this.onChange.bind(this, '')
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -65,10 +65,6 @@ class Editable extends React.PureComponent {
       this.width = getParent(this.input, `.${editableAreaClass('input')}`).offsetWidth
     }
     this.setState({ showTextarea: flag })
-  }
-
-  handleClear() {
-    this.setState({ value: '' })
   }
 
   handleFocus(e) {
