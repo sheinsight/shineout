@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
@@ -47,22 +48,19 @@ export default class extends PureComponent {
 
   handleChange(_, checked, index) {
     const { data, datum, treeColumnsName } = this.props
+    // exclude all children marked with expend
+    // only top level data
+    const d = data.filter(v => !v._isExpand)
     if (checked) {
-      datum.add(data, index, treeColumnsName)
+      datum.add(d, index, treeColumnsName)
     } else {
-      datum.remove(data, index, treeColumnsName)
+      datum.remove(d, index, treeColumnsName)
     }
   }
 
   render() {
     if (this.props.datum.limit === 1) return null
 
-    return (
-      <Checkbox
-        {...this.props}
-        checked={this.getChecked()}
-        onChange={this.handleChange}
-      />
-    )
+    return <Checkbox {...this.props} checked={this.getChecked()} onChange={this.handleChange} />
   }
 }

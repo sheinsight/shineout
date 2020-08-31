@@ -75,11 +75,13 @@ export default WrappedComponent => {
           const item = dataCo[i]
           const key = getKey(item, keygen, i)
           const parentLevel = this.expandLevel.get(key) || 0
-          if (storeExpandKeys.get(key) && item[treeColumnsName]) {
+          if (storeExpandKeys.get(key) && item[treeColumnsName] && item[treeColumnsName].length > 0) {
             item[treeColumnsName].forEach(child => {
               this.expandLevel.set(getKey(child, keygen), parentLevel + 1)
             })
-            draft.splice(i + 1, 0, ...item[treeColumnsName])
+            // mark expend childrens
+            // [_isExpand]: boolean   -->  primary attr
+            draft.splice(i + 1, 0, ...item[treeColumnsName].map(v => ({ ...v, _isExpand: true })))
             dataCo = draft
             storeExpandKeys.delete(key)
           }
