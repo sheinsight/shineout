@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import type from 'shineout/utils/validate/type'
 import Popover from '../Popover'
 import { inputClass, selectClass } from '../styles'
 import { isObject, isFunc, isString } from '../utils/is'
@@ -43,7 +42,7 @@ function Item({ renderResult, renderUnmatched, data, disabled, onClick, resultCl
   if (content === null) return null
   return (
     <a
-      title={title && typeof content === 'string' ? content : null}
+      title={title && isString(content) ? content : null}
       tabIndex={-1}
       className={classnames(
         selectClass('item', disabled && 'disabled', synDisabled && 'ban'),
@@ -209,7 +208,7 @@ class Result extends PureComponent {
     }
 
     const v = getResultContent(result[0], renderResult, renderUnmatched)
-    const title = typeof v === 'string' ? v : undefined
+    const title = isString(v) ? v : undefined
 
     return (
       <span
