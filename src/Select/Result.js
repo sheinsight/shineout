@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import type from 'shineout/utils/validate/type'
 import Popover from '../Popover'
 import { inputClass, selectClass } from '../styles'
 import { isObject, isFunc, isString } from '../utils/is'
@@ -34,7 +35,7 @@ const getResultContent = (data, renderResult, renderUnmatched) => {
 }
 
 // eslint-disable-next-line
-function Item({ renderResult, renderUnmatched, data, disabled, onClick, resultClassName }) {
+function Item({ renderResult, renderUnmatched, data, disabled, onClick, resultClassName, title = false }) {
   const value = data
   const click = disabled || !onClick ? undefined : () => onClick(value)
   const synDisabled = disabled || !click
@@ -42,6 +43,7 @@ function Item({ renderResult, renderUnmatched, data, disabled, onClick, resultCl
   if (content === null) return null
   return (
     <a
+      title={title && typeof content === 'string' ? content : null}
       tabIndex={-1}
       className={classnames(
         selectClass('item', disabled && 'disabled', synDisabled && 'ban'),
@@ -187,6 +189,7 @@ class Result extends PureComponent {
           renderResult={renderResult}
           renderUnmatched={renderUnmatched}
           resultClassName={resultClassName}
+          title
         />
       ))
 

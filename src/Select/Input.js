@@ -93,6 +93,7 @@ class FilterInput extends Component {
       onFocus: handleFocus,
       onBlur: this.handleBlur,
       onPaste: this.handlePaste,
+      title: !focus && typeof value === 'string' ? value : null,
     }
 
     if (isValidElement(value)) {
