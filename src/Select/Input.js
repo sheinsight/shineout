@@ -2,6 +2,7 @@ import React, { Component, isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import { selectClass } from '../styles'
 import { focusElement, getCursorOffset } from '../utils/dom/element'
+import { isString } from '../utils/is'
 
 const handleFocus = e => {
   e.stopPropagation()
@@ -93,6 +94,7 @@ class FilterInput extends Component {
       onFocus: handleFocus,
       onBlur: this.handleBlur,
       onPaste: this.handlePaste,
+      title: !focus && isString(value) ? value : null,
     }
 
     if (isValidElement(value)) {
