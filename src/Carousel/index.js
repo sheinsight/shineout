@@ -25,12 +25,22 @@ class Carousel extends PureComponent {
     this.setNext(1)
   }
 
+  componentDidUpdate() {
+    if (this.count > 1 && !this.$timeout) {
+      this.setNext(this.state.current + 1)
+    }
+  }
+
   setNext(next) {
     const { interval } = this.props
     if (interval > 0 && this.count > 1) {
-      if (this.$timeout) clearTimeout(this.$timeout)
+      if (this.$timeout) {
+        clearTimeout(this.$timeout)
+        this.$timeout = null
+      }
       this.$timeout = setTimeout(() => {
         this.moveTo(next)
+        this.$timeout = null
       }, interval)
     }
   }
