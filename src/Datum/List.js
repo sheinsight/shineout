@@ -62,7 +62,7 @@ export default class {
   }
 
   flattenTreeData(data, childrenKey) {
-    const keys = data.map(v => this.format(v)).filter(v => typeof v !== 'object')
+    const keys = data.map(v => this.format(v)).map(v => (typeof v === 'object' ? JSON.stringify(v) : v))
     const key = keys.join()
     if (keys.length !== 0) {
       const cached = this.$cachedFlatten.get(key)
@@ -71,7 +71,10 @@ export default class {
     const flatten = []
     const deepAdd = items => {
       items.forEach(item => {
-        flatten.push(item)
+        const exist = flatten.find(raw =>
+          this.prediction ? this.prediction(raw, item) : this.format(raw) === this.format(item)
+        )
+        if (!exist) flatten.push(item)
         if (item[childrenKey]) deepAdd(item[childrenKey])
       })
     }
