@@ -46,4 +46,5 @@ export default {
   selected: '项',
   search: '搜索',
   urlInvalidMsg: '图片格式不正确，请重新上传',
+  invalidAccept: '文件格式不正确',
 }

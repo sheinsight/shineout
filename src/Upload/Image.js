@@ -58,20 +58,12 @@ class Image extends PureComponent {
   }
 
   handleKeyDown(e) {
-    this.setState(
-      immer(draft => {
-        draft.urlInvalid = false
-      })
-    )
+    this.setState({ urlInvalid: false })
     if (e.keyCode === 13) e.target.click()
   }
 
   handleMouseDown() {
-    this.setState(
-      immer(draft => {
-        draft.urlInvalid = false
-      })
-    )
+    this.setState({ urlInvalid: false })
   }
 
   render() {
@@ -80,11 +72,7 @@ class Image extends PureComponent {
     if (urlInvalid) {
       clearTimeout(this.timeout)
       this.timeout = setTimeout(() => {
-        this.setState(
-          immer(draft => {
-            draft.urlInvalid = false
-          })
-        )
+        this.setState({ urlInvalid: false })
       }, 3000)
     }
 
