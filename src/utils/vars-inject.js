@@ -3821,6 +3821,31 @@ const injects = {
       )
     },
   },
+  tabs: {
+    info: {
+      title: 'Tabs 标签',
+      name: 'tabs',
+      path: 'Tabs',
+    },
+    conf: [
+      {
+        name: 'tabSpacing',
+        className: exposeClass('tabs'),
+        attr: 'marginLeft',
+        type: 'number',
+        parser: parseInt,
+        desc: 'tab间隔',
+      },
+    ],
+    set tabSpacing(v) {
+      setBodyProperty(
+        {
+          '--tabs-tab-spacing': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+  },
   common: {
     info: {
       title: 'Common 公共',
