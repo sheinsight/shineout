@@ -34,6 +34,7 @@
 | drop | boolean | false | drop to update |
 | filesFilter | (fileList: any[]) => boolean | none | Filter after file selection, users can customize the list of files that need to be uploaded eventually<br />Need to return a new file list |
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | none | remove update failed callback |
+| forceAccept | string | none | After disabled the file type filtering provided by accept, it is mandatory to check the file type |
 
 ### Upload.Image
 

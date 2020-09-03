@@ -14,6 +14,9 @@ import Result from './Result'
 import ImageResult from './ImageResult'
 import { Provider } from './context'
 import Drop from './Drop'
+import attrAccept from '../utils/accept'
+import { getLocale } from '../locale'
+import acceptHOC from './accept'
 
 const VALIDATORITEMS = [
   { key: 'size', param: blob => blob.size },
@@ -135,10 +138,15 @@ class Upload extends PureComponent {
   }
 
   useValidator(blob) {
-    const { validator } = this.props
+    const { validator, accept, forceAccept } = this.props
     const { files } = this.state
     let error = null
     let i = 0
+
+    if (forceAccept) {
+      const acceptRes = attrAccept(blob, accept)
+      if (!acceptRes) return new Error(getLocale('invalidAccept'))
+    }
 
     while (VALIDATORITEMS[i]) {
       const item = VALIDATORITEMS[i]
@@ -499,6 +507,7 @@ Upload.propTypes = {
   drop: PropTypes.bool,
   filesFilter: PropTypes.func,
   onErrorRemove: PropTypes.func,
+  forceAccept: PropTypes.bool,
 }
 
 Upload.defaultProps = {
@@ -512,4 +521,4 @@ Upload.defaultProps = {
   validatorHandle: true,
 }
 
-export default Upload
+export default acceptHOC(Upload)
