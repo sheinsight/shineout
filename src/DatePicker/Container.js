@@ -201,7 +201,7 @@ class Container extends PureComponent {
     if (e && focus && getParent(e.target, this.pickerContainer)) return
 
     // click close icon
-    if (focus && e && e.target.classList.contains(datepickerClass('close'))) return
+    if (focus && e && getParent(e.target, `.${datepickerClass('close')}`)) return
     this.setState(
       immer(state => {
         state.focus = focus
@@ -303,10 +303,11 @@ class Container extends PureComponent {
   handleClear(e) {
     e.stopPropagation()
     const value = this.props.range ? ['', ''] : ''
+    const ctx = this
     this.props.onChange(value, () => {
-      this.props.onValueBlur()
-      this.handleToggle(false)
-      this.element.focus()
+      ctx.props.onValueBlur()
+      ctx.handleToggle(false)
+      ctx.element.focus()
     })
   }
 
@@ -329,9 +330,9 @@ class Container extends PureComponent {
         key={key}
         onTextSpanRef={this.bindTextSpan}
         className={className}
-        focus={this.state.focus}
+        // focus={this.state.focus}
         format={resultFormat}
-        element={this.element}
+        // element={this.element}
         index={key}
         inputable={inputable}
         placeholder={placeholder}
@@ -439,7 +440,7 @@ class Container extends PureComponent {
         onFocus={this.handleFocus}
         data-id={this.pickerId}
         ref={this.bindElement}
-        onClick={this.handleClick}
+        onMouseDown={this.handleClick}
         onKeyDown={this.handleKeyDown}
       >
         {this.renderResult()}

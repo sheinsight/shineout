@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { focusElement, getParent } from '../utils/dom/element'
 import utils from './utils'
@@ -14,7 +14,7 @@ document.addEventListener(
   true
 )
 
-class Text extends PureComponent {
+class Text extends React.Component {
   constructor(props) {
     super(props)
 
@@ -22,12 +22,38 @@ class Text extends PureComponent {
     this.handleInput = this.handleInput.bind(this)
     this.handleFocus = this.handleFocus.bind(this)
     this.bindElement = this.bindElement.bind(this)
+
+    this.handleMouseDown = this.handleMouseDown.bind(this)
+    this.getSpanContentEditable = this.getSpanContentEditable.bind(this)
+
+    this.state = {
+      focus: false,
+    }
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.focus !== this.props.focus && this.props.focus && this.element) {
+  componentDidUpdate(prevProps, prevState) {
+    // if (prevProps.focus !== this.props.focus && this.props.focus && this.element) {
+    //   focusElement.end(this.element)
+    // }
+    if (prevState.focus !== this.state.focus && this.state.focus) {
       focusElement.end(this.element)
     }
+  }
+
+  getSpanContentEditable() {
+    const { inputable } = this.props
+    const { focus } = this.state
+    if (!inputable) return false
+    return focus
+  }
+
+  handleMouseDown() {
+    const { inputable } = this.props
+    const { focus } = this.state
+    if (!inputable || focus) return
+    this.setState({
+      focus: true,
+    })
   }
 
   bindElement(el) {
@@ -37,9 +63,9 @@ class Text extends PureComponent {
   }
 
   handleBlur(e) {
-    const { format, index, onChange, value, element } = this.props
+    const { format, index, onChange, value } = this.props
     const txt = e.target.innerText
-    element.focus()
+    // element.focus()
     if (getParent(target, `.${datepickerClass('picker')}`)) return
     if (txt === value) return
     if (txt.trim().length === 0) {
@@ -48,6 +74,8 @@ class Text extends PureComponent {
       const newValue = utils.toDateWithFormat(txt, format, undefined)
       onChange(newValue, index)
     }
+
+    this.setState({ focus: false })
   }
 
   handleFocus(e) {
@@ -63,20 +91,25 @@ class Text extends PureComponent {
   }
 
   render() {
-    const { className, focus, inputable, value, placeholder } = this.props
+    const { className, value, placeholder } = this.props
 
-    if (!inputable || !focus) {
-      return <span className={className}>{value || placeholder}</span>
+    if (!this.getSpanContentEditable()) {
+      return (
+        <span onMouseDown={this.handleMouseDown} className={className}>
+          {value || placeholder}
+        </span>
+      )
     }
 
     return (
       <span
         ref={this.bindElement}
-        contentEditable={inputable}
+        contentEditable={this.getSpanContentEditable()}
         onBlur={this.handleBlur}
         onFocus={this.handleFocus}
         onKeyDown={this.handleInput}
         className={className}
+        onMouseDown={this.handleMouseDown}
         dangerouslySetInnerHTML={{ __html: value }}
       />
     )
@@ -85,7 +118,7 @@ class Text extends PureComponent {
 
 Text.propTypes = {
   className: PropTypes.string,
-  focus: PropTypes.bool,
+  // focus: PropTypes.bool,
   format: PropTypes.string,
   index: PropTypes.number,
   inputable: PropTypes.bool,
@@ -93,7 +126,7 @@ Text.propTypes = {
   placeholder: PropTypes.any,
   value: PropTypes.string,
   onTextSpanRef: PropTypes.func,
-  element: PropTypes.any,
+  // element: PropTypes.any,
 }
 
 Text.defaultProps = {
