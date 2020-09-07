@@ -14,7 +14,7 @@ describe('DatePicker[Base]', () => {
     document.write(wrapper.html())
     expect(wrapper.find(`.${SO_PREFIX}-hidable-show`).length).toBe(0)
     expect(wrapper.find(`.${SO_PREFIX}-input-focus`).length).toBe(0)
-    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('mousedown')
     jest.runAllTimers()
     expect(wrapper.find(`.${SO_PREFIX}-datepicker-focus`).length).toBe(1)
     expect(wrapper.html().indexOf(`${SO_PREFIX}-hidable-show`) > 0).toBeTruthy()
@@ -29,7 +29,7 @@ describe('DatePicker[Base]', () => {
     const wrapper = mount(<DatePicker onChange={changeFn} />)
     document.write(wrapper.html())
     // show picker
-    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('mousedown')
     // select first day
     wrapper
       .find(`.${SO_PREFIX}-datepicker-list`)
@@ -67,7 +67,7 @@ describe('DatePicker[WeekPicker]', () => {
   test('should only pick week', () => {
     const wrapper = mount(<DatePicker type="week" format="RRRR IWW" defaultValue={Date.now()} />)
     document.write(wrapper.html())
-    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('mousedown')
     const days = wrapper.find(`.${SO_PREFIX}-datepicker-list`)
     for (let i = 0; i < 5; i++) {
       const first = days.childAt(i * 7)
@@ -90,7 +90,7 @@ describe('DatePicker[MonthPick]', () => {
   beforeAll(() => {
     wrapper = mount(<DatePicker type="month" defaultValue={Date.now()} />)
     document.write(wrapper.html())
-    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('mousedown')
   })
   test('should render all month', () => {
     const months = wrapper.find(`.${SO_PREFIX}-datepicker-list`)
@@ -108,7 +108,7 @@ describe('DatePicker[TimePick]', () => {
     const now = new Date()
     const wrapper = mount(<DatePicker type="time" defaultValue={now} />)
     document.write(wrapper.html())
-    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('mousedown')
     const pickerList = wrapper.find(`.${SO_PREFIX}-datepicker-time-picker`)
     const hoursPicker = pickerList.childAt(0)
     const minutesPicker = pickerList.childAt(1)
@@ -143,7 +143,7 @@ describe('DatePicker[TimePick]', () => {
       const wrapper = mount(<DatePicker type="time" defaultValue={Date.now()} format={fmt} />)
       // show pickers
       document.write(wrapper.html())
-      wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+      wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('mousedown')
       const pickList = wrapper.find(`.${SO_PREFIX}-datepicker-time-picker`)
       expect(pickList.children().length).toBe(outputLength[index].length)
       for (let i = 0; i < outputLength[index].length; i++) {
@@ -157,7 +157,7 @@ describe('DatePicker[DatetimePick]', () => {
   test('should render date and time both', () => {
     const wrapper = mount(<DatePicker type="datetime" defaultValue={Date.now()} />)
     document.write(wrapper.html())
-    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('mousedown')
     // render time pick
     expect(wrapper.find(`.${SO_PREFIX}-datepicker-day-picker .${SO_PREFIX}-datepicker-datetime`).length).toBe(1)
     // render date pick
@@ -170,7 +170,7 @@ describe('DatePicker[datetime][defaultTime]', () => {
     const defaultTime = '02:33:33'
     const wrapper = mount(<DatePicker type="datetime" defaultTime={defaultTime} />)
     document.write(wrapper.html())
-    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('mousedown')
     wrapper
       .find(`.${SO_PREFIX}-datepicker-list div`)
       .at(15)
@@ -187,7 +187,7 @@ describe('RangePicker[datetime][defaultTime]', () => {
     const defaultTime = ['02:33:33', '12:33:33']
     const wrapper = mount(<DatePicker range type="datetime" defaultTime={defaultTime} />)
     document.write(wrapper.html())
-    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('mousedown')
     wrapper
       .find(`.${SO_PREFIX}-datepicker-list`)
       .at(0)
@@ -224,7 +224,7 @@ describe('RangePicker[time]', () => {
     const value = ['2019-01-01 02:33:33', '2019-02-02 12:33:33']
     const wrapper = mount(<DatePicker range type="datetime" value={value} />)
     document.write(wrapper.html())
-    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('mousedown')
     wrapper
       .find(`.${SO_PREFIX}-datepicker-list div`)
       .at(15)
@@ -257,7 +257,7 @@ describe('Datepicker min/max', () => {
     const today = new Date()
     const wrapper = mount(<DatePicker type="datetime" min={today} />)
     document.write(wrapper.html())
-    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('mousedown')
     wrapper
       .find(`.${SO_PREFIX}-datepicker-today`)
       .parent()
@@ -275,7 +275,7 @@ describe('Datepicker min/max', () => {
     const today = new Date()
     const wrapper = mount(<DatePicker type="datetime" max={today} />)
     document.write(wrapper.html())
-    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('mousedown')
     wrapper
       .find(`.${SO_PREFIX}-datepicker-today`)
       .parent()
@@ -294,7 +294,7 @@ describe('DatePicker[RangePick]', () => {
   test('should render two pick panel', () => {
     const wrapper = mount(<DatePicker range />)
     document.write(wrapper.html())
-    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('mousedown')
     expect(wrapper.find(`.${SO_PREFIX}-datepicker-day-picker`).length).toBe(2)
   })
 })
@@ -302,7 +302,7 @@ describe('DatePicker[RangePick]', () => {
 describe('DataPicker[disabled]', () => {
   test('should disabled select', () => {
     const wrapper = mount(<DatePicker disabled defaultValue={Date.now()} />)
-    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('mousedown')
     expect(wrapper.find(`.${SO_PREFIX}-hidable-show`).length).toBe(0)
   })
   test('should exec disabled while function', () => {
@@ -310,7 +310,7 @@ describe('DataPicker[disabled]', () => {
     const wrapper = mount(<DatePicker disabled={d => d.getTime() <= today} type="datetime" defaultValue={Date.now()} />)
     // show picker
     document.write(wrapper.html())
-    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('mousedown')
     const dayList = wrapper.find(`.${SO_PREFIX}-datepicker-list`).children()
     let beyondTody = false
     dayList.forEach(day => {
@@ -360,7 +360,7 @@ describe('DataPicker[quick]', () => {
     // show picker
     document.innerHTML = ''
     document.write(wrapper.html())
-    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('mousedown')
     const quicks = wrapper.find(`.${SO_PREFIX}-datepicker-quick-select-item`)
 
     expect(quicks.length).toBe(4)
