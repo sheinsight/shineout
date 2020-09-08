@@ -102,6 +102,13 @@
     &-body {
       background: @table-body-bg;
     }
+
+    &-even {
+      background-color: @table-even-td-bgc;
+    }
+    &-odd {
+      background-color: @table-odd-td-bgc;
+    }
   }
   &-dropdown {
     &-button {
@@ -185,6 +192,7 @@
     }
     &-tip {
       color: @form-tip-color;
+      font-size: @form-tip-font-size;
     }
     &-label {
       text-align: @form-item-label-align;
@@ -307,6 +315,9 @@
     }
     &-node {
       margin-bottom: @tree-node-margin-bottom;
+    }
+    &-default-icon{
+      border-left-color: @tree-indicator-color;
     }
   }
   &-checkbox {
