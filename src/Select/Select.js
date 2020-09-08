@@ -359,6 +359,7 @@ class Select extends PureComponent {
       'multiple',
       'columns',
       'columnWidth',
+      'columnsTitle',
       'text',
       'itemsInView',
       'absolute',

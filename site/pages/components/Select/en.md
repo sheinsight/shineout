@@ -43,3 +43,4 @@
 | compressedClassName | string | none | compressed popover classname |
 | onCollapse | (collapse: boolean) => void | none | option list collapse callback |
 | resultClassName | ((value: any) => string) \| string | none | The className of the selected result content container |
+| columnsTitle | ReactNode | none | title of columns multiple select |

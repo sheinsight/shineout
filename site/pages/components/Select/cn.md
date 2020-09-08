@@ -43,3 +43,4 @@
 | compressedClassName | string | 无 | 多选合并展示弹出框的类名 |
 | onCollapse | (collapse: boolean) => void | 无 | 下拉列表展开/收起回调 | 
 | resultClassName | ((value: any) => string) \| string | 无 | 选中结果内容容器的className | 
+| columnsTitle | ReactNode | 无 | 多列选项多选时的标题文字 |
