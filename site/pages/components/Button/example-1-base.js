@@ -5,18 +5,83 @@
  *    -- Button has several built-in type, default, primary, secondary, success, warning, dange, and link.
  */
 import React from 'react'
-import { Button } from 'shineout'
+import { Table, Button } from 'shineout'
+// import { Modal } from 'antd'
+import { Modal } from 'shineout'
+import 'antd/dist/antd.css'
 
-export default function() {
+// class C extends React.Component {
+//   componentDidMount() {
+//     console.log(this.el.getBoundingClientRect().height)
+//   }
+
+//   render() {
+//     return (
+//       <div ref={r => (this.el = r)}>
+//         hello
+//         <br />
+//         world
+//       </div>
+//     )
+//   }
+// }
+const C = () => {
+  const ref = React.createRef()
+  React.useEffect(() => {
+    console.log(ref.current.getBoundingClientRect().height)
+  }, [])
   return (
-    <div>
-      <Button>Default</Button>
-      <Button type="primary">Primary</Button>
-      <Button type="secondary">Secondary</Button>
-      <Button type="success">Success</Button>
-      <Button type="warning">Warning</Button>
-      <Button type="danger">Danger</Button>
-      <Button type="link">Link</Button>
+    <div ref={r => (ref.current = r)}>
+      hello
+      <br />
+      world
+    </div>
+  )
+}
+export default function App() {
+  const [v, setV] = React.useState(false)
+  const modalColumns = [
+    {
+      title: 'SKC',
+      render: 'skc',
+      width: 100,
+    },
+    {
+      title: '商品数量',
+      render: 'num',
+      width: 80,
+    },
+  ]
+
+  const data = [
+    { skc: '21', num: 1 },
+    { skc: '214', num: 4 },
+    { skc: '21123344', num: 4 },
+    { skc: '21123342', num: 4 },
+    { skc: '21123341', num: 4 },
+  ]
+  return (
+    <div className="App">
+      <Button onClick={() => setV(true)}>Modal</Button>
+      {/* <Table fixed="both" keygen="skc" bordered style={{ height: 300 }} columns={modalColumns} data={data} /> */}
+
+      <Modal
+        destroy
+        destroyOnClose
+        visible={v}
+        zIndex={999}
+        footer={null}
+        width={400}
+        onCancel={() => setV(false)}
+        onClose={() => setV(false)}
+      >
+        {
+          <div>
+            <C />
+            <Table fixed="both" keygen="skc" bordered style={{ height: 300 }} columns={modalColumns} data={data} />
+          </div>
+        }
+      </Modal>
     </div>
   )
 }

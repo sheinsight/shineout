@@ -140,9 +140,9 @@ export default class Panel extends PureComponent {
   }
 
   render() {
-    const { footer, type, onClose, maskCloseAble, position, moveable, resizable, hideClose, from } = this.props
+    const { footer, type, onClose, maskCloseAble, position, moveable, zoom, resizable, hideClose, from } = this.props
 
-    const className = classnames(modalClass('panel', type, position), this.props.className)
+    const className = classnames(modalClass('panel', type, position, zoom && !moveable && 'zoom'), this.props.className)
     const showClose = typeof hideClose === 'boolean' ? !hideClose : maskCloseAble || maskCloseAble === null
     return (
       <ZProvider value>
@@ -194,6 +194,7 @@ Panel.propTypes = {
   resizable: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   hideClose: PropTypes.bool,
   from: PropTypes.string,
+  zoom: PropTypes.bool,
 }
 
 Panel.defaultProps = {
@@ -201,4 +202,5 @@ Panel.defaultProps = {
   top: '10vh',
   maskCloseAble: true,
   width: 500,
+  zoom: true,
 }

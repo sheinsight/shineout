@@ -106,8 +106,8 @@ const examples = [
   {
     name: '8-type',
     title: locate(
-      'type 属性 \n Modal 组件根据 type 属性在 Title 区域显示带有状态Icon。',
-      'type attribute \n The Modal component displays the icon with status in the Title area according to the type attribute.'
+      '类型 \n 使用 type 属性来指定标题附带的图标',
+      'type attribute \n use type display type icon'
     ),
     component: require('doc/pages/components/Modal/example-8-type.js').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-8-type.js'),

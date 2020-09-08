@@ -6,7 +6,6 @@ import { getUidStr } from '../utils/uid'
 import { modalClass } from '../styles'
 import Panel from './Panel'
 import { getLocale } from '../locale'
-import { defer } from '../utils/uid'
 
 const containers = {}
 const DURATION = 300
@@ -104,13 +103,10 @@ export function open(props, isPortal) {
 
   containers[props.id].visible = true
 
-  defer(() => {
-    if (!otherProps.position) div.classList.add(modalClass('start'))
-  })
-
   setTimeout(() => {
     div.classList.add(modalClass('show'))
-  }, 10)
+    if (!otherProps.position) div.classList.add(modalClass('start'))
+  }, 100)
 
   const panel = (
     <Panel {...otherProps} onClose={handleClose}>
