@@ -1,8 +1,8 @@
 /**
- * cn - type 属性
- *    -- Modal 组件根据 type 属性在 Title 区域显示带有状态Icon。
+ * cn - 类型
+ *    -- 使用 type 属性来指定标题附带的图标
  * en - type attribute
- *    -- The Modal component displays the icon with status in the Title area according to the type attribute.
+ *    -- use type display type icon
  */
 import React from 'react'
 import { Modal, Button, Select } from 'shineout'
