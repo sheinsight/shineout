@@ -82,7 +82,7 @@ class BoxList extends Component {
   }
 
   renderHeader(count) {
-    const { data, loading, multiple } = this.props
+    const { data, loading, multiple, columnsTitle } = this.props
 
     if (loading || !multiple) return null
 
@@ -97,6 +97,7 @@ class BoxList extends Component {
             {this.getText('selectAll')}
           </Checkbox>
         )}
+        {columnsTitle && <span className={selectClass('header-title')}>{columnsTitle}</span>}
       </div>
     )
   }
@@ -207,6 +208,7 @@ BoxList.propTypes = {
   lineHeight: PropTypes.number,
   itemsInView: PropTypes.number,
   getRef: PropTypes.func,
+  columnsTitle: PropTypes.any,
 }
 
 BoxList.defaultProps = {
