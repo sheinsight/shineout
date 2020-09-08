@@ -288,7 +288,11 @@ class Root extends React.Component {
     )
 
     const rootStyle = {}
-    if (style.width && mode !== 'horizontal') rootStyle.width = style.width
+    if (style.width && mode !== 'horizontal') {
+      rootStyle.width = style.width
+      // deduction container border right
+      rootStyle.marginLeft = -1
+    }
 
     let bottomLine = 0
     let topLine = 0
