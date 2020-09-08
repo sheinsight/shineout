@@ -3661,6 +3661,14 @@ const injects = {
         type: 'string',
         desc: '纯文字时的最大宽度',
       },
+      {
+        name: 'fontSize',
+        className: popoverClass('_'),
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+        desc: '字体大小',
+      },
     ],
     set borderColor(v) {
       setBodyProperty(
@@ -3698,6 +3706,14 @@ const injects = {
       setBodyProperty(
         {
           '--popover-text-max-width': v,
+        },
+        v
+      )
+    },
+    set fontSize(v) {
+      setBodyProperty(
+        {
+          '--popover-text-font-size': `${parseInt(v, 10)}px`,
         },
         v
       )
