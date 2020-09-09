@@ -23,6 +23,10 @@ const themes = [
     content: 'default',
     id: '2',
   },
+  {
+    content: 'shineout',
+    id: '3',
+  },
 ]
 
 /*
