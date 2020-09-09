@@ -112,8 +112,8 @@ class Item extends PureComponent {
   }
 
   handleSwitch(e) {
-    const { renderItem, data } = this.props
-    const item = renderItem(data)
+    const { renderItem, data, index } = this.props
+    const item = renderItem(data, index)
     if (item.props && item.props.onClick) {
       this.handleItemClick(item.props.onClick, e)
     } else {
@@ -132,6 +132,7 @@ class Item extends PureComponent {
     const {
       data,
       renderItem,
+      index,
       mode,
       keygen,
       level,
@@ -174,7 +175,7 @@ class Item extends PureComponent {
       events.onMouseEnter = this.handleMouseEnter
       events.onMouseLeave = this.handleMouseLeave
     }
-    let item = renderItem(data)
+    let item = renderItem(data, index)
     const link = this.renderLink(data)
     if (isLink(item)) {
       const mergeClass = classnames(menuClass('title'), item.props && item.props.className)
