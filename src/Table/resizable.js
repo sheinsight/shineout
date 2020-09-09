@@ -1,7 +1,6 @@
 import React from 'react'
 import immer from 'immer'
 import PropTypes from 'prop-types'
-import deepEqual from 'deep-eql'
 
 export default Table =>
   class extends React.Component {
@@ -21,8 +20,13 @@ export default Table =>
     }
 
     componentDidUpdate(prevProps) {
-      if (!deepEqual(prevProps.columns, this.props.columns)) {
-        this.setState({ columns: this.props.columns })
+      if (prevProps.columns !== this.props.columns) {
+        const merged = immer(this.props.columns, draft => {
+          draft.forEach((column, index) => {
+            column.width = this.state.columns[index].width
+          })
+        })
+        this.setState({ columns: merged })
       }
     }
 
