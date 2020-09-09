@@ -7,7 +7,7 @@
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | absolute | boolean | false | 为 true 时，选项弹出层在 DOM 中独立 render |
-| autoAdapt | boolean | false | 是否列表自适应 |
+| autoAdapt | boolean | false | 下拉列表宽度根据内容自由展开 |
 | clearable | boolean | false | 是否可清除值 |
 | multiple | boolean | false | 是否是多选 |
 | columns | number | 1 | columns 大于 1 时，选项展示为多列布局模式 |
