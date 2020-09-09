@@ -223,10 +223,10 @@ class Root extends React.Component {
     if (onClick) onClick(data)
   }
 
-  renderItem(data) {
+  renderItem(data, index) {
     const { renderItem } = this.props
     if (typeof renderItem === 'string') return data[renderItem]
-    if (typeof renderItem === 'function') return renderItem(data)
+    if (typeof renderItem === 'function') return renderItem(data, index)
     return null
   }
 
