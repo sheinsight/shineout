@@ -30,16 +30,27 @@ export default class Panel extends PureComponent {
   panel = null
 
   componentDidMount() {
+    const { container } = this.props
     this.updateOrigin()
+    this.animate()
+
     const { autoFocusButton, id } = this.props
     if (!autoFocusButton) return
-    const el = document.querySelector(`#${id}-${autoFocusButton}`)
+    const el = container.querySelector(`#${id}-${autoFocusButton}`)
     if (!el) return
     el.focus()
   }
 
   componentDidUpdate() {
+    if (this.getShow()) return
     this.updateOrigin()
+    this.animate()
+  }
+
+  getShow() {
+    const { container } = this.props
+    if (container.classList.contains(modalClass('show'))) return true
+    return false
   }
 
   getStyle() {
@@ -64,6 +75,14 @@ export default class Panel extends PureComponent {
 
   savePanel = node => {
     this.panel = node
+  }
+
+  animate() {
+    const { container, position } = this.props
+    setTimeout(() => {
+      container.classList.add(modalClass('show'))
+      if (!position) container.classList.add(modalClass('start'))
+    })
   }
 
   updateOrigin() {
@@ -195,6 +214,7 @@ Panel.propTypes = {
   hideClose: PropTypes.bool,
   from: PropTypes.string,
   zoom: PropTypes.bool,
+  container: PropTypes.any,
 }
 
 Panel.defaultProps = {

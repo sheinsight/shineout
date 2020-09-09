@@ -103,13 +103,8 @@ export function open(props, isPortal) {
 
   containers[props.id].visible = true
 
-  setTimeout(() => {
-    div.classList.add(modalClass('show'))
-    if (!otherProps.position) div.classList.add(modalClass('start'))
-  }, 100)
-
   const panel = (
-    <Panel {...otherProps} onClose={handleClose}>
+    <Panel {...otherProps} onClose={handleClose} container={div}>
       {content}
     </Panel>
   )
