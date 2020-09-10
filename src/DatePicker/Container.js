@@ -412,6 +412,7 @@ class Container extends PureComponent {
         handleHover={this.handleHover}
         min={DateFns.toDateWithFormat(min, format)}
         max={DateFns.toDateWithFormat(max, format)}
+        focus={this.state.focus}
       >
         {this.props.children}
       </Component>

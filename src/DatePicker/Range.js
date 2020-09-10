@@ -33,6 +33,7 @@ class Range extends PureComponent {
     this.handleDisabledEnd = this.handleDisabled.bind(this, 'end')
     this.changeDateSmart = this.changeDateSmart.bind(this)
     this.fillTime = this.fillTime.bind(this)
+    this.isEmptyValue = this.isEmptyValue.bind(this)
 
     this.getMinDate = this.getMinDate.bind(this)
     this.getMaxDate = this.getMaxDate.bind(this)
@@ -51,6 +52,10 @@ class Range extends PureComponent {
       this.changeMode(this.props.value)
       // eslint-disable-next-line
       this.setState({ rangeDate: this.props.value })
+    }
+
+    if (!this.props.focus) {
+      this.changeMode(this.props.value, this.isEmptyValue())
     }
   }
 
@@ -91,6 +96,12 @@ class Range extends PureComponent {
     return max
   }
 
+  isEmptyValue() {
+    const { value } = this.props
+    if (!value) return true
+    return value.filter(v => v).length <= 0
+  }
+
   bindPicker(index, el) {
     this.pickers[index] = el
   }
@@ -110,6 +121,8 @@ class Range extends PureComponent {
   changeMode(rangeDate, reset = false) {
     if (!Array.isArray(rangeDate)) return
     if (this.mode.value && !reset) return
+    const { type } = this.props
+    if (type === 'time') return
     const [s, e] = rangeDate
     if (s) {
       this.mode = {
@@ -346,6 +359,7 @@ Range.propTypes = {
   quicks: PropTypes.array,
   min: PropTypes.object,
   max: PropTypes.object,
+  focus: PropTypes.bool,
 }
 
 Range.defaultProps = {
