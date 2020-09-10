@@ -23,7 +23,8 @@ export default Table =>
       if (prevProps.columns !== this.props.columns) {
         const merged = immer(this.props.columns, draft => {
           draft.forEach((column, index) => {
-            column.width = this.state.columns[index].width
+            const oldColumn = this.state.columns[index]
+            if (oldColumn) column.width = oldColumn.width
           })
         })
         this.setState({ columns: merged })
