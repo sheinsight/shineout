@@ -467,3 +467,71 @@ exports[`Snapshot test: Radio[site/pages/components/Radio/example-8-disabled.js]
   </div>
 </div>
 `;
+
+exports[`Snapshot test: Radio[site/pages/components/Radio/example-9-toggle.js] 1`] = `
+<div>
+  <span>
+    <label>
+      <input />
+      <i />
+      <span>
+        red
+      </span>
+    </label>
+  </span>
+  <span>
+    <label>
+      <input />
+      <i />
+      <span>
+        orange
+      </span>
+    </label>
+  </span>
+  <span>
+    <label>
+      <input />
+      <i />
+      <span>
+        yellow
+      </span>
+    </label>
+  </span>
+  <span>
+    <label>
+      <input />
+      <i />
+      <span>
+        green
+      </span>
+    </label>
+  </span>
+  <span>
+    <label>
+      <input />
+      <i />
+      <span>
+        cyan
+      </span>
+    </label>
+  </span>
+  <span>
+    <label>
+      <input />
+      <i />
+      <span>
+        blue
+      </span>
+    </label>
+  </span>
+  <span>
+    <label>
+      <input />
+      <i />
+      <span>
+        violet
+      </span>
+    </label>
+  </span>
+</div>
+`;
