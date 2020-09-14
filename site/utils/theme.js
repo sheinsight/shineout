@@ -14,7 +14,7 @@ function getParameterByName(name) {
 }
 
 function init(callback) {
-  theme = getParameterByName('theme') || 'default'
+  theme = getParameterByName('theme') || 'shineout'
   link = document.createElement('link')
   link.setAttribute('rel', 'stylesheet')
   link.setAttribute('type', 'text/css')
