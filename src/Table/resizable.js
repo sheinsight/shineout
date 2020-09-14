@@ -20,7 +20,7 @@ export default Table =>
     }
 
     componentDidUpdate(prevProps) {
-      if (prevProps.columns !== this.props.columns) {
+      if (prevProps.columns.length !== this.props.columns.length) {
         this.setState({ columns: this.props.columns })
       }
     }
