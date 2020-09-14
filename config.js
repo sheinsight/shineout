@@ -24,7 +24,7 @@ module.exports = {
       `/docsearch.js@${versions['docsearch.js']}/dist/cdn/docsearch.css`,
     ],
   },
-  themes: ['default', 'antd', 'antd2'],
+  themes: ['default', 'antd', 'antd2', 'shineout'],
   webpack: {
     entry: {
       app: './site/index.js',
