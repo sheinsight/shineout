@@ -119,7 +119,7 @@ class Header extends PureComponent {
   renderButtons() {
     const { onChange, tabs } = this.props
     return (
-      <Button.Group>
+      <Button.Group className={tabsClass('header-button')}>
         {tabs.map(tab => (
           <Button
             key={tab.id}
