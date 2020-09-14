@@ -232,23 +232,23 @@
     &-shadow {
       box-shadow: @modal-box-shadow;
     }
-    .@{card-prefix}-header {
+    > .@{card-prefix}-header {
       padding: @modal-header-padding;
       border-radius: @modal-border-radius @modal-border-radius 0 0;
       background: @modal-header-bg;
     }
-    .@{card-prefix}-body {
+    > .@{card-prefix}-body {
       padding: @modal-body-padding;
     }
     .@{modal-prefix}-body {
       padding: @modal-icon-body-padding;
     }
-    .@{card-prefix}-footer {
+    > .@{card-prefix}-footer {
       padding: @modal-footer-padding;
       border-radius: 0 0 @modal-border-radius @modal-border-radius;
       background: @modal-footer-bg;
     }
-    .@{card-prefix}-header, .@{card-prefix}-footer {
+    > .@{card-prefix}-header, > .@{card-prefix}-footer {
       &:after {
         height: @modal-divider-height;
         width: @modal-divider-width;
