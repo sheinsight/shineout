@@ -136,7 +136,7 @@
   background-color: @danger-color-dark-btn-hover;
 }
 .button-case-background(@bg) when (%('%s', @bg) = %('%s', @btn-default-bg)) {
-  background-color: darken(@bg, @btn-hover-darken);
+  background-color: @bg;
 }
 
 
@@ -148,12 +148,18 @@
     & when (@so-theme = default) {
       border-color: @colors-primary;
     }
+    & when (@so-theme = shineout) {
+      border-color: @colors-primary;
+    }
   }
   & when (%('%s', @color) = %('%s', @btn-secondary-border)) {
     & when (@so-theme = antd) {
       border-color: @secondary-color-dark-btn-hover;
     }
     & when (@so-theme = default) {
+      border-color: @colors-secondary;
+    }
+    & when (@so-theme = shineout) {
       border-color: @colors-secondary;
     }
   }
@@ -164,12 +170,18 @@
     & when (@so-theme = default) {
       border-color: @colors-success;
     }
+    & when (@so-theme = shineout) {
+      border-color: @colors-success;
+    }
   }
   & when (%('%s', @color) = %('%s', @btn-info-border)) {
     & when (@so-theme = antd) {
       border-color: @info-color-dark-btn-hover;
     }
     & when (@so-theme = default) {
+      border-color: @colors-info;
+    }
+    & when (@so-theme = shineout) {
       border-color: @colors-info;
     }
   }
@@ -180,6 +192,9 @@
     & when (@so-theme = default) {
       border-color: @colors-warning;
     }
+    & when (@so-theme = shineout) {
+      border-color: @colors-warning;
+    }
   }
   & when (%('%s', @color) = %('%s', @btn-danger-border)) {
     & when (@so-theme = antd) {
@@ -188,13 +203,21 @@
     & when (@so-theme = default) {
       border-color: @colors-danger;
     }
+    & when (@so-theme = shineout) {
+      border-color: @colors-danger;
+    }
   }
   & when (%('%s', @color) = %('%s', @btn-default-border)) {
     & when (@so-theme = antd) {
-      border-color: darken(@color, @btn-hover-darken);
+      // border-color: darken(@color, @btn-hover-darken);
+      border-color: @primary-color-dark-btn-hover;
     }
     & when (@so-theme = default) {
-      border-color: @gray-300-darken-hover;
+      // border-color: @gray-300-darken-hover;
+      border-color: @colors-primary;
+    }
+    & when (@so-theme = shineout) {
+      border-color: @colors-primary;
     }
   }
 }
@@ -204,7 +227,7 @@
   background-color: @background;
   color: @color;
   fill: @color;
-  transition: background 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
 
   @keyname: ~'btn-focus-@{name}';
 

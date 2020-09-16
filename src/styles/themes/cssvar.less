@@ -107,6 +107,8 @@
 @checkbox-text-padding-x: var(--checkbox-text-padding-x, @checkinput-text-padding-x);
 @checkbox-indicator-border-radius: var(--checkbox-indicator-border-radius, @checkbox-border-radius);
 
+@checkbox-disabled-bgc: var(--checkbox-disabled-bgc, #E8EBF0);
+
 @radio-width-value: @checkbox-size + 2;
 @radio-width: var(--radio-width, @radio-width-value);
 
@@ -265,6 +267,8 @@
   --datepicker-rect-active-border-radius,
   @datepicker-rect-active-border-radius-value
 );
+
+@datepicker-day-hover-bg: var(--datepicker-day-hover-bgc, @datepicker-day-hover-bgc-value);
 
 @slider-indicator-bg-value: #fff;
 @slider-indicator-bg: var(--slider-indicator-bg, @slider-indicator-bg-value);
@@ -597,3 +601,7 @@
 @line-height-base: var(--common-line-height, @common-line-height-value);
 
 @tabs-tab-spacing: var(--tabs-tab-spacing, @tabs-link-spacing);
+
+
+@cascader-active-background-color: var(--cascader-active-background-color, @dropdown-link-active-bg);
+@cascader-active-color: var(--cascader-active-color, @dropdown-link-active-color);

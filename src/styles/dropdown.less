@@ -2,6 +2,7 @@
 @import './themes/@{so-theme}.less';
 
 @dropdown-prefix: ~'@{so-prefix}-dropdown';
+@dropdown-list: ~'@{so-prefix}-list';
 @dropdown-caret-size: 10px;
 
 .@{dropdown-prefix} {
@@ -14,6 +15,14 @@
 
   &-button {
     border-width: @dropdown-border-width;
+
+    &:hover span.@{dropdown-prefix}-caret,
+    &:active span.@{dropdown-prefix}-caret,
+    &:focus span.@{dropdown-prefix}-caret {
+      svg path {
+        fill: @colors-primary;
+      }
+    }
   }
 
   .@{dropdown-prefix}-button span.@{dropdown-prefix}-caret {
@@ -200,6 +209,12 @@
       }
     }
   }
+}
+
+// clear first item border
+.@{dropdown-list} + .@{dropdown-prefix}-button.@{dropdown-prefix}-item {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .@{dropdown-prefix}-split-dropdown {

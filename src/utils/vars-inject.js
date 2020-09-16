@@ -1335,11 +1335,26 @@ const injects = {
         parser: parseInt,
         desc: '年份、月份选中项圆角',
       },
+      {
+        name: 'dayHoverBgc',
+        className: exposeClass('datepicker-day-hover-bgc'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'day hover时背景颜色',
+      },
     ],
     set rectBorderRadius(v) {
       setBodyProperty(
         {
           '--datepicker-rect-active-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set dayHoverBgc(v) {
+      setBodyProperty(
+        {
+          '--datepicker-day-hover-bgc': v,
         },
         v
       )
@@ -3857,6 +3872,45 @@ const injects = {
       setBodyProperty(
         {
           '--tabs-tab-spacing': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+  },
+  cascader: {
+    info: {
+      title: 'Cascader 级联选择器',
+      name: 'cascader',
+      path: 'Cascader',
+    },
+    conf: [
+      {
+        name: 'activeBgc',
+        className: exposeClass('cascader-active'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '选中背景颜色',
+      },
+      {
+        name: 'activeColor',
+        className: exposeClass('cascader-active'),
+        attr: 'color',
+        type: 'color',
+        desc: '选中字体颜色',
+      },
+    ],
+    set activeBgc(v) {
+      setBodyProperty(
+        {
+          '--cascader-active-background-color': v,
+        },
+        v
+      )
+    },
+    set activeColor(v) {
+      setBodyProperty(
+        {
+          '--cascader-active-color': v,
         },
         v
       )

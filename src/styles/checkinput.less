@@ -78,7 +78,53 @@
       box-sizing: border-box;
       .user-select(none);
       .button-size(@btn-padding-y; @btn-padding-x; @button-font-size-base; @line-height-base; @btn-border-radius-base);
-      .button-variant(@button-default-text-color; @btn-default-bg; @btn-default-border; 'default' ; @btn-default-border);
+      // .button-variant(@button-default-text-color; @btn-default-bg; @btn-default-border; 'default' ; @btn-default-border);
+
+      // default
+      border-color: @btn-default-border;
+      background-color: @btn-default-bg;
+      color: @button-default-text-color;
+      fill: @button-default-text-color;
+      transition: all 0.15s ease-in-out;
+
+
+      &:focus,
+      &:hover {
+        border-color: @colors-primary;
+        background-color: @colors-primary;
+        color: #fff;
+        .@{checkinput-prefix}-desc {
+          color: inherit;
+        }
+      }
+
+      &:active {
+        border-color: @colors-primary;
+        background-color: @colors-primary;
+        color: #fff;
+        &-desc {
+          color: inherit;
+        }
+      }
+
+      &:active {
+        background-image: none;
+      }
+
+      &[disabled],
+      fieldset[disabled] & {
+        &:hover,
+        &:focus {
+          border-color: @btn-default-border;
+          background-color: @btn-default-bg;
+        }
+
+        &:active {
+          animation: none;
+        }
+      }
+
+
       border-radius: 0px;
       & > .@{checkinput-prefix}-indicator, & > input {
         display: none;
@@ -130,13 +176,13 @@
       // adjust weight
       .@{checkinput-prefix}.@{checkinput-prefix}-checked {
         border-color: @colors-primary;
-        background: transparent;
+        background-color: #fff;
         color: @colors-primary;
         border-right-width: 1px;
 
         &:hover, &:active, &:focus {
           border-color: @colors-primary;
-          background: transparent;
+          background-color: #fff;
           color: @colors-primary;
         }
 
@@ -273,6 +319,10 @@
       display: block;
       content: ' ';
     }
+
+    &.@{checkinput-prefix}-radio {
+      background-color: #fff;
+    }
   }
 
   i&-indicator&-checkbox {
@@ -380,7 +430,19 @@
     i.@{checkinput-prefix}-indicator {
       border-color: @checkbox-border-color;
       box-shadow: none;
-      background-color: @input-bg-disabled;
+      background-color: @checkbox-disabled-bgc;
+    }
+  }
+
+  &-disabled&-checked,
+  &-disabled&-indeterminate {
+    i.@{checkinput-prefix}-indicator.@{checkinput-prefix}-checkbox {
+      border-color: @checkbox-border-color;
+      background-color: @checkbox-border-color;
+
+      &::after {
+        border-color: #fff;
+      }
     }
   }
 
