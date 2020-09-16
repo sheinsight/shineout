@@ -24,12 +24,6 @@ class Text extends PureComponent {
     this.bindElement = this.bindElement.bind(this)
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.focus !== this.props.focus && this.props.focus && this.element) {
-      focusElement.end(this.element)
-    }
-  }
-
   bindElement(el) {
     const { onTextSpanRef } = this.props
     this.element = el
@@ -37,9 +31,8 @@ class Text extends PureComponent {
   }
 
   handleBlur(e) {
-    const { format, index, onChange, value, element } = this.props
+    const { format, index, onChange, value } = this.props
     const txt = e.target.innerText
-    element.focus()
     if (getParent(target, `.${datepickerClass('picker')}`)) return
     if (txt === value) return
     if (txt.trim().length === 0) {
@@ -63,9 +56,9 @@ class Text extends PureComponent {
   }
 
   render() {
-    const { className, focus, inputable, value, placeholder } = this.props
+    const { className, inputable, value, placeholder } = this.props
 
-    if (!inputable || !focus) {
+    if (!inputable) {
       return <span className={className}>{value || placeholder}</span>
     }
 
@@ -85,7 +78,6 @@ class Text extends PureComponent {
 
 Text.propTypes = {
   className: PropTypes.string,
-  focus: PropTypes.bool,
   format: PropTypes.string,
   index: PropTypes.number,
   inputable: PropTypes.bool,
@@ -93,7 +85,6 @@ Text.propTypes = {
   placeholder: PropTypes.any,
   value: PropTypes.string,
   onTextSpanRef: PropTypes.func,
-  element: PropTypes.any,
 }
 
 Text.defaultProps = {
