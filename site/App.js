@@ -17,12 +17,14 @@ const oldestVersions = ['1.0.x', '1.1.x']
 const verReg = /(\d+\.){2}x/
 
 const filterLang = href => (href.indexOf('/en') > -1 ? 'en-US' : 'zh-CN')
+const lang = filterLang(window.location.href)
+document.documentElement.lang = lang
 
-const versionUrl = (v, lang) => {
+const versionUrl = (v, lan) => {
   const preUrl = window.location.href.split(verReg)[0]
   if (oldestVersions.find(a => a === v)) return `${preUrl}${v}/`
   // if (oldVersions.find(b => b === v)) return `${preUrl}${v}/${lang}`
-  return `${preUrl}${v}/${lang}`
+  return `${preUrl}${v}/${lan}`
 }
 
 const App = () => {
@@ -31,7 +33,6 @@ const App = () => {
   const [, setUpdate] = useState()
 
   useEffect(() => {
-    const lang = filterLang(window.location.href)
     setLanguage(lang)
     if (getItem(STORAGE_KEY) !== lang) {
       setUpdate('update')
