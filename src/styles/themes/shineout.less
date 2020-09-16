@@ -162,6 +162,13 @@
 
 
 
+// cascader
+// active
+@cascader-active-background-color: var(--cascader-active-background-color, #E6F5FF);
+@cascader-active-color: var(--cascader-active-color; @colors-primary);
+
+
+
 // checkbox
 // border width
 @checkbox-border-width-value: 2px;
@@ -175,7 +182,8 @@
 
 
 // datepicker
-@datepicker-day-hover-bg: #e6f7ff;
+// @datepicker-day-hover-bg: #e6f7ff;
+@datepicker-day-hover-bgc-value: #e6f7ff;
 
 
 // form
@@ -267,7 +275,7 @@
 
 // slider
 // indicator bgc
-@slider-indicator-bg: var(--slider-indicator-bg, @colors-primary);
+@slider-indicator-bg: var(--slider-indicator-bg, #fff);
 
 // indicator size
 @slider-indicator-size-value: 16px;
@@ -320,6 +328,8 @@
 @switch-large-bg-border-radius: @switch-large-bg-width / 2;
 @switch-large-bg-height: var(--switch-large-bg-height, 28px);
 @switch-large-indicator-top: var(--switch-large-indicator-top, 2px);
+
+@switch-small-indicator-padding: 0px;
 
 // uncheck bgc
 @switch-uncheck-bg: var(--switch-unchecked-bg, @gray-300-value);

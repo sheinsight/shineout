@@ -67,6 +67,12 @@
       .button-outline(@button-default-text-color; @btn-default-bg; @btn-default-bg;);
     }
 
+    &:hover,
+    &:focus,
+    &:active {
+      color: @colors-primary;
+    }
+
     & when (@so-theme = antd) {
       &:hover,
       &:focus {
@@ -210,7 +216,7 @@
     fieldset[disabled] & {
       &:hover,
       &:focus {
-        color: @btn-link-disabled-color;
+        color: @link-color;
         text-decoration: none;
       }
     }

@@ -357,7 +357,7 @@
       }
     }
 
-    &:hover {
+    &:not(.@{select-prefix}-group):hover {
       background-color: @select-option-hover-bg;
       color: @select-option-hover-color
     }
@@ -377,6 +377,11 @@
     font-size: @font-size-small;
     color: @select-group-color;
     cursor: default;
+
+    // cover color
+    &:hover {
+      color: @select-group-color;
+    }
   }
 
   &-option + &-group {
@@ -390,7 +395,7 @@
     }
   }
 
-  &-control-mouse &-option:hover {
+  &-control-mouse &-option:not(.@{select-prefix}-group):hover {
     background-color: @select-option-hover-bg;
     color: @select-option-hover-color;
     text-decoration: none;
