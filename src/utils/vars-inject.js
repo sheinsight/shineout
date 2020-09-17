@@ -3864,6 +3864,7 @@ const injects = {
         className: exposeClass('tabs'),
         attr: 'marginLeft',
         type: 'number',
+        min: -10,
         parser: parseInt,
         desc: 'tab间隔',
       },
