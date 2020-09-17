@@ -3863,15 +3863,16 @@ const injects = {
         name: 'tabSpacing',
         className: exposeClass('tabs'),
         attr: 'marginLeft',
-        type: 'string',
-        parser: v => v.replace('px', ''),
+        type: 'number',
+        min: -10,
+        parser: parseInt,
         desc: 'tab间隔',
       },
     ],
     set tabSpacing(v) {
       setBodyProperty(
         {
-          '--tabs-tab-spacing': `${v.replace('px', '')}px`,
+          '--tabs-tab-spacing': `${parseInt(v, 10)}px`,
         },
         v
       )
