@@ -3,6 +3,7 @@
 
 @dropdown-prefix: ~'@{so-prefix}-dropdown';
 @dropdown-list: ~'@{so-prefix}-list';
+@button-prefix: ~'@{so-prefix}-button';
 @dropdown-caret-size: 10px;
 
 .@{dropdown-prefix} {
@@ -16,9 +17,9 @@
   &-button {
     border-width: @dropdown-border-width;
 
-    &:hover span.@{dropdown-prefix}-caret,
-    &:active span.@{dropdown-prefix}-caret,
-    &:focus span.@{dropdown-prefix}-caret {
+    &:not(.@{button-prefix}-disabled):hover span.@{dropdown-prefix}-caret,
+    &:not(.@{button-prefix}-disabled):active span.@{dropdown-prefix}-caret,
+    &:not(.@{button-prefix}-disabled):focus span.@{dropdown-prefix}-caret {
       svg path {
         fill: @colors-primary;
       }
@@ -239,5 +240,12 @@
         margin-left: 0;
       }
     }
+  }
+}
+
+
+.@{button-prefix}-group {
+  .@{dropdown-prefix}.@{dropdown-prefix}-split-dropdown {
+    margin-left: 0;
   }
 }

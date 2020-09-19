@@ -91,8 +91,9 @@
       &:focus,
       &:hover {
         border-color: @colors-primary;
-        background-color: @colors-primary;
-        color: #fff;
+        color: @colors-primary;
+        // background-color: @colors-primary;
+        // color: #fff;
         .@{checkinput-prefix}-desc {
           color: inherit;
         }
@@ -142,6 +143,39 @@
           padding: 1px 0;
           background-color: @gray-300;
           content: '';
+        }
+      }
+
+      &:not(:last-child) {
+        &::after {
+          position: absolute;
+            top: -1px;
+            right: -1px;
+            display: block;
+            box-sizing: content-box;
+            width: 1px;
+            height: 100%;
+            padding: 1px 0;
+            background-color: transparent;
+            content: '';
+            z-index: 100;
+        }
+      }
+
+      &:hover,
+      &:active,
+      &:focus {
+        &::before {
+          background-color: @colors-primary;
+        }
+      }
+
+      &:hover,
+      &:focus {
+        &:not(:last-child) {
+          &::after {
+            background-color: @colors-primary;
+          }
         }
       }
 
