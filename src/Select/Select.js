@@ -519,7 +519,7 @@ Select.defaultProps = {
   data: [],
   height: 250,
   itemsInView: 10,
-  lineHeight: 32,
+  lineHeight: 34,
   loading: false,
   multiple: false,
   renderItem: e => e,
