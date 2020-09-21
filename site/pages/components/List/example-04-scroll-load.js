@@ -1,0 +1,64 @@
+/**
+ * cn - 滚动加载
+ *    -- 设置 scrollLoading 属性，当滚动到底部时，会自动调用改属性
+ * en - scroll loading
+ *    -- Set the scrollLoad property, when the scroll to the bottom, it will automatically call to change the property.
+ */
+import React from 'react'
+import { List as L } from 'shineout'
+import { fetch } from 'doc/data/user'
+
+const { List } = L
+
+class Index extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      value: [1],
+      loading: false,
+      current: 1,
+    }
+
+    this.renderItem = this.renderItem.bind(this)
+    this.fetchData = this.fetchData.bind(this)
+
+    this.data = []
+  }
+
+  componentDidMount() {
+    this.fetchData(1)
+  }
+
+  fetchData(current) {
+    this.setState({ loading: true })
+    fetch.get('List', { current, pageSize: 10 }).then(data => {
+      this.data = [...this.data, ...data.data]
+      this.setState({
+        loading: false,
+        current,
+      })
+    })
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  renderItem(rowData, rowIndex) {
+    return <div>{`${rowData.firstName}-${rowData.lastName}  rowIndex: ${rowIndex}`}</div>
+  }
+
+  render() {
+    const { loading } = this.state
+    return (
+      <List
+        loading={loading}
+        keygen="id"
+        data={this.data}
+        renderItem={this.renderItem}
+        format="id"
+        style={{ maxHeight: 300, overflowY: 'scroll' }}
+        scrollLoading={() => console.log('loading')}
+      />
+    )
+  }
+}
+
+export default Index
