@@ -13,6 +13,8 @@ import configHOC from './config'
 import accessors from '../../../src/utils/css-accessors'
 import Icons from '../../../src/icons'
 
+import Fab from './Fab'
+
 function Foot({ onClose }) {
   const ctx = React.useContext(context)
   return (
@@ -112,6 +114,7 @@ export default class extends React.Component {
   }
 
   render() {
+    return <Fab visible>主题编辑器</Fab>
     const { config, exportConf, open } = this.state
     const { onClose } = this.props
     const provideValue = {

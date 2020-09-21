@@ -39,6 +39,7 @@ export default class Drawer extends React.Component {
 
   render() {
     const { visible, children } = this.props
+    return children
     div.style.display = visible ? 'block' : 'none'
     return ReactDOM.createPortal(children, div)
   }

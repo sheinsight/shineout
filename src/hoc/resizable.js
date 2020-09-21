@@ -12,7 +12,7 @@ export default curry(
       static propTypes = {
         style: PropTypes.object,
         className: PropTypes.string,
-        resizable: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+        resizable: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
       }
 
       constructor(props) {
@@ -59,8 +59,8 @@ export default curry(
           immer(draft => {
             x += draft.x
             y += draft.y
-            if (this.active.indexOf('e') >= 0) draft.x = x
-            if (this.active.indexOf('s') >= 0) draft.y = y
+            if (this.active.indexOf('x') >= 0) draft.x = x
+            if (this.active.indexOf('y') >= 0) draft.y = y
           })
         )
       }
@@ -90,7 +90,8 @@ export default curry(
           height: this.el.clientHeight,
         }
         this.handlers = new Map()
-        ;['e', 's', 'se'].forEach(dir => {
+        ;['x', 'y', 'xy'].forEach(dir => {
+          if (typeof resizable === 'string' && resizable !== dir) return
           const handler = document.createElement('div')
           const action = this.handleMouseDown.bind(this, dir)
           handler.className = resizableClass('handler', `handler-${dir}`)

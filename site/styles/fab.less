@@ -1,0 +1,103 @@
+@import './variables.less';
+@fab-prefix: ~'doc-fab';
+
+@border-radius: 10px;
+.@{fab-prefix} {
+    position: absolute;
+    z-index: 1100;
+    display: none;
+    &-show {
+        display: block;
+    }
+    &-main {
+        position: fixed;
+        width: 300px;
+        height: 80vh;
+        max-height: 90vh;
+        padding: 16px 16px 20px 16px;
+        border-radius: @border-radius;
+        background: #fff;
+        border: 1px solid rgb(241, 241, 241);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        .@{fab-prefix}-handler {
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 6px;
+            background: #e2e2e2;
+            border-radius: 6px;
+        }
+        .@{fab-prefix}-close {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            width: 16px;
+            height: 16px;
+            background: #ececec;
+            border-radius: 50%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            &:hover {
+                opacity: .8;
+                background: #c5c5c5;
+                span  {
+                    &:after, &:before {
+                        background: #ececec;
+                    }
+                }
+            }
+            span {
+                width: 8px;
+                height: 8px;
+                display: inline-block;
+                position: relative;
+                transform: scale(.9);
+                &:after, &:before {
+                    position: absolute;
+                    left: 50%;
+                    margin-left: -1px;
+                    content: '';
+                    display: inline-block;
+                    width: 2px;
+                    height: 9px;
+                    background: #c5c5c5;
+                    transform: rotate(45deg);
+                }
+                &:after {
+                    transform: rotate(45deg);
+                }
+                &:before {
+                    transform: rotate(-45deg);
+                }
+            }
+        }
+
+        .@{fab-prefix}-extra {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding-top: 20px;
+            background: #fff;
+            transition: all .3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+            border-radius: @border-radius;
+            &-show {
+                background: #f7f7f7;
+                box-shadow: 0 -4px 10px rgba(0, 0, 0, .1);
+                .@{fab-prefix}-extra-content {
+                    height: 50px;
+                }
+            }
+            &-content {
+                height: 0;
+                line-height: 50px;
+                text-align: center;
+                transition: all .3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+            }
+        }
+    }
+}
