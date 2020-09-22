@@ -43,7 +43,7 @@ const examples = [
   {
     name: '04-scroll-load',
     title: locate(
-      '滚动加载 \n 设置 scrollLoading 属性，当滚动到底部时，会自动调用改属性',
+      '滚动加载 \n 设置 scrollLoading 属性，当滚动到底部时，会自动调用该属性',
       'scroll loading \n Set the scrollLoad property, when the scroll to the bottom, it will automatically call to change the property.'
     ),
     component: require('doc/pages/components/List/example-04-scroll-load.js').default,

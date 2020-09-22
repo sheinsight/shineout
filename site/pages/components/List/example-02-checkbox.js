@@ -5,10 +5,8 @@
  *    -- Set the onChange property will automatically add a row with checkbox.
  */
 import React from 'react'
-import { List as L, Checkbox } from 'shineout'
+import { List, Checkbox } from 'shineout'
 import { fetch } from 'doc/data/user'
-
-const { List } = L
 
 class Index extends React.Component {
   constructor() {
@@ -16,6 +14,7 @@ class Index extends React.Component {
     this.state = {
       value: [1],
       loading: false,
+      // eslint-disable-next-line react/no-unused-state
       current: 1,
     }
 
@@ -63,6 +62,7 @@ class Index extends React.Component {
       this.data = [...this.data, ...data.data]
       this.setState({
         loading: false,
+        // eslint-disable-next-line react/no-unused-state
         current,
       })
     })

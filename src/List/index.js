@@ -1,6 +1,5 @@
 import L from './List'
 import hidable from '../hoc/hidable'
-import VList from './default'
 
 const List = function(type, duration, display) {
   switch (duration) {
@@ -19,7 +18,5 @@ const List = function(type, duration, display) {
 
   return hidable(L, { type, duration, display })
 }
-
-List.List = VList
 
 export default List

@@ -5,9 +5,7 @@
  *    -- Basic List usage.
  */
 import React from 'react'
-import { List as L } from 'shineout'
-
-const { List } = L
+import { List } from 'shineout'
 
 const data = [
   {

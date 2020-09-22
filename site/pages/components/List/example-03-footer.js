@@ -5,12 +5,8 @@
  *    -- Through the footer attribute, you can load more functions.
  */
 import React from 'react'
-import { List as L, Button } from 'shineout'
+import { List, Button } from 'shineout'
 import { fetch } from 'doc/data/user'
-
-const { List } = L
-
-// const data = fetchSync(6)
 
 class Index extends React.Component {
   constructor() {

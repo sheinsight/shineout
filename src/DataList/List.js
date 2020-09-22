@@ -3,9 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { listClass } from '../styles'
 import { isFunc, isArray, isString } from '../utils/is'
-import { compose } from '../utils/func'
 import { getKey } from '../utils/uid'
-import Datum from '../Datum'
 import Spin from '../Spin'
 
 import Checkbox from '../Table/Checkbox'
@@ -134,11 +132,6 @@ Index.propTypes = {
   rowClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 }
 
-export default compose(
-  Datum.hoc({
-    bindProps: ['disabled', 'limit', 'format'],
-    ignoreUndefined: true,
-    setValueType: null,
-    pure: false,
-  })
-)(Index)
+Index.displayName = 'ShineoutList'
+
+export default Index
