@@ -4,6 +4,8 @@
 
 ## API
 
+### List
+
 | 属性 | 类型 | 默认值 | 必填 | 说明 |
 | --- | --- | --- | -- | --- |
 | data | any[] | [] | 是 | 需要渲染成列表的数据 |
@@ -18,3 +20,13 @@
 | scrollLoading | (() => void) | 无 | 否 | 滚动到底部时触发 |
 | loading | boolean | 无 | 否 | 加载中 |
 | rowClassName | ((rowData, index) => string) \| string | 无 | 否 | 自定义行 className |
+
+
+### List.Meta
+| 属性 | 类型 | 默认值 | 必填 | 说明 |
+| --- | --- | --- | -- | --- |
+| avatar | string \| React.node \| (() => React.node) | 无 | 否 | 列表元素的图标 |
+| title | string | 无 | 否 | 列表元素的标题 |
+| desc | string | 无 | 否 | 描述 |
+| content | string \| React.node \| (() => React.node) | 无 | 否 | 列表内容 |
+| className | string | 无 | 否 | Item 容器的className |

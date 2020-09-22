@@ -3,6 +3,14 @@
 
 @list-prefix: ~'@{so-prefix}-list';
 
+@list-small-avatar: 32px;
+@list-default-avatar: 40px;
+@list-large-avatar: 60px;
+
+@list-small-padding: 8px;
+@list-default-padding: 12px;
+@list-large-padding: 16px;
+
 .@{list-prefix} {
   display: block;
 
@@ -29,7 +37,7 @@
     box-sizing: border-box;
     display: block;
     position: relative;
-    padding: 16px;
+    padding: @list-default-padding;
 
     &::after {
       content: "";
@@ -50,6 +58,28 @@
     &:hover {
       background-color: @list-item-hover-bgc;
     }
+
+    .@{list-prefix}-meta-container {
+      box-sizing: border-box;
+      display: flex;
+      justify-content: flex-start;
+
+      .@{list-prefix}-avatar {
+        box-sizing: border-box;
+        width: @list-default-avatar;
+        height: @list-default-avatar;
+        margin-right: @list-default-padding;
+      }
+
+      .@{list-prefix}-meta-title {
+        font-weight: 600;
+      }
+    }
+
+    .@{list-prefix}-meta-content {
+      box-sizing: border-box;
+      padding-top: 12px;
+    }
   }
 
   .@{list-prefix}-item.@{list-prefix}-empty {
@@ -67,5 +97,31 @@
     justify-content: flex-start;
     align-items: center;
     border-bottom: @list-item-bottom-border-width solid @gray-200;
+  }
+}
+
+.@{list-prefix}-container.@{list-prefix}-small {
+  .@{list-prefix}-item {
+    padding: @list-small-padding;
+
+    .@{list-prefix}-meta-container {
+      .@{list-prefix}-avatar {
+        width: @list-small-avatar;
+        height: @list-small-avatar;
+      }
+    }
+  }
+}
+
+.@{list-prefix}-container.@{list-prefix}-large {
+  .@{list-prefix}-item {
+    padding: @list-large-padding;
+
+    .@{list-prefix}-meta-container {
+      .@{list-prefix}-avatar {
+        width: @list-large-avatar;
+        height: @list-large-avatar;
+      }
+    }
   }
 }

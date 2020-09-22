@@ -5,8 +5,12 @@
  *    -- Set the scrollLoad property, when the scroll to the bottom, it will automatically call to change the property.
  */
 import React from 'react'
-import { List } from 'shineout'
+import { List, Image } from 'shineout'
 import { fetch } from 'doc/data/user'
+
+const { Meta } = List
+
+const image = '../../../images/shein-logo.png'
 
 class Index extends React.Component {
   constructor() {
@@ -46,7 +50,13 @@ class Index extends React.Component {
 
   // eslint-disable-next-line class-methods-use-this
   renderItem(rowData, rowIndex) {
-    return <div>{`${rowData.firstName}-${rowData.lastName}  rowIndex: ${rowIndex}`}</div>
+    return (
+      <Meta
+        avatar={<Image src={image} />}
+        title={rowData.country}
+        desc={`${rowData.firstName}-${rowData.lastName}  rowIndex: ${rowIndex}`}
+      />
+    )
   }
 
   render() {

@@ -1,12 +1,17 @@
 import { compose } from '../utils/func'
 import Datum from '../Datum'
-import List from './List'
+import DList from './List'
+import Meta from './Meta'
 
-export default compose(
+const List = compose(
   Datum.hoc({
     bindProps: ['disabled', 'limit', 'format'],
     ignoreUndefined: true,
     setValueType: null,
     pure: false,
   })
-)(List)
+)(DList)
+
+List.Meta = Meta
+
+export default List

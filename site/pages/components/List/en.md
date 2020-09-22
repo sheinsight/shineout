@@ -4,6 +4,8 @@
 
 ## API
 
+### List
+
 | Property | Type | Default | required | Description |
 | --- | --- | --- | -- | --- |
 | data | any[] | [] | true | render data |
@@ -18,3 +20,14 @@
 | scrollLoading | (() => void) | null | false | Triggered when scrolling to the bottom |
 | loading | boolean | null | false | loading |
 | rowClassName | ((rowData, index) => string) \| string | null | false | custom row className |
+
+
+### List.Meta
+
+| Property | Type | Default | required | Description |
+| --- | --- | --- | -- | --- |
+| avatar | string \| React.node \| (() => React.node) | null | false | List images |
+| title | string | null | false | The title of the list |
+| desc | string | null | false | description |
+| content | string \| React.node \| (() => React.node) | null | false | list content |
+| className | string | null | false | Item className |

@@ -104,10 +104,14 @@ class Index extends Component {
   }
 
   render() {
-    const { loading = false, style } = this.props
+    const { loading = false, style, size } = this.props
     return (
       <Spin loading={loading}>
-        <div className={classnames(listClass('container'), this.props.className)} style={style} ref={this.bindNode}>
+        <div
+          className={classnames(listClass('container', size), this.props.className)}
+          style={style}
+          ref={this.bindNode}
+        >
           <div className={listClass('list')}>{this.renderList()}</div>
           <div className={listClass('footer')}>{this.renderFooter()}</div>
         </div>
@@ -130,6 +134,11 @@ Index.propTypes = {
   style: PropTypes.object,
   scrollLoading: PropTypes.func,
   rowClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  size: PropTypes.oneOf(['default', 'small', 'large']),
+}
+
+Index.defaultProps = {
+  size: 'default',
 }
 
 Index.displayName = 'ShineoutList'
