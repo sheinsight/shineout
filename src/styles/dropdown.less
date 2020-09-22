@@ -16,7 +16,9 @@
 
   &-button {
     border-width: @dropdown-border-width;
+  }
 
+  &-button.@{button-prefix}-default {
     &:not(.@{button-prefix}-disabled):hover span.@{dropdown-prefix}-caret,
     &:not(.@{button-prefix}-disabled):active span.@{dropdown-prefix}-caret,
     &:not(.@{button-prefix}-disabled):focus span.@{dropdown-prefix}-caret {
