@@ -1,38 +1,40 @@
 @import './variables.less';
 @fab-prefix: ~'doc-fab';
 
+@keyframes show {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
 @border-radius: 10px;
 .@{fab-prefix} {
     position: absolute;
-    z-index: 1100;
-    display: none;
+    top: 0;
+    left:0 ;
+    z-index: 1040;
+    opacity: 0;
+    animation: show .3s ease-in-out;
+    transition: all .3s ease-in-out;
     &-show {
-        display: block;
+        opacity: 1;
     }
     &-main {
+        top: 10vh;
+        right: 10%;
         position: fixed;
         width: 300px;
         height: 80vh;
         max-height: 90vh;
-        padding: 16px 16px 20px 16px;
+        padding: 14px 10px 0 10px;
         border-radius: @border-radius;
         background: #fff;
         border: 1px solid rgb(241, 241, 241);
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        .@{fab-prefix}-handler {
-            position: absolute;
-            top: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 6px;
-            background: #e2e2e2;
-            border-radius: 6px;
-        }
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
         .@{fab-prefix}-close {
             position: absolute;
-            right: 10px;
-            top: 10px;
+            z-index: 15;
+            right: 4px;
+            top: 4px;
             width: 16px;
             height: 16px;
             background: #ececec;
@@ -78,6 +80,7 @@
 
         .@{fab-prefix}-extra {
             position: absolute;
+            z-index: 15;
             bottom: 0;
             left: 0;
             right: 0;
@@ -85,12 +88,22 @@
             background: #fff;
             transition: all .3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
             border-radius: @border-radius;
-            &-show {
+            &:hover {
                 background: #f7f7f7;
                 box-shadow: 0 -4px 10px rgba(0, 0, 0, .1);
                 .@{fab-prefix}-extra-content {
                     height: 50px;
                 }
+            }
+            .@{fab-prefix}-handler {
+                position: absolute;
+                top: 8px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 40px;
+                height: 6px;
+                background: #e2e2e2;
+                border-radius: 6px;
             }
             &-content {
                 height: 0;
@@ -99,5 +112,16 @@
                 transition: all .3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
             }
         }
+
+        .@{fab-prefix}-content {
+            padding-bottom: 20px;
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            overflow: hidden;
+        }
+    }
+    .so-resizable-handler {
+        z-index: 20;
     }
 }

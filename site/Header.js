@@ -8,7 +8,6 @@ import locate, { setItem, STORAGE_KEY } from './locate'
 import theme from './utils/theme'
 import logo from './icons/logo'
 import Icon from './icons/Icon'
-import Drawer from './Components/ThemeEditor/Drawer'
 import { headerClass } from './styles'
 import FontAwesome from './pages/components/Icon/FontAwesome'
 import ThemeEditor from './Components/ThemeEditor'
@@ -57,26 +56,6 @@ function handleLangClick() {
 function handleThemeClick(data) {
   const url = `?theme=${data.content}${window.location.hash}`
   window.location.href = url
-}
-
-const PrimarySetter = () => {
-  const [visible, setVisible] = useState(false)
-  const handleClick = () => {
-    const { href } = window.location
-    if (href.indexOf('components') === -1) {
-      history.push('/components/Button')
-      return
-    }
-    setVisible(!visible)
-  }
-  return [
-    <span key="picker" className={headerClass('color')} onClick={handleClick}>
-      <div className={headerClass('color-current')} style={{ backgroundColor: color.primary }} />
-    </span>,
-    <Drawer key="modal" visible={visible} onClose={() => setVisible(false)}>
-      <ThemeEditor onClose={() => setVisible(false)} />
-    </Drawer>,
-  ]
 }
 
 const Header = ({ versions }) => {
@@ -168,7 +147,7 @@ const Header = ({ versions }) => {
           &nbsp;GitHub
         </Button>
 
-        <PrimarySetter />
+        <ThemeEditor />
       </div>
     </div>
   )

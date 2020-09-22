@@ -1,0 +1,66 @@
+@import './variables.less';
+@editor-prefix: ~'doc-editor';
+
+.@{editor-prefix} {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    &-header {
+        .@{editor-prefix}-select {
+            border: none;
+            border-bottom: 1px solid var(--input-border-color, #cccfd7);
+            border-radius: 0;
+            background: transparent;
+            font-weight: 500;
+        }
+    }
+    &-body {
+        margin: 8px 0;
+        padding: 0 8px;
+        flex: 1;
+        overflow: auto;
+
+        .so-form-item {
+            &:not(:last-child) {
+                margin-bottom: 14px;
+            }
+            .@{editor-prefix}-attr-item {
+                display: flex;
+                flex-direction: row;
+                > label {
+                    flex: 1;
+                    margin-right: 8px;
+                }
+                .@{editor-prefix}-color {
+                    width: 30px;
+                    height: 30px;
+                    padding: 1px;
+                    display: inline-block;
+                    border-radius: 3px;
+                    text-align: center;
+                    border: 1px solid @btn-default-border;
+                    cursor: pointer;
+                    outline: none;
+                    touch-action: manipulation;
+                    white-space: nowrap;
+                    vertical-align: middle;
+                    &-current {
+                        width: 100%;
+                        height: 100%;
+                        border-width: 1px;
+                        border-style: solid;
+                        border-color: inherit;
+                        border-radius: inherit;
+                    }
+                }
+            }
+        }
+
+        .so-form-label {
+            color: #c0c4cc;
+            font-size: 18px;
+            display: block;
+            margin-bottom: 4px;
+        }
+    }
+}
