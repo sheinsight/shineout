@@ -1,16 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Select, utils, Form, Input, Popover } from 'shineout'
+import { Select, utils, Form, Input, Popover, style } from 'shineout'
 import { SketchPicker } from 'react-color'
 import { editorClass } from '../../styles'
 import locate from '../../locate'
+import { consumer } from './context'
 
-console.log(utils)
 const { Field } = Form
 const { cssAccessors, cssInject } = utils
 
+function handleDownload() {
+  const template = `import { style } from 'shineout';\nconst config = ${JSON.stringify(
+    cssAccessors,
+    null,
+    2
+  )};\nstyle.setStyle(config)
+  `
+  const a = document.createElement('a')
+  a.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(template)}`)
+  a.setAttribute('download', 'shineout.theme.js')
+  a.style.display = 'none'
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+}
+
 function renderItem(attribute) {
   const { name, type, max, min, desc } = attribute
+
   return (
     <Form.Item label={locate(desc, name)} key={name}>
       {type === 'color' ? (
@@ -53,7 +70,12 @@ ColorPicker.propTypes = {
   onChange: PropTypes.func,
 }
 
-export default class Editor extends React.Component {
+class Editor extends React.Component {
+  static propTypes = {
+    bindReset: PropTypes.func,
+    bindDownload: PropTypes.func,
+  }
+
   constructor(props) {
     super(props)
     this.modules = Object.keys(cssAccessors).sort((a, b) => a.localeCompare(b))
@@ -61,19 +83,36 @@ export default class Editor extends React.Component {
       module: this.modules[0],
     }
 
+    this.formKey = Date.now()
+    this.defaultTheme = JSON.parse(JSON.stringify(cssAccessors))
+    props.bindReset(this.handleReset.bind(this))
+    props.bindDownload(handleDownload)
+
+    this.handleList = this.handleList.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleModuleChange = this.handleModuleChange.bind(this)
   }
 
   handleModuleChange(module) {
+    this.formKey += 1
+    if (this.list) this.list.scrollTop = 0
     this.setState({ module })
   }
 
   handleChange(value) {
-    console.log(value)
     const { module } = this.state
     const setterName = `set${module.replace(/^\S/, s => s.toUpperCase())}`
     if (value[setterName]) value[setterName](value)
+  }
+
+  handleList(list) {
+    this.list = list
+  }
+
+  handleReset() {
+    style.setStyle(this.defaultTheme)
+    this.forceUpdate()
+    this.formKey += 1
   }
 
   renderModule() {
@@ -92,7 +131,7 @@ export default class Editor extends React.Component {
     const { module } = this.state
     const attributes = cssInject[module].conf
     return (
-      <Form labelAlign="top" value={cssAccessors[module]} onChange={this.handleChange}>
+      <Form key={this.formKey} labelAlign="top" value={cssAccessors[module]} onChange={this.handleChange}>
         {attributes.map(attribute => renderItem(attribute))}
       </Form>
     )
@@ -102,8 +141,12 @@ export default class Editor extends React.Component {
     return (
       <div className={editorClass('_')}>
         <div className={editorClass('header')}>{this.renderModule()}</div>
-        <div className={editorClass('body')}>{this.renderItems()}</div>
+        <div className={editorClass('body')} ref={this.handleList}>
+          {this.renderItems()}
+        </div>
       </div>
     )
   }
 }
+
+export default consumer(Editor)

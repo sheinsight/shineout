@@ -6,22 +6,43 @@ import moveable from 'shineout/hoc/moveable'
 import resizable from 'shineout/hoc/resizable'
 import { fabClass } from '../../styles'
 import locate from '../../locate'
+import { Provider } from './context'
 
-const Panel = ({ children, onClose, ...others }) => (
-  <div {...others}>
-    <div className={fabClass('content')}>{children}</div>
-    <div className={fabClass('extra')}>
-      <div className={fabClass('handler')} />
-      <div className={fabClass('extra-content')}>
-        <Button>{locate('重置', 'reset')}</Button>
-        <Button type="primary">{locate('下载', 'download')}</Button>
-      </div>
-    </div>
-    <div className={fabClass('close')} onClick={onClose}>
-      <span />
-    </div>
-  </div>
-)
+class Panel extends React.Component {
+  constructor(props) {
+    super(props)
+    this.handleBindReset = this.handleBind.bind(this, 'reset')
+    this.handleBindDownload = this.handleBind.bind(this, 'download')
+  }
+
+  handleBind(type, action) {
+    this[type] = action
+  }
+
+  render() {
+    const { children, onClose, ...others } = this.props
+    return (
+      <Provider value={{ bindReset: this.handleBindReset, bindDownload: this.handleBindDownload }}>
+        <div {...others}>
+          <div className={fabClass('content')}>{children}</div>
+          <div className={fabClass('extra')}>
+            <div className={fabClass('handler')} />
+            <div className={fabClass('extra-content')}>
+              <Button onClick={() => this.reset()}>{locate('重置', 'reset')}</Button>
+              <Button onClick={() => this.download()} type="primary">
+                {locate('下载', 'download')}
+              </Button>
+            </div>
+          </div>
+          <div className={fabClass('close')} onClick={onClose}>
+            <span />
+          </div>
+        </div>
+      </Provider>
+    )
+  }
+}
+
 Panel.propTypes = {
   children: PropTypes.any,
   onClose: PropTypes.func,

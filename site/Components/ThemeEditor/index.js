@@ -13,7 +13,7 @@ export default class ThemeEditor extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      visible: true,
+      visible: false,
     }
     this.handleToggle = this.handleToggle.bind(this)
   }
