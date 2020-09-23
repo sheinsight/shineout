@@ -114,7 +114,7 @@ class Form extends Component {
         .validate(IGNORE_BIND)
         .then(() => {
           this.validating = false
-          if (onSubmit) onSubmit(datum.getValue(), e && e.nativeEvent && e.nativeEvent.detail)
+          if (onSubmit) onSubmit(datum.getValue(), e && e.nativeEvent && e.nativeEvent.detail, e)
           if (activeElement) activeElement.focus()
         })
         .catch(err => {
