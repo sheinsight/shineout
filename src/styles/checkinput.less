@@ -78,7 +78,6 @@
       box-sizing: border-box;
       .user-select(none);
       .button-size(@btn-padding-y; @btn-padding-x; @button-font-size-base; @line-height-base; @btn-border-radius-base);
-      // .button-variant(@button-default-text-color; @btn-default-bg; @btn-default-border; 'default' ; @btn-default-border);
 
       // default
       border-color: @btn-default-border;
@@ -89,21 +88,11 @@
 
 
       &:focus,
-      &:hover {
-        border-color: @colors-primary;
-        color: @colors-primary;
-        // background-color: @colors-primary;
-        // color: #fff;
-        .@{checkinput-prefix}-desc {
-          color: inherit;
-        }
-      }
-
+      &:hover,
       &:active {
         border-color: @colors-primary;
-        background-color: @colors-primary;
-        color: #fff;
-        &-desc {
+        color: @colors-primary;
+        .@{checkinput-prefix}-desc {
           color: inherit;
         }
       }
@@ -143,6 +132,7 @@
           padding: 1px 0;
           background-color: @gray-300;
           content: '';
+          transition: background-color 0.15s ease-in-out;
         }
       }
 
@@ -159,6 +149,7 @@
             background-color: transparent;
             content: '';
             z-index: 100;
+            transition: background-color 0.15s ease-in-out;
         }
       }
 
@@ -171,7 +162,8 @@
       }
 
       &:hover,
-      &:focus {
+      &:focus,
+      &:active {
         &:not(:last-child) {
           &::after {
             background-color: @colors-primary;
