@@ -23,7 +23,7 @@ import { Table } from 'shineout'
 
 ### theme
 
-Currently,there are two sets of theme built in, default and the theme 'antd' that is compatible with ant-design(Convenient for the mixing of two component libraries and just the color matching is close, the interaction and interface parameters are different.)
+In addition to its own shineout theme, there are two sets of theme built in, default and the theme 'antd' that is compatible with ant-design(Convenient for the mixing of two component libraries and just the color matching is close, the interaction and interface parameters are different.)
 
 You can switch topics by modifying the webpack's less-loader configuration.
 ```
