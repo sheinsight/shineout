@@ -26,6 +26,17 @@
         fill: @colors-primary;
       }
     }
+
+  }
+
+  &-button.@{button-prefix}-outline {
+    &:not(.@{button-prefix}-disabled):hover span.@{dropdown-prefix}-caret,
+    &:not(.@{button-prefix}-disabled):active span.@{dropdown-prefix}-caret,
+    &:not(.@{button-prefix}-disabled):focus span.@{dropdown-prefix}-caret {
+      svg path {
+        fill: white;
+      }
+    }
   }
 
   .@{dropdown-prefix}-button span.@{dropdown-prefix}-caret {
