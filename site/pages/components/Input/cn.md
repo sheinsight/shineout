@@ -22,7 +22,8 @@
 | clearable | () => void \| boolean | 可点击清空图标删除输入框内容，为函数式表示清空回调 |
 | coin | boolean | false | 以千位分隔符展示,仅当type为number时有效 |
 | info | (value: string) => string \| number | 无 | 提示信息 |
-| popoverProps | object | 无 | 校验弹框接受的属性，具体属性参考Popover组件说明
+| popoverProps | object | 无 | 校验弹框接受的属性，具体属性参考Popover组件说明 |
+| maxLength | number | 无 | 可输入最大长度 |
 
 ### Input.Number
 
