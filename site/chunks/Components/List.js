@@ -23,6 +23,24 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/List/example-01-base.js'),
   },
   {
+    name: '01-renderItem',
+    title: locate(
+      '不使用 renderItem \n 当数据是字符串数组时，可以不传renderItem。',
+      'dont use renderItem \n When the data is a string array, renderItem can not be passed.'
+    ),
+    component: require('doc/pages/components/List/example-01-renderItem.js').default,
+    rawText: require('!raw-loader!doc/pages/components/List/example-01-renderItem.js'),
+  },
+  {
+    name: '02-pagination',
+    title: locate(
+      '分页 \n 前端分页的情况下, 设置 pagination 显示分页，没有设置 onChange 处理数据的情况下，会自动对数据进行分页 \n pagination 的参数和 Pagination 组件一致',
+      'Pagination \n Set the pagination property to show the pagination and if not set onChange property, the data is automatically paged. \n The parameters of pagination are consistent with the Pagination component.'
+    ),
+    component: require('doc/pages/components/List/example-02-pagination.js').default,
+    rawText: require('!raw-loader!doc/pages/components/List/example-02-pagination.js'),
+  },
+  {
     name: '02-size',
     title: locate(
       '尺寸 \n 通过设置 size 为 large small 分别把按钮设为大、小尺寸。若不设置 size，则尺寸为中。',
@@ -43,8 +61,8 @@ const examples = [
   {
     name: '04-footer',
     title: locate(
-      '加载更多 \n 通过 footer 属性，可实现加载更多功能',
-      'Load more \n Through the footer attribute, you can load more functions.'
+      '加载更多 \n 通过使用 footer 属性，可实现加载更多功能',
+      'Load more \n Through use the footer attribute, you can load more functions.'
     ),
     component: require('doc/pages/components/List/example-04-footer.js').default,
     rawText: require('!raw-loader!doc/pages/components/List/example-04-footer.js'),
@@ -59,13 +77,13 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/List/example-05-scroll-load.js'),
   },
   {
-    name: '06-meta',
+    name: '06-base-item',
     title: locate(
-      'Meta布局 \n 使用 List.Meta 组件，可快速布局',
-      'Meta layout \n Use List.Meta component to quickly layout'
+      'List.BaseItem 布局 \n 使用 List.BaseItem 组件，可使用经典布局方式快速布局',
+      'List.BaseItem layout \n Use List.BaseItem component to quickly layout'
     ),
-    component: require('doc/pages/components/List/example-06-meta.js').default,
-    rawText: require('!raw-loader!doc/pages/components/List/example-06-meta.js'),
+    component: require('doc/pages/components/List/example-06-base-item.js').default,
+    rawText: require('!raw-loader!doc/pages/components/List/example-06-base-item.js'),
   },
 ]
 

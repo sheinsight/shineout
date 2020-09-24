@@ -1,16 +1,16 @@
 /**
- * cn - Meta布局
- *    -- 使用 List.Meta 组件，可快速布局
- * en - Meta layout
- *    -- Use List.Meta component to quickly layout
+ * cn - List.BaseItem 布局
+ *    -- 使用 List.BaseItem 组件，可使用经典布局方式快速布局
+ * en - List.BaseItem layout
+ *    -- Use List.BaseItem component to quickly layout
  */
 import React from 'react'
-import { List } from 'shineout'
+import { List, Button } from 'shineout'
 import { fetch } from 'doc/data/user'
 
-const { Meta } = List
+const { BaseItem } = List
 
-const image = '../../../images/shein-logo.png'
+const image = '../../../images/list.png'
 
 class Index extends React.Component {
   constructor() {
@@ -22,6 +22,7 @@ class Index extends React.Component {
     }
 
     this.fetchData = this.fetchData.bind(this)
+    this.renderItem = this.renderItem.bind(this)
 
     this.data = []
   }
@@ -43,38 +44,29 @@ class Index extends React.Component {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  renderItem(index, rowData, rowIndex) {
-    if (index === 0)
-      return (
-        <Meta
-          avatar={image}
-          content={`${rowData.firstName}-${rowData.lastName}: position: ${rowData.position}, country: ${
-            rowData.country
-          }, office: ${rowData.office}`}
-        />
-      )
+  renderItem(rowData) {
     return (
-      <Meta
+      <BaseItem
         avatar={image}
-        title={rowData.country}
-        desc={`${rowData.firstName}-${rowData.lastName}  rowIndex: ${rowIndex}`}
         content={`${rowData.firstName}-${rowData.lastName}: position: ${rowData.position}, country: ${
           rowData.country
         }, office: ${rowData.office}`}
+        desc={`From ${rowData.country}. Position in ${rowData.position}. Start datetime ${rowData.start}.`}
+        extra={[
+          <Button type="primary" text>
+            edit
+          </Button>,
+          <Button type="primary" text>
+            more
+          </Button>,
+        ]}
       />
     )
   }
 
   render() {
     const { loading } = this.state
-    return (
-      <div>
-        <h2>Base</h2>
-        <List key="1" keygen="id" data={this.data} loading={loading} renderItem={this.renderItem.bind(this, 0)} />
-        <h2>Layout</h2>
-        <List key="2" keygen="id" data={this.data} loading={loading} renderItem={this.renderItem.bind(this, 1)} />
-      </div>
-    )
+    return <List key="1" keygen="id" data={this.data} loading={loading} renderItem={this.renderItem} />
   }
 }
 

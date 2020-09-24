@@ -64,12 +64,12 @@ const data = [
 
 class Index extends React.PureComponent {
   // eslint-disable-next-line class-methods-use-this
-  renderItem(rowData, rowIndex) {
-    return <div>{`${rowData.firstName}-${rowData.lastName}  rowIndex: ${rowIndex}`}</div>
+  renderItem(rowData) {
+    return <div>{`Name: ${rowData.firstName}-${rowData.lastName}`}</div>
   }
 
   render() {
-    return <List keygen="id" data={data} renderItem={this.renderItem} />
+    return <List keygen="id" bordered data={data} renderItem={this.renderItem} />
   }
 }
 

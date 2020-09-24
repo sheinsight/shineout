@@ -4,49 +4,27 @@ import classnames from 'classnames'
 import { listClass } from '../styles'
 import { isFunc, isArray, isString } from '../utils/is'
 import { getKey } from '../utils/uid'
+import { removeStack, addStack } from '../utils/lazyload'
 import Spin from '../Spin'
 
 import Checkbox from '../Table/Checkbox'
-
-// calc all children height
-const calcHeight = node => {
-  let h = 0
-  node.childNodes.forEach(elem => {
-    h += elem.offsetHeight
-  })
-  return h
-}
 
 class Index extends Component {
   constructor(props) {
     super(props)
 
-    this.renderList = this.renderList.bind(this)
-    this.renderFooter = this.renderFooter.bind(this)
     this.bindNode = this.bindNode.bind(this)
-    this.handleScroll = this.handleScroll.bind(this)
-    this.getItemClassName = this.getItemClassName.bind(this)
+    this.bindObserver = this.bindObserver.bind(this)
+    this.scrollLoading = this.scrollLoading.bind(this)
 
-    this.height = 0
-  }
-
-  componentDidMount() {
-    if (this.node) {
-      this.node.addEventListener('scroll', this.handleScroll)
-      this.height = calcHeight(this.node) - this.node.clientHeight
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.loading !== this.props.loading && !this.props.loading && this.node) {
-      this.height = calcHeight(this.node) - this.node.clientHeight
-    }
+    this.id = null
   }
 
   componentWillUnmount() {
-    if (this.node) {
-      this.node.removeEventListener('scroll', this.handleScroll)
-    }
+    removeStack(this.id)
+    this.node = null
+    this.observer = null
+    this.id = null
   }
 
   getItemClassName(value, index, flag) {
@@ -57,16 +35,35 @@ class Index extends Component {
     return base
   }
 
+  getContent(value, index) {
+    const { renderItem } = this.props
+    if (isFunc(renderItem)) return renderItem(value, index)
+    if (isString(renderItem)) return value[renderItem]
+    if (isString(value)) return value
+    return null
+  }
+
+  scrollLoading() {
+    const { scrollLoading } = this.props
+    if (!isFunc(scrollLoading)) return
+    scrollLoading()
+  }
+
   bindNode(node) {
     this.node = node
   }
 
-  handleScroll(e) {
-    const { loading, scrollLoading } = this.props
-    if (loading || e.target.scrollTop !== this.height) return
+  bindObserver(node) {
+    this.observer = node
+    if (!node) return
 
-    if (!isFunc(scrollLoading)) return
-    scrollLoading()
+    removeStack(this.id)
+    this.id = addStack({
+      container: this.node,
+      element: node,
+      render: this.scrollLoading,
+      offset: 20,
+    })
   }
 
   updateContainerHeight() {
@@ -81,41 +78,47 @@ class Index extends Component {
   }
 
   renderList() {
-    const { data, renderItem, onChange, keygen } = this.props
-    if (!isFunc(renderItem) || !isArray(data) || data.length <= 0)
-      return <div className={listClass('item', 'empty')}>empty data</div>
+    const { data, onChange, keygen } = this.props
+
+    if (!isArray(data) || data.length <= 0) return <div className={listClass('item', 'empty')}>empty data</div>
 
     // have checked ?
     const haveRowSelected = isFunc(onChange)
+    const { length } = data
 
     return data.map((value, index) => (
-      <div className={this.getItemClassName(value, index, haveRowSelected)} key={getKey(value, keygen, index)}>
+      <div
+        className={this.getItemClassName(value, index, haveRowSelected)}
+        key={getKey(value, keygen, index)}
+        ref={index === length - 1 ? this.bindObserver : null}
+      >
         {this.renderCheckBox(haveRowSelected, value, index)}
-        {renderItem(value, index)}
+        {this.getContent(value, index)}
       </div>
     ))
   }
 
   renderFooter() {
     const { footer } = this.props
-    if (isFunc(footer)) return footer()
-    if (isValidElement(footer)) return footer
+    if (isFunc(footer)) return <div className={listClass('footer')}>{footer()}</div>
+    if (isValidElement(footer)) return <div className={listClass('footer')}>{footer}</div>
     return null
   }
 
   render() {
-    const { loading = false, style, size } = this.props
+    const { loading, style, size, bordered } = this.props
     return (
-      <Spin loading={loading}>
-        <div
-          className={classnames(listClass('container', size), this.props.className)}
-          style={style}
-          ref={this.bindNode}
-        >
-          <div className={listClass('list')}>{this.renderList()}</div>
-          <div className={listClass('footer')}>{this.renderFooter()}</div>
-        </div>
-      </Spin>
+      <div
+        className={classnames(listClass('container', size, bordered && 'bordered'), this.props.className)}
+        style={style}
+        ref={this.bindNode}
+      >
+        {loading && (
+          <div className={listClass('loading')}>{typeof loading === 'boolean' ? <Spin size={40} /> : loading}</div>
+        )}
+        <div className={listClass('list')}>{this.renderList()}</div>
+        {this.renderFooter()}
+      </div>
     )
   }
 }
@@ -124,21 +127,23 @@ Index.propTypes = {
   onChange: PropTypes.func,
   className: PropTypes.string,
   data: PropTypes.array,
-  renderItem: PropTypes.func.isRequired,
+  renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   footer: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   datum: PropTypes.object.isRequired,
   keygen: PropTypes.oneOfType([PropTypes.func, PropTypes.string, PropTypes.bool]).isRequired,
   // eslint-disable-next-line react/no-unused-prop-types
   format: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-  loading: PropTypes.bool,
+  loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
   style: PropTypes.object,
   scrollLoading: PropTypes.func,
   rowClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   size: PropTypes.oneOf(['default', 'small', 'large']),
+  bordered: PropTypes.bool,
 }
 
 Index.defaultProps = {
   size: 'default',
+  loading: false,
 }
 
 Index.displayName = 'ShineoutList'

@@ -5,7 +5,7 @@
  *    -- If a large or small list is desired, set the size property to either large or small respectively. Omit the size property for a list with the default size.
  */
 import React from 'react'
-import { List } from 'shineout'
+import { List, Select } from 'shineout'
 
 const data = [
   {
@@ -62,21 +62,43 @@ const data = [
   },
 ]
 
-class Index extends React.PureComponent {
+class Index extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      size: 'default',
+    }
+    this.select = ['small', 'default', 'large']
+  }
+
   // eslint-disable-next-line class-methods-use-this
-  renderItem(rowData, rowIndex) {
-    return <div>{`${rowData.firstName}-${rowData.lastName}  rowIndex: ${rowIndex}`}</div>
+  renderItem(rowData) {
+    return (
+      <List.BaseItem
+        avatar="../../../images/list.png"
+        content={`${rowData.firstName}-${rowData.lastName}: position: ${rowData.position}, country: ${
+          rowData.country
+        }, office: ${rowData.office}`}
+        desc={`From ${rowData.country}. Position in ${rowData.position}. Start datetime ${rowData.start}.`}
+        title={rowData.start}
+      />
+    )
   }
 
   render() {
     return (
       <div>
-        <h2>size: small</h2>
-        <List keygen="id" size="small" data={data} renderItem={this.renderItem} />
-        <h2>size: default</h2>
-        <List keygen="id" data={data} renderItem={this.renderItem} />
-        <h2>size: large</h2>
-        <List keygen="id" size="large" data={data} renderItem={this.renderItem} />
+        <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 16 }}>
+          <span style={{ marginRight: 16, fontWeight: 700 }}>Size: </span>
+          <Select
+            width={120}
+            data={this.select}
+            keygen
+            value={this.state.size}
+            onChange={size => this.setState({ size })}
+          />
+        </div>
+        <List keygen="id" size={this.state.size} data={data} renderItem={this.renderItem} />
       </div>
     )
   }

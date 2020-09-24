@@ -69,8 +69,8 @@ class Index extends React.Component {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  renderItem(rowData, rowIndex) {
-    return <div>{`${rowData.firstName}-${rowData.lastName}  rowIndex: ${rowIndex}`}</div>
+  renderItem(rowData) {
+    return <div>{`From ${rowData.country}. Name: ${rowData.firstName}-${rowData.lastName}`}</div>
   }
 
   render() {
@@ -82,7 +82,7 @@ class Index extends React.Component {
             display: 'flex',
             justifyContent: 'flex-start',
             alignItems: 'center',
-            padding: 16,
+            padding: 12,
             lineHeight: '22px',
             borderBottom: '1px solid #e8ebf0',
           }}

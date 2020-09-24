@@ -1,13 +1,16 @@
 /**
  * cn - 加载更多
- *    -- 通过 footer 属性，可实现加载更多功能
+ *    -- 通过使用 footer 属性，可实现加载更多功能
  * en - Load more
- *    -- Through the footer attribute, you can load more functions.
+ *    -- Through use the footer attribute, you can load more functions.
  */
 import React from 'react'
 import { List, Button } from 'shineout'
 import { fetch } from 'doc/data/user'
 
+const { BaseItem } = List
+
+const image = '../../../images/list.png'
 class Index extends React.Component {
   constructor() {
     super()
@@ -46,8 +49,8 @@ class Index extends React.Component {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  renderItem(rowData, rowIndex) {
-    return <div>{`${rowData.firstName}-${rowData.lastName}  rowIndex: ${rowIndex}`}</div>
+  renderItem(rowData) {
+    return <BaseItem avatar={image} desc={`From ${rowData.country}. Name: ${rowData.firstName}-${rowData.lastName}`} />
   }
 
   renderFooter() {
@@ -60,7 +63,6 @@ class Index extends React.Component {
           alignItems: 'center',
           padding: 16,
           lineHeight: '22px',
-          borderBottom: '1px solid #e8ebf0',
         }}
       >
         <Button size="small" loading={loading} onClick={this.onClick}>

@@ -1,8 +1,10 @@
 /**
- * cn - 滚动加载
- *    -- 设置 scrollLoading 属性，当滚动到底部时，会自动调用该属性
- * en - scroll loading
- *    -- Set the scrollLoad property, when the scroll to the bottom, it will automatically call to change the property.
+ * cn - 分页
+ *    -- 前端分页的情况下, 设置 pagination 显示分页，没有设置 onChange 处理数据的情况下，会自动对数据进行分页
+ *    -- pagination 的参数和 Pagination 组件一致
+ * en - Pagination
+ *   -- Set the pagination property to show the pagination and if not set onChange property, the data is automatically paged.
+ *    -- The parameters of pagination are consistent with the Pagination component.
  */
 import React from 'react'
 import { List, Image } from 'shineout'
@@ -22,7 +24,7 @@ class Index extends React.Component {
 
     this.renderItem = this.renderItem.bind(this)
     this.fetchData = this.fetchData.bind(this)
-    this.scrollLoading = this.scrollLoading.bind(this)
+    this.handlePageChange = this.handlePageChange.bind(this)
 
     this.data = []
   }
@@ -31,10 +33,9 @@ class Index extends React.Component {
     this.fetchData(1)
   }
 
-  scrollLoading() {
-    const { current } = this.state
-    if (current >= 10) return
-    this.fetchData(current + 1)
+  handlePageChange(index) {
+    if (index >= 10) return
+    this.fetchData(index)
   }
 
   fetchData(current) {
@@ -69,8 +70,13 @@ class Index extends React.Component {
         data={this.data}
         renderItem={this.renderItem}
         format="id"
-        style={{ maxHeight: 300, overflowY: 'scroll' }}
-        scrollLoading={this.scrollLoading}
+        pagination={{
+          current: this.state.current,
+          align: 'right',
+          onChange: this.handlePageChange,
+          total: 100,
+          pageSize: 10,
+        }}
       />
     )
   }

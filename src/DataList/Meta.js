@@ -5,29 +5,21 @@ import { isFunc, isString } from 'shineout/utils/is'
 import { listClass } from '../styles'
 import Image from '../Image'
 
-class Meta extends Component {
-  constructor(props) {
-    super(props)
-    this.renderAvatar = this.renderAvatar.bind(this)
-    this.renderMeta = this.renderMeta.bind(this)
-    this.renderMetaContainer = this.renderMetaContainer.bind(this)
-    this.renderContent = this.renderContent.bind(this)
-    this.renderTitle = this.renderTitle.bind(this)
-    this.renderDesc = this.renderDesc.bind(this)
-  }
+const metaClass = (...a) => listClass(...a.map(v => `meta-${v}`))
 
+class Meta extends Component {
   renderAvatar() {
     const { avatar } = this.props
     if (!avatar) return null
     if (isValidElement(avatar)) {
-      return <div className={listClass('avatar')}>{avatar}</div>
+      return <div className={metaClass('avatar')}>{avatar}</div>
     }
     if (isFunc(avatar)) {
-      return <div className={listClass('avatar')}>{avatar()}</div>
+      return <div className={metaClass('avatar')}>{avatar()}</div>
     }
     if (isString(avatar))
       return (
-        <div className={listClass('avatar')}>
+        <div className={metaClass('avatar')}>
           <Image src={avatar} />
         </div>
       )
@@ -36,56 +28,54 @@ class Meta extends Component {
   }
 
   renderTitle() {
-    const { title } = this.props
+    const { title, desc } = this.props
     if (!title) return null
-    return <div className={listClass('meta-title')}>{title}</div>
+    const flag = !desc
+    return <div className={metaClass('title', flag && 'center')}>{title}</div>
   }
 
   renderDesc() {
-    const { desc } = this.props
+    const { desc, title } = this.props
     if (!desc) return null
-    return <div className={listClass('meta-desc')}>{desc}</div>
+    const flag = !title
+    return <div className={metaClass('desc', flag && 'center')}>{desc}</div>
   }
 
-  renderMeta() {
-    const { title, desc, content } = this.props
-    if (!title && !desc && !content) return null
-    return (
-      <div className={listClass('meta-meta')}>
-        {this.renderTitle()}
-        {this.renderDesc()}
-        {this.renderContent(true)}
-      </div>
-    )
-  }
-
-  renderMetaContainer() {
-    return (
-      <div className={listClass('meta-container')}>
-        {this.renderAvatar()}
-        {this.renderMeta()}
-      </div>
-    )
-  }
-
-  renderContent(flag = false) {
-    const { content, desc, title } = this.props
+  renderContent() {
+    const { content } = this.props
     if (!content) return null
-    if (flag) {
-      if (isFunc(content)) return <div className={listClass('meta-desc')}>content()</div>
-      return <div className={listClass('meta-desc')}>{content}</div>
-    }
-
-    if (!desc || !title) return null
-    if (isFunc(content)) return <div className={listClass('meta-content')}>{content()}</div>
-    return <div className={listClass('meta-content')}>{content}</div>
+    if (isFunc(content)) return <div className={metaClass('content')}>{content()}</div>
+    return <div className={metaClass('content')}>{content}</div>
   }
 
   render() {
-    const { className } = this.props
+    const { className, content, title, desc } = this.props
+
+    // if content && title && desc is all null, just render avatar
+    if (!content && !title && !desc) {
+      return <div className={classnames(listClass('meta'), className)}>{this.renderAvatar()}</div>
+    }
+
+    // if title && desc is null, render classic layout
+    if (!title && !desc) {
+      return (
+        <div className={classnames(listClass('meta', 'includes'), className)}>
+          {this.renderAvatar()}
+          {this.renderContent()}
+        </div>
+      )
+    }
+
+    // full layout
     return (
       <div className={classnames(listClass('meta'), className)}>
-        {this.renderMetaContainer()}
+        <div className={metaClass('container')}>
+          {this.renderAvatar()}
+          <div className={metaClass('meta')}>
+            {this.renderTitle()}
+            {this.renderDesc()}
+          </div>
+        </div>
         {this.renderContent()}
       </div>
     )
