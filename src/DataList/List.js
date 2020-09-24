@@ -66,11 +66,6 @@ class Index extends Component {
     })
   }
 
-  updateContainerHeight() {
-    if (!this.node) return
-    this.height = this.node.offsetHeight
-  }
-
   renderCheckBox(flag, data, index) {
     if (!flag) return null
     const { datum } = this.props
