@@ -66,7 +66,7 @@ class Index extends React.Component {
         }}
       >
         <Button size="small" loading={loading} onClick={this.onClick}>
-          加载更多
+          load more
         </Button>
       </div>
     )

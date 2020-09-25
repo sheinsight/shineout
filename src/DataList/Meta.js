@@ -20,7 +20,7 @@ class Meta extends Component {
     if (isString(avatar))
       return (
         <div className={metaClass('avatar')}>
-          <Image src={avatar} />
+          <Image lazy src={avatar} />
         </div>
       )
 

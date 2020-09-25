@@ -1,6 +1,7 @@
 import React, { Component, isValidElement } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { getLocale } from 'shineout/locale'
 import { listClass } from '../styles'
 import { isFunc, isArray, isString } from '../utils/is'
 import { getKey } from '../utils/uid'
@@ -73,9 +74,10 @@ class Index extends Component {
   }
 
   renderList() {
-    const { data, onChange, keygen } = this.props
+    const { data, onChange, keygen, empty } = this.props
 
-    if (!isArray(data) || data.length <= 0) return <div className={listClass('item', 'empty')}>empty data</div>
+    if (!isArray(data) || data.length <= 0)
+      return <div className={listClass('item', 'empty')}>{empty || getLocale('noData')}</div>
 
     // have checked ?
     const haveRowSelected = isFunc(onChange)
@@ -134,6 +136,7 @@ Index.propTypes = {
   rowClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   size: PropTypes.oneOf(['default', 'small', 'large']),
   bordered: PropTypes.bool,
+  empty: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 }
 
 Index.defaultProps = {

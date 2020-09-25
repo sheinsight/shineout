@@ -22,6 +22,7 @@
 | rowClassName | ((rowData, index) => string) \| string | null | false | custom row className |
 | bordered | boolean | null | false | show border |
 | prediction | (v: any, data) => boolean | (val, d) => val===format(d) | false | By default, the result of the format function is used to compare whether it matches. In some cases (for example, whe an object that returns the original data is updated, an different option with the same value  is generated), the prediction function needs to be used to determine whether match |
+| empty | string \| React.node | null | false | What to display when no data |
 
 
 ### List.BaseItem

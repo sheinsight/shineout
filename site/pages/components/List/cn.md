@@ -22,6 +22,7 @@
 | rowClassName | ((rowData, index) => string) \| string | 无 | 否 | 自定义行 className |
 | bordered | boolean | 无 | 否 | 是否显示边框 |
 | prediction | (v: any, data) => boolean | (val, d) => val===format(d) | false | 默认使用 format 函数执行的结果来比较是否匹配，在某些情况下（例如返回原始数据的对象，更新数据时，生成了一个值相同，非同一个对象的选项），需要借助 prediction 函数来判断是否匹配 |
+| empty | string \| React.node | null | 否 | 无数据时展示的内容 |
 
 
 ### List.BaseItem

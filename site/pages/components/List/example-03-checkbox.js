@@ -88,7 +88,7 @@ class Index extends React.Component {
           }}
         >
           <Checkbox checked={this.getChecked()} onChange={this.checkboxOnChange} />
-          <div>{`已选择${value.length}个`}</div>
+          <div>{`Selected ${value.length}`}</div>
         </div>
         <List
           loading={loading}

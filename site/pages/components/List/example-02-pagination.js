@@ -34,7 +34,7 @@ class Index extends React.Component {
   }
 
   handlePageChange(index) {
-    if (index >= 10) return
+    if (index > 10) return
     this.fetchData(index)
   }
 
