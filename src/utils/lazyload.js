@@ -58,7 +58,7 @@ function getObserver(obj, id) {
   const observer = new IntersectionObserver(
     entries => {
       entries.forEach(en => {
-        if (en.isIntersecting) {
+        if (en.isIntersecting || en.intersectionRatio > 0) {
           render()
           removeStack(id)
         }
