@@ -162,7 +162,7 @@ class Sticky extends PureComponent {
       if (this.scrollCount > 0) {
         this.handlePosition()
       }
-    }, 48)
+    }, 16)
   }
 
   bindElement(el) {

@@ -10,7 +10,7 @@ import { Alert, Sticky } from 'shineout'
 export default function() {
   return (
     <Sticky top={20}>
-      <Alert onClose>
+      <Alert onClose style={{ marginBottom: 0 }}>
         <h3>Some content.</h3>
         Sticky 20px to top.
       </Alert>
