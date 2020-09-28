@@ -68,6 +68,8 @@ class Sticky extends PureComponent {
     const { bottom, top, target } = this.props
     const { mode, scrollWidth } = this.state
     const selfRect = copyBoundingClientRect(this.element)
+    const { marginBottom, marginTop } = getComputedStyle(this.element)
+    selfRect.height += parseFloat(marginBottom) + parseFloat(marginTop)
     const scrollElement = this.targetElement || document.body
     const scrollRect = scrollElement.getBoundingClientRect()
 
@@ -210,7 +212,7 @@ class Sticky extends PureComponent {
 
     return (
       <div style={outerStyle} className={className}>
-        <div ref={this.bindElement} style={innerStyle}>
+        <div ref={this.bindElement} style={{ ...innerStyle, display: 'flow-root' }}>
           {children}
         </div>
         <div ref={this.bindOrigin} />
