@@ -8,11 +8,20 @@ class Time extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.defaultValue = utils.newDate()
+    this.defaultValue = this.getDefaultTime()
     this.handleHourChange = this.handleChange.bind(this, 'hour')
     this.handleMinuteChange = this.handleChange.bind(this, 'minute')
     this.handleSecondChange = this.handleChange.bind(this, 'second')
     this.handleAMPMChange = this.handleChange.bind(this, 'ampm')
+  }
+
+  getDefaultTime() {
+    let idx = 0
+    const current = utils.newDate()
+    const { index, defaultTime, format } = this.props
+    if (typeof index === 'number') idx = index
+    if (!defaultTime[idx]) return current
+    return utils.cloneTime(current, defaultTime[idx], format)
   }
 
   getValue() {
@@ -101,6 +110,8 @@ Time.propTypes = {
   onChange: PropTypes.func.isRequired,
   range: PropTypes.number,
   value: PropTypes.object,
+  defaultTime: PropTypes.array,
+  index: PropTypes.number,
 }
 
 export default Time
