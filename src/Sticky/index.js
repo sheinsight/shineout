@@ -212,7 +212,7 @@ class Sticky extends PureComponent {
 
     return (
       <div style={outerStyle} className={className}>
-        <div ref={this.bindElement} style={{ ...innerStyle, display: 'flow-root' }}>
+        <div ref={this.bindElement} style={Object.assign({}, innerStyle, { display: 'flow-root' })}>
           {children}
         </div>
         <div ref={this.bindOrigin} />
