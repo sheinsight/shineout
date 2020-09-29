@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import config from '../config'
 import { curry } from '../utils/func'
 
 export default curry(
   (defaultDelay, Origin) =>
-    class extends Component {
+    class extends PureComponent {
       static propTypes = {
         delay: PropTypes.number,
         onChange: PropTypes.func.isRequired,
