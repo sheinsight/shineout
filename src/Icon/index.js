@@ -6,7 +6,7 @@ const scripts = {}
 
 export default function(url, fontFamily = 'iconfont', prefix = 'icon') {
   if (typeof url !== 'string') {
-    console.error(`Shineout Icon must url must be a string, but get ${url}`)
+    console.error(`Shineout Icon url must be a string, but get ${url}`)
     return null
   }
   const ext = url.substr(url.lastIndexOf('.') + 1)
