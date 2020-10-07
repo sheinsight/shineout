@@ -3926,7 +3926,7 @@ const injects = {
     conf: [
       {
         name: 'fontSize',
-        className: buttonClass('_'),
+        className: exposeClass('common-base'),
         attr: 'fontSize',
         parser: parseInt,
         type: 'number',
