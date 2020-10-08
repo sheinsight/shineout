@@ -39,6 +39,10 @@ class Text extends PureComponent {
       onChange(undefined, index)
     } else {
       const newValue = utils.toDateWithFormat(txt, format, undefined)
+      // if translate fail, clear
+      if (!newValue) {
+        this.element.innerText = null
+      }
       onChange(newValue, index)
     }
   }
