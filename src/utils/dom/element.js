@@ -60,6 +60,21 @@ export function cssSupport(attr, value) {
   return false
 }
 
+export function copyBoundingClientRect(el) {
+  if (!el) return null
+  const rect = el.getBoundingClientRect()
+  return {
+    top: rect.top,
+    right: rect.right,
+    bottom: rect.bottom,
+    left: rect.left,
+    width: rect.width,
+    height: rect.height,
+    x: rect.x,
+    y: rect.y,
+  }
+}
+
 export function getCursorOffset(length) {
   if (window.getSelection) {
     return window.getSelection().anchorOffset
@@ -114,4 +129,5 @@ export const focusElement = {
   select,
   end,
   wrapSpan,
+  copyBoundingClientRect,
 }

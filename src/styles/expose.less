@@ -58,6 +58,7 @@
   .generate-types(@types, 5);
   &-table {
     color: @table-color;
+    margin-bottom: @table-margin-bottom;
     &-head {
       font-weight: @table-head-font-weight;
       background: @table-head-bg;
@@ -101,10 +102,21 @@
     &-body {
       background: @table-body-bg;
     }
+
+    &-even {
+      background-color: @table-even-td-bgc;
+    }
+    &-odd {
+      background-color: @table-odd-td-bgc;
+    }
   }
   &-dropdown {
     &-button {
       border: @dropdown-border-width solid #000;
+    }
+    &-options-hover {
+      background-color: @dropdown-options-hover-bgc;
+      color: @dropdown-options-hover-color;
     }
   }
   &-select {
@@ -130,9 +142,14 @@
       border-radius: @datepicker-rect-active-border-radius-value;
     }
   }
+  &-datepicker-day {
+    &-hover-bgc{
+      background-color: @datepicker-day-hover-bg;
+    }
+  }
   &-slider {
     &-bar {
-      background: @slider-bar-color;
+      background: @slider-bar-bgc;
       &-disabled {
         background: @slider-disabled-bar-bg;
       }
@@ -156,12 +173,22 @@
       &-active {
         background: @menu-dark-active-bg;
       }
+      &-hover {
+        color: @menu-item-dark-hover-color;
+        background-color: @menu-item-dark-hover-bgc;
+      }
     }
     &-active {
       background: @menu-item-active-bg;
       color: @menu-item-active-color;
       border-radius: @menu-active-border-radius;
       padding: @menu-active-padding-vertical @menu-active-padding-horizontal;
+    }
+    &-light {
+      &-hover {
+        color: @menu-item-light-hover-color;
+        background-color: @menu-item-light-hover-bgc;
+      }
     }
   }
   &-form {
@@ -170,6 +197,7 @@
     }
     &-tip {
       color: @form-tip-color;
+      font-size: @form-tip-font-size;
     }
     &-label {
       text-align: @form-item-label-align;
@@ -205,11 +233,23 @@
   &-radio {
     width: @radio-width;
     border: @radio-border-width solid #fff;
+    color: @radio-text-color;
     &-inner {
       width: @radio-inner-width;
     }
     &-uncheck {
       width: @radio-border-uncheck-width;
+    }
+    &-group-default {
+      color: @radio-button-group-color;
+      background-color: @radio-button-group-bgc;
+      border-color: @radio-button-group-border-color;
+      border-radius: @radio-button-group-border-radius;
+    }
+    &-group-active {
+      color: @radio-button-group-active-color;
+      background-color: @radio-button-group-active-bgc;
+      border-color: @radio-button-group-active-border-color;
     }
   }
   &-pagination {
@@ -281,11 +321,19 @@
     &-node {
       margin-bottom: @tree-node-margin-bottom;
     }
+    &-default-icon{
+      border-left-color: @tree-indicator-color;
+    }
   }
   &-checkbox {
     &-indicator {
       border-color: @checkbox-border-color;
       width: @checkbox-border-width;
+      border-radius: @checkbox-indicator-border-radius;
+    }
+
+    &-text {
+      padding: 0 @checkbox-text-padding-x;
     }
   }
   &-switch {
@@ -298,7 +346,17 @@
       color: @message-close-color;
     }
   }
+  &-tabs {
+    margin-left: @tabs-tab-spacing;
+  }
+  &-cascader-active {
+    background-color: @cascader-active-background-color;
+    color: @cascader-active-color;
+  }
   &-common {
+    &-base {
+      font-size: @font-size-base;
+    }
     &-input{
       &-delay {
         width: @common-input-delay;
@@ -314,9 +372,6 @@
     }
     &-caret {
       animation-name: @common-caret-style;
-    }
-    &-line-height {
-      flex-grow: @line-height-base;
     }
   }
 }

@@ -35,7 +35,7 @@ npm 安装的组件有三个目录，'es/'，'lib/'，'css/'，默认的目录�
 
 ### theme 主题
 
-目前内置支持了两套主题，default，和兼容 ant-design 的主题 'antd'（方便两个组件库混用的场景，只是配色接近，交互和接口参数不同）。
+除了自带的 shineout 主题，还内置支持了 default，和兼容 ant-design 的主题 'antd'（方便两个组件库混用的场景，只是配色接近，交互和接口参数不同）。
 
 npm 安装的方式可以通过修改 webpack 的 less-loader 配置来切换主题。
 ```

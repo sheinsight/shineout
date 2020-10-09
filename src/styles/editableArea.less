@@ -2,16 +2,16 @@
 @import './themes/@{so-theme}.less';
 
 @editableArea-prefix: ~'@{so-prefix}-editableArea';
-@editableArea-default-width: 300px;
 @editableArea-clearable-icon: 12px;
 
 
 .@{editableArea-prefix} {
-  width: @editableArea-default-width;
+  width: 100%;
   position: relative;
 
 
-  &-input {
+  & &-input {
+    width: 100%;
     input {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -30,7 +30,6 @@
 
   &-popover {
     border: none;
-    width: @editableArea-default-width;
     box-shadow: none;
   }
 

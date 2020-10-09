@@ -250,7 +250,7 @@
           &.@{select-prefix}-disabled {
             padding-right: @select-result-space;
             cursor: not-allowed;
-            background: @select-disabled-bg-color;
+            background: @select-tree-disabled-bg-color;
           }
         }
       }
@@ -267,6 +267,9 @@
     .@{select-prefix}-header {
       padding: @dropdown-item-padding-y @dropdown-padding-x;
       border-bottom: solid 1px #eee;
+      .@{select-prefix}-header-title {
+        vertical-align: middle;
+      }
     }
 
     .@{select-prefix}-box-options {
@@ -332,15 +335,15 @@
     padding: @dropdown-item-padding-y @dropdown-padding-x+12 @dropdown-item-padding-y @dropdown-padding-x;
     color: @select-option-color;
     font-size: @font-size-base;
-    line-height: 20px;
+    line-height: 22px;
     text-overflow: ellipsis;
     transition: none;
     white-space: nowrap;
     background: @select-option-bg-color;
 
     &.@{select-prefix}-active {
-      background-color: @dropdown-link-active-bg;
-      color: @dropdown-link-active-color;
+      background-color: @select-option-active-bgc;
+      color: @select-option-active-color;
       text-decoration: none;
 
       > svg {
@@ -354,7 +357,7 @@
       }
     }
 
-    &:hover {
+    &:not(.@{select-prefix}-group):hover {
       background-color: @select-option-hover-bg;
       color: @select-option-hover-color
     }
@@ -374,6 +377,11 @@
     font-size: @font-size-small;
     color: @select-group-color;
     cursor: default;
+
+    // cover color
+    &:hover {
+      color: @select-group-color;
+    }
   }
 
   &-option + &-group {
@@ -387,7 +395,7 @@
     }
   }
 
-  &-control-mouse &-option:hover {
+  &-control-mouse &-option:not(.@{select-prefix}-group):hover {
     background-color: @select-option-hover-bg;
     color: @select-option-hover-color;
     text-decoration: none;

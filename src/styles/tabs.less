@@ -32,7 +32,7 @@
     }
 
     .@{tabs-prefix}-tab + .@{tabs-prefix}-tab {
-      margin-left: @tabs-link-spacing;
+      margin-left: @tabs-tab-spacing;
     }
 
     .@{tabs-prefix}-tab-bordered {
@@ -145,6 +145,10 @@
     text-align: right;
   }
 
+  &-align-right &-header-button {
+    text-align: right;
+  }
+
   &-vertical {
     display: flex;
     justify-content: flex-start;
@@ -160,7 +164,7 @@
         }
 
         .@{tabs-prefix}-tab + .@{tabs-prefix}-tab {
-          margin-top: @tabs-link-spacing;
+          margin-top: @tabs-tab-spacing;
           margin-left: 0;
         }
       }
@@ -304,7 +308,7 @@
   &-line.@{tabs-prefix}-align-vertical-left {
     > .@{tabs-prefix}-header .@{tabs-prefix}-active:after {
       top: 0;
-      right: 0;
+      right: -1px;
       width: 2px;
       height: 100%;
     }
@@ -313,7 +317,7 @@
   &-line.@{tabs-prefix}-align-vertical-right {
     > .@{tabs-prefix}-header .@{tabs-prefix}-active::after {
       top: 0;
-      left: 0;
+      left: -1px;
       width: 2px;
       height: 100%;
     }

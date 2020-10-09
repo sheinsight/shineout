@@ -37,6 +37,8 @@
 | validatorHandle | (error: any, file: File) => boolean \| boolean | false | 是否处理校验失败的情况, 如果提供一个函数, 则以函数的返回值判断是否处理此 error |
 | drop | boolean | false | 是否开启拖拽上传文件 |
 | filesFilter | (fileList: any[]) => boolean | 无 | 文件选中后的筛选，用户可自定义最终需要上传的文件列表<br />需返回一个新的文件列表 |
+| onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | 无 | 上传失败文件删除之后的回调 |
+| forceAccept | string | 无 | 在使用时关闭了 accept 提供的文件类型过滤后，强制对文件类型进行校验（值同accept） |
 
 
 ### Upload.Image
@@ -45,6 +47,7 @@
 | --- | --- | --- | --- |
 | children | ReactNode | 无 | 上传按钮内容，可为空 |
 | renderResult | (data: any) => ReactNode | a => a | 返回图片 url 链接地址 |
+| onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | none | 上传失败图片删除之后的回调 |
 
 ### Upload.Button
 

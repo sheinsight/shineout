@@ -1,7 +1,18 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { focusElement } from '../utils/dom/element'
+import { focusElement, getParent } from '../utils/dom/element'
 import utils from './utils'
+import { datepickerClass } from '../styles'
+
+let target = null
+document.addEventListener(
+  'mousedown',
+  e => {
+    // eslint-disable-next-line prefer-destructuring
+    target = e.target
+  },
+  true
+)
 
 class Text extends PureComponent {
   constructor(props) {
@@ -13,12 +24,6 @@ class Text extends PureComponent {
     this.bindElement = this.bindElement.bind(this)
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.focus !== this.props.focus && this.props.focus && this.element) {
-      focusElement.end(this.element)
-    }
-  }
-
   bindElement(el) {
     const { onTextSpanRef } = this.props
     this.element = el
@@ -26,14 +31,18 @@ class Text extends PureComponent {
   }
 
   handleBlur(e) {
-    const { format, index, onChange, value, element } = this.props
+    const { format, index, onChange, value } = this.props
     const txt = e.target.innerText
-    element.focus()
+    if (getParent(target, `.${datepickerClass('picker')}`)) return
     if (txt === value) return
     if (txt.trim().length === 0) {
       onChange(undefined, index)
     } else {
       const newValue = utils.toDateWithFormat(txt, format, undefined)
+      // if translate fail, clear
+      if (!newValue) {
+        this.element.innerText = null
+      }
       onChange(newValue, index)
     }
   }
@@ -51,9 +60,9 @@ class Text extends PureComponent {
   }
 
   render() {
-    const { className, focus, inputable, value, placeholder } = this.props
+    const { className, inputable, value, placeholder } = this.props
 
-    if (!inputable || !focus) {
+    if (!inputable) {
       return <span className={className}>{value || placeholder}</span>
     }
 
@@ -73,7 +82,6 @@ class Text extends PureComponent {
 
 Text.propTypes = {
   className: PropTypes.string,
-  focus: PropTypes.bool,
   format: PropTypes.string,
   index: PropTypes.number,
   inputable: PropTypes.bool,
@@ -81,7 +89,6 @@ Text.propTypes = {
   placeholder: PropTypes.any,
   value: PropTypes.string,
   onTextSpanRef: PropTypes.func,
-  element: PropTypes.any,
 }
 
 Text.defaultProps = {

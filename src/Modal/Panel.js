@@ -30,16 +30,27 @@ export default class Panel extends PureComponent {
   panel = null
 
   componentDidMount() {
+    const { container } = this.props
     this.updateOrigin()
+    this.animate()
+
     const { autoFocusButton, id } = this.props
     if (!autoFocusButton) return
-    const el = document.querySelector(`#${id}-${autoFocusButton}`)
+    const el = container.querySelector(`#${id}-${autoFocusButton}`)
     if (!el) return
     el.focus()
   }
 
   componentDidUpdate() {
+    if (this.getShow()) return
     this.updateOrigin()
+    this.animate()
+  }
+
+  getShow() {
+    const { container } = this.props
+    if (container.classList.contains(modalClass('show'))) return true
+    return false
   }
 
   getStyle() {
@@ -66,6 +77,14 @@ export default class Panel extends PureComponent {
     this.panel = node
   }
 
+  animate() {
+    const { container, position } = this.props
+    setTimeout(() => {
+      container.classList.add(modalClass('show'))
+      if (!position) container.classList.add(modalClass('start'))
+    })
+  }
+
   updateOrigin() {
     const { position } = this.props
     if (position) return
@@ -88,31 +107,61 @@ export default class Panel extends PureComponent {
     event.preventDefault()
   }
 
+  renderIcon() {
+    const { type } = this.props
+    if (type === 'default') return null
+    const iconType = type.charAt(0).toUpperCase() + type.slice(1)
+    return Icons[iconType]
+  }
+
+  renderTitle(justRenderClassComponent = false) {
+    const { from, title } = this.props
+    if (!title) return null
+
+    // method component
+    if (from === 'method') {
+      // if just render class Component, return null
+      if (justRenderClassComponent) return null
+      // for  method function
+      return <div className={modalClass('title')}>{title}</div>
+    }
+
+    // base Component
+    const icon = this.renderIcon()
+
+    return (
+      <Card.Header className={modalClass('title', icon && 'with-icon')}>
+        {icon && <div className={modalClass('icon')}>{icon}</div>}
+        {title}
+      </Card.Header>
+    )
+  }
+
   renderContent() {
-    const { children, noPadding, title, type, padding, position, bodyStyle } = this.props
+    const { children, noPadding, padding, position, bodyStyle, from = null } = this.props
 
     let style = { padding: noPadding === true ? 0 : padding }
     if (position) style.overflow = 'auto'
 
     if (bodyStyle) style = Object.assign(style, bodyStyle)
 
-    if (type === 'default') return <Card.Body style={style}>{children}</Card.Body>
+    if (!from || from !== 'method') return <Card.Body style={style}>{children}</Card.Body>
 
-    const iconType = type.charAt(0).toUpperCase() + type.slice(1)
-    const icon = Icons[iconType]
+    const icon = this.renderIcon()
+
     return (
       <Card.Body className={modalClass('body')} style={style}>
         {icon && <div className={modalClass('icon')}>{icon}</div>}
-        {title && <div className={modalClass('title')}>{title}</div>}
+        {this.renderTitle()}
         <div>{children}</div>
       </Card.Body>
     )
   }
 
   render() {
-    const { footer, title, type, onClose, maskCloseAble, position, moveable, resizable, hideClose } = this.props
+    const { footer, type, onClose, maskCloseAble, position, moveable, zoom, resizable, hideClose, from } = this.props
 
-    const className = classnames(modalClass('panel', type, position), this.props.className)
+    const className = classnames(modalClass('panel', type, position, zoom && !moveable && 'zoom'), this.props.className)
     const showClose = typeof hideClose === 'boolean' ? !hideClose : maskCloseAble || maskCloseAble === null
     return (
       <ZProvider value>
@@ -133,10 +182,10 @@ export default class Panel extends PureComponent {
                 {Icons.Close}
               </a>
             )}
-            {title && type === 'default' && <Card.Header className={modalClass('title')}>{title}</Card.Header>}
+            {this.renderTitle(true)}
             {this.renderContent()}
             {footer && (
-              <Card.Footer className={modalClass('footer')} align="right">
+              <Card.Footer className={modalClass('footer', from)} align="right">
                 {footer}
               </Card.Footer>
             )}
@@ -163,6 +212,9 @@ Panel.propTypes = {
   moveable: PropTypes.bool,
   resizable: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   hideClose: PropTypes.bool,
+  from: PropTypes.string,
+  zoom: PropTypes.bool,
+  container: PropTypes.any,
 }
 
 Panel.defaultProps = {
@@ -170,4 +222,5 @@ Panel.defaultProps = {
   top: '10vh',
   maskCloseAble: true,
   width: 500,
+  zoom: true,
 }

@@ -103,6 +103,11 @@
 @checkbox-border-width: var(--checkbox-border-width, @checkbox-border-width-value);
 @checkinput-color: var(--checkinput-color, @gray-900);
 
+@checkinput-text-padding-x: 8px;
+@checkbox-text-padding-x: var(--checkbox-text-padding-x, @checkinput-text-padding-x);
+@checkbox-indicator-border-radius: var(--checkbox-indicator-border-radius, @checkbox-border-radius);
+
+@checkbox-disabled-bgc: var(--checkbox-disabled-bgc, #E8EBF0);
 
 @radio-width-value: @checkbox-size + 2;
 @radio-width: var(--radio-width, @radio-width-value);
@@ -117,6 +122,16 @@
 @radio-border-uncheck-width: var(--radio-border-uncheck-width, @radio-border-uncheck-width-value);
 
 @radio-text-color: var(--radio-text-color, @checkinput-color);
+
+// radio button group
+@radio-button-group-color: var(--radio-button-group-color, @button-default-text-color);
+@radio-button-group-bgc: var(--radio-button-group-bgc, @btn-default-bg);
+@radio-button-group-border-color: var(--radio-button-group-border-color, @btn-default-border);
+@radio-button-group-border-radius: var(--radio-button-group-border-radius, @btn-border-radius-base);
+// active
+@radio-button-group-active-color: var(--radio-button-group-active-color, @btn-primary-color);
+@radio-button-group-active-bgc: var(--radio-button-group-active-bgc, @btn-primary-bg);
+@radio-button-group-active-border-color: var(--radio-button-group-active-border-color, @btn-primary-border);
 
 @button-disabled-bg-value: #f5f5f5;
 @button-disabled-bg: var(--button-disabled-bg, @button-disabled-bg-value);
@@ -141,6 +156,8 @@
 
 @button-padding-base-horizontal-7-value: @button-padding-base-horizontal-value * 0.7;
 @button-padding-base-horizontal-7: var(--button-padding-base-horizontal-7, @button-padding-base-horizontal-7-value);
+
+@button-default-text-color: var(--button-default-text-color, @btn-default-color);
 
 @pagination-border-radius-value: @border-radius-base;
 @pagination-border-radius: var(--pagination-border-radius, @pagination-border-radius-value);
@@ -185,6 +202,8 @@
 @table-even-td-bgc: var(--table-even-td-bgc, @table-bg-accent);
 @table-odd-td-bgc: var(--table-odd-td-bgc, #fff);
 
+@table-margin-bottom: var(--table-margin-bottom, @line-height-computed);
+
 @tooltip-bg-value: #000;
 @tooltip-bg: var(--tooltip-bg, @tooltip-bg-value);
 
@@ -219,6 +238,9 @@
 
 @dropdown-columns-padding: var(--dropdown-columns-padding, 0);
 
+@dropdown-options-hover-bgc: var(--dropdown-options-hover-bgc, @dropdown-link-hover-bg);
+@dropdown-options-hover-color: var(--dropdown-options-hover-color, @dropdown-link-hover-color);
+
 @select-result-padding-vertical-value: 0;
 @select-result-padding-vertical: var(--select-result-padding-vertical, @select-result-padding-vertical-value);
 
@@ -231,8 +253,12 @@
 @select-clear-bg-color-value: @gray-400-darken-20-value;
 @select-clear-bg-color: var(--select-clear-bg-color, @select-clear-bg-color-value);
 
+@select-option-active-bgc: @dropdown-link-active-bg;
+@select-option-active-color: @dropdown-link-active-color;
+
 @select-option-bg-color: var(--select-option-bg-color, transparent);
 @select-disabled-bg-color: var(--select-disabled-bg-color, @input-bg-disabled-value);
+@select-tree-disabled-bg-color: var(--select-tree-disabled-bg-color, @input-bg-disabled-value);
 @select-disabled-color: var(--select-disabled-color, @select-option-color-value);
 @select-compressed-hover-bg: var(--select-compressed-hover-bg, @primary-color-fade-60-value);
 
@@ -241,6 +267,8 @@
   --datepicker-rect-active-border-radius,
   @datepicker-rect-active-border-radius-value
 );
+
+@datepicker-day-hover-bg: var(--datepicker-day-hover-bgc, @datepicker-day-hover-bgc-value);
 
 @slider-indicator-bg-value: #fff;
 @slider-indicator-bg: var(--slider-indicator-bg, @slider-indicator-bg-value);
@@ -253,6 +281,7 @@
 
 @slider-bar-color-value: @gray-400-value;
 @slider-bar-color: var(--slider-bar-color, @slider-bar-color-value);
+@slider-bar-bgc: var(--slider-bar-color, @slider-bar-color-value);
 
 @slider-height-value: 6px;
 @slider-height: var(--slider-bar-height, @slider-height-value);
@@ -276,6 +305,8 @@
 
 @form-tip-color-value: lighten(@gray-900-value, 40%);
 @form-tip-color: var(--form-tip-color, @form-tip-color-value);
+
+@form-tip-font-size: var(--form-tip-font-size, @form-help-font-size);
 
 @form-item-label-align-value: 'left';
 @form-item-label-align: var(--form-item-label-align, @form-item-label-align-value);
@@ -338,6 +369,11 @@
 
 @menu-item-color-value: @gray-900-value;
 @menu-item-color: var(--menu-item-color, @menu-item-color-value);
+
+@menu-item-light-hover-color: var(--menu-item-light-hover-color, @menu-highlight-color);
+@menu-item-light-hover-bgc: var(--menu-item-light-hover-bgc, #fff);
+@menu-item-dark-hover-color: var(--menu-item-dark-hover-color, #fff);
+@menu-item-dark-hover-bgc: var(--menu-item-dark-hover-bgc, @menu-dark-bg);
 
 @alert-border-width-value: 1px;
 @alert-border-width: var(--alert-border-width, @alert-border-width-value);
@@ -514,6 +550,8 @@
 @popover-text-max-width-value: 320px;
 @popover-text-max-width: var(--popover-text-max-width, @popover-text-max-width-value);
 
+@popover-text-font-size: var(--popover-text-font-size, @font-size-small);
+
 @tag-close-color-value: '#000';
 @tag-close-color: var(--tag-close-color, @tag-close-color-value);
 
@@ -561,3 +599,9 @@
 
 @common-line-height-value: 1.428571429;
 @line-height-base: var(--common-line-height, @common-line-height-value);
+
+@tabs-tab-spacing: var(--tabs-tab-spacing, @tabs-link-spacing);
+
+
+@cascader-active-background-color: var(--cascader-active-background-color, @dropdown-link-active-bg);
+@cascader-active-color: var(--cascader-active-color, @dropdown-link-active-color);

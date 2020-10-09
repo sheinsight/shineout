@@ -39,7 +39,7 @@ export default function(List) {
     }
 
     componentDidUpdate(prevProps) {
-      if (prevProps.value === this.props.value) return
+      if (shallowEqual(prevProps.value, this.props.value)) return
       if (!this.props.focus) this.ajustdoc = false
       setTimeout(() => {
         this.forceUpdate()
@@ -121,10 +121,16 @@ export default function(List) {
     }
 
     resetPosition() {
-      const { focus } = this.props
+      const { focus, parentElement } = this.props
       if (!this.el || !focus || this.ajustdoc) return
       const pos = this.el.getBoundingClientRect()
-      const overdoc = pos.left + pos.width > docSize.width
+      let { left } = pos
+      if (parentElement) {
+        // because the position changes
+        // eslint-disable-next-line prefer-destructuring
+        left = parentElement.getBoundingClientRect().left
+      }
+      const overdoc = left + pos.width > docSize.width
       if (this.state.overdoc === overdoc) return
       this.ajustdoc = true
       this.setState({

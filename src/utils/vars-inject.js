@@ -438,6 +438,13 @@ const injects = {
         className: buttonClass('disabled'),
         desc: '禁用按钮文字颜色',
       },
+      {
+        name: 'buttonDefaultTextColor',
+        attr: 'color',
+        type: 'color',
+        className: buttonClass('default'),
+        desc: '默认样式下文字颜色',
+      },
     ],
     set fontSizeBase(v) {
       setBodyProperty(
@@ -576,6 +583,14 @@ const injects = {
         v
       )
     },
+    set buttonDefaultTextColor(v) {
+      setBodyProperty(
+        {
+          '--button-default-text-color': v,
+        },
+        v
+      )
+    },
   },
   dropdown: {
     info: {
@@ -599,6 +614,20 @@ const injects = {
         className: dropdownClass('box-list'),
         desc: '多列平铺的内边距',
       },
+      {
+        name: 'optionsHoverBgc',
+        attr: 'backgroundColor',
+        type: 'color',
+        className: exposeClass('dropdown-options-hover'),
+        desc: 'options hover时背景颜色',
+      },
+      {
+        name: 'optionsHoverColor',
+        attr: 'color',
+        type: 'color',
+        className: exposeClass('dropdown-options-hover'),
+        desc: 'options hover时字体颜色',
+      },
     ],
     set borderWidth(v) {
       setBodyProperty(
@@ -612,6 +641,22 @@ const injects = {
       setBodyProperty(
         {
           '--dropdown-columns-padding': v,
+        },
+        v
+      )
+    },
+    set optionsHoverBgc(v) {
+      setBodyProperty(
+        {
+          '--dropdown-options-hover-bgc': v,
+        },
+        v
+      )
+    },
+    set optionsHoverColor(v) {
+      setBodyProperty(
+        {
+          '--dropdown-options-hover-color': v,
         },
         v
       )
@@ -654,6 +699,14 @@ const injects = {
         type: ['start', 'center', 'end'],
         desc: '标签对齐方式',
       },
+      {
+        name: 'formTipFontSize',
+        className: exposeClass('form-tip'),
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+        desc: '提示信息字体大小',
+      },
     ],
     set itemMarginBottom(v) {
       setBodyProperty(
@@ -683,6 +736,14 @@ const injects = {
       setBodyProperty(
         {
           '--form-item-label-align': v,
+        },
+        v
+      )
+    },
+    set formTipFontSize(v) {
+      setBodyProperty(
+        {
+          '--form-tip-font-size': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -725,6 +786,23 @@ const injects = {
         type: 'color',
         desc: '边框颜色',
       },
+      {
+        name: 'textPaddingX',
+        className: exposeClass('checkbox-text'),
+        attr: 'paddingRight',
+        type: 'number',
+        parser: parseInt,
+        desc: '文字水平内间距',
+      },
+      {
+        name: 'indicatorBorderRadius',
+        className: exposeClass('checkbox-indicator'),
+        attr: 'borderRadius',
+        type: 'number',
+        parser: parseInt,
+        min: 3,
+        desc: '圆角',
+      },
     ],
     set marginRight(v) {
       setBodyProperty(
@@ -754,6 +832,22 @@ const injects = {
       setBodyProperty(
         {
           '--checkbox-border-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set textPaddingX(v) {
+      setBodyProperty(
+        {
+          '--checkbox-text-padding-x': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set indicatorBorderRadius(v) {
+      setBodyProperty(
+        {
+          '--checkbox-indicator-border-radius': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -807,7 +901,7 @@ const injects = {
       },
       {
         name: 'color',
-        className: checkinputClass('checkinput-radio-wrap'),
+        className: exposeClass('radio'),
         attr: 'color',
         type: 'color',
         desc: '文字颜色',
@@ -1241,11 +1335,26 @@ const injects = {
         parser: parseInt,
         desc: '年份、月份选中项圆角',
       },
+      {
+        name: 'dayHoverBgc',
+        className: exposeClass('datepicker-day-hover-bgc'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'day hover时背景颜色',
+      },
     ],
     set rectBorderRadius(v) {
       setBodyProperty(
         {
           '--datepicker-rect-active-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set dayHoverBgc(v) {
+      setBodyProperty(
+        {
+          '--datepicker-day-hover-bgc': v,
         },
         v
       )
@@ -1583,6 +1692,14 @@ const injects = {
         type: 'color',
         desc: '奇数行背景颜色',
       },
+      {
+        name: 'marginBottom',
+        className: exposeClass('table'),
+        attr: 'marginBottom',
+        type: 'number',
+        parser: parseInt,
+        desc: '表格底部外边距',
+      },
     ],
     set scrollRatio(v) {
       configSet('scrollRatio', v)
@@ -1749,6 +1866,14 @@ const injects = {
       setBodyProperty(
         {
           '--table-odd-td-bgc': v,
+        },
+        v
+      )
+    },
+    set marginBottom(v) {
+      setBodyProperty(
+        {
+          '--table-margin-bottom': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -2215,6 +2340,34 @@ const injects = {
         parser: parseInt,
         desc: '选中项圆角',
       },
+      {
+        name: 'itemHoverColor',
+        className: exposeClass('menu-light-hover'),
+        attr: 'color',
+        type: 'color',
+        desc: 'hover状态下文字颜色',
+      },
+      {
+        name: 'itemHoverDarkColor',
+        className: exposeClass('menu-dark-hover'),
+        attr: 'color',
+        type: 'color',
+        desc: '暗黑主题 hover状态下文字颜色',
+      },
+      {
+        name: 'itemHoverBgc',
+        className: exposeClass('menu-light-hover'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'hover状态下背景颜色',
+      },
+      {
+        name: 'itemHoverDarkBgc',
+        className: exposeClass('menu-dark-hover'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '暗黑主题 hover状态下背景颜色',
+      },
     ],
     set height(v) {
       const height = parseInt(v, 10)
@@ -2302,6 +2455,38 @@ const injects = {
       setBodyProperty(
         {
           '--menu-active-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set itemHoverColor(v) {
+      setBodyProperty(
+        {
+          '--menu-item-light-hover-color': v,
+        },
+        v
+      )
+    },
+    set itemHoverDarkColor(v) {
+      setBodyProperty(
+        {
+          '--menu-item-dark-hover-color': v,
+        },
+        v
+      )
+    },
+    set itemHoverBgc(v) {
+      setBodyProperty(
+        {
+          '--menu-item-light-hover-bgc': v,
+        },
+        v
+      )
+    },
+    set itemHoverDarkBgc(v) {
+      setBodyProperty(
+        {
+          '--menu-item-dark-hover-bgc': v,
         },
         v
       )
@@ -3491,6 +3676,14 @@ const injects = {
         type: 'string',
         desc: '纯文字时的最大宽度',
       },
+      {
+        name: 'fontSize',
+        className: popoverClass('_'),
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+        desc: '字体大小',
+      },
     ],
     set borderColor(v) {
       setBodyProperty(
@@ -3528,6 +3721,14 @@ const injects = {
       setBodyProperty(
         {
           '--popover-text-max-width': v,
+        },
+        v
+      )
+    },
+    set fontSize(v) {
+      setBodyProperty(
+        {
+          '--popover-text-font-size': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -3651,6 +3852,71 @@ const injects = {
       )
     },
   },
+  tabs: {
+    info: {
+      title: 'Tabs 标签',
+      name: 'tabs',
+      path: 'Tabs',
+    },
+    conf: [
+      {
+        name: 'tabSpacing',
+        className: exposeClass('tabs'),
+        attr: 'marginLeft',
+        type: 'number',
+        min: -10,
+        parser: parseInt,
+        desc: 'tab间隔',
+      },
+    ],
+    set tabSpacing(v) {
+      setBodyProperty(
+        {
+          '--tabs-tab-spacing': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+  },
+  cascader: {
+    info: {
+      title: 'Cascader 级联选择器',
+      name: 'cascader',
+      path: 'Cascader',
+    },
+    conf: [
+      {
+        name: 'activeBgc',
+        className: exposeClass('cascader-active'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '选中背景颜色',
+      },
+      {
+        name: 'activeColor',
+        className: exposeClass('cascader-active'),
+        attr: 'color',
+        type: 'color',
+        desc: '选中字体颜色',
+      },
+    ],
+    set activeBgc(v) {
+      setBodyProperty(
+        {
+          '--cascader-active-background-color': v,
+        },
+        v
+      )
+    },
+    set activeColor(v) {
+      setBodyProperty(
+        {
+          '--cascader-active-color': v,
+        },
+        v
+      )
+    },
+  },
   common: {
     info: {
       title: 'Common 公共',
@@ -3660,7 +3926,7 @@ const injects = {
     conf: [
       {
         name: 'fontSize',
-        className: buttonClass('_'),
+        className: exposeClass('common-base'),
         attr: 'fontSize',
         parser: parseInt,
         type: 'number',
@@ -3675,8 +3941,7 @@ const injects = {
       },
       {
         name: 'lineHeight',
-        className: exposeClass('common-line-height'),
-        attr: 'flexGrow',
+        value: 1.428571429,
         type: 'string',
         desc: '行高',
       },

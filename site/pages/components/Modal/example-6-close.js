@@ -9,61 +9,53 @@
  *    -- Set maskCloseAbel to null to disable the function that click mask to close and the close icon in the upper right corner will be preserved.
  */
 import React from 'react'
-import { Modal, Button } from 'shineout'
+import { Modal, Button, Select } from 'shineout'
 
-export default class extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      visible: false,
-    }
-    this.show = this.show.bind(this)
-  }
-
-  show() {
-    this.setState({
-      visible: true,
-    })
-  }
-
-  handleOk = () => {
-    this.setState({
-      visible: false,
-    })
-    console.log('you are click ok!')
-  }
-
-  handleCancel = () => {
-    this.setState({
-      visible: false,
-    })
-  }
-
-  render() {
-    return (
-      <div>
-        <Button onClick={this.show}>Click me</Button>
-        <Modal
-          visible={this.state.visible}
-          maskCloseAble
-          width={500}
-          height={300}
-          title="Modal Title"
-          onClose={this.handleCancel}
-          footer={[
-            <Button key="cancel" onClick={this.handleCancel}>
-              Cancel
-            </Button>,
-            <Button key="ok" type="primary" onClick={this.handleOk}>
-              Ok
-            </Button>,
-          ]}
-        >
-          The prop maskCloseAble is false.
-          <br />
-          You must click the button to close the Modal.
-        </Modal>
-      </div>
-    )
-  }
+const list = [
+  {
+    title: 'false',
+    value: false,
+  },
+  {
+    title: 'true',
+    value: true,
+  },
+  {
+    title: 'null',
+    value: null,
+  },
+]
+export default () => {
+  const [visible, setVisible] = React.useState(false)
+  const [selected, setSelected] = React.useState(list[0])
+  return (
+    <div>
+      <Select
+        data={list}
+        keygen="title"
+        renderItem="title"
+        prediction={(v, d) => v.title === d.title}
+        value={selected}
+        onChange={c => {
+          setSelected(c)
+        }}
+        style={{ width: 200, marginRight: 20 }}
+      />
+      <Button onClick={() => setVisible(true)}>Open</Button>
+      <Modal
+        visible={visible}
+        maskCloseAble={selected.value}
+        width={500}
+        title="Modal Title"
+        onClose={() => setVisible(false)}
+        footer={<Button onClick={() => setVisible(false)}>Close</Button>}
+      >
+        The prop maskCloseAble is &nbsp;
+        {selected.title}
+        .
+        <br />
+        You must click the button to close the Modal.
+      </Modal>
+    </div>
+  )
 }

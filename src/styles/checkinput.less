@@ -78,7 +78,43 @@
       box-sizing: border-box;
       .user-select(none);
       .button-size(@btn-padding-y; @btn-padding-x; @button-font-size-base; @line-height-base; @btn-border-radius-base);
-      .button-variant(@btn-default-color; @btn-default-bg; @btn-default-border; 'default' ; @btn-default-border);
+
+      // default
+      border-color: @btn-default-border;
+      background-color: @btn-default-bg;
+      color: @button-default-text-color;
+      fill: @button-default-text-color;
+      transition: all 0.15s ease-in-out;
+
+
+      &:focus,
+      &:hover,
+      &:active {
+        border-color: @colors-primary;
+        color: @colors-primary;
+        .@{checkinput-prefix}-desc {
+          color: inherit;
+        }
+      }
+
+      &:active {
+        background-image: none;
+      }
+
+      &[disabled],
+      fieldset[disabled] & {
+        &:hover,
+        &:focus {
+          border-color: @btn-default-border;
+          background-color: @btn-default-bg;
+        }
+
+        &:active {
+          animation: none;
+        }
+      }
+
+
       border-radius: 0px;
       & > .@{checkinput-prefix}-indicator, & > input {
         display: none;
@@ -96,7 +132,47 @@
           padding: 1px 0;
           background-color: @gray-300;
           content: '';
+          transition: background-color 0.15s ease-in-out;
         }
+      }
+
+      &:not(:last-child) {
+        &::after {
+          position: absolute;
+            top: -1px;
+            right: -1px;
+            display: block;
+            box-sizing: content-box;
+            width: 1px;
+            height: 100%;
+            padding: 1px 0;
+            background-color: transparent;
+            content: '';
+            z-index: 100;
+            transition: background-color 0.15s ease-in-out;
+        }
+      }
+
+      &:hover,
+      &:active,
+      &:focus {
+        &::before {
+          background-color: @colors-primary;
+        }
+      }
+
+      &:hover,
+      &:focus,
+      &:active {
+        &:not(:last-child) {
+          &::after {
+            background-color: @colors-primary;
+          }
+        }
+      }
+
+      &.@{checkinput-prefix}-radio {
+        .button-variant(@radio-button-group-color; @radio-button-group-bgc; @radio-button-group-border-color; 'default' ; @radio-button-group-border-color);
       }
 
       &.@{checkinput-prefix}-checked {
@@ -108,33 +184,35 @@
           background: @btn-primary-bg;
         }
 
-        .@{checkinput-prefix}-radio + span {
+        .@{checkinput-prefix}-desc {
           color: @btn-primary-color;
         }
       }
+
       &:first-child {
-        border-top-left-radius: @btn-border-radius-base;
-        border-bottom-left-radius: @btn-border-radius-base;
+        border-top-left-radius: @radio-button-group-border-radius;
+        border-bottom-left-radius: @radio-button-group-border-radius;
       }
       &:last-child {
-        border-top-right-radius: @btn-border-radius-base;
-        border-bottom-right-radius: @btn-border-radius-base;
+        border-top-right-radius: @radio-button-group-border-radius;
+        border-bottom-right-radius: @radio-button-group-border-radius;
       }
     }
     &.@{checkinput-prefix}-outline {
-      .@{checkinput-prefix}-checked {
+      // adjust weight
+      .@{checkinput-prefix}.@{checkinput-prefix}-checked {
         border-color: @colors-primary;
-        background: transparent;
+        background-color: #fff;
         color: @colors-primary;
         border-right-width: 1px;
 
         &:hover, &:active, &:focus {
           border-color: @colors-primary;
-          background: transparent;
+          background-color: #fff;
           color: @colors-primary;
         }
 
-        .@{checkinput-prefix}-radio + span {
+        .@{checkinput-prefix}-desc {
           color: @colors-primary;
         }
       }
@@ -217,6 +295,8 @@
       width: @switch-small-indicator-size;
       height: @switch-small-indicator-size;
       top: @switch-small-indicator-top;
+      padding-left: @switch-small-indicator-padding;
+      padding-right: @switch-small-indicator-padding;
     }
   }
 
@@ -251,11 +331,11 @@
     width: @checkbox-size + 2;
     height: @checkbox-size + 2;
     border: solid @checkbox-border-width @checkbox-border-color;
-    border-radius: @checkbox-border-radius;
+    border-radius: @checkbox-indicator-border-radius;
     vertical-align: middle;
 
     & + span {
-      padding: 0 @form-item-padding-x;
+      padding: 0 @checkinput-text-padding-x;
       vertical-align: middle;
     }
 
@@ -264,6 +344,16 @@
       z-index: 10;
       display: block;
       content: ' ';
+    }
+
+    &.@{checkinput-prefix}-radio {
+      background-color: #fff;
+    }
+  }
+
+  i&-indicator&-checkbox {
+    & + span {
+      padding: 0 @checkbox-text-padding-x;
     }
   }
 
@@ -366,7 +456,19 @@
     i.@{checkinput-prefix}-indicator {
       border-color: @checkbox-border-color;
       box-shadow: none;
-      background-color: @input-bg-disabled;
+      background-color: @checkbox-disabled-bgc;
+    }
+  }
+
+  &-disabled&-checked,
+  &-disabled&-indeterminate {
+    i.@{checkinput-prefix}-indicator.@{checkinput-prefix}-checkbox {
+      border-color: @checkbox-border-color;
+      background-color: @checkbox-border-color;
+
+      &::after {
+        border-color: #fff;
+      }
     }
   }
 
@@ -381,7 +483,9 @@
     }
   }
 
-  &-radio + span {
-    color: @radio-text-color;
+  &-radio-container {
+    .@{checkinput-prefix}-desc {
+      color: @radio-text-color;
+    }
   }
 }

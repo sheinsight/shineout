@@ -71,12 +71,19 @@
       font-size: 14px;
 
       path {
+        transition: all .2s;
         fill: @gray-500;
       }
     }
 
     .@{datepicker-prefix}-close {
       display: none;
+    }
+
+    .@{datepicker-prefix}-close:hover {
+      path {
+        fill: @gray-700;
+      }
     }
 
     .@{datepicker-prefix}-txt {
@@ -186,7 +193,7 @@
 
     span.@{datepicker-prefix}-today {
       color: @colors-primary;
-      background: #fff;
+      background: transparent;
       box-shadow: 0 0 0 1px @colors-primary inset;
     }
 
@@ -196,7 +203,7 @@
         color: #000;
       }
       &:hover.@{datepicker-prefix}-today {
-        background: #fff;
+        background: transparent;
         color: @colors-primary;
       }
     }

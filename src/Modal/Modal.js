@@ -26,8 +26,8 @@ class Modal extends Component {
     return !shallowEqual(this.props, nextProps) && nextProps.visible
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.visible !== this.props.visible && !this.props.usePortal) {
+  componentDidUpdate() {
+    if (this.props.visible && !this.props.usePortal) {
       open(this.getOption(), false)
     }
   }
@@ -44,6 +44,7 @@ class Modal extends Component {
       ...props,
       content: children,
       id: this.id,
+      from: 'modal', // overwrite props from
     }
   }
 

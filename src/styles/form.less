@@ -5,6 +5,8 @@
 @input-prefix: ~'@{so-prefix}-input';
 @editableArea-prefix: ~'@{so-prefix}-editableArea';
 
+@input-group-icon-padding-x: 8px;
+
 .@{form-prefix} {
   position: relative;
 
@@ -50,7 +52,7 @@
     margin-top: 5px;
     margin-bottom: 8px;
     color: @form-tip-color;
-    font-size: @form-help-font-size;
+    font-size: @form-tip-font-size;
   }
 
   .@{form-prefix}-error {
@@ -213,14 +215,14 @@
       }
 
       &:last-child {
-        padding-right: @padding-base-horizontal;
+        padding-right: @input-group-icon-padding-x;
       }
     }
 
     & > b {
       display: flex;
       align-items: center;
-      padding: 0 @padding-base-horizontal;
+      padding: 0 @input-group-icon-padding-x;
       margin: 0;
       margin-left: -1px;
       border: 1px solid @input-border;
@@ -512,6 +514,9 @@
   textarea&-auto-size {
     overflow: hidden;
   }
+  textarea&-textarea-resize {
+    resize: vertical;
+  }
 
   &-small {
     input {
@@ -524,7 +529,7 @@
 
   &-large {
     input {
-      padding: @padding-large-vertical @padding-large-horizontal;
+      padding: @input-padding-vertical @input-padding-horizontal;
     }
 
     font-size: @font-size-large;

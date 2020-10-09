@@ -6,7 +6,7 @@ import { getUidStr } from '../utils/uid'
 import { modalClass } from '../styles'
 import Panel from './Panel'
 import { getLocale } from '../locale'
-import { defer } from '../utils/uid'
+import { getParent } from '../utils/dom/element'
 
 const containers = {}
 const DURATION = 300
@@ -104,22 +104,14 @@ export function open(props, isPortal) {
 
   containers[props.id].visible = true
 
-  defer(() => {
-    if (!otherProps.position) div.classList.add(modalClass('start'))
-  })
-
-  setTimeout(() => {
-    div.classList.add(modalClass('show'))
-  }, 10)
-
   const panel = (
-    <Panel {...otherProps} onClose={handleClose}>
+    <Panel {...otherProps} onClose={handleClose} container={div}>
       {content}
     </Panel>
   )
 
   if (isPortal) return ReactDOM.createPortal(panel, div)
-  if (document.activeElement) document.activeElement.blur()
+  if (document.activeElement && !getParent(document.activeElement, div)) document.activeElement.blur()
 
   ReactDOM.render(panel, div)
   return null
@@ -165,6 +157,7 @@ export const method = type => option => {
       id: getUidStr(),
       destroy: true,
       type,
+      from: 'method',
     }
   )
 

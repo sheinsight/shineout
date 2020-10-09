@@ -127,11 +127,9 @@ class Select extends PureComponent {
   }
 
   handleClick(e) {
-    // if (this.closeByResult) {
-    //   this.closeByResult = false
-    //   return
-    // }
-    if (isResult(e.target) && this.state.focus) {
+    const { onCreate, onFilter } = this.props
+    const plain = !onCreate && !onFilter
+    if (plain && isResult(e.target) && this.state.focus) {
       this.handleState(false, e)
       return
     }
@@ -144,12 +142,13 @@ class Select extends PureComponent {
     // click close icon
     if (focus && e && e.target.classList.contains(selectClass('close'))) return
 
-    const { height } = this.props
+    const { height, onCollapse } = this.props
     let { position } = this.props
     const windowHeight = docSize.height
     const bottom = height + this.element.getBoundingClientRect().bottom
     if (bottom > windowHeight && !position) position = 'drop-up'
 
+    if (onCollapse) onCollapse(focus)
     this.setState({ focus, position: position || 'drop-down' })
 
     if (focus) {
@@ -360,6 +359,7 @@ class Select extends PureComponent {
       'multiple',
       'columns',
       'columnWidth',
+      'columnsTitle',
       'text',
       'itemsInView',
       'absolute',
@@ -422,6 +422,7 @@ class Select extends PureComponent {
       showArrow,
       focusSelected,
       compressedClassName,
+      resultClassName,
     } = this.props
     const className = selectClass(
       'inner',
@@ -468,6 +469,7 @@ class Select extends PureComponent {
           showArrow={showArrow}
           focusSelected={focusSelected}
           compressedClassName={compressedClassName}
+          resultClassName={resultClassName}
         />
         {this.renderOptions()}
       </div>
@@ -508,6 +510,8 @@ Select.propTypes = {
   showArrow: PropTypes.bool,
   focusSelected: PropTypes.bool,
   compressedClassName: PropTypes.string,
+  onCollapse: PropTypes.func,
+  resultClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 }
 
 Select.defaultProps = {
@@ -515,7 +519,7 @@ Select.defaultProps = {
   data: [],
   height: 250,
   itemsInView: 10,
-  lineHeight: 32,
+  lineHeight: 34,
   loading: false,
   multiple: false,
   renderItem: e => e,

@@ -291,7 +291,7 @@ class SeperateTable extends PureComponent {
     if (!this.tbody || this.realTbody.clientHeight === 0) return
     const [x, y, max, bar, v, h, pixelX, pixelY] = args
     const { colgroup } = this.state
-    const isResize = v && this.lastScrollArgs && v !== this.lastScrollArgs[4]
+    const isResize = v && this.lastScrollArgs[4] && v !== this.lastScrollArgs[4]
     this.lastScrollArgs = args
     const { data, rowHeight, rowsInView } = this.props
     const contentWidth = this.getContentWidth()
@@ -377,7 +377,7 @@ class SeperateTable extends PureComponent {
     const { columns } = this.props
     const colgroup = []
     for (let i = 0, count = tds.length; i < count; i++) {
-      const width = tds[i].offsetWidth
+      const { width } = tds[i].getBoundingClientRect()
       const colSpan = parseInt(tds[i].getAttribute('colspan'), 10)
       if (colSpan > 1) {
         split(width, range(colSpan).map(j => columns[i + j].width)).forEach(w => colgroup.push(w))

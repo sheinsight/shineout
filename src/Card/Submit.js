@@ -16,18 +16,16 @@ class Submit extends PureComponent {
   }
 
   render() {
-    const {
-      onSubmit, loading, children, formStatus, ...other
-    } = this.props
+    const { onSubmit, loading, children, formStatus, ...other } = this.props
     return (
       <Button
         type="primary"
         {...other}
-        disabled={formStatus === 'disabled'}
+        disabled={other.disabled || formStatus === 'disabled'}
         loading={formStatus === 'pending' || loading}
         onClick={this.handleClick}
       >
-        { children }
+        {children}
       </Button>
     )
   }

@@ -32,7 +32,7 @@
 
     .@{slider-prefix}-bar-bg {
       height: 100%;
-      background: @slider-bar-color;
+      background: @slider-bar-bgc;
       border-radius: @slider-border-radius;
     }
 
@@ -86,6 +86,11 @@
     border-radius: @slider-indicator-size-half;
     cursor: pointer;
     transform: translate(50%, -50%);
+    transition: background 0.15s ease-in-out;
+
+    &:hover {
+      background-color: @colors-primary;
+    }
   }
 
   &-disabled {

@@ -108,6 +108,7 @@ export default curry(
         const { className, border, size, tip, popover, width, style, error, popoverProps, ...other } = this.props
         const { focus } = this.state
         const Tag = options.tag || 'label'
+
         const newStyle = Object.assign({ width }, style)
         const newClassName = classnames(
           inputClass(

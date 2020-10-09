@@ -2,6 +2,8 @@
 @import './themes/@{so-theme}.less';
 
 @dropdown-prefix: ~'@{so-prefix}-dropdown';
+@dropdown-list: ~'@{so-prefix}-list';
+@button-prefix: ~'@{so-prefix}-button';
 @dropdown-caret-size: 10px;
 
 .@{dropdown-prefix} {
@@ -14,6 +16,27 @@
 
   &-button {
     border-width: @dropdown-border-width;
+  }
+
+  &-button.@{button-prefix}-default {
+    &:not(.@{button-prefix}-disabled):hover span.@{dropdown-prefix}-caret,
+    &:not(.@{button-prefix}-disabled):active span.@{dropdown-prefix}-caret,
+    &:not(.@{button-prefix}-disabled):focus span.@{dropdown-prefix}-caret {
+      svg path {
+        fill: @colors-primary;
+      }
+    }
+
+  }
+
+  &-button.@{button-prefix}-outline {
+    &:not(.@{button-prefix}-disabled):hover span.@{dropdown-prefix}-caret,
+    &:not(.@{button-prefix}-disabled):active span.@{dropdown-prefix}-caret,
+    &:not(.@{button-prefix}-disabled):focus span.@{dropdown-prefix}-caret {
+      svg path {
+        fill: white;
+      }
+    }
   }
 
   .@{dropdown-prefix}-button span.@{dropdown-prefix}-caret {
@@ -161,9 +184,9 @@
 
     &:hover,
     &.@{dropdown-prefix}-active {
-      background-color: @dropdown-link-hover-bg;
-      color: @dropdown-link-hover-color;
-      fill: @dropdown-link-hover-color;
+      background-color: @dropdown-options-hover-bgc;
+      color: @dropdown-options-hover-color;
+      fill: @dropdown-options-hover-color;
     }
 
     &:focus {
@@ -202,6 +225,12 @@
   }
 }
 
+// clear first item border
+.@{dropdown-list} + .@{dropdown-prefix}-button.@{dropdown-prefix}-item {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 .@{dropdown-prefix}-split-dropdown {
   margin-left: -1px;
 
@@ -209,6 +238,8 @@
     padding-right: 8px;
     padding-left: 8px;
     border-radius: 0 @btn-border-radius-base @btn-border-radius-base 0 !important;
+    border-top-width: @dropdown-button-group-split-border-width;
+    border-bottom-width: @dropdown-button-group-split-border-width;
 
     .@{dropdown-prefix}-button-content {
       width: 0;
@@ -222,5 +253,12 @@
         margin-left: 0;
       }
     }
+  }
+}
+
+
+.@{button-prefix}-group {
+  .@{dropdown-prefix}.@{dropdown-prefix}-split-dropdown {
+    margin-left: 0;
   }
 }

@@ -7,7 +7,7 @@
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | absolute | boolean | false | 为 true 时，选项弹出层在 DOM 中独立 render |
-| autoAdapt | boolean | false | 是否列表自适应 |
+| autoAdapt | boolean | false | 下拉列表宽度根据内容自由展开 |
 | clearable | boolean | false | 是否可清除值 |
 | multiple | boolean | false | 是否是多选 |
 | columns | number | 1 | columns 大于 1 时，选项展示为多列布局模式 |
@@ -41,3 +41,6 @@
 | focusSelected | boolean | true | onCreate 或 onFilter 在单选情况下单击值后是否选中值 |
 | noCache | boolean | false | 是否开启数据缓存，如果数据存在动态更新的情况建议开启 |
 | compressedClassName | string | 无 | 多选合并展示弹出框的类名 |
+| onCollapse | (collapse: boolean) => void | 无 | 下拉列表展开/收起回调 | 
+| resultClassName | ((value: any) => string) \| string | 无 | 选中结果内容容器的className | 
+| columnsTitle | ReactNode | 无 | 多列选项多选时的标题文字 |

@@ -68,6 +68,8 @@ const accessors = {
   dropdown: {},
   common: {},
   switch: {},
+  tabs: {},
+  cascader: {},
 }
 
 for (const [key, value] of entries(accessors)) {

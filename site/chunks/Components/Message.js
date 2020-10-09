@@ -49,6 +49,15 @@ const examples = [
     component: require('doc/pages/components/Message/example-4-close.js').default,
     rawText: require('!raw-loader!doc/pages/components/Message/example-4-close.js'),
   },
+  {
+    name: '5-manual-close',
+    title: locate(
+      '手动关闭 \n Message 会异步返回一个关闭函数，调用它来关闭当前 Messsage',
+      'Close \n Message return close func async'
+    ),
+    component: require('doc/pages/components/Message/example-5-manual-close.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Message/example-5-manual-close.js'),
+  },
 ]
 
 const codes = undefined

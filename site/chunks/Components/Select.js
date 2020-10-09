@@ -25,7 +25,7 @@ const examples = [
   {
     name: '01-cadapt',
     title: locate(
-      ' \n 列表自适应内容宽度',
+      ' \n 当文字过长时，下拉列表宽度根据内容自由展开',
       ' \n options auto adapt width'
     ),
     component: require('doc/pages/components/Select/example-01-cadapt.js').default,

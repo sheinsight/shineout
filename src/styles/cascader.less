@@ -154,9 +154,15 @@
   }
 
   &-active {
-    background-color: @dropdown-link-active-bg;
-    color: @dropdown-link-active-color;
-    font-weight: bold;
+    background-color: @cascader-active-background-color;
+    color: @cascader-active-color;
+    // font-weight: bold;
     text-decoration: none;
+
+    // cover hover
+    &.@{cascader-prefix}-node {
+      background-color: @cascader-active-background-color;
+      color: @cascader-active-color;
+    }
   }
 }

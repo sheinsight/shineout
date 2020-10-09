@@ -63,7 +63,7 @@ class Tr extends Component {
   setRowHeight(expand) {
     const { setRowHeight, dataUpdated, datum, lazy } = this.props
     if (!lazy || !setRowHeight || !this.element) return
-    let height = this.element.clientHeight
+    let { height } = this.element.getBoundingClientRect()
     if (Number.isNaN(height)) height = this.lastRowHeight || 0
     datum.unsubscribe(ROW_HEIGHT_UPDATE_EVENT, this.setRowHeight)
     if (height === 0) {

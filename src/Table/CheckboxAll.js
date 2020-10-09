@@ -57,12 +57,6 @@ export default class extends PureComponent {
   render() {
     if (this.props.datum.limit === 1) return null
 
-    return (
-      <Checkbox
-        {...this.props}
-        checked={this.getChecked()}
-        onChange={this.handleChange}
-      />
-    )
+    return <Checkbox {...this.props} checked={this.getChecked()} onChange={this.handleChange} />
   }
 }

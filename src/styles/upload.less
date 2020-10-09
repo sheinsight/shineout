@@ -150,6 +150,26 @@
       left: 4px;
     }
 
+    .@{upload-prefix}-delete {
+      cursor: pointer;
+      &:after, &:before {
+        position: absolute;
+        left: 50%;
+        top: 2px;
+        content: '';
+        display: inline-block;
+        width: 1px;
+        height: 10px;
+        background: #fff;
+      }
+      &:after {
+        transform: rotate(45deg);
+      }
+      &:before {
+        transform: rotate(-45deg);
+      }
+    }
+
     .@{upload-prefix}-delete,
     .@{upload-prefix}-recover {
       position: absolute;
@@ -373,7 +393,7 @@
 
     &.@{upload-prefix}-uploading{
       background: @btn-default-bg;
-      color: @btn-default-color;
+      color: @button-default-text-color;
       cursor: @cursor-disabled;
       opacity: 0.85;
     }

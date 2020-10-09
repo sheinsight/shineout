@@ -94,6 +94,15 @@ const examples = [
     component: require('doc/pages/components/Radio/example-8-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/Radio/example-8-disabled.js'),
   },
+  {
+    name: '9-toggle',
+    title: locate(
+      '支持取消 \n 使用组件形式来支持取消选中',
+      'Cancel \n Use component list for toggle radio'
+    ),
+    component: require('doc/pages/components/Radio/example-9-toggle.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Radio/example-9-toggle.js'),
+  },
 ]
 
 const codes = undefined
