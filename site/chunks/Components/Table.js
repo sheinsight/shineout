@@ -302,13 +302,22 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-29-sort.js'),
   },
   {
-    name: '99-raw',
+    name: '30-raw',
     title: locate(
       '只使用样式 \n 使用原生的tr, td来显示表格',
       'Style only \n Use the native tr and td to display the table.'
     ),
-    component: require('doc/pages/components/Table/example-99-raw.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Table/example-99-raw.js'),
+    component: require('doc/pages/components/Table/example-30-raw.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-30-raw.js'),
+  },
+  {
+    name: '31-sticky',
+    title: locate(
+      '表头附着 \n 在滚屏场景下，可以设置 sticky 属性使表头附着顶部',
+      'Sticky Header \n Use the sticky attribute to sticky the header.'
+    ),
+    component: require('doc/pages/components/Table/example-31-sticky.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-31-sticky.js'),
   },
 ]
 
