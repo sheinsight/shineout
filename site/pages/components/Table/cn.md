@@ -47,6 +47,7 @@
 | pagination | object | 无 | 分页数据 |
 | innerScrollAttr | string[] | 无 | 虚拟滚动模式下，设置行内元素的 attribut 来实现内部滚动 |
 | expandKeys | any[] | 无 | 展开行受控 |
+| sticky | boolean \| object | 无 | 表头是否附着顶部，为 true 时距离顶部为0，为对象时属性值参考 [Sticky组件](/components/Sticky) |
 
 ### TableColumn
 
