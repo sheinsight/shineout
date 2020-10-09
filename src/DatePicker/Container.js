@@ -317,7 +317,7 @@ class Container extends PureComponent {
   }
 
   renderText(value, placeholder, key) {
-    const { inputable, formatResult } = this.props
+    const { inputable, formatResult, disabled } = this.props
     const date = this.parseDate(value)
     const className = classnames(
       datepickerClass('txt', this.state[`picker${key}`] && 'text-focus'),
@@ -337,6 +337,7 @@ class Container extends PureComponent {
         placeholder={placeholder}
         onChange={this.handleTextChange}
         value={utils.isInvalid(date) ? undefined : utils.format(date, resultFormat)}
+        disabled={disabled === true}
       />
     )
   }
