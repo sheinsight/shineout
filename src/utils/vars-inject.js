@@ -1923,6 +1923,38 @@ const injects = {
         type: 'color',
         desc: '项目鼠标悬浮背景色',
       },
+      {
+        name: 'fontSize',
+        className: exposeClass('pagination'),
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+        desc: '字体大小',
+      },
+      {
+        name: 'defaultSize',
+        className: exposeClass('pagination-default'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        desc: '默认尺寸宽高',
+      },
+      {
+        name: 'smallSize',
+        className: exposeClass('pagination-small'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        desc: '小号尺寸宽高',
+      },
+      {
+        name: 'largeSize',
+        className: exposeClass('pagination-large'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        desc: '大号尺寸宽高',
+      },
     ],
     set borderRadius(v) {
       setBodyProperty(
@@ -1960,6 +1992,38 @@ const injects = {
       setBodyProperty(
         {
           '--pagination-hover-bg': v,
+        },
+        v
+      )
+    },
+    set fontSize(v) {
+      setBodyProperty(
+        {
+          '--pagination-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set defaultSize(v) {
+      setBodyProperty(
+        {
+          '--pagination-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set smallSize(v) {
+      setBodyProperty(
+        {
+          '--pagination-size-small': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set largeSize(v) {
+      setBodyProperty(
+        {
+          '--pagination-size-large': `${parseInt(v, 10)}px`,
         },
         v
       )
