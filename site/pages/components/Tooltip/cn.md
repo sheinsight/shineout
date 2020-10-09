@@ -15,7 +15,7 @@ Tooltip 主要用来显示文字提示，如果需要显示更多内容，请使
 | children | ReactNode | 必填 | 子元素只能为一个 ReactElement |
 | position | 'left' \| 'top' \| 'right' \| 'bottom' | 'top' | 弹出层位置 |
 | style | object | 无 | 最外层扩展样式 |
-| tip | string | 必填 | 弹出文字 | 
+| tip | ReactNode | 必填 | 弹出文字 | 
 | trigger| string | "hover" | 弹出方式, 可选值: \["hover", "click"]|
 | disabledChild | boolean | false | 使被禁用的元素正常显示提示 |
 
