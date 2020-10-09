@@ -60,9 +60,9 @@ class Text extends PureComponent {
   }
 
   render() {
-    const { className, inputable, value, placeholder } = this.props
+    const { className, inputable, value, placeholder, disabled } = this.props
 
-    if (!inputable) {
+    if (!inputable || disabled) {
       return <span className={className}>{value || placeholder}</span>
     }
 
@@ -81,6 +81,7 @@ class Text extends PureComponent {
 }
 
 Text.propTypes = {
+  disabled: PropTypes.bool,
   className: PropTypes.string,
   format: PropTypes.string,
   index: PropTypes.number,
