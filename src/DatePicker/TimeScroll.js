@@ -66,6 +66,7 @@ class TimeScroll extends PureComponent {
 
     // timeRange: [min, max]
     let isDisabled = false
+    if (!timeRange) return isDisabled
     if (typeof timeRange[0] === 'number') isDisabled = num < timeRange[0]
     if (!isDisabled && typeof timeRange[1] === 'number') isDisabled = num > timeRange[1]
 
