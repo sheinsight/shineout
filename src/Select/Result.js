@@ -78,6 +78,18 @@ class Result extends PureComponent {
     }, 10)
   }
 
+  isEmptyResult() {
+    const { result, renderResult, renderUnmatched } = this.props
+    if (result.length <= 0) return true
+    const res = result.reduce((acc, cur) => {
+      if (getResultContent(cur, renderResult, renderUnmatched)) {
+        acc.push(cur)
+      }
+      return acc
+    }, [])
+    return res.length <= 0
+  }
+
   handelMore(more) {
     this.setState({ more })
   }
@@ -234,7 +246,7 @@ class Result extends PureComponent {
 
   render() {
     const { compressed } = this.props
-    const result = this.props.result.length === 0 ? this.renderPlaceholder() : this.renderResult()
+    const result = this.isEmptyResult() ? this.renderPlaceholder() : this.renderResult()
 
     return (
       <div className={selectClass('result', compressed && 'compressed')}>
