@@ -168,8 +168,8 @@ export default class extends React.Component {
     this.handleExpand = this.handleExpand.bind(this)
   }
 
-  handleExpand(keys, ...a) {
-    console.log(keys, a)
+  handleExpand(keys) {
+    console.log(keys)
     this.setState({
       expands: keys,
     })
