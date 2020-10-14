@@ -34,7 +34,7 @@
 | rowClickAttr | string \| string[] | \['*'\] | Sets the attribute of inner element to trigger onRowClick as needed, and '*' to accept the row click |
 | sorter | (sortKey: any, sorter: 'asc' \| 'desc', sortedList: any[]) => (a: object, b: object) => boolean | alphaSort(Column.sorter, sorter) | the method of table sort，args are Column.sorter and order<br /> Multi-column sorting is supported. The sorter passes in the object {rule: string \| function, weight: number}, where rule is a sorting rule, which refers to the use of single-column sorting when it is a string, weight is the weight, indicating the priority of the order<br /> When sorting on multiple columns, sortedList returns information about all fields involved in sorting|
 | treeExpandKeys | any[] | none  | Tree Table expanded row keys |
-| onTreeExpand | (openKeys: string[]) => void | none | expand row change, keys is expanded row keys |
+| onTreeExpand | (openKeys: string[], data: object, expand: boolean) => void | none | expand row change, keys is expanded row keys |
 | hover | boolean | true | row hover highlight |
 | treeEmptyExpand | boolean | false | show expand button while children data is empty |
 | treeCheckAll | boolean | false | check children data while select all | 

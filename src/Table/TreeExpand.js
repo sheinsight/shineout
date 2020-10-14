@@ -96,7 +96,7 @@ export default WrappedComponent => {
         expandKeys.get(key) ? draft.delete(key) : draft.set(key, true)
       })
       if (treeExpandKeys && onTreeExpand) {
-        onTreeExpand(keysToArray(changedKeys))
+        onTreeExpand(keysToArray(changedKeys), data, !!expandKeys.get(key), index)
         return
       }
       this.changedByExpand = true
