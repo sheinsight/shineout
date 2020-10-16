@@ -3522,6 +3522,13 @@ cyclist@~0.2.2:
   resolved "https://registry.npmjs.org/cyclist/-/cyclist-0.2.2.tgz#1b33792e11e914a2fd6d6ed6447464444e5fa640"
   integrity sha1-GzN5LhHpFKL9bW7WRHRkRE5fpkA=
 
+cypress-react-selector@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.npmjs.org/cypress-react-selector/-/cypress-react-selector-2.1.0.tgz#803e78d7e81b0ec87984c1446b7349f8b656e23d"
+  integrity sha512-e3RR6Re/3OYbIkkecZL/B+NFpcL19gZAT4IVGNZNcEMlu9BgfGwrxvCrYbyLhDfKNhD48XcF5BXyGls1gFc0Xg==
+  dependencies:
+    resq "1.9.0"
+
 cypress@^4.11.0:
   version "4.11.0"
   resolved "http://nexus.sheincorp.cn:4873/cypress/-/cypress-4.11.0.tgz#054b0b85fd3aea793f186249ee1216126d5f0a7e"
@@ -10819,6 +10826,13 @@ resolve@^1.2.0, resolve@^1.3.2, resolve@^1.5.0, resolve@^1.6.0, resolve@^1.8.1, 
   integrity sha512-TZNye00tI67lwYvzxCxHGjwTNlUV70io54/Ed4j6PscB8xVfuBJpRenI/o6dVk0cY0PYTY27AgCoGGxRnYuItQ==
   dependencies:
     path-parse "^1.0.6"
+
+resq@1.9.0:
+  version "1.9.0"
+  resolved "https://registry.npmjs.org/resq/-/resq-1.9.0.tgz#1caf91d1e0336916cf14b4c64c392e6befdb8ddc"
+  integrity sha512-brhThMgVgl9hmbiKPi59bfKyT7iH+ZpuD4WzOLJglEHJNN2hmAKNV//jPgrMOFOeAxk2SdciugcLqtREi4njMg==
+  dependencies:
+    fast-deep-equal "^2.0.1"
 
 restore-cursor@^1.0.1:
   version "1.0.1"
