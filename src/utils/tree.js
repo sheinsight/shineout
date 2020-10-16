@@ -1,3 +1,16 @@
+import { isEmpty } from './is'
+
+/**
+ *set default value when target is empty
+ *
+ * @param {*} value target value
+ * @param {*} [defaultValue=null] default value
+ * @returns any
+ */
+function setDefaultValue(value, defaultValue = null) {
+  return isEmpty(value) ? defaultValue : value
+}
+
 function getFilterTree(treeNodes, filterFunc, filterExpandKeys, keyFunc, childrenKey = 'children', showHitDescendants) {
   const mapFilteredNodeToData = node => {
     if (!node) return null
@@ -12,7 +25,7 @@ function getFilterTree(treeNodes, filterFunc, filterExpandKeys, keyFunc, childre
       filterExpandKeys.push(key)
       return {
         ...node,
-        [childrenKey]: showHitDescendants && match ? node[childrenKey] || [] : children,
+        [childrenKey]: showHitDescendants && match ? setDefaultValue(node[childrenKey]) : setDefaultValue(children),
       }
     }
     return null
