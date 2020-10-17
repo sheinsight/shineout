@@ -34,4 +34,6 @@ ButtonGroup.defaultProps = {
   type: 'default',
 }
 
+ButtonGroup.displayName = 'ShineoutButtonGroup'
+
 export default ButtonGroup
