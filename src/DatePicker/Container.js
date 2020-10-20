@@ -235,12 +235,22 @@ class Container extends PureComponent {
     }
   }
 
+  triggerValueBlur(cb = () => {}) {
+    const { inputable } = this.props
+    const { focus } = this.state
+    cb()
+    // OnChange is not triggered when handling copy and paste
+    if (inputable && focus === false) {
+      this.props.onValueBlur()
+    }
+  }
+
   handleTextChange(date, index) {
     const format = this.getFormat()
     const val = date ? utils.format(date, format) : ''
 
     if (!this.props.range) {
-      this.props.onChange(val, this.handleBlur)
+      this.props.onChange(val, this.triggerValueBlur.bind(this, this.handleBlur))
       return
     }
 
@@ -250,9 +260,12 @@ class Container extends PureComponent {
       }),
     ]
     if (utils.compareAsc(value[0], value[1]) > 0) value.push(value.shift())
-    this.props.onChange(value, () => {
-      this.setState({ current: this.getCurrent() })
-    })
+    this.props.onChange(
+      value,
+      this.triggerValueBlur.bind(this, () => {
+        this.setState({ current: this.getCurrent() })
+      })
+    )
   }
 
   dateToCurrent(date) {
