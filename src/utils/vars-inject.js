@@ -995,6 +995,13 @@ const injects = {
         desc: '禁用背景色',
       },
       {
+        name: 'disabledColor',
+        className: inputClass('disabled'),
+        attr: 'color',
+        type: 'color',
+        desc: '禁用字体色',
+      },
+      {
         name: 'borderColor',
         className: inputClass('_'),
         attr: 'borderColor',
@@ -1066,6 +1073,14 @@ const injects = {
       setBodyProperty(
         {
           '--input-bg-disabled': v,
+        },
+        v
+      )
+    },
+    set disabledColor(v) {
+      setBodyProperty(
+        {
+          '--input-disabled-color': v,
         },
         v
       )
