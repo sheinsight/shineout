@@ -10,6 +10,7 @@ function getFilterTree(treeNodes, filterFunc, filterExpandKeys, keyFunc, childre
     if (children.length || match) {
       const key = keyFunc(node)
       filterExpandKeys.push(key)
+      if (!node[childrenKey]) return node
       return {
         ...node,
         [childrenKey]: showHitDescendants && match ? node[childrenKey] || [] : children,
