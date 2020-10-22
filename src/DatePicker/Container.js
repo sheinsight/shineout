@@ -235,10 +235,10 @@ class Container extends PureComponent {
     }
   }
 
-  triggerValueBlur(cb = () => {}) {
+  triggerValueBlur(cb) {
     const { inputable } = this.props
     const { focus } = this.state
-    cb()
+    if (cb && typeof cb === 'function') cb()
     // OnChange is not triggered when handling copy and paste
     if (inputable && focus === false) {
       this.props.onValueBlur()
