@@ -1,9 +1,3 @@
-import { isEmpty } from './is'
-
-function setDefaultValue(value, defaultValue = null) {
-  return isEmpty(value) ? defaultValue : value
-}
-
 function getFilterTree(treeNodes, filterFunc, filterExpandKeys, keyFunc, childrenKey = 'children', showHitDescendants) {
   const mapFilteredNodeToData = node => {
     if (!node) return null
@@ -18,7 +12,7 @@ function getFilterTree(treeNodes, filterFunc, filterExpandKeys, keyFunc, childre
       filterExpandKeys.push(key)
       return {
         ...node,
-        [childrenKey]: showHitDescendants && match ? setDefaultValue(node[childrenKey]) : setDefaultValue(children),
+        [childrenKey]: showHitDescendants && match ? node[childrenKey] || [] : children,
       }
     }
     return null
