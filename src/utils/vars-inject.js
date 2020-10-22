@@ -57,6 +57,12 @@ const injects = {
         desc: '主色',
       },
       {
+        name: 'infoColor',
+        type: 'color',
+        attr: 'backgroundColor',
+        className: buttonClass('info'),
+      },
+      {
         name: 'warning',
         type: 'color',
         attr: 'backgroundColor',
@@ -158,6 +164,20 @@ const injects = {
           '--primary-color-fade-0': fade(v, 0),
           '--primary-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
           '--primary-color-dark-5_fade-0': fade(darken(v, 5), 0),
+        },
+        v
+      )
+    },
+    set infoColor(v) {
+      setBodyProperty(
+        {
+          '--info-color': v,
+          '--info-color-dark-5': darken(v, 5),
+          '--info-color-fade-60': fade(v, 0.6),
+          '--info-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
+          '--info-color-fade-0': fade(v, 0),
+          '--info-color-dark-5_fade-0': fade(darken(v, 5), 0),
+          '--info-color-dark-btn-hover': darken(v, getProperty()),
         },
         v
       )
