@@ -1,12 +1,5 @@
 import { isEmpty } from './is'
 
-/**
- *set default value when target is empty
- *
- * @param {*} value target value
- * @param {*} [defaultValue=null] default value
- * @returns any
- */
 function setDefaultValue(value, defaultValue = null) {
   return isEmpty(value) ? defaultValue : value
 }
