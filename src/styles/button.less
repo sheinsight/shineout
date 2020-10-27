@@ -51,7 +51,7 @@
     position: relative;
     box-shadow: none;
     cursor: @cursor-disabled;
-    opacity: 0.65;
+    opacity: @button-disabled-opacity;
   }
 
   a& {
@@ -238,7 +238,7 @@
     background: @button-disabled-bg;
     color: @button-disabled-color;
     fill: @button-disabled-color;
-    border-color: @button-disabled-border-color;
+    border-color: #d9d9d9;
   }
 
   &-circle {
@@ -277,21 +277,6 @@
         transform: translateY(-50%);
       }
 
-      &.@{button-prefix}-disabled {
-        border-left-color: @button-disabled-color;
-      }
-
-      // fix adjacent button border color
-      &.@{button-prefix}-disabled + .@{button-prefix} {
-        border-left-color: @button-disabled-color;
-      }
-
-      &.@{button-prefix}-default {
-        &:hover,
-        &:focus {
-          border-color: @btn-default-border;
-        }
-      }
 
       &:first-child {
         margin-left: 0;
@@ -317,31 +302,9 @@
       &:last-child:not(:first-child) {
         .border-left-radius(0);
       }
-    }
 
-    &.@{button-prefix}-outline .@{button-prefix} {
-      &:before {
-        border-left-color: inherit;
-      }
 
-      &.@{button-prefix}-disabled {
-        &:before {
-          border-left-color: @button-disabled-bg;
-        }
-      }
-
-      &.@{button-prefix}-disabled + .@{button-prefix}.@{button-prefix}-primary {
-        &:hover,
-        &:active{
-          border-left-color: @btn-primary-bg;
-          transition: all 0.15s ease-in-out;
-        }
-      }
-
-      &:not(@{button-disabled}):hover + .@{button-prefix}-outline:not(@{button-disabled}),
-      &:not(@{button-disabled}):active + .@{button-prefix}-outline:not(@{button-disabled}) {
-        border-left-color: @btn-primary-color;
-      }
+      .button-group-border()
     }
   }
 
