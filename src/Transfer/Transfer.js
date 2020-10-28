@@ -66,6 +66,7 @@ class Transfer extends PureComponent {
       rowsInView,
       lineHeight,
       listHeight,
+      renderFilter,
     } = this.props
     const selecteds = this.getSelected()
 
@@ -101,6 +102,7 @@ class Transfer extends PureComponent {
             rowsInView={rowsInView}
             lineHeight={lineHeight}
             listHeight={listHeight}
+            renderFilter={renderFilter}
           />
           <Btns
             selecteds={selecteds}
@@ -133,6 +135,7 @@ class Transfer extends PureComponent {
             rowsInView={rowsInView}
             lineHeight={lineHeight}
             listHeight={listHeight}
+            renderFilter={renderFilter}
           />
         </Context.Provider>
       </div>
@@ -178,6 +181,7 @@ Transfer.propTypes = {
   rowsInView: PropTypes.number,
   lineHeight: PropTypes.number,
   listHeight: PropTypes.number,
+  renderFilter: PropTypes.func,
 }
 
 export default Transfer
