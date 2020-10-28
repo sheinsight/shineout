@@ -333,10 +333,11 @@
   &:not(.@{button-prefix}-outline):not(.@{button-prefix}-default):not(.@{button-prefix}-disabled):before {
     border-left-color: white;
   }
-  // outline --> need mixins
+  // outline
   &.@{button-prefix}-outline:not(.@{button-prefix}-default):before {
     border-left-color: inherit;
   }
+  
 
   // disabled
   // default
@@ -344,10 +345,10 @@
     border-left-color: white;
   }
 
-  & when(@so-theme = antd), (@so-theme = default) {
-    &.@{button-prefix}-disabled.@{button-prefix}-default:before {
-      border-left-color: #d9d9d9;
-    }
+  &.@{button-prefix}-disabled.@{button-prefix}-default:before,
+  &.@{button-prefix}-disabled.@{button-prefix}-outline:before
+    {
+    border-left-color: @button-disabled-delimiter;
   }
 
   // disabled + default

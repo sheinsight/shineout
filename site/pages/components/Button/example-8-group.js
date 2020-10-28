@@ -28,7 +28,7 @@ export default function() {
       <br />
       <Button.Group outline type="primary">
         <Button disabled>disabled</Button>
-        <Button>Center</Button>
+        <Button disabled>Center</Button>
         <Button>Right</Button>
       </Button.Group>
 

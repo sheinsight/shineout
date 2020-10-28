@@ -452,6 +452,13 @@ const injects = {
         desc: '禁用按钮边框色',
       },
       {
+        name: 'disabledDelimiter',
+        attr: 'borderColor',
+        type: 'color',
+        className: exposeClass('button-disabled-delimiter'),
+        desc: '按钮组禁用状态下分隔符颜色',
+      },
+      {
         name: 'disabledColor',
         attr: 'color',
         type: 'color',
@@ -599,6 +606,14 @@ const injects = {
       setBodyProperty(
         {
           '--button-disabled-border-color': v,
+        },
+        v
+      )
+    },
+    set disabledDelimiter(v) {
+      setBodyProperty(
+        {
+          '--button-disabled-delimiter': v,
         },
         v
       )
