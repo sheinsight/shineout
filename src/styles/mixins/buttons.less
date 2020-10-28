@@ -343,6 +343,13 @@
   &.@{button-prefix}-disabled:before {
     border-left-color: white;
   }
+
+  & when(@so-theme = antd), (@so-theme = default) {
+    &.@{button-prefix}-disabled.@{button-prefix}-default:before {
+      border-left-color: #d9d9d9;
+    }
+  }
+
   // disabled + default
   &.@{button-prefix}-disabled + .@{button-prefix}:not(.@{button-prefix}-disabled) {
     &:before {
