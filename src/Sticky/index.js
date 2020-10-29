@@ -38,6 +38,7 @@ class Sticky extends PureComponent {
 
   getStyle(mode, offset, left, width) {
     const { zIndex = 900 } = this.props.style
+    const { css } = this.props
 
     const style = {
       position: 'fixed',
@@ -46,16 +47,15 @@ class Sticky extends PureComponent {
       [mode]: offset,
       zIndex,
     }
-
     if (this.targetElement) {
-      if (supportSticky) {
+      if (supportSticky && css) {
         style.position = 'sticky'
       } else {
         style.position = 'absolute'
         if (mode === 'top') {
-          style.transform = `translateY(${offset}${this.targetElement.scrollTop}px)`
+          style.transform = `translateY(${offset + this.targetElement.scrollTop}px)`
         } else {
-          style.transform = `translateY(${offset}${this.targetElement.scrollTop}px)`
+          style.transform = `translateY(${this.targetElement.scrollTop}px)`
         }
         delete style.left
       }
@@ -65,7 +65,7 @@ class Sticky extends PureComponent {
   }
 
   setPosition() {
-    const { bottom, top, target } = this.props
+    const { bottom, top, target, css } = this.props
     const { mode, scrollWidth } = this.state
     const selfRect = copyBoundingClientRect(this.element)
     const { marginBottom, marginTop } = getComputedStyle(this.element)
@@ -85,7 +85,7 @@ class Sticky extends PureComponent {
     const placeholderStyle = {
       width: selfRect.width,
       // if target element is not null, set height to 0
-      height: target && supportSticky ? 0 : selfRect.height,
+      height: target && supportSticky && css ? 0 : selfRect.height,
     }
 
     let style
@@ -150,7 +150,8 @@ class Sticky extends PureComponent {
   }
 
   handlePosition() {
-    if (this.locked) {
+    const { css } = this.props
+    if (this.locked && css) {
       this.scrollCount += 1
       return
     }
@@ -200,12 +201,12 @@ class Sticky extends PureComponent {
   }
 
   render() {
-    const { children, className, target } = this.props
+    const { children, className, target, css } = this.props
     const { placeholder } = this.state
 
     let outerStyle = this.props.style
     let innerStyle = this.state.style
-    if (target && supportSticky) {
+    if (target && supportSticky && css) {
       outerStyle = Object.assign({}, outerStyle, innerStyle)
       innerStyle = {}
     }
@@ -228,10 +229,12 @@ Sticky.propTypes = {
   children: PropTypes.any.isRequired,
   target: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   top: PropTypes.number,
+  css: PropTypes.bool,
 }
 
 Sticky.defaultProps = {
   ...defaultProps,
+  css: true,
 }
 
 Sticky.displayName = 'ShineoutSticky'
