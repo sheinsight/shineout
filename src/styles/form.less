@@ -4,6 +4,7 @@
 @form-prefix: ~'@{so-prefix}-form';
 @input-prefix: ~'@{so-prefix}-input';
 @editableArea-prefix: ~'@{so-prefix}-editableArea';
+@select-prefix: ~'@{so-prefix}-select';
 
 @input-group-icon-padding-x: 8px;
 
@@ -132,6 +133,7 @@
     &:hover,
     input {
       .input-disabled();
+      color: @input-disabled-color;
     }
   }
 }
@@ -302,7 +304,8 @@
     box-shadow: none;
     
     &-disabled {
-      .input-disabled()
+      .input-disabled();
+      color: @input-disabled-color;
     }
   }
 
@@ -461,14 +464,6 @@
     overflow: hidden;
   }
 
-  &-disabled {
-    &,
-    &:hover,
-    input {
-      .input-disabled();
-    }
-  }
-
   input,
   textarea {
     display: block;
@@ -479,6 +474,19 @@
     line-height: inherit;
     outline: none;
     color: @input-color;
+  }
+
+  &-disabled {
+    &,
+    &:hover,
+    input {
+      .input-disabled();
+      color: @input-disabled-color;
+    }
+
+    .@{select-prefix}-result {
+      color: @input-disabled-color;
+    }
   }
 
   ::placeholder,

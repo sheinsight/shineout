@@ -7,6 +7,7 @@ import Colgroup from './Colgroup'
 import Tbody from './Tbody'
 import Thead from './Thead'
 import { compareColumns } from '../utils/shallowEqual'
+import Sticky from '../Sticky'
 
 function setScrollLeft(target, scrollLeft) {
   if (target && target.scrollLeft !== scrollLeft) target.scrollLeft = scrollLeft
@@ -83,6 +84,40 @@ class SimpleTable extends PureComponent {
     setScrollLeft(this.body, scrollLeft)
   }
 
+  renderHeader() {
+    const { columns, width, data, onResize, columnResizable, sticky } = this.props
+    const { colgroup, scrollAble } = this.state
+    const inner = (
+      <table style={{ width }}>
+        <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable} />
+        <Thead {...this.props} colgroup={colgroup} onSortChange={this.handleSortChange} onColChange={onResize} />
+      </table>
+    )
+    const empty = data.length === 0
+    const headerStyle = {}
+    if (!empty) headerStyle.overflowY = scrollAble ? 'scroll' : 'hidden'
+
+    const header = (
+      <div
+        key="head"
+        style={headerStyle}
+        className={tableClass('head', 'simple-head', empty && 'empty-head')}
+        ref={this.bindHeader}
+      >
+        {inner}
+      </div>
+    )
+    if (sticky) {
+      const stickyProps = Object.assign({ top: 0 }, sticky)
+      return (
+        <Sticky {...stickyProps} key="head">
+          {header}
+        </Sticky>
+      )
+    }
+    return header
+  }
+
   renderBody() {
     const { columns, width, fixed, columnResizable, ...others } = this.props
     const { colgroup, resize } = this.state
@@ -105,31 +140,9 @@ class SimpleTable extends PureComponent {
   }
 
   render() {
-    const { columns, width, data, onResize, children, columnResizable } = this.props
-    const { colgroup, scrollAble } = this.state
+    const { columns, width, children } = this.props
     if (!columns || columns.length === 0) return <table style={{ width }}>{children}</table>
-    const header = (
-      <table style={{ width }}>
-        <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable} />
-        <Thead {...this.props} colgroup={colgroup} onSortChange={this.handleSortChange} onColChange={onResize} />
-      </table>
-    )
-    const empty = data.length === 0
-    const headerStyle = {}
-    if (!empty) headerStyle.overflowY = scrollAble ? 'scroll' : 'hidden'
-
-    return [
-      <div
-        key="head"
-        style={headerStyle}
-        className={tableClass('head', 'simple-head', empty && 'empty-head')}
-        ref={this.bindHeader}
-      >
-        {header}
-      </div>,
-      this.renderBody(),
-      children,
-    ]
+    return [this.renderHeader(), this.renderBody(), children]
   }
 }
 
@@ -143,6 +156,7 @@ SimpleTable.propTypes = {
   children: PropTypes.any,
   dataChangeResize: PropTypes.bool,
   columnResizable: PropTypes.bool,
+  sticky: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 }
 
 SimpleTable.defaultProps = {

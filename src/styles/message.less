@@ -10,6 +10,9 @@
   z-index: @zindex-popover;
   left: 50%;
   max-width: 50%;
+  @media (max-width: @screen-desktop) {
+    max-width: none;
+  }
 
   @keyframes-left-in: ~'@{message-prefix}-left-in';
   @keyframes-right-in: ~'@{message-prefix}-right-in';

@@ -177,6 +177,17 @@ export default class extends React.Component {
 
   render() {
     const { expands } = this.state
-    return <Table onTreeExpand={this.handleExpand} treeExpandKeys={expands} bordered fixed="y" height={300} keygen="id" columns={columns} data={data} />
+    return (
+      <Table
+        onTreeExpand={this.handleExpand}
+        treeExpandKeys={expands}
+        bordered
+        fixed="y"
+        height={300}
+        keygen="id"
+        columns={columns}
+        data={data}
+      />
+    )
   }
 }

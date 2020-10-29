@@ -148,7 +148,7 @@ export default function(options) {
     style: PropTypes.object,
     trigger: PropTypes.oneOf(['click', 'hover']),
     disabledChild: PropTypes.bool,
-    tip: PropTypes.string,
+    tip: PropTypes.node,
   }
 
   Container.defaultProps = {

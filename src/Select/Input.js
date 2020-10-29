@@ -69,8 +69,10 @@ class FilterInput extends Component {
   }
 
   handleBlur(e) {
-    const text = e.target.innerText.replace('\feff ', '')
-    this.props.onInputBlur(this.getProcessedValue(text))
+    const { text: txt } = this.props
+    const text = this.getProcessedValue(e.target.innerText.replace('\feff ', ''))
+    if (text === txt) return
+    this.props.onInputBlur(text)
   }
 
   handlePaste(e) {

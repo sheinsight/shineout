@@ -1,4 +1,5 @@
 import classnames from 'classnames'
+import ReactDOM from 'react-dom'
 import { tooltipClass } from '../styles'
 import ready from '../utils/dom/ready'
 
@@ -50,7 +51,8 @@ export function show(props, id, innerStyle) {
     div.className = classnames(className, cn)
   }, 0)
 
-  inner.innerText = tip
+  ReactDOM.render(tip, inner)
+
   inner.setAttribute('style', false)
   if (innerStyle) {
     Object.keys(innerStyle).forEach(k => {

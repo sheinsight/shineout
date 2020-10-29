@@ -57,6 +57,12 @@ const injects = {
         desc: '主色',
       },
       {
+        name: 'infoColor',
+        type: 'color',
+        attr: 'backgroundColor',
+        className: buttonClass('info'),
+      },
+      {
         name: 'warning',
         type: 'color',
         attr: 'backgroundColor',
@@ -158,6 +164,20 @@ const injects = {
           '--primary-color-fade-0': fade(v, 0),
           '--primary-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
           '--primary-color-dark-5_fade-0': fade(darken(v, 5), 0),
+        },
+        v
+      )
+    },
+    set infoColor(v) {
+      setBodyProperty(
+        {
+          '--info-color': v,
+          '--info-color-dark-5': darken(v, 5),
+          '--info-color-fade-60': fade(v, 0.6),
+          '--info-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
+          '--info-color-fade-0': fade(v, 0),
+          '--info-color-dark-5_fade-0': fade(darken(v, 5), 0),
+          '--info-color-dark-btn-hover': darken(v, getProperty()),
         },
         v
       )
@@ -995,6 +1015,13 @@ const injects = {
         desc: '禁用背景色',
       },
       {
+        name: 'disabledColor',
+        className: inputClass('disabled'),
+        attr: 'color',
+        type: 'color',
+        desc: '禁用字体色',
+      },
+      {
         name: 'borderColor',
         className: inputClass('_'),
         attr: 'borderColor',
@@ -1066,6 +1093,14 @@ const injects = {
       setBodyProperty(
         {
           '--input-bg-disabled': v,
+        },
+        v
+      )
+    },
+    set disabledColor(v) {
+      setBodyProperty(
+        {
+          '--input-disabled-color': v,
         },
         v
       )
@@ -1923,6 +1958,38 @@ const injects = {
         type: 'color',
         desc: '项目鼠标悬浮背景色',
       },
+      {
+        name: 'fontSize',
+        className: exposeClass('pagination'),
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+        desc: '字体大小',
+      },
+      {
+        name: 'defaultSize',
+        className: exposeClass('pagination-default'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        desc: '默认尺寸宽高',
+      },
+      {
+        name: 'smallSize',
+        className: exposeClass('pagination-small'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        desc: '小号尺寸宽高',
+      },
+      {
+        name: 'largeSize',
+        className: exposeClass('pagination-large'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        desc: '大号尺寸宽高',
+      },
     ],
     set borderRadius(v) {
       setBodyProperty(
@@ -1960,6 +2027,38 @@ const injects = {
       setBodyProperty(
         {
           '--pagination-hover-bg': v,
+        },
+        v
+      )
+    },
+    set fontSize(v) {
+      setBodyProperty(
+        {
+          '--pagination-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set defaultSize(v) {
+      setBodyProperty(
+        {
+          '--pagination-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set smallSize(v) {
+      setBodyProperty(
+        {
+          '--pagination-size-small': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set largeSize(v) {
+      setBodyProperty(
+        {
+          '--pagination-size-large': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -3926,7 +4025,7 @@ const injects = {
     conf: [
       {
         name: 'fontSize',
-        className: buttonClass('_'),
+        className: exposeClass('common-base'),
         attr: 'fontSize',
         parser: parseInt,
         type: 'number',
