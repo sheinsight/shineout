@@ -68,6 +68,35 @@ class Card extends PureComponent {
     )
   }
 
+  renderFilter() {
+    const { onFilter, onSearch, renderFilter, filterText, disabled } = this.props
+    if (!onFilter && !onSearch) return null
+    if (renderFilter && typeof renderFilter === 'function') {
+      return (
+        <div className={transferClass('filter')}>
+          {renderFilter({
+            value: filterText,
+            disabled: disabled === true,
+            onFilter,
+            placeholder: getLocale('search'),
+          })}
+        </div>
+      )
+    }
+    return (
+      <div className={transferClass('filter')}>
+        <Input
+          disabled={disabled === true}
+          onChange={onFilter}
+          placeholder={getLocale('search')}
+          clearable
+          size="small"
+          value={filterText}
+        />
+      </div>
+    )
+  }
+
   render() {
     const {
       title,
@@ -76,11 +105,9 @@ class Card extends PureComponent {
       footer,
       listClassName,
       listStyle,
-      onFilter,
       empty,
       disabled,
       loading,
-      onSearch,
       lineHeight,
       listHeight,
       rowsInView,
@@ -100,18 +127,7 @@ class Card extends PureComponent {
           </div>
           <div className={transferClass('card-header-title')}>{title}</div>
         </SCard.Header>
-        {(onFilter || onSearch) && (
-          <div className={transferClass('filter')}>
-            <Input
-              disabled={disable}
-              onChange={onFilter}
-              placeholder={getLocale('search')}
-              clearable
-              size="small"
-              value={filterText}
-            />
-          </div>
-        )}
+        {this.renderFilter()}
         <Spin loading={loading}>
           <SCard.Body className={classnames(transferClass('card-body'), listClassName)} style={listms}>
             <LazyList
@@ -153,6 +169,7 @@ Card.propTypes = {
   lineHeight: PropTypes.number,
   listHeight: PropTypes.number,
   filterText: PropTypes.string,
+  renderFilter: PropTypes.func,
 }
 
 export default filter(Card)
