@@ -1,2 +1,153 @@
 @zoom-out: cubic-bezier(0.78, 0.14, 0.15, 0.86);
 @zoom-in: cubic-bezier(0.08, 0.82, 0.17, 1);
+
+@popover-prefix: ~'@{so-prefix}-popover';
+
+.popover-animation-keyframe (@keyframesName, @translate, @mode) {
+  & when (@mode = 'in') {
+    @keyframes @keyframesName {
+      0% {
+        opacity: 0;
+        transform: @translate scale(0.8);
+      }
+  
+      100% {
+        opacity: 1;
+        transform: @translate scale(1);
+      }
+    }
+  }
+  & when (@mode =  'out') {
+    @keyframes @keyframesName {
+      0% {
+        opacity: 1;
+        transform: @translate scale(1);
+      }
+  
+      100% {
+        opacity: 0;
+        transform: @translate scale(0.8);
+      }
+    }
+  }
+}
+
+.popover-animation-name (@mode)  {
+  .@{prefix}.@{popover-prefix}-right-top,
+  .@{prefix}.@{popover-prefix}-bottom-left,
+  .@{prefix}.@{popover-prefix}-bottom-right {
+    .popover-animation-keyframe(~'animation-rtblr-@{mode}', translate(0, 0), @mode);
+    animation-name: ~'animation-rtblr-@{mode}';
+  }
+
+  .@{prefix}.@{popover-prefix}-right-bottom,
+  .@{prefix}.@{popover-prefix}-top-left,
+  .@{prefix}.@{popover-prefix}-top-right {
+    .popover-animation-keyframe(~'animation-rbtlr-@{mode}', translate(0, -100%), @mode);
+    animation-name: ~'animation-rbtlr-@{mode}';
+  }
+
+  .@{prefix}.@{popover-prefix}-bottom {
+    .popover-animation-keyframe(~'animation-b-@{mode}', translate(-50%, 0), @mode);
+    animation-name: ~'animation-b-@{mode}';
+  }
+
+  .@{prefix}.@{popover-prefix}-top {
+    .popover-animation-keyframe(~'animation-t-@{mode}', translate(-50%, -100%), @mode);
+    animation-name: ~'animation-t-@{mode}';
+  }
+
+  .@{prefix}.@{popover-prefix}-right  {
+    .popover-animation-keyframe(~'animation-r-@{mode}', translate(0, -50%), @mode);
+    animation-name: ~'animation-r-@{mode}';
+  }
+  .@{prefix}.@{popover-prefix}-left  {
+    .popover-animation-keyframe(~'animation-l-@{mode}', translate(-100%, -50%), @mode);
+    animation-name: ~'animation-l-@{mode}';
+  }
+  .@{prefix}.@{popover-prefix}-left-top {
+    .popover-animation-keyframe(~'animation-lt-@{mode}', translate(-100%, 0), @mode);
+    animation-name: ~'animation-lt-@{mode}';
+  }
+  .@{prefix}.@{popover-prefix}-left-bottom {
+    .popover-animation-keyframe(~'animation-lb-@{mode}', translate(-100%, -100%), @mode);
+    animation-name: ~'animation-lb-@{mode}';
+  }
+}
+
+.popover-transform (@prefix, @scale) {
+  .@{prefix}.@{popover-prefix}-right-top,
+  .@{prefix}.@{popover-prefix}-bottom-left,
+  .@{prefix}.@{popover-prefix}-bottom-right {
+    transform: translate(0, 0) scale(@scale);
+  }
+
+  .@{prefix}.@{popover-prefix}-right-bottom,
+  .@{prefix}.@{popover-prefix}-top-left,
+  .@{prefix}.@{popover-prefix}-top-right {
+    transform: translate(0, -100%) scale(@scale);
+  }
+
+  .@{prefix}.@{popover-prefix}-bottom {
+    transform: translate(-50%, 0) scale(@scale);
+  }
+
+  .@{prefix}.@{popover-prefix}-top {
+    transform: translate(-50%, -100%) scale(@scale);
+  }
+
+  .@{prefix}.@{popover-prefix}-right  {
+    transform: translate(0, -50%) scale(@scale);
+  }
+  .@{prefix}.@{popover-prefix}-left  {
+    transform: translate(-100%, -50%) scale(@scale);
+  }
+  .@{prefix}.@{popover-prefix}-left-top {
+    transform: translate(-100%, 0) scale(@scale);
+  }
+  .@{prefix}.@{popover-prefix}-left-bottom {
+    transform: translate(-100%, -100%) scale(@scale);
+  }
+
+  & when (@scale = 0)  {
+    .popover-animation-name('in');
+  }
+  & when(@scale  = 1) {
+    .popover-animation-name('out');
+  }
+}
+
+
+.popover-transform-origin () {
+  .@{popover-prefix}-bottom-left,
+  .@{popover-prefix}-right-bottom {
+    transform-origin: 0 0;
+  }
+  .@{popover-prefix}-bottom-right,
+  .@{popover-prefix}-left-bottom {
+    transform-origin: 100% 0;
+  }
+
+  .@{popover-prefix}-left-bottom,
+  .@{popover-prefix}-top-right{
+    transform-origin: 100% 100%;
+  }
+
+  .@{popover-prefix}-top-left,
+  .@{popover-prefix}-right-bottom  {
+    transform-origin: 0 100%;
+  }
+
+  .@{popover-prefix}-top {
+    transform-origin: 50% 100%;
+  }
+  .@{popover-prefix}-right {
+    transform-origin: 0 50%;
+  }
+  .@{popover-prefix}-bottom {
+    transform-origin: 50% 0;
+  }
+  .@{popover-prefix}-left {
+    transform-origin: 100% 50%;
+  }
+}

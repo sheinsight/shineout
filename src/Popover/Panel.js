@@ -14,6 +14,12 @@ import { Provider as AbsoluteProvider } from '../Table/context'
 
 const emptyEvent = e => e.stopPropagation()
 
+const duration = 200
+const enterAnimationClass = popoverClass('animation-enter')
+const enterAnimationActiveClass = popoverClass('animation-active')
+const leaveAnimationClass = popoverClass('animation-leave')
+const leaveAnimationActiveClass = popoverClass('leave-active')
+
 class Panel extends Component {
   constructor(props) {
     super(props)
@@ -29,6 +35,8 @@ class Panel extends Component {
     this.childStateChange = this.childStateChange.bind(this)
 
     this.element = document.createElement('div')
+
+    this.position = null
   }
 
   componentDidMount() {
@@ -73,15 +81,20 @@ class Panel extends Component {
     const { onVisibleChange, mouseEnterDelay, mouseLeaveDelay, trigger, onChildStateChange } = this.props
     const delay = show ? mouseEnterDelay : mouseLeaveDelay
     if (onChildStateChange) onChildStateChange(show)
-    this.delayTimeout = setTimeout(
-      () => {
+    if (trigger === 'hover' && delay > 0) {
+      this.delayTimeout = setTimeout(() => {
         if (onVisibleChange) onVisibleChange(show)
         this.setState({ show })
         if (show && this.props.onOpen) this.props.onOpen()
         if (!show && this.props.onClose) this.props.onClose()
-      },
-      trigger === 'hover' ? delay : 0
-    )
+      }, delay)
+      return
+    }
+
+    if (onVisibleChange) onVisibleChange(show)
+    this.setState({ show })
+    if (show && this.props.onOpen) this.props.onOpen()
+    if (!show && this.props.onClose) this.props.onClose()
   }
 
   getPositionStr() {
@@ -114,14 +127,6 @@ class Panel extends Component {
         position += '-left'
       }
     }
-    // if (rect.top + rect.height / 2 > windowHeight / 2) {
-    //   position = 'top'
-    // } else {
-    //   position = 'bottom'
-    // }
-
-    // if (centerPoint > windowWidth * 0.6) position += '-right'
-    // else if (centerPoint < windowWidth * 0.3) position += '-left'
 
     return position
   }
@@ -138,12 +143,36 @@ class Panel extends Component {
     return document.body
   }
 
-  updatePosition(position) {
-    const pos = getPosition(position, this.parentElement, this.container)
-    // eslint-disable-next-line
-    Object.keys(pos).forEach(attr => {
-      this.element.style[attr] = pos[attr]
-    })
+  animationRequest(show, position, containerRect) {
+    if (show) {
+      const pos = getPosition(position, this.parentElement, this.container)
+      this.element.style.opacity = 0
+
+      this.element.classList.add(enterAnimationClass)
+      // set in view
+      this.updateStyle(pos)
+      // start animation
+      this.element.classList.add(enterAnimationActiveClass)
+
+      this.animation = setTimeout(() => {
+        this.element.classList.remove(enterAnimationClass, enterAnimationActiveClass)
+        this.element.style.opacity = null
+      }, duration)
+      return
+    }
+
+    this.element.classList.add(leaveAnimationClass, leaveAnimationActiveClass)
+
+    this.animation = setTimeout(() => {
+      this.element.classList.add(popoverClass('hide'))
+      this.element.classList.remove(leaveAnimationClass, leaveAnimationActiveClass)
+      this.updateStyle({
+        transition: null,
+        opacity: null,
+        left: `-${containerRect.width}px`,
+        top: `-${containerRect.height}px`,
+      })
+    }, duration)
   }
 
   bindEvents() {
@@ -206,8 +235,50 @@ class Panel extends Component {
     if (parentClose) parentClose()
   }
 
+  updateStyle(o) {
+    Object.keys(o).forEach(k => {
+      this.element.style[k] = o[k]
+    })
+  }
+
+  updateElement(show) {
+    const { background, border, type, parentClose } = this.props
+
+    const containerRect = this.container.getBoundingClientRect()
+
+    if (show) {
+      this.position = this.getPositionStr()
+      // reset
+      this.updateStyle({
+        top: null,
+        right: null,
+        bottom: null,
+        left: null,
+      })
+      // set out view
+      this.updateStyle({
+        left: `${-containerRect.width}px`,
+        top: `${-containerRect.height}px`,
+      })
+    }
+
+    // public style
+    if (background) this.element.style.background = background
+    if (border) this.element.style.borderColor = border
+    this.element.className = classnames(
+      popoverClass('_', this.position, type, parentClose && 'inner'),
+      this.props.className
+    )
+
+    // next ticket
+    Promise.resolve().then(() => {
+      // start animation
+      this.animationRequest(show, this.position, containerRect)
+    })
+  }
+
   render() {
-    const { background, border, children, type, visible, showArrow, parentClose } = this.props
+    const { background, border, children, visible, showArrow } = this.props
     const show = typeof visible === 'boolean' ? visible : this.state.show
     if ((!this.isRendered && !show) || !this.parentElement || !children) {
       return <noscript ref={this.placeholderRef} />
@@ -215,16 +286,15 @@ class Panel extends Component {
 
     this.isRendered = true
 
+    this.updateElement(show)
+
+    // arrow style
     const colorStyle = { background, borderColor: border }
+
+    // popover content style
     const innerStyle = Object.assign({}, this.props.style, { background })
-    const position = this.getPositionStr()
-    // eslint-disable-next-line
-    const style = this.element.style
-    this.updatePosition(position)
-    style.display = show ? 'block' : 'none'
-    if (background) style.background = background
-    if (border) style.borderColor = border
-    this.element.className = classnames(popoverClass('_', position, type, parentClose && 'inner'), this.props.className)
+
+    // content
     let childrened = isFunc(children) ? children(this.handleHide) : children
     if (typeof childrened === 'string') childrened = <span className={popoverClass('text')}>{childrened}</span>
     const provider = {
