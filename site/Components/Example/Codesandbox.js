@@ -78,6 +78,7 @@ export default ${file}`,
           content: {
             dependencies: {
               'react-dom': 'latest',
+              'prop-types': 'latest',
             },
           },
         },
