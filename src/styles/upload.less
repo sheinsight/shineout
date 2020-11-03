@@ -3,7 +3,7 @@
 
 @upload-prefix: ~'@{so-prefix}-upload';
 
-.message {
+.message() {
   position: absolute;
   z-index: 1000;
   top: 100%;
@@ -39,6 +39,12 @@
     display: inline-block;
     margin-bottom: 8px;
     cursor: pointer;
+  }
+
+  &-hide-list {
+    .@{upload-prefix}-handle {
+      margin-bottom: 0;
+    }
   }
 
   &-view-value,
