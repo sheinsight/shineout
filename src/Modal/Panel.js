@@ -222,5 +222,4 @@ Panel.defaultProps = {
   top: '10vh',
   maskCloseAble: true,
   width: 500,
-  zoom: true,
 }
