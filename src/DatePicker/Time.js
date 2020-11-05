@@ -77,7 +77,7 @@ class Time extends PureComponent {
   }
 
   render() {
-    const { format } = this.props
+    const { format, hourStep, minuteStep, secondStep } = this.props
     const value = this.getValue()
     const className = datepickerClass('time-picker')
 
@@ -89,11 +89,17 @@ class Time extends PureComponent {
     return (
       <div className={className}>
         {format.indexOf('H') >= 0 && (
-          <TimeScroll value={value.getHours()} total={24} onChange={this.handleHourChange} />
+          <TimeScroll value={value.getHours()} total={24} step={hourStep} onChange={this.handleHourChange} />
         )}
-        {format.indexOf('h') >= 0 && <TimeScroll value={hours} total={12} onChange={this.handleHourChange} />}
-        {format.indexOf('m') >= 0 && <TimeScroll value={value.getMinutes()} onChange={this.handleMinuteChange} />}
-        {format.indexOf('s') >= 0 && <TimeScroll value={value.getSeconds()} onChange={this.handleSecondChange} />}
+        {format.indexOf('h') >= 0 && (
+          <TimeScroll value={hours} total={12} step={hourStep} onChange={this.handleHourChange} />
+        )}
+        {format.indexOf('m') >= 0 && (
+          <TimeScroll value={value.getMinutes()} step={minuteStep} onChange={this.handleMinuteChange} />
+        )}
+        {format.indexOf('s') >= 0 && (
+          <TimeScroll value={value.getSeconds()} step={secondStep} onChange={this.handleSecondChange} />
+        )}
         {/a|A/.test(format) && (
           <TimeScroll value={value.getHours() >= 12 ? 1 : 0} total={2} ampm onChange={this.handleAMPMChange} />
         )}
@@ -112,6 +118,9 @@ Time.propTypes = {
   value: PropTypes.object,
   defaultTime: PropTypes.array,
   index: PropTypes.number,
+  hourStep: PropTypes.number,
+  minuteStep: PropTypes.number,
+  secondStep: PropTypes.number,
 }
 
 export default Time
