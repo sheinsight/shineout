@@ -404,7 +404,7 @@ class Container extends PureComponent {
   renderPicker() {
     if (!this.firstRender) return undefined
 
-    const { range, type, value, min, max, disabled, allowSingle } = this.props
+    const { range, type, value, min, max, disabled, allowSingle, hourStep, minuteStep, secondStep } = this.props
     const format = this.getFormat()
     const quicks = this.getQuick(format)
     const Component = range ? Range : Picker
@@ -426,6 +426,9 @@ class Container extends PureComponent {
         handleHover={this.handleHover}
         min={DateFns.toDateWithFormat(min, format)}
         max={DateFns.toDateWithFormat(max, format)}
+        hourStep={hourStep}
+        minuteStep={minuteStep}
+        secondStep={secondStep}
       >
         {this.props.children}
       </Component>
@@ -488,6 +491,9 @@ Container.propTypes = {
   min: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
   max: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
   defaultRangeMonth: PropTypes.array,
+  hourStep: PropTypes.number,
+  minuteStep: PropTypes.number,
+  secondStep: PropTypes.number,
 }
 
 Container.defaultProps = {
