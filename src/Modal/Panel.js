@@ -86,8 +86,8 @@ export default class Panel extends PureComponent {
   }
 
   updateOrigin() {
-    const { position } = this.props
-    if (position) return
+    const { position, zoom } = this.props
+    if (position || !zoom) return
     const node = this.panel
     setTransformOrigin(node, '')
     if (node) {
