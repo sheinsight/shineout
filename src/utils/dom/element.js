@@ -38,10 +38,8 @@ export function wrapSpan(children, insertSpace = false) {
   if (!children) return children
   return React.Children.map(children, item => {
     if (typeof item === 'string') {
-      if (!insertSpace || !isTwoCNChar(item)) {
-        return <span>{item}</span>
-      }
-      return <span>{item.split('').join(SPACE)}</span>
+      if (insertSpace && isTwoCNChar(item)) return <span>{item.split('').join(SPACE)}</span>
+      return <span>{item}</span>
     }
     return item
   })

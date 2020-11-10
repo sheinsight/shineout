@@ -29,6 +29,7 @@ class Button extends PureComponent {
       onRef,
       shape,
       text,
+      space,
       ...others
     } = this.props
     const isSecondary = typeProp === 'secondary' && !outlineProp && !text
