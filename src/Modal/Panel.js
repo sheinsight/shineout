@@ -26,6 +26,7 @@ const getClickPosition = e => {
 
 document.addEventListener('click', getClickPosition, true)
 
+const handleStop = e => e.stopPropagation()
 export default class Panel extends PureComponent {
   panel = null
 
@@ -86,8 +87,8 @@ export default class Panel extends PureComponent {
   }
 
   updateOrigin() {
-    const { position } = this.props
-    if (position) return
+    const { position, zoom } = this.props
+    if (position || !zoom) return
     const node = this.panel
     setTransformOrigin(node, '')
     if (node) {
@@ -145,12 +146,17 @@ export default class Panel extends PureComponent {
 
     if (bodyStyle) style = Object.assign(style, bodyStyle)
 
-    if (!from || from !== 'method') return <Card.Body style={style}>{children}</Card.Body>
+    if (!from || from !== 'method')
+      return (
+        <Card.Body style={style} onScroll={handleStop}>
+          {children}
+        </Card.Body>
+      )
 
     const icon = this.renderIcon()
 
     return (
-      <Card.Body className={modalClass('body')} style={style}>
+      <Card.Body className={modalClass('body')} style={style} onScroll={handleStop}>
         {icon && <div className={modalClass('icon')}>{icon}</div>}
         {this.renderTitle()}
         <div>{children}</div>
