@@ -334,6 +334,14 @@ const injects = {
         desc: '常规按钮字体大小',
       },
       {
+        name: 'defaultSizeWidth',
+        attr: 'minWidth',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('_'),
+        desc: '常规按钮最小宽度',
+      },
+      {
         name: 'fontSizeLarge',
         attr: 'fontSize',
         type: 'number',
@@ -342,12 +350,28 @@ const injects = {
         desc: '大按钮字体大小',
       },
       {
+        name: 'largeSizeWidth',
+        attr: 'minWidth',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('large'),
+        desc: '大号按钮最小宽度',
+      },
+      {
         name: 'fontSizeSmall',
         attr: 'fontSize',
         type: 'number',
         parser: parseInt,
         className: buttonClass('small'),
         desc: '小按钮字体大小',
+      },
+      {
+        name: 'smallSizeWidth',
+        attr: 'minWidth',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('_'),
+        desc: '小号按钮最小宽度',
       },
       {
         name: 'marginLeft',
@@ -481,6 +505,14 @@ const injects = {
         v
       )
     },
+    set defaultSizeWidth(v) {
+      setBodyProperty(
+        {
+          '--button-default-size-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
     set fontSizeLarge(v) {
       setBodyProperty(
         {
@@ -489,10 +521,26 @@ const injects = {
         v
       )
     },
+    set largeSizeWidth(v) {
+      setBodyProperty(
+        {
+          '--button-large-size-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
     set fontSizeSmall(v) {
       setBodyProperty(
         {
           '--button-font-size-small': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set smallSizeWidth(v) {
+      setBodyProperty(
+        {
+          '--button-small-size-width': `${parseInt(v, 10)}px`,
         },
         v
       )
