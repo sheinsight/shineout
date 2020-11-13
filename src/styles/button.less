@@ -3,6 +3,7 @@
 
 @button-prefix: ~'@{so-prefix}-button';
 @button-disabled: ~'.@{button-prefix}-disabled';
+@icon-prefix:  ~'@{so-prefix}-icon';
 
 .@{button-prefix} {
   display: inline-block;
@@ -68,10 +69,14 @@
       .button-outline(@button-default-text-color; @btn-default-bg; @btn-default-bg;);
     }
 
-    &:hover,
-    &:focus,
-    &:active {
+    &:not(.@{button-prefix}-disabled):hover,
+    &:not(.@{button-prefix}-disabled):focus,
+    &:not(.@{button-prefix}-disabled):active {
       color: @colors-primary;
+      .@{icon-prefix} {
+        color: @colors-primary;
+        fill: @colors-primary;
+      }
     }
 
     & when (@so-theme = antd) {

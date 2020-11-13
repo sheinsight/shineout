@@ -5,6 +5,7 @@
 @input-prefix: ~'@{so-prefix}-input';
 @editableArea-prefix: ~'@{so-prefix}-editableArea';
 @select-prefix: ~'@{so-prefix}-select';
+@icon-prefix:  ~'@{so-prefix}-icon';
 
 @input-group-icon-padding-x: 8px;
 
@@ -204,6 +205,8 @@
 
     button {
       border-width: 0;
+      // reset button min-width
+      min-width: 0;
     }
 
     & > span,
@@ -248,6 +251,12 @@
 
     .@{input-prefix}-invalid.@{input-prefix}-focus {
       box-shadow: none;
+    }
+
+    // for icon
+    .@{icon-prefix}  {
+      color: @gray-400;
+      fill: @gray-400;
     }
   }
 
