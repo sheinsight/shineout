@@ -53,7 +53,9 @@ class SeperateTable extends PureComponent {
   // reset scrollTop when data changed
   componentDidUpdate(prevProps) {
     if (!this.tbody) return
-    if (this.props.data !== prevProps.data) {
+    // Use raw data comparison, avoid tree data,
+    // because tree data will be re-parsed and generate new data
+    if (this.props.rawData !== prevProps.rawData) {
       const resize = prevProps.data.length === 0 && this.props.data.length
       if (resize || this.props.dataChangeResize) this.setState({ resize: true, colgroup: undefined })
       this.resetHeight()
@@ -174,6 +176,13 @@ class SeperateTable extends PureComponent {
     }
   }
 
+  resetIndex() {
+    const { currentIndex } = this.state
+    if (this.props.data.length >= currentIndex) return currentIndex
+    // if data.length < currentIndex
+    return this.props.data.length
+  }
+
   resetHeight() {
     const { scrollTop, offsetLeft } = this.state
     const { treeColumnsName, changedByExpand } = this.props
@@ -183,10 +192,8 @@ class SeperateTable extends PureComponent {
     const scrollHeight = this.lastScrollArgs[5]
 
     if (this.lastScrollTop - height >= 1) {
-      const index = this.getIndex(scrollTop)
-      setTimeout(() => {
-        this.setState({ currentIndex: index })
-      })
+      const index = this.resetIndex()
+      this.setState({ currentIndex: index })
 
       if (this.renderByExpand) {
         this.renderByExpand = false
