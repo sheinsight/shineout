@@ -20,6 +20,12 @@ class Card extends PureComponent {
     this.getCheckAll = this.getCheckAll.bind(this)
     this.checkAll = this.checkAll.bind(this)
     this.handleRenderItem = this.handleRenderItem.bind(this)
+    this.bindCardBody = this.bindCardBody.bind(this)
+
+    this.state = {
+      listHeight: props.listHeight,
+      mounted: false,
+    }
   }
 
   getCheckAll() {
@@ -30,6 +36,15 @@ class Card extends PureComponent {
     if (selecteds.length === data.length) return true
 
     return 'indeterminate'
+  }
+
+  bindCardBody(node) {
+    this.cardBody = node
+    let { listHeight } = this.props
+    if (node) {
+      listHeight = node.offsetHeight
+    }
+    this.setState({ listHeight, mounted: true })
   }
 
   checkAll(c) {
@@ -130,16 +145,20 @@ class Card extends PureComponent {
         {this.renderFilter()}
         <Spin loading={loading}>
           <SCard.Body className={classnames(transferClass('card-body'), listClassName)} style={listms}>
-            <LazyList
-              stay={!filterText}
-              data={data}
-              itemsInView={rowsInView}
-              lineHeight={lineHeight}
-              height={listHeight}
-              scrollHeight={lineHeight * data.length}
-              renderItem={this.handleRenderItem}
-            />
-            {data.length === 0 && <div className={transferClass('empty')}>{empty || getLocale('noData')}</div>}
+            <div className={transferClass('body-container')} ref={this.bindCardBody}>
+              {this.state.mounted && (
+                <LazyList
+                  stay={!filterText}
+                  data={data}
+                  itemsInView={rowsInView}
+                  lineHeight={lineHeight}
+                  height={this.state.listHeight}
+                  scrollHeight={lineHeight * data.length}
+                  renderItem={this.handleRenderItem}
+                />
+              )}
+              {data.length === 0 && <div className={transferClass('empty')}>{empty || getLocale('noData')}</div>}
+            </div>
           </SCard.Body>
         </Spin>
 
