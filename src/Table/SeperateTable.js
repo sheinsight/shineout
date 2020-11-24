@@ -139,6 +139,19 @@ class SeperateTable extends PureComponent {
     }
   }
 
+  checkScrollToIndex(index, outerHeight) {
+    const { data, rowsInView } = this.props
+    const max = data.length
+    if (max - index >= rowsInView) {
+      return index
+    }
+    const contentHeight = this.getSumHeight(index, max)
+    if (contentHeight >= outerHeight) {
+      return index
+    }
+    return max
+  }
+
   updateScrollLeft() {
     let { scrollLeft } = this.props
     this.resetFloatFixed()
@@ -256,23 +269,24 @@ class SeperateTable extends PureComponent {
 
   scrollToIndex(index, callback) {
     if (!this.$isMounted) return
-    if (index > 1) index -= 1
+    if (index >= 1) index -= 1
     if (index < 0) index = 0
     const contentHeight = this.getContentHeight()
     const outerHeight = getParent(this.realTbody, `.${tableClass('body')}`).clientHeight - 12
-    const sumHeight = this.getSumHeight(0, index)
+    let currentIndex = this.checkScrollToIndex(index, outerHeight)
+    const sumHeight = this.getSumHeight(0, currentIndex)
     let scrollTop = sumHeight / contentHeight
     let marginTop = scrollTop * outerHeight
     let offsetScrollTop = sumHeight + marginTop
 
     if (offsetScrollTop > contentHeight) {
       offsetScrollTop = contentHeight
-      index = this.props.data.length - this.props.rowsInView
+      currentIndex = this.props.data.length - this.props.rowsInView
       scrollTop = 1
       marginTop = outerHeight
     }
 
-    this.setState({ currentIndex: index, scrollTop }, callback)
+    this.setState({ currentIndex, scrollTop }, callback)
     this.lastScrollTop = offsetScrollTop
 
     this.tbody.style.marginTop = `${marginTop}px`
