@@ -193,6 +193,7 @@ class Tree extends PureComponent {
       dragHoverExpand,
       doubleClickExpand,
       iconClass,
+      nodeClass,
     } = this.props
     const onToggle = onExpand ? this.handleToggle : undefined
 
@@ -224,6 +225,7 @@ class Tree extends PureComponent {
         dragHoverExpand={dragHoverExpand}
         doubleClickExpand={doubleClickExpand}
         iconClass={iconClass}
+        nodeClass={nodeClass}
       />
     )
   }
@@ -254,6 +256,7 @@ Tree.propTypes = {
   dragImageStyle: PropTypes.object,
   radioUpdate: PropTypes.bool,
   doubleClickExpand: PropTypes.bool,
+  nodeClass: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 }
 
 Tree.defaultProps = {
