@@ -50,6 +50,56 @@ exports[`Snapshot test: Rate[site/pages/components/Rate/example-01-base.js] 1`] 
 </div>
 `;
 
+exports[`Snapshot test: Rate[site/pages/components/Rate/example-01-half.js] 1`] = `
+<div>
+  <div>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+    <span>
+      <i />
+    </span>
+  </div>
+  <div>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span>
+      <span>
+         
+      </span>
+    </span>
+    <span />
+  </div>
+</div>
+`;
+
 exports[`Snapshot test: Rate[site/pages/components/Rate/example-02-color.js] 1`] = `
 <div>
   <div>
