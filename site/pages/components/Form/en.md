@@ -8,16 +8,19 @@
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | className | string | | extend className |
+| value | object | | Form value |
 | datum | object | | The formdata helper class, which is created automatically inside a Form without setting it, usually does not need to be set. |
 | disabled | boolean | false | When disabled is true, all the elements in the form are disabled. |
 | inline | boolean | false | When inline is true, the form is horizontal layout |
 | labelAlign | 'top' \| 'right' | | the default value is left. |
 | labelWidth | string \| number | 140px | The width of label. It is invalid when labelAlign is 'top'. |
+| mode | string | | mode, with mode |
 | onChange | (data: any) => void | | callback function, executed when the value is changing |
 | onError | (err: Error) => void | | callback when the error happens |
 | onSubmit | (data: any) => void | | the function for Form Submission.  When the internal validation fails, it will not be triggered. |
 | removeUndefined | boolean | true | When removeUndefined is true, remove undefined value on submit. |
 | rules | object | | validation rules, see details in the Rules |
+| scrollToError | boolean \| number | | When the verification fails, whether to scroll to the first verification failure component, when the value is a number, it means the offset relative to the top |
 | style | object | - | Container element style |
 | throttle | number | 1000 | ms, the interval between two submissions(Prevent repeat submission) |
 | initValidate | boolean | false | validate after set value |
