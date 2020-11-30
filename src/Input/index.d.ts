@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { PopoverProps } from '../Popover'
+import { RuleParamsType } from '../Rule'
 type ReactNode = React.ReactNode;
 
 
@@ -14,7 +15,7 @@ declare class Input extends React.Component<InputProps, {}> {
   render(): JSX.Element;
 }
 
-export interface InputProps {
+export interface InputProps<T = any> {
 
   /**
    * Default value
@@ -142,6 +143,12 @@ export interface InputProps {
    */
   maxLength?: number;
 
+  /**
+   * Validation rules
+   * 校验规则
+   * default: -
+   */
+  rules?: RuleParamsType<T>
 }
 
 export interface InputNumberProps {
