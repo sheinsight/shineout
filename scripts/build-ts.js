@@ -10,7 +10,6 @@ const sitePath = path.resolve(__dirname, '../site/pages/components')
 const temp = fs.readFileSync(path.resolve(__dirname, './component-declare.ejs'), 'utf-8')
 const sep = '-- |'
 const ignoreModule = [
-  'Rule',
   'Datum',
   'hoc',
   'Icons',
@@ -37,7 +36,7 @@ function parseTable(c) {
       .split('|')
       .filter(v => !!v)
       .map(v => v.trim())
-      .map(d => d.replace(/#REP#/g, '\|'))
+      .map(d => d.replace(/#REP#/g, '|'))
       .map(d => d.replace('\\[', '['))
     list.push({
       attribute,
@@ -101,17 +100,24 @@ markdown.forEach(p => {
   if (ignoreModule.includes(componentName)) return
   const componentDir = path.resolve(libPath, componentName)
   if (!fs.existsSync(componentDir)) fs.mkdirSync(componentDir)
-  const content = fs.readFileSync(path.resolve(sitePath, p), 'utf-8')
-  const data = readMarkdown(content, componentName)
-  const declare = ejs.render(temp, { data })
+  // Determine whether src exists index.d.ts
+  const srcIndexDTs = path.resolve(srcPath, componentName, 'index.d.ts')
   const fullPath = path.resolve(componentDir, 'index.d.ts')
-  fs.writeFileSync(fullPath, declare)
-  // validator
-  const dangerous = ts.createProgram([fullPath], { allowJs: true }).getSyntacticDiagnostics()
-  if (dangerous.length)
-    throw new Error(
-      `The generated declaration file: <${fullPath}> does not meet the standards, please check your api documentation: <${p}>`
-    )
-  // copy index
-  fs.copyFileSync(path.resolve(srcPath, 'index.js'), path.resolve(libPath, 'index.d.ts'))
+  if (fs.existsSync(srcIndexDTs)) {
+    fs.copyFileSync(srcIndexDTs, fullPath, fs.constants.COPYFILE_FICLONE)
+  } else {
+    const content = fs.readFileSync(path.resolve(sitePath, p), 'utf-8')
+    const data = readMarkdown(content, componentName)
+    const declare = ejs.render(temp, { data })
+    fs.writeFileSync(fullPath, declare)
+    // validator
+    const dangerous = ts.createProgram([fullPath], { allowJs: true }).getSyntacticDiagnostics()
+    if (dangerous.length)
+      throw new Error(
+        `The generated declaration file: <${fullPath}> does not meet the standards, please check your api documentation: <${p}>`
+      )
+  }
 })
+
+// copy index
+fs.copyFileSync(path.resolve(srcPath, 'index.js'), path.resolve(libPath, 'index.d.ts'))

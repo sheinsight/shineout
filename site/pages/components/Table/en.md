@@ -12,7 +12,6 @@
 | className | string | - | extend className |
 | columns | object[] | - | array，见 TableColumn |
 | data | object[] | - | data |
-| datum | object | - | If the format and prediction does not satisfied your requirements, you can pass in a [Datum.List](/components/Datum.List) object or the Datum.List configuration to process data. |
 | disabled | (data: object) => boolean \| boolean | false | When the value is true, disabled all checkboxes; When the value is function, disable the checkbox that this function returns true. |
 | fixed | 'both' \| 'x' \| 'y' \| 'auto' | - | visual scroll-bar direction, empty will use native scroll-bar and disabled lazy load | 
 | format | (data: object) => any \| string | d => d | Format value<br />The defaule value is return the original data.<br />When it is a string, the value is fetched from the original data as a key equivalent to (d) => d\[format]<br />When it is a function, use its return value. |
@@ -42,6 +41,7 @@
 | radio | boolean | false | is Radio |
 | rowEvents | object | none | tr events |
 | defaultTreeExpandKeys | any[] | none | Default expanded row keys |
+| dataChangeResize | boolean | false | Whether to recalculate the column width after the data changes |
 | onColumnResize | (newColumns: object[]) => void | none | columns resize callback |
 | size | 'small' \| 'normal' | 'normal' | size of table |
 | pagination | object | none | pagination of table |
