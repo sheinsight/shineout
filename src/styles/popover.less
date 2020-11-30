@@ -2,6 +2,10 @@
 @import './themes/@{so-theme}.less';
 
 @popover-prefix: ~'@{so-prefix}-popover';
+@animationEnterPrefix: ~'@{popover-prefix}-animation-enter';
+@animationLeavePrefix: ~'@{popover-prefix}-animation-leave';
+
+@animationDuration: .2s;
 
 .@{popover-prefix} {
   @keyframe-opacity: ~'@{popover-prefix}-kf-opacity';
@@ -305,4 +309,32 @@
       border-color: @state-danger-border;
     }
   }
+  &-hide {
+    display: none;
+  }
+
+  &-animation-enter {
+    animation-duration: @animationDuration;
+    animation-fill-mode: both;
+    animation-timing-function: @zoom-in;
+  }
+
+  &-animation-active {
+    animation-play-state: running;
+  }
+
+  &-animation-leave {
+    animation-duration: @animationDuration;
+    animation-timing-function: @zoom-out;
+    animation-fill-mode: both;
+  }
+
+  &-leave-active {
+    animation-play-state: running;
+  }
 }
+
+.popover-transform-origin();
+
+.popover-transform(@animationEnterPrefix, 0);
+.popover-transform(@animationLeavePrefix, 1);

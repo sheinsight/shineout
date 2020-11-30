@@ -16,7 +16,10 @@ describe('Popover[close]', () => {
     jest.runAllTimers()
     expect(document.querySelectorAll(`.${SO_PREFIX}-popover button`).length).toBe(1)
     document.querySelector(`.${SO_PREFIX}-popover button`).click()
-    jest.runAllTimers()
-    expect(document.querySelector(`.${SO_PREFIX}-popover`).style.display).toBe('none')
+
+    // wait for animation
+    setTimeout(() => {
+      expect(document.querySelectorAll(`.${SO_PREFIX}-popover.${SO_PREFIX}-popover-hide`).length).toBe(1)
+    }, 1000)
   })
 })
