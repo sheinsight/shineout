@@ -9,6 +9,7 @@ import { PureComponent } from '../component'
 import { transferClass } from '../styles'
 import { getKey } from '../utils/uid'
 import { createFunc } from '../utils/func'
+import { isFunc } from '../utils/is'
 import Item from './item'
 import LazyList from '../List/LazyList'
 import { getLocale } from '../locale'
@@ -21,6 +22,7 @@ class Card extends PureComponent {
     this.checkAll = this.checkAll.bind(this)
     this.handleRenderItem = this.handleRenderItem.bind(this)
     this.bindCardBody = this.bindCardBody.bind(this)
+    this.customSetSelected = this.customSetSelected.bind(this)
 
     this.state = {
       listHeight: props.listHeight,
@@ -83,6 +85,49 @@ class Card extends PureComponent {
     )
   }
 
+  customSetSelected(value) {
+    const { index, setSelecteds, selecteds } = this.props
+    if (typeof value === 'string') {
+      setSelecteds(index, [...selecteds, value])
+      return
+    }
+    if (Array.isArray(value)) {
+      setSelecteds(index, value)
+    }
+  }
+
+  renderLazyList() {
+    const { filterText, data, rowsInView, lineHeight } = this.props
+    const { mounted, listHeight } = this.state
+    if (!mounted) return null
+    return (
+      <LazyList
+        stay={!filterText}
+        data={data}
+        itemsInView={rowsInView}
+        lineHeight={lineHeight}
+        height={listHeight}
+        scrollHeight={lineHeight * data.length}
+        renderItem={this.handleRenderItem}
+      />
+    )
+  }
+
+  renderBody() {
+    const { customRender, index, values } = this.props
+    if (isFunc(customRender)) {
+      const custom = customRender({
+        onSelected: this.customSetSelected,
+        direction: index === 0 ? 'left' : 'right',
+        selectedKeys: this.props.selecteds,
+        value: values,
+      })
+      if (custom) return custom
+    }
+
+    return this.renderLazyList()
+  }
+
   renderFilter() {
     const { onFilter, onSearch, renderFilter, filterText, disabled } = this.props
     if (!onFilter && !onSearch) return null
@@ -123,10 +168,8 @@ class Card extends PureComponent {
       empty,
       disabled,
       loading,
-      lineHeight,
       listHeight,
-      rowsInView,
-      filterText,
+      customRender,
     } = this.props
 
     const check = this.getCheckAll()
@@ -146,18 +189,10 @@ class Card extends PureComponent {
         <Spin loading={loading}>
           <SCard.Body className={classnames(transferClass('card-body'), listClassName)} style={listms}>
             <div className={transferClass('body-container')} ref={this.bindCardBody}>
-              {this.state.mounted && (
-                <LazyList
-                  stay={!filterText}
-                  data={data}
-                  itemsInView={rowsInView}
-                  lineHeight={lineHeight}
-                  height={this.state.listHeight}
-                  scrollHeight={lineHeight * data.length}
-                  renderItem={this.handleRenderItem}
-                />
+              {this.renderBody()}
+              {!isFunc(customRender) && data.length === 0 && (
+                <div className={transferClass('empty')}>{empty || getLocale('noData')}</div>
               )}
-              {data.length === 0 && <div className={transferClass('empty')}>{empty || getLocale('noData')}</div>}
             </div>
           </SCard.Body>
         </Spin>
@@ -189,6 +224,8 @@ Card.propTypes = {
   listHeight: PropTypes.number,
   filterText: PropTypes.string,
   renderFilter: PropTypes.func,
+  customRender: PropTypes.func,
+  values: PropTypes.array,
 }
 
 export default filter(Card)
