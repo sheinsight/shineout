@@ -107,6 +107,7 @@ class Transfer extends PureComponent {
             listHeight={listHeight}
             renderFilter={renderFilter}
             customRender={children}
+            values={datumValues}
           />
           <Btns
             selecteds={selecteds}
@@ -141,6 +142,7 @@ class Transfer extends PureComponent {
             listHeight={listHeight}
             renderFilter={renderFilter}
             customRender={children}
+            values={datumValues}
           />
         </Context.Provider>
       </div>

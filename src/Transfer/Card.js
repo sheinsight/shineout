@@ -86,8 +86,14 @@ class Card extends PureComponent {
   }
 
   customSetSelected(value) {
-    const { index, setSelecteds } = this.props
-    setSelecteds(index, value)
+    const { index, setSelecteds, selecteds } = this.props
+    if (typeof value === 'string') {
+      setSelecteds(index, [...selecteds, value])
+      return
+    }
+    if (Array.isArray(value)) {
+      setSelecteds(index, [...selecteds, ...value])
+    }
   }
 
   renderLazyList() {
@@ -108,12 +114,13 @@ class Card extends PureComponent {
   }
 
   renderBody() {
-    const { customRender, index } = this.props
+    const { customRender, index, values } = this.props
     if (isFunc(customRender)) {
       const custom = customRender({
         onSelected: this.customSetSelected,
         direction: index === 0 ? 'left' : 'right',
         selectedKeys: this.props.selecteds,
+        value: values,
       })
       if (custom) return custom
     }
@@ -162,6 +169,7 @@ class Card extends PureComponent {
       disabled,
       loading,
       listHeight,
+      customRender,
     } = this.props
 
     const check = this.getCheckAll()
@@ -182,7 +190,9 @@ class Card extends PureComponent {
           <SCard.Body className={classnames(transferClass('card-body'), listClassName)} style={listms}>
             <div className={transferClass('body-container')} ref={this.bindCardBody}>
               {this.renderBody()}
-              {data.length === 0 && <div className={transferClass('empty')}>{empty || getLocale('noData')}</div>}
+              {!isFunc(customRender) && data.length === 0 && (
+                <div className={transferClass('empty')}>{empty || getLocale('noData')}</div>
+              )}
             </div>
           </SCard.Body>
         </Spin>

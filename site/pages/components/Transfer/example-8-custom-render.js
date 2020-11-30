@@ -40,53 +40,52 @@ const handleData = (data, res = []) => {
 
 const flatData = handleData(treeData)
 
+const compare = (prev, cur) => JSON.stringify(prev) !== JSON.stringify(cur)
+
 class TransferTree extends React.Component {
   constructor(props) {
     super(props)
-    this.key = this.shortID()
     this.state = {
-      key: this.shortID(),
+      value: props.selectedKeys,
     }
+
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.selectedKeys !== this.props.selectedKeys) {
-      this.setState({ key: this.shortID() })
+    if (compare(prevProps.value, this.props.value)) {
+      this.updateValue()
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  shortID() {
-    const random = Math.random().toString(16)
-    const now = (+new Date()).toString(16)
-    return `${random.slice(random.length - 7)}-${now.slice(now.length - 7)}`
+  updateValue() {
+    const { value } = this.props
+    this.setState({
+      value,
+    })
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  compareValues(prev, cur) {
-    if (prev !== cur) {
-      return false
-    }
-    return true
+  handleChange(_, cur) {
+    const { onSelected } = this.props
+    const { value } = this.state
+    console.log('change: ', cur)
+    this.setState({ value: [...value, cur] })
+    onSelected(cur)
   }
 
   render() {
-    const { onSelected, selectedKeys } = this.props
     return (
-      <Tree
-        // key={this.state.key}
-        defaultExpandAll
-        data={treeData}
-        keygen="id"
-        mode={2}
-        disabled={node => selectedKeys.includes(node.id)}
-        onChange={vals => {
-          console.log('value: ', vals)
-          onSelected(vals)
-        }}
-        renderItem="text"
-        value={selectedKeys}
-      />
+      <div style={{ height: '100%', overflow: 'auto', padding: 12 }}>
+        <Tree
+          defaultExpandAll
+          data={treeData}
+          keygen="id"
+          mode={2}
+          onChange={this.handleChange}
+          renderItem="text"
+          value={this.state.value}
+        />
+      </div>
     )
   }
 }
@@ -94,10 +93,10 @@ class TransferTree extends React.Component {
 export default function() {
   return (
     <Transfer data={flatData} format="id" renderItem="text" keygen="id" titles={['Source', 'Target']}>
-      {({ direction, onSelected, selectedKeys }) => {
+      {({ direction, onSelected, selectedKeys, value }) => {
         console.log('direction', direction)
         if (direction === 'left') {
-          return <TransferTree onSelected={onSelected} selectedKeys={selectedKeys} />
+          return <TransferTree onSelected={onSelected} selectedKeys={selectedKeys} value={value} />
         }
       }}
     </Transfer>
