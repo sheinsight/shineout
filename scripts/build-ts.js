@@ -10,7 +10,6 @@ const sitePath = path.resolve(__dirname, '../site/pages/components')
 const temp = fs.readFileSync(path.resolve(__dirname, './component-declare.ejs'), 'utf-8')
 const sep = '-- |'
 const ignoreModule = [
-  'Rule',
   'Datum',
   'hoc',
   'Icons',
