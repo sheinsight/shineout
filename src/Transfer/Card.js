@@ -92,7 +92,7 @@ class Card extends PureComponent {
       return
     }
     if (Array.isArray(value)) {
-      setSelecteds(index, [...selecteds, ...value])
+      setSelecteds(index, value)
     }
   }
 

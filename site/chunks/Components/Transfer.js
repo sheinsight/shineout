@@ -85,15 +85,6 @@ const examples = [
     component: require('doc/pages/components/Transfer/example-7-bigdata.js').default,
     rawText: require('!raw-loader!doc/pages/components/Transfer/example-7-bigdata.js'),
   },
-  {
-    name: '8-custom-render',
-    title: locate(
-      '自定义渲染 \n 自定义内容渲染',
-      'Custom render \n Custom content render'
-    ),
-    component: require('doc/pages/components/Transfer/example-8-custom-render.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Transfer/example-8-custom-render.js'),
-  },
 ]
 
 const codes = undefined
