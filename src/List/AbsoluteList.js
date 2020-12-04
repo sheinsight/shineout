@@ -8,6 +8,7 @@ import { scrollConsumer } from '../Scroll/context'
 import { listClass } from '../styles'
 import { docScroll, docSize } from '../utils/dom/document'
 import zIndexConsumer from '../Modal/context'
+import { isRTL } from '../config'
 
 const PICKER_V_MARGIN = 4
 let root
@@ -20,6 +21,8 @@ function initRoot() {
 const listPosition = ['drop-down', 'drop-up']
 const pickerPosition = ['left-bottom', 'left-top', 'right-bottom', 'right-top']
 const dropdownPosition = ['bottom-left', 'bottom-right', 'top-left', 'top-right']
+
+const getRTLPosition = position => position.replace('left', 'right').replace('right', 'left')
 
 export default function(List) {
   class AbsoluteList extends Component {
@@ -55,6 +58,9 @@ export default function(List) {
     getPosition(rect) {
       const { fixed } = this.props
       let { position } = this.props
+
+      const rtl = isRTL()
+
       const style = {
         position: 'absolute',
       }
@@ -68,6 +74,11 @@ export default function(List) {
           .reverse()
           .join('-')
       }
+
+      if (rtl) {
+        position = getRTLPosition(position)
+      }
+
       if (listPosition.includes(position)) {
         style.left = rect.left + docScroll.left
         if (position === 'drop-down') {
