@@ -14,6 +14,14 @@ class Input extends PureComponent {
     this.bindRef = this.bindRef.bind(this)
   }
 
+  defaultInfo = value => {
+    if (!value || value.length === 0) return null
+    const { info } = this.props
+    const text = `${value.length} / ${info}`
+    if (value.length <= info) return text
+    return new Error(text)
+  }
+
   bindRef(el) {
     const { forwardedRef } = this.props
     this.ref = el
@@ -61,14 +69,6 @@ class Input extends PureComponent {
     if (onBlur) onBlur(e)
     if (this.invalidNumber(value)) return
     if (forceChange) forceChange(value)
-  }
-
-  defaultInfo = value => {
-    if (!value || value.length === 0) return null
-    const { info } = this.props
-    const text = `${value.length} / ${info}`
-    if (value.length <= info) return text
-    return new Error(text)
   }
 
   renderInfo() {

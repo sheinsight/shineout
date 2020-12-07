@@ -5,6 +5,7 @@ import { Component } from '../component'
 import { curry } from '../utils/func'
 import { buttonClass, inputClass, popoverClass } from '../styles'
 import Popover from '../Popover'
+import { isRTL } from '../config'
 
 export default curry(
   (options, Origin) =>
@@ -107,12 +108,16 @@ export default curry(
       render() {
         const { className, border, size, tip, popover, width, style, error, popoverProps, ...other } = this.props
         const { focus } = this.state
+
+        const rtl = isRTL()
+
         const Tag = options.tag || 'label'
 
         const newStyle = Object.assign({ width }, style)
         const newClassName = classnames(
           inputClass(
             '_',
+            rtl && 'rtl',
             focus && other.disabled !== true && 'focus',
             other.disabled === true && 'disabled',
             options.isGroup && 'group',
