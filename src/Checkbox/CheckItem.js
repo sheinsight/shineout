@@ -7,6 +7,7 @@ import { getUidStr } from '../utils/uid'
 import { isEnterPress } from '../utils/is'
 import Input from '../Input'
 import { checkinputClass } from '../styles'
+import { isRTL } from '../config'
 
 export default function(type) {
   class CheckItem extends PureComponent {
@@ -90,6 +91,8 @@ export default function(type) {
     render() {
       const { disabled, style, content, size, children, inputable, onClick } = this.props
 
+      const rtl = isRTL()
+
       const checked = this.getChecked()
       const isSwitch = type === 'switch'
 
@@ -101,6 +104,7 @@ export default function(type) {
           checked === 'indeterminate' && 'indeterminate',
           isSwitch && 'switch',
           `${type}-container`,
+          rtl && 'rtl',
           {
             large: size === 'large',
             small: size === 'small',
