@@ -159,9 +159,9 @@ class Dropdown extends PureComponent {
 
   renderButton(placeholder) {
     const { type, outline, size, disabled, isSub } = this.props
-    const buttonClassName = dropdownClass('button', !placeholder && 'split-button')
-    const spanClassName = dropdownClass('button-content')
     const rtl = isRTL()
+    const buttonClassName = dropdownClass('button', !placeholder && 'split-button', rtl && 'rtl')
+    const spanClassName = dropdownClass('button-content')
     const caret = (
       <span className={dropdownClass('caret', rtl && 'rtl')}>
         <Caret />
