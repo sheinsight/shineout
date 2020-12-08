@@ -1,4 +1,4 @@
-# list
+# List
 
 <example />
 
