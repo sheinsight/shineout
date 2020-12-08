@@ -4079,6 +4079,46 @@ const injects = {
       )
     },
   },
+  list: {
+    info: {
+      title: 'List 列表',
+      name: 'list',
+      path: 'List',
+    },
+    conf: [
+      {
+        name: 'itemBottomBorderWidth',
+        className: exposeClass('list-item'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        desc: '分割线粗细',
+      },
+      {
+        name: 'itemHoverBgc',
+        className: exposeClass('list-item'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '行hover时背景颜色',
+      },
+    ],
+    set itemBottomBorderWidth(v) {
+      setBodyProperty(
+        {
+          '--list-item-bottom-border-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set itemHoverBgc(v) {
+      setBodyProperty(
+        {
+          '--list-item-hover-bgc': v,
+        },
+        v
+      )
+    },
+  },
   common: {
     info: {
       title: 'Common 公共',

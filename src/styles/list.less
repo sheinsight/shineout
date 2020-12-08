@@ -2,6 +2,15 @@
 @import './themes/@{so-theme}.less';
 
 @list-prefix: ~'@{so-prefix}-list';
+@button-prefix: ~'@{so-prefix}-button';
+
+@list-small-avatar: 32px;
+@list-default-avatar: 40px;
+@list-large-avatar: 64px;
+
+@list-small-padding: 8px;
+@list-default-padding: 12px;
+@list-large-padding: 16px;
 
 .@{list-prefix} {
   display: block;
@@ -11,5 +20,155 @@
     right: 0;
     top: 0;
     left: 0;
+  }
+}
+
+
+.@{list-prefix}-container {
+  box-sizing: border-box;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  font-size: @font-size-base;
+  line-height: @font-size-base-value + 8px;
+  list-style: none;
+  color: @gray-700;
+
+  .@{list-prefix}-item {
+    box-sizing: border-box;
+    display: block;
+    position: relative;
+    padding: @list-default-padding;
+
+    &:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      bottom: 0px;
+      left: 0;
+      width: 100%;
+      height: @list-item-bottom-border-width;
+      background-color: @gray-200;
+    }
+
+    &.@{list-prefix}-checkbox {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .@{list-prefix}-meta-container,
+    .@{list-prefix}-meta.@{list-prefix}-includes{
+      box-sizing: border-box;
+      display: flex;
+      justify-content: flex-start;
+
+      .@{list-prefix}-meta-avatar {
+        box-sizing: border-box;
+        width: @list-default-avatar;
+        height: @list-default-avatar;
+        margin-right: @list-default-padding;
+        flex: none;
+      }
+
+      .@{list-prefix}-meta-title {
+        font-weight: 600;
+      }
+    }
+
+    .@{list-prefix}-meta-content {
+      box-sizing: border-box;
+      padding-top: 12px;
+    }
+
+  }
+
+  .@{list-prefix}-item.@{list-prefix}-empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  &.@{list-prefix}-bordered {
+    border: @list-item-bottom-border-width solid @gray-200;
+    border-radius: 4px;
+  }
+
+
+  .@{list-prefix}-footer{
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0px;
+      left: 0;
+      width: 100%;
+      height: @list-item-bottom-border-width;
+      background-color: @gray-200;
+    }
+  }
+
+
+  .@{list-prefix}-loading {
+    position: absolute;
+    z-index: 11;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+.@{list-prefix}-base {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+
+  .@{list-prefix}-extra {
+    display: flex;
+    margin-left: 16px;
+    align-items: center;
+
+    .@{list-prefix}-split {
+      width: @list-item-bottom-border-width;
+      height: 16px;
+      background-color: @gray-200;
+    }
+  }
+
+  .@{button-prefix} + .@{button-prefix} {
+    margin-left: 0;
+  }
+}
+
+.@{list-prefix}-container.@{list-prefix}-small {
+  .@{list-prefix}-item {
+    padding: @list-small-padding;
+
+    .@{list-prefix}-meta-container,
+    .@{list-prefix}-meta.@{list-prefix}-includes{
+      .@{list-prefix}-meta-avatar {
+        width: @list-small-avatar;
+        height: @list-small-avatar;
+      }
+    }
+  }
+}
+
+.@{list-prefix}-container.@{list-prefix}-large {
+  .@{list-prefix}-item {
+    padding: @list-large-padding;
+
+    .@{list-prefix}-meta-container,
+    .@{list-prefix}-meta.@{list-prefix}-includes {
+      .@{list-prefix}-meta-avatar {
+        width: @list-large-avatar;
+        height: @list-large-avatar;
+      }
+    }
   }
 }
