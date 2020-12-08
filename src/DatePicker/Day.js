@@ -32,11 +32,12 @@ class Day extends PureComponent {
   getDays() {
     const { current } = this.props
     if (!current) return this.cachedDays
-    if (this.cachedDate && utils.isSameMonth(this.cachedDate, current) && this.cachedDays) {
+    const date = utils.clearHMS(current)
+    if (this.cachedDate && utils.isSameMonth(this.cachedDate, date) && this.cachedDays) {
       return this.cachedDays
     }
-    this.cachedDays = utils.getDaysOfMonth(current)
-    this.cachedDate = current
+    this.cachedDays = utils.getDaysOfMonth(date)
+    this.cachedDate = date
 
     return this.cachedDays
   }
@@ -125,9 +126,9 @@ class Day extends PureComponent {
     if (!isDisabled && index === 1) {
       if (
         (typeof range === 'number' && utils.compareAsc(date, utils.addSeconds(rangeTemp, range)) > 0) ||
-        utils.compareAsc(date, rangeTemp) < 0 ||
+        utils.compareAsc(date, utils.clearHMS(rangeTemp)) < 0 ||
         utils.compareAsc(date, utils.clearHMS(min)) < 0 ||
-        utils.compareAsc(date, utils.clearHMS(max)) > 0
+        utils.compareAsc(date, max) > 0
       ) {
         isDisabled = true
       }
@@ -135,7 +136,7 @@ class Day extends PureComponent {
     }
 
     if (!isDisabled && index === 0) {
-      if (utils.compareAsc(date, utils.clearHMS(min)) < 0 || utils.compareAsc(date, utils.clearHMS(max)) > 0) {
+      if (utils.compareAsc(date, utils.clearHMS(min)) < 0 || utils.compareAsc(date, max) > 0) {
         isDisabled = true
       }
     }

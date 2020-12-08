@@ -225,7 +225,7 @@ class Range extends PureComponent {
           current={current[0]}
           range={typeof range === 'number' ? range : undefined}
           rangeDate={rangeDate}
-          rangeTemp={utils.clearHMS(rangeDate[0])}
+          rangeTemp={rangeDate[0]}
           onChange={this.handleFirstChange}
           onChangeSync={this.handleChange}
           onDayHover={this.handleDayHover}
@@ -242,7 +242,7 @@ class Range extends PureComponent {
           current={current[1]}
           range={typeof range === 'number' ? range : undefined}
           rangeDate={rangeDate}
-          rangeTemp={utils.clearHMS(rangeDate[0])}
+          rangeTemp={rangeDate[0]}
           onChange={this.handleSecondChange}
           onChangeSync={this.handleChange}
           onDayHover={this.handleDayHover}
