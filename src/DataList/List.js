@@ -1,7 +1,7 @@
 import React, { Component, isValidElement } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { getLocale } from 'shineout/locale'
+import { getLocale } from '../locale'
 import { listClass } from '../styles'
 import { isFunc, isArray, isString } from '../utils/is'
 import { getKey } from '../utils/uid'
