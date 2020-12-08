@@ -322,3 +322,118 @@
   font-size: @font-size;
   line-height: @line-height;
 }
+
+
+@dropdown-prefix: ~'@{so-prefix}-dropdown';
+
+.button-group-border () {
+  &:before {
+    border-left-color: #d9d9d9;
+    transition: all .2s;
+  }
+  // not outline
+  &:not(.@{button-prefix}-outline):not(.@{button-prefix}-default):not(.@{button-prefix}-disabled):before {
+    border-left-color: white;
+  }
+  // outline
+  &.@{button-prefix}-outline:not(.@{button-prefix}-default):before {
+    border-left-color: inherit;
+  }
+  
+
+  // disabled
+  // default
+  &.@{button-prefix}-disabled:before {
+    border-left-color: white;
+  }
+
+  &.@{button-prefix}-disabled.@{button-prefix}-default:before,
+  &.@{button-prefix}-disabled.@{button-prefix}-outline:before
+    {
+    border-left-color: @button-disabled-delimiter;
+  }
+
+  // disabled + default
+  &.@{button-prefix}-disabled + .@{button-prefix}:not(.@{button-prefix}-disabled) {
+    &:before {
+      border-left-color: transparent;
+    }
+      &.@{button-prefix}-outline:not(.@{button-prefix}-default) {
+        &:before {
+          height: 100%;
+          border-left-color: @colors-primary;
+        }
+      }
+  }
+  // default + disabled
+  &:not(.@{button-prefix}-disabled) + .@{button-prefix}-disabled {
+    &:before {
+      border-left-color: transparent;
+    }
+
+      &.@{button-prefix}-outline:not(.@{button-prefix}-default) {
+        &:before {
+          height: 100%;
+          border-left-color: @colors-primary;
+        }
+      }
+  }
+
+  // animation
+  // default  
+  // -->  default -> increase weight
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):hover,
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):active,
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):focus,
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):hover + .@{button-prefix},
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):active + .@{button-prefix},
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):focus + .@{button-prefix} {
+    &:before {
+      border-left-color: @colors-primary;
+      height: 100%;
+    }
+  }
+
+  // for dropdown
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):hover + .@{dropdown-prefix}-split-dropdown,
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):active + .@{dropdown-prefix}-split-dropdown,
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):focus + .@{dropdown-prefix}-split-dropdown {
+    > .@{dropdown-prefix}-button.@{dropdown-prefix}-split-button {
+      &:before {
+        border-left-color: @colors-primary;
+        height: 100%;
+      }
+    }
+  }
+
+  // outline
+  &.@{button-prefix}-outline:not(.@{button-prefix}-disabled):hover,
+  &.@{button-prefix}-outline:not(.@{button-prefix}-disabled):active,
+  &.@{button-prefix}-outline:not(.@{button-prefix}-disabled):focus {
+    &:before  {
+      border-left-color: inherit;
+    }
+  }
+  &.@{button-prefix}-outline:not(.@{button-prefix}-disabled):hover + .@{button-prefix},
+  &.@{button-prefix}-outline:not(.@{button-prefix}-disabled):active+ .@{button-prefix},
+  &.@{button-prefix}-outline:not(.@{button-prefix}-disabled):focus+ .@{button-prefix} {
+    
+    & when (@so-theme = shineout) {
+      &:before {
+        height: 0;
+        transition: none;
+      }
+    }
+  }
+
+  & when (@so-theme = antd), (@so-theme = default) {
+    &.@{button-prefix}-outline:not(.@{button-prefix}-disabled):hover + .@{button-prefix}:not(.@{button-prefix}-disabled),
+    &.@{button-prefix}-outline:not(.@{button-prefix}-disabled):active+ .@{button-prefix}:not(.@{button-prefix}-disabled),
+    &.@{button-prefix}-outline:not(.@{button-prefix}-disabled):focus+ .@{button-prefix}:not(.@{button-prefix}-disabled) {
+      &:before {
+        height: 0;
+        transition: none;
+      }
+    }
+  }
+}

@@ -4,6 +4,9 @@
 @pagination-prefix: ~'@{so-prefix}-pagination';
 
 .@{pagination-prefix} {
+
+  font-size: @pagination-font-size;
+
   &-section {
     display: inline-block;
     margin-right: @pagination-margin;
@@ -11,7 +14,7 @@
 
     > span {
       color: @pagination-color;
-      line-height: @pagination-width;
+      line-height: @pagination-size;
     }
 
     &:last-child {
@@ -28,10 +31,10 @@
   }
 
   &-small &-item {
-    min-width: @pagination-small-width;
-    height: @pagination-small-width;
+    min-width: @pagination-size-small;
+    height: @pagination-size-small;
     font-size: @font-size-small;
-    line-height: @pagination-small-width;
+    line-height: @pagination-size-small;
   }
 
   &-small &-arrow {
@@ -39,24 +42,24 @@
   }
 
   &-large &-item {
-    min-width: @pagination-large-width;
-    height: @pagination-large-width;
+    min-width: @pagination-size-large;
+    height: @pagination-size-large;
     font-size: @font-size-large;
-    line-height: @pagination-large-width;
+    line-height: @pagination-size-large;
   }
 
   &-item {
     position: relative;
     display: inline-block;
-    min-width: @pagination-width;
-    height: @pagination-width;
+    min-width: @pagination-size;
+    height: @pagination-size;
     padding: @pagination-padding;
     margin-right: @pagination-margin;
     border: @pagination-border-width solid @pagination-border;
     background-color: @pagination-bg;
     border-radius: @pagination-border-radius;
     color: @pagination-color;
-    line-height: @pagination-width;
+    line-height: @pagination-size;
     text-align: center;
     text-decoration: none;
     user-select: none;

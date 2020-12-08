@@ -30,6 +30,9 @@
 | min | string \| number \| Date | none | option min value |
 | max | string \| number \| Date | none | option max value |
 | defaultRangeMonth | number[] \| Date[] | - | The initial month of range selection, the value is a time object, valid only in range mode, and the priority is lower than value and defaultValue | 
+| hourStep | number | none | hour step | 
+| minuteStep | number | none | minute step | 
+| secondStep | number | none | second step | 
 
 ### DatePickerFormat
 

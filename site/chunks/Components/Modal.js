@@ -112,6 +112,15 @@ const examples = [
     component: require('doc/pages/components/Modal/example-8-type.js').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-8-type.js'),
   },
+  {
+    name: '9-zoom',
+    title: locate(
+      '缩放动画 \n 设置 zoom 属性来开启缩放动画',
+      'Zoom \n Set the zoom property to enable zoom animation'
+    ),
+    component: require('doc/pages/components/Modal/example-9-zoom.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Modal/example-9-zoom.js'),
+  },
 ]
 
 const codes = undefined

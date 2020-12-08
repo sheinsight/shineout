@@ -15,13 +15,12 @@ export default function() {
     <Radio.Group keygen value={current} onChange={c => setCurrent(c)}>
       {data.map(d => (
         <span
+          key={d}
           onClick={() => {
             if (current === d) setTimeout(() => setCurrent(undefined))
           }}
         >
-          <Radio key={d} htmlValue={d}>
-            {d}
-          </Radio>
+          <Radio htmlValue={d}>{d}</Radio>
         </span>
       ))}
     </Radio.Group>

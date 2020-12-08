@@ -28,6 +28,11 @@
       padding: 2px 0;
       overflow: hidden;
       height: 180px;
+
+      .@{transfer-prefix}-body-container {
+        box-sizing: border-box;
+        height: 100%;
+      }
     }
 
     &-footer {
@@ -74,6 +79,8 @@
     &-button {
       color: #fff;
       display: inline-flex;
+      // reset button min-width
+      min-width: 0;
 
       > svg {
         height: 18px;

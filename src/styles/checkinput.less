@@ -41,12 +41,20 @@
   &-button {
     > .@{checkinput-prefix}.@{checkinput-prefix}-disabled {
       
-      &.@{checkinput-prefix}:not(.@{checkinput-prefix}-checked) {
+      &.@{checkinput-prefix} {
         background: @button-disabled-bg;
         color: @button-disabled-color;
         &:hover {
           background: @button-disabled-bg;
           color: @button-disabled-color;
+        }
+
+        &:not(.@{checkinput-prefix}-checked) {
+          opacity: 0.65;
+        }
+
+        &.@{checkinput-prefix}-checked {
+          opacity: 1;
         }
       }
     }
@@ -78,7 +86,6 @@
       box-sizing: border-box;
       .user-select(none);
       .button-size(@btn-padding-y; @btn-padding-x; @button-font-size-base; @line-height-base; @btn-border-radius-base);
-      // .button-variant(@button-default-text-color; @btn-default-bg; @btn-default-border; 'default' ; @btn-default-border);
 
       // default
       border-color: @btn-default-border;
@@ -89,20 +96,11 @@
 
 
       &:focus,
-      &:hover {
-        border-color: @colors-primary;
-        background-color: @colors-primary;
-        color: #fff;
-        .@{checkinput-prefix}-desc {
-          color: inherit;
-        }
-      }
-
+      &:hover,
       &:active {
         border-color: @colors-primary;
-        background-color: @colors-primary;
-        color: #fff;
-        &-desc {
+        color: @colors-primary;
+        .@{checkinput-prefix}-desc {
           color: inherit;
         }
       }
@@ -142,6 +140,42 @@
           padding: 1px 0;
           background-color: @gray-300;
           content: '';
+          transition: background-color 0.15s ease-in-out;
+        }
+      }
+
+      &:not(:last-child) {
+        &::after {
+          position: absolute;
+            top: -1px;
+            right: -1px;
+            display: block;
+            box-sizing: content-box;
+            width: 1px;
+            height: 100%;
+            padding: 1px 0;
+            background-color: transparent;
+            content: '';
+            z-index: 100;
+            transition: background-color 0.15s ease-in-out;
+        }
+      }
+
+      &:hover:not(.@{checkinput-prefix}-disabled),
+      &:active:not(.@{checkinput-prefix}-disabled),
+      &:focus:not(.@{checkinput-prefix}-disabled) {
+        &::before {
+          background-color: @colors-primary;
+        }
+      }
+
+      &:hover:not(.@{checkinput-prefix}-disabled),
+      &:focus:not(.@{checkinput-prefix}-disabled),
+      &:active:not(.@{checkinput-prefix}-disabled) {
+        &:not(:last-child) {
+          &::after {
+            background-color: @colors-primary;
+          }
         }
       }
 
@@ -154,6 +188,20 @@
           z-index: 1;
         }
         .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border; 'primary');
+
+        &[disabled],
+        fieldset[disabled] & {
+          &:hover,
+          &:focus {
+            background: @button-disabled-bg;
+            color: @button-disabled-color;
+          }
+
+          &:active {
+            animation: none;
+          }
+        }
+
         &:before {
           background: @btn-primary-bg;
         }
@@ -190,6 +238,11 @@
           color: @colors-primary;
         }
       }
+    }
+
+    &.@{checkinput-prefix}-group span{
+      // fix: radio px decimal point
+      vertical-align: baseline;
     }
   }
 
@@ -457,7 +510,7 @@
     }
   }
 
-  &-radio-container {
+  &-radio-container:not(.@{checkinput-prefix}-disabled) {
     .@{checkinput-prefix}-desc {
       color: @radio-text-color;
     }

@@ -9,6 +9,7 @@ import { PureComponent } from '../component'
 import { transferClass } from '../styles'
 import { getKey } from '../utils/uid'
 import { createFunc } from '../utils/func'
+import { isFunc } from '../utils/is'
 import Item from './item'
 import LazyList from '../List/LazyList'
 import { getLocale } from '../locale'
@@ -20,6 +21,13 @@ class Card extends PureComponent {
     this.getCheckAll = this.getCheckAll.bind(this)
     this.checkAll = this.checkAll.bind(this)
     this.handleRenderItem = this.handleRenderItem.bind(this)
+    this.bindCardBody = this.bindCardBody.bind(this)
+    this.customSetSelected = this.customSetSelected.bind(this)
+
+    this.state = {
+      listHeight: props.listHeight,
+      mounted: false,
+    }
   }
 
   getCheckAll() {
@@ -30,6 +38,15 @@ class Card extends PureComponent {
     if (selecteds.length === data.length) return true
 
     return 'indeterminate'
+  }
+
+  bindCardBody(node) {
+    this.cardBody = node
+    let { listHeight } = this.props
+    if (node) {
+      listHeight = node.offsetHeight
+    }
+    this.setState({ listHeight, mounted: true })
   }
 
   checkAll(c) {
@@ -68,6 +85,78 @@ class Card extends PureComponent {
     )
   }
 
+  customSetSelected(value) {
+    const { index, setSelecteds, selecteds } = this.props
+    if (typeof value === 'string') {
+      setSelecteds(index, [...selecteds, value])
+      return
+    }
+    if (Array.isArray(value)) {
+      setSelecteds(index, value)
+    }
+  }
+
+  renderLazyList() {
+    const { filterText, data, rowsInView, lineHeight } = this.props
+    const { mounted, listHeight } = this.state
+    if (!mounted) return null
+    return (
+      <LazyList
+        stay={!filterText}
+        data={data}
+        itemsInView={rowsInView}
+        lineHeight={lineHeight}
+        height={listHeight}
+        scrollHeight={lineHeight * data.length}
+        renderItem={this.handleRenderItem}
+      />
+    )
+  }
+
+  renderBody() {
+    const { customRender, index, values } = this.props
+    if (isFunc(customRender)) {
+      const custom = customRender({
+        onSelected: this.customSetSelected,
+        direction: index === 0 ? 'left' : 'right',
+        selectedKeys: this.props.selecteds,
+        value: values,
+      })
+      if (custom) return custom
+    }
+
+    return this.renderLazyList()
+  }
+
+  renderFilter() {
+    const { onFilter, onSearch, renderFilter, filterText, disabled } = this.props
+    if (!onFilter && !onSearch) return null
+    if (renderFilter && typeof renderFilter === 'function') {
+      return (
+        <div className={transferClass('filter')}>
+          {renderFilter({
+            value: filterText,
+            disabled: disabled === true,
+            onFilter,
+            placeholder: getLocale('search'),
+          })}
+        </div>
+      )
+    }
+    return (
+      <div className={transferClass('filter')}>
+        <Input
+          disabled={disabled === true}
+          onChange={onFilter}
+          placeholder={getLocale('search')}
+          clearable
+          size="small"
+          value={filterText}
+        />
+      </div>
+    )
+  }
+
   render() {
     const {
       title,
@@ -76,15 +165,11 @@ class Card extends PureComponent {
       footer,
       listClassName,
       listStyle,
-      onFilter,
       empty,
       disabled,
       loading,
-      onSearch,
-      lineHeight,
       listHeight,
-      rowsInView,
-      filterText,
+      customRender,
     } = this.props
 
     const check = this.getCheckAll()
@@ -100,30 +185,15 @@ class Card extends PureComponent {
           </div>
           <div className={transferClass('card-header-title')}>{title}</div>
         </SCard.Header>
-        {(onFilter || onSearch) && (
-          <div className={transferClass('filter')}>
-            <Input
-              disabled={disable}
-              onChange={onFilter}
-              placeholder={getLocale('search')}
-              clearable
-              size="small"
-              value={filterText}
-            />
-          </div>
-        )}
+        {this.renderFilter()}
         <Spin loading={loading}>
           <SCard.Body className={classnames(transferClass('card-body'), listClassName)} style={listms}>
-            <LazyList
-              stay={!filterText}
-              data={data}
-              itemsInView={rowsInView}
-              lineHeight={lineHeight}
-              height={listHeight}
-              scrollHeight={lineHeight * data.length}
-              renderItem={this.handleRenderItem}
-            />
-            {data.length === 0 && <div className={transferClass('empty')}>{empty || getLocale('noData')}</div>}
+            <div className={transferClass('body-container')} ref={this.bindCardBody}>
+              {this.renderBody()}
+              {!isFunc(customRender) && data.length === 0 && (
+                <div className={transferClass('empty')}>{empty || getLocale('noData')}</div>
+              )}
+            </div>
           </SCard.Body>
         </Spin>
 
@@ -153,6 +223,9 @@ Card.propTypes = {
   lineHeight: PropTypes.number,
   listHeight: PropTypes.number,
   filterText: PropTypes.string,
+  renderFilter: PropTypes.func,
+  customRender: PropTypes.func,
+  values: PropTypes.array,
 }
 
 export default filter(Card)

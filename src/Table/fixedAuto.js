@@ -18,10 +18,11 @@ export default Table =>
         fixed: null,
       }
       this.bindWrapper = this.bindWrapper.bind(this)
+      this.resetAutoFixedState = this.resetAutoFixedState.bind(this)
     }
 
     componentDidUpdate(prevProps) {
-      const diff = ['fixed', 'width', 'height'].find(k => this.props[k] && prevProps[k] !== this.props[k])
+      const diff = ['fixed', 'width', 'height', 'data'].find(k => this.props[k] && prevProps[k] !== this.props[k])
       const reset = !compareColumns(prevProps.columns, this.props.columns) || diff
       if (reset) {
         this.setState({
@@ -58,9 +59,15 @@ export default Table =>
       this.resetFixed()
     }
 
+    resetAutoFixedState() {
+      this.setState({ fixed: null })
+    }
+
     render() {
       const fixed = this.getFixed()
       setTimeout(this.fixedAuto.bind(this))
-      return <Table {...this.props} fixed={fixed} bindWrapper={this.bindWrapper} />
+      return (
+        <Table {...this.props} fixed={fixed} bindWrapper={this.bindWrapper} resetFixAuto={this.resetAutoFixedState} />
+      )
     }
   }

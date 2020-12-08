@@ -26,6 +26,13 @@ export default function() {
       </Button.Group>
 
       <br />
+      <Button.Group outline type="primary">
+        <Button disabled>disabled</Button>
+        <Button disabled>Center</Button>
+        <Button>Right</Button>
+      </Button.Group>
+
+      <br />
 
       <Button.Group type="primary">
         <Button>

@@ -8,11 +8,20 @@ class Time extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.defaultValue = utils.newDate()
+    this.defaultValue = this.getDefaultTime()
     this.handleHourChange = this.handleChange.bind(this, 'hour')
     this.handleMinuteChange = this.handleChange.bind(this, 'minute')
     this.handleSecondChange = this.handleChange.bind(this, 'second')
     this.handleAMPMChange = this.handleChange.bind(this, 'ampm')
+  }
+
+  getDefaultTime() {
+    let idx = 0
+    const current = utils.newDate()
+    const { index, defaultTime, format } = this.props
+    if (typeof index === 'number') idx = index
+    if (!defaultTime[idx]) return current
+    return utils.cloneTime(current, defaultTime[idx], format)
   }
 
   getValue() {
@@ -68,7 +77,7 @@ class Time extends PureComponent {
   }
 
   render() {
-    const { format } = this.props
+    const { format, hourStep, minuteStep, secondStep } = this.props
     const value = this.getValue()
     const className = datepickerClass('time-picker')
 
@@ -80,11 +89,17 @@ class Time extends PureComponent {
     return (
       <div className={className}>
         {format.indexOf('H') >= 0 && (
-          <TimeScroll value={value.getHours()} total={24} onChange={this.handleHourChange} />
+          <TimeScroll value={value.getHours()} total={24} step={hourStep} onChange={this.handleHourChange} />
         )}
-        {format.indexOf('h') >= 0 && <TimeScroll value={hours} total={12} onChange={this.handleHourChange} />}
-        {format.indexOf('m') >= 0 && <TimeScroll value={value.getMinutes()} onChange={this.handleMinuteChange} />}
-        {format.indexOf('s') >= 0 && <TimeScroll value={value.getSeconds()} onChange={this.handleSecondChange} />}
+        {format.indexOf('h') >= 0 && (
+          <TimeScroll value={hours} total={12} step={hourStep} onChange={this.handleHourChange} />
+        )}
+        {format.indexOf('m') >= 0 && (
+          <TimeScroll value={value.getMinutes()} step={minuteStep} onChange={this.handleMinuteChange} />
+        )}
+        {format.indexOf('s') >= 0 && (
+          <TimeScroll value={value.getSeconds()} step={secondStep} onChange={this.handleSecondChange} />
+        )}
         {/a|A/.test(format) && (
           <TimeScroll value={value.getHours() >= 12 ? 1 : 0} total={2} ampm onChange={this.handleAMPMChange} />
         )}
@@ -101,6 +116,11 @@ Time.propTypes = {
   onChange: PropTypes.func.isRequired,
   range: PropTypes.number,
   value: PropTypes.object,
+  defaultTime: PropTypes.array,
+  index: PropTypes.number,
+  hourStep: PropTypes.number,
+  minuteStep: PropTypes.number,
+  secondStep: PropTypes.number,
 }
 
 export default Time

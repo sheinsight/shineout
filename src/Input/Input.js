@@ -9,11 +9,9 @@ class Input extends PureComponent {
     super(props)
     this.enterLock = false
     this.handleChange = this.handleChange.bind(this)
-    this.handleKeyUp = this.handleKeyUp.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
     this.bindRef = this.bindRef.bind(this)
-    this.handleCompositionEnd = this.handleComposition.bind(this, 1)
-    this.handleCompositionStart = this.handleComposition.bind(this, 0)
   }
 
   bindRef(el) {
@@ -49,22 +47,12 @@ class Input extends PureComponent {
     this.props.onChange(value)
   }
 
-  handleKeyUp(e) {
-    const { onKeyUp, onEnterPress } = this.props
-    if (e.keyCode === 13 && onEnterPress && !this.enterLock) {
+  handleKeyDown(e) {
+    const { onKeyDown, onEnterPress } = this.props
+    if (e.keyCode === 13 && onEnterPress) {
       onEnterPress(e.target.value, e)
     }
-    if (onKeyUp) onKeyUp(e)
-  }
-
-  handleComposition(type) {
-    if (type === 0) {
-      this.enterLock = true
-    } else {
-      setTimeout(() => {
-        this.enterLock = false
-      }, 100)
-    }
+    if (onKeyDown) onKeyDown(e)
   }
 
   handleBlur(e) {
@@ -129,10 +117,8 @@ class Input extends PureComponent {
         ref={this.bindRef}
         key="input"
         onChange={this.handleChange}
-        onKeyUp={this.handleKeyUp}
+        onKeyDown={this.handleKeyDown}
         onBlur={this.handleBlur}
-        onCompositionStart={this.handleCompositionStart}
-        onCompositionEnd={this.handleCompositionEnd}
       />,
       !other.disabled && clearable && value !== '' && <Clear onClick={this.handleChange} key="close" />,
       this.renderInfo(),
@@ -149,13 +135,13 @@ Input.propTypes = {
   onBlur: PropTypes.func,
   onChange: PropTypes.func.isRequired,
   onEnterPress: PropTypes.func,
-  onKeyUp: PropTypes.func,
   type: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onFocus: PropTypes.func,
   clearable: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   info: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
   forwardedRef: PropTypes.func,
+  onKeyDown: PropTypes.func,
 }
 
 Input.defaultProps = {

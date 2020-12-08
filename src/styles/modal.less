@@ -38,9 +38,11 @@
     padding: @modal-panel-padding;
     text-align: left;
     margin: 0 auto;
-    &:not(.@{modal-prefix}-zoom) {
-      transform: translateY(-100px);
-    }
+    transform: translateY(-100px);
+  }
+
+  &-zoom {
+    transform: none;
   }
 
   &-title {
@@ -49,6 +51,7 @@
     font-weight: 500;
     font-family: @modal-title-font;
     line-height: 1.5;
+    padding-right: @modal-title-distance-to-right;
 
 
     &.@{modal-prefix}-with-icon {
@@ -89,6 +92,7 @@
 
   &-position {
     overflow-x: hidden;
+    overflow-y: hidden;
     transition: opacity .3s @zoom-out;
     .@{modal-prefix}-panel {
       transition: transform .3s @zoom-out;
@@ -163,7 +167,7 @@
   }
 
   &-info &-icon path {
-    fill: @colors-primary;
+    fill: @colors-info;
   }
 
   &-warning &-icon path,

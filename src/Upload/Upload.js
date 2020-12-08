@@ -403,7 +403,10 @@ class Upload extends PureComponent {
       drop,
     } = this.props
     const { files, recycle } = this.state
-    const className = classnames(uploadClass('_', disabled && 'disabled'), this.props.className)
+    const className = classnames(
+      uploadClass('_', disabled && 'disabled', showUploadList === false && 'hide-list'),
+      this.props.className
+    )
     const FileComponent = imageStyle ? ImageFile : File
     const ResultComponent = imageStyle ? ImageResult : Result
 

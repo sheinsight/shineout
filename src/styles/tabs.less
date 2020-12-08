@@ -1,6 +1,7 @@
 @import './variables.less';
 @import './themes/@{so-theme}.less';
 @tabs-prefix: ~'@{so-prefix}-tabs';
+@button-prefix: ~'@{so-prefix}-button';
 
 @tabs-animation-duration-time: 0.2s;
 
@@ -106,6 +107,7 @@
     z-index: 100;
     background: @colors-primary;
     color: #fff;
+    border-color: @colors-primary;
 
     &:before {
       display: none;
@@ -119,6 +121,14 @@
       width: 0;
       border-right: solid 1px @colors-primary;
       content: ' ';
+    }
+
+    &.@{button-prefix}-default:not(.@{button-prefix}-disabled)  {
+      &:hover,
+      &:active,
+      &:focus {
+        color: #fff;
+      }
     }
   }
 

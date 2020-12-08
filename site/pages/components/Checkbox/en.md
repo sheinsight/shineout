@@ -23,6 +23,7 @@
 | datum | object | - | If the format and prediction does not satisfied your requirements, you can pass in a [Datum.List](/components/Datum.List) object or the Datum.List configuration to process data. |
 | defaultValue | any[] | [] | Initial value |
 | disabled | (data: any) => boolean \| boolean | false | When the value is true, disabled all checkboxes; When the value is function, disable the checkbox that this function returns true. |
+| format | ((data: any) => any) | string | d => d | format value |
 | name | string | - | The name of the Form which access data |
 | keygen | ((data: any) => string) \| string \| true | required | Key generator<br />When it is true, the data itself is used as the key equivalent to (d => d)<br />When it is a function, use its return value.<br />When it is a string，ues the value of the string.For example, 'id' is the same thing as (d) => d.id. |
 | onChange | (value: any[]) => void  | - | value is datum.getValue() |

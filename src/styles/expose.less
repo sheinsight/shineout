@@ -206,6 +206,9 @@
   .loop-gray(9);
   &-button {
     margin-left: @button-margin-left;
+    &-disabled-delimiter {
+      border-color: @button-disabled-delimiter;
+    }
   }
   &-input {
     &-focus {
@@ -253,10 +256,20 @@
     }
   }
   &-pagination {
+    font-size: @pagination-font-size;
     &-hover {
       border-color: @pagination-hover-border;
       color: @pagination-hover-color;
       background-color: @pagination-hover-bg;
+    }
+    &-default {
+      width: @pagination-size;
+    }
+    &-small {
+      width: @pagination-size-small;
+    }
+    &-large {
+      width: @pagination-size-large;
     }
   }
   &-modal {
@@ -358,6 +371,9 @@
     width: @list-item-bottom-border-width;
   }
   &-common {
+    &-base {
+      font-size: @font-size-base;
+    }
     &-input{
       &-delay {
         width: @common-input-delay;

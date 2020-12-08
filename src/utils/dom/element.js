@@ -31,10 +31,16 @@ export function getParent(el, target) {
   return null
 }
 
-export function wrapSpan(children) {
+const isTwoCNChar = str => /^[\u4e00-\u9fa5]{2}$/.test(str)
+const SPACE = ' '
+
+export function wrapSpan(children, insertSpace = false) {
   if (!children) return children
   return React.Children.map(children, item => {
-    if (typeof item === 'string') return <span>{item}</span>
+    if (typeof item === 'string') {
+      if (insertSpace && isTwoCNChar(item)) return <span>{item.split('').join(SPACE)}</span>
+      return <span>{item}</span>
+    }
     return item
   })
 }

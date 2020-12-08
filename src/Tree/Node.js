@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
+import { isFunc, isString } from '../utils/is'
 import { treeClass } from '../styles'
 import Content from './Content'
 
@@ -151,7 +152,7 @@ class Node extends PureComponent {
   }
 
   render() {
-    const { data, expandedMap, listComponent, onDrop, childrenClass, leafClass, ...other } = this.props
+    const { data, expandedMap, listComponent, onDrop, childrenClass, leafClass, nodeClass, ...other } = this.props
 
     const children = data[other.childrenKey]
     const hasChildren = children && children.length > 0
@@ -165,6 +166,7 @@ class Node extends PureComponent {
       onDrop,
       leafClass,
       childrenClass,
+      nodeClass,
       childrenClassName: childrenClass(data),
     }
 
@@ -177,11 +179,19 @@ class Node extends PureComponent {
       })
     }
 
+    // node className
+    let nodeClassName = null
+    if (isString(nodeClass)) {
+      nodeClassName = nodeClass
+    } else if (isFunc(nodeClass)) {
+      nodeClassName = nodeClass(data)
+    }
+
     return (
       <div
         {...wrapProps}
         ref={this.bindElement}
-        className={classnames(treeClass('node'), this.isLeaf() && leafClass(data))}
+        className={classnames(treeClass('node'), this.isLeaf() && leafClass(data), nodeClassName)}
       >
         <Content
           {...other}
@@ -208,6 +218,7 @@ Node.propTypes = {
   listComponent: PropTypes.func,
   keygen: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
   onDrop: PropTypes.func,
+  nodeClass: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 }
 
 export default Node

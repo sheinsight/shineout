@@ -3,6 +3,7 @@
 
 @button-prefix: ~'@{so-prefix}-button';
 @button-disabled: ~'.@{button-prefix}-disabled';
+@icon-prefix:  ~'@{so-prefix}-icon';
 
 .@{button-prefix} {
   display: inline-block;
@@ -16,6 +17,7 @@
   touch-action: manipulation;
   vertical-align: middle;
   white-space: nowrap;
+  min-width: @button-default-size-width;
   .button-size(@btn-padding-y; @btn-padding-x; @button-font-size-base; @line-height-base; @btn-border-radius-base);
   .user-select(none);
 
@@ -51,7 +53,7 @@
     position: relative;
     box-shadow: none;
     cursor: @cursor-disabled;
-    opacity: 0.65;
+    opacity: @button-disabled-opacity;
   }
 
   a& {
@@ -67,10 +69,14 @@
       .button-outline(@button-default-text-color; @btn-default-bg; @btn-default-bg;);
     }
 
-    &:hover,
-    &:focus,
-    &:active {
+    &:not(.@{button-prefix}-disabled):hover,
+    &:not(.@{button-prefix}-disabled):focus,
+    &:not(.@{button-prefix}-disabled):active {
       color: @colors-primary;
+      .@{icon-prefix} {
+        color: @colors-primary;
+        fill: @colors-primary;
+      }
     }
 
     & when (@so-theme = antd) {
@@ -141,6 +147,7 @@
     background: transparent;
     border: none;
     box-shadow: none;
+    min-width: 0;
 
     &:not(:disabled):hover {
       opacity: .8;
@@ -223,12 +230,14 @@
   }
 
   &-large {
+    min-width: @button-large-size-width;
     .button-size(
       @btn-padding-large-y; @btn-padding-large-x; @button-font-size-large; @line-height-base; @btn-border-radius-large
     );
   }
 
   &-small {
+    min-width: @button-small-size-width;
     .button-size(
       @btn-padding-small-y; @btn-padding-small-x; @button-font-size-small; @line-height-small; @btn-border-radius-small
     );
@@ -238,7 +247,7 @@
     background: @button-disabled-bg;
     color: @button-disabled-color;
     fill: @button-disabled-color;
-    border-color: @button-disabled-border-color;
+    border-color: #d9d9d9;
   }
 
   &-circle {
@@ -277,12 +286,6 @@
         transform: translateY(-50%);
       }
 
-      &.@{button-prefix}-default {
-        &:hover,
-        &:focus {
-          border-color: @btn-default-border;
-        }
-      }
 
       &:first-child {
         margin-left: 0;
@@ -308,12 +311,9 @@
       &:last-child:not(:first-child) {
         .border-left-radius(0);
       }
-    }
 
-    &.@{button-prefix}-outline .@{button-prefix} {
-      &:before {
-        border-left-color: inherit;
-      }
+
+      .button-group-border()
     }
   }
 

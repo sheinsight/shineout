@@ -48,6 +48,9 @@ class Form extends Component {
     const { formRef } = this.props
     if (formRef) formRef(this.form)
     this.setStatus()
+    if (this.element) {
+      this.element.addEventListener('submit', this.handleSubmit)
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -57,6 +60,9 @@ class Form extends Component {
 
   componentWillUnmount() {
     this.props.datum.formUnmount = true
+    if (this.element) {
+      this.element.removeEventListener('submit', this.handleSubmit)
+    }
   }
 
   setStatus() {
@@ -90,7 +96,6 @@ class Form extends Component {
 
   handleSubmit(e) {
     if (e) {
-      e.persist()
       e.preventDefault()
     }
     if (e && e.target.getAttribute('id') !== this.id) return
@@ -114,7 +119,7 @@ class Form extends Component {
         .validate(IGNORE_BIND)
         .then(() => {
           this.validating = false
-          if (onSubmit) onSubmit(datum.getValue(), e && e.nativeEvent && e.nativeEvent.detail)
+          if (onSubmit) onSubmit(datum.getValue(), e && e.nativeEvent && e.nativeEvent.detail, e)
           if (activeElement) activeElement.focus()
         })
         .catch(err => {
@@ -144,14 +149,7 @@ class Form extends Component {
     )
 
     return (
-      <form
-        ref={this.bindElement}
-        className={className}
-        id={this.id}
-        style={style}
-        onReset={this.handleReset}
-        onSubmit={this.handleSubmit}
-      >
+      <form ref={this.bindElement} className={className} id={this.id} style={style} onReset={this.handleReset}>
         <FieldSetProvider value={emptyValue}>{this.props.children}</FieldSetProvider>
       </form>
     )

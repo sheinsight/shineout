@@ -6,6 +6,7 @@ import { getUidStr } from '../utils/uid'
 import { modalClass } from '../styles'
 import Panel from './Panel'
 import { getLocale } from '../locale'
+import { getParent } from '../utils/dom/element'
 
 const containers = {}
 const DURATION = 300
@@ -110,7 +111,7 @@ export function open(props, isPortal) {
   )
 
   if (isPortal) return ReactDOM.createPortal(panel, div)
-  if (document.activeElement) document.activeElement.blur()
+  if (document.activeElement && !getParent(document.activeElement, div)) document.activeElement.blur()
 
   ReactDOM.render(panel, div)
   return null

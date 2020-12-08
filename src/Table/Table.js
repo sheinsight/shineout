@@ -87,7 +87,8 @@ class Table extends Component {
         scrollLeft > 0 && 'left-float',
         scrollRight < 0 && 'right-float',
         `vertical-${verticalAlign}`,
-        columnResizable && 'resize'
+        columnResizable && 'resize',
+        others.sticky && 'sticky'
       ),
       this.props.className
     )

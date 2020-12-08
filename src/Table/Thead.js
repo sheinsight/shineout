@@ -71,7 +71,7 @@ class Thead extends PureComponent {
   handleResize(type, e) {
     if (type === 'mousedown') {
       const { target } = e
-      this.resizingTh = target.parentElement.parentElement
+      this.resizingTh = getParent(target, 'th')
       this.resizingTable = getParent(target, 'table')
       this.resizingIndex = [].indexOf.call(getParent(target, 'tr').children, this.resizingTh)
       this.resizingCol = this.resizingTable.querySelectorAll('col')[this.resizingIndex]

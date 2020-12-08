@@ -235,12 +235,22 @@ class Container extends PureComponent {
     }
   }
 
+  triggerValueBlur(cb) {
+    const { inputable } = this.props
+    const { focus } = this.state
+    if (cb && typeof cb === 'function') cb()
+    // OnChange is not triggered when handling copy and paste
+    if (inputable && focus === false) {
+      this.props.onValueBlur()
+    }
+  }
+
   handleTextChange(date, index) {
     const format = this.getFormat()
     const val = date ? utils.format(date, format) : ''
 
     if (!this.props.range) {
-      this.props.onChange(val, this.handleBlur)
+      this.props.onChange(val, this.triggerValueBlur.bind(this, this.handleBlur))
       return
     }
 
@@ -250,9 +260,12 @@ class Container extends PureComponent {
       }),
     ]
     if (utils.compareAsc(value[0], value[1]) > 0) value.push(value.shift())
-    this.props.onChange(value, () => {
-      this.setState({ current: this.getCurrent() })
-    })
+    this.props.onChange(
+      value,
+      this.triggerValueBlur.bind(this, () => {
+        this.setState({ current: this.getCurrent() })
+      })
+    )
   }
 
   dateToCurrent(date) {
@@ -317,7 +330,7 @@ class Container extends PureComponent {
   }
 
   renderText(value, placeholder, key) {
-    const { inputable, formatResult } = this.props
+    const { inputable, formatResult, disabled } = this.props
     const date = this.parseDate(value)
     const className = classnames(
       datepickerClass('txt', this.state[`picker${key}`] && 'text-focus'),
@@ -337,6 +350,7 @@ class Container extends PureComponent {
         placeholder={placeholder}
         onChange={this.handleTextChange}
         value={utils.isInvalid(date) ? undefined : utils.format(date, resultFormat)}
+        disabled={disabled === true}
       />
     )
   }
@@ -390,7 +404,7 @@ class Container extends PureComponent {
   renderPicker() {
     if (!this.firstRender) return undefined
 
-    const { range, type, value, min, max, disabled, allowSingle } = this.props
+    const { range, type, value, min, max, disabled, allowSingle, hourStep, minuteStep, secondStep } = this.props
     const format = this.getFormat()
     const quicks = this.getQuick(format)
     const Component = range ? Range : Picker
@@ -412,6 +426,9 @@ class Container extends PureComponent {
         handleHover={this.handleHover}
         min={DateFns.toDateWithFormat(min, format)}
         max={DateFns.toDateWithFormat(max, format)}
+        hourStep={hourStep}
+        minuteStep={minuteStep}
+        secondStep={secondStep}
       >
         {this.props.children}
       </Component>
@@ -474,6 +491,9 @@ Container.propTypes = {
   min: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
   max: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
   defaultRangeMonth: PropTypes.array,
+  hourStep: PropTypes.number,
+  minuteStep: PropTypes.number,
+  secondStep: PropTypes.number,
 }
 
 Container.defaultProps = {

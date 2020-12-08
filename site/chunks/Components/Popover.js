@@ -41,6 +41,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Popover/example-10-container.js'),
   },
   {
+    name: '11-disabled',
+    title: locate(
+      '禁用元素 \n 当父元素被禁用，可以将 Popver 和禁用元素置于同一层级，并用元素将他们包裹',
+      'Disabled \n When the parent element is disabled, you can place the Popver and the disabled element in the same hierarchy and wrap them with the element'
+    ),
+    component: require('doc/pages/components/Popover/example-11-disabled.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Popover/example-11-disabled.js'),
+  },
+  {
     name: '2-delay',
     title: locate(
       '延迟 \n 可以设置展示延时和关闭延时',
