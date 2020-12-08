@@ -7,6 +7,7 @@ import { menuClass } from '../styles'
 import List from './List'
 import { consumer } from './context'
 import { isLink } from '../utils/is'
+import { isRTL } from '../config'
 
 class Item extends PureComponent {
   constructor(props) {
@@ -151,6 +152,8 @@ class Item extends PureComponent {
 
     const isDisabled = typeof disabled === 'function' ? disabled(data) : disabled
 
+    const rtl = isRTL()
+
     let isUp = false
     if (mode === 'vertical-auto' && this.element) {
       isUp = this.element.getBoundingClientRect().bottom - topLine > (bottomLine - topLine) / 2
@@ -170,7 +173,11 @@ class Item extends PureComponent {
     const style = {}
     const events = {}
     if (mode === 'inline') {
-      style.paddingLeft = 20 + level * inlineIndent
+      if (rtl) {
+        style.paddingRight = 20 + level * inlineIndent
+      } else {
+        style.paddingLeft = 20 + level * inlineIndent
+      }
     } else {
       events.onMouseEnter = this.handleMouseEnter
       events.onMouseLeave = this.handleMouseLeave

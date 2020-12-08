@@ -10,6 +10,7 @@ import { menuClass } from '../styles'
 import List from './List'
 import { Provider } from './context'
 import { isArray } from '../utils/is'
+import { isRTL } from '../config'
 
 const modeDirection = {
   'vertical-auto': 'y',
@@ -276,13 +277,16 @@ class Root extends React.Component {
     const isVertical = mode.indexOf('vertical') === 0
     const showScroll = ((style.height || height) && isVertical) || mode === 'horizontal'
 
+    const rtl = isRTL()
+
     const className = classnames(
       menuClass(
         '_',
         isVertical ? 'vertical' : mode,
         theme === 'dark' && 'dark',
         showScroll && 'scroll',
-        this.state.hasOpen && 'has-open'
+        this.state.hasOpen && 'has-open',
+        rtl && 'rtl'
       ),
       this.props.className
     )
