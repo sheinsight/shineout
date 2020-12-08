@@ -266,7 +266,7 @@ export interface TableProps {
    * 排序取消事件
    * default: none
    */
-  onSortCancel?: () => void;
+  onSortCancel?: (prevType: ColumnOrder, index: number, orders: any, sort: any) => void;
 
   /**
    * is Radio
