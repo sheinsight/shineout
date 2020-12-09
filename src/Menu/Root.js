@@ -273,7 +273,19 @@ class Root extends React.Component {
   }
 
   render() {
-    const { keygen, data, mode, style, theme, inlineIndent, linkKey, disabled, height, toggleDuration } = this.props
+    const {
+      keygen,
+      data,
+      mode,
+      style,
+      theme,
+      inlineIndent,
+      linkKey,
+      disabled,
+      height,
+      toggleDuration,
+      caretSolid,
+    } = this.props
     const isVertical = mode.indexOf('vertical') === 0
     const showScroll = ((style.height || height) && isVertical) || mode === 'horizontal'
 
@@ -324,6 +336,7 @@ class Root extends React.Component {
               topLine={topLine}
               linkKey={linkKey}
               toggleDuration={toggleDuration}
+              caretSolid={caretSolid}
             />
           </Provider>
         </div>
@@ -347,6 +360,7 @@ Root.propTypes = {
   renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   onOpenChange: PropTypes.func,
   toggleDuration: PropTypes.number,
+  caretSolid: PropTypes.bool,
 }
 
 Root.defaultProps = {
