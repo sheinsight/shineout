@@ -10,7 +10,7 @@ const config = {
   trim: undefined,
   spin: undefined,
   caret: undefined,
-  direction: 'rtl',
+  direction: 'ltr',
 }
 
 export default config
