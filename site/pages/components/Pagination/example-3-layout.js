@@ -5,17 +5,17 @@
  *    -- Use the layout property to control whether the child elements is displayed and where is displayed.
  */
 import React from 'react'
-import { Pagination } from 'shineout'
+import { Pagination, isRTL } from 'shineout'
 
 const info = ({ total }) => `total ${total}`
 
-export default function () {
+export default function() {
   return (
     <Pagination
       total={128}
       pageSize={50}
       text={{
-        jumper: 'Go to {input}',
+        jumper: `${isRTL() ? 'to Go' : 'Go to'} {input}`,
       }}
       onChange={(...args) => console.log(args)}
       layout={['links', 'list', info, 'jumper']}
