@@ -903,14 +903,14 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-6-type.j
     <div>
       <div>
         <div>
-          <span>
-            primary
-          </span>
           <a>
             <svg>
               <path />
             </svg>
           </a>
+          <span>
+            primary
+          </span>
         </div>
         <div>
           <span>
@@ -925,14 +925,14 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-6-type.j
     <div>
       <div>
         <div>
-          <span>
-            default
-          </span>
           <a>
             <svg>
               <path />
             </svg>
           </a>
+          <span>
+            default
+          </span>
         </div>
         <div>
           <span>

@@ -8,6 +8,7 @@ import Select from './Select'
 import filter from './filter'
 import group from './group'
 import absolute from '../Table/context'
+import { isRTL } from '../config'
 
 const limitWrap = Origin => props => {
   // eslint-disable-next-line
@@ -17,7 +18,7 @@ const limitWrap = Origin => props => {
 
 const exportSelect = compose(
   inputable,
-  inputBorder({ className: selectClass('_'), tag: 'div' }),
+  inputBorder({ className: selectClass('_', isRTL() && 'rtl'), tag: 'div' }),
   limitWrap,
   Datum.hoc({ bindProps: ['disabled', 'limit', 'format', 'prediction', 'separator'], pure: false }),
   filter,
