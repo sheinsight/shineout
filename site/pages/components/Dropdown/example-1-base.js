@@ -9,7 +9,7 @@ import { Dropdown, Message } from 'shineout'
 
 const data = [
   {
-    content: 'Submenu',
+    content: 'Submenu-test-text',
     children: [
       {
         content: 'Link to Google',
@@ -22,9 +22,9 @@ const data = [
       },
     ],
   },
-  <a href="/">Home</a>,
+  <a href="/">Home-Home-Home</a>,
   {
-    content: 'Message',
+    content: 'Message-Message-Message',
     onClick: () => {
       Message.info('Some message.')
     },
@@ -32,5 +32,5 @@ const data = [
 ]
 
 export default function() {
-  return <Dropdown placeholder="Dropdown" data={data} />
+  return <Dropdown placeholder="Dropdown" data={data} absolute />
 }

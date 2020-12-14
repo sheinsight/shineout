@@ -321,4 +321,118 @@
       }
     }
   }
+
+  .@{menu-prefix}-has-children.@{menu-prefix}-caret-solid {
+
+    &.@{menu-prefix}-open {
+      & > .@{menu-prefix}-title {
+        .@{menu-prefix}-caret {
+          transform: rotate(180deg);
+          transform-origin: 50% 37.5%;
+        }
+      }
+    }
+    & > .@{menu-prefix}-title {
+      &:after {
+        content: none;
+      }
+    }
+
+    & > .@{menu-prefix}-title  {
+      padding-right:  20px;
+    }
+  }
+
+  .@{menu-prefix}-caret-solid {
+    .@{menu-prefix}-title {
+      & > .@{menu-prefix}-caret {
+        position: relative;
+        width: 0;
+        height: 0;
+        border: @menu-caret-solid-width solid transparent;
+        border-top: @menu-caret-solid-height solid transparent;
+        display: inline-block;
+        transform: translateY(25%);
+        margin-right: 8px;
+
+
+        &.@{menu-prefix}-has-childs {
+          border-top-color: @gray-400;
+        }
+      }
+    }
+  }
+
+
+  &.@{menu-prefix}-rtl {
+    direction: rtl;
+    text-align: right;
+
+    &:not(.@{menu-prefix}-horizontal) {
+      .@{menu-prefix}-active.@{menu-prefix}-no-children {
+        a > {
+          &:before {
+            position: absolute;
+            top: 0;
+            left: 0px;
+            width: 3px;
+            height: 100%;
+            background: @menu-item-active-indicator;
+            content: ' ';
+          }
+  
+          &:after  {
+            content: none;
+          }
+        }
+      }
+    }
+
+
+    .@{menu-prefix}-has-children:not(.@{menu-prefix}-caret-solid) > .@{menu-prefix}-title {
+
+      padding-left: 40px;
+      padding-right: 20px;
+
+      &:after {
+        content: none;
+      }
+
+      &:before {
+        position: absolute;
+        top: 50%;
+        left: 16px;
+        transform: @menu-title-transform;
+        content: ' ';
+        width: @caret-width;
+        height: @caret-width;
+        border-width: 0 1px 1px 0;
+        border-style: solid;
+      }
+    }
+
+    .@{menu-prefix}-has-children.@{menu-prefix}-open {
+      & > .@{menu-prefix}-title {
+        &:before {
+          transform: @menu-title-open-transform;
+        }
+      }
+    }
+
+    .@{menu-prefix}-has-children.@{menu-prefix}-caret-solid > .@{menu-prefix}-title{
+      .@{menu-prefix}-caret {
+        margin-right: 0;
+        margin-left: 8px;
+      }
+    }
+
+    &.@{menu-prefix}-vertical {
+      .@{menu-prefix}-root  .@{menu-prefix}-list.@{menu-prefix}-vertical {
+        left: auto;
+        right: 100%;
+        margin-left: 0;
+        margin-right: 3px;
+      }
+    }
+  }
 }

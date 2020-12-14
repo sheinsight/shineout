@@ -94,4 +94,16 @@
     .tag-variant(@tag-danger-bg);
     color: @tag-danger-color;
   }
+
+
+  &.@{tag-prefix}-rtl {
+    direction: rtl;
+    text-align: right;
+
+    .@{tag-prefix}-close-icon {
+      svg {
+        left: 10px;
+      }
+    }
+  }
 }

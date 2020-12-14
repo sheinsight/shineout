@@ -10,6 +10,7 @@ const config = {
   trim: undefined,
   spin: undefined,
   caret: undefined,
+  direction: 'ltr',
 }
 
 export default config
@@ -22,4 +23,8 @@ export function setConfig(conf) {
   for (const [key, value] of entries(conf)) {
     set(key, value)
   }
+}
+
+export function isRTL() {
+  return config.direction === 'rtl'
 }
