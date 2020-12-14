@@ -38,5 +38,5 @@ export default function() {
     },
   ]
 
-  return <Dropdown trigger="hover" placeholder="Hover" data={menu} absolute />
+  return <Dropdown trigger="hover" placeholder="Hover" data={menu} />
 }

@@ -32,5 +32,5 @@ const data = [
 ]
 
 export default function() {
-  return <Dropdown placeholder="Dropdown" data={data} absolute />
+  return <Dropdown placeholder="Dropdown" data={data} />
 }

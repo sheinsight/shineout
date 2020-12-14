@@ -16,5 +16,5 @@ export default function() {
     })
   }
 
-  return <Dropdown placeholder="Dropdown" width={500} columns={5} data={menu} absolute />
+  return <Dropdown placeholder="Dropdown" width={500} columns={5} data={menu} />
 }
