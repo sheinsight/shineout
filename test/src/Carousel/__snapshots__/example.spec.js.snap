@@ -8,14 +8,14 @@ exports[`Snapshot test: Carousel[site/pages/components/Carousel/example-1-base.j
     <div>
       <div>
         <div>
-          <span>
-            slide
-          </span>
           <a>
             <svg>
               <path />
             </svg>
           </a>
+          <span>
+            slide
+          </span>
         </div>
         <div>
           <span>
@@ -28,14 +28,14 @@ exports[`Snapshot test: Carousel[site/pages/components/Carousel/example-1-base.j
     <div>
       <div>
         <div>
-          <span>
-            center
-          </span>
           <a>
             <svg>
               <path />
             </svg>
           </a>
+          <span>
+            center
+          </span>
         </div>
         <div>
           <span>
@@ -48,14 +48,14 @@ exports[`Snapshot test: Carousel[site/pages/components/Carousel/example-1-base.j
     <div>
       <div>
         <div>
-          <span>
-            circle
-          </span>
           <a>
             <svg>
               <path />
             </svg>
           </a>
+          <span>
+            circle
+          </span>
         </div>
         <div>
           <span>
