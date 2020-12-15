@@ -3475,18 +3475,68 @@ const injects = {
         desc: '整体内边距',
       },
       {
-        name: 'headerPadding',
+        name: 'headerPaddingTop',
         className: exposeClass('modal-card-header'),
-        attr: 'padding',
-        type: 'string',
-        desc: '头部内边距',
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+        desc: '头部内边距-Top',
       },
       {
-        name: 'bodyPadding',
+        name: 'headerPaddingRight',
+        className: exposeClass('modal-card-header'),
+        attr: 'paddingRight',
+        type: 'number',
+        parser: parseInt,
+        desc: '头部内边距-Right',
+      },
+      {
+        name: 'headerPaddingBottom',
+        className: exposeClass('modal-card-header'),
+        attr: 'paddingBottom',
+        type: 'number',
+        parser: parseInt,
+        desc: '头部内边距-Bottom',
+      },
+      {
+        name: 'headerPaddingLeft',
+        className: exposeClass('modal-card-header'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+        desc: '头部内边距-Left',
+      },
+      {
+        name: 'bodyPaddingTop',
         className: exposeClass('modal-card-body'),
-        attr: 'padding',
-        type: 'string',
-        desc: '内容内边距',
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+        desc: '内容内边距-Top',
+      },
+      {
+        name: 'bodyPaddingRight',
+        className: exposeClass('modal-card-body'),
+        attr: 'paddingRight',
+        type: 'number',
+        parser: parseInt,
+        desc: '内容内边距-Right',
+      },
+      {
+        name: 'bodyPaddingBottom',
+        className: exposeClass('modal-card-body'),
+        attr: 'paddingBottom',
+        type: 'number',
+        parser: parseInt,
+        desc: '内容内边距-Bottom',
+      },
+      {
+        name: 'bodyPaddingLeft',
+        className: exposeClass('modal-card-body'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+        desc: '内容内边距-Left',
       },
       {
         name: 'iconBodyPadding',
@@ -3681,18 +3731,66 @@ const injects = {
         v
       )
     },
-    set headerPadding(v) {
+    set headerPaddingTop(v) {
       setBodyProperty(
         {
-          '--modal-header-padding': v,
+          '--modal-header-padding-top': `${parseInt(v, 10)}px`,
         },
         v
       )
     },
-    set bodyPadding(v) {
+    set headerPaddingRight(v) {
       setBodyProperty(
         {
-          '--modal-body-padding': v,
+          '--modal-header-padding-right': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set headerPaddingBottom(v) {
+      setBodyProperty(
+        {
+          '--modal-header-padding-bottom': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set headerPaddingLeft(v) {
+      setBodyProperty(
+        {
+          '--modal-header-padding-left': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set bodyPaddingTop(v) {
+      setBodyProperty(
+        {
+          '--modal-body-padding-top': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set bodyPaddingRight(v) {
+      setBodyProperty(
+        {
+          '--modal-body-padding-right': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set bodyPaddingBottom(v) {
+      setBodyProperty(
+        {
+          '--modal-body-padding-bottom': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set bodyPaddingLeft(v) {
+      setBodyProperty(
+        {
+          '--modal-body-padding-left': `${parseInt(v, 10)}px`,
         },
         v
       )

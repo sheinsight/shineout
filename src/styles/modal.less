@@ -3,6 +3,7 @@
 @modal-prefix: ~'@{so-prefix}-modal';
 @card-prefix: ~'@{so-prefix}-card';
 @moveable-prefix: ~'@{so-prefix}-moveable';
+@button-prefix: ~'@{so-prefix}-button';
 
 @keyframes scale-in {
   0% {
@@ -211,6 +212,13 @@
     > svg {
       fill: @modal-close-icon-color;
     }
+
+    &.@{modal-prefix}-rtl {
+      left: 0;
+      right: auto;
+      margin-right: 0;
+      margin-left: @modal-panel-padding;
+    }
   }
 
   .@{moveable-prefix} {
@@ -237,7 +245,10 @@
       box-shadow: @modal-box-shadow;
     }
     > .@{card-prefix}-header {
-      padding: @modal-header-padding;
+      padding-top: @modal-header-padding-top;
+      padding-right: @modal-header-padding-right;
+      padding-bottom: @modal-header-padding-bottom;
+      padding-left: @modal-header-padding-left;
       border-radius: @modal-border-radius @modal-border-radius 0 0;
       background: @modal-header-bg;
     }
@@ -245,7 +256,10 @@
       padding: @modal-body-padding;
     }
     .@{modal-prefix}-body {
-      padding: @modal-icon-body-padding;
+      padding-top: @modal-icon-body-padding-top;
+      padding-right: @modal-icon-body-padding-right;
+      padding-bottom: @modal-icon-body-padding-bottom;
+      padding-left: @modal-icon-body-padding-left;
     }
     > .@{card-prefix}-footer {
       padding: @modal-footer-padding;
@@ -257,6 +271,48 @@
         height: @modal-divider-height;
         width: @modal-divider-width;
         background: @modal-divider-color;
+      }
+    }
+  }
+
+
+  > .@{card-prefix}.@{modal-prefix}-rtl {
+    direction: rtl;
+    text-align: right;
+
+    > .@{card-prefix}-header {
+      padding-right: @modal-header-padding-left;
+      padding-left: @modal-header-padding-right;
+    }
+
+    > .@{card-prefix}-footer {
+      text-align: left;
+      .@{button-prefix} + .@{button-prefix} {
+        margin-left: 0;
+        margin-right: @button-margin-left;
+      }
+    }
+
+    .@{modal-prefix}-body {
+      padding-right: @modal-icon-body-padding-left;
+      padding-left: @modal-icon-body-padding-right;
+
+      .@{modal-prefix}-title {
+        padding-right: 0;
+        padding-left: 24px;
+      }
+
+      .@{modal-prefix}-icon {
+        left: auto;
+        right: @modal-icon-left;
+      }
+    }
+
+
+    .@{modal-prefix}-title {
+      .@{modal-prefix}-icon  {
+        margin-right: 0;
+        margin-left: 8px;
       }
     }
   }
