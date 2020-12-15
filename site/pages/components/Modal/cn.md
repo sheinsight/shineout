@@ -32,6 +32,7 @@
 | hideClose | boolean | 无 | 是否隐藏关闭按钮 | |
 | type | 'info' \| 'success' \| 'warning' \| 'error' \| 'normal' | 无 | Modal title 显示状态icon | 1.6.1 |
 | zoom | boolean | false | 是否开启 zoom 动画效果 |
+| esc | boolean | true | 是否支持 esc 键关闭 |
 
 ### ModalMethods
 
