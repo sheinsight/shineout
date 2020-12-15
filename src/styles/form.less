@@ -150,7 +150,35 @@
         text-align: left;
       }
     }
-  }
+
+    &.@{form-prefix}-inline {
+      .@{form-prefix}-item {
+
+        margin-right: 0;
+        margin-left: @form-inline-margin-right;
+
+        .@{form-prefix}-label {
+          margin-right: 0;
+          margin-left: 12px;
+        }
+      }
+
+      > .@{input-prefix} {
+        margin-right: 0;
+        margin-left: @form-inline-margin-right;
+      }
+    }
+
+    .@{button-prefix} + .@{button-prefix}  {
+      margin-left: 0;
+      margin-right: @button-margin-left;
+    }
+
+    .@{so-prefix}-upload .@{so-prefix}-upload-image-item {
+      margin-right: 0;
+      margin-left: 12px;
+    }
+   }
 }
 
 .input-focus-color(@color) when (%('%s', @color) = %('%s', @colors-danger)) {
