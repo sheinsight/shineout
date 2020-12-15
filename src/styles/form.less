@@ -138,6 +138,19 @@
       color: @input-disabled-color;
     }
   }
+
+  &.@{form-prefix}-rtl {
+
+    direction: rtl;
+    text-align: right;
+
+    .@{form-prefix}-item,
+    .@{form-prefix}-align-right {
+      .@{form-prefix}-label {
+        text-align: left;
+      }
+    }
+  }
 }
 
 .input-focus-color(@color) when (%('%s', @color) = %('%s', @colors-danger)) {
