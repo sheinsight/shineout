@@ -75,7 +75,7 @@ class Node extends PureComponent {
 
     event.dataTransfer.effectAllowed = 'copyMove'
     event.dataTransfer.setData('text/plain', this.props.id)
-
+    placeElement.setAttribute('data-start', this.props.id)
     const element = document.querySelector(dragImageSelector(data))
 
     const dragImage = element || this.element.querySelector(`.${treeClass('content')}`)
@@ -105,7 +105,17 @@ class Node extends PureComponent {
   handleDragOver(e) {
     if (!isDragging) return
 
-    const { dragHoverExpand } = this.props
+    const { dragHoverExpand, datum, dragSibling } = this.props
+    const startId = placeElement.getAttribute('data-start')
+    const current = datum.getPath(startId)
+    const target = datum.getPath(this.props.id)
+
+    const currentPathStr = current.path.join('/')
+    const targetPathStr = target.path.join('/')
+
+    // if (!targetPathStr.startsWith(currentPathStr)) return
+    console.log(targetPathStr, currentPathStr)
+    if (dragSibling && targetPathStr !== currentPathStr) return
 
     if (dragHoverExpand && !this.state.expanded) this.handleToggle()
 
@@ -120,8 +130,13 @@ class Node extends PureComponent {
     if (hoverClientY < hoverMiddleY + clientHeight * 0.2) {
       hover.parentNode.insertBefore(placeElement, hover)
       if (hoverClientY > clientHeight * 0.3) {
-        position = -1
-        innerPlaceElement.style.height = `${rect.height}px`
+        if (!dragSibling) {
+          position = -1
+          innerPlaceElement.style.height = `${rect.height}px`
+        } else {
+          position += 1
+          hover.parentNode.insertBefore(placeElement, hover.nextElementSibling)
+        }
       }
     } else {
       position += 1
@@ -148,6 +163,7 @@ class Node extends PureComponent {
 
     if (target !== id || index !== position) {
       onDrop(id, target, position)
+      console.log(id, target, position)
     }
   }
 
@@ -219,6 +235,8 @@ Node.propTypes = {
   keygen: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
   onDrop: PropTypes.func,
   nodeClass: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  handleDragoverAble: PropTypes.func,
+  dragSibling: PropTypes.bool,
 }
 
 export default Node
