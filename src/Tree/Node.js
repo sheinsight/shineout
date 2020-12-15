@@ -113,8 +113,6 @@ class Node extends PureComponent {
     const currentPathStr = current.path.join('/')
     const targetPathStr = target.path.join('/')
 
-    // if (!targetPathStr.startsWith(currentPathStr)) return
-    console.log(targetPathStr, currentPathStr)
     if (dragSibling && targetPathStr !== currentPathStr) return
 
     if (dragHoverExpand && !this.state.expanded) this.handleToggle()
