@@ -72,6 +72,7 @@ Modal.defaultProps = {
   ...defaultProps,
   usePortal: true,
   visible: false,
+  esc: true,
 }
 
 Modal.displayName = 'ShineoutModal'
