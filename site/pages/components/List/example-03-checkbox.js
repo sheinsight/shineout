@@ -5,7 +5,7 @@
  *    -- Set the onChange property will automatically add a row with checkbox.
  */
 import React from 'react'
-import { List, Checkbox } from 'shineout'
+import { List, Checkbox, isRTL } from 'shineout'
 import { fetch } from 'doc/data/user'
 
 class Index extends React.Component {
@@ -75,20 +75,31 @@ class Index extends React.Component {
 
   render() {
     const { value, loading } = this.state
+    const style = {
+      display: 'flex',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      padding: 12,
+      lineHeight: '22px',
+      borderBottom: '1px solid #e8ebf0',
+    }
+    if (isRTL()) {
+      style.justifyContent = 'flex-end'
+    }
     return (
       <div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            padding: 12,
-            lineHeight: '22px',
-            borderBottom: '1px solid #e8ebf0',
-          }}
-        >
-          <Checkbox checked={this.getChecked()} onChange={this.checkboxOnChange} />
-          <div>{`Selected ${value.length}`}</div>
+        <div style={style}>
+          {isRTL() ? (
+            <React.Fragment>
+              <div>{`Selected ${value.length}`}</div>
+              <Checkbox checked={this.getChecked()} onChange={this.checkboxOnChange} />
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <Checkbox checked={this.getChecked()} onChange={this.checkboxOnChange} />
+              <div>{`Selected ${value.length}`}</div>
+            </React.Fragment>
+          )}
         </div>
         <List
           loading={loading}
