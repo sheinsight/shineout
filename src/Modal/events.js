@@ -152,6 +152,7 @@ export const method = type => option => {
   const props = Object.assign(
     {
       width: 420,
+      esc: true,
     },
     option,
     {
@@ -179,8 +180,8 @@ ready(() => {
     const opened = ids.find(id => containers[id].visible && containers[id].props.esc)
     if (!opened) return
     const { props } = containers[opened]
-    if (props) {
-      close(props)
-    }
+    const { onClose, isPortal } = props
+    if (onClose) onClose()
+    if (!isPortal) close(props)
   })
 })
