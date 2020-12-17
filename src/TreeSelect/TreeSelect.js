@@ -186,8 +186,15 @@ export default class TreeSelect extends PureComponent {
   renderActive(data, expanded, active, id) {
     const { renderItem, datum } = this.props
     const item = typeof renderItem === 'function' ? renderItem(data, expanded, active, id) : data[renderItem]
+
     return (
-      <span className={treeSelectClass('content-wrapper', active && 'selected', datum.disabled(data) && 'disabled')}>
+      <span
+        className={treeSelectClass(
+          'content-wrapper',
+          active && 'selected',
+          datum.isDisabled(datum.getKey(data)) && 'disabled'
+        )}
+      >
         {item}
       </span>
     )

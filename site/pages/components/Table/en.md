@@ -12,7 +12,6 @@
 | className | string | - | extend className |
 | columns | object[] | - | array，见 TableColumn |
 | data | object[] | - | data |
-| datum | object | - | If the format and prediction does not satisfied your requirements, you can pass in a [Datum.List](/components/Datum.List) object or the Datum.List configuration to process data. |
 | disabled | (data: object) => boolean \| boolean | false | When the value is true, disabled all checkboxes; When the value is function, disable the checkbox that this function returns true. |
 | fixed | 'both' \| 'x' \| 'y' \| 'auto' | - | visual scroll-bar direction, empty will use native scroll-bar and disabled lazy load | 
 | format | (data: object) => any \| string | d => d | Format value<br />The defaule value is return the original data.<br />When it is a string, the value is fetched from the original data as a key equivalent to (d) => d\[format]<br />When it is a function, use its return value. |
@@ -34,7 +33,7 @@
 | rowClickAttr | string \| string[] | \['*'\] | Sets the attribute of inner element to trigger onRowClick as needed, and '*' to accept the row click |
 | sorter | (sortKey: any, sorter: 'asc' \| 'desc', sortedList: any[]) => (a: object, b: object) => boolean | alphaSort(Column.sorter, sorter) | the method of table sort，args are Column.sorter and order<br /> Multi-column sorting is supported. The sorter passes in the object {rule: string \| function, weight: number}, where rule is a sorting rule, which refers to the use of single-column sorting when it is a string, weight is the weight, indicating the priority of the order<br /> When sorting on multiple columns, sortedList returns information about all fields involved in sorting|
 | treeExpandKeys | any[] | none  | Tree Table expanded row keys |
-| onTreeExpand | (openKeys: string[]) => void | none | expand row change, keys is expanded row keys |
+| onTreeExpand | (openKeys: string[], data: object, expand: boolean) => void | none | expand row change, keys is expanded row keys |
 | hover | boolean | true | row hover highlight |
 | treeEmptyExpand | boolean | false | show expand button while children data is empty |
 | treeCheckAll | boolean | false | check children data while select all | 
@@ -42,11 +41,13 @@
 | radio | boolean | false | is Radio |
 | rowEvents | object | none | tr events |
 | defaultTreeExpandKeys | any[] | none | Default expanded row keys |
+| dataChangeResize | boolean | false | Whether to recalculate the column width after the data changes |
 | onColumnResize | (newColumns: object[]) => void | none | columns resize callback |
 | size | 'small' \| 'normal' | 'normal' | size of table |
 | pagination | object | none | pagination of table |
 | innerScrollAttr | string[] | 无 | set inner scrollable element's attribute |
 | expandKeys | any[] | none | controlled expand rows |
+| sticky | boolean \| object | none | sticky header, When it is true, the distance from the top is 0. When it is an object, the attribute value reference [Sticky component] (/components/Sticky)  |
 
 ### TableColumn
 

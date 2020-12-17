@@ -34,7 +34,7 @@
 | sorter | (sortKey: any, sorter: 'asc' \| 'desc', sortedList: object[]) => (a: object, b: object) => boolean | alphaSort(Column.sorter, sorter) | 表格统一排序函数，参数分别为 Column.sorter 和 排序方式;<br />支持多列排序，sorter传入对象{ rule: string \| function, weight: number }, rule为排序规则，为字符串时参考单列排序的用法, weight为权重，指明排序的优先级. <br />多列排序时，sortedList返回所有参与排序的字段信息|
 | treeExpandKeys | any[] | 无  | 树形数据展开行，受控 |
 | hover | boolean | true | 数据行鼠标悬浮高亮效果 |
-| onTreeExpand | (openKeys: string[]) => void | 无 |  展开行，keys为展开的行 |
+| onTreeExpand | (openKeys: string[], data: object, expand: boolean) => void | 无 |  展开行，keys为展开的行 |
 | treeEmptyExpand | boolean | false | 树形表格子数据为空时依然展示展开按钮 |
 | treeCheckAll | boolean | false | 全选时是否将子孙数据选中 | 
 | onSortCancel | () => void | 无 | 排序取消事件 |
@@ -47,6 +47,7 @@
 | pagination | object | 无 | 分页数据 |
 | innerScrollAttr | string[] | 无 | 虚拟滚动模式下，设置行内元素的 attribut 来实现内部滚动 |
 | expandKeys | any[] | 无 | 展开行受控 |
+| sticky | boolean \| object | 无 | 表头是否附着顶部，为 true 时距离顶部为0，为对象时属性值参考 [Sticky组件](/components/Sticky) |
 
 ### TableColumn
 

@@ -57,6 +57,12 @@ const injects = {
         desc: '主色',
       },
       {
+        name: 'infoColor',
+        type: 'color',
+        attr: 'backgroundColor',
+        className: buttonClass('info'),
+      },
+      {
         name: 'warning',
         type: 'color',
         attr: 'backgroundColor',
@@ -158,6 +164,20 @@ const injects = {
           '--primary-color-fade-0': fade(v, 0),
           '--primary-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
           '--primary-color-dark-5_fade-0': fade(darken(v, 5), 0),
+        },
+        v
+      )
+    },
+    set infoColor(v) {
+      setBodyProperty(
+        {
+          '--info-color': v,
+          '--info-color-dark-5': darken(v, 5),
+          '--info-color-fade-60': fade(v, 0.6),
+          '--info-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
+          '--info-color-fade-0': fade(v, 0),
+          '--info-color-dark-5_fade-0': fade(darken(v, 5), 0),
+          '--info-color-dark-btn-hover': darken(v, getProperty()),
         },
         v
       )
@@ -314,6 +334,14 @@ const injects = {
         desc: '常规按钮字体大小',
       },
       {
+        name: 'defaultSizeWidth',
+        attr: 'minWidth',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('_'),
+        desc: '常规按钮最小宽度',
+      },
+      {
         name: 'fontSizeLarge',
         attr: 'fontSize',
         type: 'number',
@@ -322,12 +350,28 @@ const injects = {
         desc: '大按钮字体大小',
       },
       {
+        name: 'largeSizeWidth',
+        attr: 'minWidth',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('large'),
+        desc: '大号按钮最小宽度',
+      },
+      {
         name: 'fontSizeSmall',
         attr: 'fontSize',
         type: 'number',
         parser: parseInt,
         className: buttonClass('small'),
         desc: '小按钮字体大小',
+      },
+      {
+        name: 'smallSizeWidth',
+        attr: 'minWidth',
+        type: 'number',
+        parser: parseInt,
+        className: buttonClass('_'),
+        desc: '小号按钮最小宽度',
       },
       {
         name: 'marginLeft',
@@ -432,6 +476,13 @@ const injects = {
         desc: '禁用按钮边框色',
       },
       {
+        name: 'disabledDelimiter',
+        attr: 'borderColor',
+        type: 'color',
+        className: exposeClass('button-disabled-delimiter'),
+        desc: '按钮组禁用状态下分隔符颜色',
+      },
+      {
         name: 'disabledColor',
         attr: 'color',
         type: 'color',
@@ -454,6 +505,14 @@ const injects = {
         v
       )
     },
+    set defaultSizeWidth(v) {
+      setBodyProperty(
+        {
+          '--button-default-size-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
     set fontSizeLarge(v) {
       setBodyProperty(
         {
@@ -462,10 +521,26 @@ const injects = {
         v
       )
     },
+    set largeSizeWidth(v) {
+      setBodyProperty(
+        {
+          '--button-large-size-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
     set fontSizeSmall(v) {
       setBodyProperty(
         {
           '--button-font-size-small': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set smallSizeWidth(v) {
+      setBodyProperty(
+        {
+          '--button-small-size-width': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -579,6 +654,14 @@ const injects = {
       setBodyProperty(
         {
           '--button-disabled-border-color': v,
+        },
+        v
+      )
+    },
+    set disabledDelimiter(v) {
+      setBodyProperty(
+        {
+          '--button-disabled-delimiter': v,
         },
         v
       )
@@ -995,6 +1078,13 @@ const injects = {
         desc: '禁用背景色',
       },
       {
+        name: 'disabledColor',
+        className: inputClass('disabled'),
+        attr: 'color',
+        type: 'color',
+        desc: '禁用字体色',
+      },
+      {
         name: 'borderColor',
         className: inputClass('_'),
         attr: 'borderColor',
@@ -1066,6 +1156,14 @@ const injects = {
       setBodyProperty(
         {
           '--input-bg-disabled': v,
+        },
+        v
+      )
+    },
+    set disabledColor(v) {
+      setBodyProperty(
+        {
+          '--input-disabled-color': v,
         },
         v
       )
@@ -1923,6 +2021,38 @@ const injects = {
         type: 'color',
         desc: '项目鼠标悬浮背景色',
       },
+      {
+        name: 'fontSize',
+        className: exposeClass('pagination'),
+        attr: 'fontSize',
+        type: 'number',
+        parser: parseInt,
+        desc: '字体大小',
+      },
+      {
+        name: 'defaultSize',
+        className: exposeClass('pagination-default'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        desc: '默认尺寸宽高',
+      },
+      {
+        name: 'smallSize',
+        className: exposeClass('pagination-small'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        desc: '小号尺寸宽高',
+      },
+      {
+        name: 'largeSize',
+        className: exposeClass('pagination-large'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        desc: '大号尺寸宽高',
+      },
     ],
     set borderRadius(v) {
       setBodyProperty(
@@ -1960,6 +2090,38 @@ const injects = {
       setBodyProperty(
         {
           '--pagination-hover-bg': v,
+        },
+        v
+      )
+    },
+    set fontSize(v) {
+      setBodyProperty(
+        {
+          '--pagination-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set defaultSize(v) {
+      setBodyProperty(
+        {
+          '--pagination-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set smallSize(v) {
+      setBodyProperty(
+        {
+          '--pagination-size-small': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set largeSize(v) {
+      setBodyProperty(
+        {
+          '--pagination-size-large': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -3912,6 +4074,46 @@ const injects = {
       setBodyProperty(
         {
           '--cascader-active-color': v,
+        },
+        v
+      )
+    },
+  },
+  list: {
+    info: {
+      title: 'List 列表',
+      name: 'list',
+      path: 'List',
+    },
+    conf: [
+      {
+        name: 'itemBottomBorderWidth',
+        className: exposeClass('list-item'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        desc: '分割线粗细',
+      },
+      {
+        name: 'itemHoverBgc',
+        className: exposeClass('list-item'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '行hover时背景颜色',
+      },
+    ],
+    set itemBottomBorderWidth(v) {
+      setBodyProperty(
+        {
+          '--list-item-bottom-border-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set itemHoverBgc(v) {
+      setBodyProperty(
+        {
+          '--list-item-hover-bgc': v,
         },
         v
       )

@@ -39,6 +39,7 @@
 | filesFilter | (fileList: any[]) => boolean | 无 | 文件选中后的筛选，用户可自定义最终需要上传的文件列表<br />需返回一个新的文件列表 |
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | 无 | 上传失败文件删除之后的回调 |
 | forceAccept | string | 无 | 在使用时关闭了 accept 提供的文件类型过滤后，强制对文件类型进行校验（值同accept） |
+| showUploadList | boolean | true | 是否展示上传列表 |
 
 
 ### Upload.Image
@@ -79,3 +80,4 @@
 | ext | func(string):Error | 判断后缀名，传入参数为文件后缀，校验失败返回 Error |
 | size | func(number):Error | 判断文件大小，校验失败返回 Error |
 | imageSize | func(Image):Error | 只对 Image 有效，判断图片尺寸，校验失败返回 Error |
+| customValidator | func(File):Error | 自定义校验 |

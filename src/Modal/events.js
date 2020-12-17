@@ -7,6 +7,7 @@ import { modalClass } from '../styles'
 import Panel from './Panel'
 import { getLocale } from '../locale'
 import { getParent } from '../utils/dom/element'
+import ready from '../utils/dom/ready'
 
 const containers = {}
 const DURATION = 300
@@ -75,7 +76,7 @@ export function createDiv(props) {
   parent.appendChild(div)
   div.className = classnames(modalClass('_', position && 'position'), props.rootClassName)
 
-  containers[id] = { div, container: parent }
+  containers[id] = { div, container: parent, props }
 
   return div
 }
@@ -151,6 +152,7 @@ export const method = type => option => {
   const props = Object.assign(
     {
       width: 420,
+      esc: true,
     },
     option,
     {
@@ -170,3 +172,16 @@ export const method = type => option => {
   open(props)
   return () => close(props)
 }
+
+ready(() => {
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return
+    const ids = Object.keys(containers).reverse()
+    const opened = ids.find(id => containers[id].visible && containers[id].props.esc)
+    if (!opened) return
+    const { props } = containers[opened]
+    const { onClose, isPortal } = props
+    if (onClose) onClose()
+    if (!isPortal) close(props)
+  })
+})

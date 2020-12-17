@@ -3,6 +3,7 @@
 
 @button-prefix: ~'@{so-prefix}-button';
 @button-disabled: ~'.@{button-prefix}-disabled';
+@icon-prefix:  ~'@{so-prefix}-icon';
 
 .@{button-prefix} {
   display: inline-block;
@@ -51,7 +52,7 @@
     position: relative;
     box-shadow: none;
     cursor: @cursor-disabled;
-    opacity: 0.65;
+    opacity: @button-disabled-opacity;
   }
 
   a& {
@@ -67,10 +68,14 @@
       .button-outline(@button-default-text-color; @btn-default-bg; @btn-default-bg;);
     }
 
-    &:hover,
-    &:focus,
-    &:active {
+    &:not(.@{button-prefix}-disabled):hover,
+    &:not(.@{button-prefix}-disabled):focus,
+    &:not(.@{button-prefix}-disabled):active {
       color: @colors-primary;
+      .@{icon-prefix} {
+        color: @colors-primary;
+        fill: @colors-primary;
+      }
     }
 
     & when (@so-theme = antd) {
@@ -238,7 +243,7 @@
     background: @button-disabled-bg;
     color: @button-disabled-color;
     fill: @button-disabled-color;
-    border-color: @button-disabled-border-color;
+    border-color: #d9d9d9;
   }
 
   &-circle {
@@ -277,12 +282,6 @@
         transform: translateY(-50%);
       }
 
-      &.@{button-prefix}-default {
-        &:hover,
-        &:focus {
-          border-color: @btn-default-border;
-        }
-      }
 
       &:first-child {
         margin-left: 0;
@@ -308,12 +307,9 @@
       &:last-child:not(:first-child) {
         .border-left-radius(0);
       }
-    }
 
-    &.@{button-prefix}-outline .@{button-prefix} {
-      &:before {
-        border-left-color: inherit;
-      }
+
+      .button-group-border()
     }
   }
 

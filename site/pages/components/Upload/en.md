@@ -35,6 +35,7 @@
 | filesFilter | (fileList: any[]) => boolean | none | Filter after file selection, users can customize the list of files that need to be uploaded eventually<br />Need to return a new file list |
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | none | remove update failed callback |
 | forceAccept | string | none | After disabled the file type filtering provided by accept, it is mandatory to check the file type, value same as accept |
+| showUploadList | boolean | true | show upload list |
 
 ### Upload.Image
 
@@ -73,3 +74,4 @@
 | ext | func(string):Error | Judge the file extension, return the Error when the verification fails. |
 | size | func(number):Error | Judge the size of the file and return the Error when the verification fails. |
 | imageSize | func(Image):Error | It is only valid for Image to determine the size of images and return the Error when the verification fails. |
+| customValidator | func(File):Error | custom validator |

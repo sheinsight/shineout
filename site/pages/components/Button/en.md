@@ -18,6 +18,7 @@
 | type | 'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger' \| 'link' | 'default' | type of button |
 | text | boolean | false | text button |
 | onClick | () => void | none | button click callback |
+| space | boolean | false | For Button with only 2 Chinese characters, whether to insert a space between the two Chinese characters. |
 
 ### Button.Group
 

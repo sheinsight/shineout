@@ -23,6 +23,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Rate/example-01-base.js'),
   },
   {
+    name: '01-half',
+    title: locate(
+      '半星 \n Rate 是否允许半星。',
+      'Semi selection \n Rate whether to allow semi selection.'
+    ),
+    component: require('doc/pages/components/Rate/example-01-half.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Rate/example-01-half.js'),
+  },
+  {
     name: '02-color',
     title: locate(
       '颜色 \n 在创建组件时设置颜色',

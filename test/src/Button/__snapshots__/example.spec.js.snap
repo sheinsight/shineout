@@ -369,6 +369,24 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-8-group.js] 
   <br />
   <div>
     <button>
+      <span>
+        disabled
+      </span>
+    </button>
+    <button>
+      <span>
+        Center
+      </span>
+    </button>
+    <button>
+      <span>
+        Right
+      </span>
+    </button>
+  </div>
+  <br />
+  <div>
+    <button>
       <i />
       <span>
         Left

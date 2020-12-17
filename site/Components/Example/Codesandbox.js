@@ -78,6 +78,7 @@ export default ${file}`,
           content: {
             dependencies: {
               'react-dom': 'latest',
+              'prop-types': 'latest',
             },
           },
         },
@@ -88,7 +89,7 @@ export default ${file}`,
           content: `
 import React from 'react'
 import ReactDOM from 'react-dom'
-import 'shineout/dist/theme.antd.css'
+import 'shineout/dist/theme.shineout.css'
 import App from './App.js'
   
 ReactDOM.render(<App />, document.querySelector('#root'))

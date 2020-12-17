@@ -20,6 +20,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | className | string | | 扩展className |
+| value | object | | Form值 |
 | datum | object | | formdata 辅助类，不设置Form内部会自动创建，通常情况下不需要设置。 |
 | disabled | boolean | false | 是否禁用，为 true 时，表单内所有元素 disabled 都为 true |
 | inline | boolean | false | 是否水平布局 |
@@ -64,7 +65,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| children | (opts: object) => ReactNode \| ReactNode | 必填 | children 不为 function，用来处理 object 类型数据，children 内的 name 会拼接 FieldSet name，如 FieldSet name 为 'a', children 元素name 为 b，children 实际处理的数据为 a.b; <br /> children 为 function 时，用来处理数组数据。options 属性为<br />list: name 下的全部数据<br />value：根据name获取的值的单条数据<br />onChange：子组件数据改变回调<br />onRemove：子组件删除回调<br />index：当前项索引<br />onInsert: 在当前项之前插入一条数据<br />onAppend: 在当前项之后附加一条数据|
+| children | (opts: object) => ReactNode \| ReactNode | 必填 | children 不为 function，用来处理 object 类型数据，children 内的 name 会拼接 FieldSet name，如 FieldSet name 为 'a', children 元素name 为 b，children 实际处理的数据为 a.b; <br /> children 为 function 时，用来处理数组数据。options 属性为<br />list: name 下的全部数据<br />value：根据name获取的值的单条数据<br />onChange：子组件数据改变回调<br />onRemove：子组件删除回调<br />index：当前项索引<br />onInsert: 在当前项之前插入一条数据<br />onAppend: 在当前项之后附加一条数据 |
 | defaultValue | string \| number | | 默认值 |
 | empty | (onInsert: any) => ReactNode | 无 | 数据为空时展示内容。（仅在children为function时有效） |
 | name | string | 必填 | 从 Form 中存取数据的名称 |

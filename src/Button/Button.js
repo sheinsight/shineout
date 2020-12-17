@@ -8,9 +8,9 @@ import { buttonClass } from '../styles'
 
 class Button extends PureComponent {
   getChildren() {
-    const { children, loading } = this.props
+    const { children, loading, space } = this.props
     if (!children) return children
-    const parsed = React.Children.map(wrapSpan(children), item => {
+    const parsed = React.Children.map(wrapSpan(children, space), item => {
       if (loading && isValidElement(item) && item.type.isShineoutIcon) return null
       return item
     }).filter(v => v !== null)
@@ -29,6 +29,7 @@ class Button extends PureComponent {
       onRef,
       shape,
       text,
+      space,
       ...others
     } = this.props
     const isSecondary = typeProp === 'secondary' && !outlineProp && !text
@@ -78,6 +79,7 @@ Button.propTypes = {
   shape: PropTypes.oneOf(['round', 'circle']),
   outline: PropTypes.bool,
   text: PropTypes.bool,
+  space: PropTypes.bool,
 }
 
 Button.defaultProps = {

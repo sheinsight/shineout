@@ -41,12 +41,20 @@
   &-button {
     > .@{checkinput-prefix}.@{checkinput-prefix}-disabled {
       
-      &.@{checkinput-prefix}:not(.@{checkinput-prefix}-checked) {
+      &.@{checkinput-prefix} {
         background: @button-disabled-bg;
         color: @button-disabled-color;
         &:hover {
           background: @button-disabled-bg;
           color: @button-disabled-color;
+        }
+
+        &:not(.@{checkinput-prefix}-checked) {
+          opacity: 0.65;
+        }
+
+        &.@{checkinput-prefix}-checked {
+          opacity: 1;
         }
       }
     }
@@ -153,17 +161,17 @@
         }
       }
 
-      &:hover,
-      &:active,
-      &:focus {
+      &:hover:not(.@{checkinput-prefix}-disabled),
+      &:active:not(.@{checkinput-prefix}-disabled),
+      &:focus:not(.@{checkinput-prefix}-disabled) {
         &::before {
           background-color: @colors-primary;
         }
       }
 
-      &:hover,
-      &:focus,
-      &:active {
+      &:hover:not(.@{checkinput-prefix}-disabled),
+      &:focus:not(.@{checkinput-prefix}-disabled),
+      &:active:not(.@{checkinput-prefix}-disabled) {
         &:not(:last-child) {
           &::after {
             background-color: @colors-primary;
@@ -180,6 +188,20 @@
           z-index: 1;
         }
         .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border; 'primary');
+
+        &[disabled],
+        fieldset[disabled] & {
+          &:hover,
+          &:focus {
+            background: @button-disabled-bg;
+            color: @button-disabled-color;
+          }
+
+          &:active {
+            animation: none;
+          }
+        }
+
         &:before {
           background: @btn-primary-bg;
         }
@@ -216,6 +238,11 @@
           color: @colors-primary;
         }
       }
+    }
+
+    &.@{checkinput-prefix}-group span{
+      // fix: radio px decimal point
+      vertical-align: baseline;
     }
   }
 
@@ -483,7 +510,7 @@
     }
   }
 
-  &-radio-container {
+  &-radio-container:not(.@{checkinput-prefix}-disabled) {
     .@{checkinput-prefix}-desc {
       color: @radio-text-color;
     }

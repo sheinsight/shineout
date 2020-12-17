@@ -20,8 +20,8 @@ class Scroll extends PureComponent {
     this.touchStartX = 0
     this.touchStartY = 0
 
-    this.wheelX = true
-    this.wheelY = true
+    this.wheelX = props.scrollX
+    this.wheelY = props.scrollY
 
     this.pixelX = 0
     this.pixelY = 0
@@ -224,8 +224,8 @@ class Scroll extends PureComponent {
 
     const yLength = scrollHeight < height ? scrollHeight : height
 
-    this.wheelY = Math.ceil(scrollHeight) > Math.ceil(yLength)
-    this.wheelX = Math.ceil(scrollWidth) > Math.ceil(width)
+    this.wheelY = scrollY && Math.ceil(scrollHeight) > Math.ceil(yLength)
+    this.wheelX = scrollX && Math.ceil(scrollWidth) > Math.ceil(width)
 
     return (
       <div style={style} ref={this.bindWheel} className={className}>
