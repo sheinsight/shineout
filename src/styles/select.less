@@ -90,6 +90,7 @@
       &.@{select-prefix}-disabled {
         padding-right: @select-result-space;
         cursor: not-allowed;
+        color: @input-disabled-color;
       }
 
       .@{select-prefix}-close {
@@ -511,6 +512,7 @@
   &-auto-adapt {
     .@{select-prefix}-options {
       width: auto;
+      min-width: 100%;
     }
   }
 
@@ -524,5 +526,6 @@
   // for normal Select
   &-auto-adapt.@{select-prefix}-options {
     width: auto;
+    min-width: 100%;
   }
 }

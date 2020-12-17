@@ -1,6 +1,6 @@
 /**
  * cn - 拖动
- *    -- 设置 onDrop 属性可以拖动节点
+ *    -- 设置 onDrop 属性可以拖动节点，设置 dragSibling 限制兄弟节点之间拖动
  * en - Drag
  *    -- Set the onDrop property to drag nodes.
  */

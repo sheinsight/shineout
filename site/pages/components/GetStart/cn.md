@@ -8,7 +8,7 @@ $ npm install shineout
 通过 CDN 引用
 ```
 <script crossorigin src="https://unpkg.com/shineout/dist/shineout.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/shineout/dist/theme.default.css" />
+<link rel="stylesheet" href="https://unpkg.com/shineout/dist/theme.shineout.css" />
 ```
 
 ## 使用
@@ -43,7 +43,7 @@ npm 安装的方式可以通过修改 webpack 的 less-loader 配置来切换主
   loader: 'less-loader',
   options: {
     modifyVars: {
-      'so-theme': 'antd'
+      'so-theme': 'shineout'
     }
   }
 }
@@ -51,6 +51,8 @@ npm 安装的方式可以通过修改 webpack 的 less-loader 配置来切换主
 
 CDN 引用的方式，可以修改引用路径
 ```
+<link rel="stylesheet" href="https://unpkg.com/shineout/dist/theme.shineout.css" />
+// or
 <link rel="stylesheet" href="https://unpkg.com/shineout/dist/theme.default.css" />
 // or
 <link rel="stylesheet" href="https://unpkg.com/shineout/dist/theme.antd.css" />
@@ -195,10 +197,10 @@ class App extends Component {
 export default App;
 ```
 
-修改 `src/App.css`，在文件顶部引入 `shineout/dist/theme.default.css`。
+修改 `src/App.css`，在文件顶部引入 `shineout/dist/theme.shineout.css`。
 
 ```
-+ @import '~shineout/dist/theme.default.css';
++ @import '~shineout/dist/theme.shineout.css';
 
 .App {
   text-align: center;
@@ -210,6 +212,7 @@ export default App;
 同时该项目兼容 `antd` 的样式，引入方式如下：
 
 ```
+- @import '~shineout/dist/theme.shineout.css';
 - @import '~shineout/dist/theme.default.css';
 + @import '~shineout/dist/theme.antd.css';
 
@@ -329,7 +332,7 @@ module.exports = [
 + [ 
 +   'use-rewire',
 +   rewireLess.withLoaderOptions({ 
-+     modifyVars: { 'so-theme': 'antd' }, // 主题修改为 antd
++     modifyVars: { 'so-theme': 'shineout' }, // 主题修改为 shineout
 +     javascriptEnabled: true
 +   })
 + ]

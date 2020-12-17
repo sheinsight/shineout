@@ -110,6 +110,84 @@ function compareDateArray(arr1, arr2, type = 'date') {
   })
 }
 
+function judgeTimeByRange(...args) {
+  const [target, value, mode, min, max, range, disabled] = args
+
+  const date = new Date(value.getTime())
+  switch (mode) {
+    case 'H':
+      date.setHours(target)
+      break
+    case 'h':
+      if (date.getHours() >= 12) {
+        date.setHours(target + 12)
+        break
+      }
+      date.setHours(target)
+      break
+    case 'm':
+    case 'minute':
+      date.setMinutes(target)
+      break
+    case 's':
+    case 'second':
+      date.setSeconds(target)
+      break
+    case 'ampm':
+      if (target === 0) {
+        const hours = date.getHours()
+        if (target === 1 && hours < 12) {
+          date.setHours(hours + 12)
+        } else if (target === 0 && hours >= 12) {
+          date.setHours(hours - 12)
+        }
+      }
+      break
+    default:
+      break
+  }
+
+  let isDisabled
+  if (disabled) isDisabled = disabled(date)
+  if (isDisabled) return [true]
+  if (!isDisabled && min) {
+    if (compareAsc(date, min) < 0) return [true]
+    if (range && compareAsc(date, addSeconds(min, range)) > 0) return [true]
+  }
+  if (!isDisabled && max) {
+    if (compareAsc(date, max) > 0) return [true]
+    if (range && compareAsc(date, addSeconds(max, -range)) < 0) return [true]
+  }
+  return [false, date]
+}
+
+function getFormat(fo) {
+  let defaultFormat = 'yyyy-MM-dd HH:mm:ss.SSS'
+  ;['H', 'm', 's', 'S', 'h'].map(v => {
+    if (fo.indexOf(v) <= -1) {
+      const reg = new RegExp(`${v}`, 'g')
+      defaultFormat = defaultFormat.replace(reg, '0')
+    }
+    return v
+  })
+  return defaultFormat
+}
+
+function resetTimeByFormat(value, fo) {
+  if (!value) return null
+  let date = null
+  if (typeof value === 'string') {
+    date = new Date(value)
+  } else {
+    date = new Date(value.getTime())
+  }
+  return new Date(
+    format(date, getFormat(fo), {
+      weekStartsOn: getLocale('startOfWeek'),
+    })
+  )
+}
+
 export default {
   clearHMS,
   addDays,
@@ -134,4 +212,6 @@ export default {
   formatDateWithDefaultTime,
   compareDateArray,
   TIME_FORMAT,
+  judgeTimeByRange,
+  resetTimeByFormat,
 }

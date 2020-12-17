@@ -79,7 +79,7 @@ const examples = [
   {
     name: '08-drag',
     title: locate(
-      '拖动 \n 设置 onDrop 属性可以拖动节点',
+      '拖动 \n 设置 onDrop 属性可以拖动节点，设置 dragSibling 限制兄弟节点之间拖动',
       'Drag \n Set the onDrop property to drag nodes.'
     ),
     component: require('doc/pages/components/Tree/example-08-drag.js').default,

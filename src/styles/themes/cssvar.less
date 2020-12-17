@@ -136,6 +136,9 @@
 @button-disabled-bg-value: #f5f5f5;
 @button-disabled-bg: var(--button-disabled-bg, @button-disabled-bg-value);
 
+@button-disabled-opacity: 1;
+@button-disabled-delimiter: var(--button-disabled-delimiter, #d9d9d9);
+
 @button-disabled-color-value: rgba(0, 0, 0, 0.45);
 @button-disabled-color: var(--button-disabled-color, @button-disabled-color-value);
 
@@ -159,6 +162,10 @@
 
 @button-default-text-color: var(--button-default-text-color, @btn-default-color);
 
+@button-default-size-width: var(--button-default-size-width, 64px);
+@button-small-size-width: var(--button-small-size-width, 48px);
+@button-large-size-width: var(--button-large-size-width, 64px);
+
 @pagination-border-radius-value: @border-radius-base;
 @pagination-border-radius: var(--pagination-border-radius, @pagination-border-radius-value);
 
@@ -167,6 +174,12 @@
 
 @pagination-hover-color-value: @colors-primary-value;
 @pagination-hover-color: var(--pagination-hover-color, @pagination-hover-color-value);
+
+@pagination-size: var(--pagination-size, @pagination-width);
+@pagination-size-small: var(--pagination-size-small, @pagination-small-width);
+@pagination-size-large: var(--pagination-size-large, @pagination-large-width);
+@pagination-font-size: var(--pagination-font-size, @font-size-base);
+
 
 @carousel-indicator-position-value: 10px;
 @carousel-indicator-position: var(--carousel-indicator-position, @carousel-indicator-position-value);
@@ -232,6 +245,8 @@
 
 @input-clear-bg-hover-color-value: @colors-primary-value;
 @input-clear-bg-hover-color: var(--input-clear-bg-hover-color, @input-clear-bg-hover-color-value);
+
+@input-disabled-color: var(--input-disabled-color, #999DA8);
 
 @dropdown-border-width-value: 1px;
 @dropdown-border-width: var(--dropdown-border-width, @dropdown-border-width-value);
@@ -371,9 +386,9 @@
 @menu-item-color: var(--menu-item-color, @menu-item-color-value);
 
 @menu-item-light-hover-color: var(--menu-item-light-hover-color, @menu-highlight-color);
-@menu-item-light-hover-bgc: var(--menu-item-light-hover-bgc, #fff);
+@menu-item-light-hover-bgc: var(--menu-item-light-hover-bgc, transparent);
 @menu-item-dark-hover-color: var(--menu-item-dark-hover-color, #fff);
-@menu-item-dark-hover-bgc: var(--menu-item-dark-hover-bgc, @menu-dark-bg);
+@menu-item-dark-hover-bgc: var(--menu-item-dark-hover-bgc, transparent);
 
 @alert-border-width-value: 1px;
 @alert-border-width: var(--alert-border-width, @alert-border-width-value);
@@ -534,6 +549,7 @@
 @modal-icon-top: var(--modal-icon-top, 40px);
 @modal-icon-left: var(--modal-icon-left, 32px);
 @modal-title-font: var(--modal-title-font, inherit);
+@modal-title-distance-to-right:  0px;
 
 @popover-arrow-outer-color-value: @gray-300-value;
 @popover-arrow-outer-color: var(--popover-border-color, @popover-arrow-outer-color-value);
@@ -564,7 +580,7 @@
 @tag-bg-color: var(--tag-bg, #fafafa);
 @tag-color: var(--tag-color, #595959);
 @tag-success-bg: var(--tag-success-bg, @colors-success);
-@tag-info-bg: var(--tag-info-bg, @colors-primary);
+@tag-info-bg: var(--tag-info-bg, @colors-info);
 @tag-warning-bg: var(--tag-warning-bg, @colors-warning);
 @tag-danger-bg: var(--tag-danger-bg, @colors-danger);
 
@@ -605,3 +621,8 @@
 
 @cascader-active-background-color: var(--cascader-active-background-color, @dropdown-link-active-bg);
 @cascader-active-color: var(--cascader-active-color, @dropdown-link-active-color);
+
+
+// list
+@list-item-bottom-border-width: var(--list-item-bottom-border-width, 1px);
+@list-item-hover-bgc: var(--list-item-hover-bgc,  rgba(25, 122, 250, 0.1));

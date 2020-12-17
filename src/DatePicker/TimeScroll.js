@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { range } from '../utils/numbers'
 import { datepickerClass } from '../styles'
+import utils from './utils'
 
 const lineHeight = 30
 const grayStyle = {
@@ -27,6 +28,21 @@ class TimeScroll extends PureComponent {
     this.updateScrollTop()
   }
 
+  getValue(v) {
+    const { step, ampm } = this.props
+    if (!step || ampm) return v
+    return Math.ceil(v / step)
+  }
+
+  getItemStyle(num, isDisabled) {
+    if (isDisabled) return null
+    if (this.props.ampm || (typeof this.props.step === 'number' && this.props.step > 0)) {
+      if (this.props.value % this.props.step) return null
+      return grayStyle[Math.ceil(Math.abs(this.props.value - num) / this.props.step)]
+    }
+    return grayStyle[Math.abs(this.props.value - num)]
+  }
+
   bindElement(el) {
     this.element = el
   }
@@ -34,6 +50,7 @@ class TimeScroll extends PureComponent {
   updateScrollTop() {
     const { value } = this.props
     if (!this.element) return
+    if (typeof this.props.step === 'number' && this.props.step > 0 && value % this.props.step) return
     if (this.element.scrollTop !== lineHeight * value) {
       setTimeout(() => {
         if (this.element) this.scrollToValue()
@@ -43,12 +60,12 @@ class TimeScroll extends PureComponent {
 
   scrollToValue() {
     const { value } = this.props
-    this.element.scrollTop = lineHeight * value
+    this.element.scrollTop = lineHeight * this.getValue(value)
   }
 
   handleClick(value) {
     this.props.onChange(value)
-    this.element.scrollTop = lineHeight * value
+    this.element.scrollTop = lineHeight * this.getValue(value)
   }
 
   handleMouseLeave() {
@@ -57,23 +74,34 @@ class TimeScroll extends PureComponent {
   }
 
   handleScroll() {
+    const { step, ampm } = this.props
     const value = Math.round(this.element.scrollTop / lineHeight)
+    if (typeof step === 'number' && step > 0 && !ampm && value !== this.props.value) {
+      this.props.onChange(value * step)
+      return
+    }
     if (value !== this.props.value) this.props.onChange(value)
   }
 
   renderItem(num) {
-    const { ampm, total, value } = this.props
+    const { ampm, total, value, step, mode, min, max, range: ra, current, disabled } = this.props
+
+    if (typeof step === 'number' && step <= 0) return null
+    if (!ampm && typeof step === 'number' && num % step !== 0) return null
+
     let text = num
     if (ampm) text = ['am', 'pm'][num]
     else if (total === 12 && num === 0) text = '12'
     else if (num < 10) text = `0${num}`
 
-    const className = datepickerClass(value === num && 'time-active')
+    const [isDisabled] = utils.judgeTimeByRange(num, current, mode, min, max, ra, disabled)
+
+    const className = datepickerClass(!isDisabled && value === num && 'time-active')
     return (
       <span
         key={num}
         className={className}
-        style={grayStyle[Math.abs(value - num)]}
+        style={this.getItemStyle(num, isDisabled)}
         onClick={this.handleClick.bind(this, num)}
       >
         {text}
@@ -103,6 +131,13 @@ TimeScroll.propTypes = {
   onChange: PropTypes.func.isRequired,
   total: PropTypes.number,
   value: PropTypes.number.isRequired,
+  step: PropTypes.number,
+  disabled: PropTypes.func,
+  min: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  max: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  range: PropTypes.number,
+  current: PropTypes.object,
+  mode: PropTypes.string,
 }
 
 TimeScroll.defaultProps = {

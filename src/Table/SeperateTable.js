@@ -16,6 +16,7 @@ import Tbody from './Tbody'
 import { isNumber } from '../utils/is'
 import { Provider as AbsoluteProvider } from './context'
 import { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
+import Sticky from '../Sticky'
 
 class SeperateTable extends PureComponent {
   constructor(props) {
@@ -451,9 +452,34 @@ class SeperateTable extends PureComponent {
     )
   }
 
+  renderHeader(floatClass) {
+    const { columns, width, onResize, columnResizable, sticky } = this.props
+    const { colgroup } = this.state
+
+    const header = (
+      <div key="head" className={tableClass('head', ...floatClass)} ref={this.bindHeadWrapper}>
+        <table style={{ width }} ref={this.bindThead}>
+          <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable && this.lastScrollArgs[4]} />
+          <Thead {...this.props} colgroup={colgroup} onSortChange={this.handleSortChange} onColChange={onResize} />
+        </table>
+      </div>
+    )
+
+    if (sticky) {
+      const stickyProps = Object.assign({ top: 0 }, sticky)
+      return (
+        <Sticky {...stickyProps} key="head">
+          {header}
+        </Sticky>
+      )
+    }
+
+    return header
+  }
+
   render() {
-    const { columns, fixed, width, onResize, columnResizable } = this.props
-    const { colgroup, scrollLeft, floatFixed } = this.state
+    const { fixed } = this.props
+    const { scrollLeft, floatFixed } = this.state
 
     const floatClass = []
 
@@ -471,12 +497,7 @@ class SeperateTable extends PureComponent {
     }
 
     return [
-      <div key="head" className={tableClass('head', ...floatClass)} ref={this.bindHeadWrapper}>
-        <table style={{ width }} ref={this.bindThead}>
-          <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable && this.lastScrollArgs[4]} />
-          <Thead {...this.props} colgroup={colgroup} onSortChange={this.handleSortChange} onColChange={onResize} />
-        </table>
-      </div>,
+      this.renderHeader(floatClass),
       <AbsoluteProvider value key="body">
         {this.renderBody(floatClass)}
       </AbsoluteProvider>,
@@ -497,6 +518,7 @@ SeperateTable.propTypes = {
   scrollLeft: PropTypes.number,
   onResize: PropTypes.func,
   innerScrollAttr: PropTypes.arrayOf(PropTypes.string),
+  sticky: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 }
 
 SeperateTable.defaultProps = {

@@ -70,6 +70,7 @@ const accessors = {
   switch: {},
   tabs: {},
   cascader: {},
+  list: {},
 }
 
 for (const [key, value] of entries(accessors)) {

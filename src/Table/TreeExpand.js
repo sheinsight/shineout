@@ -5,7 +5,7 @@ import { getKey } from '../utils/uid'
 import { getProps } from '../utils/proptypes'
 import { keysToArray } from '../utils/transform'
 
-const TREE_TABLE_DEFAULT_INDENT = 25
+const TREE_TABLE_DEFAULT_INDENT = 15
 export default WrappedComponent => {
   class TreeExpand extends React.Component {
     constructor(props) {
@@ -96,7 +96,7 @@ export default WrappedComponent => {
         expandKeys.get(key) ? draft.delete(key) : draft.set(key, true)
       })
       if (treeExpandKeys && onTreeExpand) {
-        onTreeExpand(keysToArray(changedKeys))
+        onTreeExpand(keysToArray(changedKeys), data, !!expandKeys.get(key), index)
         return
       }
       this.changedByExpand = true

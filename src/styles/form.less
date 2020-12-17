@@ -4,6 +4,10 @@
 @form-prefix: ~'@{so-prefix}-form';
 @input-prefix: ~'@{so-prefix}-input';
 @editableArea-prefix: ~'@{so-prefix}-editableArea';
+@select-prefix: ~'@{so-prefix}-select';
+@icon-prefix:  ~'@{so-prefix}-icon';
+
+@input-group-icon-padding-x: 8px;
 
 @input-group-icon-padding-x: 8px;
 
@@ -132,6 +136,7 @@
     &:hover,
     input {
       .input-disabled();
+      color: @input-disabled-color;
     }
   }
 }
@@ -202,6 +207,8 @@
 
     button {
       border-width: 0;
+      // reset button min-width
+      min-width: 0;
     }
 
     & > span,
@@ -246,6 +253,12 @@
 
     .@{input-prefix}-invalid.@{input-prefix}-focus {
       box-shadow: none;
+    }
+
+    // for icon
+    .@{icon-prefix}  {
+      color: @gray-400;
+      fill: @gray-400;
     }
   }
 
@@ -302,7 +315,8 @@
     box-shadow: none;
     
     &-disabled {
-      .input-disabled()
+      .input-disabled();
+      color: @input-disabled-color;
     }
   }
 
@@ -461,14 +475,6 @@
     overflow: hidden;
   }
 
-  &-disabled {
-    &,
-    &:hover,
-    input {
-      .input-disabled();
-    }
-  }
-
   input,
   textarea {
     display: block;
@@ -479,6 +485,19 @@
     line-height: inherit;
     outline: none;
     color: @input-color;
+  }
+
+  &-disabled {
+    &,
+    &:hover,
+    input {
+      .input-disabled();
+      color: @input-disabled-color;
+    }
+
+    .@{select-prefix}-result {
+      color: @input-disabled-color;
+    }
   }
 
   ::placeholder,

@@ -29,6 +29,10 @@
     content: '';
     pointer-events: none;
   }
+  
+  &-sticky {
+    overflow: visible;
+  }
 
   table {
     min-width: 100%;
@@ -266,6 +270,12 @@
             border-right: 1px solid @table-border-color;
             border-bottom-width: 1px;
           }
+        }
+      }
+
+      > tbody > tr:last-child {
+        > td {
+          border-bottom-width: 0px;
         }
       }
 

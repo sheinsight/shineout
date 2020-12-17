@@ -23,3 +23,4 @@
 | size | number \| string | 20 | the size of the icon |
 | value | number | 0 | |
 | clearable | bool | false | whether to allow clear when click again |
+| allowHalf | bool | false | Whether to allow semi selection |

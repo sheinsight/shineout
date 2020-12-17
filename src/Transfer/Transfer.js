@@ -66,15 +66,19 @@ class Transfer extends PureComponent {
       rowsInView,
       lineHeight,
       listHeight,
+      renderFilter,
+      children,
     } = this.props
     const selecteds = this.getSelected()
 
+    const datumValues = datum.getValue()
+
     // use this.props.value prioritized
-    if ('value' in this.props && this.props.datum.getValue() !== this.props.value) {
+    if ('value' in this.props && datumValues !== this.props.value) {
       this.props.datum.setValue(this.props.value)
     }
     const sources = data.filter(d => !datum.check(d))
-    const targets = datum.getValue().reduce((p, n) => {
+    const targets = datumValues.reduce((p, n) => {
       const d = datum.getDataByValue(data, n)
       if (d) p.push(d)
       return p
@@ -101,6 +105,9 @@ class Transfer extends PureComponent {
             rowsInView={rowsInView}
             lineHeight={lineHeight}
             listHeight={listHeight}
+            renderFilter={renderFilter}
+            customRender={children}
+            values={datumValues}
           />
           <Btns
             selecteds={selecteds}
@@ -133,6 +140,9 @@ class Transfer extends PureComponent {
             rowsInView={rowsInView}
             lineHeight={lineHeight}
             listHeight={listHeight}
+            renderFilter={renderFilter}
+            customRender={children}
+            values={datumValues}
           />
         </Context.Provider>
       </div>
@@ -178,6 +188,8 @@ Transfer.propTypes = {
   rowsInView: PropTypes.number,
   lineHeight: PropTypes.number,
   listHeight: PropTypes.number,
+  renderFilter: PropTypes.func,
+  children: PropTypes.func,
 }
 
 export default Transfer
