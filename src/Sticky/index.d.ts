@@ -1,15 +1,12 @@
-import * as React from 'react';
-type ReactNode = React.ReactNode;
+import * as React from 'react'
 
-
+// type ReactNode = React.ReactNode
 
 declare class Sticky extends React.Component<StickyProps, {}> {
-
-  render(): JSX.Element;
+  render(): JSX.Element
 }
 
 export interface StickyProps {
-
   /**
    * Offsets from the bottom.
    * 距离底部多少偏移量触发
@@ -51,7 +48,12 @@ export interface StickyProps {
    * default: true
    */
   css?: bool;
-
+  /**
+   * When the adsorption effect, trigger the callback
+   * 吸附效果时，触发该回调
+   * default: null
+   */
+  onChange?: (isSticky: boolean) => void;
 }
 
-export default Sticky;
+export default Sticky
