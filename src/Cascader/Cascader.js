@@ -9,7 +9,7 @@ import Result from './Result'
 import CascaderList from './List'
 import { docSize } from '../utils/dom/document'
 import { getParent } from '../utils/dom/element'
-import absoluteList from '../List/AbsoluteList'
+import absoluteList from '../AnimationList/AbsoluteList'
 
 const OptionList = absoluteList(({ focus, getRef, ...other }) => (focus ? <div {...other} /> : null))
 

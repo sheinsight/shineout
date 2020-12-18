@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import List from '../List'
+import List from '../AnimationList'
 import Tree from '../Tree'
 import Spin from '../Spin'
 import { getLocale } from '../locale'
