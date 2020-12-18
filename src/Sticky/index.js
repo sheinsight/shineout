@@ -20,6 +20,7 @@ class Sticky extends PureComponent {
     this.bindOrigin = this.bindOrigin.bind(this)
     this.bindPlaceholder = this.bindPlaceholder.bind(this)
     this.handlePosition = this.handlePosition.bind(this)
+    this.style = {}
   }
 
   componentDidMount() {
@@ -60,6 +61,8 @@ class Sticky extends PureComponent {
         delete style.left
       }
     }
+
+    this.triggerChange(true, style)
 
     return style
   }
@@ -108,6 +111,7 @@ class Sticky extends PureComponent {
           this.setState({ mode: '' })
           style = {}
           placeholder = null
+          this.triggerChange(false, style)
         }
       } else if (this.targetElement && placeholderRect) {
         style = this.getStyle('top', top, selfRect.left, selfRect.width)
@@ -131,6 +135,7 @@ class Sticky extends PureComponent {
         this.setState({ mode: '' })
         style = {}
         placeholder = null
+        this.triggerChange(false, style)
       } else if (this.targetElement && placeholderRect) {
         style = this.getStyle('bottom', bottom, selfRect.left, selfRect.width)
         placeholder = placeholderStyle
@@ -145,8 +150,15 @@ class Sticky extends PureComponent {
       this.setState({ placeholder })
     }
     if (style) {
+      this.style = style
       this.setState({ style })
     }
+  }
+
+  triggerChange(flag, style) {
+    const { onChange } = this.props
+    if (style.position === this.style.position) return
+    if (typeof onChange === 'function') onChange(flag)
   }
 
   handlePosition() {
@@ -230,6 +242,7 @@ Sticky.propTypes = {
   target: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   top: PropTypes.number,
   css: PropTypes.bool,
+  onChange: PropTypes.func,
 }
 
 Sticky.defaultProps = {
