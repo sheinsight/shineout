@@ -11,7 +11,7 @@ import { getKey } from '../utils/uid'
 import { createFunc } from '../utils/func'
 import { isFunc } from '../utils/is'
 import Item from './item'
-import LazyList from '../List/LazyList'
+import LazyList from '../AnimationList/LazyList'
 import { getLocale } from '../locale'
 import Input from '../Input'
 

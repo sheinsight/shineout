@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 import { getLocale } from '../locale'
 import icons from '../icons'
 import { getKey } from '../utils/uid'
-import List from '../List'
+import List from '../AnimationList'
 import Spin from '../Spin'
 import Input from '../Input'
 import Checkbox from '../Checkbox/Checkbox'
 import { selectClass } from '../styles'
 import BoxOption from './BoxOption'
-import LazyList from '../List/LazyList'
+import LazyList from '../AnimationList/LazyList'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast', 'flex')
 const emptyFunc = () => {}
