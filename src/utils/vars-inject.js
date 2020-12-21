@@ -2530,6 +2530,28 @@ const injects = {
         type: 'color',
         desc: '暗黑主题 hover状态下背景颜色',
       },
+      {
+        name: 'activeBar',
+        className: exposeClass('menu-bar'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        desc: 'active 状态下 bar 宽度',
+      },
+      {
+        name: 'activeBarColor',
+        className: exposeClass('menu-bar'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'active bar 颜色',
+      },
+      {
+        name: 'darkActiveBarColor',
+        className: exposeClass('menu-dark-bar'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '暗黑模式下 active bar 颜色',
+      },
     ],
     set height(v) {
       const height = parseInt(v, 10)
@@ -2649,6 +2671,30 @@ const injects = {
       setBodyProperty(
         {
           '--menu-item-dark-hover-bgc': v,
+        },
+        v
+      )
+    },
+    set activeBar(v) {
+      setBodyProperty(
+        {
+          '--menu-active-bar': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set activeBarColor(v) {
+      setBodyProperty(
+        {
+          '--menu-item-active-indicator': v,
+        },
+        v
+      )
+    },
+    set darkActiveBarColor(v) {
+      setBodyProperty(
+        {
+          '--menu-dark-item-active-indicator': v,
         },
         v
       )
