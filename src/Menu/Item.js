@@ -175,6 +175,7 @@ class Item extends PureComponent {
       topLine,
       linkKey,
       toggleDuration,
+      isRoot,
     } = this.props
     const { open, isActive, isHighLight, inPath } = this.state
     const { children: dChildren } = data
@@ -196,6 +197,7 @@ class Item extends PureComponent {
       isUp && 'open-up',
       isHighLight && 'highlight',
       inPath && 'in-path',
+      isRoot && 'root-node',
       this.isChildrenCheck() && 'children-check'
     )
 

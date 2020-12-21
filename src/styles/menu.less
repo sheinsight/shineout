@@ -284,6 +284,15 @@
       }
     }
 
+    .@{menu-prefix}-item.@{menu-prefix}-root-node {
+      & > a {
+        background-color: @menu-root-node-bgc;
+      }
+      & > ul {
+        border-top: 1px solid @menu-children-segmentation;
+      }
+    }
+
     &.@{menu-prefix}-horizontal,&.@{menu-prefix}-vertical {
       border-color: @menu-dark-bg;
 

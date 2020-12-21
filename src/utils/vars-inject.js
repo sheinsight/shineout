@@ -2451,6 +2451,20 @@ const injects = {
         desc: '黑色主题背景色',
       },
       {
+        name: 'darkRootNodeBg',
+        className: exposeClass('menu-dark-root'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '黑色主题 Root Node 背景色',
+      },
+      {
+        name: 'darkChildrenSegmentation',
+        className: exposeClass('menu-dark-seg'),
+        attr: 'borderTopColor',
+        type: 'color',
+        desc: '黑色主题子菜单与Root Menu 分割线背景色',
+      },
+      {
         name: 'darkActiveBg',
         className: exposeClass('menu-dark-active'),
         attr: 'backgroundColor',
@@ -2614,6 +2628,22 @@ const injects = {
       setBodyProperty(
         {
           '--menu-dark-color': v,
+        },
+        v
+      )
+    },
+    set darkRootNodeBg(v) {
+      setBodyProperty(
+        {
+          '--menu-root-node-bgc': v,
+        },
+        v
+      )
+    },
+    set darkChildrenSegmentation(v) {
+      setBodyProperty(
+        {
+          '--menu-children-segmentation': v,
         },
         v
       )
