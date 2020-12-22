@@ -2,6 +2,8 @@
 @import './themes/@{so-theme}.less';
 
 @select-prefix: ~'@{so-prefix}-select';
+@input-prefix: ~'@{so-prefix}-input';
+@list-prefix: ~'@{so-prefix}-list';
 
 .@{select-prefix} {
   position: relative;
@@ -530,7 +532,8 @@
   }
 
 
-  &.@{select-prefix}-rtl {
+  &.@{select-prefix}-rtl,
+  &.@{input-prefix}-rtl {
     direction: rtl;
     text-align: right;
 
@@ -587,6 +590,20 @@
     .@{select-prefix}-indicator {
       right: auto;
       left: 7px;
+    }
+  }
+}
+
+.@{list-prefix}-absolute-wrapper.@{select-prefix}-rtl  {
+  direction: rtl;
+  text-align: right;
+
+  .@{select-prefix}-option {
+    padding: @dropdown-item-padding-y @dropdown-padding-x @dropdown-item-padding-y @dropdown-padding-x+12;
+
+    &.@{select-prefix}-active > svg {
+      right: auto;
+      left: 8px;
     }
   }
 }

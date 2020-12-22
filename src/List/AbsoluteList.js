@@ -90,6 +90,9 @@ export default function(List) {
 
       if (listPosition.includes(position)) {
         style.left = rect.left + docScroll.left
+        if (rtl) {
+          style.left += rect.width
+        }
         if (position === 'drop-down') {
           style.top = rect.top + rect.height + docScroll.top
         } else {

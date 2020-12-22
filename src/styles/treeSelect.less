@@ -2,6 +2,7 @@
 @import './themes/@{so-theme}.less';
 
 @treeSelect-prefix: ~'@{so-prefix}-treeSelect';
+@input-prefix: ~'@{so-prefix}-input';
 
 .@{treeSelect-prefix} {
   position: relative;
@@ -412,7 +413,8 @@
   }
 
 
-  &.@{treeSelect-prefix}-rtl {
+  &.@{treeSelect-prefix}-rtl,
+  &.@{input-prefix}-rtl {
     direction: rtl;
     text-align: right;
 

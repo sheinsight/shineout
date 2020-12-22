@@ -6,11 +6,10 @@ import TreeSelect from './TreeSelect'
 import filter from './filter'
 import datum from './datum'
 import absolute from '../Table/context'
-import { isRTL } from '../config'
 
 const exportTreeSelect = compose(
   inputable,
-  inputBorder({ className: treeSelectClass('_', isRTL() && 'rtl'), tag: 'div' }),
+  inputBorder({ className: treeSelectClass('_'), tag: 'div' }),
   datum,
   filter,
   absolute
