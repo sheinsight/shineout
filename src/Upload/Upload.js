@@ -17,6 +17,7 @@ import Drop from './Drop'
 import attrAccept from '../utils/accept'
 import { getLocale } from '../locale'
 import acceptHOC from './accept'
+import getDataset from '../utils/dom/getDataset'
 
 const VALIDATORITEMS = [
   { key: 'size', param: blob => blob.size },
@@ -420,7 +421,7 @@ class Upload extends PureComponent {
     }
 
     return (
-      <div className={className} style={style}>
+      <div className={className} style={style} {...getDataset(this.props)}>
         {!imageStyle && this.renderHandle()}
 
         {showUploadList &&

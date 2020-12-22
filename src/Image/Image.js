@@ -8,6 +8,7 @@ import showGallery from './events'
 import { getLocale } from '../locale'
 import config from '../config'
 import { removeProtocol } from '../utils/strings'
+import getDataset from '../utils/dom/getDataset'
 
 const PLACEHOLDER = 0
 const SRC = 1
@@ -174,6 +175,7 @@ class Image extends PureComponent {
       download: target === '_download',
       className,
       style: Object.assign({}, style, { width, paddingBottom: height }),
+      ...getDataset(this.props),
     }
     if (!href || target !== '_modal') props.href = href
     return <Tag {...props}>{this.renderImage()}</Tag>
