@@ -240,12 +240,12 @@ class Day extends PureComponent {
         <div className={datepickerClass('title')}>{getLocale('pickerTitle')[index]}</div>
         <div className={datepickerClass('header')}>
           <Icon
-            name="AngleDoubleLeft"
+            name={utils.getHeaderIconName('left', true)}
             disabled={!!(min && current.getFullYear() <= min.getFullYear())}
             onClick={this.handlePrevYear}
           />
           <Icon
-            name="AngleLeft"
+            name={utils.getHeaderIconName('left', false)}
             disabled={!!(min && utils.compareMonth(current, min) <= 0)}
             onClick={this.handlePrevMonth}
           />
@@ -256,14 +256,14 @@ class Day extends PureComponent {
           </span>
 
           <Icon
-            name="AngleRight"
+            name={utils.getHeaderIconName('right', false)}
             // disabled={max && utils.compareMonth(current, max, 0) >= 0}
             onClick={this.handleNextMonth}
           />
           <Icon
             onClick={this.handleNextYear}
             // disabled={max && current.getFullYear() >= max.getFullYear()}
-            name="AngleDoubleRight"
+            name={utils.getHeaderIconName('right', true)}
           />
         </div>
 

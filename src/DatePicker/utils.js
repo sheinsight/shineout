@@ -13,6 +13,7 @@ import startOfMonth from 'date-fns/startOfMonth'
 import startOfWeek from 'date-fns/startOfWeek'
 import toDate from 'date-fns/toDate'
 import { getLocale } from '../locale'
+import { isRTL } from '../config'
 
 const TIME_FORMAT = 'HH:mm:ss'
 
@@ -188,6 +189,21 @@ function resetTimeByFormat(value, fo) {
   )
 }
 
+const getHeaderIconName = (mode = 'left', double = false) => {
+  const rtl = isRTL()
+  if (mode === 'left') {
+    if (rtl) {
+      return double ? 'AngleDoubleRight' : 'AngleRight'
+    }
+    return double ? 'AngleDoubleLeft' : 'AngleLeft'
+  }
+
+  if (rtl) {
+    return double ? 'AngleDoubleLeft' : 'AngleLeft'
+  }
+  return double ? 'AngleDoubleRight' : 'AngleRight'
+}
+
 export default {
   clearHMS,
   addDays,
@@ -214,4 +230,5 @@ export default {
   TIME_FORMAT,
   judgeTimeByRange,
   resetTimeByFormat,
+  getHeaderIconName,
 }

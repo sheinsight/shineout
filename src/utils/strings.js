@@ -38,3 +38,15 @@ export function removeProtocol(url) {
     return url
   }
 }
+
+export function getRTLPosition(position) {
+  if (!position) return position
+  position.replace('left', 'right').replace('right', 'left')
+  if (position.indexOf('left') !== -1) {
+    return position.replace('left', 'right')
+  }
+  if (position.indexOf('right') !== -1) {
+    return position.replace('right', 'left')
+  }
+  return position
+}

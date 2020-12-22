@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { Component } from '../component'
 import { curry } from '../utils/func'
-import { buttonClass, inputClass, popoverClass } from '../styles'
+import { buttonClass, inputClass, popoverClass, inputBorderClass } from '../styles'
 import Popover from '../Popover'
 import { isRTL } from '../config'
 
@@ -115,6 +115,7 @@ export default curry(
 
         const newStyle = Object.assign({ width }, style)
         const newClassName = classnames(
+          inputBorderClass(rtl && 'rtl'),
           inputClass(
             '_',
             rtl && 'rtl',

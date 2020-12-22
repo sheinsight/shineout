@@ -14,12 +14,20 @@ import { isArray } from '../utils/is'
 import { getParent } from '../utils/dom/element'
 import absoluteList from '../List/AbsoluteList'
 import { docSize } from '../utils/dom/document'
+import { getRTLPosition } from '../utils/strings'
 import List from '../List'
 import { getLocale } from '../locale'
 import DateFns from './utils'
+import { isRTL } from '../config'
 
 const FadeList = List(['fade'], 'fast')
 const OptionList = absoluteList(({ focus, ...other }) => <FadeList show={focus} {...other} />)
+const getCurrentPosition = position => {
+  if (isRTL()) {
+    return getRTLPosition(position)
+  }
+  return position
+}
 
 class Container extends PureComponent {
   constructor(props) {
@@ -388,15 +396,17 @@ class Container extends PureComponent {
     const props = {
       absolute,
       focus,
-      className: datepickerClass('picker', 'location', `absolute-${position}`),
-      position,
+      className: datepickerClass('picker', 'location', `absolute-${getCurrentPosition(position)}`),
       zIndex,
       getRef: this.bindWrappedPicker,
     }
     // computed absolute position needed
     if (absolute) {
-      props.rootClass = datepickerClass('absolute')
+      props.rootClass = datepickerClass('absolute', isRTL() && 'rtl')
       props.parentElement = this.element
+      props.position = position
+    } else {
+      props.position = getCurrentPosition(position)
     }
     return <OptionList {...props}>{this.renderPicker()}</OptionList>
   }
@@ -439,13 +449,16 @@ class Container extends PureComponent {
     const { range, size, disabled } = this.props
     const { focus } = this.state
 
+    const rtl = isRTL()
+
     const className = datepickerClass(
       'inner',
       range && 'range',
       size && `size-${size}`,
       focus && 'focus',
       disabled === true && 'disabled',
-      this.state.position
+      getCurrentPosition(this.state.position),
+      rtl && 'rtl'
     )
 
     return (

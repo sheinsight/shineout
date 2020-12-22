@@ -9,7 +9,7 @@ import { Dropdown, Message } from 'shineout'
 
 const data = [
   {
-    content: 'Submenu-test-text',
+    content: 'Submenu',
     children: [
       {
         content: 'Link to Google',
@@ -22,9 +22,9 @@ const data = [
       },
     ],
   },
-  <a href="/">Home-Home-Home</a>,
+  <a href="/">Home</a>,
   {
-    content: 'Message-Message-Message',
+    content: 'Message',
     onClick: () => {
       Message.info('Some message.')
     },

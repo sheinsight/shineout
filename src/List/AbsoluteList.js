@@ -7,6 +7,7 @@ import { compose } from '../utils/func'
 import { scrollConsumer } from '../Scroll/context'
 import { listClass } from '../styles'
 import { docScroll, docSize } from '../utils/dom/document'
+import { getRTLPosition } from '../utils/strings'
 import zIndexConsumer from '../Modal/context'
 import { isRTL } from '../config'
 
@@ -21,17 +22,6 @@ function initRoot() {
 const listPosition = ['drop-down', 'drop-up']
 const pickerPosition = ['left-bottom', 'left-top', 'right-bottom', 'right-top']
 const dropdownPosition = ['bottom-left', 'bottom-right', 'top-left', 'top-right']
-
-const getRTLPosition = position => {
-  position.replace('left', 'right').replace('right', 'left')
-  if (position.indexOf('left') !== -1) {
-    return position.replace('left', 'right')
-  }
-  if (position.indexOf('right') !== -1) {
-    return position.replace('right', 'left')
-  }
-  return position
-}
 
 export default function(List) {
   class AbsoluteList extends Component {
