@@ -122,9 +122,9 @@
           position: absolute;
           top: 0;
           right: 0px;
-          width: 3px;
+          width: @menu-active-bar;
           height: 100%;
-          background: @menu-item-active-indicator;
+          background: @menu-active-bar-color;
           content: ' ';
         }
       }
@@ -318,6 +318,38 @@
 
       > a {
         color: @menu-bg;
+      }
+    }
+
+
+    &:not(.@{menu-prefix}-horizontal) {
+      .@{menu-prefix}-wrapper {
+        &  > ul.@{menu-prefix}-root {
+          & > li.@{menu-prefix}-item.@{menu-prefix}-has-children.@{menu-prefix}-in-path {
+            & > a.@{menu-prefix}-title  {
+              &:before {
+                content: ' ';
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: @menu-active-bar;
+                height: 100%;
+                background-color: @menu-dark-active-bar-color;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    ul.@{menu-prefix}-root {
+      &> li.@{menu-prefix}-item {
+        & > a {
+          background-color: @menu-root-node-bgc;
+        }
+        & > ul {
+          border-top: 1px solid @menu-children-segmentation;
+        }
       }
     }
   }
