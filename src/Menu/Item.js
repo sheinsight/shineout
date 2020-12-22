@@ -6,25 +6,7 @@ import { getKey, getUidStr } from '../utils/uid'
 import { menuClass } from '../styles'
 import List from './List'
 import { consumer } from './context'
-import { isLink, isEmpty } from '../utils/is'
-
-const hashMap = (rawData, keygen, childrenKey = 'children', parentKey, map = new Map()) => {
-  if (!rawData || !Array.isArray(rawData) || rawData.length <= 0) return map
-  rawData.forEach(data => {
-    if (!isEmpty(data)) {
-      let root = parentKey
-      if (typeof root !== 'number' && !parentKey) {
-        root = data[keygen]
-      }
-      map.set(data[keygen], root)
-      if (data[childrenKey] && data[childrenKey].length > 0) {
-        hashMap(data[childrenKey], keygen, childrenKey, root, map)
-      }
-    }
-  })
-
-  return map
-}
+import { isLink } from '../utils/is'
 
 class Item extends PureComponent {
   constructor(props) {
@@ -39,8 +21,6 @@ class Item extends PureComponent {
       this.updateInPath.bind(this)
     )
 
-    this.hashMap = props.isRoot && hashMap([props.data], props.keygen)
-
     this.state = {
       open: openUpdate(key),
       isActive: activeUpdate(this.id, props.data),
@@ -54,7 +34,6 @@ class Item extends PureComponent {
     this.handleMouseEnter = this.handleToggle.bind(this, true)
     this.handleMouseLeave = this.handleToggle.bind(this, false)
     this.renderLink = this.renderLink.bind(this)
-    this.isChildrenCheck = this.isChildrenCheck.bind(this)
   }
 
   componentWillUnmount() {
@@ -69,15 +48,6 @@ class Item extends PureComponent {
 
   bindElement(el) {
     this.element = el
-  }
-
-  isChildrenCheck() {
-    const { inPath } = this.state
-    const { data, keygen } = this.props
-    if (!inPath || !this.hashMap) return false
-    const root = this.hashMap.get(data[keygen])
-    if (isEmpty(root) || root !== data[keygen]) return false
-    return true
   }
 
   unbindDocumentEvent() {
@@ -175,7 +145,6 @@ class Item extends PureComponent {
       topLine,
       linkKey,
       toggleDuration,
-      isRoot,
     } = this.props
     const { open, isActive, isHighLight, inPath } = this.state
     const { children: dChildren } = data
@@ -196,9 +165,7 @@ class Item extends PureComponent {
       open && 'open',
       isUp && 'open-up',
       isHighLight && 'highlight',
-      inPath && 'in-path',
-      isRoot && 'root-node',
-      this.isChildrenCheck() && 'children-check'
+      inPath && 'in-path'
     )
 
     const style = {}
@@ -269,7 +236,6 @@ Item.propTypes = {
   unbindItem: PropTypes.func,
   linkKey: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   toggleDuration: PropTypes.number,
-  isRoot: PropTypes.bool,
 }
 
 export default consumer(Item)

@@ -303,7 +303,6 @@ class Root extends React.Component {
         <div className={menuClass('wrapper')}>
           <Provider value={this.providerValue}>
             <List
-              isRoot
               className={menuClass('root')}
               data={data}
               disabled={disabled}
