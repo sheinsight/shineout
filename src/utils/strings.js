@@ -1,3 +1,5 @@
+import { isRTL } from '../config'
+
 export function capitalize(str) {
   if (typeof str !== 'string') {
     console.error(new Error('str should be a string'))
@@ -49,4 +51,19 @@ export function getRTLPosition(position) {
     return position.replace('right', 'left')
   }
   return position
+}
+
+export function getDirectionIconName(mode = 'left', double = false) {
+  const rtl = isRTL()
+  if (mode === 'left') {
+    if (rtl) {
+      return double ? 'AngleDoubleRight' : 'AngleRight'
+    }
+    return double ? 'AngleDoubleLeft' : 'AngleLeft'
+  }
+
+  if (rtl) {
+    return double ? 'AngleDoubleLeft' : 'AngleLeft'
+  }
+  return double ? 'AngleDoubleRight' : 'AngleRight'
 }

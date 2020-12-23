@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { datepickerClass } from '../styles'
 import utils from './utils'
+import { getDirectionIconName } from '../utils/strings'
 import Icon from './Icon'
 import { getLocale } from '../locale'
 import { PureComponent } from '../component'
@@ -240,12 +241,12 @@ class Day extends PureComponent {
         <div className={datepickerClass('title')}>{getLocale('pickerTitle')[index]}</div>
         <div className={datepickerClass('header')}>
           <Icon
-            name={utils.getHeaderIconName('left', true)}
+            name={getDirectionIconName('left', true)}
             disabled={!!(min && current.getFullYear() <= min.getFullYear())}
             onClick={this.handlePrevYear}
           />
           <Icon
-            name={utils.getHeaderIconName('left', false)}
+            name={getDirectionIconName('left', false)}
             disabled={!!(min && utils.compareMonth(current, min) <= 0)}
             onClick={this.handlePrevMonth}
           />
@@ -256,14 +257,14 @@ class Day extends PureComponent {
           </span>
 
           <Icon
-            name={utils.getHeaderIconName('right', false)}
+            name={getDirectionIconName('right', false)}
             // disabled={max && utils.compareMonth(current, max, 0) >= 0}
             onClick={this.handleNextMonth}
           />
           <Icon
             onClick={this.handleNextYear}
             // disabled={max && current.getFullYear() >= max.getFullYear()}
-            name={utils.getHeaderIconName('right', true)}
+            name={getDirectionIconName('right', true)}
           />
         </div>
 

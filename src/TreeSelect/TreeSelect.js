@@ -11,6 +11,7 @@ import { docSize } from '../utils/dom/document'
 import { getParent } from '../utils/dom/element'
 import List from '../AnimationList'
 import { getLocale } from '../locale'
+import { isRTL } from '../config'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
 const OptionList = absoluteList(({ focus, ...other }) => <ScaleList show={focus} {...other} />)
@@ -239,7 +240,7 @@ export default class TreeSelect extends PureComponent {
     return (
       <OptionList
         absolute={absolute}
-        rootClass={treeSelectClass(position)}
+        rootClass={treeSelectClass(position, isRTL() && 'rtl')}
         parentElement={this.element}
         position={position}
         focus={focus}

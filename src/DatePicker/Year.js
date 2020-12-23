@@ -4,6 +4,7 @@ import { range } from '../utils/numbers'
 import { datepickerClass } from '../styles'
 import Icon from './Icon'
 import utils from './utils'
+import { getDirectionIconName } from '../utils/strings'
 
 class Year extends PureComponent {
   constructor(props) {
@@ -34,11 +35,11 @@ class Year extends PureComponent {
     return (
       <div className={datepickerClass('year-picker')}>
         <div className={datepickerClass('header')}>
-          <Icon name={utils.getHeaderIconName('left')} onClick={this.handlePrevRange} />
+          <Icon name={getDirectionIconName('left')} onClick={this.handlePrevRange} />
 
           <span className={datepickerClass('ym')}>{`${years[0]} ~ ${years[years.length - 1]}`}</span>
 
-          <Icon name={utils.getHeaderIconName('right')} onClick={this.handleNextRange} />
+          <Icon name={getDirectionIconName('right')} onClick={this.handleNextRange} />
         </div>
 
         <div className={datepickerClass('list')}>

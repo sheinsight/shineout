@@ -2,6 +2,7 @@
 
 @hidable-prefix: ~'@{so-prefix}-hidable';
 @select-prefix: ~'@{so-prefix}-select';
+@treeSelect-prefix: ~'@{so-prefix}-treeSelect';
 
 .@{hidable-prefix} {
   &-fade-animation-240 {
@@ -47,7 +48,8 @@
 }
 
 
-.@{select-prefix}-rtl {
+.@{select-prefix}-rtl,
+.@{treeSelect-prefix}-rtl {
   .@{hidable-prefix}-scale-y {
     transform: scaleY(0) translateX(-100%);
 

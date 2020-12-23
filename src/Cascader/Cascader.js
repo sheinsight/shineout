@@ -10,6 +10,7 @@ import CascaderList from './List'
 import { docSize } from '../utils/dom/document'
 import { getParent } from '../utils/dom/element'
 import absoluteList from '../AnimationList/AbsoluteList'
+import { isRTL } from '../config'
 
 const OptionList = absoluteList(({ focus, getRef, ...other }) => (focus ? <div {...other} /> : null))
 
@@ -172,7 +173,7 @@ class Cascader extends PureComponent {
 
     const { listStyle } = this.state
     const { data, height } = this.props
-    const { width } = this.ref.getBoundingClientRect()
+    const { width, left: refLeft } = this.ref.getBoundingClientRect()
     const { left } = this.ref.parentElement.getBoundingClientRect()
 
     if (data.length === 0) {
@@ -182,6 +183,17 @@ class Cascader extends PureComponent {
     }
     // for clear the style width: 100%
     if (listStyle.width === '100%') this.setState({ listStyle: { height } })
+
+    if (isRTL()) {
+      if (refLeft < 0) {
+        if (listStyle.left === 0) return
+        this.setState({ listStyle: { height, left: 0, right: 'auto' } })
+      } else {
+        if (listStyle.right === undefined) return
+        this.setState({ listStyle: { height } })
+      }
+      return
+    }
 
     if (left + width > docSize.width) {
       if (listStyle.left === 'auto') return
@@ -193,7 +205,18 @@ class Cascader extends PureComponent {
   }
 
   renderList() {
-    const { data, keygen, renderItem, mode, onChange, loader, onItemClick, expandTrigger, childrenKey } = this.props
+    const {
+      data,
+      keygen,
+      renderItem,
+      mode,
+      onChange,
+      loader,
+      onItemClick,
+      expandTrigger,
+      childrenKey,
+      absolute,
+    } = this.props
     const { path, listStyle } = this.state
 
     const props = {
@@ -216,31 +239,40 @@ class Cascader extends PureComponent {
       this.resetPosition()
     })
 
+    let list = [<CascaderList {...props} key="root" data={tempData} id={path[0]} parentId="" path={[]} />]
+
+    const childs = path.map((p, i) => {
+      tempData =
+        tempData &&
+        tempData.find(d => {
+          const nid = this.datum.getKey(d, path[i - 1])
+          return nid === p
+        })
+      if (tempData && tempData[childrenKey] && tempData[childrenKey].length > 0) {
+        tempData = tempData[childrenKey]
+        return (
+          <CascaderList
+            {...props}
+            key={p}
+            data={tempData}
+            id={path[i + 1]}
+            parentId={path[i]}
+            path={path.slice(0, i + 1)}
+          />
+        )
+      }
+      return null
+    })
+
+    list = list.concat(childs)
+
+    if (isRTL() && absolute) {
+      list = list.reverse()
+    }
+
     return (
       <div className={className} ref={this.bindRef} style={listStyle}>
-        <CascaderList {...props} key="root" data={tempData} id={path[0]} parentId="" path={[]} />
-        {path.map((p, i) => {
-          tempData =
-            tempData &&
-            tempData.find(d => {
-              const nid = this.datum.getKey(d, path[i - 1])
-              return nid === p
-            })
-          if (tempData && tempData[childrenKey] && tempData[childrenKey].length > 0) {
-            tempData = tempData[childrenKey]
-            return (
-              <CascaderList
-                {...props}
-                key={p}
-                data={tempData}
-                id={path[i + 1]}
-                parentId={path[i]}
-                path={path.slice(0, i + 1)}
-              />
-            )
-          }
-          return null
-        })}
+        {list}
       </div>
     )
   }
@@ -248,7 +280,7 @@ class Cascader extends PureComponent {
   renderAbsoluteList() {
     const { absolute, zIndex } = this.props
     const { focus, position } = this.state
-    const className = classnames(cascaderClass(focus && 'focus'), selectClass(this.state.position))
+    const className = classnames(cascaderClass(focus && 'focus', isRTL() && 'rtl'), selectClass(this.state.position))
     if (!focus && !this.isRendered) return null
     this.isRendered = true
     return (
@@ -275,7 +307,8 @@ class Cascader extends PureComponent {
         size,
         this.state.focus && 'focus',
         other.mode !== undefined && 'multiple',
-        disabled === true && 'disabled'
+        disabled === true && 'disabled',
+        isRTL() && 'rtl'
       ),
       selectClass(this.state.position)
     )

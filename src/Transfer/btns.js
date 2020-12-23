@@ -5,6 +5,8 @@ import Button from '../Button'
 import { Component } from '../component'
 import { transferClass } from '../styles'
 import icons from '../icons'
+import { getDirectionIconName } from '../utils/strings'
+import { isRTL } from '../config'
 
 class Btns extends Component {
   constructor(props) {
@@ -23,8 +25,27 @@ class Btns extends Component {
     datum[index ? 'add' : 'remove'](newValue, undefined, undefined, true)
   }
 
+  renderButtonText(mode = 'left') {
+    const { operations, operationIcon } = this.props
+    if (mode === 'left') {
+      const left = [
+        <React.Fragment key="operationIcon">{operationIcon && icons[getDirectionIconName('left')]}</React.Fragment>,
+        <React.Fragment key="operations">{operations[0]}</React.Fragment>,
+      ]
+
+      if (isRTL()) return left.reverse()
+      return left
+    }
+    const right = [
+      <React.Fragment key="operationIcon">{operationIcon && icons[getDirectionIconName('right')]}</React.Fragment>,
+      <React.Fragment key="operations">{operations[1]}</React.Fragment>,
+    ]
+    if (isRTL()) return right.reverse()
+    return right
+  }
+
   render() {
-    const { selecteds, operations, operationIcon, disabled } = this.props
+    const { selecteds, disabled } = this.props
 
     const disable = disabled === true
     return (
@@ -37,8 +58,7 @@ class Btns extends Component {
             className={transferClass('btns-button', 'btns-bottom')}
             onClick={this.toTarget}
           >
-            {operationIcon && icons.AngleRight}
-            {operations[0]}
+            {this.renderButtonText('right')}
           </Button>
           <br />
           <Button
@@ -48,8 +68,7 @@ class Btns extends Component {
             className={transferClass('btns-button')}
             onClick={this.toSource}
           >
-            {operationIcon && icons.AngleLeft}
-            {operations[1]}
+            {this.renderButtonText('left')}
           </Button>
         </div>
       </div>
