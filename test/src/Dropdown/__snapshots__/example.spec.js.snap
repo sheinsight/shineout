@@ -14,7 +14,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-1-base.j
       </div>
       <a>
         <span>
-          Submenu-test-text
+          Submenu
         </span>
         <span>
           <svg>
@@ -24,10 +24,10 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-1-base.j
       </a>
     </div>
     <a>
-      Home-Home-Home
+      Home
     </a>
     <a>
-      Message-Message-Message
+      Message
     </a>
   </div>
   <button>
