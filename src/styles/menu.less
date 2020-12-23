@@ -352,6 +352,22 @@
         }
       }
     }
+
+    &.@{menu-prefix}{
+      .@{menu-prefix}-caret-solid {
+        .@{menu-prefix}-title {
+          & > .@{menu-prefix}-caret.@{menu-prefix}-has-childs {
+              border-top-color: @menu-dark-item;
+          }
+    
+          &:hover {
+            & > .@{menu-prefix}-caret.@{menu-prefix}-has-childs {
+              border-top-color: @menu-item-dark-hover-color;
+            }
+          }
+        }
+      }
+    }
   }
 
   .@{menu-prefix}-has-children.@{menu-prefix}-caret-solid {
@@ -389,7 +405,13 @@
 
 
         &.@{menu-prefix}-has-childs {
-          border-top-color: @gray-400;
+          border-top-color: @menu-item-color;
+        }
+      }
+
+      &:hover {
+        & > .@{menu-prefix}-caret.@{menu-prefix}-has-childs {
+          border-top-color: @menu-item-light-hover-color;
         }
       }
     }

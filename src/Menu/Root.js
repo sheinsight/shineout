@@ -284,7 +284,7 @@ class Root extends React.Component {
       disabled,
       height,
       toggleDuration,
-      caretSolid,
+      frontCaret,
     } = this.props
     const isVertical = mode.indexOf('vertical') === 0
     const showScroll = ((style.height || height) && isVertical) || mode === 'horizontal'
@@ -336,7 +336,7 @@ class Root extends React.Component {
               topLine={topLine}
               linkKey={linkKey}
               toggleDuration={toggleDuration}
-              caretSolid={caretSolid}
+              frontCaret={frontCaret}
             />
           </Provider>
         </div>
@@ -360,7 +360,7 @@ Root.propTypes = {
   renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   onOpenChange: PropTypes.func,
   toggleDuration: PropTypes.number,
-  caretSolid: PropTypes.bool,
+  frontCaret: PropTypes.bool,
 }
 
 Root.defaultProps = {

@@ -56,18 +56,18 @@ class Item extends PureComponent {
 
   getCalcStyle() {
     const style = {}
-    const { caretSolid, level, inlineIndent, mode } = this.props
+    const { frontCaret, level, inlineIndent, mode } = this.props
 
     const rtl = isRTL()
 
     if (mode !== 'inline') return style
 
-    const indent = calcIndent(caretSolid, inlineIndent)
+    const indent = calcIndent(frontCaret, inlineIndent)
 
     if (rtl) {
-      style.paddingRight = getBaseIndent(caretSolid) + level * indent
+      style.paddingRight = getBaseIndent(frontCaret) + level * indent
     } else {
-      style.paddingLeft = getBaseIndent(caretSolid) + level * indent
+      style.paddingLeft = getBaseIndent(frontCaret) + level * indent
     }
 
     return style
@@ -157,7 +157,7 @@ class Item extends PureComponent {
   }
 
   renderItem(hasChilds = false, style) {
-    const { renderItem, data, index, caretSolid } = this.props
+    const { renderItem, data, index, frontCaret } = this.props
     const item = renderItem(data, index)
     const link = this.renderLink(data)
     if (isLink(item)) {
@@ -173,7 +173,7 @@ class Item extends PureComponent {
     }
     if (link) props.href = link
 
-    if (caretSolid) {
+    if (frontCaret) {
       return (
         <a {...props}>
           <div className={menuClass('caret', hasChilds && 'has-childs')} />
@@ -200,7 +200,7 @@ class Item extends PureComponent {
       topLine,
       linkKey,
       toggleDuration,
-      caretSolid,
+      frontCaret,
     } = this.props
     const { open, isActive, isHighLight, inPath } = this.state
     const { children: dChildren } = data
@@ -224,7 +224,7 @@ class Item extends PureComponent {
       isUp && 'open-up',
       isHighLight && 'highlight',
       inPath && 'in-path',
-      caretSolid && 'caret-solid'
+      frontCaret && 'caret-solid'
     )
 
     const style = this.getCalcStyle()
@@ -253,7 +253,7 @@ class Item extends PureComponent {
             toggleOpenKeys={toggleOpenKeys}
             linkKey={linkKey}
             toggleDuration={toggleDuration}
-            caretSolid={caretSolid}
+            frontCaret={frontCaret}
           />
         )}
       </li>
@@ -279,7 +279,7 @@ Item.propTypes = {
   unbindItem: PropTypes.func,
   linkKey: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   toggleDuration: PropTypes.number,
-  caretSolid: PropTypes.bool,
+  frontCaret: PropTypes.bool,
 }
 
 export default consumer(Item)

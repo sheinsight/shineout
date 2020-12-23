@@ -4,7 +4,6 @@ import { datepickerClass } from '../styles'
 import Icon from './Icon'
 import utils from './utils'
 import { getLocale } from '../locale'
-import { getDirectionIconName } from '../utils/strings'
 
 const MONTHBASE = '2019-01-01 00:00:00'
 
@@ -71,13 +70,13 @@ class Month extends PureComponent {
     return (
       <div className={datepickerClass('month-picker')}>
         <div className={datepickerClass('header')}>
-          <Icon name={getDirectionIconName('left')} onClick={this.handlePrevYear} />
+          <Icon name="AngleLeft" className="left" onClick={this.handlePrevYear} />
 
           <span onClick={this.handleYearClick.bind(this)} className={datepickerClass('ym')}>
             {current.getFullYear()}
           </span>
 
-          <Icon name={getDirectionIconName('right')} onClick={this.handleNextYear} />
+          <Icon name="AngleRight" className="right" onClick={this.handleNextYear} />
         </div>
 
         <div className={datepickerClass('list')}>{getLocale('monthValues.short').map(this.renderMonth.bind(this))}</div>

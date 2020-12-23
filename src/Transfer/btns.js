@@ -5,7 +5,6 @@ import Button from '../Button'
 import { Component } from '../component'
 import { transferClass } from '../styles'
 import icons from '../icons'
-import { getDirectionIconName } from '../utils/strings'
 import { isRTL } from '../config'
 
 class Btns extends Component {
@@ -29,7 +28,7 @@ class Btns extends Component {
     const { operations, operationIcon } = this.props
     if (mode === 'left') {
       const left = [
-        <React.Fragment key="operationIcon">{operationIcon && icons[getDirectionIconName('left')]}</React.Fragment>,
+        <React.Fragment key="operationIcon">{operationIcon && icons.AngleLeft}</React.Fragment>,
         <React.Fragment key="operations">{operations[0]}</React.Fragment>,
       ]
 
@@ -37,7 +36,7 @@ class Btns extends Component {
       return left
     }
     const right = [
-      <React.Fragment key="operationIcon">{operationIcon && icons[getDirectionIconName('right')]}</React.Fragment>,
+      <React.Fragment key="operationIcon">{operationIcon && icons.AngleRight}</React.Fragment>,
       <React.Fragment key="operations">{operations[1]}</React.Fragment>,
     ]
     if (isRTL()) return right.reverse()
