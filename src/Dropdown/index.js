@@ -12,6 +12,7 @@ import absoluteList from '../AnimationList/AbsoluteList'
 import { getUidStr } from '../utils/uid'
 import absoluteComsumer from '../Table/context'
 import Caret from '../icons/Caret'
+import getDataset from '../utils/dom/getDataset'
 
 const positionMap = {
   'left-top': 'left-top',
@@ -236,6 +237,7 @@ class Dropdown extends PureComponent {
         style={style}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
+        {...getDataset(this.props)}
       >
         {this.renderList(data, placeholder, position)}
       </div>

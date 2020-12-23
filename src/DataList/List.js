@@ -7,7 +7,7 @@ import { isFunc, isArray, isString } from '../utils/is'
 import { getKey } from '../utils/uid'
 import { removeStack, addStack } from '../utils/lazyload'
 import Spin from '../Spin'
-
+import getDataset from '../utils/dom/getDataset'
 import Checkbox from '../Table/Checkbox'
 
 class Index extends Component {
@@ -109,6 +109,7 @@ class Index extends Component {
         className={classnames(listClass('container', size, bordered && 'bordered'), this.props.className)}
         style={style}
         ref={this.bindNode}
+        {...getDataset(this.props)}
       >
         {loading && (
           <div className={listClass('loading')}>{typeof loading === 'boolean' ? <Spin size={40} /> : loading}</div>

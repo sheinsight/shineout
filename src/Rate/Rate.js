@@ -6,6 +6,7 @@ import { range } from '../utils/numbers'
 import { getParent } from '../utils/dom/element'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { rateClass } from '../styles'
+import getDataset from '../utils/dom/getDataset'
 
 const MIN_SIZE = 12
 class Rate extends PureComponent {
@@ -156,7 +157,7 @@ class Rate extends PureComponent {
     const className = classnames(rateClass('_'), this.props.className)
     const ms = Object.assign({}, this.props.style, this.getScale())
     return (
-      <div className={className} style={ms}>
+      <div className={className} style={ms} {...getDataset(this.props)}>
         {this.renderBackground()}
         {this.props.disabled ? this.renderStatic() : this.renderRate()}
       </div>
