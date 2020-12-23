@@ -427,25 +427,19 @@
       padding-right: 20px;
 
       &:after {
-        content: none;
+        right: auto;
+        left: 16px;
       }
 
       &:before {
-        position: absolute;
-        top: 50%;
-        left: 16px;
-        transform: @menu-title-transform;
-        content: ' ';
-        width: @caret-width;
-        height: @caret-width;
-        border-width: 0 1px 1px 0;
-        border-style: solid;
+        left: auto;
+        right: 0;
       }
     }
 
     .@{menu-prefix}-has-children.@{menu-prefix}-open {
       & > .@{menu-prefix}-title {
-        &:before {
+        &:after {
           transform: @menu-title-open-transform;
         }
       }

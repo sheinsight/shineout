@@ -5,7 +5,7 @@
  *    -- Set the onChange property will automatically add a row with checkbox.
  */
 import React from 'react'
-import { List, Checkbox, isRTL } from 'shineout'
+import { List, Checkbox } from 'shineout'
 import { fetch } from 'doc/data/user'
 
 class Index extends React.Component {
@@ -83,23 +83,11 @@ class Index extends React.Component {
       lineHeight: '22px',
       borderBottom: '1px solid #e8ebf0',
     }
-    if (isRTL()) {
-      style.justifyContent = 'flex-end'
-    }
     return (
       <div>
         <div style={style}>
-          {isRTL() ? (
-            <React.Fragment>
-              <div>{`Selected ${value.length}`}</div>
-              <Checkbox checked={this.getChecked()} onChange={this.checkboxOnChange} />
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              <Checkbox checked={this.getChecked()} onChange={this.checkboxOnChange} />
-              <div>{`Selected ${value.length}`}</div>
-            </React.Fragment>
-          )}
+          <Checkbox checked={this.getChecked()} onChange={this.checkboxOnChange} />
+          <div>{`Selected ${value.length}`}</div>
         </div>
         <List
           loading={loading}
