@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import List from '../List'
+import List from '../AnimationList'
 import { tabsClass } from '../styles'
 
 const CollapseList = List(['collapse'], 'fast')

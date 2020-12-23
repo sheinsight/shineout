@@ -6,10 +6,10 @@ import { getProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
 import { treeSelectClass } from '../styles'
 import Result from './Result'
-import absoluteList from '../List/AbsoluteList'
+import absoluteList from '../AnimationList/AbsoluteList'
 import { docSize } from '../utils/dom/document'
 import { getParent } from '../utils/dom/element'
-import List from '../List'
+import List from '../AnimationList'
 import { getLocale } from '../locale'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')

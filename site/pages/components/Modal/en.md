@@ -32,6 +32,7 @@ You can use Modal to display secondary content or actions without jumping to the
 | hideClose | boolean | none | hide the close button | |
 | type | 'info' \| 'success' \| 'warning' \| 'error' \| 'normal' | null | Modal Title show status icon | 1.6.1 |
 | zoom | boolean | false | toggle zoom animation |
+| esc | boolean | true | esc to close |
 
 ### ModalMethods
 

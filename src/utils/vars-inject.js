@@ -2451,6 +2451,20 @@ const injects = {
         desc: '黑色主题背景色',
       },
       {
+        name: 'darkRootNodeBg',
+        className: exposeClass('menu-dark-root'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '黑色主题 Root Node 背景色',
+      },
+      {
+        name: 'darkChildrenSegmentation',
+        className: exposeClass('menu-dark-seg'),
+        attr: 'borderTopColor',
+        type: 'color',
+        desc: '黑色主题子菜单与Root Menu 分割线背景色',
+      },
+      {
         name: 'darkActiveBg',
         className: exposeClass('menu-dark-active'),
         attr: 'backgroundColor',
@@ -2530,6 +2544,28 @@ const injects = {
         type: 'color',
         desc: '暗黑主题 hover状态下背景颜色',
       },
+      {
+        name: 'activeBar',
+        className: exposeClass('menu-bar'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        desc: 'active 状态下 bar 宽度',
+      },
+      {
+        name: 'activeBarColor',
+        className: exposeClass('menu-bar'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'active bar 颜色',
+      },
+      {
+        name: 'darkActiveBarColor',
+        className: exposeClass('menu-dark-bar'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '暗黑模式下 active bar 颜色',
+      },
     ],
     set height(v) {
       const height = parseInt(v, 10)
@@ -2596,6 +2632,22 @@ const injects = {
         v
       )
     },
+    set darkRootNodeBg(v) {
+      setBodyProperty(
+        {
+          '--menu-root-node-bgc': v,
+        },
+        v
+      )
+    },
+    set darkChildrenSegmentation(v) {
+      setBodyProperty(
+        {
+          '--menu-children-segmentation': v,
+        },
+        v
+      )
+    },
     set activePaddingHorizontal(v) {
       setBodyProperty(
         {
@@ -2649,6 +2701,30 @@ const injects = {
       setBodyProperty(
         {
           '--menu-item-dark-hover-bgc': v,
+        },
+        v
+      )
+    },
+    set activeBar(v) {
+      setBodyProperty(
+        {
+          '--menu-active-bar': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set activeBarColor(v) {
+      setBodyProperty(
+        {
+          '--menu-item-active-indicator': v,
+        },
+        v
+      )
+    },
+    set darkActiveBarColor(v) {
+      setBodyProperty(
+        {
+          '--menu-dark-item-active-indicator': v,
         },
         v
       )

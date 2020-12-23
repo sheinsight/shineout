@@ -28,6 +28,7 @@ class Item extends PureComponent {
       this.updateOpen.bind(this),
       this.updateInPath.bind(this)
     )
+
     this.state = {
       open: openUpdate(key),
       isActive: activeUpdate(this.id, props.data),

@@ -2,15 +2,16 @@
 import './styles/normalize.less'
 import * as utils from './utils'
 
-export default { utils, version: '1.6.2-rc.14' }
+export default { utils, version: '1.6.2' }
 export { utils }
 export { setLocale } from './locale'
 export { color, style } from './utils/expose'
 export { default as config, setConfig, isRTL } from './config'
 
-export { default as LazyList } from './List/LazyList'
+export { default as LazyList } from './AnimationList/LazyList'
 export { default as List } from './DataList'
 export { default as Alert } from './Alert'
+export { default as AnimationList } from './AnimationList'
 export { default as Breadcrumb } from './Breadcrumb'
 export { default as Button } from './Button'
 export { default as Card } from './Card'

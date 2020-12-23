@@ -12,8 +12,8 @@ import BoxList from './BoxList'
 import { isObject } from '../utils/is'
 import { docSize } from '../utils/dom/document'
 import { getParent } from '../utils/dom/element'
-import absoluteList from '../List/AbsoluteList'
 import { isRTL } from '../config'
+import absoluteList from '../AnimationList/AbsoluteList'
 
 const WrappedOptionList = absoluteList(OptionList)
 const WrappedBoxList = absoluteList(BoxList)
