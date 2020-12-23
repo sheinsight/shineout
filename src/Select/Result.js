@@ -6,6 +6,7 @@ import { inputClass, selectClass } from '../styles'
 import { isObject, isFunc, isString } from '../utils/is'
 import Input from './Input'
 import Caret from '../icons/Caret'
+import { isRTL } from '../config'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -126,7 +127,7 @@ class Result extends PureComponent {
     if (onClear && result.length > 0 && disabled !== true) {
       /* eslint-disable */
       return (
-        <div onClick={onClear} className={selectClass('close-warpper')}>
+        <div key="clear" onClick={onClear} className={selectClass('close-warpper')}>
           <a
           tabIndex={-1}
           data-role="close"
@@ -167,7 +168,7 @@ class Result extends PureComponent {
     }
 
     return (
-      <span className={classnames(inputClass('placeholder'), selectClass('ellipsis'))}>
+      <span key="placeholder" className={classnames(inputClass('placeholder'), selectClass('ellipsis'))}>
         <span>{this.props.placeholder}</span>
         &nbsp;
       </span>
@@ -238,7 +239,7 @@ class Result extends PureComponent {
     const showCaret = !multiple
     // eslint-disable-next-line
     return (
-      <a tabIndex={-1} className={selectClass('indicator', multiple ? 'multi' : 'caret')}>
+      <a key="indicator" tabIndex={-1} className={selectClass('indicator', multiple ? 'multi' : 'caret')}>
         {showCaret && <Caret />}
       </a>
     )
@@ -247,6 +248,18 @@ class Result extends PureComponent {
   render() {
     const { compressed } = this.props
     const result = this.isEmptyResult() ? this.renderPlaceholder() : this.renderResult()
+
+    const rtl = isRTL()
+
+    if (rtl) {
+      return (
+        <div className={selectClass('result', compressed && 'compressed')}>
+          {this.renderClear()}
+          {this.renderIndicator()}
+          {result}
+        </div>
+      )
+    }
 
     return (
       <div className={selectClass('result', compressed && 'compressed')}>

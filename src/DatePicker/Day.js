@@ -241,11 +241,13 @@ class Day extends PureComponent {
         <div className={datepickerClass('header')}>
           <Icon
             name="AngleDoubleLeft"
+            className="left"
             disabled={!!(min && current.getFullYear() <= min.getFullYear())}
             onClick={this.handlePrevYear}
           />
           <Icon
             name="AngleLeft"
+            className="left"
             disabled={!!(min && utils.compareMonth(current, min) <= 0)}
             onClick={this.handlePrevMonth}
           />
@@ -257,6 +259,7 @@ class Day extends PureComponent {
 
           <Icon
             name="AngleRight"
+            className="right"
             // disabled={max && utils.compareMonth(current, max, 0) >= 0}
             onClick={this.handleNextMonth}
           />
@@ -264,6 +267,7 @@ class Day extends PureComponent {
             onClick={this.handleNextYear}
             // disabled={max && current.getFullYear() >= max.getFullYear()}
             name="AngleDoubleRight"
+            className="right"
           />
         </div>
 

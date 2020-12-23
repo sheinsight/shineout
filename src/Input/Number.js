@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import icons from '../icons'
 import Input from './Input'
 import { inputClass } from '../styles'
+import { isRTL } from '../config'
 
 class Number extends PureComponent {
   constructor(props) {
@@ -148,8 +149,29 @@ class Number extends PureComponent {
     ]
   }
 
+  renderRTL() {
+    const { onChange, allowNull, hideArrow, ...other } = this.props
+    return [
+      ...this.renderArrowGroup(),
+      <Input
+        key="input"
+        {...other}
+        className={inputClass({ number: !hideArrow }, 'rtl')}
+        onChange={this.handleChange}
+        onKeyDown={this.handleKeyDown}
+        onKeyUp={this.handleKeyUp}
+        onBlur={this.handleBlur}
+        type="number"
+      />,
+    ]
+  }
+
   render() {
     const { onChange, allowNull, hideArrow, ...other } = this.props
+    const rtl = isRTL()
+    if (rtl) {
+      return this.renderRTL()
+    }
     return [
       <Input
         key="input"

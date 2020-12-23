@@ -6,7 +6,7 @@ export default { utils, version: '1.6.2' }
 export { utils }
 export { setLocale } from './locale'
 export { color, style } from './utils/expose'
-export { default as config, setConfig } from './config'
+export { default as config, setConfig, isRTL } from './config'
 
 export { default as LazyList } from './AnimationList/LazyList'
 export { default as List } from './DataList'

@@ -4,6 +4,7 @@
 @tree-prefix: ~'@{so-prefix}-tree';
 @tree-line-value: 2px;
 @tree-transparent-value: 3px;
+@tree-rtl: ~'@{so-prefix}-rtl';
 
 .@{tree-prefix} {
   position: relative;
@@ -197,6 +198,47 @@
     div {
       border: dashed 1px #ddd;
       background: @gray-100;
+    }
+  }
+
+
+  &.@{tree-prefix}-rtl {
+    direction: rtl;
+    text-align: right;
+    .@{tree-prefix}-node {
+      padding-left: 0;
+      padding-right: 20px;
+
+
+      .@{tree-prefix}-icon-plus,
+      .@{tree-prefix}-icon-sub {
+        left: auto;
+        right: 0;
+
+        .@{tree-prefix}-default-icon {
+          transform: rotate(180deg);
+        }
+      }
+
+      .@{tree-prefix}-icon-sub {
+        .@{tree-prefix}-default-icon {
+          transform: rotate(90deg);
+        }
+      }
+    }
+
+
+    &.@{tree-prefix}-with-line {
+      .@{tree-prefix}-node {
+        &:before {
+          left: auto;
+          right: 5px;
+        }
+        &:after {
+          left: auto;
+          right: 6px;
+        }
+      }
     }
   }
 }

@@ -2,6 +2,8 @@
 @import './themes/@{so-theme}.less';
 
 @cascader-prefix: ~'@{so-prefix}-cascader';
+@list-prefix: ~'@{so-prefix}-list';
+@checkinput-prefix: ~'@{so-prefix}-checkinput';
 
 .@{cascader-prefix} {
   position: relative;
@@ -163,6 +165,56 @@
     &.@{cascader-prefix}-node {
       background-color: @cascader-active-background-color;
       color: @cascader-active-color;
+    }
+  }
+}
+
+.@{cascader-prefix}-rtl {
+  .@{cascader-prefix}-result {
+    padding: 5px 8px 0 20px;
+  }
+}
+
+.@{list-prefix}-absolute-wrapper.@{cascader-prefix}-rtl  {
+  .@{cascader-prefix}-options {
+    transform: translateX(-100%);
+  }
+  .@{cascader-prefix}-node  {
+    padding: 6px 12px 6px 28px;
+    text-align: right;
+
+    .@{checkinput-prefix}-checkbox-container {
+      margin-left: 8px;
+    }
+  }
+  .@{cascader-prefix}-has-children {
+    .@{cascader-prefix}-caret {
+      transform: translateY(-50%) rotate(90deg);
+      left: 12px;
+      right: auto;
+    }
+  }
+}
+
+.@{cascader-prefix}-rtl:not(.@{list-prefix}-absolute-wrapper) {
+  .@{cascader-prefix}-options {
+    left: auto;
+    right: 0;
+  }
+  .@{cascader-prefix}-node  {
+    padding: 6px 12px 6px 28px;
+    text-align: right;
+
+    .@{checkinput-prefix}-checkbox-container {
+      margin-left: 8px;
+    }
+  }
+  .@{cascader-prefix}-has-children,
+  .@{cascader-prefix}-may-be-children {
+    .@{cascader-prefix}-caret {
+      transform: translateY(-50%) rotate(90deg);
+      left: 12px;
+      right: auto;
     }
   }
 }

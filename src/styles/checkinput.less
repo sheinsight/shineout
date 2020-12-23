@@ -516,3 +516,24 @@
     }
   }
 }
+
+
+.@{checkinput-prefix}-rtl {
+  direction: rtl;
+  text-align: right;
+
+  &.@{checkinput-prefix}-group.@{checkinput-prefix}-button {
+    direction: ltr;
+    text-align: left;
+    
+    .@{checkinput-prefix}-radio-container  {
+      margin-left: 0;
+    }
+  }
+
+  &.@{checkinput-prefix}-radio-container,
+  &.@{checkinput-prefix}-checkbox-container {
+    margin-right: 0;
+    margin-left: @checkbox-margin-right;
+  }
+}

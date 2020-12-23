@@ -12,6 +12,7 @@ import BoxList from './BoxList'
 import { isObject } from '../utils/is'
 import { docSize } from '../utils/dom/document'
 import { getParent } from '../utils/dom/element'
+import { isRTL } from '../config'
 import absoluteList from '../AnimationList/AbsoluteList'
 
 const WrappedOptionList = absoluteList(OptionList)
@@ -379,7 +380,7 @@ class Select extends PureComponent {
     return (
       <List
         {...props}
-        rootClass={selectClass(position)}
+        rootClass={selectClass(position, isRTL() && 'rtl')}
         autoClass={selectClass(autoAdapt && 'auto-adapt')}
         bindOptionFunc={this.bindOptionFunc}
         renderPending={this.renderPending}

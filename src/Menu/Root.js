@@ -10,6 +10,7 @@ import { menuClass } from '../styles'
 import List from './List'
 import { Provider } from './context'
 import { isArray } from '../utils/is'
+import { isRTL } from '../config'
 
 const modeDirection = {
   'vertical-auto': 'y',
@@ -272,9 +273,23 @@ class Root extends React.Component {
   }
 
   render() {
-    const { keygen, data, mode, style, theme, inlineIndent, linkKey, disabled, height, toggleDuration } = this.props
+    const {
+      keygen,
+      data,
+      mode,
+      style,
+      theme,
+      inlineIndent,
+      linkKey,
+      disabled,
+      height,
+      toggleDuration,
+      frontCaret,
+    } = this.props
     const isVertical = mode.indexOf('vertical') === 0
     const showScroll = ((style.height || height) && isVertical) || mode === 'horizontal'
+
+    const rtl = isRTL()
 
     const className = classnames(
       menuClass(
@@ -282,7 +297,8 @@ class Root extends React.Component {
         isVertical ? 'vertical' : mode,
         theme === 'dark' && 'dark',
         showScroll && 'scroll',
-        this.state.hasOpen && 'has-open'
+        this.state.hasOpen && 'has-open',
+        rtl && 'rtl'
       ),
       this.props.className
     )
@@ -320,6 +336,7 @@ class Root extends React.Component {
               topLine={topLine}
               linkKey={linkKey}
               toggleDuration={toggleDuration}
+              frontCaret={frontCaret}
             />
           </Provider>
         </div>
@@ -343,6 +360,7 @@ Root.propTypes = {
   renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   onOpenChange: PropTypes.func,
   toggleDuration: PropTypes.number,
+  frontCaret: PropTypes.bool,
 }
 
 Root.defaultProps = {

@@ -2,6 +2,7 @@
 @import './themes/@{so-theme}.less';
 
 @treeSelect-prefix: ~'@{so-prefix}-treeSelect';
+@input-prefix: ~'@{so-prefix}-input';
 
 .@{treeSelect-prefix} {
   position: relative;
@@ -407,6 +408,38 @@
         .@{treeSelect-prefix}-close {
           display: none;
         }
+      }
+    }
+  }
+
+
+  &.@{treeSelect-prefix}-rtl,
+  &.@{input-prefix}-rtl {
+    direction: rtl;
+    text-align: right;
+
+    .@{treeSelect-prefix}-result {
+      padding: @padding-base-vertical @padding-base-horizontal 0 @padding-base-horizontal+12;
+
+      .@{treeSelect-prefix}-item {
+        padding: @select-result-padding-vertical @select-result-space @select-result-padding-vertical @select-result-space-16;
+
+        .@{treeSelect-prefix}-close {
+          right: auto;
+          left: @select-result-space;
+        }
+      }
+    }
+
+    .@{treeSelect-prefix}-indicator {
+      left: 7px;
+      right: auto;
+    }
+
+    .@{treeSelect-prefix}-multiple {
+      .@{treeSelect-prefix}-result a.@{treeSelect-prefix}-close.@{treeSelect-prefix}-indicator {
+        right: auto;
+        left: 17px;
       }
     }
   }

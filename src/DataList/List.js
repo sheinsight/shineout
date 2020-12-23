@@ -9,6 +9,7 @@ import { removeStack, addStack } from '../utils/lazyload'
 import Spin from '../Spin'
 import getDataset from '../utils/dom/getDataset'
 import Checkbox from '../Table/Checkbox'
+import { isRTL } from '../config'
 
 class Index extends Component {
   constructor(props) {
@@ -73,11 +74,10 @@ class Index extends Component {
     return <Checkbox data={data} index={index} datum={datum} />
   }
 
-  renderList() {
+  renderList(isEmpty) {
     const { data, onChange, keygen, empty } = this.props
 
-    if (!isArray(data) || data.length <= 0)
-      return <div className={listClass('item', 'empty')}>{empty || getLocale('noData')}</div>
+    if (isEmpty) return <div className={listClass('item', 'empty')}>{empty || getLocale('noData')}</div>
 
     // have checked ?
     const haveRowSelected = isFunc(onChange)
@@ -103,10 +103,14 @@ class Index extends Component {
   }
 
   render() {
-    const { loading, style, size, bordered } = this.props
+    const { data, loading, style, size, bordered } = this.props
+    const isEmpty = !isArray(data) || data.length <= 0
     return (
       <div
-        className={classnames(listClass('container', size, bordered && 'bordered'), this.props.className)}
+        className={classnames(
+          listClass('container', size, bordered && 'bordered', isRTL() && 'rtl'),
+          this.props.className
+        )}
         style={style}
         ref={this.bindNode}
         {...getDataset(this.props)}
@@ -114,7 +118,7 @@ class Index extends Component {
         {loading && (
           <div className={listClass('loading')}>{typeof loading === 'boolean' ? <Spin size={40} /> : loading}</div>
         )}
-        <div className={listClass('list')}>{this.renderList()}</div>
+        <div className={listClass('list', isEmpty && 'empty')}>{this.renderList(isEmpty)}</div>
         {this.renderFooter()}
       </div>
     )

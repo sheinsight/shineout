@@ -7,7 +7,9 @@ import { compose } from '../utils/func'
 import { scrollConsumer } from '../Scroll/context'
 import { listClass } from '../styles'
 import { docScroll, docSize } from '../utils/dom/document'
+import { getRTLPosition } from '../utils/strings'
 import zIndexConsumer from '../Modal/context'
+import { isRTL } from '../config'
 
 const PICKER_V_MARGIN = 4
 let root
@@ -55,6 +57,9 @@ export default function(List) {
     getPosition(rect) {
       const { fixed } = this.props
       let { position } = this.props
+
+      const rtl = isRTL()
+
       const style = {
         position: 'absolute',
       }
@@ -68,8 +73,16 @@ export default function(List) {
           .reverse()
           .join('-')
       }
+
+      if (rtl) {
+        position = getRTLPosition(position)
+      }
+
       if (listPosition.includes(position)) {
         style.left = rect.left + docScroll.left
+        if (rtl) {
+          style.left += rect.width
+        }
         if (position === 'drop-down') {
           style.top = rect.top + rect.height + docScroll.top
         } else {

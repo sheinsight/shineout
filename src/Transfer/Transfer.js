@@ -7,6 +7,7 @@ import Card from './Card'
 import { transferClass } from '../styles'
 import Context from './context'
 import splitSelecteds from './select'
+import { isRTL } from '../config'
 import getDataset from '../utils/dom/getDataset'
 
 class Transfer extends PureComponent {
@@ -85,7 +86,11 @@ class Transfer extends PureComponent {
       return p
     }, [])
     return (
-      <div className={classnames(transferClass('_'), className)} style={style} {...getDataset(this.props)}>
+      <div
+        className={classnames(transferClass('_', isRTL() && 'rtl'), className)}
+        style={style}
+        {...getDataset(this.props)}
+      >
         <Context.Provider value={{ selecteds, setSelecteds: this.setSelecteds, itemClass }}>
           <Card
             title={titles[0]}

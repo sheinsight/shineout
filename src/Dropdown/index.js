@@ -12,6 +12,7 @@ import absoluteList from '../AnimationList/AbsoluteList'
 import { getUidStr } from '../utils/uid'
 import absoluteComsumer from '../Table/context'
 import Caret from '../icons/Caret'
+import { isRTL } from '../config'
 import getDataset from '../utils/dom/getDataset'
 
 const positionMap = {
@@ -126,12 +127,44 @@ class Dropdown extends PureComponent {
     else this.handleHide()
   }
 
+  renderRTLButton(placeholder, spanClassName, caret, buttonClassName) {
+    const { isSub, type, outline, size, disabled } = this.props
+    if (isSub) {
+      return (
+        <a
+          key="button"
+          className={dropdownClass('button', 'item', this.state.show && 'active')}
+          data-role="item"
+          onClick={this.handleFocus}
+        >
+          <span className={spanClassName}>{placeholder}</span>
+          {caret}
+        </a>
+      )
+    }
+    return (
+      <Button
+        disabled={disabled}
+        onClick={this.handleFocus}
+        outline={outline}
+        className={buttonClassName}
+        type={type}
+        size={size}
+        key="button"
+      >
+        <span className={spanClassName}>{placeholder}</span>
+        {caret}
+      </Button>
+    )
+  }
+
   renderButton(placeholder) {
     const { type, outline, size, disabled, isSub } = this.props
-    const buttonClassName = dropdownClass('button', !placeholder && 'split-button')
+    const rtl = isRTL()
+    const buttonClassName = dropdownClass('button', !placeholder && 'split-button', rtl && 'rtl')
     const spanClassName = dropdownClass('button-content')
     const caret = (
-      <span className={dropdownClass('caret')}>
+      <span className={dropdownClass('caret', rtl && 'rtl')}>
         <Caret />
       </span>
     )
@@ -175,7 +208,7 @@ class Dropdown extends PureComponent {
         absolute={absolute}
         parentElement={this.element}
         position={position}
-        className={dropdownClass('menu', columns > 1 && 'box-list')}
+        className={dropdownClass('menu', columns > 1 && 'box-list', isRTL() && 'rtl')}
         style={{ width }}
         key="list"
         focus={this.state.show}
