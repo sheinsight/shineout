@@ -36,6 +36,7 @@
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | none | remove update failed callback |
 | forceAccept | string | none | After disabled the file type filtering provided by accept, it is mandatory to check the file type, value same as accept |
 | showUploadList | boolean | true | show upload list |
+| leftHandler | boolean | false | add image handler show left |
 
 ### Upload.Image
 

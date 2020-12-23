@@ -8,6 +8,7 @@ import Jumper from './Jumper'
 import Simple from './Simple'
 import PageSizeList from './PageSizeList'
 import { isRTL } from '../config'
+import getDataset from '../utils/dom/getDataset'
 
 class Pagination extends PureComponent {
   render() {
@@ -20,7 +21,7 @@ class Pagination extends PureComponent {
     const sectionClassName = paginationClass('section')
 
     return (
-      <div className={className} style={style}>
+      <div className={className} style={style} {...getDataset(this.props)}>
         {layout.map((section, i) => {
           switch (section) {
             case 'links':

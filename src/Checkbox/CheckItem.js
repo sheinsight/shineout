@@ -8,6 +8,7 @@ import { isEnterPress } from '../utils/is'
 import Input from '../Input'
 import { checkinputClass } from '../styles'
 import { isRTL } from '../config'
+import getDataset from '../utils/dom/getDataset'
 
 export default function(type) {
   class CheckItem extends PureComponent {
@@ -130,6 +131,7 @@ export default function(type) {
           tabIndex={disabled ? undefined : 0}
           ref={this.bindRef}
           disabled={disabled}
+          {...getDataset(this.props)}
         >
           {switchChildren}
           <input

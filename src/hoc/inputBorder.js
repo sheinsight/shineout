@@ -6,6 +6,7 @@ import { curry } from '../utils/func'
 import { buttonClass, inputClass, popoverClass, inputBorderClass } from '../styles'
 import Popover from '../Popover'
 import { isRTL } from '../config'
+import getDataset from '../utils/dom/getDataset'
 
 export default curry(
   (options, Origin) =>
@@ -140,6 +141,7 @@ export default curry(
             className={newClassName}
             style={newStyle}
             tabIndex={options.enterPress ? '0' : undefined}
+            {...getDataset(other)}
           >
             <Origin {...other} size={size} onFocus={this.handleFocus} onBlur={this.handleBlur} />
             {this.renderHelp(focus)}

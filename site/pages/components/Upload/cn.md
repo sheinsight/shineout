@@ -49,7 +49,7 @@
 | children | ReactNode | 无 | 上传按钮内容，可为空 |
 | renderResult | (data: any) => ReactNode | a => a | 返回图片 url 链接地址 |
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | none | 上传失败图片删除之后的回调 |
-
+| leftHandler | boolean | false | 添加图片视图是否在左侧展示 |
 ### Upload.Button
 
 | 属性 | 类型 | 默认值 | 说明 |

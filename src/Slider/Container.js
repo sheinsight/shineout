@@ -5,6 +5,7 @@ import { getProps } from '../utils/proptypes'
 import { sliderClass } from '../styles'
 import Slider from './Slider'
 import { per2value } from './utils'
+import getDataset from '../utils/dom/getDataset'
 
 class Container extends PureComponent {
   constructor(props) {
@@ -102,7 +103,7 @@ class Container extends PureComponent {
     if (vertical) newStyle = Object.assign({ height }, style)
 
     return (
-      <div style={newStyle} className={className}>
+      <div style={newStyle} className={className} {...getDataset(other)}>
         <div className={sliderClass('background')} />
         <div ref={this.bindElement} onClick={this.handleClick} className={sliderClass('inner')}>
           {range && (
