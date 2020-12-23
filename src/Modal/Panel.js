@@ -30,6 +30,11 @@ const handleStop = e => e.stopPropagation()
 export default class Panel extends PureComponent {
   panel = null
 
+  constructor(props) {
+    super(props)
+    this.handleClose = this.handleClose.bind(this)
+  }
+
   componentDidMount() {
     const { container } = this.props
     this.updateOrigin()
@@ -108,6 +113,13 @@ export default class Panel extends PureComponent {
     event.preventDefault()
   }
 
+  handleClose(e) {
+    const { maskCloseAble, onClose } = this.props
+    const { target } = e
+    if (!maskCloseAble) return
+    if (target.matches(`.${modalClass('mask')}`) && onClose) onClose()
+  }
+
   renderIcon() {
     const { type } = this.props
     if (type === 'default') return null
@@ -165,37 +177,50 @@ export default class Panel extends PureComponent {
   }
 
   render() {
-    const { footer, type, onClose, maskCloseAble, position, moveable, zoom, resizable, hideClose, from } = this.props
+    const {
+      footer,
+      type,
+      onClose,
+      maskCloseAble,
+      position,
+      moveable,
+      zoom,
+      resizable,
+      hideClose,
+      from,
+      top,
+    } = this.props
 
     const className = classnames(modalClass('panel', type, position, zoom && !moveable && 'zoom'), this.props.className)
     const showClose = typeof hideClose === 'boolean' ? !hideClose : maskCloseAble || maskCloseAble === null
+    const maskStyle = { paddingBottom: top }
     return (
       <ZProvider value>
         <Provider value={{ element: undefined }}>
-          <div key="mask" className={modalClass('mask')} onClick={maskCloseAble ? onClose : undefined} />
-
-          <Card
-            forwardedRef={this.savePanel}
-            moveable={moveable}
-            resizable={resizable}
-            key="card"
-            shadow
-            className={className}
-            style={this.getStyle()}
-          >
-            {showClose && (
-              <a className={modalClass('close')} onClick={onClose}>
-                {Icons.Close}
-              </a>
-            )}
-            {this.renderTitle(true)}
-            {this.renderContent()}
-            {footer && (
-              <Card.Footer className={modalClass('footer', from)} align="right">
-                {footer}
-              </Card.Footer>
-            )}
-          </Card>
+          <div style={maskStyle} key="mask" className={modalClass('mask')} onClick={this.handleClose}>
+            <Card
+              forwardedRef={this.savePanel}
+              moveable={moveable}
+              resizable={resizable}
+              key="card"
+              shadow
+              className={className}
+              style={this.getStyle()}
+            >
+              {showClose && (
+                <a className={modalClass('close')} onClick={onClose}>
+                  {Icons.Close}
+                </a>
+              )}
+              {this.renderTitle(true)}
+              {this.renderContent()}
+              {footer && (
+                <Card.Footer className={modalClass('footer', from)} align="right">
+                  {footer}
+                </Card.Footer>
+              )}
+            </Card>
+          </div>
         </Provider>
       </ZProvider>
     )
