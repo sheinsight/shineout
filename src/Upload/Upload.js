@@ -401,6 +401,7 @@ class Upload extends PureComponent {
       renderContent,
       accept,
       drop,
+      leftHandler,
     } = this.props
     const { files, recycle } = this.state
     const className = classnames(
@@ -422,7 +423,7 @@ class Upload extends PureComponent {
     return (
       <div className={className} style={style}>
         {!imageStyle && this.renderHandle()}
-
+        {imageStyle && leftHandler && this.renderHandle()}
         {showUploadList &&
           value.map((v, i) => (
             <Drop
@@ -451,7 +452,7 @@ class Upload extends PureComponent {
             <FileComponent {...files[id]} key={id} id={id} style={imageStyle} onRemove={this.removeFile} />
           ))}
 
-        {imageStyle && this.renderHandle()}
+        {imageStyle && !leftHandler && this.renderHandle()}
 
         {recoverAble &&
           recycle.map((v, i) => (
@@ -511,6 +512,7 @@ Upload.propTypes = {
   filesFilter: PropTypes.func,
   onErrorRemove: PropTypes.func,
   forceAccept: PropTypes.bool,
+  leftHandler: PropTypes.bool,
 }
 
 Upload.defaultProps = {
