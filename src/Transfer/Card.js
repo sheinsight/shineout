@@ -114,13 +114,14 @@ class Card extends PureComponent {
   }
 
   renderBody() {
-    const { customRender, index, values } = this.props
+    const { customRender, index, values, filterText } = this.props
     if (isFunc(customRender)) {
       const custom = customRender({
         onSelected: this.customSetSelected,
         direction: index === 0 ? 'left' : 'right',
         selectedKeys: this.props.selecteds,
         value: values,
+        filterText,
       })
       if (custom) return custom
     }
