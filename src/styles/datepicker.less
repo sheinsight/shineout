@@ -364,17 +364,26 @@
     .@{datepicker-prefix}-datetime {
       position: relative;
       padding-top: 12px;
+      padding-left: 12px;
       border-top: solid 1px #f2f2f2;
-      text-align: center;
+      .@{datepicker-prefix}-clock {
+        fill: @gray-600;
+        margin-right: 8px;
+        position: relative;
+        top: 2px;
+        > svg {
+          width: 14px;
+          height: 14px;
+        }
+      }
 
       .@{datepicker-prefix}-time-picker {
         position: absolute;
         z-index: 0;
         bottom: 100%;
-        left: 50%;
+        left: 0;
         background: #fff;
         box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.02), @datepicker-box-shadow-up;
-        transform: translate(-50%);
         visibility: hidden;
       }
 
