@@ -95,8 +95,26 @@
     overflow-x: hidden;
     overflow-y: hidden;
     transition: opacity .3s @zoom-out;
-    .@{modal-prefix}-panel {
+    .@{modal-prefix}-mask > .@{modal-prefix}-panel {
       transition: transform .3s @zoom-out;
+      border-radius: 0;
+      padding: 0;
+      > .@{modal-prefix}-title {
+        background: @gray-100;
+        padding: @modal-drawer-header-vertical-padding @modal-drawer-padding;
+      }
+      > .@{card-prefix}-body {
+        padding: @modal-drawer-padding;
+      }
+      > .@{card-prefix}-footer {
+        padding: @modal-drawer-padding;
+      }
+      > .@{modal-prefix}-close {
+        top: 0;
+        right: 0;
+        margin-top: @modal-drawer-header-vertical-padding;
+        margin-right: @modal-drawer-header-vertical-padding;
+      }
     }
   }
 
@@ -233,7 +251,6 @@
     left: 0;
     width: 100%;
     min-height: 100%;
-
 
     > .@{card-prefix} {
       font-size: @modal-font-size;
