@@ -10,6 +10,9 @@ export const CheckedMode = {
 
   // 如果父节点下所有子节点全部选中，只返回父节点
   Shallow: 3,
+
+  // 所选即所得
+  Freedom: 4,
 }
 
 export default class {
@@ -47,6 +50,7 @@ export default class {
     this.valueMap.forEach((checked, id) => {
       switch (this.mode) {
         case CheckedMode.Full:
+        case CheckedMode.Freedom:
           if (checked === 1) value.push(id)
           break
         case CheckedMode.Half:
@@ -82,6 +86,8 @@ export default class {
   set(id, checked, direction) {
     // self
     if (!this.isDisabled(id)) this.setValueMap(id, checked)
+
+    if (CheckedMode.Freedom === this.mode) return
 
     const { path, children } = this.pathMap.get(id)
 
@@ -158,10 +164,12 @@ export default class {
 
       let childChecked = this.value.indexOf(id) >= 0 ? 1 : 0
 
-      if (childChecked === 1 && this.mode !== CheckedMode.Half) {
+      if (childChecked === 1 && this.mode !== CheckedMode.Half && this.mode !== CheckedMode.Freedom) {
         this.initValue(children, 1)
       } else if (children.length > 0) {
-        childChecked = this.initValue(children)
+        // 保持迭代
+        const res = this.initValue(children)
+        childChecked = this.mode === CheckedMode.Freedom ? childChecked : res
       } else {
         childChecked = this.value.indexOf(id) >= 0 ? 1 : 0
       }
