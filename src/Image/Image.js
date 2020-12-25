@@ -53,6 +53,11 @@ class Image extends PureComponent {
     return url
   }
 
+  preview() {
+    const { src, href } = this.props
+    showGallery({ thumb: src, src: href || src, key: 'key' })
+  }
+
   bindElement(el) {
     this.element = el
   }

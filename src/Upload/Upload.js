@@ -403,6 +403,7 @@ class Upload extends PureComponent {
       accept,
       drop,
       leftHandler,
+      onPreview,
     } = this.props
     const { files, recycle } = this.state
     const className = classnames(
@@ -444,6 +445,7 @@ class Upload extends PureComponent {
                 style={imageStyle}
                 renderResult={renderResult}
                 onRemove={this.removeValue}
+                onPreview={onPreview}
               />
             </Drop>
           ))}
@@ -514,6 +516,7 @@ Upload.propTypes = {
   onErrorRemove: PropTypes.func,
   forceAccept: PropTypes.bool,
   leftHandler: PropTypes.bool,
+  onPreview: PropTypes.func,
 }
 
 Upload.defaultProps = {
