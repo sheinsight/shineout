@@ -132,11 +132,15 @@
     position: absolute;
     z-index: @zindex-dropdown;
     padding: 12px;
+    color: @input-color;
     background: #fff;
     background-clip: padding-box;
     border-radius: @input-dropdown-border-radius;
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.02), @datepicker-box-shadow;
     font-size: @font-size-base;
+    &.@{datepicker-prefix}-quick {
+      padding-left: 0;
+    }
 
     span {
       color: @gray-600;
@@ -272,7 +276,7 @@
         position: absolute;
         left: -6px;
         height: 100%;
-        border-left: 1px solid @table-border-color;
+        border-left: 1px solid @divider-color;
       }
     }
   }
@@ -496,7 +500,7 @@
 
   &-quick-select {
     min-width: 80px;
-    border-right: 1px solid @gray-300;
+    border-right: 1px solid @divider-color;
     &-item {
       white-space: nowrap;
       padding: 4px 12px;
@@ -506,16 +510,22 @@
       &:hover {
         background: @primary-color-fade-10;
       }
+      &::after {
+        content: '';
+        transition: all .2s;
+        opacity: 0;
+        background: @colors-primary;
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+      }
 
       &-active {
-        &::after {
-          content: '';
-          background: @colors-primary;
-          position: absolute;
-          right: 0;
-          top: 0;
-          bottom: 0;
-          width: 2px;
+        color: @colors-primary;
+        &:after {
+          opacity: 1;
         }
       }
     }
@@ -563,7 +573,7 @@
         height: 100%;
         right: -6px;
         top: 0;
-        border-left: 1px solid @table-border-color;
+        border-left: 1px solid @divider-color;
       }
     }
   }
@@ -602,6 +612,6 @@
 
   .@{datepicker-prefix}-quick-select {
     border-right: none;
-    border-left: 1px solid @gray-300;
+    border-left: 1px solid @divider-color;
   }
 }
