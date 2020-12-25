@@ -243,7 +243,7 @@ Tree.propTypes = {
   expanded: PropTypes.arrayOf(PropTypes.string),
   line: PropTypes.bool,
   loader: PropTypes.func,
-  mode: PropTypes.oneOf([0, 1, 2, 3]),
+  mode: PropTypes.oneOf([0, 1, 2, 3, 4]),
   onChange: PropTypes.func,
   onClick: PropTypes.func,
   onExpand: PropTypes.func,

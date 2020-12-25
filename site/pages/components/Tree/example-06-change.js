@@ -33,6 +33,7 @@ const modeList = [
   { value: 1, text: 'mode=1 (half)' },
   { value: 2, text: 'mode=2 (child only)' },
   { value: 3, text: 'mode=3 (shallow)' },
+  { value: 4, text: 'mode=4 (freedom)' },
 ]
 
 function getValue(list, value) {
