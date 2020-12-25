@@ -81,7 +81,7 @@ export interface ButtonProps {
 
 }
 
-interface ButtonGroupProps {
+export interface ButtonGroupProps {
 
   /**
    * array of Button

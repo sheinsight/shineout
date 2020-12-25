@@ -1,4 +1,6 @@
-import * as React from 'react';
+import * as React from 'react'
+import { ButtonProps } from '../Button/index'
+
 type ReactNode = React.ReactNode;
 
 
@@ -172,8 +174,8 @@ export interface CardAccordionProps {
 
 }
 
-export interface CardSubmitProps {
+export interface CardSubmitProps extends ButtonProps {
 
 }
 
-export default Card;
+export default Card
