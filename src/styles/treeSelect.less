@@ -2,6 +2,7 @@
 @import './themes/@{so-theme}.less';
 
 @treeSelect-prefix: ~'@{so-prefix}-treeSelect';
+@tree-prefix: ~'@{so-prefix}-tree';
 @input-prefix: ~'@{so-prefix}-input';
 
 .@{treeSelect-prefix} {
@@ -16,20 +17,44 @@
     color: @gray-600;
     padding: 8px 8px 4px 8px;
 
-    .@{so-prefix}-tree-node {
-      &:last-child > div {
-        padding-bottom: 4px;
+    .@{tree-prefix} {
+      &-node {
+        &:last-child > div {
+          padding-bottom: 4px;
+        }
+        .@{tree-prefix}-icon-plus, .@{tree-prefix}-icon-sub {
+          &::after {
+            z-index: -1;
+            transition: all .2s;
+          }
+          &:hover {
+            &::after {
+              background: @gray-100;
+            }
+            .@{tree-prefix}-default-icon {
+              border-left-color: @gray-600;
+            }
+          }
+          .@{tree-prefix}-default-icon {
+            border-left-color: @gray-600;
+          }
+        }
       }
-
-      .@{so-prefix}-tree-content {
+      &-content {
         white-space: nowrap;
+        padding-left: 4px;
       }
     }
 
-    .@{treeSelect-prefix}-single .@{so-prefix}-tree-content {
+    .@{treeSelect-prefix}-single .@{tree-prefix}-content {
       cursor: default;
+      transition: all .2s;
+      cursor: pointer;
+      padding-left: 0;
       &:hover {
-        background: @primary-color-fade-10;
+        .@{treeSelect-prefix}-content-wrapper:not(.@{treeSelect-prefix}-selected) {
+          background: @gray-100;
+        }
       }
     }
 
@@ -198,13 +223,11 @@
 
   &-options span.@{treeSelect-prefix}-content-wrapper {
     display: block;
-    border-radius: 2px;
-    padding: 0 4px;
+    padding: 0px 4px;
   }
   &-options span.@{treeSelect-prefix}-selected {
-    background-color: @primary-color-fade-60;
-    color: white;
-
+    background-color: @primary-color-fade-10;
+    color: @colors-primary;
   }
 
   &-box-list {

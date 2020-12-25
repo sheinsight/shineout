@@ -392,11 +392,16 @@ class Container extends PureComponent {
 
   renderWrappedPicker() {
     const { focus, position } = this.state
-    const { absolute, zIndex } = this.props
+    const { absolute, zIndex, quickSelect } = this.props
     const props = {
       absolute,
       focus,
-      className: datepickerClass('picker', 'location', `absolute-${getCurrentPosition(position)}`),
+      className: datepickerClass(
+        'picker',
+        'location',
+        `absolute-${getCurrentPosition(position)}`,
+        quickSelect && 'quick'
+      ),
       zIndex,
       getRef: this.bindWrappedPicker,
     }

@@ -9,6 +9,12 @@ class ImageResult extends PureComponent {
     super(props)
     this.handleRemove = this.handleRemove.bind(this)
     this.handleRecover = this.handleRecover.bind(this)
+    this.bindImage = this.bindImage.bind(this)
+    this.handlePreview = this.handlePreview.bind(this)
+  }
+
+  bindImage(image) {
+    this.image = image
   }
 
   handleRemove() {
@@ -18,6 +24,34 @@ class ImageResult extends PureComponent {
   handleRecover() {
     const { onRecover, value, index } = this.props
     onRecover(index, value)
+  }
+
+  handlePreview() {
+    const { onPreview, renderResult, value, index, values } = this.props
+    if (onPreview) {
+      const url = renderResult(value)
+      onPreview(url, value, index, values)
+      return
+    }
+    if (!this.image) return
+    this.image.preview()
+  }
+
+  renderOptions() {
+    return (
+      <div className={uploadClass('image-options')}>
+        {
+          <a className={uploadClass('options-item')} onClick={this.handlePreview}>
+            {icons.Preview}
+          </a>
+        }
+        {this.props.onRemove && (
+          <a className={uploadClass('options-item')} onClick={this.handleRemove}>
+            {icons.Delete}
+          </a>
+        )}
+      </div>
+    )
   }
 
   render() {
@@ -31,7 +65,15 @@ class ImageResult extends PureComponent {
           (renderContent ? (
             renderContent(url, value, index, values)
           ) : (
-            <Image src={url} href={url} fit="center" width="auto" height={0} className={uploadClass('image-bg')} />
+            <Image
+              ref={this.bindImage}
+              src={url}
+              href={url}
+              fit="center"
+              width="auto"
+              height={0}
+              className={uploadClass('image-bg')}
+            />
           ))}
 
         {showRecover && (
@@ -40,7 +82,7 @@ class ImageResult extends PureComponent {
           </a>
         )}
 
-        {this.props.onRemove && <span className={uploadClass('delete')} onClick={this.handleRemove} />}
+        {this.renderOptions()}
       </div>
     )
   }
@@ -57,6 +99,7 @@ ImageResult.propTypes = {
   value: PropTypes.any,
   renderContent: PropTypes.func,
   values: PropTypes.array,
+  onPreview: PropTypes.func,
 }
 
 ImageResult.defaultProps = {

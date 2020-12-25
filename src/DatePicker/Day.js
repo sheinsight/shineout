@@ -222,6 +222,7 @@ class Day extends PureComponent {
 
     return (
       <div className={datepickerClass('datetime')}>
+        <Icon name="Clock" className="clock" />
         <Time {...this.props} format={format} value={value} onChange={this.handleTimeChange} />
         <span>{utils.format(value, format)}</span>
       </div>
