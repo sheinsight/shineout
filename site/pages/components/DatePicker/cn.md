@@ -33,6 +33,7 @@
 | hourStep | number | 无 | 小时选项步长 | 
 | minuteStep | number | 无 | 分钟选项步长 | 
 | secondStep | number | 无 | 秒选项步长 | 
+| onPickerChange | (value: any) => void | 无 | 值改变回调，有别于 onChange, onPickerChange会在每项值改变的时候执行 |
 
 ### DatePickerFormat
 

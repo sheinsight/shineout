@@ -286,9 +286,9 @@ class Container extends PureComponent {
   }
 
   handleChange(date, change, blur, isEnd) {
+    const { onPickerChange } = this.props
     // is range only select one
     const rangeOne = this.props.range && !(date[0] && date[1])
-
     const format = this.getFormat()
 
     let value
@@ -312,7 +312,7 @@ class Container extends PureComponent {
     }
 
     const newCurrent = this.dateToCurrent(date)
-
+    if (onPickerChange) onPickerChange(value, callback)
     if (change) {
       this.setState({ current: newCurrent })
       this.props.onChange(value, callback)
@@ -512,6 +512,7 @@ Container.propTypes = {
   hourStep: PropTypes.number,
   minuteStep: PropTypes.number,
   secondStep: PropTypes.number,
+  onPickerChange: PropTypes.func,
 }
 
 Container.defaultProps = {
