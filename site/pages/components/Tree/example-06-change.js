@@ -5,12 +5,14 @@
  *    -- 1: 返回全部选中的节点和半选中的父节点
  *    -- 2: 只返回选中的子节点
  *    -- 3: 如果父节点选中，只返回父节点
+ *    -- 4: 所选即所得
  * en - onChange
  *    -- Selected values provide 4 modes
  *    -- 0: Return only the fully selected node, including the parent node.
  *    -- 1: Return the fully selected nodes and semi-selected parent nodes.
  *    -- 2: Return only the selected child node.
  *    -- 3: Return only the parent node, if the parent node is selected.
+ *    -- 4: What you choose is what you get.
  */
 import React, { Component } from 'react'
 import { Tree, Radio } from 'shineout'

@@ -201,7 +201,13 @@ export default class {
       ids.push(id)
       let children = []
       if (Array.isArray(d[this.childrenKey])) {
-        children = this.initData(d[this.childrenKey], [...path, id], isDisabled, indexPath)
+        children = this.initData(
+          d[this.childrenKey],
+          [...path, id],
+          // exclude Freedom
+          this.mode === CheckedMode.Freedom ? disabled : isDisabled,
+          indexPath
+        )
       }
       this.pathMap.set(id, {
         children,

@@ -330,7 +330,7 @@ TreeSelect.propTypes = {
   defaultExpanded: PropTypes.arrayOf(PropTypes.string),
   expanded: PropTypes.arrayOf(PropTypes.string),
   loader: PropTypes.func,
-  mode: PropTypes.oneOf([0, 1, 2, 3]),
+  mode: PropTypes.oneOf([0, 1, 2, 3, 4]),
   line: PropTypes.bool,
   onChange: PropTypes.func,
   onSelect: PropTypes.func,
