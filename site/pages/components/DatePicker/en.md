@@ -33,6 +33,7 @@
 | hourStep | number | none | hour step | 
 | minuteStep | number | none | minute step | 
 | secondStep | number | none | second step | 
+| onPickerChange | (value: any) => void | none | value onchange callback (every type of date) |
 
 ### DatePickerFormat
 
