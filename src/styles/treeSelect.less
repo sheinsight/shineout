@@ -22,23 +22,6 @@
         &:last-child > div {
           padding-bottom: 4px;
         }
-        .@{tree-prefix}-icon-plus, .@{tree-prefix}-icon-sub {
-          &::after {
-            z-index: -1;
-            transition: all .2s;
-          }
-          &:hover {
-            &::after {
-              background: @gray-100;
-            }
-            .@{tree-prefix}-default-icon {
-              border-left-color: @gray-600;
-            }
-          }
-          .@{tree-prefix}-default-icon {
-            border-left-color: @gray-600;
-          }
-        }
       }
       &-content {
         white-space: nowrap;
