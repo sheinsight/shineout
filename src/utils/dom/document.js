@@ -17,9 +17,9 @@ export const docScroll = {
 
 export const docSize = {
   get width() {
-    return window.innerWidth || document.documentElement.clientWidth
+    return document.documentElement.clientWidth || document.body.clientWidth
   },
   get height() {
-    return window.innerHeight || document.documentElement.clientHeight
+    return document.documentElement.clientHeight || document.body.clientHeight
   },
 }
