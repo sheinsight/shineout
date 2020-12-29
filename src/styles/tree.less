@@ -138,10 +138,18 @@
         left: 0;
         display: inline-block;
         padding: 12px;
+        transition: all .2s;
+        z-index: -1;
       }
 
-      &:hover span.@{tree-prefix}-default-icon {
-        border-left-color: @colors-primary;
+      &:hover {
+        &::after {
+          background: @gray-100;
+        }
+      }
+
+      .@{tree-prefix}-default-icon {
+        border-left-color: @gray-600;
       }
 
       span.@{tree-prefix}-default-icon {
