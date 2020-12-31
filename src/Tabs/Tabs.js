@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
 import Header from './Header'
+import getDataset from '../utils/dom/getDataset'
 import Wrapper from './Wrapper'
 import { tabsClass } from '../styles'
 
@@ -89,6 +90,7 @@ class Tabs extends PureComponent {
         disabled: child.props.disabled,
         shape,
         last: arr.length - 1 === i,
+        ...getDataset(child.props),
       })
     })
 
