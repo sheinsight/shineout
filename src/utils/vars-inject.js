@@ -2487,7 +2487,7 @@ const injects = {
       },
       {
         name: 'color',
-        className: menuClass('title'),
+        className: exposeClass('menu-text'),
         attr: 'color',
         type: 'color',
         desc: '文字颜色',
