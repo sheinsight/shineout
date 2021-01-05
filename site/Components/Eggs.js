@@ -72,7 +72,7 @@ ready(() => {
 
 function at() {
   const start = +new Date('2020-12-30 00:00:00')
-  const end = start * 5 * 3600 * 24 * 1000
+  const end = start + 5 * 3600 * 24 * 1000
   const now = Date.now()
   if (now >= start && now <= end) return true
   return false
