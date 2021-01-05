@@ -83,7 +83,7 @@ class Result extends PureComponent {
     const { result, renderResult, renderUnmatched } = this.props
     if (result.length <= 0) return true
     const res = result.reduce((acc, cur) => {
-      if (getResultContent(cur, renderResult, renderUnmatched)) {
+      if (getResultContent(cur, renderResult, renderUnmatched) !== undefined) {
         acc.push(cur)
       }
       return acc
