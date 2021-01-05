@@ -10,5 +10,5 @@ import { Radio } from 'shineout'
 const data = ['red', 'orange', 'yellow']
 
 export default function() {
-  return <Radio.Group button keygen data={data} defaultValue="red" />
+  return <Radio.Group button keygen data={data} disabled defaultValue="red" />
 }

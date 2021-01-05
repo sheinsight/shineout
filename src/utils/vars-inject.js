@@ -469,13 +469,6 @@ const injects = {
         desc: '禁用按钮背景色',
       },
       {
-        name: 'disabledBorderColor',
-        attr: 'borderColor',
-        type: 'color',
-        className: buttonClass('disabled'),
-        desc: '禁用按钮边框色',
-      },
-      {
         name: 'disabledDelimiter',
         attr: 'borderColor',
         type: 'color',

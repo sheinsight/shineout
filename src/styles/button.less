@@ -55,6 +55,11 @@
     opacity: @button-disabled-opacity;
   }
 
+  // cover disabled opacity
+  &.@{button-prefix}-disabled {
+    opacity: 1;
+  }
+
   a& {
     fieldset[disabled] & {
       pointer-events: none; // Future-proof disabling of clicks on `<a>` elements
@@ -245,7 +250,7 @@
     background: @button-disabled-bg;
     color: @button-disabled-color;
     fill: @button-disabled-color;
-    border-color: #d9d9d9;
+    border-color: @button-disabled-bg;
   }
 
   &-circle {
