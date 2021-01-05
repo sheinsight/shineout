@@ -98,7 +98,7 @@ function formatDateWithDefaultTime(date, value, defaultTime, fmt) {
 
 function clearHMS(date) {
   if (!isValid(date)) return date
-  return new Date(new Date(date.toLocaleDateString()).getTime())
+  return new Date(new Date(date.toDateString()).getTime())
 }
 
 function compareDateArray(arr1, arr2, type = 'date') {
