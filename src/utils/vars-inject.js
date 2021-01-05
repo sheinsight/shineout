@@ -3615,11 +3615,36 @@ const injects = {
         desc: '内容内边距-Left',
       },
       {
-        name: 'iconBodyPadding',
+        name: 'iconBodyPaddingTop',
         className: exposeClass('modal-icon-body'),
-        attr: 'padding',
-        type: 'string',
-        desc: '带有 Icon 的对话框内容内边距',
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+        desc: '带有 Icon 的对话框内容 Top 内边距',
+      },
+      {
+        name: 'iconBodyPaddingRight',
+        className: exposeClass('modal-icon-body'),
+        attr: 'paddingRight',
+        type: 'number',
+        parser: parseInt,
+        desc: '带有 Icon 的对话框内容 Right 内边距',
+      },
+      {
+        name: 'iconBodyPaddingBottom',
+        className: exposeClass('modal-icon-body'),
+        attr: 'paddingBottom',
+        type: 'number',
+        parser: parseInt,
+        desc: '带有 Icon 的对话框内容 Bottom 内边距',
+      },
+      {
+        name: 'iconBodyPaddingLeft',
+        className: exposeClass('modal-icon-body'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+        desc: '带有 Icon 的对话框内容 Left 内边距',
       },
       {
         name: 'footerPadding',
@@ -3871,10 +3896,34 @@ const injects = {
         v
       )
     },
-    set iconBodyPadding(v) {
+    set iconBodyPaddingTop(v) {
       setBodyProperty(
         {
-          '--modal-icon-body-padding': v,
+          '--modal-icon-body-padding-top': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set iconBodyPaddingRight(v) {
+      setBodyProperty(
+        {
+          '--modal-icon-body-padding-right': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set iconBodyPaddingBottom(v) {
+      setBodyProperty(
+        {
+          '--modal-icon-body-padding-bottom': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set iconBodyPaddingLeft(v) {
+      setBodyProperty(
+        {
+          '--modal-icon-body-padding-left': `${parseInt(v, 10)}px`,
         },
         v
       )
