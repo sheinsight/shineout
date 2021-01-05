@@ -15,6 +15,17 @@ export const CheckedMode = {
   Freedom: 4,
 }
 
+// check status stack
+const checkStatusStack = (stack, defaultStatus) => {
+  if (!stack || stack.length <= 0) return defaultStatus
+  if (stack.filter(d => d === 0).length === stack.length) return 0
+
+  const s = stack.filter(d => d === 0 || d === 2)
+
+  if (s.length <= 0) return defaultStatus
+  return 2
+}
+
 export default class {
   constructor(options = {}) {
     const { data, value, keygen, mode, disabled, childrenKey = 'children' } = options
@@ -87,21 +98,37 @@ export default class {
     // self
     if (!this.isDisabled(id)) this.setValueMap(id, checked)
 
-    if (CheckedMode.Freedom === this.mode) return
+    if (CheckedMode.Freedom === this.mode) {
+      // Free mode will return zero
+      return 0
+    }
 
     const { path, children } = this.pathMap.get(id)
 
+    const childrenStack = []
     // children
     if (direction !== 'asc') {
       children.forEach(cid => {
-        this.set(cid, checked, 'desc')
+        // push status to stack
+        childrenStack.push(this.set(cid, checked, 'desc'))
       })
+    }
+
+    // Exclude disabled
+    let current = this.valueMap.get(id)
+
+    // check all children status
+    const status = checkStatusStack(childrenStack, current)
+
+    if (status !== current) {
+      this.setValueMap(id, status)
+      current = status
     }
 
     // parent
     if (direction !== 'desc' && path.length > 0) {
       const parentId = path[path.length - 1]
-      let parentChecked = checked
+      let parentChecked = current
       this.pathMap.get(parentId).children.forEach(cid => {
         if (parentChecked !== this.valueMap.get(cid)) {
           parentChecked = 2
@@ -109,6 +136,7 @@ export default class {
       })
       this.set(parentId, parentChecked, 'asc')
     }
+    return current
   }
 
   isDisabled(id) {
