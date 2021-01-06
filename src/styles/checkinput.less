@@ -49,13 +49,13 @@
           color: @button-disabled-color;
         }
 
-        // &:not(.@{checkinput-prefix}-checked) {
-        //   opacity: 0.65;
-        // }
-
-        // &.@{checkinput-prefix}-checked {
-        //   opacity: 1;
-        // }
+        // cover, set disabled before and after bgc
+        &:not(:first-child)::before {
+          background-color: @button-disabled-delimiter;
+        }
+        &:not(:last-child)::after {
+          background-color: @button-disabled-delimiter;
+        }
       }
     }
     
