@@ -135,17 +135,17 @@ class Item extends Component {
   }
 
   render() {
-    const { children, grid, label, labelAlign, labelWidth, required, style } = this.props
+    const { children, grid, label, labelAlign, labelVerticalAlign, labelWidth, required, style } = this.props
 
     const errors = this.getErrors()
-
     const className = classnames(
       getGrid(grid),
       formClass(
         'item',
         required && 'required',
         errors.length > 0 && 'invalid',
-        ['top', 'right'].indexOf(labelAlign) >= 0 && `label-align-${labelAlign}`
+        labelVerticalAlign && `label-vertical-align-${labelVerticalAlign}`,
+        ['top', 'right', 'left'].indexOf(labelAlign) >= 0 && `label-align-${labelAlign}`
       ),
       this.props.className
     )

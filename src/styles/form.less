@@ -49,6 +49,15 @@
         padding-left: 0;
       }
     }
+
+    &.@{form-prefix}-label-vertical-align {
+      &-middle {
+        align-items: center;
+      }
+      &-bottom {
+        align-items: flex-end;
+      }
+    }
   }
 
   .@{form-prefix}-tip,
@@ -69,6 +78,10 @@
 
   &-item&-label-align-right &-label {
     text-align: right;
+  }
+
+  &-item&-label-align-left &-label {
+    text-align: left;
   }
 
   &-label-align-top {
