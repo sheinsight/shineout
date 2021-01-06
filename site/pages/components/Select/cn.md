@@ -46,3 +46,4 @@
 | onCollapse | (collapse: boolean) => void | 无 | 下拉列表展开/收起回调 | 
 | resultClassName | ((value: any) => string) \| string | 无 | 选中结果内容容器的className | 
 | columnsTitle | ReactNode | 无 | 多列选项多选时的标题文字 |
+| reFocus | boolean | 无 | 存在onFilter和onCreate，选中 Option，自动focus Input |

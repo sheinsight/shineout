@@ -1,7 +1,10 @@
-import * as React from 'react';
+import * as React from 'react'
+
 type ReactNode = React.ReactNode;
 
-
+interface BaseObject {
+  [propName: string]: any
+}
 
 declare class Select extends React.Component<SelectProps, {}> {
 
@@ -166,7 +169,7 @@ export interface SelectProps {
    * 在Form中，value会被表单接管，value无效
    * default: 
    */
-  value?: any[] | string | object;
+  value?: any[] | string | BaseObject;
 
   /**
    * Merges selected values, valid only in multiselect mode
@@ -287,6 +290,13 @@ export interface SelectProps {
    */
   columnsTitle?: ReactNode;
 
+  /**
+   * There are onFilter and onCreate, select Option, automatically focus Input
+   * 存在onFilter和onCreate，选中 Option，自动focus Input
+   * default: false
+   */
+  reFocus?: boolean;
+
 }
 
-export default Select;
+export default Select

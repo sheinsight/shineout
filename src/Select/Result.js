@@ -142,7 +142,18 @@ class Result extends PureComponent {
   }
 
   renderInput(text, key = 'input') {
-    const { multiple, onFilter, trim, focus, onInputFocus, onInputBlur, setInputReset, focusSelected } = this.props
+    const {
+      multiple,
+      onFilter,
+      trim,
+      focus,
+      onInputFocus,
+      onInputBlur,
+      setInputReset,
+      focusSelected,
+      bindFocusInputFunc,
+      collapse,
+    } = this.props
     return (
       <Input
         key={`${key}.${focus ? 1 : 0}`}
@@ -156,6 +167,8 @@ class Result extends PureComponent {
         onFilter={onFilter}
         setInputReset={setInputReset}
         focusSelected={focusSelected}
+        bindFocusInputFunc={bindFocusInputFunc}
+        collapse={collapse}
       />
     )
   }
@@ -217,7 +230,7 @@ class Result extends PureComponent {
     }
 
     if (onFilter) {
-      return this.renderInput(getResultContent(result[0], renderResult, renderUnmatched))
+      return this.renderInput(filterText || getResultContent(result[0], renderResult, renderUnmatched))
     }
 
     const v = getResultContent(result[0], renderResult, renderUnmatched)
@@ -286,6 +299,8 @@ Result.propTypes = {
   renderResult: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   setInputReset: PropTypes.func,
+  bindFocusInputFunc: PropTypes.func,
+  collapse: PropTypes.func,
   compressed: PropTypes.bool,
   trim: PropTypes.bool,
   renderUnmatched: PropTypes.func,
