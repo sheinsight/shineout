@@ -13,6 +13,11 @@ class ImageResult extends PureComponent {
     this.handlePreview = this.handlePreview.bind(this)
   }
 
+  get showRemove() {
+    const { onRemove, renderContent } = this.props
+    return onRemove && renderContent
+  }
+
   bindImage(image) {
     this.image = image
   }
@@ -81,8 +86,8 @@ class ImageResult extends PureComponent {
             {icons.Recovery}
           </a>
         )}
-
-        {this.renderOptions()}
+        {this.showRemove && <span className={uploadClass('delete')} onClick={this.handleRemove} />}
+        {!renderContent && this.renderOptions()}
       </div>
     )
   }

@@ -24,7 +24,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 | datum | object | | formdata 辅助类，不设置Form内部会自动创建，通常情况下不需要设置。 |
 | disabled | boolean | false | 是否禁用，为 true 时，表单内所有元素 disabled 都为 true |
 | inline | boolean | false | 是否水平布局 |
-| labelAlign | 'top' \| 'right' | | 默认为左边对齐。 |
+| labelAlign | 'top' \| 'right' \| 'left' | 'right' | 默认为右边对齐 |
 | labelWidth | string \| number | 140px | 标签宽度，labelAlign 为 'top' 时无效。 |
 | mode | string | | 模式，和 useMode 配合使用 |
 | onChange | (data: any) => void | | 表单内组件值变化函数 |
@@ -37,6 +37,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 | throttle | number | 1000 | ms, 两次提交间隔时长（防止重复提交）|
 | initValidate | boolean | false | 设置 value 后是否自动校验 |
 | formRef | (form: any) => void | - | 绑定 form 的引用, 可以调用某些 form 的方法 | 
+| labelVerticalAlign | 'top' \| 'middle' \| 'bottom' | 'top' | 默认顶部对齐 |
 
 ### Form.Item
 表单项，主要用来布局，显示标签，提示文案信息等

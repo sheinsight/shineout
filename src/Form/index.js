@@ -18,7 +18,7 @@ const exportForm = compose(
   Datum.hoc({ type: 'form', bindProps: ['removeUndefined', 'error'] }),
   formProvider
 )(cardConsumer(Form, ['setFormStatus']))
-exportForm.Item = formConsumer(['formDatum', 'labelWidth', 'labelAlign'])(Item)
+exportForm.Item = formConsumer(['formDatum', 'labelWidth', 'labelAlign', 'labelVerticalAlign'])(Item)
 exportForm.Field = inputable(Field)
 exportForm.Block = formConsumer(['formDatum', 'combineRules'])(Block)
 exportForm.BlockField = inputable(BlockField)

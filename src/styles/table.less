@@ -613,4 +613,15 @@
       overflow: hidden;
     }
   }
+
+  td {
+    .@{so-prefix}-button {
+      + .@{so-prefix}-button {
+        margin-left: 0;
+      }
+      &:not(:last-child) {
+        margin-right: @button-margin-left;
+      }
+    }
+  }
 }
