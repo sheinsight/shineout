@@ -37,7 +37,7 @@
 | childrenKey | string | 'children' | 树形数据下，指定子数据的属性名 | 
 | defaultExpandAll| boolean | false | 默认展开全部子节点, 仅树形数据下有效 | 
 | renderUnmatched | (data: any) => ReactNode | 无 | 渲染未匹配值的方式 |
-| emptyAfterSelect | boolean | false | 选中后是否清空输入框内容 ｜
+| emptyAfterSelect | boolean | false | 选中后是否清空输入框内容（在多选情况下适用） |
 | showArrow | boolean | true | 是否显示下拉箭头，仅针对单选情况 |
 | showHitDescendants | boolean | false | 筛选后是否展示命中节点的后代节点 |
 | focusSelected | boolean | true | onCreate 或 onFilter 在单选情况下单击值后是否选中值 |
