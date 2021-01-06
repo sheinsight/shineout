@@ -5,7 +5,7 @@
  *    -- Basic table usage.
  */
 import React from 'react'
-import { Table } from 'shineout'
+import { Table, Button } from 'shineout'
 
 const data = [
   {
@@ -63,7 +63,17 @@ const data = [
 ]
 
 const columns = [
-  { title: 'id', render: 'id', width: 50 },
+  {
+    title: 'id',
+    render: () => (
+      <div>
+        <Button text type="primary">
+          Hello
+        </Button>
+      </div>
+    ),
+    width: 50,
+  },
   { title: 'Name', render: d => `${d.firstName} ${d.lastName}` },
   { title: 'Country', render: 'country' },
   { title: 'Position', render: 'position' },
