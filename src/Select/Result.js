@@ -230,7 +230,7 @@ class Result extends PureComponent {
     }
 
     if (onFilter) {
-      return this.renderInput(filterText || getResultContent(result[0], renderResult, renderUnmatched))
+      return this.renderInput(getResultContent(result[0], renderResult, renderUnmatched))
     }
 
     const v = getResultContent(result[0], renderResult, renderUnmatched)

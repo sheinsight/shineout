@@ -33,6 +33,7 @@ class FilterInput extends Component {
   componentDidMount() {
     if (this.props.focus) {
       this.props.onInputFocus()
+      this.focus()
     }
   }
 
@@ -43,6 +44,7 @@ class FilterInput extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.focus === prevProps.focus || !this.props.focus) return
     this.props.onInputFocus()
+    this.focus()
   }
 
   getProcessedValue(text) {
@@ -126,10 +128,6 @@ class FilterInput extends Component {
       onPaste: this.handlePaste,
       title: !focus && isString(value) ? value : null,
     }
-
-    // focus span
-    // condition is focus or editable is true
-    this.focus()
 
     if (isValidElement(value)) {
       return cloneElement(value, {

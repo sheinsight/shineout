@@ -15,6 +15,7 @@ export default function() {
       <Select
         style={{ width: 240, marginBottom: 12 }}
         data={data}
+        reFocus
         keygen
         placeholder="Select color"
         onFilter={text => d => d.indexOf(text) >= 0}
