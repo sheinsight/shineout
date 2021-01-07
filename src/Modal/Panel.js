@@ -27,7 +27,6 @@ const getClickPosition = e => {
 
 document.addEventListener('click', getClickPosition, true)
 
-const handleStop = e => e.stopPropagation()
 export default class Panel extends PureComponent {
   panel = null
 
@@ -159,17 +158,12 @@ export default class Panel extends PureComponent {
 
     if (bodyStyle) style = Object.assign(style, bodyStyle)
 
-    if (!from || from !== 'method')
-      return (
-        <Card.Body style={style} onScroll={handleStop}>
-          {children}
-        </Card.Body>
-      )
+    if (!from || from !== 'method') return <Card.Body style={style}>{children}</Card.Body>
 
     const icon = this.renderIcon()
 
     return (
-      <Card.Body className={modalClass('body')} style={style} onScroll={handleStop}>
+      <Card.Body className={modalClass('body')} style={style}>
         {icon && <div className={modalClass('icon')}>{icon}</div>}
         {this.renderTitle()}
         <div>{children}</div>
@@ -190,6 +184,7 @@ export default class Panel extends PureComponent {
       hideClose,
       from,
       top,
+      events,
     } = this.props
 
     const rtl = isRTL()
@@ -203,12 +198,11 @@ export default class Panel extends PureComponent {
     return (
       <ZProvider value>
         <Provider value={{ element: undefined }}>
-          <div style={maskStyle} key="mask" className={modalClass('mask')} onClick={this.handleClose}>
+          <div {...events} style={maskStyle} className={modalClass('mask')} onClick={this.handleClose}>
             <Card
               forwardedRef={this.savePanel}
               moveable={moveable}
               resizable={resizable}
-              key="card"
               shadow
               className={className}
               style={this.getStyle()}
@@ -252,6 +246,7 @@ Panel.propTypes = {
   from: PropTypes.string,
   zoom: PropTypes.bool,
   container: PropTypes.any,
+  events: PropTypes.object,
 }
 
 Panel.defaultProps = {
@@ -259,4 +254,5 @@ Panel.defaultProps = {
   top: '10vh',
   maskCloseAble: true,
   width: 500,
+  events: {},
 }

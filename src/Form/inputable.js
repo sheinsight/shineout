@@ -247,8 +247,9 @@ export default curry(Origin =>
           formDatum.removeFormError(this.errorName)
         } else {
           value = beforeChange(value, null)
-          this.setState({ value })
-          this.validate(value).catch(() => {})
+          this.setState({ value }, () => {
+            this.validate(value).catch(() => {})
+          })
         }
 
         if (onChange) onChange(value, ...args)
