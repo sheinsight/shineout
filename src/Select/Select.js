@@ -201,7 +201,7 @@ class Select extends PureComponent {
       }
     } else {
       datum.set(data)
-      this.handleState(false)
+      if (!reFocus) this.handleState(false)
       //  let the element focus
       setTimeout(() => {
         if (reFocus && this.focusInput) this.focusInput(true)
@@ -446,6 +446,7 @@ class Select extends PureComponent {
       showArrow,
       compressedClassName,
       resultClassName,
+      reFocus,
     } = this.props
     const className = selectClass(
       'inner',
@@ -495,6 +496,7 @@ class Select extends PureComponent {
           focusSelected={this.getFocusSelected()}
           compressedClassName={compressedClassName}
           resultClassName={resultClassName}
+          reFocus={reFocus}
         />
         {this.renderOptions()}
       </div>

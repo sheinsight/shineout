@@ -86,15 +86,10 @@ class FilterInput extends Component {
   }
 
   handleInput(e) {
-    const { editable } = this.state
     const text = e.target.innerText.replace('\feff ', '')
     this.lastCursorOffset = getCursorOffset(text.length)
     const t = this.getProcessedValue(text)
     this.props.onFilter(t)
-    // to editable is true
-    if (editable && !this.props.focus) {
-      this.props.collapse(t)
-    }
   }
 
   handleBlur(e) {
