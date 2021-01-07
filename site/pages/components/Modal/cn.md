@@ -33,6 +33,7 @@
 | type | 'info' \| 'success' \| 'warning' \| 'error' \| 'normal' | 无 | Modal title 显示状态icon | 1.6.1 |
 | zoom | boolean | false | 是否开启 zoom 动画效果 |
 | esc | boolean | true | 是否支持 esc 键关闭 |
+| events | object | 无 | 外层元素所接受的事件列表，可用于在 createPortal 场景中阻止冒泡 |
 
 ### ModalMethods
 

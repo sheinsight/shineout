@@ -16,7 +16,7 @@ export default () => {
         zoom
         title="zoom"
         footer={[
-          <Button type="primary" onClick={() => setVisible(false)}>
+          <Button key="ok" type="primary" onClick={() => setVisible(false)}>
             Ok
           </Button>,
         ]}

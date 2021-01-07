@@ -33,6 +33,7 @@ You can use Modal to display secondary content or actions without jumping to the
 | type | 'info' \| 'success' \| 'warning' \| 'error' \| 'normal' | null | Modal Title show status icon | 1.6.1 |
 | zoom | boolean | false | toggle zoom animation |
 | esc | boolean | true | esc to close |
+| events | object | none | modal events list, use stopPropagation at createPortal |
 
 ### ModalMethods
 
