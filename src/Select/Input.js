@@ -33,6 +33,7 @@ class FilterInput extends Component {
   componentDidMount() {
     if (this.props.focus) {
       this.props.onInputFocus()
+      this.focus()
     }
   }
 
@@ -43,6 +44,7 @@ class FilterInput extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.focus === prevProps.focus || !this.props.focus) return
     this.props.onInputFocus()
+    this.focus()
   }
 
   getProcessedValue(text) {
@@ -84,15 +86,10 @@ class FilterInput extends Component {
   }
 
   handleInput(e) {
-    const { editable } = this.state
     const text = e.target.innerText.replace('\feff ', '')
     this.lastCursorOffset = getCursorOffset(text.length)
     const t = this.getProcessedValue(text)
     this.props.onFilter(t)
-    // to editable is true
-    if (editable && !this.props.focus) {
-      this.props.collapse(t)
-    }
   }
 
   handleBlur(e) {
@@ -126,10 +123,6 @@ class FilterInput extends Component {
       onPaste: this.handlePaste,
       title: !focus && isString(value) ? value : null,
     }
-
-    // focus span
-    // condition is focus or editable is true
-    this.focus()
 
     if (isValidElement(value)) {
       return cloneElement(value, {

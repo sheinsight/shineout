@@ -201,7 +201,7 @@ class Select extends PureComponent {
       }
     } else {
       datum.set(data)
-      this.handleState(false)
+      if (!reFocus) this.handleState(false)
       //  let the element focus
       setTimeout(() => {
         if (reFocus && this.focusInput) this.focusInput(true)
