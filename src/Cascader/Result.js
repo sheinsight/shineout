@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { inputClass, selectClass, cascaderClass } from '../styles'
+import Input from '../Select/Input'
 
 class Result extends PureComponent {
   constructor(props) {
@@ -34,7 +35,25 @@ class Result extends PureComponent {
     return null
   }
 
+  renderInput() {
+    const { onFilter } = this.props
+    return (
+      <Input
+        bindFocusInputFunc={() => {}}
+        onInputFocus={() => {}}
+        onInputBlur={() => {}}
+        focus
+        setInputReset={() => {}}
+        onFilter={onFilter}
+      />
+    )
+  }
+
   renderPlaceholder() {
+    const { focus, onFilter } = this.props
+    if (focus && onFilter) {
+      return this.renderInput()
+    }
     return (
       <span key="placeholder" className={classnames(inputClass('placeholder'), selectClass('ellipsis'))}>
         {this.props.placeholder}
@@ -44,7 +63,10 @@ class Result extends PureComponent {
   }
 
   renderResult() {
-    const { datum, value, renderItem, renderResult, compressed } = this.props
+    const { datum, value, renderItem, renderResult, compressed, focus, onFilter } = this.props
+    if (focus && onFilter) {
+      return this.renderInput()
+    }
     const nodes = value.map(v => datum.getDataById(v))
     let render = renderResult || renderItem
     if (typeof render === 'string') {
@@ -108,6 +130,8 @@ Result.propTypes = {
   style: PropTypes.object,
   value: PropTypes.array,
   compressed: PropTypes.bool,
+  focus: PropTypes.bool,
+  onFilter: PropTypes.func,
 }
 
 Result.defaultProps = {

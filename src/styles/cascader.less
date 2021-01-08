@@ -167,6 +167,27 @@
       color: @cascader-active-color;
     }
   }
+
+  &-filter-list {
+    display: block;
+    &-separator {
+      margin: 0 4px;
+    }
+    &-content {
+      display: inline-block;
+      transition: all .2s;
+      &:not(.@{cascader-prefix}-disabled):hover {
+        color: @colors-primary;
+      }
+      &.@{cascader-prefix}-disabled {
+        color: @gray-400;
+        cursor: not-allowed;
+      }
+    }
+    .@{cascader-prefix}-node {
+      cursor: pointer;
+    }
+  }
 }
 
 .@{cascader-prefix}-rtl {

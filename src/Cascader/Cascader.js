@@ -7,6 +7,7 @@ import DatumTree from '../Datum/Tree'
 import { cascaderClass, selectClass } from '../styles'
 import Result from './Result'
 import CascaderList from './List'
+import FilterList from './FilterList'
 import { docSize } from '../utils/dom/document'
 import { getParent } from '../utils/dom/element'
 import absoluteList from '../AnimationList/AbsoluteList'
@@ -299,13 +300,46 @@ class Cascader extends PureComponent {
     )
   }
 
+  renderFilterList() {
+    const { absolute, zIndex, onChange, data, childrenKey, renderItem, renderResult, expandTrigger, datum } = this.props
+    const { focus, position } = this.state
+    const className = classnames(cascaderClass(focus && 'focus', isRTL() && 'rtl'), selectClass(this.state.position))
+
+    return (
+      <FilterList
+        rootClass={className}
+        position={position}
+        absolute={absolute}
+        focus={focus}
+        parentElement={this.element}
+        data-id={this.selectId}
+        zIndex={zIndex}
+        fixed="min"
+        data={data}
+        childrenKey={childrenKey}
+        renderItem={renderItem}
+        renderResult={renderResult}
+        expandTrigger={expandTrigger}
+        datum={this.datum}
+        onChange={onChange}
+      />
+    )
+  }
+
+  renderPanel() {
+    const { filterText, data } = this.props
+    if (!filterText || data.length === 0) return this.renderAbsoluteList()
+    return this.renderFilterList()
+  }
+
   render() {
     const { placeholder, disabled, size, ...other } = this.props
+    const { focus } = this.state
     const className = classnames(
       cascaderClass(
         '_',
         size,
-        this.state.focus && 'focus',
+        focus && 'focus',
         other.mode !== undefined && 'multiple',
         disabled === true && 'disabled',
         isRTL() && 'rtl'
@@ -328,6 +362,7 @@ class Cascader extends PureComponent {
       >
         <Result
           {...other}
+          focus={focus}
           multiple={other.mode !== undefined}
           datum={this.datum}
           placeholder={placeholder}
@@ -335,7 +370,7 @@ class Cascader extends PureComponent {
           onPathChange={this.handlePathChange}
         />
 
-        {this.renderAbsoluteList()}
+        {this.renderPanel()}
       </div>
     )
   }
@@ -358,6 +393,7 @@ Cascader.propTypes = {
   placeholder: PropTypes.any,
   position: PropTypes.string,
   renderItem: PropTypes.any,
+  renderResult: PropTypes.any,
   size: PropTypes.string,
   style: PropTypes.object,
   value: PropTypes.array,
@@ -366,6 +402,7 @@ Cascader.propTypes = {
   childrenKey: PropTypes.string,
   finalDismiss: PropTypes.bool,
   onCollapse: PropTypes.func,
+  filterText: PropTypes.string,
 }
 
 Cascader.defaultProps = {

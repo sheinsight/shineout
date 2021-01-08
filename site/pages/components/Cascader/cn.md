@@ -24,3 +24,4 @@
 | childrenKey | string | 'children' | 指定子数据的属性名 | 
 | finalDismiss | boolean | false | 选择末级节点后是否关闭选项列表 |
 | onCollapse | (collapse: boolean) => void | 无 | 下拉列表展开/收起回调 |
+| onFilter | (text: string) => (data: any) => boolean | 无 | onFilter 不为空时，可以输入过滤数据<br />onFilter 如果返回一个函数，使用这个函数做前端过滤<br />如果不返回，可以自行做后端过滤 |
