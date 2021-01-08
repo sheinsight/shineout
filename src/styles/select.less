@@ -264,7 +264,7 @@
     display: flex;
     overflow: hidden;
     min-height: 200px;
-    max-height: 300px;
+    max-height: 320px;
     flex-direction: column;
 
     .@{select-prefix}-header {
@@ -591,6 +591,11 @@
       right: auto;
       left: 7px;
     }
+  }
+
+  &-custom-header {
+    padding: @dropdown-item-padding-y @dropdown-padding-x @dropdown-item-padding-y @dropdown-padding-x;
+    line-height: 22px;
   }
 }
 
