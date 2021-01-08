@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from 'react'
 import { StickyProps } from '../Sticky'
 import { PaginationProps } from '../Pagination'
 
@@ -49,7 +49,7 @@ export interface RowEvents {
   [propName: string]: any
 }
 
-type TableColumns<T = TableData> = Array<ColumnItem>
+type TableColumns<T = TableData> = Array<ColumnItem<T>>
 
 declare class Table extends React.Component<TableProps, {}> {
 
@@ -340,4 +340,4 @@ export interface TableProps {
 
 }
 
-export default Table;
+export default Table
