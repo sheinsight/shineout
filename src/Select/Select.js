@@ -446,7 +446,6 @@ class Select extends PureComponent {
       showArrow,
       compressedClassName,
       resultClassName,
-      reFocus,
     } = this.props
     const className = selectClass(
       'inner',
@@ -496,7 +495,6 @@ class Select extends PureComponent {
           focusSelected={this.getFocusSelected()}
           compressedClassName={compressedClassName}
           resultClassName={resultClassName}
-          reFocus={reFocus}
         />
         {this.renderOptions()}
       </div>
