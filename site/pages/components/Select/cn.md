@@ -47,4 +47,4 @@
 | resultClassName | ((value: any) => string) \| string | 无 | 选中结果内容容器的className | 
 | columnsTitle | ReactNode | 无 | 多列选项多选时的标题文字 |
 | reFocus | boolean | 无 | 存在onFilter和onCreate，选中 Option，自动focus Input |
-| renderHeader | () => ReactNode \| ReactNode | 无 | 自定义渲染 Option List Header |
+| header | () => ReactNode \| ReactNode | 无 | 自定义渲染 Option List Header |

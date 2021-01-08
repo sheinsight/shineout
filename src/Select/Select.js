@@ -335,11 +335,8 @@ class Select extends PureComponent {
    * custom options list header
    */
   renderCustomHeader() {
-    const { renderHeader } = this.props
-
-    if (React.isValidElement(renderHeader)) return <div className={selectClass('custom-header')}>{renderHeader}</div>
-    if (isFunc(renderHeader)) return <div className={selectClass('custom-header')}>{renderHeader()}</div>
-
+    const { header } = this.props
+    if (React.isValidElement(header)) return <div className={selectClass('custom-header')}>{header}</div>
     return null
   }
 
@@ -552,6 +549,7 @@ Select.propTypes = {
   onCollapse: PropTypes.func,
   resultClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   reFocus: PropTypes.bool,
+  header: PropTypes.node,
 }
 
 Select.defaultProps = {
