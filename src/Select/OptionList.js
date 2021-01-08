@@ -213,7 +213,7 @@ class OptionList extends Component {
   }
 
   render() {
-    const { control, focus, style, selectId, autoClass, getRef } = this.props
+    const { control, focus, style, selectId, autoClass, getRef, customHeader } = this.props
 
     return (
       <ScaleList
@@ -224,6 +224,7 @@ class OptionList extends Component {
         className={classnames(selectClass('options', `control-${control}`), autoClass)}
         getRef={getRef}
       >
+        {customHeader}
         {this.renderList()}
       </ScaleList>
     )
@@ -252,6 +253,7 @@ OptionList.propTypes = {
   text: PropTypes.object,
   groupKey: PropTypes.string,
   getRef: PropTypes.func,
+  customHeader: PropTypes.node,
 }
 
 export default OptionList

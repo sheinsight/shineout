@@ -9,7 +9,7 @@ import { getLocale } from '../locale'
 import OptionList from './OptionList'
 import OptionTree from './OptionTree'
 import BoxList from './BoxList'
-import { isObject } from '../utils/is'
+import { isObject, isFunc } from '../utils/is'
 import { docSize } from '../utils/dom/document'
 import { getParent } from '../utils/dom/element'
 import { isRTL } from '../config'
@@ -331,6 +331,18 @@ class Select extends PureComponent {
     return typeof renderItem === 'function' ? renderItem(data, index) : data[renderItem]
   }
 
+  /**
+   * custom options list header
+   */
+  renderCustomHeader() {
+    const { renderHeader } = this.props
+
+    if (React.isValidElement(renderHeader)) return <div className={selectClass('custom-header')}>{renderHeader}</div>
+    if (isFunc(renderHeader)) return <div className={selectClass('custom-header')}>{renderHeader()}</div>
+
+    return null
+  }
+
   renderTree() {
     const { focus, position } = this.state
     const props = {}
@@ -367,6 +379,7 @@ class Select extends PureComponent {
         renderPending={this.renderPending}
         fixed="min"
         {...props}
+        customHeader={this.renderCustomHeader()}
       />
     )
   }
@@ -418,6 +431,7 @@ class Select extends PureComponent {
         onBlur={this.handleBlur}
         fixed={autoAdapt ? 'min' : true}
         value={value}
+        customHeader={this.renderCustomHeader()}
       />
     )
   }

@@ -77,10 +77,17 @@ class OptionList extends Component {
   }
 
   render() {
-    const { focus, style, selectId, height, getRef } = this.props
+    const { focus, style, selectId, height, getRef, customHeader } = this.props
     const mergeStyle = Object.assign({}, { maxHeight: height, overflowY: 'auto' }, style)
     return (
-      <ScaleList getRef={getRef} show={focus} style={mergeStyle} data-id={selectId} className={selectClass('options', 'tree')}>
+      <ScaleList
+        getRef={getRef}
+        show={focus}
+        style={mergeStyle}
+        data-id={selectId}
+        className={selectClass('options', 'tree')}
+      >
+        {customHeader}
         {this.renderTree()}
       </ScaleList>
     )
@@ -107,6 +114,7 @@ OptionList.propTypes = {
   defaultExpandAll: PropTypes.bool,
   childrenKey: PropTypes.string,
   getRef: PropTypes.func,
+  customHeader: PropTypes.node,
 }
 
 export default OptionList
