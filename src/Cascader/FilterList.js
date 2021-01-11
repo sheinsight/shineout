@@ -9,10 +9,13 @@ import { cascaderClass, selectClass } from '../styles'
 class FilterItem extends Component {
   static propTypes = {
     renderItem: PropTypes.func.isRequired,
-    renderResult: PropTypes.func,
     data: PropTypes.array,
     datum: PropTypes.any,
     onChange: PropTypes.func,
+    onPathChange: PropTypes.func,
+    filterText: PropTypes.string,
+    onFilter: PropTypes.func,
+    expandTrigger: PropTypes.string,
   }
 
   constructor(props) {
@@ -28,13 +31,15 @@ class FilterItem extends Component {
   }
 
   handleSelectItem(index, e) {
-    const { data, datum, onChange } = this.props
+    const { data, datum, onChange, onPathChange, onFilter, filterText, expandTrigger } = this.props
+    if (expandTrigger === 'hover-only' && index !== data.length - 1) return
     if (e) e.stopPropagation()
     const item = this.props.data[index]
     if (this.checkDisabled(item)) return
     const keys = data.slice(0, index + 1).map(i => datum.getKey(i))
     onChange(keys)
-    console.log(keys)
+    onPathChange(datum.getKey(item), item, keys.slice(0, keys.length - 1), true)
+    if (onFilter && filterText) onFilter('')
   }
 
   handleSelect() {
@@ -43,8 +48,8 @@ class FilterItem extends Component {
   }
 
   renderItem(item) {
-    const { renderItem, renderResult } = this.props
-    let render = renderResult || renderItem
+    const { renderItem } = this.props
+    let render = renderItem
     if (typeof render === 'string') {
       const copyRender = render
       render = n => n[copyRender]
@@ -88,10 +93,13 @@ class FilterList extends Component {
     fixed: PropTypes.any,
     childrenKey: PropTypes.string,
     renderItem: PropTypes.any,
-    renderResult: PropTypes.any,
     expandTrigger: PropTypes.string,
     datum: PropTypes.any,
     onChange: PropTypes.func,
+    onPathChange: PropTypes.func,
+    filterText: PropTypes.string,
+    onFilter: PropTypes.func,
+    height: PropTypes.number,
   }
 
   getKey(path) {
@@ -100,9 +108,15 @@ class FilterList extends Component {
   }
 
   renderList() {
-    const { data, childrenKey, ...others } = this.props
+    const { data, childrenKey, height, ...others } = this.props
     const list = getFlattenTree(data, childrenKey)
-    return list.map(path => <FilterItem key={this.getKey(path)} {...others} data={path} />)
+    return (
+      <div className={cascaderClass('filter-list')} style={{ maxHeight: height }}>
+        {list.map(path => (
+          <FilterItem key={this.getKey(path)} {...others} data={path} />
+        ))}
+      </div>
+    )
   }
 
   render() {
@@ -113,10 +127,13 @@ class FilterList extends Component {
       data,
       childrenKey,
       renderItem,
-      renderResult,
       datum,
       expandTrigger,
       onChange,
+      onPathChange,
+      filterText,
+      onFilter,
+      height,
       ...others
     } = this.props
     if (!focus) return null
@@ -125,7 +142,7 @@ class FilterList extends Component {
         {...others}
         className={classnames(
           selectClass('options'),
-          cascaderClass('filter-list', expandTrigger === 'hover-only' && 'leaf-only')
+          cascaderClass('filter', expandTrigger === 'hover-only' && 'leaf-only')
         )}
       >
         {this.renderList()}

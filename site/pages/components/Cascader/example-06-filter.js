@@ -42,10 +42,9 @@ const data = [
 export default function() {
   return (
     <Cascader
-      // absolute
-      disabled={d => d.value === 'hefei'}
       onFilter={text => d => d.value.indexOf(text) >= 0}
       data={data}
+      absolute
       keygen="value"
       renderItem={n => `${n.value}`}
     />

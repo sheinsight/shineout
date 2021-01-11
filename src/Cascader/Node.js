@@ -34,7 +34,7 @@ class Node extends PureComponent {
 
   handleClick() {
     const { id, data, path, onChange, onPathChange, loader, multiple, datum } = this.props
-    onPathChange(id, data, path)
+    onPathChange(id, data, path, true)
 
     if (!multiple) {
       onChange([...path, id], datum.getDataById(id))
