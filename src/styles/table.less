@@ -478,7 +478,7 @@
   }
 
   &-float-right &-fixed-first {
-    &:before {
+    &::after {
       position: absolute;
       top: 0;
       right: 100%;
@@ -626,7 +626,7 @@
   }
 
   &-select {
-    &::after {
+    &::before {
       content: ' ';
       position: absolute;
       left: 0;
@@ -635,5 +635,13 @@
       height: 100%;
       border: 1px solid @colors-primary;
     }
+  }
+}
+
+
+
+.@{table-prefix}-no-selection {
+  *::selection{
+    background-color: transparent;
   }
 }
