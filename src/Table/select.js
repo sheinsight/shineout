@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { addEventListener } from '../utils/dom/document'
 import { getParent } from '../utils/dom/element'
 import { isMacOS, isFirefox } from '../utils/is'
@@ -9,10 +10,15 @@ const selectClass = tableClass('select')
 const trClass = tableClass('normal')
 const noSelection = tableClass('no-selection')
 
+let cache = {}
+let move = false
+let prevDom = null
+let selection = false
+
 // event combination
 function isEventCombination(event) {
   const ismo = isMacOS()
-  return (ismo && event.metaKey) || (!ismo && event.ctrlKey)
+  return selection && ((ismo && event.metaKey) || (!ismo && event.ctrlKey))
 }
 
 // 根据table tr层次   合并td
@@ -121,10 +127,7 @@ function bulkOperation(doms, start, end) {
   })
 }
 
-let cache = {}
-let move = false
-let prevDom = null
-
+// 批量操作 -->  添加 selection classname
 function bulkAddSelectionClass(td) {
   const tr = getParent(td, `tr.${trClass}`)
 
@@ -200,16 +203,23 @@ addEventListener(document, 'keydown', handleKeyDown)
 
 export default Table =>
   class extends React.Component {
+    static propTypes = {
+      selection: PropTypes.bool,
+    }
+
     constructor(props) {
       super(props)
 
       this.doc = null
 
+      // eslint-disable-next-line prefer-destructuring
+      selection = props.selection
+
       this.isFirefox = isFirefox()
 
       this.events = {}
 
-      if (!this.isFirefox) {
+      if (!this.isFirefox && props.selection) {
         this.events.onMouseDown = handleMouseDown
         this.events.onMouseUp = handleMouseUp
         this.events.onMouseMove = handleMouseMove
@@ -217,7 +227,7 @@ export default Table =>
     }
 
     componentDidMount() {
-      if (!this.isFirefox) {
+      if (!this.isFirefox && this.props.selection) {
         this.doc = addEventListener(document, 'click', docClick)
       }
     }

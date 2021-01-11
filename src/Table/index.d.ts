@@ -1,3 +1,4 @@
+/* eslint-disable import/named */
 import * as React from 'react'
 import { StickyProps } from '../Sticky'
 import { PaginationProps } from '../Pagination'
@@ -337,6 +338,13 @@ export interface TableProps {
    * default: none
    */
   sticky?: boolean | StickyProps;
+
+  /**
+   * In non Firefox browsers, whether to enable ctrl/cmd + click check
+   * 非 Firefox 浏览器下，是否启用 ctrl/cmd + click 选中
+   * default: false
+   */
+  selection?: boolean;
 
 }
 
