@@ -297,6 +297,12 @@ export interface SelectProps {
    */
   reFocus?: boolean;
 
+  /**
+   * Custom render option list header
+   * 自定义渲染 Option List Header
+   * default: null
+   */
+  renderHeader?: ReactNode | (() => ReactNode);
 }
 
 export default Select
