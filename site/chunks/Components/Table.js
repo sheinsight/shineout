@@ -319,6 +319,15 @@ const examples = [
     component: require('doc/pages/components/Table/example-31-sticky.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-31-sticky.js'),
   },
+  {
+    name: '32-selection',
+    title: locate(
+      'ctrl/cmd点击选中 \n 非 Firefox 浏览器下，是否启用 ctrl/cmd + click 选中',
+      'selection \n In non Firefox browsers, whether to enable ctrl/cmd + click check.'
+    ),
+    component: require('doc/pages/components/Table/example-32-selection.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-32-selection.js'),
+  },
 ]
 
 const codes = undefined

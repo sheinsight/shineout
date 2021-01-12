@@ -51,7 +51,7 @@ function formatTableText(arrs) {
     if (typeof value === 'string') {
       txt += `${value}\t`
     } else {
-      txt += `${formatTableText(value)} \n`
+      txt += `${formatTableText(value)}\n`
     }
   })
   return txt
@@ -159,6 +159,7 @@ function handleMouseDown(event) {
 
   const td = getParent(event.target, 'td')
   const tr = getParent(td, `tr.${trClass}`)
+  prevDom = td
   if (!tr) return
   const xIndex = Array.prototype.indexOf.call(tr.childNodes, td)
   const yIndex = Array.prototype.indexOf.call(tr.parentNode.childNodes, tr)
@@ -170,6 +171,7 @@ function handleMouseUp(event) {
   if (!isEventCombination(event)) return
 
   const td = getParent(event.target, 'td')
+  prevDom = null
 
   bulkAddSelectionClass(td)
 
