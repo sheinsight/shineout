@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { addEventListener } from '../utils/dom/document'
 import { getParent } from '../utils/dom/element'
 import { isMacOS, isFirefox } from '../utils/is'
+import ready from '../utils/dom/ready'
 
 import { tableClass } from '../styles'
 
@@ -10,15 +11,10 @@ const selectClass = tableClass('select')
 const trClass = tableClass('normal')
 const noSelection = tableClass('no-selection')
 
-let cache = {}
-let move = false
-let prevDom = null
-let selection = false
-
 // event combination
 function isEventCombination(event) {
   const ismo = isMacOS()
-  return selection && ((ismo && event.metaKey) || (!ismo && event.ctrlKey))
+  return (ismo && event.metaKey) || (!ismo && event.ctrlKey)
 }
 
 // 根据table tr层次   合并td
@@ -128,7 +124,7 @@ function bulkOperation(doms, start, end) {
 }
 
 // 批量操作 -->  添加 selection classname
-function bulkAddSelectionClass(td) {
+function bulkAddSelectionClass(td, cache) {
   const tr = getParent(td, `tr.${trClass}`)
 
   if (!tr) return
@@ -149,50 +145,6 @@ function bulkAddSelectionClass(td) {
   }
 }
 
-// mouse down
-function handleMouseDown(event) {
-  if (!isEventCombination(event)) return
-  toggleNoSelection(true)
-
-  // toggle move
-  move = true
-
-  const td = getParent(event.target, 'td')
-  const tr = getParent(td, `tr.${trClass}`)
-  prevDom = td
-  if (!tr) return
-  const xIndex = Array.prototype.indexOf.call(tr.childNodes, td)
-  const yIndex = Array.prototype.indexOf.call(tr.parentNode.childNodes, tr)
-  cache.xIndex = xIndex
-  cache.yIndex = yIndex
-}
-// mouse up
-function handleMouseUp(event) {
-  if (!isEventCombination(event)) return
-
-  const td = getParent(event.target, 'td')
-  prevDom = null
-
-  bulkAddSelectionClass(td)
-
-  // reset
-  cache = {}
-  move = false
-}
-
-function handleMouseMove(event) {
-  if (!move) return
-
-  const td = getParent(event.target, 'td')
-  if (prevDom === td) return
-  prevDom = td
-
-  // clear class name
-  removeSelectClass()
-
-  bulkAddSelectionClass(td)
-}
-
 function handleKeyDown(event) {
   if (!isEventCombination(event) || event.keyCode !== 67) return
 
@@ -201,7 +153,9 @@ function handleKeyDown(event) {
 }
 
 // ctrl + c
-addEventListener(document, 'keydown', handleKeyDown)
+ready(() => {
+  addEventListener(document, 'keydown', handleKeyDown)
+})
 
 export default Table =>
   class extends React.Component {
@@ -214,17 +168,22 @@ export default Table =>
 
       this.doc = null
 
-      // eslint-disable-next-line prefer-destructuring
-      selection = props.selection
-
       this.isFirefox = isFirefox()
 
       this.events = {}
 
+      this.move = false
+      this.cache = {}
+      this.prevDom = null
+
+      this.handleMouseDown = this.handleMouseDown.bind(this)
+      this.handleMouseUp = this.handleMouseUp.bind(this)
+      this.handleMouseMove = this.handleMouseMove.bind(this)
+
       if (!this.isFirefox && props.selection) {
-        this.events.onMouseDown = handleMouseDown
-        this.events.onMouseUp = handleMouseUp
-        this.events.onMouseMove = handleMouseMove
+        this.events.onMouseDown = this.handleMouseDown
+        this.events.onMouseUp = this.handleMouseUp
+        this.events.onMouseMove = this.handleMouseMove
       }
     }
 
@@ -238,6 +197,65 @@ export default Table =>
       if (this.doc) {
         this.doc.remove()
       }
+    }
+
+    isEventCombination(event) {
+      const { selection } = this.props
+      return selection && isEventCombination(event)
+    }
+
+    handleMouseDown(event) {
+      if (!this.isEventCombination(event)) return
+      toggleNoSelection(true)
+
+      // toggle move
+      this.move = true
+
+      const td = getParent(event.target, 'td')
+      const tr = getParent(td, `tr.${trClass}`)
+      this.prevDom = td
+      if (!tr) return
+      const xIndex = Array.prototype.indexOf.call(tr.childNodes, td)
+      const yIndex = Array.prototype.indexOf.call(tr.parentNode.childNodes, tr)
+      this.cache.xIndex = xIndex
+      this.cache.yIndex = yIndex
+      this.cache.dom = td
+    }
+
+    handleMouseUp(event) {
+      if (!this.isEventCombination(event)) return
+
+      const td = getParent(event.target, 'td')
+      if (td === this.cache.dom) {
+        this.cache = {}
+        this.move = false
+        if (td.classList.contains(selectClass)) {
+          removeSelectClass(td)
+          return
+        }
+        addSelectionClass(td)
+        return
+      }
+      this.prevDom = null
+
+      bulkAddSelectionClass(td, this.cache)
+
+      // reset
+      this.cache = {}
+      this.move = false
+    }
+
+    handleMouseMove(event) {
+      if (!this.move) return
+
+      const td = getParent(event.target, 'td')
+      if (this.prevDom === td) return
+      this.prevDom = td
+
+      // clear class name
+      removeSelectClass()
+
+      bulkAddSelectionClass(td, this.cache)
     }
 
     render() {
