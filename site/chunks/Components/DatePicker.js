@@ -142,8 +142,8 @@ const examples = [
   {
     name: '11-disabled-type',
     title: locate(
-      ' \n disabledTime 属性支持 disabled 指定 time 。',
-      ' \n The disabledTime attribute supports disabled specified time.'
+      ' \n disabledTime 属性支持单独禁用时间。',
+      ' \n The disabledTime attribute supports separate disable time.'
     ),
     component: require('doc/pages/components/DatePicker/example-11-disabled-type.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-11-disabled-type.js'),

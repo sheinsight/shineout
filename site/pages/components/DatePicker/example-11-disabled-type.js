@@ -1,8 +1,8 @@
 /**
  * cn -
- *    -- disabledTime 属性支持 disabled 指定 time 。
+ *    -- disabledTime 属性支持单独禁用时间。
  * en -
- *    -- The disabledTime attribute supports disabled specified time.
+ *    -- The disabledTime attribute supports separate disable time.
  */
 import React from 'react'
 import { DatePicker } from 'shineout'
