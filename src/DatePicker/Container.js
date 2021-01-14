@@ -419,7 +419,19 @@ class Container extends PureComponent {
   renderPicker() {
     if (!this.firstRender) return undefined
 
-    const { range, type, value, min, max, disabled, allowSingle, hourStep, minuteStep, secondStep } = this.props
+    const {
+      range,
+      type,
+      value,
+      min,
+      max,
+      disabled,
+      allowSingle,
+      hourStep,
+      minuteStep,
+      secondStep,
+      disabledTime,
+    } = this.props
     const format = this.getFormat()
     const quicks = this.getQuick(format)
     const Component = range ? Range : Picker
@@ -444,6 +456,7 @@ class Container extends PureComponent {
         hourStep={hourStep}
         minuteStep={minuteStep}
         secondStep={secondStep}
+        disabledTime={disabledTime}
       >
         {this.props.children}
       </Component>
@@ -513,6 +526,7 @@ Container.propTypes = {
   minuteStep: PropTypes.number,
   secondStep: PropTypes.number,
   onPickerChange: PropTypes.func,
+  disabledTime: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 }
 
 Container.defaultProps = {

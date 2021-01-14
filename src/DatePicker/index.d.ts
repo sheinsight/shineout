@@ -12,7 +12,7 @@ declare class DatePicker extends React.Component<DatePickerProps, {}> {
   render(): JSX.Element;
 }
 
-type DisabledType = 'month' | 'day' | 'time' | 'start' | 'end'
+type DisabledType = 'start' | 'end'
 
 export interface DatePickerProps {
 
@@ -176,6 +176,13 @@ export interface DatePickerProps {
    * default: none
    */
   secondStep?: number;
+
+  /**
+   * Disable the specified Time.
+   * 禁用指定 Time。
+   * default: none
+   */
+  disabledTime?: string | ((time: string) => boolean)
 
 }
 

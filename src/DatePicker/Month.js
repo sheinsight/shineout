@@ -44,7 +44,7 @@ class Month extends PureComponent {
     let isDisabled = min && utils.compareMonth(min, date, 1) >= 0
 
     if (!isDisabled && type === 'month' && typeof disabled === 'function') {
-      isDisabled = disabled(date, 'month')
+      isDisabled = disabled(date)
     }
 
     if (!isDisabled && min && typeof range === 'number' && utils.compareAsc(date, utils.addSeconds(min, range)) > 0) {
