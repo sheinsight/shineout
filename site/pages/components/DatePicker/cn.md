@@ -13,7 +13,7 @@
 | className | string | 无 | 扩展className |
 | clearable | boolean | true | 是否可清空 |
 | defaultValue | string \| number \| Date \| \[any, any] | 无 | 默认值。如果 defaultValue 和 format 类型不一致，会执行一次 format，并触发 onChange 事件返回 format 后的值 |
-| disabled | (date: Date, value: \[any, any], type: string) => boolean \| boolean  | false | 如果 disabled 为 true，禁用全部选项，如果 disabled 为函数，根据函数反回结果禁用选项 |
+| disabled | (date: Date, value: \[any, any], type: string) => boolean \| boolean  | false | 如果 disabled 为 true，禁用全部选项，如果 disabled 为函数，根据函数返回结果禁用选项 |
 | format | string | | 不同type对应的默认值<br />'date': 'yyyy-MM-dd'<br />'time': 'HH:mm:ss'<br />'week': 'RRRR II'<br />'month': 'yyyy-MM'<br />'datetime': 'yyyy-MM-dd HH:mm:ss' |
 | formatResult | string | props.format | 对选中时间进行格式化 |
 | onChange | (value: any) => void | 无 | 值改变回调函数 |
