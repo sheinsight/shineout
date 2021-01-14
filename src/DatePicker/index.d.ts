@@ -63,7 +63,7 @@ export interface DatePickerProps {
    * 值改变回调函数
    * default: -
    */
-  onChange?: (value: any) => void;
+  onChange?: (value: string | [string | undefined, string | undefined], quickSelect?: any) => void;
 
   /**
    * placeholder text. When the range property is not empty, it is an array of length 2.

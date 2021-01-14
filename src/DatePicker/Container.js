@@ -285,7 +285,7 @@ class Container extends PureComponent {
     return [date[0] || current[0], date[1] || current[1]]
   }
 
-  handleChange(date, change, blur, isEnd) {
+  handleChange(date, change, blur, isEnd, isQuickSelect) {
     const { onPickerChange } = this.props
     // is range only select one
     const rangeOne = this.props.range && !(date[0] && date[1])
@@ -315,7 +315,7 @@ class Container extends PureComponent {
     if (onPickerChange) onPickerChange(value, callback)
     if (change) {
       this.setState({ current: newCurrent })
-      this.props.onChange(value, callback)
+      this.props.onChange(value, callback, isQuickSelect)
     } else {
       this.setState({ current: newCurrent }, callback)
     }
