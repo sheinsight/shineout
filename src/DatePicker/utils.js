@@ -111,7 +111,7 @@ function compareDateArray(arr1, arr2, type = 'date') {
 }
 
 function judgeTimeByRange(...args) {
-  const [target, value, mode, min, max, range, disabled] = args
+  const [target, value, mode, min, max, range, disabled, type] = args
 
   const date = new Date(value.getTime())
   switch (mode) {
@@ -148,7 +148,7 @@ function judgeTimeByRange(...args) {
   }
 
   let isDisabled
-  if (disabled) isDisabled = disabled(date)
+  if (disabled) isDisabled = disabled(date, type)
   if (isDisabled) return [true]
   if (!isDisabled && min) {
     if (compareAsc(date, min) < 0) return [true]

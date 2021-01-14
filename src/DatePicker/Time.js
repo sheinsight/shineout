@@ -43,7 +43,7 @@ class Time extends PureComponent {
       }
     }
 
-    const [isDisabled, date] = utils.judgeTimeByRange(val, value, mode, min, max, range, disabled)
+    const [isDisabled, date] = utils.judgeTimeByRange(val, value, mode, min, max, range, disabled, 'time')
 
     if (isDisabled) return
     this.props.onChange(date, true, false, 'time')

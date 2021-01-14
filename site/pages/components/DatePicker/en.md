@@ -13,7 +13,7 @@
 | className | string | - | extend className |
 | clearable | boolean | true | whether it can be cleared |
 | defaultValue | string \| number \| Date \| \[any, any] | - | default |
-| disabled | (date: Date, value: \[any, any], type: string) => boolean \| boolean  | false | When the value is true, disabled all options; When the value is function, disable the options that this function returns true. |
+| disabled | (date: Date, type: string, value: \[any, any]) => boolean \| boolean  | false | When the value is true, disabled all options; When the value is function, disable the options that this function returns true. |
 | format | string | | default values for different types: <br />'date': 'yyyy-MM-dd'<br />'time': 'HH:mm:ss'<br />'week': 'RRRR II'<br />'month': 'yyyy-MM'<br />'datetime': 'yyyy-MM-dd HH:mm:ss' |
 | formatResult | string | props.format | Format the selected time |
 | onChange | (value: any) => void | - | a callback when the value is changing |

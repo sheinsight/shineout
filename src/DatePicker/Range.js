@@ -169,7 +169,7 @@ class Range extends PureComponent {
     const { disabled } = this.props
     const { rangeDate } = this.state
     if (disabled) {
-      return disabled(date, type, ...rangeDate)
+      return disabled(date, type, [rangeDate])
     }
     return false
   }

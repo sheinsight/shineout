@@ -140,6 +140,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-10-disabled.js'),
   },
   {
+    name: '11-disabled-type',
+    title: locate(
+      ' \n disabled 为函数时，第二个参数 type，可以有针对性的disabled，用于支持复杂条件下 Datepicker disabled。',
+      ' \n When disabled is a function, the second parameter type can be disabled specifically to support Datepicker disabled under complex conditions.'
+    ),
+    component: require('doc/pages/components/DatePicker/example-11-disabled-type.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-11-disabled-type.js'),
+  },
+  {
     name: '11-disabled',
     title: locate(
       ' \n disabled 为函数时，禁用返回为true的选项, disable 应该用于禁用一些特殊的时间, 如果需要使用比如现在以前的时间不能选择的, 推荐使用 min/max',

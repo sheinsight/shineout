@@ -117,7 +117,7 @@ class Day extends PureComponent {
     const { hover } = this.state
     const hmsDate = new Date(date)
     utils.setTime(hmsDate, current)
-    let isDisabled = disabled ? disabled(date) : false
+    let isDisabled = disabled ? disabled(date, 'day') : false
 
     // only for single, single picker don't has index
     if (index === undefined && !isDisabled) {

@@ -94,7 +94,7 @@ class TimeScroll extends PureComponent {
     else if (total === 12 && num === 0) text = '12'
     else if (num < 10) text = `0${num}`
 
-    const [isDisabled] = utils.judgeTimeByRange(num, current, mode, min, max, ra, disabled)
+    const [isDisabled] = utils.judgeTimeByRange(num, current, mode, min, max, ra, disabled, 'time')
 
     const className = datepickerClass(!isDisabled && value === num && 'time-active')
     return (
