@@ -29,7 +29,7 @@ class Btns extends Component {
     if (mode === 'left') {
       const left = [
         <React.Fragment key="operationIcon">{operationIcon && icons.AngleLeft}</React.Fragment>,
-        <React.Fragment key="operations">{operations[0]}</React.Fragment>,
+        <React.Fragment key="operations">{operations[1]}</React.Fragment>,
       ]
 
       if (isRTL()) return left.reverse()
@@ -37,7 +37,7 @@ class Btns extends Component {
     }
     const right = [
       <React.Fragment key="operationIcon">{operationIcon && icons.AngleRight}</React.Fragment>,
-      <React.Fragment key="operations">{operations[1]}</React.Fragment>,
+      <React.Fragment key="operations">{operations[0]}</React.Fragment>,
     ]
     if (isRTL()) return right.reverse()
     return right

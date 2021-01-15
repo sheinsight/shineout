@@ -5,7 +5,7 @@
  *    -- Basic table usage.
  */
 import React from 'react'
-import { Table, Button } from 'shineout'
+import { Table } from 'shineout'
 
 const data = [
   {

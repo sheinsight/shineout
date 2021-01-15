@@ -80,6 +80,9 @@ export default Origin =>
         return newValue
       }
 
+      // expand
+      const { quickSelect } = this.state
+
       const newValue = value.map(v => {
         if (!v) return undefined
         return utils.format(utils.toDateWithFormat(v, format, undefined), format, {
@@ -88,14 +91,15 @@ export default Origin =>
       })
 
       if (!shallowEqual(newValue, value)) {
-        this.props.onChange(newValue)
+        this.props.onChange(newValue, quickSelect)
       } else if (!shallowEqual(newValue, this.state.value)) {
-        this.setState({ value: newValue })
+        // reset quickSelect if newValue !== this.state.value
+        this.setState({ value: newValue, quickSelect: null })
         return newValue
       }
 
       if (shallowEqual(newValue, [undefined, undefined])) {
-        this.setState({ value: newValue })
+        this.setState({ value: newValue, quickSelect: null })
       } else {
         this.state.value = newValue
       }
@@ -103,14 +107,19 @@ export default Origin =>
       return newValue
     }
 
-    handleChange(value, callback) {
-      this.setState({ value }, callback)
+    handleChange(value, callback, quickSelect) {
+      const { range } = this.props
+      const newState = { value }
+      if (range) {
+        newState.quickSelect = quickSelect
+      }
+      this.setState(newState, callback)
     }
 
     handleBlur() {
       if (this.rangeWithSingle()) {
         this.setState({ value: this.props.value })
-      } else if (this.state.value !== this.props.value) this.props.onChange(this.state.value)
+      } else if (this.state.value !== this.props.value) this.props.onChange(this.state.value, this.state.quickSelect)
     }
 
     render() {

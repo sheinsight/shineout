@@ -110,8 +110,14 @@ function compareDateArray(arr1, arr2, type = 'date') {
   })
 }
 
+function handleTimeDisabled(date, disabledTime) {
+  if (typeof disabledTime === 'string') return format(date, TIME_FORMAT) === disabledTime
+  if (typeof disabledTime === 'function') return disabledTime(format(date, TIME_FORMAT))
+  return undefined
+}
+
 function judgeTimeByRange(...args) {
-  const [target, value, mode, min, max, range, disabled] = args
+  const [target, value, mode, min, max, range, disabled, disabledTime] = args
 
   const date = new Date(value.getTime())
   switch (mode) {
@@ -149,6 +155,7 @@ function judgeTimeByRange(...args) {
 
   let isDisabled
   if (disabled) isDisabled = disabled(date)
+  if (disabledTime) isDisabled = isDisabled || handleTimeDisabled(date, disabledTime)
   if (isDisabled) return [true]
   if (!isDisabled && min) {
     if (compareAsc(date, min) < 0) return [true]

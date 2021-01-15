@@ -60,6 +60,24 @@
     .@{cascader-prefix}-item {
       background: @select-result-bg;
     }
+
+    .@{cascader-prefix}-input {
+      display: inline-flex;
+      min-width: 12px;
+      flex: 1;
+      margin-bottom: @padding-base-vertical;
+      outline: none;
+      cursor: text;
+      white-space: pre;
+
+      &:after {
+        content: '\feff ';
+      }
+
+      &.@{cascader-prefix}-full {
+        display: block;
+      }
+    }
   }
 
   &-disabled &-result {
@@ -165,6 +183,36 @@
     &.@{cascader-prefix}-node {
       background-color: @cascader-active-background-color;
       color: @cascader-active-color;
+    }
+  }
+
+  &-filter {
+    display: block;
+    min-width: 100%;
+    width: auto;
+    &-list {
+      overflow: auto;
+      &-separator {
+        margin: 0 4px;
+      }
+      &-content {
+        display: inline-block;
+        transition: all .2s;
+        &.@{cascader-prefix}-disabled {
+          color: @gray-400;
+          cursor: not-allowed;
+        }
+      }
+      .@{cascader-prefix}-node {
+        cursor: pointer;
+      }
+    }
+    &:not(.@{cascader-prefix}-leaf-only) {
+      .@{cascader-prefix}-filter-list-content {
+        &:not(.@{cascader-prefix}-disabled):hover {
+          color: @colors-primary;
+        }
+      }
     }
   }
 }

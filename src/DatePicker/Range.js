@@ -180,7 +180,7 @@ class Range extends PureComponent {
       return
     }
     this.setState({ rangeDate: quick.value })
-    this.props.onChange(quick.value, true)
+    this.props.onChange(quick.value, true, null, null, quick)
   }
 
   createQuick() {

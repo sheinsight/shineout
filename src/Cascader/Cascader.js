@@ -7,6 +7,7 @@ import DatumTree from '../Datum/Tree'
 import { cascaderClass, selectClass } from '../styles'
 import Result from './Result'
 import CascaderList from './List'
+import FilterList from './FilterList'
 import { docSize } from '../utils/dom/document'
 import { getParent } from '../utils/dom/element'
 import absoluteList from '../AnimationList/AbsoluteList'
@@ -55,12 +56,21 @@ class Cascader extends PureComponent {
     this.shouldFocus = this.shouldFocus.bind(this)
     this.bindRef = this.bindRef.bind(this)
     this.resetPosition = this.resetPosition.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.bindInput = this.bindInput.bind(this)
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     this.datum.mode = this.props.mode
+    const { onFilter, filterDataChange } = this.props
     if (prevProps.value !== this.props.value) this.datum.setValue(this.props.value || [])
-    if (prevProps.data !== this.props.data) this.datum.setData(this.props.data)
+    if (!filterDataChange && prevProps.data !== this.props.data) this.datum.setData(this.props.data)
+
+    if (prevState.focus !== this.state.focus && !this.state.focus && onFilter) {
+      setTimeout(() => {
+        onFilter('')
+      }, 400)
+    }
   }
 
   componentWillUnmount() {
@@ -74,6 +84,10 @@ class Cascader extends PureComponent {
 
   bindClickAway() {
     document.addEventListener('mousedown', this.handleClickAway)
+  }
+
+  bindInput(input) {
+    this.input = input
   }
 
   clearClickAway() {
@@ -95,9 +109,9 @@ class Cascader extends PureComponent {
     }
   }
 
-  handlePathChange(id, data, path) {
+  handlePathChange(id, data, path, fromClick) {
     const { childrenKey, finalDismiss } = this.props
-    if (data) {
+    if (fromClick && data) {
       const leaf = !data[childrenKey] || data[childrenKey].length === 0
       if (finalDismiss && leaf) this.handleState(false)
     }
@@ -113,10 +127,10 @@ class Cascader extends PureComponent {
   }
 
   handleClear() {
-    const { mode, onChange } = this.props
+    const { mode } = this.props
     if (mode === undefined) this.setState({ path: [] })
     else this.datum.setValue([])
-    onChange([])
+    this.handleChange([])
 
     // force close
     setTimeout(() => this.handleState(false), 10)
@@ -168,6 +182,15 @@ class Cascader extends PureComponent {
     }
   }
 
+  handleChange(...args) {
+    const { onChange } = this.props
+    if (this.input) {
+      this.input.reset()
+      this.input.focus()
+    }
+    onChange(...args)
+  }
+
   resetPosition() {
     if (!this.ref) return
 
@@ -205,18 +228,7 @@ class Cascader extends PureComponent {
   }
 
   renderList() {
-    const {
-      data,
-      keygen,
-      renderItem,
-      mode,
-      onChange,
-      loader,
-      onItemClick,
-      expandTrigger,
-      childrenKey,
-      absolute,
-    } = this.props
+    const { data, keygen, renderItem, mode, loader, onItemClick, expandTrigger, childrenKey, absolute } = this.props
     const { path, listStyle } = this.state
 
     const props = {
@@ -225,7 +237,7 @@ class Cascader extends PureComponent {
       keygen,
       loader,
       onPathChange: this.handlePathChange,
-      onChange,
+      onChange: this.handleChange,
       onItemClick,
       multiple: mode !== undefined,
       expandTrigger,
@@ -299,13 +311,49 @@ class Cascader extends PureComponent {
     )
   }
 
+  renderFilterList() {
+    const { absolute, onFilter, filterText, zIndex, data, childrenKey, renderItem, expandTrigger, height } = this.props
+    const { focus, position } = this.state
+    const className = classnames(cascaderClass(focus && 'focus', isRTL() && 'rtl'), selectClass(this.state.position))
+
+    return (
+      <FilterList
+        fixed="min"
+        rootClass={className}
+        position={position}
+        absolute={absolute}
+        focus={focus}
+        parentElement={this.element}
+        data-id={this.selectId}
+        zIndex={zIndex}
+        data={data}
+        childrenKey={childrenKey}
+        renderItem={renderItem}
+        expandTrigger={expandTrigger}
+        datum={this.datum}
+        onChange={this.handleChange}
+        onPathChange={this.handlePathChange}
+        onFilter={onFilter}
+        filterText={filterText}
+        height={height}
+      />
+    )
+  }
+
+  renderPanel() {
+    const { filterText, data } = this.props
+    if (!filterText || data.length === 0) return this.renderAbsoluteList()
+    return this.renderFilterList()
+  }
+
   render() {
     const { placeholder, disabled, size, ...other } = this.props
+    const { focus } = this.state
     const className = classnames(
       cascaderClass(
         '_',
         size,
-        this.state.focus && 'focus',
+        focus && 'focus',
         other.mode !== undefined && 'multiple',
         disabled === true && 'disabled',
         isRTL() && 'rtl'
@@ -328,14 +376,16 @@ class Cascader extends PureComponent {
       >
         <Result
           {...other}
+          focus={focus}
           multiple={other.mode !== undefined}
           datum={this.datum}
           placeholder={placeholder}
           onClear={this.handleClear}
           onPathChange={this.handlePathChange}
+          bindInput={this.bindInput}
         />
 
-        {this.renderAbsoluteList()}
+        {this.renderPanel()}
       </div>
     )
   }
@@ -358,6 +408,7 @@ Cascader.propTypes = {
   placeholder: PropTypes.any,
   position: PropTypes.string,
   renderItem: PropTypes.any,
+  renderResult: PropTypes.any,
   size: PropTypes.string,
   style: PropTypes.object,
   value: PropTypes.array,
@@ -366,6 +417,9 @@ Cascader.propTypes = {
   childrenKey: PropTypes.string,
   finalDismiss: PropTypes.bool,
   onCollapse: PropTypes.func,
+  filterText: PropTypes.string,
+  onFilter: PropTypes.func,
+  filterDataChange: PropTypes.any,
 }
 
 Cascader.defaultProps = {
