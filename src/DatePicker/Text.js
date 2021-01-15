@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { focusElement, getParent } from '../utils/dom/element'
+import { getParent } from '../utils/dom/element'
 import utils from './utils'
 import { datepickerClass } from '../styles'
 
@@ -83,7 +83,7 @@ class Text extends PureComponent {
 Text.propTypes = {
   disabled: PropTypes.bool,
   className: PropTypes.string,
-  format: PropTypes.string,
+  format: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   index: PropTypes.number,
   inputable: PropTypes.bool,
   onChange: PropTypes.func,
