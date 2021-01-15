@@ -1,5 +1,4 @@
-import * as React from 'react';
-type ReactNode = React.ReactNode;
+import * as React from 'react'
 
 type DateTimeType = Date | number | string
 
@@ -12,6 +11,8 @@ declare class DatePicker extends React.Component<DatePickerProps, {}> {
 
   render(): JSX.Element;
 }
+
+type DisabledType = 'start' | 'end'
 
 export interface DatePickerProps {
 
@@ -41,7 +42,7 @@ export interface DatePickerProps {
    * 如果 disabled 为 true，禁用全部选项，如果 disabled 为函数，根据函数反回结果禁用选项
    * default: false
    */
-  disabled?: ((date: Date, value: [DateTimeType, DateTimeType], type: string) => boolean) | boolean;
+  disabled?: ((date: Date, type: DisabledType, value: [DateTimeType, DateTimeType],) => boolean) | boolean;
 
   /**
    * default values for different types: 'date': 'yyyy-MM-dd'. 'time': 'HH:mm:ss'. 'week': 'RRRR II'. 'month': 'yyyy-MM'. 'datetime': 'yyyy-MM-dd HH:mm:ss'
@@ -62,7 +63,7 @@ export interface DatePickerProps {
    * 值改变回调函数
    * default: -
    */
-  onChange?: (value: any) => void;
+  onChange?: (value: string | [string | undefined, string | undefined], quickSelect?: any) => void;
 
   /**
    * placeholder text. When the range property is not empty, it is an array of length 2.
@@ -176,6 +177,13 @@ export interface DatePickerProps {
    */
   secondStep?: number;
 
+  /**
+   * Disable the specified Time.
+   * 禁用指定 Time。
+   * default: none
+   */
+  disabledTime?: string | ((time: string) => boolean)
+
 }
 
-export default DatePicker;
+export default DatePicker
