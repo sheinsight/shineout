@@ -153,7 +153,6 @@ Td.propTypes = {
   lastFixed: PropTypes.bool,
   onExpand: PropTypes.func,
   align: PropTypes.oneOf(['left', 'center', 'right']),
-  rowKey: PropTypes.any,
   originKey: PropTypes.any,
   rowSpan: PropTypes.number,
   style: PropTypes.object,

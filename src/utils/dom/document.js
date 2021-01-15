@@ -23,3 +23,17 @@ export const docSize = {
     return document.documentElement.clientHeight || document.body.clientHeight
   },
 }
+
+export function addEventListener(target, eventType, cb, option) {
+  if (target.addEventListener) {
+    target.addEventListener(eventType, cb, option)
+  }
+
+  return {
+    remove: function remove() {
+      if (target.removeEventListener) {
+        target.removeEventListener(eventType, cb)
+      }
+    },
+  }
+}

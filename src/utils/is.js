@@ -73,3 +73,7 @@ export const isLink = el => {
 }
 
 export const isEnterPress = e => e.keyCode === 13
+
+export const isMacOS = () => /macintosh|mac os x/i.test(navigator.userAgent)
+
+export const isFirefox = () => navigator.userAgent.toLowerCase().indexOf('firefox') > -1
