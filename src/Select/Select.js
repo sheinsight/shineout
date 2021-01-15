@@ -9,7 +9,7 @@ import { getLocale } from '../locale'
 import OptionList from './OptionList'
 import OptionTree from './OptionTree'
 import BoxList from './BoxList'
-import { isObject, isFunc } from '../utils/is'
+import { isObject } from '../utils/is'
 import { docSize } from '../utils/dom/document'
 import { getParent } from '../utils/dom/element'
 import { isRTL } from '../config'
@@ -52,6 +52,7 @@ class Select extends PureComponent {
     this.toInputTriggerCollapse = this.toInputTriggerCollapse.bind(this)
 
     this.renderItem = this.renderItem.bind(this)
+    this.renderResult = this.renderResult.bind(this)
 
     // option list not render till first focused
     this.renderPending = true
@@ -331,6 +332,12 @@ class Select extends PureComponent {
     return typeof renderItem === 'function' ? renderItem(data, index) : data[renderItem]
   }
 
+  renderResult(data, index) {
+    const { renderResult } = this.props
+    if (!renderResult) return this.renderItem(data, index)
+    return typeof renderResult === 'function' ? renderResult(data, index) : data[renderResult]
+  }
+
   /**
    * custom options list header
    */
@@ -467,7 +474,6 @@ class Select extends PureComponent {
       disabled === true && 'disabled',
       !trim && 'pre'
     )
-    const renderResult = this.props.renderResult || this.renderItem
 
     return (
       <div
@@ -494,7 +500,7 @@ class Select extends PureComponent {
           result={result}
           multiple={multiple}
           placeholder={placeholder}
-          renderResult={renderResult}
+          renderResult={this.renderResult}
           renderUnmatched={renderUnmatched}
           onInputBlur={this.handleInputBlur}
           onInputFocus={this.handleInputFocus}

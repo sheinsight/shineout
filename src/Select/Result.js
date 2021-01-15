@@ -296,7 +296,7 @@ Result.propTypes = {
   onInputBlur: PropTypes.func,
   onInputFocus: PropTypes.func,
   result: PropTypes.array.isRequired,
-  renderResult: PropTypes.func.isRequired,
+  renderResult: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
   placeholder: PropTypes.string,
   setInputReset: PropTypes.func,
   bindFocusInputFunc: PropTypes.func,
