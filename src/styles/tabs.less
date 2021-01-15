@@ -115,12 +115,13 @@
 
     &:not(:last-child):after {
       position: absolute;
-      top: 0;
+      top: -1px;
       right: -1px;
       bottom: 0;
       width: 0;
       border-right: solid 1px @colors-primary;
       content: ' ';
+      height: ~"calc(100% + 2px)";
     }
 
     &.@{button-prefix}-default:not(.@{button-prefix}-disabled)  {

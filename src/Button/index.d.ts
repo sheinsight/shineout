@@ -1,5 +1,8 @@
 import * as React from 'react'
 
+type SizeType =  'large' | 'default' | 'small';
+type ButtonType = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'link';
+
 export interface ButtonProps {
 
   /**
@@ -42,7 +45,7 @@ export interface ButtonProps {
    * 按钮尺寸
    * default: 'default'
    */
-  size?: 'large' | 'default' | 'small';
+  size?: SizeType;
 
   /**
    * Container element style
@@ -56,7 +59,7 @@ export interface ButtonProps {
    * 按钮类型
    * default: 'default'
    */
-  type?: 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'link';
+  type?: ButtonType;
 
   /**
    * text button
@@ -95,7 +98,7 @@ export interface ButtonGroupProps {
    * 同 Button；如果 Button 和 Group 同时设置 size，以 Group 为准
    * default: -
    */
-  size?: string;
+  size?: SizeType;
 
   /**
    * same as Button
@@ -109,7 +112,7 @@ export interface ButtonGroupProps {
    * 同 Button；如果 Button 和 Group 同时设置 type，以 Group 为准
    * default: -
    */
-  type?: string;
+  type?: ButtonType;
 
 }
 
