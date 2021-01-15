@@ -56,7 +56,7 @@ export interface DatePickerProps {
    * 对选中时间进行格式化
    * default: props.format
    */
-  formatResult?: string;
+  formatResult?: string | ((date: Date) => string);
 
   /**
    * a callback when the value is changing

@@ -501,7 +501,7 @@ Container.propTypes = {
   clearable: PropTypes.bool,
   disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   format: PropTypes.string,
-  formatResult: PropTypes.string,
+  formatResult: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   inputable: PropTypes.bool,
   placeholder: PropTypes.any,
   onBlur: PropTypes.func.isRequired,

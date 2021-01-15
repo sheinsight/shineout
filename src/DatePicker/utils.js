@@ -195,6 +195,11 @@ function resetTimeByFormat(value, fo) {
   )
 }
 
+function formatted(date, fmt, ...options) {
+  if (typeof fmt === 'function') return fmt(date)
+  return format(date, fmt, ...options)
+}
+
 export default {
   clearHMS,
   addDays,
@@ -205,7 +210,7 @@ export default {
   compareAsc,
   compareMonth,
   getDaysOfMonth,
-  format,
+  format: formatted,
   isInvalid,
   isSameDay,
   isSameMonth,
