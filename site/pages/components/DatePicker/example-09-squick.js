@@ -20,23 +20,19 @@ export default function() {
       type="datetime"
       quickSelect={[
         {
-          name: 'now',
-          value: [Date.now(), Date.now()],
-        },
-        {
-          name: 'next week',
+          name: 'Next Week',
           value: [format(today, formatStart), format(addDays(today, 7), formatEnd)],
         },
         {
-          name: 'last week',
+          name: 'Last Week',
           value: [format(subDays(today, 7), formatStart), format(today, formatEnd)],
         },
         {
-          name: 'next month',
+          name: 'Next Month',
           value: [format(today, formatStart), format(addDays(today, 30), formatEnd)],
         },
         {
-          name: 'last month',
+          name: 'Last Month',
           value: [format(subDays(today, 30), formatStart), format(today, formatEnd)],
         },
         {

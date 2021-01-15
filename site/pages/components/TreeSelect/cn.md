@@ -8,6 +8,7 @@ TreeSelect 用来选择树形数据结构，若需要非关联树形结构选择
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
+| width | number | 无 | 宽度 |
 | clearable | boolean | false | 是否可清除值 |
 | multiple | boolean | false | 是否是多选 |
 | data | any[] | [] | 数据，子节点为children，如果 children 值为 null 或 长度为 0 时，视为叶子节点 |
@@ -34,3 +35,4 @@ TreeSelect 用来选择树形数据结构，若需要非关联树形结构选择
 | showHitDescendants | boolean | false | 筛选后是否展示命中节点的后代节点 |
 | renderUnmatched | (data: any) => ReactNode | 无 | 渲染未匹配值的方式 |
 | onCollapse | (collapse: boolean) => void | 无 | 下拉列表展开/收起回调 |
+| rules | any[] | 无 | 校验规则 |

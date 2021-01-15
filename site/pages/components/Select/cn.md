@@ -6,6 +6,8 @@
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
+| width | number | null | 宽度 |
+| style | object | null | 扩展外层style |
 | absolute | boolean | false | 为 true 时，选项弹出层在 DOM 中独立 render |
 | autoAdapt | boolean | false | 下拉列表宽度根据内容自由展开 |
 | clearable | boolean | false | 是否可清除值 |
@@ -35,7 +37,7 @@
 | childrenKey | string | 'children' | 树形数据下，指定子数据的属性名 | 
 | defaultExpandAll| boolean | false | 默认展开全部子节点, 仅树形数据下有效 | 
 | renderUnmatched | (data: any) => ReactNode | 无 | 渲染未匹配值的方式 |
-| emptyAfterSelect | boolean | false | 选中后是否清空输入框内容 ｜
+| emptyAfterSelect | boolean | false | 选中后是否清空输入框内容（在多选情况下适用） |
 | showArrow | boolean | true | 是否显示下拉箭头，仅针对单选情况 |
 | showHitDescendants | boolean | false | 筛选后是否展示命中节点的后代节点 |
 | focusSelected | boolean | true | onCreate 或 onFilter 在单选情况下单击值后是否选中值 |
@@ -44,3 +46,5 @@
 | onCollapse | (collapse: boolean) => void | 无 | 下拉列表展开/收起回调 | 
 | resultClassName | ((value: any) => string) \| string | 无 | 选中结果内容容器的className | 
 | columnsTitle | ReactNode | 无 | 多列选项多选时的标题文字 |
+| reFocus | boolean | 无 | 存在onFilter和onCreate，选中 Option，自动focus Input |
+| header | () => ReactNode \| ReactNode | 无 | 自定义渲染 Option List Header |

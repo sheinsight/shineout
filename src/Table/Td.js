@@ -15,12 +15,13 @@ class Td extends PureComponent {
   }
 
   handleExpandClick() {
-    const { originKey, expanded, data, expandKeys, expandClick } = this.props
+    const { originKey, expanded, data, expandKeys, expandClick, resetFixAuto } = this.props
     if (expandKeys) {
       if (expandClick) expandClick(data, !expanded)
     } else {
       this.props.onExpand(originKey, expanded ? undefined : this.cachedRender)
     }
+    resetFixAuto(true)
   }
 
   handleTreeExpand() {
@@ -152,7 +153,6 @@ Td.propTypes = {
   lastFixed: PropTypes.bool,
   onExpand: PropTypes.func,
   align: PropTypes.oneOf(['left', 'center', 'right']),
-  rowKey: PropTypes.any,
   originKey: PropTypes.any,
   rowSpan: PropTypes.number,
   style: PropTypes.object,
@@ -172,6 +172,7 @@ Td.propTypes = {
   treeRoot: PropTypes.bool,
   treeEmptyExpand: PropTypes.bool,
   treeCheckAll: PropTypes.bool,
+  resetFixAuto: PropTypes.func,
 }
 
 Td.defaultProps = {

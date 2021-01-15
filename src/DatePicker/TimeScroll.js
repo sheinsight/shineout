@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { range } from '../utils/numbers'
 import { datepickerClass } from '../styles'
+import utils from './utils'
 
 const lineHeight = 30
 const grayStyle = {
@@ -33,7 +34,8 @@ class TimeScroll extends PureComponent {
     return Math.ceil(v / step)
   }
 
-  getItemStyle(num) {
+  getItemStyle(num, isDisabled) {
+    if (isDisabled) return null
     if (this.props.ampm || (typeof this.props.step === 'number' && this.props.step > 0)) {
       if (this.props.value % this.props.step) return null
       return grayStyle[Math.ceil(Math.abs(this.props.value - num) / this.props.step)]
@@ -82,7 +84,7 @@ class TimeScroll extends PureComponent {
   }
 
   renderItem(num) {
-    const { ampm, total, value, step } = this.props
+    const { ampm, total, value, step, mode, min, max, range: ra, current, disabled, disabledTime } = this.props
 
     if (typeof step === 'number' && step <= 0) return null
     if (!ampm && typeof step === 'number' && num % step !== 0) return null
@@ -92,9 +94,16 @@ class TimeScroll extends PureComponent {
     else if (total === 12 && num === 0) text = '12'
     else if (num < 10) text = `0${num}`
 
-    const className = datepickerClass(value === num && 'time-active')
+    const [isDisabled] = utils.judgeTimeByRange(num, current, mode, min, max, ra, disabled, disabledTime)
+
+    const className = datepickerClass(!isDisabled && value === num && 'time-active')
     return (
-      <span key={num} className={className} style={this.getItemStyle(num)} onClick={this.handleClick.bind(this, num)}>
+      <span
+        key={num}
+        className={className}
+        style={this.getItemStyle(num, isDisabled)}
+        onClick={this.handleClick.bind(this, num)}
+      >
         {text}
       </span>
     )
@@ -123,6 +132,13 @@ TimeScroll.propTypes = {
   total: PropTypes.number,
   value: PropTypes.number.isRequired,
   step: PropTypes.number,
+  disabled: PropTypes.func,
+  min: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  max: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  range: PropTypes.number,
+  current: PropTypes.object,
+  mode: PropTypes.string,
+  disabledTime: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 }
 
 TimeScroll.defaultProps = {

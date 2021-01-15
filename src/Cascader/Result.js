@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { inputClass, selectClass, cascaderClass } from '../styles'
+import Input from './Input'
 
 class Result extends PureComponent {
   constructor(props) {
@@ -34,7 +35,26 @@ class Result extends PureComponent {
     return null
   }
 
+  renderInput() {
+    const { onFilter, focus, trim, focusSelected, bindInput, filterText } = this.props
+    return (
+      <Input
+        filterText={filterText}
+        ref={bindInput}
+        trim={trim}
+        key={`input.${focus ? 1 : 0}`}
+        focus
+        onFilter={onFilter}
+        focusSelected={focusSelected}
+      />
+    )
+  }
+
   renderPlaceholder() {
+    const { focus, onFilter, datum } = this.props
+    if (focus && onFilter && datum.mode === undefined) {
+      return this.renderInput()
+    }
     return (
       <span key="placeholder" className={classnames(inputClass('placeholder'), selectClass('ellipsis'))}>
         {this.props.placeholder}
@@ -44,7 +64,7 @@ class Result extends PureComponent {
   }
 
   renderResult() {
-    const { datum, value, renderItem, renderResult, compressed } = this.props
+    const { datum, value, renderItem, renderResult, compressed, focus, onFilter } = this.props
     const nodes = value.map(v => datum.getDataById(v))
     let render = renderResult || renderItem
     if (typeof render === 'string') {
@@ -73,6 +93,8 @@ class Result extends PureComponent {
 
     if (items.filter(v => v).length === 0) {
       items.push(this.renderPlaceholder())
+    } else if (focus && onFilter && datum.mode === undefined) {
+      items.push(this.renderInput())
     }
 
     return items
@@ -108,6 +130,12 @@ Result.propTypes = {
   style: PropTypes.object,
   value: PropTypes.array,
   compressed: PropTypes.bool,
+  focus: PropTypes.bool,
+  onFilter: PropTypes.func,
+  trim: PropTypes.bool,
+  focusSelected: PropTypes.bool,
+  bindInput: PropTypes.func,
+  filterText: PropTypes.string,
 }
 
 Result.defaultProps = {

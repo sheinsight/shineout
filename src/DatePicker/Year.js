@@ -34,11 +34,11 @@ class Year extends PureComponent {
     return (
       <div className={datepickerClass('year-picker')}>
         <div className={datepickerClass('header')}>
-          <Icon name="AngleLeft" onClick={this.handlePrevRange} />
+          <Icon name="AngleLeft" className="left" onClick={this.handlePrevRange} />
 
           <span className={datepickerClass('ym')}>{`${years[0]} ~ ${years[years.length - 1]}`}</span>
 
-          <Icon name="AngleRight" onClick={this.handleNextRange} />
+          <Icon name="AngleRight" className="right" onClick={this.handleNextRange} />
         </div>
 
         <div className={datepickerClass('list')}>

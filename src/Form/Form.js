@@ -8,6 +8,7 @@ import { getProps, defaultProps } from '../utils/proptypes'
 import { docScroll } from '../utils/dom/document'
 import { IGNORE_BIND } from '../Datum/types'
 import { FieldSetProvider } from './FieldSet'
+import { isRTL } from '../config'
 
 const emptyValue = { path: '' }
 
@@ -144,7 +145,7 @@ class Form extends Component {
     }
 
     const className = classnames(
-      formClass('_', layout, (disabled || pending) && 'disabled', inline && 'inline'),
+      formClass('_', layout, (disabled || pending) && 'disabled', inline && 'inline', isRTL() && 'rtl'),
       this.props.className
     )
 

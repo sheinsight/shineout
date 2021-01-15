@@ -122,9 +122,9 @@
           position: absolute;
           top: 0;
           right: 0px;
-          width: 3px;
+          width: @menu-active-bar;
           height: 100%;
-          background: @menu-item-active-indicator;
+          background: @menu-active-bar-color;
           content: ' ';
         }
       }
@@ -318,6 +318,168 @@
 
       > a {
         color: @menu-bg;
+      }
+    }
+
+
+    &:not(.@{menu-prefix}-horizontal) {
+      .@{menu-prefix}-wrapper {
+        &  > ul.@{menu-prefix}-root {
+          & > li.@{menu-prefix}-item.@{menu-prefix}-has-children.@{menu-prefix}-in-path {
+            & > a.@{menu-prefix}-title  {
+              &:before {
+                content: ' ';
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: @menu-active-bar;
+                height: 100%;
+                background-color: @menu-dark-active-bar-color;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    ul.@{menu-prefix}-root {
+      &> li.@{menu-prefix}-item {
+        & > a {
+          background-color: @menu-root-node-bgc;
+        }
+        & > ul {
+          border-top: 1px solid @menu-children-segmentation;
+        }
+      }
+    }
+
+    &.@{menu-prefix}{
+      .@{menu-prefix}-caret-solid {
+        .@{menu-prefix}-title {
+          & > .@{menu-prefix}-caret.@{menu-prefix}-has-childs {
+              border-top-color: @menu-dark-item;
+          }
+    
+          &:hover {
+            & > .@{menu-prefix}-caret.@{menu-prefix}-has-childs {
+              border-top-color: @menu-item-dark-hover-color;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .@{menu-prefix}-has-children.@{menu-prefix}-caret-solid {
+
+    &.@{menu-prefix}-open {
+      & > .@{menu-prefix}-title {
+        .@{menu-prefix}-caret {
+          transform: rotate(180deg);
+          transform-origin: 50% 37.5%;
+        }
+      }
+    }
+    & > .@{menu-prefix}-title {
+      &:after {
+        content: none;
+      }
+    }
+
+    & > .@{menu-prefix}-title  {
+      padding-right:  20px;
+    }
+  }
+
+  .@{menu-prefix}-caret-solid {
+    .@{menu-prefix}-title {
+      & > .@{menu-prefix}-caret {
+        position: relative;
+        width: 0;
+        height: 0;
+        border: @menu-caret-solid-width solid transparent;
+        border-top: @menu-caret-solid-height solid transparent;
+        display: inline-block;
+        transform: translateY(25%);
+        margin-right: 8px;
+
+
+        &.@{menu-prefix}-has-childs {
+          border-top-color: @menu-item-color;
+        }
+      }
+
+      &:hover {
+        & > .@{menu-prefix}-caret.@{menu-prefix}-has-childs {
+          border-top-color: @menu-item-light-hover-color;
+        }
+      }
+    }
+  }
+
+
+  &.@{menu-prefix}-rtl {
+    direction: rtl;
+    text-align: right;
+
+    &:not(.@{menu-prefix}-horizontal) {
+      .@{menu-prefix}-active.@{menu-prefix}-no-children {
+        a > {
+          &:before {
+            position: absolute;
+            top: 0;
+            left: 0px;
+            width: 3px;
+            height: 100%;
+            background: @menu-item-active-indicator;
+            content: ' ';
+          }
+  
+          &:after  {
+            content: none;
+          }
+        }
+      }
+    }
+
+
+    .@{menu-prefix}-has-children:not(.@{menu-prefix}-caret-solid) > .@{menu-prefix}-title {
+
+      padding-left: 40px;
+      padding-right: 20px;
+
+      &:after {
+        right: auto;
+        left: 16px;
+      }
+
+      &:before {
+        left: auto;
+        right: 0;
+      }
+    }
+
+    .@{menu-prefix}-has-children.@{menu-prefix}-open {
+      & > .@{menu-prefix}-title {
+        &:after {
+          transform: @menu-title-open-transform;
+        }
+      }
+    }
+
+    .@{menu-prefix}-has-children.@{menu-prefix}-caret-solid > .@{menu-prefix}-title{
+      .@{menu-prefix}-caret {
+        margin-right: 0;
+        margin-left: 8px;
+      }
+    }
+
+    &.@{menu-prefix}-vertical {
+      .@{menu-prefix}-root  .@{menu-prefix}-list.@{menu-prefix}-vertical {
+        left: auto;
+        right: 100%;
+        margin-left: 0;
+        margin-right: 3px;
       }
     }
   }

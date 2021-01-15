@@ -148,7 +148,7 @@ export default class extends React.Component {
           if (typeof sorter === 'object' && typeof sorter.rule === 'function') {
             sorter.rule(rpm)
           }
-          if (onSortCancel) onSortCancel(cancelOrder, index, rpm)
+          if (onSortCancel) onSortCancel(cancelOrder, index, rpm, sorter)
         }
       )
       return

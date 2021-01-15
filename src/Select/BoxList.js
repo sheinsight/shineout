@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 import { getLocale } from '../locale'
 import icons from '../icons'
 import { getKey } from '../utils/uid'
-import List from '../List'
+import List from '../AnimationList'
 import Spin from '../Spin'
 import Input from '../Input'
 import Checkbox from '../Checkbox/Checkbox'
 import { selectClass } from '../styles'
 import BoxOption from './BoxOption'
-import LazyList from '../List/LazyList'
+import LazyList from '../AnimationList/LazyList'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast', 'flex')
 const emptyFunc = () => {}
@@ -164,7 +164,7 @@ class BoxList extends Component {
   }
 
   render() {
-    const { data, datum, style, loading, focus, selectId, getRef } = this.props
+    const { data, datum, style, loading, focus, selectId, getRef, customHeader } = this.props
 
     const checkedCount = data.filter(d => datum.check(d)).length
 
@@ -179,6 +179,7 @@ class BoxList extends Component {
         className={selectClass('box-list')}
         getRef={getRef}
       >
+        {customHeader}
         {loading && typeof loading === 'boolean' ? <Spin size={30} /> : loading}
         {this.renderHeader(checkedCount)}
         {this.renderOptions()}
@@ -209,6 +210,7 @@ BoxList.propTypes = {
   itemsInView: PropTypes.number,
   getRef: PropTypes.func,
   columnsTitle: PropTypes.any,
+  customHeader: PropTypes.node,
 }
 
 BoxList.defaultProps = {

@@ -12,13 +12,22 @@ class FilterInput extends Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      editable: false,
+    }
+
     this.bindElement = this.bindElement.bind(this)
     this.handleInput = this.handleInput.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
     this.handlePaste = this.handlePaste.bind(this)
 
+    this.focusInput = this.focusInput.bind(this)
+
     // for mutiple select
     this.props.setInputReset(this.reset.bind(this))
+
+    // set focus func to Select
+    props.bindFocusInputFunc(this.focusInput)
   }
 
   componentDidMount() {
@@ -35,7 +44,6 @@ class FilterInput extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.focus === prevProps.focus || !this.props.focus) return
     this.props.onInputFocus()
-
     this.focus()
   }
 
@@ -48,6 +56,21 @@ class FilterInput extends Component {
   reset() {
     if (this.editElement) this.editElement.innerText = ''
     if (this.blurTimer) clearTimeout(this.blurTimer)
+  }
+
+  focusInput(flag = false) {
+    if (!flag) {
+      this.setState({
+        editable: false,
+      })
+      return
+    }
+    this.setState(
+      {
+        editable: true,
+      },
+      () => this.focus()
+    )
   }
 
   focus() {
@@ -65,12 +88,14 @@ class FilterInput extends Component {
   handleInput(e) {
     const text = e.target.innerText.replace('\feff ', '')
     this.lastCursorOffset = getCursorOffset(text.length)
-    this.props.onFilter(this.getProcessedValue(text))
+    const t = this.getProcessedValue(text)
+    this.props.onFilter(t)
   }
 
   handleBlur(e) {
     const { text: txt } = this.props
     const text = this.getProcessedValue(e.target.innerText.replace('\feff ', ''))
+    this.focusInput(false)
     if (text === txt) return
     this.props.onInputBlur(text)
   }
@@ -92,7 +117,7 @@ class FilterInput extends Component {
       ref: this.bindElement,
       key: 'input',
       onInput: this.handleInput,
-      contentEditable: focus,
+      contentEditable: focus || this.state.editable,
       onFocus: handleFocus,
       onBlur: this.handleBlur,
       onPaste: this.handlePaste,
@@ -121,6 +146,8 @@ FilterInput.propTypes = {
   text: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   trim: PropTypes.bool,
   focusSelected: PropTypes.bool,
+  bindFocusInputFunc: PropTypes.func,
+  collapse: PropTypes.func,
 }
 
 FilterInput.defaultProps = {

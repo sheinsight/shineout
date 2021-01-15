@@ -469,13 +469,6 @@ const injects = {
         desc: '禁用按钮背景色',
       },
       {
-        name: 'disabledBorderColor',
-        attr: 'borderColor',
-        type: 'color',
-        className: buttonClass('disabled'),
-        desc: '禁用按钮边框色',
-      },
-      {
         name: 'disabledDelimiter',
         attr: 'borderColor',
         type: 'color',
@@ -2451,6 +2444,20 @@ const injects = {
         desc: '黑色主题背景色',
       },
       {
+        name: 'darkRootNodeBg',
+        className: exposeClass('menu-dark-root'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '黑色主题 Root Node 背景色',
+      },
+      {
+        name: 'darkChildrenSegmentation',
+        className: exposeClass('menu-dark-seg'),
+        attr: 'borderTopColor',
+        type: 'color',
+        desc: '黑色主题子菜单与Root Menu 分割线背景色',
+      },
+      {
         name: 'darkActiveBg',
         className: exposeClass('menu-dark-active'),
         attr: 'backgroundColor',
@@ -2473,7 +2480,7 @@ const injects = {
       },
       {
         name: 'color',
-        className: menuClass('title'),
+        className: exposeClass('menu-text'),
         attr: 'color',
         type: 'color',
         desc: '文字颜色',
@@ -2529,6 +2536,28 @@ const injects = {
         attr: 'backgroundColor',
         type: 'color',
         desc: '暗黑主题 hover状态下背景颜色',
+      },
+      {
+        name: 'activeBar',
+        className: exposeClass('menu-bar'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        desc: 'active 状态下 bar 宽度',
+      },
+      {
+        name: 'activeBarColor',
+        className: exposeClass('menu-bar'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'active bar 颜色',
+      },
+      {
+        name: 'darkActiveBarColor',
+        className: exposeClass('menu-dark-bar'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '暗黑模式下 active bar 颜色',
       },
     ],
     set height(v) {
@@ -2596,6 +2625,22 @@ const injects = {
         v
       )
     },
+    set darkRootNodeBg(v) {
+      setBodyProperty(
+        {
+          '--menu-root-node-bgc': v,
+        },
+        v
+      )
+    },
+    set darkChildrenSegmentation(v) {
+      setBodyProperty(
+        {
+          '--menu-children-segmentation': v,
+        },
+        v
+      )
+    },
     set activePaddingHorizontal(v) {
       setBodyProperty(
         {
@@ -2649,6 +2694,30 @@ const injects = {
       setBodyProperty(
         {
           '--menu-item-dark-hover-bgc': v,
+        },
+        v
+      )
+    },
+    set activeBar(v) {
+      setBodyProperty(
+        {
+          '--menu-active-bar': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set activeBarColor(v) {
+      setBodyProperty(
+        {
+          '--menu-item-active-indicator': v,
+        },
+        v
+      )
+    },
+    set darkActiveBarColor(v) {
+      setBodyProperty(
+        {
+          '--menu-dark-item-active-indicator': v,
         },
         v
       )
@@ -3475,25 +3544,100 @@ const injects = {
         desc: '整体内边距',
       },
       {
-        name: 'headerPadding',
+        name: 'headerPaddingTop',
         className: exposeClass('modal-card-header'),
-        attr: 'padding',
-        type: 'string',
-        desc: '头部内边距',
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+        desc: '头部内边距-Top',
       },
       {
-        name: 'bodyPadding',
+        name: 'headerPaddingRight',
+        className: exposeClass('modal-card-header'),
+        attr: 'paddingRight',
+        type: 'number',
+        parser: parseInt,
+        desc: '头部内边距-Right',
+      },
+      {
+        name: 'headerPaddingBottom',
+        className: exposeClass('modal-card-header'),
+        attr: 'paddingBottom',
+        type: 'number',
+        parser: parseInt,
+        desc: '头部内边距-Bottom',
+      },
+      {
+        name: 'headerPaddingLeft',
+        className: exposeClass('modal-card-header'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+        desc: '头部内边距-Left',
+      },
+      {
+        name: 'bodyPaddingTop',
         className: exposeClass('modal-card-body'),
-        attr: 'padding',
-        type: 'string',
-        desc: '内容内边距',
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+        desc: '内容内边距-Top',
       },
       {
-        name: 'iconBodyPadding',
+        name: 'bodyPaddingRight',
+        className: exposeClass('modal-card-body'),
+        attr: 'paddingRight',
+        type: 'number',
+        parser: parseInt,
+        desc: '内容内边距-Right',
+      },
+      {
+        name: 'bodyPaddingBottom',
+        className: exposeClass('modal-card-body'),
+        attr: 'paddingBottom',
+        type: 'number',
+        parser: parseInt,
+        desc: '内容内边距-Bottom',
+      },
+      {
+        name: 'bodyPaddingLeft',
+        className: exposeClass('modal-card-body'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+        desc: '内容内边距-Left',
+      },
+      {
+        name: 'iconBodyPaddingTop',
         className: exposeClass('modal-icon-body'),
-        attr: 'padding',
-        type: 'string',
-        desc: '带有 Icon 的对话框内容内边距',
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+        desc: '带有 Icon 的对话框内容 Top 内边距',
+      },
+      {
+        name: 'iconBodyPaddingRight',
+        className: exposeClass('modal-icon-body'),
+        attr: 'paddingRight',
+        type: 'number',
+        parser: parseInt,
+        desc: '带有 Icon 的对话框内容 Right 内边距',
+      },
+      {
+        name: 'iconBodyPaddingBottom',
+        className: exposeClass('modal-icon-body'),
+        attr: 'paddingBottom',
+        type: 'number',
+        parser: parseInt,
+        desc: '带有 Icon 的对话框内容 Bottom 内边距',
+      },
+      {
+        name: 'iconBodyPaddingLeft',
+        className: exposeClass('modal-icon-body'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+        desc: '带有 Icon 的对话框内容 Left 内边距',
       },
       {
         name: 'footerPadding',
@@ -3681,26 +3825,98 @@ const injects = {
         v
       )
     },
-    set headerPadding(v) {
+    set headerPaddingTop(v) {
       setBodyProperty(
         {
-          '--modal-header-padding': v,
+          '--modal-header-padding-top': `${parseInt(v, 10)}px`,
         },
         v
       )
     },
-    set bodyPadding(v) {
+    set headerPaddingRight(v) {
       setBodyProperty(
         {
-          '--modal-body-padding': v,
+          '--modal-header-padding-right': `${parseInt(v, 10)}px`,
         },
         v
       )
     },
-    set iconBodyPadding(v) {
+    set headerPaddingBottom(v) {
       setBodyProperty(
         {
-          '--modal-icon-body-padding': v,
+          '--modal-header-padding-bottom': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set headerPaddingLeft(v) {
+      setBodyProperty(
+        {
+          '--modal-header-padding-left': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set bodyPaddingTop(v) {
+      setBodyProperty(
+        {
+          '--modal-body-padding-top': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set bodyPaddingRight(v) {
+      setBodyProperty(
+        {
+          '--modal-body-padding-right': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set bodyPaddingBottom(v) {
+      setBodyProperty(
+        {
+          '--modal-body-padding-bottom': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set bodyPaddingLeft(v) {
+      setBodyProperty(
+        {
+          '--modal-body-padding-left': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set iconBodyPaddingTop(v) {
+      setBodyProperty(
+        {
+          '--modal-icon-body-padding-top': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set iconBodyPaddingRight(v) {
+      setBodyProperty(
+        {
+          '--modal-icon-body-padding-right': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set iconBodyPaddingBottom(v) {
+      setBodyProperty(
+        {
+          '--modal-icon-body-padding-bottom': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set iconBodyPaddingLeft(v) {
+      setBodyProperty(
+        {
+          '--modal-icon-body-padding-left': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -4074,6 +4290,46 @@ const injects = {
       setBodyProperty(
         {
           '--cascader-active-color': v,
+        },
+        v
+      )
+    },
+  },
+  list: {
+    info: {
+      title: 'List 列表',
+      name: 'list',
+      path: 'List',
+    },
+    conf: [
+      {
+        name: 'itemBottomBorderWidth',
+        className: exposeClass('list-item'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        desc: '分割线粗细',
+      },
+      {
+        name: 'itemHoverBgc',
+        className: exposeClass('list-item'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '行hover时背景颜色',
+      },
+    ],
+    set itemBottomBorderWidth(v) {
+      setBodyProperty(
+        {
+          '--list-item-bottom-border-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set itemHoverBgc(v) {
+      setBodyProperty(
+        {
+          '--list-item-hover-bgc': v,
         },
         v
       )

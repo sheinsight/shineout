@@ -6,6 +6,7 @@
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
+| width | number | null | width |
 | clearable | boolean | false | If clearable is true, show clear value icon |
 | multiple | boolean | false | if it is true, it will be multiple selection |
 | data | any[] | [] | data. The child node is children. If the children value is null or its length is 0, it is render as a leaf node. |
@@ -32,3 +33,4 @@
 | showHitDescendants | boolean | false | Whether to show the descendant nodes of the hit node after filtering |
 | renderUnmatched | (data: any) => ReactNode | none | render unmatched value |
 | onCollapse | (collapse: boolean) => void | none | option collapse callback |
+| rules | any[] | null | Validation rules |

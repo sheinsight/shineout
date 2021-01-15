@@ -7,6 +7,8 @@ import Card from './Card'
 import { transferClass } from '../styles'
 import Context from './context'
 import splitSelecteds from './select'
+import { isRTL } from '../config'
+import getDataset from '../utils/dom/getDataset'
 
 class Transfer extends PureComponent {
   constructor(props) {
@@ -67,21 +69,28 @@ class Transfer extends PureComponent {
       lineHeight,
       listHeight,
       renderFilter,
+      children,
     } = this.props
     const selecteds = this.getSelected()
 
+    const datumValues = datum.getValue()
+
     // use this.props.value prioritized
-    if ('value' in this.props && this.props.datum.getValue() !== this.props.value) {
+    if ('value' in this.props && datumValues !== this.props.value) {
       this.props.datum.setValue(this.props.value)
     }
     const sources = data.filter(d => !datum.check(d))
-    const targets = datum.getValue().reduce((p, n) => {
+    const targets = datumValues.reduce((p, n) => {
       const d = datum.getDataByValue(data, n)
       if (d) p.push(d)
       return p
     }, [])
     return (
-      <div className={classnames(transferClass('_'), className)} style={style}>
+      <div
+        className={classnames(transferClass('_', isRTL() && 'rtl'), className)}
+        style={style}
+        {...getDataset(this.props)}
+      >
         <Context.Provider value={{ selecteds, setSelecteds: this.setSelecteds, itemClass }}>
           <Card
             title={titles[0]}
@@ -103,6 +112,8 @@ class Transfer extends PureComponent {
             lineHeight={lineHeight}
             listHeight={listHeight}
             renderFilter={renderFilter}
+            customRender={children}
+            values={datumValues}
           />
           <Btns
             selecteds={selecteds}
@@ -136,6 +147,8 @@ class Transfer extends PureComponent {
             lineHeight={lineHeight}
             listHeight={listHeight}
             renderFilter={renderFilter}
+            customRender={children}
+            values={datumValues}
           />
         </Context.Provider>
       </div>
@@ -182,6 +195,7 @@ Transfer.propTypes = {
   lineHeight: PropTypes.number,
   listHeight: PropTypes.number,
   renderFilter: PropTypes.func,
+  children: PropTypes.func,
 }
 
 export default Transfer

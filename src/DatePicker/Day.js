@@ -32,11 +32,12 @@ class Day extends PureComponent {
   getDays() {
     const { current } = this.props
     if (!current) return this.cachedDays
-    if (this.cachedDate && utils.isSameMonth(this.cachedDate, current) && this.cachedDays) {
+    const date = utils.clearHMS(current)
+    if (this.cachedDate && utils.isSameMonth(this.cachedDate, date) && this.cachedDays) {
       return this.cachedDays
     }
-    this.cachedDays = utils.getDaysOfMonth(current)
-    this.cachedDate = current
+    this.cachedDays = utils.getDaysOfMonth(date)
+    this.cachedDate = date
 
     return this.cachedDays
   }
@@ -125,9 +126,9 @@ class Day extends PureComponent {
     if (!isDisabled && index === 1) {
       if (
         (typeof range === 'number' && utils.compareAsc(date, utils.addSeconds(rangeTemp, range)) > 0) ||
-        utils.compareAsc(date, rangeTemp) < 0 ||
+        utils.compareAsc(date, utils.clearHMS(rangeTemp)) < 0 ||
         utils.compareAsc(date, utils.clearHMS(min)) < 0 ||
-        utils.compareAsc(date, utils.clearHMS(max)) > 0
+        utils.compareAsc(date, max) > 0
       ) {
         isDisabled = true
       }
@@ -135,7 +136,7 @@ class Day extends PureComponent {
     }
 
     if (!isDisabled && index === 0) {
-      if (utils.compareAsc(date, utils.clearHMS(min)) < 0 || utils.compareAsc(date, utils.clearHMS(max)) > 0) {
+      if (utils.compareAsc(date, utils.clearHMS(min)) < 0 || utils.compareAsc(date, max) > 0) {
         isDisabled = true
       }
     }
@@ -221,6 +222,7 @@ class Day extends PureComponent {
 
     return (
       <div className={datepickerClass('datetime')}>
+        <Icon name="Clock" className="clock" />
         <Time {...this.props} format={format} value={value} onChange={this.handleTimeChange} />
         <span>{utils.format(value, format)}</span>
       </div>
@@ -240,11 +242,13 @@ class Day extends PureComponent {
         <div className={datepickerClass('header')}>
           <Icon
             name="AngleDoubleLeft"
+            className="left"
             disabled={!!(min && current.getFullYear() <= min.getFullYear())}
             onClick={this.handlePrevYear}
           />
           <Icon
             name="AngleLeft"
+            className="left"
             disabled={!!(min && utils.compareMonth(current, min) <= 0)}
             onClick={this.handlePrevMonth}
           />
@@ -256,6 +260,7 @@ class Day extends PureComponent {
 
           <Icon
             name="AngleRight"
+            className="right"
             // disabled={max && utils.compareMonth(current, max, 0) >= 0}
             onClick={this.handleNextMonth}
           />
@@ -263,6 +268,7 @@ class Day extends PureComponent {
             onClick={this.handleNextYear}
             // disabled={max && current.getFullYear() >= max.getFullYear()}
             name="AngleDoubleRight"
+            className="right"
           />
         </div>
 

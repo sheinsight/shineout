@@ -6,6 +6,8 @@
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
+| width | number | null | width |
+| style | object | null | expand style |
 | absolute | boolean | false | When it is true, the pop-up layer of option append into document.body. |
 | autoAdapt | boolean | false | option list is auto adapt |
 | clearable | boolean | false | If clearable is true, show clear value icon |
@@ -44,3 +46,5 @@
 | onCollapse | (collapse: boolean) => void | none | option list collapse callback |
 | resultClassName | ((value: any) => string) \| string | none | The className of the selected result content container |
 | columnsTitle | ReactNode | none | title of columns multiple select |
+| reFocus | boolean | false | There are onFilter and onCreate, select Option, automatically focus Input |
+| header | () => ReactNode \| ReactNode | null | Custom render option list header |

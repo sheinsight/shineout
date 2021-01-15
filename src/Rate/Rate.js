@@ -3,8 +3,10 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { range } from '../utils/numbers'
+import { getParent } from '../utils/dom/element'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { rateClass } from '../styles'
+import getDataset from '../utils/dom/getDataset'
 
 const MIN_SIZE = 12
 class Rate extends PureComponent {
@@ -38,7 +40,7 @@ class Rate extends PureComponent {
   }
 
   getIcon(icons, i, isBg) {
-    const { repeat } = this.props
+    const { repeat, allowHalf } = this.props
     const value = this.getValue()
     const remain = value - i
 
@@ -53,11 +55,20 @@ class Rate extends PureComponent {
     if (remain <= 0 || remain >= 1 || isBg) return icon
 
     const style = { width: `${remain * 100}%`, display: 'block', overflow: 'hidden', fontSize: 'inherit' }
-    return <span style={style}>{icon}</span>
+    return (
+      <span style={style} className={allowHalf && rateClass('allow-half')}>
+        {icon}
+      </span>
+    )
   }
 
-  handleClick(value) {
-    const { clearable } = this.props
+  handleClick(...args) {
+    let value = args[0]
+    const e = args[1]
+    const { clearable, allowHalf } = this.props
+    if (allowHalf && getParent(e.target, `.${rateClass('allow-half')}`)) {
+      value -= 0.5
+    }
     if (clearable && this.props.value === value) {
       value = 0
       this.setState({ hover: 0 })
@@ -146,7 +157,7 @@ class Rate extends PureComponent {
     const className = classnames(rateClass('_'), this.props.className)
     const ms = Object.assign({}, this.props.style, this.getScale())
     return (
-      <div className={className} style={ms}>
+      <div className={className} style={ms} {...getDataset(this.props)}>
         {this.renderBackground()}
         {this.props.disabled ? this.renderStatic() : this.renderRate()}
       </div>

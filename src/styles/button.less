@@ -3,6 +3,7 @@
 
 @button-prefix: ~'@{so-prefix}-button';
 @button-disabled: ~'.@{button-prefix}-disabled';
+@icon-prefix:  ~'@{so-prefix}-icon';
 
 .@{button-prefix} {
   display: inline-block;
@@ -16,7 +17,6 @@
   touch-action: manipulation;
   vertical-align: middle;
   white-space: nowrap;
-  min-width: @button-default-size-width;
   .button-size(@btn-padding-y; @btn-padding-x; @button-font-size-base; @line-height-base; @btn-border-radius-base);
   .user-select(none);
 
@@ -55,6 +55,11 @@
     opacity: @button-disabled-opacity;
   }
 
+  // cover disabled opacity
+  &.@{button-prefix}-disabled {
+    opacity: 1;
+  }
+
   a& {
     fieldset[disabled] & {
       pointer-events: none; // Future-proof disabling of clicks on `<a>` elements
@@ -68,10 +73,14 @@
       .button-outline(@button-default-text-color; @btn-default-bg; @btn-default-bg;);
     }
 
-    &:hover,
-    &:focus,
-    &:active {
+    &:not(.@{button-prefix}-disabled):hover,
+    &:not(.@{button-prefix}-disabled):focus,
+    &:not(.@{button-prefix}-disabled):active {
       color: @colors-primary;
+      .@{icon-prefix} {
+        color: @colors-primary;
+        fill: @colors-primary;
+      }
     }
 
     & when (@so-theme = antd) {
@@ -142,6 +151,8 @@
     background: transparent;
     border: none;
     box-shadow: none;
+    padding-left: 0;
+    padding-right: 0;
 
     &:not(:disabled):hover {
       opacity: .8;
@@ -224,14 +235,12 @@
   }
 
   &-large {
-    min-width: @button-large-size-width;
     .button-size(
       @btn-padding-large-y; @btn-padding-large-x; @button-font-size-large; @line-height-base; @btn-border-radius-large
     );
   }
 
   &-small {
-    min-width: @button-small-size-width;
     .button-size(
       @btn-padding-small-y; @btn-padding-small-x; @button-font-size-small; @line-height-small; @btn-border-radius-small
     );
@@ -241,7 +250,7 @@
     background: @button-disabled-bg;
     color: @button-disabled-color;
     fill: @button-disabled-color;
-    border-color: #d9d9d9;
+    border-color: @button-disabled-bg;
   }
 
   &-circle {

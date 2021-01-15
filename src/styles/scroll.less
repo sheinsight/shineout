@@ -2,6 +2,10 @@
 @import './themes/@{so-theme}.less';
 
 @scroll-prefix: ~'@{so-prefix}-scroll';
+@select-prefix: ~'@{so-prefix}-select';
+@input-prefix: ~'@{so-prefix}-input';
+@menu-prefix: ~'@{so-prefix}-menu';
+@transfer-prefix: ~'@{so-prefix}-transfer';
 
 .@{scroll-prefix} {
   position: relative;
@@ -126,5 +130,20 @@
 
   &-show-y &-inner {
     bottom: @scrollbar-width;
+  }
+}
+
+
+.@{select-prefix}-rtl,
+.@{menu-prefix}-rtl,
+.@{input-prefix}-rtl,
+.@{transfer-prefix}-rtl {
+  .@{scroll-prefix}-show-y {
+    padding-right: 0;
+    padding-left: 16px;
+  }
+  .@{scroll-prefix}-bar.@{scroll-prefix}-y {
+    right: auto;
+    left: 0;
   }
 }

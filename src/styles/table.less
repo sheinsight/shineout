@@ -478,7 +478,7 @@
   }
 
   &-float-right &-fixed-first {
-    &:before {
+    &::after {
       position: absolute;
       top: 0;
       right: 100%;
@@ -612,5 +612,36 @@
       height: 0!important;
       overflow: hidden;
     }
+  }
+
+  td {
+    .@{so-prefix}-button {
+      + .@{so-prefix}-button {
+        margin-left: 0;
+      }
+      &:not(:last-child) {
+        margin-right: @button-margin-left;
+      }
+    }
+  }
+
+  &-select {
+    &::before {
+      content: ' ';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      border: 1px solid @colors-primary;
+    }
+  }
+}
+
+
+
+.@{table-prefix}-no-selection {
+  *::selection{
+    background-color: transparent;
   }
 }

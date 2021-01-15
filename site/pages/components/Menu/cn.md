@@ -19,3 +19,4 @@
 | inlineIndent | number | 24 | 每一层缩进宽度 |
 | linkKey | (d: object) => string \| string | 无 | 需要注入子菜单的链接键值 |  
 | onOpenChange | (keys: string[]) => void | 无 | 菜单展开/收起回调 |
+| frontCaret | boolean | null | 前置实心三角展开符 |

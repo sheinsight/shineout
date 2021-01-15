@@ -16,6 +16,7 @@ You can use Modal to display secondary content or actions without jumping to the
 | maskOpacity | number | 0.25 | The opacity of the mask | |
 | padding | number\|string | 16 | Padding style of the content | |
 | position | string | - | Pop-up position, one of \['top', 'right', 'bottom', 'left'] | |
+| style | object | - | Extend style | |
 | title | ReactNode | - | the title of the pop-up layer | |
 | usePortal | boolean | true | When the usePortal is true, use ReactDOM.createPortal to create the pop-up layer, otherwise use ReactDOM.render. | |
 | visible | boolean | false |  | |
@@ -31,6 +32,8 @@ You can use Modal to display secondary content or actions without jumping to the
 | hideClose | boolean | none | hide the close button | |
 | type | 'info' \| 'success' \| 'warning' \| 'error' \| 'normal' | null | Modal Title show status icon | 1.6.1 |
 | zoom | boolean | false | toggle zoom animation |
+| esc | boolean | true | esc to close |
+| events | object | none | modal events list, use stopPropagation at createPortal |
 
 ### ModalMethods
 

@@ -1,4 +1,11 @@
-function getFilterTree(treeNodes, filterFunc, filterExpandKeys, keyFunc, childrenKey = 'children', showHitDescendants) {
+export const getFilterTree = (
+  treeNodes,
+  filterFunc,
+  filterExpandKeys,
+  keyFunc,
+  childrenKey = 'children',
+  showHitDescendants
+) => {
   const mapFilteredNodeToData = node => {
     if (!node) return null
     let match = false
@@ -9,7 +16,7 @@ function getFilterTree(treeNodes, filterFunc, filterExpandKeys, keyFunc, childre
     const children = (node[childrenKey] || []).map(mapFilteredNodeToData).filter(n => n)
     if (children.length || match) {
       const key = keyFunc(node)
-      filterExpandKeys.push(key)
+      if (filterExpandKeys) filterExpandKeys.push(key)
       if (!node[childrenKey]) return node
       return {
         ...node,
@@ -21,4 +28,21 @@ function getFilterTree(treeNodes, filterFunc, filterExpandKeys, keyFunc, childre
   return treeNodes.map(mapFilteredNodeToData).filter(node => node)
 }
 
-export { getFilterTree }
+export const getFlattenTree = (data, childrenKey = 'children') => {
+  const arr = []
+  let path = []
+  const flatten = list => {
+    list.forEach(item => {
+      const children = item[childrenKey]
+      if (children && children.length > 0) {
+        path.push(item)
+        flatten(children)
+      } else {
+        arr.push([...path, item])
+      }
+    })
+    path = []
+  }
+  flatten(data)
+  return arr
+}

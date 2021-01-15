@@ -70,13 +70,13 @@ class Month extends PureComponent {
     return (
       <div className={datepickerClass('month-picker')}>
         <div className={datepickerClass('header')}>
-          <Icon name="AngleLeft" onClick={this.handlePrevYear} />
+          <Icon name="AngleLeft" className="left" onClick={this.handlePrevYear} />
 
           <span onClick={this.handleYearClick.bind(this)} className={datepickerClass('ym')}>
             {current.getFullYear()}
           </span>
 
-          <Icon name="AngleRight" onClick={this.handleNextYear} />
+          <Icon name="AngleRight" className="right" onClick={this.handleNextYear} />
         </div>
 
         <div className={datepickerClass('list')}>{getLocale('monthValues.short').map(this.renderMonth.bind(this))}</div>

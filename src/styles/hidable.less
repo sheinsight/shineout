@@ -1,6 +1,8 @@
 @import './variables.less';
 
 @hidable-prefix: ~'@{so-prefix}-hidable';
+@select-prefix: ~'@{so-prefix}-select';
+@treeSelect-prefix: ~'@{so-prefix}-treeSelect';
 
 .@{hidable-prefix} {
   &-fade-animation-240 {
@@ -41,6 +43,18 @@
 
     &.@{hidable-prefix}-show {
       opacity: 1;
+    }
+  }
+}
+
+
+.@{select-prefix}-rtl,
+.@{treeSelect-prefix}-rtl {
+  .@{hidable-prefix}-scale-y {
+    transform: scaleY(0) translateX(-100%);
+
+    &.@{hidable-prefix}-show {
+      transform: scaleY(1) translateX(-100%);
     }
   }
 }

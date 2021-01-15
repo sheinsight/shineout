@@ -153,6 +153,12 @@ const pages = [
     component: lazy(() => import(/* webpackChunkName: "Datum.List" */ './Datum.List')),
   },
   {
+    name: 'List',
+    cn: '列表',
+    level: 2,
+    component: lazy(() => import(/* webpackChunkName: "List" */ './List')),
+  },
+  {
     name: 'Pagination',
     cn: '分页',
     level: 2,

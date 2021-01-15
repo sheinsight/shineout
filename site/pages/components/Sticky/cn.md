@@ -14,3 +14,4 @@
 | target | string \| HTMLElement | 无 | 附着的目标，默认为document.body。可以传入HTMLElement或者css selector，target 必须为 Sticky 组件的祖先节点 |
 | top | number | 无 | 距离顶部多少偏移量触发 |
 | css | bool | true | 在指定 target 下，是否采用css方式实现附着效果 |
+| onChange | (isSticky: boolean) => void | null | 吸附效果时，触发该回调 |

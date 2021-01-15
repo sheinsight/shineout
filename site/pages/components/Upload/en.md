@@ -36,6 +36,7 @@
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | none | remove update failed callback |
 | forceAccept | string | none | After disabled the file type filtering provided by accept, it is mandatory to check the file type, value same as accept |
 | showUploadList | boolean | true | show upload list |
+| leftHandler | boolean | false | add image handler show left |
 
 ### Upload.Image
 
@@ -44,6 +45,7 @@
 | children | ReactNode | none | The content of the upload button. It can be empty. |
 | renderResult | (data: any) => ReactNode | a => a | Return the link address of the url of the image.|
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | none | remove update failed callback |
+| onPreview | (url, value, index, values) => void | none | how to preview the image |
 
 ### Upload.Button
 

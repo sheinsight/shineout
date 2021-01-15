@@ -7,17 +7,21 @@ import Links from './Links'
 import Jumper from './Jumper'
 import Simple from './Simple'
 import PageSizeList from './PageSizeList'
+import { isRTL } from '../config'
+import getDataset from '../utils/dom/getDataset'
 
 class Pagination extends PureComponent {
   render() {
     const { align, layout, size, style } = this.props
 
-    const className = classnames(paginationClass('_', size, align), this.props.className)
+    const rtl = isRTL()
+
+    const className = classnames(paginationClass('_', size, align, rtl && 'rtl'), this.props.className)
 
     const sectionClassName = paginationClass('section')
 
     return (
-      <div className={className} style={style}>
+      <div className={className} style={style} {...getDataset(this.props)}>
         {layout.map((section, i) => {
           switch (section) {
             case 'links':

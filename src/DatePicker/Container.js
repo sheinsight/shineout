@@ -12,14 +12,22 @@ import Text from './Text'
 import { getUidStr } from '../utils/uid'
 import { isArray } from '../utils/is'
 import { getParent } from '../utils/dom/element'
-import absoluteList from '../List/AbsoluteList'
+import absoluteList from '../AnimationList/AbsoluteList'
 import { docSize } from '../utils/dom/document'
-import List from '../List'
+import { getRTLPosition } from '../utils/strings'
+import List from '../AnimationList'
 import { getLocale } from '../locale'
 import DateFns from './utils'
+import { isRTL } from '../config'
 
 const FadeList = List(['fade'], 'fast')
 const OptionList = absoluteList(({ focus, ...other }) => <FadeList show={focus} {...other} />)
+const getCurrentPosition = position => {
+  if (isRTL()) {
+    return getRTLPosition(position)
+  }
+  return position
+}
 
 class Container extends PureComponent {
   constructor(props) {
@@ -277,10 +285,10 @@ class Container extends PureComponent {
     return [date[0] || current[0], date[1] || current[1]]
   }
 
-  handleChange(date, change, blur, isEnd) {
+  handleChange(date, change, blur, isEnd, isQuickSelect) {
+    const { onPickerChange } = this.props
     // is range only select one
     const rangeOne = this.props.range && !(date[0] && date[1])
-
     const format = this.getFormat()
 
     let value
@@ -304,10 +312,10 @@ class Container extends PureComponent {
     }
 
     const newCurrent = this.dateToCurrent(date)
-
+    if (onPickerChange) onPickerChange(value, callback)
     if (change) {
       this.setState({ current: newCurrent })
-      this.props.onChange(value, callback)
+      this.props.onChange(value, callback, isQuickSelect)
     } else {
       this.setState({ current: newCurrent }, callback)
     }
@@ -384,19 +392,26 @@ class Container extends PureComponent {
 
   renderWrappedPicker() {
     const { focus, position } = this.state
-    const { absolute, zIndex } = this.props
+    const { absolute, zIndex, quickSelect } = this.props
     const props = {
       absolute,
       focus,
-      className: datepickerClass('picker', 'location', `absolute-${position}`),
-      position,
+      className: datepickerClass(
+        'picker',
+        'location',
+        `absolute-${getCurrentPosition(position)}`,
+        quickSelect && 'quick'
+      ),
       zIndex,
       getRef: this.bindWrappedPicker,
     }
     // computed absolute position needed
     if (absolute) {
-      props.rootClass = datepickerClass('absolute')
+      props.rootClass = datepickerClass('absolute', isRTL() && 'rtl')
       props.parentElement = this.element
+      props.position = position
+    } else {
+      props.position = getCurrentPosition(position)
     }
     return <OptionList {...props}>{this.renderPicker()}</OptionList>
   }
@@ -404,7 +419,19 @@ class Container extends PureComponent {
   renderPicker() {
     if (!this.firstRender) return undefined
 
-    const { range, type, value, min, max, disabled, allowSingle, hourStep, minuteStep, secondStep } = this.props
+    const {
+      range,
+      type,
+      value,
+      min,
+      max,
+      disabled,
+      allowSingle,
+      hourStep,
+      minuteStep,
+      secondStep,
+      disabledTime,
+    } = this.props
     const format = this.getFormat()
     const quicks = this.getQuick(format)
     const Component = range ? Range : Picker
@@ -429,6 +456,7 @@ class Container extends PureComponent {
         hourStep={hourStep}
         minuteStep={minuteStep}
         secondStep={secondStep}
+        disabledTime={disabledTime}
       >
         {this.props.children}
       </Component>
@@ -439,13 +467,16 @@ class Container extends PureComponent {
     const { range, size, disabled } = this.props
     const { focus } = this.state
 
+    const rtl = isRTL()
+
     const className = datepickerClass(
       'inner',
       range && 'range',
       size && `size-${size}`,
       focus && 'focus',
       disabled === true && 'disabled',
-      this.state.position
+      getCurrentPosition(this.state.position),
+      rtl && 'rtl'
     )
 
     return (
@@ -470,7 +501,7 @@ Container.propTypes = {
   clearable: PropTypes.bool,
   disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   format: PropTypes.string,
-  formatResult: PropTypes.string,
+  formatResult: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   inputable: PropTypes.bool,
   placeholder: PropTypes.any,
   onBlur: PropTypes.func.isRequired,
@@ -494,6 +525,8 @@ Container.propTypes = {
   hourStep: PropTypes.number,
   minuteStep: PropTypes.number,
   secondStep: PropTypes.number,
+  onPickerChange: PropTypes.func,
+  disabledTime: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 }
 
 Container.defaultProps = {

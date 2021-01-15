@@ -3,8 +3,10 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { Component } from '../component'
 import { curry } from '../utils/func'
-import { buttonClass, inputClass, popoverClass } from '../styles'
+import { buttonClass, inputClass, popoverClass, inputBorderClass } from '../styles'
 import Popover from '../Popover'
+import { isRTL } from '../config'
+import getDataset from '../utils/dom/getDataset'
 
 export default curry(
   (options, Origin) =>
@@ -107,12 +109,17 @@ export default curry(
       render() {
         const { className, border, size, tip, popover, width, style, error, popoverProps, ...other } = this.props
         const { focus } = this.state
+
+        const rtl = isRTL()
+
         const Tag = options.tag || 'label'
 
         const newStyle = Object.assign({ width }, style)
         const newClassName = classnames(
+          inputBorderClass(rtl && 'rtl'),
           inputClass(
             '_',
+            rtl && 'rtl',
             focus && other.disabled !== true && 'focus',
             other.disabled === true && 'disabled',
             options.isGroup && 'group',
@@ -134,6 +141,7 @@ export default curry(
             className={newClassName}
             style={newStyle}
             tabIndex={options.enterPress ? '0' : undefined}
+            {...getDataset(other)}
           >
             <Origin {...other} size={size} onFocus={this.handleFocus} onBlur={this.handleBlur} />
             {this.renderHelp(focus)}

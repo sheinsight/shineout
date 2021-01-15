@@ -132,11 +132,15 @@
     position: absolute;
     z-index: @zindex-dropdown;
     padding: 12px;
+    color: @input-color;
     background: #fff;
     background-clip: padding-box;
     border-radius: @input-dropdown-border-radius;
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.02), @datepicker-box-shadow;
     font-size: @font-size-base;
+    &.@{datepicker-prefix}-quick {
+      padding-left: 0;
+    }
 
     span {
       color: @gray-600;
@@ -272,7 +276,7 @@
         position: absolute;
         left: -6px;
         height: 100%;
-        border-left: 1px solid @table-border-color;
+        border-left: 1px solid @divider-color;
       }
     }
   }
@@ -364,17 +368,26 @@
     .@{datepicker-prefix}-datetime {
       position: relative;
       padding-top: 12px;
+      padding-left: 12px;
       border-top: solid 1px #f2f2f2;
-      text-align: center;
+      .@{datepicker-prefix}-clock {
+        fill: @gray-600;
+        margin-right: 8px;
+        position: relative;
+        top: 2px;
+        > svg {
+          width: 14px;
+          height: 14px;
+        }
+      }
 
       .@{datepicker-prefix}-time-picker {
         position: absolute;
         z-index: 0;
         bottom: 100%;
-        left: 50%;
+        left: 0;
         background: #fff;
         box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.02), @datepicker-box-shadow-up;
-        transform: translate(-50%);
         visibility: hidden;
       }
 
@@ -487,19 +500,118 @@
 
   &-quick-select {
     min-width: 80px;
-    border-right: 1px solid @gray-300;
+    border-right: 1px solid @divider-color;
     &-item {
-      margin: 12px 0;
+      white-space: nowrap;
+      padding: 4px 12px;
       cursor: pointer;
-
-      &:first-child {
-        margin-top: 0;
+      position: relative;
+      transition: all .2s;
+      &:hover {
+        background: @primary-color-fade-10;
+      }
+      &::after {
+        content: '';
+        transition: all .2s;
+        opacity: 0;
+        background: @colors-primary;
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 2px;
       }
 
       &-active {
         color: @colors-primary;
-        border-right: 2px solid @colors-primary;
+        &:after {
+          opacity: 1;
+        }
       }
     }
+  }
+}
+
+.@{datepicker-prefix}-rtl  {
+  direction: rtl;
+  text-align: right;
+  &.@{datepicker-prefix}-inner {
+    padding: @padding-base-vertical @padding-base-horizontal @padding-base-vertical @padding-base-horizontal + 12;
+
+    .@{datepicker-prefix}-result  {
+      .@{datepicker-prefix}-icon {
+        right: auto;
+        left: 0;
+        margin-right: 0;
+        margin-left: -16px;
+      }
+    }
+  }
+
+  .@{datepicker-prefix}-picker  {
+    .@{datepicker-prefix}-header {
+      .@{datepicker-prefix}-left,
+      .@{datepicker-prefix}-right {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .@{datepicker-prefix}-range-picker {
+    & > div:nth-last-child(2)  {
+      margin-right: 0;
+      margin-left: 12px;
+    }
+    & > div:last-child {
+      &:before {
+        content: none;
+      }
+
+      &:after {
+        content: ' ';
+        position: absolute;
+        height: 100%;
+        right: -6px;
+        top: 0;
+        border-left: 1px solid @divider-color;
+      }
+    }
+  }
+
+  .@{datepicker-prefix}-day-picker {
+    .@{datepicker-prefix}-list {
+      .@{datepicker-prefix}-hover-end  {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 16px;
+        border-top-left-radius: 16px;
+      }
+
+      .@{datepicker-prefix}-hover-start {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        border-bottom-right-radius: 16px;
+        border-top-right-radius: 16px;
+      }
+    }
+  }
+
+
+  .@{datepicker-prefix}-time-picker {
+    .@{datepicker-prefix}-time-list  {
+      &:first-child {
+        border-width: 0;
+      }
+
+      &:last-child {
+        border-right: 1px solid @gray-200;
+      }
+    }
+  }
+
+
+  .@{datepicker-prefix}-quick-select {
+    border-right: none;
+    border-left: 1px solid @divider-color;
   }
 }
