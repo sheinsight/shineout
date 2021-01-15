@@ -53,7 +53,9 @@ class SeperateTable extends PureComponent {
   // reset scrollTop when data changed
   componentDidUpdate(prevProps) {
     if (!this.tbody) return
-    if (this.props.data !== prevProps.data) {
+    // Use raw data comparison, avoid tree data,
+    // because tree data will be re-parsed and generate new data
+    if (this.props.rawData !== prevProps.rawData) {
       const resize = prevProps.data.length === 0 && this.props.data.length
       if (resize || this.props.dataChangeResize) this.setState({ resize: true, colgroup: undefined })
       this.resetHeight()
@@ -137,6 +139,19 @@ class SeperateTable extends PureComponent {
     }
   }
 
+  checkScrollToIndex(index, outerHeight) {
+    const { data, rowsInView } = this.props
+    const max = data.length
+    if (max - index >= rowsInView) {
+      return index
+    }
+    const contentHeight = this.getSumHeight(index, max)
+    if (contentHeight >= outerHeight) {
+      return index
+    }
+    return max
+  }
+
   updateScrollLeft() {
     let { scrollLeft } = this.props
     this.resetFloatFixed()
@@ -174,6 +189,13 @@ class SeperateTable extends PureComponent {
     }
   }
 
+  resetIndex() {
+    const { currentIndex } = this.state
+    if (this.props.data.length >= currentIndex) return currentIndex
+    // if data.length < currentIndex
+    return this.props.data.length
+  }
+
   resetHeight() {
     const { scrollTop, offsetLeft } = this.state
     const { treeColumnsName, changedByExpand } = this.props
@@ -183,10 +205,8 @@ class SeperateTable extends PureComponent {
     const scrollHeight = this.lastScrollArgs[5]
 
     if (this.lastScrollTop - height >= 1) {
-      const index = this.getIndex(scrollTop)
-      setTimeout(() => {
-        this.setState({ currentIndex: index })
-      })
+      const index = this.resetIndex()
+      this.setState({ currentIndex: index })
 
       if (this.renderByExpand) {
         this.renderByExpand = false
@@ -249,23 +269,24 @@ class SeperateTable extends PureComponent {
 
   scrollToIndex(index, callback) {
     if (!this.$isMounted) return
-    if (index > 1) index -= 1
+    if (index >= 1) index -= 1
     if (index < 0) index = 0
     const contentHeight = this.getContentHeight()
     const outerHeight = getParent(this.realTbody, `.${tableClass('body')}`).clientHeight - 12
-    const sumHeight = this.getSumHeight(0, index)
+    let currentIndex = this.checkScrollToIndex(index, outerHeight)
+    const sumHeight = this.getSumHeight(0, currentIndex)
     let scrollTop = sumHeight / contentHeight
     let marginTop = scrollTop * outerHeight
     let offsetScrollTop = sumHeight + marginTop
 
     if (offsetScrollTop > contentHeight) {
       offsetScrollTop = contentHeight
-      index = this.props.data.length - this.props.rowsInView
+      currentIndex = this.props.data.length - this.props.rowsInView
       scrollTop = 1
       marginTop = outerHeight
     }
 
-    this.setState({ currentIndex: index, scrollTop }, callback)
+    this.setState({ currentIndex, scrollTop }, callback)
     this.lastScrollTop = offsetScrollTop
 
     this.tbody.style.marginTop = `${marginTop}px`
