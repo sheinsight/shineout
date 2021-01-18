@@ -163,6 +163,7 @@ export default Table =>
   class extends React.Component {
     static propTypes = {
       selection: PropTypes.bool,
+      cellSelectable: PropTypes.bool,
     }
 
     constructor(props) {
@@ -182,7 +183,7 @@ export default Table =>
       this.handleMouseUp = this.handleMouseUp.bind(this)
       this.handleMouseMove = this.handleMouseMove.bind(this)
 
-      if (!this.isFirefox && props.selection) {
+      if (!this.isFirefox && this.selection) {
         this.events.onMouseDown = this.handleMouseDown
         this.events.onMouseUp = this.handleMouseUp
         this.events.onMouseMove = this.handleMouseMove
@@ -190,7 +191,7 @@ export default Table =>
     }
 
     componentDidMount() {
-      if (!this.isFirefox && this.props.selection) {
+      if (!this.isFirefox && this.selection) {
         this.doc = addEventListener(document, 'click', docClick)
       }
     }
@@ -201,9 +202,13 @@ export default Table =>
       }
     }
 
+    get selection() {
+      const { selection, cellSelectable } = this.props
+      return selection || cellSelectable
+    }
+
     isEventCombination(event) {
-      const { selection } = this.props
-      return selection && isEventCombination(event)
+      return this.selection && isEventCombination(event)
     }
 
     handleMouseDown(event) {
@@ -261,6 +266,7 @@ export default Table =>
     }
 
     render() {
-      return <Table {...this.props} events={this.events} />
+      const { selection, cellSelectable, ...otherProps } = this.props
+      return <Table {...otherProps} events={this.events} />
     }
   }

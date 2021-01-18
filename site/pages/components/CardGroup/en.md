@@ -12,7 +12,7 @@
 | cardWidth | number | none | card min width |
 | columns | number | 3 | items count each row, not work while cardWidth setted |
 | gridStyle | object | none | grid style |
-| gap | number | 16 | gap width horizontal and vertical, if diff shoud set gridStyle |
+| gutter | number | 16 | gutter width horizontal and vertical, if diff shoud set gridStyle |
 
 ### CardGroup.Item
 

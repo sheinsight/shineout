@@ -48,7 +48,7 @@
 | innerScrollAttr | string[] | 无 | set inner scrollable element's attribute |
 | expandKeys | any[] | none | controlled expand rows |
 | sticky | boolean \| object | none | sticky header, When it is true, the distance from the top is 0. When it is an object, the attribute value reference [Sticky component] (/components/Sticky)  |
-| selection | boolean | false | In non Firefox browsers, whether to enable ctrl/cmd + click check |
+| cellSelectable | boolean | false | whether to enable ctrl/cmd + click check |
 
 ### TableColumn
 

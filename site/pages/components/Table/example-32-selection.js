@@ -1,8 +1,8 @@
 /**
- * cn - ctrl/cmd点击选中
- *    -- 非 Firefox 浏览器下，是否启用 ctrl/cmd + click 选中
- * en - selection
- *    -- In non Firefox browsers, whether to enable ctrl/cmd + click check.
+ * cn - 单元格选中
+ *    -- 通过 cellSelectable 属性来启用 ctrl/cmd + click 选中单元格
+ * en - Cell selectable
+ *    -- whether to enable ctrl/cmd + click check.
  */
 import React from 'react'
 import { Table } from 'shineout'
@@ -76,5 +76,5 @@ const columns = [
 ]
 
 export default function() {
-  return <Table keygen="id" width={1500} columns={columns} data={data} selection />
+  return <Table keygen="id" width={1500} columns={columns} data={data} cellSelectable />
 }
