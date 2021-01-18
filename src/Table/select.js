@@ -55,6 +55,8 @@ function formatTableText(arrs) {
 
 // 生成 textarea，并且执行 copy
 function execCopyCommand(text) {
+  // if none, return;
+  if (!text) return
   const textarea = document.createElement('textarea')
   textarea.setAttribute('readonly', 'readonly')
   textarea.value = text
