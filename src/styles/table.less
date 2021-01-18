@@ -2,6 +2,7 @@
 @import './themes/@{so-theme}.less';
 
 @table-prefix: ~'@{so-prefix}-table';
+@button-prefix: ~'@{so-prefix}-button';
 @table-sorter-width: 18px;
 @checkbox-width: 48px;
 
@@ -615,13 +616,16 @@
   }
 
   td {
-    .@{so-prefix}-button {
-      + .@{so-prefix}-button {
+    .@{button-prefix} {
+      + .@{button-prefix} {
         margin-left: 0;
       }
       &:not(:last-child) {
         margin-right: @button-margin-left;
       }
+    }
+    .@{button-prefix}-group .@{button-prefix}:not(:last-child) {
+      margin-right: 0;
     }
   }
 
