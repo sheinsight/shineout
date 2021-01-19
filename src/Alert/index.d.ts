@@ -7,7 +7,7 @@ export interface AlertProps {
    * 内容，文字或react组件
    * default: -
    */
-  children?: ReactNode;
+  children?: React.ReactNode;
 
   /**
    * Extend className
@@ -21,7 +21,7 @@ export interface AlertProps {
    * 为true时，根据type属性显示状态图标。如果需要显示自定义图标，传入ReactElement。
    * default: -
    */
-  icon?: ReactElement | boolean;
+  icon?: React.ReactElement | boolean;
 
   /**
    * The size for icon
