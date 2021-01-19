@@ -16,7 +16,7 @@ const examples = [
   {
     name: '1-base',
     title: locate(
-      '基本用法 \n 默认为水平分割线，可在中间加入文字。',
+      '基本用法 \n 默认为水平分割线',
       'Base \n Divider is horizontal by default. You can add text within Divider.'
     ),
     component: require('doc/pages/components/Divider/example-1-base.js').default,

@@ -4,8 +4,7 @@
     "Button": "按钮",
     "Dropdown": "下拉菜单",
     "Icon": "图标",
-    "Image": "图片",
-    "Divider":"分割线"
+    "Image": "图片"
   },
   "Form": {
     "Cascader": "级联选择",
@@ -49,7 +48,8 @@
     "CardGroup": "卡片组",
     "Grid": "栅格",
     "Sticky": "附着",
-    "Tabs": "标签页"
+    "Tabs": "标签页",
+    "Divider":"分割线"
   },
   "Navigation": {
     "Breadcrumb": "面包屑",

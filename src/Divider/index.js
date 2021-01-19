@@ -1,34 +1,32 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { getProps, defaultProps } from '../utils/proptypes'
+import { getProps } from '../utils/proptypes'
 import { dividerClass } from '../styles'
 
 class Divider extends PureComponent {
-    render() {
-        const { style, children, mode, orientation, ...restProps } = this.props
-        const className = classnames(
-            dividerClass('_', mode, children && 'with-text', {
-                'with-text-left': orientation === 'left',
-                'with-text-right': orientation === 'right',
-            }),
-            this.props.className,
-        )
-        return (
-            <div className={className} {...restProps} style={style}>
-                {children && <span className={dividerClass('inner-text')}>{children}</span>}
-            </div>
-        )
-    }
+  render() {
+    const { className, children, mode, orientation, ...restProps } = this.props
+    const mc = classnames(
+      dividerClass('_', mode, children && 'with-text', orientation && `with-text-${orientation}`),
+      className
+    )
+    return (
+      <div {...restProps} className={mc}>
+        {children && <span className={dividerClass('inner-text')}>{children}</span>}
+      </div>
+    )
+  }
 }
 
 Divider.propTypes = {
-    ...getProps(PropTypes, 'mode','orientation'),
+  ...getProps(PropTypes),
+  mode: PropTypes.oneOf(['horizontal', 'vertical']),
+  orientation: PropTypes.oneOf(['left', 'center', 'right']),
 }
 
 Divider.defaultProps = {
-    mode: 'horizontal',
-    orientation: "center"
+  mode: 'horizontal',
 }
 
 export default Divider

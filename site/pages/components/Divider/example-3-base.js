@@ -4,17 +4,17 @@
  * en - Vertical
  *  --  Use type="vertical" make it vertical.
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Divider } from 'shineout'
 
-export default function () {
-    return (
-        <Fragment>
-            Text
-            <Divider mode="vertical" />
-            <a href="#">Link</a>
-            <Divider mode="vertical" />
-            <a href="#">Link</a>
-        </Fragment>
-    )
+export default function() {
+  return (
+    <div>
+      <span>Left</span>
+      <Divider mode="vertical" />
+      <span>Center</span>
+      <Divider mode="vertical" />
+      <span>Right</span>
+    </div>
+  )
 }

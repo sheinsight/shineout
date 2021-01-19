@@ -1,18 +1,21 @@
 /**
  * cn - 基本用法
- *  --默认为水平分割线，可在中间加入文字。
+ *  --默认为水平分割线
  * en - Base
  *  --Divider is horizontal by default. You can add text within Divider.
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Divider } from 'shineout'
+import lorem from 'doc/utils/faker/lorem'
 
-export default function () {
-    return (
-        <Fragment>
-            <p>Some content.</p>
-            <Divider />
-            <p>Some content.</p>
-        </Fragment>
-    )
+export default function() {
+  return (
+    <div>
+      <p>{lorem(1)}</p>
+      <Divider />
+      <p>{lorem(3)}</p>
+      <Divider />
+      <p>{lorem(5)}</p>
+    </div>
+  )
 }
