@@ -2,7 +2,7 @@
 import './styles/normalize.less'
 import * as utils from './utils'
 
-export default { utils, version: '1.6.2' }
+export default { utils, version: '1.6.3-rc.19' }
 export { utils }
 export { setLocale } from './locale'
 export { color, style } from './utils/expose'
@@ -21,6 +21,7 @@ export { default as Cascader } from './Cascader'
 export { default as Checkbox } from './Checkbox'
 export { default as DatePicker } from './DatePicker'
 export { default as Datum } from './Datum'
+export { default as Divider } from './Divider'
 export { default as Dropdown } from './Dropdown'
 export { default as EditableArea } from './EditableArea'
 export { default as Form } from './Form'

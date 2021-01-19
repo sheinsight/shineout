@@ -19,6 +19,12 @@ const pages = [
     component: lazy(() => import(/* webpackChunkName: "Button" */ './Button')),
   },
   {
+    name: 'Divider',
+    cn: '分割线',
+    level: 2,
+    component: lazy(() => import(/* webpackChunkName: "Divider" */ './Divider')),
+  },
+  {
     name: 'Dropdown',
     cn: '下拉菜单',
     level: 2,
