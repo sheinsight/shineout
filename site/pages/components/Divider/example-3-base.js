@@ -11,7 +11,7 @@ export default function() {
   return (
     <div>
       <span>Left</span>
-      <Divider mode="vertical" />
+      <Divider mode="vertical">H</Divider>
       <span>Center</span>
       <Divider mode="vertical" />
       <span>Right</span>

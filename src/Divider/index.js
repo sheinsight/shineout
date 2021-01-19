@@ -5,6 +5,11 @@ import { getProps } from '../utils/proptypes'
 import { dividerClass } from '../styles'
 
 class Divider extends PureComponent {
+  showText() {
+    const { children, mode } = this.props
+    return children && mode === 'horizontal'
+  }
+
   render() {
     const { className, children, mode, orientation, ...restProps } = this.props
     const mc = classnames(
@@ -13,7 +18,7 @@ class Divider extends PureComponent {
     )
     return (
       <div {...restProps} className={mc}>
-        {children && <span className={dividerClass('inner-text')}>{children}</span>}
+        {this.showText() && <span className={dividerClass('inner-text')}>{children}</span>}
       </div>
     )
   }
