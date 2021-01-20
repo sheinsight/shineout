@@ -79,7 +79,7 @@ const examples = [
   {
     name: '7-bigdata',
     title: locate(
-      '性能 \n Transfer 内部用懒加载机制来优化性能，本例加载了10000条数据',
+      '性能 \n Transfer 内部使用了虚拟列表来优化性能，本例加载了10000条数据',
       ' \n Transfer uses a lazy loading to optimize performance. This example loads 10,000 pieces of data.'
     ),
     component: require('doc/pages/components/Transfer/example-7-bigdata.js').default,
