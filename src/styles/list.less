@@ -82,6 +82,19 @@
 
   }
 
+  &.@{list-prefix}-fixed {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    max-height: 100%;
+    .@{list-prefix}-list {
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
   .@{list-prefix}-list.@{list-prefix}-empty {
     display: flex;
     height: 100%;
