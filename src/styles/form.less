@@ -50,14 +50,6 @@
       }
     }
 
-    &.@{form-prefix}-label-vertical-align {
-      &-middle {
-        align-items: center;
-      }
-      &-bottom {
-        align-items: flex-end;
-      }
-    }
   }
 
   .@{form-prefix}-tip,
@@ -122,6 +114,18 @@
       margin-right: @form-inline-margin-right;
       vertical-align: top;
 
+      &.@{form-prefix}-label-vertical-align {
+        &-middle {
+          align-items: center;
+          .@{form-prefix}-label {
+            margin-top: 0;
+          }
+        }
+        &-bottom {
+          align-items: flex-end;
+        }
+      }
+
       .@{form-prefix}-label {
         width: auto;
         padding: 0;
@@ -150,6 +154,9 @@
     input {
       .input-disabled();
       color: @input-disabled-color;
+    }
+    .@{input-prefix}-disabled:hover, input {
+      background: transparent;
     }
   }
 
@@ -370,6 +377,7 @@
     
     &-disabled {
       .input-disabled();
+      background: transparent;
       color: @input-disabled-color;
     }
   }
@@ -547,6 +555,13 @@
     input {
       .input-disabled();
       color: @input-disabled-color;
+    }
+    input {
+      background: transparent;
+    }
+
+    .@{input-prefix}-disabled:hover {
+      background: transparent;
     }
 
     .@{select-prefix}-result {
