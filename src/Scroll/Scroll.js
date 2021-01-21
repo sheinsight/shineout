@@ -65,7 +65,6 @@ class Scroll extends PureComponent {
   getWheelRect() {
     if (!this.wheelElement) return { width: 0, height: 0 }
     let { width, height } = this.wheelElement.getBoundingClientRect()
-
     // display none
     if (width === 0 && height === 0) {
       width = this.cacheWidth
@@ -76,8 +75,8 @@ class Scroll extends PureComponent {
     }
 
     const { scrollX, scrollY, style } = this.props
-    width = (style.width || width) - (scrollY ? BAR_WIDTH : 0)
-    height = (style.height || height) - (scrollX ? BAR_WIDTH : 0)
+    width = (typeof style.width === 'number' ? style.width : width) - (scrollY ? BAR_WIDTH : 0)
+    height = (typeof style.height === 'number' ? style.height : height) - (scrollX ? BAR_WIDTH : 0)
     return { width, height }
   }
 

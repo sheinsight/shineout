@@ -51,7 +51,7 @@ class BoxList extends Component {
   handleRenderItem(data, groupIndex) {
     const { datum, keygen, columns, multiple, onChange, renderItem, lineHeight } = this.props
     return (
-      <div key={groupIndex} style={{ height: lineHeight }}>
+      <div style={{ height: lineHeight }}>
         {data.map((d, i) => {
           const isActive = datum.check(d)
           return (
@@ -104,7 +104,6 @@ class BoxList extends Component {
 
   renderLazyList() {
     const { columns, height, lineHeight, data, itemsInView } = this.props
-    const scrollHeight = lineHeight * Math.ceil(data.length / columns)
     const sliceData = data.reduce((red, item) => {
       let lastItem = red[red.length - 1]
       if (!lastItem) {
@@ -117,7 +116,6 @@ class BoxList extends Component {
     }, [])
     return (
       <LazyList
-        scrollHeight={scrollHeight}
         lineHeight={lineHeight}
         data={sliceData}
         itemsInView={itemsInView}
