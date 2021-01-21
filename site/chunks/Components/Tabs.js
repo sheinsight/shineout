@@ -122,6 +122,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-11-collapsible.js'),
   },
   {
+    name: '12-auto-fill',
+    title: locate(
+      '自动填充 \n 通过 autoFill 属性来使 Tabs.Panel 自动填充父元素空间',
+      'AutoFill \n Panel to automatically fill the parent element space via the autoFill property'
+    ),
+    component: require('doc/pages/components/Tabs/example-12-auto-fill.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tabs/example-12-auto-fill.js'),
+  },
+  {
     name: '12-extra',
     title: locate(
       '额外内容 \n 可以在标签页的右侧添加额外内容',

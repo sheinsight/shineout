@@ -22,6 +22,7 @@
 | shape | string | - | Options: \['card', 'line', 'button', 'bordered', 'dash'\]. If shape is not null, the style properties such as background, border will lose effect |
 | style | object | - | Container element style |
 | lazy | boolean | true | lazy load |
+| autoFill | boolean | false | auto fill the panel |
 
 ### Tabs.Panel
 
