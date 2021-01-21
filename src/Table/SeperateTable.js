@@ -123,8 +123,10 @@ class SeperateTable extends PureComponent {
       setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
     }
 
+    const contentHeight = this.getContentHeight()
+
     if (oldHeight && height !== oldHeight) {
-      if (this.lastScrollTop > this.getContentHeight()) {
+      if (this.lastScrollTop > contentHeight) {
         this.handleScroll(
           ...immer(this.lastScrollArgs, draft => {
             draft[7] = 1
@@ -132,10 +134,25 @@ class SeperateTable extends PureComponent {
         )
         return
       }
-      this.setState({ scrollTop: this.lastScrollTop / this.getContentHeight() })
-      const scrollTop = this.lastScrollTop / this.getContentHeight()
-      if (scrollTop === this.state.scrollTop) this.forceUpdate()
-      else this.setState({ scrollTop })
+
+      const scrollTop = this.lastScrollTop / contentHeight
+      this.setState({ scrollTop })
+      if (scrollTop === this.state.scrollTop) {
+        this.forceUpdate()
+      }
+    }
+
+    /**
+     * if press and hold bar to scroll to the bottom, reset scroll
+     */
+    if (this.lastScrollArgs[1] === 1) {
+      setTimeout(() => {
+        this.handleScroll(
+          ...immer(this.lastScrollArgs, draft => {
+            draft[7] = 1
+          })
+        )
+      })
     }
   }
 
