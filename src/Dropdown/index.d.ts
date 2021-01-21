@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 type DropdownType = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'link';
-type triggerType = 'click' | 'hover';
+type TriggerType = 'click' | 'hover';
 
 export interface DropDownProps<T = any>{
     /**
@@ -79,7 +79,7 @@ export interface DropDownProps<T = any>{
      * 触发方式；
      * default: 'click'
      */
-    trigger?: triggerType;
+    trigger?: TriggerType;
 
     /**
      * type of Dropdown
