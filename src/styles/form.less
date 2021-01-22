@@ -19,6 +19,18 @@
     align-items: flex-start;
     margin-bottom: @form-group-margin-bottom;
 
+    &.@{form-prefix}-label-vertical-align {
+      &-middle {
+        align-items: center;
+        .@{form-prefix}-label {
+          margin-top: 0;
+        }
+      }
+      &-bottom {
+        align-items: flex-end;
+      }
+    }
+
     .@{form-prefix}-label {
       display: inline-block;
       width: 140px;
@@ -114,18 +126,12 @@
       margin-right: @form-inline-margin-right;
       vertical-align: top;
 
-      &.@{form-prefix}-label-vertical-align {
-        &-middle {
-          align-items: center;
-          .@{form-prefix}-label {
-            margin-top: 0;
-          }
-        }
-        &-bottom {
-          align-items: flex-end;
+      &.@{form-prefix}-label-vertical-align-middle  {
+        .@{form-prefix}-label {
+          margin-top: 0;
         }
       }
-
+      
       .@{form-prefix}-label {
         width: auto;
         padding: 0;
