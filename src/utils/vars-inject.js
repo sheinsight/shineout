@@ -1791,6 +1791,14 @@ const injects = {
         parser: parseInt,
         desc: '表格底部外边距',
       },
+      {
+        name: 'headerTopDivider',
+        className: exposeClass('table-header-top'),
+        attr: 'borderWidth',
+        type: 'number',
+        parser: parseInt,
+        desc: '无边框表格头部边框线',
+      },
     ],
     set scrollRatio(v) {
       configSet('scrollRatio', v)
@@ -1965,6 +1973,14 @@ const injects = {
       setBodyProperty(
         {
           '--table-margin-bottom': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set headerTopDivider(v) {
+      setBodyProperty(
+        {
+          '--table-header-top-divider-width': `${parseInt(v, 10)}px`,
         },
         v
       )
