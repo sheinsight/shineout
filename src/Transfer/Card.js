@@ -151,7 +151,6 @@ class Card extends PureComponent {
           onChange={onFilter}
           placeholder={getLocale('search')}
           clearable
-          size="small"
           value={filterText}
         />
       </div>
