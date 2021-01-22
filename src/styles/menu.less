@@ -264,6 +264,29 @@
       background: @menu-item-active-bg;
       color: @menu-item-active-color;
     }
+
+    .@{menu-prefix}-in-path.@{menu-prefix}-has-children > a {
+      background: @menu-item-active-bg;
+      color: @menu-item-active-color;
+
+      &::before {
+        content: ' ';
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: @menu-vertical-in-path-bar-width;
+        border-top-left-radius: @menu-vertical-in-path-bar-width;
+        border-bottom-left-radius: @menu-vertical-in-path-bar-width;
+        height: 100%;
+        background-color: @menu-active-bar-color;
+      }
+    }
+
+    .@{menu-prefix}-in-path.@{menu-prefix}-no-children.@{menu-prefix}-active > a, 
+    .@{menu-prefix}-in-path.@{menu-prefix}-has-children.@{menu-prefix}-active > a {
+      background-color: @menu-item-has-children-active-bgc;
+      color: @menu-item-has-children-active-color;
+    }
   }
 
   &-dark {
@@ -323,22 +346,66 @@
 
 
     &:not(.@{menu-prefix}-horizontal) {
-      .@{menu-prefix}-wrapper {
-        &  > ul.@{menu-prefix}-root {
-          & > li.@{menu-prefix}-item.@{menu-prefix}-has-children.@{menu-prefix}-in-path {
-            & > a.@{menu-prefix}-title  {
-              &:before {
-                content: ' ';
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: @menu-active-bar;
-                height: 100%;
-                background-color: @menu-dark-active-bar-color;
-              }
-            }
+      .@{menu-prefix}-has-children.@{menu-prefix}-in-path > a {
+        &:before {
+          content: ' ';
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: @menu-active-bar;
+          height: 100%;
+          background-color: @menu-dark-active-bar-color;
+        }
+      }
+    }
+
+    &.@{menu-prefix}-vertical {
+      ul.@{menu-prefix}-root {
+        margin-left: 0;
+        border-right: none;
+
+        & > li.@{menu-prefix}-item > a {
+          &:hover {
+            background-color: @menu-item-dark-hover-bgc;
           }
         }
+
+        & > .@{menu-prefix}-item:not(.@{menu-prefix}-in-path) > a {
+          background-color: @menu-root-node-bgc;
+        }
+      }
+
+      .@{menu-prefix}-has-children {
+        .@{menu-prefix}-title {
+          &::after {
+            right: 18px;
+          }
+        }
+      }
+
+      .@{menu-prefix}-in-path.@{menu-prefix}-has-children > a {
+        background-color: @menu-vertical-dark-parent-active-bgc;
+        color: @menu-dark-active-color;
+
+        &::before {
+          width: @menu-vertical-in-path-bar-width;
+          right: auto;
+          left: 0;
+          border-top-right-radius: @menu-vertical-in-path-bar-width;
+          border-bottom-right-radius: @menu-vertical-in-path-bar-width;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+      }
+
+      // vertical menu > has-chilren + in-path + active
+      .@{menu-prefix}-in-path.@{menu-prefix}-has-children.@{menu-prefix}-active > a {
+        background: @menu-dark-active-bg;
+        color: @menu-dark-active-color;
+      }
+
+      .@{menu-prefix}-item > a {
+        background-color: @menu-root-node-bgc;
       }
     }
 
@@ -346,6 +413,10 @@
       &> li.@{menu-prefix}-item {
         & > a {
           background-color: @menu-root-node-bgc;
+
+          &:hover {
+            background-color: @menu-item-dark-hover-bgc;
+          }
         }
         & > ul {
           border-top: 1px solid @menu-children-segmentation;
