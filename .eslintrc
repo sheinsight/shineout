@@ -1,12 +1,14 @@
 {
     "extends": [
         "airbnb",
+        "plugin:@typescript-eslint/eslint-recommended",
         "prettier"
     ],
     "plugins": [
-        "prettier"
+        "prettier",
+        "@typescript-eslint"
     ],
-    "parser": "babel-eslint",
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "sourceType": "module",
         "allowImportExportEverywhere": true,
@@ -33,10 +35,7 @@
         "react/jsx-filename-extension": [
             1,
             {
-                "extensions": [
-                    ".js",
-                    ".jsx"
-                ]
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
             }
         ],
         "react/forbid-prop-types": 0,
