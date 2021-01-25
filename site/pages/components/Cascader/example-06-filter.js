@@ -41,14 +41,38 @@ const data = [
   },
 ]
 
+function highlight(title, key) {
+  if (!key) return title
+  const repleased = title.replace(new RegExp(key, 'g'), '#')
+  return repleased.split('').map((v, i) => {
+    if (v !== '#') return v
+    return (
+      <span key={i} style={{ color: '#FF4E50' }}>
+        {key}
+      </span>
+    )
+  })
+}
+
 export default function() {
+  const [current, setCurrent] = React.useState([])
+  const [filterText, setFilterText] = React.useState()
   return (
     <Cascader
-      onFilter={text => d => d.value.indexOf(text) >= 0}
+      value={current}
+      onChange={d => {
+        setFilterText('')
+        setCurrent(d)
+      }}
+      onFilter={text => {
+        setFilterText(text)
+        return d => d.value.indexOf(text) >= 0
+      }}
       data={data}
       absolute
       keygen="value"
-      renderItem={n => `${n.value}`}
+      renderResult={d => d.value}
+      renderItem={({ value }) => highlight(value, filterText)}
     />
   )
 }
