@@ -17,13 +17,13 @@ class Year extends PureComponent {
     const { current, onChange, onModeChange } = this.props
     const date = new Date(current.getTime())
     date.setFullYear(year)
-    onChange(date)
+    onChange(...utils.yearHandleChangeParams(date))
     onModeChange('month')
   }
 
   handleRangeChange(year) {
     const { current, onChange } = this.props
-    onChange(utils.addYears(current, year))
+    onChange(...utils.yearHandleChangeParams(utils.addYears(current, year)))
   }
 
   render() {

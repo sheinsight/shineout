@@ -16,7 +16,7 @@
 | disabled | (date: Date, type: string, value: \[any, any]) => boolean \| boolean  | false | When the value is true, disabled all options; When the value is function, disable the options that this function returns true. (Note: If you only want to disable the time alone, you can use the disabledTime attribute.) |
 | format | string | | default values for different types: <br />'date': 'yyyy-MM-dd'<br />'time': 'HH:mm:ss'<br />'week': 'RRRR II'<br />'month': 'yyyy-MM'<br />'datetime': 'yyyy-MM-dd HH:mm:ss' |
 | formatResult | string \| (date: Date) => string | props.format | Format the selected time |
-| onChange | (value: any) => void | - | a callback when the value is changing |
+| onChange | (value: string \| \[string \| undefined, string \| undefined\]) => void | - | a callback when the value is changing |
 | placeholder | string \| string[] | - | placeholder text<br />When the range property is not empty, it is an array of length 2. |
 | range | boolean \| number | - | range span，unit: **second**，<br />When it is true, selection scope is not limited. |
 | style | object | - | Container element style |
@@ -33,7 +33,7 @@
 | hourStep | number | none | hour step | 
 | minuteStep | number | none | minute step | 
 | secondStep | number | none | second step | 
-| onPickerChange | (value: any) => void | none | value onchange callback (every type of date) |
+| onPickerChange | (value: any, quickSelect?: object \| void, type: string) => void | none | value onchange callback (every type of date) |
 | disabledTime | string \| ((time: string) => boolean) | none | Disable the specified Time. |
 
 ### DatePickerFormat

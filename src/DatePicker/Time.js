@@ -46,7 +46,7 @@ class Time extends PureComponent {
     const [isDisabled, date] = utils.judgeTimeByRange(val, value, mode, min, max, range, disabled, disabledTime)
 
     if (isDisabled) return
-    this.props.onChange(date, true, false, 'time')
+    this.props.onChange(...utils.timeHandleChangeParams(date, true, false, 'time'))
   }
 
   renderTimeScroller(value, min, max, hours) {
