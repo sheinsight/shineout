@@ -18,7 +18,7 @@ class Month extends PureComponent {
 
   handleYearChange(year) {
     const { current, onChange } = this.props
-    onChange(utils.addYears(current, year))
+    onChange(...utils.yearHandleChangeParams(utils.addYears(current, year)))
   }
 
   handleYearClick() {
@@ -31,7 +31,7 @@ class Month extends PureComponent {
     const isMonthType = this.props.type === 'month'
 
     date.setMonth(month, 1)
-    onChange(date, isMonthType, isMonthType)
+    onChange(...utils.monthHandleChangeParams(date, isMonthType, isMonthType))
     if (!isMonthType) onModeChange('day')
   }
 
