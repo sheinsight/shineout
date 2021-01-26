@@ -128,11 +128,11 @@ class Tabs extends PureComponent {
   }
 
   render() {
-    const { children, shape, style } = this.props
+    const { children, shape, style, autoFill } = this.props
     const position = this.getAlign()
     const { align, isVertical } = position
     const className = classnames(
-      tabsClass('_', align && `align-${align}`, isVertical && 'vertical', shape),
+      tabsClass('_', align && `align-${align}`, isVertical && 'vertical', shape, autoFill && 'auto-fill'),
       this.props.className
     )
 
@@ -164,6 +164,7 @@ Tabs.propTypes = {
   tabBarExtraContent: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   tabBarStyle: PropTypes.object,
   lazy: PropTypes.bool,
+  autoFill: PropTypes.bool,
 }
 
 Tabs.defaultProps = {

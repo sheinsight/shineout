@@ -82,7 +82,7 @@ module.exports = function getCommon(config) {
     module: {
       rules: [
         {
-          test: /\.jsx?$/,
+          test: /\.(js|jsx|ts|tsx)$/,
           exclude: [/node_modules/],
           use: jsLoaders,
         },

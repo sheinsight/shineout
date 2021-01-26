@@ -239,6 +239,12 @@ const pages = [
     component: lazy(() => import(/* webpackChunkName: "CardGroup" */ './CardGroup')),
   },
   {
+    name: 'Divider',
+    cn: '分割线',
+    level: 2,
+    component: lazy(() => import(/* webpackChunkName: "Divider" */ './Divider')),
+  },
+  {
     name: 'Grid',
     cn: '栅格',
     level: 2,

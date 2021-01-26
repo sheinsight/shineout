@@ -48,7 +48,8 @@
     "CardGroup": "卡片组",
     "Grid": "栅格",
     "Sticky": "附着",
-    "Tabs": "标签页"
+    "Tabs": "标签页",
+    "Divider":"分割线"
   },
   "Navigation": {
     "Breadcrumb": "面包屑",

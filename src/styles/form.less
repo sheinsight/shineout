@@ -19,6 +19,18 @@
     align-items: flex-start;
     margin-bottom: @form-group-margin-bottom;
 
+    &.@{form-prefix}-label-vertical-align {
+      &-middle {
+        align-items: center;
+        .@{form-prefix}-label {
+          margin-top: 0;
+        }
+      }
+      &-bottom {
+        align-items: flex-end;
+      }
+    }
+
     .@{form-prefix}-label {
       display: inline-block;
       width: 140px;
@@ -50,14 +62,6 @@
       }
     }
 
-    &.@{form-prefix}-label-vertical-align {
-      &-middle {
-        align-items: center;
-      }
-      &-bottom {
-        align-items: flex-end;
-      }
-    }
   }
 
   .@{form-prefix}-tip,
@@ -122,6 +126,12 @@
       margin-right: @form-inline-margin-right;
       vertical-align: top;
 
+      &.@{form-prefix}-label-vertical-align-middle  {
+        .@{form-prefix}-label {
+          margin-top: 0;
+        }
+      }
+      
       .@{form-prefix}-label {
         width: auto;
         padding: 0;
@@ -150,6 +160,9 @@
     input {
       .input-disabled();
       color: @input-disabled-color;
+    }
+    .@{input-prefix}-disabled:hover, input {
+      background: transparent;
     }
   }
 
@@ -224,7 +237,7 @@
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   
   &-clear-wrapper {
-    width: 16px;
+    flex-basis: 16px;
 
     .@{input-prefix}-clear {
       border-radius: 6px;
@@ -370,6 +383,7 @@
     
     &-disabled {
       .input-disabled();
+      background: transparent;
       color: @input-disabled-color;
     }
   }
@@ -547,6 +561,13 @@
     input {
       .input-disabled();
       color: @input-disabled-color;
+    }
+    input {
+      background: transparent;
+    }
+
+    .@{input-prefix}-disabled:hover {
+      background: transparent;
     }
 
     .@{select-prefix}-result {

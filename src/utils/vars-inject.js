@@ -1791,6 +1791,14 @@ const injects = {
         parser: parseInt,
         desc: '表格底部外边距',
       },
+      {
+        name: 'headerTopDivider',
+        className: exposeClass('table-header-top'),
+        attr: 'borderWidth',
+        type: 'number',
+        parser: parseInt,
+        desc: '无边框表格头部边框线',
+      },
     ],
     set scrollRatio(v) {
       configSet('scrollRatio', v)
@@ -1965,6 +1973,14 @@ const injects = {
       setBodyProperty(
         {
           '--table-margin-bottom': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set headerTopDivider(v) {
+      setBodyProperty(
+        {
+          '--table-header-top-divider-width': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -2559,7 +2575,68 @@ const injects = {
         type: 'color',
         desc: '暗黑模式下 active bar 颜色',
       },
+      {
+        name: 'verticalDarkRootActiveBgc',
+        className: exposeClass('menu-dark-vertical'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '垂直样式 dark 主题：子节点选中下，parent 节点背景颜色',
+      },
+      {
+        name: 'hasChildrenActiveBgc',
+        className: exposeClass('menu-dark-vertical-children'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '垂直样式：选中状态，背景颜色',
+      },
+      {
+        name: 'hasChildrenActiveColor',
+        className: exposeClass('menu-dark-vertical-children'),
+        attr: 'color',
+        type: 'color',
+        desc: '垂直样式：选中状态，背景颜色',
+      },
+      {
+        name: 'verticalInpathBarWidth',
+        className: exposeClass('menu-dark-vertical-bar'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        desc: '垂直样式：子节点选中下，parent 节点 bar 的宽度',
+      },
     ],
+    set verticalDarkRootActiveBgc(v) {
+      setBodyProperty(
+        {
+          '--menu-vertical-dark-parent-active-bgc': v,
+        },
+        v
+      )
+    },
+    set hasChildrenActiveBgc(v) {
+      setBodyProperty(
+        {
+          '--menu-item-has-children-active-bgc': v,
+        },
+        v
+      )
+    },
+    set hasChildrenActiveColor(v) {
+      setBodyProperty(
+        {
+          '--menu-item-has-children-active-color': v,
+        },
+        v
+      )
+    },
+    set verticalInpathBarWidth(v) {
+      setBodyProperty(
+        {
+          '--menu-vertical-in-path-bar-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
     set height(v) {
       const height = parseInt(v, 10)
       setBodyProperty(
