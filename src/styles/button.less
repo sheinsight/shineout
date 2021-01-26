@@ -332,4 +332,14 @@
     border-top-width: 1px;
     border-bottom-width: 1px;
   }
+
+  &:not(&-text):not(&-link) {
+    min-width: @button-default-size-width;
+    &.@{button-prefix}-large {
+      min-width: @button-large-size-width;
+    }
+    &.@{button-prefix}-small {
+      min-width: @button-small-size-width;
+    }
+  }
 }
