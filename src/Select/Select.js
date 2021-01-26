@@ -19,7 +19,7 @@ const WrappedOptionList = absoluteList(OptionList)
 const WrappedBoxList = absoluteList(BoxList)
 const WrappedOptionTree = absoluteList(OptionTree)
 
-const isResult = el => getParent(el, `.${selectClass('result')}`)
+const isResult = (el, selector) => getParent(el, selector || `.${selectClass('result')}`)
 
 class Select extends PureComponent {
   constructor(props) {
@@ -145,9 +145,11 @@ class Select extends PureComponent {
   handleClick(e) {
     const { onCreate, onFilter } = this.props
     const plain = !onCreate && !onFilter
-    if (plain && isResult(e.target) && this.state.focus) {
-      this.handleState(false, e)
-      return
+    if (this.state.focus) {
+      if ((plain && isResult(e.target)) || isResult(e.target, `.${selectClass('caret')}`)) {
+        this.handleState(false, e)
+        return
+      }
     }
     this.handleState(true, e)
   }
