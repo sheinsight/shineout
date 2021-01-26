@@ -48,3 +48,4 @@
 | columnsTitle | ReactNode | 无 | 多列选项多选时的标题文字 |
 | reFocus | boolean | 无 | 存在onFilter和onCreate，选中 Option，自动focus Input |
 | header | () => ReactNode \| ReactNode | 无 | 自定义渲染 Option List Header |
+| lineHeight | number | 34 | 选项高度。列表项使用虚拟列表渲染，当选项高度改变时，应该通过 lineHeight 来指定正确高度 |
