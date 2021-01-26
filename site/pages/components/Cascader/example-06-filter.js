@@ -7,6 +7,7 @@
  *    -- Support in single selection state
  */
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Cascader } from 'shineout'
 
 const data = [
@@ -41,38 +42,80 @@ const data = [
   },
 ]
 
-function highlight(title, key) {
-  if (!key) return title
-  const repleased = title.replace(new RegExp(key, 'g'), '#')
-  return repleased.split('').map((v, i) => {
-    if (v !== '#') return v
-    return (
-      <span key={i} style={{ color: '#FF4E50' }}>
-        {key}
-      </span>
-    )
-  })
-}
+const highlight = Component =>
+  class extends React.Component {
+    static propTypes = {
+      onFilter: PropTypes.func,
+      renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+      highlightStyle: PropTypes.object,
+      beforeChange: PropTypes.func,
+    }
 
+    static defaultProps = {
+      renderItem: d => d,
+      highlightStyle: { color: '#FF4E50' },
+    }
+
+    constructor(props) {
+      super(props)
+      this.state = {
+        filterText: undefined,
+      }
+      this.handlerFilter = this.handlerFilter.bind(this)
+      this.renderItem = this.renderItem.bind(this)
+      this.handleReset = this.handleReset.bind(this)
+    }
+
+    handlerFilter(text) {
+      const { onFilter } = this.props
+      this.setState({ filterText: text })
+      return onFilter(text)
+    }
+
+    handleReset(...args) {
+      const { beforeChange } = this.props
+      if (beforeChange) beforeChange(...args)
+      this.setState({ filterText: undefined })
+    }
+
+    renderItem(d, index) {
+      const { renderItem, highlightStyle } = this.props
+      const { filterText } = this.state
+      const result = typeof renderItem === 'function' ? renderItem(d, index) : d[renderItem]
+      if (!filterText) return result
+      if (typeof result !== 'string') return result
+      return result.split(filterText).map((item, i, arr) => {
+        if (i === arr.length - 1) return <React.Fragment key={i}>{item}</React.Fragment>
+        return (
+          <React.Fragment key={i}>
+            {item}
+            <span style={highlightStyle}>{filterText}</span>
+          </React.Fragment>
+        )
+      })
+    }
+
+    render() {
+      const mp = {
+        ...this.props,
+        onFilter: this.props.onFilter ? this.handlerFilter : undefined,
+        renderItem: this.renderItem,
+        beforeChange: this.handleReset,
+      }
+      return <Component {...mp} />
+    }
+  }
+
+const HighlightCascader = highlight(Cascader)
 export default function() {
-  const [current, setCurrent] = React.useState([])
-  const [filterText, setFilterText] = React.useState()
   return (
-    <Cascader
-      value={current}
-      onChange={d => {
-        setFilterText('')
-        setCurrent(d)
-      }}
-      onFilter={text => {
-        setFilterText(text)
-        return d => d.value.indexOf(text) >= 0
-      }}
+    <HighlightCascader
+      onFilter={text => d => d.value.indexOf(text) >= 0}
       data={data}
       absolute
       keygen="value"
+      renderItem={n => `${n.value}`}
       renderResult={d => d.value}
-      renderItem={({ value }) => highlight(value, filterText)}
     />
   )
 }
