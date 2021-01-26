@@ -340,6 +340,7 @@ const injects = {
         parser: parseInt,
         className: buttonClass('_'),
         desc: '常规按钮最小宽度',
+        max: 200,
       },
       {
         name: 'fontSizeLarge',
@@ -356,6 +357,7 @@ const injects = {
         parser: parseInt,
         className: buttonClass('large'),
         desc: '大号按钮最小宽度',
+        max: 200,
       },
       {
         name: 'fontSizeSmall',
@@ -372,6 +374,7 @@ const injects = {
         parser: parseInt,
         className: buttonClass('_'),
         desc: '小号按钮最小宽度',
+        max: 200,
       },
       {
         name: 'marginLeft',
