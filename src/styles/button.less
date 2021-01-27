@@ -151,8 +151,8 @@
     background: transparent;
     border: none;
     box-shadow: none;
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: 4px;
+    padding-right: 4px;
 
     &:not(:disabled):hover {
       opacity: .8;
@@ -331,5 +331,15 @@
   .@{so-prefix}-dropdown {
     border-top-width: 1px;
     border-bottom-width: 1px;
+  }
+
+  &:not(&-text):not(&-link) {
+    min-width: @button-default-size-width;
+    &.@{button-prefix}-large {
+      min-width: @button-large-size-width;
+    }
+    &.@{button-prefix}-small {
+      min-width: @button-small-size-width;
+    }
   }
 }

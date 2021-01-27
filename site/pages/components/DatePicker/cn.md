@@ -16,7 +16,7 @@
 | disabled | (date: Date, type: string, value: \[any, any]) => boolean \| boolean  | false | 如果 disabled 为 true，禁用全部选项，如果 disabled 为函数，根据函数反回结果禁用选项。（注意：如果只想单独禁用时间，可使用 disabledTime 属性。） |
 | format | string | | 不同type对应的默认值<br />'date': 'yyyy-MM-dd'<br />'time': 'HH:mm:ss'<br />'week': 'RRRR II'<br />'month': 'yyyy-MM'<br />'datetime': 'yyyy-MM-dd HH:mm:ss' |
 | formatResult | string \| (date: Date) => string | props.format | 对选中时间进行格式化 |
-| onChange | (value: any) => void | 无 | 值改变回调函数 |
+| onChange | (value: string \| \[string \| undefined, string \| undefined\]) => void | 无 | 值改变回调函数 |
 | placeholder | string \| string[] | 无 | 占位文字<br />range 属性不为空时，为长度为2的数组 |
 | range | boolean \| number | 无 | 范围跨度，单位 **秒**，<br />为 true 时表示不限制选择范围。 |
 | style | object | 无 | 最外层扩展样式 |
@@ -33,7 +33,7 @@
 | hourStep | number | 无 | 小时选项步长 | 
 | minuteStep | number | 无 | 分钟选项步长 | 
 | secondStep | number | 无 | 秒选项步长 | 
-| onPickerChange | (value: any) => void | 无 | 值改变回调，有别于 onChange, onPickerChange会在每项值改变的时候执行 |
+| onPickerChange | (value: any, quickSelect?: object \| void, type?: string) => void | 无 | 值改变回调，有别于 onChange, onPickerChange会在每项值改变的时候执行 |
 | disabledTime | string \| ((time: string) => boolean) | 无 | 禁用指定 Time。 |
 
 ### DatePickerFormat

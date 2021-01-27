@@ -48,3 +48,4 @@
 | columnsTitle | ReactNode | none | title of columns multiple select |
 | reFocus | boolean | false | There are onFilter and onCreate, select Option, automatically focus Input |
 | header | () => ReactNode \| ReactNode | null | Custom render option list header |
+| lineHeight | number | 34 | Option height. List items are rendered using virtual lists, and when the option height changes, the correct height should be specified via lineHeight |

@@ -69,6 +69,9 @@
       &-hover {
         background: @table-bg-hover;
       }
+      &-top {
+        border-width: @table-header-top-divider-width;
+      }
     }
     &-spacing {
       height: @table-row-spacing;
@@ -188,6 +191,18 @@
       }
       &-seg {
         border-top-color: @menu-children-segmentation;
+      }
+
+      &-vertical {
+        background-color: @menu-vertical-dark-parent-active-bgc;
+
+        &-children {
+          background-color: @menu-item-has-children-active-bgc;
+          color: @menu-item-has-children-active-color;
+        }
+        &-bar {
+          width: @menu-vertical-in-path-bar-width;
+        }
       }
     }
     &-bar {

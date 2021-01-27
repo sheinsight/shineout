@@ -164,6 +164,7 @@ class OptionList extends Component {
       onChange,
       renderItem,
       groupKey,
+      filterText,
     } = this.props
     const { hoverIndex, currentIndex } = this.state
 
@@ -205,6 +206,7 @@ class OptionList extends Component {
               renderItem={renderItem}
               onHover={this.handleHover}
               groupKey={groupKey}
+              filterText={filterText}
             />
           ))}
         </div>
@@ -254,6 +256,7 @@ OptionList.propTypes = {
   groupKey: PropTypes.string,
   getRef: PropTypes.func,
   customHeader: PropTypes.node,
+  filterText: PropTypes.string,
 }
 
 export default OptionList
