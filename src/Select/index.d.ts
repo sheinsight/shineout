@@ -15,6 +15,70 @@ export interface SelectProps<Item, Value>  {
    * default: null
    */
   width?: number;
+  
+  /**
+   * height
+   *
+   * 高度
+   *
+   * default: 250
+   */
+  height?: number;
+  
+  /**
+   * The position of the pop-up layer, options: ['left', 'top', 'right', 'bottom']
+   *
+   * 弹出层位置
+   *
+   * default: 'drop-down'
+   */
+  position?: 'drop-down' | 'drop-up';
+  
+  /**
+   * When it is true, a default [Spin](/components/Spin) component will be displayed, a custom loading icon can be passed in to replace.
+   *
+   * 数据加载中，为true时会展示一个默认的[Spin](/components/Spin)组件，可以传入一个自定义的Spin代替
+   *
+   * default: false
+   */
+  loading?: boolean | ReactNode;
+  
+  /**
+   * The expected height of a one-line select is just a rough estimate to show the scroll bar.
+   *
+   * 下拉框的预期高度，只是一个大概的估值，用来展示滚动条
+   *
+   * default: 34
+   */
+  lineHeight?: number;
+  
+  /**
+   * select default content
+   *
+   * 默认占位内容 placeholder
+   *
+   * default: none
+   */
+  placeholder?: ReactNode;
+  
+  /**
+   * size of select
+   *
+   * 尺寸
+   *
+   * default: 'default'
+   */
+  size?: 'small' | 'default' | 'large';
+  
+  /**
+   * When trim is true, blank characters are automatically deleted when lose focus。
+   *
+   * trim 为 true 时，失去焦点时会自动删除空白字符。
+   *
+   * default: false
+   */
+  trim?: boolean;
+  
   /**
    * expand style
    *
@@ -22,6 +86,7 @@ export interface SelectProps<Item, Value>  {
    *
    * default: null
    */
+  
   style?: React.CSSProperties,
   /**
    * When it is true, the pop-up layer of option append into document.body.
@@ -100,7 +165,7 @@ export interface SelectProps<Item, Value>  {
    *
    * default:
    */
-  defaultValue?: Value;
+  defaultValue?: Value | Value[];
 
   /**
    * When the value is true, disabled all checkboxes; When the value is function, disable the checkbox that this function returns true.
@@ -127,7 +192,7 @@ export interface SelectProps<Item, Value>  {
    *
    * default: d => d
    */
-  format?: (data: Item) => any | string;
+  format?: ((data: Item) => any) | string;
 
   /**
    * The name of a Form that accesses data
@@ -379,7 +444,7 @@ export interface SelectProps<Item, Value>  {
    *
    * default: null
    */
-  renderHeader?: ReactNode | ((count: number) => ReactNode);
+  header?: ReactNode;
 }
 
 declare class Select<Item = any, Value = any[] | string | BaseObject> extends React.Component<SelectProps<Item, Value>, {}> {}
