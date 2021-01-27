@@ -2,17 +2,13 @@ import * as React from 'react'
 
 type ReactNode = React.ReactNode;
 
-interface BaseObject {
-  [propName: string]: any
-}
-
 export interface SelectProps<Item, Value>  {
   /**
    * width
    *
    * 宽度
    *
-   * default: null
+   * default: 100%
    */
   width?: number;
   
@@ -30,7 +26,7 @@ export interface SelectProps<Item, Value>  {
    *
    * 弹出层位置
    *
-   * default: 'drop-down'
+   * default: auto
    */
   position?: 'drop-down' | 'drop-up';
   
@@ -44,9 +40,9 @@ export interface SelectProps<Item, Value>  {
   loading?: boolean | ReactNode;
   
   /**
-   * The expected height of a one-line select is just a rough estimate to show the scroll bar.
+   * Option height. List items are rendered using virtual lists, and when the option height changes, the correct height should be specified via lineHeight
    *
-   * 下拉框的预期高度，只是一个大概的估值，用来展示滚动条
+   * 选项高度。列表项使用虚拟列表渲染，当选项高度改变时，应该通过 lineHeight 来指定正确高度
    *
    * default: 34
    */
@@ -174,7 +170,7 @@ export interface SelectProps<Item, Value>  {
    *
    * default: false
    */
-  disabled?: (data: Item) => boolean | boolean;
+  disabled?: ((data: Item) => boolean) | boolean;
 
   /**
    * ms. The delay of user input triggering filter events
@@ -210,7 +206,7 @@ export interface SelectProps<Item, Value>  {
    *
    * default: index
    */
-  keygen?: ((data: Item) => string) | string | true;
+  keygen: ((data: Item) => string) | string | true;
 
   /**
    * value is the datum.getValue().
@@ -219,7 +215,7 @@ export interface SelectProps<Item, Value>  {
    *
    * default: -
    */
-  onChange?: (value: Value, data: Item, checked: boolean) => void;
+  onChange?: (value: Value | Value[], data: Item, checked: boolean) => void;
 
   /**
    * If the onCreate event is set, the component is inputable. When onCreate is a function, the return value of this function is diaplay at the top as a new option. When onCreate is true, use the built-in functuon text => text.
@@ -228,7 +224,7 @@ export interface SelectProps<Item, Value>  {
    *
    * default: -
    */
-  onCreate?: (input: string) => Item | boolean;
+  onCreate?: ((input: string) => Item | string) | boolean;
 
   /**
    * When the onFilter is not empty, you can filter data by input. If the onFilter returns a function, use this function as a front-end filter. If return undefined, you can do your own backend filtering.
@@ -253,9 +249,9 @@ export interface SelectProps<Item, Value>  {
    *
    * 为 string 时，返回 d[string]。 为 function 时，返回函数结果
    *
-   * default: required
+   * default: d => d
    */
-  renderItem?: (data: Item) => ReactNode | string;
+  renderItem?: string | ((data: Item) => ReactNode);
 
   /**
    * The content displayed in the result after selecting, if not set, use renderT
@@ -264,7 +260,7 @@ export interface SelectProps<Item, Value>  {
    *
    * default: renderT
    */
-  renderResult?: (data: Item) => ReactNode | string;
+  renderResult?: ((data: Item) => ReactNode) | string;
 
   /**
    * In the Form, the value will be taken over by the form and the value will be invalid.
@@ -273,7 +269,7 @@ export interface SelectProps<Item, Value>  {
    *
    * default:
    */
-  value?: Value;
+  value?: Value | Value[];
 
   /**
    * Merges selected values, valid only in multiselect mode
@@ -447,6 +443,6 @@ export interface SelectProps<Item, Value>  {
   header?: ReactNode;
 }
 
-declare class Select<Item = any, Value = any[] | string | BaseObject> extends React.Component<SelectProps<Item, Value>, {}> {}
+declare class Select<Item = any, Value = (string[] | string)> extends React.Component<SelectProps<Item, Value>, {}> {}
 
 export default Select
