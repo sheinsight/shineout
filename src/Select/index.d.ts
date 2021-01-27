@@ -100,7 +100,7 @@ export interface SelectProps<Item, Value>  {
    *
    * default:
    */
-  defaultValue?: Value[];
+  defaultValue?: Value;
 
   /**
    * When the value is true, disabled all checkboxes; When the value is function, disable the checkbox that this function returns true.
@@ -163,7 +163,7 @@ export interface SelectProps<Item, Value>  {
    *
    * default: -
    */
-  onCreate?: (input: string) => any | boolean;
+  onCreate?: (input: string) => Item | boolean;
 
   /**
    * When the onFilter is not empty, you can filter data by input. If the onFilter returns a function, use this function as a front-end filter. If return undefined, you can do your own backend filtering.
