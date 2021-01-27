@@ -93,4 +93,7 @@ export interface StructDataStandardProps<Item = any> {
 
 export type keyType = string | number | symbol
 
-  
+export declare namespace RegularAttributes {
+    type Size = 'small' | 'default' | 'large';
+    type Type = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' 
+}
