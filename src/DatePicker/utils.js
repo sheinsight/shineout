@@ -200,6 +200,22 @@ function formatted(date, fmt, ...options) {
   return format(date, fmt, ...options)
 }
 
+const handleOnChangeParams = type => (date, change, blur = undefined, isEnd = undefined, isQuickSelect = undefined) => [
+  date,
+  change,
+  blur,
+  isEnd,
+  isQuickSelect,
+  type,
+]
+
+const yearHandleChangeParams = handleOnChangeParams('year')
+const monthHandleChangeParams = handleOnChangeParams('month')
+const dayHandleChangeParams = handleOnChangeParams('day')
+const weekHandleChangeParams = handleOnChangeParams('week')
+const timeHandleChangeParams = handleOnChangeParams('time')
+const quickHandleChangeParams = handleOnChangeParams('quick')
+
 export default {
   clearHMS,
   addDays,
@@ -226,4 +242,11 @@ export default {
   TIME_FORMAT,
   judgeTimeByRange,
   resetTimeByFormat,
+  handleOnChangeParams,
+  yearHandleChangeParams,
+  monthHandleChangeParams,
+  dayHandleChangeParams,
+  timeHandleChangeParams,
+  quickHandleChangeParams,
+  weekHandleChangeParams,
 }
