@@ -1,6 +1,7 @@
 import * as React from 'react'
 
-type DropdownType = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'link';
+import { StandardProps, RegularAttributes, StructDataStandardProps } from '../@types/common'
+
 type TriggerType = 'click' | 'hover';
 
 interface DropdownNode {
@@ -15,7 +16,7 @@ interface DropdownNode {
 
 export type DropdownItem = DropdownNode | React.ReactNode
 
-export interface DropdownProps{
+export interface DropdownProps extends StandardProps, Pick<StructDataStandardProps<DropdownNode>, 'renderItem'>{
     /**
      * Specifies the dropdown should be disabled
      * 
@@ -24,15 +25,6 @@ export interface DropdownProps{
      * default: true
      */
     animation?: boolean;
-
-    /**
-     * extend className
-     * 
-     * 扩展className
-     * 
-     * default: -
-     */
-    className?: string;
 
     /**
      * Display multiple elements on the page. This property depends on the width attribute. Please set the number of columns and width appropriately.
@@ -50,7 +42,7 @@ export interface DropdownProps{
      * 
      * default: []
      */
-    data: Array<DropdownItem>;
+    data: DropdownItem[];
     
     /**
      * Specifies the dropdown should be disabled
@@ -68,7 +60,7 @@ export interface DropdownProps{
      * 
      * default: -
      */
-    onClick?: ( data: DropdownNode) => void;
+    onClick?: (data: DropdownNode) => void;
 
     /**
      * same as Button
@@ -86,16 +78,7 @@ export interface DropdownProps{
      * 
      * default: -
      */
-    placeholder?: string | React.ReactNode;
-
-    /**
-     * Set the displayed content. If it is a string,  the corresponding value will be displayed. <br />If it is a function, the return value will be displayed and its parameter is the current data.
-     * 
-     * 设置显示的内容,如果是字符串,则为对应的值<br />如果是函数,则返回值为显示的内容,参数为当条数据
-     * 
-     * default: -
-     */
-    renderItem?: ((data: DropdownNode) => React.ReactNode) | string;
+    placeholder?: React.ReactNode;
 
     /**
      * same as Button
@@ -104,7 +87,7 @@ export interface DropdownProps{
      * 
      * default: 'default'
      */
-    size?: 'small' | 'default' | 'large';
+    size?: RegularAttributes.Size;
 
     /**
      * Toggle mode
@@ -122,7 +105,7 @@ export interface DropdownProps{
      * 
      * default: -
      */
-    type?: DropdownType;
+    type?: RegularAttributes.Type;
     
     /**
      * The width of the pop-up option layer
