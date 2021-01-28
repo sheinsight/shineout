@@ -1,12 +1,14 @@
 {
     "extends": [
         "airbnb",
+        "plugin:@typescript-eslint/eslint-recommended",
         "prettier"
     ],
     "plugins": [
-        "prettier"
+        "prettier",
+        "@typescript-eslint"
     ],
-    "parser": "babel-eslint",
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "sourceType": "module",
         "allowImportExportEverywhere": true,
@@ -33,10 +35,7 @@
         "react/jsx-filename-extension": [
             1,
             {
-                "extensions": [
-                    ".js",
-                    ".jsx"
-                ]
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
             }
         ],
         "react/forbid-prop-types": 0,
@@ -74,6 +73,9 @@
         "jsx-a11y/anchor-is-valid": 0,
         "jsx-a11y/no-static-element-interactions": 0,
         "jsx-a11y/click-events-have-key-events": 0,
-        "react/destructuring-assignment": 0
+        "react/destructuring-assignment": 0,
+        "import/no-named-as-default": 0,
+        "import/named": 0,
+        "import/no-named-as-default-member": 0
     }
 }

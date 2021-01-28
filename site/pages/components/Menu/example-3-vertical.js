@@ -17,6 +17,7 @@ const data = [
   {
     id: '3',
     title: 'Navigation Two',
+    onClick: true,
     children: [
       {
         id: '4',

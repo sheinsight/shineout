@@ -67,7 +67,7 @@ class Day extends PureComponent {
       // if (date.getDay() === 0) {
       //   date = utils.subDays(date, 1)
       // }
-      onChange(date, true, true)
+      onChange(...utils.weekHandleChangeParams(date, true, true))
     } else {
       let newDate = new Date(
         date.getFullYear(),
@@ -87,12 +87,13 @@ class Day extends PureComponent {
         utils.clearHMS(newDate).getTime() === utils.clearHMS(rangeDate[index]).getTime()
       )
         newDate = ''
-      onChange(newDate, true, type !== 'datetime')
+
+      onChange(...utils.dayHandleChangeParams(newDate, true, type !== 'datetime'))
     }
   }
 
   handleTimeChange(time, change, end, mode) {
-    this.props.onChange(time, true, false, mode)
+    this.props.onChange(...utils.timeHandleChangeParams(time, true, false, mode))
   }
 
   handleWeek(hover) {
@@ -101,7 +102,12 @@ class Day extends PureComponent {
 
   handleMonth(month) {
     const { current, onChange } = this.props
-    onChange(utils.addMonths(current, month))
+    // warning: month === 12 || month === -12, this is statement is year mode.
+    if (month === -12 || month === 12) {
+      onChange(...utils.yearHandleChangeParams(utils.addMonths(current, month)))
+      return
+    }
+    onChange(...utils.monthHandleChangeParams(utils.addMonths(current, month)))
   }
 
   handleModeChange(mode) {

@@ -96,8 +96,6 @@
 @danger-color-dark-5_fade-0: var(--danger-color-dark-5_fade-0, @danger-color-dark-5_fade-0-value);
 @danger-color-dark-5_fade-60: var(--danger-color-dark-5_fade-60, @danger-color-dark-5_fade-60-value);
 
-@divider-color: var(--divider-color, #f0f0f0);
-
 @checkbox-margin-right-value: 24px;
 @checkbox-margin-right: var(--checkbox-margin-right, @checkbox-margin-right-value);
 
@@ -161,9 +159,9 @@
 
 @button-default-text-color: var(--button-default-text-color, @btn-default-color);
 
-@button-default-size-width: var(--button-default-size-width, 64px);
-@button-small-size-width: var(--button-small-size-width, 48px);
-@button-large-size-width: var(--button-large-size-width, 64px);
+@button-default-size-width: var(--button-default-size-width, 0);
+@button-small-size-width: var(--button-small-size-width, 0);
+@button-large-size-width: var(--button-large-size-width, 0);
 
 @pagination-border-radius-value: @border-radius-base;
 @pagination-border-radius: var(--pagination-border-radius, @pagination-border-radius-value);
@@ -215,6 +213,7 @@
 @table-odd-td-bgc: var(--table-odd-td-bgc, #fff);
 
 @table-margin-bottom: var(--table-margin-bottom, @line-height-computed);
+@table-header-top-divider-width: var(--table-header-top-divider-width, 0);
 
 @tooltip-bg-value: #000;
 @tooltip-bg: var(--tooltip-bg, @tooltip-bg-value);
@@ -387,7 +386,7 @@
 @menu-item-light-hover-color: var(--menu-item-light-hover-color, @menu-highlight-color);
 @menu-item-light-hover-bgc: var(--menu-item-light-hover-bgc, transparent);
 @menu-item-dark-hover-color: var(--menu-item-dark-hover-color, #fff);
-@menu-item-dark-hover-bgc: var(--menu-item-dark-hover-bgc, transparent);
+@menu-item-dark-hover-bgc: var(--menu-item-dark-hover-bgc, fade(@colors-primary-value, 50%));
 
 @menu-active-bar: var(--menu-active-bar, 3px);
 
@@ -397,6 +396,14 @@
 @menu-root-node-bgc: var(--menu-root-node-bgc, transparent);
 
 @menu-children-segmentation: var(--menu-children-segmentation, transparent);
+
+@menu-vertical-dark-parent-active-bgc: var(--menu-vertical-dark-parent-active-bgc, #020B18);
+
+@menu-item-has-children-active-bgc: var(--menu-item-has-children-active-bgc, @colors-primary);
+@menu-item-has-children-active-color: var(--menu-item-has-children-active-color, #fff);
+
+// vertical menu in-path bar
+@menu-vertical-in-path-bar-width: var(--menu-vertical-in-path-bar-width, 4px);
 
 @alert-border-width-value: 1px;
 @alert-border-width: var(--alert-border-width, @alert-border-width-value);
@@ -641,3 +648,9 @@
 // list
 @list-item-bottom-border-width: var(--list-item-bottom-border-width, 1px);
 @list-item-hover-bgc: var(--list-item-hover-bgc,  rgba(25, 122, 250, 0.1));
+
+//divider
+@divider-width-base: 1px; // width of the border for a component
+@divider-text-padding: 1em;
+@divider-orientation-margin: 5%;
+@divider-color: var(--divider-color, #f0f0f0);
