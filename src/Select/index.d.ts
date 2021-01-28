@@ -1,8 +1,15 @@
 import * as React from 'react'
+import { StandardProps, RegularAttributes, StructDataStandardProps, FormItemStandardProps, ListItemStandardProps, CommonProps } from '../@types/common'
 
 type ReactNode = React.ReactNode;
 
-export interface SelectProps<Item, Value>  {
+export interface SelectProps<Item, Value> extends 
+StandardProps, 
+FormItemStandardProps<Value>, 
+StructDataStandardProps<Item>, 
+ListItemStandardProps<Item, Value>,
+Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
+  {
   /**
    * width
    *
@@ -49,22 +56,13 @@ export interface SelectProps<Item, Value>  {
   lineHeight?: number;
   
   /**
-   * select default content
-   *
-   * 默认占位内容 placeholder
-   *
-   * default: none
-   */
-  placeholder?: ReactNode;
-  
-  /**
    * size of select
    *
    * 尺寸
    *
    * default: 'default'
    */
-  size?: 'small' | 'default' | 'large';
+  size?: RegularAttributes.Size;
   
   /**
    * When trim is true, blank characters are automatically deleted when lose focus。
@@ -74,24 +72,6 @@ export interface SelectProps<Item, Value>  {
    * default: false
    */
   trim?: boolean;
-  
-  /**
-   * expand style
-   *
-   * 扩展外层style
-   *
-   * default: null
-   */
-  
-  style?: React.CSSProperties,
-  /**
-   * When it is true, the pop-up layer of option append into document.body.
-   *
-   * 为 true 时，选项弹出层在 DOM 中独立 render
-   *
-   * default: false
-   */
-  absolute?: boolean;
 
   /**
    * option list is auto adapt
@@ -101,15 +81,6 @@ export interface SelectProps<Item, Value>  {
    * default: false
    */
   autoAdapt?: boolean;
-
-  /**
-   * If clearable is true, show clear value icon
-   *
-   * 是否可清除值
-   *
-   * default: false
-   */
-  clearable?: boolean;
 
   /**
    * if it is true, it will be multiple selection
@@ -137,15 +108,6 @@ export interface SelectProps<Item, Value>  {
   columnWidth?: number;
 
   /**
-   * Options data
-   *
-   * 数据项，单条数据作为 value 的数据必须是唯一的
-   *
-   * default: required
-   */
-  data?: Item[];
-
-  /**
    * tree select data，[{children: []}]
    *
    * 树形结构数据项，[{children: []}]
@@ -153,24 +115,6 @@ export interface SelectProps<Item, Value>  {
    * default: -
    */
   treeData?: Item[];
-
-  /**
-   * Initial value
-   *
-   * 初始值
-   *
-   * default:
-   */
-  defaultValue?: Value | Value[];
-
-  /**
-   * When the value is true, disabled all checkboxes; When the value is function, disable the checkbox that this function returns true.
-   *
-   * 如果 disabled 为 true，禁用全部选项，如果 disabled 为函数，根据函数反回结果禁用选项
-   *
-   * default: false
-   */
-  disabled?: ((data: Item) => boolean) | boolean;
 
   /**
    * ms. The delay of user input triggering filter events
@@ -182,40 +126,13 @@ export interface SelectProps<Item, Value>  {
   filterDelay?: number;
 
   /**
-   * Format value. The defaule value is return the original data. When it is a string, the value is fetched from the original data as a key equivalent to (d) => d[format] When it is a function, use its return value.
-   *
-   * 格式化 value。 默认值，返回原始数据。 为string时，会作为key从原始数据中获取值，相当于 (d) => d[format]。为函数时，以函数返回结果作为 value。
-   *
-   * default: d => d
-   */
-  format?: ((data: Item) => any) | string;
-
-  /**
-   * The name of a Form that accesses data
-   *
-   * Form 存取数据的名称
-   *
-   * default: -
-   */
-  name?: string;
-
-  /**
-   * Generate a auxiliary method for each key. If not filled, index will be used(not recommended,there may be problems with more than 10 data). When it is a function, use its return value. When it is a string，ues the value of the string. For example, 'id' is the same thing as (d) => d.id.
-   *
-   * 生成每一项key的辅助方法。为 true 时，以数据项本身作为key，相当于 (d => d)。为函数时，使用此函数返回值。为string时，使用这个string对应的数据值。如 'id'，相当于 (d => d.id)
-   *
-   * default: index
-   */
-  keygen: ((data: Item) => string) | string | true;
-
-  /**
    * value is the datum.getValue().
    *
    * 值发生改变时触发
    *
    * default: -
    */
-  onChange?: (value: Value | Value[], data: Item, checked: boolean) => void;
+  onChange?: (value: Value, data: Item, checked: boolean) => void;
 
   /**
    * If the onCreate event is set, the component is inputable. When onCreate is a function, the return value of this function is diaplay at the top as a new option. When onCreate is true, use the built-in functuon text => text.
@@ -224,7 +141,7 @@ export interface SelectProps<Item, Value>  {
    *
    * default: -
    */
-  onCreate?: ((input: string) => Item | string) | boolean;
+  onCreate?: ((input: string | Item) => Item | string) | boolean;
 
   /**
    * When the onFilter is not empty, you can filter data by input. If the onFilter returns a function, use this function as a front-end filter. If return undefined, you can do your own backend filtering.
@@ -236,42 +153,6 @@ export interface SelectProps<Item, Value>  {
   onFilter?: (text: string) => (data: Item) => boolean;
 
   /**
-   * By default, the result of the format function is used to compare whether it matches. In some cases (for example, whe an object that returns the original data is updated, an different option with the same value  is generated), the prediction function needs to be used to determine whether match
-   *
-   * (val, d) => val===format(d) | 默认使用 format 函数执行的结果来比较是否匹配，在某些情况下（例如返回原始数据的对象，更新数据时，生成了一个值相同，非同一个对象的选项），需要借助 prediction 函数来判断是否匹配
-   *
-   * default: (val, d) => val===format(d)
-   */
-  prediction?: (value: Value, data: Item) => boolean;
-
-  /**
-   * When it is a string, return d[string]. When it is a function, return the result of the function.
-   *
-   * 为 string 时，返回 d[string]。 为 function 时，返回函数结果
-   *
-   * default: d => d
-   */
-  renderItem?: string | ((data: Item) => ReactNode);
-
-  /**
-   * The content displayed in the result after selecting, if not set, use renderT
-   *
-   * 选中后在结果中显示的内容，默认和 renderT 相同
-   *
-   * default: renderT
-   */
-  renderResult?: ((data: Item) => ReactNode) | string;
-
-  /**
-   * In the Form, the value will be taken over by the form and the value will be invalid.
-   *
-   * 在Form中，value会被表单接管，value无效
-   *
-   * default:
-   */
-  value?: Value | Value[];
-
-  /**
    * Merges selected values, valid only in multiselect mode
    *
    * 将选中值合并，只在多选模式下有效
@@ -279,15 +160,6 @@ export interface SelectProps<Item, Value>  {
    *  default: false
    */
   compressed?: boolean;
-
-  /**
-   * options z-index
-   *
-   * 选项列表 z-index 值
-   *
-   * default: 1000
-   */
-  zIndex?: number;
 
   /**
    * group by
@@ -443,6 +315,6 @@ export interface SelectProps<Item, Value>  {
   header?: ReactNode;
 }
 
-declare class Select<Item = any, Value = (string[] | string)> extends React.Component<SelectProps<Item, Value>, {}> {}
+declare class Select<Item = any, Value = any> extends React.Component<SelectProps<Item, Value>, {}> {}
 
 export default Select
