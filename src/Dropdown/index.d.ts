@@ -16,7 +16,7 @@ interface DropdownNode {
 
 export type DropdownItem = DropdownNode | React.ReactNode
 
-export interface DropdownProps extends StandardProps{
+export interface DropdownProps extends StandardProps, Pick<StructDataStandardProps<DropdownNode>, 'renderItem'>{
     /**
      * Specifies the dropdown should be disabled
      * 
@@ -79,15 +79,6 @@ export interface DropdownProps extends StandardProps{
      * default: -
      */
     placeholder?: React.ReactNode;
-
-    /**
-     * Set the displayed content. If it is a string,  the corresponding value will be displayed. <br />If it is a function, the return value will be displayed and its parameter is the current data.
-     * 
-     * 设置显示的内容,如果是字符串,则为对应的值<br />如果是函数,则返回值为显示的内容,参数为当条数据
-     * 
-     * default: -
-     */
-    renderItem?: StructDataStandardProps<DropdownNode>['renderItem'] | string;
 
     /**
      * same as Button
