@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import { datepickerClass } from '../styles'
 import utils from './utils'
 import Icon from './Icon'
@@ -114,13 +115,38 @@ class Day extends PureComponent {
     this.props.onModeChange(mode)
   }
 
-  handleDayHover(date) {
+  handleDayHover(date, isDisabled) {
+    if (isDisabled) {
+      this.props.onDayHover(null)
+      return
+    }
     this.props.onDayHover(date)
   }
 
-  renderDay(date, minD, maxD) {
+  /**
+   * attention: date & rangeDate instanceof Date
+   * @params {Date} date
+   * @return {[isStart, isHoverRange, isEnd]} result
+   */
+  checkToAddRangeClass(date) {
+    const { hoverDate, rangeDate, type } = this.props
+    if (!hoverDate || type === 'week') return []
+    const [startDate, endDate] = rangeDate
+    if (!startDate) {
+      // just have end date  ?
+      // range = [hoverDate, endDate]
+      return [utils.isEqual(date, hoverDate), date >= hoverDate && date <= endDate, utils.isEqual(date, endDate)]
+    }
+    // range = [startDate, hoverDate]
+    return [utils.isEqual(date, startDate), date >= startDate && date <= hoverDate, utils.isEqual(date, hoverDate)]
+  }
+
+  renderDay(date, minD, maxD, mapIndex) {
     const { current, disabled, value, index, type, rangeDate, range, rangeTemp, min, max } = this.props
     const { hover } = this.state
+
+    const [isStart, isHoverRange, isEnd] = this.checkToAddRangeClass(date)
+
     const hmsDate = new Date(date)
     utils.setTime(hmsDate, current)
     let isDisabled = disabled ? disabled(date) : false
@@ -183,7 +209,7 @@ class Day extends PureComponent {
         )
       }
     } else if (rangeDate && current.getMonth() === date.getMonth()) {
-      hoverProps.onMouseEnter = this.handleDayHover.bind(this, date)
+      hoverProps.onMouseEnter = this.handleDayHover.bind(this, date, isDisabled)
 
       classList.push(utils.isSameDay(date, rangeDate[index]) && 'active')
 
@@ -199,7 +225,16 @@ class Day extends PureComponent {
     return (
       <div
         key={date.getTime()}
-        className={hoverClass}
+        className={classnames(
+          hoverClass,
+          datepickerClass(
+            isHoverRange && 'prev-hover',
+            isStart && 'prev-hover-start',
+            isEnd && 'prev-hover-end',
+            mapIndex % 7 === 0 && 'line-start',
+            mapIndex % 7 === 6 && 'line-end'
+          )
+        )}
         onClick={isDisabled ? undefined : this.handleDayClick.bind(this, date, minD, maxD)}
         onDoubleClick={isDisabled ? undefined : this.handleDayDoubleClick.bind(this, date)}
         {...hoverProps}
@@ -236,7 +271,7 @@ class Day extends PureComponent {
   }
 
   render() {
-    const { current, min, index, max } = this.props
+    const { current, min, index, max, type } = this.props
     const days = this.getDays()
     this.today = utils.newDate()
     const minDate = min && new Date(utils.format(min, minStr, new Date()))
@@ -284,7 +319,9 @@ class Day extends PureComponent {
           ))}
         </div>
 
-        <div className={datepickerClass('list')}>{days.map(d => this.renderDay(d, minDate, maxDate))}</div>
+        <div className={datepickerClass('list', `type-${type}`)}>
+          {days.map((d, mapIndex) => this.renderDay(d, minDate, maxDate, mapIndex))}
+        </div>
 
         <div style={{ flex: 1 }} />
 
@@ -313,6 +350,7 @@ Day.propTypes = {
   value: PropTypes.object,
   defaultTime: PropTypes.array,
   allowSingle: PropTypes.bool,
+  hoverDate: PropTypes.instanceOf(Date),
 }
 
 export default Day
