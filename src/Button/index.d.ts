@@ -1,9 +1,9 @@
 import * as React from 'react'
+import { StandardProps, RegularAttributes } from '../@types/common'
 
-type SizeType =  'large' | 'default' | 'small';
 type ButtonType = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'link';
 
-export interface ButtonProps {
+export interface ButtonProps extends StandardProps {
 
   /**
    * The content inside the button, can be a text icon, etc.
@@ -13,15 +13,6 @@ export interface ButtonProps {
    * default: required
    */
   children?: React.ReactNode;
-
-  /**
-   * extend className
-   * 
-   * 扩展className
-   * 
-   * default: -
-   */
-  className?: string;
 
   /**
    * Specifies the button should be disabled
@@ -57,16 +48,8 @@ export interface ButtonProps {
    * 
    * default: 'default'
    */
-  size?: SizeType;
+  size?: RegularAttributes.Size;
 
-  /**
-   * Container element style
-   * 
-   * 最外层扩展样式
-   * 
-   * default: -
-   */
-  style?: React.CSSProperties;
 
   /**
    * type of button
@@ -124,7 +107,7 @@ export interface ButtonGroupProps {
    * 
    * default: -
    */
-  size?: SizeType;
+  size?: RegularAttributes.Size;
 
   /**
    * same as Button

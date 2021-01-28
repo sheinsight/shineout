@@ -1,27 +1,10 @@
 import * as React from 'react'
+import { StandardProps } from '../@types/common'
 
 type ReactNode = React.ReactNode;
 
 
-export interface CardGroupProps {
-
-  /**
-   * extend className
-   * 
-   * 扩展className
-   * 
-   * default: none
-   */
-  className?: string;
-
-  /**
-   * wrapper style
-   * 
-   * 外层样式
-   * 
-   * default: none
-   */
-  style?: React.CSSProperties;
+export interface CardGroupProps extends StandardProps {
 
   /**
    * group height
@@ -71,25 +54,7 @@ export interface CardGroupProps {
 }
 
 
-export interface CardGroupItemProps<T> {
-  
-    /**
-     * desc: extend className
-     * 
-     * 扩展className
-     * 
-     * default: none
-     */
-    className?: string;
-  
-    /**
-     * desc: card style
-     * 
-     * 卡片的样式
-     * 
-     * default: none
-     */
-    style?: React.CSSProperties;
+export interface CardGroupItemProps<T> extends StandardProps {
   
     /**
      * desc: lazy load placeholder, enable lazy load while set

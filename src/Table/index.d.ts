@@ -2,6 +2,8 @@
 import * as React from 'react'
 import { StickyProps } from '../Sticky'
 import { PaginationProps } from '../Pagination'
+import { ListItemStandardProps, StandardProps,  RegularAttributes, keyType } from '../@types/common'
+
 
 type ReactNode = React.ReactNode;
 
@@ -17,7 +19,7 @@ export interface ColumnItem<T> {
    * 
    * default: 'left'
    */
-  align?: 'left' | 'center' | 'right',
+  align?: RegularAttributes.Align,
 
   /**
    * The function for controlling to merge columns. The return value is an integer indicating the number of columns that need to be merged。
@@ -165,7 +167,7 @@ export interface TableRef {
   [key: string]: any;
 }
 
-export interface TableProps<TRD> {
+export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardProps<Value, TRD> {
 
   /**
    * Whether to display the border
@@ -175,15 +177,6 @@ export interface TableProps<TRD> {
    * default: false
    */
   bordered?: boolean;
-
-  /**
-   * extend className
-   * 
-   * 扩展className
-   * 
-   * default: -
-   */
-  className?: string;
 
   /**
    * array，见 TableColumn
@@ -204,15 +197,6 @@ export interface TableProps<TRD> {
   data?: TRD[];
 
   /**
-   * When the value is true, disabled all checkboxes; When the value is function, disable the checkbox that this function returns true.
-   * 
-   * 如果 disabled 为 true，禁用全部选项，如果 disabled 为函数，根据函数反回结果禁用选项
-   * 
-   * default: false
-   */
-  disabled?: ((data: TRD) => boolean) | boolean;
-
-  /**
    * visual scroll-bar direction, empty will use native scroll-bar and disabled lazy load
    * 
    * 虚拟滚动条方向设置，不设置则使用原生滚动条且关闭懒加载
@@ -222,15 +206,6 @@ export interface TableProps<TRD> {
   fixed?: 'both' | 'x' | 'y' | 'auto';
 
   /**
-   * Format value. The defaule value is return the original data. When it is a string, the value is fetched from the original data as a key equivalent to (d) => d[format]. When it is a function, use its return value.
-   * 
-   * 格式化 value。默认值，返回原始数据。为string时，会作为key从原始数据中获取值，相当于 (d) => d[format]。 为函数时，以函数返回结果作为 value
-   * 
-   * default: d => d
-   */
-  format?: ((data: TRD) => any) | string;
-
-  /**
    * When it is true, a default [Spin](/components/Spin) component will be displayed, a custom loading icon can be passed in to replace.
    * 
    * 数据加载中，为true时会展示一个默认的[Spin](/components/Spin)组件，可以传入一个自定义的Spin代替
@@ -238,15 +213,6 @@ export interface TableProps<TRD> {
    * default: false
    */
   loading?: boolean | ReactNode;
-
-  /**
-   * Generate a auxiliary method for each key. If not filled, index will be used (not recommended, in some cases there may be problems). When it is a function, use its return value. When it is a string，ues the value of the string.For example, 'id' is the same thing as (d) => d.id .
-   * 
-   * 生成每一项key的辅助方法。 为 true 时，以数据项本身作为key，相当于 (d => d)。 为函数时，使用此函数返回值。 为string时，使用这个string对应的数据值。如 'id'，相当于 (d => d.id)
-   * 
-   * default: index
-   */
-  keygen?: ((data: TRD) => any) | string | boolean;
 
   /**
    * The callback function after scrolling. x: Horizontal rolling ratio(0 <= x <= 1)。y: Vertical scroll ratio(0 <= y <= 1)
@@ -275,14 +241,6 @@ export interface TableProps<TRD> {
    */
   onRowSelect?: (rows: TRD) => void;
 
-  /**
-   * By default, the result of the format function is used to compare whether it matches. In some cases (for example, whe an object that returns the original data is updated, an different option with the same value  is generated), the prediction function needs to be used to determine whether match
-   * 
-   * (val, d) => val===format(d) | 默认使用 format 函数执行的结果来比较是否匹配，在某些情况下（例如返回原始数据的对象，更新数据时，生成了一个值相同，非同一个对象的选项），需要借助 prediction 函数来判断是否匹配
-   * 
-   * default: (val, d) => val===format(d)
-   */
-  prediction?: (v: any, data: TRD) => boolean;
 
   /**
    * Specify row className
@@ -330,22 +288,13 @@ export interface TableProps<TRD> {
   striped?: boolean;
 
   /**
-   * Container element style
-   * 
-   * 扩展样式
-   * 
-   * default: -
-   */
-  style?: React.CSSProperties;
-
-  /**
    * The current selected value.
    * 
    * 当前选中值，格式和 onRowSelect 返回值一致
    * 
    * default: none
    */
-  value?: any[];
+  value?: Value[];
 
   /**
    * empty text
@@ -381,7 +330,7 @@ export interface TableProps<TRD> {
    * 
    * default: alphaSort(Column.sorter, sorter)
    */
-  sorter?: (sortKey: any, sorter: 'asc' | 'desc', sortedList: any[]) => (a: TRD, b: TRD) => boolean;
+  sorter?: (sortKey: keyType, sorter: 'asc' | 'desc', sortedList: any[]) => (a: TRD, b: TRD) => boolean;
 
   /**
    * Tree Table expanded row keys
@@ -390,7 +339,7 @@ export interface TableProps<TRD> {
    * 
    * default: none
    */
-  treeExpandKeys?: any[];
+  treeExpandKeys?: keyType[];
 
   /**
    * expand row change, keys is expanded row keys
@@ -462,7 +411,7 @@ export interface TableProps<TRD> {
    * 
    * default: none
    */
-  defaultTreeExpandKeys?: any[];
+  defaultTreeExpandKeys?: keyType[];
 
   /**
    * Whether to recalculate the column width after the data changes
@@ -516,7 +465,7 @@ export interface TableProps<TRD> {
    * 
    * default: none
    */
-  expandKeys?: any[];
+  expandKeys?: keyType[];
 
   /**
    * sticky header, When it is true, the distance from the top is 0. When it is an object, the attribute value reference [Sticky component] (/components/Sticky)
@@ -546,7 +495,7 @@ export interface TableProps<TRD> {
   tableRef?: (table: TableRef) => void
 }
 
-declare class Table<TRD = TableRowData> extends React.Component<TableProps<TRD>, {}> {
+declare class Table<Value = any, TRD = TableRowData> extends React.Component<TableProps<Value, TRD>, {}> {
   render(): JSX.Element;
 }
 

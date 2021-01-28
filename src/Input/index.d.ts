@@ -1,19 +1,12 @@
 import * as React from 'react'
 import { PopoverProps } from '../Popover'
 import { RuleParamsType } from '../Rule'
+import { StandardProps, FormItemStandardProps, RegularAttributes } from '../@types/common'
 
 type ReactNode = React.ReactNode;
 
-export interface InputProps<T> {
+export interface InputProps<T> extends StandardProps, FormItemStandardProps<T> {
 
-  /**
-   * Default value
-   * 
-   * 默认值
-   * 
-   * default: -
-   */
-  defaultValue?: string | number;
 
   /**
    * User input triggers the onChange and to check interval, unit: ms.
@@ -24,23 +17,6 @@ export interface InputProps<T> {
    */
   delay?: number;
 
-  /**
-   * The name of Form which access data
-   * 
-   * Form 存取数据的名称
-   * 
-   * default: none
-   */
-  name?: string;
-
-  /**
-   * The callback function when the value is changing
-   * 
-   * 值改变回调函数
-   * 
-   * default: -
-   */
-  onChange?: (value: T) => void;
 
   /**
    * The callback function for enter key
@@ -51,14 +27,6 @@ export interface InputProps<T> {
    */
   onEnterPress?: (value: T) => void;
 
-  /**
-   * Same as the native input tag
-   * 
-   * 同原生 input 标签的 placeholder
-   * 
-   * default: -
-   */
-  placeholder?: string;
 
   /**
    * The position where the text pop up
@@ -67,7 +35,7 @@ export interface InputProps<T> {
    * 
    * default: none
    */
-  popover?: 'top-left' | 'top' | 'top-right' | 'bottom-left' | 'bottom' | 'bottom-right';
+  popover?: RegularAttributes.Position;
 
   /**
    * size of input
@@ -76,16 +44,7 @@ export interface InputProps<T> {
    * 
    * default: 'default'
    */
-  size?: 'large' | 'default' | 'small';
-
-  /**
-   * Container element style
-   * 
-   * 最外层扩展样式
-   * 
-   * default: -
-   */
-  style?: React.CSSProperties;
+  size?: RegularAttributes.Size;
 
   /**
    * Prompt information
@@ -115,15 +74,6 @@ export interface InputProps<T> {
   type?: string;
 
   /**
-   * The defaultValue and value can be set at the same time and defaultValue will be overridden by value。In the Form, the value will be taken over by the form and the value will lose efficacy.
-   * 
-   * defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖。在Form中，value会被表单接管，value无效
-   * 
-   * default: -
-   */
-  value?: T;
-
-  /**
    * Remove content of the input when clicking the clear icon, clear event function
    * 
    * 可点击清空图标删除输入框内容，为函数式表示清空回调
@@ -148,7 +98,7 @@ export interface InputProps<T> {
    * 
    * default: -
    */
-  info?: (value: T) => string;
+  info?: (msg: string) => string;
 
   /**
    * Vilidate popup properties, specific properties refer to Popover component description

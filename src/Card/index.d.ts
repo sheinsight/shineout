@@ -1,18 +1,8 @@
 import * as React from 'react'
 import { ButtonProps } from '../Button/index'
+import { RegularAttributes, StandardProps } from '../@types/common'
 
-export type AlignType = 'left' | 'center' | 'right'
-
-export interface CardProps {
-
-  /**
-   * Extend className
-   * 
-   * 扩展className
-   * 
-   * default: none
-   */
-  className?: string;
+export interface CardProps extends StandardProps {
 
   /**
    * Whether can be collapsed，'bottom' can collaps on bottom
@@ -60,15 +50,6 @@ export interface CardProps {
   shadow?: true | false | 'hover';
 
   /**
-   * Container element style
-   * 
-   * 最外层扩展样式
-   * 
-   * default: -
-   */
-  style?: React.CSSProperties;
-
-  /**
    * Card.Accordion expand controlled key
    * 
    * 手风琴下控制展开的值
@@ -79,25 +60,7 @@ export interface CardProps {
 
 }
 
-export interface CardHeaderProps {
-
-  /**
-   * Extend className
-   * 
-   * 扩展className
-   * 
-   * default: -
-   */
-  className?: string;
-
-  /**
-   * Element style
-   * 
-   * 最外层扩展样式
-   * 
-   * default: -
-   */
-  style?: React.CSSProperties;
+export interface CardHeaderProps extends StandardProps {
 
   /**
    * align
@@ -106,51 +69,13 @@ export interface CardHeaderProps {
    * 
    * default: none
    */
-  align?: AlignType;
+  align?: RegularAttributes.Align;
 
 }
 
-export interface CardBodyProps {
+export interface CardBodyProps extends StandardProps {}
 
-  /**
-   * Extend className
-   * 
-   * 扩展className
-   * 
-   * default: -
-   */
-  className?: string;
-
-  /**
-   * Element style
-   * 
-   * 最外层扩展样式
-   * 
-   * default: -
-   */
-  style?: React.CSSProperties;
-
-}
-
-export interface CardFooterProps {
-
-  /**
-   * Extend className
-   * 
-   * 扩展className
-   * 
-   * default: -
-   */
-  className?: string;
-
-  /**
-   * Element style
-   * 
-   * 最外层扩展样式
-   * 
-   * default: -
-   */
-  style?: React.CSSProperties;
+export interface CardFooterProps extends StandardProps {
 
   /**
    * align
@@ -159,11 +84,11 @@ export interface CardFooterProps {
    * 
    * default: none
    */
-  align?: AlignType;
+  align?: RegularAttributes.Align;
 
 }
 
-export interface CardAccordionProps {
+export interface CardAccordionProps<T> {
 
   /**
    * Active value. It is -1 when fully closed. Used in controlled state. be id while Card.id setted
@@ -172,7 +97,7 @@ export interface CardAccordionProps {
    * 
    * default: none
    */
-  active?: any;
+  active?: T;
 
   /**
    * The default active value for uncontrolled state, be id while Card.id setted
@@ -181,7 +106,7 @@ export interface CardAccordionProps {
    * 
    * default: 0
    */
-  defaultActive?: any;
+  defaultActive?: T;
 
   /**
    * The callback function when the panel is opened
@@ -202,7 +127,7 @@ declare class CardSubmit extends React.Component<CardSubmitProps, {}> {
   render(): JSX.Element;
 }
 
-declare class CardAccordion extends React.Component<CardAccordionProps, {}> {
+declare class CardAccordion<T> extends React.Component<CardAccordionProps<T>, {}> {
   render(): JSX.Element;
 }
 
