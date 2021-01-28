@@ -15,6 +15,7 @@ class Range extends PureComponent {
     this.state = {
       rangeDate: props.value,
       hover: null,
+      hoverIndex: undefined,
     }
 
     this.pickers = []
@@ -51,9 +52,9 @@ class Range extends PureComponent {
     this.setState({ rangeDate })
   }
 
-  handleDayHover(date) {
+  handleDayHover(date, hoverIndex) {
     if (this.state.rangeDate.length >= 1) {
-      this.setState({ hover: date })
+      this.setState({ hover: date, hoverIndex })
     }
   }
 
@@ -213,7 +214,7 @@ class Range extends PureComponent {
   render() {
     // min & max can not to child
     const { current, value, range, children, min, max, quicks, ...props } = this.props
-    const { hover } = this.state
+    const { hover, hoverIndex } = this.state
     const quick = this.createQuick()
     const rangeDate = [...this.state.rangeDate]
     return (
@@ -237,6 +238,7 @@ class Range extends PureComponent {
           value={utils.toDateWithFormat(value[0], props.format)}
           showTimePicker={value.length === 2}
           hoverDate={hover}
+          hoverIndex={hoverIndex}
         />
         <Picker
           {...props}
@@ -255,6 +257,7 @@ class Range extends PureComponent {
           value={utils.toDateWithFormat(value[1], props.format)}
           showTimePicker={value.length === 2}
           hoverDate={hover}
+          hoverIndex={hoverIndex}
         />
       </div>
     )

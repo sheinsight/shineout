@@ -25,6 +25,7 @@ class Day extends PureComponent {
     this.handlePrevYear = this.handleMonth.bind(this, -12)
     this.handleMonthMode = this.handleModeChange.bind(this, 'month')
     this.handleYearMode = this.handleModeChange.bind(this, 'year')
+    this.handleMouseLeave = this.handleDayHover.bind(this, null, true)
     this.handleWeekLeave = this.handleWeek.bind(this, null)
     this.handleTimeChange = this.handleTimeChange.bind(this)
     this.formatWithDefaultTime = this.formatWithDefaultTime.bind(this)
@@ -116,11 +117,12 @@ class Day extends PureComponent {
   }
 
   handleDayHover(date, isDisabled) {
-    if (isDisabled) {
+    const { index, rangeDate } = this.props
+    if (isDisabled || (index === 0 && !rangeDate[1])) {
       this.props.onDayHover(null)
       return
     }
-    this.props.onDayHover(date)
+    this.props.onDayHover(date, index)
   }
 
   /**
@@ -129,16 +131,19 @@ class Day extends PureComponent {
    * @return {[isStart, isHoverRange, isEnd]} result
    */
   checkToAddRangeClass(date) {
-    const { hoverDate, rangeDate, type } = this.props
-    if (!hoverDate || type === 'week') return []
+    const { hoverDate, rangeDate, type, index, hoverIndex } = this.props
+    if (!hoverDate || type === 'week' || (index === 0 && !rangeDate[1]) || (index === 1 && !rangeDate[0])) return []
     const [startDate, endDate] = rangeDate
-    if (!startDate) {
-      // just have end date  ?
-      // range = [hoverDate, endDate]
-      return [utils.isEqual(date, hoverDate), date >= hoverDate && date <= endDate, utils.isEqual(date, endDate)]
+    // Distinguish startDate and endDate
+    // index === 0 && hoverIndex === 1  =>  date >= startDate && date <= hoverDate
+    // index === 0 && hoverIndex === 0  =>  date >= hoverDate && date <= endDate
+    // index === 1 && hoverIndex === 0  =>  date >= hoverDate && date <= endDate
+    // index === 1 && hoverIndex === 1  =>  date >= startDate && date <= hoverDate
+    // index === 0 && hoverIndex === 0 && hoverDate >= endDate =>  date >= startDate && date <= hoverDate
+    if (hoverIndex === 1 || (index === 0 && hoverIndex === index && hoverDate >= endDate)) {
+      return [utils.isEqual(date, startDate), date >= startDate && date <= hoverDate, utils.isEqual(date, hoverDate)]
     }
-    // range = [startDate, hoverDate]
-    return [utils.isEqual(date, startDate), date >= startDate && date <= hoverDate, utils.isEqual(date, hoverDate)]
+    return [utils.isEqual(date, hoverDate), date >= hoverDate && date <= endDate, utils.isEqual(date, endDate)]
   }
 
   renderDay(date, minD, maxD, mapIndex) {
@@ -351,6 +356,7 @@ Day.propTypes = {
   defaultTime: PropTypes.array,
   allowSingle: PropTypes.bool,
   hoverDate: PropTypes.instanceOf(Date),
+  hoverIndex: PropTypes.number,
 }
 
 export default Day
