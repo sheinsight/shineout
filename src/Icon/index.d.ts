@@ -2,7 +2,7 @@ import * as React from 'react'
 import { StandardProps, RegularAttributes } from '../@types/common'
 
 
-export interface IconProps extends StandardProps {
+export interface IconComProps extends StandardProps {
 
   /**
    * Content, text or react component
@@ -55,15 +55,10 @@ export interface IconProps extends StandardProps {
    */
   size?: RegularAttributes.Size;
 
-
-  /**
-   * desc: Icon CSS file addresses, using online addresses, don't need to be included in the project if it's already referenced in the link, it can be null
-   * 图标css文件地址，使用在线地址，不需要引入到项目中。如果在 link 中已经引用过，可以为空(null)
-   * default:
-   */
-  url?: string;
-
 }
 
-declare class Icon extends React.Component<IconProps> {}
+export type IconCom = React.FC<IconComProps>
+
+declare function Icon(url: string, fontFamily?: string = 'iconfont', prefix?: string = 'icon'): IconCom
+
 export default Icon
