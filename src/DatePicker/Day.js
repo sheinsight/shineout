@@ -133,17 +133,17 @@ class Day extends PureComponent {
   checkToAddRangeClass(date) {
     const { hoverDate, rangeDate, type, index, hoverIndex } = this.props
     if (!hoverDate || type === 'week' || (index === 0 && !rangeDate[1]) || (index === 1 && !rangeDate[0])) return []
-    const [startDate, endDate] = rangeDate
+    const [startDate, endData] = rangeDate
     // Distinguish startDate and endDate
-    // index === 0 && hoverIndex === 1  =>  date >= startDate && date <= hoverDate
-    // index === 0 && hoverIndex === 0  =>  date >= hoverDate && date <= endDate
-    // index === 1 && hoverIndex === 0  =>  date >= hoverDate && date <= endDate
-    // index === 1 && hoverIndex === 1  =>  date >= startDate && date <= hoverDate
-    // index === 0 && hoverIndex === 0 && hoverDate >= endDate =>  date >= startDate && date <= hoverDate
-    if (hoverIndex === 1 || (index === 0 && hoverIndex === index && hoverDate >= endDate)) {
-      return [utils.isEqual(date, startDate), date >= startDate && date <= hoverDate, utils.isEqual(date, hoverDate)]
+    if (hoverIndex === 0) {
+      if (hoverDate <= endData) {
+        return [utils.isEqual(date, hoverDate), date >= hoverDate && date <= endData, utils.isEqual(date, endData)]
+      }
+      const isHoverDate = utils.isEqual(date, hoverDate)
+      return [isHoverDate, isHoverDate, isHoverDate]
     }
-    return [utils.isEqual(date, hoverDate), date >= hoverDate && date <= endDate, utils.isEqual(date, endDate)]
+
+    return [utils.isEqual(date, startDate), date >= startDate && date <= hoverDate, utils.isEqual(date, hoverDate)]
   }
 
   renderDay(date, minD, maxD, mapIndex) {

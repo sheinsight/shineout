@@ -3,8 +3,8 @@
 
 @datepicker-prefix: ~'@{so-prefix}-datepicker';
 
-@datepicker-list-cell-size: 32px;
-@datepicker-list-outer-size: 40px;
+@datepicker-list-cell-size: 30px;
+@datepicker-list-outer-size: 32px;
 
 .@{datepicker-prefix} {
   &:focus {
@@ -207,7 +207,7 @@
     .@{datepicker-prefix}-list span {
       &:hover {
         background: @datepicker-day-hover-bg;
-        color: #000;
+        color: @colors-primary;
       }
       &:hover.@{datepicker-prefix}-today {
         background: transparent;
@@ -296,7 +296,7 @@
       span {
         display: inline-block;
         width: @datepicker-list-outer-size;
-        line-height: @datepicker-list-cell-size;
+        line-height: @datepicker-list-outer-size;
       }
     }
 
@@ -309,15 +309,15 @@
       div {
         display: inline-block;
         width: @datepicker-list-outer-size;
-        height: @datepicker-list-cell-size;
+        height: @datepicker-list-outer-size;
         margin: 4px 0;
+        padding: 1px 0;
       }
 
       // ---- prev hover dash border ----
 
       .@{datepicker-prefix}-prev-hover:not(.@{datepicker-prefix}-active) {
         position: relative;
-        // background-color: @datepicker-day-hover-bg;
 
         &::before {
           content: ' ';
@@ -330,53 +330,57 @@
           border-top: 1px dashed @colors-primary;
           border-bottom: 1px dashed @colors-primary;
         }
+      }
 
-
+      .@{datepicker-prefix}-hover:not(.@{datepicker-prefix}-active)  {
         & > span:hover {
           background-color: transparent;
-          color: @gray-600;
+          color: @colors-primary;
         }
       }
 
       // end -> border-right
-      .@{datepicker-prefix}-prev-hover.@{datepicker-prefix}-prev-hover-end:not(.@{datepicker-prefix}-active),
-      .@{datepicker-prefix}-prev-hover.@{datepicker-prefix}-line-end:not(.@{datepicker-prefix}-active) {
+      .@{datepicker-prefix}-prev-hover.@{datepicker-prefix}-prev-hover-end,
+      .@{datepicker-prefix}-prev-hover.@{datepicker-prefix}-line-end {
         &::before  {
           border-right: 1px dashed @colors-primary;
         }
       }
 
       // start -> border-left
-      .@{datepicker-prefix}-prev-hover.@{datepicker-prefix}-prev-hover-start:not(.@{datepicker-prefix}-active),
-      .@{datepicker-prefix}-prev-hover.@{datepicker-prefix}-line-start:not(.@{datepicker-prefix}-active) {
+      .@{datepicker-prefix}-prev-hover.@{datepicker-prefix}-prev-hover-start,
+      .@{datepicker-prefix}-prev-hover.@{datepicker-prefix}-line-start {
         &::before {
           border-left: 1px dashed @colors-primary;
         }
       }
 
-      // // just start 
-      // .@{datepicker-prefix}-hover-start.@{datepicker-prefix}-prev-hover-start:not(.@{datepicker-prefix}-hover) {
-      //   &::before {
-      //     border-top: 1px dashed @colors-primary;
-      //     border-bottom: 1px dashed @colors-primary;
-      //   }
-      // }
-
       // end with prev-hover class
       .@{datepicker-prefix}-hover-end.@{datepicker-prefix}-prev-hover:not(.@{datepicker-prefix}-prev-hover-end) {
         &::before {
-          right: 0;
+          left: 0;
           top: 0;
-          width: 100%;
+          width: 50%;
           height: 100%;
-          // background-color: @datepicker-day-hover-bg;
           z-index: -1;
           border-top: 1px dashed @colors-primary;
           border-bottom: 1px dashed @colors-primary;
         }
+        &::after {
+          content: ' ';
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 50%;
+          height: 100%;
+          border-top: 1px dashed @colors-primary;
+          border-bottom: 1px dashed @colors-primary;
+        }
       }
-      .@{datepicker-prefix}-hover-end.@{datepicker-prefix}-prev-hover.@{datepicker-prefix}-prev-hover-end {
+      .@{datepicker-prefix}-hover-end.@{datepicker-prefix}-prev-hover-end {
         &::before {
+          width: 100%;
+          border-right: 1px dashed @colors-primary;
           border-top: 1px dashed @colors-primary;
           border-bottom: 1px dashed @colors-primary;
         }
@@ -395,10 +399,39 @@
           border-bottom: 1px dashed @colors-primary;
         }
       }
-      .@{datepicker-prefix}-hover-start.@{datepicker-prefix}-prev-hover.@{datepicker-prefix}-prev-hover-start {
+      // start + prev-hover-end 
+      .@{datepicker-prefix}-hover-start.@{datepicker-prefix}-prev-hover-end {
         &::before {
+          border-right: 1px dashed  @colors-primary;
+        }
+      }
+      
+      .@{datepicker-prefix}-hover-start.@{datepicker-prefix}-prev-hover-start {
+        &::before {
+          width: 100%;
+          border-left: 1px dashed @colors-primary;
           border-top: 1px dashed @colors-primary;
           border-bottom: 1px dashed @colors-primary;
+        }
+      }
+
+      // prev-hover-start && prev-hover-end
+      .@{datepicker-prefix}-prev-hover-start.@{datepicker-prefix}-prev-hover-end {
+        &::before {
+          border-right: 1px dashed  @colors-primary;
+        }
+
+        &::after {
+          content: ' ';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 50%;
+          height: 100%;
+          z-index: -1;
+          border-top: 1px dashed @colors-primary;
+          border-bottom: 1px dashed @colors-primary;
+          border-left: 1px dashed @colors-primary;
         }
       }
 
