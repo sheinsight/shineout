@@ -117,12 +117,13 @@ class Day extends PureComponent {
   }
 
   handleDayHover(date, isDisabled) {
-    const { index, rangeDate } = this.props
+    const { index, rangeDate, onDayHover } = this.props
+    if (index === undefined || !onDayHover) return
     if (isDisabled || (index === 0 && !rangeDate[1])) {
-      this.props.onDayHover(null)
+      onDayHover(null)
       return
     }
-    this.props.onDayHover(date, index)
+    onDayHover(date, index)
   }
 
   /**
@@ -195,7 +196,7 @@ class Day extends PureComponent {
     const weekStart = getLocale('startOfWeek')
     const weekEnd = weekStart ? 0 : 6
 
-    if (type !== 'week') {
+    if (type !== 'week' && index !== undefined) {
       hoverProps.onMouseEnter = this.handleDayHover.bind(this, date, isDisabled)
     }
 
