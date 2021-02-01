@@ -23,11 +23,12 @@
 | bordered | boolean | 无 | 否 | 是否显示边框 |
 | prediction | (v: any, data) => boolean | (val, d) => val===format(d) | false | 默认使用 format 函数执行的结果来比较是否匹配，在某些情况下（例如返回原始数据的对象，更新数据时，生成了一个值相同，非同一个对象的选项），需要借助 prediction 函数来判断是否匹配 |
 | empty | string \| React.node | null | 否 | 无数据时展示的内容 |
-| fixed | boolean | false | 是否启用虚拟列表 | 
-| rowsInView | number | 10 | 同时展示的列表项数量 |
-| lineHeight | number | 32 | 列表项高度 |
+| fixed | boolean | false | 否 | 是否启用虚拟列表 |
+| rowsInView | number | 10 | 否 | 同时展示的列表项数量 |
+| lineHeight | number | 32 | 否 | 列表项高度 |
 
 ### List.BaseItem
+
 | 属性 | 类型 | 默认值 | 必填 | 说明 |
 | --- | --- | --- | -- | --- |
 | avatar | string \| React.node \| (() => React.node) | 无 | 否 | 列表元素的图标 |
