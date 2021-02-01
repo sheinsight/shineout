@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { getParent } from '../utils/dom/element'
+import { getParent, focusElement } from '../utils/dom/element'
 import utils from './utils'
 import { datepickerClass } from '../styles'
 
@@ -22,6 +22,17 @@ class Text extends PureComponent {
     this.handleInput = this.handleInput.bind(this)
     this.handleFocus = this.handleFocus.bind(this)
     this.bindElement = this.bindElement.bind(this)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.focus !== this.props.focus &&
+      this.props.focus &&
+      this.element &&
+      this.props.focusElement === this.element
+    ) {
+      focusElement.end(this.element)
+    }
   }
 
   bindElement(el) {
@@ -60,10 +71,14 @@ class Text extends PureComponent {
   }
 
   render() {
-    const { className, inputable, value, placeholder, disabled } = this.props
+    const { className, inputable, value, placeholder, disabled, focus } = this.props
 
-    if (!inputable || disabled) {
-      return <span className={className}>{value || placeholder}</span>
+    if (!inputable || disabled || !focus) {
+      return (
+        <span onClick={this.handleFocus} className={className}>
+          {value || placeholder}
+        </span>
+      )
     }
 
     return (
@@ -90,6 +105,8 @@ Text.propTypes = {
   placeholder: PropTypes.any,
   value: PropTypes.string,
   onTextSpanRef: PropTypes.func,
+  focus: PropTypes.bool,
+  focusElement: PropTypes.element,
 }
 
 Text.defaultProps = {
