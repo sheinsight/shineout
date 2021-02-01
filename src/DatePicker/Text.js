@@ -55,7 +55,14 @@ class Text extends PureComponent {
   handleInput(e) {
     if (e.keyCode === 13) {
       e.preventDefault()
+      e.stopPropagation()
       this.element.blur()
+      this.handleBlur(e)
+
+      // must wait for handleBlur to finish executing
+      Promise.resolve().then(() => {
+        document.dispatchEvent(new Event('mousedown', { bubbles: true }))
+      })
     }
   }
 
