@@ -133,7 +133,13 @@ class Day extends PureComponent {
   checkToAddRangeClass(date) {
     const { hoverDate, rangeDate, type, index, hoverIndex } = this.props
     if (!hoverDate || type === 'week' || (index === 0 && !rangeDate[1]) || (index === 1 && !rangeDate[0])) return []
-    const [startDate, endData] = rangeDate
+    let [startDate, endData] = rangeDate
+    // day -> just clear hour & minute & second
+    startDate = utils.clearHMS(startDate)
+    if (endData) {
+      endData = utils.clearHMS(endData)
+    }
+
     // Distinguish startDate and endDate
     if (hoverIndex === 0) {
       if (hoverDate <= endData) {
@@ -188,6 +194,11 @@ class Day extends PureComponent {
     const hoverProps = {}
     const weekStart = getLocale('startOfWeek')
     const weekEnd = weekStart ? 0 : 6
+
+    if (type !== 'week') {
+      hoverProps.onMouseEnter = this.handleDayHover.bind(this, date, isDisabled)
+    }
+
     if (type === 'week') {
       hoverProps.onMouseEnter = this.handleWeek.bind(this, date)
       hoverProps.onMouseLeave = this.handleWeekLeave
@@ -214,8 +225,6 @@ class Day extends PureComponent {
         )
       }
     } else if (rangeDate && current.getMonth() === date.getMonth()) {
-      hoverProps.onMouseEnter = this.handleDayHover.bind(this, date, isDisabled)
-
       classList.push(utils.isSameDay(date, rangeDate[index]) && 'active')
 
       hoverClass = datepickerClass(
@@ -237,7 +246,8 @@ class Day extends PureComponent {
             isStart && 'prev-hover-start',
             isEnd && 'prev-hover-end',
             mapIndex % 7 === 0 && 'line-start',
-            mapIndex % 7 === 6 && 'line-end'
+            mapIndex % 7 === 6 && 'line-end',
+            isDisabled && 'disabled'
           )
         )}
         onClick={isDisabled ? undefined : this.handleDayClick.bind(this, date, minD, maxD)}
@@ -324,7 +334,7 @@ class Day extends PureComponent {
           ))}
         </div>
 
-        <div className={datepickerClass('list', `type-${type}`)}>
+        <div className={datepickerClass('list', `type-${type}`)} onMouseLeave={this.handleMouseLeave}>
           {days.map((d, mapIndex) => this.renderDay(d, minDate, maxDate, mapIndex))}
         </div>
 

@@ -4,7 +4,7 @@ import { range } from '../utils/numbers'
 import { datepickerClass } from '../styles'
 import utils from './utils'
 
-const lineHeight = 30
+const lineHeight = 40
 const grayStyle = {
   1: { color: '#888' },
   2: { color: '#ccc' },
@@ -98,14 +98,15 @@ class TimeScroll extends PureComponent {
 
     const className = datepickerClass(!isDisabled && value === num && 'time-active')
     return (
-      <span
-        key={num}
-        className={className}
-        style={this.getItemStyle(num, isDisabled)}
-        onClick={this.handleClick.bind(this, num)}
-      >
-        {text}
-      </span>
+      <div key={num}>
+        <span
+          className={className}
+          style={this.getItemStyle(num, isDisabled)}
+          onClick={this.handleClick.bind(this, num)}
+        >
+          {text}
+        </span>
+      </div>
     )
   }
 
