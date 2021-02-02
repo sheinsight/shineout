@@ -8,6 +8,7 @@ import Input from './Input'
 import Number from './Number'
 import Group from './Group'
 import Password from './Password'
+import type from './type'
 
 const exports = compose(
   inputable,
@@ -18,6 +19,7 @@ const exports = compose(
 )(Input)
 exports.Group = inputBorder({ tag: 'div', isGroup: true, from: 'input' })(Group)
 exports.Number = compose(
+  type({ type: 'number' }),
   inputable,
   inputBorder({}),
   coin()

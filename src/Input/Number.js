@@ -49,7 +49,8 @@ class Number extends PureComponent {
     if (max !== undefined && value > max) value = max
     if (min !== undefined && value < min) value = min
 
-    if (value !== this.props.value) {
+    // some values are number
+    if (value.toString() !== this.props.value) {
       this.props.onChange(value)
     }
   }
