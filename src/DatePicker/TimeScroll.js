@@ -1,14 +1,15 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import { range } from '../utils/numbers'
 import { datepickerClass } from '../styles'
 import utils from './utils'
 
 const lineHeight = 40
 const grayStyle = {
-  1: { color: '#888' },
-  2: { color: '#ccc' },
-  3: { color: '#eee' },
+  1: datepickerClass('time-previous'),
+  2: datepickerClass('time-two'),
+  3: datepickerClass('time-third'),
 }
 
 class TimeScroll extends PureComponent {
@@ -100,8 +101,8 @@ class TimeScroll extends PureComponent {
     return (
       <div key={num}>
         <span
-          className={className}
-          style={this.getItemStyle(num, isDisabled)}
+          className={classnames(className, this.getItemStyle(num, isDisabled))}
+          // style={this.getItemStyle(num, isDisabled)}
           onClick={this.handleClick.bind(this, num)}
         >
           {text}

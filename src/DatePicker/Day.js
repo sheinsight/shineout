@@ -133,7 +133,7 @@ class Day extends PureComponent {
    */
   checkToAddRangeClass(date) {
     const { hoverDate, rangeDate, type, index, hoverIndex } = this.props
-    if (!hoverDate || type === 'week' || (index === 0 && !rangeDate[1]) || (index === 1 && !rangeDate[0])) return []
+    if (!hoverDate || type === 'week' || (index === 1 && !rangeDate[0])) return []
     let [startDate, endData] = rangeDate
     // day -> just clear hour & minute & second
     startDate = utils.clearHMS(startDate)

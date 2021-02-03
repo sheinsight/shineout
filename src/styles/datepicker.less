@@ -141,6 +141,12 @@
     border-radius: @input-dropdown-border-radius;
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.02), @datepicker-box-shadow;
     font-size: @font-size-base;
+
+    &.@{datepicker-prefix}-list-time {
+      padding-right: 0;
+      padding-left: 0;
+    }
+
     &.@{datepicker-prefix}-quick {
       padding-left: 0;
     }
@@ -615,7 +621,7 @@
       position: relative;
       display: inline-block;
       overflow: hidden;
-      width: 60px;
+      width: 64px;
       height: @datepicker-time-height * 5;
       box-sizing: border-box;
       flex-direction: column;
@@ -625,6 +631,25 @@
 
       &:last-child {
         border-right: 0;
+      }
+
+      .@{datepicker-prefix}-time-previous {
+        color: #888;
+      }
+      .@{datepicker-prefix}-time-two {
+        color: #ccc;
+      }
+      .@{datepicker-prefix}-time-third {
+        color: #eee;
+      }
+
+      .@{datepicker-prefix}-time-previous,
+      .@{datepicker-prefix}-time-two,
+      .@{datepicker-prefix}-time-third {
+        &:hover {
+          background-color: @datepicker-day-hover-bg;
+          color: @colors-primary;
+        }
       }
 
       .@{datepicker-prefix}-pad {
@@ -639,7 +664,8 @@
       span,
       a {
         display: block;
-        margin: 0 auto;
+        margin-right: 16px;
+        margin-left: 8px;
         color: #eee;
         line-height: @datepicker-list-cell-size - 2px;
         width: @datepicker-list-cell-size;
@@ -647,7 +673,6 @@
         border-radius: @datepicker-list-cell-size / 2;
         border: 1px solid transparent;
         text-align: center;
-        transition: background-color .1s ease-in-out;
       }
 
       .@{datepicker-prefix}-time-active {

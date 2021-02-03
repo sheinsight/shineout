@@ -1,4 +1,5 @@
 const request = require('request')
+const os = require('os')
 const Koa = require('koa')
 const send = require('koa-send')
 const Router = require('koa-router')
@@ -13,6 +14,33 @@ const ejs = require('./scripts/ejs')
 
 require('./scripts/dev-site')
 
+// get local ip
+function getIPAddress() {
+  if (process.env.USE !== 'IP') return 'localhost'
+  const interfaces = os.networkInterfaces()
+  let address = null
+
+  Object.keys(interfaces).filter(env => {
+    const iface = interfaces[env].find(obj => {
+      if (obj.family === 'IPv4' && obj.address !== '127.0.0.1' && !obj.internal) return true
+      return false
+    })
+    if (iface) {
+      // eslint-disable-next-line prefer-destructuring
+      address = iface.address
+      return true
+    }
+    return false
+  })
+
+  if (address) {
+    return address
+  }
+  return 'localhost'
+}
+
+const IPAdress = getIPAddress()
+
 // webpack server ===========================================
 
 new WebpackDevServer(webpack(webpackConfig), {
@@ -23,7 +51,7 @@ new WebpackDevServer(webpack(webpackConfig), {
     colors: true,
     // children: false,
   },
-}).listen(config.dev.webpackPort, 'localhost', err => {
+}).listen(config.dev.webpackPort, IPAdress, err => {
   if (err) {
     console.log(err)
   }
@@ -80,7 +108,7 @@ router.get(config.dev.scriptPath, async (ctx, next) => {
     await next()
   } else {
     const options = {
-      uri: `http://localhost:${config.dev.webpackPort}/${url}`,
+      uri: `http://${IPAdress}:${config.dev.webpackPort}/${url}`,
       method: 'GET',
     }
     ctx.body = request(options)
@@ -90,7 +118,7 @@ router.get(config.dev.scriptPath, async (ctx, next) => {
 // react-hot-loader proxy
 router.get('/*.hot-update.js(on)?', async ctx => {
   const options = {
-    uri: `http://localhost:${config.dev.webpackPort}/${ctx.url}`,
+    uri: `http://${IPAdress}:${config.dev.webpackPort}/${ctx.url}`,
     method: 'GET',
   }
   ctx.set('Access-Control-Allow-Origin', '*')
@@ -127,5 +155,5 @@ app.use(router.routes())
 
 app.listen(config.dev.publishPort, () => {
   const ps = config.dev.publishPort === 80 ? '' : `:${config.dev.publishPort}`
-  console.log(`server running on http://localhost${ps}`)
+  console.log(`server running on http://${IPAdress}${ps}`)
 })

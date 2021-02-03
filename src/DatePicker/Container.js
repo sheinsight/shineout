@@ -392,7 +392,7 @@ class Container extends PureComponent {
 
   renderWrappedPicker() {
     const { focus, position } = this.state
-    const { absolute, zIndex, quickSelect } = this.props
+    const { absolute, zIndex, quickSelect, type } = this.props
     const props = {
       absolute,
       focus,
@@ -400,7 +400,8 @@ class Container extends PureComponent {
         'picker',
         'location',
         `absolute-${getCurrentPosition(position)}`,
-        quickSelect && 'quick'
+        quickSelect && 'quick',
+        type === 'time' && 'list-time'
       ),
       zIndex,
       getRef: this.bindWrappedPicker,
