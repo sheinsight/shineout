@@ -1,7 +1,7 @@
 import * as React from 'react'
+import { StandardProps, FormItemStandardProps, StructDataStandardProps, keyType } from '../@types/common'
 
-type ReactNode = React.ReactNode;
-export interface CascaderProps<Item, Value>  {
+export interface CascaderProps<Item, Value> extends StandardProps, FormItemStandardProps<Value>, ListItemStandardProps<Item>, StructDataStandardProps<Item>  {
 
   /**
    * When it is true, the pop-up layer of option append into document.body. 
@@ -20,15 +20,6 @@ export interface CascaderProps<Item, Value>  {
    * default: 'children'
    */
   childrenKey?: string;
-
-  /**
-   * extend className
-   * 
-   * 扩展className
-   * 
-   * default: -
-   */
-  className?: string;
 
   /**
    * If clearable is true, show clear value icon
@@ -56,15 +47,6 @@ export interface CascaderProps<Item, Value>  {
    * default: []
    */
   data?: Item[];
-
-  /**
-   * Default selected key (not controlled)
-   * 
-   * 默认选中的 key （非受控）
-   * 
-   * default: 无
-   */
-  defaultValue?: Value[];
 
   /**
    * When it is true, all nodes disable the selection; when it is a function, it determines whether it is disabled according to the return result of the function.
@@ -100,7 +82,7 @@ export interface CascaderProps<Item, Value>  {
    * 
    * default: index
    */
-  keygen: ((data: Item, parentKey: Value) => Value) | string;
+  keygen: ((data: Item, parentKey: keyType) => keyType) | string;
 
   /**
    * If the loader attribute is a function, the node with no children is regarded as dynamically loaded node. Click expanded button to trigger the loader event. The children property is null or its length is 0 will be regarded as a leaf node.
@@ -109,7 +91,7 @@ export interface CascaderProps<Item, Value>  {
    * 
    * default:
    */
-  loader?: (key: Value, data: Item) => void;
+  loader?: (key: keyType, data: Item) => void;
 
   /**
    * mode 0: Returns only the fully selected node including the parent node. 1: Returns all selected nodes and semi-selected nodes. 2: Return only the selected child nodes. 3: If the parent node is full selected, only return the parent node.
@@ -127,7 +109,7 @@ export interface CascaderProps<Item, Value>  {
    * 
    * default: -
    */
-  onChange?: (value: Value[], selected: boolean) => void;
+  onChange?: (value: Value, selected: boolean) => void;
 
   /**
    * options collapse callback
@@ -138,35 +120,8 @@ export interface CascaderProps<Item, Value>  {
    */
   onCollapse?: (collapse: boolean) => void;
 
-  /**
-   * When it is a string, return d[string]. When it is a function, return the result of the function.
-   * 
-   * 为 string 时，返回 d[string]。 为 function 时，返回函数结果
-   * 
-   * default: required
-   */
-  renderItem?: (data: Item) => ReactNode | string;
-
-  /**
-   * The content displayed in the result after selecting, if not set, use renderItem. not show while return null, result is current selected
-   * 
-   * 选中后在结果中显示的内容，默认和 renderItem 相同
-   * 
-   * default: renderItem
-   */
-  renderResult?: (data: Item) => ReactNode | string;
-
-  /**
-   * Selected key (controlled)
-   * 
-   * 选中的 key （受控)
-   * 
-   * default: -
-   */
-  value?: any[];
-
 }
 
-declare class Cascader<Item = any, Value = string> extends React.Component<CascaderProps<Item, Value>, {}> {}
+declare class Cascader<Item = any, Value = string[]> extends React.Component<CascaderProps<Item, Value>, {}> {}
 
 export default Cascader

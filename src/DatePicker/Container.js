@@ -349,6 +349,7 @@ class Container extends PureComponent {
       <Text
         key={key}
         onTextSpanRef={this.bindTextSpan}
+        focusElement={this.textSpan}
         className={className}
         focus={this.state.focus}
         format={resultFormat}
