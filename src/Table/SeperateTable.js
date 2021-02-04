@@ -149,7 +149,7 @@ class SeperateTable extends PureComponent {
       setTimeout(() => {
         this.handleScroll(
           ...immer(this.lastScrollArgs, draft => {
-            draft[7] = 1
+            draft[7] = undefined
           })
         )
       })
