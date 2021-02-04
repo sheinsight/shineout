@@ -41,7 +41,7 @@ export interface CheckboxProps<T> extends StandardProps, FormItemStandardProps<T
    * 
    * default: -
    */
-  rules?: RuleParamsType<T>
+  rules?: RuleParamsType<T, CheckboxProps>
 
 }
 

@@ -125,7 +125,7 @@ export interface InputProps<T> extends StandardProps, FormItemStandardProps<T> {
    * 
    * default: -
    */
-  rules?: RuleParamsType<T>
+  rules?: RuleParamsType<T, InputProps>
 }
 
 export interface InputNumberProps<T> extends InputProps<T> {
