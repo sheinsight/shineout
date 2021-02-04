@@ -303,6 +303,8 @@ class SeperateTable extends PureComponent {
       marginTop = outerHeight
     }
 
+    this.lastScrollArgs[1] = scrollTop
+
     this.setState({ currentIndex, scrollTop }, callback)
     this.lastScrollTop = offsetScrollTop
 
