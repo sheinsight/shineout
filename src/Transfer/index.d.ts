@@ -1,27 +1,22 @@
 import * as React from 'react'
 import { StandardProps } from '../@types/common'
 
-export interface TransferProps<T = object> extends StandardProps{
+export interface TransferProps<Value = any, T = any> extends StandardProps{
   /**
    * desc: data source
    * default: []
    */
   data?: T[],
   /**
-   * desc: class name
-   * default: none
-   */
-  className?: string
-  /**
    * desc: checked by default
    * default: none
    */
-  defaultSelectedKeys?: any[],
+  defaultSelectedKeys?: Value[],
   /**
    * desc: control whether the node can be chosen
    * default: none
    */
-  disabled?: boolean | ((data: any) => boolean),
+  disabled?: boolean | ((data: T) => boolean),
   /**
    * desc: contentless display
    * default: "无数据"
@@ -36,12 +31,12 @@ export interface TransferProps<T = object> extends StandardProps{
    * desc: format value
    * default: d => d
    */
-  format?: (data: any) => any,
+  format?: (data: D) => any,
   /**
    * desc: generate key for each node
    * default: d => d
    */
-  keygen: true | string | ((data: any) => string)),
+  keygen: true | string | ((data: T) => string)),
   /**
    * desc: line height of list
    * default: 32
@@ -61,7 +56,7 @@ export interface TransferProps<T = object> extends StandardProps{
    * desc: expand list style
    * default: none
    */
-  listStyle?: object,
+  listStyle?: React.CSSProperties,
   /**
    * desc: loading
    * default: none
@@ -71,7 +66,7 @@ export interface TransferProps<T = object> extends StandardProps{
    * desc: fileter data
    * default: none
    */
-  onFilter?: (text: string, value: any, isSource: boolean) => boolean,
+  onFilter?: (text: string, data: T, isSource: boolean) => boolean,
   /**
    * desc: seach event
    * default: none
@@ -81,7 +76,7 @@ export interface TransferProps<T = object> extends StandardProps{
    * desc: select event
    * default: none
    */
-  onSelectChange?: (sourceKeys: any[], targetKeys: any[]) => void,
+  onSelectChange?: (sourceKeys: Value[], targetKeys: Value[]) => void,
   /**
    * desc: whether to display the icon of the operation button
    * default: true
@@ -96,12 +91,12 @@ export interface TransferProps<T = object> extends StandardProps{
    * desc: if match
    * default: (val, d) => val===format(d)
    */
-  prediction?: (value: any, data: any) => boolean,
+  prediction?: (value: Value, data: T) => boolean,
   /**
    * desc: render result
    * default: none
    */
-  renderItem: string | ((data: any) => ReactNode),
+  renderItem: string | ((data: T) => ReactNode),
   /**
    * desc: number of data loaded at one time
    * default: 20
@@ -111,12 +106,7 @@ export interface TransferProps<T = object> extends StandardProps{
    * desc: checked lists
    * default: none
    */
-  selectedKeys?: any[],
-  /**
-   * desc: expand css style
-   * default: none
-   */
-  style?: object,
+  selectedKeys?: Value[],
   /**
    * desc: title
    * default: none
@@ -126,9 +116,9 @@ export interface TransferProps<T = object> extends StandardProps{
    * desc: value of right box
    * default: none
    */
-  value?: any[],
+  value?: Value[],
 }
 
 
-declare class Transfer extends React.PureComponent<TransferProps, {}> {}
+declare class Transfer<Value = any, T = any> extends React.PureComponent<TransferProps<Value, T>, {}> {}
 export default Transfer
