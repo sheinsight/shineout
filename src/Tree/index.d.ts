@@ -143,7 +143,7 @@ export interface TreeProps<Value = any, Data = any> extends StandardProps{
   renderItem: (data: Data) => React.ReactNode,
   /**
    * desc: key of selected item
-   * 选中的 key （受控）
+   * 选中的 key（受控）
    * default: none
    */
   value?: Value[],
