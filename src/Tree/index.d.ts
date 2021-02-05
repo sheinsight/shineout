@@ -1,145 +1,156 @@
 import * as React from 'react'
 import { StandardProps } from '../@types/common'
+import TreeSelect from '../TreeSelect'
 
-export interface TreeProps<T> extends StandardProps{
+export interface TreeProps<Value = any, Data = any> extends StandardProps{
+  /**
+   * desc: specify the name of the subdata
+   * 指定子数据的属性名
+   * default: children
+   */
+  childrenKey?: string
   /**
    * desc: active nodes
-   * default: none
-   */
-  active?: any,
-  /**
-   * desc: active nodes
+   * 数据，子节点为children，如果 children 值为 null 或 长度为 0 时，视为叶子节点
    * default: []
    */
-  data?: T[],
+  data?: Data[],
   /**
-   * desc: default expanded nodes
-   * default: []
-   */
-  defaultExpanded?: string[],
-  /**
-   * desc: default expanded nodes
-   * default: []
-   */
-  defaultValue?: string[],
-  /**
-   * desc: control whether the node can be chosen
-   * default: none
-   */
-  disabled?: boolean | ((data: any) => boolean),
-  /**
-   * desc: expanded node
-   * default: none
-   */
-  expanded?: string[],
-  /**
-   * desc: whether show line
-   * default: none
-   */
-  line?: boolean,
-  /**
-   * desc: dynamically load nodes
-   * default: none
-   */
-  loader?: (key: string) => void,
-  /**
-   * desc: selected mode
-   * default: 0
-   */
-  mode?: 0 | 1 | 2 | 3 | 4,
-  /**
-   * desc: change event
-   * default: none
-   */
-  onChange?: (value: string[]) => void,
-  /**
-   * desc: click event
-   * default: none
-   */
-  onClick?: (data: object) => void,
-  /**
-   * desc: expand event
-   * default: none
-   */
-  onExpand?: (value: string[]) => void,
-  /**
-   * desc: drop event
-   * default: none
-   */
-  onDrop?: (data: object, key: string, targetKey: string, position: number) => void,
-  /**
-   * desc: seleted key
-   * default: none
-   */
-  value?: string[],
-  /**
-   * desc: datum
-   * default: none
-   */
-  datum?: object,
-  /**
-   * desc: parent click expand
-   * default: none
-   */
-  parentClickExpand?: boolean,
-  /**
-   * desc: expand all
-   * default: none
+   * desc: expanded all nodes
+   * 默认展开所有节点
+   * default: false
    */
   defaultExpandAll?: boolean,
   /**
-   * desc: data update
-   * default: true
-   */
-  dataUpdate?: boolean,
-  /**
-   * desc: key of children
-   * default: children
-   */
-  childrenKey?: string,
-  /**
-   * desc: DIY icon when expanded
+   * desc: default expanded nodes
+   * 默认展开的节点 key（非受控）
    * default: none
    */
-  expandIcons?: React.ReactNode[],
+  defaultExpanded?: Value[],
   /**
-   * desc: style when drap images
-   * default: {}
+   * desc: default expanded nodes
+   * 默认选中的 key （非受控）
+   * default: []
    */
-  dragImageStyle?: object,
+  defaultValue?: Value[],
   /**
-   * desc: radio update
+   * desc: control whether the node can be chosen
+   * 显示选择框时有效，为 true 时，所有节点禁用选择，为函数时，根据函数返回结果确定是否禁用
    * default: none
    */
-  radioUpdate?: boolean,
+  disabled?: boolean | ((data: Data) => boolean),
   /**
    * desc: if need to double-click to expand
-   * default: none
+   * 双击是否展开节点
+   * default: false
    */
   doubleClickExpand?: boolean,
   /**
+   * desc: automatically expand nodes with child nodes when dragging
+   * 拖拽时自动展开含有子节点的节点
+   * default: false
+   */
+  dragHoverExpand?: boolean,
+  /**
+   * desc: selector when dray image
+   * 定义拖拽图片的选择器
+   * default: none
+   */
+  dragImageSelector?: string | ((data: Data) => string) ,
+  /**
+   * desc: style when drap images
+   * 拖拽图片的样式
+   * default: none
+   */
+  dragImageStyle?: React.CSSProperties,
+  /**
    * desc: whether it can only be dragged at the same level
+   * 是否只能平级拖拽
    * default: none
    */
   dragSibling?: boolean,
   /**
-   * desc: class name of node
+   * desc: expanded node
+   * 展开的节点 key （受控）
    * default: none
    */
-  nodeClass?: string | ((data: any) => string),
+  expanded?: Value[],
+  /**
+   * desc: DIY icon when expanded
+   * 自定义展开/收起按钮
+   * default: none
+   */
+  expandIcons?: React.ReactNode[],
+  /**
+   * desc: class name of icon
+   * 展开/收起按钮的类名
+   * default: none
+   */
+  iconClass?: string,
+  /**
+   * desc: whether show line
+   * 是否显示连接线
+   * default: true
+   */
+  line?: boolean,
+  /**
+   * desc: dynamically load nodes
+   * 设置loader属性后，未定义children的节点视为动态加载节点，点击展开触发 loader事件，children 为 null 或者长度为 0 视为叶子节点
+   * default: none
+   */
+  loader?: (key: Value) => void,
+  /**
+   * desc: selected mode
+   * 选中值模式
+   * default: 1
+   */
+  mode?: 0 | 1 | 2 | 3 | 4,
   /**
    * desc: class name of node
+   * 节点的class，如果是函数，参数为该节点数据
    * default: none
    */
-  renderItem?: string | ((data: object) => ReactNode),
+  nodeClass?: string | ((data: Data) => string),
+  /**
+   * desc: change event
+   * 设置 onChange 属性时，显示 选择框。参数为当前选中值，和 mode 属性相关
+   * default: none
+   */
+  onChange?: (value: Value[]) => void,
+  /**
+   * desc: click event
+   * 节点点击事件
+   * default: none
+   */
+  onClick?: (data: Data) => void,
+  /**
+   * desc: drop event
+   * 设置 onDrop 属性时，为可拖动状态
+   * default: none
+   */
+  onDrop?: (data: Data, key: Value, targetKey: Value, position: number) => void,
+  /**
+   * desc: expand event
+   * 节点展开回调，参数为当前展开节点 key 数组
+   * default: none
+   */
+  onExpand?: (value: Value[]) => void,
+  /**
+   * desc: render item
+   * 为 string 时，返回 d[string]。为 function 时，返回函数结果
+   * default: none
+   */
+  renderItem: (data: Data) => React.ReactNode,
+  /**
+   * desc: key of selected item
+   * 选中的 key （受控）
+   * default: none
+   */
+  value?: Value[],
 }
 
-declare class TreeSelect extends React.Component<TreeProps, {}> {
-  render(): JSX.Element
-}
-
-declare class Tree extends React.PureComponent<TreeProps, {}> {
+declare class Tree<Value = any, Data = any> extends React.PureComponent<TreeProps<Value, Data>, {}> {
   static Select: typeof TreeSelect
-  static Field: typeof TreeSelect = Select
+  static Field: typeof TreeSelect
 }
 export default Tree
