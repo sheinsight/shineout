@@ -42,6 +42,8 @@ class SeperateTable extends PureComponent {
     this.lastScrollArgs = {}
     this.lastScrollTop = 0
 
+    this.timer = null
+
     if (props.tableRef) props.tableRef(this)
   }
 
@@ -117,43 +119,33 @@ class SeperateTable extends PureComponent {
     }
     if (!this.tbody) return
 
-    const { offsetLeft, currentIndex } = this.state
-    if (currentIndex === index && !oldHeight) {
-      this.lastScrollTop += height - this.props.rowHeight
-      setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
+    const { currentIndex } = this.state
+    if ((currentIndex === index && !oldHeight) || (oldHeight && height !== oldHeight) || this.lastScrollArgs[1] === 1) {
+      this.needUpdate = true
     }
 
-    const contentHeight = this.getContentHeight()
+    this.commitInSetRowHeight()
+  }
 
-    if (oldHeight && height !== oldHeight) {
-      if (this.lastScrollTop > contentHeight) {
-        this.handleScroll(
-          ...immer(this.lastScrollArgs, draft => {
-            draft[7] = 1
-          })
-        )
-        return
-      }
-
-      const scrollTop = this.lastScrollTop / contentHeight
-      this.setState({ scrollTop })
-      if (scrollTop === this.state.scrollTop) {
-        this.forceUpdate()
-      }
+  /**
+   * commit set row height in 32ms
+   */
+  commitInSetRowHeight() {
+    if (this.timer) {
+      return
     }
 
-    /**
-     * if press and hold bar to scroll to the bottom, reset scroll
-     */
-    if (this.lastScrollArgs[1] === 1) {
-      setTimeout(() => {
-        this.handleScroll(
-          ...immer(this.lastScrollArgs, draft => {
-            draft[7] = undefined
-          })
-        )
-      })
-    }
+    this.timer = setTimeout(() => {
+      clearTimeout(this.timer)
+      this.timer = null
+      if (!this.needUpdate) return
+      this.handleScroll(
+        ...immer(this.lastScrollArgs, draft => {
+          draft[7] = undefined
+        })
+      )
+      this.needUpdate = false
+    }, 16)
   }
 
   checkScrollToIndex(index, outerHeight) {
