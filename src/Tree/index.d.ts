@@ -115,33 +115,48 @@ Pick<ListItemStandardProps<Item, Value>, 'keygen'>
    * default: none
    */
   expandIcons?: React.ReactNode[],
+
   /**
    * desc: class name of icon
+   * 
    * 展开/收起按钮的类名
+   * 
    * default: none
    */
   iconClass?: string,
+
   /**
    * desc: whether show line
+   * 
    * 是否显示连接线
+   * 
    * default: true
    */
   line?: boolean,
+
   /**
    * desc: dynamically load nodes
+   * 
    * 设置loader属性后，未定义children的节点视为动态加载节点，点击展开触发 loader事件，children 为 null 或者长度为 0 视为叶子节点
+   * 
    * default: none
    */
   loader?: (key: keyType) => void,
+
   /**
    * desc: selected mode
+   * 
    * 选中值模式
+   * 
    * default: 1
    */
   mode?: 0 | 1 | 2 | 3 | 4,
+
   /**
    * desc: class name of node
+   * 
    * 节点的class，如果是函数，参数为该节点数据
+   * 
    * default: none
    */
   nodeClass?: string | ((data: Item) => string),
@@ -157,14 +172,18 @@ Pick<ListItemStandardProps<Item, Value>, 'keygen'>
 
   /**
    * desc: click event
+   * 
    * 节点点击事件
+   * 
    * default: none
    */
   onClick?: (data: Item) => void,
 
   /**
    * desc: drop event
+   * 
    * 设置 onDrop 属性时，为可拖动状态
+   * 
    * default: none
    */
   onDrop?: (data: Item, key: keyType, targetKey: keyType, position: number) => void,
