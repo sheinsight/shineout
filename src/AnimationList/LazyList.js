@@ -325,8 +325,20 @@ class LazyList extends PureComponent {
   }
 
   render() {
-    const { keygen, data, itemsInView, width, fixed, innerScrollAttr, className, renderItem } = this.props
+    const {
+      style,
+      keygen,
+      data,
+      itemsInView,
+      width,
+      fixed,
+      innerScrollAttr,
+      className,
+      renderItem,
+      height,
+    } = this.props
     const { scrollTop, scrollLeft, currentIndex } = this.state
+    const ms = Object.assign({}, style, height && { height })
     const contentWidth = this.getContentWidth()
 
     if (!data || data.length === 0) {
@@ -342,6 +354,7 @@ class LazyList extends PureComponent {
 
     return (
       <Scroll
+        style={ms}
         scrollTop={scrollTop}
         scrollLeft={scrollLeft}
         scroll={fixed}
@@ -363,6 +376,7 @@ class LazyList extends PureComponent {
 LazyList.propTypes = {
   style: PropTypes.shape({}),
   className: PropTypes.string,
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   data: PropTypes.array,
   fixed: PropTypes.string.isRequired,
   onScroll: PropTypes.func,
