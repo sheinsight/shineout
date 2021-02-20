@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from 'react'
 import { PopoverProps } from '../Popover'
 import { RuleParamsType } from '../Rule'
 import { StandardProps, RegularAttributes, FormItemStandardProps, CommonProps } from '../@types/common'
@@ -26,7 +26,7 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'> {
    * 
    * default: -
    */
-  onEnterPress?: (value: string) => void;
+  onEnterPress?: (value: T) => void;
 
   /**
    * The position where the text pop up
@@ -89,7 +89,7 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'> {
    * 
    * default: -
    */
-  info?: (value: string) => string | number;
+  info?: (msg: string) => string;
 
   /**
    * Vilidate popup properties, specific properties refer to Popover component description
@@ -116,7 +116,7 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'> {
    * 
    * default: -
    */
-  rules?: RuleParamsType<T>
+  rules?: RuleParamsType<T, InputProps>
 }
 
 export interface InputNumberProps <T, Value> extends InputProps<T, Value> {
