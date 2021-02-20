@@ -23,7 +23,7 @@ const range = (end, start = 0) => {
   return Array.from({ length: end - start }, (v, k) => k + start)
 }
 
-const size = range(11, 0).map(() => [pickNumber(600, 450), pickNumber(450, 320)])
+const size = range(11, 0).map(() => [pickNumber(450, 380), pickNumber(400, 300)])
 
 export default class extends React.Component {
   constructor(props) {

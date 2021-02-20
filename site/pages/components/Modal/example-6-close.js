@@ -45,7 +45,7 @@ export default () => {
       <Modal
         visible={visible}
         maskCloseAble={selected.value}
-        width={500}
+        width={400}
         title="Modal Title"
         onClose={() => setVisible(false)}
         footer={<Button onClick={() => setVisible(false)}>Close</Button>}
