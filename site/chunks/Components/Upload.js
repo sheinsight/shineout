@@ -86,15 +86,6 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Upload/example-06-error.js'),
   },
   {
-    name: '07-recover',
-    title: locate(
-      '恢复删除 \n 设置 recoverAble 为 true，点击删除后，文件会标记为已删除，可以通过恢复图标恢复',
-      'Recover \n Set reconverAble to true, Clicking delete icon will not remove the file, but will mark it as deleted.'
-    ),
-    component: require('doc/pages/components/Upload/example-07-recover.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Upload/example-07-recover.js'),
-  },
-  {
     name: '08-request',
     title: locate(
       '自定义上传 \n 通过 request 函数，替代默认上传方法',

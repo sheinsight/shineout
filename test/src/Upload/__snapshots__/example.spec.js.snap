@@ -129,30 +129,6 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-06-error.js]
 </div>
 `;
 
-exports[`Snapshot test: Upload[site/pages/components/Upload/example-07-recover.js] 1`] = `
-<div>
-  <div>
-    <span>
-      <button>
-        <i />
-        <span>
-           Upload file
-        </span>
-      </button>
-      <input />
-    </span>
-  </div>
-  <div>
-    <span>
-      <div>
-        <div />
-      </div>
-      <input />
-    </span>
-  </div>
-</div>
-`;
-
 exports[`Snapshot test: Upload[site/pages/components/Upload/example-08-request.js] 1`] = `
 <div>
   <span>
