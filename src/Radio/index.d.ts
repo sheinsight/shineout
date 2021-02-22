@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { FormItemStandardProps, StandardProps,ListItemStandardProps } from '../@types/common'
+import { StandardProps,StructDataStandardProps,ListItemStandardProps } from '../@types/common'
 
 type ReactNode = React.ReactNode;
 
@@ -35,8 +35,38 @@ export interface RadioProps<Item = any> extends StandardProps {
 
 }
 
-export interface RadioGroupProps<Item, Value> extends StandardProps, FormItemStandardProps<Array<Item>
-  >,ListItemStandardProps<Item, Value> {
+export interface RadioGroupProps<Item, Value> extends StandardProps,ListItemStandardProps<Item, Value>,
+  Pick<StructDataStandardProps<Item>,'data','renderItem'> {
+
+
+  /**
+   * The name of a Form that accesses data
+   *
+   * Form 存取数据的名称
+   *
+   * default: null
+   */
+  name?: string;
+
+
+  /**
+   * value is the datum.getValue()
+   *
+   * value 为 datum.getValue()
+   *
+   * default: null
+   */
+  onChange?: (value: Value) => void;
+
+
+  /**
+   * 在Form中，value会被表单接管，value无效
+   *
+   * 是否禁用
+   *
+   * default: null
+   */
+  value?: any;
 
 
   /**
