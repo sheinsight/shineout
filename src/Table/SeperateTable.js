@@ -37,6 +37,7 @@ class SeperateTable extends PureComponent {
     this.handleColgroup = this.handleColgroup.bind(this)
     this.handleScroll = this.handleScroll.bind(this)
     this.handleSortChange = this.handleSortChange.bind(this)
+    this.scrollToTop = this.scrollToTop.bind(this)
 
     this.cachedRowHeight = []
     this.lastScrollArgs = {}
@@ -284,6 +285,10 @@ class SeperateTable extends PureComponent {
     this[key] = el
   }
 
+  scrollToTop() {
+    this.scrollToIndex(0)
+  }
+
   scrollToIndex(index, callback) {
     if (!this.$isMounted) return
     if (index >= 1) index -= 1
@@ -485,6 +490,7 @@ class SeperateTable extends PureComponent {
               dataUpdated={dataUpdated}
               resize={resize}
               colgroup={colgroup}
+              onScrollTop={this.scrollToTop}
             />
           </table>
         </div>

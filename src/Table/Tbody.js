@@ -96,6 +96,8 @@ class Tbody extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
+    const { onScrollTop, data } = this.props
+    if (onScrollTop && prevProps.data.length && data.length === 0) onScrollTop()
     if (this.props.resize || !this.colgroupSetted || !compareColumns(prevProps.columns, this.props.columns)) {
       setTimeout(() => {
         this.bodyRender()
