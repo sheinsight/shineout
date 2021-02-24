@@ -23,6 +23,7 @@ class Carousel extends PureComponent {
   }
 
   componentDidMount() {
+    super.componentDidMount()
     this.setNext(1)
   }
 
