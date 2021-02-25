@@ -4,6 +4,7 @@
 @cascader-prefix: ~'@{so-prefix}-cascader';
 @list-prefix: ~'@{so-prefix}-list';
 @checkinput-prefix: ~'@{so-prefix}-checkinput';
+@input-prefix: ~'@{so-prefix}-input';
 
 .@{cascader-prefix} {
   position: relative;
@@ -98,6 +99,7 @@
   &-options {
     width: auto;
     align-items: stretch;
+    font-size: @font-size-base;
   }
 
   &-focus &-options {
@@ -263,6 +265,35 @@
       transform: translateY(-50%) rotate(90deg);
       left: 12px;
       right: auto;
+    }
+  }
+}
+
+
+.@{input-prefix}  {
+  &.@{input-prefix}-small {
+    .@{cascader-prefix}-result {
+      padding-top: 2px;
+
+      .@{input-prefix}-placeholder,
+      .@{cascader-prefix}-item,
+      .@{cascader-prefix}-input {
+        margin-bottom: 2px;
+        font-size: @font-size-small;
+      }
+    }
+  }
+
+  &.@{input-prefix}-large {
+    .@{cascader-prefix}-result {
+      padding-top: 8px;
+
+      .@{input-prefix}-placeholder,
+      .@{cascader-prefix}-item,
+      .@{cascader-prefix}-input {
+        margin-bottom: 8px;
+        font-size: @font-size-large;
+      }
     }
   }
 }

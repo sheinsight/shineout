@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StandardProps, FormItemStandardProps, StructDataStandardProps, keyType } from '../@types/common'
+import { StandardProps, FormItemStandardProps, StructDataStandardProps, keyType, RegularAttributes } from '../@types/common'
 
 export interface CascaderProps<Item, Value> extends StandardProps, FormItemStandardProps<Value>, ListItemStandardProps<Item>, StructDataStandardProps<Item>  {
 
@@ -120,6 +120,14 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    */
   onCollapse?: (collapse: boolean) => void;
 
+  /**
+   * size
+   * 
+   * 尺寸
+   * 
+   * defualt: none
+   */
+  size?: RegularAttributes.Size;
 }
 
 declare class Cascader<Item = any, Value = string[]> extends React.Component<CascaderProps<Item, Value>, {}> {}
