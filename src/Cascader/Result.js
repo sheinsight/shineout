@@ -51,8 +51,8 @@ class Result extends PureComponent {
   }
 
   renderPlaceholder() {
-    const { focus, onFilter, datum } = this.props
-    if (focus && onFilter && datum.mode === undefined) {
+    const { focus, onFilter } = this.props
+    if (focus && onFilter) {
       return this.renderInput()
     }
     return (
@@ -93,7 +93,7 @@ class Result extends PureComponent {
 
     if (items.filter(v => v).length === 0) {
       items.push(this.renderPlaceholder())
-    } else if (focus && onFilter && datum.mode === undefined) {
+    } else if (focus && onFilter) {
       items.push(this.renderInput())
     }
 
