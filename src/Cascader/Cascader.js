@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import immer from 'immer'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { getUidStr } from '../utils/uid'
@@ -12,6 +13,7 @@ import { docSize } from '../utils/dom/document'
 import { getParent } from '../utils/dom/element'
 import absoluteList from '../AnimationList/AbsoluteList'
 import { isRTL } from '../config'
+import { getKey } from '../utils/uid'
 
 const OptionList = absoluteList(({ focus, getRef, ...other }) => (focus ? <div {...other} /> : null))
 
@@ -62,7 +64,7 @@ class Cascader extends PureComponent {
 
   componentDidUpdate(prevProps, prevState) {
     this.datum.mode = this.props.mode
-    const { onFilter, filterDataChange } = this.props
+    const { onFilter, filterDataChange, filterText } = this.props
     if (prevProps.value !== this.props.value) this.datum.setValue(this.props.value || [])
     if (!filterDataChange && prevProps.data !== this.props.data) this.datum.setData(this.props.data)
 
@@ -70,6 +72,9 @@ class Cascader extends PureComponent {
       setTimeout(() => {
         onFilter('')
       }, 400)
+    }
+    if (filterText !== undefined && prevProps.filterText !== filterText) {
+      this.updatePath()
     }
   }
 
@@ -98,6 +103,22 @@ class Cascader extends PureComponent {
     if (el.getAttribute('data-id') === this.selectId) return true
     if (getParent(el, `.${cascaderClass('result')}`)) return true
     return false
+  }
+
+  updatePath() {
+    const { firstMatchNode, keygen, filterText } = this.props
+    if (!filterText || !firstMatchNode) {
+      this.setState({ path: [] })
+      return
+    }
+    const key = getKey(firstMatchNode, keygen)
+    const current = this.datum.getPath(key)
+    if (!current) return
+    this.setState(
+      immer(draft => {
+        draft.path = [...current.path, key]
+      })
+    )
   }
 
   handleClickAway(e) {
@@ -341,8 +362,8 @@ class Cascader extends PureComponent {
   }
 
   renderPanel() {
-    const { filterText, data } = this.props
-    if (!filterText || data.length === 0) return this.renderAbsoluteList()
+    const { filterText, data, mode } = this.props
+    if (!filterText || (filterText && mode !== undefined) || data.length === 0) return this.renderAbsoluteList()
     return this.renderFilterList()
   }
 
@@ -420,6 +441,7 @@ Cascader.propTypes = {
   filterText: PropTypes.string,
   onFilter: PropTypes.func,
   filterDataChange: PropTypes.any,
+  firstMatchNode: PropTypes.object,
 }
 
 Cascader.defaultProps = {
