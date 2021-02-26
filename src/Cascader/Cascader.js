@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import immer from 'immer'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { getUidStr } from '../utils/uid'
@@ -63,7 +64,7 @@ class Cascader extends PureComponent {
 
   componentDidUpdate(prevProps, prevState) {
     this.datum.mode = this.props.mode
-    const { onFilter, filterDataChange, filterText, firstMatchNode } = this.props
+    const { onFilter, filterDataChange, filterText } = this.props
     if (prevProps.value !== this.props.value) this.datum.setValue(this.props.value || [])
     if (!filterDataChange && prevProps.data !== this.props.data) this.datum.setData(this.props.data)
 
@@ -72,8 +73,7 @@ class Cascader extends PureComponent {
         onFilter('')
       }, 400)
     }
-    if (filterText && prevProps.filterText !== filterText && firstMatchNode) {
-      // if filter text change, just update path
+    if (filterText !== undefined && prevProps.filterText !== filterText) {
       this.updatePath()
     }
   }
@@ -106,18 +106,19 @@ class Cascader extends PureComponent {
   }
 
   updatePath() {
-    const { firstMatchNode, keygen } = this.props
-    const key = getKey(firstMatchNode, keygen)
-    let path = []
-    const current = this.datum.getPath(key)
-    if (!current) {
-      this.setState({ path })
+    const { firstMatchNode, keygen, filterText } = this.props
+    if (!filterText || !firstMatchNode) {
+      this.setState({ path: [] })
       return
     }
-    path = [...current.path, key]
-    this.setState({
-      path,
-    })
+    const key = getKey(firstMatchNode, keygen)
+    const current = this.datum.getPath(key)
+    if (!current) return
+    this.setState(
+      immer(draft => {
+        draft.path = [...current.path, key]
+      })
+    )
   }
 
   handleClickAway(e) {

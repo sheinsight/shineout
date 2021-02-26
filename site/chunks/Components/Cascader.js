@@ -61,7 +61,7 @@ const examples = [
   {
     name: '06-filter',
     title: locate(
-      '筛选数据 \n onFilter 可用于数据过滤，不返回结果时，可实现服务端过滤；返回函数时，用于前端过滤。 \n 单选状态下支持',
+      '筛选数据 \n onFilter 可用于数据过滤，不返回结果时，可实现服务端过滤；返回函数时，用于前端过滤。 \n 单选状态下筛选结果以列表展示，多选状态任保持树状结构展示。',
       'Filter \n onFilter can be used for data filtering, for server-side filtering when no results are returned, and for front-end filtering when a function is returned. \n Support in single selection state'
     ),
     component: require('doc/pages/components/Cascader/example-06-filter.js').default,
