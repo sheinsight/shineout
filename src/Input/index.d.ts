@@ -5,10 +5,10 @@ import { StandardProps, RegularAttributes, FormItemStandardProps, CommonProps } 
 
 type ReactNode = React.ReactNode;
 
-export interface InputProps<T, Value> extends 
+export interface InputProps<Value> extends 
 StandardProps, 
 FormItemStandardProps<Value>, 
-Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'> {
+Pick<CommonProps, 'clearable'> {
 
   /**
    * User input triggers the onChange and to check interval, unit: ms.
@@ -26,7 +26,7 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'> {
    * 
    * default: -
    */
-  onEnterPress?: (value: T) => void;
+  onEnterPress?: (value: Value) => void;
 
   /**
    * The position where the text pop up
@@ -116,10 +116,10 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'> {
    * 
    * default: -
    */
-  rules?: RuleParamsType<T, InputProps>
+  rules?: RuleParamsType<Value, InputProps>
 }
 
-export interface InputNumberProps <T, Value> extends InputProps<T, Value> {
+export interface InputNumberProps <Value> extends InputProps<Value> {
 
   /**
    * The maximum value
@@ -177,10 +177,10 @@ export interface InputNumberProps <T, Value> extends InputProps<T, Value> {
 
 }
 
-declare class Input<T = any, Value = any> extends React.Component<InputProps<T, Value>, {}> {
+declare class Input<Value = any> extends React.Component<InputProps<Value>, {}> {
     static Number: typeof InputNumber;
 }
 
-declare class InputNumber<T = any, Value = any> extends React.Component<InputNumberProps<T, Value>, {}> {}
+declare class InputNumber<Value = number> extends React.Component<InputNumberProps<Value>, {}> {}
 
 export default Input;
