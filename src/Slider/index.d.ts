@@ -3,8 +3,7 @@ import { StandardProps, FormItemStandardProps, CommonProps } from '../@types/com
 
 export interface SliderProps<Value> extends
 StandardProps, 
-FormItemStandardProps<Value>, 
-Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'> 
+FormItemStandardProps<Value>
   {
 
   /**

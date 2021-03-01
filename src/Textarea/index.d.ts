@@ -5,9 +5,8 @@ type ReactNode = React.ReactNode;
 
 export interface TextareaProps<Value> extends
 StandardProps, 
-FormItemStandardProps<Value>, 
-Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'> 
-{
+FormItemStandardProps<Value>
+  {
 
   /**
    * Whether the height changes automatically with the content
@@ -44,7 +43,7 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
    * 
    * default: 
    */
-  onEnterPress?: (value: string) => void;
+  onEnterPress?: (value: Value) => void;
 
   /**
    * The position where the message pops up
