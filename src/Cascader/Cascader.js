@@ -415,6 +415,9 @@ class Cascader extends PureComponent {
           onPathChange={this.handlePathChange}
           bindInput={this.bindInput}
           handleRemove={this.handleRemove}
+          selectId={this.selectId}
+          showList={this.handleClick}
+          size={size}
         />
 
         {this.renderPanel()}

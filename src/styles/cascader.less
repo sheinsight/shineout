@@ -95,6 +95,8 @@
 
     .@{cascader-prefix}-item {
       background: @select-result-bg;
+      font-size: @font-size-base;
+      color: @gray-700;
     }
 
     .@{cascader-prefix}-input {
@@ -330,5 +332,17 @@
         font-size: @font-size-large;
       }
     }
+  }
+}
+
+.@{cascader-prefix}-result.@{cascader-prefix}-large {
+  .@{cascader-prefix}-item {
+    font-size: @font-size-large;
+  }
+}
+
+.@{cascader-prefix}-result.@{cascader-prefix}-small {
+  .@{cascader-prefix}-item {
+    font-size: @font-size-small;
   }
 }
