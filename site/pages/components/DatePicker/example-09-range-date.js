@@ -12,6 +12,8 @@ const style = { marginBottom: 12 }
 export default function() {
   return (
     <div>
+      <DatePicker formatResult="yy-MM-dd" range={86400 * 20} type="date" onChange={a => console.log(a)} style={style} />
+      <br />
       <DatePicker range={86400 * 20} type="date" onChange={a => console.log(a)} style={style} />
       <br />
       <DatePicker range={86400 * 20} type="week" onChange={a => console.log(a)} style={style} />
