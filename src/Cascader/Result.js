@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { inputClass, selectClass, cascaderClass } from '../styles'
 import Input from './Input'
+import icons from '../icons'
 
 class Result extends PureComponent {
   constructor(props) {
@@ -14,6 +15,11 @@ class Result extends PureComponent {
   handleNodeClick(id) {
     const { path } = this.props.datum.getPath(id)
     this.props.onPathChange(id, null, path)
+  }
+
+  removeTargetNode(node) {
+    const { handleRemove } = this.props
+    handleRemove(node)
   }
 
   renderClear() {
@@ -63,8 +69,18 @@ class Result extends PureComponent {
     )
   }
 
+  renderClose(node) {
+    const { singleRemove } = this.props
+    if (!singleRemove) return null
+    return (
+      <span className={cascaderClass('single-remove')} onClick={this.removeTargetNode.bind(this, node)}>
+        {icons.Close}
+      </span>
+    )
+  }
+
   renderResult() {
-    const { datum, value, renderItem, renderResult, compressed, focus, onFilter } = this.props
+    const { datum, value, renderItem, renderResult, compressed, focus, onFilter, singleRemove } = this.props
     const nodes = value.map(v => datum.getDataById(v))
     let render = renderResult || renderItem
     if (typeof render === 'string') {
@@ -72,13 +88,21 @@ class Result extends PureComponent {
       render = n => n[copyRender]
     }
 
+    const removeContainerClassName = cascaderClass(singleRemove && 'remove-container')
+
     const neededResult = compressed ? nodes.slice(0, 1) : nodes
     const items = neededResult.map((n, i) => {
       const res = n && render(n, nodes)
       if (!res) return null
       return (
-        <a tabIndex={-1} className={cascaderClass('item')} onClick={this.handleNodeClick.bind(this, value[i])} key={i}>
+        <a
+          tabIndex={-1}
+          className={classnames(cascaderClass('item'), removeContainerClassName)}
+          onClick={this.handleNodeClick.bind(this, value[i])}
+          key={i}
+        >
           {res}
+          {this.renderClose(n)}
         </a>
       )
     })
@@ -136,6 +160,8 @@ Result.propTypes = {
   focusSelected: PropTypes.bool,
   bindInput: PropTypes.func,
   filterText: PropTypes.string,
+  singleRemove: PropTypes.bool,
+  handleRemove: PropTypes.func,
 }
 
 Result.defaultProps = {

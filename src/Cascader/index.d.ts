@@ -128,6 +128,15 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    * defualt: none
    */
   size?: RegularAttributes.Size;
+
+  /**
+   * Support single node deletion
+   * 
+   * 支持单个节点删除
+   * 
+   * default: none
+   */
+  singleRemove: boolean;
 }
 
 declare class Cascader<Item = any, Value = string[]> extends React.Component<CascaderProps<Item, Value>, {}> {}

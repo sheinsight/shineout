@@ -28,3 +28,4 @@
 | height | number | 300 | height of dropdown options |
 | filterDelay | number | 400 | ms. The delay of user input triggering filter events |
 | size | string | none | size |
+| singleRemove | boolean | none | Support single node deletion |

@@ -28,3 +28,4 @@
 | height | number | 300 | 下拉列表高度 |
 | filterDelay | number | 400 | 毫秒。用户输入触发 fitler 事件的延时 |
 | size | string | 无 | 尺寸 |
+| singleRemove | boolean | 无 | 支持单个节点删除 |
