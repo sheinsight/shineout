@@ -2,6 +2,7 @@
 @import './themes/@{so-theme}.less';
 
 @popover-prefix: ~'@{so-prefix}-popover';
+@popover-arrow-size: 12px;
 
 .@{popover-prefix} {
   @keyframe-opacity: ~'@{popover-prefix}-kf-opacity';
@@ -66,8 +67,8 @@
     &:after {
       left: 0;
       right: 0;
-      bottom: -@popover-arrow-margin;
-      height: @popover-arrow-margin;
+      bottom: -@popover-arrow-size;
+      height: @popover-arrow-size;
     }
 
     .@{popover-prefix}-arrow {
@@ -103,8 +104,8 @@
     &:after {
       top: 0;
       bottom: 0;
-      right: -@popover-arrow-margin;
-      width: @popover-arrow-margin;
+      right: -@popover-arrow-size;
+      width: @popover-arrow-size;
     }
 
     .@{popover-prefix}-arrow {
@@ -140,8 +141,8 @@
     &:after {
       top: 0;
       bottom: 0;
-      left: -@popover-arrow-margin;
-      width: @popover-arrow-margin;
+      left: -@popover-arrow-size;
+      width: @popover-arrow-size;
     }
 
     .@{popover-prefix}-arrow {
@@ -178,8 +179,8 @@
     &:after {
       left: 0;
       right: 0;
-      top: -@popover-arrow-margin;
-      height: @popover-arrow-margin;
+      top: -@popover-arrow-size;
+      height: @popover-arrow-size;
     }
 
     .@{popover-prefix}-arrow {
