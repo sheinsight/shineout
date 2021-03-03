@@ -35,7 +35,11 @@ class Result extends Component {
     this.setState({ more })
   }
 
-  removeTargetNode(node) {
+  removeTargetNode(...args) {
+    const [node, isPopover, event] = args
+    if (isPopover) {
+      event.stopPropagation()
+    }
     const { handleRemove } = this.props
     handleRemove(node)
   }
@@ -79,7 +83,7 @@ class Result extends Component {
                   key={i}
                 >
                   {res}
-                  {this.renderClose(d)}
+                  {this.renderClose(d, true)}
                 </a>
               )
             })}
@@ -117,11 +121,11 @@ class Result extends Component {
     )
   }
 
-  renderClose(node) {
+  renderClose(node, isPopover = false) {
     const { singleRemove } = this.props
     if (!singleRemove) return null
     return (
-      <span className={cascaderClass('single-remove')} onClick={this.removeTargetNode.bind(this, node)}>
+      <span className={cascaderClass('single-remove')} onClick={this.removeTargetNode.bind(this, node, isPopover)}>
         {icons.Close}
       </span>
     )
