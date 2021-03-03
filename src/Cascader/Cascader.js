@@ -60,6 +60,7 @@ class Cascader extends PureComponent {
     this.resetPosition = this.resetPosition.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.bindInput = this.bindInput.bind(this)
+    this.handleRemove = this.handleRemove.bind(this)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -157,12 +158,21 @@ class Cascader extends PureComponent {
     setTimeout(() => this.handleState(false), 10)
   }
 
+  handleRemove(node) {
+    const { onChange } = this.props
+    this.datum.set(this.datum.getKey(node), 0)
+    if (onChange) onChange(this.datum.getValue(), node)
+  }
+
   handleState(focus, e) {
     if (this.props.disabled === true) return
     if (focus === this.state.focus) return
 
     // click close icon
     if (focus && e && e.target.classList.contains(cascaderClass('close'))) return
+
+    // if remove node, return
+    if (e && getParent(e.target, `.${cascaderClass('remove-container')}`)) return
 
     const { height, onCollapse } = this.props
     let { position } = this.props
@@ -404,6 +414,10 @@ class Cascader extends PureComponent {
           onClear={this.handleClear}
           onPathChange={this.handlePathChange}
           bindInput={this.bindInput}
+          handleRemove={this.handleRemove}
+          selectId={this.selectId}
+          showList={this.handleClick}
+          size={size}
         />
 
         {this.renderPanel()}

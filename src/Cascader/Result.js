@@ -1,19 +1,47 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { inputClass, selectClass, cascaderClass } from '../styles'
 import Input from './Input'
+import icons from '../icons'
+import Popover from '../Popover'
 
-class Result extends PureComponent {
+class Result extends Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      more: false,
+    }
+
     this.handleNodeClick = this.handleNodeClick.bind(this)
+    this.handelMore = this.handelMore.bind(this)
   }
 
-  handleNodeClick(id) {
+  componentDidUpdate() {
+    const { compressed, value } = this.props
+    if (compressed && value.length <= 1) this.state.more = false
+  }
+
+  handleNodeClick(id, show = false) {
     const { path } = this.props.datum.getPath(id)
     this.props.onPathChange(id, null, path)
+    if (show) {
+      this.props.showList()
+    }
+  }
+
+  handelMore(more) {
+    this.setState({ more })
+  }
+
+  removeTargetNode(...args) {
+    const [node, isPopover, event] = args
+    if (isPopover) {
+      event.stopPropagation()
+    }
+    const { handleRemove } = this.props
+    handleRemove(node)
   }
 
   renderClear() {
@@ -33,6 +61,36 @@ class Result extends PureComponent {
     }
 
     return null
+  }
+
+  renderMore(list, render) {
+    const { more } = this.state
+    const { singleRemove, value, selectId, size } = this.props
+    const removeContainerClassName = cascaderClass(singleRemove && 'remove-container')
+    return (
+      <a tabIndex={-1} key={list.length} className={cascaderClass('item', 'item-compressed')}>
+        <span>{`+${list.length - 1}`}</span>
+        <Popover visible={more} onVisibleChange={this.handelMore} className={cascaderClass('popover')}>
+          <div className={cascaderClass('result', size)} data-id={selectId}>
+            {list.map((d, i) => {
+              const res = d && render(d, list)
+              if (!res) return null
+              return (
+                <a
+                  tabIndex={-1}
+                  className={classnames(cascaderClass('item'), removeContainerClassName)}
+                  onClick={this.handleNodeClick.bind(this, value[i], true)}
+                  key={i}
+                >
+                  {res}
+                  {this.renderClose(d, true)}
+                </a>
+              )
+            })}
+          </div>
+        </Popover>
+      </a>
+    )
   }
 
   renderInput() {
@@ -63,8 +121,18 @@ class Result extends PureComponent {
     )
   }
 
+  renderClose(node, isPopover = false) {
+    const { singleRemove } = this.props
+    if (!singleRemove) return null
+    return (
+      <span className={cascaderClass('single-remove')} onClick={this.removeTargetNode.bind(this, node, isPopover)}>
+        {icons.Close}
+      </span>
+    )
+  }
+
   renderResult() {
-    const { datum, value, renderItem, renderResult, compressed, focus, onFilter } = this.props
+    const { datum, value, renderItem, renderResult, compressed, focus, onFilter, singleRemove } = this.props
     const nodes = value.map(v => datum.getDataById(v))
     let render = renderResult || renderItem
     if (typeof render === 'string') {
@@ -72,23 +140,27 @@ class Result extends PureComponent {
       render = n => n[copyRender]
     }
 
+    const removeContainerClassName = cascaderClass(singleRemove && 'remove-container')
+
     const neededResult = compressed ? nodes.slice(0, 1) : nodes
     const items = neededResult.map((n, i) => {
       const res = n && render(n, nodes)
       if (!res) return null
       return (
-        <a tabIndex={-1} className={cascaderClass('item')} onClick={this.handleNodeClick.bind(this, value[i])} key={i}>
+        <a
+          tabIndex={-1}
+          className={classnames(cascaderClass('item'), removeContainerClassName)}
+          onClick={this.handleNodeClick.bind(this, value[i])}
+          key={i}
+        >
           {res}
+          {this.renderClose(n)}
         </a>
       )
     })
 
     if (compressed && nodes.length > 1) {
-      items.push(
-        <a tabIndex={-1} key={items.length} className={cascaderClass('item', 'item-compressed')}>
-          <span>{`+${nodes.length - 1}`}</span>
-        </a>
-      )
+      items.push(this.renderMore(nodes, render, value))
     }
 
     if (items.filter(v => v).length === 0) {
@@ -136,6 +208,11 @@ Result.propTypes = {
   focusSelected: PropTypes.bool,
   bindInput: PropTypes.func,
   filterText: PropTypes.string,
+  singleRemove: PropTypes.bool,
+  handleRemove: PropTypes.func,
+  selectId: PropTypes.string,
+  showList: PropTypes.func,
+  size: PropTypes.string,
 }
 
 Result.defaultProps = {
