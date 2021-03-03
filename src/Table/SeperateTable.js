@@ -127,11 +127,24 @@ class SeperateTable extends PureComponent {
     this.commitInSetRowHeight()
   }
 
+  proxyScrollTopSetTranslate(left, top) {
+    this.translateTop = top
+    setTranslate(this.tbody, `-${left}px`, `-${top}px`)
+  }
+
   /**
-   * commit set row height in 32ms
+   * commit set row height in 16ms
    */
   commitInSetRowHeight() {
     if (this.timer) {
+      return
+    }
+
+    if (this.scrolling) {
+      // if in scrolling, 16ms later
+      setTimeout(() => {
+        this.commitInSetRowHeight()
+      }, 16)
       return
     }
 
@@ -139,6 +152,7 @@ class SeperateTable extends PureComponent {
       clearTimeout(this.timer)
       this.timer = null
       if (!this.needUpdate) return
+
       this.handleScroll(
         ...immer(this.lastScrollArgs, draft => {
           draft[7] = undefined
@@ -322,7 +336,11 @@ class SeperateTable extends PureComponent {
 
   handleScroll(...args) {
     if (!this.tbody || this.realTbody.clientHeight === 0) return
+    this.scrolling = true
     const [x, y, max, bar, v, h, pixelX, pixelY] = args
+
+    console.log('scrollTop: ', y)
+
     const { colgroup } = this.state
     const isResize = v && this.lastScrollArgs[4] && v !== this.lastScrollArgs[4]
     this.lastScrollArgs = args
@@ -398,6 +416,7 @@ class SeperateTable extends PureComponent {
       resize: isResize ? v : false,
     })
 
+    this.scrolling = false
     if (this.props.onScroll) this.props.onScroll(x, y, left)
   }
 
