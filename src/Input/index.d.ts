@@ -1,12 +1,14 @@
 import * as React from 'react'
 import { PopoverProps } from '../Popover'
 import { RuleParamsType } from '../Rule'
-import { StandardProps, FormItemStandardProps, RegularAttributes } from '../@types/common'
+import { StandardProps, RegularAttributes, FormItemStandardProps, CommonProps } from '../@types/common'
 
 type ReactNode = React.ReactNode;
 
-export interface InputProps<T> extends StandardProps, FormItemStandardProps<T> {
-
+export interface InputProps<Value> extends 
+StandardProps, 
+FormItemStandardProps<Value>, 
+Pick<CommonProps, 'clearable'> {
 
   /**
    * User input triggers the onChange and to check interval, unit: ms.
@@ -17,7 +19,6 @@ export interface InputProps<T> extends StandardProps, FormItemStandardProps<T> {
    */
   delay?: number;
 
-
   /**
    * The callback function for enter key
    * 
@@ -25,8 +26,7 @@ export interface InputProps<T> extends StandardProps, FormItemStandardProps<T> {
    * 
    * default: -
    */
-  onEnterPress?: (value: T) => void;
-
+  onEnterPress?: (value: Value) => void;
 
   /**
    * The position where the text pop up
@@ -74,15 +74,6 @@ export interface InputProps<T> extends StandardProps, FormItemStandardProps<T> {
   type?: string;
 
   /**
-   * Remove content of the input when clicking the clear icon, clear event function
-   * 
-   * 可点击清空图标删除输入框内容，为函数式表示清空回调
-   * 
-   * default: false
-   */
-  clearable?: () => void | boolean;
-
-  /**
    * Show as thousands separator, valid only when type is 'number'
    * 
    * 以千位分隔符展示,仅当type为number时有效
@@ -125,10 +116,10 @@ export interface InputProps<T> extends StandardProps, FormItemStandardProps<T> {
    * 
    * default: -
    */
-  rules?: RuleParamsType<T, InputProps>
+  rules?: RuleParamsType<Value, InputProps>
 }
 
-export interface InputNumberProps<T> extends InputProps<T> {
+export interface InputNumberProps <Value> extends InputProps<Value> {
 
   /**
    * The maximum value
@@ -184,26 +175,12 @@ export interface InputNumberProps<T> extends InputProps<T> {
    */
   hideArrow?: boolean;
 
-  /**
-   * Show as thousands separator
-   * 
-   * 以千位分隔符展示
-   * 
-   * default: false
-   */
-  coin?: boolean;
-
 }
 
-declare class InputNumber<T = number> extends React.Component<InputNumberProps<T>, {}> {
-  render(): JSX.Element;
+declare class Input<Value = any> extends React.Component<InputProps<Value>, {}> {
+    static Number: typeof InputNumber;
 }
 
+declare class InputNumber<Value = number> extends React.Component<InputNumberProps<Value>, {}> {}
 
-declare class Input<T = string> extends React.Component<InputProps<T>, {}> {
-  static Number: typeof InputNumber;
-
-  render(): JSX.Element;
-}
-
-export default Input
+export default Input;
