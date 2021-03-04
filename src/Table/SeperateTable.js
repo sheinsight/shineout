@@ -146,15 +146,15 @@ class SeperateTable extends PureComponent {
     /**
      * if press and hold bar to scroll to the bottom, reset scroll
      */
-    if (this.lastScrollArgs[1] === 1) {
-      setTimeout(() => {
-        this.handleScroll(
-          ...immer(this.lastScrollArgs, draft => {
-            draft[7] = undefined
-          })
-        )
-      })
-    }
+    // if (this.lastScrollArgs[1] === 1) {
+    //   setTimeout(() => {
+    //     this.handleScroll(
+    //       ...immer(this.lastScrollArgs, draft => {
+    //         draft[7] = undefined
+    //       })
+    //     )
+    //   })
+    // }
   }
 
   checkScrollToIndex(index, outerHeight) {
