@@ -32,11 +32,11 @@ function Item({ children, close, className, data, isPopover, singleRemove, click
 }
 
 // eslint-disable-next-line react/prop-types
-function wrapItem({ render, data, value, ...options }) {
-  const res = data && render(data, value)
+function wrapItem({ render, data, values, ...options }) {
+  const res = data && render(data, values)
   if (!res) return null
   return (
-    <Item {...options} data={data} render={render} value={value}>
+    <Item {...options} data={data}>
       {res}
     </Item>
   )
@@ -60,10 +60,9 @@ class Result extends Component {
     }
   }
 
-  handleNode(list, render) {
-    const { compressed, singleRemove, value } = this.props
+  handleNode(nodes, render) {
+    const { compressed, singleRemove, value, datum } = this.props
 
-    const nodes = list
     const neededResult = compressed ? nodes.slice(0, 1) : nodes
 
     const removeContainerClassName = cascaderClass(singleRemove && 'remove-container')
@@ -75,7 +74,7 @@ class Result extends Component {
           key: value[i],
           close: this.removeTargetNode.bind(this),
           data: n,
-          value: list,
+          values: value.map(v => datum.getDataById(v)),
           render,
           singleRemove,
           click: this.handleNodeClick,
@@ -118,10 +117,10 @@ class Result extends Component {
     return null
   }
 
-  renderItem({ index, render, data, value, ...options }) {
+  renderItem({ index, render, data, raw, ...options }) {
     const { singleRemove } = this.props
     const itemClassName = cascaderClass(singleRemove && 'remove-container')
-    const res = data && render(data, value)
+    const res = data && render(data, raw)
     if (!res) return null
     return (
       <Item
@@ -139,7 +138,7 @@ class Result extends Component {
   }
 
   renderMore(list, render) {
-    const { selectId, size, compressed } = this.props
+    const { selectId, size, compressed, value, datum } = this.props
     return (
       <More
         key="more"
@@ -152,6 +151,7 @@ class Result extends Component {
         render={render}
         close={this.removeTargetNode}
         compressed={compressed}
+        raw={value.map(v => datum.getDataById(v))}
       />
     )
   }
@@ -185,7 +185,7 @@ class Result extends Component {
   }
 
   renderResult() {
-    const { datum, value, renderItem, renderResult, compressed, focus, onFilter, singleRemove } = this.props
+    const { datum, value, renderItem, renderResult, compressed, focus, onFilter } = this.props
     const nodes = value.map(v => datum.getDataById(v))
     let render = renderResult || renderItem
     if (typeof render === 'string') {
@@ -196,7 +196,7 @@ class Result extends Component {
     const items = this.handleNode(nodes, render)
 
     if (compressed && nodes.length > 1) {
-      items.push(this.renderMore(nodes, render, value))
+      items.push(this.renderMore(nodes, render))
     }
 
     if (items.filter(v => v).length === 0) {
