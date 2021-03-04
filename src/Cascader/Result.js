@@ -4,26 +4,55 @@ import classnames from 'classnames'
 import { inputClass, selectClass, cascaderClass } from '../styles'
 import Input from './Input'
 import icons from '../icons'
-import Popover from '../Popover'
+import More from '../Select/More'
+import { isEmpty } from '../utils/is'
+
+// eslint-disable-next-line react/prop-types
+function Item({ children, close, className, data, isPopover, singleRemove, click }) {
+  const onClose = close
+    ? e => {
+        close(data, isPopover, e)
+      }
+    : undefined
+  const onClick = click
+    ? () => {
+        click(data, isPopover)
+      }
+    : undefined
+  return (
+    <a tabIndex={-1} className={classnames(cascaderClass('item'), className)} onClick={onClick}>
+      {children}
+      {singleRemove && (
+        <span className={cascaderClass('single-remove')} onClick={onClose}>
+          {icons.Close}
+        </span>
+      )}
+    </a>
+  )
+}
+
+// eslint-disable-next-line react/prop-types
+function wrapItem({ render, data, value, ...options }) {
+  const res = data && render(data, value)
+  if (!res) return null
+  return (
+    <Item {...options} data={data} render={render} value={value}>
+      {res}
+    </Item>
+  )
+}
 
 class Result extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      more: false,
-    }
-
     this.handleNodeClick = this.handleNodeClick.bind(this)
-    this.handelMore = this.handelMore.bind(this)
+    this.renderItem = this.renderItem.bind(this)
+    this.removeTargetNode = this.removeTargetNode.bind(this)
   }
 
-  componentDidUpdate() {
-    const { compressed, value } = this.props
-    if (compressed && value.length <= 1) this.state.more = false
-  }
-
-  handleNodeClick(id, show = false) {
+  handleNodeClick(data, show = false) {
+    const id = this.props.datum.getKey(data)
     const { path } = this.props.datum.getPath(id)
     this.props.onPathChange(id, null, path)
     if (show) {
@@ -31,8 +60,34 @@ class Result extends Component {
     }
   }
 
-  handelMore(more) {
-    this.setState({ more })
+  handleNode(list, render) {
+    const { compressed, singleRemove, value } = this.props
+
+    const nodes = list
+    const neededResult = compressed ? nodes.slice(0, 1) : nodes
+
+    const removeContainerClassName = cascaderClass(singleRemove && 'remove-container')
+
+    const items = neededResult
+      .map((n, i) =>
+        wrapItem({
+          className: removeContainerClassName,
+          key: value[i],
+          close: this.removeTargetNode.bind(this),
+          data: n,
+          value: list,
+          render,
+          singleRemove,
+          click: this.handleNodeClick,
+        })
+      )
+      .filter(n => !isEmpty(n))
+
+    if (items.length > 0) {
+      return items
+    }
+    nodes.shift()
+    return this.handleNode(nodes, render)
   }
 
   removeTargetNode(...args) {
@@ -63,33 +118,41 @@ class Result extends Component {
     return null
   }
 
-  renderMore(list, render) {
-    const { more } = this.state
-    const { singleRemove, value, selectId, size } = this.props
-    const removeContainerClassName = cascaderClass(singleRemove && 'remove-container')
+  renderItem({ index, render, data, value, ...options }) {
+    const { singleRemove } = this.props
+    const itemClassName = cascaderClass(singleRemove && 'remove-container')
+    const res = data && render(data, value)
+    if (!res) return null
     return (
-      <a tabIndex={-1} key={list.length} className={cascaderClass('item', 'item-compressed')}>
-        <span>{`+${list.length - 1}`}</span>
-        <Popover visible={more} onVisibleChange={this.handelMore} className={cascaderClass('popover')}>
-          <div className={cascaderClass('result', size)} data-id={selectId}>
-            {list.map((d, i) => {
-              const res = d && render(d, list)
-              if (!res) return null
-              return (
-                <a
-                  tabIndex={-1}
-                  className={classnames(cascaderClass('item'), removeContainerClassName)}
-                  onClick={this.handleNodeClick.bind(this, value[i], true)}
-                  key={i}
-                >
-                  {res}
-                  {this.renderClose(d, true)}
-                </a>
-              )
-            })}
-          </div>
-        </Popover>
-      </a>
+      <Item
+        key={index}
+        {...options}
+        className={itemClassName}
+        singleRemove={singleRemove}
+        close={this.removeTargetNode}
+        isPopover
+        click={this.handleNodeClick}
+      >
+        {res}
+      </Item>
+    )
+  }
+
+  renderMore(list, render) {
+    const { selectId, size, compressed } = this.props
+    return (
+      <More
+        key="more"
+        data={list}
+        className={cascaderClass('item', 'item-compressed')}
+        popoverClassName={cascaderClass('popover')}
+        contentClassName={cascaderClass('result', size)}
+        renderItem={this.renderItem}
+        dataId={selectId}
+        render={render}
+        close={this.removeTargetNode}
+        compressed={compressed}
+      />
     )
   }
 
@@ -121,16 +184,6 @@ class Result extends Component {
     )
   }
 
-  renderClose(node, isPopover = false) {
-    const { singleRemove } = this.props
-    if (!singleRemove) return null
-    return (
-      <span className={cascaderClass('single-remove')} onClick={this.removeTargetNode.bind(this, node, isPopover)}>
-        {icons.Close}
-      </span>
-    )
-  }
-
   renderResult() {
     const { datum, value, renderItem, renderResult, compressed, focus, onFilter, singleRemove } = this.props
     const nodes = value.map(v => datum.getDataById(v))
@@ -140,24 +193,7 @@ class Result extends Component {
       render = n => n[copyRender]
     }
 
-    const removeContainerClassName = cascaderClass(singleRemove && 'remove-container')
-
-    const neededResult = compressed ? nodes.slice(0, 1) : nodes
-    const items = neededResult.map((n, i) => {
-      const res = n && render(n, nodes)
-      if (!res) return null
-      return (
-        <a
-          tabIndex={-1}
-          className={classnames(cascaderClass('item'), removeContainerClassName)}
-          onClick={this.handleNodeClick.bind(this, value[i])}
-          key={i}
-        >
-          {res}
-          {this.renderClose(n)}
-        </a>
-      )
-    })
+    const items = this.handleNode(nodes, render)
 
     if (compressed && nodes.length > 1) {
       items.push(this.renderMore(nodes, render, value))
@@ -201,7 +237,7 @@ Result.propTypes = {
   renderResult: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   style: PropTypes.object,
   value: PropTypes.array,
-  compressed: PropTypes.bool,
+  compressed: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   focus: PropTypes.bool,
   onFilter: PropTypes.func,
   trim: PropTypes.bool,
