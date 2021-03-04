@@ -31,17 +31,6 @@ function Item({ children, close, className, data, isPopover, singleRemove, click
   )
 }
 
-// eslint-disable-next-line react/prop-types
-function wrapItem({ render, data, values, ...options }) {
-  const res = data && render(data, values)
-  if (!res) return null
-  return (
-    <Item {...options} data={data}>
-      {res}
-    </Item>
-  )
-}
-
 class Result extends PureComponent {
   constructor(props) {
     super(props)
@@ -69,15 +58,12 @@ class Result extends PureComponent {
 
     const items = neededResult
       .map((n, i) =>
-        wrapItem({
+        this.renderItem({
           className: removeContainerClassName,
-          key: value[i],
-          close: this.removeTargetNode.bind(this),
+          index: i,
           data: n,
-          values: value.map(v => datum.getDataById(v)),
+          raw: value.map(v => datum.getDataById(v)),
           render,
-          singleRemove,
-          click: this.handleNodeClick,
         })
       )
       .filter(n => !isEmpty(n))
@@ -117,15 +103,16 @@ class Result extends PureComponent {
     return null
   }
 
-  renderItem({ index, render, data, raw, ...options }) {
+  renderItem({ index, render, data, raw, className, ...options }) {
     const { singleRemove } = this.props
-    const itemClassName = cascaderClass(singleRemove && 'remove-container')
+    const itemClassName = classnames(className, cascaderClass(singleRemove && 'remove-container'))
     const res = data && render(data, raw)
     if (!res) return null
     return (
       <Item
         key={index}
         {...options}
+        data={data}
         className={itemClassName}
         singleRemove={singleRemove}
         close={this.removeTargetNode}

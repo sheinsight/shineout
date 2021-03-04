@@ -18,7 +18,7 @@ class More extends Component {
   }
 
   mapData() {
-    const { data, close, render, renderItem, compressed, raw } = this.props
+    const { data, render, renderItem, compressed, raw } = this.props
     return data
       .filter((d, i) => {
         if (compressed === 'no-repeat') return i !== 0
@@ -29,7 +29,6 @@ class More extends Component {
           index: i,
           data: d,
           render,
-          close,
           raw,
         })
       )
@@ -76,7 +75,6 @@ More.propTypes = {
   renderItem: PropTypes.func,
   dataId: PropTypes.string,
   render: PropTypes.func,
-  close: PropTypes.func,
   trigger: PropTypes.string,
   compressed: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   raw: PropTypes.array,
