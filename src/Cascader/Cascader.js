@@ -214,12 +214,14 @@ class Cascader extends PureComponent {
   }
 
   handleChange(...args) {
-    const { onChange } = this.props
+    const { onChange, onFilter, filterText } = this.props
     if (this.input) {
       this.input.reset()
       this.input.focus()
     }
     onChange(...args)
+
+    if (onFilter && filterText) onFilter('')
   }
 
   resetPosition() {
