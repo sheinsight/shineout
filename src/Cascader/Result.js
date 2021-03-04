@@ -50,29 +50,21 @@ class Result extends PureComponent {
   }
 
   handleNode(nodes, render) {
-    const { compressed, singleRemove, value, datum } = this.props
-
-    const neededResult = compressed ? nodes.slice(0, 1) : nodes
+    const { singleRemove } = this.props
 
     const removeContainerClassName = cascaderClass(singleRemove && 'remove-container')
 
-    const items = neededResult
+    return nodes
       .map((n, i) =>
         this.renderItem({
           className: removeContainerClassName,
           index: i,
           data: n,
-          raw: value.map(v => datum.getDataById(v)),
+          raw: nodes,
           render,
         })
       )
       .filter(n => !isEmpty(n))
-
-    if (items.length > 0) {
-      return items
-    }
-    nodes.shift()
-    return this.handleNode(nodes, render)
   }
 
   removeTargetNode(...args) {
@@ -124,23 +116,21 @@ class Result extends PureComponent {
     )
   }
 
-  renderMore(list, render) {
-    const { selectId, size, compressed, value, datum } = this.props
-    return (
+  renderMore(list) {
+    const { selectId, size, compressed } = this.props
+    const [firstItem] = list
+    return [
+      firstItem,
       <More
         key="more"
         data={list}
         className={cascaderClass('item', 'item-compressed')}
         popoverClassName={cascaderClass('popover')}
         contentClassName={cascaderClass('result', size)}
-        renderItem={this.renderItem}
         dataId={selectId}
-        render={render}
-        close={this.removeTargetNode}
         compressed={compressed}
-        raw={value.map(v => datum.getDataById(v))}
-      />
-    )
+      />,
+    ]
   }
 
   renderInput() {
@@ -180,13 +170,13 @@ class Result extends PureComponent {
       render = n => n[copyRender]
     }
 
-    const items = this.handleNode(nodes, render)
+    let items = this.handleNode(nodes, render)
 
-    if (compressed && nodes.length > 1) {
-      items.push(this.renderMore(nodes, render))
+    if (compressed && items.length > 1) {
+      items = this.renderMore(items)
     }
 
-    if (items.filter(v => v).length === 0) {
+    if (items.length === 0) {
       items.push(this.renderPlaceholder())
     } else if (focus && onFilter) {
       items.push(this.renderInput())
