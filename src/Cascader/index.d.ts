@@ -37,7 +37,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    * 
    * default: false
    */
-  compressed?: boolean;
+  compressed?: boolean | 'no-repeat';
 
   /**
    * data. The child node is children. If the children value is null or its length is 0, it is render as a leaf node.
