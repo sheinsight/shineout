@@ -4,6 +4,7 @@
 @select-prefix: ~'@{so-prefix}-select';
 @input-prefix: ~'@{so-prefix}-input';
 @list-prefix: ~'@{so-prefix}-list';
+@tree-node-max-width: 300px;
 
 .@{select-prefix} {
   position: relative;
@@ -226,7 +227,6 @@
     min-width: 100%;
     .@{select-prefix}-tree-wrapper {
       padding: 8px 8px 4px 8px;
-
       .@{so-prefix}-tree-node {
         &:last-child > div {
           padding-bottom: 4px;
@@ -241,7 +241,9 @@
           display: block;
           padding: 0 4px;
           border-radius: 2px;
-
+          max-width: @tree-node-max-width;
+          overflow: hidden;
+          text-overflow: ellipsis;
           &:hover {
             background-color: @primary-color-fade-10;
           }

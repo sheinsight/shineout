@@ -29,9 +29,13 @@ class OptionList extends Component {
 
   renderItem(data) {
     const { renderItem, datum } = this.props
+    const content = renderItem(data)
     return (
-      <span className={selectClass('tree-node', datum.check(data) && 'selected', datum.disabled(data) && 'disabled')}>
-        {renderItem(data)}
+      <span
+        title={typeof content === 'string' ? content : undefined}
+        className={selectClass('tree-node', datum.check(data) && 'selected', datum.disabled(data) && 'disabled')}
+      >
+        {content}
       </span>
     )
   }
