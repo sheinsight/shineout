@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import Popover from '../Popover'
 import { inputClass, selectClass } from '../styles'
-import { isObject, isFunc, isString } from '../utils/is'
+import { isObject, isFunc, isString, isEmpty } from '../utils/is'
 import Input from './Input'
 import Caret from '../icons/Caret'
 import { isRTL } from '../config'
+import More from './More'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -35,12 +35,10 @@ const getResultContent = (data, renderResult, renderUnmatched) => {
 }
 
 // eslint-disable-next-line
-function Item({ renderResult, renderUnmatched, data, disabled, onClick, resultClassName, title = false }) {
+function Item({ content, data, disabled, onClick, resultClassName, title = false }) {
   const value = data
   const click = disabled || !onClick ? undefined : () => onClick(value)
   const synDisabled = disabled || !click
-  const content = getResultContent(data, renderResult, renderUnmatched)
-  if (content === null) return null
   return (
     <a
       title={title && isString(content) ? content : null}
@@ -95,30 +93,39 @@ class Result extends PureComponent {
     this.setState({ more })
   }
 
-  renderMore(list) {
-    const { datum, renderResult, renderUnmatched, compressedClassName, resultClassName } = this.props
-    const { more } = this.state
-    const className = classnames(selectClass('popover'), compressedClassName)
+  renderItem(data, useClose, index) {
+    const { renderResult, renderUnmatched, datum, resultClassName } = this.props
+    const content = getResultContent(data, renderResult, renderUnmatched)
+    if (content === null) return null
     return (
-      <a tabIndex={-1} key="more" className={selectClass('item', 'item-compressed', more && 'item-more')}>
-        <span>{`+${list.length - 1}`}</span>
-        <Popover visible={more} onVisibleChange={this.handelMore} className={className}>
-          <div className={selectClass('result')}>
-            {list.map((d, i) => (
-              <Item
-                key={i}
-                data={d}
-                disabled={datum.disabled(d)}
-                onClick={this.handleRemove}
-                renderResult={renderResult}
-                renderUnmatched={renderUnmatched}
-                resultClassName={resultClassName}
-              />
-            ))}
-          </div>
-        </Popover>
-      </a>
+      <Item
+        key={index}
+        content={content}
+        data={data}
+        disabled={datum.disabled(data)}
+        onClick={useClose ? this.handleRemove : undefined}
+        resultClassName={resultClassName}
+        title
+      />
     )
+  }
+
+  renderMore(items) {
+    const { compressedClassName, compressed } = this.props
+    const className = classnames(selectClass('popover'), compressedClassName)
+    const [firstItem, ...others] = items
+    return [
+      firstItem,
+      <More
+        key="more"
+        className={selectClass('item', 'item-compressed')}
+        popoverClassName={className}
+        contentClassName={selectClass('result')}
+        compressed={compressed}
+        data={[React.cloneElement(firstItem, { onClick: this.handleRemove }), ...others]}
+        cls={selectClass}
+      />,
+    ]
   }
 
   renderClear() {
@@ -197,29 +204,17 @@ class Result extends PureComponent {
       renderUnmatched,
       onFilter,
       focus,
-      datum,
       filterText,
       resultClassName,
     } = this.props
 
     if (multiple) {
-      const neededResult = compressed ? result.slice(0, 1) : result
-      const firstRemove = !compressed || result.length === 1
-      const items = neededResult.map((d, i) => (
-        <Item
-          key={i}
-          data={d}
-          disabled={datum.disabled(d)}
-          onClick={firstRemove ? this.handleRemove : undefined}
-          renderResult={renderResult}
-          renderUnmatched={renderUnmatched}
-          resultClassName={resultClassName}
-          title
-        />
-      ))
+      let items = result
+        .map((n, i) => this.renderItem(n, (i === 0 && result.length <= 1) || !compressed || i > 0, i))
+        .filter(n => !isEmpty(n))
 
       if (compressed && result.length > 1) {
-        items.push(this.renderMore(result))
+        items = this.renderMore(items)
       }
 
       if (focus && onFilter) {
@@ -301,7 +296,7 @@ Result.propTypes = {
   setInputReset: PropTypes.func,
   bindFocusInputFunc: PropTypes.func,
   collapse: PropTypes.func,
-  compressed: PropTypes.bool,
+  compressed: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   trim: PropTypes.bool,
   renderUnmatched: PropTypes.func,
   showArrow: PropTypes.bool,

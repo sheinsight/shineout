@@ -2,10 +2,11 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { inputClass, treeSelectClass } from '../styles'
-import { isObject } from '../utils/is'
+import { isEmpty, isObject } from '../utils/is'
 import Input from './Input'
 import Popover from '../Popover'
 import Caret from '../icons/Caret'
+import More from '../Select/More'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -18,13 +19,13 @@ const getResultContent = (data, renderResult, renderUnmatched) => {
 }
 
 // eslint-disable-next-line
-function Item({ renderResult, renderUnmatched, data, disabled, onClick }) {
+function Item({ content, data, disabled, onClick }) {
   const value = data
   const click = disabled || !onClick ? undefined : () => onClick(value)
   const synDisabled = disabled || !click
   return (
     <a tabIndex={-1} className={treeSelectClass('item', disabled && 'disabled', synDisabled && 'ban')}>
-      {getResultContent(data, renderResult, renderUnmatched)}
+      {content}
       {!synDisabled && <span className={treeSelectClass('indicator', 'close')} onClick={click} />}
     </a>
   )
@@ -87,28 +88,36 @@ class Result extends PureComponent {
     )
   }
 
-  renderMore(list) {
-    const { datum, renderResult, renderUnmatched } = this.props
-    const { more } = this.state
+  renderItem(data, useClose, index) {
+    const { renderResult, renderUnmatched, datum } = this.props
+    const content = getResultContent(data, renderResult, renderUnmatched)
+    if (content === null) return null
     return (
-      <a tabIndex={-1} key="more" className={treeSelectClass('item', 'item-compressed', more && 'item-more')}>
-        <span>{`+${list.length - 1}`}</span>
-        <Popover visible={more} onVisibleChange={this.handelMore} className={treeSelectClass('popover')}>
-          <div className={treeSelectClass('result')}>
-            {list.map((d, i) => (
-              <Item
-                key={i}
-                data={d}
-                disabled={datum.disabled(d)}
-                onClick={this.handleRemove}
-                renderResult={renderResult}
-                renderUnmatched={renderUnmatched}
-              />
-            ))}
-          </div>
-        </Popover>
-      </a>
+      <Item
+        key={index}
+        content={content}
+        data={data}
+        disabled={datum.disabled(data)}
+        onClick={useClose ? this.handleRemove : undefined}
+      />
     )
+  }
+
+  renderMore(items) {
+    const { compressed } = this.props
+    const [firstItem, ...others] = items
+    return [
+      firstItem,
+      <More
+        key="more"
+        className={treeSelectClass('item', 'item-compressed')}
+        popoverClassName={treeSelectClass('popover')}
+        contentClassName={treeSelectClass('result')}
+        compressed={compressed}
+        data={[React.cloneElement(firstItem, { onClick: this.handleRemove }), ...others]}
+        cls={treeSelectClass}
+      />,
+    ]
   }
 
   renderPlaceholder() {
@@ -127,34 +136,15 @@ class Result extends PureComponent {
   }
 
   renderResult() {
-    const {
-      multiple,
-      compressed,
-      result,
-      renderResult,
-      renderUnmatched,
-      onFilter,
-      focus,
-      datum,
-      filterText,
-    } = this.props
+    const { multiple, compressed, result, renderResult, renderUnmatched, onFilter, focus, filterText } = this.props
 
     if (multiple) {
-      const neededResult = compressed ? result.slice(0, 1) : result
-      const firstRemove = !compressed || result.length === 1
-      const items = neededResult.map((d, i) => (
-        <Item
-          key={i}
-          data={d}
-          disabled={datum.disabled(d)}
-          onClick={firstRemove ? this.handleRemove : undefined}
-          renderResult={renderResult}
-          renderUnmatched={renderUnmatched}
-        />
-      ))
+      let items = result
+        .map((n, i) => this.renderItem(n, (i === 0 && result.length <= 1) || !compressed || i > 0, i))
+        .filter(n => !isEmpty(n))
 
       if (compressed && result.length > 1) {
-        items.push(this.renderMore(result))
+        items = this.renderMore(items)
       }
 
       if (focus && onFilter) {

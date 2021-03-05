@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import Popover from '../Popover'
 
 class More extends Component {
@@ -17,7 +18,7 @@ class More extends Component {
   }
 
   render() {
-    const { data, className, popoverClassName, contentClassName, dataId, trigger, compressed } = this.props
+    const { data, className, popoverClassName, contentClassName, dataId, trigger, compressed, cls } = this.props
     const { status } = this.state
 
     if (data.length <= 1) return data
@@ -27,7 +28,7 @@ class More extends Component {
     const itemsLength = items.length
 
     return (
-      <a tabIndex={-1} key="more" className={className}>
+      <a tabIndex={-1} key="more" className={classnames(className, cls && status && cls('item-more'))}>
         <span>{`+${itemsLength}`}</span>
         <Popover trigger={trigger} visible={status} onVisibleChange={this.changeStatus} className={popoverClassName}>
           <div className={contentClassName} data-id={dataId}>
@@ -52,6 +53,7 @@ More.propTypes = {
   dataId: PropTypes.string,
   trigger: PropTypes.string,
   compressed: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  cls: PropTypes.func,
 }
 
 export default More

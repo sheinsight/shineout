@@ -183,7 +183,7 @@ export interface TreeSelectProps<Value, Data> extends StandardProps {
    * 
    * default: false
    */
-  compressed?: boolean;
+  compressed?: boolean | 'no-repeat';
 
   /**
    * When it is true, the pop-up layer of option append into document.body.

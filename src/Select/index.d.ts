@@ -159,7 +159,7 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
    *
    *  default: false
    */
-  compressed?: boolean;
+  compressed?: boolean | 'no-repeat';
 
   /**
    * group by
