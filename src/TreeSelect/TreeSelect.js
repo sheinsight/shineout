@@ -190,6 +190,7 @@ export default class TreeSelect extends PureComponent {
 
     return (
       <span
+        title={typeof item === 'string' ? item : undefined}
         className={treeSelectClass(
           'content-wrapper',
           active && 'selected',
