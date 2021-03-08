@@ -12,7 +12,7 @@ describe('Tooltip[position]', () => {
           <span>test</span>
         </Tooltip>
       )
-      wrapper.find('span').prop('onMouseEnter')()
+      wrapper.find('span').prop('onMouseOver')()
       jest.runAllTimers()
       expect(document.querySelectorAll(`.${SO_PREFIX}-tooltip-${pos}`).length).toBe(1)
     })
