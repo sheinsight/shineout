@@ -42,7 +42,8 @@ class Result extends PureComponent {
 
   handleNodeClick(data, show = false) {
     const id = this.props.datum.getKey(data)
-    const { path } = this.props.datum.getPath(id)
+    const { path } = this.props.datum.getPath(id) || {}
+    if (!path) return
     this.props.onPathChange(id, null, path)
     if (show) {
       this.props.showList()
