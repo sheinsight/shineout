@@ -545,7 +545,7 @@ Select.propTypes = {
   result: PropTypes.array,
   size: PropTypes.string,
   text: PropTypes.object,
-  compressed: PropTypes.bool,
+  compressed: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   trim: PropTypes.bool,
   autoAdapt: PropTypes.bool,
   filterSingleSelect: PropTypes.bool,
