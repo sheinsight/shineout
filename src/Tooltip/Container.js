@@ -104,8 +104,8 @@ export default function(options) {
 
       const props = { key: 'el' }
       if (trigger === 'hover') {
-        props.onMouseEnter = this.handleShow
-        props.onMouseLeave = () => hide()
+        props.onMouseOver = this.handleShow
+        props.onMouseOut = () => hide()
       } else {
         props.onClick = e => {
           if (e) e.stopPropagation()
