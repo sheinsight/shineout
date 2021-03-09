@@ -1,3 +1,5 @@
+import { IS_NOT_MATCHED_VALUE } from '../Select/Result'
+
 export const CheckedMode = {
   // 只返回全选数据，包含父节点和子节点
   Full: 0,
@@ -33,6 +35,7 @@ export default class {
     this.keygen = keygen
     this.mode = mode
     this.valueMap = new Map()
+    this.unmatchedValueMap = new Map()
     this.events = {}
     this.disabled = disabled || (() => false)
     this.childrenKey = childrenKey
@@ -49,11 +52,22 @@ export default class {
     delete this.events[id]
   }
 
+  setUnmatedValue() {
+    if (!this.value || !this.data) return
+    this.value.forEach(v => {
+      const data = this.getDataById(v)
+      const unmatched = data && data[IS_NOT_MATCHED_VALUE]
+      if (unmatched) this.unmatchedValueMap.set(v, true)
+      else this.unmatchedValueMap.delete(v)
+    })
+  }
+
   setValue(value) {
     this.value = value
     if (value && value !== this.cachedValue) {
       this.initValue()
     }
+    this.setUnmatedValue()
   }
 
   getValue() {
@@ -84,6 +98,9 @@ export default class {
         default:
       }
     })
+    this.unmatchedValueMap.forEach((unmatch, id) => {
+      if (unmatch) value.push(id)
+    })
     this.cachedValue = value
     return value
   }
@@ -101,6 +118,12 @@ export default class {
     if (CheckedMode.Freedom === this.mode) {
       // Free mode will return zero
       return 0
+    }
+    const data = this.getDataById(id)
+    if (data && data[IS_NOT_MATCHED_VALUE]) {
+      if (checked) this.unmatchedValueMap.set(id, true)
+      else this.unmatchedValueMap.delete(id)
+      return null
     }
 
     const { path, children } = this.pathMap.get(id)
@@ -150,7 +173,9 @@ export default class {
   }
 
   getDataById(id) {
-    return this.dataMap.get(id)
+    const oroginData = this.dataMap.get(id)
+    if (oroginData) return oroginData
+    return { [IS_NOT_MATCHED_VALUE]: true, value: id }
   }
 
   getPath(id) {
@@ -253,6 +278,7 @@ export default class {
     this.cachedValue = []
     this.pathMap = new Map()
     this.dataMap = new Map()
+    this.valueMap = new Map()
     this.data = data
 
     if (!data) return
