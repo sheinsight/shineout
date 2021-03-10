@@ -10,9 +10,15 @@ import { DatePicker } from 'shineout'
 export default function() {
   return (
     <div>
-      <DatePicker type="datetime" min={Date.now()} />
+      <DatePicker type="datetime" min={Date.now()} placeholder="Select min datetime" />
       <br />
-      <DatePicker type="datetime" min={Date.now()} max={Date.now() + 4 * 86400000} style={{ marginTop: '12px' }} />
+      <DatePicker
+        type="datetime"
+        min={Date.now()}
+        max={Date.now() + 4 * 86400000}
+        style={{ marginTop: '12px' }}
+        placeholder="Select min/max datetime"
+      />
     </div>
   )
 }

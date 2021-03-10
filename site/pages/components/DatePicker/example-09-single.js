@@ -8,5 +8,14 @@ import React from 'react'
 import { DatePicker } from 'shineout'
 
 export default function() {
-  return <DatePicker range onChange={d => console.log(d)} type="datetime" allowSingle style={{ marginTop: '12px' }} />
+  return (
+    <DatePicker
+      range
+      onChange={d => console.log(d)}
+      type="datetime"
+      allowSingle
+      style={{ marginTop: '12px' }}
+      placeholder={['Start datetime', 'End datetime']}
+    />
+  )
 }
