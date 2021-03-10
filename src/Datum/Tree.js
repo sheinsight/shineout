@@ -1,4 +1,4 @@
-import { IS_NOT_MATCHED_VALUE } from '../Select/Result'
+const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
 export const CheckedMode = {
   // 只返回全选数据，包含父节点和子节点
