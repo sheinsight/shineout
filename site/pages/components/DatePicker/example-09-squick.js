@@ -18,6 +18,7 @@ export default function() {
       range
       onChange={d => console.log(d)}
       type="datetime"
+      placeholder={['Start datetime', 'End datetime']}
       quickSelect={[
         {
           name: 'Next Week',
