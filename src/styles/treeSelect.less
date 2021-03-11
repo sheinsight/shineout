@@ -4,6 +4,7 @@
 @treeSelect-prefix: ~'@{so-prefix}-treeSelect';
 @tree-prefix: ~'@{so-prefix}-tree';
 @input-prefix: ~'@{so-prefix}-input';
+@tree-node-max-width: 300px;
 
 .@{treeSelect-prefix} {
   position: relative;
@@ -26,6 +27,11 @@
       &-content {
         white-space: nowrap;
         padding-left: 4px;
+        .@{tree-prefix}-text {
+          max-width: @tree-node-max-width;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       }
     }
 
@@ -207,6 +213,9 @@
   &-options span.@{treeSelect-prefix}-content-wrapper {
     display: block;
     padding: 0px 4px;
+    max-width: @tree-node-max-width;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   &-options span.@{treeSelect-prefix}-selected {
     background-color: @primary-color-fade-10;

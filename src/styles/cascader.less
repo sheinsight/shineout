@@ -4,6 +4,7 @@
 @cascader-prefix: ~'@{so-prefix}-cascader';
 @list-prefix: ~'@{so-prefix}-list';
 @checkinput-prefix: ~'@{so-prefix}-checkinput';
+@input-prefix: ~'@{so-prefix}-input';
 
 .@{cascader-prefix} {
   position: relative;
@@ -37,6 +38,7 @@
       border-radius: @select-result-border-radius;
       color: inherit;
       text-overflow: ellipsis;
+      position: relative;
 
       &-compressed {
         padding: 0 8px;
@@ -55,10 +57,46 @@
       &:after {
         content: '\feff ';
       }
+
+      &.@{cascader-prefix}-remove-container {
+        padding-right: 16px;
+        &:after {
+          content: none;
+        }
+      }
+
+      .@{cascader-prefix}-single-remove {
+        box-sizing: border-box;
+        position: absolute;
+        top: 50%;
+        right: 8px;
+        transform: translate(50%, -50%);
+        margin: 0;
+        padding: 0;
+
+        svg {
+          width: 6px;
+          height: 6px;
+          transform: translateY(-1px);
+
+          path {
+            transition: all .2s;
+            fill: @gray-500;
+          }
+        }
+
+        &:hover {
+          svg path {
+            fill: @colors-primary;
+          }
+        }
+      }
     }
 
     .@{cascader-prefix}-item {
       background: @select-result-bg;
+      font-size: @font-size-base;
+      color: @gray-700;
     }
 
     .@{cascader-prefix}-input {
@@ -98,6 +136,7 @@
   &-options {
     width: auto;
     align-items: stretch;
+    font-size: @font-size-base;
   }
 
   &-focus &-options {
@@ -215,6 +254,19 @@
       }
     }
   }
+
+
+  &-popover {
+    .@{cascader-prefix}-result {
+      max-height: 112px;
+      max-width: 300px;
+      padding: 14px 14px 8px 14px;
+
+      .@{cascader-prefix}-item  {
+        max-width: none;
+      }
+    }
+  }
 }
 
 .@{cascader-prefix}-rtl {
@@ -264,5 +316,46 @@
       left: 12px;
       right: auto;
     }
+  }
+}
+
+
+.@{input-prefix}  {
+  &.@{input-prefix}-small {
+    .@{cascader-prefix}-result {
+      padding-top: 2px;
+
+      .@{input-prefix}-placeholder,
+      .@{cascader-prefix}-item,
+      .@{cascader-prefix}-input {
+        margin-bottom: 2px;
+        font-size: @font-size-small;
+      }
+    }
+  }
+
+  &.@{input-prefix}-large {
+    .@{cascader-prefix}-result {
+      padding-top: 8px;
+
+      .@{input-prefix}-placeholder,
+      .@{cascader-prefix}-item,
+      .@{cascader-prefix}-input {
+        margin-bottom: 8px;
+        font-size: @font-size-large;
+      }
+    }
+  }
+}
+
+.@{cascader-prefix}-result.@{cascader-prefix}-large {
+  .@{cascader-prefix}-item {
+    font-size: @font-size-large;
+  }
+}
+
+.@{cascader-prefix}-result.@{cascader-prefix}-small {
+  .@{cascader-prefix}-item {
+    font-size: @font-size-small;
   }
 }

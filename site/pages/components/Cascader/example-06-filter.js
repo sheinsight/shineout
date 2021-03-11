@@ -1,14 +1,14 @@
 /**
  * cn - 筛选数据
  *    -- onFilter 可用于数据过滤，不返回结果时，可实现服务端过滤；返回函数时，用于前端过滤。
- *    -- 单选状态下支持
+ *    -- 单选状态下筛选结果以列表展示，多选状态任保持树状结构展示。
  * en - Filter
  *    -- onFilter can be used for data filtering, for server-side filtering when no results are returned, and for front-end filtering when a function is returned.
  *    -- Support in single selection state
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Cascader } from 'shineout'
+import { Cascader, Form } from 'shineout'
 
 const data = [
   {
@@ -107,15 +107,29 @@ const highlight = Component =>
   }
 
 const HighlightCascader = highlight(Cascader)
-export default function() {
-  return (
-    <HighlightCascader
-      onFilter={text => d => d.value.indexOf(text) >= 0}
-      data={data}
-      absolute
-      keygen="value"
-      renderItem={n => `${n.value}`}
-      renderResult={d => d.value}
-    />
-  )
-}
+export default () => (
+  <div>
+    <Form.Item label="Single">
+      <HighlightCascader
+        onFilter={text => d => d.value.indexOf(text) >= 0}
+        data={data}
+        absolute
+        keygen="value"
+        renderItem={n => `${n.value}`}
+        renderResult={d => d.value}
+      />
+    </Form.Item>
+
+    <Form.Item label="Multiple">
+      <HighlightCascader
+        mode={1}
+        onFilter={text => d => d.value.indexOf(text) >= 0}
+        data={data}
+        absolute
+        keygen="value"
+        renderItem={n => `${n.value}`}
+        renderResult={d => d.value}
+      />
+    </Form.Item>
+  </div>
+)

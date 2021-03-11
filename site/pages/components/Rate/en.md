@@ -4,7 +4,7 @@
 
 ## API
 
-### RateFunction(background, front):ReactClass
+#### RateFunction(background, front):ReactClass
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |

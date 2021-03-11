@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import immer from 'immer'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { getUidStr } from '../utils/uid'
@@ -12,6 +13,7 @@ import { docSize } from '../utils/dom/document'
 import { getParent } from '../utils/dom/element'
 import absoluteList from '../AnimationList/AbsoluteList'
 import { isRTL } from '../config'
+import { getKey } from '../utils/uid'
 
 const OptionList = absoluteList(({ focus, getRef, ...other }) => (focus ? <div {...other} /> : null))
 
@@ -58,11 +60,12 @@ class Cascader extends PureComponent {
     this.resetPosition = this.resetPosition.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.bindInput = this.bindInput.bind(this)
+    this.handleRemove = this.handleRemove.bind(this)
   }
 
   componentDidUpdate(prevProps, prevState) {
     this.datum.mode = this.props.mode
-    const { onFilter, filterDataChange } = this.props
+    const { onFilter, filterDataChange, filterText } = this.props
     if (prevProps.value !== this.props.value) this.datum.setValue(this.props.value || [])
     if (!filterDataChange && prevProps.data !== this.props.data) this.datum.setData(this.props.data)
 
@@ -70,6 +73,9 @@ class Cascader extends PureComponent {
       setTimeout(() => {
         onFilter('')
       }, 400)
+    }
+    if (filterText !== undefined && prevProps.filterText !== filterText) {
+      this.updatePath()
     }
   }
 
@@ -98,6 +104,22 @@ class Cascader extends PureComponent {
     if (el.getAttribute('data-id') === this.selectId) return true
     if (getParent(el, `.${cascaderClass('result')}`)) return true
     return false
+  }
+
+  updatePath() {
+    const { firstMatchNode, keygen, filterText } = this.props
+    if (!filterText || !firstMatchNode) {
+      this.setState({ path: [] })
+      return
+    }
+    const key = getKey(firstMatchNode, keygen)
+    const current = this.datum.getPath(key)
+    if (!current) return
+    this.setState(
+      immer(draft => {
+        draft.path = [...current.path, key]
+      })
+    )
   }
 
   handleClickAway(e) {
@@ -136,12 +158,21 @@ class Cascader extends PureComponent {
     setTimeout(() => this.handleState(false), 10)
   }
 
+  handleRemove(node) {
+    const { onChange } = this.props
+    this.datum.set(this.datum.getKey(node), 0)
+    if (onChange) onChange(this.datum.getValue(), node)
+  }
+
   handleState(focus, e) {
     if (this.props.disabled === true) return
     if (focus === this.state.focus) return
 
     // click close icon
     if (focus && e && e.target.classList.contains(cascaderClass('close'))) return
+
+    // if remove node, return
+    if (e && getParent(e.target, `.${cascaderClass('remove-container')}`)) return
 
     const { height, onCollapse } = this.props
     let { position } = this.props
@@ -183,12 +214,14 @@ class Cascader extends PureComponent {
   }
 
   handleChange(...args) {
-    const { onChange } = this.props
+    const { onChange, onFilter, filterText } = this.props
     if (this.input) {
       this.input.reset()
       this.input.focus()
     }
     onChange(...args)
+
+    if (onFilter && filterText) onFilter('')
   }
 
   resetPosition() {
@@ -341,8 +374,8 @@ class Cascader extends PureComponent {
   }
 
   renderPanel() {
-    const { filterText, data } = this.props
-    if (!filterText || data.length === 0) return this.renderAbsoluteList()
+    const { filterText, data, mode } = this.props
+    if (!filterText || (filterText && mode !== undefined) || data.length === 0) return this.renderAbsoluteList()
     return this.renderFilterList()
   }
 
@@ -383,6 +416,10 @@ class Cascader extends PureComponent {
           onClear={this.handleClear}
           onPathChange={this.handlePathChange}
           bindInput={this.bindInput}
+          handleRemove={this.handleRemove}
+          selectId={this.selectId}
+          showList={this.handleClick}
+          size={size}
         />
 
         {this.renderPanel()}
@@ -420,6 +457,7 @@ Cascader.propTypes = {
   filterText: PropTypes.string,
   onFilter: PropTypes.func,
   filterDataChange: PropTypes.any,
+  firstMatchNode: PropTypes.object,
 }
 
 Cascader.defaultProps = {

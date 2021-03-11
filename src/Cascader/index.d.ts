@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StandardProps, FormItemStandardProps, StructDataStandardProps, keyType } from '../@types/common'
+import { StandardProps, FormItemStandardProps, StructDataStandardProps, keyType, RegularAttributes } from '../@types/common'
 
 export interface CascaderProps<Item, Value> extends StandardProps, FormItemStandardProps<Value>, ListItemStandardProps<Item>, StructDataStandardProps<Item>  {
 
@@ -37,7 +37,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    * 
    * default: false
    */
-  compressed?: boolean;
+  compressed?: boolean | 'no-repeat';
 
   /**
    * data. The child node is children. If the children value is null or its length is 0, it is render as a leaf node.
@@ -120,6 +120,23 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    */
   onCollapse?: (collapse: boolean) => void;
 
+  /**
+   * size
+   * 
+   * 尺寸
+   * 
+   * defualt: none
+   */
+  size?: RegularAttributes.Size;
+
+  /**
+   * Support single node deletion
+   * 
+   * 支持单个节点删除
+   * 
+   * default: none
+   */
+  singleRemove: boolean;
 }
 
 declare class Cascader<Item = any, Value = string[]> extends React.Component<CascaderProps<Item, Value>, {}> {}

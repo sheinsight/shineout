@@ -44,14 +44,22 @@ class Input extends PureComponent {
   }
 
   handleChange(e, clearClick) {
-    const { type, clearable } = this.props
+    const { type, clearable, digits } = this.props
     if (clearClick) {
       this.ref.focus()
       if (typeof clearable === 'function') clearable()
     }
     let { value } = e.target
     if (type === 'number' && typeof value !== 'number') value = String(value).replace(/。/g, '.')
-    if (this.invalidNumber(value)) return
+    if (this.invalidNumber(value)) {
+      // For numbers with a decimal point, use toFixed to correct the number of decimal points.
+      if (digits >= 0 && /^-?\d*\.?\d*$/.test(value)) {
+        value = Number(value).toFixed(digits)
+      } else {
+        // digits <= 0 || not of number
+        return
+      }
+    }
     this.props.onChange(value)
   }
 

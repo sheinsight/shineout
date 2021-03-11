@@ -37,6 +37,7 @@ class SeperateTable extends PureComponent {
     this.handleColgroup = this.handleColgroup.bind(this)
     this.handleScroll = this.handleScroll.bind(this)
     this.handleSortChange = this.handleSortChange.bind(this)
+    this.scrollToTop = this.scrollToTop.bind(this)
 
     this.cachedRowHeight = []
     this.lastScrollArgs = {}
@@ -55,9 +56,10 @@ class SeperateTable extends PureComponent {
   // reset scrollTop when data changed
   componentDidUpdate(prevProps) {
     if (!this.tbody) return
+    const dataChange = this.props.rawData !== prevProps.rawData
     // Use raw data comparison, avoid tree data,
     // because tree data will be re-parsed and generate new data
-    if (this.props.rawData !== prevProps.rawData) {
+    if (dataChange) {
       const resize = prevProps.data.length === 0 && this.props.data.length
       if (resize || this.props.dataChangeResize) this.setState({ resize: true, colgroup: undefined })
       this.resetHeight()
@@ -67,6 +69,7 @@ class SeperateTable extends PureComponent {
       this.resetWidth()
       this.setState({ colgroup: undefined })
     }
+    this.ajustBottom(dataChange)
   }
 
   getIndex(scrollTop = this.state.scrollTop) {
@@ -173,6 +176,16 @@ class SeperateTable extends PureComponent {
       return index
     }
     return max
+  }
+
+  ajustBottom(dataChange) {
+    const reachBottom = this.lastScrollArgs[1] === 1
+    const drag = this.lastScrollArgs[7] === undefined
+    if (!dataChange && reachBottom && drag) {
+      setTimeout(() => {
+        this.handleScroll(...this.lastScrollArgs)
+      })
+    }
   }
 
   updateScrollLeft() {
@@ -290,6 +303,10 @@ class SeperateTable extends PureComponent {
     this[key] = el
   }
 
+  scrollToTop() {
+    this.scrollToIndex(0)
+  }
+
   scrollToIndex(index, callback) {
     if (!this.$isMounted) return
     if (index >= 1) index -= 1
@@ -339,7 +356,6 @@ class SeperateTable extends PureComponent {
     this.scrolling = true
     const [x, y, max, bar, v, h, pixelX, pixelY] = args
 
-    console.log('scrollTop: ', y)
 
     const { colgroup } = this.state
     const isResize = v && this.lastScrollArgs[4] && v !== this.lastScrollArgs[4]
@@ -496,6 +512,7 @@ class SeperateTable extends PureComponent {
               dataUpdated={dataUpdated}
               resize={resize}
               colgroup={colgroup}
+              onScrollTop={this.scrollToTop}
             />
           </table>
         </div>

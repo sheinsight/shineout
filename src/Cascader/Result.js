@@ -3,17 +3,78 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { inputClass, selectClass, cascaderClass } from '../styles'
 import Input from './Input'
+import icons from '../icons'
+import More from '../Select/More'
+import { isEmpty } from '../utils/is'
+
+// eslint-disable-next-line react/prop-types
+function Item({ children, close, className, data, isPopover, singleRemove, click }) {
+  const onClose = close
+    ? e => {
+        close(data, isPopover, e)
+      }
+    : undefined
+  const onClick = click
+    ? () => {
+        click(data, isPopover)
+      }
+    : undefined
+  return (
+    <a tabIndex={-1} className={classnames(cascaderClass('item'), className)} onClick={onClick}>
+      {children}
+      {singleRemove && (
+        <span className={cascaderClass('single-remove')} onClick={onClose}>
+          {icons.Close}
+        </span>
+      )}
+    </a>
+  )
+}
 
 class Result extends PureComponent {
   constructor(props) {
     super(props)
 
     this.handleNodeClick = this.handleNodeClick.bind(this)
+    this.renderItem = this.renderItem.bind(this)
+    this.removeTargetNode = this.removeTargetNode.bind(this)
   }
 
-  handleNodeClick(id) {
-    const { path } = this.props.datum.getPath(id)
+  handleNodeClick(data, show = false) {
+    const id = this.props.datum.getKey(data)
+    const { path } = this.props.datum.getPath(id) || {}
+    if (!path) return
     this.props.onPathChange(id, null, path)
+    if (show) {
+      this.props.showList()
+    }
+  }
+
+  handleNode(nodes, render) {
+    const { singleRemove } = this.props
+
+    const removeContainerClassName = cascaderClass(singleRemove && 'remove-container')
+
+    return nodes
+      .map((n, i) =>
+        this.renderItem({
+          className: removeContainerClassName,
+          index: i,
+          data: n,
+          raw: nodes,
+          render,
+        })
+      )
+      .filter(n => !isEmpty(n))
+  }
+
+  removeTargetNode(...args) {
+    const [node, isPopover, event] = args
+    if (isPopover) {
+      event.stopPropagation()
+    }
+    const { handleRemove } = this.props
+    handleRemove(node)
   }
 
   renderClear() {
@@ -35,6 +96,44 @@ class Result extends PureComponent {
     return null
   }
 
+  renderItem({ index, render, data, raw, className, ...options }) {
+    const { singleRemove } = this.props
+    const itemClassName = classnames(className, cascaderClass(singleRemove && 'remove-container'))
+    const res = data && render(data, raw)
+    if (!res) return null
+    return (
+      <Item
+        key={index}
+        {...options}
+        data={data}
+        className={itemClassName}
+        singleRemove={singleRemove}
+        close={this.removeTargetNode}
+        isPopover
+        click={this.handleNodeClick}
+      >
+        {res}
+      </Item>
+    )
+  }
+
+  renderMore(list) {
+    const { selectId, size, compressed } = this.props
+    const [firstItem] = list
+    return [
+      firstItem,
+      <More
+        key="more"
+        data={list}
+        className={cascaderClass('item', 'item-compressed')}
+        popoverClassName={cascaderClass('popover')}
+        contentClassName={cascaderClass('result', size)}
+        dataId={selectId}
+        compressed={compressed}
+      />,
+    ]
+  }
+
   renderInput() {
     const { onFilter, focus, trim, focusSelected, bindInput, filterText } = this.props
     return (
@@ -51,8 +150,8 @@ class Result extends PureComponent {
   }
 
   renderPlaceholder() {
-    const { focus, onFilter, datum } = this.props
-    if (focus && onFilter && datum.mode === undefined) {
+    const { focus, onFilter } = this.props
+    if (focus && onFilter) {
       return this.renderInput()
     }
     return (
@@ -72,28 +171,15 @@ class Result extends PureComponent {
       render = n => n[copyRender]
     }
 
-    const neededResult = compressed ? nodes.slice(0, 1) : nodes
-    const items = neededResult.map((n, i) => {
-      const res = n && render(n, nodes)
-      if (!res) return null
-      return (
-        <a tabIndex={-1} className={cascaderClass('item')} onClick={this.handleNodeClick.bind(this, value[i])} key={i}>
-          {res}
-        </a>
-      )
-    })
+    let items = this.handleNode(nodes, render)
 
-    if (compressed && nodes.length > 1) {
-      items.push(
-        <a tabIndex={-1} key={items.length} className={cascaderClass('item', 'item-compressed')}>
-          <span>{`+${nodes.length - 1}`}</span>
-        </a>
-      )
+    if (compressed && items.length > 1) {
+      items = this.renderMore(items)
     }
 
-    if (items.filter(v => v).length === 0) {
+    if (items.length === 0) {
       items.push(this.renderPlaceholder())
-    } else if (focus && onFilter && datum.mode === undefined) {
+    } else if (focus && onFilter) {
       items.push(this.renderInput())
     }
 
@@ -129,13 +215,18 @@ Result.propTypes = {
   renderResult: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   style: PropTypes.object,
   value: PropTypes.array,
-  compressed: PropTypes.bool,
+  compressed: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   focus: PropTypes.bool,
   onFilter: PropTypes.func,
   trim: PropTypes.bool,
   focusSelected: PropTypes.bool,
   bindInput: PropTypes.func,
   filterText: PropTypes.string,
+  singleRemove: PropTypes.bool,
+  handleRemove: PropTypes.func,
+  selectId: PropTypes.string,
+  showList: PropTypes.func,
+  size: PropTypes.string,
 }
 
 Result.defaultProps = {

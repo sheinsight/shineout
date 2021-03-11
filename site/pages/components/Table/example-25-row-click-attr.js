@@ -36,19 +36,22 @@ export default class extends React.PureComponent {
     count: 0,
     attrs: ['*'],
   }
+
   handleClick = () => {
     this.setState(prevState => ({ count: prevState.count + 1 }))
   }
+
   handleChange = value => {
     this.setState({
       attrs: value,
     })
   }
+
   render() {
     const { attrs, count } = this.state
     return (
       <div>
-        <Table rowClickAttr={attrs} onRowClick={this.handleClick} keygen="id" columns={columns} data={dataList} />
+        <Table rowClickAttr onRowClick={this.handleClick} keygen="id" columns={columns} data={dataList} />
         Select rowClickAttr：
         <Select
           style={{ width: '300px', margin: '0 0 10px 10px' }}
@@ -60,7 +63,7 @@ export default class extends React.PureComponent {
           onChange={this.handleChange}
         />
         <div>
-          onRowClick call count： <strong>{count}</strong>
+          <span>onRowClick call count： </span> <strong>{count}</strong>
         </div>
       </div>
     )

@@ -15,6 +15,7 @@ export default () => {
       <Modal
         moveable
         resizable
+        width={400}
         visible={show}
         title="Moveable"
         onClose={() => setShow(false)}

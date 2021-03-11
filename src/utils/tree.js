@@ -4,12 +4,14 @@ export const getFilterTree = (
   filterExpandKeys,
   keyFunc,
   childrenKey = 'children',
-  showHitDescendants
+  showHitDescendants,
+  firstMatchNode
 ) => {
   const mapFilteredNodeToData = node => {
     if (!node) return null
     let match = false
     if (filterFunc(node)) {
+      if (firstMatchNode) firstMatchNode(node)
       match = true
     }
 

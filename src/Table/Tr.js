@@ -95,6 +95,8 @@ class Tr extends Component {
   }
 
   isFireElement(el) {
+    const { rowClickAttr } = this.props
+    if (rowClickAttr === true) return true
     return this.getRowClickAttr().find(v => el.hasAttribute(v))
   }
 
@@ -245,7 +247,7 @@ Tr.propTypes = {
   rowData: PropTypes.object,
   striped: PropTypes.bool,
   setRowHeight: PropTypes.func,
-  rowClickAttr: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
+  rowClickAttr: PropTypes.oneOfType([PropTypes.bool, PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   dataUpdated: PropTypes.bool,
   treeExpandKeys: PropTypes.object,
   columnResizable: PropTypes.bool,

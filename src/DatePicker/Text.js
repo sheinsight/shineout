@@ -113,7 +113,7 @@ Text.propTypes = {
   value: PropTypes.string,
   onTextSpanRef: PropTypes.func,
   focus: PropTypes.bool,
-  focusElement: PropTypes.element,
+  focusElement: PropTypes.instanceOf(Element),
 }
 
 Text.defaultProps = {

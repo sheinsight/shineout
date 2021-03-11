@@ -47,7 +47,7 @@ export default class extends React.Component {
         <Button onClick={this.show}>click me</Button>
         <Modal
           visible={this.state.visible}
-          width={500}
+          width={400}
           title="Modal Title"
           onClose={this.handleCancel}
           footer={[

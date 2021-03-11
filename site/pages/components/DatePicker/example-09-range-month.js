@@ -16,9 +16,21 @@ const nextMonth = Date.now() + 86400000 * 30
 export default function() {
   return (
     <div>
-      <DatePicker type="date" range defaultRangeMonth={[lastMonth, today]} style={style} />
+      <DatePicker
+        type="date"
+        range
+        defaultRangeMonth={[lastMonth, today]}
+        style={style}
+        placeholder={['Start date', 'End date']}
+      />
       <br />
-      <DatePicker type="datetime" range defaultRangeMonth={[today, nextMonth]} style={style} />
+      <DatePicker
+        type="datetime"
+        range
+        defaultRangeMonth={[today, nextMonth]}
+        style={style}
+        placeholder={['Start datetime', 'End datetime']}
+      />
     </div>
   )
 }
