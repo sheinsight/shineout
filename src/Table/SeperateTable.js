@@ -123,9 +123,9 @@ class SeperateTable extends PureComponent {
     if (!this.tbody) return
 
     const { currentIndex } = this.state
-    if ((currentIndex === index && !oldHeight) || (oldHeight && height !== oldHeight) || this.lastScrollArgs[1] === 1) {
-      this.needUpdate = true
-    }
+    // if ((currentIndex === index && !oldHeight) || (oldHeight && height !== oldHeight) || this.lastScrollArgs[1] === 1) {
+    //   this.needUpdate = true
+    // }
 
     this.commitInSetRowHeight()
   }
@@ -355,7 +355,6 @@ class SeperateTable extends PureComponent {
     if (!this.tbody || this.realTbody.clientHeight === 0) return
     this.scrolling = true
     const [x, y, max, bar, v, h, pixelX, pixelY] = args
-
 
     const { colgroup } = this.state
     const isResize = v && this.lastScrollArgs[4] && v !== this.lastScrollArgs[4]
