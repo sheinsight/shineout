@@ -52,7 +52,7 @@ class FilterInput extends Component {
 
     if (isValidElement(value)) {
       return cloneElement(value, {
-        className: treeSelectClass('input', !multiple && 'full'),
+        className: treeSelectClass('input'),
         ref: this.bindElement,
         key: 'input',
         onInput: this.handleInput,
