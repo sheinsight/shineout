@@ -18,7 +18,7 @@ class OptionList extends Component {
 
     this.state = {
       currentIndex: 0,
-      hoverIndex: 0,
+      hoverIndex: -1,
       scrollTop: 0,
     }
 
@@ -167,7 +167,6 @@ class OptionList extends Component {
       filterText,
     } = this.props
     const { hoverIndex, currentIndex } = this.state
-
     let scroll = ''
     const scrollHeight = lineHeight * data.length
     if (height < scrollHeight) {
