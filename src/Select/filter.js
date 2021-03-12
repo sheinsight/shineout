@@ -103,7 +103,7 @@ export default Origin =>
     }
 
     handleFilter(text) {
-      const { filterDelay, onFilter, onCreate, hideCreateOption } = this.props
+      const { filterDelay, onFilter, onCreate } = this.props
 
       // not filter
       if (!text) {
@@ -113,7 +113,7 @@ export default Origin =>
         return
       }
 
-      if (onCreate && !hideCreateOption) {
+      if (onCreate) {
         const innerData = this.handleCreate(text)
         this.setState({ innerData })
       }
@@ -160,11 +160,11 @@ export default Origin =>
     }
 
     filterData() {
-      const { data, ...other } = this.props
+      const { data, hideCreateOption, ...other } = this.props
       const { innerFilter, innerData } = this.state
       let newData = data
       if (innerFilter) newData = data.filter(d => innerFilter(d))
-      if (innerData) {
+      if (innerData && !hideCreateOption) {
         const newKey = getKey(innerData, other.keygen, innerData)
         newData = [innerData, ...newData.filter(d => getKey(d, other.keygen, d) !== newKey)]
       }
@@ -175,7 +175,7 @@ export default Origin =>
 
     render() {
       const { treeData, onFilter, onCreate, ...other } = this.props
-      const { filterText } = this.state
+      const { filterText, innerData } = this.state
       const filterFn = onFilter || onCreate ? this.handleFilter : undefined
       const dataGenerator = treeData ? this.filterTreeData : this.filterData
       const props = {
@@ -185,6 +185,7 @@ export default Origin =>
         inputable: !!onCreate,
         onCreate: onCreate ? this.handleCreate : undefined,
         onFilter: filterFn,
+        innerData,
         ...dataGenerator.call(this),
       }
       return <Origin {...props} />
