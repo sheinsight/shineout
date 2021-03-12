@@ -19,6 +19,7 @@ export default Origin =>
       noCache: PropTypes.bool,
       multiple: PropTypes.bool,
       showHitDescendants: PropTypes.bool,
+      hideCreateOption: PropTypes.bool,
     }
 
     static defaultProps = {
@@ -102,7 +103,7 @@ export default Origin =>
     }
 
     handleFilter(text) {
-      const { filterDelay, onFilter, onCreate } = this.props
+      const { filterDelay, onFilter, onCreate, hideCreateOption } = this.props
 
       // not filter
       if (!text) {
@@ -112,7 +113,7 @@ export default Origin =>
         return
       }
 
-      if (onCreate) {
+      if (onCreate && !hideCreateOption) {
         const innerData = this.handleCreate(text)
         this.setState({ innerData })
       }
