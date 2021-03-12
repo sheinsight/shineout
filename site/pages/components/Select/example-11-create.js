@@ -7,23 +7,21 @@
 import React from 'react'
 import { Select } from 'shineout'
 
-const data = [{ id: 0, title: 'red' }, { id: 1, title: 'blue' }]
+const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
 export default function() {
   return (
-    <Select
-      multiple
-      width={240}
-      data={data}
-      format="id"
-      keygen="id"
-      renderItem="title"
-      hideCreateOption
-      onCreate={text => {
-        console.log('onCreate: ', text)
-        if (typeof text === 'object') return text
-        return { title: text, id: text }
-      }}
-    />
+    <div>
+      <Select
+        style={{ width: 240, marginBottom: 12 }}
+        data={data}
+        keygen
+        placeholder="input color"
+        onCreate
+        defaultValue="brown"
+      />
+      <br />
+      <Select style={{ width: 400 }} data={data} keygen multiple placeholder="input color" onCreate={t => t} />
+    </div>
   )
 }
