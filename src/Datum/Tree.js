@@ -279,6 +279,7 @@ export default class {
     this.pathMap = new Map()
     this.dataMap = new Map()
     this.valueMap = new Map()
+    this.unmatchedValueMap = new Map()
     this.data = data
 
     if (!data) return

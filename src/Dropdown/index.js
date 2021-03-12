@@ -88,7 +88,7 @@ class Dropdown extends PureComponent {
 
   toggleDocumentEvent(bind) {
     const method = bind ? 'addEventListener' : 'removeEventListener'
-    document[method]('click', this.clickAway)
+    document[method]('click', this.clickAway, true)
   }
 
   clickAway(e) {
