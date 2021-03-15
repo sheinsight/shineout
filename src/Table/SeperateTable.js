@@ -43,6 +43,7 @@ class SeperateTable extends PureComponent {
     this.lastScrollTop = 0
 
     this.timer = null
+    this.commitTimer = null
     this.rowHeightMap = new Map()
 
     if (props.tableRef) props.tableRef(this)
@@ -119,7 +120,6 @@ class SeperateTable extends PureComponent {
     if (!this.renderByExpand && expand) {
       this.renderByExpand = true
     }
-    if (!this.tbody) return
 
     this.afterUpdateScrollTop()
   }
@@ -133,15 +133,19 @@ class SeperateTable extends PureComponent {
     }
 
     if (this.scrolling) {
+      if (this.commitTimer) return
       // if in scrolling, 16ms later
-      setTimeout(() => {
+      this.commitTimer = setTimeout(() => {
         this.afterUpdateScrollTop()
       }, 16)
       return
     }
 
+    this.commitTimer = null
+
     this.timer = setTimeout(() => {
       clearTimeout(this.timer)
+      if (!this.tbody) return
       this.timer = null
       this.commitRowHeight()
     }, 16)
