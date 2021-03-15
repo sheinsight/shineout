@@ -141,6 +141,7 @@ class SeperateTable extends PureComponent {
       return
     }
 
+    clearTimeout(this.commitTimer)
     this.commitTimer = null
 
     this.timer = setTimeout(() => {
@@ -153,7 +154,7 @@ class SeperateTable extends PureComponent {
 
   commitRowHeight() {
     const { rowHeight } = this.props
-    const { currentIndex, offsetLeft } = this.state
+    const { currentIndex, offsetLeft, scrollTop } = this.state
     let calcHeight = 0
     this.rowHeightMap.forEach((value, index) => {
       if (currentIndex > index) {
@@ -167,10 +168,15 @@ class SeperateTable extends PureComponent {
     this.lastScrollTop += calcHeight
     const contentHeight = this.getContentHeight()
 
+    if (this.lastScrollTop >= contentHeight) {
+      this.lastScrollTop = contentHeight
+    }
+
     setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
     this.setState({
       scrollTop: this.lastScrollTop / contentHeight,
     })
+    if (this.lastScrollTop / contentHeight === scrollTop) this.forceUpdate()
   }
 
   checkScrollToIndex(index, outerHeight) {
