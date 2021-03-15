@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import immer from 'immer'
 import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
 import { setTranslate } from '../utils/dom/translate'
@@ -44,6 +43,7 @@ class SeperateTable extends PureComponent {
     this.lastScrollTop = 0
 
     this.timer = null
+    this.rowHeightMap = new Map()
 
     if (props.tableRef) props.tableRef(this)
   }
@@ -115,38 +115,19 @@ class SeperateTable extends PureComponent {
   }
 
   setRowHeight(height, index, expand) {
-    // const oldHeight = this.cachedRowHeight[index]
-    this.cachedRowHeight[index] = height
+    this.rowHeightMap.set(index, height)
     if (!this.renderByExpand && expand) {
       this.renderByExpand = true
     }
     if (!this.tbody) return
 
-    // const { currentIndex } = this.state
-
-    this.commitInSetRowHeight()
-  }
-
-  proxyScrollTopSetTranslate(left, top) {
-    this.translateTop = top
-    setTranslate(this.tbody, `-${left}px`, `-${top}px`)
-  }
-
-  proxyMarginTop(marginTop) {
-    this.scrollMarginTop = marginTop
-    this.tbody.style.marginTop = `${marginTop}px`
-  }
-
-  proxyPrevHeight(currentIndex) {
-    const prevHeight = this.getSumHeight(0, currentIndex)
-    this.scrollPrevHeight = prevHeight
-    return prevHeight
+    this.afterUpdateScrollTop()
   }
 
   /**
    * commit set row height in 16ms
    */
-  commitInSetRowHeight() {
+  afterUpdateScrollTop() {
     if (this.timer) {
       return
     }
@@ -154,7 +135,7 @@ class SeperateTable extends PureComponent {
     if (this.scrolling) {
       // if in scrolling, 16ms later
       setTimeout(() => {
-        this.commitInSetRowHeight()
+        this.afterUpdateScrollTop()
       }, 16)
       return
     }
@@ -162,41 +143,30 @@ class SeperateTable extends PureComponent {
     this.timer = setTimeout(() => {
       clearTimeout(this.timer)
       this.timer = null
-      // 设想：滚动停止之后  更新
-      // if (!this.needUpdate) return
-      console.log('scroller')
-      // this.handleScroll(
-      //   ...immer(this.lastScrollArgs, draft => {
-      //     draft[7] = undefined
-      //   })
-      // )
-      // this.needUpdate = false
-      this.afterUpdateScrollTop()
+      this.commitRowHeight()
     }, 16)
   }
 
-  afterUpdateScrollTop() {
-    const { currentIndex, scrollTop } = this.state
-    console.log(
-      'current index: ',
-      currentIndex,
-      ' lastScrollTop: ',
-      this.lastScrollTop,
-      ' marginTop: ',
-      this.scrollMarginTop,
-      ' this.prevHeight: ',
-      this.scrollPrevHeight
-    )
-
-    // top
-    const offsetTop = this.lastScrollTop - this.scrollPrevHeight - this.scrollMarginTop
-
-    const prevHeight = this.getSumHeight(0, currentIndex)
-    console.log('prevHeight: ', prevHeight)
+  commitRowHeight() {
+    const { rowHeight } = this.props
+    const { currentIndex, offsetLeft } = this.state
+    let calcHeight = 0
+    this.rowHeightMap.forEach((value, index) => {
+      if (currentIndex > index) {
+        // update row height to cache
+        calcHeight += value - (this.cachedRowHeight[index] || rowHeight)
+      }
+      this.cachedRowHeight[index] = value
+    })
+    // clear rowHeightMap
+    this.rowHeightMap.clear()
+    this.lastScrollTop += calcHeight
     const contentHeight = this.getContentHeight()
 
-    // 计算真正的 lastScrollTop
-    console.log('scrollTop: ', scrollTop, ' calc: ', (prevHeight + offsetTop) / contentHeight)
+    setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
+    this.setState({
+      scrollTop: this.lastScrollTop / contentHeight,
+    })
   }
 
   checkScrollToIndex(index, outerHeight) {
@@ -291,9 +261,7 @@ class SeperateTable extends PureComponent {
       // }
       if (treeColumnsName && changedByExpand) {
         if (fullHeight - this.lastScrollTop < (1 - this.lastScrollArgs[1]) * scrollHeight) {
-          // proxy margin top
-          // this.tbody.style.marginTop = `${scrollHeight}px`
-          this.proxyMarginTop(scrollHeight)
+          this.tbody.style.marginTop = `${scrollHeight}px`
 
           setTranslate(this.tbody, `-${offsetLeft}px`, `-${fullHeight}px`)
           this.lastScrollTop = fullHeight
@@ -306,8 +274,7 @@ class SeperateTable extends PureComponent {
         setTimeout(() => {
           this.setState({ scrollTop: 0 })
         })
-        // this.tbody.style.marginTop = '0px'
-        this.proxyMarginTop(0)
+        this.tbody.style.marginTop = '0px'
         setTranslate(this.tbody, `-${offsetLeft}px`, '0px')
       } else {
         setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
@@ -369,8 +336,7 @@ class SeperateTable extends PureComponent {
     this.setState({ currentIndex, scrollTop }, callback)
     this.lastScrollTop = offsetScrollTop
 
-    // this.tbody.style.marginTop = `${marginTop}px`
-    this.proxyMarginTop(marginTop)
+    this.tbody.style.marginTop = `${marginTop}px`
 
     setTranslate(this.tbody, `-${this.state.offsetLeft}px`, `-${offsetScrollTop}px`)
   }
@@ -412,8 +378,7 @@ class SeperateTable extends PureComponent {
     /* set x end */
 
     /* set y */
-    // this.tbody.style.marginTop = `${scrollTop * h}px`
-    this.proxyMarginTop(scrollTop * h)
+    this.tbody.style.marginTop = `${scrollTop * h}px`
 
     if (pixelY === undefined) {
       // drag scroll bar
@@ -520,8 +485,7 @@ class SeperateTable extends PureComponent {
 
     if (!dataUpdated && this.lastColumns && !compareColumns(this.lastColumns, columns)) dataUpdated = true
     this.lastColumns = columns
-    // const prevHeight = this.getSumHeight(0, currentIndex)
-    const prevHeight = this.proxyPrevHeight(currentIndex)
+    const prevHeight = this.getSumHeight(0, currentIndex)
     const hasNotRenderRows = data.length > rowsInView
 
     return (
