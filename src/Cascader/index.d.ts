@@ -137,6 +137,15 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    * default: none
    */
   singleRemove: boolean;
+
+  /**
+   * render unmatch value
+   * 
+   * 是否展示data中不存在的值
+   * 
+   * default: -
+   */
+   unmatch?: boolean;
 }
 
 declare class Cascader<Item = any, Value = string[]> extends React.Component<CascaderProps<Item, Value>, {}> {}

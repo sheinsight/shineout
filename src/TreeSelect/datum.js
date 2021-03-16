@@ -21,6 +21,7 @@ export default function datum(Origin) {
       keygen: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
       multiple: PropTypes.bool,
       childrenKey: PropTypes.string,
+      unmatch: PropTypes.bool,
     }
 
     static defaultProps = {
@@ -40,6 +41,7 @@ export default function datum(Origin) {
         onChange: props.onChange,
         disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
         childrenKey: props.childrenKey,
+        unmatch: props.unmatch,
       })
     }
 
