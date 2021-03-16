@@ -121,25 +121,17 @@ class Tabs extends PureComponent {
 
     if (!isEmpty(sticky) && !isVertical) {
       const stickyClassName = tabsClass('sticky')
+      let stickyProps = {
+        top: 0,
+        className: stickyClassName,
+      }
       if (typeof sticky === 'number') {
-        return (
-          <Sticky className={stickyClassName} top={sticky}>
-            {header}
-          </Sticky>
-        )
+        stickyProps.top = sticky
       }
       if (isObject(sticky)) {
-        return (
-          <Sticky {...sticky} className={classnames(stickyClassName, sticky.className)}>
-            {header}
-          </Sticky>
-        )
+        stickyProps = { ...sticky, className: classnames(stickyClassName, sticky.className) }
       }
-      return (
-        <Sticky className={stickyClassName} top={0}>
-          {header}
-        </Sticky>
-      )
+      return <Sticky {...stickyProps}>{header}</Sticky>
     }
     return header
   }
