@@ -255,7 +255,16 @@ export interface TreeSelectProps<Value, Data> extends StandardProps {
    * 
    * default: -
    */
-  rules?: RuleParamsType<Value, TreeSelectProps>
+  rules?: RuleParamsType<Value, TreeSelectProps>;
+
+  /**
+   * render unmatch value
+   * 
+   * 是否展示data中不存在的值
+   * 
+   * default: -
+   */
+  unmatch?: boolean;
 }
 
 

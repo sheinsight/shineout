@@ -5,7 +5,9 @@ import { PureComponent } from '../component'
 import Header from './Header'
 import getDataset from '../utils/dom/getDataset'
 import Wrapper from './Wrapper'
+import Sticky from '../Sticky'
 import { tabsClass } from '../styles'
+import { isEmpty, isObject } from '../utils/is'
 
 class Tabs extends PureComponent {
   constructor(props) {
@@ -54,7 +56,16 @@ class Tabs extends PureComponent {
   }
 
   renderHeader({ align, isVertical }) {
-    const { children, color, shape, tabBarStyle, inactiveBackground, collapsible, tabBarExtraContent } = this.props
+    const {
+      children,
+      color,
+      shape,
+      tabBarStyle,
+      inactiveBackground,
+      collapsible,
+      tabBarExtraContent,
+      sticky,
+    } = this.props
     const active = this.getActive()
     const tabs = []
 
@@ -94,7 +105,7 @@ class Tabs extends PureComponent {
       })
     })
 
-    return (
+    const header = (
       <Header
         isVertical={isVertical}
         border={border}
@@ -107,6 +118,22 @@ class Tabs extends PureComponent {
         tabBarStyle={tabBarStyle}
       />
     )
+
+    if (!isEmpty(sticky) && !isVertical) {
+      const stickyClassName = tabsClass('sticky')
+      let stickyProps = {
+        top: 0,
+        className: stickyClassName,
+      }
+      if (typeof sticky === 'number') {
+        stickyProps.top = sticky
+      }
+      if (isObject(sticky)) {
+        stickyProps = { ...sticky, className: classnames(stickyClassName, sticky.className) }
+      }
+      return <Sticky {...stickyProps}>{header}</Sticky>
+    }
+    return header
   }
 
   renderContent(child, i) {
@@ -165,6 +192,7 @@ Tabs.propTypes = {
   tabBarStyle: PropTypes.object,
   lazy: PropTypes.bool,
   autoFill: PropTypes.bool,
+  sticky: PropTypes.oneOfType([PropTypes.bool, PropTypes.number, PropTypes.object]),
 }
 
 Tabs.defaultProps = {
