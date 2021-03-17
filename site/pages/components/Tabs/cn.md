@@ -24,7 +24,7 @@
 | lazy | boolean | true | 是否开启懒加载 |
 | autoFill | boolean | false | 自动填充内容区域 |
 | sticky | boolean \| number \| object | - | 开启头部附着 |
-| switchToTop | boolean | - | 切换tab将自动滚动到顶部 |
+| switchToTop | boolean | - | 切换tab将自动滚动到Tabs |
 
 ### Tabs.Panel
 

@@ -124,9 +124,9 @@ export interface TabsProps extends StandardProps {
   sticky?: boolean | number | StickyProps;
 
   /**
-   * switch tabs will scroll to top
+   * switch tabs will scroll to Tabs
    * 
-   * 切换tab将自动滚动到顶部
+   * 切换tab将自动滚动到Tabs
    * 
    * default: nonde
    */
