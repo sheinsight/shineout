@@ -22,6 +22,11 @@ class Tabs extends PureComponent {
     this.handleChange = this.handleChange.bind(this)
     this.handleCollapse = this.handleCollapse.bind(this)
     this.renderContent = this.renderContent.bind(this)
+    this.bindContainer = this.bindContainer.bind(this)
+  }
+
+  componentWillUnmount() {
+    this.container = null
   }
 
   getAlign() {
@@ -45,10 +50,18 @@ class Tabs extends PureComponent {
     return this.state.active
   }
 
+  bindContainer(node) {
+    this.container = node
+  }
+
   handleChange(active) {
-    const { onChange } = this.props
+    const { onChange, switchToTop, sticky } = this.props
     if (onChange) onChange(active)
     this.setState({ active })
+    // jump to active panel
+    if (this.container && !isEmpty(sticky) && switchToTop) {
+      this.container.scrollIntoView(true)
+    }
   }
 
   handleCollapse(collapsed) {
@@ -164,7 +177,7 @@ class Tabs extends PureComponent {
     )
 
     return (
-      <div className={className} style={style}>
+      <div className={className} style={style} ref={this.bindContainer}>
         {align !== 'vertical-right' && align !== 'bottom' && this.renderHeader(position)}
         {Children.toArray(children).map(this.renderContent)}
         {(align === 'vertical-right' || align === 'bottom') && this.renderHeader(position)}
@@ -193,6 +206,7 @@ Tabs.propTypes = {
   lazy: PropTypes.bool,
   autoFill: PropTypes.bool,
   sticky: PropTypes.oneOfType([PropTypes.bool, PropTypes.number, PropTypes.object]),
+  switchToTop: PropTypes.bool,
 }
 
 Tabs.defaultProps = {

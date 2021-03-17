@@ -151,7 +151,7 @@ const examples = [
   {
     name: '13-sticky',
     title: locate(
-      '头部附着 \n sticky 属性会开启头部附着功能；sticky=true时，开启附着在顶部；sticky=number时，代表附着顶部，且距离顶部的间距；sticky=StickyProps时，参数将传入 Sticky 组件内。',
+      '头部附着 \n sticky 属性会开启头部附着功能；sticky=true时，开启附着在顶部；sticky=number时，代表附着顶部，且距离顶部的间距；sticky=StickyProps时，参数将传入 Sticky 组件内；switchToTop 属性支持是否自动滚动到Tabs。',
       'Sticky header \n sticky header in Tabs'
     ),
     component: require('doc/pages/components/Tabs/example-13-sticky.js').default,
