@@ -19,16 +19,23 @@ class LazyList extends PureComponent {
 
   componentDidUpdate(prevProps) {
     if (!this.props.stay && prevProps.data.length !== this.props.data.length) {
-      this.setState({
-        currentIndex: 0,
-        scrollTop: 0,
-      })
+      this.resetScrollTop()
     }
   }
 
   getScrollHeight() {
     const { lineHeight, data } = this.props
     return data.length * lineHeight
+  }
+
+  resetScrollTop() {
+    this.setState({
+      currentIndex: 0,
+      scrollTop: 0,
+    })
+    setTranslate(this.optionInner, '0px', `0px`)
+    this.optionInner.style.marginTop = `0px`
+    this.lastScrollTop = 0
   }
 
   handleScroll(x, y, max, bar, v, h, pixelX, pixelY) {
