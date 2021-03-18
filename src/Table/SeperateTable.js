@@ -121,13 +121,40 @@ class SeperateTable extends PureComponent {
       this.renderByExpand = true
     }
 
-    this.afterUpdateScrollTop()
+    this.afterSetRowHeight()
+  }
+
+  calcRowHeight(targetIndex) {
+    const { rowHeight } = this.props
+
+    const currentIndex = targetIndex || this.state.currentIndex
+
+    let calcHeight = 0
+    this.rowHeightMap.forEach((value, index) => {
+      if (currentIndex > index) {
+        // calc row height diff
+        calcHeight += value - (this.cachedRowHeight[index] || rowHeight)
+      }
+      // update row height in cache
+      this.cachedRowHeight[index] = value
+    })
+
+    this.rowHeightMap.clear()
+    this.lastScrollTop += calcHeight
+
+    const contentHeight = this.getContentHeight()
+
+    if (this.lastScrollTop >= contentHeight) {
+      this.lastScrollTop = contentHeight
+    }
+
+    return this.lastScrollTop / contentHeight
   }
 
   /**
-   * commit set row height in 16ms
+   * did mount or scrollToIndex will trigger this func
    */
-  afterUpdateScrollTop() {
+  afterSetRowHeight() {
     if (this.timer) {
       return
     }
@@ -136,7 +163,7 @@ class SeperateTable extends PureComponent {
       if (this.commitTimer) return
       // if in scrolling, 16ms later
       this.commitTimer = setTimeout(() => {
-        this.afterUpdateScrollTop()
+        this.afterSetRowHeight()
       }, 16)
       return
     }
@@ -146,37 +173,35 @@ class SeperateTable extends PureComponent {
 
     this.timer = setTimeout(() => {
       clearTimeout(this.timer)
-      if (!this.tbody) return
+      if (!this.tbody || this.rowHeightMap.size === 0) return
       this.timer = null
       this.commitRowHeight()
     }, 16)
   }
 
   commitRowHeight() {
-    const { rowHeight } = this.props
-    const { currentIndex, offsetLeft, scrollTop } = this.state
-    let calcHeight = 0
-    this.rowHeightMap.forEach((value, index) => {
-      if (currentIndex > index) {
-        // update row height to cache
-        calcHeight += value - (this.cachedRowHeight[index] || rowHeight)
-      }
-      this.cachedRowHeight[index] = value
-    })
-    // clear rowHeightMap
-    this.rowHeightMap.clear()
-    this.lastScrollTop += calcHeight
-    const contentHeight = this.getContentHeight()
+    const { offsetLeft, scrollTop } = this.state
 
-    if (this.lastScrollTop >= contentHeight) {
-      this.lastScrollTop = contentHeight
-    }
+    // calc row height and scrollTop in stacks
+    const st = this.calcRowHeight()
 
     setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
     this.setState({
-      scrollTop: this.lastScrollTop / contentHeight,
+      scrollTop: st,
     })
-    if (this.lastScrollTop / contentHeight === scrollTop) this.forceUpdate()
+    if (st === scrollTop) this.forceUpdate()
+  }
+
+  // trigger in handleScroller
+  // reduce setState
+  checkAndCalcRowHeight(scrollTop, index) {
+    /**
+     * This func will check whether rowHeightMap is empty; when size !== 0, rowHeight to cache will be synchronized, and the real scrollTop will be calculated
+     */
+    if (this.rowHeightMap.size === 0) return scrollTop
+
+    // calc row height in stacks
+    return this.calcRowHeight(index)
   }
 
   checkScrollToIndex(index, outerHeight) {
@@ -430,10 +455,11 @@ class SeperateTable extends PureComponent {
       if (data.length - rowsInView < index) index = data.length - rowsInView
       if (index < 0) index = 0
 
-      this.setState({ currentIndex: index })
+      scrollTop = this.checkAndCalcRowHeight(this.lastScrollTop / contentHeight, index)
 
-      scrollTop = this.lastScrollTop / contentHeight
       setTranslate(this.tbody, `-${left}px`, `-${this.lastScrollTop}px`)
+
+      this.setState({ currentIndex: index })
     }
     /* set y end */
 
