@@ -173,8 +173,8 @@ class SeperateTable extends PureComponent {
 
     this.timer = setTimeout(() => {
       clearTimeout(this.timer)
-      if (!this.tbody || this.rowHeightMap.size === 0) return
       this.timer = null
+      if (!this.tbody || this.rowHeightMap.size === 0) return
       this.commitRowHeight()
     }, 16)
   }
