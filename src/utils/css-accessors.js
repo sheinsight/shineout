@@ -71,6 +71,7 @@ const accessors = {
   tabs: {},
   cascader: {},
   list: {},
+  progress: {},
 }
 
 for (const [key, value] of entries(accessors)) {
