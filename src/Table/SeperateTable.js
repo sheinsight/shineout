@@ -142,6 +142,7 @@ class SeperateTable extends PureComponent {
     this.rowHeightMap.clear()
     this.lastScrollTop += calcHeight
 
+    // TODO: 可以使用 diff height，而不是 [0, n]
     const contentHeight = this.getContentHeight()
 
     if (this.lastScrollTop >= contentHeight) {
