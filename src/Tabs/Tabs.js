@@ -25,6 +25,14 @@ class Tabs extends PureComponent {
     this.bindContainer = this.bindContainer.bind(this)
   }
 
+  componentDidUpdate() {
+    const { sticky, switchToTop } = this.props
+    if (this.container && !isEmpty(sticky) && switchToTop) {
+      // jump to active panel
+      this.container.scrollIntoView(true)
+    }
+  }
+
   componentWillUnmount() {
     this.container = null
   }
@@ -55,13 +63,9 @@ class Tabs extends PureComponent {
   }
 
   handleChange(active) {
-    const { onChange, switchToTop, sticky } = this.props
+    const { onChange } = this.props
     if (onChange) onChange(active)
     this.setState({ active })
-    // jump to active panel
-    if (this.container && !isEmpty(sticky) && switchToTop) {
-      this.container.scrollIntoView(true)
-    }
   }
 
   handleCollapse(collapsed) {
