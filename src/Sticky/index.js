@@ -4,8 +4,10 @@ import { PureComponent } from '../component'
 import { getParent } from '../utils/dom/element'
 import { eventPassive } from '../utils/dom/detect'
 import { getProps, defaultProps } from '../utils/proptypes'
+import { compose } from '../utils/func'
 import { cssSupport, copyBoundingClientRect } from '../utils/dom/element'
 import { docSize } from '../utils/dom/document'
+import { consumer } from './context'
 
 const events = ['scroll', 'resize', 'pageshow', 'load']
 const supportSticky = cssSupport('position', 'sticky')
@@ -29,6 +31,12 @@ class Sticky extends PureComponent {
     this.targetElement = getParent(this.element, target)
     this.handlePosition()
     this.bindScroll()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.neetResetPostion && this.props.neetResetPostion) {
+      this.setPosition()
+    }
   }
 
   componentWillUnmount() {
@@ -252,4 +260,4 @@ Sticky.defaultProps = {
 
 Sticky.displayName = 'ShineoutSticky'
 
-export default Sticky
+export default compose(consumer)(Sticky)
