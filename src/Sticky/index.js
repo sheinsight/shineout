@@ -35,7 +35,7 @@ class Sticky extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (!prevProps.neetResetPostion && this.props.neetResetPostion) {
+    if (!prevProps.needResetPostion && this.props.needResetPostion) {
       this.setPosition()
     }
   }
@@ -77,10 +77,10 @@ class Sticky extends PureComponent {
   }
 
   setPosition() {
-    const { bottom, top, target, css } = this.props
+    const { bottom, top, target, css, needResetPostion } = this.props
     const { mode, scrollWidth } = this.state
     // If it is a hidden element, the position will not be updated
-    if (isHidden(this.element)) return
+    if (needResetPostion === false) return
 
     const selfRect = copyBoundingClientRect(this.element)
     const { marginBottom, marginTop } = getComputedStyle(this.element)
