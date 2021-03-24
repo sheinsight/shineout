@@ -163,7 +163,7 @@ export default class {
   }
 
   remove(value, _, childrenKey) {
-    if (!value) return
+    if (value === undefined || value === null) return
 
     let raws = Array.isArray(value) ? value : [value]
     if (childrenKey) {
