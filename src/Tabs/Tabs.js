@@ -8,6 +8,8 @@ import Wrapper from './Wrapper'
 import Sticky from '../Sticky'
 import { tabsClass } from '../styles'
 import { isEmpty, isObject } from '../utils/is'
+import { consumer } from '../Sticky/context'
+import { compose } from '../utils/func'
 
 class Tabs extends PureComponent {
   constructor(props) {
@@ -23,11 +25,19 @@ class Tabs extends PureComponent {
     this.handleCollapse = this.handleCollapse.bind(this)
     this.renderContent = this.renderContent.bind(this)
     this.bindContainer = this.bindContainer.bind(this)
+    this.setStickyStatus = this.setStickyStatus.bind(this)
   }
 
-  componentDidUpdate() {
-    const { sticky, switchToTop } = this.props
-    if (this.container && !isEmpty(sticky) && switchToTop) {
+  componentDidUpdate(prevProps, prevState) {
+    const { sticky, switchToTop, active } = this.props
+
+    if (
+      (prevProps.active !== active || prevState.active !== this.state.active) &&
+      this.container &&
+      !isEmpty(sticky) &&
+      switchToTop &&
+      this.sticky
+    ) {
       // jump to active panel
       this.container.scrollIntoView(true)
     }
@@ -56,6 +66,12 @@ class Tabs extends PureComponent {
   getActive() {
     if ('active' in this.props) return this.props.active
     return this.state.active
+  }
+
+  setStickyStatus(flag) {
+    const { sticky, switchToTop } = this.props
+    if (!sticky || !switchToTop) return
+    this.sticky = flag
   }
 
   bindContainer(node) {
@@ -148,7 +164,11 @@ class Tabs extends PureComponent {
       if (isObject(sticky)) {
         stickyProps = { ...sticky, className: classnames(stickyClassName, sticky.className) }
       }
-      return <Sticky {...stickyProps}>{header}</Sticky>
+      return (
+        <Sticky onChange={this.setStickyStatus} {...stickyProps}>
+          {header}
+        </Sticky>
+      )
     }
     return header
   }
@@ -222,4 +242,4 @@ Tabs.defaultProps = {
   lazy: true,
 }
 
-export default Tabs
+export default compose(consumer)(Tabs)
