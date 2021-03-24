@@ -115,13 +115,14 @@ export default curry(
         const Tag = options.tag || 'label'
 
         const newStyle = Object.assign({ width }, style)
+        const isDisabled = typeof other.disabled === 'function' ? false : !!other.disabled
         const newClassName = classnames(
           inputBorderClass(rtl && 'rtl'),
           inputClass(
             '_',
             rtl && 'rtl',
-            focus && other.disabled !== true && 'focus',
-            other.disabled === true && 'disabled',
+            focus && !isDisabled && 'focus',
+            isDisabled && 'disabled',
             options.isGroup && 'group',
             size,
             newStyle.width && 'inline',
