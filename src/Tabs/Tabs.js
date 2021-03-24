@@ -8,8 +8,6 @@ import Wrapper from './Wrapper'
 import Sticky from '../Sticky'
 import { tabsClass } from '../styles'
 import { isEmpty, isObject } from '../utils/is'
-import { consumer } from '../Sticky/context'
-import { compose } from '../utils/func'
 
 class Tabs extends PureComponent {
   constructor(props) {
@@ -242,4 +240,4 @@ Tabs.defaultProps = {
   lazy: true,
 }
 
-export default compose(consumer)(Tabs)
+export default Tabs
