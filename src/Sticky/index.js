@@ -7,6 +7,7 @@ import { getProps, defaultProps } from '../utils/proptypes'
 import { compose } from '../utils/func'
 import { cssSupport, copyBoundingClientRect } from '../utils/dom/element'
 import { docSize } from '../utils/dom/document'
+import { isHidden } from '../utils/is'
 import { consumer } from './context'
 
 const events = ['scroll', 'resize', 'pageshow', 'load']
@@ -34,7 +35,7 @@ class Sticky extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (!prevProps.neetResetPostion && this.props.neetResetPostion) {
+    if (!prevProps.needResetPostion && this.props.needResetPostion) {
       this.setPosition()
     }
   }
@@ -76,8 +77,11 @@ class Sticky extends PureComponent {
   }
 
   setPosition() {
-    const { bottom, top, target, css } = this.props
+    const { bottom, top, target, css, needResetPostion } = this.props
     const { mode, scrollWidth } = this.state
+    // If it is a hidden element, the position will not be updated
+    if (needResetPostion === false) return
+
     const selfRect = copyBoundingClientRect(this.element)
     const { marginBottom, marginTop } = getComputedStyle(this.element)
     selfRect.height += parseFloat(marginBottom) + parseFloat(marginTop)

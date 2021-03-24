@@ -7,7 +7,7 @@ class Wrapper extends PureComponent {
   render() {
     const { active, id, ...other } = this.props
     return (
-      <Provider value={{ neetResetPostion: id === active }}>
+      <Provider value={{ needResetPostion: id === active }}>
         <Panel {...other} isActive={id === active} />
       </Provider>
     )
