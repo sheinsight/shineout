@@ -27,17 +27,27 @@ export default class extends PureComponent {
     this.props.datum.unsubscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
+  check(d) {
+    const { datum } = this.props
+    const p = datum.check(d)
+    if (!p) return false
+    if (d.children) {
+      for (const c of d.children) {
+        if (!this.check(c)) return false
+      }
+    }
+    return true
+  }
+
   getChecked() {
     const { data, datum } = this.props
     if (datum.length === 0 || !data) return false
 
-    let checked
+    let checked = true
     for (const d of data) {
       if (datum.disabled(d)) continue
-      const p = datum.check(d)
-      if (checked === undefined) {
-        checked = p
-      } else if (checked !== p) {
+      const p = this.check(d)
+      if (checked !== p) {
         return 'indeterminate'
       }
     }
