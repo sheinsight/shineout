@@ -39,3 +39,4 @@ Message.close() // 关闭所有消息
 | position | string | top | 消息显示的位置，可选值 \['top', 'middle', 'top-left', 'top-right', 'bottom-left', 'bottom-right'] |
 | title | string | - | 标题文字 |
 | className | string | 无 | 类名 |
+| hideClose | boolean | false | 是否隐藏关闭按钮 |
