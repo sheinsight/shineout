@@ -31,18 +31,30 @@ export default class extends PureComponent {
     const { data, datum } = this.props
     if (datum.length === 0 || !data) return false
 
-    let checked
+    const checked = true
     for (const d of data) {
       if (datum.disabled(d)) continue
-      const p = datum.check(d)
-      if (checked === undefined) {
-        checked = p
-      } else if (checked !== p) {
+      const p = this.check(d)
+      if (checked !== p) {
         return 'indeterminate'
       }
     }
 
     return checked
+  }
+
+  check(d) {
+    const { datum, treeColumnsName } = this.props
+    const p = datum.check(d)
+    if (!p) return false
+    const children = d[treeColumnsName]
+    const isArray = children && Array.isArray(children)
+    if (isArray) {
+      for (const c of children) {
+        if (!this.check(c)) return false
+      }
+    }
+    return true
   }
 
   handleChange(_, checked, index) {
