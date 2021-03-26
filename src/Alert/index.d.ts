@@ -49,6 +49,14 @@ export interface AlertProps extends StandardProps {
    */
   type?: 'success' | 'info' | 'warning' | 'danger' | 'error';
 
+  /**
+   * show close button
+   * 
+   * 是否隐藏关闭按钮
+   * 
+   * default: false
+   */
+  hideClose?: boolean,
 }
 
 declare class Alert extends React.Component<AlertProps> {}
