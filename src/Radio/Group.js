@@ -29,13 +29,13 @@ class RadioGroup extends PureComponent {
     this.props.datum.unsubscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
-  getContent(d) {
+  getContent(d, index) {
     const { renderItem } = this.props
     if (typeof renderItem === 'string') {
       return d[renderItem]
     }
     if (typeof renderItem === 'function') {
-      return renderItem(d)
+      return renderItem(d, index)
     }
 
     return ''
@@ -88,7 +88,7 @@ class RadioGroup extends PureComponent {
             index={i}
             onChange={this.handleClick}
           >
-            {this.getContent(d)}
+            {this.getContent(d, i)}
           </Radio>
         ))}
         {children}
