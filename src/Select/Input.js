@@ -8,6 +8,13 @@ const handleFocus = e => {
   e.stopPropagation()
 }
 
+const handlePaste = e => {
+  const text = (e.clipboardData || window.clipboardData).getData('text/plain')
+  if (!text) return
+  e.preventDefault()
+  document.execCommand('insertText', false, text)
+}
+
 class FilterInput extends Component {
   constructor(props) {
     super(props)
@@ -19,7 +26,6 @@ class FilterInput extends Component {
     this.bindElement = this.bindElement.bind(this)
     this.handleInput = this.handleInput.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
-    this.handlePaste = this.handlePaste.bind(this)
 
     this.focusInput = this.focusInput.bind(this)
 
@@ -86,6 +92,7 @@ class FilterInput extends Component {
   }
 
   handleInput(e) {
+    console.log('input: ', e.target.innerText)
     const text = e.target.innerText.replace('\feff ', '')
     this.lastCursorOffset = getCursorOffset(text.length)
     const t = this.getProcessedValue(text)
@@ -100,14 +107,6 @@ class FilterInput extends Component {
     this.props.onInputBlur(text)
   }
 
-  handlePaste(e) {
-    const text = (e.clipboardData || window.clipboardData).getData('text/plain')
-    if (!text) return
-    e.preventDefault()
-    document.execCommand('insertText', false, text)
-    this.handleInput({ target: { innerText: text } })
-  }
-
   render() {
     const { text, focus, multiple } = this.props
     const value = typeof text === 'string' ? text.replace(/<\/?[^>]*>/g, '') : text
@@ -120,7 +119,7 @@ class FilterInput extends Component {
       contentEditable: focus || this.state.editable,
       onFocus: handleFocus,
       onBlur: this.handleBlur,
-      onPaste: this.handlePaste,
+      onPaste: handlePaste,
       title: !focus && isString(value) ? value : null,
     }
 
