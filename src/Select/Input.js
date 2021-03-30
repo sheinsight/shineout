@@ -92,7 +92,6 @@ class FilterInput extends Component {
   }
 
   handleInput(e) {
-    console.log('input: ', e.target.innerText)
     const text = e.target.innerText.replace('\feff ', '')
     this.lastCursorOffset = getCursorOffset(text.length)
     const t = this.getProcessedValue(text)
