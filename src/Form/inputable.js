@@ -185,6 +185,7 @@ export default curry(Origin =>
       }
 
       validate(value, data, type) {
+        if (!this.$isMounted) return
         const { name, formDatum, combineRules, bind } = this.props
         const names = Array.isArray(name) ? name : [name]
 
@@ -286,6 +287,10 @@ export default curry(Origin =>
         if (type !== IGNORE_VALIDATE) {
           if (this.updateTimer) clearTimeout(this.updateTimer)
           this.updateTimer = setTimeout(() => {
+            if (!this.$isMounted) {
+              clearTimeout(this.updateTimer)
+              return
+            }
             this.validate(newValue, undefined, type).catch(() => {})
           })
         }
