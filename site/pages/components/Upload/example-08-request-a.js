@@ -34,7 +34,8 @@ export default function() {
       renderResult={d => d.name}
     >
       <Button>
-        <FontAwesome name="upload" /> Upload file
+        <FontAwesome name="upload" />
+        &nbsp;Upload file
       </Button>
     </Upload>
   )

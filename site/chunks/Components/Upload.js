@@ -86,13 +86,22 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Upload/example-06-error.js'),
   },
   {
-    name: '08-request',
+    name: '08-request-a',
     title: locate(
       '自定义上传 \n 通过 request 函数，替代默认上传方法',
       'Custom Request \n Set request property to use your own XMLHttpRequest.'
     ),
-    component: require('doc/pages/components/Upload/example-08-request.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Upload/example-08-request.js'),
+    component: require('doc/pages/components/Upload/example-08-request-a.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Upload/example-08-request-a.js'),
+  },
+  {
+    name: '08-request-ignore',
+    title: locate(
+      ' \n 使用 request 略过上传过程',
+      ' \n ignore request with request'
+    ),
+    component: require('doc/pages/components/Upload/example-08-request-ignore.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Upload/example-08-request-ignore.js'),
   },
   {
     name: '09-zip',
