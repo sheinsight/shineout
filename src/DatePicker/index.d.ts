@@ -202,6 +202,17 @@ export interface DatePickerProps {
   defaultRangeMonth?: Array<DateTimeType>;
 
   /**
+   * 
+   * default date of panel，work under has no value
+   * 
+   * 面板默认时间，在未选择日期时生效
+   * 
+   * default: -
+   * 
+   */
+  defaultPickerValue?: DateTimeType | DateTimeType[];
+
+  /**
    * hour step
    * 
    * 小时选项步长
