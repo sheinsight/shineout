@@ -185,7 +185,6 @@ export default curry(Origin =>
       }
 
       validate(value, data, type) {
-        if (!this.$isMounted) return
         const { name, formDatum, combineRules, bind } = this.props
         const names = Array.isArray(name) ? name : [name]
 
