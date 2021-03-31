@@ -129,15 +129,26 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-06-error.js]
 </div>
 `;
 
-exports[`Snapshot test: Upload[site/pages/components/Upload/example-08-request.js] 1`] = `
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-08-request-a.js] 1`] = `
 <div>
   <span>
     <button>
       <i />
       <span>
-         Upload file
+         Upload file
       </span>
     </button>
+    <input />
+  </span>
+</div>
+`;
+
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-08-request-ignore.js] 1`] = `
+<div>
+  <span>
+    <div>
+      <div />
+    </div>
     <input />
   </span>
 </div>
