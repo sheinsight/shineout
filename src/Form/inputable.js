@@ -123,7 +123,7 @@ export default curry(Origin =>
         super.componentWillUnmount()
 
         const { formDatum, name, loopContext, unbindInputFromItem } = this.props
-
+        clearTimeout(this.updateTimer)
         if (formDatum && name) {
           formDatum.unbind(name, this.handleUpdate)
           if (Array.isArray(name)) {
@@ -286,10 +286,6 @@ export default curry(Origin =>
         if (type !== IGNORE_VALIDATE) {
           if (this.updateTimer) clearTimeout(this.updateTimer)
           this.updateTimer = setTimeout(() => {
-            if (!this.$isMounted) {
-              clearTimeout(this.updateTimer)
-              return
-            }
             this.validate(newValue, undefined, type).catch(() => {})
           })
         }
