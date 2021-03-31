@@ -122,9 +122,11 @@
     cursor: not-allowed;
   }
 
-  &-focus &-close,
-  &-result:hover &-close {
-    display: block;
+  &:not(&-disabled) {
+    &-focus &-close,
+    &-result:hover &-close {
+      display: block;
+    }
   }
 
   &-multiple {
