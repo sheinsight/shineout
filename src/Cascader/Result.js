@@ -205,7 +205,6 @@ class Result extends PureComponent {
   render() {
     const { style, value } = this.props
     const result = value.length === 0 ? this.renderPlaceholder() : this.renderResult()
-    console.log('render')
     return (
       <div className={cascaderClass('result')} style={style}>
         {result}
