@@ -1,3 +1,5 @@
+import { CHANGE_TOPIC } from './types'
+
 const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
 export const CheckedMode = {
@@ -38,6 +40,7 @@ export default class {
     this.unmatchedValueMap = new Map()
     this.unmatch = unmatch
     this.events = {}
+    this.$events = {}
     this.disabled = disabled || (() => false)
     this.childrenKey = childrenKey
 
@@ -275,7 +278,7 @@ export default class {
     return ids
   }
 
-  setData(data) {
+  setData(data, dispatch) {
     const prevValue = this.value || []
     this.cachedValue = []
     this.pathMap = new Map()
@@ -289,5 +292,24 @@ export default class {
     this.initData(data, [])
     this.initValue()
     this.setValue(prevValue)
+    if (dispatch) this.dispatch(CHANGE_TOPIC)
+  }
+
+  subscribe(name, fn) {
+    if (!this.$events[name]) this.$events[name] = []
+    const events = this.$events[name]
+    if (fn in events) return
+    events.push(fn)
+  }
+
+  unsubscribe(name, fn) {
+    if (!this.$events[name]) return
+    this.$events[name] = this.$events[name].filter(e => e !== fn)
+  }
+
+  dispatch(name, ...args) {
+    const event = this.$events[name]
+    if (!event) return
+    event.forEach(fn => fn(...args))
   }
 }

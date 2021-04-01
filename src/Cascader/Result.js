@@ -6,6 +6,7 @@ import Input from './Input'
 import icons from '../icons'
 import More from '../Select/More'
 import { isEmpty } from '../utils/is'
+import { CHANGE_TOPIC } from '../Datum/types'
 
 // eslint-disable-next-line react/prop-types
 function Item({ children, close, className, data, isPopover, singleRemove, click }) {
@@ -38,6 +39,21 @@ class Result extends PureComponent {
     this.handleNodeClick = this.handleNodeClick.bind(this)
     this.renderItem = this.renderItem.bind(this)
     this.removeTargetNode = this.removeTargetNode.bind(this)
+    this.handleUpdate = this.handleUpdate.bind(this)
+  }
+
+  componentDidMount() {
+    const { datum } = this.props
+    datum.subscribe(CHANGE_TOPIC, this.handleUpdate)
+  }
+
+  componentWillUnmount() {
+    const { datum } = this.props
+    datum.unsubscribe(CHANGE_TOPIC, this.handleUpdate)
+  }
+
+  handleUpdate() {
+    this.forceUpdate()
   }
 
   handleNodeClick(data, show = false) {
@@ -189,7 +205,6 @@ class Result extends PureComponent {
   render() {
     const { style, value } = this.props
     const result = value.length === 0 ? this.renderPlaceholder() : this.renderResult()
-
     return (
       <div className={cascaderClass('result')} style={style}>
         {result}
