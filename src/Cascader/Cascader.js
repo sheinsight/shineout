@@ -67,8 +67,8 @@ class Cascader extends PureComponent {
   componentDidUpdate(prevProps, prevState) {
     this.datum.mode = this.props.mode
     const { onFilter, filterDataChange, filterText } = this.props
+    if (!filterDataChange && prevProps.data !== this.props.data) this.datum.setData(this.props.data, true)
     if (prevProps.value !== this.props.value) this.datum.setValue(this.props.value || [])
-    if (!filterDataChange && prevProps.data !== this.props.data) this.datum.setData(this.props.data)
 
     if (prevState.focus !== this.state.focus && !this.state.focus && onFilter) {
       setTimeout(() => {
