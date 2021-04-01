@@ -122,9 +122,11 @@
     cursor: not-allowed;
   }
 
-  &-focus &-close,
-  &-result:hover &-close {
-    display: block;
+  &:not(&-disabled) {
+    .@{cascader-prefix}-focus .@{cascader-prefix}-close,
+    .@{cascader-prefix}-result:hover .@{cascader-prefix}-close {
+      display: block;
+    }
   }
 
   &-multiple {
