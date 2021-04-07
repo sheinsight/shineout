@@ -51,6 +51,8 @@
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | none | 上传失败图片删除之后的回调 |
 | leftHandler | boolean | false | 添加图片视图是否在左侧展示 |
 | onPreview | (url, value, index, values) => void | none | 预览图片操作，默认为画廊展示 |
+| ignorePreview | boolean | false | 是否忽略上传图片预览 |
+
 ### Upload.Button
 
 | 属性 | 类型 | 默认值 | 说明 |
