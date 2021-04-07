@@ -350,6 +350,15 @@ export interface UploadImageProps<T> extends UploadProps<T>{
    */
   onPreview?:(url: string, value: T, index: number, values: T[]) => void;
 
+  /**
+   * ignore image preview 
+   * 
+   * 是否忽略上传图片预览
+   * 
+   * defualt: false
+   */
+  ignorePreview?: boolean;
+
 }
 
 export interface UploadButtonProps<T> extends UploadProps<T> {
