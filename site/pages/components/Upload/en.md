@@ -47,6 +47,7 @@
 | renderResult | (data: any) => ReactNode | a => a | Return the link address of the url of the image.|
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | none | remove update failed callback |
 | onPreview | (url, value, index, values) => void | none | how to preview the image |
+| ignorePreview | boolean | false | ignore image preview |
 
 ### Upload.Button
 
