@@ -13,7 +13,7 @@
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | accept | string | 无 | 上传文件类型, 和标准一致, 详见[accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) |
-| action | string | 必填 | 上传地址 |
+| action | ((file: File) => string) \| string | 必填 | 上传地址 |
 | children | ReactNode | 必填 | 上传占位内容 |
 | className | string | 无 | 扩展className |
 | defaultValue | any[] | 无 | 默认值 |
@@ -34,7 +34,7 @@
 | withCredentials | boolean | false | 是否携带 cookie |
 | multiple | boolean | false | 是否支持多选文件 |
 | renderContent | (res: any, value: any, index: number, values: any[]) => ReactNode | - | 自定义结果的内容 |
-| validatorHandle | (error: any, file: File) => boolean \| boolean | false | 是否处理校验失败的情况, 如果提供一个函数, 则以函数的返回值判断是否处理此 error |
+| validatorHandle | ((error: any, file: File) => boolean) \| boolean | false | 是否处理校验失败的情况, 如果提供一个函数, 则以函数的返回值判断是否处理此 error |
 | drop | boolean | false | 是否开启拖拽上传文件 |
 | filesFilter | (fileList: any[]) => boolean | 无 | 文件选中后的筛选，用户可自定义最终需要上传的文件列表<br />需返回一个新的文件列表 |
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | 无 | 上传失败文件删除之后的回调 |
