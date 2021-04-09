@@ -28,6 +28,7 @@
       padding: 2px 0;
       overflow: hidden;
       height: 180px;
+      z-index: 1;
 
       .@{transfer-prefix}-body-container {
         box-sizing: border-box;
@@ -103,5 +104,20 @@
     top: 50%;
     color: @gray-500;
     transform: translateY(-50%)
+  }
+
+
+  &.@{transfer-prefix}-rtl {
+    direction: rtl;
+    text-align: right;
+
+    .@{transfer-prefix}-btns-button > svg {
+      transform: rotate(180deg);
+    }
+
+    .@{transfer-prefix}-item-check {
+      margin-left: 0;
+      padding: 6px 12px 6px 0;
+    }
   }
 }

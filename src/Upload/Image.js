@@ -67,7 +67,7 @@ class Image extends PureComponent {
   }
 
   render() {
-    const { children, width, height, ...others } = this.props
+    const { children, width, height, ignorePreview, ...others } = this.props
     const { urlInvalid } = this.state
     if (urlInvalid) {
       clearTimeout(this.timeout)
@@ -80,7 +80,7 @@ class Image extends PureComponent {
     const content = children || <div className={uploadClass('indicator', urlInvalid && 'url-invalid-indicator')} />
 
     return (
-      <Upload {...others} imageStyle={style} beforeUpload={this.beforeUpload}>
+      <Upload {...others} imageStyle={style} beforeUpload={ignorePreview ? undefined : this.beforeUpload}>
         <div
           tabIndex={this.props.disabled ? -1 : 0}
           style={style}
@@ -116,6 +116,7 @@ Image.propTypes = {
   }),
   width: PropTypes.number,
   disabled: PropTypes.bool,
+  ignorePreview: PropTypes.bool,
 }
 
 Image.defaultProps = {

@@ -6,6 +6,7 @@ import { getProps, defaultProps } from '../utils/proptypes'
 import { range } from '../utils/numbers'
 import { carouselClass } from '../styles'
 import Item from './Item'
+import getDataset from '../utils/dom/getDataset'
 
 class Carousel extends PureComponent {
   constructor(props) {
@@ -22,6 +23,7 @@ class Carousel extends PureComponent {
   }
 
   componentDidMount() {
+    super.componentDidMount()
     this.setNext(1)
   }
 
@@ -108,7 +110,7 @@ class Carousel extends PureComponent {
     const className = classnames(carouselClass('_', animation, direction), this.props.className)
 
     return (
-      <div className={className} style={style}>
+      <div className={className} style={style} {...getDataset(this.props)}>
         {this.renderItems()}
         {this.count > 1 && this.renderIndicator()}
       </div>

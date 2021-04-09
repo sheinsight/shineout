@@ -17,9 +17,23 @@ export const docScroll = {
 
 export const docSize = {
   get width() {
-    return window.innerWidth || document.documentElement.clientWidth
+    return document.documentElement.clientWidth || document.body.clientWidth
   },
   get height() {
-    return window.innerHeight || document.documentElement.clientHeight
+    return document.documentElement.clientHeight || document.body.clientHeight
   },
+}
+
+export function addEventListener(target, eventType, cb, option) {
+  if (target.addEventListener) {
+    target.addEventListener(eventType, cb, option)
+  }
+
+  return {
+    remove: function remove() {
+      if (target.removeEventListener) {
+        target.removeEventListener(eventType, cb)
+      }
+    },
+  }
 }

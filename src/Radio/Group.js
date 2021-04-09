@@ -8,6 +8,7 @@ import { CHANGE_TOPIC } from '../Datum/types'
 import { Provider } from '../Checkbox/context'
 import { checkinputClass } from '../styles'
 import Radio from './Radio'
+import { isRTL } from '../config'
 
 class RadioGroup extends PureComponent {
   constructor(props) {
@@ -28,13 +29,13 @@ class RadioGroup extends PureComponent {
     this.props.datum.unsubscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
-  getContent(d) {
+  getContent(d, index) {
     const { renderItem } = this.props
     if (typeof renderItem === 'string') {
       return d[renderItem]
     }
     if (typeof renderItem === 'function') {
-      return renderItem(d)
+      return renderItem(d, index)
     }
 
     return ''
@@ -52,13 +53,16 @@ class RadioGroup extends PureComponent {
   render() {
     const { block, data, datum, keygen, children, button, size } = this.props
 
+    const rtl = isRTL()
+
     const className = classnames(
       checkinputClass(
         'group',
         block && 'block',
         button && 'button',
         button === 'outline' && 'outline',
-        button && size
+        button && size,
+        rtl && 'rtl'
       ),
       this.props.className
     )
@@ -75,20 +79,18 @@ class RadioGroup extends PureComponent {
 
     return (
       <div className={className}>
-        {
-          data.map((d, i) => (
-            <Radio
-              checked={datum.check(d)}
-              disabled={datum.disabled(d)}
-              key={getKey(d, keygen, i)}
-              htmlValue={i}
-              index={i}
-              onChange={this.handleClick}
-            >
-              {this.getContent(d)}
-            </Radio>
-          ))
-        }
+        {data.map((d, i) => (
+          <Radio
+            checked={datum.check(d)}
+            disabled={datum.disabled(d)}
+            key={getKey(d, keygen, i)}
+            htmlValue={i}
+            index={i}
+            onChange={this.handleClick}
+          >
+            {this.getContent(d, i)}
+          </Radio>
+        ))}
         {children}
       </div>
     )
@@ -101,10 +103,7 @@ RadioGroup.propTypes = {
   data: PropTypes.array,
   button: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   datum: PropTypes.object.isRequired,
-  renderItem: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-  ]),
+  renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 }
 
 RadioGroup.defaultProps = {

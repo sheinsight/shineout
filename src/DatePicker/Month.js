@@ -18,7 +18,7 @@ class Month extends PureComponent {
 
   handleYearChange(year) {
     const { current, onChange } = this.props
-    onChange(utils.addYears(current, year))
+    onChange(...utils.yearHandleChangeParams(utils.addYears(current, year)))
   }
 
   handleYearClick() {
@@ -31,7 +31,7 @@ class Month extends PureComponent {
     const isMonthType = this.props.type === 'month'
 
     date.setMonth(month, 1)
-    onChange(date, isMonthType, isMonthType)
+    onChange(...utils.monthHandleChangeParams(date, isMonthType, isMonthType))
     if (!isMonthType) onModeChange('day')
   }
 
@@ -70,13 +70,13 @@ class Month extends PureComponent {
     return (
       <div className={datepickerClass('month-picker')}>
         <div className={datepickerClass('header')}>
-          <Icon name="AngleLeft" onClick={this.handlePrevYear} />
+          <Icon name="AngleLeft" className="left" onClick={this.handlePrevYear} />
 
           <span onClick={this.handleYearClick.bind(this)} className={datepickerClass('ym')}>
             {current.getFullYear()}
           </span>
 
-          <Icon name="AngleRight" onClick={this.handleNextYear} />
+          <Icon name="AngleRight" className="right" onClick={this.handleNextYear} />
         </div>
 
         <div className={datepickerClass('list')}>{getLocale('monthValues.short').map(this.renderMonth.bind(this))}</div>

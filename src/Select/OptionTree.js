@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import List from '../List'
+import List from '../AnimationList'
 import Tree from '../Tree'
 import Spin from '../Spin'
 import { getLocale } from '../locale'
@@ -29,9 +29,13 @@ class OptionList extends Component {
 
   renderItem(data) {
     const { renderItem, datum } = this.props
+    const content = renderItem(data)
     return (
-      <span className={selectClass('tree-node', datum.check(data) && 'selected', datum.disabled(data) && 'disabled')}>
-        {renderItem(data)}
+      <span
+        title={typeof content === 'string' ? content : undefined}
+        className={selectClass('tree-node', datum.check(data) && 'selected', datum.disabled(data) && 'disabled')}
+      >
+        {content}
       </span>
     )
   }
@@ -77,10 +81,17 @@ class OptionList extends Component {
   }
 
   render() {
-    const { focus, style, selectId, height, getRef } = this.props
+    const { focus, style, selectId, height, getRef, customHeader } = this.props
     const mergeStyle = Object.assign({}, { maxHeight: height, overflowY: 'auto' }, style)
     return (
-      <ScaleList getRef={getRef} show={focus} style={mergeStyle} data-id={selectId} className={selectClass('options', 'tree')}>
+      <ScaleList
+        getRef={getRef}
+        show={focus}
+        style={mergeStyle}
+        data-id={selectId}
+        className={selectClass('options', 'tree')}
+      >
+        {customHeader}
         {this.renderTree()}
       </ScaleList>
     )
@@ -107,6 +118,7 @@ OptionList.propTypes = {
   defaultExpandAll: PropTypes.bool,
   childrenKey: PropTypes.string,
   getRef: PropTypes.func,
+  customHeader: PropTypes.node,
 }
 
 export default OptionList

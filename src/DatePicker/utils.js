@@ -98,7 +98,7 @@ function formatDateWithDefaultTime(date, value, defaultTime, fmt) {
 
 function clearHMS(date) {
   if (!isValid(date)) return date
-  return new Date(new Date(date.toLocaleDateString()).getTime())
+  return new Date(new Date(date.toDateString()).getTime())
 }
 
 function compareDateArray(arr1, arr2, type = 'date') {
@@ -110,8 +110,14 @@ function compareDateArray(arr1, arr2, type = 'date') {
   })
 }
 
+function handleTimeDisabled(date, disabledTime) {
+  if (typeof disabledTime === 'string') return format(date, TIME_FORMAT) === disabledTime
+  if (typeof disabledTime === 'function') return disabledTime(format(date, TIME_FORMAT))
+  return undefined
+}
+
 function judgeTimeByRange(...args) {
-  const [target, value, mode, min, max, range, disabled] = args
+  const [target, value, mode, min, max, range, disabled, disabledTime] = args
 
   const date = new Date(value.getTime())
   switch (mode) {
@@ -149,6 +155,7 @@ function judgeTimeByRange(...args) {
 
   let isDisabled
   if (disabled) isDisabled = disabled(date)
+  if (disabledTime) isDisabled = isDisabled || handleTimeDisabled(date, disabledTime)
   if (isDisabled) return [true]
   if (!isDisabled && min) {
     if (compareAsc(date, min) < 0) return [true]
@@ -188,6 +195,27 @@ function resetTimeByFormat(value, fo) {
   )
 }
 
+function formatted(date, fmt, ...options) {
+  if (typeof fmt === 'function') return fmt(date)
+  return format(date, fmt, ...options)
+}
+
+const handleOnChangeParams = type => (date, change, blur = undefined, isEnd = undefined, isQuickSelect = undefined) => [
+  date,
+  change,
+  blur,
+  isEnd,
+  isQuickSelect,
+  type,
+]
+
+const yearHandleChangeParams = handleOnChangeParams('year')
+const monthHandleChangeParams = handleOnChangeParams('month')
+const dayHandleChangeParams = handleOnChangeParams('day')
+const weekHandleChangeParams = handleOnChangeParams('week')
+const timeHandleChangeParams = handleOnChangeParams('time')
+const quickHandleChangeParams = handleOnChangeParams('quick')
+
 export default {
   clearHMS,
   addDays,
@@ -198,7 +226,7 @@ export default {
   compareAsc,
   compareMonth,
   getDaysOfMonth,
-  format,
+  format: formatted,
   isInvalid,
   isSameDay,
   isSameMonth,
@@ -214,4 +242,11 @@ export default {
   TIME_FORMAT,
   judgeTimeByRange,
   resetTimeByFormat,
+  handleOnChangeParams,
+  yearHandleChangeParams,
+  monthHandleChangeParams,
+  dayHandleChangeParams,
+  timeHandleChangeParams,
+  quickHandleChangeParams,
+  weekHandleChangeParams,
 }

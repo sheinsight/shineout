@@ -229,6 +229,7 @@ export default class extends React.Component {
     if (!columns) return <Table {...props} />
 
     let { data } = this.props
+    const rawData = data // backup raw data for children component comparison
     if (!sorter.length) {
       sorter = immer(sorter, draft => {
         draft.push({})
@@ -259,6 +260,7 @@ export default class extends React.Component {
         onChange={onRowSelect}
         columns={this.getColumns(columns)}
         data={data}
+        rawData={rawData}
         sorter={sorter}
         onSortChange={this.handleSortChange}
         treeColumnsName={treeColumnsName}

@@ -142,9 +142,6 @@
 @button-disabled-color-value: rgba(0, 0, 0, 0.45);
 @button-disabled-color: var(--button-disabled-color, @button-disabled-color-value);
 
-@button-disabled-border-color-value: #b9b9b9;
-@button-disabled-border-color: var(--button-disabled-border-color, @button-disabled-border-color-value);
-
 @button-font-size-base-value: @font-size-base;
 @button-font-size-base: var(--button-font-size-base, @button-font-size-base-value);
 
@@ -162,9 +159,11 @@
 
 @button-default-text-color: var(--button-default-text-color, @btn-default-color);
 
-@button-default-size-width: var(--button-default-size-width, 64px);
-@button-small-size-width: var(--button-small-size-width, 48px);
-@button-large-size-width: var(--button-large-size-width, 64px);
+@button-default-size-width: var(--button-default-size-width, 0);
+@button-small-size-width: var(--button-small-size-width, 0);
+@button-large-size-width: var(--button-large-size-width, 0);
+
+@button-disabled-border-color: var(--button-disabled-border-color, #d9d9d9);
 
 @pagination-border-radius-value: @border-radius-base;
 @pagination-border-radius: var(--pagination-border-radius, @pagination-border-radius-value);
@@ -216,6 +215,7 @@
 @table-odd-td-bgc: var(--table-odd-td-bgc, #fff);
 
 @table-margin-bottom: var(--table-margin-bottom, @line-height-computed);
+@table-header-top-divider-width: var(--table-header-top-divider-width, 0);
 
 @tooltip-bg-value: #000;
 @tooltip-bg: var(--tooltip-bg, @tooltip-bg-value);
@@ -388,7 +388,24 @@
 @menu-item-light-hover-color: var(--menu-item-light-hover-color, @menu-highlight-color);
 @menu-item-light-hover-bgc: var(--menu-item-light-hover-bgc, transparent);
 @menu-item-dark-hover-color: var(--menu-item-dark-hover-color, #fff);
-@menu-item-dark-hover-bgc: var(--menu-item-dark-hover-bgc, transparent);
+@menu-item-dark-hover-bgc: var(--menu-item-dark-hover-bgc, fade(@colors-primary-value, 50%));
+
+@menu-active-bar: var(--menu-active-bar, 3px);
+
+@menu-active-bar-color: var(--menu-item-active-indicator, @colors-primary);
+@menu-dark-active-bar-color: var(--menu-dark-item-active-indicator, @colors-primary);
+
+@menu-root-node-bgc: var(--menu-root-node-bgc, transparent);
+
+@menu-children-segmentation: var(--menu-children-segmentation, transparent);
+
+@menu-vertical-dark-parent-active-bgc: var(--menu-vertical-dark-parent-active-bgc, #020B18);
+
+@menu-item-has-children-active-bgc: var(--menu-item-has-children-active-bgc, @colors-primary);
+@menu-item-has-children-active-color: var(--menu-item-has-children-active-color, #fff);
+
+// vertical menu in-path bar
+@menu-vertical-in-path-bar-width: var(--menu-vertical-in-path-bar-width, 4px);
 
 @alert-border-width-value: 1px;
 @alert-border-width: var(--alert-border-width, @alert-border-width-value);
@@ -545,11 +562,18 @@
 @modal-header-color: var(--modal-header-color, @card-color-value);
 @modal-footer-color: var(--modal-footer-color, @card-color-value);
 @modal-icon-body-padding: var(--modal-icon-body-padding, 40px 40px 20px 70px);
+@modal-icon-body-padding-top: var(--modal-icon-body-padding-top, 40px);
+@modal-icon-body-padding-right: var(--modal-icon-body-padding-right, 40px);
+@modal-icon-body-padding-bottom: var(--modal-icon-body-padding-bottom, 20px);
+@modal-icon-body-padding-left: var(--modal-icon-body-padding-left, 70px);
+
 @modal-divider-color: var(--modal-divider-color, @panel-inner-border);
 @modal-icon-top: var(--modal-icon-top, 40px);
 @modal-icon-left: var(--modal-icon-left, 32px);
 @modal-title-font: var(--modal-title-font, inherit);
 @modal-title-distance-to-right:  0px;
+@modal-drawer-padding: 16px;
+@modal-drawer-header-vertical-padding: 12px;
 
 @popover-arrow-outer-color-value: @gray-300-value;
 @popover-arrow-outer-color: var(--popover-border-color, @popover-arrow-outer-color-value);
@@ -592,7 +616,7 @@
 @tree-level-indent-value: 0;
 @tree-level-indent: var(--tree-level-indent, @tree-level-indent-value);
 
-@tree-node-margin-bottom-value: 4px;
+@tree-node-margin-bottom-value: 2px;
 @tree-node-margin-bottom: var(--tree-node-margin-bottom, @tree-node-margin-bottom-value);
 
 @tree-indicator-color: var(--tree-indicator-color, @gray-600);
@@ -626,3 +650,13 @@
 // list
 @list-item-bottom-border-width: var(--list-item-bottom-border-width, 1px);
 @list-item-hover-bgc: var(--list-item-hover-bgc,  rgba(25, 122, 250, 0.1));
+
+//divider
+@divider-width-base: 1px; // width of the border for a component
+@divider-text-padding: 1em;
+@divider-orientation-margin: 5%;
+@divider-color: var(--divider-color, #f0f0f0);
+
+
+// progress
+@progress-bg-color: var(--progress-bgc, @gray-200);

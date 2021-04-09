@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getKey } from '../utils/uid'
 import { setTranslate } from '../utils/dom/translate'
-import List from '../List'
+import List from '../AnimationList'
 import Scroll from '../Scroll'
 import Spin from '../Spin'
 import { getLocale } from '../locale'
@@ -18,7 +18,7 @@ class OptionList extends Component {
 
     this.state = {
       currentIndex: 0,
-      hoverIndex: 0,
+      hoverIndex: -1,
       scrollTop: 0,
     }
 
@@ -164,9 +164,9 @@ class OptionList extends Component {
       onChange,
       renderItem,
       groupKey,
+      filterText,
     } = this.props
     const { hoverIndex, currentIndex } = this.state
-
     let scroll = ''
     const scrollHeight = lineHeight * data.length
     if (height < scrollHeight) {
@@ -205,6 +205,7 @@ class OptionList extends Component {
               renderItem={renderItem}
               onHover={this.handleHover}
               groupKey={groupKey}
+              filterText={filterText}
             />
           ))}
         </div>
@@ -213,7 +214,7 @@ class OptionList extends Component {
   }
 
   render() {
-    const { control, focus, style, selectId, autoClass, getRef } = this.props
+    const { control, focus, style, selectId, autoClass, getRef, customHeader } = this.props
 
     return (
       <ScaleList
@@ -224,6 +225,7 @@ class OptionList extends Component {
         className={classnames(selectClass('options', `control-${control}`), autoClass)}
         getRef={getRef}
       >
+        {customHeader}
         {this.renderList()}
       </ScaleList>
     )
@@ -252,6 +254,8 @@ OptionList.propTypes = {
   text: PropTypes.object,
   groupKey: PropTypes.string,
   getRef: PropTypes.func,
+  customHeader: PropTypes.node,
+  filterText: PropTypes.string,
 }
 
 export default OptionList

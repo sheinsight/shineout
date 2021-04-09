@@ -71,14 +71,17 @@ class Range extends PureComponent {
     }
   }
 
-  handleChange(index, date, change, end, mode) {
+  // Be consistent with the parent onChange, expand first params: index
+  handleChange(index, date, change, end, mode, isQuickSelect, areaType) {
     const { type, range, min, max } = this.props
+
+    const handleOnChangeParams = utils.handleOnChangeParams(areaType)
 
     if (!change) {
       const current = immer(this.props.current, draft => {
         draft[index] = date
       })
-      this.props.onChange(current)
+      this.props.onChange(...handleOnChangeParams(current))
       return
     }
 
@@ -111,7 +114,7 @@ class Range extends PureComponent {
             if (endChangedDate) draft[1] = endChangedDate
             draft[1 - index] = draft[1 - index] || ''
           })
-          this.props.onChange(current, true)
+          this.props.onChange(...handleOnChangeParams(current, true))
         }
       )
       return
@@ -126,7 +129,7 @@ class Range extends PureComponent {
       this.changeDateSmart(rangeDate)
 
       this.setState({ rangeDate })
-      this.props.onChange(rangeDate, true, true, index === 1)
+      this.props.onChange(...handleOnChangeParams(rangeDate, true, true, index === 1))
 
       return
     }
@@ -155,7 +158,7 @@ class Range extends PureComponent {
       }),
       () => {
         // only 'datetime' don not need close, 'time is up'
-        this.props.onChange(this.state.rangeDate, true, type !== 'datetime', index === 1)
+        this.props.onChange(...handleOnChangeParams(this.state.rangeDate, true, type !== 'datetime', index === 1))
       }
     )
   }
@@ -180,7 +183,7 @@ class Range extends PureComponent {
       return
     }
     this.setState({ rangeDate: quick.value })
-    this.props.onChange(quick.value, true)
+    this.props.onChange(...utils.quickHandleChangeParams(quick.value, true, null, null, quick))
   }
 
   createQuick() {

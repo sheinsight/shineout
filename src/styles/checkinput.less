@@ -49,12 +49,12 @@
           color: @button-disabled-color;
         }
 
-        &:not(.@{checkinput-prefix}-checked) {
-          opacity: 0.65;
+        // cover, set disabled before and after bgc
+        &:not(:first-child)::before {
+          background-color: @button-disabled-delimiter;
         }
-
-        &.@{checkinput-prefix}-checked {
-          opacity: 1;
+        &:not(:last-child)::after {
+          background-color: @button-disabled-delimiter;
         }
       }
     }
@@ -429,6 +429,11 @@
     margin-bottom: @padding-large-vertical;
   }
 
+  &-no-block & {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+
   &:focus {
     outline: none;
     i.@{checkinput-prefix}-indicator{
@@ -514,5 +519,26 @@
     .@{checkinput-prefix}-desc {
       color: @radio-text-color;
     }
+  }
+}
+
+
+.@{checkinput-prefix}-rtl {
+  direction: rtl;
+  text-align: right;
+
+  &.@{checkinput-prefix}-group.@{checkinput-prefix}-button {
+    direction: ltr;
+    text-align: left;
+    
+    .@{checkinput-prefix}-radio-container  {
+      margin-left: 0;
+    }
+  }
+
+  &.@{checkinput-prefix}-radio-container,
+  &.@{checkinput-prefix}-checkbox-container {
+    margin-right: 0;
+    margin-left: @checkbox-margin-right;
   }
 }

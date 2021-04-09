@@ -11,8 +11,17 @@ import { docSize } from '../utils/dom/document'
 import isDOMElement from '../utils/dom/isDOMElement'
 import { consumer, Provider } from './context'
 import { Provider as AbsoluteProvider } from '../Table/context'
+import { getRTLPosition } from '../utils/strings'
+import { isRTL } from '../config'
 
 const emptyEvent = e => e.stopPropagation()
+
+const getCurrentPosition = position => {
+  if (isRTL()) {
+    return getRTLPosition(position)
+  }
+  return position
+}
 
 class Panel extends Component {
   constructor(props) {
@@ -123,7 +132,7 @@ class Panel extends Component {
     // if (centerPoint > windowWidth * 0.6) position += '-right'
     // else if (centerPoint < windowWidth * 0.3) position += '-left'
 
-    return position
+    return getCurrentPosition(position)
   }
 
   getContainer() {

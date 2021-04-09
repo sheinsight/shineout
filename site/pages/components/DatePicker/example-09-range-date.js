@@ -12,21 +12,56 @@ const style = { marginBottom: 12 }
 export default function() {
   return (
     <div>
-      <DatePicker range={86400 * 20} type="date" onChange={a => console.log(a)} style={style} />
+      <DatePicker
+        formatResult="yy-MM-dd"
+        range={86400 * 20}
+        type="date"
+        onChange={a => console.log(a)}
+        style={style}
+        defaultValue={['21-03-10', '21-03-14']}
+        placeholder={['Start date', 'End date']}
+      />
       <br />
-      <DatePicker range={86400 * 20} type="week" onChange={a => console.log(a)} style={style} />
+      <DatePicker
+        range={86400 * 20}
+        type="date"
+        onChange={a => console.log(a)}
+        style={style}
+        placeholder={['Start date', 'End date']}
+      />
+      <br />
+      <DatePicker
+        range={86400 * 20}
+        type="week"
+        onChange={a => console.log(a)}
+        style={style}
+        placeholder={['Start week', 'End week']}
+      />
       <br />
       <DatePicker
         range={86400 * 100}
         onChange={v => console.log(v)}
         type="month"
         style={style}
-        placeholder={['first month', 'last-month']}
+        placeholder={['First month', 'Last month']}
       />
       <br />
-      <DatePicker min={Date.now()} range={3600 * 6} type="time" format="HH:mm" style={style} />
+      <DatePicker
+        min={Date.now()}
+        range={3600 * 6}
+        type="time"
+        format="HH:mm"
+        style={style}
+        placeholder={['Start time', 'End time']}
+      />
       <br />
-      <DatePicker range type="datetime" style={style} onChange={d => console.log(d)} />
+      <DatePicker
+        range
+        type="datetime"
+        style={style}
+        onChange={d => console.log(d)}
+        placeholder={['Start datetime', 'End datetime']}
+      />
       <br />
       <DatePicker
         range
@@ -35,6 +70,7 @@ export default function() {
         type="datetime"
         defaultTime={['02:33:33', '14:33:33']}
         onChange={d => console.log(d)}
+        placeholder={['Start datetime', 'End datetime']}
       />
     </div>
   )

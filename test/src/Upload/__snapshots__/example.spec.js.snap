@@ -129,39 +129,26 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-06-error.js]
 </div>
 `;
 
-exports[`Snapshot test: Upload[site/pages/components/Upload/example-07-recover.js] 1`] = `
-<div>
-  <div>
-    <span>
-      <button>
-        <i />
-        <span>
-           Upload file
-        </span>
-      </button>
-      <input />
-    </span>
-  </div>
-  <div>
-    <span>
-      <div>
-        <div />
-      </div>
-      <input />
-    </span>
-  </div>
-</div>
-`;
-
-exports[`Snapshot test: Upload[site/pages/components/Upload/example-08-request.js] 1`] = `
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-08-request-a.js] 1`] = `
 <div>
   <span>
     <button>
       <i />
       <span>
-         Upload file
+         Upload file
       </span>
     </button>
+    <input />
+  </span>
+</div>
+`;
+
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-08-request-ignore.js] 1`] = `
+<div>
+  <span>
+    <div>
+      <div />
+    </div>
     <input />
   </span>
 </div>
@@ -215,7 +202,20 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-10-defaultVa
           </div>
         </div>
       </a>
-      <span />
+      <div>
+        <a>
+          <svg>
+            <path />
+          </svg>
+        </a>
+        <a>
+          <svg>
+            <path />
+            <path />
+            <path />
+          </svg>
+        </a>
+      </div>
     </div>
   </div>
 </div>

@@ -69,6 +69,9 @@
       &-hover {
         background: @table-bg-hover;
       }
+      &-top {
+        border-width: @table-header-top-divider-width;
+      }
     }
     &-spacing {
       height: @table-row-spacing;
@@ -167,6 +170,9 @@
     }
   }
   &-menu {
+    &-text {
+      color: @menu-item-color;
+    }
     &-dark {
       background: @menu-dark-bg;
       color: @menu-dark-item;
@@ -177,6 +183,31 @@
         color: @menu-item-dark-hover-color;
         background-color: @menu-item-dark-hover-bgc;
       }
+      &-bar  {
+        background-color: @menu-dark-active-bar-color;
+      }
+      &-root {
+        background-color: @menu-root-node-bgc;
+      }
+      &-seg {
+        border-top-color: @menu-children-segmentation;
+      }
+
+      &-vertical {
+        background-color: @menu-vertical-dark-parent-active-bgc;
+
+        &-children {
+          background-color: @menu-item-has-children-active-bgc;
+          color: @menu-item-has-children-active-color;
+        }
+        &-bar {
+          width: @menu-vertical-in-path-bar-width;
+        }
+      }
+    }
+    &-bar {
+      background-color: @menu-active-bar-color;
+      width: @menu-active-bar;
     }
     &-active {
       background: @menu-item-active-bg;
@@ -278,7 +309,10 @@
       margin-left: @modal-icon-left;
       margin-top: @modal-icon-top;
       &-body {
-        padding: @modal-icon-body-padding;
+        padding-top: @modal-icon-body-padding-top;
+        padding-right: @modal-icon-body-padding-right;
+        padding-bottom: @modal-icon-body-padding-bottom;
+        padding-left: @modal-icon-body-padding-left;
       }
     }
     &-close {
@@ -295,11 +329,17 @@
       border: @modal-border-width solid @modal-border-color;
       box-shadow: @modal-box-shadow;
       &-header {
-        padding: @modal-header-padding;
+        padding-top: @modal-header-padding-top;
+        padding-right: @modal-header-padding-right;
+        padding-bottom: @modal-header-padding-bottom;
+        padding-left: @modal-header-padding-left;
         background: @modal-header-bg;
       }
       &-body {
-        padding: @modal-body-padding;
+        padding-top: @modal-body-padding-top;
+        padding-right: @modal-body-padding-right;
+        padding-bottom: @modal-body-padding-bottom;
+        padding-left: @modal-body-padding-left;
       }
       &-footer {
         padding: @modal-footer-padding;
@@ -369,6 +409,9 @@
   &-list-item {
     background-color: @list-item-hover-bgc;
     width: @list-item-bottom-border-width;
+  }
+  &-progress {
+    background-color: @progress-bg-color;
   }
   &-common {
     &-base {

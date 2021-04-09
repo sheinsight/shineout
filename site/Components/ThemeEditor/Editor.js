@@ -80,7 +80,7 @@ class Editor extends React.Component {
     super(props)
     this.modules = Object.keys(cssAccessors).sort((a, b) => a.localeCompare(b))
     this.state = {
-      module: this.modules[0],
+      module: 'color',
     }
 
     this.formKey = Date.now()

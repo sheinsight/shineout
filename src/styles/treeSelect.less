@@ -2,6 +2,9 @@
 @import './themes/@{so-theme}.less';
 
 @treeSelect-prefix: ~'@{so-prefix}-treeSelect';
+@tree-prefix: ~'@{so-prefix}-tree';
+@input-prefix: ~'@{so-prefix}-input';
+@tree-node-max-width: 300px;
 
 .@{treeSelect-prefix} {
   position: relative;
@@ -15,20 +18,32 @@
     color: @gray-600;
     padding: 8px 8px 4px 8px;
 
-    .@{so-prefix}-tree-node {
-      &:last-child > div {
-        padding-bottom: 4px;
+    .@{tree-prefix} {
+      &-node {
+        &:last-child > div {
+          padding-bottom: 4px;
+        }
       }
-
-      .@{so-prefix}-tree-content {
+      &-content {
         white-space: nowrap;
+        padding-left: 4px;
+        .@{tree-prefix}-text {
+          max-width: @tree-node-max-width;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       }
     }
 
-    .@{treeSelect-prefix}-single .@{so-prefix}-tree-content {
+    .@{treeSelect-prefix}-single .@{tree-prefix}-content {
       cursor: default;
+      transition: all .2s;
+      cursor: pointer;
+      padding-left: 0;
       &:hover {
-        background: @primary-color-fade-10;
+        .@{treeSelect-prefix}-content-wrapper:not(.@{treeSelect-prefix}-selected) {
+          background: @gray-100;
+        }
       }
     }
 
@@ -63,19 +78,15 @@
     }
 
     .@{treeSelect-prefix}-input {
-      display: inline-flex;
+      display: block;
       min-width: 12px;
       flex: 1;
       margin-bottom: @padding-base-vertical;
       outline: none;
-      white-space: pre;
+      white-space: pre-wrap;
 
       &:after {
         content: '\feff ';
-      }
-
-      &.@{treeSelect-prefix}-full {
-        display: block;
       }
     }
 
@@ -197,13 +208,14 @@
 
   &-options span.@{treeSelect-prefix}-content-wrapper {
     display: block;
-    border-radius: 2px;
-    padding: 0 4px;
+    padding: 0px 4px;
+    max-width: @tree-node-max-width;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   &-options span.@{treeSelect-prefix}-selected {
-    background-color: @primary-color-fade-60;
-    color: white;
-
+    background-color: @primary-color-fade-10;
+    color: @colors-primary;
   }
 
   &-box-list {
@@ -407,6 +419,38 @@
         .@{treeSelect-prefix}-close {
           display: none;
         }
+      }
+    }
+  }
+
+
+  &.@{treeSelect-prefix}-rtl,
+  &.@{input-prefix}-rtl {
+    direction: rtl;
+    text-align: right;
+
+    .@{treeSelect-prefix}-result {
+      padding: @padding-base-vertical @padding-base-horizontal 0 @padding-base-horizontal+12;
+
+      .@{treeSelect-prefix}-item {
+        padding: @select-result-padding-vertical @select-result-space @select-result-padding-vertical @select-result-space-16;
+
+        .@{treeSelect-prefix}-close {
+          right: auto;
+          left: @select-result-space;
+        }
+      }
+    }
+
+    .@{treeSelect-prefix}-indicator {
+      left: 7px;
+      right: auto;
+    }
+
+    .@{treeSelect-prefix}-multiple {
+      .@{treeSelect-prefix}-result a.@{treeSelect-prefix}-close.@{treeSelect-prefix}-indicator {
+        right: auto;
+        left: 17px;
       }
     }
   }

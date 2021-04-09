@@ -20,7 +20,13 @@
 | renderResult | (data: any, result: any[]) => ReactNode \| string | renderItem | 选中后在结果中显示的内容，默认和 renderItem 相同。返回 null 则不展示，result 为当前选中的所有值。 |
 | value | any[] | 无 | 选中的 key （受控） | 
 | absolute | boolean | false | 为 true 时，选项弹出层在 DOM 中独立 render |
-| compressed | boolean | false | 将选中值合并 |
+| compressed | boolean \| 'no-repeat' | false | 将选中值合并。为'no-repeat'时第一个值不会出现在弹出框中 |
 | childrenKey | string | 'children' | 指定子数据的属性名 | 
 | finalDismiss | boolean | false | 选择末级节点后是否关闭选项列表 |
 | onCollapse | (collapse: boolean) => void | 无 | 下拉列表展开/收起回调 |
+| onFilter | (text: string) => (data: any) => boolean | 无 | onFilter 不为空时，可以输入过滤数据<br />onFilter 如果返回一个函数，使用这个函数做前端过滤<br />如果不返回，可以自行做后端过滤<br />单选状态下支持 |
+| height | number | 300 | 下拉列表高度 |
+| filterDelay | number | 400 | 毫秒。用户输入触发 fitler 事件的延时 |
+| size | string | 无 | 尺寸 |
+| singleRemove | boolean | 无 | 支持单个节点删除 |
+| unmatch | boolean | 无 | 是否展示data中不存在的值 |

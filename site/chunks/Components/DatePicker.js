@@ -25,7 +25,7 @@ const examples = [
   {
     name: '02-format',
     title: locate(
-      '格式化 \n 传入值可为 日期对象，时间戳，字符串，通过format 属性可以定义返回值的格式. <br /><br /> <b>注: 我们使用的格式化字符串(date-fns)和 moment 是不一致的, 如: <br /> <br /> moment: YYYY  => date-fns: yyyy <br /> moment: DD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => date-fns: dd <br /> moment: hh&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  => date-fns: HH  </b><br /><br /> 详细的请参照 <a href="#heading-3-Format">Format<a>',
+      '格式化 \n 传入值可为 日期对象，时间戳，字符串，通过format 属性可以定义返回值的格式. <br />支持通过 formatResult 属性单独格式化值展示格式. <br /><br /> <b>注: 我们使用的格式化字符串(date-fns)和 moment 是不一致的, 如: <br /> <br /> moment: YYYY  => date-fns: yyyy <br /> moment: DD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => date-fns: dd <br /> moment: hh&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  => date-fns: HH  </b><br /><br /> 详细的请参照 <a href="#heading-3-Format">Format<a>',
       'Format \n The format attribute defines the format of the return value.  <br /><br /> <b>tip: The format string we used (date-fns) and moment.js are inconsistent, such as: <br /> <br /> moment: YYYY  => date-fns: yyyy <br /> moment: DD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => date-fns: dd <br /> moment: hh&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  => date-fns: HH  </b><br /><br /> Please refer to the details <a href="#heading-3-Format">Format<a>'
     ),
     component: require('doc/pages/components/DatePicker/example-02-format.js').default,
@@ -133,17 +133,26 @@ const examples = [
   {
     name: '10-disabled',
     title: locate(
-      '禁用 \n disabled 为 true 时，禁用整个日期选择',
+      '禁用 \n disabled 为 true 时，禁用整个日期选择。',
       'Disabled \n When the disabled is true, disable all the date selection.'
     ),
     component: require('doc/pages/components/DatePicker/example-10-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-10-disabled.js'),
   },
   {
+    name: '11-disabled-type',
+    title: locate(
+      ' \n disabledTime 属性支持单独禁用时间。',
+      ' \n The disabledTime attribute supports separate disable time.'
+    ),
+    component: require('doc/pages/components/DatePicker/example-11-disabled-type.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-11-disabled-type.js'),
+  },
+  {
     name: '11-disabled',
     title: locate(
-      ' \n disabled 为函数时，禁用返回为true的选项, disable 应该用于禁用一些特殊的时间, 如果需要使用比如现在以前的时间不能选择的, 推荐使用 min/max',
-      ' \n When the disabled is a function, disbale should be used to disable some special time, if you need to use such as now before the time can not be selected, it is recommended to use min/max'
+      ' \n disabled 为函数时，禁用返回为true的选项, disable 应该用于禁用一些特殊的时间, 如果需要使用比如现在以前的时间不能选择的, 推荐使用 min/max。（注意：如果只想单独禁用时间，可使用 disabledTime 属性。）',
+      ' \n When the disabled is a function, disbale should be used to disable some special time, if you need to use such as now before the time can not be selected, it is recommended to use min/max. (Note: If you only want to disable the time alone, you can use the disabledTime attribute.)'
     ),
     component: require('doc/pages/components/DatePicker/example-11-disabled.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-11-disabled.js'),

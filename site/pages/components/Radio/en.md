@@ -21,7 +21,7 @@ Radio cannot be used alone.
 | defaultValue | any | | default value. |
 | data | any[] | required | the data items |
 | disabled | (data: any) => boolean \| boolean  | false | When the value is true, disabled all checkboxes; When the value is function, disable the checkbox that this function returns true. |
-| format | (data: any) => any \| string | d => d | Format value<br />Default value, return original data. <br />When it is a string, it will get the value from the original data as a key .The same as (d) => d[format]<br />When it is a function, the result returned by the function will be the value. |
+| format | (data: any) => any \| string | d => d | Format value<br />Default value, return original data. <br />When it is a string, it will get the value from the original data as a key .The same as (d) => d\[format\]<br />When it is a function, the result returned by the function will be the value. |
 | keygen | ((data: any) => string) \| string \| true  | required | Key generator<br />When it is true, the data itself is used as the key equivalent to (d => d)<br />When it is a function, use its return value.<br />When it is a string，ues the value of the string.For example, 'id' is the same thing as (d) => d.id. |
 | name | string | none | The name of a Form that accesses data |
 | onChange | (value: any) => void | none | value is the datum.getValue() |

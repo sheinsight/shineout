@@ -34,7 +34,8 @@ export default class extends PureComponent {
     let checked
     for (const d of data) {
       if (datum.disabled(d)) continue
-      const p = datum.check(d)
+      const p = this.check(d)
+      if (p === 'indeterminate') return p
       if (checked === undefined) {
         checked = p
       } else if (checked !== p) {
@@ -43,6 +44,19 @@ export default class extends PureComponent {
     }
 
     return checked
+  }
+
+  check(d) {
+    const { datum, treeColumnsName } = this.props
+    const p = datum.check(d)
+    const children = d[treeColumnsName]
+    const isArray = children && Array.isArray(children)
+    if (isArray) {
+      for (const c of children) {
+        if (this.check(c) !== p) return 'indeterminate'
+      }
+    }
+    return p
   }
 
   handleChange(_, checked, index) {

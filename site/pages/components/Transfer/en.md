@@ -34,4 +34,4 @@
 | rowsInView | number | 20 | loaded rows |
 | listHeight | number | 180 | list height |
 | lineHeight | number | 32 | list line height |
-| children | (({onSelected, selectedKeys, value, direction}) => ReactNode) | null | custom render content |
+| children | (({onSelected, selectedKeys, value, direction, filterText}) => ReactNode) | null | custom render content |

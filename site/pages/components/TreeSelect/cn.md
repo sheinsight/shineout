@@ -27,7 +27,7 @@ TreeSelect 用来选择树形数据结构，若需要非关联树形结构选择
 | onFilter | (text: string) => (data: any) => boolean | 无 | onFilter 不为空时，可以输入过滤数据<br />onFilter 如果返回一个函数，使用这个函数做前端过滤<br />如果不返回，可以自行做后端过滤 |
 | renderItem | (data: object) => ReactNode | 必填 | 为 string 时，返回 d\[string]<br />为 function 时，返回函数结果 |
 | renderResult | (data: object) => ReactNode | renderItem | 选中后在结果中显示的内容，默认和 renderItem 相同 |
-| compressed | boolean | false | 将选中值合并，只在多选模式下有效 |
+| compressed | boolean | false | 将选中值合并，只在多选模式下有效；为'no-repeat'时第一个值不会出现在弹出框中。 |
 | absolute | boolean | false | 为 true 时，选项弹出层在 DOM 中独立 render |
 | zIndex | number | 1000 | 选项列表 z-index 值 |
 | childrenKey | string | 'children' | 指定子数据的属性名 | 
@@ -36,3 +36,4 @@ TreeSelect 用来选择树形数据结构，若需要非关联树形结构选择
 | renderUnmatched | (data: any) => ReactNode | 无 | 渲染未匹配值的方式 |
 | onCollapse | (collapse: boolean) => void | 无 | 下拉列表展开/收起回调 |
 | rules | any[] | 无 | 校验规则 |
+| unmatch | boolean | 无 | 是否展示data中不存在的值 |

@@ -75,18 +75,17 @@ class Index extends React.Component {
 
   render() {
     const { value, loading } = this.state
+    const style = {
+      display: 'flex',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      padding: 12,
+      lineHeight: '22px',
+      borderBottom: '1px solid #e8ebf0',
+    }
     return (
       <div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            padding: 12,
-            lineHeight: '22px',
-            borderBottom: '1px solid #e8ebf0',
-          }}
-        >
+        <div style={style}>
           <Checkbox checked={this.getChecked()} onChange={this.checkboxOnChange} />
           <div>{`Selected ${value.length}`}</div>
         </div>

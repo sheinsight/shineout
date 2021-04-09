@@ -32,6 +32,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/List/example-01-renderItem.js'),
   },
   {
+    name: '02-fixed',
+    title: locate(
+      '性能 \n 设置 fixed 属性来启用虚拟列表，本例加载了10000条数据。 \n 支持自动高度，默认跟随父元素高度 \n lineHeight 用来设置列表项高度 \n rowsInView 用来设置同时所展示的列表项数量，默认为10个',
+      'Performance \n Set the fixed property to enable the virtual list, which in this case loads 10,000 pieces of data. \n support automatic height, and follow the height of parent element by default \n lineheight is used to set the height of list items \n rowsinview is used to set the number of list items displayed on a page. The default is 10'
+    ),
+    component: require('doc/pages/components/List/example-02-fixed.js').default,
+    rawText: require('!raw-loader!doc/pages/components/List/example-02-fixed.js'),
+  },
+  {
     name: '02-pagination',
     title: locate(
       '分页 \n 前端分页的情况下, 设置 pagination 显示分页，没有设置 onChange 处理数据的情况下，会自动对数据进行分页 \n pagination 的参数和 Pagination 组件一致',

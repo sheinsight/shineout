@@ -29,7 +29,7 @@
 | renderItem | (data: any) => ReactNode \| string | 必填 | 为 string 时，返回 d\[string]<br />为 function 时，返回函数结果 |
 | renderResult | (data: any) => ReactNode \| string | renderItem | 选中后在结果中显示的内容，默认和 renderItem 相同 |
 | value | any[] \| string \| object | | 在Form中，value会被表单接管，value无效 |
-| compressed | boolean | false | 将选中值合并，只在多选模式下有效 |
+| compressed | boolean \| 'no-repeat' | false | 将选中值合并，只在多选模式下有效；为'no-repeat'时第一个值不会出现在弹出框中。 |
 | zIndex | number | 1000 | 选项列表 z-index 值 |
 | groupBy | (record: any, index: number, data: any) => any | 无 | 分组 | 
 | filterSingleSelect | boolean | false | 当筛选数据仅为一条时，失焦后直接选中该条数据。仅在 Filter 下有效。 |
@@ -37,7 +37,7 @@
 | childrenKey | string | 'children' | 树形数据下，指定子数据的属性名 | 
 | defaultExpandAll| boolean | false | 默认展开全部子节点, 仅树形数据下有效 | 
 | renderUnmatched | (data: any) => ReactNode | 无 | 渲染未匹配值的方式 |
-| emptyAfterSelect | boolean | false | 选中后是否清空输入框内容 ｜
+| emptyAfterSelect | boolean | false | 选中后是否清空输入框内容（在多选情况下适用） |
 | showArrow | boolean | true | 是否显示下拉箭头，仅针对单选情况 |
 | showHitDescendants | boolean | false | 筛选后是否展示命中节点的后代节点 |
 | focusSelected | boolean | true | onCreate 或 onFilter 在单选情况下单击值后是否选中值 |
@@ -46,3 +46,7 @@
 | onCollapse | (collapse: boolean) => void | 无 | 下拉列表展开/收起回调 | 
 | resultClassName | ((value: any) => string) \| string | 无 | 选中结果内容容器的className | 
 | columnsTitle | ReactNode | 无 | 多列选项多选时的标题文字 |
+| reFocus | boolean | 无 | 存在onFilter和onCreate，选中 Option，自动focus Input |
+| header | () => ReactNode \| ReactNode | 无 | 自定义渲染 Option List Header |
+| lineHeight | number | 34 | 选项高度。列表项使用虚拟列表渲染，当选项高度改变时，应该通过 lineHeight 来指定正确高度 |
+| hideCreateOption | boolean | false | 在使用创建选项时，在选项列表中隐藏该选项，回车后直接选中该值 |

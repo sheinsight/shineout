@@ -1,7 +1,7 @@
 import { destroy, getComponent } from './messager'
 
 const create = type => (content, duration = 3, options = {}) => {
-  const { onClose, position = 'top', title, className = '', top = 'auto' } = options
+  const { onClose, position = 'top', title, className = '', top = 'auto', hideClose } = options
   return getComponent(position).then(messager =>
     messager.addMessage({
       content,
@@ -12,6 +12,7 @@ const create = type => (content, duration = 3, options = {}) => {
       className,
       top,
       position,
+      hideClose,
     })
   )
 }

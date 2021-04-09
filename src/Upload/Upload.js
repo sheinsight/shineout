@@ -17,6 +17,7 @@ import Drop from './Drop'
 import attrAccept from '../utils/accept'
 import { getLocale } from '../locale'
 import acceptHOC from './accept'
+import getDataset from '../utils/dom/getDataset'
 
 const VALIDATORITEMS = [
   { key: 'size', param: blob => blob.size },
@@ -290,7 +291,10 @@ class Upload extends PureComponent {
           return
         }
 
-        let value = xhr.responseText || xhr.response
+        let value
+        if (xhr.responseType === 'text' || !xhr.responseType) value = xhr.responseText
+        else value = xhr.response
+
         if (onSuccess) {
           value = onSuccess(value, file, data, xhr)
         }
@@ -401,6 +405,8 @@ class Upload extends PureComponent {
       renderContent,
       accept,
       drop,
+      leftHandler,
+      onPreview,
     } = this.props
     const { files, recycle } = this.state
     const className = classnames(
@@ -420,9 +426,9 @@ class Upload extends PureComponent {
     }
 
     return (
-      <div className={className} style={style}>
+      <div className={className} style={style} {...getDataset(this.props)}>
         {!imageStyle && this.renderHandle()}
-
+        {imageStyle && leftHandler && this.renderHandle()}
         {showUploadList &&
           value.map((v, i) => (
             <Drop
@@ -442,6 +448,7 @@ class Upload extends PureComponent {
                 style={imageStyle}
                 renderResult={renderResult}
                 onRemove={this.removeValue}
+                onPreview={onPreview}
               />
             </Drop>
           ))}
@@ -451,7 +458,7 @@ class Upload extends PureComponent {
             <FileComponent {...files[id]} key={id} id={id} style={imageStyle} onRemove={this.removeFile} />
           ))}
 
-        {imageStyle && this.renderHandle()}
+        {imageStyle && !leftHandler && this.renderHandle()}
 
         {recoverAble &&
           recycle.map((v, i) => (
@@ -511,6 +518,8 @@ Upload.propTypes = {
   filesFilter: PropTypes.func,
   onErrorRemove: PropTypes.func,
   forceAccept: PropTypes.bool,
+  leftHandler: PropTypes.bool,
+  onPreview: PropTypes.func,
 }
 
 Upload.defaultProps = {

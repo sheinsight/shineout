@@ -60,7 +60,7 @@ describe('Table[pagination]', () => {
     wrapper
       .find('ShineoutPaginationNext')
       .find('a')
-      .prop('onMouseDown')()
+      .prop('onClick')()
     expect(handleChange.mock.calls[0][0]).toBe(2)
   })
   test('should support specify the position of pagination', () => {

@@ -135,7 +135,12 @@ class Header extends PureComponent {
   }
 
   renderTabs() {
-    const { border, onCollapse, collapsed, tabs, isVertical, tabBarExtraContent, tabBarStyle, shape } = this.props
+    const { tabs } = this.props
+    return tabs.map(this.renderTab)
+  }
+
+  render() {
+    const { border, onCollapse, collapsed, isVertical, tabBarExtraContent, tabBarStyle, shape } = this.props
     const { attribute, overflow } = this.state
 
     const position = isVertical ? 'Top' : 'Left'
@@ -152,7 +157,7 @@ class Header extends PureComponent {
           )}
           <div ref={this.bindInner} className={tabsClass('inner')}>
             <div ref={this.bindScroll} style={{ [`margin${position}`]: -attribute }} className={tabsClass('scroll')}>
-              {tabs.map(this.renderTab)}
+              {shape === 'button' ? this.renderButtons() : this.renderTabs()}
             </div>
           </div>
           {overflow && (
@@ -162,13 +167,9 @@ class Header extends PureComponent {
           )}
         </div>
         {tabBarExtraContent && <div className={tabsClass('extra')}>{tabBarExtraContent}</div>}
-        {showBorder && <div style={{ borderColor: border }} className={tabsClass('hr')} />}
+        {showBorder && shape !== 'button' && <div style={{ borderColor: border }} className={tabsClass('hr')} />}
       </div>
     )
-  }
-
-  render() {
-    return this.props.shape === 'button' ? this.renderButtons() : this.renderTabs()
   }
 }
 

@@ -67,7 +67,7 @@ class Day extends PureComponent {
       // if (date.getDay() === 0) {
       //   date = utils.subDays(date, 1)
       // }
-      onChange(date, true, true)
+      onChange(...utils.weekHandleChangeParams(date, true, true))
     } else {
       let newDate = new Date(
         date.getFullYear(),
@@ -87,12 +87,13 @@ class Day extends PureComponent {
         utils.clearHMS(newDate).getTime() === utils.clearHMS(rangeDate[index]).getTime()
       )
         newDate = ''
-      onChange(newDate, true, type !== 'datetime')
+
+      onChange(...utils.dayHandleChangeParams(newDate, true, type !== 'datetime'))
     }
   }
 
   handleTimeChange(time, change, end, mode) {
-    this.props.onChange(time, true, false, mode)
+    this.props.onChange(...utils.timeHandleChangeParams(time, true, false, mode))
   }
 
   handleWeek(hover) {
@@ -101,7 +102,12 @@ class Day extends PureComponent {
 
   handleMonth(month) {
     const { current, onChange } = this.props
-    onChange(utils.addMonths(current, month))
+    // warning: month === 12 || month === -12, this is statement is year mode.
+    if (month === -12 || month === 12) {
+      onChange(...utils.yearHandleChangeParams(utils.addMonths(current, month)))
+      return
+    }
+    onChange(...utils.monthHandleChangeParams(utils.addMonths(current, month)))
   }
 
   handleModeChange(mode) {
@@ -222,6 +228,7 @@ class Day extends PureComponent {
 
     return (
       <div className={datepickerClass('datetime')}>
+        <Icon name="Clock" className="clock" />
         <Time {...this.props} format={format} value={value} onChange={this.handleTimeChange} />
         <span>{utils.format(value, format)}</span>
       </div>
@@ -241,11 +248,13 @@ class Day extends PureComponent {
         <div className={datepickerClass('header')}>
           <Icon
             name="AngleDoubleLeft"
+            className="left"
             disabled={!!(min && current.getFullYear() <= min.getFullYear())}
             onClick={this.handlePrevYear}
           />
           <Icon
             name="AngleLeft"
+            className="left"
             disabled={!!(min && utils.compareMonth(current, min) <= 0)}
             onClick={this.handlePrevMonth}
           />
@@ -257,6 +266,7 @@ class Day extends PureComponent {
 
           <Icon
             name="AngleRight"
+            className="right"
             // disabled={max && utils.compareMonth(current, max, 0) >= 0}
             onClick={this.handleNextMonth}
           />
@@ -264,6 +274,7 @@ class Day extends PureComponent {
             onClick={this.handleNextYear}
             // disabled={max && current.getFullYear() >= max.getFullYear()}
             name="AngleDoubleRight"
+            className="right"
           />
         </div>
 

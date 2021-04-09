@@ -340,6 +340,7 @@ const injects = {
         parser: parseInt,
         className: buttonClass('_'),
         desc: '常规按钮最小宽度',
+        max: 200,
       },
       {
         name: 'fontSizeLarge',
@@ -356,6 +357,7 @@ const injects = {
         parser: parseInt,
         className: buttonClass('large'),
         desc: '大号按钮最小宽度',
+        max: 200,
       },
       {
         name: 'fontSizeSmall',
@@ -372,6 +374,7 @@ const injects = {
         parser: parseInt,
         className: buttonClass('_'),
         desc: '小号按钮最小宽度',
+        max: 200,
       },
       {
         name: 'marginLeft',
@@ -469,13 +472,6 @@ const injects = {
         desc: '禁用按钮背景色',
       },
       {
-        name: 'disabledBorderColor',
-        attr: 'borderColor',
-        type: 'color',
-        className: buttonClass('disabled'),
-        desc: '禁用按钮边框色',
-      },
-      {
         name: 'disabledDelimiter',
         attr: 'borderColor',
         type: 'color',
@@ -488,6 +484,13 @@ const injects = {
         type: 'color',
         className: buttonClass('disabled'),
         desc: '禁用按钮文字颜色',
+      },
+      {
+        name: 'disabledBorderColor',
+        attr: 'borderColor',
+        type: 'color',
+        className: buttonClass('disabled'),
+        desc: '禁用按钮边框颜色',
       },
       {
         name: 'buttonDefaultTextColor',
@@ -1798,6 +1801,14 @@ const injects = {
         parser: parseInt,
         desc: '表格底部外边距',
       },
+      {
+        name: 'headerTopDivider',
+        className: exposeClass('table-header-top'),
+        attr: 'borderWidth',
+        type: 'number',
+        parser: parseInt,
+        desc: '无边框表格头部边框线',
+      },
     ],
     set scrollRatio(v) {
       configSet('scrollRatio', v)
@@ -1972,6 +1983,14 @@ const injects = {
       setBodyProperty(
         {
           '--table-margin-bottom': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set headerTopDivider(v) {
+      setBodyProperty(
+        {
+          '--table-header-top-divider-width': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -2451,6 +2470,20 @@ const injects = {
         desc: '黑色主题背景色',
       },
       {
+        name: 'darkRootNodeBg',
+        className: exposeClass('menu-dark-root'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '黑色主题 Root Node 背景色',
+      },
+      {
+        name: 'darkChildrenSegmentation',
+        className: exposeClass('menu-dark-seg'),
+        attr: 'borderTopColor',
+        type: 'color',
+        desc: '黑色主题子菜单与Root Menu 分割线背景色',
+      },
+      {
         name: 'darkActiveBg',
         className: exposeClass('menu-dark-active'),
         attr: 'backgroundColor',
@@ -2473,7 +2506,7 @@ const injects = {
       },
       {
         name: 'color',
-        className: menuClass('title'),
+        className: exposeClass('menu-text'),
         attr: 'color',
         type: 'color',
         desc: '文字颜色',
@@ -2530,7 +2563,90 @@ const injects = {
         type: 'color',
         desc: '暗黑主题 hover状态下背景颜色',
       },
+      {
+        name: 'activeBar',
+        className: exposeClass('menu-bar'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        desc: 'active 状态下 bar 宽度',
+      },
+      {
+        name: 'activeBarColor',
+        className: exposeClass('menu-bar'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'active bar 颜色',
+      },
+      {
+        name: 'darkActiveBarColor',
+        className: exposeClass('menu-dark-bar'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '暗黑模式下 active bar 颜色',
+      },
+      {
+        name: 'verticalDarkRootActiveBgc',
+        className: exposeClass('menu-dark-vertical'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '垂直样式 dark 主题：子节点选中下，parent 节点背景颜色',
+      },
+      {
+        name: 'hasChildrenActiveBgc',
+        className: exposeClass('menu-dark-vertical-children'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '垂直样式：选中状态，背景颜色',
+      },
+      {
+        name: 'hasChildrenActiveColor',
+        className: exposeClass('menu-dark-vertical-children'),
+        attr: 'color',
+        type: 'color',
+        desc: '垂直样式：选中状态，背景颜色',
+      },
+      {
+        name: 'verticalInpathBarWidth',
+        className: exposeClass('menu-dark-vertical-bar'),
+        attr: 'width',
+        type: 'number',
+        parser: parseInt,
+        desc: '垂直样式：子节点选中下，parent 节点 bar 的宽度',
+      },
     ],
+    set verticalDarkRootActiveBgc(v) {
+      setBodyProperty(
+        {
+          '--menu-vertical-dark-parent-active-bgc': v,
+        },
+        v
+      )
+    },
+    set hasChildrenActiveBgc(v) {
+      setBodyProperty(
+        {
+          '--menu-item-has-children-active-bgc': v,
+        },
+        v
+      )
+    },
+    set hasChildrenActiveColor(v) {
+      setBodyProperty(
+        {
+          '--menu-item-has-children-active-color': v,
+        },
+        v
+      )
+    },
+    set verticalInpathBarWidth(v) {
+      setBodyProperty(
+        {
+          '--menu-vertical-in-path-bar-width': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
     set height(v) {
       const height = parseInt(v, 10)
       setBodyProperty(
@@ -2596,6 +2712,22 @@ const injects = {
         v
       )
     },
+    set darkRootNodeBg(v) {
+      setBodyProperty(
+        {
+          '--menu-root-node-bgc': v,
+        },
+        v
+      )
+    },
+    set darkChildrenSegmentation(v) {
+      setBodyProperty(
+        {
+          '--menu-children-segmentation': v,
+        },
+        v
+      )
+    },
     set activePaddingHorizontal(v) {
       setBodyProperty(
         {
@@ -2649,6 +2781,30 @@ const injects = {
       setBodyProperty(
         {
           '--menu-item-dark-hover-bgc': v,
+        },
+        v
+      )
+    },
+    set activeBar(v) {
+      setBodyProperty(
+        {
+          '--menu-active-bar': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set activeBarColor(v) {
+      setBodyProperty(
+        {
+          '--menu-item-active-indicator': v,
+        },
+        v
+      )
+    },
+    set darkActiveBarColor(v) {
+      setBodyProperty(
+        {
+          '--menu-dark-item-active-indicator': v,
         },
         v
       )
@@ -3475,25 +3631,100 @@ const injects = {
         desc: '整体内边距',
       },
       {
-        name: 'headerPadding',
+        name: 'headerPaddingTop',
         className: exposeClass('modal-card-header'),
-        attr: 'padding',
-        type: 'string',
-        desc: '头部内边距',
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+        desc: '头部内边距-Top',
       },
       {
-        name: 'bodyPadding',
+        name: 'headerPaddingRight',
+        className: exposeClass('modal-card-header'),
+        attr: 'paddingRight',
+        type: 'number',
+        parser: parseInt,
+        desc: '头部内边距-Right',
+      },
+      {
+        name: 'headerPaddingBottom',
+        className: exposeClass('modal-card-header'),
+        attr: 'paddingBottom',
+        type: 'number',
+        parser: parseInt,
+        desc: '头部内边距-Bottom',
+      },
+      {
+        name: 'headerPaddingLeft',
+        className: exposeClass('modal-card-header'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+        desc: '头部内边距-Left',
+      },
+      {
+        name: 'bodyPaddingTop',
         className: exposeClass('modal-card-body'),
-        attr: 'padding',
-        type: 'string',
-        desc: '内容内边距',
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+        desc: '内容内边距-Top',
       },
       {
-        name: 'iconBodyPadding',
+        name: 'bodyPaddingRight',
+        className: exposeClass('modal-card-body'),
+        attr: 'paddingRight',
+        type: 'number',
+        parser: parseInt,
+        desc: '内容内边距-Right',
+      },
+      {
+        name: 'bodyPaddingBottom',
+        className: exposeClass('modal-card-body'),
+        attr: 'paddingBottom',
+        type: 'number',
+        parser: parseInt,
+        desc: '内容内边距-Bottom',
+      },
+      {
+        name: 'bodyPaddingLeft',
+        className: exposeClass('modal-card-body'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+        desc: '内容内边距-Left',
+      },
+      {
+        name: 'iconBodyPaddingTop',
         className: exposeClass('modal-icon-body'),
-        attr: 'padding',
-        type: 'string',
-        desc: '带有 Icon 的对话框内容内边距',
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+        desc: '带有 Icon 的对话框内容 Top 内边距',
+      },
+      {
+        name: 'iconBodyPaddingRight',
+        className: exposeClass('modal-icon-body'),
+        attr: 'paddingRight',
+        type: 'number',
+        parser: parseInt,
+        desc: '带有 Icon 的对话框内容 Right 内边距',
+      },
+      {
+        name: 'iconBodyPaddingBottom',
+        className: exposeClass('modal-icon-body'),
+        attr: 'paddingBottom',
+        type: 'number',
+        parser: parseInt,
+        desc: '带有 Icon 的对话框内容 Bottom 内边距',
+      },
+      {
+        name: 'iconBodyPaddingLeft',
+        className: exposeClass('modal-icon-body'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+        desc: '带有 Icon 的对话框内容 Left 内边距',
       },
       {
         name: 'footerPadding',
@@ -3681,26 +3912,98 @@ const injects = {
         v
       )
     },
-    set headerPadding(v) {
+    set headerPaddingTop(v) {
       setBodyProperty(
         {
-          '--modal-header-padding': v,
+          '--modal-header-padding-top': `${parseInt(v, 10)}px`,
         },
         v
       )
     },
-    set bodyPadding(v) {
+    set headerPaddingRight(v) {
       setBodyProperty(
         {
-          '--modal-body-padding': v,
+          '--modal-header-padding-right': `${parseInt(v, 10)}px`,
         },
         v
       )
     },
-    set iconBodyPadding(v) {
+    set headerPaddingBottom(v) {
       setBodyProperty(
         {
-          '--modal-icon-body-padding': v,
+          '--modal-header-padding-bottom': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set headerPaddingLeft(v) {
+      setBodyProperty(
+        {
+          '--modal-header-padding-left': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set bodyPaddingTop(v) {
+      setBodyProperty(
+        {
+          '--modal-body-padding-top': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set bodyPaddingRight(v) {
+      setBodyProperty(
+        {
+          '--modal-body-padding-right': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set bodyPaddingBottom(v) {
+      setBodyProperty(
+        {
+          '--modal-body-padding-bottom': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set bodyPaddingLeft(v) {
+      setBodyProperty(
+        {
+          '--modal-body-padding-left': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set iconBodyPaddingTop(v) {
+      setBodyProperty(
+        {
+          '--modal-icon-body-padding-top': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set iconBodyPaddingRight(v) {
+      setBodyProperty(
+        {
+          '--modal-icon-body-padding-right': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set iconBodyPaddingBottom(v) {
+      setBodyProperty(
+        {
+          '--modal-icon-body-padding-bottom': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set iconBodyPaddingLeft(v) {
+      setBodyProperty(
+        {
+          '--modal-icon-body-padding-left': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -4114,6 +4417,30 @@ const injects = {
       setBodyProperty(
         {
           '--list-item-hover-bgc': v,
+        },
+        v
+      )
+    },
+  },
+  progress: {
+    info: {
+      title: 'Progress',
+      name: 'progress',
+      path: 'Progress',
+    },
+    conf: [
+      {
+        name: 'progressBgc',
+        className: exposeClass('progress'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'Progress默认背景颜色',
+      },
+    ],
+    set progressBgc(v) {
+      setBodyProperty(
+        {
+          '--progress-bgc': v,
         },
         v
       )

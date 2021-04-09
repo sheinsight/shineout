@@ -22,6 +22,9 @@
 | shape | string | - | 可选值为 \['card', 'line', 'button', 'bordered', 'dash'\]，shape 不为空时，background 等颜色参数将会无效 |
 | style | object | - | 最外层扩展样式 |
 | lazy | boolean | true | 是否开启懒加载 |
+| autoFill | boolean | false | 自动填充内容区域 |
+| sticky | boolean \| number \| object | - | 开启头部附着 |
+| switchToTop | boolean | - | 切换tab将自动滚动到Tabs |
 
 ### Tabs.Panel
 

@@ -1,7 +1,7 @@
 {
   "env": {
     "development": {
-      "presets": ["react-app"]
+      "presets": [["react-app", { "flow": false, "typescript": true }]]
     },
     "production": {
       "presets": ["react-app"]

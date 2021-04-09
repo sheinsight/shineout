@@ -65,7 +65,7 @@ class CheckboxGroup extends PureComponent {
   render() {
     const { block, data, datum, keygen, children } = this.props
 
-    const className = classnames(checkinputClass('group', block && 'block'), this.props.className)
+    const className = classnames(checkinputClass('group', ['no-block', 'block'][Number(block)]), this.props.className)
 
     if (data === undefined) {
       return (

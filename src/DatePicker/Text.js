@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { focusElement, getParent } from '../utils/dom/element'
+import { getParent, focusElement } from '../utils/dom/element'
 import utils from './utils'
 import { datepickerClass } from '../styles'
 
@@ -22,6 +22,17 @@ class Text extends PureComponent {
     this.handleInput = this.handleInput.bind(this)
     this.handleFocus = this.handleFocus.bind(this)
     this.bindElement = this.bindElement.bind(this)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.focus !== this.props.focus &&
+      this.props.focus &&
+      this.element &&
+      this.props.focusElement === this.element
+    ) {
+      focusElement.end(this.element)
+    }
   }
 
   bindElement(el) {
@@ -55,15 +66,26 @@ class Text extends PureComponent {
   handleInput(e) {
     if (e.keyCode === 13) {
       e.preventDefault()
+      e.stopPropagation()
       this.element.blur()
+      this.handleBlur(e)
+
+      // must wait for handleBlur to finish executing
+      Promise.resolve().then(() => {
+        document.dispatchEvent(new Event('mousedown', { bubbles: true }))
+      })
     }
   }
 
   render() {
-    const { className, inputable, value, placeholder, disabled } = this.props
+    const { className, inputable, value, placeholder, disabled, focus } = this.props
 
-    if (!inputable || disabled) {
-      return <span className={className}>{value || placeholder}</span>
+    if (!inputable || disabled || !focus) {
+      return (
+        <span onClick={this.handleFocus} className={className}>
+          {value || placeholder}
+        </span>
+      )
     }
 
     return (
@@ -83,13 +105,15 @@ class Text extends PureComponent {
 Text.propTypes = {
   disabled: PropTypes.bool,
   className: PropTypes.string,
-  format: PropTypes.string,
+  format: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   index: PropTypes.number,
   inputable: PropTypes.bool,
   onChange: PropTypes.func,
   placeholder: PropTypes.any,
   value: PropTypes.string,
   onTextSpanRef: PropTypes.func,
+  focus: PropTypes.bool,
+  focusElement: PropTypes.instanceOf(Element),
 }
 
 Text.defaultProps = {

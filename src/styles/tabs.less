@@ -115,12 +115,13 @@
 
     &:not(:last-child):after {
       position: absolute;
-      top: 0;
+      top: -1px;
       right: -1px;
       bottom: 0;
       width: 0;
       border-right: solid 1px @colors-primary;
       content: ' ';
+      height: ~"calc(100% + 2px)";
     }
 
     &.@{button-prefix}-default:not(.@{button-prefix}-disabled)  {
@@ -159,9 +160,20 @@
     text-align: right;
   }
 
+  &-auto-fill {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .@{tabs-prefix}-panel {
+      flex: 1;
+      overflow: auto;
+    }
+  }
+
   &-vertical {
     display: flex;
     justify-content: flex-start;
+    flex-direction: row;
 
     > .@{tabs-prefix}-header {
       flex-direction: column;
@@ -309,25 +321,32 @@
   }
 
   &-line:not(.@{tabs-prefix}-vertical) {
-    > .@{tabs-prefix}-header .@{tabs-prefix}-active:after {
+    > .@{tabs-prefix}-header .@{tabs-prefix}-active:after,
+    .@{tabs-prefix}-sticky .@{tabs-prefix}-header .@{tabs-prefix}-active:after {
       bottom: 0;
       left: 0;
     }
   }
 
+  &-dash.@{tabs-prefix}-align-vertical-left,
   &-line.@{tabs-prefix}-align-vertical-left {
-    > .@{tabs-prefix}-header .@{tabs-prefix}-active:after {
+    > .@{tabs-prefix}-header .@{tabs-prefix}-active:after,
+    .@{tabs-prefix}-sticky .@{tabs-prefix}-header .@{tabs-prefix}-active:after {
       top: 0;
       right: -1px;
+      left: auto;
       width: 2px;
       height: 100%;
     }
   }
 
+  &-dash.@{tabs-prefix}-align-vertical-right,
   &-line.@{tabs-prefix}-align-vertical-right {
-    > .@{tabs-prefix}-header .@{tabs-prefix}-active::after {
+    > .@{tabs-prefix}-header .@{tabs-prefix}-active::after,
+    .@{tabs-prefix}-sticky .@{tabs-prefix}-header .@{tabs-prefix}-active:after {
       top: 0;
       left: -1px;
+      right: auto;
       width: 2px;
       height: 100%;
     }

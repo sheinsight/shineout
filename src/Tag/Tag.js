@@ -9,6 +9,8 @@ import { wrapSpan } from '../utils/dom/element'
 import { isPromise, isFunc, isString, isEmpty } from '../utils/is'
 import { isDark } from '../utils/color'
 import { tagClass } from '../styles'
+import { isRTL } from '../config'
+import getDataset from '../utils/dom/getDataset'
 
 const hideInput = 0
 const showInput = 1
@@ -128,6 +130,8 @@ class Tag extends PureComponent {
 
     const { children, className, type, backgroundColor, onClose, disabled, onCompleted } = this.props
 
+    const rtl = isRTL()
+
     // if editable and input visible
     if (onCompleted && inputVisible === showInput)
       return <Input value={value} onBlur={this.inputBlur} onChange={this.inputChange} />
@@ -135,7 +139,7 @@ class Tag extends PureComponent {
     const childrenParsed = wrapSpan(children)
     const { style } = this.props
 
-    let tagClassName = tagClass('_', disabled && 'disabled', type)
+    let tagClassName = tagClass('_', disabled && 'disabled', type, rtl && 'rtl')
     const inlineClassName = tagClass('inline')
     const click = !onClose ? { onClick: this.handleClick } : {}
     let tagStyle = style || {}
@@ -150,7 +154,7 @@ class Tag extends PureComponent {
       }
     }
     return (
-      <div className={tagClassName} style={tagStyle} {...click}>
+      <div className={tagClassName} style={tagStyle} {...click} {...getDataset(this.props)}>
         {onClose ? (
           <div onClick={this.handleClick} className={inlineClassName}>
             {childrenParsed}

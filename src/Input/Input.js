@@ -14,6 +14,14 @@ class Input extends PureComponent {
     this.bindRef = this.bindRef.bind(this)
   }
 
+  defaultInfo = value => {
+    if (!value || value.length === 0) return null
+    const { info } = this.props
+    const text = `${value.length} / ${info}`
+    if (value.length <= info) return text
+    return new Error(text)
+  }
+
   bindRef(el) {
     const { forwardedRef } = this.props
     this.ref = el
@@ -36,14 +44,22 @@ class Input extends PureComponent {
   }
 
   handleChange(e, clearClick) {
-    const { type, clearable } = this.props
+    const { type, clearable, digits } = this.props
     if (clearClick) {
       this.ref.focus()
       if (typeof clearable === 'function') clearable()
     }
     let { value } = e.target
     if (type === 'number' && typeof value !== 'number') value = String(value).replace(/。/g, '.')
-    if (this.invalidNumber(value)) return
+    if (this.invalidNumber(value)) {
+      // For numbers with a decimal point, use toFixed to correct the number of decimal points.
+      if (digits >= 0 && /^-?\d*\.?\d*$/.test(value)) {
+        value = Number(value).toFixed(digits)
+      } else {
+        // digits <= 0 || not of number
+        return
+      }
+    }
     this.props.onChange(value)
   }
 
@@ -61,14 +77,6 @@ class Input extends PureComponent {
     if (onBlur) onBlur(e)
     if (this.invalidNumber(value)) return
     if (forceChange) forceChange(value)
-  }
-
-  defaultInfo = value => {
-    if (!value || value.length === 0) return null
-    const { info } = this.props
-    const text = `${value.length} / ${info}`
-    if (value.length <= info) return text
-    return new Error(text)
   }
 
   renderInfo() {

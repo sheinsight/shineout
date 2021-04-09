@@ -14,7 +14,7 @@
 | data | object[] | 无 | 数据 |
 | disabled | (data: object) => boolean \| boolean | false | 如果 disabled 为 true，禁用全部选项，如果 disabled 为函数，根据函数反回结果禁用选项 |
 | fixed | 'both' \| 'x' \| 'y' \| 'auto' | 无 | 虚拟滚动条方向设置，不设置则使用原生滚动条且关闭懒加载 | 
-| format | (data: object) => any \| string | d => d | 格式化 value<br />默认值，返回原始数据<br />为string时，会作为key从原始数据中获取值，相当于 (d) => d[format]<br /> 为函数时，以函数返回结果作为 value |
+| format | (data: object) => any \| string | d => d | 格式化 value<br />默认值，返回原始数据<br />为string时，会作为key从原始数据中获取值，相当于 (d) => d\[format\]<br /> 为函数时，以函数返回结果作为 value |
 | loading | boolean \| ReactNode | false | 数据加载中，为true时会展示一个默认的[Spin](/components/Spin)组件，可以传入一个自定义的Spin代替 |
 | keygen | ((data: object) => any) \| string \| true | 必填 | 生成每一项key的辅助方法<br />为 true 时，以数据项本身作为key，相当于 (d => d)<br />为函数时，使用此函数返回值<br />为string时，使用这个string对应的数据值。如 'id'，相当于 (d => d.id) |
 | onScroll | (x: number, y: number) => void | 无 | 滚动条滚动后回调函数；<br />x: 横向滚动比(0 <= x <= 1)<br />y: 纵向滚动比(0 <= y <= 1) |
@@ -30,7 +30,7 @@
 | value | any[] | 无 | 当前选中值，格式和 onRowSelect 返回值一致 |
 | empty | string \| ReactNode | 无数据 | 空数据文案 |
 | verticalAlign | 'top' \| 'middle' | 'top' | 单元格内容垂直对齐方式 |
-| rowClickAttr | string \| string[] | \['*'\] | 设置行内元素的attribut来按需触发onRowClick, '*'表示接受行点击触发 |
+| rowClickAttr | true \| string \| string[] | \['*'\] | 设置行内元素的attribut来按需触发onRowClick, '*'表示接受行点击触发 |
 | sorter | (sortKey: any, sorter: 'asc' \| 'desc', sortedList: object[]) => (a: object, b: object) => boolean | alphaSort(Column.sorter, sorter) | 表格统一排序函数，参数分别为 Column.sorter 和 排序方式;<br />支持多列排序，sorter传入对象{ rule: string \| function, weight: number }, rule为排序规则，为字符串时参考单列排序的用法, weight为权重，指明排序的优先级. <br />多列排序时，sortedList返回所有参与排序的字段信息|
 | treeExpandKeys | any[] | 无  | 树形数据展开行，受控 |
 | hover | boolean | true | 数据行鼠标悬浮高亮效果 |
@@ -48,6 +48,7 @@
 | innerScrollAttr | string[] | 无 | 虚拟滚动模式下，设置行内元素的 attribut 来实现内部滚动 |
 | expandKeys | any[] | 无 | 展开行受控 |
 | sticky | boolean \| object | 无 | 表头是否附着顶部，为 true 时距离顶部为0，为对象时属性值参考 [Sticky组件](/components/Sticky) |
+| cellSelectable | boolean | false | 是否启用 ctrl/cmd + click 选中单元格 |
 
 ### TableColumn
 
@@ -57,9 +58,9 @@
 | fixed | string | 无 | 可选\['left', 'right']；<br />需要设置Table的fixed为'x'或'both'才生效；<br />如果相邻的多列需要锁定，只需指定最外侧的column即可 |
 | group | string \| string\[] | 无 | 表头分组，相邻的相同 group 会生成一个新的表头 |
 | key | string \| number | 无 | 列的key，默认使用index |
-| render | string \| function(d,i) | 必填 | 表格内容生成函数；<br />d: 当前行数据<br />i: 当前行索引<br />为了使用方便，可以传入一个数据的key，如 'id'，相当于 (d) => { return d.id }
+| render | string \| function(d,i) | 必填 | 表格内容生成函数；<br />d: 当前行数据<br />i: 当前行索引<br />为了使用方便，可以传入一个数据的key，如 'id'，相当于 (d) => { return d.id } |
 | rowSpan | function(a, b) | 无 | 根据函数返回的结果（boolean）判断是否合并行，a、b为相邻的两行数据。 |
-| sorter | function(order) \| string | 无 | sorter 不为空时，这一列会出现排序 icon。order的值为\['asc', 'desc']<br />字符串表示排序依据字段，作为第一个参数传入Table.sorter<br />前端排序，返回一个排序函数，参考 Array.sort。<br />服务端排序，不要返回值，自行处理即可。
+| sorter | function(order) \| string | 无 | sorter 不为空时，这一列会出现排序 icon。order的值为\['asc', 'desc']<br />字符串表示排序依据字段，作为第一个参数传入Table.sorter<br />前端排序，返回一个排序函数，参考 Array.sort。<br />服务端排序，不要返回值，自行处理即可。 |
 | title | string \| ReactElement \| function | 无 | 表头显示内容 |
 | type | string | 无 | 特殊用途列，可选值为 \['expand', 'row-expand', 'checkbox']<br />expand: 行展开列，render 函数返回函数时，表示此行可以展开，内容为此函数返回结果<br />row-expand: 同expand。不同为点击行内空白区域也可以折叠/展开行。<br />checkbox: 选择列，用于仅固定选择列的场景 |
 | width | number | 无 | 列宽 |

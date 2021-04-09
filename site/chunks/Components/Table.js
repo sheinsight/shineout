@@ -319,6 +319,15 @@ const examples = [
     component: require('doc/pages/components/Table/example-31-sticky.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-31-sticky.js'),
   },
+  {
+    name: '32-selection',
+    title: locate(
+      '单元格选中 \n 通过 cellSelectable 属性来启用 ctrl/cmd + click 选中单元格',
+      'Cell selectable \n whether to enable ctrl/cmd + click check.'
+    ),
+    component: require('doc/pages/components/Table/example-32-selection.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-32-selection.js'),
+  },
 ]
 
 const codes = undefined

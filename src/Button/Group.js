@@ -9,14 +9,14 @@ class ButtonGroup extends PureComponent {
   render() {
     const { children, outline, size, type } = this.props
 
-    const className = classnames(
-      buttonClass('group', (outline || type === 'default') && 'outline'),
-      this.props.className
-    )
+    const typeSetted = type !== 'default'
+    const className = classnames(buttonClass('group', (outline || !typeSetted) && 'outline'), this.props.className)
 
     return (
       <div className={className}>
-        {Children.toArray(children).map(child => cloneElement(child, { size, outline, type }))}
+        {Children.toArray(children).map(child =>
+          cloneElement(child, { size, outline, type: typeSetted ? type : child.props.type })
+        )}
       </div>
     )
   }

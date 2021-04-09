@@ -12,13 +12,14 @@ import BoxList from './BoxList'
 import { isObject } from '../utils/is'
 import { docSize } from '../utils/dom/document'
 import { getParent } from '../utils/dom/element'
-import absoluteList from '../List/AbsoluteList'
+import { isRTL } from '../config'
+import absoluteList from '../AnimationList/AbsoluteList'
 
 const WrappedOptionList = absoluteList(OptionList)
 const WrappedBoxList = absoluteList(BoxList)
 const WrappedOptionTree = absoluteList(OptionTree)
 
-const isResult = el => getParent(el, `.${selectClass('result')}`)
+const isResult = (el, selector) => getParent(el, selector || `.${selectClass('result')}`)
 
 class Select extends PureComponent {
   constructor(props) {
@@ -47,8 +48,11 @@ class Select extends PureComponent {
     this.handleControlChange = this.handleControlChange.bind(this)
     this.handleClickAway = this.handleClickAway.bind(this)
     this.handleInputBlur = this.handleInputBlur.bind(this)
+    this.bindFocusInputFunc = this.bindFocusInputFunc.bind(this)
+    this.toInputTriggerCollapse = this.toInputTriggerCollapse.bind(this)
 
     this.renderItem = this.renderItem.bind(this)
+    this.renderResult = this.renderResult.bind(this)
 
     // option list not render till first focused
     this.renderPending = true
@@ -59,6 +63,8 @@ class Select extends PureComponent {
     this.mouseDown = false
 
     this.lastResult = undefined
+
+    this.focusInput = null
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -81,6 +87,12 @@ class Select extends PureComponent {
     return this.props.text[key] || getLocale(key)
   }
 
+  getFocusSelected() {
+    const { reFocus, focusSelected } = this.props
+    if (reFocus) return false
+    return focusSelected
+  }
+
   setInputReset(fn) {
     this.inputReset = fn
   }
@@ -99,6 +111,10 @@ class Select extends PureComponent {
 
   bindOptionFunc(name, fn) {
     this.optionList[name] = fn
+  }
+
+  bindFocusInputFunc(fn) {
+    this.focusInput = fn
   }
 
   bindElement(el) {
@@ -129,9 +145,11 @@ class Select extends PureComponent {
   handleClick(e) {
     const { onCreate, onFilter } = this.props
     const plain = !onCreate && !onFilter
-    if (plain && isResult(e.target) && this.state.focus) {
-      this.handleState(false, e)
-      return
+    if (this.state.focus) {
+      if ((plain && isResult(e.target)) || isResult(e.target, `.${selectClass('caret')}`)) {
+        this.handleState(false, e)
+        return
+      }
     }
     this.handleState(true, e)
   }
@@ -162,7 +180,7 @@ class Select extends PureComponent {
   }
 
   handleChange(_, data, fromInput) {
-    const { datum, multiple, disabled, emptyAfterSelect, onFilter, filterText, onCreate } = this.props
+    const { datum, multiple, disabled, emptyAfterSelect, onFilter, filterText, onCreate, reFocus } = this.props
     if (disabled === true) return
 
     // if click option, ignore blur event
@@ -186,15 +204,24 @@ class Select extends PureComponent {
       }
     } else {
       datum.set(data)
-      this.handleState(false)
+      if (!reFocus) this.handleState(false)
       //  let the element focus
       setTimeout(() => {
+        if (reFocus && this.focusInput) this.focusInput(true)
         if (onCreate && this.blured) return
         if (this.element) this.element.focus()
       }, 10)
     }
 
     if (emptyAfterSelect && onFilter && filterText) onFilter('')
+  }
+
+  toInputTriggerCollapse(text) {
+    const { onCreate, datum } = this.props
+    if (onCreate) {
+      datum.set(onCreate(text))
+    }
+    this.handleState(true)
   }
 
   shouldFocus(el) {
@@ -210,8 +237,10 @@ class Select extends PureComponent {
   }
 
   handleInputFocus() {
+    const { hideCreateOption, onCreate } = this.props
     this.inputLocked = true
-    if (this.props.inputable && this.state.control === 'keyboard') {
+    const noHover = onCreate && hideCreateOption
+    if (this.props.inputable && this.state.control === 'keyboard' && !noHover) {
       if (this.optionList.handleHover) this.optionList.handleHover(0, true)
     }
   }
@@ -245,8 +274,23 @@ class Select extends PureComponent {
     }
   }
 
+  handleHideOption() {
+    const { datum, innerData } = this.props
+    const checked = datum.check(innerData)
+    if (checked) {
+      if (this.inputReset) this.inputReset()
+      return
+    }
+    this.handleChange(true, innerData)
+  }
+
   handleEnter() {
+    const { onCreate, hideCreateOption } = this.props
     const hoverIndex = this.optionList.getIndex && this.optionList.getIndex()
+    if (onCreate && hideCreateOption && hoverIndex === -1) {
+      this.handleHideOption()
+      return
+    }
     const data = this.props.data[hoverIndex]
     if (data && !data[this.props.groupKey]) {
       const checked = !this.props.datum.check(data)
@@ -307,6 +351,21 @@ class Select extends PureComponent {
     return typeof renderItem === 'function' ? renderItem(data, index) : data[renderItem]
   }
 
+  renderResult(data, index) {
+    const { renderResult } = this.props
+    if (!renderResult) return this.renderItem(data, index)
+    return typeof renderResult === 'function' ? renderResult(data, index) : data[renderResult]
+  }
+
+  /**
+   * custom options list header
+   */
+  renderCustomHeader() {
+    const { header } = this.props
+    if (React.isValidElement(header)) return <div className={selectClass('custom-header')}>{header}</div>
+    return null
+  }
+
   renderTree() {
     const { focus, position } = this.state
     const props = {}
@@ -343,6 +402,7 @@ class Select extends PureComponent {
         renderPending={this.renderPending}
         fixed="min"
         {...props}
+        customHeader={this.renderCustomHeader()}
       />
     )
   }
@@ -379,7 +439,7 @@ class Select extends PureComponent {
     return (
       <List
         {...props}
-        rootClass={selectClass(position)}
+        rootClass={selectClass(position, isRTL() && 'rtl')}
         autoClass={selectClass(autoAdapt && 'auto-adapt')}
         bindOptionFunc={this.bindOptionFunc}
         renderPending={this.renderPending}
@@ -394,6 +454,7 @@ class Select extends PureComponent {
         onBlur={this.handleBlur}
         fixed={autoAdapt ? 'min' : true}
         value={value}
+        customHeader={this.renderCustomHeader()}
       />
     )
   }
@@ -420,7 +481,6 @@ class Select extends PureComponent {
       trim,
       renderUnmatched,
       showArrow,
-      focusSelected,
       compressedClassName,
       resultClassName,
     } = this.props
@@ -433,7 +493,6 @@ class Select extends PureComponent {
       disabled === true && 'disabled',
       !trim && 'pre'
     )
-    const renderResult = this.props.renderResult || this.renderItem
 
     return (
       <div
@@ -460,14 +519,16 @@ class Select extends PureComponent {
           result={result}
           multiple={multiple}
           placeholder={placeholder}
-          renderResult={renderResult}
+          renderResult={this.renderResult}
           renderUnmatched={renderUnmatched}
           onInputBlur={this.handleInputBlur}
           onInputFocus={this.handleInputFocus}
           setInputReset={this.setInputReset}
+          bindFocusInputFunc={this.bindFocusInputFunc}
+          collapse={this.toInputTriggerCollapse}
           compressed={compressed}
           showArrow={showArrow}
-          focusSelected={focusSelected}
+          focusSelected={this.getFocusSelected()}
           compressedClassName={compressedClassName}
           resultClassName={resultClassName}
         />
@@ -501,7 +562,7 @@ Select.propTypes = {
   result: PropTypes.array,
   size: PropTypes.string,
   text: PropTypes.object,
-  compressed: PropTypes.bool,
+  compressed: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   trim: PropTypes.bool,
   autoAdapt: PropTypes.bool,
   filterSingleSelect: PropTypes.bool,
@@ -512,6 +573,8 @@ Select.propTypes = {
   compressedClassName: PropTypes.string,
   onCollapse: PropTypes.func,
   resultClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  reFocus: PropTypes.bool,
+  header: PropTypes.node,
 }
 
 Select.defaultProps = {

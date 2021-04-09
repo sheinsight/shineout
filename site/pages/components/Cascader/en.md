@@ -20,7 +20,13 @@
 | defaultValue | any[] | - | Default selected key (not controlled) | 
 | value | any[] | - | Selected key (controlled) |
 | absolute | boolean | false | When it is true, the pop-up layer of option append into document.body. |
-| compressed | boolean | false | Merges selected values |
+| compressed | boolean \| 'no-repeat' | false | Merges selected values; the first value will not appear in the Popover when it is'no-repeat'. |
 | childrenKey | string | 'children' | the key of the children data name | 
 | finalDismiss | boolean | false | close options after chose the final node |
 | onCollapse | (collapse: boolean) => void | none | options collapse callback |
+| onFilter | (text: string) => (data: any) => boolean | - | When the onFilter is not empty, you can filter data by input.<br />If the onFilter returns a function, use this function as a front-end filter.<br />If return undefined, you can do your own backend filtering.<br /> support in single selection state |
+| height | number | 300 | height of dropdown options |
+| filterDelay | number | 400 | ms. The delay of user input triggering filter events |
+| size | string | none | size |
+| singleRemove | boolean | none | Support single node deletion |
+| unmatch | boolean | none | render unmatch value |

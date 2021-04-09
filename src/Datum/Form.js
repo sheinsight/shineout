@@ -104,6 +104,8 @@ export default class {
       val.splice(index, 0, value)
       this.publishValue(name, IGNORE_VALIDATE)
       this.publishError(name)
+      // insert value into Form in onAppend will trigger Form onChange
+      this.handleChange()
     } else {
       this.set(name, [value])
     }
@@ -115,6 +117,8 @@ export default class {
     list.splice(index, 1)
     this.publishValue(name, IGNORE_VALIDATE)
     this.publishError(name)
+    // remove value from Form in onRemove will trigger Form onChange
+    this.handleChange()
   }
 
   remove(name) {

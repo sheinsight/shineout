@@ -2,6 +2,7 @@
 @import './themes/@{so-theme}.less';
 
 @table-prefix: ~'@{so-prefix}-table';
+@button-prefix: ~'@{so-prefix}-button';
 @table-sorter-width: 18px;
 @checkbox-width: 48px;
 
@@ -91,6 +92,10 @@
     > tbody > tr {
       position: relative;
     }
+  }
+
+  &:not(.@{table-prefix}-bordered) table > thead > tr > th {
+    border-top: @table-header-top-divider-width solid @table-border-color;
   }
 
   table tr &-checkbox {
@@ -249,7 +254,7 @@
     .@{table-prefix}-ignore-right-border, @{table-prefix}-ignore-bottom-border {
       border-right: none;
 
-      &:after {
+      &:before {
         display: none;
       }
     }
@@ -305,7 +310,7 @@
     .@{table-prefix}-fixed-left {
       border-right: 0;
       z-index: 1;
-      &:after {
+      &:before {
         bottom: -1px;
         position: absolute;
         content: ' ';
@@ -475,10 +480,13 @@
       background: linear-gradient(to right, @table-fixed-start-color, @table-fixed-end-color);
       content: ' ';
     }
+    &:before {
+      display: none;
+    }
   }
 
   &-float-right &-fixed-first {
-    &:before {
+    &::after {
       position: absolute;
       top: 0;
       right: 100%;
@@ -612,5 +620,39 @@
       height: 0!important;
       overflow: hidden;
     }
+  }
+
+  td {
+    .@{button-prefix} {
+      + .@{button-prefix} {
+        margin-left: 0;
+      }
+      &:not(:last-child) {
+        margin-right: @button-margin-left;
+      }
+    }
+    .@{button-prefix}-group .@{button-prefix}:not(:last-child) {
+      margin-right: 0;
+    }
+  }
+
+  &-select {
+    &::before {
+      content: ' ';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      border: 1px solid @colors-primary;
+    }
+  }
+}
+
+
+
+.@{table-prefix}-no-selection {
+  *::selection{
+    background-color: transparent;
   }
 }

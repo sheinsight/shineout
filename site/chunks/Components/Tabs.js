@@ -122,6 +122,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-11-collapsible.js'),
   },
   {
+    name: '12-auto-fill',
+    title: locate(
+      '自动填充 \n 通过 autoFill 属性来使 Tabs.Panel 自动填充父元素空间',
+      'AutoFill \n Panel to automatically fill the parent element space via the autoFill property'
+    ),
+    component: require('doc/pages/components/Tabs/example-12-auto-fill.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tabs/example-12-auto-fill.js'),
+  },
+  {
     name: '12-extra',
     title: locate(
       '额外内容 \n 可以在标签页的右侧添加额外内容',
@@ -138,6 +147,15 @@ const examples = [
     ),
     component: require('doc/pages/components/Tabs/example-12-link.js').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-12-link.js'),
+  },
+  {
+    name: '13-sticky',
+    title: locate(
+      '头部附着 \n sticky 属性会开启头部附着功能；sticky=true时，开启附着在顶部；sticky=number时，代表附着顶部，且距离顶部的间距；sticky=StickyProps时，参数将传入 Sticky 组件内；switchToTop 属性支持是否自动滚动到Tabs。',
+      'Sticky header \n sticky header in Tabs'
+    ),
+    component: require('doc/pages/components/Tabs/example-13-sticky.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tabs/example-13-sticky.js'),
   },
 ]
 

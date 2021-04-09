@@ -30,7 +30,7 @@
 | value | any[] | none | The current selected value. |
 | empty | string \| ReactNode | Data not found | empty text |
 | verticalAlign | 'top' \| 'middle' | 'top' | vertical align with content |
-| rowClickAttr | string \| string[] | \['*'\] | Sets the attribute of inner element to trigger onRowClick as needed, and '*' to accept the row click |
+| rowClickAttr | true \| string \| string[] | \['*'\] | Sets the attribute of inner element to trigger onRowClick as needed, and '*' to accept the row click |
 | sorter | (sortKey: any, sorter: 'asc' \| 'desc', sortedList: any[]) => (a: object, b: object) => boolean | alphaSort(Column.sorter, sorter) | the method of table sort，args are Column.sorter and order<br /> Multi-column sorting is supported. The sorter passes in the object {rule: string \| function, weight: number}, where rule is a sorting rule, which refers to the use of single-column sorting when it is a string, weight is the weight, indicating the priority of the order<br /> When sorting on multiple columns, sortedList returns information about all fields involved in sorting|
 | treeExpandKeys | any[] | none  | Tree Table expanded row keys |
 | onTreeExpand | (openKeys: string[], data: object, expand: boolean) => void | none | expand row change, keys is expanded row keys |
@@ -48,6 +48,7 @@
 | innerScrollAttr | string[] | 无 | set inner scrollable element's attribute |
 | expandKeys | any[] | none | controlled expand rows |
 | sticky | boolean \| object | none | sticky header, When it is true, the distance from the top is 0. When it is an object, the attribute value reference [Sticky component] (/components/Sticky)  |
+| cellSelectable | boolean | false | whether to enable ctrl/cmd + click check |
 
 ### TableColumn
 
@@ -63,7 +64,7 @@
 | title | string \| ReactElement \| function(data) | none | The content of the header |
 | type | string | - | Special column, options: \['expand', 'row-expand', 'checkbox']<br />expand: Expand the column. When the render function returns a function, it means that the row can be expanded and the content  is the result returned by this function. <br />row-expand: Similar to expand. The difference is that clicking on the entire row triggers the expand event.<br />checkbox: Select column for scenes with only fixed selection columns |
 | width | number | - | the width of the column |
-| align | string | 'left' | cell align \['left', 'center', 'right'\]
+| align | string | 'left' | cell align \['left', 'center', 'right'\] |
 | treeColumnsName | string | none | tree table children-data name |
 | treeIndent | number | 25 | indent of each level |   
 | minWidth | number | - | the minimum width of the column |

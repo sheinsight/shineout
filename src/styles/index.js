@@ -16,6 +16,7 @@ import menuLess from './menu.less'
 import checkinputLess from './checkinput.less'
 import formLess from './form.less'
 import inputLess from './form.less'
+import inputBorderLess from './form.less'
 import selectLess from './select.less'
 import treeSelectLess from './treeSelect.less'
 import modalLess from './modal.less'
@@ -40,6 +41,7 @@ import editableAreaLess from './editableArea.less'
 import moveableLess from './moveable.less'
 import resizableLess from './resizable.less'
 import lazyloadLess from './lazyload.less'
+import dividerLess from './divider.less'
 
 export const alertClass = genaration(alertLess, 'alert')
 export const buttonClass = genaration(buttonLess, 'button')
@@ -56,6 +58,7 @@ export const menuClass = genaration(menuLess, 'menu')
 export const checkinputClass = genaration(checkinputLess, 'checkinput')
 export const formClass = genaration(formLess, 'form')
 export const inputClass = genaration(inputLess, 'input')
+export const inputBorderClass = genaration(inputBorderLess, 'inputBorder')
 export const selectClass = genaration(selectLess, 'select')
 export const treeSelectClass = genaration(treeSelectLess, 'treeSelect')
 export const modalClass = genaration(modalLess, 'modal')
@@ -80,3 +83,4 @@ export const editableAreaClass = genaration(editableAreaLess, 'editableArea')
 export const moveableClass = genaration(moveableLess, 'moveable')
 export const resizableClass = genaration(resizableLess, 'resizable')
 export const lazyloadClass = genaration(lazyloadLess, 'lazyload')
+export const dividerClass = genaration(dividerLess, 'divider')

@@ -14,6 +14,12 @@ class CardGroup extends PureComponent {
     this.bindScroller = this.bindScroller.bind(this)
   }
 
+  getGap() {
+    const { gap, gutter } = this.props
+    if (gutter !== undefined) return gutter
+    return gap
+  }
+
   bindScroller(ref) {
     const { scroller } = this.state
     if (scroller || !ref) return
@@ -23,9 +29,10 @@ class CardGroup extends PureComponent {
   }
 
   renderBody() {
-    const { cardWidth, columns, children, gap, ...other } = this.props
+    const { cardWidth, columns, children, ...other } = this.props
     const { scroller } = this.state
     if (!children) return children
+    const gap = this.getGap()
     const context = {
       container: scroller,
     }
@@ -76,6 +83,7 @@ CardGroup.propTypes = {
   columns: PropTypes.number,
   gridStyle: PropTypes.object,
   gap: PropTypes.number,
+  gutter: PropTypes.number,
 }
 
 export default CardGroup

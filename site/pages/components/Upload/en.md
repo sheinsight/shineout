@@ -9,7 +9,7 @@
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | accept | string | none | The type of the upload file, same as the standard,See details [accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept)  |
-| action | string | required | The address for uploading |
+| action | ((file: File) => string) \| string | required | The address for uploading |
 | children | ReactNode | required | Upload placeholder |
 | className | string | none | Extend className |
 | defaultValue | any[] | -  | default value |
@@ -30,20 +30,24 @@
 | withCredentials | boolean | false | Whether to take the cookie |
 | multiple | boolean | false | Whether multi-select files are supported |
 | renderContent | (res: any, value: any, index: number, values: any[]) => ReactNode | - | Custom content of result  | 
-| validatorHandle | (error: any, file: File) => boolean \| boolean  | true | Whether to handle the case of validation failure, if a function is provided, it is judged by the return value of the function. |
+| validatorHandle | ((error: any, file: File) => boolean) \| boolean  | true | Whether to handle the case of validation failure, if a function is provided, it is judged by the return value of the function. |
 | drop | boolean | false | drop to update |
 | filesFilter | (fileList: any[]) => boolean | none | Filter after file selection, users can customize the list of files that need to be uploaded eventually<br />Need to return a new file list |
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | none | remove update failed callback |
 | forceAccept | string | none | After disabled the file type filtering provided by accept, it is mandatory to check the file type, value same as accept |
 | showUploadList | boolean | true | show upload list |
+| leftHandler | boolean | false | add image handler show left |
 
 ### Upload.Image
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | children | ReactNode | none | The content of the upload button. It can be empty. |
+| leftHandler | boolean | false | Add image view is displayed on the left |
 | renderResult | (data: any) => ReactNode | a => a | Return the link address of the url of the image.|
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | none | remove update failed callback |
+| onPreview | (url, value, index, values) => void | none | how to preview the image |
+| ignorePreview | boolean | false | ignore image preview |
 
 ### Upload.Button
 

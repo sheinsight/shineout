@@ -14,9 +14,10 @@ export default () => {
       <Button onClick={() => setVisible(true)}>Open</Button>
       <Modal
         zoom
+        width={400}
         title="zoom"
         footer={[
-          <Button type="primary" onClick={() => setVisible(false)}>
+          <Button key="ok" type="primary" onClick={() => setVisible(false)}>
             Ok
           </Button>,
         ]}

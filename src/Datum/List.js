@@ -1,3 +1,4 @@
+import deepEqual from 'deep-eql'
 import shallowEqual from '../utils/shallowEqual'
 import { CHANGE_TOPIC, WITH_OUT_DISPATCH } from './types'
 
@@ -163,7 +164,7 @@ export default class {
   }
 
   remove(value, _, childrenKey) {
-    if (!value) return
+    if (value === undefined || value === null) return
 
     let raws = Array.isArray(value) ? value : [value]
     if (childrenKey) {
@@ -243,6 +244,7 @@ export default class {
   }
 
   setValue(values = [], type) {
+    if (deepEqual(values, this.$values)) return
     if (type === WITH_OUT_DISPATCH) {
       this.$values = this.formatValue(values)
     } else {

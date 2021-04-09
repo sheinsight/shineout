@@ -55,6 +55,16 @@
     opacity: @button-disabled-opacity;
   }
 
+  // cover disabled opacity
+  &.@{button-prefix}-disabled {
+    opacity: 1;
+
+    // cover default opacity in link disabled button
+    &.@{button-prefix}-link {
+      opacity: 0.4;
+    }
+  }
+
   a& {
     fieldset[disabled] & {
       pointer-events: none; // Future-proof disabling of clicks on `<a>` elements
@@ -146,6 +156,8 @@
     background: transparent;
     border: none;
     box-shadow: none;
+    padding-left: 4px;
+    padding-right: 4px;
 
     &:not(:disabled):hover {
       opacity: .8;
@@ -243,7 +255,7 @@
     background: @button-disabled-bg;
     color: @button-disabled-color;
     fill: @button-disabled-color;
-    border-color: #d9d9d9;
+    border-color: @button-disabled-border-color;
   }
 
   &-circle {
@@ -324,5 +336,15 @@
   .@{so-prefix}-dropdown {
     border-top-width: 1px;
     border-bottom-width: 1px;
+  }
+
+  &:not(&-text):not(&-link) {
+    min-width: @button-default-size-width;
+    &.@{button-prefix}-large {
+      min-width: @button-large-size-width;
+    }
+    &.@{button-prefix}-small {
+      min-width: @button-small-size-width;
+    }
   }
 }

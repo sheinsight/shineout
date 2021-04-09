@@ -15,6 +15,7 @@ import SeperateTable from './SeperateTable'
 import SimpleTable from './SimpleTable'
 import { ROW_HEIGHT_UPDATE_EVENT } from './Tr'
 import { RENDER_COL_GROUP_EVENT } from './Tbody'
+import select from './select'
 
 const ResizeSeperateTable = resizableHOC(SeperateTable)
 const ResizeSimpleTable = resizableHOC(SimpleTable)
@@ -72,6 +73,7 @@ class Table extends Component {
       loading,
       verticalAlign,
       columnResizable,
+      events,
       ...others
     } = this.props
 
@@ -119,7 +121,7 @@ class Table extends Component {
     if (loading) newStyle.overflow = 'hidden'
 
     return (
-      <div className={className} ref={this.bindTable} style={newStyle}>
+      <div className={className} ref={this.bindTable} style={newStyle} {...events}>
         <RenderTable {...props} />
         {loading && (
           <div className={tableClass('loading')}>{typeof loading === 'boolean' ? <Spin size={40} /> : loading}</div>
@@ -170,5 +172,6 @@ export default compose(
     pure: false,
   }),
   fixedAuto,
-  hideableConsumer
+  hideableConsumer,
+  select
 )(Table)

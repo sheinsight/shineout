@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { CardSubmitProps } from '../Card'
 type ReactNode = React.ReactNode;
 
 export interface ModalProps {
@@ -166,8 +167,12 @@ export interface ModalProps {
 
 }
 
-declare class Modal extends React.Component<ModalProps, {}> {
+declare class ModalSubmit extends React.Component<CardSubmitProps> {
+  render(): JSX.Element
+}
 
+declare class Modal extends React.Component<ModalProps, {}> {
+  static Submit: typeof ModalSubmit;
   render(): JSX.Element;
 }
 
@@ -201,7 +206,7 @@ export interface ModalFunctionOptions {
    * 点击确定按钮时触发事件，返回 Promise 时，会在 Promise resolve 后关闭Modal
    * default: null
    */
-  onOk?: () => void | Promise,
+  onOk?: () => void | Promise<any>,
   /**
    * The text of button
    * 按钮文字

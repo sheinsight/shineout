@@ -15,7 +15,7 @@ const exampleReg = /^<example name="([\w|-]+)"/
 
 const createId = (level, str) => {
   if (level === 4) return getUidStr()
-  return `${level}-${(str || '').replace(/[\W|-]/g, '-')}`
+  return `${level}-${(str || '').replace(/\s/g, '-')}`
 }
 
 export default function MarkDown({ onHeadingSetted, codes, examples, source }) {

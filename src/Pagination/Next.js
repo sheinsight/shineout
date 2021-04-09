@@ -2,17 +2,29 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import icons from '../icons'
 import Item from './Item'
+import { isRTL } from '../config'
 
-function Next(props) {
-  const { onChange, current, text, total, pageSize, disabled, isSimple } = props
-  const max = Math.ceil(total / pageSize)
-  const next = current + 1
-  const className = text.next || isSimple ? `no-border arrow` : 'arrow'
-  return (
-    <Item className={className} page={next} disabled={disabled || next > max} onClick={onChange}>
-      {text.next || icons.AngleRight}
-    </Item>
-  )
+class Next extends React.PureComponent {
+  renderNext() {
+    const { text } = this.props
+    const rtl = isRTL()
+    if (rtl) {
+      return text.prev || icons.AngleLeft
+    }
+    return text.next || icons.AngleRight
+  }
+
+  render() {
+    const { onChange, current, text, total, pageSize, disabled, isSimple } = this.props
+    const max = Math.ceil(total / pageSize)
+    const next = current + 1
+    const className = text.next || isSimple ? `no-border arrow` : 'arrow'
+    return (
+      <Item className={className} page={next} disabled={disabled || next > max} onClick={onChange}>
+        {this.renderNext()}
+      </Item>
+    )
+  }
 }
 
 Next.propTypes = {

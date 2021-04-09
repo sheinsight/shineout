@@ -24,6 +24,7 @@ class Tree extends PureComponent {
         value: props.value || props.defaultValue,
         disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
         childrenKey: props.childrenKey,
+        unmatch: props.unmatch,
       })
     this.handleDrop = this.handleDrop.bind(this)
     this.handleToggle = this.handleToggle.bind(this)
@@ -243,7 +244,7 @@ Tree.propTypes = {
   expanded: PropTypes.arrayOf(PropTypes.string),
   line: PropTypes.bool,
   loader: PropTypes.func,
-  mode: PropTypes.oneOf([0, 1, 2, 3]),
+  mode: PropTypes.oneOf([0, 1, 2, 3, 4]),
   onChange: PropTypes.func,
   onClick: PropTypes.func,
   onExpand: PropTypes.func,
@@ -260,6 +261,7 @@ Tree.propTypes = {
   doubleClickExpand: PropTypes.bool,
   dragSibling: PropTypes.bool,
   nodeClass: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  unmatch: PropTypes.bool,
 }
 
 Tree.defaultProps = {

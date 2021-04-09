@@ -6,11 +6,12 @@ import { getProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
 import { treeSelectClass } from '../styles'
 import Result from './Result'
-import absoluteList from '../List/AbsoluteList'
+import absoluteList from '../AnimationList/AbsoluteList'
 import { docSize } from '../utils/dom/document'
 import { getParent } from '../utils/dom/element'
-import List from '../List'
+import List from '../AnimationList'
 import { getLocale } from '../locale'
+import { isRTL } from '../config'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
 const OptionList = absoluteList(({ focus, ...other }) => <ScaleList show={focus} {...other} />)
@@ -189,6 +190,7 @@ export default class TreeSelect extends PureComponent {
 
     return (
       <span
+        title={typeof item === 'string' ? item : undefined}
         className={treeSelectClass(
           'content-wrapper',
           active && 'selected',
@@ -239,7 +241,7 @@ export default class TreeSelect extends PureComponent {
     return (
       <OptionList
         absolute={absolute}
-        rootClass={treeSelectClass(position)}
+        rootClass={treeSelectClass(position, isRTL() && 'rtl')}
         parentElement={this.element}
         position={position}
         focus={focus}
@@ -329,7 +331,7 @@ TreeSelect.propTypes = {
   defaultExpanded: PropTypes.arrayOf(PropTypes.string),
   expanded: PropTypes.arrayOf(PropTypes.string),
   loader: PropTypes.func,
-  mode: PropTypes.oneOf([0, 1, 2, 3]),
+  mode: PropTypes.oneOf([0, 1, 2, 3, 4]),
   line: PropTypes.bool,
   onChange: PropTypes.func,
   onSelect: PropTypes.func,
