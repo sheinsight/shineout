@@ -1,6 +1,6 @@
 import { isObject } from './is'
 import { exposeClass } from '../styles/expose'
-import cssAccessors from './css-accessors'
+import cssAccessors, { cleanCache } from './css-accessors'
 import { capitalize } from './strings'
 import { entries } from './objects'
 
@@ -56,6 +56,7 @@ const style = {
       if (cssAccessors[key] && cssAccessors[key][setterName]) cssAccessors[key][setterName](values)
     }
   },
+  cleanCache,
 }
 
 const { color } = cssAccessors
