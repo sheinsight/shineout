@@ -254,7 +254,7 @@
     .@{table-prefix}-ignore-right-border, @{table-prefix}-ignore-bottom-border {
       border-right: none;
 
-      &:after {
+      &:before {
         display: none;
       }
     }
@@ -310,7 +310,7 @@
     .@{table-prefix}-fixed-left {
       border-right: 0;
       z-index: 1;
-      &:after {
+      &:before {
         bottom: -1px;
         position: absolute;
         content: ' ';
@@ -479,6 +479,9 @@
       width: 6px;
       background: linear-gradient(to right, @table-fixed-start-color, @table-fixed-end-color);
       content: ' ';
+    }
+    &:before {
+      display: none;
     }
   }
 
