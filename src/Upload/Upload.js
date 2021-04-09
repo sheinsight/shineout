@@ -293,7 +293,7 @@ class Upload extends PureComponent {
 
         let value
         if (xhr.responseType === 'text' || !xhr.responseType) value = xhr.responseText
-        else value = xhr.response
+        if (!value) value = xhr.response
 
         if (onSuccess) {
           value = onSuccess(value, file, data, xhr)
