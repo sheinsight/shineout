@@ -313,6 +313,15 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
    * default: null
    */
   header?: ReactNode;
+
+  /**
+   * hide the creat option while set onCreate
+   * 
+   * 在使用创建选项时，在选项列表中隐藏该选项，回车后直接选中
+   * 
+   * default: false
+   */
+  hideCreateOption?: boolean;
 }
 
 declare class Select<Item = any, Value = any> extends React.Component<SelectProps<Item, Value>, {}> {}

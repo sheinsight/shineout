@@ -43,6 +43,7 @@ class Cascader extends PureComponent {
       value: props.value || props.defaultValue,
       disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
       childrenKey: props.childrenKey,
+      unmatch: props.unmatch,
     })
 
     this.isRendered = false
@@ -66,8 +67,8 @@ class Cascader extends PureComponent {
   componentDidUpdate(prevProps, prevState) {
     this.datum.mode = this.props.mode
     const { onFilter, filterDataChange, filterText } = this.props
+    if (!filterDataChange && prevProps.data !== this.props.data) this.datum.setData(this.props.data, true)
     if (prevProps.value !== this.props.value) this.datum.setValue(this.props.value || [])
-    if (!filterDataChange && prevProps.data !== this.props.data) this.datum.setData(this.props.data)
 
     if (prevState.focus !== this.state.focus && !this.state.focus && onFilter) {
       setTimeout(() => {
@@ -397,7 +398,7 @@ class Cascader extends PureComponent {
     return (
       <div
         // eslint-disable-next-line
-        tabIndex={ disabled === true ? -1 : 0}
+        tabIndex={disabled === true ? -1 : 0}
         className={className}
         onFocus={this.handleFocus}
         onClick={this.handleClick}
@@ -458,6 +459,7 @@ Cascader.propTypes = {
   onFilter: PropTypes.func,
   filterDataChange: PropTypes.any,
   firstMatchNode: PropTypes.object,
+  unmatch: PropTypes.bool,
 }
 
 Cascader.defaultProps = {

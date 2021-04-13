@@ -13,3 +13,4 @@
 | onClose | () => void \| boolean | - | When onClose is empty, no close is displayed. If you need to close and do not need to handle callbacks, set it true. |
 | style | object | - | Container element style |
 | type | 'success' \| 'info' \| 'warning' \| 'danger' \| 'error' | *warning* | type of alert |
+| hideClose | boolean | false | hide close button |

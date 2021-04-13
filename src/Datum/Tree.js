@@ -1,3 +1,5 @@
+import { CHANGE_TOPIC } from './types'
+
 const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
 export const CheckedMode = {
@@ -30,13 +32,15 @@ const checkStatusStack = (stack, defaultStatus) => {
 
 export default class {
   constructor(options = {}) {
-    const { data, value, keygen, mode, disabled, childrenKey = 'children' } = options
+    const { data, value, keygen, mode, disabled, childrenKey = 'children', unmatch } = options
 
     this.keygen = keygen
     this.mode = mode
     this.valueMap = new Map()
     this.unmatchedValueMap = new Map()
+    this.unmatch = unmatch
     this.events = {}
+    this.$events = {}
     this.disabled = disabled || (() => false)
     this.childrenKey = childrenKey
 
@@ -99,7 +103,7 @@ export default class {
       }
     })
     this.unmatchedValueMap.forEach((unmatch, id) => {
-      if (unmatch) value.push(id)
+      if (unmatch && this.unmatch) value.push(id)
     })
     this.cachedValue = value
     return value
@@ -175,6 +179,7 @@ export default class {
   getDataById(id) {
     const oroginData = this.dataMap.get(id)
     if (oroginData) return oroginData
+    if (!this.unmatch) return null
     return { [IS_NOT_MATCHED_VALUE]: true, value: id }
   }
 
@@ -273,12 +278,13 @@ export default class {
     return ids
   }
 
-  setData(data) {
+  setData(data, dispatch) {
     const prevValue = this.value || []
     this.cachedValue = []
     this.pathMap = new Map()
     this.dataMap = new Map()
     this.valueMap = new Map()
+    this.unmatchedValueMap = new Map()
     this.data = data
 
     if (!data) return
@@ -286,5 +292,24 @@ export default class {
     this.initData(data, [])
     this.initValue()
     this.setValue(prevValue)
+    if (dispatch) this.dispatch(CHANGE_TOPIC)
+  }
+
+  subscribe(name, fn) {
+    if (!this.$events[name]) this.$events[name] = []
+    const events = this.$events[name]
+    if (fn in events) return
+    events.push(fn)
+  }
+
+  unsubscribe(name, fn) {
+    if (!this.$events[name]) return
+    this.$events[name] = this.$events[name].filter(e => e !== fn)
+  }
+
+  dispatch(name, ...args) {
+    const event = this.$events[name]
+    if (!event) return
+    event.forEach(fn => fn(...args))
   }
 }

@@ -30,6 +30,7 @@
 | min | string \| number \| Date | 无 | 可选最小值 |
 | max | string \| number \| Date | 无 | 可选最大值 |
 | defaultRangeMonth | number[] \| Date[] | 无 | 范围选择的初始月份, 值为时间对象 或者时间戳, 仅在 range 模式下生效, 优先级低于 value 和 defaultValue | 
+| defaultPickerValue | number \| Date \| number[] \| Date[] | 无 | 面板默认时间，在未选择日期时生效 |
 | hourStep | number | 无 | 小时选项步长 | 
 | minuteStep | number | 无 | 分钟选项步长 | 
 | secondStep | number | 无 | 秒选项步长 | 

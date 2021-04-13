@@ -119,7 +119,7 @@ class Container extends PureComponent {
   render() {
     const { messages } = this.state
     return [
-      messages.map(({ id, type, content, dismiss, h, title, top, className, position }) => (
+      messages.map(({ id, type, content, dismiss, h, title, top, className, position, hideClose }) => (
         <div
           key={id}
           className={`${this.handleClassName(position, dismiss)} ${className}`}
@@ -129,6 +129,7 @@ class Container extends PureComponent {
             outAnimation
             className={messageClass('msg')}
             dismiss={dismiss}
+            hideClose={hideClose}
             onClose={this.closeMessageForAnimation.bind(this, id)}
             icon
             iconSize={title ? 20 : 14}

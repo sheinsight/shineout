@@ -4422,6 +4422,30 @@ const injects = {
       )
     },
   },
+  progress: {
+    info: {
+      title: 'Progress',
+      name: 'progress',
+      path: 'Progress',
+    },
+    conf: [
+      {
+        name: 'progressBgc',
+        className: exposeClass('progress'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'Progress默认背景颜色',
+      },
+    ],
+    set progressBgc(v) {
+      setBodyProperty(
+        {
+          '--progress-bgc': v,
+        },
+        v
+      )
+    },
+  },
   common: {
     info: {
       title: 'Common 公共',

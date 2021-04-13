@@ -34,3 +34,4 @@
 | renderUnmatched | (data: any) => ReactNode | none | render unmatched value |
 | onCollapse | (collapse: boolean) => void | none | option collapse callback |
 | rules | any[] | null | Validation rules |
+| unmatch | boolean | none | render unmatch value |

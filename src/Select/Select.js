@@ -237,8 +237,10 @@ class Select extends PureComponent {
   }
 
   handleInputFocus() {
+    const { hideCreateOption, onCreate } = this.props
     this.inputLocked = true
-    if (this.props.inputable && this.state.control === 'keyboard') {
+    const noHover = onCreate && hideCreateOption
+    if (this.props.inputable && this.state.control === 'keyboard' && !noHover) {
       if (this.optionList.handleHover) this.optionList.handleHover(0, true)
     }
   }
@@ -272,8 +274,23 @@ class Select extends PureComponent {
     }
   }
 
+  handleHideOption() {
+    const { datum, innerData } = this.props
+    const checked = datum.check(innerData)
+    if (checked) {
+      if (this.inputReset) this.inputReset()
+      return
+    }
+    this.handleChange(true, innerData)
+  }
+
   handleEnter() {
+    const { onCreate, hideCreateOption } = this.props
     const hoverIndex = this.optionList.getIndex && this.optionList.getIndex()
+    if (onCreate && hideCreateOption && hoverIndex === -1) {
+      this.handleHideOption()
+      return
+    }
     const data = this.props.data[hoverIndex]
     if (data && !data[this.props.groupKey]) {
       const checked = !this.props.datum.check(data)

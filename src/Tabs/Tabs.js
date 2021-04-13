@@ -5,7 +5,9 @@ import { PureComponent } from '../component'
 import Header from './Header'
 import getDataset from '../utils/dom/getDataset'
 import Wrapper from './Wrapper'
+import Sticky from '../Sticky'
 import { tabsClass } from '../styles'
+import { isEmpty, isObject } from '../utils/is'
 
 class Tabs extends PureComponent {
   constructor(props) {
@@ -20,6 +22,27 @@ class Tabs extends PureComponent {
     this.handleChange = this.handleChange.bind(this)
     this.handleCollapse = this.handleCollapse.bind(this)
     this.renderContent = this.renderContent.bind(this)
+    this.bindContainer = this.bindContainer.bind(this)
+    this.setStickyStatus = this.setStickyStatus.bind(this)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { sticky, switchToTop, active } = this.props
+
+    if (
+      (prevProps.active !== active || prevState.active !== this.state.active) &&
+      this.container &&
+      !isEmpty(sticky) &&
+      switchToTop &&
+      this.sticky
+    ) {
+      // jump to active panel
+      this.container.scrollIntoView(true)
+    }
+  }
+
+  componentWillUnmount() {
+    this.container = null
   }
 
   getAlign() {
@@ -43,6 +66,16 @@ class Tabs extends PureComponent {
     return this.state.active
   }
 
+  setStickyStatus(flag) {
+    const { sticky, switchToTop } = this.props
+    if (!sticky || !switchToTop) return
+    this.sticky = flag
+  }
+
+  bindContainer(node) {
+    this.container = node
+  }
+
   handleChange(active) {
     const { onChange } = this.props
     if (onChange) onChange(active)
@@ -54,7 +87,16 @@ class Tabs extends PureComponent {
   }
 
   renderHeader({ align, isVertical }) {
-    const { children, color, shape, tabBarStyle, inactiveBackground, collapsible, tabBarExtraContent } = this.props
+    const {
+      children,
+      color,
+      shape,
+      tabBarStyle,
+      inactiveBackground,
+      collapsible,
+      tabBarExtraContent,
+      sticky,
+    } = this.props
     const active = this.getActive()
     const tabs = []
 
@@ -94,7 +136,7 @@ class Tabs extends PureComponent {
       })
     })
 
-    return (
+    const header = (
       <Header
         isVertical={isVertical}
         border={border}
@@ -107,6 +149,26 @@ class Tabs extends PureComponent {
         tabBarStyle={tabBarStyle}
       />
     )
+
+    if (!isEmpty(sticky) && !isVertical) {
+      const stickyClassName = tabsClass('sticky')
+      let stickyProps = {
+        top: 0,
+        className: stickyClassName,
+      }
+      if (typeof sticky === 'number') {
+        stickyProps.top = sticky
+      }
+      if (isObject(sticky)) {
+        stickyProps = { ...sticky, className: classnames(stickyClassName, sticky.className) }
+      }
+      return (
+        <Sticky onChange={this.setStickyStatus} {...stickyProps}>
+          {header}
+        </Sticky>
+      )
+    }
+    return header
   }
 
   renderContent(child, i) {
@@ -137,7 +199,7 @@ class Tabs extends PureComponent {
     )
 
     return (
-      <div className={className} style={style}>
+      <div className={className} style={style} ref={this.bindContainer}>
         {align !== 'vertical-right' && align !== 'bottom' && this.renderHeader(position)}
         {Children.toArray(children).map(this.renderContent)}
         {(align === 'vertical-right' || align === 'bottom') && this.renderHeader(position)}
@@ -165,6 +227,8 @@ Tabs.propTypes = {
   tabBarStyle: PropTypes.object,
   lazy: PropTypes.bool,
   autoFill: PropTypes.bool,
+  sticky: PropTypes.oneOfType([PropTypes.bool, PropTypes.number, PropTypes.object]),
+  switchToTop: PropTypes.bool,
 }
 
 Tabs.defaultProps = {

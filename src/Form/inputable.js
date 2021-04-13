@@ -123,7 +123,7 @@ export default curry(Origin =>
         super.componentWillUnmount()
 
         const { formDatum, name, loopContext, unbindInputFromItem } = this.props
-
+        clearTimeout(this.updateTimer)
         if (formDatum && name) {
           formDatum.unbind(name, this.handleUpdate)
           if (Array.isArray(name)) {

@@ -42,7 +42,7 @@ export interface FormItemStandardProps<Value = any> {
      *
      * default: none
      */
-    placeholder?: ReactNode;
+    placeholder?: React.ReactNode;
     
     /**
      * Default selected key (not controlled)

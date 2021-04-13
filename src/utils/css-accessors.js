@@ -25,18 +25,24 @@ function getStyleAttr(className, key = 'color') {
   return getDOMStyle(div)[key]
 }
 
+let cache = {}
 function genAccessors(obj, data) {
   data.conf.forEach(item => {
     const { name, className, attr, parser = v => v } = item
+    const { info } = data
+    const cacheKey = `${info.name}-${name}`
     Object.defineProperty(obj, name, {
       enumerable: true,
       get: () => {
+        if (cache[cacheKey]) return cache[cacheKey]
         if (item.value) return item.value
         const res = getStyleAttr(className, attr)
-        return parser(res)
+        cache[cacheKey] = parser(res)
+        return cache[cacheKey]
       },
       // eslint-disable-next-line no-return-assign
       set: v => {
+        delete cache[cacheKey]
         if (item.value) item.value = v
         data[name] = v
       },
@@ -71,12 +77,17 @@ const accessors = {
   tabs: {},
   cascader: {},
   list: {},
+  progress: {},
 }
 
 for (const [key, value] of entries(accessors)) {
   const setterName = `set${capitalize(key)}`
   value[setterName] = options => setOptions.call(value, options, setterName)
   genAccessors(value, cssInject[key])
+}
+
+export function cleanCache() {
+  cache = {}
 }
 
 export default accessors

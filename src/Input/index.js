@@ -28,6 +28,8 @@ exports.Password = compose(
 )(Password)
 
 exports.displayName = 'ShineoutInput'
+exports.Number.displayName = 'ShineoutInputNumber'
+exports.Password.displayName = 'ShineoutInputPassword'
 exports.Group.displayName = 'ShineoutInputGroup'
 
 export default exports

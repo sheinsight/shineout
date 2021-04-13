@@ -74,20 +74,17 @@ class Container extends PureComponent {
 
   getCurrent() {
     let current
-    const { defaultRangeMonth } = this.props
+    const { defaultRangeMonth, defaultPickerValue, value } = this.props
     if (this.props.range) {
+      const defaultPickerRange = defaultRangeMonth || defaultPickerValue || []
       current = (this.props.value || []).map((v, i) => {
         v = this.parseDate(v)
-        if (utils.isInvalid(v)) v = utils.newDate(defaultRangeMonth[i])
+        if (utils.isInvalid(v)) v = utils.newDate(defaultPickerRange[i])
         return v
       })
-      if (current.length === 0) current = [utils.newDate(defaultRangeMonth[0]), utils.newDate(defaultRangeMonth[1])]
-
-      // if (utils.compareMonth(current[0], current[1], -1) >= 0) {
-      //   current[1] = utils.addMonths(current[0], 1)
-      // }
+      if (current.length === 0) current = [utils.newDate(defaultPickerRange[0]), utils.newDate(defaultPickerRange[1])]
     } else {
-      current = this.parseDate(this.props.value)
+      current = this.parseDate(value || defaultPickerValue)
     }
 
     return current
@@ -523,6 +520,7 @@ Container.propTypes = {
   min: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
   max: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
   defaultRangeMonth: PropTypes.array,
+  defaultPickerValue: PropTypes.oneOfType([PropTypes.any, PropTypes.array]),
   hourStep: PropTypes.number,
   minuteStep: PropTypes.number,
   secondStep: PropTypes.number,
@@ -535,7 +533,6 @@ Container.defaultProps = {
   placeholder: <span>&nbsp;</span>,
   type: 'date',
   allowSingle: false,
-  defaultRangeMonth: [],
 }
 
 export default Container
