@@ -33,7 +33,7 @@ class Td extends PureComponent {
     const { index, data, datum, treeColumnsName, treeCheckAll } = this.props
     return (
       <Checkbox
-        checked={datum.check(data)}
+        force={datum.check(data)}
         data={data}
         index={index}
         datum={datum}
