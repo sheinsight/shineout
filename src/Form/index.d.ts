@@ -1,5 +1,7 @@
 import * as React from 'react'
+import { StandardProps, FormItemStandardProps } from '../@types/common'
 import { RuleParamsType } from '../Rule'
+import Button from '../Button'
 
 type ReactNode = React.ReactNode;
 
@@ -11,23 +13,15 @@ export interface RuleParams<Value = {}> {
   [propName: string]: RuleParamsType<Value>
 }
 
-export interface FormProps<Value> {
+export interface FormProps<Value> extends StandardProps {
   /**
-   * extend className
+   * Form value
    * 
    * Form值
    * 
    * default: 
    */
   value?: Value,
-  /**
-   * extend className
-   * 
-   * 扩展className
-   * 
-   * default: 
-   */
-  className?: string;
 
   /**
    * The formdata helper class, which is created automatically inside a Form without setting it, usually does not need to be set.
@@ -59,11 +53,20 @@ export interface FormProps<Value> {
   /**
    * the default value is left.
    * 
-   * 默认为左边对齐。
+   * 默认为右边对齐。
    * 
-   * default: 
+   * default: 'right'
    */
-  labelAlign?: 'top' | 'right';
+  labelAlign?: 'top' | 'right' | 'left';
+
+  /**
+   * the default value is top.
+   * 
+   * 默认顶部对齐
+   * 
+   * default: 'top'
+   */
+  labelVerticalAlign?:'top' | 'middle' | 'bottom';
 
   /**
    * The width of label. It is invalid when labelAlign is 'top'.
@@ -133,18 +136,9 @@ export interface FormProps<Value> {
    * 
    * 校验失败时是否滚动到第一个校验失败组件，该值为数字时，表示相对于顶部的偏移量
    * 
-   * default: -
+   * default: false
    */
   scrollToError?: boolean | number;
-
-  /**
-   * Container element style
-   * 
-   * 扩展样式
-   * 
-   * default: -
-   */
-  style?: React.CSSProperties;
 
   /**
    * ms, the interval between two submissions(Prevent repeat submission)
@@ -175,7 +169,7 @@ export interface FormProps<Value> {
 
 }
 
-export interface FormItemProps {
+export interface FormItemProps<Value> extends FormItemStandardProps<Value> {
 
   /**
    * When it is undefined, the tag does not be rendered or occupy space. If there is no content, but it needs to be occupied, you can use an empty string ''.
@@ -231,7 +225,7 @@ export interface FormFieldProps<Value> {
    * 
    * 绑定校验字段名。当值变化后，触发绑定的字段校验。
    * 
-   * default: -
+   * default: 
    */
   bind?: string[];
 
@@ -276,9 +270,41 @@ export interface FormFieldProps<Value> {
 export interface FormFieldSetProps<Value> {
 
   /**
-   * When children type is not function, handle a set data type of object, When children type is function, handle a group of data type of array. options property: list: all data of name 。value：a single piece of data for the value obtained by name 。onChange：a callback when the value is changing 。onRemove：a callback when a child component is removed 。index：the current index 。onInsert: Insert a piece of data before the current item 。onAppend: Insert a piece of data after the current item
+   * When children type is not function, handle a set data type of object
    * 
-   * children 不为 function，用来处理 object 类型数据，children 内的 name 会拼接 FieldSet name，如 FieldSet name 为 'a', children 元素name 为 b，children 实际处理的数据为 a.b;  children 为 function 时，用来处理数组数据。options 属性为 list: name 下的全部数据。value：根据name获取的值的单条数据。onChange：子组件数据改变回调。onRemove：子组件删除回调。index：当前项索引。onInsert: 在当前项之前插入一条数据。onAppend: 在当前项之后附加一条数据
+   * When children type is function, handle a group of data type of array. options property: 
+   * 
+   * list: all data of name.
+   * 
+   * value: a single piece of data for the value obtained by name. 
+   * 
+   * onChange: a callback when the value is changing. 
+   * 
+   * onRemove: a callback when a child component is removed. 
+   * 
+   * index: the current index. 
+   * 
+   * onInsert: Insert a piece of data before the current item. 
+   * 
+   * onAppend: Insert a piece of data after the current item.
+   * 
+   * children 不为 function，用来处理 object 类型数据，children 内的 name 会拼接 FieldSet name，如 FieldSet name 为 'a', children 元素name 为 b，children 实际处理的数据为 a.b;  
+   * 
+   * children 为 function 时，用来处理数组数据。options 属性为 
+   * 
+   * list: name 下的全部数据。
+   * 
+   * value: 根据name获取的值的单条数据。
+   * 
+   * onChange: 子组件数据改变回调。
+   * 
+   * onRemove: 子组件删除回调。
+   * 
+   * index: 当前项索引。
+   * 
+   * onInsert: 在当前项之前插入一条数据。
+   * 
+   * onAppend: 在当前项之后附加一条数据。
    * 
    * default: required
    */
@@ -369,6 +395,12 @@ declare class Form<Value> extends React.Component<FormProps<Value>, {}> {
   static FieldSet: typeof FormFieldSet;
 
   static Flow: typeof FormFlow;
+
+  static Button: typeof Button;
+
+  static Submit: typeof Button;
+
+  static Reset: typeof Button;
 
   render(): JSX.Element;
 }
