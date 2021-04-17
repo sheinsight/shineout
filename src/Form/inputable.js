@@ -275,7 +275,6 @@ export default curry(Origin =>
               })
             })
 
-        console.log(this.errorChange)
         if (!this.errorChange && shallowEqual(newValue, this.lastValue)) return
         this.lastValue = newValue
 
