@@ -45,7 +45,7 @@ export default class {
   }
 
   reset() {
-    this.validateClear()
+    this.$errors = {}
     this.setValue(unflatten(fastClone(this.$defaultValues)), FORCE_PASS, true)
     this.handleChange()
     this.dispatch(RESET_TOPIC)
