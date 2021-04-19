@@ -361,6 +361,73 @@ export interface UploadImageProps<T> extends UploadProps<T>{
 
 }
 
+export interface UploadImageHandlerProps {
+  /**
+   * is disabled
+   * 
+   * 是否禁用
+   * 
+   * default: false
+   * 
+   */
+  disabled?: boolean;
+
+  /**
+   * extend classname
+   * 
+   * 扩展类名
+   * 
+   * default: -
+   */
+  className?: string;
+
+  /**
+   * custom children
+   * 
+   * 自定义内容
+   * 
+   * default: plus 
+   */
+  children?: ReactNode;
+
+  /**
+   * custom style
+   * 
+   * 自定义样式
+   * 
+   * default: -
+   */
+  style?: React.CSSProperties;
+
+  /**
+   * width of element
+   * 
+   * 宽度
+   * 
+   * default: 80
+   */
+  width?: number;
+
+  /**
+   * height of element
+   * 
+   * 高度
+   * 
+   * default: 80
+   */
+  height?: number;
+
+  /**
+   * click callback
+   * 
+   * 点击事件回调
+   * 
+   * default: -
+   * 
+   */
+  onClick?: (e: MouseEvent) => void;
+}
+
 export interface UploadButtonProps<T> extends UploadProps<T> {
 
   /**
@@ -394,11 +461,15 @@ export interface UploadButtonProps<T> extends UploadProps<T> {
 
  export type OmitUploadProps<T> = Omit<UploadProps<T>, ('showUploadList' | 'limit')>;
  // todo  这儿如果使用 OmitUploadProps 就无法继承
- declare class UploadButton<T> extends React.Component<UploadButtonProps<T>, {}> {
+declare class UploadButton<T> extends React.Component<UploadButtonProps<T>, {}> {
   render(): JSX.Element;
 }
 
- declare class UploadImage<T> extends React.Component<UploadImageProps<T>, {}> {
+declare class UploadImage<T> extends React.Component<UploadImageProps<T>, {}> {
+  render(): JSX.Element;
+}
+
+declare class UploadImageHandler extends React.Component<UploadImageHandlerProps, {}> {
   render(): JSX.Element;
 }
 
@@ -406,6 +477,8 @@ export interface UploadButtonProps<T> extends UploadProps<T> {
 
 export declare class Upload<T> extends React.Component<UploadProps<T>, {}> {
   static Image: typeof UploadImage;
+
+  static ImageHandler: typeof UploadImageHandler;
 
   static Button: typeof UploadButton;
 
