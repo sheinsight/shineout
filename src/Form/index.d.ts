@@ -11,6 +11,23 @@ export interface RuleParams<Value = {}> {
   [propName: string]: RuleParamsType<Value>
 }
 
+export interface FieldSetChildrenFunc<Value = any> {
+  list: any;
+  value: Value;
+  onChange: (value: Value) => void;
+  onRemove: () => void;
+  index: number;
+  onInsert: (value: Value) => void;
+  onAppend: (value: Value) => void;
+}
+
+
+export interface FieldChildrenFunc<Value = any> {
+  value: Value;
+  error: Error;
+  onChange: (value: Value) => void;
+}
+
 export interface FormProps<Value> {
   /**
    * extend className
@@ -242,7 +259,7 @@ export interface FormFieldProps<Value> {
    * 
    * default: required
    */
-  children?: (opts: object) => ReactNode | ReactNode;
+  children?: (opts: FieldChildrenFunc<Value>) => ReactNode | ReactNode;
 
   /**
    * default value
@@ -282,7 +299,7 @@ export interface FormFieldSetProps<Value> {
    * 
    * default: required
    */
-  children?: (opts: object) => ReactNode | ReactNode;
+  children?: (opts: FieldSetChildrenFunc<Value>) => ReactNode | ReactNode;
 
   /**
    * Default value
@@ -300,7 +317,7 @@ export interface FormFieldSetProps<Value> {
    * 
    * default: 
    */
-  empty?: (onInsert: any) => ReactNode;
+  empty?: (onInsert: Value) => ReactNode;
 
   /**
    * The name that accesses data from from
@@ -356,7 +373,7 @@ declare class FormField<Value> extends React.Component<FormFieldProps<Value>, {}
   render(): JSX.Element;
 }
 
-declare class FormItem<Value> extends React.Component<FormItemProps<Value>, {}> {
+declare class FormItem<Value> extends React.Component<FormItemProps, {}> {
   render(): JSX.Element;
 }
 
