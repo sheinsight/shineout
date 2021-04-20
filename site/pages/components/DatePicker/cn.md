@@ -36,6 +36,7 @@
 | secondStep | number | 无 | 秒选项步长 | 
 | onPickerChange | (value: any, quickSelect?: object \| void, type?: string) => void | 无 | 值改变回调，有别于 onChange, onPickerChange会在每项值改变的时候执行 |
 | disabledTime | string \| ((time: string) => boolean) | 无 | 禁用指定 Time。 |
+| align | 'center' \| 'left' \| 'right' | 'center' | 值水平布局方式 |
 
 ### DatePickerFormat
 

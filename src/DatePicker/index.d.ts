@@ -224,6 +224,16 @@ FormItemStandardProps<DatePickerValue> {
   disabledTime?: string | ((time: string) => boolean);
 
   /**
+   * horizontal align of the value
+   * 
+   * 值水平排布方式
+   * 
+   * default: center
+   * 
+   */
+  align?: 'left' | 'right' | 'center';
+
+  /**
    * value onchange callback (every type of date)
    * 
    * 值改变回调，有别于 onChange, onPickerChange会在每项值改变的时候执行

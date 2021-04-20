@@ -530,6 +530,26 @@
       }
     }
   }
+
+  &-align {
+    &-left, &-right {
+      .@{datepicker-prefix}-result {
+        display: block;
+        .@{datepicker-prefix}-txt {
+          flex: none;
+          &.@{datepicker-prefix}-text-focus {
+            background: transparent;
+            color: @colors-primary;
+            border-radius: 0;
+          }
+        }
+      }
+    }
+    &-right .@{datepicker-prefix}-result {
+      text-align: right;
+    }
+  }
+
 }
 
 .@{datepicker-prefix}-rtl  {

@@ -462,7 +462,7 @@ class Container extends PureComponent {
   }
 
   render() {
-    const { range, size, disabled } = this.props
+    const { range, size, disabled, align } = this.props
     const { focus } = this.state
 
     const rtl = isRTL()
@@ -473,6 +473,7 @@ class Container extends PureComponent {
       size && `size-${size}`,
       focus && 'focus',
       disabled === true && 'disabled',
+      align && `align-${align}`,
       getCurrentPosition(this.state.position),
       rtl && 'rtl'
     )
@@ -526,6 +527,7 @@ Container.propTypes = {
   secondStep: PropTypes.number,
   onPickerChange: PropTypes.func,
   disabledTime: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  align: PropTypes.oneOf(['left', 'right', 'center']),
 }
 
 Container.defaultProps = {
