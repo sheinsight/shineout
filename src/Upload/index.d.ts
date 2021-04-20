@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {StandardProps, FormItemStandardProps} from "../@types/common"
+import { StandardProps, FormItemStandardProps } from "../@types/common"
 
 type ReactNode = React.ReactNode;
 
@@ -361,7 +361,7 @@ export interface UploadImageProps<T> extends UploadProps<T>{
 
 }
 
-export interface UploadImageHandlerProps {
+export interface UploadImageHandlerProps extends StandardProps {
   /**
    * is disabled
    * 
@@ -373,15 +373,6 @@ export interface UploadImageHandlerProps {
   disabled?: boolean;
 
   /**
-   * extend classname
-   * 
-   * 扩展类名
-   * 
-   * default: -
-   */
-  className?: string;
-
-  /**
    * custom children
    * 
    * 自定义内容
@@ -389,15 +380,6 @@ export interface UploadImageHandlerProps {
    * default: plus 
    */
   children?: ReactNode;
-
-  /**
-   * custom style
-   * 
-   * 自定义样式
-   * 
-   * default: -
-   */
-  style?: React.CSSProperties;
 
   /**
    * width of element
