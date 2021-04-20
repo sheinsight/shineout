@@ -176,6 +176,10 @@ export default curry(Origin =>
           this.setState({ error })
         }
 
+        const hasError = error !== undefined
+        this.errorChange = hasError !== this.lastError
+        this.lastError = hasError
+
         if (onError) onError(error)
         if (onItemError && !name) onItemError(this.itemName, error)
       }
@@ -271,7 +275,7 @@ export default curry(Origin =>
               })
             })
 
-        if (shallowEqual(newValue, this.lastValue)) return
+        if (!this.errorChange && shallowEqual(newValue, this.lastValue)) return
         this.lastValue = newValue
 
         if (type === FORCE_PASS) {
