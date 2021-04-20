@@ -12,6 +12,7 @@ export default function(options) {
     constructor(props) {
       super(props)
       this.handleShow = this.handleShow.bind(this)
+      this.handleDismiss = this.handleDismiss.bind(this)
       this.tryHide = this.tryHide.bind(this)
       this.elementRef = this.elementRef.bind(this)
 
@@ -74,6 +75,11 @@ export default function(options) {
       }
     }
 
+    handleDismiss() {
+      clearTimeout(this.showTimer)
+      hide()
+    }
+
     showSync() {
       const pos = this.getPosition()
       const style = Object.keys(pos).reduce((data, key) => {
@@ -104,8 +110,8 @@ export default function(options) {
 
       const props = { key: 'el' }
       if (trigger === 'hover') {
-        props.onMouseOver = this.handleShow
-        props.onMouseOut = () => hide()
+        props.onMouseEnter = this.handleShow
+        props.onMouseLeave = this.handleDismiss
       } else {
         props.onClick = e => {
           if (e) e.stopPropagation()
