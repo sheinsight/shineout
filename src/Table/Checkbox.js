@@ -39,8 +39,9 @@ export default class extends PureComponent {
   }
 
   render() {
-    const { data, datum, checked } = this.props
+    const { data, datum } = this.props
     const disabled = datum.disabled(data)
+    const checked = datum.check(data)
     const CheckItem = datum.limit === 1 ? Radio : Checkbox
     return <CheckItem {...this.props} checked={checked} disabled={disabled} onChange={this.handleChange} />
   }
