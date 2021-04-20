@@ -20,3 +20,4 @@
 | linkKey | (d: object) => string \| string | - |  the key of inject the link value of the submenu |
 | onOpenChange | (keys: string[]) => void | none | menu open change callback |
 | frontCaret | boolean | null | Front solid triangle expansion |
+| theme | 'dark' | none | theme of menu |
