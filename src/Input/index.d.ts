@@ -11,6 +11,15 @@ FormItemStandardProps<Value>,
 Pick<CommonProps, 'clearable'> {
 
   /**
+   * width
+   * 
+   * 宽度
+   * 
+   * default: null
+   */
+  width?: number;
+
+  /**
    * User input triggers the onChange and to check interval, unit: ms.
    * 
    * 用户输入触发 onChange 和校验间隔时间，单位 毫秒。
@@ -177,10 +186,14 @@ export interface InputNumberProps <Value> extends InputProps<Value> {
 
 }
 
-declare class Input<Value = any> extends React.Component<InputProps<Value>, {}> {
-    static Number: typeof InputNumber;
-}
+declare class InputGroup<Value = any> extends React.Component<InputProps<Value>, {}> {}
 
 declare class InputNumber<Value = number> extends React.Component<InputNumberProps<Value>, {}> {}
 
-export default Input;
+declare class Input<Value = any> extends React.Component<InputProps<Value>, {}> {
+    static Number: typeof InputNumber;
+
+    static Group: typeof InputGroup;
+}
+
+export default Input

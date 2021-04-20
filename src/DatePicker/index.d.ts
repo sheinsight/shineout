@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { StandardProps, FormItemStandardProps } from '../@types/common'
 
 export type DateTimeType = Date | number | string
 
@@ -17,16 +18,17 @@ export interface QuickSelect extends Base {
   value?: Array<DateTimeType>
 }
 
-export interface DatePickerProps {
+export interface DatePickerProps extends StandardProps,
+FormItemStandardProps<DatePickerValue> {
 
   /**
-   * extend className
+   * width
    * 
-   * 扩展className
+   * 宽度
    * 
-   * default: -
+   * default: null
    */
-  className?: string;
+  width?: number;
 
   /**
    * whether it can be cleared
@@ -36,15 +38,6 @@ export interface DatePickerProps {
    * default: true
    */
   clearable?: boolean;
-
-  /**
-   * default
-   * 
-   * 默认值。如果 defaultValue 和 format 类型不一致，会执行一次 format，并触发 onChange 事件返回 format 后的值
-   * 
-   * default: -
-   */
-  defaultValue?: DatePickerValue;
 
   /**
    * When the value is true, disabled all options; When the value is function, disable the options that this function returns true.
@@ -103,15 +96,6 @@ export interface DatePickerProps {
   range?: boolean | number;
 
   /**
-   * Container element style
-   * 
-   * 最外层扩展样式
-   * 
-   * default: -
-   */
-  style?: React.CSSProperties;
-
-  /**
    * type of datepicker
    * 
    * 时间类型
@@ -119,15 +103,6 @@ export interface DatePickerProps {
    * default: 'date'
    */
   type?: 'date' | 'time' | 'datetime' | 'month' | 'week';
-
-  /**
-   * When the value is string, it needs to match the format attribute.  When the range property is true, the value is an array of length 2.
-   * 
-   * 值。为 string 时，需要和 format 属性匹配。range 属性为 true 时，值为长度为2的数组
-   * 
-   * default: -
-   */
-  value?: DatePickerValue;
 
   /**
    * Default time when selecting a date, the format is: 'HH:mm:ss'

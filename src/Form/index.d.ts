@@ -1,4 +1,6 @@
 import * as React from 'react'
+import { StandardProps } from '../@types/common'
+import { ButtonProps } from '../Button/index.d'
 import { RuleParamsType } from '../Rule'
 
 type ReactNode = React.ReactNode;
@@ -11,7 +13,24 @@ export interface RuleParams<Value = {}> {
   [propName: string]: RuleParamsType<Value>
 }
 
-export interface FormProps<Value> {
+export interface FieldSetChildrenFunc<Value = any> {
+  list: any;
+  value: Value;
+  onChange: (value: Value) => void;
+  onRemove: () => void;
+  index: number;
+  onInsert: (value: Value) => void;
+  onAppend: (value: Value) => void;
+}
+
+
+export interface FieldChildrenFunc<Value = any> {
+  value: Value;
+  error: Error;
+  onChange: (value: Value) => void;
+}
+
+export interface FormProps<Value> extends StandardProps {
   /**
    * extend className
    * 
@@ -20,15 +39,6 @@ export interface FormProps<Value> {
    * default: 
    */
   value?: Value,
-  /**
-   * extend className
-   * 
-   * 扩展className
-   * 
-   * default: 
-   */
-  className?: string;
-
   /**
    * The formdata helper class, which is created automatically inside a Form without setting it, usually does not need to be set.
    * 
@@ -138,15 +148,6 @@ export interface FormProps<Value> {
   scrollToError?: boolean | number;
 
   /**
-   * Container element style
-   * 
-   * 扩展样式
-   * 
-   * default: -
-   */
-  style?: React.CSSProperties;
-
-  /**
    * ms, the interval between two submissions(Prevent repeat submission)
    * 
    * ms, 两次提交间隔时长（防止重复提交）
@@ -175,7 +176,7 @@ export interface FormProps<Value> {
 
 }
 
-export interface FormItemProps {
+export interface FormItemProps extends StandardProps {
 
   /**
    * When it is undefined, the tag does not be rendered or occupy space. If there is no content, but it needs to be occupied, you can use an empty string ''.
@@ -242,7 +243,7 @@ export interface FormFieldProps<Value> {
    * 
    * default: required
    */
-  children?: (opts: object) => ReactNode | ReactNode;
+  children?: (opts: FieldChildrenFunc<Value>) => ReactNode | ReactNode;
 
   /**
    * default value
@@ -282,7 +283,7 @@ export interface FormFieldSetProps<Value> {
    * 
    * default: required
    */
-  children?: (opts: object) => ReactNode | ReactNode;
+  children?: (opts: FieldSetChildrenFunc<Value>) => ReactNode | ReactNode;
 
   /**
    * Default value
@@ -300,7 +301,7 @@ export interface FormFieldSetProps<Value> {
    * 
    * default: 
    */
-  empty?: (onInsert: any) => ReactNode;
+  empty?: (onInsert: Value) => ReactNode;
 
   /**
    * The name that accesses data from from
@@ -344,6 +345,9 @@ export interface FormFlowProps {
 
 }
 
+
+export interface FormSubmitProps extends ButtonProps {}
+
 declare class FormFlow extends React.Component<FormFlowProps, {}> {
   render(): JSX.Element;
 }
@@ -356,7 +360,11 @@ declare class FormField<Value> extends React.Component<FormFieldProps<Value>, {}
   render(): JSX.Element;
 }
 
-declare class FormItem<Value> extends React.Component<FormItemProps<Value>, {}> {
+declare class FormItem<Value> extends React.Component<FormItemProps, {}> {
+  render(): JSX.Element;
+}
+
+declare class FormSubmit extends React.Component<FormSubmitProps, {}> {
   render(): JSX.Element;
 }
 
@@ -369,6 +377,8 @@ declare class Form<Value> extends React.Component<FormProps<Value>, {}> {
   static FieldSet: typeof FormFieldSet;
 
   static Flow: typeof FormFlow;
+
+  static Submit: typeof FormSubmit;
 
   render(): JSX.Element;
 }

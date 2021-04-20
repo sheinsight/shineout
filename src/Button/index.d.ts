@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { StandardProps, RegularAttributes } from '../@types/common'
 
-type ButtonType = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'link';
+export type ButtonType = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'link';
 
 export interface ButtonProps extends StandardProps {
 
@@ -87,6 +87,14 @@ export interface ButtonProps extends StandardProps {
    */
   space?: boolean;
 
+  /**
+   * loading
+   * 
+   * loading状态
+   * 
+   * default: null
+   */
+  loading?: boolean
 }
 
 export interface ButtonGroupProps {
