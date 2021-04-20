@@ -11,6 +11,15 @@ FormItemStandardProps<Value>,
 Pick<CommonProps, 'clearable'> {
 
   /**
+   * width
+   * 
+   * 宽度
+   * 
+   * default: null
+   */
+  width?: number;
+
+  /**
    * User input triggers the onChange and to check interval, unit: ms.
    * 
    * 用户输入触发 onChange 和校验间隔时间，单位 毫秒。

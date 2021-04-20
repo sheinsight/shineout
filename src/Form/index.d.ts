@@ -1,4 +1,6 @@
 import * as React from 'react'
+import { StandardProps } from '../@types/common'
+import { ButtonProps } from '../Button/index.d'
 import { RuleParamsType } from '../Rule'
 
 type ReactNode = React.ReactNode;
@@ -28,7 +30,7 @@ export interface FieldChildrenFunc<Value = any> {
   onChange: (value: Value) => void;
 }
 
-export interface FormProps<Value> {
+export interface FormProps<Value> extends StandardProps {
   /**
    * extend className
    * 
@@ -37,15 +39,6 @@ export interface FormProps<Value> {
    * default: 
    */
   value?: Value,
-  /**
-   * extend className
-   * 
-   * 扩展className
-   * 
-   * default: 
-   */
-  className?: string;
-
   /**
    * The formdata helper class, which is created automatically inside a Form without setting it, usually does not need to be set.
    * 
@@ -155,15 +148,6 @@ export interface FormProps<Value> {
   scrollToError?: boolean | number;
 
   /**
-   * Container element style
-   * 
-   * 扩展样式
-   * 
-   * default: -
-   */
-  style?: React.CSSProperties;
-
-  /**
    * ms, the interval between two submissions(Prevent repeat submission)
    * 
    * ms, 两次提交间隔时长（防止重复提交）
@@ -192,7 +176,7 @@ export interface FormProps<Value> {
 
 }
 
-export interface FormItemProps {
+export interface FormItemProps extends StandardProps {
 
   /**
    * When it is undefined, the tag does not be rendered or occupy space. If there is no content, but it needs to be occupied, you can use an empty string ''.
@@ -361,6 +345,9 @@ export interface FormFlowProps {
 
 }
 
+
+export interface FormSubmitProps extends ButtonProps {}
+
 declare class FormFlow extends React.Component<FormFlowProps, {}> {
   render(): JSX.Element;
 }
@@ -377,6 +364,10 @@ declare class FormItem<Value> extends React.Component<FormItemProps, {}> {
   render(): JSX.Element;
 }
 
+declare class FormSubmit extends React.Component<FormSubmitProps, {}> {
+  render(): JSX.Element;
+}
+
 
 declare class Form<Value> extends React.Component<FormProps<Value>, {}> {
   static Item: typeof FormItem;
@@ -386,6 +377,8 @@ declare class Form<Value> extends React.Component<FormProps<Value>, {}> {
   static FieldSet: typeof FormFieldSet;
 
   static Flow: typeof FormFlow;
+
+  static Submit: typeof FormSubmit;
 
   render(): JSX.Element;
 }
