@@ -36,6 +36,7 @@
 | secondStep | number | none | second step | 
 | onPickerChange | (value: any, quickSelect?: object \| void, type: string) => void | none | value onchange callback (every type of date) |
 | disabledTime | string \| ((time: string) => boolean) | none | Disable the specified Time. |
+| align | 'center' \| 'left' \| 'right' | 'center' | horizontal align of the value |
 
 ### DatePickerFormat
 

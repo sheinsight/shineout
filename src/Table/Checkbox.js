@@ -10,6 +10,7 @@ export default class extends PureComponent {
     data: PropTypes.object.isRequired,
     datum: PropTypes.object.isRequired,
     treeColumnsName: PropTypes.string,
+    checked: PropTypes.bool,
   }
 
   constructor(props) {
@@ -39,8 +40,8 @@ export default class extends PureComponent {
 
   render() {
     const { data, datum } = this.props
-    const checked = datum.check(data)
     const disabled = datum.disabled(data)
+    const checked = datum.check(data)
     const CheckItem = datum.limit === 1 ? Radio : Checkbox
     return <CheckItem {...this.props} checked={checked} disabled={disabled} onChange={this.handleChange} />
   }

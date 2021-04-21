@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { StandardProps, FormItemStandardProps } from '../@types/common'
+import { StandardProps } from '../@types/common'
+import { ButtonProps } from '../Button/index.d'
 import { RuleParamsType } from '../Rule'
-import Button from '../Button'
 
 type ReactNode = React.ReactNode;
 
@@ -13,6 +13,23 @@ export interface RuleParams<Value = {}> {
   [propName: string]: RuleParamsType<Value>
 }
 
+export interface FieldSetChildrenFunc<Value = any> {
+  list: any;
+  value: Value;
+  onChange: (value: Value) => void;
+  onRemove: () => void;
+  index: number;
+  onInsert: (value: Value) => void;
+  onAppend: (value: Value) => void;
+}
+
+
+export interface FieldChildrenFunc<Value = any> {
+  value: Value;
+  error: Error;
+  onChange: (value: Value) => void;
+}
+
 export interface FormProps<Value> extends StandardProps {
   /**
    * Form value
@@ -22,7 +39,6 @@ export interface FormProps<Value> extends StandardProps {
    * default: 
    */
   value?: Value,
-
   /**
    * The formdata helper class, which is created automatically inside a Form without setting it, usually does not need to be set.
    * 
@@ -51,7 +67,7 @@ export interface FormProps<Value> extends StandardProps {
   inline?: boolean;
 
   /**
-   * the default value is left.
+   * the default value is right.
    * 
    * 默认为右边对齐。
    * 
@@ -66,7 +82,7 @@ export interface FormProps<Value> extends StandardProps {
    * 
    * default: 'top'
    */
-  labelVerticalAlign?:'top' | 'middle' | 'bottom';
+  labelVerticalAlign?: 'top' | 'middle' | 'bottom';
 
   /**
    * The width of label. It is invalid when labelAlign is 'top'.
@@ -169,7 +185,7 @@ export interface FormProps<Value> extends StandardProps {
 
 }
 
-export interface FormItemProps<Value> extends FormItemStandardProps<Value> {
+export interface FormItemProps extends StandardProps {
 
   /**
    * When it is undefined, the tag does not be rendered or occupy space. If there is no content, but it needs to be occupied, you can use an empty string ''.
@@ -236,7 +252,7 @@ export interface FormFieldProps<Value> {
    * 
    * default: required
    */
-  children?: (opts: object) => ReactNode | ReactNode;
+  children?: (opts: FieldChildrenFunc<Value>) => ReactNode | ReactNode;
 
   /**
    * default value
@@ -308,7 +324,7 @@ export interface FormFieldSetProps<Value> {
    * 
    * default: required
    */
-  children?: (opts: object) => ReactNode | ReactNode;
+  children?: (opts: FieldSetChildrenFunc<Value>) => ReactNode | ReactNode;
 
   /**
    * Default value
@@ -326,7 +342,7 @@ export interface FormFieldSetProps<Value> {
    * 
    * default: 
    */
-  empty?: (onInsert: any) => ReactNode;
+  empty?: (onInsert: Value) => ReactNode;
 
   /**
    * The name that accesses data from from
@@ -370,6 +386,10 @@ export interface FormFlowProps {
 
 }
 
+export interface FormSubmitProps extends ButtonProps { }
+
+export interface FormResetProps extends ButtonProps { }
+
 declare class FormFlow extends React.Component<FormFlowProps, {}> {
   render(): JSX.Element;
 }
@@ -382,7 +402,19 @@ declare class FormField<Value> extends React.Component<FormFieldProps<Value>, {}
   render(): JSX.Element;
 }
 
-declare class FormItem<Value> extends React.Component<FormItemProps<Value>, {}> {
+declare class FormItem extends React.Component<FormItemProps, {}> {
+  render(): JSX.Element;
+}
+
+declare class FormButton extends React.Component<ButtonProps, {}> {
+  render(): JSX.Element;
+}
+
+declare class FormSubmit extends React.Component<FormSubmitProps, {}> {
+  render(): JSX.Element;
+}
+
+declare class FormReset extends React.Component<FormResetProps, {}> {
   render(): JSX.Element;
 }
 
@@ -396,11 +428,11 @@ declare class Form<Value> extends React.Component<FormProps<Value>, {}> {
 
   static Flow: typeof FormFlow;
 
-  static Button: typeof Button;
+  static Button: typeof FormButton;
 
-  static Submit: typeof Button;
+  static Submit: typeof FormSubmit;
 
-  static Reset: typeof Button;
+  static Reset: typeof FormReset;
 
   render(): JSX.Element;
 }

@@ -49,6 +49,7 @@
 | expandKeys | any[] | none | controlled expand rows |
 | sticky | boolean \| object | none | sticky header, When it is true, the distance from the top is 0. When it is an object, the attribute value reference [Sticky component] (/components/Sticky)  |
 | cellSelectable | boolean | false | whether to enable ctrl/cmd + click check |
+| height | number \| string | none | height of table, same with style.height |
 
 ### TableColumn
 
