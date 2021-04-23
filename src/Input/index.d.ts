@@ -125,7 +125,16 @@ Pick<CommonProps, 'clearable'> {
    * 
    * default: -
    */
-  rules?: RuleParamsType<Value, InputProps>
+  rules?: RuleParamsType<Value, InputProps>;
+
+  /**
+   * get input element
+   * 
+   * 获取 input dom 元素
+   * 
+   * default: -
+   */
+  forwardedRef?: (el: HTMLElement) => void;
 }
 
 export interface InputNumberProps <Value> extends InputProps<Value> {
