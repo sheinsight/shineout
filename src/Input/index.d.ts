@@ -186,14 +186,28 @@ export interface InputNumberProps <Value> extends InputProps<Value> {
 
 }
 
+export interface InputPasswordProps<Value = any> extends InputProps<Value> {
+  /**
+   * password symbol
+   * 
+   * 密码符号
+   * 
+   * default: '.'
+   */
+  point?: 'string';
+}
+
 declare class InputGroup<Value = any> extends React.Component<InputProps<Value>, {}> {}
 
 declare class InputNumber<Value = number> extends React.Component<InputNumberProps<Value>, {}> {}
 
+declare class InputPassword <Value = string> extends React.Component<InputPasswordProps<Value>, {}> {}
 declare class Input<Value = any> extends React.Component<InputProps<Value>, {}> {
     static Number: typeof InputNumber;
 
     static Group: typeof InputGroup;
+
+    static Password: typeof InputPassword;
 }
 
 export default Input
