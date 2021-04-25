@@ -60,4 +60,6 @@ export default {
   search: 'search',
   urlInvalidMsg: 'Picture format is incorrect, please upload again',
   invalidAccept: 'Invalid file format',
+
+  noImg: 'Image not found',
 }

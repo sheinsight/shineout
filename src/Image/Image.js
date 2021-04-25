@@ -124,10 +124,10 @@ class Image extends PureComponent {
     return fit === 'fill' || fit === 'fit' ? (
       <div className={imageClass('inner')} title={title} style={{ backgroundImage: `url("${src}")` }} />
     ) : (
-      <div className={imageClass('inner')} title={title}>
-        <img alt="" src={src} />
-      </div>
-    )
+        <div className={imageClass('inner')} title={title}>
+          <img alt="" src={src} />
+        </div>
+      )
   }
 
   renderPlaceholder() {
@@ -159,7 +159,7 @@ class Image extends PureComponent {
       case ERROR:
         return (
           <div className={imageClass('inner', 'mask')}>
-            <div>{error || title || 'not found'}</div>
+            <div>{error || title || getLocale('noImg')}</div>
           </div>
         )
       default:
