@@ -48,5 +48,5 @@ export default {
   urlInvalidMsg: '图片格式不正确，请重新上传',
   invalidAccept: '文件格式不正确',
 
-  noImg: '无图片',
+  notFound: '未找到',
 }
