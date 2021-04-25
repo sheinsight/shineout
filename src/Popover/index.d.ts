@@ -1,4 +1,6 @@
-import * as React from 'react';
+import * as React from 'react'
+import { RegularAttributes } from '../@types/common'
+
 type ReactNode = React.ReactNode;
 
 
@@ -180,6 +182,14 @@ export interface PopoverConfirmProps {
    */
   type?: string;
 
+  /**
+   * ok button's type, same with button type
+   * 
+   * 确认按钮的类型，与按钮类型相同
+   * 
+   * default: primary
+   */
+  okType?: RegularAttributes.Type;
 }
 
-export default Popover;
+export default Popover
