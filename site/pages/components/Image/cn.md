@@ -22,6 +22,8 @@
 | container | string | - | 对特定元素进行懒加载判断的选择器, 如: '#id', '.class' | 1.4.2  |
 | error | ReactNode | 无 | 图片载入错误的文案 |  |
 | autoSSL | boolean | false | 是否根据页面自动转换协议 | 1.6.1 |
+| fit | 'fill' \| 'fit' \| 'stretch' \| 'center' | - | 适应容器的方式, 填充、居中、原图、拉伸 | |
+| shape | 'rounded' \| 'circle' \| 'thumbnail' | 'rounded' | 图片形状 | |
  
 ### Image.Group
 

@@ -99,6 +99,19 @@ export interface ImageProps {
    */
   autoSSL?: boolean;
 
+  /**
+   * fit the container
+   * 适应容器的方式
+   * default: -
+   */
+  fit?: 'fill' | 'fit' | 'stretch' | 'center';
+
+  /**
+   * shape of image
+   * 图片样式
+   * default: 'rounded'
+   */
+  shape?: 'rounded' | 'circle' | 'thumbnail';
 }
 
 export interface ImageGroupProps {
