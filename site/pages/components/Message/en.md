@@ -25,6 +25,8 @@ Message.error(content, \[duration], \[options])
 
 Message.close() // Close all messages
 
+Message.setOptions() // set global options, priority is lower than the actual call option
+
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | content | ReactNode | required | The message content |
