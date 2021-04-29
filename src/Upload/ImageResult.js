@@ -2,15 +2,20 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import icons from '../icons'
 import Image from '../Image'
+import RemoveConfirm from './RemoveConfirm'
 import { uploadClass } from '../styles'
 
 class ImageResult extends PureComponent {
   constructor(props) {
     super(props)
+    this.state = {
+      confirm: false,
+    }
     this.handleRemove = this.handleRemove.bind(this)
     this.handleRecover = this.handleRecover.bind(this)
     this.bindImage = this.bindImage.bind(this)
     this.handlePreview = this.handlePreview.bind(this)
+    this.handleConfirmChange = this.handleConfirmChange.bind(this)
   }
 
   get showRemove() {
@@ -31,6 +36,10 @@ class ImageResult extends PureComponent {
     onRecover(index, value)
   }
 
+  handleConfirmChange(confirm) {
+    this.setState({ confirm })
+  }
+
   handlePreview() {
     const { onPreview, renderResult, value, index, values } = this.props
     if (onPreview) {
@@ -43,16 +52,26 @@ class ImageResult extends PureComponent {
   }
 
   renderOptions() {
+    const { removeConfirm } = this.props
+    const { confirm } = this.state
     return (
-      <div className={uploadClass('image-options')}>
+      <div className={uploadClass('image-options', confirm && 'image-active')}>
         {
           <a className={uploadClass('options-item')} onClick={this.handlePreview}>
             {icons.Preview}
           </a>
         }
         {this.props.onRemove && (
-          <a className={uploadClass('options-item')} onClick={this.handleRemove}>
+          <a
+            className={uploadClass('options-item', 'options-remove')}
+            onClick={removeConfirm ? undefined : this.handleRemove}
+          >
             {icons.Delete}
+            <RemoveConfirm
+              onVisibleChange={this.handleConfirmChange}
+              onRemove={this.handleRemove}
+              confirm={removeConfirm}
+            />
           </a>
         )}
       </div>
@@ -105,6 +124,7 @@ ImageResult.propTypes = {
   renderContent: PropTypes.func,
   values: PropTypes.array,
   onPreview: PropTypes.func,
+  removeConfirm: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 }
 
 ImageResult.defaultProps = {

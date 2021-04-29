@@ -51,6 +51,7 @@
   &-view-file {
     position: relative;
     padding: 4px 10px;
+    transition: background .2s;
 
     .@{upload-prefix}-text {
       margin-right: 20px;
@@ -106,6 +107,13 @@
     }
   }
 
+  &-view-value&-view-active {
+    background: @dropdown-link-hover-bg;
+    .@{upload-prefix}-delete svg {
+      fill: @colors-danger;
+    }
+  }
+
   &-view-file {
     .@{upload-prefix}-delete svg {
       fill: @colors-danger;
@@ -156,6 +164,13 @@
         fill: @gray-300;
         transition: all .2s;
         &:hover {
+          fill: #fff;
+        }
+      }
+      &.@{upload-prefix}-image-active {
+        opacity: 1;
+        visibility: visible;
+        .@{upload-prefix}-options-remove {
           fill: #fff;
         }
       }
