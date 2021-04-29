@@ -27,6 +27,7 @@
 | getPopupContainer | () => HTMLElement | none | Custom Popover container, override the default behavior which is rendering under the body, () => DOMElement |
 | scrollDismiss |  () => HTMLElement \| boolean| false | scroll to dismiss, return el to order scroller |
 | showArrow | boolean | true | show arrow |
+| okType | string | *primary* |  ok button's type, same with Button type |
 
 ### Popover.Confirm
 

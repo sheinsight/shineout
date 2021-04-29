@@ -38,7 +38,7 @@ export default class Confirm extends Component {
   }
 
   render() {
-    const { children, type, text, onOk, onCancel, ...other } = this.props
+    const { children, type, text, onOk, okType, onCancel, ...other } = this.props
     const { ok, cancel } = this.state
     return (
       <Popover {...other} trigger="click">
@@ -54,7 +54,7 @@ export default class Confirm extends Component {
               <Button loading={cancel} size="small" onClick={() => this.handleCancel(close)}>
                 {getLocale('cancel', text)}
               </Button>
-              <Button loading={ok} size="small" type="primary" onClick={() => this.handleOk(close)}>
+              <Button loading={ok} size="small" type={okType} onClick={() => this.handleOk(close)}>
                 {getLocale('ok', text)}
               </Button>
             </div>
@@ -71,8 +71,10 @@ Confirm.propTypes = {
   text: PropTypes.object,
   onOk: PropTypes.func,
   onCancel: PropTypes.func,
+  okType: PropTypes.string,
 }
 
 Confirm.defaultProps = {
   type: 'warning',
+  okType: 'primary',
 }
