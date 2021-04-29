@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { StandardProps } from '../@types/common'
-import { ButtonProps } from '../Button/index.d'
+import { ButtonProps } from '../Button'
 import { RuleParamsType } from '../Rule'
 
 type ReactNode = React.ReactNode;
@@ -39,6 +39,7 @@ export interface FormProps<Value> extends StandardProps {
    * default: 
    */
   value?: Value,
+
   /**
    * The formdata helper class, which is created automatically inside a Form without setting it, usually does not need to be set.
    * 
