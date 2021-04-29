@@ -7,6 +7,7 @@ import format from 'date-fns/format'
 import isSameDay from 'date-fns/isSameDay'
 import isSameMonth from 'date-fns/isSameMonth'
 import isSameWeek from 'date-fns/isSameWeek'
+import isEqual from 'date-fns/isEqual'
 import isValid from 'date-fns/isValid'
 import parse from 'date-fns/parse'
 import startOfMonth from 'date-fns/startOfMonth'
@@ -231,6 +232,7 @@ export default {
   isSameDay,
   isSameMonth,
   isSameWeek,
+  isEqual,
   isValid,
   newDate,
   setTime,
