@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { StandardProps, RegularAttributes } from '../@types/common'
 import { StandardProps }  from '../@types/common'
+
 type ReactNode = React.ReactNode
 
 export interface PopoverProps extends StandardProps {
