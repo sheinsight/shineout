@@ -330,7 +330,7 @@ export interface UploadImageProps<T> extends UploadProps<T>{
    *
    * default: a => a
    */
-  renderResult?: (data: any) => ReactNode;
+  renderResult?: (data: any) => string;
 
   /**
    * remove update failed callback
