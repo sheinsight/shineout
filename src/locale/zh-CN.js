@@ -47,4 +47,6 @@ export default {
   search: '搜索',
   urlInvalidMsg: '图片格式不正确，请重新上传',
   invalidAccept: '文件格式不正确',
+
+  notFound: '未找到',
 }

@@ -40,14 +40,14 @@
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | 无 | 上传失败文件删除之后的回调 |
 | forceAccept | string | 无 | 在使用时关闭了 accept 提供的文件类型过滤后，强制对文件类型进行校验（值同accept） |
 | showUploadList | boolean | true | 是否展示上传列表 |
-
+| removeConfirm | string \| object | none | 删除前是否进行确认提示 |
 
 ### Upload.Image
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | children | ReactNode | 无 | 上传按钮内容，可为空 |
-| renderResult | (data: any) => ReactNode | a => a | 返回图片 url 链接地址 |
+| renderResult | (data: any) => string | a => a | 返回图片 url 链接地址 |
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | none | 上传失败图片删除之后的回调 |
 | leftHandler | boolean | false | 添加图片视图是否在左侧展示 |
 | onPreview | (url, value, index, values) => void | none | 预览图片操作，默认为画廊展示 |

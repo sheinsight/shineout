@@ -1,6 +1,6 @@
 {
   "name": "shineout",
-  "version": "1.6.5-rc.3",
+  "version": "1.6.5-rc.4",
   "description": "Shein 前端组件库",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -55,7 +55,6 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "create-react-context": "^0.2.3",
     "date-fns": "2.0.0-alpha.10",
     "deep-eql": "^4.0.0",
     "immer": "^4.0.0"

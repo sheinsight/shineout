@@ -65,12 +65,13 @@ class Panel extends Component {
 
   componentWillUnmount() {
     super.componentWillUnmount()
-
     this.parentElement.removeEventListener('mouseenter', this.handleShow)
     this.parentElement.removeEventListener('mouseleave', this.handleHide)
     this.parentElement.removeEventListener('click', this.handleShow)
 
     document.removeEventListener('click', this.clickAway)
+    document.removeEventListener('mousedown', this.clickAway)
+
     if (this.container === document.body) {
       this.container.removeChild(this.element)
     } else {
@@ -123,15 +124,6 @@ class Panel extends Component {
         position += '-left'
       }
     }
-    // if (rect.top + rect.height / 2 > windowHeight / 2) {
-    //   position = 'top'
-    // } else {
-    //   position = 'bottom'
-    // }
-
-    // if (centerPoint > windowWidth * 0.6) position += '-right'
-    // else if (centerPoint < windowWidth * 0.3) position += '-left'
-
     return getCurrentPosition(position)
   }
 
