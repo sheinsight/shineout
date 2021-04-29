@@ -159,7 +159,7 @@ class Image extends PureComponent {
       case ERROR:
         return (
           <div className={imageClass('inner', 'mask')}>
-            <div>{error || title || 'no found'}</div>
+            <div>{error || title || getLocale('notFound')}</div>
           </div>
         )
       default:
