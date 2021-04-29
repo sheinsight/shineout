@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {StandardProps}  from '../@types/common'
+import { StandardProps }  from '../@types/common'
 
 type ReactNode = React.ReactNode
 
@@ -63,11 +63,11 @@ export interface PopoverProps extends StandardProps {
   /**
    * Pop-up content.
    *
-   * 弹出显示内容
+   * 弹出显示内容，如果内容为函数，则参数是主动关闭操作
    *
    * default: required
    */
-  children?: ReactNode;
+  children?: ReactNode | ((close: (() => void)) => ReactNode);
 
   /**
    * Callback event when close.
