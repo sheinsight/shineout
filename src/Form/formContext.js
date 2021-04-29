@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import createReactContext from 'create-react-context'
+import createReactContext from '../context'
 import { curry } from '../utils/func'
 import { deepGet } from '../utils/objects'
 import { isObject, isArray } from '../utils/is'

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import createReactContext from 'create-react-context'
+import createReactContext from '../context'
 import { PureComponent } from '../component'
 import { ERROR_TYPE, FORCE_PASS, IGNORE_VALIDATE } from '../Datum/types'
 import validate from '../utils/validate'
