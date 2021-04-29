@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { StandardProps, FormItemStandardProps } from "../@types/common"
+import { PopoverConfirmProps } from '../Popover'
 
 type ReactNode = React.ReactNode;
 
@@ -301,6 +302,14 @@ export interface UploadProps<T> extends StandardProps, OmitFormProps<T[]>{
    */
   showUploadList?: boolean;
 
+  /**
+   * Confirmation before deletion
+   * 
+   * 是否在删除文件和图片前弹出确认
+   * 
+   * default: -
+   */
+  removeConfirm?: string | PopoverConfirmProps;
 }
 
 export interface UploadImageProps<T> extends UploadProps<T>{

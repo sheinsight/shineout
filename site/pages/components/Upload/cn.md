@@ -40,7 +40,7 @@
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | 无 | 上传失败文件删除之后的回调 |
 | forceAccept | string | 无 | 在使用时关闭了 accept 提供的文件类型过滤后，强制对文件类型进行校验（值同accept） |
 | showUploadList | boolean | true | 是否展示上传列表 |
-
+| removeConfirm | string \| object | none | 删除前是否进行确认提示 |
 
 ### Upload.Image
 

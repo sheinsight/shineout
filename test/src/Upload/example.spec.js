@@ -1,3 +1,5 @@
 import exampleTest from '../../example'
 
-exampleTest('Upload')
+exampleTest('Upload', {
+  ignore: 'example-03-confirm.js',
+})

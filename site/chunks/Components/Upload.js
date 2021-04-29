@@ -59,6 +59,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Upload/example-03-button.js'),
   },
   {
+    name: '03-confirm',
+    title: locate(
+      '删除确认 \n 设置 removeConfirm 属性来开启删除前确认',
+      'Remove Confirm \n Set the removeConfirm property to enable confirmation before deleting'
+    ),
+    component: require('doc/pages/components/Upload/example-03-confirm.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Upload/example-03-confirm.js'),
+  },
+  {
     name: '04-validator',
     title: locate(
       '校验 \n 通过 validator.imageSize 校验图片长宽，本例为 200px * 100px',
