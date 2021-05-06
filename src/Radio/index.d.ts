@@ -35,7 +35,7 @@ export interface RadioProps<Item = any> extends StandardProps {
 }
 
 export interface RadioGroupProps<Value, Item> extends StandardProps, ListItemStandardProps<Item, Value>, FormItemStandardProps<Value>,
-  Pick<StructDataStandardProps<Item>,'data','renderItem'> {
+  Pick<StructDataStandardProps<Item>,'data' | 'renderItem'> {
 }
 
 declare class RadioGroup<Value, Data> extends React.Component<RadioGroupProps<Value, Data>, {}> {

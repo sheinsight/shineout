@@ -3,6 +3,7 @@ import {FormItemStandardProps} from '../@types/common'
 
 export interface SwitchProps extends
   Pick<FormItemStandardProps<boolean>, 'defaultValue' | 'value' | 'onChange' | 'name' >{
+
   /**
    * checked status，will in control when pass
    *
@@ -10,7 +11,8 @@ export interface SwitchProps extends
    *
    * default: none
    */
-  checked: boolean;
+  checked?: boolean;
+
   /**
    * content with checked and unchecked
    *
@@ -18,7 +20,8 @@ export interface SwitchProps extends
    *
    * default: none
    */
-  content: React.ReactNodeArray;
+  content?: React.ReactNodeArray;
+
   /**
    * disable switch
    *
@@ -26,7 +29,8 @@ export interface SwitchProps extends
    *
    * default: false
    */
-  disabled: boolean;
+  disabled?: boolean;
+
   /**
    * size of switch
    *
@@ -34,7 +38,8 @@ export interface SwitchProps extends
    *
    * default: 'default'
    */
-  size: 'default' | 'small' | 'large';
+  size?: 'default' | 'small' | 'large';
+
 }
 
 declare class Switch extends React.Component<SwitchProps, any>{}
