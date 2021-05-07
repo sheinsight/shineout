@@ -394,8 +394,9 @@ function getHSLA(color) {
  * @param color format rgb | rgba
  * @param value -100 ~ 100
  */
-export function darken(color, value = 0) {
+export function darken(color, value) {
   if (!color) return ''
+  if (!value) value = 0
   value = parseInt(value, 10)
   color = toRGB(color)
   const hsl = rgbTohsl(color)
