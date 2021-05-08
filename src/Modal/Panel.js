@@ -33,6 +33,7 @@ export default class Panel extends PureComponent {
   constructor(props) {
     super(props)
     this.handleClose = this.handleClose.bind(this)
+    this.saveTarget = this.saveTarget.bind(this)
   }
 
   componentDidMount() {
@@ -113,11 +114,21 @@ export default class Panel extends PureComponent {
     event.preventDefault()
   }
 
-  handleClose(e) {
+  saveTarget(e) {
+    // 通过保存mousedown 和 mouseup 的对象 来避免拖拽点击事件
+    if (e.type === 'mousedown') {
+      this.mouseDownTarget = e.target
+    }
+    if (e.type === 'mouseup') {
+      this.mouseUpTarget = e.target
+    }
+  }
+
+  handleClose() {
     const { maskCloseAble, onClose } = this.props
-    const { target } = e
     if (!maskCloseAble) return
-    if (target.matches(`.${modalClass('mask')}`) && onClose) onClose()
+    if (!this.mouseDownTarget || !this.mouseDownTarget.matches(`.${modalClass('mask')}`)) return
+    if (this.mouseUpTarget && this.mouseUpTarget.matches(`.${modalClass('mask')}`) && onClose) onClose()
   }
 
   renderIcon() {
@@ -198,7 +209,14 @@ export default class Panel extends PureComponent {
     return (
       <ZProvider value>
         <Provider value={{ element: undefined }}>
-          <div {...events} style={maskStyle} className={modalClass('mask')} onClick={this.handleClose}>
+          <div
+            {...events}
+            style={maskStyle}
+            className={modalClass('mask')}
+            onMouseDown={this.saveTarget}
+            onMouseUp={this.saveTarget}
+            onClick={this.handleClose}
+          >
             <Card
               forwardedRef={this.savePanel}
               moveable={moveable}
