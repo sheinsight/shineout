@@ -41,12 +41,25 @@ export function destroy(id, unmount) {
   container.removeChild(div)
 }
 
+function updateMask({ maskOpacity }) {
+  const ids = Object.keys(containers).filter(k => containers[k].visible)
+  if (ids.length) {
+    const outer = containers[ids[0]]
+    const opacityDefault = maskOpacity === undefined ? 0.25 : maskOpacity
+    if (outer.opacity !== opacityDefault) {
+      outer.opacity = opacityDefault
+      outer.div.style.backgroundColor = `rgba(0, 0, 0, ${opacityDefault})`
+    }
+  }
+}
+
 export function close(props, callback) {
-  const { id } = props
+  const { id, maskOpacity } = props
   const modal = containers[props.id]
 
   if (!modal || modal.visible === false) return
   modal.visible = false
+  updateMask({ maskOpacity })
 
   const { div } = modal
   div.classList.remove(modalClass('show'), modalClass('start'))
@@ -102,7 +115,7 @@ export function open(props, isPortal) {
   const opacityDefault = props.maskOpacity === undefined ? 0.25 : props.maskOpacity
   const maskOpacity = isMask(props.id) ? opacityDefault : 0.01
   div.style.background = props.maskBackground || `rgba(0,0,0,${maskOpacity})`
-
+  containers[props.id].opacity = maskOpacity
   containers[props.id].visible = true
 
   const panel = (
