@@ -12,7 +12,7 @@ import { BAR_WIDTH } from '../Scroll/Scroll'
 import Colgroup from './Colgroup'
 import Thead from './Thead'
 import Tbody from './Tbody'
-import { isNumber } from '../utils/is'
+import { isEmpty, isNumber } from '../utils/is'
 import { Provider as AbsoluteProvider } from './context'
 import { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
 import Sticky from '../Sticky'
@@ -45,6 +45,7 @@ class SeperateTable extends PureComponent {
     this.timer = null
     this.commitTimer = null
     this.rowHeightMap = new Map()
+    this.contentHeight = null
 
     if (props.tableRef) props.tableRef(this)
   }
@@ -83,9 +84,13 @@ class SeperateTable extends PureComponent {
     return index
   }
 
-  getContentHeight() {
+  // will cache calc contentHeight
+  getContentHeight(flag) {
     if (!this.props.data) return 0
-    return this.getSumHeight(0, this.props.data.length)
+    if (flag && !isEmpty(this.contentHeight)) return this.contentHeight
+    const contentHeight = this.getSumHeight(0, this.props.data.length)
+    this.contentHeight = contentHeight
+    return contentHeight
   }
 
   getContentWidth() {
@@ -130,11 +135,14 @@ class SeperateTable extends PureComponent {
     const currentIndex = targetIndex || this.state.currentIndex
 
     let calcHeight = 0
+    let diff = 0
     this.rowHeightMap.forEach((value, index) => {
+      const cacheDiff = value - (this.cachedRowHeight[index] || rowHeight)
       if (currentIndex > index) {
         // calc row height diff
-        calcHeight += value - (this.cachedRowHeight[index] || rowHeight)
+        calcHeight += cacheDiff
       }
+      diff += cacheDiff
       // update row height in cache
       this.cachedRowHeight[index] = value
     })
@@ -142,8 +150,8 @@ class SeperateTable extends PureComponent {
     this.rowHeightMap.clear()
     this.lastScrollTop += calcHeight
 
-    // TODO: 可以使用 diff height，而不是 [0, n]
-    const contentHeight = this.getContentHeight()
+    const contentHeight = this.getContentHeight(true) + diff
+    this.contentHeight = contentHeight
 
     if (this.lastScrollTop >= contentHeight) {
       this.lastScrollTop = contentHeight
@@ -172,12 +180,10 @@ class SeperateTable extends PureComponent {
     clearTimeout(this.commitTimer)
     this.commitTimer = null
 
-    this.timer = setTimeout(() => {
-      clearTimeout(this.timer)
-      this.timer = null
+    window.requestAnimationFrame(() => {
       if (!this.tbody || this.rowHeightMap.size === 0) return
       this.commitRowHeight()
-    }, 16)
+    })
   }
 
   commitRowHeight() {
@@ -402,7 +408,7 @@ class SeperateTable extends PureComponent {
     this.lastScrollArgs = args
     const { data, rowHeight, rowsInView } = this.props
     const contentWidth = this.getContentWidth()
-    const contentHeight = this.getContentHeight()
+    const contentHeight = this.getContentHeight(true)
     let left = x * (contentWidth - v)
     let scrollTop = h > contentHeight ? 0 : y
     let right = max - left
