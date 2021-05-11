@@ -7,7 +7,31 @@
 import React from 'react'
 import { Form, Input, Checkbox, Rule } from 'shineout'
 
-const rules = Rule()
+const rules = Rule(
+  // validate function package
+  {
+    password: {
+      func: (value, formData, cb, props) =>
+        new Promise((resolve, reject) => {
+          if (!/\d+/.test(value) || !/[a-z]+/i.test(value)) {
+            reject(new Error(props.message.replace('{title}', props.title)))
+          } else {
+            resolve(true)
+          }
+        }),
+    },
+    isExist: (value, _, callback) => {
+      if (value.indexOf('so') >= 0) callback(new Error(`"${value}" is existed.`))
+      else callback(true)
+    },
+  },
+  // language package
+  {
+    password: {
+      message: '{title} at least has one numeral and one letter',
+    },
+  }
+)
 
 export default function() {
   return (
