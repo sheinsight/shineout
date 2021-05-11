@@ -197,14 +197,12 @@ class Panel extends Component {
   }
 
   handleHide(e) {
-    const { parentClose } = this.props
     if (this.childStatus) return
     if (e && getParent(e.relatedTarget, `.${popoverClass('inner')}`)) return
     if (this.delayTimeout) clearTimeout(this.delayTimeout)
     document.removeEventListener('mousedown', this.clickAway)
     this.bindScrollDismiss(false)
     this.setShow(false)
-    if (parentClose) parentClose()
   }
 
   render() {
