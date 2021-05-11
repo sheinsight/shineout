@@ -253,7 +253,7 @@ export interface FormFieldProps<Value> {
    * 
    * default: required
    */
-  children?: (opts: FieldChildrenFunc<Value>) => ReactNode | ReactNode;
+  children?: ((opts: FieldChildrenFunc<Value>) => ReactNode) | ReactNode;
 
   /**
    * default value
