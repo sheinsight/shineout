@@ -2,7 +2,7 @@ import React from 'react'
 import {FormItemStandardProps} from '../@types/common'
 
 export declare interface RateProps extends
-  Pick<FormItemStandardProps<number>, 'value', 'defaultValue', 'onChange'> {
+  Pick<FormItemStandardProps<number>, 'value' | 'defaultValue' | 'onChange'> {
   /**
    * Whether to allow semi selection
    *
