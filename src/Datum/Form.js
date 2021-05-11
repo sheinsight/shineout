@@ -1,7 +1,7 @@
 import deepEqual from 'deep-eql'
 import { unflatten, insertValue, spliceValue, getSthByName } from '../utils/flat'
 import { fastClone, deepClone } from '../utils/clone'
-import { deepGet, deepSet, deepRemove, deepMerge, objectValues, deepHas } from '../utils/objects'
+import { deepGet, deepSet, deepRemove, objectValues, deepHas } from '../utils/objects'
 import { isObject, isArray } from '../utils/is'
 import { promiseAll, FormError } from '../utils/errors'
 import {
@@ -207,7 +207,7 @@ export default class {
 
   setValue(values = {}, type, forceSet) {
     if (!forceSet && deepEqual(values, this.$values)) return
-    this.$values = deepMerge({}, values, { clone: true })
+    this.$values = deepClone(values)
 
     // wait render end.
     setTimeout(() => {
