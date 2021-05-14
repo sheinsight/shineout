@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
-import { getGrid } from '../Grid/utils'
 import Checkbox from '../Checkbox/Checkbox'
 import Radio from '../Radio/Radio'
 import { selectClass } from '../styles'
@@ -26,7 +24,7 @@ class BoxOption extends PureComponent {
   }
 
   render() {
-    const { data, index, isActive, renderItem, columns, multiple } = this.props
+    const { data, index, isActive, renderItem, columns, multiple, disabled } = this.props
 
     const className = selectClass('option')
     const width = `${(1 / columns) * 100}%`
@@ -36,7 +34,7 @@ class BoxOption extends PureComponent {
     const title = typeof result === 'string' ? result : undefined
 
     return (
-      <Input style={{ width }} checked={isActive} className={className} onChange={this.handleClick}>
+      <Input disabled={disabled} style={{ width }} checked={isActive} className={className} onChange={this.handleClick}>
         <span title={title}>{result}</span>
       </Input>
     )
