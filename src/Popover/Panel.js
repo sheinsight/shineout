@@ -9,7 +9,6 @@ import { getParent } from '../utils/dom/element'
 import { popoverClass } from '../styles'
 import { docSize } from '../utils/dom/document'
 import isDOMElement from '../utils/dom/isDOMElement'
-import { consumer, Provider } from './context'
 import { Provider as AbsoluteProvider } from '../Table/context'
 import { getRTLPosition } from '../utils/strings'
 import { isRTL } from '../config'
@@ -35,7 +34,6 @@ class Panel extends Component {
     this.handleShow = this.handleShow.bind(this)
     this.handleHide = this.handleHide.bind(this)
     this.setShow = this.setShow.bind(this)
-    this.childStateChange = this.childStateChange.bind(this)
 
     this.element = document.createElement('div')
   }
@@ -80,9 +78,8 @@ class Panel extends Component {
   }
 
   setShow(show) {
-    const { onVisibleChange, mouseEnterDelay, mouseLeaveDelay, trigger, onChildStateChange } = this.props
+    const { onVisibleChange, mouseEnterDelay, mouseLeaveDelay, trigger } = this.props
     const delay = show ? mouseEnterDelay : mouseLeaveDelay
-    if (onChildStateChange) onChildStateChange(show)
     this.delayTimeout = setTimeout(
       () => {
         if (onVisibleChange) onVisibleChange(show)
@@ -175,10 +172,6 @@ class Panel extends Component {
     this.handleHide(0)
   }
 
-  childStateChange(state) {
-    this.childStatus = state
-  }
-
   bindScrollDismiss(show) {
     const { scrollDismiss } = this.props
     if (!scrollDismiss) return
@@ -196,9 +189,7 @@ class Panel extends Component {
     this.setShow(true)
   }
 
-  handleHide(e) {
-    if (this.childStatus) return
-    if (e && getParent(e.relatedTarget, `.${popoverClass('inner')}`)) return
+  handleHide() {
     if (this.delayTimeout) clearTimeout(this.delayTimeout)
     document.removeEventListener('mousedown', this.clickAway)
     this.bindScrollDismiss(false)
@@ -206,7 +197,7 @@ class Panel extends Component {
   }
 
   render() {
-    const { background, border, children, type, visible, showArrow, parentClose } = this.props
+    const { background, border, children, type, visible, showArrow } = this.props
     const show = typeof visible === 'boolean' ? visible : this.state.show
     if ((!this.isRendered && !show) || !this.parentElement || !children) {
       return <noscript ref={this.placeholderRef} />
@@ -223,20 +214,14 @@ class Panel extends Component {
     style.display = show ? 'block' : 'none'
     if (background) style.background = background
     if (border) style.borderColor = border
-    this.element.className = classnames(popoverClass('_', position, type, parentClose && 'inner'), this.props.className)
+    this.element.className = classnames(popoverClass('_', position, type), this.props.className)
     let childrened = isFunc(children) ? children(this.handleHide) : children
     if (typeof childrened === 'string') childrened = <span className={popoverClass('text')}>{childrened}</span>
-    const provider = {
-      parentClose: this.handleHide,
-      onChildStateChange: this.childStateChange,
-    }
     return ReactDOM.createPortal(
       [
         showArrow && <div key="arrow" className={popoverClass('arrow')} style={colorStyle} />,
         <div key="content" onClick={emptyEvent} className={popoverClass('content')} style={innerStyle}>
-          <AbsoluteProvider value={false}>
-            <Provider value={provider}>{childrened}</Provider>
-          </AbsoluteProvider>
+          <AbsoluteProvider value={false}>{childrened}</AbsoluteProvider>
         </div>,
       ],
       this.element
@@ -264,8 +249,6 @@ Panel.propTypes = {
   getPopupContainer: PropTypes.func,
   scrollDismiss: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   showArrow: PropTypes.bool,
-  parentClose: PropTypes.func,
-  onChildStateChange: PropTypes.func,
 }
 
 Panel.defaultProps = {
@@ -277,4 +260,4 @@ Panel.defaultProps = {
   showArrow: true,
 }
 
-export default consumer(Panel)
+export default Panel
