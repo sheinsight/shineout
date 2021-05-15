@@ -35,3 +35,4 @@
 | onCollapse | (collapse: boolean) => void | none | option collapse callback |
 | rules | any[] | null | Validation rules |
 | unmatch | boolean | none | render unmatch value |
+| underline | boolean | false | only display border bottom  |

@@ -2,6 +2,14 @@ import * as React from 'react'
 import { StandardProps, FormItemStandardProps, StructDataStandardProps, keyType, RegularAttributes } from '../@types/common'
 
 export interface CascaderProps<Item, Value> extends StandardProps, FormItemStandardProps<Value>, ListItemStandardProps<Item>, StructDataStandardProps<Item>  {
+  /**
+   * show border bottom
+   * 
+   * 仅仅展示下边框
+   * 
+   * default: false
+   */
+   underline?: boolean;
 
   /**
    * When it is true, the pop-up layer of option append into document.body. 

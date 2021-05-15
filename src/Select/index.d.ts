@@ -10,6 +10,16 @@ StructDataStandardProps<Item>,
 ListItemStandardProps<Item, Value>,
 Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
   {
+
+  /**
+   * show border bottom
+   * 
+   * 仅仅展示下边框
+   * 
+   * default: false
+   */
+  underline?: boolean;
+  
   /**
    * width
    *

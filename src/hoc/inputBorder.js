@@ -25,6 +25,7 @@ export default curry(
         width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         popover: PropTypes.oneOf(['top-left', 'top', 'top-right', 'bottom-left', 'bottom', 'bottom-right']),
         popoverProps: PropTypes.object,
+        underline: PropTypes.bool,
       }
 
       static defaultProps = {
@@ -107,7 +108,19 @@ export default curry(
       }
 
       render() {
-        const { className, border, size, tip, popover, width, style, error, popoverProps, ...other } = this.props
+        const {
+          className,
+          border,
+          size,
+          tip,
+          popover,
+          width,
+          style,
+          error,
+          popoverProps,
+          underline,
+          ...other
+        } = this.props
         const { focus } = this.state
 
         const rtl = isRTL()
@@ -129,7 +142,8 @@ export default curry(
             !border && 'no-border',
             options.overflow && `overflow-${options.overflow}`,
             error && 'invalid',
-            popover && error && 'focus'
+            popover && error && 'focus',
+            underline && 'underline'
           ),
           buttonClass(options.isGroup && 'group', options.from === 'input' && options.isGroup && 'from-input-group'),
           typeof options.className === 'function' ? options.className(this.props) : options.className,

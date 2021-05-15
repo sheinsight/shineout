@@ -37,3 +37,4 @@ TreeSelect 用来选择树形数据结构，若需要非关联树形结构选择
 | onCollapse | (collapse: boolean) => void | 无 | 下拉列表展开/收起回调 |
 | rules | any[] | 无 | 校验规则 |
 | unmatch | boolean | 无 | 是否展示data中不存在的值 |
+| underline | boolean | false | 是否只展示下边框 |

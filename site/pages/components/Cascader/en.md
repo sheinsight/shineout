@@ -30,3 +30,4 @@
 | size | string | none | size |
 | singleRemove | boolean | none | Support single node deletion |
 | unmatch | boolean | none | render unmatch value |
+| underline | boolean | false | only display border bottom  |
