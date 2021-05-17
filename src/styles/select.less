@@ -4,6 +4,7 @@
 @select-prefix: ~'@{so-prefix}-select';
 @input-prefix: ~'@{so-prefix}-input';
 @list-prefix: ~'@{so-prefix}-list';
+@checkinput-prefix: ~'@{so-prefix}-checkinput';
 @tree-node-max-width: 300px;
 
 .@{select-prefix} {
@@ -367,7 +368,7 @@
       color: @select-option-hover-color
     }
 
-    &.@{select-prefix}-disabled {
+    &.@{select-prefix}-disabled, &.@{checkinput-prefix}-disabled {
       &,
       &:hover,
       &.@{select-prefix}-active {
