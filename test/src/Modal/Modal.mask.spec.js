@@ -1,7 +1,6 @@
 import React from 'react'
 import { Modal } from 'shineout'
 import { mount } from 'enzyme'
-import { dispatchEvent } from '../../../src/utils/dom/element'
 
 /* global SO_PREFIX */
 class ModalMask extends React.Component {
@@ -9,11 +8,13 @@ class ModalMask extends React.Component {
     maskCloseAble: false,
     visible: true,
   }
+
   handleCancel = () => {
     this.setState({
       visible: false,
     })
   }
+
   render() {
     const { visible, maskCloseAble } = this.state
     return <Modal visible={visible} maskCloseAble={maskCloseAble} title="Modal Title" onClose={this.handleCancel} />
@@ -22,12 +23,16 @@ class ModalMask extends React.Component {
 
 describe('Modal[mask]', () => {
   test('should match maskCloseAble', () => {
-    function expectResult(closeBtn, modalShow){
+    function expectResult(closeBtn, modalShow) {
       jest.runAllTimers()
-      expect(document.getElementsByClassName(`${SO_PREFIX}-modal-close`).length).toBe(closeBtn ? 1: 0)
+      expect(document.getElementsByClassName(`${SO_PREFIX}-modal-close`).length).toBe(closeBtn ? 1 : 0)
+      const down = new MouseEvent('mousedown', { view: window, cancelable: true, bubbles: true })
+      document.querySelector(`.${SO_PREFIX}-modal-mask`).dispatchEvent(down)
+      const up = new MouseEvent('mouseup', { view: window, cancelable: true, bubbles: true })
+      document.querySelector(`.${SO_PREFIX}-modal-mask`).dispatchEvent(up)
       document.querySelector(`.${SO_PREFIX}-modal-mask`).click()
       jest.runAllTimers()
-      expect(document.getElementsByClassName(`${SO_PREFIX}-modal-show`).length).toBe(modalShow ? 1: 0)
+      expect(document.getElementsByClassName(`${SO_PREFIX}-modal-show`).length).toBe(modalShow ? 1 : 0)
     }
     jest.useFakeTimers()
     const wrapper = mount(<ModalMask />)

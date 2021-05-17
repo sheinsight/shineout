@@ -33,6 +33,8 @@ export default class Panel extends PureComponent {
   constructor(props) {
     super(props)
     this.handleClose = this.handleClose.bind(this)
+    this.handleMaskDown = this.handleMaskClick.bind(this, 'maskDownTarget')
+    this.handleMaskUp = this.handleMaskClick.bind(this, 'maskUpTarget')
   }
 
   componentDidMount() {
@@ -113,10 +115,15 @@ export default class Panel extends PureComponent {
     event.preventDefault()
   }
 
+  handleMaskClick(type, e) {
+    this[type] = e.target
+  }
+
   handleClose(e) {
     const { maskCloseAble, onClose } = this.props
     const { target } = e
     if (!maskCloseAble) return
+    if (this.maskDownTarget !== this.maskUpTarget) return
     if (target.matches(`.${modalClass('mask')}`) && onClose) onClose()
   }
 
@@ -198,7 +205,14 @@ export default class Panel extends PureComponent {
     return (
       <ZProvider value>
         <Provider value={{ element: undefined }}>
-          <div {...events} style={maskStyle} className={modalClass('mask')} onClick={this.handleClose}>
+          <div
+            {...events}
+            style={maskStyle}
+            className={modalClass('mask')}
+            onMouseDown={this.handleMaskDown}
+            onMouseUp={this.handleMaskUp}
+            onClick={this.handleClose}
+          >
             <Card
               forwardedRef={this.savePanel}
               moveable={moveable}
