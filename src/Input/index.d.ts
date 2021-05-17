@@ -135,6 +135,16 @@ Pick<CommonProps, 'clearable'> {
    * default: -
    */
   forwardedRef?: (el: HTMLElement) => void;
+
+  /**
+   * show border bottom
+   * 
+   * 仅仅展示下边框
+   * 
+   * default: false
+   */
+  underline?: boolean;
+
 }
 
 export interface InputNumberProps <Value> extends InputProps<Value> {
