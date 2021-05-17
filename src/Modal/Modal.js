@@ -20,8 +20,8 @@ class Modal extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    if (nextProps.visible) return true
     if (shallowEqual(this.props, nextProps)) return false
+    if (nextProps.visible) return true
     close({ ...this.props, id: this.id }, this.handleUpdate)
     return !shallowEqual(this.props, nextProps) && nextProps.visible
   }
