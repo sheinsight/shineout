@@ -12,6 +12,12 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-1-clearable.js
 </label>
 `;
 
+exports[`Snapshot test: Input[site/pages/components/Input/example-1-underline.js] 1`] = `
+<label>
+  <input />
+</label>
+`;
+
 exports[`Snapshot test: Input[site/pages/components/Input/example-2-size.js] 1`] = `
 <div>
   <label>
