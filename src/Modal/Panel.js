@@ -33,7 +33,8 @@ export default class Panel extends PureComponent {
   constructor(props) {
     super(props)
     this.handleClose = this.handleClose.bind(this)
-    this.saveTarget = this.saveTarget.bind(this)
+    this.handleMaskDown = this.handleMaskClick.bind(this, 'maskDownTarget')
+    this.handleMaskUp = this.handleMaskClick.bind(this, 'maskUpTarget')
   }
 
   componentDidMount() {
@@ -114,21 +115,16 @@ export default class Panel extends PureComponent {
     event.preventDefault()
   }
 
-  saveTarget(e) {
-    // 通过保存mousedown 和 mouseup 的对象 来避免拖拽点击事件
-    if (e.type === 'mousedown') {
-      this.mouseDownTarget = e.target
-    }
-    if (e.type === 'mouseup') {
-      this.mouseUpTarget = e.target
-    }
+  handleMaskClick(type, e) {
+    this[type] = e.target
   }
 
-  handleClose() {
+  handleClose(e) {
     const { maskCloseAble, onClose } = this.props
+    const { target } = e
     if (!maskCloseAble) return
-    if (!this.mouseDownTarget || !this.mouseDownTarget.matches(`.${modalClass('mask')}`)) return
-    if (this.mouseUpTarget && this.mouseUpTarget.matches(`.${modalClass('mask')}`) && onClose) onClose()
+    if (this.maskDownTarget !== this.maskUpTarget) return
+    if (target.matches(`.${modalClass('mask')}`) && onClose) onClose()
   }
 
   renderIcon() {
@@ -213,8 +209,8 @@ export default class Panel extends PureComponent {
             {...events}
             style={maskStyle}
             className={modalClass('mask')}
-            onMouseDown={this.saveTarget}
-            onMouseUp={this.saveTarget}
+            onMouseDown={this.handleMaskDown}
+            onMouseUp={this.handleMaskUp}
             onClick={this.handleClose}
           >
             <Card
