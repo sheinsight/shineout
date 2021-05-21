@@ -1,5 +1,17 @@
 import * as React from 'react'
 
+type SpinName = 'default' | 
+'chasing-dots' | 
+'cube-grid' | 
+'double-bounce' |
+'fading-circle' |
+'four-dots' |
+'plane' |
+'pulse' |
+'ring' |
+'scale-circle' |
+'three-bounce' |
+'wave'
 
 declare class Spin extends React.Component<SpinProps, {}> {
 
@@ -33,7 +45,7 @@ export interface SpinProps {
    * 
    * default: 'fading-circle'
    */
-  name?: string;
+  name?: SpinName;
 
 
   /**
