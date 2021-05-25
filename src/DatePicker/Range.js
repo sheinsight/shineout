@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import immer from 'immer'
 import { PureComponent } from '../component'
 import shallowEqual from '../utils/shallowEqual'
-import dateFns from './utils'
 import utils from './utils'
 import Picker from './Picker'
 import { datepickerClass } from '../styles'
+import Quick from './Quick'
 
 class Range extends PureComponent {
   constructor(props) {
@@ -28,6 +28,7 @@ class Range extends PureComponent {
     this.handleDisabledEnd = this.handleDisabled.bind(this, 'end')
     this.changeDateSmart = this.changeDateSmart.bind(this)
     this.fillTime = this.fillTime.bind(this)
+    this.handleQuick = this.handleQuick.bind(this)
   }
 
   componentDidUpdate(prevProps) {
@@ -178,46 +179,17 @@ class Range extends PureComponent {
   }
 
   handleQuick(quick) {
-    if (quick.invalid) {
-      console.error(`the date you provider for ${quick.name} is invalid, please check the date in quickSelect!`)
-      return
-    }
     this.setState({ rangeDate: quick.value })
     this.props.onChange(...utils.quickHandleChangeParams(quick.value, true, null, null, quick))
-  }
-
-  createQuick() {
-    const { quicks, type } = this.props
-    const { rangeDate } = this.state
-
-    if (!quicks) return null
-
-    return (
-      <div className={datepickerClass('quick-select')}>
-        {quicks.map(q => (
-          <div
-            onClick={this.handleQuick.bind(this, q)}
-            className={datepickerClass(
-              'quick-select-item',
-              dateFns.compareDateArray(q.value, rangeDate, type) && 'quick-select-item-active'
-            )}
-            key={q.name}
-          >
-            {q.name}
-          </div>
-        ))}
-      </div>
-    )
   }
 
   render() {
     // min & max can not to child
     const { current, value, range, children, min, max, quicks, ...props } = this.props
-    const quick = this.createQuick()
     const rangeDate = [...this.state.rangeDate]
     return (
       <div className={datepickerClass('range-picker')}>
-        {quick || children}
+        <Quick {...this.props} current={this.state.rangeDate} onChange={this.handleQuick} />
         <Picker
           {...props}
           pos="start"

@@ -14,8 +14,8 @@ interface Base {
 }
 
 export interface QuickSelect extends Base {
-  name?: string,
-  value?: Array<DateTimeType>
+  name?: string;
+  value?: Array<DateTimeType> | DateTimeType;
 }
 
 export interface DatePickerProps extends StandardProps,

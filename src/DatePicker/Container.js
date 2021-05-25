@@ -117,9 +117,12 @@ class Container extends PureComponent {
     if (!Array.isArray(quickSelect)) return undefined
 
     return quickSelect.map(q => {
-      if (!q.value || q.value.length !== 2) return { name: q.name, invalid: true }
-      const date = q.value.map(v => DateFns.toDateWithFormat(v, format))
-      if (DateFns.isInvalid(date[0]) || DateFns.isInvalid(date[1])) return { name: q.name, invalid: true }
+      let invalid = false
+      if (!q.value) return { name: q.name, invalid: true }
+      const date = (Array.isArray(q.value) ? q.value : [q.value]).map(v => DateFns.toDateWithFormat(v, format))
+      if (DateFns.isInvalid(date[0])) invalid = true
+      if (date[1] && DateFns.isInvalid(date[1])) invalid = true
+      if (invalid) return { name: q.name, invalid: true }
       return {
         name: q.name,
         value: date,

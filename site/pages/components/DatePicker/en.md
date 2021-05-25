@@ -26,7 +26,7 @@
 | absolute | boolean | false | When it is true, the pop-up layer of option append into document.body. |
 | zIndex | number | 1000 | panel z-index |
 | allowSingle | boolean | false | allow single select, only in range can set | 
-| quickSelect | object[] | false | quick select, only in range can set, name: tip, value: range date | 
+| quickSelect | object[] | false | quick select, name: tip, value: range date or date | 
 | min | string \| number \| Date | none | option min value |
 | max | string \| number \| Date | none | option max value |
 | defaultRangeMonth | number[] \| Date[] | - | The initial month of range selection, the value is a time object, valid only in range mode, and the priority is lower than value and defaultValue | 
