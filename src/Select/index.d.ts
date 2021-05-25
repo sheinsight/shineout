@@ -160,7 +160,7 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
    *
    * default: -
    */
-  onFilter?: (text: string) => (data: Item) => boolean;
+  onFilter?: (text: string) => (((data: Item) => boolean) | void);
 
   /**
    * Merges selected values, valid only in multiselect mode
