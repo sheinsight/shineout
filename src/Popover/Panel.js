@@ -77,6 +77,7 @@ class Panel extends Component {
     document.removeEventListener('click', this.clickAway)
     document.removeEventListener('mousedown', this.clickAway)
 
+    if (!this.container) return
     if (this.container === document.body) {
       this.container.removeChild(this.element)
     } else {

@@ -26,7 +26,7 @@ export default class extends Component {
   shouldComponentUpdate(nextProps) {
     const { datum } = nextProps
     if (!shallowEqual(this.props, nextProps)) return true
-    if (this.lastValueLength !== datum.getValue().length) return true
+    if (this.lastValueLength !== (datum.getValue() || []).length) return true
     return false
   }
 
