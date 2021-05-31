@@ -371,7 +371,6 @@ Root.defaultProps = {
   keygen: 'id',
   mode: 'inline',
   inlineIndent: 24,
-  active: () => false,
   renderItem: 'title',
   defaultOpenKeys: [],
   onClick: () => true,
