@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import config from '../config'
+import configable from '../hoc/config'
 import { spinClass } from '../styles'
 import {
   ChasingDots,
@@ -53,7 +54,7 @@ function getName(name) {
   return 'default'
 }
 
-export default function Spin(props) {
+function Spin(props) {
   const { children } = props
   const name = getName(props.name)
   const Component = spins[name]
@@ -92,3 +93,5 @@ Spin.defaultProps = {
   color: '#6c757d',
   size: 40,
 }
+
+export default configable(Spin, 'spin')
