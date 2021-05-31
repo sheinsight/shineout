@@ -197,7 +197,7 @@ class OptionList extends Component {
               isActive={datum.check(d)}
               disabled={datum.disabled(d)}
               isHover={hoverIndex === currentIndex + i}
-              key={d[groupKey] ? `__${d[groupKey]}__` : getKey(d, keygen, i)}
+              key={d && d[groupKey] ? `__${d[groupKey]}__` : getKey(d, keygen, i)}
               index={currentIndex + i}
               data={d}
               multiple={multiple}
