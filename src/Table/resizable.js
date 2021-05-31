@@ -13,9 +13,11 @@ export default Table =>
     constructor(props) {
       super(props)
       this.handleResize = this.handleResize.bind(this)
+      this.setFitWidth = this.setFitWidth.bind(this)
       this.state = {
         columns: props.columns,
         delta: 0,
+        fitWidth: 0,
       }
     }
 
@@ -38,8 +40,24 @@ export default Table =>
 
     getWidth() {
       const { width } = this.props
-      if (typeof width === 'number') return width + this.state.delta
-      return width
+      const { fitWidth } = this.state
+      const showWidth = fitWidth || width
+      if (typeof showWidth === 'number') return showWidth + this.state.delta
+      return showWidth
+    }
+
+    setFitWidth(colgroup) {
+      const changed = immer(this.state, draft => {
+        let sum = 0
+        draft.columns.forEach((col, index) => {
+          const w = colgroup[index]
+          console.log(w)
+          if (w) col.width = w
+          sum += w || 0
+        })
+        draft.fitWidth = sum
+      })
+      this.setState(changed)
     }
 
     handleResize(index, width, colgroup) {
@@ -64,6 +82,8 @@ export default Table =>
       const { columns } = this.state
       const { onColumnResize, ...other } = this.props
       const width = this.getWidth()
-      return <Table {...other} width={width} columns={columns} onResize={this.handleResize} />
+      return (
+        <Table {...other} width={width} columns={columns} onResize={this.handleResize} setFitWidth={this.setFitWidth} />
+      )
     }
   }

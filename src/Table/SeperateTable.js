@@ -351,7 +351,7 @@ class SeperateTable extends PureComponent {
     const { colgroup } = this.state
     const isResize = v && this.lastScrollArgs[4] && v !== this.lastScrollArgs[4]
     this.lastScrollArgs = args
-    const { data, rowHeight, rowsInView } = this.props
+    const { data, rowHeight, rowsInView, columnResizable } = this.props
     const contentWidth = this.getContentWidth()
     const contentHeight = this.getContentHeight()
     let left = x * (contentWidth - v)
@@ -419,8 +419,8 @@ class SeperateTable extends PureComponent {
       scrollTop,
       offsetLeft: left,
       offsetRight: right,
-      colgroup: isResize ? undefined : colgroup,
-      resize: isResize ? v : false,
+      colgroup: isResize && !columnResizable ? colgroup : colgroup,
+      resize: isResize && !columnResizable ? v : false,
     })
 
     if (this.props.onScroll) this.props.onScroll(x, y, left)
@@ -431,8 +431,12 @@ class SeperateTable extends PureComponent {
     this.props.onSortChange(...args)
   }
 
-  handleColgroup(tds) {
-    const { columns } = this.props
+  bodyRenderHandler = tds => {
+    this.handleColgroup(tds, true)
+  }
+
+  handleColgroup(tds, first) {
+    const { columns, setFitWidth, columnResizable } = this.props
     const colgroup = []
     for (let i = 0, count = tds.length; i < count; i++) {
       const { width } = tds[i].getBoundingClientRect()
@@ -444,6 +448,9 @@ class SeperateTable extends PureComponent {
       }
     }
     this.setState({ colgroup, resize: false })
+    if (columnResizable && first && setFitWidth) {
+      setFitWidth(colgroup)
+    }
   }
 
   renderBody(floatClass) {
@@ -492,7 +499,7 @@ class SeperateTable extends PureComponent {
             <Tbody
               {...others}
               columns={columns}
-              onBodyRender={this.handleColgroup}
+              onBodyRender={this.bodyRenderHandler}
               index={currentIndex}
               offsetLeft={offsetLeft}
               offsetRight={offsetRight}
@@ -575,6 +582,7 @@ SeperateTable.propTypes = {
   width: PropTypes.number,
   scrollLeft: PropTypes.number,
   onResize: PropTypes.func,
+  setFitWidth: PropTypes.func,
   innerScrollAttr: PropTypes.arrayOf(PropTypes.string),
   sticky: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 }
