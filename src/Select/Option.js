@@ -22,7 +22,7 @@ class Option extends React.Component {
   handleClick() {
     const { data, onClick, isActive, index, disabled, groupKey } = this.props
 
-    if (this.locked || disabled || data[groupKey]) return
+    if (this.locked || disabled || (data && data[groupKey])) return
     this.locked = true
 
     onClick(!isActive, data, index)
@@ -38,7 +38,7 @@ class Option extends React.Component {
 
   render() {
     const { data, isActive, index, renderItem, isHover, disabled, groupKey } = this.props
-    const isGroupTitle = data[groupKey]
+    const isGroupTitle = data && data[groupKey]
     const className = classnames(
       selectClass('option', isActive && 'active', isHover && 'hover', disabled && 'disabled', isGroupTitle && 'group'),
       `option-${index}`
