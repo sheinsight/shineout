@@ -51,7 +51,6 @@ export default Table =>
         let sum = 0
         draft.columns.forEach((col, index) => {
           const w = colgroup[index]
-          console.log(w)
           if (w) col.width = w
           sum += w || 0
         })
