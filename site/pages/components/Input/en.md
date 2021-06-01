@@ -28,7 +28,8 @@
 | maxLength | number | none | input max length |
 | forwardedRef | (el: HTMLElement) => void | none | get input element |
 | underline | boolean | false | only display border bottom  |
-
+| onKeyUp | (e: KeyboardEvent) => void | none | callback with key up |
+| onKeyDown | (e: KeyboardEvent) => void | none | callback with key down |
 
 ### Input.Number
 
