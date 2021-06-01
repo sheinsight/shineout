@@ -10,6 +10,7 @@ class Input extends PureComponent {
     this.enterLock = false
     this.handleChange = this.handleChange.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.handleKeyUp = this.handleKeyUp.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
     this.bindRef = this.bindRef.bind(this)
   }
@@ -67,11 +68,18 @@ class Input extends PureComponent {
   }
 
   handleKeyDown(e) {
-    const { onKeyDown, onEnterPress } = this.props
-    if (e.keyCode === 13 && onEnterPress) {
-      onEnterPress(e.target.value, e)
-    }
+    const { onKeyDown } = this.props
+    if (e.keyCode === 13) this.enterPress = true
     if (onKeyDown) onKeyDown(e)
+  }
+
+  handleKeyUp(e) {
+    const { onKeyUp, onEnterPress } = this.props
+    if (this.enterPress && e.keyCode === 13 && onEnterPress) {
+      onEnterPress(e.target.value, e)
+      this.enterPress = false
+    }
+    if (onKeyUp) onKeyUp(e)
   }
 
   handleBlur(e) {
@@ -129,6 +137,7 @@ class Input extends PureComponent {
         key="input"
         onChange={this.handleChange}
         onKeyDown={this.handleKeyDown}
+        onKeyUp={this.handleKeyUp}
         onBlur={this.handleBlur}
       />,
       !other.disabled && clearable && value !== '' && <Clear onClick={this.handleChange} key="close" />,
@@ -153,6 +162,7 @@ Input.propTypes = {
   info: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
   forwardedRef: PropTypes.func,
   onKeyDown: PropTypes.func,
+  onKeyUp: PropTypes.func,
 }
 
 Input.defaultProps = {

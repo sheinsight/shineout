@@ -38,6 +38,24 @@ Pick<CommonProps, 'clearable'> {
   onEnterPress?: (value: Value) => void;
 
   /**
+   * The callback function for key down
+   * 
+   * 键盘按下回调
+   * 
+   * default: none
+   */
+  onKeyDown?: (e: KeyboardEvent) => void;
+
+  /**
+   * The callback function for key up
+   * 
+   * 键盘按下后抬起的回调
+   * 
+   * default: none
+   */
+  onKeyUp?: (e: KeyboardEvent) => void;
+
+  /**
    * The position where the text pop up
    * 
    * 信息弹出位置

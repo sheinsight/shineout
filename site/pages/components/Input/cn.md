@@ -26,6 +26,8 @@
 | maxLength | number | 无 | 可输入最大长度 |
 | forwardedRef | (el: HTMLElement) => void | 无 | 用户获取 input element |
 | underline | boolean | false | 是否只展示下边框 |
+| onKeyUp | (e: KeyboardEvent) => void | 无 | 键盘按下后弹起回调 |
+| onKeyDown | (e: KeyboardEvent) => void | 无 | 键盘按下后的回调 |
 
 ### Input.Number
 
