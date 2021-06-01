@@ -92,7 +92,7 @@ class Tbody extends PureComponent {
 
   componentDidMount() {
     super.componentDidMount()
-    this.bodyRender()
+    this.bodyRender(true)
   }
 
   componentDidUpdate(prevProps) {
@@ -105,7 +105,7 @@ class Tbody extends PureComponent {
     }
   }
 
-  bodyRender() {
+  bodyRender(first) {
     const { onBodyRender, datum } = this.props
     if (!onBodyRender || !this.body) return
     datum.unsubscribe(RENDER_COL_GROUP_EVENT, this.bodyRender)
@@ -116,7 +116,7 @@ class Tbody extends PureComponent {
     const tr = this.body.querySelector('tr')
     if (!tr) return
     this.colgroupSetted = true
-    onBodyRender(tr.querySelectorAll('td'))
+    onBodyRender(tr.querySelectorAll('td'), first)
   }
 
   bindBody(el) {

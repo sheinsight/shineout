@@ -56,6 +56,10 @@ export default Table =>
         })
         draft.fitWidth = sum
       })
+      if (this.props.onColumnResize) {
+        this.props.onColumnResize(changed.columns)
+        return
+      }
       this.setState(changed)
     }
 

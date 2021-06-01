@@ -431,10 +431,6 @@ class SeperateTable extends PureComponent {
     this.props.onSortChange(...args)
   }
 
-  bodyRenderHandler = tds => {
-    this.handleColgroup(tds, true)
-  }
-
   handleColgroup(tds, first) {
     const { columns, setFitWidth, columnResizable } = this.props
     const colgroup = []
@@ -499,7 +495,7 @@ class SeperateTable extends PureComponent {
             <Tbody
               {...others}
               columns={columns}
-              onBodyRender={this.bodyRenderHandler}
+              onBodyRender={this.handleColgroup}
               index={currentIndex}
               offsetLeft={offsetLeft}
               offsetRight={offsetRight}
