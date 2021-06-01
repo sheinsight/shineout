@@ -24,7 +24,6 @@
     z-index: 10;
     width: 100%;
     height: 100%;
-    background: #fff;
     opacity: 0;
     transition: all 0.3s;
     content: '';
@@ -217,6 +216,7 @@
   }
 
   &-hover {
+    table > tbody > tr:hover,
     table > tbody > tr:hover > td {
       background-color: @table-bg-hover;
     }
