@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import cleanProps from '../utils/cleanProps'
 import Clear from './clear'
 import { inputClass } from '../styles'
@@ -125,11 +126,13 @@ class Input extends PureComponent {
       ...other
     } = this.props
     const value = this.props.value == null ? '' : this.props.value
+    const showClear = !other.disabled && clearable && value !== ''
+    const mc = classnames(className, showClear && inputClass('clearable'))
 
     return [
       <input
         {...cleanProps(other)}
-        className={className}
+        className={mc}
         name={other.name || htmlName}
         type={type === 'password' ? type : 'text'}
         value={value}
@@ -140,7 +143,7 @@ class Input extends PureComponent {
         onKeyUp={this.handleKeyUp}
         onBlur={this.handleBlur}
       />,
-      !other.disabled && clearable && value !== '' && <Clear onClick={this.handleChange} key="close" />,
+      showClear && <Clear onClick={this.handleChange} key="close" />,
       this.renderInfo(),
     ]
   }
