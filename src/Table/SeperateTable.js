@@ -54,9 +54,7 @@ class SeperateTable extends PureComponent {
   // reset scrollTop when data changed
   componentDidUpdate(prevProps) {
     if (!this.tbody) return
-    const dataChange = this.props.rawData !== prevProps.rawData
-    // Use raw data comparison, avoid tree data,
-    // because tree data will be re-parsed and generate new data
+    const dataChange = this.props.data !== prevProps.data
     if (dataChange) {
       const resize = prevProps.data.length === 0 && this.props.data.length
       if (resize || this.props.dataChangeResize) this.setState({ resize: true, colgroup: undefined })
