@@ -76,7 +76,7 @@ export interface ButtonProps extends StandardProps {
    * 
    * default: none
    */
-  onClick?: () => void;
+  onClick?: (e: MouseEvent) => void;
 
   /**
    * For Button with only 2 Chinese characters, whether to insert a space between the two Chinese characters.
