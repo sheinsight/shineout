@@ -11,7 +11,7 @@ describe('Input[Base]', () => {
     singleInput = mount(<Input />)
   })
   test('should render correct dom structure', () => {
-    expect(singleInput.html()).toBe(`<label class="${SO_PREFIX}-input"><input class="" type="text" value=""></label>`)
+    expect(singleInput.html()).toBe(`<label class="${SO_PREFIX}-input"><input type="text" value=""></label>`)
   })
   test('should set placeholder on input dom', () => {
     const prop = singleInput.find('ShineoutInput').prop('placeholder')

@@ -132,7 +132,7 @@ class Input extends PureComponent {
     return [
       <input
         {...cleanProps(other)}
-        className={mc}
+        className={mc || undefined}
         name={other.name || htmlName}
         type={type === 'password' ? type : 'text'}
         value={value}
