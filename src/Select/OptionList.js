@@ -15,10 +15,9 @@ const ScaleList = List(['fade', 'scale-y'], 'fast')
 class OptionList extends Component {
   constructor(props) {
     super(props)
-
     this.state = {
       currentIndex: 0,
-      hoverIndex: -1,
+      hoverIndex: props.hideCreateOption ? -1 : 0,
       scrollTop: 0,
     }
 
@@ -256,6 +255,7 @@ OptionList.propTypes = {
   getRef: PropTypes.func,
   customHeader: PropTypes.node,
   filterText: PropTypes.string,
+  hideCreateOption: PropTypes.bool,
 }
 
 export default OptionList
