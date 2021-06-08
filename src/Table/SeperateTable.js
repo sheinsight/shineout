@@ -432,7 +432,7 @@ class SeperateTable extends PureComponent {
   }
 
   handleColgroup(tds) {
-    const { columns, onColgroup } = this.props
+    const { columns } = this.props
     const colgroup = []
     for (let i = 0, count = tds.length; i < count; i++) {
       const { width } = tds[i].getBoundingClientRect()
@@ -444,7 +444,6 @@ class SeperateTable extends PureComponent {
       }
     }
     this.setState({ colgroup, resize: false })
-    if (onColgroup) onColgroup(colgroup)
   }
 
   renderBody(floatClass) {
