@@ -226,6 +226,18 @@
     .input-focus()
   }
 
+  &-clearable {
+    &:hover, &:focus {
+      + .@{input-prefix}-clear-wrapper {
+        display: block;
+      }
+    }
+  }
+
+  &-clear-wrapper:hover {
+    display: block;
+  }
+
   position: relative;
   display: flex;
   width: 100%;
@@ -240,7 +252,7 @@
   
   &-clear-wrapper {
     flex-basis: 16px;
-
+    display: none;
     .@{input-prefix}-clear {
       border-radius: 6px;
       position: absolute;
