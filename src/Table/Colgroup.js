@@ -11,6 +11,10 @@ class Colgroup extends React.Component {
 
   componentDidUpdate() {
     const { colgroup, columns, resizable } = this.props
+    if (!colgroup && resizable && this.state.didShow) {
+      this.setState({ didShow: false })
+      return
+    }
     if (!resizable || this.state.didShow) return
     if (!colgroup || colgroup.length !== columns.length) return
     this.setState({ didShow: true })
@@ -19,6 +23,7 @@ class Colgroup extends React.Component {
   render() {
     const { didShow } = this.state
     const { columns, colgroup } = this.props
+    console.log(colgroup)
     if (colgroup && colgroup.length === columns.length) {
       return (
         <colgroup>

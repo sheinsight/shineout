@@ -13,7 +13,6 @@ export default Table =>
     constructor(props) {
       super(props)
       this.handleResize = this.handleResize.bind(this)
-      this.handleColgroup = this.handleColgroup.bind(this)
       this.state = {
         columns: props.columns,
         delta: 0,
@@ -43,18 +42,6 @@ export default Table =>
       return width
     }
 
-    handleColgroup(colgroup) {
-      if (!colgroup) return
-      this.setState(
-        immer(draft => {
-          draft.columns.forEach((col, i) => {
-            const w = colgroup[i]
-            if (w) col.width = w
-          })
-        })
-      )
-    }
-
     handleResize(index, width, colgroup) {
       const { onColumnResize } = this.props
       const changed = immer(this.state, draft => {
@@ -77,14 +64,6 @@ export default Table =>
       const { columns } = this.state
       const { onColumnResize, ...other } = this.props
       const width = this.getWidth()
-      return (
-        <Table
-          {...other}
-          width={width}
-          columns={columns}
-          onResize={this.handleResize}
-          onColgroup={this.handleColgroup}
-        />
-      )
+      return <Table {...other} width={width} columns={columns} onResize={this.handleResize} />
     }
   }
