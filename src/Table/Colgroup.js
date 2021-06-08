@@ -23,7 +23,6 @@ class Colgroup extends React.Component {
   render() {
     const { didShow } = this.state
     const { columns, colgroup } = this.props
-    console.log(colgroup)
     if (colgroup && colgroup.length === columns.length) {
       return (
         <colgroup>
