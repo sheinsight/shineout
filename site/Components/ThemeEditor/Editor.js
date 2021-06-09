@@ -118,6 +118,7 @@ class Editor extends React.Component {
   renderModule() {
     return (
       <Select
+        onFilter={text => c => c.indexOf(text.toLowerCase()) >= 0}
         className={editorClass('select')}
         keygen
         data={this.modules}
