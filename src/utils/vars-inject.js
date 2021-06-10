@@ -1054,6 +1054,14 @@ const injects = {
         desc: '圆角',
       },
       {
+        name: 'underlineHeight',
+        className: inputClass('_', 'underline'),
+        attr: 'borderBottomWidth',
+        type: 'number',
+        parser: parseInt,
+        desc: '下边框宽度(仅在下边框模式生效)',
+      },
+      {
         name: 'dropdownBorderRadius',
         className: datepickerClass('picker'),
         attr: 'borderRadius',
@@ -1140,6 +1148,14 @@ const injects = {
       setBodyProperty(
         {
           '--input-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set underlineHeight(v) {
+      setBodyProperty(
+        {
+          '--input-underline-height': `${parseInt(v, 10)}px`,
         },
         v
       )
