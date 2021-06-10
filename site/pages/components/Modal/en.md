@@ -34,6 +34,8 @@ You can use Modal to display secondary content or actions without jumping to the
 | zoom | boolean | false | toggle zoom animation | |
 | esc | boolean | true | esc to close | |
 | events | object | none | modal events list, use stopPropagation at createPortal | |
+| fullScreen | boolean | false | display modal with full screen | |
+| top | number \| string | 10vh | distance from top | |
 
 ### ModalMethods
 

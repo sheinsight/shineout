@@ -5,6 +5,25 @@ import { StandardProps } from '../@types/common'
 type ReactNode = React.ReactNode;
 
 export interface ModalProps extends StandardProps {
+
+  /**
+   * Distance from top
+   * 
+   * 模态框距离顶部距离
+   * 
+   * defualt: 10vh
+   */
+  top?: number | string;
+
+  /**
+   * Use the fullScreen property to display the modal in full screen
+   * 
+   * 使用 fullScreen 属性来使对话框全屏展示
+   * 
+   * default: false
+   */
+  fullScreen?: boolean;
+
   /**
    * Extend modal body style
    * 
