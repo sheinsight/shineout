@@ -286,22 +286,22 @@ export interface ModalFunctionOptions extends ModalProps {
   autoFocusButton?: string
 }
 
-
+type Close = () => void;
 
 declare class ModalSubmit extends React.Component<CardSubmitProps> {
   render(): JSX.Element
 }
 
 declare class Modal extends React.Component<ModalProps, {}> {
-  static info(options: ModalFunctionOptions): void;
+  static info(options: ModalFunctionOptions): Close;
 
-  static success(options: ModalFunctionOptions): void;
+  static success(options: ModalFunctionOptions): Close;
 
-  static error(options: ModalFunctionOptions): void;
+  static error(options: ModalFunctionOptions): Close;
 
   static confirm(options: ModalFunctionOptions): void;
 
-  static show(options: ModalFunctionOptions): void;
+  static show(options: ModalFunctionOptions): Close;
 
   static Submit: typeof ModalSubmit;
 }
