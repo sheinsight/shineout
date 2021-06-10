@@ -56,10 +56,12 @@ class Input extends PureComponent {
     if (this.invalidNumber(value)) {
       // For numbers with a decimal point, use toFixed to correct the number of decimal points.
       if (digits >= 0 && /^-?\d*\.?\d*$/.test(value)) {
-        value = Number(value)
-          .toFixed(digits + 1)
-          .slice(0, -1)
-        console.log('number: ', value)
+        value =
+          digits === 0
+            ? Number(value).toFixed(digits)
+            : Number(value)
+                .toFixed(digits + 1)
+                .slice(0, -1)
       } else {
         // digits <= 0 || not of number
         return
