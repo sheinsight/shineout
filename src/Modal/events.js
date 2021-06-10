@@ -67,14 +67,14 @@ export function close(props, callback) {
 }
 
 export function createDiv(props) {
-  const { id, position, container = document.body } = props
+  const { id, position, fullScreen, container = document.body } = props
   let div = getDiv(props.id)
   if (div) return div
 
   const parent = typeof container === 'function' ? container() : container
   div = document.createElement('div')
   parent.appendChild(div)
-  div.className = classnames(modalClass('_', position && 'position'), props.rootClassName)
+  div.className = classnames(modalClass('_', position && 'position', fullScreen && 'full-screen'), props.rootClassName)
 
   containers[id] = { div, container: parent, props }
 

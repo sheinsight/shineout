@@ -342,4 +342,16 @@
     }
   }
 
+  &-full-screen {
+    .@{modal-prefix}-panel {
+      border-radius: 0;
+      overflow: auto;
+    }
+    &.@{modal-prefix}-position {
+      .@{modal-prefix}-panel {
+        width: 100vw;
+        height: 100vh;
+      }
+    }
+  }
 }
