@@ -58,7 +58,7 @@ export interface TagProps extends StandardProps{
    *
    * default: *default*
    */
-  type?: 'success' | 'info' | 'warning' | 'danger' | 'error';
+  type?: 'success' | 'info' | 'warning' | 'danger' | 'error' | 'default';
 
   /**
    * This event is triggered when Tag editing is completed (children must be string)
