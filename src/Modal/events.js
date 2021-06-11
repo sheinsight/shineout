@@ -8,6 +8,7 @@ import Panel from './Panel'
 import { getLocale } from '../locale'
 import { getParent } from '../utils/dom/element'
 import ready from '../utils/dom/ready'
+import { docSize } from '../utils/dom/document'
 
 const containers = {}
 const DURATION = 300
@@ -89,7 +90,7 @@ export function open(props, isPortal) {
   const parsed = parseInt(zIndex, 10)
   if (!Number.isNaN(parsed)) div.style.zIndex = parsed
 
-  const scrollWidth = window.innerWidth - document.body.clientWidth
+  const scrollWidth = window.innerWidth - docSize.width
   const doc = document.body.parentNode
   doc.style.overflow = 'hidden'
   doc.style.paddingRight = `${scrollWidth}px`
