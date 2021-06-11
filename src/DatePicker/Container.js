@@ -322,8 +322,10 @@ class Container extends PureComponent {
   }
 
   handleClear(e) {
+    const { clearWithUndefined } = this.props
     e.stopPropagation()
-    const value = this.props.range ? ['', ''] : ''
+    const empty = clearWithUndefined ? undefined : ''
+    const value = this.props.range ? [empty, empty] : empty
     this.props.onChange(value, () => {
       this.props.onValueBlur()
       this.handleToggle(false)
@@ -531,6 +533,7 @@ Container.propTypes = {
   onPickerChange: PropTypes.func,
   disabledTime: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   align: PropTypes.oneOf(['left', 'right', 'center']),
+  clearWithUndefined: PropTypes.bool,
 }
 
 Container.defaultProps = {

@@ -38,6 +38,7 @@
 | disabledTime | string \| ((time: string) => boolean) | 无 | 禁用指定 Time。 |
 | align | 'center' \| 'left' \| 'right' | 'center' | 值水平布局方式 |
 | underline | boolean | false | 是否只展示下边框 |
+| clearWithUndefined | boolean | false | 在清空值时抛出是否抛出 undefined | 
 
 
 ### DatePickerFormat

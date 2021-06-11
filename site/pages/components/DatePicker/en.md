@@ -38,6 +38,7 @@
 | disabledTime | string \| ((time: string) => boolean) | none | Disable the specified Time. |
 | align | 'center' \| 'left' \| 'right' | 'center' | horizontal align of the value |
 | underline | boolean | false | only display border bottom  |
+| clearWithUndefined | boolean | false | onChange get undefined while clear value | 
 
 ### DatePickerFormat
 
