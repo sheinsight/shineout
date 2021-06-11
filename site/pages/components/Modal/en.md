@@ -18,7 +18,7 @@ You can use Modal to display secondary content or actions without jumping to the
 | position | string | - | Pop-up position, one of \['top', 'right', 'bottom', 'left'] | |
 | style | object | - | Extend style | |
 | title | ReactNode | - | the title of the pop-up layer | |
-| usePortal | boolean | true | When the usePortal is true, use ReactDOM.createPortal to create the pop-up layer, otherwise use ReactDOM.render. | |
+| usePortal | boolean | true | When the usePortal is true, use ReactDOM.createPortal to create the pop-up layer, otherwise use ReactDOM.render.<br /> Use ReactDOM.render while func call. | |
 | visible | boolean | false |  | |
 | width | number \| string | 500 | the width of the Modal | |
 | zIndex | number | 1050 | Modal z-index | |

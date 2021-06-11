@@ -69,9 +69,9 @@ export interface ModalProps extends StandardProps {
   title?: ReactNode;
 
   /**
-   * When the usePortal is true, use ReactDOM.createPortal to create the pop-up layer, otherwise use ReactDOM.render.
+   * When the usePortal is true, use ReactDOM.createPortal to create the pop-up layer, otherwise use ReactDOM.render. Use ReactDOM.render while func call.
    * 
-   * 为 true 时，使用 ReactDOM.createPortal 创建弹出层，为 false 时，使用 ReactDOM.render
+   * 为 true 时，使用 ReactDOM.createPortal 创建弹出层，为 false 时，使用 ReactDOM.render。函数式调用时使用 ReactDOM.render。
    * 
    * default: true
    */

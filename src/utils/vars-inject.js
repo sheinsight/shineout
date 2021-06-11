@@ -742,6 +742,30 @@ const injects = {
         parser: parseInt,
         desc: '提示信息字体大小',
       },
+      {
+        name: 'formErrorLineHeight',
+        className: exposeClass('form-error'),
+        attr: 'lineHeight',
+        type: 'number',
+        parser: parseFloat,
+        desc: '校验错误文字行高',
+      },
+      {
+        name: 'formErrorMarginTop',
+        className: exposeClass('form-error'),
+        attr: 'marginTop',
+        type: 'number',
+        parser: parseInt,
+        desc: '校验错误文字顶部间距',
+      },
+      {
+        name: 'formErrorMarginBottom',
+        className: exposeClass('form-error'),
+        attr: 'marginBottom',
+        type: 'number',
+        parser: parseInt,
+        desc: '校验错误文字底部间距',
+      },
     ],
     set itemMarginBottom(v) {
       setBodyProperty(
@@ -779,6 +803,30 @@ const injects = {
       setBodyProperty(
         {
           '--form-tip-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set formErrorLineHeight(v) {
+      setBodyProperty(
+        {
+          '--form-item-error-line-height': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set formErrorMarginTop(v) {
+      setBodyProperty(
+        {
+          '--form-item-error-margin-top': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set formErrorMarginBottom(v) {
+      setBodyProperty(
+        {
+          '--form-item-error-margin-bottom': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -1006,6 +1054,14 @@ const injects = {
         desc: '圆角',
       },
       {
+        name: 'underlineHeight',
+        className: inputClass('_', 'underline'),
+        attr: 'borderBottomWidth',
+        type: 'number',
+        parser: parseInt,
+        desc: '下边框宽度(仅在下边框模式生效)',
+      },
+      {
         name: 'dropdownBorderRadius',
         className: datepickerClass('picker'),
         attr: 'borderRadius',
@@ -1092,6 +1148,14 @@ const injects = {
       setBodyProperty(
         {
           '--input-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set underlineHeight(v) {
+      setBodyProperty(
+        {
+          '--input-underline-height': `${parseInt(v, 10)}px`,
         },
         v
       )
