@@ -39,7 +39,7 @@ export interface ButtonProps extends StandardProps {
    *
    * default: -
    */
-  target?: string;
+  target?: '_self' | '_blank' | '_parent' | '_top' | string;
 
   /**
    * When outline is true, the background is transparent.
