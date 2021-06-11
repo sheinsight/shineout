@@ -42,7 +42,6 @@ class Carousel extends PureComponent {
       }
       this.$timeout = setTimeout(() => {
         this.moveTo(next)
-        this.$timeout = null
       }, interval)
     }
   }

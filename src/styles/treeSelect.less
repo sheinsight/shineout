@@ -371,7 +371,7 @@
     }
   }
 
-  &-multiple &-result {
+  &-multiple &-result:not(&-empty) {
     padding-left: @padding-base-horizontal / 2;
     padding-right: @padding-base-horizontal + 22;
     a.@{treeSelect-prefix}-close.@{treeSelect-prefix}-indicator {
@@ -379,7 +379,7 @@
     }
   }
 
-  &-multiple &-compressed {
+  &-multiple &-compressed:not(&-empty) {
     padding-left: @padding-base-horizontal / 2;
     padding-right: @padding-base-horizontal + 12;
     a.@{treeSelect-prefix}-close.@{treeSelect-prefix}-indicator {
@@ -387,11 +387,11 @@
     }
   }
 
-  &-large&-multiple &-result {
+  &-large&-multiple &-result:not(&-empty) {
     padding-left: @padding-large-horizontal / 2;
   }
 
-  &-small&-multiple &-result {
+  &-small&-multiple &-result:not(&-empty) {
     padding-left: @padding-small-horizontal / 2;
   }
 
