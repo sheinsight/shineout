@@ -1,0 +1,5 @@
+# Skeleton
+
+<example />
+
+## API

@@ -208,6 +208,12 @@ const pages = [
     component: lazy(() => import(/* webpackChunkName: "Progress" */ './Progress')),
   },
   {
+    name: 'Skeleton',
+    cn: '骨架屏',
+    level: 2,
+    component: lazy(() => import(/* webpackChunkName: "Skeleton" */ './Skeleton')),
+  },
+  {
     name: 'Spin',
     cn: '加载中',
     level: 2,

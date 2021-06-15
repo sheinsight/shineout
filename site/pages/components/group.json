@@ -41,7 +41,8 @@
     "Popover": "气泡",
     "Progress": "进度条",
     "Tooltip": "提示",
-    "Tag": "标签"
+    "Tag": "标签",
+    "Skeleton": "骨架屏"
   },
   "Layout": {
     "Card": "卡片",
