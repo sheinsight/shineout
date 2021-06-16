@@ -34,6 +34,7 @@ class Tree extends PureComponent {
     this.handleDragImageSelector = this.handleProps.bind(this, 'dragImageSelector')
     this.handleClidrenClass = this.handleProps.bind(this, 'childrenClass')
     this.handleLeafClass = this.handleProps.bind(this, 'leafClass')
+    this.bindDatum()
   }
 
   componentDidUpdate(prevProps) {
@@ -54,6 +55,11 @@ class Tree extends PureComponent {
   getActive() {
     const { active } = this.props
     return active === undefined ? this.state.active : active
+  }
+
+  bindDatum() {
+    const { bindDatum } = this.props
+    if (bindDatum) bindDatum(this.datum)
   }
 
   bindNode(id, update) {
