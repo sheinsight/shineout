@@ -112,8 +112,8 @@ class Result extends PureComponent {
 
   renderMore(items) {
     const { compressedClassName, compressed } = this.props
-    const className = classnames(selectClass('popover'), compressedClassName)
-    return <FlexResult result={items} className={className} compressed={compressed} />
+    const popoverClass = classnames(selectClass('popover'), compressedClassName)
+    return <FlexResult cls={selectClass} result={items} popoverClassName={popoverClass} compressed={compressed} />
   }
 
   renderClear() {

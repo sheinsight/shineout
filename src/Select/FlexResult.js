@@ -25,7 +25,7 @@ export default class FlexResult extends Component {
   }
 
   render() {
-    const { result, className, compressed } = this.props
+    const { result, cls, popoverClassName, compressed } = this.props
     const { compressedLeft, count } = this.state
     const beyondCount = result.length - count
     const content = `+${beyondCount}`
@@ -37,13 +37,13 @@ export default class FlexResult extends Component {
         <More
           style={{ left: compressedLeft }}
           key="more"
-          className={selectClass('item', 'item-compressed')}
-          popoverClassName={className}
-          contentClassName={selectClass('result')}
+          className={cls('item', 'item-compressed')}
+          popoverClassName={popoverClassName}
+          contentClassName={cls('result')}
           compressed={compressed}
           data={result}
           count={count}
-          cls={selectClass}
+          cls={cls}
         >
           {content}
         </More>
@@ -54,6 +54,7 @@ export default class FlexResult extends Component {
 
 FlexResult.propTypes = {
   result: PropTypes.array,
-  className: PropTypes.string,
+  cls: PropTypes.func,
+  popoverClassName: PropTypes.string,
   compressed: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 }
