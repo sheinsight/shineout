@@ -248,10 +248,21 @@
     position: relative;
     border-left: 1px solid @table-border-color;
     border-right: 1px solid @table-border-color;
-    border-bottom: 1px solid @table-border-color;
     border-top: 1px solid @table-border-color;
 
-    .@{table-prefix}-ignore-right-border, @{table-prefix}-ignore-bottom-border {
+    &:before {
+      position: absolute;
+      content: '';
+      display: inline-block;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: @table-border-color;
+      z-index: 100;
+    }
+
+    .@{table-prefix}-ignore-right-border {
       border-right: none;
 
       &:before {
