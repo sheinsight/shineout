@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { progressClass } from '../styles'
 import analyzeColor from './analyzeColor'
+import Popup from './Popup'
 
 function Line(props) {
-  const { children, strokeWidth, type, value, color, style, background } = props
-  const className = classnames(progressClass('line', type), props.className)
+  const { children, strokeWidth, type, value, color, style, background, popup } = props
+  const className = classnames(progressClass('line', type, popup && 'line-popup'), props.className)
   const innerStyle = {
     width: `${(value / 100) * 100}%`,
     borderRadius: strokeWidth / 2,
@@ -30,6 +31,7 @@ function Line(props) {
       >
         <div className={progressClass('front')} style={innerStyle} />
       </div>
+      {popup && <Popup value={value} />}
       {children !== undefined && <div className={progressClass('content')}>{children}</div>}
     </div>
   )
@@ -44,6 +46,7 @@ Line.propTypes = {
   style: PropTypes.object,
   type: PropTypes.oneOf(['success', 'info', 'warning', 'error', 'danger']),
   value: PropTypes.number,
+  popup: PropTypes.bool,
 }
 
 Line.defaultProps = {
