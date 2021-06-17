@@ -104,14 +104,14 @@
       text-overflow: ellipsis;
 
       &-compressed {
+        transition: all .2s;
         padding: 0 8px;
         text-overflow: unset;
-        transition: none;
         position: absolute;
         margin-left: @padding-base-horizontal / 2;
       }
       &-more {
-        background: @primary-color-fade-60;
+        background: @select-compressed-hover-bg;
         color: #fff;
       }
 

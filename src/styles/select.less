@@ -79,9 +79,9 @@
       }
 
       &-compressed {
+        transition: all .2s;
         padding: 0 8px;
         text-overflow: unset;
-        transition: none;
         position: absolute;
         margin-left: @padding-base-horizontal / 2;
       }
@@ -100,6 +100,7 @@
         right: @select-result-space;
         display: block;
         background-color: transparent;
+        border: none;
         &:before,
         &:after {
           background-color: @gray-500;
