@@ -29,7 +29,7 @@
 | renderItem | (data: any) => ReactNode \| string | 必填 | 为 string 时，返回 d\[string]<br />为 function 时，返回函数结果 |
 | renderResult | (data: any) => ReactNode \| string | renderItem | 选中后在结果中显示的内容，默认和 renderItem 相同 |
 | value | any[] \| string \| object | | 在Form中，value会被表单接管，value无效 |
-| compressed | boolean \| 'no-repeat' | false | 将选中值合并，只在多选模式下有效；为'no-repeat'时第一个值不会出现在弹出框中。 |
+| compressed | boolean \| 'no-repeat' | false | 将选中值合并，只在多选模式下有效；为'no-repeat'时弹出框中不重复展示值 |
 | zIndex | number | 1000 | 选项列表 z-index 值 |
 | groupBy | (record: any, index: number, data: any) => any | 无 | 分组 | 
 | filterSingleSelect | boolean | false | 当筛选数据仅为一条时，失焦后直接选中该条数据。仅在 Filter 下有效。 |
