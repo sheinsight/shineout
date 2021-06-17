@@ -6,7 +6,7 @@ import { isObject, isFunc, isString, isEmpty } from '../utils/is'
 import Input from './Input'
 import Caret from '../icons/Caret'
 import { isRTL } from '../config'
-import More from './More'
+import FlexResult from './FlexResult'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -93,7 +93,7 @@ class Result extends PureComponent {
     this.setState({ more })
   }
 
-  renderItem(data, useClose, index) {
+  renderItem(data, index) {
     const { renderResult, renderUnmatched, datum, resultClassName } = this.props
     const content = getResultContent(data, renderResult, renderUnmatched)
     if (content === null) return null
@@ -103,7 +103,7 @@ class Result extends PureComponent {
         content={content}
         data={data}
         disabled={datum.disabled(data)}
-        onClick={useClose ? this.handleRemove : undefined}
+        onClick={this.handleRemove}
         resultClassName={resultClassName}
         title
       />
@@ -113,19 +113,7 @@ class Result extends PureComponent {
   renderMore(items) {
     const { compressedClassName, compressed } = this.props
     const className = classnames(selectClass('popover'), compressedClassName)
-    const [firstItem, ...others] = items
-    return [
-      firstItem,
-      <More
-        key="more"
-        className={selectClass('item', 'item-compressed')}
-        popoverClassName={className}
-        contentClassName={selectClass('result')}
-        compressed={compressed}
-        data={[React.cloneElement(firstItem, { onClick: this.handleRemove }), ...others]}
-        cls={selectClass}
-      />,
-    ]
+    return <FlexResult result={items} className={className} compressed={compressed} />
   }
 
   renderClear() {
@@ -209,9 +197,7 @@ class Result extends PureComponent {
     } = this.props
 
     if (multiple) {
-      let items = result
-        .map((n, i) => this.renderItem(n, (i === 0 && result.length <= 1) || !compressed || i > 0, i))
-        .filter(n => !isEmpty(n))
+      let items = result.map((n, i) => this.renderItem(n, i)).filter(n => !isEmpty(n))
 
       if (compressed && result.length > 1) {
         items = this.renderMore(items)

@@ -82,9 +82,8 @@
         padding: 0 8px;
         text-overflow: unset;
         transition: none;
-        > span {
-          letter-spacing: 2px;
-        }
+        position: absolute;
+        margin-left: @padding-base-horizontal / 2;
       }
       &-more {
         background: @select-compressed-hover-bg;
@@ -127,13 +126,8 @@
     .@{select-prefix}-ban {
       padding-right: @select-result-space;
     }
-  }
-
-  &-compressed&-result {
     .@{select-prefix}-item {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
+      overflow: visible;
     }
   }
 
@@ -599,6 +593,13 @@
   &-custom-header {
     padding: @dropdown-item-padding-y @dropdown-padding-x @dropdown-item-padding-y @dropdown-padding-x;
     line-height: 22px;
+  }
+
+  &-flex-box {
+    flex: 1;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
   }
 }
 

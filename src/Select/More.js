@@ -18,22 +18,33 @@ class More extends Component {
   }
 
   render() {
-    const { data, className, popoverClassName, contentClassName, dataId, trigger, compressed, cls } = this.props
+    const {
+      data,
+      className,
+      popoverClassName,
+      contentClassName,
+      dataId,
+      trigger,
+      compressed,
+      cls,
+      style,
+      children,
+      count,
+    } = this.props
     const { status } = this.state
 
-    if (data.length <= 1) return data
-
-    const [firstItem, ...items] = data
-
-    const itemsLength = items.length
-
     return (
-      <a tabIndex={-1} key="more" className={classnames(className, cls && status && cls('item-more'))}>
-        <span>{`+${itemsLength}`}</span>
-        <Popover trigger={trigger} visible={status} onVisibleChange={this.changeStatus} className={popoverClassName}>
+      <a style={style} tabIndex={-1} key="more" className={classnames(className, cls && status && cls('item-more'))}>
+        <span>{children}</span>
+        <Popover
+          showArrow={false}
+          trigger={trigger}
+          visible={status}
+          onVisibleChange={this.changeStatus}
+          className={popoverClassName}
+        >
           <div className={contentClassName} data-id={dataId}>
-            {compressed === 'no-repeat' ? null : firstItem}
-            {items}
+            {compressed === 'no-repeat' ? data.slice(count) : data}
           </div>
         </Popover>
       </a>
@@ -54,6 +65,9 @@ More.propTypes = {
   trigger: PropTypes.string,
   compressed: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   cls: PropTypes.func,
+  style: PropTypes.object,
+  children: PropTypes.any,
+  count: PropTypes.number,
 }
 
 export default More
