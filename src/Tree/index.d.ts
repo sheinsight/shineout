@@ -8,6 +8,16 @@ StructDataStandardProps<Item>,
 FormItemStandardProps<Value>,
 Pick<ListItemStandardProps<Item, Value>, 'keygen'>
 {
+
+  /**
+   * get datum 
+   * 
+   * 获取 datum
+   * 
+   * default: -
+   */
+  bindDatum?: (datum: any) => void;
+
   /**
    * desc: specify the name of the subdata
    * 
