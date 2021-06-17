@@ -104,18 +104,14 @@
       text-overflow: ellipsis;
 
       &-compressed {
+        transition: all .2s;
         padding: 0 8px;
-        font-size: 80%;
-        opacity: .9;
         text-overflow: unset;
-        transition: none;
-        > span {
-          vertical-align: middle;
-          letter-spacing: 2px;
-        }
+        position: absolute;
+        margin-left: @padding-base-horizontal / 2;
       }
       &-more {
-        background: @primary-color-fade-60;
+        background: @select-compressed-hover-bg;
         color: #fff;
       }
 
@@ -151,8 +147,9 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    .@{treeSelect-prefix}-ban {
-      padding-right: @select-result-space;
+    .@{treeSelect-prefix}-item {
+      overflow: visible;
+      white-space: nowrap;
     }
   }
 

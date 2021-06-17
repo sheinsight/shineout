@@ -29,7 +29,7 @@
 | renderItem | (data: any) => ReactNode \| string | required | When it is a string, return d\[string]<br />When it is a function, return the result of the function. |
 | renderResult | (data: any) => ReactNode \| string | renderItem | The content displayed in the result after selecting, if not set, use renderItem |
 | value | any[] \| string \| object | | In the Form, the value will be taken over by the form and the value will be invalid. |
-| compressed | boolean \| 'no-repeat' | false | Merges selected values, valid only in multiselect mode; the first value will not appear in the Popover when it is'no-repeat'. |
+| compressed | boolean \| 'no-repeat' | false | Merges selected values, valid only in multiselect mode; the repeat value will not appear in the Popover when it is'no-repeat'. |
 | zIndex | number | 1000 | options z-index |
 | groupBy | (record: any, index: number, data: any) => any | - | group by | 
 | filterSingleSelect | boolean | false | blur to select the data when filter data has only single. only work in filter. |
