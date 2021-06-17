@@ -31,6 +31,15 @@ export interface ButtonProps extends StandardProps {
    * default: -
    */
   href?: string;
+  
+  /**
+   * If present, target will be set onto <a> element.(Effective only when href is been set)
+   *
+   * 当设置了 href 属性时，target 会被设置到 <a> 元素上
+   *
+   * default: -
+   */
+  target?: '_self' | '_blank' | '_parent' | '_top' | string;
 
   /**
    * When outline is true, the background is transparent.
