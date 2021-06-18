@@ -113,7 +113,15 @@ class Result extends PureComponent {
   renderMore(items) {
     const { compressedClassName, compressed } = this.props
     const popoverClass = classnames(selectClass('popover'), compressedClassName)
-    return <FlexResult cls={selectClass} result={items} popoverClassName={popoverClass} compressed={compressed} />
+    return (
+      <FlexResult
+        key="flex-result"
+        cls={selectClass}
+        result={items}
+        popoverClassName={popoverClass}
+        compressed={compressed}
+      />
+    )
   }
 
   renderClear() {
@@ -200,7 +208,7 @@ class Result extends PureComponent {
       let items = result.map((n, i) => this.renderItem(n, i)).filter(n => !isEmpty(n))
 
       if (compressed && result.length > 1) {
-        items = this.renderMore(items)
+        items = [this.renderMore(items)]
       }
 
       if (focus && onFilter) {
