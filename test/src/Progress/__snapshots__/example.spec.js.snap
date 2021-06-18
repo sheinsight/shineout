@@ -19,6 +19,28 @@ exports[`Snapshot test: Progress[site/pages/components/Progress/example-1-base.j
 </div>
 `;
 
+exports[`Snapshot test: Progress[site/pages/components/Progress/example-1-popup.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <span>
+        0%
+      </span>
+      <span />
+    </div>
+  </div>
+  <br />
+  <button>
+    <span>
+      Start
+    </span>
+  </button>
+</div>
+`;
+
 exports[`Snapshot test: Progress[site/pages/components/Progress/example-2-type.js] 1`] = `
 <div>
   <div>
