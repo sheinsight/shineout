@@ -100,6 +100,7 @@ class Result extends PureComponent {
     const { compressed } = this.props
     return (
       <FlexResult
+        key="flex-result"
         cls={treeSelectClass}
         popoverClassName={treeSelectClass('popover')}
         result={items}
@@ -130,7 +131,7 @@ class Result extends PureComponent {
       let items = result.map((n, i) => this.renderItem(n, i)).filter(n => !isEmpty(n))
 
       if (compressed && result.length > 1) {
-        items = this.renderMore(items)
+        items = [this.renderMore(items)]
       }
 
       if (focus && onFilter) {
