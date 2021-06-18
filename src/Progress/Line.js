@@ -7,7 +7,9 @@ import Popup from './Popup'
 
 function Line(props) {
   const { children, strokeWidth, type, value, color, style, background, popup } = props
-  const className = classnames(progressClass('line', type, popup && 'line-popup'), props.className)
+  const hasChildren = children !== undefined
+  const isPopup = popup && hasChildren
+  const className = classnames(progressClass('line', type, isPopup && 'line-popup'), props.className)
   const innerStyle = {
     width: `${(value / 100) * 100}%`,
     borderRadius: strokeWidth / 2,
@@ -31,8 +33,8 @@ function Line(props) {
       >
         <div className={progressClass('front')} style={innerStyle} />
       </div>
-      {popup && <Popup value={value} />}
-      {children !== undefined && <div className={progressClass('content')}>{children}</div>}
+      {hasChildren &&
+        (popup ? <Popup {...props} value={value} /> : <div className={progressClass('content')}>{children}</div>)}
     </div>
   )
 }
