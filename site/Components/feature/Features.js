@@ -3,6 +3,7 @@ import { Button } from 'shineout'
 import PropTypes from 'prop-types'
 import { Carousel, Image } from 'shineout'
 import { featureClass } from '../../styles'
+import history from '../../history'
 
 const Feature = ({ feature }) => {
   const desc = Array.isArray(feature.description) ? feature.description : [feature.description]
@@ -61,7 +62,7 @@ export default class Features extends React.Component {
     const { onClose } = this.props
     const { url } = this.getCurrentFeature()
     onClose()
-    window.location.href = url
+    history.push(url)
   }
 
   renderHeader() {
