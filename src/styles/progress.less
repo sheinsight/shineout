@@ -2,6 +2,7 @@
 @import './themes/@{so-theme}.less';
 
 @progress-prefix: ~'@{so-prefix}-progress';
+@popup-height: 38px;
 
 .@{progress-prefix} {
   &-line {
@@ -26,6 +27,30 @@
       height: 100%;
       background: @colors-primary;
       transition: width 0.32s linear;
+    }
+    &-popup {
+      padding-top: @popup-height;
+      position: relative;
+    }
+    .@{progress-prefix}-popup {
+      display: inline-block;
+      position: absolute;
+      transition: all 0.32s linear;
+      top: 0;
+      background: #fff;
+      padding: 4px 8px;
+      border-radius: 2px;
+      box-shadow: @popover-box-shadow;
+      .@{progress-prefix}-arrow {
+        background: #fff;
+        position: absolute;
+        display: block;
+        width: 6px;
+        height: 6px;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%) translateY(50%) rotate(45deg);
+      }
     }
   }
 
