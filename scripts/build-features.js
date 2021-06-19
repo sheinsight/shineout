@@ -3,6 +3,7 @@ const path = require('path')
 const pack = require('../package.json')
 
 const { version } = pack
+
 const currentFeaturePath = path.resolve(__dirname, '../site/Components/feature/features.json')
 fs.writeFileSync(currentFeaturePath, '[]')
 
