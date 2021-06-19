@@ -4,23 +4,6 @@ import PropTypes from 'prop-types'
 import { Carousel, Image } from 'shineout'
 import { featureClass } from '../../styles'
 
-const features = [
-  {
-    title: '【功能优化】Select多选项合并展示优化',
-    bg: '#197AFA',
-    image: '/images/feature/1.6.5-rc.12-compressed.png',
-    description: [
-      '<b>优化前：</b><span>展示合并选中值时，仅能显示1个值，其余被隐藏至数量中，鼠标移入数量标签显示全部值。这会导致空间有很多的情况下，用户却不能直观获得更多的信息。</span>',
-      '<b>优化后：</b><span>选中值可以根据选择框宽度展示更多内容，且支持选根据择框宽度的改变去自适应展示内容。用户可以在宽度范围内获取更多的信息。</span>',
-    ],
-    url: '/components/Select#heading-01-multiple',
-  },
-  {
-    title: 'Hello',
-    description: 'world',
-  },
-]
-
 const Feature = ({ feature }) => {
   const desc = Array.isArray(feature.description) ? feature.description : [feature.description]
   return (
@@ -61,6 +44,7 @@ export default class Features extends React.Component {
 
   getCurrentFeature() {
     const { current } = this.state
+    const { features } = this.props
     return features[current]
   }
 
@@ -68,9 +52,9 @@ export default class Features extends React.Component {
     this.setState({ current: index })
   }
 
-  handleClose = e => {
+  handleClose = (e, force) => {
     const { onClose } = this.props
-    if (e.target === e.currentTarget) onClose()
+    if (e.target === e.currentTarget || force) onClose()
   }
 
   handleMore = () => {
@@ -86,6 +70,7 @@ export default class Features extends React.Component {
   }
 
   renderContent() {
+    const { features } = this.props
     return (
       <div className={featureClass('content')}>
         <Carousel onMove={this.handleMove}>
@@ -133,4 +118,5 @@ export default class Features extends React.Component {
 
 Features.propTypes = {
   onClose: PropTypes.func,
+  features: PropTypes.array,
 }
