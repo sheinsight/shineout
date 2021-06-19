@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import ready from 'shineout/utils/dom/ready'
 import Shineout from 'shineout'
 import Features from './Features'
 import featuresData from './features.json'
@@ -15,7 +14,8 @@ const getContainer = () => {
   document.body.appendChild(div)
   return div
 }
-ready(() => {
+
+export default () => {
   if (process.env.LOG_ENV !== 'rc') return
   if (features.length === 0) return
   if (!firstEnter()) return
@@ -31,4 +31,4 @@ ready(() => {
     />,
     container
   )
-})
+}
