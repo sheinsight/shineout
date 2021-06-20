@@ -79,11 +79,12 @@
       }
 
       &-compressed {
-        transition: all .2s;
         padding: 0 8px;
         text-overflow: unset;
-        position: absolute;
-        margin-left: @padding-base-horizontal / 2;
+        transition: none;
+        > span {
+          letter-spacing: 2px;
+        }
       }
       &-more {
         background: @select-compressed-hover-bg;
@@ -100,7 +101,6 @@
         right: @select-result-space;
         display: block;
         background-color: transparent;
-        border: none;
         &:before,
         &:after {
           background-color: @gray-500;
@@ -123,8 +123,16 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+
+    .@{select-prefix}-ban {
+      padding-right: @select-result-space;
+    }
+  }
+
+  &-compressed&-result {
     .@{select-prefix}-item {
-      overflow: visible;
+      text-overflow: ellipsis;
+      overflow: hidden;
       white-space: nowrap;
     }
   }
@@ -591,13 +599,6 @@
   &-custom-header {
     padding: @dropdown-item-padding-y @dropdown-padding-x @dropdown-item-padding-y @dropdown-padding-x;
     line-height: 22px;
-  }
-
-  &-flex-box {
-    flex: 1;
-    display: flex;
-    flex-wrap: nowrap;
-    overflow: hidden;
   }
 }
 
