@@ -18,24 +18,18 @@ class More extends Component {
   }
 
   render() {
-    const {
-      data,
-      className,
-      popoverClassName,
-      contentClassName,
-      dataId,
-      trigger,
-      compressed,
-      cls,
-      style,
-      children,
-      count,
-    } = this.props
+    const { data, className, popoverClassName, contentClassName, dataId, trigger, compressed, cls } = this.props
     const { status } = this.state
 
+    if (data.length <= 1) return data
+
+    const [firstItem, ...items] = data
+
+    const itemsLength = items.length
+
     return (
-      <a style={style} tabIndex={-1} key="more" className={classnames(className, cls && status && cls('item-more'))}>
-        <span>{children}</span>
+      <a tabIndex={-1} key="more" className={classnames(className, cls && status && cls('item-more'))}>
+        <span>{`+${itemsLength}`}</span>
         <Popover
           showArrow={false}
           trigger={trigger}
@@ -44,7 +38,8 @@ class More extends Component {
           className={popoverClassName}
         >
           <div className={contentClassName} data-id={dataId}>
-            {compressed === 'no-repeat' ? data.slice(count) : data}
+            {compressed === 'no-repeat' ? null : firstItem}
+            {items}
           </div>
         </Popover>
       </a>
@@ -65,9 +60,6 @@ More.propTypes = {
   trigger: PropTypes.string,
   compressed: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   cls: PropTypes.func,
-  style: PropTypes.object,
-  children: PropTypes.any,
-  count: PropTypes.number,
 }
 
 export default More

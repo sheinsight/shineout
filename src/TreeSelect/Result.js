@@ -5,7 +5,7 @@ import { inputClass, treeSelectClass } from '../styles'
 import { isEmpty, isObject } from '../utils/is'
 import Input from './Input'
 import Caret from '../icons/Caret'
-import FlexResult from '../Select/FlexResult'
+import More from '../Select/More'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -87,26 +87,36 @@ class Result extends PureComponent {
     )
   }
 
-  renderItem(data, index) {
+  renderItem(data, useClose, index) {
     const { renderResult, renderUnmatched, datum } = this.props
     const content = getResultContent(data, renderResult, renderUnmatched)
     if (content === null) return null
     return (
-      <Item key={index} content={content} data={data} disabled={datum.disabled(data)} onClick={this.handleRemove} />
+      <Item
+        key={index}
+        content={content}
+        data={data}
+        disabled={datum.disabled(data)}
+        onClick={useClose ? this.handleRemove : undefined}
+      />
     )
   }
 
   renderMore(items) {
     const { compressed } = this.props
-    return (
-      <FlexResult
-        key="flex-result"
-        cls={treeSelectClass}
+    const [firstItem, ...others] = items
+    return [
+      firstItem,
+      <More
+        key="more"
+        className={treeSelectClass('item', 'item-compressed')}
         popoverClassName={treeSelectClass('popover')}
-        result={items}
+        contentClassName={treeSelectClass('result')}
         compressed={compressed}
-      />
-    )
+        data={[React.cloneElement(firstItem, { onClick: this.handleRemove }), ...others]}
+        cls={treeSelectClass}
+      />,
+    ]
   }
 
   renderPlaceholder() {
@@ -128,10 +138,12 @@ class Result extends PureComponent {
     const { multiple, compressed, result, renderResult, renderUnmatched, onFilter, focus, filterText } = this.props
 
     if (multiple) {
-      let items = result.map((n, i) => this.renderItem(n, i)).filter(n => !isEmpty(n))
+      let items = result
+        .map((n, i) => this.renderItem(n, (i === 0 && result.length <= 1) || !compressed || i > 0, i))
+        .filter(n => !isEmpty(n))
 
       if (compressed && result.length > 1) {
-        items = [this.renderMore(items)]
+        items = this.renderMore(items)
       }
 
       if (focus && onFilter) {
