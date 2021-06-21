@@ -32,6 +32,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Menu/example-1-link.js'),
   },
   {
+    name: '1-onClick',
+    title: locate(
+      '父菜单可点击 \n 为父菜单数据设置 onClick 可以使其在点击后触发 Menu 的 onClick',
+      'Parent clickable \n Set onClick for the parent menu data to trigger the onClick of the Menu after clicking'
+    ),
+    component: require('doc/pages/components/Menu/example-1-onClick.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Menu/example-1-onClick.js'),
+  },
+  {
     name: '2-horizontal',
     title: locate(
       '水平布局 \n 设置 mode 为 "horizontal"，显示为水平布局（子菜单在右侧弹出）',
