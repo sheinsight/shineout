@@ -89,6 +89,54 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-link.js] 1`] =
 </div>
 `;
 
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-onClick.js] 1`] = `
+<div>
+  <div>
+    <ul>
+      <li>
+        <a>
+          Parent 1
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 2
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 3
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Parent 4
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 5
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 6
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Option 7
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
 exports[`Snapshot test: Menu[site/pages/components/Menu/example-2-horizontal.js] 1`] = `
 <div>
   <div>
