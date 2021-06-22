@@ -159,6 +159,15 @@ export interface ColumnItem<T> {
    * default: none
    */
   width?: number;
+
+  /**
+   * 列对应的类名
+   * 
+   * classname of column
+   * 
+   * default: -
+   */
+  className?: string;
 }
 
 export interface RowEvents {

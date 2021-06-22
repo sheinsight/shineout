@@ -55,6 +55,7 @@
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
+| className | string | none | classname of column |
 | colSpan | function(record) | none | The function for controlling to merge columns. The return value is an integer indicating the number of columns that need to be merged。 |
 | fixed | string | - | options: \['left', 'right']；<br />Need to set the Table's fixed to 'x' or 'both'; |
 | group | string \| string\[] | - | The group of header column. |
