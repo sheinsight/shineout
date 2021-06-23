@@ -377,7 +377,7 @@ class Upload extends PureComponent {
         onDrop={this.handleFileDrop}
         multiple={multiple || limit > 1}
       >
-        <span className={uploadClass('handle')} onClick={this.handleAddClick}>
+        <span className={uploadClass('handle', disabled && 'disabled')} onClick={this.handleAddClick}>
           <Provider value={dragProps}>{children}</Provider>
           <FileInput
             webkitdirectory={webkitdirectory}
@@ -410,8 +410,9 @@ class Upload extends PureComponent {
       removeConfirm,
     } = this.props
     const { files, recycle } = this.state
+    const fileDrop = drop && !imageStyle
     const className = classnames(
-      uploadClass('_', disabled && 'disabled', showUploadList === false && 'hide-list'),
+      uploadClass('_', disabled && 'disabled', showUploadList === false && 'hide-list', fileDrop && 'file-drop'),
       this.props.className
     )
     const FileComponent = imageStyle ? ImageFile : File

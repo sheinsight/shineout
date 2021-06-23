@@ -33,7 +33,7 @@ export default function() {
           <FontAwesome name="upload" /> Upload file
         </Button>
       </Upload>
-
+      <br />
       <Upload.Image
         action="//jsonplaceholder.typicode.com/posts"
         accept="image/*"
