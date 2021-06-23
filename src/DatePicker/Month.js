@@ -36,7 +36,7 @@ class Month extends PureComponent {
   }
 
   renderMonth(m, i) {
-    const { value, min, disabled, range, type, current } = this.props
+    const { value, min, disabled, range, type, current, index, rangeDate } = this.props
     const date = new Date(MONTHBASE)
     date.setMonth(i)
     date.setFullYear(current.getFullYear())
@@ -47,13 +47,17 @@ class Month extends PureComponent {
       isDisabled = disabled(date)
     }
 
-    if (!isDisabled && min && typeof range === 'number' && utils.compareAsc(date, utils.addSeconds(min, range)) > 0) {
-      isDisabled = true
+    if (!isDisabled && index === 0) {
+      if (rangeDate[1] && utils.compareAsc(date, utils.addSeconds(rangeDate[1], -range)) < 0) {
+        isDisabled = true
+      }
     }
 
-    // if (!isDisabled && max && range && utils.compareAsc(date, utils.addSeconds(max, -range)) < 0) {
-    //   isDisabled = true
-    // }
+    if (!isDisabled && index === 1) {
+      if (rangeDate[0] && utils.compareAsc(date, utils.addSeconds(rangeDate[0], range)) > 0) {
+        isDisabled = true
+      }
+    }
 
     const className = datepickerClass(utils.isSameMonth(value, date) && 'active', isDisabled && 'disabled')
 
@@ -95,6 +99,8 @@ Month.propTypes = {
   range: PropTypes.number,
   type: PropTypes.string.isRequired,
   value: PropTypes.object,
+  index: PropTypes.number,
+  rangeDate: PropTypes.array,
 }
 
 export default Month
