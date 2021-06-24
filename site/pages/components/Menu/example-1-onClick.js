@@ -1,6 +1,6 @@
 /**
- * cn - 父菜单可点击
- *    -- 为父菜单数据设置 onClick 可以使其在点击后触发 Menu 的 onClick
+ * cn - 父菜单可选中
+ *    -- 为父菜单数据设置 onClick 为 true， 可以使其在点击后触发 Menu 的 onClick
  * en - Parent clickable
  *    -- Set onClick for the parent menu data to trigger the onClick of the Menu after clicking
  */

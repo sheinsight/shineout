@@ -182,7 +182,12 @@ class Item extends PureComponent {
       )
     }
 
-    return <a {...props}>{item}</a>
+    return (
+      <a {...props}>
+        {item}
+        <span className={menuClass('expand')} />
+      </a>
+    )
   }
 
   render() {
@@ -224,7 +229,8 @@ class Item extends PureComponent {
       isUp && 'open-up',
       isHighLight && 'highlight',
       inPath && 'in-path',
-      frontCaret && 'caret-solid'
+      frontCaret && 'caret-solid',
+      data.onClick && 'selectable'
     )
 
     const style = this.getCalcStyle()
