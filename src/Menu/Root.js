@@ -285,6 +285,7 @@ class Root extends React.Component {
       height,
       toggleDuration,
       frontCaret,
+      looseChildren,
     } = this.props
     const isVertical = mode.indexOf('vertical') === 0
     const showScroll = ((style.height || height) && isVertical) || mode === 'horizontal'
@@ -337,6 +338,7 @@ class Root extends React.Component {
               linkKey={linkKey}
               toggleDuration={toggleDuration}
               frontCaret={frontCaret}
+              looseChildren={looseChildren}
             />
           </Provider>
         </div>

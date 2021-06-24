@@ -7,6 +7,14 @@ Pick<ListItemStandardProps<Item, Value>, 'keygen' | 'disabled'>,
 Pick<StructDataStandardProps<Item>, 'renderItem'>
  {
 
+   /**
+    * menu item expandable if has children
+    * 
+    * 如果 children 有设置则菜单项可展开
+    * 
+    * default: false
+    */
+   looseChildren?: boolean;
     /**
      * desc: Menu items data
      *
