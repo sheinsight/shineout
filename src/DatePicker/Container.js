@@ -204,6 +204,8 @@ class Container extends PureComponent {
   }
 
   handleToggle(focus, e) {
+    const { quickSelect } = this.props
+    const hasQuickColumn = Array.isArray(quickSelect) && quickSelect.length > 0
     if (this.props.disabled === true) return
     if (focus === this.state.focus) return
     if (e && focus && getParent(e.target, this.pickerContainer)) return
@@ -217,7 +219,7 @@ class Container extends PureComponent {
           const rect = this.element.getBoundingClientRect()
           const windowHeight = docSize.height
           const windowWidth = docSize.width
-          const pickerWidth = this.props.range ? 540 : 270
+          const pickerWidth = this.props.range ? 540 : 270 + (hasQuickColumn ? 120 : 0)
           if (!this.props.position) {
             if (rect.bottom + 300 > windowHeight) {
               if (rect.left + pickerWidth > windowWidth) state.position = 'right-top'
