@@ -24,6 +24,7 @@ class List extends PureComponent {
       linkKey,
       toggleDuration,
       frontCaret,
+      looseChildren,
     } = this.props
 
     const isVertical = mode.indexOf('vertical') === 0
@@ -50,6 +51,7 @@ class List extends PureComponent {
             linkKey={linkKey}
             toggleDuration={toggleDuration}
             frontCaret={frontCaret}
+            looseChildren={looseChildren}
           />
         ))}
       </ul>
@@ -75,6 +77,7 @@ List.propTypes = {
   linkKey: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   toggleDuration: PropTypes.number,
   frontCaret: PropTypes.bool,
+  looseChildren: PropTypes.bool,
 }
 
 export default List

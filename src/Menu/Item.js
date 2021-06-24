@@ -115,11 +115,12 @@ class Item extends PureComponent {
   }
 
   handleClick(e) {
-    const { data, onClick, mode, toggleOpenKeys } = this.props
+    const { data, onClick, mode, toggleOpenKeys, looseChildren } = this.props
     if (data.disabled) return
 
-    if (mode === 'inline' && data.children && data.children.length) {
-      toggleOpenKeys(this.getKey(), !this.state.open)
+    if (mode === 'inline' && data.children) {
+      const shouldToggle = looseChildren || data.children.length
+      if (shouldToggle) toggleOpenKeys(this.getKey(), !this.state.open)
     }
 
     if (typeof data.onClick === 'function') {
@@ -206,6 +207,7 @@ class Item extends PureComponent {
       linkKey,
       toggleDuration,
       frontCaret,
+      looseChildren,
     } = this.props
     const { open, isActive, isHighLight, inPath } = this.state
     const { children: dChildren } = data
@@ -218,7 +220,7 @@ class Item extends PureComponent {
       isUp = this.element.getBoundingClientRect().bottom - topLine > (bottomLine - topLine) / 2
     }
 
-    const hasChilds = children.length > 0
+    const hasChilds = looseChildren ? Array.isArray(dChildren) : children.length > 0
 
     const className = menuClass(
       'item',
@@ -260,6 +262,7 @@ class Item extends PureComponent {
             linkKey={linkKey}
             toggleDuration={toggleDuration}
             frontCaret={frontCaret}
+            looseChildren={looseChildren}
           />
         )}
       </li>
@@ -286,6 +289,7 @@ Item.propTypes = {
   linkKey: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   toggleDuration: PropTypes.number,
   frontCaret: PropTypes.bool,
+  looseChildren: PropTypes.bool,
 }
 
 export default consumer(Item)
