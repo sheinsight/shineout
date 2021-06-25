@@ -49,7 +49,7 @@
       }
     }
 
-    &.@{menu-prefix}-disabled a {
+    &.@{menu-prefix}-disabled > a {
       color: @menu-disabled-color;
       cursor: not-allowed;
     }
@@ -80,12 +80,6 @@
           right: 16px;
           transform: @menu-title-transform;
         }
-      }
-    }
-
-    &.@{menu-prefix}-selectable {
-      .@{menu-prefix}-expand:hover {
-        background: @primary-color-fade-10;
       }
     }
   }
@@ -125,6 +119,11 @@
 
     & > .@{menu-prefix}-item {
       display: block;
+      &.@{menu-prefix}-selectable {
+        > a .@{menu-prefix}-expand:hover {
+          background: @primary-color-fade-10;
+        }
+      }
     }
 
     .@{menu-prefix}-active.@{menu-prefix}-no-children,
@@ -219,6 +218,13 @@
       box-shadow: @menu-box-shadow-base;
     }
   }
+
+  &-inline, &-horizontal {
+    .@{menu-prefix}-in-path.@{menu-prefix}-has-children > a {
+      color: @colors-primary;
+    }
+  }
+
   ul.@{menu-prefix}-horizontal.@{menu-prefix}-root {
     margin-left: 0;
   }
@@ -338,14 +344,17 @@
     &.@{menu-prefix}-inline,
     &.@{menu-prefix}-vertical,
     &.@{menu-prefix}-horizontal {
-      .@{menu-prefix}-active.@{menu-prefix}-no-children a {
-        background: @menu-dark-active-bg;
-        color: @menu-dark-active-color;
+      .@{menu-prefix}-item.@{menu-prefix}-active.@{menu-prefix}-no-children,
+      .@{menu-prefix}-item.@{menu-prefix}-active.@{menu-prefix}-selectable  {
+        > a {
+          background: @menu-dark-active-bg;
+          color: @menu-dark-active-color;
 
-        &:after,
-        &after:before {
-          width: 0;
-          height: 0;
+          &:after,
+          &after:before {
+            width: 0;
+            height: 0;
+          }
         }
       }
 
@@ -456,6 +465,19 @@
             }
           }
         }
+      }
+    }
+
+    &.@{menu-prefix}-inline {
+      .@{menu-prefix}-selectable {
+        > a .@{menu-prefix}-expand:hover {
+          background: @primary-color-fade-60;
+        }
+      }
+    }
+    &.@{menu-prefix}-inline, &.@{menu-prefix}-horizontal {
+      .@{menu-prefix}-in-path.@{menu-prefix}-has-children > a {
+        color: @menu-dark-item;
       }
     }
   }

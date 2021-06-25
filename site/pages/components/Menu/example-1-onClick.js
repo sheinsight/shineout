@@ -1,8 +1,8 @@
 /**
  * cn - 父菜单可选中
- *    -- 为父菜单数据设置 onClick 为 true， 可以使其在点击后触发 Menu 的 onClick
- * en - Parent clickable
- *    -- Set onClick for the parent menu data to trigger the onClick of the Menu after clicking
+ *    -- 设置 parentSelectable 属性，可以使父菜单在点击后触发 Menu 的 onClick <br /> 可选中父菜单左侧区域用于选中，偏右侧区域用于展开和收起子菜单
+ * en - Parent Selectable
+ *    -- Setting the parentSelectable property can make the parent menu trigger the onClick of the Menu after clicking
  */
 import React from 'react'
 import { Menu } from 'shineout'
@@ -11,7 +11,6 @@ const data = [
   {
     id: '1',
     title: 'Parent 1',
-    onClick: true,
     children: [
       {
         id: '2',
@@ -26,7 +25,6 @@ const data = [
   {
     id: '4',
     title: 'Parent 4',
-    onClick: true,
     children: [
       {
         id: '5',
@@ -64,6 +62,7 @@ export default class extends React.Component {
   render() {
     return (
       <Menu
+        parentSelectable
         keygen="id"
         data={data}
         renderItem={d => d.title}

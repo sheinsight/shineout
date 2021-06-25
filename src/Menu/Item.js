@@ -8,6 +8,7 @@ import List from './List'
 import { consumer } from './context'
 import { isLink } from '../utils/is'
 import { isRTL } from '../config'
+import { getParent } from '../utils/dom/element'
 
 const getBaseIndent = (flag = false) => (flag ? 16 : 20)
 
@@ -115,18 +116,21 @@ class Item extends PureComponent {
   }
 
   handleClick(e) {
-    const { data, onClick, mode, toggleOpenKeys, looseChildren } = this.props
-    if (data.disabled) return
-
-    if (mode === 'inline' && data.children) {
+    const { data, onClick, mode, toggleOpenKeys, looseChildren, parentSelectable } = this.props
+    const selectable = data.onClick || parentSelectable
+    const expandClick = getParent(e.target, `.${menuClass('expand')}`)
+    const canExpand = !selectable || expandClick
+    if (mode === 'inline' && data.children && canExpand) {
       const shouldToggle = looseChildren || data.children.length
       if (shouldToggle) toggleOpenKeys(this.getKey(), !this.state.open)
+      if (selectable && expandClick) return
     }
 
+    if (data.disabled) return
     if (typeof data.onClick === 'function') {
       data.onClick(this.id, data)
     } else if (
-      (!data.children || data.children.length === 0 || data.onClick === true) &&
+      (!data.children || data.children.length === 0 || data.onClick === true || parentSelectable) &&
       typeof onClick === 'function'
     ) {
       onClick(this.id, data)
@@ -208,6 +212,7 @@ class Item extends PureComponent {
       toggleDuration,
       frontCaret,
       looseChildren,
+      parentSelectable,
     } = this.props
     const { open, isActive, isHighLight, inPath } = this.state
     const { children: dChildren } = data
@@ -232,7 +237,7 @@ class Item extends PureComponent {
       isHighLight && 'highlight',
       inPath && 'in-path',
       frontCaret && 'caret-solid',
-      data.onClick && 'selectable'
+      (data.onClick || parentSelectable) && 'selectable'
     )
 
     const style = this.getCalcStyle()
@@ -263,6 +268,7 @@ class Item extends PureComponent {
             toggleDuration={toggleDuration}
             frontCaret={frontCaret}
             looseChildren={looseChildren}
+            parentSelectable={parentSelectable}
           />
         )}
       </li>
@@ -290,6 +296,7 @@ Item.propTypes = {
   toggleDuration: PropTypes.number,
   frontCaret: PropTypes.bool,
   looseChildren: PropTypes.bool,
+  parentSelectable: PropTypes.bool,
 }
 
 export default consumer(Item)
