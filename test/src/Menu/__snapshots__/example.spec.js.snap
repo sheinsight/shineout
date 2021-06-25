@@ -7,21 +7,25 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-base.js] 1`] =
       <li>
         <a>
           Navigation One
+          <span />
         </a>
       </li>
       <li>
         <a>
           Navigation Two
+          <span />
         </a>
         <ul>
           <li>
             <a>
               Option 1
+              <span />
             </a>
           </li>
           <li>
             <a>
               Option 2
+              <span />
             </a>
           </li>
         </ul>
@@ -29,26 +33,31 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-base.js] 1`] =
       <li>
         <a>
           Navigation Three
+          <span />
         </a>
         <ul>
           <li>
             <a>
               Option 3
+              <span />
             </a>
           </li>
           <li>
             <a>
               Option 4
+              <span />
             </a>
             <ul>
               <li>
                 <a>
                   Optic 1
+                  <span />
                 </a>
               </li>
               <li>
                 <a>
                   Optic 2
+                  <span />
                 </a>
               </li>
             </ul>
@@ -58,6 +67,7 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-base.js] 1`] =
       <li>
         <a>
           Navigation Four
+          <span />
         </a>
       </li>
     </ul>
@@ -72,16 +82,19 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-link.js] 1`] =
       <li>
         <a>
           Google
+          <span />
         </a>
       </li>
       <li>
         <a>
           strackoverflow
+          <span />
         </a>
       </li>
       <li>
         <a>
           github
+          <span />
         </a>
       </li>
     </ul>
@@ -96,16 +109,19 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-onClick.js] 1`
       <li>
         <a>
           Parent 1
+          <span />
         </a>
         <ul>
           <li>
             <a>
               Option 2
+              <span />
             </a>
           </li>
           <li>
             <a>
               Option 3
+              <span />
             </a>
           </li>
         </ul>
@@ -113,16 +129,19 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-onClick.js] 1`
       <li>
         <a>
           Parent 4
+          <span />
         </a>
         <ul>
           <li>
             <a>
               Option 5
+              <span />
             </a>
           </li>
           <li>
             <a>
               Option 6
+              <span />
             </a>
           </li>
         </ul>
@@ -130,6 +149,7 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-onClick.js] 1`
       <li>
         <a>
           Option 7
+          <span />
         </a>
       </li>
     </ul>
@@ -144,21 +164,25 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-2-horizontal.js]
       <li>
         <a>
           Navigation One
+          <span />
         </a>
       </li>
       <li>
         <a>
           Navigation Two
+          <span />
         </a>
         <ul>
           <li>
             <a>
               Option 1
+              <span />
             </a>
           </li>
           <li>
             <a>
               Option 2
+              <span />
             </a>
           </li>
         </ul>
@@ -166,16 +190,19 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-2-horizontal.js]
       <li>
         <a>
           Navigation Three
+          <span />
         </a>
         <ul>
           <li>
             <a>
               Option 3
+              <span />
             </a>
           </li>
           <li>
             <a>
               Option 4
+              <span />
             </a>
           </li>
         </ul>
@@ -183,6 +210,7 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-2-horizontal.js]
       <li>
         <a>
           Navigation Four
+          <span />
         </a>
       </li>
     </ul>
@@ -197,21 +225,25 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-4-disabled.js] 1
       <li>
         <a>
           Navigation One
+          <span />
         </a>
       </li>
       <li>
         <a>
           Navigation Two
+          <span />
         </a>
         <ul>
           <li>
             <a>
               Option 1
+              <span />
             </a>
           </li>
           <li>
             <a>
               Option 2
+              <span />
             </a>
           </li>
         </ul>
@@ -219,26 +251,31 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-4-disabled.js] 1
       <li>
         <a>
           Navigation Three
+          <span />
         </a>
         <ul>
           <li>
             <a>
               Option 3
+              <span />
             </a>
           </li>
           <li>
             <a>
               Option 4
+              <span />
             </a>
             <ul>
               <li>
                 <a>
                   Optic 1
+                  <span />
                 </a>
               </li>
               <li>
                 <a>
                   Optic 2
+                  <span />
                 </a>
               </li>
             </ul>
@@ -248,6 +285,7 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-4-disabled.js] 1
       <li>
         <a>
           Navigation Four
+          <span />
         </a>
       </li>
     </ul>
@@ -262,21 +300,25 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-5-selected.js] 1
       <li>
         <a>
           Navigation One
+          <span />
         </a>
       </li>
       <li>
         <a>
           Navigation Two
+          <span />
         </a>
         <ul>
           <li>
             <a>
               Option 1
+              <span />
             </a>
           </li>
           <li>
             <a>
               Option 2
+              <span />
             </a>
           </li>
         </ul>
@@ -284,26 +326,31 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-5-selected.js] 1
       <li>
         <a>
           Navigation Three
+          <span />
         </a>
         <ul>
           <li>
             <a>
               Option 3
+              <span />
             </a>
           </li>
           <li>
             <a>
               Option 4
+              <span />
             </a>
             <ul>
               <li>
                 <a>
                   Optic 1
+                  <span />
                 </a>
               </li>
               <li>
                 <a>
                   Optic 2
+                  <span />
                 </a>
               </li>
             </ul>
@@ -313,6 +360,7 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-5-selected.js] 1
       <li>
         <a>
           Navigation Four
+          <span />
         </a>
       </li>
     </ul>
@@ -331,6 +379,7 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-6-itemRender.js]
              
             Navigation One
           </span>
+          <span />
         </a>
       </li>
       <li>
@@ -340,16 +389,19 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-6-itemRender.js]
              
             Navigation Two
           </span>
+          <span />
         </a>
         <ul>
           <li>
             <a>
               Option 1
+              <span />
             </a>
           </li>
           <li>
             <a>
               Option 2
+              <span />
             </a>
           </li>
         </ul>
@@ -361,26 +413,31 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-6-itemRender.js]
              
             Navigation Three
           </span>
+          <span />
         </a>
         <ul>
           <li>
             <a>
               Option 3
+              <span />
             </a>
           </li>
           <li>
             <a>
               Option 4
+              <span />
             </a>
             <ul>
               <li>
                 <a>
                   Optic 1
+                  <span />
                 </a>
               </li>
               <li>
                 <a>
                   Optic 2
+                  <span />
                 </a>
               </li>
             </ul>
@@ -394,6 +451,7 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-6-itemRender.js]
              
             Navigation Four
           </span>
+          <span />
         </a>
       </li>
     </ul>
@@ -408,21 +466,25 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-7-click.js] 1`] 
       <li>
         <a>
           Navigation One
+          <span />
         </a>
       </li>
       <li>
         <a>
           Navigation Two
+          <span />
         </a>
         <ul>
           <li>
             <a>
               Option 1
+              <span />
             </a>
           </li>
           <li>
             <a>
               Option 2
+              <span />
             </a>
           </li>
         </ul>
@@ -430,26 +492,31 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-7-click.js] 1`] 
       <li>
         <a>
           Navigation Three
+          <span />
         </a>
         <ul>
           <li>
             <a>
               Option 3
+              <span />
             </a>
           </li>
           <li>
             <a>
               Option 4
+              <span />
             </a>
             <ul>
               <li>
                 <a>
                   Optic 1
+                  <span />
                 </a>
               </li>
               <li>
                 <a>
                   Optic 2
+                  <span />
                 </a>
               </li>
             </ul>
@@ -459,6 +526,7 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-7-click.js] 1`] 
       <li>
         <a>
           Navigation Four
+          <span />
         </a>
       </li>
     </ul>
@@ -473,21 +541,25 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-8-dark.js] 1`] =
       <li>
         <a>
           Navigation One
+          <span />
         </a>
       </li>
       <li>
         <a>
           Navigation Two
+          <span />
         </a>
         <ul>
           <li>
             <a>
               Option 1
+              <span />
             </a>
           </li>
           <li>
             <a>
               Option 2
+              <span />
             </a>
           </li>
         </ul>
@@ -495,26 +567,31 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-8-dark.js] 1`] =
       <li>
         <a>
           Navigation Three
+          <span />
         </a>
         <ul>
           <li>
             <a>
               Option 3
+              <span />
             </a>
           </li>
           <li>
             <a>
               Option 4
+              <span />
             </a>
             <ul>
               <li>
                 <a>
                   Optic 1
+                  <span />
                 </a>
               </li>
               <li>
                 <a>
                   Optic 2
+                  <span />
                 </a>
               </li>
             </ul>
@@ -524,6 +601,7 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-8-dark.js] 1`] =
       <li>
         <a>
           Navigation Four
+          <span />
         </a>
       </li>
     </ul>
