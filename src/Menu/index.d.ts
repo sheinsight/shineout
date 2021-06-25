@@ -7,6 +7,15 @@ Pick<ListItemStandardProps<Item, Value>, 'keygen' | 'disabled'>,
 Pick<StructDataStandardProps<Item>, 'renderItem'>
  {
 
+  /**
+   * parent menu Selectable
+   * 
+   * 父级菜单是否可选中
+   * 
+   * default: false
+   */
+  parentSelectable?: bool;
+  
    /**
     * menu item expandable if has children
     * 
