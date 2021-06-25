@@ -144,7 +144,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    * 
    * default: none
    */
-  singleRemove: boolean;
+  singleRemove?: boolean;
 
   /**
    * render unmatch value

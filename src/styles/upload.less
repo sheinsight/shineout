@@ -107,6 +107,28 @@
     }
   }
 
+  &.@{upload-prefix}-file-drop {
+    .@{upload-prefix}-drop {
+      .@{upload-prefix}-handle {
+        border-color: @colors-primary;
+      }
+    }
+    .@{upload-prefix}-handle {
+      position: relative;
+      width: 100%;
+      border: dashed 1px @upload-image-border;
+      transition: border-color .2s;
+      &:not(.@{upload-prefix}-disabled) {
+        &:hover {
+          border-color: @colors-primary;
+        }
+      }
+      &.@{upload-prefix}-disabled:hover {
+        cursor: not-allowed;
+      }
+    }
+  }
+
   &-view-value&-view-active {
     background: @dropdown-link-hover-bg;
     .@{upload-prefix}-delete svg {
