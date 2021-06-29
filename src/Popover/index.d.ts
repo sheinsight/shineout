@@ -7,6 +7,24 @@ type ReactNode = React.ReactNode
 export interface PopoverProps extends StandardProps {
 
   /**
+   * Cancel the popup after clicking the element in mouseEnterDelay
+   * 
+   * 在 mouseEnterDelay 内点击元素后取消弹出	
+   * 
+   * default: false
+   */
+  clickToCancelDelay?: boolean;
+  
+  /**
+   * z-index of popover
+   * 
+   * Popover 层级
+   * 
+   * default: 1060
+   */
+  zIndex?: number;
+
+  /**
    * Pop-up background-color(with arrows)
    *
    * 弹出层背景色（含箭头）

@@ -38,6 +38,7 @@ class Panel extends Component {
     this.handleHide = this.handleHide.bind(this)
     this.setShow = this.setShow.bind(this)
     this.bindChain = this.bindChain.bind(this)
+    this.handleCancel = this.handleCancel.bind(this)
 
     this.element = document.createElement('div')
   }
@@ -45,12 +46,13 @@ class Panel extends Component {
   componentDidMount() {
     super.componentDidMount()
 
-    const { bindChain } = this.props
+    const { bindChain, zIndex } = this.props
     if (bindChain) bindChain(this.id)
 
     this.parentElement = this.placeholder.parentElement
     this.bindEvents()
     this.container = this.getContainer()
+    this.element.style.zIndex = zIndex
     this.container.appendChild(this.element)
 
     if (this.props.visible) this.forceUpdate()
@@ -65,6 +67,9 @@ class Panel extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.trigger !== prevProps.trigger) {
       this.bindEvents()
+    }
+    if (this.props.zIndex !== prevProps.zIndex && this.element) {
+      this.element.style.zIndex = this.props.zIndex
     }
   }
 
@@ -153,15 +158,19 @@ class Panel extends Component {
   }
 
   bindEvents() {
-    const { trigger } = this.props
+    const { trigger, clickToCancelDelay, mouseEnterDelay } = this.props
     if (trigger === 'hover') {
       this.parentElement.addEventListener('mouseenter', this.handleShow)
       this.parentElement.addEventListener('mouseleave', this.handleHide)
       this.element.addEventListener('mouseenter', this.handleShow)
       this.element.addEventListener('mouseleave', this.handleHide)
       this.parentElement.removeEventListener('click', this.handleShow)
+      if (clickToCancelDelay && mouseEnterDelay > 0) {
+        this.parentElement.addEventListener('click', this.handleCancel)
+      }
     } else {
       this.parentElement.addEventListener('click', this.handleShow)
+      this.parentElement.removeEventListener('click', this.handleCancel)
       this.parentElement.removeEventListener('mouseenter', this.handleShow)
       this.parentElement.removeEventListener('mouseleave', this.handleHide)
       this.element.removeEventListener('mouseenter', this.handleShow)
@@ -204,6 +213,10 @@ class Panel extends Component {
   isChildren(el) {
     for (let i = 0; i < this.chain.length; i++) if (getParent(el, `.${this.chain[i]}`)) return true
     return false
+  }
+
+  handleCancel() {
+    if (this.delayTimeout) clearTimeout(this.delayTimeout)
   }
 
   handleHide(e) {
@@ -269,6 +282,8 @@ Panel.propTypes = {
   scrollDismiss: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   showArrow: PropTypes.bool,
   bindChain: PropTypes.func,
+  zIndex: PropTypes.number,
+  clickToCancelDelay: PropTypes.bool,
 }
 
 Panel.defaultProps = {
