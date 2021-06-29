@@ -1,7 +1,7 @@
 [
   {
     "title": "【新组件】Gap：用于设置元素的水平和垂直间距",
-    "image": "/images/feature/1.6.5-rc.18-gap.png",
+    "image": "/images/feature/1.6.5-rc.19-gap.png",
     "description": "<b>开发初衷：</b>在对多个不规则宽度的子元素设置水平和垂直间隔的时候，时长需要处理一些细节和兼容性问题。Gap组件的出现可以让我们更便捷的处理上述的场景。",
     "url": "/components/Gap"
   }

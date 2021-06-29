@@ -42,6 +42,7 @@ import moveableLess from './moveable.less'
 import resizableLess from './resizable.less'
 import lazyloadLess from './lazyload.less'
 import dividerLess from './divider.less'
+import GapLess from './gap.less'
 
 export const alertClass = genaration(alertLess, 'alert')
 export const buttonClass = genaration(buttonLess, 'button')
@@ -84,4 +85,4 @@ export const moveableClass = genaration(moveableLess, 'moveable')
 export const resizableClass = genaration(resizableLess, 'resizable')
 export const lazyloadClass = genaration(lazyloadLess, 'lazyload')
 export const dividerClass = genaration(dividerLess, 'divider')
-export const gapClass = genaration(require('./gap.less'), 'gap')
+export const gapClass = genaration(GapLess, 'gap')
