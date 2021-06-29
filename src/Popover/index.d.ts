@@ -5,6 +5,15 @@ import { StandardProps }  from '../@types/common'
 type ReactNode = React.ReactNode
 
 export interface PopoverProps extends StandardProps {
+
+  /**
+   * Cancel the popup after clicking the element in mouseEnterDelay
+   * 
+   * 在 mouseEnterDelay 内点击元素后取消弹出	
+   * 
+   * default: false
+   */
+  clickToCancelDelay?: boolean;
   
   /**
    * z-index of popover

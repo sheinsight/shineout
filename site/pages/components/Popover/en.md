@@ -22,13 +22,14 @@
 | style | object | - | The pop-up container style |
 | trigger | 'click' \| 'hover' | 'hover' | type of show |
 | type | 'success' \| 'info' \| 'warning' \| 'danger' | none | type of popover |
-| content | (close: () => void) => void \| ReactNode | | Old API, out of date. | 
+| content | (close: () => void) => void \| ReactNode | - | Old API, out of date. | 
 | priorityDirection | string | 'vertical' | Popup location priority, default is left and right priority, only valid when position is not set, Options: \['vertical', 'horizontal'] |
 | getPopupContainer | () => HTMLElement | none | Custom Popover container, override the default behavior which is rendering under the body, () => DOMElement |
 | scrollDismiss |  () => HTMLElement \| boolean| false | scroll to dismiss, return el to order scroller |
 | showArrow | boolean | true | show arrow |
 | okType | string | *primary* |  ok button's type, same with Button type |
 | zIndex | number | 1060 | z-index of popover |
+| clickToCancelDelay | boolean | false | Cancel the popup after clicking the element in mouseEnterDelay |
 
 ### Popover.Confirm
 
