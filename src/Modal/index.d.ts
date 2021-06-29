@@ -7,6 +7,15 @@ type ReactNode = React.ReactNode;
 export interface ModalProps extends StandardProps {
 
   /**
+   * Whether to force the mask transparency (in multi-layer Modal, the transparency of other Modal masks except the first layer will be adjusted to 0.01)	
+   * 
+   * 是否强制设置遮罩透明度（多层Modal中，除第一层外的其他Modal遮罩透明度会被调整为0.01）
+   * 
+   * default: false
+   */
+  forceMask?: boolean;
+
+  /**
    * Distance from top
    * 
    * 模态框距离顶部距离

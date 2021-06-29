@@ -84,7 +84,7 @@ export function createDiv(props) {
 
 // eslint-disable-next-line
 export function open(props, isPortal) {
-  const { content, onClose, zIndex, ...otherProps } = props
+  const { content, onClose, zIndex, forceMask, ...otherProps } = props
   const div = createDiv(props)
   div.style.display = 'block'
   const parsed = parseInt(zIndex, 10)
@@ -101,7 +101,7 @@ export function open(props, isPortal) {
   }
 
   const opacityDefault = props.maskOpacity === undefined ? 0.25 : props.maskOpacity
-  const maskOpacity = isMask(props.id) ? opacityDefault : 0.01
+  const maskOpacity = isMask(props.id) || forceMask ? opacityDefault : 0.01
   div.style.background = props.maskBackground || `rgba(0,0,0,${maskOpacity})`
 
   containers[props.id].visible = true
