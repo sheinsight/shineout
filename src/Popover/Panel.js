@@ -45,12 +45,13 @@ class Panel extends Component {
   componentDidMount() {
     super.componentDidMount()
 
-    const { bindChain } = this.props
+    const { bindChain, zIndex } = this.props
     if (bindChain) bindChain(this.id)
 
     this.parentElement = this.placeholder.parentElement
     this.bindEvents()
     this.container = this.getContainer()
+    this.element.style.zIndex = zIndex
     this.container.appendChild(this.element)
 
     if (this.props.visible) this.forceUpdate()
@@ -65,6 +66,9 @@ class Panel extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.trigger !== prevProps.trigger) {
       this.bindEvents()
+    }
+    if (this.props.zIndex !== prevProps.zIndex && this.element) {
+      this.element.style.zIndex = this.props.zIndex
     }
   }
 
@@ -269,6 +273,7 @@ Panel.propTypes = {
   scrollDismiss: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   showArrow: PropTypes.bool,
   bindChain: PropTypes.func,
+  zIndex: PropTypes.number,
 }
 
 Panel.defaultProps = {

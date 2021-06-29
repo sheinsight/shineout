@@ -28,6 +28,7 @@
 | scrollDismiss |  () => HTMLElement \| boolean| false | scroll to dismiss, return el to order scroller |
 | showArrow | boolean | true | show arrow |
 | okType | string | *primary* |  ok button's type, same with Button type |
+| zIndex | number | 1060 | z-index of popover |
 
 ### Popover.Confirm
 

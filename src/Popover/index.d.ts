@@ -5,6 +5,15 @@ import { StandardProps }  from '../@types/common'
 type ReactNode = React.ReactNode
 
 export interface PopoverProps extends StandardProps {
+  
+  /**
+   * z-index of popover
+   * 
+   * Popover 层级
+   * 
+   * default: 1060
+   */
+  zIndex?: number;
 
   /**
    * Pop-up background-color(with arrows)

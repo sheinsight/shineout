@@ -27,6 +27,7 @@
 | getPopupContainer | () => HTMLElement | 无 | 自定义Popover容器，覆盖默认渲染在body下的行为, () => DOMElement |
 | scrollDismiss | () => HTMLElement \| boolean | false | 滚动来关闭气泡框，如果需要指定滚动元素，则通过函数返回 |
 | showArrow | boolean | true | 是否显示箭头 |
+| zIndex | number | 1060 | popover 层级 |
 
 ### Popover.Confirm
 | 属性 | 类型 | 默认值 | 说明 |
