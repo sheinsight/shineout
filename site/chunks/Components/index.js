@@ -245,6 +245,12 @@ const pages = [
     component: lazy(() => import(/* webpackChunkName: "Divider" */ './Divider')),
   },
   {
+    name: 'Gap',
+    cn: '间距',
+    level: 2,
+    component: lazy(() => import(/* webpackChunkName: "Gap" */ './Gap')),
+  },
+  {
     name: 'Grid',
     cn: '栅格',
     level: 2,
