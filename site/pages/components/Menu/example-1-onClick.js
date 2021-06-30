@@ -1,6 +1,6 @@
 /**
  * cn - 父菜单可选中
- *    -- 设置 parentSelectable 属性，可以使父菜单在点击后触发 Menu 的 onClick <br /> 可选中父菜单左侧区域用于选中，偏右侧区域用于展开和收起子菜单
+ *    -- 设置 parentSelectable 使父级菜单支持单独选中 <br /> 此时父级菜单左侧区域用于选中，偏右侧区域用于展开和收起子菜单
  * en - Parent Selectable
  *    -- Setting the parentSelectable property can make the parent menu trigger the onClick of the Menu after clicking
  */
