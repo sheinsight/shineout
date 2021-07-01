@@ -117,13 +117,12 @@ class Item extends PureComponent {
 
   handleClick(e) {
     const { data, onClick, mode, toggleOpenKeys, looseChildren, parentSelectable } = this.props
-    const selectable = data.onClick || parentSelectable
     const expandClick = getParent(e.target, `.${menuClass('expand')}`)
-    const canExpand = !selectable || expandClick
+    const canExpand = !parentSelectable || expandClick
     if (mode === 'inline' && data.children && canExpand) {
       const shouldToggle = looseChildren || data.children.length
       if (shouldToggle) toggleOpenKeys(this.getKey(), !this.state.open)
-      if (selectable && expandClick) return
+      if (parentSelectable && expandClick) return
     }
 
     if (data.disabled) return
@@ -237,7 +236,7 @@ class Item extends PureComponent {
       isHighLight && 'highlight',
       inPath && 'in-path',
       frontCaret && 'caret-solid',
-      (data.onClick || parentSelectable) && 'selectable'
+      parentSelectable && 'selectable'
     )
 
     const style = this.getCalcStyle()
