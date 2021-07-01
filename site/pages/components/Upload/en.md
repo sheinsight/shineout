@@ -38,6 +38,7 @@
 | showUploadList | boolean | true | show upload list |
 | leftHandler | boolean | false | add image handler show left |
 | removeConfirm | string \| object | none | confirmation before deletion |
+| beforeRemove | (value: any) => Promise | none | callback before remove |
 
 ### Upload.Image
 
