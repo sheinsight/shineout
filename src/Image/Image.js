@@ -87,9 +87,16 @@ class Image extends PureComponent {
     delete this.image
     const image = new window.Image()
     image.onload = () => this.setState({ status: SRC })
-    image.onerror = this.handleAlt
+    image.onerror = this.handleError.bind(this, SRC)
     image.src = this.getUrl(src)
     this.image = image
+  }
+
+  handleError(type, e) {
+    const { onError } = this.props
+    if (onError) onError(e, type)
+    if (type === SRC) this.handleAlt()
+    else if (type === ALT) this.setState({ status: ERROR })
   }
 
   handleAlt() {
@@ -101,7 +108,7 @@ class Image extends PureComponent {
 
     const image = new window.Image()
     image.onload = () => this.setState({ status: ALT })
-    image.onerror = () => this.setState({ status: ERROR })
+    image.onerror = this.handleError.bind(this, ALT)
     image.src = this.getUrl(alt)
   }
 
@@ -205,6 +212,7 @@ Image.propTypes = {
   container: PropTypes.string,
   error: PropTypes.node,
   autoSSL: PropTypes.bool,
+  onError: PropTypes.func,
 }
 
 Image.defaultProps = {
