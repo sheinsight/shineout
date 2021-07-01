@@ -31,6 +31,15 @@ const VALIDATORITEMS = [
   { key: 'customValidator', param: blob => blob },
 ]
 
+const promised = (action, ...args) => {
+  const res = action(...args)
+  if (res && typeof res.then === 'function') return res
+  return new Promise((resolve, reject) => {
+    if (res instanceof Error) reject(res)
+    resolve(true)
+  })
+}
+
 class Upload extends PureComponent {
   constructor(props) {
     super(props)
@@ -107,20 +116,26 @@ class Upload extends PureComponent {
   }
 
   removeValue(index) {
-    const { recoverAble, disabled } = this.props
+    const { recoverAble, disabled, beforeRemove } = this.props
     if (disabled) return
-    this.setState(
-      immer(draft => {
-        draft.recycle.push(this.props.value[index])
-        if (typeof recoverAble === 'number' && draft.recycle.length > recoverAble) {
-          draft.recycle.shift()
-        }
+    const current = this.props.value[index]
+    const startRemove = typeof beforeRemove === 'function' ? beforeRemove(current) : Promise.resolve()
+    startRemove
+      .then(() => {
+        this.setState(
+          immer(draft => {
+            draft.recycle.push(this.props.value[index])
+            if (typeof recoverAble === 'number' && draft.recycle.length > recoverAble) {
+              draft.recycle.shift()
+            }
+          })
+        )
+        const value = immer(this.props.value, draft => {
+          draft.splice(index, 1)
+        })
+        this.props.onChange(value)
       })
-    )
-    const value = immer(this.props.value, draft => {
-      draft.splice(index, 1)
-    })
-    this.props.onChange(value)
+      .catch(() => {})
   }
 
   recoverValue(index, value) {
@@ -138,7 +153,7 @@ class Upload extends PureComponent {
     )
   }
 
-  useValidator(blob) {
+  async useValidator(blob) {
     const { validator, accept, forceAccept } = this.props
     const { files } = this.state
     let error = null
@@ -152,7 +167,12 @@ class Upload extends PureComponent {
     while (VALIDATORITEMS[i]) {
       const item = VALIDATORITEMS[i]
       if (typeof validator[item.key] === 'function') {
-        error = validator[item.key](item.param(blob), files)
+        try {
+          // eslint-disable-next-line no-await-in-loop
+          await promised(validator[item.key], item.param(blob), files)
+        } catch (err) {
+          error = err instanceof Error ? err : new Error(err)
+        }
         if (error instanceof Error) return error
       }
       i += 1
@@ -169,7 +189,7 @@ class Upload extends PureComponent {
     if (filesFilter) fileList = filesFilter(Array.from(fileList))
     const addLength = limit - value.length - Object.keys(this.state.files).length
     if (addLength <= 0) return
-    Array.from({ length: Math.min(fileList.length, addLength) }).forEach((_, i) => {
+    Array.from({ length: Math.min(fileList.length, addLength) }).forEach(async (_, i) => {
       const blob = fileList[i]
       const id = getUidStr()
       const file = {
@@ -180,8 +200,7 @@ class Upload extends PureComponent {
       }
 
       files[id] = file
-      const error = this.useValidator(blob)
-
+      const error = await this.useValidator(blob)
       if (error instanceof Error) {
         if (!this.validatorHandle(error, file.blob)) {
           delete files[id]
@@ -524,6 +543,7 @@ Upload.propTypes = {
   leftHandler: PropTypes.bool,
   onPreview: PropTypes.func,
   removeConfirm: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  beforeRemove: PropTypes.func,
 }
 
 Upload.defaultProps = {

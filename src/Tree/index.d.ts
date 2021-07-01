@@ -206,6 +206,15 @@ Pick<ListItemStandardProps<Item, Value>, 'keygen'>
    * default: none
    */
   onExpand?: (value: keyType[]) => void,
+
+  /**
+   * When it is a string, return d[string]. When it is a function, return the result of the function.
+   * 
+   * 为 string 时，返回 d[string]。 为 function 时，返回函数结果
+   * 
+   * default: d => d
+   */
+  renderItem?: ((data: Item, expand: boolean, active: boolean, id: any) => React.ReactNode) | string;
 }
 
 declare class Tree<Item, Value> extends React.PureComponent<TreeProps<Item, Value>, {}> {

@@ -11,10 +11,10 @@ export interface BaseParams {
 }
 
 export interface Validator {
-  customValidator?: (file: File) => (void | Error)
-  ext?: (file: File) => (void | Error),
+  customValidator?: (file: File) => (void | Error | Promise<any>)
+  ext?: (file: File) => (void | Error | Promise<any>),
   imageSize?: (file: File) => (void | Error),
-  size?: (file: File) => (void | Error),
+  size?: (file: File) => (void | Error | Promise<any>),
 }
 
 export interface Options {
@@ -310,6 +310,15 @@ export interface UploadProps<T> extends StandardProps, OmitFormProps<T[]>{
    * default: -
    */
   removeConfirm?: string | PopoverConfirmProps;
+
+  /**
+   * callback before remove
+   * 
+   * 删除前的确认，返回一个Promise用于最终确定是否删除
+   * 
+   * default: none
+   */
+  beforeRemove?: (value: any) => Promise<any>;
 }
 
 export interface UploadImageProps<T> extends UploadProps<T>{
