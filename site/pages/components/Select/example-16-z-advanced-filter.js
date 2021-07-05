@@ -1,6 +1,6 @@
 /**
  * cn -
- *    -- 使用 onAdvancedFilter 属性开启高级筛选，可通过按钮针对当前层级在筛选结果和原始数据间切换
+ *    -- 使用 onAdvancedFilter 属性开启高级筛选，可针对当前层级在筛选结果和原始数据间切换
  * en -
  *    -- In the advanced filter mode, you can switch between the filter results and the original data for the current level by pressing the button
  */

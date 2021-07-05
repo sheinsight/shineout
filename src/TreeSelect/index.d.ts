@@ -169,7 +169,7 @@ export interface TreeSelectProps<Value, Data> extends StandardProps {
   /**
    * In the advanced filter mode, you can switch between the filter results and the original data for the current level by pressing the button
    * 
-   * 高级筛选模式，可通过按钮针对当前层级在筛选结果和原始数据间切换
+   * 高级筛选模式，可针对当前层级在筛选结果和原始数据间切换
    * 
    * default: -
    */

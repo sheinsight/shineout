@@ -196,7 +196,7 @@ const examples = [
   {
     name: '16-z-advanced-filter',
     title: locate(
-      ' \n 使用 onAdvancedFilter 属性开启高级筛选，可通过按钮针对当前层级在筛选结果和原始数据间切换',
+      ' \n 使用 onAdvancedFilter 属性开启高级筛选，可针对当前层级在筛选结果和原始数据间切换',
       ' \n In the advanced filter mode, you can switch between the filter results and the original data for the current level by pressing the button'
     ),
     component: require('doc/pages/components/Select/example-16-z-advanced-filter.js').default,
