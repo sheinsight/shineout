@@ -16,7 +16,7 @@ export default Origin =>
       filterText: PropTypes.string,
       data: PropTypes.array,
       expanded: PropTypes.array,
-      advancedFilter: PropTypes.bool,
+      onAdvancedFilter: PropTypes.bool,
     }
 
     constructor(props) {
@@ -26,11 +26,11 @@ export default Origin =>
       }
       this.getIcon = this.getIcon.bind(this)
       this.handleFilter = this.handleFilter.bind(this)
-      if (props.advancedFilter) this.genRawDatum()
+      if (props.onAdvancedFilter) this.genRawDatum()
     }
 
     componentDidUpdate(prevProps) {
-      if (prevProps.rawData !== this.props.rawData && this.props.advancedFilter) {
+      if (prevProps.rawData !== this.props.rawData && this.props.onAdvancedFilter) {
         if (this.rawDatum) this.rawDatum.setData(this.props.rawData)
         else this.genRawDatum()
         this.forceUpdate()
@@ -86,9 +86,9 @@ export default Origin =>
     }
 
     render() {
-      const { filterText, advancedFilter } = this.props
+      const { filterText, onAdvancedFilter } = this.props
       const { tileds } = this.state
-      if (!filterText || !advancedFilter) return <Origin {...this.props} />
+      if (!filterText || !onAdvancedFilter) return <Origin {...this.props} />
       const expandIcons = [this.getIcon, this.getIcon]
       const filterDatum = this.getFilteredDatum()
       const data = mergeFilteredTree(filterDatum, this.rawDatum, tileds)
@@ -98,6 +98,6 @@ export default Origin =>
 
 export const advancedFilterHOC = Origin => props => {
   // eslint-disable-next-line react/prop-types
-  const { advancedFilter, onFilter } = props
-  return <Origin {...props} onFilter={advancedFilter || onFilter} advancedFilter={!!advancedFilter} />
+  const { onAdvancedFilter, onFilter } = props
+  return <Origin {...props} onFilter={onAdvancedFilter || onFilter} onAdvancedFilter={!!onAdvancedFilter} />
 }
