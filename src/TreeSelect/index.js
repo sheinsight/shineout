@@ -14,7 +14,7 @@ const exportTreeSelect = compose(
   datum,
   advancedFilterHOC,
   filter,
-  tiled,
+  tiled({}),
   absolute
 )(TreeSelect)
 

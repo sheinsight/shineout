@@ -2,12 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
 import Datum from '../Datum/Tree'
+import { curry } from '../utils/func'
 import { mergeFilteredTree } from '../utils/tree'
 import { treeClass, treeSelectClass } from '../styles'
 import { Component } from '../component'
 
-export default Origin =>
-  class extends Component {
+export default curry((options, Origin) => {
+  const { dataKey = 'data' } = options
+  class Tiled extends Component {
     static propTypes = {
       rawData: PropTypes.array,
       keygen: PropTypes.any,
@@ -17,6 +19,10 @@ export default Origin =>
       data: PropTypes.array,
       expanded: PropTypes.array,
       onAdvancedFilter: PropTypes.bool,
+    }
+
+    static defaultProps = {
+      childrenKey: 'children',
     }
 
     constructor(props) {
@@ -38,7 +44,8 @@ export default Origin =>
     }
 
     getFilteredDatum() {
-      const { data, keygen, childrenKey } = this.props
+      const { keygen, childrenKey } = this.props
+      const data = this.props[dataKey]
       if (this.filteredDatum && this.filteredDatum.data === data) return this.filteredDatum
       this.filteredDatum = new Datum({
         data,
@@ -92,9 +99,17 @@ export default Origin =>
       const expandIcons = [this.getIcon, this.getIcon]
       const filterDatum = this.getFilteredDatum()
       const data = mergeFilteredTree(filterDatum, this.rawDatum, tileds)
-      return <Origin {...this.props} data={data} onFilter={this.handleFilter} expandIcons={expandIcons} />
+      const props = {
+        ...this.props,
+        onFilter: this.handleFilter,
+        expandIcons,
+        [dataKey]: data,
+      }
+      return <Origin {...props} />
     }
   }
+  return Tiled
+})
 
 export const advancedFilterHOC = Origin => props => {
   // eslint-disable-next-line react/prop-types
