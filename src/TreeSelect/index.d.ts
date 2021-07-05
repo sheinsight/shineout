@@ -167,6 +167,15 @@ export interface TreeSelectProps<Value, Data> extends StandardProps {
   onFilter?: (text: string) => (data: Data) => boolean;
 
   /**
+   * In the advanced filter mode, you can switch between the filter results and the original data for the current level by pressing the button
+   * 
+   * 高级筛选模式，可针对当前层级在筛选结果和原始数据间切换
+   * 
+   * default: -
+   */
+  onAdvancedFilter?: (text: string) => (data: Data) => boolean;
+
+  /**
    * When it is a string, return d[string]. When it is a function, return the result of the function.
    * 
    * 为 string 时，返回 d\[string]。 为 function 时，返回函数结果

@@ -156,6 +156,7 @@ export default Origin =>
       return {
         treeData: newData,
         expanded: filterExpandedKeys,
+        rawData: treeData,
       }
     }
 

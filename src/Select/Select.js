@@ -387,6 +387,7 @@ class Select extends PureComponent {
       'absolute',
       'zIndex',
       'childrenKey',
+      'expandIcons',
     ].forEach(k => {
       props[k] = this.props[k]
     })
