@@ -109,6 +109,7 @@ export default Origin =>
           filterText={filterText}
           result={this.getResultByValues()}
           data={newData}
+          rawData={data}
           onFilter={filterFn}
           expanded={newExpanded}
         />

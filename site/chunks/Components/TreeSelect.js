@@ -41,6 +41,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/TreeSelect/example-03-filter.js'),
   },
   {
+    name: '03-h-advanced-filter',
+    title: locate(
+      '高级筛选 \n 高级筛选模式下，可通过按钮针对当前层级在筛选结果和原始数据间切换 \n 设置 advancedFilter 属性开启高级筛选，仅支持前端筛选',
+      'Advanced Filter \n In the advanced filter mode, you can switch between the filter results and the original data for the current level by pressing the button \n Set the advancedFilter property to enable advanced filtering, only front-end filtering is supported'
+    ),
+    component: require('doc/pages/components/TreeSelect/example-03-h-advanced-filter.js').default,
+    rawText: require('!raw-loader!doc/pages/components/TreeSelect/example-03-h-advanced-filter.js'),
+  },
+  {
     name: '04-disabled',
     title: locate(
       '禁用 \n 设置 disabled 禁用选项',

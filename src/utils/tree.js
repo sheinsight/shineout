@@ -1,3 +1,6 @@
+import immer from 'immer'
+import { deepClone } from './clone'
+
 export const getFilterTree = (
   treeNodes,
   filterFunc,
@@ -47,4 +50,26 @@ export const getFlattenTree = (data, childrenKey = 'children') => {
   }
   flatten(data)
   return arr
+}
+
+export const mergeFilteredTree = (filterDatum, rawDatum, tiledId) => {
+  const filterData = filterDatum.data
+  const { childrenKey } = filterDatum
+  if (tiledId.length === 0) return filterData
+  const recursion = node => {
+    const nodeKey = filterDatum.getKey(node)
+    if (tiledId.indexOf(nodeKey) >= 0) {
+      node[childrenKey] = deepClone(rawDatum.getDataById(nodeKey)[childrenKey] || [])
+    } else {
+      const item = filterDatum.getDataById(nodeKey)
+      if (item && item[childrenKey]) {
+        node[childrenKey] = deepClone(item[childrenKey] || [])
+      }
+    }
+    const children = node[childrenKey] || []
+    children.map(recursion)
+  }
+  return immer(filterData, draft => {
+    draft.map(recursion)
+  })
 }
