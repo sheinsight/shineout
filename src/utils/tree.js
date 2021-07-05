@@ -21,7 +21,7 @@ export const getFilterTree = (
     const children = (node[childrenKey] || []).map(mapFilteredNodeToData).filter(n => n)
     if (children.length || match) {
       const key = keyFunc(node)
-      if (filterExpandKeys) filterExpandKeys.push(key)
+      if (filterExpandKeys && children.length > 0) filterExpandKeys.push(key)
       if (!node[childrenKey]) return node
       return {
         ...node,
