@@ -85,7 +85,7 @@ export default Origin =>
     }
 
     render() {
-      const { data, onFilter, expanded, showHitDescendants, onAdvancedFilter, ...other } = this.props
+      const { data, onFilter, expanded, showHitDescendants, ...other } = this.props
       const { innerFilter, filterText } = this.state
       const filterFn = onFilter ? this.handleFilter : undefined
       let newData = data
@@ -100,7 +100,7 @@ export default Origin =>
           other.childrenKey,
           showHitDescendants,
           undefined,
-          { advanced: onAdvancedFilter }
+          { advanced: other.onAdvancedFilter }
         )
         newExpanded = filterExpandedKeys
       }
