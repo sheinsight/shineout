@@ -17,6 +17,7 @@ export default Origin =>
       expanded: PropTypes.arrayOf(PropTypes.string),
       showHitDescendants: PropTypes.bool,
       renderUnmatched: PropTypes.func,
+      onAdvancedFilter: PropTypes.bool,
     }
 
     static defaultProps = {
@@ -84,10 +85,9 @@ export default Origin =>
     }
 
     render() {
-      const { data, onFilter, expanded, showHitDescendants, ...other } = this.props
+      const { data, onFilter, expanded, showHitDescendants, onAdvancedFilter, ...other } = this.props
       const { innerFilter, filterText } = this.state
       const filterFn = onFilter ? this.handleFilter : undefined
-
       let newData = data
       let newExpanded = expanded
       if (innerFilter) {
@@ -98,7 +98,9 @@ export default Origin =>
           filterExpandedKeys,
           node => this.props.datum.getKey(node),
           other.childrenKey,
-          showHitDescendants
+          showHitDescendants,
+          undefined,
+          { advanced: onAdvancedFilter }
         )
         newExpanded = filterExpandedKeys
       }
