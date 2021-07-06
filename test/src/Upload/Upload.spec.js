@@ -37,8 +37,8 @@ describe('Upload[Button]', () => {
   test('should render button and progress', () => {
     const wrapper = mount(<UploadButton />)
     const type = wrapper.find('Progress').prop('type')
-    expect(wrapper.find(`.${SO_PREFIX}-upload-bprogress`).length).toBe(1)
-    expect(wrapper.find(`.${SO_PREFIX}-upload-bprogress-${type}`).length).toBe(1)
+    expect(wrapper.find('ShineoutButton').length).toBe(1)
+    expect(wrapper.find(`.${SO_PREFIX}-button-${type}`).length).toBe(1)
   })
 })
 
