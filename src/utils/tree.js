@@ -8,7 +8,8 @@ export const getFilterTree = (
   keyFunc,
   childrenKey = 'children',
   showHitDescendants,
-  firstMatchNode
+  firstMatchNode,
+  { advanced }
 ) => {
   const mapFilteredNodeToData = node => {
     if (!node) return null
@@ -23,9 +24,11 @@ export const getFilterTree = (
       const key = keyFunc(node)
       if (filterExpandKeys && children.length > 0) filterExpandKeys.push(key)
       if (!node[childrenKey]) return node
+      let childNodes = showHitDescendants && match ? node[childrenKey] || [] : children
+      if (advanced && match && children.length > 0) childNodes = children
       return {
         ...node,
-        [childrenKey]: showHitDescendants && match ? node[childrenKey] || [] : children,
+        [childrenKey]: childNodes,
       }
     }
     return null

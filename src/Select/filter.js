@@ -20,6 +20,7 @@ export default Origin =>
       multiple: PropTypes.bool,
       showHitDescendants: PropTypes.bool,
       hideCreateOption: PropTypes.bool,
+      onAdvancedFilter: PropTypes.bool,
     }
 
     static defaultProps = {
@@ -138,7 +139,7 @@ export default Origin =>
     }
 
     filterTreeData() {
-      const { treeData, expanded, showHitDescendants, ...other } = this.props
+      const { treeData, expanded, showHitDescendants, onAdvancedFilter, ...other } = this.props
       const { innerFilter } = this.state
       let filterExpandedKeys = expanded
       let newData = treeData
@@ -150,7 +151,9 @@ export default Origin =>
           filterExpandedKeys,
           node => getKey(node, other.keygen),
           other.childrenKey,
-          showHitDescendants
+          showHitDescendants,
+          undefined,
+          { advanced: onAdvancedFilter }
         )
       }
       return {
