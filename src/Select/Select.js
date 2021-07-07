@@ -300,11 +300,16 @@ class Select extends PureComponent {
   }
 
   handleKeyDown(e) {
+    const { onEnterExpand } = this.props
     this.keyLocked = true
 
     // just for enter to open the list
     if ((e.keyCode === 13 || e.keyCode === 40) && !this.state.focus) {
       e.preventDefault()
+      if (typeof onEnterExpand === 'function') {
+        const canOpen = onEnterExpand(e)
+        if (canOpen === false) return
+      }
       this.handleClick(e)
       return
     }
