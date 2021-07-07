@@ -2,6 +2,7 @@
 @import './themes/@{so-theme}.less';
 
 @upload-prefix: ~'@{so-prefix}-upload';
+@button-prefix: ~'@{so-prefix}-button';
 
 .message() {
   position: absolute;
@@ -430,93 +431,45 @@
     }
   }
 
-  &-bprogress {
-    .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border; 'primary');
-    user-select: none;
-     border: 1px solid transparent;
+  &-button {
     position: relative;
-    .button-size(@btn-padding-y; @btn-padding-x; @button-font-size-base; @line-height-base; @btn-border-radius-base);
-    .@{upload-prefix}-stream{
-      z-index: 1;
-      white-space: nowrap;
+    overflow: hidden;
+    .@{upload-prefix}-bg {
       overflow: hidden;
-      color: @btn-default-bg;
+      z-index: 2;
       position: absolute;
-      left: 0;
       top: 0;
       bottom: 0;
-      transition: right 0.2s ease-in-out;
-      > span{
+      left: 0;
+      background: inherit;
+      transition: right .2s ease-in-out;
+      color: #fff;
+      white-space: nowrap;
+      > span {
         display: inline-block;
-        margin: 6px 12px;
+        margin: @btn-padding-y @btn-padding-x;
       }
     }
-
-    &:focus {
-      outline: none;
-    }
-
-    &.@{upload-prefix}-disabled {
-      position: relative;
-      box-shadow: none;
-      cursor: @cursor-disabled;
-      opacity: 0.65;
-
-      &:hover,
-      &:focus {
-        animation: none;
-      }
-    }
-
-    &.@{upload-prefix}-uploading{
+    .@{upload-prefix}-cover {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
       background: @btn-default-bg;
+    }
+    > span {
+      position: relative;
+      z-index: 1;
+    }
+    &.@{upload-prefix}-uploading {
       color: @button-default-text-color;
-      cursor: @cursor-disabled;
-      opacity: 0.85;
     }
-
-    &.@{upload-prefix}-bprogress-success {
-      background: @colors-success;
-      border-color: @btn-success-border;
-    }
-
-    &.@{upload-prefix}-bprogress-info {
-      background: @colors-info;
-      border-color: @btn-info-border;
-    }
-
-    &.@{upload-prefix}-bprogress-warning {
-      background: @colors-warning;
-    }
-
-    &.@{upload-prefix}-bprogress-error, &.@{upload-prefix}-bprogress-danger {
-      background: @colors-danger;
-      border-color: @btn-danger-border;
+    &.@{button-prefix}-default .@{upload-prefix}-bg {
+      background: @colors-primary;
     }
   }
 
-  &-disabled {
-    .@{upload-prefix}-delete {
-      cursor: not-allowed;
-    }
-  }
-
-  @types: primary, success, info, warning, error, danger;
-  @colors: @colors-primary, @colors-success, @colors-info, @colors-warning, @colors-danger, @colors-danger;
-  @border-colors: @btn-primary-border, @btn-success-border, @btn-info-border, @btn-warning-border, @btn-danger-border, @btn-danger-color;
-
-  .for(@data, @i: 1) when(@i =< length(@data)) {
-    @type: extract(@data, @i);
-    &-bprogress-@{type} {
-      background: extract(@colors, @i);
-      border-color: extract(@border-colors, @i);
-    }
-    &-border-@{type} {
-      border-color: extract(@border-colors, @i);
-    }
-    .for(@data, (@i + 1));
-  }
-  .for(@types);
 
   &-url-invalid-border {
     border-color: @colors-danger!important;

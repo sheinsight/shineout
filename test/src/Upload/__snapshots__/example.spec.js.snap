@@ -55,11 +55,11 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-02-show-imag
 exports[`Snapshot test: Upload[site/pages/components/Upload/example-03-button.js] 1`] = `
 <div>
   <span>
-    <div>
+    <button>
       <span>
         点击上传
       </span>
-    </div>
+    </button>
     <input />
   </span>
 </div>

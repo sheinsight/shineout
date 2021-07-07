@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import Spin from '../Spin'
 import { PureComponent } from '../component'
 import { uploadClass } from '../styles'
+import Button from '../Button'
 import Upload from './Upload'
 
 const SPIN = color => (
@@ -73,10 +74,6 @@ class Progress extends PureComponent {
   render() {
     const { placeholder, type, ...others } = this.props
     const uploading = this.state.progress >= 0
-    const wrapperClassname = classnames(
-      uploadClass('bprogress', others.disabled && 'disabled'),
-      uploading ? uploadClass('uploading', `border-${type}`) : uploadClass(`bprogress-${type}`)
-    )
     const style = {
       right: uploading ? `${100 - this.state.progress}%` : '100%',
     }
@@ -90,20 +87,22 @@ class Progress extends PureComponent {
         onError={this.handleError}
         onSuccess={this.handleSuccess}
       >
-        <div
-          // eslint-disable-next-line
-          tabIndex={this.props.disabled ? -1 : 0}
-          className={wrapperClassname}
+        <Button
+          tabIndex={others.disabled ? -1 : 0}
+          disabled={others.disabled}
+          className={uploadClass('button', uploading && 'uploading')}
+          type={type}
           onClick={this.handleUpload}
           onKeyDown={handleKeyDown}
         >
-          {uploading && (
-            <div style={style} className={uploadClass(`bprogress-${type}`, 'stream')}>
+          {uploading && [
+            <div key="cover" className={uploadClass('cover')} />,
+            <div key="bg" style={style} className={uploadClass('bg')}>
               {this.renderLoadingView('#fff')}
-            </div>
-          )}
+            </div>,
+          ]}
           <span>{uploading ? this.renderLoadingView() : placeholder}</span>
-        </div>
+        </Button>
       </Upload>
     )
   }
