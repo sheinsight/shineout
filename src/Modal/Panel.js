@@ -144,7 +144,7 @@ export default class Panel extends PureComponent {
       // if just render class Component, return null
       if (justRenderClassComponent) return null
       // for  method function
-      return <div className={modalClass('title')}>{title}</div>
+      return <div className={modalClass('title', 'method-title')}>{title}</div>
     }
 
     // base Component
