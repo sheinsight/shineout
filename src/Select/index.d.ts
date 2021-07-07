@@ -28,6 +28,15 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
    * default: 100%
    */
   width?: number;
+
+  /**
+   * width of option list
+   * 
+   * 下拉列表宽度
+   * 
+   * default: 100%
+   */
+  optionWidth?: number;
   
   /**
    * height

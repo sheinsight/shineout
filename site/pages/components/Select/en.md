@@ -7,6 +7,7 @@
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | width | number | null | width |
+| optionWidth | number | none | width of option list |
 | style | object | null | expand style |
 | absolute | boolean | false | When it is true, the pop-up layer of option append into document.body. |
 | autoAdapt | boolean | false | option list is auto adapt |

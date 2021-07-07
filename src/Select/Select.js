@@ -368,6 +368,7 @@ class Select extends PureComponent {
 
   renderTree() {
     const { focus, position } = this.state
+    const { optionWidth } = this.props
     const props = {}
     ;[
       'treeData',
@@ -391,6 +392,7 @@ class Select extends PureComponent {
     ].forEach(k => {
       props[k] = this.props[k]
     })
+    const style = optionWidth && { width: optionWidth }
     props.renderItem = this.renderItem
     return (
       <WrappedOptionTree
@@ -403,6 +405,7 @@ class Select extends PureComponent {
         renderPending={this.renderPending}
         fixed="min"
         {...props}
+        style={style}
         customHeader={this.renderCustomHeader()}
       />
     )
@@ -410,8 +413,7 @@ class Select extends PureComponent {
 
   renderList() {
     const { focus, control, position } = this.state
-    const { autoAdapt, value } = this.props
-
+    const { autoAdapt, value, optionWidth } = this.props
     const props = {}
     ;[
       'data',
@@ -437,10 +439,11 @@ class Select extends PureComponent {
     })
 
     const List = props.columns >= 1 || props.columns === -1 ? WrappedBoxList : WrappedOptionList
-
+    const style = optionWidth && { width: optionWidth }
     return (
       <List
         {...props}
+        style={style}
         rootClass={selectClass(position, isRTL() && 'rtl')}
         autoClass={selectClass(autoAdapt && 'auto-adapt')}
         bindOptionFunc={this.bindOptionFunc}
