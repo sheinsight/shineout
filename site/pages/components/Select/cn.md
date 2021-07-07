@@ -7,6 +7,7 @@
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | width | number | null | 宽度 |
+| optionWidth | number | 无 | 下拉列表宽度 |
 | style | object | null | 扩展外层style |
 | absolute | boolean | false | 为 true 时，选项弹出层在 DOM 中独立 render |
 | autoAdapt | boolean | false | 下拉列表宽度根据内容自由展开 |

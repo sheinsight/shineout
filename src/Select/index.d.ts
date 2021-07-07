@@ -28,6 +28,24 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
    * default: 100%
    */
   width?: number;
+
+  /**
+   * width of option list
+   * 
+   * 下拉列表宽度
+   * 
+   * default: 100%
+   */
+  optionWidth?: number;
+
+  /**
+   * expand option list while enter press
+   * 
+   * 回车触发下拉框展开的时候调用
+   * 
+   * default: -
+   */
+  onEnterExpand?: (e: Event) => boolean;
   
   /**
    * height
