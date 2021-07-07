@@ -3708,6 +3708,14 @@ const injects = {
         desc: '内容内边距-Left',
       },
       {
+        name: 'iconHeaderPaddingRight',
+        className: modalClass('title', 'method-title'),
+        attr: 'paddingRight',
+        type: 'number',
+        parser: parseInt,
+        desc: '带有 Icon 的对话框 头部 Right 内边距',
+      },
+      {
         name: 'iconBodyPaddingTop',
         className: exposeClass('modal-icon-body'),
         attr: 'paddingTop',
@@ -3937,6 +3945,14 @@ const injects = {
       setBodyProperty(
         {
           '--modal-header-padding-right': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set iconHeaderPaddingRight(v) {
+      setBodyProperty(
+        {
+          '--modal-method-header-padding-right': `${parseInt(v, 10)}px`,
         },
         v
       )
