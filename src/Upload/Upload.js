@@ -186,7 +186,7 @@ class Upload extends PureComponent {
     // eslint-disable-next-line
     const files = { ...this.state.files }
     let fileList = e.fromDragger && e.files ? e.files : e.target.files
-    if (filesFilter) fileList = filesFilter(Array.from(fileList))
+    if (filesFilter) fileList = filesFilter(Array.from(fileList)) || []
     const addLength = limit - value.length - Object.keys(this.state.files).length
     if (addLength <= 0) return
     Array.from({ length: Math.min(fileList.length, addLength) }).forEach(async (_, i) => {
