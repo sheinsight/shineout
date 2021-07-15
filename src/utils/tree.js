@@ -9,7 +9,7 @@ export const getFilterTree = (
   childrenKey = 'children',
   showHitDescendants,
   firstMatchNode,
-  { advanced }
+  { advanced } = {}
 ) => {
   const mapFilteredNodeToData = node => {
     if (!node) return null
