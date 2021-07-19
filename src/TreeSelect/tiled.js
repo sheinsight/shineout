@@ -60,6 +60,7 @@ export default curry((options, Origin) => {
       const originIcon = <span className={treeClass('default-icon')} />
       const key = this.rawDatum.getKey(data)
       const rawData = this.rawDatum.getDataById(key)
+      if (!data || !rawData) return originIcon
       const sameCount =
         data[childrenKey] && rawData[childrenKey] && data[childrenKey].length === rawData[childrenKey].length
       if (expanded.indexOf(key) === -1) return originIcon
