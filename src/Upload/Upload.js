@@ -369,6 +369,7 @@ class Upload extends PureComponent {
 
     this.setState(
       immer(draft => {
+        if (!draft.files[id]) return
         draft.files[id].status = ERROR
         draft.files[id].message = message
       })
