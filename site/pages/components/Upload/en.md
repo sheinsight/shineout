@@ -38,6 +38,7 @@
 | showUploadList | boolean | true | show upload list |
 | leftHandler | boolean | false | add image handler show left |
 | removeConfirm | string \| object | none | confirmation before deletion |
+| beforeRemove | (value: any) => Promise | none | callback before remove |
 
 ### Upload.Image
 
@@ -54,7 +55,7 @@
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| type | string | primary | options: \['primary', success', 'info', 'warning', 'danger'\] |
+| type | string | primary | options: \['primary', success', 'default', 'warning', 'danger'\] |
 | placeholder | ReactNode | none | button default content |
 | loading | ReactNode | none | content of uploading, will have spin if a string |
 

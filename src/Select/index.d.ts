@@ -10,6 +10,16 @@ StructDataStandardProps<Item>,
 ListItemStandardProps<Item, Value>,
 Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
   {
+
+  /**
+   * show border bottom
+   * 
+   * 仅仅展示下边框
+   * 
+   * default: false
+   */
+  underline?: boolean;
+  
   /**
    * width
    *
@@ -18,6 +28,24 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
    * default: 100%
    */
   width?: number;
+
+  /**
+   * width of option list
+   * 
+   * 下拉列表宽度
+   * 
+   * default: 100%
+   */
+  optionWidth?: number;
+
+  /**
+   * expand option list while enter press
+   * 
+   * 回车触发下拉框展开的时候调用
+   * 
+   * default: -
+   */
+  onEnterExpand?: (e: Event) => boolean;
   
   /**
    * height
@@ -150,7 +178,7 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
    *
    * default: -
    */
-  onFilter?: (text: string) => (data: Item) => boolean;
+  onFilter?: (text: string) => (((data: Item) => boolean) | void);
 
   /**
    * Merges selected values, valid only in multiselect mode

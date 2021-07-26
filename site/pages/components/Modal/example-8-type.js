@@ -1,7 +1,7 @@
 /**
- * cn - 类型
+ * cn - 附带图标
  *    -- 使用 type 属性来指定标题附带的图标
- * en - type attribute
+ * en - Icon
  *    -- use type display type icon
  */
 import React from 'react'

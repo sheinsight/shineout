@@ -21,3 +21,4 @@
 | trim | boolean | false | trim 为 true 时，失去焦点时会自动删除空白字符。 |
 | resize | boolean | false | 是否可以伸缩高度 |
 | value | string \| number | | defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖<br />在Form中，value会被表单接管，value无效 |
+| underline | boolean | false | 是否只展示下边框 |

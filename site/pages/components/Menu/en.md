@@ -21,3 +21,6 @@
 | onOpenChange | (keys: string[]) => void | none | menu open change callback |
 | frontCaret | boolean | null | Front solid triangle expansion |
 | theme | 'dark' | none | theme of menu |
+| looseChildren | boolean | false | menu item expandable if has children |
+| parentSelectable | boolean | false | Whether the parent menu is selectable (whether onClick is triggered after clicking)
+ |

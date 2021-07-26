@@ -42,6 +42,24 @@ export interface ImageProps extends StandardProps{
   src?: string;
 
   /**
+   * Alternate address, applied when src is invalid	
+   * 
+   * 备用地址，src无效时会应用	
+   * 
+   * default: none
+   */
+  alt?: string;
+
+  /**
+   * callback of image src or alt request fail	
+   * 
+   * src或alt 地址请求出错回调	
+   * 
+   * default: -
+   */
+  onError?: (error: Event) => void;
+
+  /**
    * target of image
    * 
    * 图片打开方式

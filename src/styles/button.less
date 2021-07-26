@@ -58,10 +58,12 @@
   // cover disabled opacity
   &.@{button-prefix}-disabled {
     opacity: 1;
-
     // cover default opacity in link disabled button
     &.@{button-prefix}-link {
       opacity: 0.4;
+    }
+    &.@{button-prefix}-text {
+      opacity: .65;
     }
   }
 
@@ -260,14 +262,14 @@
 
   &-circle {
     border-radius: 50%;
-    min-width: 34px;
+    min-width: @btn-circle-width;
     padding-left: 0;
     padding-right: 0;
     &.@{button-prefix}-large {
-      min-width: 43px;
+      min-width: @btn-circle-large-width;
     }
     &.@{button-prefix}-small {
-      min-width: 30px;
+      min-width: @btn-circle-small-width;
     }
   }
 
@@ -336,15 +338,5 @@
   .@{so-prefix}-dropdown {
     border-top-width: 1px;
     border-bottom-width: 1px;
-  }
-
-  &:not(&-text):not(&-link) {
-    min-width: @button-default-size-width;
-    &.@{button-prefix}-large {
-      min-width: @button-large-size-width;
-    }
-    &.@{button-prefix}-small {
-      min-width: @button-small-size-width;
-    }
   }
 }

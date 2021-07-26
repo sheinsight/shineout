@@ -6,6 +6,14 @@ type ReactNode = React.ReactNode;
 
 
 export interface TreeSelectProps<Value, Data> extends StandardProps {
+  /**
+   * show border bottom
+   * 
+   * 仅仅展示下边框
+   * 
+   * default: false
+   */
+   underline?: boolean;
 
   /**
    * width
@@ -157,6 +165,15 @@ export interface TreeSelectProps<Value, Data> extends StandardProps {
    * default: -
    */
   onFilter?: (text: string) => (data: Data) => boolean;
+
+  /**
+   * In the advanced filter mode, you can switch between the filter results and the original data for the current level by pressing the button
+   * 
+   * 高级筛选模式，可针对当前层级在筛选结果和原始数据间切换
+   * 
+   * default: -
+   */
+  onAdvancedFilter?: (text: string) => (data: Data) => boolean;
 
   /**
    * When it is a string, return d[string]. When it is a function, return the result of the function.

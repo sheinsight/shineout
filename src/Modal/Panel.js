@@ -33,6 +33,8 @@ export default class Panel extends PureComponent {
   constructor(props) {
     super(props)
     this.handleClose = this.handleClose.bind(this)
+    this.handleMaskDown = this.handleMaskClick.bind(this, 'maskDownTarget')
+    this.handleMaskUp = this.handleMaskClick.bind(this, 'maskUpTarget')
   }
 
   componentDidMount() {
@@ -60,8 +62,9 @@ export default class Panel extends PureComponent {
   }
 
   getStyle() {
-    const { width, height, top, position, style } = this.props
-
+    const { width, height, top, position, style, fullScreen } = this.props
+    const w = fullScreen ? '100vw' : width
+    const h = fullScreen ? '100vh' : height
     return Object.assign(
       {
         position: 'absolute',
@@ -70,9 +73,9 @@ export default class Panel extends PureComponent {
         ? {}
         : {
             display: 'inline-flex',
-            width,
-            height,
-            top,
+            width: w,
+            height: h,
+            top: fullScreen ? 0 : top,
             position: 'relative',
           },
       style || {}
@@ -113,10 +116,15 @@ export default class Panel extends PureComponent {
     event.preventDefault()
   }
 
+  handleMaskClick(type, e) {
+    this[type] = e.target
+  }
+
   handleClose(e) {
     const { maskCloseAble, onClose } = this.props
     const { target } = e
     if (!maskCloseAble) return
+    if (this.maskDownTarget !== this.maskUpTarget) return
     if (target.matches(`.${modalClass('mask')}`) && onClose) onClose()
   }
 
@@ -136,7 +144,7 @@ export default class Panel extends PureComponent {
       // if just render class Component, return null
       if (justRenderClassComponent) return null
       // for  method function
-      return <div className={modalClass('title')}>{title}</div>
+      return <div className={modalClass('title', 'method-title')}>{title}</div>
     }
 
     // base Component
@@ -185,6 +193,7 @@ export default class Panel extends PureComponent {
       from,
       top,
       events,
+      fullScreen,
     } = this.props
 
     const rtl = isRTL()
@@ -194,11 +203,18 @@ export default class Panel extends PureComponent {
       this.props.className
     )
     const showClose = typeof hideClose === 'boolean' ? !hideClose : maskCloseAble || maskCloseAble === null
-    const maskStyle = { paddingBottom: top }
+    const maskStyle = { paddingBottom: fullScreen ? 0 : top }
     return (
       <ZProvider value>
         <Provider value={{ element: undefined }}>
-          <div {...events} style={maskStyle} className={modalClass('mask')} onClick={this.handleClose}>
+          <div
+            {...events}
+            style={maskStyle}
+            className={modalClass('mask')}
+            onMouseDown={this.handleMaskDown}
+            onMouseUp={this.handleMaskUp}
+            onClick={this.handleClose}
+          >
             <Card
               forwardedRef={this.savePanel}
               moveable={moveable}
@@ -247,6 +263,7 @@ Panel.propTypes = {
   zoom: PropTypes.bool,
   container: PropTypes.any,
   events: PropTypes.object,
+  fullScreen: PropTypes.bool,
 }
 
 Panel.defaultProps = {

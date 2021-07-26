@@ -24,6 +24,8 @@
 | autoSSL | boolean | false | 是否根据页面自动转换协议 | 1.6.1 |
 | fit | 'fill' \| 'fit' \| 'stretch' \| 'center' | - | 适应容器的方式, 填充、居中、原图、拉伸 | |
 | shape | 'rounded' \| 'circle' \| 'thumbnail' | 'rounded' | 图片形状 | |
+| alt | string | 无 | 备用地址，src无效时会应用 | |
+| onError | (err: Event) => void | 无 | src或alt 地址请求出错回调 | |
  
 ### Image.Group
 

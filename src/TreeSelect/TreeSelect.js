@@ -135,10 +135,17 @@ export default class TreeSelect extends PureComponent {
   }
 
   handleKeyDown(e) {
+    const { onEnterExpand } = this.props
     if (e.keyCode === 13) {
       e.preventDefault()
       // enter only can open
-      if (!this.state.focus) this.handleState(true)
+      if (!this.state.focus) {
+        if (typeof onEnterExpand === 'function') {
+          const canOpen = onEnterExpand(e)
+          if (canOpen === false) return
+        }
+        this.handleState(true)
+      }
     }
 
     // fot close the list
@@ -221,6 +228,7 @@ export default class TreeSelect extends PureComponent {
       'line',
       'parentClickExpand',
       'childrenKey',
+      'expandIcons',
     ].forEach(k => {
       props[k] = this.props[k]
     })

@@ -5,6 +5,34 @@ import { StandardProps } from '../@types/common'
 type ReactNode = React.ReactNode;
 
 export interface ModalProps extends StandardProps {
+
+  /**
+   * Whether to force the mask transparency (in multi-layer Modal, the transparency of other Modal masks except the first layer will be adjusted to 0.01)	
+   * 
+   * 是否强制设置遮罩透明度（多层Modal中，除第一层外的其他Modal遮罩透明度会被调整为0.01）
+   * 
+   * default: false
+   */
+  forceMask?: boolean;
+
+  /**
+   * Distance from top
+   * 
+   * 模态框距离顶部距离
+   * 
+   * defualt: 10vh
+   */
+  top?: number | string;
+
+  /**
+   * Use the fullScreen property to display the modal in full screen
+   * 
+   * 使用 fullScreen 属性来使对话框全屏展示
+   * 
+   * default: false
+   */
+  fullScreen?: boolean;
+
   /**
    * Extend modal body style
    * 
@@ -69,9 +97,9 @@ export interface ModalProps extends StandardProps {
   title?: ReactNode;
 
   /**
-   * When the usePortal is true, use ReactDOM.createPortal to create the pop-up layer, otherwise use ReactDOM.render.
+   * When the usePortal is true, use ReactDOM.createPortal to create the pop-up layer, otherwise use ReactDOM.render. Use ReactDOM.render while func call.
    * 
-   * 为 true 时，使用 ReactDOM.createPortal 创建弹出层，为 false 时，使用 ReactDOM.render
+   * 为 true 时，使用 ReactDOM.createPortal 创建弹出层，为 false 时，使用 ReactDOM.render。函数式调用时使用 ReactDOM.render。
    * 
    * default: true
    */
@@ -286,22 +314,22 @@ export interface ModalFunctionOptions extends ModalProps {
   autoFocusButton?: string
 }
 
-
+type Close = () => void;
 
 declare class ModalSubmit extends React.Component<CardSubmitProps> {
   render(): JSX.Element
 }
 
 declare class Modal extends React.Component<ModalProps, {}> {
-  static info(options: ModalFunctionOptions): void;
+  static info(options: ModalFunctionOptions): Close;
 
-  static success(options: ModalFunctionOptions): void;
+  static success(options: ModalFunctionOptions): Close;
 
-  static error(options: ModalFunctionOptions): void;
+  static error(options: ModalFunctionOptions): Close;
 
   static confirm(options: ModalFunctionOptions): void;
 
-  static show(options: ModalFunctionOptions): void;
+  static show(options: ModalFunctionOptions): Close;
 
   static Submit: typeof ModalSubmit;
 }

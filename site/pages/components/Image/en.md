@@ -22,6 +22,8 @@
 | autoSSL | boolean | false | auto transform protocol | 1.6.1 |
 | fit | 'fill' \| 'fit' \| 'stretch' \| 'center' | - | fit the container | |
 | shape | 'rounded' \| 'circle' \| 'thumbnail' | 'rounded' | shape of image | |
+| alt | string | none | Alternate address, applied when src is invalid | |
+| onError | (err: Event) => void | none | callback of image src or alt request fail | |
 
 ### Image.Group
 

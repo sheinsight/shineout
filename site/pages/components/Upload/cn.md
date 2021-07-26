@@ -40,7 +40,8 @@
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | 无 | 上传失败文件删除之后的回调 |
 | forceAccept | string | 无 | 在使用时关闭了 accept 提供的文件类型过滤后，强制对文件类型进行校验（值同accept） |
 | showUploadList | boolean | true | 是否展示上传列表 |
-| removeConfirm | string \| object | none | 删除前是否进行确认提示 |
+| removeConfirm | string \| object | 无 | 删除前是否进行确认提示 |
+| beforeRemove | (value: any) => Promise | 无 | 删除前的确认 |
 
 ### Upload.Image
 
@@ -57,7 +58,7 @@
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| type | 'primary' \| success' \| 'info' \| 'warning' \| 'danger' | primary | 按钮类型 |
+| type | 'default' \| 'primary' \| success' \| 'warning' \| 'danger' | primary | 按钮类型 |
 | placeholder | ReactNode | 无 | 按钮默认内容 |
 | loading | ReactNode | 无 | 上传中按钮的内容，如果是字符串默认会有spin loading |
 
@@ -80,7 +81,7 @@
 
 | 属性 | 类型 | 说明 |
 | --- | --- | --- |
-| ext | func(string):Error | 判断后缀名，传入参数为文件后缀，校验失败返回 Error |
-| size | func(number):Error | 判断文件大小，校验失败返回 Error |
+| ext | func(string):Error\|Promise | 判断后缀名，传入参数为文件后缀，校验失败返回 Error |
+| size | func(number):Error\|Promise | 判断文件大小，校验失败返回 Error |
 | imageSize | func(Image):Error | 只对 Image 有效，判断图片尺寸，校验失败返回 Error |
-| customValidator | func(File):Error | 自定义校验 |
+| customValidator | func(File):Error\|Promise | 自定义校验 |

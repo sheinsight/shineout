@@ -260,6 +260,10 @@
     }
   }
 
+  &-split {
+    display: flex;
+  }
+
   &-range-picker {
     display: flex;
 
@@ -502,6 +506,9 @@
     min-width: 80px;
     border-right: 1px solid @divider-color;
     &-item {
+      max-width: 120px;
+      text-overflow: ellipsis;
+      overflow: hidden;
       white-space: nowrap;
       padding: 4px 12px;
       cursor: pointer;

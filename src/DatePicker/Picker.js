@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
+import { datepickerClass } from '../styles'
 import utils from './utils'
 import Year from './Year'
 import Month from './Month'
 import Day from './Day'
 import Time from './Time'
+import Quick from './Quick'
 
 class Picker extends PureComponent {
   constructor(props) {
@@ -30,6 +32,12 @@ class Picker extends PureComponent {
     this.handleModeChange = this.handleModeChange.bind(this)
     this.handleEnter = this.handleMouse.bind(this, true)
     this.handleLeave = this.handleMouse.bind(this, false)
+    this.handleQuick = this.handleQuick.bind(this)
+  }
+
+  handleQuick(quick) {
+    const { onChange } = this.props
+    onChange(...utils.quickHandleChangeParams(quick.value[0], true, null, null, quick))
   }
 
   handleMouse(isEnter, e) {
@@ -68,7 +76,12 @@ class Picker extends PureComponent {
 
     // only range has index prop
     if (index === undefined)
-      return <Render {...otherProps} current={current || this.defaultCurrent} onModeChange={this.handleModeChange} />
+      return (
+        <div className={datepickerClass('split')}>
+          <Quick {...otherProps} current={current || this.defaultCurrent} onChange={this.handleQuick} />
+          <Render {...otherProps} current={current || this.defaultCurrent} onModeChange={this.handleModeChange} />
+        </div>
+      )
 
     return (
       <div onMouseEnter={this.handleEnter} onMouseLeave={this.handleLeave}>

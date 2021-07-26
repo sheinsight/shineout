@@ -9,6 +9,9 @@ const libPath = path.resolve(__dirname, '../publish/lib')
 const sitePath = path.resolve(__dirname, '../site/pages/components')
 const temp = fs.readFileSync(path.resolve(__dirname, './component-declare.ejs'), 'utf-8')
 const sep = '-- |'
+const moduleMap = {
+  List: 'DataList',
+}
 const ignoreModule = [
   'Datum',
   'hoc',
@@ -96,7 +99,7 @@ const markdown = glob('**/en.md', {
 })
 
 markdown.forEach(p => {
-  const componentName = path.dirname(p)
+  const componentName = moduleMap[path.dirname(p)] || path.dirname(p)
   if (ignoreModule.includes(componentName)) return
   const componentDir = path.resolve(libPath, componentName)
   if (!fs.existsSync(componentDir)) fs.mkdirSync(componentDir)

@@ -50,6 +50,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Modal/example-3-focus.js'),
   },
   {
+    name: '3-full-screen',
+    title: locate(
+      '全屏 \n 使用 fullScreen 属性来使对话框全屏展示',
+      'Full Screen \n Use the fullScreen property to display the modal in full screen'
+    ),
+    component: require('doc/pages/components/Modal/example-3-full-screen.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Modal/example-3-full-screen.js'),
+  },
+  {
     name: '3-gcontainer',
     title: locate(
       '指定目标 \n 使用 container 来指定 Modal 渲染的目标节点',
@@ -106,8 +115,8 @@ const examples = [
   {
     name: '8-type',
     title: locate(
-      '类型 \n 使用 type 属性来指定标题附带的图标',
-      'type attribute \n use type display type icon'
+      '附带图标 \n 使用 type 属性来指定标题附带的图标',
+      'Icon \n use type display type icon'
     ),
     component: require('doc/pages/components/Modal/example-8-type.js').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-8-type.js'),

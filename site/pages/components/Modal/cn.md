@@ -18,7 +18,7 @@
 | position | string | 无 | 弹出位置，可选值为 \['top', 'right', 'bottom', 'left'] | |
 | style | object | 无 | 最外层扩展样式 | |
 | title | ReactNode | 无 | 弹出层的标题 | |
-| usePortal | boolean | true | 为 true 时，使用 ReactDOM.createPortal 创建弹出层，为 false 时，使用 ReactDOM.render | |
+| usePortal | boolean | true | 为 true 时，使用 ReactDOM.createPortal 创建弹出层，为 false 时，使用 ReactDOM.render<br />函数式调用时使用 ReactDOM.render | |
 | visible | boolean | false | 是否显示 | |
 | width | number \| string | 500 | 对话框宽度 | |
 | zIndex | number | 1050 | 对话框 z-index 值，注意：如 Modal 嵌套 Select 组件，并且 Select 组件含有 absolute 字段，需要修改 Select 的 z-index的值 | |
@@ -31,9 +31,12 @@
 | destroy | boolean | false | 关闭时是否销毁元素 | |
 | hideClose | boolean | 无 | 是否隐藏关闭按钮 | |
 | type | 'info' \| 'success' \| 'warning' \| 'error' \| 'normal' | 无 | Modal title 显示状态icon | 1.6.1 |
-| zoom | boolean | false | 是否开启 zoom 动画效果 |
-| esc | boolean | true | 是否支持 esc 键关闭 |
-| events | object | 无 | 外层元素所接受的事件列表，可用于在 createPortal 场景中阻止冒泡 |
+| zoom | boolean | false | 是否开启 zoom 动画效果 | |
+| esc | boolean | true | 是否支持 esc 键关闭 | |
+| events | object | 无 | 外层元素所接受的事件列表，可用于在 createPortal 场景中阻止冒泡 | |
+| fullScreen | boolean | false | 是否全屏展示 | |
+| top | number \| string | 10vh | 距离顶部距离 | |
+| forceMask | boolean | false | 是否强制设置遮罩透明度（多层Modal中，除第一层外的其他Modal遮罩透明度会被调整为0.01） | |
 
 ### ModalMethods
 

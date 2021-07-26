@@ -4,6 +4,7 @@
 @select-prefix: ~'@{so-prefix}-select';
 @input-prefix: ~'@{so-prefix}-input';
 @list-prefix: ~'@{so-prefix}-list';
+@checkinput-prefix: ~'@{so-prefix}-checkinput';
 @tree-node-max-width: 300px;
 
 .@{select-prefix} {
@@ -240,7 +241,6 @@
         .@{select-prefix}-tree-node {
           display: block;
           padding: 0 4px;
-          border-radius: 2px;
           max-width: @tree-node-max-width;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -367,7 +367,7 @@
       color: @select-option-hover-color
     }
 
-    &.@{select-prefix}-disabled {
+    &.@{select-prefix}-disabled, &.@{checkinput-prefix}-disabled {
       &,
       &:hover,
       &.@{select-prefix}-active {
@@ -455,7 +455,7 @@
     }
   }
 
-  &-multiple &-result {
+  &-multiple &-result:not(&-empty) {
     padding-left: @padding-base-horizontal / 2;
     padding-right: @padding-base-horizontal + 22;
     .@{select-prefix}-close-warpper {
@@ -463,7 +463,7 @@
     }
   }
 
-  &-multiple &-compressed {
+  &-multiple &-compressed:not(&-empty) {
     padding-left: @padding-base-horizontal / 2;
     padding-right: @padding-base-horizontal + 12;
     .@{select-prefix}-close-warpper {
@@ -471,11 +471,11 @@
     }
   }
 
-  &-large&-multiple &-result {
+  &-large&-multiple &-result:not(&-empty) {
     padding-left: @padding-large-horizontal / 2;
   }
 
-  &-small&-multiple &-result {
+  &-small&-multiple &-result:not(&-empty) {
     padding-left: @padding-small-horizontal / 2;
   }
 

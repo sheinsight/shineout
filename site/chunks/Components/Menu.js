@@ -32,6 +32,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Menu/example-1-link.js'),
   },
   {
+    name: '1-onClick',
+    title: locate(
+      '父菜单可选中 \n 设置 parentSelectable 使父级菜单支持单独选中 <br /> 此时父级菜单左侧区域用于选中，偏右侧区域用于展开和收起子菜单',
+      'Parent Selectable \n Setting the parentSelectable property can make the parent menu trigger the onClick of the Menu after clicking'
+    ),
+    component: require('doc/pages/components/Menu/example-1-onClick.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Menu/example-1-onClick.js'),
+  },
+  {
     name: '2-horizontal',
     title: locate(
       '水平布局 \n 设置 mode 为 "horizontal"，显示为水平布局（子菜单在右侧弹出）',

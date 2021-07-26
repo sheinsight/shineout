@@ -117,9 +117,12 @@ class Container extends PureComponent {
     if (!Array.isArray(quickSelect)) return undefined
 
     return quickSelect.map(q => {
-      if (!q.value || q.value.length !== 2) return { name: q.name, invalid: true }
-      const date = q.value.map(v => DateFns.toDateWithFormat(v, format))
-      if (DateFns.isInvalid(date[0]) || DateFns.isInvalid(date[1])) return { name: q.name, invalid: true }
+      let invalid = false
+      if (!q.value) return { name: q.name, invalid: true }
+      const date = (Array.isArray(q.value) ? q.value : [q.value]).map(v => DateFns.toDateWithFormat(v, format))
+      if (DateFns.isInvalid(date[0])) invalid = true
+      if (date[1] && DateFns.isInvalid(date[1])) invalid = true
+      if (invalid) return { name: q.name, invalid: true }
       return {
         name: q.name,
         value: date,
@@ -201,6 +204,8 @@ class Container extends PureComponent {
   }
 
   handleToggle(focus, e) {
+    const { quickSelect } = this.props
+    const hasQuickColumn = Array.isArray(quickSelect) && quickSelect.length > 0
     if (this.props.disabled === true) return
     if (focus === this.state.focus) return
     if (e && focus && getParent(e.target, this.pickerContainer)) return
@@ -214,7 +219,7 @@ class Container extends PureComponent {
           const rect = this.element.getBoundingClientRect()
           const windowHeight = docSize.height
           const windowWidth = docSize.width
-          const pickerWidth = this.props.range ? 540 : 270
+          const pickerWidth = this.props.range ? 540 : 270 + (hasQuickColumn ? 120 : 0)
           if (!this.props.position) {
             if (rect.bottom + 300 > windowHeight) {
               if (rect.left + pickerWidth > windowWidth) state.position = 'right-top'
@@ -319,8 +324,10 @@ class Container extends PureComponent {
   }
 
   handleClear(e) {
+    const { clearWithUndefined } = this.props
     e.stopPropagation()
-    const value = this.props.range ? ['', ''] : ''
+    const empty = clearWithUndefined ? undefined : ''
+    const value = this.props.range ? [empty, empty] : empty
     this.props.onChange(value, () => {
       this.props.onValueBlur()
       this.handleToggle(false)
@@ -528,6 +535,7 @@ Container.propTypes = {
   onPickerChange: PropTypes.func,
   disabledTime: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   align: PropTypes.oneOf(['left', 'right', 'center']),
+  clearWithUndefined: PropTypes.bool,
 }
 
 Container.defaultProps = {

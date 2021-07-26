@@ -21,3 +21,5 @@
 | onOpenChange | (keys: string[]) => void | 无 | 菜单展开/收起回调 |
 | frontCaret | boolean | null | 前置实心三角展开符 |
 | theme | 'dark' | 无 | 主题 |
+| looseChildren | boolean | false | 如果 children 有设置则菜单项可展开 |
+| parentSelectable | boolean | false | 父级菜单是否可选中(在点击后是否触发onClick) |

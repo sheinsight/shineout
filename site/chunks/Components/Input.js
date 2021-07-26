@@ -32,6 +32,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Input/example-1-clearable.js'),
   },
   {
+    name: '1-underline',
+    title: locate(
+      '下边框 \n 使用 underline 属性设置仅展示下边框',
+      'Underline \n Use the underline property make only the bottom border display'
+    ),
+    component: require('doc/pages/components/Input/example-1-underline.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Input/example-1-underline.js'),
+  },
+  {
     name: '2-size',
     title: locate(
       '大小 \n 提供了三种尺寸的输入框，small、default、large',

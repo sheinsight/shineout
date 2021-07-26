@@ -26,7 +26,7 @@ export default class extends Component {
   shouldComponentUpdate(nextProps) {
     const { datum } = nextProps
     if (!shallowEqual(this.props, nextProps)) return true
-    if (this.lastValueLength !== datum.getValue().length) return true
+    if (this.lastValueLength !== (datum.getValue() || []).length) return true
     return false
   }
 
@@ -78,7 +78,7 @@ export default class extends Component {
 
   render() {
     const { datum } = this.props
-    this.lastValueLength = datum.getValue().length
+    this.lastValueLength = (datum.getValue() || []).length
     if (datum.limit === 1) return null
     return <Checkbox {...this.props} checked={this.getChecked()} onChange={this.handleChange} />
   }

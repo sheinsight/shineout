@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import cleanProps from '../utils/cleanProps'
 import Clear from './clear'
 import { inputClass } from '../styles'
@@ -10,6 +11,7 @@ class Input extends PureComponent {
     this.enterLock = false
     this.handleChange = this.handleChange.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.handleKeyUp = this.handleKeyUp.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
     this.bindRef = this.bindRef.bind(this)
   }
@@ -54,7 +56,12 @@ class Input extends PureComponent {
     if (this.invalidNumber(value)) {
       // For numbers with a decimal point, use toFixed to correct the number of decimal points.
       if (digits >= 0 && /^-?\d*\.?\d*$/.test(value)) {
-        value = Number(value).toFixed(digits)
+        value =
+          digits === 0
+            ? Number(value).toFixed(digits)
+            : Number(value)
+                .toFixed(digits + 1)
+                .slice(0, -1)
       } else {
         // digits <= 0 || not of number
         return
@@ -64,11 +71,18 @@ class Input extends PureComponent {
   }
 
   handleKeyDown(e) {
-    const { onKeyDown, onEnterPress } = this.props
-    if (e.keyCode === 13 && onEnterPress) {
-      onEnterPress(e.target.value, e)
-    }
+    const { onKeyDown } = this.props
+    if (e.keyCode === 13) this.enterPress = true
     if (onKeyDown) onKeyDown(e)
+  }
+
+  handleKeyUp(e) {
+    const { onKeyUp, onEnterPress } = this.props
+    if (this.enterPress && e.keyCode === 13 && onEnterPress) {
+      onEnterPress(e.target.value, e)
+      this.enterPress = false
+    }
+    if (onKeyUp) onKeyUp(e)
   }
 
   handleBlur(e) {
@@ -114,11 +128,13 @@ class Input extends PureComponent {
       ...other
     } = this.props
     const value = this.props.value == null ? '' : this.props.value
+    const showClear = !other.disabled && clearable && value !== ''
+    const mc = classnames(className, showClear && inputClass('clearable'))
 
     return [
       <input
         {...cleanProps(other)}
-        className={className}
+        className={mc || undefined}
         name={other.name || htmlName}
         type={type === 'password' ? type : 'text'}
         value={value}
@@ -126,9 +142,10 @@ class Input extends PureComponent {
         key="input"
         onChange={this.handleChange}
         onKeyDown={this.handleKeyDown}
+        onKeyUp={this.handleKeyUp}
         onBlur={this.handleBlur}
       />,
-      !other.disabled && clearable && value !== '' && <Clear onClick={this.handleChange} key="close" />,
+      showClear && <Clear onClick={this.handleChange} key="close" />,
       this.renderInfo(),
     ]
   }
@@ -150,6 +167,7 @@ Input.propTypes = {
   info: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
   forwardedRef: PropTypes.func,
   onKeyDown: PropTypes.func,
+  onKeyUp: PropTypes.func,
 }
 
 Input.defaultProps = {

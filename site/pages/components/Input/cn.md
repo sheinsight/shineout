@@ -24,6 +24,10 @@
 | info | (value: string) => string \| number | 无 | 提示信息 |
 | popoverProps | object | 无 | 校验弹框接受的属性，具体属性参考Popover组件说明 |
 | maxLength | number | 无 | 可输入最大长度 |
+| forwardedRef | (el: HTMLElement) => void | 无 | 用户获取 input element |
+| underline | boolean | false | 是否只展示下边框 |
+| onKeyUp | (e: KeyboardEvent) => void | 无 | 键盘按下后弹起回调 |
+| onKeyDown | (e: KeyboardEvent) => void | 无 | 键盘按下后的回调 |
 
 ### Input.Number
 

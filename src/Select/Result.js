@@ -181,10 +181,10 @@ class Result extends PureComponent {
   }
 
   renderPlaceholder() {
-    const { focus, onFilter } = this.props
+    const { focus, onFilter, filterText } = this.props
 
     if (focus && onFilter) {
-      return this.renderInput()
+      return this.renderInput(filterText)
     }
 
     return (
@@ -255,13 +255,14 @@ class Result extends PureComponent {
 
   render() {
     const { compressed } = this.props
-    const result = this.isEmptyResult() ? this.renderPlaceholder() : this.renderResult()
+    const showPlaceholder = this.isEmptyResult()
+    const result = showPlaceholder ? this.renderPlaceholder() : this.renderResult()
 
     const rtl = isRTL()
 
     if (rtl) {
       return (
-        <div className={selectClass('result', compressed && 'compressed')}>
+        <div className={selectClass('result', compressed && 'compressed', showPlaceholder && 'empty')}>
           {this.renderClear()}
           {this.renderIndicator()}
           {result}
@@ -270,7 +271,7 @@ class Result extends PureComponent {
     }
 
     return (
-      <div className={selectClass('result', compressed && 'compressed')}>
+      <div className={selectClass('result', compressed && 'compressed', showPlaceholder && 'empty')}>
         {result}
         {this.renderIndicator()}
         {this.renderClear()}

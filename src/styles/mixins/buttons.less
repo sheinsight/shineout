@@ -5,7 +5,7 @@
 
 .button-case-box-shadow(@color, @width, @fade) {
   & when (%('%s', @color) = %('%s', @btn-primary-border)) {
-    & when (@so-theme = antd) {
+    & when (@so-theme = antd), (@so-theme = shineout) {
       & when (@fade = 60%) {
         box-shadow: 0 0 0 @width @primary-color-fade-60;
       }
@@ -23,7 +23,7 @@
     }
   }
   & when (%('%s', @color) = %('%s', @btn-success-border)) {
-    & when (@so-theme = antd) {
+    & when (@so-theme = antd), (@so-theme = shineout) {
       & when (@fade = 60%) {
         box-shadow: 0 0 0 @width @success-color-fade-60;
       }
@@ -41,7 +41,7 @@
     }
   }
   & when (%('%s', @color) = %('%s', @btn-info-border)) {
-    & when (@so-theme = antd) {
+    & when (@so-theme = antd), (@so-theme = shineout) {
       & when (@fade = 60%) {
         box-shadow: 0 0 0 @width @info-color-fade-60;
       }
@@ -59,7 +59,7 @@
     }
   }
   & when (%('%s', @color) = %('%s', @btn-warning-border)) {
-    & when (@so-theme = antd) {
+    & when (@so-theme = antd), (@so-theme = shineout) {
       & when (@fade = 60%) {
         box-shadow: 0 0 0 @width @warning-color-fade-60;
       }
@@ -77,7 +77,7 @@
     }
   }
   & when (%('%s', @color) = %('%s', @btn-danger-border)) {
-    & when (@so-theme = antd) {
+    & when (@so-theme = antd), (@so-theme = shineout) {
       & when (@fade = 60%) {
         box-shadow: 0 0 0 @width @danger-color-fade-60;
       }
@@ -103,7 +103,7 @@
     }
   }
   & when (%('%s', @color) = %('%s', @btn-default-border)) {
-    & when (@so-theme = antd) {
+    & when (@so-theme = antd), (@so-theme = shineout) {
       box-shadow: 0 0 0 @width fade(@color, @fade);
     }
     & when (@so-theme = default) {

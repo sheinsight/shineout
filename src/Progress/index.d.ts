@@ -10,6 +10,16 @@ interface ColorStep {
 }
 
 export interface ProgressProps extends StandardProps {
+
+  /**
+   * popup to show children
+   * 
+   * 是否通过弹出框展示children 
+   * 
+   * default: -
+   */
+  popup?: boolean;
+
   /**
    * Background color
    *

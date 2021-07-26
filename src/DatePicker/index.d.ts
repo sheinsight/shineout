@@ -14,12 +14,30 @@ interface Base {
 }
 
 export interface QuickSelect extends Base {
-  name?: string,
-  value?: Array<DateTimeType>
+  name?: string;
+  value?: Array<DateTimeType> | DateTimeType;
 }
 
 export interface DatePickerProps extends StandardProps,
 FormItemStandardProps<DatePickerValue> {
+
+  /**
+   * onChange get undefined while clear
+   * 
+   * 清空值时抛出 undefined
+   * 
+   * default: false
+   */
+  clearWithUndefined?: boolean;
+
+  /**
+   * show border bottom
+   * 
+   * 仅仅展示下边框
+   * 
+   * default: false
+   */
+   underline?: boolean;
 
   /**
    * width

@@ -19,29 +19,6 @@ function ignoreBorderRight(rows) {
   })
 }
 
-function ignoreBorderBottom(rows) {
-  const emptyColumn = {}
-  const lastLine = rows[rows.length - 1]
-  if (!lastLine) return
-  lastLine.forEach((column, index) => {
-    if (column === null) {
-      emptyColumn[index] = true
-    }
-  })
-  if (Object.keys(emptyColumn).length === 0) return
-  for (let i = rows.length - 2; i >= 0; i--) {
-    const row = rows[i]
-    Object.keys(emptyColumn).forEach(emptyIndex => {
-      const index = parseInt(emptyIndex, 10)
-      if (row[index]) {
-        row[index].ignoreBorderBottom = true
-        delete emptyColumn[emptyIndex]
-      }
-    })
-    if (row.indexOf(null) === -1) break
-  }
-}
-
 function format(columns, data, nextRow, index, expandKeys) {
   const row = columns.map((col, i) => {
     const cell = { index, data, expandKeys }
@@ -232,7 +209,6 @@ class Tbody extends PureComponent {
     }
 
     if (rows.length > 0 && bordered) {
-      ignoreBorderBottom(rows)
       ignoreBorderRight(rows)
     }
     this.keys = {}

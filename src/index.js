@@ -2,7 +2,7 @@
 import './styles/normalize.less'
 import * as utils from './utils'
 
-export default { utils, version: '1.6.2' }
+export default { utils, version: '1.6.6-rc.5' }
 export { utils }
 export { setLocale } from './locale'
 export { color, style } from './utils/expose'
@@ -25,6 +25,7 @@ export { default as Divider } from './Divider'
 export { default as Dropdown } from './Dropdown'
 export { default as EditableArea } from './EditableArea'
 export { default as Form } from './Form'
+export { default as Gap } from './Gap'
 export { default as Grid } from './Grid'
 export { default as Icon } from './Icon'
 export { default as Image } from './Image'

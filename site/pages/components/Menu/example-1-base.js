@@ -15,7 +15,6 @@ const data = [
   {
     id: '3',
     title: 'Navigation Two',
-    onClick: true,
     children: [
       {
         id: '4',
@@ -30,7 +29,6 @@ const data = [
   {
     id: '6',
     title: 'Navigation Three',
-    onClick: () => console.log('only click'),
     children: [
       {
         id: '7',

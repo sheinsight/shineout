@@ -2,6 +2,8 @@
 @import './themes/@{so-theme}.less';
 
 @menu-prefix: ~'@{so-prefix}-menu';
+@transition-duration: .2s;
+@expand-width: 40px;
 
 .@{menu-prefix} {
   position: relative;
@@ -35,6 +37,7 @@
       display: block;
       color: @menu-item-color;
       white-space: nowrap;
+      transition: all @transition-duration;
 
       &:focus {
         text-decoration: none;
@@ -46,7 +49,7 @@
       }
     }
 
-    &.@{menu-prefix}-disabled a {
+    &.@{menu-prefix}-disabled > a {
       color: @menu-disabled-color;
       cursor: not-allowed;
     }
@@ -60,17 +63,26 @@
     font-size: @menu-item-font-size;
   }
 
-  &-has-children > &-title {
-    .caret(down);
-
-    &:after {
-      position: absolute;
-      top: 50%;
-      right: 16px;
-      transform: @menu-title-transform;
+  &-has-children {
+    > .@{menu-prefix}-title {
+      padding-right: @expand-width;
+      .@{menu-prefix}-expand {
+        position: absolute;
+        cursor: pointer;
+        transition: all @transition-duration;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: @expand-width;
+        .caret(down);
+        &:after {
+          position: absolute;
+          top: 50%;
+          right: 16px;
+          transform: @menu-title-transform;
+        }
+      }
     }
-
-    padding-right: 40px;
   }
 
   &-highlight > &-title {
@@ -81,7 +93,7 @@
     display: none;
 
     .@{menu-prefix}-has-children.@{menu-prefix}-open {
-      & > .@{menu-prefix}-title {
+      & > .@{menu-prefix}-title .@{menu-prefix}-expand {
         &:after {
           transform: @menu-title-open-transform;
         }
@@ -108,9 +120,15 @@
 
     & > .@{menu-prefix}-item {
       display: block;
+      &.@{menu-prefix}-selectable {
+        > a .@{menu-prefix}-expand:hover {
+          background: @primary-color-fade-10;
+        }
+      }
     }
 
-    .@{menu-prefix}-active.@{menu-prefix}-no-children {
+    .@{menu-prefix}-active.@{menu-prefix}-no-children,
+    .@{menu-prefix}-active.@{menu-prefix}-selectable {
       padding: @menu-active-padding-vertical @menu-active-padding-horizontal;
       > a {
         background: @menu-item-active-bg;
@@ -118,7 +136,7 @@
         border-radius: @menu-active-border-radius;
         text-indent: @menu-active-padding-horizontal-negative;
 
-        &:after {
+        &:before {
           position: absolute;
           top: 0;
           right: 0px;
@@ -201,6 +219,13 @@
       box-shadow: @menu-box-shadow-base;
     }
   }
+
+  &-inline, &-horizontal {
+    .@{menu-prefix}-in-path.@{menu-prefix}-has-children > a {
+      color: @colors-primary;
+    }
+  }
+
   ul.@{menu-prefix}-horizontal.@{menu-prefix}-root {
     margin-left: 0;
   }
@@ -249,7 +274,7 @@
 
     .@{menu-prefix}-has-children,
     .@{menu-prefix}-has-children.@{menu-prefix}-open {
-      & > .@{menu-prefix}-title {
+      & > .@{menu-prefix}-title .@{menu-prefix}-expand {
         &:after {
           transform: @menu-title-vertical-transform;
         }
@@ -320,14 +345,17 @@
     &.@{menu-prefix}-inline,
     &.@{menu-prefix}-vertical,
     &.@{menu-prefix}-horizontal {
-      .@{menu-prefix}-active.@{menu-prefix}-no-children a {
-        background: @menu-dark-active-bg;
-        color: @menu-dark-active-color;
+      .@{menu-prefix}-item.@{menu-prefix}-active.@{menu-prefix}-no-children,
+      .@{menu-prefix}-item.@{menu-prefix}-active.@{menu-prefix}-selectable  {
+        > a {
+          background: @menu-dark-active-bg;
+          color: @menu-dark-active-color;
 
-        &:after,
-        &after:before {
-          width: 0;
-          height: 0;
+          &:after,
+          &after:before {
+            width: 0;
+            height: 0;
+          }
         }
       }
 
@@ -438,6 +466,19 @@
             }
           }
         }
+      }
+    }
+
+    &.@{menu-prefix}-inline {
+      .@{menu-prefix}-selectable {
+        > a .@{menu-prefix}-expand:hover {
+          background: @primary-color-fade-60;
+        }
+      }
+    }
+    &.@{menu-prefix}-inline, &.@{menu-prefix}-horizontal {
+      .@{menu-prefix}-in-path.@{menu-prefix}-has-children > a {
+        color: @menu-dark-item;
       }
     }
   }
