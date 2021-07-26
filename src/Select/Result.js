@@ -181,10 +181,10 @@ class Result extends PureComponent {
   }
 
   renderPlaceholder() {
-    const { focus, onFilter } = this.props
+    const { focus, onFilter, filterText } = this.props
 
     if (focus && onFilter) {
-      return this.renderInput()
+      return this.renderInput(filterText)
     }
 
     return (
