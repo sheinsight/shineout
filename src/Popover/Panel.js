@@ -14,6 +14,7 @@ import { getRTLPosition } from '../utils/strings'
 import { isRTL } from '../config'
 import { consumer, Provider } from './context'
 import { getUidStr } from '../utils/uid'
+import getCommonContainer from '../utils/dom/popContainer'
 
 const emptyEvent = e => e.stopPropagation()
 
@@ -83,7 +84,7 @@ class Panel extends Component {
     document.removeEventListener('mousedown', this.clickAway)
 
     if (!this.container) return
-    if (this.container === document.body) {
+    if (this.container === getCommonContainer()) {
       this.container.removeChild(this.element)
     } else {
       this.container.parentElement.removeChild(this.container)
@@ -146,7 +147,7 @@ class Panel extends Component {
       child.setAttribute('style', ' position: absolute; top: 0px; left: 0px; width: 100% ')
       return container.appendChild(child)
     }
-    return document.body
+    return getCommonContainer()
   }
 
   updatePosition(position) {
@@ -240,10 +241,16 @@ class Panel extends Component {
     const position = this.getPositionStr()
     // eslint-disable-next-line
     const style = this.element.style
-    this.updatePosition(position)
-    style.display = show ? 'block' : 'none'
-    if (background) style.background = background
-    if (border) style.borderColor = border
+    if (show) {
+      // 先隐藏再设置样式这样可以减少回流
+      style.display = 'none'
+      this.updatePosition(position)
+      if (background) style.background = background
+      if (border) style.borderColor = border
+      style.display = 'block'
+    } else {
+      style.display = 'none'
+    }
     this.element.className = classnames(popoverClass('_', position, type), this.props.className, this.id)
     let childrened = isFunc(children) ? children(this.handleHide) : children
     if (typeof childrened === 'string') childrened = <span className={popoverClass('text')}>{childrened}</span>
