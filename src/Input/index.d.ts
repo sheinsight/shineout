@@ -7,8 +7,7 @@ type ReactNode = React.ReactNode;
 
 export interface InputProps<Value> extends 
 StandardProps, 
-FormItemStandardProps<Value>, 
-Pick<CommonProps, 'clearable'> {
+FormItemStandardProps<Value> {
 
   /**
    * width
@@ -27,6 +26,15 @@ Pick<CommonProps, 'clearable'> {
    * default: 400
    */
   delay?: number;
+
+  /**
+   * If clearable is true, show clear value icon
+   *
+   * 是否可清除值
+   *
+   * default: false
+   */
+  clearable?: boolean | (() => void);
 
   /**
    * The callback function for enter key
