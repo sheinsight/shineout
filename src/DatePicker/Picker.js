@@ -26,8 +26,10 @@ class Picker extends PureComponent {
     }
 
     this.state = { mode }
-    this.defaultCurrent = new Date(
-      utils.formatDateWithDefaultTime(utils.newDate(), undefined, props.defaultTime[0], 'yyyy-MM-dd HH:mm:ss')
+    const format = 'yyyy-MM-dd HH:mm:ss'
+    this.defaultCurrent = utils.toDateWithFormat(
+      utils.formatDateWithDefaultTime(utils.newDate(), undefined, props.defaultTime[0], format),
+      format
     )
     this.handleModeChange = this.handleModeChange.bind(this)
     this.handleEnter = this.handleMouse.bind(this, true)
