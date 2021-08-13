@@ -181,7 +181,7 @@ class Upload extends PureComponent {
     return null
   }
 
-  addFile(e) {
+  async addFile(e) {
     const { beforeUpload, value, limit, filesFilter } = this.props
     // eslint-disable-next-line
     const files = { ...this.state.files }
@@ -189,7 +189,8 @@ class Upload extends PureComponent {
     if (filesFilter) fileList = filesFilter(Array.from(fileList)) || []
     const addLength = limit - value.length - Object.keys(this.state.files).length
     if (addLength <= 0) return
-    Array.from({ length: Math.min(fileList.length, addLength) }).forEach(async (_, i) => {
+    const list = Array.from({ length: Math.min(fileList.length, addLength) })
+    for (let i = 0; i < list.length; i++) {
       const blob = fileList[i]
       const id = getUidStr()
       const file = {
@@ -200,11 +201,12 @@ class Upload extends PureComponent {
       }
 
       files[id] = file
+      // eslint-disable-next-line no-await-in-loop
       const error = await this.useValidator(blob)
       if (error instanceof Error) {
         if (!this.validatorHandle(error, file.blob)) {
           delete files[id]
-          return
+          continue
         }
 
         file.message = error.message
@@ -221,8 +223,7 @@ class Upload extends PureComponent {
             })
             .catch(() => true)
         }
-
-        return
+        continue
       }
 
       if (beforeUpload) {
@@ -245,7 +246,7 @@ class Upload extends PureComponent {
       } else {
         files[id].xhr = this.uploadFile(id, blob)
       }
-    })
+    }
 
     this.setState({ files })
   }
@@ -431,6 +432,7 @@ class Upload extends PureComponent {
     } = this.props
     const { files, recycle } = this.state
     const fileDrop = drop && !imageStyle
+
     const className = classnames(
       uploadClass('_', disabled && 'disabled', showUploadList === false && 'hide-list', fileDrop && 'file-drop'),
       this.props.className
