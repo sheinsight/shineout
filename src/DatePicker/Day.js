@@ -121,7 +121,7 @@ class Day extends PureComponent {
   renderDay(date, minD, maxD) {
     const { current, disabled, value, index, type, rangeDate, range, rangeTemp, min, max } = this.props
     const { hover } = this.state
-    const hmsDate = new Date(date)
+    const hmsDate = utils.toDate(date)
     utils.setTime(hmsDate, current)
     let isDisabled = disabled ? disabled(date) : false
 
@@ -239,8 +239,8 @@ class Day extends PureComponent {
     const { current, min, index, max } = this.props
     const days = this.getDays()
     this.today = utils.newDate()
-    const minDate = min && new Date(utils.format(min, minStr, new Date()))
-    const maxDate = max && new Date(utils.format(max, maxStr, new Date()))
+    const minDate = min && utils.toDate(utils.format(min, minStr, new Date()))
+    const maxDate = max && utils.toDate(utils.format(max, maxStr, new Date()))
 
     return (
       <div className={datepickerClass('day-picker')}>

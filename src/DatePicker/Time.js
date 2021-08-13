@@ -152,8 +152,8 @@ class Time extends PureComponent {
     }
 
     // reset
-    const min = utils.resetTimeByFormat(mi && new Date(mi), format)
-    const max = utils.resetTimeByFormat(ma && new Date(ma), format)
+    const min = utils.resetTimeByFormat(mi, format)
+    const max = utils.resetTimeByFormat(ma, format)
 
     return <div className={className}>{this.renderTimeScroller(value, min, max, hours)}</div>
   }
