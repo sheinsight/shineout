@@ -145,7 +145,6 @@ class Thead extends PureComponent {
           )}
         </th>
       )
-
       return
     }
 

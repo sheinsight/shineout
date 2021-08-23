@@ -26,7 +26,7 @@
 | absolute | boolean | false | 为 true 时，选项弹出层在 DOM 中独立 render |
 | zIndex | number | 1000 | 选择面板 z-index 值 |
 | allowSingle | boolean | false | 是否允许单选, 仅在 range 模式下有效 | 
-| quickSelect | object[] | false | 快速选择, 仅在 range 模式下有效, name: 文字提示, value: 时间范围 | 
+| quickSelect | object[] | false | 快速选择, name: 文字提示, value: 时间范围或时间 | 
 | min | string \| number \| Date | 无 | 可选最小值 |
 | max | string \| number \| Date | 无 | 可选最大值 |
 | defaultRangeMonth | number[] \| Date[] | 无 | 范围选择的初始月份, 值为时间对象 或者时间戳, 仅在 range 模式下生效, 优先级低于 value 和 defaultValue | 
@@ -36,6 +36,10 @@
 | secondStep | number | 无 | 秒选项步长 | 
 | onPickerChange | (value: any, quickSelect?: object \| void, type?: string) => void | 无 | 值改变回调，有别于 onChange, onPickerChange会在每项值改变的时候执行 |
 | disabledTime | string \| ((time: string) => boolean) | 无 | 禁用指定 Time。 |
+| align | 'center' \| 'left' \| 'right' | 'center' | 值水平布局方式 |
+| underline | boolean | false | 是否只展示下边框 |
+| clearWithUndefined | boolean | false | 在清空值时抛出是否抛出 undefined | 
+
 
 ### DatePickerFormat
 

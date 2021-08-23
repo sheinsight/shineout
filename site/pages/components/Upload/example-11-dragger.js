@@ -5,8 +5,10 @@
  *    -- set drop to Drag files to upload.
  */
 import React from 'react'
-import { Upload, Button } from 'shineout'
+import { Upload } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
+
+const placholderStyle = { background: '#fafafa', textAlign: 'center', width: '100%', padding: 20 }
 
 function DraggerImage() {
   return (
@@ -20,11 +22,11 @@ function DraggerImage() {
       onStart={f => console.log(f)}
       width={250}
       drop
+      disabled
     >
-      <div style={{ textAlign: 'center', width: '100%', padding: 20 }}>
+      <div style={placholderStyle}>
         <FontAwesome style={{ color: '#409dfd', fontSize: 20 }} name="image" />
-        <br />
-        Click or Drag image to upload
+        <p>Click or Drag image to upload</p>
       </div>
     </Upload.Image>
   )
@@ -38,13 +40,14 @@ function DraggerFile() {
       name="file"
       onSuccess={(res, file) => file.name}
       limit={3}
-      style={{ width: 300 }}
+      style={{ width: 400 }}
       drop
+      disabled
     >
-      <Button>
-        <FontAwesome name="file" />
-        &nbsp; Drop file to upload
-      </Button>
+      <div style={placholderStyle}>
+        <FontAwesome style={{ color: '#409dfd', fontSize: 28 }} name="archive" />
+        <p style={{ marginTop: 14 }}>Click or drag file to this area to upload</p>
+      </div>
     </Upload>
   )
 }

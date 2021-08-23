@@ -55,11 +55,11 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-02-show-imag
 exports[`Snapshot test: Upload[site/pages/components/Upload/example-03-button.js] 1`] = `
 <div>
   <span>
-    <div>
+    <button>
       <span>
         点击上传
       </span>
-    </div>
+    </button>
     <input />
   </span>
 </div>
@@ -191,6 +191,7 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-10-defaultVa
       </a>
     </div>
   </div>
+  <br />
   <div>
     <div>
       <a>
@@ -229,8 +230,9 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-11-dragger.j
         <div>
           <div>
             <i />
-            <br />
-            Click or Drag image to upload
+            <p>
+              Click or Drag image to upload
+            </p>
           </div>
         </div>
         <input />
@@ -241,12 +243,12 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-11-dragger.j
   <div>
     <span>
       <span>
-        <button>
+        <div>
           <i />
-          <span>
-              Drop file to upload
-          </span>
-        </button>
+          <p>
+            Click or drag file to this area to upload
+          </p>
+        </div>
         <input />
       </span>
     </span>

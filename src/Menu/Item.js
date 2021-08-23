@@ -8,6 +8,7 @@ import List from './List'
 import { consumer } from './context'
 import { isLink } from '../utils/is'
 import { isRTL } from '../config'
+import { getParent } from '../utils/dom/element'
 
 const getBaseIndent = (flag = false) => (flag ? 16 : 20)
 
@@ -115,17 +116,20 @@ class Item extends PureComponent {
   }
 
   handleClick(e) {
-    const { data, onClick, mode, toggleOpenKeys } = this.props
-    if (data.disabled) return
-
-    if (mode === 'inline' && data.children && data.children.length) {
-      toggleOpenKeys(this.getKey(), !this.state.open)
+    const { data, onClick, mode, toggleOpenKeys, looseChildren, parentSelectable } = this.props
+    const expandClick = getParent(e.target, `.${menuClass('expand')}`)
+    const canExpand = !parentSelectable || expandClick
+    if (mode === 'inline' && data.children && canExpand) {
+      const shouldToggle = looseChildren || data.children.length
+      if (shouldToggle) toggleOpenKeys(this.getKey(), !this.state.open)
+      if (parentSelectable && expandClick) return
     }
 
+    if (data.disabled) return
     if (typeof data.onClick === 'function') {
       data.onClick(this.id, data)
     } else if (
-      (!data.children || data.children.length === 0 || data.onClick === true) &&
+      (!data.children || data.children.length === 0 || data.onClick === true || parentSelectable) &&
       typeof onClick === 'function'
     ) {
       onClick(this.id, data)
@@ -182,7 +186,12 @@ class Item extends PureComponent {
       )
     }
 
-    return <a {...props}>{item}</a>
+    return (
+      <a {...props}>
+        {item}
+        <span className={menuClass('expand')} />
+      </a>
+    )
   }
 
   render() {
@@ -201,6 +210,8 @@ class Item extends PureComponent {
       linkKey,
       toggleDuration,
       frontCaret,
+      looseChildren,
+      parentSelectable,
     } = this.props
     const { open, isActive, isHighLight, inPath } = this.state
     const { children: dChildren } = data
@@ -213,7 +224,7 @@ class Item extends PureComponent {
       isUp = this.element.getBoundingClientRect().bottom - topLine > (bottomLine - topLine) / 2
     }
 
-    const hasChilds = children.length > 0
+    const hasChilds = looseChildren ? Array.isArray(dChildren) : children.length > 0
 
     const className = menuClass(
       'item',
@@ -224,7 +235,8 @@ class Item extends PureComponent {
       isUp && 'open-up',
       isHighLight && 'highlight',
       inPath && 'in-path',
-      frontCaret && 'caret-solid'
+      frontCaret && 'caret-solid',
+      parentSelectable && 'selectable'
     )
 
     const style = this.getCalcStyle()
@@ -254,6 +266,8 @@ class Item extends PureComponent {
             linkKey={linkKey}
             toggleDuration={toggleDuration}
             frontCaret={frontCaret}
+            looseChildren={looseChildren}
+            parentSelectable={parentSelectable}
           />
         )}
       </li>
@@ -280,6 +294,8 @@ Item.propTypes = {
   linkKey: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   toggleDuration: PropTypes.number,
   frontCaret: PropTypes.bool,
+  looseChildren: PropTypes.bool,
+  parentSelectable: PropTypes.bool,
 }
 
 export default consumer(Item)

@@ -4,7 +4,6 @@ import classnames from 'classnames'
 import { inputClass, treeSelectClass } from '../styles'
 import { isEmpty, isObject } from '../utils/is'
 import Input from './Input'
-import Popover from '../Popover'
 import Caret from '../icons/Caret'
 import More from '../Select/More'
 
@@ -164,10 +163,11 @@ class Result extends PureComponent {
   }
 
   render() {
-    const result = this.props.result.length === 0 ? this.renderPlaceholder() : this.renderResult()
+    const showPlaceholder = this.props.result.length === 0
+    const result = showPlaceholder ? this.renderPlaceholder() : this.renderResult()
     const { compressed } = this.props
     return (
-      <div className={treeSelectClass('result', compressed && 'compressed')}>
+      <div className={treeSelectClass('result', compressed && 'compressed', showPlaceholder && 'empty')}>
         {result}
         {!this.props.multiple && (
           // eslint-disable-next-line

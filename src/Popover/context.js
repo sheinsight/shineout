@@ -1,11 +1,13 @@
 import React from 'react'
-import createReactContext from 'create-react-context'
+import createReactContext from '../context'
 
 const context = createReactContext()
+
+const { Consumer } = context
 
 // eslint-disable-next-line
 export const Provider = context.Provider
 
 export const consumer = Origin => props => (
-  <context.Consumer>{value => <Origin {...props} {...value} />}</context.Consumer>
+  <Consumer>{bindChain => <Origin {...props} bindChain={bindChain} />}</Consumer>
 )

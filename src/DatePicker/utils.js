@@ -64,7 +64,7 @@ function compareMonth(dateLeft, dateRight, pad = 0) {
 }
 
 function newDate(defaultDate) {
-  const date = defaultDate ? new Date(defaultDate) : new Date()
+  const date = defaultDate ? toDate(defaultDate) : new Date()
   return new Date(date.getFullYear(), date.getMonth(), date.getDate())
 }
 
@@ -182,13 +182,8 @@ function getFormat(fo) {
 
 function resetTimeByFormat(value, fo) {
   if (!value) return null
-  let date = null
-  if (typeof value === 'string') {
-    date = new Date(value)
-  } else {
-    date = new Date(value.getTime())
-  }
-  return new Date(
+  const date = toDate(value)
+  return toDate(
     format(date, getFormat(fo), {
       weekStartsOn: getLocale('startOfWeek'),
     })

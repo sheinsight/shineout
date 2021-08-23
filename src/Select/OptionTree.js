@@ -52,6 +52,7 @@ class OptionList extends Component {
       defaultExpandAll,
       renderPending,
       childrenKey,
+      expandIcons,
     } = this.props
     if (loading)
       return (
@@ -75,6 +76,7 @@ class OptionList extends Component {
           defaultExpandAll={defaultExpandAll}
           defaultExpanded={defaultExpanded}
           childrenKey={childrenKey}
+          expandIcons={expandIcons}
         />
       </div>
     )
@@ -119,6 +121,7 @@ OptionList.propTypes = {
   childrenKey: PropTypes.string,
   getRef: PropTypes.func,
   customHeader: PropTypes.node,
+  expandIcons: PropTypes.array,
 }
 
 export default OptionList

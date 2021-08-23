@@ -49,11 +49,13 @@
 | expandKeys | any[] | none | controlled expand rows |
 | sticky | boolean \| object | none | sticky header, When it is true, the distance from the top is 0. When it is an object, the attribute value reference [Sticky component] (/components/Sticky)  |
 | cellSelectable | boolean | false | whether to enable ctrl/cmd + click check |
+| height | number \| string | none | height of table, same with style.height |
 
 ### TableColumn
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
+| className | string | none | classname of column |
 | colSpan | function(record) | none | The function for controlling to merge columns. The return value is an integer indicating the number of columns that need to be merged。 |
 | fixed | string | - | options: \['left', 'right']；<br />Need to set the Table's fixed to 'x' or 'both'; |
 | group | string \| string\[] | - | The group of header column. |

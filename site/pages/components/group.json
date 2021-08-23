@@ -38,6 +38,7 @@
     "Message": "消息提示",
     "Spin": "加载中",
     "Modal": "对话框",
+    "Drawer": "抽屉",
     "Popover": "气泡",
     "Progress": "进度条",
     "Tooltip": "提示",
@@ -49,7 +50,8 @@
     "Grid": "栅格",
     "Sticky": "附着",
     "Tabs": "标签页",
-    "Divider":"分割线"
+    "Divider":"分割线",
+    "Gap": "间距"
   },
   "Navigation": {
     "Breadcrumb": "面包屑",

@@ -26,27 +26,62 @@ export interface RegExpParams {
   message?: string;
 }
 
-export interface RuleParams extends Required, Max, Min, Range, Type, RegExpParams {}
+export interface validFunc {
+  (value: any, formData: any, callback: (cbArgs: true | Error) => void, props: any) : (void | Promise);
+}
+
+export interface RuleParams {
+  required?: Required;
+  min?: Min;
+  max?: Max;
+  range?: Range;
+  regExp?: RegExpParams;
+  email?: Type;
+  integer?: Type;
+  number?: Type;
+  url?: Type;
+  json?: Type;
+  hex?: Type;
+  rgb?:Type;
+  ipv4?: Type;
+  [propName: string]: ({
+    func?: validFunc;
+    message?: string
+    [propName: string]: any;
+  } | validFunc);
+}
 
 
-export type RuleParamsType<Value, P = any, FormData = any> = Array<RuleParams | ((value?: Value, formData?: FormData, callback?: ((cbArgs: true | Error) => void), props?: P) => void)>
-
-
-declare class Rule {
-  constructor(params?: RuleParams): void {};
-
+export interface RuleResult {
   required (message?: string): Required;
 
-  min(number?: number): Min;
+  min(number?: number, message?: string): Min;
 
-  max(number?: number): Max;
+  max(number?: number, message?: string): Max;
 
-  range(min?: number, max: number): Range;
-
-  type(type?: TypeEnum): Type;
+  range(min?: number, max: number, message?: string): Range;
 
   regExp(reg?: RegExp | string): RegExpParams;
+
+  email(message?: string): Type;
+
+  integer(message?: string): Type;
+
+  number(message?: string): Type;
+
+  url(message?: string): Type;
+
+  json(message?: string): Type;
+
+  hex(message?: string): Type;
+
+  rgb(message?: string):Type;
+
+  ipv4(message?: string): Type;
+
 }
+
+ declare function Rule(...options: RuleParams[]) : RuleResult
 
 
 export default Rule

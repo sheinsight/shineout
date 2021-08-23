@@ -22,11 +22,13 @@
 | style | object | 无 | 最外层扩展样式 |
 | trigger | 'click' \| 'hover' | 'hover' | 触发方式 |
 | type | 'success' \| 'info' \| 'warning' \| 'danger' | 无 | 类型 |
-| content | (close: () => void) => void \| ReactNode | | 旧接口，如果content为空，父组件作为触发元素 | 
+| content | (close: () => void) => void \| ReactNode | 无 | 旧接口，如果content为空，父组件作为触发元素 | 
 | priorityDirection | string | 'vertical' | 弹出位置优先级, 默认为左右优先, 只在未设置 position 时生效, 可选值\['vertical', 'horizontal'] |
 | getPopupContainer | () => HTMLElement | 无 | 自定义Popover容器，覆盖默认渲染在body下的行为, () => DOMElement |
 | scrollDismiss | () => HTMLElement \| boolean | false | 滚动来关闭气泡框，如果需要指定滚动元素，则通过函数返回 |
 | showArrow | boolean | true | 是否显示箭头 |
+| zIndex | number | 1060 | popover 层级 |  
+| clickToCancelDelay | boolean | false | 在mouseEnterDelay内点击元素后取消弹出 |
 
 ### Popover.Confirm
 | 属性 | 类型 | 默认值 | 说明 |
@@ -35,7 +37,7 @@
 | onCancel | () => void | 无 | 点击取消按钮时触发事件，返回 Promise 时，会在 Promise resolve 后关闭 Tooltip |
 | text | object | { ok: 'Ok', cancel: 'Cancel' } | 按钮文字 |
 | type | string | *warning* |  icon的类型，4 选 1，\[*success*, *info*, *warning*, *danger(error)*] |
-
+| okType | string | *primary* |  确认按钮类型，与Button类型相同 |
 
 ## 注意
 请确保 Popover 的父元素能接受 onMouseEnter、onMouseLeave、onFocus、onClick 事件。

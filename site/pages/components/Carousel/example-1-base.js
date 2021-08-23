@@ -35,7 +35,8 @@ export default class extends Component {
     return (
       <div>
         <div style={{ marginBottom: 20 }}>
-          animation:{' '}
+          animation:
+{' '}
           <Select
             data={['slide', 'slide-y', 'fade']}
             keygen

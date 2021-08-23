@@ -30,7 +30,13 @@ class More extends Component {
     return (
       <a tabIndex={-1} key="more" className={classnames(className, cls && status && cls('item-more'))}>
         <span>{`+${itemsLength}`}</span>
-        <Popover trigger={trigger} visible={status} onVisibleChange={this.changeStatus} className={popoverClassName}>
+        <Popover
+          showArrow={false}
+          trigger={trigger}
+          visible={status}
+          onVisibleChange={this.changeStatus}
+          className={popoverClassName}
+        >
           <div className={contentClassName} data-id={dataId}>
             {compressed === 'no-repeat' ? null : firstItem}
             {items}

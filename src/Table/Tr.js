@@ -26,7 +26,7 @@ const isExpandableElement = el => {
 class Tr extends Component {
   constructor(props) {
     super(props)
-
+    this.manualExpand = false
     this.bindElement = this.bindElement.bind(this)
     this.handleRowClick = this.handleRowClick.bind(this)
     this.setRowHeight = this.setRowHeight.bind(this)
@@ -46,7 +46,7 @@ class Tr extends Component {
         setTranslate(td, `-${offsetRight}px`, '0')
       })
     }
-
+    this.manualExpand = true
     this.setRowHeight()
   }
 
@@ -78,7 +78,7 @@ class Tr extends Component {
 
   setExpandHeight(height) {
     this.expandHeight = height
-    this.setRowHeight(true)
+    this.setRowHeight(this.manualExpand)
   }
 
   getRowClickAttr() {

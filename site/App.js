@@ -5,7 +5,7 @@ import Header from './Header'
 import Loading from './Components/Loading'
 import locate, { setLanguage, STORAGE_KEY, getItem } from './locate'
 import { mainClass } from './styles'
-import Eggs from './Components/Eggs'
+import showFeatures from './Components/feature'
 
 const Home = lazy(() => import(/* webpackChunkName: "Home" */ './pages/Home'))
 const Components = lazy(() => import(/* webpackChunkName: "Components" */ './chunks/Components'))
@@ -35,6 +35,7 @@ const App = () => {
 
   useEffect(() => {
     setLanguage(lang)
+    showFeatures()
     if (getItem(STORAGE_KEY) !== lang) {
       setUpdate('update')
     }
@@ -67,7 +68,6 @@ const App = () => {
     <Router history={history}>
       <div>
         <Header versions={versions} />
-        <Eggs />
         <div className={mainClass('body')}>
           <Suspense fallback={<Loading />}>
             <Switch>

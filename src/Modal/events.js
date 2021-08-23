@@ -8,6 +8,7 @@ import Panel from './Panel'
 import { getLocale } from '../locale'
 import { getParent } from '../utils/dom/element'
 import ready from '../utils/dom/ready'
+import { docSize } from '../utils/dom/document'
 
 const containers = {}
 const DURATION = 300
@@ -67,14 +68,14 @@ export function close(props, callback) {
 }
 
 export function createDiv(props) {
-  const { id, position, container = document.body } = props
+  const { id, position, fullScreen, container = document.body } = props
   let div = getDiv(props.id)
   if (div) return div
 
   const parent = typeof container === 'function' ? container() : container
   div = document.createElement('div')
   parent.appendChild(div)
-  div.className = classnames(modalClass('_', position && 'position'), props.rootClassName)
+  div.className = classnames(modalClass('_', position && 'position', fullScreen && 'full-screen'), props.rootClassName)
 
   containers[id] = { div, container: parent, props }
 
@@ -83,13 +84,13 @@ export function createDiv(props) {
 
 // eslint-disable-next-line
 export function open(props, isPortal) {
-  const { content, onClose, zIndex, ...otherProps } = props
+  const { content, onClose, zIndex, forceMask, ...otherProps } = props
   const div = createDiv(props)
   div.style.display = 'block'
   const parsed = parseInt(zIndex, 10)
   if (!Number.isNaN(parsed)) div.style.zIndex = parsed
 
-  const scrollWidth = window.innerWidth - document.body.clientWidth
+  const scrollWidth = window.innerWidth - docSize.width
   const doc = document.body.parentNode
   doc.style.overflow = 'hidden'
   doc.style.paddingRight = `${scrollWidth}px`
@@ -100,7 +101,7 @@ export function open(props, isPortal) {
   }
 
   const opacityDefault = props.maskOpacity === undefined ? 0.25 : props.maskOpacity
-  const maskOpacity = isMask(props.id) ? opacityDefault : 0.01
+  const maskOpacity = isMask(props.id) || forceMask ? opacityDefault : 0.01
   div.style.background = props.maskBackground || `rgba(0,0,0,${maskOpacity})`
 
   containers[props.id].visible = true

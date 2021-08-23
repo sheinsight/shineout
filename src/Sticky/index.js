@@ -7,10 +7,9 @@ import { getProps, defaultProps } from '../utils/proptypes'
 import { compose } from '../utils/func'
 import { cssSupport, copyBoundingClientRect } from '../utils/dom/element'
 import { docSize } from '../utils/dom/document'
-import { isHidden } from '../utils/is'
 import { consumer } from './context'
 
-const events = ['scroll', 'resize', 'pageshow', 'load']
+const events = ['scroll', 'pageshow', 'load']
 const supportSticky = cssSupport('position', 'sticky')
 
 class Sticky extends PureComponent {
@@ -109,16 +108,20 @@ class Sticky extends PureComponent {
     let limitBottom = viewHeight - bottom
 
     if (this.targetElement) {
-      limitTop += scrollRect.top
-      limitBottom = scrollRect.bottom - bottom
+      const { paddingTop, paddingBottom } = getComputedStyle(scrollElement)
+      limitTop += scrollRect.top + parseInt(paddingTop, 10)
+      limitBottom = scrollRect.bottom - bottom - parseInt(paddingBottom, 10)
     }
 
     if (top !== undefined && mode !== 'bottom') {
-      if (selfRect.top < limitTop) {
+      if (Math.ceil(selfRect.top) < limitTop) {
         this.setState({ scrollWidth: scrollRect.width, mode: 'top' })
         style = this.getStyle('top', top, selfRect.left, selfRect.width)
         placeholder = placeholderStyle
       } else if (placeholderRect && selfRect.top < placeholderRect.top) {
+        if (scrollRect.width !== selfRect.width) {
+          style = this.getStyle('top', top, selfRect.left, scrollRect.width)
+        }
         if (!(target && selfRect.top === limitTop)) {
           this.setState({ mode: '' })
           style = {}
@@ -144,10 +147,15 @@ class Sticky extends PureComponent {
         placeholderRect &&
         (this.targetElement ? scrollRect.bottom : selfRect.bottom) > placeholderRect.bottom
       ) {
-        this.setState({ mode: '' })
-        style = {}
-        placeholder = null
-        this.triggerChange(false, style)
+        if (scrollRect.width !== selfRect.width) {
+          style = this.getStyle('bottom', bottom, selfRect.left, scrollRect.width)
+        }
+        if (!(target && selfRect.bottom === limitBottom)) {
+          this.setState({ mode: '' })
+          style = {}
+          placeholder = null
+          this.triggerChange(false, style)
+        }
       } else if (this.targetElement && placeholderRect) {
         style = this.getStyle('bottom', bottom, selfRect.left, selfRect.width)
         placeholder = placeholderStyle
@@ -212,6 +220,7 @@ class Sticky extends PureComponent {
         window.addEventListener(e, this.handlePosition)
       })
     }
+    window.addEventListener('resize', this.handlePosition)
   }
 
   unbindScroll() {
@@ -222,6 +231,7 @@ class Sticky extends PureComponent {
         window.removeEventListener(e, this.handlePosition)
       })
     }
+    window.removeEventListener('resize', this.handlePosition)
   }
 
   render() {

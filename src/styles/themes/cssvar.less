@@ -159,10 +159,6 @@
 
 @button-default-text-color: var(--button-default-text-color, @btn-default-color);
 
-@button-default-size-width: var(--button-default-size-width, 0);
-@button-small-size-width: var(--button-small-size-width, 0);
-@button-large-size-width: var(--button-large-size-width, 0);
-
 @button-disabled-border-color: var(--button-disabled-border-color, #d9d9d9);
 
 @pagination-border-radius-value: @border-radius-base;
@@ -248,6 +244,8 @@
 
 @input-disabled-color: var(--input-disabled-color, #999DA8);
 
+@input-underline-height: var(--input-underline-height, 1px);
+
 @dropdown-border-width-value: 1px;
 @dropdown-border-width: var(--dropdown-border-width, @dropdown-border-width-value);
 
@@ -326,6 +324,10 @@
 @form-item-label-align-value: 'left';
 @form-item-label-align: var(--form-item-label-align, @form-item-label-align-value);
 
+@form-item-error-line-height: var(--form-item-error-line-height, @line-height-base);
+@form-item-error-margin-top: var(--form-item-error-margin-top, 5px);
+@form-item-error-margin-bottom: var(--form-item-error-margin-bottom, 8px);
+
 @gray-100-value: #f8f9fa;
 @gray-200-value: #e9ecef;
 @gray-300-value: #dee2e6;
@@ -386,7 +388,7 @@
 @menu-item-color: var(--menu-item-color, @menu-item-color-value);
 
 @menu-item-light-hover-color: var(--menu-item-light-hover-color, @menu-highlight-color);
-@menu-item-light-hover-bgc: var(--menu-item-light-hover-bgc, transparent);
+@menu-item-light-hover-bgc: var(--menu-item-light-hover-bgc, fade(@colors-primary-value, 5%));
 @menu-item-dark-hover-color: var(--menu-item-dark-hover-color, #fff);
 @menu-item-dark-hover-bgc: var(--menu-item-dark-hover-bgc, fade(@colors-primary-value, 50%));
 
@@ -574,6 +576,7 @@
 @modal-title-distance-to-right:  0px;
 @modal-drawer-padding: 16px;
 @modal-drawer-header-vertical-padding: 12px;
+@modal-method-header-padding-right: var(--modal-method-header-padding-right, @modal-title-distance-to-right);
 
 @popover-arrow-outer-color-value: @gray-300-value;
 @popover-arrow-outer-color: var(--popover-border-color, @popover-arrow-outer-color-value);

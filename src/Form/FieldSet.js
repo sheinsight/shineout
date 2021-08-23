@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import createReactContext from 'create-react-context'
+import createReactContext from '../context'
 import { Component } from '../component'
 import { filterProps } from '../utils/objects'
 import validate from '../utils/validate'

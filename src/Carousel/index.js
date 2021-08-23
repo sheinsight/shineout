@@ -42,12 +42,12 @@ class Carousel extends PureComponent {
       }
       this.$timeout = setTimeout(() => {
         this.moveTo(next)
-        this.$timeout = null
       }, interval)
     }
   }
 
   moveTo(next) {
+    const { onMove } = this.props
     const { current } = this.state
     if (next === current) return
 
@@ -59,6 +59,12 @@ class Carousel extends PureComponent {
 
     this.setState({ pre: current, current: next, direction })
     this.setNext(next + 1)
+    if (onMove)
+      onMove(next, {
+        prev: current,
+        direction,
+        moveTo: this.moveTo,
+      })
   }
 
   handleMouseIn() {
@@ -125,6 +131,7 @@ Carousel.propTypes = {
   indicatorPosition: PropTypes.oneOf(['left', 'center', 'right']),
   indicatorType: PropTypes.oneOfType([PropTypes.func, PropTypes.oneOf(['number', 'circle', 'line'])]),
   interval: PropTypes.number,
+  onMove: PropTypes.func,
 }
 
 Carousel.defaultProps = {

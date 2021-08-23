@@ -9,39 +9,50 @@ import { DatePicker } from 'shineout'
 import { format, addDays, subDays } from 'date-fns'
 
 const today = new Date()
+const fmt = 'yyyy-MM-dd'
 const formatStart = 'yyyy-MM-dd 00:00:00'
 const formatEnd = 'yyyy-MM-dd 23:59:59'
 
 export default function() {
   return (
-    <DatePicker
-      range
-      onChange={d => console.log(d)}
-      type="datetime"
-      placeholder={['Start datetime', 'End datetime']}
-      quickSelect={[
-        {
-          name: 'Next Week',
-          value: [format(today, formatStart), format(addDays(today, 7), formatEnd)],
-        },
-        {
-          name: 'Last Week',
-          value: [format(subDays(today, 7), formatStart), format(today, formatEnd)],
-        },
-        {
-          name: 'Next Month',
-          value: [format(today, formatStart), format(addDays(today, 30), formatEnd)],
-        },
-        {
-          name: 'Last Month',
-          value: [format(subDays(today, 30), formatStart), format(today, formatEnd)],
-        },
-        {
-          name: 'special date',
-          value: ['2019-01-01 00:00:00', '2019-12-31 23:59:59'],
-        },
-      ]}
-      style={{ marginTop: '12px' }}
-    />
+    <div>
+      <DatePicker
+        range
+        onChange={d => console.log(d)}
+        type="datetime"
+        placeholder={['Start datetime', 'End datetime']}
+        quickSelect={[
+          {
+            name: 'Next Week',
+            value: [format(today, formatStart), format(addDays(today, 7), formatEnd)],
+          },
+          {
+            name: 'Last Week',
+            value: [format(subDays(today, 7), formatStart), format(today, formatEnd)],
+          },
+          {
+            name: 'Next Month',
+            value: [format(today, formatStart), format(addDays(today, 30), formatEnd)],
+          },
+          {
+            name: 'Last Month',
+            value: [format(subDays(today, 30), formatStart), format(today, formatEnd)],
+          },
+          {
+            name: 'special date',
+            value: ['2019-01-01 00:00:00', '2019-12-31 23:59:59'],
+          },
+        ]}
+        style={{ marginBottom: '12px', display: 'block' }}
+      />
+      <DatePicker
+        placeholder="Quick Date"
+        quickSelect={[
+          { name: 'Today', value: format(today, fmt) },
+          { name: 'A week later', value: format(addDays(today, 7), fmt) },
+          { name: 'A month later', value: format(addDays(today, 30), fmt) },
+        ]}
+      />
+    </div>
   )
 }

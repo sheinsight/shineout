@@ -260,6 +260,10 @@
     }
   }
 
+  &-split {
+    display: flex;
+  }
+
   &-range-picker {
     display: flex;
 
@@ -502,6 +506,9 @@
     min-width: 80px;
     border-right: 1px solid @divider-color;
     &-item {
+      max-width: 120px;
+      text-overflow: ellipsis;
+      overflow: hidden;
       white-space: nowrap;
       padding: 4px 12px;
       cursor: pointer;
@@ -530,6 +537,26 @@
       }
     }
   }
+
+  &-align {
+    &-left, &-right {
+      .@{datepicker-prefix}-result {
+        display: block;
+        .@{datepicker-prefix}-txt {
+          flex: none;
+          &.@{datepicker-prefix}-text-focus {
+            background: transparent;
+            color: @colors-primary;
+            border-radius: 0;
+          }
+        }
+      }
+    }
+    &-right .@{datepicker-prefix}-result {
+      text-align: right;
+    }
+  }
+
 }
 
 .@{datepicker-prefix}-rtl  {

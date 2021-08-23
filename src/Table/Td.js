@@ -33,7 +33,7 @@ class Td extends PureComponent {
     const { index, data, datum, treeColumnsName, treeCheckAll } = this.props
     return (
       <Checkbox
-        checked={datum.check(data)}
+        force={datum.check(data)}
         data={data}
         index={index}
         datum={datum}
@@ -115,18 +115,7 @@ class Td extends PureComponent {
   }
 
   render() {
-    const {
-      rowSpan,
-      colSpan,
-      fixed,
-      style,
-      firstFixed,
-      lastFixed,
-      type,
-      align,
-      ignoreBorderRight,
-      ignoreBorderBottom,
-    } = this.props
+    const { rowSpan, colSpan, fixed, style, firstFixed, lastFixed, type, align, ignoreBorderRight } = this.props
 
     const className = classnames(
       this.props.className,
@@ -137,8 +126,7 @@ class Td extends PureComponent {
         lastFixed && 'fixed-last',
         (type === 'checkbox' || type === 'expand' || type === 'row-expand') && 'checkbox',
         align !== 'left' && `align-${align}`,
-        ignoreBorderRight && 'ignore-right-border',
-        ignoreBorderBottom && 'ignore-bottom-border'
+        ignoreBorderRight && 'ignore-right-border'
       )
     )
 
@@ -170,7 +158,6 @@ Td.propTypes = {
   datum: PropTypes.object,
   render: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   ignoreBorderRight: PropTypes.bool,
-  ignoreBorderBottom: PropTypes.bool,
   treeColumnsName: PropTypes.string,
   onTreeExpand: PropTypes.func,
   treeExpand: PropTypes.bool,

@@ -20,7 +20,7 @@
 | defaultValue | any[] | - | Default selected key (not controlled) | 
 | value | any[] | - | Selected key (controlled) |
 | absolute | boolean | false | When it is true, the pop-up layer of option append into document.body. |
-| compressed | boolean \| 'no-repeat' | false | Merges selected values; the first value will not appear in the Popover when it is'no-repeat'. |
+| compressed | boolean \| 'no-repeat' | false | Merges selected values; the repeat value will not appear in the Popover when it is'no-repeat'. |
 | childrenKey | string | 'children' | the key of the children data name | 
 | finalDismiss | boolean | false | close options after chose the final node |
 | onCollapse | (collapse: boolean) => void | none | options collapse callback |
@@ -30,3 +30,4 @@
 | size | string | none | size |
 | singleRemove | boolean | none | Support single node deletion |
 | unmatch | boolean | none | render unmatch value |
+| underline | boolean | false | only display border bottom  |

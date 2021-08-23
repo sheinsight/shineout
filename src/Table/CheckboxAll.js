@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { PureComponent } from '../component'
+import { Component } from '../component'
+import shallowEqual from '../utils/shallowEqual'
 import { CHANGE_TOPIC } from '../Datum/types'
 import Checkbox from '../Checkbox/Checkbox'
 
-export default class extends PureComponent {
+export default class extends Component {
   static propTypes = {
     data: PropTypes.array,
     datum: PropTypes.object.isRequired,
@@ -20,6 +21,13 @@ export default class extends PureComponent {
   componentDidMount() {
     super.componentDidMount()
     this.props.datum.subscribe(CHANGE_TOPIC, this.handleUpdate)
+  }
+
+  shouldComponentUpdate(nextProps) {
+    const { datum } = nextProps
+    if (!shallowEqual(this.props, nextProps)) return true
+    if (this.lastValueLength !== (datum.getValue() || []).length) return true
+    return false
   }
 
   componentWillUnmount() {
@@ -69,8 +77,9 @@ export default class extends PureComponent {
   }
 
   render() {
-    if (this.props.datum.limit === 1) return null
-
+    const { datum } = this.props
+    this.lastValueLength = (datum.getValue() || []).length
+    if (datum.limit === 1) return null
     return <Checkbox {...this.props} checked={this.getChecked()} onChange={this.handleChange} />
   }
 }

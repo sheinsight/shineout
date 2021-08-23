@@ -371,7 +371,7 @@
     }
   }
 
-  &-multiple &-result {
+  &-multiple &-result:not(&-empty) {
     padding-left: @padding-base-horizontal / 2;
     padding-right: @padding-base-horizontal + 22;
     a.@{treeSelect-prefix}-close.@{treeSelect-prefix}-indicator {
@@ -379,7 +379,7 @@
     }
   }
 
-  &-multiple &-compressed {
+  &-multiple &-compressed:not(&-empty) {
     padding-left: @padding-base-horizontal / 2;
     padding-right: @padding-base-horizontal + 12;
     a.@{treeSelect-prefix}-close.@{treeSelect-prefix}-indicator {
@@ -387,11 +387,11 @@
     }
   }
 
-  &-large&-multiple &-result {
+  &-large&-multiple &-result:not(&-empty) {
     padding-left: @padding-large-horizontal / 2;
   }
 
-  &-small&-multiple &-result {
+  &-small&-multiple &-result:not(&-empty) {
     padding-left: @padding-small-horizontal / 2;
   }
 
@@ -451,6 +451,49 @@
       .@{treeSelect-prefix}-result a.@{treeSelect-prefix}-close.@{treeSelect-prefix}-indicator {
         right: auto;
         left: 17px;
+      }
+    }
+  }
+}
+
+.@{tree-prefix}-node {
+  .@{treeSelect-prefix}-match {
+    padding: 12px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+
+    > span {
+      position: absolute;
+      right: 5px;
+      width: 3px;
+      height: 3px;
+      background: @gray-500;
+      border-radius: 50%;
+      margin-top: -1px;
+      text-align: left;
+      &:after, &:before {
+        display: inline-block;
+        content: '';
+        width: 3px;
+        height: 3px;
+        background: @gray-500;
+        border-radius: 50%;
+        position: absolute;
+      }
+      &:before {
+        transform: translateX(-5px);
+      }
+      &:after {
+        transform: translateX(-10px);
+      }
+    }
+
+    &.@{treeSelect-prefix}-full {
+      background: @primary-color-fade-10;
+      > span, > span:after, > span:before {
+        background: @colors-primary;
       }
     }
   }

@@ -66,7 +66,7 @@ class Content extends PureComponent {
         onClick={this.handleIndicatorClick}
         className={classnames(treeClass(`icon-${expanded ? 'sub' : 'plus'}`), iconClass)}
       >
-        {icon}
+        {typeof icon === 'function' ? icon(data) : icon}
       </a>
     )
 

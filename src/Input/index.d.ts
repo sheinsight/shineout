@@ -7,8 +7,16 @@ type ReactNode = React.ReactNode;
 
 export interface InputProps<Value> extends 
 StandardProps, 
-FormItemStandardProps<Value>, 
-Pick<CommonProps, 'clearable'> {
+FormItemStandardProps<Value> {
+
+  /**
+   * width
+   * 
+   * 宽度
+   * 
+   * default: null
+   */
+  width?: number;
 
   /**
    * User input triggers the onChange and to check interval, unit: ms.
@@ -20,6 +28,15 @@ Pick<CommonProps, 'clearable'> {
   delay?: number;
 
   /**
+   * If clearable is true, show clear value icon
+   *
+   * 是否可清除值
+   *
+   * default: false
+   */
+  clearable?: boolean | (() => void);
+
+  /**
    * The callback function for enter key
    * 
    * 回车键回调函数
@@ -27,6 +44,24 @@ Pick<CommonProps, 'clearable'> {
    * default: -
    */
   onEnterPress?: (value: Value) => void;
+
+  /**
+   * The callback function for key down
+   * 
+   * 键盘按下回调
+   * 
+   * default: none
+   */
+  onKeyDown?: (e: KeyboardEvent) => void;
+
+  /**
+   * The callback function for key up
+   * 
+   * 键盘按下后抬起的回调
+   * 
+   * default: none
+   */
+  onKeyUp?: (e: KeyboardEvent) => void;
 
   /**
    * The position where the text pop up
@@ -116,7 +151,26 @@ Pick<CommonProps, 'clearable'> {
    * 
    * default: -
    */
-  rules?: RuleParamsType<Value, InputProps>
+  rules?: RuleParamsType<Value, InputProps>;
+
+  /**
+   * get input element
+   * 
+   * 获取 input dom 元素
+   * 
+   * default: -
+   */
+  forwardedRef?: (el: HTMLElement) => void;
+
+  /**
+   * show border bottom
+   * 
+   * 仅仅展示下边框
+   * 
+   * default: false
+   */
+  underline?: boolean;
+
 }
 
 export interface InputNumberProps <Value> extends InputProps<Value> {
@@ -177,10 +231,28 @@ export interface InputNumberProps <Value> extends InputProps<Value> {
 
 }
 
-declare class Input<Value = any> extends React.Component<InputProps<Value>, {}> {
-    static Number: typeof InputNumber;
+export interface InputPasswordProps<Value = any> extends InputProps<Value> {
+  /**
+   * password symbol
+   * 
+   * 密码符号
+   * 
+   * default: '.'
+   */
+  point?: 'string';
 }
+
+declare class InputGroup<Value = any> extends React.Component<InputProps<Value>, {}> {}
 
 declare class InputNumber<Value = number> extends React.Component<InputNumberProps<Value>, {}> {}
 
-export default Input;
+declare class InputPassword <Value = string> extends React.Component<InputPasswordProps<Value>, {}> {}
+declare class Input<Value = any> extends React.Component<InputProps<Value>, {}> {
+    static Number: typeof InputNumber;
+
+    static Group: typeof InputGroup;
+
+    static Password: typeof InputPassword;
+}
+
+export default Input

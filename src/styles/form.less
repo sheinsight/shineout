@@ -68,8 +68,9 @@
 
   .@{form-prefix}-tip,
   .@{form-prefix}-error {
-    margin-top: 5px;
-    margin-bottom: 8px;
+    margin-top: @form-item-error-margin-top;
+    margin-bottom: @form-item-error-margin-bottom;
+    line-height: @form-item-error-line-height;
     color: @form-tip-color;
     font-size: @form-tip-font-size;
   }
@@ -226,6 +227,18 @@
     .input-focus()
   }
 
+  &-clearable {
+    &:hover, &:focus {
+      + .@{input-prefix}-clear-wrapper {
+        display: block;
+      }
+    }
+  }
+
+  &-clear-wrapper:hover {
+    display: block;
+  }
+
   position: relative;
   display: flex;
   width: 100%;
@@ -240,7 +253,7 @@
   
   &-clear-wrapper {
     flex-basis: 16px;
-
+    display: none;
     .@{input-prefix}-clear {
       border-radius: 6px;
       position: absolute;
@@ -660,6 +673,14 @@
       padding-right: 8px;
       padding-left: 22px;
     }
+  }
+
+  &.@{input-prefix}-underline {
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-color: transparent;
+    border-bottom-width: @input-underline-height;
+    border-radius: 0;
   }
 }
 

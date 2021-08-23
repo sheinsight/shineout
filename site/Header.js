@@ -77,11 +77,11 @@ const Header = ({ versions }) => {
   useEffect(() => {
     if (searchInput) {
       docsearch({
-        appId: 'T20UAXDNF8',
-        apiKey: '0bd92ae792815ca5cb44b9e0f392fa8c',
-        indexName: process.env.LOG_ENV === 'rc' ? `shineout-rc` : `shineout`,
+        appId: 'QZ4V4FVOGI',
+        apiKey: '221731045c2ba6c166d98d78dcf4461a',
+        indexName: process.env.LOG_ENV === 'rc' ? `shineout-rc` : `shineout-wiki`,
         inputSelector: '#algolia-doc-search',
-        algoliaOptions: { facetFilters: [`lang: ${locate('cn', 'en')}`] },
+        algoliaOptions: { facetFilters: [`${locate('cn', 'en')}`] },
         // transformData(hits) {
         //   /* eslint-disable-next-line */
         //   hits.map(hit => (hit.url = `${hit.url}#${hit.anchor}`))

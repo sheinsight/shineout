@@ -1,7 +1,10 @@
 import { destroy, getComponent } from './messager'
 
-const create = type => (content, duration = 3, options = {}) => {
-  const { onClose, position = 'top', title, className = '', top = 'auto', hideClose } = options
+let defaultOptions = {}
+const create = type => (content, duration, options) => {
+  const mo = Object.assign({}, defaultOptions, options)
+  duration = [duration, defaultOptions.duration, 3].find(d => typeof d === 'number')
+  const { onClose, position = 'top', title, className = '', top = 'auto', hideClose } = mo
   return getComponent(position).then(messager =>
     messager.addMessage({
       content,
@@ -32,5 +35,8 @@ export default {
         destroy(k)
       })
     }
+  },
+  setOptions: options => {
+    defaultOptions = options
   },
 }

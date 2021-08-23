@@ -334,15 +334,6 @@ const injects = {
         desc: '常规按钮字体大小',
       },
       {
-        name: 'defaultSizeWidth',
-        attr: 'minWidth',
-        type: 'number',
-        parser: parseInt,
-        className: buttonClass('_'),
-        desc: '常规按钮最小宽度',
-        max: 200,
-      },
-      {
         name: 'fontSizeLarge',
         attr: 'fontSize',
         type: 'number',
@@ -351,30 +342,12 @@ const injects = {
         desc: '大按钮字体大小',
       },
       {
-        name: 'largeSizeWidth',
-        attr: 'minWidth',
-        type: 'number',
-        parser: parseInt,
-        className: buttonClass('large'),
-        desc: '大号按钮最小宽度',
-        max: 200,
-      },
-      {
         name: 'fontSizeSmall',
         attr: 'fontSize',
         type: 'number',
         parser: parseInt,
         className: buttonClass('small'),
         desc: '小按钮字体大小',
-      },
-      {
-        name: 'smallSizeWidth',
-        attr: 'minWidth',
-        type: 'number',
-        parser: parseInt,
-        className: buttonClass('_'),
-        desc: '小号按钮最小宽度',
-        max: 200,
       },
       {
         name: 'marginLeft',
@@ -508,14 +481,6 @@ const injects = {
         v
       )
     },
-    set defaultSizeWidth(v) {
-      setBodyProperty(
-        {
-          '--button-default-size-width': `${parseInt(v, 10)}px`,
-        },
-        v
-      )
-    },
     set fontSizeLarge(v) {
       setBodyProperty(
         {
@@ -524,26 +489,10 @@ const injects = {
         v
       )
     },
-    set largeSizeWidth(v) {
-      setBodyProperty(
-        {
-          '--button-large-size-width': `${parseInt(v, 10)}px`,
-        },
-        v
-      )
-    },
     set fontSizeSmall(v) {
       setBodyProperty(
         {
           '--button-font-size-small': `${parseInt(v, 10)}px`,
-        },
-        v
-      )
-    },
-    set smallSizeWidth(v) {
-      setBodyProperty(
-        {
-          '--button-small-size-width': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -793,6 +742,30 @@ const injects = {
         parser: parseInt,
         desc: '提示信息字体大小',
       },
+      {
+        name: 'formErrorLineHeight',
+        className: exposeClass('form-error'),
+        attr: 'lineHeight',
+        type: 'number',
+        parser: parseFloat,
+        desc: '校验错误文字行高',
+      },
+      {
+        name: 'formErrorMarginTop',
+        className: exposeClass('form-error'),
+        attr: 'marginTop',
+        type: 'number',
+        parser: parseInt,
+        desc: '校验错误文字顶部间距',
+      },
+      {
+        name: 'formErrorMarginBottom',
+        className: exposeClass('form-error'),
+        attr: 'marginBottom',
+        type: 'number',
+        parser: parseInt,
+        desc: '校验错误文字底部间距',
+      },
     ],
     set itemMarginBottom(v) {
       setBodyProperty(
@@ -830,6 +803,30 @@ const injects = {
       setBodyProperty(
         {
           '--form-tip-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set formErrorLineHeight(v) {
+      setBodyProperty(
+        {
+          '--form-item-error-line-height': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set formErrorMarginTop(v) {
+      setBodyProperty(
+        {
+          '--form-item-error-margin-top': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set formErrorMarginBottom(v) {
+      setBodyProperty(
+        {
+          '--form-item-error-margin-bottom': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -1057,6 +1054,14 @@ const injects = {
         desc: '圆角',
       },
       {
+        name: 'underlineHeight',
+        className: inputClass('_', 'underline'),
+        attr: 'borderBottomWidth',
+        type: 'number',
+        parser: parseInt,
+        desc: '下边框宽度(仅在下边框模式生效)',
+      },
+      {
         name: 'dropdownBorderRadius',
         className: datepickerClass('picker'),
         attr: 'borderRadius',
@@ -1143,6 +1148,14 @@ const injects = {
       setBodyProperty(
         {
           '--input-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set underlineHeight(v) {
+      setBodyProperty(
+        {
+          '--input-underline-height': `${parseInt(v, 10)}px`,
         },
         v
       )
@@ -3695,6 +3708,14 @@ const injects = {
         desc: '内容内边距-Left',
       },
       {
+        name: 'iconHeaderPaddingRight',
+        className: modalClass('title', 'method-title'),
+        attr: 'paddingRight',
+        type: 'number',
+        parser: parseInt,
+        desc: '带有 Icon 的对话框 头部 Right 内边距',
+      },
+      {
         name: 'iconBodyPaddingTop',
         className: exposeClass('modal-icon-body'),
         attr: 'paddingTop',
@@ -3924,6 +3945,14 @@ const injects = {
       setBodyProperty(
         {
           '--modal-header-padding-right': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set iconHeaderPaddingRight(v) {
+      setBodyProperty(
+        {
+          '--modal-method-header-padding-right': `${parseInt(v, 10)}px`,
         },
         v
       )

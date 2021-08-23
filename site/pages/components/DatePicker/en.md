@@ -26,7 +26,7 @@
 | absolute | boolean | false | When it is true, the pop-up layer of option append into document.body. |
 | zIndex | number | 1000 | panel z-index |
 | allowSingle | boolean | false | allow single select, only in range can set | 
-| quickSelect | object[] | false | quick select, only in range can set, name: tip, value: range date | 
+| quickSelect | object[] | false | quick select, name: tip, value: range date or date | 
 | min | string \| number \| Date | none | option min value |
 | max | string \| number \| Date | none | option max value |
 | defaultRangeMonth | number[] \| Date[] | - | The initial month of range selection, the value is a time object, valid only in range mode, and the priority is lower than value and defaultValue | 
@@ -36,6 +36,9 @@
 | secondStep | number | none | second step | 
 | onPickerChange | (value: any, quickSelect?: object \| void, type: string) => void | none | value onchange callback (every type of date) |
 | disabledTime | string \| ((time: string) => boolean) | none | Disable the specified Time. |
+| align | 'center' \| 'left' \| 'right' | 'center' | horizontal align of the value |
+| underline | boolean | false | only display border bottom  |
+| clearWithUndefined | boolean | false | onChange get undefined while clear value | 
 
 ### DatePickerFormat
 

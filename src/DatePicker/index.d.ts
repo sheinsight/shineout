@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { StandardProps, FormItemStandardProps } from '../@types/common'
 
 export type DateTimeType = Date | number | string
 
@@ -13,20 +14,39 @@ interface Base {
 }
 
 export interface QuickSelect extends Base {
-  name?: string,
-  value?: Array<DateTimeType>
+  name?: string;
+  value?: Array<DateTimeType> | DateTimeType;
 }
 
-export interface DatePickerProps {
+export interface DatePickerProps extends StandardProps,
+FormItemStandardProps<DatePickerValue> {
 
   /**
-   * extend className
+   * onChange get undefined while clear
    * 
-   * 扩展className
+   * 清空值时抛出 undefined
    * 
-   * default: -
+   * default: false
    */
-  className?: string;
+  clearWithUndefined?: boolean;
+
+  /**
+   * show border bottom
+   * 
+   * 仅仅展示下边框
+   * 
+   * default: false
+   */
+   underline?: boolean;
+
+  /**
+   * width
+   * 
+   * 宽度
+   * 
+   * default: null
+   */
+  width?: number;
 
   /**
    * whether it can be cleared
@@ -36,15 +56,6 @@ export interface DatePickerProps {
    * default: true
    */
   clearable?: boolean;
-
-  /**
-   * default
-   * 
-   * 默认值。如果 defaultValue 和 format 类型不一致，会执行一次 format，并触发 onChange 事件返回 format 后的值
-   * 
-   * default: -
-   */
-  defaultValue?: DatePickerValue;
 
   /**
    * When the value is true, disabled all options; When the value is function, disable the options that this function returns true.
@@ -103,15 +114,6 @@ export interface DatePickerProps {
   range?: boolean | number;
 
   /**
-   * Container element style
-   * 
-   * 最外层扩展样式
-   * 
-   * default: -
-   */
-  style?: React.CSSProperties;
-
-  /**
    * type of datepicker
    * 
    * 时间类型
@@ -119,15 +121,6 @@ export interface DatePickerProps {
    * default: 'date'
    */
   type?: 'date' | 'time' | 'datetime' | 'month' | 'week';
-
-  /**
-   * When the value is string, it needs to match the format attribute.  When the range property is true, the value is an array of length 2.
-   * 
-   * 值。为 string 时，需要和 format 属性匹配。range 属性为 true 时，值为长度为2的数组
-   * 
-   * default: -
-   */
-  value?: DatePickerValue;
 
   /**
    * Default time when selecting a date, the format is: 'HH:mm:ss'
@@ -247,6 +240,16 @@ export interface DatePickerProps {
    * default: none
    */
   disabledTime?: string | ((time: string) => boolean);
+
+  /**
+   * horizontal align of the value
+   * 
+   * 值水平排布方式
+   * 
+   * default: center
+   * 
+   */
+  align?: 'left' | 'right' | 'center';
 
   /**
    * value onchange callback (every type of date)

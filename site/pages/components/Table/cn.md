@@ -49,11 +49,13 @@
 | expandKeys | any[] | 无 | 展开行受控 |
 | sticky | boolean \| object | 无 | 表头是否附着顶部，为 true 时距离顶部为0，为对象时属性值参考 [Sticky组件](/components/Sticky) |
 | cellSelectable | boolean | false | 是否启用 ctrl/cmd + click 选中单元格 |
+| height | number \| string | 无 | 表格高度，与 style.height 作用相同 |
 
 ### TableColumn
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
+| className | string | 无 | 列对应的类名 |
 | colSpan | function(row) | 无 | 合并列控制函数，row为单行数据，返回值一个整数，标明需要合并的列数 |
 | fixed | string | 无 | 可选\['left', 'right']；<br />需要设置Table的fixed为'x'或'both'才生效；<br />如果相邻的多列需要锁定，只需指定最外侧的column即可 |
 | group | string \| string\[] | 无 | 表头分组，相邻的相同 group 会生成一个新的表头 |

@@ -149,9 +149,9 @@ class Node extends PureComponent {
 
   handleDragEnd() {
     this.element.style.display = ''
-
-    if (!isDragging || !placeElement.parentNode) return
+    if (!isDragging) return
     isDragging = false
+    if (!placeElement.parentNode) return
 
     document.body.removeChild(this.dragImage)
 

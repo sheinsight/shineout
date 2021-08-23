@@ -1,12 +1,19 @@
-import * as React from 'react';
-import { StandardProps, RegularAttributes, FormItemStandardProps, CommonProps } from '../@types/common'
-
-type ReactNode = React.ReactNode;
+import * as React from 'react'
+import { StandardProps, RegularAttributes, FormItemStandardProps } from '../@types/common'
 
 export interface TextareaProps<Value> extends
 StandardProps, 
 FormItemStandardProps<Value>
   {
+
+  /**
+   * show border bottom
+   * 
+   * 仅仅展示下边框
+   * 
+   * default: false
+   */
+  underline?: boolean;
 
   /**
    * Whether the height changes automatically with the content
@@ -94,4 +101,4 @@ FormItemStandardProps<Value>
 
 declare class Textarea<Value = any> extends React.Component<TextareaProps<Value>, {}> {}
 
-export default Textarea;
+export default Textarea

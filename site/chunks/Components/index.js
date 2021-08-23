@@ -184,6 +184,12 @@ const pages = [
     component: lazy(() => import(/* webpackChunkName: "Alert" */ './Alert')),
   },
   {
+    name: 'Drawer',
+    cn: '抽屉',
+    level: 2,
+    component: lazy(() => import(/* webpackChunkName: "Drawer" */ './Drawer')),
+  },
+  {
     name: 'Message',
     cn: '消息提示',
     level: 2,
@@ -243,6 +249,12 @@ const pages = [
     cn: '分割线',
     level: 2,
     component: lazy(() => import(/* webpackChunkName: "Divider" */ './Divider')),
+  },
+  {
+    name: 'Gap',
+    cn: '间距',
+    level: 2,
+    component: lazy(() => import(/* webpackChunkName: "Gap" */ './Gap')),
   },
   {
     name: 'Grid',

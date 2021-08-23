@@ -11,3 +11,4 @@
 | indicatorPosition | 'left' \| 'center' \| 'right'  | 'center' | the position of indicator |
 | indicatorType | (current: number, moveTo: () => void) => ReactNode \| string | 'circle' | the style of indicator, string options: \['circle', 'number', 'line'], using function for custom styles |
 | interval | number | 0 | the interval of animation, When it is not 0, play automatically |
+| onMove | (current: number, extra: object) => void | none | move callback |

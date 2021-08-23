@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { StandardProps, RegularAttributes } from '../@types/common'
 
-type ButtonType = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'link';
+export type ButtonType = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'link';
 
 export interface ButtonProps extends StandardProps {
 
@@ -31,6 +31,15 @@ export interface ButtonProps extends StandardProps {
    * default: -
    */
   href?: string;
+  
+  /**
+   * If present, target will be set onto <a> element.(Effective only when href is been set)
+   *
+   * 当设置了 href 属性时，target 会被设置到 <a> 元素上
+   *
+   * default: -
+   */
+  target?: '_self' | '_blank' | '_parent' | '_top' | string;
 
   /**
    * When outline is true, the background is transparent.
@@ -76,7 +85,7 @@ export interface ButtonProps extends StandardProps {
    * 
    * default: none
    */
-  onClick?: () => void;
+  onClick?: (e: MouseEvent) => void;
 
   /**
    * For Button with only 2 Chinese characters, whether to insert a space between the two Chinese characters.
@@ -87,6 +96,14 @@ export interface ButtonProps extends StandardProps {
    */
   space?: boolean;
 
+  /**
+   * loading
+   * 
+   * loading状态
+   * 
+   * default: null
+   */
+  loading?: boolean
 }
 
 export interface ButtonGroupProps {

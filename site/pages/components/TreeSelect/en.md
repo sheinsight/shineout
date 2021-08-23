@@ -25,7 +25,7 @@
 | onFilter | (text: string) => (data: any) => boolean | - | When the onFilter is not empty, you can filter data by input.<br />If the onFilter returns a function, use this function as a front-end filter.<br />If return undefined, you can do your own backend filtering. |
 | renderItem | (data: object) => ReactNode | required | When it is a string, return d\[string]<br />When it is a function, return the result of the function. |
 | renderResult | (data: object) => ReactNode | renderItem | The content displayed in the result after selecting, if not set, use renderItem |
-| compressed | boolean \| 'no-repeat' | false | Merges selected values, valid only in multiselect mode; the first value will not appear in the Popover when it is'no-repeat'. |
+| compressed | boolean \| 'no-repeat' | false | Merges selected values, valid only in multiselect mode; the repeat value will not appear in the Popover when it is'no-repeat'. |
 | absolute | boolean | false | When it is true, the pop-up layer of option append into document.body. |
 | zIndex | number | 1000 | options z-index |
 | childrenKey | string | 'children' | the key of the children data name | 
@@ -35,3 +35,5 @@
 | onCollapse | (collapse: boolean) => void | none | option collapse callback |
 | rules | any[] | null | Validation rules |
 | unmatch | boolean | none | render unmatch value |
+| underline | boolean | false | only display border bottom  |
+| onAdvancedFilter | (text: string) => (data: any) => boolean | 无 | In the advanced filter mode, you can switch between the filter results and the original data for the current level by pressing the button |

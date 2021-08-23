@@ -1,12 +1,13 @@
 import inputable from '../Form/inputable'
 import Upload from './Upload'
-import Image from './Image'
+import Image, { Handler } from './Image'
 import Progress from './Progress'
 import Dragger from './Dragger'
 import { consumer } from './context'
 
 const exports = inputable(Upload)
 exports.Image = inputable(Image)
+exports.ImageHandler = Handler
 exports.Button = inputable(Progress)
 exports.Dragger = consumer(Dragger)
 
