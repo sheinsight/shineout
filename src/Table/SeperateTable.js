@@ -42,7 +42,7 @@ class SeperateTable extends PureComponent {
     this.lastScrollArgs = {}
     this.lastScrollTop = 0
 
-    this.timer = null
+    // this.timer = null
     this.commitTimer = null
     this.rowHeightMap = new Map()
     this.contentHeight = null
@@ -162,9 +162,9 @@ class SeperateTable extends PureComponent {
    * did mount or scrollToIndex will trigger this func
    */
   afterSetRowHeight() {
-    if (this.timer) {
-      return
-    }
+    // if (this.timer) {
+    //   return
+    // }
 
     if (this.scrolling) {
       if (this.commitTimer) return
