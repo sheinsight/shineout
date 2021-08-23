@@ -62,7 +62,7 @@ export default class Panel extends PureComponent {
   }
 
   getStyle() {
-    const { width, height, top, position, style, fullScreen } = this.props
+    const { width, height, top, position, style, fullScreen, drawer } = this.props
     const w = fullScreen ? '100vw' : width
     const h = fullScreen ? '100vh' : height
     return Object.assign(
@@ -70,7 +70,10 @@ export default class Panel extends PureComponent {
         position: 'absolute',
       },
       position
-        ? {}
+        ? {
+            width: drawer && ['left', 'right'].includes(position) ? w : undefined,
+            height: drawer && ['top', 'bottom'].includes(position) ? h : undefined,
+          }
         : {
             display: 'inline-flex',
             width: w,
@@ -264,6 +267,8 @@ Panel.propTypes = {
   container: PropTypes.any,
   events: PropTypes.object,
   fullScreen: PropTypes.bool,
+  // is use in drawer
+  drawer: PropTypes.bool,
 }
 
 Panel.defaultProps = {
@@ -272,4 +277,5 @@ Panel.defaultProps = {
   maskCloseAble: true,
   width: 500,
   events: {},
+  drawer: false,
 }

@@ -1,21 +1,34 @@
 /**
- * cn - 基本用法
- *    -- 最基本的组件用法。
- *    -- Modal 会在 document.body 中创建一个新的层显示弹出内容。
- *    -- 关闭 Drawer 时默认没有对组件进行销毁, 只是隐藏, 组件的状态会被保留。 如果不需要保留组件之前的状态, 可以设置 destroy 属性。 * en - Base
- *    -- The basic usage for component.
+ * cn - 附带图标
+ *    -- 使用 type 属性来指定标题附带的图标
+ * en - Icon
+ *    -- use type display type icon
  */
 import React from 'react'
-import { Modal, Button } from 'shineout'
+import { Drawer, Button, Select } from 'shineout'
 
 export default class extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       visible: false,
-      content: 1,
+      type: 'success',
     }
     this.show = this.show.bind(this)
+  }
+
+  handleOk = () => {
+    this.setState({
+      visible: false,
+    })
+    console.log('clicked ok!')
+  }
+
+  handleCancel = () => {
+    this.setState({
+      visible: false,
+    })
+    console.log('clicked cancel')
   }
 
   show() {
@@ -24,30 +37,23 @@ export default class extends React.Component {
     })
   }
 
-  handleOk = () => {
-    this.setState({
-      visible: false,
-      content: (this.state.content += 1),
-    })
-    console.log('clicked ok!')
-  }
-
-  handleCancel = () => {
-    this.setState({
-      visible: false,
-      content: (this.state.content += 1),
-    })
-    console.log('clicked cancel')
-  }
-
   render() {
+    const { type } = this.state
     return (
       <div>
+        <Select
+          data={['info', 'success', 'warning', 'error']}
+          value={type}
+          style={{ width: 100, marginRight: 12 }}
+          keygen
+          onChange={t => this.setState({ type: t })}
+        />
         <Button onClick={this.show}>click me</Button>
-        <Modal
+        <Drawer
           visible={this.state.visible}
-          width={400}
-          title="Modal Title"
+          type={type}
+          width={500}
+          title={`Drawer Title with ${type} Icon`}
           onClose={this.handleCancel}
           footer={[
             <Button key="cancel" onClick={this.handleCancel}>
@@ -58,8 +64,9 @@ export default class extends React.Component {
             </Button>,
           ]}
         >
-          {`you are visited ${this.state.content}`}
-        </Modal>
+          <span>Drawer type: </span>
+          <b>{type}</b>
+        </Drawer>
       </div>
     )
   }
