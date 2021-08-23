@@ -51,7 +51,6 @@ export default class extends Component {
           visible={this.state.visible}
           title="Form"
           width={500}
-          height={500}
           key={position}
           position={position}
           onClose={this.toggle.bind(this, false)}

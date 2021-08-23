@@ -16,7 +16,7 @@ const examples = [
   {
     name: '1-base',
     title: locate(
-      '基本用法 \n 最基本的组件用法。 \n Drawer 会在 document.body 中创建一个新的层显示弹出内容。 \n 关闭 Drawer 时没有对组件进行销毁, 只是隐藏, 组件的状态会被保留。 如果不需要保留组件之前的状态, 可以通过改变 Drawer 的 key 去实现。',
+      '基本用法 \n 最基本的组件用法。 \n Drawer 会在 document.body 中创建一个新的层显示弹出内容。 \n 关闭 Drawer 时默认没有对组件进行销毁, 只是隐藏, 组件的状态会被保留。 如果不需要保留组件之前的状态, 可以设置 destroy 属性。',
       'Base \n The basic usage for component.'
     ),
     component: require('doc/pages/components/Drawer/example-1-base.js').default,
@@ -50,15 +50,6 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Drawer/example-4-form.js'),
   },
   {
-    name: '5-multistage',
-    title: locate(
-      '多层 Drawer \n 支持多层叠加 Drawer',
-      'Multistage \n Multi-layer Drawer'
-    ),
-    component: require('doc/pages/components/Drawer/example-5-multistage.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Drawer/example-5-multistage.js'),
-  },
-  {
     name: '6-close',
     title: locate(
       '点击空白关闭 \n 默认点击抽屉外部空白页面会关闭抽屉。 \n 设置 maskCloseAble 属性为 false，禁用点击空白关闭，同时右上角的关闭图标也会隐藏。 \n 设置 maskCloseAble 属性为 null，禁用点击空白关闭，右上角的关闭图标会保留。',
@@ -84,15 +75,6 @@ const examples = [
     ),
     component: require('doc/pages/components/Drawer/example-8-type.js').default,
     rawText: require('!raw-loader!doc/pages/components/Drawer/example-8-type.js'),
-  },
-  {
-    name: '9-zoom',
-    title: locate(
-      '缩放动画 \n 设置 zoom 属性来开启缩放动画',
-      'Zoom \n Set the zoom property to enable zoom animation'
-    ),
-    component: require('doc/pages/components/Drawer/example-9-zoom.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Drawer/example-9-zoom.js'),
   },
 ]
 
