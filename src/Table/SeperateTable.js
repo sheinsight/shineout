@@ -586,7 +586,6 @@ SeperateTable.defaultProps = {
   data: undefined,
   rowHeight: 40,
   width: undefined,
-  hideHeader: false,
 }
 
 export default SeperateTable

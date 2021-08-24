@@ -163,7 +163,6 @@ SimpleTable.propTypes = {
 SimpleTable.defaultProps = {
   data: undefined,
   width: undefined,
-  hideHeader: false,
 }
 
 export default SimpleTable
