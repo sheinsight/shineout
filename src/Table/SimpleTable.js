@@ -140,9 +140,9 @@ class SimpleTable extends PureComponent {
   }
 
   render() {
-    const { columns, width, children } = this.props
+    const { columns, width, children, hideHeader } = this.props
     if (!columns || columns.length === 0) return <table style={{ width }}>{children}</table>
-    return [this.renderHeader(), this.renderBody(), children]
+    return [hideHeader ? null : this.renderHeader(), this.renderBody(), children]
   }
 }
 
@@ -157,11 +157,13 @@ SimpleTable.propTypes = {
   dataChangeResize: PropTypes.bool,
   columnResizable: PropTypes.bool,
   sticky: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  hideHeader: PropTypes.bool,
 }
 
 SimpleTable.defaultProps = {
   data: undefined,
   width: undefined,
+  hideHeader: false,
 }
 
 export default SimpleTable
