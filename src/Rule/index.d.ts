@@ -81,7 +81,9 @@ export interface RuleResult {
 
 }
 
- declare function Rule(...options: RuleParams[]) : RuleResult
+ declare function Rule<T extends RuleParams, U>(...options: T[]) : {
+  [P in keyof T]: (args?: U ) => {args: U, func: validFunc, message?: string}
+ } & RuleResult
 
 
 export default Rule
