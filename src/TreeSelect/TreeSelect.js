@@ -244,10 +244,27 @@ export default class TreeSelect extends PureComponent {
       data.length === 0 ? (
         <span className={treeSelectClass('option')}>{this.getText('noData')}</span>
       ) : (
-        <Tree className={treeSelectClass(!multiple && 'single')} {...props} dataUpdate={false} />
+        <Tree
+          className={treeSelectClass(!multiple && 'single')}
+          {...props}
+          dataUpdate={false}
+          onExpand={(...args) => {
+            if (this.resetAbsoluteListPosition) {
+              setTimeout(() => {
+                this.resetAbsoluteListPosition(true)
+              })
+            }
+            if (this.props.onExpand) {
+              this.props.onExpand(...args)
+            }
+          }}
+        />
       )
     return (
       <OptionList
+        getResetPosition={update => {
+          this.resetAbsoluteListPosition = update
+        }}
         absolute={absolute}
         rootClass={treeSelectClass(position, isRTL() && 'rtl')}
         parentElement={this.element}
