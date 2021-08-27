@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { treeClass } from '../styles'
+import { treeClass } from './styles'
 import { empty } from '../utils/func'
 import Node from './Node'
 

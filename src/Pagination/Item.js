@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { paginationClass } from '../styles'
+import { paginationClass } from './styles'
 
 class Item extends PureComponent {
   constructor(props) {

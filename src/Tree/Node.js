@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
 import { isFunc, isString } from '../utils/is'
-import { treeClass } from '../styles'
+import { treeClass } from './styles'
 import Content from './Content'
 
 const placeElement = document.createElement('div')

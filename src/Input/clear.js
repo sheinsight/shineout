@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { inputClass } from '../styles'
+import { inputClass } from './styles'
 
 class Clear extends Component {
   constructor(props) {

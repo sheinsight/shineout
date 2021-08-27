@@ -2,7 +2,7 @@ import React, { Component, isValidElement } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { isFunc, isString } from '../utils/is'
-import { listClass } from '../styles'
+import { listClass } from './styles'
 import Image from '../Image'
 
 const metaClass = (...a) => listClass(...a.map(v => `meta-${v}`))

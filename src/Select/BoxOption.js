@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Checkbox from '../Checkbox/Checkbox'
 import Radio from '../Radio/Radio'
-import { selectClass } from '../styles'
+import { selectClass } from './styles'
 
 class BoxOption extends PureComponent {
   constructor(props) {

@@ -6,7 +6,7 @@ import { getProps, defaultProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
 import { isEnterPress } from '../utils/is'
 import Input from '../Input'
-import { checkinputClass } from '../styles'
+import { checkinputClass } from './styles'
 import { isRTL } from '../config'
 import getDataset from '../utils/dom/getDataset'
 

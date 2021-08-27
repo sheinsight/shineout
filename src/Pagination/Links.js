@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import icons from '../icons'
-import { paginationClass } from '../styles'
+import { paginationClass } from './styles'
 import Item from './Item'
 import Prev from './Prev'
 import Next from './Next'

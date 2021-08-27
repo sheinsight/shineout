@@ -6,7 +6,7 @@ import { getProps } from '../utils/proptypes'
 import { compareColumns } from '../utils/shallowEqual'
 import { getKey } from '../utils/uid'
 import Tr from './Tr'
-import { tableClass } from '../styles'
+import { tableClass } from './styles'
 
 export const RENDER_COL_GROUP_EVENT = 'RENDER_COL_GROUP_EVENT'
 

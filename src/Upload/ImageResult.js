@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import icons from '../icons'
 import Image from '../Image'
 import RemoveConfirm from './RemoveConfirm'
-import { uploadClass } from '../styles'
+import { uploadClass } from './styles'
 
 class ImageResult extends PureComponent {
   constructor(props) {

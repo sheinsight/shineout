@@ -7,7 +7,7 @@ import List from '../AnimationList'
 import Scroll from '../Scroll'
 import Spin from '../Spin'
 import { getLocale } from '../locale'
-import { selectClass } from '../styles'
+import { selectClass } from './styles'
 import Option from './Option'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')

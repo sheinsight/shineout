@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { progressClass } from '../styles'
+import { progressClass } from './styles'
 import analyzeColor from './analyzeColor'
 
 function Circle(props) {

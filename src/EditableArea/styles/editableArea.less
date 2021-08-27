@@ -1,0 +1,63 @@
+@import '../../styles/variables.less';
+@import '../../styles/themes/@{so-theme}.less';
+
+@editableArea-prefix: ~'@{so-prefix}-editableArea';
+@editableArea-clearable-icon: 12px;
+
+
+.@{editableArea-prefix} {
+  width: 100%;
+  position: relative;
+
+
+  & &-input {
+    width: 100%;
+    input {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  &-none-bordered {
+    .@{editableArea-prefix}-input {
+      border-color: transparent;
+
+      &:hover{
+        border-color: @input-border-focus;
+      }
+    }
+  }
+
+  &-popover {
+    border: none;
+    box-shadow: none;
+  }
+
+  &-clear {
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    width: @editableArea-clearable-icon;
+    height: @editableArea-clearable-icon;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      svg {
+        fill: @input-clear-bg-hover-color;
+      }
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+
+      background-color: #fff;
+      fill: @input-clear-bg-color;
+      transition: all 0.2s;
+    }
+  }
+}

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import cleanProps from '../utils/cleanProps'
 import Clear from './clear'
-import { inputClass } from '../styles'
+import { inputClass } from './styles'
 
 class Input extends PureComponent {
   constructor(props) {

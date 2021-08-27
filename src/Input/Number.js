@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import icons from '../icons'
 import Input from './Input'
-import { inputClass } from '../styles'
+import { inputClass } from './styles'
 import { isRTL } from '../config'
 
 class Number extends PureComponent {

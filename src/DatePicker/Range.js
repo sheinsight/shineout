@@ -5,7 +5,7 @@ import { PureComponent } from '../component'
 import shallowEqual from '../utils/shallowEqual'
 import utils from './utils'
 import Picker from './Picker'
-import { datepickerClass } from '../styles'
+import { datepickerClass } from './styles'
 import Quick from './Quick'
 
 class Range extends PureComponent {

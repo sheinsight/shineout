@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { tableClass } from '../styles'
+import { tableClass } from './styles'
 import Checkbox from './Checkbox'
 
 export const CLASS_FIXED_LEFT = 'fixed-left'

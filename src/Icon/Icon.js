@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
-import { iconClass } from '../styles'
+import { iconClass } from './styles'
 
 function Icon(props) {
   const { children, prefix, type, name, fontFamily, fontSize, ext, ...otherProps } = props

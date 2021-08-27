@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
-import { tableClass } from '../styles'
+import { tableClass } from './styles'
 import { range, split } from '../utils/numbers'
 import Colgroup from './Colgroup'
 import Tbody from './Tbody'

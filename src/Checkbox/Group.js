@@ -7,7 +7,7 @@ import { getKey } from '../utils/uid'
 import { CHANGE_TOPIC } from '../Datum/types'
 import Checkbox from './Checkbox'
 import { Provider } from './context'
-import { checkinputClass } from '../styles'
+import { checkinputClass } from './styles'
 
 class CheckboxGroup extends PureComponent {
   constructor(props) {

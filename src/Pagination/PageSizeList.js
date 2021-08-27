@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Select from '../Select'
-import { paginationClass } from '../styles'
+import { paginationClass } from './styles'
 
 class PageSizeList extends PureComponent {
   constructor(props) {

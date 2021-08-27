@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { tableClass } from '../styles'
+import { tableClass } from './styles'
 
 class Sorter extends PureComponent {
   constructor(props) {

@@ -1,6 +1,6 @@
 import React, { PureComponent, cloneElement, isValidElement } from 'react'
 import PropTypes from 'prop-types'
-import { tooltipClass } from '../styles'
+import { tooltipClass } from './styles'
 import { scrollConsumer } from '../Scroll/context'
 import { getUidStr } from '../utils/uid'
 import { getPosition } from '../utils/dom/popover'

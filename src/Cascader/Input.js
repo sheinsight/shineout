@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { cascaderClass } from '../styles'
+import { cascaderClass } from './styles'
 import { focusElement, getCursorOffset } from '../utils/dom/element'
 
 const handleFocus = e => {

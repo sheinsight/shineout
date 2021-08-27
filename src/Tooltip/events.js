@@ -1,6 +1,6 @@
 import classnames from 'classnames'
 import ReactDOM from 'react-dom'
-import { tooltipClass } from '../styles'
+import { tooltipClass } from './styles'
 import getCommonContainer from '../utils/dom/popContainer'
 
 const div = document.createElement('div')

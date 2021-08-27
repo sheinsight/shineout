@@ -2,7 +2,7 @@ import React, { PureComponent, Children, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import showGallery from './events'
 import { IMAGE } from './Image'
-import { imageClass } from '../styles'
+import { imageClass } from './styles'
 
 class Group extends PureComponent {
   handleClick(index) {

@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
 import Spin from '../Spin'
 import { wrapSpan } from '../utils/dom/element'
-import { buttonClass } from '../styles'
+import { buttonClass } from './styles'
 
 class Button extends PureComponent {
   getChildren() {

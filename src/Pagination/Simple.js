@@ -4,7 +4,7 @@ import Jumper from './Jumper'
 import Prev from './Prev'
 import Next from './Next'
 
-import { paginationClass } from '../styles'
+import { paginationClass } from './styles'
 
 class Simple extends PureComponent {
   render() {

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import Checkbox from '../Checkbox/Checkbox'
-import { treeClass } from '../styles'
+import { treeClass } from './styles'
 
 export default class extends PureComponent {
   static propTypes = {

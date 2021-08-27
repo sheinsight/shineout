@@ -7,7 +7,7 @@ import List from '../AnimationList'
 import Spin from '../Spin'
 import Input from '../Input'
 import Checkbox from '../Checkbox/Checkbox'
-import { selectClass } from '../styles'
+import { selectClass } from './styles'
 import BoxOption from './BoxOption'
 import LazyList from '../AnimationList/LazyList'
 

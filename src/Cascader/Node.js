@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import Checkbox from '../Checkbox'
 import Spin from '../Spin'
-import { cascaderClass } from '../styles'
+import { cascaderClass } from './styles'
 import Caret from '../icons/Caret'
 import { getParent } from '../utils/dom/element'
-import { checkinputClass } from '../styles'
+import { checkinputClass } from '../Checkbox/styles'
 import { isRTL } from '../config'
 
 const checkBoxStyle = { marginRight: 8, marginTop: -1, verticalAlign: 'top' }

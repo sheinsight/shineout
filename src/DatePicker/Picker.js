@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
-import { datepickerClass } from '../styles'
+import { datepickerClass } from './styles'
 import utils from './utils'
 import Year from './Year'
 import Month from './Month'

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps } from '../utils/proptypes'
 
-import { buttonClass } from '../styles'
+import { buttonClass } from './styles'
 
 class ButtonGroup extends PureComponent {
   render() {

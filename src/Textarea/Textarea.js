@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
-import { inputClass } from '../styles'
+import { inputClass } from '../Input/styles'
 import cleanProps from '../utils/cleanProps'
 
 class Textarea extends PureComponent {

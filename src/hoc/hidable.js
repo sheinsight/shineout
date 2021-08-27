@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import createReactContext from '../context'
 import { PureComponent } from '../component'
 import { getUidStr } from '../utils/uid'
-import { hidableClass } from '../styles'
+import { hidableClass } from './styles'
 
 const context = createReactContext()
 

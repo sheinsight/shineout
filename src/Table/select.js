@@ -5,7 +5,7 @@ import { getParent } from '../utils/dom/element'
 import { isMacOS, isFirefox } from '../utils/is'
 import ready from '../utils/dom/ready'
 
-import { tableClass } from '../styles'
+import { tableClass } from './styles'
 
 const selectClass = tableClass('select')
 const trClass = tableClass('normal')
