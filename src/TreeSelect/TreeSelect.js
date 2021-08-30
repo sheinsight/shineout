@@ -31,7 +31,8 @@ export default class TreeSelect extends PureComponent {
     }
 
     this.treeSelectId = `treeSelect_${getUidStr()}`
-
+    this.onExpandHandler = this.onExpandHandler.bind(this)
+    this.getResetPosition = this.getResetPosition.bind(this)
     this.setInputReset = this.setInputReset.bind(this)
     this.renderActive = this.renderActive.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -65,11 +66,15 @@ export default class TreeSelect extends PureComponent {
     this.clearClickAway()
   }
 
-  getValue() {
-    const { datum, multiple } = this.props
-    const value = datum.getValue()
-    if (multiple) return value
-    return value.length ? value[0] : ''
+  onExpandHandler(...args) {
+    if (this.resetAbsoluteListPosition) {
+      setTimeout(() => {
+        this.resetAbsoluteListPosition(true)
+      })
+    }
+    if (this.props.onExpand) {
+      this.props.onExpand(...args)
+    }
   }
 
   getText(key) {
@@ -78,6 +83,17 @@ export default class TreeSelect extends PureComponent {
 
   setInputReset(fn) {
     this.inputReset = fn
+  }
+
+  getValue() {
+    const { datum, multiple } = this.props
+    const value = datum.getValue()
+    if (multiple) return value
+    return value.length ? value[0] : ''
+  }
+
+  getResetPosition(update) {
+    this.resetAbsoluteListPosition = update
   }
 
   bindElement(el) {
@@ -244,10 +260,16 @@ export default class TreeSelect extends PureComponent {
       data.length === 0 ? (
         <span className={treeSelectClass('option')}>{this.getText('noData')}</span>
       ) : (
-        <Tree className={treeSelectClass(!multiple && 'single')} {...props} dataUpdate={false} />
+        <Tree
+          className={treeSelectClass(!multiple && 'single')}
+          {...props}
+          dataUpdate={false}
+          onExpand={this.onExpandHandler}
+        />
       )
     return (
       <OptionList
+        getResetPosition={this.getResetPosition}
         absolute={absolute}
         rootClass={treeSelectClass(position, isRTL() && 'rtl')}
         parentElement={this.element}
