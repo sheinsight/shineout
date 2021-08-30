@@ -162,9 +162,9 @@ export interface ColumnItem<T> {
 
   /**
    * 列对应的类名
-   * 
+   *
    * classname of column
-   * 
+   *
    * default: -
    */
   className?: string;
@@ -515,6 +515,14 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    * default: none
    */
   tableRef?: (table: TableRef) => void
+  /**
+   * whether to hide thead
+   *
+   * 是否隐藏表头
+   *
+   * default: false
+   */
+  hideHeader?: boolean
 }
 
 declare class Table<Value = any, TRD = TableRowData> extends React.Component<TableProps<Value, TRD>, {}> {
