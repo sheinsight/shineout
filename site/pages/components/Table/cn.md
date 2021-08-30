@@ -2,7 +2,7 @@
 
 <example />
 
-## API 
+## API
 
 ### Table
 
@@ -13,7 +13,7 @@
 | columns | object[] | 无 | 数组，见 TableColumn |
 | data | object[] | 无 | 数据 |
 | disabled | (data: object) => boolean \| boolean | false | 如果 disabled 为 true，禁用全部选项，如果 disabled 为函数，根据函数反回结果禁用选项 |
-| fixed | 'both' \| 'x' \| 'y' \| 'auto' | 无 | 虚拟滚动条方向设置，不设置则使用原生滚动条且关闭懒加载 | 
+| fixed | 'both' \| 'x' \| 'y' \| 'auto' | 无 | 虚拟滚动条方向设置，不设置则使用原生滚动条且关闭懒加载 |
 | format | (data: object) => any \| string | d => d | 格式化 value<br />默认值，返回原始数据<br />为string时，会作为key从原始数据中获取值，相当于 (d) => d\[format\]<br /> 为函数时，以函数返回结果作为 value |
 | loading | boolean \| ReactNode | false | 数据加载中，为true时会展示一个默认的[Spin](/components/Spin)组件，可以传入一个自定义的Spin代替 |
 | keygen | ((data: object) => any) \| string \| true | 必填 | 生成每一项key的辅助方法<br />为 true 时，以数据项本身作为key，相当于 (d => d)<br />为函数时，使用此函数返回值<br />为string时，使用这个string对应的数据值。如 'id'，相当于 (d => d.id) |
@@ -36,7 +36,7 @@
 | hover | boolean | true | 数据行鼠标悬浮高亮效果 |
 | onTreeExpand | (openKeys: string[], data: object, expand: boolean) => void | 无 |  展开行，keys为展开的行 |
 | treeEmptyExpand | boolean | false | 树形表格子数据为空时依然展示展开按钮 |
-| treeCheckAll | boolean | false | 全选时是否将子孙数据选中 | 
+| treeCheckAll | boolean | false | 全选时是否将子孙数据选中 |
 | onSortCancel | () => void | 无 | 排序取消事件 |
 | radio | boolean | false | 是否单选 |
 | rowEvents | object | 无 | tr 事件监听器集合 |
@@ -50,6 +50,7 @@
 | sticky | boolean \| object | 无 | 表头是否附着顶部，为 true 时距离顶部为0，为对象时属性值参考 [Sticky组件](/components/Sticky) |
 | cellSelectable | boolean | false | 是否启用 ctrl/cmd + click 选中单元格 |
 | height | number \| string | 无 | 表格高度，与 style.height 作用相同 |
+| hideHeader | boolean | false | 是否隐藏表头 |
 
 ### TableColumn
 
@@ -68,7 +69,7 @@
 | width | number | 无 | 列宽 |
 | align | string | 'left' | 单元格内容排布方式，可选 \['left', 'center', 'right'\]
 | treeColumnsName | string | 无 | 树形表格子数据字段名 |
-| treeIndent | number | 25 | 每一层缩进宽度 |   
+| treeIndent | number | 25 | 每一层缩进宽度 |
 | minWidth | number | 无 | 最小列宽 |
 | hide | boolean | false | 只针对行展开列有效，表示是否隐藏该列 |
-| defaultOrder | string | 'asc' \| 'desc' | 默认排序规则 | 
+| defaultOrder | string | 'asc' \| 'desc' | 默认排序规则 |

@@ -277,8 +277,12 @@ class SeperateTable extends PureComponent {
     this.lastResetLeft = left
     this.lastResetRight = right
     setTranslate(this.tbody, `-${left}px`, `-${this.lastScrollTop}px`)
-    setTranslate(this.thead, `-${left}px`, '0')
+    if (this.thead) {
+      setTranslate(this.thead, `-${left}px`, '0')
+    }
+
     ;[this.thead, this.tbody].forEach(el => {
+      if (!el) return
       ;[].forEach.call(el.parentNode.querySelectorAll('td, th'), cell => {
         if (cell.classList.contains(tableClass(CLASS_FIXED_LEFT))) {
           setTranslate(cell, `${left}px`, '0')
@@ -534,7 +538,7 @@ class SeperateTable extends PureComponent {
   }
 
   render() {
-    const { fixed } = this.props
+    const { fixed, hideHeader } = this.props
     const { scrollLeft, floatFixed } = this.state
 
     const floatClass = []
@@ -553,7 +557,7 @@ class SeperateTable extends PureComponent {
     }
 
     return [
-      this.renderHeader(floatClass),
+      hideHeader ? null : this.renderHeader(floatClass),
       <AbsoluteProvider value key="body">
         {this.renderBody(floatClass)}
       </AbsoluteProvider>,
@@ -575,6 +579,7 @@ SeperateTable.propTypes = {
   onResize: PropTypes.func,
   innerScrollAttr: PropTypes.arrayOf(PropTypes.string),
   sticky: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  hideHeader: PropTypes.bool,
 }
 
 SeperateTable.defaultProps = {

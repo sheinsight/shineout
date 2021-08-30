@@ -29,7 +29,7 @@
     content: '';
     pointer-events: none;
   }
-  
+
   &-sticky {
     overflow: visible;
   }
@@ -356,6 +356,9 @@
   &-simple-body {
     overflow: auto;
   }
+  &:not(&-bordered) &-simple-body:first-child, &:not(&-bordered) &-body:first-child {
+    border-top: 1px solid @table-border-color;
+  }
 
   &-simple-head.@{table-prefix}-scroll-y.@{table-prefix}-head {
     padding-right: 0;
@@ -556,7 +559,7 @@
       margin: 0 auto;
     }
   }
-  
+
   td&-align-right, th&-align-right {
     text-align: right;
     > div.@{table-prefix}-has-sorter {
