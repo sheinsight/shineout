@@ -40,7 +40,7 @@
     .loop(@i - 1);
 
     .@{spin-wave-prefix}-item:nth-child(@{i}) {
-      animation-delay: -@animationDuration + @delayRange / (@itemCount - 1) * (@i - 1);
+      animation-delay: -@animationDuration + (@delayRange / (@itemCount - 1) * (@i - 1));
     }
   }
 
