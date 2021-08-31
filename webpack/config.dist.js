@@ -1,11 +1,11 @@
 const path = require('path')
 const merge = require('webpack-merge')
-const glob = require('glob')
+const getStylePath = require('./utils/getStylePath')
 const config = require('../config')
 const common = require('./config.common')
 const cssConf = require('./utils/theme.css')
 
-const css = glob.sync(`./src/*/styles/*.js`)
+const css = getStylePath()
 
 const cssConfig = config.themes.map(name =>
   cssConf({
