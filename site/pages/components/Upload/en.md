@@ -16,7 +16,7 @@
 | headers | object | none | Request headers |
 | htmlName | string | none | The filename received by the server. If it is not filled in, use the name. |
 | limit | number | 100 | Maximum number of uploaded files |
-| disabled | boolean | false | disabled upload action | 
+| disabled | boolean | false | disabled upload action |
 | name | string | none | The key access data in the Form  |
 | request | (options: object) => void | - | Custom upload method<br /> options: the options of upload |
 | onChange | (values: any[]) => void | none | The callback function when the value is changing(Upload successfully, delete)<br />values: Array, the value is the onSuccess returns |
@@ -29,12 +29,13 @@
 | value | any[] | \[] | value |
 | withCredentials | boolean | false | Whether to take the cookie |
 | multiple | boolean | false | Whether multi-select files are supported |
-| renderContent | (res: any, value: any, index: number, values: any[]) => ReactNode | - | Custom content of result  | 
+| renderContent | (res: any, value: any, index: number, values: any[]) => ReactNode | - | Custom content of result  |
 | validatorHandle | ((error: any, file: File) => boolean) \| boolean  | true | Whether to handle the case of validation failure, if a function is provided, it is judged by the return value of the function. |
 | drop | boolean | false | drop to update |
 | filesFilter | (fileList: any[]) => boolean | none | Filter after file selection, users can customize the list of files that need to be uploaded eventually<br />Need to return a new file list |
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | none | remove update failed callback |
 | forceAccept | string | none | After disabled the file type filtering provided by accept, it is mandatory to check the file type, value same as accept |
+| forceAcceptErrorMsg | string | 无 | Custom error prompt after forceAccept type verification fails |
 | showUploadList | boolean | true | show upload list |
 | leftHandler | boolean | false | add image handler show left |
 | removeConfirm | string \| object | none | confirmation before deletion |
@@ -60,7 +61,7 @@
 | loading | ReactNode | none | content of uploading, will have spin if a string |
 
 
-### UploadOptions 
+### UploadOptions
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
