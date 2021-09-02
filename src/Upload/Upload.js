@@ -154,14 +154,14 @@ class Upload extends PureComponent {
   }
 
   async useValidator(blob) {
-    const { validator, accept, forceAccept } = this.props
+    const { validator, accept, forceAccept, forceAcceptErrorMsg } = this.props
     const { files } = this.state
     let error = null
     let i = 0
 
     if (forceAccept) {
       const acceptRes = attrAccept(blob, accept)
-      if (!acceptRes) return new Error(getLocale('invalidAccept'))
+      if (!acceptRes) return new Error(forceAcceptErrorMsg || getLocale('invalidAccept'))
     }
 
     while (VALIDATORITEMS[i]) {
@@ -547,6 +547,7 @@ Upload.propTypes = {
   onPreview: PropTypes.func,
   removeConfirm: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   beforeRemove: PropTypes.func,
+  forceAcceptErrorMsg: PropTypes.string,
 }
 
 Upload.defaultProps = {

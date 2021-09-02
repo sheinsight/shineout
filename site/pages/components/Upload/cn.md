@@ -20,7 +20,7 @@
 | headers | object | 无 | 请求头部信息 |
 | htmlName | string | 无 | 服务端接收的 filename，不填使用 name |
 | limit | number | 100 | 最大上传文件数 |
-| disabled | boolean | false | 是否禁用上传行为 | 
+| disabled | boolean | false | 是否禁用上传行为 |
 | name | string | 无 | Form 内存取数据的 key |
 | request | (options: object) => void | 无 | 自定义上传方法<br /> options: 上传的配置 |
 | onChange | (values: any[]) => void | 无 | 值改变回调(上传成功，删除)<br />values: 数组, 其每个值是 onSuccess 的返回值 |
@@ -39,6 +39,7 @@
 | filesFilter | (fileList: any[]) => boolean | 无 | 文件选中后的筛选，用户可自定义最终需要上传的文件列表<br />需返回一个新的文件列表 |
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | 无 | 上传失败文件删除之后的回调 |
 | forceAccept | string | 无 | 在使用时关闭了 accept 提供的文件类型过滤后，强制对文件类型进行校验（值同accept） |
+| forceAcceptErrorMsg | string | 无 | forceAccept 类型校验失败后自定义错误提示 |
 | showUploadList | boolean | true | 是否展示上传列表 |
 | removeConfirm | string \| object | 无 | 删除前是否进行确认提示 |
 | beforeRemove | (value: any) => Promise | 无 | 删除前的确认 |
@@ -63,7 +64,7 @@
 | loading | ReactNode | 无 | 上传中按钮的内容，如果是字符串默认会有spin loading |
 
 
-### UploadOptions 
+### UploadOptions
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
