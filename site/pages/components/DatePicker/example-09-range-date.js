@@ -58,6 +58,7 @@ export default function() {
       <DatePicker
         range
         type="datetime"
+        defaultTime={['00:00:00', '23:59:59']}
         style={style}
         onChange={d => console.log(d)}
         placeholder={['Start datetime', 'End datetime']}
