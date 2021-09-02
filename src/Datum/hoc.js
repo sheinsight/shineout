@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { curry } from '../utils/func'
 import shallowEqual from '../utils/shallowEqual'
+import { capitalize } from '../utils/strings'
 import { IGNORE_VALIDATE, WITH_OUT_DISPATCH } from './types'
 import List from './List'
 import Form from './Form'
@@ -32,7 +33,6 @@ export default curry((options, Origin) => {
     constructor(props) {
       super(props)
       const { datum, onChange, initValidate } = props
-      const value = props[key]
 
       if (datum instanceof Datum) {
         this.datum = datum
@@ -42,8 +42,14 @@ export default curry((options, Origin) => {
             o[k] = props[k]
             return o
           },
-          { value, limit, initValidate }
+          { limit, initValidate }
         )
+        if (key in props) {
+          ops[key] = props[key]
+        }
+        if (`default${capitalize(key)}` in props) {
+          ops[`default${capitalize(key)}`] = props[`default${capitalize(key)}`]
+        }
         this.datum = new Datum(Object.assign(ops, datum))
       }
 

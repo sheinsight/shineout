@@ -41,6 +41,15 @@ export interface FormProps<Value> extends StandardProps {
   value?: Value,
 
   /**
+   * Form defaultValue
+   *
+   * Form默认值，仅当没有传value的时候生效
+   *
+   * default:
+   */
+  defaultValue?: Value,
+
+  /**
    * The formdata helper class, which is created automatically inside a Form without setting it, usually does not need to be set.
    *
    * formdata 辅助类，不设置Form内部会自动创建，通常情况下不需要设置。

@@ -18,7 +18,7 @@ import {
 
 export default class {
   constructor(options = {}) {
-    const { removeUndefined = true, rules, onChange, value, error, initValidate } = options
+    const { removeUndefined = true, rules, onChange, value, error, initValidate, defaultValue } = options
     this.rules = rules
     this.onChange = onChange
     this.removeUndefined = removeUndefined
@@ -28,15 +28,16 @@ export default class {
     // store values
     this.$values = {}
     // store default value, for reset
-    this.$defaultValues = {}
+    this.$defaultValues = { ...defaultValue }
     this.$validator = {}
     this.$events = {}
     // handle global errors
     this.$errors = {}
 
     this.deepSetOptions = { removeUndefined, forceSet: true }
+    const initValue = 'value' in options ? value : defaultValue
 
-    if (value) this.setValue(value, initValidate ? undefined : IGNORE_VALIDATE)
+    if (initValue) this.setValue(initValue, initValidate ? undefined : IGNORE_VALIDATE)
     if (error) this.resetFormError(error)
   }
 
@@ -234,7 +235,7 @@ export default class {
       this.dispatch(CHANGE_TOPIC)
     }
 
-    if (value) this.$defaultValues[name] = fastClone(value)
+    if (!(name in this.$defaultValues) && value) this.$defaultValues[name] = fastClone(value)
 
     this.$validator[name] = validate
     this.$inputNames[name] = true
