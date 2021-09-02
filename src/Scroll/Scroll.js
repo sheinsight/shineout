@@ -178,21 +178,21 @@ class Scroll extends PureComponent {
     // }
   }
 
-  handleScroll(x, y, pixelX, pixelY) {
+  handleScroll(x, y, pixelX, pixelY, { drag } = {}) {
     const { scrollWidth } = this.props
     const { width, height } = this.getWheelRect()
     const max = Math.round((1 - width / scrollWidth) * scrollWidth)
     if (this.props.onScroll) {
-      this.props.onScroll(x, y, max, this.inner, width, height, pixelX, pixelY)
+      this.props.onScroll(x, y, max, this.inner, width, height, pixelX, pixelY, drag)
     }
   }
 
   handleScrollX(left) {
-    this.handleScroll(left, this.props.top, undefined, 0)
+    this.handleScroll(left, this.props.top, undefined, 0, { drag: true })
   }
 
   handleScrollY(top) {
-    this.handleScroll(this.props.left, top)
+    this.handleScroll(this.props.left, top, undefined, undefined, { drag: true })
   }
 
   handleTouchStart(e) {
