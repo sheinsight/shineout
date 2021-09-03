@@ -25,6 +25,8 @@ class Tree extends PureComponent {
         disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
         childrenKey: props.childrenKey,
         unmatch: props.unmatch,
+        format: props.format,
+        prediction: props.prediction,
       })
     this.handleDrop = this.handleDrop.bind(this)
     this.handleToggle = this.handleToggle.bind(this)
