@@ -21,16 +21,18 @@ export default Table =>
 
     componentDidUpdate(prevProps) {
       const prevColumns = prevProps.columns
-      const { columns } = this.props
+      const { columns, onColumnResize } = this.props
       if (prevColumns !== columns) {
         if (prevColumns.length !== columns.length) {
           this.setState({ columns })
         } else {
-          const widthed = immer(columns, draft => {
-            draft.forEach((column, index) => {
-              column.width = this.state.columns[index].width
-            })
-          })
+          const widthed = onColumnResize
+            ? columns
+            : immer(columns, draft => {
+                draft.forEach((column, index) => {
+                  column.width = this.state.columns[index].width
+                })
+              })
           this.setState({ columns: widthed })
         }
       }

@@ -505,6 +505,7 @@ class SeperateTable extends PureComponent {
               resize={resize}
               colgroup={colgroup}
               onScrollTop={this.scrollToTop}
+              columnResizable={columnResizable}
             />
           </table>
         </div>
