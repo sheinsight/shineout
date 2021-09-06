@@ -393,7 +393,7 @@ class Cascader extends PureComponent {
         disabled === true && 'disabled',
         isRTL() && 'rtl'
       ),
-      selectClass(this.state.position)
+      selectClass(this.state.position, focus && 'focus')
     )
 
     return (

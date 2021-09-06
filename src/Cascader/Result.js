@@ -9,6 +9,7 @@ import icons from '../icons'
 import More from '../Select/More'
 import { isEmpty } from '../utils/is'
 import { CHANGE_TOPIC } from '../Datum/types'
+import Caret from '../icons/Caret'
 
 // eslint-disable-next-line react/prop-types
 function Item({ children, close, className, data, isPopover, singleRemove, click }) {
@@ -212,7 +213,9 @@ class Result extends PureComponent {
         {result}
         {!this.props.multiple && (
           // eslint-disable-next-line
-          <a tabIndex={-1} className={selectClass('indicator', 'caret')} />
+          <a tabIndex={-1} className={selectClass('indicator', 'caret')} >
+            <Caret />
+          </a>
         )}
         {this.renderClear()}
       </div>
