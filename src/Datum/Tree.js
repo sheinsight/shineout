@@ -1,4 +1,5 @@
 import { CHANGE_TOPIC } from './types'
+import { createFunc } from '../utils/func'
 
 const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -32,18 +33,20 @@ const checkStatusStack = (stack, defaultStatus) => {
 
 export default class {
   constructor(options = {}) {
-    const { data, value, keygen, mode, disabled, childrenKey = 'children', unmatch } = options
-
+    const { data, value, keygen, mode, disabled, childrenKey = 'children', unmatch, format, prediction } = options
+    this.options = options
     this.keygen = keygen
     this.mode = mode
     this.valueMap = new Map()
+    this.formatIdMap = new Map()
     this.unmatchedValueMap = new Map()
     this.unmatch = unmatch
     this.events = {}
     this.$events = {}
     this.disabled = disabled || (() => false)
     this.childrenKey = childrenKey
-
+    this.format = format && createFunc(format)
+    this.prediction = prediction
     this.setValue(value)
     this.setData(data)
   }
@@ -56,9 +59,9 @@ export default class {
     delete this.events[id]
   }
 
-  setUnmatedValue() {
+  setUnmatedValue(ids) {
     if (!this.value || !this.data) return
-    this.value.forEach(v => {
+    ids.forEach(v => {
       const data = this.getDataById(v)
       const unmatched = data && data[IS_NOT_MATCHED_VALUE]
       if (unmatched) this.unmatchedValueMap.set(v, true)
@@ -71,22 +74,25 @@ export default class {
     if (value && value !== this.cachedValue) {
       this.initValue()
     }
-    this.setUnmatedValue()
   }
 
-  getValue() {
+  getValue({ returnId = false } = {}) {
     const value = []
     this.valueMap.forEach((checked, id) => {
+      let v = id
+      if (!returnId && this.options.format) {
+        v = this.format(this.dataMap.get(id))
+      }
       switch (this.mode) {
         case CheckedMode.Full:
         case CheckedMode.Freedom:
-          if (checked === 1) value.push(id)
+          if (checked === 1) value.push(v)
           break
         case CheckedMode.Half:
-          if (checked >= 1) value.push(id)
+          if (checked >= 1) value.push(v)
           break
         case CheckedMode.Child:
-          if (checked === 1 && this.pathMap.get(id).children.length === 0) value.push(id)
+          if (checked === 1 && this.pathMap.get(id).children.length === 0) value.push(v)
           break
         case CheckedMode.Shallow:
           if (checked === 1) {
@@ -96,7 +102,7 @@ export default class {
               if (!pid) return false
               return this.valueMap.get(pid) === 1
             })()
-            if (!parentChecked) value.push(id)
+            if (!parentChecked) value.push(v)
           }
           break
         default:
@@ -115,7 +121,8 @@ export default class {
     if (update) update()
   }
 
-  set(id, checked, direction) {
+  set(v, checked, direction) {
+    const id = v
     // self
     if (!this.isDisabled(id)) this.setValueMap(id, checked)
 
@@ -200,10 +207,43 @@ export default class {
     return id + (id ? ',' : '') + index
   }
 
+  getValueIds(values) {
+    if (!values) return values
+    if (!this.options.prediction) {
+      if (!this.options.format) {
+        this.setUnmatedValue(values)
+        return values
+      }
+      const results = values.map(v => {
+        const r = this.formatIdMap.get(v)
+        if (this.unmatch && r === undefined) {
+          this.unmatchedValueMap.set(v, true)
+        }
+        return r
+      })
+      return results
+    }
+    const results = []
+    const toCompare = [...values]
+    this.dataMap.forEach((d, key) => {
+      const index = toCompare.findIndex(value => this.prediction(value, d))
+      if (index > -1) {
+        toCompare.splice(index, 1)
+        results.push(key)
+      }
+    })
+    if (this.unmatch) {
+      toCompare.forEach(v => this.unmatchedValueMap.set(v, true))
+    }
+    return [...results]
+  }
+
   initValue(ids, forceCheck) {
     if (!this.data || !this.value) return undefined
 
     if (!ids) {
+      this.unmatchedValueMap = new Map()
+      this.valueIds = this.getValueIds(this.value)
       ids = []
       this.pathMap.forEach((val, id) => {
         if (val.path.length === 0) ids.push(id)
@@ -220,7 +260,7 @@ export default class {
         return
       }
 
-      let childChecked = this.value.indexOf(id) >= 0 ? 1 : 0
+      let childChecked = this.valueIds.indexOf(id) >= 0 ? 1 : 0
 
       if (childChecked === 1 && this.mode !== CheckedMode.Half && this.mode !== CheckedMode.Freedom) {
         this.initValue(children, 1)
@@ -229,7 +269,7 @@ export default class {
         const res = this.initValue(children)
         childChecked = this.mode === CheckedMode.Freedom ? childChecked : res
       } else {
-        childChecked = this.value.indexOf(id) >= 0 ? 1 : 0
+        childChecked = this.valueIds.indexOf(id) >= 0 ? 1 : 0
       }
 
       this.setValueMap(id, childChecked)
@@ -245,6 +285,10 @@ export default class {
     const ids = []
     data.forEach((d, i) => {
       const id = this.getKey(d, path[path.length - 1], i)
+      if (!this.options.prediction && this.options.format) {
+        const v = this.format(d)
+        this.formatIdMap.set(v, id)
+      }
       if (this.dataMap.get(id)) {
         console.warn(`There is already a key "${id}" exists. The key must be unique.`)
       }
@@ -285,6 +329,7 @@ export default class {
     this.dataMap = new Map()
     this.valueMap = new Map()
     this.unmatchedValueMap = new Map()
+    this.formatIdMap = new Map()
     this.data = data
 
     if (!data) return

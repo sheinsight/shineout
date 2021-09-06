@@ -68,6 +68,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Tree/example-06-change.js'),
   },
   {
+    name: '06-d-format',
+    title: locate(
+      '复杂数据 \n 复杂的数据可以使用 format 处理 value',
+      'Complex data \n Complex data can use format to process value.'
+    ),
+    component: require('doc/pages/components/Tree/example-06-d-format.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Tree/example-06-d-format.js'),
+  },
+  {
     name: '07-disabled',
     title: locate(
       '禁用 \n disabled 为函数时，根据返回结果禁用节点，同时禁用子节点 \n disabled 为 true 时，禁用全部节点',

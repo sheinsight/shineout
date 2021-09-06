@@ -41,7 +41,7 @@ export default Origin =>
 
     getResultByValues() {
       const { datum, noCache, renderUnmatched } = this.props
-      let value = datum.getValue() || []
+      let value = datum.getValue({ returnId: true }) || []
       if (renderUnmatched) {
         value = value.concat([].concat(this.props.value).filter(v => v && value.indexOf(v) === -1))
       }

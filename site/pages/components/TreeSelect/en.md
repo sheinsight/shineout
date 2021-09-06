@@ -17,6 +17,8 @@
 | filterDelay | number | 400 | ms. The delay of user input triggering filter events |
 | name | string | - | The name of a Form that accesses data |
 | keygen | ((data: object) => string) \| string \| true | index | Generate a auxiliary method for each key<br />If not filled, index will be used(not recommended,there may be problems with more than 10 data)<br />When it is a function, use its return value.<br />When it is a string，ues the value of the string.For example, 'id' is the same thing as (d) => d.id. |
+| format | (data: any) => any \| string | - | Format value<br />The defaule value is return the original data.<br />When it is a string, the value is fetched from the original data as a key equivalent to (d) => d\[format\]<br />When it is a function, use its return value.  |
+| prediction | (value: any, data: any) => boolean | (val, d) => val===format(d) | By default, the result of the format function is used to compare whether it matches. In some cases (for example, whe an object that returns the original data is updated, an different option with the same value  is generated), the prediction function needs to be used to determine whether match |
 | expanded | string[] | - | Expanded node key (controlled) |
 | loader | (key: string) => void | - | If the loader attribute is a function, the node with no children is regarded as dynamically loaded node. Click expanded button to trigger the loader event. The children property is null or its length is 0 will be regarded as a leaf node. |
 | mode | 0 \| 1 \| 2 \| 3 | 1 | mode <br />0: Returns only the fully selected node including the parent node. <br />1: Returns all selected nodes and semi-selected nodes. <br />2: Return only the selected child nodes. <br />3: If the parent node is full selected, only return the parent node. |
@@ -28,7 +30,7 @@
 | compressed | boolean \| 'no-repeat' | false | Merges selected values, valid only in multiselect mode; the repeat value will not appear in the Popover when it is'no-repeat'. |
 | absolute | boolean | false | When it is true, the pop-up layer of option append into document.body. |
 | zIndex | number | 1000 | options z-index |
-| childrenKey | string | 'children' | the key of the children data name | 
+| childrenKey | string | 'children' | the key of the children data name |
 | defaultExpandAll | boolean | false | default expand all node |
 | showHitDescendants | boolean | false | Whether to show the descendant nodes of the hit node after filtering |
 | renderUnmatched | (data: any) => ReactNode | none | render unmatched value |

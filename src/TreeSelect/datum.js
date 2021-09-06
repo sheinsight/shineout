@@ -19,6 +19,8 @@ export default function datum(Origin) {
       onChange: PropTypes.func,
       value: PropTypes.oneOfType([PropTypes.array, PropTypes.any]),
       keygen: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+      format: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+      prediction: PropTypes.func,
       multiple: PropTypes.bool,
       childrenKey: PropTypes.string,
       unmatch: PropTypes.bool,
@@ -42,6 +44,8 @@ export default function datum(Origin) {
         disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
         childrenKey: props.childrenKey,
         unmatch: props.unmatch,
+        format: props.format,
+        prediction: props.prediction,
       })
     }
 

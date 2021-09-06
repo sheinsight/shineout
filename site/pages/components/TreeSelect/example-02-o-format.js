@@ -1,8 +1,8 @@
 /**
- * cn - 基本用法
- *    -- 基础的TreeSelect用法。
- * en - Base
- *    -- Basic usage of TreeSelect.
+ * cn - 复杂数据
+ *    -- 复杂的数据可以使用 format 处理 value
+ * en - Complex data
+ *    -- Complex data can use format to process value.
  */
 import React from 'react'
 import { TreeSelect } from 'shineout'
@@ -39,7 +39,6 @@ export default class extends React.Component {
       <TreeSelect
         value={this.state.value}
         onChange={this.handleChange}
-        format={d => d.title}
         clearable
         style={{ width: 250 }}
         keygen="id"
