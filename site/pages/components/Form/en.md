@@ -9,6 +9,7 @@
 | --- | --- | --- | --- |
 | className | string | | extend className |
 | value | object | | Form value |
+| defaultValue | object | | Form default value |
 | datum | object | | The formdata helper class, which is created automatically inside a Form without setting it, usually does not need to be set. |
 | disabled | boolean | false | When disabled is true, all the elements in the form are disabled. |
 | inline | boolean | false | When inline is true, the form is horizontal layout |
@@ -24,7 +25,7 @@
 | style | object | - | Container element style |
 | throttle | number | 1000 | ms, the interval between two submissions(Prevent repeat submission) |
 | initValidate | boolean | false | validate after set value |
-| formRef | (form: any) => void | - | bind form ref, Can call some form methods | 
+| formRef | (form: any) => void | - | bind form ref, Can call some form methods |
 | labelVerticalAlign | 'top' \| 'middle' \| 'bottom' | 'top' | default is top align |
 
 ### Form.Item
@@ -47,7 +48,7 @@ Used to handle custom form components, enabling custom form components to get/st
 | children | (opts: object) => ReactNode \| ReactNode | required | React components that support value and onChange or function. The function object attribute is as follows: <br />value: The value obtained from the parent Form or Form.Block by name.<br />error: the error information of data validation. type is Error.<br />onChange: The callback when the value is changing. |
 | defaultValue | string \| number | | default value |
 | name | string | none | The name of a Form that accesses data |
-| rules | any[] | none | Validation rules | 
+| rules | any[] | none | Validation rules |
 
 ### Form.FieldSet
 Handle a set(group) data from form by name.
@@ -58,7 +59,7 @@ Handle a set(group) data from form by name.
 | defaultValue | string \| number | | Default value |
 | empty | (onInsert: any) => ReactNode | | . |
 | name | string | required | The name that accesses data from from |
-| rules | any[] | none | Validation rules | 
+| rules | any[] | none | Validation rules |
 
 ### Form.Flow
 
@@ -90,7 +91,7 @@ Use to resolve nested data
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | labelWidth | string \| number | 140px | the width of the label. It is invalid when labelAlign is 'top'. |
-| onChange | function(value) | required | a callback when the value is changing | 
+| onChange | function(value) | required | a callback when the value is changing |
 | value | any | required | value |
 
 ### ~~Form.BlockField~~ out of date

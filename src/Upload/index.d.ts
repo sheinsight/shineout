@@ -294,6 +294,15 @@ export interface UploadProps<T> extends StandardProps, OmitFormProps<T[]>{
   forceAccept?: string;
 
   /**
+   * Custom error prompt after forceAccept type verification fails
+   *
+   * forceAccept 类型校验失败后自定义错误提示
+   *
+   * default: none
+   */
+  forceAcceptErrorMsg?: string;
+
+  /**
    * show upload list
    *
    * 是否展示上传列表
@@ -304,18 +313,18 @@ export interface UploadProps<T> extends StandardProps, OmitFormProps<T[]>{
 
   /**
    * Confirmation before deletion
-   * 
+   *
    * 是否在删除文件和图片前弹出确认
-   * 
+   *
    * default: -
    */
   removeConfirm?: string | PopoverConfirmProps;
 
   /**
    * callback before remove
-   * 
+   *
    * 删除前的确认，返回一个Promise用于最终确定是否删除
-   * 
+   *
    * default: none
    */
   beforeRemove?: (value: any) => Promise<any>;
@@ -369,10 +378,10 @@ export interface UploadImageProps<T> extends UploadProps<T>{
   onPreview?:(url: string, value: T, index: number, values: T[]) => void;
 
   /**
-   * ignore image preview 
-   * 
+   * ignore image preview
+   *
    * 是否忽略上传图片预览
-   * 
+   *
    * defualt: false
    */
   ignorePreview?: boolean;
@@ -382,48 +391,48 @@ export interface UploadImageProps<T> extends UploadProps<T>{
 export interface UploadImageHandlerProps extends StandardProps {
   /**
    * is disabled
-   * 
+   *
    * 是否禁用
-   * 
+   *
    * default: false
-   * 
+   *
    */
   disabled?: boolean;
 
   /**
    * custom children
-   * 
+   *
    * 自定义内容
-   * 
-   * default: plus 
+   *
+   * default: plus
    */
   children?: ReactNode;
 
   /**
    * width of element
-   * 
+   *
    * 宽度
-   * 
+   *
    * default: 80
    */
   width?: number;
 
   /**
    * height of element
-   * 
+   *
    * 高度
-   * 
+   *
    * default: 80
    */
   height?: number;
 
   /**
    * click callback
-   * 
+   *
    * 点击事件回调
-   * 
+   *
    * default: -
-   * 
+   *
    */
   onClick?: (e: MouseEvent) => void;
 }

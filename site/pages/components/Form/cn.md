@@ -21,6 +21,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 | --- | --- | --- | --- |
 | className | string | | 扩展className |
 | value | object | | Form值 |
+| defaultValue | object | | Form默认值，仅当没有传value的时候生效 |
 | datum | object | | formdata 辅助类，不设置Form内部会自动创建，通常情况下不需要设置。 |
 | disabled | boolean | false | 是否禁用，为 true 时，表单内所有元素 disabled 都为 true |
 | inline | boolean | false | 是否水平布局 |
@@ -36,7 +37,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 | style | object | | 扩展样式 |
 | throttle | number | 1000 | ms, 两次提交间隔时长（防止重复提交）|
 | initValidate | boolean | false | 设置 value 后是否自动校验 |
-| formRef | (form: any) => void | - | 绑定 form 的引用, 可以调用某些 form 的方法 | 
+| formRef | (form: any) => void | - | 绑定 form 的引用, 可以调用某些 form 的方法 |
 | labelVerticalAlign | 'top' \| 'middle' \| 'bottom' | 'top' | 默认顶部对齐 |
 
 ### Form.Item
@@ -59,7 +60,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 | children | (opts: object) => ReactNode \| ReactNode  | 必填 | 支持 value 和 onChange 的 React 组件，或者函数，函数object属性如下<br />value: 根据 name 从上级 Form 或 Form.Block 获取的值<br />error：数据校验错误信息，类型为 Error<br />onChange: 值改变回调函数  |
 | defaultValue | string \| number | | 默认值 |
 | name | string | 无 | Form 存取数据的名称 |
-| rules | any[] | 无 | 校验规则 | 
+| rules | any[] | 无 | 校验规则 |
 
 ### Form.FieldSet
 用来处理 object 类型 字段和数组。
@@ -70,7 +71,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 | defaultValue | string \| number | | 默认值 |
 | empty | (onInsert: any) => ReactNode | 无 | 数据为空时展示内容。（仅在children为function时有效） |
 | name | string | 必填 | 从 Form 中存取数据的名称 |
-| rules | any[] | 无 | 校验规则 | 
+| rules | any[] | 无 | 校验规则 |
 
 ### Form.Flow
 
@@ -98,7 +99,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | labelWidth | string \| number | 140px | 标签宽度，labelAlign 为 'top' 时无效。 |
-| onChange | function(value) | 必填 | 值改变回调函数 | 
+| onChange | function(value) | 必填 | 值改变回调函数 |
 | value | any | 必填 | 值 |
 
 ### ~~Form.BlockField~~ 不推荐

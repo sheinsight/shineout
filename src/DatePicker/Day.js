@@ -62,7 +62,8 @@ class Day extends PureComponent {
   handleDayClick(date, sync) {
     const { type, allowSingle, rangeDate, min, max, index, value } = this.props
     // if has value use value time
-    const current = value || this.formatWithDefaultTime(sync)
+
+    const current = (index === sync && value) || this.formatWithDefaultTime(sync)
     const onChange = typeof sync === 'number' ? this.props.onChangeSync.bind(this.props, sync) : this.props.onChange
     if (type === 'week') {
       // if (date.getDay() === 0) {
