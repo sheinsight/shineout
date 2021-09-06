@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { getParent, focusElement } from '../utils/dom/element'
 import utils from './utils'
-import { datepickerClass } from '../styles'
+import { datepickerClass } from './styles'
 
 let target = null
 document.addEventListener(

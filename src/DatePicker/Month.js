@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { datepickerClass } from '../styles'
+import { datepickerClass } from './styles'
 import Icon from './Icon'
 import utils from './utils'
 import { getLocale } from '../locale'

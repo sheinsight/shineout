@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import classname from 'classnames'
 import PropTypes from 'prop-types'
 import Checkbox from '../Checkbox/Checkbox'
-import { cardGroupClass } from '../styles'
+import { cardGroupClass } from './styles'
 import Lazyload from '../Lazyload'
 
 class Item extends React.Component {

@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import getCommonContainer from '../utils/dom/popContainer'
-import { popoverClass } from '../styles'
+import { popoverClass } from './styles'
 
 let currentProps = null
 const div = document.createElement('div')

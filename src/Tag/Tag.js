@@ -8,7 +8,7 @@ import icons from '../icons'
 import { wrapSpan } from '../utils/dom/element'
 import { isPromise, isFunc, isString, isEmpty } from '../utils/is'
 import { isDark } from '../utils/color'
-import { tagClass } from '../styles'
+import { tagClass } from './styles'
 import { isRTL } from '../config'
 import getDataset from '../utils/dom/getDataset'
 

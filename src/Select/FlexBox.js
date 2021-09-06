@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { Component } from '../component'
-import { selectClass } from '../styles'
+import { selectClass } from './styles'
 
 export default class FlexBox extends Component {
   constructor(props) {

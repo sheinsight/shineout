@@ -1,7 +1,7 @@
 import React, { Component, isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import { focusElement } from '../utils/dom/element'
-import { treeSelectClass } from '../styles'
+import { treeSelectClass } from './styles'
 
 class FilterInput extends Component {
   constructor(props) {

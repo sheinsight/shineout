@@ -6,7 +6,7 @@ import Header from './Header'
 import getDataset from '../utils/dom/getDataset'
 import Wrapper from './Wrapper'
 import Sticky from '../Sticky'
-import { tabsClass } from '../styles'
+import { tabsClass } from './styles'
 import { isEmpty, isObject } from '../utils/is'
 
 class Tabs extends PureComponent {

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { tabsClass } from '../styles'
+import { tabsClass } from './styles'
 import { getUidStr } from '../utils/uid'
 import { defer } from '../utils/uid'
 import getDataset from '../utils/dom/getDataset'

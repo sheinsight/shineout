@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import inputBorder from '../hoc/inputBorder'
-import { tagClass } from '../styles'
+import { tagClass } from './styles'
 
 class TagInput extends PureComponent {
   constructor(props) {

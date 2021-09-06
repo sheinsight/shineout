@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
-import { uploadClass } from '../styles'
+import { uploadClass } from './styles'
 import Drop from './Drop'
 import { accept as attrAccept } from '../utils'
 

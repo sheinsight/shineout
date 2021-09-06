@@ -1,9 +1,8 @@
 import React, { isValidElement } from 'react'
-import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import Spin from '../Spin'
 import { PureComponent } from '../component'
-import { uploadClass } from '../styles'
+import { uploadClass } from './styles'
 import Button from '../Button'
 import Upload from './Upload'
 

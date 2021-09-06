@@ -1,25 +1,24 @@
 import { darken, fade } from './color'
 import { set as configSet } from '../config'
 import { entries } from './objects'
-import {
-  paginationClass,
-  checkinputClass,
-  tagClass,
-  buttonClass,
-  tooltipClass,
-  inputClass,
-  selectClass,
-  formClass,
-  sliderClass,
-  menuClass,
-  alertClass,
-  messageClass,
-  cardClass,
-  modalClass,
-  popoverClass,
-  datepickerClass,
-  dropdownClass,
-} from '../styles'
+
+import { paginationClass } from '../Pagination/styles'
+import { checkinputClass } from '../Checkbox/styles'
+import { buttonClass } from '../Button/styles'
+import { selectClass } from '../Select/styles'
+import { formClass } from '../Form/styles'
+import { menuClass } from '../Menu/styles'
+import { alertClass } from '../Alert/styles'
+import { messageClass } from '../Message/styles'
+import { modalClass } from '../Modal/styles'
+import { popoverClass } from '../Popover/styles'
+import { datepickerClass } from '../DatePicker/styles'
+import { dropdownClass } from '../Dropdown/styles'
+import { inputClass } from '../Input/styles'
+import { cardClass } from '../Card/styles'
+import { tooltipClass } from '../Tooltip/styles'
+import { sliderClass } from '../Slider/styles'
+import { tagClass } from '../Tag/styles'
 import { exposeClass } from '../styles/expose'
 
 const computedCache = {}

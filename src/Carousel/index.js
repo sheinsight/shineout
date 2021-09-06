@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { range } from '../utils/numbers'
-import { carouselClass } from '../styles'
+import { carouselClass } from './styles'
 import Item from './Item'
 import getDataset from '../utils/dom/getDataset'
 

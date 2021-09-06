@@ -2,7 +2,7 @@ import { Children, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
-import { cardClass } from '../styles'
+import { cardClass } from './styles'
 
 const getChildId = (child, i) => {
   if (child && child.props && child.props.id !== undefined) return child.props.id

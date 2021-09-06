@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import More from './More'
 import FlexBox from './FlexBox'
 import { Component } from '../component'
-import { selectClass } from '../styles'
 
 const LETTER_WIDTH = 10
 

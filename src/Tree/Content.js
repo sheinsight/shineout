@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
-import { treeClass } from '../styles'
+import { treeClass } from './styles'
 import Spin from '../Spin'
 import Checkbox from './Checkbox'
 

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { listClass } from '../styles'
+import { listClass } from './styles'
 import Meta from './Meta'
 import Extra from './Extra'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classname from 'classnames'
-import { cardGroupClass } from '../styles'
+import { cardGroupClass } from './styles'
 import { PureComponent } from '../component'
 import { Provider } from './context'
 

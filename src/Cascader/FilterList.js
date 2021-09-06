@@ -4,7 +4,8 @@ import classnames from 'classnames'
 import absoluteList from '../AnimationList/AbsoluteList'
 import { Component } from '../component'
 import { getFlattenTree } from '../utils/tree'
-import { cascaderClass, selectClass } from '../styles'
+import { cascaderClass } from './styles'
+import { selectClass } from '../Select/styles'
 
 class FilterItem extends Component {
   static propTypes = {

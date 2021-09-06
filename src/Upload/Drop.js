@@ -1,7 +1,7 @@
 import React from 'react'
 import PropType from 'prop-types'
 import classnames from 'classnames'
-import { uploadClass } from '../styles'
+import { uploadClass } from './styles'
 import { accept as fileAccept } from '../utils'
 
 export default class extends React.Component {

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { uploadClass } from '../styles'
+import { uploadClass } from './styles'
 import Progress from '../Progress'
 import Spin from '../Spin'
 import icons from '../icons'

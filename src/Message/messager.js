@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { messageClass } from '../styles'
+import { messageClass } from './styles'
 import Container from './Container'
 
 const elements = {}

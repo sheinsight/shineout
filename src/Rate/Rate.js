@@ -5,7 +5,7 @@ import { PureComponent } from '../component'
 import { range } from '../utils/numbers'
 import { getParent } from '../utils/dom/element'
 import { getProps, defaultProps } from '../utils/proptypes'
-import { rateClass } from '../styles'
+import { rateClass } from './styles'
 import getDataset from '../utils/dom/getDataset'
 
 const MIN_SIZE = 12

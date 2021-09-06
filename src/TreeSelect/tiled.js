@@ -4,7 +4,8 @@ import immer from 'immer'
 import Datum from '../Datum/Tree'
 import { curry } from '../utils/func'
 import { mergeFilteredTree } from '../utils/tree'
-import { treeClass, treeSelectClass } from '../styles'
+import { treeClass } from '../Tree/styles'
+import { treeSelectClass } from './styles'
 import { Component } from '../component'
 
 export default curry((options, Origin) => {

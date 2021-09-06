@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { range } from '../utils/numbers'
-import { datepickerClass } from '../styles'
+import { datepickerClass } from './styles'
 import utils from './utils'
 
 const lineHeight = 30

@@ -3,6 +3,7 @@ const merge = require('webpack-merge')
 const config = require('../config')
 const common = require('./config.common')
 const cssConf = require('./utils/theme.css')
+const getStylePath = require('./utils/getStylePath')
 
 function getEntry(entry) {
   const newEntry = {}
@@ -22,6 +23,8 @@ function getPublishPath() {
   return `http://localhost:${config.dev.publishPort}/`
 }
 
+const css = getStylePath()
+
 const cssConfig = config.themes.map(name =>
   cssConf({
     mode: 'development',
@@ -32,8 +35,9 @@ const cssConfig = config.themes.map(name =>
       'webpack/hot/only-dev-server',
       './src/styles/normalize.less',
       './src/styles/expose.js',
-      './src/styles/index.js',
-      './src/styles/spin.js',
+      ...css,
+      // './src/styles/index.js',
+      // './src/styles/spin.js',
       // site style
       './site/styles/index.js',
       './site/less-entry.js',

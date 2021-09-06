@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import config from '../config'
 import configable from '../hoc/config'
-import { spinClass } from '../styles'
+import { spinClass } from './styles'
 import {
   ChasingDots,
   DoubleBounce,

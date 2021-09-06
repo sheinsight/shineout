@@ -6,7 +6,7 @@ import { getProps } from '../utils/proptypes'
 import { getKey } from '../utils/uid'
 import { CHANGE_TOPIC } from '../Datum/types'
 import { Provider } from '../Checkbox/context'
-import { checkinputClass } from '../styles'
+import { checkinputClass } from '../Checkbox/styles'
 import Radio from './Radio'
 import { isRTL } from '../config'
 

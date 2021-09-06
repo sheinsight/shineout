@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { getKey } from '../utils/uid'
 import Button from '../Button'
 import { Component } from '../component'
-import { transferClass } from '../styles'
+import { transferClass } from './styles'
 import icons from '../icons'
 import { isRTL } from '../config'
 
