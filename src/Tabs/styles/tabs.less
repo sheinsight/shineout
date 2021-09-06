@@ -214,13 +214,11 @@
   }
 
   &-align-vertical-left {
-
-    .@{tabs-prefix}-header-tabs {
-       flex-direction: column;
-    }
-
-    .@{tabs-prefix}-header {
+    > .@{tabs-prefix}-header {
       margin-right: @tabs-header-margin;
+      .@{tabs-prefix}-header-tabs {
+        flex-direction: column;
+      }
     }
 
     .@{tabs-prefix}-tab {
@@ -233,9 +231,11 @@
   }
 
   &-align-vertical-right {
-    .@{tabs-prefix}-header-tabs {
-      flex-direction: column;
-   }
+    > .@{tabs-prefix}-header {
+      .@{tabs-prefix}-header-tabs {
+        flex-direction: column;
+      }
+    }
 
     .@{tabs-prefix}-tab {
       border-radius: 0 @tabs-link-border-radius @tabs-link-border-radius 0;
