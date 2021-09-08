@@ -36,10 +36,13 @@ class Table extends Component {
     this.bindTable = this.bindTable.bind(this)
   }
 
-  componentDidUpdate() {
-    const { datum } = this.props
+  componentDidUpdate(preProps) {
+    const { datum, treeCheckAll } = this.props
     datum.dispatch(ROW_HEIGHT_UPDATE_EVENT)
     datum.dispatch(RENDER_COL_GROUP_EVENT)
+    if (treeCheckAll && this.props.data !== preProps.data) {
+      datum.cleanDataCache()
+    }
   }
 
   getRowsInView() {
