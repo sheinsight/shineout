@@ -26,6 +26,7 @@ class Form extends Component {
     this.form = {
       getValue: () => this.props.datum.getValue(),
       validate: () => this.props.datum.validate(),
+      validateFields: fields => this.props.datum.validateFields(fields).catch(() => {}),
       clearValidate: () => {
         this.props.datum.validateClear()
       },
