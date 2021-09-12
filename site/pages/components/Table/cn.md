@@ -36,7 +36,7 @@
 | hover | boolean | true | 数据行鼠标悬浮高亮效果 |
 | onTreeExpand | (openKeys: string[], data: object, expand: boolean) => void | 无 |  展开行，keys为展开的行 |
 | treeEmptyExpand | boolean | false | 树形表格子数据为空时依然展示展开按钮 |
-| treeCheckAll | boolean | false | 全选时是否将子孙数据选中 |
+| treeCheckAll | boolean \| 'half' | false | 全选时是否将子孙数据选中, 传'half'返回选中和半选的数据|
 | onSortCancel | () => void | 无 | 排序取消事件 |
 | radio | boolean | false | 是否单选 |
 | rowEvents | object | 无 | tr 事件监听器集合 |
