@@ -118,8 +118,13 @@
     }
   }
 
-  &-disabled &-result {
+  &-disabled &-result{
     cursor: not-allowed;
+    .so-cascader-item {
+      cursor: not-allowed;
+      background-color: inherit;
+      color: inherit;
+    }
   }
 
   &:not(&-disabled) {
