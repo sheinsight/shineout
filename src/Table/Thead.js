@@ -220,7 +220,7 @@ Thead.propTypes = {
   onColChange: PropTypes.func,
   columnResizable: PropTypes.bool,
   treeColumnsName: PropTypes.string,
-  treeCheckAll: PropTypes.bool,
+  treeCheckAll: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   colgroup: PropTypes.array,
 }
 

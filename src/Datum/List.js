@@ -1,4 +1,5 @@
 import deepEqual from 'deep-eql'
+import { getKey } from 'shineout/utils/uid'
 import shallowEqual from '../utils/shallowEqual'
 import { CHANGE_TOPIC, WITH_OUT_DISPATCH } from './types'
 
@@ -84,11 +85,16 @@ export default class {
     return flatten
   }
 
-  add(data, _, childrenKey, unshift) {
+  add(data, _, childrenKey, unshift, { parentMap, keygen, treeMode } = {}) {
     if (data === undefined || data === null) return
 
     // clear value
     if (this.limit === 1) this.$values = []
+
+    if (parentMap && treeMode === 'half') {
+      const parentSelData = this.getParentSelData(data, { childrenKey, parentMap, keygen, treeMode })
+      this.add(parentSelData, _, childrenKey, unshift)
+    }
 
     let raws = Array.isArray(data) ? data : [data]
     if (childrenKey && this.limit !== 1) {
@@ -108,6 +114,42 @@ export default class {
     }
 
     this.handleChange(unshift ? values.concat(this.values) : this.values.concat(values), data, true)
+  }
+
+  getCheckStatus(data, { childrenKey, treeMode }) {
+    const c = this.check(data)
+    if (treeMode === 'half' && c) {
+      const children = this.flattenTreeData([data], childrenKey)
+      if (children && children.length > 1) {
+        if (children.find(item => !this.check(item))) return 'indeterminate'
+      }
+    }
+    return c
+  }
+
+  getParentSelData(data, { childrenKey, parentMap, keygen, remove, treeMode }) {
+    const key = getKey(data, keygen)
+    const parent = parentMap.get(key)
+    if (parent === undefined) return data
+    const children = parent[childrenKey] || []
+    const noCheckChild = children.filter(item => !this.check(item))
+    if (remove) {
+      if (treeMode === 'half' && noCheckChild.length === children.length - 1) {
+        return this.getParentSelData(parent, { childrenKey, parentMap, keygen, remove, treeMode })
+      }
+    } else if (treeMode === 'half') {
+      if (noCheckChild.length === 1) {
+        return this.getParentSelData(parent, { childrenKey, parentMap, keygen, remove, treeMode })
+      }
+      let parents = [parent]
+      let pp = parentMap.get(getKey(parent, keygen))
+      while (pp !== undefined) {
+        parents = [pp, ...parents]
+        pp = parentMap.get(getKey(pp, keygen))
+      }
+      return [...parents.map(i => ({ ...i, [childrenKey]: undefined })), data]
+    }
+    return data
   }
 
   set(value) {
@@ -163,8 +205,14 @@ export default class {
     return value === this.format(data)
   }
 
-  remove(value, _, childrenKey) {
+  remove(value, _, childrenKey, { parentMap, keygen, treeMode } = {}) {
     if (value === undefined || value === null) return
+
+    if (parentMap && treeMode === 'half') {
+      const delParentData = this.getParentSelData(value, { childrenKey, parentMap, keygen, remove: true, treeMode })
+      this.remove(delParentData, _, childrenKey)
+      return
+    }
 
     let raws = Array.isArray(value) ? value : [value]
     if (childrenKey) {

@@ -147,6 +147,7 @@ class Tbody extends PureComponent {
         {...other}
         index={i + index}
         key={key}
+        keygen={keygen}
         originKey={originKey}
         data={row}
         rowData={data[i]}

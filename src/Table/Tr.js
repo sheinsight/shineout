@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { getProps } from '../utils/proptypes'
 import { setTranslate } from '../utils/dom/translate'
 import { tableClass } from './styles'
 import { inputClass } from '../Input/styles'
@@ -151,6 +152,7 @@ class Tr extends Component {
     const {
       columns,
       data,
+      keygen,
       rowData,
       striped,
       index,
@@ -191,6 +193,7 @@ class Tr extends Component {
             {...other}
             expanded={typeof expandRender === 'function'}
             key={key}
+            keygen={keygen}
             treeExpand={treeExpand}
             treeExpandShow={!!treeColumnsName}
             type={type}
@@ -260,6 +263,7 @@ Tr.propTypes = {
   externalExpandClick: PropTypes.func,
   expandKeys: PropTypes.array,
   originKey: PropTypes.any,
+  ...getProps(PropTypes, 'keygen'),
 }
 
 Tr.defaultProps = {

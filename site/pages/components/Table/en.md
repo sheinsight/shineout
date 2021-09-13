@@ -36,7 +36,7 @@
 | onTreeExpand | (openKeys: string[], data: object, expand: boolean) => void | none | expand row change, keys is expanded row keys |
 | hover | boolean | true | row hover highlight |
 | treeEmptyExpand | boolean | false | show expand button while children data is empty |
-| treeCheckAll | boolean | false | check children data while select all |
+| treeCheckAll | boolean \| 'half' | false | check children data while select all |
 | onSortCancel | () => void | none | sort cancel event |
 | radio | boolean | false | is Radio |
 | rowEvents | object | none | tr events |

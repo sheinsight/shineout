@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import immer from 'immer'
+import immer, { original } from 'immer'
 import { getKey } from '../utils/uid'
 import { getProps } from '../utils/proptypes'
 import { keysToArray } from '../utils/transform'
@@ -63,6 +63,7 @@ export default WrappedComponent => {
       const { data, keygen, treeColumnsName } = this.props
       const expandKeys = this.getExpandKeys()
       this.expandLevel = new Map()
+      this.parentMap = new Map()
       if (expandKeys.size === 0) return data
 
       const storeExpandKeys = new Map()
@@ -78,6 +79,7 @@ export default WrappedComponent => {
           if (storeExpandKeys.get(key) && item[treeColumnsName]) {
             item[treeColumnsName].forEach(child => {
               this.expandLevel.set(getKey(child, keygen), parentLevel + 1)
+              this.parentMap.set(getKey(child, keygen), original(item))
             })
             draft.splice(i + 1, 0, ...item[treeColumnsName])
             dataCo = draft
@@ -119,6 +121,7 @@ export default WrappedComponent => {
           onTreeExpand={this.handleTreeExpand}
           treeExpandKeys={expandKeys}
           treeExpandLevel={this.expandLevel}
+          parentMap={this.parentMap}
           treeRoot={rootTree}
           treeIndent={treeIndent}
         />
