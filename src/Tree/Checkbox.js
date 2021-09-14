@@ -18,6 +18,16 @@ export default class extends PureComponent {
     props.datum.bind(props.id, this.forceUpdate.bind(this))
   }
 
+  componentDidMount() {
+    super.componentDidMount()
+    // When dragging a node,
+    // it will first trigger the constructor of the new node,
+    // then trigger the willUnmount of the old node,
+    // and finally trigger the didMount of the new node,
+    // the old node will unload the update event, so bind it here again
+    this.props.datum.bind(this.props.id, this.forceUpdate.bind(this))
+  }
+
   componentWillUnmount() {
     super.componentWillUnmount()
     this.props.datum.unbind(this.props.id)
