@@ -63,11 +63,17 @@ class Cascader extends PureComponent {
     this.handleChange = this.handleChange.bind(this)
     this.bindInput = this.bindInput.bind(this)
     this.handleRemove = this.handleRemove.bind(this)
+    this.getPosition = this.getPosition.bind(this)
+  }
+
+  componentDidMount() {
+    super.componentDidMount()
+    this.afterRender()
   }
 
   componentDidUpdate(prevProps, prevState) {
     this.datum.mode = this.props.mode
-    const { onFilter, filterDataChange, filterText } = this.props
+    const { onFilter, filterDataChange, filterText, onCollapse } = this.props
     if (!filterDataChange && prevProps.data !== this.props.data) this.datum.setData(this.props.data, true)
     if (prevProps.value !== this.props.value) this.datum.setValue(this.props.value || [])
 
@@ -76,14 +82,57 @@ class Cascader extends PureComponent {
         onFilter('')
       }, 400)
     }
+    if (prevState.focus !== this.state.focus && onCollapse) {
+      onCollapse(this.state.focus)
+    }
     if (filterText !== undefined && prevProps.filterText !== filterText) {
       this.updatePath()
     }
+    this.afterRender()
   }
 
   componentWillUnmount() {
     super.componentWillUnmount()
     this.clearClickAway()
+  }
+
+  seFocus(value) {
+    if (!('visible' in this.props)) {
+      this.setState(
+        immer(draft => {
+          draft.focus = value
+          if (value) {
+            draft.position = this.getPosition()
+          }
+        })
+      )
+    }
+    if (this.props.onVisibleChange) this.props.onVisibleChange(value)
+  }
+
+  getPosition() {
+    const { height } = this.props
+    let { position } = this.props
+    if (!position) {
+      const windowHeight = docSize.height
+      const bottom = height + this.element.getBoundingClientRect().bottom
+      if (bottom > windowHeight) position = 'drop-up'
+    }
+    return position || 'drop-down'
+  }
+
+  afterRender() {
+    if ('visible' in this.props && !!this.props.visible !== !!this.state.focus) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState(
+        immer(draft => {
+          draft.focus = this.props.visible
+          if (this.props.visible) {
+            draft.position = this.getPosition()
+          }
+        })
+      )
+    }
   }
 
   bindRef(el) {
@@ -175,17 +224,7 @@ class Cascader extends PureComponent {
 
     // if remove node, return
     if (e && getParent(e.target, `.${cascaderClass('remove-container')}`)) return
-
-    const { height, onCollapse } = this.props
-    let { position } = this.props
-    if (!position) {
-      const windowHeight = docSize.height
-      const bottom = height + this.element.getBoundingClientRect().bottom
-      if (bottom > windowHeight) position = 'drop-up'
-    }
-
-    if (onCollapse) onCollapse(focus)
-    this.setState({ focus, position: position || 'drop-down' })
+    this.seFocus(focus)
 
     if (focus) {
       this.renderPending = false
@@ -461,6 +500,8 @@ Cascader.propTypes = {
   filterDataChange: PropTypes.any,
   firstMatchNode: PropTypes.object,
   unmatch: PropTypes.bool,
+  visible: PropTypes.bool,
+  onVisibleChange: PropTypes.func,
 }
 
 Cascader.defaultProps = {
