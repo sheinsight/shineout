@@ -55,6 +55,7 @@ class Number extends PureComponent {
   }
 
   handleBlur(e) {
+    this.hold = false
     let value = parseFloat(e.target.value)
     // for the empty
     if (e.target.value === '' && this.props.allowNull) {
