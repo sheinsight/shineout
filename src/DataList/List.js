@@ -73,7 +73,7 @@ class Index extends Component {
   renderCheckBox(flag, data, index) {
     if (!flag) return null
     const { datum } = this.props
-    return <Checkbox data={data} index={index} datum={datum} />
+    return <Checkbox data={data} index={index} datum={datum} force={datum.check(data)} />
   }
 
   renderItem(value, index) {
