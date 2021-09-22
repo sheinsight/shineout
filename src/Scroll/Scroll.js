@@ -39,6 +39,7 @@ class Scroll extends PureComponent {
     this.handleTouchStart = this.handleTouchStart.bind(this)
     this.handleTouchMove = this.handleTouchMove.bind(this)
     this.setStartPoint = this.setStartPoint.bind(this)
+    this.handleInnerScroll = this.handleInnerScroll.bind(this)
   }
 
   componentDidMount() {
@@ -215,6 +216,18 @@ class Scroll extends PureComponent {
     this.boundleScroll()
   }
 
+  // inner scroll
+  handleInnerScroll(e) {
+    const { target } = e
+    const { left, scrollWidth } = this.props
+    const { width } = this.getWheelRect()
+    if (target.scrollLeft) {
+      this.handleScroll(left + target.scrollLeft / (scrollWidth - width), this.props.top, undefined, 0)
+      target.scrollLeft = 0
+      target.scrollTop = 0
+    }
+  }
+
   render() {
     const { children, scrollWidth, scrollHeight, left, top, scrollX, scrollY, style } = this.props
     const { width, height } = this.getWheelRect()
@@ -227,7 +240,7 @@ class Scroll extends PureComponent {
     this.wheelX = scrollX && Math.ceil(scrollWidth) > Math.ceil(width)
 
     return (
-      <div style={style} ref={this.bindWheel} className={className}>
+      <div style={style} ref={this.bindWheel} className={className} onScroll={this.handleInnerScroll}>
         <iframe tabIndex={-1} title="scroll" ref={this.bindIframe} className={scrollClass('iframe')} />
         <div className={scrollClass('iframe')} />
         <div ref={this.bindInner} className={scrollClass('inner')}>
