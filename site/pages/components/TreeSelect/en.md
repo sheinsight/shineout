@@ -26,9 +26,9 @@
 | renderItem | (data: object) => ReactNode | required | When it is a string, return d\[string]<br />When it is a function, return the result of the function. |
 | renderResult | (data: object) => ReactNode | renderItem | The content displayed in the result after selecting, if not set, use renderItem |
 | compressed | boolean \| 'no-repeat' | false | Merges selected values, valid only in multiselect mode; the repeat value will not appear in the Popover when it is'no-repeat'. |
-| absolute | boolean | false | When it is true, the pop-up layer of option append into document.body. |
+| absolute | boolean \| (() => element) | false | When it is true, the pop-up layer of option append into document.body. When it is function, the pop-up layer of option append into it's return DOM.  |
 | zIndex | number | 1000 | options z-index |
-| childrenKey | string | 'children' | the key of the children data name | 
+| childrenKey | string | 'children' | the key of the children data name |
 | defaultExpandAll | boolean | false | default expand all node |
 | showHitDescendants | boolean | false | Whether to show the descendant nodes of the hit node after filtering |
 | renderUnmatched | (data: any) => ReactNode | none | render unmatched value |

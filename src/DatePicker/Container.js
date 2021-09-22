@@ -521,7 +521,7 @@ Container.propTypes = {
   allowSingle: PropTypes.bool,
   defaultTime: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object, PropTypes.array]),
-  absolute: PropTypes.bool,
+  absolute: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   zIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   onValueBlur: PropTypes.func,
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),

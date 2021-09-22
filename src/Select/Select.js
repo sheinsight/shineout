@@ -550,7 +550,7 @@ class Select extends PureComponent {
 
 Select.propTypes = {
   ...getProps(PropTypes, 'placehodler', 'keygen'),
-  absolute: PropTypes.bool,
+  absolute: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   clearable: PropTypes.bool,
   columns: PropTypes.number,
   data: PropTypes.array,

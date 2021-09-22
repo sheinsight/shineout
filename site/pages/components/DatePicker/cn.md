@@ -23,22 +23,22 @@
 | type | 'date' \| 'time' \| 'datetime' \| 'month' \| 'week' | 'date' | 时间类型|
 | value | string \| number \| Date \| \[any, any] | 无 | 值。为 string 时，需要和 format 属性匹配。<br />range 属性为 true 时，值为长度为2的数组 |
 | defaultTime | string \| \[any, any] | 无 | 选择日期时默认的时间, 格式为: 'HH:mm:ss' |
-| absolute | boolean | false | 为 true 时，选项弹出层在 DOM 中独立 render |
+| absolute | boolean \| (() => element) | false | 为 true 时，选项弹出层在 BODY 下独立 render， 为函数时 选项弹出层在函数返回的 DOM 下render  |
 | zIndex | number | 1000 | 选择面板 z-index 值 |
-| allowSingle | boolean | false | 是否允许单选, 仅在 range 模式下有效 | 
-| quickSelect | object[] | false | 快速选择, name: 文字提示, value: 时间范围或时间 | 
+| allowSingle | boolean | false | 是否允许单选, 仅在 range 模式下有效 |
+| quickSelect | object[] | false | 快速选择, name: 文字提示, value: 时间范围或时间 |
 | min | string \| number \| Date | 无 | 可选最小值 |
 | max | string \| number \| Date | 无 | 可选最大值 |
-| defaultRangeMonth | number[] \| Date[] | 无 | 范围选择的初始月份, 值为时间对象 或者时间戳, 仅在 range 模式下生效, 优先级低于 value 和 defaultValue | 
+| defaultRangeMonth | number[] \| Date[] | 无 | 范围选择的初始月份, 值为时间对象 或者时间戳, 仅在 range 模式下生效, 优先级低于 value 和 defaultValue |
 | defaultPickerValue | number \| Date \| number[] \| Date[] | 无 | 面板默认时间，在未选择日期时生效 |
-| hourStep | number | 无 | 小时选项步长 | 
-| minuteStep | number | 无 | 分钟选项步长 | 
-| secondStep | number | 无 | 秒选项步长 | 
+| hourStep | number | 无 | 小时选项步长 |
+| minuteStep | number | 无 | 分钟选项步长 |
+| secondStep | number | 无 | 秒选项步长 |
 | onPickerChange | (value: any, quickSelect?: object \| void, type?: string) => void | 无 | 值改变回调，有别于 onChange, onPickerChange会在每项值改变的时候执行 |
 | disabledTime | string \| ((time: string) => boolean) | 无 | 禁用指定 Time。 |
 | align | 'center' \| 'left' \| 'right' | 'center' | 值水平布局方式 |
 | underline | boolean | false | 是否只展示下边框 |
-| clearWithUndefined | boolean | false | 在清空值时抛出是否抛出 undefined | 
+| clearWithUndefined | boolean | false | 在清空值时抛出是否抛出 undefined |
 
 
 ### DatePickerFormat

@@ -9,7 +9,7 @@
 | width | number | null | 宽度 |
 | optionWidth | number | 无 | 下拉列表宽度 |
 | style | object | null | 扩展外层style |
-| absolute | boolean | false | 为 true 时，选项弹出层在 DOM 中独立 render |
+| absolute | boolean \| (() => element) | false | 为 true 时，选项弹出层在 BODY 下独立 render， 为函数时 选项弹出层在函数返回的 DOM 下render  |
 | autoAdapt | boolean | false | 下拉列表宽度根据内容自由展开 |
 | clearable | boolean | false | 是否可清除值 |
 | multiple | boolean | false | 是否是多选 |
@@ -32,11 +32,11 @@
 | value | any[] \| string \| object | | 在Form中，value会被表单接管，value无效 |
 | compressed | boolean \| 'no-repeat' | false | 将选中值合并，只在多选模式下有效；为'no-repeat'时弹出框中不重复展示值 |
 | zIndex | number | 1000 | 选项列表 z-index 值 |
-| groupBy | (record: any, index: number, data: any) => any | 无 | 分组 | 
+| groupBy | (record: any, index: number, data: any) => any | 无 | 分组 |
 | filterSingleSelect | boolean | false | 当筛选数据仅为一条时，失焦后直接选中该条数据。仅在 Filter 下有效。 |
 | separator | string | 无 | 多选情况下设置后，value 会处理为 separator 分隔的字符串 |
-| childrenKey | string | 'children' | 树形数据下，指定子数据的属性名 | 
-| defaultExpandAll| boolean | false | 默认展开全部子节点, 仅树形数据下有效 | 
+| childrenKey | string | 'children' | 树形数据下，指定子数据的属性名 |
+| defaultExpandAll| boolean | false | 默认展开全部子节点, 仅树形数据下有效 |
 | renderUnmatched | (data: any) => ReactNode | 无 | 渲染未匹配值的方式 |
 | emptyAfterSelect | boolean | false | 选中后是否清空输入框内容（在多选情况下适用） |
 | showArrow | boolean | true | 是否显示下拉箭头，仅针对单选情况 |
@@ -44,8 +44,8 @@
 | focusSelected | boolean | true | onCreate 或 onFilter 在单选情况下单击值后是否选中值 |
 | noCache | boolean | false | 是否开启数据缓存，如果数据存在动态更新的情况建议开启 |
 | compressedClassName | string | 无 | 多选合并展示弹出框的类名 |
-| onCollapse | (collapse: boolean) => void | 无 | 下拉列表展开/收起回调 | 
-| resultClassName | ((value: any) => string) \| string | 无 | 选中结果内容容器的className | 
+| onCollapse | (collapse: boolean) => void | 无 | 下拉列表展开/收起回调 |
+| resultClassName | ((value: any) => string) \| string | 无 | 选中结果内容容器的className |
 | columnsTitle | ReactNode | 无 | 多列选项多选时的标题文字 |
 | reFocus | boolean | 无 | 存在onFilter和onCreate，选中 Option，自动focus Input |
 | header | () => ReactNode \| ReactNode | 无 | 自定义渲染 Option List Header |
