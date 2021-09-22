@@ -26,12 +26,14 @@ class Gap extends PureComponent {
 
     return (
       <div className={className} style={this.getStyle()}>
-        {React.Children.map(children, (child, index) =>
-          child ? (
-            <div className={gapClass('item')} style={this.getItemStyle(index)}>
-              {child}
-            </div>
-          ) : null
+        {React.Children.map(
+          children,
+          (child, index) =>
+            !!child && (
+              <div className={gapClass('item')} style={this.getItemStyle(index)}>
+                {child}
+              </div>
+            )
         )}
       </div>
     )
