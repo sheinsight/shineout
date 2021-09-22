@@ -29,7 +29,7 @@ class Gap extends PureComponent {
         {React.Children.map(
           children,
           (child, index) =>
-            !!child && (
+            child && (
               <div className={gapClass('item')} style={this.getItemStyle(index)}>
                 {child}
               </div>
