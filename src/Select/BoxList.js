@@ -146,7 +146,6 @@ class BoxList extends Component {
 
   renderOptions() {
     const { loading, columns, data, renderPending } = this.props
-    console.log(renderPending, this.props)
     if (loading) return null
     const stack = columns === -1
     const empty = renderPending || data.length === 0
