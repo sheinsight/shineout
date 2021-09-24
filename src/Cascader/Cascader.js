@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
 import classnames from 'classnames'
+import { isFunc } from 'shineout/utils/is'
 import { PureComponent } from '../component'
 import { getUidStr } from '../utils/uid'
 import DatumTree from '../Datum/Tree'
@@ -63,6 +64,15 @@ class Cascader extends PureComponent {
     this.handleChange = this.handleChange.bind(this)
     this.bindInput = this.bindInput.bind(this)
     this.handleRemove = this.handleRemove.bind(this)
+
+    if (props.getComponentRef) {
+      const ref = { close: this.handleBlur }
+      if (isFunc(props.getComponentRef)) {
+        props.getComponentRef(ref)
+      } else {
+        props.getComponentRef.current = ref
+      }
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -461,6 +471,7 @@ Cascader.propTypes = {
   filterDataChange: PropTypes.any,
   firstMatchNode: PropTypes.object,
   unmatch: PropTypes.bool,
+  getComponentRef: PropTypes.func,
 }
 
 Cascader.defaultProps = {
