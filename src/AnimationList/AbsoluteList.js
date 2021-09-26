@@ -180,8 +180,9 @@ export default function(List) {
     }
 
     render() {
+      const { autoAdapt } = this.props
       setTimeout(() => {
-        this.resetPosition()
+        this.resetPosition(autoAdapt)
       })
 
       if (!this.props.absolute) {
@@ -235,6 +236,7 @@ export default function(List) {
     autoClass: PropTypes.string,
     value: PropTypes.any,
     getResetPosition: PropTypes.func,
+    autoAdapt: PropTypes.bool,
   }
 
   return compose(
