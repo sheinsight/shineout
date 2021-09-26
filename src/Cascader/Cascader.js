@@ -461,6 +461,7 @@ Cascader.propTypes = {
   filterDataChange: PropTypes.any,
   firstMatchNode: PropTypes.object,
   unmatch: PropTypes.bool,
+  showArrow: PropTypes.bool,
 }
 
 Cascader.defaultProps = {
@@ -469,6 +470,7 @@ Cascader.defaultProps = {
   height: 300,
   data: [],
   childrenKey: 'children',
+  showArrow: true,
 }
 
 export default Cascader
