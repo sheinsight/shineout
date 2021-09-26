@@ -32,3 +32,4 @@
 | unmatch | boolean | none | render unmatch value |
 | underline | boolean | false | only display border bottom  |
 | getComponentRef | (componentRef: any) => void  | without | A reference to the binding component, you can call some component methods |
+| showArrow | boolean | true | show dropdown arrow, only single select |

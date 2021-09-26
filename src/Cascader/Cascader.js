@@ -17,7 +17,7 @@ import absoluteList from '../AnimationList/AbsoluteList'
 import { isRTL } from '../config'
 import { getKey } from '../utils/uid'
 
-const OptionList = absoluteList(({ focus, getRef, ...other }) => (focus ? <div {...other} /> : null))
+const OptionList = absoluteList(({ focus, getRef, ...other }) => (focus ? <div {...other} ref={getRef} /> : null))
 
 const isDescendent = (el, id) => {
   if (el.getAttribute('data-id') === id) return true
@@ -33,7 +33,6 @@ class Cascader extends PureComponent {
       focus: false,
       path: [],
       position: 'drop-down',
-      listStyle: props.data.length === 0 ? { height: 'auto', width: '100%' } : { height: props.height },
     }
 
     this.datum = new DatumTree({
@@ -60,7 +59,6 @@ class Cascader extends PureComponent {
     this.handleClear = this.handleClear.bind(this)
     this.shouldFocus = this.shouldFocus.bind(this)
     this.bindRef = this.bindRef.bind(this)
-    this.resetPosition = this.resetPosition.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.bindInput = this.bindInput.bind(this)
     this.handleRemove = this.handleRemove.bind(this)
@@ -236,45 +234,20 @@ class Cascader extends PureComponent {
     if (onFilter && filterText) onFilter('')
   }
 
-  resetPosition() {
-    if (!this.ref) return
-
-    const { listStyle } = this.state
-    const { data, height } = this.props
-    const { width, left: refLeft } = this.ref.getBoundingClientRect()
-    const { left } = this.ref.parentElement.getBoundingClientRect()
-
-    if (data.length === 0) {
-      if (listStyle.height === 'auto') return
-      this.setState({ listStyle: { height: 'auto', width: '100%' } })
-      return
-    }
-    // for clear the style width: 100%
-    if (listStyle.width === '100%') this.setState({ listStyle: { height } })
-
-    if (isRTL()) {
-      if (refLeft < 0) {
-        if (listStyle.left === 0) return
-        this.setState({ listStyle: { height, left: 0, right: 'auto' } })
-      } else {
-        if (listStyle.right === undefined) return
-        this.setState({ listStyle: { height } })
-      }
-      return
-    }
-
-    if (left + width > docSize.width) {
-      if (listStyle.left === 'auto') return
-      this.setState({ listStyle: { height, left: 'auto', right: 0 } })
-    } else {
-      if (listStyle.right === undefined) return
-      this.setState({ listStyle: { height } })
-    }
-  }
-
   renderList() {
-    const { data, keygen, renderItem, mode, loader, onItemClick, expandTrigger, childrenKey, absolute } = this.props
-    const { path, listStyle } = this.state
+    const {
+      data,
+      keygen,
+      renderItem,
+      mode,
+      loader,
+      onItemClick,
+      expandTrigger,
+      childrenKey,
+      absolute,
+      height,
+    } = this.props
+    const { path } = this.state
 
     const props = {
       datum: this.datum,
@@ -288,13 +261,8 @@ class Cascader extends PureComponent {
       expandTrigger,
       childrenKey,
     }
-    const className = classnames(selectClass('options'), cascaderClass('options'))
 
     let tempData = data
-
-    setTimeout(() => {
-      this.resetPosition()
-    })
 
     let list = [<CascaderList {...props} key="root" data={tempData} id={path[0]} parentId="" path={[]} />]
 
@@ -327,8 +295,10 @@ class Cascader extends PureComponent {
       list = list.reverse()
     }
 
+    const listStyle = data.length === 0 ? { height: 'auto', width: '100%' } : { height }
+
     return (
-      <div className={className} ref={this.bindRef} style={listStyle}>
+      <div ref={this.bindRef} style={listStyle}>
         {list}
       </div>
     )
@@ -337,19 +307,21 @@ class Cascader extends PureComponent {
   renderAbsoluteList() {
     const { absolute, zIndex } = this.props
     const { focus, position } = this.state
-    const className = classnames(cascaderClass(focus && 'focus', isRTL() && 'rtl'), selectClass(this.state.position))
+    const className = classnames(selectClass('options'), cascaderClass('options'))
+    const rootClass = classnames(cascaderClass(focus && 'focus', isRTL() && 'rtl'), selectClass(this.state.position))
     if (!focus && !this.isRendered) return null
     this.isRendered = true
     return (
       <OptionList
-        rootClass={className}
+        autoAdapt
+        rootClass={rootClass}
+        className={className}
         position={position}
         absolute={absolute}
         focus={focus}
         parentElement={this.element}
         data-id={this.selectId}
         zIndex={zIndex}
-        fixed="min"
       >
         {this.renderList()}
       </OptionList>
@@ -472,6 +444,7 @@ Cascader.propTypes = {
   firstMatchNode: PropTypes.object,
   unmatch: PropTypes.bool,
   getComponentRef: PropTypes.func,
+  showArrow: PropTypes.bool,
 }
 
 Cascader.defaultProps = {
@@ -480,6 +453,7 @@ Cascader.defaultProps = {
   height: 300,
   data: [],
   childrenKey: 'children',
+  showArrow: true,
 }
 
 export default Cascader

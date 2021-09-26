@@ -154,6 +154,14 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    * default: -
    */
    unmatch?: boolean;
+  /**
+   * show dropdown arrow, only single select
+   *
+   * 是否显示下拉箭头，仅针对单选情况
+   *
+   * default: true
+   */
+  showArrow?: boolean;
 
   /**
    *  A reference to the binding component, you can call some component methods
@@ -164,13 +172,13 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    */
 
-  getComponentRef?: (comp: componentRef )=> void | object
+  getComponentRef?: (comp: componentRef )=> void;
 }
 
 interface componentRef  {
   close: () => void;
-  [propName: string]: any
-};
+  [propName: string]: any;
+}
 
 declare class Cascader<Item = any, Value = string[]> extends React.Component<CascaderProps<Item, Value>, {}> {}
 

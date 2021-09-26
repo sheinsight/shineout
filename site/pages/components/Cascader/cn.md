@@ -31,5 +31,6 @@
 | singleRemove | boolean | 无 | 支持单个节点删除 |
 | unmatch | boolean | 无 | 是否展示data中不存在的值 |
 | underline | boolean | false | 是否只展示下边框 |
+| showArrow | boolean | true | 是否显示下拉箭头，仅针对单选情况 |
 | getComponentRef | (componentRef: any) => void  | 无 | 绑定组件的引用, 可以调用某些组件的方法 |
 
