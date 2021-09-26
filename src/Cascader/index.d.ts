@@ -162,6 +162,22 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    * default: true
    */
   showArrow?: boolean;
+
+  /**
+   *  A reference to the binding component, you can call some component methods
+   *
+   *  绑定组件的引用, 可以调用某些组件的方法
+   *
+   *  default: -
+   *
+   */
+
+  getComponentRef?: (comp: componentRef )=> void;
+}
+
+interface componentRef  {
+  close: () => void;
+  [propName: string]: any;
 }
 
 declare class Cascader<Item = any, Value = string[]> extends React.Component<CascaderProps<Item, Value>, {}> {}
