@@ -171,6 +171,7 @@ export default function(List) {
         style = {},
         zIndex,
         getResetPosition,
+        autoAdapt: ignore,
         ...props
       } = this.props
       const parsed = parseInt(zIndex, 10)
@@ -202,6 +203,7 @@ export default function(List) {
         getResetPosition,
         // do not need the value
         value,
+        autoAdapt: ignore,
         ...props
       } = this.props
       const mergeClass = classnames(listClass('absolute-wrapper'), rootClass, autoClass)
