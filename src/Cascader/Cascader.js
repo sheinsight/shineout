@@ -64,13 +64,13 @@ class Cascader extends PureComponent {
     this.handleChange = this.handleChange.bind(this)
     this.bindInput = this.bindInput.bind(this)
     this.handleRemove = this.handleRemove.bind(this)
+    this.close = this.handleBlur
 
     if (props.getComponentRef) {
-      const ref = { close: this.handleBlur }
       if (isFunc(props.getComponentRef)) {
-        props.getComponentRef(ref)
+        props.getComponentRef(this)
       } else {
-        props.getComponentRef.current = ref
+        props.getComponentRef.current = this
       }
     }
   }

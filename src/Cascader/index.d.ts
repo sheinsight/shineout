@@ -164,8 +164,13 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    */
 
-  getComponentRef?: (comp: any )=> void | object
+  getComponentRef?: (comp: componentRef )=> void | object
 }
+
+interface componentRef  {
+  close: () => void;
+  [propName: string]: any
+};
 
 declare class Cascader<Item = any, Value = string[]> extends React.Component<CascaderProps<Item, Value>, {}> {}
 
