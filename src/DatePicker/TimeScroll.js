@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { range } from '../utils/numbers'
 import { datepickerClass } from './styles'
-import utils from './utils'
+import paramUtils from './paramUtils'
 
 const lineHeight = 30
 const grayStyle = {
@@ -94,7 +94,7 @@ class TimeScroll extends PureComponent {
     else if (total === 12 && num === 0) text = '12'
     else if (num < 10) text = `0${num}`
 
-    const [isDisabled] = utils.judgeTimeByRange(num, current, mode, min, max, ra, disabled, disabledTime)
+    const [isDisabled] = paramUtils.judgeTimeByRange(num, current, mode, min, max, ra, disabled, disabledTime)
 
     const className = datepickerClass(!isDisabled && value === num && 'time-active')
     return (

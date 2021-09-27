@@ -4,6 +4,7 @@ import { datepickerClass } from './styles'
 import Icon from './Icon'
 import utils from './utils'
 import { getLocale } from '../locale'
+import paramUtils from './paramUtils'
 
 const MONTHBASE = '2019-01-01 00:00:00'
 
@@ -18,7 +19,7 @@ class Month extends PureComponent {
 
   handleYearChange(year) {
     const { current, onChange } = this.props
-    onChange(...utils.yearHandleChangeParams(utils.addYears(current, year)))
+    onChange(...paramUtils.yearHandleChangeParams(utils.addYears(current, year)))
   }
 
   handleYearClick() {
@@ -31,7 +32,7 @@ class Month extends PureComponent {
     const isMonthType = this.props.type === 'month'
 
     date.setMonth(month, 1)
-    onChange(...utils.monthHandleChangeParams(date, isMonthType, isMonthType))
+    onChange(...paramUtils.monthHandleChangeParams(date, isMonthType, isMonthType))
     if (!isMonthType) onModeChange('day')
   }
 

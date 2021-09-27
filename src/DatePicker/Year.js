@@ -4,6 +4,7 @@ import { range } from '../utils/numbers'
 import { datepickerClass } from './styles'
 import Icon from './Icon'
 import utils from './utils'
+import paramUtils from './paramUtils'
 
 class Year extends PureComponent {
   constructor(props) {
@@ -17,13 +18,13 @@ class Year extends PureComponent {
     const { current, onChange, onModeChange } = this.props
     const date = new Date(current.getTime())
     date.setFullYear(year)
-    onChange(...utils.yearHandleChangeParams(date))
+    onChange(...paramUtils.yearHandleChangeParams(date))
     onModeChange('month')
   }
 
   handleRangeChange(year) {
     const { current, onChange } = this.props
-    onChange(...utils.yearHandleChangeParams(utils.addYears(current, year)))
+    onChange(...paramUtils.yearHandleChangeParams(utils.addYears(current, year)))
   }
 
   render() {

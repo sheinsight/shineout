@@ -4,6 +4,7 @@ import immer from 'immer'
 import { PureComponent } from '../component'
 import shallowEqual from '../utils/shallowEqual'
 import utils from './utils'
+import paramUtils from './paramUtils'
 import Picker from './Picker'
 import { datepickerClass } from './styles'
 import Quick from './Quick'
@@ -76,7 +77,7 @@ class Range extends PureComponent {
   handleChange(index, date, change, end, mode, isQuickSelect, areaType) {
     const { type, range, min, max } = this.props
 
-    const handleOnChangeParams = utils.handleOnChangeParams(areaType)
+    const handleOnChangeParams = paramUtils.handleOnChangeParams(areaType)
 
     if (!change) {
       const current = immer(this.props.current, draft => {
@@ -180,7 +181,7 @@ class Range extends PureComponent {
 
   handleQuick(quick) {
     this.setState({ rangeDate: quick.value })
-    this.props.onChange(...utils.quickHandleChangeParams(quick.value, true, null, null, quick))
+    this.props.onChange(...paramUtils.quickHandleChangeParams(quick.value, true, null, null, quick))
   }
 
   render() {
