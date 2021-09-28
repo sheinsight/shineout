@@ -54,8 +54,10 @@ describe('dateUtil[addSeconds]', () => {
 })
 
 describe('dateUtil[cloneTime]', () => {
-  it('clone false value  will return false', () => {
+  it('clone null value  will return null', () => {
     expect(utils.cloneTime(null)).toBeNull()
+    expect(utils.cloneTime('')).toBe('')
+    expect(utils.cloneTime()).toBeUndefined()
   })
 
   it('clone invalid time to date will return date', () => {
@@ -84,13 +86,14 @@ describe('dateUtil[cloneTime]', () => {
 
 describe('dateUtil[compareAsc]', () => {
   it.each([
-    { a: '1990-1-1', b: '1990-1-1', expected: 0 },
-    { a: '1990-1-2', b: '1990-1-1', expected: 1 },
-    { a: '1990-1-1', b: '1990-1-2', expected: -1 },
+    { a: new Date(1990, 1, 1), b: new Date(1990, 1, 1), expected: 0 },
+    { a: new Date(1990, 1, 1), b: undefined, expected: NaN },
+    { a: undefined, b: new Date(1990, 1, 1), expected: NaN },
+    { a: new Date(1990, 1, 2), b: new Date(1990, 1, 1), expected: 1 },
+    { a: new Date(1990, 1, 1), b: new Date(1990, 1, 2), expected: -1 },
+    { a: new Date(1990, 1, 1), b: new Date(''), expected: NaN },
   ])('.compareAsc($a, $b)', ({ a, b, expected }) => {
-    const dateA = new Date(...a.split('-'))
-    const dateB = new Date(...b.split('-'))
-    expect(utils.compareAsc(dateA, dateB)).toBe(expected)
+    expect(utils.compareAsc(a, b)).toBe(expected)
   })
 })
 
@@ -105,6 +108,8 @@ describe('dateUtil[compareMonth]', () => {
     expect(utils.compareMonth(a, a)).toBe(0)
     expect(utils.compareMonth(a, b)).toBe(1)
     expect(utils.compareMonth(b, a)).toBe(-1)
+    expect(utils.compareMonth(a, new Date(''))).toBe(NaN)
+    expect(utils.compareMonth(new Date(''), new Date(''))).toBe(NaN)
   })
 
   it('compare date with  pad', () => {
@@ -142,6 +147,9 @@ describe('dateUtil[getDaysOfMonth]', () => {
 })
 
 describe('dateUtil[format]', () => {
+  it('format inValid date', () => {
+    expect(utils.format(undefined, 'yyyy-MM-dd')).toBe('Invalid Date')
+  })
   it('format with inner format', () => {
     setLocale('zh-CN')
     const date = new Date(2021, 0, 1, 11, 11, 11)
