@@ -236,6 +236,9 @@ describe('dateUtil[isValid]', () => {
 })
 
 describe('dateUtil[parse]', () => {
+  it('invalid param return  invalid Date', () => {
+    expect(utils.parse(undefined, 'yyyy-MM-dd', {}).toString()).toBe('Invalid Date')
+  })
   it.each([
     { formatter: 'yyyy-MM-dd', value: '2021-01-01' },
     { formatter: 'HH:mm:ss', value: '11:11:11' },
@@ -277,6 +280,9 @@ describe('dateUtil[setTime]', () => {
 })
 
 describe('dateUtil[toDate]', () => {
+  it('invalid param return  invalid Date', () => {
+    expect(utils.toDate(undefined).toString()).toBe('Invalid Date')
+  })
   it('string date', () => {
     expect(utils.toDate('2021-08-15 23:11:11').valueOf()).toBe(new Date(2021, 7, 15, 23, 11, 11).valueOf())
   })
