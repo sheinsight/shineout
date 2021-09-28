@@ -143,6 +143,7 @@ describe('dateUtil[getDaysOfMonth]', () => {
 
 describe('dateUtil[format]', () => {
   it('format with inner format', () => {
+    setLocale('zh-CN')
     const date = new Date(2021, 0, 1, 11, 11, 11)
     const data = [
       { formatter: 'yyyy-MM-dd', expected: '2021-01-01' },
@@ -203,12 +204,12 @@ describe('dateUtil[isSameWeek]', () => {
   const a = new Date(2021, 8, 20)
   const b = new Date(2021, 8, 26)
   const c = new Date(2021, 8, 27)
-  it('weekStartsOn 0', () => {
+  it('weekStartsOn 1', () => {
     expect(utils.isSameWeek(a, b, { weekStartsOn: 1 })).toBeTruthy()
     expect(utils.isSameWeek(b, c, { weekStartsOn: 1 })).toBeFalsy()
   })
 
-  it('weekStartsOn 1', () => {
+  it('weekStartsOn 0', () => {
     expect(utils.isSameWeek(a, b, { weekStartsOn: 0 })).toBeFalsy()
     expect(utils.isSameWeek(b, c, { weekStartsOn: 0 })).toBeTruthy()
   })
@@ -216,7 +217,7 @@ describe('dateUtil[isSameWeek]', () => {
 
 describe('dateUtil[isValid]', () => {
   it('should get true when date is valid', () => {
-    expect(utils.isValid('2021-01-02')).toBeTruthy()
+    expect(utils.isValid(new Date(2016, 1, 6))).toBeTruthy()
     expect(utils.isValid(new Date())).toBeTruthy()
   })
 
@@ -230,11 +231,11 @@ describe('dateUtil[parse]', () => {
   it.each([
     { formatter: 'yyyy-MM-dd', value: '2021-01-01' },
     { formatter: 'HH:mm:ss', value: '11:11:11' },
-    { formatter: 'hh:mm:ss a', value: '11:11:11 AM' },
+    { formatter: 'hh:mm:ss a', value: '11:11:11 AM', options: { weekStartsOn: 1 } },
     { formatter: 't', value: '1609470671' },
     { formatter: 'T', value: '1609470671000' },
     { formatter: 'RRRR II', value: '2020 53' },
-    { formatter: 'RRRR II', value: '2020 53', options: { weekStartsOn: 0 } },
+    { formatter: 'RRRR II', value: '2020 53' },
     { formatter: 'yyyy-MM', value: '2021-01' },
     { formatter: 'yyyy-MM-dd HH:mm:ss', value: '2021-01-01 11:11:11' },
   ])('$formatter', ({ formatter, value, options }) => {
