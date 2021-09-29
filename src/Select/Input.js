@@ -1,7 +1,7 @@
 import React, { Component, isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import { selectClass } from './styles'
-import { focusElement, getCursorOffset } from '../utils/dom/element'
+import { focusElement, getCursorOffset, preventPasteFile } from '../utils/dom/element'
 import { isString } from '../utils/is'
 
 const handleFocus = e => {
@@ -129,7 +129,7 @@ class FilterInput extends Component {
       })
     }
 
-    return <span dangerouslySetInnerHTML={{ __html: value }} {...props} />
+    return <span dangerouslySetInnerHTML={{ __html: value }} {...props} onPaste={preventPasteFile} />
   }
 }
 
