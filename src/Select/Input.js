@@ -8,13 +8,6 @@ const handleFocus = e => {
   e.stopPropagation()
 }
 
-const handlePaste = e => {
-  const text = (e.clipboardData || window.clipboardData).getData('text/plain')
-  if (!text) return
-  e.preventDefault()
-  document.execCommand('insertText', false, text)
-}
-
 class FilterInput extends Component {
   constructor(props) {
     super(props)
@@ -118,7 +111,6 @@ class FilterInput extends Component {
       contentEditable: focus || this.state.editable,
       onFocus: handleFocus,
       onBlur: this.handleBlur,
-      onPaste: handlePaste,
       title: !focus && isString(value) ? value : null,
     }
 
