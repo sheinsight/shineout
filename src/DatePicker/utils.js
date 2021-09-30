@@ -83,6 +83,7 @@ function compareAsc(dateA, dateB) {
 }
 
 function format(date, fmt, options) {
+  if (!date) return 'Invalid Date'
   const fmt2 = compatibleFmt(fmt)
   return dayjs(date)
     .locale(getDayJsLocate(options))
@@ -242,64 +243,6 @@ function compareDateArray(arr1, arr2, type = 'date') {
     if (type === 'week') return format(v, 'RRRR II') === format(arr2[i], 'RRRR II')
     return v.getTime() === arr2[i].getTime()
   })
-}
-
-function handleTimeDisabled(date, disabledTime) {
-  if (typeof disabledTime === 'string') return format(date, TIME_FORMAT) === disabledTime
-  if (typeof disabledTime === 'function') return disabledTime(format(date, TIME_FORMAT))
-  return undefined
-}
-
-function judgeTimeByRange(...args) {
-  const [target, value, mode, min, max, range, disabled, disabledTime] = args
-
-  const date = new Date(value.getTime())
-  switch (mode) {
-    case 'H':
-      date.setHours(target)
-      break
-    case 'h':
-      if (date.getHours() >= 12) {
-        date.setHours(target + 12)
-        break
-      }
-      date.setHours(target)
-      break
-    case 'm':
-    case 'minute':
-      date.setMinutes(target)
-      break
-    case 's':
-    case 'second':
-      date.setSeconds(target)
-      break
-    case 'ampm':
-      if (target === 0) {
-        const hours = date.getHours()
-        if (target === 1 && hours < 12) {
-          date.setHours(hours + 12)
-        } else if (target === 0 && hours >= 12) {
-          date.setHours(hours - 12)
-        }
-      }
-      break
-    default:
-      break
-  }
-
-  let isDisabled
-  if (disabled) isDisabled = disabled(date)
-  if (disabledTime) isDisabled = isDisabled || handleTimeDisabled(date, disabledTime)
-  if (isDisabled) return [true]
-  if (!isDisabled && min) {
-    if (compareAsc(date, min) < 0) return [true]
-    if (range && compareAsc(date, addSeconds(min, range)) > 0) return [true]
-  }
-  if (!isDisabled && max) {
-    if (compareAsc(date, max) > 0) return [true]
-    if (range && compareAsc(date, addSeconds(max, -range)) < 0) return [true]
-  }
-  return [false, date]
 }
 
 function getFormat(fo) {

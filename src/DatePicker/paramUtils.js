@@ -1,8 +1,6 @@
-import format from 'date-fns/format'
-
 import utils from './utils'
 
-const { TIME_FORMAT, compareAsc, addSeconds } = utils
+const { TIME_FORMAT, compareAsc, addSeconds, format } = utils
 
 const handleOnChangeParams = type => (date, change, blur = undefined, isEnd = undefined, isQuickSelect = undefined) => [
   date,
