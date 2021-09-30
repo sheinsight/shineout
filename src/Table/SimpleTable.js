@@ -121,9 +121,10 @@ class SimpleTable extends PureComponent {
   renderBody() {
     const { columns, width, fixed, columnResizable, ...others } = this.props
     const { colgroup, resize } = this.state
+    const minWidthSup = columns.find(d => d.minWidth)
     return (
       <div key="body" className={tableClass('simple-body')} ref={this.bindBody} onScroll={this.handleScroll}>
-        <table style={{ width }}>
+        <table style={{ width }} className={tableClass(!colgroup && minWidthSup && 'init')}>
           <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable} />
           <Tbody
             colgroup={colgroup}

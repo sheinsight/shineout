@@ -11,7 +11,7 @@ import { fetchSync } from 'doc/data/user'
 const data = fetchSync(20)
 
 const columns = [
-  { title: 'id', render: 'id', width: 50 },
+  { title: 'id', render: 'id', fixed: 'left', maxWidth: 300, minWidth: 100 },
   { title: 'Name', render: d => `${d.firstName} ${d.lastName}` },
   { title: 'Country', render: 'country' },
   { title: 'Position', render: 'position' },

@@ -71,6 +71,7 @@
 | treeColumnsName | string | none | tree table children-data name |
 | treeIndent | number | 25 | indent of each level |
 | minWidth | number | - | the minimum width of the column |
+| maxWidth | number | - | Maximum draggable column width |
 | hide | boolean | false | hide the column, only work on row-expand column |
 | dataChangeResize | boolean | false | Recalculate columns width while data change |
 | defaultOrder | string | 'asc' \| 'desc' | default sort |

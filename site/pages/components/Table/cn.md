@@ -71,5 +71,6 @@
 | treeColumnsName | string | 无 | 树形表格子数据字段名 |
 | treeIndent | number | 25 | 每一层缩进宽度 |
 | minWidth | number | 无 | 最小列宽 |
+| maxWidth | number | 无 | 最大可拖动列宽 |
 | hide | boolean | false | 只针对行展开列有效，表示是否隐藏该列 |
 | defaultOrder | string | 'asc' \| 'desc' | 默认排序规则 |

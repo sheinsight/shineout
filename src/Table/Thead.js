@@ -6,6 +6,7 @@ import { tableClass } from './styles'
 import Sorter from './Sorter'
 import CheckboxAll from './CheckboxAll'
 import { getParent } from '../utils/dom/element'
+import { isNumber } from '../utils/is'
 
 const cacheGroup = new Map()
 const MIN_RESIZABLE_WIDTH = 20
@@ -60,12 +61,24 @@ class Thead extends PureComponent {
   }
 
   resizeColgroup(deltaX) {
+    const { columns } = this.props
+    const item = columns[this.resizingIndex]
+    const { minWidth, maxWidth } = item
     let oWidth = parseInt(this.resizingCol.style.width, 10)
     if (Number.isNaN(oWidth) || oWidth === 0) {
       oWidth = this.resizingTh.getBoundingClientRect().width
     }
-    const w = `${Math.max(oWidth + deltaX, MIN_RESIZABLE_WIDTH)}px`
-    this.resizingCol.style.width = w
+    let w = oWidth + deltaX
+    if (isNumber(minWidth)) {
+      w = Math.max(w, minWidth)
+    } else {
+      w = Math.max(w, MIN_RESIZABLE_WIDTH)
+    }
+
+    if (isNumber(maxWidth)) {
+      w = Math.min(w, maxWidth)
+    }
+    this.resizingCol.style.width = `${w}px`
   }
 
   handleResize(type, e) {
