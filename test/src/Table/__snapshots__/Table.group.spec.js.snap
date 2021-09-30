@@ -211,6 +211,7 @@ exports[`Table[group] should render group header 1`] = `
     onScroll={[Function]}
   >
     <table
+      className=""
       style={
         Object {
           "width": undefined,

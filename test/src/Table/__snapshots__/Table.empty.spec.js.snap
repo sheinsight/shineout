@@ -143,6 +143,7 @@ exports[`Table[Empty] should render empty table 1`] = `
     onScroll={[Function]}
   >
     <table
+      className=""
       style={
         Object {
           "width": 1500,
@@ -349,6 +350,7 @@ exports[`Table[Empty] should render empty table with emtpyText 1`] = `
     onScroll={[Function]}
   >
     <table
+      className=""
       style={
         Object {
           "width": 1500,
@@ -605,6 +607,7 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
     onScroll={[Function]}
   >
     <table
+      className=""
       style={
         Object {
           "width": 1500,
@@ -829,6 +832,7 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
     onScroll={[Function]}
   >
     <table
+      className=""
       style={
         Object {
           "width": 1500,
