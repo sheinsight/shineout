@@ -225,6 +225,15 @@ export default class TreeSelect extends PureComponent {
     )
   }
 
+  /**
+   * custom options list header
+   */
+  renderCustomHeader() {
+    const { header } = this.props
+    if (React.isValidElement(header)) return <div className={treeSelectClass('custom-header')}>{header}</div>
+    return null
+  }
+
   renderTreeOptions() {
     const { focus, position } = this.state
     const { multiple, datum, data, absolute, height, zIndex } = this.props
@@ -281,6 +290,7 @@ export default class TreeSelect extends PureComponent {
         fixed="min"
         zIndex={zIndex}
       >
+        {this.renderCustomHeader()}
         <div className={treeSelectClass('tree-wrapper')}>{content}</div>
       </OptionList>
     )

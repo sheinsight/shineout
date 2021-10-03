@@ -282,6 +282,15 @@ export interface TreeSelectProps<Value, Data> extends StandardProps {
    * default: -
    */
   unmatch?: boolean;
+
+  /**
+   * Custom render option list header
+   *
+   * 自定义渲染 Option Tree Header
+   *
+   * default: null
+   */
+  header?: ReactNode;
 }
 
 
