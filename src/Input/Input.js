@@ -68,7 +68,7 @@ class Input extends PureComponent {
         return
       }
     }
-    this.props.onChange(value)
+    this.props.onChange(value, e)
   }
 
   handleKeyDown(e) {

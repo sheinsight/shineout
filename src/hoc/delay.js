@@ -46,6 +46,11 @@ export default curry(
 
         this.changeLocked = true
         if (this.changeTimer) clearTimeout(this.changeTimer)
+        const event = args[0]
+        // 处理react事件池
+        if (event && event.persist) {
+          event.persist()
+        }
         this.changeTimer = setTimeout(() => {
           this.changeLocked = false
           this.props.onChange(value, ...args)
