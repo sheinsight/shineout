@@ -160,8 +160,8 @@ class Cascader extends PureComponent {
 
   handleClear() {
     const { mode } = this.props
-    if (mode === undefined) this.setState({ path: [] })
-    else this.datum.setValue([])
+    this.setState({ path: [] })
+    if (mode !== undefined) this.datum.setValue([])
     this.handleChange([])
 
     // force close
