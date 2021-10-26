@@ -64,7 +64,7 @@
     .loop(@i - 1);
 
     .@{spin-default-prefix}-item:nth-child(@{i}) {
-      transform: rotateZ(360deg / @circleCount * (@i - 1));
+      transform: rotateZ((360deg / @circleCount) * (@i - 1));
 
       svg,
       div {

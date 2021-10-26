@@ -72,8 +72,15 @@ class Tr extends Component {
       datum.subscribe(ROW_HEIGHT_UPDATE_EVENT, this.setRowHeight)
       return
     }
-    if (height === this.lastRowHeight && this.expandHeight === this.lastExpandHeight && !dataUpdated) return
+    if (
+      height === this.lastRowHeight &&
+      this.expandHeight === this.lastExpandHeight &&
+      !dataUpdated &&
+      this.lastIndex === this.props.index
+    )
+      return
     this.lastRowHeight = height
+    this.lastIndex = this.props.index
     this.lastExpandHeight = this.expandHeight
     setRowHeight(height + this.expandHeight, this.props.index, expand)
   }
