@@ -39,7 +39,7 @@ const compatibleFmt = fmt => {
   }
   let result = fmt
   Object.keys(trans).forEach(key => {
-    result = result.replaceAll(key, trans[key])
+    result = result.replace(new RegExp(key, 'g'), trans[key])
   })
   return result
 }
