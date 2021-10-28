@@ -174,6 +174,14 @@ export const method = type => option => {
   return () => close(props)
 }
 
+export const closeAll = () => {
+  Object.keys(containers)
+    .filter(id => containers[id].visible)
+    .forEach(id => {
+      close(containers[id].props)
+    })
+}
+
 ready(() => {
   document.addEventListener('keydown', e => {
     if (e.key !== 'Escape') return
