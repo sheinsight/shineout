@@ -1,0 +1,77 @@
+@import '../../styles/variables.less';
+
+@spin-default-prefix: ~'@{so-prefix}-spin-default';
+
+.@{spin-default-prefix} {
+  @circleCount: 12;
+  @animationDuration: 1s;
+  @keyframesScale: ~'@{spin-default-prefix}-scale';
+  @keyframesFade: ~'@{spin-default-prefix}-fade';
+
+  @keyframes @keyframesScale {
+    0%,
+    80%,
+    100% {
+      transform: scale3d(0, 0, 1);
+    }
+
+    40% {
+      transform: scale3d(1, 1, 1);
+    }
+  }
+
+  @keyframes @keyframesFade {
+    0%,
+    39%,
+    100% {
+      opacity: 0.2;
+    }
+
+    40% {
+      opacity: 1;
+    }
+  }
+
+  position: relative;
+  margin: auto;
+
+  &-item {
+    position: absolute;
+    top: 0;
+    left: 45%;
+    width: 10%;
+    height: 50%;
+    transform-origin: 50% 100%;
+
+    div {
+      height: 55%;
+      margin: 0 auto;
+      animation: @keyframesFade @animationDuration infinite ease-in-out both;
+    }
+  }
+
+  &-scale svg,
+  &-scale div {
+    animation: @keyframesScale @animationDuration infinite ease-in-out both;
+  }
+
+  &-fade svg,
+  &-fade div {
+    animation: @keyframesFade @animationDuration infinite ease-in-out both;
+  }
+
+  .loop(@i) when (@i > 1) {
+    .loop(@i - 1);
+
+    .@{spin-default-prefix}-item:nth-child(@{i}) {
+      transform: rotateZ((360deg / @circleCount) * (@i - 1));
+
+      svg,
+      div {
+        animation-delay: -@animationDuration + (@animationDuration / @circleCount * (@i - 1));
+      }
+    }
+  }
+
+  .loop(@circleCount);
+}

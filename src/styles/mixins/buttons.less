@@ -237,7 +237,7 @@
     }
 
     50% {
-      .button-case-box-shadow(@outline, @btn-focus-width / 2, 0%);
+      .button-case-box-shadow(@outline, (@btn-focus-width / 2), 0%);
     }
 
     100% {
@@ -339,7 +339,7 @@
   &.@{button-prefix}-outline:not(.@{button-prefix}-default):before {
     border-left-color: inherit;
   }
-  
+
 
   // disabled
   // default
@@ -380,7 +380,7 @@
   }
 
   // animation
-  // default  
+  // default
   // -->  default -> increase weight
   &.@{button-prefix}-default:not(.@{button-prefix}-disabled):hover,
   &.@{button-prefix}-default:not(.@{button-prefix}-disabled):active,
@@ -417,7 +417,7 @@
   &.@{button-prefix}-outline:not(.@{button-prefix}-disabled):hover + .@{button-prefix},
   &.@{button-prefix}-outline:not(.@{button-prefix}-disabled):active+ .@{button-prefix},
   &.@{button-prefix}-outline:not(.@{button-prefix}-disabled):focus+ .@{button-prefix} {
-    
+
     & when (@so-theme = shineout) {
       &:before {
         height: 0;

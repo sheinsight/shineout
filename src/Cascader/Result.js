@@ -1,12 +1,15 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { inputClass, selectClass, cascaderClass } from '../styles'
+import { inputClass } from '../Input/styles'
+import { selectClass } from '../Select/styles'
+import { cascaderClass } from './styles'
 import Input from './Input'
 import icons from '../icons'
 import More from '../Select/More'
 import { isEmpty } from '../utils/is'
 import { CHANGE_TOPIC } from '../Datum/types'
+import Caret from '../icons/Caret'
 
 // eslint-disable-next-line react/prop-types
 function Item({ children, close, className, data, isPopover, singleRemove, click }) {
@@ -178,6 +181,18 @@ class Result extends PureComponent {
     )
   }
 
+  renderIndicator() {
+    const { multiple, showArrow, compressed } = this.props
+    if (!showArrow || (multiple && !compressed)) return null
+    const showCaret = !multiple
+    // eslint-disable-next-line
+    return (
+      <a key="indicator" tabIndex={-1} className={selectClass('indicator', multiple ? 'multi' : 'caret')}>
+        {showCaret && <Caret />}
+      </a>
+    )
+  }
+
   renderResult() {
     const { datum, value, renderItem, renderResult, compressed, focus, onFilter } = this.props
     const nodes = value.map(v => datum.getDataById(v))
@@ -203,15 +218,12 @@ class Result extends PureComponent {
   }
 
   render() {
-    const { style, value } = this.props
+    const { style, value, compressed, multiple } = this.props
     const result = value.length === 0 ? this.renderPlaceholder() : this.renderResult()
     return (
-      <div className={cascaderClass('result')} style={style}>
+      <div className={cascaderClass('result', multiple && compressed && 'compressed')} style={style}>
         {result}
-        {!this.props.multiple && (
-          // eslint-disable-next-line
-          <a tabIndex={-1} className={selectClass('indicator', 'caret')} />
-        )}
+        {this.renderIndicator()}
         {this.renderClear()}
       </div>
     )
@@ -242,6 +254,7 @@ Result.propTypes = {
   selectId: PropTypes.string,
   showList: PropTypes.func,
   size: PropTypes.string,
+  showArrow: PropTypes.bool,
 }
 
 Result.defaultProps = {

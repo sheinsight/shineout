@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getLocale } from '../locale'
 import LazyList from '../AnimationList/LazyList'
-import { listClass } from '../styles'
+import { listClass } from './styles'
 import { isFunc, isArray, isString } from '../utils/is'
 import { getKey } from '../utils/uid'
 import { removeStack, addStack } from '../utils/lazyload'
@@ -73,7 +73,7 @@ class Index extends Component {
   renderCheckBox(flag, data, index) {
     if (!flag) return null
     const { datum } = this.props
-    return <Checkbox data={data} index={index} datum={datum} />
+    return <Checkbox data={data} index={index} datum={datum} force={datum.check(data)} />
   }
 
   renderItem(value, index) {

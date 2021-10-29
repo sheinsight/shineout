@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getKey } from '../utils/uid'
-import { menuClass } from '../styles'
+import { menuClass } from './styles'
 import Item from './Item'
 
 class List extends PureComponent {

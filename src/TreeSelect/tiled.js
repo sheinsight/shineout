@@ -4,7 +4,8 @@ import immer from 'immer'
 import Datum from '../Datum/Tree'
 import { curry } from '../utils/func'
 import { mergeFilteredTree } from '../utils/tree'
-import { treeClass, treeSelectClass } from '../styles'
+import { treeClass } from '../Tree/styles'
+import { treeSelectClass } from './styles'
 import { Component } from '../component'
 
 export default curry((options, Origin) => {
@@ -60,6 +61,7 @@ export default curry((options, Origin) => {
       const originIcon = <span className={treeClass('default-icon')} />
       const key = this.rawDatum.getKey(data)
       const rawData = this.rawDatum.getDataById(key)
+      if (!data || !rawData) return originIcon
       const sameCount =
         data[childrenKey] && rawData[childrenKey] && data[childrenKey].length === rawData[childrenKey].length
       if (expanded.indexOf(key) === -1) return originIcon

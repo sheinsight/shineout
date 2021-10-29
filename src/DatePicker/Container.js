@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import immer from 'immer'
 import { PureComponent } from '../component'
-import { datepickerClass, inputClass } from '../styles'
+import { datepickerClass } from './styles'
+import { inputClass } from '../Input/styles'
 import Icon from './Icon'
 import utils from './utils'
 import Picker from './Picker'
@@ -310,7 +311,7 @@ class Container extends PureComponent {
     let callback
     if (!this.props.range) callback = blur ? this.handleBlur : undefined
     else {
-      callback = blur && isEnd && !rangeOne ? this.handleBlur : undefined
+      callback = blur && !rangeOne ? this.handleBlur : undefined
     }
 
     const newCurrent = this.dateToCurrent(date)

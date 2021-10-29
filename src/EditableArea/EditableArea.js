@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import Textarea from '../Textarea'
 import Input from '../Input'
 import Popover from '../Popover'
-import { editableAreaClass } from '../styles'
+import { editableAreaClass } from './styles'
 import icons from '../icons'
 import { focusElement, getParent } from '../utils/dom/element'
 

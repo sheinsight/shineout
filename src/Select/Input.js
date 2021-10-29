@@ -1,18 +1,11 @@
 import React, { Component, isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
-import { selectClass } from '../styles'
-import { focusElement, getCursorOffset } from '../utils/dom/element'
+import { selectClass } from './styles'
+import { focusElement, getCursorOffset, preventPasteFile } from '../utils/dom/element'
 import { isString } from '../utils/is'
 
 const handleFocus = e => {
   e.stopPropagation()
-}
-
-const handlePaste = e => {
-  const text = (e.clipboardData || window.clipboardData).getData('text/plain')
-  if (!text) return
-  e.preventDefault()
-  document.execCommand('insertText', false, text)
 }
 
 class FilterInput extends Component {
@@ -118,7 +111,6 @@ class FilterInput extends Component {
       contentEditable: focus || this.state.editable,
       onFocus: handleFocus,
       onBlur: this.handleBlur,
-      onPaste: handlePaste,
       title: !focus && isString(value) ? value : null,
     }
 
@@ -129,7 +121,7 @@ class FilterInput extends Component {
       })
     }
 
-    return <span dangerouslySetInnerHTML={{ __html: value }} {...props} />
+    return <span dangerouslySetInnerHTML={{ __html: value }} {...props} onPaste={preventPasteFile} />
   }
 }
 

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import classnames from 'classnames'
 import Button from '../Button'
 import { getUidStr } from '../utils/uid'
-import { modalClass } from '../styles'
+import { modalClass } from './styles'
 import Panel from './Panel'
 import { getLocale } from '../locale'
 import { getParent } from '../utils/dom/element'
@@ -172,6 +172,14 @@ export const method = type => option => {
 
   open(props)
   return () => close(props)
+}
+
+export const closeAll = () => {
+  Object.keys(containers)
+    .filter(id => containers[id].visible)
+    .forEach(id => {
+      close(containers[id].props)
+    })
 }
 
 ready(() => {

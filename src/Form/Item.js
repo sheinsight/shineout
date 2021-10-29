@@ -8,7 +8,7 @@ import { errorSubscribe, RESET_TOPIC } from '../Datum/types'
 import { getGrid } from '../Grid/utils'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { objectValues } from '../utils/objects'
-import { formClass } from '../styles'
+import { formClass } from './styles'
 
 const { Provider, Consumer } = createReactContext()
 

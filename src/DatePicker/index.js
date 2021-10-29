@@ -1,7 +1,7 @@
 import inputBorder from '../hoc/inputBorder'
 import inputable from '../Form/inputable'
 import { compose } from '../utils/func'
-import { datepickerClass } from '../styles'
+import { datepickerClass } from './styles'
 import Container from './Container'
 import value from './value'
 import absolute from '../Table/context'

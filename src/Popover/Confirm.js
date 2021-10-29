@@ -4,7 +4,7 @@ import Popover from './index'
 import Button from '../Button'
 import Alert from '../Alert'
 import { Component } from '../component'
-import { popoverClass } from '../styles'
+import { popoverClass } from './styles'
 import { getProps } from '../utils/proptypes'
 import { getLocale } from '../locale'
 

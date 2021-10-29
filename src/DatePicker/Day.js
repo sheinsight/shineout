@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { datepickerClass } from '../styles'
+import { datepickerClass } from './styles'
 import utils from './utils'
 import Icon from './Icon'
 import { getLocale } from '../locale'
@@ -60,8 +60,10 @@ class Day extends PureComponent {
   }
 
   handleDayClick(date, sync) {
-    const { type, allowSingle, rangeDate, min, max, index } = this.props
-    const current = this.formatWithDefaultTime(sync)
+    const { type, allowSingle, rangeDate, min, max, index, value } = this.props
+    // if has value use value time
+
+    const current = (index === sync && value) || this.formatWithDefaultTime(sync)
     const onChange = typeof sync === 'number' ? this.props.onChangeSync.bind(this.props, sync) : this.props.onChange
     if (type === 'week') {
       // if (date.getDay() === 0) {
@@ -121,7 +123,7 @@ class Day extends PureComponent {
   renderDay(date, minD, maxD) {
     const { current, disabled, value, index, type, rangeDate, range, rangeTemp, min, max } = this.props
     const { hover } = this.state
-    const hmsDate = new Date(date)
+    const hmsDate = utils.toDate(date)
     utils.setTime(hmsDate, current)
     let isDisabled = disabled ? disabled(date) : false
 
@@ -239,8 +241,8 @@ class Day extends PureComponent {
     const { current, min, index, max } = this.props
     const days = this.getDays()
     this.today = utils.newDate()
-    const minDate = min && new Date(utils.format(min, minStr, new Date()))
-    const maxDate = max && new Date(utils.format(max, maxStr, new Date()))
+    const minDate = min && utils.toDate(utils.format(min, minStr, new Date()))
+    const maxDate = max && utils.toDate(utils.format(max, maxStr, new Date()))
 
     return (
       <div className={datepickerClass('day-picker')}>

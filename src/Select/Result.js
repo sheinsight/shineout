@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { inputClass, selectClass } from '../styles'
+import { selectClass } from './styles'
+import { inputClass } from '../Input/styles'
 import { isObject, isFunc, isString, isEmpty } from '../utils/is'
 import Input from './Input'
 import Caret from '../icons/Caret'
@@ -181,10 +182,10 @@ class Result extends PureComponent {
   }
 
   renderPlaceholder() {
-    const { focus, onFilter } = this.props
+    const { focus, onFilter, filterText, multiple } = this.props
 
     if (focus && onFilter) {
-      return this.renderInput()
+      return this.renderInput(multiple ? filterText : '')
     }
 
     return (

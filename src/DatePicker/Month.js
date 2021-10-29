@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { datepickerClass } from '../styles'
+import { datepickerClass } from './styles'
 import Icon from './Icon'
 import utils from './utils'
 import { getLocale } from '../locale'
@@ -37,7 +37,7 @@ class Month extends PureComponent {
 
   renderMonth(m, i) {
     const { value, min, disabled, range, type, current, index, rangeDate } = this.props
-    const date = new Date(MONTHBASE)
+    const date = utils.toDate(MONTHBASE)
     date.setMonth(i)
     date.setFullYear(current.getFullYear())
 

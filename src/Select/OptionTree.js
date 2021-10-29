@@ -4,7 +4,7 @@ import List from '../AnimationList'
 import Tree from '../Tree'
 import Spin from '../Spin'
 import { getLocale } from '../locale'
-import { selectClass } from '../styles'
+import { selectClass } from './styles'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
 const DATA_PATH_KEY = '$PATH'

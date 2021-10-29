@@ -5,7 +5,7 @@ import { PureComponent } from '../component'
 import shallowEqual from '../utils/shallowEqual'
 import utils from './utils'
 import Picker from './Picker'
-import { datepickerClass } from '../styles'
+import { datepickerClass } from './styles'
 import Quick from './Quick'
 
 class Range extends PureComponent {
@@ -66,7 +66,7 @@ class Range extends PureComponent {
       if (utils.compareAsc(s, utils.addSeconds(e, -range)) < 0) rangeDate[1] = utils.addSeconds(s, range)
     }
     if (utils.compareAsc(s, e) > 0) {
-      const sWitheTime = new Date(s)
+      const sWitheTime = utils.toDate(s)
       utils.setTime(sWitheTime, e)
       rangeDate[1] = utils.compareAsc(s, sWitheTime) > 0 ? s : sWitheTime
     }

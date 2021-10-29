@@ -5,7 +5,7 @@ import classnames from 'classnames'
 import shallowEqual from '../utils/shallowEqual'
 import { compose } from '../utils/func'
 import { scrollConsumer } from '../Scroll/context'
-import { listClass } from '../styles'
+import { listClass } from '../DataList/styles'
 import { docScroll, docSize } from '../utils/dom/document'
 import { getRTLPosition } from '../utils/strings'
 import zIndexConsumer from '../Modal/context'
@@ -38,6 +38,9 @@ export default function(List) {
       if (!root) initRoot()
       this.element = document.createElement('div')
       root.appendChild(this.element)
+      if (props.getResetPosition) {
+        props.getResetPosition(this.resetPosition.bind(this))
+      }
     }
 
     componentDidUpdate(prevProps) {
@@ -133,9 +136,9 @@ export default function(List) {
       return { focus, style }
     }
 
-    resetPosition() {
+    resetPosition(clean) {
       const { focus, parentElement } = this.props
-      if (!this.el || !focus || this.ajustdoc) return
+      if (!this.el || !focus || (this.ajustdoc && !clean)) return
       const pos = this.el.getBoundingClientRect()
       let { left } = pos
       if (parentElement) {
@@ -167,6 +170,8 @@ export default function(List) {
         scrollElement,
         style = {},
         zIndex,
+        getResetPosition,
+        autoAdapt: ignore,
         ...props
       } = this.props
       const parsed = parseInt(zIndex, 10)
@@ -176,8 +181,9 @@ export default function(List) {
     }
 
     render() {
+      const { autoAdapt } = this.props
       setTimeout(() => {
-        this.resetPosition()
+        this.resetPosition(autoAdapt)
       })
 
       if (!this.props.absolute) {
@@ -193,8 +199,11 @@ export default function(List) {
         scrollElement,
         autoClass,
         zIndex,
+        // do not need the getUpdate
+        getResetPosition,
         // do not need the value
         value,
+        autoAdapt: ignore,
         ...props
       } = this.props
       const mergeClass = classnames(listClass('absolute-wrapper'), rootClass, autoClass)
@@ -228,6 +237,8 @@ export default function(List) {
     style: PropTypes.object,
     autoClass: PropTypes.string,
     value: PropTypes.any,
+    getResetPosition: PropTypes.func,
+    autoAdapt: PropTypes.bool,
   }
 
   return compose(

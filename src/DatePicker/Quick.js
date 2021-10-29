@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import utils from './utils'
-import { datepickerClass } from '../styles'
+import { datepickerClass } from './styles'
 
 export default class Quick extends React.Component {
   compareDate(a, b) {

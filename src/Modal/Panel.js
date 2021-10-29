@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import Icons from '../icons'
 import Card from '../Card'
 import { defaultProps, getProps } from '../utils/proptypes'
-import { modalClass } from '../styles'
+import { modalClass } from './styles'
 import { Provider } from '../Scroll/context'
 import { Provider as ZProvider } from './context'
 import { isRTL } from '../config'
@@ -62,7 +62,7 @@ export default class Panel extends PureComponent {
   }
 
   getStyle() {
-    const { width, height, top, position, style, fullScreen } = this.props
+    const { width, height, top, position, style, fullScreen, drawer } = this.props
     const w = fullScreen ? '100vw' : width
     const h = fullScreen ? '100vh' : height
     return Object.assign(
@@ -70,7 +70,10 @@ export default class Panel extends PureComponent {
         position: 'absolute',
       },
       position
-        ? {}
+        ? {
+            width: drawer && ['left', 'right'].includes(position) ? w : undefined,
+            height: drawer && ['top', 'bottom'].includes(position) ? h : undefined,
+          }
         : {
             display: 'inline-flex',
             width: w,
@@ -159,9 +162,9 @@ export default class Panel extends PureComponent {
   }
 
   renderContent() {
-    const { children, noPadding, padding, position, bodyStyle, from = null } = this.props
+    const { children, noPadding, padding, position, bodyStyle, from = null, type } = this.props
 
-    let style = { padding: noPadding === true ? 0 : padding }
+    let style = { padding: noPadding === true || (from === 'method' && type === 'normal') ? 0 : padding }
     if (position) style.overflow = 'auto'
 
     if (bodyStyle) style = Object.assign(style, bodyStyle)
@@ -264,6 +267,8 @@ Panel.propTypes = {
   container: PropTypes.any,
   events: PropTypes.object,
   fullScreen: PropTypes.bool,
+  // is use in drawer
+  drawer: PropTypes.bool,
 }
 
 Panel.defaultProps = {
@@ -272,4 +277,5 @@ Panel.defaultProps = {
   maskCloseAble: true,
   width: 500,
   events: {},
+  drawer: false,
 }

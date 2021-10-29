@@ -57,7 +57,7 @@ export interface PaginationProps extends StandardProps {
    *
    * default: ['links']
    */
-  layout?: string[];
+  layout?: (string | ((...args: any[]) => string) )[];
 
   /**
    * The callback function when current page or pageSize is changing。current: new page number。pageSize: number of each page

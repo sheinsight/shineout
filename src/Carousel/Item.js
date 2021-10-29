@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { carouselClass } from '../styles'
+import { carouselClass } from './styles'
 
 class Item extends PureComponent {
   render() {

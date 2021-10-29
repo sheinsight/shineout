@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { progressClass } from '../styles'
+import { progressClass } from './styles'
 
 const ROTATE_MAX_ANGLE = 15
 const PROGRESS_CENTER = 60

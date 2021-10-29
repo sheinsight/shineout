@@ -1,6 +1,6 @@
 {
   "name": "shineout",
-  "version": "1.6.5",
+  "version": "1.6.6",
   "description": "Shein 前端组件库",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -55,6 +55,7 @@
     "react-dom": ">=16.0.0"
   },
   "dependencies": {
+    "@babel/runtime": "^7.14.6",
     "classnames": "^2.2.5",
     "date-fns": "2.0.0-alpha.10",
     "deep-eql": "^4.0.0",
@@ -65,7 +66,7 @@
     "@babel/core": "^7.1.6",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
-    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/plugin-transform-runtime": "^7.14.5",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
@@ -112,7 +113,7 @@
     "koa-multer": "^1.0.2",
     "koa-router": "^7.3.0",
     "koa-send": "^4.1.2",
-    "less": "^2.7.3",
+    "less": "^4.1.1",
     "less-loader": "^4.1.0",
     "lz-string": "^1.4.4",
     "mini-css-extract-plugin": "^0.5.0",

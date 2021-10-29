@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps } from '../utils/proptypes'
-import { gapClass } from '../styles'
+import { gapClass } from './styles'
 import support from './support'
 
 const flexGapSupport = support()
@@ -26,11 +26,15 @@ class Gap extends PureComponent {
 
     return (
       <div className={className} style={this.getStyle()}>
-        {React.Children.map(children, (child, index) => (
-          <div className={gapClass('item')} style={this.getItemStyle(index)}>
-            {child}
-          </div>
-        ))}
+        {React.Children.map(
+          children,
+          (child, index) =>
+            child && (
+              <div className={gapClass('item')} style={this.getItemStyle(index)}>
+                {child}
+              </div>
+            )
+        )}
       </div>
     )
   }

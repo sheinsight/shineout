@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
-import { listClass } from '../styles'
+import { listClass } from '../DataList/styles'
 
 // Use Component cause stateless Element can't use ref
 // eslint-disable-next-line

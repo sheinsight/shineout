@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import List from '../AnimationList'
-import { cardClass } from '../styles'
+import { cardClass } from './styles'
 
 const CollapseList = List(['collapse'], 'fast')
 

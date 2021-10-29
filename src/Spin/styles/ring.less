@@ -1,0 +1,23 @@
+@import '../../styles/variables.less';
+
+@spin-ring-prefix: ~'@{so-prefix}-spin-ring';
+
+.@{spin-ring-prefix} {
+  @keyframesName: ~'@{spin-ring-prefix}-spin';
+
+  margin: auto;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.05);
+  animation: @keyframesName 1s infinite linear;
+  border-radius: 50%;
+
+  @keyframes @keyframesName {
+    0% {
+      transform: rotateZ(0deg);
+    }
+
+    100% {
+      transform: rotateZ(359deg);
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import Component from './Cascader'
 import inputable from '../Form/inputable'
 import inputBorder from '../hoc/inputBorder'
-import { selectClass } from '../styles'
+import { selectClass } from '../Select/styles'
 import { compose } from '../utils/func'
 import filter from './filter'
 import absolute from '../Table/context'

@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
 import { isFunc, isString } from '../utils/is'
-import { treeClass } from '../styles'
+import { treeClass } from './styles'
 import Content from './Content'
 
 const placeElement = document.createElement('div')
@@ -106,9 +106,9 @@ class Node extends PureComponent {
   handleDragOver(e) {
     if (!isDragging) return
 
-    const { dragHoverExpand, datum, dragSibling, index } = this.props
+    const { dragHoverExpand, datum, dragSibling } = this.props
     const startId = placeElement.getAttribute('data-start')
-    const startIndex = parseInt(placeElement.getAttribute('data-start-index'), 10)
+    // const startIndex = parseInt(placeElement.getAttribute('data-start-index'), 10)
     const current = datum.getPath(startId)
     const target = datum.getPath(this.props.id)
 
@@ -142,7 +142,9 @@ class Node extends PureComponent {
       position += 1
       hover.parentNode.insertBefore(placeElement, hover.nextElementSibling)
     }
-    position += startIndex <= index ? -1 : 0
+    // if (position !== -1 && currentPathStr === targetPathStr && startIndex <= index) {
+    //   position -= 1
+    // }
     placeElement.setAttribute('data-target', this.props.id)
     placeElement.setAttribute('data-position', position)
   }

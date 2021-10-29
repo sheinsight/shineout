@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { cascaderClass } from '../styles'
+import { cascaderClass } from './styles'
 import Node from './Node'
 import { getLocale } from '../locale'
 

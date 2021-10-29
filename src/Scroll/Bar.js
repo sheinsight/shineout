@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { scrollClass } from '../styles'
+import { scrollClass } from './styles'
 import fixedLength from './fixedLength'
 
 class ScrollBar extends PureComponent {

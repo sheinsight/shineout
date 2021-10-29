@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps } from '../utils/proptypes'
-import { dividerClass } from '../styles'
+import { dividerClass } from './styles'
 
 class Divider extends PureComponent {
   showText() {

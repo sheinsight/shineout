@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import icons from '../icons'
-import { cardClass } from '../styles'
+import { cardClass } from './styles'
 
 export default class extends PureComponent {
   static propTypes = {

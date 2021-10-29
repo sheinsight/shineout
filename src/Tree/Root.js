@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps } from '../utils/proptypes'
-import { treeClass } from '../styles'
+import { treeClass } from './styles'
 import List from './List'
 import { isRTL } from '../config'
 

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
 import Spin from '../Spin'
-import { imageClass } from '../styles'
+import { imageClass } from './styles'
 import { PureComponent } from '../component'
 
 class Magnify extends PureComponent {

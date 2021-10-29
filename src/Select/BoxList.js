@@ -7,7 +7,7 @@ import List from '../AnimationList'
 import Spin from '../Spin'
 import Input from '../Input'
 import Checkbox from '../Checkbox/Checkbox'
-import { selectClass } from '../styles'
+import { selectClass } from './styles'
 import BoxOption from './BoxOption'
 import LazyList from '../AnimationList/LazyList'
 
@@ -145,18 +145,19 @@ class BoxList extends Component {
   }
 
   renderOptions() {
-    const { loading, columns, data } = this.props
+    const { loading, columns, data, renderPending } = this.props
     if (loading) return null
     const stack = columns === -1
-    const empty = data.length === 0
+    const empty = renderPending || data.length === 0
     return (
       <div className={selectClass('box-options', stack && 'scrollable')}>
-        {empty && (
+        {empty ? (
           <div key="empty" className={selectClass('no-data')}>
             {this.getText('noData')}
           </div>
+        ) : (
+          <React.Fragment>{stack ? this.renderStack() : this.renderLazyList()}</React.Fragment>
         )}
-        {stack ? this.renderStack() : this.renderLazyList()}
       </div>
     )
   }
@@ -209,6 +210,7 @@ BoxList.propTypes = {
   getRef: PropTypes.func,
   columnsTitle: PropTypes.any,
   customHeader: PropTypes.node,
+  renderPending: PropTypes.bool,
 }
 
 BoxList.defaultProps = {

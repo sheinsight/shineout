@@ -1,6 +1,6 @@
 import React from 'react'
 import Spin from './Spin'
-import { ringClass, planeClass, pulseClass } from '../styles/spin'
+import { ringClass, planeClass, pulseClass } from './styles'
 
 function formatSize(size) {
   const ss = /^(\d+)([%|\w]*)$/.exec(size)
@@ -13,7 +13,7 @@ function formatSize(size) {
 export function Ring(obj) {
   const { value, unit } = formatSize(obj.size)
   const style = {
-    borderWidth: (value / 10) + unit,
+    borderWidth: value / 10 + unit,
     borderTopColor: obj.color,
   }
   return <Spin {...obj} style={style} spinClass={ringClass} />

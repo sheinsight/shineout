@@ -5,7 +5,7 @@ import { PureComponent } from '../component'
 import Button from '../Button'
 import icons from '../icons'
 import Tab from './Tab'
-import { tabsClass } from '../styles'
+import { tabsClass } from './styles'
 
 const REDUNDANT = 30
 class Header extends PureComponent {

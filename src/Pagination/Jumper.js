@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { getUidStr } from '../utils/uid'
-import { paginationClass } from '../styles'
+import { paginationClass } from './styles'
 import Input from '../Input'
 
 const inputStyle = { width: 60, display: 'inline-block' }
