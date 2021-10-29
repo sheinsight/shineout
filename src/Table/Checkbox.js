@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { getProps } from '../utils/proptypes'
 import { PureComponent } from '../component'
 import { CHANGE_TOPIC } from '../Datum/types'
 import Checkbox from '../Checkbox/Checkbox'
@@ -11,6 +12,8 @@ export default class extends PureComponent {
     datum: PropTypes.object.isRequired,
     treeColumnsName: PropTypes.string,
     checked: PropTypes.bool,
+    ...getProps(PropTypes, 'keygen'),
+    parentMap: PropTypes.object,
   }
 
   constructor(props) {
@@ -30,18 +33,18 @@ export default class extends PureComponent {
   }
 
   handleChange(_, checked, index) {
-    const { data, datum, treeColumnsName } = this.props
+    const { data, datum, treeColumnsName, parentMap, keygen, treeCheckAll } = this.props
     if (checked) {
-      datum.add(data, index, treeColumnsName)
+      datum.add(data, index, treeColumnsName, undefined, { parentMap, keygen, treeMode: treeCheckAll })
     } else {
-      datum.remove(data, index, treeColumnsName)
+      datum.remove(data, index, treeColumnsName, { parentMap, keygen, treeMode: treeCheckAll })
     }
   }
 
   render() {
-    const { data, datum } = this.props
+    const { data, datum, treeColumnsName, treeCheckAll } = this.props
     const disabled = datum.disabled(data)
-    const checked = datum.check(data)
+    const checked = datum.getCheckStatus(data, { childrenKey: treeColumnsName, treeMode: treeCheckAll })
     const CheckItem = datum.limit === 1 ? Radio : Checkbox
     return <CheckItem {...this.props} checked={checked} disabled={disabled} onChange={this.handleChange} />
   }

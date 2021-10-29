@@ -397,7 +397,7 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    *
    * default: false
    */
-  treeCheckAll?: boolean;
+  treeCheckAll?: boolean | 'half';
 
   /**
    * sort cancel event

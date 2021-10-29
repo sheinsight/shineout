@@ -5,7 +5,7 @@
  *    -- Set treeCheckAll to deep check children
  */
 import React from 'react'
-import { Table } from 'shineout'
+import { Table, Radio } from 'shineout'
 
 const data = [
   {
@@ -39,6 +39,14 @@ const data = [
                 position: 'Development Lead',
                 country: 'Deini',
                 office: 'Conty',
+              },
+              {
+                id: 13,
+                firstName: 'Blus',
+                lastName: 'Li',
+                position: 'NanJin',
+                country: 'China',
+                office: 'JiangNing',
               },
             ],
           },
@@ -107,17 +115,25 @@ const columns = [
   { title: 'Office', render: 'office' },
 ]
 
+const treeMode = ['true', 'half']
+
 export default function() {
+  const [mode, setMode] = React.useState('true')
   return (
-    <Table
-      onRowSelect={selected => console.log(selected)}
-      bordered
-      fixed="y"
-      keygen="id"
-      format="id"
-      columns={columns}
-      data={data}
-      treeCheckAll
-    />
+    <React.Fragment>
+      <Radio.Group data={treeMode} value={mode} onChange={setMode} renderItem={d => `treeCheckAll = ${d}`} />
+      <Table
+        key={mode}
+        onRowSelect={selected => console.log(selected)}
+        bordered
+        fixed="y"
+        keygen="id"
+        format="id"
+        defaultTreeExpandKeys={[1, 6]}
+        columns={columns}
+        data={data}
+        treeCheckAll={mode === 'true' ? true : mode}
+      />
+    </React.Fragment>
   )
 }

@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { getProps } from '../utils/proptypes'
 import { tableClass } from './styles'
 import Checkbox from './Checkbox'
 
@@ -30,7 +31,7 @@ class Td extends PureComponent {
   }
 
   renderCheckbox() {
-    const { index, data, datum, treeColumnsName, treeCheckAll, disabled } = this.props
+    const { index, data, datum, treeColumnsName, treeCheckAll, parentMap, keygen, disabled } = this.props
     return (
       <Checkbox
         force={datum.check(data)}
@@ -39,6 +40,9 @@ class Td extends PureComponent {
         datum={datum}
         disabled={disabled}
         treeColumnsName={treeCheckAll && treeColumnsName}
+        treeCheckAll={treeCheckAll}
+        keygen={keygen}
+        parentMap={parentMap}
       />
     )
   }
@@ -167,8 +171,10 @@ Td.propTypes = {
   treeIndent: PropTypes.number,
   treeRoot: PropTypes.bool,
   treeEmptyExpand: PropTypes.bool,
-  treeCheckAll: PropTypes.bool,
+  treeCheckAll: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   resetFixAuto: PropTypes.func,
+  ...getProps(PropTypes, 'keygen'),
+  parentMap: PropTypes.object,
   disabled: PropTypes.func,
 }
 
