@@ -137,3 +137,9 @@ export const focusElement = {
   wrapSpan,
   copyBoundingClientRect,
 }
+
+export const preventPasteFile = e => {
+  const text = (e.clipboardData || window.clipboardData).getData('text/plain')
+  e.preventDefault()
+  document.execCommand('insertText', false, text)
+}

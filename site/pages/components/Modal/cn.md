@@ -52,6 +52,8 @@ Modal.confirm(options) // 确认提示框
 
 Modal.show(options) // 默认弹窗 没有图标
 
+Modal.closeAll() // 关闭所有弹窗
+
 #### Options参数
 
 ** *options 支持 Modal除了 usePortal 和 destory 的其他任何属性, 此外还有如下的额外属性**

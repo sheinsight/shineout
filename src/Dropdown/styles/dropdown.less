@@ -263,32 +263,31 @@
 
 .@{dropdown-prefix}-split-dropdown {
   margin-left: -1px;
-
-  .@{dropdown-prefix}-split-button {
-    padding-right: 8px;
-    padding-left: 8px;
-    border-radius: 0 @btn-border-radius-base @btn-border-radius-base 0 !important;
-    border-top-width: @dropdown-button-group-split-border-width;
-    border-bottom-width: @dropdown-button-group-split-border-width;
-
-    .@{dropdown-prefix}-button-content {
-      width: 0;
-    }
-
-    &:after {
-      margin-left: 0;
-    }
-    .@{dropdown-prefix}-caret {
-      &:after {
-        margin-left: 0;
-      }
-    }
-  }
 }
 
 
 .@{button-prefix}-group {
-  .@{dropdown-prefix}.@{dropdown-prefix}-split-dropdown {
+  > .@{dropdown-prefix}.@{dropdown-prefix}-split-dropdown {
     margin-left: 0;
+    .@{dropdown-prefix}-button {
+      padding-right: 8px;
+      padding-left: 8px;
+      border-radius: 0 @btn-border-radius-base @btn-border-radius-base 0 !important;
+      border-top-width: @dropdown-button-group-split-border-width;
+      border-bottom-width: @dropdown-button-group-split-border-width;
+
+      .@{dropdown-prefix}-button-content {
+        width: 0;
+      }
+
+      &:after {
+        margin-left: 0;
+      }
+      .@{dropdown-prefix}-caret {
+        &:after {
+          margin-left: 0;
+        }
+      }
+    }
   }
 }

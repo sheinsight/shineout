@@ -31,13 +31,14 @@ class Td extends PureComponent {
   }
 
   renderCheckbox() {
-    const { index, data, datum, treeColumnsName, treeCheckAll, parentMap, keygen } = this.props
+    const { index, data, datum, treeColumnsName, treeCheckAll, parentMap, keygen, disabled } = this.props
     return (
       <Checkbox
         force={datum.check(data)}
         data={data}
         index={index}
         datum={datum}
+        disabled={disabled}
         treeColumnsName={treeCheckAll && treeColumnsName}
         treeCheckAll={treeCheckAll}
         keygen={keygen}
@@ -174,6 +175,7 @@ Td.propTypes = {
   resetFixAuto: PropTypes.func,
   ...getProps(PropTypes, 'keygen'),
   parentMap: PropTypes.object,
+  disabled: PropTypes.func,
 }
 
 Td.defaultProps = {

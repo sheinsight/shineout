@@ -311,7 +311,7 @@ class Container extends PureComponent {
     let callback
     if (!this.props.range) callback = blur ? this.handleBlur : undefined
     else {
-      callback = blur && isEnd && !rangeOne ? this.handleBlur : undefined
+      callback = blur && !rangeOne ? this.handleBlur : undefined
     }
 
     const newCurrent = this.dateToCurrent(date)
