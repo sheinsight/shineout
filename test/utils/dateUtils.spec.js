@@ -1,6 +1,7 @@
 import utils from '../../src/DatePicker/utils'
 import { setLocale, getLocale } from '../../src/locale'
 
+utils.setZone('Asia/Shanghai')
 describe('dateUtil[clearHMS]', () => {
   it('clean the hour minute seconds', () => {
     const a = new Date()

@@ -21,7 +21,9 @@ import validate from './validate'
 import cssAccessors from './css-accessors'
 import cssInject from './vars-inject'
 import accept from './accept'
+import DateFns from '../DatePicker/utils'
 
+const { setZone } = DateFns
 export {
   classname,
   clone,
@@ -46,4 +48,5 @@ export {
   cssAccessors,
   cssInject,
   accept,
+  setZone,
 }

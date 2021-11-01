@@ -6,6 +6,8 @@ import weekYear from 'dayjs/plugin/weekYear'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
 import enLocale from 'dayjs/locale/en'
 import { getLocale } from '../locale'
 
@@ -23,6 +25,8 @@ dayjs.extend(weekday)
 dayjs.extend(weekOfYear)
 dayjs.extend(weekYear)
 dayjs.extend(customParseFormat)
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 const TIME_FORMAT = 'HH:mm:ss'
 
@@ -272,6 +276,10 @@ function formatted(date, fmt, ...options) {
   return format(date, fmt, ...options)
 }
 
+function setZone(...args) {
+  dayjs.tz.setDefault(...args)
+}
+
 export default {
   clearHMS,
   addDays,
@@ -297,4 +305,5 @@ export default {
   compareDateArray,
   TIME_FORMAT,
   resetTimeByFormat,
+  setZone,
 }
