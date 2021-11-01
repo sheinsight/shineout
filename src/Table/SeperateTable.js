@@ -174,6 +174,8 @@ class SeperateTable extends PureComponent {
     const reachBottom = this.lastScrollArgs[1] === 1
     const drag = this.lastScrollArgs[8]
     if (!dataChange && reachBottom && drag) {
+      if (this.ajustBottomScroll) return
+      this.ajustBottomScroll = true
       setTimeout(() => {
         this.handleScroll(...this.lastScrollArgs)
       })
@@ -355,6 +357,10 @@ class SeperateTable extends PureComponent {
     const { colgroup } = this.state
     const isResize = v && this.lastScrollArgs[4] && v !== this.lastScrollArgs[4]
     this.lastScrollArgs = args
+    if (this.ajustBottomScroll) {
+      this.lastScrollArgs[8] = false
+      this.ajustBottomScroll = false
+    }
     const { data, rowHeight, rowsInView } = this.props
     const contentWidth = this.getContentWidth()
     const contentHeight = this.getContentHeight()
