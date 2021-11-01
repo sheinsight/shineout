@@ -235,7 +235,9 @@ class SeperateTable extends PureComponent {
     if (this.lastScrollTop - height >= 1) {
       const index = this.resetIndex()
       this.setState({ currentIndex: index })
-
+      setTimeout(() => {
+        this.handleScroll(...this.lastScrollArgs)
+      })
       if (this.renderByExpand) {
         this.renderByExpand = false
         return
