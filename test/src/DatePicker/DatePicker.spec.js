@@ -1,9 +1,11 @@
 import React from 'react'
 import { DatePicker } from 'shineout'
 import { mount } from 'enzyme'
-import { format, addDays, subDays } from 'date-fns'
+import DateFns from '../../../src/DatePicker/utils'
 import utils from '../../../src/DatePicker/utils'
 import DatePickerSize from '../../../site/pages/components/DatePicker/example-03-size'
+
+const { format, addDays } = DateFns
 
 /* global SO_PREFIX */
 
@@ -342,7 +344,7 @@ describe('DataPicker[quick]', () => {
           },
           {
             name: '上一周',
-            value: [format(subDays(today, 7), formatStart), format(today, formatEnd)],
+            value: [format(addDays(today, -7), formatStart), format(today, formatEnd)],
           },
           {
             name: '后30天',
@@ -350,7 +352,7 @@ describe('DataPicker[quick]', () => {
           },
           {
             name: '前30天',
-            value: [format(subDays(today, 30), formatStart), format(today, formatEnd)],
+            value: [format(addDays(today, -30), formatStart), format(today, formatEnd)],
           },
         ]}
         style={{ marginTop: '12px' }}

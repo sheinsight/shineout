@@ -1,7 +1,6 @@
 import utils from '../../src/DatePicker/utils'
 import { setLocale, getLocale } from '../../src/locale'
 
-utils.setZone('Asia/Shanghai')
 describe('dateUtil[clearHMS]', () => {
   it('clean the hour minute seconds', () => {
     const a = new Date()
@@ -62,17 +61,19 @@ describe('dateUtil[cloneTime]', () => {
   })
 
   it('clone invalid time to date will return date', () => {
-    const date = new Date(2021, 10, 1)
-    const time = '12314'
+    const date = utils.parse('2020-11-01', 'yyyy-MM-dd')
+    const time = ''
     const format = 'xxxxxxx'
-    const result = new Date(2021, 10, 1)
+    const result = utils.parse('2020-11-01', 'yyyy-MM-dd')
     expect(utils.cloneTime(date, time, format).valueOf()).toBe(result.valueOf())
   })
 
   it('clone date time to date', () => {
-    const date = new Date(2021, 10, 1)
-    const time = new Date(1995, 10, 2, 14, 15, 20)
-    const result = new Date(2021, 10, 1, 14, 15, 20)
+    const date = utils.parse('2020-11-01', 'yyyy-MM-dd')
+    const time = utils.parse('1995-11-02 14:14:20', 'yyyy-MM-dd HH:mm:ss')
+    console.log('format', utils.format(utils.toDate(time), 'yyyy-MM-dd HH:mm:ss'))
+    console.log('format', utils.format(utils.cloneTime(date, time), 'yyyy-MM-dd HH:mm:ss'))
+    const result = utils.parse('2020-11-01 14:14:20', 'yyyy-MM-dd HH:mm:ss')
     expect(utils.cloneTime(date, time).valueOf()).toBe(result.valueOf())
   })
 
@@ -153,13 +154,14 @@ describe('dateUtil[format]', () => {
   })
   it('format with inner format', () => {
     setLocale('zh-CN')
-    const date = new Date(2021, 0, 1, 11, 11, 11)
+    const date = utils.parse('2021-01-01 11:11:11', 'YYYY-MM-DD hh:mm:ss')
+    const timeStamp = `${date.valueOf()}`
     const data = [
       { formatter: 'yyyy-MM-dd', expected: '2021-01-01' },
       { formatter: 'HH:mm:ss', expected: '11:11:11' },
       { formatter: 'hh:mm:ss a', expected: '11:11:11 AM' },
-      { formatter: 't', expected: '1609470671' },
-      { formatter: 'T', expected: '1609470671000' },
+      { formatter: 't', expected: timeStamp.slice(0, -3) },
+      { formatter: 'T', expected: timeStamp },
       { formatter: 'RRRR II', expected: '2020 53' },
       { formatter: 'yyyy-MM', expected: '2021-01' },
       { formatter: 'yyyy-MM-dd HH:mm:ss', expected: '2021-01-01 11:11:11' },

@@ -58,7 +58,6 @@
     "@babel/runtime": "^7.14.6",
     "classnames": "^2.2.5",
     "dayjs": "^1.10.7",
-    "date-fns": "2.0.0-alpha.11",
     "deep-eql": "^4.0.0",
     "immer": "^4.0.0"
   },

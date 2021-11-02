@@ -6,8 +6,6 @@ import weekYear from 'dayjs/plugin/weekYear'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import utc from 'dayjs/plugin/utc'
-import timezone from 'dayjs/plugin/timezone'
 import enLocale from 'dayjs/locale/en'
 import { getLocale } from '../locale'
 
@@ -16,8 +14,8 @@ const en2Locate = {
   name: 'en2',
   weekStart: 1,
 }
-dayjs.locale(en2Locate, null, true)
 
+dayjs.locale(en2Locate, null, true)
 dayjs.extend(advancedFormat)
 dayjs.extend(isoWeek)
 dayjs.extend(relativeTime)
@@ -25,8 +23,6 @@ dayjs.extend(weekday)
 dayjs.extend(weekOfYear)
 dayjs.extend(weekYear)
 dayjs.extend(customParseFormat)
-dayjs.extend(utc)
-dayjs.extend(timezone)
 
 const TIME_FORMAT = 'HH:mm:ss'
 
@@ -94,23 +90,23 @@ function format(date, fmt, options) {
     .format(fmt2)
 }
 
-function isSameDay(date1, date2) {
+function isSameMonth(date1, date2) {
   return (
     date1 &&
     date2 &&
-    date1.getFullYear &&
+    date1.getFullYear() &&
     date2.getFullYear &&
     date1.getFullYear() === date2.getFullYear() &&
-    date1.getMonth() === date2.getMonth() &&
-    date1.getDate() === date2.getDate()
+    date1.getMonth() === date2.getMonth()
   )
 }
 
-function isSameMonth(date1, date2) {
-  return date1.getFullYear() === date2.getFullYear() && date1.getMonth() === date2.getMonth()
+function isSameDay(date1, date2) {
+  return isSameMonth(date1, date2) && date1.getDate() === date2.getDate()
 }
 
 function isSameWeek(date1, date2, options) {
+  if (!date1 || !date2) return false
   const dateA = dayjs(date1).locale(getDayJsLocate(options))
   const dateB = dayjs(date2).locale(getDayJsLocate(options))
   return dateA.weekYear() === dateB.weekYear() && dateA.week() === dateB.week()
@@ -132,7 +128,7 @@ function parse(date, fmt, options) {
     const year = date.slice(index, index + 5)
     const weekIndex = fmt2.indexOf('WW')
     const week = weekIndex >= 0 ? date.slice(weekIndex, weekIndex + 3) : 1
-    const result = dayjs(new Date(year))
+    const result = dayjs(year, 'YYYY')
       .locale(getDayJsLocate(options))
       .isoWeek(week)
       .toDate()
@@ -152,6 +148,7 @@ function startOfWeek(day, options) {
 
 function toDate(day) {
   if (!day) return new Date('')
+  if (day instanceof Date) return day
   return dayjs(day).toDate()
 }
 
@@ -183,12 +180,11 @@ function isInvalid(date) {
 
 function toDateWithFormat(dirtyDate, fmt, def) {
   let date
-  if (typeof dirtyDate === 'string')
+  if (typeof dirtyDate === 'string') {
     date = parse(dirtyDate, fmt, new Date(), {
       weekStartsOn: getLocale('startOfWeek'),
     })
-  else date = toDate(dirtyDate)
-
+  } else date = toDate(dirtyDate)
   if (isInvalid(date)) date = toDate(dirtyDate)
   if (isInvalid(date)) date = def
 
@@ -219,7 +215,6 @@ function cloneTime(date, old, fmt) {
   if (!date) return date
   old = toDateWithFormat(old, fmt)
   if (isInvalid(old)) return date
-
   return setTime(date, old)
 }
 
@@ -276,10 +271,6 @@ function formatted(date, fmt, ...options) {
   return format(date, fmt, ...options)
 }
 
-function setZone(...args) {
-  dayjs.tz.setDefault(...args)
-}
-
 export default {
   clearHMS,
   addDays,
@@ -305,5 +296,4 @@ export default {
   compareDateArray,
   TIME_FORMAT,
   resetTimeByFormat,
-  setZone,
 }

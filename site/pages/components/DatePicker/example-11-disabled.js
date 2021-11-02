@@ -6,13 +6,13 @@
  */
 import React from 'react'
 import { DatePicker } from 'shineout'
-import getDay from 'date-fns/getDay'
+import dayjs from 'dayjs'
 
 export default function() {
   return (
     <div>
       <DatePicker
-        disabled={d => getDay(d) === 0 || getDay(d) === 6}
+        disabled={d => [0, 6].includes(dayjs(d).day())}
         type="datetime"
         style={{ marginRight: 12 }}
         defaultValue={Date.now()}
