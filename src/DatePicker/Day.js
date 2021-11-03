@@ -61,7 +61,7 @@ class Day extends PureComponent {
 
   handleDayClick(date, sync) {
     const { type, allowSingle, rangeDate, min, max, index, value } = this.props
-    const current = (index !== undefined ? index === sync && value : value) || this.formatWithDefaultTime(sync)
+    const current = (index === sync && value) || this.formatWithDefaultTime(sync)
     const onChange = typeof sync === 'number' ? this.props.onChangeSync.bind(this.props, sync) : this.props.onChange
     if (type === 'week') {
       onChange(...utils.weekHandleChangeParams(date, true, true))
@@ -197,7 +197,7 @@ class Day extends PureComponent {
       <div
         key={date.getTime()}
         className={hoverClass}
-        onClick={isDisabled ? undefined : this.handleDayClick.bind(this, date, minD, maxD)}
+        onClick={isDisabled ? undefined : this.handleDayClick.bind(this, date)}
         onDoubleClick={isDisabled ? undefined : this.handleDayDoubleClick.bind(this, date)}
         {...hoverProps}
       >
