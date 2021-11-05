@@ -314,7 +314,6 @@ export default curry(Origin =>
           defaultValue,
           ...other
         } = this.props
-      console.log('!!!!', this.getError())
         return (
           <Origin
             {...other}
