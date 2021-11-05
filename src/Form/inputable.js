@@ -56,6 +56,7 @@ export default curry(Origin =>
         unbindInputFromItem: PropTypes.func,
         value: PropTypes.any,
         scuSkip: PropTypes.array,
+        error: PropTypes.object,
       }
 
       static defaultProps = {
@@ -154,7 +155,10 @@ export default curry(Origin =>
       }
 
       getError() {
-        const { formDatum, name } = this.props
+        const { formDatum, name, error } = this.props
+        if ('error' in this.props) {
+          return error
+        }
         if (formDatum && name) {
           return formDatum.getError(this.errorName)
         }
@@ -310,7 +314,7 @@ export default curry(Origin =>
           defaultValue,
           ...other
         } = this.props
-
+      console.log('!!!!', this.getError())
         return (
           <Origin
             {...other}
