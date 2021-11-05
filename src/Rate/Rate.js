@@ -102,7 +102,7 @@ class Rate extends PureComponent {
           <span
             key={v}
             // the allowHalf only for the front same as background
-            style={Object.assign({ visibility: !allowHalf && !disabled && value > v ? 'hidden' : 'visible' }, style)}
+            style={Object.assign({ visibility: !disabled && Math.floor(value) > v ? 'hidden' : 'visible' }, style)}
           >
             {this.getIcon(background, v, true)}
           </span>
