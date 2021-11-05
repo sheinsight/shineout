@@ -140,13 +140,13 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-12-extra.js'),
   },
   {
-    name: '12-link',
+    name: '12-linkx',
     title: locate(
       '链接 \n 使用链接作为标签',
       'Link \n Use link as every tab.'
     ),
-    component: require('doc/pages/components/Tabs/example-12-link.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Tabs/example-12-link.js'),
+    component: require('doc/pages/components/Tabs/example-12-link.jsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Tabs/example-12-link.jsx'),
   },
   {
     name: '13-sticky',

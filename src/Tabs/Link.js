@@ -32,7 +32,6 @@ class Link extends PureComponent {
 Link.isTabLink = true
 
 Link.propTypes = {
-  elRef: PropTypes.func,
   className: PropTypes.string,
   href: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
