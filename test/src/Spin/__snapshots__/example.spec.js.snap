@@ -1,119 +1,220 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: Spin[site/pages/components/Spin/example-01-default.js] 1`] = `
+exports[`Snapshot test: Spin[site/pages/components/Spin/example-01-01-default.js] 1`] = `
 <div>
   <div>
     <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-  </div>
-  <div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
     </div>
   </div>
   <div>
     <div>
-      <div />
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Spin[site/pages/components/Spin/example-01-02-tip.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
     </div>
     <div>
-      <div />
+      <span>
+        Loading...
+      </span>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
     </div>
     <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div />
+      <span>
+        正在全力加载...
+      </span>
     </div>
   </div>
 </div>
@@ -141,40 +242,42 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-01-wrapper.js] 1
     <div>
       <div>
         <div>
-          <div />
-        </div>
-        <div>
-          <div />
-        </div>
-        <div>
-          <div />
-        </div>
-        <div>
-          <div />
-        </div>
-        <div>
-          <div />
-        </div>
-        <div>
-          <div />
-        </div>
-        <div>
-          <div />
-        </div>
-        <div>
-          <div />
-        </div>
-        <div>
-          <div />
-        </div>
-        <div>
-          <div />
-        </div>
-        <div>
-          <div />
-        </div>
-        <div>
-          <div />
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
+          <div>
+            <div />
+          </div>
         </div>
       </div>
     </div>
@@ -186,38 +289,44 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-02-chasing-dots.
 <div>
   <div>
     <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-  </div>
-  <div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
     </div>
   </div>
   <div>
     <div>
-      <svg>
-        <circle />
-      </svg>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
     </div>
+  </div>
+  <div>
     <div>
-      <svg>
-        <circle />
-      </svg>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
     </div>
   </div>
 </div>
@@ -226,37 +335,43 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-02-chasing-dots.
 exports[`Snapshot test: Spin[site/pages/components/Spin/example-03-cube-grid.js] 1`] = `
 <div>
   <div>
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
+    <div>
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+    </div>
   </div>
   <div>
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
+    <div>
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+    </div>
   </div>
   <div>
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
+    <div>
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+    </div>
   </div>
 </div>
 `;
@@ -264,16 +379,22 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-03-cube-grid.js]
 exports[`Snapshot test: Spin[site/pages/components/Spin/example-04-double-bounce.js] 1`] = `
 <div>
   <div>
-    <div />
-    <div />
+    <div>
+      <div />
+      <div />
+    </div>
   </div>
   <div>
-    <div />
-    <div />
+    <div>
+      <div />
+      <div />
+    </div>
   </div>
   <div>
-    <div />
-    <div />
+    <div>
+      <div />
+      <div />
+    </div>
   </div>
 </div>
 `;
@@ -282,188 +403,194 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-05-fading-circle
 <div>
   <div>
     <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-  </div>
-  <div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
     </div>
   </div>
   <div>
     <div>
-      <svg>
-        <circle />
-      </svg>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
     </div>
+  </div>
+  <div>
     <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
     </div>
   </div>
 </div>
@@ -473,68 +600,74 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-06-four-dots.js]
 <div>
   <div>
     <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-  </div>
-  <div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
     </div>
   </div>
   <div>
     <div>
-      <svg>
-        <circle />
-      </svg>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
     </div>
+  </div>
+  <div>
     <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
     </div>
   </div>
 </div>
@@ -542,25 +675,43 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-06-four-dots.js]
 
 exports[`Snapshot test: Spin[site/pages/components/Spin/example-07-plane.js] 1`] = `
 <div>
-  <div />
-  <div />
-  <div />
+  <div>
+    <div />
+  </div>
+  <div>
+    <div />
+  </div>
+  <div>
+    <div />
+  </div>
 </div>
 `;
 
 exports[`Snapshot test: Spin[site/pages/components/Spin/example-08-pulse.js] 1`] = `
 <div>
-  <div />
-  <div />
-  <div />
+  <div>
+    <div />
+  </div>
+  <div>
+    <div />
+  </div>
+  <div>
+    <div />
+  </div>
 </div>
 `;
 
 exports[`Snapshot test: Spin[site/pages/components/Spin/example-09-ring.js] 1`] = `
 <div>
-  <div />
-  <div />
-  <div />
+  <div>
+    <div />
+  </div>
+  <div>
+    <div />
+  </div>
+  <div>
+    <div />
+  </div>
 </div>
 `;
 
@@ -568,188 +719,194 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-10-scale-circle.
 <div>
   <div>
     <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-  </div>
-  <div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
     </div>
   </div>
   <div>
     <div>
-      <svg>
-        <circle />
-      </svg>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
     </div>
+  </div>
+  <div>
     <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
     </div>
   </div>
 </div>
@@ -759,53 +916,59 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-11-three-bounce.
 <div>
   <div>
     <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-  </div>
-  <div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
     </div>
   </div>
   <div>
     <div>
-      <svg>
-        <circle />
-      </svg>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
     </div>
+  </div>
+  <div>
     <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
+      <div>
+        <svg>
+          <circle />
+        </svg>
+      </div>
     </div>
   </div>
 </div>
@@ -814,25 +977,31 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-11-three-bounce.
 exports[`Snapshot test: Spin[site/pages/components/Spin/example-12-wave.js] 1`] = `
 <div>
   <div>
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
+    <div>
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+    </div>
   </div>
   <div>
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
+    <div>
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+    </div>
   </div>
   <div>
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
+    <div>
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+    </div>
   </div>
 </div>
 `;

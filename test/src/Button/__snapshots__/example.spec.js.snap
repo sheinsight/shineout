@@ -268,7 +268,9 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-5-loading.js
 <div>
   <button>
     <span>
-      <div />
+      <div>
+        <div />
+      </div>
     </span>
     <span>
       Small
@@ -276,7 +278,9 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-5-loading.js
   </button>
   <button>
     <span>
-      <div />
+      <div>
+        <div />
+      </div>
     </span>
     <span>
       Default
@@ -284,7 +288,9 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-5-loading.js
   </button>
   <button>
     <span>
-      <div />
+      <div>
+        <div />
+      </div>
     </span>
     <span>
       Large
