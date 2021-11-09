@@ -127,7 +127,7 @@ class Table extends Component {
           <div className={tableClass('loading')}>{typeof loading === 'boolean' ? <Spin size={40} /> : loading}</div>
         )}
         {isEmpty && (
-          <div className={tableClass('empty')}>
+          <div className={tableClass('empty')} style={{ visibility: loading ? 'hidden' : 'visible' }}>
             <span>{empty || getLocale('noData')}</span>
           </div>
         )}
