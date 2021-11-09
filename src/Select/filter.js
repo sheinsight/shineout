@@ -170,7 +170,9 @@ export default Origin =>
       if (innerFilter) newData = data.filter(d => innerFilter(d))
       if (innerData && !hideCreateOption) {
         const newKey = getKey(innerData, other.keygen, innerData)
-        newData = [innerData, ...newData.filter(d => getKey(d, other.keygen, d) !== newKey)]
+        if (!newData.find(d => getKey(d, other.keygen, d) === newKey)) {
+          newData = [innerData, ...newData]
+        }
       }
       return {
         data: newData,
