@@ -10,4 +10,5 @@ Part of the style comes from [SpinKit](https://github.com/tobiasahlin/SpinKit).
 | --- | --- | --- | --- |
 | color | string | #6c757d | color |
 | size | number \| string | 40 | size |
+| tip | string  \| ReactNode | - | custom tip |
 | name | string | 'fading-circle' | type. See the example for optional values. |
