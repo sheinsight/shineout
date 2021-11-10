@@ -86,6 +86,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 | --- | --- | --- | --- | -- |
 | getValue | () => any | - | 返回表单的值 | 1.4.4 |
 | validate | () => void | - | 校验表单 | 1.4.4 |
+| validateFields | (names: string[]) => void | - | 校验表单指定字段 | 1.7.0-rc.3 |
 | clearValidate | () => void | - | 清除校验 | 1.4.4 |
 | reset | () => void | - | 重置表单 | 1.4.4 |
 | submit | (withValidate: boolean) => void | - | 提交表单, withValidate: 是否校验 | 1.4.4 |
