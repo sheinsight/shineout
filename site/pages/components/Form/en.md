@@ -76,6 +76,7 @@ Used to process interactive data.
 | --- | --- | --- | --- | -- |
 | getValue | () => any | - | Returns the value of the form | 1.4.4 |
 | validate | () => void | - | Validation form | 1.4.4 |
+| validateFields | (names: string[]) => void | - | Validation form fields | 1.7.0-rc.3 |
 | clearValidate | () => void | - | Clear check | 1.4.4 |
 | reset | () => void | - | Reset form | 1.4.4 |
 | submit | (withValidate: boolean) => void | - | Submit Form, withValidate: Whether to verify | 1.4.4 |
