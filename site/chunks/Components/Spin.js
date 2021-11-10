@@ -14,13 +14,22 @@ const source = locate(cn, en)
 
 const examples = [
   {
-    name: '01-default',
+    name: '01-01-default',
     title: locate(
       'default \n name="default"',
       'default \n name="default"'
     ),
-    component: require('doc/pages/components/Spin/example-01-default.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Spin/example-01-default.js'),
+    component: require('doc/pages/components/Spin/example-01-01-default.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Spin/example-01-01-default.js'),
+  },
+  {
+    name: '01-02-tip',
+    title: locate(
+      'tip \n 自定义提示文案',
+      'tip \n custom tip'
+    ),
+    component: require('doc/pages/components/Spin/example-01-02-tip.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Spin/example-01-02-tip.js'),
   },
   {
     name: '01-wrapper',
