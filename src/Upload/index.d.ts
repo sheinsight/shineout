@@ -17,7 +17,7 @@ export interface Validator {
   size?: (file: File) => (void | Error | Promise<any>),
 }
 
-export interface Options {
+export interface Options<T> {
   /**
    * File
    *
@@ -25,7 +25,7 @@ export interface Options {
    *
    * default: -
    */
-  file?: File;
+  file: Blob | File;
   /**
    * header
    *
@@ -41,7 +41,7 @@ export interface Options {
    *
    * default: -
    */
-  onError?: (err: Error | any) => void;
+  onError: (xhr?: XMLHttpRequest | object ) => void;
   /**
    * onLoad
    *
@@ -49,7 +49,7 @@ export interface Options {
    *
    * default: -
    */
-  onLoad?: () => void;
+  onLoad: (xhr?: XMLHttpRequest | object) => void;
   /**
    * onProgress
    *
@@ -57,7 +57,7 @@ export interface Options {
    *
    * default: -
    */
-  onProgress?: () => void;
+  onProgress: (event?: ProgressEvent, msg?: string) => any;
   /**
    * onStart
    *
@@ -73,7 +73,7 @@ export interface Options {
    *
    * default: -
    */
-  onSuccess?: (value: Response | any) => any;
+  onSuccess?: (res?: string, file?: File, data?: any, xhr?: any) => T;
   /**
    * params
    *
@@ -156,7 +156,7 @@ export interface UploadProps<T> extends StandardProps, OmitFormProps<T[]>{
    *
    * default: -
    */
-  request?: (options: Options) => void;
+  request?: (options: Options<T>) => void;
 
   /**
    * The callback function when the value is changing(Upload successfully, delete). values: Array, the value is the onSuccess returns
