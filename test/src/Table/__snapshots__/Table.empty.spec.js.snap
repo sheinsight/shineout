@@ -198,6 +198,11 @@ exports[`Table[Empty] should render empty table 1`] = `
   </div>
   <div
     className="so-table-empty"
+    style={
+      Object {
+        "visibility": "visible",
+      }
+    }
   >
     <span>
       Data not found
@@ -404,6 +409,11 @@ exports[`Table[Empty] should render empty table with emtpyText 1`] = `
   </div>
   <div
     className="so-table-empty"
+    style={
+      Object {
+        "visibility": "visible",
+      }
+    }
   >
     <span>
       custom empty text
@@ -674,6 +684,11 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
   </div>
   <div
     className="so-table-empty"
+    style={
+      Object {
+        "visibility": "visible",
+      }
+    }
   >
     <span>
       Data not found
@@ -1064,6 +1079,11 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
   </div>
   <div
     className="so-table-empty"
+    style={
+      Object {
+        "visibility": "hidden",
+      }
+    }
   >
     <span>
       Data not found
