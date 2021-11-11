@@ -7,7 +7,7 @@ import { isObject, isFunc, isString, isEmpty } from '../utils/is'
 import Input from './Input'
 import Caret from '../icons/Caret'
 import { isRTL } from '../config'
-import More from './More'
+import More, { getResetMore } from './More'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -59,16 +59,33 @@ class Result extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      more: false,
+      more: -1,
     }
 
     this.handleRemove = this.handleRemove.bind(this)
     this.handelMore = this.handelMore.bind(this)
+    this.bindResult = this.bindResult.bind(this)
   }
 
-  componentDidUpdate() {
-    const { result, compressed } = this.props
-    if (compressed && result.length <= 1) this.state.more = false
+  componentDidUpdate(preProps) {
+    const { result, compressed, onFilter } = this.props
+    if (compressed) {
+      if (preProps.result.join('') !== result.join('')) {
+        this.shouldResetMore = true
+        this.state.more = -1
+        this.forceUpdate()
+      } else if (result.length && this.shouldResetMore) {
+        this.shouldResetMore = false
+        this.state.more = getResetMore(onFilter, this.resultEl, [
+          ...this.resultEl.querySelectorAll(`.${selectClass('item')}`),
+        ])
+        this.forceUpdate()
+      }
+    }
+  }
+
+  bindResult(el) {
+    this.resultEl = el
   }
 
   handleRemove(...args) {
@@ -94,7 +111,7 @@ class Result extends PureComponent {
     this.setState({ more })
   }
 
-  renderItem(data, useClose, index) {
+  renderItem(data, index) {
     const { renderResult, renderUnmatched, datum, resultClassName } = this.props
     const content = getResultContent(data, renderResult, renderUnmatched)
     if (content === null) return null
@@ -104,7 +121,7 @@ class Result extends PureComponent {
         content={content}
         data={data}
         disabled={datum.disabled(data)}
-        onClick={useClose ? this.handleRemove : undefined}
+        onClick={this.handleRemove}
         resultClassName={resultClassName}
         title
       />
@@ -113,17 +130,19 @@ class Result extends PureComponent {
 
   renderMore(items) {
     const { compressedClassName, compressed } = this.props
+    const { more } = this.state
     const className = classnames(selectClass('popover'), compressedClassName)
-    const [firstItem, ...others] = items
+
     return [
-      firstItem,
       <More
         key="more"
+        showNum={more}
         className={selectClass('item', 'item-compressed')}
         popoverClassName={className}
         contentClassName={selectClass('result')}
         compressed={compressed}
-        data={[React.cloneElement(firstItem, { onClick: this.handleRemove }), ...others]}
+        data={items}
+        more={more}
         cls={selectClass}
       />,
     ]
@@ -210,11 +229,9 @@ class Result extends PureComponent {
     } = this.props
 
     if (multiple) {
-      let items = result
-        .map((n, i) => this.renderItem(n, (i === 0 && result.length <= 1) || !compressed || i > 0, i))
-        .filter(n => !isEmpty(n))
+      let items = result.map((n, i) => this.renderItem(n, i)).filter(n => !isEmpty(n))
 
-      if (compressed && result.length > 1) {
+      if (compressed) {
         items = this.renderMore(items)
       }
 
@@ -263,7 +280,10 @@ class Result extends PureComponent {
 
     if (rtl) {
       return (
-        <div className={selectClass('result', compressed && 'compressed', showPlaceholder && 'empty')}>
+        <div
+          ref={this.bindResult}
+          className={selectClass('result', compressed && 'compressed', showPlaceholder && 'empty')}
+        >
           {this.renderClear()}
           {this.renderIndicator()}
           {result}
@@ -272,7 +292,10 @@ class Result extends PureComponent {
     }
 
     return (
-      <div className={selectClass('result', compressed && 'compressed', showPlaceholder && 'empty')}>
+      <div
+        ref={this.bindResult}
+        className={selectClass('result', compressed && 'compressed', showPlaceholder && 'empty')}
+      >
         {result}
         {this.renderIndicator()}
         {this.renderClear()}
