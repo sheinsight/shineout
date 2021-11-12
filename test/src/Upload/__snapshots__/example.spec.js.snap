@@ -175,7 +175,7 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-10-defaultVa
       <button>
         <i />
         <span>
-           Upload file
+          Upload file
         </span>
       </button>
       <input />
@@ -209,15 +209,14 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-10-defaultVa
             <path />
           </svg>
         </a>
-        <a>
-          <svg>
-            <path />
-            <path />
-            <path />
-          </svg>
-        </a>
       </div>
     </div>
+    <span>
+      <div>
+        <div />
+      </div>
+      <input />
+    </span>
   </div>
 </div>
 `;

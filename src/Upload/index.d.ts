@@ -327,7 +327,18 @@ export interface UploadProps<T> extends StandardProps, OmitFormProps<T[]>{
    *
    * default: none
    */
-  beforeRemove?: (value: any) => Promise<any>;
+  beforeRemove?: (value: T) => Promise<any>;
+
+  /**
+   *  Can the file be deleted
+   *
+   *  文件是否可以删除
+   *
+   *  default: true
+   *
+   */
+
+  canDelete?: ((value: T, index: number) => boolean) | boolean
 }
 
 export interface UploadImageProps<T> extends UploadProps<T>{
