@@ -122,16 +122,16 @@ class FieldSet extends Component {
     if (values.length === 0 && empty) {
       result.push(empty(this.handleInsert.bind(this, 0)))
     } else {
-      const errorList = Array.isArray(errors) ? errors : []
+      const errorList = (Array.isArray(errors) ? errors : [errors]).filter(Boolean)
+      console.log(errorList)
       values.forEach((v, i) => {
-        const error = errorList[i]
         result.push(
           <Provider key={i} value={{ path: `${name}[${i}]`, val: this.validate }}>
             {children({
               list: values,
               value: v,
               index: i,
-              error,
+              error: errorList,
               datum: formDatum,
               onChange: this.handleChange.bind(this, i),
               onInsert: this.handleInsert.bind(this, i),
