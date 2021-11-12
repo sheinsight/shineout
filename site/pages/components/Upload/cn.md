@@ -13,7 +13,7 @@
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | accept | string | 无 | 上传文件类型, 和标准一致, 详见[accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) |
-| action | ((file: File) => string) \| string | 必填 | 上传地址 |
+| action | ((file: File) => string)) \| string | 必填 | 上传地址 |
 | children | ReactNode | 必填 | 上传占位内容 |
 | className | string | 无 | 扩展className |
 | defaultValue | any[] | 无 | 默认值 |
@@ -43,6 +43,7 @@
 | showUploadList | boolean | true | 是否展示上传列表 |
 | removeConfirm | string \| object | 无 | 删除前是否进行确认提示 |
 | beforeRemove | (value: any) => Promise | 无 | 删除前的确认 |
+| canDelete | ((value: any) => boolean) \| boolean | 无 | 文件是否可以删除|
 
 ### Upload.Image
 
