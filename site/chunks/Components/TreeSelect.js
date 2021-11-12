@@ -32,6 +32,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/TreeSelect/example-02-mutiple.js'),
   },
   {
+    name: '02-o-format',
+    title: locate(
+      '复杂数据 \n 复杂的数据可以使用 format 处理 value',
+      'Complex data \n Complex data can use format to process value.'
+    ),
+    component: require('doc/pages/components/TreeSelect/example-02-o-format.js').default,
+    rawText: require('!raw-loader!doc/pages/components/TreeSelect/example-02-o-format.js'),
+  },
+  {
     name: '03-filter',
     title: locate(
       '筛选 \n onFilter 返回函数时，使用这个函数做前端过滤。',
