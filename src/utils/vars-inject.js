@@ -2838,6 +2838,30 @@ const injects = {
         desc: '文字大小',
       },
       {
+        name: 'iconMarginTop',
+        className: alertClass('icon'),
+        attr: 'marginTop',
+        type: 'number',
+        parser: parseInt,
+        desc: 'Icon上外边距',
+      },
+      {
+        name: 'paddingX',
+        className: alertClass('_'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+        desc: '水平方向内边距',
+      },
+      {
+        name: 'paddingY',
+        className: alertClass('_'),
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+        desc: '垂直方向内边距',
+      },
+      {
         name: 'closeIconColor',
         className: exposeClass('alert-close'),
         attr: 'color',
@@ -2988,6 +3012,32 @@ const injects = {
         v
       )
     },
+
+    set paddingX(v) {
+      setBodyProperty(
+        {
+          '--alert-padding-x': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set paddingY(v) {
+      setBodyProperty(
+        {
+          '--alert-padding-y': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set iconMarginTop(v) {
+      setBodyProperty(
+        {
+          '--alert-icon-margin-top': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+
     set closeIconColor(v) {
       setBodyProperty(
         {
