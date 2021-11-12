@@ -22,7 +22,11 @@ const rules = Rule({
 })
 
 export default class extends PureComponent {
-  renderEmpty = onAppend => <Button onClick={() => onAppend('')}>Add new friend</Button>
+  renderEmpty = onAppend => (
+    <Button key="empty" onClick={() => onAppend('')}>
+      Add new friend
+    </Button>
+  )
 
   render() {
     return (
