@@ -143,3 +143,5 @@ export const preventPasteFile = e => {
   e.preventDefault()
   document.execCommand('insertText', false, text)
 }
+
+export const parsePxToNumber = str => Number(str.replace(/\s+|px/gi, ''))

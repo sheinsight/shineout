@@ -6,7 +6,7 @@ import { inputClass } from '../Input/styles'
 import { isEmpty, isObject } from '../utils/is'
 import Input from './Input'
 import Caret from '../icons/Caret'
-import More from '../Select/More'
+import More, { getResetMore } from '../Select/More'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -35,15 +35,32 @@ class Result extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      more: false,
+      more: -1,
     }
     this.handleRemove = this.handleRemove.bind(this)
     this.handelMore = this.handelMore.bind(this)
+    this.bindResult = this.bindResult.bind(this)
   }
 
-  componentDidUpdate() {
-    const { result, compressed } = this.props
-    if (compressed && result.length <= 1) this.state.more = false
+  componentDidUpdate(preProps) {
+    const { result, compressed, onFilter } = this.props
+    if (compressed) {
+      if (preProps.result.join('') !== result.join('')) {
+        this.shouldResetMore = true
+        this.state.more = -1
+        this.forceUpdate()
+      } else if (result.length && this.shouldResetMore) {
+        this.shouldResetMore = false
+        this.state.more = getResetMore(onFilter, this.resultEl, [
+          ...this.resultEl.querySelectorAll(`.${treeSelectClass('item')}`),
+        ])
+        this.forceUpdate()
+      }
+    }
+  }
+
+  bindResult(el) {
+    this.resultEl = el
   }
 
   handleRemove(...args) {
@@ -105,17 +122,17 @@ class Result extends PureComponent {
 
   renderMore(items) {
     const { compressed } = this.props
-    const [firstItem, ...others] = items
+    const { more } = this.state
     return [
-      firstItem,
       <More
         key="more"
         className={treeSelectClass('item', 'item-compressed')}
         popoverClassName={treeSelectClass('popover')}
         contentClassName={treeSelectClass('result')}
         compressed={compressed}
-        data={[React.cloneElement(firstItem, { onClick: this.handleRemove }), ...others]}
+        data={items}
         cls={treeSelectClass}
+        showNum={more}
       />,
     ]
   }
@@ -143,7 +160,7 @@ class Result extends PureComponent {
         .map((n, i) => this.renderItem(n, (i === 0 && result.length <= 1) || !compressed || i > 0, i))
         .filter(n => !isEmpty(n))
 
-      if (compressed && result.length > 1) {
+      if (compressed) {
         items = this.renderMore(items)
       }
 
@@ -168,7 +185,10 @@ class Result extends PureComponent {
     const result = showPlaceholder ? this.renderPlaceholder() : this.renderResult()
     const { compressed } = this.props
     return (
-      <div className={treeSelectClass('result', compressed && 'compressed', showPlaceholder && 'empty')}>
+      <div
+        ref={this.bindResult}
+        className={treeSelectClass('result', compressed && 'compressed', showPlaceholder && 'empty')}
+      >
         {result}
         {!this.props.multiple && (
           // eslint-disable-next-line

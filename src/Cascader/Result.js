@@ -6,7 +6,7 @@ import { selectClass } from '../Select/styles'
 import { cascaderClass } from './styles'
 import Input from './Input'
 import icons from '../icons'
-import More from '../Select/More'
+import More, { getResetMore } from '../Select/More'
 import { isEmpty } from '../utils/is'
 import { CHANGE_TOPIC } from '../Datum/types'
 import Caret from '../icons/Caret'
@@ -38,16 +38,37 @@ function Item({ children, close, className, data, isPopover, singleRemove, click
 class Result extends PureComponent {
   constructor(props) {
     super(props)
+    this.state = {
+      more: -1,
+    }
 
     this.handleNodeClick = this.handleNodeClick.bind(this)
     this.renderItem = this.renderItem.bind(this)
     this.removeTargetNode = this.removeTargetNode.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
+    this.bindResult = this.bindResult.bind(this)
   }
 
   componentDidMount() {
     const { datum } = this.props
     datum.subscribe(CHANGE_TOPIC, this.handleUpdate)
+  }
+
+  componentDidUpdate(preProps) {
+    const { compressed, value = [], onFilter } = this.props
+    if (compressed) {
+      if ((preProps.value || []).join('') !== value.join('')) {
+        this.shouldResetMore = true
+        this.state.more = -1
+        this.forceUpdate()
+      } else if (value.length && this.shouldResetMore) {
+        this.shouldResetMore = false
+        this.state.more = getResetMore(onFilter, this.resultEl, [
+          ...this.resultEl.querySelectorAll(`.${cascaderClass('item')}`),
+        ])
+        this.forceUpdate()
+      }
+    }
   }
 
   componentWillUnmount() {
@@ -57,6 +78,10 @@ class Result extends PureComponent {
 
   handleUpdate() {
     this.forceUpdate()
+  }
+
+  bindResult(el) {
+    this.resultEl = el
   }
 
   handleNodeClick(data, show = false) {
@@ -138,9 +163,8 @@ class Result extends PureComponent {
 
   renderMore(list) {
     const { selectId, size, compressed } = this.props
-    const [firstItem] = list
+    const { more } = this.state
     return [
-      firstItem,
       <More
         key="more"
         data={list}
@@ -148,6 +172,7 @@ class Result extends PureComponent {
         popoverClassName={cascaderClass('popover')}
         contentClassName={cascaderClass('result', size)}
         dataId={selectId}
+        showNum={more}
         compressed={compressed}
       />,
     ]
@@ -204,7 +229,7 @@ class Result extends PureComponent {
 
     let items = this.handleNode(nodes, render)
 
-    if (compressed && items.length > 1) {
+    if (compressed) {
       items = this.renderMore(items)
     }
 
@@ -221,7 +246,11 @@ class Result extends PureComponent {
     const { style, value, compressed, multiple } = this.props
     const result = value.length === 0 ? this.renderPlaceholder() : this.renderResult()
     return (
-      <div className={cascaderClass('result', multiple && compressed && 'compressed')} style={style}>
+      <div
+        ref={this.bindResult}
+        className={cascaderClass('result', multiple && compressed && 'compressed')}
+        style={style}
+      >
         {result}
         {this.renderIndicator()}
         {this.renderClear()}
