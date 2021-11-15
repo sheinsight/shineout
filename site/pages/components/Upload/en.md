@@ -52,6 +52,7 @@
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | none | remove update failed callback |
 | onPreview | (url, value, index, values) => void | none | how to preview the image |
 | ignorePreview | boolean | false | ignore image preview |
+| gapProps | object | {column: 12, row: 12} | gap is the same as Gap component props |
 
 ### Upload.Button
 

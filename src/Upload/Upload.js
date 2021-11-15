@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import immer from 'immer'
+import Gap from '../Gap'
 import { PureComponent } from '../component'
 import { getUidStr } from '../utils/uid'
 import { FormError } from '../utils/errors'
@@ -438,6 +439,7 @@ class Upload extends PureComponent {
       leftHandler,
       onPreview,
       removeConfirm,
+      GapProps,
     } = this.props
     const { files, recycle } = this.state
     const fileDrop = drop && !imageStyle
@@ -458,57 +460,61 @@ class Upload extends PureComponent {
       )
     }
 
+    const Wrapper = imageStyle ? Gap : React.Fragment
+
     return (
       <div className={className} style={style} {...getDataset(this.props)}>
-        {!imageStyle && this.renderHandle()}
-        {imageStyle && leftHandler && this.renderHandle()}
-        {showUploadList &&
-          value.map((v, i) => (
-            <Drop
-              drop={drop}
-              multiple={false}
-              key={i}
-              accept={accept}
-              dropData={i}
-              disabled={disabled}
-              onDrop={this.handleReplace}
-            >
+        <Wrapper {...(imageStyle ? GapProps : null)}>
+          {!imageStyle && this.renderHandle()}
+          {imageStyle && leftHandler && this.renderHandle()}
+          {showUploadList &&
+            value.map((v, i) => (
+              <Drop
+                drop={drop}
+                multiple={false}
+                key={i}
+                accept={accept}
+                dropData={i}
+                disabled={disabled}
+                onDrop={this.handleReplace}
+              >
+                <ResultComponent
+                  renderContent={renderContent}
+                  value={v}
+                  values={value}
+                  index={i}
+                  style={imageStyle}
+                  renderResult={renderResult}
+                  onRemove={this.getCanDelete(v, i) ? this.removeValue : undefined}
+                  removeConfirm={removeConfirm}
+                  onPreview={onPreview}
+                />
+              </Drop>
+            ))}
+
+          {showUploadList &&
+            Object.keys(files).map(id => (
+              <FileComponent {...files[id]} key={id} id={id} style={imageStyle} onRemove={this.removeFile} />
+            ))}
+
+          {imageStyle && !leftHandler && this.renderHandle()}
+
+          {recoverAble &&
+            recycle.map((v, i) => (
               <ResultComponent
                 renderContent={renderContent}
+                key={i}
                 value={v}
-                values={value}
+                values={recycle}
                 index={i}
-                style={imageStyle}
                 renderResult={renderResult}
-                onRemove={this.getCanDelete(v, i) ? this.removeValue : undefined}
-                removeConfirm={removeConfirm}
-                onPreview={onPreview}
+                recoverAble={!!recoverAble}
+                showRecover={recoverAble && limit > value.length}
+                onRecover={this.recoverValue}
+                style={imageStyle}
               />
-            </Drop>
-          ))}
-
-        {showUploadList &&
-          Object.keys(files).map(id => (
-            <FileComponent {...files[id]} key={id} id={id} style={imageStyle} onRemove={this.removeFile} />
-          ))}
-
-        {imageStyle && !leftHandler && this.renderHandle()}
-
-        {recoverAble &&
-          recycle.map((v, i) => (
-            <ResultComponent
-              renderContent={renderContent}
-              key={i}
-              value={v}
-              values={recycle}
-              index={i}
-              renderResult={renderResult}
-              recoverAble={!!recoverAble}
-              showRecover={recoverAble && limit > value.length}
-              onRecover={this.recoverValue}
-              style={imageStyle}
-            />
-          ))}
+            ))}
+        </Wrapper>
       </div>
     )
   }
@@ -558,6 +564,7 @@ Upload.propTypes = {
   beforeRemove: PropTypes.func,
   forceAcceptErrorMsg: PropTypes.string,
   canDelete: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+  GapProps: PropTypes.shape({}),
 }
 
 Upload.defaultProps = {
@@ -570,6 +577,7 @@ Upload.defaultProps = {
   showUploadList: true,
   validatorHandle: true,
   canDelete: true,
+  GapProps: { column: 12, row: 12 },
 }
 
 export default acceptHOC(Upload)

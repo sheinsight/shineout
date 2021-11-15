@@ -3,6 +3,7 @@
 
 @upload-prefix: ~'@{so-prefix}-upload';
 @button-prefix: ~'@{so-prefix}-button';
+@gap-prefix: ~'@{so-prefix}-gap';
 
 .message() {
   position: absolute;
@@ -485,5 +486,16 @@
 
   &-url-invalid-message {
     .message()
+  }
+}
+
+.@{gap-prefix} {
+  .@{upload-prefix} {
+    &-image-item {
+      margin-right: 0;
+    }
+    &-handle {
+      margin-bottom: 0;
+    }
   }
 }
