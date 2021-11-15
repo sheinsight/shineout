@@ -32,7 +32,7 @@
 | renderContent | (res: any, value: any, index: number, values: any[]) => ReactNode | - | Custom content of result  |
 | validatorHandle | ((error: any, file: File) => boolean) \| boolean  | true | Whether to handle the case of validation failure, if a function is provided, it is judged by the return value of the function. |
 | drop | boolean | false | drop to update |
-| filesFilter | (fileList: any[]) => boolean | none | Filter after file selection, users can customize the list of files that need to be uploaded eventually<br />Need to return a new file list |
+| filesFilter | (fileList: any[]) => fileList: any[] | none | Filter after file selection, users can customize the list of files that need to be uploaded eventually<br />Need to return a new file list |
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | none | remove update failed callback |
 | forceAccept | string | none | After disabled the file type filtering provided by accept, it is mandatory to check the file type, value same as accept |
 | forceAcceptErrorMsg | string | 无 | Custom error prompt after forceAccept type verification fails |
@@ -40,6 +40,7 @@
 | leftHandler | boolean | false | add image handler show left |
 | removeConfirm | string \| object | none | confirmation before deletion |
 | beforeRemove | (value: any) => Promise | none | callback before remove |
+| canDelete | （(value: any) => boolean) \| boolean | 无 | Can the file be deleted |
 
 ### Upload.Image
 

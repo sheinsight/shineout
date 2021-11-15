@@ -15,6 +15,7 @@ import ImageResult from './ImageResult'
 import { Provider } from './context'
 import Drop from './Drop'
 import attrAccept from '../utils/accept'
+import { isFunc } from '../utils/is'
 import { getLocale } from '../locale'
 import acceptHOC from './accept'
 import getDataset from '../utils/dom/getDataset'
@@ -61,6 +62,14 @@ class Upload extends PureComponent {
     this.handleReplace = this.handleReplace.bind(this)
 
     props.validateHook(this.validate.bind(this))
+  }
+
+  getCanDelete(item, index) {
+    const { canDelete } = this.props
+    if (isFunc(canDelete)) {
+      return canDelete(item, index)
+    }
+    return canDelete
   }
 
   getAction(file) {
@@ -471,7 +480,7 @@ class Upload extends PureComponent {
                 index={i}
                 style={imageStyle}
                 renderResult={renderResult}
-                onRemove={this.removeValue}
+                onRemove={this.getCanDelete(v, i) ? this.removeValue : undefined}
                 removeConfirm={removeConfirm}
                 onPreview={onPreview}
               />
@@ -548,6 +557,7 @@ Upload.propTypes = {
   removeConfirm: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   beforeRemove: PropTypes.func,
   forceAcceptErrorMsg: PropTypes.string,
+  canDelete: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 }
 
 Upload.defaultProps = {
@@ -559,6 +569,7 @@ Upload.defaultProps = {
   withCredentials: false,
   showUploadList: true,
   validatorHandle: true,
+  canDelete: true,
 }
 
 export default acceptHOC(Upload)

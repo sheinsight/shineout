@@ -15,7 +15,7 @@ import { itemConsumer } from './Item'
 import { loopConsumer } from './Loop'
 import { fieldSetConsumer } from './FieldSet'
 
-const types = ['formDatum', 'disabled', 'combineRules']
+const types = ['formDatum', 'disabled', 'combineRules', 'size']
 const consumer = compose(
   formConsumer(types),
   itemConsumer,
@@ -88,7 +88,6 @@ export default curry(Origin =>
 
       componentDidMount() {
         super.componentDidMount()
-
         const { formDatum, loopContext, name, defaultValue, bindInputToItem, popover } = this.props
 
         if (formDatum && name) {

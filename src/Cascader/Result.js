@@ -75,6 +75,23 @@ class Result extends PureComponent {
     }
   }
 
+  componentDidUpdate(preProps) {
+    const { compressed, value = [], onFilter } = this.props
+    if (compressed) {
+      if ((preProps.value || []).join('') !== value.join('')) {
+        this.shouldResetMore = true
+        this.state.more = -1
+        this.forceUpdate()
+      } else if (value.length && this.shouldResetMore) {
+        this.shouldResetMore = false
+        this.state.more = getResetMore(onFilter, this.resultEl, [
+          ...this.resultEl.querySelectorAll(`.${cascaderClass('item')}`),
+        ])
+        this.forceUpdate()
+      }
+    }
+  }
+
   componentWillUnmount() {
     const { datum } = this.props
     datum.unsubscribe(CHANGE_TOPIC, this.handleUpdate)

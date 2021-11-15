@@ -60,7 +60,7 @@ export const formProvider = Origin => {
     }
 
     render() {
-      const { datum, labelAlign, labelVerticalAlign, labelWidth, disabled, pending, mode } = this.props
+      const { datum, labelAlign, labelVerticalAlign, labelWidth, disabled, pending, mode, size } = this.props
       const value = {
         formDatum: datum,
         formMode: mode,
@@ -68,6 +68,7 @@ export const formProvider = Origin => {
         labelAlign,
         labelVerticalAlign,
         labelWidth,
+        size,
         combineRules: this.combineRules,
         groupValidate: this.groupValidate,
       }
@@ -90,6 +91,7 @@ export const formProvider = Origin => {
     pending: PropTypes.bool,
     rule: PropTypes.object,
     rules: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+    size: PropTypes.string,
   }
 
   return FormProvider
