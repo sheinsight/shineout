@@ -7,6 +7,7 @@ import { cascaderClass } from './styles'
 import Input from './Input'
 import icons from '../icons'
 import More, { getResetMore } from '../Select/More'
+import { addResizeObserver } from '../utils/dom/element'
 import { isEmpty } from '../utils/is'
 import { CHANGE_TOPIC } from '../Datum/types'
 import Caret from '../icons/Caret'
@@ -47,11 +48,31 @@ class Result extends PureComponent {
     this.removeTargetNode = this.removeTargetNode.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
     this.bindResult = this.bindResult.bind(this)
+    this.resetMore = this.resetMore.bind(this)
   }
 
   componentDidMount() {
     const { datum } = this.props
     datum.subscribe(CHANGE_TOPIC, this.handleUpdate)
+    const { compressed } = this.props
+    if (compressed) {
+      this.cancelResizeObserver = addResizeObserver(this.resultEl, this.resetMore)
+    }
+  }
+
+  componentDidUpdate(preProps) {
+    const { compressed, value = [], onFilter } = this.props
+    if (compressed) {
+      if ((preProps.value || []).join('') !== value.join('')) {
+        this.resetMore()
+      } else if (value.length && this.shouldResetMore) {
+        this.shouldResetMore = false
+        this.state.more = getResetMore(onFilter, this.resultEl, [
+          ...this.resultEl.querySelectorAll(`.${cascaderClass('item')}`),
+        ])
+        this.forceUpdate()
+      }
+    }
   }
 
   componentDidUpdate(preProps) {
@@ -74,6 +95,7 @@ class Result extends PureComponent {
   componentWillUnmount() {
     const { datum } = this.props
     datum.unsubscribe(CHANGE_TOPIC, this.handleUpdate)
+    if (this.cancelResizeObserver) this.cancelResizeObserver()
   }
 
   handleUpdate() {
@@ -82,6 +104,13 @@ class Result extends PureComponent {
 
   bindResult(el) {
     this.resultEl = el
+  }
+
+  resetMore() {
+    if (!this.props.compressed) return
+    this.shouldResetMore = true
+    this.state.more = -1
+    this.forceUpdate()
   }
 
   handleNodeClick(data, show = false) {

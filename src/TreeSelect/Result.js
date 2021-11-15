@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { addResizeObserver } from '../utils/dom/element'
 import { treeSelectClass } from './styles'
 import { inputClass } from '../Input/styles'
 import { isEmpty, isObject } from '../utils/is'
@@ -40,15 +41,21 @@ class Result extends PureComponent {
     this.handleRemove = this.handleRemove.bind(this)
     this.handelMore = this.handelMore.bind(this)
     this.bindResult = this.bindResult.bind(this)
+    this.resetMore = this.resetMore.bind(this)
+  }
+
+  componentDidMount() {
+    const { compressed } = this.props
+    if (compressed) {
+      this.cancelResizeObserver = addResizeObserver(this.resultEl, this.resetMore)
+    }
   }
 
   componentDidUpdate(preProps) {
     const { result, compressed, onFilter } = this.props
     if (compressed) {
       if (preProps.result.join('') !== result.join('')) {
-        this.shouldResetMore = true
-        this.state.more = -1
-        this.forceUpdate()
+        this.resetMore()
       } else if (result.length && this.shouldResetMore) {
         this.shouldResetMore = false
         this.state.more = getResetMore(onFilter, this.resultEl, [
@@ -59,8 +66,19 @@ class Result extends PureComponent {
     }
   }
 
+  componentWillUnmount() {
+    if (this.cancelResizeObserver) this.cancelResizeObserver()
+  }
+
   bindResult(el) {
     this.resultEl = el
+  }
+
+  resetMore() {
+    if (!this.props.compressed) return
+    this.shouldResetMore = true
+    this.state.more = -1
+    this.forceUpdate()
   }
 
   handleRemove(...args) {
@@ -105,18 +123,12 @@ class Result extends PureComponent {
     )
   }
 
-  renderItem(data, useClose, index) {
+  renderItem(data, index) {
     const { renderResult, renderUnmatched, datum } = this.props
     const content = getResultContent(data, renderResult, renderUnmatched)
     if (content === null) return null
     return (
-      <Item
-        key={index}
-        content={content}
-        data={data}
-        disabled={datum.disabled(data)}
-        onClick={useClose ? this.handleRemove : undefined}
-      />
+      <Item key={index} content={content} data={data} disabled={datum.disabled(data)} onClick={this.handleRemove} />
     )
   }
 
@@ -156,9 +168,7 @@ class Result extends PureComponent {
     const { multiple, compressed, result, renderResult, renderUnmatched, onFilter, focus, filterText } = this.props
 
     if (multiple) {
-      let items = result
-        .map((n, i) => this.renderItem(n, (i === 0 && result.length <= 1) || !compressed || i > 0, i))
-        .filter(n => !isEmpty(n))
+      let items = result.map((n, i) => this.renderItem(n, i)).filter(n => !isEmpty(n))
 
       if (compressed) {
         items = this.renderMore(items)

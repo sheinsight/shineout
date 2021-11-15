@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { parsePxToNumber } from 'shineout/utils/dom/element'
+import { parsePxToNumber } from '../utils/dom/element'
 import Popover from '../Popover'
 
 export function getResetMore(onFilter, container, items) {
+  if (!container || !items || !items.length) return -1
   const style = getComputedStyle(container)
   const { clientWidth } = container
   const paddingLeft = parsePxToNumber(style.paddingLeft)

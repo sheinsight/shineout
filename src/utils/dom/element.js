@@ -145,3 +145,16 @@ export const preventPasteFile = e => {
 }
 
 export const parsePxToNumber = str => Number(str.replace(/\s+|px/gi, ''))
+
+export const addResizeObserver = (el, handler) => {
+  if (window.ResizeObserver) {
+    let observer = new ResizeObserver(handler)
+    observer.observe(el)
+    return () => {
+      observer.disconnect()
+      observer = null
+    }
+  }
+  window.addEventListener('resize', handler)
+  return window.removeEventListener('resize', handler)
+}
