@@ -470,6 +470,7 @@ class SeperateTable extends PureComponent {
     } = this.props
     const { colgroup, scrollTop, scrollLeft, offsetLeft, offsetRight, currentIndex, resize } = this.state
     const contentWidth = this.getContentWidth()
+    const minWidthSup = columns.find(d => d.minWidth)
 
     if (!data || data.length === 0) {
       return <div />
@@ -497,7 +498,7 @@ class SeperateTable extends PureComponent {
       >
         <div ref={this.bindTbody} className={tableClass('scroll-inner')} style={{ width }}>
           <div style={{ height: prevHeight }} />
-          <table style={{ width }} ref={this.bindRealTbody}>
+          <table className={tableClass(!colgroup && minWidthSup && 'init')} style={{ width }} ref={this.bindRealTbody}>
             <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable && this.lastScrollArgs[4]} />
             <Tbody
               {...others}

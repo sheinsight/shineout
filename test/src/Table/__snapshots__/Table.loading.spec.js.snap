@@ -132,6 +132,7 @@ exports[`Table[loading] should render loading 1`] = `
     onScroll={[Function]}
   >
     <table
+      className=""
       style={
         Object {
           "width": undefined,

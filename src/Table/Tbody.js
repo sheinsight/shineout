@@ -166,8 +166,10 @@ class Tbody extends PureComponent {
           if (!v) return <td key={i} />
           if (v.minWidth) {
             return (
-              <td key={i}>
-                <div style={{ width: v.minWidth }} />
+              <td key={i} style={{ padding: 0, border: 'none' }}>
+                <div style={{ width: v.minWidth }}>
+                  {v.title && typeof v.title === 'function' ? v.title(data) : v.title}
+                </div>
               </td>
             )
           }
