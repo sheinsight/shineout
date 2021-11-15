@@ -4,6 +4,7 @@ import classnames from 'classnames'
 import { selectClass } from './styles'
 import { inputClass } from '../Input/styles'
 import { isObject, isFunc, isString, isEmpty } from '../utils/is'
+import { addResizeObserver } from '../utils/dom/element'
 import Input from './Input'
 import Caret from '../icons/Caret'
 import { isRTL } from '../config'
@@ -65,15 +66,21 @@ class Result extends PureComponent {
     this.handleRemove = this.handleRemove.bind(this)
     this.handelMore = this.handelMore.bind(this)
     this.bindResult = this.bindResult.bind(this)
+    this.resetMore = this.resetMore.bind(this)
+  }
+
+  componentDidMount() {
+    const { compressed } = this.props
+    if (compressed) {
+      this.cancelResizeObserver = addResizeObserver(this.resultEl, this.resetMore)
+    }
   }
 
   componentDidUpdate(preProps) {
     const { result, compressed, onFilter } = this.props
     if (compressed) {
       if (preProps.result.join('') !== result.join('')) {
-        this.shouldResetMore = true
-        this.state.more = -1
-        this.forceUpdate()
+        this.resetMore()
       } else if (result.length && this.shouldResetMore) {
         this.shouldResetMore = false
         this.state.more = getResetMore(onFilter, this.resultEl, [
@@ -84,8 +91,19 @@ class Result extends PureComponent {
     }
   }
 
+  componentWillUnmount() {
+    if (this.cancelResizeObserver) this.cancelResizeObserver()
+  }
+
   bindResult(el) {
     this.resultEl = el
+  }
+
+  resetMore() {
+    if (!this.props.compressed) return
+    this.shouldResetMore = true
+    this.state.more = -1
+    this.forceUpdate()
   }
 
   handleRemove(...args) {
