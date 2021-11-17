@@ -12,7 +12,7 @@ export default function() {
   return (
     <div style={style}>
       <Spin size={18} color="green" tip="Loading..." />
-      <Spin size="54px" color="#dc3545" tip={<span style={{ fontSize: 20 }}>正在全力加载...</span>} />
+      <Spin size="54px" color="#dc3545" tip={<span style={{ fontSize: 20 }}>Loading...</span>} />
     </div>
   )
 }

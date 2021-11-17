@@ -224,26 +224,18 @@ exports[`Table[loading] should render loading 1`] = `
     className="so-table-loading"
   >
     <div
-      className="so-spin"
+      className="so-spin-ring"
       style={
         Object {
+          "borderTopColor": "#1890ff",
+          "borderWidth": "4px",
           "color": "#1890ff",
+          "height": 40,
           "margin": undefined,
+          "width": 40,
         }
       }
-    >
-      <div
-        className="so-spin-ring"
-        style={
-          Object {
-            "borderTopColor": "#1890ff",
-            "borderWidth": "4px",
-            "height": 40,
-            "width": 40,
-          }
-        }
-      />
-    </div>
+    />
   </div>
 </div>
 `;

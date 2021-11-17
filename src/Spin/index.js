@@ -53,29 +53,34 @@ function getName(name) {
 }
 
 function Spin(props) {
-  const { children } = props
+  const { children, style, className, ...rest } = props
   const name = getName(props.name)
   const Component = spins[name]
   if (!Component) {
     console.warn(`Spin type '${name}' not existed.`)
     return null
   }
-  const className = classnames(spinClass('_'), props.className)
-  const style = Object.assign(
+  const classes = classnames(spinClass('_'), className)
+  const wrapperStyle = Object.assign(
     {
       margin: props.margin,
       color: props.color,
     },
-    props.style
+    style
   )
-  const Content = (
-    <div className={className} style={style}>
-      <Component {...props} />
-      {props.tip && (
-        <div className={spinClass('tip')}>{typeof props.tip === 'string' ? <span>{props.tip}</span> : props.tip}</div>
-      )}
-    </div>
-  )
+  let Content
+  if (!('tip' in props)) {
+    Content = <Component {...rest} sry wrapperStyle={wrapperStyle} wrapperClass={className} />
+  } else {
+    Content = (
+      <div className={classes} style={wrapperStyle}>
+        <Component {...rest} />
+        {props.tip && (
+          <div className={spinClass('tip')}>{typeof props.tip === 'string' ? <span>{props.tip}</span> : props.tip}</div>
+        )}
+      </div>
+    )
+  }
   if (children) return renderContainer(Content, props)
   return Content
 }

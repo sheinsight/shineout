@@ -905,179 +905,171 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
     className="so-table-loading"
   >
     <div
-      className="so-spin"
+      className="so-spin-default"
       style={
         Object {
           "color": "#6c757d",
+          "height": 40,
           "margin": undefined,
+          "width": 40,
         }
       }
     >
       <div
-        className="so-spin-default"
-        style={
-          Object {
-            "height": 40,
-            "width": 40,
-          }
-        }
+        className="so-spin-default-item"
       >
         <div
-          className="so-spin-default-item"
-        >
-          <div
-            style={
-              Object {
-                "backgroundColor": "#6c757d",
-                "borderRadius": "4px",
-                "width": "4px",
-              }
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
             }
-          />
-        </div>
+          }
+        />
+      </div>
+      <div
+        className="so-spin-default-item"
+      >
         <div
-          className="so-spin-default-item"
-        >
-          <div
-            style={
-              Object {
-                "backgroundColor": "#6c757d",
-                "borderRadius": "4px",
-                "width": "4px",
-              }
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
             }
-          />
-        </div>
+          }
+        />
+      </div>
+      <div
+        className="so-spin-default-item"
+      >
         <div
-          className="so-spin-default-item"
-        >
-          <div
-            style={
-              Object {
-                "backgroundColor": "#6c757d",
-                "borderRadius": "4px",
-                "width": "4px",
-              }
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
             }
-          />
-        </div>
+          }
+        />
+      </div>
+      <div
+        className="so-spin-default-item"
+      >
         <div
-          className="so-spin-default-item"
-        >
-          <div
-            style={
-              Object {
-                "backgroundColor": "#6c757d",
-                "borderRadius": "4px",
-                "width": "4px",
-              }
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
             }
-          />
-        </div>
+          }
+        />
+      </div>
+      <div
+        className="so-spin-default-item"
+      >
         <div
-          className="so-spin-default-item"
-        >
-          <div
-            style={
-              Object {
-                "backgroundColor": "#6c757d",
-                "borderRadius": "4px",
-                "width": "4px",
-              }
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
             }
-          />
-        </div>
+          }
+        />
+      </div>
+      <div
+        className="so-spin-default-item"
+      >
         <div
-          className="so-spin-default-item"
-        >
-          <div
-            style={
-              Object {
-                "backgroundColor": "#6c757d",
-                "borderRadius": "4px",
-                "width": "4px",
-              }
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
             }
-          />
-        </div>
+          }
+        />
+      </div>
+      <div
+        className="so-spin-default-item"
+      >
         <div
-          className="so-spin-default-item"
-        >
-          <div
-            style={
-              Object {
-                "backgroundColor": "#6c757d",
-                "borderRadius": "4px",
-                "width": "4px",
-              }
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
             }
-          />
-        </div>
+          }
+        />
+      </div>
+      <div
+        className="so-spin-default-item"
+      >
         <div
-          className="so-spin-default-item"
-        >
-          <div
-            style={
-              Object {
-                "backgroundColor": "#6c757d",
-                "borderRadius": "4px",
-                "width": "4px",
-              }
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
             }
-          />
-        </div>
+          }
+        />
+      </div>
+      <div
+        className="so-spin-default-item"
+      >
         <div
-          className="so-spin-default-item"
-        >
-          <div
-            style={
-              Object {
-                "backgroundColor": "#6c757d",
-                "borderRadius": "4px",
-                "width": "4px",
-              }
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
             }
-          />
-        </div>
+          }
+        />
+      </div>
+      <div
+        className="so-spin-default-item"
+      >
         <div
-          className="so-spin-default-item"
-        >
-          <div
-            style={
-              Object {
-                "backgroundColor": "#6c757d",
-                "borderRadius": "4px",
-                "width": "4px",
-              }
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
             }
-          />
-        </div>
+          }
+        />
+      </div>
+      <div
+        className="so-spin-default-item"
+      >
         <div
-          className="so-spin-default-item"
-        >
-          <div
-            style={
-              Object {
-                "backgroundColor": "#6c757d",
-                "borderRadius": "4px",
-                "width": "4px",
-              }
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
             }
-          />
-        </div>
+          }
+        />
+      </div>
+      <div
+        className="so-spin-default-item"
+      >
         <div
-          className="so-spin-default-item"
-        >
-          <div
-            style={
-              Object {
-                "backgroundColor": "#6c757d",
-                "borderRadius": "4px",
-                "width": "4px",
-              }
+          style={
+            Object {
+              "backgroundColor": "#6c757d",
+              "borderRadius": "4px",
+              "width": "4px",
             }
-          />
-        </div>
+          }
+        />
       </div>
     </div>
   </div>
