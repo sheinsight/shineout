@@ -4,8 +4,9 @@ import classnames from 'classnames'
 import { parsePxToNumber } from '../utils/dom/element'
 import Popover from '../Popover'
 
-export function getResetMore(onFilter, container, items) {
-  if (!container || !items || !items.length) return -1
+export function getResetMore(onFilter, container, doms) {
+  if (!container || !doms || !doms.length) return -1
+  const items = Array.from(doms)
   const style = getComputedStyle(container)
   const { clientWidth } = container
   const paddingLeft = parsePxToNumber(style.paddingLeft)

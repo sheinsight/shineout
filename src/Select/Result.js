@@ -83,9 +83,11 @@ class Result extends PureComponent {
         this.resetMore()
       } else if (result.length && this.shouldResetMore) {
         this.shouldResetMore = false
-        this.state.more = getResetMore(onFilter, this.resultEl, [
-          ...this.resultEl.querySelectorAll(`.${selectClass('item')}`),
-        ])
+        this.state.more = getResetMore(
+          onFilter,
+          this.resultEl,
+          this.resultEl.querySelectorAll(`.${selectClass('item')}`)
+        )
         this.forceUpdate()
       }
     }
