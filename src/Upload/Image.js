@@ -140,6 +140,7 @@ Image.propTypes = {
   width: PropTypes.number,
   disabled: PropTypes.bool,
   ignorePreview: PropTypes.bool,
+  GapProps: PropTypes.shape({}),
 }
 
 Image.defaultProps = {

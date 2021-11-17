@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { StandardProps, FormItemStandardProps } from "../@types/common"
 import { PopoverConfirmProps } from '../Popover'
+import {GapProps} from '../Gap/index.d.js'
 
 type ReactNode = React.ReactNode;
 
@@ -396,6 +397,16 @@ export interface UploadImageProps<T> extends UploadProps<T>{
    * defualt: false
    */
   ignorePreview?: boolean;
+
+  /**
+   * Adjust the spacing to be consistent with the Gap props
+   *
+   *  调整间距 同 Gap 属性
+   *
+   *  default: {column: 12, row: 12}
+   */
+
+  gapProps?: GapProps
 
 }
 
