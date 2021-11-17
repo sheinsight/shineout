@@ -180,6 +180,12 @@ class SeperateTable extends PureComponent {
         this.handleScroll(...this.lastScrollArgs)
       })
     }
+    if (this.resetHeightScroll) {
+      // 更新滚动条高度
+      this.resetHeightScroll = false
+      const [max, bar, v, h] = this.lastScrollArgs
+      this.handleScroll(this.state.scrollLeft, this.state.scrollTop, max, bar, v, h, undefined, undefined, false)
+    }
   }
 
   updateScrollLeft() {
@@ -236,10 +242,8 @@ class SeperateTable extends PureComponent {
 
     if (this.lastScrollTop - height >= 1) {
       const index = this.resetIndex()
+      this.resetHeightScroll = true
       this.setState({ currentIndex: index })
-      setTimeout(() => {
-        this.handleScroll(...this.lastScrollArgs)
-      })
       if (this.renderByExpand) {
         this.renderByExpand = false
         return
@@ -262,7 +266,9 @@ class SeperateTable extends PureComponent {
 
       if (index === 0) {
         this.lastScrollTop = 0
+        this.resetHeightScroll = false
         setTimeout(() => {
+          this.resetHeightScroll = true
           this.setState({ scrollTop: 0 })
         })
         this.tbody.style.marginTop = '0px'
