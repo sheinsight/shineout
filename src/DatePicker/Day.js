@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { datepickerClass } from './styles'
 import utils from './utils'
+import paramUtils from './paramUtils'
 import Icon from './Icon'
 import { getLocale } from '../locale'
 import { PureComponent } from '../component'
@@ -64,7 +65,7 @@ class Day extends PureComponent {
     const current = (index === sync && value) || this.formatWithDefaultTime(sync)
     const onChange = typeof sync === 'number' ? this.props.onChangeSync.bind(this.props, sync) : this.props.onChange
     if (type === 'week') {
-      onChange(...utils.weekHandleChangeParams(date, true, true))
+      onChange(...paramUtils.weekHandleChangeParams(date, true, true))
     } else {
       let newDate = new Date(
         date.getFullYear(),
@@ -85,12 +86,12 @@ class Day extends PureComponent {
       )
         newDate = ''
 
-      onChange(...utils.dayHandleChangeParams(newDate, true, type !== 'datetime'))
+      onChange(...paramUtils.dayHandleChangeParams(newDate, true, type !== 'datetime'))
     }
   }
 
   handleTimeChange(time, change, end, mode) {
-    this.props.onChange(...utils.timeHandleChangeParams(time, true, false, mode))
+    this.props.onChange(...paramUtils.timeHandleChangeParams(time, true, false, mode))
   }
 
   handleWeek(hover) {
@@ -101,10 +102,10 @@ class Day extends PureComponent {
     const { current, onChange } = this.props
     // warning: month === 12 || month === -12, this is statement is year mode.
     if (month === -12 || month === 12) {
-      onChange(...utils.yearHandleChangeParams(utils.addMonths(current, month)))
+      onChange(...paramUtils.yearHandleChangeParams(utils.addMonths(current, month)))
       return
     }
-    onChange(...utils.monthHandleChangeParams(utils.addMonths(current, month)))
+    onChange(...paramUtils.monthHandleChangeParams(utils.addMonths(current, month)))
   }
 
   handleModeChange(mode) {

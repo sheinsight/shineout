@@ -8,6 +8,7 @@ import Month from './Month'
 import Day from './Day'
 import Time from './Time'
 import Quick from './Quick'
+import paramUtils from './paramUtils'
 
 class Picker extends PureComponent {
   constructor(props) {
@@ -39,7 +40,7 @@ class Picker extends PureComponent {
 
   handleQuick(quick) {
     const { onChange } = this.props
-    onChange(...utils.quickHandleChangeParams(quick.value[0], true, null, null, quick))
+    onChange(...paramUtils.quickHandleChangeParams(quick.value[0], true, null, null, quick))
   }
 
   handleMouse(isEnter, e) {
