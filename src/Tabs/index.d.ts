@@ -30,7 +30,7 @@ export interface TabsProps extends StandardProps {
    *
    * 选中标签背景色
    *
-   * default: '#fff'
+   * default: -
    */
   background?: string;
 
@@ -39,7 +39,7 @@ export interface TabsProps extends StandardProps {
    *
    * 边框颜色
    *
-   * default: '#ddd'
+   * default: -
    */
   border?: string;
 
@@ -66,7 +66,7 @@ export interface TabsProps extends StandardProps {
    *
    * 未选中标签背景色
    *
-   * default: 'transparent'
+   * default: -
    */
   inactiveBackground?: string;
 
