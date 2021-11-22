@@ -232,11 +232,11 @@ Tabs.propTypes = {
 }
 
 Tabs.defaultProps = {
-  background: '#fff',
-  border: '#ddd',
-  color: '#333',
+  // background: '#fff',
+  // border: '#ddd',
+  // color: '#333',
   defaultCollapsed: false,
-  inactiveBackground: 'transparent',
+  // inactiveBackground: 'transparent',
   lazy: true,
 }
 
