@@ -1334,6 +1334,13 @@ const injects = {
         type: 'color',
         desc: '清空按钮背景色',
       },
+      {
+        name: 'treeDisabledBg',
+        className: exposeClass('select-tree-disabled'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '树形选择禁用选项背景色',
+      },
     ],
     set resultPaddingVertical(v) {
       setBodyProperty(

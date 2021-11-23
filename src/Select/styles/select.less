@@ -5,6 +5,7 @@
 @input-prefix: ~'@{so-prefix}-input';
 @list-prefix: ~'@{so-prefix}-list';
 @checkinput-prefix: ~'@{so-prefix}-checkinput';
+@tree-prefix: ~'@{so-prefix}-tree';
 @tree-node-max-width: 300px;
 
 .@{select-prefix} {
@@ -238,8 +239,11 @@
           padding-bottom: 4px;
         }
       }
+      .@{tree-prefix}-no-line .@{tree-prefix}-icon-plus:hover::after, .@{tree-prefix}-no-line .@{tree-prefix}-icon-sub:hover::after {
+        background: @select-tree-icon-hover-bgc;
+      }
       .@{so-prefix}-tree-content {
-        color: @gray-600;
+        color: @select-tree-content-color-value;
         white-space: nowrap;
         cursor: default;
 
@@ -260,6 +264,7 @@
           &.@{select-prefix}-disabled {
             padding-right: @select-result-space;
             cursor: not-allowed;
+            color: @select-tree-disabled-content-color;
             background: @select-tree-disabled-bg-color;
           }
         }
