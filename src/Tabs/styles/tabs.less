@@ -302,6 +302,7 @@
     .@{tabs-prefix}-tab {
       border-color: transparent;
       background: transparent;
+      color: inherit;
     }
     .@{tabs-prefix}-active {
       color: @tabs-line-active-color;
@@ -325,9 +326,10 @@
 
     // line hover css
     > .@{tabs-prefix}-header {
-      @{tabs-prefix}-tab {
+      .@{tabs-prefix}-tab {
         border-color: transparent;
         background: transparent;
+        color: inherit;
       }
       .@{tabs-prefix}-tab:hover:not(.@{tabs-prefix}-active) {
         color: @primary-color-dark-btn-hover;
