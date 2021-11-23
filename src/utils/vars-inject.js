@@ -4474,11 +4474,152 @@ const injects = {
         parser: parseInt,
         desc: 'tab间隔',
       },
+      {
+        name: 'tabPaddingX',
+        className: exposeClass('tabs-tab'),
+        attr: 'paddingLeft',
+        type: 'number',
+        min: 0,
+        parser: parseInt,
+        desc: 'tab水平内边距',
+      },
+      {
+        name: 'tabPaddingY',
+        className: exposeClass('tabs-tab'),
+        attr: 'paddingTop',
+        type: 'number',
+        min: 0,
+        parser: parseInt,
+        desc: 'tab垂直内边距',
+      },
+      {
+        name: 'tabFontSize',
+        className: exposeClass('tabs-tab'),
+        attr: 'fontSize',
+        type: 'number',
+        min: 0,
+        parser: parseInt,
+        desc: 'tab字体大小',
+      },
+      {
+        name: 'tabBackground',
+        className: exposeClass('tabs-tab'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'tab背景色',
+      },
+      {
+        name: 'tabActiveBackground',
+        className: exposeClass('tabs-tab-active'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'tab选中背景色',
+      },
+      {
+        name: 'tabBorderColor',
+        className: exposeClass('tabs-tab'),
+        attr: 'borderColor',
+        type: 'color',
+        desc: 'tab边框颜色',
+      },
+      {
+        name: 'tabActiveBorderColor',
+        className: exposeClass('tabs-tab-active'),
+        attr: 'borderColor',
+        type: 'color',
+        desc: 'tab选中边框颜色',
+      },
+      {
+        name: 'tabColor',
+        className: exposeClass('tabs-tab'),
+        attr: 'color',
+        type: 'color',
+        desc: 'tab文字颜色',
+      },
+      {
+        name: 'tabActiveColor',
+        className: exposeClass('tabs-tab-active'),
+        attr: 'color',
+        type: 'color',
+        desc: 'tab选中文字颜色',
+      },
     ],
     set tabSpacing(v) {
       setBodyProperty(
         {
           '--tabs-tab-spacing': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set tabPaddingX(v) {
+      setBodyProperty(
+        {
+          '--tabs-tab-padding-x': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set tabPaddingY(v) {
+      setBodyProperty(
+        {
+          '--tabs-tab-padding-y': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set tabFontSize(v) {
+      setBodyProperty(
+        {
+          '--tabs-tab-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set tabBackground(v) {
+      setBodyProperty(
+        {
+          '--tabs-tab-background': v,
+        },
+        v
+      )
+    },
+    set tabActiveBackground(v) {
+      setBodyProperty(
+        {
+          '--tabs-tab-active-background': v,
+        },
+        v
+      )
+    },
+    set tabBorderColor(v) {
+      setBodyProperty(
+        {
+          '--tabs-tab-border-color': v,
+        },
+        v
+      )
+    },
+    set tabActiveBorderColor(v) {
+      setBodyProperty(
+        {
+          '--tabs-tab-active-border-color': v,
+        },
+        v
+      )
+    },
+    set tabColor(v) {
+      setBodyProperty(
+        {
+          '--tabs-tab-color': v,
+        },
+        v
+      )
+    },
+    set tabActiveColor(v) {
+      setBodyProperty(
+        {
+          '--tabs-tab-active-color': v,
         },
         v
       )

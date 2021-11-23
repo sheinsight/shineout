@@ -416,6 +416,18 @@
   }
   &-tabs {
     margin-left: @tabs-tab-spacing;
+    &-tab {
+      padding: @tabs-tab-padding-y @tabs-tab-padding-x;
+      font-size: @tabs-tab-font-size;
+      color: @tabs-tab-color;
+      border-color: @tabs-tab-border-color;
+      background: @tabs-tab-background;
+    }
+    &-tab-active {
+      color: @tabs-tab-active-color;
+      border-color: @tabs-tab-active-border-color;
+      background: @tabs-tab-active-background;
+    }
   }
   &-cascader-active {
     background-color: @cascader-active-background-color;
