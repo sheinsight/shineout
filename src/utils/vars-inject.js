@@ -1341,6 +1341,27 @@ const injects = {
         type: 'color',
         desc: '树形选择禁用选项背景色',
       },
+      {
+        name: 'treeContentColor',
+        className: exposeClass('select-tree'),
+        attr: 'color',
+        type: 'color',
+        desc: '树形选择可点击选项文字颜色',
+      },
+      {
+        name: 'treeDisableContentColor',
+        className: exposeClass('select-tree-disabled'),
+        attr: 'color',
+        type: 'color',
+        desc: '树形选择可点击选项文字颜色',
+      },
+      {
+        name: 'treeIconHoverBg',
+        className: exposeClass('select-tree-icon-hover'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '树形选择展开箭头背景色',
+      },
     ],
     set resultPaddingVertical(v) {
       setBodyProperty(
@@ -1435,6 +1456,41 @@ const injects = {
       setBodyProperty(
         {
           '--select-clear-bg-color': v,
+        },
+        v
+      )
+    },
+    set treeDisabledBg(v) {
+      setBodyProperty(
+        {
+          '--select-tree-disabled-bg-color': v,
+        },
+        v
+      )
+    },
+
+    set treeContentColor(v) {
+      setBodyProperty(
+        {
+          '--select-tree-content-color': v,
+        },
+        v
+      )
+    },
+
+    set treeDisableContentColor(v) {
+      setBodyProperty(
+        {
+          '--select-tree-disabled-content-color': v,
+        },
+        v
+      )
+    },
+
+    set treeIconHoverBg(v) {
+      setBodyProperty(
+        {
+          '--select-tree-icon-hover-bg-color': v,
         },
         v
       )
