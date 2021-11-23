@@ -4441,14 +4441,14 @@ const injects = {
       {
         name: 'tabBackground',
         className: exposeClass('tabs-tab'),
-        attr: 'background',
+        attr: 'backgroundColor',
         type: 'color',
         desc: 'tab背景色',
       },
       {
         name: 'tabActiveBackground',
         className: exposeClass('tabs-tab-active'),
-        attr: 'background',
+        attr: 'backgroundColor',
         type: 'color',
         desc: 'tab选中背景色',
       },
