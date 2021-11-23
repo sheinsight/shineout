@@ -1353,7 +1353,7 @@ const injects = {
         className: exposeClass('select-tree-disabled'),
         attr: 'color',
         type: 'color',
-        desc: '树形选择可点击选项文字颜色',
+        desc: '树形选择禁用选项文字颜色',
       },
       {
         name: 'treeIconHoverBg',
