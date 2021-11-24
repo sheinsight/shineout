@@ -9,18 +9,18 @@ Pick<StructDataStandardProps<Item>, 'renderItem'>
 
   /**
    * parent menu Selectable
-   * 
+   *
    * 父级菜单是否可选中
-   * 
+   *
    * default: false
    */
   parentSelectable?: bool;
-  
+
    /**
     * menu item expandable if has children
-    * 
+    *
     * 如果 children 有设置则菜单项可展开
-    * 
+    *
     * default: false
     */
    looseChildren?: boolean;
@@ -113,6 +113,24 @@ Pick<StructDataStandardProps<Item>, 'renderItem'>
       * default: null
       */
      frontCaret?: boolean;
+
+   /**
+    * desc: Front solid triangle expansion
+    *
+    * front triangle expansion symbol type
+    *
+    * default: 'solid'
+    */
+   frontCaretType?: 'hollow' | 'solid';
+
+   /**
+    * desc: Front solid triangle expansion
+    *
+    * triangle expansion color
+    *
+    * default: null
+    */
+   caretColor?: string;
 
      /**
       * theme of menu

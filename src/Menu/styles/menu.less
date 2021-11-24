@@ -3,7 +3,7 @@
 
 @menu-prefix: ~'@{so-prefix}-menu';
 @transition-duration: .2s;
-@expand-width: 40px;
+@expand-width: 32px;
 
 .@{menu-prefix} {
   position: relative;
@@ -46,19 +46,36 @@
       &:hover {
         color: @menu-item-light-hover-color;
         background-color: @menu-item-light-hover-bgc;
+        .@{menu-prefix}-expand::after {
+          border-color: @menu-item-light-hover-color;
+        }
       }
     }
+  }
 
+  & &-item {
     &.@{menu-prefix}-disabled > a {
       color: @menu-disabled-color;
       cursor: not-allowed;
+      .@{menu-prefix}-expand::after {
+        border-color: @menu-disabled-color;
+      }
+    }
+    &.@{menu-prefix}-disabled {
+      &.@{menu-prefix}-caret-solid > a.@{menu-prefix}-title .@{menu-prefix}-caret {
+        border-top-color: @menu-disabled-color!important;
+      }
+      &.@{menu-prefix}-caret-hollow > a .@{menu-prefix}-caret::after {
+        border-color: @menu-disabled-color;
+      }
+
     }
   }
 
   &-title {
     position: relative;
     height: @menu-item-height;
-    padding: 0 20px;
+    padding: 0 16px;
     line-height: @menu-item-height;
     font-size: @menu-item-font-size;
   }
@@ -140,7 +157,7 @@
         &:before {
           position: absolute;
           top: 0;
-          right: 0px;
+          right: 0;
           width: @menu-active-bar;
           height: 100%;
           background: @menu-active-bar-color;
@@ -223,7 +240,20 @@
 
   &-inline, &-horizontal {
     .@{menu-prefix}-in-path.@{menu-prefix}-has-children > a {
-      color: @colors-primary;
+      color: @menu-item-active-color;
+      .@{menu-prefix}-expand::after {
+        border-color: @menu-item-active-color;
+      }
+    }
+    .@{menu-prefix}-in-path.@{menu-prefix}-caret-solid.@{menu-prefix}-has-children > a {
+      .@{menu-prefix}-caret {
+        border-top-color: @menu-item-active-color;
+      }
+    }
+    .@{menu-prefix}-in-path.@{menu-prefix}-caret-hollow.@{menu-prefix}-has-children > a {
+      .@{menu-prefix}-caret::after {
+        border-color: @menu-item-active-color;
+      }
     }
   }
 
@@ -458,7 +488,8 @@
       .@{menu-prefix}-caret-solid {
         .@{menu-prefix}-title {
           & > .@{menu-prefix}-caret.@{menu-prefix}-has-childs {
-              border-top-color: @menu-dark-item;
+              color: @menu-dark-item;
+              border-top-color: currentColor;
           }
 
           &:hover {
@@ -468,7 +499,25 @@
           }
         }
       }
+
+      .@{menu-prefix}-caret-hollow {
+        .@{menu-prefix}-title {
+          & > .@{menu-prefix}-caret.@{menu-prefix}-has-childs{
+            color: @menu-dark-item;
+            &::after {
+              border-top-color: currentColor;
+            }
+          }
+        }
+      }
     }
+    .@{menu-prefix}-caret-hollow.@{menu-prefix}-in-path .@{menu-prefix}-title,
+    .@{menu-prefix}-caret-hollow .@{menu-prefix}-title:hover {
+      & > .@{menu-prefix}-caret.@{menu-prefix}-has-childs::after {
+        border-color: @menu-item-dark-hover-color;
+      }
+    }
+
 
     &.@{menu-prefix}-inline {
       .@{menu-prefix}-selectable {
@@ -504,7 +553,7 @@
     }
 
     & > .@{menu-prefix}-title  {
-      padding-right:  20px;
+      padding-right: 16px;
     }
   }
 
@@ -522,13 +571,44 @@
 
 
         &.@{menu-prefix}-has-childs {
-          border-top-color: @menu-item-color;
+          color: @menu-item-color;
+          border-top-color: currentColor;
         }
       }
 
       &:hover {
         & > .@{menu-prefix}-caret.@{menu-prefix}-has-childs {
           border-top-color: @menu-item-light-hover-color;
+        }
+      }
+    }
+  }
+
+  .@{menu-prefix}-caret-hollow {
+    .@{menu-prefix}-title:hover {
+      .@{menu-prefix}-caret::after {
+        border-color: @menu-item-active-color;
+      }
+    }
+    .@{menu-prefix}-caret {
+      display: inline-block;
+      width: 8px;
+      position: relative;
+      margin-left: -4px;
+      margin-right: 14px;
+    }
+    .@{menu-prefix}-caret.@{menu-prefix}-has-childs {
+      .caret-outline(down; 6px);
+      &::after {
+        transform-origin: 75% 75%;
+        transform: translateY(-4%) rotate(45deg);
+      }
+    }
+
+    &.@{menu-prefix}-has-children.@{menu-prefix}-open {
+      & > .@{menu-prefix}-title .@{menu-prefix}-caret {
+        &:after {
+          transform: translateY(-4%) rotate(225deg);
         }
       }
     }
@@ -562,8 +642,8 @@
 
     .@{menu-prefix}-has-children:not(.@{menu-prefix}-caret-solid) > .@{menu-prefix}-title {
 
-      padding-left: 40px;
-      padding-right: 20px;
+      padding-left: 32px;
+      padding-right: 16px;
 
       &:after {
         right: auto;
@@ -588,6 +668,13 @@
       .@{menu-prefix}-caret {
         margin-right: 0;
         margin-left: 8px;
+      }
+    }
+
+    .@{menu-prefix}-has-children.@{menu-prefix}-caret-hollow > .@{menu-prefix}-title{
+      .@{menu-prefix}-caret {
+        margin-left: 10px;
+        margin-right: 4px;
       }
     }
 

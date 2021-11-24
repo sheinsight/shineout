@@ -26,6 +26,8 @@ class List extends PureComponent {
       frontCaret,
       looseChildren,
       parentSelectable,
+      frontCaretType,
+      caretColor,
     } = this.props
 
     const isVertical = mode.indexOf('vertical') === 0
@@ -52,6 +54,8 @@ class List extends PureComponent {
             linkKey={linkKey}
             toggleDuration={toggleDuration}
             frontCaret={frontCaret}
+            frontCaretType={frontCaretType}
+            caretColor={caretColor}
             looseChildren={looseChildren}
             parentSelectable={parentSelectable}
           />
@@ -81,6 +85,8 @@ List.propTypes = {
   frontCaret: PropTypes.bool,
   looseChildren: PropTypes.bool,
   parentSelectable: PropTypes.bool,
+  frontCaretType: PropTypes.oneOf(['hollow', 'solid']),
+  caretColor: PropTypes.string,
 }
 
 export default List
