@@ -146,9 +146,33 @@ export const preventPasteFile = e => {
 
 export const parsePxToNumber = str => Number(str.replace(/\s+|px/gi, ''))
 
-export const addResizeObserver = (el, handler) => {
+export const addResizeObserver = (el, handler, options = {}) => {
+  const { direction } = options
+  let h = handler
+  let lastWidth
+  let lastHeight
   if (window.ResizeObserver) {
-    let observer = new ResizeObserver(handler)
+    if (direction) {
+      lastWidth = el.clientWidth
+      lastHeight = el.clientHeight
+      h = function(entry) {
+        const { width, height } = entry[0].contentRect
+        if (direction === 'x') {
+          if (lastWidth !== width) {
+            handler(entry)
+          }
+        } else if (direction === 'y') {
+          if (lastHeight !== height) {
+            handler(entry)
+          }
+        } else {
+          handler(entry, { x: lastWidth !== width, y: lastHeight !== height })
+        }
+        lastWidth = width
+        lastHeight = height
+      }
+    }
+    let observer = new ResizeObserver(h)
     observer.observe(el)
     return () => {
       observer.disconnect()
