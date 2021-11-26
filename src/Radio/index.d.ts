@@ -36,6 +36,14 @@ export interface RadioProps<Item = any> extends StandardProps {
 
 export interface RadioGroupProps<Value, Item> extends StandardProps, ListItemStandardProps<Item, Value>, FormItemStandardProps<Value>,
   Pick<StructDataStandardProps<Item>,'data' | 'renderItem'> {
+  /**
+   * setting the block property can changed it to be vertical layout.
+   *
+   * 设置 block 属性可以改为垂直布局
+   *
+   * default: false
+   */
+  block?: boolean
 }
 
 declare class RadioGroup<Value, Data> extends React.Component<RadioGroupProps<Value, Data>, {}> {

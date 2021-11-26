@@ -38,14 +38,14 @@ export default class Confirm extends Component {
   }
 
   render() {
-    const { children, type, text, onOk, okType, onCancel, ...other } = this.props
+    const { children, type, text, onOk, okType, onCancel, icon, ...other } = this.props
     const { ok, cancel } = this.state
     return (
       <Popover {...other} trigger="click">
         {close => (
           <div className={popoverClass('confirm')}>
             <div className={popoverClass('mention')}>
-              <Alert type={type} icon className={popoverClass('alert')}>
+              <Alert type={type} icon={icon} className={popoverClass('alert')}>
                 {children}
               </Alert>
             </div>
@@ -72,9 +72,11 @@ Confirm.propTypes = {
   onOk: PropTypes.func,
   onCancel: PropTypes.func,
   okType: PropTypes.string,
+  icon: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
 }
 
 Confirm.defaultProps = {
   type: 'warning',
-  okType: 'primary',
+  icon: true,
+  okType: 'danger',
 }
