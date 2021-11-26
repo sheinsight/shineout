@@ -10,7 +10,7 @@ import { isLink } from '../utils/is'
 import { isRTL } from '../config'
 import { getParent } from '../utils/dom/element'
 
-const getBaseIndent = (flag = false) => (flag ? 16 : 20)
+const getBaseIndent = () => 16
 
 const calcIndent = (flag, indent) => {
   if (!flag) return indent
@@ -161,7 +161,7 @@ class Item extends PureComponent {
   }
 
   renderItem(hasChilds = false, style) {
-    const { renderItem, data, index, frontCaret } = this.props
+    const { renderItem, data, index, frontCaret, caretColor } = this.props
     const item = renderItem(data, index)
     const link = this.renderLink(data)
     if (isLink(item)) {
@@ -180,7 +180,7 @@ class Item extends PureComponent {
     if (frontCaret) {
       return (
         <a {...props}>
-          <div className={menuClass('caret', hasChilds && 'has-childs')} />
+          <div style={{ color: caretColor }} className={menuClass('caret', hasChilds && 'has-childs')} />
           {item}
         </a>
       )
@@ -189,7 +189,7 @@ class Item extends PureComponent {
     return (
       <a {...props}>
         {item}
-        <span className={menuClass('expand')} />
+        <span className={menuClass('expand')} style={{ color: caretColor }} />
       </a>
     )
   }
@@ -212,6 +212,7 @@ class Item extends PureComponent {
       frontCaret,
       looseChildren,
       parentSelectable,
+      frontCaretType,
     } = this.props
     const { open, isActive, isHighLight, inPath } = this.state
     const { children: dChildren } = data
@@ -235,7 +236,7 @@ class Item extends PureComponent {
       isUp && 'open-up',
       isHighLight && 'highlight',
       inPath && 'in-path',
-      frontCaret && 'caret-solid',
+      frontCaret && `caret-${frontCaretType}`,
       parentSelectable && 'selectable'
     )
 
@@ -245,7 +246,6 @@ class Item extends PureComponent {
       events.onMouseEnter = this.handleMouseEnter
       events.onMouseLeave = this.handleMouseLeave
     }
-
     return (
       <li className={className} {...events} ref={this.bindElement}>
         {this.renderItem(hasChilds, style)}
@@ -296,6 +296,8 @@ Item.propTypes = {
   frontCaret: PropTypes.bool,
   looseChildren: PropTypes.bool,
   parentSelectable: PropTypes.bool,
+  frontCaretType: PropTypes.oneOf(['hollow', 'solid']),
+  caretColor: PropTypes.string,
 }
 
 export default consumer(Item)
