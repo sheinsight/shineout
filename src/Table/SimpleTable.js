@@ -8,6 +8,7 @@ import Tbody from './Tbody'
 import Thead from './Thead'
 import { compareColumns } from '../utils/shallowEqual'
 import Sticky from '../Sticky'
+import { addResizeObserver } from '../utils/dom/element'
 
 function setScrollLeft(target, scrollLeft) {
   if (target && target.scrollLeft !== scrollLeft) target.scrollLeft = scrollLeft
@@ -27,10 +28,14 @@ class SimpleTable extends PureComponent {
     this.bindBody = this.bindElement.bind(this, 'body')
     this.handleScroll = this.handleScroll.bind(this)
     this.handleColgroup = this.handleColgroup.bind(this)
+    this.resetColGroup = this.resetColGroup.bind(this)
   }
 
   componentDidMount() {
     if (this.body) this.body.addEventListener('wheel', this.handleScroll, { passive: false })
+    if (this.body) {
+      this.removeReiszeObserver = addResizeObserver(this.body, this.resetColGroup, { direction: 'x' })
+    }
     this.scrollCheck()
   }
 
@@ -45,10 +50,15 @@ class SimpleTable extends PureComponent {
 
   componentWillUnmount() {
     if (this.body) this.body.removeEventListener('wheel', this.handleScroll)
+    if (this.removeReiszeObserver) this.removeReiszeObserver()
   }
 
   bindElement(key, el) {
     this[key] = el
+  }
+
+  resetColGroup() {
+    this.setState({ colgroup: undefined, resize: true })
   }
 
   scrollCheck() {
