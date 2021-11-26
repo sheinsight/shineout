@@ -180,5 +180,5 @@ export const addResizeObserver = (el, handler, options = {}) => {
     }
   }
   window.addEventListener('resize', handler)
-  return window.removeEventListener('resize', handler)
+  return () => window.removeEventListener('resize', handler)
 }
