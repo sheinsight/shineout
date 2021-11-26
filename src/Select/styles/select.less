@@ -14,9 +14,11 @@
   &-inner {
     width: 100%;
     outline: none;
+    display: flex;
   }
 
   &-result {
+    flex-grow: 1;
     display: flex;
     overflow: auto;
     max-height: 80px;
@@ -121,6 +123,8 @@
   }
 
   &-compressed {
+    flex-grow: 1;
+    width: 0;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
