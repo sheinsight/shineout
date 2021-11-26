@@ -115,18 +115,18 @@ Pick<StructDataStandardProps<Item>, 'renderItem'>
      frontCaret?: boolean;
 
    /**
-    * desc: Front solid triangle expansion
+    * desc: front triangle expansion symbol type
     *
-    * front triangle expansion symbol type
+    * 前置三角展开符类型
     *
     * default: 'solid'
     */
    frontCaretType?: 'hollow' | 'solid';
 
    /**
-    * desc: Front solid triangle expansion
+    * desc: triangle expansion color
     *
-    * triangle expansion color
+    * 三角展开符颜色
     *
     * default: null
     */

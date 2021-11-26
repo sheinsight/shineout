@@ -246,7 +246,6 @@ class Item extends PureComponent {
       events.onMouseEnter = this.handleMouseEnter
       events.onMouseLeave = this.handleMouseLeave
     }
-    console.log(frontCaretType, className, frontCaret)
     return (
       <li className={className} {...events} ref={this.bindElement}>
         {this.renderItem(hasChilds, style)}
