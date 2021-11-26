@@ -25,12 +25,11 @@ export function dispatch() {
 
   // handle
   Object.keys(components).forEach(k => {
-    const { element, render, container, offset } = components[k]
+    const { element, render, container, offset, noRemove } = components[k]
     const rect = element.getBoundingClientRect()
     const containerRect = getRect(container)
     if (rect.bottom + offset < containerRect.top || rect.top - offset > containerRect.bottom) return
-
-    delete components[k]
+    if (!noRemove) delete components[k]
     render()
   })
 
@@ -46,21 +45,25 @@ const handleScroll = () => {
   }, throttle)
 }
 
-export function removeStack(id) {
+export function removeStack(id, removeListener) {
   if (!id || !components[id]) return
-  const { observer } = components[id]
-  if (observer && observer.disconnect) observer.disconnect()
+  const { observer, container } = components[id]
+  if (window.IntersectionObserver) {
+    if (observer && observer.disconnect) observer.disconnect()
+  } else if (removeListener) {
+    container.removeEventListener('scroll', handleScroll)
+  }
   delete components[id]
 }
 
 function getObserver(obj, id) {
-  const { container = null, offset, render } = obj
+  const { container = null, offset, render, noRemove } = obj
   const observer = new IntersectionObserver(
     entries => {
       entries.forEach(en => {
         if (en.isIntersecting || en.intersectionRatio > 0) {
           render()
-          removeStack(id)
+          if (!noRemove) removeStack(id)
         }
       })
     },
@@ -76,6 +79,7 @@ function getObserver(obj, id) {
 export function addStack(obj) {
   const id = getUidStr()
   const scrollEl = obj.container || document
+  obj.container = scrollEl
   obj.offset = obj.offset || 0
   if (window.IntersectionObserver) {
     components[id] = obj
@@ -93,6 +97,10 @@ export function addStack(obj) {
   }
 
   obj.render()
+  if (obj.noRemove) {
+    components[id] = obj
+    return id
+  }
   return null
 }
 
