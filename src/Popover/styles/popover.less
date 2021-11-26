@@ -2,6 +2,7 @@
 @import '../../styles/themes/@{so-theme}.less';
 
 @popover-prefix: ~'@{so-prefix}-popover';
+@alert-prefix: ~'@{so-prefix}-alert';
 @popover-arrow-size: 12px;
 
 .@{popover-prefix} {
@@ -274,6 +275,9 @@
       box-shadow: none;
       margin-bottom: 8px;
       font-size: @font-size-base;
+      .@{alert-prefix}-icon path {
+        fill: @colors-danger;
+      }
     }
   }
 
