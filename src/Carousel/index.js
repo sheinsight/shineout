@@ -33,6 +33,14 @@ class Carousel extends PureComponent {
     }
   }
 
+  componentWillUnmount() {
+    super.componentWillUnmount()
+    if (this.$timeout) {
+      clearTimeout(this.$timeout)
+      this.$timeout = null
+    }
+  }
+
   setNext(next) {
     const { interval } = this.props
     if (interval > 0 && this.count > 1) {
