@@ -32,10 +32,6 @@ class SimpleTable extends PureComponent {
   }
 
   componentDidMount() {
-    if (this.body) this.body.addEventListener('wheel', this.handleScroll, { passive: false })
-    if (this.body) {
-      this.removeReiszeObserver = addResizeObserver(this.body, this.resetColGroup, { direction: 'x' })
-    }
     this.scrollCheck()
   }
 
@@ -55,6 +51,11 @@ class SimpleTable extends PureComponent {
 
   bindElement(key, el) {
     this[key] = el
+    // this.body will be undefined on componentDidMount when columns length is 0
+    if (key === 'body') {
+      this.body.addEventListener('wheel', this.handleScroll, { passive: false })
+      this.removeReiszeObserver = addResizeObserver(this.body, this.resetColGroup, { direction: 'x' })
+    }
   }
 
   resetColGroup() {
