@@ -102,6 +102,7 @@ export default curry(Origin =>
             formDatum.bind(name, this.handleUpdate, defaultValue, this.validate)
             this.state.value = formDatum.get(name)
           }
+          this.lastValue = this.state.value
         }
 
         if (bindInputToItem && name && !popover) bindInputToItem(this.errorName)
