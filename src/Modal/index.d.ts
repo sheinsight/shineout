@@ -160,15 +160,6 @@ export interface ModalProps extends StandardProps {
   moveable?: boolean;
 
   /**
-   * modal resizable
-   *
-   * 是否可调整大小
-   *
-   * default: false
-   */
-  resizable?: boolean;
-
-  /**
    * mask background
    *
    * 遮罩背景色，设置后透明度将失效

@@ -6,16 +6,16 @@ type ReactNode = React.ReactNode;
 interface ColorStep {
   form?: string;
   to?: string;
-  [key: string]: string
+  [key: string]: string | undefined
 }
 
 export interface ProgressProps extends StandardProps {
 
   /**
    * popup to show children
-   * 
-   * 是否通过弹出框展示children 
-   * 
+   *
+   * 是否通过弹出框展示children
+   *
    * default: -
    */
   popup?: boolean;
