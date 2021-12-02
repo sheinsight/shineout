@@ -41,6 +41,7 @@
 | removeConfirm | string \| object | none | confirmation before deletion |
 | beforeRemove | (value: any) => Promise | none | callback before remove |
 | canDelete | （(value: any) => boolean) \| boolean | 无 | Can the file be deleted |
+| responseType |  string | none | set xhr.responseType|
 
 ### Upload.Image
 

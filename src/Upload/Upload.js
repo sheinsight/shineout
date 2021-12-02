@@ -273,6 +273,7 @@ class Upload extends PureComponent {
       request,
       onProgress,
       onStart,
+      responseType,
     } = this.props
 
     const req = request || defaultRequest
@@ -286,6 +287,7 @@ class Upload extends PureComponent {
       withCredentials,
       file,
       headers,
+      responseType,
 
       onStart,
 
@@ -565,6 +567,7 @@ Upload.propTypes = {
   forceAcceptErrorMsg: PropTypes.string,
   canDelete: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   GapProps: PropTypes.shape({}),
+  responseType: PropTypes.string,
 }
 
 Upload.defaultProps = {
