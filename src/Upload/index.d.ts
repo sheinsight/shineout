@@ -338,8 +338,18 @@ export interface UploadProps<T> extends StandardProps, OmitFormProps<T[]>{
    *  default: true
    *
    */
+  canDelete?: ((value: T, index: number) => boolean) | boolean,
 
-  canDelete?: ((value: T, index: number) => boolean) | boolean
+
+  /**
+   *  set xhr.responseType
+   *
+   *  设置 xhr.responseType
+   *
+   *  default: none
+   *
+   */
+  responseType?: string
 }
 
 export interface UploadImageProps<T> extends UploadProps<T>{

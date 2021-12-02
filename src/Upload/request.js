@@ -31,6 +31,7 @@ export default function(args) {
     params = {},
     headers = {},
     onStart,
+    responseType,
   } = args
 
   if (!url) {
@@ -47,6 +48,9 @@ export default function(args) {
 
   const xhr = createCORSRequest('post', url, cors)
   xhr.withCredentials = withCredentials
+  if (responseType) {
+    xhr.responseType = responseType
+  }
   if (onProgress) xhr.upload.addEventListener('progress', onProgress, false)
   xhr.onload = e => onLoad(e.currentTarget)
   xhr.onerror = onError
