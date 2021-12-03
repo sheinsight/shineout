@@ -32,18 +32,14 @@ class SimpleTable extends PureComponent {
   }
 
   componentDidMount() {
-    if (this.body) this.body.addEventListener('wheel', this.handleScroll, { passive: false })
-    if (this.body) {
-      this.removeReiszeObserver = addResizeObserver(this.body, this.resetColGroup, { direction: 'x' })
-    }
     this.scrollCheck()
   }
 
   componentDidUpdate(prevProps) {
     this.scrollCheck()
     const resize = prevProps.data.length === 0 && this.props.data.length
-    const resetColgroup = this.props.dataChangeResize && this.props.data !== prevProps.data
-    if (resize || resetColgroup || !compareColumns(prevProps.columns, this.props.columns)) {
+    const shouldResetColgroup = this.props.dataChangeResize && this.props.data !== prevProps.data
+    if (resize || shouldResetColgroup || !compareColumns(prevProps.columns, this.props.columns)) {
       this.setState({ colgroup: undefined, resize: true })
     }
   }
@@ -55,6 +51,11 @@ class SimpleTable extends PureComponent {
 
   bindElement(key, el) {
     this[key] = el
+    // this.body will be undefined on componentDidMount when columns length is 0
+    if (key === 'body' && el) {
+      el.addEventListener('wheel', this.handleScroll, { passive: false })
+      this.removeReiszeObserver = addResizeObserver(el, this.resetColGroup, { direction: 'x' })
+    }
   }
 
   resetColGroup() {
