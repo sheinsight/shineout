@@ -129,9 +129,18 @@ export interface TabsProps extends StandardProps {
    *
    * 切换tab将自动滚动到Tabs
    *
-   * default: nonde
+   * default: none
    */
   switchToTop?: boolean;
+
+  /**
+   * Whether to hide the dividing line
+   *
+   * 是否隐藏分割线
+   *
+   * default: false
+   */
+  hideSplit?: boolean
 }
 
 export interface TabsPanelProps extends StandardProps {

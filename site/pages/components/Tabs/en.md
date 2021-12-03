@@ -25,6 +25,7 @@
 | autoFill | boolean | false | auto fill the panel |
 | sticky | boolean \| number \| object | - | sticky header |
 | switchToTop | boolean | - | switch tabs will scroll to Tabs |
+| hideSplit | boolean | false | whether to hide the dividing line |
 
 ### Tabs.Panel
 

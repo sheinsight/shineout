@@ -96,6 +96,7 @@ class Tabs extends PureComponent {
       collapsible,
       tabBarExtraContent,
       sticky,
+      hideSplit,
     } = this.props
     const active = this.getActive()
     const tabs = []
@@ -147,6 +148,7 @@ class Tabs extends PureComponent {
         tabs={tabs}
         tabBarExtraContent={tabBarExtraContent}
         tabBarStyle={tabBarStyle}
+        hideSplit={hideSplit}
       />
     )
 
@@ -229,6 +231,7 @@ Tabs.propTypes = {
   autoFill: PropTypes.bool,
   sticky: PropTypes.oneOfType([PropTypes.bool, PropTypes.number, PropTypes.object]),
   switchToTop: PropTypes.bool,
+  hideSplit: PropTypes.bool,
 }
 
 Tabs.defaultProps = {
@@ -238,6 +241,7 @@ Tabs.defaultProps = {
   defaultCollapsed: false,
   // inactiveBackground: 'transparent',
   lazy: true,
+  hideSplit: false,
 }
 
 export default Tabs

@@ -25,6 +25,7 @@
 | autoFill | boolean | false | 自动填充内容区域 |
 | sticky | boolean \| number \| object | - | 开启头部附着 |
 | switchToTop | boolean | - | 切换tab将自动滚动到Tabs |
+| hideSplit | boolean | false | 是否隐藏分割线 |
 
 ### Tabs.Panel
 

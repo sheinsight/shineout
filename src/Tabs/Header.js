@@ -140,11 +140,11 @@ class Header extends PureComponent {
   }
 
   render() {
-    const { border, onCollapse, collapsed, isVertical, tabBarExtraContent, tabBarStyle, shape } = this.props
+    const { border, onCollapse, collapsed, isVertical, tabBarExtraContent, tabBarStyle, shape, hideSplit } = this.props
     const { attribute, overflow } = this.state
 
     const position = isVertical ? 'Top' : 'Left'
-    const showBorder = shape !== 'bordered' && shape !== 'dash'
+    const showBorder = shape !== 'bordered' && shape !== 'dash' && !hideSplit
 
     return (
       <div onClick={this.handleCollapse} className={tabsClass('header')} style={tabBarStyle || {}}>
@@ -183,6 +183,7 @@ Header.propTypes = {
   tabs: PropTypes.array,
   tabBarExtraContent: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   tabBarStyle: PropTypes.object,
+  hideSplit: PropTypes.bool,
 }
 
 export default Header
