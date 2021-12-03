@@ -28,7 +28,7 @@ class Rate extends PureComponent {
     const { size } = this.props
     if (!size) return undefined
     const parsed = Math.max(MIN_SIZE, parseFloat(size))
-    return { width: parsed, fontSize: parsed }
+    return { width: parsed, fontSize: parsed, position: 'relative' }
   }
 
   getScale() {
@@ -92,7 +92,7 @@ class Rate extends PureComponent {
   }
 
   renderBackground() {
-    const { background, max, disabled, allowHalf } = this.props
+    const { background, max, disabled } = this.props
     const style = this.getStyle()
     const value = this.getValue()
 
@@ -123,11 +123,15 @@ class Rate extends PureComponent {
           <span
             key={v}
             onClick={this.handleClick.bind(this, v + 1)}
-            onMouseLeave={this.handleHover.bind(this, 0)}
             onMouseMove={allowHalf ? this.handleMove.bind(this, v + 1) : undefined}
             onMouseEnter={!allowHalf ? this.handleHover.bind(this, v + 1) : undefined}
             style={style}
           >
+            {/* Fix React event onMouseLeave not triggered when moving cursor fast */}
+            <div
+              style={{ position: 'absolute', top: 0, right: 0, left: 0, bottom: 0 }}
+              onMouseLeave={this.handleHover.bind(this, 0)}
+            />
             {value > v ? this.getIcon(front, v) : <span>&nbsp;</span>}
             {highlight === v + 1 && <i className={rateClass('highlight')}>{this.getIcon(front, v)}</i>}
           </span>

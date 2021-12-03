@@ -21,26 +21,31 @@ exports[`Snapshot test: Rate[site/pages/components/Rate/example-01-base.js] 1`] 
   </div>
   <div>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
@@ -71,26 +76,31 @@ exports[`Snapshot test: Rate[site/pages/components/Rate/example-01-half.js] 1`] 
   </div>
   <div>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
@@ -121,22 +131,27 @@ exports[`Snapshot test: Rate[site/pages/components/Rate/example-02-color.js] 1`]
   </div>
   <div>
     <span>
+      <div />
       <i />
     </span>
     <span>
+      <div />
       <i />
     </span>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
@@ -182,45 +197,55 @@ exports[`Snapshot test: Rate[site/pages/components/Rate/example-04-max.js] 1`] =
   </div>
   <div>
     <span>
+      <div />
       <i />
     </span>
     <span>
+      <div />
       <i />
     </span>
     <span>
+      <div />
       <i />
     </span>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
@@ -252,74 +277,31 @@ exports[`Snapshot test: Rate[site/pages/components/Rate/example-05-size.js] 1`] 
     </div>
     <div>
       <span>
+        <div />
         <span>
            
         </span>
       </span>
       <span>
+        <div />
         <span>
            
         </span>
       </span>
       <span>
+        <div />
         <span>
            
         </span>
       </span>
       <span>
+        <div />
         <span>
            
         </span>
       </span>
       <span>
-        <span>
-           
-        </span>
-      </span>
-      <span />
-    </div>
-  </div>
-  <br />
-  <div>
-    <div>
-      <span>
-        <i />
-      </span>
-      <span>
-        <i />
-      </span>
-      <span>
-        <i />
-      </span>
-      <span>
-        <i />
-      </span>
-      <span>
-        <i />
-      </span>
-    </div>
-    <div>
-      <span>
-        <span>
-           
-        </span>
-      </span>
-      <span>
-        <span>
-           
-        </span>
-      </span>
-      <span>
-        <span>
-           
-        </span>
-      </span>
-      <span>
-        <span>
-           
-        </span>
-      </span>
-      <span>
+        <div />
         <span>
            
         </span>
@@ -348,26 +330,84 @@ exports[`Snapshot test: Rate[site/pages/components/Rate/example-05-size.js] 1`] 
     </div>
     <div>
       <span>
+        <div />
         <span>
            
         </span>
       </span>
       <span>
+        <div />
         <span>
            
         </span>
       </span>
       <span>
+        <div />
         <span>
            
         </span>
       </span>
       <span>
+        <div />
         <span>
            
         </span>
       </span>
       <span>
+        <div />
+        <span>
+           
+        </span>
+      </span>
+      <span />
+    </div>
+  </div>
+  <br />
+  <div>
+    <div>
+      <span>
+        <i />
+      </span>
+      <span>
+        <i />
+      </span>
+      <span>
+        <i />
+      </span>
+      <span>
+        <i />
+      </span>
+      <span>
+        <i />
+      </span>
+    </div>
+    <div>
+      <span>
+        <div />
+        <span>
+           
+        </span>
+      </span>
+      <span>
+        <div />
+        <span>
+           
+        </span>
+      </span>
+      <span>
+        <div />
+        <span>
+           
+        </span>
+      </span>
+      <span>
+        <div />
+        <span>
+           
+        </span>
+      </span>
+      <span>
+        <div />
         <span>
            
         </span>
@@ -399,18 +439,23 @@ exports[`Snapshot test: Rate[site/pages/components/Rate/example-06-text.js] 1`] 
   </div>
   <div>
     <span>
+      <div />
       <i />
     </span>
     <span>
+      <div />
       <i />
     </span>
     <span>
+      <div />
       <i />
     </span>
     <span>
+      <div />
       <i />
     </span>
     <span>
+      <div />
       <span>
          
       </span>
@@ -483,20 +528,25 @@ exports[`Snapshot test: Rate[site/pages/components/Rate/example-08-face.js] 1`] 
   </div>
   <div>
     <span>
+      <div />
       <i />
     </span>
     <span>
+      <div />
       <i />
     </span>
     <span>
+      <div />
       <i />
     </span>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
@@ -527,26 +577,31 @@ exports[`Snapshot test: Rate[site/pages/components/Rate/example-09-array.js] 1`]
   </div>
   <div>
     <span>
+      <div />
       <span>
         A
       </span>
     </span>
     <span>
+      <div />
       <span>
         B
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
@@ -577,26 +632,31 @@ exports[`Snapshot test: Rate[site/pages/components/Rate/example-10-clearable.js]
   </div>
   <div>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
     </span>
     <span>
+      <div />
       <span>
          
       </span>
