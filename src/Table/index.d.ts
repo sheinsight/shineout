@@ -467,9 +467,9 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    *
    * 表格尺寸
    *
-   * default: 'normal'
+   * default: 'default'
    */
-  size?: 'small' | 'normal';
+  size?: 'small' | 'default';
 
   /**
    * pagination of table
