@@ -14,7 +14,7 @@ Pick<StructDataStandardProps<Item>, 'renderItem'>
    *
    * default: false
    */
-  parentSelectable?: bool;
+  parentSelectable?: boolean;
 
    /**
     * menu item expandable if has children

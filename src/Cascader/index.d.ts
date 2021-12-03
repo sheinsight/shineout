@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { StandardProps, FormItemStandardProps, StructDataStandardProps, keyType, RegularAttributes } from '../@types/common'
 
-export interface CascaderProps<Item, Value> extends StandardProps, FormItemStandardProps<Value>, ListItemStandardProps<Item>, StructDataStandardProps<Item>  {
+export interface CascaderProps<Item, Value> extends StandardProps, FormItemStandardProps<Value>, StructDataStandardProps<Item>  {
   /**
    * show border bottom
    *

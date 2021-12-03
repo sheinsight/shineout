@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { StandardProps, RegularAttributes } from '../@types/common'
-import { StandardProps }  from '../@types/common'
 
 type ReactNode = React.ReactNode
 
@@ -209,15 +208,6 @@ export interface PopoverConfirmProps extends PopoverProps{
    * default: { ok: 'Ok', cancel: 'Cancel' }
    */
   text?: { ok?: string, cancel?: string };
-
-  /**
-   * icon type [*success*, *info*, *warning*, *danger(error)*]
-   *
-   * icon的类型，4 选 1，[*success*, *info*, *warning*, *danger(error)*]
-   *
-   * default: *warning*
-   */
-  type?: string;
 
   /**
    * ok button's type, same with button type

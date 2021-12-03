@@ -140,7 +140,8 @@ class Table extends Component {
 }
 
 Table.propTypes = {
-  ...getProps(PropTypes, 'size', 'type', 'keygen'),
+  ...getProps(PropTypes, 'type', 'keygen'),
+  size: PropTypes.oneOf(['small', 'normal']),
   bordered: PropTypes.bool,
   children: PropTypes.any,
   columns: PropTypes.array,
