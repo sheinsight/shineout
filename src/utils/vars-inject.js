@@ -22,6 +22,38 @@ import { tagClass } from '../Tag/styles'
 import { exposeClass } from '../styles/expose'
 
 const computedCache = {}
+let injectType = 'body'
+let styleObj = {}
+
+export function getInjectType() {
+  return injectType
+}
+
+export function setInjectType(type) {
+  injectType = type
+}
+
+export function cleanStyleObj() {
+  styleObj = {}
+}
+
+export function injectTag(custom = {}) {
+  const id = '__shineoutThemeStyleContainer__'
+  const styleText = `body{${Object.keys({ ...styleObj, ...custom })
+    .map(key => `${key}: ${styleObj[key]}`)
+    .join(';')}}`
+  const el = document.getElementById(id)
+  if (el) {
+    el.innerText = styleText
+  } else {
+    const stylee = document.createElement('style')
+    stylee.setAttribute('type', 'text/css')
+    stylee.setAttribute('id', id)
+    stylee.innerText = styleText
+    document.head.appendChild(stylee)
+  }
+}
+
 function getProperty(name = '--btn-hover-darken', cache = true) {
   if (cache && computedCache[name]) return computedCache[name]
   computedCache[name] = getComputedStyle(document.body)
@@ -32,10 +64,19 @@ function getProperty(name = '--btn-hover-darken', cache = true) {
 
 function setBodyProperty(colors, value) {
   for (const [cssVar, cssValue] of entries(colors)) {
-    if (value === undefined) {
-      document.body.style.removeProperty(cssVar)
-    } else {
-      document.body.style.setProperty(cssVar, cssValue)
+    if (injectType === 'body') {
+      if (value === undefined) {
+        document.body.style.removeProperty(cssVar)
+      } else {
+        document.body.style.setProperty(cssVar, cssValue)
+      }
+    }
+    if (injectType === 'tag') {
+      if (value === undefined) {
+        delete styleObj[cssVar]
+      } else {
+        styleObj[cssVar] = cssValue
+      }
     }
   }
 }
