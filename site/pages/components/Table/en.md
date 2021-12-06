@@ -43,7 +43,7 @@
 | defaultTreeExpandKeys | any[] | none | Default expanded row keys |
 | dataChangeResize | boolean | false | Whether to recalculate the column width after the data changes |
 | onColumnResize | (newColumns: object[]) => void | none | columns resize callback |
-| size | 'small' \| 'normal' | 'normal' | size of table |
+| size | 'small' \| 'default' | 'default' | size of table |
 | pagination | object | none | pagination of table |
 | innerScrollAttr | string[] | 无 | set inner scrollable element's attribute |
 | expandKeys | any[] | none | controlled expand rows |
