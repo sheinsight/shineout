@@ -48,10 +48,11 @@ const handleScroll = () => {
 export function removeStack(id, removeListener) {
   if (!id || !components[id]) return
   const { observer, container } = components[id]
+  const scrollEl = container || document
   if (window.IntersectionObserver) {
     if (observer && observer.disconnect) observer.disconnect()
   } else if (removeListener) {
-    container.removeEventListener('scroll', handleScroll)
+    scrollEl.removeEventListener('scroll', handleScroll)
   }
   delete components[id]
 }
@@ -79,7 +80,6 @@ function getObserver(obj, id) {
 export function addStack(obj) {
   const id = getUidStr()
   const scrollEl = obj.container || document
-  obj.container = scrollEl
   obj.offset = obj.offset || 0
   if (window.IntersectionObserver) {
     components[id] = obj
