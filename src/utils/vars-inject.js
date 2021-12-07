@@ -3411,7 +3411,7 @@ const injects = {
     set iconMarginTop(v) {
       setBodyProperty(
         {
-          '--message-icon-margin-top': v,
+          '--message-icon-margin-top': `${parseInt(v, 10)}px`,
         },
         v
       )
