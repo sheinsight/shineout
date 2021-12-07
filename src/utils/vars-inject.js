@@ -3323,6 +3323,14 @@ const injects = {
         type: 'color',
         desc: '边框颜色',
       },
+      {
+        name: 'iconMarginTop',
+        className: exposeClass('msg-icon'),
+        attr: 'marginTop',
+        type: 'number',
+        parser: parseInt,
+        desc: '类型图标距离顶部距离',
+      },
     ],
     set boxShadow(v) {
       setBodyProperty(
@@ -3358,6 +3366,14 @@ const injects = {
     },
     set borderColor(v) {
       setBodyProperty({ '--message-border-color': v }, v)
+    },
+    set iconMarginTop(v) {
+      setBodyProperty(
+        {
+          '--message-icon-margin-top': v,
+        },
+        v
+      )
     },
   },
   card: {
