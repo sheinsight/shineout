@@ -45,23 +45,24 @@ function resetTheme() {
   })
 }
 
+function setStyleWithTag(options, custom) {
+  cleanStyleObj()
+  if (!options) {
+    resetTheme()
+  } else {
+    for (const [key, values] of entries(options)) {
+      const setterName = `set${capitalize(key)}`
+      if (cssAccessors[key] && cssAccessors[key][setterName]) cssAccessors[key][setterName](values)
+    }
+  }
+  injectTag(custom)
+}
+
 const style = {
   getClassname,
-  setStyleWithTag(options, custom) {
-    cleanStyleObj()
-    if (!options) {
-      resetTheme()
-    } else {
-      for (const [key, values] of entries(options)) {
-        const setterName = `set${capitalize(key)}`
-        if (cssAccessors[key] && cssAccessors[key][setterName]) cssAccessors[key][setterName](values)
-      }
-    }
-    injectTag(custom)
-  },
   setStyle(options, custom = {}) {
     if (getInjectType() === 'tag') {
-      style.setStyleWithTag(options, custom)
+      setStyleWithTag(options, custom)
       return
     }
     if (!options) {
