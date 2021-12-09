@@ -195,6 +195,7 @@ class Upload extends PureComponent {
     const { beforeUpload, value, limit, filesFilter } = this.props
     // eslint-disable-next-line
     const files = { ...this.state.files }
+    let finishedCode = false
     let fileList = e.fromDragger && e.files ? e.files : e.target.files
     if (filesFilter) fileList = filesFilter(Array.from(fileList)) || []
     const addLength = limit - value.length - Object.keys(this.state.files).length
@@ -224,12 +225,17 @@ class Upload extends PureComponent {
 
         if (beforeUpload) {
           beforeUpload(blob, this.validatorHandle)
+            // eslint-disable-next-line no-loop-func
             .then(args => {
-              this.setState(
-                immer(draft => {
-                  draft.files[id] = Object.assign({}, draft.files[id], args)
-                })
-              )
+              if (finishedCode) {
+                this.setState(
+                  immer(draft => {
+                    draft.files[id] = Object.assign({}, draft.files[id], args)
+                  })
+                )
+              } else {
+                files[id] = Object.assign({}, files[id], args)
+              }
             })
             .catch(() => true)
         }
@@ -238,26 +244,36 @@ class Upload extends PureComponent {
 
       if (beforeUpload) {
         beforeUpload(blob, this.validatorHandle)
+          // eslint-disable-next-line no-loop-func
           .then(args => {
             if (args.status !== ERROR) files[id].xhr = this.uploadFile(id, blob, args.data)
-            this.setState(
-              immer(draft => {
-                draft.files[id] = Object.assign({}, draft.files[id], args)
-              })
-            )
+            if (finishedCode) {
+              this.setState(
+                immer(draft => {
+                  draft.files[id] = Object.assign({}, draft.files[id], args)
+                })
+              )
+            } else {
+              files[id] = Object.assign({}, files[id], args)
+            }
           })
+          // eslint-disable-next-line no-loop-func
           .catch(() => {
-            this.setState(
-              immer(draft => {
-                delete draft.files[id]
-              })
-            )
+            if (finishedCode) {
+              this.setState(
+                immer(draft => {
+                  delete draft.files[id]
+                })
+              )
+            } else {
+              delete files[id]
+            }
           })
       } else {
         files[id].xhr = this.uploadFile(id, blob)
       }
     }
-
+    finishedCode = true
     this.setState({ files })
   }
 
