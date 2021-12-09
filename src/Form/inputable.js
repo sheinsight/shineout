@@ -151,7 +151,7 @@ export default curry(Origin =>
           return tryValue(formDatum.get(name), defaultValue)
         }
         const hasValue = 'value' in this.props || 'checked' in this.props
-        return !hasValue && !formDatum ? this.state.value : value
+        return !hasValue ? this.state.value : value
       }
 
       getError() {
@@ -247,6 +247,7 @@ export default curry(Origin =>
         if (args.length === 0 && shallowEqual(value, currentValue)) {
           return
         }
+        console.log(formDatum, name, value)
 
         const beforeChange = beforeValueChange(this.props.beforeChange)
         if (formDatum && name) {
@@ -314,6 +315,7 @@ export default curry(Origin =>
           defaultValue,
           ...other
         } = this.props
+        console.log(this.getValue())
         return (
           <Origin
             {...other}
