@@ -54,8 +54,6 @@ class Select extends PureComponent {
     this.renderItem = this.renderItem.bind(this)
     this.renderResult = this.renderResult.bind(this)
 
-    this.handleDelete = this.handleDelete.bind(this)
-
     // option list not render till first focused
     this.renderPending = true
 
@@ -344,9 +342,6 @@ class Select extends PureComponent {
         e.preventDefault()
         e.stopPropagation()
         break
-      case 8:
-        this.handleDelete(e)
-        break
       default:
         this.lastChangeIsOptionClick = false
     }
@@ -354,17 +349,6 @@ class Select extends PureComponent {
 
   handleKeyUp() {
     this.keyLocked = false
-  }
-
-  handleDelete(e) {
-    const { multiple, filterText, datum, value, data } = this.props
-    if (!multiple || filterText) return
-    if (!value || !value.length) return
-    e.preventDefault()
-    const raws = Array.isArray(value) ? value : [value]
-    const values = [...raws]
-    const last = values.pop()
-    datum.handleChange(values, datum.getDataByValue(data, last), false)
   }
 
   renderItem(data, index) {
