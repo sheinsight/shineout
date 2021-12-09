@@ -291,7 +291,11 @@ class Select extends PureComponent {
       this.handleHideOption()
       return
     }
-    const data = this.props.data[hoverIndex]
+    let data = this.props.data[hoverIndex]
+    if (!data) {
+      // eslint-disable-next-line prefer-destructuring
+      data = this.props.data[0]
+    }
     if (data && !data[this.props.groupKey]) {
       const checked = !this.props.datum.check(data)
       this.handleChange(checked, data)
