@@ -93,6 +93,10 @@
     }
   }
 
+  table&-init{
+      table-layout: auto;
+  }
+
   &:not(.@{table-prefix}-bordered) table > thead > tr > th {
     border-top: @table-header-top-divider-width solid @table-border-color;
   }

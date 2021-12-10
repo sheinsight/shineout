@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import immer from 'immer'
+import Gap from '../Gap'
 import { PureComponent } from '../component'
 import { getUidStr } from '../utils/uid'
 import { FormError } from '../utils/errors'
@@ -15,6 +16,7 @@ import ImageResult from './ImageResult'
 import { Provider } from './context'
 import Drop from './Drop'
 import attrAccept from '../utils/accept'
+import { isFunc } from '../utils/is'
 import { getLocale } from '../locale'
 import acceptHOC from './accept'
 import getDataset from '../utils/dom/getDataset'
@@ -61,6 +63,14 @@ class Upload extends PureComponent {
     this.handleReplace = this.handleReplace.bind(this)
 
     props.validateHook(this.validate.bind(this))
+  }
+
+  getCanDelete(item, index) {
+    const { canDelete } = this.props
+    if (isFunc(canDelete)) {
+      return canDelete(item, index)
+    }
+    return canDelete
   }
 
   getAction(file) {
@@ -185,6 +195,7 @@ class Upload extends PureComponent {
     const { beforeUpload, value, limit, filesFilter } = this.props
     // eslint-disable-next-line
     const files = { ...this.state.files }
+    let finishedCode = false
     let fileList = e.fromDragger && e.files ? e.files : e.target.files
     if (filesFilter) fileList = filesFilter(Array.from(fileList)) || []
     const addLength = limit - value.length - Object.keys(this.state.files).length
@@ -214,12 +225,17 @@ class Upload extends PureComponent {
 
         if (beforeUpload) {
           beforeUpload(blob, this.validatorHandle)
+            // eslint-disable-next-line no-loop-func
             .then(args => {
-              this.setState(
-                immer(draft => {
-                  draft.files[id] = Object.assign({}, draft.files[id], args)
-                })
-              )
+              if (finishedCode) {
+                this.setState(
+                  immer(draft => {
+                    draft.files[id] = Object.assign({}, draft.files[id], args)
+                  })
+                )
+              } else {
+                files[id] = Object.assign({}, files[id], args)
+              }
             })
             .catch(() => true)
         }
@@ -228,26 +244,36 @@ class Upload extends PureComponent {
 
       if (beforeUpload) {
         beforeUpload(blob, this.validatorHandle)
+          // eslint-disable-next-line no-loop-func
           .then(args => {
             if (args.status !== ERROR) files[id].xhr = this.uploadFile(id, blob, args.data)
-            this.setState(
-              immer(draft => {
-                draft.files[id] = Object.assign({}, draft.files[id], args)
-              })
-            )
+            if (finishedCode) {
+              this.setState(
+                immer(draft => {
+                  draft.files[id] = Object.assign({}, draft.files[id], args)
+                })
+              )
+            } else {
+              files[id] = Object.assign({}, files[id], args)
+            }
           })
+          // eslint-disable-next-line no-loop-func
           .catch(() => {
-            this.setState(
-              immer(draft => {
-                delete draft.files[id]
-              })
-            )
+            if (finishedCode) {
+              this.setState(
+                immer(draft => {
+                  delete draft.files[id]
+                })
+              )
+            } else {
+              delete files[id]
+            }
           })
       } else {
         files[id].xhr = this.uploadFile(id, blob)
       }
     }
-
+    finishedCode = true
     this.setState({ files })
   }
 
@@ -263,6 +289,7 @@ class Upload extends PureComponent {
       request,
       onProgress,
       onStart,
+      responseType,
     } = this.props
 
     const req = request || defaultRequest
@@ -276,6 +303,7 @@ class Upload extends PureComponent {
       withCredentials,
       file,
       headers,
+      responseType,
 
       onStart,
 
@@ -429,6 +457,7 @@ class Upload extends PureComponent {
       leftHandler,
       onPreview,
       removeConfirm,
+      GapProps,
     } = this.props
     const { files, recycle } = this.state
     const fileDrop = drop && !imageStyle
@@ -449,57 +478,61 @@ class Upload extends PureComponent {
       )
     }
 
+    const Wrapper = imageStyle ? Gap : React.Fragment
+
     return (
       <div className={className} style={style} {...getDataset(this.props)}>
-        {!imageStyle && this.renderHandle()}
-        {imageStyle && leftHandler && this.renderHandle()}
-        {showUploadList &&
-          value.map((v, i) => (
-            <Drop
-              drop={drop}
-              multiple={false}
-              key={i}
-              accept={accept}
-              dropData={i}
-              disabled={disabled}
-              onDrop={this.handleReplace}
-            >
+        <Wrapper {...(imageStyle ? GapProps : null)}>
+          {!imageStyle && this.renderHandle()}
+          {imageStyle && leftHandler && this.renderHandle()}
+          {showUploadList &&
+            value.map((v, i) => (
+              <Drop
+                drop={drop}
+                multiple={false}
+                key={i}
+                accept={accept}
+                dropData={i}
+                disabled={disabled}
+                onDrop={this.handleReplace}
+              >
+                <ResultComponent
+                  renderContent={renderContent}
+                  value={v}
+                  values={value}
+                  index={i}
+                  style={imageStyle}
+                  renderResult={renderResult}
+                  onRemove={this.getCanDelete(v, i) ? this.removeValue : undefined}
+                  removeConfirm={removeConfirm}
+                  onPreview={onPreview}
+                />
+              </Drop>
+            ))}
+
+          {showUploadList &&
+            Object.keys(files).map(id => (
+              <FileComponent {...files[id]} key={id} id={id} style={imageStyle} onRemove={this.removeFile} />
+            ))}
+
+          {imageStyle && !leftHandler && this.renderHandle()}
+
+          {recoverAble &&
+            recycle.map((v, i) => (
               <ResultComponent
                 renderContent={renderContent}
+                key={i}
                 value={v}
-                values={value}
+                values={recycle}
                 index={i}
-                style={imageStyle}
                 renderResult={renderResult}
-                onRemove={this.removeValue}
-                removeConfirm={removeConfirm}
-                onPreview={onPreview}
+                recoverAble={!!recoverAble}
+                showRecover={recoverAble && limit > value.length}
+                onRecover={this.recoverValue}
+                style={imageStyle}
               />
-            </Drop>
-          ))}
-
-        {showUploadList &&
-          Object.keys(files).map(id => (
-            <FileComponent {...files[id]} key={id} id={id} style={imageStyle} onRemove={this.removeFile} />
-          ))}
-
-        {imageStyle && !leftHandler && this.renderHandle()}
-
-        {recoverAble &&
-          recycle.map((v, i) => (
-            <ResultComponent
-              renderContent={renderContent}
-              key={i}
-              value={v}
-              values={recycle}
-              index={i}
-              renderResult={renderResult}
-              recoverAble={!!recoverAble}
-              showRecover={recoverAble && limit > value.length}
-              onRecover={this.recoverValue}
-              style={imageStyle}
-            />
-          ))}
+            ))}
+        </Wrapper>
       </div>
     )
   }
@@ -548,6 +581,9 @@ Upload.propTypes = {
   removeConfirm: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   beforeRemove: PropTypes.func,
   forceAcceptErrorMsg: PropTypes.string,
+  canDelete: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+  GapProps: PropTypes.shape({}),
+  responseType: PropTypes.string,
 }
 
 Upload.defaultProps = {
@@ -559,6 +595,8 @@ Upload.defaultProps = {
   withCredentials: false,
   showUploadList: true,
   validatorHandle: true,
+  canDelete: true,
+  GapProps: { column: 12, row: 12 },
 }
 
 export default acceptHOC(Upload)

@@ -143,3 +143,42 @@ export const preventPasteFile = e => {
   e.preventDefault()
   document.execCommand('insertText', false, text)
 }
+
+export const parsePxToNumber = str => Number(str.replace(/\s+|px/gi, ''))
+
+export const addResizeObserver = (el, handler, options = {}) => {
+  const { direction } = options
+  let h = handler
+  let lastWidth
+  let lastHeight
+  if (window.ResizeObserver) {
+    if (direction) {
+      lastWidth = el.clientWidth
+      lastHeight = el.clientHeight
+      h = function(entry) {
+        const { width, height } = entry[0].contentRect
+        if (direction === 'x') {
+          if (lastWidth !== width) {
+            handler(entry)
+          }
+        } else if (direction === 'y') {
+          if (lastHeight !== height) {
+            handler(entry)
+          }
+        } else {
+          handler(entry, { x: lastWidth !== width, y: lastHeight !== height })
+        }
+        lastWidth = width
+        lastHeight = height
+      }
+    }
+    let observer = new ResizeObserver(h)
+    observer.observe(el)
+    return () => {
+      observer.disconnect()
+      observer = null
+    }
+  }
+  window.addEventListener('resize', handler)
+  return () => window.removeEventListener('resize', handler)
+}

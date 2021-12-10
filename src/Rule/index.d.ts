@@ -27,7 +27,7 @@ export interface RegExpParams {
 }
 
 export interface validFunc {
-  (value: any, formData: any, callback: (cbArgs: true | Error) => void, props: any) : (void | Promise);
+  (value: any, formData: any, callback: (cbArgs: true | Error) => void, props: any) : (void | Promise<any>);
 }
 
 export interface RuleParams {
@@ -48,9 +48,10 @@ export interface RuleParams {
     func?: validFunc;
     message?: string
     [propName: string]: any;
-  } | validFunc);
+  } | validFunc | any) ;
 }
 
+export type RuleParamsType<Value, P = any, FormData = any> = Array<RuleParams | ((value?: Value, formData?: FormData, callback?: ((cbArgs: true | Error) => void), props?: P) => void)>
 
 export interface RuleResult {
   required (message?: string): Required;
@@ -59,7 +60,7 @@ export interface RuleResult {
 
   max(number?: number, message?: string): Max;
 
-  range(min?: number, max: number, message?: string): Range;
+  range(min?: number, max?: number, message?: string): Range;
 
   regExp(reg?: RegExp | string): RegExpParams;
 

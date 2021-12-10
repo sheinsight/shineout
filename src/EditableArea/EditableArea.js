@@ -20,7 +20,6 @@ class Editable extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      value: props.value,
       showTextarea: false,
     }
 
@@ -38,20 +37,15 @@ class Editable extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { value } = this.props
     const { showTextarea } = this.state
     if (prevState.showTextarea !== showTextarea && showTextarea) {
       this.autoFocus()
-    }
-    if (value !== prevProps.value) {
-      this.setState({ value })
     }
   }
 
   onChange(value) {
     const { onChange } = this.props
     if (typeof onChange === 'function') onChange(value)
-    this.setState({ value })
   }
 
   onBlur(e) {
@@ -83,8 +77,8 @@ class Editable extends React.PureComponent {
   }
 
   renderTextarea() {
-    const { showTextarea, value } = this.state
-    const { delay, placeholder, maxHeight } = this.props
+    const { showTextarea } = this.state
+    const { delay, placeholder, maxHeight, value } = this.props
     if (!showTextarea) return null
 
     return (
@@ -106,8 +100,7 @@ class Editable extends React.PureComponent {
   }
 
   renderInput() {
-    const { value } = this.state
-    const { placeholder, disabled } = this.props
+    const { placeholder, disabled, value } = this.props
     return (
       <Input
         forwardedRef={this.bindInput}
@@ -121,12 +114,11 @@ class Editable extends React.PureComponent {
   }
 
   render() {
-    const { showTextarea, value } = this.state
-    const { width, style, className, bordered, clearable, getPopupContainer } = this.props
+    const { showTextarea } = this.state
+    const { width, style, className, bordered, clearable, getPopupContainer, value } = this.props
     const cls = classnames(className, editableAreaClass('_', !bordered && 'none-bordered'))
     const ms = Object.assign({ width }, style)
     const popStyle = { width: this.width }
-
     return (
       <div className={cls} style={ms}>
         {this.renderInput()}

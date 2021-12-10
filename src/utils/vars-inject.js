@@ -22,6 +22,38 @@ import { tagClass } from '../Tag/styles'
 import { exposeClass } from '../styles/expose'
 
 const computedCache = {}
+let injectType = 'body'
+let styleObj = {}
+
+export function getInjectType() {
+  return injectType
+}
+
+export function setInjectType(type) {
+  injectType = type
+}
+
+export function cleanStyleObj() {
+  styleObj = {}
+}
+
+export function injectTag(custom = {}) {
+  const id = '__shineoutThemeStyleContainer__'
+  const styleText = `body{${Object.keys({ ...styleObj, ...custom })
+    .map(key => `${key}: ${styleObj[key]}`)
+    .join(';')}}`
+  const el = document.getElementById(id)
+  if (el) {
+    el.innerText = styleText
+  } else {
+    const stylee = document.createElement('style')
+    stylee.setAttribute('type', 'text/css')
+    stylee.setAttribute('id', id)
+    stylee.innerText = styleText
+    document.head.appendChild(stylee)
+  }
+}
+
 function getProperty(name = '--btn-hover-darken', cache = true) {
   if (cache && computedCache[name]) return computedCache[name]
   computedCache[name] = getComputedStyle(document.body)
@@ -32,10 +64,19 @@ function getProperty(name = '--btn-hover-darken', cache = true) {
 
 function setBodyProperty(colors, value) {
   for (const [cssVar, cssValue] of entries(colors)) {
-    if (value === undefined) {
-      document.body.style.removeProperty(cssVar)
-    } else {
-      document.body.style.setProperty(cssVar, cssValue)
+    if (injectType === 'body') {
+      if (value === undefined) {
+        document.body.style.removeProperty(cssVar)
+      } else {
+        document.body.style.setProperty(cssVar, cssValue)
+      }
+    }
+    if (injectType === 'tag') {
+      if (value === undefined) {
+        delete styleObj[cssVar]
+      } else {
+        styleObj[cssVar] = cssValue
+      }
     }
   }
 }
@@ -1334,6 +1375,34 @@ const injects = {
         type: 'color',
         desc: '清空按钮背景色',
       },
+      {
+        name: 'treeDisabledBg',
+        className: exposeClass('select-tree-disabled'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '树形选择禁用选项背景色',
+      },
+      {
+        name: 'treeContentColor',
+        className: exposeClass('select-tree'),
+        attr: 'color',
+        type: 'color',
+        desc: '树形选择可点击选项文字颜色',
+      },
+      {
+        name: 'treeDisableContentColor',
+        className: exposeClass('select-tree-disabled'),
+        attr: 'color',
+        type: 'color',
+        desc: '树形选择禁用选项文字颜色',
+      },
+      {
+        name: 'treeIconHoverBg',
+        className: exposeClass('select-tree-icon-hover'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '树形选择展开箭头背景色',
+      },
     ],
     set resultPaddingVertical(v) {
       setBodyProperty(
@@ -1428,6 +1497,41 @@ const injects = {
       setBodyProperty(
         {
           '--select-clear-bg-color': v,
+        },
+        v
+      )
+    },
+    set treeDisabledBg(v) {
+      setBodyProperty(
+        {
+          '--select-tree-disabled-bg-color': v,
+        },
+        v
+      )
+    },
+
+    set treeContentColor(v) {
+      setBodyProperty(
+        {
+          '--select-tree-content-color': v,
+        },
+        v
+      )
+    },
+
+    set treeDisableContentColor(v) {
+      setBodyProperty(
+        {
+          '--select-tree-disabled-content-color': v,
+        },
+        v
+      )
+    },
+
+    set treeIconHoverBg(v) {
+      setBodyProperty(
+        {
+          '--select-tree-icon-hover-bg-color': v,
         },
         v
       )
@@ -2838,6 +2942,30 @@ const injects = {
         desc: '文字大小',
       },
       {
+        name: 'iconMarginTop',
+        className: alertClass('icon'),
+        attr: 'marginTop',
+        type: 'number',
+        parser: parseInt,
+        desc: 'Icon上外边距',
+      },
+      {
+        name: 'paddingX',
+        className: alertClass('_'),
+        attr: 'paddingLeft',
+        type: 'number',
+        parser: parseInt,
+        desc: '水平方向内边距',
+      },
+      {
+        name: 'paddingY',
+        className: alertClass('_'),
+        attr: 'paddingTop',
+        type: 'number',
+        parser: parseInt,
+        desc: '垂直方向内边距',
+      },
+      {
         name: 'closeIconColor',
         className: exposeClass('alert-close'),
         attr: 'color',
@@ -2988,6 +3116,32 @@ const injects = {
         v
       )
     },
+
+    set paddingX(v) {
+      setBodyProperty(
+        {
+          '--alert-padding-x': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set paddingY(v) {
+      setBodyProperty(
+        {
+          '--alert-padding-y': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set iconMarginTop(v) {
+      setBodyProperty(
+        {
+          '--alert-icon-margin-top': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+
     set closeIconColor(v) {
       setBodyProperty(
         {
@@ -3210,6 +3364,14 @@ const injects = {
         type: 'color',
         desc: '边框颜色',
       },
+      {
+        name: 'iconMarginTop',
+        className: exposeClass('msg-icon'),
+        attr: 'marginTop',
+        type: 'number',
+        parser: parseInt,
+        desc: '类型图标距离顶部距离',
+      },
     ],
     set boxShadow(v) {
       setBodyProperty(
@@ -3245,6 +3407,14 @@ const injects = {
     },
     set borderColor(v) {
       setBodyProperty({ '--message-border-color': v }, v)
+    },
+    set iconMarginTop(v) {
+      setBodyProperty(
+        {
+          '--message-icon-margin-top': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
     },
   },
   card: {
@@ -4361,11 +4531,152 @@ const injects = {
         parser: parseInt,
         desc: 'tab间隔',
       },
+      {
+        name: 'tabPaddingX',
+        className: exposeClass('tabs-tab'),
+        attr: 'paddingLeft',
+        type: 'number',
+        min: 0,
+        parser: parseInt,
+        desc: 'tab水平内边距',
+      },
+      {
+        name: 'tabPaddingY',
+        className: exposeClass('tabs-tab'),
+        attr: 'paddingTop',
+        type: 'number',
+        min: 0,
+        parser: parseInt,
+        desc: 'tab垂直内边距',
+      },
+      {
+        name: 'tabFontSize',
+        className: exposeClass('tabs-tab'),
+        attr: 'fontSize',
+        type: 'number',
+        min: 0,
+        parser: parseInt,
+        desc: 'tab字体大小',
+      },
+      {
+        name: 'tabBackground',
+        className: exposeClass('tabs-tab'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'tab背景色',
+      },
+      {
+        name: 'tabActiveBackground',
+        className: exposeClass('tabs-tab-active'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'tab选中背景色',
+      },
+      {
+        name: 'tabBorderColor',
+        className: exposeClass('tabs-tab'),
+        attr: 'borderColor',
+        type: 'color',
+        desc: 'tab边框颜色',
+      },
+      {
+        name: 'tabActiveBorderColor',
+        className: exposeClass('tabs-tab-active'),
+        attr: 'borderColor',
+        type: 'color',
+        desc: 'tab选中边框颜色',
+      },
+      {
+        name: 'tabColor',
+        className: exposeClass('tabs-tab'),
+        attr: 'color',
+        type: 'color',
+        desc: 'tab文字颜色',
+      },
+      {
+        name: 'tabActiveColor',
+        className: exposeClass('tabs-tab-active'),
+        attr: 'color',
+        type: 'color',
+        desc: 'tab选中文字颜色',
+      },
     ],
     set tabSpacing(v) {
       setBodyProperty(
         {
           '--tabs-tab-spacing': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set tabPaddingX(v) {
+      setBodyProperty(
+        {
+          '--tabs-tab-padding-x': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set tabPaddingY(v) {
+      setBodyProperty(
+        {
+          '--tabs-tab-padding-y': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set tabFontSize(v) {
+      setBodyProperty(
+        {
+          '--tabs-tab-font-size': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set tabBackground(v) {
+      setBodyProperty(
+        {
+          '--tabs-tab-background': v,
+        },
+        v
+      )
+    },
+    set tabActiveBackground(v) {
+      setBodyProperty(
+        {
+          '--tabs-tab-active-background': v,
+        },
+        v
+      )
+    },
+    set tabBorderColor(v) {
+      setBodyProperty(
+        {
+          '--tabs-tab-border-color': v,
+        },
+        v
+      )
+    },
+    set tabActiveBorderColor(v) {
+      setBodyProperty(
+        {
+          '--tabs-tab-active-border-color': v,
+        },
+        v
+      )
+    },
+    set tabColor(v) {
+      setBodyProperty(
+        {
+          '--tabs-tab-color': v,
+        },
+        v
+      )
+    },
+    set tabActiveColor(v) {
+      setBodyProperty(
+        {
+          '--tabs-tab-active-color': v,
         },
         v
       )

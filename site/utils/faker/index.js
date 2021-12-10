@@ -1,5 +1,5 @@
 import { range } from 'shineout/utils/numbers'
-import format from 'date-fns/format'
+import dayjs from 'dayjs'
 
 export function pickNumber(max = 65555, min = 0, fixed = 2) {
   if (typeof max === 'string') max = parseInt(max, 10)
@@ -19,7 +19,7 @@ export function random(max) {
 
 export function pickDate(fmt = 'yyyy-MM-dd', offset = 10000000000) {
   const date = Date.now() - random(offset)
-  return format(date, fmt)
+  return dayjs(date).format(fmt)
 }
 
 export function one(items) {

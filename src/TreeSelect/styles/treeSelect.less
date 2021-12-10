@@ -12,6 +12,7 @@
   &-inner {
     width: 100%;
     outline: none;
+    display: flex;
   }
 
   &-tree-wrapper {
@@ -21,7 +22,7 @@
     .@{tree-prefix} {
       &-node {
         &:last-child > div {
-          padding-bottom: 4px;
+          margin-bottom: 4px;
         }
       }
       &-content {
@@ -55,6 +56,7 @@
     overflow: auto;
     max-height: 80px;
     flex-flow: wrap;
+    flex-grow: 1;
     padding: @padding-base-vertical @padding-base-horizontal+12 0 @padding-base-horizontal;
 
     span {
@@ -151,8 +153,21 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    align-items: flex-start;
+    flex-grow: 1;
+    width: 0;
+
     .@{treeSelect-prefix}-ban {
       padding-right: @select-result-space;
+    }
+    .@{treeSelect-prefix}-input {
+      white-space: nowrap;
+    }
+    .@{treeSelect-prefix}-item {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
   }
 

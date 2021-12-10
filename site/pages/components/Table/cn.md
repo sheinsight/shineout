@@ -43,7 +43,7 @@
 | defaultTreeExpandKeys | any[] | 无 | 默认展开行(非受控) |
 | dataChangeResize | boolean | false | 数据发生变化后是否重新计算列宽 |
 | onColumnResize | (newColumns: object[]) => void | 无 | 列宽伸缩后的回调 |
-| size | 'small' \| 'normal' | 'normal' | 表格尺寸 |
+| size | 'small' \| 'default' | 'default' | 表格尺寸 |
 | pagination | object | 无 | 分页数据 |
 | innerScrollAttr | string[] | 无 | 虚拟滚动模式下，设置行内元素的 attribut 来实现内部滚动 |
 | expandKeys | any[] | 无 | 展开行受控 |
@@ -71,5 +71,6 @@
 | treeColumnsName | string | 无 | 树形表格子数据字段名 |
 | treeIndent | number | 25 | 每一层缩进宽度 |
 | minWidth | number | 无 | 最小列宽 |
+| maxWidth | number | 无 | 最大可拖动列宽 |
 | hide | boolean | false | 只针对行展开列有效，表示是否隐藏该列 |
 | defaultOrder | string | 'asc' \| 'desc' | 默认排序规则 |

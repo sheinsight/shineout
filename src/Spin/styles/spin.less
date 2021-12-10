@@ -4,6 +4,19 @@
 @spin-prefix: ~'@{so-prefix}-spin';
 
 .@{spin-prefix} {
+  margin: auto;
+  line-height: 1.5715;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  > div {
+    margin: unset;
+  }
+  &-tip {
+    margin: auto;
+    text-align: center;
+  }
   &-container {
     position: relative;
     .@{spin-prefix}-loading {

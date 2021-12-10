@@ -89,6 +89,15 @@ export interface ColumnItem<T> {
   minWidth?: number;
 
   /**
+   * max width
+   *
+   * 最大可拖动列宽
+   *
+   * default: none
+   */
+  maxWidth?: number;
+
+  /**
    * The generation function for Table content.d: the data of the current row. i: the index of the current row .For ease of use, you can pass in the key of a data, such as 'id', which is equivalent to (d) => { return d.id }
    *
    * 表格内容生成函数；d: 当前行数据i: 当前行索引为了使用方便，可以传入一个数据的key，如 'id'，相当于 (d) => { return d.id }
@@ -458,9 +467,9 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    *
    * 表格尺寸
    *
-   * default: 'normal'
+   * default: 'default'
    */
-  size?: 'small' | 'normal';
+  size?: 'small' | 'default';
 
   /**
    * pagination of table

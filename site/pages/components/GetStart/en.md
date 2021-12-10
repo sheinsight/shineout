@@ -49,12 +49,12 @@ By default, the css code is isolated by prefix. The default prefix is 'so' and d
     }
   }
 }
-``` 
+```
 
 Set config in the project.
 
 ```
-import config from 'shineout/config'
+import { config } fron 'shineout'
 config.setConfig({
   prefix: 'your-prefix'
 })
@@ -85,7 +85,7 @@ If you need to use the CSS Module, modify the css-loader configuration of the we
 
 Set the config.cssmodule to true at the application entrance
 ```
-import config from 'shineout/config'
+import { config } fron 'shineout'
 config.setConfig({
   cssModule: true
 })
@@ -109,7 +109,7 @@ Input delay refers to the user's input trigger onchange and check interval. Inpu
 You can change the global delay time by setting config.delay.
 
 ```
-import config from 'shineout/config'
+import { config } fron 'shineout'
 config.setConfig({
   delay: 0
 })
@@ -259,10 +259,10 @@ create .babelrc file:
   "presets": ["react-app"],
   "plugins": [
     [
-      "import", 
-      { 
-        "libraryName": "shineout", 
-        "libraryDirectory": "css", // import css 
+      "import",
+      {
+        "libraryName": "shineout",
+        "libraryDirectory": "css", // import css
         "style": false,
         "camel2DashComponentName": false,
         "camel2UnderlineComponentName": false
@@ -285,11 +285,11 @@ Modifying the theme requires compiling less , it is necessary to introduce rewri
   "presets": ["react-app"],
   "plugins": [
     [
-      "import", 
-      { 
-        "libraryName": "shineout", 
--       "libraryDirectory": "css", // import css 
-+       "libraryDirectory": "lib", // import lib 
+      "import",
+      {
+        "libraryName": "shineout",
+-       "libraryDirectory": "css", // import css
++       "libraryDirectory": "lib", // import lib
         "style": false,
         "camel2DashComponentName": false,
         "camel2UnderlineComponentName": false
@@ -299,7 +299,7 @@ Modifying the theme requires compiling less , it is necessary to introduce rewri
 }
 ```
 1. Install `rescript-use-rewire` and `react-app-rewire-less`.
-   
+
 ```
 $ npm i @rescripts/rescript-use-rewire react-app-rewire-less
 ```
@@ -310,9 +310,9 @@ $ npm i @rescripts/rescript-use-rewire react-app-rewire-less
 
 module.exports = [
   ['use-babel-config', '.babelrc'],
-+ [ 
++ [
 +   'use-rewire',
-+   rewireLess.withLoaderOptions({ 
++   rewireLess.withLoaderOptions({
 +     modifyVars: { 'so-theme': 'antd' }, // change theme to antd
 +     javascriptEnabled: true
 +   })

@@ -4,15 +4,15 @@
 
 ## API
 
-### Popover 
+### Popover
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | background | string | '#fff' | Pop-up background-color(with arrows) |
 | visible | boolean | - | is visible (controlled) |
-| onVisibleChange | (visible: boolean) => void | - | the event of visible change | 
-| mouseEnterDelay | number | 0 | the show delay of mouseenter(ms) | 
-| mouseLeaveDelay | number | 0 | the hidden delay of mouseleave (ms) | 
+| onVisibleChange | (visible: boolean) => void | - | the event of visible change |
+| mouseEnterDelay | number | 0 | the show delay of mouseenter(ms) |
+| mouseLeaveDelay | number | 0 | the hidden delay of mouseleave (ms) |
 | border | string | '#dee2e6' | The color of pop-up border(with arrows) |
 | className | string | - | Extend className |
 | children | ReactNode | required | Pop-up content. |
@@ -22,7 +22,7 @@
 | style | object | - | The pop-up container style |
 | trigger | 'click' \| 'hover' | 'hover' | type of show |
 | type | 'success' \| 'info' \| 'warning' \| 'danger' | none | type of popover |
-| content | (close: () => void) => void \| ReactNode | - | Old API, out of date. | 
+| content | (close: () => void) => void \| ReactNode | - | Old API, out of date. |
 | priorityDirection | string | 'vertical' | Popup location priority, default is left and right priority, only valid when position is not set, Options: \['vertical', 'horizontal'] |
 | getPopupContainer | () => HTMLElement | none | Custom Popover container, override the default behavior which is rendering under the body, () => DOMElement |
 | scrollDismiss |  () => HTMLElement \| boolean| false | scroll to dismiss, return el to order scroller |
@@ -39,6 +39,7 @@
 | onCancel | () => void | none | cancel button click callback, will close tooltip while returned promise resolve |
 | text | object | { ok: 'Ok', cancel: 'Cancel' } | button text |
 | type | string | *warning* |  icon type \[*success*, *info*, *warning*, *danger(error)*] |
+| icon | ReactNode | none |  custom icon |
 
 
 ### PopoverNote

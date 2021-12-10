@@ -100,7 +100,7 @@ Tab.propTypes = {
 }
 
 Tab.defaultProps = {
-  border: 'transparent',
+  // border: 'transparent',
 }
 
 export default Tab

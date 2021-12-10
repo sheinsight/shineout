@@ -4,6 +4,7 @@ import { datepickerClass } from './styles'
 import TimeScroll from './TimeScroll'
 import utils from './utils'
 import { isRTL } from '../config'
+import paramUtils from './paramUtils'
 
 class Time extends PureComponent {
   constructor(props) {
@@ -43,10 +44,10 @@ class Time extends PureComponent {
       }
     }
 
-    const [isDisabled, date] = utils.judgeTimeByRange(val, value, mode, min, max, range, disabled, disabledTime)
+    const [isDisabled, date] = paramUtils.judgeTimeByRange(val, value, mode, min, max, range, disabled, disabledTime)
 
     if (isDisabled) return
-    this.props.onChange(...utils.timeHandleChangeParams(date, true, false, 'time'))
+    this.props.onChange(...paramUtils.timeHandleChangeParams(date, true, false, 'time'))
   }
 
   renderTimeScroller(value, min, max, hours) {

@@ -287,6 +287,8 @@ class Root extends React.Component {
       frontCaret,
       looseChildren,
       parentSelectable,
+      frontCaretType,
+      caretColor,
     } = this.props
     const isVertical = mode.indexOf('vertical') === 0
     const showScroll = ((style.height || height) && isVertical) || mode === 'horizontal'
@@ -341,6 +343,8 @@ class Root extends React.Component {
               frontCaret={frontCaret}
               looseChildren={looseChildren}
               parentSelectable={parentSelectable}
+              frontCaretType={frontCaretType}
+              caretColor={caretColor}
             />
           </Provider>
         </div>
@@ -365,6 +369,8 @@ Root.propTypes = {
   onOpenChange: PropTypes.func,
   toggleDuration: PropTypes.number,
   frontCaret: PropTypes.bool,
+  frontCaretType: List.propTypes.frontCaretType,
+  caretColor: List.propTypes.caretColor,
 }
 
 Root.defaultProps = {
@@ -379,6 +385,7 @@ Root.defaultProps = {
   defaultOpenKeys: [],
   onClick: () => true,
   toggleDuration: 200,
+  frontCaretType: 'solid',
 }
 
 export default Root

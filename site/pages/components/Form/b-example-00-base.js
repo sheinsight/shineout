@@ -6,7 +6,7 @@
  */
 import React, { PureComponent } from 'react'
 import { Form, Input, Checkbox, Radio, Textarea, Select, DatePicker, Tree, Upload } from 'shineout'
-import format from 'date-fns/format'
+import dayjs from 'dayjs'
 
 const citys = [
   {
@@ -23,7 +23,7 @@ const citys = [
 const CDP = ({ value, onChange, ...props }) => (
   <DatePicker
     {...props}
-    value={value.map(v => format(v, 'yyyy-MM-dd'))}
+    value={value.map(v => dayjs(v).format('YYYY-MM-DD'))}
     onChange={vs => onChange(vs.map(v => new Date(v).getTime()))}
   />
 )
