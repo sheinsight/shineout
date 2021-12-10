@@ -307,6 +307,10 @@ describe('dateUtil[toDateWithFormat]', () => {
     const expected = new Date(2021, 9, 1, 12, 12)
     expect(utils.toDateWithFormat(expected, 'yyyy-MM-dd', undefined).valueOf()).toBe(expected.valueOf())
   })
+  it('not match format will return toDate(dirtyDate)', () => {
+    const expected = new Date(2021, 9, 1, 12, 12, 12)
+    expect(utils.toDateWithFormat('2021-10-01 12:12:12', 'HH:mm:ss', undefined).valueOf()).toBe(expected.valueOf())
+  })
 })
 
 describe('dateUtil[formatDateWithDefaultTime]', () => {
