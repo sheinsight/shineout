@@ -247,7 +247,6 @@ export default curry(Origin =>
         if (args.length === 0 && shallowEqual(value, currentValue)) {
           return
         }
-        console.log(formDatum, name, value)
 
         const beforeChange = beforeValueChange(this.props.beforeChange)
         if (formDatum && name) {
@@ -315,7 +314,6 @@ export default curry(Origin =>
           defaultValue,
           ...other
         } = this.props
-        console.log(this.getValue())
         return (
           <Origin
             {...other}
