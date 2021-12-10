@@ -141,6 +141,7 @@ class FilterList extends Component {
     return (
       <div
         {...others}
+        ref={getRef}
         className={classnames(
           selectClass('options'),
           cascaderClass('filter', expandTrigger === 'hover-only' && 'leaf-only')
