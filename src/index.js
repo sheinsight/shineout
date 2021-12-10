@@ -2,7 +2,7 @@
 import './styles/normalize.less'
 import * as utils from './utils'
 
-export default { utils, version: '1.7.0-rc.10' }
+export default { utils, version: '1.7.0' }
 export { utils }
 export { setLocale } from './locale'
 export { color, style } from './utils/expose'
