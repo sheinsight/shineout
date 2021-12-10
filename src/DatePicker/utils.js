@@ -184,10 +184,14 @@ function toDateWithFormat(dirtyDate, fmt, def) {
     date = parse(dirtyDate, fmt, new Date(), {
       weekStartsOn: getLocale('startOfWeek'),
     })
+    const str = format(date, fmt, {
+      weekStartsOn: getLocale('startOfWeek'),
+    })
+    if (str !== dirtyDate) {
+      date = toDate(dirtyDate)
+    }
   } else date = toDate(dirtyDate)
-  if (isInvalid(date)) date = toDate(dirtyDate)
   if (isInvalid(date)) date = def
-
   return date
 }
 
