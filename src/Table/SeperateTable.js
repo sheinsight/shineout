@@ -235,7 +235,7 @@ class SeperateTable extends PureComponent {
     const height = fullHeight * scrollTop
 
     const scrollHeight = this.lastScrollArgs[5]
-    // 高度减少了
+    // Height reduced
     if (this.lastScrollTop - height >= 1) {
       const index = this.resetIndex()
       this.setState({ currentIndex: index })
