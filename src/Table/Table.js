@@ -66,7 +66,7 @@ class Table extends Component {
       hover,
       height,
       columns,
-      value,
+      // value,
       children,
       empty,
       data,
