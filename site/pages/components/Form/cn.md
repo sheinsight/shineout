@@ -25,7 +25,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 | datum | object | | formdata 辅助类，不设置Form内部会自动创建，通常情况下不需要设置。 |
 | disabled | boolean | false | 是否禁用，为 true 时，表单内所有元素 disabled 都为 true |
 | inline | boolean | false | 是否水平布局 |
-| labelAlign | 'top' \| 'right' \| 'left' | 'right' | 默认为右边对齐 |
+| labelAlign | 'top' \| 'right' \| 'left' |  | 默认值为空,跟随主题样式 |
 | labelWidth | string \| number | 140px | 标签宽度，labelAlign 为 'top' 时无效。 |
 | mode | string | | 模式，和 useMode 配合使用 |
 | onChange | (data: any) => void | | 表单内组件值变化函数 |
@@ -46,7 +46,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | label | string \| ReactNode | undefined | 未定义时，标签不会render，也不会占位。如果无内容需要占位，使用空字符串 ''。 |
-| labelAlign | 'top' \| 'right' | | 默认为左边对齐。 |
+| labelAlign | 'top' \| 'right'  \| 'left' | | 默认值为空,跟随主题样式。 |
 | labelWidth | string \| number | 140px | 标签宽度，labelAlign 为 'top' 时无效。 |
 | required | boolean | false | 必填标记，纯展示用，不会触发校验 |
 | tip | string | | 提示文案 |

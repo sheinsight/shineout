@@ -77,11 +77,11 @@ export interface FormProps<Value> extends StandardProps {
   inline?: boolean;
 
   /**
-   * the default value is right.
+   * The default is empty, follow the theme style.
    *
-   * 默认为右边对齐。
+   * 默认为空，跟随主题样式。
    *
-   * default: 'right'
+   * default:
    */
   labelAlign?: 'top' | 'right' | 'left';
 
@@ -207,13 +207,13 @@ export interface FormItemProps extends StandardProps {
   label?: string | ReactNode;
 
   /**
-   * the default value is left.
+   * The default is empty, follow the theme style.
    *
-   * 默认为左边对齐。
+   * 默认为空，跟随主题样式。
    *
    * default:
    */
-  labelAlign?: 'top' | 'right';
+  labelAlign?: 'top' | 'right' | 'left';
 
   /**
    * The width of label. It is invalid when labelAlign is 'top'.
