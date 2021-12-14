@@ -261,7 +261,7 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    *
    * default: none
    */
-  onRowSelect?: (rows: TRD) => void;
+  onRowSelect?: (rows: TRD[]) => void;
 
 
   /**

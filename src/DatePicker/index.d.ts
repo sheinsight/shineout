@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { StandardProps, FormItemStandardProps } from '../@types/common'
 
-export type DateTimeType = Date | number | string
+export type DateTimeType = Date | number | string | undefined
 
 export type AreaType = 'year' | 'month' | 'week' | 'day' | 'time' | 'quick'
 
@@ -46,7 +46,7 @@ FormItemStandardProps<T> {
    *
    * default: null
    */
-  width?: number;
+  width?: number | string;
 
   /**
    * whether it can be cleared
