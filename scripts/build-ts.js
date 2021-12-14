@@ -6,6 +6,9 @@ const ts = require('typescript')
 
 const srcPath = path.resolve(__dirname, '../src')
 const libPath = path.resolve(__dirname, '../publish/lib')
+const esPath = path.resolve(__dirname, '../publish/es')
+const cssPath = path.resolve(__dirname, '../publish/css')
+
 const sitePath = path.resolve(__dirname, '../site/pages/components')
 const temp = fs.readFileSync(path.resolve(__dirname, './component-declare.ejs'), 'utf-8')
 const sep = '-- |'
@@ -98,6 +101,15 @@ const markdown = glob('**/en.md', {
   cwd: sitePath,
 })
 
+const copyTs = (dir, componentName) => {
+  const cssDir = path.resolve(cssPath, componentName)
+  if (!fs.existsSync(cssDir)) fs.mkdirSync(cssDir)
+  const esDir = path.resolve(esPath, componentName)
+  if (!fs.existsSync(esDir)) fs.mkdirSync(esDir)
+  fs.copyFileSync(dir, path.resolve(cssDir, 'index.d.ts'), fs.constants.COPYFILE_FICLONE)
+  fs.copyFileSync(dir, path.resolve(esDir, 'index.d.ts'), fs.constants.COPYFILE_FICLONE)
+}
+
 markdown.forEach(p => {
   const componentName = moduleMap[path.dirname(p)] || path.dirname(p)
   if (ignoreModule.includes(componentName)) return
@@ -120,7 +132,10 @@ markdown.forEach(p => {
         `The generated declaration file: <${fullPath}> does not meet the standards, please check your api documentation: <${p}>`
       )
   }
+  copyTs(fullPath, componentName)
 })
 
 // copy index
 fs.copyFileSync(path.resolve(srcPath, 'index.js'), path.resolve(libPath, 'index.d.ts'))
+fs.copyFileSync(path.resolve(srcPath, 'index.js'), path.resolve(esPath, 'index.d.ts'))
+fs.copyFileSync(path.resolve(srcPath, 'index.js'), path.resolve(cssPath, 'index.d.ts'))
