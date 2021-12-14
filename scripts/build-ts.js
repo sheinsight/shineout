@@ -28,6 +28,8 @@ const ignoreModule = [
   'GetStart',
 ]
 if (!fs.existsSync(libPath)) fs.mkdirSync(libPath, { recursive: true })
+if (!fs.existsSync(cssPath)) fs.mkdirSync(cssPath, { recursive: true })
+if (!fs.existsSync(esPath)) fs.mkdirSync(esPath, { recursive: true })
 
 function parseTable(c) {
   const header = c.lastIndexOf(sep)
