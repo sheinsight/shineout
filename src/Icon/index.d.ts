@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { StandardProps, RegularAttributes } from '../@types/common'
+import { func } from "prop-types"
 
 
 export interface IconComProps extends StandardProps {
@@ -63,8 +64,6 @@ export type IconCom = React.FC<IconComProps>
  * @param prefix 类名前缀
  */
 
-interface Icon {
-  (url: string, fontFamily: string, prefix: string): IconCom
-}
+declare function Icon (url: string, fontFamily: string, prefix: string): IconCom
 
 export default Icon
