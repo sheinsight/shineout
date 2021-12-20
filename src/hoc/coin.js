@@ -50,7 +50,7 @@ export default coinType => Origin =>
     handleBlur(e) {
       const { onBlur } = this.props
       this.isFocus = false
-      if (!this.mouseDown) this.setState({ showCoin: true })
+      this.setState({ showCoin: true })
       if (onBlur) onBlur(e)
     }
 

@@ -139,6 +139,16 @@
     &-compressed {
       background: @select-compressed-hover-bg;
     }
+    &-tree {
+      color: @select-tree-content-color;
+      &-icon-hover {
+        background: @select-tree-icon-hover-bg-color
+      }
+      &-disabled {
+        background: @select-tree-disabled-bg-color;
+        color: @select-tree-disabled-content-color;
+      }
+    }
   }
   &-datepicker-month{
     &-item {
@@ -403,9 +413,24 @@
     &-close {
       color: @message-close-color;
     }
+    &-icon {
+      margin-top: @message-icon-margin-top;
+    }
   }
   &-tabs {
     margin-left: @tabs-tab-spacing;
+    &-tab {
+      padding: @tabs-tab-padding-y @tabs-tab-padding-x;
+      font-size: @tabs-tab-font-size;
+      color: @tabs-tab-color;
+      border-color: @tabs-tab-border-color;
+      background: @tabs-tab-background;
+    }
+    &-tab-active {
+      color: @tabs-tab-active-color;
+      border-color: @tabs-tab-active-border-color;
+      background: @tabs-tab-active-background;
+    }
   }
   &-cascader-active {
     background-color: @cascader-active-background-color;

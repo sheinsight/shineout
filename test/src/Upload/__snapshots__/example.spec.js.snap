@@ -30,25 +30,33 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-01-onChange.
 
 exports[`Snapshot test: Upload[site/pages/components/Upload/example-02-image.js] 1`] = `
 <div>
-  <span>
-    <span>
-      <div>
-        <div />
-      </div>
-      <input />
-    </span>
-  </span>
+  <div>
+    <div>
+      <span>
+        <span>
+          <div>
+            <div />
+          </div>
+          <input />
+        </span>
+      </span>
+    </div>
+  </div>
 </div>
 `;
 
 exports[`Snapshot test: Upload[site/pages/components/Upload/example-02-show-image.js] 1`] = `
 <div>
-  <span>
+  <div>
     <div>
-      <div />
+      <span>
+        <div>
+          <div />
+        </div>
+        <input />
+      </span>
     </div>
-    <input />
-  </span>
+  </div>
 </div>
 `;
 
@@ -67,17 +75,21 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-03-button.js
 
 exports[`Snapshot test: Upload[site/pages/components/Upload/example-04-validator.js] 1`] = `
 <div>
-  <span>
+  <div>
     <div>
-      <div>
-        <i />
-         Upload Image
-        <br />
-        Allow size 200 * 100
-      </div>
+      <span>
+        <div>
+          <div>
+            <i />
+             Upload Image
+            <br />
+            Allow size 200 * 100
+          </div>
+        </div>
+        <input />
+      </span>
     </div>
-    <input />
-  </span>
+  </div>
 </div>
 `;
 
@@ -95,12 +107,16 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-05-filesize.
     </span>
   </div>
   <div>
-    <span>
+    <div>
       <div>
-        <div />
+        <span>
+          <div>
+            <div />
+          </div>
+          <input />
+        </span>
       </div>
-      <input />
-    </span>
+    </div>
   </div>
 </div>
 `;
@@ -119,12 +135,16 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-06-error.js]
     </span>
   </div>
   <div>
-    <span>
+    <div>
       <div>
-        <div />
+        <span>
+          <div>
+            <div />
+          </div>
+          <input />
+        </span>
       </div>
-      <input />
-    </span>
+    </div>
   </div>
 </div>
 `;
@@ -145,12 +165,16 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-08-request-a
 
 exports[`Snapshot test: Upload[site/pages/components/Upload/example-08-request-ignore.js] 1`] = `
 <div>
-  <span>
+  <div>
     <div>
-      <div />
+      <span>
+        <div>
+          <div />
+        </div>
+        <input />
+      </span>
     </div>
-    <input />
-  </span>
+  </div>
 </div>
 `;
 
@@ -175,7 +199,7 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-10-defaultVa
       <button>
         <i />
         <span>
-           Upload file
+          Upload file
         </span>
       </button>
       <input />
@@ -194,28 +218,33 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-10-defaultVa
   <br />
   <div>
     <div>
-      <a>
+      <div>
         <div>
+          <a>
+            <div>
+              <div>
+                <span>
+                  loading...
+                </span>
+              </div>
+            </div>
+          </a>
           <div>
-            <span>
-              loading...
-            </span>
+            <a>
+              <svg>
+                <path />
+              </svg>
+            </a>
           </div>
         </div>
-      </a>
+      </div>
       <div>
-        <a>
-          <svg>
-            <path />
-          </svg>
-        </a>
-        <a>
-          <svg>
-            <path />
-            <path />
-            <path />
-          </svg>
-        </a>
+        <span>
+          <div>
+            <div />
+          </div>
+          <input />
+        </span>
       </div>
     </div>
   </div>
@@ -225,19 +254,23 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-10-defaultVa
 exports[`Snapshot test: Upload[site/pages/components/Upload/example-11-dragger.js] 1`] = `
 <div>
   <div>
-    <span>
-      <span>
-        <div>
-          <div>
-            <i />
-            <p>
-              Click or Drag image to upload
-            </p>
-          </div>
-        </div>
-        <input />
-      </span>
-    </span>
+    <div>
+      <div>
+        <span>
+          <span>
+            <div>
+              <div>
+                <i />
+                <p>
+                  Click or Drag image to upload
+                </p>
+              </div>
+            </div>
+            <input />
+          </span>
+        </span>
+      </div>
+    </div>
   </div>
   <br />
   <div>

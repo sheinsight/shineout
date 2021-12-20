@@ -77,11 +77,11 @@ export interface FormProps<Value> extends StandardProps {
   inline?: boolean;
 
   /**
-   * the default value is right.
+   * The default is empty, follow the theme style.
    *
-   * 默认为右边对齐。
+   * 默认为空，跟随主题样式。
    *
-   * default: 'right'
+   * default:
    */
   labelAlign?: 'top' | 'right' | 'left';
 
@@ -207,13 +207,13 @@ export interface FormItemProps extends StandardProps {
   label?: string | ReactNode;
 
   /**
-   * the default value is left.
+   * The default is empty, follow the theme style.
    *
-   * 默认为左边对齐。
+   * 默认为空，跟随主题样式。
    *
    * default:
    */
-  labelAlign?: 'top' | 'right';
+  labelAlign?: 'top' | 'right' | 'left';
 
   /**
    * The width of label. It is invalid when labelAlign is 'top'.
@@ -245,6 +245,14 @@ export interface FormItemProps extends StandardProps {
 }
 
 export interface FormFieldProps<Value> {
+  /**
+   * The name of a Form that accesses data
+   *
+   * Form 存取数据的名称
+   *
+   * default: none
+   */
+  name: string;
 
   /**
    * bind name, render while the name change
@@ -274,15 +282,6 @@ export interface FormFieldProps<Value> {
   defaultValue?: string | number;
 
   /**
-   * The name of a Form that accesses data
-   *
-   * Form 存取数据的名称
-   *
-   * default: none
-   */
-  name?: string;
-
-  /**
    * Validation rules
    *
    * 校验规则
@@ -294,6 +293,14 @@ export interface FormFieldProps<Value> {
 }
 
 export interface FormFieldSetProps<Value> {
+  /**
+   * The name that accesses data from from
+   *
+   * 从 Form 中存取数据的名称
+   *
+   * default: required
+   */
+  name: string;
 
   /**
    * When children type is not function, handle a set data type of object
@@ -353,15 +360,6 @@ export interface FormFieldSetProps<Value> {
    * default:
    */
   empty?: (onInsert: Value) => ReactNode;
-
-  /**
-   * The name that accesses data from from
-   *
-   * 从 Form 中存取数据的名称
-   *
-   * default: required
-   */
-  name?: string;
 
   /**
    * Validation rules

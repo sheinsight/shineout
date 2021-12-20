@@ -103,3 +103,18 @@
     .caret-outline(@direction; @width);
   }
 }
+
+.caretColor(@color) {
+  & when (@so-theme = antd) {
+    &:after {border-color: @color;}
+  }
+  & when (@so-theme = antd2) {
+    &:after {border-color: @color;}
+  }
+  & when (@so-theme = default) {
+    &:after {border-top-color: @color;}
+  }
+  & when(@so-theme = shineout) {
+    &:after {border-color: @color;}
+  }
+}

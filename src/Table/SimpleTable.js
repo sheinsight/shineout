@@ -8,6 +8,7 @@ import Tbody from './Tbody'
 import Thead from './Thead'
 import { compareColumns } from '../utils/shallowEqual'
 import Sticky from '../Sticky'
+import { addResizeObserver } from '../utils/dom/element'
 
 function setScrollLeft(target, scrollLeft) {
   if (target && target.scrollLeft !== scrollLeft) target.scrollLeft = scrollLeft
@@ -27,28 +28,38 @@ class SimpleTable extends PureComponent {
     this.bindBody = this.bindElement.bind(this, 'body')
     this.handleScroll = this.handleScroll.bind(this)
     this.handleColgroup = this.handleColgroup.bind(this)
+    this.resetColGroup = this.resetColGroup.bind(this)
   }
 
   componentDidMount() {
-    if (this.body) this.body.addEventListener('wheel', this.handleScroll, { passive: false })
     this.scrollCheck()
   }
 
   componentDidUpdate(prevProps) {
     this.scrollCheck()
     const resize = prevProps.data.length === 0 && this.props.data.length
-    const resetColgroup = this.props.dataChangeResize && this.props.data !== prevProps.data
-    if (resize || resetColgroup || !compareColumns(prevProps.columns, this.props.columns)) {
+    const shouldResetColgroup = this.props.dataChangeResize && this.props.data !== prevProps.data
+    if (resize || shouldResetColgroup || !compareColumns(prevProps.columns, this.props.columns)) {
       this.setState({ colgroup: undefined, resize: true })
     }
   }
 
   componentWillUnmount() {
     if (this.body) this.body.removeEventListener('wheel', this.handleScroll)
+    if (this.removeReiszeObserver) this.removeReiszeObserver()
   }
 
   bindElement(key, el) {
     this[key] = el
+    // this.body will be undefined on componentDidMount when columns length is 0
+    if (key === 'body' && el) {
+      el.addEventListener('wheel', this.handleScroll, { passive: false })
+      this.removeReiszeObserver = addResizeObserver(el, this.resetColGroup, { direction: 'x' })
+    }
+  }
+
+  resetColGroup() {
+    this.setState({ colgroup: undefined, resize: true })
   }
 
   scrollCheck() {
@@ -121,9 +132,10 @@ class SimpleTable extends PureComponent {
   renderBody() {
     const { columns, width, fixed, columnResizable, ...others } = this.props
     const { colgroup, resize } = this.state
+    const minWidthSup = columns.find(d => d.minWidth)
     return (
       <div key="body" className={tableClass('simple-body')} ref={this.bindBody} onScroll={this.handleScroll}>
-        <table style={{ width }}>
+        <table style={{ width }} className={tableClass(!colgroup && minWidthSup && 'init')}>
           <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable} />
           <Tbody
             colgroup={colgroup}

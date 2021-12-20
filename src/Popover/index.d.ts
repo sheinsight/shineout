@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { StandardProps, RegularAttributes } from '../@types/common'
-import { StandardProps }  from '../@types/common'
 
 type ReactNode = React.ReactNode
 
@@ -8,18 +7,18 @@ export interface PopoverProps extends StandardProps {
 
   /**
    * Cancel the popup after clicking the element in mouseEnterDelay
-   * 
-   * 在 mouseEnterDelay 内点击元素后取消弹出	
-   * 
+   *
+   * 在 mouseEnterDelay 内点击元素后取消弹出
+   *
    * default: false
    */
   clickToCancelDelay?: boolean;
-  
+
   /**
    * z-index of popover
-   * 
+   *
    * Popover 层级
-   * 
+   *
    * default: 1060
    */
   zIndex?: number;
@@ -211,22 +210,22 @@ export interface PopoverConfirmProps extends PopoverProps{
   text?: { ok?: string, cancel?: string };
 
   /**
-   * icon type [*success*, *info*, *warning*, *danger(error)*]
+   * ok button's type, same with button type
    *
-   * icon的类型，4 选 1，[*success*, *info*, *warning*, *danger(error)*]
+   * 确认按钮的类型，与按钮类型相同
    *
-   * default: *warning*
+   * default: danger
    */
-  type?: string;
+  okType?: RegularAttributes.Type;
 
   /**
    * ok button's type, same with button type
-   * 
+   *
    * 确认按钮的类型，与按钮类型相同
-   * 
-   * default: primary
+   *
+   * default: danger
    */
-  okType?: RegularAttributes.Type;
+  icon?: boolean | ReactNode;
 }
 
 declare class PopoverConfirm extends React.Component<PopoverConfirmProps, {}> {

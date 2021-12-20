@@ -13,7 +13,7 @@
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | accept | string | 无 | 上传文件类型, 和标准一致, 详见[accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) |
-| action | ((file: File) => string) \| string | 必填 | 上传地址 |
+| action | ((file: File) => string)) \| string | 必填 | 上传地址 |
 | children | ReactNode | 必填 | 上传占位内容 |
 | className | string | 无 | 扩展className |
 | defaultValue | any[] | 无 | 默认值 |
@@ -36,13 +36,15 @@
 | renderContent | (res: any, value: any, index: number, values: any[]) => ReactNode | - | 自定义结果的内容 |
 | validatorHandle | ((error: any, file: File) => boolean) \| boolean | false | 是否处理校验失败的情况, 如果提供一个函数, 则以函数的返回值判断是否处理此 error |
 | drop | boolean | false | 是否开启拖拽上传文件 |
-| filesFilter | (fileList: any[]) => boolean | 无 | 文件选中后的筛选，用户可自定义最终需要上传的文件列表<br />需返回一个新的文件列表 |
+| filesFilter | (fileList: any[]) => fileList: any[] | 无 | 文件选中后的筛选，用户可自定义最终需要上传的文件列表<br />需返回一个新的文件列表 |
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | 无 | 上传失败文件删除之后的回调 |
 | forceAccept | string | 无 | 在使用时关闭了 accept 提供的文件类型过滤后，强制对文件类型进行校验（值同accept） |
 | forceAcceptErrorMsg | string | 无 | forceAccept 类型校验失败后自定义错误提示 |
 | showUploadList | boolean | true | 是否展示上传列表 |
 | removeConfirm | string \| object | 无 | 删除前是否进行确认提示 |
 | beforeRemove | (value: any) => Promise | 无 | 删除前的确认 |
+| canDelete | ((value: any) => boolean) \| boolean | 无 | 文件是否可以删除|
+| responseType |  string | 无 | 设置 xhr.responseType |
 
 ### Upload.Image
 
@@ -54,6 +56,7 @@
 | leftHandler | boolean | false | 添加图片视图是否在左侧展示 |
 | onPreview | (url, value, index, values) => void | none | 预览图片操作，默认为画廊展示 |
 | ignorePreview | boolean | false | 是否忽略上传图片预览 |
+| gapProps | object | {column: 12, row: 12} | 间距同Gap组件props |
 
 ### Upload.Button
 

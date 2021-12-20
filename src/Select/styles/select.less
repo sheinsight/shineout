@@ -5,6 +5,7 @@
 @input-prefix: ~'@{so-prefix}-input';
 @list-prefix: ~'@{so-prefix}-list';
 @checkinput-prefix: ~'@{so-prefix}-checkinput';
+@tree-prefix: ~'@{so-prefix}-tree';
 @tree-node-max-width: 300px;
 
 .@{select-prefix} {
@@ -13,9 +14,11 @@
   &-inner {
     width: 100%;
     outline: none;
+    display: flex;
   }
 
   &-result {
+    flex-grow: 1;
     display: flex;
     overflow: auto;
     max-height: 80px;
@@ -120,9 +123,15 @@
   }
 
   &-compressed {
+    flex-grow: 1;
+    width: 0;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    align-items: flex-start;
+    .@{select-prefix}-input {
+      white-space: nowrap;
+    }
 
     .@{select-prefix}-ban {
       padding-right: @select-result-space;
@@ -134,6 +143,7 @@
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
+      flex-shrink: 0;
     }
   }
 
@@ -230,11 +240,14 @@
       padding: 8px 8px 4px 8px;
       .@{so-prefix}-tree-node {
         &:last-child > div {
-          padding-bottom: 4px;
+          margin-bottom: @tree-node-margin-bottom-value;
         }
       }
+      .@{tree-prefix}-no-line .@{tree-prefix}-icon-plus:hover::after, .@{tree-prefix}-no-line .@{tree-prefix}-icon-sub:hover::after {
+        background: @select-tree-icon-hover-bg-color;
+      }
       .@{so-prefix}-tree-content {
-        color: @gray-600;
+        color: @select-tree-content-color;
         white-space: nowrap;
         cursor: default;
 
@@ -255,6 +268,7 @@
           &.@{select-prefix}-disabled {
             padding-right: @select-result-space;
             cursor: not-allowed;
+            color: @select-tree-disabled-content-color;
             background: @select-tree-disabled-bg-color;
           }
         }
@@ -456,7 +470,7 @@
   }
 
   &-multiple &-result:not(&-empty) {
-    padding-left: @padding-base-horizontal / 2;
+    padding-left: (@padding-base-horizontal / 2);
     padding-right: @padding-base-horizontal + 22;
     .@{select-prefix}-close-warpper {
       right: 17px;
@@ -464,7 +478,7 @@
   }
 
   &-multiple &-compressed:not(&-empty) {
-    padding-left: @padding-base-horizontal / 2;
+    padding-left: (@padding-base-horizontal / 2);
     padding-right: @padding-base-horizontal + 12;
     .@{select-prefix}-close-warpper {
       right: 7px;
@@ -472,11 +486,11 @@
   }
 
   &-large&-multiple &-result:not(&-empty) {
-    padding-left: @padding-large-horizontal / 2;
+    padding-left: (@padding-large-horizontal / 2);
   }
 
   &-small&-multiple &-result:not(&-empty) {
-    padding-left: @padding-small-horizontal / 2;
+    padding-left: (@padding-small-horizontal / 2);
   }
 
   &-disabled {
@@ -501,14 +515,14 @@
 
   &-popover {
     .@{select-prefix}-result {
-      padding: 14px 14px 8px 14px;
+      padding: @select-popover-result-padding;
       max-height: 112px;
       max-width: 300px;
 
       .@{select-prefix}-item {
         max-width: 100%;
         color: @gray-600;
-        font-size: 16px;
+        font-size: @font-size-base;
       }
     }
   }

@@ -274,6 +274,16 @@
 @select-tree-disabled-bg-color: var(--select-tree-disabled-bg-color, @input-bg-disabled-value);
 @select-disabled-color: var(--select-disabled-color, @select-option-color-value);
 @select-compressed-hover-bg: var(--select-compressed-hover-bg, @primary-color-fade-60-value);
+@select-popover-result-padding: var(--select-popover-result-padding, 8px 8px 3px 12px);
+
+@select-tree-content-color-value: @gray-600;
+@select-tree-content-color: var(--select-tree-content-color, @select-tree-content-color-value);
+
+@select-tree-disabled-content-color-value: @gray-600;
+@select-tree-disabled-content-color: var(--select-tree-disabled-content-color, @select-tree-disabled-content-color-value);
+
+@select-tree-icon-hover-bg-color-value: @gray-100;
+@select-tree-icon-hover-bg-color: var(--select-tree-icon-hover-bg-color, @select-tree-icon-hover-bg-color-value);
 
 @datepicker-rect-active-border-radius-value: 2px;
 @datepicker-rect-active-border-radius: var(
@@ -289,7 +299,7 @@
 @slider-indicator-size-value: 14px;
 @slider-indicator-size: var(--slider-indicator-size, @slider-indicator-size-value);
 
-@slider-indicator-size-half-value: @slider-indicator-size-value / 2;
+@slider-indicator-size-half-value: (@slider-indicator-size-value / 2);
 @slider-indicator-size-half: var(--slider-indicator-size-half, @slider-indicator-size-half-value);
 
 @slider-bar-color-value: @gray-400-value;
@@ -491,6 +501,15 @@
 @alert-close-hover-color-value: rgba(0, 0, 0, 0.8);
 @alert-close-hover-color: var(--alert-close-hover-color, @alert-close-hover-color-value);
 
+@alert-icon-margin-top-value: 2px;
+@alert-icon-margin-top: var(--alert-icon-margin-top, @alert-icon-margin-top-value);
+
+@alert-padding-x-value:  16px;
+@alert-padding-x: var(--alert-padding-x, @alert-padding-x-value);
+
+@alert-padding-y-value:  15px;
+@alert-padding-y: var(--alert-padding-y, @alert-padding-y-value);
+
 @message-text-color-value: @alert-default-text;
 @message-text-color: var(--message-text-color, @message-text-color-value);
 
@@ -499,6 +518,9 @@
 
 @message-close-color: var(--message-close-color, @alert-close-color-value);
 @message-border-color: var(--message-border-color, @alert-default-border);
+
+@message-icon-margin-top-value: @alert-icon-margin-top;
+@message-icon-margin-top: var(--message-icon-margin-top, @message-icon-margin-top-value);
 
 @card-border-width-value: 1px;
 @card-border-width: var(--card-border-width, @card-border-width-value);
@@ -619,7 +641,7 @@
 @tree-level-indent-value: 0;
 @tree-level-indent: var(--tree-level-indent, @tree-level-indent-value);
 
-@tree-node-margin-bottom-value: 2px;
+@tree-node-margin-bottom-value: 4px;
 @tree-node-margin-bottom: var(--tree-node-margin-bottom, @tree-node-margin-bottom-value);
 
 @tree-indicator-color: var(--tree-indicator-color, @gray-600);
@@ -643,8 +665,38 @@
 @common-line-height-value: 1.428571429;
 @line-height-base: var(--common-line-height, @common-line-height-value);
 
+// tabs
+@tabs-link-padding: 10px 15px;
+
+@tabs-tab-padding-y-value: 10px;
+@tabs-tab-padding-y: var(--tabs-tab-padding-y, @tabs-tab-padding-y-value);
+
+@tabs-tab-padding-x-value: 15px;
+@tabs-tab-padding-x: var(--tabs-tab-padding-x, @tabs-tab-padding-x-value);
+
+@tabs-link-spacing: 4px;
 @tabs-tab-spacing: var(--tabs-tab-spacing, @tabs-link-spacing);
 
+@tabs-tab-background-value: transparent;
+@tabs-tab-background: var(--tabs-tab-background, @tabs-tab-background-value);
+
+@tabs-tab-active-background-value: #fff;
+@tabs-tab-active-background: var(--tabs-tab-active-background, @tabs-tab-active-background-value);
+
+@tabs-tab-border-color-value: transparent;
+@tabs-tab-border-color: var(--tabs-tab-border-color, @tabs-tab-border-color-value);
+
+@tabs-tab-active-border-color-value: #ddd;
+@tabs-tab-active-border-color: var(--tabs-tab-active-border-color, @tabs-tab-active-border-color-value);
+
+@tabs-tab-color-value: initial;
+@tabs-tab-color: var(--tabs-tab-color, @tabs-tab-color-value);
+
+@tabs-tab-active-color-value: #333;
+@tabs-tab-active-color: var(--tabs-tab-active-color, @tabs-tab-active-color-value);
+
+@tabs-tab-font-size-value: inherit;
+@tabs-tab-font-size: var(--tabs-tab-font-size, @tabs-tab-font-size-value);
 
 @cascader-active-background-color: var(--cascader-active-background-color, @dropdown-link-active-bg);
 @cascader-active-color: var(--cascader-active-color, @dropdown-link-active-color);

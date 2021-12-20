@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { StandardProps, FormItemStandardProps } from "../@types/common"
 import { PopoverConfirmProps } from '../Popover'
+import {GapProps} from '../Gap/index.d.js'
 
 type ReactNode = React.ReactNode;
 
@@ -17,7 +18,7 @@ export interface Validator {
   size?: (file: File) => (void | Error | Promise<any>),
 }
 
-export interface Options {
+export interface Options<T> {
   /**
    * File
    *
@@ -25,7 +26,7 @@ export interface Options {
    *
    * default: -
    */
-  file?: File;
+  file: Blob | File;
   /**
    * header
    *
@@ -41,7 +42,7 @@ export interface Options {
    *
    * default: -
    */
-  onError?: (err: Error | any) => void;
+  onError: (xhr?: XMLHttpRequest | object ) => void;
   /**
    * onLoad
    *
@@ -49,7 +50,7 @@ export interface Options {
    *
    * default: -
    */
-  onLoad?: () => void;
+  onLoad: (xhr?: XMLHttpRequest | object) => void;
   /**
    * onProgress
    *
@@ -57,7 +58,7 @@ export interface Options {
    *
    * default: -
    */
-  onProgress?: () => void;
+  onProgress: (event?: ProgressEvent, msg?: string) => any;
   /**
    * onStart
    *
@@ -73,7 +74,7 @@ export interface Options {
    *
    * default: -
    */
-  onSuccess?: (value: Response | any) => any;
+  onSuccess?: (res?: string, file?: File, data?: any, xhr?: any) => T;
   /**
    * params
    *
@@ -156,7 +157,7 @@ export interface UploadProps<T> extends StandardProps, OmitFormProps<T[]>{
    *
    * default: -
    */
-  request?: (options: Options) => void;
+  request?: (options: Options<T>) => void;
 
   /**
    * The callback function when the value is changing(Upload successfully, delete). values: Array, the value is the onSuccess returns
@@ -327,7 +328,28 @@ export interface UploadProps<T> extends StandardProps, OmitFormProps<T[]>{
    *
    * default: none
    */
-  beforeRemove?: (value: any) => Promise<any>;
+  beforeRemove?: (value: T) => Promise<any>;
+
+  /**
+   *  Can the file be deleted
+   *
+   *  文件是否可以删除
+   *
+   *  default: true
+   *
+   */
+  canDelete?: ((value: T, index: number) => boolean) | boolean,
+
+
+  /**
+   *  set xhr.responseType
+   *
+   *  设置 xhr.responseType
+   *
+   *  default: none
+   *
+   */
+  responseType?: string
 }
 
 export interface UploadImageProps<T> extends UploadProps<T>{
@@ -385,6 +407,16 @@ export interface UploadImageProps<T> extends UploadProps<T>{
    * defualt: false
    */
   ignorePreview?: boolean;
+
+  /**
+   * Adjust the spacing to be consistent with the Gap props
+   *
+   *  调整间距 同 Gap 属性
+   *
+   *  default: {column: 12, row: 12}
+   */
+
+  gapProps?: GapProps
 
 }
 

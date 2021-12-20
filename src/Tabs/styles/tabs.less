@@ -24,12 +24,21 @@
       position: relative;
       z-index: 1;
       display: inline-block;
-      padding: @tabs-link-padding;
+      padding: @tabs-tab-padding-y @tabs-tab-padding-x;
       margin: 0 0 -1px 0;
-      border: solid 1px transparent;
+      border: solid 1px @tabs-tab-border-color;
       border-radius: @tabs-link-border-radius @tabs-link-border-radius 0 0;
       cursor: pointer;
       transition: color @tabs-animation-duration-time;
+      background: @tabs-tab-background;
+      color: @tabs-tab-color;
+      font-size: @tabs-tab-font-size;
+    }
+    .@{tabs-prefix}-active {
+      color: @tabs-tab-active-color;
+      border-color: @tabs-tab-active-border-color;
+      border-bottom-color: @tabs-tab-active-background;
+      background: @tabs-tab-active-background;
     }
 
     .@{tabs-prefix}-tab + .@{tabs-prefix}-tab {
@@ -46,6 +55,7 @@
 
       &-active {
         border-bottom-color: transparent;
+        background: @tabs-tab-active-background;
         color: @colors-primary;
       }
     }
@@ -64,7 +74,7 @@
       z-index: 10;
       bottom: 0;
       width: 100%;
-      border-bottom: solid 1px transparent;
+      border-bottom: solid 1px @tabs-tab-active-border-color;
     }
 
     .@{tabs-prefix}-extra {
@@ -204,7 +214,7 @@
       .@{tabs-prefix}-hr {
         width: 0;
         height: 100%;
-        border-left: solid 1px transparent;
+        border-left: solid 1px @tabs-tab-active-border-color;
       }
     }
 
@@ -219,6 +229,9 @@
       .@{tabs-prefix}-header-tabs {
         flex-direction: column;
       }
+    }
+    .@{tabs-prefix}-active {
+      border-color: @tabs-tab-active-border-color @tabs-tab-active-background @tabs-tab-active-border-color @tabs-tab-active-border-color;
     }
 
     .@{tabs-prefix}-tab {
@@ -239,6 +252,10 @@
 
     .@{tabs-prefix}-tab {
       border-radius: 0 @tabs-link-border-radius @tabs-link-border-radius 0;
+    }
+
+    .@{tabs-prefix}-active {
+      border-color: @tabs-tab-active-border-color  @tabs-tab-active-border-color @tabs-tab-active-border-color @tabs-tab-active-background;
     }
 
     .@{tabs-prefix}-hr {
@@ -282,9 +299,15 @@
   }
 
   &-dash {
+    .@{tabs-prefix}-tab {
+      border-color: transparent;
+      background: transparent;
+      color: inherit;
+    }
     .@{tabs-prefix}-active {
       color: @tabs-line-active-color;
-
+      border-color: transparent;
+      background: transparent;
       &:after {
         bottom: 0;
         left: 50%;
@@ -303,11 +326,18 @@
 
     // line hover css
     > .@{tabs-prefix}-header {
+      .@{tabs-prefix}-tab {
+        border-color: transparent;
+        background: transparent;
+        color: inherit;
+      }
       .@{tabs-prefix}-tab:hover:not(.@{tabs-prefix}-active) {
         color: @primary-color-dark-btn-hover;
       }
       .@{tabs-prefix}-active {
         color: @tabs-line-active-color;
+        border-color: transparent;
+        background: transparent;
 
         &:after {
           position: absolute;

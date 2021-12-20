@@ -43,7 +43,7 @@
 | defaultTreeExpandKeys | any[] | none | Default expanded row keys |
 | dataChangeResize | boolean | false | Whether to recalculate the column width after the data changes |
 | onColumnResize | (newColumns: object[]) => void | none | columns resize callback |
-| size | 'small' \| 'normal' | 'normal' | size of table |
+| size | 'small' \| 'default' | 'default' | size of table |
 | pagination | object | none | pagination of table |
 | innerScrollAttr | string[] | 无 | set inner scrollable element's attribute |
 | expandKeys | any[] | none | controlled expand rows |
@@ -71,6 +71,7 @@
 | treeColumnsName | string | none | tree table children-data name |
 | treeIndent | number | 25 | indent of each level |
 | minWidth | number | - | the minimum width of the column |
+| maxWidth | number | - | Maximum draggable column width |
 | hide | boolean | false | hide the column, only work on row-expand column |
 | dataChangeResize | boolean | false | Recalculate columns width while data change |
 | defaultOrder | string | 'asc' \| 'desc' | default sort |

@@ -314,7 +314,7 @@
 @switch-indicator-padding-horizontal-negative: var(--switch-indicator-padding-horizontal-negative, -2px);
 @switch-indicator-size: var(--switch-indicator-size, 18px);
 @switch-bg-width: 44px;
-@switch-bg-border-radius: @switch-bg-width / 2;
+@switch-bg-border-radius: (@switch-bg-width / 2);
 @switch-bg-height: var(--switch-bg-height, 22px);
 @switch-font-size: 12px;
 @switch-indicator-top: var(--switch-indicator-top, 2px);
@@ -327,7 +327,7 @@
 
 @switch-large-indicator-size: var(--switch-large-indicator-size, 24px);
 @switch-large-bg-width: 60px;
-@switch-large-bg-border-radius: @switch-large-bg-width / 2;
+@switch-large-bg-border-radius: (@switch-large-bg-width / 2);
 @switch-large-bg-height: var(--switch-large-bg-height, 28px);
 @switch-large-indicator-top: var(--switch-large-indicator-top, 2px);
 
@@ -413,7 +413,7 @@
 @tree-indicator-color: var(--tree-indicator-color, @gray-400-value);
 
 // Alert
-@alert-padding-y: 8px;
+@alert-padding-y-value: 8px;
 
 // close color
 @alert-close-color-value: @gray-400-value;
@@ -774,9 +774,10 @@
 // item dark hover color
 @menu-item-dark-hover-bgc: var(--menu-item-dark-hover-bgc, fade(@colors-primary-value, 50%));
 
-@menu-title-transform: translateY(-85%) rotate(45deg);
-@menu-title-open-transform: translateY(-65%) rotate(225deg);
-@menu-title-vertical-transform: translateY(-60%) rotate(-45deg);
+@menu-title-transform: translateY(-75%) rotate(45deg);
+@menu-title-transform-origin: 75% 75%;
+@menu-title-open-transform: translateY(-75%) rotate(225deg);
+@menu-title-vertical-transform: translateY(-75%) rotate(-45deg);
 
 @menu-caret-solid-width: 4px;
 @menu-caret-solid-height: 4px;

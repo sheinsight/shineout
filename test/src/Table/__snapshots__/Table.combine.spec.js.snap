@@ -156,6 +156,7 @@ Array [
       onScroll={[Function]}
     >
       <table
+        className=""
         style={
           Object {
             "width": undefined,
@@ -847,6 +848,7 @@ exports[`Table[combine] should combine without pagination 1`] = `
     onScroll={[Function]}
   >
     <table
+      className=""
       style={
         Object {
           "width": undefined,

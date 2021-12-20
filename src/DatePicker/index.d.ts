@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { StandardProps, FormItemStandardProps, CommonProps } from '../@types/common'
 
-export type DateTimeType = Date | number | string
+export type DateTimeType = Date | number | string | undefined
 
 export type AreaType = 'year' | 'month' | 'week' | 'day' | 'time' | 'quick'
 
@@ -18,9 +18,9 @@ export interface QuickSelect extends Base {
   value?: Array<DateTimeType> | DateTimeType;
 }
 
-export interface DatePickerProps extends StandardProps,
-FormItemStandardProps<DatePickerValue>,
-  Pick<CommonProps, 'absolute'>{
+export interface DatePickerProps<T =DatePickerValue > extends StandardProps,
+FormItemStandardProps<T>,
+  Pick<CommonProps, 'absolute'> {
 
   /**
    * onChange get undefined while clear
@@ -47,7 +47,7 @@ FormItemStandardProps<DatePickerValue>,
    *
    * default: null
    */
-  width?: number;
+  width?: number | string;
 
   /**
    * whether it can be cleared
@@ -94,7 +94,7 @@ FormItemStandardProps<DatePickerValue>,
    *
    * default: -
    */
-  onChange?: (value: string | [string | undefined, string | undefined], quickSelect?: QuickSelect | void) => void;
+  onChange?: (value: T, quickSelect?: QuickSelect | void) => void;
 
   /**
    * placeholder text. When the range property is not empty, it is an array of length 2.

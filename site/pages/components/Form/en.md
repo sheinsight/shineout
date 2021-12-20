@@ -13,7 +13,7 @@
 | datum | object | | The formdata helper class, which is created automatically inside a Form without setting it, usually does not need to be set. |
 | disabled | boolean | false | When disabled is true, all the elements in the form are disabled. |
 | inline | boolean | false | When inline is true, the form is horizontal layout |
-| labelAlign | 'top' \| 'right' | | the default value is right |
+| labelAlign | 'top' \| 'right'  \| 'left' | | The default is empty, follow the theme style. |
 | labelWidth | string \| number | 140px | The width of label. It is invalid when labelAlign is 'top'. |
 | mode | string | | mode, with mode |
 | onChange | (data: any) => void | | callback function, executed when the value is changing |
@@ -34,7 +34,7 @@ Used to layout, display labels, tips, errors, etc
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | label | string \| ReactNode | undefined | When it is undefined, the tag does not be rendered or occupy space. If there is no content, but it needs to be occupied, you can use an empty string ''. |
-| labelAlign | 'top' \| 'right' | | the default value is left. |
+| labelAlign | 'top' \| 'right' \| 'left' | | The default is empty, follow the theme style. |
 | labelWidth | string \| number | 140px | The width of label. It is invalid when labelAlign is 'top'. |
 | required | boolean | false | Required tags for pure display. Do not trigger validation |
 | tip | string | | Prompting information |
@@ -76,6 +76,7 @@ Used to process interactive data.
 | --- | --- | --- | --- | -- |
 | getValue | () => any | - | Returns the value of the form | 1.4.4 |
 | validate | () => void | - | Validation form | 1.4.4 |
+| validateFields | (names: string[]) => void | - | Validation form fields | 1.7.0-rc.3 |
 | clearValidate | () => void | - | Clear check | 1.4.4 |
 | reset | () => void | - | Reset form | 1.4.4 |
 | submit | (withValidate: boolean) => void | - | Submit Form, withValidate: Whether to verify | 1.4.4 |

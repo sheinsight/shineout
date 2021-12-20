@@ -328,6 +328,15 @@ const examples = [
     component: require('doc/pages/components/Table/example-32-selection.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-32-selection.js'),
   },
+  {
+    name: '33-row-drag',
+    title: locate(
+      '拖动行 \n 通过 rowEvents 属性来自定义拖拽事件',
+      'drag row \n customize drag events through the rowEvents property'
+    ),
+    component: require('doc/pages/components/Table/example-33-row-drag.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-33-row-drag.js'),
+  },
 ]
 
 const codes = undefined

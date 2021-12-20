@@ -71,6 +71,7 @@ exports[`Table[rowClassname] should render correct 1`] = `
     onScroll={[Function]}
   >
     <table
+      className=""
       style={
         Object {
           "width": undefined,

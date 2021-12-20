@@ -8,27 +8,28 @@
 
 .@{treeSelect-prefix} {
   position: relative;
-
   &-inner {
     width: 100%;
     outline: none;
+    display: flex;
   }
 
   &-tree-wrapper {
     color: @gray-600;
     padding: 8px 8px 4px 8px;
+    max-width: 100vw;
+
 
     .@{tree-prefix} {
       &-node {
         &:last-child > div {
-          padding-bottom: 4px;
+          margin-bottom: @tree-node-margin-bottom;
         }
       }
       &-content {
         white-space: nowrap;
         padding-left: 4px;
         .@{tree-prefix}-text {
-          max-width: @tree-node-max-width;
           overflow: hidden;
           text-overflow: ellipsis;
         }
@@ -55,6 +56,7 @@
     overflow: auto;
     max-height: 80px;
     flex-flow: wrap;
+    flex-grow: 1;
     padding: @padding-base-vertical @padding-base-horizontal+12 0 @padding-base-horizontal;
 
     span {
@@ -151,8 +153,21 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    align-items: flex-start;
+    flex-grow: 1;
+    width: 0;
+
     .@{treeSelect-prefix}-ban {
       padding-right: @select-result-space;
+    }
+    .@{treeSelect-prefix}-input {
+      white-space: nowrap;
+    }
+    .@{treeSelect-prefix}-item {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
   }
 
@@ -193,7 +208,7 @@
     display: none;
     overflow: hidden;
     background: @dropdown-bg;
-    background-clip: padding-box;
+    //background-clip: padding-box;
     border-radius: @input-dropdown-border-radius;
 
     .@{treeSelect-prefix}-disabled {
@@ -209,7 +224,6 @@
   &-options span.@{treeSelect-prefix}-content-wrapper {
     display: block;
     padding: 0px 4px;
-    max-width: @tree-node-max-width;
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -372,7 +386,7 @@
   }
 
   &-multiple &-result:not(&-empty) {
-    padding-left: @padding-base-horizontal / 2;
+    padding-left: (@padding-base-horizontal / 2);
     padding-right: @padding-base-horizontal + 22;
     a.@{treeSelect-prefix}-close.@{treeSelect-prefix}-indicator {
       right: 17px;
@@ -380,7 +394,7 @@
   }
 
   &-multiple &-compressed:not(&-empty) {
-    padding-left: @padding-base-horizontal / 2;
+    padding-left: (@padding-base-horizontal / 2);
     padding-right: @padding-base-horizontal + 12;
     a.@{treeSelect-prefix}-close.@{treeSelect-prefix}-indicator {
       right: 7px;
@@ -388,11 +402,11 @@
   }
 
   &-large&-multiple &-result:not(&-empty) {
-    padding-left: @padding-large-horizontal / 2;
+    padding-left: (@padding-large-horizontal / 2);
   }
 
   &-small&-multiple &-result:not(&-empty) {
-    padding-left: @padding-small-horizontal / 2;
+    padding-left: (@padding-small-horizontal / 2);
   }
 
   &-popover {

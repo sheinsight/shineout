@@ -87,7 +87,7 @@ export interface TreeSelectProps<Value, Data> extends StandardProps,
    *
    * default: false
    */
-  disabled?: (data: Data) => boolean | boolean;
+  disabled?: ((data: Data) => boolean) | boolean;
 
   /**
    * ms. The delay of user input triggering filter events
@@ -274,7 +274,7 @@ export interface TreeSelectProps<Value, Data> extends StandardProps,
    *
    * default: -
    */
-  rules?: RuleParamsType<Value, TreeSelectProps>;
+  rules?: RuleParamsType<Value, TreeSelectProps<Value, Data>>;
 
   /**
    * render unmatch value

@@ -1,6 +1,6 @@
 import React, { Component, isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
-import { focusElement } from '../utils/dom/element'
+import { focusElement, preventPasteFile } from '../utils/dom/element'
 import { treeSelectClass } from './styles'
 
 class FilterInput extends Component {
@@ -66,6 +66,7 @@ class FilterInput extends Component {
         className={treeSelectClass('input', !multiple && 'full')}
         ref={this.bindElement}
         contentEditable={focus}
+        onPaste={preventPasteFile}
         onInput={this.handleInput}
         onBlur={this.handleBlur}
         dangerouslySetInnerHTML={{ __html: value }}

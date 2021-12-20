@@ -10,7 +10,7 @@ export declare interface RateProps extends
    *
    * default: false
    */
-  allowHalf?: bool;
+  allowHalf?: boolean;
 
   /**
    * whether to allow clear when click again
@@ -19,7 +19,7 @@ export declare interface RateProps extends
    *
    * default: false
    */
-  clearable?: bool;
+  clearable?: boolean;
 
   /**
    * read-only
@@ -28,7 +28,7 @@ export declare interface RateProps extends
    *
    * default: false
    */
-  disabled?: bool;
+  disabled?: boolean;
 
   /**
    * The maximum value of the option, integer
@@ -37,7 +37,7 @@ export declare interface RateProps extends
    *
    * default: 5
    */
-  max?: bool;
+  max?: boolean;
 
   /**
    * When repeat is true, display item is a copy of the item corresponding to the current value
@@ -46,7 +46,7 @@ export declare interface RateProps extends
    *
    * default: true
    */
-  repeat?: bool;
+  repeat?: boolean;
 
   /**
    * the size of the icon
@@ -55,7 +55,7 @@ export declare interface RateProps extends
    *
    * default: 20
    */
-  size?: bool;
+  size?: boolean;
 }
 
 declare class RateComponent extends React.Component<RateProps, any> {}

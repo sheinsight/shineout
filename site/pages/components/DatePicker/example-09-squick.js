@@ -6,12 +6,12 @@
  */
 import React from 'react'
 import { DatePicker } from 'shineout'
-import { format, addDays, subDays } from 'date-fns'
+import dayjs from 'dayjs'
 
 const today = new Date()
-const fmt = 'yyyy-MM-dd'
-const formatStart = 'yyyy-MM-dd 00:00:00'
-const formatEnd = 'yyyy-MM-dd 23:59:59'
+const fmt = 'YYYY-MM-DD'
+const formatStart = 'YYYY-MM-DD 00:00:00'
+const formatEnd = 'YYYY-MM-DD 23:59:59'
 
 export default function() {
   return (
@@ -24,19 +24,39 @@ export default function() {
         quickSelect={[
           {
             name: 'Next Week',
-            value: [format(today, formatStart), format(addDays(today, 7), formatEnd)],
+            value: [
+              dayjs(today).format(formatStart),
+              dayjs(today)
+                .add(7, 'day')
+                .format(formatEnd),
+            ],
           },
           {
             name: 'Last Week',
-            value: [format(subDays(today, 7), formatStart), format(today, formatEnd)],
+            value: [
+              dayjs(today)
+                .add(-7, 'day')
+                .format(formatStart),
+              dayjs(today).format(formatEnd),
+            ],
           },
           {
             name: 'Next Month',
-            value: [format(today, formatStart), format(addDays(today, 30), formatEnd)],
+            value: [
+              dayjs(today).format(formatStart),
+              dayjs(today)
+                .add(30, 'day')
+                .format(formatEnd),
+            ],
           },
           {
             name: 'Last Month',
-            value: [format(subDays(today, 30), formatStart), format(today, formatEnd)],
+            value: [
+              dayjs(today)
+                .add(-30, 'day')
+                .format(formatStart),
+              dayjs(today).format(formatEnd),
+            ],
           },
           {
             name: 'special date',
@@ -48,9 +68,19 @@ export default function() {
       <DatePicker
         placeholder="Quick Date"
         quickSelect={[
-          { name: 'Today', value: format(today, fmt) },
-          { name: 'A week later', value: format(addDays(today, 7), fmt) },
-          { name: 'A month later', value: format(addDays(today, 30), fmt) },
+          { name: 'Today', value: dayjs(today).format(fmt) },
+          {
+            name: 'A week later',
+            value: dayjs(today)
+              .add(7, 'day')
+              .format(fmt),
+          },
+          {
+            name: 'A month later',
+            value: dayjs(today)
+              .add(30, 'day')
+              .format(fmt),
+          },
         ]}
       />
     </div>

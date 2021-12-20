@@ -7,8 +7,8 @@ You can use Modal to display secondary content or actions without jumping to the
 
 ### Modal
 
-| Property | Type | Default | Description | version | 
-| --- | --- | --- | --- | --- | 
+| Property | Type | Default | Description | version |
+| --- | --- | --- | --- | --- |
 | className | string | - | Extend className | |
 | bodyStyle | object | - | Extend modal body style | |
 | footer | ReactNode | - | The content at the bottom | |
@@ -51,6 +51,8 @@ Modal.error(options)
 Modal.confirm(options)
 
 Modal.show(options)
+
+Modal.closeAll() // close all modal
 
 #### Options Parameter
 

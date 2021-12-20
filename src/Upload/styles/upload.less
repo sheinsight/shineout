@@ -3,12 +3,14 @@
 
 @upload-prefix: ~'@{so-prefix}-upload';
 @button-prefix: ~'@{so-prefix}-button';
+@gap-prefix: ~'@{so-prefix}-gap';
 
 .message() {
   position: absolute;
   z-index: 1000;
   top: 100%;
   left: 50%;
+  width: max-content;
   min-width: 120px;
   max-width: 240px;
   padding: @padding-small-vertical @padding-small-horizontal;
@@ -484,5 +486,16 @@
 
   &-url-invalid-message {
     .message()
+  }
+}
+
+.@{gap-prefix} {
+  .@{upload-prefix} {
+    &-image-item {
+      margin-right: 0;
+    }
+    &-handle {
+      margin-bottom: 0;
+    }
   }
 }

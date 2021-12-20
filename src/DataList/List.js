@@ -25,7 +25,7 @@ class Index extends Component {
   }
 
   componentWillUnmount() {
-    removeStack(this.id)
+    removeStack(this.id, true)
     this.node = null
     this.observer = null
     this.id = null
@@ -61,31 +61,27 @@ class Index extends Component {
     this.observer = node
     if (!node) return
 
-    removeStack(this.id)
+    removeStack(this.id, true)
     this.id = addStack({
       container: this.node,
       element: node,
       render: this.scrollLoading,
       offset: 20,
+      noRemove: true,
     })
   }
 
   renderCheckBox(flag, data, index) {
     if (!flag) return null
     const { datum } = this.props
-    return <Checkbox data={data} index={index} datum={datum} />
+    return <Checkbox data={data} index={index} datum={datum} force={datum.check(data)} />
   }
 
   renderItem(value, index) {
-    const { keygen, data, onChange } = this.props
-    const { length } = data
+    const { keygen, onChange } = this.props
     const haveRowSelected = isFunc(onChange)
     return (
-      <div
-        className={this.getItemClassName(value, index, haveRowSelected)}
-        key={getKey(value, keygen, index)}
-        ref={index === length - 1 ? this.bindObserver : null}
-      >
+      <div className={this.getItemClassName(value, index, haveRowSelected)} key={getKey(value, keygen, index)}>
         {this.renderCheckBox(haveRowSelected, value, index)}
         {this.getContent(value, index)}
       </div>
@@ -117,7 +113,7 @@ class Index extends Component {
   }
 
   render() {
-    const { data, loading, style, size, bordered, fixed, height } = this.props
+    const { data, loading, style, size, bordered, fixed, height, scrollLoading } = this.props
     const isEmpty = !isArray(data) || data.length <= 0
     const ms = Object.assign({}, style, height && { height })
     return (
@@ -134,6 +130,7 @@ class Index extends Component {
           <div className={listClass('loading')}>{typeof loading === 'boolean' ? <Spin size={40} /> : loading}</div>
         )}
         <div className={listClass('list', isEmpty && 'empty')}>{this.renderList(isEmpty)}</div>
+        {!isEmpty && isFunc(scrollLoading) && <div ref={this.bindObserver} />}
         {this.renderFooter()}
       </div>
     )

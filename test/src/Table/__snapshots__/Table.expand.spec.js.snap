@@ -43,7 +43,7 @@ exports[`Table[expand] should render correct 1`] = `
                     </table>
                   </div>
                   <div className=\\"so-table-simple-body\\" onScroll={[Function: bound handleScroll]}>
-                    <table style={{...}}>
+                    <table style={{...}} className=\\"\\">
                       <Colgroup colgroup={[undefined]} columns={{...}} resizable={[undefined]}>
                         <colgroup>
                           <col style={{...}} />

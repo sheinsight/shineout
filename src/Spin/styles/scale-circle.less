@@ -61,11 +61,11 @@
     .loop(@i - 1);
 
     .@{scale-circle-prefix}-item:nth-child(@{i}) {
-      transform: rotateZ(360deg / @circleCount * (@i - 1));
+      transform: rotateZ((360deg / @circleCount) * (@i - 1));
 
       svg,
       div {
-        animation-delay: -@animationDuration + @animationDuration / @circleCount * (@i - 1);
+        animation-delay: -@animationDuration + ((@animationDuration / @circleCount) * (@i - 1));
       }
     }
   }

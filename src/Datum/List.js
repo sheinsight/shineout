@@ -26,6 +26,11 @@ export default class {
     return this.$values.length
   }
 
+  // should clean $cachedFlatten when data changed
+  cleanDataCache() {
+    this.$cachedFlatten = new Map()
+  }
+
   get values() {
     return this.$values
   }

@@ -36,10 +36,13 @@ class Table extends Component {
     this.bindTable = this.bindTable.bind(this)
   }
 
-  componentDidUpdate() {
-    const { datum } = this.props
+  componentDidUpdate(preProps) {
+    const { datum, treeCheckAll } = this.props
     datum.dispatch(ROW_HEIGHT_UPDATE_EVENT)
     datum.dispatch(RENDER_COL_GROUP_EVENT)
+    if (treeCheckAll && this.props.data !== preProps.data) {
+      datum.cleanDataCache()
+    }
   }
 
   getRowsInView() {
@@ -63,7 +66,7 @@ class Table extends Component {
       hover,
       height,
       columns,
-      value,
+      // value,
       children,
       empty,
       data,
@@ -127,7 +130,7 @@ class Table extends Component {
           <div className={tableClass('loading')}>{typeof loading === 'boolean' ? <Spin size={40} /> : loading}</div>
         )}
         {isEmpty && (
-          <div className={tableClass('empty')}>
+          <div className={tableClass('empty')} style={{ visibility: loading ? 'hidden' : 'visible' }}>
             <span>{empty || getLocale('noData')}</span>
           </div>
         )}
@@ -137,7 +140,8 @@ class Table extends Component {
 }
 
 Table.propTypes = {
-  ...getProps(PropTypes, 'size', 'type', 'keygen'),
+  ...getProps(PropTypes, 'type', 'keygen'),
+  size: PropTypes.oneOf(['small', 'default']),
   bordered: PropTypes.bool,
   children: PropTypes.any,
   columns: PropTypes.array,

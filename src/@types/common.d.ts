@@ -69,7 +69,7 @@ export interface FormItemStandardProps<Value = any> {
      *
      * default: -
      */
-    onChange?: (value: Value) => void;
+    onChange?: (value: Value, ...rest: any) => void;
 }
 export interface ListItemStandardProps<Item = any, Value = any> {
     /**

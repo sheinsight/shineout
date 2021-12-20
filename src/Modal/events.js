@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import classnames from 'classnames'
+import { PureComponent } from '../component'
 import Button from '../Button'
 import { getUidStr } from '../utils/uid'
 import { modalClass } from './styles'
@@ -119,26 +120,59 @@ export function open(props, isPortal) {
   return null
 }
 
-const closeCallback = (fn, option) => () => {
+const closeCallback = (fn, option, setLoading) => () => {
   let callback
   if (fn) callback = fn()
   if (callback && typeof callback.then === 'function') {
-    callback.then(() => {
-      close(option)
-    })
+    if (setLoading) {
+      setLoading(true)
+    }
+    callback
+      .then(() => {
+        close(option)
+      })
+      .catch(() => {
+        if (setLoading) {
+          setLoading(false)
+        }
+      })
   } else {
     close(option)
   }
 }
+// eslint-disable-next-line react/prop-types
+class LoadingOk extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = {
+      loading: false,
+    }
+    this.setLoading = loading => {
+      this.setState({ loading })
+    }
+  }
 
-const btnOk = option => {
-  const onClick = closeCallback(option.onOk, option)
-  return (
-    <Button.Once key="ok" id={`${option.id}-ok`} onClick={onClick} type="primary">
-      {getLocale('ok', option.text)}
-    </Button.Once>
-  )
+  render() {
+    // eslint-disable-next-line react/prop-types
+    const { option } = this.props
+    const { loading } = this.state
+    const onClick = closeCallback(option.onOk, option, this.setLoading)
+    return (
+      <Button loading={loading} key="ok" id={`${option.id}-ok`} onClick={onClick} type="primary">
+        {getLocale('ok', option.text)}
+      </Button>
+    )
+  }
 }
+
+// const btnOk = option => {
+//   const onClick = closeCallback(option.onOk, option)
+//   return (
+//     <Button.Once key="ok" id={`${option.id}-ok`} onClick={onClick} type="primary">
+//       {getLocale('ok', option.text)}
+//     </Button.Once>
+//   )
+// }
 
 const btnCancel = option => {
   const onClick = closeCallback(option.onCancel, option)
@@ -165,13 +199,21 @@ export const method = type => option => {
   )
 
   if (type === 'confirm') {
-    props.footer = [btnCancel(props), btnOk(props)]
+    props.footer = [btnCancel(props), <LoadingOk option={props} key="ok" />]
   } else {
-    props.footer = 'footer' in props ? props.footer : [btnOk(props)]
+    props.footer = 'footer' in props ? props.footer : [<LoadingOk option={props} key="ok" />]
   }
 
   open(props)
   return () => close(props)
+}
+
+export const closeAll = () => {
+  Object.keys(containers)
+    .filter(id => containers[id].visible)
+    .forEach(id => {
+      close(containers[id].props)
+    })
 }
 
 ready(() => {

@@ -1,6 +1,6 @@
 .close(@size, @color, @width: 1px) {
   background: @color;
-  border-radius: @size / 2;
+  border-radius: (@size / 2);
 
   &:hover {
     background: @input-clear-bg-hover-color;
@@ -9,7 +9,7 @@
   &:after,
   &:before {
     position: absolute;
-    top: @size / 2 - @width;
+    top: (@size / 2) - @width;
     left: 3px;
     display: block;
     width: @size - 6;

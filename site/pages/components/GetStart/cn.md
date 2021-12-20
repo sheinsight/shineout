@@ -71,12 +71,12 @@ CDN 引用的方式，可以修改引用路径
     }
   }
 }
-``` 
+```
 
 在项目内设置 config
 
 ```
-import config from 'shineout/config'
+import { config } fron 'shineout'
 config.setConfig({
   prefix: 'your-prefix'
 })
@@ -107,7 +107,7 @@ plugins: [
 
 在应用入口设置 config.cssModule 为 true
 ```
-import config from 'shineout/config'
+import { config } fron 'shineout'
 config.setConfig({
   cssModule: true
 })
@@ -131,7 +131,7 @@ plugins: [
 可以通过设置 config.delay 改变全局的延迟时间。
 
 ```
-import config from 'shineout/config'
+import { config } fron 'shineout'
 config.setConfig({
   delay: 0
 })
@@ -278,10 +278,10 @@ module.exports = [
   "presets": ["react-app"],
   "plugins": [
     [
-      "import", 
-      { 
-        "libraryName": "shineout", 
-        "libraryDirectory": "css", // 引入 css 
+      "import",
+      {
+        "libraryName": "shineout",
+        "libraryDirectory": "css", // 引入 css
         "style": false,
         "camel2DashComponentName": false,
         "camel2UnderlineComponentName": false
@@ -304,11 +304,11 @@ module.exports = [
   "presets": ["react-app"],
   "plugins": [
     [
-      "import", 
-      { 
-        "libraryName": "shineout", 
--       "libraryDirectory": "css", // 引入 css 
-+       "libraryDirectory": "lib", // 引入 lib 
+      "import",
+      {
+        "libraryName": "shineout",
+-       "libraryDirectory": "css", // 引入 css
++       "libraryDirectory": "lib", // 引入 lib
         "style": false,
         "camel2DashComponentName": false,
         "camel2UnderlineComponentName": false
@@ -318,7 +318,7 @@ module.exports = [
 }
 ```
 2. 引入 `rescript-use-rewire` 和 `react-app-rewire-less`
-   
+
 ```
 $ npm i @rescripts/rescript-use-rewire react-app-rewire-less
 ```
@@ -329,9 +329,9 @@ $ npm i @rescripts/rescript-use-rewire react-app-rewire-less
 
 module.exports = [
   ['use-babel-config', '.babelrc'],
-+ [ 
++ [
 +   'use-rewire',
-+   rewireLess.withLoaderOptions({ 
++   rewireLess.withLoaderOptions({
 +     modifyVars: { 'so-theme': 'shineout' }, // 主题修改为 shineout
 +     javascriptEnabled: true
 +   })

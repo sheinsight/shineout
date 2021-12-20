@@ -15,7 +15,7 @@ import { itemConsumer } from './Item'
 import { loopConsumer } from './Loop'
 import { fieldSetConsumer } from './FieldSet'
 
-const types = ['formDatum', 'disabled', 'combineRules']
+const types = ['formDatum', 'disabled', 'combineRules', 'size']
 const consumer = compose(
   formConsumer(types),
   itemConsumer,
@@ -56,6 +56,7 @@ export default curry(Origin =>
         unbindInputFromItem: PropTypes.func,
         value: PropTypes.any,
         scuSkip: PropTypes.array,
+        error: PropTypes.object,
       }
 
       static defaultProps = {
@@ -87,7 +88,6 @@ export default curry(Origin =>
 
       componentDidMount() {
         super.componentDidMount()
-
         const { formDatum, loopContext, name, defaultValue, bindInputToItem, popover } = this.props
 
         if (formDatum && name) {
@@ -102,6 +102,7 @@ export default curry(Origin =>
             formDatum.bind(name, this.handleUpdate, defaultValue, this.validate)
             this.state.value = formDatum.get(name)
           }
+          this.lastValue = this.state.value
         }
 
         if (bindInputToItem && name && !popover) bindInputToItem(this.errorName)
@@ -150,11 +151,14 @@ export default curry(Origin =>
           return tryValue(formDatum.get(name), defaultValue)
         }
         const hasValue = 'value' in this.props || 'checked' in this.props
-        return !hasValue && !formDatum ? this.state.value : value
+        return !hasValue ? this.state.value : value
       }
 
       getError() {
-        const { formDatum, name } = this.props
+        const { formDatum, name, error } = this.props
+        if ('error' in this.props) {
+          return error
+        }
         if (formDatum && name) {
           return formDatum.getError(this.errorName)
         }
@@ -310,7 +314,6 @@ export default curry(Origin =>
           defaultValue,
           ...other
         } = this.props
-
         return (
           <Origin
             {...other}
