@@ -36,10 +36,21 @@ export default function(List) {
       this.lastStyle = {}
 
       if (!root) initRoot()
+      this.container = typeof this.props.absolute === 'function' ? this.props.absolute() : root
       this.element = document.createElement('div')
-      root.appendChild(this.element)
+      if (this.container) this.container.appendChild(this.element)
       if (props.getResetPosition) {
         props.getResetPosition(this.resetPosition.bind(this))
+      }
+    }
+
+    componentDidMount() {
+      if (this.props.absolute && !this.container) {
+        this.container = typeof this.props.absolute === 'function' ? this.props.absolute() : root
+        this.container.appendChild(this.element)
+        if (this.props.focus) {
+          this.forceUpdate()
+        }
       }
     }
 
@@ -54,15 +65,16 @@ export default function(List) {
     componentWillUnmount() {
       const { absolute } = this.props
       if (!absolute) return
-      root.removeChild(this.element)
+      if (this.container) {
+        this.container.removeChild(this.element)
+      }
     }
 
     getPosition(rect) {
-      const { fixed } = this.props
+      const { fixed, absolute } = this.props
       let { position } = this.props
 
       const rtl = isRTL()
-
       const style = {
         position: 'absolute',
       }
@@ -81,28 +93,40 @@ export default function(List) {
         position = getRTLPosition(position)
       }
 
+      let containerScroll = docScroll
+      let containerRect = { left: 0, top: 0, right: 0, bottom: 0 }
+      const { container } = this
+      if (typeof absolute === 'function' && container) {
+        containerRect = container.getBoundingClientRect()
+        containerScroll = {
+          left: container.scrollLeft,
+          top: container.scrollTop,
+        }
+      }
+      this.containerRect = containerRect
+
       if (listPosition.includes(position)) {
-        style.left = rect.left + docScroll.left
+        style.left = rect.left - containerRect.left + containerScroll.left
         if (rtl) {
           style.left += rect.width
         }
         if (position === 'drop-down') {
-          style.top = rect.top + rect.height + docScroll.top
+          style.top = rect.top - containerRect.top + rect.height + containerScroll.top
         } else {
-          style.bottom = -(rect.top + docScroll.top)
+          style.bottom = -(rect.top - containerRect.top + containerScroll.top)
         }
       } else if (pickerPosition.includes(position)) {
         const [h, v] = position.split('-')
         if (h === 'left') {
-          style.left = rect.left + docScroll.left
+          style.left = rect.left - containerRect.left + containerScroll.left
         } else {
-          style.left = rect.right + docScroll.left
+          style.left = rect.right - containerRect.right + containerScroll.left
           style.transform = 'translateX(-100%)'
         }
         if (v === 'bottom') {
-          style.top = rect.bottom + docScroll.top + PICKER_V_MARGIN
+          style.top = rect.bottom - containerRect.bottom + containerScroll.top + PICKER_V_MARGIN
         } else {
-          style.top = rect.top + docScroll.top - PICKER_V_MARGIN
+          style.top = rect.top - containerRect.top + containerScroll.top - PICKER_V_MARGIN
           style.transform = style.transform ? 'translate(-100%, -100%)' : 'translateY(-100%)'
         }
       }
@@ -113,7 +137,6 @@ export default function(List) {
       const { parentElement, scrollElement, focus } = this.props
       const lazyResult = { focus, style: this.lastStyle }
       if (!focus) return lazyResult
-
       let style = {}
       if (parentElement) {
         const rect = parentElement.getBoundingClientRect()
@@ -146,7 +169,8 @@ export default function(List) {
         // eslint-disable-next-line prefer-destructuring
         left = parentElement.getBoundingClientRect().left
       }
-      const overdoc = left + pos.width > docSize.width
+      const containerRect = this.containerRect || { left: 0, width: 0 }
+      const overdoc = left - containerRect.left + pos.width > (containerRect.width || docSize.width)
       if (this.state.overdoc === overdoc) return
       this.ajustdoc = true
       this.setState({
@@ -189,6 +213,7 @@ export default function(List) {
       if (!this.props.absolute) {
         return this.renderList()
       }
+      if (!this.container) return null
       const {
         parentElement,
         rootClass,
@@ -228,7 +253,7 @@ export default function(List) {
     fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]), // same width with parentElement
     parentElement: PropTypes.object,
     position: PropTypes.string,
-    absolute: PropTypes.bool,
+    absolute: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     scrollElement: PropTypes.object,
     scrollLeft: PropTypes.number,
     scrollTop: PropTypes.number,

@@ -19,7 +19,7 @@
 | renderResult | (data: any, result: any[]) => ReactNode \| string | renderItem | The content displayed in the result after selecting, if not set, use renderItem. not show while return null, result is current selected |
 | defaultValue | any[] | - | Default selected key (not controlled) |
 | value | any[] | - | Selected key (controlled) |
-| absolute | boolean | false | When it is true, the pop-up layer of option append into document.body. |
+| absolute \| (() => element) | boolean | false | When it is true, the pop-up layer of option append into document.body. When it is function, the pop-up layer of option append into it's return DOM.  |
 | compressed | boolean \| 'no-repeat' | false | Merges selected values; the repeat value will not appear in the Popover when it is'no-repeat'. |
 | childrenKey | string | 'children' | the key of the children data name |
 | finalDismiss | boolean | false | close options after chose the final node |

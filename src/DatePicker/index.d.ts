@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StandardProps, FormItemStandardProps } from '../@types/common'
+import { StandardProps, FormItemStandardProps, CommonProps } from '../@types/common'
 
 export type DateTimeType = Date | number | string | undefined
 
@@ -19,7 +19,8 @@ export interface QuickSelect extends Base {
 }
 
 export interface DatePickerProps<T =DatePickerValue > extends StandardProps,
-FormItemStandardProps<T> {
+FormItemStandardProps<T>,
+  Pick<CommonProps, 'absolute'> {
 
   /**
    * onChange get undefined while clear
@@ -130,15 +131,6 @@ FormItemStandardProps<T> {
    * default: -
    */
   defaultTime?: DatePickerValue;
-
-  /**
-   * When it is true, the pop-up layer of option append into document.body.
-   *
-   * 为 true 时，选项弹出层在 DOM 中独立 render
-   *
-   * default: false
-   */
-  absolute?: boolean;
 
   /**
    * panel z-index

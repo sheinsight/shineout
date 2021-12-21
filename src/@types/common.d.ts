@@ -147,7 +147,7 @@ export interface CommonProps {
      *
      * default: false
      */
-    absolute?: boolean;
+    absolute?: boolean | (() => HTMLElement);
 
 
     /**

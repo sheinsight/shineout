@@ -23,22 +23,22 @@
 | type | 'date' \| 'time' \| 'datetime' \| 'month' \| 'week' | 'date' | type of datepicker |
 | value | string \| number \| Date \| \[any, any] | - | When the value is string, it needs to match the format attribute. <br /> When the range property is true, the value is an array of length 2. |
 | defaultTime | string \| \[any, any] | - | Default time when selecting a date, the format is: 'HH:mm:ss' |
-| absolute | boolean | false | When it is true, the pop-up layer of option append into document.body. |
+| absolute \| (() => element) | boolean | false | When it is true, the pop-up layer of option append into document.body. When it is function, the pop-up layer of option append into it's return DOM.  |
 | zIndex | number | 1000 | panel z-index |
-| allowSingle | boolean | false | allow single select, only in range can set | 
-| quickSelect | object[] | false | quick select, name: tip, value: range date or date | 
+| allowSingle | boolean | false | allow single select, only in range can set |
+| quickSelect | object[] | false | quick select, name: tip, value: range date or date |
 | min | string \| number \| Date | none | option min value |
 | max | string \| number \| Date | none | option max value |
-| defaultRangeMonth | number[] \| Date[] | - | The initial month of range selection, the value is a time object, valid only in range mode, and the priority is lower than value and defaultValue | 
+| defaultRangeMonth | number[] \| Date[] | - | The initial month of range selection, the value is a time object, valid only in range mode, and the priority is lower than value and defaultValue |
 | defaultPickerValue | number \| Date \| number[] \| Date[] | none | default date of panel，work under has no value |
-| hourStep | number | none | hour step | 
-| minuteStep | number | none | minute step | 
-| secondStep | number | none | second step | 
+| hourStep | number | none | hour step |
+| minuteStep | number | none | minute step |
+| secondStep | number | none | second step |
 | onPickerChange | (value: any, quickSelect?: object \| void, type: string) => void | none | value onchange callback (every type of date) |
 | disabledTime | string \| ((time: string) => boolean) | none | Disable the specified Time. |
 | align | 'center' \| 'left' \| 'right' | 'center' | horizontal align of the value |
 | underline | boolean | false | only display border bottom  |
-| clearWithUndefined | boolean | false | onChange get undefined while clear value | 
+| clearWithUndefined | boolean | false | onChange get undefined while clear value |
 
 ### DatePickerFormat
 

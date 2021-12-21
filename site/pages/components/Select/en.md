@@ -9,7 +9,7 @@
 | width | number | null | width |
 | optionWidth | number | none | width of option list |
 | style | object | null | expand style |
-| absolute | boolean | false | When it is true, the pop-up layer of option append into document.body. |
+| absolute | boolean \| (() => element) | false | When it is true, the pop-up layer of option append into document.body. When it is function, the pop-up layer of option append into it's return DOM.  |
 | autoAdapt | boolean | false | option list is auto adapt |
 | clearable | boolean | false | If clearable is true, show clear value icon |
 | multiple | boolean | false | if it is true, it will be multiple selection |
@@ -32,11 +32,11 @@
 | value | any[] \| string \| object | | In the Form, the value will be taken over by the form and the value will be invalid. |
 | compressed | boolean \| 'no-repeat' | false | Merges selected values, valid only in multiselect mode; the repeat value will not appear in the Popover when it is'no-repeat'. |
 | zIndex | number | 1000 | options z-index |
-| groupBy | (record: any, index: number, data: any) => any | - | group by | 
+| groupBy | (record: any, index: number, data: any) => any | - | group by |
 | filterSingleSelect | boolean | false | blur to select the data when filter data has only single. only work in filter. |
 | separator | string | none | set with multiple, value will separator by this |
-| childrenKey | string | 'children' | treeData，the key of the children data name | 
-| defaultExpandAll| boolean | false | expand all node, only in can be use in treeData | 
+| childrenKey | string | 'children' | treeData，the key of the children data name |
+| defaultExpandAll| boolean | false | expand all node, only in can be use in treeData |
 | renderUnmatched | (data: any) => ReactNode | none | the way to render not matched data value |
 | emptyAfterSelect | boolean | false | empty input after select value |
 | showArrow | boolean | true | show dropdown arrow, only single select |

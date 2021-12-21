@@ -1,11 +1,13 @@
 import * as React from 'react'
 import { RuleParamsType } from '../Rule'
-import { StandardProps } from '../@types/common'
+import { CommonProps, StandardProps } from '../@types/common'
 
 type ReactNode = React.ReactNode;
 
 
-export interface TreeSelectProps<Value, Data> extends StandardProps {
+export interface TreeSelectProps<Value, Data> extends StandardProps,
+  Pick<CommonProps, 'absolute'>
+{
   /**
    * show border bottom
    *
