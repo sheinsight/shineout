@@ -104,6 +104,15 @@ export interface FormProps<Value> extends StandardProps {
   labelWidth?: string | number;
 
   /**
+   * Single-line error prompt will not stretch the page height
+   *
+   * 单行错误提示不撑开页面高度
+   *
+   * default: false
+   */
+  keepErrorHeight?: boolean;
+
+  /**
    * mode, with useMode
    *
    * 模式，和 useMode 配合使用
@@ -241,6 +250,15 @@ export interface FormItemProps extends StandardProps {
    * default:
    */
   tip?: string;
+
+  /**
+   * Single-line error prompt will not stretch the page height
+   *
+   * 单行错误提示不撑开页面高度
+   *
+   * default: false
+   */
+  keepErrorHeight?: boolean;
 
 }
 

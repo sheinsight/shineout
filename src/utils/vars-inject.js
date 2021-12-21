@@ -806,6 +806,14 @@ const injects = {
         parser: parseInt,
         desc: '校验错误文字底部间距',
       },
+      {
+        name: 'formKeepErrorHeight',
+        className: exposeClass('form-keep-error'),
+        attr: 'min-height',
+        type: 'number',
+        parser: parseInt,
+        desc: '错误提示不撑开表单高度时的最小间距',
+      },
     ],
     set itemMarginBottom(v) {
       setBodyProperty(
@@ -867,6 +875,14 @@ const injects = {
       setBodyProperty(
         {
           '--form-item-error-margin-bottom': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set formKeepErrorHeight(v) {
+      setBodyProperty(
+        {
+          '--form-Item-min-keep-height': `${parseInt(v, 10)}px`,
         },
         v
       )

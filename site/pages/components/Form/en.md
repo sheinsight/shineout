@@ -27,6 +27,7 @@
 | initValidate | boolean | false | validate after set value |
 | formRef | (form: any) => void | - | bind form ref, Can call some form methods |
 | labelVerticalAlign | 'top' \| 'middle' \| 'bottom' | 'top' | default is top align |
+| keepErrorHeight | boolean | false | Single-line error prompt will not stretch the page height |
 
 ### Form.Item
 Used to layout, display labels, tips, errors, etc
@@ -38,6 +39,7 @@ Used to layout, display labels, tips, errors, etc
 | labelWidth | string \| number | 140px | The width of label. It is invalid when labelAlign is 'top'. |
 | required | boolean | false | Required tags for pure display. Do not trigger validation |
 | tip | string | | Prompting information |
+| keepErrorHeight | boolean | false | Single-line error prompt will not stretch the page height |
 
 ### Form.Field
 Used to handle custom form components, enabling custom form components to get/store/validate value from formdata by name.
