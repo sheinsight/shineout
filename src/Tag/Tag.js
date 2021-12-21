@@ -42,8 +42,8 @@ class Tag extends PureComponent {
     }
   }
 
-  closeTag() {
-    this.setState({ dismiss: 2 })
+  closeTag(dismiss = 2) {
+    this.setState({ dismiss })
   }
 
   dismiss(e) {
@@ -58,9 +58,13 @@ class Tag extends PureComponent {
     }
     if (isPromise(callback)) {
       this.setState({ dismiss: 1 })
-      callback.then(() => {
-        this.closeTag()
-      })
+      callback
+        .then(() => {
+          this.closeTag()
+        })
+        .catch(() => {
+          this.closeTag(0)
+        })
       return
     }
     if (e.defaultPrevented) {
