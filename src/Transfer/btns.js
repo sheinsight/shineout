@@ -14,10 +14,22 @@ class Btns extends Component {
     this.toTarget = this.change.bind(this, 1)
   }
 
-  change(index) {
-    const { setSelecteds, selecteds, datum, data, keygen } = this.props
+  getDataMap() {
+    const { data, keygen } = this.props
+    const dataMap = new Map()
+    for (let i = 0; i < data.length; i++) {
+      dataMap.set(getKey(data[i], keygen, i), data[i])
+    }
+    return dataMap
+  }
 
-    const newValue = selecteds[1 - index].map(c => data.find((d, i) => getKey(d, keygen, i) === c))
+  change(index) {
+    const { setSelecteds, selecteds, datum } = this.props
+
+    const dataMap = this.getDataMap()
+
+    const newValue = selecteds[1 - index].map(c => dataMap.get(c))
+    // const newValue = selecteds[1 - index].map(c => data.find((d, i) => getKey(d, keygen, i) === c))
 
     setSelecteds(1 - index, [])
 
