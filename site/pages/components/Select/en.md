@@ -6,6 +6,7 @@
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
+| emptyText | ReactNode | none | custom empty copy |
 | width | number | null | width |
 | optionWidth | number | none | width of option list |
 | style | object | null | expand style |

@@ -145,7 +145,7 @@ class BoxList extends Component {
   }
 
   renderOptions() {
-    const { loading, columns, data, renderPending } = this.props
+    const { loading, columns, data, renderPending, emptyText } = this.props
     if (loading) return null
     const stack = columns === -1
     const empty = renderPending || data.length === 0
@@ -153,7 +153,7 @@ class BoxList extends Component {
       <div className={selectClass('box-options', stack && 'scrollable')}>
         {empty ? (
           <div key="empty" className={selectClass('no-data')}>
-            {this.getText('noData')}
+            {emptyText || this.getText('noData')}
           </div>
         ) : (
           <React.Fragment>{stack ? this.renderStack() : this.renderLazyList()}</React.Fragment>
@@ -211,6 +211,7 @@ BoxList.propTypes = {
   columnsTitle: PropTypes.any,
   customHeader: PropTypes.node,
   renderPending: PropTypes.bool,
+  emptyText: PropTypes.node,
 }
 
 BoxList.defaultProps = {
