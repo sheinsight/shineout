@@ -37,10 +37,19 @@ export default class {
 
   set values(values) {
     this.$values = values
+    this.resetValueMap()
     this.dispatch(CHANGE_TOPIC)
     if (this.onChange) {
       this.onChange(this.getValue())
     }
+  }
+
+  resetValueMap() {
+    const map = new Map()
+    for (let i = 0; i < this.$values.length; i++) {
+      map.set(this.$values[i], true)
+    }
+    this.valueMap = map
   }
 
   setDisabled(disabled) {
@@ -61,6 +70,7 @@ export default class {
 
   handleChange(values, ...args) {
     this.$values = values
+    this.resetValueMap()
     this.dispatch(CHANGE_TOPIC)
     if (this.onChange) {
       this.onChange(this.getValue(), ...args)
@@ -94,6 +104,7 @@ export default class {
 
     // clear value
     if (this.limit === 1) this.$values = []
+    this.resetValueMap()
 
     let raws = Array.isArray(data) ? data : [data]
     if (childrenKey && this.limit !== 1) {
@@ -117,6 +128,7 @@ export default class {
 
   set(value) {
     this.$values = []
+    this.resetValueMap()
     this.add(value)
   }
 
@@ -127,7 +139,7 @@ export default class {
       }
       return false
     }
-    return this.values.indexOf(this.format(raw)) >= 0
+    return this.valueMap.get(this.format(raw))
   }
 
   getDataByValue(data, value) {
@@ -178,16 +190,32 @@ export default class {
     raws = raws.filter(r => !this.disabled(r))
     const values = []
 
-    const prediction = this.prediction || this.defaultPrediction.bind(this)
-
-    outer: for (const val of this.values) {
-      for (let j = 0; j < raws.length; j++) {
-        if ((raws[j].IS_NOT_MATCHED_VALUE && val === raws[j].value) || prediction(val, raws[j])) {
-          raws.splice(j, 1)
-          continue outer
+    if (!this.prediction) {
+      const rowValueMap = new Map()
+      for (let i = 0; i < raws.length; i++) {
+        if (raws[i].IS_NOT_MATCHED_VALUE) {
+          rowValueMap.set(raws[i].value, true)
+        } else {
+          rowValueMap.set(this.format(raws[i]), true)
         }
       }
-      values.push(val)
+      for (let i = 0; i < this.values.length; i++) {
+        const val = this.values[i]
+        if (!rowValueMap.get(val)) {
+          values.push(val)
+        }
+      }
+    } else {
+      const { prediction } = this
+      outer: for (const val of this.values) {
+        for (let j = 0; j < raws.length; j++) {
+          if ((raws[j].IS_NOT_MATCHED_VALUE && val === raws[j].value) || prediction(val, raws[j])) {
+            raws.splice(j, 1)
+            continue outer
+          }
+        }
+        values.push(val)
+      }
     }
 
     // this.values = values
@@ -217,6 +245,7 @@ export default class {
 
   resetValue(values, cached) {
     this.$values = values
+    this.resetValueMap()
     if (this.onChange && !cached) {
       this.onChange(this.getValue())
     }
@@ -252,6 +281,7 @@ export default class {
     if (deepEqual(values, this.$values)) return
     if (type === WITH_OUT_DISPATCH) {
       this.$values = this.formatValue(values)
+      this.resetValueMap()
     } else {
       this.resetValue(this.formatValue(values), shallowEqual(this.$cachedValue, values))
     }
