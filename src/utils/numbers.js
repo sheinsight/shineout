@@ -63,7 +63,7 @@ export function getNumberPrecision(number) {
     let precision = Number(numStr.slice(numStr.indexOf('e-') + 2))
 
     const decimalMatch = numStr.match(/\.(\d+)/)
-    if (decimalMatch?.[1]) {
+    if (decimalMatch && decimalMatch[1]) {
       precision += decimalMatch[1].length
     }
     return precision
