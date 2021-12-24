@@ -16,6 +16,7 @@ class ImageResult extends PureComponent {
     this.bindImage = this.bindImage.bind(this)
     this.handlePreview = this.handlePreview.bind(this)
     this.handleConfirmChange = this.handleConfirmChange.bind(this)
+    this.preview = this.preview.bind(this)
   }
 
   get showRemove() {
@@ -40,17 +41,21 @@ class ImageResult extends PureComponent {
     this.setState({ confirm })
   }
 
+  preview() {
+    if (!this.image) return
+    this.image.preview()
+  }
+
   handlePreview() {
     const { onPreview, renderResult, value, index, values } = this.props
     if (onPreview) {
       const url = renderResult(value)
       onPreview(url, value, index, values, {
-        preview: () => this.image.preview(),
+        preview: () => this.preview(),
       })
       return
     }
-    if (!this.image) return
-    this.image.preview()
+    this.preview()
   }
 
   renderOptions() {
