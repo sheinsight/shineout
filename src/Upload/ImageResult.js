@@ -44,7 +44,9 @@ class ImageResult extends PureComponent {
     const { onPreview, renderResult, value, index, values } = this.props
     if (onPreview) {
       const url = renderResult(value)
-      onPreview(url, value, index, values)
+      onPreview(url, value, index, values, {
+        preview: () => this.image.preview(),
+      })
       return
     }
     if (!this.image) return

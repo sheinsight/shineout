@@ -397,7 +397,7 @@ export interface UploadImageProps<T> extends UploadProps<T>{
    *
    *  default: none
    */
-  onPreview?:(url: string, value: T, index: number, values: T[]) => void;
+  onPreview?:(url: string, value: T, index: number, values: T[], fun: {preview: () => void }) => void;
 
   /**
    * ignore image preview
