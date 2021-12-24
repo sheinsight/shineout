@@ -12,10 +12,10 @@ export interface BaseParams {
 }
 
 export interface Validator {
-  customValidator?: (file: File) => (void | Error | Promise<any>)
-  ext?: (file: File) => (void | Error | Promise<any>),
-  imageSize?: (file: File) => (void | Error),
-  size?: (file: File) => (void | Error | Promise<any>),
+  customValidator?: (blob: Blob) => (void | Error | Promise<any>)
+  ext?: (ext: string) => (void | Error | Promise<any>),
+  imageSize?: (image: {width: number, height: number}) => (void | Error),
+  size?: (size: number) => (void | Error | Promise<any>),
 }
 
 export interface Options<T> {
