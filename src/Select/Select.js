@@ -429,6 +429,7 @@ class Select extends PureComponent {
       'zIndex',
       'childrenKey',
       'expandIcons',
+      'emptyText',
     ].forEach(k => {
       props[k] = this.props[k]
     })
@@ -474,6 +475,7 @@ class Select extends PureComponent {
       'zIndex',
       'groupKey',
       'hideCreateOption',
+      'emptyText',
     ].forEach(k => {
       props[k] = this.props[k]
     })
