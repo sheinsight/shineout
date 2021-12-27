@@ -79,12 +79,17 @@ class Transfer extends PureComponent {
     if ('value' in this.props && datumValues !== this.props.value) {
       this.props.datum.setValue(this.props.value)
     }
-    const sources = data.filter(d => !datum.check(d))
-    const targets = datumValues.reduce((p, n) => {
-      const d = datum.getDataByValue(data, n)
-      if (d) p.push(d)
-      return p
-    }, [])
+    const sources = []
+    const targets = []
+    for (let i = 0; i < data.length; i++) {
+      const d = data[i]
+      if (datum.check(d)) {
+        targets.push(d)
+      } else {
+        sources.push(d)
+      }
+    }
+
     return (
       <div
         className={classnames(transferClass('_', isRTL() && 'rtl'), className)}

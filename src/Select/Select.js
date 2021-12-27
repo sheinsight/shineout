@@ -360,9 +360,24 @@ class Select extends PureComponent {
     this.keyLocked = false
   }
 
+  cancelDeleteLock() {
+    if (this.cancelDeleteLockTimer) {
+      clearTimeout(this.cancelDeleteLockTimer)
+    }
+    this.cancelDeleteLockTimer = setTimeout(() => {
+      this.deleteLock = false
+    }, 400)
+  }
+
   handleDelete(e) {
     const { multiple, filterText, datum, value, data } = this.props
-    if (!multiple || filterText) return
+    if (!multiple) return
+    if (filterText) {
+      this.deleteLock = true
+    } else if (this.deleteLock) {
+      this.cancelDeleteLock()
+    }
+    if (filterText || this.deleteLock) return
     if (!value || !value.length) return
     e.preventDefault()
     const raws = Array.isArray(value) ? value : [value]
@@ -414,6 +429,7 @@ class Select extends PureComponent {
       'zIndex',
       'childrenKey',
       'expandIcons',
+      'emptyText',
     ].forEach(k => {
       props[k] = this.props[k]
     })
@@ -459,6 +475,7 @@ class Select extends PureComponent {
       'zIndex',
       'groupKey',
       'hideCreateOption',
+      'emptyText',
     ].forEach(k => {
       props[k] = this.props[k]
     })
@@ -570,7 +587,7 @@ class Select extends PureComponent {
 
 Select.propTypes = {
   ...getProps(PropTypes, 'placehodler', 'keygen'),
-  absolute: PropTypes.bool,
+  absolute: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   clearable: PropTypes.bool,
   columns: PropTypes.number,
   data: PropTypes.array,

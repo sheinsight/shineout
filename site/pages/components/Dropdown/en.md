@@ -21,6 +21,7 @@
 | type | 'primary' \| 'secondary' \|  'success' \| 'info' \|  'warning' \|  'danger' \|  'link' | 'default' | type of Dropdown |
 | width | number | none | The width of the pop-up option layer |
 | animation | boolean | true | animation toggle |
+| absolute \| (() => element) | boolean | false | When it is true, the pop-up layer of option append into document.body. When it is function, the pop-up layer of option append into it's return DOM.  |
 
 
 ### DropdownData

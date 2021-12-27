@@ -31,3 +31,57 @@ export function split(total, nums) {
 export function toPrecision(num, precision = 12) {
   return +parseFloat(num.toPrecision(precision))
 }
+
+export function validateNumber(num) {
+  if (typeof num === 'number') {
+    return !Number.isNaN(num)
+  }
+
+  // Empty
+  if (!num) {
+    return false
+  }
+
+  return (
+    // Normal type: 11.28
+    /^\s*-?\d+(\.\d+)?\s*$/.test(num) ||
+    // Pre-number: 1.
+    /^\s*-?\d+\.\s*$/.test(num) ||
+    // Post-number: .1
+    /^\s*-?\.\d+\s*$/.test(num)
+  )
+}
+export function isE(number) {
+  const str = String(number)
+
+  return !Number.isNaN(Number(str)) && str.includes('e')
+}
+export function getNumberPrecision(number) {
+  const numStr = String(number)
+
+  if (isE(number)) {
+    let precision = Number(numStr.slice(numStr.indexOf('e-') + 2))
+
+    const decimalMatch = numStr.match(/\.(\d+)/)
+    if (decimalMatch && decimalMatch[1]) {
+      precision += decimalMatch[1].length
+    }
+    return precision
+  }
+
+  return numStr.includes('.') && validateNumber(numStr) ? numStr.length - numStr.indexOf('.') - 1 : 0
+}
+
+export function sub(num1, num2) {
+  const number = Number(num1) + Number(num2)
+  if (Number.isNaN(number)) return NaN
+  if (number > Number.MAX_SAFE_INTEGER) {
+    return Number.MAX_SAFE_INTEGER
+  }
+
+  if (number < Number.MIN_SAFE_INTEGER) {
+    return Number.MIN_SAFE_INTEGER
+  }
+  const maxPrediction = Math.max(getNumberPrecision(num1), getNumberPrecision(num2))
+  return Number(number.toFixed(maxPrediction))
+}

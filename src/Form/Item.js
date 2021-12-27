@@ -135,7 +135,17 @@ class Item extends Component {
   }
 
   render() {
-    const { children, grid, label, labelAlign, labelVerticalAlign, labelWidth, required, style } = this.props
+    const {
+      children,
+      grid,
+      label,
+      labelAlign,
+      labelVerticalAlign,
+      labelWidth,
+      required,
+      style,
+      keepErrorHeight,
+    } = this.props
 
     const errors = this.getErrors()
     const className = classnames(
@@ -145,6 +155,7 @@ class Item extends Component {
         required && 'required',
         errors.length > 0 && 'invalid',
         labelVerticalAlign && `label-vertical-align-${labelVerticalAlign}`,
+        keepErrorHeight && `item-keep-height`,
         ['top', 'right', 'left'].indexOf(labelAlign) >= 0 && `label-align-${labelAlign}`
       ),
       this.props.className
@@ -168,6 +179,7 @@ Item.propTypes = {
   ...getProps(PropTypes, 'children', 'grid'),
   className: PropTypes.string,
   // formItemErrors: PropTypes.array,
+  keepErrorHeight: PropTypes.bool,
   label: PropTypes.any,
   labelAlign: PropTypes.string,
   labelWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -178,6 +190,7 @@ Item.propTypes = {
 Item.defaultProps = {
   ...defaultProps,
   formItemErrors: [],
+  keepErrorHeight: true,
 }
 
 export default Item

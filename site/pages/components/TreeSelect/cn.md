@@ -28,7 +28,7 @@ TreeSelect 用来选择树形数据结构，若需要非关联树形结构选择
 | renderItem | (data: object) => ReactNode | 必填 | 为 string 时，返回 d\[string]<br />为 function 时，返回函数结果 |
 | renderResult | (data: object) => ReactNode | renderItem | 选中后在结果中显示的内容，默认和 renderItem 相同 |
 | compressed | boolean | false | 将选中值合并，只在多选模式下有效；为'no-repeat'时弹出框中不重复展示值 |
-| absolute | boolean | false | 为 true 时，选项弹出层在 DOM 中独立 render |
+| absolute | boolean \| (() => element) | false | 为 true 时，选项弹出层在 BODY 下独立 render， 为函数时 选项弹出层在函数返回的 DOM 下render  |
 | zIndex | number | 1000 | 选项列表 z-index 值 |
 | childrenKey | string | 'children' | 指定子数据的属性名 |
 | defaultExpandAll | boolean | false | 默认全部展开节点 |

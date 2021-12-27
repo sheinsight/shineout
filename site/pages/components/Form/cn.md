@@ -39,6 +39,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 | initValidate | boolean | false | 设置 value 后是否自动校验 |
 | formRef | (form: any) => void | - | 绑定 form 的引用, 可以调用某些 form 的方法 |
 | labelVerticalAlign | 'top' \| 'middle' \| 'bottom' | 'top' | 默认顶部对齐 |
+| keepErrorHeight | boolean | false | 单行错误提示不撑开页面高度 |
 
 ### Form.Item
 表单项，主要用来布局，显示标签，提示文案信息等
@@ -50,6 +51,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 | labelWidth | string \| number | 140px | 标签宽度，labelAlign 为 'top' 时无效。 |
 | required | boolean | false | 必填标记，纯展示用，不会触发校验 |
 | tip | string | | 提示文案 |
+| keepErrorHeight | boolean | false | 单行错误提示不撑开页面高度 |
 
 ### Form.Field
 用于处理自定义表单组件，使自定义表单组件实现通过rules校验，存储数据功能

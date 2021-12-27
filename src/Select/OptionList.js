@@ -164,6 +164,7 @@ class OptionList extends Component {
       renderItem,
       groupKey,
       filterText,
+      emptyText,
     } = this.props
     const { hoverIndex, currentIndex } = this.state
     let scroll = ''
@@ -176,7 +177,7 @@ class OptionList extends Component {
         <span className={selectClass('option')}>{typeof loading === 'boolean' ? <Spin size={20} /> : loading}</span>
       )
     if (data.length === 0 || renderPending)
-      return <span className={selectClass('option')}>{this.getText('noData')}</span>
+      return <span className={selectClass('option')}>{emptyText || this.getText('noData')}</span>
     return (
       <Scroll
         scroll={scroll}
@@ -256,6 +257,7 @@ OptionList.propTypes = {
   customHeader: PropTypes.node,
   filterText: PropTypes.string,
   hideCreateOption: PropTypes.bool,
+  emptyText: PropTypes.node,
 }
 
 export default OptionList

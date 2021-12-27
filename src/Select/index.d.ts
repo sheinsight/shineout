@@ -3,23 +3,32 @@ import { StandardProps, RegularAttributes, StructDataStandardProps, FormItemStan
 
 type ReactNode = React.ReactNode;
 
-export interface SelectProps<Item, Value> extends 
-StandardProps, 
-FormItemStandardProps<Value>, 
-StructDataStandardProps<Item>, 
+export interface SelectProps<Item, Value> extends
+StandardProps,
+FormItemStandardProps<Value>,
+StructDataStandardProps<Item>,
 ListItemStandardProps<Item, Value>,
 Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
   {
 
   /**
+   * custom empty copy
+   *
+   * 自定义 empty 文案
+   *
+   * default:
+   */
+  emptyText?: ReactNode;
+
+  /**
    * show border bottom
-   * 
+   *
    * 仅仅展示下边框
-   * 
+   *
    * default: false
    */
   underline?: boolean;
-  
+
   /**
    * width
    *
@@ -31,22 +40,22 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
 
   /**
    * width of option list
-   * 
+   *
    * 下拉列表宽度
-   * 
+   *
    * default: 100%
    */
   optionWidth?: number;
 
   /**
    * expand option list while enter press
-   * 
+   *
    * 回车触发下拉框展开的时候调用
-   * 
+   *
    * default: -
    */
   onEnterExpand?: (e: Event) => boolean;
-  
+
   /**
    * height
    *
@@ -55,7 +64,7 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
    * default: 250
    */
   height?: number;
-  
+
   /**
    * The position of the pop-up layer, options: ['left', 'top', 'right', 'bottom']
    *
@@ -64,7 +73,7 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
    * default: auto
    */
   position?: 'drop-down' | 'drop-up';
-  
+
   /**
    * When it is true, a default [Spin](/components/Spin) component will be displayed, a custom loading icon can be passed in to replace.
    *
@@ -73,7 +82,7 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
    * default: false
    */
   loading?: boolean | ReactNode;
-  
+
   /**
    * Option height. List items are rendered using virtual lists, and when the option height changes, the correct height should be specified via lineHeight
    *
@@ -82,7 +91,7 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
    * default: 34
    */
   lineHeight?: number;
-  
+
   /**
    * size of select
    *
@@ -91,7 +100,7 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
    * default: 'default'
    */
   size?: RegularAttributes.Size;
-  
+
   /**
    * When trim is true, blank characters are automatically deleted when lose focus。
    *
@@ -344,9 +353,9 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
 
   /**
    * hide the creat option while set onCreate
-   * 
+   *
    * 在使用创建选项时，在选项列表中隐藏该选项，回车后直接选中
-   * 
+   *
    * default: false
    */
   hideCreateOption?: boolean;
