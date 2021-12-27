@@ -139,7 +139,7 @@ export default class {
       }
       return false
     }
-    return this.valueMap.get(this.format(raw))
+    return !!this.valueMap.get(this.format(raw))
   }
 
   getDataByValue(data, value) {
