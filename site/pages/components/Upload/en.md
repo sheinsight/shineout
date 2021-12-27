@@ -51,7 +51,7 @@
 | leftHandler | boolean | false | Add image view is displayed on the left |
 | renderResult | (data: any) => ReactNode | a => a | Return the link address of the url of the image.|
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | none | remove update failed callback |
-| onPreview | (url, value, index, values) => void | none | how to preview the image |
+| onPreview | (url, value, index, values, fun: {preview: ()=>void }) => void | none | how to preview the image |
 | ignorePreview | boolean | false | ignore image preview |
 | gapProps | object | {column: 12, row: 12} | gap is the same as Gap component props |
 

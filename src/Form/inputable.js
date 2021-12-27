@@ -57,6 +57,8 @@ export default curry(Origin =>
         value: PropTypes.any,
         scuSkip: PropTypes.array,
         error: PropTypes.object,
+        readOnly: PropTypes.bool,
+        disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
       }
 
       static defaultProps = {
@@ -88,6 +90,12 @@ export default curry(Origin =>
 
       componentDidMount() {
         super.componentDidMount()
+        const { onChange, readOnly, disabled } = this.props
+        if ('value' in this.props && !onChange && disabled !== true && readOnly !== true) {
+          console.error(
+            'You provided a `value` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use `defaultValue`. Otherwise, set either `onChange` or `readOnly`'
+          )
+        }
         const { formDatum, loopContext, name, defaultValue, bindInputToItem, popover } = this.props
 
         if (formDatum && name) {

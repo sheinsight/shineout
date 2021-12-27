@@ -180,12 +180,6 @@ class SeperateTable extends PureComponent {
         this.handleScroll(...this.lastScrollArgs)
       })
     }
-    if (this.resetHeightScroll) {
-      // 更新滚动条高度
-      this.resetHeightScroll = false
-      const [max, bar, v, h] = this.lastScrollArgs
-      this.handleScroll(this.state.scrollLeft, this.state.scrollTop, max, bar, v, h, undefined, undefined, false)
-    }
   }
 
   updateScrollLeft() {
@@ -227,9 +221,11 @@ class SeperateTable extends PureComponent {
 
   resetIndex() {
     const { currentIndex } = this.state
-    if (this.props.data.length >= currentIndex) return currentIndex
+    let max = this.props.data.length - this.props.rowsInView
+    if (max < 0) max = 0
+    if (max >= currentIndex) return currentIndex
     // if data.length < currentIndex
-    return this.props.data.length
+    return max
   }
 
   resetHeight() {
@@ -239,10 +235,9 @@ class SeperateTable extends PureComponent {
     const height = fullHeight * scrollTop
 
     const scrollHeight = this.lastScrollArgs[5]
-
+    // Height reduced
     if (this.lastScrollTop - height >= 1) {
       const index = this.resetIndex()
-      this.resetHeightScroll = true
       this.setState({ currentIndex: index })
       if (this.renderByExpand) {
         this.renderByExpand = false
@@ -266,15 +261,30 @@ class SeperateTable extends PureComponent {
 
       if (index === 0) {
         this.lastScrollTop = 0
-        this.resetHeightScroll = false
         setTimeout(() => {
-          this.resetHeightScroll = true
           this.setState({ scrollTop: 0 })
         })
         this.tbody.style.marginTop = '0px'
         setTranslate(this.tbody, `-${offsetLeft}px`, '0px')
+      } else if (fullHeight - this.lastScrollTop < (1 - this.lastScrollArgs[1]) * scrollHeight) {
+        this.tbody.style.marginTop = `${scrollHeight}px`
+        setTranslate(this.tbody, `-${offsetLeft}px`, `-${fullHeight}px`)
+        this.lastScrollTop = fullHeight
+        setTimeout(() => {
+          this.setState({ scrollTop: 1 })
+        })
       } else {
+        const keepTop = this.lastScrollTop - this.lastScrollArgs[1] * scrollHeight
+        // keepTop = scrollTopLength - scrollTopLength/fullHeight * scrollHeight
+        // keepTop = (1 - scrollHeight / fullHeight) * scrollTopLength
+        const scrollTopLength = keepTop / (1 - scrollHeight / fullHeight)
+        this.lastScrollTop = scrollTopLength
+        const st = this.lastScrollTop / fullHeight
+        this.tbody.style.marginTop = `${st * scrollHeight}px`
         setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
+        setTimeout(() => {
+          this.setState({ scrollTop: st })
+        })
       }
     } else if (this.lastScrollTop - height < 1) {
       setTimeout(() => {

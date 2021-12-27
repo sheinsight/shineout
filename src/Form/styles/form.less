@@ -18,6 +18,18 @@
     display: flex;
     align-items: flex-start;
     margin-bottom: @form-group-margin-bottom;
+    &.@{form-prefix}-item-keep-height {
+      margin-bottom: @form-Item-min-keep-height;
+      .@{form-prefix}-error {
+        margin: 0;
+        height: auto;
+        min-height: @form-Item-min-keep-height;
+        line-height: 1.5715;
+      }
+    }
+    &.@{form-prefix}-item-keep-height.@{form-prefix}-invalid {
+      margin-bottom: 0;
+    }
 
     &.@{form-prefix}-label-vertical-align {
       &-middle {

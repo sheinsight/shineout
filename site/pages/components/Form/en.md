@@ -13,7 +13,7 @@
 | datum | object | | The formdata helper class, which is created automatically inside a Form without setting it, usually does not need to be set. |
 | disabled | boolean | false | When disabled is true, all the elements in the form are disabled. |
 | inline | boolean | false | When inline is true, the form is horizontal layout |
-| labelAlign | 'top' \| 'right' | | the default value is right |
+| labelAlign | 'top' \| 'right'  \| 'left' | | The default is empty, follow the theme style. |
 | labelWidth | string \| number | 140px | The width of label. It is invalid when labelAlign is 'top'. |
 | mode | string | | mode, with mode |
 | onChange | (data: any) => void | | callback function, executed when the value is changing |
@@ -27,6 +27,7 @@
 | initValidate | boolean | false | validate after set value |
 | formRef | (form: any) => void | - | bind form ref, Can call some form methods |
 | labelVerticalAlign | 'top' \| 'middle' \| 'bottom' | 'top' | default is top align |
+| keepErrorHeight | boolean | false | Single-line error prompt will not stretch the page height |
 
 ### Form.Item
 Used to layout, display labels, tips, errors, etc
@@ -34,10 +35,11 @@ Used to layout, display labels, tips, errors, etc
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | label | string \| ReactNode | undefined | When it is undefined, the tag does not be rendered or occupy space. If there is no content, but it needs to be occupied, you can use an empty string ''. |
-| labelAlign | 'top' \| 'right' | | the default value is left. |
+| labelAlign | 'top' \| 'right' \| 'left' | | The default is empty, follow the theme style. |
 | labelWidth | string \| number | 140px | The width of label. It is invalid when labelAlign is 'top'. |
 | required | boolean | false | Required tags for pure display. Do not trigger validation |
 | tip | string | | Prompting information |
+| keepErrorHeight | boolean | false | Single-line error prompt will not stretch the page height |
 
 ### Form.Field
 Used to handle custom form components, enabling custom form components to get/store/validate value from formdata by name.

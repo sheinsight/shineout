@@ -76,7 +76,7 @@ CardGroup.defaultProps = {
 
 CardGroup.propTypes = {
   style: PropTypes.object,
-  children: PropTypes.array,
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.node]),
   className: PropTypes.string,
   height: PropTypes.number,
   cardWidth: PropTypes.number,

@@ -113,6 +113,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-08-x-validate-bind.js'),
   },
   {
+    name: '08-y-validate-keep-height',
+    title: locate(
+      ' \n 使用 keepErrorHeight 使得单行错误提示不会撑开页面高度',
+      ' \n Use keepErrorHeight so that a single-line error prompt will not stretch the page height'
+    ),
+    component: require('doc/pages/components/Form/example-08-y-validate-keep-height.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-08-y-validate-keep-height.js'),
+  },
+  {
     name: '09-server-validate',
     title: locate(
       ' \n 通过给 Form 设置 error，实现后端校验数据展示。在表单值被改变后，对应后端校验数据会被清空。<br />前端校验优先级大于后端校验。',

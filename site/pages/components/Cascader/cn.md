@@ -19,7 +19,7 @@
 | renderItem | (data: any) => ReactNode \| string | 必填 | 为 string 时，返回 d\[string]<br />为 function 时，返回函数结果 |
 | renderResult | (data: any, result: any[]) => ReactNode \| string | renderItem | 选中后在结果中显示的内容，默认和 renderItem 相同。返回 null 则不展示，result 为当前选中的所有值。 |
 | value | any[] | 无 | 选中的 key （受控） |
-| absolute | boolean | false | 为 true 时，选项弹出层在 DOM 中独立 render |
+| | absolute | boolean \| (() => element) | false | 为 true 时，选项弹出层在 BODY 下独立 render， 为函数时 选项弹出层在函数返回的 DOM 下render  |
 | compressed | boolean \| 'no-repeat' | false | 将选中值合并。为'no-repeat'时弹出框中不重复展示值 |
 | childrenKey | string | 'children' | 指定子数据的属性名 |
 | finalDismiss | boolean | false | 选择末级节点后是否关闭选项列表 |

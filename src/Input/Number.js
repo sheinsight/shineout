@@ -4,6 +4,7 @@ import icons from '../icons'
 import Input from './Input'
 import { inputClass } from './styles'
 import { isRTL } from '../config'
+import { sub } from '../utils/numbers'
 
 class Number extends PureComponent {
   constructor(props) {
@@ -74,7 +75,7 @@ class Number extends PureComponent {
     let value = parseFloat(`${val || ''}`.replace(/,/g, ''))
     // eslint-disable-next-line
     if (isNaN(value)) value = 0
-    this.handleChange(value + mod, true)
+    this.handleChange(sub(value, mod), true)
   }
 
   longPress(mod) {

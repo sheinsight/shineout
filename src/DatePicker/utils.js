@@ -148,7 +148,7 @@ function startOfWeek(day, options) {
 
 function toDate(day) {
   if (!day) return new Date('')
-  if (day instanceof Date) return day
+  if (day instanceof Date) return dayjs(day).toDate()
   return dayjs(day).toDate()
 }
 

@@ -53,13 +53,14 @@ class OptionList extends Component {
       renderPending,
       childrenKey,
       expandIcons,
+      emptyText,
     } = this.props
     if (loading)
       return (
         <span className={selectClass('option')}>{typeof loading === 'boolean' ? <Spin size={20} /> : loading}</span>
       )
     if (treeData.length === 0 || renderPending)
-      return <span className={selectClass('option')}>{this.getText('noData')}</span>
+      return <span className={selectClass('option')}>{emptyText || this.getText('noData')}</span>
 
     return (
       <div className={selectClass('tree-wrapper')}>
@@ -122,6 +123,7 @@ OptionList.propTypes = {
   getRef: PropTypes.func,
   customHeader: PropTypes.node,
   expandIcons: PropTypes.array,
+  emptyText: PropTypes.node,
 }
 
 export default OptionList
