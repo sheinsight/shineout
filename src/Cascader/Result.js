@@ -13,7 +13,7 @@ import { CHANGE_TOPIC } from '../Datum/types'
 import Caret from '../icons/Caret'
 
 // eslint-disable-next-line react/prop-types
-function Item({ children, close, className, data, isPopover, singleRemove, click }) {
+function Item({ children, close, className, data, isPopover, singleRemove, click, only }) {
   const onClose = close
     ? e => {
         close(data, isPopover, e)
@@ -25,7 +25,7 @@ function Item({ children, close, className, data, isPopover, singleRemove, click
       }
     : undefined
   return (
-    <a tabIndex={-1} className={classnames(cascaderClass('item'), className)} onClick={onClick}>
+    <a tabIndex={-1} className={classnames(cascaderClass('item', only && 'item-only'), className)} onClick={onClick}>
       {children}
       {singleRemove && (
         <span className={cascaderClass('single-remove')} onClick={onClose}>
@@ -159,9 +159,11 @@ class Result extends PureComponent {
     const itemClassName = classnames(className, cascaderClass(singleRemove && 'remove-container'))
     const res = data && render(data, raw)
     if (!res) return null
+    const { more } = this.state
     return (
       <Item
         key={index}
+        only={more === 1}
         {...options}
         data={data}
         className={itemClassName}

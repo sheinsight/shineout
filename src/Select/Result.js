@@ -37,7 +37,7 @@ const getResultContent = (data, renderResult, renderUnmatched) => {
 }
 
 // eslint-disable-next-line
-function Item({ content, data, disabled, onClick, resultClassName, title = false }) {
+function Item({ content, data, disabled, onClick, resultClassName, title = false, only }) {
   const value = data
   const click = disabled || !onClick ? undefined : () => onClick(value)
   const synDisabled = disabled || !click
@@ -46,7 +46,7 @@ function Item({ content, data, disabled, onClick, resultClassName, title = false
       title={title && isString(content) ? content : null}
       tabIndex={-1}
       className={classnames(
-        selectClass('item', disabled && 'disabled', synDisabled && 'ban'),
+        selectClass('item', disabled && 'disabled', synDisabled && 'ban', only && 'item-only'),
         getResultClassName(resultClassName, data)
       )}
     >
@@ -135,9 +135,11 @@ class Result extends PureComponent {
     const { renderResult, renderUnmatched, datum, resultClassName } = this.props
     const content = getResultContent(data, renderResult, renderUnmatched)
     if (content === null) return null
+    const { more } = this.state
     return (
       <Item
         key={index}
+        only={more === 1}
         content={content}
         data={data}
         disabled={datum.disabled(data)}
