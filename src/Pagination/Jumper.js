@@ -5,6 +5,7 @@ import { paginationClass } from './styles'
 import Input from '../Input'
 
 const inputStyle = { width: 60, display: 'inline-block' }
+const nofunc = () => {}
 
 class Jumper extends PureComponent {
   constructor(props) {
@@ -63,6 +64,7 @@ class Jumper extends PureComponent {
         <Input
           key={this.renderRequire}
           value={current}
+          onChange={nofunc}
           autoFocus={this.autoFocus}
           onKeyDown={this.handleKeyDown}
           digits={0}
