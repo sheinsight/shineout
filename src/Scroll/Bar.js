@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { scrollClass } from './styles'
 import fixedLength from './fixedLength'
+import { isRTL } from '../config'
 
 class ScrollBar extends PureComponent {
   constructor(props) {
@@ -64,8 +65,13 @@ class ScrollBar extends PureComponent {
 
     const { direction, length, onScroll, barLength } = this.props
     const value = direction === 'x' ? x : y
+    let newOffset
+    if (direction === 'x' && isRTL()) {
+      newOffset = this.cacheOffset - value / (length - barLength)
+    } else {
+      newOffset = this.cacheOffset + value / (length - barLength)
+    }
 
-    let newOffset = this.cacheOffset + value / (length - barLength)
     if (newOffset < 0) newOffset = 0
     if (newOffset > 1) newOffset = 1
     if (newOffset === this.cacheOffset) return
@@ -81,11 +87,12 @@ class ScrollBar extends PureComponent {
 
     let newOffset = offset
     const page = length / (scrollLength - length)
-
-    if ((direction === 'x' && event.clientX < rect.left) || (direction === 'y' && event.clientY < rect.top)) {
+    const plus = isRTL() ? event.clientX < rect.left : event.clientX > rect.left
+    const add = isRTL() ? event.clientX > rect.left : event.clientX < rect.left
+    if ((direction === 'x' && add) || (direction === 'y' && event.clientY < rect.top)) {
       newOffset = offset - page
       if (newOffset < 0) newOffset = 0
-    } else if ((direction === 'x' && event.clientX > rect.right) || (direction === 'y' && event.clientY > rect.top)) {
+    } else if ((direction === 'x' && plus) || (direction === 'y' && event.clientY > rect.top)) {
       newOffset = offset + page
       if (newOffset > 1) newOffset = 1
     }
@@ -97,18 +104,19 @@ class ScrollBar extends PureComponent {
     const { direction, length, scrollLength, offset, barLength, forceHeight } = this.props
     const { dragging } = this.state
     const show = scrollLength > length
+    const rtl = isRTL()
     const className = classnames(
       scrollClass('bar', direction, show && 'show', dragging && 'dragging', !forceHeight && 'padding-y'),
       this.props.className
     )
 
     const value = (length - barLength) * offset
-
+    const x = rtl ? 'right' : 'left'
     const style = {}
     if (scrollLength > 0) {
       if (direction === 'x') {
         style.width = `${(length / scrollLength) * 100}%`
-        style.left = value
+        style[x] = value
       } else {
         style.height = `${(length / scrollLength) * 100}%`
         style.top = value
