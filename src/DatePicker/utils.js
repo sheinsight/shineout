@@ -128,9 +128,9 @@ function parse(date, fmt, options) {
     const year = date.slice(index, index + 5)
     const weekIndex = fmt2.indexOf('WW')
     const week = weekIndex >= 0 ? date.slice(weekIndex, weekIndex + 3) : 1
-    const result = dayjs(year, 'YYYY')
+    const result = dayjs(`${year}-06-15`, 'YYYY-MM-dd')
       .locale(getDayJsLocate(options))
-      .isoWeek(week)
+      .isoWeek(Number(week))
       .toDate()
     return result
   }
