@@ -190,7 +190,7 @@ Item.propTypes = {
 Item.defaultProps = {
   ...defaultProps,
   formItemErrors: [],
-  keepErrorHeight: true,
+  keepErrorHeight: false,
 }
 
 export default Item
