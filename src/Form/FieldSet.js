@@ -123,7 +123,6 @@ class FieldSet extends Component {
       result.push(empty(this.handleInsert.bind(this, 0)))
     } else {
       const errorList = (Array.isArray(errors) ? errors : [errors]).filter(Boolean)
-      console.log(errorList)
       values.forEach((v, i) => {
         result.push(
           <Provider key={i} value={{ path: `${name}[${i}]`, val: this.validate }}>

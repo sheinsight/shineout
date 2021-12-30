@@ -10,6 +10,7 @@ import Bar from './Bar'
 import config from '../config'
 import { Provider } from './context'
 import { throttleWrapper } from '../utils/lazyload'
+import { isRTL } from '../config'
 
 export const BAR_WIDTH = 16
 
@@ -165,8 +166,7 @@ class Scroll extends PureComponent {
 
     const wheel = normalizeWheel(event)
     this.setBaseScrollHeightRatio(wheel.pixelY)
-
-    if (scrollX) this.pixelX += wheel.pixelX
+    if (scrollX) this.pixelX = isRTL() ? this.pixelX - wheel.pixelX : this.pixelX + wheel.pixelX
     if (scrollY) this.pixelY += wheel.pixelY * this.baseScrollRatio
 
     if (Math.abs(wheel.pixelX) > Math.abs(wheel.pixelY)) {
@@ -218,8 +218,12 @@ class Scroll extends PureComponent {
   render() {
     const { children, scrollWidth, scrollHeight, left, top, scrollX, scrollY, style } = this.props
     const { width, height } = this.getWheelRect()
+    const rtl = isRTL()
 
-    const className = classnames(scrollClass('_', scrollX && 'show-x', scrollY && 'show-y'), this.props.className)
+    const className = classnames(
+      scrollClass('_', scrollX && 'show-x', scrollY && 'show-y', rtl && 'rtl'),
+      this.props.className
+    )
 
     const yLength = scrollHeight < height ? scrollHeight : height
 
