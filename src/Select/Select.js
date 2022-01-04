@@ -440,7 +440,7 @@ class Select extends PureComponent {
         onChange={this.handleChange}
         parentElement={this.element}
         position={position}
-        rootClass={selectClass(position)}
+        rootClass={selectClass(position, isRTL() && 'rtl')}
         selectId={this.selectId}
         focus={focus}
         renderPending={this.renderPending}
