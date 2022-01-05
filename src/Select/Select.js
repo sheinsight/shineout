@@ -530,6 +530,7 @@ class Select extends PureComponent {
       showArrow,
       compressedClassName,
       resultClassName,
+      maxLength,
     } = this.props
     const className = selectClass(
       'inner',
@@ -555,6 +556,7 @@ class Select extends PureComponent {
       >
         <Result
           trim={trim}
+          maxLength={maxLength}
           filterText={filterText}
           onClear={clearable ? this.handleClear : undefined}
           onCreate={onCreate}
@@ -622,6 +624,7 @@ Select.propTypes = {
   resultClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   reFocus: PropTypes.bool,
   header: PropTypes.node,
+  maxLength: PropTypes.number,
 }
 
 Select.defaultProps = {
