@@ -119,6 +119,9 @@ class Root extends React.Component {
     const { active } = this.props
     const act = typeof active === 'function' ? active(data) : id === this.state.activeKey
     if (act) this.state.activeKey = id
+    if (!act && this.state.activeKey === id) {
+      this.state.activeKey = ''
+    }
     return act
   }
 
@@ -132,6 +135,7 @@ class Root extends React.Component {
 
   checkInPath(id) {
     const { activeKey } = this.state
+    console.log('activeKey', activeKey)
     if (!activeKey || !id) return false
     return activeKey.indexOf(id) >= 0
   }
@@ -147,6 +151,7 @@ class Root extends React.Component {
   }
 
   updateActive() {
+    console.log('this.checkActive', this.state.activeKey)
     Object.keys(this.items).forEach(id => {
       const update = this.items[id]
       update(this.checkActive, this.state.activeKey)
@@ -166,6 +171,7 @@ class Root extends React.Component {
   }
 
   updateInPath() {
+    console.log('!!!happen', this.checkInPath)
     Object.keys(this.itemsInPath).forEach(id => {
       const update = this.itemsInPath[id]
       update(this.checkInPath)
