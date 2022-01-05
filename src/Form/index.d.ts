@@ -28,6 +28,7 @@ export interface FieldChildrenFunc<Value = any> {
   value: Value;
   error: Error;
   onChange: (value: Value) => void;
+  disabled: boolean;
 }
 
 export interface FormProps<Value> extends StandardProps {

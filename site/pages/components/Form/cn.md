@@ -59,7 +59,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | bind | string[] | 无 | 绑定校验字段名。当值变化后，触发绑定的字段校验。 |
-| children | (opts: object) => ReactNode \| ReactNode  | 必填 | 支持 value 和 onChange 的 React 组件，或者函数，函数object属性如下<br />value: 根据 name 从上级 Form 或 Form.Block 获取的值<br />error：数据校验错误信息，类型为 Error<br />onChange: 值改变回调函数  |
+| children | (opts: object) => ReactNode \| ReactNode  | 必填 | 支持 value 和 onChange 的 React 组件，或者函数，函数object属性如下<br />value: 根据 name 从上级 Form 或 Form.Block 获取的值<br />error：数据校验错误信息，类型为 Error<br />onChange: 值改变回调函数<br />disabled: 继承 Form 的 disabled 属性|
 | defaultValue | string \| number | | 默认值 |
 | name | string | 无 | Form 存取数据的名称 |
 | rules | any[] | 无 | 校验规则 |
