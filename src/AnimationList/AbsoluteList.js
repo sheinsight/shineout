@@ -19,6 +19,8 @@ function initRoot() {
   document.body.appendChild(root)
 }
 
+const getOverDocStyle = () => (isRTL() ? { left: 0, right: 'auto' } : { right: 0, left: 'auto' })
+
 const listPosition = ['drop-down', 'drop-up']
 const pickerPosition = ['left-bottom', 'left-top', 'right-bottom', 'right-top']
 const dropdownPosition = ['bottom-left', 'bottom-right', 'top-left', 'top-right']
@@ -77,6 +79,7 @@ export default function(List) {
       const rtl = isRTL()
       const style = {
         position: 'absolute',
+        right: 'auto',
       }
       if (fixed) {
         const widthKey = fixed === 'min' ? 'minWidth' : 'width'
@@ -93,8 +96,8 @@ export default function(List) {
         position = getRTLPosition(position)
       }
 
-      let containerScroll = docScroll
-      let containerRect = { left: 0, top: 0, right: 0, bottom: 0 }
+      let containerScroll
+      let containerRect
       const { container } = this
       if (typeof absolute === 'function' && container) {
         containerRect = container.getBoundingClientRect()
@@ -102,14 +105,20 @@ export default function(List) {
           left: container.scrollLeft,
           top: container.scrollTop,
         }
+        if (rtl) {
+          containerScroll.width = container.scrollWidth
+        }
+      } else {
+        containerRect = { left: 0, top: 0, right: 0, bottom: 0 }
+        containerScroll = docScroll
+        if (rtl) {
+          containerRect.width = document.documentElement.clientWidth || document.body.clientWidth
+        }
       }
       this.containerRect = containerRect
 
       if (listPosition.includes(position)) {
         style.left = rect.left - containerRect.left + containerScroll.left
-        if (rtl) {
-          style.left += rect.width
-        }
         if (position === 'drop-down') {
           style.top = rect.top - containerRect.top + rect.height + containerScroll.top
         } else {
@@ -129,6 +138,10 @@ export default function(List) {
           style.top = rect.top - containerRect.top + containerScroll.top - PICKER_V_MARGIN
           style.transform = style.transform ? 'translate(-100%, -100%)' : 'translateY(-100%)'
         }
+      }
+      if (rtl && style.left) {
+        style.right = containerRect.width - rect.width - style.left
+        style.left = 'auto'
       }
       return style
     }
@@ -170,7 +183,12 @@ export default function(List) {
         left = parentElement.getBoundingClientRect().left
       }
       const containerRect = this.containerRect || { left: 0, width: 0 }
-      const overdoc = left - containerRect.left + pos.width > (containerRect.width || docSize.width)
+      let overdoc
+      if (isRTL()) {
+        overdoc = pos.left < containerRect.left
+      } else {
+        overdoc = left - containerRect.left + pos.width > (containerRect.width || docSize.width)
+      }
       if (this.state.overdoc === overdoc) return
       this.ajustdoc = true
       this.setState({
@@ -200,7 +218,7 @@ export default function(List) {
       } = this.props
       const parsed = parseInt(zIndex, 10)
       if (!Number.isNaN(parsed)) style.zIndex = parsed
-      const mergeStyle = Object.assign({}, style, this.state.overdoc ? { right: 0, left: 'auto' } : undefined)
+      const mergeStyle = Object.assign({}, style, this.state.overdoc ? getOverDocStyle() : undefined)
       return <List getRef={this.handleRef} {...props} focus={focus} style={mergeStyle} />
     }
 
@@ -234,12 +252,7 @@ export default function(List) {
       const mergeClass = classnames(listClass('absolute-wrapper'), rootClass, autoClass)
       const { focus, style } = props.focus ? this.getStyle() : { style: this.lastStyle }
       this.element.className = mergeClass
-      const mergeStyle = Object.assign(
-        {},
-        style,
-        props.style,
-        this.state.overdoc ? { right: 0, left: 'auto' } : undefined
-      )
+      const mergeStyle = Object.assign({}, style, props.style, this.state.overdoc ? getOverDocStyle() : undefined)
       if (zIndex || typeof zIndex === 'number') mergeStyle.zIndex = parseInt(zIndex, 10)
       return ReactDOM.createPortal(
         <List getRef={this.handleRef} {...props} focus={focus} style={mergeStyle} />,
