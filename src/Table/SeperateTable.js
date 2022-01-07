@@ -121,6 +121,7 @@ class SeperateTable extends PureComponent {
     const { offsetLeft, currentIndex } = this.state
     if (currentIndex === index && !oldHeight) {
       this.lastScrollTop += height - this.props.rowHeight
+      if (this.lastScrollTop < 0) this.lastScrollTop = 0
       setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
     }
 
