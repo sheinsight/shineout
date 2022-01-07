@@ -119,6 +119,9 @@ class Root extends React.Component {
     const { active } = this.props
     const act = typeof active === 'function' ? active(data) : id === this.state.activeKey
     if (act) this.state.activeKey = id
+    if (!act && this.state.activeKey === id) {
+      this.state.activeKey = ''
+    }
     return act
   }
 
