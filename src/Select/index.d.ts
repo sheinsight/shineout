@@ -10,6 +10,14 @@ StructDataStandardProps<Item>,
 ListItemStandardProps<Item, Value>,
 Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
   {
+  /**
+   * The maximum length of the input string in the Select input box
+   *
+   * Select 输入框输入字符串最大长度
+   *
+   * default:
+   */
+  maxLength?: number;
 
   /**
    * custom empty copy

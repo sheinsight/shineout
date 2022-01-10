@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { getLocale } from '../locale'
-import icons from '../icons'
+// import icons from '../icons'
 import { getKey } from '../utils/uid'
 import List from '../AnimationList'
 import Spin from '../Spin'
-import Input from '../Input'
+// import Input from '../Input'
 import Checkbox from '../Checkbox/Checkbox'
 import { selectClass } from './styles'
 import BoxOption from './BoxOption'
@@ -71,15 +71,15 @@ class BoxList extends Component {
     )
   }
 
-  renderFilter() {
-    const { filterText } = this.props
-    return (
-      <Input.Group size="small" className={selectClass('filter-input')}>
-        <Input value={filterText} onChange={this.handleSearch} />
-        {icons.SEARCH}
-      </Input.Group>
-    )
-  }
+  // renderFilter() {
+  //   const { filterText } = this.props
+  //   return (
+  //     <Input.Group size="small" className={selectClass('filter-input')}>
+  //       <Input value={filterText} onChange={this.handleSearch} />
+  //       {icons.SEARCH}
+  //     </Input.Group>
+  //   )
+  // }
 
   renderHeader(count) {
     const { data, loading, multiple, columnsTitle } = this.props
@@ -193,7 +193,7 @@ BoxList.propTypes = {
   columns: PropTypes.number,
   data: PropTypes.array,
   datum: PropTypes.object.isRequired,
-  filterText: PropTypes.string,
+  // filterText: PropTypes.string,
   focus: PropTypes.bool,
   keygen: PropTypes.any,
   loading: PropTypes.oneOfType([PropTypes.element, PropTypes.bool]),
