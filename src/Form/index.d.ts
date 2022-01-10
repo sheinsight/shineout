@@ -368,7 +368,7 @@ export interface FormFieldSetProps<Value> {
    *
    * default:
    */
-  defaultValue?: string | number;
+  defaultValue?: Value;
 
   /**
    * content with empty
