@@ -141,7 +141,9 @@ export const focusElement = {
 export const preventPasteFile = (e, beforeHandler) => {
   const text = (e.clipboardData || window.clipboardData).getData('text/plain')
   e.preventDefault()
-  beforeHandler(text)
+  if (beforeHandler) {
+    beforeHandler(text)
+  }
   document.execCommand('insertText', false, text)
 }
 
