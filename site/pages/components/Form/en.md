@@ -47,7 +47,7 @@ Used to handle custom form components, enabling custom form components to get/st
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | bind | string[] | - | bind name, render while the name change |
-| children | (opts: object) => ReactNode \| ReactNode | required | React components that support value and onChange or function. The function object attribute is as follows: <br />value: The value obtained from the parent Form or Form.Block by name.<br />error: the error information of data validation. type is Error.<br />onChange: The callback when the value is changing. |
+| children | (opts: object) => ReactNode \| ReactNode | required | React components that support value and onChange or function. The function object attribute is as follows: <br />value: The value obtained from the parent Form or Form.Block by name.<br />error: the error information of data validation. type is Error.<br />onChange: The callback when the value is changing.<br />disabled: inherit the disabled attribute of Form. |
 | defaultValue | string \| number | | default value |
 | name | string | none | The name of a Form that accesses data |
 | rules | any[] | none | Validation rules |
