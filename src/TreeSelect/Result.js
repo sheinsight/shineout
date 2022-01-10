@@ -100,12 +100,13 @@ class Result extends PureComponent {
     if (onClear && result.length > 0 && disabled !== true) {
       /* eslint-disable */
       return (
-        <a
-          tabIndex={-1}
-          data-role="close"
-          className={treeSelectClass('indicator', 'close')}
-          onClick={onClear}
-        />
+        <div key="clear" onClick={onClear} className={treeSelectClass('close-warpper')}>
+          <a
+            tabIndex={-1}
+            data-role="close"
+            className={treeSelectClass('indicator', 'close')}
+          />
+        </div>
       )
       /* eslint-enable */
     }
