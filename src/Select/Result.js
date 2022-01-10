@@ -202,6 +202,7 @@ class Result extends PureComponent {
       focusSelected,
       bindFocusInputFunc,
       collapse,
+      maxLength,
     } = this.props
     return (
       <Input
@@ -218,6 +219,7 @@ class Result extends PureComponent {
         focusSelected={focusSelected}
         bindFocusInputFunc={bindFocusInputFunc}
         collapse={collapse}
+        maxLength={maxLength}
       />
     )
   }
@@ -350,6 +352,7 @@ Result.propTypes = {
   focusSelected: PropTypes.bool,
   compressedClassName: PropTypes.string,
   resultClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  maxLength: PropTypes.number,
 }
 
 export default Result

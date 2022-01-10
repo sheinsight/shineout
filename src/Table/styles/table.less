@@ -130,10 +130,12 @@
     padding-bottom: @table-cell-padding-vertical;
     color: @text-muted;
     text-align: left;
+    text-align: start;
   }
 
   th {
     text-align: left;
+    text-align: start;
   }
 
   &-vertical-top td {
@@ -543,8 +545,10 @@
     }
   }
 
-  &-fixed &-empty {
-    border-right-width: 0;
+  &:not(.@{table-prefix}-rtl) {
+    .@{table-prefix}-fixed .@{table-prefix}-empty {
+      border-right-width: 0;
+    }
   }
 
   &-expand-wrapped {
@@ -566,6 +570,7 @@
 
   td&-align-right, th&-align-right {
     text-align: right;
+    text-align: end;
     > div.@{table-prefix}-has-sorter {
       justify-content: flex-end;
     }
@@ -573,6 +578,7 @@
 
   td&-align-left, th&-align-left {
     text-align: left;
+    text-align: start;
     > div.@{table-prefix}-has-sorter {
       justify-content: flex-start;
     }
@@ -668,5 +674,141 @@
 .@{table-prefix}-no-selection {
   *::selection{
     background-color: transparent;
+  }
+}
+
+.@{table-prefix}-rtl {
+  direction: rtl;
+  table tr .@{table-prefix}-checkbox {
+    label {
+      margin-left: 0;
+    }
+
+    i {
+      vertical-align: top;
+    }
+  }
+  .@{table-prefix}-sorter-container {
+    transform: translateX(-6px);
+  }
+  .@{table-prefix}-sorter-asc,
+  .@{table-prefix}-sorter-desc {
+    right: auto;
+    left: 0;
+    &:after {
+      right: auto;
+      left: 5px;
+    }
+  }
+  &.@{table-prefix}-bordered {
+    .@{table-prefix}-ignore-right-border {
+      border-left: none;
+    }
+    table {
+      > thead,
+      > tbody,
+      > tfoot {
+        > tr {
+          > th,
+          > td {
+            border-left: 1px solid @table-border-color;
+            border-right: none;
+          }
+        }
+      }
+    }
+    .@{table-prefix}-fixed-right,
+    .@{table-prefix}-fixed-left {
+      border-left: 0;
+      z-index: 1;
+      &:before {
+        left: 0;
+        right: auto;
+      }
+    }
+    .@{so-prefix}-scroll-y {
+      border-right: 1px solid @table-border-color;
+      border-left: none;
+    }
+
+  }
+  .@{table-prefix}-icon-tree-expand {
+    margin-right: 0;
+    margin-left: @table-tree-expand-icon-margin-right;
+  }
+  .@{table-prefix}-icon-expand-plus,
+  .@{table-prefix}-icon-expand-sub {
+    &:before,
+    &:after {
+      left: auto;
+      right: 2px;
+    }
+  }
+  .@{table-prefix}-icon-expand-plus:after {
+    left: auto;
+    right: 6px;
+    border-width: 0 0 1px 0;
+  }
+  .@{table-prefix}-scroll-y.@{table-prefix}-head {
+    padding-left: @scrollbar-width;
+    padding-right: 0;
+    &:after {
+      right: auto;
+      left: 0;
+    }
+  }
+  .@{table-prefix}-float-left .@{table-prefix}-fixed-last {
+    &:after {
+      left: auto;
+      right: 100%;
+      background: linear-gradient(to left, @table-fixed-start-color, @table-fixed-end-color);
+    }
+  }
+  .@{table-prefix}-float-right .@{table-prefix}-fixed-first {
+    &::after {
+      left: 100%;
+      right: auto;
+      background: linear-gradient(to right, @table-fixed-start-color, @table-fixed-end-color);
+    }
+  }
+  .@{table-prefix}-empty {
+    right: 0;
+    left: initial;
+  }
+  .@{table-prefix}-fixed .@{table-prefix}-empty {
+    border-left-width: 0;
+  }
+  .@{table-prefix}-resize {
+    &-spanner {
+      left: -2px;
+      right: auto;
+      &:after {
+        right: auto;
+        left: 4px;
+      }
+      &:before {
+        right: 4px;
+        left: auto;
+      }
+    }
+  }
+  td {
+    .@{button-prefix} {
+      + .@{button-prefix} {
+        margin-right: 0;
+      }
+      &:not(:last-child) {
+        margin-left: @button-margin-left;
+      }
+    }
+    .@{button-prefix}-group .@{button-prefix}:not(:last-child) {
+      margin-left: 0;
+    }
+  }
+  .@{table-prefix}-select {
+    &::before {
+      left: auto;
+      right: 0;
+    }
   }
 }

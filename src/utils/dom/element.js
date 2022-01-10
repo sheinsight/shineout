@@ -138,9 +138,10 @@ export const focusElement = {
   copyBoundingClientRect,
 }
 
-export const preventPasteFile = e => {
+export const preventPasteFile = (e, beforeHandler) => {
   const text = (e.clipboardData || window.clipboardData).getData('text/plain')
   e.preventDefault()
+  beforeHandler(text)
   document.execCommand('insertText', false, text)
 }
 
