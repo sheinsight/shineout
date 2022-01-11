@@ -35,7 +35,8 @@ class Button extends PureComponent {
     const isSecondary = typeProp === 'secondary' && !outlineProp && !text
     const type = isSecondary ? 'primary' : typeProp
     const outline = outlineProp || isSecondary
-    const color = outline || type === 'default' ? undefined : '#fff'
+    let color = outline || type === 'default' ? undefined : '#fff'
+    if (text) color = 'currentColor'
     const className = classnames(
       buttonClass('_', shape, type, outline && 'outline', {
         large: size === 'large',
