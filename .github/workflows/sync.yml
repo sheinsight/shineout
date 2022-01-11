@@ -1,0 +1,22 @@
+name: sync
+
+on:
+  push:
+    branches:
+      - dev
+    paths:
+      - 'site/pages/documentation/changelog/*'
+      - 'site/pages/documentation/changelog-rc/*'
+
+jobs:
+  tip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: sync job
+        run: >-
+          curl '${{ secrets.SYNC_URL }}' -X 'POST' -H 'X-Swim-Token: ${{ secrets.SWIMT }}'
+
+
+
+
+
