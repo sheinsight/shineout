@@ -10,6 +10,7 @@ import { docScroll, docSize } from '../utils/dom/document'
 import { getRTLPosition } from '../utils/strings'
 import zIndexConsumer from '../Modal/context'
 import { isRTL } from '../config'
+import { addZoomListener, removeZoomListener } from '../utils/zoom'
 
 const PICKER_V_MARGIN = 4
 let root
@@ -44,6 +45,7 @@ export default function(List) {
       if (props.getResetPosition) {
         props.getResetPosition(this.resetPosition.bind(this))
       }
+      this.zoomChangeHandler = this.zoomChangeHandler.bind(this)
     }
 
     componentDidMount() {
@@ -53,6 +55,9 @@ export default function(List) {
         if (this.props.focus) {
           this.forceUpdate()
         }
+      }
+      if (this.props.absolute) {
+        addZoomListener(this.zoomChangeHandler)
       }
     }
 
@@ -67,6 +72,7 @@ export default function(List) {
     componentWillUnmount() {
       const { absolute } = this.props
       if (!absolute) return
+      removeZoomListener(this.zoomChangeHandler)
       if (this.container) {
         this.container.removeChild(this.element)
       }
@@ -170,6 +176,12 @@ export default function(List) {
 
       this.lastStyle = style
       return { focus, style }
+    }
+
+    zoomChangeHandler() {
+      if (this.props.focus) {
+        this.forceUpdate()
+      }
     }
 
     resetPosition(clean) {
