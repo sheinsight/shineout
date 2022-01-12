@@ -47,7 +47,7 @@ export interface CheckboxProps<T> extends StandardProps, FormItemStandardProps<T
 
 // attention: checkbox group value is array
 
-export interface CheckboxGroupProps<Data, T> extends ListItemStandardProps<Data, T> {
+export interface CheckboxGroupProps<Data, T> extends ListItemStandardProps<Data, T>, Omit<FormItemStandardProps<T[]>, 'placeholder'> {
 
   /**
    * The data item
