@@ -532,6 +532,16 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    * default: false
    */
   hideHeader?: boolean
+
+  /**
+   * make all columns scalable
+   *
+   * 使所有列可伸缩
+   *
+   * default: false
+   */
+  columnResizable?: boolean
+
 }
 
 declare class Table<Value = any, TRD = TableRowData> extends React.Component<TableProps<Value, TRD>, {}> {
