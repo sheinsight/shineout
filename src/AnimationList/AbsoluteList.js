@@ -6,7 +6,7 @@ import shallowEqual from '../utils/shallowEqual'
 import { compose } from '../utils/func'
 import { scrollConsumer } from '../Scroll/context'
 import { listClass } from '../DataList/styles'
-import { docScroll, docSize } from '../utils/dom/document'
+import { docSize } from '../utils/dom/document'
 import { getRTLPosition } from '../utils/strings'
 import zIndexConsumer from '../Modal/context'
 import { isRTL } from '../config'
@@ -79,9 +79,8 @@ export default function(List) {
     }
 
     getPosition(rect) {
-      const { fixed, absolute } = this.props
+      const { fixed } = this.props
       let { position } = this.props
-
       const rtl = isRTL()
       const style = {
         position: 'absolute',
@@ -102,24 +101,12 @@ export default function(List) {
         position = getRTLPosition(position)
       }
 
-      let containerScroll
-      let containerRect
       const { container } = this
-      if (typeof absolute === 'function' && container) {
-        containerRect = container.getBoundingClientRect()
-        containerScroll = {
-          left: container.scrollLeft,
-          top: container.scrollTop,
-        }
-        if (rtl) {
-          containerScroll.width = container.scrollWidth
-        }
-      } else {
-        containerRect = { left: 0, top: 0, right: 0, bottom: 0 }
-        containerScroll = docScroll
-        if (rtl) {
-          containerRect.width = document.documentElement.clientWidth || document.body.clientWidth
-        }
+      const rootContainer = container === root || !container ? document.body : container
+      const containerRect = rootContainer.getBoundingClientRect()
+      const containerScroll = {
+        left: rootContainer.scrollLeft,
+        top: rootContainer.scrollTop,
       }
       this.containerRect = containerRect
 
@@ -135,11 +122,11 @@ export default function(List) {
         if (h === 'left') {
           style.left = rect.left - containerRect.left + containerScroll.left
         } else {
-          style.left = rect.right - containerRect.right + containerScroll.left
+          style.left = rect.right - containerRect.left + containerScroll.left
           style.transform = 'translateX(-100%)'
         }
         if (v === 'bottom') {
-          style.top = rect.bottom - containerRect.bottom + containerScroll.top + PICKER_V_MARGIN
+          style.top = rect.bottom - containerRect.top + containerScroll.top + PICKER_V_MARGIN
         } else {
           style.top = rect.top - containerRect.top + containerScroll.top - PICKER_V_MARGIN
           style.transform = style.transform ? 'translate(-100%, -100%)' : 'translateY(-100%)'
