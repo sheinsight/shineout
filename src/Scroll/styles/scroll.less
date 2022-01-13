@@ -134,16 +134,42 @@
 }
 
 
-.@{select-prefix}-rtl,
-.@{menu-prefix}-rtl,
-.@{input-prefix}-rtl,
-.@{transfer-prefix}-rtl {
-  .@{scroll-prefix}-show-y {
+.@{scroll-prefix}.@{scroll-prefix}-rtl {
+  direction: rtl;
+  .@{scroll-prefix}-inner {
+    left: auto;
+    right: 0;
+  }
+  .@{scroll-prefix}-bar {
+    &.@{scroll-prefix}-y {
+      right: auto;
+      left: 0;
+      .@{scroll-prefix}-handle {
+        right: 2px;
+        left: auto;
+      }
+      &.@{scroll-prefix}-padding-y:after {
+        right: -1px;
+        left: auto;
+      }
+    }
+  }
+
+  &.@{scroll-prefix}-show-y {
     padding-right: 0;
-    padding-left: 16px;
+    padding-left: @scrollbar-width;
+    .@{scroll-prefix}-x {
+      right: 0;
+      left: @scrollbar-width;
+    }
+  }
+  .@{scroll-prefix}-show-x &-inner {
+    right: 0;
+    left: @scrollbar-width;
   }
   .@{scroll-prefix}-bar.@{scroll-prefix}-y {
     right: auto;
     left: 0;
   }
 }
+

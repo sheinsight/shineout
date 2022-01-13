@@ -13,7 +13,7 @@ class Field extends Component {
 
   shouldComponentUpdate(nextProps) {
     const options = this.props.cache ? { skip: ['children'] } : {}
-    return !(shallowEqual(this.props, nextProps, options))
+    return !shallowEqual(this.props, nextProps, options)
   }
 
   handleChange(value) {
@@ -26,14 +26,14 @@ class Field extends Component {
   }
 
   render() {
-    const { children, value, error } = this.props
+    const { children, value, error, disabled } = this.props
 
     if (typeof children === 'function') {
-      return children({ value, error, onChange: this.handleChange })
+      return children({ value, error, onChange: this.handleChange, disabled })
     }
 
     if (isValidElement(children)) {
-      return cloneElement(children, { value, error, onChange: this.handleChange })
+      return cloneElement(children, { value, error, onChange: this.handleChange, disabled })
     }
 
     console.error(new Error('Form.Field expect a single ReactElement or a function.'))
@@ -43,13 +43,11 @@ class Field extends Component {
 
 Field.propTypes = {
   cache: PropTypes.bool,
-  children: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.element,
-  ]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.func, PropTypes.element]).isRequired,
   error: PropTypes.object,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.any,
+  disabled: PropTypes.bool,
 }
 
 Field.defaultProps = {

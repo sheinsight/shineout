@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { isRTL } from '../config'
 import { Component } from '../component'
 import { getLocale } from '../locale'
 import { compose } from '../utils/func'
@@ -93,7 +94,8 @@ class Table extends Component {
         scrollRight < 0 && 'right-float',
         `vertical-${verticalAlign}`,
         columnResizable && 'resize',
-        others.sticky && 'sticky'
+        others.sticky && 'sticky',
+        isRTL() && 'rtl'
       ),
       this.props.className
     )
