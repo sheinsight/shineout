@@ -6,6 +6,7 @@
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
+| maxLength | number | none | The maximum length of the input string in the Select input box |
 | emptyText | ReactNode | none | custom empty copy |
 | width | number | null | width |
 | optionWidth | number | none | width of option list |

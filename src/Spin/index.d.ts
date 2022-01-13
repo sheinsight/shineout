@@ -1,5 +1,7 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
+import { StandardProps } from '../@types/common'
+
 
 type SpinName = 'default' |
 'chasing-dots' |
@@ -19,7 +21,7 @@ declare class Spin extends React.Component<SpinProps, {}> {
   render(): JSX.Element;
 }
 
-export interface SpinProps {
+export interface SpinProps extends StandardProps{
 
   /**
    * color

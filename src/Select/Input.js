@@ -19,6 +19,8 @@ class FilterInput extends Component {
     this.bindElement = this.bindElement.bind(this)
     this.handleInput = this.handleInput.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
+    this.geHandleMax = this.geHandleMax.bind(this)
+    this.handlePaste = this.handlePaste.bind(this)
 
     this.focusInput = this.focusInput.bind(this)
 
@@ -50,6 +52,68 @@ class FilterInput extends Component {
     const { trim } = this.props
     if (!trim && this.lastCursorOffset === 0 && /^\u00A0$/.test(text)) return ''
     return trim ? text.trim() : text.replace(/\u00A0/g, ' ')
+  }
+
+  handlePaste(e) {
+    preventPasteFile(e, text => {
+      if (window.getSelection) {
+        const selection = window.getSelection()
+        this.lastSelect = {
+          anchorOffset: selection.anchorOffset,
+          focusOffset: selection.focusOffset,
+          text,
+        }
+      }
+    })
+  }
+
+  geHandleMax(e) {
+    const { maxLength } = this.props
+    if (!maxLength) {
+      return true
+    }
+    let change = true
+    const text = e.target.innerText
+    if (text.length >= maxLength) {
+      let lastPos
+      if (window.getSelection) {
+        lastPos = Math.min(window.getSelection().anchorOffset - (text.length > maxLength ? 1 : 0), maxLength)
+      }
+      if (!this.lastMaxValue) {
+        this.lastMaxValue = text.slice(0, maxLength)
+      } else if (this.lastSelect) {
+        const { anchorOffset, focusOffset, text: str } = this.lastSelect
+        const start = anchorOffset < focusOffset ? anchorOffset : focusOffset
+        const end = anchorOffset > focusOffset ? anchorOffset : focusOffset
+        if (end - start > 0) {
+          this.lastMaxValue =
+            this.lastMaxValue.slice(0, start) + str.slice(0, end - start) + this.lastMaxValue.slice(end)
+          lastPos = focusOffset
+        } else {
+          change = false
+        }
+      } else {
+        change = false
+      }
+      // clear select info
+      this.lastSelect = false
+
+      e.target.innerText = this.lastMaxValue
+      if (lastPos) {
+        const selection = window.getSelection()
+        const range = selection.getRangeAt(0)
+        let textNode = range.startContainer
+        if (textNode.nodeName !== '#text') {
+          ;[textNode] = textNode.childNodes
+        }
+        range.setStart(textNode, lastPos)
+        range.collapse(true)
+      }
+    } else {
+      this.lastMaxValue = ''
+    }
+    // eslint-disable-next-line consistent-return
+    return change
   }
 
   reset() {
@@ -85,6 +149,10 @@ class FilterInput extends Component {
   }
 
   handleInput(e) {
+    const change = this.geHandleMax(e)
+    if (!change) {
+      return
+    }
     const text = e.target.innerText.replace('\feff ', '')
     this.lastCursorOffset = getCursorOffset(text.length)
     const t = this.getProcessedValue(text)
@@ -121,7 +189,7 @@ class FilterInput extends Component {
       })
     }
 
-    return <span dangerouslySetInnerHTML={{ __html: value }} {...props} onPaste={preventPasteFile} />
+    return <span dangerouslySetInnerHTML={{ __html: value }} {...props} onPaste={this.handlePaste} />
   }
 }
 
@@ -138,6 +206,7 @@ FilterInput.propTypes = {
   focusSelected: PropTypes.bool,
   bindFocusInputFunc: PropTypes.func,
   collapse: PropTypes.func,
+  maxLength: PropTypes.number,
 }
 
 FilterInput.defaultProps = {

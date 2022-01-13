@@ -10,6 +10,7 @@
 @inputBorder-prefix: ~'@{so-prefix}-inputBorder';
 
 @input-group-icon-padding-x: 8px;
+@required-margin: 4px;
 
 .@{form-prefix} {
   position: relative;
@@ -54,7 +55,7 @@
 
     &.@{form-prefix}-required .@{form-prefix}-label {
       &:before {
-        margin-right: 4px;
+        margin-right: @required-margin;
         color: @colors-danger;
         content: '*';
         font-family: SimSun;
@@ -63,6 +64,14 @@
 
     &:not(.@{form-prefix}-label-align-top) {
       .@{form-prefix}-label {
+        & when ( @form-item-label-align-value = start) {
+          text-align: left;
+        }
+
+        & when ( @form-item-label-align-value = end) {
+          text-align: right;
+        }
+
         text-align: @form-item-label-align;
       }
     }
@@ -97,10 +106,12 @@
 
   &-item&-label-align-right &-label {
     text-align: right;
+    text-align: end;
   }
 
   &-item&-label-align-left &-label {
     text-align: left;
+    text-align: start;
   }
 
   &-label-align-top {
@@ -184,16 +195,28 @@
   &.@{form-prefix}-rtl {
 
     direction: rtl;
-    text-align: right;
-
-    .@{form-prefix}-item,
-    .@{form-prefix}-align-right {
-      .@{form-prefix}-label {
-        text-align: left;
+    .@{form-prefix}-item {
+      &.@{form-prefix}-required .@{form-prefix}-label {
+        &:before {
+          margin-right: 0;
+          margin-left: @required-margin;
+        }
+      }
+      .@{form-prefix}-control {
+        &:first-child {
+          padding-left: @form-item-padding-x;
+          padding-right: 0;
+        }
       }
     }
 
+
+
     &.@{form-prefix}-inline {
+      > .@{input-prefix} {
+        margin-right: 0;
+        margin-left: @form-inline-margin-right;
+      }
       .@{form-prefix}-item {
 
         margin-right: 0;
@@ -201,13 +224,8 @@
 
         .@{form-prefix}-label {
           margin-right: 0;
-          margin-left: 12px;
+          margin-left: @form-item-padding-x * 2;
         }
-      }
-
-      > .@{input-prefix} {
-        margin-right: 0;
-        margin-left: @form-inline-margin-right;
       }
     }
 
@@ -658,7 +676,11 @@
 
   &.@{input-prefix}-rtl {
     direction: rtl;
-    text-align: right;
+    &-clear-wrapper {
+        right: auto;
+        left: 8px;
+        .closeRtl();
+    }
 
     &.@{input-prefix}-group {
       & > span,
@@ -738,5 +760,4 @@
 
 .@{inputBorder-prefix}-rtl {
   direction: rtl;
-  text-align: right;
 }

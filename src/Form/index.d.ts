@@ -24,10 +24,21 @@ export interface FieldSetChildrenFunc<Value = any> {
 }
 
 
+export interface FormRef<Value> {
+  getValue: () => Value;
+  validate: () => Promise<any>;
+  validateFields: () => Promise<any>;
+  validateFieldsWithError: () => Promise<any>;
+  clearValidate: () => void;
+  submit: (withValidate?: boolean) => void;
+  reset: ()=> void
+}
+
 export interface FieldChildrenFunc<Value = any> {
   value: Value;
   error: Error;
   onChange: (value: Value) => void;
+  disabled: boolean;
 }
 
 export interface FormProps<Value> extends StandardProps {
@@ -200,7 +211,7 @@ export interface FormProps<Value> extends StandardProps {
    *
    * default: -
    */
-  formRef?: (form: any) => void;
+  formRef?: (form: FormRef<Value>) => void;
 
 }
 

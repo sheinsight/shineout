@@ -6,6 +6,7 @@
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
+| maxLength | number | 无 | Select 输入框输入字符串最大长度 |
 | emptyText | ReactNode | 无 | 自定义empty文案 |
 | width | number | null | 宽度 |
 | optionWidth | number | 无 | 下拉列表宽度 |

@@ -4,6 +4,13 @@
 @menu-prefix: ~'@{so-prefix}-menu';
 @transition-duration: .2s;
 @expand-width: 32px;
+@ul-default-margin: 0;
+@ul-root-margin: -1px;
+@title-padding-x: 16px;
+@vertical-list-margin-x: 3px;
+@caret-solid-margin: 8px;
+@caret-hollow-margin-x-start: -4px;
+@caret-hollow-margin-x-end: 14px;
 
 .@{menu-prefix} {
   position: relative;
@@ -19,7 +26,7 @@
 
   ul {
     padding: 0;
-    margin: 0;
+    margin: @ul-default-margin;
     list-style: none;
     // min-width: 100%;
   }
@@ -29,7 +36,7 @@
   }
 
   ul.@{menu-prefix}-root {
-    margin-left: -1px;
+    margin-left: @ul-root-margin;
   }
 
   &-item {
@@ -75,7 +82,7 @@
   &-title {
     position: relative;
     height: @menu-item-height;
-    padding: 0 16px;
+    padding: 0 @title-padding-x;
     line-height: @menu-item-height;
     font-size: @menu-item-font-size;
   }
@@ -303,7 +310,7 @@
       width: auto;
       min-width: auto;
       padding: 4px 0;
-      margin-left: 3px;
+      margin-left: @vertical-list-margin-x;
       background: @menu-bg;
       border-radius: 4px;
       box-shadow: @menu-box-shadow-base;
@@ -591,7 +598,7 @@
         border-top: @menu-caret-solid-height solid transparent;
         display: inline-block;
         transform: translateY(25%);
-        margin-right: 8px;
+        margin-right: @caret-solid-margin;
 
 
         &.@{menu-prefix}-has-childs {
@@ -618,8 +625,8 @@
       display: inline-block;
       width: 8px;
       position: relative;
-      margin-left: -4px;
-      margin-right: 14px;
+      margin-left: @caret-hollow-margin-x-start;
+      margin-right: @caret-hollow-margin-x-end;
     }
     .@{menu-prefix}-caret.@{menu-prefix}-has-childs {
       .caret-outline(down; 6px);
@@ -641,73 +648,132 @@
 
   &.@{menu-prefix}-rtl {
     direction: rtl;
-    text-align: right;
-
-    &:not(.@{menu-prefix}-horizontal) {
-      .@{menu-prefix}-active.@{menu-prefix}-no-children {
-        a > {
-          &:before {
-            position: absolute;
-            top: 0;
-            left: 0px;
-            width: 3px;
-            height: 100%;
-            background: @menu-item-active-indicator;
-            content: ' ';
+    ul.@{menu-prefix}-root {
+      margin-left: @ul-default-margin;
+      margin-right: @ul-root-margin;
+    }
+    .@{menu-prefix}-has-children {
+      > .@{menu-prefix}-title {
+        padding-right: @title-padding-x;
+        padding-left: @expand-width;
+        .@{menu-prefix}-expand {
+          right: auto;
+          left: 0;
+          &:after {
+            right: 14px;
           }
-
-          &:after  {
-            content: none;
+        }
+      }
+    }
+    &.@{menu-prefix}-inline {
+      border-left: solid 1px @menu-border-color;
+      border-right: none;
+    }
+    .@{menu-prefix}-inline {
+      .@{menu-prefix}-active.@{menu-prefix}-no-children,
+      .@{menu-prefix}-active.@{menu-prefix}-selectable {
+        > a {
+          &:before {
+            right: auto;
+            left: 0;
           }
         }
       }
     }
 
-
-    .@{menu-prefix}-has-children:not(.@{menu-prefix}-caret-solid) > .@{menu-prefix}-title {
-
-      padding-left: 32px;
-      padding-right: 16px;
-
-      &:after {
-        right: auto;
-        left: 16px;
-      }
-
-      &:before {
+    .@{menu-prefix}-horizontal {
+      margin-right: 0;
+      .@{menu-prefix}-root .@{menu-prefix}-list {
         left: auto;
         right: 0;
       }
     }
 
-    .@{menu-prefix}-has-children.@{menu-prefix}-open {
-      & > .@{menu-prefix}-title {
-        &:after {
-          transform: @menu-title-open-transform;
+    ul.@{menu-prefix}-horizontal.@{menu-prefix}-root {
+      margin-right: 0;
+    }
+
+    &.@{menu-prefix}-vertical {
+      &.@{menu-prefix}-root {
+        border-left: solid 1px @menu-border-color;
+        border-right: none;
+      }
+      .@{menu-prefix}-root .@{menu-prefix}-list {
+        left: auto;
+        right: 100%;
+        margin-left: 0;
+        margin-right: @vertical-list-margin-x;
+      }
+
+      .@{menu-prefix}-has-children,
+      .@{menu-prefix}-has-children.@{menu-prefix}-open {
+        & > .@{menu-prefix}-title .@{menu-prefix}-expand {
+          &:after {
+            transform: @menu-title-vertical-transform-rtl;
+          }
+        }
+      }
+      .@{menu-prefix}-in-path.@{menu-prefix}-has-children > a {
+        &::before {
+          right: auto;
+          left: 0;
         }
       }
     }
 
-    .@{menu-prefix}-has-children.@{menu-prefix}-caret-solid > .@{menu-prefix}-title{
-      .@{menu-prefix}-caret {
-        margin-right: 0;
-        margin-left: 8px;
+    &.@{menu-prefix}-dark {
+      &:not(.@{menu-prefix}-horizontal) {
+        .@{menu-prefix}-has-children.@{menu-prefix}-in-path > a {
+          &:before {
+            left: auto;
+            right: 0;
+          }
+        }
+      }
+      &.@{menu-prefix}-vertical {
+        ul.@{menu-prefix}-root {
+          margin-right: 0;
+          border-left: none;
+        }
+
+        .@{menu-prefix}-has-children {
+          .@{menu-prefix}-title {
+            &::after {
+              left: 18px;
+              right: auto;
+            }
+          }
+        }
+
+        .@{menu-prefix}-in-path.@{menu-prefix}-has-children > a {
+          &::before {
+            left: auto;
+            right: 0;
+          }
+        }
+
       }
     }
 
-    .@{menu-prefix}-has-children.@{menu-prefix}-caret-hollow > .@{menu-prefix}-title{
-      .@{menu-prefix}-caret {
-        margin-left: 10px;
-        margin-right: 4px;
+    .@{menu-prefix}-has-children.@{menu-prefix}-caret-solid {
+      & > .@{menu-prefix}-title  {
+        padding-left: @title-padding-x;
       }
     }
 
-    &.@{menu-prefix}-vertical {
-      .@{menu-prefix}-root  .@{menu-prefix}-list.@{menu-prefix}-vertical {
-        left: auto;
-        right: 100%;
-        margin-left: 0;
-        margin-right: 3px;
+    .@{menu-prefix}-caret-solid {
+      .@{menu-prefix}-title {
+        & > .@{menu-prefix}-caret {
+          margin-right: 0;
+          margin-left: @caret-solid-margin;
+        }
+      }
+    }
+
+    .@{menu-prefix}-caret-hollow {
+      .@{menu-prefix}-caret {
+        margin-right: @caret-hollow-margin-x-start;
+        margin-left: @caret-hollow-margin-x-end;
       }
     }
   }
