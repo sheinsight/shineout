@@ -51,7 +51,7 @@ export interface RuleParams {
   } | validFunc | any) ;
 }
 
-export type RuleParamsType<Value, P = any, FormData = any> = Array<RuleParams | ((value?: Value, formData?: FormData, callback?: ((cbArgs: true | Error) => void), props?: P) => void)>
+export type RuleParamsType<Value, P = any, FormData = any> = Array<RuleParams  | ((value?: Value, formData?: FormData, callback?: ((cbArgs: true | Error) => void), props?: P) => void) | object>
 
 export interface RuleResult {
   required (message?: string): Required;
@@ -82,8 +82,31 @@ export interface RuleResult {
 
 }
 
- declare function Rule<T extends RuleParams, U>(...options: T[]) : {
-  [P in keyof T]: (args?: U ) => {args: U, func: validFunc, message?: string}
+export interface paramFunc<U> {
+  (args?: U ): {args: U, func: validFunc, message?: string}
+}
+
+declare function Rule<U>() : RuleResult
+
+declare function Rule<A extends RuleParams, U>(a: A) : {
+  [P in keyof A]: paramFunc<U>
+} & RuleResult
+
+declare function Rule<A extends RuleParams, B extends RuleParams, U>(a: A, b: B) : {
+  [P in keyof (A & B)]: paramFunc<U>
+} & RuleResult
+
+declare function Rule<A extends RuleParams, B extends RuleParams, C extends RuleParams, U>(a: A, b: B, c: C) : {
+  [P in keyof (A & B & C)]: paramFunc<U>
+} & RuleResult
+
+declare function Rule<A extends RuleParams, B extends RuleParams, C extends RuleParams, D extends RuleParams, U>(a: A, b: B, c: C, d: D) : {
+  [P in keyof (A & B & C & D)]: paramFunc<U>
+} & RuleResult
+
+ declare function Rule<
+   U>(...args: RuleParams[]) : {
+  [key: string]: paramFunc<U>
  } & RuleResult
 
 

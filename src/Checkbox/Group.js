@@ -63,13 +63,12 @@ class CheckboxGroup extends PureComponent {
   }
 
   render() {
-    const { block, data, datum, keygen, children } = this.props
-
+    const { block, data, datum, keygen, children, style } = this.props
     const className = classnames(checkinputClass('group', ['no-block', 'block'][Number(block)]), this.props.className)
 
     if (data === undefined) {
       return (
-        <div className={className}>
+        <div className={className} style={style}>
           <Provider value={{ onRawChange: this.handleRawChange, checked: datum.check.bind(datum) }}>
             {children}
           </Provider>
@@ -78,7 +77,7 @@ class CheckboxGroup extends PureComponent {
     }
 
     return (
-      <div className={className}>
+      <div className={className} style={style}>
         {data.map((d, i) => (
           <Checkbox
             checked={datum.check(d)}
