@@ -5,6 +5,7 @@
 @list-prefix: ~'@{so-prefix}-list';
 @checkinput-prefix: ~'@{so-prefix}-checkinput';
 @input-prefix: ~'@{so-prefix}-input';
+@select-prefix: ~'@{so-prefix}-select';
 
 .@{cascader-prefix} {
   position: relative;
@@ -127,12 +128,21 @@
       background-color: inherit;
       color: inherit;
     }
+    .@{select-prefix}-multi {
+      visibility: visible;
+      cursor: not-allowed;
+    }
   }
 
   &:not(&-disabled) {
-    .@{cascader-prefix}-focus .@{cascader-prefix}-close,
+    &.@{cascader-prefix}-focus .@{cascader-prefix}-close,
     .@{cascader-prefix}-result:hover .@{cascader-prefix}-close {
       display: block;
+    }
+
+    &.@{cascader-prefix}-focus .@{cascader-prefix}-result-clearable .@{select-prefix}-multi,
+    .@{cascader-prefix}-result-clearable:hover .@{select-prefix}-multi {
+      visibility: hidden;
     }
   }
 

@@ -261,15 +261,16 @@ class Result extends PureComponent {
   render() {
     const { style, value, compressed, multiple } = this.props
     const result = value.length === 0 ? this.renderPlaceholder() : this.renderResult()
+    const clearEl = this.renderClear()
     return (
       <div
         ref={this.bindResult}
-        className={cascaderClass('result', multiple && compressed && 'compressed')}
+        className={cascaderClass('result', multiple && compressed && 'compressed', clearEl && 'result-clearable')}
         style={style}
       >
         {result}
         {this.renderIndicator()}
-        {this.renderClear()}
+        {clearEl}
       </div>
     )
   }
