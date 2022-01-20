@@ -37,12 +37,15 @@ class Month extends PureComponent {
   }
 
   renderMonth(m, i) {
-    const { value, min, disabled, range, type, current, index, rangeDate } = this.props
+    const { value, min, disabled, range, type, current, index, rangeDate, max } = this.props
     const date = utils.toDate(MONTHBASE)
     date.setMonth(i)
     date.setFullYear(current.getFullYear())
 
     let isDisabled = min && utils.compareMonth(min, date, 1) >= 0
+    if (!isDisabled) {
+      isDisabled = max && utils.compareMonth(date, max, 1) >= 0
+    }
 
     if (!isDisabled && type === 'month' && typeof disabled === 'function') {
       isDisabled = disabled(date)
@@ -94,6 +97,7 @@ Month.propTypes = {
   current: PropTypes.object.isRequired,
   disabled: PropTypes.func,
   // max: PropTypes.object,
+  max: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   min: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   onChange: PropTypes.func.isRequired,
   onModeChange: PropTypes.func.isRequired,
