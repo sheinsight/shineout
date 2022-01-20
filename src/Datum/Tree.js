@@ -246,7 +246,8 @@ export default class {
     data.forEach((d, i) => {
       const id = this.getKey(d, path[path.length - 1], i)
       if (this.dataMap.get(id)) {
-        console.warn(`There is already a key "${id}" exists. The key must be unique.`)
+        console.error(`There is already a key "${id}" exists. The key must be unique.`)
+        return
       }
       this.dataMap.set(id, d)
 

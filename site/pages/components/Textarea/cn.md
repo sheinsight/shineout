@@ -16,9 +16,11 @@
 | placeholder | string | | 同原生 input 标签的 placeholder |
 | popover | 'top-left' \| 'top' \| 'top-right' \| 'bottom-left' \| 'bottom' \| 'bottom-right' | | 信息弹出位置 |
 | rows | number | 4 | 最小行高，同原生 textarea rows 属性 |
-| maxHeight | number \| string | 无 | 输入框的最大高度, 超过之后会出现滚动条 | 
+| maxHeight | number \| string | 无 | 输入框的最大高度, 超过之后会出现滚动条 |
 | style | object | 无 | 最外层扩展样式 |
 | trim | boolean | false | trim 为 true 时，失去焦点时会自动删除空白字符。 |
 | resize | boolean | false | 是否可以伸缩高度 |
 | value | string \| number | | defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖<br />在Form中，value会被表单接管，value无效 |
 | underline | boolean | false | 是否只展示下边框 |
+| disabled  | boolean | false | 是否禁用 |
+
