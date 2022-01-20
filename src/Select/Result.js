@@ -301,14 +301,19 @@ class Result extends PureComponent {
     const result = showPlaceholder ? this.renderPlaceholder() : this.renderResult()
 
     const rtl = isRTL()
-
+    const clearEl = this.renderClear()
     if (rtl) {
       return (
         <div
           ref={this.bindResult}
-          className={selectClass('result', compressed && 'compressed', showPlaceholder && 'empty')}
+          className={selectClass(
+            'result',
+            compressed && 'compressed',
+            showPlaceholder && 'empty',
+            clearEl && 'result-clearable'
+          )}
         >
-          {this.renderClear()}
+          {clearEl}
           {this.renderIndicator()}
           {result}
         </div>
@@ -318,11 +323,16 @@ class Result extends PureComponent {
     return (
       <div
         ref={this.bindResult}
-        className={selectClass('result', compressed && 'compressed', showPlaceholder && 'empty')}
+        className={selectClass(
+          'result',
+          compressed && 'compressed',
+          showPlaceholder && 'empty',
+          clearEl && 'result-clearable'
+        )}
       >
         {result}
         {this.renderIndicator()}
-        {this.renderClear()}
+        {clearEl}
       </div>
     )
   }

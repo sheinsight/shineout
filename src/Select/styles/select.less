@@ -176,9 +176,6 @@
     margin-top: -5px;
 
     &.@{select-prefix}-close {
-      box-sizing: content-box;
-      border-left: 1px solid #fff;
-      border-right: 1px solid #fff;
       display: none;
       .close(12px, @select-clear-bg-color);
     }
@@ -220,6 +217,10 @@
   &-focus &-close,
   &-result:hover &-close {
     display: block;
+  }
+  &-focus &-result-clearable &-multi,
+  &-result-clearable:hover &-multi{
+    visibility: hidden;
   }
   &-focus .@{select-prefix}-caret {
     transform: rotate(180deg);
@@ -508,6 +509,10 @@
         .@{select-prefix}-close {
           display: none;
         }
+      }
+      .@{select-prefix}-multi {
+        visibility: visible;
+        cursor: not-allowed;
       }
     }
   }
