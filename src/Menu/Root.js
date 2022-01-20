@@ -12,6 +12,8 @@ import { Provider } from './context'
 import { isArray } from '../utils/is'
 import { isRTL } from '../config'
 
+import { Component } from '../component'
+
 const modeDirection = {
   'vertical-auto': 'y',
   vertical: 'y',
@@ -45,7 +47,7 @@ function keyToMap(keys = [], value = true) {
 //   return isSubMenu(el.parentElement)
 // }
 
-class Root extends React.Component {
+class Root extends Component {
   constructor(props) {
     super(props)
 
@@ -78,6 +80,7 @@ class Root extends React.Component {
   }
 
   componentDidMount() {
+    super.componentDidMount()
     this.updateState()
   }
 
@@ -87,6 +90,7 @@ class Root extends React.Component {
 
   componentWillUnmount() {
     this.container.removeEventListener('wheel', this.handleWheel)
+    super.componentWillUnmount()
   }
 
   getOpenKeys() {
