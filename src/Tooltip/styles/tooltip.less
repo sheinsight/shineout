@@ -2,6 +2,8 @@
 @import '../../styles/themes/@{so-theme}.less';
 @tooltip-prefix: ~'@{so-prefix}-tooltip';
 
+@arrowOffset: (-@tooltip-arrow-width + 1px);
+
 .@{tooltip-prefix} {
   @keyframe-opacity: ~'@{tooltip-prefix}-kf-opacity';
   @keyframe-top: ~'@{tooltip-prefix}-kf-top';
@@ -98,7 +100,7 @@
     transform: translate(-50%, -100%);
 
     .@{tooltip-prefix}-arrow {
-      top: 100%;
+      bottom: @arrowOffset;
       left: 50%;
       border-top: @tooltip-arrow-width solid @tooltip-bg;
       border-right: @tooltip-arrow-width solid transparent;
@@ -117,7 +119,7 @@
 
     .@{tooltip-prefix}-arrow {
       top: 50%;
-      right: 100%;
+      left: @arrowOffset;
       border-top: @tooltip-arrow-width solid transparent;
       border-right: @tooltip-arrow-width solid @tooltip-bg;
       border-bottom: @tooltip-arrow-width solid transparent;
@@ -135,7 +137,7 @@
 
     .@{tooltip-prefix}-arrow {
       top: 50%;
-      left: 100%;
+      right: @arrowOffset;
       border-top: @tooltip-arrow-width solid transparent;
       border-bottom: @tooltip-arrow-width solid transparent;
       border-left: @tooltip-arrow-width solid @tooltip-bg;
@@ -152,12 +154,12 @@
     transform: translateX(-50%);
 
     .@{tooltip-prefix}-arrow {
-      top: 0;
+      top: @arrowOffset;
       left: 50%;
       border-right: @tooltip-arrow-width solid transparent;
       border-bottom: @tooltip-arrow-width solid @tooltip-bg;
       border-left: @tooltip-arrow-width solid transparent;
-      transform: translate(-50%, -100%);
+      transform: translate(-50%, 0);
     }
   }
 
