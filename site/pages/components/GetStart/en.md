@@ -236,43 +236,11 @@ Create a `.rescriptsrc.js` in root directory.
 module.exports = [];
 ```
 
-### Use babel-plugin-import
+### Use modularized shineout
 
-[babel-plugin-import](https://github.com/ant-design/babel-plugin-import) create by antd and is a babel plugin.
+shineout supports ES modules tree shaking by default for JS part.
 
-```
-$ npm i babel-plugin-import @rescripts/rescript-use-babel-config
-```
 
-Modify .rescriptsrc.js file, add Babel configuration:
-
-```
-module.exports = [
-+   ['use-babel-config', '.babelrc']
-];
-```
-
-create .babelrc file:
-
-```
-{
-  "presets": ["react-app"],
-  "plugins": [
-    [
-      "import",
-      {
-        "libraryName": "shineout",
-        "libraryDirectory": "css", // import css
-        "style": false,
-        "camel2DashComponentName": false,
-        "camel2UnderlineComponentName": false
-      }
-    ]
-  ]
-}
-```
-
-`libraryDirectory` set css, because the compiled folder for less and jsx under the css directory structure.
 
 ### Modify Theme
 

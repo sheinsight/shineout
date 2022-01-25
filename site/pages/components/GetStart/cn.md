@@ -255,43 +255,9 @@ $ npm i @rescripts/cli
 module.exports = [];
 ```
 
-### 使用 babel-plugin-import
+### 按需加载
 
-[babel-plugin-import](https://github.com/ant-design/babel-plugin-import) 是由 antd 团队提供实现按需加载的 Babel 插件。
-
-```
-$ npm i babel-plugin-import @rescripts/rescript-use-babel-config
-```
-
-修改 .rescriptsrc.js 文件，添加 Babel 相关配置：
-
-```
-module.exports = [
-+  ['use-babel-config', '.babelrc']
-];
-```
-
-创建 .babelrc 文件：
-
-```
-{
-  "presets": ["react-app"],
-  "plugins": [
-    [
-      "import",
-      {
-        "libraryName": "shineout",
-        "libraryDirectory": "css", // 引入 css
-        "style": false,
-        "camel2DashComponentName": false,
-        "camel2UnderlineComponentName": false
-      }
-    ]
-  ]
-}
-```
-
-`libraryDirectory` 设置为 css，css 目录结构下为 less 和 jsx 编译后的文件夹。
+shineout 的 JS 代码默认支持基于 ES modules 的 tree shaking。
 
 ### 修改Shineout主题
 
