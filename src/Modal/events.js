@@ -90,12 +90,12 @@ export function open(props, isPortal) {
   div.style.display = 'block'
   const parsed = parseInt(zIndex, 10)
   if (!Number.isNaN(parsed)) div.style.zIndex = parsed
-
-  const scrollWidth = window.innerWidth - docSize.width
   const doc = document.body.parentNode
-  doc.style.overflow = 'hidden'
-  doc.style.paddingRight = `${scrollWidth}px`
-
+  if (!doc.style.paddingRight) {
+    const scrollWidth = window.innerWidth - docSize.width
+    doc.style.overflow = 'hidden'
+    doc.style.paddingRight = `${scrollWidth}px`
+  }
   const handleClose = () => {
     if (onClose) onClose()
     if (!isPortal) close(props)
