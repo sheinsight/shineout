@@ -238,7 +238,7 @@ class SeperateTable extends PureComponent {
     const scrollHeight = this.lastScrollArgs[5]
     // Height reduced
     if (this.lastScrollTop - height >= 1) {
-      const index = this.resetIndex()
+      let index = this.resetIndex()
       this.setState({ currentIndex: index })
       if (this.renderByExpand) {
         this.renderByExpand = false
@@ -252,12 +252,17 @@ class SeperateTable extends PureComponent {
       //   return
       // }
       if (treeColumnsName && changedByExpand) {
+        // Blank space may appear after clicking the top or bottom collapse button
         if (fullHeight - this.lastScrollTop < (1 - this.lastScrollArgs[1]) * scrollHeight) {
-          this.tbody.style.marginTop = `${scrollHeight}px`
-          setTranslate(this.tbody, `-${offsetLeft}px`, `-${fullHeight}px`)
-          this.lastScrollTop = fullHeight
+          if (fullHeight <= scrollHeight) {
+            index = 0
+          } else {
+            this.tbody.style.marginTop = `${scrollHeight}px`
+            setTranslate(this.tbody, `-${offsetLeft}px`, `-${fullHeight}px`)
+            this.lastScrollTop = fullHeight
+            return
+          }
         }
-        return
       }
 
       if (index === 0) {
