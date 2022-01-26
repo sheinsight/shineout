@@ -40,6 +40,7 @@ class Scroll extends PureComponent {
     this.handleTouchStart = this.handleTouchStart.bind(this)
     this.handleTouchMove = this.handleTouchMove.bind(this)
     this.setStartPoint = this.setStartPoint.bind(this)
+    this.handleInnerScroll = this.handleInnerScroll.bind(this)
   }
 
   componentDidMount() {
@@ -48,6 +49,7 @@ class Scroll extends PureComponent {
     this.wheelElement.addEventListener('wheel', this.handleWheel, { passive: false })
     this.wheelElement.addEventListener('touchstart', this.handleTouchStart, { passive: true })
     this.wheelElement.addEventListener('touchmove', this.handleTouchMove, { passive: false })
+    this.inner.addEventListener('scroll', this.handleInnerScroll)
   }
 
   componentDidUpdate(prevProps) {
@@ -61,6 +63,7 @@ class Scroll extends PureComponent {
     this.wheelElement.removeEventListener('wheel', this.handleWheel)
     this.wheelElement.removeEventListener('touchstart', this.handleTouchStart)
     this.wheelElement.removeEventListener('touchmove', this.handleTouchMove)
+    this.inner.removeEventListener('scroll', this.handleInnerScroll)
   }
 
   getWheelRect() {
@@ -213,6 +216,18 @@ class Scroll extends PureComponent {
     this.setStartPoint(position)
 
     this.boundleScroll()
+  }
+
+  // inner scroll
+  handleInnerScroll(e) {
+    const { target } = e
+    const { left, scrollWidth } = this.props
+    const { width } = this.getWheelRect()
+    if (target.scrollLeft) {
+      this.handleScroll(left + target.scrollLeft / (scrollWidth - width), this.props.top, undefined, 0)
+      target.scrollLeft = 0
+      target.scrollTop = 0
+    }
   }
 
   render() {
