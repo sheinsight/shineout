@@ -62,8 +62,8 @@ export default function(List) {
     }
 
     componentDidUpdate(prevProps) {
-      if (shallowEqual(prevProps.value, this.props.value)) return
       if (!this.props.focus) this.ajustdoc = false
+      if (shallowEqual(prevProps.value, this.props.value)) return
       setTimeout(() => {
         this.forceUpdate()
       })
