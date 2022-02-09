@@ -1,7 +1,7 @@
 import { Input } from 'shineout'
 import React from 'react'
 import { mount } from 'enzyme'
-import InputSize from '../../../site/pages/components/Input/example-2-size'
+import InputSize from '../../../site/pages/components/Input/example-02-size'
 
 /* global SO_PREFIX */
 

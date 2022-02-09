@@ -123,6 +123,17 @@
     }
   }
 
+  &-title-box-title {
+    padding-right: @padding-base-horizontal+12;
+  }
+  &-title-box {
+    .@{select-prefix}-item,
+    .@{select-prefix}-ellipsis,
+    .@{select-prefix}-input {
+      margin-bottom: @title-padding-base-vertical;
+    }
+  }
+
   &-compressed {
     flex-grow: 1;
     width: 0;
@@ -215,11 +226,14 @@
   }
 
   &-focus &-close,
-  &-result:hover &-close {
+  &-result:hover &-close,
+  &-title-box:hover &-close{
     display: block;
   }
   &-focus &-result-clearable &-multi,
-  &-result-clearable:hover &-multi{
+  &-result-clearable:hover &-multi,
+  &-title-box:hover &-result-clearable &-multi
+  {
     visibility: hidden;
   }
   &-focus .@{select-prefix}-caret {
@@ -464,7 +478,18 @@
     }
   }
 
-  &-large &-result {
+  &-small &-title-box-title {
+    padding-right:  @padding-small-horizontal+12;
+  }
+  &-small &-title-box &-result {
+    .@{select-prefix}-item,
+    .@{select-prefix}-ellipsis,
+    .@{select-prefix}-input {
+      margin-bottom: @title-padding-small-vertical;
+    }
+  }
+
+  &-large &-result{
     padding: @padding-large-vertical @padding-large-horizontal+12 0 @padding-large-horizontal;
 
     .@{select-prefix}-item,
@@ -472,6 +497,17 @@
     .@{select-prefix}-input {
       margin-bottom: @padding-large-vertical;
       font-size: @font-size-large;
+    }
+  }
+
+  &-large &-title-box-title{
+    padding-right: @padding-large-horizontal + 12;
+  }
+  &-large &-title-box &-result {
+    .@{select-prefix}-item,
+    .@{select-prefix}-ellipsis,
+    .@{select-prefix}-input {
+      margin-bottom: @title-padding-large-vertical;
     }
   }
 
@@ -491,12 +527,31 @@
     }
   }
 
+  &-multiple &-title-box-title:not(&-title-box-title-empty),
+  &-multiple &-title-box-title-compressed
+  {
+    padding-right: @padding-base-horizontal + 22;
+  }
+
+  &-multiple &-title-box &-result:not(&-empty) {
+    padding-left: @title-padding-base-horizontal;
+  }
+
+
   &-large&-multiple &-result:not(&-empty) {
     padding-left: (@padding-large-horizontal / 2);
   }
 
+  &-large&-multiple &-title-box &-result:not(&-empty) {
+    padding-left: @title-padding-base-horizontal;
+  }
+
   &-small&-multiple &-result:not(&-empty) {
     padding-left: (@padding-small-horizontal / 2);
+  }
+
+  &-small&-multiple &-title-box  &-result:not(&-empty) {
+    padding-left: @title-padding-small-horizontal;
   }
 
   &-disabled {
@@ -564,6 +619,12 @@
   }
 }
 
+.@{select-prefix}-title-box {
+  > .@{input-prefix}-title-box-content {
+    display: flex;
+  }
+}
+
 .@{select-prefix}-rtl,
 .@{input-prefix}-rtl {
   direction: rtl;
@@ -594,6 +655,11 @@
     .@{select-prefix}-item-compressed {
       padding: 0 8px;
     }
+  }
+
+  .@{select-prefix}-title-box-title {
+    padding-left: @padding-base-horizontal+12;
+    padding-right: @padding-base-horizontal;
   }
 
   .@{select-prefix}-compressed {
@@ -689,13 +755,34 @@
       left: 7px;
     }
   }
+
+  .@{select-prefix}-multiple .@{select-prefix}-title-box-title:not(.@{select-prefix}-title-box-title-empty),
+  .@{select-prefix}-multiple .@{select-prefix}-title-box-title-compressed
+  {
+    padding-left: @padding-base-horizontal + 22;
+    padding-right: @padding-base-horizontal;
+  }
+
+  .@{select-prefix}-multiple .@{select-prefix}-title-box .@{select-prefix}-result:not(.@{select-prefix}-empty) {
+    padding-right: @title-padding-base-horizontal;
+  }
+
   .@{select-prefix}-large.@{select-prefix}-multiple .@{select-prefix}-result:not(.@{select-prefix}-empty) {
     padding-right: (@padding-large-horizontal / 2);
+  }
+
+  .@{select-prefix}-large.@{select-prefix}-multiple .@{select-prefix}-title-box .@{select-prefix}-result:not(.@{select-prefix}-empty) {
+    padding-right: @title-padding-base-horizontal;
   }
 
   .@{select-prefix}-small.@{select-prefix}-multiple .@{select-prefix}-result:not(.@{select-prefix}-empty) {
     padding-right: (@padding-small-horizontal / 2);
   }
+
+  .@{select-prefix}-small.@{select-prefix}-multiple .@{select-prefix}-title-box  .@{select-prefix}-result:not(.@{select-prefix}-empty) {
+    padding-right: @title-padding-small-horizontal;
+  }
+
   .@{select-prefix}-root {
     left: auto;
     right: 0;

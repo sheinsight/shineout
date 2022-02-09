@@ -367,6 +367,15 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
    * default: false
    */
   hideCreateOption?: boolean;
+
+  /**
+   * inner title
+   *
+   * 内嵌标题
+   *
+   * default: -
+   */
+  innerTitle?: string;
 }
 
 declare class Select<Item = any, Value = any> extends React.Component<SelectProps<Item, Value>, {}> {}

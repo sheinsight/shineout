@@ -664,6 +664,10 @@
 
     font-size: @font-size-small;
     line-height: @line-height-small;
+    ::placeholder,
+    .@{input-prefix}-placeholder {
+      font-size: @font-size-small;
+    }
   }
 
   &-large {
@@ -672,6 +676,10 @@
     }
 
     font-size: @font-size-large;
+    ::placeholder,
+    .@{input-prefix}-placeholder {
+      font-size: @font-size-large;
+    }
   }
 
   &.@{input-prefix}-rtl {

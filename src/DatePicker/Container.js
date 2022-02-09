@@ -20,6 +20,8 @@ import List from '../AnimationList'
 import { getLocale } from '../locale'
 import DateFns from './utils'
 import { isRTL } from '../config'
+import InputTitle from '../hoc/inputTitle'
+import { inputTitleClass } from '../hoc/styles'
 
 const FadeList = List(['fade'], 'fast')
 const OptionList = absoluteList(({ focus, ...other }) => <FadeList show={focus} {...other} />)
@@ -256,12 +258,13 @@ class Container extends PureComponent {
     }
   }
 
-  handleTextChange(date, index) {
+  handleTextChange(date, index, e) {
     const format = this.getFormat()
     const val = date ? utils.format(date, format) : ''
 
     if (!this.props.range) {
-      this.props.onChange(val, this.triggerValueBlur.bind(this, this.handleBlur))
+      const close = !(e && e.target && this.element.contains(e.target))
+      this.props.onChange(val, close ? this.triggerValueBlur.bind(this, this.handleBlur) : undefined)
       return
     }
 
@@ -352,7 +355,7 @@ class Container extends PureComponent {
     const resultFormat = formatResult || this.getFormat()
     return (
       <Text
-        key={key}
+        key={key || 'single'}
         onTextSpanRef={this.bindTextSpan}
         focusElement={this.textSpan}
         className={className}
@@ -370,26 +373,37 @@ class Container extends PureComponent {
   }
 
   renderResult() {
-    const { disabled, range, placeholder, type } = this.props
+    const { disabled, range, placeholder, type, innerTitle, inputable } = this.props
 
     let { value } = this.props
     if (!value && range) value = []
 
-    const isEmpty = !value || value.length === 0
+    // const isEmpty = !value || value.length === 0
     let { clearable } = this.props
     if (disabled === true) clearable = false
 
+    const isEmpty = (range ? value : [value]).reduce((result, str) => {
+      const date = this.parseDate(str)
+      return result && utils.isInvalid(date)
+    }, true)
     return (
       <div className={datepickerClass('result')}>
-        {range
-          ? [
-              this.renderText(value[0], placeholder[0], 0),
-              <span key="-" className={datepickerClass('separate')}>
-                ~
-              </span>,
-              this.renderText(value[1], placeholder[1], 1),
-            ]
-          : this.renderText(value, placeholder)}
+        <InputTitle
+          className={datepickerClass('title-box')}
+          contentClass={inputTitleClass('hidable')}
+          innerTitle={innerTitle}
+          open={!isEmpty || (inputable && this.state.focus)}
+        >
+          {range
+            ? [
+                this.renderText(value[0], placeholder[0], 0),
+                <span key="-" className={datepickerClass('separate')}>
+                  ~
+                </span>,
+                this.renderText(value[1], placeholder[1], 1),
+              ]
+            : this.renderText(value, placeholder)}
+        </InputTitle>
         <Icon className={isEmpty || !clearable ? '' : 'indecator'} name={type === 'time' ? 'Clock' : 'Calendar'} />
         {!isEmpty && clearable && <Icon name="CloseCircle" className="close" tag="a" onClick={this.handleClear} />}
       </div>
@@ -470,7 +484,7 @@ class Container extends PureComponent {
   }
 
   render() {
-    const { range, size, disabled, align } = this.props
+    const { range, size, disabled, align, innerTitle } = this.props
     const { focus } = this.state
 
     const rtl = isRTL()
@@ -483,7 +497,8 @@ class Container extends PureComponent {
       disabled === true && 'disabled',
       align && `align-${align}`,
       getCurrentPosition(this.state.position),
-      rtl && 'rtl'
+      rtl && 'rtl',
+      innerTitle && 'inner-title'
     )
 
     return (
@@ -537,6 +552,7 @@ Container.propTypes = {
   disabledTime: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   align: PropTypes.oneOf(['left', 'right', 'center']),
   clearWithUndefined: PropTypes.bool,
+  innerTitle: PropTypes.string,
 }
 
 Container.defaultProps = {

@@ -251,6 +251,15 @@ FormItemStandardProps<T>,
    * default: none
    */
   onPickerChange?: (value: DatePickerValue, quickSelect: QuickSelect | void, areaType: AreaType) => void;
+
+  /**
+   * inner title
+   *
+   * 内嵌标题
+   *
+   * default: -
+   */
+  innerTitle?: string;
 }
 
 declare class DatePicker extends React.Component<DatePickerProps, {}> {

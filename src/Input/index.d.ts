@@ -171,6 +171,15 @@ FormItemStandardProps<Value> {
    */
   underline?: boolean;
 
+  /**
+   * inner title
+   *
+   * 内嵌标题
+   *
+   * default: -
+   */
+  innerTitle?: string;
+
 }
 
 export interface InputNumberProps <Value> extends InputProps<Value> {

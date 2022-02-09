@@ -4,6 +4,7 @@ import classnames from 'classnames'
 import cleanProps from '../utils/cleanProps'
 import Clear from './clear'
 import { inputClass } from './styles'
+import InputTitle from '../hoc/inputTitle'
 
 class Input extends PureComponent {
   constructor(props) {
@@ -126,26 +127,29 @@ class Input extends PureComponent {
       forceChange,
       onEnterPress,
       forwardedRef,
+      innerTitle,
+      inputFocus,
       ...other
     } = this.props
     const value = this.props.value == null ? '' : this.props.value
     const showClear = !other.disabled && clearable && value !== ''
     const mc = classnames(className, showClear && inputClass('clearable'))
-
     return [
-      <input
-        {...cleanProps(other)}
-        className={mc || undefined}
-        name={other.name || htmlName}
-        type={type === 'password' ? type : 'text'}
-        value={value}
-        ref={this.bindRef}
-        key="input"
-        onChange={this.handleChange}
-        onKeyDown={this.handleKeyDown}
-        onKeyUp={this.handleKeyUp}
-        onBlur={this.handleBlur}
-      />,
+      <InputTitle key="input" innerTitle={innerTitle} open={!!inputFocus || !!value}>
+        <input
+          {...cleanProps(other)}
+          className={mc || undefined}
+          name={other.name || htmlName}
+          type={type === 'password' ? type : 'text'}
+          value={value}
+          ref={this.bindRef}
+          key="input"
+          onChange={this.handleChange}
+          onKeyDown={this.handleKeyDown}
+          onKeyUp={this.handleKeyUp}
+          onBlur={this.handleBlur}
+        />
+      </InputTitle>,
       showClear && <Clear onClick={this.handleChange} key="close" />,
       this.renderInfo(),
     ]
@@ -169,6 +173,8 @@ Input.propTypes = {
   forwardedRef: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,
+  innerTitle: PropTypes.string,
+  inputFocus: PropTypes.bool,
 }
 
 Input.defaultProps = {
