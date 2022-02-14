@@ -96,10 +96,10 @@ class SimpleTable extends PureComponent {
   }
 
   renderHeader() {
-    const { columns, width, data, onResize, columnResizable, sticky } = this.props
+    const { columns, width, data, onResize, columnResizable, sticky, bordered } = this.props
     const { colgroup, scrollAble } = this.state
     const inner = (
-      <table style={{ width }}>
+      <table style={{ width }} className={tableClass(bordered && 'table-bordered')}>
         <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable} />
         <Thead {...this.props} colgroup={colgroup} onSortChange={this.handleSortChange} onColChange={onResize} />
       </table>
@@ -130,12 +130,15 @@ class SimpleTable extends PureComponent {
   }
 
   renderBody() {
-    const { columns, width, fixed, columnResizable, ...others } = this.props
+    const { columns, width, fixed, columnResizable, bordered, ...others } = this.props
     const { colgroup, resize } = this.state
     const minWidthSup = columns.find(d => d.minWidth)
     return (
       <div key="body" className={tableClass('simple-body')} ref={this.bindBody} onScroll={this.handleScroll}>
-        <table style={{ width }} className={tableClass(!colgroup && minWidthSup && 'init')}>
+        <table
+          style={{ width }}
+          className={tableClass(!colgroup && minWidthSup && 'init', bordered && 'table-bordered')}
+        >
           <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable} />
           <Tbody
             colgroup={colgroup}
@@ -152,8 +155,13 @@ class SimpleTable extends PureComponent {
   }
 
   render() {
-    const { columns, width, children, hideHeader } = this.props
-    if (!columns || columns.length === 0) return <table style={{ width }}>{children}</table>
+    const { columns, width, children, hideHeader, bordered } = this.props
+    if (!columns || columns.length === 0)
+      return (
+        <table style={{ width }} className={tableClass(bordered && 'table-bordered')}>
+          {children}
+        </table>
+      )
     return [hideHeader ? null : this.renderHeader(), this.renderBody(), children]
   }
 }
@@ -170,6 +178,7 @@ SimpleTable.propTypes = {
   columnResizable: PropTypes.bool,
   sticky: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   hideHeader: PropTypes.bool,
+  bordered: PropTypes.bool,
 }
 
 SimpleTable.defaultProps = {

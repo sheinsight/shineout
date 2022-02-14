@@ -488,6 +488,7 @@ class SeperateTable extends PureComponent {
       rowHeight,
       columnResizable,
       innerScrollAttr,
+      bordered,
       ...others
     } = this.props
     const { colgroup, scrollTop, scrollLeft, offsetLeft, offsetRight, currentIndex, resize } = this.state
@@ -520,7 +521,11 @@ class SeperateTable extends PureComponent {
       >
         <div ref={this.bindTbody} className={tableClass('scroll-inner')} style={{ width }}>
           <div style={{ height: prevHeight }} />
-          <table className={tableClass(!colgroup && minWidthSup && 'init')} style={{ width }} ref={this.bindRealTbody}>
+          <table
+            className={tableClass(!colgroup && minWidthSup && 'init', bordered && 'table-bordered')}
+            style={{ width }}
+            ref={this.bindRealTbody}
+          >
             <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable && this.lastScrollArgs[4]} />
             <Tbody
               {...others}
@@ -550,7 +555,7 @@ class SeperateTable extends PureComponent {
 
     const header = (
       <div key="head" className={tableClass('head', ...floatClass)} ref={this.bindHeadWrapper}>
-        <table style={{ width }} ref={this.bindThead}>
+        <table style={{ width }} ref={this.bindThead} className={tableClass('table-bordered')}>
           <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable && this.lastScrollArgs[4]} />
           <Thead {...this.props} colgroup={colgroup} onSortChange={this.handleSortChange} onColChange={onResize} />
         </table>

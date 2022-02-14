@@ -135,7 +135,6 @@ export default function() {
   return (
     <Table
       keygen="id"
-      width="100%"
       columns={columns}
       data={d}
       cellSelectable
