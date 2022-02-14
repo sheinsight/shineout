@@ -9,7 +9,7 @@ import Input from './Input'
 import Caret from '../icons/Caret'
 import { isRTL } from '../config'
 import More, { getResetMore } from './More'
-import InputTitle from '../hoc/inputTitle'
+import InputTitle from '../InputTitle'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 

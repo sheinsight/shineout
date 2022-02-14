@@ -13,7 +13,6 @@ export default function() {
   return (
     <div style={{ verticalAlign: 'top' }}>
       <Select
-        size="large"
         multiple
         compressed
         innerTitle="Pick a color, please"
@@ -23,7 +22,6 @@ export default function() {
         data={data}
       />
       <Select
-        size="large"
         innerTitle="Pick a color, please"
         clearable
         keygen

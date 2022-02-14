@@ -14,6 +14,7 @@ const names = [
   'combineRules',
   'popoverProps',
   'inputFocus',
+  'placeTitle',
 ]
 
 /**

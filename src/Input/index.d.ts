@@ -180,6 +180,16 @@ FormItemStandardProps<Value> {
    */
   innerTitle?: string;
 
+
+  /**
+   * Placeholder title, which needs to be used together with innerTitle
+   *
+   * 占位标题，需要配合 innerTitle 一起使用
+   *
+   * default: -
+   */
+  placeTitle?: ReactNode,
+
 }
 
 export interface InputNumberProps <Value> extends InputProps<Value> {

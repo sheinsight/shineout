@@ -39,8 +39,10 @@
   }
   &:not(&-open) &-hideable {opacity: 0;}
   &:hover + .@{input-prefix}-clear-wrapper {display: block;}
-  &-content > input,  &-content > textarea  {padding: @title-padding-base-vertical @title-padding-base-horizontal;}
-  input, textarea, .@{select-prefix}-result {padding-top: 0!important;}
+  &-content > &-hidable
+  {padding: @title-padding-base-vertical @title-padding-base-horizontal;}
+  &-hidable,
+  .@{select-prefix}-result{padding-top: 0!important;}
 }
 .@{input-title-prefix}-open {
   .@{input-title-prefix}-top.@{input-title-prefix}-title {visibility: visible;}
@@ -53,7 +55,7 @@
       padding: @title-padding-small-vertical @title-padding-small-horizontal;
       font-size: @font-size-small;
     }
-    &-content > input,  &-content > textarea {
+    &-content > &-hidable{
       padding: @title-padding-small-vertical @title-padding-small-horizontal;
     }
   }
@@ -65,7 +67,7 @@
       padding: @title-padding-large-vertical @title-padding-large-horizontal;
       font-size: @font-size-large;
     }
-    &-content > input,  &-content > textarea {
+    &-content > &-hidable{
       padding: @title-padding-large-vertical @title-padding-large-horizontal;
     }
   }
@@ -76,7 +78,6 @@
       padding: 0!important;
     }
   }
-
 }
 
 

@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { inputTitleClass } from '../InputTitle/styles'
 import cleanProps from '../utils/cleanProps'
 import Clear from './clear'
 import { inputClass } from './styles'
-import InputTitle from '../hoc/inputTitle'
+import InputTitle from '../InputTitle'
 
 class Input extends PureComponent {
   constructor(props) {
@@ -133,9 +134,15 @@ class Input extends PureComponent {
     } = this.props
     const value = this.props.value == null ? '' : this.props.value
     const showClear = !other.disabled && clearable && value !== ''
-    const mc = classnames(className, showClear && inputClass('clearable'))
+    const mc = classnames(className, showClear && inputClass('clearable'), innerTitle && inputTitleClass('hidable'))
+    const isNumber = className && className.indexOf(inputClass('number')) > -1
     return [
-      <InputTitle key="input" innerTitle={innerTitle} open={!!inputFocus || !!value}>
+      <InputTitle
+        className={isNumber ? inputClass('number-title-box') : undefined}
+        key="input"
+        innerTitle={innerTitle}
+        open={!!inputFocus || !!value}
+      >
         <input
           {...cleanProps(other)}
           className={mc || undefined}

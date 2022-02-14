@@ -20,8 +20,8 @@ import List from '../AnimationList'
 import { getLocale } from '../locale'
 import DateFns from './utils'
 import { isRTL } from '../config'
-import InputTitle from '../hoc/inputTitle'
-import { inputTitleClass } from '../hoc/styles'
+import InputTitle from '../InputTitle'
+import { inputTitleClass } from '../InputTitle/styles'
 
 const FadeList = List(['fade'], 'fast')
 const OptionList = absoluteList(({ focus, ...other }) => <FadeList show={focus} {...other} />)

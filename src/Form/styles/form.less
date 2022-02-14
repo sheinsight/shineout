@@ -8,6 +8,7 @@
 @icon-prefix:  ~'@{so-prefix}-icon';
 @button-prefix:  ~'@{so-prefix}-button';
 @inputBorder-prefix: ~'@{so-prefix}-inputBorder';
+@input-title-prefix: ~'@{so-prefix}-input-title-box';
 
 @input-group-icon-padding-x: 8px;
 @required-margin: 4px;
@@ -589,7 +590,9 @@
   }
 
   input,
-  textarea {
+  textarea,
+  &-spare
+  {
     display: block;
     width: 100%;
     padding: @padding-base-vertical @padding-base-horizontal;
@@ -634,13 +637,49 @@
   }
 
   & input&-number {
-    padding-right: 22px;
+    &:not(.@{input-prefix}-rtl *) {
+      padding-right: 22px;
+    }
     & + .@{input-prefix}-clear-wrapper {
       .@{input-prefix}-clear {
-        right: 22px;
+        &:not(.@{input-prefix}-rtl *) {
+          right: 22px;
+        }
       }
     }
   }
+  &-rtl  input&-number {
+    padding-left: 22px;
+    & + .@{input-prefix}-clear-wrapper {
+      .@{input-prefix}-clear {
+          left: 22px;
+          right: auto;
+      }
+    }
+  }
+
+  &-number-title-box {
+    .@{input-title-prefix}-title {
+      .@{input-prefix}:not(.@{input-prefix}-rtl) &{
+        padding-right: 22px;
+      }
+      .@{input-prefix}-rtl & {
+        padding-left: 22px;
+      }
+    }
+    & + .@{input-prefix}-clear-wrapper {
+      .@{input-prefix}-clear {
+        .@{input-prefix}:not(.@{input-prefix}-rtl)  &{
+          right: 22px;
+        }
+        .@{input-prefix}-rtl & {
+          left: 22px;
+          right: auto;
+        }
+      }
+    }
+  }
+
 
   textarea&-shadow {
     position: absolute;
@@ -657,8 +696,16 @@
     resize: vertical;
   }
 
+  &-with-footer {
+    flex-direction: column;
+    .@{input-prefix}-footer {
+      padding: @padding-base-horizontal @padding-base-vertical;
+      border-top: 1px solid @input-border;
+    }
+  }
+
   &-small {
-    input {
+    input, .@{input-prefix}-spare {
       padding: @padding-small-vertical @padding-small-horizontal;
     }
 
@@ -671,7 +718,7 @@
   }
 
   &-large {
-    input {
+    input, .@{input-prefix}-spare {
       padding: @input-padding-vertical @input-padding-horizontal;
     }
 
