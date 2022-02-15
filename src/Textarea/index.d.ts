@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { StandardProps, RegularAttributes, FormItemStandardProps } from '../@types/common'
+import { ReactNode } from "react"
 
 export interface TextareaProps<Value> extends
 StandardProps,
@@ -106,7 +107,40 @@ FormItemStandardProps<Value>
    */
   disabled?: boolean;
 
+  /**
+   * inner title
+   *
+   * 内嵌标题
+   *
+   * default: -
+   */
+  innerTitle?: ReactNode,
+  /**
+   * Placeholder title, which needs to be used together with innerTitle
+   *
+   * 占位标题，需要配合 innerTitle 一起使用
+   *
+   * default: -
+   */
+  placeTitle?: ReactNode,
 
+  /**
+   * render textarea footer
+   *
+   * 渲染 textarea footer
+   *
+   * default: -
+   */
+  renderFooter?: (value: string)=> ReactNode,
+
+  /**
+   * Customize display results
+   *
+   * 自定义显示结果
+   *
+   * default: -
+   */
+  renderResult?: (value: string)=> ReactNode,
 
 }
 

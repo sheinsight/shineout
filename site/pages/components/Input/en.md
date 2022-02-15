@@ -30,6 +30,7 @@
 | underline | boolean | false | only display border bottom  |
 | onKeyUp | (e: KeyboardEvent) => void | none | callback with key up |
 | onKeyDown | (e: KeyboardEvent) => void | none | callback with key down |
+| innerTitle | string | - | inner title |
 
 ### Input.Number
 

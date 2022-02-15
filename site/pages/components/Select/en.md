@@ -54,3 +54,4 @@
 | lineHeight | number | 34 | Option height. List items are rendered using virtual lists, and when the option height changes, the correct height should be specified via lineHeight |
 | hideCreateOption | boolean | false | hide the creat option while set onCreate |
 | underline | boolean | false | only display border bottom  |
+| innerTitle | string | - | inner title |

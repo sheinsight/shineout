@@ -1,7 +1,7 @@
 import { Input } from 'shineout'
 import React from 'react'
 import { mount } from 'enzyme'
-import InputSize from '../../../site/pages/components/Input/example-2-size'
+import InputSize from '../../../site/pages/components/Input/example-02-size'
 
 /* global SO_PREFIX */
 
@@ -261,5 +261,32 @@ describe('Input[Password]', () => {
       },
     })
     expect(wrapper.find('input').prop('value')).toBe('•••••')
+  })
+})
+
+describe('Input[innerTitle]', () => {
+  test('content will show when focus', () => {
+    const wrapper = mount(<Input.Password innerTitle="please input something" />)
+    expect(wrapper.find(`.${SO_PREFIX}-input-title-box-open`).length).toBe(0)
+    wrapper.find('input').simulate('focus')
+    wrapper.update()
+    expect(wrapper.find(`.${SO_PREFIX}-input-title-box-open`).length).toBe(1)
+    wrapper.find('input').simulate('blur')
+    wrapper.update()
+    expect(wrapper.find(`.${SO_PREFIX}-input-title-box-open`).length).toBe(0)
+  })
+  test('content will show when there is value', () => {
+    const wrapper = mount(<Input.Password innerTitle="please input something" />)
+    expect(wrapper.find(`.${SO_PREFIX}-input-title-box-open`).length).toBe(0)
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: 'value',
+      },
+    })
+    wrapper.update()
+    expect(wrapper.find(`.${SO_PREFIX}-input-title-box-open`).length).toBe(1)
+    wrapper.find('input').simulate('blur')
+    wrapper.update()
+    expect(wrapper.find(`.${SO_PREFIX}-input-title-box-open`).length).toBe(1)
   })
 })
