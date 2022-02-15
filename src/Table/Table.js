@@ -127,7 +127,7 @@ class Table extends Component {
 
     return (
       <div className={className} ref={this.bindTable} style={newStyle} {...events}>
-        <RenderTable {...props} />
+        <RenderTable {...props} bordered={bordered} />
         {loading && (
           <div className={tableClass('loading')}>{typeof loading === 'boolean' ? <Spin size={40} /> : loading}</div>
         )}

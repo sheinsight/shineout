@@ -23,12 +23,9 @@ class Item extends PureComponent {
 
     this.id = `${props.path},${getUidStr()}`
     const key = this.getKey(props)
-    const [activeUpdate, openUpdate, inPathUpdate] = props.bindItem(
-      this.id,
-      this.update.bind(this),
-      this.updateOpen.bind(this),
-      this.updateInPath.bind(this)
-    )
+    const noop = () => {}
+
+    const [activeUpdate, openUpdate, inPathUpdate] = props.bindItem(this.id, noop, noop, noop)
 
     this.state = {
       open: openUpdate(key),
@@ -43,6 +40,11 @@ class Item extends PureComponent {
     this.handleMouseEnter = this.handleToggle.bind(this, true)
     this.handleMouseLeave = this.handleToggle.bind(this, false)
     this.renderLink = this.renderLink.bind(this)
+  }
+
+  componentDidMount() {
+    super.componentDidMount()
+    this.props.bindItem(this.id, this.update.bind(this), this.updateOpen.bind(this), this.updateInPath.bind(this))
   }
 
   componentWillUnmount() {
