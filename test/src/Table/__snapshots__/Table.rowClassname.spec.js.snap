@@ -14,6 +14,7 @@ exports[`Table[rowClassname] should render correct 1`] = `
     }
   >
     <table
+      className=""
       style={
         Object {
           "width": undefined,
