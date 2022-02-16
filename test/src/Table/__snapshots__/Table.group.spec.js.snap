@@ -14,6 +14,7 @@ exports[`Table[group] should render group header 1`] = `
     }
   >
     <table
+      className="so-table-table-bordered"
       style={
         Object {
           "width": undefined,
@@ -211,7 +212,7 @@ exports[`Table[group] should render group header 1`] = `
     onScroll={[Function]}
   >
     <table
-      className=""
+      className="so-table-table-bordered"
       style={
         Object {
           "width": undefined,
@@ -309,7 +310,7 @@ exports[`Table[group] should render group header 1`] = `
             style={Object {}}
           />
           <td
-            className="so-table-ignore-right-border"
+            className=""
             colSpan={1}
             style={Object {}}
           />
@@ -353,7 +354,7 @@ exports[`Table[group] should render group header 1`] = `
             style={Object {}}
           />
           <td
-            className="so-table-ignore-right-border"
+            className=""
             colSpan={1}
             style={Object {}}
           />
@@ -397,7 +398,7 @@ exports[`Table[group] should render group header 1`] = `
             style={Object {}}
           />
           <td
-            className="so-table-ignore-right-border"
+            className=""
             colSpan={1}
             style={Object {}}
           />

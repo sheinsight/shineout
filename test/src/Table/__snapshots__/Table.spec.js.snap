@@ -14,6 +14,7 @@ exports[`Table[Border&striped] should render border & striped 1`] = `
     }
   >
     <table
+      className="so-table-table-bordered"
       style={
         Object {
           "width": undefined,
@@ -71,7 +72,7 @@ exports[`Table[Border&striped] should render border & striped 1`] = `
     onScroll={[Function]}
   >
     <table
-      className=""
+      className="so-table-table-bordered"
       style={
         Object {
           "width": undefined,
@@ -107,7 +108,7 @@ exports[`Table[Border&striped] should render border & striped 1`] = `
             1
           </td>
           <td
-            className="so-table-ignore-right-border"
+            className=""
             colSpan={1}
             style={Object {}}
           >
@@ -126,7 +127,7 @@ exports[`Table[Border&striped] should render border & striped 1`] = `
             2
           </td>
           <td
-            className="so-table-ignore-right-border"
+            className=""
             colSpan={1}
             style={Object {}}
           >
@@ -145,7 +146,7 @@ exports[`Table[Border&striped] should render border & striped 1`] = `
             3
           </td>
           <td
-            className="so-table-ignore-right-border"
+            className=""
             colSpan={1}
             style={Object {}}
           >
@@ -172,6 +173,7 @@ exports[`Table[small] should render compact table 1`] = `
     }
   >
     <table
+      className=""
       style={
         Object {
           "width": undefined,

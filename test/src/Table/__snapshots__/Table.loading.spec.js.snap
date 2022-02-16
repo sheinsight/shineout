@@ -18,6 +18,7 @@ exports[`Table[loading] should render loading 1`] = `
     }
   >
     <table
+      className=""
       style={
         Object {
           "width": undefined,
