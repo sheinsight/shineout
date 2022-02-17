@@ -60,6 +60,12 @@ class Editable extends React.PureComponent {
     if (typeof onBlur === 'function') onBlur(e)
   }
 
+  getErrorProps() {
+    const p = {}
+    if ('error' in this.props) p.error = this.props.error
+    return p
+  }
+
   updateShowTextarea(flag) {
     if (flag && this.input) {
       this.width = getParent(this.input, `.${editableAreaClass('input')}`).offsetWidth
@@ -87,7 +93,7 @@ class Editable extends React.PureComponent {
 
   renderTextarea() {
     const { showTextarea } = this.state
-    const { delay, placeholder, maxHeight, value, innerTitle, placeTitle, renderFooter } = this.props
+    const { placeholder, maxHeight, value, innerTitle, placeTitle, renderFooter } = this.props
     if (!showTextarea) return null
 
     return (
@@ -106,22 +112,26 @@ class Editable extends React.PureComponent {
           placeholder={placeholder}
           maxHeight={maxHeight}
           renderFooter={renderFooter}
+          {...this.getErrorProps()}
         />
       </div>
     )
   }
 
   renderResult() {
-    const { placeholder, disabled, value, renderResult, placeTitle, innerTitle } = this.props
+    const { placeholder, disabled, value, renderResult, placeTitle, innerTitle, error } = this.props
     const result = renderResult(value)
     return (
       <div
         tabIndex={disabled ? -1 : 0}
-        className={classnames(editableAreaClass('input'), inputClass('_'))}
+        className={classnames(editableAreaClass('input'), inputClass('_', error && 'invalid'))}
         onFocus={this.showPop}
       >
         <InputTitle placeTitle={placeTitle} innerTitle={innerTitle} open={!!value}>
-          <div className={classnames(inputClass('spare'), inputTitleClass('hidable'))} ref={this.bindInput}>
+          <div
+            className={classnames(inputClass('spare'), innerTitle && inputTitleClass('hidable'))}
+            ref={this.bindInput}
+          >
             {result || <div className={inputClass('placeholder')}>{placeholder || <br />}</div>}
           </div>
         </InputTitle>
@@ -142,6 +152,7 @@ class Editable extends React.PureComponent {
         className={editableAreaClass('input')}
         onFocus={this.showPop}
         disabled={disabled}
+        {...this.getErrorProps()}
       />
     )
   }
@@ -193,7 +204,6 @@ Editable.propTypes = {
   value: PropTypes.string,
   style: PropTypes.object,
   className: PropTypes.string,
-  delay: PropTypes.number,
   bordered: PropTypes.bool,
   placeholder: PropTypes.string,
   onFocus: PropTypes.func,
@@ -207,6 +217,7 @@ Editable.propTypes = {
   renderFooter: PropTypes.func,
   renderResult: PropTypes.func,
   onShowTextareaChange: PropTypes.func,
+  error: PropTypes.object,
 }
 
 export default Editable
