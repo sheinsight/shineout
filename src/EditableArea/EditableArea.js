@@ -65,6 +65,9 @@ class Editable extends React.PureComponent {
       this.width = getParent(this.input, `.${editableAreaClass('input')}`).offsetWidth
     }
     this.setState({ showTextarea: flag })
+    if (this.props.onShowTextareaChange) {
+      this.props.onShowTextareaChange(flag)
+    }
   }
 
   handleFocus(e) {
@@ -96,7 +99,7 @@ class Editable extends React.PureComponent {
           placeTitle={placeTitle}
           value={value}
           rows={1}
-          delay={delay}
+          delay={0}
           onChange={this.onChange}
           onBlur={this.onBlur}
           onFocus={this.handleFocus}
@@ -119,7 +122,7 @@ class Editable extends React.PureComponent {
       >
         <InputTitle placeTitle={placeTitle} innerTitle={innerTitle} open={!!value}>
           <div className={classnames(inputClass('spare'), inputTitleClass('hidable'))} ref={this.bindInput}>
-            {result || <div className={inputClass('placeholder')}>{placeholder}</div>}
+            {result || <div className={inputClass('placeholder')}>{placeholder || <br />}</div>}
           </div>
         </InputTitle>
       </div>
@@ -203,6 +206,7 @@ Editable.propTypes = {
   placeTitle: PropTypes.node,
   renderFooter: PropTypes.func,
   renderResult: PropTypes.func,
+  onShowTextareaChange: PropTypes.func,
 }
 
 export default Editable
