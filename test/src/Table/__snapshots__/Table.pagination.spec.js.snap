@@ -15,6 +15,7 @@ Array [
       }
     >
       <table
+        className=""
         style={
           Object {
             "width": undefined,
