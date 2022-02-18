@@ -23,6 +23,8 @@ class FilterInput extends Component {
     this.handlePaste = this.handlePaste.bind(this)
 
     this.focusInput = this.focusInput.bind(this)
+    this.handleCompositionStart = this.handleCompositionStart.bind(this)
+    this.handleCompositionEnd = this.handleCompositionEnd.bind(this)
 
     // for mutiple select
     this.props.setInputReset(this.reset.bind(this))
@@ -69,7 +71,7 @@ class FilterInput extends Component {
 
   geHandleMax(e) {
     const { maxLength } = this.props
-    if (!maxLength) {
+    if (!maxLength || this.composition) {
       return true
     }
     let change = true
@@ -167,6 +169,15 @@ class FilterInput extends Component {
     this.props.onInputBlur(text)
   }
 
+  handleCompositionStart() {
+    this.composition = true
+  }
+
+  handleCompositionEnd(e) {
+    this.composition = false
+    this.handleInput(e)
+  }
+
   render() {
     const { text, focus, multiple } = this.props
     const value = typeof text === 'string' ? text.replace(/<\/?[^>]*>/g, '') : text
@@ -180,6 +191,8 @@ class FilterInput extends Component {
       onFocus: handleFocus,
       onBlur: this.handleBlur,
       title: !focus && isString(value) ? value : null,
+      onCompositionStart: this.handleCompositionStart,
+      onCompositionEnd: this.handleCompositionEnd,
     }
 
     if (isValidElement(value)) {
