@@ -31,9 +31,12 @@ class Field extends Component {
     if (typeof children === 'function') {
       return children({ value, error, onChange: this.handleChange, disabled })
     }
-
+    const cloneProps = { value, error, onChange: this.handleChange }
+    if (disabled !== undefined) {
+      cloneProps.disabled = disabled
+    }
     if (isValidElement(children)) {
-      return cloneElement(children, { value, error, onChange: this.handleChange, disabled })
+      return cloneElement(children, cloneProps)
     }
 
     console.error(new Error('Form.Field expect a single ReactElement or a function.'))
