@@ -123,8 +123,8 @@ class Editable extends React.PureComponent {
     const result = renderResult(value)
     return (
       <div
-        tabIndex={disabled ? -1 : 0}
-        className={classnames(editableAreaClass('input'), inputClass('_', error && 'invalid'))}
+        tabIndex={disabled ? undefined : 0}
+        className={classnames(editableAreaClass('input'), inputClass('_', error && 'invalid', disabled && 'disabled'))}
         onFocus={this.showPop}
       >
         <InputTitle placeTitle={placeTitle} innerTitle={innerTitle} open={!!value}>
