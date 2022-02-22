@@ -38,7 +38,7 @@
 | onOk | () => void | none | ok button click callback, will close tooltip while returned promise resolve |
 | onCancel | () => void | none | cancel button click callback, will close tooltip while returned promise resolve |
 | text | object | { ok: 'Ok', cancel: 'Cancel' } | button text |
-| type | string | *warning* |  icon type \[*success*, *info*, *warning*, *danger(error)*] |
+| type | string |  *confirmwarning* |  icon type \[*success*, *info*, *warning*, *danger(error)*, *confirmwarning*] |
 | icon | ReactNode | none |  custom icon |
 
 
