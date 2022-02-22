@@ -40,5 +40,8 @@
 | okType | string | *primary* |  确认按钮类型，与Button类型相同 |
 | icon | ReactNode | 无 |  自定义Icon |
 
+### Popover.Content
+属性和 Popover 一致，但不支持 *content* 属性
+
 ## 注意
 请确保 Popover 的父元素能接受 onMouseEnter、onMouseLeave、onFocus、onClick 事件。
