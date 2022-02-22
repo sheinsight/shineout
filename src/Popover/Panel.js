@@ -232,7 +232,7 @@ class Panel extends Component {
   }
 
   render() {
-    const { background, border, children, type, visible, showArrow } = this.props
+    const { background, border, children, type, visible, showArrow, useTextStyle } = this.props
     const show = typeof visible === 'boolean' ? visible : this.state.show
     if ((!this.isRendered && !show) || !this.parentElement || !children) {
       return <noscript ref={this.placeholderRef} />
@@ -256,7 +256,8 @@ class Panel extends Component {
     }
     this.element.className = classnames(popoverClass('_', position, type), this.props.className, this.id)
     let childrened = isFunc(children) ? children(this.handleHide) : children
-    if (typeof childrened === 'string') childrened = <span className={popoverClass('text')}>{childrened}</span>
+    if (typeof childrened === 'string' || useTextStyle)
+      childrened = <span className={popoverClass('text')}>{childrened}</span>
     return ReactDOM.createPortal(
       [
         showArrow && <div key="arrow" className={popoverClass('arrow')} style={colorStyle} />,
@@ -294,6 +295,7 @@ Panel.propTypes = {
   bindChain: PropTypes.func,
   zIndex: PropTypes.number,
   clickToCancelDelay: PropTypes.bool,
+  useTextStyle: PropTypes.bool,
 }
 
 Panel.defaultProps = {

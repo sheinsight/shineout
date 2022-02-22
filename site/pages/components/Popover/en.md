@@ -41,6 +41,8 @@
 | type | string | *warning* |  icon type \[*success*, *info*, *warning*, *danger(error)*] |
 | icon | ReactNode | none |  custom icon |
 
+### Popover.Content
+The property is the same as Popover, but does not support the *content* property
 
 ### PopoverNote
 Please ensure that the parent node of `Popover` accepts `onMouseEnter`, `onMouseLeave`, `onFocus`, `onClick` events.
