@@ -131,7 +131,7 @@ export interface PopoverProps extends StandardProps {
    *
    * default: none
    */
-  type?: 'success' | 'info' | 'warning' | 'danger';
+  type?: 'success' | 'info' | 'warning' | 'danger' | 'confirmwarning';
 
   /**
    * Old API, out of date
