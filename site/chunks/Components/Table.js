@@ -286,8 +286,8 @@ const examples = [
   {
     name: '28-tree',
     title: locate(
-      ' \n 使用 treeExpandKeys 和 onTreeExpand 使展开行受控',
-      ' \n Use treeExpandKeys and onTreeExpand to control the expand row.'
+      ' \n 使用 treeExpandKeys 和 onTreeExpand 使展开行受控 \n 设置 changedByExpand 为 true 用来改变滚动条重置的默认行为',
+      ' \n Use treeExpandKeys and onTreeExpand to control the expand row. \n Set changedByExpand to true to change the default behavior of scrollbar reset'
     ),
     component: require('doc/pages/components/Table/example-28-tree.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-28-tree.js'),

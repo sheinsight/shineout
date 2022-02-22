@@ -114,7 +114,7 @@ export default WrappedComponent => {
       return (
         <WrappedComponent
           {...this.props}
-          changedByExpand={this.changedByExpand}
+          changedByExpand={this.changedByExpand || this.props.changedByExpand}
           data={data}
           onTreeExpand={this.handleTreeExpand}
           treeExpandKeys={expandKeys}
@@ -133,6 +133,7 @@ export default WrappedComponent => {
     defaultTreeExpandKeys: PropTypes.array,
     treeExpandKeys: PropTypes.array,
     onTreeExpand: PropTypes.func,
+    changedByExpand: PropTypes.bool,
   }
 
   TreeExpand.defaultProps = {
