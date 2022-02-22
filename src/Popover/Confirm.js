@@ -76,7 +76,7 @@ Confirm.propTypes = {
 }
 
 Confirm.defaultProps = {
-  type: 'warning',
+  type: 'confirmwarning',
   icon: true,
   okType: 'danger',
 }
