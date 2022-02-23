@@ -72,7 +72,7 @@ class Result extends PureComponent {
   componentDidMount() {
     const { compressed } = this.props
     if (compressed) {
-      this.cancelResizeObserver = addResizeObserver(this.resultEl, this.resetMore)
+      this.cancelResizeObserver = addResizeObserver(this.resultEl, this.resetMore, { direction: 'x' })
     }
   }
 
