@@ -131,7 +131,7 @@ export interface PopoverProps extends StandardProps {
    *
    * default: none
    */
-  type?: 'success' | 'info' | 'warning' | 'danger';
+  type?: 'success' | 'info' | 'warning' | 'danger' | 'confirmwarning';
 
   /**
    * Old API, out of date
@@ -232,8 +232,15 @@ declare class PopoverConfirm extends React.Component<PopoverConfirmProps, {}> {
   render(): JSX.Element;
 }
 
-declare class Popover extends React.Component<PopoverProps, {}> {
+declare class PopoverContent extends React.Component<PopoverProps, {}> {
+  render(): JSX.Element;
+}
+
+export type ContentProps = Omit<PopoverProps, 'content'>;
+
+declare class Popover extends React.Component<ContentProps, {}> {
   static Confirm: typeof PopoverConfirm;
+  static Content: typeof PopoverContent;
 
   render(): JSX.Element;
 }

@@ -38,9 +38,11 @@
 | onOk | () => void | none | ok button click callback, will close tooltip while returned promise resolve |
 | onCancel | () => void | none | cancel button click callback, will close tooltip while returned promise resolve |
 | text | object | { ok: 'Ok', cancel: 'Cancel' } | button text |
-| type | string | *warning* |  icon type \[*success*, *info*, *warning*, *danger(error)*] |
+| type | string |  *confirmwarning* |  icon type \[*success*, *info*, *warning*, *danger(error)*, *confirmwarning*] |
 | icon | ReactNode | none |  custom icon |
 
+### Popover.Content
+The property is the same as Popover, but does not support the *content* property
 
 ### PopoverNote
 Please ensure that the parent node of `Popover` accepts `onMouseEnter`, `onMouseLeave`, `onFocus`, `onClick` events.

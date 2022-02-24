@@ -89,7 +89,7 @@ class Index extends Component {
   }
 
   renderList(isEmpty) {
-    const { data, empty, keygen, fixed, rowsInView, lineHeight } = this.props
+    const { data, empty, keygen, fixed, rowsInView, lineHeight, value } = this.props
 
     if (isEmpty) return <div className={listClass('item', 'empty')}>{empty || getLocale('noData')}</div>
 
@@ -101,6 +101,7 @@ class Index extends Component {
         keygen={keygen}
         renderItem={this.renderItem}
         itemsInView={rowsInView}
+        force={value}
       />
     )
   }
@@ -158,6 +159,7 @@ Index.propTypes = {
   rowsInView: PropTypes.number,
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   lineHeight: PropTypes.number,
+  value: PropTypes.array,
 }
 
 Index.defaultProps = {

@@ -107,4 +107,5 @@ export default {
   Warning: icon(warning),
   Check: icon(check),
   Preview: icon(preview),
+  Confirmwarning: icon(warning),
 }
