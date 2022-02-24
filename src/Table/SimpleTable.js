@@ -59,6 +59,7 @@ class SimpleTable extends PureComponent {
   }
 
   resetColGroup() {
+    this.lastColGroup = this.state.colgroup || this.lastColGroup
     this.setState({ colgroup: undefined, resize: true })
   }
 
@@ -100,7 +101,8 @@ class SimpleTable extends PureComponent {
     const { colgroup, scrollAble } = this.state
     const inner = (
       <table style={{ width }} className={tableClass(bordered && 'table-bordered')}>
-        <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable} />
+        {/* keep thead colgroup stable */}
+        <Colgroup colgroup={colgroup || this.lastColGroup} columns={columns} resizable={columnResizable} />
         <Thead {...this.props} colgroup={colgroup} onSortChange={this.handleSortChange} onColChange={onResize} />
       </table>
     )

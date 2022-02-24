@@ -160,15 +160,15 @@ export const addResizeObserver = (el, handler, options = {}) => {
       lastHeight = el.clientHeight
       h = function(entry) {
         const { width, height } = entry[0].contentRect
-        if (direction === 'x') {
+        if (width && direction === 'x') {
           if (lastWidth !== width) {
             handler(entry)
           }
         } else if (direction === 'y') {
-          if (lastHeight !== height) {
+          if (height && lastHeight !== height) {
             handler(entry)
           }
-        } else {
+        } else if (width && height) {
           handler(entry, { x: lastWidth !== width, y: lastHeight !== height })
         }
         lastWidth = width
