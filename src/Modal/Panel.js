@@ -162,9 +162,9 @@ export default class Panel extends PureComponent {
   }
 
   renderContent() {
-    const { children, noPadding, padding, position, bodyStyle, from = null, type } = this.props
+    const { children, noPadding, padding, position, bodyStyle, from = null } = this.props
 
-    let style = { padding: noPadding === true || (from === 'method' && type === 'normal') ? 0 : padding }
+    let style = { padding: noPadding === true ? 0 : padding }
     if (position) style.overflow = 'auto'
 
     if (bodyStyle) style = Object.assign(style, bodyStyle)
