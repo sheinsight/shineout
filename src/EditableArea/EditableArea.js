@@ -78,7 +78,7 @@ class Editable extends React.PureComponent {
 
   renderTextarea() {
     const { showTextarea } = this.state
-    const { delay, placeholder, maxHeight, value } = this.props
+    const { placeholder, maxHeight, value } = this.props
     if (!showTextarea) return null
 
     return (
@@ -88,7 +88,7 @@ class Editable extends React.PureComponent {
           autosize
           value={value}
           rows={1}
-          delay={delay}
+          delay={0}
           onChange={this.onChange}
           onBlur={this.onBlur}
           onFocus={this.handleFocus}
