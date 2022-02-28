@@ -15,6 +15,8 @@ export type ColumnFix = 'left' | 'right'
 
 export type ColumnType = 'expand' | 'row-expand' | 'checkbox'
 
+export interface renderSorterParam  {status?: 'asc' | 'desc', triggerAsc: () => void, triggerDesc: () => void}
+
 export interface ColumnItem<T> {
   /**
    * cell align \['left', 'center', 'right'\]
@@ -541,6 +543,15 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    * default: false
    */
   columnResizable?: boolean
+
+  /**
+   * Enable in specific scenarios (tree data expansion is controlled) Used to change the default behavior of scroll reset
+   *
+   * 在特定场景（树形数据展开受控)下开启 用来改变滚动条重置的默认行为
+   *
+   * default: false
+   */
+  renderSorter?: (params: renderSorterParam) => ReactNode
 
 }
 

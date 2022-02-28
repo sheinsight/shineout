@@ -51,6 +51,7 @@
 | cellSelectable | boolean | false | 是否启用 ctrl/cmd + click 选中单元格 |
 | height | number \| string | 无 | 表格高度，与 style.height 作用相同 |
 | hideHeader | boolean | false | 是否隐藏表头 |
+| renderSorter | (params: {status?: 'asc' \| 'desc', triggerAsc: () => void, triggerDesc: ()=> void})=> ReactNode | false | 自定义排序图标 |
 
 ### TableColumn
 
