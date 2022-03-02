@@ -329,7 +329,18 @@ class Cascader extends PureComponent {
   }
 
   renderFilterList() {
-    const { absolute, onFilter, filterText, zIndex, data, childrenKey, renderItem, expandTrigger, height } = this.props
+    const {
+      absolute,
+      onFilter,
+      filterText,
+      zIndex,
+      data,
+      childrenKey,
+      renderItem,
+      expandTrigger,
+      height,
+      loading,
+    } = this.props
     const { focus, position } = this.state
     const className = classnames(cascaderClass(focus && 'focus', isRTL() && 'rtl'), selectClass(this.state.position))
 
@@ -353,12 +364,14 @@ class Cascader extends PureComponent {
         onFilter={onFilter}
         filterText={filterText}
         height={height}
+        loading={loading}
       />
     )
   }
 
   renderPanel() {
-    const { filterText, data, mode } = this.props
+    const { filterText, data, mode, loading } = this.props
+    if (loading) return this.renderFilterList()
     if (!filterText || (filterText && mode !== undefined) || data.length === 0) return this.renderAbsoluteList()
     return this.renderFilterList()
   }
@@ -445,6 +458,7 @@ Cascader.propTypes = {
   unmatch: PropTypes.bool,
   getComponentRef: PropTypes.func,
   showArrow: PropTypes.bool,
+  loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
 }
 
 Cascader.defaultProps = {
