@@ -259,7 +259,7 @@ FormItemStandardProps<T>,
    *
    * default: -
    */
-  innerTitle?: string;
+  innerTitle?: ReactNode;
 }
 
 declare class DatePicker extends React.Component<DatePickerProps, {}> {

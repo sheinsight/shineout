@@ -178,7 +178,7 @@ FormItemStandardProps<Value> {
    *
    * default: -
    */
-  innerTitle?: string;
+  innerTitle?: ReactNode;
 
 
   /**

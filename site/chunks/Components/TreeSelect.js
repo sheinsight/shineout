@@ -67,6 +67,15 @@ const examples = [
     component: require('doc/pages/components/TreeSelect/example-05-loader.js').default,
     rawText: require('!raw-loader!doc/pages/components/TreeSelect/example-05-loader.js'),
   },
+  {
+    name: '06-innertitle',
+    title: locate(
+      '内嵌标题 \n 使用 innerTitle 展示内嵌标题',
+      'inner title \n use innerTitle to display the inner title'
+    ),
+    component: require('doc/pages/components/TreeSelect/example-06-innertitle.js').default,
+    rawText: require('!raw-loader!doc/pages/components/TreeSelect/example-06-innertitle.js'),
+  },
 ]
 
 const codes = undefined

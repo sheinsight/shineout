@@ -300,6 +300,7 @@ export default class TreeSelect extends PureComponent {
       filterText,
       result,
       renderUnmatched,
+      innerTitle,
     } = this.props
     const className = treeSelectClass(
       'inner',
@@ -337,6 +338,7 @@ export default class TreeSelect extends PureComponent {
           setInputReset={this.setInputReset}
           compressed={compressed}
           renderUnmatched={renderUnmatched}
+          innerTitle={innerTitle}
         />
         {this.renderTreeOptions()}
       </div>
@@ -377,6 +379,7 @@ TreeSelect.propTypes = {
   zIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   renderUnmatched: PropTypes.func,
   onCollapse: PropTypes.func,
+  innerTitle: PropTypes.node,
 }
 
 TreeSelect.defaultProps = {

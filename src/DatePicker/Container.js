@@ -552,7 +552,7 @@ Container.propTypes = {
   disabledTime: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   align: PropTypes.oneOf(['left', 'right', 'center']),
   clearWithUndefined: PropTypes.bool,
-  innerTitle: PropTypes.string,
+  innerTitle: PropTypes.node,
 }
 
 Container.defaultProps = {

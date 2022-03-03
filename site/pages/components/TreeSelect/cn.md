@@ -39,3 +39,4 @@ TreeSelect 用来选择树形数据结构，若需要非关联树形结构选择
 | unmatch | boolean | 无 | 是否展示data中不存在的值 |
 | underline | boolean | false | 是否只展示下边框 |
 | onAdvancedFilter | (text: string) => (data: any) => boolean | 无 | 高级筛选模式，可针对当前层级在筛选结果和原始数据间切换 |
+| innerTitle | string | - | 内嵌标题 |

@@ -180,7 +180,7 @@ Input.propTypes = {
   forwardedRef: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,
-  innerTitle: PropTypes.string,
+  innerTitle: PropTypes.node,
   inputFocus: PropTypes.bool,
 }
 

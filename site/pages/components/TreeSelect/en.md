@@ -37,3 +37,4 @@
 | unmatch | boolean | none | render unmatch value |
 | underline | boolean | false | only display border bottom  |
 | onAdvancedFilter | (text: string) => (data: any) => boolean | 无 | In the advanced filter mode, you can switch between the filter results and the original data for the current level by pressing the button |
+| innerTitle | string | - | inner title |

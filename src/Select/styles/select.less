@@ -7,7 +7,7 @@
 @checkinput-prefix: ~'@{so-prefix}-checkinput';
 @tree-prefix: ~'@{so-prefix}-tree';
 @tree-node-max-width: 300px;
-@indicator-start: 8px;
+@indicator-start: 7px;
 
 .@{select-prefix} {
   position: relative;
@@ -554,7 +554,7 @@
     }
   }
   &-small {
-    .@{select-prefix}-title-box .@{select-prefix}-result {
+    .@{select-prefix}-title-box-title, .@{select-prefix}-title-box .@{select-prefix}-result {
       padding: @title-padding-small-vertical @title-padding-small-horizontal+12 0 @title-padding-small-horizontal;
       .@{input-prefix}-rtl & ,@{select-prefix}-rtl & {
         padding: @title-padding-small-vertical @title-padding-small-horizontal 0 @title-padding-small-horizontal + 12;
@@ -562,12 +562,6 @@
     }
   }
 
-  &-small &-title-box-title {
-    padding: @title-padding-small-vertical @title-padding-small-horizontal+12 0 @title-padding-small-horizontal;
-    .@{input-prefix}-rtl & ,@{select-prefix}-rtl & {
-      padding: @title-padding-small-vertical @title-padding-small-horizontal 0 @title-padding-small-horizontal + 12;
-    }
-  }
   &-small &-title-box &-result {
     .@{select-prefix}-item,
     .@{select-prefix}-ellipsis,
@@ -721,8 +715,8 @@
     top: 0;
     left: 0;
     .@{input-prefix}-rtl & ,@{select-prefix}-rtl & {
-      right: auto;
-      left: 8px;
+      left: auto;
+      right: 0;
     }
 
   }
