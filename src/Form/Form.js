@@ -49,7 +49,13 @@ class Form extends Component {
 
   componentDidMount() {
     const { formRef } = this.props
-    if (formRef) formRef(this.form)
+    if (formRef) {
+      if (typeof formRef === 'function') {
+        formRef(this.form)
+      } else {
+        formRef.current = this.form
+      }
+    }
     this.setStatus()
     if (this.element) {
       this.element.addEventListener('submit', this.handleSubmit)

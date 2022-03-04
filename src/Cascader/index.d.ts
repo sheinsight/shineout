@@ -172,7 +172,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    */
 
-  getComponentRef?: (comp: componentRef )=> void;
+  getComponentRef?: (comp: componentRef )=> void | {current?: componentRef};
 }
 
 interface componentRef  {
