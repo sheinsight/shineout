@@ -136,7 +136,9 @@ class Thead extends PureComponent {
         >
           <div className={tableClass(col.sorter && 'has-sorter')}>
             <span>{typeof col.title === 'function' ? col.title(data) : col.title}</span>
-            {col.sorter && <Sorter {...col} current={sorter} onChange={onSortChange} />}
+            {col.sorter && (
+              <Sorter {...col} current={sorter} onChange={onSortChange} renderSorter={this.props.renderSorter} />
+            )}
             {resize}
           </div>
         </th>
@@ -235,6 +237,7 @@ Thead.propTypes = {
   treeColumnsName: PropTypes.string,
   treeCheckAll: PropTypes.bool,
   colgroup: PropTypes.array,
+  renderSorter: PropTypes.func,
 }
 
 Thead.defaultProps = {
