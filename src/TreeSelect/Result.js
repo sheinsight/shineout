@@ -8,6 +8,7 @@ import { isEmpty, isObject } from '../utils/is'
 import Input from './Input'
 import Caret from '../icons/Caret'
 import More, { getResetMore } from '../Select/More'
+import InputTitle from '../InputTitle'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -208,21 +209,36 @@ class Result extends PureComponent {
   render() {
     const showPlaceholder = this.props.result.length === 0
     const result = showPlaceholder ? this.renderPlaceholder() : this.renderResult()
-    const { compressed } = this.props
+    const { compressed, innerTitle, focus, onFilter } = this.props
+    const open = (onFilter && focus) || !showPlaceholder
     return (
-      <div
-        ref={this.bindResult}
-        className={treeSelectClass('result', compressed && 'compressed', showPlaceholder && 'empty')}
-      >
-        {result}
-        {!this.props.multiple && (
-          // eslint-disable-next-line
-          <a tabIndex={-1} className={treeSelectClass('indicator', 'caret')}>
-            {<Caret />}
-          </a>
+      <InputTitle
+        innerTitle={innerTitle}
+        open={open}
+        className={treeSelectClass('title-box')}
+        titleClass={treeSelectClass(
+          'title-box-title',
+          showPlaceholder && 'title-box-title-empty',
+          compressed && 'title-box-title-compressed'
         )}
-        {this.renderClear()}
-      </div>
+      >
+        <div
+          ref={this.bindResult}
+          className={classnames(
+            treeSelectClass('result', compressed && 'compressed', showPlaceholder && 'empty'),
+            inputClass(innerTitle && 'title-box-hidable')
+          )}
+        >
+          {result}
+          {!this.props.multiple && (
+            // eslint-disable-next-line
+            <a tabIndex={-1} className={treeSelectClass('indicator', 'caret')}>
+              {<Caret />}
+            </a>
+          )}
+          {this.renderClear()}
+        </div>
+      </InputTitle>
     )
   }
 }
@@ -242,6 +258,7 @@ Result.propTypes = {
   setInputReset: PropTypes.func,
   compressed: PropTypes.bool,
   renderUnmatched: PropTypes.func,
+  innerTitle: PropTypes.node,
 }
 
 export default Result

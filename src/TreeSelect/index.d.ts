@@ -297,6 +297,15 @@ export interface TreeSelectProps<Value, Data> extends StandardProps,
    * default: -
    */
   unmatch?: boolean;
+
+  /**
+   * inner title
+   *
+   * 内嵌标题
+   *
+   * default: -
+   */
+  innerTitle?: ReactNode;
 }
 
 
