@@ -627,7 +627,7 @@ Select.propTypes = {
   reFocus: PropTypes.bool,
   header: PropTypes.node,
   maxLength: PropTypes.number,
-  innerTitle: PropTypes.string,
+  innerTitle: PropTypes.node,
 }
 
 Select.defaultProps = {

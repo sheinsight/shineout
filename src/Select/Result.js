@@ -233,10 +233,7 @@ class Result extends PureComponent {
     }
 
     return (
-      <span
-        key="placeholder"
-        className={classnames(inputClass('placeholder', 'title-box-hideable'), selectClass('ellipsis'))}
-      >
+      <span key="placeholder" className={classnames(inputClass('placeholder'), selectClass('ellipsis'))}>
         <span>{this.props.placeholder}</span>
         &nbsp;
       </span>
@@ -324,11 +321,14 @@ class Result extends PureComponent {
       >
         <div
           ref={this.bindResult}
-          className={selectClass(
-            'result',
-            compressed && 'compressed',
-            showPlaceholder && 'empty',
-            clearEl && 'result-clearable'
+          className={classnames(
+            selectClass(
+              'result',
+              compressed && 'compressed',
+              showPlaceholder && 'empty',
+              clearEl && 'result-clearable'
+            ),
+            inputClass(innerTitle && 'title-box-hidable')
           )}
         >
           {rtl ? inner.reverse() : inner}
@@ -363,7 +363,7 @@ Result.propTypes = {
   compressedClassName: PropTypes.string,
   resultClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   maxLength: PropTypes.number,
-  innerTitle: PropTypes.string,
+  innerTitle: PropTypes.node,
 }
 
 export default Result

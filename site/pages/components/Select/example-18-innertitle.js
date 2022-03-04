@@ -2,7 +2,7 @@
  * cn - 内嵌标题
  *    -- 使用 innerTitle 展示内嵌标题
  * en - inner title
- *    -- -- use innerTitle to display the inner title
+ *    -- use innerTitle to display the inner title
  */
 import React from 'react'
 import { Select } from 'shineout'

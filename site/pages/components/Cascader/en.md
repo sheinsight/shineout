@@ -34,3 +34,4 @@
 | getComponentRef | (componentRef: any) => void  | without | A reference to the binding component, you can call some component methods |
 | showArrow | boolean | true | show dropdown arrow, only single select |
 | filterSameChange | boolean | false | filter out value change callbacks with the same value |
+| loading | boolean \| ReactNode | none | Dropdown list loading state |
