@@ -155,6 +155,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    * default: -
    */
    unmatch?: boolean;
+  
   /**
    * show dropdown arrow, only single select
    *
@@ -172,7 +173,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *  default: -
    *
    */
-  getComponentRef?: (comp: componentRef )=> void;
+  getComponentRef?: (comp: componentRef )=> void | {current?: componentRef};
 
   /**
    *  dropdown list loading state
