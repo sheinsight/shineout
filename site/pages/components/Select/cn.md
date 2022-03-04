@@ -55,3 +55,4 @@
 | hideCreateOption | boolean | false | 在使用创建选项时，在选项列表中隐藏该选项，回车后直接选中该值 |
 | underline | boolean | false | 是否只展示下边框 |
 | innerTitle | string | - | 内嵌标题 |
+| filterSameChange | boolean | false | 过滤掉具有相同值的onChange回调 |

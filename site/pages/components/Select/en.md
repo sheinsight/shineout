@@ -55,3 +55,4 @@
 | hideCreateOption | boolean | false | hide the creat option while set onCreate |
 | underline | boolean | false | only display border bottom  |
 | innerTitle | string | - | inner title |
+| filterSameChange | boolean | false | filter out value change callbacks with the same value |
