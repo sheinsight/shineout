@@ -59,6 +59,7 @@ export default curry(Origin =>
         error: PropTypes.object,
         readOnly: PropTypes.bool,
         disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+        filterSameChange: PropTypes.bool,
       }
 
       static defaultProps = {
@@ -250,12 +251,11 @@ export default curry(Origin =>
       }
 
       handleChange(value, ...args) {
-        const { formDatum, name, fieldSetValidate, onChange } = this.props
+        const { formDatum, name, fieldSetValidate, onChange, filterSameChange } = this.props
         const currentValue = this.getValue()
-        if (args.length === 0 && shallowEqual(value, currentValue)) {
+        if ((args.length === 0 || filterSameChange) && shallowEqual(value, currentValue)) {
           return
         }
-
         const beforeChange = beforeValueChange(this.props.beforeChange)
         if (formDatum && name) {
           value = beforeChange(value, formDatum)

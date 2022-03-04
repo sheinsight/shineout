@@ -70,6 +70,15 @@ export interface FormItemStandardProps<Value = any> {
      * default: -
      */
     onChange?: (value: Value, ...rest: any) => void;
+
+    /**
+     * filter out value change callbacks with the same value
+     *
+     * 过滤掉相同值的回调
+     *
+     * default: false
+     */
+    filterSameChange?: boolean;
 }
 export interface ListItemStandardProps<Item = any, Value = any> {
     /**
