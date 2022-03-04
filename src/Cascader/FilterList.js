@@ -6,6 +6,7 @@ import { Component } from '../component'
 import { getFlattenTree } from '../utils/tree'
 import { selectClass } from '../Select/styles'
 import { cascaderClass } from './styles'
+import Spin from '../Spin'
 
 class FilterItem extends Component {
   static propTypes = {
@@ -101,6 +102,7 @@ class FilterList extends Component {
     filterText: PropTypes.string,
     onFilter: PropTypes.func,
     height: PropTypes.number,
+    loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
   }
 
   getKey(path) {
@@ -109,13 +111,17 @@ class FilterList extends Component {
   }
 
   renderList() {
-    const { data, childrenKey, height, ...others } = this.props
+    const { data, childrenKey, height, loading, ...others } = this.props
     const list = getFlattenTree(data, childrenKey)
     return (
       <div className={cascaderClass('filter-list')} style={{ maxHeight: height }}>
-        {list.map(path => (
-          <FilterItem key={this.getKey(path)} {...others} data={path} />
-        ))}
+        {loading ? (
+          <div className={cascaderClass('list-loading')}>
+            {typeof loading === 'boolean' ? <Spin size={20} /> : loading}
+          </div>
+        ) : (
+          list.map(path => <FilterItem key={this.getKey(path)} {...others} data={path} />)
+        )}
       </div>
     )
   }

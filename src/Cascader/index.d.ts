@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { StandardProps, FormItemStandardProps, StructDataStandardProps, keyType, RegularAttributes } from '../@types/common'
+import { ReactNode } from "react"
 
 export interface CascaderProps<Item, Value> extends StandardProps, FormItemStandardProps<Value>, StructDataStandardProps<Item>  {
   /**
@@ -154,6 +155,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    * default: -
    */
    unmatch?: boolean;
+  
   /**
    * show dropdown arrow, only single select
    *
@@ -171,8 +173,17 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *  default: -
    *
    */
-
   getComponentRef?: (comp: componentRef )=> void | {current?: componentRef};
+
+  /**
+   *  dropdown list loading state
+   *
+   *  下拉列表加载状态
+   *
+   *  default: -
+   *
+   */
+  loading?: boolean | ReactNode;
 }
 
 interface componentRef  {

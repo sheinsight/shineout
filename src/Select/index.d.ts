@@ -375,7 +375,7 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
    *
    * default: -
    */
-  innerTitle?: string;
+  innerTitle?: ReactNode;
 }
 
 declare class Select<Item = any, Value = any> extends React.Component<SelectProps<Item, Value>, {}> {}

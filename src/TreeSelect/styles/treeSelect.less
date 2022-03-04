@@ -4,7 +4,9 @@
 @treeSelect-prefix: ~'@{so-prefix}-treeSelect';
 @tree-prefix: ~'@{so-prefix}-tree';
 @input-prefix: ~'@{so-prefix}-input';
+@input-title-prefix:  ~'@{so-prefix}-input-title-box';
 @tree-node-max-width: 300px;
+@indicator-start: 7px;
 
 .@{treeSelect-prefix} {
   position: relative;
@@ -50,6 +52,13 @@
 
   }
 
+  &-title-box-title, &-title-box &-result {
+    padding: @title-padding-base-vertical @title-padding-base-horizontal+12 0 @title-padding-base-horizontal;
+    .@{input-prefix}-rtl &,  @{treeSelect-prefix}-rtl &{
+      padding: @title-padding-base-vertical @title-padding-base-horizontal 0 @title-padding-base-horizontal + 12;
+    }
+  }
+
   &-result {
     cursor: pointer;
     display: flex;
@@ -58,6 +67,9 @@
     flex-flow: wrap;
     flex-grow: 1;
     padding: @padding-base-vertical @padding-base-horizontal+12 0 @padding-base-horizontal;
+    .@{input-prefix}-rtl &,  @{treeSelect-prefix}-rtl &{
+      padding: @padding-base-vertical @padding-base-horizontal 0 @padding-base-horizontal + 12;
+    }
 
     span {
       display: inline-block;
@@ -105,6 +117,11 @@
       border-radius: @select-result-border-radius;
       color: inherit;
       text-overflow: ellipsis;
+      .@{input-prefix}-rtl &,  @{treeSelect-prefix}-rtl &{
+        padding: @select-result-padding-vertical @select-result-space @select-result-padding-vertical @select-result-space-16;
+        margin-left: @select-result-space;
+        margin-right: 0
+      }
 
       &-compressed {
         padding: 0 8px;
@@ -123,14 +140,23 @@
       }
 
       &.@{treeSelect-prefix}-disabled {
-        padding-right: @select-result-space;
         cursor: not-allowed;
+        &:not(.@{input-prefix}-rtl *):not(.@{treeSelect-prefix}-rtl *){
+          padding-right: @select-result-space;
+        }
+        .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+          padding-left: @select-result-space;
+        }
       }
 
       .@{treeSelect-prefix}-close {
         right: @select-result-space;
         display: block;
         background-color: transparent;
+        .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+          left: @select-result-space;
+          right: auto;
+        }
 
         &:before,
         &:after {
@@ -150,6 +176,14 @@
     }
   }
 
+  &-title-box {
+    .@{treeSelect-prefix}-item,
+    .@{treeSelect-prefix}-ellipsis,
+    .@{treeSelect-prefix}-input {
+      margin-bottom: @title-padding-base-vertical;
+    }
+  }
+
   &-compressed {
     display: flex;
     flex-direction: row;
@@ -159,7 +193,12 @@
     width: 0;
 
     .@{treeSelect-prefix}-ban {
-      padding-right: @select-result-space;
+      &:not(.@{input-prefix}-rtl *):not(.@{treeSelect-prefix}-rtl *){
+        padding-right: @select-result-space;
+      }
+      .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+        padding-left: @select-result-space;
+      }
     }
     .@{treeSelect-prefix}-input {
       white-space: nowrap;
@@ -182,21 +221,34 @@
     width: 18px;
     height: 18px;
     transform: translate(0, -50%);
+    .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+      right: auto;
+      left: 7px;
+      z-index: 1;
+    }
 
     .@{treeSelect-prefix}-indicator {
       right: 2px;
+      .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+        left: 2px;
+        right: auto;
+      }
     }
   }
 
   &-indicator {
     position: absolute;
     top: 50%;
-    right: 7px;
+    right: @indicator-start;
     display: block;
     width: 12px;
     height: 12px;
     color: @gray-500;
     transform: translate(0, -50%);
+    .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+      right: auto;
+      left: @indicator-start;
+    }
 
     &.@{treeSelect-prefix}-close {
       box-sizing: content-box;
@@ -216,7 +268,8 @@
   }
 
   &-focus &-close,
-  &-result:hover &-close {
+  &-result:hover &-close,
+  &-title-box:hover &-close {
     display: block;
   }
 
@@ -231,6 +284,10 @@
     background: @dropdown-bg;
     //background-clip: padding-box;
     border-radius: @input-dropdown-border-radius;
+    .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+      left: auto;
+      right: 0;
+    }
 
     .@{treeSelect-prefix}-disabled {
       &,
@@ -279,8 +336,14 @@
 
     .@{treeSelect-prefix}-option {
       display: inline-block;
-      padding-right: @dropdown-padding-x;
-      margin-right: 0;
+      &:not(.@{input-prefix}-rtl *):not(.@{treeSelect-prefix}-rtl *){
+        padding-right: @dropdown-padding-x;
+        margin-right: 0;
+      }
+      .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+        padding-left: @dropdown-padding-x;
+        margin-left: 0;
+      }
     }
 
     .@{treeSelect-prefix}-filter-input {
@@ -329,6 +392,9 @@
     text-overflow: ellipsis;
     transition: none;
     white-space: nowrap;
+    .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+      padding: @dropdown-item-padding-y @dropdown-padding-x @dropdown-item-padding-y @dropdown-padding-x+12;
+    }
 
     &.@{treeSelect-prefix}-active {
       background-color: @select-option-active-bgc;
@@ -396,6 +462,30 @@
     }
   }
 
+  &-small {
+    .@{treeSelect-prefix}-title-box .@{treeSelect-prefix}-result {
+      padding: @title-padding-small-vertical @title-padding-small-horizontal+12 0 @title-padding-small-horizontal;
+      .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+        padding: @title-padding-small-vertical @title-padding-small-horizontal 0 @title-padding-small-horizontal + 12;
+      }
+    }
+  }
+
+  &-small &-title-box-title {
+    padding: @title-padding-small-vertical @title-padding-small-horizontal+12 0 @title-padding-small-horizontal;
+    .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+      padding: @title-padding-small-vertical @title-padding-small-horizontal 0 @title-padding-small-horizontal + 12;
+    }
+  }
+
+  &-small &-title-box &-result {
+    .@{treeSelect-prefix}-item,
+    .@{treeSelect-prefix}-ellipsis,
+    .@{treeSelect-prefix}-input {
+      margin-bottom: @title-padding-small-vertical;
+    }
+  }
+
   &-large &-result {
     padding: @padding-large-vertical @padding-large-horizontal+12 0 @padding-large-horizontal;
 
@@ -406,28 +496,99 @@
     }
   }
 
+  &-large {
+    .@{treeSelect-prefix}-title-box-title, .@{treeSelect-prefix}-title-box .@{treeSelect-prefix}-result{
+      padding: @title-padding-large-vertical @title-padding-large-horizontal+12 0 @title-padding-large-horizontal;
+      .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+        padding: @title-padding-large-vertical @title-padding-large-horizontal 0 @title-padding-large-horizontal + 12;
+      }
+    }
+  }
+
+  &-large &-title-box &-result {
+    .@{treeSelect-prefix}-item,
+    .@{treeSelect-prefix}-ellipsis,
+    .@{treeSelect-prefix}-input {
+      margin-bottom: @title-padding-large-vertical;
+    }
+  }
+
   &-multiple &-result:not(&-empty) {
     padding-left: (@padding-base-horizontal / 2);
     padding-right: @padding-base-horizontal + 22;
+    .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+      padding-right: (@padding-base-horizontal / 2);
+      padding-left: @padding-base-horizontal + 22;
+    }
     a.@{treeSelect-prefix}-close-wrapper {
       right: 17px;
+      .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+        left: 17px;
+        right: auto;
+      }
     }
   }
 
   &-multiple &-compressed:not(&-empty) {
     padding-left: (@padding-base-horizontal / 2);
     padding-right: @padding-base-horizontal + 12;
+    .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+      padding-right: (@padding-base-horizontal / 2);
+      padding-left: @padding-base-horizontal + 12;
+    }
     a.@{treeSelect-prefix}-close-wrapper {
       right: 7px;
+      .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+        left: 7px;
+        right: auto;
+      }
     }
   }
 
+  &-multiple &-title-box &-result:not(&-empty) {
+    &:not(.@{input-prefix}-rtl *):not(.@{treeSelect-prefix}-rtl *){
+      padding-left: @title-padding-base-horizontal;
+    }
+    .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+      padding-right: @title-padding-base-horizontal;
+    }
+
+  }
+
   &-large&-multiple &-result:not(&-empty) {
-    padding-left: (@padding-large-horizontal / 2);
+    &:not(.@{input-prefix}-rtl *):not(.@{treeSelect-prefix}-rtl *){
+      padding-left: (@padding-large-horizontal / 2);
+    }
+    .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+      padding-right: (@padding-large-horizontal / 2);
+    }
+  }
+
+  &-large&-multiple &-title-box &-result:not(&-empty) {
+    &:not(.@{input-prefix}-rtl *):not(.@{treeSelect-prefix}-rtl *){
+      padding-left: @title-padding-large-horizontal;
+    }
+    .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+      padding-right: @title-padding-large-horizontal;
+    }
   }
 
   &-small&-multiple &-result:not(&-empty) {
-    padding-left: (@padding-small-horizontal / 2);
+    &:not(.@{input-prefix}-rtl *):not(.@{treeSelect-prefix}-rtl *){
+      padding-left: (@padding-small-horizontal / 2);
+    }
+    .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+      padding-right: (@padding-small-horizontal / 2);
+    }
+  }
+
+  &-small&-multiple &-title-box  &-result:not(&-empty) {
+    &:not(.@{input-prefix}-rtl *):not(.@{treeSelect-prefix}-rtl *){
+      padding-left: @title-padding-small-horizontal;
+    }
+    .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+      padding-right: @title-padding-small-horizontal;
+    }
   }
 
   &-popover {
@@ -448,46 +609,24 @@
     .@{treeSelect-prefix}-result {
       cursor: not-allowed;
       .@{treeSelect-prefix}-item {
-        padding-right: @select-result-space;
         background: @input-bg-disabled;
-
+        &:not(.@{input-prefix}-rtl *):not(.@{treeSelect-prefix}-rtl *){
+          padding-right: @select-result-space;
+        }
+        .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+          padding-left: @select-result-space;
+        }
         .@{treeSelect-prefix}-close {
           display: none;
         }
       }
     }
   }
+}
 
-
-  &.@{treeSelect-prefix}-rtl,
-  &.@{input-prefix}-rtl {
-    direction: rtl;
-    text-align: right;
-
-    .@{treeSelect-prefix}-result {
-      padding: @padding-base-vertical @padding-base-horizontal 0 @padding-base-horizontal+12;
-
-      .@{treeSelect-prefix}-item {
-        padding: @select-result-padding-vertical @select-result-space @select-result-padding-vertical @select-result-space-16;
-
-        .@{treeSelect-prefix}-close {
-          right: auto;
-          left: @select-result-space;
-        }
-      }
-    }
-
-    .@{treeSelect-prefix}-indicator {
-      left: 7px;
-      right: auto;
-    }
-
-    .@{treeSelect-prefix}-multiple {
-      .@{treeSelect-prefix}-result a.@{treeSelect-prefix}-close-wrapper {
-        right: auto;
-        left: 17px;
-      }
-    }
+.@{treeSelect-prefix}-title-box {
+  > .@{input-prefix}-title-box-content {
+    display: flex;
   }
 }
 
@@ -498,6 +637,10 @@
     top: 0;
     left: 0;
     display: inline-block;
+    .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+      left: auto;
+      right: 0;
+    }
 
     > span {
       position: absolute;
