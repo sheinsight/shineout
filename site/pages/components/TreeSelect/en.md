@@ -38,3 +38,4 @@
 | underline | boolean | false | only display border bottom  |
 | onAdvancedFilter | (text: string) => (data: any) => boolean | 无 | In the advanced filter mode, you can switch between the filter results and the original data for the current level by pressing the button |
 | innerTitle | string | - | inner title |
+| onChangeAddition | ({data, current, checked}) => void | 无 | \onChange additional parameters (current is the data of the clicked node, data is the currently selected data, checked is whether it is selected or canceled in the multi-select state)  |
