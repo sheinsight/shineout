@@ -92,6 +92,15 @@ export default class TreeSelect extends PureComponent {
     return value.length ? value[0] : ''
   }
 
+  getDataByValue(value) {
+    if (value === null || value === undefined) return value
+    const { datum, multiple } = this.props
+    if (multiple) {
+      return value.map(id => datum.getDataById(id))
+    }
+    return datum.getDataById(value)
+  }
+
   getResetPosition(update) {
     this.resetAbsoluteListPosition = update
   }
@@ -183,7 +192,7 @@ export default class TreeSelect extends PureComponent {
   }
 
   handleChange(data, id) {
-    const { datum, multiple, disabled, onChange } = this.props
+    const { datum, multiple, disabled, onChange, onChangeAddition } = this.props
     if (disabled === true || datum.isDisabled(id)) return
     const current = datum.getDataById(id)
     if (!multiple) {
@@ -191,13 +200,26 @@ export default class TreeSelect extends PureComponent {
       datum.set(datum.getKey(data), 1)
       this.handleState(false)
     }
-    onChange(this.getValue(), current, id && datum.getPath(id).path)
+    const value = this.getValue()
+    onChange(value, current, id && datum.getPath(id).path)
+    if (typeof onChangeAddition === 'function') {
+      onChangeAddition({
+        data: this.getDataByValue(value),
+        checked: multiple ? datum.get(id) : undefined,
+        current,
+      })
+    }
   }
 
   handleClear() {
-    const { multiple } = this.props
+    const { multiple, onChangeAddition } = this.props
     this.props.datum.setValue([])
     this.props.onChange(multiple ? [] : '')
+    if (typeof onChangeAddition === 'function') {
+      onChangeAddition({
+        data: multiple ? [] : null,
+      })
+    }
     this.handleState(false)
     this.element.focus()
   }
@@ -377,6 +399,7 @@ TreeSelect.propTypes = {
   zIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   renderUnmatched: PropTypes.func,
   onCollapse: PropTypes.func,
+  onChangeAddition: PropTypes.func,
 }
 
 TreeSelect.defaultProps = {
