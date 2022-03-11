@@ -122,5 +122,12 @@ export const formConsumer = curry((keys, Origin, props) => {
     return cps
   }
 
-  return <Consumer>{value => <Origin {...filterProps(value)} {...props} />}</Consumer>
+  return (
+    <Consumer>
+      {value => {
+        const formProps = filterProps(value)
+        return <Origin {...formProps} {...props} disabled={formProps.disabled || props.disabled} />
+      }}
+    </Consumer>
+  )
 })
