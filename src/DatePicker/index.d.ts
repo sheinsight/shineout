@@ -18,8 +18,10 @@ export interface QuickSelect extends Base {
   value?: Array<DateTimeType> | DateTimeType;
 }
 
+export type FormItemProps<T> = Omit<FormItemStandardProps<T>, 'name'>
+
 export interface DatePickerProps<T =DatePickerValue > extends StandardProps,
-FormItemStandardProps<T>,
+  FormItemProps<T>,
   Pick<CommonProps, 'absolute'> {
 
   /**
@@ -260,6 +262,7 @@ FormItemStandardProps<T>,
    * default: -
    */
   innerTitle?: ReactNode;
+  name: string | string[]
 }
 
 declare class DatePicker extends React.Component<DatePickerProps, {}> {

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import {StandardProps} from '../@types/common'
+import PropTypes from "prop-types"
 
 type ReactNode = React.ReactNode
 
@@ -71,8 +72,21 @@ export interface TagProps extends StandardProps{
 
 }
 
-declare class Tag extends React.Component<TagProps, {}> {
+export interface TagInputProps {
+  value?: string;
+  onBlur?: (value: string, e: EventTarget) => void;
+  onChange?: (value: string) => void;
+  onKeyUp?: (value: string, e: EventTarget) => void;
+  onEnterPress?: (value: string, e: EventTarget) => void;
+  onFocus?: (e: EventTarget) => void;
+}
 
+declare class TagInput extends React.Component<TagInputProps, any> {
+
+}
+
+declare class Tag extends React.Component<TagProps, {}> {
+  static Input : typeof TagInput
   render(): JSX.Element;
 }
 

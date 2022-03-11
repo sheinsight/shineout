@@ -33,7 +33,7 @@ const cssConfig = config.themes.map(name =>
     entry: [
       `webpack-dev-server/client?http://localhost:${config.dev.webpackPort}`,
       'webpack/hot/only-dev-server',
-      './src/styles/normalize.less',
+      // './src/styles/normalize.less',
       './src/styles/expose.js',
       ...css,
       // './src/styles/index.js',

@@ -1,3 +1,4 @@
+import '../../styles/normalize.less'
 import resizableLess from './resizable.less'
 import moveableLess from './moveable.less'
 import hidableLess from './hidable.less'

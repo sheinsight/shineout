@@ -1,3 +1,4 @@
+import '../../styles/normalize.less'
 import GapLess from './gap.less'
 import genaration from '../../utils/classname'
 
