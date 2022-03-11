@@ -529,6 +529,7 @@ class SeperateTable extends PureComponent {
             <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable && this.lastScrollArgs[4]} />
             <Tbody
               {...others}
+              bordered={bordered}
               columns={columns}
               onBodyRender={this.handleColgroup}
               index={currentIndex}
@@ -550,12 +551,12 @@ class SeperateTable extends PureComponent {
   }
 
   renderHeader(floatClass) {
-    const { columns, width, onResize, columnResizable, sticky } = this.props
+    const { columns, width, onResize, columnResizable, sticky, bordered } = this.props
     const { colgroup } = this.state
 
     const header = (
       <div key="head" className={tableClass('head', ...floatClass)} ref={this.bindHeadWrapper}>
-        <table style={{ width }} ref={this.bindThead} className={tableClass('table-bordered')}>
+        <table style={{ width }} ref={this.bindThead} className={tableClass(bordered && 'table-bordered')}>
           <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable && this.lastScrollArgs[4]} />
           <Thead {...this.props} colgroup={colgroup} onSortChange={this.handleSortChange} onColChange={onResize} />
         </table>

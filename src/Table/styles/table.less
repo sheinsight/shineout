@@ -269,16 +269,10 @@
       z-index: 100;
     }
 
-    .@{table-prefix}-ignore-right-border {
-      border-right: none;
 
-      &:before {
-        display: none;
-      }
-    }
 
     .@{table-prefix}-head {
-      table {
+      .@{table-prefix}-table-bordered {
         border-bottom-width: @table-head-border - 1;
       }
     }
@@ -303,9 +297,32 @@
       > thead + tbody > tr:first-child > td {
         border-top-width: @table-head-border - 1;
       }
+      .@{table-prefix}-ignore-right-border {
+        border-right: none;
+
+        &:before {
+          display: none;
+        }
+      }
+      .@{table-prefix}-fixed-right,
+      .@{table-prefix}-fixed-left {
+        border-right: 0;
+        z-index: 1;
+        &:before {
+          bottom: -1px;
+          position: absolute;
+          content: ' ';
+          background: @table-border-color;
+          height: 100%;
+          width: 1px;
+          top: 0;
+          right: 0;
+          z-index: 10;
+        }
+      }
     }
 
-    .@{table-prefix}-body table {
+    .@{table-prefix}-body .@{table-prefix}-table-bordered {
       border-top-width: 0;
     }
 
@@ -315,23 +332,6 @@
       }
       &:after {
         bottom: -1px;
-      }
-    }
-
-    .@{table-prefix}-fixed-right,
-    .@{table-prefix}-fixed-left {
-      border-right: 0;
-      z-index: 1;
-      &:before {
-        bottom: -1px;
-        position: absolute;
-        content: ' ';
-        background: @table-border-color;
-        height: 100%;
-        width: 1px;
-        top: 0;
-        right: 0;
-        z-index: 10;
       }
     }
 
