@@ -149,6 +149,7 @@ class SimpleTable extends PureComponent {
             columns={columns}
             onBodyRender={this.handleColgroup}
             resize={resize}
+            bordered={bordered}
             {...others}
           />
         </table>
