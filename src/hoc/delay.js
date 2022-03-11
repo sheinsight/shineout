@@ -45,6 +45,7 @@ export default curry(
         this.setState({ value })
 
         this.changeLocked = true
+        this.forceUpdate()
         if (this.changeTimer) clearTimeout(this.changeTimer)
         this.changeTimer = setTimeout(() => {
           this.changeLocked = false
