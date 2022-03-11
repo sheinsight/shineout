@@ -1,3 +1,4 @@
+import '../../styles/normalize.less'
 import formLess from './form.less'
 import genaration from '../../utils/classname'
 
