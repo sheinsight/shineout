@@ -7,6 +7,11 @@ import Popover from '../Popover'
 import { editableAreaClass } from './styles'
 import icons from '../icons'
 import { focusElement, getParent } from '../utils/dom/element'
+import { inputClass } from '../Input/styles'
+import InputTitle from '../InputTitle'
+import { inputTitleClass } from '../InputTitle/styles'
+
+const noop = () => {}
 
 function formatShowValue(value) {
   if (!value && value !== 0) return ''
@@ -26,6 +31,7 @@ class Editable extends React.PureComponent {
     this.bindContainer = this.bindElement.bind(this, 'container')
     this.bindInput = this.bindElement.bind(this, 'input')
     this.renderInput = this.renderInput.bind(this)
+    this.renderPlace = this.renderPlace.bind(this)
     this.renderTextarea = this.renderTextarea.bind(this)
     this.onChange = this.onChange.bind(this)
     this.onBlur = this.onBlur.bind(this)
@@ -54,11 +60,20 @@ class Editable extends React.PureComponent {
     if (typeof onBlur === 'function') onBlur(e)
   }
 
+  getErrorProps() {
+    const p = {}
+    if ('error' in this.props) p.error = this.props.error
+    return p
+  }
+
   updateShowTextarea(flag) {
     if (flag && this.input) {
       this.width = getParent(this.input, `.${editableAreaClass('input')}`).offsetWidth
     }
     this.setState({ showTextarea: flag })
+    if (this.props.onShowTextareaChange) {
+      this.props.onShowTextareaChange(flag)
+    }
   }
 
   handleFocus(e) {
@@ -78,7 +93,7 @@ class Editable extends React.PureComponent {
 
   renderTextarea() {
     const { showTextarea } = this.state
-    const { placeholder, maxHeight, value } = this.props
+    const { placeholder, maxHeight, value, innerTitle, placeTitle, renderFooter } = this.props
     if (!showTextarea) return null
 
     return (
@@ -86,6 +101,8 @@ class Editable extends React.PureComponent {
         <Textarea
           className={editableAreaClass('text-area')}
           autosize
+          innerTitle={innerTitle}
+          placeTitle={placeTitle}
           value={value}
           rows={1}
           delay={0}
@@ -94,23 +111,58 @@ class Editable extends React.PureComponent {
           onFocus={this.handleFocus}
           placeholder={placeholder}
           maxHeight={maxHeight}
+          renderFooter={renderFooter}
+          {...this.getErrorProps()}
         />
       </div>
     )
   }
 
+  renderResult() {
+    const { placeholder, disabled, value, renderResult, placeTitle, innerTitle, error } = this.props
+    const result = renderResult(value)
+    return (
+      <div
+        tabIndex={disabled ? undefined : 0}
+        className={classnames(editableAreaClass('input'), inputClass('_', error && 'invalid', disabled && 'disabled'))}
+        onFocus={this.showPop}
+      >
+        <InputTitle placeTitle={placeTitle} innerTitle={innerTitle} open={!!value}>
+          <div
+            className={classnames(inputClass('spare'), innerTitle && inputTitleClass('hidable'))}
+            ref={this.bindInput}
+          >
+            {result || <div className={inputClass('placeholder')}>{placeholder || <br />}</div>}
+          </div>
+        </InputTitle>
+      </div>
+    )
+  }
+
   renderInput() {
-    const { placeholder, disabled, value } = this.props
+    const { placeholder, disabled, value, innerTitle, placeTitle } = this.props
     return (
       <Input
+        innerTitle={innerTitle}
+        placeTitle={placeTitle}
         forwardedRef={this.bindInput}
         placeholder={placeholder}
         value={formatShowValue(value)}
+        onChange={noop}
         className={editableAreaClass('input')}
         onFocus={this.showPop}
         disabled={disabled}
+        {...this.getErrorProps()}
       />
     )
+  }
+
+  renderPlace() {
+    const { renderResult } = this.props
+    if (renderResult && typeof renderResult === 'function') {
+      return this.renderResult()
+    }
+    return this.renderInput()
   }
 
   render() {
@@ -121,7 +173,7 @@ class Editable extends React.PureComponent {
     const popStyle = { width: this.width }
     return (
       <div className={cls} style={ms}>
-        {this.renderInput()}
+        {this.renderPlace()}
         <Popover
           visible={showTextarea}
           showArrow={false}
@@ -152,7 +204,6 @@ Editable.propTypes = {
   value: PropTypes.string,
   style: PropTypes.object,
   className: PropTypes.string,
-  delay: PropTypes.number,
   bordered: PropTypes.bool,
   placeholder: PropTypes.string,
   onFocus: PropTypes.func,
@@ -161,6 +212,12 @@ Editable.propTypes = {
   getPopupContainer: PropTypes.func,
   maxHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  innerTitle: PropTypes.node,
+  placeTitle: PropTypes.node,
+  renderFooter: PropTypes.func,
+  renderResult: PropTypes.func,
+  onShowTextareaChange: PropTypes.func,
+  error: PropTypes.object,
 }
 
 export default Editable

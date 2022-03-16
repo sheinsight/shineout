@@ -1,0 +1,83 @@
+@import '../../styles/variables.less';
+@import '../../styles/themes/@{so-theme}.less';
+
+@input-title-prefix: ~'@{so-prefix}-input-title-box';
+@input-prefix: ~'@{so-prefix}-input';
+@select-prefix: ~'@{so-prefix}-select';
+@datepicker-prefix: ~'@{so-prefix}-datepicker';
+
+
+
+.@{input-title-prefix} {
+  position: relative;
+  width: 100%;
+  &:not(&-open) &-hidable {
+    opacity: 0;
+  }
+  &-title {
+    color: @input-color-placeholder;
+    font-size: @input-size-placeholder;
+    padding: @title-padding-base-vertical @title-padding-base-horizontal;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  &-top{visibility: hidden; padding-bottom: 0!important;}
+  &-place {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    pointer-events:none;
+    > div {
+      flex-grow: 1;
+      width: 0;
+    }
+  }
+  &:not(&-open) &-hideable {opacity: 0;}
+  &:hover + .@{input-prefix}-clear-wrapper {display: block;}
+  &-content > &-hidable
+  {padding: @title-padding-base-vertical @title-padding-base-horizontal;}
+  & &-hidable {padding-top: 0!important;}
+}
+.@{input-title-prefix}-open {
+  .@{input-title-prefix}-top.@{input-title-prefix}-title {visibility: visible;}
+  .@{input-title-prefix}-place {display: none;}
+}
+
+.@{input-prefix}-small {
+  .@{input-title-prefix} {
+    &-title {
+      padding: @title-padding-small-vertical @title-padding-small-horizontal;
+      font-size: @font-size-small;
+    }
+    &-content > &-hidable{
+      padding: @title-padding-small-vertical @title-padding-small-horizontal;
+    }
+  }
+}
+.@{input-prefix}-large {
+  .@{input-title-prefix} {
+    line-height: 24px;
+    &-title {
+      padding: @title-padding-large-vertical @title-padding-large-horizontal;
+      font-size: @font-size-large;
+    }
+    &-content > &-hidable{
+      padding: @title-padding-large-vertical @title-padding-large-horizontal;
+    }
+  }
+}
+.@{datepicker-prefix}-inner-title {
+  .@{input-title-prefix} {
+    &-title {
+      padding: 0!important;
+    }
+  }
+}
+
+
+

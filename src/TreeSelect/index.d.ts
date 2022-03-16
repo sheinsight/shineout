@@ -160,6 +160,19 @@ export interface TreeSelectProps<Value, Data> extends StandardProps,
   onChange?: (value: Value[]) => void;
 
   /**
+   * onChange additional parameters (current is the data of the clicked node, data is the currently selected data, checked is whether it is selected or canceled in the multi-select state)
+   *
+   * onChange 额外参数 (current 为点击的节点的数据， data为当前选中的数据， checked为多选状态下是选中还是取消)
+   *
+   * default: -
+   */
+  onChangeAddition?: (params: {
+    current?: Data
+    checked?: 0 | 1
+    data?: Data | Data[] | null
+  }) => void;
+
+  /**
    * When the onFilter is not empty, you can filter data by input. If the onFilter returns a function, use this function as a front-end filter. If return undefined, you can do your own backend filtering.
    *
    * onFilter 不为空时，可以输入过滤数据。 onFilter 如果返回一个函数，使用这个函数做前端过滤。 如果不返回，可以自行做后端过滤
@@ -284,6 +297,15 @@ export interface TreeSelectProps<Value, Data> extends StandardProps,
    * default: -
    */
   unmatch?: boolean;
+
+  /**
+   * inner title
+   *
+   * 内嵌标题
+   *
+   * default: -
+   */
+  innerTitle?: ReactNode;
 }
 
 

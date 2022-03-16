@@ -39,6 +39,7 @@
 | align | 'center' \| 'left' \| 'right' | 'center' | 值水平布局方式 |
 | underline | boolean | false | 是否只展示下边框 |
 | clearWithUndefined | boolean | false | 在清空值时抛出是否抛出 undefined |
+| innerTitle | string | - | 内嵌标题 |
 
 
 ### DatePickerFormat

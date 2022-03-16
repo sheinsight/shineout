@@ -15,6 +15,8 @@ export type ColumnFix = 'left' | 'right'
 
 export type ColumnType = 'expand' | 'row-expand' | 'checkbox'
 
+export interface renderSorterParam  {status?: 'asc' | 'desc', triggerAsc: () => void, triggerDesc: () => void}
+
 export interface ColumnItem<T> {
   /**
    * cell align \['left', 'center', 'right'\]
@@ -550,6 +552,15 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    * default: false
    */
  changedByExpand?: boolean
+  
+  /*
+   * customize sort icons
+   *
+   * 自定义排序图标
+   *
+   * default: false
+   */
+  renderSorter?: (params: renderSorterParam) => ReactNode
 
 }
 

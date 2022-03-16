@@ -28,6 +28,7 @@
 | underline | boolean | false | 是否只展示下边框 |
 | onKeyUp | (e: KeyboardEvent) => void | 无 | 键盘按下后弹起回调 |
 | onKeyDown | (e: KeyboardEvent) => void | 无 | 键盘按下后的回调 |
+| innerTitle | string | - | 内嵌标题 |
 
 ### Input.Number
 
@@ -41,5 +42,5 @@
 | digits | number | 无 | 数值的精度 |
 | allowNull | boolean | false | 允许空值 |
 | hideArrow | boolean | false | 是否展示增减按钮 |
-| coin | boolean | false | 以千位分隔符展示 | 
+| coin | boolean | false | 以千位分隔符展示 |
 

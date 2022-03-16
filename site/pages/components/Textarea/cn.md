@@ -23,4 +23,5 @@
 | value | string \| number | | defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖<br />在Form中，value会被表单接管，value无效 |
 | underline | boolean | false | 是否只展示下边框 |
 | disabled  | boolean | false | 是否禁用 |
+| innerTitle | string | - | 内嵌标题 |
 

@@ -63,7 +63,7 @@ class Result extends PureComponent {
   componentDidUpdate(preProps) {
     const { compressed, value = [], onFilter } = this.props
     if (compressed) {
-      if ((preProps.value || []).join('') !== value.join('')) {
+      if ((preProps.value || []).join('') !== (value || []).join('')) {
         this.resetMore()
       } else if (value.length && this.shouldResetMore) {
         this.shouldResetMore = false

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { StandardProps, FormItemStandardProps, CommonProps } from '../@types/common'
+import { ReactNode } from "react"
 
 export type DateTimeType = Date | number | string | undefined
 
@@ -18,8 +19,10 @@ export interface QuickSelect extends Base {
   value?: Array<DateTimeType> | DateTimeType;
 }
 
+export type FormItemProps<T> = Omit<FormItemStandardProps<T>, 'name'>
+
 export interface DatePickerProps<T =DatePickerValue > extends StandardProps,
-FormItemStandardProps<T>,
+  FormItemProps<T>,
   Pick<CommonProps, 'absolute'> {
 
   /**
@@ -251,6 +254,16 @@ FormItemStandardProps<T>,
    * default: none
    */
   onPickerChange?: (value: DatePickerValue, quickSelect: QuickSelect | void, areaType: AreaType) => void;
+
+  /**
+   * inner title
+   *
+   * 内嵌标题
+   *
+   * default: -
+   */
+  innerTitle?: ReactNode;
+  name: string | string[]
 }
 
 declare class DatePicker extends React.Component<DatePickerProps, {}> {

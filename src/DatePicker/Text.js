@@ -29,7 +29,7 @@ class Text extends PureComponent {
       prevProps.focus !== this.props.focus &&
       this.props.focus &&
       this.element &&
-      this.props.focusElement === this.element
+      (this.props.focusElement === this.element || !this.props.focusElement)
     ) {
       focusElement.end(this.element)
     }
@@ -47,14 +47,14 @@ class Text extends PureComponent {
     if (getParent(target, `.${datepickerClass('picker')}`)) return
     if (txt === value) return
     if (txt.trim().length === 0) {
-      onChange(undefined, index)
+      onChange(undefined, index, e)
     } else {
       const newValue = utils.toDateWithFormat(txt, format, undefined)
       // if translate fail, clear
       if (!newValue) {
         this.element.innerText = null
       }
-      onChange(newValue, index)
+      onChange(newValue, index, e)
     }
   }
 

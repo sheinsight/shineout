@@ -104,6 +104,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-10-sort-default.js'),
   },
   {
+    name: '10-sort-render',
+    title: locate(
+      '自定义排序图标 \n 设置 Table 的 renderSorter 属性来自定义图标',
+      'Sorter \n Set the renderSorter property of the Table to customize the icon.'
+    ),
+    component: require('doc/pages/components/Table/example-10-sort-render.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-10-sort-render.js'),
+  },
+  {
     name: '10-sort-weight',
     title: locate(
       '多列排序 \n 设置 column 的 sorter 为一个对象，对象的rule属性同单列排序的sorter，weight表示排序权重，值越大表示排序优先级越高 \n 支持多列默认排序，为需要默认排序的列设置defaultOrder \n sorter 返回一个 sort 函数时，使用这个函数对数据进行内部排序 \n 后端或自行排序用户自行处理，sorter 函数不要返回结果',

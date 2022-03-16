@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { inputTitleClass } from '../InputTitle/styles'
 import cleanProps from '../utils/cleanProps'
 import Clear from './clear'
 import { inputClass } from './styles'
+import InputTitle from '../InputTitle'
 
 class Input extends PureComponent {
   constructor(props) {
@@ -126,26 +128,35 @@ class Input extends PureComponent {
       forceChange,
       onEnterPress,
       forwardedRef,
+      innerTitle,
+      inputFocus,
       ...other
     } = this.props
     const value = this.props.value == null ? '' : this.props.value
     const showClear = !other.disabled && clearable && value !== ''
-    const mc = classnames(className, showClear && inputClass('clearable'))
-
+    const mc = classnames(className, showClear && inputClass('clearable'), innerTitle && inputTitleClass('hidable'))
+    const isNumber = className && className.indexOf(inputClass('number')) > -1
     return [
-      <input
-        {...cleanProps(other)}
-        className={mc || undefined}
-        name={other.name || htmlName}
-        type={type === 'password' ? type : 'text'}
-        value={value}
-        ref={this.bindRef}
+      <InputTitle
+        className={isNumber ? inputClass('number-title-box') : undefined}
         key="input"
-        onChange={this.handleChange}
-        onKeyDown={this.handleKeyDown}
-        onKeyUp={this.handleKeyUp}
-        onBlur={this.handleBlur}
-      />,
+        innerTitle={innerTitle}
+        open={!!inputFocus || !!value}
+      >
+        <input
+          {...cleanProps(other)}
+          className={mc || undefined}
+          name={other.name || htmlName}
+          type={type === 'password' ? type : 'text'}
+          value={value}
+          ref={this.bindRef}
+          key="input"
+          onChange={this.handleChange}
+          onKeyDown={this.handleKeyDown}
+          onKeyUp={this.handleKeyUp}
+          onBlur={this.handleBlur}
+        />
+      </InputTitle>,
       showClear && <Clear onClick={this.handleChange} key="close" />,
       this.renderInfo(),
     ]
@@ -169,6 +180,8 @@ Input.propTypes = {
   forwardedRef: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,
+  innerTitle: PropTypes.node,
+  inputFocus: PropTypes.bool,
 }
 
 Input.defaultProps = {
