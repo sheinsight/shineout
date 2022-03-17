@@ -39,9 +39,9 @@
   }
   &:not(&-open) &-hideable {opacity: 0;}
   &:hover + .@{input-prefix}-clear-wrapper {display: block;}
-  &-content > &-hidable
+  &-content > &-item
   {padding: @title-padding-base-vertical @title-padding-base-horizontal;}
-  & &-hidable {padding-top: 0!important;}
+  & &-item {padding-top: 0!important;}
 }
 .@{input-title-prefix}-open {
   .@{input-title-prefix}-top.@{input-title-prefix}-title {visibility: visible;}
@@ -54,7 +54,7 @@
       padding: @title-padding-small-vertical @title-padding-small-horizontal;
       font-size: @font-size-small;
     }
-    &-content > &-hidable{
+    &-content > &-item{
       padding: @title-padding-small-vertical @title-padding-small-horizontal;
     }
   }
@@ -66,7 +66,7 @@
       padding: @title-padding-large-vertical @title-padding-large-horizontal;
       font-size: @font-size-large;
     }
-    &-content > &-hidable{
+    &-content > &-item{
       padding: @title-padding-large-vertical @title-padding-large-horizontal;
     }
   }

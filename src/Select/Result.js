@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { selectClass } from './styles'
 import { inputClass } from '../Input/styles'
+import { inputTitleClass } from '../InputTitle/styles'
 import { isObject, isFunc, isString, isEmpty } from '../utils/is'
 import { addResizeObserver } from '../utils/dom/element'
 import Input from './Input'
@@ -120,7 +121,8 @@ class Result extends PureComponent {
     const { result, renderResult, renderUnmatched } = this.props
     if (result.length <= 0) return true
     const res = result.reduce((acc, cur) => {
-      if (getResultContent(cur, renderResult, renderUnmatched) !== undefined) {
+      const r = getResultContent(cur, renderResult, renderUnmatched)
+      if (r !== undefined && r !== '') {
         acc.push(cur)
       }
       return acc
@@ -226,14 +228,21 @@ class Result extends PureComponent {
   }
 
   renderPlaceholder() {
-    const { focus, onFilter, filterText, multiple } = this.props
+    const { focus, onFilter, filterText, multiple, innerTitle } = this.props
 
     if (focus && onFilter) {
       return this.renderInput(multiple ? filterText : '')
     }
 
     return (
-      <span key="placeholder" className={classnames(inputClass('placeholder'), selectClass('ellipsis'))}>
+      <span
+        key="placeholder"
+        className={classnames(
+          inputClass('placeholder'),
+          selectClass('ellipsis'),
+          innerTitle && inputTitleClass('hidable')
+        )}
+      >
         <span>{this.props.placeholder}</span>
         &nbsp;
       </span>
@@ -328,7 +337,7 @@ class Result extends PureComponent {
               showPlaceholder && 'empty',
               clearEl && 'result-clearable'
             ),
-            inputClass(innerTitle && 'title-box-hidable')
+            innerTitle && inputTitleClass('item')
           )}
         >
           {rtl ? inner.reverse() : inner}

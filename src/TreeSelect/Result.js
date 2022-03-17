@@ -4,6 +4,7 @@ import classnames from 'classnames'
 import { addResizeObserver } from '../utils/dom/element'
 import { treeSelectClass } from './styles'
 import { inputClass } from '../Input/styles'
+import { inputTitleClass } from '../InputTitle/styles'
 import { isEmpty, isObject } from '../utils/is'
 import Input from './Input'
 import Caret from '../icons/Caret'
@@ -166,14 +167,20 @@ class Result extends PureComponent {
   }
 
   renderPlaceholder() {
-    const { focus, onFilter } = this.props
+    const { focus, onFilter, innerTitle } = this.props
 
     if (focus && onFilter) {
       return this.renderInput(' ')
     }
 
     return (
-      <span className={classnames(inputClass('placeholder'), treeSelectClass('ellipsis'))}>
+      <span
+        className={classnames(
+          inputClass('placeholder'),
+          treeSelectClass('ellipsis'),
+          innerTitle && inputTitleClass('item')
+        )}
+      >
         {this.props.placeholder}
         &nbsp;
       </span>
@@ -226,7 +233,7 @@ class Result extends PureComponent {
           ref={this.bindResult}
           className={classnames(
             treeSelectClass('result', compressed && 'compressed', showPlaceholder && 'empty'),
-            inputClass(innerTitle && 'title-box-hidable')
+            innerTitle && inputTitleClass('item')
           )}
         >
           {result}

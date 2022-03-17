@@ -134,7 +134,11 @@ class Input extends PureComponent {
     } = this.props
     const value = this.props.value == null ? '' : this.props.value
     const showClear = !other.disabled && clearable && value !== ''
-    const mc = classnames(className, showClear && inputClass('clearable'), innerTitle && inputTitleClass('hidable'))
+    const mc = classnames(
+      className,
+      showClear && inputClass('clearable'),
+      innerTitle && inputTitleClass('hidable', 'item')
+    )
     const isNumber = className && className.indexOf(inputClass('number')) > -1
     return [
       <InputTitle

@@ -129,7 +129,7 @@ class Editable extends React.PureComponent {
       >
         <InputTitle placeTitle={placeTitle} innerTitle={innerTitle} open={!!value}>
           <div
-            className={classnames(inputClass('spare'), innerTitle && inputTitleClass('hidable'))}
+            className={classnames(inputClass('spare'), innerTitle && inputTitleClass('hidable', 'item'))}
             ref={this.bindInput}
           >
             {result || <div className={inputClass('placeholder')}>{placeholder || <br />}</div>}

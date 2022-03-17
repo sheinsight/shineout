@@ -121,7 +121,7 @@ class Textarea extends PureComponent {
     const height = this.state.height || 'auto'
     const footerEl = this.renderFooter()
     const className = autosize ? inputClass('auto-size') : inputClass(resize && 'textarea-resize')
-    const cs = classnames(className, innerTitle && inputTitleClass('hidable'))
+    const cs = classnames(className, innerTitle && inputTitleClass('hidable', 'item'))
     const ts = [
       <textarea
         {...cleanProps(props)}
@@ -137,7 +137,7 @@ class Textarea extends PureComponent {
       this.renderInfo(),
     ]
 
-    const cs2 = classnames(inputClass('shadow'), innerTitle && inputTitleClass('hidable'))
+    const cs2 = classnames(inputClass('shadow'), innerTitle && inputTitleClass('hidable', 'item'))
 
     if (autosize) {
       ts.push(<textarea key="s" ref={this.bindShadow} className={cs2} rows={props.rows} defaultValue={value} />)
