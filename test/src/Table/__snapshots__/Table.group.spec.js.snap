@@ -310,7 +310,7 @@ exports[`Table[group] should render group header 1`] = `
             style={Object {}}
           />
           <td
-            className=""
+            className="so-table-ignore-right-border"
             colSpan={1}
             style={Object {}}
           />
@@ -354,7 +354,7 @@ exports[`Table[group] should render group header 1`] = `
             style={Object {}}
           />
           <td
-            className=""
+            className="so-table-ignore-right-border"
             colSpan={1}
             style={Object {}}
           />
@@ -398,7 +398,7 @@ exports[`Table[group] should render group header 1`] = `
             style={Object {}}
           />
           <td
-            className=""
+            className="so-table-ignore-right-border"
             colSpan={1}
             style={Object {}}
           />
