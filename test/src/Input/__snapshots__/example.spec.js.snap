@@ -197,7 +197,7 @@ Array [
         className="so-input-title-box-content"
       >
         <input
-          className="so-input-title-box-hidable"
+          className="so-input-title-box-hidable so-input-title-box-item"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
@@ -247,7 +247,7 @@ Array [
           className="so-input-title-box-content"
         >
           <input
-            className="so-input-title-box-hidable"
+            className="so-input-title-box-hidable so-input-title-box-item"
             onBlur={[Function]}
             onChange={[Function]}
             onFocus={[Function]}
