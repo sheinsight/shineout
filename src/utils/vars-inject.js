@@ -201,6 +201,7 @@ const injects = {
           '--primary-color-fade-60': fade(v, 0.6),
           '--primary-color-fade-50': fade(v, 0.5),
           '--primary-color-fade-10': fade(v, 0.1),
+          '--primary-color-fade-5': fade(v, 0.05),
           '--primary-color-fade-0': fade(v, 0),
           '--primary-color-dark-5_fade-60': fade(darken(v, 5), 0.6),
           '--primary-color-dark-5_fade-0': fade(darken(v, 5), 0),
