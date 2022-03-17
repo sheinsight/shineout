@@ -545,6 +545,15 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
   columnResizable?: boolean
 
   /**
+   * Enable in specific scenarios (tree data expansion is controlled) Used to change the default behavior of scroll reset
+   *
+   * 在特定场景（树形数据展开受控)下开启 用来改变滚动条重置的默认行为
+   *
+   * default: false
+   */
+ changedByExpand?: boolean
+  
+  /*
    * customize sort icons
    *
    * 自定义排序图标

@@ -51,6 +51,7 @@
 | cellSelectable | boolean | false | whether to enable ctrl/cmd + click check |
 | height | number \| string | none | height of table, same with style.height |
 | hideHeader | boolean | false | whether hide thead |
+| changedByExpand | boolean | false | Enable in specific scenarios (tree data expansion is controlled) Used to change the default behavior of scroll reset |
 | renderSorter | (params: {status?: 'asc' \| 'desc', triggerAsc: () => void, triggerDesc: ()=> void})=> ReactNode | false | customize sort icons |
 
 ### TableColumn

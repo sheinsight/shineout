@@ -10,8 +10,8 @@ import treeExpand from './TreeExpand'
 const TableWithPagination = pagable(Table)
 const TableWithTree = treeExpand(Table)
 const TableWithPT = compose(
-  treeExpand,
-  pagable
+  pagable,
+  treeExpand
 )(Table)
 
 export default class extends React.Component {
