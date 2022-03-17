@@ -20,7 +20,7 @@ function initRoot() {
   document.body.appendChild(root)
 }
 
-const getOverDocStyle = () => (isRTL() ? { left: 0, right: 'auto' } : { right: 0, left: 'auto' })
+const getOverDocStyle = right => (right ? { left: 0, right: 'auto' } : { right: 0, left: 'auto' })
 
 const listPosition = ['drop-down', 'drop-up']
 const pickerPosition = ['left-bottom', 'left-top', 'right-bottom', 'right-top']
@@ -109,9 +109,14 @@ export default function(List) {
         top: rootContainer.scrollTop,
       }
       this.containerRect = containerRect
+      this.containerScroll = containerScroll
 
       if (listPosition.includes(position)) {
         style.left = rect.left - containerRect.left + containerScroll.left
+        if (isRTL()) {
+          style.right = containerRect.width - rect.width - style.left
+          style.left = 'auto'
+        }
         if (position === 'drop-down') {
           style.top = rect.top - containerRect.top + rect.height + containerScroll.top
         } else {
@@ -122,19 +127,15 @@ export default function(List) {
         if (h === 'left') {
           style.left = rect.left - containerRect.left + containerScroll.left
         } else {
-          style.left = rect.right - containerRect.left + containerScroll.left
-          style.transform = 'translateX(-100%)'
+          style.right = containerRect.width - rect.width - rect.left + containerRect.left - containerScroll.left
+          style.left = 'auto'
         }
         if (v === 'bottom') {
           style.top = rect.bottom - containerRect.top + containerScroll.top + PICKER_V_MARGIN
         } else {
           style.top = rect.top - containerRect.top + containerScroll.top - PICKER_V_MARGIN
-          style.transform = style.transform ? 'translate(-100%, -100%)' : 'translateY(-100%)'
+          style.transform = 'translateY(-100%)'
         }
-      }
-      if (rtl && style.left) {
-        style.right = containerRect.width - rect.width - style.left
-        style.left = 'auto'
       }
       return style
     }
@@ -171,22 +172,38 @@ export default function(List) {
       }
     }
 
+    isRight() {
+      const { position } = this.props
+      let isRight = false
+      if (position.indexOf('right') > 1) {
+        isRight = true
+      }
+      if (isRTL()) {
+        isRight = !isRight
+      }
+      return isRight
+    }
+
     resetPosition(clean) {
       const { focus, parentElement } = this.props
       if (!this.el || !focus || (this.ajustdoc && !clean)) return
-      const pos = this.el.getBoundingClientRect()
-      let { left } = pos
-      if (parentElement) {
-        // because the position changes
-        // eslint-disable-next-line prefer-destructuring
-        left = parentElement.getBoundingClientRect().left
-      }
+      const width = this.el.offsetWidth
+      const pos = (parentElement && parentElement.getBoundingClientRect()) || { left: 0, right: 0 }
       const containerRect = this.containerRect || { left: 0, width: 0 }
+      const containerScroll = this.containerScroll || { left: 0 }
       let overdoc
-      if (isRTL()) {
-        overdoc = pos.left < containerRect.left
+      if (this.isRight()) {
+        if (isRTL() && containerScroll.left) {
+          // this condition  the style left: 0 will not meet expect so not set overdoc
+          overdoc = false
+        } else {
+          overdoc = pos.right - width < containerRect.left
+        }
+      } else if (!isRTL() && containerScroll.left) {
+        // this condition  the style right: 0 will not meet expect so not set overdoc
+        overdoc = false
       } else {
-        overdoc = left - containerRect.left + pos.width > (containerRect.width || docSize.width)
+        overdoc = pos.left - containerRect.left + width + containerScroll.left > (containerRect.width || docSize.width)
       }
       if (this.state.overdoc === overdoc) return
       this.ajustdoc = true
@@ -217,7 +234,7 @@ export default function(List) {
       } = this.props
       const parsed = parseInt(zIndex, 10)
       if (!Number.isNaN(parsed)) style.zIndex = parsed
-      const mergeStyle = Object.assign({}, style, this.state.overdoc ? getOverDocStyle() : undefined)
+      const mergeStyle = Object.assign({}, style, this.state.overdoc ? getOverDocStyle(this.isRight()) : undefined)
       return <List getRef={this.handleRef} {...props} focus={focus} style={mergeStyle} />
     }
 
@@ -251,7 +268,12 @@ export default function(List) {
       const mergeClass = classnames(listClass('absolute-wrapper'), rootClass, autoClass)
       const { focus, style } = props.focus ? this.getStyle() : { style: this.lastStyle }
       this.element.className = mergeClass
-      const mergeStyle = Object.assign({}, style, props.style, this.state.overdoc ? getOverDocStyle() : undefined)
+      const mergeStyle = Object.assign(
+        {},
+        style,
+        props.style,
+        this.state.overdoc ? getOverDocStyle(this.isRight()) : undefined
+      )
       if (zIndex || typeof zIndex === 'number') mergeStyle.zIndex = parseInt(zIndex, 10)
       return ReactDOM.createPortal(
         <List getRef={this.handleRef} {...props} focus={focus} style={mergeStyle} />,

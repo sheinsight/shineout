@@ -4,13 +4,17 @@ import classnames from 'classnames'
 import { getProps } from '../utils/proptypes'
 
 import { buttonClass } from './styles'
+import { isRTL } from '../config'
 
 class ButtonGroup extends PureComponent {
   render() {
     const { children, outline, size, type } = this.props
 
     const typeSetted = type !== 'default'
-    const className = classnames(buttonClass('group', (outline || !typeSetted) && 'outline'), this.props.className)
+    const className = classnames(
+      buttonClass('group', (outline || !typeSetted) && 'outline', isRTL() && 'group-rtl'),
+      this.props.className
+    )
 
     return (
       <div className={className}>
