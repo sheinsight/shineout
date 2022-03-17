@@ -5,6 +5,7 @@
 @input-prefix: ~'@{so-prefix}-input';
 @select-prefix: ~'@{so-prefix}-select';
 @datepicker-prefix: ~'@{so-prefix}-datepicker';
+@move-time: 150ms;
 
 
 
@@ -22,7 +23,19 @@
     white-space: nowrap;
     text-overflow: ellipsis;
   }
-  &-top{visibility: hidden; padding-bottom: 0!important;}
+  &-top{
+    position: relative;
+    padding-bottom: 0!important;
+    animation: moveout @move-time ease-in;
+    opacity: 0;
+    user-select: none;
+    pointer-events: none;
+    transition: opacity 0s ease-in @move-time;
+    @keyframes moveout {
+      0% { bottom: 0px}
+      100% {bottom: -10px}
+    }
+  }
   &-place {
     position: absolute;
     top: 0;
@@ -32,6 +45,8 @@
     display: flex;
     align-items: center;
     pointer-events:none;
+    opacity: 1;
+    transition: opacity 0s ease-in @move-time;
     > div {
       flex-grow: 1;
       width: 0;
@@ -44,8 +59,27 @@
   & &-hidable {padding-top: 0!important;}
 }
 .@{input-title-prefix}-open {
-  .@{input-title-prefix}-top.@{input-title-prefix}-title {visibility: visible;}
-  .@{input-title-prefix}-place {display: none;}
+  .@{input-title-prefix}-top.@{input-title-prefix}-title {
+    opacity: 1;
+    transition: none;
+    animation: movein @move-time ease;
+    user-select: initial;
+    pointer-events: initial;
+  }
+  .@{input-title-prefix}-place {
+    opacity: 0;
+    transition: none;
+    user-select: none;
+    pointer-events: none;
+  }
+  @keyframes movein {
+    from {
+      bottom: -10px;
+    }
+    to {
+      bottom: 0;
+    }
+  }
 }
 
 .@{input-prefix}-small {
