@@ -265,12 +265,12 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
         </div>
         <a>
           <span>
-            First
-          </span>
-          <span>
             <svg>
               <path />
             </svg>
+          </span>
+          <span>
+            First
           </span>
         </a>
       </div>
@@ -290,24 +290,24 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
             </div>
             <a>
               <span>
-                link4
-              </span>
-              <span>
                 <svg>
                   <path />
                 </svg>
+              </span>
+              <span>
+                link4
               </span>
             </a>
           </div>
         </div>
         <a>
           <span>
-            Second
-          </span>
-          <span>
             <svg>
               <path />
             </svg>
+          </span>
+          <span>
+            Second
           </span>
         </a>
       </div>
@@ -336,12 +336,12 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
         </div>
         <a>
           <span>
-            First
-          </span>
-          <span>
             <svg>
               <path />
             </svg>
+          </span>
+          <span>
+            First
           </span>
         </a>
       </div>
@@ -361,36 +361,36 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
             </div>
             <a>
               <span>
-                link4
-              </span>
-              <span>
                 <svg>
                   <path />
                 </svg>
+              </span>
+              <span>
+                link4
               </span>
             </a>
           </div>
         </div>
         <a>
           <span>
-            Second
-          </span>
-          <span>
             <svg>
               <path />
             </svg>
+          </span>
+          <span>
+            Second
           </span>
         </a>
       </div>
     </div>
     <button>
       <span>
-        Left Top
-      </span>
-      <span>
         <svg>
           <path />
         </svg>
+      </span>
+      <span>
+        Left Top
       </span>
     </button>
   </div>
@@ -550,12 +550,12 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
         </div>
         <a>
           <span>
-            First
-          </span>
-          <span>
             <svg>
               <path />
             </svg>
+          </span>
+          <span>
+            First
           </span>
         </a>
       </div>
@@ -575,24 +575,24 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
             </div>
             <a>
               <span>
-                link4
-              </span>
-              <span>
                 <svg>
                   <path />
                 </svg>
+              </span>
+              <span>
+                link4
               </span>
             </a>
           </div>
         </div>
         <a>
           <span>
-            Second
-          </span>
-          <span>
             <svg>
               <path />
             </svg>
+          </span>
+          <span>
+            Second
           </span>
         </a>
       </div>
@@ -621,12 +621,12 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
         </div>
         <a>
           <span>
-            First
-          </span>
-          <span>
             <svg>
               <path />
             </svg>
+          </span>
+          <span>
+            First
           </span>
         </a>
       </div>
@@ -646,36 +646,36 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
             </div>
             <a>
               <span>
-                link4
-              </span>
-              <span>
                 <svg>
                   <path />
                 </svg>
+              </span>
+              <span>
+                link4
               </span>
             </a>
           </div>
         </div>
         <a>
           <span>
-            Second
-          </span>
-          <span>
             <svg>
               <path />
             </svg>
+          </span>
+          <span>
+            Second
           </span>
         </a>
       </div>
     </div>
     <button>
       <span>
-        Left Bottom
-      </span>
-      <span>
         <svg>
           <path />
         </svg>
+      </span>
+      <span>
+        Left Bottom
       </span>
     </button>
   </div>
