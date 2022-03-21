@@ -31,6 +31,7 @@
 | onKeyUp | (e: KeyboardEvent) => void | none | callback with key up |
 | onKeyDown | (e: KeyboardEvent) => void | none | callback with key down |
 | innerTitle | string | - | inner title |
+| clearToUndefined | boolean | - | After clicking the clear button, the data becomes undefined |
 
 ### Input.Number
 

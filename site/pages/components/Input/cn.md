@@ -29,6 +29,7 @@
 | onKeyUp | (e: KeyboardEvent) => void | 无 | 键盘按下后弹起回调 |
 | onKeyDown | (e: KeyboardEvent) => void | 无 | 键盘按下后的回调 |
 | innerTitle | string | - | 内嵌标题 |
+| clearToUndefined | boolean | - | 点击清除按钮后数据变为 undefined |
 
 ### Input.Number
 
