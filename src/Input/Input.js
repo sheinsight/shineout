@@ -54,6 +54,10 @@ class Input extends PureComponent {
       if (typeof clearable === 'function') clearable()
     }
     let { value } = e.target
+    if (clearClick && this.props.clearToUndefined) {
+      this.props.onChange(value)
+      return
+    }
     if (type === 'number' && typeof value !== 'number') value = String(value).replace(/。/g, '.')
     if (this.invalidNumber(value)) {
       // For numbers with a decimal point, use toFixed to correct the number of decimal points.
@@ -90,9 +94,12 @@ class Input extends PureComponent {
 
   handleBlur(e) {
     const { value } = e.target
-    const { forceChange, onBlur } = this.props
+    const { forceChange, onBlur, clearToUndefined } = this.props
     if (onBlur) onBlur(e)
     if (this.invalidNumber(value)) return
+    if (clearToUndefined && value === '' && this.props.value === undefined) {
+      return
+    }
     if (forceChange) forceChange(value)
   }
 
@@ -130,10 +137,13 @@ class Input extends PureComponent {
       forwardedRef,
       innerTitle,
       inputFocus,
+      clearToUndefined,
+      placeholder,
       ...other
     } = this.props
-    const value = this.props.value == null ? '' : this.props.value
-    const showClear = !other.disabled && clearable && value !== ''
+    const value = this.props.value == null || this.props.value === undefined ? '' : this.props.value
+    const needClearUndefined = clearToUndefined && this.props.value !== undefined
+    const showClear = !other.disabled && clearable && (value !== '' || needClearUndefined)
     const mc = classnames(
       className,
       showClear && inputClass('clearable'),
@@ -149,6 +159,7 @@ class Input extends PureComponent {
       >
         <input
           {...cleanProps(other)}
+          placeholder={needClearUndefined ? '' : placeholder}
           className={mc || undefined}
           name={other.name || htmlName}
           type={type === 'password' ? type : 'text'}
@@ -161,7 +172,7 @@ class Input extends PureComponent {
           onBlur={this.handleBlur}
         />
       </InputTitle>,
-      showClear && <Clear onClick={this.handleChange} key="close" />,
+      showClear && <Clear onClick={this.handleChange} key="close" clearResult={needClearUndefined ? undefined : ''} />,
       this.renderInfo(),
     ]
   }
@@ -186,6 +197,8 @@ Input.propTypes = {
   onKeyUp: PropTypes.func,
   innerTitle: PropTypes.node,
   inputFocus: PropTypes.bool,
+  clearToUndefined: PropTypes.bool,
+  placeholder: PropTypes.string,
 }
 
 Input.defaultProps = {

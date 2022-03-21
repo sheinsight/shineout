@@ -1,8 +1,7 @@
 // Created by scripts/src-index.js.
-import './styles/normalize.less'
 import * as utils from './utils'
 
-export default { utils, version: '1.8.3' }
+export default { utils, version: '1.9.0-rc.7' }
 export { utils }
 export { setLocale } from './locale'
 export { color, style } from './utils/expose'
@@ -31,6 +30,7 @@ export { default as Grid } from './Grid'
 export { default as Icon } from './Icon'
 export { default as Image } from './Image'
 export { default as Input } from './Input'
+export { default as InputTitle } from './InputTitle'
 export { default as Lazyload } from './Lazyload'
 export { default as Menu } from './Menu'
 export { default as Message } from './Message'
