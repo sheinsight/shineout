@@ -73,11 +73,19 @@ class Cascader extends PureComponent {
     }
   }
 
+  componentDidMount() {
+    super.componentDidMount()
+    this.updatePathByValue()
+  }
+
   componentDidUpdate(prevProps, prevState) {
     this.datum.mode = this.props.mode
     const { onFilter, filterDataChange, filterText } = this.props
     if (!filterDataChange && prevProps.data !== this.props.data) this.datum.setData(this.props.data, true)
-    if (prevProps.value !== this.props.value) this.datum.setValue(this.props.value || [])
+    if (prevProps.value !== this.props.value) {
+      this.datum.setValue(this.props.value || [])
+      this.updatePathByValue()
+    }
 
     if (prevState.focus !== this.state.focus && !this.state.focus && onFilter) {
       setTimeout(() => {
@@ -130,6 +138,22 @@ class Cascader extends PureComponent {
         draft.path = [...current.path, key]
       })
     )
+  }
+
+  updatePathByValue() {
+    const { mode, value } = this.props
+    if (mode !== undefined) return
+    if (value === this.lastValue) return
+    if (!value || !value.length) {
+      this.setState({ path: [] })
+    } else {
+      const v = value[value.length - 1]
+      const data = this.datum.getDataById(v)
+      const id = this.datum.getKey(data)
+      let { path } = this.datum.getPath(id) || {}
+      path = path || []
+      this.handlePathChange(id, null, path)
+    }
   }
 
   handleClickAway(e) {
@@ -232,6 +256,8 @@ class Cascader extends PureComponent {
       this.input.reset()
       this.input.focus()
     }
+    const [value] = args
+    this.lastValue = value
     onChange(...args)
 
     if (onFilter && filterText) onFilter('')
