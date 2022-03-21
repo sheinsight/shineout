@@ -142,9 +142,12 @@ class Cascader extends PureComponent {
   }
 
   handlePathChange(id, data, path, fromClick) {
-    const { childrenKey, finalDismiss } = this.props
+    const { childrenKey, finalDismiss, loader } = this.props
     if (fromClick && data) {
-      const leaf = !data[childrenKey] || data[childrenKey].length === 0
+      let leaf = !data[childrenKey] || data[childrenKey].length === 0
+      if (loader && typeof loader === 'function' && data[childrenKey] === undefined) {
+        leaf = false
+      }
       if (finalDismiss && leaf) this.handleState(false)
     }
     setTimeout(() => {
