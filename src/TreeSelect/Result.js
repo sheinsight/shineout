@@ -178,7 +178,7 @@ class Result extends PureComponent {
         className={classnames(
           inputClass('placeholder'),
           treeSelectClass('ellipsis'),
-          innerTitle && inputTitleClass('item')
+          innerTitle && inputTitleClass('hidable')
         )}
       >
         {this.props.placeholder}
