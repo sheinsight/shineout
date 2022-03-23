@@ -211,7 +211,7 @@ export interface FormProps<Value> extends StandardProps {
    *
    * default: -
    */
-  formRef?: (form: FormRef<Value>) => void;
+  formRef?: ((form: FormRef<Value>) => void) | {current?: FormRef<Value>};
 
 }
 

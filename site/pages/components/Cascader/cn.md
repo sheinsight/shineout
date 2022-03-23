@@ -33,4 +33,6 @@
 | underline | boolean | false | 是否只展示下边框 |
 | showArrow | boolean | true | 是否显示下拉箭头，仅针对单选情况 |
 | getComponentRef | (componentRef: any) => void  | 无 | 绑定组件的引用, 可以调用某些组件的方法 |
+| filterSameChange | boolean | false | 过滤掉具有相同值的onChange回调 |
+| loading | boolean \| ReactNode | 无 | 下拉列表 loading 状态 |
 

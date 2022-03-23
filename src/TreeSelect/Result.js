@@ -4,10 +4,12 @@ import classnames from 'classnames'
 import { addResizeObserver } from '../utils/dom/element'
 import { treeSelectClass } from './styles'
 import { inputClass } from '../Input/styles'
+import { inputTitleClass } from '../InputTitle/styles'
 import { isEmpty, isObject } from '../utils/is'
 import Input from './Input'
 import Caret from '../icons/Caret'
 import More, { getResetMore } from '../Select/More'
+import InputTitle from '../InputTitle'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -57,7 +59,7 @@ class Result extends PureComponent {
   componentDidUpdate(preProps) {
     const { result, compressed, onFilter } = this.props
     if (compressed) {
-      if (preProps.result.join('') !== result.join('')) {
+      if ((preProps.result || []).join('') !== (result || []).join('')) {
         this.resetMore()
       } else if (result.length && this.shouldResetMore) {
         this.shouldResetMore = false
@@ -165,14 +167,20 @@ class Result extends PureComponent {
   }
 
   renderPlaceholder() {
-    const { focus, onFilter } = this.props
+    const { focus, onFilter, innerTitle } = this.props
 
     if (focus && onFilter) {
       return this.renderInput(' ')
     }
 
     return (
-      <span className={classnames(inputClass('placeholder'), treeSelectClass('ellipsis'))}>
+      <span
+        className={classnames(
+          inputClass('placeholder'),
+          treeSelectClass('ellipsis'),
+          innerTitle && inputTitleClass('hidable')
+        )}
+      >
         {this.props.placeholder}
         &nbsp;
       </span>
@@ -208,21 +216,36 @@ class Result extends PureComponent {
   render() {
     const showPlaceholder = this.props.result.length === 0
     const result = showPlaceholder ? this.renderPlaceholder() : this.renderResult()
-    const { compressed } = this.props
+    const { compressed, innerTitle, focus, onFilter } = this.props
+    const open = (onFilter && focus) || !showPlaceholder
     return (
-      <div
-        ref={this.bindResult}
-        className={treeSelectClass('result', compressed && 'compressed', showPlaceholder && 'empty')}
-      >
-        {result}
-        {!this.props.multiple && (
-          // eslint-disable-next-line
-          <a tabIndex={-1} className={treeSelectClass('indicator', 'caret')}>
-            {<Caret />}
-          </a>
+      <InputTitle
+        innerTitle={innerTitle}
+        open={open}
+        className={treeSelectClass('title-box')}
+        titleClass={treeSelectClass(
+          'title-box-title',
+          showPlaceholder && 'title-box-title-empty',
+          compressed && 'title-box-title-compressed'
         )}
-        {this.renderClear()}
-      </div>
+      >
+        <div
+          ref={this.bindResult}
+          className={classnames(
+            treeSelectClass('result', compressed && 'compressed', showPlaceholder && 'empty'),
+            innerTitle && inputTitleClass('item')
+          )}
+        >
+          {result}
+          {!this.props.multiple && (
+            // eslint-disable-next-line
+            <a tabIndex={-1} className={treeSelectClass('indicator', 'caret')}>
+              {<Caret />}
+            </a>
+          )}
+          {this.renderClear()}
+        </div>
+      </InputTitle>
     )
   }
 }
@@ -242,6 +265,7 @@ Result.propTypes = {
   setInputReset: PropTypes.func,
   compressed: PropTypes.bool,
   renderUnmatched: PropTypes.func,
+  innerTitle: PropTypes.node,
 }
 
 export default Result

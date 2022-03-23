@@ -161,7 +161,7 @@ export default curry(
             tabIndex={options.enterPress ? '0' : undefined}
             {...getDataset(other)}
           >
-            <Origin {...other} size={size} onFocus={this.handleFocus} onBlur={this.handleBlur} />
+            <Origin {...other} size={size} onFocus={this.handleFocus} onBlur={this.handleBlur} inputFocus={focus} />
             {this.renderHelp(focus)}
           </Tag>
         )

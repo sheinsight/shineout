@@ -5,6 +5,7 @@ import { getProps, defaultProps } from '../utils/proptypes'
 import Spin from '../Spin'
 import { wrapSpan } from '../utils/dom/element'
 import { buttonClass } from './styles'
+import { isRTL } from '../config'
 
 class Button extends PureComponent {
   getChildren() {
@@ -42,6 +43,7 @@ class Button extends PureComponent {
         large: size === 'large',
         small: size === 'small',
         text: text && 'text',
+        rtl: isRTL(),
         disabled,
       }),
       this.props.className

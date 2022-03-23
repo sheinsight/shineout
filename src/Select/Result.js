@@ -3,12 +3,14 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { selectClass } from './styles'
 import { inputClass } from '../Input/styles'
+import { inputTitleClass } from '../InputTitle/styles'
 import { isObject, isFunc, isString, isEmpty } from '../utils/is'
 import { addResizeObserver } from '../utils/dom/element'
 import Input from './Input'
 import Caret from '../icons/Caret'
 import { isRTL } from '../config'
 import More, { getResetMore } from './More'
+import InputTitle from '../InputTitle'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -79,7 +81,7 @@ class Result extends PureComponent {
   componentDidUpdate(preProps) {
     const { result, compressed, onFilter } = this.props
     if (compressed) {
-      if (preProps.result.join('') !== result.join('')) {
+      if ((preProps.result || []).join('') !== (result || []).join('')) {
         this.resetMore()
       } else if (result.length && this.shouldResetMore) {
         this.shouldResetMore = false
@@ -119,7 +121,8 @@ class Result extends PureComponent {
     const { result, renderResult, renderUnmatched } = this.props
     if (result.length <= 0) return true
     const res = result.reduce((acc, cur) => {
-      if (getResultContent(cur, renderResult, renderUnmatched) !== undefined) {
+      const r = getResultContent(cur, renderResult, renderUnmatched)
+      if (r !== undefined && r !== '') {
         acc.push(cur)
       }
       return acc
@@ -225,14 +228,21 @@ class Result extends PureComponent {
   }
 
   renderPlaceholder() {
-    const { focus, onFilter, filterText, multiple } = this.props
+    const { focus, onFilter, filterText, multiple, innerTitle } = this.props
 
     if (focus && onFilter) {
       return this.renderInput(multiple ? filterText : '')
     }
 
     return (
-      <span key="placeholder" className={classnames(inputClass('placeholder'), selectClass('ellipsis'))}>
+      <span
+        key="placeholder"
+        className={classnames(
+          inputClass('placeholder'),
+          selectClass('ellipsis'),
+          innerTitle && inputTitleClass('hidable')
+        )}
+      >
         <span>{this.props.placeholder}</span>
         &nbsp;
       </span>
@@ -275,6 +285,7 @@ class Result extends PureComponent {
 
     return (
       <span
+        key="result"
         title={title}
         className={classnames(selectClass('ellipsis'), getResultClassName(resultClassName, result[0]))}
       >
@@ -296,44 +307,42 @@ class Result extends PureComponent {
   }
 
   render() {
-    const { compressed } = this.props
+    const { compressed, innerTitle, focus, onFilter } = this.props
     const showPlaceholder = this.isEmptyResult()
     const result = showPlaceholder ? this.renderPlaceholder() : this.renderResult()
 
     const rtl = isRTL()
     const clearEl = this.renderClear()
-    if (rtl) {
-      return (
-        <div
-          ref={this.bindResult}
-          className={selectClass(
-            'result',
-            compressed && 'compressed',
-            showPlaceholder && 'empty',
-            clearEl && 'result-clearable'
-          )}
-        >
-          {clearEl}
-          {this.renderIndicator()}
-          {result}
-        </div>
-      )
-    }
+    const indicator = this.renderIndicator()
+    const inner = [result, indicator, clearEl]
+    const open = (onFilter && focus) || !showPlaceholder
 
     return (
-      <div
-        ref={this.bindResult}
-        className={selectClass(
-          'result',
-          compressed && 'compressed',
-          showPlaceholder && 'empty',
-          clearEl && 'result-clearable'
+      <InputTitle
+        innerTitle={innerTitle}
+        open={open}
+        className={selectClass('title-box')}
+        titleClass={selectClass(
+          'title-box-title',
+          showPlaceholder && 'title-box-title-empty',
+          compressed && 'title-box-title-compressed'
         )}
       >
-        {result}
-        {this.renderIndicator()}
-        {clearEl}
-      </div>
+        <div
+          ref={this.bindResult}
+          className={classnames(
+            selectClass(
+              'result',
+              compressed && 'compressed',
+              showPlaceholder && 'empty',
+              clearEl && 'result-clearable'
+            ),
+            innerTitle && inputTitleClass('item')
+          )}
+        >
+          {rtl ? inner.reverse() : inner}
+        </div>
+      </InputTitle>
     )
   }
 }
@@ -363,6 +372,7 @@ Result.propTypes = {
   compressedClassName: PropTypes.string,
   resultClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   maxLength: PropTypes.number,
+  innerTitle: PropTypes.node,
 }
 
 export default Result

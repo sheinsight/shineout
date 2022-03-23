@@ -246,38 +246,17 @@ shineout supports ES modules tree shaking by default for JS part.
 
 Modifying the theme requires compiling less , it is necessary to introduce rewrite less related content.
 
-1. Modify .babelrc file
-
-```
-{
-  "presets": ["react-app"],
-  "plugins": [
-    [
-      "import",
-      {
-        "libraryName": "shineout",
--       "libraryDirectory": "css", // import css
-+       "libraryDirectory": "lib", // import lib
-        "style": false,
-        "camel2DashComponentName": false,
-        "camel2UnderlineComponentName": false
-      }
-    ]
-  ]
-}
-```
 1. Install `rescript-use-rewire` and `react-app-rewire-less`.
 
 ```
 $ npm i @rescripts/rescript-use-rewire react-app-rewire-less
 ```
-3. Modify `.rescript.js` file
 
+2. Modify `.rescript.js` file
 ```
 + const rewireLess = require('react-app-rewire-less');
 
 module.exports = [
-  ['use-babel-config', '.babelrc'],
 + [
 +   'use-rewire',
 +   rewireLess.withLoaderOptions({
@@ -288,7 +267,7 @@ module.exports = [
 ];
 ```
 
-4. Re-run `npm start`.
+3. Re-run `npm start`.
 
 ## I18N
 

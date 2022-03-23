@@ -25,7 +25,7 @@ class Number extends PureComponent {
   }
 
   handleChange(value, check, isEmpty) {
-    if (isEmpty) {
+    if (isEmpty || value === undefined) {
       this.props.onChange(value)
       return
     }
@@ -64,7 +64,11 @@ class Number extends PureComponent {
     }
     // eslint-disable-next-line no-restricted-globals
     if (isNaN(value)) value = 0
-    this.handleChange(value, true, value === null)
+    if (this.props.clearToUndefined && e.target.value === '' && this.props.value === undefined) {
+      this.handleChange(undefined, true, true)
+    } else {
+      this.handleChange(value, true, value === null)
+    }
     this.props.onBlur(e)
   }
 
@@ -202,6 +206,7 @@ Number.propTypes = {
   digits: PropTypes.number,
   allowNull: PropTypes.bool,
   hideArrow: PropTypes.bool,
+  clearToUndefined: PropTypes.bool,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 }
 

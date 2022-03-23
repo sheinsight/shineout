@@ -1,24 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-1-base.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-01-base.js] 1`] = `
 <label>
   <input />
 </label>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-1-clearable.js] 1`] = `
-<label>
-  <input />
-</label>
-`;
-
-exports[`Snapshot test: Input[site/pages/components/Input/example-1-underline.js] 1`] = `
-<label>
-  <input />
-</label>
-`;
-
-exports[`Snapshot test: Input[site/pages/components/Input/example-2-size.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-02-size.js] 1`] = `
 <div>
   <label>
     <input />
@@ -32,7 +20,7 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-2-size.js] 1`]
 </div>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-3-number.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-03-number.js] 1`] = `
 <div>
   <label>
     <input />
@@ -52,7 +40,7 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-3-number.js] 1
 </div>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-4-number.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-04-number.js] 1`] = `
 <label>
   <input />
   <a>
@@ -70,7 +58,7 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-4-number.js] 1
 </label>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-5-group.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-05-group.js] 1`] = `
 <div>
   <div>
     <i />
@@ -124,7 +112,7 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-5-group.js] 1`
 </div>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-6-tip.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-06-tip.js] 1`] = `
 <div>
   <label>
     <input />
@@ -144,13 +132,13 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-6-tip.js] 1`] 
 </div>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-7-validate.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-07-validate.js] 1`] = `
 <label>
   <input />
 </label>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-8-disabled.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-08-disabled.js] 1`] = `
 <div>
   <div>
     <label>
@@ -169,8 +157,123 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-8-disabled.js]
 </div>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-9-password.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-09-password.js] 1`] = `
 <label>
   <input />
 </label>
+`;
+
+exports[`Snapshot test: Input[site/pages/components/Input/example-1-clearable.js] 1`] = `
+<label>
+  <input />
+</label>
+`;
+
+exports[`Snapshot test: Input[site/pages/components/Input/example-1-underline.js] 1`] = `
+<label>
+  <input />
+</label>
+`;
+
+exports[`Snapshot test: Input[site/pages/components/Input/example-10-innertitle.js] 1`] = `
+Array [
+  <label
+    className="so-input"
+    style={
+      Object {
+        "width": undefined,
+      }
+    }
+  >
+    <div
+      className="so-input-title-box"
+    >
+      <div
+        className="so-input-title-box-title so-input-title-box-top"
+      >
+        input something
+      </div>
+      <div
+        className="so-input-title-box-content"
+      >
+        <input
+          className="so-input-title-box-hidable so-input-title-box-item"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          type="text"
+          value=""
+        />
+      </div>
+      <div
+        className="so-input-title-box-place"
+      >
+        <div
+          className="so-input-title-box-title"
+        >
+          input something
+        </div>
+      </div>
+    </div>
+  </label>,
+  <div
+    className="so-input so-input-group so-button-group so-button-from-input-group"
+    style={
+      Object {
+        "marginTop": 12,
+        "width": undefined,
+      }
+    }
+  >
+    <label
+      className="so-input"
+      style={
+        Object {
+          "width": undefined,
+        }
+      }
+    >
+      <div
+        className="so-input-title-box"
+      >
+        <div
+          className="so-input-title-box-title so-input-title-box-top"
+        >
+          please input your email
+        </div>
+        <div
+          className="so-input-title-box-content"
+        >
+          <input
+            className="so-input-title-box-hidable so-input-title-box-item"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          className="so-input-title-box-place"
+        >
+          <div
+            className="so-input-title-box-title"
+          >
+            please input your email
+          </div>
+        </div>
+      </div>
+    </label>
+    <b
+      onBlur={[Function]}
+      onFocus={[Function]}
+    >
+      .com
+    </b>
+  </div>,
+]
 `;

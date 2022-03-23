@@ -51,6 +51,8 @@
 | cellSelectable | boolean | false | 是否启用 ctrl/cmd + click 选中单元格 |
 | height | number \| string | 无 | 表格高度，与 style.height 作用相同 |
 | hideHeader | boolean | false | 是否隐藏表头 |
+| changedByExpand | boolean | false | 在特定场景（树形数据展开受控)下开启 用来改变滚动条重置的默认行为 |
+| renderSorter | (params: {status?: 'asc' \| 'desc', triggerAsc: () => void, triggerDesc: ()=> void})=> ReactNode | false | 自定义排序图标 |
 
 ### TableColumn
 

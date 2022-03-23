@@ -2,6 +2,7 @@
 @import '../../styles/themes/@{so-theme}.less';
 
 @datepicker-prefix: ~'@{so-prefix}-datepicker';
+@input-title-prefix: ~'@{so-prefix}-input-title-box';
 
 .@{datepicker-prefix} {
   &:focus {
@@ -40,6 +41,17 @@
     text-align: center;
     // border-bottom: 1px solid @table-border-color;
   }
+  &-title-box {
+    > .@{input-title-prefix}-content {
+      display: flex;
+    }
+  }
+  &-range &-title-box {
+    .@{datepicker-prefix}-txt:not(.@{datepicker-prefix}-text-focus) {
+      background: @primary-color-fade-5;
+      border-radius: @datepicker-radius;
+    }
+  }
 
   &-inner {
     width: 100%;
@@ -54,6 +66,18 @@
 
   &-size-large&-inner {
     padding: @padding-large-vertical @padding-large-horizontal+12 @padding-large-vertical @padding-large-horizontal;
+  }
+
+  &-inner-title {
+    padding: @title-padding-base-vertical @title-padding-base-horizontal+12 @title-padding-base-vertical @title-padding-base-horizontal
+  }
+
+  &-size-small&-inner-title {
+    padding: @title-padding-small-vertical @title-padding-small-horizontal+12 @title-padding-small-vertical @title-padding-small-horizontal;
+  }
+
+  &-size-large&-inner-title {
+    padding: @title-padding-large-vertical @title-padding-large-horizontal+12 @title-padding-large-vertical @title-padding-large-horizontal;
   }
 
   &-result {
@@ -112,7 +136,7 @@
     margin: 0 @datepicker-margin;
   }
 
-  &-text-focus {
+  &-txt&-text-focus {
     background: @colors-primary;
     color: #fff;
     border-radius: @datepicker-radius;
@@ -573,6 +597,18 @@
         margin-left: -16px;
       }
     }
+  }
+
+  &.@{datepicker-prefix}-inner-title {
+    padding: @title-padding-base-vertical @title-padding-base-horizontal @title-padding-base-vertical @title-padding-base-horizontal+12
+  }
+
+  &.@{datepicker-prefix}-size-small.@{datepicker-prefix}-inner-title {
+    padding: @title-padding-small-vertical @title-padding-small-horizontal @title-padding-small-vertical @title-padding-small-horizontal+12;
+  }
+
+  &.@{datepicker-prefix}-size-large.@{datepicker-prefix}-inner-title {
+    padding: @title-padding-large-vertical @title-padding-large-horizontal @title-padding-large-vertical @title-padding-large-horizontal+12;
   }
 
   .@{datepicker-prefix}-picker  {

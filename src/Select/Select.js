@@ -531,6 +531,7 @@ class Select extends PureComponent {
       compressedClassName,
       resultClassName,
       maxLength,
+      innerTitle,
     } = this.props
     const className = selectClass(
       'inner',
@@ -580,6 +581,7 @@ class Select extends PureComponent {
           focusSelected={this.getFocusSelected()}
           compressedClassName={compressedClassName}
           resultClassName={resultClassName}
+          innerTitle={innerTitle}
         />
         {this.renderOptions()}
       </div>
@@ -625,6 +627,7 @@ Select.propTypes = {
   reFocus: PropTypes.bool,
   header: PropTypes.node,
   maxLength: PropTypes.number,
+  innerTitle: PropTypes.node,
 }
 
 Select.defaultProps = {

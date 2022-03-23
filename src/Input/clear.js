@@ -12,8 +12,8 @@ class Clear extends Component {
     // do not blur
     e.preventDefault()
 
-    const { onClick } = this.props
-    if (onClick) onClick({ target: { value: '' } }, true)
+    const { onClick, clearResult } = this.props
+    if (onClick) onClick({ target: { value: clearResult } }, true)
   }
 
   render() {
@@ -27,6 +27,7 @@ class Clear extends Component {
 
 Clear.propTypes = {
   onClick: PropTypes.func,
+  clearResult: PropTypes.any,
 }
 
 export default Clear

@@ -171,6 +171,34 @@ FormItemStandardProps<Value> {
    */
   underline?: boolean;
 
+  /**
+   * inner title
+   *
+   * 内嵌标题
+   *
+   * default: -
+   */
+  innerTitle?: ReactNode;
+
+
+  /**
+   * Placeholder title, which needs to be used together with innerTitle
+   *
+   * 占位标题，需要配合 innerTitle 一起使用
+   *
+   * default: -
+   */
+  placeTitle?: ReactNode,
+
+  /**
+   *  点击清除按钮后数据变为 undefined
+   *
+   *  After clicking the clear button, the data becomes undefined
+   *
+   *  default: -
+   *
+   */
+  clearToUndefined?: boolean
 }
 
 export interface InputNumberProps <Value> extends InputProps<Value> {

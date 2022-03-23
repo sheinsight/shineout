@@ -73,11 +73,19 @@ class Cascader extends PureComponent {
     }
   }
 
+  componentDidMount() {
+    super.componentDidMount()
+    this.updatePathByValue()
+  }
+
   componentDidUpdate(prevProps, prevState) {
     this.datum.mode = this.props.mode
     const { onFilter, filterDataChange, filterText } = this.props
     if (!filterDataChange && prevProps.data !== this.props.data) this.datum.setData(this.props.data, true)
-    if (prevProps.value !== this.props.value) this.datum.setValue(this.props.value || [])
+    if (prevProps.value !== this.props.value) {
+      this.datum.setValue(this.props.value || [])
+      this.updatePathByValue()
+    }
 
     if (prevState.focus !== this.state.focus && !this.state.focus && onFilter) {
       setTimeout(() => {
@@ -132,6 +140,22 @@ class Cascader extends PureComponent {
     )
   }
 
+  updatePathByValue() {
+    const { mode, value } = this.props
+    if (mode !== undefined) return
+    if (value === this.lastValue) return
+    if (!value || !value.length) {
+      this.setState({ path: [] })
+    } else {
+      const v = value[value.length - 1]
+      const data = this.datum.getDataById(v)
+      const id = this.datum.getKey(data)
+      let { path } = this.datum.getPath(id) || {}
+      path = path || []
+      this.handlePathChange(id, null, path)
+    }
+  }
+
   handleClickAway(e) {
     const desc = isDescendent(e.target, this.selectId)
     if (!desc) {
@@ -142,9 +166,12 @@ class Cascader extends PureComponent {
   }
 
   handlePathChange(id, data, path, fromClick) {
-    const { childrenKey, finalDismiss } = this.props
+    const { childrenKey, finalDismiss, loader } = this.props
     if (fromClick && data) {
-      const leaf = !data[childrenKey] || data[childrenKey].length === 0
+      let leaf = !data[childrenKey] || data[childrenKey].length === 0
+      if (loader && typeof loader === 'function' && data[childrenKey] === undefined) {
+        leaf = false
+      }
       if (finalDismiss && leaf) this.handleState(false)
     }
     setTimeout(() => {
@@ -229,6 +256,8 @@ class Cascader extends PureComponent {
       this.input.reset()
       this.input.focus()
     }
+    const [value] = args
+    this.lastValue = value
     onChange(...args)
 
     if (onFilter && filterText) onFilter('')
@@ -329,7 +358,18 @@ class Cascader extends PureComponent {
   }
 
   renderFilterList() {
-    const { absolute, onFilter, filterText, zIndex, data, childrenKey, renderItem, expandTrigger, height } = this.props
+    const {
+      absolute,
+      onFilter,
+      filterText,
+      zIndex,
+      data,
+      childrenKey,
+      renderItem,
+      expandTrigger,
+      height,
+      loading,
+    } = this.props
     const { focus, position } = this.state
     const className = classnames(cascaderClass(focus && 'focus', isRTL() && 'rtl'), selectClass(this.state.position))
 
@@ -353,12 +393,14 @@ class Cascader extends PureComponent {
         onFilter={onFilter}
         filterText={filterText}
         height={height}
+        loading={loading}
       />
     )
   }
 
   renderPanel() {
-    const { filterText, data, mode } = this.props
+    const { filterText, data, mode, loading } = this.props
+    if (loading) return this.renderFilterList()
     if (!filterText || (filterText && mode !== undefined) || data.length === 0) return this.renderAbsoluteList()
     return this.renderFilterList()
   }
@@ -445,6 +487,7 @@ Cascader.propTypes = {
   unmatch: PropTypes.bool,
   getComponentRef: PropTypes.func,
   showArrow: PropTypes.bool,
+  loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
 }
 
 Cascader.defaultProps = {

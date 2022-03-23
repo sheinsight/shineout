@@ -1,8 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { inputClass } from '../Input/styles'
 import cleanProps from '../utils/cleanProps'
+import InputTitle from '../InputTitle'
+import { inputTitleClass } from '../InputTitle/styles'
 
 class Textarea extends PureComponent {
   constructor(props) {
@@ -69,6 +72,16 @@ class Textarea extends PureComponent {
     forceChange(value)
   }
 
+  renderFooter() {
+    const { renderFooter, value } = this.props
+    if (!(renderFooter && typeof renderFooter === 'function')) return null
+    return (
+      <div key="footer" className={inputClass('footer')}>
+        {renderFooter(value)}
+      </div>
+    )
+  }
+
   renderInfo() {
     const { info } = this.props
     const notNumber = typeof info !== 'number'
@@ -91,39 +104,50 @@ class Textarea extends PureComponent {
   }
 
   render() {
-    const { autosize, onChange, maxHeight, info, onEnterPress, resize, ...props } = this.props
+    const {
+      autosize,
+      onChange,
+      maxHeight,
+      info,
+      onEnterPress,
+      resize,
+      renderFooter,
+      inputFocus,
+      innerTitle,
+      placeTitle,
+      ...props
+    } = this.props
     const value = props.value == null ? '' : props.value
     const height = this.state.height || 'auto'
+    const footerEl = this.renderFooter()
     const className = autosize ? inputClass('auto-size') : inputClass(resize && 'textarea-resize')
-
+    const cs = classnames(className, innerTitle && inputTitleClass('hidable', 'item'))
     const ts = [
       <textarea
         {...cleanProps(props)}
         key="t"
         value={value}
-        className={className}
+        className={cs}
         style={{ height, maxHeight, overflow: 'auto' }}
         onChange={this.handleChange}
         onKeyUp={this.handleKeyUp}
         onBlur={this.handleBlur}
       />,
-
+      footerEl,
       this.renderInfo(),
     ]
 
+    const cs2 = classnames(inputClass('shadow'), innerTitle && inputTitleClass('hidable', 'item'))
+
     if (autosize) {
-      ts.push(
-        <textarea
-          key="s"
-          ref={this.bindShadow}
-          className={inputClass('shadow')}
-          rows={props.rows}
-          defaultValue={value}
-        />
-      )
+      ts.push(<textarea key="s" ref={this.bindShadow} className={cs2} rows={props.rows} defaultValue={value} />)
     }
 
-    return ts
+    return (
+      <InputTitle innerTitle={innerTitle} open={!!value || !!inputFocus} placeTitle={placeTitle}>
+        {ts}
+      </InputTitle>
+    )
   }
 }
 
@@ -138,6 +162,10 @@ Textarea.propTypes = {
   rows: PropTypes.number,
   value: PropTypes.string,
   resize: PropTypes.bool,
+  renderFooter: PropTypes.func,
+  innerTitle: PropTypes.node,
+  inputFocus: PropTypes.bool,
+  placeTitle: PropTypes.node,
 }
 
 Textarea.defaultProps = {

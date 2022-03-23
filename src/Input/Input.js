@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { inputTitleClass } from '../InputTitle/styles'
 import cleanProps from '../utils/cleanProps'
 import Clear from './clear'
 import { inputClass } from './styles'
+import InputTitle from '../InputTitle'
 
 class Input extends PureComponent {
   constructor(props) {
@@ -52,6 +54,10 @@ class Input extends PureComponent {
       if (typeof clearable === 'function') clearable()
     }
     let { value } = e.target
+    if (clearClick && this.props.clearToUndefined) {
+      this.props.onChange(value)
+      return
+    }
     if (type === 'number' && typeof value !== 'number') value = String(value).replace(/。/g, '.')
     if (this.invalidNumber(value)) {
       // For numbers with a decimal point, use toFixed to correct the number of decimal points.
@@ -88,9 +94,12 @@ class Input extends PureComponent {
 
   handleBlur(e) {
     const { value } = e.target
-    const { forceChange, onBlur } = this.props
+    const { forceChange, onBlur, clearToUndefined } = this.props
     if (onBlur) onBlur(e)
     if (this.invalidNumber(value)) return
+    if (clearToUndefined && value === '' && this.props.value === undefined) {
+      return
+    }
     if (forceChange) forceChange(value)
   }
 
@@ -126,27 +135,44 @@ class Input extends PureComponent {
       forceChange,
       onEnterPress,
       forwardedRef,
+      innerTitle,
+      inputFocus,
+      clearToUndefined,
+      placeholder,
       ...other
     } = this.props
-    const value = this.props.value == null ? '' : this.props.value
-    const showClear = !other.disabled && clearable && value !== ''
-    const mc = classnames(className, showClear && inputClass('clearable'))
-
+    const value = this.props.value == null || this.props.value === undefined ? '' : this.props.value
+    const needClearUndefined = clearToUndefined && this.props.value !== undefined
+    const showClear = !other.disabled && clearable && (value !== '' || needClearUndefined)
+    const mc = classnames(
+      className,
+      showClear && inputClass('clearable'),
+      innerTitle && inputTitleClass('hidable', 'item')
+    )
+    const isNumber = className && className.indexOf(inputClass('number')) > -1
     return [
-      <input
-        {...cleanProps(other)}
-        className={mc || undefined}
-        name={other.name || htmlName}
-        type={type === 'password' ? type : 'text'}
-        value={value}
-        ref={this.bindRef}
+      <InputTitle
+        className={isNumber ? inputClass('number-title-box') : undefined}
         key="input"
-        onChange={this.handleChange}
-        onKeyDown={this.handleKeyDown}
-        onKeyUp={this.handleKeyUp}
-        onBlur={this.handleBlur}
-      />,
-      showClear && <Clear onClick={this.handleChange} key="close" />,
+        innerTitle={innerTitle}
+        open={!!inputFocus || !!value}
+      >
+        <input
+          {...cleanProps(other)}
+          placeholder={needClearUndefined ? '' : placeholder}
+          className={mc || undefined}
+          name={other.name || htmlName}
+          type={type === 'password' ? type : 'text'}
+          value={value}
+          ref={this.bindRef}
+          key="input"
+          onChange={this.handleChange}
+          onKeyDown={this.handleKeyDown}
+          onKeyUp={this.handleKeyUp}
+          onBlur={this.handleBlur}
+        />
+      </InputTitle>,
+      showClear && <Clear onClick={this.handleChange} key="close" clearResult={needClearUndefined ? undefined : ''} />,
       this.renderInfo(),
     ]
   }
@@ -169,6 +195,10 @@ Input.propTypes = {
   forwardedRef: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,
+  innerTitle: PropTypes.node,
+  inputFocus: PropTypes.bool,
+  clearToUndefined: PropTypes.bool,
+  placeholder: PropTypes.string,
 }
 
 Input.defaultProps = {
