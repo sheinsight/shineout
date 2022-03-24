@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { RuleParamsType } from '../Rule'
 
 export interface StandardProps {
     /**
@@ -79,6 +80,24 @@ export interface FormItemStandardProps<Value = any> {
      * default: false
      */
     filterSameChange?: boolean;
+
+    /**
+     * Validation rules
+     *
+     * 校验规则
+     *
+     * default: -
+     */
+      rules?: RuleParamsType<Value>;
+
+      /**
+       * Binding validation field name. When the value changes, the bound field validation is triggered.
+       *
+       * 绑定校验字段名。当值变化后，触发绑定的字段校验。
+       *
+       * default: -
+       */
+      bind?: string[];
 }
 export interface ListItemStandardProps<Item = any, Value = any> {
     /**

@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { PopoverProps } from '../Popover'
-import { RuleParamsType } from '../Rule'
 import { StandardProps, RegularAttributes, FormItemStandardProps, CommonProps } from '../@types/common'
 
 type ReactNode = React.ReactNode;
@@ -143,15 +142,6 @@ FormItemStandardProps<Value> {
    * default: none
    */
   maxLength?: number;
-
-  /**
-   * Validation rules
-   *
-   * 校验规则
-   *
-   * default: -
-   */
-  rules?: RuleParamsType<Value, InputProps<Value>>;
 
   /**
    * get input element

@@ -1,8 +1,6 @@
 import * as React from 'react'
-import { RuleParamsType } from '../Rule'
 import { StandardProps, StructDataStandardProps, ListItemStandardProps, FormItemStandardProps } from '../@types/common'
 
-type ReactNode = React.ReactNode;
 
 export interface RadioProps<Item = any> extends StandardProps {
 

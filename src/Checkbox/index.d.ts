@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { RuleParamsType } from '../Rule'
 import { StandardProps, FormItemStandardProps, ListItemStandardProps } from '../@types/common'
 
 type ReactNode = React.ReactNode;
@@ -32,16 +31,6 @@ export interface CheckboxProps<T> extends StandardProps, FormItemStandardProps<T
    * default: true
    */
   htmlValue?: any;
-
-
-  /**
-   * Validation rules
-   *
-   * 校验规则
-   *
-   * default: -
-   */
-  rules?: RuleParamsType<T, CheckboxProps<T>>
 
 }
 
