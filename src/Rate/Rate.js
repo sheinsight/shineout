@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { range } from '../utils/numbers'
-import { getParent } from '../utils/dom/element'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { rateClass } from './styles'
 import getDataset from '../utils/dom/getDataset'
@@ -66,7 +65,7 @@ class Rate extends PureComponent {
     let value = args[0]
     const e = args[1]
     const { clearable, allowHalf } = this.props
-    if (allowHalf && getParent(e.target, `.${rateClass('allow-half')}`)) {
+    if (allowHalf && e.target.parentElement.querySelector(`.${rateClass('allow-half')}`)) {
       value -= 0.5
     }
     if (clearable && this.props.value === value) {
