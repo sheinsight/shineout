@@ -54,6 +54,11 @@
   &-static {
     top: 0;
     left: 0;
+    .@{rate-prefix}-rtl & {
+      left: auto;
+      right: 0;
+    }
+
 
     & > span {
       display: inline-block;
@@ -61,7 +66,12 @@
       vertical-align: middle;
 
       &:last-child {
-        margin-right: 0;
+        &:not(.@{rate-prefix}-rtl *) {
+          margin-right: 0;
+        }
+        .@{rate-prefix}-rtl & {
+          margin-left: 0;
+        }
       }
     }
   }
@@ -72,11 +82,21 @@
     left: 0;
     animation: @kf-highlight 0.3s ease-out;
     font-style: normal;
+    .@{rate-prefix}-rtl & {
+      left: auto;
+      right: 0;
+    }
   }
 
   span&-text {
     margin-left: 4px;
     color: @gray-600;
     font-size: 14px;
+    &:not(.@{rate-prefix}-rtl *) {
+      margin-left: 4px;
+    }
+    .@{rate-prefix}-rtl & {
+      margin-right: 4px;
+    }
   }
 }

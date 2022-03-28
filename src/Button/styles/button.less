@@ -44,7 +44,12 @@
   }
 
   & + & {
-    margin-left: @button-margin-left;
+    &:not(&-rtl) {
+      margin-left: @button-margin-left;
+    }
+    &-rtl {
+      margin-right: @button-margin-left;
+    }
   }
 
   &[disabled],
