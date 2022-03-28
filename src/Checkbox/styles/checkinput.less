@@ -259,6 +259,10 @@
     background: @switch-uncheck-bg;
     position: relative;
     transition: @switch-transition;
+    .@{checkinput-prefix}-rtl& {
+      padding-left: 4px;
+      padding-right: @switch-indicator-size;
+    }
     input {
       width: 0;
       height: 0;
@@ -278,6 +282,10 @@
       display: inline-block;
       border-radius: 50%;
       box-shadow: @switch-uncheck-box-shadow;
+      .@{checkinput-prefix}-rtl & {
+        left: auto;
+        right: @switch-indicator-padding-horizontal;
+      }
     }
 
     &-children {
@@ -291,23 +299,42 @@
     padding-right: @switch-indicator-size;
     padding-left: 4px;
     background: @switch-checked-bg;
+    .@{checkinput-prefix}-rtl& {
+      padding-left: @switch-indicator-size;
+      padding-right: 4px;
+    }
     .@{checkinput-prefix}-switch-indicator {
       box-shadow: @switch-checked-box-shadow;
-      left: 100%;
-      margin-left: @switch-indicator-padding-horizontal-negative;
-      transform: translateX(-100%);
       background: @switch-indicator-checked-bg;
+      &:not(.@{checkinput-prefix}-rtl *) {
+        left: 100%;
+        margin-left: @switch-indicator-padding-horizontal-negative;
+        transform: translateX(-100%);
+      }
+      .@{checkinput-prefix}-rtl&{
+        right: 100%;
+        margin-right: @switch-indicator-padding-horizontal-negative;
+        transform: translateX(100%);
+      }
     }
   }
 
   &-checked&-small&-switch {
     padding-left: 0;
     padding-right: @switch-small-indicator-size;
+    .@{checkinput-prefix}-rtl& {
+      padding-left: @switch-small-indicator-size;
+      padding-right: 0;
+    }
   }
 
   &-checked&-large&-switch {
     padding-left: 0;
     padding-right: @switch-large-indicator-size;
+    .@{checkinput-prefix}-rtl& {
+      padding-left: @switch-large-indicator-size;
+      padding-right: 0;
+    }
   }
 
   &-small&-switch {
@@ -317,6 +344,10 @@
     border-radius: @switch-small-bg-border-radius;
     padding-left: @switch-small-indicator-size;
     padding-right: 0;
+    .@{checkinput-prefix}-rtl& {
+      padding-right: @switch-small-indicator-size;
+      padding-left: 0;
+    }
 
     .@{checkinput-prefix}-switch-indicator{
       width: @switch-small-indicator-size;
@@ -334,6 +365,10 @@
     border-radius: @switch-large-bg-border-radius;
     padding-left: @switch-large-indicator-size;
     padding-right: 0;
+    .@{checkinput-prefix}-rtl& {
+      padding-right: @switch-large-indicator-size;
+      padding-left: 0;
+    }
 
     .@{checkinput-prefix}-switch-indicator{
       width: @switch-large-indicator-size;
