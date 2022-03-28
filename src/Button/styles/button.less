@@ -22,7 +22,12 @@
 
   &-spin {
     display: inline-block;
-    margin-right: @button-spin-margin;
+    &:not(.@{button-prefix}-rtl *) {
+      margin-right: @button-spin-margin;
+    }
+    .@{button-prefix}-rtl & {
+      margin-left: @button-spin-margin;
+    }
   }
 
   &:hover,
@@ -287,9 +292,14 @@
   &-group {
     .@{button-prefix} {
       position: relative;
-      margin-left: 0px;
       border-right-width: 0;
       border-left-width: 0;
+      &:not(&-rtl) {
+        margin-left: 0px;
+      }
+      &-rtl {
+        margin-right: 0px;
+      }
 
       &:before {
         position: absolute;
@@ -309,12 +319,15 @@
 
 
       &:first-child {
-        margin-left: 0;
-        border-left-width: 1px;
-        .@{button-prefix}-group-rtl& {
-          border-right-width: 1px;
-          border-left-width: 0;
+        &:not(.@{button-prefix}-rtl) {
+          margin-left: 0;
+          border-left-width: 1px;
         }
+        &.@{button-prefix}-rtl {
+          border-right-width: 1px;
+          margin-right: 0;
+        }
+
 
         &:before {
           display: none;
@@ -322,10 +335,11 @@
       }
 
       &:last-child {
-        border-right-width: 1px;
-        .@{button-prefix}-group-rtl& {
+        &:not(.@{button-prefix}-rtl) {
+          border-right-width: 1px;
+        }
+        &.@{button-prefix}-rtl {
           border-left-width: 1px;
-          border-right-width: 0;
         }
       }
 
