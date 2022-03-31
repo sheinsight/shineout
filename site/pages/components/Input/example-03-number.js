@@ -17,6 +17,15 @@ export default function() {
       <Input style={style} digits={1} type="number" placeholder="digits 1" />
       <Input style={style} digits={2} type="number" placeholder="digits 2" />
       <Input style={style} digits={3} type="number" placeholder="digits 3" />
+      <Input style={style} integerNum={3} digits={3} type="number" placeholder="integerNum 3;digits 4" />
+      <Input
+        style={style}
+        positiveInteger
+        integerNum={3}
+        autoSelect
+        type="number"
+        placeholder="positiveInteger;integerNum 3;autoSelect"
+      />
     </div>
   )
 }

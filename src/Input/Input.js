@@ -7,6 +7,14 @@ import Clear from './clear'
 import { inputClass } from './styles'
 import InputTitle from '../InputTitle'
 
+function isNumber(val) {
+  return !Number.isNaN(Number(val))
+}
+
+function regLength(size) {
+  return size && size > 0 ? `{0,${size}}` : '*'
+}
+
 class Input extends PureComponent {
   constructor(props) {
     super(props)
@@ -32,14 +40,50 @@ class Input extends PureComponent {
     if (forwardedRef) forwardedRef(el)
   }
 
+  formatValue(val) {
+    let value = val
+    const { type, digits, integerNum, positiveInteger } = this.props
+    if (type !== 'number') return value
+
+    if (positiveInteger) {
+      value = val.replace(/\D|^0/g, '').substr(0, integerNum)
+    } else if (digits) {
+      const regExp = new RegExp(`^(\\-)?(\\d${regLength(integerNum)})(\\.\\d${regLength(digits)})?.*$`, 'g')
+      value = val.replace(/[^\d.]/g, '').replace(regExp, '$1$2$3')
+    } else {
+      value = val.replace(/[\D]/g, '').substr(0, integerNum)
+    }
+    return value
+  }
+
+  fixValue(val) {
+    const { type, digits } = this.props
+    if (type !== 'number') return val
+    let formatValue = val
+    if (formatValue !== '' && isNumber(formatValue)) {
+      if (digits > 0) {
+        formatValue = parseFloat(formatValue).toFixed(digits)
+      } else {
+        formatValue = parseInt(formatValue, 10).toString()
+      }
+    }
+    return formatValue
+  }
+
   invalidNumber(value) {
-    const { digits, type } = this.props
+    const { digits, type, integerNum } = this.props
     if (type !== 'number') return false
 
-    let reg = '^-?\\d*'
+    let reg = '^-?'
+    if (integerNum === undefined) {
+      reg += `\\d*`
+    } else if (integerNum >= 0) {
+      reg += `\\d{0,${integerNum}}`
+    }
+
     if (digits === undefined) {
       reg += '\\.?\\d*'
-    } else if (digits > 0) {
+    } else if (digits >= 0) {
       reg += `\\.?\\d{0,${digits}}`
     }
     reg += '$'
@@ -58,24 +102,12 @@ class Input extends PureComponent {
       this.props.onChange(value)
       return
     }
+
     if (type === 'number' && typeof value !== 'number') value = String(value).replace(/。/g, '.')
-    if (this.invalidNumber(value)) {
-      // For numbers with a decimal point, use toFixed to correct the number of decimal points.
-      if (digits >= 0 && /^-?\d*\.?\d*$/.test(value)) {
-        if (digits === 0) {
-          value = value === '.' ? '' : Number(value).toFixed(digits)
-        } else {
-          value = Number(value)
-            .toFixed(digits + 1)
-            .slice(0, -1)
-        }
-      } else {
-        // digits <= 0 || not of number
-        return
-      }
-    }
+    value = this.formatValue(value)
     this.props.onChange(value)
   }
+  
 
   handleKeyDown(e) {
     const { onKeyDown } = this.props
@@ -94,13 +126,15 @@ class Input extends PureComponent {
 
   handleBlur(e) {
     const { value } = e.target
-    const { forceChange, onBlur, clearToUndefined } = this.props
+    const newVal = this.fixValue(value)
+    const { forceChange, onBlur, clearToUndefined, cancleChange } = this.props
+    cancleChange()
     if (onBlur) onBlur(e)
-    if (this.invalidNumber(value)) return
-    if (clearToUndefined && value === '' && this.props.value === undefined) {
+    if (this.invalidNumber(newVal)) return
+    if (clearToUndefined && newVal === '' && this.props.value === undefined) {
       return
     }
-    if (forceChange) forceChange(value)
+    if (forceChange) forceChange(newVal)
   }
 
   renderInfo() {
@@ -182,10 +216,14 @@ Input.propTypes = {
   className: PropTypes.string,
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   digits: PropTypes.number,
+  integerNum: PropTypes.number, 
+  positiveInteger: PropTypes.bool, 
+  autoSelect: PropTypes.bool,
   forceChange: PropTypes.func,
   htmlName: PropTypes.string,
   onBlur: PropTypes.func,
   onChange: PropTypes.func.isRequired,
+  cancleChange: PropTypes.func,
   onEnterPress: PropTypes.func,
   type: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
