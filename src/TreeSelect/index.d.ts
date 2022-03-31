@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { RuleParamsType } from '../Rule'
 import { CommonProps, StandardProps } from '../@types/common'
 
 type ReactNode = React.ReactNode;
@@ -279,15 +278,6 @@ export interface TreeSelectProps<Value, Data> extends StandardProps,
    * default: none
    */
   onCollapse?: (collapse: boolean) => void;
-
-  /**
-   * Validation rules
-   *
-   * 校验规则
-   *
-   * default: -
-   */
-  rules?: RuleParamsType<Value, TreeSelectProps<Value, Data>>;
 
   /**
    * render unmatch value
