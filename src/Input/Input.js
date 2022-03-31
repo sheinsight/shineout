@@ -23,6 +23,7 @@ class Input extends PureComponent {
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleKeyUp = this.handleKeyUp.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
+    this.handleAutoSelect = this.handleAutoSelect.bind(this)
     this.bindRef = this.bindRef.bind(this)
   }
 
@@ -107,7 +108,6 @@ class Input extends PureComponent {
     value = this.formatValue(value)
     this.props.onChange(value)
   }
-  
 
   handleKeyDown(e) {
     const { onKeyDown } = this.props
@@ -135,6 +135,13 @@ class Input extends PureComponent {
       return
     }
     if (forceChange) forceChange(newVal)
+  }
+
+  handleAutoSelect(event) {
+    const { autoSelect } = this.props
+    if (autoSelect) {
+      event.currentTarget.select()
+    }
   }
 
   renderInfo() {
@@ -204,6 +211,7 @@ class Input extends PureComponent {
           onKeyDown={this.handleKeyDown}
           onKeyUp={this.handleKeyUp}
           onBlur={this.handleBlur}
+          onMouseUp={this.handleAutoSelect}
         />
       </InputTitle>,
       showClear && <Clear onClick={this.handleChange} key="close" clearResult={needClearUndefined ? undefined : ''} />,
@@ -216,8 +224,8 @@ Input.propTypes = {
   className: PropTypes.string,
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   digits: PropTypes.number,
-  integerNum: PropTypes.number, 
-  positiveInteger: PropTypes.bool, 
+  integerNum: PropTypes.number,
+  positiveInteger: PropTypes.bool,
   autoSelect: PropTypes.bool,
   forceChange: PropTypes.func,
   htmlName: PropTypes.string,
