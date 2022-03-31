@@ -37,12 +37,17 @@ class Number extends PureComponent {
       return
     }
 
-    if (typeof this.props.digits === 'number') {
-      value = parseFloat(value.toFixed(this.props.digits))
-    } else {
-      const stepStr = this.props.step.toString()
-      const dot = stepStr.lastIndexOf('.')
-      if (dot >= 0) value = parseFloat(value.toFixed(stepStr.length - dot))
+    const { autoFix, digits, step } = this.props
+
+    value = parseFloat(value)
+    if (autoFix) {
+      if (typeof digits === 'number') {
+        value = value.toFixed(digits)
+      } else {
+        const stepStr = step.toString()
+        const dot = stepStr.lastIndexOf('.')
+        if (dot >= 0) value = value.toFixed(stepStr.length - dot)
+      }
     }
 
     const { min, max } = this.props
@@ -204,6 +209,10 @@ Number.propTypes = {
   onChange: PropTypes.func.isRequired,
   step: PropTypes.number,
   digits: PropTypes.number,
+  integerLimit: PropTypes.number,
+  positive: PropTypes.bool,
+  autoSelect: PropTypes.bool,
+  autoFix: PropTypes.bool,
   allowNull: PropTypes.bool,
   hideArrow: PropTypes.bool,
   clearToUndefined: PropTypes.bool,

@@ -188,7 +188,57 @@ FormItemStandardProps<Value> {
    *  default: -
    *
    */
-  clearToUndefined?: boolean
+  clearToUndefined?: boolean,
+
+  /**
+   *  整数位数限制
+   *
+   *  Integer bit limit
+   *
+   *  default: -
+   *
+   */
+  integerLimit?: number,
+
+  /**
+   *  正数，仅在type = number 下生效
+   *
+   *  positive number
+   *
+   *  default: -
+   *
+   */
+   positive?: boolean,
+
+  /**
+   *  鼠标点击后自动全选数据
+   *
+   *  Automatically select all data after mouse click
+   *
+   *  default: false
+   *
+   */
+  autoSelect?: boolean,
+
+  /**
+   *  失焦自动格式化
+   *
+   *  Automatically fix after blur
+   *
+   *  default: false
+   *
+   */
+  autoFix?: boolean,
+
+  /**
+   *  清除input的delay行为
+   *
+   *  cancel input delay behavior
+   *
+   *  default: -
+   *
+   */
+  cancelChange?: () => void
 }
 
 export interface InputNumberProps <Value> extends InputProps<Value> {

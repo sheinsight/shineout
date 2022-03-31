@@ -15,6 +15,11 @@ const names = [
   'popoverProps',
   'inputFocus',
   'placeTitle',
+  'cancleChange',
+  'integerLimit',
+  'autoSelect',
+  'autoFix',
+  'positive',
 ]
 
 /**
