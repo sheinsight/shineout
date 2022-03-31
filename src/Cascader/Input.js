@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { cascaderClass } from './styles'
-import { focusElement, getCursorOffset } from '../utils/dom/element'
+import { focusElement, getCursorOffset, preventPasteFile } from '../utils/dom/element'
 
 const handleFocus = e => {
   e.stopPropagation()
@@ -68,16 +68,13 @@ class FilterInput extends Component {
     this.props.onFilter(t)
   }
 
+  // eslint-disable-next-line class-methods-use-this
   handlePaste(e) {
-    const text = (e.clipboardData || window.clipboardData).getData('text/plain')
-    if (!text) return
-    e.preventDefault()
-    document.execCommand('insertText', false, text)
-    this.handleInput({ target: { innerText: text } })
+    preventPasteFile(e)
   }
 
   render() {
-    const { focus, filterText } = this.props
+    const { focus } = this.props
     const props = {
       className: cascaderClass('input', !focus && 'ellipsis'),
       ref: this.bindElement,
