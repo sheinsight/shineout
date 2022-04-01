@@ -40,6 +40,7 @@
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | 无 | 上传失败文件删除之后的回调 |
 | forceAccept | string | 无 | 在使用时关闭了 accept 提供的文件类型过滤后，强制对文件类型进行校验（值同accept） |
 | showUploadList | boolean | true | 是否展示上传列表 |
+| webkitdirectory | bool | false | 同原生 input 标签的 webkitdirectory 属性，官方解释是：如果设置为true，则 input 只允许选择目录；如果设置为false，则只允许选择文件<br/>但实际上，该字段传布尔值（包括true、false）、null、undefined都只允许选择文件，除此之外，传其它任何值（包括NaN、''、 0、[]等）都只允许选择目录 |
 
 
 ### Upload.Image

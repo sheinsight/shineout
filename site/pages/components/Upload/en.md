@@ -36,6 +36,7 @@
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | none | remove update failed callback |
 | forceAccept | string | none | After disabled the file type filtering provided by accept, it is mandatory to check the file type, value same as accept |
 | showUploadList | boolean | true | show upload list |
+| webkitdirectory | bool | false | The same as the native webkitdirectory tag. The official explanation is: if set to true, the input only allows to select directories; if set to false, only files are allowed to be selected<br/>But in fact, boolean values ​​(including true, false), null, and undefined are only allowed to select files. Apart from that, any other values ​​(including NaN, '', 0, [], etc.) allow directory selection |
 
 ### Upload.Image
 
