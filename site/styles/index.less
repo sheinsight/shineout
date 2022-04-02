@@ -66,6 +66,10 @@ a:focus {
       min-width: 240px;
     }
 
+    @media (min-width: 979px){
+      display: block !important;
+    }
+
     @media (max-width: 979px) and (min-width: 0px){
       position: fixed;
       top: 0;
@@ -78,7 +82,8 @@ a:focus {
       z-index: 999;
       display: none;
       &-sticky-wrap {
-        display: none;
+        width: 0;
+        min-width: 0;
       }
     }
 
