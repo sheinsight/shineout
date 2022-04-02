@@ -42,7 +42,7 @@
 | beforeRemove | (value: any) => Promise | none | callback before remove |
 | canDelete | （(value: any) => boolean) \| boolean | 无 | Can the file be deleted |
 | responseType |  string | none | set xhr.responseType|
-| webkitdirectory | any (See the description) | false | The same as the native webkitdirectory tag. The official explanation is: if set to true, the input only allows to select directories; if set to false, only files are allowed to be selected<br/>But in fact, boolean values ​​(including true, false), null, and undefined are only allowed to select files. Apart from that, any other values ​​(including NaN, '', 0, [], etc.) allow directory selection |
+| webkitdirectory | any | false | The same as the native webkitdirectory tag |
 
 ### Upload.Image
 
