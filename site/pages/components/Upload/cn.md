@@ -45,7 +45,8 @@
 | beforeRemove | (value: any) => Promise | 无 | 删除前的确认 |
 | canDelete | ((value: any) => boolean) \| boolean | 无 | 文件是否可以删除|
 | responseType |  string | 无 | 设置 xhr.responseType |
-| webkitdirectory | any (详见说明) | false | 同原生 input 标签的 webkitdirectory 属性，官方解释是：如果设置为true，则 input 只允许选择目录；如果设置为false，则只允许选择文件<br/>但实际上，该字段传布尔值（包括true、false）、null、undefined都只允许选择文件，除此之外，传其它任何值（包括NaN、''、 0、[]等）都只允许选择目录 |
+| webkitdirectory | any | false | 同原生 input 标签的 webkitdirectory 属性 |
+
 ### Upload.Image
 
 | 属性 | 类型 | 默认值 | 说明 |
