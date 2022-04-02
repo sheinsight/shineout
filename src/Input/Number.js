@@ -2,7 +2,9 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import icons from '../icons'
 import Input from './Input'
-import { inputClass } from '../styles'
+import { inputClass } from './styles'
+import { isRTL } from '../config'
+import { sub } from '../utils/numbers'
 
 class Number extends PureComponent {
   constructor(props) {
@@ -23,7 +25,7 @@ class Number extends PureComponent {
   }
 
   handleChange(value, check, isEmpty) {
-    if (isEmpty) {
+    if (isEmpty || value === undefined) {
       this.props.onChange(value)
       return
     }
@@ -54,6 +56,7 @@ class Number extends PureComponent {
   }
 
   handleBlur(e) {
+    this.hold = false
     let value = parseFloat(e.target.value)
     // for the empty
     if (e.target.value === '' && this.props.allowNull) {
@@ -61,7 +64,11 @@ class Number extends PureComponent {
     }
     // eslint-disable-next-line no-restricted-globals
     if (isNaN(value)) value = 0
-    this.handleChange(value, true, value === null)
+    if (this.props.clearToUndefined && e.target.value === '' && this.props.value === undefined) {
+      this.handleChange(undefined, true, true)
+    } else {
+      this.handleChange(value, true, value === null)
+    }
     this.props.onBlur(e)
   }
 
@@ -72,7 +79,7 @@ class Number extends PureComponent {
     let value = parseFloat(`${val || ''}`.replace(/,/g, ''))
     // eslint-disable-next-line
     if (isNaN(value)) value = 0
-    this.handleChange(value + mod, true)
+    this.handleChange(sub(value, mod), true)
   }
 
   longPress(mod) {
@@ -148,8 +155,29 @@ class Number extends PureComponent {
     ]
   }
 
+  renderRTL() {
+    const { onChange, allowNull, hideArrow, ...other } = this.props
+    return [
+      ...this.renderArrowGroup(),
+      <Input
+        key="input"
+        {...other}
+        className={inputClass({ number: !hideArrow }, 'rtl')}
+        onChange={this.handleChange}
+        onKeyDown={this.handleKeyDown}
+        onKeyUp={this.handleKeyUp}
+        onBlur={this.handleBlur}
+        type="number"
+      />,
+    ]
+  }
+
   render() {
     const { onChange, allowNull, hideArrow, ...other } = this.props
+    const rtl = isRTL()
+    if (rtl) {
+      return this.renderRTL()
+    }
     return [
       <Input
         key="input"
@@ -178,6 +206,7 @@ Number.propTypes = {
   digits: PropTypes.number,
   allowNull: PropTypes.bool,
   hideArrow: PropTypes.bool,
+  clearToUndefined: PropTypes.bool,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 }
 

@@ -49,12 +49,12 @@ By default, the css code is isolated by prefix. The default prefix is 'so' and d
     }
   }
 }
-``` 
+```
 
 Set config in the project.
 
 ```
-import config from 'shineout/config'
+import { config } fron 'shineout'
 config.setConfig({
   prefix: 'your-prefix'
 })
@@ -85,7 +85,7 @@ If you need to use the CSS Module, modify the css-loader configuration of the we
 
 Set the config.cssmodule to true at the application entrance
 ```
-import config from 'shineout/config'
+import { config } fron 'shineout'
 config.setConfig({
   cssModule: true
 })
@@ -109,7 +109,7 @@ Input delay refers to the user's input trigger onchange and check interval. Inpu
 You can change the global delay time by setting config.delay.
 
 ```
-import config from 'shineout/config'
+import { config } fron 'shineout'
 config.setConfig({
   delay: 0
 })
@@ -236,83 +236,30 @@ Create a `.rescriptsrc.js` in root directory.
 module.exports = [];
 ```
 
-### Use babel-plugin-import
+### Use modularized shineout
 
-[babel-plugin-import](https://github.com/ant-design/babel-plugin-import) create by antd and is a babel plugin.
+shineout supports ES modules tree shaking by default for JS part.
 
-```
-$ npm i babel-plugin-import @rescripts/rescript-use-babel-config
-```
 
-Modify .rescriptsrc.js file, add Babel configuration:
-
-```
-module.exports = [
-+   ['use-babel-config', '.babelrc']
-];
-```
-
-create .babelrc file:
-
-```
-{
-  "presets": ["react-app"],
-  "plugins": [
-    [
-      "import", 
-      { 
-        "libraryName": "shineout", 
-        "libraryDirectory": "css", // import css 
-        "style": false,
-        "camel2DashComponentName": false,
-        "camel2UnderlineComponentName": false
-      }
-    ]
-  ]
-}
-```
-
-`libraryDirectory` set css, because the compiled folder for less and jsx under the css directory structure.
 
 ### Modify Theme
 
 Modifying the theme requires compiling less , it is necessary to introduce rewrite less related content.
 
-1. Modify .babelrc file
-
-```
-{
-  "presets": ["react-app"],
-  "plugins": [
-    [
-      "import", 
-      { 
-        "libraryName": "shineout", 
--       "libraryDirectory": "css", // import css 
-+       "libraryDirectory": "lib", // import lib 
-        "style": false,
-        "camel2DashComponentName": false,
-        "camel2UnderlineComponentName": false
-      }
-    ]
-  ]
-}
-```
 1. Install `rescript-use-rewire` and `react-app-rewire-less`.
-   
+
 ```
 $ npm i @rescripts/rescript-use-rewire react-app-rewire-less
 ```
-3. Modify `.rescript.js` file
 
+2. Modify `.rescript.js` file
 ```
 + const rewireLess = require('react-app-rewire-less');
 
 module.exports = [
-  ['use-babel-config', '.babelrc'],
-+ [ 
++ [
 +   'use-rewire',
-+   rewireLess.withLoaderOptions({ 
++   rewireLess.withLoaderOptions({
 +     modifyVars: { 'so-theme': 'antd' }, // change theme to antd
 +     javascriptEnabled: true
 +   })
@@ -320,7 +267,7 @@ module.exports = [
 ];
 ```
 
-4. Re-run `npm start`.
+3. Re-run `npm start`.
 
 ## I18N
 

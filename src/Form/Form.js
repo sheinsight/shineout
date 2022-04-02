@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getUidStr } from '../utils/uid'
-import { formClass } from '../styles'
+import { formClass } from './styles'
 import { FormError } from '../utils/errors'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { docScroll } from '../utils/dom/document'
 import { IGNORE_BIND } from '../Datum/types'
 import { FieldSetProvider } from './FieldSet'
+import { isRTL } from '../config'
 
 const emptyValue = { path: '' }
 
@@ -25,6 +26,8 @@ class Form extends Component {
     this.form = {
       getValue: () => this.props.datum.getValue(),
       validate: () => this.props.datum.validate(),
+      validateFields: fields => this.props.datum.validateFields(fields).catch(() => {}),
+      validateFieldsWithError: fields => this.props.datum.validateFields(fields),
       clearValidate: () => {
         this.props.datum.validateClear()
       },
@@ -46,7 +49,13 @@ class Form extends Component {
 
   componentDidMount() {
     const { formRef } = this.props
-    if (formRef) formRef(this.form)
+    if (formRef) {
+      if (typeof formRef === 'function') {
+        formRef(this.form)
+      } else {
+        formRef.current = this.form
+      }
+    }
     this.setStatus()
     if (this.element) {
       this.element.addEventListener('submit', this.handleSubmit)
@@ -144,7 +153,7 @@ class Form extends Component {
     }
 
     const className = classnames(
-      formClass('_', layout, (disabled || pending) && 'disabled', inline && 'inline'),
+      formClass('_', layout, (disabled || pending) && 'disabled', inline && 'inline', isRTL() && 'rtl'),
       this.props.className
     )
 

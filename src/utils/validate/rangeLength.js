@@ -10,11 +10,10 @@ export default options => (value, formdata, callback) => {
     return
   }
 
-  const len = value.length
+  const len = typeof value === 'number' ? value.toString().length : value.length
   if ((typeof min === 'number' && len < min) || (typeof max === 'number' && len > max)) {
     callback(error)
   } else {
     callback(true)
   }
 }
-

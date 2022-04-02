@@ -104,6 +104,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-10-sort-default.js'),
   },
   {
+    name: '10-sort-render',
+    title: locate(
+      '自定义排序图标 \n 设置 Table 的 renderSorter 属性来自定义图标',
+      'Sorter \n Set the renderSorter property of the Table to customize the icon.'
+    ),
+    component: require('doc/pages/components/Table/example-10-sort-render.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-10-sort-render.js'),
+  },
+  {
     name: '10-sort-weight',
     title: locate(
       '多列排序 \n 设置 column 的 sorter 为一个对象，对象的rule属性同单列排序的sorter，weight表示排序权重，值越大表示排序优先级越高 \n 支持多列默认排序，为需要默认排序的列设置defaultOrder \n sorter 返回一个 sort 函数时，使用这个函数对数据进行内部排序 \n 后端或自行排序用户自行处理，sorter 函数不要返回结果',
@@ -286,8 +295,8 @@ const examples = [
   {
     name: '28-tree',
     title: locate(
-      ' \n 使用 treeExpandKeys 和 onTreeExpand 使展开行受控',
-      ' \n Use treeExpandKeys and onTreeExpand to control the expand row.'
+      ' \n 使用 treeExpandKeys 和 onTreeExpand 使展开行受控 \n 设置 changedByExpand 为 true 用来改变滚动条重置的默认行为',
+      ' \n Use treeExpandKeys and onTreeExpand to control the expand row. \n Set changedByExpand to true to change the default behavior of scrollbar reset'
     ),
     component: require('doc/pages/components/Table/example-28-tree.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-28-tree.js'),
@@ -318,6 +327,24 @@ const examples = [
     ),
     component: require('doc/pages/components/Table/example-31-sticky.js').default,
     rawText: require('!raw-loader!doc/pages/components/Table/example-31-sticky.js'),
+  },
+  {
+    name: '32-selection',
+    title: locate(
+      '单元格选中 \n 通过 cellSelectable 属性来启用 ctrl/cmd + click 选中单元格',
+      'Cell selectable \n whether to enable ctrl/cmd + click check.'
+    ),
+    component: require('doc/pages/components/Table/example-32-selection.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-32-selection.js'),
+  },
+  {
+    name: '33-row-drag',
+    title: locate(
+      '拖动行 \n 通过 rowEvents 属性来自定义拖拽事件',
+      'drag row \n customize drag events through the rowEvents property'
+    ),
+    component: require('doc/pages/components/Table/example-33-row-drag.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-33-row-drag.js'),
   },
 ]
 

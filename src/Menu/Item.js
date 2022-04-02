@@ -3,10 +3,19 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { getKey, getUidStr } from '../utils/uid'
-import { menuClass } from '../styles'
+import { menuClass } from './styles'
 import List from './List'
 import { consumer } from './context'
 import { isLink } from '../utils/is'
+import { isRTL } from '../config'
+import { getParent } from '../utils/dom/element'
+
+const getBaseIndent = () => 16
+
+const calcIndent = (flag, indent) => {
+  if (!flag) return indent
+  return Math.ceil((indent / 3) * 2)
+}
 
 class Item extends PureComponent {
   constructor(props) {
@@ -14,12 +23,10 @@ class Item extends PureComponent {
 
     this.id = `${props.path},${getUidStr()}`
     const key = this.getKey(props)
-    const [activeUpdate, openUpdate, inPathUpdate] = props.bindItem(
-      this.id,
-      this.update.bind(this),
-      this.updateOpen.bind(this),
-      this.updateInPath.bind(this)
-    )
+    const noop = () => {}
+
+    const [activeUpdate, openUpdate, inPathUpdate] = props.bindItem(this.id, noop, noop, noop)
+
     this.state = {
       open: openUpdate(key),
       isActive: activeUpdate(this.id, props.data),
@@ -35,6 +42,11 @@ class Item extends PureComponent {
     this.renderLink = this.renderLink.bind(this)
   }
 
+  componentDidMount() {
+    super.componentDidMount()
+    this.props.bindItem(this.id, this.update.bind(this), this.updateOpen.bind(this), this.updateInPath.bind(this))
+  }
+
   componentWillUnmount() {
     super.componentWillUnmount()
     this.props.unbindItem(this.id)
@@ -43,6 +55,25 @@ class Item extends PureComponent {
 
   getKey(props = this.props) {
     return getKey(props.data, props.keygen, props.index)
+  }
+
+  getCalcStyle() {
+    const style = {}
+    const { frontCaret, level, inlineIndent, mode } = this.props
+
+    const rtl = isRTL()
+
+    if (mode !== 'inline') return style
+
+    const indent = calcIndent(frontCaret, inlineIndent)
+
+    if (rtl) {
+      style.paddingRight = getBaseIndent(frontCaret) + level * indent
+    } else {
+      style.paddingLeft = getBaseIndent(frontCaret) + level * indent
+    }
+
+    return style
   }
 
   bindElement(el) {
@@ -87,17 +118,20 @@ class Item extends PureComponent {
   }
 
   handleClick(e) {
-    const { data, onClick, mode, toggleOpenKeys } = this.props
-    if (data.disabled) return
-
-    if (mode === 'inline' && data.children && data.children.length) {
-      toggleOpenKeys(this.getKey(), !this.state.open)
+    const { data, onClick, mode, toggleOpenKeys, looseChildren, parentSelectable } = this.props
+    const expandClick = getParent(e.target, `.${menuClass('expand')}`)
+    const canExpand = !parentSelectable || expandClick
+    if (mode === 'inline' && data.children && canExpand) {
+      const shouldToggle = looseChildren || data.children.length
+      if (shouldToggle) toggleOpenKeys(this.getKey(), !this.state.open)
+      if (parentSelectable && expandClick) return
     }
 
+    if (data.disabled) return
     if (typeof data.onClick === 'function') {
       data.onClick(this.id, data)
     } else if (
-      (!data.children || data.children.length === 0 || data.onClick === true) &&
+      (!data.children || data.children.length === 0 || data.onClick === true || parentSelectable) &&
       typeof onClick === 'function'
     ) {
       onClick(this.id, data)
@@ -128,11 +162,44 @@ class Item extends PureComponent {
     return data[linkKey]
   }
 
+  renderItem(hasChilds = false, style) {
+    const { renderItem, data, index, frontCaret, caretColor } = this.props
+    const item = renderItem(data, index)
+    const link = this.renderLink(data)
+    if (isLink(item)) {
+      const mergeClass = classnames(menuClass('title'), item.props && item.props.className)
+      const mergeStyle = Object.assign({}, style, item.props && item.props.style)
+      return cloneElement(item, { className: mergeClass, style: mergeStyle, onClick: this.handleSwitch })
+    }
+
+    const props = {
+      className: menuClass('title'),
+      style,
+      onClick: this.handleClick,
+    }
+    if (link) props.href = link
+
+    if (frontCaret) {
+      return (
+        <a {...props}>
+          <div style={{ color: caretColor }} className={menuClass('caret', hasChilds && 'has-childs')} />
+          {item}
+        </a>
+      )
+    }
+
+    return (
+      <a {...props}>
+        {item}
+        <span className={menuClass('expand')} style={{ color: caretColor }} />
+      </a>
+    )
+  }
+
   render() {
     const {
       data,
       renderItem,
-      index,
       mode,
       keygen,
       level,
@@ -144,6 +211,10 @@ class Item extends PureComponent {
       topLine,
       linkKey,
       toggleDuration,
+      frontCaret,
+      looseChildren,
+      parentSelectable,
+      frontCaretType,
     } = this.props
     const { open, isActive, isHighLight, inPath } = this.state
     const { children: dChildren } = data
@@ -156,45 +227,31 @@ class Item extends PureComponent {
       isUp = this.element.getBoundingClientRect().bottom - topLine > (bottomLine - topLine) / 2
     }
 
+    const hasChilds = looseChildren ? Array.isArray(dChildren) : children.length > 0
+
     const className = menuClass(
       'item',
       isDisabled === true && 'disabled',
-      children.length > 0 ? 'has-children' : 'no-children',
+      hasChilds ? 'has-children' : 'no-children',
       isActive && 'active',
       open && 'open',
       isUp && 'open-up',
       isHighLight && 'highlight',
-      inPath && 'in-path'
+      inPath && 'in-path',
+      frontCaret && `caret-${frontCaretType}`,
+      parentSelectable && 'selectable'
     )
 
-    const style = {}
+    const style = this.getCalcStyle()
     const events = {}
-    if (mode === 'inline') {
-      style.paddingLeft = 20 + level * inlineIndent
-    } else {
+    if (mode !== 'inline') {
       events.onMouseEnter = this.handleMouseEnter
       events.onMouseLeave = this.handleMouseLeave
     }
-    let item = renderItem(data, index)
-    const link = this.renderLink(data)
-    if (isLink(item)) {
-      const mergeClass = classnames(menuClass('title'), item.props && item.props.className)
-      const mergeStyle = Object.assign({}, style, item.props && item.props.style)
-      item = cloneElement(item, { className: mergeClass, style: mergeStyle, onClick: this.handleSwitch })
-    } else {
-      const props = {
-        className: menuClass('title'),
-        style,
-        onClick: this.handleClick,
-      }
-      if (link) props.href = link
-      item = <a {...props}>{item}</a>
-    }
-
     return (
       <li className={className} {...events} ref={this.bindElement}>
-        {item}
-        {children.length > 0 && (
+        {this.renderItem(hasChilds, style)}
+        {hasChilds && (
           <List
             // className={menuClass('sub')}
             data={children}
@@ -210,6 +267,9 @@ class Item extends PureComponent {
             toggleOpenKeys={toggleOpenKeys}
             linkKey={linkKey}
             toggleDuration={toggleDuration}
+            frontCaret={frontCaret}
+            looseChildren={looseChildren}
+            parentSelectable={parentSelectable}
           />
         )}
       </li>
@@ -235,6 +295,11 @@ Item.propTypes = {
   unbindItem: PropTypes.func,
   linkKey: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   toggleDuration: PropTypes.number,
+  frontCaret: PropTypes.bool,
+  looseChildren: PropTypes.bool,
+  parentSelectable: PropTypes.bool,
+  frontCaretType: PropTypes.oneOf(['hollow', 'solid']),
+  caretColor: PropTypes.string,
 }
 
 export default consumer(Item)

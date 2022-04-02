@@ -1,0 +1,169 @@
+@import '../../styles/variables.less';
+@import '../../styles/themes/@{so-theme}.less';
+@tooltip-prefix: ~'@{so-prefix}-tooltip';
+
+@arrowOffset: (-@tooltip-arrow-width + 1px);
+
+.@{tooltip-prefix} {
+  @keyframe-opacity: ~'@{tooltip-prefix}-kf-opacity';
+  @keyframe-top: ~'@{tooltip-prefix}-kf-top';
+  @keyframe-right: ~'@{tooltip-prefix}-kf-right';
+  @keyframe-bottom: ~'@{tooltip-prefix}-kf-bottom';
+  @keyframe-left: ~'@{tooltip-prefix}-kf-left';
+
+  @keyframes @keyframe-opacity {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes @keyframe-top {
+    0% {
+      margin-top: 0;
+    }
+
+    100% {
+      margin-top: -@tooltip-margin - @tooltip-arrow-width;
+    }
+  }
+
+  @keyframes @keyframe-bottom {
+    0% {
+      margin-top: 0;
+    }
+
+    100% {
+      margin-top: @tooltip-margin + @tooltip-arrow-width;
+    }
+  }
+
+  @keyframes @keyframe-left {
+    0% {
+      margin-left: 0;
+    }
+
+    100% {
+      margin-left: -@tooltip-margin - @tooltip-arrow-width;
+    }
+  }
+
+  @keyframes @keyframe-right {
+    0% {
+      margin-left: 0;
+    }
+
+    100% {
+      margin-left: @tooltip-margin + @tooltip-arrow-width;
+    }
+  }
+
+  position: absolute;
+  z-index: @zindex-tooltip;
+  display: block;
+  font-size: @font-size-small;
+  word-wrap: break-word;
+  pointer-events: none;
+
+  &-animation {
+    transition: opacity 0.3 ease, transform 0.3s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+  }
+
+  &-disabled-wrapper {
+    display: inline-block;
+  }
+
+  &-arrow {
+    position: absolute;
+    z-index: 1;
+    display: inline-block;
+    width: 0;
+    height: 0;
+  }
+
+  &-inner {
+    position: relative;
+    z-index: 2;
+    max-width: @tooltip-max-width;
+    padding: @tooltip-padding-y @tooltip-padding-x;
+    background-color: @tooltip-bg;
+    border-radius: 4px;
+    color: @tooltip-color;
+    text-align: center;
+  }
+
+  &-top {
+    margin-top: -@tooltip-margin - @tooltip-arrow-width;
+    transform: translate(-50%, -100%);
+
+    .@{tooltip-prefix}-arrow {
+      bottom: @arrowOffset;
+      left: 50%;
+      border-top: @tooltip-arrow-width solid @tooltip-bg;
+      border-right: @tooltip-arrow-width solid transparent;
+      border-left: @tooltip-arrow-width solid transparent;
+      transform: translate(-50%, 0);
+    }
+  }
+
+  &-top&-animation {
+    animation: @keyframe-opacity 0.3s ease, @keyframe-top 0.3s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+  }
+
+  &-right {
+    margin-left: @tooltip-margin + @tooltip-arrow-width;
+    transform: translate(0, -50%);
+
+    .@{tooltip-prefix}-arrow {
+      top: 50%;
+      left: @arrowOffset;
+      border-top: @tooltip-arrow-width solid transparent;
+      border-right: @tooltip-arrow-width solid @tooltip-bg;
+      border-bottom: @tooltip-arrow-width solid transparent;
+      transform: translateY(-50%);
+    }
+  }
+
+  &-right&-animation {
+    animation: @keyframe-opacity 0.3s ease, @keyframe-right 0.3s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+  }
+
+  &-left {
+    margin-left: -@tooltip-margin - @tooltip-arrow-width;
+    transform: translate(-100%, -50%);
+
+    .@{tooltip-prefix}-arrow {
+      top: 50%;
+      right: @arrowOffset;
+      border-top: @tooltip-arrow-width solid transparent;
+      border-bottom: @tooltip-arrow-width solid transparent;
+      border-left: @tooltip-arrow-width solid @tooltip-bg;
+      transform: translateY(-50%);
+    }
+  }
+
+  &-left&-animation {
+    animation: @keyframe-opacity 0.3s ease, @keyframe-left 0.3s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+  }
+
+  &-bottom {
+    margin-top: @tooltip-margin + @tooltip-arrow-width;
+    transform: translateX(-50%);
+
+    .@{tooltip-prefix}-arrow {
+      top: @arrowOffset;
+      left: 50%;
+      border-right: @tooltip-arrow-width solid transparent;
+      border-bottom: @tooltip-arrow-width solid @tooltip-bg;
+      border-left: @tooltip-arrow-width solid transparent;
+      transform: translate(-50%, 0);
+    }
+  }
+
+  &-bottom&-animation {
+    animation: @keyframe-opacity 0.3s ease, @keyframe-bottom 0.3s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+  }
+}

@@ -1,0 +1,41 @@
+@import '../../styles/variables.less';
+
+@three-bounce-prefix: ~'@{so-prefix}-three-bounce';
+
+.@{three-bounce-prefix} {
+  @animationDuration: 1.4s;
+  @delayRange: 0.32s;
+  @keyframesBounce: ~'@{three-bounce-prefix}-bounce';
+
+  margin: auto;
+  text-align: center;
+
+  @keyframes @keyframesBounce {
+    0%,
+    80%,
+    100% {
+      transform: scale3d(0, 0, 1);
+    }
+
+    40% {
+      transform: scale3d(1, 1, 1);
+    }
+  }
+
+  &-item {
+    display: inline-block;
+    animation: @keyframesBounce @animationDuration ease-in-out 0s infinite both;
+
+    div {
+      border-radius: 100%;
+    }
+  }
+
+  &-item:nth-child(1) {
+    animation-delay: -@delayRange;
+  }
+
+  &-item:nth-child(2) {
+    animation-delay: -(@delayRange / 2);
+  }
+}

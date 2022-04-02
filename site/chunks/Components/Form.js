@@ -41,6 +41,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Form/example-02-label.js'),
   },
   {
+    name: '03-label-vertical',
+    title: locate(
+      ' \n 当 label 文字存在换行时，可使用 labelVerticalAlign 来控制垂直方向对齐方式',
+      ' \n Use labelVerticalAlign to control vertical alignment when there is a line break in the label text'
+    ),
+    component: require('doc/pages/components/Form/example-03-label-vertical.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-03-label-vertical.js'),
+  },
+  {
     name: '03-label',
     title: locate(
       ' \n labelAlign="top"',
@@ -102,6 +111,15 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-08-x-validate-bind.js').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-08-x-validate-bind.js'),
+  },
+  {
+    name: '08-y-validate-keep-height',
+    title: locate(
+      ' \n 使用 keepErrorHeight 使得单行错误提示不会撑开页面高度',
+      ' \n Use keepErrorHeight so that a single-line error prompt will not stretch the page height'
+    ),
+    component: require('doc/pages/components/Form/example-08-y-validate-keep-height.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-08-y-validate-keep-height.js'),
   },
   {
     name: '09-server-validate',

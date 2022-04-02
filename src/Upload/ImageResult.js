@@ -2,13 +2,30 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import icons from '../icons'
 import Image from '../Image'
-import { uploadClass } from '../styles'
+import RemoveConfirm from './RemoveConfirm'
+import { uploadClass } from './styles'
 
 class ImageResult extends PureComponent {
   constructor(props) {
     super(props)
+    this.state = {
+      confirm: false,
+    }
     this.handleRemove = this.handleRemove.bind(this)
     this.handleRecover = this.handleRecover.bind(this)
+    this.bindImage = this.bindImage.bind(this)
+    this.handlePreview = this.handlePreview.bind(this)
+    this.handleConfirmChange = this.handleConfirmChange.bind(this)
+    this.preview = this.preview.bind(this)
+  }
+
+  get showRemove() {
+    const { onRemove, renderContent } = this.props
+    return onRemove && renderContent
+  }
+
+  bindImage(image) {
+    this.image = image
   }
 
   handleRemove() {
@@ -18,6 +35,54 @@ class ImageResult extends PureComponent {
   handleRecover() {
     const { onRecover, value, index } = this.props
     onRecover(index, value)
+  }
+
+  handleConfirmChange(confirm) {
+    this.setState({ confirm })
+  }
+
+  preview() {
+    if (!this.image) return
+    this.image.preview()
+  }
+
+  handlePreview() {
+    const { onPreview, renderResult, value, index, values } = this.props
+    if (onPreview) {
+      const url = renderResult(value)
+      onPreview(url, value, index, values, {
+        preview: () => this.preview(),
+      })
+      return
+    }
+    this.preview()
+  }
+
+  renderOptions() {
+    const { removeConfirm } = this.props
+    const { confirm } = this.state
+    return (
+      <div className={uploadClass('image-options', confirm && 'image-active')}>
+        {
+          <a className={uploadClass('options-item')} onClick={this.handlePreview}>
+            {icons.Preview}
+          </a>
+        }
+        {this.props.onRemove && (
+          <a
+            className={uploadClass('options-item', 'options-remove')}
+            onClick={removeConfirm ? undefined : this.handleRemove}
+          >
+            {icons.Delete}
+            <RemoveConfirm
+              onVisibleChange={this.handleConfirmChange}
+              onRemove={this.handleRemove}
+              confirm={removeConfirm}
+            />
+          </a>
+        )}
+      </div>
+    )
   }
 
   render() {
@@ -31,7 +96,15 @@ class ImageResult extends PureComponent {
           (renderContent ? (
             renderContent(url, value, index, values)
           ) : (
-            <Image src={url} href={url} fit="center" width="auto" height={0} className={uploadClass('image-bg')} />
+            <Image
+              ref={this.bindImage}
+              src={url}
+              href={url}
+              fit="center"
+              width="auto"
+              height={0}
+              className={uploadClass('image-bg')}
+            />
           ))}
 
         {showRecover && (
@@ -39,8 +112,8 @@ class ImageResult extends PureComponent {
             {icons.Recovery}
           </a>
         )}
-
-        {this.props.onRemove && <span className={uploadClass('delete')} onClick={this.handleRemove} />}
+        {this.showRemove && <span className={uploadClass('delete')} onClick={this.handleRemove} />}
+        {!renderContent && this.renderOptions()}
       </div>
     )
   }
@@ -57,6 +130,8 @@ ImageResult.propTypes = {
   value: PropTypes.any,
   renderContent: PropTypes.func,
   values: PropTypes.array,
+  onPreview: PropTypes.func,
+  removeConfirm: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 }
 
 ImageResult.defaultProps = {

@@ -9,14 +9,14 @@
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | accept | string | none | The type of the upload file, same as the standard,See details [accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept)  |
-| action | string | required | The address for uploading |
+| action | ((file: File) => string) \| string | required | The address for uploading |
 | children | ReactNode | required | Upload placeholder |
 | className | string | none | Extend className |
 | defaultValue | any[] | -  | default value |
 | headers | object | none | Request headers |
 | htmlName | string | none | The filename received by the server. If it is not filled in, use the name. |
 | limit | number | 100 | Maximum number of uploaded files |
-| disabled | boolean | false | disabled upload action | 
+| disabled | boolean | false | disabled upload action |
 | name | string | none | The key access data in the Form  |
 | request | (options: object) => void | - | Custom upload method<br /> options: the options of upload |
 | onChange | (values: any[]) => void | none | The callback function when the value is changing(Upload successfully, delete)<br />values: Array, the value is the onSuccess returns |
@@ -29,33 +29,43 @@
 | value | any[] | \[] | value |
 | withCredentials | boolean | false | Whether to take the cookie |
 | multiple | boolean | false | Whether multi-select files are supported |
-| renderContent | (res: any, value: any, index: number, values: any[]) => ReactNode | - | Custom content of result  | 
-| validatorHandle | (error: any, file: File) => boolean \| boolean  | true | Whether to handle the case of validation failure, if a function is provided, it is judged by the return value of the function. |
+| renderContent | (res: any, value: any, index: number, values: any[]) => ReactNode | - | Custom content of result  |
+| validatorHandle | ((error: any, file: File) => boolean) \| boolean  | true | Whether to handle the case of validation failure, if a function is provided, it is judged by the return value of the function. |
 | drop | boolean | false | drop to update |
-| filesFilter | (fileList: any[]) => boolean | none | Filter after file selection, users can customize the list of files that need to be uploaded eventually<br />Need to return a new file list |
+| filesFilter | (fileList: any[]) => fileList: any[] | none | Filter after file selection, users can customize the list of files that need to be uploaded eventually<br />Need to return a new file list |
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | none | remove update failed callback |
 | forceAccept | string | none | After disabled the file type filtering provided by accept, it is mandatory to check the file type, value same as accept |
+| forceAcceptErrorMsg | string | 无 | Custom error prompt after forceAccept type verification fails |
 | showUploadList | boolean | true | show upload list |
-| webkitdirectory | bool | false | The same as the native webkitdirectory tag. The official explanation is: if set to true, the input only allows to select directories; if set to false, only files are allowed to be selected<br/>But in fact, boolean values ​​(including true, false), null, and undefined are only allowed to select files. Apart from that, any other values ​​(including NaN, '', 0, [], etc.) allow directory selection |
+| leftHandler | boolean | false | add image handler show left |
+| removeConfirm | string \| object | none | confirmation before deletion |
+| beforeRemove | (value: any) => Promise | none | callback before remove |
+| canDelete | （(value: any) => boolean) \| boolean | 无 | Can the file be deleted |
+| responseType |  string | none | set xhr.responseType|
+| webkitdirectory | any (See the description) | false | The same as the native webkitdirectory tag. The official explanation is: if set to true, the input only allows to select directories; if set to false, only files are allowed to be selected<br/>But in fact, boolean values ​​(including true, false), null, and undefined are only allowed to select files. Apart from that, any other values ​​(including NaN, '', 0, [], etc.) allow directory selection |
 
 ### Upload.Image
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | children | ReactNode | none | The content of the upload button. It can be empty. |
+| leftHandler | boolean | false | Add image view is displayed on the left |
 | renderResult | (data: any) => ReactNode | a => a | Return the link address of the url of the image.|
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | none | remove update failed callback |
+| onPreview | (url, value, index, values, fun: {preview: ()=>void }) => void | none | how to preview the image |
+| ignorePreview | boolean | false | ignore image preview |
+| gapProps | object | {column: 12, row: 12} | gap is the same as Gap component props |
 
 ### Upload.Button
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| type | string | primary | options: \['primary', success', 'info', 'warning', 'danger'\] |
+| type | string | primary | options: \['primary', success', 'default', 'warning', 'danger'\] |
 | placeholder | ReactNode | none | button default content |
 | loading | ReactNode | none | content of uploading, will have spin if a string |
 
 
-### UploadOptions 
+### UploadOptions
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |

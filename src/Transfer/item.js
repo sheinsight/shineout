@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import Checkbox from '../Checkbox'
 import { PureComponent } from '../component'
-import { transferClass } from '../styles'
+import { transferClass } from './styles'
 import Context from './context'
 
 class Item extends PureComponent {

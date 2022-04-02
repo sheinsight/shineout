@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { PureComponent } from '../component'
+import { Component } from '../component'
+import shallowEqual from '../utils/shallowEqual'
 import { CHANGE_TOPIC } from '../Datum/types'
 import Checkbox from '../Checkbox/Checkbox'
 
-export default class extends PureComponent {
+export default class extends Component {
   static propTypes = {
     data: PropTypes.array,
     datum: PropTypes.object.isRequired,
@@ -22,6 +23,13 @@ export default class extends PureComponent {
     this.props.datum.subscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
+  shouldComponentUpdate(nextProps) {
+    const { datum } = nextProps
+    if (!shallowEqual(this.props, nextProps)) return true
+    if (this.lastValueLength !== (datum.getValue() || []).length) return true
+    return false
+  }
+
   componentWillUnmount() {
     super.componentWillUnmount()
     this.props.datum.unsubscribe(CHANGE_TOPIC, this.handleUpdate)
@@ -34,7 +42,8 @@ export default class extends PureComponent {
     let checked
     for (const d of data) {
       if (datum.disabled(d)) continue
-      const p = datum.check(d)
+      const p = this.check(d)
+      if (p === 'indeterminate') return p
       if (checked === undefined) {
         checked = p
       } else if (checked !== p) {
@@ -43,6 +52,19 @@ export default class extends PureComponent {
     }
 
     return checked
+  }
+
+  check(d) {
+    const { datum, treeColumnsName } = this.props
+    const p = datum.check(d)
+    const children = d[treeColumnsName]
+    const isArray = children && Array.isArray(children)
+    if (isArray) {
+      for (const c of children) {
+        if (this.check(c) !== p) return 'indeterminate'
+      }
+    }
+    return p
   }
 
   handleChange(_, checked, index) {
@@ -55,8 +77,9 @@ export default class extends PureComponent {
   }
 
   render() {
-    if (this.props.datum.limit === 1) return null
-
+    const { datum } = this.props
+    this.lastValueLength = (datum.getValue() || []).length
+    if (datum.limit === 1) return null
     return <Checkbox {...this.props} checked={this.getChecked()} onChange={this.handleChange} />
   }
 }

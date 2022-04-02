@@ -24,13 +24,11 @@ import { Table } from 'shineout'
 
 npm 安装的组件有三个目录，'es/'，'lib/'，'css/'，默认的目录是 'lib/'。
 
-- *es* - 目录下是 es6 版本代码，需要调试的开发者可以使用这个版本，需要自行配置 webpack 的 babel-loader 和 less-loader。
+- *es* - 目录下是 es5 版本的 esm 代码，支持 tree Shaking，需要自行配置 webpack 的 less-loader。
 
-- *lib* - 目录下js文件为 es5 版本代码，样式文件保留为 less，需要切换主题的用户可以选择这个版本，需要自行配置 webpack 的 less-loader。
+- *lib* - 目录下 js 文件为 es5 版本代码，样式文件保留为 less，需要切换主题的用户可以选择这个版本，需要自行配置 webpack 的 less-loader。
 
-- *css* - 目录下 js 文件为 es5 版本代码，样式文件为 css 格式，不需要配置 webpack。
-
-可以使用 [babel-plugin-import](https://github.com/ant-design/babel-plugin-import#readme) 按需加载。
+- *css* - 目录下 js 文件为 es5 版本代码，样式文件为 default 主题的 css 文件，不需要配置 webpack。
 
 
 ### theme 主题
@@ -71,12 +69,12 @@ CDN 引用的方式，可以修改引用路径
     }
   }
 }
-``` 
+```
 
 在项目内设置 config
 
 ```
-import config from 'shineout/config'
+import { config } fron 'shineout'
 config.setConfig({
   prefix: 'your-prefix'
 })
@@ -107,7 +105,7 @@ plugins: [
 
 在应用入口设置 config.cssModule 为 true
 ```
-import config from 'shineout/config'
+import { config } fron 'shineout'
 config.setConfig({
   cssModule: true
 })
@@ -131,7 +129,7 @@ plugins: [
 可以通过设置 config.delay 改变全局的延迟时间。
 
 ```
-import config from 'shineout/config'
+import { config } fron 'shineout'
 config.setConfig({
   delay: 0
 })
@@ -255,88 +253,47 @@ $ npm i @rescripts/cli
 module.exports = [];
 ```
 
-### 使用 babel-plugin-import
+### 按需加载
 
-[babel-plugin-import](https://github.com/ant-design/babel-plugin-import) 是由 antd 团队提供实现按需加载的 Babel 插件。
-
-```
-$ npm i babel-plugin-import @rescripts/rescript-use-babel-config
-```
-
-修改 .rescriptsrc.js 文件，添加 Babel 相关配置：
-
-```
-module.exports = [
-+  ['use-babel-config', '.babelrc']
-];
-```
-
-创建 .babelrc 文件：
-
-```
-{
-  "presets": ["react-app"],
-  "plugins": [
-    [
-      "import", 
-      { 
-        "libraryName": "shineout", 
-        "libraryDirectory": "css", // 引入 css 
-        "style": false,
-        "camel2DashComponentName": false,
-        "camel2UnderlineComponentName": false
-      }
-    ]
-  ]
-}
-```
-
-`libraryDirectory` 设置为 css，css 目录结构下为 less 和 jsx 编译后的文件夹。
+shineout 的 JS 代码默认支持基于 ES modules 的 tree shaking。
 
 ### 修改Shineout主题
 
 因为修改主题需要编译 less ，因此需引入重写 less 相关的内容。
 
-1. 修改 .babelrc 文件
+1. 引入 `rescript-use-rewire` 和 `react-app-rewire-less`
 
-```
-{
-  "presets": ["react-app"],
-  "plugins": [
-    [
-      "import", 
-      { 
-        "libraryName": "shineout", 
--       "libraryDirectory": "css", // 引入 css 
-+       "libraryDirectory": "lib", // 引入 lib 
-        "style": false,
-        "camel2DashComponentName": false,
-        "camel2UnderlineComponentName": false
-      }
-    ]
-  ]
-}
-```
-2. 引入 `rescript-use-rewire` 和 `react-app-rewire-less`
-   
 ```
 $ npm i @rescripts/rescript-use-rewire react-app-rewire-less
 ```
-3. 修改 `.rescriptsrc.js` 文件
+
+2.修改 `.rescriptsrc.js` 文件
 
 ```
 + const rewireLess = require('react-app-rewire-less');
 
 module.exports = [
-  ['use-babel-config', '.babelrc'],
-+ [ 
++ [
 +   'use-rewire',
-+   rewireLess.withLoaderOptions({ 
++   rewireLess.withLoaderOptions({
 +     modifyVars: { 'so-theme': 'shineout' }, // 主题修改为 shineout
 +     javascriptEnabled: true
 +   })
 + ]
 ];
+```
+
+3. app.css 中不需要再引入 shineout 样式
+```
+- @import '~shineout/dist/theme.shineout.css';
+- @import '~shineout/dist/theme.default.css';
+- @import '~shineout/dist/theme.antd.css';
+
+.App {
+  text-align: center;
+}
+
+...
 ```
 
 4. 重新执行 `npm start` 即可

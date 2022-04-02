@@ -4,7 +4,7 @@ import Popover from './index'
 import Button from '../Button'
 import Alert from '../Alert'
 import { Component } from '../component'
-import { popoverClass } from '../styles'
+import { popoverClass } from './styles'
 import { getProps } from '../utils/proptypes'
 import { getLocale } from '../locale'
 
@@ -38,14 +38,14 @@ export default class Confirm extends Component {
   }
 
   render() {
-    const { children, type, text, onOk, onCancel, ...other } = this.props
+    const { children, type, text, onOk, okType, onCancel, icon, ...other } = this.props
     const { ok, cancel } = this.state
     return (
       <Popover {...other} trigger="click">
         {close => (
           <div className={popoverClass('confirm')}>
             <div className={popoverClass('mention')}>
-              <Alert type={type} icon className={popoverClass('alert')}>
+              <Alert type={type} icon={icon} className={popoverClass('alert')}>
                 {children}
               </Alert>
             </div>
@@ -54,7 +54,7 @@ export default class Confirm extends Component {
               <Button loading={cancel} size="small" onClick={() => this.handleCancel(close)}>
                 {getLocale('cancel', text)}
               </Button>
-              <Button loading={ok} size="small" type="primary" onClick={() => this.handleOk(close)}>
+              <Button loading={ok} size="small" type={okType} onClick={() => this.handleOk(close)}>
                 {getLocale('ok', text)}
               </Button>
             </div>
@@ -71,8 +71,12 @@ Confirm.propTypes = {
   text: PropTypes.object,
   onOk: PropTypes.func,
   onCancel: PropTypes.func,
+  okType: PropTypes.string,
+  icon: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
 }
 
 Confirm.defaultProps = {
-  type: 'warning',
+  type: 'confirmwarning',
+  icon: true,
+  okType: 'danger',
 }

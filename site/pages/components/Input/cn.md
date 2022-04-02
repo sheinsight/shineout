@@ -24,6 +24,12 @@
 | info | (value: string) => string \| number | 无 | 提示信息 |
 | popoverProps | object | 无 | 校验弹框接受的属性，具体属性参考Popover组件说明 |
 | maxLength | number | 无 | 可输入最大长度 |
+| forwardedRef | (el: HTMLElement) => void | 无 | 用户获取 input element |
+| underline | boolean | false | 是否只展示下边框 |
+| onKeyUp | (e: KeyboardEvent) => void | 无 | 键盘按下后弹起回调 |
+| onKeyDown | (e: KeyboardEvent) => void | 无 | 键盘按下后的回调 |
+| innerTitle | string | - | 内嵌标题 |
+| clearToUndefined | boolean | - | 点击清除按钮后数据变为 undefined |
 
 ### Input.Number
 
@@ -37,5 +43,5 @@
 | digits | number | 无 | 数值的精度 |
 | allowNull | boolean | false | 允许空值 |
 | hideArrow | boolean | false | 是否展示增减按钮 |
-| coin | boolean | false | 以千位分隔符展示 | 
+| coin | boolean | false | 以千位分隔符展示 |
 

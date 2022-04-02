@@ -13,14 +13,14 @@
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | accept | string | 无 | 上传文件类型, 和标准一致, 详见[accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) |
-| action | string | 必填 | 上传地址 |
+| action | ((file: File) => string)) \| string | 必填 | 上传地址 |
 | children | ReactNode | 必填 | 上传占位内容 |
 | className | string | 无 | 扩展className |
 | defaultValue | any[] | 无 | 默认值 |
 | headers | object | 无 | 请求头部信息 |
 | htmlName | string | 无 | 服务端接收的 filename，不填使用 name |
 | limit | number | 100 | 最大上传文件数 |
-| disabled | boolean | false | 是否禁用上传行为 | 
+| disabled | boolean | false | 是否禁用上传行为 |
 | name | string | 无 | Form 内存取数据的 key |
 | request | (options: object) => void | 无 | 自定义上传方法<br /> options: 上传的配置 |
 | onChange | (values: any[]) => void | 无 | 值改变回调(上传成功，删除)<br />values: 数组, 其每个值是 onSuccess 的返回值 |
@@ -34,33 +34,40 @@
 | withCredentials | boolean | false | 是否携带 cookie |
 | multiple | boolean | false | 是否支持多选文件 |
 | renderContent | (res: any, value: any, index: number, values: any[]) => ReactNode | - | 自定义结果的内容 |
-| validatorHandle | (error: any, file: File) => boolean \| boolean | false | 是否处理校验失败的情况, 如果提供一个函数, 则以函数的返回值判断是否处理此 error |
+| validatorHandle | ((error: any, file: File) => boolean) \| boolean | false | 是否处理校验失败的情况, 如果提供一个函数, 则以函数的返回值判断是否处理此 error |
 | drop | boolean | false | 是否开启拖拽上传文件 |
-| filesFilter | (fileList: any[]) => boolean | 无 | 文件选中后的筛选，用户可自定义最终需要上传的文件列表<br />需返回一个新的文件列表 |
+| filesFilter | (fileList: any[]) => fileList: any[] | 无 | 文件选中后的筛选，用户可自定义最终需要上传的文件列表<br />需返回一个新的文件列表 |
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | 无 | 上传失败文件删除之后的回调 |
 | forceAccept | string | 无 | 在使用时关闭了 accept 提供的文件类型过滤后，强制对文件类型进行校验（值同accept） |
+| forceAcceptErrorMsg | string | 无 | forceAccept 类型校验失败后自定义错误提示 |
 | showUploadList | boolean | true | 是否展示上传列表 |
-| webkitdirectory | bool | false | 同原生 input 标签的 webkitdirectory 属性，官方解释是：如果设置为true，则 input 只允许选择目录；如果设置为false，则只允许选择文件<br/>但实际上，该字段传布尔值（包括true、false）、null、undefined都只允许选择文件，除此之外，传其它任何值（包括NaN、''、 0、[]等）都只允许选择目录 |
-
-
+| removeConfirm | string \| object | 无 | 删除前是否进行确认提示 |
+| beforeRemove | (value: any) => Promise | 无 | 删除前的确认 |
+| canDelete | ((value: any) => boolean) \| boolean | 无 | 文件是否可以删除|
+| responseType |  string | 无 | 设置 xhr.responseType |
+| webkitdirectory | any (详见说明) | false | 同原生 input 标签的 webkitdirectory 属性，官方解释是：如果设置为true，则 input 只允许选择目录；如果设置为false，则只允许选择文件<br/>但实际上，该字段传布尔值（包括true、false）、null、undefined都只允许选择文件，除此之外，传其它任何值（包括NaN、''、 0、[]等）都只允许选择目录 |
 ### Upload.Image
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | children | ReactNode | 无 | 上传按钮内容，可为空 |
-| renderResult | (data: any) => ReactNode | a => a | 返回图片 url 链接地址 |
+| renderResult | (data: any) => string | a => a | 返回图片 url 链接地址 |
 | onErrorRemove | (xhr: XMLHttpRequest, file: Blob) => void | none | 上传失败图片删除之后的回调 |
+| leftHandler | boolean | false | 添加图片视图是否在左侧展示 |
+| onPreview | (url, value, index, values, fun: {preview: ()=>void } ) => void | none | 预览图片操作，默认为画廊展示 |
+| ignorePreview | boolean | false | 是否忽略上传图片预览 |
+| gapProps | object | {column: 12, row: 12} | 间距同Gap组件props |
 
 ### Upload.Button
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| type | 'primary' \| success' \| 'info' \| 'warning' \| 'danger' | primary | 按钮类型 |
+| type | 'default' \| 'primary' \| success' \| 'warning' \| 'danger' | primary | 按钮类型 |
 | placeholder | ReactNode | 无 | 按钮默认内容 |
 | loading | ReactNode | 无 | 上传中按钮的内容，如果是字符串默认会有spin loading |
 
 
-### UploadOptions 
+### UploadOptions
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
@@ -78,7 +85,7 @@
 
 | 属性 | 类型 | 说明 |
 | --- | --- | --- |
-| ext | func(string):Error | 判断后缀名，传入参数为文件后缀，校验失败返回 Error |
-| size | func(number):Error | 判断文件大小，校验失败返回 Error |
+| ext | func(string):Error\|Promise | 判断后缀名，传入参数为文件后缀，校验失败返回 Error |
+| size | func(number):Error\|Promise | 判断文件大小，校验失败返回 Error |
 | imageSize | func(Image):Error | 只对 Image 有效，判断图片尺寸，校验失败返回 Error |
-| customValidator | func(File):Error | 自定义校验 |
+| customValidator | func(File):Error\|Promise | 自定义校验 |

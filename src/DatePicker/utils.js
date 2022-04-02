@@ -1,20 +1,156 @@
-import addDays from 'date-fns/addDays'
-import addMonths from 'date-fns/addMonths'
-import addSeconds from 'date-fns/addSeconds'
-import addYears from 'date-fns/addYears'
-import compareAsc from 'date-fns/compareAsc'
-import format from 'date-fns/format'
-import isSameDay from 'date-fns/isSameDay'
-import isSameMonth from 'date-fns/isSameMonth'
-import isSameWeek from 'date-fns/isSameWeek'
-import isValid from 'date-fns/isValid'
-import parse from 'date-fns/parse'
-import startOfMonth from 'date-fns/startOfMonth'
-import startOfWeek from 'date-fns/startOfWeek'
-import toDate from 'date-fns/toDate'
+import dayjs from 'dayjs'
+import advancedFormat from 'dayjs/plugin/advancedFormat'
+import isoWeek from 'dayjs/plugin/isoWeek'
+import weekday from 'dayjs/plugin/weekday'
+import weekYear from 'dayjs/plugin/weekYear'
+import weekOfYear from 'dayjs/plugin/weekOfYear'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import enLocale from 'dayjs/locale/en'
 import { getLocale } from '../locale'
 
+const en2Locate = {
+  ...enLocale,
+  name: 'en2',
+  weekStart: 1,
+}
+
+dayjs.locale(en2Locate, null, true)
+dayjs.extend(advancedFormat)
+dayjs.extend(isoWeek)
+dayjs.extend(relativeTime)
+dayjs.extend(weekday)
+dayjs.extend(weekOfYear)
+dayjs.extend(weekYear)
+dayjs.extend(customParseFormat)
+
 const TIME_FORMAT = 'HH:mm:ss'
+
+const compatibleFmt = fmt => {
+  if (typeof fmt !== 'string') return fmt
+  const trans = {
+    yy: 'YY',
+    d: 'D',
+    a: 'A',
+    t: 'X',
+    T: 'x',
+    RRRR: 'GGGG',
+    II: 'WW',
+  }
+  let result = fmt
+  Object.keys(trans).forEach(key => {
+    result = result.replace(new RegExp(key, 'g'), trans[key])
+  })
+  return result
+}
+
+function getDayJsLocate(options) {
+  if (options && options.weekStartsOn === 1) return 'en2'
+  return 'en'
+}
+
+function addDays(date, offset) {
+  return dayjs(date)
+    .add(offset, 'day')
+    .toDate()
+}
+
+function addMonths(date, offset) {
+  return dayjs(date)
+    .add(offset, 'month')
+    .toDate()
+}
+
+function addSeconds(date, offset) {
+  return dayjs(date)
+    .add(offset, 'second')
+    .toDate()
+}
+
+function addYears(date, offset) {
+  return dayjs(date)
+    .add(offset, 'year')
+    .toDate()
+}
+
+function compareAsc(dateA, dateB) {
+  if (!dateA || !dateB) return NaN
+  const a = dayjs(dateA).valueOf()
+  const b = dayjs(dateB).valueOf()
+  if (!a || !b) return NaN
+  if (a === b) return 0
+  return a > b ? 1 : -1
+}
+
+function format(date, fmt, options) {
+  if (!date) return 'Invalid Date'
+  const fmt2 = compatibleFmt(fmt)
+  return dayjs(date)
+    .locale(getDayJsLocate(options))
+    .format(fmt2)
+}
+
+function isSameMonth(date1, date2) {
+  return (
+    date1 &&
+    date2 &&
+    date1.getFullYear() &&
+    date2.getFullYear &&
+    date1.getFullYear() === date2.getFullYear() &&
+    date1.getMonth() === date2.getMonth()
+  )
+}
+
+function isSameDay(date1, date2) {
+  return isSameMonth(date1, date2) && date1.getDate() === date2.getDate()
+}
+
+function isSameWeek(date1, date2, options) {
+  if (!date1 || !date2) return false
+  const dateA = dayjs(date1).locale(getDayJsLocate(options))
+  const dateB = dayjs(date2).locale(getDayJsLocate(options))
+  return dateA.weekYear() === dateB.weekYear() && dateA.week() === dateB.week()
+}
+
+function isValid(date) {
+  if (!date) return false
+  if (!(date instanceof Date)) return false
+  return dayjs(date).isValid()
+}
+
+function parse(date, fmt, options) {
+  if (!date) return new Date('')
+  const fmt2 = compatibleFmt(fmt)
+
+  // handle IOS Year Week
+  const index = fmt2.indexOf('GGGG')
+  if (index >= 0) {
+    const year = date.slice(index, index + 5)
+    const weekIndex = fmt2.indexOf('WW')
+    const week = weekIndex >= 0 ? date.slice(weekIndex, weekIndex + 3) : 1
+    const result = dayjs(`${year}-06-15`, 'YYYY-MM-dd')
+      .locale(getDayJsLocate(options))
+      .isoWeek(Number(week))
+      .toDate()
+    return result
+  }
+  return dayjs(date, fmt2, getDayJsLocate(options)).toDate()
+}
+
+function startOfMonth(day) {
+  return new Date(day.getFullYear(), day.getMonth(), 1)
+}
+
+function startOfWeek(day, options) {
+  const day1 = dayjs(day).locale(getDayJsLocate(options))
+  return day1.startOf('week').toDate()
+}
+
+function toDate(day) {
+  if (!day) return new Date('')
+  if (day instanceof Date) return dayjs(day).toDate()
+  return dayjs(day).toDate()
+}
 
 function getDaysOfMonth(dirtyDate) {
   const date = toDate(dirtyDate)
@@ -44,15 +180,18 @@ function isInvalid(date) {
 
 function toDateWithFormat(dirtyDate, fmt, def) {
   let date
-  if (typeof dirtyDate === 'string')
+  if (typeof dirtyDate === 'string') {
     date = parse(dirtyDate, fmt, new Date(), {
       weekStartsOn: getLocale('startOfWeek'),
     })
-  else date = toDate(dirtyDate)
-
-  if (isInvalid(date)) date = toDate(dirtyDate)
+    const str = format(date, fmt, {
+      weekStartsOn: getLocale('startOfWeek'),
+    })
+    if (str !== dirtyDate) {
+      date = toDate(dirtyDate)
+    }
+  } else date = toDate(dirtyDate)
   if (isInvalid(date)) date = def
-
   return date
 }
 
@@ -64,7 +203,7 @@ function compareMonth(dateLeft, dateRight, pad = 0) {
 }
 
 function newDate(defaultDate) {
-  const date = defaultDate ? new Date(defaultDate) : new Date()
+  const date = defaultDate ? toDate(defaultDate) : new Date()
   return new Date(date.getFullYear(), date.getMonth(), date.getDate())
 }
 
@@ -80,7 +219,6 @@ function cloneTime(date, old, fmt) {
   if (!date) return date
   old = toDateWithFormat(old, fmt)
   if (isInvalid(old)) return date
-
   return setTime(date, old)
 }
 
@@ -98,67 +236,16 @@ function formatDateWithDefaultTime(date, value, defaultTime, fmt) {
 
 function clearHMS(date) {
   if (!isValid(date)) return date
-  return new Date(new Date(date.toLocaleDateString()).getTime())
+  return new Date(new Date(date.toDateString()).getTime())
 }
 
 function compareDateArray(arr1, arr2, type = 'date') {
   if (!arr1 || !arr2 || arr1.length !== arr2.length) return false
   return arr1.every((v, i) => {
     if (!v || !arr2[i]) return false
-    if (type === 'week') return format(v, 'RRRR II') === format(arr2[i], 'RRR II')
+    if (type === 'week') return format(v, 'RRRR II') === format(arr2[i], 'RRRR II')
     return v.getTime() === arr2[i].getTime()
   })
-}
-
-function judgeTimeByRange(...args) {
-  const [target, value, mode, min, max, range, disabled] = args
-
-  const date = new Date(value.getTime())
-  switch (mode) {
-    case 'H':
-      date.setHours(target)
-      break
-    case 'h':
-      if (date.getHours() >= 12) {
-        date.setHours(target + 12)
-        break
-      }
-      date.setHours(target)
-      break
-    case 'm':
-    case 'minute':
-      date.setMinutes(target)
-      break
-    case 's':
-    case 'second':
-      date.setSeconds(target)
-      break
-    case 'ampm':
-      if (target === 0) {
-        const hours = date.getHours()
-        if (target === 1 && hours < 12) {
-          date.setHours(hours + 12)
-        } else if (target === 0 && hours >= 12) {
-          date.setHours(hours - 12)
-        }
-      }
-      break
-    default:
-      break
-  }
-
-  let isDisabled
-  if (disabled) isDisabled = disabled(date)
-  if (isDisabled) return [true]
-  if (!isDisabled && min) {
-    if (compareAsc(date, min) < 0) return [true]
-    if (range && compareAsc(date, addSeconds(min, range)) > 0) return [true]
-  }
-  if (!isDisabled && max) {
-    if (compareAsc(date, max) > 0) return [true]
-    if (range && compareAsc(date, addSeconds(max, -range)) < 0) return [true]
-  }
-  return [false, date]
 }
 
 function getFormat(fo) {
@@ -175,17 +262,17 @@ function getFormat(fo) {
 
 function resetTimeByFormat(value, fo) {
   if (!value) return null
-  let date = null
-  if (typeof value === 'string') {
-    date = new Date(value)
-  } else {
-    date = new Date(value.getTime())
-  }
-  return new Date(
+  const date = toDate(value)
+  return toDate(
     format(date, getFormat(fo), {
       weekStartsOn: getLocale('startOfWeek'),
     })
   )
+}
+
+function formatted(date, fmt, ...options) {
+  if (typeof fmt === 'function') return fmt(date)
+  return format(date, fmt, ...options)
 }
 
 export default {
@@ -198,7 +285,7 @@ export default {
   compareAsc,
   compareMonth,
   getDaysOfMonth,
-  format,
+  format: formatted,
   isInvalid,
   isSameDay,
   isSameMonth,
@@ -212,6 +299,5 @@ export default {
   formatDateWithDefaultTime,
   compareDateArray,
   TIME_FORMAT,
-  judgeTimeByRange,
   resetTimeByFormat,
 }

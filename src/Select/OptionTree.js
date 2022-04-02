@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import List from '../List'
+import List from '../AnimationList'
 import Tree from '../Tree'
 import Spin from '../Spin'
 import { getLocale } from '../locale'
-import { selectClass } from '../styles'
+import { selectClass } from './styles'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
 const DATA_PATH_KEY = '$PATH'
@@ -29,9 +29,13 @@ class OptionList extends Component {
 
   renderItem(data) {
     const { renderItem, datum } = this.props
+    const content = renderItem(data)
     return (
-      <span className={selectClass('tree-node', datum.check(data) && 'selected', datum.disabled(data) && 'disabled')}>
-        {renderItem(data)}
+      <span
+        title={typeof content === 'string' ? content : undefined}
+        className={selectClass('tree-node', datum.check(data) && 'selected', datum.disabled(data) && 'disabled')}
+      >
+        {content}
       </span>
     )
   }
@@ -48,13 +52,15 @@ class OptionList extends Component {
       defaultExpandAll,
       renderPending,
       childrenKey,
+      expandIcons,
+      emptyText,
     } = this.props
     if (loading)
       return (
         <span className={selectClass('option')}>{typeof loading === 'boolean' ? <Spin size={20} /> : loading}</span>
       )
     if (treeData.length === 0 || renderPending)
-      return <span className={selectClass('option')}>{this.getText('noData')}</span>
+      return <span className={selectClass('option')}>{emptyText || this.getText('noData')}</span>
 
     return (
       <div className={selectClass('tree-wrapper')}>
@@ -71,16 +77,24 @@ class OptionList extends Component {
           defaultExpandAll={defaultExpandAll}
           defaultExpanded={defaultExpanded}
           childrenKey={childrenKey}
+          expandIcons={expandIcons}
         />
       </div>
     )
   }
 
   render() {
-    const { focus, style, selectId, height, getRef } = this.props
+    const { focus, style, selectId, height, getRef, customHeader } = this.props
     const mergeStyle = Object.assign({}, { maxHeight: height, overflowY: 'auto' }, style)
     return (
-      <ScaleList getRef={getRef} show={focus} style={mergeStyle} data-id={selectId} className={selectClass('options', 'tree')}>
+      <ScaleList
+        getRef={getRef}
+        show={focus}
+        style={mergeStyle}
+        data-id={selectId}
+        className={selectClass('options', 'tree')}
+      >
+        {customHeader}
         {this.renderTree()}
       </ScaleList>
     )
@@ -107,6 +121,9 @@ OptionList.propTypes = {
   defaultExpandAll: PropTypes.bool,
   childrenKey: PropTypes.string,
   getRef: PropTypes.func,
+  customHeader: PropTypes.node,
+  expandIcons: PropTypes.array,
+  emptyText: PropTypes.node,
 }
 
 export default OptionList

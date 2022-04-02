@@ -6,9 +6,12 @@
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
+| maxLength | number | none | The maximum length of the input string in the Select input box |
+| emptyText | ReactNode | none | custom empty copy |
 | width | number | null | width |
+| optionWidth | number | none | width of option list |
 | style | object | null | expand style |
-| absolute | boolean | false | When it is true, the pop-up layer of option append into document.body. |
+| absolute | boolean \| (() => element) | false | When it is true, the pop-up layer of option append into document.body. When it is function, the pop-up layer of option append into it's return DOM.  |
 | autoAdapt | boolean | false | option list is auto adapt |
 | clearable | boolean | false | If clearable is true, show clear value icon |
 | multiple | boolean | false | if it is true, it will be multiple selection |
@@ -29,13 +32,13 @@
 | renderItem | (data: any) => ReactNode \| string | required | When it is a string, return d\[string]<br />When it is a function, return the result of the function. |
 | renderResult | (data: any) => ReactNode \| string | renderItem | The content displayed in the result after selecting, if not set, use renderItem |
 | value | any[] \| string \| object | | In the Form, the value will be taken over by the form and the value will be invalid. |
-| compressed | boolean | false | Merges selected values, valid only in multiselect mode |
+| compressed | boolean \| 'no-repeat' | false | Merges selected values, valid only in multiselect mode; the repeat value will not appear in the Popover when it is'no-repeat'. |
 | zIndex | number | 1000 | options z-index |
-| groupBy | (record: any, index: number, data: any) => any | - | group by | 
+| groupBy | (record: any, index: number, data: any) => any | - | group by |
 | filterSingleSelect | boolean | false | blur to select the data when filter data has only single. only work in filter. |
 | separator | string | none | set with multiple, value will separator by this |
-| childrenKey | string | 'children' | treeData，the key of the children data name | 
-| defaultExpandAll| boolean | false | expand all node, only in can be use in treeData | 
+| childrenKey | string | 'children' | treeData，the key of the children data name |
+| defaultExpandAll| boolean | false | expand all node, only in can be use in treeData |
 | renderUnmatched | (data: any) => ReactNode | none | the way to render not matched data value |
 | emptyAfterSelect | boolean | false | empty input after select value |
 | showArrow | boolean | true | show dropdown arrow, only single select |
@@ -46,3 +49,10 @@
 | onCollapse | (collapse: boolean) => void | none | option list collapse callback |
 | resultClassName | ((value: any) => string) \| string | none | The className of the selected result content container |
 | columnsTitle | ReactNode | none | title of columns multiple select |
+| reFocus | boolean | false | There are onFilter and onCreate, select Option, automatically focus Input |
+| header | () => ReactNode \| ReactNode | null | Custom render option list header |
+| lineHeight | number | 34 | Option height. List items are rendered using virtual lists, and when the option height changes, the correct height should be specified via lineHeight |
+| hideCreateOption | boolean | false | hide the creat option while set onCreate |
+| underline | boolean | false | only display border bottom  |
+| innerTitle | string | - | inner title |
+| filterSameChange | boolean | false | filter out value change callbacks with the same value |

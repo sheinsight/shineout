@@ -6,7 +6,7 @@ import { getProps } from '../utils/proptypes'
 import { compareColumns } from '../utils/shallowEqual'
 import { getKey } from '../utils/uid'
 import Tr from './Tr'
-import { tableClass } from '../styles'
+import { tableClass } from './styles'
 
 export const RENDER_COL_GROUP_EVENT = 'RENDER_COL_GROUP_EVENT'
 
@@ -17,29 +17,6 @@ function ignoreBorderRight(rows) {
       lastColumn.ignoreBorderRight = true
     }
   })
-}
-
-function ignoreBorderBottom(rows) {
-  const emptyColumn = {}
-  const lastLine = rows[rows.length - 1]
-  if (!lastLine) return
-  lastLine.forEach((column, index) => {
-    if (column === null) {
-      emptyColumn[index] = true
-    }
-  })
-  if (Object.keys(emptyColumn).length === 0) return
-  for (let i = rows.length - 2; i >= 0; i--) {
-    const row = rows[i]
-    Object.keys(emptyColumn).forEach(emptyIndex => {
-      const index = parseInt(emptyIndex, 10)
-      if (row[index]) {
-        row[index].ignoreBorderBottom = true
-        delete emptyColumn[emptyIndex]
-      }
-    })
-    if (row.indexOf(null) === -1) break
-  }
 }
 
 function format(columns, data, nextRow, index, expandKeys) {
@@ -96,6 +73,8 @@ class Tbody extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
+    const { onScrollTop, data } = this.props
+    if (onScrollTop && prevProps.data.length && data.length === 0) onScrollTop()
     if (this.props.resize || !this.colgroupSetted || !compareColumns(prevProps.columns, this.props.columns)) {
       setTimeout(() => {
         this.bodyRender()
@@ -187,8 +166,10 @@ class Tbody extends PureComponent {
           if (!v) return <td key={i} />
           if (v.minWidth) {
             return (
-              <td key={i}>
-                <div style={{ width: v.minWidth }} />
+              <td key={i} style={{ padding: 0, border: 'none' }}>
+                <div style={{ width: v.minWidth }}>
+                  {v.title && typeof v.title === 'function' ? v.title(data) : v.title}
+                </div>
               </td>
             )
           }
@@ -230,7 +211,6 @@ class Tbody extends PureComponent {
     }
 
     if (rows.length > 0 && bordered) {
-      ignoreBorderBottom(rows)
       ignoreBorderRight(rows)
     }
     this.keys = {}

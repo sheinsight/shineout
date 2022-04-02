@@ -1,8 +1,10 @@
 /**
  * cn -
  *    -- 使用 treeExpandKeys 和 onTreeExpand 使展开行受控
+ *    -- 设置 changedByExpand 为 true 用来改变滚动条重置的默认行为
  * en -
  *    -- Use treeExpandKeys and onTreeExpand to control the expand row.
+ *    -- Set changedByExpand to true to change the default behavior of scrollbar reset
  */
 import React from 'react'
 import { Table } from 'shineout'
@@ -181,6 +183,7 @@ export default class extends React.Component {
       <Table
         onTreeExpand={this.handleExpand}
         treeExpandKeys={expands}
+        changedByExpand
         bordered
         fixed="y"
         height={300}

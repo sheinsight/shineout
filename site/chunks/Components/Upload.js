@@ -59,6 +59,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Upload/example-03-button.js'),
   },
   {
+    name: '03-confirm',
+    title: locate(
+      '删除确认 \n 设置 removeConfirm 属性来开启删除前确认',
+      'Remove Confirm \n Set the removeConfirm property to enable confirmation before deleting'
+    ),
+    component: require('doc/pages/components/Upload/example-03-confirm.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Upload/example-03-confirm.js'),
+  },
+  {
     name: '04-validator',
     title: locate(
       '校验 \n 通过 validator.imageSize 校验图片长宽，本例为 200px * 100px',
@@ -86,22 +95,22 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Upload/example-06-error.js'),
   },
   {
-    name: '07-recover',
-    title: locate(
-      '恢复删除 \n 设置 recoverAble 为 true，点击删除后，文件会标记为已删除，可以通过恢复图标恢复',
-      'Recover \n Set reconverAble to true, Clicking delete icon will not remove the file, but will mark it as deleted.'
-    ),
-    component: require('doc/pages/components/Upload/example-07-recover.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Upload/example-07-recover.js'),
-  },
-  {
-    name: '08-request',
+    name: '08-request-a',
     title: locate(
       '自定义上传 \n 通过 request 函数，替代默认上传方法',
       'Custom Request \n Set request property to use your own XMLHttpRequest.'
     ),
-    component: require('doc/pages/components/Upload/example-08-request.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Upload/example-08-request.js'),
+    component: require('doc/pages/components/Upload/example-08-request-a.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Upload/example-08-request-a.js'),
+  },
+  {
+    name: '08-request-ignore',
+    title: locate(
+      ' \n 使用 request 略过上传过程',
+      ' \n ignore request with request'
+    ),
+    component: require('doc/pages/components/Upload/example-08-request-ignore.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Upload/example-08-request-ignore.js'),
   },
   {
     name: '09-zip',

@@ -4,13 +4,14 @@ import Tree from '../Tree'
 import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
-import { treeSelectClass } from '../styles'
+import { treeSelectClass } from './styles'
 import Result from './Result'
-import absoluteList from '../List/AbsoluteList'
+import absoluteList from '../AnimationList/AbsoluteList'
 import { docSize } from '../utils/dom/document'
 import { getParent } from '../utils/dom/element'
-import List from '../List'
+import List from '../AnimationList'
 import { getLocale } from '../locale'
+import { isRTL } from '../config'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
 const OptionList = absoluteList(({ focus, ...other }) => <ScaleList show={focus} {...other} />)
@@ -30,7 +31,8 @@ export default class TreeSelect extends PureComponent {
     }
 
     this.treeSelectId = `treeSelect_${getUidStr()}`
-
+    this.onExpandHandler = this.onExpandHandler.bind(this)
+    this.getResetPosition = this.getResetPosition.bind(this)
     this.setInputReset = this.setInputReset.bind(this)
     this.renderActive = this.renderActive.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -64,11 +66,15 @@ export default class TreeSelect extends PureComponent {
     this.clearClickAway()
   }
 
-  getValue() {
-    const { datum, multiple } = this.props
-    const value = datum.getValue()
-    if (multiple) return value
-    return value.length ? value[0] : ''
+  onExpandHandler(...args) {
+    if (this.resetAbsoluteListPosition) {
+      setTimeout(() => {
+        this.resetAbsoluteListPosition(true)
+      })
+    }
+    if (this.props.onExpand) {
+      this.props.onExpand(...args)
+    }
   }
 
   getText(key) {
@@ -77,6 +83,26 @@ export default class TreeSelect extends PureComponent {
 
   setInputReset(fn) {
     this.inputReset = fn
+  }
+
+  getValue() {
+    const { datum, multiple } = this.props
+    const value = datum.getValue()
+    if (multiple) return value
+    return value.length ? value[0] : ''
+  }
+
+  getDataByValue(value) {
+    if (value === null || value === undefined) return value
+    const { datum, multiple } = this.props
+    if (multiple) {
+      return value.map(id => datum.getDataById(id))
+    }
+    return datum.getDataById(value)
+  }
+
+  getResetPosition(update) {
+    this.resetAbsoluteListPosition = update
   }
 
   bindElement(el) {
@@ -134,10 +160,17 @@ export default class TreeSelect extends PureComponent {
   }
 
   handleKeyDown(e) {
+    const { onEnterExpand } = this.props
     if (e.keyCode === 13) {
       e.preventDefault()
       // enter only can open
-      if (!this.state.focus) this.handleState(true)
+      if (!this.state.focus) {
+        if (typeof onEnterExpand === 'function') {
+          const canOpen = onEnterExpand(e)
+          if (canOpen === false) return
+        }
+        this.handleState(true)
+      }
     }
 
     // fot close the list
@@ -159,7 +192,7 @@ export default class TreeSelect extends PureComponent {
   }
 
   handleChange(data, id) {
-    const { datum, multiple, disabled, onChange } = this.props
+    const { datum, multiple, disabled, onChange, onChangeAddition } = this.props
     if (disabled === true || datum.isDisabled(id)) return
     const current = datum.getDataById(id)
     if (!multiple) {
@@ -167,13 +200,26 @@ export default class TreeSelect extends PureComponent {
       datum.set(datum.getKey(data), 1)
       this.handleState(false)
     }
-    onChange(this.getValue(), current, id && datum.getPath(id).path)
+    const value = this.getValue()
+    onChange(value, current, id && datum.getPath(id).path)
+    if (typeof onChangeAddition === 'function') {
+      onChangeAddition({
+        data: this.getDataByValue(value),
+        checked: multiple ? datum.get(id) : undefined,
+        current,
+      })
+    }
   }
 
   handleClear() {
-    const { multiple } = this.props
+    const { multiple, onChangeAddition } = this.props
     this.props.datum.setValue([])
     this.props.onChange(multiple ? [] : '')
+    if (typeof onChangeAddition === 'function') {
+      onChangeAddition({
+        data: multiple ? [] : null,
+      })
+    }
     this.handleState(false)
     this.element.focus()
   }
@@ -189,6 +235,7 @@ export default class TreeSelect extends PureComponent {
 
     return (
       <span
+        title={typeof item === 'string' ? item : undefined}
         className={treeSelectClass(
           'content-wrapper',
           active && 'selected',
@@ -202,7 +249,7 @@ export default class TreeSelect extends PureComponent {
 
   renderTreeOptions() {
     const { focus, position } = this.state
-    const { multiple, datum, data, absolute, height, zIndex } = this.props
+    const { multiple, datum, data, absolute, height, zIndex, compressed, value } = this.props
     const props = {}
     ;[
       'mode',
@@ -219,6 +266,7 @@ export default class TreeSelect extends PureComponent {
       'line',
       'parentClickExpand',
       'childrenKey',
+      'expandIcons',
     ].forEach(k => {
       props[k] = this.props[k]
     })
@@ -234,12 +282,18 @@ export default class TreeSelect extends PureComponent {
       data.length === 0 ? (
         <span className={treeSelectClass('option')}>{this.getText('noData')}</span>
       ) : (
-        <Tree className={treeSelectClass(!multiple && 'single')} {...props} dataUpdate={false} />
+        <Tree
+          className={treeSelectClass(!multiple && 'single')}
+          {...props}
+          dataUpdate={false}
+          onExpand={this.onExpandHandler}
+        />
       )
     return (
       <OptionList
+        getResetPosition={this.getResetPosition}
         absolute={absolute}
-        rootClass={treeSelectClass(position)}
+        rootClass={treeSelectClass(position, isRTL() && 'rtl')}
         parentElement={this.element}
         position={position}
         focus={focus}
@@ -248,6 +302,7 @@ export default class TreeSelect extends PureComponent {
         style={{ maxHeight: height, overflowY: 'auto' }}
         fixed="min"
         zIndex={zIndex}
+        value={multiple && !compressed ? value : undefined}
       >
         <div className={treeSelectClass('tree-wrapper')}>{content}</div>
       </OptionList>
@@ -267,6 +322,7 @@ export default class TreeSelect extends PureComponent {
       filterText,
       result,
       renderUnmatched,
+      innerTitle,
     } = this.props
     const className = treeSelectClass(
       'inner',
@@ -304,6 +360,7 @@ export default class TreeSelect extends PureComponent {
           setInputReset={this.setInputReset}
           compressed={compressed}
           renderUnmatched={renderUnmatched}
+          innerTitle={innerTitle}
         />
         {this.renderTreeOptions()}
       </div>
@@ -329,7 +386,7 @@ TreeSelect.propTypes = {
   defaultExpanded: PropTypes.arrayOf(PropTypes.string),
   expanded: PropTypes.arrayOf(PropTypes.string),
   loader: PropTypes.func,
-  mode: PropTypes.oneOf([0, 1, 2, 3]),
+  mode: PropTypes.oneOf([0, 1, 2, 3, 4]),
   line: PropTypes.bool,
   onChange: PropTypes.func,
   onSelect: PropTypes.func,
@@ -339,11 +396,13 @@ TreeSelect.propTypes = {
   onFocus: PropTypes.func,
   empty: PropTypes.string,
   compressed: PropTypes.bool,
-  absolute: PropTypes.bool,
+  absolute: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   parentClickExpand: PropTypes.bool,
   zIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   renderUnmatched: PropTypes.func,
   onCollapse: PropTypes.func,
+  onChangeAddition: PropTypes.func,
+  innerTitle: PropTypes.node,
 }
 
 TreeSelect.defaultProps = {

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getKey } from '../utils/uid'
 import { setTranslate } from '../utils/dom/translate'
-import List from '../List'
+import List from '../AnimationList'
 import Scroll from '../Scroll'
 import Spin from '../Spin'
 import { getLocale } from '../locale'
-import { selectClass } from '../styles'
+import { selectClass } from './styles'
 import Option from './Option'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
@@ -15,10 +15,9 @@ const ScaleList = List(['fade', 'scale-y'], 'fast')
 class OptionList extends Component {
   constructor(props) {
     super(props)
-
     this.state = {
       currentIndex: 0,
-      hoverIndex: 0,
+      hoverIndex: props.hideCreateOption ? -1 : 0,
       scrollTop: 0,
     }
 
@@ -164,9 +163,10 @@ class OptionList extends Component {
       onChange,
       renderItem,
       groupKey,
+      filterText,
+      emptyText,
     } = this.props
     const { hoverIndex, currentIndex } = this.state
-
     let scroll = ''
     const scrollHeight = lineHeight * data.length
     if (height < scrollHeight) {
@@ -177,7 +177,7 @@ class OptionList extends Component {
         <span className={selectClass('option')}>{typeof loading === 'boolean' ? <Spin size={20} /> : loading}</span>
       )
     if (data.length === 0 || renderPending)
-      return <span className={selectClass('option')}>{this.getText('noData')}</span>
+      return <span className={selectClass('option')}>{emptyText || this.getText('noData')}</span>
     return (
       <Scroll
         scroll={scroll}
@@ -197,7 +197,7 @@ class OptionList extends Component {
               isActive={datum.check(d)}
               disabled={datum.disabled(d)}
               isHover={hoverIndex === currentIndex + i}
-              key={d[groupKey] ? `__${d[groupKey]}__` : getKey(d, keygen, i)}
+              key={d && d[groupKey] ? `__${d[groupKey]}__` : getKey(d, keygen, i)}
               index={currentIndex + i}
               data={d}
               multiple={multiple}
@@ -205,6 +205,7 @@ class OptionList extends Component {
               renderItem={renderItem}
               onHover={this.handleHover}
               groupKey={groupKey}
+              filterText={filterText}
             />
           ))}
         </div>
@@ -213,7 +214,7 @@ class OptionList extends Component {
   }
 
   render() {
-    const { control, focus, style, selectId, autoClass, getRef } = this.props
+    const { control, focus, style, selectId, autoClass, getRef, customHeader } = this.props
 
     return (
       <ScaleList
@@ -224,6 +225,7 @@ class OptionList extends Component {
         className={classnames(selectClass('options', `control-${control}`), autoClass)}
         getRef={getRef}
       >
+        {customHeader}
         {this.renderList()}
       </ScaleList>
     )
@@ -252,6 +254,10 @@ OptionList.propTypes = {
   text: PropTypes.object,
   groupKey: PropTypes.string,
   getRef: PropTypes.func,
+  customHeader: PropTypes.node,
+  filterText: PropTypes.string,
+  hideCreateOption: PropTypes.bool,
+  emptyText: PropTypes.node,
 }
 
 export default OptionList

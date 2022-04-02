@@ -3,6 +3,8 @@ const less = require('less')
 const path = require('path')
 const postcss = require('postcss')
 const autoprefixer = require('autoprefixer')
+const glob = require('glob')
+const { execSync } = require('child_process')
 
 const root = path.resolve(__dirname, '../src')
 const publish = path.resolve(__dirname, '../publish')
@@ -45,8 +47,8 @@ function buildCss(stylePath) {
     })
 }
 
-function replaceLess() {
-  const dir = path.resolve(publish, 'css/styles/')
+function replaceLess(d) {
+  const dir = path.resolve(publish, 'css/', d)
   fs.readdirSync(dir)
     .filter(name => /\.js$/.test(name))
     .forEach(name => {
@@ -59,6 +61,29 @@ function replaceLess() {
     })
 }
 
-buildCss('styles')
-buildCss('styles/spin')
-replaceLess()
+function copyLess(lessPath) {
+  const target = path.resolve(publish, 'lib/', lessPath)
+  const originPath = path.resolve(root, lessPath)
+  if (!fs.existsSync(path.dirname(target))) {
+    fs.mkdirSync(path.dirname(target))
+  }
+  console.log(`cp -r ${originPath} ${target}`)
+  execSync(`cp -r  ${originPath} ${target}`)
+}
+
+// 创建css 到style
+glob('*/styles/', { cwd: path.join(process.cwd(), 'src') }, (error, files) => {
+  files.forEach(p => {
+    buildCss(p)
+    replaceLess(p)
+  })
+})
+buildCss('styles/')
+replaceLess('styles/')
+
+// 复制less 到lib
+glob('**/*.less', { cwd: path.join(process.cwd(), 'src') }, (error, files) => {
+  files.forEach(p => {
+    copyLess(p)
+  })
+})

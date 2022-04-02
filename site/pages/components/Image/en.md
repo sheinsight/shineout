@@ -20,6 +20,10 @@
 | container | string | - | the special element selector witch container the lazy image, such as: '#id', '.class' | 1.4.2 |
 | error | ReactNode | none | image error placeholder |  |
 | autoSSL | boolean | false | auto transform protocol | 1.6.1 |
+| fit | 'fill' \| 'fit' \| 'stretch' \| 'center' | - | fit the container | |
+| shape | 'rounded' \| 'circle' \| 'thumbnail' | 'rounded' | shape of image | |
+| alt | string | none | Alternate address, applied when src is invalid | |
+| onError | (err: Event) => void | none | callback of image src or alt request fail | |
 
 ### Image.Group
 

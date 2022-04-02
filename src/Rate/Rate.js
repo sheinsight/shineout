@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { range } from '../utils/numbers'
-import { getParent } from '../utils/dom/element'
 import { getProps, defaultProps } from '../utils/proptypes'
-import { rateClass } from '../styles'
+import { rateClass } from './styles'
+import getDataset from '../utils/dom/getDataset'
 
 const MIN_SIZE = 12
 class Rate extends PureComponent {
@@ -27,7 +27,7 @@ class Rate extends PureComponent {
     const { size } = this.props
     if (!size) return undefined
     const parsed = Math.max(MIN_SIZE, parseFloat(size))
-    return { width: parsed, fontSize: parsed }
+    return { width: parsed, fontSize: parsed, position: 'relative' }
   }
 
   getScale() {
@@ -65,7 +65,7 @@ class Rate extends PureComponent {
     let value = args[0]
     const e = args[1]
     const { clearable, allowHalf } = this.props
-    if (allowHalf && getParent(e.target, `.${rateClass('allow-half')}`)) {
+    if (allowHalf && e.target.parentElement.querySelector(`.${rateClass('allow-half')}`)) {
       value -= 0.5
     }
     if (clearable && this.props.value === value) {
@@ -91,7 +91,7 @@ class Rate extends PureComponent {
   }
 
   renderBackground() {
-    const { background, max, disabled, allowHalf } = this.props
+    const { background, max, disabled } = this.props
     const style = this.getStyle()
     const value = this.getValue()
 
@@ -101,7 +101,7 @@ class Rate extends PureComponent {
           <span
             key={v}
             // the allowHalf only for the front same as background
-            style={Object.assign({ visibility: !allowHalf && !disabled && value > v ? 'hidden' : 'visible' }, style)}
+            style={Object.assign({ visibility: !disabled && Math.floor(value) > v ? 'hidden' : 'visible' }, style)}
           >
             {this.getIcon(background, v, true)}
           </span>
@@ -122,11 +122,15 @@ class Rate extends PureComponent {
           <span
             key={v}
             onClick={this.handleClick.bind(this, v + 1)}
-            onMouseLeave={this.handleHover.bind(this, 0)}
             onMouseMove={allowHalf ? this.handleMove.bind(this, v + 1) : undefined}
             onMouseEnter={!allowHalf ? this.handleHover.bind(this, v + 1) : undefined}
             style={style}
           >
+            {/* Fix React event onMouseLeave not triggered when moving cursor fast */}
+            <div
+              style={{ position: 'absolute', top: 0, right: 0, left: 0, bottom: 0 }}
+              onMouseLeave={this.handleHover.bind(this, 0)}
+            />
             {value > v ? this.getIcon(front, v) : <span>&nbsp;</span>}
             {highlight === v + 1 && <i className={rateClass('highlight')}>{this.getIcon(front, v)}</i>}
           </span>
@@ -156,7 +160,7 @@ class Rate extends PureComponent {
     const className = classnames(rateClass('_'), this.props.className)
     const ms = Object.assign({}, this.props.style, this.getScale())
     return (
-      <div className={className} style={ms}>
+      <div className={className} style={ms} {...getDataset(this.props)}>
         {this.renderBackground()}
         {this.props.disabled ? this.renderStatic() : this.renderRate()}
       </div>

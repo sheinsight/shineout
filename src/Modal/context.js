@@ -1,5 +1,5 @@
 import React from 'react'
-import createReactContext from 'create-react-context'
+import createReactContext from '../context'
 
 const context = createReactContext()
 

@@ -1,14 +1,14 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import createReactContext from 'create-react-context'
 import classnames from 'classnames'
 import immer from 'immer'
+import createReactContext from '../context'
 import { Component } from '../component'
 import { errorSubscribe, RESET_TOPIC } from '../Datum/types'
 import { getGrid } from '../Grid/utils'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { objectValues } from '../utils/objects'
-import { formClass } from '../styles'
+import { formClass } from './styles'
 
 const { Provider, Consumer } = createReactContext()
 
@@ -135,17 +135,28 @@ class Item extends Component {
   }
 
   render() {
-    const { children, grid, label, labelAlign, labelWidth, required, style } = this.props
+    const {
+      children,
+      grid,
+      label,
+      labelAlign,
+      labelVerticalAlign,
+      labelWidth,
+      required,
+      style,
+      keepErrorHeight,
+    } = this.props
 
     const errors = this.getErrors()
-
     const className = classnames(
       getGrid(grid),
       formClass(
         'item',
         required && 'required',
         errors.length > 0 && 'invalid',
-        ['top', 'right'].indexOf(labelAlign) >= 0 && `label-align-${labelAlign}`
+        labelVerticalAlign && `label-vertical-align-${labelVerticalAlign}`,
+        keepErrorHeight && `item-keep-height`,
+        ['top', 'right', 'left'].indexOf(labelAlign) >= 0 && `label-align-${labelAlign}`
       ),
       this.props.className
     )
@@ -168,6 +179,7 @@ Item.propTypes = {
   ...getProps(PropTypes, 'children', 'grid'),
   className: PropTypes.string,
   // formItemErrors: PropTypes.array,
+  keepErrorHeight: PropTypes.bool,
   label: PropTypes.any,
   labelAlign: PropTypes.string,
   labelWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -178,6 +190,7 @@ Item.propTypes = {
 Item.defaultProps = {
   ...defaultProps,
   formItemErrors: [],
+  keepErrorHeight: false,
 }
 
 export default Item

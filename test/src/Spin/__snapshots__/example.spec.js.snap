@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: Spin[site/pages/components/Spin/example-01-default.js] 1`] = `
+exports[`Snapshot test: Spin[site/pages/components/Spin/example-01-01-default.js] 1`] = `
 <div>
   <div>
     <div>
@@ -114,6 +114,101 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-01-default.js] 1
     </div>
     <div>
       <div />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Spin[site/pages/components/Spin/example-01-02-tip.js] 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+    </div>
+    <div>
+      <span>
+        Loading...
+      </span>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+    </div>
+    <div>
+      <span>
+        Loading...
+      </span>
     </div>
   </div>
 </div>

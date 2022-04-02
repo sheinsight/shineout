@@ -15,6 +15,7 @@ Array [
       }
     >
       <table
+        className=""
         style={
           Object {
             "width": undefined,
@@ -68,6 +69,7 @@ Array [
       onScroll={[Function]}
     >
       <table
+        className=""
         style={
           Object {
             "width": undefined,
@@ -124,7 +126,7 @@ Array [
       <a
         className="so-pagination-item so-pagination-arrow"
         disabled={true}
-        onMouseDown={[Function]}
+        onClick={[Function]}
       >
         <svg
           viewBox="0 0 1024 1024"
@@ -140,35 +142,35 @@ Array [
       <a
         className="so-pagination-item so-pagination-current"
         disabled={true}
-        onMouseDown={[Function]}
+        onClick={[Function]}
       >
         1
       </a>
       <a
         className="so-pagination-item"
         disabled={false}
-        onMouseDown={[Function]}
+        onClick={[Function]}
       >
         2
       </a>
       <a
         className="so-pagination-item"
         disabled={false}
-        onMouseDown={[Function]}
+        onClick={[Function]}
       >
         3
       </a>
       <a
         className="so-pagination-item"
         disabled={false}
-        onMouseDown={[Function]}
+        onClick={[Function]}
       >
         4
       </a>
       <a
         className="so-pagination-item so-pagination-arrow"
         disabled={false}
-        onMouseDown={[Function]}
+        onClick={[Function]}
       >
         <svg
           viewBox="0 0 1024 1024"

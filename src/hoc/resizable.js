@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import immer from 'immer'
-import { resizableClass } from '../styles'
+import { resizableClass } from './styles'
 import { getUidStr } from '../utils/uid'
 import { curry } from '../utils/func'
 

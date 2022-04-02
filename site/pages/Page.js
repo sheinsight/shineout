@@ -56,7 +56,7 @@ export default function(pages) {
           <Icon name={shownav ? 'Menu' : 'close'} onClick={toggleCode} />
         </div>
 
-        <Sticky top={0}>
+        <Sticky top={0} className={mainClass('menu-sticky-wrap')}>
           <div id="-shineout-menu" className={mainClass('menu', shownav && 'hidden')}>
             {pages
               .filter(v => filters.indexOf(v.name) === -1)

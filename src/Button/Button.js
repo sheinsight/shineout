@@ -4,7 +4,8 @@ import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
 import Spin from '../Spin'
 import { wrapSpan } from '../utils/dom/element'
-import { buttonClass } from '../styles'
+import { buttonClass } from './styles'
+import { isRTL } from '../config'
 
 class Button extends PureComponent {
   getChildren() {
@@ -35,18 +36,20 @@ class Button extends PureComponent {
     const isSecondary = typeProp === 'secondary' && !outlineProp && !text
     const type = isSecondary ? 'primary' : typeProp
     const outline = outlineProp || isSecondary
-    const color = outline || type === 'default' ? undefined : '#fff'
+    let color = outline || type === 'default' ? undefined : '#fff'
+    if (text) color = 'currentColor'
     const className = classnames(
       buttonClass('_', shape, type, outline && 'outline', {
         large: size === 'large',
         small: size === 'small',
         text: text && 'text',
+        rtl: isRTL(),
         disabled,
       }),
       this.props.className
     )
 
-    if (href) {
+    if (href && !disabled) {
       return (
         <a href={href} {...others} className={className}>
           {this.props.children}

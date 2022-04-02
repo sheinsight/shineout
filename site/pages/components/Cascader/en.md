@@ -17,10 +17,21 @@
 | onChange | (value: any[], selected: boolean) => void | - | When the onChange property is set, the selection box is displayed. The parameter is the current selected value, which is related to the mode property. |
 | renderItem | (data: any) => ReactNode \| string | required | When it is a string, return d\[string].<br /> When it is a function, return the result of this function. |
 | renderResult | (data: any, result: any[]) => ReactNode \| string | renderItem | The content displayed in the result after selecting, if not set, use renderItem. not show while return null, result is current selected |
-| defaultValue | any[] | - | Default selected key (not controlled) | 
+| defaultValue | any[] | - | Default selected key (not controlled) |
 | value | any[] | - | Selected key (controlled) |
-| absolute | boolean | false | When it is true, the pop-up layer of option append into document.body. |
-| compressed | boolean | false | Merges selected values |
-| childrenKey | string | 'children' | the key of the children data name | 
+| absolute \| (() => element) | boolean | false | When it is true, the pop-up layer of option append into document.body. When it is function, the pop-up layer of option append into it's return DOM.  |
+| compressed | boolean \| 'no-repeat' | false | Merges selected values; the repeat value will not appear in the Popover when it is'no-repeat'. |
+| childrenKey | string | 'children' | the key of the children data name |
 | finalDismiss | boolean | false | close options after chose the final node |
 | onCollapse | (collapse: boolean) => void | none | options collapse callback |
+| onFilter | (text: string) => (data: any) => boolean | - | When the onFilter is not empty, you can filter data by input.<br />If the onFilter returns a function, use this function as a front-end filter.<br />If return undefined, you can do your own backend filtering.<br /> support in single selection state |
+| height | number | 300 | height of dropdown options |
+| filterDelay | number | 400 | ms. The delay of user input triggering filter events |
+| size | string | none | size |
+| singleRemove | boolean | none | Support single node deletion |
+| unmatch | boolean | none | render unmatch value |
+| underline | boolean | false | only display border bottom  |
+| getComponentRef | (componentRef: any) => void  | without | A reference to the binding component, you can call some component methods |
+| showArrow | boolean | true | show dropdown arrow, only single select |
+| filterSameChange | boolean | false | filter out value change callbacks with the same value |
+| loading | boolean \| ReactNode | none | Dropdown list loading state |

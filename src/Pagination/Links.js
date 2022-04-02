@@ -1,10 +1,19 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import icons from '../icons'
-import { paginationClass } from '../styles'
+import { paginationClass } from './styles'
 import Item from './Item'
 import Prev from './Prev'
 import Next from './Next'
+import { isRTL } from '../config'
+
+const renderIcon = isPrev => {
+  const rtl = isRTL()
+  if ((isPrev && rtl) || (!isPrev && !rtl)) {
+    return icons.AngleDoubleRight
+  }
+  return icons.AngleDoubleLeft
+}
 
 class Links extends PureComponent {
   getLinks() {
@@ -83,7 +92,7 @@ class Links extends PureComponent {
               className={`no-border ${isPrev ? 'more-left' : 'more-right'}`}
               onClick={onChange}
             >
-              {isPrev ? icons.AngleDoubleLeft : icons.AngleDoubleRight}
+              {renderIcon(isPrev)}
             </Item>
           )
         })}

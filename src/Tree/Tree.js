@@ -24,6 +24,7 @@ class Tree extends PureComponent {
         value: props.value || props.defaultValue,
         disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
         childrenKey: props.childrenKey,
+        unmatch: props.unmatch,
       })
     this.handleDrop = this.handleDrop.bind(this)
     this.handleToggle = this.handleToggle.bind(this)
@@ -33,6 +34,7 @@ class Tree extends PureComponent {
     this.handleDragImageSelector = this.handleProps.bind(this, 'dragImageSelector')
     this.handleClidrenClass = this.handleProps.bind(this, 'childrenClass')
     this.handleLeafClass = this.handleProps.bind(this, 'leafClass')
+    this.bindDatum()
   }
 
   componentDidUpdate(prevProps) {
@@ -53,6 +55,11 @@ class Tree extends PureComponent {
   getActive() {
     const { active } = this.props
     return active === undefined ? this.state.active : active
+  }
+
+  bindDatum() {
+    const { bindDatum } = this.props
+    if (bindDatum) bindDatum(this.datum)
   }
 
   bindNode(id, update) {
@@ -127,6 +134,7 @@ class Tree extends PureComponent {
       let node = draft
       let temp
       let removeNode
+      let offset = 0
       current.indexPath.forEach((p, i) => {
         if (i < current.indexPath.length - 1) {
           node = node[p][childrenKey]
@@ -144,19 +152,22 @@ class Tree extends PureComponent {
         } else if (tnode === temp) {
           // same parent
           removeNode()
+          if (current.index <= target.index) {
+            offset = -1
+          }
           removeNode = () => {}
         }
       })
 
       if (position === -1) {
-        tnode = tnode[target.index]
+        tnode = tnode[target.index + offset]
         if (!Array.isArray(tnode[childrenKey])) tnode[childrenKey] = []
         tnode[childrenKey].push(node)
         position = tnode[childrenKey].length - 1
         const update = this.nodes.get(targetId)
         if (update) update('expanded', true)
       } else {
-        tnode.splice(position, 0, node)
+        tnode.splice(position + offset, 0, node)
         targetId = target.path[target.path.length - 1]
       }
 
@@ -243,7 +254,7 @@ Tree.propTypes = {
   expanded: PropTypes.arrayOf(PropTypes.string),
   line: PropTypes.bool,
   loader: PropTypes.func,
-  mode: PropTypes.oneOf([0, 1, 2, 3]),
+  mode: PropTypes.oneOf([0, 1, 2, 3, 4]),
   onChange: PropTypes.func,
   onClick: PropTypes.func,
   onExpand: PropTypes.func,
@@ -260,6 +271,7 @@ Tree.propTypes = {
   doubleClickExpand: PropTypes.bool,
   dragSibling: PropTypes.bool,
   nodeClass: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  unmatch: PropTypes.bool,
 }
 
 Tree.defaultProps = {

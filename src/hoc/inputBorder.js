@@ -3,8 +3,13 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { Component } from '../component'
 import { curry } from '../utils/func'
-import { buttonClass, inputClass, popoverClass } from '../styles'
+import { popoverClass } from '../Popover/styles'
+import { buttonClass } from '../Button/styles'
+import { inputClass } from '../Input/styles'
+import { inputBorderClass } from '../Form/styles'
 import Popover from '../Popover'
+import { isRTL } from '../config'
+import getDataset from '../utils/dom/getDataset'
 
 export default curry(
   (options, Origin) =>
@@ -23,6 +28,7 @@ export default curry(
         width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         popover: PropTypes.oneOf(['top-left', 'top', 'top-right', 'bottom-left', 'bottom', 'bottom-right']),
         popoverProps: PropTypes.object,
+        underline: PropTypes.bool,
       }
 
       static defaultProps = {
@@ -105,23 +111,42 @@ export default curry(
       }
 
       render() {
-        const { className, border, size, tip, popover, width, style, error, popoverProps, ...other } = this.props
+        const {
+          className,
+          border,
+          size,
+          tip,
+          popover,
+          width,
+          style,
+          error,
+          popoverProps,
+          underline,
+          ...other
+        } = this.props
         const { focus } = this.state
+
+        const rtl = isRTL()
+
         const Tag = options.tag || 'label'
 
         const newStyle = Object.assign({ width }, style)
+        const isDisabled = typeof other.disabled === 'function' ? false : !!other.disabled
         const newClassName = classnames(
+          inputBorderClass(rtl && 'rtl'),
           inputClass(
             '_',
-            focus && other.disabled !== true && 'focus',
-            other.disabled === true && 'disabled',
+            rtl && 'rtl',
+            focus && !isDisabled && 'focus',
+            isDisabled && 'disabled',
             options.isGroup && 'group',
             size,
             newStyle.width && 'inline',
             !border && 'no-border',
             options.overflow && `overflow-${options.overflow}`,
             error && 'invalid',
-            popover && error && 'focus'
+            popover && error && 'focus',
+            underline && 'underline'
           ),
           buttonClass(options.isGroup && 'group', options.from === 'input' && options.isGroup && 'from-input-group'),
           typeof options.className === 'function' ? options.className(this.props) : options.className,
@@ -134,8 +159,9 @@ export default curry(
             className={newClassName}
             style={newStyle}
             tabIndex={options.enterPress ? '0' : undefined}
+            {...getDataset(other)}
           >
-            <Origin {...other} size={size} onFocus={this.handleFocus} onBlur={this.handleBlur} />
+            <Origin {...other} size={size} onFocus={this.handleFocus} onBlur={this.handleBlur} inputFocus={focus} />
             {this.renderHelp(focus)}
           </Tag>
         )

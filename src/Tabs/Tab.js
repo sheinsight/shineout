@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { tabsClass } from '../styles'
+import { tabsClass } from './styles'
 import { getUidStr } from '../utils/uid'
 import { defer } from '../utils/uid'
+import getDataset from '../utils/dom/getDataset'
 
 class Tab extends PureComponent {
   constructor(props) {
@@ -54,7 +55,7 @@ class Tab extends PureComponent {
   }
 
   render() {
-    const { isActive, disabled, children, shape } = this.props
+    const { isActive, disabled, children, shape, ...otherProps } = this.props
 
     const style = this.getActiveStyle()
     const isBordered = shape === 'bordered'
@@ -71,6 +72,7 @@ class Tab extends PureComponent {
       ),
       onClick: this.handleClick,
       style,
+      ...getDataset(otherProps),
     }
 
     if (children.type && children.type.isTabLink) {
@@ -98,7 +100,7 @@ Tab.propTypes = {
 }
 
 Tab.defaultProps = {
-  border: 'transparent',
+  // border: 'transparent',
 }
 
 export default Tab

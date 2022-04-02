@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { getLocale } from '../locale'
-import icons from '../icons'
+// import icons from '../icons'
 import { getKey } from '../utils/uid'
-import List from '../List'
+import List from '../AnimationList'
 import Spin from '../Spin'
-import Input from '../Input'
+// import Input from '../Input'
 import Checkbox from '../Checkbox/Checkbox'
-import { selectClass } from '../styles'
+import { selectClass } from './styles'
 import BoxOption from './BoxOption'
-import LazyList from '../List/LazyList'
+import LazyList from '../AnimationList/LazyList'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast', 'flex')
 const emptyFunc = () => {}
@@ -51,7 +51,7 @@ class BoxList extends Component {
   handleRenderItem(data, groupIndex) {
     const { datum, keygen, columns, multiple, onChange, renderItem, lineHeight } = this.props
     return (
-      <div key={groupIndex} style={{ height: lineHeight }}>
+      <div style={{ height: lineHeight }}>
         {data.map((d, i) => {
           const isActive = datum.check(d)
           return (
@@ -71,15 +71,15 @@ class BoxList extends Component {
     )
   }
 
-  renderFilter() {
-    const { filterText } = this.props
-    return (
-      <Input.Group size="small" className={selectClass('filter-input')}>
-        <Input value={filterText} onChange={this.handleSearch} />
-        {icons.SEARCH}
-      </Input.Group>
-    )
-  }
+  // renderFilter() {
+  //   const { filterText } = this.props
+  //   return (
+  //     <Input.Group size="small" className={selectClass('filter-input')}>
+  //       <Input value={filterText} onChange={this.handleSearch} />
+  //       {icons.SEARCH}
+  //     </Input.Group>
+  //   )
+  // }
 
   renderHeader(count) {
     const { data, loading, multiple, columnsTitle } = this.props
@@ -104,7 +104,6 @@ class BoxList extends Component {
 
   renderLazyList() {
     const { columns, height, lineHeight, data, itemsInView } = this.props
-    const scrollHeight = lineHeight * Math.ceil(data.length / columns)
     const sliceData = data.reduce((red, item) => {
       let lastItem = red[red.length - 1]
       if (!lastItem) {
@@ -117,7 +116,6 @@ class BoxList extends Component {
     }, [])
     return (
       <LazyList
-        scrollHeight={scrollHeight}
         lineHeight={lineHeight}
         data={sliceData}
         itemsInView={itemsInView}
@@ -147,24 +145,25 @@ class BoxList extends Component {
   }
 
   renderOptions() {
-    const { loading, columns, data } = this.props
+    const { loading, columns, data, renderPending, emptyText } = this.props
     if (loading) return null
     const stack = columns === -1
-    const empty = data.length === 0
+    const empty = renderPending || data.length === 0
     return (
       <div className={selectClass('box-options', stack && 'scrollable')}>
-        {empty && (
+        {empty ? (
           <div key="empty" className={selectClass('no-data')}>
-            {this.getText('noData')}
+            {emptyText || this.getText('noData')}
           </div>
+        ) : (
+          <React.Fragment>{stack ? this.renderStack() : this.renderLazyList()}</React.Fragment>
         )}
-        {stack ? this.renderStack() : this.renderLazyList()}
       </div>
     )
   }
 
   render() {
-    const { data, datum, style, loading, focus, selectId, getRef } = this.props
+    const { data, datum, style, loading, focus, selectId, getRef, customHeader } = this.props
 
     const checkedCount = data.filter(d => datum.check(d)).length
 
@@ -179,6 +178,7 @@ class BoxList extends Component {
         className={selectClass('box-list')}
         getRef={getRef}
       >
+        {customHeader}
         {loading && typeof loading === 'boolean' ? <Spin size={30} /> : loading}
         {this.renderHeader(checkedCount)}
         {this.renderOptions()}
@@ -193,7 +193,7 @@ BoxList.propTypes = {
   columns: PropTypes.number,
   data: PropTypes.array,
   datum: PropTypes.object.isRequired,
-  filterText: PropTypes.string,
+  // filterText: PropTypes.string,
   focus: PropTypes.bool,
   keygen: PropTypes.any,
   loading: PropTypes.oneOfType([PropTypes.element, PropTypes.bool]),
@@ -209,6 +209,9 @@ BoxList.propTypes = {
   itemsInView: PropTypes.number,
   getRef: PropTypes.func,
   columnsTitle: PropTypes.any,
+  customHeader: PropTypes.node,
+  renderPending: PropTypes.bool,
+  emptyText: PropTypes.node,
 }
 
 BoxList.defaultProps = {

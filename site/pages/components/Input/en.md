@@ -26,6 +26,12 @@
 | info | (value: string) => string \| number | - | Infomation |
 | popoverProps | object | none | Vilidate popup properties, specific properties refer to Popover component description |
 | maxLength | number | none | input max length |
+| forwardedRef | (el: HTMLElement) => void | none | get input element |
+| underline | boolean | false | only display border bottom  |
+| onKeyUp | (e: KeyboardEvent) => void | none | callback with key up |
+| onKeyDown | (e: KeyboardEvent) => void | none | callback with key down |
+| innerTitle | string | - | inner title |
+| clearToUndefined | boolean | - | After clicking the clear button, the data becomes undefined |
 
 ### Input.Number
 

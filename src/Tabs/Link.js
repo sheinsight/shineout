@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { tabsClass } from '../styles'
+import { tabsClass } from './styles'
 import { isLink } from '../utils/is'
 
 class Link extends PureComponent {
@@ -32,7 +32,6 @@ class Link extends PureComponent {
 Link.isTabLink = true
 
 Link.propTypes = {
-  elRef: PropTypes.func,
   className: PropTypes.string,
   href: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),

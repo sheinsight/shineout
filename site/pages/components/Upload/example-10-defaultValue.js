@@ -30,16 +30,17 @@ export default function() {
         renderResult={f => f.name}
       >
         <Button>
-          <FontAwesome name="upload" /> Upload file
+          <FontAwesome name="upload" />
+          Upload file
         </Button>
       </Upload>
-
+      <br />
       <Upload.Image
         action="//jsonplaceholder.typicode.com/posts"
         accept="image/*"
         multiple
         name="file"
-        limit={1}
+        canDelete={value => value.name !== defaultValue[0].name}
         recoverAble
         onSuccess={(res, file, data) => ({ url: data })}
         renderResult={f => f.url}

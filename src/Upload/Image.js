@@ -1,10 +1,39 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
-import { uploadClass } from '../styles'
+import classname from 'classnames'
+import { uploadClass } from './styles'
 import Upload from './Upload'
 import { ERROR } from './request'
 import { getLocale } from '../locale'
+
+export const Handler = ({ className, disabled, urlInvalid, children, style, width, height, ...otherProps }) => {
+  const mc = classname(
+    uploadClass('image-plus', 'image-item', disabled && 'disabled', urlInvalid && 'url-invalid-border'),
+    className
+  )
+  const ms = Object.assign({}, { width, height }, style)
+  return (
+    <div {...otherProps} style={ms} tabIndex={disabled ? -1 : 0} className={mc}>
+      {children || <div className={uploadClass('indicator', urlInvalid && 'url-invalid-indicator')} />}
+    </div>
+  )
+}
+
+Handler.propTypes = {
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
+  urlInvalid: PropTypes.bool,
+  children: PropTypes.node,
+  style: PropTypes.object,
+  width: PropTypes.number,
+  height: PropTypes.number,
+}
+
+Handler.defaultProps = {
+  width: 80,
+  height: 80,
+}
 
 class Image extends PureComponent {
   constructor(props) {
@@ -67,7 +96,7 @@ class Image extends PureComponent {
   }
 
   render() {
-    const { children, width, height, ...others } = this.props
+    const { children, width, height, ignorePreview, ...others } = this.props
     const { urlInvalid } = this.state
     if (urlInvalid) {
       clearTimeout(this.timeout)
@@ -77,24 +106,18 @@ class Image extends PureComponent {
     }
 
     const style = { width, height }
-    const content = children || <div className={uploadClass('indicator', urlInvalid && 'url-invalid-indicator')} />
 
     return (
-      <Upload {...others} imageStyle={style} beforeUpload={this.beforeUpload}>
-        <div
-          tabIndex={this.props.disabled ? -1 : 0}
+      <Upload {...others} imageStyle={style} beforeUpload={ignorePreview ? undefined : this.beforeUpload}>
+        <Handler
+          disabled={this.props.disabled}
           style={style}
           onKeyDown={this.handleKeyDown}
           onMouseDown={this.handleMouseDown}
-          className={uploadClass(
-            'image-plus',
-            'image-item',
-            others.disabled && 'disabled',
-            urlInvalid && 'url-invalid-border'
-          )}
+          urlInvalid={urlInvalid}
         >
-          {content}
-        </div>
+          {children}
+        </Handler>
         {urlInvalid && (
           <div style={{ width: '100%', position: 'relative' }}>
             <div className={uploadClass('url-invalid-message')}>{getLocale('urlInvalidMsg')}</div>
@@ -116,6 +139,8 @@ Image.propTypes = {
   }),
   width: PropTypes.number,
   disabled: PropTypes.bool,
+  ignorePreview: PropTypes.bool,
+  GapProps: PropTypes.shape({}),
 }
 
 Image.defaultProps = {

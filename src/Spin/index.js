@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import config from '../config'
-import { spinClass } from '../styles'
+import configable from '../hoc/config'
+import { spinClass } from './styles'
 import {
   ChasingDots,
   DoubleBounce,
@@ -15,6 +17,7 @@ import {
   Default,
 } from './Multiple'
 import { Ring, Plane, Pulse } from './Simple'
+import { getProps } from '../utils/proptypes'
 
 const spins = {
   plane: Plane,
@@ -38,11 +41,7 @@ function renderContainer(Loading, props) {
   return (
     <div className={spinClass('container', loading && 'show')}>
       <div className={spinClass('content')}>{children}</div>
-      {loading && (
-        <div className={spinClass('loading')}>
-          <Loading {...props} />
-        </div>
-      )}
+      {loading && <div className={spinClass('loading')}>{Loading}</div>}
     </div>
   )
 }
@@ -53,22 +52,45 @@ function getName(name) {
   return 'default'
 }
 
-export default function Spin(props) {
-  const { children } = props
+function Spin(props) {
+  const { children, style, className, ...rest } = props
   const name = getName(props.name)
   const Component = spins[name]
   if (!Component) {
     console.warn(`Spin type '${name}' not existed.`)
     return null
   }
-  if (children) return renderContainer(Component, props)
-  return <Component {...props} />
+  const classes = classnames(spinClass('_'), className)
+  const wrapperStyle = Object.assign(
+    {
+      margin: props.margin,
+      color: props.color,
+    },
+    style
+  )
+  let Content
+  if (!('tip' in props)) {
+    Content = <Component {...rest} sry wrapperStyle={wrapperStyle} wrapperClass={className} />
+  } else {
+    Content = (
+      <div className={classes} style={wrapperStyle}>
+        <Component {...rest} />
+        {props.tip && (
+          <div className={spinClass('tip')}>{typeof props.tip === 'string' ? <span>{props.tip}</span> : props.tip}</div>
+        )}
+      </div>
+    )
+  }
+  if (children) return renderContainer(Content, props)
+  return Content
 }
 
 Spin.displayName = 'ShineoutSpin'
 
 Spin.propTypes = {
+  ...getProps(PropTypes),
   color: PropTypes.string,
+  tip: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   children: PropTypes.node,
   size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   name: PropTypes.oneOf([
@@ -92,3 +114,5 @@ Spin.defaultProps = {
   color: '#6c757d',
   size: 40,
 }
+
+export default configable(Spin, 'spin')

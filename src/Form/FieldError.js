@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { formClass } from '../styles'
+import { formClass } from './styles'
 
 class FieldError extends PureComponent {
   render() {

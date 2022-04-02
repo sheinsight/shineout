@@ -6,45 +6,83 @@
  */
 import React from 'react'
 import { DatePicker } from 'shineout'
-import { format, addDays, subDays } from 'date-fns'
+import dayjs from 'dayjs'
 
 const today = new Date()
-const formatStart = 'yyyy-MM-dd 00:00:00'
-const formatEnd = 'yyyy-MM-dd 23:59:59'
+const fmt = 'YYYY-MM-DD'
+const formatStart = 'YYYY-MM-DD 00:00:00'
+const formatEnd = 'YYYY-MM-DD 23:59:59'
 
 export default function() {
   return (
-    <DatePicker
-      range
-      onChange={d => console.log(d)}
-      type="datetime"
-      quickSelect={[
-        {
-          name: 'now',
-          value: [Date.now(), Date.now()],
-        },
-        {
-          name: 'next week',
-          value: [format(today, formatStart), format(addDays(today, 7), formatEnd)],
-        },
-        {
-          name: 'last week',
-          value: [format(subDays(today, 7), formatStart), format(today, formatEnd)],
-        },
-        {
-          name: 'next month',
-          value: [format(today, formatStart), format(addDays(today, 30), formatEnd)],
-        },
-        {
-          name: 'last month',
-          value: [format(subDays(today, 30), formatStart), format(today, formatEnd)],
-        },
-        {
-          name: 'special date',
-          value: ['2019-01-01 00:00:00', '2019-12-31 23:59:59'],
-        },
-      ]}
-      style={{ marginTop: '12px' }}
-    />
+    <div>
+      <DatePicker
+        range
+        onChange={d => console.log(d)}
+        type="datetime"
+        placeholder={['Start datetime', 'End datetime']}
+        quickSelect={[
+          {
+            name: 'Next Week',
+            value: [
+              dayjs(today).format(formatStart),
+              dayjs(today)
+                .add(7, 'day')
+                .format(formatEnd),
+            ],
+          },
+          {
+            name: 'Last Week',
+            value: [
+              dayjs(today)
+                .add(-7, 'day')
+                .format(formatStart),
+              dayjs(today).format(formatEnd),
+            ],
+          },
+          {
+            name: 'Next Month',
+            value: [
+              dayjs(today).format(formatStart),
+              dayjs(today)
+                .add(30, 'day')
+                .format(formatEnd),
+            ],
+          },
+          {
+            name: 'Last Month',
+            value: [
+              dayjs(today)
+                .add(-30, 'day')
+                .format(formatStart),
+              dayjs(today).format(formatEnd),
+            ],
+          },
+          {
+            name: 'special date',
+            value: ['2019-01-01 00:00:00', '2019-12-31 23:59:59'],
+          },
+        ]}
+        style={{ marginBottom: '12px', display: 'block' }}
+      />
+      <DatePicker
+        placeholder="Quick Date"
+        quickSelect={[
+          { name: 'Today', value: dayjs(today).format(fmt) },
+          {
+            name: 'A week later',
+            value: dayjs(today)
+              .add(7, 'day')
+              .format(fmt),
+          },
+          {
+            name: 'A month later',
+            value: dayjs(today)
+              .add(30, 'day')
+              .format(fmt),
+          },
+        ]}
+      />
+    </div>
   )
 }

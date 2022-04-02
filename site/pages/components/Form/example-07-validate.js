@@ -5,13 +5,51 @@
  *    -- Creating new rules object through built-in Rule.
  */
 import React from 'react'
-import { Form, Input, Checkbox, Rule } from 'shineout'
+import { Form, Input, Checkbox, Rule, Button } from 'shineout'
 
-const rules = Rule()
+const rules = Rule(
+  // validate function package
+  {
+    password: {
+      func: (value, formData, cb, props) =>
+        new Promise((resolve, reject) => {
+          if (!/\d+/.test(value) || !/[a-z]+/i.test(value)) {
+            reject(new Error(props.message.replace('{title}', props.title)))
+          } else {
+            resolve(true)
+          }
+        }),
+    },
+    isExist: (value, _, callback) => {
+      if (value.indexOf('so') >= 0) callback(new Error(`"${value}" is existed.`))
+      else callback(true)
+    },
+  },
+  // language package
+  {
+    password: {
+      message: '{title} at least has one numeral and one letter',
+    },
+  }
+)
 
 export default function() {
+  const ref = React.useRef({ current: null })
+  const validFields = React.useCallback(() => {
+    console.log(ref.current)
+    if (ref.current && ref.current.validateFields) {
+      ref.current.validateFields(['email', 'name'])
+    }
+  }, [])
   return (
-    <Form style={{ maxWidth: 500 }} scrollToError={30} onSubmit={d => console.log(d)}>
+    <Form
+      style={{ maxWidth: 500 }}
+      scrollToError={30}
+      onSubmit={d => console.log(d)}
+      formRef={f => {
+        ref.current = f
+      }}
+    >
       <Form.Item required label="Email">
         <Input name="email" title="Email" rules={[rules.required, rules.email]} />
       </Form.Item>
@@ -61,6 +99,7 @@ export default function() {
       <Form.Item label="">
         <Form.Button>Sumbit</Form.Button>
         <Form.Reset>Reset</Form.Reset>
+        <Button onClick={validFields}>校验部分字段</Button>
       </Form.Item>
     </Form>
   )

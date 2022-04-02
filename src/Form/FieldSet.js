@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import createReactContext from 'create-react-context'
+import createReactContext from '../context'
 import { Component } from '../component'
 import { filterProps } from '../utils/objects'
 import validate from '../utils/validate'
@@ -122,16 +122,15 @@ class FieldSet extends Component {
     if (values.length === 0 && empty) {
       result.push(empty(this.handleInsert.bind(this, 0)))
     } else {
-      const errorList = Array.isArray(errors) ? errors : []
+      const errorList = (Array.isArray(errors) ? errors : [errors]).filter(Boolean)
       values.forEach((v, i) => {
-        const error = errorList[i]
         result.push(
           <Provider key={i} value={{ path: `${name}[${i}]`, val: this.validate }}>
             {children({
               list: values,
               value: v,
               index: i,
-              error,
+              error: errorList,
               datum: formDatum,
               onChange: this.handleChange.bind(this, i),
               onInsert: this.handleInsert.bind(this, i),

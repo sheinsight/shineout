@@ -39,7 +39,7 @@ export default class extends React.Component {
         <Modal
           container={() => this.wrapper}
           visible={this.state.visible}
-          width={500}
+          width={400}
           title="Modal Title"
           onClose={this.handleDismiss}
           footer={[

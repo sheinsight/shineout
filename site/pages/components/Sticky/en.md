@@ -12,3 +12,4 @@
 | target | string \| HTMLElement | none | Attached target. the default is the document.body. You can pass in an HTMLElement or css selector, and the target must be an ancestor node of the Sticky component. |
 | top | number | none | Offsets from the top. |
 | css | bool | true | use css position:sticky while target is ordered |
+| onChange | (isSticky: boolean) => void | null | When the adsorption effect, trigger the callback |

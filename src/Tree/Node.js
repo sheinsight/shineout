@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
 import { isFunc, isString } from '../utils/is'
-import { treeClass } from '../styles'
+import { treeClass } from './styles'
 import Content from './Content'
 
 const placeElement = document.createElement('div')
@@ -69,13 +69,14 @@ class Node extends PureComponent {
   }
 
   handleDragStart(event) {
-    const { dragImageSelector, dragImageStyle, data } = this.props
+    const { dragImageSelector, dragImageStyle, data, index } = this.props
     if (isDragging) return
     isDragging = true
 
     event.dataTransfer.effectAllowed = 'copyMove'
     event.dataTransfer.setData('text/plain', this.props.id)
     placeElement.setAttribute('data-start', this.props.id)
+    placeElement.setAttribute('data-start-index', index)
     const element = document.querySelector(dragImageSelector(data))
 
     const dragImage = element || this.element.querySelector(`.${treeClass('content')}`)
@@ -107,6 +108,7 @@ class Node extends PureComponent {
 
     const { dragHoverExpand, datum, dragSibling } = this.props
     const startId = placeElement.getAttribute('data-start')
+    // const startIndex = parseInt(placeElement.getAttribute('data-start-index'), 10)
     const current = datum.getPath(startId)
     const target = datum.getPath(this.props.id)
 
@@ -140,16 +142,18 @@ class Node extends PureComponent {
       position += 1
       hover.parentNode.insertBefore(placeElement, hover.nextElementSibling)
     }
-
+    // if (position !== -1 && currentPathStr === targetPathStr && startIndex <= index) {
+    //   position -= 1
+    // }
     placeElement.setAttribute('data-target', this.props.id)
     placeElement.setAttribute('data-position', position)
   }
 
   handleDragEnd() {
     this.element.style.display = ''
-
-    if (!isDragging || !placeElement.parentNode) return
+    if (!isDragging) return
     isDragging = false
+    if (!placeElement.parentNode) return
 
     document.body.removeChild(this.dragImage)
 
@@ -161,7 +165,6 @@ class Node extends PureComponent {
 
     if (target !== id || index !== position) {
       onDrop(id, target, position)
-      console.log(id, target, position)
     }
   }
 

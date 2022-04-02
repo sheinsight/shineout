@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import draggable from '../hoc/draggable'
-import { sliderClass } from '../styles'
+import { sliderClass } from './styles'
 
 class Indicator extends PureComponent {
   render() {

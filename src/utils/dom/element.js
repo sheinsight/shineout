@@ -137,3 +137,51 @@ export const focusElement = {
   wrapSpan,
   copyBoundingClientRect,
 }
+
+export const preventPasteFile = (e, beforeHandler) => {
+  const text = (e.clipboardData || window.clipboardData).getData('text/plain')
+  e.preventDefault()
+  if (beforeHandler) {
+    beforeHandler(text)
+  }
+  document.execCommand('insertText', false, text)
+}
+
+export const parsePxToNumber = str => Number(str.replace(/\s+|px/gi, ''))
+
+export const addResizeObserver = (el, handler, options = {}) => {
+  const { direction } = options
+  let h = handler
+  let lastWidth
+  let lastHeight
+  if (window.ResizeObserver) {
+    if (direction) {
+      lastWidth = el.clientWidth
+      lastHeight = el.clientHeight
+      h = function(entry) {
+        const { width, height } = entry[0].contentRect
+        if (width && direction === 'x') {
+          if (lastWidth !== width) {
+            handler(entry)
+          }
+        } else if (direction === 'y') {
+          if (height && lastHeight !== height) {
+            handler(entry)
+          }
+        } else if (width && height) {
+          handler(entry, { x: lastWidth !== width, y: lastHeight !== height })
+        }
+        lastWidth = width
+        lastHeight = height
+      }
+    }
+    let observer = new ResizeObserver(h)
+    observer.observe(el)
+    return () => {
+      observer.disconnect()
+      observer = null
+    }
+  }
+  window.addEventListener('resize', handler)
+  return () => window.removeEventListener('resize', handler)
+}

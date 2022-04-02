@@ -3,20 +3,24 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps } from '../utils/proptypes'
 
-import { buttonClass } from '../styles'
+import { buttonClass } from './styles'
+import { isRTL } from '../config'
 
 class ButtonGroup extends PureComponent {
   render() {
     const { children, outline, size, type } = this.props
 
+    const typeSetted = type !== 'default'
     const className = classnames(
-      buttonClass('group', (outline || type === 'default') && 'outline'),
+      buttonClass('group', (outline || !typeSetted) && 'outline', isRTL() && 'group-rtl'),
       this.props.className
     )
 
     return (
       <div className={className}>
-        {Children.toArray(children).map(child => cloneElement(child, { size, outline, type }))}
+        {Children.toArray(children).map(child =>
+          cloneElement(child, { size, outline, type: typeSetted ? type : child.props.type })
+        )}
       </div>
     )
   }

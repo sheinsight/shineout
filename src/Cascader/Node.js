@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import Checkbox from '../Checkbox'
 import Spin from '../Spin'
-import { cascaderClass } from '../styles'
+import { cascaderClass } from './styles'
 import Caret from '../icons/Caret'
 import { getParent } from '../utils/dom/element'
-import { checkinputClass } from '../styles'
+import { checkinputClass } from '../Checkbox/styles'
+import { isRTL } from '../config'
 
 const checkBoxStyle = { marginRight: 8, marginTop: -1, verticalAlign: 'top' }
 
@@ -33,7 +34,7 @@ class Node extends PureComponent {
 
   handleClick() {
     const { id, data, path, onChange, onPathChange, loader, multiple, datum } = this.props
-    onPathChange(id, data, path)
+    onPathChange(id, data, path, true)
 
     if (!multiple) {
       onChange([...path, id], datum.getDataById(id))
@@ -97,6 +98,10 @@ class Node extends PureComponent {
       if (multiple) events.onClick = this.handleSelect
     }
     const caret = <span className={cascaderClass('caret')}>{<Caret />}</span>
+
+    if (isRTL() && checkBoxStyle.marginRight !== 0) {
+      checkBoxStyle.marginRight = 0
+    }
 
     return (
       <div className={className} style={style} {...events}>

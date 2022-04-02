@@ -1,0 +1,780 @@
+@import '../../styles/variables.less';
+@import '../../styles/themes/@{so-theme}.less';
+
+@menu-prefix: ~'@{so-prefix}-menu';
+@transition-duration: .2s;
+@expand-width: 40px;
+@ul-default-margin: 0;
+@ul-root-margin: -1px;
+@title-padding-x: 16px;
+@vertical-list-margin-x: 3px;
+@caret-solid-margin: 8px;
+@caret-hollow-margin-x-start: -4px;
+@caret-hollow-margin-x-end: 14px;
+
+.@{menu-prefix} {
+  position: relative;
+  z-index: @zindex-navbar;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  //box-shadow: @menu-box-shadow-base;
+  background: @menu-bg;
+  line-height: 0; // Fix display inline-block gap
+  list-style: none;
+  outline: none;
+
+  ul {
+    padding: 0;
+    margin: @ul-default-margin;
+    list-style: none;
+    // min-width: 100%;
+  }
+
+  &-root {
+    box-shadow: none;
+  }
+
+  ul.@{menu-prefix}-root {
+    margin-left: @ul-root-margin;
+  }
+
+  &-item {
+    a {
+      display: block;
+      color: @menu-item-color;
+      white-space: nowrap;
+      transition: all @transition-duration;
+
+      &:focus {
+        text-decoration: none;
+      }
+
+      &:hover {
+        color: @menu-item-light-hover-color;
+        background-color: @menu-item-light-hover-bgc;
+        .@{menu-prefix}-expand {
+          .caretColor(@menu-item-light-hover-color);
+        }
+      }
+    }
+  }
+
+  & &-item {
+    &.@{menu-prefix}-disabled > a {
+      color: @menu-disabled-color;
+      cursor: not-allowed;
+      .@{menu-prefix}-expand {
+        .caretColor(@menu-disabled-color)
+      }
+    }
+    &.@{menu-prefix}-disabled {
+      &.@{menu-prefix}-caret-solid > a.@{menu-prefix}-title .@{menu-prefix}-caret {
+        border-top-color: @menu-disabled-color;
+      }
+      &.@{menu-prefix}-caret-hollow > a .@{menu-prefix}-caret::after {
+        border-color: @menu-disabled-color;
+      }
+
+    }
+  }
+
+  &-title {
+    position: relative;
+    height: @menu-item-height;
+    padding: 0 @title-padding-x;
+    line-height: @menu-item-height;
+    font-size: @menu-item-font-size;
+  }
+
+  &-has-children {
+    > .@{menu-prefix}-title {
+      padding-right: @expand-width;
+      .@{menu-prefix}-expand {
+        position: absolute;
+        cursor: pointer;
+        transition: all @transition-duration;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: @expand-width;
+        .caret(down);
+        &:after {
+          position: absolute;
+          top: 50%;
+          right: 16px;
+          transform-origin: @menu-title-transform-origin;
+          transform: @menu-title-transform;
+        }
+      }
+    }
+  }
+
+  &-highlight > &-title {
+    color: @menu-highlight-color;
+  }
+
+  &-list {
+    display: none;
+
+    .@{menu-prefix}-has-children.@{menu-prefix}-open {
+      & > .@{menu-prefix}-title .@{menu-prefix}-expand {
+        &:after {
+          transform: @menu-title-open-transform;
+        }
+      }
+
+      & > .@{menu-prefix}-list {
+        display: block;
+      }
+    }
+  }
+
+  ul&-root {
+    display: block;
+  }
+
+  &&-inline {
+    border-right: solid 1px @menu-border-color;
+  }
+
+  &-inline {
+    &.@{menu-prefix}-root {
+      box-sizing: content-box;
+    }
+
+    & > .@{menu-prefix}-item {
+      display: block;
+      &.@{menu-prefix}-selectable {
+        > a .@{menu-prefix}-expand:hover {
+          background: @primary-color-fade-10;
+        }
+      }
+    }
+
+    .@{menu-prefix}-active.@{menu-prefix}-no-children,
+    .@{menu-prefix}-active.@{menu-prefix}-selectable {
+      padding: @menu-active-padding-vertical @menu-active-padding-horizontal;
+      > a {
+        background: @menu-item-active-bg;
+        color: @menu-item-active-color;
+        border-radius: @menu-active-border-radius;
+        text-indent: @menu-active-padding-horizontal-negative;
+
+        &:before {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: @menu-active-bar;
+          height: 100%;
+          background: @menu-active-bar-color;
+          content: ' ';
+        }
+      }
+    }
+
+    .@{menu-prefix}-active.@{menu-prefix}-has-children > a {
+      color: @menu-highlight-color;
+    }
+  }
+
+  &-horizontal {
+    height: 42px;
+    margin-left: 0;
+
+    &.@{menu-prefix}-root {
+      border-bottom: solid 1px @menu-border-color;
+      display: inline-block;
+      white-space: nowrap;
+      min-width: 100%;
+    }
+
+    .@{menu-prefix}-wrapper {
+      position: absolute;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    &.@{menu-prefix}-has-open {
+      .@{menu-prefix}-wrapper {
+        height: 100vh;
+      }
+    }
+
+    &:hover .@{menu-prefix}-bar {
+      display: block;
+    }
+
+    & > .@{menu-prefix}-item {
+      position: relative;
+      display: inline-block;
+    }
+
+    & > .@{menu-prefix}-active > a,
+    & > .@{menu-prefix}-highlight > a {
+      position: relative;
+      color: @menu-item-active-indicator;
+
+      &:before {
+        position: absolute;
+        right: 0;
+        bottom: -1px;
+        left: 0;
+        height: 2px;
+        background: @menu-item-active-indicator;
+        content: ' ';
+      }
+    }
+
+    .@{menu-prefix}-active.@{menu-prefix}-no-children > a {
+      &:after {
+        width: 0;
+      }
+    }
+
+    .@{menu-prefix}-root .@{menu-prefix}-list {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 100%;
+      padding: 4px 0;
+      margin-top: 4px;
+      background: @menu-bg;
+      border-radius: 4px;
+      box-shadow: @menu-box-shadow-base;
+    }
+  }
+
+  &-inline, &-horizontal {
+    .@{menu-prefix}-in-path.@{menu-prefix}-has-children > a {
+      color: @colors-primary;
+      .@{menu-prefix}-expand {
+        .caretColor(@colors-primary);
+      }
+    }
+    .@{menu-prefix}-in-path.@{menu-prefix}-has-children.@{menu-prefix}-active > a {
+      color: @menu-item-active-color;
+      .@{menu-prefix}-expand {
+        .caretColor(@menu-item-active-color);
+      }
+    }
+    .@{menu-prefix}-in-path.@{menu-prefix}-caret-solid.@{menu-prefix}-has-children > a {
+      .@{menu-prefix}-caret {
+        border-top-color: @colors-primary;
+      }
+    }
+    .@{menu-prefix}-in-path.@{menu-prefix}-caret-hollow.@{menu-prefix}-has-children > a {
+      .@{menu-prefix}-caret::after {
+        border-color: @colors-primary;
+      }
+    }
+  }
+
+  ul.@{menu-prefix}-horizontal.@{menu-prefix}-root {
+    margin-left: 0;
+  }
+
+  &-bar {
+    display: none;
+  }
+
+  &-vertical {
+    &.@{menu-prefix}-root {
+      border-right: solid 1px @menu-border-color;
+    }
+
+    & > .@{menu-prefix}-item {
+      position: relative;
+    }
+
+    &:hover .@{menu-prefix}-bar {
+      display: block;
+    }
+
+    &.@{menu-prefix}-scroll .@{menu-prefix}-wrapper {
+      position: absolute;
+      overflow: hidden;
+      min-width: 100%;
+      height: 100%;
+      overflow-anchor: none;
+    }
+
+    &.@{menu-prefix}-has-open .@{menu-prefix}-wrapper {
+      width: 100vw;
+    }
+
+    .@{menu-prefix}-root .@{menu-prefix}-list {
+      position: absolute;
+      top: 0;
+      left: 100%;
+      width: auto;
+      min-width: auto;
+      padding: 4px 0;
+      margin-left: @vertical-list-margin-x;
+      background: @menu-bg;
+      border-radius: 4px;
+      box-shadow: @menu-box-shadow-base;
+    }
+
+    .@{menu-prefix}-has-children,
+    .@{menu-prefix}-has-children.@{menu-prefix}-open {
+      & > .@{menu-prefix}-title .@{menu-prefix}-expand {
+        &:after {
+          transform: @menu-title-vertical-transform;
+        }
+      }
+    }
+
+    .@{menu-prefix}-root .@{menu-prefix}-open-up .@{menu-prefix}-list {
+      top: auto;
+      bottom: 0;
+    }
+
+    .@{menu-prefix}-active.@{menu-prefix}-no-children > a {
+      background: @menu-item-active-bg;
+      color: @menu-item-active-color;
+    }
+
+    .@{menu-prefix}-in-path.@{menu-prefix}-has-children > a {
+      background: @menu-item-active-bg;
+      color: @menu-item-active-color;
+
+      &::before {
+        content: ' ';
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: @menu-vertical-in-path-bar-width;
+        border-top-left-radius: @menu-vertical-in-path-bar-width;
+        border-bottom-left-radius: @menu-vertical-in-path-bar-width;
+        height: 100%;
+        background-color: @menu-active-bar-color;
+      }
+    }
+
+    .@{menu-prefix}-in-path.@{menu-prefix}-no-children.@{menu-prefix}-active > a,
+    .@{menu-prefix}-in-path.@{menu-prefix}-has-children.@{menu-prefix}-active > a {
+      background-color: @menu-item-has-children-active-bgc;
+      color: @menu-item-has-children-active-color;
+      .@{menu-prefix}-expand {
+        .caretColor( @menu-item-has-children-active-color);
+      }
+    }
+  }
+
+  &-dark {
+    &,
+    .@{menu-prefix}-list {
+      background-color: @menu-dark-bg;
+      color: @menu-dark-item;
+    }
+
+    .@{menu-prefix}-item {
+      a {
+        color: @menu-dark-item;
+        .@{menu-prefix}-expand {
+          .caretColor(@menu-dark-item);
+        }
+
+        &:hover {
+          color: @menu-item-dark-hover-color;
+          background-color: @menu-item-dark-hover-bgc;
+          .@{menu-prefix}-expand {
+            .caretColor(@menu-item-dark-hover-color);
+          }
+        }
+      }
+    }
+
+    &.@{menu-prefix}-horizontal,&.@{menu-prefix}-vertical {
+      border-color: @menu-dark-bg;
+
+      .@{menu-prefix}-list {
+        background-color: @menu-dark-bg;
+        color: @menu-dark-item;
+      }
+    }
+
+    &.@{menu-prefix}-inline,
+    &.@{menu-prefix}-vertical,
+    &.@{menu-prefix}-horizontal {
+      .@{menu-prefix}-item.@{menu-prefix}-active.@{menu-prefix}-no-children,
+      .@{menu-prefix}-item.@{menu-prefix}-active.@{menu-prefix}-selectable  {
+        > a {
+          background: @menu-dark-active-bg;
+          color: @menu-dark-active-color;
+
+          &:after,
+          &after:before {
+            width: 0;
+            height: 0;
+          }
+        }
+      }
+
+      .@{menu-prefix}-active > a,
+      .@{menu-prefix}-highlight > a {
+        color: @menu-dark-active-color;
+      }
+    }
+
+    .@{menu-prefix}-submenu-title:hover {
+      color: @menu-bg;
+
+      > a {
+        color: @menu-bg;
+      }
+    }
+
+
+    &:not(.@{menu-prefix}-horizontal) {
+      .@{menu-prefix}-has-children.@{menu-prefix}-in-path > a {
+        &:before {
+          content: ' ';
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: @menu-active-bar;
+          height: 100%;
+          background-color: @menu-dark-active-bar-color;
+        }
+      }
+    }
+
+    &.@{menu-prefix}-vertical {
+      ul.@{menu-prefix}-root {
+        margin-left: 0;
+        border-right: none;
+
+        & > li.@{menu-prefix}-item > a {
+          &:hover {
+            background-color: @menu-item-dark-hover-bgc;
+          }
+        }
+
+        & > .@{menu-prefix}-item:not(.@{menu-prefix}-in-path) > a {
+          background-color: @menu-root-node-bgc;
+        }
+      }
+
+      .@{menu-prefix}-has-children {
+        .@{menu-prefix}-title {
+          &::after {
+            right: 18px;
+          }
+        }
+      }
+
+      .@{menu-prefix}-in-path.@{menu-prefix}-has-children > a {
+        background-color: @menu-vertical-dark-parent-active-bgc;
+        color: @menu-dark-active-color;
+        .@{menu-prefix}-expand {
+          .caretColor(@menu-dark-active-color);
+        }
+        &::before {
+          width: @menu-vertical-in-path-bar-width;
+          right: auto;
+          left: 0;
+          border-top-right-radius: @menu-vertical-in-path-bar-width;
+          border-bottom-right-radius: @menu-vertical-in-path-bar-width;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+      }
+
+      // vertical menu > has-chilren + in-path + active
+      .@{menu-prefix}-in-path.@{menu-prefix}-has-children.@{menu-prefix}-active > a {
+        background: @menu-dark-active-bg;
+        color: @menu-dark-active-color;
+        .@{menu-prefix}-expand {
+          .caretColor(@menu-dark-active-color);
+        }
+      }
+
+      .@{menu-prefix}-item > a {
+        background-color: @menu-root-node-bgc;
+      }
+    }
+
+    ul.@{menu-prefix}-root {
+      &> li.@{menu-prefix}-item {
+        & > a {
+          background-color: @menu-root-node-bgc;
+
+          &:hover {
+            background-color: @menu-item-dark-hover-bgc;
+          }
+        }
+        & > ul {
+          border-top: 1px solid @menu-children-segmentation;
+        }
+      }
+    }
+
+    &.@{menu-prefix}{
+      .@{menu-prefix}-caret-solid {
+        .@{menu-prefix}-title {
+          & > .@{menu-prefix}-caret.@{menu-prefix}-has-childs {
+              color: @menu-dark-item;
+              border-top-color: currentColor;
+          }
+
+          &:hover {
+            & > .@{menu-prefix}-caret.@{menu-prefix}-has-childs {
+              border-top-color: @menu-item-dark-hover-color;
+            }
+          }
+        }
+      }
+
+      .@{menu-prefix}-caret-hollow {
+        .@{menu-prefix}-title {
+          & > .@{menu-prefix}-caret.@{menu-prefix}-has-childs{
+            color: @menu-dark-item;
+            &::after {
+              border-top-color: currentColor;
+            }
+          }
+        }
+      }
+    }
+    .@{menu-prefix}-caret-hollow.@{menu-prefix}-in-path .@{menu-prefix}-title,
+    .@{menu-prefix}-caret-hollow .@{menu-prefix}-title:hover {
+      & > .@{menu-prefix}-caret.@{menu-prefix}-has-childs::after {
+        border-color: @menu-item-dark-hover-color;
+      }
+    }
+
+
+    &.@{menu-prefix}-inline {
+      .@{menu-prefix}-selectable {
+        > a .@{menu-prefix}-expand:hover {
+          background: @primary-color-fade-60;
+        }
+      }
+    }
+    &.@{menu-prefix}-inline, &.@{menu-prefix}-horizontal {
+      .@{menu-prefix}-in-path.@{menu-prefix}-has-children > a {
+        color: @menu-dark-item;
+        .@{menu-prefix}-expand {
+          .caretColor(@menu-dark-item);
+        }
+        &:hover {
+          color: @menu-item-dark-hover-color;
+          .caretColor(@menu-item-dark-hover-color);
+        }
+      }
+    }
+  }
+
+  .@{menu-prefix}-has-children.@{menu-prefix}-caret-solid {
+
+    &.@{menu-prefix}-open {
+      & > .@{menu-prefix}-title {
+        .@{menu-prefix}-caret {
+          transform: rotate(180deg);
+          transform-origin: 50% 37.5%;
+        }
+      }
+    }
+    & > .@{menu-prefix}-title {
+      &:after {
+        content: none;
+      }
+    }
+
+    & > .@{menu-prefix}-title  {
+      padding-right: 16px;
+    }
+  }
+
+  .@{menu-prefix}-caret-solid {
+    .@{menu-prefix}-title {
+      & > .@{menu-prefix}-caret {
+        position: relative;
+        width: 0;
+        height: 0;
+        border: @menu-caret-solid-width solid transparent;
+        border-top: @menu-caret-solid-height solid transparent;
+        display: inline-block;
+        transform: translateY(25%);
+        margin-right: @caret-solid-margin;
+
+
+        &.@{menu-prefix}-has-childs {
+          color: @menu-item-color;
+          border-top-color: currentColor;
+        }
+      }
+
+      &:hover {
+        & > .@{menu-prefix}-caret.@{menu-prefix}-has-childs {
+          border-top-color: @menu-item-light-hover-color;
+        }
+      }
+    }
+  }
+
+  .@{menu-prefix}-caret-hollow {
+    .@{menu-prefix}-title:hover {
+      .@{menu-prefix}-caret::after {
+        border-color: @menu-item-active-color;
+      }
+    }
+    .@{menu-prefix}-caret {
+      display: inline-block;
+      width: 8px;
+      position: relative;
+      margin-left: @caret-hollow-margin-x-start;
+      margin-right: @caret-hollow-margin-x-end;
+    }
+    .@{menu-prefix}-caret.@{menu-prefix}-has-childs {
+      .caret-outline(down; 6px);
+      &::after {
+        transform-origin: 75% 75%;
+        transform: translateY(-4%) rotate(45deg);
+      }
+    }
+
+    &.@{menu-prefix}-has-children.@{menu-prefix}-open {
+      & > .@{menu-prefix}-title .@{menu-prefix}-caret {
+        &:after {
+          transform: translateY(-4%) rotate(225deg);
+        }
+      }
+    }
+  }
+
+
+  &.@{menu-prefix}-rtl {
+    direction: rtl;
+    ul.@{menu-prefix}-root {
+      margin-left: @ul-default-margin;
+      margin-right: @ul-root-margin;
+    }
+    .@{menu-prefix}-has-children {
+      > .@{menu-prefix}-title {
+        padding-right: @title-padding-x;
+        padding-left: @expand-width;
+        .@{menu-prefix}-expand {
+          right: auto;
+          left: 0;
+          &:after {
+            right: 14px;
+          }
+        }
+      }
+    }
+    &.@{menu-prefix}-inline {
+      border-left: solid 1px @menu-border-color;
+      border-right: none;
+    }
+    .@{menu-prefix}-inline {
+      .@{menu-prefix}-active.@{menu-prefix}-no-children,
+      .@{menu-prefix}-active.@{menu-prefix}-selectable {
+        > a {
+          &:before {
+            right: auto;
+            left: 0;
+          }
+        }
+      }
+    }
+
+    .@{menu-prefix}-horizontal {
+      margin-right: 0;
+      .@{menu-prefix}-root .@{menu-prefix}-list {
+        left: auto;
+        right: 0;
+      }
+    }
+
+    ul.@{menu-prefix}-horizontal.@{menu-prefix}-root {
+      margin-right: 0;
+    }
+
+    &.@{menu-prefix}-vertical {
+      &.@{menu-prefix}-root {
+        border-left: solid 1px @menu-border-color;
+        border-right: none;
+      }
+      .@{menu-prefix}-root .@{menu-prefix}-list {
+        left: auto;
+        right: 100%;
+        margin-left: 0;
+        margin-right: @vertical-list-margin-x;
+      }
+
+      .@{menu-prefix}-has-children,
+      .@{menu-prefix}-has-children.@{menu-prefix}-open {
+        & > .@{menu-prefix}-title .@{menu-prefix}-expand {
+          &:after {
+            transform: @menu-title-vertical-transform-rtl;
+          }
+        }
+      }
+      .@{menu-prefix}-in-path.@{menu-prefix}-has-children > a {
+        &::before {
+          right: auto;
+          left: 0;
+        }
+      }
+    }
+
+    &.@{menu-prefix}-dark {
+      &:not(.@{menu-prefix}-horizontal) {
+        .@{menu-prefix}-has-children.@{menu-prefix}-in-path > a {
+          &:before {
+            left: auto;
+            right: 0;
+          }
+        }
+      }
+      &.@{menu-prefix}-vertical {
+        ul.@{menu-prefix}-root {
+          margin-right: 0;
+          border-left: none;
+        }
+
+        .@{menu-prefix}-has-children {
+          .@{menu-prefix}-title {
+            &::after {
+              left: 18px;
+              right: auto;
+            }
+          }
+        }
+
+        .@{menu-prefix}-in-path.@{menu-prefix}-has-children > a {
+          &::before {
+            left: auto;
+            right: 0;
+          }
+        }
+
+      }
+    }
+
+    .@{menu-prefix}-has-children.@{menu-prefix}-caret-solid {
+      & > .@{menu-prefix}-title  {
+        padding-left: @title-padding-x;
+      }
+    }
+
+    .@{menu-prefix}-caret-solid {
+      .@{menu-prefix}-title {
+        & > .@{menu-prefix}-caret {
+          margin-right: 0;
+          margin-left: @caret-solid-margin;
+        }
+      }
+    }
+
+    .@{menu-prefix}-caret-hollow {
+      .@{menu-prefix}-caret {
+        margin-right: @caret-hollow-margin-x-start;
+        margin-left: @caret-hollow-margin-x-end;
+      }
+    }
+  }
+}

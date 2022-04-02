@@ -16,3 +16,4 @@
 | style | object | 无 | 最外层扩展样式 | |
 | type | string | 无 | 内置配色，可选值为，\['success', 'info', 'warning', 'danger'] | |
 | value | number | 0 | 百分比值，0 <= value <= 100 | |
+| popup | boolean | false | 通过弹出框展示 children | |

@@ -3,7 +3,8 @@ import inputable from '../Form/inputable'
 import { compose } from '../utils/func'
 import Datum from '../Datum'
 import inputBorder from '../hoc/inputBorder'
-import { selectClass } from '../styles'
+import { selectClass } from './styles'
+import tiled, { advancedFilterHOC } from '../TreeSelect/tiled'
 import Select from './Select'
 import filter from './filter'
 import group from './group'
@@ -20,7 +21,9 @@ const exportSelect = compose(
   inputBorder({ className: selectClass('_'), tag: 'div' }),
   limitWrap,
   Datum.hoc({ bindProps: ['disabled', 'limit', 'format', 'prediction', 'separator'], pure: false }),
+  advancedFilterHOC,
   filter,
+  tiled({ dataKey: 'treeData' }),
   group,
   absolute
 )(Select)

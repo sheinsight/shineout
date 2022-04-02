@@ -1,7 +1,7 @@
 import deepEqual from 'deep-eql'
 import { unflatten, insertValue, spliceValue, getSthByName } from '../utils/flat'
 import { fastClone, deepClone } from '../utils/clone'
-import { deepGet, deepSet, deepRemove, deepMerge, objectValues, deepHas } from '../utils/objects'
+import { deepGet, deepSet, deepRemove, objectValues, deepHas } from '../utils/objects'
 import { isObject, isArray } from '../utils/is'
 import { promiseAll, FormError } from '../utils/errors'
 import {
@@ -18,7 +18,7 @@ import {
 
 export default class {
   constructor(options = {}) {
-    const { removeUndefined = true, rules, onChange, value, error, initValidate } = options
+    const { removeUndefined = true, rules, onChange, value, error, initValidate, defaultValue } = options
     this.rules = rules
     this.onChange = onChange
     this.removeUndefined = removeUndefined
@@ -28,15 +28,16 @@ export default class {
     // store values
     this.$values = {}
     // store default value, for reset
-    this.$defaultValues = {}
+    this.$defaultValues = { ...defaultValue }
     this.$validator = {}
     this.$events = {}
     // handle global errors
     this.$errors = {}
 
     this.deepSetOptions = { removeUndefined, forceSet: true }
+    const initValue = 'value' in options ? value : defaultValue
 
-    if (value) this.setValue(value, initValidate ? undefined : IGNORE_VALIDATE)
+    if (initValue) this.setValue(initValue, initValidate ? undefined : IGNORE_VALIDATE)
     if (error) this.resetFormError(error)
   }
 
@@ -104,6 +105,8 @@ export default class {
       val.splice(index, 0, value)
       this.publishValue(name, IGNORE_VALIDATE)
       this.publishError(name)
+      // insert value into Form in onAppend will trigger Form onChange
+      this.handleChange()
     } else {
       this.set(name, [value])
     }
@@ -115,6 +118,8 @@ export default class {
     list.splice(index, 1)
     this.publishValue(name, IGNORE_VALIDATE)
     this.publishError(name)
+    // remove value from Form in onRemove will trigger Form onChange
+    this.handleChange()
   }
 
   remove(name) {
@@ -203,7 +208,7 @@ export default class {
 
   setValue(values = {}, type, forceSet) {
     if (!forceSet && deepEqual(values, this.$values)) return
-    this.$values = deepMerge({}, values, { clone: true })
+    this.$values = deepClone(values)
 
     // wait render end.
     setTimeout(() => {
@@ -230,7 +235,7 @@ export default class {
       this.dispatch(CHANGE_TOPIC)
     }
 
-    if (value) this.$defaultValues[name] = fastClone(value)
+    if (!(name in this.$defaultValues) && value) this.$defaultValues[name] = fastClone(value)
 
     this.$validator[name] = validate
     this.$inputNames[name] = true

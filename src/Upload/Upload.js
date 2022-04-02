@@ -2,10 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import immer from 'immer'
+import Gap from '../Gap'
 import { PureComponent } from '../component'
 import { getUidStr } from '../utils/uid'
 import { FormError } from '../utils/errors'
-import { uploadClass } from '../styles'
+import { uploadClass } from './styles'
 import defaultRequest, { ERROR, UPLOADING } from './request'
 import FileInput from './FileInput'
 import File from './File'
@@ -15,8 +16,10 @@ import ImageResult from './ImageResult'
 import { Provider } from './context'
 import Drop from './Drop'
 import attrAccept from '../utils/accept'
+import { isFunc } from '../utils/is'
 import { getLocale } from '../locale'
 import acceptHOC from './accept'
+import getDataset from '../utils/dom/getDataset'
 
 const VALIDATORITEMS = [
   { key: 'size', param: blob => blob.size },
@@ -29,6 +32,15 @@ const VALIDATORITEMS = [
   },
   { key: 'customValidator', param: blob => blob },
 ]
+
+const promised = (action, ...args) => {
+  const res = action(...args)
+  if (res && typeof res.then === 'function') return res
+  return new Promise((resolve, reject) => {
+    if (res instanceof Error) reject(res)
+    resolve(true)
+  })
+}
 
 class Upload extends PureComponent {
   constructor(props) {
@@ -51,6 +63,14 @@ class Upload extends PureComponent {
     this.handleReplace = this.handleReplace.bind(this)
 
     props.validateHook(this.validate.bind(this))
+  }
+
+  getCanDelete(item, index) {
+    const { canDelete } = this.props
+    if (isFunc(canDelete)) {
+      return canDelete(item, index)
+    }
+    return canDelete
   }
 
   getAction(file) {
@@ -106,20 +126,26 @@ class Upload extends PureComponent {
   }
 
   removeValue(index) {
-    const { recoverAble, disabled } = this.props
+    const { recoverAble, disabled, beforeRemove } = this.props
     if (disabled) return
-    this.setState(
-      immer(draft => {
-        draft.recycle.push(this.props.value[index])
-        if (typeof recoverAble === 'number' && draft.recycle.length > recoverAble) {
-          draft.recycle.shift()
-        }
+    const current = this.props.value[index]
+    const startRemove = typeof beforeRemove === 'function' ? beforeRemove(current) : Promise.resolve()
+    startRemove
+      .then(() => {
+        this.setState(
+          immer(draft => {
+            draft.recycle.push(this.props.value[index])
+            if (typeof recoverAble === 'number' && draft.recycle.length > recoverAble) {
+              draft.recycle.shift()
+            }
+          })
+        )
+        const value = immer(this.props.value, draft => {
+          draft.splice(index, 1)
+        })
+        this.props.onChange(value)
       })
-    )
-    const value = immer(this.props.value, draft => {
-      draft.splice(index, 1)
-    })
-    this.props.onChange(value)
+      .catch(() => {})
   }
 
   recoverValue(index, value) {
@@ -137,21 +163,26 @@ class Upload extends PureComponent {
     )
   }
 
-  useValidator(blob) {
-    const { validator, accept, forceAccept } = this.props
+  async useValidator(blob) {
+    const { validator, accept, forceAccept, forceAcceptErrorMsg } = this.props
     const { files } = this.state
     let error = null
     let i = 0
 
     if (forceAccept) {
       const acceptRes = attrAccept(blob, accept)
-      if (!acceptRes) return new Error(getLocale('invalidAccept'))
+      if (!acceptRes) return new Error(forceAcceptErrorMsg || getLocale('invalidAccept'))
     }
 
     while (VALIDATORITEMS[i]) {
       const item = VALIDATORITEMS[i]
       if (typeof validator[item.key] === 'function') {
-        error = validator[item.key](item.param(blob), files)
+        try {
+          // eslint-disable-next-line no-await-in-loop
+          await promised(validator[item.key], item.param(blob), files)
+        } catch (err) {
+          error = err instanceof Error ? err : new Error(err)
+        }
         if (error instanceof Error) return error
       }
       i += 1
@@ -160,15 +191,17 @@ class Upload extends PureComponent {
     return null
   }
 
-  addFile(e) {
+  async addFile(e) {
     const { beforeUpload, value, limit, filesFilter } = this.props
     // eslint-disable-next-line
     const files = { ...this.state.files }
+    let finishedCode = false
     let fileList = e.fromDragger && e.files ? e.files : e.target.files
-    if (filesFilter) fileList = filesFilter(Array.from(fileList))
+    if (filesFilter) fileList = filesFilter(Array.from(fileList)) || []
     const addLength = limit - value.length - Object.keys(this.state.files).length
     if (addLength <= 0) return
-    Array.from({ length: Math.min(fileList.length, addLength) }).forEach((_, i) => {
+    const list = Array.from({ length: Math.min(fileList.length, addLength) })
+    for (let i = 0; i < list.length; i++) {
       const blob = fileList[i]
       const id = getUidStr()
       const file = {
@@ -179,12 +212,12 @@ class Upload extends PureComponent {
       }
 
       files[id] = file
-      const error = this.useValidator(blob)
-
+      // eslint-disable-next-line no-await-in-loop
+      const error = await this.useValidator(blob)
       if (error instanceof Error) {
         if (!this.validatorHandle(error, file.blob)) {
           delete files[id]
-          return
+          continue
         }
 
         file.message = error.message
@@ -192,41 +225,55 @@ class Upload extends PureComponent {
 
         if (beforeUpload) {
           beforeUpload(blob, this.validatorHandle)
+            // eslint-disable-next-line no-loop-func
             .then(args => {
+              if (finishedCode) {
+                this.setState(
+                  immer(draft => {
+                    draft.files[id] = Object.assign({}, draft.files[id], args)
+                  })
+                )
+              } else {
+                files[id] = Object.assign({}, files[id], args)
+              }
+            })
+            .catch(() => true)
+        }
+        continue
+      }
+
+      if (beforeUpload) {
+        beforeUpload(blob, this.validatorHandle)
+          // eslint-disable-next-line no-loop-func
+          .then(args => {
+            if (args.status !== ERROR) files[id].xhr = this.uploadFile(id, blob, args.data)
+            if (finishedCode) {
               this.setState(
                 immer(draft => {
                   draft.files[id] = Object.assign({}, draft.files[id], args)
                 })
               )
-            })
-            .catch(() => true)
-        }
-
-        return
-      }
-
-      if (beforeUpload) {
-        beforeUpload(blob, this.validatorHandle)
-          .then(args => {
-            if (args.status !== ERROR) files[id].xhr = this.uploadFile(id, blob, args.data)
-            this.setState(
-              immer(draft => {
-                draft.files[id] = Object.assign({}, draft.files[id], args)
-              })
-            )
+            } else {
+              files[id] = Object.assign({}, files[id], args)
+            }
           })
+          // eslint-disable-next-line no-loop-func
           .catch(() => {
-            this.setState(
-              immer(draft => {
-                delete draft.files[id]
-              })
-            )
+            if (finishedCode) {
+              this.setState(
+                immer(draft => {
+                  delete draft.files[id]
+                })
+              )
+            } else {
+              delete files[id]
+            }
           })
       } else {
         files[id].xhr = this.uploadFile(id, blob)
       }
-    })
-
+    }
+    finishedCode = true
     this.setState({ files })
   }
 
@@ -242,6 +289,7 @@ class Upload extends PureComponent {
       request,
       onProgress,
       onStart,
+      responseType,
     } = this.props
 
     const req = request || defaultRequest
@@ -255,6 +303,7 @@ class Upload extends PureComponent {
       withCredentials,
       file,
       headers,
+      responseType,
 
       onStart,
 
@@ -290,7 +339,10 @@ class Upload extends PureComponent {
           return
         }
 
-        let value = xhr.responseText || xhr.response
+        let value
+        if (xhr.responseType === 'text' || !xhr.responseType) value = xhr.responseText
+        if (!value) value = xhr.response
+
         if (onSuccess) {
           value = onSuccess(value, file, data, xhr)
         }
@@ -346,6 +398,7 @@ class Upload extends PureComponent {
 
     this.setState(
       immer(draft => {
+        if (!draft.files[id]) return
         draft.files[id].status = ERROR
         draft.files[id].message = message
       })
@@ -373,7 +426,7 @@ class Upload extends PureComponent {
         onDrop={this.handleFileDrop}
         multiple={multiple || limit > 1}
       >
-        <span className={uploadClass('handle')} onClick={this.handleAddClick}>
+        <span className={uploadClass('handle', disabled && 'disabled')} onClick={this.handleAddClick}>
           <Provider value={dragProps}>{children}</Provider>
           <FileInput
             webkitdirectory={webkitdirectory}
@@ -401,10 +454,16 @@ class Upload extends PureComponent {
       renderContent,
       accept,
       drop,
+      leftHandler,
+      onPreview,
+      removeConfirm,
+      GapProps,
     } = this.props
     const { files, recycle } = this.state
+    const fileDrop = drop && !imageStyle
+
     const className = classnames(
-      uploadClass('_', disabled && 'disabled', showUploadList === false && 'hide-list'),
+      uploadClass('_', disabled && 'disabled', showUploadList === false && 'hide-list', fileDrop && 'file-drop'),
       this.props.className
     )
     const FileComponent = imageStyle ? ImageFile : File
@@ -419,55 +478,61 @@ class Upload extends PureComponent {
       )
     }
 
-    return (
-      <div className={className} style={style}>
-        {!imageStyle && this.renderHandle()}
+    const Wrapper = imageStyle ? Gap : React.Fragment
 
-        {showUploadList &&
-          value.map((v, i) => (
-            <Drop
-              drop={drop}
-              multiple={false}
-              key={i}
-              accept={accept}
-              dropData={i}
-              disabled={disabled}
-              onDrop={this.handleReplace}
-            >
+    return (
+      <div className={className} style={style} {...getDataset(this.props)}>
+        <Wrapper {...(imageStyle ? GapProps : null)}>
+          {!imageStyle && this.renderHandle()}
+          {imageStyle && leftHandler && this.renderHandle()}
+          {showUploadList &&
+            value.map((v, i) => (
+              <Drop
+                drop={drop}
+                multiple={false}
+                key={i}
+                accept={accept}
+                dropData={i}
+                disabled={disabled}
+                onDrop={this.handleReplace}
+              >
+                <ResultComponent
+                  renderContent={renderContent}
+                  value={v}
+                  values={value}
+                  index={i}
+                  style={imageStyle}
+                  renderResult={renderResult}
+                  onRemove={this.getCanDelete(v, i) ? this.removeValue : undefined}
+                  removeConfirm={removeConfirm}
+                  onPreview={onPreview}
+                />
+              </Drop>
+            ))}
+
+          {showUploadList &&
+            Object.keys(files).map(id => (
+              <FileComponent {...files[id]} key={id} id={id} style={imageStyle} onRemove={this.removeFile} />
+            ))}
+
+          {imageStyle && !leftHandler && this.renderHandle()}
+
+          {recoverAble &&
+            recycle.map((v, i) => (
               <ResultComponent
                 renderContent={renderContent}
+                key={i}
                 value={v}
-                values={value}
+                values={recycle}
                 index={i}
-                style={imageStyle}
                 renderResult={renderResult}
-                onRemove={this.removeValue}
+                recoverAble={!!recoverAble}
+                showRecover={recoverAble && limit > value.length}
+                onRecover={this.recoverValue}
+                style={imageStyle}
               />
-            </Drop>
-          ))}
-
-        {showUploadList &&
-          Object.keys(files).map(id => (
-            <FileComponent {...files[id]} key={id} id={id} style={imageStyle} onRemove={this.removeFile} />
-          ))}
-
-        {imageStyle && this.renderHandle()}
-
-        {recoverAble &&
-          recycle.map((v, i) => (
-            <ResultComponent
-              renderContent={renderContent}
-              key={i}
-              value={v}
-              values={recycle}
-              index={i}
-              renderResult={renderResult}
-              recoverAble={!!recoverAble}
-              showRecover={recoverAble && limit > value.length}
-              onRecover={this.recoverValue}
-              style={imageStyle}
-            />
-          ))}
+            ))}
+        </Wrapper>
       </div>
     )
   }
@@ -511,6 +576,14 @@ Upload.propTypes = {
   filesFilter: PropTypes.func,
   onErrorRemove: PropTypes.func,
   forceAccept: PropTypes.bool,
+  leftHandler: PropTypes.bool,
+  onPreview: PropTypes.func,
+  removeConfirm: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  beforeRemove: PropTypes.func,
+  forceAcceptErrorMsg: PropTypes.string,
+  canDelete: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+  GapProps: PropTypes.shape({}),
+  responseType: PropTypes.string,
 }
 
 Upload.defaultProps = {
@@ -522,6 +595,8 @@ Upload.defaultProps = {
   withCredentials: false,
   showUploadList: true,
   validatorHandle: true,
+  canDelete: true,
+  GapProps: { column: 12, row: 12 },
 }
 
 export default acceptHOC(Upload)

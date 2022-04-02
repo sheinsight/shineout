@@ -20,7 +20,7 @@ function init() {
       firstName: one(firstNames),
       lastName: one(lastNames),
       position: one(position),
-      start: pickDate('yyyy-MM-dd', offset),
+      start: pickDate('YYYY-MM-DD', offset),
       time: pickDate('hh:mm'),
       salary: pickInteger(500000, 50000),
       country: one(c20),

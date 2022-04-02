@@ -15,12 +15,13 @@ export default function datum(Origin) {
       loader: PropTypes.func,
       data: PropTypes.array,
       disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-      mode: PropTypes.oneOf([0, 1, 2, 3]),
+      mode: PropTypes.oneOf([0, 1, 2, 3, 4]),
       onChange: PropTypes.func,
       value: PropTypes.oneOfType([PropTypes.array, PropTypes.any]),
       keygen: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
       multiple: PropTypes.bool,
       childrenKey: PropTypes.string,
+      unmatch: PropTypes.bool,
     }
 
     static defaultProps = {
@@ -40,6 +41,7 @@ export default function datum(Origin) {
         onChange: props.onChange,
         disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
         childrenKey: props.childrenKey,
+        unmatch: props.unmatch,
       })
     }
 

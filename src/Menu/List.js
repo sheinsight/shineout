@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getKey } from '../utils/uid'
-import { menuClass } from '../styles'
+import { menuClass } from './styles'
 import Item from './Item'
 
 class List extends PureComponent {
@@ -23,6 +23,11 @@ class List extends PureComponent {
       toggleOpenKeys,
       linkKey,
       toggleDuration,
+      frontCaret,
+      looseChildren,
+      parentSelectable,
+      frontCaretType,
+      caretColor,
     } = this.props
 
     const isVertical = mode.indexOf('vertical') === 0
@@ -48,6 +53,11 @@ class List extends PureComponent {
             toggleOpenKeys={toggleOpenKeys}
             linkKey={linkKey}
             toggleDuration={toggleDuration}
+            frontCaret={frontCaret}
+            frontCaretType={frontCaretType}
+            caretColor={caretColor}
+            looseChildren={looseChildren}
+            parentSelectable={parentSelectable}
           />
         ))}
       </ul>
@@ -72,6 +82,11 @@ List.propTypes = {
   toggleOpenKeys: PropTypes.func,
   linkKey: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   toggleDuration: PropTypes.number,
+  frontCaret: PropTypes.bool,
+  looseChildren: PropTypes.bool,
+  parentSelectable: PropTypes.bool,
+  frontCaretType: PropTypes.oneOf(['hollow', 'solid']),
+  caretColor: PropTypes.string,
 }
 
 export default List

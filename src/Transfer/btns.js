@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import { getKey } from '../utils/uid'
 import Button from '../Button'
 import { Component } from '../component'
-import { transferClass } from '../styles'
+import { transferClass } from './styles'
 import icons from '../icons'
+import { isRTL } from '../config'
 
 class Btns extends Component {
   constructor(props) {
@@ -13,18 +14,49 @@ class Btns extends Component {
     this.toTarget = this.change.bind(this, 1)
   }
 
-  change(index) {
-    const { setSelecteds, selecteds, datum, data, keygen } = this.props
+  getDataMap() {
+    const { data, keygen } = this.props
+    const dataMap = new Map()
+    for (let i = 0; i < data.length; i++) {
+      dataMap.set(getKey(data[i], keygen, i), data[i])
+    }
+    return dataMap
+  }
 
-    const newValue = selecteds[1 - index].map(c => data.find((d, i) => getKey(d, keygen, i) === c))
+  change(index) {
+    const { setSelecteds, selecteds, datum } = this.props
+
+    const dataMap = this.getDataMap()
+
+    const newValue = selecteds[1 - index].map(c => dataMap.get(c))
+    // const newValue = selecteds[1 - index].map(c => data.find((d, i) => getKey(d, keygen, i) === c))
 
     setSelecteds(1 - index, [])
 
     datum[index ? 'add' : 'remove'](newValue, undefined, undefined, true)
   }
 
+  renderButtonText(mode = 'left') {
+    const { operations, operationIcon } = this.props
+    if (mode === 'left') {
+      const left = [
+        <React.Fragment key="operationIcon">{operationIcon && icons.AngleLeft}</React.Fragment>,
+        <React.Fragment key="operations">{operations[1]}</React.Fragment>,
+      ]
+
+      if (isRTL()) return left.reverse()
+      return left
+    }
+    const right = [
+      <React.Fragment key="operationIcon">{operationIcon && icons.AngleRight}</React.Fragment>,
+      <React.Fragment key="operations">{operations[0]}</React.Fragment>,
+    ]
+    if (isRTL()) return right.reverse()
+    return right
+  }
+
   render() {
-    const { selecteds, operations, operationIcon, disabled } = this.props
+    const { selecteds, disabled } = this.props
 
     const disable = disabled === true
     return (
@@ -37,8 +69,7 @@ class Btns extends Component {
             className={transferClass('btns-button', 'btns-bottom')}
             onClick={this.toTarget}
           >
-            {operationIcon && icons.AngleRight}
-            {operations[0]}
+            {this.renderButtonText('right')}
           </Button>
           <br />
           <Button
@@ -48,8 +79,7 @@ class Btns extends Component {
             className={transferClass('btns-button')}
             onClick={this.toSource}
           >
-            {operationIcon && icons.AngleLeft}
-            {operations[1]}
+            {this.renderButtonText('left')}
           </Button>
         </div>
       </div>

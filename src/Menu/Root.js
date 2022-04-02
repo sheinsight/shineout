@@ -6,10 +6,13 @@ import { getKey } from '../utils/uid'
 import { defaultProps, getProps } from '../utils/proptypes'
 import normalizeWheel from '../utils/dom/normalizeWheel'
 import ScrollBar from '../Scroll/Bar'
-import { menuClass } from '../styles'
+import { menuClass } from './styles'
 import List from './List'
 import { Provider } from './context'
 import { isArray } from '../utils/is'
+import { isRTL } from '../config'
+
+import { Component } from '../component'
 
 const modeDirection = {
   'vertical-auto': 'y',
@@ -44,7 +47,7 @@ function keyToMap(keys = [], value = true) {
 //   return isSubMenu(el.parentElement)
 // }
 
-class Root extends React.Component {
+class Root extends Component {
   constructor(props) {
     super(props)
 
@@ -77,6 +80,7 @@ class Root extends React.Component {
   }
 
   componentDidMount() {
+    super.componentDidMount()
     this.updateState()
   }
 
@@ -86,6 +90,7 @@ class Root extends React.Component {
 
   componentWillUnmount() {
     this.container.removeEventListener('wheel', this.handleWheel)
+    super.componentWillUnmount()
   }
 
   getOpenKeys() {
@@ -118,6 +123,9 @@ class Root extends React.Component {
     const { active } = this.props
     const act = typeof active === 'function' ? active(data) : id === this.state.activeKey
     if (act) this.state.activeKey = id
+    if (!act && this.state.activeKey === id) {
+      this.state.activeKey = ''
+    }
     return act
   }
 
@@ -272,9 +280,27 @@ class Root extends React.Component {
   }
 
   render() {
-    const { keygen, data, mode, style, theme, inlineIndent, linkKey, disabled, height, toggleDuration } = this.props
+    const {
+      keygen,
+      data,
+      mode,
+      style,
+      theme,
+      inlineIndent,
+      linkKey,
+      disabled,
+      height,
+      toggleDuration,
+      frontCaret,
+      looseChildren,
+      parentSelectable,
+      frontCaretType,
+      caretColor,
+    } = this.props
     const isVertical = mode.indexOf('vertical') === 0
     const showScroll = ((style.height || height) && isVertical) || mode === 'horizontal'
+
+    const rtl = isRTL()
 
     const className = classnames(
       menuClass(
@@ -282,7 +308,8 @@ class Root extends React.Component {
         isVertical ? 'vertical' : mode,
         theme === 'dark' && 'dark',
         showScroll && 'scroll',
-        this.state.hasOpen && 'has-open'
+        this.state.hasOpen && 'has-open',
+        rtl && 'rtl'
       ),
       this.props.className
     )
@@ -320,6 +347,11 @@ class Root extends React.Component {
               topLine={topLine}
               linkKey={linkKey}
               toggleDuration={toggleDuration}
+              frontCaret={frontCaret}
+              looseChildren={looseChildren}
+              parentSelectable={parentSelectable}
+              frontCaretType={frontCaretType}
+              caretColor={caretColor}
             />
           </Provider>
         </div>
@@ -343,6 +375,9 @@ Root.propTypes = {
   renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   onOpenChange: PropTypes.func,
   toggleDuration: PropTypes.number,
+  frontCaret: PropTypes.bool,
+  frontCaretType: List.propTypes.frontCaretType,
+  caretColor: List.propTypes.caretColor,
 }
 
 Root.defaultProps = {
@@ -353,11 +388,11 @@ Root.defaultProps = {
   keygen: 'id',
   mode: 'inline',
   inlineIndent: 24,
-  active: () => false,
   renderItem: 'title',
   defaultOpenKeys: [],
   onClick: () => true,
   toggleDuration: 200,
+  frontCaretType: 'solid',
 }
 
 export default Root

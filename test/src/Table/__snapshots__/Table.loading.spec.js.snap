@@ -18,6 +18,7 @@ exports[`Table[loading] should render loading 1`] = `
     }
   >
     <table
+      className=""
       style={
         Object {
           "width": undefined,
@@ -132,6 +133,7 @@ exports[`Table[loading] should render loading 1`] = `
     onScroll={[Function]}
   >
     <table
+      className=""
       style={
         Object {
           "width": undefined,
@@ -228,6 +230,7 @@ exports[`Table[loading] should render loading 1`] = `
         Object {
           "borderTopColor": "#1890ff",
           "borderWidth": "4px",
+          "color": "#1890ff",
           "height": 40,
           "margin": undefined,
           "width": 40,

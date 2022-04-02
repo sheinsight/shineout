@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import Checkbox from '../Checkbox/Checkbox'
-import { treeClass } from '../styles'
+import { treeClass } from './styles'
 
 export default class extends PureComponent {
   static propTypes = {
@@ -16,6 +16,16 @@ export default class extends PureComponent {
     super(props)
     this.handleChange = this.handleChange.bind(this)
     props.datum.bind(props.id, this.forceUpdate.bind(this))
+  }
+
+  componentDidMount() {
+    super.componentDidMount()
+    // When dragging a node,
+    // it will first trigger the constructor of the new node,
+    // then trigger the willUnmount of the old node,
+    // and finally trigger the didMount of the new node,
+    // the old node will unload the update event, so bind it here again
+    this.props.datum.bind(this.props.id, this.forceUpdate.bind(this))
   }
 
   componentWillUnmount() {

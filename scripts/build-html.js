@@ -24,6 +24,8 @@ function getDocumentation() {
   docus.forEach(d => {
     if (d === 'changelog') {
       fs.readdirSync(`${documentPaths}/changelog`).forEach(c => result.push(c.substring(0, c.length - 3)))
+    } else if (d === 'changelog-rc') {
+      fs.readdirSync(`${documentPaths}/changelog-rc`).forEach(c => result.push(`${c.substring(0, c.length - 3)}-rc`))
     } else {
       const sd = d.split('.')[0]
       if (sd.startsWith('api')) result.push(sd.split('-')[1].toLowerCase())

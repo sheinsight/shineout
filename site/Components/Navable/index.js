@@ -14,7 +14,7 @@ const scrollTo = id => {
   }
 }
 
-export default function(Component) {
+export default function (Component) {
   return function Nav(prop) {
     const [active, setActive] = useState('')
     const [headings] = useState([])
@@ -29,7 +29,7 @@ export default function(Component) {
     const hashScroll = useCallback(
       () => {
         if (hash) {
-          const element = document.querySelector(hash)
+          const element = document.querySelector(decodeURI(hash))
           if (element)
             setTimeout(() => {
               element.scrollIntoView()

@@ -28,7 +28,7 @@ function getRule(rules, props = {}) {
 
   if (other.min !== undefined || other.max !== undefined) {
     if (type === 'number' || type === 'integer') {
-      return range(props)
+      return range({ ...props, min: other.min, max: other.max })
     }
     return rangeLength(props)
   }

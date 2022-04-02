@@ -1,8 +1,9 @@
 import { isObject } from './is'
 import { exposeClass } from '../styles/expose'
-import cssAccessors from './css-accessors'
+import cssAccessors, { cleanCache } from './css-accessors'
 import { capitalize } from './strings'
 import { entries } from './objects'
+import { setInjectType, injectTag, getInjectType, cleanStyleObj } from './vars-inject'
 
 const types = ['primary', 'warning', 'danger', 'success', 'secondary']
 const attrs = ['background', 'color', 'border']
@@ -44,9 +45,26 @@ function resetTheme() {
   })
 }
 
+function setStyleWithTag(options, custom) {
+  cleanStyleObj()
+  if (!options) {
+    resetTheme()
+  } else {
+    for (const [key, values] of entries(options)) {
+      const setterName = `set${capitalize(key)}`
+      if (cssAccessors[key] && cssAccessors[key][setterName]) cssAccessors[key][setterName](values)
+    }
+  }
+  injectTag(custom)
+}
+
 const style = {
   getClassname,
-  setStyle(options) {
+  setStyle(options, custom = {}) {
+    if (getInjectType() === 'tag') {
+      setStyleWithTag(options, custom)
+      return
+    }
     if (!options) {
       resetTheme()
       return
@@ -56,6 +74,9 @@ const style = {
       if (cssAccessors[key] && cssAccessors[key][setterName]) cssAccessors[key][setterName](values)
     }
   },
+  cleanCache,
+  setInjectType,
+  getInjectType,
 }
 
 const { color } = cssAccessors

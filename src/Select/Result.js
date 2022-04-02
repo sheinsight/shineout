@@ -1,11 +1,16 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import Popover from '../Popover'
-import { inputClass, selectClass } from '../styles'
-import { isObject, isFunc, isString } from '../utils/is'
+import { selectClass } from './styles'
+import { inputClass } from '../Input/styles'
+import { inputTitleClass } from '../InputTitle/styles'
+import { isObject, isFunc, isString, isEmpty } from '../utils/is'
+import { addResizeObserver } from '../utils/dom/element'
 import Input from './Input'
 import Caret from '../icons/Caret'
+import { isRTL } from '../config'
+import More, { getResetMore } from './More'
+import InputTitle from '../InputTitle'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -34,18 +39,16 @@ const getResultContent = (data, renderResult, renderUnmatched) => {
 }
 
 // eslint-disable-next-line
-function Item({ renderResult, renderUnmatched, data, disabled, onClick, resultClassName, title = false }) {
+function Item({ content, data, disabled, onClick, resultClassName, title = false, only }) {
   const value = data
   const click = disabled || !onClick ? undefined : () => onClick(value)
   const synDisabled = disabled || !click
-  const content = getResultContent(data, renderResult, renderUnmatched)
-  if (content === null) return null
   return (
     <a
       title={title && isString(content) ? content : null}
       tabIndex={-1}
       className={classnames(
-        selectClass('item', disabled && 'disabled', synDisabled && 'ban'),
+        selectClass('item', disabled && 'disabled', synDisabled && 'ban', only && 'item-only'),
         getResultClassName(resultClassName, data)
       )}
     >
@@ -59,16 +62,52 @@ class Result extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      more: false,
+      more: -1,
     }
 
     this.handleRemove = this.handleRemove.bind(this)
     this.handelMore = this.handelMore.bind(this)
+    this.bindResult = this.bindResult.bind(this)
+    this.resetMore = this.resetMore.bind(this)
   }
 
-  componentDidUpdate() {
-    const { result, compressed } = this.props
-    if (compressed && result.length <= 1) this.state.more = false
+  componentDidMount() {
+    const { compressed } = this.props
+    if (compressed) {
+      this.cancelResizeObserver = addResizeObserver(this.resultEl, this.resetMore, { direction: 'x' })
+    }
+  }
+
+  componentDidUpdate(preProps) {
+    const { result, compressed, onFilter } = this.props
+    if (compressed) {
+      if ((preProps.result || []).join('') !== (result || []).join('')) {
+        this.resetMore()
+      } else if (result.length && this.shouldResetMore) {
+        this.shouldResetMore = false
+        this.state.more = getResetMore(
+          onFilter,
+          this.resultEl,
+          this.resultEl.querySelectorAll(`.${selectClass('item')}`)
+        )
+        this.forceUpdate()
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.cancelResizeObserver) this.cancelResizeObserver()
+  }
+
+  bindResult(el) {
+    this.resultEl = el
+  }
+
+  resetMore() {
+    if (!this.props.compressed) return
+    this.shouldResetMore = true
+    this.state.more = -1
+    this.forceUpdate()
   }
 
   handleRemove(...args) {
@@ -82,7 +121,8 @@ class Result extends PureComponent {
     const { result, renderResult, renderUnmatched } = this.props
     if (result.length <= 0) return true
     const res = result.reduce((acc, cur) => {
-      if (getResultContent(cur, renderResult, renderUnmatched)) {
+      const r = getResultContent(cur, renderResult, renderUnmatched)
+      if (r !== undefined && r !== '') {
         acc.push(cur)
       }
       return acc
@@ -94,30 +134,43 @@ class Result extends PureComponent {
     this.setState({ more })
   }
 
-  renderMore(list) {
-    const { datum, renderResult, renderUnmatched, compressedClassName, resultClassName } = this.props
+  renderItem(data, index) {
+    const { renderResult, renderUnmatched, datum, resultClassName } = this.props
+    const content = getResultContent(data, renderResult, renderUnmatched)
+    if (content === null) return null
+    const { more } = this.state
+    return (
+      <Item
+        key={index}
+        only={more === 1}
+        content={content}
+        data={data}
+        disabled={datum.disabled(data)}
+        onClick={this.handleRemove}
+        resultClassName={resultClassName}
+        title
+      />
+    )
+  }
+
+  renderMore(items) {
+    const { compressedClassName, compressed } = this.props
     const { more } = this.state
     const className = classnames(selectClass('popover'), compressedClassName)
-    return (
-      <a tabIndex={-1} key="more" className={selectClass('item', 'item-compressed', more && 'item-more')}>
-        <span>{`+${list.length - 1}`}</span>
-        <Popover visible={more} onVisibleChange={this.handelMore} className={className}>
-          <div className={selectClass('result')}>
-            {list.map((d, i) => (
-              <Item
-                key={i}
-                data={d}
-                disabled={datum.disabled(d)}
-                onClick={this.handleRemove}
-                renderResult={renderResult}
-                renderUnmatched={renderUnmatched}
-                resultClassName={resultClassName}
-              />
-            ))}
-          </div>
-        </Popover>
-      </a>
-    )
+
+    return [
+      <More
+        key="more"
+        showNum={more}
+        className={selectClass('item', 'item-compressed')}
+        popoverClassName={className}
+        contentClassName={selectClass('result')}
+        compressed={compressed}
+        data={items}
+        more={more}
+        cls={selectClass}
+      />,
+    ]
   }
 
   renderClear() {
@@ -126,7 +179,7 @@ class Result extends PureComponent {
     if (onClear && result.length > 0 && disabled !== true) {
       /* eslint-disable */
       return (
-        <div onClick={onClear} className={selectClass('close-warpper')}>
+        <div key="clear" onClick={onClear} className={selectClass('close-warpper')}>
           <a
           tabIndex={-1}
           data-role="close"
@@ -141,7 +194,19 @@ class Result extends PureComponent {
   }
 
   renderInput(text, key = 'input') {
-    const { multiple, onFilter, trim, focus, onInputFocus, onInputBlur, setInputReset, focusSelected } = this.props
+    const {
+      multiple,
+      onFilter,
+      trim,
+      focus,
+      onInputFocus,
+      onInputBlur,
+      setInputReset,
+      focusSelected,
+      bindFocusInputFunc,
+      collapse,
+      maxLength,
+    } = this.props
     return (
       <Input
         key={`${key}.${focus ? 1 : 0}`}
@@ -155,19 +220,29 @@ class Result extends PureComponent {
         onFilter={onFilter}
         setInputReset={setInputReset}
         focusSelected={focusSelected}
+        bindFocusInputFunc={bindFocusInputFunc}
+        collapse={collapse}
+        maxLength={maxLength}
       />
     )
   }
 
   renderPlaceholder() {
-    const { focus, onFilter } = this.props
+    const { focus, onFilter, filterText, multiple, innerTitle } = this.props
 
     if (focus && onFilter) {
-      return this.renderInput()
+      return this.renderInput(multiple ? filterText : '')
     }
 
     return (
-      <span className={classnames(inputClass('placeholder'), selectClass('ellipsis'))}>
+      <span
+        key="placeholder"
+        className={classnames(
+          inputClass('placeholder'),
+          selectClass('ellipsis'),
+          innerTitle && inputTitleClass('hidable')
+        )}
+      >
         <span>{this.props.placeholder}</span>
         &nbsp;
       </span>
@@ -183,29 +258,15 @@ class Result extends PureComponent {
       renderUnmatched,
       onFilter,
       focus,
-      datum,
       filterText,
       resultClassName,
     } = this.props
 
     if (multiple) {
-      const neededResult = compressed ? result.slice(0, 1) : result
-      const firstRemove = !compressed || result.length === 1
-      const items = neededResult.map((d, i) => (
-        <Item
-          key={i}
-          data={d}
-          disabled={datum.disabled(d)}
-          onClick={firstRemove ? this.handleRemove : undefined}
-          renderResult={renderResult}
-          renderUnmatched={renderUnmatched}
-          resultClassName={resultClassName}
-          title
-        />
-      ))
+      let items = result.map((n, i) => this.renderItem(n, i)).filter(n => !isEmpty(n))
 
-      if (compressed && result.length > 1) {
-        items.push(this.renderMore(result))
+      if (compressed) {
+        items = this.renderMore(items)
       }
 
       if (focus && onFilter) {
@@ -224,6 +285,7 @@ class Result extends PureComponent {
 
     return (
       <span
+        key="result"
         title={title}
         className={classnames(selectClass('ellipsis'), getResultClassName(resultClassName, result[0]))}
       >
@@ -238,22 +300,49 @@ class Result extends PureComponent {
     const showCaret = !multiple
     // eslint-disable-next-line
     return (
-      <a tabIndex={-1} className={selectClass('indicator', multiple ? 'multi' : 'caret')}>
+      <a key="indicator" tabIndex={-1} className={selectClass('indicator', multiple ? 'multi' : 'caret')}>
         {showCaret && <Caret />}
       </a>
     )
   }
 
   render() {
-    const { compressed } = this.props
-    const result = this.isEmptyResult() ? this.renderPlaceholder() : this.renderResult()
+    const { compressed, innerTitle, focus, onFilter } = this.props
+    const showPlaceholder = this.isEmptyResult()
+    const result = showPlaceholder ? this.renderPlaceholder() : this.renderResult()
+
+    const rtl = isRTL()
+    const clearEl = this.renderClear()
+    const indicator = this.renderIndicator()
+    const inner = [result, indicator, clearEl]
+    const open = (onFilter && focus) || !showPlaceholder
 
     return (
-      <div className={selectClass('result', compressed && 'compressed')}>
-        {result}
-        {this.renderIndicator()}
-        {this.renderClear()}
-      </div>
+      <InputTitle
+        innerTitle={innerTitle}
+        open={open}
+        className={selectClass('title-box')}
+        titleClass={selectClass(
+          'title-box-title',
+          showPlaceholder && 'title-box-title-empty',
+          compressed && 'title-box-title-compressed'
+        )}
+      >
+        <div
+          ref={this.bindResult}
+          className={classnames(
+            selectClass(
+              'result',
+              compressed && 'compressed',
+              showPlaceholder && 'empty',
+              clearEl && 'result-clearable'
+            ),
+            innerTitle && inputTitleClass('item')
+          )}
+        >
+          {rtl ? inner.reverse() : inner}
+        </div>
+      </InputTitle>
     )
   }
 }
@@ -270,16 +359,20 @@ Result.propTypes = {
   onInputBlur: PropTypes.func,
   onInputFocus: PropTypes.func,
   result: PropTypes.array.isRequired,
-  renderResult: PropTypes.func.isRequired,
+  renderResult: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
   placeholder: PropTypes.string,
   setInputReset: PropTypes.func,
-  compressed: PropTypes.bool,
+  bindFocusInputFunc: PropTypes.func,
+  collapse: PropTypes.func,
+  compressed: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   trim: PropTypes.bool,
   renderUnmatched: PropTypes.func,
   showArrow: PropTypes.bool,
   focusSelected: PropTypes.bool,
   compressedClassName: PropTypes.string,
   resultClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  maxLength: PropTypes.number,
+  innerTitle: PropTypes.node,
 }
 
 export default Result

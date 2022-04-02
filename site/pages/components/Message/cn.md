@@ -25,6 +25,8 @@ Message.error(content, \[duration], \[options])
 
 Message.close() // 关闭所有消息
 
+Message.setOptions() // 设置默认选项，优先级低于实际调用时的选项
+
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | content | ReactNode | 必填 | 消息内容 |
@@ -39,3 +41,4 @@ Message.close() // 关闭所有消息
 | position | string | top | 消息显示的位置，可选值 \['top', 'middle', 'top-left', 'top-right', 'bottom-left', 'bottom-right'] |
 | title | string | - | 标题文字 |
 | className | string | 无 | 类名 |
+| hideClose | boolean | false | 是否隐藏关闭按钮 |

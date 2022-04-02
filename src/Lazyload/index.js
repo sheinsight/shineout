@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
-import { lazyloadClass } from '../styles'
+import { lazyloadClass } from './styles'
 import { addStack, removeStack } from '../utils/lazyload'
 
 class Lazyload extends PureComponent {

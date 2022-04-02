@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { isRTL } from '../config'
 import { Component } from '../component'
 import { getLocale } from '../locale'
 import { compose } from '../utils/func'
 import { getProps, defaultProps } from '../utils/proptypes'
-import { tableClass } from '../styles'
+import { tableClass } from './styles'
 import fixedAuto from './fixedAuto'
 import Datum from '../Datum'
 import Spin from '../Spin'
@@ -15,6 +16,7 @@ import SeperateTable from './SeperateTable'
 import SimpleTable from './SimpleTable'
 import { ROW_HEIGHT_UPDATE_EVENT } from './Tr'
 import { RENDER_COL_GROUP_EVENT } from './Tbody'
+import select from './select'
 
 const ResizeSeperateTable = resizableHOC(SeperateTable)
 const ResizeSimpleTable = resizableHOC(SimpleTable)
@@ -35,10 +37,13 @@ class Table extends Component {
     this.bindTable = this.bindTable.bind(this)
   }
 
-  componentDidUpdate() {
-    const { datum } = this.props
+  componentDidUpdate(preProps) {
+    const { datum, treeCheckAll } = this.props
     datum.dispatch(ROW_HEIGHT_UPDATE_EVENT)
     datum.dispatch(RENDER_COL_GROUP_EVENT)
+    if (treeCheckAll && this.props.data !== preProps.data) {
+      datum.cleanDataCache()
+    }
   }
 
   getRowsInView() {
@@ -62,7 +67,7 @@ class Table extends Component {
       hover,
       height,
       columns,
-      value,
+      // value,
       children,
       empty,
       data,
@@ -72,6 +77,7 @@ class Table extends Component {
       loading,
       verticalAlign,
       columnResizable,
+      events,
       ...others
     } = this.props
 
@@ -88,7 +94,8 @@ class Table extends Component {
         scrollRight < 0 && 'right-float',
         `vertical-${verticalAlign}`,
         columnResizable && 'resize',
-        others.sticky && 'sticky'
+        others.sticky && 'sticky',
+        isRTL() && 'rtl'
       ),
       this.props.className
     )
@@ -119,13 +126,13 @@ class Table extends Component {
     if (loading) newStyle.overflow = 'hidden'
 
     return (
-      <div className={className} ref={this.bindTable} style={newStyle}>
-        <RenderTable {...props} />
+      <div className={className} ref={this.bindTable} style={newStyle} {...events}>
+        <RenderTable {...props} bordered={bordered} />
         {loading && (
           <div className={tableClass('loading')}>{typeof loading === 'boolean' ? <Spin size={40} /> : loading}</div>
         )}
         {isEmpty && (
-          <div className={tableClass('empty')}>
+          <div className={tableClass('empty')} style={{ visibility: loading ? 'hidden' : 'visible' }}>
             <span>{empty || getLocale('noData')}</span>
           </div>
         )}
@@ -135,7 +142,8 @@ class Table extends Component {
 }
 
 Table.propTypes = {
-  ...getProps(PropTypes, 'size', 'type', 'keygen'),
+  ...getProps(PropTypes, 'type', 'keygen'),
+  size: PropTypes.oneOf(['small', 'default']),
   bordered: PropTypes.bool,
   children: PropTypes.any,
   columns: PropTypes.array,
@@ -170,5 +178,6 @@ export default compose(
     pure: false,
   }),
   fixedAuto,
-  hideableConsumer
+  hideableConsumer,
+  select
 )(Table)

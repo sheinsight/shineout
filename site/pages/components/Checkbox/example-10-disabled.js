@@ -12,7 +12,7 @@ const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 export default function() {
   return (
     <div>
-      <Checkbox.Group data={data} disabled={d => d === 'yellow'} keygen value={['blue']} renderItem={d => d} />
+      <Checkbox.Group data={data} disabled={d => d === 'yellow'} keygen defaultValue={['blue']} renderItem={d => d} />
     </div>
   )
 }

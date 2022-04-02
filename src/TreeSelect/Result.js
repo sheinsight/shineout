@@ -1,11 +1,15 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { inputClass, treeSelectClass } from '../styles'
-import { isObject } from '../utils/is'
+import { addResizeObserver } from '../utils/dom/element'
+import { treeSelectClass } from './styles'
+import { inputClass } from '../Input/styles'
+import { inputTitleClass } from '../InputTitle/styles'
+import { isEmpty, isObject } from '../utils/is'
 import Input from './Input'
-import Popover from '../Popover'
 import Caret from '../icons/Caret'
+import More, { getResetMore } from '../Select/More'
+import InputTitle from '../InputTitle'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -18,13 +22,16 @@ const getResultContent = (data, renderResult, renderUnmatched) => {
 }
 
 // eslint-disable-next-line
-function Item({ renderResult, renderUnmatched, data, disabled, onClick }) {
+function Item({ content, data, disabled, onClick, only }) {
   const value = data
   const click = disabled || !onClick ? undefined : () => onClick(value)
   const synDisabled = disabled || !click
   return (
-    <a tabIndex={-1} className={treeSelectClass('item', disabled && 'disabled', synDisabled && 'ban')}>
-      {getResultContent(data, renderResult, renderUnmatched)}
+    <a
+      tabIndex={-1}
+      className={treeSelectClass('item', disabled && 'disabled', synDisabled && 'ban', only && 'item-only')}
+    >
+      {content}
       {!synDisabled && <span className={treeSelectClass('indicator', 'close')} onClick={click} />}
     </a>
   )
@@ -34,15 +41,51 @@ class Result extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      more: false,
+      more: -1,
     }
     this.handleRemove = this.handleRemove.bind(this)
     this.handelMore = this.handelMore.bind(this)
+    this.bindResult = this.bindResult.bind(this)
+    this.resetMore = this.resetMore.bind(this)
   }
 
-  componentDidUpdate() {
-    const { result, compressed } = this.props
-    if (compressed && result.length <= 1) this.state.more = false
+  componentDidMount() {
+    const { compressed } = this.props
+    if (compressed) {
+      this.cancelResizeObserver = addResizeObserver(this.resultEl, this.resetMore, { direction: 'x' })
+    }
+  }
+
+  componentDidUpdate(preProps) {
+    const { result, compressed, onFilter } = this.props
+    if (compressed) {
+      if ((preProps.result || []).join('') !== (result || []).join('')) {
+        this.resetMore()
+      } else if (result.length && this.shouldResetMore) {
+        this.shouldResetMore = false
+        this.state.more = getResetMore(
+          onFilter,
+          this.resultEl,
+          this.resultEl.querySelectorAll(`.${treeSelectClass('item')}`)
+        )
+        this.forceUpdate()
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.cancelResizeObserver) this.cancelResizeObserver()
+  }
+
+  bindResult(el) {
+    this.resultEl = el
+  }
+
+  resetMore() {
+    if (!this.props.compressed) return
+    this.shouldResetMore = true
+    this.state.more = -1
+    this.forceUpdate()
   }
 
   handleRemove(...args) {
@@ -59,12 +102,13 @@ class Result extends PureComponent {
     if (onClear && result.length > 0 && disabled !== true) {
       /* eslint-disable */
       return (
-        <a
-          tabIndex={-1}
-          data-role="close"
-          className={treeSelectClass('indicator', 'close')}
-          onClick={onClear}
-        />
+        <div key="clear" onClick={onClear} className={treeSelectClass('close-warpper')}>
+          <a
+            tabIndex={-1}
+            data-role="close"
+            className={treeSelectClass('indicator', 'close')}
+          />
+        </div>
       )
       /* eslint-enable */
     }
@@ -87,39 +131,56 @@ class Result extends PureComponent {
     )
   }
 
-  renderMore(list) {
-    const { datum, renderResult, renderUnmatched } = this.props
+  renderItem(data, index) {
+    const { renderResult, renderUnmatched, datum } = this.props
+    const content = getResultContent(data, renderResult, renderUnmatched)
+    if (content === null) return null
     const { more } = this.state
+
     return (
-      <a tabIndex={-1} key="more" className={treeSelectClass('item', 'item-compressed', more && 'item-more')}>
-        <span>{`+${list.length - 1}`}</span>
-        <Popover visible={more} onVisibleChange={this.handelMore} className={treeSelectClass('popover')}>
-          <div className={treeSelectClass('result')}>
-            {list.map((d, i) => (
-              <Item
-                key={i}
-                data={d}
-                disabled={datum.disabled(d)}
-                onClick={this.handleRemove}
-                renderResult={renderResult}
-                renderUnmatched={renderUnmatched}
-              />
-            ))}
-          </div>
-        </Popover>
-      </a>
+      <Item
+        only={more === 1}
+        key={index}
+        content={content}
+        data={data}
+        disabled={datum.disabled(data)}
+        onClick={this.handleRemove}
+      />
     )
   }
 
+  renderMore(items) {
+    const { compressed } = this.props
+    const { more } = this.state
+    return [
+      <More
+        key="more"
+        className={treeSelectClass('item', 'item-compressed')}
+        popoverClassName={treeSelectClass('popover')}
+        contentClassName={treeSelectClass('result')}
+        compressed={compressed}
+        data={items}
+        cls={treeSelectClass}
+        showNum={more}
+      />,
+    ]
+  }
+
   renderPlaceholder() {
-    const { focus, onFilter } = this.props
+    const { focus, onFilter, innerTitle } = this.props
 
     if (focus && onFilter) {
       return this.renderInput(' ')
     }
 
     return (
-      <span className={classnames(inputClass('placeholder'), treeSelectClass('ellipsis'))}>
+      <span
+        className={classnames(
+          inputClass('placeholder'),
+          treeSelectClass('ellipsis'),
+          innerTitle && inputTitleClass('hidable')
+        )}
+      >
         {this.props.placeholder}
         &nbsp;
       </span>
@@ -127,34 +188,13 @@ class Result extends PureComponent {
   }
 
   renderResult() {
-    const {
-      multiple,
-      compressed,
-      result,
-      renderResult,
-      renderUnmatched,
-      onFilter,
-      focus,
-      datum,
-      filterText,
-    } = this.props
+    const { multiple, compressed, result, renderResult, renderUnmatched, onFilter, focus, filterText } = this.props
 
     if (multiple) {
-      const neededResult = compressed ? result.slice(0, 1) : result
-      const firstRemove = !compressed || result.length === 1
-      const items = neededResult.map((d, i) => (
-        <Item
-          key={i}
-          data={d}
-          disabled={datum.disabled(d)}
-          onClick={firstRemove ? this.handleRemove : undefined}
-          renderResult={renderResult}
-          renderUnmatched={renderUnmatched}
-        />
-      ))
+      let items = result.map((n, i) => this.renderItem(n, i)).filter(n => !isEmpty(n))
 
-      if (compressed && result.length > 1) {
-        items.push(this.renderMore(result))
+      if (compressed) {
+        items = this.renderMore(items)
       }
 
       if (focus && onFilter) {
@@ -174,19 +214,38 @@ class Result extends PureComponent {
   }
 
   render() {
-    const result = this.props.result.length === 0 ? this.renderPlaceholder() : this.renderResult()
-    const { compressed } = this.props
+    const showPlaceholder = this.props.result.length === 0
+    const result = showPlaceholder ? this.renderPlaceholder() : this.renderResult()
+    const { compressed, innerTitle, focus, onFilter } = this.props
+    const open = (onFilter && focus) || !showPlaceholder
     return (
-      <div className={treeSelectClass('result', compressed && 'compressed')}>
-        {result}
-        {!this.props.multiple && (
-          // eslint-disable-next-line
-          <a tabIndex={-1} className={treeSelectClass('indicator', 'caret')}>
-            {<Caret />}
-          </a>
+      <InputTitle
+        innerTitle={innerTitle}
+        open={open}
+        className={treeSelectClass('title-box')}
+        titleClass={treeSelectClass(
+          'title-box-title',
+          showPlaceholder && 'title-box-title-empty',
+          compressed && 'title-box-title-compressed'
         )}
-        {this.renderClear()}
-      </div>
+      >
+        <div
+          ref={this.bindResult}
+          className={classnames(
+            treeSelectClass('result', compressed && 'compressed', showPlaceholder && 'empty'),
+            innerTitle && inputTitleClass('item')
+          )}
+        >
+          {result}
+          {!this.props.multiple && (
+            // eslint-disable-next-line
+            <a tabIndex={-1} className={treeSelectClass('indicator', 'caret')}>
+              {<Caret />}
+            </a>
+          )}
+          {this.renderClear()}
+        </div>
+      </InputTitle>
     )
   }
 }
@@ -206,6 +265,7 @@ Result.propTypes = {
   setInputReset: PropTypes.func,
   compressed: PropTypes.bool,
   renderUnmatched: PropTypes.func,
+  innerTitle: PropTypes.node,
 }
 
 export default Result

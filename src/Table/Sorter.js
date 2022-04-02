@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { tableClass } from '../styles'
+import { tableClass } from './styles'
 
 class Sorter extends PureComponent {
   constructor(props) {
@@ -42,26 +42,37 @@ class Sorter extends PureComponent {
   }
 
   render() {
-    const { current, index } = this.props
+    const { current, index, renderSorter } = this.props
     const item = current.find(v => v.index === index)
     const active = !!item
+    const isCustomRender = renderSorter && typeof renderSorter === 'function'
 
     return (
       <div className={tableClass('sorter-container')}>
-        <a
-          key="asc"
-          className={tableClass(active && item.order === 'asc' && 'sorter-active', 'sorter-asc')}
-          onClick={this.handleAsc}
-        >
-          &nbsp;
-        </a>
-        <a
-          key="desc"
-          className={tableClass(active && item.order === 'desc' && 'sorter-active', 'sorter-desc')}
-          onClick={this.handleDesc}
-        >
-          &nbsp;
-        </a>
+        {isCustomRender ? (
+          renderSorter({
+            status: active && item.order,
+            triggerAsc: this.handleAsc,
+            triggerDesc: this.handleDesc,
+          })
+        ) : (
+          <>
+            <a
+              key="asc"
+              className={tableClass(active && item.order === 'asc' && 'sorter-active', 'sorter-asc')}
+              onClick={this.handleAsc}
+            >
+              &nbsp;
+            </a>
+            <a
+              key="desc"
+              className={tableClass(active && item.order === 'desc' && 'sorter-active', 'sorter-desc')}
+              onClick={this.handleDesc}
+            >
+              &nbsp;
+            </a>
+          </>
+        )}
       </div>
     )
   }
@@ -73,6 +84,7 @@ Sorter.propTypes = {
   onChange: PropTypes.func.isRequired,
   sorter: PropTypes.oneOfType([PropTypes.func, PropTypes.string, PropTypes.object]).isRequired,
   defaultOrder: PropTypes.oneOf(['desc', 'asc']),
+  renderSorter: PropTypes.func,
 }
 
 export default Sorter

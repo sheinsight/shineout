@@ -10,7 +10,7 @@ import { Checkbox } from 'shineout'
 
 export default function() {
   return (
-    <Checkbox htmlValue="ok" value="ok">
+    <Checkbox htmlValue="ok" defaultValue="ok">
       {'value is "ok"'}
     </Checkbox>
   )

@@ -12,3 +12,4 @@
 | indicatorType | (current: number, moveTo: () => void) => ReactNode \| string | 'circle' | 指示标示样式，字符串可以是：\['circle', 'number', 'line']，函数则可以自定义样式: (current, moveTo) => (<Component /\>) |
 | interval | number | 0 | 动画间隔时间，为 0 时，不自动播放 |
 | style | object | 无 | 最外层扩展样式 |
+| onMove | (current: number, extra: object) => void | 无 | 轮播后回调 |

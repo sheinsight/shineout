@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import Popover from '../Popover'
 import { getProps, defaultProps } from '../utils/proptypes'
-import { breadcrumbClass } from '../styles'
+import { breadcrumbClass } from './styles'
 import { getKey } from '../utils/uid'
 import Caret from '../icons/Caret'
 

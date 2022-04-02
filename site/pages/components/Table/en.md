@@ -2,7 +2,7 @@
 
 <example />
 
-## API 
+## API
 
 ### Table
 
@@ -13,7 +13,7 @@
 | columns | object[] | - | array，见 TableColumn |
 | data | object[] | - | data |
 | disabled | (data: object) => boolean \| boolean | false | When the value is true, disabled all checkboxes; When the value is function, disable the checkbox that this function returns true. |
-| fixed | 'both' \| 'x' \| 'y' \| 'auto' | - | visual scroll-bar direction, empty will use native scroll-bar and disabled lazy load | 
+| fixed | 'both' \| 'x' \| 'y' \| 'auto' | - | visual scroll-bar direction, empty will use native scroll-bar and disabled lazy load |
 | format | (data: object) => any \| string | d => d | Format value<br />The defaule value is return the original data.<br />When it is a string, the value is fetched from the original data as a key equivalent to (d) => d\[format]<br />When it is a function, use its return value. |
 | loading | boolean \| ReactNode | false | When it is true, a default [Spin](/components/Spin) component will be displayed, a custom loading icon can be passed in to replace. |
 | keygen | ((data: object) => any) \| string \| boolean | index | Generate a auxiliary method for each key<br />If not filled, index will be used (not recommended, in some cases there may be problems)<br />When it is a function, use its return value. <br />When it is a string，ues the value of the string.For example, 'id' is the same thing as (d) => d.id . |
@@ -30,29 +30,35 @@
 | value | any[] | none | The current selected value. |
 | empty | string \| ReactNode | Data not found | empty text |
 | verticalAlign | 'top' \| 'middle' | 'top' | vertical align with content |
-| rowClickAttr | string \| string[] | \['*'\] | Sets the attribute of inner element to trigger onRowClick as needed, and '*' to accept the row click |
+| rowClickAttr | true \| string \| string[] | \['*'\] | Sets the attribute of inner element to trigger onRowClick as needed, and '*' to accept the row click |
 | sorter | (sortKey: any, sorter: 'asc' \| 'desc', sortedList: any[]) => (a: object, b: object) => boolean | alphaSort(Column.sorter, sorter) | the method of table sort，args are Column.sorter and order<br /> Multi-column sorting is supported. The sorter passes in the object {rule: string \| function, weight: number}, where rule is a sorting rule, which refers to the use of single-column sorting when it is a string, weight is the weight, indicating the priority of the order<br /> When sorting on multiple columns, sortedList returns information about all fields involved in sorting|
 | treeExpandKeys | any[] | none  | Tree Table expanded row keys |
 | onTreeExpand | (openKeys: string[], data: object, expand: boolean) => void | none | expand row change, keys is expanded row keys |
 | hover | boolean | true | row hover highlight |
 | treeEmptyExpand | boolean | false | show expand button while children data is empty |
-| treeCheckAll | boolean | false | check children data while select all | 
+| treeCheckAll | boolean | false | check children data while select all |
 | onSortCancel | () => void | none | sort cancel event |
 | radio | boolean | false | is Radio |
 | rowEvents | object | none | tr events |
 | defaultTreeExpandKeys | any[] | none | Default expanded row keys |
 | dataChangeResize | boolean | false | Whether to recalculate the column width after the data changes |
 | onColumnResize | (newColumns: object[]) => void | none | columns resize callback |
-| size | 'small' \| 'normal' | 'normal' | size of table |
+| size | 'small' \| 'default' | 'default' | size of table |
 | pagination | object | none | pagination of table |
 | innerScrollAttr | string[] | 无 | set inner scrollable element's attribute |
 | expandKeys | any[] | none | controlled expand rows |
 | sticky | boolean \| object | none | sticky header, When it is true, the distance from the top is 0. When it is an object, the attribute value reference [Sticky component] (/components/Sticky)  |
+| cellSelectable | boolean | false | whether to enable ctrl/cmd + click check |
+| height | number \| string | none | height of table, same with style.height |
+| hideHeader | boolean | false | whether hide thead |
+| changedByExpand | boolean | false | Enable in specific scenarios (tree data expansion is controlled) Used to change the default behavior of scroll reset |
+| renderSorter | (params: {status?: 'asc' \| 'desc', triggerAsc: () => void, triggerDesc: ()=> void})=> ReactNode | false | customize sort icons |
 
 ### TableColumn
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
+| className | string | none | classname of column |
 | colSpan | function(record) | none | The function for controlling to merge columns. The return value is an integer indicating the number of columns that need to be merged。 |
 | fixed | string | - | options: \['left', 'right']；<br />Need to set the Table's fixed to 'x' or 'both'; |
 | group | string \| string\[] | - | The group of header column. |
@@ -63,10 +69,11 @@
 | title | string \| ReactElement \| function(data) | none | The content of the header |
 | type | string | - | Special column, options: \['expand', 'row-expand', 'checkbox']<br />expand: Expand the column. When the render function returns a function, it means that the row can be expanded and the content  is the result returned by this function. <br />row-expand: Similar to expand. The difference is that clicking on the entire row triggers the expand event.<br />checkbox: Select column for scenes with only fixed selection columns |
 | width | number | - | the width of the column |
-| align | string | 'left' | cell align \['left', 'center', 'right'\]
+| align | string | 'left' | cell align \['left', 'center', 'right'\] |
 | treeColumnsName | string | none | tree table children-data name |
-| treeIndent | number | 25 | indent of each level |   
+| treeIndent | number | 25 | indent of each level |
 | minWidth | number | - | the minimum width of the column |
+| maxWidth | number | - | Maximum draggable column width |
 | hide | boolean | false | hide the column, only work on row-expand column |
 | dataChangeResize | boolean | false | Recalculate columns width while data change |
-| defaultOrder | string | 'asc' \| 'desc' | default sort | 
+| defaultOrder | string | 'asc' \| 'desc' | default sort |

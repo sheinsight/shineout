@@ -4,9 +4,11 @@ import classnames from 'classnames'
 import Btns from './btns'
 import { PureComponent } from '../component'
 import Card from './Card'
-import { transferClass } from '../styles'
+import { transferClass } from './styles'
 import Context from './context'
 import splitSelecteds from './select'
+import { isRTL } from '../config'
+import getDataset from '../utils/dom/getDataset'
 
 class Transfer extends PureComponent {
   constructor(props) {
@@ -77,14 +79,23 @@ class Transfer extends PureComponent {
     if ('value' in this.props && datumValues !== this.props.value) {
       this.props.datum.setValue(this.props.value)
     }
-    const sources = data.filter(d => !datum.check(d))
-    const targets = datumValues.reduce((p, n) => {
-      const d = datum.getDataByValue(data, n)
-      if (d) p.push(d)
-      return p
-    }, [])
+    const sources = []
+    const targets = []
+    for (let i = 0; i < data.length; i++) {
+      const d = data[i]
+      if (datum.check(d)) {
+        targets.push(d)
+      } else {
+        sources.push(d)
+      }
+    }
+
     return (
-      <div className={classnames(transferClass('_'), className)} style={style}>
+      <div
+        className={classnames(transferClass('_', isRTL() && 'rtl'), className)}
+        style={style}
+        {...getDataset(this.props)}
+      >
         <Context.Provider value={{ selecteds, setSelecteds: this.setSelecteds, itemClass }}>
           <Card
             title={titles[0]}

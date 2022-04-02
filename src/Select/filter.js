@@ -19,6 +19,8 @@ export default Origin =>
       noCache: PropTypes.bool,
       multiple: PropTypes.bool,
       showHitDescendants: PropTypes.bool,
+      hideCreateOption: PropTypes.bool,
+      onAdvancedFilter: PropTypes.bool,
     }
 
     static defaultProps = {
@@ -137,7 +139,7 @@ export default Origin =>
     }
 
     filterTreeData() {
-      const { treeData, expanded, showHitDescendants, ...other } = this.props
+      const { treeData, expanded, showHitDescendants, onAdvancedFilter, ...other } = this.props
       const { innerFilter } = this.state
       let filterExpandedKeys = expanded
       let newData = treeData
@@ -149,23 +151,28 @@ export default Origin =>
           filterExpandedKeys,
           node => getKey(node, other.keygen),
           other.childrenKey,
-          showHitDescendants
+          showHitDescendants,
+          undefined,
+          { advanced: onAdvancedFilter }
         )
       }
       return {
         treeData: newData,
         expanded: filterExpandedKeys,
+        rawData: treeData,
       }
     }
 
     filterData() {
-      const { data, ...other } = this.props
+      const { data, hideCreateOption, ...other } = this.props
       const { innerFilter, innerData } = this.state
       let newData = data
       if (innerFilter) newData = data.filter(d => innerFilter(d))
-      if (innerData) {
+      if (innerData && !hideCreateOption) {
         const newKey = getKey(innerData, other.keygen, innerData)
-        newData = [innerData, ...newData.filter(d => getKey(d, other.keygen, d) !== newKey)]
+        if (!newData.find(d => getKey(d, other.keygen, d) === newKey)) {
+          newData = [innerData, ...newData]
+        }
       }
       return {
         data: newData,
@@ -174,7 +181,7 @@ export default Origin =>
 
     render() {
       const { treeData, onFilter, onCreate, ...other } = this.props
-      const { filterText } = this.state
+      const { filterText, innerData } = this.state
       const filterFn = onFilter || onCreate ? this.handleFilter : undefined
       const dataGenerator = treeData ? this.filterTreeData : this.filterData
       const props = {
@@ -184,6 +191,7 @@ export default Origin =>
         inputable: !!onCreate,
         onCreate: onCreate ? this.handleCreate : undefined,
         onFilter: filterFn,
+        innerData,
         ...dataGenerator.call(this),
       }
       return <Origin {...props} />

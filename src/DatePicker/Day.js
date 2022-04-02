@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { datepickerClass } from '../styles'
+import { datepickerClass } from './styles'
 import utils from './utils'
+import paramUtils from './paramUtils'
 import Icon from './Icon'
 import { getLocale } from '../locale'
 import { PureComponent } from '../component'
@@ -60,14 +61,11 @@ class Day extends PureComponent {
   }
 
   handleDayClick(date, sync) {
-    const { type, allowSingle, rangeDate, min, max, index } = this.props
-    const current = this.formatWithDefaultTime(sync)
+    const { type, allowSingle, rangeDate, min, max, index, value } = this.props
+    const current = (index === sync && value) || this.formatWithDefaultTime(sync)
     const onChange = typeof sync === 'number' ? this.props.onChangeSync.bind(this.props, sync) : this.props.onChange
     if (type === 'week') {
-      // if (date.getDay() === 0) {
-      //   date = utils.subDays(date, 1)
-      // }
-      onChange(date, true, true)
+      onChange(...paramUtils.weekHandleChangeParams(date, true, true))
     } else {
       let newDate = new Date(
         date.getFullYear(),
@@ -87,12 +85,13 @@ class Day extends PureComponent {
         utils.clearHMS(newDate).getTime() === utils.clearHMS(rangeDate[index]).getTime()
       )
         newDate = ''
-      onChange(newDate, true, type !== 'datetime')
+
+      onChange(...paramUtils.dayHandleChangeParams(newDate, true, type !== 'datetime'))
     }
   }
 
   handleTimeChange(time, change, end, mode) {
-    this.props.onChange(time, true, false, mode)
+    this.props.onChange(...paramUtils.timeHandleChangeParams(time, true, false, mode))
   }
 
   handleWeek(hover) {
@@ -101,7 +100,12 @@ class Day extends PureComponent {
 
   handleMonth(month) {
     const { current, onChange } = this.props
-    onChange(utils.addMonths(current, month))
+    // warning: month === 12 || month === -12, this is statement is year mode.
+    if (month === -12 || month === 12) {
+      onChange(...paramUtils.yearHandleChangeParams(utils.addMonths(current, month)))
+      return
+    }
+    onChange(...paramUtils.monthHandleChangeParams(utils.addMonths(current, month)))
   }
 
   handleModeChange(mode) {
@@ -115,7 +119,7 @@ class Day extends PureComponent {
   renderDay(date, minD, maxD) {
     const { current, disabled, value, index, type, rangeDate, range, rangeTemp, min, max } = this.props
     const { hover } = this.state
-    const hmsDate = new Date(date)
+    const hmsDate = utils.toDate(date)
     utils.setTime(hmsDate, current)
     let isDisabled = disabled ? disabled(date) : false
 
@@ -194,7 +198,7 @@ class Day extends PureComponent {
       <div
         key={date.getTime()}
         className={hoverClass}
-        onClick={isDisabled ? undefined : this.handleDayClick.bind(this, date, minD, maxD)}
+        onClick={isDisabled ? undefined : this.handleDayClick.bind(this, date)}
         onDoubleClick={isDisabled ? undefined : this.handleDayDoubleClick.bind(this, date)}
         {...hoverProps}
       >
@@ -222,6 +226,7 @@ class Day extends PureComponent {
 
     return (
       <div className={datepickerClass('datetime')}>
+        <Icon name="Clock" className="clock" />
         <Time {...this.props} format={format} value={value} onChange={this.handleTimeChange} />
         <span>{utils.format(value, format)}</span>
       </div>
@@ -232,8 +237,8 @@ class Day extends PureComponent {
     const { current, min, index, max } = this.props
     const days = this.getDays()
     this.today = utils.newDate()
-    const minDate = min && new Date(utils.format(min, minStr, new Date()))
-    const maxDate = max && new Date(utils.format(max, maxStr, new Date()))
+    const minDate = min && utils.toDate(utils.format(min, minStr, new Date()))
+    const maxDate = max && utils.toDate(utils.format(max, maxStr, new Date()))
 
     return (
       <div className={datepickerClass('day-picker')}>
@@ -241,11 +246,13 @@ class Day extends PureComponent {
         <div className={datepickerClass('header')}>
           <Icon
             name="AngleDoubleLeft"
+            className="left"
             disabled={!!(min && current.getFullYear() <= min.getFullYear())}
             onClick={this.handlePrevYear}
           />
           <Icon
             name="AngleLeft"
+            className="left"
             disabled={!!(min && utils.compareMonth(current, min) <= 0)}
             onClick={this.handlePrevMonth}
           />
@@ -257,6 +264,7 @@ class Day extends PureComponent {
 
           <Icon
             name="AngleRight"
+            className="right"
             // disabled={max && utils.compareMonth(current, max, 0) >= 0}
             onClick={this.handleNextMonth}
           />
@@ -264,6 +272,7 @@ class Day extends PureComponent {
             onClick={this.handleNextYear}
             // disabled={max && current.getFullYear() >= max.getFullYear()}
             name="AngleDoubleRight"
+            className="right"
           />
         </div>
 

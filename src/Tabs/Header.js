@@ -5,7 +5,7 @@ import { PureComponent } from '../component'
 import Button from '../Button'
 import icons from '../icons'
 import Tab from './Tab'
-import { tabsClass } from '../styles'
+import { tabsClass } from './styles'
 
 const REDUNDANT = 30
 class Header extends PureComponent {
@@ -135,11 +135,16 @@ class Header extends PureComponent {
   }
 
   renderTabs() {
-    const { border, onCollapse, collapsed, tabs, isVertical, tabBarExtraContent, tabBarStyle, shape } = this.props
+    const { tabs } = this.props
+    return tabs.map(this.renderTab)
+  }
+
+  render() {
+    const { border, onCollapse, collapsed, isVertical, tabBarExtraContent, tabBarStyle, shape, hideSplit } = this.props
     const { attribute, overflow } = this.state
 
     const position = isVertical ? 'Top' : 'Left'
-    const showBorder = shape !== 'bordered' && shape !== 'dash'
+    const showBorder = shape !== 'bordered' && shape !== 'dash' && !hideSplit
 
     return (
       <div onClick={this.handleCollapse} className={tabsClass('header')} style={tabBarStyle || {}}>
@@ -152,7 +157,7 @@ class Header extends PureComponent {
           )}
           <div ref={this.bindInner} className={tabsClass('inner')}>
             <div ref={this.bindScroll} style={{ [`margin${position}`]: -attribute }} className={tabsClass('scroll')}>
-              {tabs.map(this.renderTab)}
+              {shape === 'button' ? this.renderButtons() : this.renderTabs()}
             </div>
           </div>
           {overflow && (
@@ -162,13 +167,9 @@ class Header extends PureComponent {
           )}
         </div>
         {tabBarExtraContent && <div className={tabsClass('extra')}>{tabBarExtraContent}</div>}
-        {showBorder && <div style={{ borderColor: border }} className={tabsClass('hr')} />}
+        {showBorder && shape !== 'button' && <div style={{ borderColor: border }} className={tabsClass('hr')} />}
       </div>
     )
-  }
-
-  render() {
-    return this.props.shape === 'button' ? this.renderButtons() : this.renderTabs()
   }
 }
 
@@ -182,6 +183,7 @@ Header.propTypes = {
   tabs: PropTypes.array,
   tabBarExtraContent: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   tabBarStyle: PropTypes.object,
+  hideSplit: PropTypes.bool,
 }
 
 export default Header

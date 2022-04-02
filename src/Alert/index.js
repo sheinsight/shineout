@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import { capitalize } from '../utils/strings'
 import { getProps, defaultProps } from '../utils/proptypes'
-import { alertClass } from '../styles'
+import { alertClass } from './styles'
 import icons from '../icons'
 
 class Alert extends PureComponent {
@@ -90,22 +90,23 @@ class Alert extends PureComponent {
     const { dismiss } = this.state
     if (dismiss === 2) return null
 
-    const { children, className, type, onClose, outAnimation } = this.props
+    const { children, className, type, onClose, outAnimation, hideClose } = this.props
     const icon = this.renderIcon()
 
     const { style } = this.props
+    const showClose = onClose && !hideClose
     let wrapClassName = alertClass(
       '_',
       type,
       !outAnimation && dismiss === 1 && 'dismissed',
-      onClose && 'with-close',
+      showClose && 'with-close',
       icon && 'with-icon'
     )
     if (className) wrapClassName += ` ${className}`
 
     return (
       <div ref={this.bindRef} className={wrapClassName} style={style}>
-        {onClose && this.renderClose()}
+        {showClose && this.renderClose()}
         {icon}
         <div className={alertClass('content')}>{children}</div>
       </div>
@@ -121,6 +122,7 @@ Alert.propTypes = {
   icon: PropTypes.oneOfType([PropTypes.bool, PropTypes.element]),
   iconSize: PropTypes.number,
   onClose: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  hideClose: PropTypes.bool,
 }
 
 Alert.defaultProps = {

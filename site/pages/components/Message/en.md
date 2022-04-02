@@ -25,6 +25,8 @@ Message.error(content, \[duration], \[options])
 
 Message.close() // Close all messages
 
+Message.setOptions() // set global options, priority is lower than the actual call option
+
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | content | ReactNode | required | The message content |
@@ -39,3 +41,4 @@ Message.close() // Close all messages
 | position | string | 'top' | The position where the message display, options: \['top', 'middle', 'top-left', 'top-right', 'bottom-left', 'bottom-right'] |
 | title | string | | title |
 | className | string | none | class name |
+| hideClose | boolean | false | hide close button |

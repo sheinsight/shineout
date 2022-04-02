@@ -4,8 +4,9 @@ import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { range } from '../utils/numbers'
-import { carouselClass } from '../styles'
+import { carouselClass } from './styles'
 import Item from './Item'
+import getDataset from '../utils/dom/getDataset'
 
 class Carousel extends PureComponent {
   constructor(props) {
@@ -22,12 +23,21 @@ class Carousel extends PureComponent {
   }
 
   componentDidMount() {
+    super.componentDidMount()
     this.setNext(1)
   }
 
   componentDidUpdate() {
     if (this.count > 1 && !this.$timeout) {
       this.setNext(this.state.current + 1)
+    }
+  }
+
+  componentWillUnmount() {
+    super.componentWillUnmount()
+    if (this.$timeout) {
+      clearTimeout(this.$timeout)
+      this.$timeout = null
     }
   }
 
@@ -40,12 +50,12 @@ class Carousel extends PureComponent {
       }
       this.$timeout = setTimeout(() => {
         this.moveTo(next)
-        this.$timeout = null
       }, interval)
     }
   }
 
   moveTo(next) {
+    const { onMove } = this.props
     const { current } = this.state
     if (next === current) return
 
@@ -57,6 +67,12 @@ class Carousel extends PureComponent {
 
     this.setState({ pre: current, current: next, direction })
     this.setNext(next + 1)
+    if (onMove)
+      onMove(next, {
+        prev: current,
+        direction,
+        moveTo: this.moveTo,
+      })
   }
 
   handleMouseIn() {
@@ -108,7 +124,7 @@ class Carousel extends PureComponent {
     const className = classnames(carouselClass('_', animation, direction), this.props.className)
 
     return (
-      <div className={className} style={style}>
+      <div className={className} style={style} {...getDataset(this.props)}>
         {this.renderItems()}
         {this.count > 1 && this.renderIndicator()}
       </div>
@@ -123,6 +139,7 @@ Carousel.propTypes = {
   indicatorPosition: PropTypes.oneOf(['left', 'center', 'right']),
   indicatorType: PropTypes.oneOfType([PropTypes.func, PropTypes.oneOf(['number', 'circle', 'line'])]),
   interval: PropTypes.number,
+  onMove: PropTypes.func,
 }
 
 Carousel.defaultProps = {

@@ -24,6 +24,9 @@
 @colors-danger-value: @colors-red;
 @colors-danger: var(--danger-color, @colors-danger-value);
 
+@btn-circle-width: 32px;
+@btn-circle-small-width: 24px;
+@btn-circle-large-width: 40px;
 @button-border-radius-value: 4px;
 @btn-border-radius-base: var(--button-border-radius, @button-border-radius-value);
 @button-small-border-radius-value: 4px;
@@ -182,7 +185,16 @@
 @panel-footer-padding-vertical: var(--panel-footer-padding-vertical, @panel-footer-padding-vertical-value);
 
 @modal-header-padding: var(--modal-header-padding, 16px 32px 16px 16px);
-@modal-body-padding: var(--modal-body-padding, 16px);
+@modal-header-padding-top: var(--modal-header-padding-top, 16px);
+@modal-header-padding-right: var(--modal-header-padding-right, 32px);
+@modal-header-padding-bottom: var(--modal-header-padding-bottom, 16px);
+@modal-header-padding-left: var(--modal-header-padding-left, 16px);
+
+@modal-body-padding-top: var(--modal-body-padding-top, 16px);
+@modal-body-padding-right: var(--modal-body-padding-right, 16px);
+@modal-body-padding-bottom: var(--modal-body-padding-bottom, 16px);
+@modal-body-padding-left: var(--modal-body-padding-left, 16px);
+
 @modal-footer-padding: var(--modal-footer-padding, 16px);
 @modal-border-radius: var(--modal-border-radius, @panel-border-radius-value);
 @modal-close-top-margin: var(--modal-close-top-margin, 18px);
@@ -192,7 +204,7 @@
 
 @ease-in-out: 0.3s;
 // Alert
-@alert-padding-y: 8px;
+@alert-padding-y-value: 8px;
 
 // Button
 @btn-default-border: #d9d9d9;
@@ -228,9 +240,11 @@
 @breadcrumb-active-color: rgba(0, 0, 0, 0.85);
 
 //menu
-@menu-title-transform: translateY(-85%) rotate(45deg);
-@menu-title-open-transform: translateY(-65%) rotate(225deg);
-@menu-title-vertical-transform: translateY(-60%) rotate(-45deg);
+@menu-title-transform: translateY(-75%) rotate(45deg);
+@menu-title-transform-origin: 75% 75%;
+@menu-title-open-transform: translateY(-75%) rotate(225deg);
+@menu-title-vertical-transform: translateY(-75%) rotate(-45deg);
+@menu-title-vertical-transform-rtl: translateY(-75%) rotate(135deg);
 
 // @datepicker-day-hover-bg: #e6f7ff;
 @datepicker-day-hover-bgc-value: #e6f7ff;
@@ -253,22 +267,26 @@
 @switch-indicator-padding-horizontal-negative: var(--switch-indicator-padding-horizontal-negative, -2px);
 @switch-indicator-size: var(--switch-indicator-size, 18px);
 @switch-bg-width: 44px;
-@switch-bg-border-radius: @switch-bg-width / 2;
+@switch-bg-border-radius: (@switch-bg-width / 2);
 @switch-bg-height: var(--switch-bg-height, 22px);
 @switch-font-size: 12px;
 @switch-indicator-top: var(--switch-indicator-top, 2px);
 
 @switch-small-indicator-size: var(--switch-small-indicator-size, 12px);
 @switch-small-bg-width: 28px;
-@switch-small-bg-border-radius: @switch-small-bg-width / 2;
+@switch-small-bg-border-radius: (@switch-small-bg-width / 2);
 @switch-small-bg-height: var(--switch-small-bg-height, 16px);
 @switch-small-indicator-top: var(--switch-small-indicator-top, 2px);
 @switch-small-indicator-padding: 0px;
 
 @switch-large-indicator-size: var(--switch-large-indicator-size, 24px);
 @switch-large-bg-width: 60px;
-@switch-large-bg-border-radius: @switch-large-bg-width / 2;
+@switch-large-bg-border-radius: (@switch-large-bg-width / 2);
 @switch-large-bg-height: var(--switch-large-bg-height, 28px);
 @switch-large-indicator-top: var(--switch-large-indicator-top, 2px);
 
 @common-caret-style: var(--common-caret-style, line);
+
+
+@menu-caret-solid-width: 4px;
+@menu-caret-solid-height: 4px;

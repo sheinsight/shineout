@@ -16,7 +16,7 @@ const examples = [
   {
     name: '1-base',
     title: locate(
-      '基本用法 \n 最基本的组件用法。 \n Modal 会在 document.body 中创建一个新的层显示弹出内容。 \n 关闭 modal 时没有对组件进行销毁, 只是隐藏, 组件的状态会被保留。 如果不需要保留组件之前的状态, 可以通过改变 modal 的 key 去实现。',
+      '基本用法 \n 最基本的组件用法。 \n Modal 会在 document.body 中创建一个新的层显示弹出内容。',
       'Base \n The basic usage for component.'
     ),
     component: require('doc/pages/components/Modal/example-1-base.js').default,
@@ -48,6 +48,15 @@ const examples = [
     ),
     component: require('doc/pages/components/Modal/example-3-focus.js').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-3-focus.js'),
+  },
+  {
+    name: '3-full-screen',
+    title: locate(
+      '全屏 \n 使用 fullScreen 属性来使对话框全屏展示',
+      'Full Screen \n Use the fullScreen property to display the modal in full screen'
+    ),
+    component: require('doc/pages/components/Modal/example-3-full-screen.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Modal/example-3-full-screen.js'),
   },
   {
     name: '3-gcontainer',
@@ -106,8 +115,8 @@ const examples = [
   {
     name: '8-type',
     title: locate(
-      '类型 \n 使用 type 属性来指定标题附带的图标',
-      'type attribute \n use type display type icon'
+      '附带图标 \n 使用 type 属性来指定标题附带的图标',
+      'Icon \n use type display type icon'
     ),
     component: require('doc/pages/components/Modal/example-8-type.js').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-8-type.js'),

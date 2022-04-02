@@ -1,21 +1,28 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { selectClass } from '../styles'
+import { selectClass } from './styles'
 import { isObject } from '../utils/is'
+import shallowEqual from '../utils/shallowEqual'
 import icons from '../icons'
 
-class Option extends PureComponent {
+class Option extends React.Component {
   constructor(props) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
     this.handleEnter = this.handleHover.bind(this)
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.filterText) return true
+    if (!shallowEqual(nextProps, this.props) || !shallowEqual(nextState, this.state)) return true
+    return false
+  }
+
   handleClick() {
     const { data, onClick, isActive, index, disabled, groupKey } = this.props
 
-    if (this.locked || disabled || data[groupKey]) return
+    if (this.locked || disabled || (data && data[groupKey])) return
     this.locked = true
 
     onClick(!isActive, data, index)
@@ -31,7 +38,7 @@ class Option extends PureComponent {
 
   render() {
     const { data, isActive, index, renderItem, isHover, disabled, groupKey } = this.props
-    const isGroupTitle = data[groupKey]
+    const isGroupTitle = data && data[groupKey]
     const className = classnames(
       selectClass('option', isActive && 'active', isHover && 'hover', disabled && 'disabled', isGroupTitle && 'group'),
       `option-${index}`
@@ -63,6 +70,7 @@ Option.propTypes = {
   onHover: PropTypes.func.isRequired,
   renderItem: PropTypes.func.isRequired,
   groupKey: PropTypes.string,
+  filterText: PropTypes.string,
 }
 
 export default Option

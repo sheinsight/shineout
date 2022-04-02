@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { addStack, removeStack } from '../utils/lazyload'
-import { imageClass } from '../styles'
+import { imageClass } from './styles'
 import showGallery from './events'
 import { getLocale } from '../locale'
 import config from '../config'
 import { removeProtocol } from '../utils/strings'
+import getDataset from '../utils/dom/getDataset'
 
 const PLACEHOLDER = 0
 const SRC = 1
@@ -52,6 +53,11 @@ class Image extends PureComponent {
     return url
   }
 
+  preview() {
+    const { src, href } = this.props
+    showGallery({ thumb: src, src: href || src, key: 'key' })
+  }
+
   bindElement(el) {
     this.element = el
   }
@@ -81,9 +87,16 @@ class Image extends PureComponent {
     delete this.image
     const image = new window.Image()
     image.onload = () => this.setState({ status: SRC })
-    image.onerror = this.handleAlt
+    image.onerror = this.handleError.bind(this, SRC)
     image.src = this.getUrl(src)
     this.image = image
+  }
+
+  handleError(type, e) {
+    const { onError } = this.props
+    if (onError) onError(e, type)
+    if (type === SRC) this.handleAlt()
+    else if (type === ALT) this.setState({ status: ERROR })
   }
 
   handleAlt() {
@@ -95,7 +108,7 @@ class Image extends PureComponent {
 
     const image = new window.Image()
     image.onload = () => this.setState({ status: ALT })
-    image.onerror = () => this.setState({ status: ERROR })
+    image.onerror = this.handleError.bind(this, ALT)
     image.src = this.getUrl(alt)
   }
 
@@ -153,7 +166,7 @@ class Image extends PureComponent {
       case ERROR:
         return (
           <div className={imageClass('inner', 'mask')}>
-            <div>{error || title || 'no found'}</div>
+            <div>{error || title || getLocale('notFound')}</div>
           </div>
         )
       default:
@@ -174,6 +187,7 @@ class Image extends PureComponent {
       download: target === '_download',
       className,
       style: Object.assign({}, style, { width, paddingBottom: height }),
+      ...getDataset(this.props),
     }
     if (!href || target !== '_modal') props.href = href
     return <Tag {...props}>{this.renderImage()}</Tag>
@@ -198,6 +212,7 @@ Image.propTypes = {
   container: PropTypes.string,
   error: PropTypes.node,
   autoSSL: PropTypes.bool,
+  onError: PropTypes.func,
 }
 
 Image.defaultProps = {

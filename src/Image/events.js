@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Gallery from './Gallery'
-import { imageClass } from '../styles'
+import { imageClass } from './styles'
 
 let container
 

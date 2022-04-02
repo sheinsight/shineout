@@ -13,6 +13,8 @@ const names = [
   'fieldSetValidate',
   'combineRules',
   'popoverProps',
+  'inputFocus',
+  'placeTitle',
 ]
 
 /**

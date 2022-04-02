@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
-import { treeClass } from '../styles'
+import { treeClass } from './styles'
 import Spin from '../Spin'
 import Checkbox from './Checkbox'
 
@@ -66,7 +66,7 @@ class Content extends PureComponent {
         onClick={this.handleIndicatorClick}
         className={classnames(treeClass(`icon-${expanded ? 'sub' : 'plus'}`), iconClass)}
       >
-        {icon}
+        {typeof icon === 'function' ? icon(data) : icon}
       </a>
     )
 

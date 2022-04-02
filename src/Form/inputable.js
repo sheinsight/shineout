@@ -15,7 +15,7 @@ import { itemConsumer } from './Item'
 import { loopConsumer } from './Loop'
 import { fieldSetConsumer } from './FieldSet'
 
-const types = ['formDatum', 'disabled', 'combineRules']
+const types = ['formDatum', 'disabled', 'combineRules', 'size']
 const consumer = compose(
   formConsumer(types),
   itemConsumer,
@@ -56,6 +56,10 @@ export default curry(Origin =>
         unbindInputFromItem: PropTypes.func,
         value: PropTypes.any,
         scuSkip: PropTypes.array,
+        error: PropTypes.object,
+        readOnly: PropTypes.bool,
+        disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+        filterSameChange: PropTypes.bool,
       }
 
       static defaultProps = {
@@ -87,7 +91,12 @@ export default curry(Origin =>
 
       componentDidMount() {
         super.componentDidMount()
-
+        const { onChange, readOnly, disabled } = this.props
+        if ('value' in this.props && !onChange && disabled !== true && readOnly !== true) {
+          console.error(
+            'warning: You provided a `value` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use `defaultValue`. Otherwise, set either `onChange` or `readOnly` or `disabled`'
+          )
+        }
         const { formDatum, loopContext, name, defaultValue, bindInputToItem, popover } = this.props
 
         if (formDatum && name) {
@@ -102,6 +111,7 @@ export default curry(Origin =>
             formDatum.bind(name, this.handleUpdate, defaultValue, this.validate)
             this.state.value = formDatum.get(name)
           }
+          this.lastValue = this.state.value
         }
 
         if (bindInputToItem && name && !popover) bindInputToItem(this.errorName)
@@ -123,7 +133,7 @@ export default curry(Origin =>
         super.componentWillUnmount()
 
         const { formDatum, name, loopContext, unbindInputFromItem } = this.props
-
+        clearTimeout(this.updateTimer)
         if (formDatum && name) {
           formDatum.unbind(name, this.handleUpdate)
           if (Array.isArray(name)) {
@@ -150,11 +160,14 @@ export default curry(Origin =>
           return tryValue(formDatum.get(name), defaultValue)
         }
         const hasValue = 'value' in this.props || 'checked' in this.props
-        return !hasValue && !formDatum ? this.state.value : value
+        return !hasValue ? this.state.value : value
       }
 
       getError() {
-        const { formDatum, name } = this.props
+        const { formDatum, name, error } = this.props
+        if ('error' in this.props) {
+          return error
+        }
         if (formDatum && name) {
           return formDatum.getError(this.errorName)
         }
@@ -175,6 +188,10 @@ export default curry(Origin =>
         } else {
           this.setState({ error })
         }
+
+        const hasError = error !== undefined
+        this.errorChange = hasError !== this.lastError
+        this.lastError = hasError
 
         if (onError) onError(error)
         if (onItemError && !name) onItemError(this.itemName, error)
@@ -234,12 +251,11 @@ export default curry(Origin =>
       }
 
       handleChange(value, ...args) {
-        const { formDatum, name, fieldSetValidate, onChange } = this.props
+        const { formDatum, name, fieldSetValidate, onChange, filterSameChange } = this.props
         const currentValue = this.getValue()
-        if (args.length === 0 && shallowEqual(value, currentValue)) {
+        if ((args.length === 0 || filterSameChange) && shallowEqual(value, currentValue)) {
           return
         }
-
         const beforeChange = beforeValueChange(this.props.beforeChange)
         if (formDatum && name) {
           value = beforeChange(value, formDatum)
@@ -247,8 +263,9 @@ export default curry(Origin =>
           formDatum.removeFormError(this.errorName)
         } else {
           value = beforeChange(value, null)
-          this.setState({ value })
-          this.validate(value).catch(() => {})
+          this.setState({ value }, () => {
+            this.validate(value).catch(() => {})
+          })
         }
 
         if (onChange) onChange(value, ...args)
@@ -270,7 +287,7 @@ export default curry(Origin =>
               })
             })
 
-        if (shallowEqual(newValue, this.lastValue)) return
+        if (!this.errorChange && shallowEqual(newValue, this.lastValue)) return
         this.lastValue = newValue
 
         if (type === FORCE_PASS) {
@@ -305,7 +322,6 @@ export default curry(Origin =>
           defaultValue,
           ...other
         } = this.props
-
         return (
           <Origin
             {...other}

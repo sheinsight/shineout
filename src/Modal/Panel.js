@@ -4,9 +4,10 @@ import classnames from 'classnames'
 import Icons from '../icons'
 import Card from '../Card'
 import { defaultProps, getProps } from '../utils/proptypes'
-import { modalClass } from '../styles'
+import { modalClass } from './styles'
 import { Provider } from '../Scroll/context'
 import { Provider as ZProvider } from './context'
+import { isRTL } from '../config'
 
 function setTransformOrigin(node, value) {
   const { style } = node
@@ -26,9 +27,15 @@ const getClickPosition = e => {
 
 document.addEventListener('click', getClickPosition, true)
 
-const handleStop = e => e.stopPropagation()
 export default class Panel extends PureComponent {
   panel = null
+
+  constructor(props) {
+    super(props)
+    this.handleClose = this.handleClose.bind(this)
+    this.handleMaskDown = this.handleMaskClick.bind(this, 'maskDownTarget')
+    this.handleMaskUp = this.handleMaskClick.bind(this, 'maskUpTarget')
+  }
 
   componentDidMount() {
     const { container } = this.props
@@ -55,19 +62,23 @@ export default class Panel extends PureComponent {
   }
 
   getStyle() {
-    const { width, height, top, position, style } = this.props
-
+    const { width, height, top, position, style, fullScreen, drawer } = this.props
+    const w = fullScreen ? '100vw' : width
+    const h = fullScreen ? '100vh' : height
     return Object.assign(
       {
         position: 'absolute',
       },
       position
-        ? {}
+        ? {
+            width: drawer && ['left', 'right'].includes(position) ? w : undefined,
+            height: drawer && ['top', 'bottom'].includes(position) ? h : undefined,
+          }
         : {
             display: 'inline-flex',
-            width,
-            height,
-            top,
+            width: w,
+            height: h,
+            top: fullScreen ? 0 : top,
             position: 'relative',
           },
       style || {}
@@ -108,6 +119,18 @@ export default class Panel extends PureComponent {
     event.preventDefault()
   }
 
+  handleMaskClick(type, e) {
+    this[type] = e.target
+  }
+
+  handleClose(e) {
+    const { maskCloseAble, onClose } = this.props
+    const { target } = e
+    if (!maskCloseAble) return
+    if (this.maskDownTarget !== this.maskUpTarget) return
+    if (target.matches(`.${modalClass('mask')}`) && onClose) onClose()
+  }
+
   renderIcon() {
     const { type } = this.props
     if (type === 'default') return null
@@ -124,7 +147,7 @@ export default class Panel extends PureComponent {
       // if just render class Component, return null
       if (justRenderClassComponent) return null
       // for  method function
-      return <div className={modalClass('title')}>{title}</div>
+      return <div className={modalClass('title', 'method-title')}>{title}</div>
     }
 
     // base Component
@@ -146,17 +169,12 @@ export default class Panel extends PureComponent {
 
     if (bodyStyle) style = Object.assign(style, bodyStyle)
 
-    if (!from || from !== 'method')
-      return (
-        <Card.Body style={style} onScroll={handleStop}>
-          {children}
-        </Card.Body>
-      )
+    if (!from || from !== 'method') return <Card.Body style={style}>{children}</Card.Body>
 
     const icon = this.renderIcon()
 
     return (
-      <Card.Body className={modalClass('body')} style={style} onScroll={handleStop}>
+      <Card.Body className={modalClass('body')} style={style}>
         {icon && <div className={modalClass('icon')}>{icon}</div>}
         {this.renderTitle()}
         <div>{children}</div>
@@ -165,37 +183,63 @@ export default class Panel extends PureComponent {
   }
 
   render() {
-    const { footer, type, onClose, maskCloseAble, position, moveable, zoom, resizable, hideClose, from } = this.props
+    const {
+      footer,
+      type,
+      onClose,
+      maskCloseAble,
+      position,
+      moveable,
+      zoom,
+      resizable,
+      hideClose,
+      from,
+      top,
+      events,
+      fullScreen,
+    } = this.props
 
-    const className = classnames(modalClass('panel', type, position, zoom && !moveable && 'zoom'), this.props.className)
+    const rtl = isRTL()
+
+    const className = classnames(
+      modalClass('panel', type, position, zoom && !moveable && 'zoom', rtl && 'rtl'),
+      this.props.className
+    )
     const showClose = typeof hideClose === 'boolean' ? !hideClose : maskCloseAble || maskCloseAble === null
+    const maskStyle = { paddingBottom: fullScreen ? 0 : top }
     return (
       <ZProvider value>
         <Provider value={{ element: undefined }}>
-          <div key="mask" className={modalClass('mask')} onClick={maskCloseAble ? onClose : undefined} />
-
-          <Card
-            forwardedRef={this.savePanel}
-            moveable={moveable}
-            resizable={resizable}
-            key="card"
-            shadow
-            className={className}
-            style={this.getStyle()}
+          <div
+            {...events}
+            style={maskStyle}
+            className={modalClass('mask')}
+            onMouseDown={this.handleMaskDown}
+            onMouseUp={this.handleMaskUp}
+            onClick={this.handleClose}
           >
-            {showClose && (
-              <a className={modalClass('close')} onClick={onClose}>
-                {Icons.Close}
-              </a>
-            )}
-            {this.renderTitle(true)}
-            {this.renderContent()}
-            {footer && (
-              <Card.Footer className={modalClass('footer', from)} align="right">
-                {footer}
-              </Card.Footer>
-            )}
-          </Card>
+            <Card
+              forwardedRef={this.savePanel}
+              moveable={moveable}
+              resizable={resizable}
+              shadow
+              className={className}
+              style={this.getStyle()}
+            >
+              {showClose && (
+                <a className={modalClass('close', rtl && 'rtl')} onClick={onClose}>
+                  {Icons.Close}
+                </a>
+              )}
+              {this.renderTitle(true)}
+              {this.renderContent()}
+              {footer && (
+                <Card.Footer className={modalClass('footer', from)} align="right">
+                  {footer}
+                </Card.Footer>
+              )}
+            </Card>
+          </div>
         </Provider>
       </ZProvider>
     )
@@ -221,6 +265,10 @@ Panel.propTypes = {
   from: PropTypes.string,
   zoom: PropTypes.bool,
   container: PropTypes.any,
+  events: PropTypes.object,
+  fullScreen: PropTypes.bool,
+  // is use in drawer
+  drawer: PropTypes.bool,
 }
 
 Panel.defaultProps = {
@@ -228,4 +276,6 @@ Panel.defaultProps = {
   top: '10vh',
   maskCloseAble: true,
   width: 500,
+  events: {},
+  drawer: false,
 }

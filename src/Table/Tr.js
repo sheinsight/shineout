@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { setTranslate } from '../utils/dom/translate'
-import { tableClass, inputClass, checkinputClass } from '../styles'
+import { tableClass } from './styles'
+import { inputClass } from '../Input/styles'
+import { checkinputClass } from '../Checkbox/styles'
 import Td, { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
 import Expand from './Expand'
 
@@ -26,7 +28,7 @@ const isExpandableElement = el => {
 class Tr extends Component {
   constructor(props) {
     super(props)
-
+    this.manualExpand = false
     this.bindElement = this.bindElement.bind(this)
     this.handleRowClick = this.handleRowClick.bind(this)
     this.setRowHeight = this.setRowHeight.bind(this)
@@ -46,7 +48,7 @@ class Tr extends Component {
         setTranslate(td, `-${offsetRight}px`, '0')
       })
     }
-
+    this.manualExpand = true
     this.setRowHeight()
   }
 
@@ -70,15 +72,22 @@ class Tr extends Component {
       datum.subscribe(ROW_HEIGHT_UPDATE_EVENT, this.setRowHeight)
       return
     }
-    if (height === this.lastRowHeight && this.expandHeight === this.lastExpandHeight && !dataUpdated) return
+    if (
+      height === this.lastRowHeight &&
+      this.expandHeight === this.lastExpandHeight &&
+      !dataUpdated &&
+      this.lastIndex === this.props.index
+    )
+      return
     this.lastRowHeight = height
+    this.lastIndex = this.props.index
     this.lastExpandHeight = this.expandHeight
     setRowHeight(height + this.expandHeight, this.props.index, expand)
   }
 
   setExpandHeight(height) {
     this.expandHeight = height
-    this.setRowHeight(true)
+    this.setRowHeight(this.manualExpand)
   }
 
   getRowClickAttr() {
@@ -95,6 +104,8 @@ class Tr extends Component {
   }
 
   isFireElement(el) {
+    const { rowClickAttr } = this.props
+    if (rowClickAttr === true) return true
     return this.getRowClickAttr().find(v => el.hasAttribute(v))
   }
 
@@ -245,7 +256,7 @@ Tr.propTypes = {
   rowData: PropTypes.object,
   striped: PropTypes.bool,
   setRowHeight: PropTypes.func,
-  rowClickAttr: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
+  rowClickAttr: PropTypes.oneOfType([PropTypes.bool, PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   dataUpdated: PropTypes.bool,
   treeExpandKeys: PropTypes.object,
   columnResizable: PropTypes.bool,

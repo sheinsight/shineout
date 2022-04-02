@@ -19,6 +19,7 @@
 | text | boolean | false | 文字按钮，不展示边框和背景 |
 | onClick | () => void | 无 | 按钮点击回调 |
 | space | boolean | false | 仅有2个汉字的按钮，是否在2个汉字中间插入空格 |
+| loading | boolean | false | 是否是加载中状态 |
 
 ### Button.Group
 

@@ -10,6 +10,7 @@ exports[`Table[Empty] should render empty table 1`] = `
     style={Object {}}
   >
     <table
+      className=""
       style={
         Object {
           "width": 1500,
@@ -143,6 +144,7 @@ exports[`Table[Empty] should render empty table 1`] = `
     onScroll={[Function]}
   >
     <table
+      className=""
       style={
         Object {
           "width": 1500,
@@ -198,6 +200,11 @@ exports[`Table[Empty] should render empty table 1`] = `
   </div>
   <div
     className="so-table-empty"
+    style={
+      Object {
+        "visibility": "visible",
+      }
+    }
   >
     <span>
       Data not found
@@ -216,6 +223,7 @@ exports[`Table[Empty] should render empty table with emtpyText 1`] = `
     style={Object {}}
   >
     <table
+      className=""
       style={
         Object {
           "width": 1500,
@@ -349,6 +357,7 @@ exports[`Table[Empty] should render empty table with emtpyText 1`] = `
     onScroll={[Function]}
   >
     <table
+      className=""
       style={
         Object {
           "width": 1500,
@@ -404,6 +413,11 @@ exports[`Table[Empty] should render empty table with emtpyText 1`] = `
   </div>
   <div
     className="so-table-empty"
+    style={
+      Object {
+        "visibility": "visible",
+      }
+    }
   >
     <span>
       custom empty text
@@ -426,6 +440,7 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
     style={Object {}}
   >
     <table
+      className="so-table-table-bordered"
       style={
         Object {
           "width": 1500,
@@ -605,6 +620,7 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
     onScroll={[Function]}
   >
     <table
+      className="so-table-table-bordered"
       style={
         Object {
           "width": 1500,
@@ -674,6 +690,11 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
   </div>
   <div
     className="so-table-empty"
+    style={
+      Object {
+        "visibility": "visible",
+      }
+    }
   >
     <span>
       Data not found
@@ -696,6 +717,7 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
     style={Object {}}
   >
     <table
+      className=""
       style={
         Object {
           "width": 1500,
@@ -829,6 +851,7 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
     onScroll={[Function]}
   >
     <table
+      className=""
       style={
         Object {
           "width": 1500,
@@ -889,6 +912,7 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
       className="so-spin-default"
       style={
         Object {
+          "color": "#6c757d",
           "height": 40,
           "margin": undefined,
           "width": 40,
@@ -1055,6 +1079,11 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
   </div>
   <div
     className="so-table-empty"
+    style={
+      Object {
+        "visibility": "hidden",
+      }
+    }
   >
     <span>
       Data not found

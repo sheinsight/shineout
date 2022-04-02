@@ -1,13 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import classnames from 'classnames'
+import { PureComponent } from '../component'
 import Button from '../Button'
 import { getUidStr } from '../utils/uid'
-import { modalClass } from '../styles'
+import { modalClass } from './styles'
 import Panel from './Panel'
 import { getLocale } from '../locale'
 import { getParent } from '../utils/dom/element'
 import ready from '../utils/dom/ready'
+import { docSize } from '../utils/dom/document'
 
 const containers = {}
 const DURATION = 300
@@ -67,14 +69,14 @@ export function close(props, callback) {
 }
 
 export function createDiv(props) {
-  const { id, position, container = document.body } = props
+  const { id, position, fullScreen, container = document.body } = props
   let div = getDiv(props.id)
   if (div) return div
 
   const parent = typeof container === 'function' ? container() : container
   div = document.createElement('div')
   parent.appendChild(div)
-  div.className = classnames(modalClass('_', position && 'position'), props.rootClassName)
+  div.className = classnames(modalClass('_', position && 'position', fullScreen && 'full-screen'), props.rootClassName)
 
   containers[id] = { div, container: parent, props }
 
@@ -83,24 +85,24 @@ export function createDiv(props) {
 
 // eslint-disable-next-line
 export function open(props, isPortal) {
-  const { content, onClose, zIndex, ...otherProps } = props
+  const { content, onClose, zIndex, forceMask, ...otherProps } = props
   const div = createDiv(props)
   div.style.display = 'block'
   const parsed = parseInt(zIndex, 10)
   if (!Number.isNaN(parsed)) div.style.zIndex = parsed
-
-  const scrollWidth = window.innerWidth - document.body.clientWidth
   const doc = document.body.parentNode
-  doc.style.overflow = 'hidden'
-  doc.style.paddingRight = `${scrollWidth}px`
-
+  if (!doc.style.paddingRight) {
+    const scrollWidth = window.innerWidth - docSize.width
+    doc.style.overflow = 'hidden'
+    doc.style.paddingRight = `${scrollWidth}px`
+  }
   const handleClose = () => {
     if (onClose) onClose()
     if (!isPortal) close(props)
   }
 
   const opacityDefault = props.maskOpacity === undefined ? 0.25 : props.maskOpacity
-  const maskOpacity = isMask(props.id) ? opacityDefault : 0.01
+  const maskOpacity = isMask(props.id) || forceMask ? opacityDefault : 0.01
   div.style.background = props.maskBackground || `rgba(0,0,0,${maskOpacity})`
 
   containers[props.id].visible = true
@@ -118,26 +120,59 @@ export function open(props, isPortal) {
   return null
 }
 
-const closeCallback = (fn, option) => () => {
+const closeCallback = (fn, option, setLoading) => () => {
   let callback
   if (fn) callback = fn()
   if (callback && typeof callback.then === 'function') {
-    callback.then(() => {
-      close(option)
-    })
+    if (setLoading) {
+      setLoading(true)
+    }
+    callback
+      .then(() => {
+        close(option)
+      })
+      .catch(() => {
+        if (setLoading) {
+          setLoading(false)
+        }
+      })
   } else {
     close(option)
   }
 }
+// eslint-disable-next-line react/prop-types
+class LoadingOk extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = {
+      loading: false,
+    }
+    this.setLoading = loading => {
+      this.setState({ loading })
+    }
+  }
 
-const btnOk = option => {
-  const onClick = closeCallback(option.onOk, option)
-  return (
-    <Button.Once key="ok" id={`${option.id}-ok`} onClick={onClick} type="primary">
-      {getLocale('ok', option.text)}
-    </Button.Once>
-  )
+  render() {
+    // eslint-disable-next-line react/prop-types
+    const { option } = this.props
+    const { loading } = this.state
+    const onClick = closeCallback(option.onOk, option, this.setLoading)
+    return (
+      <Button loading={loading} key="ok" id={`${option.id}-ok`} onClick={onClick} type="primary">
+        {getLocale('ok', option.text)}
+      </Button>
+    )
+  }
 }
+
+// const btnOk = option => {
+//   const onClick = closeCallback(option.onOk, option)
+//   return (
+//     <Button.Once key="ok" id={`${option.id}-ok`} onClick={onClick} type="primary">
+//       {getLocale('ok', option.text)}
+//     </Button.Once>
+//   )
+// }
 
 const btnCancel = option => {
   const onClick = closeCallback(option.onCancel, option)
@@ -164,13 +199,21 @@ export const method = type => option => {
   )
 
   if (type === 'confirm') {
-    props.footer = [btnCancel(props), btnOk(props)]
+    props.footer = [btnCancel(props), <LoadingOk option={props} key="ok" />]
   } else {
-    props.footer = 'footer' in props ? props.footer : [btnOk(props)]
+    props.footer = 'footer' in props ? props.footer : [<LoadingOk option={props} key="ok" />]
   }
 
   open(props)
   return () => close(props)
+}
+
+export const closeAll = () => {
+  Object.keys(containers)
+    .filter(id => containers[id].visible)
+    .forEach(id => {
+      close(containers[id].props)
+    })
 }
 
 ready(() => {

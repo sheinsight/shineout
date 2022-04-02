@@ -88,7 +88,7 @@ const examples = [
   {
     name: '06-bigdata',
     title: locate(
-      '性能 \n Select 内部用懒加载机制来优化性能，本例加载了10000条数据。',
+      '性能 \n Select 内部使用了虚拟列表来优化性能，本例加载了10000条数据。',
       'Performance \n Select uses a lazy loading to optimize performance. This example loads 10,000 pieces of data.'
     ),
     component: require('doc/pages/components/Select/example-06-bigdata.js').default,
@@ -194,6 +194,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Select/example-16-onFilter.js'),
   },
   {
+    name: '16-z-advanced-filter',
+    title: locate(
+      ' \n 使用 onAdvancedFilter 属性开启高级筛选，可针对当前层级在筛选结果和原始数据间切换',
+      ' \n In the advanced filter mode, you can switch between the filter results and the original data for the current level by pressing the button'
+    ),
+    component: require('doc/pages/components/Select/example-16-z-advanced-filter.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-16-z-advanced-filter.js'),
+  },
+  {
     name: '17-result',
     title: locate(
       '自定义结果 \n 使用 renderResult 去自定义选中的结果。',
@@ -201,6 +210,15 @@ const examples = [
     ),
     component: require('doc/pages/components/Select/example-17-result.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-17-result.js'),
+  },
+  {
+    name: '18-innertitle',
+    title: locate(
+      '内嵌标题 \n 使用 innerTitle 展示内嵌标题',
+      'inner title \n use innerTitle to display the inner title'
+    ),
+    component: require('doc/pages/components/Select/example-18-innertitle.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-18-innertitle.js'),
   },
 ]
 

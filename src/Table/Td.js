@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { tableClass } from '../styles'
+import { tableClass } from './styles'
 import Checkbox from './Checkbox'
 
 export const CLASS_FIXED_LEFT = 'fixed-left'
@@ -30,8 +30,17 @@ class Td extends PureComponent {
   }
 
   renderCheckbox() {
-    const { index, data, datum, treeColumnsName, treeCheckAll } = this.props
-    return <Checkbox data={data} index={index} datum={datum} treeColumnsName={treeCheckAll && treeColumnsName} />
+    const { index, data, datum, treeColumnsName, treeCheckAll, disabled } = this.props
+    return (
+      <Checkbox
+        force={datum.check(data)}
+        data={data}
+        index={index}
+        datum={datum}
+        disabled={disabled}
+        treeColumnsName={treeCheckAll && treeColumnsName}
+      />
+    )
   }
 
   renderExpand(index) {
@@ -107,18 +116,7 @@ class Td extends PureComponent {
   }
 
   render() {
-    const {
-      rowSpan,
-      colSpan,
-      fixed,
-      style,
-      firstFixed,
-      lastFixed,
-      type,
-      align,
-      ignoreBorderRight,
-      ignoreBorderBottom,
-    } = this.props
+    const { rowSpan, colSpan, fixed, style, firstFixed, lastFixed, type, align, ignoreBorderRight } = this.props
 
     const className = classnames(
       this.props.className,
@@ -129,8 +127,7 @@ class Td extends PureComponent {
         lastFixed && 'fixed-last',
         (type === 'checkbox' || type === 'expand' || type === 'row-expand') && 'checkbox',
         align !== 'left' && `align-${align}`,
-        ignoreBorderRight && 'ignore-right-border',
-        ignoreBorderBottom && 'ignore-bottom-border'
+        ignoreBorderRight && 'ignore-right-border'
       )
     )
 
@@ -153,7 +150,6 @@ Td.propTypes = {
   lastFixed: PropTypes.bool,
   onExpand: PropTypes.func,
   align: PropTypes.oneOf(['left', 'center', 'right']),
-  rowKey: PropTypes.any,
   originKey: PropTypes.any,
   rowSpan: PropTypes.number,
   style: PropTypes.object,
@@ -163,7 +159,6 @@ Td.propTypes = {
   datum: PropTypes.object,
   render: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   ignoreBorderRight: PropTypes.bool,
-  ignoreBorderBottom: PropTypes.bool,
   treeColumnsName: PropTypes.string,
   onTreeExpand: PropTypes.func,
   treeExpand: PropTypes.bool,
@@ -174,6 +169,7 @@ Td.propTypes = {
   treeEmptyExpand: PropTypes.bool,
   treeCheckAll: PropTypes.bool,
   resetFixAuto: PropTypes.func,
+  disabled: PropTypes.func,
 }
 
 Td.defaultProps = {

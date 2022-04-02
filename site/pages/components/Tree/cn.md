@@ -20,7 +20,7 @@
 | keygen | ((data: any, parentKey: string) => string) \| string | 必填 | 生成key的辅助方法<br />为函数时，使用此函数返回值<br />为string时，使用这个string对应的数据值。如 'id'，相当于 (d) => d.id |
 | line | boolean | true | 是否显示连接线 |
 | loader | (key: string) => void | 无 | 设置loader属性后，未定义children的节点视为动态加载节点，点击展开触发 loader事件，children 为 null 或者长度为 0 视为叶子节点 |
-| mode | 0 \| 1 \| 2 \| 3 \| 4 | 1 | 选中值模式<br />0: 只返回完全选中的节点，包含父节点<br />1: 返回全部选中的节点和半选中的父节点<br />2: 只返回选中的子节点<br />3: 如果父节点选中，只返回父节点 |
+| mode | 0 \| 1 \| 2 \| 3 \| 4 | 1 | 选中值模式<br />0: 只返回完全选中的节点，包含父节点<br />1: 返回全部选中的节点和半选中的父节点<br />2: 只返回选中的子节点<br />3: 如果父节点选中，只返回父节点<br />4: 所选即所得 |
 | onExpand | (value: string[]) => void | 无 | 节点展开回调，参数为当前展开节点 key 数组 |
 | renderItem | (data: object) => ReactNode | 必填 | 为 string 时，返回 d\[string]<br />为 function 时，返回函数结果 |
 | defaultValue | string[] | 无 | 默认选中的 key （非受控） | 

@@ -1,8 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
+import { inputTitleClass } from '../InputTitle/styles'
 import cleanProps from '../utils/cleanProps'
 import Clear from './clear'
-import { inputClass } from '../styles'
+import { inputClass } from './styles'
+import InputTitle from '../InputTitle'
 
 class Input extends PureComponent {
   constructor(props) {
@@ -10,8 +13,17 @@ class Input extends PureComponent {
     this.enterLock = false
     this.handleChange = this.handleChange.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.handleKeyUp = this.handleKeyUp.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
     this.bindRef = this.bindRef.bind(this)
+  }
+
+  defaultInfo = value => {
+    if (!value || value.length === 0) return null
+    const { info } = this.props
+    const text = `${value.length} / ${info}`
+    if (value.length <= info) return text
+    return new Error(text)
   }
 
   bindRef(el) {
@@ -36,39 +48,59 @@ class Input extends PureComponent {
   }
 
   handleChange(e, clearClick) {
-    const { type, clearable } = this.props
+    const { type, clearable, digits } = this.props
     if (clearClick) {
       this.ref.focus()
       if (typeof clearable === 'function') clearable()
     }
     let { value } = e.target
+    if (clearClick && this.props.clearToUndefined) {
+      this.props.onChange(value)
+      return
+    }
     if (type === 'number' && typeof value !== 'number') value = String(value).replace(/。/g, '.')
-    if (this.invalidNumber(value)) return
+    if (this.invalidNumber(value)) {
+      // For numbers with a decimal point, use toFixed to correct the number of decimal points.
+      if (digits >= 0 && /^-?\d*\.?\d*$/.test(value)) {
+        if (digits === 0) {
+          value = value === '.' ? '' : Number(value).toFixed(digits)
+        } else {
+          value = Number(value)
+            .toFixed(digits + 1)
+            .slice(0, -1)
+        }
+      } else {
+        // digits <= 0 || not of number
+        return
+      }
+    }
     this.props.onChange(value)
   }
 
   handleKeyDown(e) {
-    const { onKeyDown, onEnterPress } = this.props
-    if (e.keyCode === 13 && onEnterPress) {
-      onEnterPress(e.target.value, e)
-    }
+    const { onKeyDown } = this.props
+    if (e.keyCode === 13) this.enterPress = true
     if (onKeyDown) onKeyDown(e)
+  }
+
+  handleKeyUp(e) {
+    const { onKeyUp, onEnterPress } = this.props
+    if (this.enterPress && e.keyCode === 13 && onEnterPress) {
+      onEnterPress(e.target.value, e)
+      this.enterPress = false
+    }
+    if (onKeyUp) onKeyUp(e)
   }
 
   handleBlur(e) {
     const { value } = e.target
-    const { forceChange, onBlur } = this.props
+    const { forceChange, onBlur, clearToUndefined } = this.props
     if (onBlur) onBlur(e)
     if (this.invalidNumber(value)) return
+    if (clearToUndefined && value === '' && this.props.value === undefined) {
+      return
+    }
     if (forceChange) forceChange(value)
-  }
-
-  defaultInfo = value => {
-    if (!value || value.length === 0) return null
-    const { info } = this.props
-    const text = `${value.length} / ${info}`
-    if (value.length <= info) return text
-    return new Error(text)
   }
 
   renderInfo() {
@@ -103,24 +135,44 @@ class Input extends PureComponent {
       forceChange,
       onEnterPress,
       forwardedRef,
+      innerTitle,
+      inputFocus,
+      clearToUndefined,
+      placeholder,
       ...other
     } = this.props
-    const value = this.props.value == null ? '' : this.props.value
-
+    const value = this.props.value == null || this.props.value === undefined ? '' : this.props.value
+    const needClearUndefined = clearToUndefined && this.props.value !== undefined
+    const showClear = !other.disabled && clearable && (value !== '' || needClearUndefined)
+    const mc = classnames(
+      className,
+      showClear && inputClass('clearable'),
+      innerTitle && inputTitleClass('hidable', 'item')
+    )
+    const isNumber = className && className.indexOf(inputClass('number')) > -1
     return [
-      <input
-        {...cleanProps(other)}
-        className={className}
-        name={other.name || htmlName}
-        type={type === 'password' ? type : 'text'}
-        value={value}
-        ref={this.bindRef}
+      <InputTitle
+        className={isNumber ? inputClass('number-title-box') : undefined}
         key="input"
-        onChange={this.handleChange}
-        onKeyDown={this.handleKeyDown}
-        onBlur={this.handleBlur}
-      />,
-      !other.disabled && clearable && value !== '' && <Clear onClick={this.handleChange} key="close" />,
+        innerTitle={innerTitle}
+        open={!!inputFocus || !!value}
+      >
+        <input
+          {...cleanProps(other)}
+          placeholder={needClearUndefined ? '' : placeholder}
+          className={mc || undefined}
+          name={other.name || htmlName}
+          type={type === 'password' ? type : 'text'}
+          value={value}
+          ref={this.bindRef}
+          key="input"
+          onChange={this.handleChange}
+          onKeyDown={this.handleKeyDown}
+          onKeyUp={this.handleKeyUp}
+          onBlur={this.handleBlur}
+        />
+      </InputTitle>,
+      showClear && <Clear onClick={this.handleChange} key="close" clearResult={needClearUndefined ? undefined : ''} />,
       this.renderInfo(),
     ]
   }
@@ -142,6 +194,11 @@ Input.propTypes = {
   info: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
   forwardedRef: PropTypes.func,
   onKeyDown: PropTypes.func,
+  onKeyUp: PropTypes.func,
+  innerTitle: PropTypes.node,
+  inputFocus: PropTypes.bool,
+  clearToUndefined: PropTypes.bool,
+  placeholder: PropTypes.string,
 }
 
 Input.defaultProps = {

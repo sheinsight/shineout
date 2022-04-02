@@ -1,7 +1,7 @@
 @import './bootstrap.less';
 @import './cssvar.less';
 
-@font-family-sans-serif: -apple-system, system-ui, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-sans-serif:  -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Helvetica, PingFang SC, Hiragino KaKu Gothic Pro, Microsoft YaHei, Arial, sans-serif;
 
 @colors-primary-value: #197AFA;
 @colors-primary: var(--primary-color, @colors-primary-value);
@@ -60,6 +60,9 @@
 
 // button
 // Button
+@btn-circle-width: 32px;
+@btn-circle-small-width: 24px;
+@btn-circle-large-width: 40px;
 @btn-default-border: #d9d9d9;
 @btn-primary-border: @colors-primary;
 @btn-warning-border: @colors-warning;
@@ -118,16 +121,14 @@
 
 
 // button disabled background
-@button-disabled-bg-value: #b3b7c1;
+@button-disabled-bg-value: @gray-300;
 @button-disabled-bg: var(--button-disabled-bg, @button-disabled-bg-value);
-
-// button disabled border color
-@button-disabled-border-color-value: transparent;
-@button-disabled-border-color: var(--button-disabled-border-color, @button-disabled-border-color-value);
 
 // button disabled color
 @button-disabled-color-value: white;
 @button-disabled-color: var(--button-disabled-color, @button-disabled-color-value);
+
+@button-disabled-border-color: var(--button-disabled-border-color, @button-disabled-bg);
 
 @button-disabled-opacity: 0.65;
 // button default text color
@@ -166,7 +167,7 @@
 // cascader
 // active
 @cascader-active-background-color: var(--cascader-active-background-color, #E6F5FF);
-@cascader-active-color: var(--cascader-active-color; @colors-primary);
+@cascader-active-color: var(--cascader-active-color, @colors-primary);
 
 
 
@@ -178,7 +179,7 @@
 @checkinput-color: var(--checkinput-color, @gray-700-value);
 
 // border color
-@checkbox-border-color-value: #cccfd7;
+@checkbox-border-color-value: @gray-300;
 @checkbox-border-color: var(--checkbox-border-color, @checkbox-border-color-value);
 
 
@@ -202,7 +203,7 @@
 @form-tip-font-size: var(--form-tip-font-size, 14px);
 
 // form label x align
-@form-item-label-align-value: right;
+@form-item-label-align-value: end;
 
 
 // input
@@ -313,7 +314,7 @@
 @switch-indicator-padding-horizontal-negative: var(--switch-indicator-padding-horizontal-negative, -2px);
 @switch-indicator-size: var(--switch-indicator-size, 18px);
 @switch-bg-width: 44px;
-@switch-bg-border-radius: @switch-bg-width / 2;
+@switch-bg-border-radius: (@switch-bg-width / 2);
 @switch-bg-height: var(--switch-bg-height, 22px);
 @switch-font-size: 12px;
 @switch-indicator-top: var(--switch-indicator-top, 2px);
@@ -326,7 +327,7 @@
 
 @switch-large-indicator-size: var(--switch-large-indicator-size, 24px);
 @switch-large-bg-width: 60px;
-@switch-large-bg-border-radius: @switch-large-bg-width / 2;
+@switch-large-bg-border-radius: (@switch-large-bg-width / 2);
 @switch-large-bg-height: var(--switch-large-bg-height, 28px);
 @switch-large-indicator-top: var(--switch-large-indicator-top, 2px);
 
@@ -362,7 +363,7 @@
 @table-head-font-weight-value: 500;
 
 // border color
-@table-border-color-value: @gray-200-value;
+@table-border-color-value: @gray-300;
 @table-border-color: var(--table-border-color, @table-border-color-value);
 
 // hover bgc
@@ -392,7 +393,7 @@
 
 // fixed start / end
 @table-fixed-start-color: var(--table-fixed-start-color, rgba(25, 122, 250, 0.15));
-@table-fixed-end-color: var(--table-fixed-start-color, transparent);
+@table-fixed-end-color: var(--table-fixed-end-color, transparent);
 
 // table even / odd
 @table-even-td-bgc: var(--table-even-td-bgc, @gray-100-value);
@@ -411,14 +412,8 @@
 // indicator color
 @tree-indicator-color: var(--tree-indicator-color, @gray-400-value);
 
-// node margin / padding bottom
-@tree-node-margin-bottom-value: 8px;
-@tree-node-margin-bottom: var(--tree-node-margin-bottom, @tree-node-margin-bottom-value);
-
-
-
 // Alert
-@alert-padding-y: 8px;
+@alert-padding-y-value: 8px;
 
 // close color
 @alert-close-color-value: @gray-400-value;
@@ -553,12 +548,23 @@
 
 // header padding
 @modal-header-padding: var(--modal-header-padding, 0px 24px 24px 0px);
+@modal-header-padding-top: var(--modal-header-padding-top, 0px);
+@modal-header-padding-right: var(--modal-header-padding-right, 24px);
+@modal-header-padding-bottom: var(--modal-header-padding-bottom, 24px);
+@modal-header-padding-left: var(--modal-header-padding-left, 0px);
 // body padding
-@modal-body-padding: var(--modal-body-padding, 0px);
+@modal-body-padding-top: var(--modal-body-padding-top, 0px);
+@modal-body-padding-right: var(--modal-body-padding-right, 0px);
+@modal-body-padding-bottom: var(--modal-body-padding-bottom, 0px);
+@modal-body-padding-left: var(--modal-body-padding-left, 0px);
 // footer padding
 @modal-footer-padding: var(--modal-footer-padding, 24px 0px 0px);
 // icon body padding
 @modal-icon-body-padding: var(--modal-icon-body-padding, 0px 0px 0px 28px);
+@modal-icon-body-padding-top: var(--modal-icon-body-padding-top, 0px);
+@modal-icon-body-padding-right: var(--modal-icon-body-padding-right, 0px);
+@modal-icon-body-padding-bottom: var(--modal-icon-body-padding-bottom, 0px);
+@modal-icon-body-padding-left: var(--modal-icon-body-padding-left, 28px);
 
 // border radius
 @modal-border-radius: var(--modal-border-radius, 8px);
@@ -738,8 +744,12 @@
 
 // menu
 // dark bgc
-@menu-dark-bg-value: rgb(0, 21, 41);
+@menu-dark-bg-value: #070922;
 @menu-dark-bg: var(--menu-dark-bg, @menu-dark-bg-value);
+
+@menu-root-node-bgc: var(--menu-root-node-bgc, #141737);
+
+@menu-children-segmentation: var(--menu-children-segmentation, #293053);
 
 // dark color
 @menu-dark-item-value: rgba(255, 255, 255, 0.7);
@@ -762,12 +772,17 @@
 @menu-item-color: var(--menu-item-color, @menu-item-color-value);
 
 // item dark hover color
-@menu-item-dark-hover-bgc: var(--menu-item-dark-hover-bgc, rgba(0, 21, 41, 0));
+@menu-item-dark-hover-bgc: var(--menu-item-dark-hover-bgc, fade(@colors-primary-value, 50%));
 
-@menu-title-transform: translateY(-85%) rotate(45deg);
-@menu-title-open-transform: translateY(-65%) rotate(225deg);
-@menu-title-vertical-transform: translateY(-60%) rotate(-45deg);
+@menu-title-transform: translateY(-75%) rotate(45deg);
+@menu-title-transform-origin: 75% 75%;
+@menu-title-open-transform: translateY(-75%) rotate(225deg);
+@menu-title-vertical-transform: translateY(-75%) rotate(-45deg);
+@menu-title-vertical-transform: translateY(-75%) rotate(-45deg);
+@menu-title-vertical-transform-rtl: translateY(-75%) rotate(135deg);
 
+@menu-caret-solid-width: 4px;
+@menu-caret-solid-height: 4px;
 
 
 

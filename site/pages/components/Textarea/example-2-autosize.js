@@ -16,12 +16,12 @@ i
 z
 e`
 
-export default function () {
+export default function() {
   return (
     <div>
       <Textarea rows={2} autosize maxHeight={200} placeholder="autosize" />
       <br />
-      <Textarea rows={2} autosize value={text} maxHeight={200} placeholder="autosize" />
+      <Textarea rows={2} autosize defaultValue={text} maxHeight={200} placeholder="autosize" />
     </div>
   )
 }

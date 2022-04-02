@@ -50,6 +50,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Popover/example-11-disabled.js'),
   },
   {
+    name: '12-content.tsx',
+    title: locate(
+      '默认样式 \n Popover.Content 添加 padding 和  maxLength 的默认样式',
+      'default style \n Popover.Content adds default styles for padding and maxLength'
+    ),
+    component: require('doc/pages/components/Popover/example-12-content.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Popover/example-12-content.tsx'),
+  },
+  {
     name: '2-delay',
     title: locate(
       '延迟 \n 可以设置展示延时和关闭延时',

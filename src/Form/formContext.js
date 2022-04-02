@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import createReactContext from 'create-react-context'
+import createReactContext from '../context'
 import { curry } from '../utils/func'
 import { deepGet } from '../utils/objects'
 import { isObject, isArray } from '../utils/is'
@@ -9,7 +9,7 @@ import { RULE_TYPE } from '../Rule'
 
 const context = createReactContext()
 
-const isRule = (rules) => {
+const isRule = rules => {
   if (!isObject(rules)) return false
   return rules.$$type === RULE_TYPE
 }
@@ -19,7 +19,7 @@ export const Provider = context.Provider
 // eslint-disable-next-line
 export const Consumer = context.Consumer
 
-export const formProvider = (Origin) => {
+export const formProvider = Origin => {
   class FormProvider extends PureComponent {
     constructor(props) {
       super(props)
@@ -61,16 +61,27 @@ export const formProvider = (Origin) => {
 
     render() {
       const {
-        datum, labelAlign, labelWidth, disabled, pending, mode,
+        datum,
+        labelAlign,
+        labelVerticalAlign,
+        labelWidth,
+        disabled,
+        pending,
+        mode,
+        size,
+        keepErrorHeight,
       } = this.props
       const value = {
         formDatum: datum,
         formMode: mode,
         disabled: disabled || pending,
         labelAlign,
+        labelVerticalAlign,
         labelWidth,
+        size,
         combineRules: this.combineRules,
         groupValidate: this.groupValidate,
+        keepErrorHeight,
       }
 
       return (
@@ -85,26 +96,26 @@ export const formProvider = (Origin) => {
     datum: PropTypes.object,
     disabled: PropTypes.bool,
     labelAlign: PropTypes.string,
+    labelVerticalAlign: PropTypes.string,
     labelWidth: PropTypes.any,
     mode: PropTypes.string,
     pending: PropTypes.bool,
     rule: PropTypes.object,
-    rules: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.object,
-    ]),
+    rules: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+    size: PropTypes.string,
+    keepErrorHeight: PropTypes.bool,
   }
 
   return FormProvider
 }
 
 export const formConsumer = curry((keys, Origin, props) => {
-  const filterProps = (value) => {
+  const filterProps = value => {
     const cps = {}
     if (!value) return cps
     if (!keys) return value
 
-    keys.forEach((k) => {
+    keys.forEach(k => {
       const val = value[k]
       if (val !== undefined) cps[k] = val
     })
@@ -113,7 +124,10 @@ export const formConsumer = curry((keys, Origin, props) => {
 
   return (
     <Consumer>
-      {value => <Origin {...filterProps(value)} {...props} />}
+      {value => {
+        const formProps = filterProps(value)
+        return <Origin {...formProps} {...props} disabled={formProps.disabled || props.disabled} />
+      }}
     </Consumer>
   )
 })

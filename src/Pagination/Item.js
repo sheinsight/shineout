@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { paginationClass } from '../styles'
+import { paginationClass } from './styles'
 
 class Item extends PureComponent {
   constructor(props) {
@@ -19,7 +19,7 @@ class Item extends PureComponent {
     const className = paginationClass('item', this.props.className, isCurrent && 'current')
 
     return (
-      <a className={className} disabled={disabled || isCurrent} onMouseDown={this.handleClick}>
+      <a className={className} disabled={disabled || isCurrent} onClick={this.handleClick}>
         {children}
       </a>
     )

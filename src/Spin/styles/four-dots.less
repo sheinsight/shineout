@@ -1,0 +1,73 @@
+@import '../../styles/variables.less';
+
+@four-dots-prefix: ~'@{so-prefix}-four-dots';
+
+.@{four-dots-prefix} {
+  @animationDurantion: 1.6s;
+  @keyframesRotate: ~'@{four-dots-prefix}-rotate';
+  @keyframesFade: ~'@{four-dots-prefix}-fade';
+
+  position: relative;
+  margin: auto;
+  animation: @keyframesRotate @animationDurantion infinite linear;
+
+  @keyframes @keyframesRotate {
+    0% {
+      transform: rotateZ(0deg);
+    }
+
+    100% {
+      transform: rotateZ(359deg);
+    }
+  }
+
+  @keyframes @keyframesFade {
+    0% {
+      opacity: 0.2;
+    }
+
+    50% {
+      opacity: 0.9;
+    }
+
+    100% {
+      opacity: 0.2;
+    }
+  }
+
+  &-item {
+    position: absolute;
+    width: 32%;
+    height: 32%;
+    animation: @keyframesFade @animationDurantion linear infinite;
+    line-height: 0;
+    opacity: 0.2;
+
+    div {
+      border-radius: 100%;
+    }
+
+    &:nth-child(1) {
+      top: 10%;
+      left: 10%;
+    }
+
+    &:nth-child(2) {
+      top: 10%;
+      right: 10%;
+      animation-delay: (@animationDurantion / 4);
+    }
+
+    &:nth-child(3) {
+      right: 10%;
+      bottom: 10%;
+      animation-delay: (@animationDurantion / 2);
+    }
+
+    &:nth-child(4) {
+      bottom: 10%;
+      left: 10%;
+      animation-delay: (@animationDurantion / 4) * 3;
+    }
+  }
+}

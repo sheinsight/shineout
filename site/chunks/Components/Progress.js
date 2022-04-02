@@ -23,6 +23,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Progress/example-1-base.js'),
   },
   {
+    name: '1-popup',
+    title: locate(
+      '弹出展示 \n 设置 popup 属性后，children 会通过弹出框展示',
+      'Popup \n After setting the popup property, children will be displayed through a popup box'
+    ),
+    component: require('doc/pages/components/Progress/example-1-popup.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Progress/example-1-popup.js'),
+  },
+  {
     name: '2-type',
     title: locate(
       '样式 \n 内置了四种样式，通过 type 来调用',

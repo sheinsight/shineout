@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { range } from '../utils/numbers'
-import { datepickerClass } from '../styles'
+import { datepickerClass } from './styles'
 import Icon from './Icon'
 import utils from './utils'
+import paramUtils from './paramUtils'
 
 class Year extends PureComponent {
   constructor(props) {
@@ -17,13 +18,13 @@ class Year extends PureComponent {
     const { current, onChange, onModeChange } = this.props
     const date = new Date(current.getTime())
     date.setFullYear(year)
-    onChange(date)
+    onChange(...paramUtils.yearHandleChangeParams(date))
     onModeChange('month')
   }
 
   handleRangeChange(year) {
     const { current, onChange } = this.props
-    onChange(utils.addYears(current, year))
+    onChange(...paramUtils.yearHandleChangeParams(utils.addYears(current, year)))
   }
 
   render() {
@@ -34,11 +35,11 @@ class Year extends PureComponent {
     return (
       <div className={datepickerClass('year-picker')}>
         <div className={datepickerClass('header')}>
-          <Icon name="AngleLeft" onClick={this.handlePrevRange} />
+          <Icon name="AngleLeft" className="left" onClick={this.handlePrevRange} />
 
           <span className={datepickerClass('ym')}>{`${years[0]} ~ ${years[years.length - 1]}`}</span>
 
-          <Icon name="AngleRight" onClick={this.handleNextRange} />
+          <Icon name="AngleRight" className="right" onClick={this.handleNextRange} />
         </div>
 
         <div className={datepickerClass('list')}>

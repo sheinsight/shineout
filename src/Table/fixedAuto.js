@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { scrollClass } from '../styles'
+import { scrollClass } from '../Scroll/styles'
 import { compareColumns } from '../utils/shallowEqual'
 import { Component } from '../component'
 

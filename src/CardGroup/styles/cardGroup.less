@@ -1,0 +1,40 @@
+@import '../../styles/variables.less';
+@import '../../styles/themes/@{so-theme}.less';
+
+@card-group-prefix: ~'@{so-prefix}-card-group';
+
+@card-group-padding: 0;
+@card-group-item-border-radius: 8px;
+
+.@{card-group-prefix} {
+  &-scroller {
+    height: 100%;
+    overflow: auto;
+
+    .@{card-group-prefix}-grid {
+      padding: @card-group-padding;
+      display: grid;
+
+      .@{card-group-prefix}-item {
+        border-radius: @card-group-item-border-radius;
+        background: rgba(255,255,255,1);
+        box-shadow: 0 4px 8px 0 rgba(20,23,55,0.05);
+        overflow: hidden;
+        border: 1px solid #eee;
+        transition: all .2s ease;
+        position: relative;
+
+        .@{card-group-prefix}-checkbox {
+          position: absolute;
+          right: 12px;
+          top: 12px;
+          margin: 0;
+        }
+
+        &:hover {
+          box-shadow:0 4px 12px 0 rgba(20,23,55,0.15);
+        }
+      }
+    }
+  }
+}

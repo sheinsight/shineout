@@ -1,7 +1,7 @@
 import { createElement, PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import icons from '../icons'
-import { datepickerClass } from '../styles'
+import { datepickerClass } from './styles'
 
 class Icon extends PureComponent {
   render() {

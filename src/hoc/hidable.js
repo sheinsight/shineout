@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import createReactContext from 'create-react-context'
+import createReactContext from '../context'
 import { PureComponent } from '../component'
 import { getUidStr } from '../utils/uid'
-import { hidableClass } from '../styles'
+import { hidableClass } from './styles'
 
 const context = createReactContext()
 

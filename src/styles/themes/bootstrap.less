@@ -10,6 +10,8 @@
 @font-size-base: 14px;
 
 @caret-width: 4px;
+@menu-caret-solid-width: 4px;
+@menu-caret-solid-height: 4px;
 @ease-in-out: 0.3s;
 
 @padding-large-vertical: 8px;
@@ -18,7 +20,7 @@
 @alert-default-text: #333;
 @alert-default-bg: #fff;
 @alert-default-border: @gray-200;
-@alert-padding-y: 8px;
+@alert-padding-y-value: 8px;
 
 @btn-padding-x: @padding-base-horizontal;
 @btn-padding-y: @padding-base-vertical;
@@ -105,9 +107,11 @@
 @menu-highlight-color: @colors-primary;
 @menu-highlight-border-color: none;
 @menu-select-transform: scaleY(0);
-@menu-title-transform: translateY(-65%) rotate(0deg);
-@menu-title-open-transform: translateY(-65%) rotate(180deg);
-@menu-title-vertical-transform: translateY(-65%) rotate(270deg);
+@menu-title-transform-origin: 50% 50%;
+@menu-title-transform: translateY(-50%) rotate(0deg);
+@menu-title-open-transform: translateY(-50%) rotate(180deg);
+@menu-title-vertical-transform: translateY(-50%) rotate(270deg);
+@menu-title-vertical-transform-rtl: translateY(-50%) rotate(180deg);
 
 @menu-dark-bg: #001529;
 @menu-dark-item: #bfbfbf;
@@ -184,7 +188,7 @@
 @popover-arrow-outer-color: @gray-300;
 
 // tree
-@tree-indicator-size: 20px;
+@tree-indicator-size: 24px;
 // @tree-indicator-color: @gray-600;
 @tree-line-color: @gray-500;
 
@@ -209,29 +213,27 @@
 @switch-indicator-padding-horizontal-negative: var(--switch-indicator-padding-horizontal-negative, 0px);
 @switch-indicator-size: var(--switch-indicator-size, @switch-indicator-size-value);
 @switch-bg-width: 44px;
-@switch-bg-border-radius: @switch-bg-width / 2;
+@switch-bg-border-radius: (@switch-bg-width / 2);
 @switch-bg-height: var(--switch-bg-height, @switch-bg-height-value);
 @switch-font-size: 12px;
-@switch-indicator-top: var(--switch-indicator-top, -(@switch-indicator-size-value / 2 - @switch-bg-height-value / 2));
+@switch-indicator-top: var(--switch-indicator-top, -((@switch-indicator-size-value / 2) - (@switch-bg-height-value / 2)));
 
 @switch-small-indicator-size: var(--switch-small-indicator-size, 16px);
 @switch-small-bg-width: 28px;
-@switch-small-bg-border-radius: @switch-small-bg-width / 2;
+@switch-small-bg-border-radius: (@switch-small-bg-width / 2);
 @switch-small-bg-height: var(--switch-small-bg-height, 10px);
 @switch-small-indicator-top: var(--switch-small-indicator-top, -3px);
 @switch-small-indicator-padding: @checkinput-text-padding-x;
 
 @switch-large-indicator-size: var(--switch-large-indicator-size, 32px);
 @switch-large-bg-width: 60px;
-@switch-large-bg-border-radius: @switch-large-bg-width / 2;
+@switch-large-bg-border-radius: (@switch-large-bg-width / 2);
 @switch-large-bg-height: var(--switch-large-bg-height, 22px);
 @switch-large-indicator-top: var(--switch-large-indicator-top, -5px);
 
 // tabs
-@tabs-link-padding: 10px 15px;
-@tabs-link-spacing: 4px;
 @tabs-link-border-radius: 4px;
-@tabs-link-background: @gray-200;
+
 @tabs-border-color: #ddd;
 @tabs-line-active-color: @colors-primary;
 @tabs-header-margin:              0;

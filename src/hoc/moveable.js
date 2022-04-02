@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { docSize } from '../utils/dom/document'
-import { moveableClass } from '../styles'
+import { moveableClass } from './styles'
 import { getUidStr } from '../utils/uid'
 import { curry } from '../utils/func'
 

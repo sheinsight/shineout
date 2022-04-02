@@ -34,4 +34,4 @@
 | rowsInView | number | 20 | 一次加载的数据条数 |
 | listHeight | number | 180 | 列表高度 |
 | lineHeight | number | 32 | 列表行高 |
-| children | (({onSelected, selectedKeys, value, direction}) => ReactNode) | null | 自定义渲染内容 |
+| children | (({onSelected, selectedKeys, value, direction, filterText}) => ReactNode) | null | 自定义渲染内容 |
