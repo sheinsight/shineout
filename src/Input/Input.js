@@ -11,13 +11,13 @@ function isNumberType(n) {
   return !Number.isNaN(parseFloat(n)) && !Number.isNaN(n - 0)
 }
 
-function isValidNumber(val) {
-  return /^-?\d*\.?\d*$/.test(val)
-}
-
 function regLength(size) {
   return /\d+/.test(size) && size > 0 ? `{0,${size}}` : '*'
 }
+
+// function isValidNumber(val) {
+//   return /^-?\d*\.?\d*$/.test(val)
+// }
 
 function fillNumber(val) {
   return (
@@ -53,6 +53,12 @@ class Input extends PureComponent {
     const { forwardedRef } = this.props
     this.ref = el
     if (forwardedRef) forwardedRef(el)
+  }
+
+  isValidNumber(val) {
+    const { positive } = this.props
+    const regExp = new RegExp(`^(${positive ? '' : '-'})?\\d*\\.?\\d*$`, 'g')
+    return regExp.test(val)
   }
 
   formatValue(val) {
@@ -92,10 +98,14 @@ class Input extends PureComponent {
   }
 
   invalidNumber(value) {
-    const { digits, type, integerLimit } = this.props
+    const { digits, type, integerLimit, positive } = this.props
     if (type !== 'number') return false
 
-    let reg = '^-?'
+    let reg = ''
+    if (!positive) {
+      reg += '^-?'
+    }
+
     if (!integerLimit) {
       reg += `\\d*`
     } else if (integerLimit > 0) {
@@ -128,7 +138,7 @@ class Input extends PureComponent {
       if (typeof value !== 'number') {
         value = String(value).replace(/。/g, '.')
       }
-      if (!isValidNumber(value)) {
+      if (!this.isValidNumber(value)) {
         return
       }
       value = this.formatValue(value)
