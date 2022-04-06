@@ -20,10 +20,13 @@ function regLength(size) {
 }
 
 function fillNumber(val) {
-  return val
-    .replace(/^(-)?(\.\d+)(?!=\.).*/g, '$10$2')
-    .replace(/^0+/, '0')
-    .replace(/\.$/, '')
+  return (
+    val
+      .replace(/^(-)?(\.\d+)(?!=\.).*/g, '$10$2')
+      // eslint-disable-next-line no-useless-escape
+      .replace(/^0+(?=0\.?|[^0\.])/g, '')
+      .replace(/\.$/, '')
+  )
 }
 
 class Input extends PureComponent {

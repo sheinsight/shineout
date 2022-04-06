@@ -15,7 +15,7 @@ const names = [
   'popoverProps',
   'inputFocus',
   'placeTitle',
-  'cancleChange',
+  'cancelChange',
   'integerLimit',
   'autoSelect',
   'autoFix',
