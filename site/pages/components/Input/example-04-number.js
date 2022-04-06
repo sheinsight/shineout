@@ -27,17 +27,13 @@ export default function() {
         style={style}
         width={120}
         min={23}
-        max={100}
         digits={2}
         integerLimit={3}
-        autoFix
-        placeholder="digits:2;integerLimit:3;autoFix"
+        placeholder="digits:2;integerLimit:3"
       />
       <Input.Number
         style={style}
         width={120}
-        min={23}
-        max={100}
         digits={2}
         integerLimit={3}
         positive

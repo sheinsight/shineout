@@ -15,10 +15,6 @@ function regLength(size) {
   return /\d+/.test(size) && size > 0 ? `{0,${size}}` : '*'
 }
 
-// function isValidNumber(val) {
-//   return /^-?\d*\.?\d*$/.test(val)
-// }
-
 function fillNumber(val) {
   return (
     val
@@ -82,10 +78,12 @@ class Input extends PureComponent {
   }
 
   fixValue(val) {
-    const { type, digits, autoFix, cancelChange } = this.props
+    const { type, digits, autoFix, cancelChange, positive } = this.props
     if (type !== 'number' || val === '') return val
     if (!isNumberType(val)) return ''
     let fixVal = fillNumber(val)
+    if (positive && fixVal <= 0) return ''
+
     if (digits !== undefined && autoFix) {
       if (digits > 0) {
         fixVal = parseFloat(fixVal).toFixed(digits)
@@ -98,14 +96,10 @@ class Input extends PureComponent {
   }
 
   invalidNumber(value) {
-    const { digits, type, integerLimit, positive } = this.props
+    const { digits, type, integerLimit } = this.props
     if (type !== 'number') return false
 
-    let reg = ''
-    if (!positive) {
-      reg += '^-?'
-    }
-
+    let reg = '^-?'
     if (!integerLimit) {
       reg += `\\d*`
     } else if (integerLimit > 0) {

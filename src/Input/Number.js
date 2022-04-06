@@ -36,18 +36,14 @@ class Number extends PureComponent {
       }
       return
     }
+    const { digits, step } = this.props
 
-    const { autoFix, digits, step } = this.props
-
-    value = parseFloat(value)
-    if (autoFix) {
-      if (typeof digits === 'number') {
-        value = value.toFixed(digits)
-      } else {
-        const stepStr = step.toString()
-        const dot = stepStr.lastIndexOf('.')
-        if (dot >= 0) value = value.toFixed(stepStr.length - dot)
-      }
+    if (typeof digits === 'number') {
+      value = parseFloat(value.toFixed(digits))
+    } else {
+      const stepStr = step.toString()
+      const dot = stepStr.lastIndexOf('.')
+      if (dot >= 0) value = parseFloat(value.toFixed(stepStr.length - dot))
     }
 
     const { min, max } = this.props
@@ -84,7 +80,19 @@ class Number extends PureComponent {
     let value = parseFloat(`${val || ''}`.replace(/,/g, ''))
     // eslint-disable-next-line
     if (isNaN(value)) value = 0
-    this.handleChange(sub(value, mod), true)
+
+    const { positive, integerLimit } = this.props
+
+    let calculateVal = sub(value, mod)
+    if (positive && calculateVal <= 0) {
+      calculateVal = value
+    }
+
+    if (integerLimit && String(parseInt(calculateVal, 10)).length > integerLimit) {
+      calculateVal = value
+    }
+
+    this.handleChange(calculateVal, true)
   }
 
   longPress(mod) {
@@ -212,7 +220,6 @@ Number.propTypes = {
   integerLimit: PropTypes.number,
   positive: PropTypes.bool,
   autoSelect: PropTypes.bool,
-  autoFix: PropTypes.bool,
   allowNull: PropTypes.bool,
   hideArrow: PropTypes.bool,
   clearToUndefined: PropTypes.bool,
