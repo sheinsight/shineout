@@ -48,14 +48,14 @@ class Input extends PureComponent {
   }
 
   isValidNumber(val) {
-    const { positive } = this.props
-    const regExp = new RegExp(`^(${positive ? '' : '-'})?\\d*\\.?\\d*$`, 'g')
+    const { positive, nonnegative } = this.props
+    const regExp = new RegExp(`^(${positive || nonnegative ? '' : '-'})?\\d*\\.?\\d*$`, 'g')
     return regExp.test(val)
   }
 
   formatValue(val) {
     let value = val
-    const { type, digits, integerLimit, positive } = this.props
+    const { type, digits, integerLimit, positive, nonnegative } = this.props
     if (type !== 'number') return value
 
     // if (positive) {
@@ -63,7 +63,7 @@ class Input extends PureComponent {
     // }
 
     const regExp = new RegExp(
-      `^(${positive ? '' : '-'})?(\\d${regLength(integerLimit)})(${
+      `^(${positive || nonnegative ? '' : '-'})?(\\d${regLength(integerLimit)})(${
         digits !== 0 ? `\\.\\d${regLength(digits)}` : ''
       })?.*$`,
       'g'
@@ -258,6 +258,7 @@ Input.propTypes = {
   digits: PropTypes.number,
   integerLimit: PropTypes.number,
   positive: PropTypes.bool,
+  nonnegative: PropTypes.bool,
   autoSelect: PropTypes.bool,
   autoFix: PropTypes.bool,
   forceChange: PropTypes.func,
