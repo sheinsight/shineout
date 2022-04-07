@@ -20,6 +20,7 @@ const names = [
   'autoSelect',
   'autoFix',
   'positive',
+  'nonnegative',
 ]
 
 /**
