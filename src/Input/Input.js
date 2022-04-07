@@ -7,10 +7,6 @@ import Clear from './clear'
 import { inputClass } from './styles'
 import InputTitle from '../InputTitle'
 
-function isNumberType(n) {
-  return !Number.isNaN(parseFloat(n)) && !Number.isNaN(n - 0)
-}
-
 function regLength(size) {
   return /\d+/.test(size) && size > 0 ? `{0,${size}}` : '*'
 }
@@ -72,7 +68,6 @@ class Input extends PureComponent {
       })?.*$`,
       'g'
     )
-    console.log(value, typeof value)
 
     value = value.replace(regExp, '$1$2$3')
     return value
@@ -81,7 +76,7 @@ class Input extends PureComponent {
   fixValue(val) {
     const { type, digits, autoFix, cancelChange, positive } = this.props
     if (type !== 'number' || val === '') return val
-    if (!isNumberType(val)) return ''
+    if (/^[.-]+$/.test(val)) return ''
     let fixVal = fillNumber(val)
     if (positive && fixVal <= 0) return ''
 
