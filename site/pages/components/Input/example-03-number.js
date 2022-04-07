@@ -13,29 +13,12 @@ export default function() {
   return (
     <div style={{ width: 300 }}>
       <Input style={style} type="number" placeholder="digits undefined" />
-      <Input style={style} integerLimit={0} type="number" placeholder="integerLimit 0" clearable />
-      <Input style={style} integerLimit={0} type="number" positive placeholder="integerLimit 0;positive" clearable />
       <Input style={style} digits={0} type="number" placeholder="digits 0" clearable />
       <Input style={style} digits={1} type="number" placeholder="digits 1" clearable />
       <Input style={style} digits={2} type="number" placeholder="digits 2" clearable />
-      <Input style={style} digits={3} type="number" placeholder="digits 3" />
-      <Input
-        style={style}
-        autoSelect
-        autoFix
-        integerLimit={3}
-        digits={4}
-        type="number"
-        placeholder="integerLimit 3;digits 4;autoSelect;autoFix"
-      />
-      <Input
-        style={style}
-        positive
-        integerLimit={3}
-        autoSelect
-        type="number"
-        placeholder="positive;integerLimit 3;autoSelect"
-      />
+      <Input style={style} autoFix digits={3} type="number" placeholder="digits 3; autoFix" clearable />
+      <Input style={style} type="number" integerLimit={3} placeholder="integerLimit 3" clearable />
+      <Input style={style} positive integerLimit={3} type="number" placeholder="positive;integerLimit 3" />
     </div>
   )
 }
