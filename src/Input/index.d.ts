@@ -210,9 +210,9 @@ FormItemStandardProps<Value> {
   integerLimit?: number,
 
   /**
-   *  非负数，仅在type = number 下生效
+   *  正数，仅在type = number 下生效
    *
-   *  positive number
+   *  positive number (valid when type is number)
    *
    *  default: -
    *
