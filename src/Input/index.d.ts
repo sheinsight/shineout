@@ -191,9 +191,18 @@ FormItemStandardProps<Value> {
   clearToUndefined?: boolean,
 
   /**
-   *  整数位数限制
+   * the digits of number 仅在type = number 下生效
    *
-   *  Integer bit limit
+   * Decimal place limit (valid when type is number)
+   *
+   * default: -
+   */
+  digits?: number;
+
+  /**
+   *  整数位数限制, 仅在type = number 下生效
+   *
+   *  Integer bit limit (valid when type is number)
    *
    *  default: -
    *
@@ -201,7 +210,7 @@ FormItemStandardProps<Value> {
   integerLimit?: number,
 
   /**
-   *  正数，仅在type = number 下生效
+   *  非负数，仅在type = number 下生效
    *
    *  positive number
    *
@@ -221,24 +230,15 @@ FormItemStandardProps<Value> {
   autoSelect?: boolean,
 
   /**
-   *  失焦自动格式化
+   *  失焦后自动按照 digits 精度限制补足 (type 为 number 时生效)
    *
-   *  Automatically fix after blur
+   *  Automatically fill up according to the precision limit of digits after out of focus
    *
    *  default: false
    *
    */
   autoFix?: boolean,
 
-  /**
-   *  清除input的delay行为
-   *
-   *  cancel input delay behavior
-   *
-   *  default: -
-   *
-   */
-  cancelChange?: () => void
 }
 
 export interface InputNumberProps <Value> extends InputProps<Value> {
@@ -269,15 +269,6 @@ export interface InputNumberProps <Value> extends InputProps<Value> {
    * default: 1
    */
   step?: number;
-
-  /**
-   * the digits of number
-   *
-   * 数值的精度
-   *
-   * default: -
-   */
-  digits?: number;
 
   /**
    * allow value is null

@@ -121,6 +121,15 @@ const examples = [
     component: require('doc/pages/components/Input/example-10-innertitle.js').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-10-innertitle.js'),
   },
+  {
+    name: '11-autoSelect',
+    title: locate(
+      '自动选中 \n 使用 autoSelect 聚焦后自动选中文本',
+      'auto select \n Use autoSelect to automatically select text after focusing'
+    ),
+    component: require('doc/pages/components/Input/example-11-autoSelect.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Input/example-11-autoSelect.js'),
+  },
 ]
 
 const codes = undefined
