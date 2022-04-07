@@ -21,6 +21,7 @@ export default curry(
 
         this.handleChange = this.handleChange.bind(this)
         this.forceChange = this.forceChange.bind(this)
+        this.cancelChange = this.cancelChange.bind(this)
       }
 
       getValue() {
@@ -53,6 +54,10 @@ export default curry(
         }, delay)
       }
 
+      cancelChange() {
+        if (this.changeTimer) clearTimeout(this.changeTimer)
+      }
+
       forceChange(value, ...args) {
         this.setState({ value })
         this.props.onChange(value, ...args)
@@ -61,7 +66,15 @@ export default curry(
 
       render() {
         const { value, onChange, ...props } = this.props
-        return <Origin {...props} value={this.getValue()} onChange={this.handleChange} forceChange={this.forceChange} />
+        return (
+          <Origin
+            {...props}
+            value={this.getValue()}
+            onChange={this.handleChange}
+            forceChange={this.forceChange}
+            cancelChange={this.cancelChange}
+          />
+        )
       }
     }
 )
