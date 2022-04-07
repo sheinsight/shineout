@@ -46,8 +46,8 @@ describe('Input[Base]', () => {
     })
   })
   test('should only input number', () => {
-    const inputValue = 2424.2424
-    const valueMap = [2424, 2424.2, 2424.24, 2424.242]
+    const inputValue = '2424.2424'
+    const valueMap = ['2424', '2424.2', '2424.24', '2424.242']
     const inputs = [
       <Input type="number" placeholder="digits undefined" />,
       <Input digits={0} type="number" placeholder="digits 0" />,

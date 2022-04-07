@@ -72,6 +72,7 @@ class Input extends PureComponent {
       })?.*$`,
       'g'
     )
+    console.log(value, typeof value)
 
     value = value.replace(regExp, '$1$2$3')
     return value
