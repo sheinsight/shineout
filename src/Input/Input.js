@@ -58,10 +58,6 @@ class Input extends PureComponent {
     const { type, digits, integerLimit, positive, nonnegative } = this.props
     if (type !== 'number') return value
 
-    // if (positive) {
-    //   value = value.replace(/^0/g, '')
-    // }
-
     const regExp = new RegExp(
       `^(${positive || nonnegative ? '' : '-'})?(\\d${regLength(integerLimit)})(${
         digits !== 0 ? `\\.\\d${regLength(digits)}` : ''
