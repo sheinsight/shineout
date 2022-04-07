@@ -37,6 +37,12 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-03-number.js] 
   <label>
     <input />
   </label>
+  <label>
+    <input />
+  </label>
+  <label>
+    <input />
+  </label>
 </div>
 `;
 
@@ -276,4 +282,10 @@ Array [
     </b>
   </div>,
 ]
+`;
+
+exports[`Snapshot test: Input[site/pages/components/Input/example-11-autoSelect.js] 1`] = `
+<label>
+  <input />
+</label>
 `;

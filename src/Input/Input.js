@@ -72,6 +72,7 @@ class Input extends PureComponent {
       })?.*$`,
       'g'
     )
+    console.log(value, typeof value)
 
     value = value.replace(regExp, '$1$2$3')
     return value
@@ -170,9 +171,13 @@ class Input extends PureComponent {
   }
 
   handleAutoSelect(event) {
+    const { onFocus } = this.props
     const { autoSelect } = this.props
     if (autoSelect) {
       event.currentTarget.select()
+    }
+    if (typeof onFocus === 'function') {
+      onFocus(event)
     }
   }
 
@@ -243,7 +248,7 @@ class Input extends PureComponent {
           onKeyDown={this.handleKeyDown}
           onKeyUp={this.handleKeyUp}
           onBlur={this.handleBlur}
-          onMouseUp={this.handleAutoSelect}
+          onFocus={this.handleAutoSelect}
         />
       </InputTitle>,
       showClear && <Clear onClick={this.handleChange} key="close" clearResult={needClearUndefined ? undefined : ''} />,
