@@ -33,6 +33,7 @@
 | integerLimit | number | - | 整数位限制(type 为 number 时生效)  |
 | digits | number | - | 小数位限制(type 为 number 时生效) |
 | positive | boolean | - | 正数(type 为 number 时生效) |
+| nonnegative | boolean | - | 非负数(type 为 number 时生效) |
 | autoSelect | boolean | - | 鼠标点击自动选中所有内容 |
 | autoFix | boolean | - | 失焦后自动按照 digits 精度限制补足 (type 为 number 时生效) |
 

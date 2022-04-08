@@ -220,6 +220,16 @@ FormItemStandardProps<Value> {
    positive?: boolean,
 
   /**
+   *  非负数，仅在type = number 下生效
+   *
+   *  nonnegative number (valid when type is number)
+   *
+   *  default: -
+   *
+   */
+   nonnegative?: boolean,
+
+  /**
    *  鼠标点击后自动全选数据
    *
    *  Automatically select all data after mouse click

@@ -19,6 +19,7 @@ export default function() {
       <Input style={style} autoFix digits={3} type="number" placeholder="digits 3; autoFix" clearable />
       <Input style={style} type="number" integerLimit={3} placeholder="integerLimit 3" clearable />
       <Input style={style} positive integerLimit={3} type="number" placeholder="positive;integerLimit 3" />
+      <Input style={style} nonnegative type="number" placeholder="nonnegative" />
     </div>
   )
 }
