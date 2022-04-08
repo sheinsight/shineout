@@ -81,15 +81,18 @@ class Number extends PureComponent {
     // eslint-disable-next-line
     if (isNaN(value)) value = 0
 
-    const { positive, integerLimit } = this.props
+    const { numType, integerLimit } = this.props
 
-    let calculateVal = sub(value, mod)
-    if (positive && calculateVal <= 0) {
-      calculateVal = value
+    const calculateVal = sub(value, mod)
+    if (numType === 'positive' && calculateVal <= 0) {
+      return
+    }
+    if (numType === 'non-negative' && calculateVal < 0) {
+      return
     }
 
     if (integerLimit && String(parseInt(calculateVal, 10)).length > integerLimit) {
-      calculateVal = value
+      return
     }
 
     this.handleChange(calculateVal, true)
@@ -218,7 +221,7 @@ Number.propTypes = {
   step: PropTypes.number,
   digits: PropTypes.number,
   integerLimit: PropTypes.number,
-  positive: PropTypes.bool,
+  numType: PropTypes.string,
   autoSelect: PropTypes.bool,
   allowNull: PropTypes.bool,
   hideArrow: PropTypes.bool,

@@ -3,6 +3,7 @@ import { PopoverProps } from '../Popover'
 import { StandardProps, RegularAttributes, FormItemStandardProps, CommonProps } from '../@types/common'
 
 type ReactNode = React.ReactNode;
+export type numType = "positive" | "non-negative";
 
 export interface InputProps<Value> extends
 StandardProps,
@@ -210,14 +211,14 @@ FormItemStandardProps<Value> {
   integerLimit?: number,
 
   /**
-   *  正数，仅在type = number 下生效
+   *  设置数字类型 支持 'positive' 和 'non-negative', 仅在type = number 下生效
    *
-   *  positive number (valid when type is number)
+   *  Number type supports 'positive' and 'non-negative', only works when type = number
    *
    *  default: -
    *
    */
-   positive?: boolean,
+   numType?: numType,
 
   /**
    *  非负数，仅在type = number 下生效

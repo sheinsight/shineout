@@ -48,20 +48,20 @@ class Input extends PureComponent {
   }
 
   isValidNumber(val) {
-    const { positive, nonnegative } = this.props
-    const regExp = new RegExp(`^(${positive || nonnegative ? '' : '-'})?\\d*\\.?\\d*$`, 'g')
+    const { numType } = this.props
+    const noNeg = numType === 'non-negative' || numType === 'positive'
+    const regExp = new RegExp(`^(${noNeg ? '' : '-'})?\\d*\\.?\\d*$`, 'g')
     return regExp.test(val)
   }
 
   formatValue(val) {
     let value = val
-    const { type, digits, integerLimit, positive, nonnegative } = this.props
+    const { type, digits, integerLimit, numType } = this.props
+    const noNeg = numType === 'non-negative' || numType === 'positive'
     if (type !== 'number') return value
 
     const regExp = new RegExp(
-      `^(${positive || nonnegative ? '' : '-'})?(\\d${regLength(integerLimit)})(${
-        digits !== 0 ? `\\.\\d${regLength(digits)}` : ''
-      })?.*$`,
+      `^(${noNeg ? '' : '-'})?(\\d${regLength(integerLimit)})(${digits !== 0 ? `\\.\\d${regLength(digits)}` : ''})?.*$`,
       'g'
     )
 
@@ -70,11 +70,11 @@ class Input extends PureComponent {
   }
 
   fixValue(val) {
-    const { type, digits, autoFix, cancelChange, positive } = this.props
+    const { type, digits, autoFix, cancelChange, numType } = this.props
     if (type !== 'number' || val === '') return val
     if (/^[.-]+$/.test(val)) return ''
     let fixVal = fillNumber(val)
-    if (positive && fixVal <= 0) return ''
+    if (numType === 'positive' && fixVal <= 0) return ''
 
     if (digits !== undefined && autoFix) {
       if (digits > 0) {
@@ -253,8 +253,7 @@ Input.propTypes = {
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   digits: PropTypes.number,
   integerLimit: PropTypes.number,
-  positive: PropTypes.bool,
-  nonnegative: PropTypes.bool,
+  numType: PropTypes.string,
   autoSelect: PropTypes.bool,
   autoFix: PropTypes.bool,
   forceChange: PropTypes.func,
