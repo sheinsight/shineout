@@ -34,8 +34,7 @@
 | clearToUndefined | boolean | - | After clicking the clear button, the data becomes undefined |
 | integerLimit | number | - | Integer bit limit (valid when type is number) |
 | digits | number | - | Decimal place limit (valid when type is number) |
-| positive | boolean | - | positive number (valid when type is number) |
-| nonnegative | boolean | - | nonnegative number(valid when type is number) |
+| numType | "positive" \| "non-negative" | - | set number type (valid when type is number) |
 | autoSelect | boolean | - | Mouse click to automatically select everything |
 | autoFix | boolean | - | Automatically fill up according to the precision limit of digits after out of focus (valid when type is number) |
 ### Input.Number

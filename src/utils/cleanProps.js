@@ -19,8 +19,7 @@ const names = [
   'integerLimit',
   'autoSelect',
   'autoFix',
-  'positive',
-  'nonnegative',
+  'numType',
 ]
 
 /**

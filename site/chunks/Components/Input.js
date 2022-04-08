@@ -34,8 +34,8 @@ const examples = [
   {
     name: '03-number',
     title: locate(
-      '数字 \n type 为 number 时，输入时会做一次校验，禁止输入非数字类型字符，并且根据 digits 属性限制小数位数',
-      'Number \n When type is number, it is forbidden to input non-numeric characters, and the number of decimal places is limited according to the digits property'
+      '数字 \n type 为 number 时，输入时会做一次校验，禁止输入非数字类型字符 \n 设置 digits 属性限制小数位数 \n 设置 integerLimit 属性限制整数位数 \n 设置 numType 来限制格式, 支持 \'positive\' 和 \'non-negative\'',
+      'Number \n When type is number, it is forbidden to input non-numeric characters, and the number of decimal places is limited according to the digits property \n set the digits property to limit the number of decimal places \n Set the integerLimit property to limit the number of integer digits \n set numType to limit the format of Number, support \'positive\' and \'non-negative\''
     ),
     component: require('doc/pages/components/Input/example-03-number.js').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-03-number.js'),
