@@ -36,9 +36,11 @@ class Number extends PureComponent {
       }
       return
     }
-    const { digits, step } = this.props
+    const { digits, step, numType } = this.props
 
-    if (typeof digits === 'number') {
+    if (numType === 'positive' && value <= 0) {
+      value = ''
+    } else if (typeof digits === 'number') {
       value = parseFloat(value.toFixed(digits))
     } else {
       const stepStr = step.toString()
