@@ -4,6 +4,7 @@ import { PureComponent } from '../component'
 import Indicator from './Indicator'
 import { sliderClass } from './styles'
 import { per2value, value2per } from './utils'
+import { isRTL } from '../config'
 
 class Slider extends PureComponent {
   constructor(props) {
@@ -40,7 +41,9 @@ class Slider extends PureComponent {
 
   handleDrag(mx, my) {
     const { scale, onDrag, value, vertical, onIncrease } = this.props
-    const m = vertical ? my / this.parentElement.clientHeight : mx / this.parentElement.clientWidth
+    const m = vertical
+      ? my / this.parentElement.clientHeight
+      : (mx / this.parentElement.clientWidth) * (isRTL() ? -1 : 1)
     const { length } = this.state
 
     const min = this.props.min ? value2per(this.props.min, scale) : 0

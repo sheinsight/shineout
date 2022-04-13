@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { isRTL } from '../config'
 import { PureComponent } from '../component'
 import { inputClass } from '../Input/styles'
 import cleanProps from '../utils/cleanProps'
@@ -97,7 +98,11 @@ class Textarea extends PureComponent {
     const isError = res instanceof Error
     const text = isError ? res.message : res
     return (
-      <div key="info" style={{ minWidth: 'auto' }} className={inputClass('bottom-right', isError ? 'error' : 'tip')}>
+      <div
+        key="info"
+        style={{ minWidth: 'auto' }}
+        className={inputClass(isRTL() ? 'bottom-left' : 'bottom-right', isError ? 'error' : 'tip')}
+      >
         {text}
       </div>
     )
