@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { isRTL } from '../config'
 import { PureComponent } from '../component'
 import { range } from '../utils/numbers'
 import { getProps, defaultProps } from '../utils/proptypes'
@@ -87,7 +88,13 @@ class Rate extends PureComponent {
 
   handleMove(hover, e) {
     const { x, width } = e.target.getBoundingClientRect()
-    this.setState({ hover: hover - (x + width / 2 > e.clientX ? 0.5 : 0) })
+    let offset
+    if (isRTL()) {
+      offset = x + width / 2 < e.clientX ? 0.5 : 0
+    } else {
+      offset = x + width / 2 > e.clientX ? 0.5 : 0
+    }
+    this.setState({ hover: hover - offset })
   }
 
   renderBackground() {
@@ -157,7 +164,7 @@ class Rate extends PureComponent {
   }
 
   render() {
-    const className = classnames(rateClass('_'), this.props.className)
+    const className = classnames(rateClass('_', isRTL() && 'rtl'), this.props.className)
     const ms = Object.assign({}, this.props.style, this.getScale())
     return (
       <div className={className} style={ms} {...getDataset(this.props)}>
