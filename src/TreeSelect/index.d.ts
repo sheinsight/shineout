@@ -296,6 +296,15 @@ export interface TreeSelectProps<Value, Data> extends StandardProps,
    * default: -
    */
   innerTitle?: ReactNode;
+
+  /**
+   * 点击父节点后展开节点
+   *
+   * Click on the parent node to expand the node
+   *
+   * default: -
+   */
+  parentClickExpand?: boolean
 }
 
 
