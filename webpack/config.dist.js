@@ -10,7 +10,7 @@ const css = getStylePath()
 const cssConfig = config.themes.map(name =>
   cssConf({
     name,
-    entry: ['./src/styles/expose.js', ...css],
+    entry: ['./src/styles/normalize.less', './src/styles/expose.js', ...css],
     output: { path: path.join(__dirname, '../publish/dist') },
     clean: true,
   })
