@@ -12,7 +12,7 @@ const cssConfig = config.themes.map(name =>
   cssConf({
     name,
     entry: [
-      './src/styles/normalize.less',
+      // './src/styles/normalize.less',
       './src/styles/expose.js',
       ...css,
       // './src/styles/index.js',
