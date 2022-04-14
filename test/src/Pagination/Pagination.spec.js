@@ -70,6 +70,18 @@ describe('Pagination[Base]', () => {
         .prop('disabled')
     ).toBeTruthy()
   })
+  test('should jumper size is 1 while total is empty or null', () => {
+    const wrapper = mount(<Pagination total={0} pageSize={50} layout={['jumper']} />)
+
+    const wrapperInput = wrapper.find('Jumper').find('input')
+    wrapperInput.simulate('change', {
+      target: {
+        value: '0',
+      },
+    })
+    wrapperInput.simulate('keydown', { keyCode: 13 })
+    expect(wrapper.find('Jumper').prop('current')).toBe(1)
+  })
 })
 
 describe('Pagination[Size]', () => {
