@@ -1,9 +1,7 @@
 // Created by scripts/src-index.js.
 import * as utils from './utils'
 
-require('./styles/normalize.less')
-
-export default { utils, version: '1.9.2' }
+export default { utils, version: '1.9.0-rc.8' }
 export { utils }
 export { setLocale } from './locale'
 export { color, style } from './utils/expose'
