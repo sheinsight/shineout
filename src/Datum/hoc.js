@@ -67,11 +67,6 @@ export default curry((options, Origin) => {
       if (prevProps.onChange !== this.props.onChange) {
         this.datum.onChange = this.props.onChange
       }
-      const values = this.props[key]
-      if (values !== this.prevValues) {
-        this.setValue(this.props.initValidate ? undefined : IGNORE_VALIDATE)
-        this.prevValues = values
-      }
     }
 
     setValue(t) {
@@ -85,6 +80,11 @@ export default curry((options, Origin) => {
       if (onDatumBind) onDatumBind(this.datum)
       if (bindProps.includes('disabled')) {
         this.datum.setDisabled(props.disabled)
+      }
+      const values = this.props[key]
+      if (values !== this.prevValues) {
+        this.setValue(this.props.initValidate ? undefined : IGNORE_VALIDATE)
+        this.prevValues = values
       }
 
       if (type === 'list') this.setValue(WITH_OUT_DISPATCH)
