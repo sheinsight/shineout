@@ -54,8 +54,8 @@ By default, the css code is isolated by prefix. The default prefix is 'so' and d
 Set config in the project.
 
 ```
-import { config } fron 'shineout'
-config.setConfig({
+import { setConfig } fron 'shineout'
+setConfig({
   prefix: 'your-prefix'
 })
 ```
@@ -85,8 +85,8 @@ If you need to use the CSS Module, modify the css-loader configuration of the we
 
 Set the config.cssmodule to true at the application entrance
 ```
-import { config } fron 'shineout'
-config.setConfig({
+import { setConfig } fron 'shineout'
+setConfig({
   cssModule: true
 })
 
@@ -109,8 +109,8 @@ Input delay refers to the user's input trigger onchange and check interval. Inpu
 You can change the global delay time by setting config.delay.
 
 ```
-import { config } fron 'shineout'
-config.setConfig({
+import { setConfig } fron 'shineout'
+setConfig({
   delay: 0
 })
 

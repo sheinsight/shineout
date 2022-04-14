@@ -6,7 +6,7 @@
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| width | number | null | width |
+| width | number | - | width |
 | clearable | boolean | false | If clearable is true, show clear value icon |
 | multiple | boolean | false | if it is true, it will be multiple selection |
 | data | any[] | [] | data. The child node is children. If the children value is null or its length is 0, it is render as a leaf node. |
@@ -33,10 +33,11 @@
 | showHitDescendants | boolean | false | Whether to show the descendant nodes of the hit node after filtering |
 | renderUnmatched | (data: any) => ReactNode | none | render unmatched value |
 | onCollapse | (collapse: boolean) => void | none | option collapse callback |
-| rules | any[] | null | Validation rules |
-| unmatch | boolean | none | render unmatch value |
+| rules | any[] | - | Validation rules |
+| unmatch | boolean | - | render unmatch value |
 | underline | boolean | false | only display border bottom  |
-| onAdvancedFilter | (text: string) => (data: any) => boolean | 无 | In the advanced filter mode, you can switch between the filter results and the original data for the current level by pressing the button |
+| onAdvancedFilter | (text: string) => (data: any) => boolean | - | In the advanced filter mode, you can switch between the filter results and the original data for the current level by pressing the button |
 | filterSameChange | boolean | false | filter out value change callbacks with the same value |
 | innerTitle | string | - | inner title |
-| onChangeAddition | ({data, current, checked}) => void | 无 | \onChange additional parameters (current is the data of the clicked node, data is the currently selected data, checked is whether it is selected or canceled in the multi-select state)  |
+| onChangeAddition | ({data, current, checked}) => void | - | \onChange additional parameters (current is the data of the clicked node, data is the currently selected data, checked is whether it is selected or canceled in the multi-select state)  |
+| parentClickExpand | boolean | - | Click on the parent node to expand the node |
