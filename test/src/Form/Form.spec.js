@@ -8,23 +8,23 @@ class F extends React.Component {
     this.state = {
       value: {
         a: '1',
-        input: true,
         fuck: 'hello',
       },
       show: true,
+      input: true,
     }
   }
 
   render() {
-    const { show, value } = this.state
+    const { show, value, input } = this.state
 
     return (
       <div>
         <Button onClick={() => this.setState({ show: false, value: { b: 'c' } })}>hidden</Button>
-        <Button onClick={() => this.setState({ value: { input: false } })}>hidden</Button>
+        <Button onClick={() => this.setState({ input: false })}>hidden</Button>
         {show && (
           <Form value={value} onChange={this.props.onChange}>
-            {value.input && <Input name="fuck" />}
+            {input && <Input name="fuck" />}
           </Form>
         )}
       </div>
@@ -45,6 +45,6 @@ describe('Form[Base]', () => {
       .simulate('click')
     wrapper.update()
     jest.runAllTimers()
-    expect(fn).toBeCalledWith({ input: false })
+    expect(fn).toBeCalledWith({ a: '1' })
   })
 })

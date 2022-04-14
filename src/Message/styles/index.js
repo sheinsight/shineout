@@ -1,4 +1,3 @@
-import '../../styles/normalize.less'
 import messageLess from './message.less'
 import genaration from '../../utils/classname'
 

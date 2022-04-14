@@ -42,4 +42,5 @@ TreeSelect 用来选择树形数据结构，若需要非关联树形结构选择
 | filterSameChange | boolean | false | 过滤掉具有相同值的onChange回调 |
 | innerTitle | string | - | 内嵌标题 |
 | onChangeAddition | ({data, current, checked}) => void       | 无 | onChange 额外参数 (current 为点击的节点的数据， data为当前选中的数据， checked为多选状态下是选中还是取消) |
+| parentClickExpand | boolean | 无 | 点击父节点后展开节点 |
 

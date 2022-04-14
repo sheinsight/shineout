@@ -12,6 +12,8 @@ const files = fs
 const line = `// Created by scripts/src-index.js.
 import * as utils from './utils'
 
+require('./styles/normalize.less')
+
 export default { utils, version: '<%= version %>' }
 export { utils }
 export { setLocale } from './locale'

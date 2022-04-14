@@ -1,4 +1,3 @@
-import '../../styles/normalize.less'
 import spinLess from './spin.less'
 import genaration from '../../utils/classname'
 

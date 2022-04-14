@@ -17,7 +17,7 @@ class Jumper extends PureComponent {
 
   getMax() {
     const { total, pageSize } = this.props
-    return Math.ceil(total / pageSize)
+    return Math.ceil(total / pageSize) || 1
   }
 
   handleKeyDown(e) {
