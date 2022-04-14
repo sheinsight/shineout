@@ -18,7 +18,12 @@ const updatePixelRatio = e => {
   if (e) {
     dispatch(pr)
   }
-  window.matchMedia(`(resolution: ${pr}dppx)`).addEventListener('change', updatePixelRatio, { once: true })
+  if (window.matchMedia) {
+    const media = window.matchMedia(`(resolution: ${pr}dppx)`)
+    if (media.addEventListener) {
+      media.addEventListener('change', updatePixelRatio, { once: true })
+    }
+  }
 }
 
 updatePixelRatio()
