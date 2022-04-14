@@ -16,7 +16,7 @@ function fillNumber(val) {
     val
       .replace(/^(-)?(\.\d+)(?!=\.).*/g, '$10$2')
       // eslint-disable-next-line no-useless-escape
-      .replace(/^0+(?=0\.?|[^0\.])/g, '')
+      .replace(/(?<=-|^)0+(?=0\.?|[^0\.])/g, '')
       .replace(/\.$/, '')
   )
 }
