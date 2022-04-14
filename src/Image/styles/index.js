@@ -1,4 +1,3 @@
-import '../../styles/normalize.less'
 import imageLess from './image.less'
 import genaration from '../../utils/classname'
 

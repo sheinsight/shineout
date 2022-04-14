@@ -1,4 +1,3 @@
-import '../../styles/normalize.less'
 import dropdownLess from './dropdown.less'
 import genaration from '../../utils/classname'
 
