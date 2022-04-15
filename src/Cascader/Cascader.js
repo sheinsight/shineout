@@ -320,10 +320,6 @@ class Cascader extends PureComponent {
 
     list = list.concat(childs)
 
-    if (isRTL() && absolute) {
-      list = list.reverse()
-    }
-
     const listStyle = data.length === 0 ? { height: 'auto', width: '100%' } : { height }
 
     return (

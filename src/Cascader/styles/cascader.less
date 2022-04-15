@@ -25,6 +25,9 @@
     padding: @padding-base-vertical @padding-base-horizontal+12 0 @padding-base-horizontal;
     overflow-y: auto;
     flex-grow: 1;
+    .@{input-prefix}-rtl & {
+      padding: @padding-base-vertical   @padding-base-horizontal 0  @padding-base-horizontal+12;
+    }
 
     .@{so-prefix}-input-placeholder {
       color: @input-color-placeholder;
@@ -36,12 +39,17 @@
       overflow: hidden;
       max-width: 80%;
       padding: 0 @select-result-space;
-      margin-right: @select-result-space;
       margin-bottom: @padding-base-vertical;
       border-radius: @select-result-border-radius;
       color: inherit;
       text-overflow: ellipsis;
       position: relative;
+      &:not(.@{input-prefix}-rtl *) {
+        margin-right: @select-result-space;
+      }
+      .@{input-prefix}-rtl & {
+        margin-left: @select-result-space;
+      }
 
       &-compressed {
         padding: 0 8px;
@@ -62,7 +70,12 @@
       }
 
       &.@{cascader-prefix}-remove-container {
-        padding-right: 16px;
+        &:not(.@{input-prefix}-rtl *) {
+          padding-right: 16px;
+        }
+        .@{input-prefix}-rtl & {
+          padding-left: 16px;
+        }
         &:after {
           content: none;
         }
@@ -72,10 +85,17 @@
         box-sizing: border-box;
         position: absolute;
         top: 50%;
-        right: 8px;
-        transform: translate(50%, -50%);
         margin: 0;
         padding: 0;
+
+        &:not(.@{input-prefix}-rtl *) {
+          right: 8px;
+          transform: translate(50%, -50%);
+        }
+        .@{input-prefix}-rtl & {
+          left: 8px;
+          transform: translate(-50%, -50%);
+        }
 
         svg {
           width: 6px;
@@ -87,7 +107,6 @@
             fill: @gray-500;
           }
         }
-
         &:hover {
           svg path {
             fill: @colors-primary;
@@ -148,7 +167,12 @@
 
   &-multiple {
     .@{cascader-prefix}-close {
-      right: 19px;
+      &:not(.@{input-prefix}-rtl *) {
+        right: 19px;
+      }
+      .@{input-prefix}-rtl & {
+        left: 19px
+      }
     }
   }
 
@@ -171,6 +195,9 @@
     flex-wrap: nowrap;
     align-items: flex-start;
     padding: @padding-base-vertical @padding-base-horizontal+22 0 @padding-base-horizontal;
+    .@{input-prefix}-rtl & {
+      padding: @padding-base-vertical @padding-base-horizontal 0 @padding-base-horizontal + 22;
+    }
     .@{cascader-prefix}-item {
       text-overflow: ellipsis;
       overflow: hidden;
@@ -184,7 +211,13 @@
       white-space: nowrap;
     }
     .@{cascader-prefix}-close {
-      right: 9px;
+      &:not(.@{input-prefix}-rtl *) {
+        right: 9px;
+      }
+      .@{input-prefix}-rtl & {
+        left: 9px
+      }
+
     }
 
   }
@@ -201,6 +234,9 @@
     text-overflow: ellipsis;
     transition: none;
     white-space: nowrap;
+    .@{input-prefix}-rtl &, .@{list-prefix}-rtl & {
+      padding: @dropdown-item-padding-y @dropdown-padding-x @dropdown-item-padding-y @dropdown-padding-x +12;
+    }
     &:hover {
       color: @dropdown-link-active-color;
     }
@@ -214,7 +250,12 @@
     display: inline-block;
     min-width: 120px;
     height: 100%;
-    border-right: solid 1px @gray-200;
+    &:not(.@{input-prefix}-rtl *):not(.@{list-prefix}-rtl *) {
+      border-right: solid 1px @gray-200;
+    }
+    .@{input-prefix}-rtl &, .@{list-prefix}-rtl & {
+      border-left: solid 1px @gray-200;
+    }
     overflow-y: auto;
     vertical-align: top;
   }
@@ -222,6 +263,9 @@
   &-node {
     position: relative;
     padding: @dropdown-item-padding-y @dropdown-padding-x+16 @dropdown-item-padding-y @dropdown-padding-x;
+    .@{input-prefix}-rtl &, .@{list-prefix}-rtl & {
+      padding: @dropdown-item-padding-y @dropdown-padding-x @dropdown-item-padding-y @dropdown-padding-x+16;
+    }
     color: @dropdown-link-color;
     white-space: nowrap;
 
@@ -243,6 +287,10 @@
     position: absolute;
     top: 10px;
     right: 12px;
+    .@{input-prefix}-rtl &, .@{list-prefix}-rtl & {
+      right: auto;
+      left: 12px;
+    }
   }
 
   &-has-children,
@@ -253,8 +301,14 @@
       height: 10px;
       position: absolute;
       top: 50%;
-      right: 12px;
-      transform: translateY(-50%) rotate(-90deg);
+      &:not(.@{cascader-prefix}-rtl *):not(.@{list-prefix}-rtl *) {
+        right: 12px;
+        transform: translateY(-50%) rotate(-90deg);
+      }
+      .@{input-prefix}-rtl &, .@{list-prefix}-rtl & {
+        left: 12px;
+        transform: translateY(-50%) rotate(90deg);
+      }
     }
   }
 
@@ -320,53 +374,8 @@
 }
 
 .@{cascader-prefix}-rtl {
-  .@{cascader-prefix}-result {
-    padding: 5px 8px 0 20px;
-  }
-}
-
-.@{list-prefix}-absolute-wrapper.@{cascader-prefix}-rtl  {
-  .@{cascader-prefix}-options {
-    transform: translateX(-100%);
-  }
-  .@{cascader-prefix}-node  {
-    padding: 6px 12px 6px 28px;
-    text-align: right;
-
-    .@{checkinput-prefix}-checkbox-container {
-      margin-left: 8px;
-    }
-  }
-  .@{cascader-prefix}-has-children {
-    .@{cascader-prefix}-caret {
-      transform: translateY(-50%) rotate(90deg);
-      left: 12px;
-      right: auto;
-    }
-  }
-}
-
-.@{cascader-prefix}-rtl:not(.@{list-prefix}-absolute-wrapper) {
-  .@{cascader-prefix}-options {
-    left: auto;
-    right: 0;
-  }
-  .@{cascader-prefix}-node  {
-    padding: 6px 12px 6px 28px;
-    text-align: right;
-
-    .@{checkinput-prefix}-checkbox-container {
-      margin-left: 8px;
-    }
-  }
-  .@{cascader-prefix}-has-children,
-  .@{cascader-prefix}-may-be-children {
-    .@{cascader-prefix}-caret {
-      transform: translateY(-50%) rotate(90deg);
-      left: 12px;
-      right: auto;
-    }
-  }
+  direction: rtl;
+  text-align: start;
 }
 
 
