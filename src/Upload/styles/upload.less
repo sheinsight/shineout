@@ -57,20 +57,31 @@
     transition: background .2s;
 
     .@{upload-prefix}-text {
-      margin-right: 20px;
       word-break: break-all;
+      &:not(.@{upload-prefix}-rtl *){
+        margin-right: 20px;
+      }
+      .@{upload-prefix}-rtl &{
+        margin-left: 20px;
+
+      }
     }
 
     .@{upload-prefix}-delete,
     .@{upload-prefix}-recover {
       position: absolute;
       top: 2px;
-      right: 10px;
       width: 12px;
       height: 12px;
       color: @colors-danger;
       font-size: 16px;
       vertical-align: middle;
+      &:not(.@{upload-prefix}-rtl *){
+        right: 10px;
+      }
+      .@{upload-prefix}-rtl &{
+        left: 10px;
+      }
 
       svg {
         width: 12px;
@@ -154,12 +165,10 @@
   &-image-item {
     position: relative;
     display: inline-block;
-    margin-right: 12px;
     border: dashed 1px @upload-image-border;
     background: @upload-image-bg;
     border-radius: 2px;
     vertical-align: top;
-
     &:hover {
       .@{upload-prefix}-image-options {
         opacity: 1;
@@ -261,6 +270,10 @@
       height: 14px;
       background: @colors-danger;
       border-radius: 8px;
+      .@{upload-prefix}-rtl & {
+        right: auto;
+        left: -7px;
+      }
 
       svg {
         width: 6px;
@@ -447,6 +460,17 @@
       transition: right .2s ease-in-out;
       color: #fff;
       white-space: nowrap;
+      .@{upload-prefix}-rtl & {
+        auto: 0;
+        right: 0;
+      }
+      &-spin {
+        display: inline-block;
+        margin-right: 8px;
+        .@{upload-prefix}-rtl & {
+          margin-left: 8px;
+        }
+      }
       > span {
         display: inline-block;
         margin: @btn-padding-y @btn-padding-x;
@@ -491,9 +515,6 @@
 
 .@{gap-prefix} {
   .@{upload-prefix} {
-    &-image-item {
-      margin-right: 0;
-    }
     &-handle {
       margin-bottom: 0;
     }
