@@ -15,7 +15,7 @@
  *    -- 4: What you choose is what you get.
  */
 import React, { Component } from 'react'
-import { Tree, Radio } from 'shineout'
+import { Tree, Radio, config } from 'shineout'
 import data from 'doc/data/tree'
 
 const resultStyle = {
@@ -28,6 +28,10 @@ const resultStyle = {
   background: '#f2f2f2',
   padding: 10,
   zIndex: 100,
+}
+if (config.direction === 'rtl') {
+  resultStyle.left = resultStyle.right
+  delete resultStyle.right
 }
 
 const modeList = [
