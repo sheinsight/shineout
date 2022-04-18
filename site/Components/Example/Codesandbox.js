@@ -70,7 +70,7 @@ export default ${file}`,
       r['App.js'].content = r['App.js'].content.replace(new RegExp(`${dataName}\\(\\d*\\)`, 'g'), dataName)
     }
   }
-
+  const transText = text.replace(/('|")shineout('|")/g, '"shineout/dist/shineout.min.js"')
   useEffect(
     () => {
       const r = {
@@ -83,7 +83,7 @@ export default ${file}`,
           },
         },
         'App.js': {
-          content: text,
+          content: transText,
         },
         'index.js': {
           content: `
@@ -91,7 +91,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import 'shineout/dist/theme.shineout.css'
 import App from './App.js'
-  
+
 ReactDOM.render(<App />, document.querySelector('#root'))
 `,
         },
