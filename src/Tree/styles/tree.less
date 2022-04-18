@@ -11,11 +11,22 @@
 
   &-node {
     position: relative;
-    padding-left: @tree-indicator-size;
+    &:not(.@{tree-prefix}-rtl *){
+      padding-left: @tree-indicator-size;
+    }
+    .@{tree-prefix}-rtl & {
+      padding-right: @tree-indicator-size;
+    }
     line-height: @line-height-base;
 
     > .@{tree-prefix}-children {
-      margin-left: @tree-level-indent;
+      &:not(.@{tree-prefix}-rtl *){
+        margin-left: @tree-level-indent;
+      }
+      .@{tree-prefix}-rtl & {
+        margin-right: @tree-level-indent;
+      }
+
     }
 
     & > div {
@@ -41,6 +52,10 @@
         background: linear-gradient(to bottom, @tree-line-color, @tree-line-color @tree-line-value, transparent @tree-transparent-value, transparent);
         background-size: 100% @tree-line-value * @tree-transparent-value;
         content: ' ';
+        .@{tree-prefix}-rtl& {
+          left: auto;
+          right: 6px
+        }
       }
 
       &:after {
@@ -52,6 +67,10 @@
         background: linear-gradient(to right, @tree-line-color, @tree-line-color @tree-line-value, transparent @tree-transparent-value, transparent);
         background-size: @tree-line-value * @tree-transparent-value 100%;
         content: ' ';
+        .@{tree-prefix}-rtl& {
+          left: auto;
+          right: 7px
+        }
       }
 
       &:last-child:before {
@@ -75,6 +94,10 @@
       z-index: 10;
       top: 3px;
       left: 0px;
+      .@{tree-prefix}-rtl& {
+        left: auto;
+        right: 0px;
+      }
 
       &:hover span.@{tree-prefix}-default-icon {
         border-color: @colors-primary;
@@ -130,6 +153,10 @@
       top: 0px;
       left: 0px;
       width: 16px;
+      .@{tree-prefix}-rtl&{
+        left: auto;
+        right: 0px;
+      }
 
       &:after {
         content: '';
@@ -140,6 +167,10 @@
         padding: 12px;
         transition: all .2s;
         z-index: -1;
+        .@{tree-prefix}-rtl&{
+          left: auto;
+          right: 0;
+        }
       }
 
       &:hover {
@@ -164,11 +195,20 @@
         border-color: transparent transparent transparent @tree-indicator-color;
         transform-origin: 2px 4px;
         transition: transform 0.2s linear;
+        .@{tree-prefix}-rtl&{
+          left: auto;
+          right: 10px;
+          border-color: transparent @tree-indicator-color transparent transparent;
+          transform-origin: 8px 4px;
+        }
       }
     }
 
     .@{tree-prefix}-icon-sub span.@{tree-prefix}-default-icon {
       transform: rotate(90deg);
+      .@{tree-prefix}-rtl&{
+        transform: rotate(-90deg);
+      }
     }
   }
 
@@ -180,6 +220,10 @@
     width: 12px;
     height: 12px;
     background: #fff;
+    .@{tree-prefix}-rtl &{
+      right: 0px;
+      left: auto;
+    }
   }
 
   &-content {
@@ -194,8 +238,13 @@
 
   &-checkbox {
     z-index: 10;
-    margin-right: 6px;
+    &:not(.@{tree-prefix}-rtl *){
+      margin-right: 6px;
+    }
     font-size: 0;
+    .@{tree-prefix}-rtl & {
+      margin-left: 6px;
+    }
   }
 
   &-drag-place {
@@ -213,41 +262,6 @@
 
   &.@{tree-prefix}-rtl {
     direction: rtl;
-    text-align: right;
-    .@{tree-prefix}-node {
-      padding-left: 0;
-      padding-right: @tree-indicator-size;
-
-
-      .@{tree-prefix}-icon-plus,
-      .@{tree-prefix}-icon-sub {
-        left: auto;
-        right: 0;
-
-        .@{tree-prefix}-default-icon {
-          transform: rotate(180deg);
-        }
-      }
-
-      .@{tree-prefix}-icon-sub {
-        .@{tree-prefix}-default-icon {
-          transform: rotate(90deg);
-        }
-      }
-    }
-
-
-    &.@{tree-prefix}-with-line {
-      .@{tree-prefix}-node {
-        &:before {
-          left: auto;
-          right: 5px;
-        }
-        &:after {
-          left: auto;
-          right: 6px;
-        }
-      }
-    }
+    text-align: start;
   }
 }
