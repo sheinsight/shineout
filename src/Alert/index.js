@@ -5,6 +5,7 @@ import { capitalize } from '../utils/strings'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { alertClass } from './styles'
 import icons from '../icons'
+import { isRTL } from '../config'
 
 class Alert extends PureComponent {
   constructor(props) {
@@ -68,6 +69,10 @@ class Alert extends PureComponent {
 
     if (!icon) return null
     const style = { width: iconSize, height: iconSize, marginRight: iconSize / 2 }
+    if (isRTL()) {
+      style.marginLeft = style.marginRight
+      delete style.marginRight
+    }
 
     return (
       <div className={alertClass('icon')} style={style}>
@@ -100,7 +105,8 @@ class Alert extends PureComponent {
       type,
       !outAnimation && dismiss === 1 && 'dismissed',
       showClose && 'with-close',
-      icon && 'with-icon'
+      icon && 'with-icon',
+      isRTL() && 'rtl'
     )
     if (className) wrapClassName += ` ${className}`
 
