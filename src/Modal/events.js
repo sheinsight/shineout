@@ -10,6 +10,7 @@ import { getLocale } from '../locale'
 import { getParent } from '../utils/dom/element'
 import ready from '../utils/dom/ready'
 import { docSize } from '../utils/dom/document'
+import { isRTL } from '../config'
 
 const containers = {}
 const DURATION = 300
@@ -76,7 +77,10 @@ export function createDiv(props) {
   const parent = typeof container === 'function' ? container() : container
   div = document.createElement('div')
   parent.appendChild(div)
-  div.className = classnames(modalClass('_', position && 'position', fullScreen && 'full-screen'), props.rootClassName)
+  div.className = classnames(
+    modalClass('_', position && 'position', isRTL() && 'rtl', fullScreen && 'full-screen'),
+    props.rootClassName
+  )
 
   containers[id] = { div, container: parent, props }
 

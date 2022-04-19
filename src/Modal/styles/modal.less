@@ -33,6 +33,9 @@
   height: 100%;
   text-align: center;
   opacity: 0;
+  &-rtl {
+    direction: rtl;
+  }
 
   &-panel {
     // max-width: 90%;
@@ -40,6 +43,9 @@
     text-align: left;
     margin: 0 auto;
     transform: translateY(-100px);
+    .@{modal-prefix}-rtl & {
+      text-align: right;
+    }
   }
 
   &-zoom {
@@ -53,7 +59,10 @@
     font-family: @modal-title-font;
     line-height: 1.5;
     padding-right: @modal-title-distance-to-right;
-
+    .@{modal-prefix}-rtl &{
+      padding-right: 0;
+      padding-left: @modal-title-distance-to-right;;
+    }
 
     &.@{modal-prefix}-with-icon {
       display: flex;
@@ -66,6 +75,10 @@
       width: @modal-default-title-icon-size;
       height: @modal-default-title-icon-size;
       display: flex;
+      .@{modal-prefix}-rtl &{
+        margin-left: 8px;
+        margin-right: 0;
+      }
 
       svg {
         width: @modal-default-title-icon-size;
@@ -77,10 +90,17 @@
 
   &-method-title {
     padding-right: @modal-method-header-padding-right;
+    .@{modal-prefix}-rtl & {
+      padding-right: 0;
+      padding-left: @modal-method-header-padding-right;
+    }
   }
 
   & &-body {
     padding: 40px 40px 20px 70px;
+    .@{modal-prefix}-rtl & {
+      padding: 40px 70px 20px 40px;
+    }
 
     .@{modal-prefix}-title {
       margin-bottom: 8px;
@@ -92,6 +112,10 @@
       left: @modal-icon-left;
       width: @modal-icon-size;
       height: @modal-icon-size;
+      .@{modal-prefix}-rtl& {
+        left: auto;
+        right: @modal-icon-left;
+      }
     }
   }
 
@@ -108,10 +132,17 @@
         background: @gray-100;
         padding: @modal-drawer-header-vertical-padding @modal-drawer-padding;
         padding-right: @modal-drawer-padding + 30;
+        .@{modal-prefix}-rtl& {
+          padding-right: @modal-drawer-padding;
+          padding-left: @modal-drawer-padding + 30;
+        }
       }
       > .@{card-prefix}-body {
         border-radius: 0;
         padding: @modal-drawer-padding;
+        .@{modal-prefix}-rtl& {
+          padding: @modal-drawer-padding;
+        }
       }
       > .@{card-prefix}-footer {
         border-radius: 0;
@@ -122,6 +153,12 @@
         right: 0;
         margin-top: @modal-drawer-header-vertical-padding;
         margin-right: @modal-drawer-header-vertical-padding;
+        .@{modal-prefix}-rtl& {
+          left: 0;
+          right: auto;
+          margin-right: auto;
+          margin-left: @modal-drawer-header-vertical-padding;
+        }
       }
     }
   }
@@ -230,6 +267,12 @@
     padding: 0;
     margin-top: @modal-panel-padding;
     margin-right: @modal-panel-padding;
+    .@{modal-prefix}-rtl & {
+      left: 0;
+      right: auto;
+      margin-right: 0;
+      margin-left: @modal-panel-padding;
+    }
 
     &:hover > svg {
       fill: @modal-close-icon-hover-color;
@@ -237,13 +280,6 @@
 
     > svg {
       fill: @modal-close-icon-color;
-    }
-
-    &.@{modal-prefix}-rtl {
-      left: 0;
-      right: auto;
-      margin-right: 0;
-      margin-left: @modal-panel-padding;
     }
   }
 
@@ -276,23 +312,42 @@
         padding-left: @modal-header-padding-left;
         border-radius: @modal-border-radius @modal-border-radius 0 0;
         background: @modal-header-bg;
+        .@{modal-prefix}-rtl & {
+          padding-right: @modal-header-padding-left;
+          padding-left: @modal-header-padding-right;
+        }
       }
       > .@{card-prefix}-body {
         padding-top: @modal-body-padding-top;
         padding-right: @modal-body-padding-right;
         padding-bottom: @modal-body-padding-bottom;
         padding-left: @modal-body-padding-left;
+        .@{modal-prefix}-rtl & {
+          padding-right: @modal-body-padding-left;
+          padding-left: @modal-body-padding-right;
+        }
       }
       .@{modal-prefix}-body {
         padding-top: @modal-icon-body-padding-top;
         padding-right: @modal-icon-body-padding-right;
         padding-bottom: @modal-icon-body-padding-bottom;
         padding-left: @modal-icon-body-padding-left;
+        .@{modal-prefix}-rtl & {
+          padding-right: @modal-icon-body-padding-left;
+          padding-left: @modal-icon-body-padding-right;
+        }
       }
       > .@{card-prefix}-footer {
         padding: @modal-footer-padding;
         border-radius: 0 0 @modal-border-radius @modal-border-radius;
         background: @modal-footer-bg;
+        .@{modal-prefix}-rtl & {
+          text-align: left;
+          .@{button-prefix} + .@{button-prefix} {
+            margin-left: 0;
+            margin-right: @button-margin-left;
+          }
+        }
       }
       > .@{card-prefix}-header, > .@{card-prefix}-footer {
         &:after {
@@ -305,56 +360,10 @@
     > .@{card-prefix}.@{modal-prefix}-normal {
       .@{modal-prefix}-body {
           padding-left: @modal-icon-body-padding-right;
+          .@{modal-prefix}-rtl & {
+            padding-right: @modal-icon-body-padding-right;
+          }
         }
-      &.@{modal-prefix}-rtl {
-        .@{modal-prefix}-body {
-          padding-right: @modal-icon-body-padding-right;
-        }
-      }
-    }
-
-
-
-
-    > .@{card-prefix}.@{modal-prefix}-rtl {
-      direction: rtl;
-      text-align: right;
-
-      > .@{card-prefix}-header {
-        padding-right: @modal-header-padding-left;
-        padding-left: @modal-header-padding-right;
-      }
-
-      > .@{card-prefix}-footer {
-        text-align: left;
-        .@{button-prefix} + .@{button-prefix} {
-          margin-left: 0;
-          margin-right: @button-margin-left;
-        }
-      }
-
-      .@{modal-prefix}-body {
-        padding-right: @modal-icon-body-padding-left;
-        padding-left: @modal-icon-body-padding-right;
-
-        .@{modal-prefix}-title {
-          padding-right: 0;
-          padding-left: 24px;
-        }
-
-        .@{modal-prefix}-icon {
-          left: auto;
-          right: @modal-icon-left;
-        }
-      }
-
-
-      .@{modal-prefix}-title {
-        .@{modal-prefix}-icon  {
-          margin-right: 0;
-          margin-left: 8px;
-        }
-      }
     }
   }
 
