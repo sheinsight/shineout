@@ -52,6 +52,9 @@
     display: inline-block;
     width: @tag-icon-width;
     margin: 0 0 0 @tag-close-left;
+    .@{tag-prefix}-rtl& {
+      margin: 0  @tag-close-left 0 0;
+    }
 
     &:hover svg{
       fill: @tag-close-hover-color;
@@ -67,6 +70,9 @@
   .@{tag-prefix}-close-loading {
     display: inline-block;
     margin: 0 0 0 @tag-close-left;
+    .@{tag-prefix}-rtl& {
+      margin: 0  @tag-close-left 0 0;
+    }
   }
 
   &-default {
@@ -97,11 +103,5 @@
   &.@{tag-prefix}-rtl {
     direction: rtl;
     text-align: right;
-
-    .@{tag-prefix}-close-icon {
-      svg {
-        left: 10px;
-      }
-    }
   }
 }
