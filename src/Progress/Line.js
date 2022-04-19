@@ -4,12 +4,13 @@ import classnames from 'classnames'
 import { progressClass } from './styles'
 import analyzeColor from './analyzeColor'
 import Popup from './Popup'
+import { isRTL } from '../config'
 
 function Line(props) {
   const { children, strokeWidth, type, value, color, style, background, popup } = props
   const hasChildren = children !== undefined
   const isPopup = popup && hasChildren
-  const className = classnames(progressClass('line', type, isPopup && 'line-popup'), props.className)
+  const className = classnames(progressClass('line', type, isPopup && 'line-popup', isRTL() && 'rtl'), props.className)
   const innerStyle = {
     width: `${(value / 100) * 100}%`,
     borderRadius: strokeWidth / 2,

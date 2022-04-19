@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { progressClass } from './styles'
 import analyzeColor from './analyzeColor'
+import { isRTL } from '../config'
 
 function Circle(props) {
   const { children, strokeWidth, type, color, size, value, background, strokeLinecap } = props
-  const className = classnames(progressClass('circle', type), props.className)
+  const className = classnames(progressClass('circle', type, isRTL() && 'rtl'), props.className)
 
   const r = 100 - Math.ceil((strokeWidth / size) * 100)
 
