@@ -8,6 +8,7 @@ import Wrapper from './Wrapper'
 import Sticky from '../Sticky'
 import { tabsClass } from './styles'
 import { isEmpty, isObject } from '../utils/is'
+import { isRTL } from '../config'
 
 class Tabs extends PureComponent {
   constructor(props) {
@@ -196,7 +197,14 @@ class Tabs extends PureComponent {
     const position = this.getAlign()
     const { align, isVertical } = position
     const className = classnames(
-      tabsClass('_', align && `align-${align}`, isVertical && 'vertical', shape, autoFill && 'auto-fill'),
+      tabsClass(
+        '_',
+        align && `align-${align}`,
+        isVertical && 'vertical',
+        shape,
+        autoFill && 'auto-fill',
+        isRTL() && 'rtl'
+      ),
       this.props.className
     )
 

@@ -6,6 +6,7 @@ import Button from '../Button'
 import icons from '../icons'
 import Tab from './Tab'
 import { tabsClass } from './styles'
+import { isRTL } from '../config'
 
 const REDUNDANT = 30
 class Header extends PureComponent {
@@ -67,17 +68,19 @@ class Header extends PureComponent {
     const { isVertical } = this.props
     const positions = isVertical ? ['top', 'bottom'] : ['left', 'right']
     const rect = this.innerElement.getBoundingClientRect()
+    const d = isRTL() && !isVertical ? -1 : 1
     if (tabRect[positions[0]] < rect[positions[0]]) {
       this.setState(
         immer(draft => {
-          draft.attribute -= rect[positions[0]] - tabRect[positions[0]] + (first ? 0 : REDUNDANT)
+          draft.attribute -= (rect[positions[0]] - tabRect[positions[0]] + (first ? 0 : REDUNDANT)) * d
         })
       )
     } else if (tabRect[positions[1]] > rect[positions[1]]) {
       this.setState(
         immer(draft => {
           draft.attribute +=
-            tabRect[positions[1]] - rect[positions[1]] - (draft.attribute === 0 ? -30 : 0) + (last ? 0 : REDUNDANT)
+            (tabRect[positions[1]] - rect[positions[1]] - (draft.attribute === 0 ? -30 : 0) + (last ? 0 : REDUNDANT)) *
+            d
         })
       )
     }
@@ -143,7 +146,8 @@ class Header extends PureComponent {
     const { border, onCollapse, collapsed, isVertical, tabBarExtraContent, tabBarStyle, shape, hideSplit } = this.props
     const { attribute, overflow } = this.state
 
-    const position = isVertical ? 'Top' : 'Left'
+    const hor = isRTL() ? 'Right' : 'Left'
+    const position = isVertical ? 'Top' : hor
     const showBorder = shape !== 'bordered' && shape !== 'dash' && !hideSplit
 
     return (
