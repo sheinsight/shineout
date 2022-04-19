@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import icons from '../icons'
 import { cardClass } from './styles'
+import { isRTL } from '../config'
 
 export default class extends PureComponent {
   static propTypes = {
@@ -22,11 +23,9 @@ export default class extends PureComponent {
   }
 
   render() {
-    const {
-      style, align, className, children, onCollapse, collapsed,
-    } = this.props
+    const { style, align, className, children, onCollapse, collapsed } = this.props
 
-    const newClassName = classnames(cardClass('header', align), className)
+    const newClassName = classnames(cardClass('header', align, isRTL() && 'header-rtl'), className)
     const onClick = typeof collapsed === 'boolean' ? onCollapse : undefined
 
     return (
@@ -37,4 +36,3 @@ export default class extends PureComponent {
     )
   }
 }
-

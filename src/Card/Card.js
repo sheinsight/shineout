@@ -8,6 +8,7 @@ import { Provider } from './context'
 import { compose } from '../utils/func'
 import resizable from '../hoc/resizable'
 import moveable from '../hoc/moveable'
+import { isRTL } from '../config'
 
 class Card extends PureComponent {
   constructor(props) {
@@ -59,7 +60,7 @@ class Card extends PureComponent {
     const collapsed = this.getCollapsed()
     const shadow = this.props.shadow === true ? 'shadow' : this.props.shadow
     const className = classnames(
-      cardClass('_', shadow, collapsible && 'collapsible', collapsed && 'collapsed'),
+      cardClass('_', shadow, collapsible && 'collapsible', collapsed && 'collapsed', isRTL() && 'rtl'),
       this.props.className
     )
 

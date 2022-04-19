@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { cardClass } from './styles'
+import { isRTL } from '../config'
 
 const getChildId = (child, i) => {
   if (child && child.props && child.props.id !== undefined) return child.props.id
@@ -36,7 +37,10 @@ class Accordion extends PureComponent {
       const props = {
         collapsed: active !== childId,
         collapsible: true,
-        className: classnames(typeof child === 'object' && child.className, cardClass('accordion')),
+        className: classnames(
+          typeof child === 'object' && child.className,
+          cardClass('accordion', isRTL && 'accordion-rtl')
+        ),
         onCollapse: this.handleActive.bind(this, childId),
       }
       return cloneElement(child, props)
