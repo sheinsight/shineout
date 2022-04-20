@@ -8,6 +8,7 @@ import { Provider } from './context'
 import { compose } from '../utils/func'
 import resizable from '../hoc/resizable'
 import moveable from '../hoc/moveable'
+import { modalClass } from '../Modal/styles'
 import { isRTL } from '../config'
 
 class Card extends PureComponent {
@@ -94,6 +95,6 @@ Card.defaultProps = {
 }
 
 export default compose(
-  moveable(`.${cardClass('header')}`),
+  moveable(`.${cardClass('header')}, .${modalClass('method-title')}`),
   resizable
 )(Card)
