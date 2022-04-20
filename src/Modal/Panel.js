@@ -7,7 +7,6 @@ import { defaultProps, getProps } from '../utils/proptypes'
 import { modalClass } from './styles'
 import { Provider } from '../Scroll/context'
 import { Provider as ZProvider } from './context'
-import { isRTL } from '../config'
 
 function setTransformOrigin(node, value) {
   const { style } = node
@@ -198,13 +197,7 @@ export default class Panel extends PureComponent {
       events,
       fullScreen,
     } = this.props
-
-    const rtl = isRTL()
-
-    const className = classnames(
-      modalClass('panel', type, position, zoom && !moveable && 'zoom', rtl && 'rtl'),
-      this.props.className
-    )
+    const className = classnames(modalClass('panel', type, position, zoom && !moveable && 'zoom'), this.props.className)
     const showClose = typeof hideClose === 'boolean' ? !hideClose : maskCloseAble || maskCloseAble === null
     const maskStyle = { paddingBottom: fullScreen ? 0 : top }
     return (
@@ -227,7 +220,7 @@ export default class Panel extends PureComponent {
               style={this.getStyle()}
             >
               {showClose && (
-                <a className={modalClass('close', rtl && 'rtl')} onClick={onClose}>
+                <a className={modalClass('close')} onClick={onClose}>
                   {Icons.Close}
                 </a>
               )}
