@@ -5,6 +5,10 @@
 @popup-height: 38px;
 
 .@{progress-prefix} {
+  &-rtl {
+    direction: rtl;
+    text-align: right;
+  }
   &-line {
     display: flex;
     align-items: center;
@@ -18,6 +22,10 @@
 
     .@{progress-prefix}-content {
       margin-left: 8px;
+      .@{progress-prefix}-rtl&  {
+        margin-right: 8px;
+        margin-left: 0;
+      }
     }
 
     .@{progress-prefix}-front {
@@ -27,6 +35,10 @@
       height: 100%;
       background: @colors-primary;
       transition: width 0.32s linear;
+      .@{progress-prefix}-rtl&  {
+        left: auto;
+        right: 0;
+      }
     }
     &-popup {
       padding-top: @popup-height;
