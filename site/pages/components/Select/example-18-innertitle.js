@@ -18,14 +18,14 @@ export default function() {
         innerTitle="Pick a color, please"
         clearable
         keygen
-        style={{ width: 240, marginRight: 12 }}
+        style={{ width: 240, marginInlineEnd: 12 }}
         data={data}
       />
       <Select
         innerTitle="Pick a color, please"
         clearable
         keygen
-        style={{ width: 240, marginRight: 12 }}
+        style={{ width: 240, marginInlineEnd: 12 }}
         data={data}
         onFilter={text => d => d.indexOf(text) >= 0}
         compressed

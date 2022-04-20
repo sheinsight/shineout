@@ -12,12 +12,12 @@ export default function() {
   return (
     <div>
       <Button type="primary">
-        <FontAwesome name="home" style={{ marginRight: 4 }} />
+        <FontAwesome name="home" style={{ marginInlineEnd: 4 }} />
         left
       </Button>
       <Button type="primary">
         right
-        <FontAwesome name="home" style={{ marginLeft: 4 }} />
+        <FontAwesome name="home" style={{ marginInlineStart: 4 }} />
       </Button>
       <Button type="primary">
         ce

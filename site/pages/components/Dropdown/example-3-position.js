@@ -7,7 +7,7 @@
 import React from 'react'
 import { Dropdown } from 'shineout'
 
-const style = { marginRight: 12, marginBottom: 12 }
+const style = { marginInlineEnd: 12, marginBottom: 12 }
 
 export default function() {
   const menu = [

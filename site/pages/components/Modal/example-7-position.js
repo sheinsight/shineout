@@ -42,7 +42,7 @@ export default class extends Component {
         <Select
           data={['top', 'right', 'bottom', 'left']}
           value={position}
-          style={{ width: 100, marginRight: 12 }}
+          style={{ width: 100, marginInlineEnd: 12 }}
           keygen
           onChange={p => this.setState({ position: p })}
         />

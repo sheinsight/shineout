@@ -44,7 +44,7 @@ export default class extends React.Component {
         <Select
           data={['info', 'success', 'warning', 'error']}
           value={type}
-          style={{ width: 100, marginRight: 12 }}
+          style={{ width: 100, marginInlineEnd: 12 }}
           keygen
           onChange={t => this.setState({ type: t })}
         />

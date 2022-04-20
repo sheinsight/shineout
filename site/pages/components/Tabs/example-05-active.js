@@ -44,7 +44,7 @@ export default class extends Component {
     const message = (
       <span>
         Message
-        <a style={{ color: '#999', marginLeft: 10 }} onClick={this.hideMessage}>
+        <a style={{ color: '#999', marginInlineStart: 10 }} onClick={this.hideMessage}>
           <FontAwsome name="close" />
         </a>
       </span>

@@ -7,7 +7,7 @@
 import React from 'react'
 import FontAwesome from './FontAwesome'
 
-const margin = { marginRight: 20 }
+const margin = { marginInlineEnd: 20 }
 
 export default function() {
   return (

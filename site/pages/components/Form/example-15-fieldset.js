@@ -50,7 +50,7 @@ export default class extends PureComponent {
             {({ onAppend, onRemove }) => (
               <Form.Item style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
                 <Input
-                  style={{ width: 180, marginRight: 8 }}
+                  style={{ width: 180, marginInlineEnd: 8 }}
                   name="name"
                   title="Friend name"
                   rules={[rules.required]}

@@ -2,19 +2,21 @@ import React, { useState, useEffect, useCallback } from 'react'
 import Sticky from 'shineout/Sticky'
 import history from '../../history'
 import { navClass } from '../../styles'
+import getParameterByName, { setParameterByName } from '../../utils/param'
 
 const scrollTo = id => {
-  const isSingleMode = history.location.search.indexOf('?example=') === 0
+  const isSingleMode = getParameterByName('example')
   if (isSingleMode) {
-    history.push(`${history.location.pathname}?example=${id.replace('heading-', '')}`)
+    const search = setParameterByName('example', id.replace('heading-', ''))
+    history.push(`${history.location.pathname}${search}`)
   } else {
-    history.push(`${history.location.pathname}#${id}`)
+    history.push(`${history.location.pathname}${history.location.search}#${id}`)
     const element = document.getElementById(id)
     if (element) element.scrollIntoView()
   }
 }
 
-export default function (Component) {
+export default function(Component) {
   return function Nav(prop) {
     const [active, setActive] = useState('')
     const [headings] = useState([])

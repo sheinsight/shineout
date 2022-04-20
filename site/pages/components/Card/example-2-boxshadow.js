@@ -10,7 +10,7 @@ import { Card } from 'shineout'
 const cardStyle = {
   width: 140,
   display: 'inline-flex',
-  marginRight: 20,
+  marginInlineEnd: 20,
 }
 
 export default function() {

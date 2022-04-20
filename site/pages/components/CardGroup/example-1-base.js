@@ -68,13 +68,13 @@ function Item({ title, icon, color }) {
         <div style={{ width: 40, height: 40, display: 'inline-flex', borderRadius: '50%', background: `${color}20` }}>
           <Icon name={icon} fontSize={14} style={{ margin: 'auto', color }} />
         </div>
-        <span style={{ marginLeft: 12, fontSize: 16, fontWeight: 500, color: 'rgba(51,62,89,1)' }}>{title}</span>
+        <span style={{ marginInlineStart: 12, fontSize: 16, fontWeight: 500, color: 'rgba(51,62,89,1)' }}>{title}</span>
       </div>
       <p style={{ margin: '20px 0', fontSize: 14, color: 'rgba(153,157,168,1)' }}>
         Add or delete tag for your customer. You can sort your customer...
       </p>
       <div style={{ color: 'rgba(102,108,124,1)' }}>
-        <Icon name="plus" style={{ marginRight: 6 }} />
+        <Icon name="plus" style={{ marginInlineEnd: 6 }} />
         Add This
       </div>
     </div>

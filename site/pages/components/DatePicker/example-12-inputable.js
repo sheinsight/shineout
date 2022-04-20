@@ -10,7 +10,7 @@ import { DatePicker } from 'shineout'
 export default function() {
   return (
     <div>
-      <DatePicker placeholder="Input date" inputable style={{ marginRight: 12 }} />
+      <DatePicker placeholder="Input date" inputable style={{ marginInlineEnd: 12 }} />
 
       <DatePicker type="datetime" inputable defaultValue={new Date()} />
 

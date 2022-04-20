@@ -36,13 +36,13 @@ export default function() {
 
       <Button.Group type="primary">
         <Button>
-          <FontAwesome name="angle-left" style={{ marginRight: 4 }} />
+          <FontAwesome name="angle-left" style={{ marginInlineEnd: 4 }} />
           Left
         </Button>
         <Button>Center</Button>
         <Button>
           Right
-          <FontAwesome name="angle-right" style={{ marginLeft: 4 }} />
+          <FontAwesome name="angle-right" style={{ marginInlineStart: 4 }} />
         </Button>
       </Button.Group>
 

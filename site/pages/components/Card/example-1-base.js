@@ -11,7 +11,7 @@ const cardStyle = {
   width: 240,
   height: 300,
   display: 'inline-flex',
-  marginRight: 20,
+  marginInlineEnd: 20,
 }
 const gray = { background: '#f7f7f7' }
 
