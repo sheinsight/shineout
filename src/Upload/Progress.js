@@ -5,9 +5,10 @@ import { PureComponent } from '../component'
 import { uploadClass } from './styles'
 import Button from '../Button'
 import Upload from './Upload'
+import { isRTL } from '../config'
 
 const SPIN = color => (
-  <span style={{ display: 'inline-block', marginRight: 8 }}>
+  <span className={uploadClass('bg-spin')}>
     <Spin size={10} name="ring" color={color} />
   </span>
 )
@@ -74,7 +75,7 @@ class Progress extends PureComponent {
     const { placeholder, type, ...others } = this.props
     const uploading = this.state.progress >= 0
     const style = {
-      right: uploading ? `${100 - this.state.progress}%` : '100%',
+      [isRTL() ? 'left' : 'right']: uploading ? `${100 - this.state.progress}%` : '100%',
     }
     return (
       <Upload

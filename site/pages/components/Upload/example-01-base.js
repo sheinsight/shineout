@@ -8,6 +8,8 @@
 import React from 'react'
 import { Upload, Button } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
+import { isRTL } from "shineout"
+
 
 export default class extends React.Component {
   constructor(props) {
@@ -33,7 +35,7 @@ export default class extends React.Component {
         style={{ width: 300 }}
       >
         <Button>
-          <FontAwesome name="upload" style={{ marginRight: 4 }} />
+          <FontAwesome name="upload" style={{ marginInlineEnd: 4 }} />
           Upload file
         </Button>
       </Upload>
