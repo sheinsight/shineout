@@ -4,6 +4,10 @@
 @rate-prefix: ~'@{so-prefix}-rate';
 
 .@{rate-prefix} {
+  &-rtl {
+    direction: rtl;
+    text-align: rightsli;
+  }
   @kf-highlight: ~'@{rate-prefix}-highlight';
 
   @keyframes @kf-highlight {

@@ -20,6 +20,10 @@
   transform-origin: 0 0;
   transition: transform 0.216s, opacity 0.216s ease-out;
   font-size: @alert-font-size;
+  &-rtl{
+    direction: rtl;
+    text-align: right;
+  }
 
   // Headings for larger alerts
   h2,
@@ -31,7 +35,12 @@
   }
 
   &-with-close {
-    padding-right: calc(~'@{alert-padding-x} + 20px');
+    &:not(.@{alert-prefix}-rtl) {
+      padding-right: calc(~'@{alert-padding-x} + 20px');
+    }
+    .@{alert-prefix}-rtl& {
+      padding-left: calc(~'@{alert-padding-x} + 20px');
+    }
   }
 
   // Provide class for links that match alerts
@@ -45,7 +54,10 @@
     top: @alert-padding-y;
     right: 12px;
     display: block;
-
+    .@{alert-prefix}-rtl & {
+      right: auto;
+      left: 12px;
+    }
     svg {
       width: 10px;
       height: 10px;

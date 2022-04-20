@@ -10,6 +10,10 @@
   &-section {
     display: inline-block;
     margin-right: @pagination-margin;
+    .@{pagination-prefix}-rtl & {
+      margin-right: 0;
+      margin-left: @pagination-margin;
+    }
     vertical-align: middle;
 
     > span {
@@ -18,7 +22,13 @@
     }
 
     &:last-child {
-      margin-right: 0;
+      &:not(.@{pagination-prefix}-rtl *) {
+        margin-right: 0;
+      }
+      .@{pagination-prefix}-rtl & {
+        margin-left: 0;
+      }
+
     }
   }
 
@@ -28,6 +38,7 @@
 
   &-right {
     text-align: right;
+    text-align: end;
   }
 
   &-small &-item {
@@ -64,9 +75,18 @@
     text-decoration: none;
     user-select: none;
     vertical-align: top;
+    .@{pagination-prefix}-rtl & {
+      margin-right: 0;
+      margin-left: @pagination-margin;
+    }
 
     &:last-child {
-      margin-right: 0;
+      &:not(.@{pagination-prefix}-rtl *) {
+        margin-right: 0;
+      }
+      .@{pagination-prefix}-rtl & {
+        margin-left: 0;
+      }
     }
 
     svg {
@@ -152,6 +172,10 @@
 
   &-simple-span {
     margin-left: 16px;
+    .@{pagination-prefix}-rtl & {
+      margin-left:0;
+      margin-right: 16px;
+    }
   }
   &-simple-input input { text-align: center; }
 
