@@ -89,7 +89,7 @@ class Index extends React.Component {
     return (
       <div>
         <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 16 }}>
-          <span style={{ marginRight: 16, fontWeight: 700 }}>Size: </span>
+          <span style={{ marginInlineEnd: 16, fontWeight: 700 }}>Size: </span>
           <Select
             width={120}
             data={this.select}

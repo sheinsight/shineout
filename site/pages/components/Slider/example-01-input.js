@@ -14,7 +14,7 @@ const container = {
 
 const slider = {
   flex: 1,
-  marginRight: 28,
+  marginInlineEnd: 28,
 }
 
 export default function() {

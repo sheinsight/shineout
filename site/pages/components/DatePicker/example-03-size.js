@@ -12,8 +12,8 @@ export default function() {
     <div>
       {['small', 'default', 'large'].map(size => (
         <div key={size} style={{ marginBottom: 12 }}>
-          <DatePicker size={size} type="datetime" style={{ marginRight: 12 }} defaultValue={Date.now()} />
-          <DatePicker size={size} style={{ marginRight: 12 }} defaultValue={Date.now()} />
+          <DatePicker size={size} type="datetime" style={{ marginInlineEnd: 12 }} defaultValue={Date.now()} />
+          <DatePicker size={size} style={{ marginInlineEnd: 12 }} defaultValue={Date.now()} />
           <DatePicker size={size} type="time" defaultValue="12:12:12" />
         </div>
       ))}

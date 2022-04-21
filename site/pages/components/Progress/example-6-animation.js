@@ -40,7 +40,7 @@ export default class extends Component {
           {value.toFixed(0)}%
         </Progress>
 
-        <Button style={{ marginLeft: 80 }} onClick={this.handleClick.bind(this, 0)}>
+        <Button style={{ marginInlineStart: 80 }} onClick={this.handleClick.bind(this, 0)}>
           Start
         </Button>
       </div>

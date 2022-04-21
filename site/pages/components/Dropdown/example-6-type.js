@@ -57,7 +57,7 @@ export default class extends Component {
             data={['primary', 'success', 'warning', 'danger']}
             value={type}
             onChange={this.changeSetting.bind(this, 'type')}
-            style={{ marginRight: 20 }}
+            style={{ marginInlineEnd: 20 }}
           />
 
           <span>size: </span>
@@ -67,7 +67,7 @@ export default class extends Component {
             data={['small', 'default', 'large']}
             value={size}
             onChange={this.changeSetting.bind(this, 'size')}
-            style={{ marginRight: 20 }}
+            style={{ marginInlineEnd: 20 }}
           />
 
           <Checkbox value={outline} onChange={this.changeSetting.bind(this, 'outline')}>

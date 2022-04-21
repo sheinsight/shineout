@@ -39,7 +39,7 @@ export default () => {
         onChange={c => {
           setSelected(c)
         }}
-        style={{ width: 200, marginRight: 20 }}
+        style={{ width: 200, marginInlineEnd: 20 }}
       />
       <Button onClick={() => setVisible(true)}>Open</Button>
       <Modal

@@ -7,7 +7,7 @@
 import React from 'react'
 import { Input } from 'shineout'
 
-const style = { width: 120, marginRight: 12 }
+const style = { width: 120, marginInlineEnd: 12 }
 
 export default function() {
   return (

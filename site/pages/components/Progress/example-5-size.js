@@ -15,9 +15,9 @@ export default function() {
 
       <br />
 
-      <Progress shape="circle" size={50} strokeWidth={6} style={{ marginRight: 20 }} value={70} />
+      <Progress shape="circle" size={50} strokeWidth={6} style={{ marginInlineEnd: 20 }} value={70} />
 
-      <Progress shape="circle" type="warning" style={{ marginRight: 20, width: 70, height: 70 }} value={70}>
+      <Progress shape="circle" type="warning" style={{ marginInlineEnd: 20, width: 70, height: 70 }} value={70}>
         70%
       </Progress>
 

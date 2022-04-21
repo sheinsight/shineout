@@ -48,7 +48,7 @@ export default class extends PureComponent {
               <Form.Block value={value} onChange={onChange} error={error}>
                 <Form.Item style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
                   <Input
-                    style={{ width: 180, marginRight: 8 }}
+                    style={{ width: 180, marginInlineEnd: 8 }}
                     name="name"
                     rules={this.rules.name}
                     placeholder="Name"

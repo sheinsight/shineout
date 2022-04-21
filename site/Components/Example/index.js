@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect, Fragment, createElement } from 'rea
 import PropTypes from 'prop-types'
 import { Lazyload, Spin } from 'shineout'
 import Icon from 'doc/icons/Icon'
-import history from 'doc/history'
 import { exampleClass } from 'doc/styles'
 import Codesandbox from './Codesandbox'
 import CodeBlock from '../CodeBlock'
+import getParameterByName from '../../utils/param'
 
 const placeholder = (
   <div className={exampleClass('placeholder')}>
@@ -64,11 +64,9 @@ export default function Example({ component, id, name, rawText, title: propsTitl
     </a>
   )
 
-  let { search } = history.location
-  const examplePrefix = '?example='
-  if (search.indexOf(examplePrefix) === 0) {
-    search = search.replace(examplePrefix, '')
-    if (name.indexOf(search) < 0) return null
+  const single = getParameterByName('example')
+  if (single) {
+    if (name.indexOf(single) < 0) return null
   }
 
   // eslint-disable-next-line

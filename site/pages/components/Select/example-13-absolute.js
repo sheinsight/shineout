@@ -18,7 +18,7 @@ export default function() {
         absolute
         data={data}
         keygen
-        style={{ width: 100, marginRight: 12 }}
+        style={{ width: 100, marginInlineEnd: 12 }}
         onFilter={text => d => d.indexOf(text) > -1}
         placeholder="default"
       />
