@@ -8,7 +8,7 @@ export default class extends PureComponent {
   static propTypes = {
     datum: PropTypes.object.isRequired,
     disabled: PropTypes.bool,
-    id: PropTypes.string.isRequired,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onChange: PropTypes.func.isRequired,
   }
 
