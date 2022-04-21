@@ -99,7 +99,7 @@ const Header = ({ versions }) => {
       })
     }
   }, [])
-  useDirection()
+  const [direction] = useDirection()
 
   return (
     <div className={headerClass('_')}>
@@ -131,7 +131,7 @@ const Header = ({ versions }) => {
           {locate('English', '中文')}
         </Button>
         <Button size="small" onClick={handleRTLClick} style={{ marginInlineEnd: 12 }}>
-          {config.direction === 'rtl' ? 'lrt' : 'rtl'}
+          {direction === 'rtl' ? 'LTR' : 'RTL'}
         </Button>
 
         {version && (
