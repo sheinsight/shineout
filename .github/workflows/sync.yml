@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - dev
+      - master
     paths:
       - 'site/pages/documentation/changelog/*'
       - 'site/pages/documentation/changelog-rc/*'

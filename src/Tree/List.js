@@ -59,7 +59,7 @@ List.propTypes = {
   className: PropTypes.string,
   data: PropTypes.array,
   expanded: PropTypes.bool,
-  id: PropTypes.any,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isRoot: PropTypes.bool,
   keygen: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
   line: PropTypes.bool,
