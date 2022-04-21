@@ -102,7 +102,7 @@ Content.propTypes = {
   draggable: PropTypes.bool,
   expanded: PropTypes.bool,
   loader: PropTypes.func,
-  id: PropTypes.any,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func,
   onToggle: PropTypes.func,
   onDragOver: PropTypes.func,
