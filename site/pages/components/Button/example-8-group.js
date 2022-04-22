@@ -5,53 +5,54 @@
  *    -- A series of buttons can group by Button.Group, set styles by Button.Group's size, type, and outline property.
  */
 import React from 'react'
-import { Button } from 'shineout'
+import { Button, config } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
 export default function() {
+  const isRtl = config.direction === 'rtl'
   return (
     <div>
       <Button.Group>
-        <Button>Left</Button>
+        <Button>Start</Button>
         <Button>Center</Button>
-        <Button>Right</Button>
+        <Button>End</Button>
       </Button.Group>
 
       <br />
 
       <Button.Group outline type="primary">
-        <Button>Left</Button>
+        <Button>Start</Button>
         <Button>Center</Button>
-        <Button>Right</Button>
+        <Button>End</Button>
       </Button.Group>
 
       <br />
       <Button.Group outline type="primary">
-        <Button disabled>disabled</Button>
+        <Button disabled>Start</Button>
         <Button disabled>Center</Button>
-        <Button>Right</Button>
+        <Button>End</Button>
       </Button.Group>
 
       <br />
 
       <Button.Group type="primary">
         <Button>
-          <FontAwesome name="angle-left" style={{ marginInlineEnd: 4 }} />
-          Left
+          <FontAwesome name={isRtl ? 'angle-right' : '"angle-left"'} style={{ marginInlineEnd: 4 }} />
+          Start
         </Button>
         <Button>Center</Button>
         <Button>
-          Right
-          <FontAwesome name="angle-right" style={{ marginInlineStart: 4 }} />
+          End
+          <FontAwesome name={isRtl ? 'angle-left' : '"angle-right"'} style={{ marginInlineStart: 4 }} />
         </Button>
       </Button.Group>
 
       <br />
 
       <Button.Group size="large">
-        <Button>Left</Button>
+        <Button>Start</Button>
         <Button>Center</Button>
-        <Button>Right</Button>
+        <Button>End</Button>
       </Button.Group>
     </div>
   )

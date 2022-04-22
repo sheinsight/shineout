@@ -50,7 +50,7 @@ export default class extends Component {
     return (
       <div>
         <div style={{ marginBottom: 20 }}>
-          <span>type: </span>
+          <span style={{ display: 'inline-block' }}>type: </span>
           <Select
             width={140}
             keygen={d => d}
@@ -60,7 +60,7 @@ export default class extends Component {
             style={{ marginInlineEnd: 20 }}
           />
 
-          <span>size: </span>
+          <span style={{ display: 'inline-block' }}>size: </span>
           <Select
             width={100}
             keygen={d => d}
