@@ -263,7 +263,14 @@ export interface DatePickerProps<T =DatePickerValue > extends StandardProps,
    * default: -
    */
   innerTitle?: ReactNode;
-  name: string | string[]
+  /**
+   * The name of a Form that accesses data
+   *
+   * Form 存取数据的名称
+   *
+   * default: -
+   */
+  name?: string | string[]
 }
 
 declare class DatePicker extends React.Component<DatePickerProps, {}> {
