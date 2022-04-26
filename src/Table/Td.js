@@ -30,8 +30,8 @@ class Td extends PureComponent {
   }
 
   renderCheckbox() {
-    const { index, data, datum, treeColumnsName, treeCheckAll, disabled } = this.props
-    return (
+    const { index, data, datum, treeColumnsName, treeCheckAll, disabled, render } = this.props
+    const checkbox = (
       <Checkbox
         force={datum.check(data)}
         data={data}
@@ -41,6 +41,10 @@ class Td extends PureComponent {
         treeColumnsName={treeCheckAll && treeColumnsName}
       />
     )
+    if (render && typeof render === 'function') {
+      return render(data, index, checkbox)
+    }
+    return checkbox
   }
 
   renderExpand(index) {
