@@ -57,9 +57,37 @@ class Result extends PureComponent {
   }
 
   componentDidUpdate(preProps) {
-    const { result, compressed, onFilter } = this.props
+    this.updateMore(preProps)
+  }
+
+  componentWillUnmount() {
+    if (this.cancelResizeObserver) this.cancelResizeObserver()
+  }
+
+  bindResult(el) {
+    this.resultEl = el
+  }
+
+  updateMore(preProps) {
+    const { result, compressed, onFilter, renderResult, renderUnmatched } = this.props
     if (compressed) {
-      if ((preProps.result || []).join('') !== (result || []).join('')) {
+      let shouldRest = false
+      if (preProps.result.length !== result.length) {
+        shouldRest = true
+      } else {
+        let i = preProps.result.length - 1
+        while (i >= 0) {
+          const before = getResultContent(preProps.result[i], preProps.renderResult, preProps.renderUnmatched)
+          const now = getResultContent(result[i], renderResult, renderUnmatched)
+          if (before !== now) {
+            shouldRest = true
+            break
+          }
+          i -= 1
+        }
+      }
+
+      if (shouldRest) {
         this.resetMore()
       } else if (result.length && this.shouldResetMore) {
         this.shouldResetMore = false
@@ -71,14 +99,6 @@ class Result extends PureComponent {
         this.forceUpdate()
       }
     }
-  }
-
-  componentWillUnmount() {
-    if (this.cancelResizeObserver) this.cancelResizeObserver()
-  }
-
-  bindResult(el) {
-    this.resultEl = el
   }
 
   resetMore() {

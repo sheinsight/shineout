@@ -61,20 +61,7 @@ class Result extends PureComponent {
   }
 
   componentDidUpdate(preProps) {
-    const { compressed, value = [], onFilter } = this.props
-    if (compressed) {
-      if ((preProps.value || []).join('') !== (value || []).join('')) {
-        this.resetMore()
-      } else if (value.length && this.shouldResetMore) {
-        this.shouldResetMore = false
-        this.state.more = getResetMore(
-          onFilter,
-          this.resultEl,
-          this.resultEl.querySelectorAll(`.${cascaderClass('item')}`)
-        )
-        this.forceUpdate()
-      }
-    }
+    this.updateMore(preProps)
   }
 
   componentWillUnmount() {
@@ -89,6 +76,25 @@ class Result extends PureComponent {
 
   bindResult(el) {
     this.resultEl = el
+  }
+
+  updateMore(preProps) {
+    const { compressed, value = [], onFilter, data } = this.props
+    if (compressed) {
+      if ((preProps.value || []).join('') !== (value || []).join('')) {
+        this.resetMore()
+      } else if ((preProps.data || []).length !== (data || []).length) {
+        this.resetMore()
+      } else if (value.length && this.shouldResetMore) {
+        this.shouldResetMore = false
+        this.state.more = getResetMore(
+          onFilter,
+          this.resultEl,
+          this.resultEl.querySelectorAll(`.${cascaderClass('item')}`)
+        )
+        this.forceUpdate()
+      }
+    }
   }
 
   resetMore() {
@@ -301,6 +307,7 @@ Result.propTypes = {
   showList: PropTypes.func,
   size: PropTypes.string,
   showArrow: PropTypes.bool,
+  data: PropTypes.array,
 }
 
 Result.defaultProps = {
