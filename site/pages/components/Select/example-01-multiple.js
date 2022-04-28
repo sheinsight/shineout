@@ -20,7 +20,7 @@ const data = [
 export default class extends Component {
   constructor(props) {
     super(props)
-    this.state = { value: 'pink' }
+    this.state = { value: ['pink'] }
   }
 
   handleChange = (value, d, c) => {
