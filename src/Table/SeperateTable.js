@@ -11,6 +11,7 @@ import { tableClass } from './styles'
 import Scroll from '../Scroll'
 import { BAR_WIDTH } from '../Scroll/Scroll'
 import Colgroup from './Colgroup'
+import EmptyDom from './emptyDom'
 import Thead from './Thead'
 import Tbody from './Tbody'
 import { isNumber } from '../utils/is'
@@ -38,6 +39,7 @@ class SeperateTable extends PureComponent {
     this.handleScroll = this.handleScroll.bind(this)
     this.handleSortChange = this.handleSortChange.bind(this)
     this.scrollToTop = this.scrollToTop.bind(this)
+    this.getHeader = this.getHeader.bind(this)
 
     this.cachedRowHeight = []
     this.lastScrollArgs = {}
@@ -66,6 +68,10 @@ class SeperateTable extends PureComponent {
       this.setState({ colgroup: undefined })
     }
     this.ajustBottom(dataChange)
+  }
+
+  getHeader({ el }) {
+    this.headerEl = el
   }
 
   getIndex(scrollTop = this.state.scrollTop) {
@@ -461,10 +467,12 @@ class SeperateTable extends PureComponent {
 
   handleColgroup(tds) {
     const { columns } = this.props
+    const items = tds || (this.headerEl && this.headerEl.querySelectorAll('th'))
+    if (!items) return
     const colgroup = []
-    for (let i = 0, count = tds.length; i < count; i++) {
-      const { width } = tds[i].getBoundingClientRect()
-      const colSpan = parseInt(tds[i].getAttribute('colspan'), 10)
+    for (let i = 0, count = items.length; i < count; i++) {
+      const { width } = items[i].getBoundingClientRect()
+      const colSpan = parseInt(items[i].getAttribute('colspan'), 10)
       if (colSpan > 1) {
         split(width, range(colSpan).map(j => columns[i + j].width)).forEach(w => colgroup.push(w))
       } else {
@@ -492,7 +500,7 @@ class SeperateTable extends PureComponent {
     const minWidthSup = columns.find(d => d.minWidth)
 
     if (!data || data.length === 0) {
-      return <div />
+      return <EmptyDom onEmptyRender={this.handleColgroup} columns={columns} />
     }
 
     let dataUpdated = this.lastData !== data // Incorrect height due to changing data length dynamically
@@ -554,7 +562,13 @@ class SeperateTable extends PureComponent {
       <div key="head" className={tableClass('head', ...floatClass)} ref={this.bindHeadWrapper}>
         <table style={{ width }} ref={this.bindThead} className={tableClass(bordered && 'table-bordered')}>
           <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable && this.lastScrollArgs[4]} />
-          <Thead {...this.props} colgroup={colgroup} onSortChange={this.handleSortChange} onColChange={onResize} />
+          <Thead
+            {...this.props}
+            onHeaderRender={this.getHeader}
+            colgroup={colgroup}
+            onSortChange={this.handleSortChange}
+            onColChange={onResize}
+          />
         </table>
       </div>
     )

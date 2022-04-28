@@ -16,6 +16,14 @@ class Thead extends PureComponent {
     this.handleMouseDown = this.handleResize.bind(this, 'mousedown')
     this.handleMouseMove = this.handleResize.bind(this, 'mousemove')
     this.handleMouseUp = this.handleResize.bind(this, 'mouseup')
+    this.bindHeader = this.bindHeader.bind(this)
+  }
+
+  componentDidMount() {
+    const { onHeaderRender } = this.props
+    if (onHeaderRender) {
+      onHeaderRender(this)
+    }
   }
 
   setColumns(columns, col, level, index = 0) {
@@ -58,6 +66,10 @@ class Thead extends PureComponent {
     }
 
     return colSpan
+  }
+
+  bindHeader(el) {
+    this.el = el
   }
 
   resizeColgroup(deltaX) {
@@ -214,7 +226,7 @@ class Thead extends PureComponent {
     const trs = this.formatTrs()
 
     return (
-      <thead>
+      <thead ref={this.bindHeader}>
         {trs.map((tr, i) => (
           <tr key={i}>{tr}</tr>
         ))}
@@ -238,6 +250,7 @@ Thead.propTypes = {
   treeCheckAll: PropTypes.bool,
   colgroup: PropTypes.array,
   renderSorter: PropTypes.func,
+  onHeaderRender: PropTypes.func,
 }
 
 Thead.defaultProps = {

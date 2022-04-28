@@ -116,7 +116,7 @@ class Table extends Component {
     }
 
     const isEmpty = (!data || data.length === 0) && !children
-    const useSeparate = fixed && !isEmpty
+    const useSeparate = fixed
     const ResizeSepTable = columnResizable ? ResizeSeperateTable : SeperateTable
     const ResizeSimTable = columnResizable ? ResizeSimpleTable : SimpleTable
     const RenderTable = useSeparate ? ResizeSepTable : ResizeSimTable

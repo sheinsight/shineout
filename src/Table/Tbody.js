@@ -87,6 +87,8 @@ class Tbody extends PureComponent {
     if (!onBodyRender || !this.body) return
     datum.unsubscribe(RENDER_COL_GROUP_EVENT, this.bodyRender)
     if (this.body.clientHeight === 0) {
+      this.colgroupSetted = true
+      onBodyRender(null)
       datum.subscribe(RENDER_COL_GROUP_EVENT, this.bodyRender)
       return
     }

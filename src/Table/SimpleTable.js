@@ -29,6 +29,7 @@ class SimpleTable extends PureComponent {
     this.handleScroll = this.handleScroll.bind(this)
     this.handleColgroup = this.handleColgroup.bind(this)
     this.resetColGroup = this.resetColGroup.bind(this)
+    this.getHeader = this.getHeader.bind(this)
   }
 
   componentDidMount() {
@@ -47,6 +48,10 @@ class SimpleTable extends PureComponent {
   componentWillUnmount() {
     if (this.body) this.body.removeEventListener('wheel', this.handleScroll)
     if (this.removeReiszeObserver) this.removeReiszeObserver()
+  }
+
+  getHeader({ el }) {
+    this.headerEl = el
   }
 
   bindElement(key, el) {
@@ -76,11 +81,13 @@ class SimpleTable extends PureComponent {
   }
 
   handleColgroup(tds) {
+    const items = tds || (this.headerEl && this.headerEl.querySelectorAll('th'))
+    if (!items) return
     const { columns } = this.props
     const colgroup = []
-    for (let i = 0, count = tds.length; i < count; i++) {
-      const { width } = tds[i].getBoundingClientRect()
-      const colSpan = parseInt(tds[i].getAttribute('colspan'), 10)
+    for (let i = 0, count = items.length; i < count; i++) {
+      const { width } = items[i].getBoundingClientRect()
+      const colSpan = parseInt(items[i].getAttribute('colspan'), 10)
       if (colSpan > 1) {
         split(width, range(colSpan).map(j => columns[i + j].width)).forEach(w => colgroup.push(w))
       } else {
@@ -103,7 +110,13 @@ class SimpleTable extends PureComponent {
       <table style={{ width }} className={tableClass(bordered && 'table-bordered')}>
         {/* keep thead colgroup stable */}
         <Colgroup colgroup={colgroup || this.lastColGroup} columns={columns} resizable={columnResizable} />
-        <Thead {...this.props} colgroup={colgroup} onSortChange={this.handleSortChange} onColChange={onResize} />
+        <Thead
+          {...this.props}
+          onHeaderRender={this.getHeader}
+          colgroup={colgroup}
+          onSortChange={this.handleSortChange}
+          onColChange={onResize}
+        />
       </table>
     )
     const empty = data.length === 0
