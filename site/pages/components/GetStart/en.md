@@ -298,3 +298,10 @@ setLocale({ ok: 'yes' })
 The current locale content is as follows:
 
 <example name="locale" />
+
+## RTL
+The component fully supports Arabic mode and needs to call the setConfig method in the entry file
+```
+import { setConfig } from 'shineout'
+setConfig({direction: 'rtl'})
+```

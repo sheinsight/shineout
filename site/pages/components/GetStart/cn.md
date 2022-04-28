@@ -328,3 +328,10 @@ setLocale({ ok: 'yes' })
 当前 locale 内容如下:
 
 <example name="locale" />
+
+## RTL
+组件全面支持阿拉伯语模式需要在入口文件调用 setConfig 方法
+```
+import { setConfig } from 'shineout'
+setConfig({direction: 'rtl'})
+```
