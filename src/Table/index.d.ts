@@ -124,7 +124,7 @@ export interface ColumnItem<T> {
    *
    * default: none
    */
-  sorter?: ((order: ColumnOrder) => (prevRowData: T, nextRowData: T) => boolean) | string;
+  sorter?: ((order: ColumnOrder) => (prevRowData: T, nextRowData: T) => number) | string;
 
   /**
    * The content of the header
@@ -552,7 +552,7 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    * default: false
    */
  changedByExpand?: boolean
-  
+
   /*
    * customize sort icons
    *

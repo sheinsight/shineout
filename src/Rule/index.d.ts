@@ -62,7 +62,7 @@ export interface RuleResult {
 
   range(min?: number, max?: number, message?: string): Range;
 
-  regExp(reg?: RegExp | string): RegExpParams;
+  regExp(reg?: RegExp | string, message?: string): RegExpParams;
 
   email(message?: string): Type;
 

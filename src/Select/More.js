@@ -4,6 +4,7 @@ import classnames from 'classnames'
 import { parsePxToNumber } from '../utils/dom/element'
 import Popover from '../Popover'
 
+// if num = -1 display all else display num
 export function getResetMore(onFilter, container, doms) {
   if (!container || !doms || !doms.length) return -1
   const items = Array.from(doms)
@@ -33,10 +34,17 @@ export function getResetMore(onFilter, container, doms) {
     for (let i = 0; i < itemWidthArr.length; i++) {
       const itemLen = itemWidthArr[i]
       // number length
-      const reset = `+${items.length - 1 - i}`
-      hideEl.childNodes[0].innerText = reset
-      // (+num) width
-      const moreWidth = hideEl.offsetWidth + hideMargin
+      const resetNum = items.length - 1 - i
+      let moreWidth
+      if (resetNum <= 0) {
+        moreWidth = 0
+      } else {
+        const reset = `+${resetNum}`
+        hideEl.childNodes[0].innerText = reset
+        // (+num) width
+        moreWidth = hideEl.offsetWidth + hideMargin
+      }
+
       len += itemLen
       if (len > contentWidth - moreWidth) {
         break
@@ -81,7 +89,7 @@ class More extends Component {
       showNum,
     } = this.props
     const { status } = this.state
-    if (showNum < 0 || showNum > data.length)
+    if (showNum < 0 || showNum >= data.length)
       return (
         <React.Fragment>
           {data}
