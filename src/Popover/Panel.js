@@ -10,20 +10,20 @@ import { popoverClass } from './styles'
 import { docSize } from '../utils/dom/document'
 import isDOMElement from '../utils/dom/isDOMElement'
 import { Provider as AbsoluteProvider } from '../Table/context'
-import { getRTLPosition } from '../utils/strings'
-import { isRTL } from '../config'
+// import { getRTLPosition } from '../utils/strings'
+// import { isRTL } from '../config'
 import { consumer, Provider } from './context'
 import { getUidStr } from '../utils/uid'
 import getCommonContainer from '../utils/dom/popContainer'
 
 const emptyEvent = e => e.stopPropagation()
 
-const getCurrentPosition = position => {
-  if (isRTL()) {
-    return getRTLPosition(position)
-  }
-  return position
-}
+// const getCurrentPosition = position => {
+//   if (isRTL()) {
+//     return getRTLPosition(position)
+//   }
+//   return position
+// }
 
 class Panel extends Component {
   constructor(props) {
@@ -138,7 +138,7 @@ class Panel extends Component {
         position += '-left'
       }
     }
-    return getCurrentPosition(position)
+    return position
   }
 
   getContainer() {

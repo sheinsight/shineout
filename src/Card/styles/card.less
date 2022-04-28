@@ -49,6 +49,10 @@
       width: @panel-indicator-size;
       height: @panel-indicator-size;
       margin-right: @panel-indicator-size;
+      .@{card-prefix}-header-rtl& {
+        margin-right: 0;
+        margin-left: @panel-indicator-size;
+      }
 
       svg {
         transform: rotate(90deg);
@@ -69,6 +73,9 @@
 
     .@{card-prefix}-indicator svg {
       transform: rotate(0deg);
+      .@{card-prefix}-rtl& {
+        transform: rotate(180deg);
+      }
     }
   }
 

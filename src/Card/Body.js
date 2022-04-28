@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import List from '../AnimationList'
 import { cardClass } from './styles'
+import { isRTL } from '../config'
 
 const CollapseList = List(['collapse'], 'fast')
 
@@ -17,10 +18,8 @@ class Body extends PureComponent {
   }
 
   render() {
-    const {
-      className, collapsed, collapsible, onCollapse, ...other
-    } = this.props
-    const newClassName = classnames(cardClass('body'), className)
+    const { className, collapsed, collapsible, onCollapse, ...other } = this.props
+    const newClassName = classnames(cardClass('body', isRTL() && 'body-rtl'), className)
 
     if (!collapsible) return <div {...other} className={newClassName} />
 
@@ -40,7 +39,6 @@ class Body extends PureComponent {
   }
 }
 
-Body.propTypes = {
-}
+Body.propTypes = {}
 
 export default Body

@@ -16,7 +16,7 @@ const PICKER_V_MARGIN = 4
 let root
 function initRoot() {
   root = document.createElement('div')
-  root.className = listClass('root')
+  root.className = listClass('root', isRTL() && 'rtl')
   document.body.appendChild(root)
 }
 

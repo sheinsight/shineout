@@ -1,5 +1,10 @@
 @import './variables.less';
 
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
 html {
   min-height: 100vh;
   overflow-y: scroll;
@@ -60,6 +65,10 @@ a:focus {
     max-height: 100vh;
     padding: 50px 0 100px;
     padding-left: 50px;
+    .rtl & {
+      padding-left: 0;
+      padding-right: 50px;
+    }
     transition: opacity 0.35s ease, margin 0.35s ease;
     opacity: 1;
     &-sticky-wrap {

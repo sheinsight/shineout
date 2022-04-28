@@ -25,7 +25,7 @@ export default class extends React.Component {
     return (
       <div>
         <Switch disabled={this.state.disabled} />
-        <Button style={{ marginLeft: 14 }} type="primary" onClick={this.handleToggle}>
+        <Button style={{ marginInlineStart: 14 }} type="primary" onClick={this.handleToggle}>
           Toggle
         </Button>
       </div>

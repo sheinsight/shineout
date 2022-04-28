@@ -7,6 +7,11 @@
   position: relative;
   padding: 20px 10px;
   user-select: none;
+  &-rtl {
+    direction: rtl;
+    text-align: right;
+    text-align: start;
+  }
 
   &-background {
     height: @slider-height;
@@ -51,6 +56,11 @@
       border-radius: 2px;
       font-size: 12px;
       transform: translate(50%, 0);
+      .@{slider-prefix}-rtl & {
+        right: auto;
+        left: 0;
+        transform: translate(-50%, 0);
+      }
 
       &:after {
         position: absolute;
@@ -63,6 +73,11 @@
         border-color: #fff transparent transparent transparent;
         content: ' ';
         transform: translate(-50%, 0);
+        .@{slider-prefix}-rtl & {
+          right: 50%;
+          left: auto;
+          transform: translate(50%, 0);
+        }
       }
 
       &.@{slider-prefix}-show {
@@ -87,6 +102,11 @@
     cursor: pointer;
     transform: translate(50%, -50%);
     transition: background 0.15s ease-in-out;
+    .@{slider-prefix}-rtl & {
+      right: auto;
+      left: 0;
+      transform: translate(-50%, -50%);
+    }
 
     &:hover {
       background-color: @colors-primary;
@@ -112,17 +132,31 @@
   &-right {
     z-index: 10;
     right: 0;
+    .@{slider-prefix}-rtl &{
+      left: 0;
+      right: auto;
+    }
 
     .@{slider-prefix}-indicator {
       right: auto;
       left: 0;
       transform: translate(-50%, -50%);
+      .@{slider-prefix}-rtl &{
+        right: 0;
+        left: auto;
+        transform: translate(50%, -50%);
+      }
     }
 
     .@{slider-prefix}-result {
       right: auto;
       left: 0;
       transform: translate(-50%, 0);
+      .@{slider-prefix}-rtl &{
+        right: 0;
+        left: auto;
+        transform: translate(50%, 0);
+      }
     }
   }
 
@@ -151,12 +185,20 @@
         height: 6px;
         border-left: solid 1px #ccc;
         content: ' ';
+        .@{slider-prefix}-rtl & {
+          right: -1px;
+          left: auto;
+        }
       }
+
 
       span {
         position: absolute;
         font-size: 12px;
         transform: translate(-50%, 0) scale(0.9);
+        .@{slider-prefix}-rtl & {
+          transform: translate(50%, 0) scale(0.9);
+        }
       }
     }
   }
@@ -168,6 +210,9 @@
   &-vertical {
     display: inline-flex;
     padding: 10px 70px 10px 20px;
+    &.@{slider-prefix}-rtl {
+      padding: 10px 20px 10px 70px;;
+    }
 
     .@{slider-prefix}-background {
       width: @slider-height;
@@ -182,6 +227,10 @@
       display: inline-flex;
       width: @slider-height;
       height: auto;
+      .@{slider-prefix}-rtl& {
+        right: 20px;
+        left: auto;
+      }
     }
 
     .@{slider-prefix}-result {
@@ -191,6 +240,11 @@
       padding: 1px 6px;
       background: #fff;
       transform: translate(0, 50%);
+      .@{slider-prefix}-rtl& {
+        right: 15px;
+        left: auto;
+        transform: translate(0, 50%);
+      }
 
       &:after {
         top: 50%;
@@ -199,6 +253,12 @@
         border-width: 3px 3px 3px 0;
         border-color: transparent #fff transparent transparent;
         transform: translate(0, -50%);
+        .@{slider-prefix}-rtl& {
+          right: auto;
+          left: 100%;
+          transform: translate(0, -50%);
+          border-width: 3px 0 3px 3px;
+        }
       }
     }
 
@@ -206,7 +266,12 @@
       display: inline-flex;
       flex: 1;
       flex-direction: column-reverse;
-      margin-left: 15px;
+      &:not(@{slider-prefix}-rtl *) {
+        margin-left: 15px;
+      }
+      .@{slider-prefix}-rtl& {
+        margin-right: 15px;
+      }
 
       div {
         padding-top: 0;
@@ -218,6 +283,11 @@
           height: 0px;
           border-top: solid 1px #ccc;
           border-left: 0;
+          .@{slider-prefix}-rtl& {
+            left: auto;
+            right: -10px;
+          }
+
         }
 
         span {
@@ -243,12 +313,20 @@
       top: 0;
       left: 50%;
       transform: translate(-50%, -50%);
+      .@{slider-prefix}-rtl & {
+        right: 50%;
+        left: auto;
+        transform: translate(50%, -50%);
+      }
     }
 
     .@{slider-prefix}-result {
       top: 0;
       bottom: auto;
       transform: translate(0, -50%);
+      .@{slider-prefix}-rtl & {
+        transform: translate(0, -50%);
+      }
     }
   }
 
@@ -258,6 +336,11 @@
       bottom: 0;
       left: 50%;
       transform: translate(-50%, 50%);
+      .@{slider-prefix}-rtl & {
+        right: 50%;
+        left: auto;
+        transform: translate(50%, 50%);
+      }
     }
   }
 }

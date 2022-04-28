@@ -68,7 +68,7 @@ export default curry(
       renderHelp(focus) {
         const { error, tip, popover, popoverProps } = this.props
         const classList = ['input-tip']
-        const position = popover || 'bottom-left'
+        const position = popover || isRTL() ? 'bottom-right' : 'bottom-left'
         let styles
         if (popoverProps.style && popoverProps.style.width) {
           styles = popoverProps.style

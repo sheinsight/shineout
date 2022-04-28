@@ -32,7 +32,11 @@
 | onKeyDown | (e: KeyboardEvent) => void | none | callback with key down |
 | innerTitle | string | - | inner title |
 | clearToUndefined | boolean | - | After clicking the clear button, the data becomes undefined |
-
+| integerLimit | number | - | Integer bit limit (valid when type is number) |
+| digits | number | - | Decimal place limit (valid when type is number) |
+| numType | "positive" \| "non-negative" | - | set number type (valid when type is number) |
+| autoSelect | boolean | - | Mouse click to automatically select everything |
+| autoFix | boolean | - | Automatically fill up according to the precision limit of digits after out of focus (valid when type is number) |
 ### Input.Number
 
 The basic API is the same as the above table, and the specific API is as follows:
@@ -42,7 +46,6 @@ The basic API is the same as the above table, and the specific API is as follows
 | max | number | - | The maximum value |
 | min | number | - | The minimum value|
 | step | number | 1 | Change the digital span. It can be decimal. |
-| digits | number | - | the digits of number |
 | allowNull | boolean | false | allow value is null |
 | hideArrow | boolean | false | Whether to show increase/decrease buttons |
 | coin | boolean | false | Show as thousands separator |

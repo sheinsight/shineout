@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { isRTL } from '../config'
 import { getProps } from '../utils/proptypes'
 import { sliderClass } from './styles'
 import Slider from './Slider'
@@ -41,7 +42,10 @@ class Container extends PureComponent {
 
     const { scale, step, vertical, range } = this.props
     const rect = this.innerElement.getBoundingClientRect()
-    const per = vertical ? 1 - (e.clientY - rect.top) / rect.height : (e.clientX - rect.left) / rect.width
+    let per = vertical ? 1 - (e.clientY - rect.top) / rect.height : (e.clientX - rect.left) / rect.width
+    if (isRTL() && !vertical) {
+      per = 1 - per
+    }
 
     const val = per2value(per, scale, step)
 
@@ -92,7 +96,7 @@ class Container extends PureComponent {
   render() {
     const { range, height, style, vertical, ...other } = this.props
     const className = classnames(
-      sliderClass('_', vertical && 'vertical', this.props.disabled && 'disabled'),
+      sliderClass('_', vertical && 'vertical', this.props.disabled && 'disabled', isRTL() && 'rtl'),
       this.props.className
     )
 

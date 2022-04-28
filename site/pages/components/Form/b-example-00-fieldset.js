@@ -8,7 +8,7 @@ import React, { PureComponent } from 'react'
 import { Form, Input, Rule } from 'shineout'
 import Icon from '../Icon/FontAwesome'
 
-const iconStyle = { fontSize: 18, marginLeft: 12 }
+const iconStyle = { fontSize: 18, marginInlineStart: 12 }
 
 const modeIsExist = (value, formData, callback) => {
   const modes = new Map()

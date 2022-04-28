@@ -14,7 +14,7 @@ export default function() {
       <DatePicker
         disabled={d => [0, 6].includes(dayjs(d).day())}
         type="datetime"
-        style={{ marginRight: 12 }}
+        style={{ marginInlineEnd: 12 }}
         defaultTime="10:00:00"
         defaultValue={Date.now()}
         disabledTime={time => time === '12:00:00'}

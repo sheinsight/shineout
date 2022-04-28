@@ -7,6 +7,12 @@
 import React from 'react'
 import { Input } from 'shineout'
 
+const style = { width: 120, marginInlineEnd: 12 }
+
 export default function() {
-  return <Input.Number width={120} min={23} max={100} digits={0} />
+  return (
+    <>
+      <Input.Number style={style} width={120} min={23} max={100} digits={0} />
+    </>
+  )
 }

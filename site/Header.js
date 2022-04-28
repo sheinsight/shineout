@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
-import { Button, Dropdown, color } from 'shineout'
+import { Button, Dropdown, config } from 'shineout'
 import docsearch from 'docsearch.js'
 import { Link } from 'react-router-dom'
 import locate, { setItem, STORAGE_KEY } from './locate'
@@ -11,7 +11,9 @@ import Icon from './icons/Icon'
 import { headerClass } from './styles'
 import FontAwesome from './pages/components/Icon/FontAwesome'
 import ThemeEditor from './Components/ThemeEditor'
-import history from './history'
+import { setParameterByName } from './utils/param'
+
+import { useDirection } from './utils/direction'
 
 const themes = [
   {
@@ -53,8 +55,14 @@ function handleLangClick() {
   window.location = href
 }
 
+function handleRTLClick() {
+  const search = setParameterByName('direction', config.direction === 'rtl' ? null : 'rtl')
+  window.location.search = search
+}
+
 function handleThemeClick(data) {
-  const url = `?theme=${data.content}${window.location.hash}`
+  const search = setParameterByName('theme', data.content)
+  const url = `${search}${window.location.hash}`
   window.location.href = url
 }
 
@@ -91,6 +99,7 @@ const Header = ({ versions }) => {
       })
     }
   }, [])
+  const [direction] = useDirection()
 
   return (
     <div className={headerClass('_')}>
@@ -118,8 +127,11 @@ const Header = ({ versions }) => {
         </div>
       )}
       <div className={headerClass('right')}>
-        <Button size="small" onClick={handleLangClick} style={{ marginRight: 12 }}>
+        <Button size="small" onClick={handleLangClick} style={{ marginInlineEnd: 12 }}>
           {locate('English', '中文')}
+        </Button>
+        <Button size="small" onClick={handleRTLClick} style={{ marginInlineEnd: 12 }}>
+          {direction === 'rtl' ? 'LTR' : 'RTL'}
         </Button>
 
         {version && (
@@ -129,7 +141,7 @@ const Header = ({ versions }) => {
             trigger="hover"
             placeholder={version}
             size="small"
-            style={{ marginRight: 12 }}
+            style={{ marginInlineEnd: 12 }}
           />
         )}
 

@@ -7,6 +7,10 @@
 
 .@{tabs-prefix} {
   position: relative;
+  &-rtl {
+    direction: rtl;
+    text-align: right;
+  }
 
   &-header {
     position: relative;
@@ -43,6 +47,10 @@
 
     .@{tabs-prefix}-tab + .@{tabs-prefix}-tab {
       margin-left: @tabs-tab-spacing;
+      .@{tabs-prefix}-rtl & {
+        margin-left: 0;
+        margin-right: @tabs-tab-spacing;
+      }
     }
 
     .@{tabs-prefix}-tab-bordered {
@@ -50,7 +58,12 @@
       margin-bottom: 0;
 
       & + .@{tabs-prefix}-tab-bordered {
-        margin-left: @tabs-button-spacing;
+        &:not(.@{tabs-prefix}-rtl *){
+          margin-left: @tabs-button-spacing;
+        }
+        .@{tabs-prefix}-rtl & {
+          margin-right:  @tabs-button-spacing;
+        }
       }
 
       &-active {
@@ -95,6 +108,9 @@
       height: 12px;
       transform: rotate(90deg);
       transition: transform 0.2s linear;
+      .@{tabs-prefix}-rtl& {
+        transform: rotate(-90deg);
+      }
 
       path {
         fill: #999;
@@ -109,6 +125,9 @@
       svg {
         transform: rotate(0);
       }
+    }
+    .@{tabs-prefix}-rtl& {
+      transform: rotate(180deg);
     }
   }
 
@@ -132,6 +151,10 @@
       border-right: solid 1px @colors-primary;
       content: ' ';
       height: ~"calc(100% + 2px)";
+      .@{tabs-prefix}-rtl& {
+        right: auto;
+        left: -1px;
+      }
     }
 
     &.@{button-prefix}-default:not(.@{button-prefix}-disabled)  {
@@ -198,6 +221,9 @@
         .@{tabs-prefix}-tab + .@{tabs-prefix}-tab {
           margin-top: @tabs-tab-spacing;
           margin-left: 0;
+          .@{tabs-prefix}-rtl& {
+            margin-right: 0;
+          }
         }
       }
 
@@ -277,6 +303,9 @@
       left: 50%;
       width: 10px;
       transform: translate(-50%, -50%);
+      .@{tabs-prefix}-rtl &{
+        transform: translate(-50%, -50%) rotate(180deg);
+      }
     }
   }
 
@@ -355,6 +384,11 @@
     .@{tabs-prefix}-sticky .@{tabs-prefix}-header .@{tabs-prefix}-active:after {
       bottom: 0;
       left: 0;
+      display: block;
+      .@{tabs-prefix}-rtl&{
+        left: auto;
+        right: 0;
+      }
     }
   }
 

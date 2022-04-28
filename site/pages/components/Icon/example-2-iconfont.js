@@ -9,7 +9,7 @@ import { Icon } from 'shineout'
 
 const FontIconfont = Icon('//at.alicdn.com/t/font_550076_uyvw3e8ul8w4gqfr.css')
 const SVGIconfont = Icon('//at.alicdn.com/t/font_1725436_8gldxw9bjlu.js')
-const margin = { marginRight: 20 }
+const margin = { marginInlineEnd: 20 }
 
 export default function() {
   return (

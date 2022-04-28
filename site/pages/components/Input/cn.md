@@ -30,6 +30,11 @@
 | onKeyDown | (e: KeyboardEvent) => void | 无 | 键盘按下后的回调 |
 | innerTitle | string | - | 内嵌标题 |
 | clearToUndefined | boolean | - | 点击清除按钮后数据变为 undefined |
+| integerLimit | number | - | 整数位限制(type 为 number 时生效)  |
+| digits | number | - | 小数位限制(type 为 number 时生效) |
+| numType | "positive" \| "non-negative" | - | 设置数字类型(type 为 number 时生效) |
+| autoSelect | boolean | - | 鼠标点击自动选中所有内容 |
+| autoFix | boolean | - | 失焦后自动按照 digits 精度限制补足 (type 为 number 时生效) |
 
 ### Input.Number
 
@@ -40,7 +45,6 @@
 | max | number | 无 | 最大值 |
 | min | number | 无 | 最小值 |
 | step | number | 1 | 改变数字跨度，可为小数 |
-| digits | number | 无 | 数值的精度 |
 | allowNull | boolean | false | 允许空值 |
 | hideArrow | boolean | false | 是否展示增减按钮 |
 | coin | boolean | false | 以千位分隔符展示 |

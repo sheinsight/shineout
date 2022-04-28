@@ -9,9 +9,15 @@ import Icon from '../icons/Icon'
 
 const filters = ['Datum.Form', 'Datum.List']
 
-function getUrl(base, page) {
+function getUrl(base, page, search) {
   if (page.path === '') return base
-  return `${base}/${page.path || page.name}`
+  if (search) {
+    return {
+      pathname: `${base}/${page.path || page.name}`,
+      search,
+    }
+  }
+  return `${base}/${page.path || page.name}${search || ''}`
 }
 
 export default function(pages) {
@@ -69,7 +75,7 @@ export default function(pages) {
                     className={mainClass(p.level === 2 && 'sub')}
                     activeClassName={mainClass('active')}
                     key={p.name}
-                    to={getUrl(base, p)}
+                    to={getUrl(base, p, search)}
                     onClick={toggleCode}
                   >
                     <p>

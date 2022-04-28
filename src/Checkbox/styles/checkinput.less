@@ -14,6 +14,10 @@
   margin-bottom: 0;
   cursor: pointer;
   vertical-align: middle;
+  .@{checkinput-prefix}-rtl& {
+    margin-left: @checkbox-margin-right;
+    margin-right: 0;
+  }
 
   input[type='checkbox'],
   input[type='radio'] {
@@ -22,6 +26,10 @@
     left: 0;
     clip: rect(0, 0, 0, 0);
     visibility: hidden;
+    .@{checkinput-prefix}-rtl& {
+      left: auto;
+      right: 0;
+    }
   }
 
   @keyframes @keyname {
@@ -76,6 +84,9 @@
     .@{checkinput-prefix} {
       position: relative;
       margin-right: 0;
+      .@{checkinput-prefix}-rtl& {
+        margin-left: 0;
+      }
       border: 1px solid @gray-300;
       font-weight: @btn-font-weight;
       outline: none;
@@ -128,7 +139,12 @@
         display: none;
       }
       &:not(:first-child) {
-        border-left-width: 0px;
+        &:not(.@{checkinput-prefix}-rtl *) {
+          border-left-width: 0;
+        }
+        .@{checkinput-prefix}-rtl&{
+          border-right-width: 0;
+        }
         &:before {
           position: absolute;
           top: -1px;
@@ -141,6 +157,10 @@
           background-color: @gray-300;
           content: '';
           transition: background-color 0.15s ease-in-out;
+          .@{checkinput-prefix}-rtl&{
+            left: auto;
+            right: -1px;
+          }
         }
       }
 
@@ -158,6 +178,10 @@
             content: '';
             z-index: 100;
             transition: background-color 0.15s ease-in-out;
+            .@{checkinput-prefix}-rtl&{
+              right: auto;
+              left: -1px;
+            }
         }
       }
 
@@ -214,10 +238,22 @@
       &:first-child {
         border-top-left-radius: @radio-button-group-border-radius;
         border-bottom-left-radius: @radio-button-group-border-radius;
+        .@{checkinput-prefix}-rtl&{
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+          border-top-right-radius: @radio-button-group-border-radius;
+          border-bottom-right-radius: @radio-button-group-border-radius;
+        }
       }
       &:last-child {
         border-top-right-radius: @radio-button-group-border-radius;
         border-bottom-right-radius: @radio-button-group-border-radius;
+        .@{checkinput-prefix}-rtl&{
+          border-top-left-radius: @radio-button-group-border-radius;
+          border-bottom-left-radius: @radio-button-group-border-radius;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
       }
     }
     &.@{checkinput-prefix}-outline {
@@ -226,8 +262,6 @@
         border-color: @colors-primary;
         background-color: #fff;
         color: @colors-primary;
-        border-right-width: 1px;
-
         &:hover, &:active, &:focus {
           border-color: @colors-primary;
           background-color: #fff;
@@ -259,6 +293,10 @@
     background: @switch-uncheck-bg;
     position: relative;
     transition: @switch-transition;
+    .@{checkinput-prefix}-rtl& {
+      padding-left: 4px;
+      padding-right: @switch-indicator-size;
+    }
     input {
       width: 0;
       height: 0;
@@ -278,6 +316,10 @@
       display: inline-block;
       border-radius: 50%;
       box-shadow: @switch-uncheck-box-shadow;
+      .@{checkinput-prefix}-rtl & {
+        left: auto;
+        right: @switch-indicator-padding-horizontal;
+      }
     }
 
     &-children {
@@ -291,23 +333,42 @@
     padding-right: @switch-indicator-size;
     padding-left: 4px;
     background: @switch-checked-bg;
+    .@{checkinput-prefix}-rtl& {
+      padding-left: @switch-indicator-size;
+      padding-right: 4px;
+    }
     .@{checkinput-prefix}-switch-indicator {
       box-shadow: @switch-checked-box-shadow;
-      left: 100%;
-      margin-left: @switch-indicator-padding-horizontal-negative;
-      transform: translateX(-100%);
       background: @switch-indicator-checked-bg;
+      &:not(.@{checkinput-prefix}-rtl *) {
+        left: 100%;
+        margin-left: @switch-indicator-padding-horizontal-negative;
+        transform: translateX(-100%);
+      }
+      .@{checkinput-prefix}-rtl&{
+        right: 100%;
+        margin-right: @switch-indicator-padding-horizontal-negative;
+        transform: translateX(100%);
+      }
     }
   }
 
   &-checked&-small&-switch {
     padding-left: 0;
     padding-right: @switch-small-indicator-size;
+    .@{checkinput-prefix}-rtl& {
+      padding-left: @switch-small-indicator-size;
+      padding-right: 0;
+    }
   }
 
   &-checked&-large&-switch {
     padding-left: 0;
     padding-right: @switch-large-indicator-size;
+    .@{checkinput-prefix}-rtl& {
+      padding-left: @switch-large-indicator-size;
+      padding-right: 0;
+    }
   }
 
   &-small&-switch {
@@ -317,6 +378,10 @@
     border-radius: @switch-small-bg-border-radius;
     padding-left: @switch-small-indicator-size;
     padding-right: 0;
+    .@{checkinput-prefix}-rtl& {
+      padding-right: @switch-small-indicator-size;
+      padding-left: 0;
+    }
 
     .@{checkinput-prefix}-switch-indicator{
       width: @switch-small-indicator-size;
@@ -334,6 +399,10 @@
     border-radius: @switch-large-bg-border-radius;
     padding-left: @switch-large-indicator-size;
     padding-right: 0;
+    .@{checkinput-prefix}-rtl& {
+      padding-right: @switch-large-indicator-size;
+      padding-left: 0;
+    }
 
     .@{checkinput-prefix}-switch-indicator{
       width: @switch-large-indicator-size;
@@ -526,19 +595,4 @@
 .@{checkinput-prefix}-rtl {
   direction: rtl;
   text-align: right;
-
-  &.@{checkinput-prefix}-group.@{checkinput-prefix}-button {
-    direction: ltr;
-    text-align: left;
-
-    .@{checkinput-prefix}-radio-container  {
-      margin-left: 0;
-    }
-  }
-
-  &.@{checkinput-prefix}-radio-container,
-  &.@{checkinput-prefix}-checkbox-container {
-    margin-right: 0;
-    margin-left: @checkbox-margin-right;
-  }
 }

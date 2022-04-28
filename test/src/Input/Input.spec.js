@@ -46,8 +46,8 @@ describe('Input[Base]', () => {
     })
   })
   test('should only input number', () => {
-    const inputValue = 2424.2424
-    const valueMap = [2424, 2424.2, 2424.24, 2424.242]
+    const inputValue = '2424.2424'
+    const valueMap = ['2424', '2424.2', '2424.24', '2424.242']
     const inputs = [
       <Input type="number" placeholder="digits undefined" />,
       <Input digits={0} type="number" placeholder="digits 0" />,
@@ -73,6 +73,105 @@ describe('Input[Base]', () => {
         },
       })
       expect(input.find('input').prop('value')).toBe(valueMap[digits])
+    })
+  })
+  test('should number of integer restricted by integerLimit', () => {
+    const inputValue = '123.4'
+    const valueMap = ['123.4', '123.4', '1.4', '12.4']
+    const inputs = [
+      <Input type="number" placeholder="integerLimit undefined" />,
+      <Input integerLimit={0} type="number" placeholder="integerLimit 0" />,
+      <Input integerLimit={1} type="number" placeholder="integerLimit 1" />,
+      <Input integerLimit={2} type="number" placeholder="integerLimit 2" />,
+    ]
+
+    inputs.forEach((input, index) => {
+      const wrapper = mount(input)
+      for (let i = 0; i < inputValue.length; i++) {
+        const originalVal = wrapper.find('input').prop('value')
+        wrapper.find('input').simulate('change', {
+          target: {
+            value: originalVal + inputValue[i],
+          },
+        })
+      }
+      expect(wrapper.find('input').prop('value')).toBe(valueMap[index])
+    })
+  })
+  test('should render correct with numType props', () => {
+    const inputValue = '-123.4'
+    const valueMap = ['-123.4', '123.4', '123.4']
+    const inputs = [
+      <Input type="number" placeholder="digits undefined" />,
+      <Input numType="positive" type="number" placeholder="digits 0" />,
+      <Input numType="non-negative" type="number" placeholder="digits 0" />,
+    ]
+    inputs.forEach((input, index) => {
+      const wrapper = mount(input)
+      for (let i = 0; i < inputValue.length; i++) {
+        const originalVal = wrapper.find('input').prop('value')
+        wrapper.find('input').simulate('change', {
+          target: {
+            value: originalVal + inputValue[i],
+          },
+        })
+      }
+      expect(wrapper.find('input').prop('value')).toBe(valueMap[index])
+    })
+  })
+  test('should 0 is not allowed when numType is positive', () => {
+    const expectValue = ['123.4', '123.4', '', '']
+    const inputValue = ['123.4', '-123.4', '0', '0.']
+    inputValue.forEach((input, index) => {
+      const wrapper = mount(<Input type="number" numType="positive" />)
+      for (let i = 0; i < input.length; i++) {
+        const originalVal = wrapper.find('input').prop('value')
+        wrapper.find('input').simulate('change', {
+          target: {
+            value: originalVal + input[i],
+          },
+        })
+      }
+      wrapper.update()
+      wrapper.find('input').simulate('blur')
+      wrapper.update()
+      expect(wrapper.find('input').prop('value')).toBe(expectValue[index])
+    })
+  })
+  test('should render correct after blur', () => {
+    const expectValue = ['', '', '', '0', '-0', '0.123', '-0.123']
+    const inputValue = ['-', '.', '-.', '00000.', '-00000.', '.123', '-0000.123']
+    inputValue.forEach((input, index) => {
+      input = mount(<Input type="number" />)
+      input.find('input').simulate('change', {
+        target: {
+          value: inputValue[index],
+        },
+      })
+      input.update()
+      input.find('input').simulate('blur')
+      input.update()
+      expect(input.find('input').prop('value')).toBe(expectValue[index])
+    })
+  })
+  test('should fix correct after blur', () => {
+    const inputValue = '-123.4'
+    const valueMap = ['-123', '-123.40']
+    const inputs = [
+      <Input digits={0} autoFix type="number" placeholder="digits 0" />,
+      <Input digits={2} autoFix type="number" placeholder="digits 2" />,
+    ]
+    inputs.forEach((input, index) => {
+      input = mount(input)
+      input.find('input').simulate('change', {
+        target: {
+          value: inputValue,
+        },
+      })
+      input.update()
+      input.find('input').simulate('blur')
+      input.update()
+      expect(input.find('input').prop('value')).toBe(valueMap[index])
     })
   })
 })
@@ -130,6 +229,42 @@ describe('Input.Number', () => {
 
     wrapper.update()
     expect(getValue()).toBe(23)
+  })
+  test('should change value restricted by integerLimit while up value click', () => {
+    const wrapper = mount(<Input.Number width={120} integerLimit={3} />)
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: '998',
+      },
+    })
+    wrapper.update()
+    wrapper.find(`a.${SO_PREFIX}-input-number-up`).simulate('mouseDown')
+    expect(wrapper.find('input').prop('value')).toBe(999)
+    wrapper.find(`a.${SO_PREFIX}-input-number-up`).simulate('mouseDown')
+    expect(wrapper.find('input').prop('value')).toBe(999)
+  })
+  test('should value cannot <= 0 when numType is positive while down value click', () => {
+    const wrapper = mount(<Input.Number width={120} numType="positive" />)
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: '1',
+      },
+    })
+    wrapper.update()
+    wrapper.find(`a.${SO_PREFIX}-input-number-down`).simulate('mouseDown')
+    expect(wrapper.find('input').prop('value')).toBe('1')
+  })
+  test('should value is null when numType is positive and input value is 0', () => {
+    const wrapper = mount(<Input.Number width={120} numType="positive" />)
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: '0',
+      },
+    })
+    wrapper.update()
+    wrapper.find('input').simulate('blur')
+    wrapper.update()
+    expect(wrapper.find('input').prop('value')).toBe('')
   })
 })
 

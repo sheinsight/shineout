@@ -27,7 +27,7 @@ export default class extends Component {
         <DatePicker
           placeholder="format date"
           type="datetime"
-          style={{ marginRight: 12 }}
+          style={{ marginInlineEnd: 12 }}
           format={format}
           value={this.state.value}
           onChange={this.handleValueChange}

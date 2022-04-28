@@ -334,7 +334,7 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-8-group.js] 
   <div>
     <button>
       <span>
-        Left
+        Start
       </span>
     </button>
     <button>
@@ -344,7 +344,7 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-8-group.js] 
     </button>
     <button>
       <span>
-        Right
+        End
       </span>
     </button>
   </div>
@@ -352,7 +352,7 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-8-group.js] 
   <div>
     <button>
       <span>
-        Left
+        Start
       </span>
     </button>
     <button>
@@ -362,7 +362,7 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-8-group.js] 
     </button>
     <button>
       <span>
-        Right
+        End
       </span>
     </button>
   </div>
@@ -370,7 +370,7 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-8-group.js] 
   <div>
     <button>
       <span>
-        disabled
+        Start
       </span>
     </button>
     <button>
@@ -380,7 +380,7 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-8-group.js] 
     </button>
     <button>
       <span>
-        Right
+        End
       </span>
     </button>
   </div>
@@ -389,7 +389,7 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-8-group.js] 
     <button>
       <i />
       <span>
-        Left
+        Start
       </span>
     </button>
     <button>
@@ -399,7 +399,7 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-8-group.js] 
     </button>
     <button>
       <span>
-        Right
+        End
       </span>
       <i />
     </button>
@@ -408,7 +408,7 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-8-group.js] 
   <div>
     <button>
       <span>
-        Left
+        Start
       </span>
     </button>
     <button>
@@ -418,7 +418,7 @@ exports[`Snapshot test: Button[site/pages/components/Button/example-8-group.js] 
     </button>
     <button>
       <span>
-        Right
+        End
       </span>
     </button>
   </div>

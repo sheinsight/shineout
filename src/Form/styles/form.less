@@ -294,8 +294,12 @@
       height: 12px;
       transform: translateY(-50%);
       cursor: pointer;
-
       .close(12px, @input-clear-bg-color);
+      .@{input-prefix}-rtl & {
+        right: auto;
+        left: 8px;
+        .closeRtl()
+      }
     }
   }
 
@@ -331,11 +335,22 @@
       background: transparent;
 
       &:first-child {
-        padding-left: @padding-base-horizontal;
+        &:not(.@{input-prefix}-rtl *) {
+          padding-left: @padding-base-horizontal;
+        }
+        .@{input-prefix}-rtl& {
+          padding-right: @padding-base-horizontal;
+        }
       }
 
       &:last-child {
-        padding-right: @input-group-icon-padding-x;
+        &:not(.@{input-prefix}-rtl *) {
+          padding-right: @input-group-icon-padding-x;
+        }
+        .@{input-prefix}-rtl& {
+          padding-left: @input-group-icon-padding-x;
+        }
+
       }
     }
 
@@ -737,18 +752,6 @@
         .closeRtl();
     }
 
-    &.@{input-prefix}-group {
-      & > span,
-      & > i {
-        &:first-child {
-          padding-right: @padding-base-horizontal;
-        }
-
-        &:last-child {
-          padding-left: @input-group-icon-padding-x;
-        }
-      }
-    }
 
     .@{input-prefix}-number-up,
     .@{input-prefix}-number-down {

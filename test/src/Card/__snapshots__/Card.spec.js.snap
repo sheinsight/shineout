@@ -8,7 +8,7 @@ exports[`Card[Base] should render correct 1`] = `
       Object {
         "display": "inline-flex",
         "height": 300,
-        "marginRight": 20,
+        "marginInlineEnd": 20,
         "width": 240,
       }
     }
@@ -35,7 +35,7 @@ exports[`Card[Base] should render correct 1`] = `
       Object {
         "display": "inline-flex",
         "height": 300,
-        "marginRight": 20,
+        "marginInlineEnd": 20,
         "width": 240,
       }
     }
@@ -76,7 +76,7 @@ exports[`Card[Shallow] should render correct 1`] = `
     style={
       Object {
         "display": "inline-flex",
-        "marginRight": 20,
+        "marginInlineEnd": 20,
         "width": 140,
       }
     }
@@ -92,7 +92,7 @@ exports[`Card[Shallow] should render correct 1`] = `
     style={
       Object {
         "display": "inline-flex",
-        "marginRight": 20,
+        "marginInlineEnd": 20,
         "width": 140,
       }
     }
@@ -108,7 +108,7 @@ exports[`Card[Shallow] should render correct 1`] = `
     style={
       Object {
         "display": "inline-flex",
-        "marginRight": 20,
+        "marginInlineEnd": 20,
         "width": 140,
       }
     }

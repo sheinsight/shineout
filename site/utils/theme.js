@@ -1,17 +1,10 @@
+import getParameterByName from './param'
+
 let theme = 'default'
 let link
 // const pathReg = /(cn\/?)$/
 
 export const THEMES = ['default', 'antd']
-
-function getParameterByName(name) {
-  const { search } = window.location
-  const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`)
-  const results = regex.exec(search)
-  if (!results) return null
-  if (!results[2]) return ''
-  return decodeURIComponent(results[2].replace(/\+/g, ' '))
-}
 
 function init(callback) {
   theme = getParameterByName('theme') || 'shineout'

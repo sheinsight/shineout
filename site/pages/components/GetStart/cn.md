@@ -74,7 +74,7 @@ CDN 引用的方式，可以修改引用路径
 在项目内设置 config
 
 ```
-import { setConfig } fron 'shineout'
+import { setConfig } from 'shineout'
 setConfig({
   prefix: 'your-prefix'
 })
@@ -105,7 +105,7 @@ plugins: [
 
 在应用入口设置 config.cssModule 为 true
 ```
-import { setConfig } fron 'shineout'
+import { setConfig } from 'shineout'
 setConfig({
   cssModule: true
 })
@@ -129,7 +129,7 @@ plugins: [
 可以通过设置 config.delay 改变全局的延迟时间。
 
 ```
-import { setConfig } fron 'shineout'
+import { setConfig } from 'shineout'
 setConfig({
   delay: 0
 })
@@ -328,3 +328,10 @@ setLocale({ ok: 'yes' })
 当前 locale 内容如下:
 
 <example name="locale" />
+
+## RTL
+组件全面支持阿拉伯语模式需要在入口文件调用 setConfig 方法
+```
+import { setConfig } from 'shineout'
+setConfig({direction: 'rtl'})
+```

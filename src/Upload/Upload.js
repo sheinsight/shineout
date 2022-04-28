@@ -20,6 +20,7 @@ import { isFunc } from '../utils/is'
 import { getLocale } from '../locale'
 import acceptHOC from './accept'
 import getDataset from '../utils/dom/getDataset'
+import { isRTL } from '../config'
 
 const VALIDATORITEMS = [
   { key: 'size', param: blob => blob.size },
@@ -463,7 +464,13 @@ class Upload extends PureComponent {
     const fileDrop = drop && !imageStyle
 
     const className = classnames(
-      uploadClass('_', disabled && 'disabled', showUploadList === false && 'hide-list', fileDrop && 'file-drop'),
+      uploadClass(
+        '_',
+        isRTL() && 'rtl',
+        disabled && 'disabled',
+        showUploadList === false && 'hide-list',
+        fileDrop && 'file-drop'
+      ),
       this.props.className
     )
     const FileComponent = imageStyle ? ImageFile : File

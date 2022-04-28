@@ -50,24 +50,24 @@ export default class extends Component {
     return (
       <div>
         <div style={{ marginBottom: 20 }}>
-          <span>type: </span>
+          <span style={{ display: 'inline-block' }}>type: </span>
           <Select
             width={140}
             keygen={d => d}
             data={['primary', 'success', 'warning', 'danger']}
             value={type}
             onChange={this.changeSetting.bind(this, 'type')}
-            style={{ marginRight: 20 }}
+            style={{ marginInlineEnd: 20 }}
           />
 
-          <span>size: </span>
+          <span style={{ display: 'inline-block' }}>size: </span>
           <Select
             width={100}
             keygen={d => d}
             data={['small', 'default', 'large']}
             value={size}
             onChange={this.changeSetting.bind(this, 'size')}
-            style={{ marginRight: 20 }}
+            style={{ marginInlineEnd: 20 }}
           />
 
           <Checkbox value={outline} onChange={this.changeSetting.bind(this, 'outline')}>

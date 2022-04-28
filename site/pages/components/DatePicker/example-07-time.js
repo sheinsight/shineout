@@ -7,7 +7,7 @@
 import React from 'react'
 import { DatePicker } from 'shineout'
 
-const style = { marginRight: 12 }
+const style = { marginInlineEnd: 12 }
 
 export default function() {
   return (

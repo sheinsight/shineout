@@ -54,7 +54,7 @@ By default, the css code is isolated by prefix. The default prefix is 'so' and d
 Set config in the project.
 
 ```
-import { setConfig } fron 'shineout'
+import { setConfig } from 'shineout'
 setConfig({
   prefix: 'your-prefix'
 })
@@ -85,7 +85,7 @@ If you need to use the CSS Module, modify the css-loader configuration of the we
 
 Set the config.cssmodule to true at the application entrance
 ```
-import { setConfig } fron 'shineout'
+import { setConfig } from 'shineout'
 setConfig({
   cssModule: true
 })
@@ -109,7 +109,7 @@ Input delay refers to the user's input trigger onchange and check interval. Inpu
 You can change the global delay time by setting config.delay.
 
 ```
-import { setConfig } fron 'shineout'
+import { setConfig } from 'shineout'
 setConfig({
   delay: 0
 })
@@ -298,3 +298,10 @@ setLocale({ ok: 'yes' })
 The current locale content is as follows:
 
 <example name="locale" />
+
+## RTL
+The component fully supports Arabic mode and needs to call the setConfig method in the entry file
+```
+import { setConfig } from 'shineout'
+setConfig({direction: 'rtl'})
+```

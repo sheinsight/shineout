@@ -3,6 +3,7 @@ import { PopoverProps } from '../Popover'
 import { StandardProps, RegularAttributes, FormItemStandardProps, CommonProps } from '../@types/common'
 
 type ReactNode = React.ReactNode;
+export type numType = "positive" | "non-negative";
 
 export interface InputProps<Value> extends
 StandardProps,
@@ -188,7 +189,67 @@ FormItemStandardProps<Value> {
    *  default: -
    *
    */
-  clearToUndefined?: boolean
+  clearToUndefined?: boolean,
+
+  /**
+   * the digits of number 仅在type = number 下生效
+   *
+   * Decimal place limit (valid when type is number)
+   *
+   * default: -
+   */
+  digits?: number;
+
+  /**
+   *  整数位数限制, 仅在type = number 下生效
+   *
+   *  Integer bit limit (valid when type is number)
+   *
+   *  default: -
+   *
+   */
+  integerLimit?: number,
+
+  /**
+   *  设置数字类型 支持 'positive' 和 'non-negative', 仅在type = number 下生效
+   *
+   *  Number type supports 'positive' and 'non-negative', only works when type = number
+   *
+   *  default: -
+   *
+   */
+   numType?: numType,
+
+  /**
+   *  非负数，仅在type = number 下生效
+   *
+   *  nonnegative number (valid when type is number)
+   *
+   *  default: -
+   *
+   */
+   nonnegative?: boolean,
+
+  /**
+   *  鼠标点击后自动全选数据
+   *
+   *  Automatically select all data after mouse click
+   *
+   *  default: false
+   *
+   */
+  autoSelect?: boolean,
+
+  /**
+   *  失焦后自动按照 digits 精度限制补足 (type 为 number 时生效)
+   *
+   *  Automatically fill up according to the precision limit of digits after out of focus
+   *
+   *  default: false
+   *
+   */
+  autoFix?: boolean,
+
 }
 
 export interface InputNumberProps <Value> extends InputProps<Value> {
@@ -219,15 +280,6 @@ export interface InputNumberProps <Value> extends InputProps<Value> {
    * default: 1
    */
   step?: number;
-
-  /**
-   * the digits of number
-   *
-   * 数值的精度
-   *
-   * default: -
-   */
-  digits?: number;
 
   /**
    * allow value is null

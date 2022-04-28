@@ -7,6 +7,7 @@ import { range } from '../utils/numbers'
 import { carouselClass } from './styles'
 import Item from './Item'
 import getDataset from '../utils/dom/getDataset'
+import { isRTL } from '../config'
 
 class Carousel extends PureComponent {
   constructor(props) {
@@ -113,6 +114,9 @@ class Carousel extends PureComponent {
         {indicatorType === 'number' ? i + 1 : ''}
       </a>
     ))
+    if (isRTL()) {
+      inds.reverse()
+    }
     return <div className={className}>{inds}</div>
   }
 

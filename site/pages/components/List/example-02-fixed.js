@@ -28,7 +28,7 @@ function renderItem({ id, firstName }) {
           height: 22,
           borderRadius: '50%',
           background: '#eee',
-          marginRight: 12,
+          marginInlineEnd: 12,
         }}
       >
         {firstName.slice(0, 1)}

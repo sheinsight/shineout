@@ -36,11 +36,14 @@ class Number extends PureComponent {
       }
       return
     }
+    const { digits, step, numType, allowNull } = this.props
 
-    if (typeof this.props.digits === 'number') {
-      value = parseFloat(value.toFixed(this.props.digits))
+    if (numType === 'positive' && value <= 0) {
+      value = allowNull ? null : undefined
+    } else if (typeof digits === 'number') {
+      value = parseFloat(value.toFixed(digits))
     } else {
-      const stepStr = this.props.step.toString()
+      const stepStr = step.toString()
       const dot = stepStr.lastIndexOf('.')
       if (dot >= 0) value = parseFloat(value.toFixed(stepStr.length - dot))
     }
@@ -79,7 +82,22 @@ class Number extends PureComponent {
     let value = parseFloat(`${val || ''}`.replace(/,/g, ''))
     // eslint-disable-next-line
     if (isNaN(value)) value = 0
-    this.handleChange(sub(value, mod), true)
+
+    const { numType, integerLimit } = this.props
+
+    const calculateVal = sub(value, mod)
+    if (numType === 'positive' && calculateVal <= 0) {
+      return
+    }
+    if (numType === 'non-negative' && calculateVal < 0) {
+      return
+    }
+
+    if (integerLimit && String(parseInt(calculateVal, 10)).length > integerLimit) {
+      return
+    }
+
+    this.handleChange(calculateVal, true)
   }
 
   longPress(mod) {
@@ -204,6 +222,9 @@ Number.propTypes = {
   onChange: PropTypes.func.isRequired,
   step: PropTypes.number,
   digits: PropTypes.number,
+  integerLimit: PropTypes.number,
+  numType: PropTypes.string,
+  autoSelect: PropTypes.bool,
   allowNull: PropTypes.bool,
   hideArrow: PropTypes.bool,
   clearToUndefined: PropTypes.bool,

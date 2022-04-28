@@ -3,8 +3,15 @@
 .doc-markdown {
   flex: 1;
   padding: 30px 200px 0 0;
+  .rtl & {
+    padding: 30px 0 0  200px;
+  }
+
   @media (max-width: 979px) and (min-width: 0px){
     padding: 0;
+    .rtl & {
+      padding: 0;
+    }
   }
   // overflow: hidden;
 
@@ -58,7 +65,8 @@
     white-space: pre-wrap;
     word-break: break-all;
     word-wrap: break-word;
-
+    text-align: left;
+    direction: ltr;
     & + pre {
       margin-top: -21px;
     }
