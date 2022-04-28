@@ -44,11 +44,14 @@ export default Table =>
       return width
     }
 
-    handleResize(index, width, colgroup) {
+    handleResize(index, width, colgroup = []) {
       const { onColumnResize } = this.props
       const changed = immer(this.state, draft => {
         const column = draft.columns[index]
-        draft.delta += parseFloat(width - (column.width || colgroup[index] || 0))
+        const beforeWidth = column.width || colgroup[index]
+        if (beforeWidth) {
+          draft.delta += parseFloat(width - beforeWidth)
+        }
         colgroup[index] = width
         draft.columns.forEach((col, i) => {
           const w = colgroup[i]
