@@ -323,6 +323,8 @@ export default class TreeSelect extends PureComponent {
       result,
       renderUnmatched,
       innerTitle,
+      keygen,
+      data,
     } = this.props
     const className = treeSelectClass(
       'inner',
@@ -361,6 +363,8 @@ export default class TreeSelect extends PureComponent {
           compressed={compressed}
           renderUnmatched={renderUnmatched}
           innerTitle={innerTitle}
+          keygen={keygen}
+          data={data}
         />
         {this.renderTreeOptions()}
       </div>

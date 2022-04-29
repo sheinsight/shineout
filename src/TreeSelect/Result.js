@@ -10,6 +10,7 @@ import Input from './Input'
 import Caret from '../icons/Caret'
 import More, { getResetMore } from '../Select/More'
 import InputTitle from '../InputTitle'
+import { getKey } from '../utils/uid'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -69,17 +70,17 @@ class Result extends PureComponent {
   }
 
   updateMore(preProps) {
-    const { result, compressed, onFilter, renderResult, renderUnmatched } = this.props
+    const { result, compressed, onFilter, keygen, data } = this.props
     if (compressed) {
       let shouldRest = false
-      if (preProps.result.length !== result.length) {
+      if (preProps.result.length !== result.length || (data || []).length !== (preProps.data || []).length) {
         shouldRest = true
-      } else {
+      } else if (preProps.result !== result) {
         let i = preProps.result.length - 1
         while (i >= 0) {
-          const before = getResultContent(preProps.result[i], preProps.renderResult, preProps.renderUnmatched)
-          const now = getResultContent(result[i], renderResult, renderUnmatched)
-          if (before !== now) {
+          const getUnMatchKey = (d, k) => (d && d.IS_NOT_MATCHED_VALUE ? d.value : getKey(d, k))
+          const isSameData = (data1, data2, k) => getUnMatchKey(data1, k) === getUnMatchKey(data2, k)
+          if (!isSameData(result[i], preProps.result[i], keygen)) {
             shouldRest = true
             break
           }
@@ -286,6 +287,8 @@ Result.propTypes = {
   compressed: PropTypes.bool,
   renderUnmatched: PropTypes.func,
   innerTitle: PropTypes.node,
+  keygen: PropTypes.any,
+  data: PropTypes.array,
 }
 
 export default Result
