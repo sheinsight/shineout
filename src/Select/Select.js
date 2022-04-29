@@ -532,6 +532,8 @@ class Select extends PureComponent {
       resultClassName,
       maxLength,
       innerTitle,
+      keygen,
+      data,
     } = this.props
     const className = selectClass(
       'inner',
@@ -582,6 +584,8 @@ class Select extends PureComponent {
           compressedClassName={compressedClassName}
           resultClassName={resultClassName}
           innerTitle={innerTitle}
+          keygen={keygen}
+          data={data}
         />
         {this.renderOptions()}
       </div>

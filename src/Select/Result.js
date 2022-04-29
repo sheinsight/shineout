@@ -11,6 +11,7 @@ import Caret from '../icons/Caret'
 import { isRTL } from '../config'
 import More, { getResetMore } from './More'
 import InputTitle from '../InputTitle'
+import { getKey } from '../utils/uid'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -91,24 +92,23 @@ class Result extends PureComponent {
   }
 
   updateMore(preProps) {
-    const { result, compressed, onFilter, renderResult, renderUnmatched } = this.props
+    const { result, compressed, onFilter, keygen, data } = this.props
     if (compressed) {
       let shouldRest = false
-      if (preProps.result.length !== result.length) {
+      if (preProps.result.length !== result.length || (data || []).length !== (preProps.data || []).length) {
         shouldRest = true
-      } else {
+      } else if (preProps.result !== result) {
+        const getUnMatchKey = (d, k) => (d && d.IS_NOT_MATCHED_VALUE ? d.value : getKey(d, k))
+        const isSameData = (data1, data2, k) => getUnMatchKey(data1, k) === getUnMatchKey(data2, k)
         let i = preProps.result.length - 1
         while (i >= 0) {
-          const before = getResultContent(preProps.result[i], preProps.renderResult, preProps.renderUnmatched)
-          const now = getResultContent(result[i], renderResult, renderUnmatched)
-          if (before !== now) {
+          if (!isSameData(result[i], preProps.result[i], keygen)) {
             shouldRest = true
             break
           }
           i -= 1
         }
       }
-
       if (shouldRest) {
         this.resetMore()
       } else if (result.length && this.shouldResetMore) {
@@ -393,6 +393,8 @@ Result.propTypes = {
   resultClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   maxLength: PropTypes.number,
   innerTitle: PropTypes.node,
+  keygen: PropTypes.any,
+  data: PropTypes.array,
 }
 
 export default Result
