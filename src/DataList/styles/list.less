@@ -160,7 +160,8 @@
   }
 
   .@{button-prefix} + .@{button-prefix} {
-    margin-left: 0;
+    &:not(@{button-prefix}-rtl) {margin-left: 0;}
+    &.@{button-prefix}-rtl {margin-right: 0;}
   }
 }
 

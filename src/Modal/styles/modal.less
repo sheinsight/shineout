@@ -3,7 +3,6 @@
 @modal-prefix: ~'@{so-prefix}-modal';
 @card-prefix: ~'@{so-prefix}-card';
 @moveable-prefix: ~'@{so-prefix}-moveable';
-@button-prefix: ~'@{so-prefix}-button';
 
 @keyframes scale-in {
   0% {
@@ -343,10 +342,6 @@
         background: @modal-footer-bg;
         .@{modal-prefix}-rtl & {
           text-align: left;
-          .@{button-prefix} + .@{button-prefix} {
-            margin-left: 0;
-            margin-right: @button-margin-left;
-          }
         }
       }
       > .@{card-prefix}-header, > .@{card-prefix}-footer {
