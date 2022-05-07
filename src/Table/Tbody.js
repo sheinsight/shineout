@@ -26,7 +26,7 @@ function format(columns, data, nextRow, index, expandKeys) {
     if (cell.colSpan < 1) cell.colSpan = 1
 
     const { rowSpan } = col
-    if (rowSpan && nextRow) {
+    if (rowSpan && nextRow && nextRow[i]) {
       if (col.type !== 'checkbox') {
         cell.content = typeof col.render === 'string' ? data[col.render] : col.render(data, index)
       }
