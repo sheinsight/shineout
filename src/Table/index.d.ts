@@ -3,6 +3,7 @@ import * as React from 'react'
 import { StickyProps } from '../Sticky'
 import { PaginationProps } from '../Pagination'
 import { ListItemStandardProps, StandardProps,  RegularAttributes, keyType } from '../@types/common'
+import { ReactComponentElement } from "react"
 
 
 type ReactNode = React.ReactNode;
@@ -13,11 +14,11 @@ export type ColumnOrder = 'asc' | 'desc'
 
 export type ColumnFix = 'left' | 'right'
 
-export type ColumnType = 'expand' | 'row-expand' | 'checkbox'
+export type ColumnType = 'expand' | 'row-expand'
 
 export interface renderSorterParam  {status?: 'asc' | 'desc', triggerAsc: () => void, triggerDesc: () => void}
 
-export interface ColumnItem<T> {
+interface CommonColumn<T> {
   /**
    * cell align \['left', 'center', 'right'\]
    *
@@ -180,6 +181,16 @@ export interface ColumnItem<T> {
    */
   className?: string;
 }
+
+type SomeColumn<T> =  Omit<CommonColumn<T>, 'render' | 'type'>
+
+export interface CheckColumn<T> extends SomeColumn<T>{
+  type: 'checkbox',
+  render?: (rowData: T, index: number,  checkInstance: ReactComponentElement<any>) => any
+}
+
+export type ColumnItem<T> = CommonColumn<T> | CheckColumn<T>
+
 
 export interface RowEvents {
   [propName: string]: any

@@ -194,6 +194,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Table/example-15-select-radio.js'),
   },
   {
+    name: '15-select-render',
+    title: locate(
+      ' \n 通过 render 自定义渲染',
+      'Select \n Custom rendering via render'
+    ),
+    component: require('doc/pages/components/Table/example-15-select-render.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-15-select-render.js'),
+  },
+  {
     name: '17-select-disabled',
     title: locate(
       ' \n 设置 disabled 属性，禁用选项。',
