@@ -138,8 +138,12 @@ export const focusElement = {
   copyBoundingClientRect,
 }
 
-export const preventPasteFile = (e, beforeHandler) => {
-  const text = (e.clipboardData || window.clipboardData).getData('text/plain')
+export const preventPasteFile = (e, beforeHandler, noLineBreak = true) => {
+  let text = (e.clipboardData || window.clipboardData).getData('text/plain')
+  // 删除复制的换行符号
+  if (noLineBreak && text) {
+    text = text.replace(/[\t\n\f\r\v]/g, '')
+  }
   e.preventDefault()
   if (beforeHandler) {
     beforeHandler(text)

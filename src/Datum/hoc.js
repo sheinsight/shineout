@@ -82,7 +82,7 @@ export default curry((options, Origin) => {
         this.datum.setDisabled(props.disabled)
       }
       const values = this.props[key]
-      if (values !== this.prevValues) {
+      if (type === 'form' && values !== this.prevValues) {
         this.setValue(this.props.initValidate ? undefined : IGNORE_VALIDATE)
         this.prevValues = values
       }
