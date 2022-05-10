@@ -2,11 +2,11 @@ name: test
 
 on:
   pull_request:
-    branches: [ dev ]
+    branches: [ dev, master ]
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
         node-version: [10.x]
