@@ -103,14 +103,14 @@ export default Origin =>
       return result
     }
 
-    handleFilter(text) {
+    handleFilter(text, from = 'edit') {
       const { filterDelay, onFilter, onCreate } = this.props
 
       // not filter
       if (!text) {
         this.setState({ filterText: '', innerFilter: undefined, innerData: undefined })
         if (this.timer) clearTimeout(this.timer)
-        if (onFilter) onFilter(text)
+        if (onFilter) onFilter(text, from)
         return
       }
 
@@ -125,7 +125,7 @@ export default Origin =>
 
       if (this.timer) clearTimeout(this.timer)
       this.timer = setTimeout(() => {
-        const fn = onFilter(text)
+        const fn = onFilter(text, from)
         if (typeof fn === 'function') {
           this.setState({ innerFilter: fn })
         }

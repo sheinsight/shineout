@@ -75,7 +75,7 @@ class Select extends PureComponent {
     // clear filter
     if (prevState.focus !== this.state.focus && !this.state.focus && onFilter) {
       setTimeout(() => {
-        onFilter('')
+        onFilter('', 'blur')
       }, 400)
     }
   }
@@ -215,7 +215,7 @@ class Select extends PureComponent {
       }, 10)
     }
 
-    if (emptyAfterSelect && onFilter && filterText) onFilter('')
+    if (emptyAfterSelect && onFilter && filterText) onFilter('', 'select')
   }
 
   toInputTriggerCollapse(text) {
