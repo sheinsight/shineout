@@ -56,7 +56,7 @@ export default class TreeSelect extends PureComponent {
     // clear filter
     if (prevState.focus !== this.state.focus && !this.state.focus && onFilter) {
       setTimeout(() => {
-        onFilter('')
+        onFilter('', 'blur')
       }, 400)
     }
   }
