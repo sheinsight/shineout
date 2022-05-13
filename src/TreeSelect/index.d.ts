@@ -178,7 +178,7 @@ export interface TreeSelectProps<Value, Data> extends StandardProps,
    *
    * default: -
    */
-  onFilter?: (text: string) => (data: Data) => boolean;
+  onFilter?: (text: string, from: 'string') => (data: Data) => boolean;
 
   /**
    * In the advanced filter mode, you can switch between the filter results and the original data for the current level by pressing the button
@@ -187,7 +187,7 @@ export interface TreeSelectProps<Value, Data> extends StandardProps,
    *
    * default: -
    */
-  onAdvancedFilter?: (text: string) => (data: Data) => boolean;
+  onAdvancedFilter?: (text: string, form: string) => (data: Data) => boolean;
 
   /**
    * When it is a string, return d[string]. When it is a function, return the result of the function.
