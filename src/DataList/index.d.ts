@@ -180,6 +180,15 @@ export interface ListBaseItemProps{
    */
   title?: string;
 
+  /**
+   * Multi-column display
+   *
+   * 多列展示
+   *
+   * default: 1
+   */
+  colNum?: number;
+
 
 }
 

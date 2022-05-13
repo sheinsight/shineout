@@ -89,11 +89,20 @@ class Index extends Component {
   }
 
   renderList(isEmpty) {
-    const { data, empty, keygen, fixed, rowsInView, lineHeight, value } = this.props
+    const { data, empty, keygen, fixed, rowsInView, lineHeight, value, colNum } = this.props
 
     if (isEmpty) return <div className={listClass('item', 'empty')}>{empty || getLocale('noData')}</div>
 
-    if (!fixed) return data.map(this.renderItem)
+    if (!fixed) {
+      const items = data.map(this.renderItem)
+      if (colNum && colNum > 1) {
+        const frs = Array(colNum)
+          .fill('1fr')
+          .join(' ')
+        return <div style={{ display: 'grid', gridTemplateColumns: frs }}>{items}</div>
+      }
+      return items
+    }
     return (
       <LazyList
         lineHeight={lineHeight}
@@ -102,6 +111,7 @@ class Index extends Component {
         renderItem={this.renderItem}
         itemsInView={rowsInView}
         force={value}
+        colNum={colNum}
       />
     )
   }
@@ -160,11 +170,13 @@ Index.propTypes = {
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   lineHeight: PropTypes.number,
   value: PropTypes.array,
+  colNum: PropTypes.number,
 }
 
 Index.defaultProps = {
   size: 'default',
   loading: false,
+  colNum: 1,
 }
 
 Index.displayName = 'ShineoutList'
