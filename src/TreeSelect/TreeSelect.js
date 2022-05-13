@@ -188,7 +188,7 @@ export default class TreeSelect extends PureComponent {
   handleRemove(data) {
     const { datum } = this.props
     datum.set(datum.getKey(data), 0)
-    this.handleChange()
+    this.handleChange(data, datum.getKey(data))
   }
 
   handleChange(data, id) {
