@@ -1,7 +1,8 @@
 import React from 'react'
-import {FormItemStandardProps} from '../@types/common'
+import {FormItemStandardProps, StandardProps} from '../@types/common'
 
 export interface SwitchProps extends
+  StandardProps,
   Pick<FormItemStandardProps<boolean>, 'defaultValue' | 'value' | 'onChange' | 'name' >{
 
   /**
