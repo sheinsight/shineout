@@ -2,6 +2,7 @@ import * as React from 'react'
 
 // type ReactNode = React.ReactNode
 import { StandardProps } from '../@types/common'
+import { ReactNode } from "react"
 
 export interface StickyProps extends StandardProps {
   /**
@@ -47,6 +48,15 @@ export interface StickyProps extends StandardProps {
    * default: null
    */
   onChange?: (isSticky: boolean) => void;
+
+  /**
+   * children
+   *
+   * 子元素
+   *
+   * default: -
+   */
+  children?: ReactNode;
 }
 
 declare class Sticky extends React.Component<StickyProps, {}> {

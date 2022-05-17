@@ -140,7 +140,16 @@ export interface TabsProps extends StandardProps {
    *
    * default: false
    */
-  hideSplit?: boolean
+  hideSplit?: boolean;
+
+  /**
+   * content
+   *
+   * 内容
+   *
+   * default: -
+   */
+  children: ReactNode;
 }
 
 export interface TabsPanelProps extends StandardProps {
@@ -189,6 +198,15 @@ export interface TabsPanelProps extends StandardProps {
    * default: required
    */
   tab?: string | ReactNode;
+
+  /**
+   * content
+   *
+   * 内容
+   *
+   * default: -
+   */
+  children: ReactNode;
 
 }
 
