@@ -22,7 +22,7 @@ function getRule(rules, props = {}) {
 
   if (func) return (...args) => func(...args, props)
 
-  if (other.required) return required(props)
+  if (other.required !== undefined) return required(props)
 
   if (regExp) return regTest(regExp, props)
 
