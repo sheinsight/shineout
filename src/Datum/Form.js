@@ -243,7 +243,7 @@ export default class {
     this.subscribe(errorSubscribe(name), fn)
   }
 
-  unbind(name) {
+  unbind(name, cb, reserveAble) {
     if (Array.isArray(name)) {
       name.forEach(n => this.unbind(n))
       return
@@ -257,6 +257,7 @@ export default class {
     delete this.$defaultValues[name]
 
     if (!deepHas(this.$values, name)) return
+    if (reserveAble) return
     deepRemove(this.$values, name)
 
     if (!this.formUnmount) {

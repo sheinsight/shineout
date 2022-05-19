@@ -26,6 +26,14 @@ export interface StandardProps {
 export type keyType = string | number | symbol
 
 export interface FormItemStandardProps<Value = any> {
+    /**
+     * Do not delete value when form Item is unmounted
+     *
+     * 表单元素卸载的时候不删除数据
+     *
+     * default: -
+     */
+    reserveAble?: boolean;
 
     /**
      * The name of a Form that accesses data
