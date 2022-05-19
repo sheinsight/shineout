@@ -123,6 +123,7 @@ export default class Panel extends PureComponent {
   }
 
   handleClose(e) {
+    e.stopPropagation()
     const { maskCloseAble, onClose } = this.props
     const { target } = e
     if (!maskCloseAble) return
