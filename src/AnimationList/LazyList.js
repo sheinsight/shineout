@@ -110,6 +110,7 @@ LazyList.defaultProps = {
   itemsInView: 10,
   lineHeight: 32,
   data: [],
+  colNum: 1,
 }
 
 LazyList.propTypes = {
