@@ -145,7 +145,7 @@ export interface PopoverProps extends StandardProps {
   /**
    * Popup location priority, default is left and right priority, only valid when position is not set, Options: ['vertical', 'horizontal']
    *
-   * 弹出位置优先级, 默认为左右优先, 只在未设置 position 时生效, 可选值['vertical', 'horizontal']
+   * 弹出位置优先级, 默认为左右优先, 只在未设置 position 时生效, 可选值['vertical', 'horizontal', 'auto']
    *
    * default: 'vertical'
    */
