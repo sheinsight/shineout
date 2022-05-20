@@ -118,8 +118,14 @@ class Panel extends Component {
     const verticalPoint = rect.top + rect.height / 2
     const windowHeight = docSize.height
     const windowWidth = docSize.width
+    let tempPriorityDirection = priorityDirection
+    if (priorityDirection === 'auto') {
+      const maxX = Math.max(rect.left, windowWidth - rect.left - rect.width)
+      const maxY = Math.max(rect.top, windowHeight - rect.top - rect.height)
+      tempPriorityDirection = maxX > maxY ? 'horizontal' : 'vertical'
+    }
 
-    if (priorityDirection === 'horizontal') {
+    if (tempPriorityDirection === 'horizontal') {
       if (horizontalPoint > windowWidth / 2) position = 'left'
       else position = 'right'
 
