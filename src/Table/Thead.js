@@ -156,6 +156,7 @@ class Thead extends PureComponent {
               data={data}
               datum={datum}
               treeColumnsName={treeCheckAll && treeColumnsName}
+              col={col}
             />
           )}
         </th>

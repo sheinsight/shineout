@@ -76,3 +76,4 @@
 | maxWidth | number | 无 | 最大可拖动列宽 |
 | hide | boolean | false | 只针对行展开列有效，表示是否隐藏该列 |
 | defaultOrder | string | 'asc' \| 'desc' | 默认排序规则 |
+| filterAll | ( data: array) => array  | 无 | 点击全选后数据过滤，type = "checkbox" 生效 |

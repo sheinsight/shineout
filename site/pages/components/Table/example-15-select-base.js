@@ -8,12 +8,21 @@ import React, { PureComponent } from 'react'
 import { Table } from 'shineout'
 import { fetchSync } from 'doc/data/user'
 
-const data = fetchSync(100)
+const data = fetchSync(20)
 
+const rowSpan = a => a.id % 3 === 0
 const columns = [
   {
     type: 'checkbox',
-    rowSpan: a => a.id % 3 === 0,
+    rowSpan,
+    filterAll: d =>
+      d.filter((item, index) => {
+        if (index > 0) {
+          const before = d[index - 1]
+          return !rowSpan(before, item)
+        }
+        return true
+      }),
   },
   {
     title: 'id',

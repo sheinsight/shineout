@@ -77,3 +77,4 @@
 | hide | boolean | false | hide the column, only work on row-expand column |
 | dataChangeResize | boolean | false | Recalculate columns width while data change |
 | defaultOrder | string | 'asc' \| 'desc' | default sort |
+| filterAll | ( data: array) => array  | - | After clicking select all, data filtering, type = "checkbox" |
