@@ -186,7 +186,8 @@ type SomeColumn<T> =  Omit<CommonColumn<T>, 'render' | 'type'>
 
 export interface CheckColumn<T> extends SomeColumn<T>{
   type: 'checkbox',
-  render?: (rowData: T, index: number,  checkInstance: ReactComponentElement<any>) => any
+  render?: (rowData: T, index: number,  checkInstance: ReactComponentElement<any>) => any,
+  filterAll?: (data: T[]) => T[],
 }
 
 export type ColumnItem<T> = CommonColumn<T> | CheckColumn<T>

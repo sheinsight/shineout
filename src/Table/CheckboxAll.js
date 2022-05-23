@@ -4,10 +4,12 @@ import { Component } from '../component'
 import shallowEqual from '../utils/shallowEqual'
 import { CHANGE_TOPIC } from '../Datum/types'
 import Checkbox from '../Checkbox/Checkbox'
+import { isFunc } from '../utils/is'
 
 export default class extends Component {
   static propTypes = {
     data: PropTypes.array,
+    col: PropTypes.object,
     datum: PropTypes.object.isRequired,
     treeColumnsName: PropTypes.string,
   }
@@ -35,12 +37,21 @@ export default class extends Component {
     this.props.datum.unsubscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
-  getChecked() {
-    const { data, datum } = this.props
-    if (datum.length === 0 || !data) return false
+  getFilterData() {
+    const { col = {}, data } = this.props
+    const { filterAll } = col
+    if (data && filterAll && Array.isArray(data) && isFunc(filterAll)) {
+      return filterAll(data)
+    }
+    return data
+  }
 
+  getChecked() {
+    const { datum } = this.props
+    const filterData = this.getFilterData()
+    if (datum.length === 0 || !filterData) return false
     let checked
-    for (const d of data) {
+    for (const d of filterData) {
       if (datum.disabled(d)) continue
       const p = this.check(d)
       if (p === 'indeterminate') return p
@@ -68,11 +79,12 @@ export default class extends Component {
   }
 
   handleChange(_, checked, index) {
-    const { data, datum, treeColumnsName } = this.props
+    const { datum, treeColumnsName } = this.props
+    const filterData = this.getFilterData()
     if (checked) {
-      datum.add(data, index, treeColumnsName)
+      datum.add(filterData, index, treeColumnsName)
     } else {
-      datum.remove(data, index, treeColumnsName)
+      datum.remove(filterData, index, treeColumnsName)
     }
   }
 
