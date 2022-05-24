@@ -86,7 +86,12 @@ class Thead extends PureComponent {
       const { target } = e
       this.resizingTh = getParent(target, 'th')
       this.resizingTable = getParent(target, 'table')
-      this.resizingIndex = [].indexOf.call(getParent(target, 'tr').children, this.resizingTh)
+      const thList = getParent(target, 'tr').children
+      const indexInTr = [].indexOf.call(thList, this.resizingTh)
+      this.resizingIndex = [].slice.call(thList, 0, indexInTr).reduce((total, th) => {
+        let count = Number(th.getAttribute('colspan')) || 1
+        return total + count
+      }, 0)
       this.resizingCol = this.resizingTable.querySelectorAll('col')[this.resizingIndex]
       this.resizingTable.classList.add(tableClass('resizing'))
       this.resizingTh.classList.add(tableClass('resizing-item'))
