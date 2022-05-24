@@ -122,7 +122,7 @@ export interface CardFooterProps extends StandardProps {
    *
    * default: none
    */
-  children?: any;
+  children?: ReactNode;
 
 }
 
@@ -162,7 +162,7 @@ export interface CardAccordionProps<T> {
    *
    * default: none
    */
-  children?: any;
+  children?: ReactNode;
 }
 
 export interface CardSubmitProps extends ButtonProps {

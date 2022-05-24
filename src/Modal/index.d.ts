@@ -311,7 +311,7 @@ export interface ModalFunctionOptions extends ModalProps {
    *
    * default: -
    */
-  children?: string
+  children?: ReactNode
 }
 
 type Close = () => void;
