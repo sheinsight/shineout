@@ -312,7 +312,18 @@ export interface InputPasswordProps<Value = any> extends InputProps<Value> {
   point?: 'string';
 }
 
-declare class InputGroup<Value = any> extends React.Component<InputProps<Value>, {}> {}
+export interface InputGroupProps<Value = any> extends InputProps<Value> {
+  /**
+   * children
+   *
+   * 子元素
+   *
+   * default: -
+   */
+  children?: ReactNode;
+}
+
+declare class InputGroup<Value = any> extends React.Component<InputGroupProps<Value>, {}> {}
 
 declare class InputNumber<Value = number> extends React.Component<InputNumberProps<Value>, {}> {}
 
