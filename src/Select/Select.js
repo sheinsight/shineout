@@ -107,6 +107,15 @@ class Select extends PureComponent {
     //   this.optionsHold = false
     // }
     if (el.getAttribute('data-id') === id) return true
+    // in label
+    if (
+      el.tagName === 'LABEL' &&
+      el.htmlFor &&
+      el.contains(this.element) &&
+      el.contains(document.getElementById(el.htmlFor))
+    ) {
+      return true
+    }
     if (!el.parentElement) return false
     return this.isDescendent(el.parentElement, id)
   }
