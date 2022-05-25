@@ -103,6 +103,15 @@ const examples = [
     component: require('doc/pages/components/Checkbox/example-11-input.js').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-11-input.js'),
   },
+  {
+    name: '12-onClick',
+    title: locate(
+      '点击回调 \n 点击选择框后的回调',
+      'OnClick \n Checkbox click callback'
+    ),
+    component: require('doc/pages/components/Checkbox/example-12-onClick.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Checkbox/example-12-onClick.js'),
+  },
 ]
 
 const codes = undefined
