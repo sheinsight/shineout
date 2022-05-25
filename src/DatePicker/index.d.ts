@@ -21,7 +21,7 @@ export interface QuickSelect extends Base {
 
 export type FormItemProps<T> = Omit<FormItemStandardProps<T>, 'name'>
 
-export interface DatePickerProps<T =DatePickerValue > extends StandardProps,
+export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
   FormItemProps<T>,
   Pick<CommonProps, 'absolute'> {
 
@@ -41,7 +41,7 @@ export interface DatePickerProps<T =DatePickerValue > extends StandardProps,
    *
    * default: false
    */
-   underline?: boolean;
+  underline?: boolean;
 
   /**
    * width
@@ -262,6 +262,7 @@ export interface DatePickerProps<T =DatePickerValue > extends StandardProps,
    *
    * default: -
    */
+
   innerTitle?: ReactNode;
   /**
    * The name of a Form that accesses data
@@ -271,6 +272,33 @@ export interface DatePickerProps<T =DatePickerValue > extends StandardProps,
    * default: -
    */
   name?: string | string[]
+
+  /**
+   * Allow enter something into DatePicker
+   *
+   * 可输入
+   *
+   * default: -
+   */
+  inputable?: boolean
+
+  /**
+   * Set Position can control the different position of DatePicker
+   *
+   * 弹出框位置
+   *
+   * default: -
+   */
+  position?: 'left-top' | 'left-bottom' | 'right-top' | 'right-bottom' | string
+
+  /**
+   * There are three built-in size: small、default、large.
+   *
+   * 不同尺寸
+   *
+   * default: 'default'
+   */
+  size?: 'small' | 'default' | 'large' | string
 }
 
 declare class DatePicker extends React.Component<DatePickerProps, {}> {
