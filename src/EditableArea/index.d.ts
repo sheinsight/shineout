@@ -128,6 +128,17 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
    * default: -
    */
   renderResult?: (value: string)=> ReactNode,
+
+  /**
+   * Customize display results
+   *
+   * 自定义显示结果
+   *
+   * default: -
+   */
+   onShowTextareaChange?: (value: boolean)=> void,
+
+
 }
 
 declare class EditableArea extends React.PureComponent<EditableAreaProps, any>{}

@@ -40,6 +40,33 @@ const examples = [
     component: require('doc/pages/components/EditableArea/example-03-container.js').default,
     rawText: require('!raw-loader!doc/pages/components/EditableArea/example-03-container.js'),
   },
+  {
+    name: '04-innerTitle',
+    title: locate(
+      '内嵌标题 \n 在输入框内嵌入标题',
+      'InnerTitle \n inner title'
+    ),
+    component: require('doc/pages/components/EditableArea/example-04-innerTitle.js').default,
+    rawText: require('!raw-loader!doc/pages/components/EditableArea/example-04-innerTitle.js'),
+  },
+  {
+    name: '05-renderFooter',
+    title: locate(
+      '渲染 textarea footer \n 在输入框内嵌入标题',
+      'RenderFooter \n render textarea footer'
+    ),
+    component: require('doc/pages/components/EditableArea/example-05-renderFooter.js').default,
+    rawText: require('!raw-loader!doc/pages/components/EditableArea/example-05-renderFooter.js'),
+  },
+  {
+    name: '06-renderResult',
+    title: locate(
+      '自定义显示结果 \n 自定义显示结果',
+      'RenderResult \n rCustomize display results'
+    ),
+    component: require('doc/pages/components/EditableArea/example-06-renderResult.js').default,
+    rawText: require('!raw-loader!doc/pages/components/EditableArea/example-06-renderResult.js'),
+  },
 ]
 
 const codes = undefined
