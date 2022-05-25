@@ -16,7 +16,7 @@ interface DropdownNode {
 
 export type DropdownItem = DropdownNode | React.ReactNode
 
-export interface DropdownProps extends StandardProps, Pick<StructDataStandardProps<DropdownNode>, 'renderItem'>{
+export interface DropdownProps extends StandardProps, Pick<StructDataStandardProps<DropdownNode>, 'renderItem'> {
     /**
      * Specifies the dropdown should be disabled
      * 
@@ -43,7 +43,7 @@ export interface DropdownProps extends StandardProps, Pick<StructDataStandardPro
      * default: []
      */
     data: DropdownItem[];
-    
+
     /**
      * Specifies the dropdown should be disabled
      * 
@@ -106,7 +106,7 @@ export interface DropdownProps extends StandardProps, Pick<StructDataStandardPro
      * default: -
      */
     type?: RegularAttributes.Type;
-    
+
     /**
      * The width of the pop-up option layer
      * 
@@ -114,9 +114,18 @@ export interface DropdownProps extends StandardProps, Pick<StructDataStandardPro
      * 
      * default: -
      */
-    width?: number;    
+    width?: number;
+
+    /**
+     * The width of the pop-up option layer
+     * 
+     * 弹出选项层的宽度
+     * 
+     * default: -
+     */
+    position?: 'left-top' | 'left-bottom' | 'right-top' | 'right-bottom' | 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'auto'
 }
 
-declare class Dropdown extends React.Component<DropdownProps> {}
+declare class Dropdown extends React.Component<DropdownProps> { }
 
 export default Dropdown

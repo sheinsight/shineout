@@ -291,7 +291,7 @@ Dropdown.propTypes = {
   disabled: PropTypes.bool,
   hover: PropTypes.bool,
   isSub: PropTypes.bool,
-  position: PropTypes.string,
+  position: PropTypes.oneOf(['left-top', 'left-bottom', 'right-top', 'right-bottom', 'top-right', 'top-left', 'bottom-right', 'bottom-left', 'auto']),
   trigger: PropTypes.oneOf(['click', 'hover']),
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   animation: PropTypes.bool,
