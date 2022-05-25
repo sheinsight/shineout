@@ -36,6 +36,16 @@ interface BreadcrumbData  {
   url?: string;
 
 
+  /**
+   * Custom render
+   *
+   * 自定义渲染
+   *
+   * default: -
+   */
+  renderItem?: ReactNode;
+
+
 }
 
 
