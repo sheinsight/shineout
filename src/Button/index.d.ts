@@ -31,7 +31,7 @@ export interface ButtonProps extends StandardProps {
    * default: -
    */
   href?: string;
-  
+
   /**
    * If present, target will be set onto <a> element.(Effective only when href is been set)
    *
@@ -68,6 +68,16 @@ export interface ButtonProps extends StandardProps {
    * default: 'default'
    */
   type?: ButtonType;
+
+
+  /**
+   * type of button original
+   * 
+   * 按钮原生type属性
+   * 
+   * default: 'button'
+   */
+  htmlType?: 'button' | 'reset' | 'submit' | string;
 
   /**
    * text button

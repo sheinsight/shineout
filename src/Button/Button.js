@@ -76,7 +76,7 @@ Button.propTypes = {
   ...getProps(PropTypes, 'disabled', 'size', 'type'),
   children: PropTypes.any,
   href: PropTypes.string,
-  htmlType: PropTypes.string,
+  htmlType: PropTypes.oneOf(['button', 'reset', 'submit']),
   loading: PropTypes.bool,
   onRef: PropTypes.func,
   shape: PropTypes.oneOf(['round', 'circle']),
