@@ -4,7 +4,7 @@ import { ReactNode } from "react"
 
 export type DateTimeType = Date | number | string | undefined
 
-export type AreaType = 'year' | 'month' | 'week' | 'day' | 'time' | 'quick'
+export type AreaType = 'year' | 'month' | 'week' | 'day' | 'time' | 'quick' | 'quarter'
 
 export type DisabledType = 'start' | 'end'
 
@@ -71,10 +71,10 @@ export interface DatePickerProps<T =DatePickerValue > extends StandardProps,
   disabled?: ((date: Date, type: DisabledType, value: DatePickerValue,) => boolean) | boolean;
 
   /**
-   * default values for different types: 'date': 'yyyy-MM-dd'. 'time': 'HH:mm:ss'. 'week': 'RRRR II'. 'month': 'yyyy-MM'. 'datetime': 'yyyy-MM-dd HH:mm:ss'
+   * default values for different types: 'date': 'yyyy-MM-dd'. 'time': 'HH:mm:ss'. 'week': 'RRRR II'. 'month': 'yyyy-MM'. 'week': 'RRRR II'. 'quarter': 'yyyy-[Q]Q'. 'datetime': 'yyyy-MM-dd HH:mm:ss'
    *
    *
-   * 不同type对应的默认值。'date': 'yyyy-MM-dd'。'time': 'HH:mm:ss'。'week': 'RRRR II'。'month': 'yyyy-MM'。'datetime': 'yyyy-MM-dd HH:mm:ss'
+   * 不同type对应的默认值。'date': 'yyyy-MM-dd'。'time': 'HH:mm:ss'。'week': 'RRRR II'。'month': 'yyyy-MM'。'quarter': 'yyyy-[Q]Q'。'datetime': 'yyyy-MM-dd HH:mm:ss'
    *
    *
    * default:
@@ -124,7 +124,7 @@ export interface DatePickerProps<T =DatePickerValue > extends StandardProps,
    *
    * default: 'date'
    */
-  type?: 'date' | 'time' | 'datetime' | 'month' | 'week';
+  type?: 'date' | 'time' | 'datetime' | 'month' | 'week' | 'quarter';
 
   /**
    * Default time when selecting a date, the format is: 'HH:mm:ss'

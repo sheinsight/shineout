@@ -123,6 +123,33 @@ describe('dateUtil[compareMonth]', () => {
   })
 })
 
+describe('dateUtil[compareQuarter]', () => {
+  it('false left date or false right date will return 0', () => {
+    expect(utils.compareQuarter(false)).toBe(0)
+    expect(utils.compareQuarter(new Date(), false)).toBe(0)
+  })
+
+  it('compare date with 0 pad', () => {
+    const a = new Date(2021, 0, 2)
+    const aa = new Date(2021, 1, 2)
+    const b = new Date(2021, 3, 2)
+    expect(utils.compareQuarter(a, aa)).toBe(0)
+    expect(utils.compareQuarter(new Date(2021, 9, 1), new Date(2022, 3, 1))).toBe(-1)
+    expect(utils.compareQuarter(a, b)).toBe(-1)
+    expect(utils.compareQuarter(b, a)).toBe(1)
+    expect(utils.compareQuarter(a, new Date(''))).toBe(NaN)
+    expect(utils.compareQuarter(new Date(''), new Date(''))).toBe(NaN)
+  })
+
+  it('compare date with  pad', () => {
+    const a = new Date(2021, 0, 1)
+    const b = new Date(2021, 11, 2)
+    expect(utils.compareQuarter(a, b, -3)).toBe(0)
+    expect(utils.compareQuarter(a, b, -4)).toBe(1)
+    expect(utils.compareQuarter(a, b, 0)).toBe(-1)
+  })
+})
+
 describe('dateUtil[getDaysOfMonth]', () => {
   it('weekStartsOn 1', () => {
     setLocale('zh-CN')
@@ -165,9 +192,14 @@ describe('dateUtil[format]', () => {
       { formatter: 'RRRR II', expected: '2020 53' },
       { formatter: 'yyyy-MM', expected: '2021-01' },
       { formatter: 'yyyy-MM-dd HH:mm:ss', expected: '2021-01-01 11:11:11' },
+      {
+        input: utils.parse('2021-05-01 11:11:11', 'YYYY-MM-DD hh:mm:ss'),
+        formatter: 'yyyy-[Q]Q',
+        expected: '2021-Q2',
+      },
     ]
-    data.forEach(({ formatter, expected }) => {
-      expect(utils.format(date, formatter)).toBe(expected)
+    data.forEach(({ formatter, expected, input }) => {
+      expect(utils.format(input || date, formatter)).toBe(expected)
     })
   })
   it('custom format', () => {
@@ -208,6 +240,18 @@ describe('dateUtil[isSameMonth]', () => {
   })
   it('not same', () => {
     expect(utils.isSameMonth(a, c)).toBeFalsy()
+  })
+})
+
+describe('dateUtil[isSameQuarter]', () => {
+  const a = new Date(2017, 0, 1)
+  const b = new Date(2017, 2, 5)
+  const c = new Date(2017, 3, 10)
+  it('same', () => {
+    expect(utils.isSameQuarter(a, b)).toBeTruthy()
+  })
+  it('not same', () => {
+    expect(utils.isSameQuarter(a, c)).toBeFalsy()
   })
 })
 
@@ -252,6 +296,7 @@ describe('dateUtil[parse]', () => {
     { formatter: 'RRRR II', value: '2020 53' },
     { formatter: 'yyyy-MM', value: '2021-01' },
     { formatter: 'yyyy-MM-dd HH:mm:ss', value: '2021-01-01 11:11:11' },
+    { formatter: 'yyyy-[Q]Q', value: '2021-Q2' },
   ])('$formatter', ({ formatter, value, options }) => {
     const date = utils.parse(value, formatter, new Date(), options)
     expect(date instanceof Date).toBeTruthy()

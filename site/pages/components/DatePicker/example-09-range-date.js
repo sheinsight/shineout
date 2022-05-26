@@ -47,6 +47,13 @@ export default function() {
       />
       <br />
       <DatePicker
+        onChange={v => console.log(v)}
+        type="quarter"
+        style={style}
+        placeholder={['First quarter', 'Last quarter']}
+      />
+      <br />
+      <DatePicker
         min={Date.now()}
         range={3600 * 6}
         type="time"

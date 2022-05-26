@@ -13,6 +13,7 @@ const handleOnChangeParams = type => (date, change, blur = undefined, isEnd = un
 
 const yearHandleChangeParams = handleOnChangeParams('year')
 const monthHandleChangeParams = handleOnChangeParams('month')
+const quarterHandleChangeParams = handleOnChangeParams('quarter')
 const dayHandleChangeParams = handleOnChangeParams('day')
 const weekHandleChangeParams = handleOnChangeParams('week')
 const timeHandleChangeParams = handleOnChangeParams('time')
@@ -83,5 +84,6 @@ export default {
   timeHandleChangeParams,
   quickHandleChangeParams,
   weekHandleChangeParams,
+  quarterHandleChangeParams,
   judgeTimeByRange,
 }
