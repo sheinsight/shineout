@@ -37,6 +37,9 @@
 | numType | "positive" \| "non-negative" | - | set number type (valid when type is number) |
 | autoSelect | boolean | - | Mouse click to automatically select everything |
 | autoFix | boolean | - | Automatically fill up according to the precision limit of digits after out of focus (valid when type is number) |
+| htmlName | string | - | The original property of html |
+| onBlur | (e: Event) => void | 无 | The callback of blur |
+
 ### Input.Number
 
 The basic API is the same as the above table, and the specific API is as follows:

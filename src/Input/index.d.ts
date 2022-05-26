@@ -6,8 +6,8 @@ type ReactNode = React.ReactNode;
 export type numType = "positive" | "non-negative";
 
 export interface InputProps<Value> extends
-StandardProps,
-FormItemStandardProps<Value> {
+  StandardProps,
+  FormItemStandardProps<Value> {
 
   /**
    * width
@@ -218,7 +218,7 @@ FormItemStandardProps<Value> {
    *  default: -
    *
    */
-   numType?: numType,
+  numType?: numType,
 
   /**
    *  非负数，仅在type = number 下生效
@@ -228,7 +228,7 @@ FormItemStandardProps<Value> {
    *  default: -
    *
    */
-   nonnegative?: boolean,
+  nonnegative?: boolean,
 
   /**
    *  鼠标点击后自动全选数据
@@ -250,9 +250,29 @@ FormItemStandardProps<Value> {
    */
   autoFix?: boolean,
 
+  /**
+   *  原生html属性
+   *
+   *  The original property of html
+   *
+   *  default: -
+   *
+   */
+  htmlName?: string,
+
+  /**
+   *  失去焦点后的回调
+   *
+   *  The callback of blur
+   *
+   *  default: -
+   *
+   */
+  onBlur?: (e: Event) => void,
+
 }
 
-export interface InputNumberProps <Value> extends InputProps<Value> {
+export interface InputNumberProps<Value> extends InputProps<Value> {
 
   /**
    * The maximum value
@@ -312,17 +332,17 @@ export interface InputPasswordProps<Value = any> extends InputProps<Value> {
   point?: 'string';
 }
 
-declare class InputGroup<Value = any> extends React.Component<InputProps<Value>, {}> {}
+declare class InputGroup<Value = any> extends React.Component<InputProps<Value>, {}> { }
 
-declare class InputNumber<Value = number> extends React.Component<InputNumberProps<Value>, {}> {}
+declare class InputNumber<Value = number> extends React.Component<InputNumberProps<Value>, {}> { }
 
-declare class InputPassword <Value = string> extends React.Component<InputPasswordProps<Value>, {}> {}
+declare class InputPassword<Value = string> extends React.Component<InputPasswordProps<Value>, {}> { }
 declare class Input<Value = any> extends React.Component<InputProps<Value>, {}> {
-    static Number: typeof InputNumber;
+  static Number: typeof InputNumber;
 
-    static Group: typeof InputGroup;
+  static Group: typeof InputGroup;
 
-    static Password: typeof InputPassword;
+  static Password: typeof InputPassword;
 }
 
 export default Input

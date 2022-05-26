@@ -35,6 +35,8 @@
 | numType | "positive" \| "non-negative" | - | 设置数字类型(type 为 number 时生效) |
 | autoSelect | boolean | - | 鼠标点击自动选中所有内容 |
 | autoFix | boolean | - | 失焦后自动按照 digits 精度限制补足 (type 为 number 时生效) |
+| htmlName | string | - | input 原生name属性 |
+| onBlur | (e: Event) => void | - | 失去焦点后的回调 |
 
 ### Input.Number
 
