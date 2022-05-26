@@ -40,6 +40,7 @@ Form 是一个比较复杂的组件，由下列组件组成
 | formRef | (form: any) => void | - | 绑定 form 的引用, 可以调用某些 form 的方法 |
 | labelVerticalAlign | 'top' \| 'middle' \| 'bottom' | 'top' | 默认顶部对齐 |
 | keepErrorHeight | boolean | false | 单行错误提示不撑开页面高度 |
+| onRerset | () => void | 无 | 重置后的回调 |
 
 ### Form.Item
 表单项，主要用来布局，显示标签，提示文案信息等
