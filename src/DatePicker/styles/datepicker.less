@@ -187,10 +187,10 @@
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.02), @datepicker-box-shadow;
     font-size: @font-size-base;
     &.@{datepicker-prefix}-quick {
-      &:not(.@{datepicker-prefix}-rtl *) {
+      &-ltr{
         padding-left: 0;
       }
-      .@{datepicker-prefix}-rtl & {
+      &-rtl {
         padding-right: 0;
       }
     }

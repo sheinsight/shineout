@@ -330,20 +330,18 @@
       background: transparent;
 
       &:first-child {
-        &:not(.@{input-prefix}-rtl *) {
           padding-left: @padding-base-horizontal;
-        }
         .@{input-prefix}-rtl& {
           padding-right: @padding-base-horizontal;
+          padding-left: 0
         }
       }
 
       &:last-child {
-        &:not(.@{input-prefix}-rtl *) {
           padding-right: @input-group-icon-padding-x;
-        }
         .@{input-prefix}-rtl& {
           padding-left: @input-group-icon-padding-x;
+          padding-right: 0;
         }
 
       }
@@ -646,19 +644,15 @@
     resize: none;
   }
 
-  & input&-number {
-    &:not(.@{input-prefix}-rtl *) {
+  & input&-number-ltr {
       padding-right: 22px;
-    }
     & + .@{input-prefix}-clear-wrapper {
       .@{input-prefix}-clear {
-        &:not(.@{input-prefix}-rtl *) {
           right: 22px;
-        }
       }
     }
   }
-  &-rtl  input&-number {
+  & input&-number-rtl {
     padding-left: 22px;
     & + .@{input-prefix}-clear-wrapper {
       .@{input-prefix}-clear {

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import More from './More'
 import FlexBox from './FlexBox'
 import { Component } from '../component'
+import { getDirectionClass } from '../utils/classname'
 
 const LETTER_WIDTH = 10
 
@@ -36,9 +37,9 @@ export default class FlexResult extends Component {
         <More
           style={{ left: compressedLeft }}
           key="more"
-          className={cls('item', 'item-compressed')}
+          className={cls(getDirectionClass('item'), 'item-compressed')}
           popoverClassName={popoverClassName}
-          contentClassName={cls('result')}
+          contentClassName={cls(getDirectionClass('result'))}
           compressed={compressed}
           data={result}
           count={count}

@@ -4,6 +4,7 @@ import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
+import { getDirectionClass } from '../utils/classname'
 import { isEnterPress } from '../utils/is'
 import Input from '../Input'
 import { checkinputClass } from './styles'
@@ -148,7 +149,7 @@ export default function(type) {
           {inputable && !isSwitch && checked && (
             <Input className={checkinputClass('text')} onChange={this.handleInputChange} value={value} />
           )}
-          {isSwitch && <span className={checkinputClass('switch-indicator')} />}
+          {isSwitch && <span className={checkinputClass(getDirectionClass('switch-indicator'))} />}
         </label>
       )
     }

@@ -14,6 +14,7 @@ import { docSize } from '../utils/dom/document'
 import { getParent } from '../utils/dom/element'
 import { isRTL } from '../config'
 import absoluteList from '../AnimationList/AbsoluteList'
+import { getDirectionClass } from '../utils/classname'
 
 const WrappedOptionList = absoluteList(OptionList)
 const WrappedBoxList = absoluteList(BoxList)
@@ -550,7 +551,7 @@ class Select extends PureComponent {
       this.state.focus && 'focus',
       this.state.position,
       multiple && 'multiple',
-      disabled === true && 'disabled',
+      disabled === true && getDirectionClass('disabled'),
       !trim && 'pre'
     )
 

@@ -13,6 +13,7 @@ import { getUidStr } from '../utils/uid'
 import absoluteComsumer from '../Table/context'
 import Caret from '../icons/Caret'
 import { isRTL } from '../config'
+import { getDirectionClass } from '../utils/classname'
 import getDataset from '../utils/dom/getDataset'
 
 const positionMap = {
@@ -215,7 +216,7 @@ class Dropdown extends PureComponent {
         absolute={absolute}
         parentElement={this.element}
         position={position}
-        className={dropdownClass('menu', columns > 1 && 'box-list', isRTL() && 'rtl')}
+        className={dropdownClass(getDirectionClass('menu'), columns > 1 && 'box-list', isRTL() && 'rtl')}
         style={{ width }}
         key="list"
         focus={this.state.show}
