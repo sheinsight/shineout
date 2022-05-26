@@ -1,7 +1,7 @@
 import * as React from 'react'
-import {StandardProps} from '../@types/common'
+import { StandardProps } from '../@types/common'
 
-export interface GridProps extends StandardProps{
+export interface GridProps extends StandardProps {
 
   /**
    * Spacing between grids
@@ -31,8 +31,28 @@ export interface GridProps extends StandardProps{
    */
   width?: number;
 
+
+  /**
+   * The types of '@media'
+   *
+   * 媒体查询的尺寸类型
+   *
+   * default: 1
+   */
+  responsive?: 'sm' | 'md' | 'lg' | 'xl';
+
+
+  /**
+   * Stretch full height of content
+   *
+   * 是否撑满容器高度
+   *
+   * default: 1
+   */
+  stretch?: boolean;
+
 }
 
-declare class Grid extends React.Component<GridProps, any> {}
+declare class Grid extends React.Component<GridProps, any> { }
 
 export default Grid
