@@ -52,3 +52,11 @@ The basic API is the same as the above table, and the specific API is as follows
 | allowNull | boolean | false | allow value is null |
 | hideArrow | boolean | false | Whether to show increase/decrease buttons |
 | coin | boolean | false | Show as thousands separator |
+
+### Input.Password
+
+The basic API is the same as the above table, and the specific API is as follows:
+
+| Property | Type | Default | Description |
+| --- | --- | --- | --- |
+| point | string | '•' | password symbol |
