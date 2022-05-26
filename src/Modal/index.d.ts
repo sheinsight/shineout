@@ -314,6 +314,8 @@ declare class ModalSubmit extends React.Component<CardSubmitProps> {
 declare class Modal extends React.Component<ModalProps, {}> {
   static info(options: ModalFunctionOptions): Close;
 
+  static warn(options: ModalFunctionOptions): Close;
+
   static success(options: ModalFunctionOptions): Close;
 
   static error(options: ModalFunctionOptions): Close;
