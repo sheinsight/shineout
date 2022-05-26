@@ -28,4 +28,41 @@ describe('Select[Disabled]', () => {
       )
     })
   })
+  test('typeof disabled is Boolean True', () => {
+    const disable = true
+    const wrapper = mount(<Select data={['re']} keygen disabled={disable} />)
+    expect(wrapper.find(`.${SO_PREFIX}-input-disabled`).length).toBe(1)
+  })
+  test('typeof disabled is Boolean False', () => {
+    const disable = false
+    const wrapper = mount(<Select data={['re']} keygen disabled={disable} />)
+    expect(wrapper.find(`.${SO_PREFIX}-input-disabled`).length).not.toBe(1)
+  })
+  test('typeof disabled is Function True', () => {
+    const disable = () => true
+    const wrapper = mount(<Select data={['red', 'yello', 'blue']} keygen disabled={disable} />)
+    appendToDOM(wrapper.html())
+    wrapper.find(`.${SO_PREFIX}-select-inner`).simulate('click')
+    const options = wrapper.find(`.${SO_PREFIX}-select-option`)
+    expect(options.length).toBe(3)
+    options.forEach(option => {
+      expect(option.find(`.${SO_PREFIX}-select-disabled`).length).toBe(1)
+    })
+  })
+  test('typeof disabled is Function False', () => {
+    const disable = () => false
+    const wrapper = mount(<Select data={['red', 'yello', 'blue']} keygen disabled={disable} />)
+    appendToDOM(wrapper.html())
+    wrapper.find(`.${SO_PREFIX}-select-inner`).simulate('click')
+    const options = wrapper.find(`.${SO_PREFIX}-select-option`)
+    expect(options.length).toBe(3)
+    options.forEach(option => {
+      expect(option.find(`.${SO_PREFIX}-select-disabled`).length).toBe(0)
+    })
+  })
+  test('typeof disabled is undefiend', () => {
+    const disable = undefined
+    const wrapper = mount(<Select data={['re']} keygen disabled={disable} />)
+    expect(wrapper.find(`.${SO_PREFIX}-input-disabled`).length).not.toBe(1)
+  })
 })
