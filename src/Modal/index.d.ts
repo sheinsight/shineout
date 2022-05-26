@@ -58,7 +58,7 @@ export interface ModalProps extends StandardProps {
    *
    * default: true
    */
-  maskCloseAble?: boolean | null ;
+  maskCloseAble?: boolean | null;
 
   /**
    * The opacity of the mask
@@ -303,6 +303,15 @@ export interface ModalFunctionOptions extends ModalProps {
    * default: null
    */
   autoFocusButton?: string
+
+  /**
+   * Set the content style padding to 0
+   *
+   * 取消内容区域的padding
+   *
+   * default: -
+   */
+  noPadding?: boolean
 }
 
 type Close = () => void;
