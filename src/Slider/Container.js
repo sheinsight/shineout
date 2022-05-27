@@ -7,6 +7,7 @@ import { sliderClass } from './styles'
 import Slider from './Slider'
 import { per2value } from './utils'
 import getDataset from '../utils/dom/getDataset'
+import { getDirectionClass } from '../utils/classname'
 
 class Container extends PureComponent {
   constructor(props) {
@@ -83,7 +84,7 @@ class Container extends PureComponent {
     if (!formatScale) return null
 
     return (
-      <div className={sliderClass('scale', !autoHide && 'show')}>
+      <div className={sliderClass(getDirectionClass('scale'), !autoHide && 'show')}>
         {scale.map((s, i) => (
           <div key={s}>
             <span>{formatScale(s, i)}</span>
