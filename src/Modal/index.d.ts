@@ -248,7 +248,7 @@ export interface ModalFunctionOptions extends ModalProps {
    *
    * default: null
    */
-  content?: ReactNode | string,
+  content?: ReactNode | string;
 
   /**
    * title
@@ -257,7 +257,7 @@ export interface ModalFunctionOptions extends ModalProps {
    *
    * default: null
    */
-  title?: string,
+  title?: string;
 
   /**
    * The event is triggered when the cancel button is clicked.
@@ -266,7 +266,7 @@ export interface ModalFunctionOptions extends ModalProps {
    *
    * default: null
    */
-  onCancel?: () => void,
+  onCancel?: () => void;
 
   /**
    * The event is triggered when the modal is closed.
@@ -275,7 +275,7 @@ export interface ModalFunctionOptions extends ModalProps {
    *
    * default: null
    */
-  onClose?: () => void,
+  onClose?: () => void;
 
   /**
    * The event is triggered when the ok button is clicked.
@@ -284,7 +284,7 @@ export interface ModalFunctionOptions extends ModalProps {
    *
    * default: null
    */
-  onOk?: () => void | Promise<any>,
+  onOk?: () => void | Promise<any>;
 
   /**
    * The text of button
@@ -293,7 +293,7 @@ export interface ModalFunctionOptions extends ModalProps {
    *
    * default: { ok: 'Ok', cancel: 'Cancel' }
    */
-  text?: { ok?: string, cancel?: string },
+  text?: { ok?: string, cancel?: string };
 
   /**
    * auto focus button, one of ['ok', 'cancel']
