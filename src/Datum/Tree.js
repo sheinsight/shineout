@@ -93,7 +93,7 @@ export default class {
             const parentChecked = (() => {
               const { path } = this.pathMap.get(id)
               const pid = path[path.length - 1]
-              if (!pid) return false
+              if (!pid && pid !== 0) return false
               return this.valueMap.get(pid) === 1
             })()
             if (!parentChecked) value.push(id)
