@@ -5,7 +5,7 @@ import { tabsClass } from './styles'
 import { getUidStr } from '../utils/uid'
 import { defer } from '../utils/uid'
 import getDataset from '../utils/dom/getDataset'
-import { getDirectionClass } from "shineout/utils/classname"
+import { getDirectionClass } from '../utils/classname'
 
 class Tab extends PureComponent {
   constructor(props) {
