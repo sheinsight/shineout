@@ -38,5 +38,5 @@ const data = [
 ]
 
 export default function() {
-  return <Cascader singleRemove data={data} absolute keygen="value" renderItem={n => `${n.value}`} />
+  return <Cascader data={data} absolute keygen="value" renderItem={n => `${n.value}`} />
 }
