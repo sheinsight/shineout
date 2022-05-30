@@ -24,3 +24,4 @@
 | value | number | 0 | |
 | clearable | bool | false | whether to allow clear when click again |
 | allowHalf | bool | false | Whether to allow semi selection |
+| text | array | - | Set text property to append text to each item. |

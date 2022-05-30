@@ -1,5 +1,5 @@
 import React from 'react'
-import {FormItemStandardProps} from '../@types/common'
+import { FormItemStandardProps } from '../@types/common'
 
 export declare interface RateProps extends
   Pick<FormItemStandardProps<number>, 'value' | 'defaultValue' | 'onChange'> {
@@ -56,10 +56,19 @@ export declare interface RateProps extends
    * default: 20
    */
   size?: boolean;
+
+  /**
+   * Text
+   *
+   * 附加文字
+   *
+   * default: -
+   */
+  text?: Array<string>;
 }
 
-declare class RateComponent extends React.Component<RateProps, any> {}
-type shape = React.ReactElement | string | Array< string | React.ReactElement >
-declare function Rate(background: shape, front: shape) : (typeof RateComponent)
+declare class RateComponent extends React.Component<RateProps, any> { }
+type shape = React.ReactElement | string | Array<string | React.ReactElement>
+declare function Rate(background: shape, front: shape): (typeof RateComponent)
 
-export default  Rate
+export default Rate
