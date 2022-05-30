@@ -23,6 +23,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Pagination/example-1-base.js'),
   },
   {
+    name: '10-span',
+    title: locate(
+      '按钮数量 \n 分页器页码按钮数量',
+      'Span \n The number of pagination buttons'
+    ),
+    component: require('doc/pages/components/Pagination/example-10-span.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Pagination/example-10-span.js'),
+  },
+  {
     name: '2-size',
     title: locate(
       '大小 \n 内置了 3 种大小供选择，small, default, large，默认为 default',

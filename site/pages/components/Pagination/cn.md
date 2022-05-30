@@ -18,3 +18,4 @@
 | text | object | 无 | 替换文案<br />prev: 上一页<br />next: 下一页<br />page: pageSizeList文字<br />jumper: 跳转输入框文字, '{input}' 为输入框占位 |
 | total | number | 0 | 总条目数。如果 total 小于 0，隐藏分页。 |
 | sizeListProps| object | 无 | 需要给分页数量的选择框的额外的属性 | 
+| span| number | 5 | 分页器页码按钮数量 | 
