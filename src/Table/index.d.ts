@@ -584,6 +584,16 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    */
   children?: ReactNode
 
+
+  /**
+   * whether to enable ctrl/cmd + click check
+   *
+   * 是否启用 ctrl/cmd + click 选中单元格
+   *
+   * default: false
+   */
+  cellSelectable?: boolean
+
 }
 
 declare class Table<Value = any, TRD = TableRowData> extends React.Component<TableProps<Value, TRD>, {}> {
