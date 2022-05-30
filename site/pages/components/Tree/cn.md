@@ -38,3 +38,4 @@
 | iconClass | string | 无 | 展开/收起按钮的类名 |
 | nodeClass | string \| ((data: any) => string) | 无 | 节点的class，如果是函数，参数为该节点数据 |
 | dragSibling | boolean  | 无 | 是否只能平级拖拽 |
+| parentClickExpand | boolean  | false | 点击父节点展开 |
