@@ -49,6 +49,15 @@ const examples = [
     component: require('doc/pages/components/Textarea/example-4-custom.js').default,
     rawText: require('!raw-loader!doc/pages/components/Textarea/example-4-custom.js'),
   },
+  {
+    name: '5-renderFooter',
+    title: locate(
+      '渲染底部信息 \n 渲染 textarea footer',
+      'RenderFooter \n render textarea footer'
+    ),
+    component: require('doc/pages/components/Textarea/example-5-renderFooter.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Textarea/example-5-renderFooter.js'),
+  },
 ]
 
 const codes = undefined

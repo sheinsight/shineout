@@ -142,6 +142,15 @@ FormItemStandardProps<Value>
    */
   renderResult?: (value: string)=> ReactNode,
 
+  /**
+   * The callback when Textarea blur
+   *
+   * 失去焦点后的回调
+   *
+   * default: -
+   */
+  onBlur?: (value: Event)=> void,
+
 }
 
 declare class Textarea<Value = any> extends React.Component<TextareaProps<Value>, {}> {}

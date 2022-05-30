@@ -24,3 +24,5 @@
 | underline | boolean | false | only display border bottom  |
 | disabled  | boolean | false | disabled |
 | innerTitle | string | - | inner title |
+| onBlur | (value: Event)=> void | - | The callback when Textarea blur |
+| renderFooter | (value: string)=> ReactNode | - | Render textarea footer |

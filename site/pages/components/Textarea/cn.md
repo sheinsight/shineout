@@ -24,4 +24,5 @@
 | underline | boolean | false | 是否只展示下边框 |
 | disabled  | boolean | false | 是否禁用 |
 | innerTitle | string | - | 内嵌标题 |
-
+| onBlur | (value: Event)=> void | - | 失去焦点后的回调 |
+| renderFooter | (value: string)=> ReactNode | - | 自定义显示结果 |
