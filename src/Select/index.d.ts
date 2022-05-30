@@ -4,12 +4,11 @@ import { StandardProps, RegularAttributes, StructDataStandardProps, FormItemStan
 type ReactNode = React.ReactNode;
 
 export interface SelectProps<Item, Value> extends
-StandardProps,
-FormItemStandardProps<Value>,
-StructDataStandardProps<Item>,
-ListItemStandardProps<Item, Value>,
-Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
-  {
+  StandardProps,
+  FormItemStandardProps<Value>,
+  StructDataStandardProps<Item>,
+  ListItemStandardProps<Item, Value>,
+  Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'> {
   /**
    * The maximum length of the input string in the Select input box
    *
@@ -376,8 +375,17 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
    * default: -
    */
   innerTitle?: ReactNode;
+
+  /**
+   * control the visabile numbers of Select items
+   *
+   * 条目数量显示控制
+   *
+   * default: 10
+   */
+  itemsInView?: number;
 }
 
-declare class Select<Item = any, Value = any> extends React.Component<SelectProps<Item, Value>, {}> {}
+declare class Select<Item = any, Value = any> extends React.Component<SelectProps<Item, Value>, {}> { }
 
 export default Select
