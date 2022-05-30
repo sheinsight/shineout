@@ -26,6 +26,8 @@
 | sticky | boolean \| number \| object | - | sticky header |
 | switchToTop | boolean | - | switch tabs will scroll to Tabs |
 | hideSplit | boolean | false | whether to hide the dividing line |
+| color | string | - | the color of tab's text |
+| defaultCollapsed | boolean | - | when the collapsible is True，the content will not be open when setting the collapsible as True  |
 
 ### Tabs.Panel
 

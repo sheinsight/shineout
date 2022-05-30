@@ -150,6 +150,15 @@ export interface TabsProps extends StandardProps {
    * default: -
    */
   children: ReactNode;
+
+  /**
+   * the color of tab's text
+   *
+   * 标签页文字颜色
+   *
+   * default: -
+   */
+   color?: string;
 }
 
 export interface TabsPanelProps extends StandardProps {
@@ -207,6 +216,24 @@ export interface TabsPanelProps extends StandardProps {
    * default: -
    */
   children: ReactNode;
+
+  /**
+   * when the collapsible is True，the content will not be open when setting the collapsible as True 
+   *
+   * 当设置了 collapsible 为true时，defaultCollapsed 将控制内容不自动展开内容
+   *
+   * default: -
+   */
+  defaultCollapsed?: boolean;
+
+  /**
+   * auto fill the panel
+   *
+   * 自动填充内容区域
+   *
+   * default: false
+   */
+   autoFill?: boolean;
 
 }
 
