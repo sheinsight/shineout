@@ -226,6 +226,15 @@ export interface PopoverConfirmProps extends PopoverProps{
    * default: danger
    */
   icon?: boolean | ReactNode;
+
+  /**
+   * render by the innerstyle of text when the children prop is render function
+   *
+   * 当采用自定义函数渲染时，允许通过useTextStyle来使用采用内置的文本样式
+   *
+   * default: -
+   */
+   useTextStyle?: boolean;
 }
 
 declare class PopoverConfirm extends React.Component<PopoverConfirmProps, {}> {
