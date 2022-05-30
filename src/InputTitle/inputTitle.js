@@ -5,7 +5,7 @@ import classnames from 'classnames'
 import { inputTitleClass } from './styles'
 
 const InputTitle = props => {
-  const { innerTitle, className, style, children, open, titleClass, contentClass, placeTitle } = props
+  const { innerTitle, className, style, children, open, titleClass, contentClass, placeTitle, animation } = props
   if (!innerTitle) return children
   return (
     <div style={style} className={classnames(inputTitleClass('_', open && 'open'), className)}>

@@ -85,6 +85,15 @@ const examples = [
     component: require('doc/pages/components/Transfer/example-7-bigdata.js').default,
     rawText: require('!raw-loader!doc/pages/components/Transfer/example-7-bigdata.js'),
   },
+  {
+    name: '8-renderFilter',
+    title: locate(
+      '自定义过滤渲染 \n 自定义渲染过滤框区域内容',
+      'RenderFilter \n Custom render filter'
+    ),
+    component: require('doc/pages/components/Transfer/example-8-renderFilter.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Transfer/example-8-renderFilter.js'),
+  },
 ]
 
 const codes = undefined
