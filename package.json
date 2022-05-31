@@ -44,6 +44,7 @@
     "build-less": "mkdir publish/lib && cp -R src/styles publish/lib/styles",
     "build-es5": "node scripts/build-es5.js",
     "build-ts": "node scripts/build-ts.js",
+    "build-tsx": "node scripts/build-tsx.js",
     "build-css": "node scripts/build-css.js",
     "build": "npm-run-all build-*"
   },
