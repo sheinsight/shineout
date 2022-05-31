@@ -109,6 +109,8 @@ class Container extends PureComponent {
         return 'HH:mm:ss'
       case 'week':
         return 'RRRR II'
+      case 'quarter':
+        return 'yyyy-[Q]Q'
       default:
         return 'yyyy-MM-dd HH:mm:ss'
     }

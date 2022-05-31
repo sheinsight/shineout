@@ -8,6 +8,7 @@ import Month from './Month'
 import Day from './Day'
 import Time from './Time'
 import Quick from './Quick'
+import Quarter from './Quarter'
 import paramUtils from './paramUtils'
 
 class Picker extends PureComponent {
@@ -18,6 +19,9 @@ class Picker extends PureComponent {
     switch (props.type) {
       case 'month':
         mode = 'month'
+        break
+      case 'quarter':
+        mode = 'quarter'
         break
       case 'time':
         mode = 'time'
@@ -72,6 +76,9 @@ class Picker extends PureComponent {
         break
       case 'time':
         Render = Time
+        break
+      case 'quarter':
+        Render = Quarter
         break
       default:
         Render = Day

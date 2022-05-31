@@ -68,13 +68,22 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-05-week.js'),
   },
   {
-    name: '06-month',
+    name: '06-a-month',
     title: locate(
       '选择月 \n 设置 type 为 month，选择月',
       'Month Mode \n Set type to be month to select month.'
     ),
-    component: require('doc/pages/components/DatePicker/example-06-month.js').default,
-    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-06-month.js'),
+    component: require('doc/pages/components/DatePicker/example-06-a-month.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-06-a-month.js'),
+  },
+  {
+    name: '06-b-quarter',
+    title: locate(
+      '选择季度 \n 设置 type 为 quarter，选择季度',
+      'Quarter Mode \n Set type to be quarter to select month.'
+    ),
+    component: require('doc/pages/components/DatePicker/example-06-b-quarter.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-06-b-quarter.js'),
   },
   {
     name: '07-time',
