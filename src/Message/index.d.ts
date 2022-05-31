@@ -45,13 +45,15 @@ export interface MessageOptions {
   hideClose?: boolean,
 }
 
+export interface MessageProps extends MessageOptions { }
+
 declare namespace Message {
   function show(content: React.ReactNode, duration?: number, options?: MessageOptions): void;
   function info(content: React.ReactNode, duration?: number, options?: MessageOptions): void;
   function success(content: React.ReactNode, duration?: number, options?: MessageOptions): void;
   function warn(content: React.ReactNode, duration?: number, options?: MessageOptions): void;
   function error(content: React.ReactNode, duration?: number, options?: MessageOptions): void;
-  
+
   /**
    * close all message
    * 
