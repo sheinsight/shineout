@@ -43,6 +43,7 @@
 | canDelete | （(value: any) => boolean) \| boolean | 无 | Can the file be deleted |
 | responseType |  string | none | set xhr.responseType|
 | webkitdirectory | any | false | The same as the native webkitdirectory tag |
+| beforeUpload | (blob: Blob) => (void | Error | Promise<any>) | - | The same as the native webkitdirectory tag |
 
 ### Upload.Image
 

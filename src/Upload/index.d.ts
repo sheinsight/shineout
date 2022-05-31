@@ -350,6 +350,28 @@ export interface UploadProps<T> extends StandardProps, OmitFormProps<T[]>{
    *
    */
   responseType?: string
+
+
+  /**
+   *  The callback of before upload
+   *
+   *  上传前的回调
+   *
+   *  default: -
+   *
+   */
+  beforeUpload?: (blob: Blob) => (void | Error | Promise<any>)
+
+
+  /**
+   *  The same as the native webkitdirectory tag
+   *
+   *  同原生 input 标签的 webkitdirectory 属性
+   *
+   *  default: -
+   *
+   */
+  webkitdirectory?: boolean | string
 }
 
 export interface UploadImageProps<T> extends UploadProps<T>{
