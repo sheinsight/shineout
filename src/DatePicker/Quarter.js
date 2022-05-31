@@ -44,7 +44,7 @@ class Quarter extends PureComponent {
     }
 
     if (!isDisabled && index === 0) {
-      if (rangeDate[1] && utils.compareAsc(date, utils.addSeconds(rangeDate[1], -range)) < 0) {
+      if (rangeDate[1] && utils.compareQuarter(date, utils.addSeconds(rangeDate[1], -range)) < 0) {
         isDisabled = true
       }
     }
