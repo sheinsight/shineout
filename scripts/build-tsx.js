@@ -3,13 +3,14 @@ const path = require('path')
 const ejs = require('ejs')
 const pack = require('../package')
 
-const srcPath = path.resolve(__dirname, '../src')
+const NAMESPACE = 'Type'
+
 const rootPath = path.resolve(__dirname, '../src')
 
 const files = fs
     .readdirSync(rootPath)
     .filter(n => fs.lstatSync(path.resolve(rootPath, n)).isDirectory() && /^[A-Z]/.test(n))
-    .filter(v => v !== 'List' && v !== 'DataList' && v !=='Rule')
+    .filter(v => v !== 'List' && v !== 'DataList' && v !== 'Rule')
     .filter(f => fs.readdirSync(path.resolve(rootPath, f)).includes('index.d.ts'))
 
 const Types = []
@@ -75,7 +76,7 @@ export { default as <%= name %> } from './<%= name %>'
 
 <% }) -%>
 
-export namespace Type {
+export namespace <%= NAMESPACE -%> {
 
 <% for(let key in AllTypes){ -%>
 <% const EXP = /(?<=<).*(?=>)/ -%>
@@ -93,5 +94,5 @@ export namespace Type {
 
 
 
-const text = ejs.render(line, { files, version: pack.version, Types, AllTypes })
+const text = ejs.render(line, { files, version: pack.version, Types, AllTypes, NAMESPACE })
 fs.writeFileSync(`${rootPath}/index.ts`, text)
