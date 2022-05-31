@@ -1,5 +1,6 @@
 import utils from '../../src/DatePicker/utils'
 import { setLocale, getLocale } from '../../src/locale'
+import dayjs from "dayjs"
 
 describe('dateUtil[clearHMS]', () => {
   it('clean the hour minute seconds', () => {
@@ -25,7 +26,7 @@ describe('dateUtil[addDays]', () => {
 
 describe('dateUtil[addMonths]', () => {
   it.each([[1], [0], [-1]])('add %i month', num => {
-    const a = new Date()
+    const a = new Date(2022, 6, 15)
     const b = new Date(a.valueOf())
     b.setMonth(b.getMonth() + num)
     const c = utils.addMonths(a, num)
