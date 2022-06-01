@@ -314,6 +314,7 @@ export default class TreeSelect extends PureComponent {
       placeholder,
       onFilter,
       compressed,
+      compressedBound,
       multiple,
       datum,
       clearable,
@@ -361,6 +362,7 @@ export default class TreeSelect extends PureComponent {
           renderResult={renderResult}
           setInputReset={this.setInputReset}
           compressed={compressed}
+          compressedBound={compressedBound}
           renderUnmatched={renderUnmatched}
           innerTitle={innerTitle}
           keygen={keygen}
@@ -400,6 +402,7 @@ TreeSelect.propTypes = {
   onFocus: PropTypes.func,
   empty: PropTypes.string,
   compressed: PropTypes.bool,
+  compressedBound: PropTypes.number,
   absolute: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   parentClickExpand: PropTypes.bool,
   zIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

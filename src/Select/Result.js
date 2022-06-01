@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import { selectClass } from './styles'
 import { inputClass } from '../Input/styles'
 import { inputTitleClass } from '../InputTitle/styles'
-import { isObject, isFunc, isString, isEmpty } from '../utils/is'
+import { isObject, isFunc, isString, isEmpty, isNumber } from '../utils/is'
 import { addResizeObserver } from '../utils/dom/element'
 import Input from './Input'
 import Caret from '../icons/Caret'
@@ -92,8 +92,12 @@ class Result extends PureComponent {
   }
 
   updateMore(preProps) {
-    const { result, compressed, onFilter, keygen, data } = this.props
+    const { result, compressed, compressedBound, onFilter, keygen, data } = this.props
+
     if (compressed) {
+      if (compressedBound && isNumber(compressedBound) && compressedBound >= 1) {
+        return
+      }
       let shouldRest = false
       if (preProps.result.length !== result.length || (data || []).length !== (preProps.data || []).length) {
         shouldRest = true
@@ -154,11 +158,20 @@ class Result extends PureComponent {
     this.setState({ more })
   }
 
+  getCompressedBound() {
+    const { compressedBound } = this.props
+    if (isNumber(compressedBound) && compressedBound >= 1) {
+      return compressedBound
+    } else {
+      return this.state.more
+    }
+  }
+
   renderItem(data, index) {
     const { renderResult, renderUnmatched, datum, resultClassName } = this.props
     const content = getResultContent(data, renderResult, renderUnmatched)
     if (content === null) return null
-    const { more } = this.state
+    const more = this.getCompressedBound()
     return (
       <Item
         key={index}
@@ -175,7 +188,7 @@ class Result extends PureComponent {
 
   renderMore(items) {
     const { compressedClassName, compressed } = this.props
-    const { more } = this.state
+    const more = this.getCompressedBound()
     const className = classnames(selectClass('popover'), compressedClassName)
 
     return [
@@ -201,10 +214,10 @@ class Result extends PureComponent {
       return (
         <div key="clear" onClick={onClear} className={selectClass('close-warpper')}>
           <a
-          tabIndex={-1}
-          data-role="close"
-          className={selectClass('indicator', 'close')}
-        />
+            tabIndex={-1}
+            data-role="close"
+            className={selectClass('indicator', 'close')}
+          />
         </div>
       )
       /* eslint-enable */
@@ -281,8 +294,8 @@ class Result extends PureComponent {
       filterText,
       resultClassName,
     } = this.props
-
     if (multiple) {
+
       let items = result.map((n, i) => this.renderItem(n, i)).filter(n => !isEmpty(n))
 
       if (compressed) {
@@ -292,7 +305,6 @@ class Result extends PureComponent {
       if (focus && onFilter) {
         items.push(this.renderInput(filterText, result.length))
       }
-
       return items
     }
 
@@ -385,6 +397,7 @@ Result.propTypes = {
   bindFocusInputFunc: PropTypes.func,
   collapse: PropTypes.func,
   compressed: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  compressedBound: PropTypes.number,
   trim: PropTypes.bool,
   renderUnmatched: PropTypes.func,
   showArrow: PropTypes.bool,

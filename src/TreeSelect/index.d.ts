@@ -304,7 +304,16 @@ export interface TreeSelectProps<Value, Data> extends StandardProps,
    *
    * default: -
    */
-  parentClickExpand?: boolean
+  parentClickExpand?: boolean,
+
+  /**
+   * when compressed is True,the comptessedBound can limit the numbers of multiple selected item's label
+   *
+   * 开启多选后，指定允许展示标签数量，超过后将折叠
+   *
+   * default: -
+   */
+   compressedBound?: number;
 }
 
 

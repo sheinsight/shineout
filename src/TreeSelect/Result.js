@@ -5,7 +5,7 @@ import { addResizeObserver } from '../utils/dom/element'
 import { treeSelectClass } from './styles'
 import { inputClass } from '../Input/styles'
 import { inputTitleClass } from '../InputTitle/styles'
-import { isEmpty, isObject } from '../utils/is'
+import { isEmpty, isObject, isNumber } from '../utils/is'
 import Input from './Input'
 import Caret from '../icons/Caret'
 import More, { getResetMore } from '../Select/More'
@@ -70,8 +70,11 @@ class Result extends PureComponent {
   }
 
   updateMore(preProps) {
-    const { result, compressed, onFilter, keygen, data } = this.props
+    const { result, compressed, compressedBound, onFilter, keygen, data } = this.props
     if (compressed) {
+      if (compressedBound && isNumber(compressedBound) && compressedBound >= 1) {
+        return
+      }
       let shouldRest = false
       if (preProps.result.length !== result.length || (data || []).length !== (preProps.data || []).length) {
         shouldRest = true
@@ -116,6 +119,15 @@ class Result extends PureComponent {
 
   handelMore(more) {
     this.setState({ more })
+  }
+
+  getCompressedBound() {
+    const { compressedBound } = this.props
+    if (isNumber(compressedBound) && compressedBound >= 1) {
+      return compressedBound
+    } else {
+      return this.state.more
+    }
   }
 
   renderClear() {
@@ -172,7 +184,7 @@ class Result extends PureComponent {
 
   renderMore(items) {
     const { compressed } = this.props
-    const { more } = this.state
+    const more = this.getCompressedBound()
     return [
       <More
         key="more"
@@ -221,7 +233,7 @@ class Result extends PureComponent {
       if (focus && onFilter) {
         items.push(this.renderInput(filterText, result.length))
       }
-
+      
       return items
     }
 
@@ -285,6 +297,7 @@ Result.propTypes = {
   placeholder: PropTypes.string,
   setInputReset: PropTypes.func,
   compressed: PropTypes.bool,
+  compressedBound: PropTypes.number,
   renderUnmatched: PropTypes.func,
   innerTitle: PropTypes.node,
   keygen: PropTypes.any,

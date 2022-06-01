@@ -534,6 +534,7 @@ class Select extends PureComponent {
       onCreate,
       result,
       compressed,
+      compressedBound,
       trim,
       renderUnmatched,
       showArrow,
@@ -588,6 +589,7 @@ class Select extends PureComponent {
           bindFocusInputFunc={this.bindFocusInputFunc}
           collapse={this.toInputTriggerCollapse}
           compressed={compressed}
+          compressedBound={compressedBound}
           showArrow={showArrow}
           focusSelected={this.getFocusSelected()}
           compressedClassName={compressedClassName}
@@ -627,6 +629,7 @@ Select.propTypes = {
   size: PropTypes.string,
   text: PropTypes.object,
   compressed: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  compressedBound: PropTypes.number,
   trim: PropTypes.bool,
   autoAdapt: PropTypes.bool,
   filterSingleSelect: PropTypes.bool,
