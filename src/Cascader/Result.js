@@ -8,7 +8,7 @@ import Input from './Input'
 import icons from '../icons'
 import More, { getResetMore } from '../Select/More'
 import { addResizeObserver } from '../utils/dom/element'
-import { isEmpty } from '../utils/is'
+import { isEmpty, isNumber } from '../utils/is'
 import { CHANGE_TOPIC } from '../Datum/types'
 import Caret from '../icons/Caret'
 
@@ -78,9 +78,15 @@ class Result extends PureComponent {
     this.resultEl = el
   }
 
+  isCompressedBound() {
+    const { compressedBound } = this.props
+    return compressedBound && isNumber(compressedBound) && compressedBound >= 1
+  }
+
   updateMore(preProps) {
     const { compressed, value = [], onFilter, data } = this.props
     if (compressed) {
+      if (this.isCompressedBound()) return
       if ((preProps.value || []).join('') !== (value || []).join('')) {
         this.resetMore()
       } else if ((preProps.data || []).length !== (data || []).length) {
@@ -160,12 +166,21 @@ class Result extends PureComponent {
     return null
   }
 
+  getCompressedBound() {
+    const { compressedBound } = this.props
+    if (this.isCompressedBound()) {
+      return compressedBound
+    } else {
+      return this.state.more
+    }
+  }
+
   renderItem({ index, render, data, raw, className, ...options }) {
     const { singleRemove } = this.props
     const itemClassName = classnames(className, cascaderClass(singleRemove && 'remove-container'))
     const res = data && render(data, raw)
     if (!res) return null
-    const { more } = this.state
+    const more = this.getCompressedBound()
     return (
       <Item
         key={index}
@@ -185,7 +200,7 @@ class Result extends PureComponent {
 
   renderMore(list) {
     const { selectId, size, compressed } = this.props
-    const { more } = this.state
+    const more = this.getCompressedBound()
     return [
       <More
         key="more"
@@ -295,6 +310,7 @@ Result.propTypes = {
   style: PropTypes.object,
   value: PropTypes.array,
   compressed: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  compressedBound: PropTypes.number,
   focus: PropTypes.bool,
   onFilter: PropTypes.func,
   trim: PropTypes.bool,
