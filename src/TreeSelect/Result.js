@@ -70,9 +70,9 @@ class Result extends PureComponent {
   }
 
   updateMore(preProps) {
-    const { result, compressed, compressedBound, onFilter, keygen, data } = this.props
+    const { result, compressed, onFilter, keygen, data } = this.props
     if (compressed) {
-      if (compressedBound && isNumber(compressedBound) && compressedBound >= 1) {
+      if (this.isCompressedBound()) {
         return
       }
       let shouldRest = false
@@ -121,9 +121,14 @@ class Result extends PureComponent {
     this.setState({ more })
   }
 
+  isCompressedBound() {
+    const { compressedBound } = this.props
+    return compressedBound && isNumber(compressedBound) && compressedBound >= 1
+  }
+
   getCompressedBound() {
     const { compressedBound } = this.props
-    if (isNumber(compressedBound) && compressedBound >= 1) {
+    if (this.isCompressedBound()) {
       return compressedBound
     } else {
       return this.state.more
@@ -233,7 +238,7 @@ class Result extends PureComponent {
       if (focus && onFilter) {
         items.push(this.renderInput(filterText, result.length))
       }
-      
+
       return items
     }
 

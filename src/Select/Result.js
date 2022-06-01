@@ -91,13 +91,17 @@ class Result extends PureComponent {
     this.resultEl = el
   }
 
+  isCompressedBound() {
+    const { compressedBound } = this.props
+    return compressedBound && isNumber(compressedBound) && compressedBound >= 1
+  }
+
   updateMore(preProps) {
-    const { result, compressed, compressedBound, onFilter, keygen, data } = this.props
+    const { result, compressed, onFilter, keygen, data } = this.props
 
     if (compressed) {
-      if (compressedBound && isNumber(compressedBound) && compressedBound >= 1) {
-        return
-      }
+      if (this.isCompressedBound()) return
+
       let shouldRest = false
       if (preProps.result.length !== result.length || (data || []).length !== (preProps.data || []).length) {
         shouldRest = true
@@ -160,7 +164,7 @@ class Result extends PureComponent {
 
   getCompressedBound() {
     const { compressedBound } = this.props
-    if (isNumber(compressedBound) && compressedBound >= 1) {
+    if (this.isCompressedBound()) {
       return compressedBound
     } else {
       return this.state.more
