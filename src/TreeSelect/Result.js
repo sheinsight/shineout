@@ -184,7 +184,7 @@ class Result extends PureComponent {
         key="more"
         className={treeSelectClass(getDirectionClass('item'), 'item-compressed')}
         popoverClassName={treeSelectClass('popover')}
-        contentClassName={getDirectionClass('result')}
+        contentClassName={treeSelectClass(getDirectionClass('result'))}
         compressed={compressed}
         data={items}
         cls={treeSelectClass}
