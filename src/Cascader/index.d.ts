@@ -184,6 +184,15 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    */
   loading?: boolean | ReactNode;
+
+  /**
+   * when compressed is True,the comptessedBound can limit the numbers of multiple selected item's label
+   *
+   * 开启多选后，指定允许展示标签数量，超过后将折叠
+   *
+   * default: -
+   */
+   compressedBound?: number;
 }
 
 interface componentRef  {
