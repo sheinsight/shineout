@@ -9,6 +9,7 @@ import Simple from './Simple'
 import PageSizeList from './PageSizeList'
 import { isRTL } from '../config'
 import getDataset from '../utils/dom/getDataset'
+import { getDirectionClass } from '../utils/classname'
 
 class Pagination extends PureComponent {
   render() {
@@ -18,7 +19,7 @@ class Pagination extends PureComponent {
 
     const className = classnames(paginationClass('_', size, align, rtl && 'rtl'), this.props.className)
 
-    const sectionClassName = paginationClass('section')
+    const sectionClassName = paginationClass(getDirectionClass('section'))
 
     return (
       <div className={className} style={style} {...getDataset(this.props)}>

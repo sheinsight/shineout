@@ -12,7 +12,7 @@ exports[`Tree[Base] should render correctly 1`] = `
   }
 >
   <div
-    className="so-tree-node"
+    className="so-tree-node so-tree-node-ltr"
   >
     <div
       onDragOver={[Function]}
@@ -48,7 +48,7 @@ exports[`Tree[Base] should render correctly 1`] = `
       }
     >
       <div
-        className="so-tree-node"
+        className="so-tree-node so-tree-node-ltr"
       >
         <div
           onDragOver={[Function]}
@@ -67,7 +67,7 @@ exports[`Tree[Base] should render correctly 1`] = `
         </div>
       </div>
       <div
-        className="so-tree-node"
+        className="so-tree-node so-tree-node-ltr"
       >
         <div
           onDragOver={[Function]}
@@ -88,7 +88,7 @@ exports[`Tree[Base] should render correctly 1`] = `
     </div>
   </div>
   <div
-    className="so-tree-node"
+    className="so-tree-node so-tree-node-ltr"
   >
     <div
       onDragOver={[Function]}
@@ -124,7 +124,7 @@ exports[`Tree[Base] should render correctly 1`] = `
       }
     >
       <div
-        className="so-tree-node"
+        className="so-tree-node so-tree-node-ltr"
       >
         <div
           onDragOver={[Function]}
@@ -160,7 +160,7 @@ exports[`Tree[Base] should render correctly 1`] = `
           }
         >
           <div
-            className="so-tree-node"
+            className="so-tree-node so-tree-node-ltr"
           >
             <div
               onDragOver={[Function]}
@@ -197,7 +197,7 @@ exports[`Tree[Icon] should render correctly 1`] = `
   }
 >
   <div
-    className="so-tree-node"
+    className="so-tree-node so-tree-node-ltr"
   >
     <div
       onDragOver={[Function]}
@@ -238,7 +238,7 @@ exports[`Tree[Icon] should render correctly 1`] = `
     </div>
   </div>
   <div
-    className="so-tree-node"
+    className="so-tree-node so-tree-node-ltr"
   >
     <div
       onDragOver={[Function]}

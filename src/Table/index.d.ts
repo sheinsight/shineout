@@ -537,7 +537,7 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    *
    * default: none
    */
-  tableRef?: (table: TableRef) => void
+  tableRef?: (table: TableRef) => void;
   /**
    * whether to hide thead
    *
@@ -545,7 +545,7 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    *
    * default: false
    */
-  hideHeader?: boolean
+  hideHeader?: boolean;
 
   /**
    * make all columns scalable
@@ -554,7 +554,7 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    *
    * default: false
    */
-  columnResizable?: boolean
+  columnResizable?: boolean;
 
   /**
    * Enable in specific scenarios (tree data expansion is controlled) Used to change the default behavior of scroll reset
@@ -563,7 +563,7 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    *
    * default: false
    */
- changedByExpand?: boolean
+ changedByExpand?: boolean;
 
   /*
    * customize sort icons
@@ -572,7 +572,17 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    *
    * default: false
    */
-  renderSorter?: (params: renderSorterParam) => ReactNode
+  renderSorter?: (params: renderSorterParam) => ReactNode;
+
+
+  /**
+   * table content
+   *
+   * 使用原生的 tr td 来渲染 table
+   *
+   * default: -
+   */
+  children?: ReactNode
 
 }
 

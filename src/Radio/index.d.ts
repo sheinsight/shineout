@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { StandardProps, StructDataStandardProps, ListItemStandardProps, FormItemStandardProps } from '../@types/common'
+import { ReactNode } from "react"
 
 
 export interface RadioProps<Item = any> extends StandardProps {
@@ -41,7 +42,17 @@ export interface RadioGroupProps<Value, Item> extends StandardProps, ListItemSta
    *
    * default: false
    */
-  block?: boolean
+  block?: boolean;
+
+  /**
+   * children
+   *
+   * 子元素
+   *
+   * default: -
+   */
+  children?: ReactNode;
+
 }
 
 declare class RadioGroup<Value, Data> extends React.Component<RadioGroupProps<Value, Data>, {}> {

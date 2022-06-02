@@ -5,6 +5,7 @@ import { tabsClass } from './styles'
 import { getUidStr } from '../utils/uid'
 import { defer } from '../utils/uid'
 import getDataset from '../utils/dom/getDataset'
+import { getDirectionClass } from '../utils/classname'
 
 class Tab extends PureComponent {
   constructor(props) {
@@ -66,7 +67,7 @@ class Tab extends PureComponent {
           'tab',
           isActive && (isBordered ? 'tab-bordered-active' : 'active'),
           disabled && 'disabled',
-          isBordered && 'tab-bordered'
+          isBordered && getDirectionClass('tab-bordered')
         ),
         this.uid
       ),

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Checkbox from '../Checkbox/Checkbox'
 import Radio from '../Radio/Radio'
 import { selectClass } from './styles'
+import { getDirectionClass } from '../utils/classname'
 
 class BoxOption extends PureComponent {
   constructor(props) {
@@ -26,7 +27,7 @@ class BoxOption extends PureComponent {
   render() {
     const { data, index, isActive, renderItem, columns, multiple, disabled } = this.props
 
-    const className = selectClass('option')
+    const className = selectClass(getDirectionClass('option'))
     const width = `${(1 / columns) * 100}%`
     const Input = multiple ? Checkbox : Radio
 

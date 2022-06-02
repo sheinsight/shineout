@@ -11,6 +11,7 @@ import { addResizeObserver } from '../utils/dom/element'
 import { isEmpty } from '../utils/is'
 import { CHANGE_TOPIC } from '../Datum/types'
 import Caret from '../icons/Caret'
+import { getDirectionClass } from '../utils/classname'
 
 // eslint-disable-next-line react/prop-types
 function Item({ children, close, className, data, isPopover, singleRemove, click, only }) {
@@ -25,10 +26,14 @@ function Item({ children, close, className, data, isPopover, singleRemove, click
       }
     : undefined
   return (
-    <a tabIndex={-1} className={classnames(cascaderClass('item', only && 'item-only'), className)} onClick={onClick}>
+    <a
+      tabIndex={-1}
+      className={classnames(cascaderClass(getDirectionClass('item'), only && 'item-only'), className)}
+      onClick={onClick}
+    >
       {children}
       {singleRemove && (
-        <span className={cascaderClass('single-remove')} onClick={onClose}>
+        <span className={cascaderClass(getDirectionClass('single-remove'))} onClick={onClose}>
           {icons.Close}
         </span>
       )}
@@ -117,7 +122,7 @@ class Result extends PureComponent {
   handleNode(nodes, render) {
     const { singleRemove } = this.props
 
-    const removeContainerClassName = cascaderClass(singleRemove && 'remove-container')
+    const removeContainerClassName = cascaderClass(singleRemove && getDirectionClass('remove-container'))
 
     return nodes
       .map((n, i) =>
@@ -143,7 +148,7 @@ class Result extends PureComponent {
 
   renderClear() {
     const { clearable, value, disabled, onClear } = this.props
-    const className = classnames(selectClass('indicator', 'close'), cascaderClass('close'))
+    const className = classnames(selectClass('indicator', 'close'), cascaderClass(getDirectionClass('close')))
 
     if (clearable && value.length > 0 && !disabled) {
       /* eslint-disable */
@@ -162,7 +167,6 @@ class Result extends PureComponent {
 
   renderItem({ index, render, data, raw, className, ...options }) {
     const { singleRemove } = this.props
-    const itemClassName = classnames(className, cascaderClass(singleRemove && 'remove-container'))
     const res = data && render(data, raw)
     if (!res) return null
     const { more } = this.state
@@ -172,7 +176,7 @@ class Result extends PureComponent {
         only={more === 1}
         {...options}
         data={data}
-        className={itemClassName}
+        className={className}
         singleRemove={singleRemove}
         close={this.removeTargetNode}
         isPopover
@@ -190,7 +194,7 @@ class Result extends PureComponent {
       <More
         key="more"
         data={list}
-        className={cascaderClass('item', 'item-compressed')}
+        className={cascaderClass(getDirectionClass('item'), 'item-compressed')}
         popoverClassName={cascaderClass('popover')}
         contentClassName={cascaderClass('result', size)}
         dataId={selectId}

@@ -6,6 +6,7 @@ import Spin from '../Spin'
 import { wrapSpan } from '../utils/dom/element'
 import { buttonClass } from './styles'
 import { isRTL } from '../config'
+import getDirectionClass from '../utils/classname'
 
 class Button extends PureComponent {
   getChildren() {
@@ -62,7 +63,7 @@ class Button extends PureComponent {
       // eslint-disable-next-line
       <button {...others} ref={onRef} disabled={disabled || loading} type={htmlType} className={className}>
         {loading && (
-          <span className={buttonClass('spin')}>
+          <span className={buttonClass(getDirectionClass('spin'))}>
             <Spin size={12} name="ring" color={color} />
           </span>
         )}

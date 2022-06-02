@@ -11,6 +11,7 @@ import Caret from '../icons/Caret'
 import More, { getResetMore } from '../Select/More'
 import InputTitle from '../InputTitle'
 import { getKey } from '../utils/uid'
+import { getDirectionClass } from '../utils/classname'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -30,7 +31,12 @@ function Item({ content, data, disabled, onClick, only }) {
   return (
     <a
       tabIndex={-1}
-      className={treeSelectClass('item', disabled && 'disabled', synDisabled && 'ban', only && 'item-only')}
+      className={treeSelectClass(
+        getDirectionClass('item'),
+        disabled && getDirectionClass('disabled'),
+        synDisabled && getDirectionClass('ban'),
+        only && 'item-only'
+      )}
     >
       {content}
       {!synDisabled && <span className={treeSelectClass('indicator', 'close')} onClick={click} />}
@@ -176,9 +182,9 @@ class Result extends PureComponent {
     return [
       <More
         key="more"
-        className={treeSelectClass('item', 'item-compressed')}
+        className={treeSelectClass(getDirectionClass('item'), 'item-compressed')}
         popoverClassName={treeSelectClass('popover')}
-        contentClassName={treeSelectClass('result')}
+        contentClassName={treeSelectClass(getDirectionClass('result'))}
         compressed={compressed}
         data={items}
         cls={treeSelectClass}
@@ -253,8 +259,8 @@ class Result extends PureComponent {
         <div
           ref={this.bindResult}
           className={classnames(
-            treeSelectClass('result', compressed && 'compressed', showPlaceholder && 'empty'),
-            innerTitle && inputTitleClass('item')
+            treeSelectClass(getDirectionClass('result'), compressed && 'compressed', showPlaceholder && 'empty'),
+            innerTitle && inputTitleClass(getDirectionClass('item'))
           )}
         >
           {result}

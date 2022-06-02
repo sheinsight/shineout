@@ -1,5 +1,6 @@
 import * as React from 'react'
 import {StandardProps} from '../@types/common'
+import { ReactNode } from "react"
 
 export interface GridProps extends StandardProps{
 
@@ -30,6 +31,15 @@ export interface GridProps extends StandardProps{
    * default: 1
    */
   width?: number;
+
+  /**
+   * children
+   *
+   * 子元素
+   *
+   * default: -
+   */
+  children?: ReactNode;
 
 }
 

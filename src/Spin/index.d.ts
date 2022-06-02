@@ -65,11 +65,20 @@ export interface SpinProps extends StandardProps{
    *
    *  提示文案
    *
-   *  default:
+   *  default: -
    *
    */
+  tip?: string | ReactNode;
 
-  tip?: string | ReactNode
+  /**
+   *  children
+   *
+   *  包裹的元素
+   *
+   *  default: -
+   *
+   */
+  children?: ReactNode;
 
 }
 

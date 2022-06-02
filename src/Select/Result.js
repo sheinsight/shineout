@@ -12,6 +12,7 @@ import { isRTL } from '../config'
 import More, { getResetMore } from './More'
 import InputTitle from '../InputTitle'
 import { getKey } from '../utils/uid'
+import { getDirectionClass } from '../utils/classname'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -49,7 +50,12 @@ function Item({ content, data, disabled, onClick, resultClassName, title = false
       title={title && isString(content) ? content : null}
       tabIndex={-1}
       className={classnames(
-        selectClass('item', disabled && 'disabled', synDisabled && 'ban', only && 'item-only'),
+        selectClass(
+          getDirectionClass('item'),
+          disabled && getDirectionClass('disabled'),
+          synDisabled && getDirectionClass('ban'),
+          only && 'item-only'
+        ),
         getResultClassName(resultClassName, data)
       )}
     >
@@ -142,7 +148,7 @@ class Result extends PureComponent {
     if (result.length <= 0) return true
     const res = result.reduce((acc, cur) => {
       const r = getResultContent(cur, renderResult, renderUnmatched)
-      if (r !== undefined && r !== '') {
+      if (!isEmpty(r)) {
         acc.push(cur)
       }
       return acc
@@ -182,9 +188,9 @@ class Result extends PureComponent {
       <More
         key="more"
         showNum={more}
-        className={selectClass('item', 'item-compressed')}
+        className={selectClass(getDirectionClass('item'), 'item-compressed')}
         popoverClassName={className}
-        contentClassName={selectClass('result')}
+        contentClassName={selectClass(getDirectionClass('result'))}
         compressed={compressed}
         data={items}
         more={more}
@@ -345,19 +351,19 @@ class Result extends PureComponent {
         titleClass={selectClass(
           'title-box-title',
           showPlaceholder && 'title-box-title-empty',
-          compressed && 'title-box-title-compressed'
+          compressed && getDirectionClass('title-box-title-compressed')
         )}
       >
         <div
           ref={this.bindResult}
           className={classnames(
             selectClass(
-              'result',
+              getDirectionClass('result'),
               compressed && 'compressed',
               showPlaceholder && 'empty',
               clearEl && 'result-clearable'
             ),
-            innerTitle && inputTitleClass('item')
+            innerTitle && inputTitleClass(getDirectionClass('item'))
           )}
         >
           {rtl ? inner.reverse() : inner}

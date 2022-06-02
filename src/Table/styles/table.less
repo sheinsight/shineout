@@ -616,10 +616,10 @@
   }
 
   &-fixed &-empty {
-      &:not(.@{table-prefix}-rtl *) {
+      &-ltr {
         border-right-width: 0;
       }
-      .@{table-prefix}-rtl&{
+      &-rtl {
         border-left-width: 0;
       }
     }
