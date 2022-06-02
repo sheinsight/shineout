@@ -90,8 +90,6 @@ class Select extends PureComponent {
   }
 
   getDisabledStatus() {
-    if (this.props.disabled == undefined) return undefined
-
     if (typeof this.props.disabled == 'function') {
       return this.props.disabled
     } else {
