@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { getDirectionClass } from '../utils/classname'
 import { PureComponent } from '../component'
 import Checkbox from '../Checkbox'
 import Spin from '../Spin'
@@ -97,7 +98,7 @@ class Node extends PureComponent {
       events.onMouseEnter = this.handlePathChange
       if (multiple) events.onClick = this.handleSelect
     }
-    const caret = <span className={cascaderClass('caret')}>{<Caret />}</span>
+    const caret = <span className={cascaderClass(getDirectionClass('caret'))}>{<Caret />}</span>
 
     if (isRTL() && checkBoxStyle.marginRight !== 0) {
       checkBoxStyle.marginRight = 0

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { getDirectionClass } from '../utils/classname'
 import List from '../AnimationList'
 import Tree from '../Tree'
 import Spin from '../Spin'
@@ -33,7 +34,11 @@ class OptionList extends Component {
     return (
       <span
         title={typeof content === 'string' ? content : undefined}
-        className={selectClass('tree-node', datum.check(data) && 'selected', datum.disabled(data) && 'disabled')}
+        className={selectClass(
+          'tree-node',
+          datum.check(data) && 'selected',
+          datum.disabled(data) && getDirectionClass('disabled')
+        )}
       >
         {content}
       </span>
@@ -57,10 +62,12 @@ class OptionList extends Component {
     } = this.props
     if (loading)
       return (
-        <span className={selectClass('option')}>{typeof loading === 'boolean' ? <Spin size={20} /> : loading}</span>
+        <span className={selectClass(getDirectionClass('option'))}>
+          {typeof loading === 'boolean' ? <Spin size={20} /> : loading}
+        </span>
       )
     if (treeData.length === 0 || renderPending)
-      return <span className={selectClass('option')}>{emptyText || this.getText('noData')}</span>
+      return <span className={selectClass(getDirectionClass('option'))}>{emptyText || this.getText('noData')}</span>
 
     return (
       <div className={selectClass('tree-wrapper')}>

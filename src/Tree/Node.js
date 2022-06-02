@@ -6,6 +6,7 @@ import { getProps } from '../utils/proptypes'
 import { isFunc, isString } from '../utils/is'
 import { treeClass } from './styles'
 import Content from './Content'
+import { getDirectionClass } from '../utils/classname'
 
 const placeElement = document.createElement('div')
 placeElement.className = treeClass('drag-place')
@@ -208,7 +209,7 @@ class Node extends PureComponent {
       <div
         {...wrapProps}
         ref={this.bindElement}
-        className={classnames(treeClass('node'), this.isLeaf() && leafClass(data), nodeClassName)}
+        className={classnames(treeClass(getDirectionClass('node')), this.isLeaf() && leafClass(data), nodeClassName)}
       >
         <Content
           {...other}

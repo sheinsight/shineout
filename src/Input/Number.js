@@ -5,6 +5,7 @@ import Input from './Input'
 import { inputClass } from './styles'
 import { isRTL } from '../config'
 import { sub } from '../utils/numbers'
+import { getDirectionClass } from '../utils/classname'
 
 class Number extends PureComponent {
   constructor(props) {
@@ -180,7 +181,7 @@ class Number extends PureComponent {
       <Input
         key="input"
         {...other}
-        className={inputClass({ number: !hideArrow }, 'rtl')}
+        className={inputClass(!hideArrow && getDirectionClass('number'), 'rtl')}
         onChange={this.handleChange}
         onKeyDown={this.handleKeyDown}
         onKeyUp={this.handleKeyUp}
@@ -200,7 +201,7 @@ class Number extends PureComponent {
       <Input
         key="input"
         {...other}
-        className={inputClass({ number: !hideArrow })}
+        className={inputClass(!hideArrow && getDirectionClass('number'))}
         onChange={this.handleChange}
         onKeyDown={this.handleKeyDown}
         onKeyUp={this.handleKeyUp}

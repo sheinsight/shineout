@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import Checkbox from '../Checkbox/Checkbox'
 import { treeClass } from './styles'
+import { getDirectionClass } from '../utils/classname'
 
 export default class extends PureComponent {
   static propTypes = {
@@ -55,7 +56,7 @@ export default class extends PureComponent {
         checked={checked}
         disabled={this.checkDisabled()}
         onChange={this.handleChange}
-        className={treeClass('checkbox')}
+        className={treeClass(getDirectionClass('checkbox'))}
       />
     )
   }

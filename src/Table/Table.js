@@ -5,6 +5,7 @@ import { isRTL } from '../config'
 import { Component } from '../component'
 import { getLocale } from '../locale'
 import { compose } from '../utils/func'
+import { getDirectionClass } from '../utils/classname'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { tableClass } from './styles'
 import fixedAuto from './fixedAuto'
@@ -132,7 +133,10 @@ class Table extends Component {
           <div className={tableClass('loading')}>{typeof loading === 'boolean' ? <Spin size={40} /> : loading}</div>
         )}
         {isEmpty && (
-          <div className={tableClass('empty')} style={{ visibility: loading ? 'hidden' : 'visible' }}>
+          <div
+            className={tableClass(getDirectionClass('empty'))}
+            style={{ visibility: loading ? 'hidden' : 'visible' }}
+          >
             <span>{empty || getLocale('noData')}</span>
           </div>
         )}

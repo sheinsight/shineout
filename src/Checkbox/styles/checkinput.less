@@ -3,6 +3,7 @@
 
 @checkinput-prefix: ~'@{so-prefix}-checkinput';
 @switch-transition: all 0.36s cubic-bezier(.78, .14, .15, .86);
+@border-width: 1px;
 
 .@{checkinput-prefix} {
   @keyname: ~'@{checkinput-prefix}-focus';
@@ -87,7 +88,7 @@
       .@{checkinput-prefix}-rtl& {
         margin-left: 0;
       }
-      border: 1px solid @gray-300;
+      border: @border-width solid @gray-300;
       font-weight: @btn-font-weight;
       outline: none;
       text-align: center;
@@ -139,10 +140,9 @@
         display: none;
       }
       &:not(:first-child) {
-        &:not(.@{checkinput-prefix}-rtl *) {
-          border-left-width: 0;
-        }
+        border-left-width: 0;
         .@{checkinput-prefix}-rtl&{
+          border-left-width: @border-width;
           border-right-width: 0;
         }
         &:before {
@@ -340,12 +340,12 @@
     .@{checkinput-prefix}-switch-indicator {
       box-shadow: @switch-checked-box-shadow;
       background: @switch-indicator-checked-bg;
-      &:not(.@{checkinput-prefix}-rtl *) {
+      &-ltr {
         left: 100%;
         margin-left: @switch-indicator-padding-horizontal-negative;
         transform: translateX(-100%);
       }
-      .@{checkinput-prefix}-rtl&{
+      &-rtl {
         right: 100%;
         margin-right: @switch-indicator-padding-horizontal-negative;
         transform: translateX(100%);

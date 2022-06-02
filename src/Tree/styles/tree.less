@@ -11,23 +11,19 @@
 
   &-node {
     position: relative;
-    &:not(.@{tree-prefix}-rtl *){
+    &-ltr {
       padding-left: @tree-indicator-size;
-    }
-    .@{tree-prefix}-rtl & {
-      padding-right: @tree-indicator-size;
-    }
-    line-height: @line-height-base;
-
-    > .@{tree-prefix}-children {
-      &:not(.@{tree-prefix}-rtl *){
+      > .@{tree-prefix}-children {
         margin-left: @tree-level-indent;
       }
-      .@{tree-prefix}-rtl & {
+    }
+    &-rtl {
+      padding-right: @tree-indicator-size;
+      > .@{tree-prefix}-children {
         margin-right: @tree-level-indent;
       }
-
     }
+    line-height: @line-height-base;
 
     & > div {
       margin-bottom: @tree-node-margin-bottom;
@@ -238,11 +234,11 @@
 
   &-checkbox {
     z-index: 10;
-    &:not(.@{tree-prefix}-rtl *){
+    &-ltr{
       margin-right: 6px;
     }
     font-size: 0;
-    .@{tree-prefix}-rtl & {
+    &-rtl {
       margin-left: 6px;
     }
   }

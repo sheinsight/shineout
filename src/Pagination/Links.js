@@ -6,6 +6,7 @@ import Item from './Item'
 import Prev from './Prev'
 import Next from './Next'
 import { isRTL } from '../config'
+import { getDirectionClass } from '../utils/classname'
 
 const renderIcon = isPrev => {
   const rtl = isRTL()
@@ -70,7 +71,7 @@ class Links extends PureComponent {
     const { links, max } = this.getLinks()
 
     return (
-      <div className={paginationClass('links', 'section')}>
+      <div className={paginationClass('links', getDirectionClass('section'))}>
         <Prev {...this.props} />
         {links.map(p => {
           if (typeof p === 'number') {

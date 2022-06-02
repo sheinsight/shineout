@@ -121,10 +121,10 @@ Array [
     style={Object {}}
   >
     <div
-      className="so-pagination-links so-pagination-section"
+      className="so-pagination-links so-pagination-section so-pagination-section-ltr"
     >
       <a
-        className="so-pagination-item so-pagination-arrow"
+        className="so-pagination-item so-pagination-item-ltr so-pagination-arrow"
         disabled={true}
         onClick={[Function]}
       >
@@ -140,35 +140,35 @@ Array [
         </svg>
       </a>
       <a
-        className="so-pagination-item so-pagination-current"
+        className="so-pagination-item so-pagination-item-ltr so-pagination-current"
         disabled={true}
         onClick={[Function]}
       >
         1
       </a>
       <a
-        className="so-pagination-item"
+        className="so-pagination-item so-pagination-item-ltr"
         disabled={false}
         onClick={[Function]}
       >
         2
       </a>
       <a
-        className="so-pagination-item"
+        className="so-pagination-item so-pagination-item-ltr"
         disabled={false}
         onClick={[Function]}
       >
         3
       </a>
       <a
-        className="so-pagination-item"
+        className="so-pagination-item so-pagination-item-ltr"
         disabled={false}
         onClick={[Function]}
       >
         4
       </a>
       <a
-        className="so-pagination-item so-pagination-arrow"
+        className="so-pagination-item so-pagination-item-ltr so-pagination-arrow"
         disabled={false}
         onClick={[Function]}
       >
