@@ -142,7 +142,7 @@ class Result extends PureComponent {
     if (result.length <= 0) return true
     const res = result.reduce((acc, cur) => {
       const r = getResultContent(cur, renderResult, renderUnmatched)
-      if (r !== undefined && r !== '') {
+      if (!isEmpty(r)) {
         acc.push(cur)
       }
       return acc
