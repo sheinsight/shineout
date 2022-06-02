@@ -52,7 +52,7 @@ class Result extends PureComponent {
 
   componentDidMount() {
     const { compressed } = this.props
-    if (compressed) {
+    if (compressed && !this.isCompressedBound()) {
       this.cancelResizeObserver = addResizeObserver(this.resultEl, this.resetMore, { direction: 'x' })
     }
   }
@@ -63,6 +63,14 @@ class Result extends PureComponent {
 
   componentWillUnmount() {
     if (this.cancelResizeObserver) this.cancelResizeObserver()
+  }
+
+  getCompressedBound() {
+    const { compressedBound } = this.props
+    if (this.isCompressedBound()) {
+      return compressedBound
+    }
+    return this.state.more
   }
 
   bindResult(el) {
@@ -124,15 +132,6 @@ class Result extends PureComponent {
   isCompressedBound() {
     const { compressedBound } = this.props
     return compressedBound && isNumber(compressedBound) && compressedBound >= 1
-  }
-
-  getCompressedBound() {
-    const { compressedBound } = this.props
-    if (this.isCompressedBound()) {
-      return compressedBound
-    } else {
-      return this.state.more
-    }
   }
 
   renderClear() {

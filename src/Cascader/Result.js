@@ -55,7 +55,7 @@ class Result extends PureComponent {
     const { datum } = this.props
     datum.subscribe(CHANGE_TOPIC, this.handleUpdate)
     const { compressed } = this.props
-    if (compressed) {
+    if (compressed && !this.isCompressedBound()) {
       this.cancelResizeObserver = addResizeObserver(this.resultEl, this.resetMore, { direction: 'x' })
     }
   }
@@ -68,6 +68,14 @@ class Result extends PureComponent {
     const { datum } = this.props
     datum.unsubscribe(CHANGE_TOPIC, this.handleUpdate)
     if (this.cancelResizeObserver) this.cancelResizeObserver()
+  }
+
+  getCompressedBound() {
+    const { compressedBound } = this.props
+    if (this.isCompressedBound()) {
+      return compressedBound
+    }
+    return this.state.more
   }
 
   handleUpdate() {
@@ -164,15 +172,6 @@ class Result extends PureComponent {
     }
 
     return null
-  }
-
-  getCompressedBound() {
-    const { compressedBound } = this.props
-    if (this.isCompressedBound()) {
-      return compressedBound
-    } else {
-      return this.state.more
-    }
   }
 
   renderItem({ index, render, data, raw, className, ...options }) {

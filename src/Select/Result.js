@@ -74,7 +74,7 @@ class Result extends PureComponent {
 
   componentDidMount() {
     const { compressed } = this.props
-    if (compressed) {
+    if (compressed && !this.isCompressedBound()) {
       this.cancelResizeObserver = addResizeObserver(this.resultEl, this.resetMore, { direction: 'x' })
     }
   }
@@ -87,13 +87,21 @@ class Result extends PureComponent {
     if (this.cancelResizeObserver) this.cancelResizeObserver()
   }
 
-  bindResult(el) {
-    this.resultEl = el
+  getCompressedBound() {
+    const { compressedBound } = this.props
+    if (this.isCompressedBound()) {
+      return compressedBound
+    }
+    return this.state.more
   }
 
   isCompressedBound() {
     const { compressedBound } = this.props
     return compressedBound && isNumber(compressedBound) && compressedBound >= 1
+  }
+
+  bindResult(el) {
+    this.resultEl = el
   }
 
   updateMore(preProps) {
@@ -160,15 +168,6 @@ class Result extends PureComponent {
 
   handelMore(more) {
     this.setState({ more })
-  }
-
-  getCompressedBound() {
-    const { compressedBound } = this.props
-    if (this.isCompressedBound()) {
-      return compressedBound
-    } else {
-      return this.state.more
-    }
   }
 
   renderItem(data, index) {
@@ -299,7 +298,6 @@ class Result extends PureComponent {
       resultClassName,
     } = this.props
     if (multiple) {
-
       let items = result.map((n, i) => this.renderItem(n, i)).filter(n => !isEmpty(n))
 
       if (compressed) {
