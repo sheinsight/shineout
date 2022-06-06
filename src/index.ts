@@ -10,298 +10,303 @@ export { default as config, setConfig, isRTL } from './config'
 export { default as LazyList } from './AnimationList/LazyList'
 export { default as List } from './DataList'
 
-import { AlertProps } from './Alert'
 export { default as Alert } from './Alert'
+import { AlertProps as __AlertProps, } from './Alert'
 
-
-import { BreadcrumbProps } from './Breadcrumb'
 export { default as Breadcrumb } from './Breadcrumb'
+import { BreadcrumbProps as __BreadcrumbProps, } from './Breadcrumb'
 
-
-import { ButtonProps,ButtonGroupProps  } from './Button'
 export { default as Button } from './Button'
+import { ButtonProps as __ButtonProps,ButtonGroupProps as __ButtonGroupProps } from './Button'
 
-
-import { CardProps,CardHeaderProps,CardBodyProps,CardFooterProps,CardSubmitProps,CardAccordionProps } from './Card'
 export { default as Card } from './Card'
+import { CardProps as __CardProps,CardBodyProps as __CardBodyProps,CardHeaderProps as __CardHeaderProps,CardFooterProps as __CardFooterProps,CardSubmitProps as __CardSubmitProps,CardAccordionProps as __CardAccordionProps } from './Card'
 
-
-import { CardGroupProps,CardGroupItemProps } from './CardGroup'
 export { default as CardGroup } from './CardGroup'
+import { CardGroupProps as __CardGroupProps,CardGroupItemProps as __CardGroupItemProps } from './CardGroup'
 
-
-import { CarouselProps } from './Carousel'
 export { default as Carousel } from './Carousel'
+import { CarouselProps as __CarouselProps, } from './Carousel'
 
-
-import { CascaderProps } from './Cascader'
 export { default as Cascader } from './Cascader'
+import { CascaderProps as __CascaderProps, } from './Cascader'
 
-
-import { CheckboxProps,CheckboxGroupProps } from './Checkbox'
 export { default as Checkbox } from './Checkbox'
+import { CheckboxProps as __CheckboxProps,CheckboxGroupProps as __CheckboxGroupProps } from './Checkbox'
 
-
-import { DatePickerProps } from './DatePicker'
 export { default as DatePicker } from './DatePicker'
+import { DatePickerProps as __DatePickerProps,QuickSelect as __QuickSelect } from './DatePicker'
 
-
-import { DividerProps } from './Divider'
 export { default as Divider } from './Divider'
+import { DividerProps as __DividerProps, } from './Divider'
 
-
-import { DropdownProps } from './Dropdown'
 export { default as Dropdown } from './Dropdown'
+import { DropdownProps as __DropdownProps, } from './Dropdown'
 
-
-import { EditableAreaProps } from './EditableArea'
 export { default as EditableArea } from './EditableArea'
+import { EditableAreaProps as __EditableAreaProps, } from './EditableArea'
 
-
-import { FormProps,FormItemProps,FormSubmitProps,FormResetProps,FormFieldProps,FormFieldSetProps,FormFlowProps  } from './Form'
 export { default as Form } from './Form'
+import { FormProps as __FormProps,FormItemProps as __FormItemProps,FormFlowProps as __FormFlowProps,FormResetProps as __FormResetProps,FormRef as __FormRef,FormSubmitProps as __FormSubmitProps,FormFieldProps as __FormFieldProps,FormFieldSetProps as __FormFieldSetProps,FieldChildrenFunc as __FieldChildrenFunc,FieldSetChildrenFunc as __FieldSetChildrenFunc } from './Form'
 
-
-import { GapProps } from './Gap'
 export { default as Gap } from './Gap'
+import { GapProps as __GapProps, } from './Gap'
 
-
-import { GridProps } from './Grid'
 export { default as Grid } from './Grid'
+import { GridProps as __GridProps, } from './Grid'
 
-
-import { IconComProps } from './Icon'
 export { default as Icon } from './Icon'
+import { IconComProps as __IconComProps } from './Icon'
 
-
-import { ImageProps,ImageGroupProps  } from './Image'
 export { default as Image } from './Image'
+import { ImageProps as __ImageProps,ImageGroupProps as __ImageGroupProps } from './Image'
 
-
-import { InputProps,InputNumberProps,InputPasswordProps } from './Input'
 export { default as Input } from './Input'
+import { InputProps as __InputProps,InputNumberProps as __InputNumberProps,InputPasswordProps as __InputPasswordProps } from './Input'
 
-
-import { MenuProps } from './Menu'
 export { default as Menu } from './Menu'
+import { MenuProps as __MenuProps, } from './Menu'
 
-
-import { MessageProps } from './Message'
 export { default as Message } from './Message'
+import { MessageProps as __MessageProps,MessageOptions as __MessageOptions } from './Message'
 
-
-import { ModalProps } from './Modal'
 export { default as Modal } from './Modal'
+import { ModalProps as __ModalProps,ModalFunctionOptions as __ModalFunctionOptions } from './Modal'
 
-
-import { PaginationProps,SizeListProps  } from './Pagination'
 export { default as Pagination } from './Pagination'
+import { PaginationProps as __PaginationProps,TextParams as __TextParams,SizeListProps as __SizeListProps } from './Pagination'
 
-
-import { PopoverProps,PopoverConfirmProps } from './Popover'
 export { default as Popover } from './Popover'
+import { PopoverProps as __PopoverProps,PopoverConfirmProps as __PopoverConfirmProps } from './Popover'
 
-
-import { ProgressProps } from './Progress'
 export { default as Progress } from './Progress'
+import { ProgressProps as __ProgressProps, } from './Progress'
 
-
-import { RadioProps,RadioGroupProps } from './Radio'
 export { default as Radio } from './Radio'
+import { RadioProps as __RadioProps,RadioGroupProps as __RadioGroupProps } from './Radio'
 
-
-import { RateProps } from './Rate'
 export { default as Rate } from './Rate'
+import {  } from './Rate'
 
+export { default as Rule } from './Rule'
+import { Max as __Max,Min as __Min,Type as __Type,Range as __Range,Required as __Required,validFunc as __validFunc,RuleParams as __RuleParams,RuleResult as __RuleResult,RegExpParams as __RegExpParams,paramFunc as __paramFunc } from './Rule'
 
-import { SelectProps } from './Select'
 export { default as Select } from './Select'
+import { SelectProps as __SelectProps, } from './Select'
 
-
-import { SliderProps } from './Slider'
 export { default as Slider } from './Slider'
+import { SliderProps as __SliderProps, } from './Slider'
 
-
-import { SpinProps } from './Spin'
 export { default as Spin } from './Spin'
+import { SpinProps as __SpinProps, } from './Spin'
 
-
-import { StickyProps } from './Sticky'
 export { default as Sticky } from './Sticky'
+import { StickyProps as __StickyProps, } from './Sticky'
 
-
-import { SwitchProps } from './Switch'
 export { default as Switch } from './Switch'
+import { SwitchProps as __SwitchProps, } from './Switch'
 
-
-import { TableProps } from './Table'
 export { default as Table } from './Table'
+import { TableProps as __TableProps,TableRef as __TableRef,RowEvents as __RowEvents,CheckColumn as __CheckColumn,renderSorterParam  as __renderSorterParam  } from './Table'
 
-
-import { TabsProps,TabsPanelProps,TabsLinkProps } from './Tabs'
 export { default as Tabs } from './Tabs'
+import { TabsProps as __TabsProps,TabsLinkProps as __TabsLinkProps,TabsPanelProps as __TabsPanelProps } from './Tabs'
 
-
-import { TagProps,TagInputProps  } from './Tag'
 export { default as Tag } from './Tag'
+import { TagProps as __TagProps,TagInputProps as __TagInputProps } from './Tag'
 
-
-import { TextareaProps } from './Textarea'
 export { default as Textarea } from './Textarea'
+import { TextareaProps as __TextareaProps, } from './Textarea'
 
-
-import { TooltipProps } from './Tooltip'
 export { default as Tooltip } from './Tooltip'
+import { TooltipProps as __TooltipProps, } from './Tooltip'
 
-
-import { TransferProps } from './Transfer'
 export { default as Transfer } from './Transfer'
+import { TransferProps as __TransferProps, } from './Transfer'
 
-
-import { TreeProps } from './Tree'
 export { default as Tree } from './Tree'
+import { TreeProps as __TreeProps, } from './Tree'
 
-
-import { TreeSelectProps } from './TreeSelect'
 export { default as TreeSelect } from './TreeSelect'
+import { TreeSelectProps as __TreeSelectProps, } from './TreeSelect'
 
-
-import { UploadProps,UploadImageProps,UploadImageHandlerProps,UploadButtonProps } from './Upload'
 export { default as Upload } from './Upload'
-
-
-export namespace Type {
-
-    export type Alert = AlertProps
-
-    export type Breadcrumb<Item> = BreadcrumbProps<Item>
-
-    export type Button = ButtonProps
-
-    export type ButtonGroup = ButtonGroupProps 
-
-    export type Card = CardProps
-
-    export type CardHeader = CardHeaderProps
-
-    export type CardBody = CardBodyProps
-
-    export type CardFooter = CardFooterProps
-
-    export type CardSubmit = CardSubmitProps
-
-    export type CardAccordion<T> = CardAccordionProps<T>
-
-    export type CardGroup = CardGroupProps
-
-    export type CardGroupItem<T> = CardGroupItemProps<T>
-
-    export type Carousel = CarouselProps
-
-    export type Cascader<Item, Value> = CascaderProps<Item, Value>
-
-    export type Checkbox<T> = CheckboxProps<T>
-
-    export type CheckboxGroup<Data, T> = CheckboxGroupProps<Data, T>
-
-    export type DatePicker<T > = DatePickerProps<T >
-
-    export type Divider = DividerProps
-
-    export type Dropdown = DropdownProps
-
-    export type EditableArea = EditableAreaProps
-
-    export type Form<Value> = FormProps<Value>
-
-    export type FormItem = FormItemProps
-
-    export type FormSubmit = FormSubmitProps
-
-    export type FormReset = FormResetProps
-
-    export type FormField<Value> = FormFieldProps<Value>
-
-    export type FormFieldSet<Value> = FormFieldSetProps<Value>
-
-    export type FormFlow = FormFlowProps 
-
-    export type Gap = GapProps
-
-    export type Grid = GridProps
-
-    export type IconCom = IconComProps
-
-    export type Image = ImageProps
-
-    export type ImageGroup = ImageGroupProps 
-
-    export type Input<Value> = InputProps<Value>
-
-    export type InputNumber<Value> = InputNumberProps<Value>
-
-    export type InputPassword<Value > = InputPasswordProps<Value >
-
-    export type Menu<Item, Value> = MenuProps<Item, Value>
-
-    export type Message = MessageProps
-
-    export type Modal = ModalProps
-
-    export type Pagination = PaginationProps
-
-    export type SizeList = SizeListProps 
-
-    export type Popover = PopoverProps
-
-    export type PopoverConfirm = PopoverConfirmProps
-
-    export type Progress = ProgressProps
-
-    export type Radio<Item > = RadioProps<Item >
-
-    export type RadioGroup<Value, Item> = RadioGroupProps<Value, Item>
-
-    export type Rate = RateProps
-
-    export type Select<Item, Value> = SelectProps<Item, Value>
-
-    export type Slider<Value> = SliderProps<Value>
-
-    export type Spin = SpinProps
-
-    export type Sticky = StickyProps
-
-    export type Switch = SwitchProps
-
-    export type Table<Value, TRD> = TableProps<Value, TRD>
-
-    export type Tabs = TabsProps
-
-    export type TabsPanel = TabsPanelProps
-
-    export type TabsLink = TabsLinkProps
-
-    export type Tag = TagProps
-
-    export type TagInput = TagInputProps 
-
-    export type Textarea<Value> = TextareaProps<Value>
-
-    export type Tooltip = TooltipProps
-
-    export type Transfer<Item, Value> = TransferProps<Item, Value>
-
-    export type Tree<Item, Value> = TreeProps<Item, Value>
-
-    export type TreeSelect<Value, Data> = TreeSelectProps<Value, Data>
-
-    export type Upload<T> = UploadProps<T>
-
-    export type UploadImage<T> = UploadImageProps<T>
-
-    export type UploadImageHandler = UploadImageHandlerProps
-
-    export type UploadButton<T> = UploadButtonProps<T>
-
+import { UploadProps as __UploadProps,Validator as __Validator,BaseParams as __BaseParams,Options as __Options,UploadImageProps as __UploadImageProps,UploadButtonProps as __UploadButtonProps,UploadImageHandlerProps as __UploadImageHandlerProps } from './Upload'
+
+    
+export namespace TYPE {
+    export namespace Alert {
+        export type Props = __AlertProps                
+    }
+    export namespace Breadcrumb {
+        export type Props<Item> = __BreadcrumbProps<Item>                
+    }
+    export namespace Button {
+        export type Props = __ButtonProps            
+        export type GroupProps = __ButtonGroupProps                
+    }
+    export namespace Card {
+        export type Props = __CardProps            
+        export type BodyProps = __CardBodyProps    
+        export type HeaderProps = __CardHeaderProps    
+        export type FooterProps = __CardFooterProps    
+        export type SubmitProps = __CardSubmitProps    
+        export type AccordionProps<T> = __CardAccordionProps<T>                
+    }
+    export namespace CardGroup {
+        export type Props = __CardGroupProps            
+        export type ItemProps<T> = __CardGroupItemProps<T>                
+    }
+    export namespace Carousel {
+        export type Props = __CarouselProps                
+    }
+    export namespace Cascader {
+        export type Props<Item, Value> = __CascaderProps<Item, Value>                
+    }
+    export namespace Checkbox {
+        export type Props<T> = __CheckboxProps<T>            
+        export type GroupProps<Data, T> = __CheckboxGroupProps<Data, T>                
+    }
+    export namespace DatePicker {
+        export type Props<T > = __DatePickerProps<T >            
+        export type QuickSelect = __QuickSelect                
+    }
+    export namespace Divider {
+        export type Props = __DividerProps                
+    }
+    export namespace Dropdown {
+        export type Props = __DropdownProps                
+    }
+    export namespace EditableArea {
+        export type Props = __EditableAreaProps                
+    }
+    export namespace Form {
+        export type Props<Value> = __FormProps<Value>            
+        export type ItemProps = __FormItemProps    
+        export type FlowProps = __FormFlowProps    
+        export type ResetProps = __FormResetProps    
+        export type Ref<Value> = __FormRef<Value>    
+        export type SubmitProps = __FormSubmitProps    
+        export type FieldProps<Value> = __FormFieldProps<Value>    
+        export type FieldSetProps<Value> = __FormFieldSetProps<Value>    
+        export type FieldChildrenFunc<Value > = __FieldChildrenFunc<Value >    
+        export type FieldSetChildrenFunc<Value > = __FieldSetChildrenFunc<Value >                
+    }
+    export namespace Gap {
+        export type Props = __GapProps                
+    }
+    export namespace Grid {
+        export type Props = __GridProps                
+    }
+    export namespace Icon {
+            
+        export type ComProps = __IconComProps                
+    }
+    export namespace Image {
+        export type Props = __ImageProps            
+        export type GroupProps = __ImageGroupProps                
+    }
+    export namespace Input {
+        export type Props<Value> = __InputProps<Value>            
+        export type NumberProps<Value> = __InputNumberProps<Value>    
+        export type PasswordProps<Value > = __InputPasswordProps<Value >                
+    }
+    export namespace Menu {
+        export type Props<Item, Value> = __MenuProps<Item, Value>                
+    }
+    export namespace Message {
+        export type Props = __MessageProps            
+        export type Options = __MessageOptions                
+    }
+    export namespace Modal {
+        export type Props = __ModalProps            
+        export type FunctionOptions = __ModalFunctionOptions                
+    }
+    export namespace Pagination {
+        export type Props = __PaginationProps            
+        export type TextParams = __TextParams    
+        export type SizeListProps = __SizeListProps                
+    }
+    export namespace Popover {
+        export type Props = __PopoverProps            
+        export type ConfirmProps = __PopoverConfirmProps                
+    }
+    export namespace Progress {
+        export type Props = __ProgressProps                
+    }
+    export namespace Radio {
+        export type Props<Item > = __RadioProps<Item >            
+        export type GroupProps<Value, Item> = __RadioGroupProps<Value, Item>                
+    }
+    export namespace Rate {
+                
+    }
+    export namespace Rule {
+            
+        export type Max = __Max    
+        export type Min = __Min    
+        export type Type = __Type    
+        export type Range = __Range    
+        export type Required = __Required    
+        export type validFunc = __validFunc    
+        export type Params = __RuleParams    
+        export type Result = __RuleResult    
+        export type RegExpParams = __RegExpParams    
+        export type paramFunc<U> = __paramFunc<U>                
+    }
+    export namespace Select {
+        export type Props<Item, Value> = __SelectProps<Item, Value>                
+    }
+    export namespace Slider {
+        export type Props<Value> = __SliderProps<Value>                
+    }
+    export namespace Spin {
+        export type Props = __SpinProps                
+    }
+    export namespace Sticky {
+        export type Props = __StickyProps                
+    }
+    export namespace Switch {
+        export type Props = __SwitchProps                
+    }
+    export namespace Table {
+        export type Props<Value, TRD> = __TableProps<Value, TRD>            
+        export type Ref = __TableRef    
+        export type RowEvents = __RowEvents    
+        export type CheckColumn<T> = __CheckColumn<T>    
+        export type renderSorterParam  = __renderSorterParam                 
+    }
+    export namespace Tabs {
+        export type Props = __TabsProps            
+        export type LinkProps = __TabsLinkProps    
+        export type PanelProps = __TabsPanelProps                
+    }
+    export namespace Tag {
+        export type Props = __TagProps            
+        export type InputProps = __TagInputProps                
+    }
+    export namespace Textarea {
+        export type Props<Value> = __TextareaProps<Value>                
+    }
+    export namespace Tooltip {
+        export type Props = __TooltipProps                
+    }
+    export namespace Transfer {
+        export type Props<Item, Value> = __TransferProps<Item, Value>                
+    }
+    export namespace Tree {
+        export type Props<Item, Value> = __TreeProps<Item, Value>                
+    }
+    export namespace TreeSelect {
+        export type Props<Value, Data> = __TreeSelectProps<Value, Data>                
+    }
+    export namespace Upload {
+        export type Props<T> = __UploadProps<T>            
+        export type Validator = __Validator    
+        export type BaseParams = __BaseParams    
+        export type Options<T> = __Options<T>    
+        export type ImageProps<T> = __UploadImageProps<T>    
+        export type ButtonProps<T> = __UploadButtonProps<T>    
+        export type ImageHandlerProps = __UploadImageHandlerProps                
+    }
 }

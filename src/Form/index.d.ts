@@ -5,11 +5,11 @@ import { RuleParamsType } from '../Rule'
 
 type ReactNode = React.ReactNode;
 
-export interface Base {
+interface Base {
   [formItemName: string]: any;
 }
 
-export interface RuleParams<Value = {}> {
+interface RuleParams<Value = {}> {
   [propName: string]: RuleParamsType<Value>
 }
 

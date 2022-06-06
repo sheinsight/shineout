@@ -19,7 +19,7 @@ export interface QuickSelect extends Base {
   value?: Array<DateTimeType> | DateTimeType;
 }
 
-export type FormItemProps<T> = Omit<FormItemStandardProps<T>, 'name'>
+type FormItemProps<T> = Omit<FormItemStandardProps<T>, 'name'>
 
 export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
   FormItemProps<T>,
