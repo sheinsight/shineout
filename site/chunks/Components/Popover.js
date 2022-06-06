@@ -59,6 +59,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Popover/example-12-content.tsx'),
   },
   {
+    name: '13-nested',
+    title: locate(
+      '嵌套使用 \n 使用多个 Popover 进行嵌套展示',
+      'Nested of Popovers \n Using more than one Popover by nested'
+    ),
+    component: require('doc/pages/components/Popover/example-13-nested.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Popover/example-13-nested.js'),
+  },
+  {
     name: '2-delay',
     title: locate(
       '延迟 \n 可以设置展示延时和关闭延时',
