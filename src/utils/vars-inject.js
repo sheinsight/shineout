@@ -513,6 +513,13 @@ const injects = {
         className: buttonClass('default'),
         desc: '默认样式下文字颜色',
       },
+      {
+        name: 'buttonDefaultBorderColor',
+        attr: 'borderColor',
+        type: 'color',
+        className: buttonClass('default'),
+        desc: '默认样式下边框颜色',
+      },
     ],
     set fontSizeBase(v) {
       setBodyProperty(
@@ -663,6 +670,16 @@ const injects = {
       setBodyProperty(
         {
           '--button-default-text-color': v,
+        },
+        v
+      )
+    },
+    set buttonDefaultBorderColor(v) {
+      setBodyProperty(
+        {
+          '--button-default-border': v,
+          '--button-default-border-fade-0': fade(v, 0),
+          '--button-default-border-fade-60': fade(v, 0.6),
         },
         v
       )

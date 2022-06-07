@@ -103,17 +103,12 @@
     }
   }
   & when (%('%s', @color) = %('%s', @btn-default-border)) {
-    & when (@so-theme = antd), (@so-theme = shineout) {
-      box-shadow: 0 0 0 @width fade(@color, @fade);
-    }
-    & when (@so-theme = default) {
       & when (@fade = 60%) {
-        box-shadow: 0 0 0 @width @gray-300-fade-60;
+        box-shadow: 0 0 0 @width @button-default-border-fade-60;
       }
       & when (@fade = 0%) {
-        box-shadow: 0 0 0 @width @gray-300-fade-60;
+        box-shadow: 0 0 0 @width @button-default-border-fade-0;
       }
-    }
   }
 }
 
