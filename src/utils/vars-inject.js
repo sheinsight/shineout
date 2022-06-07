@@ -960,6 +960,13 @@ const injects = {
         min: 3,
         desc: '圆角',
       },
+      {
+        name: 'checkboxDisabledBgc',
+        className: exposeClass('checkbox-disabled'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'Checkbox 和 Radio 禁用后的背景色',
+      },
     ],
     set marginRight(v) {
       setBodyProperty(
@@ -1005,6 +1012,14 @@ const injects = {
       setBodyProperty(
         {
           '--checkbox-indicator-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set checkboxDisabledBgc(v) {
+      setBodyProperty(
+        {
+          '--checkbox-disabled-bgc': v,
         },
         v
       )
