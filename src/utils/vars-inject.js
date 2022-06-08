@@ -4707,7 +4707,14 @@ const injects = {
         className: exposeClass('tabs-tab-active'),
         attr: 'color',
         type: 'color',
-        desc: 'tab选中文字颜色',
+        desc: 'tab选中文字颜色(不含线条样式)',
+      },
+      {
+        name: 'tabLineActiveColor',
+        className: exposeClass('tabs-line-active'),
+        attr: 'color',
+        type: 'color',
+        desc: 'tab线条样式选中文字颜色',
       },
     ],
     set tabSpacing(v) {
@@ -4786,6 +4793,14 @@ const injects = {
       setBodyProperty(
         {
           '--tabs-tab-active-color': v,
+        },
+        v
+      )
+    },
+    set tabLineActiveColor(v) {
+      setBodyProperty(
+        {
+          '--tabs-line-active-color': v,
         },
         v
       )
