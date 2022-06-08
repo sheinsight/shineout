@@ -6,7 +6,7 @@ import Spin from '../Spin'
 import { wrapSpan } from '../utils/dom/element'
 import { buttonClass } from './styles'
 import { isRTL } from '../config'
-import getDirectionClass from '../utils/classname'
+import { getDirectionClass } from '../utils/classname'
 
 class Button extends PureComponent {
   getChildren() {
