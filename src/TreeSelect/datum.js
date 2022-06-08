@@ -47,7 +47,8 @@ export default function datum(Origin) {
 
     componentDidUpdate(prevProps) {
       if (!shallowEqual(prevProps.data, this.props.data)) {
-        this.datum.setData(this.props.data)
+        this.datum.updateDisabled(this.props.disabled)
+        this.datum.setData(this.props.data, true)
         this.forceUpdate()
       }
     }
