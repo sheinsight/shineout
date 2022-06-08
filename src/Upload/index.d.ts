@@ -478,7 +478,7 @@ export interface UploadButtonProps<T> extends UploadProps<T> {
    *
    * default: 'primary'
    */
-  type?: 'primary' | 'success' | 'default' | 'warning' | 'danger';
+  type?: 'default' | 'primary' | 'success'| 'info' | 'warning' | 'error' | 'danger';
 
   /**
    * button default content
