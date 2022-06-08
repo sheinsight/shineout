@@ -487,7 +487,7 @@ export interface UploadButtonProps<T> extends UploadProps<T> {
    *
    * default: none
    */
-  placeholder?: ReactNode;
+  placeholder?: ReactNode | string;
 
   /**
    * content of uploading, will have spin if a string
