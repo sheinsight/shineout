@@ -60,8 +60,8 @@
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| type | string | primary | options: \['primary', success', 'default', 'warning', 'danger'\] |
-| placeholder | ReactNode \| string | none | button default content |
+| type | string | primary | options: \['primary', 'success', 'link', 'default', 'warning', 'danger'\] |
+| placeholder | ReactNode | none | button default content |
 | loading | ReactNode | none | content of uploading, will have spin if a string |
 
 

@@ -472,13 +472,13 @@ export interface UploadImageHandlerProps extends StandardProps {
 export interface UploadButtonProps<T> extends UploadProps<T> {
 
   /**
-   * options: ['primary', 'success', 'info', 'warning', 'danger'\]
+   * As same as Button type
    *
-   * 按钮类型
+   * 按钮类型详见按钮Button type属性
    *
    * default: 'primary'
    */
-  type?: 'primary' | 'success' | 'default' | 'warning' | 'danger';
+  type?: 'default' | 'primary' | 'success' | 'link' | 'warning' | 'danger';
 
   /**
    * button default content
@@ -487,7 +487,7 @@ export interface UploadButtonProps<T> extends UploadProps<T> {
    *
    * default: none
    */
-  placeholder?: ReactNode | string;
+  placeholder?: ReactNode;
 
   /**
    * content of uploading, will have spin if a string
