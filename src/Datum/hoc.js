@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { curry } from '../utils/func'
-import shallowEqual from '../utils/shallowEqual'
 import { capitalize } from '../utils/strings'
 import { IGNORE_VALIDATE, WITH_OUT_DISPATCH } from './types'
 import List from './List'

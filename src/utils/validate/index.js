@@ -1,5 +1,5 @@
 import Datum from '../../Datum'
-import { wrapFormError } from '../../utils/errors'
+import { wrapFormError } from '../errors'
 import { substitute } from '../strings'
 import { flattenArray } from '../flat'
 import range from './range'
@@ -47,7 +47,8 @@ const validate = (value, formdata, rules, props) =>
     if (rule === undefined) {
       resolve(true)
       return
-    } else if (!rule) {
+    }
+    if (!rule) {
       validate(value, formdata, $rules, props).then(resolve, reject)
       return
     }
