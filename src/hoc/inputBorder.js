@@ -70,9 +70,10 @@ export default curry(
         const classList = ['input-tip']
         const position = popover || (isRTL() ? 'bottom-right' : 'bottom-left')
 
-        const styles = popoverProps.style?.width
-          ? popoverProps.style
-          : Object.assign({ minWidth: 200, maxWidth: 400 }, popoverProps.style || {})
+        const styles =
+          popoverProps.style && popoverProps.style.width
+            ? popoverProps.style
+            : Object.assign({ minWidth: 200, maxWidth: 400 }, popoverProps.style || {})
 
         // 只有有错需要popover，或者tip被focus才显示
         if ((error && popover) || (tip && focus)) {
