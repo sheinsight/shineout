@@ -3,6 +3,8 @@ import { StandardProps, FormItemStandardProps } from "../@types/common"
 import { PopoverConfirmProps } from '../Popover'
 import {GapProps} from '../Gap/index.d.js'
 
+import { ButtonType } from '../Button'
+
 type ReactNode = React.ReactNode;
 
 export type OmitFormProps<value> = Omit<FormItemStandardProps<value>, 'placeholder'>;
@@ -472,13 +474,13 @@ export interface UploadImageHandlerProps extends StandardProps {
 export interface UploadButtonProps<T> extends UploadProps<T> {
 
   /**
-   * options: ['primary', 'success', 'info', 'warning', 'danger'\]
+   * As same as Button type
    *
-   * 按钮类型
+   * 按钮类型详见按钮Button type属性
    *
    * default: 'primary'
    */
-  type?: 'primary' | 'success' | 'default' | 'warning' | 'danger';
+  type?: ButtonType
 
   /**
    * button default content

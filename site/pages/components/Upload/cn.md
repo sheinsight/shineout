@@ -63,7 +63,7 @@
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| type | 'default' \| 'primary' \| success' \| 'warning' \| 'danger' | primary | 按钮类型 |
+| type | string | primary | 按钮类型详见按钮type属性 |
 | placeholder | ReactNode | 无 | 按钮默认内容 |
 | loading | ReactNode | 无 | 上传中按钮的内容，如果是字符串默认会有spin loading |
 
