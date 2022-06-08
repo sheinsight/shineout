@@ -1632,7 +1632,7 @@ const injects = {
     set treeNodeSelectedBg(v) {
       setBodyProperty(
         {
-          '--select-tree-node-select-bg': v,
+          '--select-tree-node-selected-bg': v,
         },
         v
       )
@@ -1640,7 +1640,7 @@ const injects = {
     set treeNodeSelectedColor(v) {
       setBodyProperty(
         {
-          '--select-tree-node-hover-color': v,
+          '--select-tree-node-selected-color': v,
         },
         v
       )
@@ -4537,6 +4537,13 @@ const injects = {
         parser: parseInt,
         desc: '项目垂直间隔',
       },
+      {
+        name: 'lineColor',
+        className: exposeClass('tree-line'),
+        attr: 'color',
+        type: 'color',
+        desc: '连线颜色',
+      },
     ],
     set levelIndent(v) {
       setBodyProperty(
@@ -4558,6 +4565,14 @@ const injects = {
       setBodyProperty(
         {
           '--tree-indicator-color': v,
+        },
+        v
+      )
+    },
+    set lineColor(v) {
+      setBodyProperty(
+        {
+          '--tree-line-color': v,
         },
         v
       )
