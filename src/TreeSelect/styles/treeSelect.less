@@ -39,13 +39,13 @@
     }
 
     .@{treeSelect-prefix}-single .@{tree-prefix}-content {
-      cursor: default;
       transition: all .2s;
       cursor: pointer;
       padding-left: 0;
       &:hover {
-        .@{treeSelect-prefix}-content-wrapper:not(.@{treeSelect-prefix}-selected) {
-          background: @gray-100;
+        .@{treeSelect-prefix}-content-wrapper:not(.@{treeSelect-prefix}-selected):not(.@{treeSelect-prefix}-disabled) {
+          background: @select-tree-node-hover-bg;
+          color: @select-tree-node-hover-color;
         }
       }
     }
@@ -306,8 +306,8 @@
     text-overflow: ellipsis;
   }
   &-options span.@{treeSelect-prefix}-selected {
-    background-color: @primary-color-fade-10;
-    color: @colors-primary;
+    background-color: @select-tree-node-selected-bg;
+    color: @select-tree-node-selected-color;;
   }
 
   &-box-list {

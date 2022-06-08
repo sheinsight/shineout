@@ -1452,6 +1452,34 @@ const injects = {
         type: 'color',
         desc: '树形选择展开箭头背景色',
       },
+      {
+        name: 'treeNodeHoverBg',
+        className: exposeClass('select-tree-node-hover'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '树形选择节点hover状态背景色',
+      },
+      {
+        name: 'treeNodeHoverColor',
+        className: exposeClass('select-tree-node-hover'),
+        attr: 'color',
+        type: 'color',
+        desc: '树形选择节点hover状态文字颜色',
+      },
+      {
+        name: 'treeNodeSelectedBg',
+        className: exposeClass('select-tree-node-selected'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '树形选择节点选中状态背景色',
+      },
+      {
+        name: 'treeNodeSelectedColor',
+        className: exposeClass('select-tree-node-selected'),
+        attr: 'color',
+        type: 'color',
+        desc: '树形选择节点选中状态文字颜色',
+      },
     ],
     set resultPaddingVertical(v) {
       setBodyProperty(
@@ -1581,6 +1609,38 @@ const injects = {
       setBodyProperty(
         {
           '--select-tree-icon-hover-bg-color': v,
+        },
+        v
+      )
+    },
+    set treeNodeHoverBg(v) {
+      setBodyProperty(
+        {
+          '--select-tree-node-hover-bg': v,
+        },
+        v
+      )
+    },
+    set treeNodeHoverColor(v) {
+      setBodyProperty(
+        {
+          '--select-tree-node-hover-color': v,
+        },
+        v
+      )
+    },
+    set treeNodeSelectedBg(v) {
+      setBodyProperty(
+        {
+          '--select-tree-node-select-bg': v,
+        },
+        v
+      )
+    },
+    set treeNodeSelectedColor(v) {
+      setBodyProperty(
+        {
+          '--select-tree-node-hover-color': v,
         },
         v
       )
