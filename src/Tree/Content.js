@@ -5,6 +5,7 @@ import { PureComponent } from '../component'
 import { treeClass } from './styles'
 import Spin from '../Spin'
 import Checkbox from './Checkbox'
+import { CHANGE_TOPIC } from '../Datum/types'
 
 const loading = (
   <span className={treeClass('icon-loading')}>
@@ -19,6 +20,19 @@ class Content extends PureComponent {
     this.handleNodeClick = this.handleNodeClick.bind(this)
     this.handleNodeExpand = this.handleNodeExpand.bind(this)
     this.handleIndicatorClick = this.handleIndicatorClick.bind(this)
+    this.handleUpdate = this.handleUpdate.bind(this)
+  }
+
+  componentDidMount() {
+    super.componentDidMount()
+    const { datum } = this.props
+    datum.subscribe(CHANGE_TOPIC, this.handleUpdate)
+  }
+
+  componentWillUnmount() {
+    super.componentWillUnmount()
+    const { datum } = this.props
+    datum.unsubscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
   handleNodeClick() {
@@ -30,6 +44,10 @@ class Content extends PureComponent {
     } else {
       this.props.onNodeClick(data, id)
     }
+  }
+
+  handleUpdate() {
+    this.forceUpdate()
   }
 
   handleNodeExpand() {
@@ -116,6 +134,7 @@ Content.propTypes = {
   fetching: PropTypes.bool,
   doubleClickExpand: PropTypes.bool,
   iconClass: PropTypes.string,
+  datum: PropTypes.object,
 }
 
 export default Content

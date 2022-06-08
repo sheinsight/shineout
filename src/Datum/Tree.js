@@ -48,6 +48,10 @@ export default class {
     this.setData(data)
   }
 
+  updateDisabled(dis) {
+    this.disabled = dis || (() => false)
+  }
+
   bind(id, update) {
     this.events[id] = update
   }
