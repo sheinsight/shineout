@@ -331,12 +331,13 @@
           overflow: hidden;
           text-overflow: ellipsis;
           &:hover {
-            background-color: @primary-color-fade-10;
+            background-color: @select-tree-node-hover-bg;
+            color:  @select-tree-node-hover-color;
           }
 
           &.@{select-prefix}-selected {
-            background-color: @primary-color-fade-10;
-            color: @colors-primary;
+            background-color: @select-tree-node-selected-bg;
+            color: @select-tree-node-selected-color;
           }
           &.@{select-prefix}-disabled {
             padding-right: @select-result-space;

@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import Icon from 'shineout/DatePicker/Icon'
-import utils from 'shineout/DatePicker/utils'
-import paramUtils from 'shineout/DatePicker/paramUtils'
+import Icon from './Icon'
+import utils from './utils'
+import paramUtils from './paramUtils'
 import { datepickerClass } from './styles'
 
 const Quarters = ['Q1', 'Q2', 'Q3', 'Q4']

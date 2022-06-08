@@ -207,7 +207,9 @@
 @alert-padding-y-value: 8px;
 
 // Button
-@btn-default-border: #d9d9d9;
+@btn-default-border-color-value: #d9d9d9;
+@btn-default-border: var(--button-default-border, @btn-default-border-color-value);
+
 @btn-primary-border: @colors-primary;
 @btn-warning-border: @colors-warning;
 @btn-success-border: @colors-success;

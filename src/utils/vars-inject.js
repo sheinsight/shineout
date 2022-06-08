@@ -513,6 +513,13 @@ const injects = {
         className: buttonClass('default'),
         desc: '默认样式下文字颜色',
       },
+      {
+        name: 'buttonDefaultBorderColor',
+        attr: 'borderColor',
+        type: 'color',
+        className: buttonClass('default'),
+        desc: '默认样式下边框颜色',
+      },
     ],
     set fontSizeBase(v) {
       setBodyProperty(
@@ -663,6 +670,16 @@ const injects = {
       setBodyProperty(
         {
           '--button-default-text-color': v,
+        },
+        v
+      )
+    },
+    set buttonDefaultBorderColor(v) {
+      setBodyProperty(
+        {
+          '--button-default-border': v,
+          '--button-default-border-fade-0': fade(v, 0),
+          '--button-default-border-fade-60': fade(v, 0.6),
         },
         v
       )
@@ -943,6 +960,13 @@ const injects = {
         min: 3,
         desc: '圆角',
       },
+      {
+        name: 'checkboxDisabledBgc',
+        className: exposeClass('checkbox-disabled'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'Checkbox 和 Radio 禁用后的背景色',
+      },
     ],
     set marginRight(v) {
       setBodyProperty(
@@ -988,6 +1012,14 @@ const injects = {
       setBodyProperty(
         {
           '--checkbox-indicator-border-radius': `${parseInt(v, 10)}px`,
+        },
+        v
+      )
+    },
+    set checkboxDisabledBgc(v) {
+      setBodyProperty(
+        {
+          '--checkbox-disabled-bgc': v,
         },
         v
       )
@@ -1420,6 +1452,34 @@ const injects = {
         type: 'color',
         desc: '树形选择展开箭头背景色',
       },
+      {
+        name: 'treeNodeHoverBg',
+        className: exposeClass('select-tree-node-hover'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '树形选择节点hover状态背景色',
+      },
+      {
+        name: 'treeNodeHoverColor',
+        className: exposeClass('select-tree-node-hover'),
+        attr: 'color',
+        type: 'color',
+        desc: '树形选择节点hover状态文字颜色',
+      },
+      {
+        name: 'treeNodeSelectedBg',
+        className: exposeClass('select-tree-node-selected'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: '树形选择节点选中状态背景色',
+      },
+      {
+        name: 'treeNodeSelectedColor',
+        className: exposeClass('select-tree-node-selected'),
+        attr: 'color',
+        type: 'color',
+        desc: '树形选择节点选中状态文字颜色',
+      },
     ],
     set resultPaddingVertical(v) {
       setBodyProperty(
@@ -1549,6 +1609,38 @@ const injects = {
       setBodyProperty(
         {
           '--select-tree-icon-hover-bg-color': v,
+        },
+        v
+      )
+    },
+    set treeNodeHoverBg(v) {
+      setBodyProperty(
+        {
+          '--select-tree-node-hover-bg': v,
+        },
+        v
+      )
+    },
+    set treeNodeHoverColor(v) {
+      setBodyProperty(
+        {
+          '--select-tree-node-hover-color': v,
+        },
+        v
+      )
+    },
+    set treeNodeSelectedBg(v) {
+      setBodyProperty(
+        {
+          '--select-tree-node-selected-bg': v,
+        },
+        v
+      )
+    },
+    set treeNodeSelectedColor(v) {
+      setBodyProperty(
+        {
+          '--select-tree-node-selected-color': v,
         },
         v
       )
@@ -4445,6 +4537,13 @@ const injects = {
         parser: parseInt,
         desc: '项目垂直间隔',
       },
+      {
+        name: 'lineColor',
+        className: exposeClass('tree-line'),
+        attr: 'color',
+        type: 'color',
+        desc: '连线颜色',
+      },
     ],
     set levelIndent(v) {
       setBodyProperty(
@@ -4466,6 +4565,14 @@ const injects = {
       setBodyProperty(
         {
           '--tree-indicator-color': v,
+        },
+        v
+      )
+    },
+    set lineColor(v) {
+      setBodyProperty(
+        {
+          '--tree-line-color': v,
         },
         v
       )
@@ -4615,7 +4722,14 @@ const injects = {
         className: exposeClass('tabs-tab-active'),
         attr: 'color',
         type: 'color',
-        desc: 'tab选中文字颜色',
+        desc: 'tab选中文字颜色(不含线条样式)',
+      },
+      {
+        name: 'tabLineActiveColor',
+        className: exposeClass('tabs-line-active'),
+        attr: 'color',
+        type: 'color',
+        desc: 'tab线条样式选中文字颜色',
       },
     ],
     set tabSpacing(v) {
@@ -4694,6 +4808,14 @@ const injects = {
       setBodyProperty(
         {
           '--tabs-tab-active-color': v,
+        },
+        v
+      )
+    },
+    set tabLineActiveColor(v) {
+      setBodyProperty(
+        {
+          '--tabs-line-active-color': v,
         },
         v
       )
