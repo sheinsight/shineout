@@ -62,10 +62,10 @@
 
     .@{upload-prefix}-text {
       word-break: break-all;
-      &:not(.@{upload-prefix}-rtl *){
+      &-ltr{
         margin-right: 20px;
       }
-      .@{upload-prefix}-rtl &{
+      &-rtl{
         margin-left: 20px;
 
       }
@@ -80,11 +80,10 @@
       color: @colors-danger;
       font-size: 16px;
       vertical-align: middle;
-      &:not(.@{upload-prefix}-rtl *){
-        right: 10px;
-      }
+      right: 10px;
       .@{upload-prefix}-rtl &{
         left: 10px;
+        right: auto;
       }
 
       svg {

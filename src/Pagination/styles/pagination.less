@@ -9,26 +9,23 @@
 
   &-section {
     display: inline-block;
-    margin-right: @pagination-margin;
-    .@{pagination-prefix}-rtl & {
-      margin-right: 0;
+    &-ltr {
+      margin-right: @pagination-margin;
+      &:last-child{
+        margin-right: 0;
+      }
+    }
+    &-rtl {
       margin-left: @pagination-margin;
+      &:last-child{
+        margin-left: 0;
+      }
     }
     vertical-align: middle;
 
     > span {
       color: @pagination-color;
       line-height: @pagination-size;
-    }
-
-    &:last-child {
-      &:not(.@{pagination-prefix}-rtl *) {
-        margin-right: 0;
-      }
-      .@{pagination-prefix}-rtl & {
-        margin-left: 0;
-      }
-
     }
   }
 
@@ -65,7 +62,7 @@
     min-width: @pagination-size;
     height: @pagination-size;
     padding: @pagination-padding;
-    margin-right: @pagination-margin;
+
     border: @pagination-border-width solid @pagination-border;
     background-color: @pagination-bg;
     border-radius: @pagination-border-radius;
@@ -75,18 +72,14 @@
     text-decoration: none;
     user-select: none;
     vertical-align: top;
-    .@{pagination-prefix}-rtl & {
-      margin-right: 0;
-      margin-left: @pagination-margin;
+    &-ltr {
+      margin-right: @pagination-margin;
+      &:last-child {margin-right: 0;}
     }
+    &-rtl {
 
-    &:last-child {
-      &:not(.@{pagination-prefix}-rtl *) {
-        margin-right: 0;
-      }
-      .@{pagination-prefix}-rtl & {
-        margin-left: 0;
-      }
+      margin-left: @pagination-margin;
+      &:last-child {margin-left: 0;}
     }
 
     svg {

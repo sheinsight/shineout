@@ -1,5 +1,7 @@
 import classnames from 'classnames'
-import config from '../config'
+import config, { isRTL } from '../config'
+
+export const getDirectionClass = c => `${c} ${c}-${isRTL() ? 'rtl' : 'ltr'}`
 
 /**
  * create a new className generate function, add namespace, handle css module

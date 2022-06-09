@@ -60,7 +60,7 @@
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| type | string | primary | options: \['primary', success', 'default', 'warning', 'danger'\] |
+| type | string | primary | As same as Button type |
 | placeholder | ReactNode | none | button default content |
 | loading | ReactNode | none | content of uploading, will have spin if a string |
 

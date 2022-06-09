@@ -5,6 +5,7 @@ import { selectClass } from './styles'
 import { isObject } from '../utils/is'
 import shallowEqual from '../utils/shallowEqual'
 import icons from '../icons'
+import { getDirectionClass } from '../utils/classname'
 
 class Option extends React.Component {
   constructor(props) {
@@ -40,7 +41,13 @@ class Option extends React.Component {
     const { data, isActive, index, renderItem, isHover, disabled, groupKey } = this.props
     const isGroupTitle = data && data[groupKey]
     const className = classnames(
-      selectClass('option', isActive && 'active', isHover && 'hover', disabled && 'disabled', isGroupTitle && 'group'),
+      selectClass(
+        getDirectionClass('option'),
+        isActive && 'active',
+        isHover && 'hover',
+        disabled && getDirectionClass('disabled'),
+        isGroupTitle && 'group'
+      ),
       `option-${index}`
     )
 

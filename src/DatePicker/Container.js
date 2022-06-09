@@ -22,6 +22,7 @@ import DateFns from './utils'
 import { isRTL } from '../config'
 import InputTitle from '../InputTitle'
 import { inputTitleClass } from '../InputTitle/styles'
+import { getDirectionClass } from '../utils/classname'
 
 const FadeList = List(['fade'], 'fast')
 const OptionList = absoluteList(({ focus, ...other }) => <FadeList show={focus} {...other} />)
@@ -109,6 +110,8 @@ class Container extends PureComponent {
         return 'HH:mm:ss'
       case 'week':
         return 'RRRR II'
+      case 'quarter':
+        return 'yyyy-[Q]Q'
       default:
         return 'yyyy-MM-dd HH:mm:ss'
     }
@@ -420,7 +423,7 @@ class Container extends PureComponent {
         'picker',
         'location',
         `absolute-${getCurrentPosition(position)}`,
-        quickSelect && 'quick'
+        quickSelect && getDirectionClass('quick')
       ),
       zIndex,
       getRef: this.bindWrappedPicker,

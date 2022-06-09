@@ -114,10 +114,10 @@
       &.@{select-prefix}-disabled {
         cursor: not-allowed;
         color: @input-disabled-color;
-        &:not(.@{input-prefix}-rtl *):not(.@{select-prefix}-rtl *){
+        &-ltr{
           padding-right: @select-result-space;
         }
-        .@{input-prefix}-rtl & ,@{select-prefix}-rtl & {
+        &-rtl {
           padding-left: @select-result-space;
         }
 
@@ -169,10 +169,10 @@
     }
 
     .@{select-prefix}-ban {
-      &:not(.@{input-prefix}-rtl *):not(.@{select-prefix}-rtl *){
+      &-ltr{
         padding-right: @select-result-space;
       }
-      .@{input-prefix}-rtl & ,@{select-prefix}-rtl & {
+      &-rtl {
         padding-left: @select-result-space;
       }
     }
@@ -331,22 +331,23 @@
           overflow: hidden;
           text-overflow: ellipsis;
           &:hover {
-            background-color: @primary-color-fade-10;
+            background-color: @select-tree-node-hover-bg;
+            color:  @select-tree-node-hover-color;
           }
 
           &.@{select-prefix}-selected {
-            background-color: @primary-color-fade-10;
-            color: @colors-primary;
+            background-color: @select-tree-node-selected-bg;
+            color: @select-tree-node-selected-color;
           }
           &.@{select-prefix}-disabled {
             padding-right: @select-result-space;
             cursor: not-allowed;
             color: @select-tree-disabled-content-color;
             background: @select-tree-disabled-bg-color;
-            &:not(.@{input-prefix}-rtl *):not(.@{select-prefix}-rtl *){
+            &-ltr{
               padding-right: @select-result-space;
             }
-            .@{input-prefix}-rtl & ,@{select-prefix}-rtl & {
+            &-rtl {
               padding-left: @select-result-space;
             }
           }
@@ -387,11 +388,11 @@
 
     .@{select-prefix}-option {
       display: inline-block;
-      &:not(.@{input-prefix}-rtl *):not(.@{select-prefix}-rtl *){
+      &-ltr{
         padding-right: @dropdown-padding-x;
         margin-right: 0;
       }
-      .@{input-prefix}-rtl & ,@{select-prefix}-rtl & {
+      &-rtl {
         padding-left: @dropdown-padding-x;
         margin-left: 0;
       }
@@ -633,57 +634,56 @@
   &-multiple &-title-box-title:not(&-title-box-title-empty),
   &-multiple &-title-box-title-compressed
   {
-    &:not(.@{input-prefix}-rtl *):not(.@{select-prefix}-rtl *){
+    &-ltr{
       padding-right: @padding-base-horizontal + 22;
     }
-    .@{input-prefix}-rtl & ,@{select-prefix}-rtl & {
+    &-rtl {
       padding-left: @padding-base-horizontal + 22;
     }
   }
 
-  &-multiple &-title-box &-result:not(&-empty) {
-    &:not(.@{input-prefix}-rtl *):not(.@{select-prefix}-rtl *){
+  &-multiple &-title-box &-result {
+    &-ltr:not(.@{select-prefix}-empty) {
       padding-left: @title-padding-base-horizontal;
     }
-    .@{input-prefix}-rtl & ,@{select-prefix}-rtl & {
+    &-rtl:not(.@{select-prefix}-empty) {
       padding-right: @title-padding-base-horizontal;
     }
-
   }
 
 
-  &-large&-multiple &-result:not(&-empty) {
-    &:not(.@{input-prefix}-rtl *):not(.@{select-prefix}-rtl *){
+  &-large&-multiple &-result {
+    &-ltr:not(.@{select-prefix}-empty) {
       padding-left: (@padding-large-horizontal / 2);
     }
-    .@{input-prefix}-rtl & ,@{select-prefix}-rtl & {
+    &-rtl:not(.@{select-prefix}-empty) {
       padding-right: (@padding-large-horizontal / 2);
     }
   }
 
-  &-large&-multiple &-title-box &-result:not(&-empty) {
-    &:not(.@{input-prefix}-rtl *):not(.@{select-prefix}-rtl *){
+  &-large&-multiple &-title-box &-result {
+    &-ltr:not(.@{select-prefix}-empty) {
       padding-left: @title-padding-large-horizontal;
     }
-    .@{input-prefix}-rtl & ,@{select-prefix}-rtl & {
+    &-rtl:not(.@{select-prefix}-empty) {
       padding-right: @title-padding-large-horizontal;
     }
   }
 
-  &-small&-multiple &-result:not(&-empty) {
-    &:not(.@{input-prefix}-rtl *):not(.@{select-prefix}-rtl *){
+  &-small&-multiple &-result {
+    &-ltr:not(.@{select-prefix}-empty) {
       padding-left: (@padding-small-horizontal / 2);
     }
-    .@{input-prefix}-rtl & ,@{select-prefix}-rtl & {
+    &-rtl:not(.@{select-prefix}-empty) {
       padding-right: (@padding-small-horizontal / 2);
     }
   }
 
-  &-small&-multiple &-title-box  &-result:not(&-empty) {
-    &:not(.@{input-prefix}-rtl *):not(.@{select-prefix}-rtl *){
+  &-small&-multiple &-title-box  &-result {
+    &-ltr:not(.@{select-prefix}-empty) {
       padding-left: @title-padding-small-horizontal;
     }
-    .@{input-prefix}-rtl & ,@{select-prefix}-rtl & {
+    &-rtl:not(.@{select-prefix}-empty) {
       padding-right: @title-padding-small-horizontal;
     }
   }
@@ -693,10 +693,10 @@
       cursor: not-allowed;
       .@{select-prefix}-item {
         background: @select-disabled-bg-color;
-        &:not(.@{input-prefix}-rtl *):not(.@{select-prefix}-rtl *){
+        &-ltr{
           padding-right: @select-result-space;
         }
-        .@{input-prefix}-rtl & ,@{select-prefix}-rtl & {
+        &-rtl {
           padding-left: @select-result-space;
         }
         .@{select-prefix}-close {

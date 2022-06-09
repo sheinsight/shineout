@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { getUidStr } from '../utils/uid'
 import { paginationClass } from './styles'
 import Input from '../Input'
+import { getDirectionClass } from '../utils/classname'
 
 const inputStyle = { width: 60, display: 'inline-block' }
 const nofunc = () => {}
@@ -59,7 +60,7 @@ class Jumper extends PureComponent {
     }
 
     return (
-      <div className={paginationClass('section')}>
+      <div className={paginationClass(getDirectionClass('section'))}>
         {txt[0]}
         <Input
           key={this.renderRequire}

@@ -377,13 +377,13 @@ export interface SelectProps<Item, Value> extends
   innerTitle?: ReactNode;
 
   /**
-   * control the visabile numbers of Select items
+   * when compressed is True,the comptessedBound can limit the numbers of multiple selected item's label
    *
-   * 条目数量显示控制
+   * 开启多选后，指定允许展示标签数量，超过后将折叠
    *
-   * default: 10
+   * default: -
    */
-  itemsInView?: number;
+   compressedBound?: number;
 }
 
 declare class Select<Item = any, Value = any> extends React.Component<SelectProps<Item, Value>, {}> { }

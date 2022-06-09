@@ -5,12 +5,13 @@ import { addResizeObserver } from '../utils/dom/element'
 import { treeSelectClass } from './styles'
 import { inputClass } from '../Input/styles'
 import { inputTitleClass } from '../InputTitle/styles'
-import { isEmpty, isObject } from '../utils/is'
+import { isEmpty, isObject, isNumber } from '../utils/is'
 import Input from './Input'
 import Caret from '../icons/Caret'
 import More, { getResetMore } from '../Select/More'
 import InputTitle from '../InputTitle'
 import { getKey } from '../utils/uid'
+import { getDirectionClass } from '../utils/classname'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -30,7 +31,12 @@ function Item({ content, data, disabled, onClick, only }) {
   return (
     <a
       tabIndex={-1}
-      className={treeSelectClass('item', disabled && 'disabled', synDisabled && 'ban', only && 'item-only')}
+      className={treeSelectClass(
+        getDirectionClass('item'),
+        disabled && getDirectionClass('disabled'),
+        synDisabled && getDirectionClass('ban'),
+        only && 'item-only'
+      )}
     >
       {content}
       {!synDisabled && <span className={treeSelectClass('indicator', 'close')} onClick={click} />}
@@ -52,7 +58,7 @@ class Result extends PureComponent {
 
   componentDidMount() {
     const { compressed } = this.props
-    if (compressed) {
+    if (compressed && !this.isCompressedBound()) {
       this.cancelResizeObserver = addResizeObserver(this.resultEl, this.resetMore, { direction: 'x' })
     }
   }
@@ -65,6 +71,14 @@ class Result extends PureComponent {
     if (this.cancelResizeObserver) this.cancelResizeObserver()
   }
 
+  getCompressedBound() {
+    const { compressedBound } = this.props
+    if (this.isCompressedBound()) {
+      return compressedBound
+    }
+    return this.state.more
+  }
+
   bindResult(el) {
     this.resultEl = el
   }
@@ -72,6 +86,9 @@ class Result extends PureComponent {
   updateMore(preProps) {
     const { result, compressed, onFilter, keygen, data } = this.props
     if (compressed) {
+      if (this.isCompressedBound()) {
+        return
+      }
       let shouldRest = false
       if (preProps.result.length !== result.length || (data || []).length !== (preProps.data || []).length) {
         shouldRest = true
@@ -116,6 +133,11 @@ class Result extends PureComponent {
 
   handelMore(more) {
     this.setState({ more })
+  }
+
+  isCompressedBound() {
+    const { compressedBound } = this.props
+    return compressedBound && isNumber(compressedBound) && compressedBound >= 1
   }
 
   renderClear() {
@@ -172,13 +194,13 @@ class Result extends PureComponent {
 
   renderMore(items) {
     const { compressed } = this.props
-    const { more } = this.state
+    const more = this.getCompressedBound()
     return [
       <More
         key="more"
-        className={treeSelectClass('item', 'item-compressed')}
+        className={treeSelectClass(getDirectionClass('item'), 'item-compressed')}
         popoverClassName={treeSelectClass('popover')}
-        contentClassName={treeSelectClass('result')}
+        contentClassName={treeSelectClass(getDirectionClass('result'))}
         compressed={compressed}
         data={items}
         cls={treeSelectClass}
@@ -253,8 +275,8 @@ class Result extends PureComponent {
         <div
           ref={this.bindResult}
           className={classnames(
-            treeSelectClass('result', compressed && 'compressed', showPlaceholder && 'empty'),
-            innerTitle && inputTitleClass('item')
+            treeSelectClass(getDirectionClass('result'), compressed && 'compressed', showPlaceholder && 'empty'),
+            innerTitle && inputTitleClass(getDirectionClass('item'))
           )}
         >
           {result}
@@ -285,6 +307,7 @@ Result.propTypes = {
   placeholder: PropTypes.string,
   setInputReset: PropTypes.func,
   compressed: PropTypes.bool,
+  compressedBound: PropTypes.number,
   renderUnmatched: PropTypes.func,
   innerTitle: PropTypes.node,
   keygen: PropTypes.any,

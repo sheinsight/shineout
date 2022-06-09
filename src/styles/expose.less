@@ -144,9 +144,20 @@
       &-icon-hover {
         background: @select-tree-icon-hover-bg-color
       }
+      &-node-selected {
+        background: @select-tree-node-selected-bg;
+        color: @select-tree-node-selected-color;
+      }
+      &-node-hover {
+        background: @select-tree-node-hover-bg;
+        color: @select-tree-node-hover-color;
+      }
       &-disabled {
         background: @select-tree-disabled-bg-color;
         color: @select-tree-disabled-content-color;
+      }
+      &-line {
+        color: @tree-line-color
       }
     }
   }
@@ -406,6 +417,9 @@
     &-text {
       padding: 0 @checkbox-text-padding-x;
     }
+    &-disabled {
+      background-color: @checkbox-disabled-bgc;
+    }
   }
   &-switch {
     &-type {
@@ -433,6 +447,9 @@
       color: @tabs-tab-active-color;
       border-color: @tabs-tab-active-border-color;
       background: @tabs-tab-active-background;
+    }
+    &-line-active {
+      color: @tabs-line-active-color;
     }
   }
   &-cascader-active {

@@ -35,4 +35,5 @@
 | getComponentRef | (componentRef: any) => void  | 无 | 绑定组件的引用, 可以调用某些组件的方法 |
 | filterSameChange | boolean | false | 过滤掉具有相同值的onChange回调 |
 | loading | boolean \| ReactNode | 无 | 下拉列表 loading 状态 |
+| compressedBound | number | 无 | 开启多选后，指定允许展示标签数量，超过后将折叠 |
 

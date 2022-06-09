@@ -59,6 +59,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Popover/example-12-content.tsx'),
   },
   {
+    name: '13-nested',
+    title: locate(
+      '嵌套使用 \n 使用多个 Popover 进行嵌套展示',
+      'Nested of Popovers \n Using more than one Popover by nested'
+    ),
+    component: require('doc/pages/components/Popover/example-13-nested.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Popover/example-13-nested.js'),
+  },
+  {
     name: '13-useTextStyle',
     title: locate(
       '内置文本样式 \n 当采用自定义函数渲染时，允许通过useTextStyle来使用采用内置的文本样式',

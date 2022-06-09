@@ -35,3 +35,4 @@
 | showArrow | boolean | true | show dropdown arrow, only single select |
 | filterSameChange | boolean | false | filter out value change callbacks with the same value |
 | loading | boolean \| ReactNode | none | Dropdown list loading state |
+| compressedBound | number | - | when compressed is True,the comptessedBound can limit the numbers of multiple selected item's label |

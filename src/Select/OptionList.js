@@ -9,6 +9,7 @@ import Spin from '../Spin'
 import { getLocale } from '../locale'
 import { selectClass } from './styles'
 import Option from './Option'
+import { getDirectionClass } from '../utils/classname'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
 
@@ -174,10 +175,12 @@ class OptionList extends Component {
     }
     if (loading)
       return (
-        <span className={selectClass('option')}>{typeof loading === 'boolean' ? <Spin size={20} /> : loading}</span>
+        <span className={selectClass(getDirectionClass('option'))}>
+          {typeof loading === 'boolean' ? <Spin size={20} /> : loading}
+        </span>
       )
     if (data.length === 0 || renderPending)
-      return <span className={selectClass('option')}>{emptyText || this.getText('noData')}</span>
+      return <span className={selectClass(getDirectionClass('option'))}>{emptyText || this.getText('noData')}</span>
     return (
       <Scroll
         scroll={scroll}

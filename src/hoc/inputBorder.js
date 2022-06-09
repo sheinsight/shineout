@@ -69,18 +69,15 @@ export default curry(
         const { error, tip, popover, popoverProps } = this.props
         const classList = ['input-tip']
         const position = popover || (isRTL() ? 'bottom-right' : 'bottom-left')
-        let styles
-        if (popoverProps.style && popoverProps.style.width) {
-          styles = popoverProps.style
-        } else {
-          styles = { minWidth: 200, maxWidth: 400 }
-          if (popoverProps.style) {
-            Object.assign(styles, popoverProps.style)
-          }
-        }
 
-        if (error && popover) {
-          classList.push('input-error')
+        const styles =
+          popoverProps.style && popoverProps.style.width
+            ? popoverProps.style
+            : Object.assign({ minWidth: 200, maxWidth: 400 }, popoverProps.style || {})
+
+        // 只有有错需要popover，或者tip被focus才显示
+        if ((error && popover) || (tip && focus)) {
+          if (error) classList.push('input-error')
           return (
             <Popover
               getPopupContainer={() => this.el}
@@ -90,24 +87,11 @@ export default curry(
               className={popoverClass(...classList)}
               position={position}
             >
-              {error.message}
+              {error ? error.message : tip}
             </Popover>
           )
         }
-
-        if (!tip || !focus) return null
-        return (
-          <Popover
-            getPopupContainer={() => this.el}
-            {...popoverProps}
-            visible
-            style={styles}
-            className={popoverClass(...classList)}
-            position={position}
-          >
-            {tip}
-          </Popover>
-        )
+        return null
       }
 
       render() {

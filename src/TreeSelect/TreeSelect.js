@@ -12,6 +12,7 @@ import { getParent } from '../utils/dom/element'
 import List from '../AnimationList'
 import { getLocale } from '../locale'
 import { isRTL } from '../config'
+import { getDirectionClass } from '../utils/classname'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
 const OptionList = absoluteList(({ focus, ...other }) => <ScaleList show={focus} {...other} />)
@@ -111,7 +112,7 @@ export default class TreeSelect extends PureComponent {
 
   shouldFocus(el) {
     if (el.getAttribute('data-id') === this.treeSelectId) return true
-    if (getParent(el, `.${treeSelectClass('result')}`)) return true
+    if (getParent(el, `.${treeSelectClass(getDirectionClass('result'))}`)) return true
     return false
   }
 
@@ -239,7 +240,7 @@ export default class TreeSelect extends PureComponent {
         className={treeSelectClass(
           'content-wrapper',
           active && 'selected',
-          datum.isDisabled(datum.getKey(data)) && 'disabled'
+          datum.isDisabled(datum.getKey(data)) && getDirectionClass('disabled')
         )}
       >
         {item}
@@ -280,7 +281,7 @@ export default class TreeSelect extends PureComponent {
     }
     const content =
       data.length === 0 ? (
-        <span className={treeSelectClass('option')}>{this.getText('noData')}</span>
+        <span className={treeSelectClass(getDirectionClass('option'))}>{this.getText('noData')}</span>
       ) : (
         <Tree
           className={treeSelectClass(!multiple && 'single')}
@@ -314,6 +315,7 @@ export default class TreeSelect extends PureComponent {
       placeholder,
       onFilter,
       compressed,
+      compressedBound,
       multiple,
       datum,
       clearable,
@@ -332,7 +334,7 @@ export default class TreeSelect extends PureComponent {
       this.state.focus && 'focus',
       this.state.position,
       multiple && 'multiple',
-      disabled === true && 'disabled'
+      disabled === true && getDirectionClass('disabled')
     )
     const renderResult = this.props.renderResult || this.renderItem
 
@@ -361,6 +363,7 @@ export default class TreeSelect extends PureComponent {
           renderResult={renderResult}
           setInputReset={this.setInputReset}
           compressed={compressed}
+          compressedBound={compressedBound}
           renderUnmatched={renderUnmatched}
           innerTitle={innerTitle}
           keygen={keygen}
@@ -400,6 +403,7 @@ TreeSelect.propTypes = {
   onFocus: PropTypes.func,
   empty: PropTypes.string,
   compressed: PropTypes.bool,
+  compressedBound: PropTypes.number,
   absolute: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   parentClickExpand: PropTypes.bool,
   zIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

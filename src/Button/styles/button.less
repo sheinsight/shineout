@@ -26,10 +26,10 @@
 
   &-spin {
     display: inline-block;
-    &:not(.@{button-prefix}-rtl *) {
+    &-ltr {
       margin-right: @button-spin-margin;
     }
-    .@{button-prefix}-rtl & {
+    &-rtl {
       margin-left: @button-spin-margin;
     }
   }

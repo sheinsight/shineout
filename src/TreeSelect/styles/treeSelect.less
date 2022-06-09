@@ -39,13 +39,13 @@
     }
 
     .@{treeSelect-prefix}-single .@{tree-prefix}-content {
-      cursor: default;
       transition: all .2s;
       cursor: pointer;
       padding-left: 0;
       &:hover {
-        .@{treeSelect-prefix}-content-wrapper:not(.@{treeSelect-prefix}-selected) {
-          background: @gray-100;
+        .@{treeSelect-prefix}-content-wrapper:not(.@{treeSelect-prefix}-selected):not(.@{treeSelect-prefix}-disabled) {
+          background: @select-tree-node-hover-bg;
+          color: @select-tree-node-hover-color;
         }
       }
     }
@@ -141,10 +141,10 @@
 
       &.@{treeSelect-prefix}-disabled {
         cursor: not-allowed;
-        &:not(.@{input-prefix}-rtl *):not(.@{treeSelect-prefix}-rtl *){
+        &-ltr{
           padding-right: @select-result-space;
         }
-        .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+        &-rtl {
           padding-left: @select-result-space;
         }
       }
@@ -193,10 +193,10 @@
     width: 0;
 
     .@{treeSelect-prefix}-ban {
-      &:not(.@{input-prefix}-rtl *):not(.@{treeSelect-prefix}-rtl *){
+      &-ltr{
         padding-right: @select-result-space;
       }
-      .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+      &-rtl {
         padding-left: @select-result-space;
       }
     }
@@ -306,8 +306,8 @@
     text-overflow: ellipsis;
   }
   &-options span.@{treeSelect-prefix}-selected {
-    background-color: @primary-color-fade-10;
-    color: @colors-primary;
+    background-color: @select-tree-node-selected-bg;
+    color: @select-tree-node-selected-color;;
   }
 
   &-box-list {
@@ -336,11 +336,11 @@
 
     .@{treeSelect-prefix}-option {
       display: inline-block;
-      &:not(.@{input-prefix}-rtl *):not(.@{treeSelect-prefix}-rtl *){
+      &-ltr{
         padding-right: @dropdown-padding-x;
         margin-right: 0;
       }
-      .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+      &-rtl {
         padding-left: @dropdown-padding-x;
         margin-left: 0;
       }
@@ -545,49 +545,69 @@
     }
   }
 
-  &-multiple &-title-box &-result:not(&-empty) {
-    &:not(.@{input-prefix}-rtl *):not(.@{treeSelect-prefix}-rtl *){
-      padding-left: @title-padding-base-horizontal;
+  &-multiple &-title-box &-result {
+    &-ltr {
+      &:not(.@{treeSelect-prefix}-empty) {
+        padding-left: @title-padding-base-horizontal;
+      }
     }
-    .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
-      padding-right: @title-padding-base-horizontal;
+    &-rtl {
+      &:not(.@{treeSelect-prefix}-empty) {
+        padding-right: @title-padding-base-horizontal;
+      }
     }
 
   }
 
-  &-large&-multiple &-result:not(&-empty) {
-    &:not(.@{input-prefix}-rtl *):not(.@{treeSelect-prefix}-rtl *){
-      padding-left: (@padding-large-horizontal / 2);
+  &-large&-multiple &-result {
+    &-ltr {
+      &:not(.@{treeSelect-prefix}-empty) {
+        padding-left: (@padding-large-horizontal / 2);
+      }
     }
-    .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
-      padding-right: (@padding-large-horizontal / 2);
-    }
-  }
-
-  &-large&-multiple &-title-box &-result:not(&-empty) {
-    &:not(.@{input-prefix}-rtl *):not(.@{treeSelect-prefix}-rtl *){
-      padding-left: @title-padding-large-horizontal;
-    }
-    .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
-      padding-right: @title-padding-large-horizontal;
+    &-rtl {
+      &:not(.@{treeSelect-prefix}-empty) {
+        padding-right: (@padding-large-horizontal / 2);
+      }
     }
   }
 
-  &-small&-multiple &-result:not(&-empty) {
-    &:not(.@{input-prefix}-rtl *):not(.@{treeSelect-prefix}-rtl *){
-      padding-left: (@padding-small-horizontal / 2);
+  &-large&-multiple &-title-box &-result {
+    &-ltr {
+      &:not(.@{treeSelect-prefix}-empty) {
+        padding-left: @title-padding-large-horizontal;
+      }
     }
-    .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
-      padding-right: (@padding-small-horizontal / 2);
+    &-rtl {
+      &:not(.@{treeSelect-prefix}-empty) {
+        padding-right: @title-padding-large-horizontal;
+      }
     }
   }
 
-  &-small&-multiple &-title-box  &-result:not(&-empty) {
-    &:not(.@{input-prefix}-rtl *):not(.@{treeSelect-prefix}-rtl *){
-      padding-left: @title-padding-small-horizontal;
+  &-small&-multiple &-result {
+    &-ltr {
+      &:not(.@{treeSelect-prefix}-empty) {
+        padding-left: (@padding-small-horizontal / 2);
+      }
     }
-    .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
-      padding-right: @title-padding-small-horizontal;
+    &-rtl {
+      &:not(.@{treeSelect-prefix}-empty) {
+        padding-right: (@padding-small-horizontal / 2);
+      }
+    }
+  }
+
+  &-small&-multiple &-title-box  &-result {
+    &-ltr {
+      &:not(.@{treeSelect-prefix}-empty) {
+        padding-left: @title-padding-small-horizontal;
+      }
+    }
+    &-rtl {
+      &:not(.@{treeSelect-prefix}-empty) {
+        padding-right: @title-padding-small-horizontal;
+      }
     }
   }
 
@@ -610,10 +630,10 @@
       cursor: not-allowed;
       .@{treeSelect-prefix}-item {
         background: @input-bg-disabled;
-        &:not(.@{input-prefix}-rtl *):not(.@{treeSelect-prefix}-rtl *){
+        &-ltr{
           padding-right: @select-result-space;
         }
-        .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
+        &-rtl {
           padding-left: @select-result-space;
         }
         .@{treeSelect-prefix}-close {

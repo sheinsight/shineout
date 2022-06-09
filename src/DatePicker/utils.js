@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
+import quarterOfYear from 'dayjs/plugin/quarterOfYear'
 import isoWeek from 'dayjs/plugin/isoWeek'
 import weekday from 'dayjs/plugin/weekday'
 import weekYear from 'dayjs/plugin/weekYear'
@@ -23,6 +24,7 @@ dayjs.extend(weekday)
 dayjs.extend(weekOfYear)
 dayjs.extend(weekYear)
 dayjs.extend(customParseFormat)
+dayjs.extend(quarterOfYear)
 
 const TIME_FORMAT = 'HH:mm:ss'
 
@@ -111,6 +113,13 @@ function isSameWeek(date1, date2, options) {
   const dateB = dayjs(date2).locale(getDayJsLocate(options))
   return dateA.weekYear() === dateB.weekYear() && dateA.week() === dateB.week()
 }
+function isSameQuarter(date1, date2) {
+  if (!date1 || !date2) return false
+  const dateA = dayjs(date1)
+  const dateB = dayjs(date2)
+  const qmt = 'YYYY Q'
+  return dateA.format(qmt) === dateB.format(qmt)
+}
 
 function isValid(date) {
   if (!date) return false
@@ -118,9 +127,12 @@ function isValid(date) {
   return dayjs(date).isValid()
 }
 
-function parse(date, fmt, options) {
-  if (!date) return new Date('')
-  const fmt2 = compatibleFmt(fmt)
+function parse(d, fmt, options) {
+  if (!d) return new Date('')
+  // should clear[xxx]
+  const reg = /[[]([^[^\]]+?)[\]]/g
+  const date = d && d.replace ? d.replace(reg, ' ') : d
+  const fmt2 = compatibleFmt(fmt).replace(reg, ' ')
 
   // handle IOS Year Week
   const index = fmt2.indexOf('GGGG')
@@ -131,6 +143,16 @@ function parse(date, fmt, options) {
     const result = dayjs(`${year}-06-15`, 'YYYY-MM-dd')
       .locale(getDayJsLocate(options))
       .isoWeek(Number(week))
+      .toDate()
+    return result
+  }
+  // handle Quarter
+  const quarterIndex = fmt2.indexOf('Q')
+  if (quarterIndex >= 0) {
+    const quarter = date.slice(quarterIndex, quarterIndex + 2)
+    const result = dayjs(date, fmt2)
+      .locale(getDayJsLocate(options))
+      .quarter(quarter)
       .toDate()
     return result
   }
@@ -200,6 +222,19 @@ function compareMonth(dateLeft, dateRight, pad = 0) {
   const left = new Date(dateLeft.getFullYear(), dateLeft.getMonth(), 1)
   const right = new Date(dateRight.getFullYear(), dateRight.getMonth() + pad, 1)
   return compareAsc(left, right)
+}
+
+function compareQuarter(dateLeft, dateRight, pad = 0) {
+  if (!dateLeft || !dateRight) return 0
+  const left = dayjs(dateLeft)
+  const right = dayjs(dateRight)
+  const leftQuarter = dayjs(`${left.year()}`)
+    .quarter(left.quarter())
+    .toDate()
+  const rightQuarter = dayjs(`${right.year()}`)
+    .quarter(right.quarter() + pad)
+    .toDate()
+  return compareAsc(leftQuarter, rightQuarter)
 }
 
 function newDate(defaultDate) {
@@ -284,12 +319,14 @@ export default {
   cloneTime,
   compareAsc,
   compareMonth,
+  compareQuarter,
   getDaysOfMonth,
   format: formatted,
   isInvalid,
   isSameDay,
   isSameMonth,
   isSameWeek,
+  isSameQuarter,
   isValid,
   newDate,
   setTime,

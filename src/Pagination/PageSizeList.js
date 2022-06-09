@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Select from '../Select'
 import { paginationClass } from './styles'
+import { getDirectionClass } from '../utils/classname'
 
 class PageSizeList extends PureComponent {
   constructor(props) {
@@ -29,7 +30,7 @@ class PageSizeList extends PureComponent {
         keygen
         value={pageSize}
         size={size}
-        className={paginationClass('section', 'pagesize')}
+        className={paginationClass(getDirectionClass('section'), 'pagesize')}
         data={pageSizeList}
         renderItem={d => `${d} ${text.page || ''}`}
         {...sizeListProps}

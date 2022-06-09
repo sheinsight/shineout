@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { uploadClass } from './styles'
 import icons from '../icons'
 import RemoveConfirm from './RemoveConfirm'
+import { getDirectionClass } from '../utils/classname'
 
 class Result extends PureComponent {
   constructor(props) {
@@ -35,7 +36,7 @@ class Result extends PureComponent {
 
     return (
       <div className={className}>
-        <div className={uploadClass('text')}>{renderResult(value)}</div>
+        <div className={uploadClass(getDirectionClass('text'))}>{renderResult(value)}</div>
 
         {this.props.onRemove && (
           <a className={uploadClass('delete')} onClick={removeConfirm ? undefined : this.handleRemove}>

@@ -8,9 +8,10 @@ import Input from './Input'
 import icons from '../icons'
 import More, { getResetMore } from '../Select/More'
 import { addResizeObserver } from '../utils/dom/element'
-import { isEmpty } from '../utils/is'
+import { isEmpty, isNumber } from '../utils/is'
 import { CHANGE_TOPIC } from '../Datum/types'
 import Caret from '../icons/Caret'
+import { getDirectionClass } from '../utils/classname'
 
 // eslint-disable-next-line react/prop-types
 function Item({ children, close, className, data, isPopover, singleRemove, click, only }) {
@@ -25,10 +26,14 @@ function Item({ children, close, className, data, isPopover, singleRemove, click
       }
     : undefined
   return (
-    <a tabIndex={-1} className={classnames(cascaderClass('item', only && 'item-only'), className)} onClick={onClick}>
+    <a
+      tabIndex={-1}
+      className={classnames(cascaderClass(getDirectionClass('item'), only && 'item-only'), className)}
+      onClick={onClick}
+    >
       {children}
       {singleRemove && (
-        <span className={cascaderClass('single-remove')} onClick={onClose}>
+        <span className={cascaderClass(getDirectionClass('single-remove'))} onClick={onClose}>
           {icons.Close}
         </span>
       )}
@@ -55,7 +60,7 @@ class Result extends PureComponent {
     const { datum } = this.props
     datum.subscribe(CHANGE_TOPIC, this.handleUpdate)
     const { compressed } = this.props
-    if (compressed) {
+    if (compressed && !this.isCompressedBound()) {
       this.cancelResizeObserver = addResizeObserver(this.resultEl, this.resetMore, { direction: 'x' })
     }
   }
@@ -70,6 +75,14 @@ class Result extends PureComponent {
     if (this.cancelResizeObserver) this.cancelResizeObserver()
   }
 
+  getCompressedBound() {
+    const { compressedBound } = this.props
+    if (this.isCompressedBound()) {
+      return compressedBound
+    }
+    return this.state.more
+  }
+
   handleUpdate() {
     this.forceUpdate()
   }
@@ -78,9 +91,15 @@ class Result extends PureComponent {
     this.resultEl = el
   }
 
+  isCompressedBound() {
+    const { compressedBound } = this.props
+    return compressedBound && isNumber(compressedBound) && compressedBound >= 1
+  }
+
   updateMore(preProps) {
     const { compressed, value = [], onFilter, data } = this.props
     if (compressed) {
+      if (this.isCompressedBound()) return
       if ((preProps.value || []).join('') !== (value || []).join('')) {
         this.resetMore()
       } else if ((preProps.data || []).length !== (data || []).length) {
@@ -117,7 +136,7 @@ class Result extends PureComponent {
   handleNode(nodes, render) {
     const { singleRemove } = this.props
 
-    const removeContainerClassName = cascaderClass(singleRemove && 'remove-container')
+    const removeContainerClassName = cascaderClass(singleRemove && getDirectionClass('remove-container'))
 
     return nodes
       .map((n, i) =>
@@ -143,7 +162,7 @@ class Result extends PureComponent {
 
   renderClear() {
     const { clearable, value, disabled, onClear } = this.props
-    const className = classnames(selectClass('indicator', 'close'), cascaderClass('close'))
+    const className = classnames(selectClass('indicator', 'close'), cascaderClass(getDirectionClass('close')))
 
     if (clearable && value.length > 0 && !disabled) {
       /* eslint-disable */
@@ -162,17 +181,16 @@ class Result extends PureComponent {
 
   renderItem({ index, render, data, raw, className, ...options }) {
     const { singleRemove } = this.props
-    const itemClassName = classnames(className, cascaderClass(singleRemove && 'remove-container'))
     const res = data && render(data, raw)
     if (!res) return null
-    const { more } = this.state
+    const more = this.getCompressedBound()
     return (
       <Item
         key={index}
         only={more === 1}
         {...options}
         data={data}
-        className={itemClassName}
+        className={className}
         singleRemove={singleRemove}
         close={this.removeTargetNode}
         isPopover
@@ -185,12 +203,12 @@ class Result extends PureComponent {
 
   renderMore(list) {
     const { selectId, size, compressed } = this.props
-    const { more } = this.state
+    const more = this.getCompressedBound()
     return [
       <More
         key="more"
         data={list}
-        className={cascaderClass('item', 'item-compressed')}
+        className={cascaderClass(getDirectionClass('item'), 'item-compressed')}
         popoverClassName={cascaderClass('popover')}
         contentClassName={cascaderClass('result', size)}
         dataId={selectId}
@@ -295,6 +313,7 @@ Result.propTypes = {
   style: PropTypes.object,
   value: PropTypes.array,
   compressed: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  compressedBound: PropTypes.number,
   focus: PropTypes.bool,
   onFilter: PropTypes.func,
   trim: PropTypes.bool,

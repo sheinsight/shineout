@@ -6,7 +6,7 @@
 .@{rate-prefix} {
   &-rtl {
     direction: rtl;
-    text-align: rightsli;
+    text-align: right;
   }
   @kf-highlight: ~'@{rate-prefix}-highlight';
 
@@ -68,11 +68,12 @@
       display: inline-block;
       margin-right: @rate-space;
       vertical-align: middle;
-
+      .@{rate-prefix}-rtl & {
+        margin-right: 0;
+        margin-left: @rate-space;
+      }
       &:last-child {
-        &:not(.@{rate-prefix}-rtl *) {
-          margin-right: 0;
-        }
+        margin-right: 0;
         .@{rate-prefix}-rtl & {
           margin-left: 0;
         }
@@ -96,11 +97,9 @@
     margin-left: 4px;
     color: @gray-600;
     font-size: 14px;
-    &:not(.@{rate-prefix}-rtl *) {
-      margin-left: 4px;
-    }
     .@{rate-prefix}-rtl & {
       margin-right: 4px;
+      margin-left: 0;
     }
   }
 }

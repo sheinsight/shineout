@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { getDirectionClass } from '../utils/classname'
 import { paginationClass } from './styles'
 
 class Item extends PureComponent {
@@ -16,7 +17,7 @@ class Item extends PureComponent {
 
   render() {
     const { children, isCurrent, disabled } = this.props
-    const className = paginationClass('item', this.props.className, isCurrent && 'current')
+    const className = paginationClass(getDirectionClass('item'), this.props.className, isCurrent && 'current')
 
     return (
       <a className={className} disabled={disabled || isCurrent} onClick={this.handleClick}>

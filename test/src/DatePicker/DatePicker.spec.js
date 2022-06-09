@@ -1,6 +1,7 @@
 import React from 'react'
 import { DatePicker } from 'shineout'
 import { mount } from 'enzyme'
+import dayjs from 'dayjs'
 import DateFns from '../../../src/DatePicker/utils'
 import utils from '../../../src/DatePicker/utils'
 import DatePickerSize from '../../../site/pages/components/DatePicker/example-03-size'
@@ -102,6 +103,32 @@ describe('DatePicker[MonthPick]', () => {
     const months = wrapper.find(`.${SO_PREFIX}-datepicker-list`)
     const monthIndex = new Date().getMonth()
     expect(months.childAt(monthIndex).hasClass(`${SO_PREFIX}-datepicker-active`)).toBeTruthy()
+  })
+})
+
+describe('DatePicker[QuarterPick]', () => {
+  let wrapper
+  let now
+  beforeAll(() => {
+    now = new Date()
+    wrapper = mount(<DatePicker type="quarter" defaultValue={now} />)
+    document.write(wrapper.html())
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+  })
+  test('should render all month', () => {
+    const quarter = wrapper.find(`.${SO_PREFIX}-datepicker-list`)
+    expect(quarter.children().length).toBe(4)
+  })
+  test('should active current month', () => {
+    const quarters = wrapper.find(`.${SO_PREFIX}-datepicker-list`)
+    const quarterIndex = dayjs(now).quarter() - 1
+    console.log(quarters.childAt(quarterIndex))
+    expect(
+      quarters
+        .childAt(quarterIndex)
+        .childAt(0)
+        .hasClass(`${SO_PREFIX}-datepicker-active`)
+    ).toBeTruthy()
   })
 })
 

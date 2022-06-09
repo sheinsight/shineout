@@ -109,7 +109,7 @@ class Progress extends PureComponent {
 }
 
 Progress.propTypes = {
-  type: PropTypes.oneOf(['primary', 'success', 'info', 'warning', 'error', 'danger']),
+  type: PropTypes.oneOf(['default','primary', 'success', 'link', 'warning', 'error', 'danger']),
   placeholder: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   loading: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   onSuccess: PropTypes.func,

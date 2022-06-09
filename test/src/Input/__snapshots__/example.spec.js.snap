@@ -199,6 +199,7 @@ Array [
     >
       <div
         className="so-input-title-box-title so-input-title-box-top"
+        onAnimationEnd={[Function]}
       >
         input something
       </div>
@@ -218,6 +219,7 @@ Array [
       </div>
       <div
         className="so-input-title-box-place"
+        onAnimationEnd={[Function]}
       >
         <div
           className="so-input-title-box-title"
@@ -249,6 +251,7 @@ Array [
       >
         <div
           className="so-input-title-box-title so-input-title-box-top"
+          onAnimationEnd={[Function]}
         >
           please input your email
         </div>
@@ -268,6 +271,7 @@ Array [
         </div>
         <div
           className="so-input-title-box-place"
+          onAnimationEnd={[Function]}
         >
           <div
             className="so-input-title-box-title"

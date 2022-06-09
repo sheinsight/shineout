@@ -15,11 +15,15 @@ class Year extends PureComponent {
   }
 
   handleChange(year) {
-    const { current, onChange, onModeChange } = this.props
+    const { current, onChange, onModeChange, type } = this.props
     const date = new Date(current.getTime())
     date.setFullYear(year)
     onChange(...paramUtils.yearHandleChangeParams(date))
-    onModeChange('month')
+    let nextMode = 'month'
+    if (type === 'quarter') {
+      nextMode = type
+    }
+    onModeChange(nextMode)
   }
 
   handleRangeChange(year) {
@@ -63,6 +67,7 @@ Year.propTypes = {
   onChange: PropTypes.func.isRequired,
   onModeChange: PropTypes.func.isRequired,
   value: PropTypes.object,
+  type: PropTypes.string,
 }
 
 export default Year
