@@ -44,7 +44,7 @@ export default class extends React.Component {
             <div>
                 <Button onClick={this.show}>no padding</Button>
                 <Modal
-                    noPadding={true}
+                    noPadding
                     visible={this.state.visible}
                     width={400}
                     title="Modal Title"

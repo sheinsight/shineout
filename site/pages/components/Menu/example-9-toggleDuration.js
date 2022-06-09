@@ -5,7 +5,7 @@
  *    -- When the mouse cursor is removed from  menuitem, the menuitem disappears for a specified period of time
  */
 import React from 'react'
-import { Menu } from 'shineout'
+import { Menu, Button } from 'shineout'
 
 const data = [
     {
@@ -61,7 +61,7 @@ export default class extends React.Component {
         super(props)
         this.state = {
             active: '1',
-            toggleDuration: 2000
+            toggleDuration: 500,
         }
         this.handleClick = this.handleClick.bind(this)
     }
@@ -76,6 +76,19 @@ export default class extends React.Component {
 
     render() {
         return (
+          <div>
+            <Button
+              type={this.state.toggleDuration == 500 ? 'primary' : 'default'}
+              onClick={() => this.setState({ toggleDuration: 500 })}
+            >
+              0.5s
+            </Button>
+            <Button
+              type={this.state.toggleDuration == 2000 ? 'primary' : 'default'}
+              onClick={() => this.setState({ toggleDuration: 2000 })}
+            >
+              2s
+            </Button>
             <Menu
                 keygen="id"
                 data={data}
@@ -86,6 +99,7 @@ export default class extends React.Component {
                 toggleDuration={this.state.toggleDuration}
                 onClick={this.handleClick}
             />
+          </div>
         )
     }
 }

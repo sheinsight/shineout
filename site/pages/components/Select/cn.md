@@ -56,7 +56,6 @@
 | underline | boolean | false | 是否只展示下边框 |
 | innerTitle | string | - | 内嵌标题 |
 | filterSameChange | boolean | false | 过滤掉具有相同值的onChange回调 |
-| itemsInView | number | 10 | 条目数量显示控制 |
-| loading | boolean | false | 数据加载中的状态展示 |
+| loading |  boolean | ReactNode \| false | 数据加载中，为true时会展示一个默认的[Spin](/components/Spin)组件，可以传入一个自定义的Spin代替 |
 | size |  'large' \| 'default' \| 'small'| 'default' | 尺寸 |
 | trim | boolean | false | 失去焦点时会自动删除空白字符 |

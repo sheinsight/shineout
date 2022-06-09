@@ -23,6 +23,5 @@
 | value | string \| number | | DefaultValue and value can be set at the same time and defaultValue will be overridden by value. <br />In the Form, the value is taken over by the Form and lose efficacy. |
 | underline | boolean | false | only display border bottom  |
 | disabled  | boolean | false | disabled |
-| innerTitle | string | - | inner title |
 | onBlur | (value: Event)=> void | - | The callback when Textarea blur |
-| renderFooter | (value: string)=> ReactNode | - | Render textarea footer |
+| renderFooter | ()=> ReactNode | - | Render textarea footer |

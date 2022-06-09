@@ -2,7 +2,7 @@
  * cn - 自定义显示结果
  *    -- 自定义显示结果
  * en - RenderResult
- *    -- rCustomize display results
+ *    -- Customize display results
  */
 
  import React from 'react'
