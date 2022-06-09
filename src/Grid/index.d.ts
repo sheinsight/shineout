@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { StandardProps } from '../@types/common'
 
+export type responsiveType = 'sm' | 'md' | 'lg' | 'xl'
+
 export interface GridProps extends StandardProps {
 
   /**
@@ -37,9 +39,9 @@ export interface GridProps extends StandardProps {
    *
    * 媒体查询的尺寸类型
    *
-   * default: 1
+   * default: 'md'
    */
-  responsive?: 'sm' | 'md' | 'lg' | 'xl';
+  responsive?: responsiveType;
 
 
   /**

@@ -22,7 +22,6 @@
 | maxHeight | number \| string | - | the maxHeight of the textarea, scroll bars appear after more than |
 | getPopupContainer | () => HTMLElement | none | Custom Popover container, override the default behavior which is rendering under the body, () => DOMElement |
 | width | number \| string | none | width of the editablearea |
-| innerTitle | string \| ReactNode | - | inner title |
 | renderFooter | (value: string)=> ReactNode | - | render textarea footer |
 | renderResult | (value: string)=> ReactNode | - | Customize display results |
 

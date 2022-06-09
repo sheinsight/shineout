@@ -221,22 +221,13 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Select/example-18-innertitle.js'),
   },
   {
-    name: '19-itemsInView',
-    title: locate(
-      '条目数量显示控制 \n 通过设置 itemsInView 来指定下拉列表中项目的显示数量',
-      'itemsInView \n Control the visabile numbers of Select items'
-    ),
-    component: require('doc/pages/components/Select/example-19-itemsInView.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Select/example-19-itemsInView.js'),
-  },
-  {
-    name: '20-loading',
+    name: '19-loading',
     title: locate(
       '加载中 \n 数据加载中，为true时会展示一个默认的[Spin](/components/Spin)组件，可以传入一个自定义的Spin代替',
       'Loading \n When it is true, a default [Spin](/components/Spin) component will be displayed, a custom loading icon can be passed in to replace.'
     ),
-    component: require('doc/pages/components/Select/example-20-loading.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Select/example-20-loading.js'),
+    component: require('doc/pages/components/Select/example-19-loading.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-19-loading.js'),
   },
 ]
 

@@ -35,3 +35,4 @@
 | listHeight | number | 180 | list height |
 | lineHeight | number | 32 | list line height |
 | children | (({onSelected, selectedKeys, value, direction, filterText}) => ReactNode) | null | custom render content |
+| renderFilter | (value: filterProps) => React.ReactNode; | - | custom render filter |

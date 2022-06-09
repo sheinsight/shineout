@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { StandardProps, StructDataStandardProps, FormItemStandardProps, ListItemStandardProps } from '../@types/common'
 
-type renderFilter = {
+type filterProps = {
   value: string,
   disabled: boolean,
   onFilter?: Function,
@@ -163,7 +163,7 @@ export interface TransferProps<Item, Value> extends
    * 
    * default: -
    */
-  renderFilter?: (value: renderFilter) => React.ReactNode;
+  renderFilter?: (value: filterProps) => React.ReactNode;
 }
 
 

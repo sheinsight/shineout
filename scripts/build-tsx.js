@@ -15,7 +15,7 @@ const sortProps = props => {
 }
 
 const getProps = (file, name, mainProps = true) => {
-  const expExtends = /(?<=export interface ).*(?= extends)/g
+  const expExtends = /(?<=export( declare)? interface ).*(?= extends)/g
   const expDefault = /(?<=export interface ).*(?= {)/g
   const extendProps = file.match(expExtends)
   const defaultProps = file.match(expDefault)?.filter(f => f.indexOf('extends') == -1)
@@ -37,7 +37,7 @@ const getTypes = (file, name) => {
 const getArgs = types => {
   const exp = /(?<=<).*(?=>)/
   const result = types.toString().match(exp)
-  return result ? `<${result[0].split('=')[0]}>` : ''
+  return result ? `<${result[0].split('=')[0].trim()}>` : ''
 }
 
 const getTypeName = types => {
@@ -91,7 +91,7 @@ export { default as List } from './DataList'
 
 <% for(let key in components){ -%>
 export { default as <%= key %> } from './<%= key %>'
-import { <%- getAsName(getTypeName(components[key].props)) -%><%- components[key].props.length>0 ? ',' :'' -%><%- getAsName(components[key].other) -%> } from './<%= key %>'
+import { <%- getAsName(getTypeName(components[key].props)) -%><%- components[key].props.length>0 ? ' , ' :'' -%><%- getAsName(components[key].other) -%><%- components[key].other.length>0 ? ' , ' :'' -%><%- getAsName(components[key].types) -%> } from './<%= key %>'
 
 <% } -%>
     
@@ -107,7 +107,13 @@ export namespace <%= NAMESPACE -%> {
         export type <%- getOtherTypeName(getTypeName(name),key) -%><%- getArgs(name) -%> = __<%- getTypeName(name)+getArgs(name) -%>
     <% }) -%>
     <% } -%>
-        
+    <% if(components[key].types.length>0){ -%>
+    <% components[key].types.forEach( name =>{ -%>
+
+        export type <%- getOtherTypeName(getTypeName(name),key) -%><%- getArgs(name) -%> = __<%- getTypeName(name)+getArgs(name) -%>
+    <% }) -%>
+    <% } -%>
+
     }
 <% } -%>
 }

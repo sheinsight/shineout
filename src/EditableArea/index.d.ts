@@ -100,7 +100,8 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
    *
    * default: -
    */
-  innerTitle?: ReactNode,
+  // 定向功能，不对外开放
+  // innerTitle?: ReactNode,
 
   /**
    * Placeholder title, which needs to be used together with innerTitle

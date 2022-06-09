@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { FormItemStandardProps } from '../@types/common'
 
 export declare interface RateProps extends
@@ -64,7 +64,7 @@ export declare interface RateProps extends
    *
    * default: -
    */
-  text?: Array<string>;
+  text?: Array<ReactNode>;
 }
 
 declare class RateComponent extends React.Component<RateProps, any> { }

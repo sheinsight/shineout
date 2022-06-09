@@ -43,8 +43,7 @@ interface BreadcrumbData  {
    *
    * default: -
    */
-  renderItem?: ReactNode;
-
+  renderItem?: (value:BreadcrumbData)=>ReactNode;
 
 }
 

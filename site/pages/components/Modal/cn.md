@@ -37,7 +37,7 @@
 | fullScreen | boolean | false | 是否全屏展示 | |
 | top | number \| string | 10vh | 距离顶部距离 | |
 | forceMask | boolean | false | 是否强制设置遮罩透明度（多层Modal中，除第一层外的其他Modal遮罩透明度会被调整为0.01） | |
-| noPadding | boolean | - | 取消内容区域的padding | |
+| noPadding | boolean | - | 当Sheinout采用 AntD 主题时，取消内容区域的padding | |
 
 
 ### ModalMethods
