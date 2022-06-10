@@ -7,16 +7,6 @@
   "typings": "./lib/index.d.ts",
   "author": "lobos841@gmail.com",
   "license": "MIT",
-  "ava": {
-    "files": [
-      "./test/**/*.js"
-    ],
-    "require": [
-      "@babel/register",
-      "@babel/polyfill",
-      "esm"
-    ]
-  },
   "scripts": {
     "test": "cross-env NODE_ENV=test jest --config jest.config.js",
     "test:silent": "cross-env NODE_ENV=test jest --silent",
@@ -77,7 +67,6 @@
     "@typescript-eslint/eslint-plugin": "4.0.1",
     "@typescript-eslint/parser": "4.0.1",
     "autoprefixer": "^7.2.4",
-    "ava": "^1.0.1",
     "babel-eslint": "^8.2.1",
     "babel-jest": "^24.0.0",
     "babel-loader": "^8.0.4",
