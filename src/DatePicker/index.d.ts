@@ -298,7 +298,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: 'default'
    */
-  size?: 'small' | 'default' | 'large' | string
+  size?: 'small' | 'default' | 'large'
 }
 
 declare class DatePicker extends React.Component<DatePickerProps, {}> {

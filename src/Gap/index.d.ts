@@ -31,6 +31,14 @@ export interface GapProps extends StandardProps{
    */
    itemStyle?: React.CSSProperties;
 
+   /**
+   * children
+   * 
+   * 子元素
+   * 
+   * default: -
+   */
+   children?: ReactNode;
 }
 
 declare class Gap extends React.Component<GapProps, any> {}

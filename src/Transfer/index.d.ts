@@ -157,7 +157,7 @@ export interface TransferProps<Item, Value> extends
   titles?: React.ReactNode[];
 
   /**
-   * desc: operation nodes
+   * desc: custom render filter
    * 
    * 自定义渲染搜索
    * 

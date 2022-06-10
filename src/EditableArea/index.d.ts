@@ -130,14 +130,15 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
    */
   renderResult?: (value: string)=> ReactNode,
 
+  // 暂时屏蔽该属性
   /**
    * Customize display results
    *
-   * 自定义显示结果
+   * 输入状态改变后的回调，抛出改变后的状态。类似onBlur。
    *
    * default: -
    */
-   onShowTextareaChange?: (value: boolean)=> void,
+  //  onShowTextareaChange?: (value: boolean)=> void,
 
 
 }

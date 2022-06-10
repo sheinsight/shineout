@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { StandardProps } from '../@types/common'
+import { ReactNode } from "react"
 
 export type responsiveType = 'sm' | 'md' | 'lg' | 'xl'
 
@@ -52,6 +53,15 @@ export interface GridProps extends StandardProps {
    * default: 1
    */
   stretch?: boolean;
+
+  /**
+   * children
+   * 
+   * 子元素
+   * 
+   * default: -
+   */
+  children?: ReactNode;
 
 }
 

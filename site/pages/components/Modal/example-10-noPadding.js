@@ -8,59 +8,60 @@ import React from 'react'
 import { Modal, Button } from 'shineout'
 
 export default class extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            visible: false,
-            content: 1,
-        }
-        this.show = this.show.bind(this)
+  constructor(props) {
+    super(props)
+    this.state = {
+      visible: false,
+      content: 1,
     }
+    this.show = this.show.bind(this)
+  }
 
-    show() {
-        this.setState({
-            visible: true,
-        })
-    }
+  handleOk = () => {
+    this.setState(prev => ({
+      visible: false,
+      content: prev.content + 1,
+    }))
+    console.log('clicked ok!')
+  }
 
-    handleOk = () => {
-        this.setState({
-            visible: false,
-            content: (this.state.content += 1),
-        })
-        console.log('clicked ok!')
-    }
+  handleCancel = () => {
+    this.setState(prev => ({
+      visible: false,
+      content: prev.content + 1,
+    }))
 
-    handleCancel = () => {
-        this.setState({
-            visible: false,
-            content: (this.state.content += 1),
-        })
-        console.log('clicked cancel')
-    }
+    console.log('clicked cancel')
+  }
 
-    render() {
-        return (
-            <div>
-                <Button onClick={this.show}>no padding</Button>
-                <Modal
-                    noPadding
-                    visible={this.state.visible}
-                    width={400}
-                    title="Modal Title"
-                    onClose={this.handleCancel}
-                    footer={[
-                        <Button key="cancel" onClick={this.handleCancel}>
-                            Cancel
-                        </Button>,
-                        <Button key="ok" type="primary" onClick={this.handleOk}>
-                            Ok
-                        </Button>,
-                    ]}
-                >
-                    {`you are visited ${this.state.content}`}
-                </Modal>
-            </div>
-        )
-    }
+  show() {
+    this.setState({
+      visible: true,
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <Button onClick={this.show}>no padding</Button>
+        <Modal
+          noPadding
+          visible={this.state.visible}
+          width={400}
+          title="Modal Title"
+          onClose={this.handleCancel}
+          footer={[
+            <Button key="cancel" onClick={this.handleCancel}>
+              Cancel
+            </Button>,
+            <Button key="ok" type="primary" onClick={this.handleOk}>
+              Ok
+            </Button>,
+          ]}
+        >
+          {`you are visited ${this.state.content}`}
+        </Modal>
+      </div>
+    )
+  }
 }

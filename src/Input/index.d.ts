@@ -182,9 +182,9 @@ export interface InputProps<Value> extends
   placeTitle?: ReactNode,
 
   /**
-   *  点击清除按钮后数据变为 undefined
-   *
    *  After clicking the clear button, the data becomes undefined
+   *
+   *  点击清除按钮后数据变为 undefined
    *
    *  default: -
    *
@@ -192,18 +192,18 @@ export interface InputProps<Value> extends
   clearToUndefined?: boolean,
 
   /**
-   * the digits of number 仅在type = number 下生效
-   *
    * Decimal place limit (valid when type is number)
+   *
+   * the digits of number 仅在type = number 下生效
    *
    * default: -
    */
   digits?: number;
 
   /**
-   *  整数位数限制, 仅在type = number 下生效
-   *
    *  Integer bit limit (valid when type is number)
+   *
+   *  整数位数限制, 仅在type = number 下生效
    *
    *  default: -
    *
@@ -211,9 +211,9 @@ export interface InputProps<Value> extends
   integerLimit?: number,
 
   /**
-   *  设置数字类型 支持 'positive' 和 'non-negative', 仅在type = number 下生效
-   *
    *  Number type supports 'positive' and 'non-negative', only works when type = number
+   *
+   *  设置数字类型 支持 'positive' 和 'non-negative', 仅在type = number 下生效
    *
    *  default: -
    *
@@ -221,9 +221,9 @@ export interface InputProps<Value> extends
   numType?: numType,
 
   /**
-   *  非负数，仅在type = number 下生效
-   *
    *  nonnegative number (valid when type is number)
+   *
+   *  非负数，仅在type = number 下生效
    *
    *  default: -
    *
@@ -231,9 +231,9 @@ export interface InputProps<Value> extends
   nonnegative?: boolean,
 
   /**
-   *  鼠标点击后自动全选数据
-   *
    *  Automatically select all data after mouse click
+   *
+   *  鼠标点击后自动全选数据
    *
    *  default: false
    *
@@ -241,9 +241,9 @@ export interface InputProps<Value> extends
   autoSelect?: boolean,
 
   /**
-   *  失焦后自动按照 digits 精度限制补足 (type 为 number 时生效)
-   *
    *  Automatically fill up according to the precision limit of digits after out of focus
+   *
+   *  失焦后自动按照 digits 精度限制补足 (type 为 number 时生效)
    *
    *  default: false
    *
@@ -251,9 +251,9 @@ export interface InputProps<Value> extends
   autoFix?: boolean,
 
   /**
-   *  原生html属性
-   *
    *  The original property of html
+   *
+   *  原生html属性
    *
    *  default: -
    *
@@ -261,9 +261,9 @@ export interface InputProps<Value> extends
   htmlName?: string,
 
   /**
-   *  失去焦点后的回调
-   *
    *  The callback of blur
+   *
+   *  失去焦点后的回调
    *
    *  default: -
    *
@@ -321,6 +321,17 @@ export interface InputNumberProps<Value> extends InputProps<Value> {
 
 }
 
+export interface InputGroupProps<Value = any> extends InputProps<Value> {
+  /**
+   * children
+   *
+   * 子元素
+   *
+   * default: -
+   */
+  children?: ReactNode;
+}
+
 export interface InputPasswordProps<Value = any> extends InputProps<Value> {
   /**
    * password symbol
@@ -333,6 +344,7 @@ export interface InputPasswordProps<Value = any> extends InputProps<Value> {
 }
 
 declare class InputGroup<Value = any> extends React.Component<InputProps<Value>, {}> { }
+
 
 declare class InputNumber<Value = number> extends React.Component<InputNumberProps<Value>, {}> { }
 

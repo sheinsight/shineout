@@ -117,11 +117,11 @@ export interface DropdownProps extends StandardProps, Pick<StructDataStandardPro
     width?: number;
 
     /**
-     * The width of the pop-up option layer
+     * Set position property can control the direction and position of the drop-down menu
      * 
-     * 弹出选项层的宽度
+     * 弹出的方向和位置
      * 
-     * default: -
+     * default: 'auto'
      */
     position?: 'left-top' | 'left-bottom' | 'right-top' | 'right-bottom' | 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'auto'
 }

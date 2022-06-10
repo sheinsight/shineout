@@ -150,7 +150,7 @@ FormItemStandardProps<Value>
    *
    * default: -
    */
-  onBlur?: (value: Event)=> void,
+  onBlur?: (e: Event)=> void,
 
 }
 

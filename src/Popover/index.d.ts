@@ -228,7 +228,7 @@ export interface PopoverConfirmProps extends PopoverProps{
   icon?: boolean | ReactNode;
 
   /**
-   * render by the innerstyle of text when the children prop is render function
+   * Allows inner styles to be used using useTextStyle when rendering with custom functions
    *
    * 当采用自定义函数渲染时，允许通过useTextStyle来使用采用内置的文本样式
    *

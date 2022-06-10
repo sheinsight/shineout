@@ -353,7 +353,7 @@ export interface UploadProps<T> extends StandardProps, OmitFormProps<T[]>{
    */
   responseType?: string
 
-
+  // 暂时屏蔽该类型
   /**
    *  The callback of before upload
    *

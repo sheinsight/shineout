@@ -37,7 +37,7 @@ You can use Modal to display secondary content or actions without jumping to the
 | fullScreen | boolean | false | display modal with full screen | |
 | top | number \| string | 10vh | distance from top | |
 | forceMask | boolean | false | Whether to force the mask transparency (in multi-layer Modal, the transparency of other Modal masks except the first layer will be adjusted to 0.01) | |
-| noPadding | boolean | - |When the theme is Ant D, Set the content style padding to 0 | |
+| noPadding | boolean | - |When the theme is antd, Set the content style padding to 0 | |
 
 
 ### ModalMethods
