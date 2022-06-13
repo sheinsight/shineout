@@ -61,7 +61,8 @@
     "classnames": "^2.2.5",
     "dayjs": "^1.10.7",
     "deep-eql": "^4.0.0",
-    "immer": "^4.0.0"
+    "immer": "^4.0.0",
+    "ts-loader": "~8.2.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",
