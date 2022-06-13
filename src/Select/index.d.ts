@@ -384,6 +384,15 @@ export interface SelectProps<Item, Value> extends
    * default: -
    */
    compressedBound?: number;
+
+  /**
+   * The maximum number of rows for a single render. Select uses lazy render to optimize performance under large amounts of data. If your table displays more than 10 rows, you can change the value of itemsInView.
+   *
+   * 单次render的最大行数。Select 采用了lazy render的方式来优化在大量数据下的性能，如果你的表格显示的高度超出了10条，可以调整itemsInView
+   *
+   * default: 10
+   */
+   itemsInView?: number;
 }
 
 declare class Select<Item = any, Value = any> extends React.Component<SelectProps<Item, Value>, {}> { }

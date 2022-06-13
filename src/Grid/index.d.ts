@@ -36,9 +36,9 @@ export interface GridProps extends StandardProps {
 
 
   /**
-   * The types of '@media'
+   * The min size of responsive: sm: 568px; md: 768px; lg: 992px; xl: 1200px
    *
-   * 媒体查询的尺寸类型
+   * 激活响应式的最小尺寸。sm: 568px; md: 768px; lg: 992px; xl: 1200px
    *
    * default: 'md'
    */

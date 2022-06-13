@@ -220,7 +220,7 @@ export interface TabsPanelProps extends StandardProps {
   /**
    * default collapse state, effective when collapsible is set to true
    *
-   * 当设置了 collapsible 为true时，defaultCollapsed 将控制内容不自动展开内容
+   * 默认折叠状态,当 collapsible 设置为 true 时生效
    *
    * default: -
    */

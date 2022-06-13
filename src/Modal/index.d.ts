@@ -305,9 +305,9 @@ export interface ModalFunctionOptions extends ModalProps {
   autoFocusButton?: string
 
   /**
-   * Set the content style padding to 0
+   * When the theme is antd, Set the content style padding to 0
    *
-   * 取消内容区域的padding
+   * 当Sheinout采用 antd 主题时，取消内容区域的padding
    *
    * default: -
    */

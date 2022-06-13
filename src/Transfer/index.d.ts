@@ -157,9 +157,9 @@ export interface TransferProps<Item, Value> extends
   titles?: React.ReactNode[];
 
   /**
-   * desc: custom render filter
+   * desc: custom render filter. The type filterProps: value : string; disabled : boolean; onFilter : Function; placeholder : string
    * 
-   * 自定义渲染搜索
+   * 自定义过滤器渲染。自定义过滤器渲染。filterProps 包含参数如下：value : string; disabled : boolean; onFilter : Function; placeholder : string
    * 
    * default: -
    */
