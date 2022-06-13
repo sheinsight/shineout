@@ -18,14 +18,14 @@ const getProps = (file, name, mainProps = true) => {
   const expExtends = /(?<=export( declare)? interface ).*(?= extends)/g
   const expDefault = /(?<=export interface ).*(?= {)/g
   const extendProps = file.match(expExtends)
-  const defaultProps = file.match(expDefault)?.filter(f => f.indexOf('extends') === -1)
+  const defaultProps = (file.match(expDefault) || []).filter(f => f.indexOf('extends') === -1)
   const props = []
   if (extendProps) props.push(...extendProps)
   if (defaultProps) props.push(...defaultProps)
   if (mainProps) {
-    return [...new Set(props)]?.filter(p => p.indexOf(`${name}Props`) > -1)
+    return [...new Set(props)].filter(p => p.indexOf(`${name}Props`) > -1)
   }
-  return [...new Set(props)]?.filter(p => p.indexOf(`${name}Props`) === -1)
+  return [...new Set(props)].filter(p => p.indexOf(`${name}Props`) === -1)
 }
 
 const getTypes = file => {
