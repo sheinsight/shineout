@@ -352,6 +352,28 @@ export interface UploadProps<T> extends StandardProps, OmitFormProps<T[]>{
    *
    */
   responseType?: string
+
+  // 暂时屏蔽该类型
+  /**
+   *  The callback of before upload
+   *
+   *  上传前的回调
+   *
+   *  default: -
+   *
+   */
+  // beforeUpload?: (blob: Blob) => Promise<any>
+
+
+  /**
+   *  The same as the native webkitdirectory tag
+   *
+   *  同原生 input 标签的 webkitdirectory 属性
+   *
+   *  default: -
+   *
+   */
+  webkitdirectory?: boolean | string
 }
 
 export interface UploadImageProps<T> extends UploadProps<T>{
@@ -502,8 +524,9 @@ export interface UploadButtonProps<T> extends UploadProps<T> {
 
 }
 
- export type OmitUploadProps<T> = Omit<UploadProps<T>, ('showUploadList' | 'limit')>;
- // todo  这儿如果使用 OmitUploadProps 就无法继承
+// 暂时停用该类型
+// type OmitUploadProps<T> = Omit<UploadProps<T>, ('showUploadList' | 'limit')>;
+// todo  这儿如果使用 OmitUploadProps 就无法继承
 declare class UploadButton<T> extends React.Component<UploadButtonProps<T>, {}> {
   render(): JSX.Element;
 }

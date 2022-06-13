@@ -215,6 +215,15 @@ Pick<ListItemStandardProps<Item, Value>, 'keygen'>
    * default: d => d
    */
   renderItem?: ((data: Item, expand: boolean, active: boolean, id: any) => React.ReactNode) | string;
+
+  /**
+   * Expand by click parent node
+   *
+   * 点击父节点展开
+   *
+   * default: -
+   */
+  parentClickExpand?: boolean
 }
 
 declare class Tree<Item, Value> extends React.PureComponent<TreeProps<Item, Value>, {}> {

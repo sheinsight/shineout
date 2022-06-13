@@ -14,6 +14,8 @@
 | name | string | - | The name of the Form which access data |
 | onChange | (value: any, checked: boolean) => void | - | When selected, value is htmlValue and checked is true.<br />When not selected, value is undefined and checked is false. |
 | value | any | - |  |
+| inputable | boolean | false | Show input |
+| onClick | (e: MouseEvent) => void | - | Checkbox click callback |
 
 ### Checkbox.Group
 
@@ -30,3 +32,4 @@
 | prediction | (value: any, data: any) => boolean |  (val, d) => val===format(d) | By default, the result of the format function is used to compare whether it matches. In some cases (for example, whe an object that returns the original data is updated, an different option with the same value  is generated), the prediction function needs to be used to determine whether match |
 | renderItem | (data: any) => ReactNode \| string | required | When it is a string, return d\[string]<br />When it is a function, return the result of the function. |
 | value | any[] | - | In the Form, the value will be taken over by the form and the value will lose efficacy. |
+| block | boolean | false | Vertical layout |

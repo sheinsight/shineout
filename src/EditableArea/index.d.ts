@@ -100,7 +100,8 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
    *
    * default: -
    */
-  innerTitle?: ReactNode,
+  // 定向功能，不对外开放
+  // innerTitle?: ReactNode,
 
   /**
    * Placeholder title, which needs to be used together with innerTitle
@@ -128,6 +129,18 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
    * default: -
    */
   renderResult?: (value: string)=> ReactNode,
+
+  // 暂时屏蔽该属性
+  /**
+   * Customize display results
+   *
+   * 输入状态改变后的回调，抛出改变后的状态。类似onBlur。
+   *
+   * default: -
+   */
+  //  onShowTextareaChange?: (value: boolean)=> void,
+
+
 }
 
 declare class EditableArea extends React.PureComponent<EditableAreaProps, any>{}

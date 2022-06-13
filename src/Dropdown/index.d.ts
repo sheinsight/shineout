@@ -16,7 +16,7 @@ interface DropdownNode {
 
 export type DropdownItem = DropdownNode | React.ReactNode
 
-export interface DropdownProps extends StandardProps, Pick<StructDataStandardProps<DropdownNode>, 'renderItem'>{
+export interface DropdownProps extends StandardProps, Pick<StructDataStandardProps<DropdownNode>, 'renderItem'> {
     /**
      * Specifies the dropdown should be disabled
      * 
@@ -43,7 +43,7 @@ export interface DropdownProps extends StandardProps, Pick<StructDataStandardPro
      * default: []
      */
     data: DropdownItem[];
-    
+
     /**
      * Specifies the dropdown should be disabled
      * 
@@ -106,7 +106,7 @@ export interface DropdownProps extends StandardProps, Pick<StructDataStandardPro
      * default: -
      */
     type?: RegularAttributes.Type;
-    
+
     /**
      * The width of the pop-up option layer
      * 
@@ -114,9 +114,18 @@ export interface DropdownProps extends StandardProps, Pick<StructDataStandardPro
      * 
      * default: -
      */
-    width?: number;    
+    width?: number;
+
+    /**
+     * Set position property can control the direction and position of the drop-down menu
+     * 
+     * 弹出的方向和位置
+     * 
+     * default: 'auto'
+     */
+    position?: 'left-top' | 'left-bottom' | 'right-top' | 'right-bottom' | 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'auto'
 }
 
-declare class Dropdown extends React.Component<DropdownProps> {}
+declare class Dropdown extends React.Component<DropdownProps> { }
 
 export default Dropdown

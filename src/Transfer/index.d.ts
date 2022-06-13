@@ -1,12 +1,17 @@
 import * as React from 'react'
 import { StandardProps, StructDataStandardProps, FormItemStandardProps, ListItemStandardProps } from '../@types/common'
 
-export interface TransferProps<Item, Value> extends 
-StandardProps, 
-StructDataStandardProps<Item>, 
-FormItemStandardProps<Value>,
-ListItemStandardProps<Item, Value>
-{
+type filterProps = {
+  value: string,
+  disabled: boolean,
+  onFilter?: Function,
+  placeholder?: string,
+}
+export interface TransferProps<Item, Value> extends
+  StandardProps,
+  StructDataStandardProps<Item>,
+  FormItemStandardProps<Value>,
+  ListItemStandardProps<Item, Value> {
   /**
    * desc: checked by default
    * 
@@ -14,7 +19,7 @@ ListItemStandardProps<Item, Value>
    * 
    * default: none
    */
-  defaultSelectedKeys?: Value; 
+  defaultSelectedKeys?: Value;
 
   /**
    * desc: contentless display
@@ -150,8 +155,17 @@ ListItemStandardProps<Item, Value>
    * default: none
    */
   titles?: React.ReactNode[];
+
+  /**
+   * desc: custom render filter. The type filterProps: value : string; disabled : boolean; onFilter : Function; placeholder : string
+   * 
+   * 自定义过滤器渲染。自定义过滤器渲染。filterProps 包含参数如下：value : string; disabled : boolean; onFilter : Function; placeholder : string
+   * 
+   * default: -
+   */
+  renderFilter?: (value: filterProps) => React.ReactNode;
 }
 
 
-declare class Transfer<Item = any, Value = any> extends React.Component<TransferProps<Item, Value>, {}> {}
+declare class Transfer<Item = any, Value = any> extends React.Component<TransferProps<Item, Value>, {}> { }
 export default Transfer

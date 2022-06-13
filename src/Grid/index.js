@@ -13,7 +13,7 @@ export default class Grid extends PureComponent {
     className: PropTypes.string,
     gutter: PropTypes.number,
     offset: PropTypes.number,
-    responsive: PropTypes.string,
+    responsive: PropTypes.oneOf(['sm', 'md', 'lg', 'xl']),
     stretch: PropTypes.bool,
     style: PropTypes.object,
     width: PropTypes.number,

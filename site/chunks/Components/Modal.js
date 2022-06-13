@@ -23,6 +23,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Modal/example-1-base.js'),
   },
   {
+    name: '10-noPadding',
+    title: locate(
+      '无边距 \n 取消内容区域的padding。在 antd 主题下可见具体效果，sheinout主题本无边距。',
+      'NoPadding \n Set the content style padding to 0'
+    ),
+    component: require('doc/pages/components/Modal/example-10-noPadding.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Modal/example-10-noPadding.js'),
+  },
+  {
     name: '2-special',
     title: locate(
       '类型 \n Modal 内置了 4 个类型的样式：info（纯信息展示，不带有状态）、Success、Warn 和 Error，为了方便调用，设计为静态函数。',

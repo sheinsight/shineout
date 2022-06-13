@@ -226,6 +226,15 @@ export interface PopoverConfirmProps extends PopoverProps{
    * default: danger
    */
   icon?: boolean | ReactNode;
+
+  /**
+   * using inner styles
+   *
+   * 使用内置文本样式
+   *
+   * default: -
+   */
+   useTextStyle?: boolean;
 }
 
 declare class PopoverConfirm extends React.Component<PopoverConfirmProps, {}> {

@@ -193,6 +193,15 @@ const examples = [
     component: require('doc/pages/components/DatePicker/example-14-innertitle.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-14-innertitle.js'),
   },
+  {
+    name: '15-position',
+    title: locate(
+      '弹出框位置 \n 通过设置 position 指定弹出面板的位置。默认为自动',
+      'Position \n Set Position can control the different position of DatePicker'
+    ),
+    component: require('doc/pages/components/DatePicker/example-15-position.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-15-position.js'),
+  },
 ]
 
 const codes = undefined

@@ -608,3 +608,90 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-8-dark.js] 1`] =
   </div>
 </div>
 `;
+
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-9-toggleDuration.js] 1`] = `
+<div>
+  <button>
+    <span>
+      0.5s
+    </span>
+  </button>
+  <button>
+    <span>
+      2s
+    </span>
+  </button>
+  <div>
+    <div>
+      <ul>
+        <li>
+          <a>
+            Navigation One
+            <span />
+          </a>
+        </li>
+        <li>
+          <a>
+            Navigation Two
+            <span />
+          </a>
+          <ul>
+            <li>
+              <a>
+                Option 1
+                <span />
+              </a>
+            </li>
+            <li>
+              <a>
+                Option 2
+                <span />
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a>
+            Navigation Three
+            <span />
+          </a>
+          <ul>
+            <li>
+              <a>
+                Option 3
+                <span />
+              </a>
+            </li>
+            <li>
+              <a>
+                Option 4
+                <span />
+              </a>
+              <ul>
+                <li>
+                  <a>
+                    Optic 1
+                    <span />
+                  </a>
+                </li>
+                <li>
+                  <a>
+                    Optic 2
+                    <span />
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a>
+            Navigation Four
+            <span />
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;

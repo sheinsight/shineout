@@ -26,6 +26,8 @@
 | sticky | boolean \| number \| object | - | 开启头部附着 |
 | switchToTop | boolean | - | 切换tab将自动滚动到Tabs |
 | hideSplit | boolean | false | 是否隐藏分割线 |
+| color | string | - | 标签页文字颜色，仅当 shape 为 'card' 时生效 |
+| defaultCollapsed | boolean | - | 默认折叠状态,当 collapsible 设置为 true 时生效 |
 
 ### Tabs.Panel
 

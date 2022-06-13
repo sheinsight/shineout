@@ -103,6 +103,15 @@ const examples = [
     component: require('doc/pages/components/Menu/example-8-dark.js').default,
     rawText: require('!raw-loader!doc/pages/components/Menu/example-8-dark.js'),
   },
+  {
+    name: '9-toggleDuration',
+    title: locate(
+      '菜单项状态改变后持续时间 \n 当鼠标从菜单项中移开时，菜单项会在停留指定时间后消失',
+      'ToggleDuration \n When the mouse cursor is removed from  menuitem, the menuitem disappears for a specified period of time'
+    ),
+    component: require('doc/pages/components/Menu/example-9-toggleDuration.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Menu/example-9-toggleDuration.js'),
+  },
 ]
 
 const codes = undefined

@@ -114,7 +114,8 @@ FormItemStandardProps<Value>
    *
    * default: -
    */
-  innerTitle?: ReactNode,
+  // 暂时屏蔽该属性
+  // innerTitle?: ReactNode,
   /**
    * Placeholder title, which needs to be used together with innerTitle
    *
@@ -131,7 +132,7 @@ FormItemStandardProps<Value>
    *
    * default: -
    */
-  renderFooter?: (value: string)=> ReactNode,
+  renderFooter?: ReactNode,
 
   /**
    * Customize display results
@@ -140,7 +141,16 @@ FormItemStandardProps<Value>
    *
    * default: -
    */
-  renderResult?: (value: string)=> ReactNode,
+  renderResult?: ()=> ReactNode,
+
+  /**
+   * The callback when Textarea blur
+   *
+   * 失去焦点后的回调
+   *
+   * default: -
+   */
+  onBlur?: (e: Event)=> void,
 
 }
 

@@ -40,6 +40,7 @@ Used to layout, display labels, tips, errors, etc
 | required | boolean | false | Required tags for pure display. Do not trigger validation |
 | tip | string | | Prompting information |
 | keepErrorHeight | boolean | false | Single-line error prompt will not stretch the page height |
+| onReset | () => void | - | The callback of reset |
 
 ### Form.Field
 Used to handle custom form components, enabling custom form components to get/store/validate value from formdata by name.

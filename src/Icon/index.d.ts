@@ -54,6 +54,7 @@ export interface IconComProps extends StandardProps {
 
 export type IconCom = React.FC<IconComProps>
 
+export interface IconProps extends IconComProps { }
 /**
  * Function, returns a new component. A project can create more than one, but fontFamily must be the unique.
  *

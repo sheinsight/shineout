@@ -26,6 +26,8 @@
 | sticky | boolean \| number \| object | - | sticky header |
 | switchToTop | boolean | - | switch tabs will scroll to Tabs |
 | hideSplit | boolean | false | whether to hide the dividing line |
+| color | string | - | the color of tab's text only when the shape is 'card'|
+| defaultCollapsed | boolean | - | default collapse state, effective when collapsible is set to true |
 
 ### Tabs.Panel
 

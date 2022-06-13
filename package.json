@@ -1,6 +1,6 @@
 {
   "name": "shineout",
-  "version": "1.11.0-rc.11",
+  "version": "1.11.0-rc.12",
   "description": "Shein 前端组件库",
   "main": "./lib/index.js",
   "module": "./es/index.js",
@@ -36,6 +36,7 @@
     "docs-rc-build": "cross-env LOG_ENV=rc npm-run-all docs-build-*",
     "build-clean": "rm -rf publish/es publish/dist publish/lib publish/css",
     "build-index": "node scripts/src-index.js",
+    "build-index-d": "node scripts/src-index.d.js",
     "build-package": "node scripts/build-package.js",
     "build-dist-dev": "cross-env NODE_ENV=development webpack --config webpack/config.dist.dev.js",
     "build-dist": "cross-env NODE_ENV=production webpack --config webpack/config.dist.js",

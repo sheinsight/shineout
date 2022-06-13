@@ -40,6 +40,9 @@
 | underline | boolean | false | only display border bottom  |
 | clearWithUndefined | boolean | false | onChange get undefined while clear value |
 | innerTitle | string | - | inner title |
+| inputable | boolean | false | Allow enter something into DatePicker |
+| position | 'left-top' \| 'left-bottom' \| 'right-top' \| 'right-bottom' | - | Set Position can control the different position of DatePicker |
+| size | 'small' \| 'default' \| 'large' | 'default' | There are three built-in size: small、default、large. |
 
 ### DatePickerFormat
 

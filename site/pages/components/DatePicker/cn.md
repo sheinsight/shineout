@@ -40,7 +40,9 @@
 | underline | boolean | false | 是否只展示下边框 |
 | clearWithUndefined | boolean | false | 在清空值时抛出是否抛出 undefined |
 | innerTitle | string | - | 内嵌标题 |
-
+| inputable | boolean | false | 可输入 |
+| position | 'left-top' \| 'left-bottom' \| 'right-top' \| 'right-bottom' | - | 弹出框位置 |
+| size | 'small' \| 'default' \| 'large' | 'default' | 尺寸大小 |
 
 ### DatePickerFormat
 

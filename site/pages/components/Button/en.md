@@ -20,6 +20,7 @@
 | onClick | () => void | none | button click callback |
 | space | boolean | false | For Button with only 2 Chinese characters, whether to insert a space between the two Chinese characters. |
 | loading | boolean | false | is loading |
+| htmlType | 'button' \| 'reset' \| 'submit' | 'button' | type of button original |
 
 ### Button.Group
 
