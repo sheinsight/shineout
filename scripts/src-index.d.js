@@ -18,18 +18,17 @@ const getProps = (file, name, mainProps = true) => {
   const expExtends = /(?<=export( declare)? interface ).*(?= extends)/g
   const expDefault = /(?<=export interface ).*(?= {)/g
   const extendProps = file.match(expExtends)
-  const defaultProps = file.match(expDefault)?.filter(f => f.indexOf('extends') == -1)
+  const defaultProps = file.match(expDefault)?.filter(f => f.indexOf('extends') === -1)
   const props = []
   if (extendProps) props.push(...extendProps)
   if (defaultProps) props.push(...defaultProps)
   if (mainProps) {
     return [...new Set(props)]?.filter(p => p.indexOf(`${name}Props`) > -1)
-  } else {
-    return [...new Set(props)]?.filter(p => p.indexOf(`${name}Props`) === -1)
   }
+  return [...new Set(props)]?.filter(p => p.indexOf(`${name}Props`) === -1)
 }
 
-const getTypes = (file, name) => {
+const getTypes = file => {
   const exp = /(?<=export type ).*(?= =)/g
   return file.match(exp) || []
 }
@@ -40,13 +39,9 @@ const getArgs = types => {
   return result ? `<${result[0].split('=')[0].trim()}>` : ''
 }
 
-const getTypeName = types => {
-  return types.toString().split('<')[0]
-}
+const getTypeName = types => types.toString().split('<')[0]
 
-const getOtherTypeName = (types, name) => {
-  return types.split(name)[1] || types
-}
+const getOtherTypeName = (types, name) => types.split(name)[1] || types
 
 const getAsName = types => {
   if (Array.isArray(types) && types.length > 0) {
@@ -94,7 +89,7 @@ export { default as <%= key %> } from './<%= key %>'
 import { <%- getAsName(getTypeName(components[key].props)) -%><%- components[key].props.length>0 ? ' , ' :'' -%><%- getAsName(components[key].other) -%><%- components[key].other.length>0 ? ' , ' :'' -%><%- getAsName(components[key].types) -%> } from './<%= key %>'
 
 <% } -%>
-    
+
 export namespace <%= NAMESPACE -%> {
 <% for(let key in components){ -%>
     export namespace <%= key -%> {
