@@ -433,3 +433,17 @@ exports[`Snapshot test: Checkbox[site/pages/components/Checkbox/example-11-input
   </span>
 </label>
 `;
+
+exports[`Snapshot test: Checkbox[site/pages/components/Checkbox/example-12-onClick.js] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span>
+      Click Me 
+      0
+       Times !
+    </span>
+  </label>
+</div>
+`;

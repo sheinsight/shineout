@@ -31,3 +31,14 @@ exports[`Snapshot test: Textarea[site/pages/components/Textarea/example-4-custom
   <textarea />
 </label>
 `;
+
+exports[`Snapshot test: Textarea[site/pages/components/Textarea/example-5-renderFooter.js] 1`] = `
+<label>
+  <textarea />
+  <div>
+    <span>
+      Tip : Hello SHEIN !
+    </span>
+  </div>
+</label>
+`;
