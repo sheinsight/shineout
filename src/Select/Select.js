@@ -428,29 +428,29 @@ class Select extends PureComponent {
     const { focus, position } = this.state
     const { optionWidth } = this.props
     const props = {}
-      ;[
-        'treeData',
-        'expanded',
-        'onExpand',
-        'loader',
-        'defaultExpanded',
-        'defaultExpandAll',
-        'datum',
-        'keygen',
-        'multiple',
-        'text',
-        'height',
-        'loading',
-        'onFilter',
-        'filterText',
-        'absolute',
-        'zIndex',
-        'childrenKey',
-        'expandIcons',
-        'emptyText',
-      ].forEach(k => {
-        props[k] = this.props[k]
-      })
+    ;[
+      'treeData',
+      'expanded',
+      'onExpand',
+      'loader',
+      'defaultExpanded',
+      'defaultExpandAll',
+      'datum',
+      'keygen',
+      'multiple',
+      'text',
+      'height',
+      'loading',
+      'onFilter',
+      'filterText',
+      'absolute',
+      'zIndex',
+      'childrenKey',
+      'expandIcons',
+      'emptyText',
+    ].forEach(k => {
+      props[k] = this.props[k]
+    })
     const style = optionWidth && { width: optionWidth }
     props.renderItem = this.renderItem
     return (
@@ -474,29 +474,29 @@ class Select extends PureComponent {
     const { focus, control, position } = this.state
     const { autoAdapt, value, optionWidth } = this.props
     const props = {}
-      ;[
-        'data',
-        'datum',
-        'keygen',
-        'multiple',
-        'columns',
-        'columnWidth',
-        'columnsTitle',
-        'text',
-        'itemsInView',
-        'absolute',
-        'lineHeight',
-        'height',
-        'loading',
-        'onFilter',
-        'filterText',
-        'zIndex',
-        'groupKey',
-        'hideCreateOption',
-        'emptyText',
-      ].forEach(k => {
-        props[k] = this.props[k]
-      })
+    ;[
+      'data',
+      'datum',
+      'keygen',
+      'multiple',
+      'columns',
+      'columnWidth',
+      'columnsTitle',
+      'text',
+      'itemsInView',
+      'absolute',
+      'lineHeight',
+      'height',
+      'loading',
+      'onFilter',
+      'filterText',
+      'zIndex',
+      'groupKey',
+      'hideCreateOption',
+      'emptyText',
+    ].forEach(k => {
+      props[k] = this.props[k]
+    })
 
     const List = props.columns >= 1 || props.columns === -1 ? WrappedBoxList : WrappedOptionList
     const style = optionWidth && { width: optionWidth }

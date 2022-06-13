@@ -22,4 +22,5 @@
 | maxHeight | number \| string | 无 | 输入框的最大高度, 超过之后会出现滚动条 |
 | getPopupContainer | () => HTMLElement | 无 | 自定义Popover容器，覆盖默认渲染在body下的行为, () => DOMElement |
 | width | number \| string | 无 | 编辑域宽度 |
-| innerTitle | string | - | 内嵌标题 |
+| renderFooter | (value: string)=> ReactNode | - | 渲染 textarea footer |
+| renderResult | (value: string)=> ReactNode | - | 自定义显示结果 |

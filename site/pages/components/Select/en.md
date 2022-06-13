@@ -56,3 +56,7 @@
 | underline | boolean | false | only display border bottom  |
 | innerTitle | string | - | inner title |
 | filterSameChange | boolean | false | filter out value change callbacks with the same value |
+| itemsInView | number | 10 | The maximum number of rows for a single render. Select uses lazy render to optimize performance under large amounts of data. If your table displays more than 10 rows, you can change the value of itemsInView. |
+| loading |  boolean \| ReactNode | false | When it is true, a default [Spin](/components/Spin) component will be displayed, a custom loading icon can be passed in to replace |
+| size |  'large' \| 'default' \| 'small'| 'default' | size |
+| trim | boolean | false | When trim is true, blank characters are automatically deleted when lose focus |

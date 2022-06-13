@@ -220,6 +220,15 @@ const examples = [
     component: require('doc/pages/components/Select/example-18-innertitle.js').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-18-innertitle.js'),
   },
+  {
+    name: '19-loading',
+    title: locate(
+      '加载中 \n 数据加载中，为true时会展示一个默认的[Spin](/components/Spin)组件，可以传入一个自定义的Spin代替',
+      'Loading \n When it is true, a default [Spin](/components/Spin) component will be displayed, a custom loading icon can be passed in to replace.'
+    ),
+    component: require('doc/pages/components/Select/example-19-loading.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-19-loading.js'),
+  },
 ]
 
 const codes = undefined

@@ -31,7 +31,8 @@
 | onFilter | (text: string, value: any, isSource: boolean) => boolean | 无 | 筛选函数, 参数为: 输入文本, 数据, 是否为左侧数据 | |
 | loading| boolean \| boolean[] | 无 | 加载中, 如果需要两侧加载中状态不一致, 需要传入数组 | |
 | onSearch | (text: string, isSource: boolean) => void | 无 | 输入框值变化的回调, 参数为: 输入文本, 是否为左侧数据 | 1.4.4 |
-| rowsInView | number | 20 | 一次加载的数据条数 |
-| listHeight | number | 180 | 列表高度 |
-| lineHeight | number | 32 | 列表行高 |
-| children | (({onSelected, selectedKeys, value, direction, filterText}) => ReactNode) | null | 自定义渲染内容 |
+| rowsInView | number | 20 | 一次加载的数据条数 ||
+| listHeight | number | 180 | 列表高度 ||
+| lineHeight | number | 32 | 列表行高 ||
+| children | (({onSelected, selectedKeys, value, direction, filterText}) => ReactNode) | null | 自定义渲染内容 ||
+| renderFilter | (value: filterProps) => React.ReactNode; | - | 自定义过滤器渲染。filterProps 包含参数如下： <br />value : string <br />disabled : boolean <br />onFilter : Function <br />placeholder : string||

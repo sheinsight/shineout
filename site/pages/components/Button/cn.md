@@ -20,6 +20,7 @@
 | onClick | () => void | 无 | 按钮点击回调 |
 | space | boolean | false | 仅有2个汉字的按钮，是否在2个汉字中间插入空格 |
 | loading | boolean | false | 是否是加载中状态 |
+| htmlType | 'button' \| 'reset' \| 'submit' | 'button' | button的原生type属性 |
 
 ### Button.Group
 

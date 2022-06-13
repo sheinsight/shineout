@@ -28,10 +28,11 @@
 | onSelectChange | (sourceKeys: any[], targetKeys: any[]) => void | - |  Check the trigger method | |
 | disabled | (data: any) => boolean \| boolean | false | When the value is true, disabled all checkboxes; When the value is function, disable the checkbox that this function returns true. | |
 | empty | ReactNode | "no data" | Contentless display | |
-| onFilter | (text: string, value: any, isSource: boolean) => boolean | - | Filter function. params: input text, the data, is data in left |
+| onFilter | (text: string, value: any, isSource: boolean) => boolean | - | Filter function. params: input text, the data, is data in left ||
 | loading| boolean \| boolean[] | - | Loading, if you need to have inconsistent states on both sides of the load, you need to pass in the array | |
 | onSearch | (text: string, isSource: boolean) => void | - | the callback of input change, params: input text, is data in the left | 1.4.4 |
-| rowsInView | number | 20 | loaded rows |
-| listHeight | number | 180 | list height |
-| lineHeight | number | 32 | list line height |
-| children | (({onSelected, selectedKeys, value, direction, filterText}) => ReactNode) | null | custom render content |
+| rowsInView | number | 20 | loaded rows ||
+| listHeight | number | 180 | list height ||
+| lineHeight | number | 32 | list line height ||
+| children | (({onSelected, selectedKeys, value, direction, filterText}) => ReactNode) | null | custom render content ||
+| renderFilter | (value: filterProps) => React.ReactNode; | - | custom render filter. The type filterProps: <br />value : string <br />disabled : boolean <br />onFilter : Function <br />placeholder : string ||

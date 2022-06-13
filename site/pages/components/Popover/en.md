@@ -30,6 +30,7 @@
 | okType | string | *primary* |  ok button's type, same with Button type |
 | zIndex | number | 1060 | z-index of popover |
 | clickToCancelDelay | boolean | false | Cancel the popup after clicking the element in mouseEnterDelay |
+| useTextStyle | boolean | - | Using inner styles |
 
 ### Popover.Confirm
 

@@ -38,3 +38,4 @@
 | iconClass | string | - | expand/collapse button's class |
 | nodeClass | string \| ((data: any) => string) | - | The class of the node, if it is a function, the parameter is the node data. |
 | dragSibling | boolean  | - | whether drag can only be level |
+| parentClickExpand | boolean  | false | Expand by click parent node |

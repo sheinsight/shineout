@@ -40,6 +40,15 @@ const examples = [
     component: require('doc/pages/components/Breadcrumb/example-3-icon.js').default,
     rawText: require('!raw-loader!doc/pages/components/Breadcrumb/example-3-icon.js'),
   },
+  {
+    name: '4-renderItem',
+    title: locate(
+      '自定义渲染 \n 自定义渲染面包屑中的内容',
+      'Base \n Custom render content in Breadcrumb'
+    ),
+    component: require('doc/pages/components/Breadcrumb/example-4-renderItem.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Breadcrumb/example-4-renderItem.js'),
+  },
 ]
 
 const codes = undefined

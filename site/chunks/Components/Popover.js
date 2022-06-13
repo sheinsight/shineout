@@ -68,6 +68,15 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Popover/example-13-nested.js'),
   },
   {
+    name: '13-useTextStyle',
+    title: locate(
+      '内置文本样式 \n 当采用自定义函数渲染时，允许通过useTextStyle来使用采用内置的文本样式',
+      'useTextStyle \n Render by the innerstyle of text when the children prop is render function'
+    ),
+    component: require('doc/pages/components/Popover/example-13-useTextStyle.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Popover/example-13-useTextStyle.js'),
+  },
+  {
     name: '2-delay',
     title: locate(
       '延迟 \n 可以设置展示延时和关闭延时',
