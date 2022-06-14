@@ -192,6 +192,43 @@ export interface CheckColumn<T> extends SomeColumn<T>{
 
 export type ColumnItem<T> = CommonColumn<T> | CheckColumn<T>
 
+interface TableWithRadio<Value, TRD> extends CommonTableProps<Value, TRD>  {
+  /**
+   * is Radio
+   *
+   * 是否单选
+   *
+   * default: false
+   */
+ radio:true;
+ /**
+   * Select row. Rows is the selected data.
+   *
+   * 选择行。rows为选中的数据。如果需要数据需要格式化的处理，建议配置 format 和 prediction
+   *
+   * default: none
+   */
+ onRowSelect:(rows:TRD)=>void
+}
+interface TableWithOutRadio<Value, TRD> extends CommonTableProps<Value, TRD> {
+  /**
+   * is Radio
+   *
+   * 是否单选
+   *
+   * default: false
+   */
+ radio?:false;
+ /**
+   * Select row. Rows is the selected data.
+   *
+   * 选择行。rows为选中的数据。如果需要数据需要格式化的处理，建议配置 format 和 prediction
+   *
+   * default: none
+   */
+ onRowSelect:(rows:TRD[])=>void
+}
+// type onRowSelectType<TRD> = ((rows: TRD) => void) & ((rows: TRD[]) => void) 
 
 export interface RowEvents {
   [propName: string]: any
@@ -203,7 +240,7 @@ export interface TableRef {
   [key: string]: any;
 }
 
-export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardProps<TRD, Value> {
+export interface CommonTableProps<Value, TRD> extends StandardProps, ListItemStandardProps<TRD, Value> {
 
   /**
    * Whether to display the border
@@ -267,16 +304,6 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    * default: none
    */
   onRowClick?: (data: TRD, index: number) => void;
-
-  /**
-   * Select row. Rows is the selected data.
-   *
-   * 选择行。rows为选中的数据。如果需要数据需要格式化的处理，建议配置 format 和 prediction
-   *
-   * default: none
-   */
-  onRowSelect?: (rows: TRD[]) => void;
-
 
   /**
    * Specify row className
@@ -430,15 +457,6 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    * default: none
    */
   onSortCancel?: (prevType: ColumnOrder, index: number, orders: any, sort: any) => void;
-
-  /**
-   * is Radio
-   *
-   * 是否单选
-   *
-   * default: false
-   */
-  radio?: boolean;
 
   /**
    * tr events
@@ -595,6 +613,9 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
   cellSelectable?: boolean
 
 }
+
+export type TableProps<Value,TRD> =  TableWithOutRadio<Value,TRD> | TableWithRadio<Value,TRD>
+
 
 declare class Table<Value = any, TRD = TableRowData> extends React.Component<TableProps<Value, TRD>, {}> {
   render(): JSX.Element;
