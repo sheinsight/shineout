@@ -25,6 +25,8 @@ export interface StandardProps {
 
 export type keyType = string | number | symbol
 
+export type keygenType<Item> = ((data: Item) => keyType) | string | true;
+
 export interface FormItemStandardProps<Value = any> {
     /**
      * Do not delete value when form Item is unmounted
@@ -115,7 +117,7 @@ export interface ListItemStandardProps<Item = any, Value = any> {
      *
      * default: index
      */
-    keygen: ((data: Item) => keyType) | string | true;
+    keygen: keygenType<Item>
 
 
     /**
