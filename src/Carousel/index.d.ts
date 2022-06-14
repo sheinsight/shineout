@@ -12,7 +12,7 @@ export interface CarouselProps extends StandardProps {
      *
      * default: 'slide'
      */
-     animation?: string;
+     animation?: 'slide'|'slide-y'|'fade';
 
      /**
       * the position of indicator
