@@ -46,7 +46,7 @@ class Year extends PureComponent {
       isDisabled = max && utils.compareYear(date, max, 1) >= 0
     }
 
-    if (!isDisabled && type === 'month' && typeof disabled === 'function') {
+    if (!isDisabled && type === 'year' && typeof disabled === 'function') {
       isDisabled = disabled(date)
     }
 
@@ -86,9 +86,7 @@ class Year extends PureComponent {
           <Icon name="AngleRight" className="right" onClick={this.handleNextRange} />
         </div>
 
-        <div className={datepickerClass('list')}>
-          {years.map(this.renderYear)}
-        </div>
+        <div className={datepickerClass('list')}>{years.map(this.renderYear)}</div>
       </div>
     )
   }
