@@ -58,6 +58,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.14.6",
+    "@types/react-router-dom": "^5.3.3",
     "classnames": "^2.2.5",
     "dayjs": "^1.10.7",
     "deep-eql": "^4.0.0",
