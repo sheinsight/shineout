@@ -15,39 +15,47 @@ const source = locate(cn, en)
 const examples = [
   {
     name: '1-base',
+    isTs: false,
     title: locate(
       '基本用法 \n 组件调用通过 json 数据配置',
       'Base \n The basic usage.'
     ),
     component: require('doc/pages/components/Breadcrumb/example-1-base.js').default,
     rawText: require('!raw-loader!doc/pages/components/Breadcrumb/example-1-base.js'),
+
   },
   {
     name: '2-separator',
+    isTs: false,
     title: locate(
       '分隔符 \n 默认的分隔符为 \'/\'，可以通过 separator 属性自定义',
       'separator \n The default separator is \'/\'.'
     ),
     component: require('doc/pages/components/Breadcrumb/example-2-separator.js').default,
     rawText: require('!raw-loader!doc/pages/components/Breadcrumb/example-2-separator.js'),
+
   },
   {
     name: '3-icon',
+    isTs: false,
     title: locate(
       '图标 \n 带图标的面包屑',
       'icon \n Breadcrumbs with icons'
     ),
     component: require('doc/pages/components/Breadcrumb/example-3-icon.js').default,
     rawText: require('!raw-loader!doc/pages/components/Breadcrumb/example-3-icon.js'),
+
   },
   {
     name: '4-renderItem',
+    isTs: false,
     title: locate(
       '自定义渲染 \n 自定义渲染面包屑中的内容',
       'Base \n Custom render content in Breadcrumb'
     ),
     component: require('doc/pages/components/Breadcrumb/example-4-renderItem.js').default,
     rawText: require('!raw-loader!doc/pages/components/Breadcrumb/example-4-renderItem.js'),
+
   },
 ]
 

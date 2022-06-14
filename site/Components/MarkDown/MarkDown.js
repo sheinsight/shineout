@@ -21,6 +21,7 @@ const createId = (level, str) => {
 export default function MarkDown({ onHeadingSetted, codes, examples, source }) {
   let [headings] = useState([])
   const [cache] = useState({})
+  console.log('!!!', examples)
 
   useEffect(() => {
     if (onHeadingSetted) {

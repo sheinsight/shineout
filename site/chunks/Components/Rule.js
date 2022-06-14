@@ -15,12 +15,14 @@ const source = locate(cn, en)
 const examples = [
   {
     name: 'locale',
+    isTs: false,
     title: locate(
       '',
       ''
     ),
     component: require('doc/pages/components/Rule/example-locale.js').default,
     rawText: require('!raw-loader!doc/pages/components/Rule/example-locale.js'),
+
   },
 ]
 
