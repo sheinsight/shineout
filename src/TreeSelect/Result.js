@@ -266,17 +266,13 @@ class Result extends PureComponent {
         innerTitle={innerTitle}
         open={open}
         className={treeSelectClass('title-box')}
-        titleClass={treeSelectClass(
-          'title-box-title',
-          showPlaceholder && 'title-box-title-empty',
-          compressed && 'title-box-title-compressed'
-        )}
+        titleClass={treeSelectClass(getDirectionClass('title-box-title'))}
       >
         <div
           ref={this.bindResult}
           className={classnames(
             treeSelectClass(getDirectionClass('result'), compressed && 'compressed', showPlaceholder && 'empty'),
-            innerTitle && inputTitleClass(getDirectionClass('item'))
+            innerTitle && inputTitleClass('item-scroll')
           )}
         >
           {result}
