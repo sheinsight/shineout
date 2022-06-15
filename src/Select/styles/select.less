@@ -10,7 +10,7 @@
 @tree-node-max-width: 300px;
 @indicator-start: 7px;
 @baseOffset: 12;
-@mutiOffset: 22;
+@multiOffset: 22;
 
 .@{select-prefix} {
   position: relative;
@@ -556,10 +556,10 @@
 
   &-multiple &-result:not(&-empty) {
     padding-left: (@padding-base-horizontal / 2);
-    padding-right: @padding-base-horizontal + @mutiOffset;
+    padding-right: @padding-base-horizontal + @multiOffset;
     .@{input-prefix}-rtl & ,@{select-prefix}-rtl & {
       padding-right: (@padding-base-horizontal / 2);
-      padding-left: @padding-base-horizontal + @mutiOffset;
+      padding-left: @padding-base-horizontal + @multiOffset;
     }
     .@{select-prefix}-close-warpper {
       right: 17px;
@@ -699,7 +699,7 @@
   }
 
   &-multiple &-title-box &-title-box-title, &-multiple &-title-box &-result {
-    .inner-title-responsive-offset(@select-prefix, 0, @mutiOffset, ~'1' )
+    .inner-title-responsive-offset(@select-prefix, 0, @multiOffset, ~'1' )
   }
 
 }

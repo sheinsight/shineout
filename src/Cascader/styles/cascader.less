@@ -8,6 +8,8 @@
 @input-prefix: ~'@{so-prefix}-input';
 @select-prefix: ~'@{so-prefix}-select';
 @input-title-prefix: ~'@{so-prefix}-input-title-box';
+@baseOffset: 12;
+@multiOffset: 22;
 
 .@{cascader-prefix} {
   position: relative;
@@ -27,10 +29,10 @@
     overflow-y: auto;
     flex-grow: 1;
     &-ltr {
-      padding: @padding-base-vertical @padding-base-horizontal+12 0 @padding-base-horizontal;
+      padding: @padding-base-vertical @padding-base-horizontal+@baseOffset 0 @padding-base-horizontal;
     }
     &-rtl {
-      padding: @padding-base-vertical   @padding-base-horizontal 0  @padding-base-horizontal+12;
+      padding: @padding-base-vertical   @padding-base-horizontal 0  @padding-base-horizontal+@baseOffset;
     }
 
     .@{so-prefix}-input-placeholder {
@@ -203,10 +205,10 @@
     flex-wrap: nowrap;
     align-items: flex-start;
     &-ltr {
-      padding: @padding-base-vertical @padding-base-horizontal+22 0 @padding-base-horizontal;
+      padding: @padding-base-vertical @padding-base-horizontal+@multiOffset 0 @padding-base-horizontal;
     }
     &-rtl {
-      padding: @padding-base-vertical @padding-base-horizontal 0 @padding-base-horizontal + 22;
+      padding: @padding-base-vertical @padding-base-horizontal 0 @padding-base-horizontal+@multiOffset;
     }
     .@{cascader-prefix}-item {
       text-overflow: ellipsis;
@@ -431,10 +433,10 @@
 
 .@{cascader-prefix} {
   &-title-box &-title-box-title, .@{input-title-prefix}&-title-box &-result {
-    .inner-title-responsive-offset(@cascader-prefix,0, 12)
+    .inner-title-responsive-offset(@cascader-prefix,0, @baseOffset)
   }
   &-title-box &-title-box-title-compressed&-title-box-title, &-title-box &-compressed&-result {
-    .inner-title-responsive-offset(@cascader-prefix, 0, 22)
+    .inner-title-responsive-offset(@cascader-prefix, 0, @multiOffset)
   }
   &-title-box {
     > .@{input-title-prefix}-content {
