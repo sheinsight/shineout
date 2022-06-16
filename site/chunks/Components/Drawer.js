@@ -14,14 +14,15 @@ const source = locate(cn, en)
 
 const examples = [
   {
-    name: '1-base',
-    isTs: false,
+    name: '1-base.tsx',
+    isTs: true,
     title: locate(
       '基本用法 \n 最基本的组件用法。 \n Drawer 会在 document.body 中创建一个新的层显示弹出内容。 \n 关闭 Drawer 时默认没有对组件进行销毁, 只是隐藏, 组件的状态会被保留。 如果不需要保留组件之前的状态, 可以设置 destroy 属性。',
       'Base \n The basic usage for component.'
     ),
-    component: require('doc/pages/components/Drawer/example-1-base.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Drawer/example-1-base.js'),
+    component: require('doc/pages/components/Drawer/example-1-base.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Drawer/example-1-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Drawer/example-1-base.tsx'),
 
   },
   {
