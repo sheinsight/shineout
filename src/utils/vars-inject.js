@@ -965,7 +965,14 @@ const injects = {
         className: exposeClass('checkbox-disabled'),
         attr: 'backgroundColor',
         type: 'color',
-        desc: 'Checkbox 和 Radio 禁用后的背景色',
+        desc: 'Checkbox 和 Radio 未选中状态禁用后的背景色',
+      },
+      {
+        name: 'checkboxCheckedDisabledBgc',
+        className: exposeClass('checkbox-checked-disabled'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'Checkbox 和 Radio 选中状态下禁用后的背景色',
       },
     ],
     set marginRight(v) {
@@ -1020,6 +1027,14 @@ const injects = {
       setBodyProperty(
         {
           '--checkbox-disabled-bgc': v,
+        },
+        v
+      )
+    },
+    set checkboxCheckedDisabledBgc(v) {
+      setBodyProperty(
+        {
+          '--checkbox-checked-disabled-bgc': v,
         },
         v
       )
