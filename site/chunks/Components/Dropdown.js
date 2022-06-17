@@ -14,14 +14,15 @@ const source = locate(cn, en)
 
 const examples = [
   {
-    name: '1-base',
-    isTs: false,
+    name: '1-base.tsx',
+    isTs: true,
     title: locate(
       '基本用法 \n Dropdown 通过数据来渲染，支持 json 格式数据、React 组件',
       'Base \n Dropdown is rendered through data and supports json formatted data and React components.'
     ),
-    component: require('doc/pages/components/Dropdown/example-1-base.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-1-base.js'),
+    component: require('doc/pages/components/Dropdown/example-1-base.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-1-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Dropdown/example-1-base.tsx'),
 
   },
   {
