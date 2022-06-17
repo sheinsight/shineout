@@ -9,12 +9,12 @@ import React from 'react'
 import { EditableArea } from 'shineout'
 
 function renderFooter() {
-   return <div>Tip</div>
+  return <div>Tip</div>
 }
-export default function () {
-    return (
-        <div>
-            <EditableArea bordered renderFooter={renderFooter} placeholder="input something" />
-        </div>
-    )
+export default function() {
+  return (
+    <div>
+      <EditableArea bordered renderFooter={renderFooter} placeholder="input something" />
+    </div>
+  )
 }
