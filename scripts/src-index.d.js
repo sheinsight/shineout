@@ -82,7 +82,7 @@ files.forEach(f => {
     }
   }
 })
-const line = `// Created by scripts/src-index.js.
+const line = `// Created by scripts/src-index.d.js.
 import * as utils from './utils'
 
 export default { utils, version: '<%= version %>' }
