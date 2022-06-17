@@ -39,7 +39,6 @@ const data = [
 
 const App: React.FC = () => (
   <Cascader
-    size="large"
     mode={2}
     compressed
     innerTitle="select city"
