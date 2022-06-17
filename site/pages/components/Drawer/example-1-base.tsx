@@ -6,29 +6,57 @@
  * en - Base
  *    -- The basic usage for component.
  */
-import React from 'react'
-import { Drawer, Button } from 'shineout'
+import React, { useState } from 'react'
+import { Drawer, Button, TYPE } from 'shineout'
 
-const App: React.FC = () => (
-  <div>
-    <Button onClick={this.show}>click me</Button>
-    <Drawer
-      width={400}
-      visible={this.state.visible}
-      title="Drawer Title"
-      onClose={this.handleCancel}
-      footer={[
-        <Button key="cancel" onClick={this.handleCancel}>
-          Cancel
-        </Button>,
-        <Button key="ok" type="primary" onClick={this.handleOk}>
-          Ok
-        </Button>,
-      ]}
-    >
-      {`you are visited ${this.state.content}`}
-    </Drawer>
-  </div>
-)
+type DrawerProps = TYPE.Drawer.Props
+type DrawerVisible = DrawerProps['visible']
+type DrawerOnClose = DrawerProps['onClose']
+
+type ButtonProps = TYPE.Button.Props
+type ButtonOnClick = ButtonProps['onClick']
+
+const App: React.FC = () => {
+  const [content, setContent] = useState(1)
+  const [visible, setVisible] = useState<DrawerVisible>(false)
+
+  const handleCancel: DrawerOnClose = () => {
+    setVisible(false)
+    setContent(content + 1)
+    console.log('clicked cancel')
+  }
+
+  const handleOk: ButtonOnClick = () => {
+    setVisible(false)
+    setContent(content + 1)
+    console.log('clicked ok!')
+  }
+
+  const show: ButtonOnClick = () => {
+    setVisible(true)
+  }
+
+  return (
+    <div>
+      <Button onClick={show}>click me</Button>
+      <Drawer
+        width={400}
+        visible={visible}
+        title="Drawer Title"
+        onClose={handleCancel}
+        footer={[
+          <Button key="cancel" onClick={handleCancel}>
+            Cancel
+          </Button>,
+          <Button key="ok" type="primary" onClick={handleOk}>
+            Ok
+          </Button>,
+        ]}
+      >
+        {`you are visited ${content}`}
+      </Drawer>
+    </div>
+  )
+}
 
 export default App

@@ -26,69 +26,75 @@ const examples = [
 
   },
   {
-    name: '2-position',
-    isTs: false,
+    name: '2-position.tsx',
+    isTs: true,
     title: locate(
       '位置 \n 通过 position 可设置 Drawer 弹出的位置, 现支持 top、right、bottom 和 left 四个位置配置。',
       'Position \n Set position property to specify the pop-up position.'
     ),
-    component: require('doc/pages/components/Drawer/example-2-position.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Drawer/example-2-position.js'),
+    component: require('doc/pages/components/Drawer/example-2-position.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Drawer/example-2-position.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Drawer/example-2-position.tsx'),
 
   },
   {
-    name: '3-gcontainer',
-    isTs: false,
+    name: '3-gcontainer.tsx',
+    isTs: true,
     title: locate(
       '指定目标 \n 使用 container 来指定 Drawer 渲染的目标节点',
       'Target \n set container to render target node'
     ),
-    component: require('doc/pages/components/Drawer/example-3-gcontainer.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Drawer/example-3-gcontainer.js'),
+    component: require('doc/pages/components/Drawer/example-3-gcontainer.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Drawer/example-3-gcontainer.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Drawer/example-3-gcontainer.tsx'),
 
   },
   {
-    name: '4-form',
-    isTs: false,
+    name: '4-form.tsx',
+    isTs: true,
     title: locate(
       '表单 \n Drawer 支持 Form 表单，并且支持 Form 的所有特性，表单提交可以使用 Drawer.Submit 来代替 Button[type=submit]',
       'Form \n The internal form of Drawer can use Drawer.Submit to trigger submit.'
     ),
-    component: require('doc/pages/components/Drawer/example-4-form.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Drawer/example-4-form.js'),
+    component: require('doc/pages/components/Drawer/example-4-form.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Drawer/example-4-form.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Drawer/example-4-form.tsx'),
 
   },
   {
-    name: '6-close',
-    isTs: false,
+    name: '6-close.tsx',
+    isTs: true,
     title: locate(
       '点击空白关闭 \n 默认点击抽屉外部空白页面会关闭抽屉。 \n 设置 maskCloseAble 属性为 false，禁用点击空白关闭，同时右上角的关闭图标也会隐藏。 \n 设置 maskCloseAble 属性为 null，禁用点击空白关闭，右上角的关闭图标会保留。',
       'Close \n By default, clicking on the blank page outside the Drawer box will closes the Drawer box. \n Set maskCloseAble to false to disable the function that click mask to close and the close icon in the upper right corner will be hidden at the same time. \n Set maskCloseAbel to null to disable the function that click mask to close and the close icon in the upper right corner will be preserved.'
     ),
-    component: require('doc/pages/components/Drawer/example-6-close.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Drawer/example-6-close.js'),
+    component: require('doc/pages/components/Drawer/example-6-close.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Drawer/example-6-close.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Drawer/example-6-close.tsx'),
 
   },
   {
-    name: '7-full-screen',
-    isTs: false,
+    name: '7-full-screen.tsx',
+    isTs: true,
     title: locate(
       '全屏 \n 使用 fullScreen 属性来使抽屉全屏展示',
       'Full Screen \n Use the fullScreen property to display the Drawer in full screen'
     ),
-    component: require('doc/pages/components/Drawer/example-7-full-screen.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Drawer/example-7-full-screen.js'),
+    component: require('doc/pages/components/Drawer/example-7-full-screen.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Drawer/example-7-full-screen.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Drawer/example-7-full-screen.tsx'),
 
   },
   {
-    name: '8-type',
-    isTs: false,
+    name: '8-type.tsx',
+    isTs: true,
     title: locate(
       '附带图标 \n 使用 type 属性来指定标题附带的图标',
       'Icon \n use type display type icon'
     ),
-    component: require('doc/pages/components/Drawer/example-8-type.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Drawer/example-8-type.js'),
+    component: require('doc/pages/components/Drawer/example-8-type.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Drawer/example-8-type.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Drawer/example-8-type.tsx'),
 
   },
 ]
