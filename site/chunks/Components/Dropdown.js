@@ -26,69 +26,75 @@ const examples = [
 
   },
   {
-    name: '2-hover',
-    isTs: false,
+    name: '2-hover.tsx',
+    isTs: true,
     title: locate(
       '触发 \n Dropdown 默认通过点击触发下拉行为，设置 trigger="hover" 属性可以改为移入触发',
       'Trigger \n By default, Dropdown toggled clicking, setting trigger="hover" can toggled by mouse move in.'
     ),
-    component: require('doc/pages/components/Dropdown/example-2-hover.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-2-hover.js'),
+    component: require('doc/pages/components/Dropdown/example-2-hover.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-2-hover.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Dropdown/example-2-hover.tsx'),
 
   },
   {
-    name: '3-position',
-    isTs: false,
+    name: '3-position.tsx',
+    isTs: true,
     title: locate(
       '弹出位置 \n 设置 position 属性可以控制下拉菜单弹出的方向和位置',
       'Position \n Set position property can control the direction and position of the drop-down menu.'
     ),
-    component: require('doc/pages/components/Dropdown/example-3-position.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-3-position.js'),
+    component: require('doc/pages/components/Dropdown/example-3-position.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-3-position.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Dropdown/example-3-position.tsx'),
 
   },
   {
-    name: '4-items',
-    isTs: false,
+    name: '4-items.tsx',
+    isTs: true,
     title: locate(
       '多列平铺 \n 设置 columns 属性可以让选项多列平铺',
       'Multiple columns \n Set columns property can make the option multi-column tiled.'
     ),
-    component: require('doc/pages/components/Dropdown/example-4-items.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-4-items.js'),
+    component: require('doc/pages/components/Dropdown/example-4-items.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-4-items.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Dropdown/example-4-items.tsx'),
 
   },
   {
-    name: '5-split',
-    isTs: false,
+    name: '5-split.tsx',
+    isTs: true,
     title: locate(
       '组合 \n 在 Button.Group 中组合使用，通常用于隐藏一组按钮中不太常用的选项',
       'Group \n Dropdown can be combined with Button used in Button.Group.'
     ),
-    component: require('doc/pages/components/Dropdown/example-5-split.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-5-split.js'),
+    component: require('doc/pages/components/Dropdown/example-5-split.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-5-split.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Dropdown/example-5-split.tsx'),
 
   },
   {
-    name: '6-type',
-    isTs: false,
+    name: '6-type.tsx',
+    isTs: true,
     title: locate(
       '样式 \n 使用了和Button相同的 type 和 size 设置样式',
       'type \n Style is set using the same type and size as Button.'
     ),
-    component: require('doc/pages/components/Dropdown/example-6-type.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-6-type.js'),
+    component: require('doc/pages/components/Dropdown/example-6-type.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-6-type.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Dropdown/example-6-type.tsx'),
 
   },
   {
-    name: '7-base',
-    isTs: false,
+    name: '7-base.tsx',
+    isTs: true,
     title: locate(
       '绝对定位 \n 如果选项弹出层的父容器被遮挡，可以设置 absolute 属性使弹出选项在单独层中渲染。',
       'Absolute \n If the parent container of the pop-up layer is occluded, you can set the absolute property to make the pop-up options rendered in a separate layer.'
     ),
-    component: require('doc/pages/components/Dropdown/example-7-base.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-7-base.js'),
+    component: require('doc/pages/components/Dropdown/example-7-base.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-7-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Dropdown/example-7-base.tsx'),
 
   },
 ]
