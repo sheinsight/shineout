@@ -7,6 +7,6 @@
 import React from 'react'
 import { DatePicker } from 'shineout'
 
-export default function() {
-  return <DatePicker type="year" defaultValue={Date.now()} />
-}
+const App: React.FC = () => <DatePicker type="year" defaultValue={Date.now()} />
+
+export default App
