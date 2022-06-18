@@ -388,7 +388,7 @@ export interface FormFieldSetProps<Value> {
    *
    * default:
    */
-  empty?: (onInsert: Value) => ReactNode;
+   empty?: (onInsert: (value: Value) => void) => ReactNode;
 
   /**
    * Validation rules
