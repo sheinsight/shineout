@@ -12,6 +12,8 @@ import { isEmpty, isNumber } from '../utils/is'
 import { CHANGE_TOPIC } from '../Datum/types'
 import Caret from '../icons/Caret'
 import { getDirectionClass } from '../utils/classname'
+import InputTitle from '../InputTitle'
+import { inputTitleClass } from '../InputTitle/styles'
 
 // eslint-disable-next-line react/prop-types
 function Item({ children, close, className, data, isPopover, singleRemove, click, only }) {
@@ -234,12 +236,19 @@ class Result extends PureComponent {
   }
 
   renderPlaceholder() {
-    const { focus, onFilter } = this.props
+    const { focus, onFilter, innerTitle } = this.props
     if (focus && onFilter) {
       return this.renderInput()
     }
     return (
-      <span key="placeholder" className={classnames(inputClass('placeholder'), selectClass('ellipsis'))}>
+      <span
+        key="placeholder"
+        className={classnames(
+          inputClass('placeholder'),
+          selectClass('ellipsis'),
+          innerTitle && inputTitleClass('hidable')
+        )}
+      >
         {this.props.placeholder}
         &nbsp;
       </span>
@@ -283,19 +292,34 @@ class Result extends PureComponent {
   }
 
   render() {
-    const { style, value, compressed, multiple } = this.props
-    const result = value.length === 0 ? this.renderPlaceholder() : this.renderResult()
+    const { style, value, compressed, multiple, innerTitle, onFilter, focus } = this.props
+    const empty = value.length === 0
+    const result = empty ? this.renderPlaceholder() : this.renderResult()
     const clearEl = this.renderClear()
+    const shouldCompressed = multiple && compressed
     return (
-      <div
-        ref={this.bindResult}
-        className={cascaderClass('result', multiple && compressed && 'compressed', clearEl && 'result-clearable')}
-        style={style}
+      <InputTitle
+        className={cascaderClass('title-box')}
+        titleClass={cascaderClass(
+          getDirectionClass('title-box-title'),
+          shouldCompressed && 'title-box-title-compressed'
+        )}
+        innerTitle={innerTitle}
+        open={!empty || (onFilter && focus)}
       >
-        {result}
-        {this.renderIndicator()}
-        {clearEl}
-      </div>
+        <div
+          ref={this.bindResult}
+          className={classnames(
+            cascaderClass(getDirectionClass('result'), shouldCompressed && 'compressed', clearEl && 'result-clearable'),
+            innerTitle && inputTitleClass('item-scroll')
+          )}
+          style={style}
+        >
+          {result}
+          {this.renderIndicator()}
+          {clearEl}
+        </div>
+      </InputTitle>
     )
   }
 }
@@ -327,6 +351,7 @@ Result.propTypes = {
   size: PropTypes.string,
   showArrow: PropTypes.bool,
   data: PropTypes.array,
+  innerTitle: PropTypes.string,
 }
 
 Result.defaultProps = {

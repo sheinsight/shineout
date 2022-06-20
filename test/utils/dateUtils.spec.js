@@ -124,6 +124,31 @@ describe('dateUtil[compareMonth]', () => {
   })
 })
 
+describe('dateUtil[compareYear]', () => {
+  it('false left date or false right date will return 0', () => {
+    expect(utils.compareYear(false)).toBe(0)
+    expect(utils.compareYear(new Date(), false)).toBe(0)
+  })
+  it('compare date with 0 pad', () => {
+    const a = new Date(2021, 0, 1)
+    const b = new Date(2021, 11, 20)
+    const c = new Date(2022, 0, 1)
+    expect(utils.compareYear(a, b)).toBe(0)
+    expect(utils.compareYear(a, c)).toBe(-1)
+    expect(utils.compareYear(c, a)).toBe(1)
+    expect(utils.compareYear(a, new Date(''))).toBe(NaN)
+    expect(utils.compareYear(new Date(''), new Date(''))).toBe(NaN)
+  })
+
+  it('compare date with  pad', () => {
+    const a = new Date(2022, 10, 1)
+    const b = new Date(2021, 11, 2)
+    expect(utils.compareYear(a, b, 1)).toBe(0)
+    expect(utils.compareYear(a, b, -2)).toBe(1)
+    expect(utils.compareYear(a, a, 2)).toBe(-1)
+  })
+})
+
 describe('dateUtil[compareQuarter]', () => {
   it('false left date or false right date will return 0', () => {
     expect(utils.compareQuarter(false)).toBe(0)
