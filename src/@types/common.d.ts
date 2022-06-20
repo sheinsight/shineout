@@ -103,7 +103,7 @@ export interface FormItemStandardProps<Value = any> {
 /**
  * @see https://github.com/Microsoft/TypeScript/issues/29729
  */
-export type LiteralUnion<T extends U, U> = T | (U & {});
+export type LiteralUnion<T extends U, U> = T | (U & Record<never,never>);
 
 export interface ListItemStandardProps<Item = any, Value = any> {
     /**
