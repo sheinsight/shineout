@@ -6,7 +6,7 @@
  */
 import React, { useState, useCallback } from 'react'
 import { Drawer, Button, TYPE } from 'shineout'
-import Content from '../Form/example-01-base'
+import Content from '../Form/example-01-base.tsx'
 
 type DrawerProps = TYPE.Drawer.Props
 type DrawerFooter = DrawerProps['footer']

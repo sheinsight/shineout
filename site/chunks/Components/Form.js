@@ -14,113 +14,123 @@ const source = locate(cn, en)
 
 const examples = [
   {
-    name: '01-base',
-    isTs: false,
+    name: '01-base.tsx',
+    isTs: true,
     title: locate(
       '基本用法 \n 表单内置了类似双向绑定的机制，根据表单元素的 name 属性自动下发、收集数据',
       'Base \n The form has a two-way binding mechanism built in, automatically sending and collecting data based on the name property of the form element.'
     ),
-    component: require('doc/pages/components/Form/example-01-base.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-01-base.js'),
+    component: require('doc/pages/components/Form/example-01-base.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-01-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-01-base.tsx'),
 
   },
   {
-    name: '02-controlform',
-    isTs: false,
+    name: '02-controlform.tsx',
+    isTs: true,
     title: locate(
       '表单方法 \n 可以通过 formRef 去获得表单的一些方法集, 包含校验, 清空校验, 提交等.',
       'Form Methods \n You can use formRef to get some methods of the form, including validation, clear validation, submission, etc.'
     ),
-    component: require('doc/pages/components/Form/example-02-controlform.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-02-controlform.js'),
+    component: require('doc/pages/components/Form/example-02-controlform.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-02-controlform.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-02-controlform.tsx'),
 
   },
   {
-    name: '02-label',
-    isTs: false,
+    name: '02-label.tsx',
+    isTs: true,
     title: locate(
       '标签 \n 通过 labelWidth 和 labelAlign 改变标签宽度和对齐方式',
       'Label \n Set labelWidth and labelAlign to change label with and alignment.'
     ),
-    component: require('doc/pages/components/Form/example-02-label.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-02-label.js'),
+    component: require('doc/pages/components/Form/example-02-label.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-02-label.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-02-label.tsx'),
 
   },
   {
-    name: '03-label-vertical',
-    isTs: false,
+    name: '03-label-vertical.tsx',
+    isTs: true,
     title: locate(
       ' \n 当 label 文字存在换行时，可使用 labelVerticalAlign 来控制垂直方向对齐方式',
       ' \n Use labelVerticalAlign to control vertical alignment when there is a line break in the label text'
     ),
-    component: require('doc/pages/components/Form/example-03-label-vertical.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-03-label-vertical.js'),
+    component: require('doc/pages/components/Form/example-03-label-vertical.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-03-label-vertical.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-03-label-vertical.tsx'),
 
   },
   {
-    name: '03-label',
-    isTs: false,
+    name: '03-label.tsx',
+    isTs: true,
     title: locate(
       ' \n labelAlign="top"',
       ' \n labelAlign="top"'
     ),
-    component: require('doc/pages/components/Form/example-03-label.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-03-label.js'),
+    component: require('doc/pages/components/Form/example-03-label.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-03-label.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-03-label.tsx'),
 
   },
   {
-    name: '04-inline',
-    isTs: false,
+    name: '04-inline.tsx',
+    isTs: true,
     title: locate(
       '水平布局 \n 设置 inline 属性使 Form 变为水平布局',
       'Inline \n Set the inline property to true to make the Form horizontal.'
     ),
-    component: require('doc/pages/components/Form/example-04-inline.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-04-inline.js'),
+    component: require('doc/pages/components/Form/example-04-inline.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-04-inline.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-04-inline.tsx'),
 
   },
   {
-    name: '05-tip',
-    isTs: false,
+    name: '05-tip.tsx',
+    isTs: true,
     title: locate(
       '提示信息 \n 在 Form.Item 上设置提示文案时，提示文案始终显示在组件下方。',
       'Tips \n Set the tip property on Form.Item, the prompt text is displayed below the component.'
     ),
-    component: require('doc/pages/components/Form/example-05-tip.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-05-tip.js'),
+    component: require('doc/pages/components/Form/example-05-tip.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-05-tip.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-05-tip.tsx'),
 
   },
   {
-    name: '06-tip',
-    isTs: false,
+    name: '06-tip.tsx',
+    isTs: true,
     title: locate(
       ' \n 在 Input 或 Input.Group 上设置的 tip，会在组件 focus 时弹出显示。通过 popover 可以控制弹出位置。',
       ' \n Set the tip property on the Input or Input.Group will pop up when the component is focused. The position where it pop up can be controlled via popover property.'
     ),
-    component: require('doc/pages/components/Form/example-06-tip.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-06-tip.js'),
+    component: require('doc/pages/components/Form/example-06-tip.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-06-tip.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-06-tip.tsx'),
 
   },
   {
-    name: '07-validate',
-    isTs: false,
+    name: '07-validate.tsx',
+    isTs: true,
     title: locate(
       '校验 \n 通过 Rule 对象，可以使用内置的规则。规则详见 Rule',
       'Validate \n Creating new rules object through built-in Rule.'
     ),
-    component: require('doc/pages/components/Form/example-07-validate.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-07-validate.js'),
+    component: require('doc/pages/components/Form/example-07-validate.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-07-validate.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-07-validate.tsx'),
 
   },
   {
-    name: '08-validate',
-    isTs: false,
+    name: '08-validate.tsx',
+    isTs: true,
     title: locate(
       ' \n 通过 Rule 参数对校验规则进行扩展。',
       ' \n The validation rules can be extended by parameters.'
     ),
-    component: require('doc/pages/components/Form/example-08-validate.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/example-08-validate.js'),
+    component: require('doc/pages/components/Form/example-08-validate.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Form/example-08-validate.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-08-validate.tsx'),
 
   },
   {

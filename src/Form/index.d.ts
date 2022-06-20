@@ -27,8 +27,8 @@ export interface FieldSetChildrenFunc<Value = any> {
 export interface FormRef<Value> {
   getValue: () => Value;
   validate: () => Promise<any>;
-  validateFields: () => Promise<any>;
-  validateFieldsWithError: () => Promise<any>;
+  validateFields: (fields:string|string[]) => Promise<any>;
+  validateFieldsWithError: (fields:string|string[]) => Promise<any>;
   clearValidate: () => void;
   submit: (withValidate?: boolean) => void;
   reset: () => void

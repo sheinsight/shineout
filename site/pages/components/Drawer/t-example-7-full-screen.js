@@ -6,7 +6,7 @@
  */
 import React from 'react'
 import { Drawer, Button } from 'shineout'
-import Content from '../Form/example-01-base'
+import Content from '../Form/example-01-base.tsx'
 
 export default () => {
   const [visible, setVisible] = React.useState(false)
