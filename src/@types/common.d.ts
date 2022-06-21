@@ -104,7 +104,7 @@ export interface FormItemStandardProps<Value = any> {
  * 目前已知的最为简短的写法: @see https://github.com/Microsoft/TypeScript/issues/29729#issuecomment-1082546550
  * 在类型守卫中会存在问题: @see https://github.com/Microsoft/TypeScript/issues/29729#issuecomment-1082791844
  */
- export type LiteralUnion<T extends string | number | symbol> = T | Omit<string,T>
+export type LiteralUnion<T = any> = T extends Record<any, any> ? (keyof T | Omit<string, keyof T>) : T
 
 export interface ListItemStandardProps<Item = any, Value = any> {
     /**
@@ -114,7 +114,7 @@ export interface ListItemStandardProps<Item = any, Value = any> {
      *
      * default: index
      */
-    keygen: LiteralUnion<keyof Item> | ((data: Item) => keyType) | true;
+    keygen: LiteralUnion<Item> | ((data: Item) => keyType) | true;
 
 
     /**
@@ -153,7 +153,7 @@ export interface StructDataStandardProps<Item = any> {
      *
      * default: d => d
      */
-    renderItem?: LiteralUnion<keyof Item> | ((data: Item, index: number) => React.ReactNode);
+    renderItem?: LiteralUnion<Item> | ((data: Item, index: number) => React.ReactNode);
 
     /**
      * The content displayed in the result after selecting, if not set, use renderItem. not show while return null, result is current selected
