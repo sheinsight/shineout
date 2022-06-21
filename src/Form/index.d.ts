@@ -281,7 +281,7 @@ export interface FormFieldProps<Value> {
    *
    * default: none
    */
-  name: string;
+  name: string | string[];
 
   /**
    * bind name, render while the name change
@@ -479,6 +479,8 @@ declare class Form<Value> extends React.Component<FormProps<Value>, {}> {
   static Submit: typeof FormSubmit;
 
   static Reset: typeof FormReset;
+  
+  static useMode: any;
 
   render(): JSX.Element;
 }
