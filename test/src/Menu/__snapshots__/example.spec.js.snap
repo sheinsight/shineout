@@ -1,0 +1,834 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-base.tsx] 1`] = `
+<div>
+  <div>
+    <ul>
+      <li>
+        <a>
+          Navigation One
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation Two
+          <span />
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 1
+              <span />
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 2
+              <span />
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Three
+          <span />
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 3
+              <span />
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 4
+              <span />
+            </a>
+            <ul>
+              <li>
+                <a>
+                  Optic 1
+                  <span />
+                </a>
+              </li>
+              <li>
+                <a>
+                  Optic 2
+                  <span />
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Four
+          <span />
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-link.tsx] 1`] = `
+<div>
+  <div>
+    <ul>
+      <li>
+        <a>
+          Google
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          strackoverflow
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          github
+          <span />
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-onClick.tsx] 1`] = `
+<div>
+  <div>
+    <ul>
+      <li>
+        <a>
+          Parent 1
+          <span />
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 2
+              <span />
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 3
+              <span />
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Parent 4
+          <span />
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 5
+              <span />
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 6
+              <span />
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Option 7
+          <span />
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-2-horizontal.tsx] 1`] = `
+<div>
+  <div>
+    <ul>
+      <li>
+        <a>
+          Navigation One
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation Two
+          <span />
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 1
+              <span />
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 2
+              <span />
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Three
+          <span />
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 3
+              <span />
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 4
+              <span />
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Four
+          <span />
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-3-vertical.tsx] 1`] = `
+<div>
+  <div>
+    <ul>
+      <li>
+        <a>
+          Navigation One
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation Two
+          <span />
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 1
+              <span />
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 2
+              <span />
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation 21
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation 22
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation 23
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation 24
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation 25
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation 26
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation 27
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation 28
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation 29
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation 30
+          <span />
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 3
+              <span />
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 4
+              <span />
+            </a>
+            <ul>
+              <li>
+                <a>
+                  Optic 1
+                  <span />
+                </a>
+              </li>
+              <li>
+                <a>
+                  Optic 2
+                  <span />
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation 31
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation 32
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation 33
+          <span />
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-4-disabled.tsx] 1`] = `
+<div>
+  <div>
+    <ul>
+      <li>
+        <a>
+          Navigation One
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation Two
+          <span />
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 1
+              <span />
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 2
+              <span />
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Three
+          <span />
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 3
+              <span />
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 4
+              <span />
+            </a>
+            <ul>
+              <li>
+                <a>
+                  Optic 1
+                  <span />
+                </a>
+              </li>
+              <li>
+                <a>
+                  Optic 2
+                  <span />
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Four
+          <span />
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-5-selected.tsx] 1`] = `
+<div>
+  <div>
+    <ul>
+      <li>
+        <a>
+          Navigation One
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation Two
+          <span />
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 1
+              <span />
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 2
+              <span />
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Three
+          <span />
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 3
+              <span />
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 4
+              <span />
+            </a>
+            <ul>
+              <li>
+                <a>
+                  Optic 1
+                  <span />
+                </a>
+              </li>
+              <li>
+                <a>
+                  Optic 2
+                  <span />
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Four
+          <span />
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-6-itemRender.tsx] 1`] = `
+<div>
+  <div>
+    <ul>
+      <li>
+        <a>
+          <span>
+            <i />
+             Navigation One
+          </span>
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          <span>
+            <i />
+             Navigation Two
+          </span>
+          <span />
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 1
+              <span />
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 2
+              <span />
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          <span>
+            <i />
+             Navigation Three
+          </span>
+          <span />
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 3
+              <span />
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 4
+              <span />
+            </a>
+            <ul>
+              <li>
+                <a>
+                  Optic 1
+                  <span />
+                </a>
+              </li>
+              <li>
+                <a>
+                  Optic 2
+                  <span />
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          <span>
+            <i />
+             Navigation Four
+          </span>
+          <span />
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-7-click.tsx] 1`] = `
+<div>
+  <div>
+    <ul>
+      <li>
+        <a>
+          Navigation One
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation Two
+          <span />
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 1
+              <span />
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 2
+              <span />
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Three
+          <span />
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 3
+              <span />
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 4
+              <span />
+            </a>
+            <ul>
+              <li>
+                <a>
+                  Optic 1
+                  <span />
+                </a>
+              </li>
+              <li>
+                <a>
+                  Optic 2
+                  <span />
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Four
+          <span />
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-8-dark.tsx] 1`] = `
+<div>
+  <div>
+    <ul>
+      <li>
+        <a>
+          Navigation One
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation Two
+          <span />
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 1
+              <span />
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 2
+              <span />
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Three
+          <span />
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 3
+              <span />
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 4
+              <span />
+            </a>
+            <ul>
+              <li>
+                <a>
+                  Optic 1
+                  <span />
+                </a>
+              </li>
+              <li>
+                <a>
+                  Optic 2
+                  <span />
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation Four
+          <span />
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-9-toggleDuration.tsx] 1`] = `
+<div>
+  <button>
+    <span>
+      0.5s
+    </span>
+  </button>
+  <button>
+    <span>
+      2s
+    </span>
+  </button>
+  <div>
+    <div>
+      <ul>
+        <li>
+          <a>
+            Navigation One
+            <span />
+          </a>
+        </li>
+        <li>
+          <a>
+            Navigation Two
+            <span />
+          </a>
+          <ul>
+            <li>
+              <a>
+                Option 1
+                <span />
+              </a>
+            </li>
+            <li>
+              <a>
+                Option 2
+                <span />
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a>
+            Navigation Three
+            <span />
+          </a>
+          <ul>
+            <li>
+              <a>
+                Option 3
+                <span />
+              </a>
+            </li>
+            <li>
+              <a>
+                Option 4
+                <span />
+              </a>
+              <ul>
+                <li>
+                  <a>
+                    Optic 1
+                    <span />
+                  </a>
+                </li>
+                <li>
+                  <a>
+                    Optic 2
+                    <span />
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a>
+            Navigation Four
+            <span />
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
