@@ -12,7 +12,7 @@ function clearProps(tree) {
 }
 
 export default function exampleTest(module, options = {}) {
-  const files = glob.sync(`site/pages/components/${module}/example-*.js`)
+  const files = glob.sync(`site/pages/components/${module}/example-*.tsx`)
   files.forEach(file => {
     if (options.ignore && file.endsWith(options.ignore)) return
     const Example = require(`../${file}`).default
