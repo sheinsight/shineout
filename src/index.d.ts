@@ -8,7 +8,9 @@ export { color, style } from './utils/expose'
 export { default as config, setConfig, isRTL } from './config'
 
 export { default as LazyList } from './AnimationList/LazyList'
+
 export { default as List } from './DataList'
+import { ListProps as __ListProps , ListBaseItemProps as __ListBaseItemProps } from './DataList'
 
 export { default as Alert } from './Alert'
 import { AlertProps as __AlertProps ,  } from './Alert'
@@ -145,6 +147,12 @@ import { UploadProps as __UploadProps , Validator as __Validator,BaseParams as _
 
 
 export namespace TYPE {
+
+  export namespace List {
+    export type Props<Item,Value> = __ListProps<Item , Value>
+    export type BaseItemProps = __ListBaseItemProps
+  }
+
   export namespace Alert {
     export type Props = __AlertProps
   }
