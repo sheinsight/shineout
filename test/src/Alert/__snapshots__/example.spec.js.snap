@@ -1,16 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: Alert[site/pages/components/Alert/example-1-base.js] 1`] = `
-<div>
-  <div>
-    <h3>
-      Title
-    </h3>
-    Some content.
-  </div>
-</div>
-`;
-
 exports[`Snapshot test: Alert[site/pages/components/Alert/example-1-base.tsx] 1`] = `
 <div>
   <div>
@@ -18,31 +7,6 @@ exports[`Snapshot test: Alert[site/pages/components/Alert/example-1-base.tsx] 1`
       Title
     </h3>
     Some content.
-  </div>
-</div>
-`;
-
-exports[`Snapshot test: Alert[site/pages/components/Alert/example-2-type.js] 1`] = `
-<div>
-  <div>
-    <div>
-      Success Type.
-    </div>
-  </div>
-  <div>
-    <div>
-      Info Type.
-    </div>
-  </div>
-  <div>
-    <div>
-      Warning Type.
-    </div>
-  </div>
-  <div>
-    <div>
-      Danger Type.
-    </div>
   </div>
 </div>
 `;
@@ -72,32 +36,6 @@ exports[`Snapshot test: Alert[site/pages/components/Alert/example-2-type.tsx] 1`
 </div>
 `;
 
-exports[`Snapshot test: Alert[site/pages/components/Alert/example-3-close.js] 1`] = `
-<div>
-  <div>
-    <a>
-      <svg>
-        <path />
-      </svg>
-    </a>
-    <div>
-      Alert onClose=true
-    </div>
-  </div>
-  <div>
-    <a>
-      <svg>
-        <path />
-      </svg>
-    </a>
-    <div>
-      Alert onClose=function
-    </div>
-  </div>
-  
-</div>
-`;
-
 exports[`Snapshot test: Alert[site/pages/components/Alert/example-3-close.tsx] 1`] = `
 <div>
   <div>
@@ -121,64 +59,6 @@ exports[`Snapshot test: Alert[site/pages/components/Alert/example-3-close.tsx] 1
     </div>
   </div>
   
-</div>
-`;
-
-exports[`Snapshot test: Alert[site/pages/components/Alert/example-4-icon.js] 1`] = `
-<div>
-  <div>
-    <div>
-      <svg>
-        <path />
-      </svg>
-    </div>
-    <div>
-      Success Type.
-    </div>
-  </div>
-  <div>
-    <div>
-      <svg>
-        <path />
-      </svg>
-    </div>
-    <div>
-      Info Type.
-    </div>
-  </div>
-  <div>
-    <div>
-      <svg>
-        <path />
-      </svg>
-    </div>
-    <div>
-      Warning Type.
-    </div>
-  </div>
-  <div>
-    <div>
-      <svg>
-        <path />
-      </svg>
-    </div>
-    <div>
-      Danger Type.
-    </div>
-  </div>
-  <div>
-    <div>
-      <svg>
-        <path />
-      </svg>
-    </div>
-    <div>
-      <h3>
-        Set iconSize
-      </h3>
-      iconSize=24
-    </div>
-  </div>
 </div>
 `;
 
