@@ -33,6 +33,7 @@ export default class {
     this.$events = {}
     // handle global errors
     this.$errors = {}
+    this.updateLock = false
 
     this.deepSetOptions = { removeUndefined, forceSet: true }
     const initValue = 'value' in options ? value : defaultValue
@@ -50,6 +51,10 @@ export default class {
     this.setValue(unflatten(fastClone(this.$defaultValues)), FORCE_PASS, true)
     this.handleChange()
     this.dispatch(RESET_TOPIC)
+  }
+
+  setLock(lock) {
+    this.updateLock = lock
   }
 
   get(name) {
@@ -206,7 +211,12 @@ export default class {
     return deepClone(this.$values)
   }
 
-  setValue(values = {}, type, forceSet) {
+  setValue(v = {}, type, forceSet) {
+    const values = isObject(v) ? v : {}
+    if (values !== v) {
+      console.warn('Form value must be an Object')
+    }
+    // 兼容 value 传入 null 等错误等值
     if (!forceSet && deepEqual(values, this.$values)) return
     this.$values = deepClone(values)
 
@@ -255,7 +265,8 @@ export default class {
     delete this.$validator[name]
     delete this.$errors[name]
     delete this.$defaultValues[name]
-
+    // when  setData due to unmount not delete value
+    if (this.updateLock) return
     if (!deepHas(this.$values, name)) return
     deepRemove(this.$values, name)
 
