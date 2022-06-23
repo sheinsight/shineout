@@ -133,7 +133,7 @@ export interface ListItemStandardProps<Item = any, Value = any> {
      *
      * default: d => d
      */
-    format?: ((data: Item) => any) | string;
+    format?: LiteralUnion<Item> | ((data: Item) => any);
 
     /**
      * By default, the result of the format function is used to compare whether it matches. In some cases (for example, whe an object that returns the original data is updated, an different option with the same value  is generated), the prediction function needs to be used to determine whether match
@@ -162,7 +162,7 @@ export interface StructDataStandardProps<Item = any> {
      *
      * default: renderItem
      */
-    renderResult?: ((data: Item, index: number) => React.ReactNode) | string;
+    renderResult?: LiteralUnion<Item> | ((data: Item, index: number) => React.ReactNode);
 
     /**
      * data
