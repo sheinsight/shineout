@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { curry } from '../utils/func'
-import shallowEqual from '../utils/shallowEqual'
 import { capitalize } from '../utils/strings'
 import { IGNORE_VALIDATE, WITH_OUT_DISPATCH } from './types'
 import List from './List'
@@ -85,7 +84,6 @@ export default curry((options, Origin) => {
       }
       const values = this.props[key]
       if (type === 'form' && values !== this.prevValues) {
-        debugger
         this.setValue(this.props.initValidate ? undefined : IGNORE_VALIDATE)
         this.datum.setLock(true)
         this.prevValues = values
