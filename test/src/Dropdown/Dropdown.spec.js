@@ -139,29 +139,169 @@ describe('Dropdown[DropdownType]', () => {
   test('should set dropdown type', () => {
     const wrapper = mount(<DropdownType />)
     appendToDOM(wrapper.html())
-    const size = ['small']
-    const type = ['primary']
-    const outline = [true, false]
-    const disabled = [true, false]
-    // const options = { size, type, outline, disabled }
-    // const sort = (option, first) => {
-    //   Object.keys(option).map((i, index) => {
-    //     return [first, i]
-    //   })
-    // }
-    // change type
+    const type = ['success']
+    const size = ['large']
+    const outline = [false, true]
+    const disabled = [false, true]
+    // change type size
     type.forEach(t => {
-      wrapper
-        .find(`.${SO_PREFIX}-select-inner`)
-        .first()
-        .simulate('click')
-      // find target option
-      wrapper.find(`a.so-select-option`).forEach(a => {
-        if (a.props().title === t) {
-          a.simulate('click')
-          const button = wrapper.find(Button).find('button')
-          expect(button.hasClass(`${SO_PREFIX}-button-${t}`)).toBeTruthy()
-        }
+      size.forEach(s => {
+        wrapper
+          .find(`.${SO_PREFIX}-select-inner`)
+          .first()
+          .simulate('click')
+        wrapper.find(`a.so-select-option`).forEach(a => {
+          if (a.props().title === t) {
+            a.simulate('click')
+          }
+        })
+
+        wrapper
+          .find(`.${SO_PREFIX}-select-inner`)
+          .last()
+          .simulate('click')
+        wrapper.find(`a.so-select-option`).forEach(a => {
+          if (a.props().title === s) {
+            a.simulate('click')
+          }
+        })
+
+        const button = wrapper.find(Button).find('button')
+        expect(button.hasClass(`${SO_PREFIX}-button-${t}`)).toBeTruthy()
+        expect(button.hasClass(`${SO_PREFIX}-button-${s}`)).toBeTruthy()
+      })
+    })
+    // change type outline
+    type.forEach(t => {
+      outline.forEach(o => {
+        wrapper
+          .find(`.${SO_PREFIX}-select-inner`)
+          .first()
+          .simulate('click')
+        wrapper.find(`a.so-select-option`).forEach(a => {
+          if (a.props().title === t) {
+            a.simulate('click')
+          }
+        })
+
+        wrapper
+          .find('input[type="checkbox"]')
+          .first()
+          .simulate('change', {
+            target: {
+              checked: o,
+            },
+          })
+
+        const button = wrapper.find(Button).find('button')
+        expect(button.hasClass(`${SO_PREFIX}-button-${t}`)).toBeTruthy()
+        expect(button.hasClass(`${SO_PREFIX}-button-outline`)).toBe(o)
+      })
+    })
+    // change type disabled
+    type.forEach(t => {
+      disabled.forEach(d => {
+        wrapper
+          .find(`.${SO_PREFIX}-select-inner`)
+          .first()
+          .simulate('click')
+        wrapper.find(`a.so-select-option`).forEach(a => {
+          if (a.props().title === t) {
+            a.simulate('click')
+          }
+        })
+
+        wrapper
+          .find('input[type="checkbox"]')
+          .last()
+          .simulate('change', {
+            target: {
+              checked: d,
+            },
+          })
+
+        const button = wrapper.find(Button).find('button')
+        expect(button.hasClass(`${SO_PREFIX}-button-${t}`)).toBeTruthy()
+        expect(button.hasClass(`${SO_PREFIX}-button-disabled`)).toBe(d)
+      })
+    })
+    // change size outline
+    size.forEach(s => {
+      outline.forEach(o => {
+        wrapper
+          .find(`.${SO_PREFIX}-select-inner`)
+          .last()
+          .simulate('click')
+        wrapper.find(`a.so-select-option`).forEach(a => {
+          if (a.props().title === s) {
+            a.simulate('click')
+          }
+        })
+
+        wrapper
+          .find('input[type="checkbox"]')
+          .first()
+          .simulate('change', {
+            target: {
+              checked: o,
+            },
+          })
+
+        const button = wrapper.find(Button).find('button')
+        expect(button.hasClass(`${SO_PREFIX}-button-${s}`)).toBeTruthy()
+        expect(button.hasClass(`${SO_PREFIX}-button-outline`)).toBe(o)
+      })
+    })
+    // change size disabled
+    size.forEach(s => {
+      disabled.forEach(d => {
+        wrapper
+          .find(`.${SO_PREFIX}-select-inner`)
+          .last()
+          .simulate('click')
+        wrapper.find(`a.so-select-option`).forEach(a => {
+          if (a.props().title === s) {
+            a.simulate('click')
+          }
+        })
+
+        wrapper
+          .find('input[type="checkbox"]')
+          .last()
+          .simulate('change', {
+            target: {
+              checked: d,
+            },
+          })
+        const button = wrapper.find(Button).find('button')
+        expect(button.hasClass(`${SO_PREFIX}-button-${s}`)).toBeTruthy()
+        expect(button.hasClass(`${SO_PREFIX}-button-disabled`)).toBe(d)
+      })
+    })
+    // change outline disabled
+    outline.forEach(o => {
+      disabled.forEach(d => {
+        wrapper
+          .find('input[type="checkbox"]')
+          .first()
+          .simulate('change', {
+            target: {
+              checked: o,
+            },
+          })
+
+        wrapper
+          .find('input[type="checkbox"]')
+          .last()
+          .simulate('change', {
+            target: {
+              checked: d,
+            },
+          })
+
+        const button = wrapper.find(Button).find('button')
+        expect(button.hasClass(`${SO_PREFIX}-button-outline`)).toBe(o)
+        expect(button.hasClass(`${SO_PREFIX}-button-disabled`)).toBe(d)
       })
     })
   })
