@@ -1,10 +1,11 @@
 import { Dropdown, Button } from 'shineout'
 import { mount } from 'enzyme'
 import React from 'react'
-import DropdownPosition from '../../../site/pages/components/Dropdown/example-3-position'
-import DropdownSplit from '../../../site/pages/components/Dropdown/example-5-split'
-import DropdownType from '../../../site/pages/components/Dropdown/example-6-type'
-import { docSize } from '../../../src/utils/dom/document'
+import { appendToDOM } from '../../utils'
+import DropdownPosition from '../../../site/pages/components/Dropdown/example-3-position.tsx'
+import DropdownSplit from '../../../site/pages/components/Dropdown/example-5-split.tsx'
+import DropdownType from '../../../site/pages/components/Dropdown/example-6-type.tsx'
+// import { docSize } from '../../../src/utils/dom/document'
 
 /* global SO_PREFIX */
 
@@ -137,13 +138,31 @@ describe('Dropdown[Split]', () => {
 describe('Dropdown[DropdownType]', () => {
   test('should set dropdown type', () => {
     const wrapper = mount(<DropdownType />)
-    const state = wrapper.state()
-    const button = wrapper.find(Button).find('button')
-    expect(button.hasClass(`${SO_PREFIX}-button-${state.type}`)).toBeTruthy()
-    if (state.size !== 'default') {
-      expect(button.hasClass(`${SO_PREFIX}-button-${state.size}`)).toBeTruthy()
-    }
-    expect(button.prop('disabled')).toBe(state.disabled ? true : undefined)
-    expect(button.hasClass(`${SO_PREFIX}-button-outline`)).toBe(state.outline)
+    appendToDOM(wrapper.html())
+    const size = ['small']
+    const type = ['primary']
+    const outline = [true, false]
+    const disabled = [true, false]
+    // const options = { size, type, outline, disabled }
+    // const sort = (option, first) => {
+    //   Object.keys(option).map((i, index) => {
+    //     return [first, i]
+    //   })
+    // }
+    // change type
+    type.forEach(t => {
+      wrapper
+        .find(`.${SO_PREFIX}-select-inner`)
+        .first()
+        .simulate('click')
+      // find target option
+      wrapper.find(`a.so-select-option`).forEach(a => {
+        if (a.props().title === t) {
+          a.simulate('click')
+          const button = wrapper.find(Button).find('button')
+          expect(button.hasClass(`${SO_PREFIX}-button-${t}`)).toBeTruthy()
+        }
+      })
+    })
   })
 })

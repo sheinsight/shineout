@@ -47,7 +47,6 @@ const App: React.FC = () => {
   const [size, setSize] = useState<DropdownSize>('default')
   const [outline, setOutline] = useState<DropdownOutline>(false)
   const [disabled, setDisabled] = useState<DropdownDisabled>(false)
-
   const sizes: SelectData = ['small', 'default', 'large']
   const types: SelectData = ['primary', 'success', 'warning', 'danger']
 
