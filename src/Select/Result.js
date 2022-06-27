@@ -362,11 +362,7 @@ class Result extends PureComponent {
         innerTitle={innerTitle}
         open={open}
         className={selectClass('title-box')}
-        titleClass={selectClass(
-          'title-box-title',
-          showPlaceholder && 'title-box-title-empty',
-          compressed && getDirectionClass('title-box-title-compressed')
-        )}
+        titleClass={selectClass(getDirectionClass('title-box-title'))}
       >
         <div
           ref={this.bindResult}
@@ -377,7 +373,7 @@ class Result extends PureComponent {
               showPlaceholder && 'empty',
               clearEl && 'result-clearable'
             ),
-            innerTitle && inputTitleClass(getDirectionClass('item'))
+            innerTitle && inputTitleClass(getDirectionClass('item'), 'item-scroll')
           )}
         >
           {rtl ? inner.reverse() : inner}

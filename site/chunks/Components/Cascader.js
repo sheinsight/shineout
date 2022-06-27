@@ -85,6 +85,18 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/example-06-filter.tsx'),
 
   },
+  {
+    name: '07-innertitle.tsx',
+    isTs: true,
+    title: locate(
+      '内嵌标题 \n 使用 innerTitle 展示内嵌标题',
+      'InnerTitle \n use innerTitle to display the inner title'
+    ),
+    component: require('doc/pages/components/Cascader/example-07-innertitle.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Cascader/example-07-innertitle.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/example-07-innertitle.tsx'),
+
+  },
 ]
 
 const codes = undefined

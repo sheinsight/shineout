@@ -224,6 +224,13 @@ function compareMonth(dateLeft, dateRight, pad = 0) {
   return compareAsc(left, right)
 }
 
+function compareYear(dateLeft, dateRight, pad = 0) {
+  if (!dateLeft || !dateRight) return 0
+  const left = new Date(dateLeft.getFullYear(), 0, 1)
+  const right = new Date(dateRight.getFullYear() + pad, 0, 1)
+  return compareAsc(left, right)
+}
+
 function compareQuarter(dateLeft, dateRight, pad = 0) {
   if (!dateLeft || !dateRight) return 0
   const left = dayjs(dateLeft)
@@ -335,6 +342,7 @@ export default {
   toDateWithFormat,
   formatDateWithDefaultTime,
   compareDateArray,
+  compareYear,
   TIME_FORMAT,
   resetTimeByFormat,
 }

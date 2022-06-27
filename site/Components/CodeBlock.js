@@ -6,7 +6,6 @@ import { exampleClass } from 'doc/styles'
 
 export default prop => {
   const { language = 'lang-jsx', onHighLight, value } = prop
-  console.log(value)
 
   const elRef = useRef(null)
 

@@ -14,11 +14,11 @@
     width: 150px;
   }
 
-  label&-c-datetime {
-    width: 240px;
-  }
+  label&-c-datetime,
 
-  label&-c-time {
+  label&-c-time,
+  label&-c-year
+  {
     width: 120px;
   }
 
@@ -35,6 +35,9 @@
 
   label&-r-time {
     width: 250px;
+  }
+  label&-r-year {
+    width: 240px;
   }
 
   &-title {
@@ -552,6 +555,10 @@
         margin: 4px 15px;
         border-radius: @datepicker-rect-active-border-radius;
         cursor: pointer;
+      }
+      .@{datepicker-prefix}-disabled {
+        color: @gray-400;
+        cursor: not-allowed;
       }
     }
   }

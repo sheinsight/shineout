@@ -564,12 +564,16 @@
   &-disabled&-checked,
   &-disabled&-indeterminate {
     i.@{checkinput-prefix}-indicator.@{checkinput-prefix}-checkbox {
-      border-color: @checkbox-border-color;
-      background-color: @checkbox-border-color;
+      border-color: @checkbox-checked-disabled-bgc;
+      background-color: @checkbox-checked-disabled-bgc;
 
       &::after {
         border-color: #fff;
       }
+    }
+    i.@{checkinput-prefix}-indicator.@{checkinput-prefix}-radio{
+      border-color: @checkbox-checked-disabled-bgc;
+      background-color: #fff;
     }
   }
 

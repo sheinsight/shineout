@@ -138,6 +138,6 @@ markdown.forEach(p => {
 })
 
 // copy index
-fs.copyFileSync(path.resolve(srcPath, 'index.ts'), path.resolve(libPath, 'index.d.ts'))
-fs.copyFileSync(path.resolve(srcPath, 'index.ts'), path.resolve(esPath, 'index.d.ts'))
-fs.copyFileSync(path.resolve(srcPath, 'index.ts'), path.resolve(cssPath, 'index.d.ts'))
+fs.copyFileSync(path.resolve(srcPath, 'index.d.ts'), path.resolve(libPath, 'index.d.ts'))
+fs.copyFileSync(path.resolve(srcPath, 'index.d.ts'), path.resolve(esPath, 'index.d.ts'))
+fs.copyFileSync(path.resolve(srcPath, 'index.d.ts'), path.resolve(cssPath, 'index.d.ts'))
