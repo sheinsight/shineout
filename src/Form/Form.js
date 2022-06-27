@@ -48,7 +48,8 @@ class Form extends Component {
   }
 
   componentDidMount() {
-    const { formRef } = this.props
+    const { formRef, addForm } = this.props
+    if (addForm) addForm(this.id)
     if (formRef) {
       if (typeof formRef === 'function') {
         formRef(this.form)
@@ -69,6 +70,8 @@ class Form extends Component {
 
   componentWillUnmount() {
     this.props.datum.formUnmount = true
+    const { delForm } = this.props
+    if (delForm) delForm(this.id)
     if (this.element) {
       this.element.removeEventListener('submit', this.handleSubmit)
     }
@@ -179,6 +182,8 @@ Form.propTypes = {
   scrollToError: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   setFormStatus: PropTypes.func,
   throttle: PropTypes.number,
+  delForm: PropTypes.func,
+  addForm: PropTypes.func,
 }
 
 Form.defaultProps = {

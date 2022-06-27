@@ -8,6 +8,20 @@ class Submit extends PureComponent {
     this.handleClick = this.handleClick.bind(this)
   }
 
+  componentDidMount() {
+    this.check()
+  }
+
+  componentDidUpdate() {
+    this.check()
+  }
+
+  check() {
+    if (this.props.formStatus === 'overBound') {
+      console.error('Modal.Submit cannot be used when there are multiple Forms in Modal')
+    }
+  }
+
   handleClick(e) {
     e.persist()
     setTimeout(() => {

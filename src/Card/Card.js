@@ -20,10 +20,14 @@ class Card extends PureComponent {
       formStatus: '',
     }
 
+    this.forms = new Set()
+
     this.bindElement = this.bindElement.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleCollapse = this.handleCollapse.bind(this)
     this.setFormStatus = this.setFormStatus.bind(this)
+    this.addForm = this.addForm.bind(this)
+    this.delForm = this.delForm.bind(this)
   }
 
   getCollapsed() {
@@ -33,6 +37,14 @@ class Card extends PureComponent {
   }
 
   setFormStatus(status) {
+    if (this.forms.size > 1) {
+      if (this.state.formStatus !== 'overBound') {
+        this.setState({
+          formStatus: 'overBound',
+        })
+      }
+      return
+    }
     if (status !== this.state.formStatus) {
       this.setState({ formStatus: status })
     }
@@ -56,6 +68,14 @@ class Card extends PureComponent {
     else console.error(new Error('No form found.'))
   }
 
+  addForm(id) {
+    this.forms.add(id)
+  }
+
+  delForm(id) {
+    this.forms.delete(id)
+  }
+
   render() {
     const { collapsible } = this.props
     const collapsed = this.getCollapsed()
@@ -72,6 +92,8 @@ class Card extends PureComponent {
       formStatus: this.state.formStatus,
       onSubmit: this.handleSubmit,
       setFormStatus: this.setFormStatus,
+      addForm: this.addForm,
+      delForm: this.delForm,
     }
 
     return (
