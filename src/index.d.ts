@@ -98,7 +98,7 @@ export { default as Rate } from './Rate'
 import { RateProps as __RateProps ,  } from './Rate'
 
 export { default as Rule } from './Rule'
-import { Max as __Max,Min as __Min,Type as __Type,Range as __Range,Required as __Required,validFunc as __validFunc,RuleParams as __RuleParams,RuleResult as __RuleResult,RegExpParams as __RegExpParams,paramFunc as __paramFunc , RuleParamsType as __RuleParamsType } from './Rule'
+import { Max as __Max,Min as __Min,Type as __Type,Range as __Range,Required as __Required,validFunc as __validFunc,RuleParams as __RuleParams,RuleResult as __RuleResult,RegExpParams as __RegExpParams,paramFunc as __paramFunc , RuleCommon as __RuleCommon,RuleParamsType as __RuleParamsType } from './Rule'
 
 export { default as Scroll } from './Scroll'
 
@@ -278,6 +278,7 @@ export namespace TYPE {
     export type Result = __RuleResult
     export type RegExpParams = __RegExpParams
     export type paramFunc<U> = __paramFunc<U>  
+    export type Common<U> = __RuleCommon<U>
     export type ParamsType<Value, P> = __RuleParamsType<Value, P>
   }
   export namespace Select {

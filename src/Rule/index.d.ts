@@ -27,7 +27,7 @@ export interface RegExpParams {
 }
 
 export interface validFunc {
-  (value: any, formData: any, callback: (cbArgs: true | Error) => void, props: any) : (void | Promise<any>);
+  (value: any, formData: any, callback: (cbArgs: (true | Error)|(true | Error)[]) => void, props: any) : (void | Promise<any>);
 }
 
 export interface RuleParams {
@@ -52,6 +52,10 @@ export interface RuleParams {
 }
 
 export type RuleParamsType<Value, P = any, FormData = any> = Array<RuleParams  | ((value?: Value, formData?: FormData, callback?: ((cbArgs: true | Error) => void), props?: P) => void) | object>
+
+export type RuleCommon<U> =  {
+  [key: string]: paramFunc<U>
+ } & RuleResult
 
 export interface RuleResult {
   required (message?: string): Required;
@@ -105,9 +109,7 @@ declare function Rule<A extends RuleParams, B extends RuleParams, C extends Rule
 } & RuleResult
 
  declare function Rule<
-   U>(...args: RuleParams[]) : {
-  [key: string]: paramFunc<U>
- } & RuleResult
+   U>(...args: RuleParams[]) :RuleCommon<U>
 
 
 export default Rule
