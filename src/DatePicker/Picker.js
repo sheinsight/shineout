@@ -17,6 +17,9 @@ class Picker extends PureComponent {
 
     let mode
     switch (props.type) {
+      case 'year':
+        mode = 'year'
+        break
       case 'month':
         mode = 'month'
         break

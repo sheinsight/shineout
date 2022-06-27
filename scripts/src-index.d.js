@@ -53,11 +53,14 @@ const getAsName = types => {
   return ''
 }
 
+// 组件白名单
+// 白名单内组件不会被解析
+const whiteList = ['List', 'DataList', 'InputTitle']
+
 const files = fs
   .readdirSync(rootPath)
   .filter(n => fs.lstatSync(path.resolve(rootPath, n)).isDirectory() && /^[A-Z]/.test(n))
-  .filter(v => v !== 'List' && v !== 'DataList')
-  .filter(f => fs.readdirSync(path.resolve(rootPath, f)).includes('index.d.ts'))
+  .filter(v => !whiteList.includes(v))
 files.forEach(f => {
   if (fs.readdirSync(path.resolve(rootPath, f)).includes('index.d.ts')) {
     const tsPath = path.resolve(rootPath, `${f}/index.d.ts`)
@@ -70,9 +73,16 @@ files.forEach(f => {
       other: sortProps(other),
       types: sortProps(types),
     }
+  } else {
+    components[f] = {
+      hideProps: true,
+      props: [],
+      other: [],
+      types: [],
+    }
   }
 })
-const line = `// Created by scripts/src-index.js.
+const line = `// Created by scripts/src-index.d.js.
 import * as utils from './utils'
 
 export default { utils, version: '<%= version %>' }
@@ -86,30 +96,34 @@ export { default as List } from './DataList'
 
 <% for(let key in components){ -%>
 export { default as <%= key %> } from './<%= key %>'
+<% if(!components[key].hideProps){ -%>
 import { <%- getAsName(getTypeName(components[key].props)) -%><%- components[key].props.length>0 ? ' , ' :'' -%><%- getAsName(components[key].other) -%><%- components[key].other.length>0 ? ' , ' :'' -%><%- getAsName(components[key].types) -%> } from './<%= key %>'
+<% } -%>
 
 <% } -%>
 
 export namespace <%= NAMESPACE -%> {
 <% for(let key in components){ -%>
-    export namespace <%= key -%> {
-    <% if(components[key].props.length>0){ -%>
+<% if(!components[key].hideProps) { -%>
+  export namespace <%= key -%> {
+<% if(components[key].props.length>0){ -%>
     export type Props<%- getArgs(components[key].props) -%> = __<%= key -%>Props<%- getArgs(components[key].props) -%>
-    <% } -%>
-    <% if(components[key].other.length>0){ -%>
-    <% components[key].other.forEach( name =>{ -%>
+<% } -%>
+<% if(components[key].other.length>0){ -%>
+<% components[key].other.forEach( name =>{ -%>
 
-        export type <%- getOtherTypeName(getTypeName(name),key) -%><%- getArgs(name) -%> = __<%- getTypeName(name)+getArgs(name) -%>
-    <% }) -%>
-    <% } -%>
-    <% if(components[key].types.length>0){ -%>
-    <% components[key].types.forEach( name =>{ -%>
+    export type <%- getOtherTypeName(getTypeName(name),key) -%><%- getArgs(name) -%> = __<%- getTypeName(name)+getArgs(name) -%>
+<% }) -%>
+<% } -%>
+<% if(components[key].types.length>0){ -%>
+  <% components[key].types.forEach( name =>{ -%>
 
-        export type <%- getOtherTypeName(getTypeName(name),key) -%><%- getArgs(name) -%> = __<%- getTypeName(name)+getArgs(name) -%>
-    <% }) -%>
-    <% } -%>
+    export type <%- getOtherTypeName(getTypeName(name),key) -%><%- getArgs(name) -%> = __<%- getTypeName(name)+getArgs(name) -%>
+<% }) -%>
+<% } -%>
 
-    }
+  }
+<% } -%>
 <% } -%>
 }
 `
@@ -124,4 +138,4 @@ const text = ejs.render(line, {
   getOtherTypeName,
   version: pack.version,
 })
-fs.writeFileSync(`${rootPath}/index.ts`, text)
+fs.writeFileSync(`${rootPath}/index.d.ts`, text)

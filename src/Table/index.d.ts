@@ -297,6 +297,15 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
   height?: number | string;
 
   /**
+   * Total table width
+   *
+   * 表格总宽度
+   *
+   * default: -
+   */
+  width?: number;
+
+  /**
    * The expected height of a one-line table is just a rough estimate to show the scroll bar.
    *
    * 单行表格的预期高度，只是一个大概的估值，用来展示滚动条
