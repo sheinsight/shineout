@@ -51,7 +51,7 @@ export default class extends React.PureComponent {
     const { attrs, count } = this.state
     return (
       <div>
-        <Table rowClickAttr onRowClick={this.handleClick} keygen="id" columns={columns} data={dataList} />
+        <Table rowClickAttr={attrs} onRowClick={this.handleClick} keygen="id" columns={columns} data={dataList} />
         Select rowClickAttr：
         <Select
           style={{ width: '300px', margin: '0 0 10px 10px' }}
