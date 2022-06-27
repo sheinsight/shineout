@@ -1,7 +1,7 @@
 import React from 'react'
 import { Carousel } from 'shineout'
 import { mount, shallow } from 'enzyme'
-import CarouselBase from '../../../site/pages/components/Carousel/example-1-base'
+import CarouselBase from '../../../site/pages/components/Carousel/example-1-base.tsx'
 
 /* global SO_PREFIX */
 describe('Carousel[Base]', () => {
