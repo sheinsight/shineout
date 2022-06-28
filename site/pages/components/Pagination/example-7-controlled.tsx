@@ -5,7 +5,7 @@
  *    -- Set both the current and onChange properties for being used as a controlled component.
  */
 import React, { useState } from 'react'
-import { Pagination, TYPE } from 'shineout'
+import { Input, Pagination, TYPE } from 'shineout'
 
 type PaginationProps = TYPE.Pagination.Props
 type PaginationText = TYPE.Pagination.TextParams
@@ -28,8 +28,20 @@ const App: React.FC = () => {
     setPageSize(p)
   }
 
+  const handleCurrentChange = (v: any) => setCurrent(Number(v))
+
   return (
     <div>
+      <span>跳转至：</span>
+
+      <Input.Number
+        min={1}
+        max={50}
+        value={current}
+        onChange={handleCurrentChange}
+        style={{ width: 100, marginBottom: 20 }}
+      />
+
       <Pagination
         text={text}
         total={1000}

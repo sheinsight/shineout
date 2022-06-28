@@ -19,13 +19,13 @@ const positions: Array<PopoverPosition[]> = [
 ]
 
 const style: React.CSSProperties = {
-  width: 100,
-  textAlign: 'center',
-  lineHeight: '30px',
   margin: 4,
+  width: 100,
+  cursor: 'pointer',
+  lineHeight: '30px',
+  textAlign: 'center',
   display: 'inline-block',
   border: 'solid 1px #eee',
-  cursor: 'pointer',
 }
 
 const App: React.FC = () => (
