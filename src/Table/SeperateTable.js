@@ -271,8 +271,6 @@ class SeperateTable extends PureComponent {
             this.setTop(scrollHeight, fullHeight, 1)
             return
           }
-        } else {
-          return
         }
       }
 
