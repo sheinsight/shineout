@@ -59,8 +59,6 @@ export default curry(
       }
 
       forceChange(value, ...args) {
-        const { delay } = this.props
-        if (delay === 0) return
         this.setState({ value })
         this.props.onChange(value, ...args)
         this.changeLocked = false
