@@ -153,9 +153,8 @@ class Input extends PureComponent {
     const { forceChange, onBlur, clearToUndefined, cancelChange } = this.props
     if (cancelChange) cancelChange()
     const newVal = this.fixValue(value)
-
     const canForceChange = !(clearToUndefined && newVal === '' && this.props.value === undefined)
-    if (canForceChange && !this.invalidNumber(newVal)) forceChange(newVal)
+    if (canForceChange && forceChange && !this.invalidNumber(newVal)) forceChange(newVal)
     if (onBlur) onBlur(e)
   }
 
