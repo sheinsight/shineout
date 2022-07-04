@@ -43,6 +43,7 @@
 | inputable | boolean | false | 可输入 |
 | position | 'left-top' \| 'left-bottom' \| 'right-top' \| 'right-bottom' | - | 弹出框位置 |
 | size | 'small' \| 'default' \| 'large' | 'default' | 尺寸大小 |
+| timeZone | string | 无 | 设置默认时区,可以有3种格式: "Asia/Shanghai", "+08", "+0800"  |
 
 ### DatePickerFormat
 
