@@ -273,6 +273,10 @@ export default curry(Origin =>
         if (fieldSetValidate) fieldSetValidate(true)
       }
 
+      forceValidate() {
+        this.validate(this.props.value)
+      }
+
       handleUpdate(value, sn, type) {
         if (type === ERROR_TYPE) {
           if (!isSameError(value, this.state.error)) this.setState({ error: value })
