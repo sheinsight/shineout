@@ -8,6 +8,7 @@ dayjs.extend(timezone)
 dayjs.extend(utc)
 
 const timeZone = 'Pacific/Honolulu'
+const offset = '-10'
 
 describe('dateUtil[clearHMS]', () => {
   it('clean the hour minute seconds', () => {
@@ -21,7 +22,7 @@ describe('dateUtil[clearHMS]', () => {
   })
   it('with timeZone', () => {
     const now = new Date()
-    const a = utils.clearHMS(now, { timeZone }).valueOf()
+    const a = utils.clearHMS(now, { timeZone: offset }).valueOf()
     const b = dayjs(now)
       .tz(timeZone)
       .hour(0)
@@ -33,7 +34,8 @@ describe('dateUtil[clearHMS]', () => {
   })
 })
 
-describe('dateUtil[addDays]', () => {
+describe(
+  'dateUtil[addDays]', () => {
   it.each([[1], [0], [-1]])('add %i day', num => {
     const a = new Date()
     const b = new Date(a.valueOf())
@@ -43,7 +45,7 @@ describe('dateUtil[addDays]', () => {
   })
   it.each([[1], [0], [-1]])('add %i day with timeZone', num => {
     const now = new Date()
-    const a = utils.addDays(now, num, { timeZone })
+    const a = utils.addDays(now, num, { timeZone: offset })
     const b = dayjs(now)
       .tz(timeZone)
       .add(num, 'day')
@@ -63,7 +65,7 @@ describe('dateUtil[addMonths]', () => {
 
   it.each([[1], [0], [-1]])('add %i month with timeZone', num => {
     const now = new Date()
-    const a = utils.addMonths(now, num, { timeZone })
+    const a = utils.addMonths(now, num, { timeZone: offset })
     const b = dayjs(now)
       .tz(timeZone)
       .add(num, 'month')
@@ -83,7 +85,7 @@ describe('dateUtil[addYears]', () => {
 
   it.each([[1], [0], [-1]])('add %i year with timeZone', num => {
     const now = new Date()
-    const a = utils.addYears(now, num, { timeZone })
+    const a = utils.addYears(now, num, { timeZone: offset })
     const b = dayjs(now)
       .tz(timeZone)
       .add(num, 'year')
@@ -103,7 +105,7 @@ describe('dateUtil[addSeconds]', () => {
 
   it.each([[1], [0], [-1]])('add %i seconds with timeZone', num => {
     const now = new Date()
-    const a = utils.addSeconds(now, num, { timeZone })
+    const a = utils.addSeconds(now, num, { timeZone: offset })
     const b = dayjs(now)
       .tz(timeZone)
       .add(num, 'second')
@@ -186,7 +188,7 @@ describe('dateUtil[compareMonth]', () => {
     const b = dayjs('2022-06-01 01:00:00', 'YYYY-MM-DD HH:mm:ss')
       .tz(timeZone, true)
       .toDate()
-    expect(utils.compareMonth(a, b, 0, { timeZone })).toBe(0)
+    expect(utils.compareMonth(a, b, 0, { timeZone: offset })).toBe(0)
   })
 })
 
@@ -221,7 +223,7 @@ describe('dateUtil[compareYear]', () => {
     const b = dayjs('2022-12-31 23:59:59', 'YYYY-MM-DD HH:mm:ss')
       .tz(timeZone, true)
       .toDate()
-    expect(utils.compareYear(a, b, 0, { timeZone })).toBe(0)
+    expect(utils.compareYear(a, b, 0, { timeZone: offset })).toBe(0)
   })
 })
 
@@ -258,7 +260,7 @@ describe('dateUtil[compareQuarter]', () => {
     const b = dayjs('2022-03-31 23:59:59', 'YYYY-MM-DD HH:mm:ss')
       .tz(timeZone, true)
       .toDate()
-    expect(utils.compareQuarter(a, b, 0, { timeZone })).toBe(0)
+    expect(utils.compareQuarter(a, b, 0, { timeZone: offset })).toBe(0)
   })
 })
 
@@ -292,7 +294,7 @@ describe('dateUtil[getDaysOfMonth]', () => {
     setLocale('en-US')
     expect(getLocale('startOfWeek')).toBe(0)
     const date = new Date(2021, 9, 1, 10)
-    const receive = utils.getDaysOfMonth(date, { timeZone })
+    const receive = utils.getDaysOfMonth(date, { timeZone: offset })
     const temp = dayjs(date).tz(timeZone)
     const start = dayjs(temp)
       .startOf('month')
@@ -345,7 +347,7 @@ describe('dateUtil[format]', () => {
               zoneDate.second(),
               zoneDate.millisecond()
             )
-      expect(utils.format(input || date, formatter, { timeZone })).toBe(utils.format(zoneUtc, formatter))
+      expect(utils.format(input || date, formatter, { timeZone: offset })).toBe(utils.format(zoneUtc, formatter))
     })
   })
   it('custom format', () => {
@@ -383,7 +385,7 @@ describe('dateUtil[isSameDay]', () => {
   })
   it('zone', () => {
     expect(utils.isSameDay(zoneA, zoneB)).toBeFalsy()
-    expect(utils.isSameDay(zoneB, zoneB, { timeZone })).toBeTruthy()
+    expect(utils.isSameDay(zoneB, zoneB, { timeZone: offset })).toBeTruthy()
   })
 })
 
@@ -405,7 +407,7 @@ describe('dateUtil[isSameMonth]', () => {
   })
   it('zone', () => {
     expect(utils.isSameMonth(zoneA, zoneB)).toBeFalsy()
-    expect(utils.isSameMonth(zoneA, zoneB, { timeZone })).toBeTruthy()
+    expect(utils.isSameMonth(zoneA, zoneB, { timeZone: offset })).toBeTruthy()
   })
 })
 
@@ -427,7 +429,7 @@ describe('dateUtil[isSameQuarter]', () => {
   })
   it('zone', () => {
     expect(utils.isSameQuarter(zoneA, zoneB)).toBeFalsy()
-    expect(utils.isSameQuarter(zoneA, zoneB, { timeZone })).toBeTruthy()
+    expect(utils.isSameQuarter(zoneA, zoneB, { timeZone: offset })).toBeTruthy()
   })
 })
 
@@ -453,7 +455,7 @@ describe('dateUtil[isSameWeek]', () => {
 
   it('zone', () => {
     expect(utils.isSameWeek(zoneA, zoneB, { weekStartsOn: 1 })).toBeFalsy()
-    expect(utils.isSameWeek(zoneA, zoneB, { timeZone, weekStartsOn: 1 })).toBeTruthy()
+    expect(utils.isSameWeek(zoneA, zoneB, { timeZone: offset, weekStartsOn: 1 })).toBeTruthy()
   })
 })
 
@@ -488,8 +490,8 @@ describe('dateUtil[parse]', () => {
     const date = utils.parse(value, formatter, options)
     expect(date instanceof Date).toBeTruthy()
     expect(utils.format(date, formatter, options)).toBe(value)
-    const zoneParse = utils.parse(value, formatter, { ...options, timeZone })
-    expect(utils.format(zoneParse, formatter, { ...options, timeZone })).toBe(value)
+    const zoneParse = utils.parse(value, formatter, { ...options, timeZone: offset })
+    expect(utils.format(zoneParse, formatter, { ...options, timeZone: offset })).toBe(value)
   })
 })
 
@@ -510,7 +512,7 @@ describe('dateUtil[newDate]', () => {
       .tz(timeZone)
       .startOf('date')
       .toDate()
-    expect(utils.newDate(a, { timeZone }).valueOf()).toBe(expected.valueOf())
+    expect(utils.newDate(a, { timeZone: offset }).valueOf()).toBe(expected.valueOf())
   })
 })
 
@@ -537,8 +539,8 @@ describe('dateUtil[toDate]', () => {
   })
 
   it('with Zone', () => {
-    expect(utils.toDate(new Date(2021, 7, 15), { timeZone }).valueOf()).toBe(new Date(2021, 7, 15).valueOf())
-    expect(utils.toDate('2021-08-15 23:11:11', { timeZone }).valueOf()).toBe(
+    expect(utils.toDate(new Date(2021, 7, 15), { timeZone: offset }).valueOf()).toBe(new Date(2021, 7, 15).valueOf())
+    expect(utils.toDate('2021-08-15 23:11:11', { timeZone: offset }).valueOf()).toBe(
       dayjs('2021-08-15 23:11:11')
         .tz(timeZone, true)
         .toDate()
@@ -550,12 +552,12 @@ describe('dateUtil[toDate]', () => {
 describe('dateUtil[toDateWithFormat]', () => {
   it('invalid Date', () => {
     expect(utils.toDateWithFormat(NaN, 'yyyy-MM-dd', null)).toBeNull()
-    expect(utils.toDateWithFormat(NaN, 'yyyy-MM-dd', null, { timeZone })).toBeNull()
+    expect(utils.toDateWithFormat(NaN, 'yyyy-MM-dd', null, { timeZone: offset })).toBeNull()
   })
   it('string Date', () => {
     const expected = new Date(2021, 9, 1)
     expect(utils.toDateWithFormat('2021-10-01', 'yyyy-MM-dd', undefined).valueOf()).toBe(expected.valueOf())
-    expect(utils.toDateWithFormat('2021-10-01', 'yyyy-MM-dd', undefined, { timeZone }).valueOf()).toBe(
+    expect(utils.toDateWithFormat('2021-10-01', 'yyyy-MM-dd', undefined, { timeZone: offset }).valueOf()).toBe(
       dayjs('2021-10-01', 'YYYY-MM-DD')
         .tz(timeZone, true)
         .toDate()
@@ -569,7 +571,7 @@ describe('dateUtil[toDateWithFormat]', () => {
   it('not match format will return toDate(dirtyDate)', () => {
     const expected = new Date(2021, 9, 1, 12, 12, 12)
     expect(utils.toDateWithFormat('2021-10-01 12:12:12', 'HH:mm:ss', undefined).valueOf()).toBe(expected.valueOf())
-    expect(utils.toDateWithFormat('2021-10-01 12:12:12', 'HH:mm:ss', undefined, { timeZone }).valueOf()).toBe(
+    expect(utils.toDateWithFormat('2021-10-01 12:12:12', 'HH:mm:ss', undefined, { timeZone: offset }).valueOf()).toBe(
       dayjs('2021-10-01 12:12:12')
         .tz(timeZone, true)
         .toDate()
@@ -586,7 +588,7 @@ describe('dateUtil[formatDateWithDefaultTime]', () => {
     const date = new Date()
     const value = new Date(1999, 9, 9, 9, 9, 9)
     expect(utils.formatDateWithDefaultTime(date, value).valueOf()).toBe(utils.cloneTime(date, value).valueOf())
-    expect(utils.formatDateWithDefaultTime(date, value, null, null, { timeZone }).valueOf()).toBe(
+    expect(utils.formatDateWithDefaultTime(date, value, null, null, offset).valueOf()).toBe(
       utils.cloneTime(date, value).valueOf()
     )
   })
@@ -612,9 +614,9 @@ describe('dateUtil[formatDateWithDefaultTime]', () => {
     const date = new Date()
     const defaultTime = '10:12:20'
     const fmt = 'yyyy-MM-dd HH:mm:ss'
-    const nDate = utils.cloneTime(date, defaultTime, utils.TIME_FORMAT, { timeZone })
-    const result = utils.format(nDate, fmt, { timeZone })
-    expect(utils.formatDateWithDefaultTime(date, null, defaultTime, fmt, { timeZone })).toBe(result)
+    const nDate = utils.cloneTime(date, defaultTime, utils.TIME_FORMAT, { timeZone: offset })
+    const result = utils.format(nDate, fmt, { timeZone: offset })
+    expect(utils.formatDateWithDefaultTime(date, null, defaultTime, fmt, { timeZone: offset })).toBe(result)
   })
 })
 
@@ -647,8 +649,8 @@ describe('dateUtil[compareDateArray]', () => {
     const arr1 = [trans(new Date(2021, 8, 1))]
     const arr2 = [trans(new Date(2021, 8, 4))]
     const arr3 = [trans(new Date(2021, 9, 4))]
-    expect(utils.compareDateArray(arr1, arr2, 'week', { timeZone })).toBe(true)
-    expect(utils.compareDateArray(arr1, arr3, 'week', { timeZone })).toBe(false)
+    expect(utils.compareDateArray(arr1, arr2, 'week', { timeZone: offset })).toBe(true)
+    expect(utils.compareDateArray(arr1, arr3, 'week', { timeZone: offset })).toBe(false)
   })
 
   it('if type !== "week will compare with getTime', () => {
@@ -681,7 +683,7 @@ describe('getDateInfo', () => {
     '.get %S',
     type => {
       expect(utils.getDateInfo(d, type)).toBe(dayjs(d)[type]())
-      expect(utils.getDateInfo(d, type, { timeZone })).toBe(
+      expect(utils.getDateInfo(d, type, { timeZone: offset })).toBe(
         dayjs(d)
           .tz(timeZone)
           [type]()
@@ -710,7 +712,7 @@ describe('changeDate', () => {
         .toDate()
         .valueOf()
     )
-    expect(utils.changeDate(d, type, value, { timeZone }).valueOf()).toBe(
+    expect(utils.changeDate(d, type, value, { timeZone: offset }).valueOf()).toBe(
       dayjs(d)
         .tz(timeZone)
         [type](value)
