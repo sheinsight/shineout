@@ -1,24 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: Progress[site/pages/components/Progress/example-1-base.js] 1`] = `
-<div>
-  <div>
-    <div>
-      <div />
-    </div>
-  </div>
-  <br />
-  <div>
-    <div>
-      <div />
-    </div>
-    <div>
-      50%
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Snapshot test: Progress[site/pages/components/Progress/example-1-base.tsx] 1`] = `
 <div>
   <div>
@@ -35,28 +16,6 @@ exports[`Snapshot test: Progress[site/pages/components/Progress/example-1-base.t
       50%
     </div>
   </div>
-</div>
-`;
-
-exports[`Snapshot test: Progress[site/pages/components/Progress/example-1-popup.js] 1`] = `
-<div>
-  <div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <span>
-        0%
-      </span>
-      <span />
-    </div>
-  </div>
-  <br />
-  <button>
-    <span>
-      Start
-    </span>
-  </button>
 </div>
 `;
 
@@ -79,34 +38,6 @@ exports[`Snapshot test: Progress[site/pages/components/Progress/example-1-popup.
       Start
     </span>
   </button>
-</div>
-`;
-
-exports[`Snapshot test: Progress[site/pages/components/Progress/example-2-type.js] 1`] = `
-<div>
-  <div>
-    <div>
-      <div />
-    </div>
-  </div>
-  <br />
-  <div>
-    <div>
-      <div />
-    </div>
-  </div>
-  <br />
-  <div>
-    <div>
-      <div />
-    </div>
-  </div>
-  <br />
-  <div>
-    <div>
-      <div />
-    </div>
-  </div>
 </div>
 `;
 
@@ -138,22 +69,6 @@ exports[`Snapshot test: Progress[site/pages/components/Progress/example-2-type.t
 </div>
 `;
 
-exports[`Snapshot test: Progress[site/pages/components/Progress/example-3-color.js] 1`] = `
-<div>
-  <div>
-    <div>
-      <div />
-    </div>
-  </div>
-  <br />
-  <div>
-    <div>
-      <div />
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Snapshot test: Progress[site/pages/components/Progress/example-3-color.tsx] 1`] = `
 <div>
   <div>
@@ -165,44 +80,6 @@ exports[`Snapshot test: Progress[site/pages/components/Progress/example-3-color.
   <div>
     <div>
       <div />
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Snapshot test: Progress[site/pages/components/Progress/example-3-linear.js] 1`] = `
-<div>
-  <div>
-    <div>
-      <div />
-    </div>
-    <div>
-      99%
-    </div>
-  </div>
-  <br />
-  <div>
-    <div>
-      <div />
-    </div>
-    <div>
-      99%
-    </div>
-  </div>
-  <br />
-  <div>
-    <svg>
-      <defs>
-        <linearGradient>
-          <stop />
-          <stop />
-        </linearGradient>
-      </defs>
-      <circle />
-      <circle />
-    </svg>
-    <div>
-      99%
     </div>
   </div>
 </div>
@@ -246,41 +123,6 @@ exports[`Snapshot test: Progress[site/pages/components/Progress/example-3-linear
 </div>
 `;
 
-exports[`Snapshot test: Progress[site/pages/components/Progress/example-4-circle.js] 1`] = `
-<div>
-  <div>
-    <svg>
-      <circle />
-      <circle />
-    </svg>
-  </div>
-  <div>
-    <svg>
-      <circle />
-      <circle />
-    </svg>
-    <div>
-      70%
-    </div>
-  </div>
-  <div>
-    <svg>
-      <circle />
-      <circle />
-    </svg>
-    <div>
-      Success
-    </div>
-  </div>
-  <div>
-    <svg>
-      <circle />
-      <circle />
-    </svg>
-  </div>
-</div>
-`;
-
 exports[`Snapshot test: Progress[site/pages/components/Progress/example-4-circle.tsx] 1`] = `
 <div>
   <div>
@@ -312,41 +154,6 @@ exports[`Snapshot test: Progress[site/pages/components/Progress/example-4-circle
       <circle />
       <circle />
     </svg>
-  </div>
-</div>
-`;
-
-exports[`Snapshot test: Progress[site/pages/components/Progress/example-5-size.js] 1`] = `
-<div>
-  <div>
-    <div>
-      <div />
-    </div>
-  </div>
-  <br />
-  <div>
-    <svg>
-      <circle />
-      <circle />
-    </svg>
-  </div>
-  <div>
-    <svg>
-      <circle />
-      <circle />
-    </svg>
-    <div>
-      70%
-    </div>
-  </div>
-  <div>
-    <svg>
-      <circle />
-      <circle />
-    </svg>
-    <div>
-      Success
-    </div>
   </div>
 </div>
 `;
@@ -383,37 +190,6 @@ exports[`Snapshot test: Progress[site/pages/components/Progress/example-5-size.t
       Success
     </div>
   </div>
-</div>
-`;
-
-exports[`Snapshot test: Progress[site/pages/components/Progress/example-6-animation.js] 1`] = `
-<div>
-  <div>
-    <div>
-      <div />
-    </div>
-    <div>
-      <div>
-        0
-      </div>
-    </div>
-  </div>
-  <br />
-  <div>
-    <svg>
-      <circle />
-      <circle />
-    </svg>
-    <div>
-      0
-      %
-    </div>
-  </div>
-  <button>
-    <span>
-      Start
-    </span>
-  </button>
 </div>
 `;
 
