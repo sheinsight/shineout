@@ -54,7 +54,15 @@ function getDayJsLocate(options) {
 
 function transDateWithZone(dd, options = {}, back = false) {
   if (options.timeZone) {
-    return back ? zonedTimeToUtc(dd, options.timeZone) : utcToZonedTime(dd, options.timeZone)
+    const timezoneHH = /^([+-]\d{2})$/
+    // 只放开两位时区
+    if (timezoneHH.test(options.timeZone)) {
+      const num = +options.timeZone
+      if (num <= 13 && num >= -12) {
+        return back ? zonedTimeToUtc(dd, options.timeZone) : utcToZonedTime(dd, options.timeZone)
+      }
+    }
+    console.error(`不支持传入的时区格式：${options.timeZone}`)
   }
   return dd
 }

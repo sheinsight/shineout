@@ -5,19 +5,38 @@
  *    -- set timeZone
  */
 import React from 'react'
-import { DatePicker } from 'shineout'
+import { DatePicker, Select } from 'shineout'
+
+const offsetList = new Array(26).fill(undefined).map((_, index) => {
+  const num = index - 12
+  const abs = Math.abs(num)
+  const str = abs < 10 ? `0${abs}` : `${abs}`
+  return `${num < 0 ? '-' : '+'}${str}`
+})
 
 export default function() {
+  const [tz, setTz] = React.useState('+08')
   return (
     <div>
-      <DatePicker type="date" timeZone="Pacific/Honolulu" defaultValue={new Date()} placeholder="Select datetime" />
-      <br />
       <DatePicker
         type="datetime"
-        timeZone="-08"
+        format="T"
+        formatResult="yyyy-MM-dd HH:mm:ss"
         defaultValue={new Date()}
         placeholder="Select datetime"
-        style={{ marginTop: '12px' }}
+        timeZone={tz}
+        onChange={d => {
+          console.log(d)
+        }}
+      />
+      <Select
+        width={90}
+        data={offsetList}
+        keygen
+        value={tz}
+        onChange={v => {
+          setTz(v)
+        }}
       />
     </div>
   )
