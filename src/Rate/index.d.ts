@@ -37,7 +37,7 @@ export declare interface RateProps extends
    *
    * default: 5
    */
-  max?: boolean;
+  max?: number;
 
   /**
    * When repeat is true, display item is a copy of the item corresponding to the current value
@@ -55,7 +55,7 @@ export declare interface RateProps extends
    *
    * default: 20
    */
-  size?: boolean;
+  size?: number | string;
 
   /**
    * Text
