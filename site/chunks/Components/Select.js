@@ -14,124 +14,135 @@ const source = locate(cn, en)
 
 const examples = [
   {
-    name: '01-base',
-    isTs: false,
+    name: '01-base.tsx',
+    isTs: true,
     title: locate(
       '基本用法 \n Select 没有单独的 Option 选项，通过数据来渲染。',
       'Base \n Select generate group of options from data.'
     ),
-    component: require('doc/pages/components/Select/example-01-base.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Select/example-01-base.js'),
+    component: require('doc/pages/components/Select/example-01-base.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-01-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/example-01-base.tsx'),
 
   },
   {
-    name: '01-cadapt',
-    isTs: false,
+    name: '01-cadapt.tsx',
+    isTs: true,
     title: locate(
       ' \n 当文字过长时，下拉列表宽度根据内容自由展开',
       ' \n options auto adapt width'
     ),
-    component: require('doc/pages/components/Select/example-01-cadapt.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Select/example-01-cadapt.js'),
+    component: require('doc/pages/components/Select/example-01-cadapt.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-01-cadapt.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/example-01-cadapt.tsx'),
 
   },
   {
-    name: '01-multiple',
-    isTs: false,
+    name: '01-multiple.tsx',
+    isTs: true,
     title: locate(
       '多选 \n multiple 属性为true时，为多选状态，默认为单选',
       'Multiple \n Set the multiple property to true, it is multi-selection.'
     ),
-    component: require('doc/pages/components/Select/example-01-multiple.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Select/example-01-multiple.js'),
+    component: require('doc/pages/components/Select/example-01-multiple.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-01-multiple.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/example-01-multiple.tsx'),
 
   },
   {
-    name: '01-o-compressed',
-    isTs: false,
+    name: '01-o-compressed.tsx',
+    isTs: true,
     title: locate(
       ' \n 设置 compressed 使选中值合并展示，鼠标悬浮时将会展示所有值。',
       ' \n Set the compressed property to compress values, hover to show all values.'
     ),
-    component: require('doc/pages/components/Select/example-01-o-compressed.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Select/example-01-o-compressed.js'),
+    component: require('doc/pages/components/Select/example-01-o-compressed.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-01-o-compressed.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/example-01-o-compressed.tsx'),
 
   },
   {
-    name: '02-format',
-    isTs: false,
+    name: '02-format.tsx',
+    isTs: true,
     title: locate(
       '数据处理 \n 设置 format 选项把数据对象格式化为指定的 value',
       'Datum \n Set format property to format the data object to the specified value.'
     ),
-    component: require('doc/pages/components/Select/example-02-format.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Select/example-02-format.js'),
+    component: require('doc/pages/components/Select/example-02-format.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-02-format.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/example-02-format.tsx'),
 
   },
   {
-    name: '02-group',
-    isTs: false,
+    name: '02-group.tsx',
+    isTs: true,
     title: locate(
       '分组 \n 可以通过 groupBy 去将数据分组 \n 组件会通过该函数的返回值对内容进行分组, 如果返回的是空, 则默认不分组, 为了防止产生歧义, 建议有一个默认分组.',
       'GroupBy \n Grouping data by groupBy. \n The component will group the content by the return value of the function. If the return is empty, the default is not grouped. To prevent ambiguity, it is recommended to have a default grouping.'
     ),
-    component: require('doc/pages/components/Select/example-02-group.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Select/example-02-group.js'),
+    component: require('doc/pages/components/Select/example-02-group.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-02-group.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/example-02-group.tsx'),
 
   },
   {
-    name: '04-clearable',
-    isTs: false,
+    name: '04-clearable.tsx',
+    isTs: true,
     title: locate(
       '可清空 \n clearable 属性为 true 时，hover 后会显示清空图标。',
       'Clearable \n Set the clearable property to true, the clear icon will be displayed on hover.'
     ),
-    component: require('doc/pages/components/Select/example-04-clearable.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Select/example-04-clearable.js'),
+    component: require('doc/pages/components/Select/example-04-clearable.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-04-clearable.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/example-04-clearable.tsx'),
 
   },
   {
-    name: '04-size',
-    isTs: false,
+    name: '04-size.tsx',
+    isTs: true,
     title: locate(
       '大小 \n 有三种 size，[\'small\', default, \'large\']',
       'Size \n There are three sizes, [\'small\', default, \'large\']'
     ),
-    component: require('doc/pages/components/Select/example-04-size.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Select/example-04-size.js'),
+    component: require('doc/pages/components/Select/example-04-size.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-04-size.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/example-04-size.tsx'),
 
   },
   {
-    name: '06-bigdata',
-    isTs: false,
+    name: '06-bigdata.tsx',
+    isTs: true,
     title: locate(
       '性能 \n Select 内部使用了虚拟列表来优化性能，本例加载了10000条数据。',
       'Performance \n Select uses a lazy loading to optimize performance. This example loads 10,000 pieces of data.'
     ),
-    component: require('doc/pages/components/Select/example-06-bigdata.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Select/example-06-bigdata.js'),
+    component: require('doc/pages/components/Select/example-06-bigdata.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-06-bigdata.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/example-06-bigdata.tsx'),
 
   },
   {
-    name: '07-disabled',
-    isTs: false,
+    name: '07-disabled.tsx',
+    isTs: true,
     title: locate(
       '禁用 \n 设置 disabled 禁用组件',
       'Disabled \n Set the disabled property to disable the component.'
     ),
-    component: require('doc/pages/components/Select/example-07-disabled.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Select/example-07-disabled.js'),
+    component: require('doc/pages/components/Select/example-07-disabled.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-07-disabled.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/example-07-disabled.tsx'),
 
   },
   {
-    name: '08-filter',
-    isTs: false,
+    name: '08-filter.tsx',
+    isTs: true,
     title: locate(
       '筛选数据 - 内置 \n onFilter 返回函数时，使用这个函数做前端过滤',
       'Filter - built-in \n When the onFilter property returns a function, use this function to do front-end filtering.'
     ),
-    component: require('doc/pages/components/Select/example-08-filter.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Select/example-08-filter.js'),
+    component: require('doc/pages/components/Select/example-08-filter.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-08-filter.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/example-08-filter.tsx'),
 
   },
   {
