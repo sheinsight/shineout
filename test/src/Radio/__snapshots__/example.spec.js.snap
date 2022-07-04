@@ -190,7 +190,115 @@ exports[`Snapshot test: Radio[site/pages/components/Radio/example-2-group.js] 1`
 </div>
 `;
 
+exports[`Snapshot test: Radio[site/pages/components/Radio/example-2-group.tsx] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span>
+      red
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      orange
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      yellow
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      green
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      cyan
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      blue
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      violet
+    </span>
+  </label>
+</div>
+`;
+
 exports[`Snapshot test: Radio[site/pages/components/Radio/example-3-format.js] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span>
+      red
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      orange
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      yellow
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      green
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      cyan
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      blue
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      violet
+    </span>
+  </label>
+</div>
+`;
+
+exports[`Snapshot test: Radio[site/pages/components/Radio/example-3-format.tsx] 1`] = `
 <div>
   <label>
     <input />
@@ -298,7 +406,87 @@ exports[`Snapshot test: Radio[site/pages/components/Radio/example-5-block.js] 1`
 </div>
 `;
 
+exports[`Snapshot test: Radio[site/pages/components/Radio/example-5-block.tsx] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span>
+      red
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      orange
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      yellow
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      green
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      cyan
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      blue
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      violet
+    </span>
+  </label>
+</div>
+`;
+
 exports[`Snapshot test: Radio[site/pages/components/Radio/example-6-button-1.js] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span>
+      red
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      orange
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      yellow
+    </span>
+  </label>
+</div>
+`;
+
+exports[`Snapshot test: Radio[site/pages/components/Radio/example-6-button-1.tsx] 1`] = `
 <div>
   <label>
     <input />
@@ -350,7 +538,107 @@ exports[`Snapshot test: Radio[site/pages/components/Radio/example-6-button-2.js]
 </div>
 `;
 
+exports[`Snapshot test: Radio[site/pages/components/Radio/example-6-button-2.tsx] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span>
+      red
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      orange
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      yellow
+    </span>
+  </label>
+</div>
+`;
+
 exports[`Snapshot test: Radio[site/pages/components/Radio/example-6-button-3.js] 1`] = `
+<div>
+  <div>
+    <label>
+      <input />
+      <i />
+      <span>
+        red
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        orange
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        yellow
+      </span>
+    </label>
+  </div>
+  <div>
+    <label>
+      <input />
+      <i />
+      <span>
+        red
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        orange
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        yellow
+      </span>
+    </label>
+  </div>
+  <div>
+    <label>
+      <input />
+      <i />
+      <span>
+        red
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        orange
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        yellow
+      </span>
+    </label>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Radio[site/pages/components/Radio/example-6-button-3.tsx] 1`] = `
 <div>
   <div>
     <label>
@@ -480,6 +768,60 @@ exports[`Snapshot test: Radio[site/pages/components/Radio/example-7-disabled.js]
 </div>
 `;
 
+exports[`Snapshot test: Radio[site/pages/components/Radio/example-7-disabled.tsx] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span>
+      red
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      orange
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      yellow
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      green
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      cyan
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      blue
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      violet
+    </span>
+  </label>
+</div>
+`;
+
 exports[`Snapshot test: Radio[site/pages/components/Radio/example-8-disabled.js] 1`] = `
 <div>
   <div>
@@ -536,7 +878,129 @@ exports[`Snapshot test: Radio[site/pages/components/Radio/example-8-disabled.js]
 </div>
 `;
 
+exports[`Snapshot test: Radio[site/pages/components/Radio/example-8-disabled.tsx] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span>
+      red
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      orange
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      yellow
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      green
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      cyan
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      blue
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      violet
+    </span>
+  </label>
+</div>
+`;
+
 exports[`Snapshot test: Radio[site/pages/components/Radio/example-9-toggle.js] 1`] = `
+<div>
+  <span>
+    <label>
+      <input />
+      <i />
+      <span>
+        red
+      </span>
+    </label>
+  </span>
+  <span>
+    <label>
+      <input />
+      <i />
+      <span>
+        orange
+      </span>
+    </label>
+  </span>
+  <span>
+    <label>
+      <input />
+      <i />
+      <span>
+        yellow
+      </span>
+    </label>
+  </span>
+  <span>
+    <label>
+      <input />
+      <i />
+      <span>
+        green
+      </span>
+    </label>
+  </span>
+  <span>
+    <label>
+      <input />
+      <i />
+      <span>
+        cyan
+      </span>
+    </label>
+  </span>
+  <span>
+    <label>
+      <input />
+      <i />
+      <span>
+        blue
+      </span>
+    </label>
+  </span>
+  <span>
+    <label>
+      <input />
+      <i />
+      <span>
+        violet
+      </span>
+    </label>
+  </span>
+</div>
+`;
+
+exports[`Snapshot test: Radio[site/pages/components/Radio/example-9-toggle.tsx] 1`] = `
 <div>
   <span>
     <label>
