@@ -59,6 +59,7 @@ class Upload extends PureComponent {
     this.removeValue = this.removeValue.bind(this)
     this.recoverValue = this.recoverValue.bind(this)
     this.validatorHandle = this.validatorHandle.bind(this)
+    this.updateValidate = this.updateValidate.bind(this)
     this.useValidator = this.useValidator.bind(this)
     this.handleFileDrop = this.handleFileDrop.bind(this)
     this.handleReplace = this.handleReplace.bind(this)
@@ -121,6 +122,7 @@ class Upload extends PureComponent {
           if (file.status === ERROR && onErrorRemove) {
             onErrorRemove(file.xhr, file.blob, file)
           }
+          this.updateValidate()
         }
       )
     }
@@ -402,8 +404,16 @@ class Upload extends PureComponent {
         if (!draft.files[id]) return
         draft.files[id].status = ERROR
         draft.files[id].message = message
-      })
+      }),
+      () => {
+        this.updateValidate()
+      }
     )
+  }
+
+  updateValidate() {
+    const { forceValidate } = this.props
+    forceValidate()
   }
 
   renderHandle() {
@@ -569,6 +579,7 @@ Upload.propTypes = {
   request: PropTypes.func,
   validateHook: PropTypes.func,
   validator: PropTypes.object,
+  forceValidate: PropTypes.func,
   value: PropTypes.array,
   customResult: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
   style: PropTypes.object,
