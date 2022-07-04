@@ -65,6 +65,6 @@ export interface IconProps extends IconComProps { }
  * @param prefix 类名前缀
  */
 
-declare function Icon (url: string, fontFamily: string, prefix: string): IconCom
+declare function Icon (url: string, fontFamily: string, prefix?: string): IconCom
 
 export default Icon
