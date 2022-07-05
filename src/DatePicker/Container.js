@@ -19,6 +19,7 @@ import { getRTLPosition } from '../utils/strings'
 import List from '../AnimationList'
 import { getLocale } from '../locale'
 import DateFns from './utils'
+import ParamFns from './paramUtils'
 import { isRTL } from '../config'
 import InputTitle from '../InputTitle'
 import { inputTitleClass } from '../InputTitle/styles'
@@ -260,8 +261,18 @@ class Container extends PureComponent {
   }
 
   handleTextChange(date, index, e) {
+    const { disabled, disabledTime } = this.props
     const format = this.getFormat()
     const val = date ? utils.format(date, format) : ''
+    let isDisabled
+    if (disabled) {
+      isDisabled = disabled(val)
+      if (isDisabled) return
+    }
+    if (disabledTime) {
+      isDisabled = ParamFns.handleTimeDisabled(date, disabledTime)
+      if (isDisabled) return
+    }
 
     if (!this.props.range) {
       const close = !(e && e.target && this.element.contains(e.target))
@@ -505,7 +516,7 @@ class Container extends PureComponent {
     return (
       <div
         // eslint-disable-next-line
-        tabIndex={ disabled === true ? -1 : 0}
+        tabIndex={disabled === true ? -1 : 0}
         className={className}
         onFocus={this.handleFocus}
         data-id={this.pickerId}

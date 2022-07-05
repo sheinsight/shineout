@@ -84,4 +84,5 @@ export default {
   quickHandleChangeParams,
   weekHandleChangeParams,
   judgeTimeByRange,
+  handleTimeDisabled,
 }
