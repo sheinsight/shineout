@@ -130,6 +130,15 @@ const examples = [
     component: require('doc/pages/components/Input/example-11-autoSelect.js').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-11-autoSelect.js'),
   },
+  {
+    name: '12-trim',
+    title: locate(
+      '清除空格 \n trim 为 true 时，失去焦点时会自动删除空白字符。',
+      'Clear space \n When trim is true, blank characters are automatically deleted when lose focus'
+    ),
+    component: require('doc/pages/components/Input/example-12-trim.js').default,
+    rawText: require('!raw-loader!doc/pages/components/Input/example-12-trim.js'),
+  },
 ]
 
 const codes = undefined
