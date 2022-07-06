@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: Slider[site/pages/components/Slider/example-01-base.js] 1`] = `
+exports[`Snapshot test: Slider[site/pages/components/Slider/example-01-base.tsx] 1`] = `
 <div>
   <div />
   <div>
@@ -27,7 +27,7 @@ exports[`Snapshot test: Slider[site/pages/components/Slider/example-01-base.js] 
 </div>
 `;
 
-exports[`Snapshot test: Slider[site/pages/components/Slider/example-01-input.js] 1`] = `
+exports[`Snapshot test: Slider[site/pages/components/Slider/example-01-input.tsx] 1`] = `
 <div>
   <div>
     <div />
@@ -71,7 +71,7 @@ exports[`Snapshot test: Slider[site/pages/components/Slider/example-01-input.js]
 </div>
 `;
 
-exports[`Snapshot test: Slider[site/pages/components/Slider/example-02-range.js] 1`] = `
+exports[`Snapshot test: Slider[site/pages/components/Slider/example-02-range.tsx] 1`] = `
 <div>
   <div />
   <div>
@@ -105,7 +105,7 @@ exports[`Snapshot test: Slider[site/pages/components/Slider/example-02-range.js]
 </div>
 `;
 
-exports[`Snapshot test: Slider[site/pages/components/Slider/example-03-scale.js] 1`] = `
+exports[`Snapshot test: Slider[site/pages/components/Slider/example-03-scale.tsx] 1`] = `
 <div>
   <div />
   <div>
@@ -152,7 +152,7 @@ exports[`Snapshot test: Slider[site/pages/components/Slider/example-03-scale.js]
 </div>
 `;
 
-exports[`Snapshot test: Slider[site/pages/components/Slider/example-04-format.js] 1`] = `
+exports[`Snapshot test: Slider[site/pages/components/Slider/example-04-format.tsx] 1`] = `
 <div>
   <div />
   <div>
@@ -226,7 +226,7 @@ exports[`Snapshot test: Slider[site/pages/components/Slider/example-04-format.js
 </div>
 `;
 
-exports[`Snapshot test: Slider[site/pages/components/Slider/example-05-step.js] 1`] = `
+exports[`Snapshot test: Slider[site/pages/components/Slider/example-05-step.tsx] 1`] = `
 <div>
   <div />
   <div>
@@ -260,7 +260,7 @@ exports[`Snapshot test: Slider[site/pages/components/Slider/example-05-step.js] 
 </div>
 `;
 
-exports[`Snapshot test: Slider[site/pages/components/Slider/example-06-step.js] 1`] = `
+exports[`Snapshot test: Slider[site/pages/components/Slider/example-06-step.tsx] 1`] = `
 <div>
   <div />
   <div>
@@ -364,7 +364,7 @@ exports[`Snapshot test: Slider[site/pages/components/Slider/example-06-step.js] 
 </div>
 `;
 
-exports[`Snapshot test: Slider[site/pages/components/Slider/example-07-hide.js] 1`] = `
+exports[`Snapshot test: Slider[site/pages/components/Slider/example-07-hide.tsx] 1`] = `
 <div>
   <div />
   <div>
@@ -436,7 +436,7 @@ exports[`Snapshot test: Slider[site/pages/components/Slider/example-07-hide.js] 
 </div>
 `;
 
-exports[`Snapshot test: Slider[site/pages/components/Slider/example-08-hide.js] 1`] = `
+exports[`Snapshot test: Slider[site/pages/components/Slider/example-08-hide.tsx] 1`] = `
 <div>
   <div />
   <div>
@@ -448,7 +448,7 @@ exports[`Snapshot test: Slider[site/pages/components/Slider/example-08-hide.js] 
 </div>
 `;
 
-exports[`Snapshot test: Slider[site/pages/components/Slider/example-09-disabled.js] 1`] = `
+exports[`Snapshot test: Slider[site/pages/components/Slider/example-09-disabled.tsx] 1`] = `
 <div>
   <div />
   <div>
@@ -482,7 +482,7 @@ exports[`Snapshot test: Slider[site/pages/components/Slider/example-09-disabled.
 </div>
 `;
 
-exports[`Snapshot test: Slider[site/pages/components/Slider/example-10-vertical.js] 1`] = `
+exports[`Snapshot test: Slider[site/pages/components/Slider/example-10-vertical.tsx] 1`] = `
 <div>
   <div>
     <div />
@@ -640,7 +640,7 @@ exports[`Snapshot test: Slider[site/pages/components/Slider/example-10-vertical.
 </div>
 `;
 
-exports[`Snapshot test: Slider[site/pages/components/Slider/example-11-increase.js] 1`] = `
+exports[`Snapshot test: Slider[site/pages/components/Slider/example-11-increase.tsx] 1`] = `
 <div>
   <div>
     <div />
