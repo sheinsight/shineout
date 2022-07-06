@@ -99,6 +99,10 @@ export default class {
     return flatten
   }
 
+  setLock(lock) {
+    this.updateLock = lock
+  }
+
   add(data, _, childrenKey, unshift) {
     if (data === undefined || data === null) return
 
