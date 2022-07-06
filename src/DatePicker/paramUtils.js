@@ -48,7 +48,7 @@ function judgeTimeByRange(...args) {
       date.setSeconds(target)
       break
     case 'ampm':
-      if (target === 0) {
+      {
         const hours = date.getHours()
         if (target === 1 && hours < 12) {
           date.setHours(hours + 12)
