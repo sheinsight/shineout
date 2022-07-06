@@ -35,9 +35,7 @@ class FilterInput extends Component {
   }
 
   focus() {
-    requestAnimationFrame(() => {
-      focusElement.select(this.editElement)
-    })
+    focusElement.select(this.editElement)
   }
 
   bindElement(el) {

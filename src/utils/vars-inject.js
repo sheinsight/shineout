@@ -403,7 +403,7 @@ const injects = {
         attr: 'marginRight',
         type: 'number',
         parser: parseInt,
-        className: buttonClass('spin-ltr'),
+        className: buttonClass('spin'),
         desc: '加载图标与文字间距',
       },
       {
@@ -2043,7 +2043,7 @@ const injects = {
       },
       {
         name: 'headerTopDivider',
-        className: exposeClass('table-head-top'),
+        className: exposeClass('table-header-top'),
         attr: 'borderWidth',
         type: 'number',
         parser: parseInt,
@@ -2753,7 +2753,7 @@ const injects = {
       },
       {
         name: 'activePaddingHorizontal',
-        className: exposeClass('menu-active'),
+        className: exposeClass('menu-active-horizontal'),
         attr: 'paddingLeft',
         type: 'number',
         parser: parseInt,
@@ -2761,7 +2761,7 @@ const injects = {
       },
       {
         name: 'activePaddingVertical',
-        className: exposeClass('menu-active'),
+        className: exposeClass('menu-active-vertical'),
         attr: 'paddingTop',
         type: 'number',
         parser: parseInt,
@@ -2769,7 +2769,7 @@ const injects = {
       },
       {
         name: 'activeBorderRadius',
-        className: exposeClass('menu-active'),
+        className: exposeClass('menu-acitive-borderRadius'),
         attr: 'borderRadius',
         type: 'number',
         parser: parseInt,
@@ -4106,13 +4106,13 @@ const injects = {
         type: 'color',
         desc: '标题文字颜色',
       },
-      // {
-      //   name: 'footerColor',
-      //   className: exposeClass('modal-card-footer'),
-      //   attr: 'color',
-      //   type: 'color',
-      //   desc: '底部文字颜色',
-      // },
+      {
+        name: 'footerColor',
+        className: modalClass('modal-card-footer'),
+        attr: 'color',
+        type: 'color',
+        desc: '底部文字颜色',
+      },
       {
         name: 'headerBg',
         className: exposeClass('modal-card-header'),

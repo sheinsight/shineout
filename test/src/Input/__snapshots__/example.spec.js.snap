@@ -296,9 +296,3 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-11-autoSelect.
   <input />
 </label>
 `;
-
-exports[`Snapshot test: Input[site/pages/components/Input/example-12-trim.js] 1`] = `
-<label>
-  <input />
-</label>
-`;

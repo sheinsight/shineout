@@ -89,7 +89,7 @@ class Thead extends PureComponent {
       const thList = getParent(target, 'tr').children
       const indexInTr = [].indexOf.call(thList, this.resizingTh)
       this.resizingIndex = [].slice.call(thList, 0, indexInTr).reduce((total, th) => {
-        const count = Number(th.getAttribute('colspan')) || 1
+        let count = Number(th.getAttribute('colspan')) || 1
         return total + count
       }, 0)
       this.resizingCol = this.resizingTable.querySelectorAll('col')[this.resizingIndex]
@@ -123,11 +123,10 @@ class Thead extends PureComponent {
     if (col.lastFixed) fixed.push('fixed-last')
 
     const { sorter, onSortChange, data, datum, showSelectAll, disabled, treeColumnsName, treeCheckAll } = this.props
-    const isEmpty = !(data && data.length)
     const align = col.align && `align-${col.align}`
     const ignoreBorderRight = this.rightBorderRecord[col.key] && 'ignore-right-border'
     const resize =
-      level === 0 && !isEmpty && columnResizable && col.columnResizable !== false ? (
+      level === 0 && columnResizable && col.columnResizable !== false ? (
         <span onMouseDown={this.handleMouseDown} className={tableClass('resize-spanner')} />
       ) : null
     if (col.title) {
