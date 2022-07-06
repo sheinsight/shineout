@@ -14,6 +14,7 @@ export default Origin =>
       type: PropTypes.string,
       value: PropTypes.any,
       allowSingle: PropTypes.bool,
+      timeZone: PropTypes.string,
     }
 
     constructor(props) {
@@ -39,6 +40,11 @@ export default Origin =>
       if (!shallowEqual(prevProps.value, value) && !shallowEqual(value, this.state.value)) {
         this.convertValue(value)
       }
+    }
+
+    getOptions() {
+      const { timeZone } = this.props
+      return { timeZone, weekStartsOn: getLocale('startOfWeek') }
     }
 
     getFormat() {
@@ -72,9 +78,11 @@ export default Origin =>
       const format = this.getFormat()
 
       if (!range) {
-        const newValue = utils.format(utils.toDateWithFormat(value, format, undefined), format, {
-          weekStartsOn: getLocale('startOfWeek'),
-        })
+        const newValue = utils.format(
+          utils.toDateWithFormat(value, format, undefined, this.getOptions()),
+          format,
+          this.getOptions()
+        )
         if (newValue !== value) this.props.onChange(newValue)
         else if (newValue !== this.state.value) this.setState({ value: newValue })
         return newValue
@@ -85,9 +93,7 @@ export default Origin =>
 
       const newValue = value.map(v => {
         if (!v) return undefined
-        return utils.format(utils.toDateWithFormat(v, format, undefined), format, {
-          weekStartsOn: getLocale('startOfWeek'),
-        })
+        return utils.format(utils.toDateWithFormat(v, format, undefined, this.getOptions()), format, this.getOptions())
       })
 
       if (!shallowEqual(newValue, value)) {

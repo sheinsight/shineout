@@ -61,3 +61,4 @@
 | size |  'large' \| 'default' \| 'small'| 'default' | 尺寸 |
 | trim | boolean | false | 失去焦点时会自动删除空白字符 |
 | onAdvancedFilter | (text: string) => ((data: Item) => boolean) \| void | 无 | 使用 onAdvancedFilter 属性开启高级筛选，可针对当前层级在筛选结果和原始数据间切换 |
+| convertBr | string | "," | 用来转化粘贴文本中的换行 |
