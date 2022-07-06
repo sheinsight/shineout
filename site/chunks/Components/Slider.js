@@ -14,36 +14,39 @@ const source = locate(cn, en)
 
 const examples = [
   {
-    name: '01-base',
-    isTs: false,
+    name: '01-base.tsx',
+    isTs: true,
     title: locate(
       '基本用法 \n 最基本的用法',
       'Base \n The basic usage.'
     ),
-    component: require('doc/pages/components/Slider/example-01-base.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Slider/example-01-base.js'),
+    component: require('doc/pages/components/Slider/example-01-base.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Slider/example-01-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Slider/example-01-base.tsx'),
 
   },
   {
-    name: '01-input',
-    isTs: false,
+    name: '01-input.tsx',
+    isTs: true,
     title: locate(
       '带输入框 \n 和 数组输入框 保持同步',
       'Input \n change with number input'
     ),
-    component: require('doc/pages/components/Slider/example-01-input.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Slider/example-01-input.js'),
+    component: require('doc/pages/components/Slider/example-01-input.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Slider/example-01-input.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Slider/example-01-input.tsx'),
 
   },
   {
-    name: '02-range',
-    isTs: false,
+    name: '02-range.tsx',
+    isTs: true,
     title: locate(
       '范围选择 \n 设置 range 属性显示为双滑块，输入(返回)值为长度为 2 的数组',
       'Range \n Set the range property to display double sliders, and value is an array of length 2.'
     ),
-    component: require('doc/pages/components/Slider/example-02-range.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Slider/example-02-range.js'),
+    component: require('doc/pages/components/Slider/example-02-range.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Slider/example-02-range.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Slider/example-02-range.tsx'),
 
   },
   {
