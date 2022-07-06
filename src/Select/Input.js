@@ -57,16 +57,23 @@ class FilterInput extends Component {
   }
 
   handlePaste(e) {
-    preventPasteFile(e, text => {
-      if (window.getSelection) {
-        const selection = window.getSelection()
-        this.lastSelect = {
-          anchorOffset: selection.anchorOffset,
-          focusOffset: selection.focusOffset,
-          text,
+    const { convertBr } = this.props
+    preventPasteFile(
+      e,
+      text => {
+        if (window.getSelection) {
+          const selection = window.getSelection()
+          this.lastSelect = {
+            anchorOffset: selection.anchorOffset,
+            focusOffset: selection.focusOffset,
+            text,
+          }
         }
+      },
+      {
+        convertBr,
       }
-    })
+    )
   }
 
   geHandleMax(e) {
@@ -220,6 +227,7 @@ FilterInput.propTypes = {
   bindFocusInputFunc: PropTypes.func,
   collapse: PropTypes.func,
   maxLength: PropTypes.number,
+  convertBr: PropTypes.bool,
 }
 
 FilterInput.defaultProps = {
