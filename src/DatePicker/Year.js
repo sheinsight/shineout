@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { range as getRange } from '../utils/numbers'
 import { datepickerClass } from './styles'
 import Icon from './Icon'
+import { getLocale } from '../locale'
 import utils from './utils'
 import paramUtils from './paramUtils'
 
@@ -17,10 +18,14 @@ class Year extends PureComponent {
     this.renderYear = this.renderYear.bind(this)
   }
 
+  getOptions() {
+    const { timeZone } = this.props
+    return { timeZone, weekStartsOn: getLocale('startOfWeek') }
+  }
+
   handleChange(year) {
     const { current, onChange, onModeChange, type } = this.props
-    const date = new Date(current.getTime())
-    date.setFullYear(year)
+    const date = utils.changeDate(current, 'year', year, this.getOptions())
     const isYearType = this.props.type === 'year'
     onChange(...paramUtils.yearHandleChangeParams(date, isYearType, isYearType))
     if (isYearType) return
@@ -33,17 +38,16 @@ class Year extends PureComponent {
 
   handleRangeChange(year) {
     const { current, onChange } = this.props
-    onChange(...paramUtils.yearHandleChangeParams(utils.addYears(current, year)))
+    onChange(...paramUtils.yearHandleChangeParams(utils.addYears(current, year, this.getOptions())))
   }
 
   renderYear(y) {
     const { value, min, disabled, range, type, index, rangeDate, max } = this.props
-    const date = utils.toDate(MONTHBASE)
-    date.setFullYear(y)
+    const date = utils.changeDate(utils.toDate(MONTHBASE, this.getOptions()), 'year', y, this.getOptions())
 
-    let isDisabled = min && utils.compareYear(min, date, 1) >= 0
+    let isDisabled = min && utils.compareYear(min, date, 1, this.getOptions()) >= 0
     if (!isDisabled) {
-      isDisabled = max && utils.compareYear(date, max, 1) >= 0
+      isDisabled = max && utils.compareYear(date, max, 1, this.getOptions()) >= 0
     }
 
     if (!isDisabled && type === 'year' && typeof disabled === 'function') {
@@ -51,18 +55,21 @@ class Year extends PureComponent {
     }
 
     if (!isDisabled && index === 0) {
-      if (rangeDate[1] && utils.compareAsc(date, utils.addSeconds(rangeDate[1], -range)) < 0) {
+      if (rangeDate[1] && utils.compareAsc(date, utils.addSeconds(rangeDate[1], -range, this.getOptions())) < 0) {
         isDisabled = true
       }
     }
 
     if (!isDisabled && index === 1) {
-      if (rangeDate[0] && utils.compareAsc(date, utils.addSeconds(rangeDate[0], range)) > 0) {
+      if (rangeDate[0] && utils.compareAsc(date, utils.addSeconds(rangeDate[0], range, this.getOptions())) > 0) {
         isDisabled = true
       }
     }
 
-    const className = datepickerClass(value && value.getFullYear() === y && 'active', isDisabled && 'disabled')
+    const className = datepickerClass(
+      value && utils.getDateInfo(value, 'year', this.getOptions()) === y && 'active',
+      isDisabled && 'disabled'
+    )
 
     return (
       <span key={y} className={className} onClick={isDisabled ? undefined : this.handleChange.bind(this, y)}>
@@ -73,7 +80,7 @@ class Year extends PureComponent {
 
   render() {
     const { current } = this.props
-    const cy = current.getFullYear() - 7
+    const cy = utils.getDateInfo(current, 'year', this.getOptions()) - 7
     const years = getRange(15, 0).map(i => cy + i)
 
     return (
@@ -104,6 +111,7 @@ Year.propTypes = {
   range: PropTypes.number,
   index: PropTypes.number,
   rangeDate: PropTypes.array,
+  timeZone: PropTypes.string,
 }
 
 export default Year
