@@ -58,11 +58,13 @@ export default curry((options, Origin) => {
     }
 
     componentDidMount() {
+      this.datum.setLock(false)
       this.prevValues = this.props[key]
     }
 
     componentDidUpdate(prevProps) {
       // update datum.onchange
+      this.datum.setLock(false)
       if (prevProps.onChange !== this.props.onChange) {
         this.datum.onChange = this.props.onChange
       }
@@ -83,6 +85,7 @@ export default curry((options, Origin) => {
       const values = this.props[key]
       if (type === 'form' && values !== this.prevValues) {
         this.setValue(this.props.initValidate ? undefined : IGNORE_VALIDATE)
+        this.datum.setLock(true)
         this.prevValues = values
       }
 
