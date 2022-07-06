@@ -9,23 +9,24 @@ import { Select, TYPE } from 'shineout'
 
 type SelectProps = TYPE.Select.Props<any, any>
 type SelectData = SelectProps['data']
-type SelectOnFilter = SelectProps['onFilter']
 type SelectRenderItem = SelectProps['renderItem']
 
+const style: React.CSSProperties = { width: 240, marginBottom: 12 }
 const data: SelectData = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
-const highlight = (props: SelectProps) => (Component: Select) => {
-  const [filterText, setFilterText] = useState(undefined)
+const highlight = (Component: any) => (props: SelectProps) => {
+  const [filterText, setFilterText] = useState<any>(undefined)
 
-  const handlerFilter: SelectOnFilter = text => {
+  const handlerFilter = (text: any) => {
     const { onFilter } = props
     setFilterText(text)
-    return onFilter(text)
+    return onFilter!(text, text)
   }
 
-  const renderItem: SelectRenderItem = (d, index) => {
-    const { renderItem, highlightStyle } = props
+  const handleRenderItem: SelectRenderItem = (d, index) => {
+    const { renderItem = v => v, highlightStyle } = props
     const result = typeof renderItem === 'function' ? renderItem(d, index) : d[renderItem]
+
     if (!filterText) return result
     if (typeof result !== 'string') return result
     return result.split(filterText).map((item, i, arr) => {
@@ -39,7 +40,20 @@ const highlight = (props: SelectProps) => (Component: Select) => {
     })
   }
 
-  return <Component {...props} onFilter={props.onFilter ? handlerFilter : undefined} renderItem={renderItem} />
+  const handleReset = (...args: any[]) => {
+    const { beforeChange } = props
+    if (beforeChange) beforeChange(...args)
+    setFilterText(undefined)
+  }
+
+  return (
+    <Component
+      {...props}
+      beforeChange={handleReset}
+      renderItem={handleRenderItem}
+      onFilter={props.onFilter ? handlerFilter : undefined}
+    />
+  )
 }
 
 const HighlightFilter = highlight(Select)
@@ -47,22 +61,24 @@ const HighlightFilter = highlight(Select)
 const App: React.FC = () => (
   <div>
     <HighlightFilter
-      style={{ width: 240, marginBottom: 12 }}
-      data={data}
       keygen
+      data={data}
+      style={style}
+      renderResult={d => d}
       placeholder="Select color"
       onFilter={text => d => d.indexOf(text) >= 0}
-      renderResult={d => d}
     />
+
     <br />
+
     <HighlightFilter
-      style={{ width: 300 }}
-      multiple
       keygen
+      multiple
       data={data}
+      renderResult={d => d}
+      style={{ width: 300 }}
       placeholder="Select color"
       onFilter={text => d => d.indexOf(text) >= 0}
-      renderResult={d => d}
     />
   </div>
 )
