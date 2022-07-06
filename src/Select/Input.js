@@ -227,7 +227,7 @@ FilterInput.propTypes = {
   bindFocusInputFunc: PropTypes.func,
   collapse: PropTypes.func,
   maxLength: PropTypes.number,
-  convertBr: PropTypes.bool,
+  convertBr: PropTypes.string,
 }
 
 FilterInput.defaultProps = {
