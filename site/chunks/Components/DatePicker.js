@@ -143,7 +143,7 @@ const examples = [
     name: '11-disabled-date-time',
     title: locate(
       ' \n 同时禁用日期和时间',
-      ' \n When the disabled is a function, disbale should be used to disable some special time, if you need to use such as now before the time can not be selected, it is recommended to use min/max. (Note: If you only want to disable the time alone, you can use the disabledTime attribute.)'
+      ' \n Disable both special date and special time'
     ),
     component: require('doc/pages/components/DatePicker/example-11-disabled-date-time.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-11-disabled-date-time.js'),
