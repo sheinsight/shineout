@@ -58,7 +58,7 @@ FormItemStandardProps<Value>
    *
    * default: -
    */
-  onIncrease?: (value: Value) => boolean;
+  onIncrease?: (value: Value) => void;
 
   /**
    * Whether to display double slider

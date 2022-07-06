@@ -18,4 +18,4 @@
 | autoHide | boolean | false | Automatically hides the current value and scale |
 | disabled | boolean | false | Disable component |
 | range | boolean | false | Whether to display double slider |
-| onIncrease | (v: number) => boolean | - | Drag over the maximum event |
+| onIncrease | (v: number) => void | - | Drag over the maximum event |
