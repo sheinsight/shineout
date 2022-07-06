@@ -196,6 +196,17 @@ export interface SelectProps<Item, Value> extends
    */
   onFilter?: (text: string, from: string) => (((data: Item) => boolean) | void);
 
+  
+  /**
+   * Use the onAdvancedFilter property to enable filtering to switch between filtering results and raw data for the current hierarchy.
+   *
+   * 使用 onAdvancedFilter 属性开启高级筛选，可针对当前层级在筛选结果和原始数据间切换
+   *
+   * default: -
+   */
+  onAdvancedFilter?: (text: string) => ((data: Item) => boolean) | void;
+
+
   /**
    * Merges selected values, valid only in multiselect mode
    *

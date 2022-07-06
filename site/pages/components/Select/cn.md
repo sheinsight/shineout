@@ -60,3 +60,4 @@
 | loading |  boolean | ReactNode \| false | 数据加载中，为true时会展示一个默认的[Spin](/components/Spin)组件，可以传入一个自定义的Spin代替 |
 | size |  'large' \| 'default' \| 'small'| 'default' | 尺寸 |
 | trim | boolean | false | 失去焦点时会自动删除空白字符 |
+| onAdvancedFilter | (text: string) => ((data: Item) => boolean) \| void | 无 | 使用 onAdvancedFilter 属性开启高级筛选，可针对当前层级在筛选结果和原始数据间切换 |

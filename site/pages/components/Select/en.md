@@ -60,3 +60,4 @@
 | loading |  boolean \| ReactNode | false | When it is true, a default [Spin](/components/Spin) component will be displayed, a custom loading icon can be passed in to replace |
 | size |  'large' \| 'default' \| 'small'| 'default' | size |
 | trim | boolean | false | When trim is true, blank characters are automatically deleted when lose focus |
+| onAdvancedFilter | (text: string) => ((data: Item) => boolean) \| void | - | Use the onAdvancedFilter property to enable filtering to switch between filtering results and raw data for the current hierarchy. |
