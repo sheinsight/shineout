@@ -76,6 +76,7 @@ class TimeScroll extends PureComponent {
   handleScroll() {
     const { step, ampm } = this.props
     const value = Math.round(this.element.scrollTop / lineHeight)
+    if (value * step === this.props.value) return
     if (typeof step === 'number' && step > 0 && !ampm && value !== this.props.value) {
       this.props.onChange(value * step)
       return
