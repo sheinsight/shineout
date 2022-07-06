@@ -1,7 +1,12 @@
 // Created by scripts/src-index.d.js.
 import * as utils from './utils'
 
-export default { utils, version: '1.11.0-rc.14' }
+declare const __default: {
+  utils: typeof utils,
+  version: '1.11.0-rc.15'
+}
+
+export default __default
 export { utils }
 export { setLocale } from './locale'
 export { color, style } from './utils/expose'
