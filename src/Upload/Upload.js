@@ -277,7 +277,9 @@ class Upload extends PureComponent {
       }
     }
     finishedCode = true
-    this.setState({ files })
+    this.setState({ files }, () => {
+      this.updateValidate()
+    })
   }
 
   uploadFile(id, file, data) {
