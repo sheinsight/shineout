@@ -255,7 +255,7 @@ class Result extends PureComponent {
 
     let items = this.handleNode(nodes, render)
 
-    if (compressed) {
+    if (compressed && items.length) {
       items = this.renderMore(items)
     }
 
