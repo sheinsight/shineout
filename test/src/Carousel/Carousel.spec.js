@@ -149,16 +149,16 @@ describe('Carousel[custom-indicator]', () => {
     expect(indicatorFn.mock.calls[4][0]).toBe(1)
     expect(indicatorFn.mock.calls[5][0]).toBe(2)
   })
-  // test('should react with moveTo', () => {
-  //   const moveToIndex = 2
-  //   const indicatorFn = (current, moveTo) => moveTo(moveToIndex)
-  //   const wrapper = mount(
-  //     <Carousel indicatorType={indicatorFn} interval={3000}>
-  //       <div>1</div>
-  //       <div>2</div>
-  //       <div>3</div>
-  //     </Carousel>
-  //   )
-  //   expect(wrapper.find('ShineoutCarousel').state('current')).toBe(moveToIndex)
-  // })
+  test('should react with moveTo', () => {
+    const moveToIndex = 2
+    const indicatorFn = (current, moveTo) => moveTo(moveToIndex)
+    const wrapper = mount(
+      <Carousel indicatorType={indicatorFn} interval={3000}>
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+      </Carousel>
+    )
+    expect(wrapper.find('ShineoutCarousel').state('current')).toBe(moveToIndex)
+  })
 })
