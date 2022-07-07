@@ -256,6 +256,17 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-15-position.js'),
 
   },
+  {
+    name: '16-timezone',
+    isTs: false,
+    title: locate(
+      '时区 \n 设置 timeZone',
+      'timeZone \n set timeZone'
+    ),
+    component: require('doc/pages/components/DatePicker/example-16-timezone.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-16-timezone.js'),
+
+  },
 ]
 
 const codes = undefined

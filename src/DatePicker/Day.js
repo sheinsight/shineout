@@ -30,14 +30,19 @@ class Day extends PureComponent {
     this.formatWithDefaultTime = this.formatWithDefaultTime.bind(this)
   }
 
+  getOptions() {
+    const { timeZone } = this.props
+    return { timeZone, weekStartsOn: getLocale('startOfWeek') }
+  }
+
   getDays() {
     const { current } = this.props
     if (!current) return this.cachedDays
-    const date = utils.clearHMS(current)
-    if (this.cachedDate && utils.isSameMonth(this.cachedDate, date) && this.cachedDays) {
+    const date = utils.clearHMS(current, this.getOptions())
+    if (this.cachedDate && utils.isSameMonth(this.cachedDate, date, this.getOptions()) && this.cachedDays) {
       return this.cachedDays
     }
-    this.cachedDays = utils.getDaysOfMonth(date)
+    this.cachedDays = utils.getDaysOfMonth(date, this.getOptions())
     this.cachedDate = date
 
     return this.cachedDays
@@ -49,7 +54,7 @@ class Day extends PureComponent {
     if (typeof index === 'number') idx = index
     if (typeof i === 'number') idx = i
     if (!defaultTime[idx]) return current
-    return utils.cloneTime(current, defaultTime[idx], utils.TIME_FORMAT)
+    return utils.cloneTime(current, defaultTime[idx], utils.TIME_FORMAT, this.getOptions())
   }
 
   handleDayDoubleClick(date) {
@@ -67,14 +72,7 @@ class Day extends PureComponent {
     if (type === 'week') {
       onChange(...paramUtils.weekHandleChangeParams(date, true, true))
     } else {
-      let newDate = new Date(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate(),
-        current.getHours(),
-        current.getMinutes(),
-        current.getSeconds()
-      )
+      let newDate = utils.setTime(utils.toDate(date), current)
       // only can select day with the same day of min/max
       if (min && utils.compareAsc(newDate, min) < 0) utils.setTime(newDate, min)
       if (max && utils.compareAsc(newDate, max) > 0) utils.setTime(newDate, max)
@@ -82,10 +80,10 @@ class Day extends PureComponent {
       if (
         allowSingle &&
         rangeDate[index] &&
-        utils.clearHMS(newDate).getTime() === utils.clearHMS(rangeDate[index]).getTime()
+        utils.clearHMS(newDate, this.getOptions()).getTime() ===
+          utils.clearHMS(rangeDate[index], this.getOptions()).getTime()
       )
         newDate = ''
-
       onChange(...paramUtils.dayHandleChangeParams(newDate, true, type !== 'datetime'))
     }
   }
@@ -102,10 +100,10 @@ class Day extends PureComponent {
     const { current, onChange } = this.props
     // warning: month === 12 || month === -12, this is statement is year mode.
     if (month === -12 || month === 12) {
-      onChange(...paramUtils.yearHandleChangeParams(utils.addMonths(current, month)))
+      onChange(...paramUtils.yearHandleChangeParams(utils.addMonths(current, month, this.getOptions())))
       return
     }
-    onChange(...paramUtils.monthHandleChangeParams(utils.addMonths(current, month)))
+    onChange(...paramUtils.monthHandleChangeParams(utils.addMonths(current, month, this.getOptions())))
   }
 
   handleModeChange(mode) {
@@ -127,9 +125,10 @@ class Day extends PureComponent {
     }
     if (!isDisabled && index === 1) {
       if (
-        (typeof range === 'number' && utils.compareAsc(date, utils.addSeconds(rangeTemp, range)) > 0) ||
-        utils.compareAsc(date, utils.clearHMS(rangeTemp)) < 0 ||
-        utils.compareAsc(date, utils.clearHMS(min)) < 0 ||
+        (typeof range === 'number' &&
+          utils.compareAsc(date, utils.addSeconds(rangeTemp, range, this.getOptions())) > 0) ||
+        utils.compareAsc(date, utils.clearHMS(rangeTemp, this.getOptions())) < 0 ||
+        utils.compareAsc(date, utils.clearHMS(min, this.getOptions())) < 0 ||
         utils.compareAsc(date, max) > 0
       ) {
         isDisabled = true
@@ -138,14 +137,14 @@ class Day extends PureComponent {
     }
 
     if (!isDisabled && index === 0) {
-      if (utils.compareAsc(date, utils.clearHMS(min)) < 0 || utils.compareAsc(date, max) > 0) {
+      if (utils.compareAsc(date, utils.clearHMS(min, this.getOptions())) < 0 || utils.compareAsc(date, max) > 0) {
         isDisabled = true
       }
     }
 
     const classList = [
-      utils.isSameDay(date, this.today) && 'today',
-      current.getMonth() !== date.getMonth() && 'other-month',
+      utils.isSameDay(date, this.today, this.getOptions()) && 'today',
+      utils.compareMonth(current, date, 0, this.getOptions()) !== 0 && 'other-month',
       isDisabled && 'disabled',
     ]
 
@@ -153,43 +152,27 @@ class Day extends PureComponent {
     const hoverProps = {}
     const weekStart = getLocale('startOfWeek')
     const weekEnd = weekStart ? 0 : 6
+    const day = utils.getDateInfo(date, 'day', this.getOptions())
     if (type === 'week') {
       hoverProps.onMouseEnter = this.handleWeek.bind(this, date)
       hoverProps.onMouseLeave = this.handleWeekLeave
-      if (
-        utils.isSameWeek(date, value, {
-          weekStartsOn: weekStart,
-        })
-      ) {
-        hoverClass = datepickerClass(
-          'active',
-          date.getDay() === weekStart && 'hover-start',
-          date.getDay() === weekEnd && 'hover-end'
-        )
-      } else if (
-        hover &&
-        utils.isSameWeek(date, hover, {
-          weekStartsOn: weekStart,
-        })
-      ) {
-        hoverClass = datepickerClass(
-          'hover',
-          date.getDay() === weekStart && 'hover-start',
-          date.getDay() === weekEnd && 'hover-end'
-        )
+      if (utils.isSameWeek(date, value, this.getOptions())) {
+        hoverClass = datepickerClass('active', day === weekStart && 'hover-start', day === weekEnd && 'hover-end')
+      } else if (hover && utils.isSameWeek(date, hover, this.getOptions())) {
+        hoverClass = datepickerClass('hover', day === weekStart && 'hover-start', day === weekEnd && 'hover-end')
       }
-    } else if (rangeDate && current.getMonth() === date.getMonth()) {
+    } else if (rangeDate && utils.compareMonth(current, date, 0, this.getOptions()) === 1) {
       hoverProps.onMouseEnter = this.handleDayHover.bind(this, date)
 
-      classList.push(utils.isSameDay(date, rangeDate[index]) && 'active')
+      classList.push(utils.isSameDay(date, rangeDate[index], this.getOptions()) && 'active')
 
       hoverClass = datepickerClass(
         utils.compareAsc(rangeDate[0], date) <= 0 && utils.compareAsc(rangeDate[1], date) >= 0 && 'hover',
         // Datetime Picker range end datetime classname #330
-        utils.isSameDay(rangeDate[index], date) && `hover-${index === 0 ? 'start' : 'end'} active`
+        utils.isSameDay(rangeDate[index], date, this.getOptions()) && `hover-${index === 0 ? 'start' : 'end'} active`
       )
     } else if (value) {
-      classList.push(utils.isSameDay(date, value) && 'active')
+      classList.push(utils.isSameDay(date, value, this.getOptions()) && 'active')
     }
 
     return (
@@ -200,7 +183,7 @@ class Day extends PureComponent {
         onDoubleClick={isDisabled ? undefined : this.handleDayDoubleClick.bind(this, date, undefined)}
         {...hoverProps}
       >
-        <span className={datepickerClass(...classList)}>{date.getDate()}</span>
+        <span className={datepickerClass(...classList)}>{utils.getDateInfo(date, 'date', this.getOptions())}</span>
       </div>
     )
   }
@@ -219,14 +202,16 @@ class Day extends PureComponent {
       if (match) format = match[0]
     }
 
-    const value = rangeDate ? utils.toDateWithFormat(rangeDate[index], format) : this.props.value
+    const value = rangeDate
+      ? utils.toDateWithFormat(rangeDate[index], format, undefined, this.getOptions())
+      : this.props.value
     if (!value) return undefined
 
     return (
       <div className={datepickerClass('datetime')}>
         <Icon name="Clock" className="clock" />
         <Time {...this.props} format={format} value={value} onChange={this.handleTimeChange} />
-        <span>{utils.format(value, format)}</span>
+        <span>{utils.format(value, format, this.getOptions())}</span>
       </div>
     )
   }
@@ -234,10 +219,9 @@ class Day extends PureComponent {
   render() {
     const { current, min, index, max } = this.props
     const days = this.getDays()
-    this.today = utils.newDate()
-    const minDate = min && utils.toDate(utils.format(min, minStr, new Date()))
-    const maxDate = max && utils.toDate(utils.format(max, maxStr, new Date()))
-
+    this.today = utils.newDate(undefined, this.getOptions())
+    const minDate = min && utils.toDate(utils.format(min, minStr, this.getOptions()), this.getOptions())
+    const maxDate = max && utils.toDate(utils.format(max, maxStr, this.getOptions()), this.getOptions())
     return (
       <div className={datepickerClass('day-picker')}>
         <div className={datepickerClass('title')}>{getLocale('pickerTitle')[index]}</div>
@@ -245,33 +229,25 @@ class Day extends PureComponent {
           <Icon
             name="AngleDoubleLeft"
             className="left"
-            disabled={!!(min && current.getFullYear() <= min.getFullYear())}
+            disabled={!!(min && utils.compareYear(current, min, -1, this.getOptions()) === -1)}
             onClick={this.handlePrevYear}
           />
           <Icon
             name="AngleLeft"
             className="left"
-            disabled={!!(min && utils.compareMonth(current, min) <= 0)}
+            disabled={!!(min && utils.compareMonth(current, min, 0, this.getOptions()) <= 0)}
             onClick={this.handlePrevMonth}
           />
 
           <span className={datepickerClass('ym')}>
-            <span onClick={this.handleYearMode}>{current.getFullYear()}</span>
-            <span onClick={this.handleMonthMode}>{getLocale('monthValues.short')[current.getMonth()]}</span>
+            <span onClick={this.handleYearMode}>{utils.getDateInfo(current, 'year', this.getOptions())}</span>
+            <span onClick={this.handleMonthMode}>
+              {getLocale('monthValues.short')[utils.getDateInfo(current, 'month', this.getOptions())]}
+            </span>
           </span>
 
-          <Icon
-            name="AngleRight"
-            className="right"
-            // disabled={max && utils.compareMonth(current, max, 0) >= 0}
-            onClick={this.handleNextMonth}
-          />
-          <Icon
-            onClick={this.handleNextYear}
-            // disabled={max && current.getFullYear() >= max.getFullYear()}
-            name="AngleDoubleRight"
-            className="right"
-          />
+          <Icon name="AngleRight" className="right" onClick={this.handleNextMonth} />
+          <Icon onClick={this.handleNextYear} name="AngleDoubleRight" className="right" />
         </div>
 
         <div className={datepickerClass('week')}>
@@ -309,6 +285,7 @@ Day.propTypes = {
   value: PropTypes.object,
   defaultTime: PropTypes.array,
   allowSingle: PropTypes.bool,
+  timeZone: PropTypes.string,
 }
 
 export default Day

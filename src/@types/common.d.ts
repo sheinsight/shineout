@@ -25,7 +25,7 @@ export interface StandardProps {
 
 export type keyType = string | number | symbol
 
-export type keygenType<Item> = ((data: Item) => keyType) | string | true;
+export type keygenType<Item> = LiteralUnion<Item> | ((data: Item) => keyType) | true;
 
 export interface FormItemStandardProps<Value = any> {
     /**
@@ -109,6 +109,13 @@ export interface FormItemStandardProps<Value = any> {
        */
       bind?: string[];
 }
+
+/**
+ * 目前已知的最为简短的写法: @see https://github.com/Microsoft/TypeScript/issues/29729#issuecomment-1082546550
+ * 在类型守卫中会存在问题: @see https://github.com/Microsoft/TypeScript/issues/29729#issuecomment-1082791844
+ */
+export type LiteralUnion<T = any> = T extends Record<any, any> ? (keyof T | Omit<string, keyof T>) : never
+
 export interface ListItemStandardProps<Item = any, Value = any> {
     /**
      * Auxiliary method for generating key. When it is a function, use the return value of this function. When it is a string, use the data value corresponding to this string. For example, 'id' is the same thing as (d) => d.id.
@@ -136,7 +143,7 @@ export interface ListItemStandardProps<Item = any, Value = any> {
      *
      * default: d => d
      */
-    format?: ((data: Item) => any) | string;
+    format?: LiteralUnion<Item> | ((data: Item) => any);
 
     /**
      * By default, the result of the format function is used to compare whether it matches. In some cases (for example, whe an object that returns the original data is updated, an different option with the same value  is generated), the prediction function needs to be used to determine whether match
@@ -156,7 +163,7 @@ export interface StructDataStandardProps<Item = any> {
      *
      * default: d => d
      */
-    renderItem?: ((data: Item, index: number) => React.ReactNode) | string;
+    renderItem?: LiteralUnion<Item> | ((data: Item, index: number) => React.ReactNode);
 
     /**
      * The content displayed in the result after selecting, if not set, use renderItem. not show while return null, result is current selected
@@ -165,7 +172,7 @@ export interface StructDataStandardProps<Item = any> {
      *
      * default: renderItem
      */
-    renderResult?: ((data: Item, index: number) => React.ReactNode) | string;
+    renderResult?: LiteralUnion<Item> | ((data: Item, index: number) => React.ReactNode);
 
     /**
      * data
