@@ -11,9 +11,9 @@ import { Breadcrumb, Message, Button, TYPE } from 'shineout'
 
 type BreadcrumbData = TYPE.Breadcrumb.Data
 
-type BreadcrumbProps<data> = TYPE.Breadcrumb.Props<data>
+type BreadcrumbProps = TYPE.Breadcrumb.Props<BreadcrumbData>
 
-const data: BreadcrumbProps<BreadcrumbData>['data'] = [
+const data: BreadcrumbProps['data'] = [
   [{ title: 'Home', url: '#home' }, { title: 'aaa', url: '#aaa' }, { title: 'bbb', url: '#bbb' }],
   { title: <Link to="/components/Button">Button</Link> },
   { title: 'Self', onClick: () => Message.show('Clicked self') },
@@ -23,7 +23,7 @@ const renderItem = (value: BreadcrumbData) => {
   let BreadcrumbItem: ReactNode = value.title
 
   if (value.onClick || value.url) {
-    const props: BreadcrumbProps<BreadcrumbData> = {
+    const props: BreadcrumbProps = {
       onClick: value.onClick,
     }
 

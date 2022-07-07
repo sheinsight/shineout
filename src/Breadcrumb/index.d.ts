@@ -3,7 +3,7 @@ import { StandardProps, ListItemStandardProps , keygenType} from '../@types/comm
 
 type ReactNode = React.ReactNode;
 
-interface BreadcrumbData  {
+export interface BreadcrumbData  {
 
 
   /**
@@ -56,9 +56,11 @@ interface BreadcrumbData  {
   icon?:ReactNode
 }
 
+type StructureArray<T> =  Array<T | StructureArray<T>>
 
-export interface BreadcrumbProps<Item> extends StandardProps  {
-  
+
+export interface BreadcrumbProps<Item = BreadcrumbData> extends StandardProps  {
+
   /**
    * The array of breadcrumb objects, see data
    *
@@ -66,7 +68,7 @@ export interface BreadcrumbProps<Item> extends StandardProps  {
    *
    * default: []
    */
-  data?: Array<Item>;
+  data?: StructureArray<Item>;
 
 
   /**
@@ -87,11 +89,11 @@ export interface BreadcrumbProps<Item> extends StandardProps  {
    * default: -
    */
   keygen?: keygenType<Item>
-  
+
 }
 
 
-declare class Breadcrumb<Item = BreadcrumbData> extends React.PureComponent<BreadcrumbProps<Item>, {}> {}
+declare class Breadcrumb<Item> extends React.PureComponent<BreadcrumbProps<Item>, {}> {}
 
 
 export default Breadcrumb
