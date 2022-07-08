@@ -8,22 +8,23 @@ import React, { useState } from 'react'
 import immer from 'immer'
 import { Cascader, TYPE } from 'shineout'
 
-type CascaderProps<Item, Value> = TYPE.Cascader.Props<Item, Value>
-type CascaderKeygen = CascaderProps<any, string[]>['keygen']
-type CascaderLoader = CascaderProps<any, string[]>['loader']
-type CascaderChange = CascaderProps<any, string[]>['onChange']
-type CascaderRenderItem = CascaderProps<any, string[]>['renderItem']
+type CascaderProps = TYPE.Cascader.Props<any, string[]>
+type CascaderKeygen = CascaderProps['keygen']
+type CascaderLoader = CascaderProps['loader']
+type CascaderChange = CascaderProps['onChange']
+type CascaderValue = CascaderProps['value']
+type CascaderRenderItem = CascaderProps['renderItem']
 
 const initData = ['0', '1', '2', '3', '4', '5', '6', '7', '8'].map(i => ({ id: i }))
 const createRange = () => Array.from({ length: Math.round(Math.random() * 4) }, (_, i) => i)
 
 const App: React.FC = () => {
   const [_data, setData] = useState(initData)
-  const [value, setValue] = useState([])
+  const [value, setValue] = useState<CascaderValue>([])
 
   const handleChange: CascaderChange = v => setValue(v)
   const renderItem: CascaderRenderItem = node => `node ${node.id}`
-  const keyGenerator: CascaderKeygen = (node, parentKey) => `${parentKey},${node.id}`.replace(/^,/, '')
+  const keyGenerator: CascaderKeygen = (node, parentKey) => `${String(parentKey)},${node.id}`.replace(/^,/, '')
 
   const loader: CascaderLoader = key => {
     const path = key.toString().split(',')
@@ -31,7 +32,7 @@ const App: React.FC = () => {
       const producer = immer(draft => {
         let { data } = draft
         path.forEach((pid, i) => {
-          data = draft.find(d => d.id === pid)
+          data = draft.find((d: { id: string }) => d.id === pid)
           if (i < path.length - 1) draft = data.children
         })
         data.children = [...createRange().map(i => ({ id: `${data.id}-${i}` }))]
