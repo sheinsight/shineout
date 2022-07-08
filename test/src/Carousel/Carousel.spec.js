@@ -5,23 +5,27 @@ import CarouselBase from '../../../site/pages/components/Carousel/example-1-base
 
 /* global SO_PREFIX */
 describe('Carousel[Base]', () => {
-  let wrapper
-  beforeAll(() => {
-    wrapper = shallow(<CarouselBase />)
-      .find(Carousel)
-      .shallow()
-  })
+  // let wrapper
+  // beforeAll(() => {
+  //   wrapper = shallow(<CarouselBase />)
+  //     .find(Carousel)
+  //     .shallow()
+  // })
+  const Base = mount(<CarouselBase />)
+  const wrapper = Base.find(Carousel)
   test('should render number of items', () => {
-    if (wrapper) expect(wrapper.children().length).toBe(5)
+    expect(wrapper.find(`.${SO_PREFIX}-carousel-item`).length).toBe(4)
+    expect(wrapper.find(`.${SO_PREFIX}-carousel-indicator`).length).toBe(1)
+    expect(wrapper.children().children().length).toBe(5)
   })
+  console.log(wrapper.find('Item').length)
   test('should render item class', () => {
-    if (wrapper)
-      wrapper.find('Item').forEach(item => {
-        expect(item.shallow().hasClass(`${SO_PREFIX}-carousel-item`)).toBeTruthy()
-      })
+    wrapper.find('Item').forEach(item => {
+      expect(item.find(`.${SO_PREFIX}-carousel-item`).length).toBe(1)
+    })
   })
   test('should have indicator', () => {
-    if (wrapper) expect(wrapper.find(`.${SO_PREFIX}-carousel-indicator`).length).toBe(1)
+    expect(wrapper.find(`.${SO_PREFIX}-carousel-indicator`).length).toBe(1)
   })
 })
 
