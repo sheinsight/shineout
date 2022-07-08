@@ -8,7 +8,6 @@ import React, { useState } from 'react'
 import { Carousel, Select, TYPE } from 'shineout'
 
 type CarouselProps = TYPE.Carousel.Props
-type CarouselInterval = CarouselProps['interval']
 type CarouselAnimation = CarouselProps['animation']
 type CarouselIndicatorType = CarouselProps['indicatorType']
 type CarouselIndicatorPosition = CarouselProps['indicatorPosition']
@@ -21,7 +20,6 @@ const containerStyle = {
 }
 
 const App: React.FC = () => {
-  const [interval] = useState<CarouselInterval>(5000)
   const [animation, setAnimation] = useState<CarouselAnimation>('slide')
   const [indicatorType, setIndicatorType] = useState<CarouselIndicatorType>('circle')
   const [indicatorPosition, setIndicatorPosition] = useState<CarouselIndicatorPosition>('center')
@@ -60,7 +58,7 @@ const App: React.FC = () => {
 
       <Carousel
         style={{ width: 500, height: 300 }}
-        interval={interval}
+        interval={5000}
         animation={animation}
         indicatorPosition={indicatorPosition}
         indicatorType={indicatorType}
