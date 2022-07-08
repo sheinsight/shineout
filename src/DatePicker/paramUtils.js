@@ -19,42 +19,42 @@ const weekHandleChangeParams = handleOnChangeParams('week')
 const timeHandleChangeParams = handleOnChangeParams('time')
 const quickHandleChangeParams = handleOnChangeParams('quick')
 
-function handleTimeDisabled(date, disabledTime) {
-  if (typeof disabledTime === 'string') return format(date, TIME_FORMAT) === disabledTime
-  if (typeof disabledTime === 'function') return disabledTime(format(date, TIME_FORMAT))
+function handleTimeDisabled(date, disabledTime, options) {
+  if (typeof disabledTime === 'string') return format(date, TIME_FORMAT, options) === disabledTime
+  if (typeof disabledTime === 'function') return disabledTime(format(date, TIME_FORMAT, options))
   return undefined
 }
 
 function judgeTimeByRange(...args) {
-  const [target, value, mode, min, max, range, disabled, disabledTime] = args
+  const [target, value, mode, min, max, range, disabled, disabledTime, options] = args
 
-  const date = new Date(value.getTime())
+  let date = new Date(value.getTime())
   switch (mode) {
     case 'H':
-      date.setHours(target)
+      date = utils.changeDate(date, 'hour', target, options)
       break
     case 'h':
-      if (date.getHours() >= 12) {
-        date.setHours(target + 12)
+      if (utils.getDateInfo(date, 'hour', options) >= 12) {
+        date = utils.changeDate(date, 'hour', target + 12, options)
         break
       }
-      date.setHours(target)
+      date = utils.changeDate(date, 'hour', target, options)
       break
     case 'm':
     case 'minute':
-      date.setMinutes(target)
+      date = utils.changeDate(date, 'minute', target, options)
       break
     case 's':
     case 'second':
-      date.setSeconds(target)
+      date = utils.changeDate(date, 'second', target, options)
       break
     case 'ampm':
-      if (target === 0) {
-        const hours = date.getHours()
+      {
+        const hours = utils.getDateInfo(date, 'hour', options)
         if (target === 1 && hours < 12) {
-          date.setHours(hours + 12)
+          date = utils.changeDate(date, 'hour', hours + 12, options)
         } else if (target === 0 && hours >= 12) {
-          date.setHours(hours - 12)
+          date = utils.changeDate(date, 'hour', hours - 12, options)
         }
       }
       break
@@ -64,15 +64,15 @@ function judgeTimeByRange(...args) {
 
   let isDisabled
   if (disabled) isDisabled = disabled(date)
-  if (disabledTime) isDisabled = isDisabled || handleTimeDisabled(date, disabledTime)
+  if (disabledTime) isDisabled = isDisabled || handleTimeDisabled(date, disabledTime, options)
   if (isDisabled) return [true]
   if (!isDisabled && min) {
     if (compareAsc(date, min) < 0) return [true]
-    if (range && compareAsc(date, addSeconds(min, range)) > 0) return [true]
+    if (range && compareAsc(date, addSeconds(min, range, options)) > 0) return [true]
   }
   if (!isDisabled && max) {
     if (compareAsc(date, max) > 0) return [true]
-    if (range && compareAsc(date, addSeconds(max, -range)) < 0) return [true]
+    if (range && compareAsc(date, addSeconds(max, -range, options)) < 0) return [true]
   }
   return [false, date]
 }

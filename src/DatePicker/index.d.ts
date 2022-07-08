@@ -299,6 +299,15 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    * default: 'default'
    */
   size?: 'small' | 'default' | 'large'
+
+  /**
+   * set timeZone
+   *
+   * 设置时区
+   *
+   * default: -
+   */
+  timeZone?: 'string'
 }
 
 declare class DatePicker extends React.Component<DatePickerProps, {}> {
