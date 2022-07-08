@@ -12,7 +12,7 @@ describe('Carousel[Base]', () => {
       .shallow()
   })
   test('should render number of items', () => {
-    expect(wrapper.children().length).toBe(5)
+    if (wrapper) expect(wrapper.children().length).toBe(5)
   })
   test('should render item class', () => {
     wrapper.find('Item').forEach(item => {
@@ -20,9 +20,7 @@ describe('Carousel[Base]', () => {
     })
   })
   test('should have indicator', () => {
-    if (wrapper) {
-      expect(wrapper.find(`.${SO_PREFIX}-carousel-indicator`).length).toBe(1)
-    }
+    if (wrapper) expect(wrapper.find(`.${SO_PREFIX}-carousel-indicator`).length).toBe(1)
   })
 })
 
