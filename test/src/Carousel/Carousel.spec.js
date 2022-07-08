@@ -20,7 +20,9 @@ describe('Carousel[Base]', () => {
     })
   })
   test('should have indicator', () => {
-    expect(wrapper.find(`.${SO_PREFIX}-carousel-indicator`).length).toBe(1)
+    if (wrapper) {
+      expect(wrapper.find(`.${SO_PREFIX}-carousel-indicator`).length).toBe(1)
+    }
   })
 })
 
