@@ -23,7 +23,7 @@ export interface StandardProps {
     [key: string]: any;
 }
 
-export type keyType = string | number | symbol
+export type keyType = string | number
 
 export type keygenType<Item> = LiteralUnion<Item> | ((data: Item) => keyType) | true;
 
