@@ -21,7 +21,7 @@ import { AlertProps as __AlertProps ,  } from './Alert'
 export { default as AnimationList } from './AnimationList'
 
 export { default as Breadcrumb } from './Breadcrumb'
-import { BreadcrumbProps as __BreadcrumbProps ,  } from './Breadcrumb'
+import { BreadcrumbProps as __BreadcrumbProps , BreadcrumbData  as __BreadcrumbData  ,  } from './Breadcrumb'
 
 export { default as Button } from './Button'
 import { ButtonProps as __ButtonProps , ButtonGroupProps as __ButtonGroupProps , ButtonType as __ButtonType } from './Button'
@@ -155,6 +155,7 @@ export namespace TYPE {
   }
   export namespace Breadcrumb {
     export type Props<Item> = __BreadcrumbProps<Item>
+    export type Data  = __BreadcrumbData 
   }
   export namespace Button {
     export type Props = __ButtonProps
