@@ -57,7 +57,7 @@ const highlight = (Component: any) => (props: CascaderProps) => {
 
   const RenderItem: CascaderRenderItem = (d, index) => {
     const { renderItem, highlightStyle } = props
-    const result = typeof renderItem === 'function' ? renderItem(d, index) : d[renderItem]
+    const result = typeof renderItem === 'function' ? renderItem(d, index) : d[String(renderItem)]
     if (!filterText) return result
     if (typeof result !== 'string') return result
     return result.split(filterText).map((item, i, arr) => {
