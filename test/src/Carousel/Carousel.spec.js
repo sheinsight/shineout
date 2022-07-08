@@ -15,9 +15,10 @@ describe('Carousel[Base]', () => {
     if (wrapper) expect(wrapper.children().length).toBe(5)
   })
   test('should render item class', () => {
-    wrapper.find('Item').forEach(item => {
-      expect(item.shallow().hasClass(`${SO_PREFIX}-carousel-item`)).toBeTruthy()
-    })
+    if (wrapper)
+      wrapper.find('Item').forEach(item => {
+        expect(item.shallow().hasClass(`${SO_PREFIX}-carousel-item`)).toBeTruthy()
+      })
   })
   test('should have indicator', () => {
     if (wrapper) expect(wrapper.find(`.${SO_PREFIX}-carousel-indicator`).length).toBe(1)
