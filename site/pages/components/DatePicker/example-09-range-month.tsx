@@ -8,17 +8,16 @@ import React from 'react'
 import { DatePicker, TYPE } from 'shineout'
 
 type DatePickerValue = TYPE.DatePicker.Value
+type DatePickerDateTimeType = TYPE.DatePicker.DateTimeType
 type DatePickerProps = TYPE.DatePicker.Props<DatePickerValue>
 type DatePickerDefaultRangeMonth = DatePickerProps['defaultRangeMonth']
 
-const style = { marginBottom: 12 }
-
 const today = new Date()
-const lastMonth = Date.now() - 86400000 * 30
-const nextMonth = Date.now() + 86400000 * 30
-
-const DateRange: DatePickerDefaultRangeMonth = [lastMonth, today]
-const DateTimeRange: DatePickerDefaultRangeMonth = [today, nextMonth]
+const style = { marginBottom: 12 }
+const lastMonth: DatePickerDateTimeType = Date.now() - 86400000 * 30
+const nextMonth: DatePickerDateTimeType = Date.now() + 86400000 * 30
+const DateRangeLast: DatePickerDefaultRangeMonth = [lastMonth, today]
+const DateRangeNext: DatePickerDefaultRangeMonth = [today, nextMonth]
 
 const App: React.FC = () => (
   <div>
@@ -26,7 +25,7 @@ const App: React.FC = () => (
       range
       type="date"
       style={style}
-      defaultRangeMonth={DateRange}
+      defaultRangeMonth={DateRangeLast}
       placeholder={['Start date', 'End date']}
     />
 
@@ -36,7 +35,7 @@ const App: React.FC = () => (
       range
       style={style}
       type="datetime"
-      defaultRangeMonth={DateTimeRange}
+      defaultRangeMonth={DateRangeNext}
       placeholder={['Start datetime', 'End datetime']}
     />
   </div>

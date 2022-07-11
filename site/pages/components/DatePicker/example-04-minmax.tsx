@@ -7,11 +7,9 @@
 import React from 'react'
 import { DatePicker, TYPE } from 'shineout'
 
-type DatePickerValue = TYPE.DatePicker.Value
-type DatePickerProps = TYPE.DatePicker.Props<DatePickerValue>
-type DatePickerDefaultValue = DatePickerProps['defaultValue']
+type DatePickerDateTimeType = TYPE.DatePicker.DateTimeType
 
-const Now: DatePickerDefaultValue = Date.now()
+const Now: DatePickerDateTimeType = Date.now()
 
 const App: React.FC = () => (
   <div>
