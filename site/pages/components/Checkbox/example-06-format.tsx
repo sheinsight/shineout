@@ -11,7 +11,7 @@ interface GroupData {
   id: number
   color: string
 }
-type CheckboxGroupProps = TYPE.Checkbox.GroupProps<GroupData, GroupData[]>
+type CheckboxGroupProps = TYPE.Checkbox.GroupProps<GroupData, string>
 type CheckboxGroupData = CheckboxGroupProps['data']
 type CheckboxGroupRenderItem = CheckboxGroupProps['renderItem']
 
