@@ -30,12 +30,10 @@ class Time extends PureComponent {
     return this.props.value || this.defaultValue
   }
 
-  handleChange(type, val) {
+  handleDisabled(val, type) {
     const { disabled, format, min, max, range, disabledTime } = this.props
-    const value = this.getValue()
-
     let mode = type
-
+    const value = this.getValue()
     if (type === 'hour') {
       if (format.indexOf('h') >= 0) {
         mode = 'h'
@@ -43,15 +41,18 @@ class Time extends PureComponent {
         mode = 'H'
       }
     }
-
     const [isDisabled, date] = paramUtils.judgeTimeByRange(val, value, mode, min, max, range, disabled, disabledTime)
+    return { isDisabled, date }
+  }
 
+  handleChange(type, val) {
+    const { isDisabled, date } = this.handleDisabled(val, type)
     if (isDisabled) return
     this.props.onChange(...paramUtils.timeHandleChangeParams(date, true, false, 'time'))
   }
 
   renderTimeScroller(value, min, max, hours) {
-    const { format, hourStep, minuteStep, secondStep, range, disabled, disabledTime } = this.props
+    const { format, hourStep, minuteStep, secondStep, range, disabled, disabledTime, disabledRegister } = this.props
 
     const rtl = isRTL()
     let res = [
@@ -69,6 +70,7 @@ class Time extends PureComponent {
           step={hourStep}
           onChange={this.handleHourChange}
           disabledTime={disabledTime}
+          disabledRegister={disabledRegister}
         />
       ),
       format.indexOf('h') >= 0 && (
@@ -85,6 +87,7 @@ class Time extends PureComponent {
           step={hourStep}
           onChange={this.handleHourChange}
           disabledTime={disabledTime}
+          disabledRegister={disabledRegister}
         />
       ),
       format.indexOf('m') >= 0 && (
@@ -100,6 +103,7 @@ class Time extends PureComponent {
           step={minuteStep}
           onChange={this.handleMinuteChange}
           disabledTime={disabledTime}
+          disabledRegister={disabledRegister}
         />
       ),
       format.indexOf('s') >= 0 && (
@@ -115,6 +119,7 @@ class Time extends PureComponent {
           step={secondStep}
           onChange={this.handleSecondChange}
           disabledTime={disabledTime}
+          disabledRegister={disabledRegister}
         />
       ),
       /a|A/.test(format) && (
@@ -131,6 +136,7 @@ class Time extends PureComponent {
           ampm
           onChange={this.handleAMPMChange}
           disabledTime={disabledTime}
+          disabledRegister={disabledRegister}
         />
       ),
     ]
@@ -174,6 +180,7 @@ Time.propTypes = {
   minuteStep: PropTypes.number,
   secondStep: PropTypes.number,
   disabledTime: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  disabledRegister: PropTypes.func,
 }
 
 export default Time

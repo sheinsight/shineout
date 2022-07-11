@@ -19,7 +19,6 @@ import { getRTLPosition } from '../utils/strings'
 import List from '../AnimationList'
 import { getLocale } from '../locale'
 import DateFns from './utils'
-import ParamFns from './paramUtils'
 import { isRTL } from '../config'
 import InputTitle from '../InputTitle'
 import { inputTitleClass } from '../InputTitle/styles'
@@ -44,6 +43,7 @@ class Container extends PureComponent {
       position: props.position,
       picker0: false,
       picker1: false,
+      disabledRegister: {},
     }
 
     this.pickerId = `picker_${getUidStr()}`
@@ -62,6 +62,8 @@ class Container extends PureComponent {
     this.parseDate = this.parseDate.bind(this)
     this.dateToCurrent = this.dateToCurrent.bind(this)
     this.shouldFocus = this.shouldFocus.bind(this)
+    this.handleDisabled = this.handleDisabled.bind(this)
+    this.disabledRegister = this.disabledRegister.bind(this)
 
     this.bindClickAway = this.bindClickAway.bind(this)
     this.clearClickAway = this.clearClickAway.bind(this)
@@ -260,17 +262,50 @@ class Container extends PureComponent {
     }
   }
 
+  disabledRegister(disabled, mode = this.props.type) {
+    this.setState(pre => {
+      const { disabledRegister } = pre
+      const newGetter = { ...disabledRegister }
+      newGetter[mode] = disabled
+      return {
+        disabledRegister: newGetter,
+      }
+    })
+  }
+
+  handleDisabled(value, date) {
+    let disabled
+    const mode = this.props.type
+    const { disabledRegister } = this.state
+    if (mode === 'time' || mode === 'datetime') {
+      disabled = this.handleDisabledTime(value, date)
+      if (disabled) return disabled
+    }
+
+    disabled = disabledRegister[mode](value)
+    return disabled
+  }
+
+  handleDisabledTime(value, date) {
+    const timeDisabled = []
+    const { disabledRegister } = this.state
+    const { format = 'HH:mm:ss' } = this.props
+    if (format.indexOf('H') >= 0) timeDisabled.push(disabledRegister.H(date.getHours()))
+    if (format.indexOf('h') >= 0) timeDisabled.push(disabledRegister.h(date.getHours()))
+    if (format.indexOf('m') >= 0) timeDisabled.push(disabledRegister.m(date.getMinutes()))
+    if (format.indexOf('s') >= 0) timeDisabled.push(disabledRegister.s(date.getSeconds()))
+    if (/a|A/.test(format)) timeDisabled.push(disabledRegister.ampm(value.getHours() >= 12 ? 1 : 0))
+    return timeDisabled.some(t => t)
+  }
+
   handleTextChange(date, index, e) {
-    const { disabled, disabledTime } = this.props
+    const { disabledTime, disabled, max, min, range } = this.props
     const format = this.getFormat()
     const val = date ? utils.format(date, format) : ''
     let isDisabled
-    if (disabled) {
-      isDisabled = disabled(val)
-      if (isDisabled) return
-    }
-    if (disabledTime) {
-      isDisabled = ParamFns.handleTimeDisabled(date, disabledTime)
+
+    if (disabled || disabledTime || max || min || range) {
+      isDisabled = this.handleDisabled(val, date)
       if (isDisabled) return
     }
 
@@ -489,6 +524,7 @@ class Container extends PureComponent {
         minuteStep={minuteStep}
         secondStep={secondStep}
         disabledTime={disabledTime}
+        disabledRegister={this.disabledRegister}
       >
         {this.props.children}
       </Component>

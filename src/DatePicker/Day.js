@@ -27,7 +27,10 @@ class Day extends PureComponent {
     this.handleYearMode = this.handleModeChange.bind(this, 'year')
     this.handleWeekLeave = this.handleWeek.bind(this, null)
     this.handleTimeChange = this.handleTimeChange.bind(this)
+    this.handleDisabled = this.handleDisabled.bind(this)
     this.formatWithDefaultTime = this.formatWithDefaultTime.bind(this)
+
+    props.disabledRegister(this.handleDisabled)
   }
 
   getDays() {
@@ -116,13 +119,12 @@ class Day extends PureComponent {
     this.props.onDayHover(date)
   }
 
-  renderDay(date, minD, maxD) {
-    const { current, disabled, value, index, type, rangeDate, range, rangeTemp, min, max } = this.props
-    const { hover } = this.state
-    const hmsDate = utils.toDate(date)
-    utils.setTime(hmsDate, current)
-    let isDisabled = disabled ? disabled(date) : false
+  handleDisabled(date) {
+    const { index, disabled, range, rangeTemp, min, max } = this.props
+    const minD = min && utils.toDate(utils.format(min, minStr, new Date()))
+    const maxD = max && utils.toDate(utils.format(max, maxStr, new Date()))
 
+    let isDisabled = disabled ? disabled(date) : false
     // only for single, single picker don't has index
     if (index === undefined && !isDisabled) {
       if ((minD && utils.compareAsc(date, minD) < 0) || (maxD && utils.compareAsc(date, maxD) > 0)) isDisabled = true
@@ -144,6 +146,16 @@ class Day extends PureComponent {
         isDisabled = true
       }
     }
+    return isDisabled
+  }
+
+  renderDay(date) {
+    const { current, value, index, type, rangeDate } = this.props
+    const { hover } = this.state
+    const hmsDate = utils.toDate(date)
+    utils.setTime(hmsDate, current)
+
+    const isDisabled = this.handleDisabled(date)
 
     const classList = [
       utils.isSameDay(date, this.today) && 'today',
@@ -311,6 +323,7 @@ Day.propTypes = {
   value: PropTypes.object,
   defaultTime: PropTypes.array,
   allowSingle: PropTypes.bool,
+  disabledRegister: PropTypes.func,
 }
 
 export default Day
