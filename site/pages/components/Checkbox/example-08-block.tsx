@@ -7,11 +7,11 @@
 import React from 'react'
 import { Checkbox, TYPE } from 'shineout'
 
-interface GroupData {
+interface DataItem {
   id: number
   color: string
 }
-type CheckboxGroupProps = TYPE.Checkbox.GroupProps<GroupData, string>
+type CheckboxGroupProps = TYPE.Checkbox.GroupProps<DataItem, string>
 type CheckboxGroupData = CheckboxGroupProps['data']
 
 const data: CheckboxGroupData = [

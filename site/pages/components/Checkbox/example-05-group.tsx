@@ -7,8 +7,8 @@
 import React from 'react'
 import { Checkbox, TYPE } from 'shineout'
 
-type GroupData = string
-type CheckboxGroupProps = TYPE.Checkbox.GroupProps<GroupData, string>
+type DataItem = string
+type CheckboxGroupProps = TYPE.Checkbox.GroupProps<DataItem, string>
 type CheckboxGroupData = CheckboxGroupProps['data']
 type CheckboxGroupRenderItem = CheckboxGroupProps['renderItem']
 
