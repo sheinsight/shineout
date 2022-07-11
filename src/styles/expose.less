@@ -156,9 +156,6 @@
         background: @select-tree-disabled-bg-color;
         color: @select-tree-disabled-content-color;
       }
-      &-line {
-        color: @tree-line-color
-      }
     }
   }
   &-datepicker-month{
@@ -357,6 +354,7 @@
       border-radius: @modal-border-radius;
       border: @modal-border-width solid @modal-border-color;
       box-shadow: @modal-box-shadow;
+      color: @modal-color;
       &-header {
         padding-top: @modal-header-padding-top;
         padding-right: @modal-header-padding-right;
@@ -406,6 +404,9 @@
     &-default-icon{
       border-left-color: @tree-indicator-color;
     }
+    &-line {
+      color: @tree-line-color
+    }
   }
   &-checkbox {
     &-indicator {
@@ -419,6 +420,9 @@
     }
     &-disabled {
       background-color: @checkbox-disabled-bgc;
+    }
+    &-checked-disabled {
+      background-color: @checkbox-checked-disabled-bgc;
     }
   }
   &-switch {

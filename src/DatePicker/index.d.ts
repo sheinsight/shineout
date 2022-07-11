@@ -71,10 +71,10 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
   disabled?: ((date: Date, type: DisabledType, value: DatePickerValue,) => boolean) | boolean;
 
   /**
-   * default values for different types: 'date': 'yyyy-MM-dd'. 'time': 'HH:mm:ss'. 'week': 'RRRR II'. 'month': 'yyyy-MM'. 'week': 'RRRR II'. 'quarter': 'yyyy-[Q]Q'. 'datetime': 'yyyy-MM-dd HH:mm:ss'
+   * default values for different types: 'date': 'yyyy-MM-dd'. 'time': 'HH:mm:ss'. 'week': 'RRRR II'. 'month': 'yyyy-MM'. 'week': 'RRRR II'. 'quarter': 'yyyy-[Q]Q'. 'year': 'yyyy'. 'datetime': 'yyyy-MM-dd HH:mm:ss'
    *
    *
-   * 不同type对应的默认值。'date': 'yyyy-MM-dd'。'time': 'HH:mm:ss'。'week': 'RRRR II'。'month': 'yyyy-MM'。'quarter': 'yyyy-[Q]Q'。'datetime': 'yyyy-MM-dd HH:mm:ss'
+   * 不同type对应的默认值。'date': 'yyyy-MM-dd'。'time': 'HH:mm:ss'。'week': 'RRRR II'。'month': 'yyyy-MM'。'quarter': 'yyyy-[Q]Q'。 'year': 'yyyy' 。 'datetime': 'yyyy-MM-dd HH:mm:ss'
    *
    *
    * default:
@@ -124,7 +124,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: 'date'
    */
-  type?: 'date' | 'time' | 'datetime' | 'month' | 'week' | 'quarter';
+  type?: 'date' | 'time' | 'datetime' | 'month' | 'week' | 'quarter' | 'year';
 
   /**
    * Default time when selecting a date, the format is: 'HH:mm:ss'
@@ -299,6 +299,15 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    * default: 'default'
    */
   size?: 'small' | 'default' | 'large'
+
+  /**
+   * set timeZone
+   *
+   * 设置时区
+   *
+   * default: -
+   */
+  timeZone?: 'string'
 }
 
 declare class DatePicker extends React.Component<DatePickerProps, {}> {

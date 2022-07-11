@@ -110,6 +110,18 @@ const examples = [
 
   },
   {
+    name: '06-c-year.tsx',
+    isTs: true,
+    title: locate(
+      '选择年 \n 设置 type 为 year，选择年',
+      'Year Mode \n Set type to be year to select year.'
+    ),
+    component: require('doc/pages/components/DatePicker/example-06-c-year.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-06-c-year.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-06-c-year.tsx'),
+
+  },
+  {
     name: '07-time.tsx',
     isTs: true,
     title: locate(
@@ -263,6 +275,17 @@ const examples = [
     component: require('doc/pages/components/DatePicker/example-15-position.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-15-position.tsx'),
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-15-position.tsx'),
+
+  },
+  {
+    name: '16-timezone',
+    isTs: false,
+    title: locate(
+      '时区 \n 设置 timeZone',
+      'timeZone \n set timeZone'
+    ),
+    component: require('doc/pages/components/DatePicker/example-16-timezone.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-16-timezone.js'),
 
   },
 ]

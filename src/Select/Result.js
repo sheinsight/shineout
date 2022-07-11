@@ -248,6 +248,7 @@ class Result extends PureComponent {
       bindFocusInputFunc,
       collapse,
       maxLength,
+      convertBr,
     } = this.props
     return (
       <Input
@@ -265,6 +266,7 @@ class Result extends PureComponent {
         bindFocusInputFunc={bindFocusInputFunc}
         collapse={collapse}
         maxLength={maxLength}
+        convertBr={convertBr}
       />
     )
   }
@@ -362,11 +364,7 @@ class Result extends PureComponent {
         innerTitle={innerTitle}
         open={open}
         className={selectClass('title-box')}
-        titleClass={selectClass(
-          'title-box-title',
-          showPlaceholder && 'title-box-title-empty',
-          compressed && getDirectionClass('title-box-title-compressed')
-        )}
+        titleClass={selectClass(getDirectionClass('title-box-title'))}
       >
         <div
           ref={this.bindResult}
@@ -377,7 +375,7 @@ class Result extends PureComponent {
               showPlaceholder && 'empty',
               clearEl && 'result-clearable'
             ),
-            innerTitle && inputTitleClass(getDirectionClass('item'))
+            innerTitle && inputTitleClass(getDirectionClass('item'), 'item-scroll')
           )}
         >
           {rtl ? inner.reverse() : inner}
@@ -416,6 +414,7 @@ Result.propTypes = {
   innerTitle: PropTypes.node,
   keygen: PropTypes.any,
   data: PropTypes.array,
+  convertBr: PropTypes.string,
 }
 
 export default Result

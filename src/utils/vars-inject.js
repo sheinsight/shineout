@@ -403,7 +403,7 @@ const injects = {
         attr: 'marginRight',
         type: 'number',
         parser: parseInt,
-        className: buttonClass('spin'),
+        className: buttonClass('spin-ltr'),
         desc: '加载图标与文字间距',
       },
       {
@@ -965,7 +965,14 @@ const injects = {
         className: exposeClass('checkbox-disabled'),
         attr: 'backgroundColor',
         type: 'color',
-        desc: 'Checkbox 和 Radio 禁用后的背景色',
+        desc: 'Checkbox 和 Radio 未选中状态禁用后的背景色',
+      },
+      {
+        name: 'checkboxCheckedDisabledBgc',
+        className: exposeClass('checkbox-checked-disabled'),
+        attr: 'backgroundColor',
+        type: 'color',
+        desc: 'Checkbox 和 Radio 选中状态下禁用后的背景色',
       },
     ],
     set marginRight(v) {
@@ -1020,6 +1027,14 @@ const injects = {
       setBodyProperty(
         {
           '--checkbox-disabled-bgc': v,
+        },
+        v
+      )
+    },
+    set checkboxCheckedDisabledBgc(v) {
+      setBodyProperty(
+        {
+          '--checkbox-checked-disabled-bgc': v,
         },
         v
       )
@@ -2028,7 +2043,7 @@ const injects = {
       },
       {
         name: 'headerTopDivider',
-        className: exposeClass('table-header-top'),
+        className: exposeClass('table-head-top'),
         attr: 'borderWidth',
         type: 'number',
         parser: parseInt,
@@ -2738,7 +2753,7 @@ const injects = {
       },
       {
         name: 'activePaddingHorizontal',
-        className: exposeClass('menu-active-horizontal'),
+        className: exposeClass('menu-active'),
         attr: 'paddingLeft',
         type: 'number',
         parser: parseInt,
@@ -2746,7 +2761,7 @@ const injects = {
       },
       {
         name: 'activePaddingVertical',
-        className: exposeClass('menu-active-vertical'),
+        className: exposeClass('menu-active'),
         attr: 'paddingTop',
         type: 'number',
         parser: parseInt,
@@ -2754,7 +2769,7 @@ const injects = {
       },
       {
         name: 'activeBorderRadius',
-        className: exposeClass('menu-acitive-borderRadius'),
+        className: exposeClass('menu-active'),
         attr: 'borderRadius',
         type: 'number',
         parser: parseInt,
@@ -4091,13 +4106,13 @@ const injects = {
         type: 'color',
         desc: '标题文字颜色',
       },
-      {
-        name: 'footerColor',
-        className: modalClass('modal-card-footer'),
-        attr: 'color',
-        type: 'color',
-        desc: '底部文字颜色',
-      },
+      // {
+      //   name: 'footerColor',
+      //   className: exposeClass('modal-card-footer'),
+      //   attr: 'color',
+      //   type: 'color',
+      //   desc: '底部文字颜色',
+      // },
       {
         name: 'headerBg',
         className: exposeClass('modal-card-header'),

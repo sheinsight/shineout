@@ -46,7 +46,7 @@ class InputTitle extends PureComponent {
         </div>
         <div className={classnames(contentClass, inputTitleClass('content'))}>{children}</div>
         <div onAnimationEnd={this.stopAnimation} className={inputTitleClass('place')}>
-          <div className={classnames(inputTitleClass('title'), titleClass)}>{placeTitle || innerTitle}</div>
+          <div className={classnames(inputTitleClass('title'))}>{placeTitle || innerTitle}</div>
         </div>
       </div>
     )

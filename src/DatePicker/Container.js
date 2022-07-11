@@ -76,6 +76,11 @@ class Container extends PureComponent {
     this.clearClickAway()
   }
 
+  getOptions() {
+    const { timeZone } = this.props
+    return { timeZone, weekStartsOn: getLocale('startOfWeek') }
+  }
+
   getCurrent() {
     let current
     const { defaultRangeMonth, defaultPickerValue, value } = this.props
@@ -83,10 +88,14 @@ class Container extends PureComponent {
       const defaultPickerRange = defaultRangeMonth || defaultPickerValue || []
       current = (this.props.value || []).map((v, i) => {
         v = this.parseDate(v)
-        if (utils.isInvalid(v)) v = utils.newDate(defaultPickerRange[i])
+        if (utils.isInvalid(v)) v = utils.newDate(defaultPickerRange[i], this.getOptions())
         return v
       })
-      if (current.length === 0) current = [utils.newDate(defaultPickerRange[0]), utils.newDate(defaultPickerRange[1])]
+      if (current.length === 0)
+        current = [
+          utils.newDate(defaultPickerRange[0], this.getOptions()),
+          utils.newDate(defaultPickerRange[1], this.getOptions()),
+        ]
     } else {
       current = this.parseDate(value || defaultPickerValue)
     }
@@ -108,6 +117,8 @@ class Container extends PureComponent {
         return 'yyyy-MM'
       case 'time':
         return 'HH:mm:ss'
+      case 'year':
+        return 'yyyy'
       case 'week':
         return 'RRRR II'
       case 'quarter':
@@ -125,7 +136,9 @@ class Container extends PureComponent {
     return quickSelect.map(q => {
       let invalid = false
       if (!q.value) return { name: q.name, invalid: true }
-      const date = (Array.isArray(q.value) ? q.value : [q.value]).map(v => DateFns.toDateWithFormat(v, format))
+      const date = (Array.isArray(q.value) ? q.value : [q.value]).map(v =>
+        DateFns.toDateWithFormat(v, format, undefined, this.getOptions())
+      )
       if (DateFns.isInvalid(date[0])) invalid = true
       if (date[1] && DateFns.isInvalid(date[1])) invalid = true
       if (invalid) return { name: q.name, invalid: true }
@@ -160,7 +173,7 @@ class Container extends PureComponent {
   }
 
   parseDate(value) {
-    return utils.toDateWithFormat(value, this.getFormat(), undefined)
+    return utils.toDateWithFormat(value, this.getFormat(), undefined, this.getOptions())
   }
 
   bindClickAway() {
@@ -263,7 +276,7 @@ class Container extends PureComponent {
 
   handleTextChange(date, index, e) {
     const format = this.getFormat()
-    const val = date ? utils.format(date, format) : ''
+    const val = date ? utils.format(date, format, this.getOptions()) : ''
 
     if (!this.props.range) {
       const close = !(e && e.target && this.element.contains(e.target))
@@ -301,18 +314,8 @@ class Container extends PureComponent {
     const format = this.getFormat()
 
     let value
-    if (this.props.range)
-      value = date.map(v =>
-        v
-          ? utils.format(v, format, {
-              weekStartsOn: getLocale('startOfWeek'),
-            })
-          : v
-      )
-    else
-      value = utils.format(date, format, {
-        weekStartsOn: getLocale('startOfWeek'),
-      })
+    if (this.props.range) value = date.map(v => (v ? utils.format(v, format, this.getOptions()) : v))
+    else value = utils.format(date, format, this.getOptions())
 
     let callback
     if (!this.props.range) callback = blur ? this.handleBlur : undefined
@@ -369,7 +372,7 @@ class Container extends PureComponent {
         inputable={inputable}
         placeholder={placeholder}
         onChange={this.handleTextChange}
-        value={utils.isInvalid(date) ? undefined : utils.format(date, resultFormat)}
+        value={utils.isInvalid(date) ? undefined : utils.format(date, resultFormat, this.getOptions())}
         disabled={disabled === true}
       />
     )
@@ -454,6 +457,7 @@ class Container extends PureComponent {
       minuteStep,
       secondStep,
       disabledTime,
+      timeZone,
     } = this.props
     const format = this.getFormat()
     const quicks = this.getQuick(format)
@@ -474,12 +478,13 @@ class Container extends PureComponent {
         showTimePicker={!!value}
         allowSingle={allowSingle}
         handleHover={this.handleHover}
-        min={DateFns.toDateWithFormat(min, format)}
-        max={DateFns.toDateWithFormat(max, format)}
+        min={DateFns.toDateWithFormat(min, format, undefined, this.getOptions())}
+        max={DateFns.toDateWithFormat(max, format, undefined, this.getOptions())}
         hourStep={hourStep}
         minuteStep={minuteStep}
         secondStep={secondStep}
         disabledTime={disabledTime}
+        timeZone={timeZone}
       >
         {this.props.children}
       </Component>
@@ -556,6 +561,7 @@ Container.propTypes = {
   align: PropTypes.oneOf(['left', 'right', 'center']),
   clearWithUndefined: PropTypes.bool,
   innerTitle: PropTypes.node,
+  timeZone: PropTypes.string,
 }
 
 Container.defaultProps = {

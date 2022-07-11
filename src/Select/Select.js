@@ -91,11 +91,10 @@ class Select extends PureComponent {
   }
 
   getDisabledStatus() {
-    if (typeof this.props.disabled == 'function') {
+    if (typeof this.props.disabled === 'function') {
       return this.props.disabled
-    } else {
-      return !!this.props.disabled
     }
+    return !!this.props.disabled
   }
 
   getFocusSelected() {
@@ -551,6 +550,7 @@ class Select extends PureComponent {
       maxLength,
       innerTitle,
       keygen,
+      convertBr,
       data,
     } = this.props
     const disabled = this.getDisabledStatus()
@@ -606,6 +606,7 @@ class Select extends PureComponent {
           innerTitle={innerTitle}
           keygen={keygen}
           data={data}
+          convertBr={convertBr}
         />
         {this.renderOptions()}
       </div>
@@ -653,6 +654,7 @@ Select.propTypes = {
   header: PropTypes.node,
   maxLength: PropTypes.number,
   innerTitle: PropTypes.node,
+  convertBr: PropTypes.string,
 }
 
 Select.defaultProps = {

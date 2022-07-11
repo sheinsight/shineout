@@ -14,13 +14,13 @@
 | clearable | boolean | true | whether it can be cleared |
 | defaultValue | string \| number \| Date \| \[any, any] | - | default |
 | disabled | (date: Date, type: string, value: \[any, any]) => boolean \| boolean  | false | When the value is true, disabled all options; When the value is function, disable the options that this function returns true. (Note: If you only want to disable the time alone, you can use the disabledTime attribute.) |
-| format | string | | default values for different types: <br />'date': 'yyyy-MM-dd'<br />'time': 'HH:mm:ss'<br />'week': 'RRRR II'<br />'month': 'yyyy-MM'<br />'quarter': 'yyyy-\[Q]Q'<br />'datetime': 'yyyy-MM-dd HH:mm:ss' |
+| format | string | | default values for different types: <br />'date': 'yyyy-MM-dd'<br />'time': 'HH:mm:ss'<br />'week': 'RRRR II'<br />'month': 'yyyy-MM'<br />'quarter': 'yyyy-\[Q]Q'<br />'year': 'yyyy'<br />'datetime': 'yyyy-MM-dd HH:mm:ss' |
 | formatResult | string \| (date: Date) => string | props.format | Format the selected time |
 | onChange | (value: string \| \[string \| undefined, string \| undefined\]) => void | - | a callback when the value is changing |
 | placeholder | string \| string[] | - | placeholder text<br />When the range property is not empty, it is an array of length 2. |
 | range | boolean \| number | - | range span，unit: **second**，<br />When it is true, selection scope is not limited. |
 | style | object | - | Container element style |
-| type | 'date' \| 'time' \| 'datetime' \| 'month' \| 'quarter' \| 'week' | 'date' | type of datepicker |
+| type | 'date' \| 'time' \| 'datetime' \| 'month' \| 'quarter' \| 'week' \| 'year' | 'date' | type of datepicker |
 | value | string \| number \| Date \| \[any, any] | - | When the value is string, it needs to match the format attribute. <br /> When the range property is true, the value is an array of length 2. |
 | defaultTime | string \| \[any, any] | - | Default time when selecting a date, the format is: 'HH:mm:ss' |
 | absolute \| (() => element) | boolean | false | When it is true, the pop-up layer of option append into document.body. When it is function, the pop-up layer of option append into it's return DOM.  |
@@ -43,6 +43,7 @@
 | inputable | boolean | false | Allow enter something into DatePicker |
 | position | 'left-top' \| 'left-bottom' \| 'right-top' \| 'right-bottom' | - | Set Position can control the different position of DatePicker |
 | size | 'small' \| 'default' \| 'large' | 'default' | There are three built-in size: small、default、large. |
+| timeZone | string | - | Set the default time zone, the format is /^(\[+-\]\d{2})$/ Support '-12' to '+13' |
 
 ### DatePickerFormat
 

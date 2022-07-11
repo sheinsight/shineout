@@ -14,47 +14,51 @@ const source = locate(cn, en)
 
 const examples = [
   {
-    name: '1-base',
-    isTs: false,
+    name: '1-base.tsx',
+    isTs: true,
     title: locate(
       '基本用法 \n 组件调用通过 json 数据配置',
       'Base \n The basic usage.'
     ),
-    component: require('doc/pages/components/Breadcrumb/example-1-base.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Breadcrumb/example-1-base.js'),
+    component: require('doc/pages/components/Breadcrumb/example-1-base.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Breadcrumb/example-1-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Breadcrumb/example-1-base.tsx'),
 
   },
   {
-    name: '2-separator',
-    isTs: false,
+    name: '2-separator.tsx',
+    isTs: true,
     title: locate(
       '分隔符 \n 默认的分隔符为 \'/\'，可以通过 separator 属性自定义',
       'separator \n The default separator is \'/\'.'
     ),
-    component: require('doc/pages/components/Breadcrumb/example-2-separator.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Breadcrumb/example-2-separator.js'),
+    component: require('doc/pages/components/Breadcrumb/example-2-separator.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Breadcrumb/example-2-separator.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Breadcrumb/example-2-separator.tsx'),
 
   },
   {
-    name: '3-icon',
-    isTs: false,
+    name: '3-icon.tsx',
+    isTs: true,
     title: locate(
       '图标 \n 带图标的面包屑',
       'icon \n Breadcrumbs with icons'
     ),
-    component: require('doc/pages/components/Breadcrumb/example-3-icon.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Breadcrumb/example-3-icon.js'),
+    component: require('doc/pages/components/Breadcrumb/example-3-icon.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Breadcrumb/example-3-icon.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Breadcrumb/example-3-icon.tsx'),
 
   },
   {
-    name: '4-renderItem',
-    isTs: false,
+    name: '4-renderItem.tsx',
+    isTs: true,
     title: locate(
       '自定义渲染 \n 自定义渲染面包屑中的内容',
       'Base \n Custom render content in Breadcrumb'
     ),
-    component: require('doc/pages/components/Breadcrumb/example-4-renderItem.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Breadcrumb/example-4-renderItem.js'),
+    component: require('doc/pages/components/Breadcrumb/example-4-renderItem.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Breadcrumb/example-4-renderItem.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Breadcrumb/example-4-renderItem.tsx'),
 
   },
 ]

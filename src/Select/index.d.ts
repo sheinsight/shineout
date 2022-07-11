@@ -393,6 +393,15 @@ export interface SelectProps<Item, Value> extends
    * default: 10
    */
    itemsInView?: number;
+
+  /**
+   * 用来转化粘贴文本中的换行
+   *
+   * Used to convert line breaks in pasted text
+   *
+   * default: ","
+   */
+  convertBr?: string;
 }
 
 declare class Select<Item = any, Value = any> extends React.Component<SelectProps<Item, Value>, {}> { }
