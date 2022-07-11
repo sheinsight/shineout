@@ -17,10 +17,15 @@ import React, { useState } from 'react'
 import { Cascader, Radio, TYPE } from 'shineout'
 import { cascader as data } from 'doc/data/tree'
 
-type CascaderProps<Item, Value> = TYPE.Cascader.Props<Item, Value>
-type CascaderData = CascaderProps<any, string[]>['data']
-type CascaderMode = CascaderProps<any, string[]>['mode']
-type CascaderRenderItem = CascaderProps<any, string[]>['renderItem']
+interface DataItem {
+  id: string
+  text: string
+  children?: DataItem[]
+}
+type CascaderProps = TYPE.Cascader.Props<DataItem, string[]>
+type CascaderData = CascaderProps['data']
+type CascaderMode = CascaderProps['mode']
+type CascaderRenderItem = CascaderProps['renderItem']
 
 const modeList = [
   { value: 0, text: 'mode=0 (full)' },

@@ -8,7 +8,11 @@ import React, { useState } from 'react'
 import immer from 'immer'
 import { Cascader, TYPE } from 'shineout'
 
-type CascaderProps = TYPE.Cascader.Props<any, string[]>
+interface DataItem {
+  id: string
+  children: DataItem[]
+}
+type CascaderProps = TYPE.Cascader.Props<DataItem, string[]>
 type CascaderKeygen = CascaderProps['keygen']
 type CascaderLoader = CascaderProps['loader']
 type CascaderChange = CascaderProps['onChange']

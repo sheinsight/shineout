@@ -8,8 +8,9 @@
 import React from 'react'
 import { Cascader, TYPE } from 'shineout'
 
-type CascaderProps<Item, Value> = TYPE.Cascader.Props<Item, Value>
-type CascaderData = CascaderProps<any, string[]>['data']
+type dataItem = { value: string; children?: dataItem[] }
+type CascaderProps = TYPE.Cascader.Props<dataItem, string[]>
+type CascaderData = CascaderProps['data']
 
 const data: CascaderData = [
   {

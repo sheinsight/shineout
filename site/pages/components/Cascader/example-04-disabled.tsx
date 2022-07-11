@@ -11,10 +11,12 @@ import React from 'react'
 import { Cascader, TYPE } from 'shineout'
 import { cascader as data } from 'doc/data/tree'
 
-type CascaderProps<Item, Value> = TYPE.Cascader.Props<Item, Value>
-type CascaderRenderItem = CascaderProps<any, string[]>['renderItem']
+type DateItem = { text: string; id: string; children?: DateItem[] }
+type CascaderProps = TYPE.Cascader.Props<DateItem, string[]>
+type CascaderRenderItem = CascaderProps['renderItem']
+type CascaderDisabled = CascaderProps['disabled']
 
-const isDisabled = (d: { id: string }) => d.id === '1-0' || d.id === '2'
+const isDisabled: CascaderDisabled = d => d.id === '1-0' || d.id === '2'
 
 const App: React.FC = () => {
   const renderItem: CascaderRenderItem = node => `node ${node.text}`

@@ -9,7 +9,8 @@
 import React, { useState } from 'react'
 import { Cascader, Form, TYPE } from 'shineout'
 
-type CascaderProps = TYPE.Cascader.Props<any, string[]>
+type DateItem = { value: string; children?: DateItem[] }
+type CascaderProps = TYPE.Cascader.Props<DateItem, string[]>
 type RenderResult = CascaderProps['renderResult']
 type CascaderOnFilter = CascaderProps['onFilter']
 type CascaderRenderItem = CascaderProps['renderItem']
@@ -56,8 +57,8 @@ const highlight = (Component: any) => (props: CascaderProps) => {
   }
 
   const RenderItem: CascaderRenderItem = (d, index) => {
-    const { renderItem, highlightStyle } = props
-    const result = typeof renderItem === 'function' ? renderItem(d, index) : d[String(renderItem)]
+    const { renderItem = item => item, highlightStyle } = props
+    const result = typeof renderItem === 'function' ? renderItem(d, index) : d[renderItem]
     if (!filterText) return result
     if (typeof result !== 'string') return result
     return result.split(filterText).map((item, i, arr) => {
