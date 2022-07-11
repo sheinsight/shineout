@@ -11,10 +11,13 @@ class Time extends PureComponent {
     super(props)
 
     this.defaultValue = this.getDefaultTime()
+    this.handleDisabled = this.handleDisabled.bind(this)
     this.handleHourChange = this.handleChange.bind(this, 'hour')
     this.handleMinuteChange = this.handleChange.bind(this, 'minute')
     this.handleSecondChange = this.handleChange.bind(this, 'second')
     this.handleAMPMChange = this.handleChange.bind(this, 'ampm')
+
+    // props.disabledRegister(this.handleDisabled, 'time')
   }
 
   getDefaultTime() {

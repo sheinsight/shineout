@@ -17,7 +17,7 @@ class Month extends PureComponent {
     this.handleYearClick = this.handleYearClick.bind(this)
     this.handleDisabled = this.handleDisabled.bind(this)
 
-    props.disabledRegister(this.handleDisabled)
+    props.disabledRegister(this.handleDisabled, 'month')
   }
 
   handleYearChange(year) {

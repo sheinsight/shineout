@@ -30,7 +30,7 @@ class Day extends PureComponent {
     this.handleDisabled = this.handleDisabled.bind(this)
     this.formatWithDefaultTime = this.formatWithDefaultTime.bind(this)
 
-    props.disabledRegister(this.handleDisabled)
+    props.disabledRegister(this.handleDisabled, 'day')
   }
 
   getDays() {

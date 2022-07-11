@@ -19,6 +19,7 @@ import { getRTLPosition } from '../utils/strings'
 import List from '../AnimationList'
 import { getLocale } from '../locale'
 import DateFns from './utils'
+import ParamFns from './paramUtils'
 import { isRTL } from '../config'
 import InputTitle from '../InputTitle'
 import { inputTitleClass } from '../InputTitle/styles'
@@ -265,37 +266,47 @@ class Container extends PureComponent {
   disabledRegister(disabled, mode = this.props.type) {
     this.setState(pre => {
       const { disabledRegister } = pre
-      const newGetter = { ...disabledRegister }
-      newGetter[mode] = disabled
+      const newRegister = { ...disabledRegister }
+      newRegister[mode] = disabled
       return {
-        disabledRegister: newGetter,
+        disabledRegister: newRegister,
       }
     })
   }
 
   handleDisabled(value, date) {
-    let disabled
     const mode = this.props.type
     const { disabledRegister } = this.state
-    if (mode === 'time' || mode === 'datetime') {
-      disabled = this.handleDisabledTime(value, date)
-      if (disabled) return disabled
+    const { min, max, range, disabled, disabledTime } = this.props
+
+    if (mode === 'time') {
+      const [isDisabled] = ParamFns.handleDisabled(date, min, max, range, disabled, disabledTime)
+      return isDisabled
     }
 
-    disabled = disabledRegister[mode](value)
-    return disabled
-  }
+    if (mode === 'date') {
+      return disabledRegister.day(date)
+    }
 
-  handleDisabledTime(value, date) {
-    const timeDisabled = []
-    const { disabledRegister } = this.state
-    const { format = 'HH:mm:ss' } = this.props
-    if (format.indexOf('H') >= 0) timeDisabled.push(disabledRegister.H(date.getHours()))
-    if (format.indexOf('h') >= 0) timeDisabled.push(disabledRegister.h(date.getHours()))
-    if (format.indexOf('m') >= 0) timeDisabled.push(disabledRegister.m(date.getMinutes()))
-    if (format.indexOf('s') >= 0) timeDisabled.push(disabledRegister.s(date.getSeconds()))
-    if (/a|A/.test(format)) timeDisabled.push(disabledRegister.ampm(value.getHours() >= 12 ? 1 : 0))
-    return timeDisabled.some(t => t)
+    if (mode === 'week') {
+      return disabledRegister.day(date)
+    }
+
+    if (mode === 'month') {
+      return disabledRegister.month(date)
+    }
+
+    // if (mode === 'year') {
+    //   return disabledRegister.year(value)
+    // }
+
+    if (mode === 'datetime') {
+      const [isDisabled] = ParamFns.handleDisabled(date, min, max, range, disabled, disabledTime)
+      const disabledDay = disabledRegister.day(value)
+      return isDisabled || disabledDay
+    }
+
+    return false
   }
 
   handleTextChange(date, index, e) {

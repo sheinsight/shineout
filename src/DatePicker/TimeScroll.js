@@ -20,7 +20,7 @@ class TimeScroll extends PureComponent {
     this.handleScroll = this.handleScroll.bind(this)
     this.handleDisabled = this.handleDisabled.bind(this)
 
-    props.disabledRegister(this.handleDisabled, props.mode)
+    // props.disabledRegister(this.handleDisabled, props.mode)
   }
 
   componentDidMount() {
