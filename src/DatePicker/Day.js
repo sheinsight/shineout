@@ -161,7 +161,7 @@ class Day extends PureComponent {
       } else if (hover && utils.isSameWeek(date, hover, this.getOptions())) {
         hoverClass = datepickerClass('hover', day === weekStart && 'hover-start', day === weekEnd && 'hover-end')
       }
-    } else if (rangeDate && utils.compareMonth(current, date, 0, this.getOptions()) === 1) {
+    } else if (rangeDate && utils.compareMonth(current, date, 0, this.getOptions()) === 0) {
       hoverProps.onMouseEnter = this.handleDayHover.bind(this, date)
 
       classList.push(utils.isSameDay(date, rangeDate[index], this.getOptions()) && 'active')
