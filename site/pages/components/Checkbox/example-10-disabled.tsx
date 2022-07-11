@@ -7,7 +7,8 @@
 import React from 'react'
 import { Checkbox, TYPE } from 'shineout'
 
-type CheckboxGroupProps<Data = any, T = any> = TYPE.Checkbox.GroupProps<Data, T>
+type GroupData = string
+type CheckboxGroupProps = TYPE.Checkbox.GroupProps<GroupData, GroupData[]>
 type CheckboxGroupData = CheckboxGroupProps['data']
 
 const data: CheckboxGroupData = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
