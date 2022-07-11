@@ -23,26 +23,6 @@ const items = ['S', 'H', 'I', 'N', 'E']
 const duration: CarouselInterval = 5000
 
 const App: React.FC = () => {
-  // const indicatorSwitch: CarouselIndicatorType = (current, moveTo) => (
-  //   <div className="indicator">
-  //     {items.map((item, index) => {
-  //       const isActive = current === index
-  //       const itemClassname = classnames('indicator-item', isActive && 'active')
-  //       const animationStyle = isActive ? { animation: `indicator-rise ${duration / 1000}s linear` } : {}
-
-  //       return (
-  //         <div key={item} onClick={() => moveTo()} className={itemClassname}>
-  //           <span>{item}</span>
-  //           <div className="indicator-progress">
-  //             <div className="fg" style={animationStyle} />
-  //             <div className="bg" />
-  //           </div>
-  //         </div>
-  //       )
-  //     })}
-  //   </div>
-  // )
-
   const indicatorSwitch: CarouselIndicatorType = (current, moveTo) => (
     <div className="indicator">
       {items.map((item, index) => {
