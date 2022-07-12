@@ -44,9 +44,8 @@ class Container extends PureComponent {
       position: props.position,
       picker0: false,
       picker1: false,
-      disabledRegister: {},
     }
-
+    this.disabledMap = {}
     this.pickerId = `picker_${getUidStr()}`
     this.bindElement = this.bindElement.bind(this)
     this.bindPicker = this.bindPicker.bind(this)
@@ -264,32 +263,25 @@ class Container extends PureComponent {
   }
 
   disabledRegister(disabled, mode) {
-    this.setState(pre => {
-      const { disabledRegister } = pre
-      const newRegister = { ...disabledRegister }
-      newRegister[mode] = disabled
-      return {
-        disabledRegister: newRegister,
-      }
-    })
+    this.disabledMap[mode] = disabled
   }
 
   handleDisabled(date) {
     const mode = this.props.type
-    const { disabledRegister } = this.state
+    const { disabledMap } = this
     const { min, max, range, disabled, disabledTime } = this.props
 
     switch (mode) {
       case 'time':
         return ParamFns.handleDisabled(date, min, max, range, disabled, disabledTime)
       case 'date':
-        return disabledRegister.day(date)
+        return disabledMap.day(date)
       case 'week':
-        return disabledRegister.day(date)
+        return disabledMap.day(date)
       case 'month':
-        return disabledRegister.month(date)
+        return disabledMap.month(date)
       case 'datetime':
-        return ParamFns.handleDisabled(date, min, max, range, disabled, disabledTime) || disabledRegister.day(date)
+        return ParamFns.handleDisabled(date, min, max, range, disabled, disabledTime) || disabledMap.day(date)
       default:
         return false
     }
