@@ -19,6 +19,7 @@ import { getRTLPosition } from '../utils/strings'
 import List from '../AnimationList'
 import { getLocale } from '../locale'
 import DateFns from './utils'
+import ParamFns from './paramUtils'
 import { isRTL } from '../config'
 import InputTitle from '../InputTitle'
 import { inputTitleClass } from '../InputTitle/styles'
@@ -44,7 +45,7 @@ class Container extends PureComponent {
       picker0: false,
       picker1: false,
     }
-
+    this.disabledMap = {}
     this.pickerId = `picker_${getUidStr()}`
     this.bindElement = this.bindElement.bind(this)
     this.bindPicker = this.bindPicker.bind(this)
@@ -61,6 +62,8 @@ class Container extends PureComponent {
     this.parseDate = this.parseDate.bind(this)
     this.dateToCurrent = this.dateToCurrent.bind(this)
     this.shouldFocus = this.shouldFocus.bind(this)
+    this.handleDisabled = this.handleDisabled.bind(this)
+    this.disabledRegister = this.disabledRegister.bind(this)
 
     this.bindClickAway = this.bindClickAway.bind(this)
     this.clearClickAway = this.clearClickAway.bind(this)
@@ -259,9 +262,41 @@ class Container extends PureComponent {
     }
   }
 
+  disabledRegister(disabled, mode) {
+    this.disabledMap[mode] = disabled
+  }
+
+  handleDisabled(date) {
+    const mode = this.props.type
+    const { disabledMap } = this
+    const { min, max, range, disabled, disabledTime } = this.props
+
+    switch (mode) {
+      case 'time':
+        return ParamFns.handleDisabled(date, min, max, range, disabled, disabledTime)
+      case 'date':
+        return disabledMap.day(date)
+      case 'week':
+        return disabledMap.day(date)
+      case 'month':
+        return disabledMap.month(date)
+      case 'datetime':
+        return ParamFns.handleDisabled(date, min, max, range, disabled, disabledTime) || disabledMap.day(date)
+      default:
+        return false
+    }
+  }
+
   handleTextChange(date, index, e) {
+    const { disabledTime, disabled, max, min, range } = this.props
     const format = this.getFormat()
     const val = date ? utils.format(date, format) : ''
+    let isDisabled
+
+    if (disabled || disabledTime || max || min || range) {
+      isDisabled = this.handleDisabled(date)
+      if (isDisabled) return
+    }
 
     if (!this.props.range) {
       const close = !(e && e.target && this.element.contains(e.target))
@@ -478,6 +513,7 @@ class Container extends PureComponent {
         minuteStep={minuteStep}
         secondStep={secondStep}
         disabledTime={disabledTime}
+        disabledRegister={this.disabledRegister}
       >
         {this.props.children}
       </Component>
@@ -505,7 +541,7 @@ class Container extends PureComponent {
     return (
       <div
         // eslint-disable-next-line
-        tabIndex={ disabled === true ? -1 : 0}
+        tabIndex={disabled === true ? -1 : 0}
         className={className}
         onFocus={this.handleFocus}
         data-id={this.pickerId}
