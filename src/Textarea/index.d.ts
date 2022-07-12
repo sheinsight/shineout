@@ -154,6 +154,8 @@ FormItemStandardProps<Value>
 
 }
 
-declare class Textarea<Value = any> extends React.Component<TextareaProps<Value>, {}> {}
+declare class Textarea<Value = any> extends React.Component<TextareaProps<Value>, {}> {
+  render(): JSX.Element
+}
 
 export default Textarea
