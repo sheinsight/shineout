@@ -404,6 +404,8 @@ export interface SelectProps<Item, Value> extends
   convertBr?: string;
 }
 
-declare class Select<Item = any, Value = any> extends React.Component<SelectProps<Item, Value>, {}> { }
+declare class Select<Item = any, Value = any> extends React.Component<SelectProps<Item, Value>, {}> {
+  render(): JSX.Element
+}
 
 export default Select

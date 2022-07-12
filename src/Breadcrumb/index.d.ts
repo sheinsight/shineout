@@ -93,7 +93,9 @@ export interface BreadcrumbProps<Item = BreadcrumbData> extends StandardProps  {
 }
 
 
-declare class Breadcrumb<Item> extends React.PureComponent<BreadcrumbProps<Item>, {}> {}
+declare class Breadcrumb<Item> extends React.PureComponent<BreadcrumbProps<Item>, {}> {
+  render(): JSX.Element
+}
 
 
 export default Breadcrumb

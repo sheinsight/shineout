@@ -155,7 +155,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    * default: -
    */
    unmatch?: boolean;
-  
+
   /**
    * show dropdown arrow, only single select
    *
@@ -209,6 +209,8 @@ interface componentRef  {
   [propName: string]: any;
 }
 
-declare class Cascader<Item = any, Value = string[]> extends React.Component<CascaderProps<Item, Value>, {}> {}
+declare class Cascader<Item = any, Value = string[]> extends React.Component<CascaderProps<Item, Value>, {}> {
+  render(): JSX.Element
+}
 
 export default Cascader

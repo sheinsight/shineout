@@ -43,6 +43,8 @@ export interface SwitchProps extends
 
 }
 
-declare class Switch extends React.Component<SwitchProps, any>{}
+declare class Switch extends React.Component<SwitchProps, any>{
+  render(): JSX.Element
+}
 
 export default Switch

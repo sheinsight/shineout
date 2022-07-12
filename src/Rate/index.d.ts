@@ -67,7 +67,9 @@ export declare interface RateProps extends
   text?: Array<ReactNode>;
 }
 
-declare class RateComponent extends React.Component<RateProps, any> { }
+declare class RateComponent extends React.Component<RateProps, any> {
+  render(): JSX.Element
+}
 type shape = React.ReactElement | string | Array<string | React.ReactElement>
 declare function Rate(background: shape, front: shape): (typeof RateComponent)
 
