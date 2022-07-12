@@ -18,9 +18,6 @@ class TimeScroll extends PureComponent {
     this.bindElement = this.bindElement.bind(this)
     this.handleMouseLeave = this.handleMouseLeave.bind(this)
     this.handleScroll = this.handleScroll.bind(this)
-    this.handleDisabled = this.handleDisabled.bind(this)
-
-    // props.disabledRegister(this.handleDisabled, props.mode)
   }
 
   componentDidMount() {
@@ -68,7 +65,6 @@ class TimeScroll extends PureComponent {
 
   handleClick(value) {
     this.props.onChange(value)
-    console.log(value)
     this.element.scrollTop = lineHeight * this.getValue(value)
   }
 
@@ -80,7 +76,6 @@ class TimeScroll extends PureComponent {
   handleScroll() {
     const { step, ampm } = this.props
     const value = Math.round(this.element.scrollTop / lineHeight)
-    if (value * step === this.props.value) return
     if (typeof step === 'number' && step > 0 && !ampm && value !== this.props.value) {
       this.props.onChange(value * step)
       return
@@ -88,14 +83,9 @@ class TimeScroll extends PureComponent {
     if (value !== this.props.value) this.props.onChange(value)
   }
 
-  handleDisabled(num) {
-    const { mode, min, max, range: ra, current, disabled, disabledTime } = this.props
-    const [isDisabled] = paramUtils.judgeTimeByRange(num, current, mode, min, max, ra, disabled, disabledTime)
-    return isDisabled
-  }
-
   renderItem(num) {
-    const { ampm, total, value, step } = this.props
+    const { ampm, total, value, step, mode, min, max, range: ra, current, disabled, disabledTime } = this.props
+
     if (typeof step === 'number' && step <= 0) return null
     if (!ampm && typeof step === 'number' && num % step !== 0) return null
 
@@ -104,8 +94,7 @@ class TimeScroll extends PureComponent {
     else if (total === 12 && num === 0) text = '12'
     else if (num < 10) text = `0${num}`
 
-    // 判断可选时间
-    const isDisabled = this.handleDisabled(num)
+    const [isDisabled] = paramUtils.judgeTimeByRange(num, current, mode, min, max, ra, disabled, disabledTime)
 
     const className = datepickerClass(!isDisabled && value === num && 'time-active')
     return (
@@ -150,7 +139,6 @@ TimeScroll.propTypes = {
   current: PropTypes.object,
   mode: PropTypes.string,
   disabledTime: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  disabledRegister: PropTypes.func,
 }
 
 TimeScroll.defaultProps = {
