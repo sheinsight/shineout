@@ -29,16 +29,16 @@ function handleDisabled(...args) {
   let isDisabled
   if (disabled) isDisabled = disabled(date)
   if (disabledTime) isDisabled = isDisabled || handleTimeDisabled(date, disabledTime)
-  if (isDisabled) return [true]
+  if (isDisabled) return true
   if (!isDisabled && min) {
-    if (compareAsc(date, min) < 0) return [true]
-    if (range && compareAsc(date, addSeconds(min, range)) > 0) return [true]
+    if (compareAsc(date, min) < 0) return true
+    if (range && compareAsc(date, addSeconds(min, range)) > 0) return true
   }
   if (!isDisabled && max) {
-    if (compareAsc(date, max) > 0) return [true]
-    if (range && compareAsc(date, addSeconds(max, -range)) < 0) return [true]
+    if (compareAsc(date, max) > 0) return true
+    if (range && compareAsc(date, addSeconds(max, -range)) < 0) return true
   }
-  return [false, date]
+  return false
 }
 
 function judgeTimeByRange(...args) {
@@ -78,7 +78,7 @@ function judgeTimeByRange(...args) {
   }
 
   const isDisabled = handleDisabled(date, min, max, range, disabled, disabledTime)
-  return isDisabled
+  return [isDisabled, date]
 }
 
 export default {

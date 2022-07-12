@@ -263,7 +263,7 @@ class Container extends PureComponent {
     }
   }
 
-  disabledRegister(disabled, mode = this.props.type) {
+  disabledRegister(disabled, mode) {
     this.setState(pre => {
       const { disabledRegister } = pre
       const newRegister = { ...disabledRegister }
@@ -274,39 +274,25 @@ class Container extends PureComponent {
     })
   }
 
-  handleDisabled(value, date) {
+  handleDisabled(date) {
     const mode = this.props.type
     const { disabledRegister } = this.state
     const { min, max, range, disabled, disabledTime } = this.props
 
-    if (mode === 'time') {
-      const [isDisabled] = ParamFns.handleDisabled(date, min, max, range, disabled, disabledTime)
-      return isDisabled
+    switch (mode) {
+      case 'time':
+        return ParamFns.handleDisabled(date, min, max, range, disabled, disabledTime)
+      case 'date':
+        return disabledRegister.day(date)
+      case 'week':
+        return disabledRegister.day(date)
+      case 'month':
+        return disabledRegister.month(date)
+      case 'datetime':
+        return ParamFns.handleDisabled(date, min, max, range, disabled, disabledTime) || disabledRegister.day(date)
+      default:
+        return false
     }
-
-    if (mode === 'date') {
-      return disabledRegister.day(date)
-    }
-
-    if (mode === 'week') {
-      return disabledRegister.day(date)
-    }
-
-    if (mode === 'month') {
-      return disabledRegister.month(date)
-    }
-
-    // if (mode === 'year') {
-    //   return disabledRegister.year(value)
-    // }
-
-    if (mode === 'datetime') {
-      const [isDisabled] = ParamFns.handleDisabled(date, min, max, range, disabled, disabledTime)
-      const disabledDay = disabledRegister.day(value)
-      return isDisabled || disabledDay
-    }
-
-    return false
   }
 
   handleTextChange(date, index, e) {
@@ -316,7 +302,7 @@ class Container extends PureComponent {
     let isDisabled
 
     if (disabled || disabledTime || max || min || range) {
-      isDisabled = this.handleDisabled(val, date)
+      isDisabled = this.handleDisabled(date)
       if (isDisabled) return
     }
 
