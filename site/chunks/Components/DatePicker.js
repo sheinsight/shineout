@@ -206,6 +206,17 @@ const examples = [
 
   },
   {
+    name: '11-disabled-date-time',
+    isTs: false,
+    title: locate(
+      ' \n 同时禁用日期和时间',
+      ' \n Disable both special date and special time'
+    ),
+    component: require('doc/pages/components/DatePicker/example-11-disabled-date-time.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-11-disabled-date-time.js'),
+
+  },
+  {
     name: '11-disabled-type.tsx',
     isTs: true,
     title: locate(

@@ -27,7 +27,10 @@ class Day extends PureComponent {
     this.handleYearMode = this.handleModeChange.bind(this, 'year')
     this.handleWeekLeave = this.handleWeek.bind(this, null)
     this.handleTimeChange = this.handleTimeChange.bind(this)
+    this.handleDisabled = this.handleDisabled.bind(this)
     this.formatWithDefaultTime = this.formatWithDefaultTime.bind(this)
+
+    props.disabledRegister(this.handleDisabled, 'day')
   }
 
   getOptions() {
@@ -114,11 +117,12 @@ class Day extends PureComponent {
     this.props.onDayHover(date)
   }
 
-  renderDay(date, minD, maxD) {
-    const { current, disabled, value, index, type, rangeDate, range, rangeTemp, min, max } = this.props
-    const { hover } = this.state
-    let isDisabled = disabled ? disabled(date) : false
+  handleDisabled(date, minDate, maxDate) {
+    const { index, disabled, range, rangeTemp, min, max } = this.props
+    const minD = minDate || (min && utils.toDate(utils.format(min, minStr, this.getOptions()), this.getOptions()))
+    const maxD = maxDate || (max && utils.toDate(utils.format(max, maxStr, this.getOptions()), this.getOptions()))
 
+    let isDisabled = disabled ? disabled(date) : false
     // only for single, single picker don't has index
     if (index === undefined && !isDisabled) {
       if ((minD && utils.compareAsc(date, minD) < 0) || (maxD && utils.compareAsc(date, maxD) > 0)) isDisabled = true
@@ -141,6 +145,13 @@ class Day extends PureComponent {
         isDisabled = true
       }
     }
+    return isDisabled
+  }
+
+  renderDay(date, minD, maxD) {
+    const { current, value, index, type, rangeDate } = this.props
+    const { hover } = this.state
+    const isDisabled = this.handleDisabled(date, minD, maxD)
 
     const classList = [
       utils.isSameDay(date, this.today, this.getOptions()) && 'today',
@@ -161,7 +172,7 @@ class Day extends PureComponent {
       } else if (hover && utils.isSameWeek(date, hover, this.getOptions())) {
         hoverClass = datepickerClass('hover', day === weekStart && 'hover-start', day === weekEnd && 'hover-end')
       }
-    } else if (rangeDate && utils.compareMonth(current, date, 0, this.getOptions()) === 1) {
+    } else if (rangeDate && utils.compareMonth(current, date, 0, this.getOptions()) === 0) {
       hoverProps.onMouseEnter = this.handleDayHover.bind(this, date)
 
       classList.push(utils.isSameDay(date, rangeDate[index], this.getOptions()) && 'active')
@@ -286,6 +297,7 @@ Day.propTypes = {
   defaultTime: PropTypes.array,
   allowSingle: PropTypes.bool,
   timeZone: PropTypes.string,
+  disabledRegister: PropTypes.func,
 }
 
 export default Day

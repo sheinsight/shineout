@@ -143,6 +143,8 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
 
 }
 
-declare class EditableArea extends React.PureComponent<EditableAreaProps, any>{}
+declare class EditableArea extends React.PureComponent<EditableAreaProps, any>{
+  render(): JSX.Element
+}
 
 export default EditableArea
