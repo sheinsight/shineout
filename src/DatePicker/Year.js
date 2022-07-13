@@ -16,6 +16,9 @@ class Year extends PureComponent {
     this.handlePrevRange = this.handleRangeChange.bind(this, -15)
     this.handleNextRange = this.handleRangeChange.bind(this, 15)
     this.renderYear = this.renderYear.bind(this)
+    this.handleDisabled = this.handleDisabled.bind(this)
+
+    props.disabledRegister(this.handleDisabled, 'year')
   }
 
   getOptions() {
@@ -41,10 +44,8 @@ class Year extends PureComponent {
     onChange(...paramUtils.yearHandleChangeParams(utils.addYears(current, year, this.getOptions())))
   }
 
-  renderYear(y) {
-    const { value, min, disabled, range, type, index, rangeDate, max } = this.props
-    const date = utils.changeDate(utils.toDate(MONTHBASE, this.getOptions()), 'year', y, this.getOptions())
-
+  handleDisabled(date) {
+    const { min, disabled, range, type, index, rangeDate, max } = this.props
     let isDisabled = min && utils.compareYear(min, date, 1, this.getOptions()) >= 0
     if (!isDisabled) {
       isDisabled = max && utils.compareYear(date, max, 1, this.getOptions()) >= 0
@@ -65,6 +66,13 @@ class Year extends PureComponent {
         isDisabled = true
       }
     }
+    return isDisabled
+  }
+
+  renderYear(y) {
+    const { value } = this.props
+    const date = utils.changeDate(utils.toDate(MONTHBASE, this.getOptions()), 'year', y, this.getOptions())
+    const isDisabled = this.handleDisabled(date)
 
     const className = datepickerClass(
       value && utils.getDateInfo(value, 'year', this.getOptions()) === y && 'active',
@@ -112,6 +120,7 @@ Year.propTypes = {
   index: PropTypes.number,
   rangeDate: PropTypes.array,
   timeZone: PropTypes.string,
+  disabledRegister: PropTypes.func,
 }
 
 export default Year

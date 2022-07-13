@@ -15,6 +15,9 @@ class Month extends PureComponent {
     this.handleNextYear = this.handleYearChange.bind(this, 1)
     this.handlePrevYear = this.handleYearChange.bind(this, -1)
     this.handleYearClick = this.handleYearClick.bind(this)
+    this.handleDisabled = this.handleDisabled.bind(this)
+
+    props.disabledRegister(this.handleDisabled, 'month')
   }
 
   getOptions() {
@@ -41,11 +44,8 @@ class Month extends PureComponent {
     if (!isMonthType) onModeChange('day')
   }
 
-  renderMonth(m, i) {
-    const { value, min, disabled, range, type, current, index, rangeDate, max } = this.props
-    let date = utils.toDate(MONTHBASE, this.getOptions())
-    date = utils.changeDate(date, 'year', utils.getDateInfo(current, 'year', this.getOptions()), this.getOptions())
-    date = utils.changeDate(date, 'month', i, this.getOptions())
+  handleDisabled(date) {
+    const { min, disabled, range, type, index, rangeDate, max } = this.props
 
     let isDisabled = min && utils.compareMonth(min, date, 1, this.getOptions()) >= 0
     if (!isDisabled) {
@@ -67,6 +67,15 @@ class Month extends PureComponent {
         isDisabled = true
       }
     }
+    return isDisabled
+  }
+
+  renderMonth(m, i) {
+    const { value, current } = this.props
+    let date = utils.toDate(MONTHBASE, this.getOptions())
+    date = utils.changeDate(date, 'year', utils.getDateInfo(current, 'year', this.getOptions()), this.getOptions())
+    date = utils.changeDate(date, 'month', i, this.getOptions())
+    const isDisabled = this.handleDisabled(date)
 
     const className = datepickerClass(
       utils.isSameMonth(value, date, this.getOptions()) && 'active',
@@ -115,6 +124,7 @@ Month.propTypes = {
   index: PropTypes.number,
   rangeDate: PropTypes.array,
   timeZone: PropTypes.string,
+  disabledRegister: PropTypes.func,
 }
 
 export default Month
