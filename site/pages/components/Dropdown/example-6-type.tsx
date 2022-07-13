@@ -7,7 +7,7 @@
 import React, { useState } from 'react'
 import { Dropdown, Message, Select, Checkbox, TYPE } from 'shineout'
 
-type SelectProps<Item = any, Value = any> = TYPE.Select.Props<Item, Value>
+type SelectProps = TYPE.Select.Props<string, string>
 type SelectData = SelectProps['data']
 
 type DropdownProps = TYPE.Dropdown.Props
