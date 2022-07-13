@@ -10,9 +10,13 @@ import { DatePicker } from 'shineout'
 const App: React.FC = () => (
   <div>
     <DatePicker type="date" innerTitle="Select date" clearable style={{ marginBottom: 8 }} />
+
     <br />
+
     <DatePicker range innerTitle="Select date" clearable style={{ marginBottom: 8 }} />
+
     <br />
+
     <DatePicker type="datetime" inputable clearable innerTitle="Select datetime" />
   </div>
 )

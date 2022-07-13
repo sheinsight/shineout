@@ -278,14 +278,15 @@ const examples = [
 
   },
   {
-    name: '16-timezone',
-    isTs: false,
+    name: '16-timezone.tsx',
+    isTs: true,
     title: locate(
       '时区 \n 设置 timeZone',
       'timeZone \n set timeZone'
     ),
-    component: require('doc/pages/components/DatePicker/example-16-timezone.js').default,
-    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-16-timezone.js'),
+    component: require('doc/pages/components/DatePicker/example-16-timezone.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-16-timezone.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-16-timezone.tsx'),
 
   },
 ]
