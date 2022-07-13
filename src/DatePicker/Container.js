@@ -295,8 +295,15 @@ class Container extends PureComponent {
         return disabledMap.day(date)
       case 'month':
         return disabledMap.month(date)
+      case 'year':
+        return disabledMap.year(date)
+      case 'quarter':
+        return disabledMap.quarter(date)
       case 'datetime':
-        return ParamFns.handleDisabled(date, min, max, range, disabled, disabledTime) || disabledMap.day(date)
+        return (
+          ParamFns.handleDisabled(date, min, max, range, disabled, disabledTime, this.getOptions()) ||
+          disabledMap.day(date)
+        )
       default:
         return false
     }
