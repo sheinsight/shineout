@@ -25,9 +25,25 @@ function handleTimeDisabled(date, disabledTime, options) {
   return undefined
 }
 
+function handleDisabled(...args) {
+  const [date, min, max, range, disabled, disabledTime] = args
+  let isDisabled
+  if (disabled) isDisabled = disabled(date)
+  if (disabledTime) isDisabled = isDisabled || handleTimeDisabled(date, disabledTime)
+  if (isDisabled) return true
+  if (!isDisabled && min) {
+    if (compareAsc(date, min) < 0) return true
+    if (range && compareAsc(date, addSeconds(min, range)) > 0) return true
+  }
+  if (!isDisabled && max) {
+    if (compareAsc(date, max) > 0) return true
+    if (range && compareAsc(date, addSeconds(max, -range)) < 0) return true
+  }
+  return false
+}
+
 function judgeTimeByRange(...args) {
   const [target, value, mode, min, max, range, disabled, disabledTime, options] = args
-
   let date = new Date(value.getTime())
   switch (mode) {
     case 'H':
@@ -62,20 +78,10 @@ function judgeTimeByRange(...args) {
       break
   }
 
-  let isDisabled
-  if (disabled) isDisabled = disabled(date)
-  if (disabledTime) isDisabled = isDisabled || handleTimeDisabled(date, disabledTime, options)
-  if (isDisabled) return [true]
-  if (!isDisabled && min) {
-    if (compareAsc(date, min) < 0) return [true]
-    if (range && compareAsc(date, addSeconds(min, range, options)) > 0) return [true]
-  }
-  if (!isDisabled && max) {
-    if (compareAsc(date, max) > 0) return [true]
-    if (range && compareAsc(date, addSeconds(max, -range, options)) < 0) return [true]
-  }
-  return [false, date]
+  const isDisabled = handleDisabled(date, min, max, range, disabled, disabledTime)
+  return [isDisabled, date]
 }
+
 export default {
   handleOnChangeParams,
   yearHandleChangeParams,
@@ -86,4 +92,6 @@ export default {
   weekHandleChangeParams,
   quarterHandleChangeParams,
   judgeTimeByRange,
+  handleTimeDisabled,
+  handleDisabled,
 }
