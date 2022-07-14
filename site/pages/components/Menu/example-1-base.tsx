@@ -7,12 +7,16 @@
 import React, { useState } from 'react'
 import { Menu, TYPE } from 'shineout'
 
-type MenuProps = TYPE.Menu.Props<object, any>
-type MenuData = MenuProps['data']
+interface MenuItem {
+  id: string
+  title: string
+  children?: MenuItem[]
+}
+type MenuProps = TYPE.Menu.Props<MenuItem, MenuItem>
 type MenuActive = MenuProps['active']
 type MenuRenderItem = MenuProps['renderItem']
 
-const data: MenuData = [
+const data: MenuItem[] = [
   {
     id: '1',
     title: 'Navigation One',
@@ -64,11 +68,11 @@ const data: MenuData = [
 const App: React.FC = () => {
   const [active, setActive] = useState('1')
 
-  const handleClick = (d: any) => setActive(d.id)
+  const handleClick = (d: MenuItem) => setActive(d.id)
 
-  const renderItem: MenuRenderItem = (d: any) => d.title
+  const renderItem: MenuRenderItem = (d: MenuItem) => d.title
 
-  const checkActive: MenuActive = (d: any) => active === d.id
+  const checkActive: MenuActive = (d: MenuItem) => active === d.id
 
   return (
     <Menu

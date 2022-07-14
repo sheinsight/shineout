@@ -8,20 +8,27 @@ import React, { useState } from 'react'
 import { Menu, TYPE } from 'shineout'
 import Icon from '../Icon/FontAwesome'
 
-type MenuProps = TYPE.Menu.Props<object, any>
-type MenuData = MenuProps['data']
+interface MenuItem {
+  id: string
+  title: string
+  children?: MenuItem[]
+}
+interface IconList {
+  [x: number]: React.ReactNode
+}
+type MenuProps = TYPE.Menu.Props<MenuItem, MenuItem>
 type MenuActive = MenuProps['active']
 type MenuOnClick = MenuProps['onClick']
 type MenuRenderItem = MenuProps['renderItem']
 
-const Icons = {
+const Icons: IconList = {
   6: <Icon name="tag" />,
   1: <Icon name="home" />,
   3: <Icon name="flag" />,
   2: <Icon name="github" />,
 }
 
-const data: MenuData = [
+const data: MenuItem[] = [
   {
     id: '1',
     title: 'Navigation One',
@@ -73,11 +80,11 @@ const data: MenuData = [
 const App: React.FC = () => {
   const [active, setActive] = useState(['1'])
 
-  const renderItem: MenuRenderItem = (da: { id: 1 | 2 | 3 | 6; title: string }) => {
+  const renderItem: MenuRenderItem = (da: MenuItem) => {
     if (da.title.startsWith('Navigation')) {
       return (
         <span>
-          {Icons[da.id]}
+          {Icons[Number(da.id)]}
           {` ${da.title}`}
         </span>
       )
@@ -85,9 +92,9 @@ const App: React.FC = () => {
     return da.title
   }
 
-  const handleClick: MenuOnClick = (d: any) => setActive([d.id])
+  const handleClick: MenuOnClick = (d: MenuItem) => setActive([d.id])
 
-  const checkActive: MenuActive = (d: any) => active.includes(d.id)
+  const checkActive: MenuActive = (d: MenuItem) => active.includes(d.id)
 
   return (
     <Menu

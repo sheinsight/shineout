@@ -7,11 +7,23 @@
 import React, { useState } from 'react'
 import { List, Select, TYPE } from 'shineout'
 
-type ListProps = TYPE.List.Props<any, any>
-type ListData = ListProps['data']
+interface ListItem {
+  id: number
+  time: string
+  start: string
+  height: number
+  salary: number
+  office: string
+  country: string
+  office5: string
+  position: string
+  lastName: string
+  firstName: string
+}
+type ListProps = TYPE.List.Props<ListItem, ListItem>
 type ListRenderItem = ListProps['renderItem']
 
-const data: ListData = [
+const data: ListItem[] = [
   {
     id: 1,
     firstName: 'Ephraim',

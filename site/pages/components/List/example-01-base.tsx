@@ -7,7 +7,20 @@
 import React from 'react'
 import { List, TYPE } from 'shineout'
 
-type ListProps = TYPE.List.Props<any, any>
+interface ListItem {
+  id: number
+  time: string
+  start: string
+  height: number
+  salary: number
+  office: string
+  country: string
+  office5: string
+  position: string
+  lastName: string
+  firstName: string
+}
+type ListProps = TYPE.List.Props<ListItem, ListItem>
 type ListData = ListProps['data']
 type ListRenderItem = ListProps['renderItem']
 

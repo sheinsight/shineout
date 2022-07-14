@@ -8,8 +8,20 @@ import React, { useState, useEffect } from 'react'
 import { List, Checkbox, TYPE } from 'shineout'
 import { fetch } from 'doc/data/user'
 
-type ListProps = TYPE.List.Props<any, any>
-type ListData = ListProps['data']
+interface ListItem {
+  id: number
+  time: string
+  start: string
+  height: number
+  salary: number
+  office: string
+  country: string
+  office5: string
+  position: string
+  lastName: string
+  firstName: string
+}
+type ListProps = TYPE.List.Props<ListItem, number>
 type ListOnChange = ListProps['onChange']
 type ListRenderItem = ListProps['renderItem']
 
@@ -26,14 +38,14 @@ const style: React.CSSProperties = {
 }
 
 const App: React.FC = () => {
-  const [value, setValue] = useState([1])
   const [current, setCurrent] = useState(1)
   const [loading, setLoading] = useState(false)
-  const [data, setData] = useState<ListData[]>([])
+  const [data, setData] = useState<ListItem[]>([])
+  const [value, setValue] = useState<number[]>([1])
 
   const fetchData = (c: number) => {
     setLoading(true)
-    fetch.get('List', { current, pageSize: 10, sorter: '', username: '' }).then((_data: { data: any }) => {
+    fetch.get('List', { current, pageSize: 10, sorter: '', username: '' }).then((_data: { data: ListItem[] }) => {
       setData([...data, ..._data.data])
       setCurrent(c)
       setLoading(false)
@@ -51,9 +63,9 @@ const App: React.FC = () => {
     setValue(selectedValue)
   }
 
-  const checkboxOnChange: CheckboxOnChange = (flag: any) => {
+  const checkboxOnChange: CheckboxOnChange = (flag: boolean) => {
     if (flag) {
-      setValue(data.map((v: any) => v.id))
+      setValue(data.map((v: ListItem) => v.id))
       return
     }
     setValue([])

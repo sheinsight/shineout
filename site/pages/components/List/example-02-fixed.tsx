@@ -14,12 +14,25 @@ import React from 'react'
 import { List, TYPE } from 'shineout'
 import { fetchSync } from 'doc/data/user'
 
-type ListProps = TYPE.List.Props<any, any>
+interface ListItem {
+  id: number
+  firstName: string
+  lastName: string
+  position: string
+  start: string
+  time: string
+  salary: number
+  country: string
+  office: string
+  office5: string
+  height: number
+}
+type ListProps = TYPE.List.Props<ListItem, any>
 type ListRenderItem = ListProps['renderItem']
 
-const names = fetchSync(10000)
+const names: ListItem[] = fetchSync(10000)
 
-const style = {
+const style: React.CSSProperties = {
   width: 22,
   height: 22,
   background: '#eee',

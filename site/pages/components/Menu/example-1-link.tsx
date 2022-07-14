@@ -7,11 +7,15 @@
 import React from 'react'
 import { Menu, TYPE } from 'shineout'
 
-type MenuProps = TYPE.Menu.Props<object, any>
-type MenuData = MenuProps['data']
+interface MenuItem {
+  id: string
+  link: string
+  title: string
+}
+type MenuProps = TYPE.Menu.Props<MenuItem, string>
 type MenuRenderItem = MenuProps['renderItem']
 
-const data: MenuData = [
+const data: MenuItem[] = [
   {
     id: '1',
     title: 'Google',
@@ -30,7 +34,7 @@ const data: MenuData = [
 ]
 
 const App: React.FC = () => {
-  const renderItem: MenuRenderItem = (d: any) => d.title
+  const renderItem: MenuRenderItem = (d: MenuItem) => d.title
 
   return (
     <Menu keygen="id" linkKey="link" data={data} renderItem={renderItem} style={{ width: 256 }} inlineIndent={24} />

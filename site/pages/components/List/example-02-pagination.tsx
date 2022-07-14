@@ -10,8 +10,20 @@ import React, { useState, useEffect } from 'react'
 import { List, Image, TYPE } from 'shineout'
 import { fetch } from 'doc/data/user'
 
-type ListProps = TYPE.List.Props<any, any>
-type ListData = ListProps['data']
+interface ListItem {
+  id: number
+  time: string
+  start: string
+  height: number
+  salary: number
+  office: string
+  country: string
+  office5: string
+  position: string
+  lastName: string
+  firstName: string
+}
+type ListProps = TYPE.List.Props<ListItem, ListItem>
 type ListRenderItem = ListProps['renderItem']
 
 type PaginationProps = TYPE.Pagination.Props
@@ -23,7 +35,7 @@ const image = '../../../images/list.png'
 const App: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [current, setCurrent] = useState<number>(1)
-  const [data, setData] = useState<ListData[]>([])
+  const [data, setData] = useState<ListItem[]>([])
 
   const fetchData = (c: number) => {
     setLoading(true)
