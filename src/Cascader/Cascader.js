@@ -149,6 +149,7 @@ class Cascader extends PureComponent {
     } else {
       const v = value[value.length - 1]
       const data = this.datum.getDataById(v)
+      if (data === null) return
       try {
         const id = this.datum.getKey(data)
         let { path } = this.datum.getPath(id) || {}
@@ -277,7 +278,6 @@ class Cascader extends PureComponent {
       onItemClick,
       expandTrigger,
       childrenKey,
-      absolute,
       height,
     } = this.props
     const { path } = this.state

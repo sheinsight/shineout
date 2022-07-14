@@ -105,7 +105,7 @@ export default function Example({ component, id, name, rawText, title: propsTitl
               {sub.map((s, i) => (
                 <div key={i} dangerouslySetInnerHTML={{ __html: s }} />
               ))}
-              <Codesandbox id={id} text={text} />
+              <Codesandbox id={id} text={parseText || text} />
               {renderCodeHandle(false)}
             </div>
           )}
