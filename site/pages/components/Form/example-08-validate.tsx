@@ -16,7 +16,7 @@ const isExist: RuleFunc = (value, _, callback) => {
 }
 
 const password: RuleParams = {
-  func: (value: string, _formData: any, _cb: any, props: { message: string; title: any }) =>
+  func: (value: string, _formData: any, _cb: any, props: { message: string; title: string }) =>
     new Promise((resolve, reject) => {
       if (!/\d+/.test(value) || !/[a-z]+/i.test(value)) {
         reject(new Error(props.message.replace('{title}', props.title)))

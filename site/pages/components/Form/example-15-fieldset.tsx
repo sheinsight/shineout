@@ -8,12 +8,13 @@ import React from 'react'
 import { Form, Input, Button, Rule, TYPE } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
-type RuleFunc = TYPE.Rule.validFunc
-type FieldSetEmpty = TYPE.Form.FieldSetProps<any>['empty']
 interface Value {
   name: string
   [x: string]: string
 }
+type RuleFunc = TYPE.Rule.validFunc
+type FieldSetEmpty = TYPE.Form.FieldSetProps<Value>['empty']
+
 interface ValueMap {
   [x: string]: string | boolean
 }
@@ -32,7 +33,7 @@ const rules = Rule({ isExist })
 
 const App: React.FC = () => {
   const renderEmpty: FieldSetEmpty = onAppend => (
-    <Button key="empty" onClick={() => onAppend({})}>
+    <Button key="empty" onClick={() => onAppend({ name: '' })}>
       Add new friend
     </Button>
   )

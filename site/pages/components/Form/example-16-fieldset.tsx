@@ -8,8 +8,9 @@ import React from 'react'
 import { Form, Input, Button, Rule, TYPE } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
+type Value = string
 type RuleFunc = TYPE.Rule.validFunc
-type FieldSetEmpty = TYPE.Form.FieldSetProps<any>['empty']
+type FieldSetEmpty = TYPE.Form.FieldSetProps<Value>['empty']
 
 const isExist: RuleFunc = (values, _, callback) => {
   const result: string | boolean | any[] | Error = []

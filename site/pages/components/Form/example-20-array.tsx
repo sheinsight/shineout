@@ -8,7 +8,8 @@ import React, { useState } from 'react'
 import immer from 'immer'
 import { Form, DatePicker, Input, Modal, Rule, TYPE } from 'shineout'
 
-type FormProps = TYPE.Form.Props<any>
+type Value = string[]
+type FormProps = TYPE.Form.Props<Value>
 
 const NameInput = (props: FormProps) => {
   const { value, onChange } = props
@@ -17,20 +18,20 @@ const NameInput = (props: FormProps) => {
     const newValue = immer(props.value, (draft: any[]) => {
       draft[1] = v
     })
-    onChange!(newValue)
+    onChange!(newValue!)
   }
   const handleFirstName = (v: string) => {
     const newValue = immer(props.value, (draft: any[]) => {
       draft[0] = v
     })
-    onChange!(newValue)
+    onChange!(newValue!)
   }
 
   return (
     <div>
-      <Input value={value[0]} width={120} onChange={handleFirstName} />
+      <Input value={value![0]} width={120} onChange={handleFirstName} />
       -
-      <Input value={value[1]} width={120} onChange={handleLastName} />
+      <Input value={value![1]} width={120} onChange={handleLastName} />
     </div>
   )
 }

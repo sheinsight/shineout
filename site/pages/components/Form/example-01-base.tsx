@@ -27,21 +27,17 @@ const citys = [
 ]
 
 const App: React.FC = () => {
-  const [form] = useState({})
   const [value, setValue] = useState<FormValue>()
 
-  useEffect(
-    () => {
-      setValue({
-        age: 18,
-        startDate: Date.now(),
-        email: 'test@example.com',
-        endDate: Date.now() + 86400000,
-        favoriteColor: ['cyan', 'yellow'],
-      })
-    },
-    [form]
-  )
+  useEffect(() => {
+    setValue({
+      age: 18,
+      startDate: Date.now(),
+      email: 'test@example.com',
+      endDate: Date.now() + 86400000,
+      favoriteColor: ['cyan', 'yellow'],
+    })
+  }, [])
 
   return (
     <Form
