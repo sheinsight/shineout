@@ -7,13 +7,13 @@
 import React from 'react'
 import { DatePicker } from 'shineout'
 
-export default function () {
-    return (
-        <div>
-            <DatePicker style={{ marginRight: '12px' }} type="date" placeholder="left-top" position="left-top" />
-            <DatePicker style={{ marginRight: '12px' }} type="date" placeholder="left-bottom" position="left-bottom" />
-            <DatePicker style={{ marginRight: '12px' }} type="date" placeholder="right-top" position="right-top" />
-            <DatePicker style={{ marginRight: '12px' }} type="date" placeholder="right-bottom" position="right-bottom" />
-        </div>
-    )
+export default function() {
+  return (
+    <div>
+      <DatePicker style={{ marginRight: '12px' }} type="date" placeholder="left-top" position="left-top" />
+      <DatePicker style={{ marginRight: '12px' }} type="date" placeholder="left-bottom" position="left-bottom" />
+      <DatePicker style={{ marginRight: '12px' }} type="date" placeholder="right-top" position="right-top" />
+      <DatePicker style={{ marginRight: '12px' }} type="date" placeholder="right-bottom" position="right-bottom" />
+    </div>
+  )
 }

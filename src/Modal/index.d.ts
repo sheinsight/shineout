@@ -336,6 +336,7 @@ declare class Modal extends React.Component<ModalProps, {}> {
   static Submit: typeof ModalSubmit;
 
   static closeAll: () => void;
+  render(): JSX.Element
 }
 
 export default Modal
