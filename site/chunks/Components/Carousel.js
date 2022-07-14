@@ -14,25 +14,27 @@ const source = locate(cn, en)
 
 const examples = [
   {
-    name: '1-base',
-    isTs: false,
+    name: '1-base.tsx',
+    isTs: true,
     title: locate(
       '基本用法 \n 轮播组件提供了三种动画过渡方式，可以切换选项查看效果',
       'Base \n The carousel component provides three modes of animation transition. Change the option to view the result.'
     ),
-    component: require('doc/pages/components/Carousel/example-1-base.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Carousel/example-1-base.js'),
+    component: require('doc/pages/components/Carousel/example-1-base.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Carousel/example-1-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Carousel/example-1-base.tsx'),
 
   },
   {
-    name: '2-custom-indicator',
-    isTs: false,
+    name: '2-custom-indicator.tsx',
+    isTs: true,
     title: locate(
       '自定义 Indicator \n 当 indicatorType 为函数时，可以自定义 Indicator',
       'Custom Indicator \n Indicators can be customized when indicatorType is a function.'
     ),
-    component: require('doc/pages/components/Carousel/example-2-custom-indicator.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Carousel/example-2-custom-indicator.js'),
+    component: require('doc/pages/components/Carousel/example-2-custom-indicator.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Carousel/example-2-custom-indicator.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Carousel/example-2-custom-indicator.tsx'),
 
   },
 ]

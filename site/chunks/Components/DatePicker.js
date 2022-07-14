@@ -191,6 +191,17 @@ const examples = [
 
   },
   {
+    name: '11-disabled-date-time',
+    isTs: false,
+    title: locate(
+      ' \n 同时禁用日期和时间',
+      ' \n Disable both special date and special time'
+    ),
+    component: require('doc/pages/components/DatePicker/example-11-disabled-date-time.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-11-disabled-date-time.js'),
+
+  },
+  {
     name: '11-disabled-type',
     isTs: false,
     title: locate(
@@ -254,6 +265,17 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-15-position.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-15-position.js'),
+
+  },
+  {
+    name: '16-timezone',
+    isTs: false,
+    title: locate(
+      '时区 \n 设置 timeZone',
+      'timeZone \n set timeZone'
+    ),
+    component: require('doc/pages/components/DatePicker/example-16-timezone.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-16-timezone.js'),
 
   },
 ]

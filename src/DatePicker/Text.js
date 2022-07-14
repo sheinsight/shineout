@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { getParent, focusElement } from '../utils/dom/element'
 import utils from './utils'
 import { datepickerClass } from './styles'
+import { getLocale } from '../locale'
 
 let target = null
 document.addEventListener(
@@ -35,6 +36,11 @@ class Text extends PureComponent {
     }
   }
 
+  getOptions() {
+    const { timeZone } = this.props
+    return { timeZone, weekStartsOn: getLocale('startOfWeek') }
+  }
+
   bindElement(el) {
     const { onTextSpanRef } = this.props
     this.element = el
@@ -49,7 +55,7 @@ class Text extends PureComponent {
     if (txt.trim().length === 0) {
       onChange(undefined, index, e)
     } else {
-      const newValue = utils.toDateWithFormat(txt, format, undefined)
+      const newValue = utils.toDateWithFormat(txt, format, undefined, this.getOptions())
       // if translate fail, clear
       if (!newValue) {
         this.element.innerText = null
@@ -114,6 +120,7 @@ Text.propTypes = {
   onTextSpanRef: PropTypes.func,
   focus: PropTypes.bool,
   focusElement: PropTypes.instanceOf(Element),
+  timeZone: PropTypes.string,
 }
 
 Text.defaultProps = {

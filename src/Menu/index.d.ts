@@ -150,6 +150,8 @@ export interface MenuProps<Item, Value> extends
   toggleDuration?: number;
 }
 
-declare class Menu<Item = object, Value = any> extends React.Component<MenuProps<Item, Value>, {}> { }
+declare class Menu<Item = object, Value = any> extends React.Component<MenuProps<Item, Value>, {}> {
+  render(): JSX.Element
+}
 
 export default Menu

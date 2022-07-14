@@ -4,6 +4,7 @@ import immer from 'immer'
 import { PureComponent } from '../component'
 import shallowEqual from '../utils/shallowEqual'
 import utils from './utils'
+import { getLocale } from '../locale'
 import paramUtils from './paramUtils'
 import Picker from './Picker'
 import { datepickerClass } from './styles'
@@ -44,6 +45,11 @@ class Range extends PureComponent {
     }
   }
 
+  getOptions() {
+    const { timeZone } = this.props
+    return { timeZone, weekStartsOn: getLocale('startOfWeek') }
+  }
+
   bindPicker(index, el) {
     this.pickers[index] = el
   }
@@ -54,7 +60,7 @@ class Range extends PureComponent {
 
   handleDayHover(date) {
     if (this.state.rangeDate.length === 1) {
-      utils.cloneTime(date, this.props.value[1], this.props.format)
+      utils.cloneTime(date, this.props.value[1], this.props.format, this.getOptions())
       // this.setState({ hover: date })
     }
   }
@@ -64,10 +70,11 @@ class Range extends PureComponent {
     const [s, e] = rangeDate
     const { range } = this.props
     if (typeof range === 'number') {
-      if (utils.compareAsc(s, utils.addSeconds(e, -range)) < 0) rangeDate[1] = utils.addSeconds(s, range)
+      if (utils.compareAsc(s, utils.addSeconds(e, -range, this.getOptions())) < 0)
+        rangeDate[1] = utils.addSeconds(s, range, this.getOptions())
     }
     if (utils.compareAsc(s, e) > 0) {
-      const sWitheTime = utils.toDate(s)
+      const sWitheTime = utils.toDate(s, this.getOptions())
       utils.setTime(sWitheTime, e)
       rangeDate[1] = utils.compareAsc(s, sWitheTime) > 0 ? s : sWitheTime
     }
@@ -105,8 +112,8 @@ class Range extends PureComponent {
             endChangedDate = date
             draft.rangeDate[1] = endChangedDate
           }
-          if (typeof range === 'number' && utils.compareAsc(s, utils.addSeconds(e, -range)) < 0) {
-            endChangedDate = utils.addSeconds(s, range)
+          if (typeof range === 'number' && utils.compareAsc(s, utils.addSeconds(e, -range, this.getOptions())) < 0) {
+            endChangedDate = utils.addSeconds(s, range, this.getOptions())
             draft.rangeDate[1] = endChangedDate
           }
         }),
@@ -136,7 +143,7 @@ class Range extends PureComponent {
       return
     }
 
-    utils.cloneTime(date, this.props.value[index])
+    utils.cloneTime(date, this.props.value[index], undefined, this.getOptions())
     if (min && utils.compareAsc(date, min) <= 0) {
       utils.setTime(date, min)
     }
@@ -167,7 +174,7 @@ class Range extends PureComponent {
 
   fillTime(date, index) {
     const { defaultTime, format, value } = this.props
-    return utils.formatDateWithDefaultTime(date, value[index], defaultTime[index], format)
+    return utils.formatDateWithDefaultTime(date, value[index], defaultTime[index], format, this.getOptions())
   }
 
   handleDisabled(type, date) {
@@ -206,7 +213,7 @@ class Range extends PureComponent {
           onChangeSync={this.handleChange}
           onDayHover={this.handleDayHover}
           ref={this.bindFirstPicker}
-          value={utils.toDateWithFormat(value[0], props.format)}
+          value={utils.toDateWithFormat(value[0], props.format, undefined, this.getOptions())}
           showTimePicker={value.length === 2}
         />
         <Picker
@@ -223,7 +230,7 @@ class Range extends PureComponent {
           onChangeSync={this.handleChange}
           onDayHover={this.handleDayHover}
           ref={this.bindSecondPicker}
-          value={utils.toDateWithFormat(value[1], props.format)}
+          value={utils.toDateWithFormat(value[1], props.format, undefined, this.getOptions())}
           showTimePicker={value.length === 2}
         />
       </div>
@@ -244,6 +251,7 @@ Range.propTypes = {
   quicks: PropTypes.array,
   min: PropTypes.object,
   max: PropTypes.object,
+  timeZone: PropTypes.string,
 }
 
 Range.defaultProps = {

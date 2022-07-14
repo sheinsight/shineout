@@ -60,3 +60,4 @@
 | loading |  boolean | ReactNode \| false | 数据加载中，为true时会展示一个默认的[Spin](/components/Spin)组件，可以传入一个自定义的Spin代替 |
 | size |  'large' \| 'default' \| 'small'| 'default' | 尺寸 |
 | trim | boolean | false | 失去焦点时会自动删除空白字符 |
+| convertBr | string | "," | 用来转化粘贴文本中的换行 |
