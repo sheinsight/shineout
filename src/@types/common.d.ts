@@ -23,7 +23,9 @@ export interface StandardProps {
     [key: string]: any;
 }
 
-export type keyType = string | number | symbol
+export type keyType = string | number
+
+export type keygenType<Item> = LiteralUnion<Item> | ((data: Item) => keyType) | true;
 
 export interface FormItemStandardProps<Value = any> {
     /**
@@ -112,7 +114,7 @@ export interface FormItemStandardProps<Value = any> {
  * 目前已知的最为简短的写法: @see https://github.com/Microsoft/TypeScript/issues/29729#issuecomment-1082546550
  * 在类型守卫中会存在问题: @see https://github.com/Microsoft/TypeScript/issues/29729#issuecomment-1082791844
  */
-export type LiteralUnion<T = any> = T extends Record<any, any> ? (keyof T | Omit<string, keyof T>) : never
+export type LiteralUnion<T = any> = T extends Record<any, any> ? keyof T : never
 
 export interface ListItemStandardProps<Item = any, Value = any> {
     /**
@@ -122,7 +124,7 @@ export interface ListItemStandardProps<Item = any, Value = any> {
      *
      * default: index
      */
-    keygen: LiteralUnion<Item> | ((data: Item) => keyType) | true;
+    keygen: keygenType<Item>
 
 
     /**

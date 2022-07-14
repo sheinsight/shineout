@@ -56,15 +56,17 @@ export interface GridProps extends StandardProps {
 
   /**
    * children
-   * 
+   *
    * 子元素
-   * 
+   *
    * default: -
    */
   children?: ReactNode;
 
 }
 
-declare class Grid extends React.Component<GridProps, any> { }
+declare class Grid extends React.Component<GridProps, any> {
+  render(): JSX.Element
+}
 
 export default Grid

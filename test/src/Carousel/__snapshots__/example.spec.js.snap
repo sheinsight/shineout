@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: Carousel[site/pages/components/Carousel/example-1-base.js] 1`] = `
+exports[`Snapshot test: Carousel[site/pages/components/Carousel/example-1-base.tsx] 1`] = `
 <div>
   <div>
     animation:
-     
     <div>
       <div>
         <div>
@@ -24,7 +23,7 @@ exports[`Snapshot test: Carousel[site/pages/components/Carousel/example-1-base.j
         </div>
       </div>
     </div>
-    　indicatorPosition: 
+    indicatorPosition: 
     <div>
       <div>
         <div>
@@ -44,7 +43,7 @@ exports[`Snapshot test: Carousel[site/pages/components/Carousel/example-1-base.j
         </div>
       </div>
     </div>
-    　indicatorType: 
+    indicatorType: 
     <div>
       <div>
         <div>
@@ -110,7 +109,7 @@ exports[`Snapshot test: Carousel[site/pages/components/Carousel/example-1-base.j
 </div>
 `;
 
-exports[`Snapshot test: Carousel[site/pages/components/Carousel/example-2-custom-indicator.js] 1`] = `
+exports[`Snapshot test: Carousel[site/pages/components/Carousel/example-2-custom-indicator.tsx] 1`] = `
 <div>
   <div>
     <div>

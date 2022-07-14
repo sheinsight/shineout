@@ -59,5 +59,7 @@ export interface AlertProps extends StandardProps {
   hideClose?: boolean,
 }
 
-declare class Alert extends React.Component<AlertProps> {}
+declare class Alert extends React.Component<AlertProps> {
+  render(): JSX.Element
+}
 export default Alert
