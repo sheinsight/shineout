@@ -2,11 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import utils from './utils'
 import { datepickerClass } from './styles'
+import { getLocale } from '../locale'
 
 export default class Quick extends React.Component {
+  getOptions() {
+    const { timeZone } = this.props
+    return { timeZone, startOfWeek: getLocale('startOfWeek') }
+  }
+
   compareDate(a, b) {
     const { type } = this.props
-    return utils.compareDateArray(a, b, type)
+    return utils.compareDateArray(a, b, type, this.getOptions())
   }
 
   handleQuick(quick) {
@@ -47,4 +53,5 @@ Quick.propTypes = {
   quicks: PropTypes.array,
   current: PropTypes.any,
   children: PropTypes.node,
+  timeZone: PropTypes.string,
 }

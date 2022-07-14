@@ -47,6 +47,7 @@ export default function() {
       />
       <br />
       <DatePicker
+        range
         onChange={v => console.log(v)}
         type="quarter"
         style={style}

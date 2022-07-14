@@ -85,7 +85,12 @@ files.forEach(f => {
 const line = `// Created by scripts/src-index.d.js.
 import * as utils from './utils'
 
-export default { utils, version: '<%= version %>' }
+declare const __default: {
+  utils: typeof utils,
+  version: '<%= version %>'
+}
+
+export default __default
 export { utils }
 export { setLocale } from './locale'
 export { color, style } from './utils/expose'
