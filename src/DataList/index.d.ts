@@ -76,7 +76,7 @@ export interface ListProps<Item, Value> extends StandardProps,
    *
    * default: null
    */
-  onChange?: (rowData: Item, index: number) => void;
+  onChange?: (rowData: Value[], index: number) => void;
 
 
   /**
