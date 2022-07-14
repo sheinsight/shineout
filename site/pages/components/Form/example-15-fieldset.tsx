@@ -10,11 +10,17 @@ import FontAwesome from '../Icon/FontAwesome'
 
 type RuleFunc = TYPE.Rule.validFunc
 type FieldSetEmpty = TYPE.Form.FieldSetProps<any>['empty']
-
-const isExist: RuleFunc = (values, _, callback) => {
-  const result: string | boolean | any[] | Error = []
-  const valueMap: any = {}
-  values.forEach(({ name = undefined }, i: number) => {
+interface Value {
+  name: string
+  [x: string]: string
+}
+interface ValueMap {
+  [x: string]: string | boolean
+}
+const isExist: RuleFunc = (values, _, callback: any) => {
+  const result: any[] = []
+  const valueMap: ValueMap = {}
+  values.forEach(({ name }: Value, i: number) => {
     if (!name) return
     if (valueMap[name]) result[i] = { name: new Error(`Name "${name}" is existed.`) }
     else valueMap[name] = true

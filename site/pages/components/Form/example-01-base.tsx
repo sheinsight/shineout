@@ -5,10 +5,15 @@
  *    -- The form has a two-way binding mechanism built in, automatically sending and collecting data based on the name property of the form element.
  */
 import React, { useState, useEffect } from 'react'
-import { Form, Input, Checkbox, Radio, Textarea, Select, DatePicker, Tree, Upload, TYPE } from 'shineout'
+import { Form, Input, Checkbox, Radio, Textarea, Select, DatePicker, Tree, Upload } from 'shineout'
 
-type FormProps<Value = any> = TYPE.Form.Props<Value>
-type FormValue = FormProps['value']
+interface FormValue {
+  age: number
+  email: string
+  endDate: number
+  startDate: number
+  favoriteColor: string[]
+}
 
 const citys = [
   {
@@ -23,7 +28,7 @@ const citys = [
 
 const App: React.FC = () => {
   const [form] = useState({})
-  const [value, setValue] = useState<FormValue>(undefined)
+  const [value, setValue] = useState<FormValue>()
 
   useEffect(
     () => {

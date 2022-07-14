@@ -7,9 +7,18 @@
 import React, { useState, useCallback } from 'react'
 import { Form, Input, Checkbox, Rule, Button, TYPE } from 'shineout'
 
-type FormProps<Value = any> = TYPE.Form.Props<Value>
+interface Value {
+  age: string
+  tel: string
+  name: string
+  IPv4: string
+  email: string
+  password: string
+  colors: string[]
+}
+type FormProps = TYPE.Form.Props<Value>
 type FormValue = FormProps['value']
-type FormRef<Value = FormValue> = TYPE.Form.Ref<Value>
+type FormRef = TYPE.Form.Ref<any>
 type RuleParams = TYPE.Rule.Params
 type RuleFunc = TYPE.Rule.validFunc
 

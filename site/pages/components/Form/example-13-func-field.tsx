@@ -10,7 +10,7 @@ import { SketchPicker } from 'react-color'
 
 /* eslint-disable */
 
-const ColorPicker = (props: { value?: any; onChange?: (v: any) => void }) => {
+const ColorPicker = (props: { value?: string; onChange?: (v: string) => void }) => {
   const { value, onChange } = props
   const [showPicker, setShowPicker] = useState(false)
 
@@ -22,7 +22,7 @@ const ColorPicker = (props: { value?: any; onChange?: (v: any) => void }) => {
     setShowPicker(false)
   }
 
-  const handleChange = (color: { hex: any }) => {
+  const handleChange = (color: { hex: string }) => {
     onChange!(color.hex)
   }
 

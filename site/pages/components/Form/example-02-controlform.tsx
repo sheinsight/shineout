@@ -7,22 +7,22 @@
 import React, { useEffect, useState } from 'react'
 import { Form, Input, Button, Rule, TYPE } from 'shineout'
 
-type FormProps<Value = any> = TYPE.Form.Props<Value>
+type FormRef = TYPE.Form.Ref<any>
+type FormProps = TYPE.Form.Props<any>
 type FormValue = FormProps['value']
-type FormRef<Value = FormValue> = TYPE.Form.Ref<Value>
 
 const rules = Rule()
 
 const App: React.FC = () => {
   const [form, setForm] = useState<FormRef>()
-  const [value, setValue] = useState<FormValue>(undefined)
+  const [value, setValue] = useState<FormValue>()
 
   useEffect(() => {}, [])
 
   return (
     <Form
       value={value}
-      formRef={f => {
+      formRef={(f: FormRef) => {
         setForm(f)
       }}
       onChange={setValue}

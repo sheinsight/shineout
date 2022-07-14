@@ -8,7 +8,20 @@ import React, { useState, useEffect } from 'react'
 import { Form, Input, Checkbox, Select, Rule, TYPE } from 'shineout'
 import { fetchSync as fetchCity } from 'doc/data/city'
 
-type FormProps<Value = any> = TYPE.Form.Props<Value>
+interface Value {
+  email?: string
+  account?: {
+    showAge?: boolean
+    name?: {
+      firstName: string
+      lastName: string
+    }
+    city?: number
+  }
+  hateColor?: string
+  favoriteColor?: string[]
+}
+type FormProps = TYPE.Form.Props<Value>
 type FormValue = FormProps['value']
 type FormOnChange = FormProps['onChange']
 
