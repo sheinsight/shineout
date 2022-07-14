@@ -7,7 +7,7 @@
 import React from 'react'
 import { Gap, Tag } from 'shineout'
 
-const tagStyle = { margin: 0 }
+const tagStyle: React.CSSProperties = { margin: 0 }
 
 const App: React.FC = () => (
   <Gap style={{ width: 400 }}>
