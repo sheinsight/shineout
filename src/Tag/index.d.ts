@@ -82,7 +82,7 @@ export interface TagInputProps {
 }
 
 declare class TagInput extends React.Component<TagInputProps, any> {
-
+  render(): JSX.Element
 }
 
 declare class Tag extends React.Component<TagProps, {}> {

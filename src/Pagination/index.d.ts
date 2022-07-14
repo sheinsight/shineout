@@ -133,6 +133,8 @@ export interface PaginationProps extends StandardProps {
 
 }
 
-declare class Pagination extends React.Component<PaginationProps, any> {}
+declare class Pagination extends React.Component<PaginationProps, any> {
+  render(): JSX.Element
+}
 
 export default Pagination

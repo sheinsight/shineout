@@ -248,6 +248,7 @@ class Result extends PureComponent {
       bindFocusInputFunc,
       collapse,
       maxLength,
+      convertBr,
     } = this.props
     return (
       <Input
@@ -265,6 +266,7 @@ class Result extends PureComponent {
         bindFocusInputFunc={bindFocusInputFunc}
         collapse={collapse}
         maxLength={maxLength}
+        convertBr={convertBr}
       />
     )
   }
@@ -412,6 +414,7 @@ Result.propTypes = {
   innerTitle: PropTypes.node,
   keygen: PropTypes.any,
   data: PropTypes.array,
+  convertBr: PropTypes.string,
 }
 
 export default Result

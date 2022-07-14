@@ -4,6 +4,7 @@ import Icon from './Icon'
 import utils from './utils'
 import paramUtils from './paramUtils'
 import { datepickerClass } from './styles'
+import { getLocale } from '../locale'
 
 const Quarters = ['Q1', 'Q2', 'Q3', 'Q4']
 
@@ -13,11 +14,19 @@ class Quarter extends PureComponent {
     this.handleNextYear = this.handleYearChange.bind(this, 1)
     this.handlePrevYear = this.handleYearChange.bind(this, -1)
     this.handleQuarterClick = this.handleQuarterClick.bind(this)
+    this.handleDisabled = this.handleDisabled.bind(this)
+
+    props.disabledRegister(this.handleDisabled, 'quarter')
+  }
+
+  getOptions() {
+    const { timeZone } = this.props
+    return { timeZone, weekStartsOn: getLocale('startOfWeek') }
   }
 
   handleYearChange(year) {
     const { current, onChange } = this.props
-    onChange(...paramUtils.yearHandleChangeParams(utils.addYears(current, year)))
+    onChange(...paramUtils.yearHandleChangeParams(utils.addYears(current, year, this.getOptions())))
   }
 
   handleYearClick() {
@@ -29,14 +38,12 @@ class Quarter extends PureComponent {
     onChange(...paramUtils.quarterHandleChangeParams(date, true, true))
   }
 
-  renderQuarter(q, i) {
-    const { current, disabled, index, min, max, rangeDate, range, value, type } = this.props
-    const year = current.getFullYear()
-    const date = utils.parse(`${year} ${i + 1}`, 'yyyy Q')
+  handleDisabled(date) {
+    const { disabled, index, min, max, rangeDate, range, type } = this.props
 
-    let isDisabled = min && utils.compareQuarter(min, date, 1) >= 0
+    let isDisabled = min && utils.compareQuarter(min, date, 1, this.getOptions()) >= 0
     if (!isDisabled) {
-      isDisabled = max && utils.compareQuarter(date, max, 1) >= 0
+      isDisabled = max && utils.compareQuarter(date, max, 1, this.getOptions()) >= 0
     }
 
     if (!isDisabled && type === 'quarter' && typeof disabled === 'function') {
@@ -44,22 +51,34 @@ class Quarter extends PureComponent {
     }
 
     if (!isDisabled && index === 0) {
-      if (rangeDate[1] && utils.compareQuarter(date, utils.addSeconds(rangeDate[1], -range)) < 0) {
+      if (
+        rangeDate[1] &&
+        utils.compareQuarter(date, utils.addSeconds(rangeDate[1], -range, this.getOptions()), 0, this.getOptions()) < 0
+      ) {
         isDisabled = true
       }
     }
 
     if (!isDisabled && index === 1) {
-      console.log(date, rangeDate[0])
-      if (rangeDate[0] && utils.compareQuarter(date, utils.addSeconds(rangeDate[0], range)) > 0) {
+      if (
+        rangeDate[0] &&
+        utils.compareQuarter(date, utils.addSeconds(rangeDate[0], range, this.getOptions()), 0, this.getOptions()) > 0
+      ) {
         isDisabled = true
       }
     }
+    return isDisabled
+  }
 
+  renderQuarter(q, i) {
+    const { current, index, rangeDate, value } = this.props
+    const year = utils.getDateInfo(current, 'year', this.getOptions())
+    const date = utils.parse(`${year} ${i + 1}`, 'yyyy Q', this.getOptions())
+    const isDisabled = this.handleDisabled(date)
     // let hoverClass
     const classList = [isDisabled && 'disabled']
     if (rangeDate) {
-      if (utils.isSameQuarter(date, rangeDate[index])) {
+      if (utils.isSameQuarter(date, rangeDate[index], this.getOptions())) {
         classList.push('active')
       }
       // hoverClass = datepickerClass(
@@ -72,7 +91,7 @@ class Quarter extends PureComponent {
       //   utils.isSameQuarter(rangeDate[index], date) && `hover-${index === 0 ? 'start' : 'end'} active`
       // )
     } else if (value) {
-      if (utils.isSameQuarter(date, value)) {
+      if (utils.isSameQuarter(date, value, this.getOptions())) {
         classList.push('active')
       }
     }
@@ -95,7 +114,7 @@ class Quarter extends PureComponent {
           <Icon name="AngleLeft" className="left" onClick={this.handlePrevYear} />
 
           <span onClick={this.handleYearClick.bind(this)} className={datepickerClass('ym')}>
-            {current.getFullYear()}
+            {utils.getDateInfo(current, 'year', this.getOptions())}
           </span>
 
           <Icon name="AngleRight" className="right" onClick={this.handleNextYear} />
@@ -118,6 +137,8 @@ Quarter.propTypes = {
   rangeDate: PropTypes.array,
   type: PropTypes.string.isRequired,
   value: PropTypes.object,
+  timeZone: PropTypes.string,
+  disabledRegister: PropTypes.func,
 }
 
 export default Quarter

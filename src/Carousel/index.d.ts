@@ -12,7 +12,7 @@ export interface CarouselProps extends StandardProps {
      *
      * default: 'slide'
      */
-     animation?: string;
+     animation?: 'slide'|'slide-y'|'fade';
 
      /**
       * the position of indicator
@@ -30,7 +30,7 @@ export interface CarouselProps extends StandardProps {
       *
       * default: 'circle'
       */
-     indicatorType?: ((current: number, moveTo: () => void) => ReactNode) | string;
+     indicatorType?: ((current: number, moveTo: (index:number) => void) => ReactNode) | string;
 
      /**
       * the interval of animation, When it is not 0, play automatically

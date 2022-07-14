@@ -1,14 +1,14 @@
 import { mount } from 'enzyme'
 import React from 'react'
 import { Checkbox } from 'shineout'
-import CheckboxStatus from '../../../site/pages/components/Checkbox/example-02-checked'
-import CheckboxRawGroup from '../../../site/pages/components/Checkbox/example-04-rawgroup'
-import CheckboxGroup from '../../../site/pages/components/Checkbox/example-05-group'
-import CheckboxFormat from '../../../site/pages/components/Checkbox/example-06-format'
-import CheckboxBlock from '../../../site/pages/components/Checkbox/example-08-block'
-import CheckboxDisabled from '../../../site/pages/components/Checkbox/example-09-disabled'
-import CheckboxDisabledFunc from '../../../site/pages/components/Checkbox/example-10-disabled'
-import CheckboxInput from '../../../site/pages/components/Checkbox/example-11-input'
+import CheckboxStatus from '../../../site/pages/components/Checkbox/example-02-checked.tsx'
+import CheckboxRawGroup from '../../../site/pages/components/Checkbox/example-04-rawgroup.tsx'
+import CheckboxGroup from '../../../site/pages/components/Checkbox/example-05-group.tsx'
+import CheckboxFormat from '../../../site/pages/components/Checkbox/example-06-format.tsx'
+import CheckboxBlock from '../../../site/pages/components/Checkbox/example-08-block.tsx'
+import CheckboxDisabled from '../../../site/pages/components/Checkbox/example-09-disabled.tsx'
+import CheckboxDisabledFunc from '../../../site/pages/components/Checkbox/example-10-disabled.tsx'
+import CheckboxInput from '../../../site/pages/components/Checkbox/example-11-input.tsx'
 
 /* global SO_PREFIX */
 describe('Checkbox[Base]', () => {
@@ -84,11 +84,11 @@ describe('Checkbox[Format]', () => {
   test('should render format value', () => {
     const data = [
       { id: 1, color: 'red' },
-      { id: 2, color: 'orange' },
-      { id: 3, color: 'yellow' },
+      { id: 2, color: 'cyan' },
+      { id: 3, color: 'blue' },
       { id: 4, color: 'green' },
-      { id: 5, color: 'cyan' },
-      { id: 6, color: 'blue' },
+      { id: 5, color: 'yellow' },
+      { id: 6, color: 'orange' },
       { id: 7, color: 'violet' },
     ]
     const wrapper = mount(<CheckboxFormat />)

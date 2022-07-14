@@ -97,6 +97,8 @@ FormItemStandardProps<Value>
   vertical?: boolean;
 }
 
-declare class Slider<Value = any> extends React.Component<SliderProps<Value>, {}> {}
+declare class Slider<Value = any> extends React.Component<SliderProps<Value>, {}> {
+  render(): JSX.Element
+}
 
 export default Slider;

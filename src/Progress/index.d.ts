@@ -103,6 +103,8 @@ export interface ProgressProps extends StandardProps {
 }
 
 
-declare class Progress extends React.Component<ProgressProps, {}> {}
+declare class Progress extends React.Component<ProgressProps, {}> {
+  render(): JSX.Element
+}
 
 export default Progress
