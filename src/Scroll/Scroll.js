@@ -50,6 +50,7 @@ class Scroll extends PureComponent {
     this.wheelElement.addEventListener('touchstart', this.handleTouchStart, { passive: true })
     this.wheelElement.addEventListener('touchmove', this.handleTouchMove, { passive: false })
     this.inner.addEventListener('scroll', this.handleInnerScroll)
+    this.wheelElement.addEventListener('scroll', this.handleInnerScroll)
   }
 
   componentDidUpdate(prevProps) {
@@ -64,6 +65,7 @@ class Scroll extends PureComponent {
     this.wheelElement.removeEventListener('touchstart', this.handleTouchStart)
     this.wheelElement.removeEventListener('touchmove', this.handleTouchMove)
     this.inner.removeEventListener('scroll', this.handleInnerScroll)
+    this.wheelElement.removeEventListener('scroll', this.handleInnerScroll)
   }
 
   getWheelRect() {
@@ -218,13 +220,19 @@ class Scroll extends PureComponent {
     this.boundleScroll()
   }
 
-  // inner scroll
+  // handle inner scroll cased by input focus
   handleInnerScroll(e) {
     const { target } = e
-    const { left, scrollWidth } = this.props
-    const { width } = this.getWheelRect()
-    if (target.scrollLeft) {
-      this.handleScroll(left + target.scrollLeft / (scrollWidth - width), this.props.top, undefined, 0)
+    const { left, scrollWidth, top, scrollHeight } = this.props
+    const { width, height } = this.getWheelRect()
+    if (target.scrollLeft || target.scrollTop) {
+      let sLeft = target.scrollLeft ? left + target.scrollLeft / (scrollWidth - width) : left
+      let sTop = target.scrollTop ? top + target.scrollTop / (scrollHeight - height) : top
+      sTop = Math.min(1, sTop)
+      sTop = Math.max(0, sTop)
+      sLeft = Math.min(1, sLeft)
+      sLeft = Math.max(0, sLeft)
+      this.handleScroll(sLeft, sTop, undefined, undefined, { drag: true })
       target.scrollLeft = 0
       target.scrollTop = 0
     }

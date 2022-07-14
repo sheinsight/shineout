@@ -230,5 +230,6 @@ declare class Tree<Item, Value> extends React.PureComponent<TreeProps<Item, Valu
   static Select: typeof TreeSelect
 
   static Field: typeof TreeSelect
+  render(): JSX.Element
 }
 export default Tree

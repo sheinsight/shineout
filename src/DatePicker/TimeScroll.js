@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { range } from '../utils/numbers'
 import { datepickerClass } from './styles'
 import paramUtils from './paramUtils'
+import { getLocale } from '../locale'
 
 const lineHeight = 30
 const grayStyle = {
@@ -26,6 +27,11 @@ class TimeScroll extends PureComponent {
 
   componentDidUpdate() {
     this.updateScrollTop()
+  }
+
+  getOptions() {
+    const { timeZone } = this.props
+    return { timeZone, weekStartsOn: getLocale('startOfWeek') }
   }
 
   getValue(v) {
@@ -76,6 +82,7 @@ class TimeScroll extends PureComponent {
   handleScroll() {
     const { step, ampm } = this.props
     const value = Math.round(this.element.scrollTop / lineHeight)
+    if (value * step === this.props.value) return
     if (typeof step === 'number' && step > 0 && !ampm && value !== this.props.value) {
       this.props.onChange(value * step)
       return
@@ -94,7 +101,17 @@ class TimeScroll extends PureComponent {
     else if (total === 12 && num === 0) text = '12'
     else if (num < 10) text = `0${num}`
 
-    const [isDisabled] = paramUtils.judgeTimeByRange(num, current, mode, min, max, ra, disabled, disabledTime)
+    const [isDisabled] = paramUtils.judgeTimeByRange(
+      num,
+      current,
+      mode,
+      min,
+      max,
+      ra,
+      disabled,
+      disabledTime,
+      this.getOptions()
+    )
 
     const className = datepickerClass(!isDisabled && value === num && 'time-active')
     return (
@@ -139,6 +156,7 @@ TimeScroll.propTypes = {
   current: PropTypes.object,
   mode: PropTypes.string,
   disabledTime: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  timeZone: PropTypes.string,
 }
 
 TimeScroll.defaultProps = {

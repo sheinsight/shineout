@@ -43,6 +43,7 @@
 | inputable | boolean | false | Allow enter something into DatePicker |
 | position | 'left-top' \| 'left-bottom' \| 'right-top' \| 'right-bottom' | - | Set Position can control the different position of DatePicker |
 | size | 'small' \| 'default' \| 'large' | 'default' | There are three built-in size: small、default、large. |
+| timeZone | string | - | Set the default time zone, the format is /^(\[+-\]\d{2})$/ Support '-12' to '+13' |
 
 ### DatePickerFormat
 
