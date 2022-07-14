@@ -7,15 +7,17 @@
  *    -- if the functio return an Error , the info doesn't hide
  */
 import React from 'react'
-import { Textarea } from 'shineout'
+import { Textarea, TYPE } from 'shineout'
 
-const renderInfo = value => {
+type TextareaProps = TYPE.Textarea.Props<any>
+
+const renderInfo: TextareaProps['info'] = value => {
   if (!value || value.length === 0) return null
   const text = `total is  ${value.length}`
   if (value.length <= 20) return text
   return new Error(text)
 }
 
-export default function() {
-  return <Textarea rows={4} trim placeholder="input something" info={renderInfo} />
-}
+const App: React.FC = () => <Textarea rows={4} trim placeholder="input something" info={renderInfo} />
+
+export default App

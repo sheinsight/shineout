@@ -7,12 +7,11 @@
 import React from 'react'
 import { Tooltip, Button } from 'shineout'
 
-export default function() {
-  return (
-    <div>
-      <Tooltip tip="Some text." position="left" disabledChild>
-        <Button disabled>Disabled</Button>
-      </Tooltip>
-    </div>
-  )
-}
+const App: React.FC = () => (
+  <div>
+    <Tooltip tip="Some text." position="left" disabledChild>
+      <Button disabled>Disabled</Button>
+    </Tooltip>
+  </div>
+)
+export default App

@@ -42,7 +42,7 @@ FormItemStandardProps<Value>
    *
    * default: -
    */
-  info?: ((value: string) => string) | number;
+  info?: ((value: string) => (string | Error | null)) | number;
 
   /**
    * The callback function for enter key
@@ -132,7 +132,7 @@ FormItemStandardProps<Value>
    *
    * default: -
    */
-  renderFooter?: ReactNode,
+  renderFooter?: (value: Value) => ReactNode,
 
   /**
    * Customize display results

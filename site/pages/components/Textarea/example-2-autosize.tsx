@@ -16,12 +16,12 @@ i
 z
 e`
 
-export default function() {
-  return (
-    <div>
-      <Textarea rows={2} autosize maxHeight={200} placeholder="autosize" />
-      <br />
-      <Textarea rows={2} autosize defaultValue={text} maxHeight={200} placeholder="autosize" />
-    </div>
-  )
-}
+const App: React.FC = () => (
+  <div>
+    <Textarea rows={2} autosize maxHeight={200} placeholder="autosize" />
+    <br />
+    <Textarea rows={2} autosize defaultValue={text} maxHeight={200} placeholder="autosize" />
+  </div>
+)
+
+export default App

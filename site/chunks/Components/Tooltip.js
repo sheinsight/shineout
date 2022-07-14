@@ -14,36 +14,39 @@ const source = locate(cn, en)
 
 const examples = [
   {
-    name: '1-base',
-    isTs: false,
+    name: '1-base.tsx',
+    isTs: true,
     title: locate(
       '基本用法 \n 内置了四个弹出方向',
       'Base \n There are four pop-up directions built in.'
     ),
-    component: require('doc/pages/components/Tooltip/example-1-base.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Tooltip/example-1-base.js'),
+    component: require('doc/pages/components/Tooltip/example-1-base.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Tooltip/example-1-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tooltip/example-1-base.tsx'),
 
   },
   {
-    name: '2-click',
-    isTs: false,
+    name: '2-click.tsx',
+    isTs: true,
     title: locate(
       '点击触发 \n 默认触发事件为 hover，如果需要点击触发，可以设置 trigger 为 click',
       'Click \n Set the trigger property to change the trigger event to \'click\'.'
     ),
-    component: require('doc/pages/components/Tooltip/example-2-click.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Tooltip/example-2-click.js'),
+    component: require('doc/pages/components/Tooltip/example-2-click.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Tooltip/example-2-click.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tooltip/example-2-click.tsx'),
 
   },
   {
-    name: '3-disabled-inner',
-    isTs: false,
+    name: '3-disabled-inner.tsx',
+    isTs: true,
     title: locate(
       '禁用元素 \n 设置 disabledChild 来使内部禁用的元素正常工作',
       'Disabled \n Set disabledChild make disabled child work'
     ),
-    component: require('doc/pages/components/Tooltip/example-3-disabled-inner.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Tooltip/example-3-disabled-inner.js'),
+    component: require('doc/pages/components/Tooltip/example-3-disabled-inner.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Tooltip/example-3-disabled-inner.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tooltip/example-3-disabled-inner.tsx'),
 
   },
 ]
