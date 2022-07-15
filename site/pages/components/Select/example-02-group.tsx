@@ -9,11 +9,14 @@
 import React from 'react'
 import { Select, TYPE } from 'shineout'
 
-type SelectProps = TYPE.Select.Props<any, any>
-type SelectData = SelectProps['data']
+interface SelectItem {
+  value: string
+  group: string
+}
+type SelectProps = TYPE.Select.Props<SelectItem, string>
 type SelectGroupBy = SelectProps['groupBy']
 
-const data: SelectData = [
+const data: SelectItem[] = [
   { value: 'Mars', group: '3' },
   { value: 'China', group: '2' },
   { value: 'Beijing', group: '1' },

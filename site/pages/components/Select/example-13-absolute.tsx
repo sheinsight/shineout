@@ -5,14 +5,12 @@
  *    -- If the parent container of the pop-up layer is occluded, you can set the absolute property to make the pop-up options rendered in a separate layer. (not recommended if not necessary)
  */
 import React from 'react'
-import { Select, TYPE } from 'shineout'
+import { Select } from 'shineout'
 import { fetchSync as fetchUser } from 'doc/data/user'
 
-type SelectProps = TYPE.Select.Props<any, any>
-type SelectData = SelectProps['data']
-
+type SelectItem = string
 const users = fetchUser(10000)
-const data: SelectData = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
+const data: SelectItem[] = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 const styleAbsolute: React.CSSProperties = { padding: 10, height: 100, overflow: 'hidden' }
 
 const App: React.FC = () => (

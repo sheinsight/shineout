@@ -7,11 +7,11 @@
 import React from 'react'
 import { Slider, TYPE } from 'shineout'
 
-type SliderProps = TYPE.Slider.Props<any>
+type SliderProps = TYPE.Slider.Props<number | number[]>
 type SliderFormatScale = SliderProps['formatScale']
 
 const App: React.FC = () => {
-  const formatTemp: SliderFormatScale = (v: any) => `${v}℃`
+  const formatTemp: SliderFormatScale = (v: number) => `${v}℃`
 
   return (
     <div>

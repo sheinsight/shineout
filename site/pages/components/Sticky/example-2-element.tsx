@@ -8,8 +8,6 @@ import React, { useRef } from 'react'
 import { Alert, Sticky } from 'shineout'
 
 const App: React.FC = () => {
-  //   const [Element, setElement] = useState<HTMLDivElement | any>()
-
   const Element = useRef(null)
 
   return (

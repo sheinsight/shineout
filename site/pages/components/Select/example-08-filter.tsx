@@ -7,17 +7,17 @@
 import React, { useState } from 'react'
 import { Select, TYPE } from 'shineout'
 
-type SelectProps = TYPE.Select.Props<any, any>
-type SelectData = SelectProps['data']
+type SelectItem = string
+type SelectProps = TYPE.Select.Props<SelectItem, string>
 type SelectRenderItem = SelectProps['renderItem']
 
 const style: React.CSSProperties = { width: 240, marginBottom: 12 }
-const data: SelectData = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
+const data: SelectItem[] = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
 const highlight = (Component: any) => (props: SelectProps) => {
-  const [filterText, setFilterText] = useState<any>(undefined)
+  const [filterText, setFilterText] = useState<string>('')
 
-  const handlerFilter = (text: any) => {
+  const handlerFilter = (text: string) => {
     const { onFilter } = props
     setFilterText(text)
     return onFilter!(text, text)
@@ -40,10 +40,10 @@ const highlight = (Component: any) => (props: SelectProps) => {
     })
   }
 
-  const handleReset = (...args: any[]) => {
+  const handleReset = (...args: string[]) => {
     const { beforeChange } = props
     if (beforeChange) beforeChange(...args)
-    setFilterText(undefined)
+    setFilterText('')
   }
 
   return (

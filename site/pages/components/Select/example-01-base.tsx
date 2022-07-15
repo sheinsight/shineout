@@ -5,12 +5,11 @@
  *    -- Select generate group of options from data.
  */
 import React from 'react'
-import { Select, TYPE } from 'shineout'
+import { Select } from 'shineout'
 
-type SelectProps = TYPE.Select.Props<any, any>
-type SelectData = SelectProps['data']
+type SelectItem = string
 
-const data: SelectData = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
+const data: SelectItem[] = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
 const App: React.FC = () => <Select keygen style={{ width: 240 }} data={data} defaultValue="" />
 

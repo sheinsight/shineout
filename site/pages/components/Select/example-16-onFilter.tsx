@@ -7,12 +7,16 @@
 import React, { useState } from 'react'
 import { Select, TYPE } from 'shineout'
 
-type SelectProps = TYPE.Select.Props<any, any>
-type SelectTreeData = SelectProps['treeData']
+interface TreeData {
+  id: string
+  title: string
+  children?: TreeData[]
+}
+type SelectProps = TYPE.Select.Props<TreeData, TreeData[]>
 type SelectOnChange = SelectProps['onChange']
 type SelectOnFilter = SelectProps['onFilter']
 
-const data: SelectTreeData = [
+const data: TreeData[] = [
   {
     id: '1',
     title: '1',
@@ -26,7 +30,7 @@ const data: SelectTreeData = [
 ]
 
 const App: React.FC = () => {
-  const [value, setValue] = useState([])
+  const [value, setValue] = useState<TreeData[]>([])
 
   const handleChange: SelectOnChange = v => setValue(v)
 

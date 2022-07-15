@@ -8,11 +8,14 @@ import React from 'react'
 import { Select, TYPE } from 'shineout'
 import { fetchSync as fetchCity } from 'doc/data/city'
 
-type SelectProps = TYPE.Select.Props<any, any>
-type SelectData = SelectProps['data']
+interface SelectItem {
+  id: number
+  city: string
+}
+type SelectProps = TYPE.Select.Props<SelectItem, string>
 type SelectOnFilter = SelectProps['onFilter']
 
-const citys: SelectData = fetchCity(200)
+const citys: SelectItem[] = fetchCity(200)
 
 const App: React.FC = () => {
   const onFilter: SelectOnFilter = text => d => d.city.toLowerCase().indexOf(text.toLowerCase()) >= 0

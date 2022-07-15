@@ -7,11 +7,11 @@
 import React from 'react'
 import { Select, TYPE } from 'shineout'
 
-type SelectProps = TYPE.Select.Props<any, any>
-type SelectData = SelectProps['data']
+type SelectItem = string
+type SelectProps = TYPE.Select.Props<SelectItem, string>
 type SelectRenderResult = SelectProps['renderResult']
 
-const data: SelectData = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
+const data: SelectItem[] = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
 const App: React.FC = () => {
   const renderResult: SelectRenderResult = c => `I love ${c}`

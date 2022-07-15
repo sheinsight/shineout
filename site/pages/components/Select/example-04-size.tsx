@@ -5,13 +5,12 @@
  *    -- There are three sizes, ['small', default, 'large']
  */
 import React from 'react'
-import { Select, TYPE } from 'shineout'
+import { Select } from 'shineout'
 
-type SelectProps = TYPE.Select.Props<any, any>
-type SelectData = SelectProps['data']
+type SelectItem = string
 
 const style: React.CSSProperties = { width: 100, marginInlineEnd: 12 }
-const data: SelectData = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
+const data: SelectItem[] = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
 const App: React.FC = () => (
   <div>

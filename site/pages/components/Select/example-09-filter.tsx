@@ -8,18 +8,30 @@ import React, { useState, useEffect } from 'react'
 import { Select, TYPE } from 'shineout'
 import { fetch } from 'doc/data/user'
 
-type SelectProps = TYPE.Select.Props<any, any>
-type SelectData = SelectProps['data']
+interface SelectItem {
+  id: number
+  time: string
+  start: string
+  height: number
+  salary: number
+  office: string
+  country: string
+  office5: string
+  position: string
+  lastName: string
+  firstName: string
+}
+type SelectProps = TYPE.Select.Props<SelectItem, number>
 type SelectOnFilter = SelectProps['onFilter']
 type SelectRenderItem = SelectProps['renderItem']
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(false)
-  const [data, setData] = useState<SelectData>([])
+  const [data, setData] = useState<SelectItem[]>([])
 
   const handleFilter: SelectOnFilter = text => {
     setLoading(true)
-    fetch.get('user', { username: text, sorter: '' }).then((res: any) => {
+    fetch.get('user', { username: text, sorter: '' }).then((res: { data: SelectItem[] }) => {
       setLoading(false)
       setData(res.data)
     })

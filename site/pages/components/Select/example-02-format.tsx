@@ -5,12 +5,13 @@
  *    -- Set format property to format the data object to the specified value.
  */
 import React from 'react'
-import { Select, TYPE } from 'shineout'
+import { Select } from 'shineout'
 
-type SelectProps = TYPE.Select.Props<any, any>
-type SelectData = SelectProps['data']
-
-const citys: SelectData = [
+interface SelectItem {
+  id: number
+  city: string
+}
+const citys: SelectItem[] = [
   { id: 1, city: 'Pune' },
   { id: 2, city: 'Accra' },
   { id: 3, city: 'Dhaka' },

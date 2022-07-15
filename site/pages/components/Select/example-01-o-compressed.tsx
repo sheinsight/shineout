@@ -5,12 +5,13 @@
  *    -- Set the compressed property to compress values, hover to show all values.
  */
 import React from 'react'
-import { Select, TYPE } from 'shineout'
+import { Select } from 'shineout'
 
-type SelectProps = TYPE.Select.Props<any, any>
-type SelectData = SelectProps['data']
+interface SelectItem {
+  id: string
+}
 
-const data: SelectData = [
+const data: SelectItem[] = [
   { id: 'red' },
   { id: 'cyan' },
   { id: 'blue' },

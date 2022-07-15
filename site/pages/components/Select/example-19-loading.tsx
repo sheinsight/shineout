@@ -5,13 +5,11 @@
  *    -- When it is true, a default [Spin](/components/Spin) component will be displayed, a custom loading icon can be passed in to replace.
  */
 import React from 'react'
-import { Select, Spin, TYPE } from 'shineout'
+import { Select, Spin } from 'shineout'
 
-type SelectProps = TYPE.Select.Props<any, any>
-type SelectData = SelectProps['data']
-
+type SelectItem = string
 const style: React.CSSProperties = { width: 240, marginInlineEnd: 12 }
-const data: SelectData = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
+const data: SelectItem[] = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
 const App: React.FC = () => (
   <div>

@@ -8,12 +8,24 @@ import React from 'react'
 import { Select, TYPE } from 'shineout'
 import { fetchSync as fetchUser } from 'doc/data/user'
 
-type SelectProps = TYPE.Select.Props<any, any>
-type SelectData = SelectProps['data']
+interface SelectItem {
+  id: number
+  time: string
+  start: string
+  height: number
+  salary: number
+  office: string
+  country: string
+  office5: string
+  position: string
+  lastName: string
+  firstName: string
+}
+type SelectProps = TYPE.Select.Props<SelectItem, number>
 type SelectRenderItem = SelectProps['renderItem']
 type SelectRenderResult = SelectProps['renderResult']
 
-const users: SelectData = fetchUser(10000)
+const users: SelectItem[] = fetchUser(10000)
 const style: React.CSSProperties = { width: 240, marginBottom: 12, display: 'block' }
 
 const App: React.FC = () => {

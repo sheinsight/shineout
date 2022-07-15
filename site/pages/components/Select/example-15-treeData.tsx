@@ -8,7 +8,12 @@ import React, { useState } from 'react'
 import { Select, TYPE } from 'shineout'
 import data from 'doc/data/tree'
 
-type SelectProps = TYPE.Select.Props<any, any>
+interface SelectItem {
+  id: string
+  text: string
+  children?: SelectItem[]
+}
+type SelectProps = TYPE.Select.Props<SelectItem, any>
 type SelectDisabled = SelectProps['disabled']
 type SelectOnChange = SelectProps['onChange']
 type SelectRenderItem = SelectProps['renderItem']
@@ -17,7 +22,7 @@ const style: React.CSSProperties = { width: 250, marginBottom: 20 }
 
 const App: React.FC = () => {
   const [single, setSingle] = useState('')
-  const [multiple, setMultiple] = useState([])
+  const [multiple, setMultiple] = useState<string[]>([])
 
   const renderItem: SelectRenderItem = v => `node ${v.text}`
 

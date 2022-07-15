@@ -7,7 +7,7 @@
 import React, { useState } from 'react'
 import { Slider, TYPE } from 'shineout'
 
-type SliderProps = TYPE.Slider.Props<any>
+type SliderProps = TYPE.Slider.Props<number | number[]>
 type SliderScale = SliderProps['scale']
 type SliderOnIncrease = SliderProps['onIncrease']
 

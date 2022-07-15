@@ -7,13 +7,16 @@
 import React, { useState } from 'react'
 import { Select, TYPE } from 'shineout'
 
-type SelectProps = TYPE.Select.Props<any, any>
-type SelectData = SelectProps['data']
+interface SelectItem {
+  id: string
+}
+type SelectValue = string[]
+type SelectProps = TYPE.Select.Props<SelectItem, SelectValue>
 type SelectOnChange = SelectProps['onChange']
 
 const style: React.CSSProperties = { width: 300, marginBottom: 15 }
 
-const data: SelectData = [
+const data: SelectItem[] = [
   { id: 'red' },
   { id: 'cyan' },
   { id: 'blue' },
@@ -24,7 +27,7 @@ const data: SelectData = [
 ]
 
 const App: React.FC = () => {
-  const [value, setValue] = useState(['pink'])
+  const [value, setValue] = useState<SelectValue>(['pink'])
 
   const handleChange: SelectOnChange = (v, d, c) => {
     console.log(v, d, c)

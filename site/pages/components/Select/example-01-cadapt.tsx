@@ -5,12 +5,11 @@
  *    --  options auto adapt width
  */
 import React from 'react'
-import { Select, TYPE } from 'shineout'
+import { Select } from 'shineout'
 
-type SelectProps = TYPE.Select.Props<any, any>
-type SelectData = SelectProps['data']
+type SelectItem = string
 
-const data: SelectData = [
+const data: SelectItem[] = [
   'red',
   'orange',
   'this option is so long long long long long',

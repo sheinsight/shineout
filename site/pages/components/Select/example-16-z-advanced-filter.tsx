@@ -7,11 +7,14 @@
 import React from 'react'
 import { Select, TYPE } from 'shineout'
 
-type SelectProps = TYPE.Select.Props<any, any>
-type SelectTreeData = SelectProps['treeData']
+interface TreeData {
+  value: string
+  children?: TreeData[]
+}
+type SelectProps = TYPE.Select.Props<TreeData, string>
 type SelectOnAdvancedFilter = SelectProps['onAdvancedFilter']
 
-const data: SelectTreeData = [
+const data: TreeData[] = [
   {
     value: 'jiangsu',
     children: [
