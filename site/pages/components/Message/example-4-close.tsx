@@ -15,6 +15,7 @@ const App: React.FC = () => {
       },
     })
   }
+
   return <Button onClick={close}>Close callback</Button>
 }
 

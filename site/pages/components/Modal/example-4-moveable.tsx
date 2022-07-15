@@ -24,8 +24,8 @@ const App: React.FC = () => {
         width={400}
         visible={show}
         title="Moveable"
-        onClose={() => setShow(false)}
         footer={footer()}
+        onClose={() => setShow(false)}
       >
         drag title to move
       </Modal>

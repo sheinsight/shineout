@@ -20,6 +20,7 @@ const App: React.FC = () => {
       0
     )
   }
+
   return <Button onClick={msg}>Manual Close</Button>
 }
 

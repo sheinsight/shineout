@@ -9,6 +9,7 @@ import { Button, Message, Select, TYPE } from 'shineout'
 
 type MessageProps = TYPE.Message.Props
 type MessagePosition = MessageProps['position']
+
 const App: React.FC = () => {
   const [position, setPosition] = useState<MessagePosition>('top-right')
 
