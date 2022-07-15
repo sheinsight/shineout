@@ -62,7 +62,7 @@ interface CommonColumn<T> {
    *
    * default: none
    */
-  group?: string | Array<string>;
+  group?: string | ReactNode | Array<string | ReactNode>;
 
   /**
    * hide the column, only work on row-expand column
