@@ -5,12 +5,13 @@
  *    -- Complex data can use format to process value.
  */
 import React from 'react'
-import { Radio, TYPE } from 'shineout'
+import { Radio } from 'shineout'
 
-type RadioGroupProps = TYPE.Radio.GroupProps<any, any>
-type RadioGroupData = RadioGroupProps['data']
-
-const data: RadioGroupData = [
+interface RadioGroupItem {
+  id: number
+  color: string
+}
+const data: RadioGroupItem[] = [
   { id: 1, color: 'red' },
   { id: 2, color: 'orange' },
   { id: 3, color: 'yellow' },

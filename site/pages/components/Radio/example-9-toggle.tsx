@@ -5,15 +5,14 @@
  *    -- Use component list for toggle radio
  */
 import React, { useState } from 'react'
-import { Radio, TYPE } from 'shineout'
+import { Radio } from 'shineout'
 
-type RadioGroupProps = TYPE.Radio.GroupProps<any, any>
-type RadioGroupData = RadioGroupProps['data']
+type RadioGroupItem = string
 
-const data: RadioGroupData = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
+const data: RadioGroupItem[] = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
 const App: React.FC = () => {
-  const [current, setCurrent] = useState<any>('red')
+  const [current, setCurrent] = useState<RadioGroupItem>('red')
 
   return (
     <Radio.Group keygen value={current} onChange={c => setCurrent(c)}>
@@ -21,7 +20,7 @@ const App: React.FC = () => {
         <span
           key={d}
           onClick={() => {
-            if (current === d) setTimeout(() => setCurrent(undefined))
+            if (current === d) setTimeout(() => setCurrent(''))
           }}
         >
           <Radio htmlValue={d}>{d}</Radio>

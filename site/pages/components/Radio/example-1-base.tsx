@@ -7,11 +7,11 @@
 import React from 'react'
 import { Radio, TYPE } from 'shineout'
 
-type RadioGroupProps = TYPE.Radio.GroupProps<any, any>
-type RadioGroupData = RadioGroupProps['data']
+type RadioGroupItem = string
+type RadioGroupProps = TYPE.Radio.GroupProps<RadioGroupItem, string>
 type RadioGroupRenderItem = RadioGroupProps['renderItem']
 
-const data: RadioGroupData = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
+const data: RadioGroupItem[] = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
 const App: React.FC = () => {
   const renderItem: RadioGroupRenderItem = color => {

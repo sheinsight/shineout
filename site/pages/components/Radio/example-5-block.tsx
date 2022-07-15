@@ -5,12 +5,14 @@
  *    -- The default is horizontal layout and setting the block property can changed it to be vertical layout.
  */
 import React from 'react'
-import { Radio, TYPE } from 'shineout'
+import { Radio } from 'shineout'
 
-type RadioGroupProps = TYPE.Radio.GroupProps<any, any>
-type RadioGroupData = RadioGroupProps['data']
+interface RadioGroupItem {
+  id: number
+  color: string
+}
 
-const data: RadioGroupData = [
+const data: RadioGroupItem[] = [
   { id: 1, color: 'red' },
   { id: 2, color: 'orange' },
   { id: 3, color: 'yellow' },

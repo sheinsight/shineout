@@ -5,12 +5,11 @@
  *    -- A series of radios group by Radio.Group.
  */
 import React from 'react'
-import { Radio, TYPE } from 'shineout'
+import { Radio } from 'shineout'
 
-type RadioGroupProps = TYPE.Radio.GroupProps<any, any>
-type RadioGroupData = RadioGroupProps['data']
+type RadioGroupItem = string
 
-const data: RadioGroupData = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
+const data: RadioGroupItem[] = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
 const App: React.FC = () => (
   <Radio.Group keygen defaultValue="yellow">

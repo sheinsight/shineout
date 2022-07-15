@@ -5,12 +5,11 @@
  *    -- set button with outline to show outline button style
  */
 import React from 'react'
-import { Radio, TYPE } from 'shineout'
+import { Radio } from 'shineout'
 
-type RadioGroupProps = TYPE.Radio.GroupProps<any, any>
-type RadioGroupData = RadioGroupProps['data']
+type RadioGroupItem = string
 
-const data: RadioGroupData = ['red', 'orange', 'yellow']
+const data: RadioGroupItem[] = ['red', 'orange', 'yellow']
 
 const App: React.FC = () => <Radio.Group button="outline" keygen data={data} defaultValue="red" />
 
