@@ -3,7 +3,7 @@ import * as utils from './utils'
 
 declare const __default: {
   utils: typeof utils,
-  version: '1.11.0-rc.17'
+  version: '1.11.0-rc.18'
 }
 
 export default __default
@@ -330,7 +330,7 @@ export namespace TYPE {
     export type Props<Item, Value> = __TreeProps<Item, Value>
   }
   export namespace TreeSelect {
-    export type Props<Value, Data> = __TreeSelectProps<Value, Data>
+    export type Props<Item, Value> = __TreeSelectProps<Item, Value>
   }
   export namespace Upload {
     export type Props<T> = __UploadProps<T>
