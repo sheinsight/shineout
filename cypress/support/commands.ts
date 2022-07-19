@@ -1,3 +1,5 @@
+import 'cypress-file-upload'
+
 /// <reference types="cypress" />
 // ***********************************************
 // This example commands.ts shows you how to
