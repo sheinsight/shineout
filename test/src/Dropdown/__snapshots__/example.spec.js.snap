@@ -956,6 +956,11 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-6-type.j
       </span>
     </label>
   </div>
+  <button>
+    <span>
+      123
+    </span>
+  </button>
   <div>
     <div>
       <div>
