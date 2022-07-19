@@ -5,7 +5,7 @@
  *    -- When an expandKeys is provided, the expansion becomes controlled and needs to be processed by the onClick in the column.
  */
 import React, { useState } from 'react'
-import { Table, TYPE } from 'shineout'
+import { Table, Checkbox, TYPE } from 'shineout'
 import { fetchSync } from 'doc/data/user'
 
 interface TableRowData {
@@ -24,7 +24,7 @@ interface TableRowData {
 
 type TableColumnItem = TYPE.Table.ColumnItem<TableRowData>
 
-const data: TableRowData[] = fetchSync(100)
+const data: TableRowData[] = fetchSync(5)
 
 const App: React.FC = () => {
   const [expandKeys, setExpandKeys] = useState([1])
@@ -51,7 +51,17 @@ const App: React.FC = () => {
     },
   ]
 
-  return <Table fixed="y" expandKeys={expandKeys} data={data} keygen="id" style={{ height: 300 }} columns={columns} />
+  return (
+    <div>
+      <Checkbox.Group keygen="id" value={expandKeys} onChange={setExpandKeys}>
+        {[1, 2, 3, 4, 5].map(d => (
+          <Checkbox key={d} htmlValue={d}>{`展开第 ${d} 行`}</Checkbox>
+        ))}
+      </Checkbox.Group>
+
+      <Table fixed="y" expandKeys={expandKeys} data={data} keygen="id" style={{ height: 300 }} columns={columns} />
+    </div>
+  )
 }
 
 export default App

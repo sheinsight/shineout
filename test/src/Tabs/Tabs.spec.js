@@ -10,17 +10,30 @@ import TabsCollapsible from '../../../site/pages/components/Tabs/example-11-coll
 describe('Tabs[Active]', () => {
   test('should active controlled', () => {
     const wrapper = mount(<TabsActive />)
-    const tabs = wrapper.state('tabs')
-    tabs.forEach((tab, index) => {
-      wrapper.setState({
-        active: tab,
-      })
-      expect(
-        wrapper
-          .find('Tab')
-          .at(index)
-          .prop('isActive')
-      ).toBeTruthy()
+    wrapper.find(`.${SO_PREFIX}-checkinput`).forEach(radio => {
+      const text = radio
+        .find(`.${SO_PREFIX}-checkinput-desc`)
+        .first()
+        .text()
+
+      // simulate change
+      radio
+        .find(`input[type="radio"]`)
+        .first()
+        .simulate('change', () => ({
+          target: {
+            checked: true,
+          },
+        }))
+
+      wrapper.update()
+
+      const tabText = wrapper
+        .find(`.${SO_PREFIX}-tabs-active`)
+        .first()
+        .text()
+
+      expect(text[0].toUpperCase() + text.substring(1) === tabText).toBe(true)
     })
   })
 })
