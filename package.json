@@ -37,7 +37,8 @@
     "build-ts": "node scripts/build-ts.js",
     "build-css": "node scripts/build-css.js",
     "build": "npm-run-all build-*",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run --browser chrome"
   },
   "sideEffects": [
     "*.less"

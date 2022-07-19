@@ -1,4 +1,4 @@
-describe('Table bug spec', () => {
+describe('TreeSelect bug spec', () => {
   it('修复 TreeSelect 多选过滤模式下，选择内容后无法继续输入的问题', () => {
     cy.visit('/cn/components/TreeSelect?example=03-filter')
     cy.get('.so-treeSelect').last().as('TreeSelect')
