@@ -9,7 +9,7 @@
 import React from 'react'
 import { Textarea, TYPE } from 'shineout'
 
-type TextareaProps = TYPE.Textarea.Props<any>
+type TextareaProps = TYPE.Textarea.Props
 
 const renderInfo: TextareaProps['info'] = value => {
   if (!value || value.length === 0) return null

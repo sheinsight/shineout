@@ -3,7 +3,7 @@ import * as utils from './utils'
 
 declare const __default: {
   utils: typeof utils,
-  version: '1.11.0-rc.17'
+  version: '1.11.0-rc.18'
 }
 
 export default __default
@@ -318,7 +318,7 @@ export namespace TYPE {
     export type InputProps = __TagInputProps
   }
   export namespace Textarea {
-    export type Props<Value> = __TextareaProps<Value>
+    export type Props = __TextareaProps
   }
   export namespace Tooltip {
     export type Props = __TooltipProps
