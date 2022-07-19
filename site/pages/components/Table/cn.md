@@ -21,7 +21,7 @@
 | onRowClick | (data: object, index: number) => void | 无 | 行点击事件; <br />data: 当前行数据<br />index: 当前行索引 |
 | onRowSelect | (rows: any[]) => void | 无 | 选择行。rows为选中的数据。如果需要数据需要格式化的处理，建议配置 format 和 prediction |
 | prediction | (v: any, data: object) => boolean | (val, d) => val===format(d) | 默认使用 format 函数执行的结果来比较是否匹配，在某些情况下（例如返回原始数据的对象，更新数据时，生成了一个值相同，非同一个对象的选项），需要借助 prediction 函数来判断是否匹配 |
-| rowClassName | (record: object, index: number) => string | 无 | 指定单行className |
+| rowClassName | (record: object, index: number) => (string \| undefined) | 无 | 指定单行className |
 | rowHeight | number | 40 | 单行表格的预期高度，只是一个大概的估值，用来展示滚动条 |
 | rowsInView | number | 20 | 单次render的最大行数。Table 采用了lazy render的方式来优化在大量数据下的性能，如果你的表格显示的高度超出了20条，可以调整rowsInView的值。为 0 表示单次 render 所有数据。 |
 | showSelectAll | boolean | true | 是否显示全选 |
@@ -34,7 +34,7 @@
 | sorter | (sortKey: any, sorter: 'asc' \| 'desc', sortedList: object[]) => (a: object, b: object) => number | alphaSort(Column.sorter, sorter) | 表格统一排序函数，参数分别为 Column.sorter 和 排序方式;<br />支持多列排序，sorter传入对象{ rule: string \| function, weight: number }, rule为排序规则，为字符串时参考单列排序的用法, weight为权重，指明排序的优先级. <br />多列排序时，sortedList返回所有参与排序的字段信息|
 | treeExpandKeys | any[] | 无  | 树形数据展开行，受控 |
 | hover | boolean | true | 数据行鼠标悬浮高亮效果 |
-| onTreeExpand | (openKeys: string[], data: object, expand: boolean) => void | 无 |  展开行，keys为展开的行 |
+| onTreeExpand | (openKeys: (string\|number)[], data: object, expand: boolean) => void | 无 |  展开行，keys为展开的行 |
 | treeEmptyExpand | boolean | false | 树形表格子数据为空时依然展示展开按钮 |
 | treeCheckAll | boolean | false | 全选时是否将子孙数据选中 |
 | onSortCancel | () => void | 无 | 排序取消事件 |
@@ -65,7 +65,7 @@
 | group | string \| string\[] | 无 | 表头分组，相邻的相同 group 会生成一个新的表头 |
 | key | string \| number | 无 | 列的key，默认使用index |
 | render | string \| function(d,i) | 必填 | 表格内容生成函数；<br />d: 当前行数据<br />i: 当前行索引<br />为了使用方便，可以传入一个数据的key，如 'id'，相当于 (d) => { return d.id } |
-| rowSpan | function(a, b) | 无 | 根据函数返回的结果（boolean）判断是否合并行，a、b为相邻的两行数据。 |
+| rowSpan | ((a, b) => boolean) \| boolean | 无 | 根据函数返回的结果（boolean）判断是否合并行，a、b为相邻的两行数据。 |
 | sorter | function(order) \| string | 无 | sorter 不为空时，这一列会出现排序 icon。order的值为\['asc', 'desc']<br />字符串表示排序依据字段，作为第一个参数传入Table.sorter<br />前端排序，返回一个排序函数，参考 Array.sort。<br />服务端排序，不要返回值，自行处理即可。 |
 | title | string \| ReactElement \| function | 无 | 表头显示内容 |
 | type | string | 无 | 特殊用途列，可选值为 \['expand', 'row-expand', 'checkbox']<br />expand: 行展开列，render 函数返回函数时，表示此行可以展开，内容为此函数返回结果<br />row-expand: 同expand。不同为点击行内空白区域也可以折叠/展开行。<br />checkbox: 选择列，用于仅固定选择列的场景 |

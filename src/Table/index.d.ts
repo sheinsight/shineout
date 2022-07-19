@@ -10,6 +10,11 @@ type ReactNode = React.ReactNode;
 
 type TableRowData = string | {}
 
+interface Sorter {
+  rule: string
+  weight: number
+}
+
 export type ColumnOrder = 'asc' | 'desc'
 
 export type ColumnFix = 'left' | 'right'
@@ -116,7 +121,7 @@ interface CommonColumn<T> {
    *
    * default: none
    */
-  rowSpan?: (prevRowData: T, nextRowData: T) => boolean;
+  rowSpan?: ((prevRowData: T, nextRowData: T) => boolean) | boolean;
 
   /**
    * When the sorter is not empty, the sort icon appears in this column. the value of order: \['asc', 'desc']. Indicate the sort key string, will pass to table sorter method. Front-end sorting returns a sort function, refer to Array.sort. Server-side sorting, do not return values and handle it itself.
@@ -125,7 +130,7 @@ interface CommonColumn<T> {
    *
    * default: none
    */
-  sorter?: ((order: ColumnOrder) => (prevRowData: T, nextRowData: T) => number) | string;
+  sorter?: ((order: ColumnOrder) => ((prevRowData: T, nextRowData: T) => number) | void ) | string | Sorter;
 
   /**
    * The content of the header
@@ -180,6 +185,15 @@ interface CommonColumn<T> {
    * default: -
    */
   className?: string;
+
+  /**
+   * 列点击事件
+   *
+   * Click event of column
+   *
+   * default: -
+   */
+  onClick?: (d: T, isExpand: boolean) => void;
 }
 
 type SomeColumn<T> =  Omit<CommonColumn<T>, 'render' | 'type'>
@@ -221,7 +235,7 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    *
    * default: -
    */
-  columns: ColumnItem<TRD>[];
+  columns?: ColumnItem<TRD>[];
 
   /**
    * data
@@ -275,7 +289,7 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    *
    * default: none
    */
-  onRowSelect?: (rows: TRD[]) => void;
+  onRowSelect?: (rows: Value) => void;
 
 
   /**
@@ -285,7 +299,7 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    *
    * default: -
    */
-  rowClassName?: (record: TRD, index: number) => string;
+  rowClassName?: (record: TRD, index: number) => (string | undefined);
 
   /**
    * height of table
@@ -348,7 +362,7 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    *
    * default: none
    */
-  value?: Value[];
+  value?: Value;
 
   /**
    * empty text
@@ -402,7 +416,7 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    *
    * default: none
    */
-  onTreeExpand?: (openKeys: string[], data: TRD, expand: boolean) => void;
+  onTreeExpand?: (openKeys: keyType[], data: TRD, expand: boolean) => void;
 
   /**
    * row hover highlight
