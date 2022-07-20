@@ -2,7 +2,9 @@ import * as React from 'react'
 import { StandardProps, RegularAttributes, FormItemStandardProps } from '../@types/common'
 import { ReactNode } from "react"
 
-export interface TextareaProps<Value> extends
+type Value = string
+
+export interface TextareaProps extends
 StandardProps,
 FormItemStandardProps<Value>
   {
@@ -42,7 +44,7 @@ FormItemStandardProps<Value>
    *
    * default: -
    */
-  info?: ((value: string) => string) | number;
+  info?: ((value: string) => (string | Error | null)) | number;
 
   /**
    * The callback function for enter key
@@ -132,7 +134,7 @@ FormItemStandardProps<Value>
    *
    * default: -
    */
-  renderFooter?: ReactNode,
+  renderFooter?: (value: Value) => ReactNode,
 
   /**
    * Customize display results
@@ -154,7 +156,7 @@ FormItemStandardProps<Value>
 
 }
 
-declare class Textarea<Value = any> extends React.Component<TextareaProps<Value>, {}> {
+declare class Textarea<Value = any> extends React.Component<TextareaProps, {}> {
   render(): JSX.Element
 }
 

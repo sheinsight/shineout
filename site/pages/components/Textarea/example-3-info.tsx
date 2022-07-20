@@ -9,6 +9,6 @@
 import React from 'react'
 import { Textarea } from 'shineout'
 
-export default function() {
-  return <Textarea rows={4} trim placeholder="input something" info={10} />
-}
+const App: React.FC = () => <Textarea rows={4} trim placeholder="input something" info={10} />
+
+export default App

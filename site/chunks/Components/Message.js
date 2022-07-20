@@ -16,6 +16,7 @@ const examples = [
   {
     name: '1-base',
     isTs: false,
+    isTest: false,
     title: locate(
       '基本用法 \n Message 封装了一组全局函数，方便在任意地方调用，包括常规（不带/带icon）、Success、Warn、Error和关闭所有消息提醒。',
       'Base \n Message has 6 static functions that are convenient to call anywhere, includes normal(with/without icon)、success、warn、error and close all messages'
@@ -27,6 +28,7 @@ const examples = [
   {
     name: '2-duration',
     isTs: false,
+    isTest: false,
     title: locate(
       '显示时长 \n 通过 duration 属性可以控制消息显示的时长，默认为3秒；当设定为 0s 时，则需要用户手动关闭 Message',
       'Duration \n Set duration property to control the duration of the message display. The default value is 3 seconds. \n When duration is set to 0, the message will not hide automatically.'
@@ -38,6 +40,7 @@ const examples = [
   {
     name: '3-position',
     isTs: false,
+    isTest: false,
     title: locate(
       '弹出位置 \n 设置 positoin 参数，修改显示位置，可以实现消息提醒展示位置，可选值：top, middle, top-left, top-right, bottom-left, bottom-right。',
       'Notification \n Set position property to specify the pop-up layer location, optional value: top, middle, top-left, top-right, bottom-left, bottom-right.'
@@ -49,6 +52,7 @@ const examples = [
   {
     name: '4-close',
     isTs: false,
+    isTest: false,
     title: locate(
       '关闭回调 \n 通过第三个参数[options]的 onClose 属性处理消息关闭回调。以下用例将在 Message 关闭后弹出新的 Message。',
       'Close \n Set onClose to handle close event.'
@@ -60,6 +64,7 @@ const examples = [
   {
     name: '5-manual-close',
     isTs: false,
+    isTest: false,
     title: locate(
       '手动关闭 \n Message 会异步返回一个关闭函数，调用它来关闭当前 Messsage',
       'Close \n Message return close func async'

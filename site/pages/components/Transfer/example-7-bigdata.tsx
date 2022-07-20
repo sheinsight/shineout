@@ -5,9 +5,15 @@
  *    -- Transfer uses a lazy loading to optimize performance. This example loads 10,000 pieces of data.
  */
 import React from 'react'
-import { Transfer } from 'shineout'
+import { Transfer, TYPE } from 'shineout'
 
-const data = []
+interface DataItem {
+  id: number
+  content: string
+}
+type TransferProps = TYPE.Transfer.Props<DataItem, number[]>
+
+const data: TransferProps['data'] = []
 
 for (let i = 0; i < 10000; i++) {
   data.push({
@@ -16,6 +22,7 @@ for (let i = 0; i < 10000; i++) {
   })
 }
 
-export default function() {
-  return <Transfer data={data} format="id" renderItem="content" keygen="id" titles={['Source', 'Target']} />
-}
+const App: React.FC = () => (
+  <Transfer data={data} format="id" renderItem="content" keygen="id" titles={['Source', 'Target']} />
+)
+export default App
