@@ -18,3 +18,4 @@ gh-pages
 .nyc_output
 coverage
 cypress/videos
+cypress/screenshots
