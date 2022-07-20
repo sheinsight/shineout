@@ -11,7 +11,7 @@ import FontAwesome from '../Icon/FontAwesome'
 const defaultValue = [
   {
     name: 'test file.png',
-    url: require('../../../images/1_s.jpg'),
+    url: '../../../images/1_s.jpg',
   },
 ]
 const App: React.FC = () => (
